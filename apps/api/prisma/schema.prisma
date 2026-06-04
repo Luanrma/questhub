@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CampaignRole {
+  GM
+  PLAYER
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  memberships CampaignMember[]
+  characters  Character[]
+  gmCampaigns Campaign[] @relation("GMCampaigns")
+}
+
+model Campaign {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  inviteCode  String   @unique
+  gmName      String
+
+  gmUserId String
+  gmUser   User @relation("GMCampaigns", fields: [gmUserId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  members    CampaignMember[]
+  characters Character[]
+}
+
+model CampaignMember {
+  id         String       @id @default(cuid())
+  campaignId String
+  userId     String
+  role       CampaignRole
+  active     Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@unique([campaignId, userId])
+  @@index([userId])
+  @@index([campaignId])
+}
+
+model Character {
+  id         String   @id @default(cuid())
+  campaignId String
+  userId     String
+  name       String
+  sheet      Json?
+  active     Boolean  @default(true)
+  createdAt  DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@index([campaignId])
+  @@index([userId])
+}

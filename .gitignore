@@ -1,0 +1,30 @@
+# deps
+node_modules/
+**/node_modules/
+
+# logs
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# env
+.env
+.env.*
+!.env.example
+
+# build
+dist/
+**/dist/
+.vite/
+**/.vite/
+
+# misc
+.DS_Store
+*.local
+
+# docker / temp
+a.txt
+b.txt
+cookie.txt
+cmd.exe

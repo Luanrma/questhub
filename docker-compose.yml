@@ -1,0 +1,55 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: questhub_dev
+      POSTGRES_USER: questhub
+      POSTGRES_PASSWORD: questhub
+    ports:
+      - "5434:5432"
+    volumes:
+      - questhub_db:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.dev
+    environment:
+      JWT_SECRET: "dev_secret_change_me"
+      WEB_ORIGIN: "http://localhost:5173"
+      DEV_USER_EMAIL: "dev@questhub.local"
+      DEV_USER_PASSWORD: "dev"
+      NODE_ENV: development
+      PORT: "3001"
+      DATABASE_URL: "postgresql://questhub:questhub@db:5432/questhub_dev?schema=public"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+    volumes:
+      - ./:/repo
+      - questhub_api_node_modules:/repo/node_modules
+    command: ["npm", "run", "dev", "-w", "apps/api"]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile.dev
+    environment:
+      NODE_ENV: development
+      # Para o browser acessar a API publicada no host
+      VITE_API_URL: "http://localhost:3001"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    volumes:
+      - ./:/repo
+      - questhub_web_node_modules:/repo/node_modules
+    command: ["npm", "run", "dev", "-w", "apps/web", "--", "--host", "0.0.0.0", "--port", "5173"]
+
+volumes:
+  questhub_db:
+  questhub_api_node_modules:
+  questhub_web_node_modules:
+
