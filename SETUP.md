@@ -13,6 +13,14 @@ Monorepo (npm workspaces):
 
 Na raiz do repositório:
 
+### 0) Variáveis de ambiente (segredos)
+
+Crie o arquivo `.env` na raiz do projeto (ele é ignorado pelo Git):
+
+```bash
+cp .env.example .env
+```
+
 ```bash
 docker compose up --build
 ```

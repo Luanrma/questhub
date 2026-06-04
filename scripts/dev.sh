@@ -5,6 +5,12 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+if [[ ! -f ".env" ]]; then
+  echo "[questhub] Arquivo .env não encontrado. Criando a partir de .env.example..."
+  cp ".env.example" ".env"
+  echo "[questhub] OK. Edite o arquivo .env se quiser mudar senhas/segredos."
+fi
+
 echo "[questhub] Subindo Postgres (docker compose)..."
 docker compose up -d db
 
@@ -18,4 +24,3 @@ echo "Dica: para parar, pressione Ctrl+C"
 npx concurrently -k -n api,web -c blue,green \
   "npm run dev -w apps/api" \
   "npm run dev -w apps/web"
-

@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:16-alpine
     environment:
-      POSTGRES_DB: questhub_dev
-      POSTGRES_USER: questhub
-      POSTGRES_PASSWORD: questhub
+      POSTGRES_DB: ${POSTGRES_DB:-questhub_dev}
+      POSTGRES_USER: ${POSTGRES_USER:-questhub}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}
     ports:
       - "5434:5432"
     volumes:
@@ -15,13 +15,13 @@ services:
       context: .
       dockerfile: apps/api/Dockerfile.dev
     environment:
-      JWT_SECRET: "dev_secret_change_me"
-      WEB_ORIGIN: "http://localhost:5173"
-      DEV_USER_EMAIL: "dev@questhub.local"
-      DEV_USER_PASSWORD: "dev"
-      NODE_ENV: development
-      PORT: "3001"
-      DATABASE_URL: "postgresql://questhub:questhub@db:5432/questhub_dev?schema=public"
+      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET no arquivo .env}
+      WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
+      DEV_USER_EMAIL: ${DEV_USER_EMAIL:-dev@questhub.local}
+      DEV_USER_PASSWORD: ${DEV_USER_PASSWORD:-dev}
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${PORT:-3001}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-questhub}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-questhub_dev}?schema=public
     ports:
       - "3001:3001"
     depends_on:
@@ -36,9 +36,9 @@ services:
       context: .
       dockerfile: apps/web/Dockerfile.dev
     environment:
-      NODE_ENV: development
+      NODE_ENV: ${NODE_ENV:-development}
       # Para o browser acessar a API publicada no host
-      VITE_API_URL: "http://localhost:3001"
+      VITE_API_URL: ${VITE_API_URL:-http://localhost:3001}
     ports:
       - "5173:5173"
     depends_on:

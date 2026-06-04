@@ -43,6 +43,16 @@ Para parar os containers:
 ./scripts/stop.sh
 ```
 
+### Variáveis de ambiente (recomendado)
+
+Os segredos/senhas **não ficam hardcoded** no repositório. Para rodar com Docker, crie um arquivo `.env` na raiz do projeto:
+
+```bash
+cp .env.example .env
+```
+
+> O arquivo `.env` é ignorado pelo Git. Ajuste `POSTGRES_PASSWORD` e `JWT_SECRET` antes de expor publicamente.
+
 ## Setup manual (passo a passo)
 
 Na raiz do repositório:
@@ -63,6 +73,7 @@ docker compose up -d db
 
 Crie os arquivos a partir dos exemplos:
 
+- `.env` (base: `.env.example`) **para Docker/stack completa**
 - `apps/api/.env` (base: `apps/api/.env.example`)
 - `apps/web/.env` (base: `apps/web/.env.example`)
 
@@ -106,5 +117,11 @@ API: http://localhost:3001 (`GET /api/health`)
 
 ## Notas
 
-- O arquivo `apps/api/.env` é ignorado pelo Git (não sobe para o GitHub).
+- Os arquivos `.env` (raiz e apps) são ignorados pelo Git (não sobem para o GitHub).
 - Para encerrar o script de dev, use **Ctrl+C**.
+
+## Publicar em VPS (visão geral)
+
+- Troque `POSTGRES_PASSWORD` e `JWT_SECRET` por valores fortes e únicos.
+- Use um reverse proxy (ex.: Nginx) e TLS (HTTPS).
+- Não exponha o Postgres na internet (remova o mapeamento de porta do `db` ou restrinja via firewall).
