@@ -17,6 +17,13 @@ Na raiz do repositório:
 docker compose up --build
 ```
 
+### Inicializar banco (Prisma)
+Em outro terminal (com o Postgres já rodando), rode:
+
+```bash
+npm run db:migrate -w apps/api
+```
+
 Serviços/portas:
 - Web: http://localhost:5173
 - API: http://localhost:3001 (health: `GET /api/health`)
@@ -45,13 +52,36 @@ Você pode subir só o banco via Docker:
 docker compose up -d db
 ```
 
-### 4) Subir API
+### 4) Inicializar banco (Prisma)
+```bash
+npm run db:migrate -w apps/api
+```
+
+### 5) Subir API
 ```bash
 npm run dev -w apps/api
 ```
 
-### 5) Subir Web
+### 6) Subir Web
 ```bash
 npm run dev -w apps/web
 ```
 
+## Script de inicialização (sem abrir vários terminais)
+
+Na raiz do repo:
+
+### Git Bash
+```bash
+./scripts/dev.sh
+```
+
+### PowerShell
+```powershell
+pwsh -File .\scripts\dev.ps1
+```
+
+Para parar o Postgres (Docker):
+```bash
+./scripts/stop.sh
+```

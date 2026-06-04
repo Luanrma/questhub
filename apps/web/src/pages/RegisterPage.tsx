@@ -1,12 +1,16 @@
 import { useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
+import { api } from '../lib/api'
+import { useSession } from '../contexts/SessionContext'
 
 function isValidEmail(email: string) {
   return /\S+@\S+\.\S+/.test(email)
 }
 
 export function RegisterPage() {
+  const navigate = useNavigate()
+  const { refreshMe } = useSession()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -24,10 +28,18 @@ export function RegisterPage() {
     e.preventDefault()
     if (errors.length) return
 
-    // Ainda não existe endpoint de cadastro no backend atual.
     setLoading(true)
     try {
-      alert('Cadastro ainda não implementado no backend. Próximo passo: criar POST /api/register.')
+      await api('/api/register', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      })
+      await refreshMe()
+      navigate('/', { replace: true })
+    } catch (err: any) {
+      const msg = (err?.message ?? '').toString()
+      if (msg.includes('409')) alert('Email já cadastrado')
+      else alert('Erro ao cadastrar. Verifique os dados e tente novamente.')
     } finally {
       setLoading(false)
     }
@@ -87,4 +99,3 @@ export function RegisterPage() {
     </form>
   )
 }
-
