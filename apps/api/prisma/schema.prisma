@@ -7,9 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum CampaignRole {
-  GM
+enum CampaignJoinPolicy {
+  PUBLIC
+  PRIVATE
+}
+
+enum CampaignMemberStatus {
+  PENDING
+  ACTIVE
+  REJECTED
+}
+
+enum CharacterRole {
+  MASTER
   PLAYER
+  NPC
 }
 
 model User {
@@ -29,6 +41,7 @@ model Campaign {
   description String?
   inviteCode  String   @unique
   gmName      String
+  joinPolicy  CampaignJoinPolicy @default(PUBLIC)
 
   gmUserId String
   gmUser   User @relation("GMCampaigns", fields: [gmUserId], references: [id])
@@ -43,12 +56,14 @@ model CampaignMember {
   id         String       @id @default(cuid())
   campaignId String
   userId     String
-  role       CampaignRole
-  active     Boolean      @default(true)
+  status     CampaignMemberStatus @default(ACTIVE)
   createdAt  DateTime     @default(now())
+  decidedAt  DateTime?
+  characterId String?     @unique
 
   campaign Campaign @relation(fields: [campaignId], references: [id])
   user     User     @relation(fields: [userId], references: [id])
+  character Character? @relation("MemberCharacter", fields: [characterId], references: [id])
 
   @@unique([campaignId, userId])
   @@index([userId])
@@ -62,10 +77,13 @@ model Character {
   name       String
   sheet      Json?
   active     Boolean  @default(true)
+  role       CharacterRole @default(PLAYER)
+  status     CampaignMemberStatus @default(ACTIVE)
   createdAt  DateTime @default(now())
 
   campaign Campaign @relation(fields: [campaignId], references: [id])
   user     User     @relation(fields: [userId], references: [id])
+  member   CampaignMember? @relation("MemberCharacter")
 
   @@index([campaignId])
   @@index([userId])

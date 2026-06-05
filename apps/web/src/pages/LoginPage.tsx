@@ -15,7 +15,7 @@ export function LoginPage() {
     setLoading(true)
     try {
       await signIn({ email, password })
-      navigate('/', { replace: true })
+      navigate('/campaigns', { replace: true })
     } catch {
       alert('Email ou senha inválidos')
     } finally {
@@ -24,9 +24,11 @@ export function LoginPage() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="bg-gray-900 p-8 rounded-xl shadow-xl flex flex-col gap-6 text-white">
-      <h1 className="text-2xl font-semibold text-center">QuestHub</h1>
-      <h2 className="text-lg text-center text-zinc-300 -mt-3">Login</h2>
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 text-white">
+      <div>
+        <h1 className="text-2xl font-semibold">Entrar na sua conta</h1>
+        <p className="text-sm text-zinc-300 mt-1">Continue sua jornada épica.</p>
+      </div>
 
       <input
         type="email"
@@ -59,4 +61,3 @@ export function LoginPage() {
     </form>
   )
 }
-

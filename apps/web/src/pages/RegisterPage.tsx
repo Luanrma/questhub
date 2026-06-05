@@ -35,7 +35,7 @@ export function RegisterPage() {
         body: JSON.stringify({ email, password }),
       })
       await refreshMe()
-      navigate('/', { replace: true })
+      navigate('/campaigns', { replace: true })
     } catch (err: any) {
       const msg = (err?.message ?? '').toString()
       if (msg.includes('409')) alert('Email já cadastrado')
@@ -46,9 +46,11 @@ export function RegisterPage() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="bg-gray-900 p-8 rounded-xl shadow-xl flex flex-col gap-6 text-white">
-      <h1 className="text-2xl font-semibold text-center">QuestHub</h1>
-      <h2 className="text-lg text-center text-zinc-300 -mt-3">Cadastro</h2>
+    <form onSubmit={onSubmit} className="flex flex-col gap-6 text-white">
+      <div>
+        <h1 className="text-2xl font-semibold">Criar uma conta</h1>
+        <p className="text-sm text-zinc-300 mt-1">Comece sua jornada épica.</p>
+      </div>
 
       <input
         type="email"

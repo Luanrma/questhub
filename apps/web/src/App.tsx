@@ -1,10 +1,16 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { PrivateLayout } from './layouts/PrivateLayout'
 import { PublicLayout } from './layouts/PublicLayout'
-import { CampaignHubPage } from './pages/CampaignHubPage'
-import { HomePage } from './pages/HomePage'
+import { AuthedLayout } from './layouts/AuthedLayout'
+import { CampaignLayout } from './layouts/CampaignLayout'
+import { CampaignCreatePage } from './pages/CampaignCreatePage'
+import { CampaignJoinPage } from './pages/CampaignJoinPage'
+import { CampaignsDashboardPage } from './pages/CampaignsDashboardPage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
+import { CampaignOverviewPage } from './pages/campaign/CampaignOverviewPage'
+import { CampaignPlayersPage } from './pages/campaign/CampaignPlayersPage'
+import { CampaignSettingsPage } from './pages/campaign/CampaignSettingsPage'
+import { PlaceholderPage } from './pages/campaign/PlaceholderPage'
 
 export default function App() {
   // Rotas ficam no componente principal para manter simples (Vite + React Router).
@@ -15,9 +21,22 @@ export default function App() {
         <Route path="/register" element={<RegisterPage />} />
       </Route>
 
-      <Route element={<PrivateLayout />}>
-        <Route path="/" element={<CampaignHubPage />} />
-        <Route path="/home" element={<HomePage />} />
+      {/* Pós-login, mas antes de escolher/criar/entrar em uma campanha (sem aside) */}
+      <Route element={<AuthedLayout />}>
+        <Route path="/" element={<Navigate to="/campaigns" replace />} />
+        <Route path="/campaigns" element={<CampaignsDashboardPage />} />
+        <Route path="/campaigns/new" element={<CampaignCreatePage />} />
+        <Route path="/campaigns/join" element={<CampaignJoinPage />} />
+      </Route>
+
+      {/* Depois de escolher/entrar/criar uma campanha (com aside) */}
+      <Route element={<CampaignLayout />}>
+        <Route path="/campaign/:campaignId/overview" element={<CampaignOverviewPage />} />
+        <Route path="/campaign/:campaignId/sessions" element={<PlaceholderPage title="Sessões" />} />
+        <Route path="/campaign/:campaignId/characters" element={<PlaceholderPage title="Personagens" />} />
+        <Route path="/campaign/:campaignId/players" element={<CampaignPlayersPage />} />
+        <Route path="/campaign/:campaignId/journal" element={<PlaceholderPage title="Diário" />} />
+        <Route path="/campaign/:campaignId/settings" element={<CampaignSettingsPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

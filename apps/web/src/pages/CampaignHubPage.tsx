@@ -156,7 +156,7 @@ export function CampaignHubPage() {
                     <div className="text-white font-semibold">{c.title}</div>
                     {c.description ? <div className="text-sm text-zinc-300 mt-1">{c.description}</div> : null}
                     <div className="text-xs text-zinc-400 mt-2">
-                      Mestre: {c.gmName} • Role: {c.role}
+                      Mestre: {c.gmName} • Role: {c.myRole ?? c.role}
                     </div>
                   </div>
                   <div className="text-right">

@@ -1,18 +1,32 @@
 import { useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { ChevronLeft, ChevronRight, House, Handshake } from 'lucide-react'
+import {
+  ChevronLeft,
+  ChevronRight,
+  House,
+  LayoutDashboard,
+  Users,
+  ScrollText,
+  Settings,
+  UserRound,
+} from 'lucide-react'
 
 type NavItem = { to: string; label: string; icon: React.ReactNode }
 
-export function Aside() {
+export function Aside({ campaignId }: { campaignId: string }) {
   const [collapsed, setCollapsed] = useState(true)
 
   const items = useMemo<NavItem[]>(
     () => [
-      { to: '/', label: 'Campanha', icon: <Handshake size={18} /> },
-      { to: '/home', label: 'Home', icon: <House size={18} /> },
+      { to: `/campaign/${campaignId}/overview`, label: 'Visão Geral', icon: <LayoutDashboard size={18} /> },
+      { to: `/campaign/${campaignId}/sessions`, label: 'Sessões', icon: <House size={18} /> },
+      { to: `/campaign/${campaignId}/characters`, label: 'Personagens', icon: <UserRound size={18} /> },
+      { to: `/campaign/${campaignId}/players`, label: 'Jogadores', icon: <Users size={18} /> },
+      { to: `/campaign/${campaignId}/journal`, label: 'Diário', icon: <ScrollText size={18} /> },
+      { to: '/campaigns', label: 'Trocar campanha', icon: <House size={18} /> },
+      { to: `/campaign/${campaignId}/settings`, label: 'Configurações', icon: <Settings size={18} /> },
     ],
-    [],
+    [campaignId],
   )
 
   return (
@@ -58,4 +72,3 @@ export function Aside() {
     </aside>
   )
 }
-
