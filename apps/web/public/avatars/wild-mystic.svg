@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Wild mystic avatar">
+  <rect width="128" height="128" rx="18" fill="#1c1917"/>
+  <path d="M23 111c7-25 23-38 41-38s34 13 41 38" fill="#166534"/>
+  <circle cx="64" cy="58" r="30" fill="#e7c9a9"/>
+  <path d="M34 56c4-24 16-36 30-36s26 12 30 36c-16-10-44-10-60 0Z" fill="#713f12"/>
+  <path d="M31 32c10 9 18 15 29 16" stroke="#84cc16" stroke-width="6" stroke-linecap="round"/>
+  <path d="M97 32c-10 9-18 15-29 16" stroke="#84cc16" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="52" cy="59" r="3" fill="#111827"/>
+  <circle cx="76" cy="59" r="3" fill="#111827"/>
+  <path d="M54 76c7 5 13 5 20 0" fill="none" stroke="#7c2d12" stroke-width="5" stroke-linecap="round"/>
+</svg>

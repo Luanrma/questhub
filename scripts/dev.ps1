@@ -69,6 +69,9 @@ docker compose up -d db
 Write-Host "[questhub] Aplicando migrations (Prisma)..." -ForegroundColor Cyan
 npm run db:migrate
 
+Write-Host "[questhub] Gerando Prisma Client..." -ForegroundColor Cyan
+npm run db:generate
+
 Write-Host "[questhub] Iniciando API + Web (um terminal só)..." -ForegroundColor Cyan
 Write-Host "Dica: para parar, pressione Ctrl+C" -ForegroundColor DarkGray
 Write-Host "[questhub] Web vai subir em: http://localhost:$VitePort" -ForegroundColor DarkGray

@@ -78,6 +78,9 @@ docker compose up -d db
 echo "[questhub] Aplicando migrations (Prisma)..."
 npm run db:migrate
 
+echo "[questhub] Gerando Prisma Client..."
+npm run db:generate
+
 echo "[questhub] Iniciando API + Web (um terminal só)..."
 echo "Dica: para parar, pressione Ctrl+C"
 echo "[questhub] Web vai subir em: http://localhost:${VITE_PORT}"

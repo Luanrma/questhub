@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { Plus, ScrollText, UserRound } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
@@ -46,20 +47,43 @@ export function CampaignsDashboardPage() {
       </div>
 
       {/* Actions */}
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-          <h2 className="text-lg font-semibold text-white">Criar nova campanha</h2>
+      <div className="grid gap-4 lg:grid-cols-3">
+        <div className="rounded-lg border border-white/10 bg-white/5 p-5">
+          <div className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-400/10 text-indigo-100 border border-indigo-300/20">
+              <Plus className="h-4 w-4" />
+            </span>
+            <h2 className="text-lg font-semibold text-white">Criar campanha</h2>
+          </div>
           <p className="text-sm text-zinc-300 mt-1">Crie uma nova aventura e convide seus amigos.</p>
           <Button className="mt-4 w-full" onClick={() => navigate('/campaigns/new')}>
             Criar nova campanha
           </Button>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-          <h2 className="text-lg font-semibold text-white">Entrar em uma campanha</h2>
+        <div className="rounded-lg border border-white/10 bg-white/5 p-5">
+          <div className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-400/10 text-emerald-100 border border-emerald-300/20">
+              <ScrollText className="h-4 w-4" />
+            </span>
+            <h2 className="text-lg font-semibold text-white">Entrar em campanha</h2>
+          </div>
           <p className="text-sm text-zinc-300 mt-1">Entre usando um invite code do mestre.</p>
           <Button variant="ghost" className="mt-4 w-full" onClick={() => navigate('/campaigns/join')}>
             Entrar em uma campanha
+          </Button>
+        </div>
+
+        <div className="rounded-lg border border-white/10 bg-white/5 p-5">
+          <div className="flex items-center gap-3">
+            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-400/10 text-amber-100 border border-amber-300/20">
+              <UserRound className="h-4 w-4" />
+            </span>
+            <h2 className="text-lg font-semibold text-white">Criar personagem</h2>
+          </div>
+          <p className="text-sm text-zinc-300 mt-1">Prepare um personagem livre para usar depois.</p>
+          <Button variant="ghost" className="mt-4 w-full" onClick={() => navigate('/characters/new')}>
+            Criar personagem
           </Button>
         </div>
       </div>

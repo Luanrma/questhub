@@ -9,7 +9,6 @@ import bcrypt from 'bcryptjs'
 import { z } from 'zod'
 import { signToken, verifyToken } from './auth/jwt'
 import { prisma } from './db/prisma'
-import type { CampaignJoinPolicy, CampaignMemberStatus, CharacterRole } from '@prisma/client'
 
 const app = Fastify({ logger: true })
 
@@ -138,96 +137,34 @@ io.on('connection', (socket) => {
   socket.on('presence:enter', async ({ campaignId, characterId }: { campaignId: string; characterId: string }) => {
     try {
       if (!campaignId || !characterId) return
-
-      // valida que o usuário tem acesso (membership ACTIVE)
-      const member = await prisma.campaignMember.findUnique({
-        where: { campaignId_userId: { campaignId, userId: user.id } },
-        select: { status: true },
+      const campaignCharacter = await prisma.campaignCharacter.findFirst({
+        where: { campaignId, characterId, status: 'ACTIVE' },
+        select: { role: true, character: { select: { userId: true } } },
       })
-      if (!member || member.status !== 'ACTIVE') {
-        socket.emit('presence:error', { message: 'Acesso não liberado' })
+      if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
+        socket.emit('presence:error', { message: 'Acesso nao liberado' })
         return
       }
-
-      const character = await prisma.character.findUnique({
-        where: { id: characterId },
-        select: { id: true, userId: true, campaignId: true, role: true, status: true },
-      })
-      if (!character || character.userId !== user.id || character.campaignId !== campaignId) return
-      if (character.role === 'NPC') return
-      if (character.status !== 'ACTIVE') return
-
-      // Regra: jogador só entra se o mestre estiver online na campanha
-      if (character.role === 'PLAYER' && !isCampaignOnline(campaignId)) {
+      if (campaignCharacter.role === 'NPC') return
+      if (campaignCharacter.role === 'PLAYER' && !isCampaignOnline(campaignId)) {
         socket.emit('presence:error', { message: 'Mestre offline' })
         return
       }
 
-      // Força regra: um usuário só pode estar em 1 campanha por vez.
-      const prev = userPresence.get(user.id)
-      if (prev && prev.socketId !== socket.id) {
-        const prevSocket = io.sockets.sockets.get(prev.socketId)
-        prevSocket?.disconnect(true)
-      }
-
-      // Sai da sala anterior deste socket, se houver
-      const prevCampaignId = (socket.data as any).campaignId as string | undefined
-      const prevCharacterId = (socket.data as any).characterId as string | undefined
-      const prevRole = (socket.data as any).characterRole as CharacterRole | undefined
-      if (prevCampaignId) {
-        socket.leave(`campaign:${prevCampaignId}`)
-        io.to(`campaign:${prevCampaignId}`).emit('presence:update', {
-          campaignId: prevCampaignId,
-          characterId: prevCharacterId ?? null,
-          online: false,
-        })
-
-        // Se o mestre estava ativo nessa campanha e mudou para outra, derruba os players e marca offline
-        if (prevRole === 'MASTER') {
-          const online = campaignOnline.get(prevCampaignId)
-          if (online?.masterSocketId === socket.id) {
-            campaignOnline.delete(prevCampaignId)
-
-            prisma.campaignMember
-              .findMany({ where: { campaignId: prevCampaignId, status: 'ACTIVE' }, select: { userId: true } })
-              .then((members) => {
-                for (const m of members) {
-                  io.to(`user:${m.userId}`).emit('campaign:status', { campaignId: prevCampaignId, online: false })
-                }
-              })
-              .catch(() => {})
-
-            io.in(`campaign:${prevCampaignId}`)
-              .fetchSockets()
-              .then((sockets) => {
-                for (const s of sockets) {
-                  const sRole = (s.data as any).characterRole as CharacterRole | undefined
-                  if (sRole === 'PLAYER') {
-                    s.emit('campaign:kicked', { campaignId: prevCampaignId, message: 'Mestre saiu da campanha' })
-                    s.leave(`campaign:${prevCampaignId}`)
-                  }
-                }
-              })
-              .catch(() => {})
-          }
-        }
-      }
-
       ;(socket.data as any).campaignId = campaignId
       ;(socket.data as any).characterId = characterId
-      ;(socket.data as any).characterRole = character.role
+      ;(socket.data as any).characterRole = campaignCharacter.role
       socket.join(`campaign:${campaignId}`)
       userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
 
-      // Se for o mestre, marca campanha como online e avisa todo mundo (dashboard)
-      if (character.role === 'MASTER') {
+      if (campaignCharacter.role === 'MASTER') {
         campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId })
-        const members = await prisma.campaignMember.findMany({
+        const members = await prisma.campaignCharacter.findMany({
           where: { campaignId, status: 'ACTIVE' },
-          select: { userId: true },
+          select: { character: { select: { userId: true } } },
         })
-        for (const m of members) {
-          io.to(`user:${m.userId}`).emit('campaign:status', { campaignId, online: true })
+        for (const member of members) {
+          io.to(`user:${member.character.userId}`).emit('campaign:status', { campaignId, online: true })
         }
       }
 
@@ -236,6 +173,7 @@ io.on('connection', (socket) => {
         characterId,
         online: true,
       })
+      return
     } catch (err) {
       ;(socket as any).log?.error?.(err)
     }
@@ -244,7 +182,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     const prev = userPresence.get(user.id)
     if (prev?.socketId === socket.id) {
-      const role = (socket.data as any).characterRole as CharacterRole | undefined
+      const role = (socket.data as any).characterRole as string | undefined
 
       // Se o mestre saiu, marca campanha offline e "expulsa" os players
       if (role === 'MASTER') {
@@ -252,11 +190,14 @@ io.on('connection', (socket) => {
         if (online?.masterSocketId === socket.id) {
           campaignOnline.delete(prev.campaignId)
 
-          prisma.campaignMember
-            .findMany({ where: { campaignId: prev.campaignId, status: 'ACTIVE' }, select: { userId: true } })
+          prisma.campaignCharacter
+            .findMany({
+              where: { campaignId: prev.campaignId, status: 'ACTIVE' },
+              select: { character: { select: { userId: true } } },
+            })
             .then((members) => {
               for (const m of members) {
-                io.to(`user:${m.userId}`).emit('campaign:status', { campaignId: prev.campaignId, online: false })
+                io.to(`user:${m.character.userId}`).emit('campaign:status', { campaignId: prev.campaignId, online: false })
               }
             })
             .catch(() => {})
@@ -265,7 +206,7 @@ io.on('connection', (socket) => {
             .fetchSockets()
             .then((sockets) => {
               for (const s of sockets) {
-                const sRole = (s.data as any).characterRole as CharacterRole | undefined
+                const sRole = (s.data as any).characterRole as string | undefined
                 if (sRole === 'PLAYER') {
                   s.emit('campaign:kicked', { campaignId: prev.campaignId, message: 'Mestre saiu da campanha' })
                   s.leave(`campaign:${prev.campaignId}`)
@@ -370,44 +311,152 @@ app.post('/api/logout', async (_req, reply) => {
   return reply.send({ message: 'Logout realizado com sucesso' })
 })
 
-app.get('/api/campaigns', async (req, reply) => {
+app.post('/api/characters', async (req, reply) => {
   const payload = requireAuth(req, reply)
   if (!payload) return
 
-  const memberships = await prisma.campaignMember.findMany({
-    where: { userId: payload.id, status: 'ACTIVE' },
+  const avatarUrlSchema = z
+    .string()
+    .trim()
+    .max(2048)
+    .refine((value) => {
+      if (value.startsWith('/')) return true
+
+      try {
+        const url = new URL(value)
+        return url.protocol === 'http:' || url.protocol === 'https:'
+      } catch {
+        return false
+      }
+    }, 'Avatar deve ser uma URL valida')
+    .optional()
+
+  const schema = z.object({
+    name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo'),
+    avatarUrl: avatarUrlSchema,
+    bio: z.string().trim().max(2000, 'Bio deve ter no maximo 2000 caracteres').optional(),
+  })
+
+  const parsed = schema.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+
+  const character = await prisma.character.create({
+    data: {
+      userId: payload.id,
+      name: parsed.data.name,
+      avatarUrl: parsed.data.avatarUrl || null,
+      bio: parsed.data.bio || null,
+    },
     select: {
-      status: true,
-      campaign: {
-        select: { id: true, title: true, description: true, inviteCode: true, gmName: true, gmUserId: true, joinPolicy: true, createdAt: true },
+      id: true,
+      userId: true,
+      name: true,
+      avatarUrl: true,
+      bio: true,
+      system: true,
+      deletedAt: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  })
+
+  return reply.status(201).send(character)
+})
+
+app.get('/api/characters', async (req, reply) => {
+  const payload = requireAuth(req, reply)
+  if (!payload) return
+
+  const characters = await prisma.character.findMany({
+    where: { userId: payload.id, deletedAt: null },
+    select: {
+      id: true,
+      name: true,
+      avatarUrl: true,
+      bio: true,
+      system: true,
+      sheet: true,
+      createdAt: true,
+      campaigns: {
+        select: {
+          id: true,
+          role: true,
+          status: true,
+          campaign: { select: { id: true, title: true, system: true } },
+        },
       },
-      character: { select: { role: true, name: true } },
     },
     orderBy: { createdAt: 'desc' },
   })
 
-  // Também inclui campanhas onde o usuário é GM (caso ainda não tenha membership por algum motivo)
-  const gmCampaigns = await prisma.campaign.findMany({
-    where: { gmUserId: payload.id },
-    select: { id: true, title: true, description: true, inviteCode: true, gmName: true, gmUserId: true, joinPolicy: true, createdAt: true },
+  return reply.send(
+    characters.map((character) => ({
+      id: character.id,
+      name: character.name,
+      avatarUrl: character.avatarUrl,
+      bio: character.bio,
+      system: character.system,
+      createdAt: character.createdAt,
+      campaigns: character.campaigns,
+      available: character.campaigns.length === 0,
+      hasSheet: character.sheet !== null,
+    })),
+  )
+})
+
+app.get('/api/campaigns', async (req, reply) => {
+  const payload = requireAuth(req, reply)
+  if (!payload) return
+
+  const campaignCharacters = await prisma.campaignCharacter.findMany({
+    where: {
+      status: 'ACTIVE',
+      character: { userId: payload.id },
+    },
+    select: {
+      role: true,
+      character: { select: { id: true, name: true } },
+      campaign: {
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          inviteCode: true,
+          system: true,
+          joinPolicy: true,
+          createdAt: true,
+          characters: {
+            where: { role: 'MASTER', status: 'ACTIVE' },
+            select: { character: { select: { id: true, userId: true, name: true } } },
+            take: 1,
+          },
+        },
+      },
+    },
     orderBy: { createdAt: 'desc' },
   })
 
-  const byId = new Map<string, any>()
-  for (const m of memberships) {
-    byId.set(m.campaign.id, {
-      ...m.campaign,
-      myRole: m.character?.role ?? (m.campaign.gmUserId === payload.id ? 'MASTER' : 'PLAYER'),
-      myCharacterName: m.character?.name ?? null,
-      isOnline: isCampaignOnline(m.campaign.id),
-    })
-  }
-  for (const c of gmCampaigns) {
-    if (!byId.has(c.id))
-      byId.set(c.id, { ...c, myRole: 'MASTER', myCharacterName: c.gmName, isOnline: isCampaignOnline(c.id) })
-  }
+  return reply.send(
+    campaignCharacters.map((entry) => {
+      const master = entry.campaign.characters[0]?.character ?? null
 
-  return reply.send(Array.from(byId.values()))
+      return {
+        id: entry.campaign.id,
+        title: entry.campaign.title,
+        description: entry.campaign.description,
+        inviteCode: entry.campaign.inviteCode,
+        system: entry.campaign.system,
+        joinPolicy: entry.campaign.joinPolicy,
+        createdAt: entry.campaign.createdAt,
+        gmName: master?.name ?? 'Mestre',
+        gmUserId: master?.userId ?? '',
+        myRole: entry.role,
+        myCharacterId: entry.character.id,
+        myCharacterName: entry.character.name,
+        isOnline: isCampaignOnline(entry.campaign.id),
+      }
+    }),
+  )
 })
 
 app.post('/api/campaigns', async (req, reply) => {
@@ -415,48 +464,129 @@ app.post('/api/campaigns', async (req, reply) => {
   if (!payload) return
 
   const schema = z.object({
-    gmName: z.string().min(1, 'Nome do mestre é obrigatório'),
-    title: z.string().min(1, 'Título é obrigatório'),
+    title: z.string().trim().min(1, 'Titulo e obrigatorio'),
     description: z.string().optional(),
+    joinPolicy: z.enum(['PUBLIC', 'PRIVATE']).default('PUBLIC'),
+    system: z.enum(['DND_5E', 'PATHFINDER_2E']),
+    masterCharacterId: z.string().optional(),
+    masterCharacterName: z.string().trim().min(1).max(80).optional(),
   })
+
   const parsed = schema.safeParse(req.body ?? {})
   if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+  if (!parsed.data.masterCharacterId && !parsed.data.masterCharacterName) {
+    return reply.status(400).send({ error: 'Selecione ou crie um personagem mestre' })
+  }
 
   const inviteCode = await generateInviteCode()
 
-  const result = await prisma.$transaction(async (tx) => {
-    const campaign = await tx.campaign.create({
-      data: {
-        title: parsed.data.title,
-        description: parsed.data.description,
-        inviteCode,
-        gmName: parsed.data.gmName,
-        gmUserId: payload.id,
-        joinPolicy: 'PUBLIC',
-      },
-      select: { id: true, title: true, description: true, inviteCode: true, gmName: true, gmUserId: true, joinPolicy: true, createdAt: true },
+  try {
+    const result = await prisma.$transaction(async (tx) => {
+      let masterCharacter = parsed.data.masterCharacterId
+        ? await tx.character.findUnique({
+            where: { id: parsed.data.masterCharacterId },
+            select: {
+              id: true,
+              userId: true,
+              name: true,
+              system: true,
+              sheet: true,
+              deletedAt: true,
+              campaigns: { select: { id: true } },
+            },
+          })
+        : null
+
+      if (masterCharacter && masterCharacter.userId !== payload.id) throw new Error('CHARACTER_FORBIDDEN')
+      if (masterCharacter && masterCharacter.deletedAt) throw new Error('CHARACTER_ARCHIVED')
+      if (masterCharacter && masterCharacter.campaigns.length > 0) throw new Error('CHARACTER_ALREADY_LINKED')
+      if (masterCharacter?.system && masterCharacter.system !== parsed.data.system) throw new Error('INCOMPATIBLE_SYSTEM')
+
+      if (!masterCharacter) {
+        masterCharacter = await tx.character.create({
+          data: {
+            userId: payload.id,
+            name: parsed.data.masterCharacterName ?? 'Mestre',
+            system: parsed.data.system,
+          },
+          select: {
+            id: true,
+            userId: true,
+            name: true,
+            system: true,
+            sheet: true,
+            deletedAt: true,
+            campaigns: { select: { id: true } },
+          },
+        })
+      }
+
+      if (!masterCharacter.system) {
+        masterCharacter = await tx.character.update({
+          where: { id: masterCharacter.id },
+          data: { system: parsed.data.system },
+          select: {
+            id: true,
+            userId: true,
+            name: true,
+            system: true,
+            sheet: true,
+            deletedAt: true,
+            campaigns: { select: { id: true } },
+          },
+        })
+      }
+
+      const campaign = await tx.campaign.create({
+        data: {
+          title: parsed.data.title,
+          description: parsed.data.description?.trim() || null,
+          inviteCode,
+          system: parsed.data.system,
+          joinPolicy: parsed.data.joinPolicy,
+          createdByUserId: payload.id,
+        },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          inviteCode: true,
+          system: true,
+          joinPolicy: true,
+          createdAt: true,
+        },
+      })
+
+      await tx.campaignCharacter.create({
+        data: {
+          campaignId: campaign.id,
+          characterId: masterCharacter.id,
+          role: 'MASTER',
+          status: 'ACTIVE',
+          joinedAt: new Date(),
+        },
+      })
+
+      return { campaign, masterCharacter }
     })
 
-    // Cria personagem do mestre (MASTER)
-    const gmCharacter = await tx.character.create({
-      data: {
-        campaignId: campaign.id,
-        userId: payload.id,
-        name: parsed.data.gmName,
-        role: 'MASTER',
-        status: 'ACTIVE',
-      },
-      select: { id: true, name: true },
+    return reply.status(201).send({
+      ...result.campaign,
+      gmName: result.masterCharacter.name,
+      gmUserId: payload.id,
+      myRole: 'MASTER',
+      myCharacterId: result.masterCharacter.id,
+      myCharacterName: result.masterCharacter.name,
+      isOnline: false,
     })
-
-    await tx.campaignMember.create({
-      data: { campaignId: campaign.id, userId: payload.id, status: 'ACTIVE', characterId: gmCharacter.id },
-    })
-
-    return { campaign, gmCharacter }
-  })
-
-  return reply.status(201).send({ ...result.campaign, myRole: 'MASTER', myCharacterId: result.gmCharacter.id })
+  } catch (err) {
+    const message = err instanceof Error ? err.message : ''
+    if (message === 'CHARACTER_FORBIDDEN') return reply.status(403).send({ error: 'Personagem nao pertence ao usuario' })
+    if (message === 'CHARACTER_ARCHIVED') return reply.status(400).send({ error: 'Personagem arquivado' })
+    if (message === 'CHARACTER_ALREADY_LINKED') return reply.status(409).send({ error: 'Personagem ja esta vinculado' })
+    if (message === 'INCOMPATIBLE_SYSTEM') return reply.status(409).send({ error: 'Sistema do personagem incompativel com a campanha' })
+    throw err
+  }
 })
 
 app.post('/api/campaigns/join', async (req, reply) => {
@@ -464,14 +594,15 @@ app.post('/api/campaigns/join', async (req, reply) => {
   if (!payload) return
 
   const schema = z.object({
-    inviteCode: z.string().min(1),
-    characterName: z.string().min(1, 'Nome do personagem é obrigatório').optional(),
+    inviteCode: z.string().trim().min(1),
+    characterId: z.string().optional(),
+    characterName: z.string().trim().min(1).max(80).optional(),
   })
   const parsed = schema.safeParse(req.body ?? {})
-  if (!parsed.success) return reply.status(400).send({ error: 'inviteCode obrigatório' })
+  if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
 
-  const inviteCode = parsed.data.inviteCode.trim().toUpperCase()
-  const characterName = (parsed.data.characterName ?? '').trim()
+  const inviteCode = parsed.data.inviteCode.toUpperCase()
+
   try {
     const result = await prisma.$transaction(async (tx) => {
       const campaign = await tx.campaign.findUnique({
@@ -481,125 +612,120 @@ app.post('/api/campaigns/join', async (req, reply) => {
           title: true,
           description: true,
           inviteCode: true,
-          gmName: true,
-          gmUserId: true,
+          system: true,
           joinPolicy: true,
           createdAt: true,
+          characters: {
+            where: { role: 'MASTER', status: 'ACTIVE' },
+            select: { character: { select: { userId: true, name: true } } },
+            take: 1,
+          },
         },
       })
-      if (!campaign) {
-        const err: any = new Error('Campanha não encontrada')
-        err.statusCode = 404
-        throw err
-      }
+      if (!campaign) throw Object.assign(new Error('CAMPAIGN_NOT_FOUND'), { statusCode: 404 })
+      if (!isCampaignOnline(campaign.id)) throw Object.assign(new Error('MASTER_OFFLINE'), { statusCode: 409 })
 
-      // MASTER entra sempre (caso use o invite)
-      const myRole: CharacterRole = campaign.gmUserId === payload.id ? 'MASTER' : 'PLAYER'
+      let character = parsed.data.characterId
+        ? await tx.character.findUnique({
+            where: { id: parsed.data.characterId },
+            select: {
+              id: true,
+              userId: true,
+              name: true,
+              system: true,
+              deletedAt: true,
+              campaigns: { select: { id: true } },
+            },
+          })
+        : null
 
-      // Player só pode entrar/solicitar se o mestre estiver online
-      if (myRole === 'PLAYER' && !isCampaignOnline(campaign.id)) {
-        const err: any = new Error('Mestre offline')
-        err.statusCode = 409
-        throw err
-      }
+      if (character && character.userId !== payload.id) throw Object.assign(new Error('CHARACTER_FORBIDDEN'), { statusCode: 403 })
+      if (character && character.deletedAt) throw Object.assign(new Error('CHARACTER_ARCHIVED'), { statusCode: 400 })
+      if (character && character.campaigns.length > 0) throw Object.assign(new Error('CHARACTER_ALREADY_LINKED'), { statusCode: 409 })
+      if (character?.system && character.system !== campaign.system) throw Object.assign(new Error('INCOMPATIBLE_SYSTEM'), { statusCode: 409 })
 
-      const existing = await tx.campaignMember.findUnique({
-        where: { campaignId_userId: { campaignId: campaign.id, userId: payload.id } },
-        select: { id: true, status: true, characterId: true },
-      })
-
-      // Se já está ativo, ok.
-      if (existing?.status === 'ACTIVE') {
-        return { campaign, myRole, status: 'ACTIVE' as CampaignMemberStatus, characterId: existing.characterId }
-      }
-
-      // Se já foi recusado, mantém recusado (GM pode aprovar depois)
-      if (existing?.status === 'REJECTED') {
-        return { campaign, myRole, status: 'REJECTED' as CampaignMemberStatus, characterId: existing.characterId }
-      }
-
-      // Para PLAYER, precisa informar o nome do personagem na primeira entrada
-      if (myRole === 'PLAYER' && !characterName) {
-        return { campaign, myRole, status: 'PENDING' as CampaignMemberStatus, missingCharacterName: true }
-      }
-
-      // Cria (ou reutiliza) o personagem associado à solicitação/entrada (PC)
-      let memberCharacterId: string | null = existing?.characterId ?? null
-      if (!memberCharacterId) {
-        const createdChar = await tx.character.create({
+      if (!character) {
+        if (!parsed.data.characterName) return { campaign, status: 'PENDING' as const, missingCharacterName: true }
+        character = await tx.character.create({
           data: {
-            campaignId: campaign.id,
             userId: payload.id,
-            name: myRole === 'MASTER' ? campaign.gmName : characterName,
-            role: myRole,
-            status: 'ACTIVE', // pode virar PENDING abaixo
+            name: parsed.data.characterName,
+            system: campaign.system,
           },
-          select: { id: true },
-        })
-        memberCharacterId = createdChar.id
-      }
-
-      // campanha pública: entra direto (ACTIVE)
-      if (myRole === 'MASTER' || campaign.joinPolicy === 'PUBLIC') {
-        if (existing) {
-          await tx.campaignMember.update({
-            where: { id: existing.id },
-            data: { status: 'ACTIVE', characterId: memberCharacterId },
-          })
-        } else {
-          await tx.campaignMember.create({
-            data: { campaignId: campaign.id, userId: payload.id, status: 'ACTIVE', characterId: memberCharacterId },
-          })
-        }
-
-        await tx.character.update({
-          where: { id: memberCharacterId },
-          data: { status: 'ACTIVE', role: myRole, name: myRole === 'MASTER' ? campaign.gmName : characterName || undefined },
-        })
-
-        return { campaign, myRole, status: 'ACTIVE' as CampaignMemberStatus, characterId: memberCharacterId }
-      }
-
-      // campanha privada: cria solicitação (PENDING)
-      if (existing) {
-        await tx.campaignMember.update({
-          where: { id: existing.id },
-          data: { status: 'PENDING', characterId: memberCharacterId },
-        })
-      } else {
-        await tx.campaignMember.create({
-          data: { campaignId: campaign.id, userId: payload.id, status: 'PENDING', characterId: memberCharacterId },
+          select: {
+            id: true,
+            userId: true,
+            name: true,
+            system: true,
+            deletedAt: true,
+            campaigns: { select: { id: true } },
+          },
         })
       }
 
-      await tx.character.update({
-        where: { id: memberCharacterId },
-        data: { status: 'PENDING', role: myRole, name: characterName || undefined },
+      if (!character.system) {
+        character = await tx.character.update({
+          where: { id: character.id },
+          data: { system: campaign.system },
+          select: {
+            id: true,
+            userId: true,
+            name: true,
+            system: true,
+            deletedAt: true,
+            campaigns: { select: { id: true } },
+          },
+        })
+      }
+
+      const status = campaign.joinPolicy === 'PUBLIC' ? 'ACTIVE' : 'PENDING'
+      const campaignCharacter = await tx.campaignCharacter.create({
+        data: {
+          campaignId: campaign.id,
+          characterId: character.id,
+          role: 'PLAYER',
+          status,
+          joinedAt: status === 'ACTIVE' ? new Date() : null,
+        },
+        select: { status: true, characterId: true },
       })
 
-      // notifica o GM
-      io.to(`user:${campaign.gmUserId}`).emit('campaign:join-requested', {
-        campaignId: campaign.id,
-        userId: payload.id,
-        email: payload.email,
-        characterName: characterName || undefined,
-        createdAt: new Date().toISOString(),
-      })
+      const master = campaign.characters[0]?.character ?? null
+      if (status === 'PENDING' && master?.userId) {
+        io.to(`user:${master.userId}`).emit('campaign:join-requested', {
+          campaignId: campaign.id,
+          userId: payload.id,
+          email: payload.email,
+          characterName: character.name,
+          createdAt: new Date().toISOString(),
+        })
+      }
 
-      return { campaign, myRole, status: 'PENDING' as CampaignMemberStatus, characterId: memberCharacterId }
+      return { campaign, status: campaignCharacter.status, characterId: campaignCharacter.characterId }
     })
 
+    const master = result.campaign.characters[0]?.character ?? null
     return reply.send({
-      ...result.campaign,
-      myRole: (result as any).myRole ?? null,
+      id: result.campaign.id,
+      title: result.campaign.title,
+      description: result.campaign.description,
+      inviteCode: result.campaign.inviteCode,
+      system: result.campaign.system,
+      joinPolicy: result.campaign.joinPolicy,
+      createdAt: result.campaign.createdAt,
+      gmName: master?.name ?? 'Mestre',
+      gmUserId: master?.userId ?? '',
+      myRole: 'PLAYER',
       status: result.status,
-      characterId: (result as any).characterId ?? null,
-      missingCharacterName: (result as any).missingCharacterName ?? false,
+      characterId: result.characterId ?? null,
+      missingCharacterName: 'missingCharacterName' in result ? result.missingCharacterName : false,
     })
   } catch (err: any) {
     const status = Number(err?.statusCode ?? 500)
-    if (status === 404) return reply.status(404).send({ error: 'Campanha não encontrada' })
-    if (status === 409) return reply.status(409).send({ error: err?.message ?? 'Mestre offline' })
+    if (status === 404) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+    if (status === 403) return reply.status(403).send({ error: 'Personagem nao pertence ao usuario' })
+    if (status === 400) return reply.status(400).send({ error: 'Personagem arquivado' })
+    if (status === 409) return reply.status(409).send({ error: err?.message === 'MASTER_OFFLINE' ? 'Mestre offline' : 'Conflito ao entrar na campanha' })
     req.log.error({ err }, 'Erro ao entrar na campanha')
     return reply.status(500).send({ error: 'Erro ao entrar na campanha' })
   }
@@ -610,37 +736,39 @@ app.get('/api/campaigns/:campaignId/my-character', async (req, reply) => {
   if (!payload) return
   const params = req.params as { campaignId: string }
 
-  const membership = await prisma.campaignMember.findUnique({
-    where: { campaignId_userId: { campaignId: params.campaignId, userId: payload.id } },
-    select: { status: true, characterId: true, character: { select: { role: true } } },
+  const campaignCharacter = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId: params.campaignId,
+      status: 'ACTIVE',
+      role: { in: ['MASTER', 'PLAYER'] },
+      character: { userId: payload.id },
+    },
+    select: {
+      role: true,
+      status: true,
+      character: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    },
   })
 
-  if (!membership || membership.status !== 'ACTIVE') {
-    return reply.status(403).send({ error: 'Acesso não liberado' })
+  if (!campaignCharacter) {
+    return reply.status(403).send({ error: 'Acesso nao liberado' })
   }
 
-  // Regra: PLAYER só acessa campanha se o mestre estiver online
-  if (membership.character?.role === 'PLAYER' && !isCampaignOnline(params.campaignId)) {
+  if (campaignCharacter.role === 'PLAYER' && !isCampaignOnline(params.campaignId)) {
     return reply.status(409).send({ error: 'Mestre offline' })
   }
 
-  // se tiver characterId já associado, usa ele
-  if (membership.characterId) {
-    const ch = await prisma.character.findUnique({
-      where: { id: membership.characterId },
-      select: { id: true, name: true, role: true, status: true },
-    })
-    if (ch) return reply.send(ch)
-  }
-
-  const ch = await prisma.character.findFirst({
-    where: { campaignId: params.campaignId, userId: payload.id, role: { in: ['MASTER', 'PLAYER'] }, status: 'ACTIVE' },
-    orderBy: { createdAt: 'asc' },
-    select: { id: true, name: true, role: true, status: true },
+  return reply.send({
+    id: campaignCharacter.character.id,
+    name: campaignCharacter.character.name,
+    role: campaignCharacter.role,
+    status: campaignCharacter.status,
   })
-  if (!ch) return reply.status(404).send({ error: 'Personagem não encontrado' })
-
-  return reply.send(ch)
 })
 
 app.patch('/api/campaigns/:campaignId/settings', async (req, reply) => {
@@ -654,25 +782,20 @@ app.patch('/api/campaigns/:campaignId/settings', async (req, reply) => {
   const parsed = schema.safeParse(req.body ?? {})
   if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
 
-  const campaign = await prisma.campaign.findUnique({
-    where: { id: params.campaignId },
-    select: { id: true, gmUserId: true, joinPolicy: true },
+  const master = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId: params.campaignId,
+      role: 'MASTER',
+      status: 'ACTIVE',
+      character: { userId: payload.id },
+    },
+    select: { id: true },
   })
-  if (!campaign) return reply.status(404).send({ error: 'Campanha não encontrada' })
-  if (campaign.gmUserId !== payload.id) {
-    // fallback: se por algum motivo gmUserId não bater, valida por membership GM
-    const m = await prisma.campaignMember.findUnique({
-      where: { campaignId_userId: { campaignId: params.campaignId, userId: payload.id } },
-      select: { status: true, character: { select: { role: true } } },
-    })
-    if (!m || m.character?.role !== 'MASTER' || m.status !== 'ACTIVE') {
-      return reply.status(403).send({ error: 'Apenas o mestre pode alterar' })
-    }
-  }
+  if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode alterar' })
 
   const updated = await prisma.campaign.update({
     where: { id: params.campaignId },
-    data: { joinPolicy: parsed.data.joinPolicy as CampaignJoinPolicy },
+    data: { joinPolicy: parsed.data.joinPolicy },
     select: { id: true, joinPolicy: true },
   })
 
@@ -684,42 +807,49 @@ app.get('/api/campaigns/:campaignId/players', async (req, reply) => {
   if (!payload) return
   const params = req.params as { campaignId: string }
 
-  const campaign = await prisma.campaign.findUnique({
-    where: { id: params.campaignId },
-    select: { id: true, gmUserId: true },
-  })
-  if (!campaign) return reply.status(404).send({ error: 'Campanha não encontrada' })
-
-  // GM pode ver tudo; player só vê ACTIVE
-  const isGM = campaign.gmUserId === payload.id
-
-  const members = await prisma.campaignMember.findMany({
+  const access = await prisma.campaignCharacter.findFirst({
     where: {
       campaignId: params.campaignId,
-      ...(isGM ? {} : { status: 'ACTIVE' }),
+      status: 'ACTIVE',
+      character: { userId: payload.id },
+    },
+    select: { role: true },
+  })
+  if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+  const isMaster = access.role === 'MASTER'
+  const entries = await prisma.campaignCharacter.findMany({
+    where: {
+      campaignId: params.campaignId,
+      ...(isMaster ? {} : { status: 'ACTIVE' as const }),
     },
     select: {
-      userId: true,
+      role: true,
       status: true,
       characterId: true,
       createdAt: true,
-      decidedAt: true,
-      user: { select: { email: true } },
-      character: { select: { id: true, name: true, role: true } },
+      updatedAt: true,
+      character: {
+        select: {
+          userId: true,
+          name: true,
+          user: { select: { email: true } },
+        },
+      },
     },
     orderBy: { createdAt: 'asc' },
   })
 
   return reply.send(
-    members.map((m) => ({
-      userId: m.userId,
-      email: m.user.email,
-      role: m.character?.role ?? null,
-      status: m.status,
-      characterId: m.characterId,
-      characterName: m.character?.name ?? null,
-      createdAt: m.createdAt,
-      decidedAt: m.decidedAt,
+    entries.map((entry) => ({
+      userId: entry.character.userId,
+      email: entry.character.user.email,
+      role: entry.role,
+      status: entry.status,
+      characterId: entry.characterId,
+      characterName: entry.character.name,
+      createdAt: entry.createdAt,
+      decidedAt: entry.status === 'PENDING' ? null : entry.updatedAt,
     })),
   )
 })
@@ -729,35 +859,36 @@ app.post('/api/campaigns/:campaignId/players/:userId/approve', async (req, reply
   if (!payload) return
   const params = req.params as { campaignId: string; userId: string }
 
-  const campaign = await prisma.campaign.findUnique({
-    where: { id: params.campaignId },
-    select: { id: true, gmUserId: true, title: true },
+  const master = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId: params.campaignId,
+      role: 'MASTER',
+      status: 'ACTIVE',
+      character: { userId: payload.id },
+    },
+    select: { id: true },
   })
-  if (!campaign) return reply.status(404).send({ error: 'Campanha não encontrada' })
-  if (campaign.gmUserId !== payload.id) return reply.status(403).send({ error: 'Apenas o mestre pode aprovar' })
+  if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode aprovar' })
 
-  const member = await prisma.campaignMember.findUnique({
-    where: { campaignId_userId: { campaignId: params.campaignId, userId: params.userId } },
-    select: { id: true, status: true },
+  const target = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId: params.campaignId,
+      role: 'PLAYER',
+      character: { userId: params.userId },
+    },
+    select: { id: true },
   })
-  if (!member) return reply.status(404).send({ error: 'Solicitação não encontrada' })
+  if (!target) return reply.status(404).send({ error: 'Solicitacao nao encontrada' })
 
-  const updated = await prisma.campaignMember.update({
-    where: { id: member.id },
-    data: { status: 'ACTIVE', decidedAt: new Date() },
-    select: { userId: true, campaignId: true, status: true, characterId: true },
+  const updated = await prisma.campaignCharacter.update({
+    where: { id: target.id },
+    data: { status: 'ACTIVE', joinedAt: new Date() },
+    select: { campaignId: true, character: { select: { userId: true } } },
   })
 
-  if (updated.characterId) {
-    await prisma.character.update({
-      where: { id: updated.characterId },
-      data: { status: 'ACTIVE' },
-    })
-  }
-
-  io.to(`user:${updated.userId}`).emit('campaign:join-approved', {
+  io.to(`user:${updated.character.userId}`).emit('campaign:join-approved', {
     campaignId: updated.campaignId,
-    message: 'Sua solicitação foi aprovada',
+    message: 'Sua solicitacao foi aprovada',
   })
 
   return reply.send({ ok: true })
@@ -768,44 +899,42 @@ app.post('/api/campaigns/:campaignId/players/:userId/reject', async (req, reply)
   if (!payload) return
   const params = req.params as { campaignId: string; userId: string }
 
-  const campaign = await prisma.campaign.findUnique({
-    where: { id: params.campaignId },
-    select: { id: true, gmUserId: true },
+  const master = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId: params.campaignId,
+      role: 'MASTER',
+      status: 'ACTIVE',
+      character: { userId: payload.id },
+    },
+    select: { id: true },
   })
-  if (!campaign) return reply.status(404).send({ error: 'Campanha não encontrada' })
-  if (campaign.gmUserId !== payload.id) return reply.status(403).send({ error: 'Apenas o mestre pode recusar' })
+  if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode recusar' })
 
-  const member = await prisma.campaignMember.findUnique({
-    where: { campaignId_userId: { campaignId: params.campaignId, userId: params.userId } },
-    select: { id: true, status: true },
+  const target = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId: params.campaignId,
+      role: 'PLAYER',
+      character: { userId: params.userId },
+    },
+    select: { id: true },
   })
-  if (!member) return reply.status(404).send({ error: 'Solicitação não encontrada' })
+  if (!target) return reply.status(404).send({ error: 'Solicitacao nao encontrada' })
 
-  const updated = await prisma.campaignMember.update({
-    where: { id: member.id },
-    data: { status: 'REJECTED', decidedAt: new Date() },
-    select: { userId: true, campaignId: true, status: true, characterId: true },
+  const updated = await prisma.campaignCharacter.update({
+    where: { id: target.id },
+    data: { status: 'REJECTED' },
+    select: { campaignId: true, character: { select: { userId: true } } },
   })
 
-  if (updated.characterId) {
-    await prisma.character.update({
-      where: { id: updated.characterId },
-      data: { status: 'REJECTED' },
-    })
-  }
-
-  io.to(`user:${updated.userId}`).emit('campaign:join-rejected', {
+  io.to(`user:${updated.character.userId}`).emit('campaign:join-rejected', {
     campaignId: updated.campaignId,
-    message: 'Sua solicitação foi recusada',
+    message: 'Sua solicitacao foi recusada',
   })
 
   return reply.send({ ok: true })
 })
 
-/**
- * Endpoint que dispara notificação realtime
- * Mantive o path parecido com seu caso anterior.
- */
+
 app.post('/api/items/trade', async (req, reply) => {
   const fromUser = requireAuth(req, reply)
   if (!fromUser) return
@@ -829,3 +958,6 @@ app.post('/api/items/trade', async (req, reply) => {
 })
 
 await app.listen({ port: Number(process.env.PORT ?? 3001), host: '0.0.0.0' })
+
+
+

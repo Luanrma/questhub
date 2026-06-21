@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Steel guardian avatar">
+  <rect width="128" height="128" rx="18" fill="#0f172a"/>
+  <path d="M24 110c5-24 21-38 40-38s35 14 40 38" fill="#475569"/>
+  <path d="M37 35l27-16 27 16v31c0 18-12 31-27 31S37 84 37 66V35Z" fill="#94a3b8"/>
+  <path d="M44 43h40v23c0 12-8 21-20 21s-20-9-20-21V43Z" fill="#cbd5e1"/>
+  <path d="M49 58h30" stroke="#1e293b" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="53" cy="57" r="3" fill="#0f172a"/>
+  <circle cx="75" cy="57" r="3" fill="#0f172a"/>
+</svg>

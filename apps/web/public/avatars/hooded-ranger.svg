@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Hooded ranger avatar">
+  <rect width="128" height="128" rx="18" fill="#111827"/>
+  <path d="M24 110c6-25 22-38 40-38s34 13 40 38" fill="#3f3f46"/>
+  <path d="M31 60c2-30 16-46 33-46s31 16 33 46c-6 21-19 32-33 32S37 81 31 60Z" fill="#14532d"/>
+  <path d="M45 64c3-12 10-18 19-18s16 6 19 18c-3 13-10 20-19 20s-16-7-19-20Z" fill="#f8d7aa"/>
+  <path d="M50 63c8 5 20 5 28 0" fill="none" stroke="#1f2937" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="50" cy="61" r="3" fill="#111827"/>
+  <circle cx="78" cy="61" r="3" fill="#111827"/>
+</svg>

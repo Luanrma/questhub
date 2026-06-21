@@ -5,6 +5,7 @@ import { CampaignLayout } from './layouts/CampaignLayout'
 import { CampaignCreatePage } from './pages/CampaignCreatePage'
 import { CampaignJoinPage } from './pages/CampaignJoinPage'
 import { CampaignsDashboardPage } from './pages/CampaignsDashboardPage'
+import { CharacterCreatePage } from './pages/CharacterCreatePage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { CampaignOverviewPage } from './pages/campaign/CampaignOverviewPage'
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/campaigns" element={<CampaignsDashboardPage />} />
         <Route path="/campaigns/new" element={<CampaignCreatePage />} />
         <Route path="/campaigns/join" element={<CampaignJoinPage />} />
+        <Route path="/characters/new" element={<CharacterCreatePage />} />
       </Route>
 
       {/* Depois de escolher/entrar/criar uma campanha (com aside) */}

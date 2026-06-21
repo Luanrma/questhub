@@ -11,13 +11,20 @@ enum CampaignJoinPolicy {
   PRIVATE
 }
 
-enum CampaignMemberStatus {
+enum GameSystem {
+  DND_5E
+  PATHFINDER_2E
+}
+
+enum CampaignCharacterStatus {
   PENDING
   ACTIVE
   REJECTED
+  LEFT
+  DEAD
 }
 
-enum CharacterRole {
+enum CampaignCharacterRole {
   MASTER
   PLAYER
   NPC
@@ -29,61 +36,61 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
 
-  memberships CampaignMember[]
-  characters  Character[]
-  gmCampaigns Campaign[] @relation("GMCampaigns")
+  characters       Character[]
+  createdCampaigns Campaign[]  @relation("CreatedCampaigns")
 }
 
 model Campaign {
-  id          String   @id @default(cuid())
+  id          String             @id @default(cuid())
   title       String
   description String?
-  inviteCode  String   @unique
-  gmName      String
+  inviteCode  String             @unique
+  system      GameSystem
   joinPolicy  CampaignJoinPolicy @default(PUBLIC)
 
-  gmUserId String
-  gmUser   User @relation("GMCampaigns", fields: [gmUserId], references: [id])
+  createdByUserId String
+  createdByUser   User   @relation("CreatedCampaigns", fields: [createdByUserId], references: [id])
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  members    CampaignMember[]
-  characters Character[]
-}
-
-model CampaignMember {
-  id         String       @id @default(cuid())
-  campaignId String
-  userId     String
-  status     CampaignMemberStatus @default(ACTIVE)
-  createdAt  DateTime     @default(now())
-  decidedAt  DateTime?
-  characterId String?     @unique
-
-  campaign Campaign @relation(fields: [campaignId], references: [id])
-  user     User     @relation(fields: [userId], references: [id])
-  character Character? @relation("MemberCharacter", fields: [characterId], references: [id])
-
-  @@unique([campaignId, userId])
-  @@index([userId])
-  @@index([campaignId])
+  characters CampaignCharacter[]
 }
 
 model Character {
-  id         String   @id @default(cuid())
-  campaignId String
-  userId     String
-  name       String
-  sheet      Json?
-  active     Boolean  @default(true)
-  role       CharacterRole @default(PLAYER)
-  status     CampaignMemberStatus @default(ACTIVE)
-  createdAt  DateTime @default(now())
+  id        String      @id @default(cuid())
+  userId    String
+  name      String
+  avatarUrl String?
+  bio       String?
+  system    GameSystem?
+  sheet     Json?
+  deletedAt DateTime?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 
-  campaign Campaign @relation(fields: [campaignId], references: [id])
-  user     User     @relation(fields: [userId], references: [id])
-  member   CampaignMember? @relation("MemberCharacter")
+  user      User                @relation(fields: [userId], references: [id])
+  campaigns CampaignCharacter[]
+
+  @@index([userId])
+  @@index([deletedAt])
+}
+
+model CampaignCharacter {
+  id          String                  @id @default(cuid())
+  campaignId  String
+  characterId String                  @unique
+  role        CampaignCharacterRole
+  status      CampaignCharacterStatus @default(PENDING)
+  joinedAt    DateTime?
+  leftAt      DateTime?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @updatedAt
+
+  campaign  Campaign  @relation(fields: [campaignId], references: [id])
+  character Character @relation(fields: [characterId], references: [id])
 
   @@index([campaignId])
-  @@index([userId])
+  @@index([status])
+  @@index([role])
 }
