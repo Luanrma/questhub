@@ -2,60 +2,15 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
-
-const avatarUrlSchema = z
-  .string()
-  .trim()
-  .max(2048)
-  .refine((value) => {
-    if (value === '') return true
-    if (value.startsWith('/')) return true
-
-    try {
-      const url = new URL(value)
-      return url.protocol === 'http:' || url.protocol === 'https:'
-    } catch {
-      return false
-    }
-  }, 'Avatar deve ser uma URL valida')
-
-function presentCharacter(character: {
-  id: string
-  name: string
-  avatarUrl: string | null
-  bio: string | null
-  system: unknown
-  sheet: unknown
-  createdAt: Date
-  updatedAt?: Date
-  campaigns: unknown[]
-}) {
-  return {
-    id: character.id,
-    name: character.name,
-    avatarUrl: character.avatarUrl,
-    bio: character.bio,
-    system: character.system,
-    createdAt: character.createdAt,
-    ...(character.updatedAt ? { updatedAt: character.updatedAt } : {}),
-    campaigns: character.campaigns,
-    available: character.campaigns.length === 0,
-    hasSheet: character.sheet !== null,
-  }
-}
+import { presentCharacter } from './presenter'
+import { createCharacterSchema, updateCharacterSchema } from './validation'
 
 export function registerCharacterRoutes(app: FastifyInstance) {
   app.post('/api/characters', async (req, reply) => {
     const payload = requireAuth(req, reply)
     if (!payload) return
 
-    const schema = z.object({
-      name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo'),
-      avatarUrl: avatarUrlSchema.optional(),
-      bio: z.string().trim().max(2000, 'Bio deve ter no maximo 2000 caracteres').optional(),
-    })
-
-    const parsed = schema.safeParse(req.body ?? {})
+    const parsed = createCharacterSchema.safeParse(req.body ?? {})
     if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
 
     const character = await prisma.character.create({
@@ -131,16 +86,10 @@ export function registerCharacterRoutes(app: FastifyInstance) {
       characterId: z.string().min(1),
     })
 
-    const bodySchema = z.object({
-      name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo').optional(),
-      avatarUrl: avatarUrlSchema.nullable().optional(),
-      bio: z.string().trim().max(2000, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
-    })
-
     const params = paramsSchema.safeParse(req.params)
     if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
-    const body = bodySchema.safeParse(req.body ?? {})
+    const body = updateCharacterSchema.safeParse(req.body ?? {})
     if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
 
     const character = await prisma.character.findFirst({

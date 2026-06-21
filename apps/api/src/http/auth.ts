@@ -4,8 +4,16 @@ import { verifyToken } from '../auth/jwt'
 
 export const TOKEN_COOKIE = 'token'
 
+type CookieReply = FastifyReply & {
+  setCookie: (name: string, value: string, options: Record<string, unknown>) => FastifyReply
+}
+
+type CookieRequest = FastifyRequest & {
+  cookies?: Record<string, string | undefined>
+}
+
 export function setAuthCookie(reply: FastifyReply, token: string) {
-  reply.setCookie(TOKEN_COOKIE, token, {
+  ;(reply as CookieReply).setCookie(TOKEN_COOKIE, token, {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
@@ -15,7 +23,7 @@ export function setAuthCookie(reply: FastifyReply, token: string) {
 }
 
 export function clearAuthCookie(reply: FastifyReply) {
-  reply.setCookie(TOKEN_COOKIE, '', {
+  ;(reply as CookieReply).setCookie(TOKEN_COOKIE, '', {
     httpOnly: true,
     sameSite: 'lax',
     secure: process.env.NODE_ENV === 'production',
@@ -25,7 +33,7 @@ export function clearAuthCookie(reply: FastifyReply) {
 }
 
 export function requireAuth(req: FastifyRequest, reply: FastifyReply): TokenPayload | null {
-  const token = (req.cookies as Record<string, string | undefined> | undefined)?.[TOKEN_COOKIE]
+  const token = (req as CookieRequest).cookies?.[TOKEN_COOKIE]
   if (!token) {
     reply.status(401).send({ error: 'Nao autenticado' })
     return null

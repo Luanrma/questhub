@@ -1,10 +1,22 @@
 import crypto from 'node:crypto'
-import { prisma } from '../../db/prisma'
 
-export async function generateInviteCode(db: typeof prisma = prisma) {
+type InviteCodeDb = {
+  campaign: {
+    findUnique: (args: { where: { inviteCode: string } }) => Promise<unknown>
+  }
+}
+
+async function getDefaultDb() {
+  const module = await import('../../db/prisma')
+  return module.prisma
+}
+
+export async function generateInviteCode(db?: InviteCodeDb) {
+  const targetDb = db ?? (await getDefaultDb())
+
   for (let i = 0; i < 5; i++) {
     const code = crypto.randomBytes(6).toString('base64url').slice(0, 8).toUpperCase()
-    const exists = await db.campaign.findUnique({ where: { inviteCode: code } })
+    const exists = await targetDb.campaign.findUnique({ where: { inviteCode: code } })
     if (!exists) return code
   }
 

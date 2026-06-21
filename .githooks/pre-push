@@ -1,0 +1,14 @@
+#!/bin/sh
+
+echo "QuestHub pre-push: running unit tests..."
+
+npm run quality:prepush
+status=$?
+
+if [ "$status" -ne 0 ]; then
+  echo ""
+  echo "Push blocked: unit tests failed. See the failing test output above."
+  exit "$status"
+fi
+
+echo "QuestHub pre-push: unit tests passed."

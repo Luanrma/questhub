@@ -8,6 +8,8 @@
     "dev:web": "vite --config apps/web/vite.config.ts",
     "build:web": "tsc -b apps/web/tsconfig.json && vite build --config apps/web/vite.config.ts",
     "lint:web": "eslint apps/web --config apps/web/eslint.config.js",
+    "test:unit": "tsc -p apps/api/tsconfig.test.json && node scripts/prepare-unit-test-output.cjs && node .tmp/api-tests/unit.test.js",
+    "quality:prepush": "npm run test:unit",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy"

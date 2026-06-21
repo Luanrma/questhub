@@ -42,7 +42,15 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 * Frontend: React, React Router, Socket.IO client, Tailwind CSS, lucide-react.
 * Backend: Fastify, Socket.IO, Prisma, PostgreSQL, Zod, bcryptjs, jsonwebtoken.
 
-## 8. Riscos e Debitos Tecnicos
+## 8. Estrategia de Testes
+* Testes unitarios devem usar `node:test`, sem dependencia obrigatoria de banco, servidor HTTP real ou Socket.IO real.
+* A suite unitaria deve compilar TypeScript para `.tmp/api-tests` com `tsc` e executar um agregador unico com Node.
+* Regras puras, validadores, presenters e helpers devem ficar em arquivos pequenos e importaveis isoladamente.
+* Rotas Fastify devem delegar validacao/apresentacao para helpers testaveis sempre que possivel.
+* O hook Git `pre-push` deve executar a suite unitaria completa e bloquear o push quando houver falha.
+* Testes de integracao com banco/API ficam fora do escopo inicial e devem ter setup proprio quando forem introduzidos.
+
+## 9. Riscos e Debitos Tecnicos
 * `trade` existe no codigo, mas ainda precisa de especificacao modular propria.
 * `character_sheet` esta documentado acima da implementacao real: hoje ha persistencia de campo no banco, mas nao ha API dedicada de ficha.
 * Arquivar/deletar personagens, NPCs e transicoes `LEFT`/`DEAD` ainda nao possuem fluxo operacional completo.
