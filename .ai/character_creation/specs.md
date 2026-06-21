@@ -177,3 +177,20 @@ Regras:
 * Nao e possivel ter mais de um `MASTER` ativo na mesma campanha.
 * `CampaignMember` nao deve ser usado pelo novo modelo.
 * `Campaign.gmName` nao deve ser usado; o nome publico do mestre vem do `Character` vinculado como `MASTER`.
+
+## 8. Navegacao do Modulo
+* `/characters` e a home/index do modulo de personagens.
+* A home de personagens deve conter a acao `Criar personagem`.
+* A lista `Meus personagens` pertence a `/characters`, nao a home inicial do sistema.
+* `/characters/new` permanece dedicado ao formulario de criacao.
+* `/characters/:characterId/edit` usa a mesma experiencia visual de criacao, carregando dados existentes.
+
+## 9. Edicao de Personagem
+* `GET /api/characters/:characterId` retorna um personagem do usuario autenticado.
+* `PATCH /api/characters/:characterId` atualiza nome, avatar e bio conforme permissao.
+* Personagem livre permite editar nome, avatar e bio.
+* Personagem vinculado permite ao dono editar avatar e bio; nome fica bloqueado.
+* O botao principal em modo edicao deve exibir `Salvar mudancas`.
+* O botao `Salvar mudancas` so fica habilitado quando houver alteracao real em relacao aos dados carregados.
+* A escolha de avatar nao deve ocupar uma segunda secao do formulario.
+* A troca de avatar deve ficar no card de preview do avatar, abrindo um pequeno modal com as mesmas opcoes de preset e URL.

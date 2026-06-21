@@ -17,7 +17,7 @@ export function LoginPage() {
     setLoading(true)
     try {
       await signIn({ email, password })
-      navigate('/campaigns', { replace: true })
+      navigate('/home', { replace: true })
     } catch {
       setFormError('Credenciais inválidas. Verifique o e-mail e a senha.')
     } finally {

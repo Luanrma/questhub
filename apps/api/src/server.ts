@@ -363,6 +363,158 @@ app.post('/api/characters', async (req, reply) => {
   return reply.status(201).send(character)
 })
 
+app.get('/api/characters/:characterId', async (req, reply) => {
+  const payload = requireAuth(req, reply)
+  if (!payload) return
+
+  const paramsSchema = z.object({
+    characterId: z.string().min(1),
+  })
+
+  const params = paramsSchema.safeParse(req.params)
+  if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+
+  const character = await prisma.character.findFirst({
+    where: {
+      id: params.data.characterId,
+      userId: payload.id,
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+      name: true,
+      avatarUrl: true,
+      bio: true,
+      system: true,
+      sheet: true,
+      createdAt: true,
+      updatedAt: true,
+      campaigns: {
+        select: {
+          id: true,
+          role: true,
+          status: true,
+          campaign: { select: { id: true, title: true, system: true } },
+        },
+      },
+    },
+  })
+
+  if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+
+  return reply.send({
+    id: character.id,
+    name: character.name,
+    avatarUrl: character.avatarUrl,
+    bio: character.bio,
+    system: character.system,
+    createdAt: character.createdAt,
+    updatedAt: character.updatedAt,
+    campaigns: character.campaigns,
+    available: character.campaigns.length === 0,
+    hasSheet: character.sheet !== null,
+  })
+})
+
+app.patch('/api/characters/:characterId', async (req, reply) => {
+  const payload = requireAuth(req, reply)
+  if (!payload) return
+
+  const paramsSchema = z.object({
+    characterId: z.string().min(1),
+  })
+
+  const avatarUrlSchema = z
+    .string()
+    .trim()
+    .max(2048)
+    .refine((value) => {
+      if (value === '') return true
+      if (value.startsWith('/')) return true
+
+      try {
+        const url = new URL(value)
+        return url.protocol === 'http:' || url.protocol === 'https:'
+      } catch {
+        return false
+      }
+    }, 'Avatar deve ser uma URL valida')
+    .nullable()
+    .optional()
+
+  const bodySchema = z.object({
+    name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo').optional(),
+    avatarUrl: avatarUrlSchema,
+    bio: z.string().trim().max(2000, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
+  })
+
+  const params = paramsSchema.safeParse(req.params)
+  if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+
+  const body = bodySchema.safeParse(req.body ?? {})
+  if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
+
+  const character = await prisma.character.findFirst({
+    where: {
+      id: params.data.characterId,
+      userId: payload.id,
+      deletedAt: null,
+    },
+    select: {
+      id: true,
+      name: true,
+      campaigns: { select: { id: true } },
+    },
+  })
+
+  if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+
+  const isLinked = character.campaigns.length > 0
+  if (isLinked && body.data.name !== undefined && body.data.name !== character.name) {
+    return reply.status(403).send({ error: 'Nome de personagem vinculado nao pode ser alterado pelo jogador' })
+  }
+
+  const updated = await prisma.character.update({
+    where: { id: character.id },
+    data: {
+      ...(body.data.name !== undefined && !isLinked ? { name: body.data.name } : {}),
+      ...(body.data.avatarUrl !== undefined ? { avatarUrl: body.data.avatarUrl?.trim() || null } : {}),
+      ...(body.data.bio !== undefined ? { bio: body.data.bio?.trim() || null } : {}),
+    },
+    select: {
+      id: true,
+      name: true,
+      avatarUrl: true,
+      bio: true,
+      system: true,
+      sheet: true,
+      createdAt: true,
+      updatedAt: true,
+      campaigns: {
+        select: {
+          id: true,
+          role: true,
+          status: true,
+          campaign: { select: { id: true, title: true, system: true } },
+        },
+      },
+    },
+  })
+
+  return reply.send({
+    id: updated.id,
+    name: updated.name,
+    avatarUrl: updated.avatarUrl,
+    bio: updated.bio,
+    system: updated.system,
+    createdAt: updated.createdAt,
+    updatedAt: updated.updatedAt,
+    campaigns: updated.campaigns,
+    available: updated.campaigns.length === 0,
+    hasSheet: updated.sheet !== null,
+  })
+})
+
 app.get('/api/characters', async (req, reply) => {
   const payload = requireAuth(req, reply)
   if (!payload) return

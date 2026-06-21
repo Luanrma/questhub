@@ -6,6 +6,8 @@ import { CampaignCreatePage } from './pages/CampaignCreatePage'
 import { CampaignJoinPage } from './pages/CampaignJoinPage'
 import { CampaignsDashboardPage } from './pages/CampaignsDashboardPage'
 import { CharacterCreatePage } from './pages/CharacterCreatePage'
+import { CharactersHomePage } from './pages/CharactersHomePage'
+import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
 import { CampaignOverviewPage } from './pages/campaign/CampaignOverviewPage'
@@ -24,11 +26,14 @@ export default function App() {
 
       {/* Pós-login, mas antes de escolher/criar/entrar em uma campanha (sem aside) */}
       <Route element={<AuthedLayout />}>
-        <Route path="/" element={<Navigate to="/campaigns" replace />} />
+        <Route path="/" element={<Navigate to="/home" replace />} />
+        <Route path="/home" element={<HomePage />} />
         <Route path="/campaigns" element={<CampaignsDashboardPage />} />
         <Route path="/campaigns/new" element={<CampaignCreatePage />} />
         <Route path="/campaigns/join" element={<CampaignJoinPage />} />
+        <Route path="/characters" element={<CharactersHomePage />} />
         <Route path="/characters/new" element={<CharacterCreatePage />} />
+        <Route path="/characters/:characterId/edit" element={<CharacterCreatePage />} />
       </Route>
 
       {/* Depois de escolher/entrar/criar uma campanha (com aside) */}

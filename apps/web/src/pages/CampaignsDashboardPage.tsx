@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Plus, ScrollText, UserRound } from 'lucide-react'
+import { Plus, ScrollText } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
@@ -41,13 +41,18 @@ export function CampaignsDashboardPage() {
           <div className="text-white font-semibold">Quest Hub</div>
           <div className="text-xs text-zinc-300">Olá, {me?.email}</div>
         </div>
-        <Button variant="ghost" onClick={logout}>
-          Logout
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" onClick={() => navigate('/home')}>
+            Home
+          </Button>
+          <Button variant="ghost" onClick={logout}>
+            Logout
+          </Button>
+        </div>
       </div>
 
       {/* Actions */}
-      <div className="grid gap-4 lg:grid-cols-3">
+      <div className="grid gap-4 md:grid-cols-2">
         <div className="rounded-lg border border-white/10 bg-white/5 p-5">
           <div className="flex items-center gap-3">
             <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-indigo-400/10 text-indigo-100 border border-indigo-300/20">
@@ -74,18 +79,6 @@ export function CampaignsDashboardPage() {
           </Button>
         </div>
 
-        <div className="rounded-lg border border-white/10 bg-white/5 p-5">
-          <div className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-400/10 text-amber-100 border border-amber-300/20">
-              <UserRound className="h-4 w-4" />
-            </span>
-            <h2 className="text-lg font-semibold text-white">Criar personagem</h2>
-          </div>
-          <p className="text-sm text-zinc-300 mt-1">Prepare um personagem livre para usar depois.</p>
-          <Button variant="ghost" className="mt-4 w-full" onClick={() => navigate('/characters/new')}>
-            Criar personagem
-          </Button>
-        </div>
       </div>
 
       {/* List */}

@@ -37,7 +37,7 @@ export function RegisterPage() {
         body: JSON.stringify({ email, password }),
       })
       await refreshMe()
-      navigate('/campaigns', { replace: true })
+      navigate('/home', { replace: true })
     } catch (err) {
       if (err instanceof ApiError && err.status === 409) {
         setFormError('Este e-mail já está cadastrado. Use outro e-mail ou entre na sua conta.')

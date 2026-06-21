@@ -53,6 +53,8 @@ Fora de escopo:
 * Avatar e armazenado como uma unica URL em `Character.avatarUrl`; pode apontar para asset interno ou URL externa.
 * Bio tem limite de 2.000 caracteres.
 * Jogador pode editar avatar e bio de personagem vinculado; nome fica bloqueado para ele.
+* A tela de edicao reutiliza a experiencia de criacao, mas troca o comando principal para `Salvar mudancas`.
+* A selecao de avatar acontece a partir do preview do avatar, por modal compacto com presets e URL.
 * Mestre pode editar nome, avatar e bio de personagens vinculados a sua campanha.
 * Personagem vinculado nao pode ser deletado definitivamente pelo fluxo comum.
 * Morte ou saida da campanha muda apenas `CampaignCharacter.status` para `DEAD` ou `LEFT`.

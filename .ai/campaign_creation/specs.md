@@ -125,3 +125,10 @@ model CampaignCharacter {
 * Campanha criada deve aparecer no dashboard do usuario criador.
 * Entrar em campanha como `MASTER` nao deve ser bloqueado por status offline.
 * A campanha passa a ficar online quando o personagem `MASTER` entra na presenca.
+
+## 8. Navegacao do Modulo
+* `/campaigns` e a home/index do modulo de campanhas.
+* A home de campanhas deve conter as acoes `Criar campanha` e `Entrar em campanha`.
+* A lista `Suas campanhas` pertence a `/campaigns`, nao a home inicial do sistema.
+* `/campaigns/new` permanece dedicado ao formulario de criacao.
+* `/campaigns/join` permanece dedicado ao fluxo de entrada por convite.

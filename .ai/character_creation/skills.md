@@ -37,3 +37,5 @@
 * Bio deve ser validada com limite de 2.000 caracteres no backend e frontend.
 * Delete fisico so deve ser permitido para personagem livre e sem restricoes de ficha/historico definidas pelo produto.
 * Arquivamento de personagem livre usa `deletedAt`.
+* O formulario de criacao/edicao deve ser reaproveitado para evitar divergencia visual e de validacao.
+* A deteccao de alteracoes no frontend deve comparar o estado atual com os dados originais carregados.
