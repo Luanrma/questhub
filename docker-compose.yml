@@ -13,7 +13,7 @@ services:
   api:
     build:
       context: .
-      dockerfile: apps/api/Dockerfile.dev
+      dockerfile: Dockerfile.dev
     environment:
       JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET no arquivo .env}
       WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
@@ -28,13 +28,13 @@ services:
       - db
     volumes:
       - ./:/repo
-      - questhub_api_node_modules:/repo/node_modules
-    command: ["npm", "run", "dev", "-w", "apps/api"]
+      - questhub_node_modules:/repo/node_modules
+    command: ["npm", "run", "dev:api"]
 
   web:
     build:
       context: .
-      dockerfile: apps/web/Dockerfile.dev
+      dockerfile: Dockerfile.dev
     environment:
       NODE_ENV: ${NODE_ENV:-development}
       # Para o browser acessar a API publicada no host
@@ -45,11 +45,10 @@ services:
       - api
     volumes:
       - ./:/repo
-      - questhub_web_node_modules:/repo/node_modules
-    command: ["npm", "run", "dev", "-w", "apps/web", "--", "--host", "0.0.0.0", "--port", "5173"]
+      - questhub_node_modules:/repo/node_modules
+    command: ["npm", "run", "dev:web", "--", "--host", "0.0.0.0", "--port", "5173"]
 
 volumes:
   questhub_db:
-  questhub_api_node_modules:
-  questhub_web_node_modules:
+  questhub_node_modules:
 

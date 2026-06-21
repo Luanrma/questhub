@@ -67,13 +67,13 @@ Write-Host "[questhub] Subindo Postgres (docker compose)..." -ForegroundColor Cy
 docker compose up -d db
 
 Write-Host "[questhub] Aplicando migrations (Prisma)..." -ForegroundColor Cyan
-npm run db:migrate -w apps/api
+npm run db:migrate
 
 Write-Host "[questhub] Iniciando API + Web (um terminal só)..." -ForegroundColor Cyan
 Write-Host "Dica: para parar, pressione Ctrl+C" -ForegroundColor DarkGray
 Write-Host "[questhub] Web vai subir em: http://localhost:$VitePort" -ForegroundColor DarkGray
 
-# Usa concurrently via npx (sem precisar instalar globalmente)
-npx concurrently -k -n api,web -c blue,green `
-  "npm run dev -w apps/api" `
-  "npm run dev -w apps/web -- --port $VitePort"
+# Usa concurrently instalado no package.json raiz
+npm exec concurrently -- -k -n api,web -c blue,green `
+  "npm run dev:api" `
+  "npm run dev:web -- --port $VitePort"

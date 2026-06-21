@@ -9,15 +9,17 @@ export function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [formError, setFormError] = useState('')
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
+    setFormError('')
     setLoading(true)
     try {
       await signIn({ email, password })
       navigate('/campaigns', { replace: true })
     } catch {
-      alert('Email ou senha inválidos')
+      setFormError('Credenciais inválidas. Verifique o e-mail e a senha.')
     } finally {
       setLoading(false)
     }
@@ -34,7 +36,10 @@ export function LoginPage() {
         type="email"
         placeholder="Email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value)
+          setFormError('')
+        }}
         required
         className="p-3 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
@@ -43,10 +48,19 @@ export function LoginPage() {
         type="password"
         placeholder="Senha"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value)
+          setFormError('')
+        }}
         required
         className="p-3 rounded bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
+
+      {formError ? (
+        <div className="rounded border border-red-400/30 bg-red-500/10 p-3 text-sm text-red-200" role="alert">
+          {formError}
+        </div>
+      ) : null}
 
       <Button type="submit" disabled={loading}>
         {loading ? 'Entrando...' : 'Entrar'}

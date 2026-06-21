@@ -76,13 +76,13 @@ echo "[questhub] Subindo Postgres (docker compose)..."
 docker compose up -d db
 
 echo "[questhub] Aplicando migrations (Prisma)..."
-npm run db:migrate -w apps/api
+npm run db:migrate
 
 echo "[questhub] Iniciando API + Web (um terminal só)..."
 echo "Dica: para parar, pressione Ctrl+C"
 echo "[questhub] Web vai subir em: http://localhost:${VITE_PORT}"
 
-# Usa concurrently via npx (sem precisar instalar globalmente)
-npx concurrently -k -n api,web -c blue,green \
-  "npm run dev -w apps/api" \
-  "npm run dev -w apps/web -- --port ${VITE_PORT}"
+# Usa concurrently instalado no package.json raiz
+npm exec concurrently -- -k -n api,web -c blue,green \
+  "npm run dev:api" \
+  "npm run dev:web -- --port ${VITE_PORT}"

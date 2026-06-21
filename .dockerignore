@@ -1,9 +1,42 @@
-node_modules
-**/node_modules
-dist
-**/dist
-.next
-.git
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output and caches
+dist/
+**/dist/
+.vite/
+**/.vite/
+.turbo/
+.next/
+coverage/
+**/coverage/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VCS and editor files
+.git/
+.gitignore
+.dockerignore
 .DS_Store
-npm-debug.log
-pnpm-debug.log
+Thumbs.db
+.idea/
+.vscode/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+cookie.txt

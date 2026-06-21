@@ -1,30 +1,46 @@
-# deps
+# Dependencies
 node_modules/
 **/node_modules/
 
-# logs
+# Build output and caches
+dist/
+**/dist/
+.vite/
+**/.vite/
+.turbo/
+.next/
+coverage/
+**/coverage/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+logs/
+*.log
 npm-debug.log*
 pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env
-.env
-.env.*
-!.env.example
-
-# build
-dist/
-**/dist/
-.vite/
-**/.vite/
-
-# misc
+# OS and editor files
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 *.local
 
-# docker / temp
-a.txt
-b.txt
+# Temporary files
+tmp/
+temp/
+*.tmp
 cookie.txt
-cmd.exe
