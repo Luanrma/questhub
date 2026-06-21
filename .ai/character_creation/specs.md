@@ -32,7 +32,6 @@ model Character {
   userId    String
   name      String
   avatarUrl String?
-  bio       String?
   system    GameSystem?
   sheet     Json?
   deletedAt DateTime?
@@ -68,6 +67,7 @@ Nao existe tabela ou enum `CharacterStatus` no MVP.
 {
   "name": "Aragorn",
   "avatarUrl": "https://example.com/avatar.png",
+  "system": "PATHFINDER_2E",
   "bio": "Guardiao do norte."
 }
 ```
@@ -75,8 +75,8 @@ Nao existe tabela ou enum `CharacterStatus` no MVP.
 Regras:
 * `name` e obrigatorio e nao pode ser vazio.
 * `avatarUrl` e opcional.
-* `bio` e opcional e limitada a 2.000 caracteres.
-* `system` e opcional e normalmente definido pelo modulo de ficha ou herdado da campanha.
+* `bio` e opcional, limitada a 2.000 caracteres e salva em `sheet.metadata.bio`.
+* `system` e obrigatorio no fluxo novo de criacao e define o modulo da ficha.
 * Nomes podem repetir.
 
 ### Criar campanha com personagem MASTER
@@ -148,9 +148,9 @@ Regras:
 
 ## 5. Permissoes
 * Usuario autenticado pode criar personagem livre para si.
-* Dono pode editar nome, avatar e bio de personagem livre.
-* Dono de personagem vinculado pode editar avatar e bio, mas nao nome.
-* Mestre ativo pode editar nome, avatar e bio de personagens vinculados a sua campanha.
+* Dono pode editar nome, avatar e bio da ficha de personagem livre.
+* Dono de personagem vinculado pode editar avatar e bio da ficha, mas nao nome.
+* Mestre ativo pode editar nome, avatar e bio da ficha de personagens vinculados a sua campanha.
 * Mestre ativo pode aprovar/rejeitar `CampaignCharacter` pendente da sua campanha.
 * Mestre ativo pode marcar personagem vinculado como `LEFT` ou `DEAD`.
 * Personagem vinculado nao deve ser deletado fisicamente pelo fluxo comum.
@@ -158,10 +158,10 @@ Regras:
 
 ## 6. Compatibilidade de Sistema
 * `Campaign.system` e obrigatorio.
-* `Character.system` e opcional.
-* `Character.sheet` e opcional.
+* `Character.system` e obrigatorio para personagens criados no fluxo novo.
+* `Character.sheet` e criada junto com o personagem no fluxo novo.
 * Se `Character.sheet` existir, `Character.system` deve existir.
-* Ao vincular, personagem sem ficha pode receber `Character.system = Campaign.system`.
+* Ao vincular, personagem sem ficha pode receber `Character.system = Campaign.system` e uma ficha padrao do modulo.
 * Ao vincular, personagem com sistema diferente da campanha deve bloquear o fluxo.
 * Em incompatibilidade, a UI deve oferecer apagar a ficha atual com alerta ou duplicar o personagem sem ficha.
 
@@ -169,7 +169,7 @@ Regras:
 * Criar personagem livre sem campanha deve ser permitido.
 * Nao e possivel criar personagem sem usuario autenticado.
 * Nao e possivel criar personagem com nome vazio.
-* Nao e possivel salvar bio com mais de 2.000 caracteres.
+* Nao e possivel salvar `sheet.metadata.bio` com mais de 2.000 caracteres.
 * Nao e possivel vincular personagem arquivado.
 * Nao e possivel vincular personagem que ja possui `CampaignCharacter`.
 * Nao e possivel criar campanha sem personagem `MASTER`.
@@ -187,9 +187,9 @@ Regras:
 
 ## 9. Edicao de Personagem
 * `GET /api/characters/:characterId` retorna um personagem do usuario autenticado.
-* `PATCH /api/characters/:characterId` atualiza nome, avatar e bio conforme permissao.
-* Personagem livre permite editar nome, avatar e bio.
-* Personagem vinculado permite ao dono editar avatar e bio; nome fica bloqueado.
+* `PATCH /api/characters/:characterId` atualiza nome, avatar e `sheet.metadata.bio` conforme permissao.
+* Personagem livre permite editar nome, avatar e bio da ficha.
+* Personagem vinculado permite ao dono editar avatar e bio da ficha; nome fica bloqueado.
 * O botao principal em modo edicao deve exibir `Salvar mudancas`.
 * O botao `Salvar mudancas` so fica habilitado quando houver alteracao real em relacao aos dados carregados.
 * A escolha de avatar nao deve ocupar uma segunda secao do formulario.

@@ -1,7 +1,9 @@
 import type { FastifyInstance } from 'fastify'
+import type { Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
+import { buildDefaultCharacterSheetEnvelope, getCharacterSheetMetadata, withCharacterSheetMetadataFromUnknown } from '../character_sheet'
 import { presentCharacter } from './presenter'
 import { createCharacterSchema, updateCharacterSchema } from './validation'
 
@@ -18,22 +20,25 @@ export function registerCharacterRoutes(app: FastifyInstance) {
         userId: payload.id,
         name: parsed.data.name,
         avatarUrl: parsed.data.avatarUrl?.trim() || null,
-        bio: parsed.data.bio?.trim() || null,
+        system: parsed.data.system,
+        sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system, {
+          bio: parsed.data.bio?.trim() || null,
+        }) as unknown as Prisma.InputJsonValue,
       },
       select: {
         id: true,
         userId: true,
         name: true,
         avatarUrl: true,
-        bio: true,
         system: true,
+        sheet: true,
         deletedAt: true,
         createdAt: true,
         updatedAt: true,
       },
     })
 
-    return reply.status(201).send(character)
+    return reply.status(201).send(presentCharacter({ ...character, campaigns: [] }))
   })
 
   app.get('/api/characters/:characterId', async (req, reply) => {
@@ -57,7 +62,6 @@ export function registerCharacterRoutes(app: FastifyInstance) {
         id: true,
         name: true,
         avatarUrl: true,
-        bio: true,
         system: true,
         sheet: true,
         createdAt: true,
@@ -101,6 +105,8 @@ export function registerCharacterRoutes(app: FastifyInstance) {
       select: {
         id: true,
         name: true,
+        system: true,
+        sheet: true,
         campaigns: { select: { id: true } },
       },
     })
@@ -112,18 +118,33 @@ export function registerCharacterRoutes(app: FastifyInstance) {
       return reply.status(403).send({ error: 'Nome de personagem vinculado nao pode ser alterado pelo jogador' })
     }
 
+    const requestedBio = body.data.bio?.trim() || null
+    const targetSystem = character.system ?? body.data.system
+    const metadata = getCharacterSheetMetadata(character.sheet)
+    const nextSheet =
+      body.data.bio === undefined
+        ? undefined
+        : character.sheet
+          ? withCharacterSheetMetadataFromUnknown(character.sheet, {
+              ...(metadata ?? {}),
+              bio: requestedBio,
+            })
+          : targetSystem
+            ? buildDefaultCharacterSheetEnvelope(targetSystem, { bio: requestedBio })
+            : undefined
+
     const updated = await prisma.character.update({
       where: { id: character.id },
       data: {
         ...(body.data.name !== undefined && !isLinked ? { name: body.data.name } : {}),
+        ...(!character.system && targetSystem ? { system: targetSystem } : {}),
         ...(body.data.avatarUrl !== undefined ? { avatarUrl: body.data.avatarUrl?.trim() || null } : {}),
-        ...(body.data.bio !== undefined ? { bio: body.data.bio?.trim() || null } : {}),
+        ...(nextSheet ? { sheet: nextSheet as unknown as Prisma.InputJsonValue } : {}),
       },
       select: {
         id: true,
         name: true,
         avatarUrl: true,
-        bio: true,
         system: true,
         sheet: true,
         createdAt: true,
@@ -152,7 +173,6 @@ export function registerCharacterRoutes(app: FastifyInstance) {
         id: true,
         name: true,
         avatarUrl: true,
-        bio: true,
         system: true,
         sheet: true,
         createdAt: true,

@@ -1,67 +1,91 @@
 # Modulo: Ficha de Personagem (Specs & Contracts)
 
 ## 1. Responsabilidade
-Definir contratos comuns para ficha mecanica de um `Character` existente.
+Definir o contrato base para persistir e validar uma ficha mecanica de um `Character` existente.
 
-Este modulo nao cria `Character` e nao cria `CampaignCharacter`. Ele persiste dados mecanicos em `Character.sheet` e define/valida `Character.system` conforme o sistema da ficha.
+Este modulo nao cria `Character`, nao cria vinculo de campanha e nao define campos de sistemas de RPG. Ele valida o envelope comum e delega o conteudo interno para o submodulo responsavel pelo sistema informado.
 
-## 2. Sistemas
+## 2. Envelope Comum
 
-```prisma
-enum GameSystem {
-  DND_5E
-  PATHFINDER_2E
+```ts
+type CharacterSheetEnvelope = {
+  system: string
+  version: number
+  metadata?: CharacterSheetMetadata
+  data: Record<string, unknown>
+}
+
+type CharacterSheetMetadata = {
+  bio?: string | null
 }
 ```
 
-`GameSystem` e compartilhado entre campanha, personagem e ficha.
-
-## 3. Contrato Comum de Persistencia
+Exemplo generico:
 
 ```json
 {
-  "system": "DND_5E",
+  "system": "SYSTEM_IDENTIFIER",
   "version": 1,
+  "metadata": {
+    "bio": "Narrativa curta do personagem."
+  },
   "data": {
-    "identity": {
-      "race": "Human",
-      "class": "Ranger",
-      "background": "Outlander",
-      "level": 3
-    }
+    "systemDataKey": {}
   }
 }
 ```
 
 Regras:
-* `system` e obrigatorio ao criar ficha.
-* `Character.system` deve ser atualizado para o mesmo valor de `system`.
-* `Character.sheet` armazena o JSON validado pelo contrato comum e, no futuro, pelo modulo especifico do sistema.
+* `system` e obrigatorio.
+* `version` e obrigatorio e deve ser inteiro positivo.
+* `data` e obrigatorio.
+* `metadata` e opcional.
+* `metadata.bio`, quando informado, e texto livre generico da ficha e nao pertence a nenhum sistema especifico.
+* Cada sistema deve possuir um bloco proprio dentro de `data`.
+* O nome do bloco de sistema deve ser definido pelo submodulo responsavel.
+* `Character.system` deve ser atualizado para o mesmo valor de `sheet.system`.
 * Se `Character.sheet` existir, `Character.system` nao deve ser `null`.
+* `Character` nao deve possuir campo `bio`; bio pertence exclusivamente a `sheet.metadata.bio`.
 
-## 4. Compatibilidade com Campanha
-* `Campaign.system` e obrigatorio.
-* `Character.system` pode ser `null` quando nao ha ficha.
-* Personagem sem ficha pode herdar `Campaign.system` ao entrar na campanha.
-* Personagem com ficha so pode entrar em campanha com o mesmo `GameSystem`.
-* Personagem com ficha incompativel deve bloquear a entrada ate o usuario escolher apagar ficha ou duplicar personagem sem ficha.
+## 3. Compatibilidade Com Campanha
+* Campanha pode exigir um sistema.
+* Personagem sem ficha pode receber ficha depois, conforme o fluxo de personagem/campanha.
+* Personagem com ficha so pode ser vinculado a campanha compativel com `sheet.system`.
+* Incompatibilidade de sistema deve bloquear o fluxo ate que uma acao explicita seja escolhida pelo usuario.
 
-## 5. Modulos Especificos
-* `dnd_5e_sheet`: regras especificas futuras de D&D 5e.
-* `pathfinder_2e_sheet`: regras especificas futuras de Pathfinder 2e.
+## 4. Contrato De Extensao Para Submodulos
+Submodulos de sistema devem declarar:
+* `system`: identificador persistido no envelope.
+* `dataKey`: chave usada dentro de `data`.
+* `version`: versao atual do schema do sistema.
+* `defaultSheet`: objeto inicial para nova ficha.
+* `schema`: validador do bloco de dados do sistema.
+* `labels`: textos de UI, quando aplicavel.
 
-O modulo `character_sheet` define o ciclo de vida e o contrato comum; os modulos especificos validam campos, limites, calculos e derivacoes.
+Fluxo de validacao:
+1. Validar envelope comum.
+2. Localizar adaptador pelo `system`.
+3. Validar existencia de `data[dataKey]`.
+4. Delegar validacao do bloco para o submodulo.
+5. Persistir envelope completo em `Character.sheet`.
 
-## 6. Criterios de Aceitacao
-* A ficha nao pode ser salva para personagem inexistente.
-* A ficha nao pode ser salva sem `system`.
-* O backend deve validar o contrato comum antes de persistir.
-* Ao salvar ficha, `Character.system` e `Character.sheet` devem permanecer coerentes.
-* Alteracoes em campos base devem recalcular derivados no frontend quando as regras especificas existirem.
-* O backend deve validar novamente os dados recebidos antes de persistir.
+## 5. Criterios De Aceitacao
+* Ficha nao pode ser salva para personagem inexistente.
+* Ficha nao pode ser salva sem `system`.
+* Ficha nao pode ser salva sem `version`.
+* Ficha nao pode ser salva sem `data`.
+* `metadata.bio`, quando informado, deve respeitar o limite de tamanho definido pelo modulo base.
+* Ficha nao pode ser salva se o sistema informado nao possuir adaptador registrado.
+* Ficha nao pode ser salva se o bloco esperado do sistema estiver ausente.
+* Ao salvar ficha, `Character.system` e `Character.sheet.system` devem permanecer coerentes.
+* O modulo base nao deve conter campos, limites ou formulas de sistemas especificos.
+* A UI de ficha deve abrir em modal sobre a tela atual.
+* O modal de ficha deve ser arrastavel por uma area de cabecalho.
+* O modal deve poder ser arrastado dentro de toda a area util da viewport, respeitando apenas margens para nao sair totalmente da tela.
+* O modal de ficha deve ter paginacao interna para reduzir ocupacao de tela.
+* O mesmo componente visual deve ser reutilizavel no VTT para consultar/editar ficha sem sair do tabuleiro.
 
-## 7. Decisoes Pendentes
-* Campos mecanicos reais de D&D 5e.
-* Campos mecanicos reais de Pathfinder 2e.
-* Forma de distribuicao de atributos por sistema.
-* Se derivados serao persistidos ou calculados sob demanda.
+## 6. Decisoes Pendentes
+* Onde ficara o registro compartilhado de adaptadores no codigo.
+* Como versionar migracoes de ficha por sistema.
+* Como apresentar incompatibilidade de sistema na UI final.

@@ -1,38 +1,54 @@
 # Modulo: Ficha de Personagem (Product)
 
 ## 1. Proposito
-Fornecer uma experiencia para criar, editar, validar e visualizar a ficha mecanica de um personagem.
+Fornecer a base de produto para criar, editar, validar e visualizar a ficha mecanica associada a um `Character` existente.
 
-O modulo `character_creation` cria e vincula personagens. Este modulo cuida da ficha mecanica associada a um `Character` existente, incluindo o sistema escolhido e os dados de jogo.
+Este modulo nao define regras de nenhum sistema de RPG. Ele define apenas o ciclo de vida comum da ficha, o envelope de persistencia, a compatibilidade entre personagem/campanha e o ponto de extensao para modulos de sistema.
 
-## 2. Personas
-* **Jogador:** Preenche e atualiza a ficha mecanica do proprio personagem.
-* **Mestre/GM:** Revisa fichas de personagens vinculados a sua campanha, consulta dados mecanicos e cria fichas de NPCs.
+## 2. Papel Arquitetural
+`character_sheet` e o modulo base de fichas. Ele existe para que qualquer sistema de RPG possa plugar seu proprio formato sem espalhar regras especificas pelo produto.
 
-## 3. Sistemas Suportados no MVP
-* `DND_5E`
-* `PATHFINDER_2E`
+Tudo que depender de um sistema especifico deve ficar em um submodulo dentro de `character_sheet`.
 
-No MVP, os sistemas existem como enum/placeholder para selecao e compatibilidade. As regras mecanicas completas entram em modulos especificos posteriores.
+Estrutura esperada:
 
-## 4. Modelo de Produto
-* Personagem pode existir sem ficha e sem sistema.
-* Personagem pode receber ficha antes de entrar em campanha.
-* Campanha possui sistema obrigatorio.
-* Personagem com ficha so pode entrar em campanha compativel.
-* Personagem sem ficha pode herdar o sistema da campanha ao ser vinculado.
-* Se houver incompatibilidade, o usuario pode apagar definitivamente a ficha atual com alerta ou duplicar o personagem sem ficha.
+```text
+.ai/character_sheet/
+  readme.md
+  skills.md
+  specs.md
+  <system_sheet>/
+    readme.md
+    skills.md
+    specs.md
+```
 
-## 5. Escopo Futuro
-* Definir identidade mecanica como raca, classe, background e nivel.
-* Distribuir e validar atributos.
-* Calcular modificadores e estatisticas derivadas.
-* Controlar HP, defesa, iniciativa, pericias, inventario e recursos.
-* Aplicar regras configuradas por campanha ou sistema de RPG.
-* Encaminhar validacoes especificas para `dnd_5e_sheet` e `pathfinder_2e_sheet`.
+## 3. Personas
+* **Jogador:** Preenche, consulta e atualiza a ficha do proprio personagem.
+* **Mestre/GM:** Revisa fichas de personagens vinculados a sua campanha e consulta dados mecanicos durante a mesa.
 
-## 6. Fora de Escopo
+## 4. Modelo de Produto Base
+* Personagem pode existir sem ficha.
+* Personagem pode receber ficha antes ou depois de entrar em campanha.
+* Campanha pode definir um sistema obrigatorio.
+* Personagem com ficha so pode entrar em campanha compativel com o mesmo sistema.
+* Personagem sem ficha pode herdar o sistema da campanha ao ser vinculado, se o fluxo de campanha exigir isso.
+* Ficha incompativel com campanha deve bloquear o vinculo ate que o usuario escolha uma acao explicita definida pelo fluxo de personagem/campanha.
+
+## 5. Escopo Do Modulo Base
+* Definir ciclo de vida da ficha.
+* Definir envelope comum de persistencia.
+* Definir metadados narrativos genericos da ficha, como `bio`, quando nao dependerem de um sistema de RPG.
+* Definir compatibilidade entre ficha, personagem e campanha.
+* Definir registro/roteamento para validadores de sistema.
+* Fornecer uma experiencia de ficha reutilizavel em modal, sem abrir nova pagina ou janela.
+* Garantir que cada sistema tenha um bloco de dados proprio dentro do envelope.
+* Garantir que campos especificos nao vazem para o modulo base.
+
+## 6. Fora De Escopo
 * Criacao da entidade `Character`.
-* Vinculo personagem-campanha (`CampaignCharacter`).
-* Controle de entrada em campanha.
+* Vinculo personagem-campanha.
+* Regras mecanicas de sistemas de RPG.
+* Campos de ficha de sistemas especificos.
+* Calculos de atributos, proficiencias, pontos de vida, defesa, magias, pericias, inventario ou acoes.
 * Presenca online e token no tabuleiro.

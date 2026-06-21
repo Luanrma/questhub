@@ -1,0 +1,46 @@
+{
+  "identity": {
+    "level": 1,
+    "ancestry": "",
+    "heritage": "",
+    "background": "",
+    "className": ""
+  },
+  "attributes": {
+    "strength": 10,
+    "dexterity": 10,
+    "constitution": 10,
+    "intelligence": 10,
+    "wisdom": 10,
+    "charisma": 10
+  },
+  "hitPoints": {
+    "maximum": 0,
+    "current": 0,
+    "temporary": 0,
+    "wounded": 0,
+    "dying": 0,
+    "doomed": 0
+  },
+  "armorClass": 10,
+  "initiative": 0,
+  "perception": {
+    "rank": 0,
+    "value": 0
+  },
+  "savingThrows": {
+    "fortitude": {
+      "rank": 0,
+      "value": 0
+    },
+    "reflex": {
+      "rank": 0,
+      "value": 0
+    },
+    "will": {
+      "rank": 0,
+      "value": 0
+    }
+  },
+  "notes": ""
+}

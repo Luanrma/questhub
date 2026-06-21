@@ -26,7 +26,7 @@
 * `campaign`: criacao de campanha exige sistema e personagem `MASTER`.
 * `login`: usuario autenticado define ownership do `Character`.
 * `character_sheet`: define `Character.system` e `Character.sheet` quando houver ficha.
-* `dnd_5e_sheet` e `pathfinder_2e_sheet`: validadores especificos futuros.
+* `character_sheet/dnd_5e_sheet` e `character_sheet/pathfinder_2e_sheet`: validadores especificos futuros.
 * `canvas` ou `vtt`: deve consumir apenas `CampaignCharacter` com status `ACTIVE`.
 
 ## 5. Regras Tecnicas Importantes

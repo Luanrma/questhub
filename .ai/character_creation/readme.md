@@ -5,14 +5,14 @@ Fornecer uma experiencia para criar, listar, editar, arquivar, deletar e vincula
 
 O personagem pertence primeiro ao usuario que o criou. Ele pode existir sem campanha como personagem livre. O vinculo com uma campanha acontece por meio de `CampaignCharacter`, que define papel, status e historico daquele personagem dentro da campanha.
 
-Este modulo nao implementa regras mecanicas completas de ficha. Dados como atributos, classe, HP, pericias, inventario e formulas pertencem ao modulo `character_sheet` e aos modulos especificos de sistema.
+Este modulo nao implementa regras mecanicas completas de ficha. Dados como atributos, classe, HP, pericias, inventario e formulas pertencem ao modulo `character_sheet` e aos seus submodulos especificos de sistema.
 
 ## 2. Personas
 * **Jogador:** Cria e gerencia seus proprios personagens livres ou ja vinculados.
 * **Mestre/GM:** Cria campanha selecionando ou criando um personagem livre para atuar como `MASTER`; gerencia personagens vinculados a sua campanha; cria NPCs dentro da campanha.
 
 ## 3. Conceitos de Produto
-* **Character:** entidade base controlada por um usuario. Possui nome, avatar opcional, bio opcional, ficha opcional e sistema opcional.
+* **Character:** entidade base controlada por um usuario. Possui nome, avatar opcional, ficha opcional e sistema opcional. Bio pertence a metadata da ficha.
 * **Personagem livre:** `Character` sem registro em `CampaignCharacter` e sem `deletedAt`.
 * **CampaignCharacter:** vinculo permanente entre um personagem e uma campanha.
 * **Role de campanha:** `MASTER`, `PLAYER` ou `NPC`, sempre no vinculo `CampaignCharacter`, nunca no personagem livre.
@@ -21,7 +21,7 @@ Este modulo nao implementa regras mecanicas completas de ficha. Dados como atrib
 ## 4. Escopo do Modulo
 Incluido:
 * Criar personagem livre com nome obrigatorio.
-* Editar nome, avatar e bio de personagem livre.
+* Editar nome, avatar e bio da ficha de personagem livre.
 * Listar "Meus Personagens" em abas ou filtros: livres e em campanha.
 * Exibir secao compacta de personagens no dashboard inicial.
 * Arquivar personagem livre usando `deletedAt`.
@@ -48,14 +48,14 @@ Fora de escopo:
 * Uma campanha tem apenas um `MASTER` ativo.
 * Um usuario pode mestrar varias campanhas se usar personagens livres diferentes.
 * Nome de personagem pode repetir entre personagens do mesmo usuario e dentro da mesma campanha.
-* Bio e avatar sao opcionais.
-* Bio e visivel apenas para dono do personagem e mestre da campanha.
+* Bio da ficha e avatar sao opcionais.
+* Bio da ficha e visivel apenas para dono do personagem e mestre da campanha.
 * Avatar e armazenado como uma unica URL em `Character.avatarUrl`; pode apontar para asset interno ou URL externa.
-* Bio tem limite de 2.000 caracteres.
-* Jogador pode editar avatar e bio de personagem vinculado; nome fica bloqueado para ele.
+* Bio da ficha tem limite de 2.000 caracteres.
+* Jogador pode editar avatar e bio da ficha de personagem vinculado; nome fica bloqueado para ele.
 * A tela de edicao reutiliza a experiencia de criacao, mas troca o comando principal para `Salvar mudancas`.
 * A selecao de avatar acontece a partir do preview do avatar, por modal compacto com presets e URL.
-* Mestre pode editar nome, avatar e bio de personagens vinculados a sua campanha.
+* Mestre pode editar nome, avatar e bio da ficha de personagens vinculados a sua campanha.
 * Personagem vinculado nao pode ser deletado definitivamente pelo fluxo comum.
 * Morte ou saida da campanha muda apenas `CampaignCharacter.status` para `DEAD` ou `LEFT`.
 * NPC usa `Character` e `CampaignCharacter`, mas so pode ser criado dentro de uma campanha pelo `MASTER`.
@@ -71,6 +71,6 @@ Fora de escopo:
 * `campaign`: define campanha, politica de entrada, sistema obrigatorio e fluxo de criacao com personagem `MASTER`.
 * `login`: identifica o usuario dono ou criador do personagem.
 * `character_sheet`: guarda e valida a ficha mecanica do personagem.
-* `dnd_5e_sheet`: regras especificas futuras de D&D 5e.
-* `pathfinder_2e_sheet`: regras especificas futuras de Pathfinder 2e.
+* `character_sheet/dnd_5e_sheet`: regras especificas futuras de D&D 5e.
+* `character_sheet/pathfinder_2e_sheet`: regras especificas futuras de Pathfinder 2e.
 * `canvas` ou `vtt`: consome personagens ativos da campanha para representacao no tabuleiro.

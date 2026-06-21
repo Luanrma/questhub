@@ -1,8 +1,9 @@
+import { getCharacterSheetBio } from '../character_sheet'
+
 export type CharacterForPresentation = {
   id: string
   name: string
   avatarUrl: string | null
-  bio: string | null
   system: unknown
   sheet: unknown
   createdAt: Date
@@ -11,12 +12,15 @@ export type CharacterForPresentation = {
 }
 
 export function presentCharacter(character: CharacterForPresentation) {
+  const bio = getCharacterSheetBio(character.sheet)
+
   return {
     id: character.id,
     name: character.name,
     avatarUrl: character.avatarUrl,
-    bio: character.bio,
+    bio,
     system: character.system,
+    sheet: character.sheet,
     createdAt: character.createdAt,
     ...(character.updatedAt ? { updatedAt: character.updatedAt } : {}),
     campaigns: character.campaigns,

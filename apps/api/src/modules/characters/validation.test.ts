@@ -14,11 +14,12 @@ test('avatarUrlSchema rejects unsupported URLs and arbitrary text', () => {
 })
 
 test('createCharacterSchema requires a non-empty name and limits bio', () => {
-  assert.equal(createCharacterSchema.safeParse({ name: '  ' }).success, false)
-  assert.equal(createCharacterSchema.safeParse({ name: 'A', bio: 'x'.repeat(2001) }).success, false)
+  assert.equal(createCharacterSchema.safeParse({ name: '  ', system: 'PATHFINDER_2E' }).success, false)
+  assert.equal(createCharacterSchema.safeParse({ name: 'A', system: 'PATHFINDER_2E', bio: 'x'.repeat(2001) }).success, false)
 
   const parsed = createCharacterSchema.safeParse({
     name: '  Arion  ',
+    system: 'PATHFINDER_2E',
     avatarUrl: '/avatars/hooded-ranger.svg',
     bio: 'Guardiao do norte.',
   })
@@ -30,6 +31,7 @@ test('createCharacterSchema requires a non-empty name and limits bio', () => {
 test('createCharacterSchema allows nullable optional fields from the form', () => {
   const parsed = createCharacterSchema.safeParse({
     name: 'Arion',
+    system: 'PATHFINDER_2E',
     avatarUrl: null,
     bio: null,
   })
@@ -37,8 +39,15 @@ test('createCharacterSchema allows nullable optional fields from the form', () =
   assert.equal(parsed.success, true)
 })
 
+test('createCharacterSchema requires the implemented character sheet module', () => {
+  assert.equal(createCharacterSchema.safeParse({ name: 'Arion' }).success, false)
+  assert.equal(createCharacterSchema.safeParse({ name: 'Arion', system: 'DND_5E' }).success, false)
+  assert.equal(createCharacterSchema.safeParse({ name: 'Arion', system: 'PATHFINDER_2E' }).success, true)
+})
+
 test('updateCharacterSchema allows nullable avatar and bio', () => {
   const parsed = updateCharacterSchema.safeParse({
+    system: 'PATHFINDER_2E',
     avatarUrl: null,
     bio: null,
   })

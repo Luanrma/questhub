@@ -30,7 +30,7 @@ export function CampaignCreatePage() {
   const [characters, setCharacters] = useState<CharacterOption[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [system, setSystem] = useState<GameSystem>('DND_5E')
+  const [system, setSystem] = useState<GameSystem>('PATHFINDER_2E')
   const [joinPolicy, setJoinPolicy] = useState<JoinPolicy>('PUBLIC')
   const [masterMode, setMasterMode] = useState<MasterMode>('existing')
   const [masterCharacterId, setMasterCharacterId] = useState('')
@@ -40,8 +40,8 @@ export function CampaignCreatePage() {
   const submittingRef = useRef(false)
 
   const availableCharacters = useMemo(() => {
-    return characters.filter((character) => character.available)
-  }, [characters])
+    return characters.filter((character) => character.available && (!character.system || character.system === system))
+  }, [characters, system])
 
   const selectedCharacter = availableCharacters.find((character) => character.id === masterCharacterId)
   const hasExistingCharacters = availableCharacters.length > 0
@@ -60,7 +60,7 @@ export function CampaignCreatePage() {
         if (cancelled) return
 
         setCharacters(list)
-        const firstAvailable = list.find((character) => character.available)
+        const firstAvailable = list.find((character) => character.available && (!character.system || character.system === 'PATHFINDER_2E'))
         if (firstAvailable) {
           setMasterMode('existing')
           setMasterCharacterId(firstAvailable.id)
@@ -163,7 +163,6 @@ export function CampaignCreatePage() {
                 onChange={(event) => setSystem(event.target.value as GameSystem)}
                 className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
-                <option value="DND_5E">{systemLabels.DND_5E}</option>
                 <option value="PATHFINDER_2E">{systemLabels.PATHFINDER_2E}</option>
               </select>
             </label>

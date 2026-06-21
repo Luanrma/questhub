@@ -5,6 +5,7 @@ import cookiePlugin from '@fastify/cookie'
 import { registerAuthRoutes } from './modules/auth/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
+import { registerCharacterSheetRoutes } from './modules/character_sheet/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
 
@@ -51,6 +52,7 @@ app.get('/api/health', async () => ({ ok: true }))
 
 registerAuthRoutes(app)
 registerCharacterRoutes(app)
+registerCharacterSheetRoutes(app)
 registerCampaignRoutes(app, presence)
 registerTradeRoutes(app, presence.io)
 

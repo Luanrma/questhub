@@ -62,7 +62,6 @@ model Character {
   userId    String
   name      String
   avatarUrl String?
-  bio       String?
   system    GameSystem?
   sheet     Json?
   deletedAt DateTime?

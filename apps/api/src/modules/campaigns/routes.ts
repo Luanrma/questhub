@@ -1,8 +1,10 @@
 import type { FastifyInstance } from 'fastify'
+import type { Prisma } from '@prisma/client'
 import type { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
+import { buildDefaultCharacterSheetEnvelope } from '../character_sheet'
 import { generateInviteCode } from './invite-code'
 
 type CampaignRoutesDeps = {
@@ -123,7 +125,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: z.string().trim().min(1, 'Titulo e obrigatorio'),
       description: z.string().optional(),
       joinPolicy: z.enum(['PUBLIC', 'PRIVATE']).default('PUBLIC'),
-      system: z.enum(['DND_5E', 'PATHFINDER_2E']),
+      system: z.enum(['PATHFINDER_2E']),
       masterCharacterId: z.string().optional(),
       masterCharacterName: z.string().trim().min(1).max(80).optional(),
     })
@@ -164,6 +166,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
               userId: payload.id,
               name: parsed.data.masterCharacterName ?? 'Mestre',
               system: parsed.data.system,
+              sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system) as unknown as Prisma.InputJsonValue,
             },
             select: {
               id: true,
@@ -177,10 +180,15 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           })
         }
 
-        if (!masterCharacter.system) {
+        if (!masterCharacter.system || !masterCharacter.sheet) {
           masterCharacter = await tx.character.update({
             where: { id: masterCharacter.id },
-            data: { system: parsed.data.system },
+            data: {
+              system: parsed.data.system,
+              ...(!masterCharacter.sheet
+                ? { sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system) as unknown as Prisma.InputJsonValue }
+                : {}),
+            },
             select: {
               id: true,
               userId: true,
@@ -288,6 +296,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
                 userId: true,
                 name: true,
                 system: true,
+                sheet: true,
                 deletedAt: true,
                 campaigns: { select: { id: true } },
               },
@@ -306,27 +315,35 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
               userId: payload.id,
               name: parsed.data.characterName,
               system: campaign.system,
+              sheet: buildDefaultCharacterSheetEnvelope(campaign.system) as unknown as Prisma.InputJsonValue,
             },
             select: {
               id: true,
               userId: true,
               name: true,
               system: true,
+              sheet: true,
               deletedAt: true,
               campaigns: { select: { id: true } },
             },
           })
         }
 
-        if (!character.system) {
+        if (!character.system || !character.sheet) {
           character = await tx.character.update({
             where: { id: character.id },
-            data: { system: campaign.system },
+            data: {
+              system: campaign.system,
+              ...(!character.sheet
+                ? { sheet: buildDefaultCharacterSheetEnvelope(campaign.system) as unknown as Prisma.InputJsonValue }
+                : {}),
+            },
             select: {
               id: true,
               userId: true,
               name: true,
               system: true,
+              sheet: true,
               deletedAt: true,
               campaigns: { select: { id: true } },
             },
