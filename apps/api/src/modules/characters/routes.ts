@@ -17,8 +17,8 @@ export function registerCharacterRoutes(app: FastifyInstance) {
       data: {
         userId: payload.id,
         name: parsed.data.name,
-        avatarUrl: parsed.data.avatarUrl || null,
-        bio: parsed.data.bio || null,
+        avatarUrl: parsed.data.avatarUrl?.trim() || null,
+        bio: parsed.data.bio?.trim() || null,
       },
       select: {
         id: true,

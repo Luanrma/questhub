@@ -7,7 +7,7 @@ No QuestHub, a campanha nao possui um "membro usuario" como vinculo operacional 
 
 ## 2. Personas
 * **Mestre/GM:** Cria campanha, escolhe o sistema, define se a entrada e publica ou privada e seleciona/cria o personagem `MASTER`.
-* **Jogador:** Visualiza campanhas onde possui um personagem ativo e entra quando o mestre estiver online.
+* **Jogador:** Visualiza campanhas onde possui personagem ativo ou solicitacao pendente. Pode entrar/solicitar vinculo por invite code mesmo que a mesa esteja offline; para abrir a mesa de jogo como jogador, o mestre precisa estar online.
 
 ## 3. Escopo do Modulo
 Incluido:
@@ -18,7 +18,10 @@ Incluido:
 * Selecionar um personagem livre existente para ser `MASTER`.
 * Criar um novo personagem mestre durante o fluxo de criacao.
 * Criar automaticamente o vinculo `CampaignCharacter` do mestre com role `MASTER`, status `ACTIVE` e `joinedAt`.
-* Listar campanhas acessiveis ao usuario por meio dos personagens ativos dele.
+* Listar campanhas acessiveis ao usuario por meio dos personagens ativos ou solicitacoes pendentes dele.
+* Buscar campanha por invite code antes de confirmar entrada.
+* Notificar o mestre em tempo real quando um jogador solicitar entrada em campanha privada.
+* Notificar o mestre em tempo real quando um novo jogador entrar em campanha publica.
 
 Fora de escopo:
 * Criar ou editar ficha mecanica completa.
@@ -35,6 +38,8 @@ Fora de escopo:
 * Um personagem com sistema diferente da campanha nao pode ser usado como `MASTER`.
 * O campo historico `createdByUserId` registra quem criou a campanha, mas permissoes operacionais devem vir do `CampaignCharacter` com role `MASTER`.
 * `Campaign.gmName` nao existe no modelo novo; o nome publico do mestre vem do `Character.name`.
+* Em campanha privada, usar invite code cria uma solicitacao pendente e deve aparecer para o jogador na lista de campanhas como `PENDING`.
+* Em campanha publica, usar invite code cria entrada ativa e deve notificar o mestre em tempo real.
 
 ## 5. Relacao com Outros Modulos
 * `character_creation`: fornece personagens livres e cria/vincula o personagem `MASTER`.

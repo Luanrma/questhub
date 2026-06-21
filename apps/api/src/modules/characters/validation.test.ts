@@ -27,6 +27,16 @@ test('createCharacterSchema requires a non-empty name and limits bio', () => {
   if (parsed.success) assert.equal(parsed.data.name, 'Arion')
 })
 
+test('createCharacterSchema allows nullable optional fields from the form', () => {
+  const parsed = createCharacterSchema.safeParse({
+    name: 'Arion',
+    avatarUrl: null,
+    bio: null,
+  })
+
+  assert.equal(parsed.success, true)
+})
+
 test('updateCharacterSchema allows nullable avatar and bio', () => {
   const parsed = updateCharacterSchema.safeParse({
     avatarUrl: null,

@@ -113,12 +113,14 @@ export function CampaignsDashboardPage() {
                       <span
                         className={[
                           'text-[10px] px-2 py-0.5 rounded-full border',
-                          c.isOnline
+                          c.myStatus === 'PENDING'
+                            ? 'bg-amber-400/10 text-amber-200 border-amber-300/20'
+                            : c.isOnline
                             ? 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20'
                             : 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
                         ].join(' ')}
                       >
-                        {c.isOnline ? 'Online' : 'Offline'}
+                        {c.myStatus === 'PENDING' ? 'Pendente' : c.isOnline ? 'Online' : 'Offline'}
                       </span>
                     </div>
                     <div className="text-xs text-zinc-300 mt-1">Mestre: {c.gmName}</div>
@@ -143,8 +145,12 @@ export function CampaignsDashboardPage() {
 
                     <Button
                       className="px-3 py-1.5 text-xs"
-                      disabled={c.myRole === 'PLAYER' && !c.isOnline}
+                      disabled={c.myStatus === 'PENDING' || (c.myRole === 'PLAYER' && !c.isOnline)}
                       onClick={() => {
+                        if (c.myStatus === 'PENDING') {
+                          alert('Solicitacao pendente. Aguarde o mestre aprovar sua entrada.')
+                          return
+                        }
                         if (c.myRole === 'PLAYER' && !c.isOnline) {
                           alert('Mestre offline. Aguarde ele entrar na campanha.')
                           return
@@ -153,7 +159,7 @@ export function CampaignsDashboardPage() {
                         navigate(`/campaign/${c.id}/overview`)
                       }}
                     >
-                      Entrar
+                      {c.myStatus === 'PENDING' ? 'Aguardando' : 'Entrar'}
                     </Button>
                   </div>
                 </div>

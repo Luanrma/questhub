@@ -15,7 +15,8 @@ O produto prioriza a relacao personagem-campanha: usuarios possuem personagens, 
 * Navegacao inicial: usuario escolhe entre campanhas e personagens.
 * Personagens: usuario cria, lista e edita identidade basica de personagens.
 * Criacao de campanha: usuario define dados da campanha e vincula um personagem `MASTER`.
-* Entrada em campanha: jogador usa invite code e cria ou usa personagem compativel conforme suporte da interface/API.
+* Entrada em campanha: jogador busca uma campanha por invite code, confirma entrada publica ou solicita entrada privada, e cria ou usa personagem compativel conforme suporte da interface/API.
+* Solicitacoes pendentes: jogador ve a campanha pendente em sua lista, e mestre recebe notificacao realtime.
 * Presenca: campanha fica online quando o mestre entra; jogadores sao bloqueados quando o mestre esta offline.
 * Gestao de jogadores: mestre aprova ou recusa solicitacoes pendentes de campanhas privadas.
 

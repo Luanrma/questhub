@@ -1,54 +1,84 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
-import { api } from '../lib/api'
+import { api, ApiError } from '../lib/api'
+
+type FoundCampaign = {
+  id: string
+  title: string
+  description?: string | null
+  inviteCode: string
+  gmName: string
+  gmUserId: string
+  joinPolicy: 'PUBLIC' | 'PRIVATE'
+  createdAt: string
+  isOnline: boolean
+}
 
 export function CampaignJoinPage() {
   const navigate = useNavigate()
-  const { campaigns, loadCampaigns, setActiveCampaignId } = useSession()
+  const { loadCampaigns, setActiveCampaignId } = useSession()
   const [inviteCode, setInviteCode] = useState('')
   const [characterName, setCharacterName] = useState('')
-  const [loading, setLoading] = useState(false)
+  const [foundCampaign, setFoundCampaign] = useState<FoundCampaign | null>(null)
+  const [loadingSearch, setLoadingSearch] = useState(false)
+  const [loadingJoin, setLoadingJoin] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const sorted = useMemo(() => {
-    return [...campaigns].sort((a, b) => (a.createdAt < b.createdAt ? 1 : -1))
-  }, [campaigns])
+  const visibleCampaigns = foundCampaign ? [foundCampaign] : []
 
-  async function onJoin() {
+  async function onSearch() {
     const code = inviteCode.trim().toUpperCase()
     if (!code) return
-    setLoading(true)
+
+    setLoadingSearch(true)
+    setError(null)
+    setFoundCampaign(null)
+
+    try {
+      const campaign = await api<FoundCampaign>(`/api/campaigns/invite/${encodeURIComponent(code)}`)
+      setFoundCampaign(campaign)
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 404) {
+        setError('Campanha nao encontrada. Confira o codigo de convite.')
+        return
+      }
+      setError('Nao foi possivel procurar a campanha agora.')
+    } finally {
+      setLoadingSearch(false)
+    }
+  }
+
+  async function onJoin(campaign: FoundCampaign) {
+    if (!characterName.trim()) {
+      setError('Informe o nome do personagem para continuar.')
+      return
+    }
+
+    setLoadingJoin(true)
+    setError(null)
+
     try {
       const joined = await api<any>('/api/campaigns/join', {
         method: 'POST',
-        body: JSON.stringify({ inviteCode: code, characterName: characterName.trim() || undefined }),
+        body: JSON.stringify({ inviteCode: campaign.inviteCode, characterName: characterName.trim() }),
       })
+
+      await loadCampaigns({ force: true })
+
       if (joined.status === 'PENDING') {
-        alert('Solicitação enviada! Aguarde o mestre aprovar.')
-        await loadCampaigns()
-        navigate('/campaigns', { replace: true })
-        return
-      }
-      if (joined.status === 'REJECTED') {
-        alert('Seu convite foi recusado. Aguarde o mestre liberar seu acesso.')
-        await loadCampaigns()
+        alert('Solicitacao enviada! Aguarde o mestre aprovar.')
         navigate('/campaigns', { replace: true })
         return
       }
 
-      await loadCampaigns()
       setActiveCampaignId(joined.id)
       navigate(`/campaign/${joined.id}/overview`, { replace: true })
-    } catch (err: any) {
-      const msg = (err?.message ?? '').toString()
-      if (msg.includes('Mestre offline') || msg.includes('409')) {
-        alert('Mestre offline. Aguarde ele entrar na campanha para você conseguir entrar.')
-      } else {
-        alert('Não foi possível entrar. Confira o invite code.')
-      }
+    } catch {
+      setError('Nao foi possivel entrar. Confira o codigo e o personagem.')
     } finally {
-      setLoading(false)
+      setLoadingJoin(false)
     }
   }
 
@@ -59,7 +89,7 @@ export function CampaignJoinPage() {
         className="text-sm text-zinc-300 hover:text-white mb-4"
         onClick={() => navigate('/campaigns')}
       >
-        ← Voltar
+        Voltar
       </button>
 
       <div className="rounded-xl border border-white/10 bg-white/5 p-6">
@@ -69,54 +99,90 @@ export function CampaignJoinPage() {
         <div className="mt-6 grid gap-3">
           <input
             value={inviteCode}
-            onChange={(e) => setInviteCode(e.target.value)}
-            placeholder="Código de convite (ex.: ABCD-1234)"
+            onChange={(event) => {
+              setInviteCode(event.target.value)
+              setFoundCampaign(null)
+              setError(null)
+            }}
+            placeholder="Codigo de convite (ex.: ABCD-1234)"
             className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 uppercase"
           />
-          <input
-            value={characterName}
-            onChange={(e) => setCharacterName(e.target.value)}
-            placeholder="Nome do seu personagem (obrigatório)"
-            className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
-          <Button className="w-full" disabled={loading || !inviteCode.trim()} onClick={onJoin}>
-            {loading ? 'Entrando...' : 'Entrar na campanha'}
+          <Button className="w-full" disabled={loadingSearch || !inviteCode.trim()} onClick={onSearch}>
+            {loadingSearch ? 'Procurando...' : 'Procurar campanha'}
           </Button>
         </div>
 
+        {foundCampaign ? (
+          <div className="mt-6 grid gap-3">
+            <input
+              value={characterName}
+              onChange={(event) => setCharacterName(event.target.value)}
+              placeholder="Nome do seu personagem"
+              className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+        ) : null}
+
+        {error ? (
+          <div className="mt-4 rounded-lg border border-red-300/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+            {error}
+          </div>
+        ) : null}
+
         <div className="my-6 flex items-center gap-3">
           <div className="h-px flex-1 bg-white/10" />
-          <div className="text-xs text-zinc-400">ou</div>
+          <div className="text-xs text-zinc-400">resultado</div>
           <div className="h-px flex-1 bg-white/10" />
         </div>
 
-        <h2 className="text-lg font-semibold text-white">Campanhas disponíveis para você</h2>
+        <h2 className="text-lg font-semibold text-white">Campanhas disponiveis para voce</h2>
         <div className="mt-4 grid gap-3">
-          {sorted.length === 0 ? (
+          {visibleCampaigns.length === 0 ? (
             <div className="text-sm text-zinc-400">Nenhuma campanha ainda.</div>
           ) : (
-            sorted.map((c) => (
-              <button
-                key={c.id}
-                type="button"
-                className="w-full text-left rounded-lg border border-white/10 bg-black/20 p-4 hover:bg-black/30 transition"
-                onClick={() => {
-                  setActiveCampaignId(c.id)
-                  navigate(`/campaign/${c.id}/overview`)
-                }}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="text-white font-semibold">{c.title}</div>
-                    <div className="text-xs text-zinc-300 mt-1">Mestre: {c.gmName}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-[10px] text-zinc-400">Role</div>
-                    <div className="text-xs text-zinc-200">{c.myRole === 'MASTER' ? 'Mestre' : 'Convidado'}</div>
+            visibleCampaigns.map((campaign) => {
+              const isFound = foundCampaign?.id === campaign.id
+              const isPrivate = campaign.joinPolicy === 'PRIVATE'
+
+              return (
+                <div key={campaign.id} className="w-full rounded-lg border border-white/10 bg-black/20 p-4">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <div className="text-white font-semibold flex flex-wrap items-center gap-2">
+                        {campaign.title}
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-400/10 text-zinc-200 border border-zinc-300/20">
+                          {isPrivate ? 'Privada' : 'Publica'}
+                        </span>
+                        <span
+                          className={[
+                            'text-[10px] px-2 py-0.5 rounded-full border',
+                            campaign.isOnline
+                              ? 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20'
+                              : 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
+                          ].join(' ')}
+                        >
+                          {campaign.isOnline ? 'Online' : 'Offline'}
+                        </span>
+                      </div>
+                      <div className="text-xs text-zinc-300 mt-1">Mestre: {campaign.gmName}</div>
+                      {campaign.description ? (
+                        <p className="mt-2 text-sm text-zinc-400">{campaign.description}</p>
+                      ) : null}
+                    </div>
+
+                    {isFound ? (
+                      <Button
+                        className="shrink-0 px-3 py-1.5 text-xs"
+                        disabled={loadingJoin}
+                        onClick={() => onJoin(campaign)}
+                      >
+                        {isPrivate ? 'Solicitar entrada' : 'Entrar'}
+                      </Button>
+                    ) : null}
                   </div>
                 </div>
-              </button>
-            ))
+              )
+            })
           )}
         </div>
       </div>

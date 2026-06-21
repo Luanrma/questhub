@@ -13,6 +13,7 @@ export type Campaign = {
   joinPolicy: 'PUBLIC' | 'PRIVATE'
   createdAt: string
   myRole: 'MASTER' | 'PLAYER'
+  myStatus?: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
   myCharacterName?: string | null
   isOnline: boolean
 }
@@ -25,7 +26,7 @@ type SessionContextValue = {
   activeCampaignId: string | null
   socket: Socket | null
   refreshMe: () => Promise<void>
-  loadCampaigns: () => Promise<void>
+  loadCampaigns: (options?: { force?: boolean }) => Promise<void>
   setActiveCampaignId: (campaignId: string | null) => void
   enterPresence: (params: { campaignId: string; characterId: string }) => void
   signIn: (params: { email: string; password: string }) => Promise<void>
@@ -71,10 +72,9 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
-  async function loadCampaigns() {
-    // evita loops por eventos em cascata
+  async function loadCampaigns(options?: { force?: boolean }) {
     const now = Date.now()
-    if (now - lastCampaignsRefreshRef.current < 800) return
+    if (!options?.force && now - lastCampaignsRefreshRef.current < 800) return
     lastCampaignsRefreshRef.current = now
 
     setCampaignsLoading(true)
@@ -82,8 +82,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       const list = await api<Campaign[]>('/api/campaigns')
       setCampaigns(list)
 
-      // Se a campanha ativa não existir mais, limpa
-      if (activeCampaignId && !list.some((c) => c.id === activeCampaignId)) {
+      if (activeCampaignId && !list.some((campaign) => campaign.id === activeCampaignId)) {
         setActiveCampaignId(null)
       }
     } finally {
@@ -97,7 +96,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       body: JSON.stringify(params),
     })
     await refreshMe()
-    await loadCampaigns().catch(() => {})
+    await loadCampaigns({ force: true }).catch(() => {})
   }
 
   async function logout() {
@@ -114,55 +113,58 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     ;(async () => {
       setLoading(true)
       await refreshMe()
-      // Se já estiver logado ao abrir, carrega campanhas
-      await loadCampaigns().catch(() => {})
+      await loadCampaigns({ force: true }).catch(() => {})
       setLoading(false)
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Socket.IO: notificações de aprovação/recusa de convite.
   useEffect(() => {
     if (!me) return
     if (socketRef.current) return
 
     const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
-    const s = io(API_URL, { withCredentials: true })
+    const socketConnection = io(API_URL, { withCredentials: true })
 
-    s.on('connect_error', () => {
+    socketConnection.on('connect_error', () => {
       // ignore
     })
 
-    s.on('campaign:join-approved', async (payload: any) => {
-      alert(payload?.message ?? 'Sua solicitação foi aprovada!')
-      await loadCampaigns().catch(() => {})
+    socketConnection.on('campaign:join-approved', async (payload: any) => {
+      alert(payload?.message ?? 'Sua solicitacao foi aprovada!')
+      await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    s.on('campaign:join-rejected', async (payload: any) => {
-      alert(payload?.message ?? 'Sua solicitação foi recusada.')
-      await loadCampaigns().catch(() => {})
+    socketConnection.on('campaign:join-rejected', async (payload: any) => {
+      alert(payload?.message ?? 'Sua solicitacao foi recusada.')
+      await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    // GM: aviso de nova solicitação (para incentivar ir em Jogadores)
-    s.on('campaign:join-requested', (payload: any) => {
-      alert(`Nova solicitação de acesso: ${payload?.email ?? 'usuário'}`)
+    socketConnection.on('campaign:join-requested', async (payload: any) => {
+      alert(`Nova solicitacao de acesso: ${payload?.email ?? 'usuario'}`)
+      await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    s.on('campaign:status', async () => {
-      await loadCampaigns().catch(() => {})
+    socketConnection.on('campaign:player-joined', async (payload: any) => {
+      alert(`${payload?.characterName ?? 'Novo personagem'} entrou na campanha.`)
+      await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    s.on('campaign:kicked', async (payload: any) => {
-      alert(payload?.message ?? 'Você foi desconectado da campanha.')
-      await loadCampaigns().catch(() => {})
+    socketConnection.on('campaign:status', async () => {
+      await loadCampaigns({ force: true }).catch(() => {})
+    })
+
+    socketConnection.on('campaign:kicked', async (payload: any) => {
+      alert(payload?.message ?? 'Voce foi desconectado da campanha.')
+      await loadCampaigns({ force: true }).catch(() => {})
       window.location.href = '/campaigns'
     })
 
-    socketRef.current = s
-    setSocket(s)
+    socketRef.current = socketConnection
+    setSocket(socketConnection)
 
     return () => {
-      s.disconnect()
+      socketConnection.disconnect()
       socketRef.current = null
       setSocket(null)
     }

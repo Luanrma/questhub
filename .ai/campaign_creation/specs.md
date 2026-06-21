@@ -82,6 +82,7 @@ model CampaignCharacter {
   "gmName": "Arion",
   "gmUserId": "user_id",
   "myRole": "MASTER",
+  "myStatus": "ACTIVE",
   "myCharacterId": "character_id",
   "myCharacterName": "Arion",
   "isOnline": false
@@ -123,12 +124,57 @@ model CampaignCharacter {
 * Criar campanha e vinculo `MASTER` deve ser atomico.
 * Falha no vinculo do mestre deve impedir criacao da campanha.
 * Campanha criada deve aparecer no dashboard do usuario criador.
+* Solicitacao pendente de campanha privada deve aparecer no dashboard do usuario solicitante.
 * Entrar em campanha como `MASTER` nao deve ser bloqueado por status offline.
 * A campanha passa a ficar online quando o personagem `MASTER` entra na presenca.
+* O mestre deve receber evento realtime `campaign:join-requested` quando um personagem solicitar entrada em campanha privada.
+* O mestre deve receber evento realtime `campaign:player-joined` quando um personagem entrar em campanha publica.
+* Buscar e confirmar entrada/solicitacao por convite nao deve ser bloqueado por `isOnline = false`.
+* `isOnline = false` bloqueia apenas abrir a mesa como jogador depois que o vinculo ja existe.
 
 ## 8. Navegacao do Modulo
 * `/campaigns` e a home/index do modulo de campanhas.
 * A home de campanhas deve conter as acoes `Criar campanha` e `Entrar em campanha`.
-* A lista `Suas campanhas` pertence a `/campaigns`, nao a home inicial do sistema.
+* A lista `Suas campanhas` pertence a `/campaigns`, nao a home inicial do sistema, e deve exibir vinculos `ACTIVE` e `PENDING` do usuario.
 * `/campaigns/new` permanece dedicado ao formulario de criacao.
 * `/campaigns/join` permanece dedicado ao fluxo de entrada por convite.
+* Em `/campaigns/join`, o usuario informa o codigo e aciona `Procurar campanha`.
+* A tela deve exibir a campanha encontrada em uma lista abaixo do codigo.
+* A campanha encontrada deve mostrar botao `Entrar` quando `joinPolicy = PUBLIC` e `Solicitar entrada` quando `joinPolicy = PRIVATE`.
+* O botao de confirmacao de entrada nao deve aparecer antes da campanha ser encontrada.
+* O botao `Entrar` ou `Solicitar entrada` deve continuar habilitado quando a campanha encontrada estiver offline.
+
+## 9. Busca e Entrada por Convite
+
+### Buscar campanha por convite
+
+```http
+GET /api/campaigns/invite/:inviteCode
+```
+
+Resposta:
+
+```json
+{
+  "id": "campaign_id",
+  "title": "Sombras de Absalom",
+  "description": "Campanha semanal",
+  "inviteCode": "ABC12345",
+  "system": "PATHFINDER_2E",
+  "joinPolicy": "PRIVATE",
+  "gmName": "Arion",
+  "gmUserId": "user_id",
+  "isOnline": true
+}
+```
+
+Regras:
+* Deve retornar `404` quando o codigo nao existir.
+* Deve retornar dados suficientes para a tela escolher entre `Entrar` e `Solicitar entrada`.
+* Nao cria `CampaignCharacter`; apenas consulta.
+* `isOnline` e informativo nesta tela e nao deve bloquear a chamada de entrada/solicitacao.
+
+### Eventos realtime
+
+* `campaign:join-requested`: enviado ao mestre quando campanha privada cria `CampaignCharacter` `PENDING`.
+* `campaign:player-joined`: enviado ao mestre quando campanha publica cria `CampaignCharacter` `ACTIVE`.

@@ -19,11 +19,12 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
     const campaignCharacters = await prisma.campaignCharacter.findMany({
       where: {
-        status: 'ACTIVE',
+        status: { in: ['ACTIVE', 'PENDING'] },
         character: { userId: payload.id },
       },
       select: {
         role: true,
+        status: true,
         character: { select: { id: true, name: true } },
         campaign: {
           select: {
@@ -60,12 +61,58 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           gmName: master?.name ?? 'Mestre',
           gmUserId: master?.userId ?? '',
           myRole: entry.role,
+          myStatus: entry.status,
           myCharacterId: entry.character.id,
           myCharacterName: entry.character.name,
           isOnline: isCampaignOnline(entry.campaign.id),
         }
       }),
     )
+  })
+
+  app.get('/api/campaigns/invite/:inviteCode', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const paramsSchema = z.object({
+      inviteCode: z.string().trim().min(1),
+    })
+    const params = paramsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Codigo de convite invalido' })
+
+    const campaign = await prisma.campaign.findUnique({
+      where: { inviteCode: params.data.inviteCode.toUpperCase() },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        inviteCode: true,
+        system: true,
+        joinPolicy: true,
+        createdAt: true,
+        characters: {
+          where: { role: 'MASTER', status: 'ACTIVE' },
+          select: { character: { select: { userId: true, name: true } } },
+          take: 1,
+        },
+      },
+    })
+
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+
+    const master = campaign.characters[0]?.character ?? null
+    return reply.send({
+      id: campaign.id,
+      title: campaign.title,
+      description: campaign.description,
+      inviteCode: campaign.inviteCode,
+      system: campaign.system,
+      joinPolicy: campaign.joinPolicy,
+      createdAt: campaign.createdAt,
+      gmName: master?.name ?? 'Mestre',
+      gmUserId: master?.userId ?? '',
+      isOnline: isCampaignOnline(campaign.id),
+    })
   })
 
   app.post('/api/campaigns', async (req, reply) => {
@@ -232,7 +279,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           },
         })
         if (!campaign) throw Object.assign(new Error('CAMPAIGN_NOT_FOUND'), { statusCode: 404 })
-        if (!isCampaignOnline(campaign.id)) throw Object.assign(new Error('MASTER_OFFLINE'), { statusCode: 409 })
 
         let character = parsed.data.characterId
           ? await tx.character.findUnique({
@@ -309,6 +355,15 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             createdAt: new Date().toISOString(),
           })
         }
+        if (status === 'ACTIVE' && master?.userId) {
+          io.to(`user:${master.userId}`).emit('campaign:player-joined', {
+            campaignId: campaign.id,
+            userId: payload.id,
+            email: payload.email,
+            characterName: character.name,
+            createdAt: new Date().toISOString(),
+          })
+        }
 
         return { campaign, status: campaignCharacter.status, characterId: campaignCharacter.characterId }
       })
@@ -323,10 +378,11 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         joinPolicy: result.campaign.joinPolicy,
         createdAt: result.campaign.createdAt,
         gmName: master?.name ?? 'Mestre',
-        gmUserId: master?.userId ?? '',
-        myRole: 'PLAYER',
-        status: result.status,
-        characterId: result.characterId ?? null,
+          gmUserId: master?.userId ?? '',
+          myRole: 'PLAYER',
+          myStatus: result.status,
+          status: result.status,
+          characterId: result.characterId ?? null,
         missingCharacterName: 'missingCharacterName' in result ? result.missingCharacterName : false,
       })
     } catch (err: any) {
