@@ -30,3 +30,9 @@
 * Roteamento por sistema: `character_sheet`.
 * UI estrutural comum, quando existir: `character_sheet`.
 * Campos, labels, defaults, validacoes e calculos de sistema: submodulo especifico.
+
+## 6. Frontend
+* O modal base da ficha vive em `apps/web/src/components/character_sheet`.
+* O modal base controla apenas carregamento, salvamento, paginacao, drag-and-drop e layout comum.
+* O modal base pode selecionar o componente de sistema pelo `system`, mas nao deve conter campos, labels, listas, validacoes ou tipos internos de sistemas especificos.
+* Cada sistema deve expor seu proprio componente de formulario dentro do submodulo correspondente.

@@ -33,3 +33,4 @@ export const PROFICIENCY_RANKS = {
 * Nao implementar calculos automaticos neste MVP.
 * Nao validar listas oficiais de opcoes neste MVP.
 * Expor validadores e defaults para consumo do modulo `character_sheet`.
+* Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/components/character_sheet/pathfinder_2e_sheet`.
