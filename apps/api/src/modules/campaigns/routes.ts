@@ -225,6 +225,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           data: {
             campaignId: campaign.id,
             characterId: masterCharacter.id,
+            userId: payload.id,
             role: 'MASTER',
             status: 'ACTIVE',
             joinedAt: new Date(),
@@ -287,6 +288,18 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           },
         })
         if (!campaign) throw Object.assign(new Error('CAMPAIGN_NOT_FOUND'), { statusCode: 404 })
+
+        const existingUserCampaignCharacter = await tx.campaignCharacter.findFirst({
+          where: {
+            campaignId: campaign.id,
+            userId: payload.id,
+            status: { in: ['ACTIVE', 'PENDING'] },
+          },
+          select: { id: true },
+        })
+        if (existingUserCampaignCharacter) {
+          throw Object.assign(new Error('USER_ALREADY_IN_CAMPAIGN'), { statusCode: 409 })
+        }
 
         let character = parsed.data.characterId
           ? await tx.character.findUnique({
@@ -355,6 +368,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           data: {
             campaignId: campaign.id,
             characterId: character.id,
+            userId: payload.id,
             role: 'PLAYER',
             status,
             joinedAt: status === 'ACTIVE' ? new Date() : null,
@@ -407,7 +421,13 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       if (status === 404) return reply.status(404).send({ error: 'Campanha nao encontrada' })
       if (status === 403) return reply.status(403).send({ error: 'Personagem nao pertence ao usuario' })
       if (status === 400) return reply.status(400).send({ error: 'Personagem arquivado' })
-      if (status === 409) return reply.status(409).send({ error: err?.message === 'MASTER_OFFLINE' ? 'Mestre offline' : 'Conflito ao entrar na campanha' })
+      if (status === 409) {
+        if (err?.message === 'MASTER_OFFLINE') return reply.status(409).send({ error: 'Mestre offline' })
+        if (err?.message === 'USER_ALREADY_IN_CAMPAIGN') {
+          return reply.status(409).send({ error: 'Voce ja possui um personagem ativo ou pendente nesta campanha' })
+        }
+        return reply.status(409).send({ error: 'Conflito ao entrar na campanha' })
+      }
       req.log.error({ err }, 'Erro ao entrar na campanha')
       return reply.status(500).send({ error: 'Erro ao entrar na campanha' })
     }
@@ -556,11 +576,24 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       where: {
         campaignId: params.campaignId,
         role: 'PLAYER',
-        character: { userId: params.userId },
+        userId: params.userId,
+      },
+      select: { id: true, userId: true },
+    })
+    if (!target) return reply.status(404).send({ error: 'Solicitacao nao encontrada' })
+
+    const existingActive = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        userId: target.userId,
+        status: 'ACTIVE',
+        NOT: { id: target.id },
       },
       select: { id: true },
     })
-    if (!target) return reply.status(404).send({ error: 'Solicitacao nao encontrada' })
+    if (existingActive) {
+      return reply.status(409).send({ error: 'Usuario ja possui personagem ativo nesta campanha' })
+    }
 
     const updated = await prisma.campaignCharacter.update({
       where: { id: target.id },
@@ -596,7 +629,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       where: {
         campaignId: params.campaignId,
         role: 'PLAYER',
-        character: { userId: params.userId },
+        userId: params.userId,
       },
       select: { id: true },
     })

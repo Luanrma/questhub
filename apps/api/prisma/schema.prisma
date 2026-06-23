@@ -38,6 +38,7 @@ model User {
 
   characters       Character[]
   createdCampaigns Campaign[]  @relation("CreatedCampaigns")
+  campaignLinks    CampaignCharacter[]
 }
 
 model Campaign {
@@ -79,6 +80,7 @@ model CampaignCharacter {
   id          String                  @id @default(cuid())
   campaignId  String
   characterId String                  @unique
+  userId      String
   role        CampaignCharacterRole
   status      CampaignCharacterStatus @default(PENDING)
   joinedAt    DateTime?
@@ -88,8 +90,10 @@ model CampaignCharacter {
 
   campaign  Campaign  @relation(fields: [campaignId], references: [id])
   character Character @relation(fields: [characterId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
 
   @@index([campaignId])
+  @@index([userId])
   @@index([status])
   @@index([role])
 }
