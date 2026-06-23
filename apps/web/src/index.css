@@ -297,6 +297,100 @@ body {
   padding: 12px 14px;
 }
 
+.vtt-grid-bg {
+  background-image:
+    linear-gradient(rgb(148 163 184 / 12%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(148 163 184 / 12%) 1px, transparent 1px),
+    linear-gradient(rgb(99 102 241 / 20%) 2px, transparent 2px),
+    linear-gradient(90deg, rgb(99 102 241 / 20%) 2px, transparent 2px);
+  background-position:
+    -1px -1px,
+    -1px -1px,
+    -2px -2px,
+    -2px -2px;
+  background-size:
+    32px 32px,
+    32px 32px,
+    160px 160px,
+    160px 160px;
+}
+
+.campaign-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 80px;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+}
+
+.campaign-sidebar-panel {
+  position: relative;
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+}
+
+.campaign-sidebar-expanded .campaign-sidebar-panel {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+@media (max-width: 899px), (max-height: 639px) {
+  .campaign-sidebar {
+    top: auto;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    height: auto;
+    margin: 0;
+    width: auto !important;
+    border-radius: 12px;
+  }
+
+  .campaign-sidebar-panel {
+    position: relative !important;
+    width: auto !important;
+    max-height: none;
+    overflow: visible;
+    border-radius: 12px;
+  }
+
+  .campaign-sidebar-panel > div {
+    display: none;
+  }
+
+  .campaign-sidebar nav {
+    padding: 8px;
+  }
+
+  .campaign-sidebar ul {
+    flex-direction: row;
+    justify-content: space-around;
+    gap: 4px;
+  }
+
+  .campaign-sidebar a,
+  .campaign-sidebar button {
+    aspect-ratio: 1;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .campaign-sidebar a span + span,
+  .campaign-sidebar button span + span {
+    display: none;
+  }
+
+  .campaign-floating-panel {
+    top: 82px !important;
+    left: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-height: calc(100vh - 170px);
+  }
+}
+
 @media (max-width: 760px) {
   .sheet-identity-grid,
   .sheet-small-grid,
