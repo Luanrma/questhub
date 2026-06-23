@@ -74,3 +74,10 @@ Fora de escopo:
 * `character_sheet/dnd_5e_sheet`: regras especificas futuras de D&D 5e.
 * `character_sheet/pathfinder_2e_sheet`: regras especificas futuras de Pathfinder 2e.
 * `canvas` ou `vtt`: consome personagens ativos da campanha para representacao no tabuleiro.
+
+## 8. Dashboard de Campanhas por Personagem
+* A lista "Suas campanhas" deve ser derivada exclusivamente de `CampaignCharacter` do usuario autenticado.
+* A lista deve exibir apenas campanhas em que o usuario possui um personagem vinculado.
+* Cada card deve mostrar nome do personagem vinculado, role (`MASTER`, `PLAYER` ou `NPC` quando aplicavel) e status do vinculo (`PENDING`, `ACTIVE`, `REJECTED`, `LEFT` ou `DEAD`).
+* O botao `Entrar` deve ficar habilitado para `MASTER` ativo e para `PLAYER` ativo quando a campanha esta online.
+* Status de sessao online/offline continuam sendo uma regra de entrada para jogadores, mas nao substituem o status do personagem.

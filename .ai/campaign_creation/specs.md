@@ -136,6 +136,10 @@ model CampaignCharacter {
 * `/campaigns` e a home/index do modulo de campanhas.
 * A home de campanhas deve conter as acoes `Criar campanha` e `Entrar em campanha`.
 * A lista `Suas campanhas` pertence a `/campaigns`, nao a home inicial do sistema, e deve exibir vinculos `ACTIVE` e `PENDING` do usuario.
+* A lista `Suas campanhas` deve ser baseada em `CampaignCharacter` e tambem pode exibir vinculos historicos (`LEFT`, `DEAD`, `REJECTED`) quando o personagem ainda esta vinculado ao usuario.
+* Cada item da lista deve mostrar personagem vinculado, role e status do personagem na campanha.
+* O botao `Entrar` deve depender de `myStatus = ACTIVE`; para `PLAYER`, tambem depende de `isOnline = true`. `MASTER` ativo pode entrar mesmo offline para iniciar a sessao.
+* O `inviteCode` da campanha nao deve ser retornado nem exibido no dashboard para `PLAYER`; apenas `MASTER` pode ver/copiar o codigo.
 * `/campaigns/new` permanece dedicado ao formulario de criacao.
 * `/campaigns/join` permanece dedicado ao fluxo de entrada por convite.
 * Em `/campaigns/join`, o usuario informa o codigo e aciona `Procurar campanha`.

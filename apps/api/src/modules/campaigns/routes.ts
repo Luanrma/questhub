@@ -21,7 +21,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
     const campaignCharacters = await prisma.campaignCharacter.findMany({
       where: {
-        status: { in: ['ACTIVE', 'PENDING'] },
         character: { userId: payload.id },
       },
       select: {
@@ -56,7 +55,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           id: entry.campaign.id,
           title: entry.campaign.title,
           description: entry.campaign.description,
-          inviteCode: entry.campaign.inviteCode,
+          inviteCode: entry.role === 'MASTER' ? entry.campaign.inviteCode : null,
           system: entry.campaign.system,
           joinPolicy: entry.campaign.joinPolicy,
           createdAt: entry.campaign.createdAt,
@@ -404,7 +403,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         id: result.campaign.id,
         title: result.campaign.title,
         description: result.campaign.description,
-        inviteCode: result.campaign.inviteCode,
+        inviteCode: null,
         system: result.campaign.system,
         joinPolicy: result.campaign.joinPolicy,
         createdAt: result.campaign.createdAt,

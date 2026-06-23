@@ -7,13 +7,14 @@ export type Campaign = {
   id: string
   title: string
   description?: string | null
-  inviteCode: string
+  inviteCode: string | null
   gmName: string
   gmUserId: string
   joinPolicy: 'PUBLIC' | 'PRIVATE'
   createdAt: string
   myRole: 'MASTER' | 'PLAYER'
   myStatus?: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
+  myCharacterId?: string | null
   myCharacterName?: string | null
   isOnline: boolean
 }
@@ -28,9 +29,16 @@ type SessionContextValue = {
   refreshMe: () => Promise<void>
   loadCampaigns: (options?: { force?: boolean }) => Promise<void>
   setActiveCampaignId: (campaignId: string | null) => void
-  enterPresence: (params: { campaignId: string; characterId: string }) => void
+  enterPresence: (params: { campaignId: string; characterId: string }) => Promise<void>
+  startCampaignSession: (params: { campaignId: string; characterId: string }) => Promise<void>
+  endCampaignSession: (params: { campaignId: string }) => Promise<void>
   signIn: (params: { email: string; password: string }) => Promise<void>
   logout: () => Promise<void>
+}
+
+type PresenceAck = {
+  ok: boolean
+  error?: string
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null)
@@ -119,10 +127,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    if (!me) return
-    if (socketRef.current) return
-
+  function ensureSocket() {
+    if (socketRef.current) return socketRef.current
     const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001'
     const socketConnection = io(API_URL, { withCredentials: true })
 
@@ -155,24 +161,62 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     })
 
     socketConnection.on('campaign:kicked', async (payload: any) => {
-      alert(payload?.message ?? 'Voce foi desconectado da campanha.')
+      alert(payload?.message ?? 'O mestre encerrou a sessão.')
+      socketConnection.disconnect()
+      socketRef.current = null
+      setSocket(null)
+      setActiveCampaignId(null)
       await loadCampaigns({ force: true }).catch(() => {})
-      window.location.href = '/campaigns'
+      window.location.href = '/home'
     })
 
     socketRef.current = socketConnection
     setSocket(socketConnection)
+    return socketConnection
+  }
 
+  useEffect(() => {
     return () => {
-      socketConnection.disconnect()
+      socketRef.current?.disconnect()
       socketRef.current = null
       setSocket(null)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me])
+  }, [])
 
-  function enterPresence(params: { campaignId: string; characterId: string }) {
-    socketRef.current?.emit('presence:enter', params)
+  async function emitPresenceAck(eventName: 'presence:session:start' | 'presence:session:end', params: object) {
+    const socketConnection = ensureSocket()
+    await new Promise<void>((resolve, reject) => {
+      socketConnection.timeout(5000).emit(eventName, params, (err: Error | null, response?: PresenceAck) => {
+        if (err) {
+          reject(new Error('Tempo esgotado na conexão em tempo real.'))
+          return
+        }
+
+        if (!response?.ok) {
+          reject(new Error(response?.error ?? 'Ação recusada pelo servidor.'))
+          return
+        }
+
+        resolve()
+      })
+    })
+  }
+
+  async function enterPresence(params: { campaignId: string; characterId: string }) {
+    ensureSocket().emit('presence:enter', params)
+  }
+
+  async function startCampaignSession(params: { campaignId: string; characterId: string }) {
+    await emitPresenceAck('presence:session:start', params)
+    await loadCampaigns({ force: true }).catch(() => {})
+  }
+
+  async function endCampaignSession(params: { campaignId: string }) {
+    await emitPresenceAck('presence:session:end', params)
+    socketRef.current?.disconnect()
+    socketRef.current = null
+    setSocket(null)
+    await loadCampaigns({ force: true }).catch(() => {})
   }
 
   const value = useMemo(
@@ -187,6 +231,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       loadCampaigns,
       setActiveCampaignId,
       enterPresence,
+      startCampaignSession,
+      endCampaignSession,
       signIn,
       logout,
     }),

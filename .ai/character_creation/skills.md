@@ -39,3 +39,5 @@
 * Arquivamento de personagem livre usa `deletedAt`.
 * O formulario de criacao/edicao deve ser reaproveitado para evitar divergencia visual e de validacao.
 * A deteccao de alteracoes no frontend deve comparar o estado atual com os dados originais carregados.
+* Endpoints de dashboard devem consultar `CampaignCharacter` e incluir `character.id`, `character.name`, `role` e `status`.
+* A UI nao deve inferir participacao por `createdByUserId`, invite code ou estado online da campanha.

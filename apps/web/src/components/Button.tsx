@@ -1,7 +1,7 @@
 import type { ButtonHTMLAttributes } from 'react'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'ghost'
+  variant?: 'primary' | 'ghost' | 'danger'
 }
 
 export function Button({ className = '', variant = 'primary', ...props }: Props) {
@@ -12,6 +12,7 @@ export function Button({ className = '', variant = 'primary', ...props }: Props)
     // inspirado no rpkage (indigo)
     primary: 'bg-indigo-600 hover:bg-indigo-700 text-white',
     ghost: 'bg-transparent hover:bg-white/10 text-white border border-white/15',
+    danger: 'bg-red-600 hover:bg-red-700 text-white',
   }
 
   return <button className={`${base} ${variants[variant]} ${className}`} {...props} />

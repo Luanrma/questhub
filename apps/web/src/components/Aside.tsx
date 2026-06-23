@@ -20,9 +20,10 @@ type Props = {
   role?: CampaignRole | null
   canOpenMySheet?: boolean
   onOpenMySheet?: () => void
+  onSwitchCampaign?: () => void | Promise<void>
 }
 
-export function Aside({ campaignId, role, canOpenMySheet = false, onOpenMySheet }: Props) {
+export function Aside({ campaignId, role, canOpenMySheet = false, onOpenMySheet, onSwitchCampaign }: Props) {
   const [collapsed, setCollapsed] = useState(true)
 
   const items = useMemo<NavItem[]>(
@@ -87,8 +88,10 @@ export function Aside({ campaignId, role, canOpenMySheet = false, onOpenMySheet 
                   to={it.to}
                   onClick={(event) => {
                     if (it.to !== '/campaigns') return
+                    event.preventDefault()
                     const confirmed = window.confirm('Deseja sair da mesa e trocar de campanha?')
-                    if (!confirmed) event.preventDefault()
+                    if (!confirmed) return
+                    void onSwitchCampaign?.()
                   }}
                   className={({ isActive }) =>
                     [

@@ -93,12 +93,6 @@ export function CampaignOverviewPage() {
                 <Dice5 className="h-4 w-4" />
                 Rolar
               </Button>
-              {isMaster ? (
-                <Button className="h-9 gap-2 px-3">
-                  <Plus className="h-4 w-4" />
-                  Nova sessão
-                </Button>
-              ) : null}
             </div>
           </div>
 

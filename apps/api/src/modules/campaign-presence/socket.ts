@@ -7,6 +7,7 @@ import { TOKEN_COOKIE } from '../../http/auth'
 
 type UserPresence = { socketId: string; campaignId: string; characterId: string }
 type OnlineCampaign = { masterSocketId: string; masterUserId: string; masterCharacterId: string }
+type PresenceAck = (response: { ok: boolean; error?: string }) => void
 
 export function setupCampaignPresence(server: HttpServer) {
   const io = new SocketIOServer(server, {
@@ -21,6 +22,46 @@ export function setupCampaignPresence(server: HttpServer) {
 
   function isCampaignOnline(campaignId: string) {
     return campaignOnline.has(campaignId)
+  }
+
+  async function notifyCampaignStatus(campaignId: string, online: boolean) {
+    const members = await prisma.campaignCharacter.findMany({
+      where: { campaignId, status: 'ACTIVE' },
+      select: { character: { select: { userId: true } } },
+    })
+
+    for (const member of members) {
+      io.to(`user:${member.character.userId}`).emit('campaign:status', { campaignId, online })
+    }
+  }
+
+  async function endCampaignSession(campaignId: string, message: string) {
+    campaignOnline.delete(campaignId)
+    await notifyCampaignStatus(campaignId, false)
+
+    const sockets = await io.in(`campaign:${campaignId}`).fetchSockets()
+    for (const campaignSocket of sockets) {
+      const role = campaignSocket.data.characterRole as string | undefined
+      const socketUser = campaignSocket.data.user as { id: string } | undefined
+      const characterId = campaignSocket.data.characterId as string | undefined
+
+      if (role === 'PLAYER') {
+        campaignSocket.emit('campaign:kicked', { campaignId, message })
+      }
+
+      if (socketUser?.id) {
+        userPresence.delete(socketUser.id)
+      }
+
+      if (characterId) {
+        io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: false })
+      }
+
+      campaignSocket.leave(`campaign:${campaignId}`)
+      campaignSocket.data.campaignId = undefined
+      campaignSocket.data.characterId = undefined
+      campaignSocket.data.characterRole = undefined
+    }
   }
 
   io.use((socket, next) => {
@@ -41,6 +82,60 @@ export function setupCampaignPresence(server: HttpServer) {
 
     socket.join(`user:${user.id}`)
 
+    socket.on(
+      'presence:session:start',
+      async ({ campaignId, characterId }: { campaignId: string; characterId: string }, ack?: PresenceAck) => {
+        try {
+          if (!campaignId || !characterId) {
+            ack?.({ ok: false, error: 'Dados invalidos' })
+            return
+          }
+
+          const campaignCharacter = await prisma.campaignCharacter.findFirst({
+            where: { campaignId, characterId, status: 'ACTIVE', role: 'MASTER' },
+            select: { role: true, character: { select: { userId: true } } },
+          })
+          if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
+            ack?.({ ok: false, error: 'Apenas o mestre pode iniciar a sessao' })
+            return
+          }
+
+          socket.data.campaignId = campaignId
+          socket.data.characterId = characterId
+          socket.data.characterRole = campaignCharacter.role
+          socket.join(`campaign:${campaignId}`)
+          userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
+          campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId })
+
+          await notifyCampaignStatus(campaignId, true)
+          io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: true })
+          ack?.({ ok: true })
+        } catch {
+          ack?.({ ok: false, error: 'Erro ao iniciar sessao' })
+        }
+      },
+    )
+
+    socket.on('presence:session:end', async ({ campaignId }: { campaignId: string }, ack?: PresenceAck) => {
+      try {
+        if (!campaignId) {
+          ack?.({ ok: false, error: 'Dados invalidos' })
+          return
+        }
+
+        const online = campaignOnline.get(campaignId)
+        if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) {
+          ack?.({ ok: false, error: 'Sessao nao iniciada por este mestre' })
+          return
+        }
+
+        await endCampaignSession(campaignId, 'O mestre encerrou a sessão.')
+        ack?.({ ok: true })
+      } catch {
+        ack?.({ ok: false, error: 'Erro ao encerrar sessao' })
+      }
+    })
+
     socket.on('presence:enter', async ({ campaignId, characterId }: { campaignId: string; characterId: string }) => {
       try {
         if (!campaignId || !characterId) return
@@ -54,7 +149,8 @@ export function setupCampaignPresence(server: HttpServer) {
           return
         }
         if (campaignCharacter.role === 'NPC') return
-        if (campaignCharacter.role === 'PLAYER' && !isCampaignOnline(campaignId)) {
+        if (campaignCharacter.role !== 'PLAYER') return
+        if (!isCampaignOnline(campaignId)) {
           socket.emit('presence:error', { message: 'Mestre offline' })
           return
         }
@@ -64,17 +160,6 @@ export function setupCampaignPresence(server: HttpServer) {
         socket.data.characterRole = campaignCharacter.role
         socket.join(`campaign:${campaignId}`)
         userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
-
-        if (campaignCharacter.role === 'MASTER') {
-          campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId })
-          const members = await prisma.campaignCharacter.findMany({
-            where: { campaignId, status: 'ACTIVE' },
-            select: { character: { select: { userId: true } } },
-          })
-          for (const member of members) {
-            io.to(`user:${member.character.userId}`).emit('campaign:status', { campaignId, online: true })
-          }
-        }
 
         io.to(`campaign:${campaignId}`).emit('presence:update', {
           campaignId,
@@ -95,31 +180,7 @@ export function setupCampaignPresence(server: HttpServer) {
       if (role === 'MASTER') {
         const online = campaignOnline.get(prev.campaignId)
         if (online?.masterSocketId === socket.id) {
-          campaignOnline.delete(prev.campaignId)
-
-          prisma.campaignCharacter
-            .findMany({
-              where: { campaignId: prev.campaignId, status: 'ACTIVE' },
-              select: { character: { select: { userId: true } } },
-            })
-            .then((members) => {
-              for (const member of members) {
-                io.to(`user:${member.character.userId}`).emit('campaign:status', { campaignId: prev.campaignId, online: false })
-              }
-            })
-            .catch(() => {})
-
-          io.in(`campaign:${prev.campaignId}`)
-            .fetchSockets()
-            .then((sockets) => {
-              for (const campaignSocket of sockets) {
-                const socketRole = campaignSocket.data.characterRole as string | undefined
-                if (socketRole === 'PLAYER') {
-                  campaignSocket.emit('campaign:kicked', { campaignId: prev.campaignId, message: 'Mestre saiu da campanha' })
-                  campaignSocket.leave(`campaign:${prev.campaignId}`)
-                }
-              }
-            })
+          endCampaignSession(prev.campaignId, 'O mestre foi desconectado da sessão.')
             .catch(() => {})
         }
       }

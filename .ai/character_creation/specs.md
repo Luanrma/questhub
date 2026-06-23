@@ -194,3 +194,15 @@ Regras:
 * O botao `Salvar mudancas` so fica habilitado quando houver alteracao real em relacao aos dados carregados.
 * A escolha de avatar nao deve ocupar uma segunda secao do formulario.
 * A troca de avatar deve ficar no card de preview do avatar, abrindo um pequeno modal com as mesmas opcoes de preset e URL.
+
+## 10. Dashboard de Campanhas do Usuario
+* `GET /api/campaigns` deve retornar campanhas a partir de `CampaignCharacter` do usuario autenticado.
+* A resposta deve incluir `myCharacterId`, `myCharacterName`, `myRole` e `myStatus`.
+* Campanhas sem personagem vinculado ao usuario autenticado nao devem aparecer.
+* Cards devem exibir nome do personagem vinculado e role.
+* O status do personagem deve aparecer ao lado do nome do personagem.
+* O card de personagem com role `PLAYER` nao deve exibir nem receber `inviteCode` da campanha.
+* O botao `Entrar` deve ser habilitado quando `myStatus = ACTIVE` e:
+  * `myRole = MASTER`; ou
+  * `myRole = PLAYER` e `isOnline = true`.
+* Personagens com `LEFT`, `DEAD`, `PENDING` ou `REJECTED` devem manter o card visivel quando o vinculo existir, mas nao devem permitir entrada na mesa.

@@ -4,6 +4,44 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
 
+type CampaignCharacterStatus = 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
+
+const roleLabel = {
+  MASTER: 'Mestre',
+  PLAYER: 'Jogador',
+} as const
+
+const statusLabel: Record<CampaignCharacterStatus, string> = {
+  ACTIVE: 'Ativo',
+  PENDING: 'Pendente',
+  REJECTED: 'Recusado',
+  LEFT: 'Saiu',
+  DEAD: 'Morto',
+}
+
+const statusClassName: Record<CampaignCharacterStatus, string> = {
+  ACTIVE: 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20',
+  PENDING: 'bg-amber-400/10 text-amber-200 border-amber-300/20',
+  REJECTED: 'bg-red-400/10 text-red-200 border-red-300/20',
+  LEFT: 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
+  DEAD: 'bg-rose-400/10 text-rose-200 border-rose-300/20',
+}
+
+function canEnterCampaign(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignCharacterStatus; isOnline: boolean }) {
+  if (params.status !== 'ACTIVE') return false
+  if (params.role === 'MASTER') return true
+  return params.isOnline
+}
+
+function getEnterButtonLabel(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignCharacterStatus; isOnline: boolean }) {
+  if (params.status === 'PENDING') return 'Aguardando'
+  if (params.status === 'LEFT') return 'Saiu'
+  if (params.status === 'DEAD') return 'Morto'
+  if (params.status === 'REJECTED') return 'Recusado'
+  if (params.status === 'ACTIVE' && params.role === 'PLAYER' && !params.isOnline) return 'Offline'
+  return 'Entrar'
+}
+
 async function copyToClipboard(text: string) {
   try {
     await navigator.clipboard.writeText(text)
@@ -101,32 +139,37 @@ export function CampaignsDashboardPage() {
                   <div>
                     <div className="text-white font-semibold flex items-center gap-2">
                       {c.title}
-                      {c.myRole === 'MASTER' ? (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-200 border border-amber-300/20">
-                          Mestre
-                        </span>
-                      ) : (
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-400/10 text-emerald-200 border border-emerald-300/20">
-                          Convidado
-                        </span>
-                      )}
                       <span
                         className={[
                           'text-[10px] px-2 py-0.5 rounded-full border',
-                          c.myStatus === 'PENDING'
-                            ? 'bg-amber-400/10 text-amber-200 border-amber-300/20'
-                            : c.isOnline
+                          c.isOnline
                             ? 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20'
                             : 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
                         ].join(' ')}
                       >
-                        {c.myStatus === 'PENDING' ? 'Pendente' : c.isOnline ? 'Online' : 'Offline'}
+                        {c.isOnline ? 'Online' : 'Offline'}
                       </span>
                     </div>
                     <div className="text-xs text-zinc-300 mt-1">Mestre: {c.gmName}</div>
+                    <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-300">
+                      <span>Personagem: {c.myCharacterName ?? '-'}</span>
+                      <span className="text-zinc-500">•</span>
+                      <span>Funcao: {roleLabel[c.myRole]}</span>
+                      {c.myStatus ? (
+                        <span
+                          className={[
+                            'text-[10px] px-2 py-0.5 rounded-full border',
+                            statusClassName[c.myStatus],
+                          ].join(' ')}
+                        >
+                          {statusLabel[c.myStatus]}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
 
                   <div className="flex flex-col items-end gap-2">
+                    {c.myRole === 'MASTER' && c.inviteCode ? (
                     <button
                       type="button"
                       className="text-right"
@@ -142,24 +185,21 @@ export function CampaignsDashboardPage() {
                         {c.inviteCode}
                       </div>
                     </button>
+                    ) : null}
 
                     <Button
                       className="px-3 py-1.5 text-xs"
-                      disabled={c.myStatus === 'PENDING' || (c.myRole === 'PLAYER' && !c.isOnline)}
+                      disabled={!canEnterCampaign({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}
                       onClick={() => {
-                        if (c.myStatus === 'PENDING') {
-                          alert('Solicitacao pendente. Aguarde o mestre aprovar sua entrada.')
-                          return
-                        }
                         if (c.myRole === 'PLAYER' && !c.isOnline) {
-                          alert('Mestre offline. Aguarde ele entrar na campanha.')
+                          alert('Sessão offline. Aguarde o mestre iniciar a sessão.')
                           return
                         }
                         setActiveCampaignId(c.id)
                         navigate(`/campaign/${c.id}/overview`)
                       }}
                     >
-                      {c.myStatus === 'PENDING' ? 'Aguardando' : 'Entrar'}
+                      {getEnterButtonLabel({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}
                     </Button>
                   </div>
                 </div>

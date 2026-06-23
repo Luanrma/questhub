@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { GripHorizontal, X } from 'lucide-react'
+import { GripHorizontal, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
@@ -94,12 +94,23 @@ export function CampaignLayout() {
   const { campaignId } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const { me, loading, campaigns, campaignsLoading, setActiveCampaignId, enterPresence } = useSession()
+  const {
+    me,
+    loading,
+    campaigns,
+    campaignsLoading,
+    setActiveCampaignId,
+    enterPresence,
+    startCampaignSession,
+    endCampaignSession,
+  } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
+  const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const campaign = campaigns.find((c) => c.id === campaignId)
+  const isMaster = campaign?.myRole === 'MASTER'
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
   const panelTitle = getPanelTitle(location.pathname)
 
@@ -123,7 +134,7 @@ export function CampaignLayout() {
       try {
         const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character`)
         setMyCharacter(ch)
-        if (ch?.id) {
+        if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`
           if (presenceKeyRef.current === key) return
           presenceKeyRef.current = key
@@ -136,6 +147,54 @@ export function CampaignLayout() {
     })()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campaignId, loading, me, campaignsLoading, campaign])
+
+  async function onStartSession() {
+    if (!campaignId || !myCharacter?.id) return
+
+    setSessionActionLoading(true)
+    try {
+      await startCampaignSession({ campaignId, characterId: myCharacter.id })
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Não foi possível iniciar a sessão.'
+      alert(message)
+    } finally {
+      setSessionActionLoading(false)
+    }
+  }
+
+  async function endCurrentSession(destination?: '/campaigns') {
+    if (!campaignId) return
+
+    setSessionActionLoading(true)
+    try {
+      await endCampaignSession({ campaignId })
+      if (destination) {
+        setActiveCampaignId(null)
+        navigate(destination, { replace: true })
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Não foi possível encerrar a sessão.'
+      alert(message)
+    } finally {
+      setSessionActionLoading(false)
+    }
+  }
+
+  async function onEndSession() {
+    const confirmed = window.confirm('Deseja realmente encerrar a sessão? Todos os jogadores serão enviados para a tela inicial.')
+    if (!confirmed) return
+    await endCurrentSession()
+  }
+
+  async function onSwitchCampaign() {
+    if (isMaster && campaign?.isOnline) {
+      await endCurrentSession('/campaigns')
+      return
+    }
+
+    setActiveCampaignId(null)
+    navigate('/campaigns')
+  }
 
   if (loading) return <LoadingScreen />
   if (!me) return <Navigate to="/login" replace />
@@ -159,6 +218,7 @@ export function CampaignLayout() {
           role={campaign.myRole}
           canOpenMySheet={Boolean(myCharacter?.id)}
           onOpenMySheet={() => setMySheetOpen(true)}
+          onSwitchCampaign={onSwitchCampaign}
         />
 
         <div className="min-h-screen">
@@ -170,12 +230,19 @@ export function CampaignLayout() {
                 <div className="text-xs text-zinc-300">Mestre: {campaign.gmName}</div>
               </div>
 
-              <div className="flex items-center gap-2">
-                <Button className="gap-2">
-                  <span className="text-lg leading-none">+</span>
-                  Nova sessão
-                </Button>
-              </div>
+              {isMaster ? (
+                <div className="flex items-center gap-2">
+                  <Button
+                    className="gap-2"
+                    variant={campaign.isOnline ? 'danger' : 'primary'}
+                    disabled={sessionActionLoading || !myCharacter?.id}
+                    onClick={campaign.isOnline ? onEndSession : onStartSession}
+                  >
+                    {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                    {campaign.isOnline ? 'Encerrar Sessão' : 'Iniciar Sessão'}
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </header>
 
