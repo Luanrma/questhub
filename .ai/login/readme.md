@@ -2,6 +2,7 @@
 
 ## Regras de Negocio
 - **Fluxo de Acesso:** Ao iniciar a pagina, o sistema deve verificar o estado de autenticacao do usuario. Caso nao esteja logado, deve ser apresentada uma tela de login ou de cadastro de usuario.
+- **Identidade Visual:** A tela publica de autenticacao deve usar o hero visual do QuestHub com d20, asas e grid VTT para reforcar a marca antes do usuario entrar.
 
 ### Cadastro de Usuario
 Para realizar o cadastro, o sistema deve validar:
