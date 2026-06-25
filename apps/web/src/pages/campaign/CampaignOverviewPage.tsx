@@ -100,7 +100,7 @@ function VttGridSettingsModal({
   }
 
   return (
-    <div className="absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-48px))] rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur">
+    <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-48px))] rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur">
       <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
         <div className="flex min-w-0 items-center gap-2">
           <SlidersHorizontal className="h-4 w-4 text-indigo-300" />
@@ -450,7 +450,7 @@ function PlayerToken({
       type="button"
       title={`Token de ${token.name}`}
       className={[
-        'absolute z-20 grid place-items-center overflow-hidden rounded-full border-2 shadow-2xl outline-none transition',
+        'absolute z-[5] grid place-items-center overflow-hidden rounded-full border-2 shadow-2xl outline-none transition',
         dragging
           ? 'cursor-grabbing border-indigo-200 ring-4 ring-indigo-400/35'
           : canDrag
@@ -609,9 +609,9 @@ export function CampaignOverviewPage({
           />
         ))}
 
-        <div className="relative z-10 flex h-full min-h-[560px] flex-col">
+        <div className="pointer-events-none relative z-10 flex h-full min-h-[560px] flex-col">
           <div className="relative flex-1">
-            <div className="absolute left-24 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="pointer-events-auto absolute left-24 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               {visibleToolButtons.map((tool, index) => {
                 const Icon = tool.icon
                 const active = tool.label === 'Grid' ? gridSettingsOpen : index === 0
@@ -643,7 +643,7 @@ export function CampaignOverviewPage({
               />
             ) : null}
 
-            <div className="absolute right-5 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="pointer-events-auto absolute right-5 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               <button
                 type="button"
                 title="Diminuir zoom"
@@ -661,7 +661,7 @@ export function CampaignOverviewPage({
               </button>
             </div>
 
-            <div className="absolute inset-x-6 bottom-6 z-30 rounded-lg border border-white/10 bg-black/45 px-4 py-3 backdrop-blur">
+            <div className="pointer-events-auto absolute inset-x-6 bottom-6 z-30 rounded-lg border border-white/10 bg-black/45 px-4 py-3 backdrop-blur">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="text-sm font-semibold text-white">Cena sem mapa carregado</div>

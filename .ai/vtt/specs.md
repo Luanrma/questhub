@@ -79,6 +79,9 @@ type MyCampaignCharacter = {
 * Sem avatar, o token exibe a inicial do nome do personagem.
 * O token deve ser redondo e arrastavel por pointer events.
 * O token nao pode sair da area de grid visivel.
+* Tokens nunca podem sobrepor ferramentas, toolbar, zoom, paineis flutuantes ou controles do VTT.
+* A camada de tokens deve ficar acima do grid/mapa e abaixo da camada de UI.
+* A camada de UI nao deve bloquear pointer events da mesa fora dos controles visiveis.
 * A posicao do token deve ser calculada em coordenadas logicas do grid, nao como percentual da tela.
 * Ao aumentar ou diminuir o tamanho do grid, o token permanece no mesmo ponto logico do quadrado ou hexagono.
 * O diametro visual do token acompanha `VttGridSettings.size`.
