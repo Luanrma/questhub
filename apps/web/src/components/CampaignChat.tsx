@@ -29,12 +29,6 @@ type Props = {
   enabled: boolean
 }
 
-const roleLabels: Record<ChatRole, string> = {
-  MASTER: 'Mestre',
-  PLAYER: 'Jogador',
-  NPC: 'NPC',
-}
-
 function isChatMessage(input: unknown): input is ChatMessage {
   if (!input || typeof input !== 'object') return false
   const value = input as Partial<ChatMessage>
@@ -194,7 +188,6 @@ export function CampaignChat({ campaignId, characterId, enabled }: Props) {
           <article key={message.id} className={message.mine ? 'text-right' : 'text-left'}>
             <div className="mb-1 flex items-center gap-2 text-[10px] uppercase text-zinc-500">
               <span className={message.mine ? 'ml-auto' : ''}>{message.characterName}</span>
-              <span>{roleLabels[message.role]}</span>
               <span>{formatMessageTime(message.createdAt)}</span>
             </div>
             <div
