@@ -1,41 +1,8 @@
-import {
-  Copy,
-  Dice5,
-  Grid3X3,
-  MapPinned,
-  MousePointer2,
-  Move,
-  Plus,
-  Ruler,
-  Users,
-  ZoomIn,
-  ZoomOut,
-} from 'lucide-react'
+import { Grid3X3, MousePointer2, Move, Plus, Ruler, Users, ZoomIn, ZoomOut } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
-
-async function copyToClipboard(text: string) {
-  try {
-    await navigator.clipboard.writeText(text)
-    return true
-  } catch {
-    try {
-      const element = document.createElement('textarea')
-      element.value = text
-      element.style.position = 'fixed'
-      element.style.left = '-9999px'
-      document.body.appendChild(element)
-      element.select()
-      const copied = document.execCommand('copy')
-      document.body.removeChild(element)
-      return copied
-    } catch {
-      return false
-    }
-  }
-}
 
 const toolButtons = [
   { label: 'Selecionar', icon: MousePointer2 },
@@ -51,18 +18,6 @@ export function CampaignOverviewPage() {
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
 
-  async function onCopyInviteCode() {
-    if (!campaign?.inviteCode) return
-
-    const copied = await copyToClipboard(campaign.inviteCode)
-    if (copied) {
-      alert('Invite code copiado!')
-      return
-    }
-
-    alert('Não foi possível copiar. Copie manualmente.')
-  }
-
   return (
     <div className="grid h-full min-h-0 grid-cols-[minmax(0,1fr)_320px] bg-[#08090c] text-white max-xl:grid-cols-1">
       <section className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]">
@@ -70,33 +25,6 @@ export function CampaignOverviewPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
 
         <div className="relative z-10 flex h-full min-h-[560px] flex-col">
-          <div className="flex items-center justify-between gap-4 border-b border-white/10 bg-black/30 py-3 pl-24 pr-5 backdrop-blur">
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 text-xs uppercase text-zinc-400">
-                <MapPinned className="h-4 w-4 text-indigo-300" />
-                Mesa ativa
-                <span
-                  className={[
-                    'rounded-full border px-2 py-0.5 text-[10px]',
-                    campaign?.isOnline
-                      ? 'border-emerald-300/25 bg-emerald-400/10 text-emerald-200'
-                      : 'border-zinc-300/20 bg-zinc-400/10 text-zinc-300',
-                  ].join(' ')}
-                >
-                  {campaign?.isOnline ? 'Online' : 'Offline'}
-                </span>
-              </div>
-              <h1 className="truncate text-xl font-semibold text-white">{campaign?.title ?? 'Campanha'}</h1>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <Button variant="ghost" className="h-9 gap-2 px-3">
-                <Dice5 className="h-4 w-4" />
-                Rolar
-              </Button>
-            </div>
-          </div>
-
           <div className="relative flex-1">
             <div className="absolute left-24 top-5 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               {toolButtons.map((tool, index) => {
@@ -157,33 +85,6 @@ export function CampaignOverviewPage() {
 
       <aside className="min-h-0 overflow-hidden border-l border-white/10 bg-[#101116] p-5 max-xl:border-l-0 max-xl:border-t">
         <div className="flex h-full min-h-0 flex-col gap-5">
-          <section>
-            <div className="text-xs uppercase text-zinc-500">Campanha</div>
-            <h2 className="mt-1 text-lg font-semibold text-white">{campaign?.title ?? 'Campanha'}</h2>
-            <p className="mt-2 text-sm text-zinc-400">{campaign?.description || 'Sem descrição.'}</p>
-            <div className="mt-3 text-xs text-zinc-500">
-              Mestre: <span className="text-zinc-300">{campaign?.gmName ?? '-'}</span>
-            </div>
-          </section>
-
-          {isMaster ? (
-            <section className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-              <div className="text-sm font-semibold text-white">Convite</div>
-              <p className="mt-2 text-xs text-zinc-400">Compartilhe este código com os jogadores.</p>
-              <button
-                type="button"
-                className="mt-3 flex w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/30 px-3 py-2 text-left transition hover:bg-black/40"
-                onClick={onCopyInviteCode}
-              >
-                <span className="font-mono text-sm text-indigo-200">{campaign?.inviteCode ?? '-'}</span>
-                <Copy className="h-4 w-4 text-zinc-400" />
-              </button>
-              <div className="mt-3 text-xs text-zinc-500">
-                Modo: <span className="text-zinc-300">{campaign?.joinPolicy === 'PRIVATE' ? 'Privada' : 'Pública'}</span>
-              </div>
-            </section>
-          ) : null}
-
           <section className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
             <div className="flex items-center justify-between gap-3">
               <div className="text-sm font-semibold text-white">Jogadores</div>

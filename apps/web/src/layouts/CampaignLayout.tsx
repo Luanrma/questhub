@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { GripHorizontal, Play, Power, X } from 'lucide-react'
+import { Dice5, GripHorizontal, MapPinned, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
@@ -226,14 +226,33 @@ export function CampaignLayout() {
         <div className="min-h-screen">
           {/* Top bar (inspirado no layout de referência) */}
           <header className="sticky top-0 z-30 border-b border-white/10 bg-black/40 backdrop-blur">
-            <div className="py-4 pl-24 pr-6 flex items-center justify-between gap-4">
-              <div>
-                <div className="text-white font-semibold">{campaign.title}</div>
+            <div className="flex min-h-[73px] items-center justify-between gap-4 py-3 pl-24 pr-6">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 text-xs uppercase text-zinc-400">
+                  <MapPinned className="h-4 w-4 text-indigo-300" />
+                  Mesa ativa
+                  <span
+                    className={[
+                      'rounded-full border px-2 py-0.5 text-[10px]',
+                      campaign.isOnline
+                        ? 'border-emerald-300/25 bg-emerald-400/10 text-emerald-200'
+                        : 'border-zinc-300/20 bg-zinc-400/10 text-zinc-300',
+                    ].join(' ')}
+                  >
+                    {campaign.isOnline ? 'Online' : 'Offline'}
+                  </span>
+                </div>
+                <div className="truncate font-semibold text-white">{campaign.title}</div>
                 <div className="text-xs text-zinc-300">Mestre: {campaign.gmName}</div>
               </div>
 
-              {isMaster ? (
-                <div className="flex items-center gap-2">
+              <div className="flex shrink-0 items-center gap-2">
+                <Button variant="ghost" className="h-9 gap-2 px-3">
+                  <Dice5 className="h-4 w-4" />
+                  Rolar
+                </Button>
+
+                {isMaster ? (
                   <Button
                     className="gap-2"
                     variant={campaign.isOnline ? 'danger' : 'primary'}
@@ -243,8 +262,8 @@ export function CampaignLayout() {
                     {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
                     {campaign.isOnline ? 'Encerrar Sessão' : 'Iniciar Sessão'}
                   </Button>
-                </div>
-              ) : null}
+                ) : null}
+              </div>
             </div>
           </header>
 
