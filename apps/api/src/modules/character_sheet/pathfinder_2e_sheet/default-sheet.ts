@@ -45,5 +45,71 @@ export const defaultPathfinder2eSheet: Pathfinder2eSheet = {
       value: 0,
     },
   },
+  skills: {
+    acrobatics: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    arcana: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    athletics: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    crafting: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    deception: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    diplomacy: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    intimidation: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    medicine: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    nature: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    occultism: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    performance: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    religion: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    society: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    stealth: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    survival: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+    thievery: {
+      rank: PROFICIENCY_RANKS.UNTRAINED,
+      value: 0,
+    },
+  },
   notes: '',
 }

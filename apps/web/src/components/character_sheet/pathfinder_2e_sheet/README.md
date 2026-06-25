@@ -6,14 +6,12 @@ Renderizar o formulario Pathfinder 2e no modal de ficha.
 
 ## Responsabilidade principal
 
-Editar o bloco `data.pathfinder2e` e `metadata.bio` do envelope.
+Editar o bloco `data.pathfinder2e` do envelope.
 
 ## Funcionalidades existentes
 
-- Pagina Identidade.
-- Pagina Atributos.
-- Pagina Proficiencias.
-- Edicao de bio e notas.
+- Aba Identidade e Status: identidade, hit points/status e atributos.
+- Aba Proficiencias: somente as pericias oficiais do MVP. Armor class e iniciativa ficam em status.
 - Inputs numericos com limites minimos em alguns campos.
 
 ## Dependencias internas e externas
@@ -29,11 +27,13 @@ Editar o bloco `data.pathfinder2e` e `metadata.bio` do envelope.
 
 - `Pathfinder2eSheetForm.tsx`.
 - `types.ts`.
+- `pathfinder_2e_sheet.json`.
 
 ## Fluxos importantes
 
 - `onChangeSheet` substitui o envelope inteiro com o bloco Pathfinder atualizado.
 - Proficiencias aceitam ranks 0, 2, 4, 6 e 8.
+- `pathfinder_2e_sheet.json` representa exatamente o envelope salvo em `Character.sheet`.
 
 ## Arquivos criticos
 

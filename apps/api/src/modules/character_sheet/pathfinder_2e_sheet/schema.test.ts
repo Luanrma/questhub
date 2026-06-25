@@ -45,7 +45,29 @@ test('pathfinder2eSheetSchema accepts numeric proficiency ranks and manual final
         value: 8,
       },
     },
+    skills: {
+      ...defaultPathfinder2eSheet.skills,
+      acrobatics: {
+        rank: PROFICIENCY_RANKS.LEGENDARY,
+        value: 18,
+      },
+    },
   })
 
   assert.equal(parsed.success, true)
+})
+
+test('pathfinder2eSheetSchema rejects unsupported skill proficiency ranks', () => {
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    skills: {
+      ...defaultPathfinder2eSheet.skills,
+      arcana: {
+        rank: 3,
+        value: 7,
+      },
+    },
+  })
+
+  assert.equal(parsed.success, false)
 })

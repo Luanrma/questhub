@@ -9,7 +9,7 @@
 * **System Adapter:** Exportar `system`, `dataKey`, `version`, `defaultSheet` e `schema` para consumo do modulo `character_sheet`.
 * **Constants as Domain Vocabulary:** Ranks de proficiencia devem ser constantes numericas tipadas.
 * **Schema First:** O backend valida exatamente o mesmo contrato documentado para a ficha.
-* **Manual Values Now, Calculated Values Later:** Campos finais sao editaveis hoje, mas o schema guarda informacao suficiente para calculos futuros.
+* **Calculated Values, Persisted Snapshot:** Totais de pericia sao calculados no frontend a partir de nivel, rank e atributo chave, e persistidos como snapshot em `value`.
 
 ## 3. Constantes
 
@@ -30,7 +30,11 @@ export const PROFICIENCY_RANKS = {
 * Nao criar nem vincular `Character`.
 * Nao acessar canvas/tabuleiro diretamente.
 * Nao salvar strings de rank como dado canonico.
-* Nao implementar calculos automaticos neste MVP.
+* Implementar apenas o calculo automatico de totais de pericias no frontend; demais calculos mecanicos continuam fora do MVP.
 * Nao validar listas oficiais de opcoes neste MVP.
 * Expor validadores e defaults para consumo do modulo `character_sheet`.
 * Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/components/character_sheet/pathfinder_2e_sheet`.
+* A navegacao visual por abas com icones pertence ao modal base, mas as paginas disponiveis e labels do Pathfinder 2e pertencem a este submodulo.
+* O arquivo `pathfinder_2e_sheet.json` no frontend deve representar exatamente o envelope persistido em `Character.sheet` para Pathfinder 2e.
+* Tooltips simples de descricao podem ser implementados com CSS no componente Pathfinder 2e, sem persistir descricoes no banco.
+* O motor de calculo de pericias deve ficar no submodulo Pathfinder 2e do frontend ate existir um adaptador compartilhado de regras.

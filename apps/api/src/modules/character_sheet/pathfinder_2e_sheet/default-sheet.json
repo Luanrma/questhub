@@ -42,5 +42,71 @@
       "value": 0
     }
   },
+  "skills": {
+    "acrobatics": {
+      "rank": 0,
+      "value": 0
+    },
+    "arcana": {
+      "rank": 0,
+      "value": 0
+    },
+    "athletics": {
+      "rank": 0,
+      "value": 0
+    },
+    "crafting": {
+      "rank": 0,
+      "value": 0
+    },
+    "deception": {
+      "rank": 0,
+      "value": 0
+    },
+    "diplomacy": {
+      "rank": 0,
+      "value": 0
+    },
+    "intimidation": {
+      "rank": 0,
+      "value": 0
+    },
+    "medicine": {
+      "rank": 0,
+      "value": 0
+    },
+    "nature": {
+      "rank": 0,
+      "value": 0
+    },
+    "occultism": {
+      "rank": 0,
+      "value": 0
+    },
+    "performance": {
+      "rank": 0,
+      "value": 0
+    },
+    "religion": {
+      "rank": 0,
+      "value": 0
+    },
+    "society": {
+      "rank": 0,
+      "value": 0
+    },
+    "stealth": {
+      "rank": 0,
+      "value": 0
+    },
+    "survival": {
+      "rank": 0,
+      "value": 0
+    },
+    "thievery": {
+      "rank": 0,
+      "value": 0
+    }
+  },
   "notes": ""
 }

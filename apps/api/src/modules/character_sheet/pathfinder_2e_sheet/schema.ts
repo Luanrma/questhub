@@ -20,6 +20,27 @@ const proficiencyValueSchema = z
   })
   .strict()
 
+const skillSetSchema = z
+  .object({
+    acrobatics: proficiencyValueSchema,
+    arcana: proficiencyValueSchema,
+    athletics: proficiencyValueSchema,
+    crafting: proficiencyValueSchema,
+    deception: proficiencyValueSchema,
+    diplomacy: proficiencyValueSchema,
+    intimidation: proficiencyValueSchema,
+    medicine: proficiencyValueSchema,
+    nature: proficiencyValueSchema,
+    occultism: proficiencyValueSchema,
+    performance: proficiencyValueSchema,
+    religion: proficiencyValueSchema,
+    society: proficiencyValueSchema,
+    stealth: proficiencyValueSchema,
+    survival: proficiencyValueSchema,
+    thievery: proficiencyValueSchema,
+  })
+  .strict()
+
 export const pathfinder2eSheetSchema = z
   .object({
     identity: z
@@ -61,6 +82,7 @@ export const pathfinder2eSheetSchema = z
         will: proficiencyValueSchema,
       })
       .strict(),
+    skills: skillSetSchema,
     notes: freeTextSchema,
   })
   .strict()

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight, GripHorizontal, Save, X } from 'lucide-react'
+import { BadgeCheck, GripHorizontal, HeartPulse, Save, UserRound, X } from 'lucide-react'
 import { Button } from '../Button'
 import { api, ApiError } from '../../lib/api'
 import { calculateBounds, clamp } from './drag'
@@ -17,6 +17,12 @@ type Props = {
 function getPageTitles(sheet: CharacterSheetEnvelope | null) {
   if (sheet?.system === 'PATHFINDER_2E') return PATHFINDER_2E_PAGE_TITLES
   return ['Ficha']
+}
+
+function getPageIcon(title: string) {
+  if (title === 'Identidade e Status') return UserRound
+  if (title === 'Proficiências') return BadgeCheck
+  return HeartPulse
 }
 
 function renderSheetForm(page: number, sheet: CharacterSheetEnvelope, onChangeSheet: (sheet: CharacterSheetEnvelope) => void) {
@@ -40,7 +46,6 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
 
   const pageTitles = useMemo(() => getPageTitles(sheet), [sheet])
   const canSave = Boolean(sheet && !loading && !saving)
-  const pageLabel = useMemo(() => `${page + 1}/${pageTitles.length}`, [page, pageTitles.length])
 
   useEffect(() => {
     let cancelled = false
@@ -75,6 +80,10 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
       cancelled = true
     }
   }, [characterId, system])
+
+  useEffect(() => {
+    setPage((current) => Math.min(current, pageTitles.length - 1))
+  }, [pageTitles.length])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -157,7 +166,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
             <GripHorizontal className="h-4 w-4 shrink-0" />
             <div className="min-w-0">
               <div className="truncate text-sm font-semibold">{characterName}</div>
-              <div className="text-xs">{pageTitles[page]} · {pageLabel}</div>
+              <div className="text-xs">{pageTitles[page]}</div>
             </div>
           </div>
           <button
@@ -180,6 +189,26 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
             <div className="sheet-system-mark">{sheet?.system === 'PATHFINDER_2E' ? 'PF2e' : 'Ficha'}</div>
           </div>
 
+          <div className="sheet-tabs" aria-label="Seções da ficha">
+            {pageTitles.map((title, index) => {
+              const Icon = getPageIcon(title)
+              const active = index === page
+              return (
+                <button
+                  key={title}
+                  type="button"
+                  className={active ? 'sheet-tab-button sheet-tab-button-active' : 'sheet-tab-button'}
+                  title={title}
+                  aria-label={title}
+                  aria-current={active ? 'page' : undefined}
+                  onClick={() => setPage(index)}
+                >
+                  <Icon className="h-5 w-5" />
+                </button>
+              )
+            })}
+          </div>
+
           {loading ? <div className="sheet-message">Carregando ficha...</div> : null}
           {error ? <div className="sheet-error">{error}</div> : null}
 
@@ -191,16 +220,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
         </div>
 
         <div className="sheet-footer">
-          <div className="flex gap-2">
-            <Button type="button" variant="ghost" className="gap-2 px-3" disabled={page === 0} onClick={() => setPage((current) => Math.max(0, current - 1))}>
-              <ChevronLeft className="h-4 w-4" />
-              Anterior
-            </Button>
-            <Button type="button" variant="ghost" className="gap-2 px-3" disabled={page === pageTitles.length - 1} onClick={() => setPage((current) => Math.min(pageTitles.length - 1, current + 1))}>
-              Próxima
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{pageTitles[page]}</div>
           <Button type="button" className="gap-2" disabled={!canSave} onClick={saveSheet}>
             <Save className="h-4 w-4" />
             {saving ? 'Salvando...' : 'Salvar ficha'}

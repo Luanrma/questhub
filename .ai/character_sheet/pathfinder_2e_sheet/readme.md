@@ -20,6 +20,7 @@ Campos incluidos:
 * Initiative.
 * Perception.
 * Saving throws principais.
+* Pericias oficiais do Pathfinder 2e no MVP: Acrobacia, Arcanismo, Atletismo, Artesanato, Diplomacia, Enganacao, Furtividade, Intimidacao, Medicina, Natureza, Ocultismo, Performance, Prestidigitacao, Religiao, Sociedade e Sobrevivencia.
 * Notes.
 
 ## 3. Decisoes De Produto
@@ -29,9 +30,12 @@ Campos incluidos:
 * A ficha pode ser salva como rascunho incompleto.
 * Atributos sempre existem e iniciam em `10`.
 * Numeros sao sempre inteiros.
-* O MVP nao faz calculos automaticos de Pathfinder 2e.
-* Valores derivados sao preenchidos manualmente pelo usuario.
+* O MVP calcula automaticamente o total de pericias a partir de nivel, rank de proficiencia e atributo chave.
+* Outros bonus ou penalidades ainda nao possuem campo proprio e sao tratados como `0`.
 * Ranks de proficiencia sao armazenados como numeros para preparar automacao futura.
+* O bonus total de uma pericia segue: bonus de proficiencia PF2e + modificador do atributo chave + outros bonus ou penalidades.
+* Destreinado nao soma nivel. Treinado, Especialista, Mestre e Lendario somam nivel + bonus do rank.
+* `Pathfinder2eProficiencyValue.value` representa o total final calculado e salvo no JSON da ficha.
 
 ## 4. Defaults De Nova Ficha
 * `level`: `1`
@@ -51,11 +55,24 @@ Campos incluidos:
 ## 5. Fora De Escopo Do MVP
 * Criacao guiada por boosts de atributos.
 * Validacao por ancestry, heritage, background ou class oficiais.
-* Skills.
 * Feats.
 * Spells.
 * Actions.
 * Equipment.
 * Strikes/attacks.
 * Class DC.
-* Calculo automatico de proficiencia, level, atributos, bonuses ou penalidades.
+* Campos proprios para bonus de item, circunstancia, status ou penalidades.
+
+## 6. Layout Da Ficha
+* A ficha Pathfinder 2e deve ser navegada por abas de icones, nunca por botoes `Anterior` e `Proxima`.
+* A primeira aba deve reunir, nesta ordem: identidade, hit points/status do personagem e atributos.
+* Armor Class e Initiative pertencem ao status do personagem, nao a proficiencias.
+* A primeira aba nao deve exibir `metadata.bio`.
+* A segunda aba deve ser inteiramente dedicada a proficiencias de pericia.
+* Cada linha de proficiencia deve seguir o layout visual de ficha impressa: icone de ajuda, total calculado destacado na linha sublinhada com o nome da pericia, e rank como selo colorido a direita.
+* O rank deve ser apresentado como TAG de tamanho padronizado, sem seta de select box, sem sublinhado preto e com texto branco adaptado ao tamanho da tag.
+* Cores das TAGs de rank: Nao treinado em cinza medio, Treinado em azul marinho, Especialista em amarelo, Mestre em roxo e Lendario em laranja.
+* A lista aberta de opcoes do rank deve usar fundo neutro em cinza claro e nao herdar a cor da TAG selecionada.
+* A aba de proficiencias deve conter somente as pericias: Acrobacia, Arcanismo, Atletismo, Artesanato, Diplomacia, Enganacao, Furtividade, Intimidacao, Medicina, Natureza, Ocultismo, Performance, Prestidigitacao, Religiao, Sociedade e Sobrevivencia.
+* A descricao de cada pericia nao deve aparecer diretamente na tela; ela deve aparecer apenas em tooltip ao passar o mouse sobre um icone de interrogacao.
+* "Intuicao" nao e persistida como uma pericia propria no MVP; em Pathfinder 2e ela e representada por Sociedade, Ocultismo, Lore ou testes especificos de Percepcao.
