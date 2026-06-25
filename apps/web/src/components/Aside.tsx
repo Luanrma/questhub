@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import {
   ChevronLeft,
   ChevronRight,
+  CircleUserRound,
   FileText,
   House,
   Map,
@@ -20,10 +21,18 @@ type Props = {
   role?: CampaignRole | null
   canOpenMySheet?: boolean
   onOpenMySheet?: () => void
+  onCreatePlayerToken?: () => void
   onSwitchCampaign?: () => void | Promise<void>
 }
 
-export function Aside({ campaignId, role, canOpenMySheet = false, onOpenMySheet, onSwitchCampaign }: Props) {
+export function Aside({
+  campaignId,
+  role,
+  canOpenMySheet = false,
+  onOpenMySheet,
+  onCreatePlayerToken,
+  onSwitchCampaign,
+}: Props) {
   const [collapsed, setCollapsed] = useState(true)
 
   const items = useMemo<NavItem[]>(
@@ -67,20 +76,36 @@ export function Aside({ campaignId, role, canOpenMySheet = false, onOpenMySheet,
         <nav className="px-2 pb-3">
           <ul className="flex flex-col gap-1">
             {role === 'PLAYER' ? (
-              <li>
-                <button
-                  type="button"
-                  disabled={!canOpenMySheet}
-                  onClick={onOpenMySheet}
-                  className={[
-                    'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition disabled:cursor-not-allowed disabled:opacity-40',
-                    'text-zinc-300 hover:bg-white/10 hover:text-white',
-                  ].join(' ')}
-                >
-                  <span className="text-[#6e3fae]"><FileText size={18} /></span>
-                  {!collapsed && <span>Minha ficha</span>}
-                </button>
-              </li>
+              <>
+                <li>
+                  <button
+                    type="button"
+                    disabled={!canOpenMySheet}
+                    onClick={onOpenMySheet}
+                    className={[
+                      'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition disabled:cursor-not-allowed disabled:opacity-40',
+                      'text-zinc-300 hover:bg-white/10 hover:text-white',
+                    ].join(' ')}
+                  >
+                    <span className="text-[#6e3fae]"><FileText size={18} /></span>
+                    {!collapsed && <span>Minha ficha</span>}
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    disabled={!canOpenMySheet}
+                    onClick={onCreatePlayerToken}
+                    className={[
+                      'flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition disabled:cursor-not-allowed disabled:opacity-40',
+                      'text-zinc-300 hover:bg-white/10 hover:text-white',
+                    ].join(' ')}
+                  >
+                    <span className="text-[#6e3fae]"><CircleUserRound size={18} /></span>
+                    {!collapsed && <span>Token</span>}
+                  </button>
+                </li>
+              </>
             ) : null}
             {items.filter((it) => role !== 'PLAYER' || !it.to.endsWith('/characters')).map((it) => (
               <li key={it.to}>

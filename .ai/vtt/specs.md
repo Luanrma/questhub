@@ -53,6 +53,7 @@ Resposta minima usada pelo VTT:
 type MyCampaignCharacter = {
   id: string
   name: string
+  avatarUrl: string | null
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING'
 }
@@ -72,6 +73,15 @@ type MyCampaignCharacter = {
 * Em viewport pequeno, a navegacao vira barra inferior compacta.
 * O contrato base de token nao contem campos mecanicos de Pathfinder 2e ou D&D 5e.
 * O contrato base de rolagem aceita expressao generica, como `1d20+7`, e metadados opcionais de ruleset.
+* Player ve um menu `Token` na sidebar da campanha.
+* Clicar em `Token` cria ou recentraliza o proprio token no centro da area de grid.
+* O token usa `MyCampaignCharacter.avatarUrl` quando existir.
+* Sem avatar, o token exibe a inicial do nome do personagem.
+* O token deve ser redondo e arrastavel por pointer events.
+* O token nao pode sair da area de grid visivel.
+* A posicao do token nao e persistida no banco neste MVP.
+* A posicao do token e sincronizada em tempo real com Mestre e Players online enquanto a sessao esta ativa.
+* Usuarios que entram depois recebem o snapshot atual de tokens da sessao.
 
 ## 5. Configuracao Visual do Grid
 
@@ -116,3 +126,52 @@ type VttGridChangedPayload = {
 
 * `vtt:grid:update`: emitido pelo mestre para atualizar a configuracao da campanha.
 * `vtt:grid:changed`: emitido pelo servidor para a sala da campanha e para jogador ao entrar.
+
+## 6. Token Realtime do Player
+
+Tipo usado pelo VTT:
+
+```ts
+type VttPlayerToken = {
+  id: string
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  position: {
+    x: number
+    y: number
+  }
+}
+
+type VttPlayerTokenChangedPayload = {
+  campaignId: string
+  token: VttPlayerToken
+}
+
+type VttPlayerTokensSnapshotPayload = {
+  campaignId: string
+  tokens: VttPlayerToken[]
+}
+```
+
+Regras:
+* `position.x` e `position.y` representam coordenadas normalizadas entre `0` e `1` dentro da area de grid.
+* O tamanho visual inicial do token e uma celula do grid, respeitando minimo de `40px` e maximo de `72px`.
+* Ao criar/recentralizar, o token fica no centro da area de grid.
+* O drag deve prender a posicao visual entre `0` e `gridAreaSize - tokenSize`.
+* Apenas `PLAYER` ativo ve o menu `Token` no sidebar neste MVP.
+* O menu `Token` nao navega e nao abre modal; ele emite atualizacao realtime para a mesa.
+* Apenas o dono do personagem pode criar ou mover o proprio token.
+* O backend aceita atualizacoes de token apenas de socket autenticado, dentro da sala da campanha e com sessao ativa.
+* Ao receber atualizacao valida, o backend armazena o token em memoria e emite para `campaign:{campaignId}`.
+* Ao entrar em uma sessao ativa, o cliente recebe `vtt:tokens:snapshot`.
+* Ao desconectar um Player, o backend remove seu token da memoria da sessao e emite `vtt:token:removed`.
+* Ao encerrar a sessao, tokens da campanha sao descartados.
+
+Eventos Socket.IO:
+
+* `vtt:token:update`: emitido pelo Player para criar/recentralizar/mover o proprio token.
+* `vtt:token:changed`: emitido pelo servidor para toda a sala quando um token muda.
+* `vtt:tokens:snapshot`: emitido pelo servidor ao usuario entrar na sala da campanha.
+* `vtt:tokens:request`: emitido pelo cliente para pedir novamente o snapshot atual da sessao.
+* `vtt:token:removed`: emitido pelo servidor quando o token deixa de existir na sessao.

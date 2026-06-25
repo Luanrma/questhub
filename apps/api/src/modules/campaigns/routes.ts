@@ -451,6 +451,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           select: {
             id: true,
             name: true,
+            avatarUrl: true,
           },
         },
       },
@@ -467,6 +468,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     return reply.send({
       id: campaignCharacter.character.id,
       name: campaignCharacter.character.name,
+      avatarUrl: campaignCharacter.character.avatarUrl,
       role: campaignCharacter.role,
       status: campaignCharacter.status,
     })

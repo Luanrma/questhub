@@ -27,6 +27,10 @@ Incluido:
 * Grid quadrado e hexagonal com tamanho, espessura e cor ajustaveis.
 * Configuracao de grid sincronizada em tempo real com jogadores ativos na sessao.
 * Configuracao de grid preservada ao iniciar ou encerrar sessao no cliente do mestre.
+* Acao `Token` para Player posicionar seu proprio token no centro da area de grid.
+* Token redondo usando o avatar do personagem do jogador, com fallback visual por inicial.
+* Token arrastavel limitado a area de grid visivel da mesa.
+* Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
 * Fundo padrao da mesa preserva as cores atuais sem grid estatico hardcoded.
 * Sidebar overlay sem reserva de layout.
 * Painel flutuante para rotas internas da campanha que nao sao a mesa.
@@ -36,6 +40,7 @@ Fora de escopo:
 * Regras mecanicas de sistemas de RPG.
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Persistencia de cena/mapa/tokens.
+* Persistencia ou replay de tokens depois que a sessao termina.
 * Fog of war.
 * Medidas sincronizadas.
 * Configuracao persistida de tamanho/formato do grid.

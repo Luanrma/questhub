@@ -1,4 +1,5 @@
 import type { CSSProperties } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Grid3X3, MousePointer2, Move, Palette, Plus, Ruler, SlidersHorizontal, Users, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
@@ -201,33 +202,318 @@ type CampaignOverviewPageProps = {
   gridSettings: VttGridSettings
   gridSettingsOpen: boolean
   canConfigureGrid: boolean
+  myCharacter: {
+    id: string
+    name: string
+    avatarUrl: string | null
+    role: 'MASTER' | 'PLAYER'
+    status: 'ACTIVE' | 'PENDING'
+  } | null
+  playerTokenRequest: number
   onGridSettingsChange: (settings: VttGridSettings) => void
   onGridSettingsOpenChange: (open: boolean) => void
+}
+
+type VttPlayerToken = {
+  id: string
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  position: {
+    x: number
+    y: number
+  }
+}
+
+type VttTokenChangedPayload = {
+  campaignId: string
+  token: VttPlayerToken
+}
+
+type VttTokensSnapshotPayload = {
+  campaignId: string
+  tokens: VttPlayerToken[]
+}
+
+type VttTokenRemovedPayload = {
+  campaignId: string
+  characterId: string
+}
+
+type VttTokenState = {
+  campaignId: string | null
+  tokens: VttPlayerToken[]
+}
+
+type VttGridBounds = {
+  width: number
+  height: number
+}
+
+const tokenSizeLimits = { min: 40, max: 72 }
+
+function getTokenSize(gridSettings: VttGridSettings) {
+  return Math.min(tokenSizeLimits.max, Math.max(tokenSizeLimits.min, gridSettings.size))
+}
+
+function clampTokenPosition(position: VttPlayerToken['position'], bounds: VttGridBounds, tokenSize: number) {
+  return {
+    x: Math.min(Math.max(position.x, 0), Math.max(0, bounds.width - tokenSize)),
+    y: Math.min(Math.max(position.y, 0), Math.max(0, bounds.height - tokenSize)),
+  }
+}
+
+function normalizeTokenPosition(position: VttPlayerToken['position']) {
+  return {
+    x: Math.min(Math.max(position.x, 0), 1),
+    y: Math.min(Math.max(position.y, 0), 1),
+  }
+}
+
+function tokenPixelPosition(token: VttPlayerToken, bounds: VttGridBounds, tokenSize: number) {
+  return {
+    x: token.position.x * Math.max(0, bounds.width - tokenSize),
+    y: token.position.y * Math.max(0, bounds.height - tokenSize),
+  }
+}
+
+function tokenNormalizedPosition(position: VttPlayerToken['position'], bounds: VttGridBounds, tokenSize: number) {
+  const maxX = Math.max(0, bounds.width - tokenSize)
+  const maxY = Math.max(0, bounds.height - tokenSize)
+
+  return {
+    x: maxX > 0 ? position.x / maxX : 0,
+    y: maxY > 0 ? position.y / maxY : 0,
+  }
+}
+
+function PlayerToken({
+  token,
+  tokenSize,
+  gridAreaRef,
+  gridBounds,
+  canDrag,
+  onMove,
+}: {
+  token: VttPlayerToken
+  tokenSize: number
+  gridAreaRef: React.RefObject<HTMLElement | null>
+  gridBounds: VttGridBounds
+  canDrag: boolean
+  onMove: (position: VttPlayerToken['position']) => void
+}) {
+  const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
+  const [dragging, setDragging] = useState(false)
+  const initial = token.name.trim().charAt(0).toUpperCase() || '?'
+  const position = tokenPixelPosition(token, gridBounds, tokenSize)
+
+  useEffect(() => {
+    function onPointerMove(event: PointerEvent) {
+      if (!dragging) return
+
+      const bounds = gridAreaRef.current?.getBoundingClientRect()
+      if (!bounds) return
+      const gridBounds = { width: bounds.width, height: bounds.height }
+
+      const nextPosition = {
+        x: dragStartRef.current.tokenX + event.clientX - dragStartRef.current.pointerX,
+        y: dragStartRef.current.tokenY + event.clientY - dragStartRef.current.pointerY,
+      }
+
+      const clampedPosition = clampTokenPosition(nextPosition, gridBounds, tokenSize)
+      onMove(normalizeTokenPosition(tokenNormalizedPosition(clampedPosition, gridBounds, tokenSize)))
+    }
+
+    function onPointerUp() {
+      setDragging(false)
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+    }
+  }, [dragging, gridAreaRef, onMove, tokenSize])
+
+  function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (!canDrag) return
+
+    event.preventDefault()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    dragStartRef.current = {
+      pointerX: event.clientX,
+      pointerY: event.clientY,
+      tokenX: position.x,
+      tokenY: position.y,
+    }
+    setDragging(true)
+  }
+
+  return (
+    <button
+      type="button"
+      title={`Token de ${token.name}`}
+      className={[
+        'absolute z-20 grid place-items-center overflow-hidden rounded-full border-2 shadow-2xl outline-none transition',
+        dragging
+          ? 'cursor-grabbing border-indigo-200 ring-4 ring-indigo-400/35'
+          : canDrag
+            ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
+            : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+      ].join(' ')}
+      style={{
+        left: position.x,
+        top: position.y,
+        width: tokenSize,
+        height: tokenSize,
+      }}
+      onPointerDown={startDrag}
+    >
+      {token.avatarUrl ? (
+        <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} />
+      ) : (
+        <span className="grid h-full w-full place-items-center bg-indigo-600 text-lg font-bold text-white">{initial}</span>
+      )}
+    </button>
+  )
 }
 
 export function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
   canConfigureGrid,
+  myCharacter,
+  playerTokenRequest,
   onGridSettingsChange,
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
   const { campaignId } = useParams()
-  const { campaigns } = useSession()
+  const { campaigns, socket } = useSession()
+  const gridAreaRef = useRef<HTMLElement | null>(null)
+  const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
+  const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
 
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
+  const tokenSize = getTokenSize(gridSettings)
   const visibleToolButtons = canConfigureGrid ? toolButtons : toolButtons.filter((tool) => tool.label !== 'Grid')
+  const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
+
+  useEffect(() => {
+    const element = gridAreaRef.current
+    if (!element) return
+
+    const updateBounds = () => {
+      const bounds = element.getBoundingClientRect()
+      setGridBounds({ width: bounds.width, height: bounds.height })
+    }
+    const animationFrame = window.requestAnimationFrame(updateBounds)
+    const observer = new ResizeObserver(updateBounds)
+    observer.observe(element)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!socket || !campaignId) return
+
+    function onTokenChanged(payload: VttTokenChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+
+      setTokenState((current) => {
+        const token = { ...payload.token, position: normalizeTokenPosition(payload.token.position) }
+        const currentTokens = current.campaignId === campaignId ? current.tokens : []
+        const index = currentTokens.findIndex((item) => item.characterId === token.characterId)
+        if (index === -1) return { campaignId, tokens: [...currentTokens, token] }
+
+        const next = [...currentTokens]
+        next[index] = token
+        return { campaignId, tokens: next }
+      })
+    }
+
+    function onTokensSnapshot(payload: VttTokensSnapshotPayload) {
+      if (payload.campaignId !== campaignId) return
+      setTokenState({
+        campaignId,
+        tokens: payload.tokens.map((token) => ({ ...token, position: normalizeTokenPosition(token.position) })),
+      })
+    }
+
+    function onTokenRemoved(payload: VttTokenRemovedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setTokenState((current) => {
+        if (current.campaignId !== campaignId) return current
+        return {
+          campaignId,
+          tokens: current.tokens.filter((token) => token.characterId !== payload.characterId),
+        }
+      })
+    }
+
+    socket.on('vtt:token:changed', onTokenChanged)
+    socket.on('vtt:tokens:snapshot', onTokensSnapshot)
+    socket.on('vtt:token:removed', onTokenRemoved)
+    socket.emit('vtt:tokens:request', { campaignId })
+
+    return () => {
+      socket.off('vtt:token:changed', onTokenChanged)
+      socket.off('vtt:tokens:snapshot', onTokensSnapshot)
+      socket.off('vtt:token:removed', onTokenRemoved)
+    }
+  }, [socket, campaignId])
+
+  useEffect(() => {
+    if (playerTokenRequest <= 0) return
+    if (!myCharacter || myCharacter.role !== 'PLAYER') return
+    if (!socket || !campaignId) return
+
+    socket.emit('vtt:token:update', {
+      campaignId,
+      position: { x: 0.5, y: 0.5 },
+    })
+  }, [campaignId, myCharacter, playerTokenRequest, socket])
+
+  function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
+    if (!campaignId || !socket) return
+    if (myCharacter?.id !== token.characterId || myCharacter.role !== 'PLAYER') return
+
+    const nextPosition = normalizeTokenPosition(position)
+    setTokenState((current) => {
+      if (current.campaignId !== campaignId) return current
+      return {
+        campaignId,
+        tokens: current.tokens.map((item) => (item.characterId === token.characterId ? { ...item, position: nextPosition } : item)),
+      }
+    })
+    socket.emit('vtt:token:update', { campaignId, position: nextPosition })
+  }
 
   return (
     <div className="grid h-full min-h-0 grid-cols-[minmax(0,1fr)_320px] bg-[#08090c] text-white max-xl:grid-cols-1">
-      <section className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]">
+      <section ref={gridAreaRef} className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
         <VttGridOverlay settings={gridSettings} />
+        {playerTokens.map((token) => (
+          <PlayerToken
+            key={token.id}
+            token={token}
+            tokenSize={tokenSize}
+            gridAreaRef={gridAreaRef}
+            gridBounds={gridBounds}
+            canDrag={myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER'}
+            onMove={(position) => movePlayerToken(token, position)}
+          />
+        ))}
 
         <div className="relative z-10 flex h-full min-h-[560px] flex-col">
           <div className="relative flex-1">
-            <div className="absolute left-24 top-5 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="absolute left-24 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               {visibleToolButtons.map((tool, index) => {
                 const Icon = tool.icon
                 const active = tool.label === 'Grid' ? gridSettingsOpen : index === 0
@@ -259,7 +545,7 @@ export function CampaignOverviewPage({
               />
             ) : null}
 
-            <div className="absolute right-5 top-5 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="absolute right-5 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               <button
                 type="button"
                 title="Diminuir zoom"
@@ -277,7 +563,7 @@ export function CampaignOverviewPage({
               </button>
             </div>
 
-            <div className="absolute inset-x-6 bottom-6 rounded-lg border border-white/10 bg-black/45 px-4 py-3 backdrop-blur">
+            <div className="absolute inset-x-6 bottom-6 z-30 rounded-lg border border-white/10 bg-black/45 px-4 py-3 backdrop-blur">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <div className="text-sm font-semibold text-white">Cena sem mapa carregado</div>
@@ -303,7 +589,7 @@ export function CampaignOverviewPage({
               <Users className="h-4 w-4 text-zinc-500" />
             </div>
             <div className="mt-3 rounded-md border border-dashed border-white/10 px-3 py-5 text-center text-sm text-zinc-500">
-              Nenhum token ativo na mesa.
+              {playerTokens.length ? playerTokens.map((token) => token.name).join(', ') : 'Nenhum token ativo na mesa.'}
             </div>
           </section>
 

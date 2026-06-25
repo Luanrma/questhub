@@ -20,6 +20,7 @@ import {
 type MyCampaignCharacter = {
   id: string
   name: string
+  avatarUrl: string | null
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING'
 }
@@ -119,6 +120,7 @@ export function CampaignLayout() {
   const presenceKeyRef = useRef<string | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
+  const [playerTokenRequest, setPlayerTokenRequest] = useState(0)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
     campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
@@ -262,6 +264,7 @@ export function CampaignLayout() {
           role={campaign.myRole}
           canOpenMySheet={Boolean(myCharacter?.id)}
           onOpenMySheet={() => setMySheetOpen(true)}
+          onCreatePlayerToken={() => setPlayerTokenRequest((request) => request + 1)}
           onSwitchCampaign={onSwitchCampaign}
         />
 
@@ -314,6 +317,8 @@ export function CampaignLayout() {
               gridSettings={gridSettings}
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
               canConfigureGrid={Boolean(isMaster)}
+              myCharacter={myCharacter}
+              playerTokenRequest={playerTokenRequest}
               onGridSettingsChange={applyGridSettings}
               onGridSettingsOpenChange={setGridSettingsOpen}
             />
