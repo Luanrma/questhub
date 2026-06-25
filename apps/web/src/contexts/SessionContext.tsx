@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useMemo, useRef, useState } from 
 import { io, Socket } from 'socket.io-client'
 import { api } from '../lib/api'
 import type { Me } from '../lib/api'
+import type { VttGridSettings } from '../vtt/grid'
 
 export type Campaign = {
   id: string
@@ -32,6 +33,7 @@ type SessionContextValue = {
   enterPresence: (params: { campaignId: string; characterId: string }) => Promise<void>
   startCampaignSession: (params: { campaignId: string; characterId: string }) => Promise<void>
   endCampaignSession: (params: { campaignId: string }) => Promise<void>
+  updateVttGridSettings: (params: { campaignId: string; settings: VttGridSettings }) => Promise<void>
   signIn: (params: { email: string; password: string }) => Promise<void>
   logout: () => Promise<void>
 }
@@ -219,6 +221,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     await loadCampaigns({ force: true }).catch(() => {})
   }
 
+  async function updateVttGridSettings(params: { campaignId: string; settings: VttGridSettings }) {
+    ensureSocket().emit('vtt:grid:update', params)
+  }
+
   const value = useMemo(
     () => ({
       me,
@@ -233,6 +239,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       enterPresence,
       startCampaignSession,
       endCampaignSession,
+      updateVttGridSettings,
       signIn,
       logout,
     }),

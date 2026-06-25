@@ -10,7 +10,6 @@ import { CharactersHomePage } from './pages/CharactersHomePage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { RegisterPage } from './pages/RegisterPage'
-import { CampaignOverviewPage } from './pages/campaign/CampaignOverviewPage'
 import { CampaignPlayersPage } from './pages/campaign/CampaignPlayersPage'
 import { CampaignSettingsPage } from './pages/campaign/CampaignSettingsPage'
 import { PlaceholderPage } from './pages/campaign/PlaceholderPage'
@@ -38,7 +37,7 @@ export default function App() {
 
       {/* Depois de escolher/entrar/criar uma campanha (com aside) */}
       <Route element={<CampaignLayout />}>
-        <Route path="/campaign/:campaignId/overview" element={<CampaignOverviewPage />} />
+        <Route path="/campaign/:campaignId/overview" element={null} />
         <Route path="/campaign/:campaignId/sessions" element={<PlaceholderPage title="Sessões" />} />
         <Route path="/campaign/:campaignId/characters" element={<PlaceholderPage title="Personagens" />} />
         <Route path="/campaign/:campaignId/players" element={<CampaignPlayersPage />} />

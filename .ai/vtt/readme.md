@@ -23,6 +23,11 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 ## 3. Escopo Atual
 Incluido:
 * Grid visual full-screen com celula inicial de 32px.
+* Configuracao visual do grid da mesa por modal controlado pelo mestre.
+* Grid quadrado e hexagonal com tamanho, espessura e cor ajustaveis.
+* Configuracao de grid sincronizada em tempo real com jogadores ativos na sessao.
+* Configuracao de grid preservada ao iniciar ou encerrar sessao no cliente do mestre.
+* Fundo padrao da mesa preserva as cores atuais sem grid estatico hardcoded.
 * Sidebar overlay sem reserva de layout.
 * Painel flutuante para rotas internas da campanha que nao sao a mesa.
 * Entrada direta na propria ficha para jogadores.

@@ -8,6 +8,14 @@ import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
 import { CampaignOverviewPage } from '../pages/campaign/CampaignOverviewPage'
+import {
+  defaultGridSettings,
+  normalizeGridSettings,
+  readStoredGridSettings,
+  storeGridSettings,
+  type VttGridChangedPayload,
+  type VttGridSettings,
+} from '../vtt/grid'
 
 type MyCampaignCharacter = {
   id: string
@@ -104,12 +112,18 @@ export function CampaignLayout() {
     enterPresence,
     startCampaignSession,
     endCampaignSession,
+    updateVttGridSettings,
+    socket,
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
+  const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
+    campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
+  )
+  const [gridSettingsOpen, setGridSettingsOpen] = useState(false)
   const campaign = campaigns.find((c) => c.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
@@ -119,6 +133,34 @@ export function CampaignLayout() {
   useEffect(() => {
     if (campaignId) setActiveCampaignId(campaignId)
   }, [campaignId, setActiveCampaignId])
+
+  useEffect(() => {
+    if (!socket || !campaignId) return
+
+    function onGridChanged(payload: VttGridChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      const nextSettings = normalizeGridSettings(payload.settings)
+      setGridSettings(nextSettings)
+      storeGridSettings(campaignId, nextSettings)
+    }
+
+    socket.on('vtt:grid:changed', onGridChanged)
+
+    return () => {
+      socket.off('vtt:grid:changed', onGridChanged)
+    }
+  }, [socket, campaignId])
+
+  function applyGridSettings(settings: VttGridSettings) {
+    if (!campaignId) return
+
+    const nextSettings = normalizeGridSettings(settings)
+    setGridSettings(nextSettings)
+    storeGridSettings(campaignId, nextSettings)
+
+    if (!isMaster || !campaign?.isOnline) return
+    updateVttGridSettings({ campaignId, settings: nextSettings }).catch(() => {})
+  }
 
   // Hooks precisam ser chamados sempre: a lógica fica DENTRO do efeito.
   useEffect(() => {
@@ -156,6 +198,7 @@ export function CampaignLayout() {
     setSessionActionLoading(true)
     try {
       await startCampaignSession({ campaignId, characterId: myCharacter.id })
+      await updateVttGridSettings({ campaignId, settings: gridSettings })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível iniciar a sessão.'
       alert(message)
@@ -212,7 +255,6 @@ export function CampaignLayout() {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[#08090c]">
-      <div className="absolute inset-0 vtt-grid-bg" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
       <div className="min-h-screen">
         <Aside
@@ -268,7 +310,13 @@ export function CampaignLayout() {
           </header>
 
           <main className="relative z-10 h-[calc(100vh-73px)] overflow-hidden">
-            <CampaignOverviewPage />
+            <CampaignOverviewPage
+              gridSettings={gridSettings}
+              gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
+              canConfigureGrid={Boolean(isMaster)}
+              onGridSettingsChange={applyGridSettings}
+              onGridSettingsOpenChange={setGridSettingsOpen}
+            />
 
             {hasFloatingPanel ? (
               <FloatingCampaignPanel title={panelTitle} onClose={() => navigate(`/campaign/${campaignId}/overview`)}>

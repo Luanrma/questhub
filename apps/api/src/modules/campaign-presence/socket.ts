@@ -1,6 +1,7 @@
 import type { Server as HttpServer } from 'node:http'
 import cookie from 'cookie'
 import { Server as SocketIOServer } from 'socket.io'
+import { z } from 'zod'
 import { verifyToken } from '../../auth/jwt'
 import { prisma } from '../../db/prisma'
 import { TOKEN_COOKIE } from '../../http/auth'
@@ -8,6 +9,28 @@ import { TOKEN_COOKIE } from '../../http/auth'
 type UserPresence = { socketId: string; campaignId: string; characterId: string }
 type OnlineCampaign = { masterSocketId: string; masterUserId: string; masterCharacterId: string }
 type PresenceAck = (response: { ok: boolean; error?: string }) => void
+type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
+
+const defaultVttGridSettings: VttGridSettings = {
+  visible: false,
+  shape: 'square',
+  size: 32,
+  lineWidth: 1,
+  color: '#94a3b8',
+}
+
+const vttGridSettingsSchema = z.object({
+  visible: z.boolean(),
+  shape: z.enum(['square', 'hex']),
+  size: z.number().int().min(24).max(96),
+  lineWidth: z.number().int().min(1).max(4),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+})
+
+const vttGridUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  settings: vttGridSettingsSchema,
+})
 
 export function setupCampaignPresence(server: HttpServer) {
   const io = new SocketIOServer(server, {
@@ -19,6 +42,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
   const userPresence = new Map<string, UserPresence>()
   const campaignOnline = new Map<string, OnlineCampaign>()
+  const campaignGridSettings = new Map<string, VttGridSettings>()
 
   function isCampaignOnline(campaignId: string) {
     return campaignOnline.has(campaignId)
@@ -62,6 +86,17 @@ export function setupCampaignPresence(server: HttpServer) {
       campaignSocket.data.characterId = undefined
       campaignSocket.data.characterRole = undefined
     }
+  }
+
+  function getCampaignGridSettings(campaignId: string) {
+    return campaignGridSettings.get(campaignId) ?? defaultVttGridSettings
+  }
+
+  function emitCampaignGridSettings(campaignId: string) {
+    io.to(`campaign:${campaignId}`).emit('vtt:grid:changed', {
+      campaignId,
+      settings: getCampaignGridSettings(campaignId),
+    })
   }
 
   io.use((socket, next) => {
@@ -109,6 +144,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
           await notifyCampaignStatus(campaignId, true)
           io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: true })
+          emitCampaignGridSettings(campaignId)
           ack?.({ ok: true })
         } catch {
           ack?.({ ok: false, error: 'Erro ao iniciar sessao' })
@@ -160,6 +196,10 @@ export function setupCampaignPresence(server: HttpServer) {
         socket.data.characterRole = campaignCharacter.role
         socket.join(`campaign:${campaignId}`)
         userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
+        socket.emit('vtt:grid:changed', {
+          campaignId,
+          settings: getCampaignGridSettings(campaignId),
+        })
 
         io.to(`campaign:${campaignId}`).emit('presence:update', {
           campaignId,
@@ -169,6 +209,18 @@ export function setupCampaignPresence(server: HttpServer) {
       } catch {
         socket.emit('presence:error', { message: 'Erro de presenca' })
       }
+    })
+
+    socket.on('vtt:grid:update', (input: unknown) => {
+      const parsed = vttGridUpdateSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, settings } = parsed.data
+      const online = campaignOnline.get(campaignId)
+      if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
+
+      campaignGridSettings.set(campaignId, settings)
+      emitCampaignGridSettings(campaignId)
     })
 
     socket.on('disconnect', () => {

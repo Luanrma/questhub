@@ -72,3 +72,47 @@ type MyCampaignCharacter = {
 * Em viewport pequeno, a navegacao vira barra inferior compacta.
 * O contrato base de token nao contem campos mecanicos de Pathfinder 2e ou D&D 5e.
 * O contrato base de rolagem aceita expressao generica, como `1d20+7`, e metadados opcionais de ruleset.
+
+## 5. Configuracao Visual do Grid
+
+Tipo local usado pelo VTT:
+
+```ts
+type VttGridShape = 'square' | 'hex'
+
+type VttGridSettings = {
+  visible: boolean
+  shape: VttGridShape
+  size: number
+  lineWidth: number
+  color: string
+}
+```
+
+Regras:
+* O botao `Grid` da barra de ferramentas abre um modal de configuracao apenas para `MASTER`.
+* Para `PLAYER`, o botao/menu de configuracao do grid nao deve aparecer.
+* O grid pode ser quadrado ou hexagonal.
+* O tamanho da celula deve respeitar minimo de `24px` e maximo de `96px`.
+* A espessura das linhas deve respeitar minimo de `1px` e maximo de `4px`.
+* A cor das linhas deve ser configuravel por input de cor.
+* O fundo padrao da mesa deve manter a paleta atual sem o grid estatico antigo.
+* A configuracao pertence ao layout persistente da campanha no frontend.
+* A configuracao deve ser preservada no cliente do mestre ao iniciar ou encerrar sessao.
+* A configuracao deve ser sincronizada via Socket.IO com jogadores na sala da campanha.
+* O backend deve aceitar alteracoes de grid apenas de socket autenticado como mestre ativo da campanha.
+* Jogadores recebem `vtt:grid:changed`, mas nao podem emitir alteracoes aceitas pelo servidor.
+* A configuracao nao deve ser persistida no banco neste MVP.
+* O modal deve permitir fechar sem desmontar a mesa.
+
+Eventos Socket.IO:
+
+```ts
+type VttGridChangedPayload = {
+  campaignId: string
+  settings: VttGridSettings
+}
+```
+
+* `vtt:grid:update`: emitido pelo mestre para atualizar a configuracao da campanha.
+* `vtt:grid:changed`: emitido pelo servidor para a sala da campanha e para jogador ao entrar.

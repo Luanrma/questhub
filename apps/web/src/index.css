@@ -489,24 +489,6 @@ input:disabled,
   padding: 12px 14px;
 }
 
-.vtt-grid-bg {
-  background-image:
-    linear-gradient(rgb(148 163 184 / 12%) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(148 163 184 / 12%) 1px, transparent 1px),
-    linear-gradient(rgb(99 102 241 / 20%) 2px, transparent 2px),
-    linear-gradient(90deg, rgb(99 102 241 / 20%) 2px, transparent 2px);
-  background-position:
-    -1px -1px,
-    -1px -1px,
-    -2px -2px,
-    -2px -2px;
-  background-size:
-    32px 32px,
-    32px 32px,
-    160px 160px,
-    160px 160px;
-}
-
 .campaign-sidebar {
   position: fixed;
   left: 0;

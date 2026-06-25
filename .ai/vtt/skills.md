@@ -12,6 +12,8 @@
 * Compact Overlay Navigation: em telas pequenas, o menu vira barra inferior sobreposta.
 * Role-aware Navigation: itens do menu variam conforme `Campaign.myRole`.
 * Reuse Existing Modal: ficha do jogador usa o modal de ficha ja existente.
+* Layout-owned Table State: configuracoes visuais da mesa ficam no `CampaignLayout`, nao em rota filha.
+* Realtime Table Broadcast: configuracoes de mesa sao propagadas por Socket.IO para a sala da campanha.
 * Route-as-Modal-State: rotas internas da campanha indicam qual overlay esta aberto, sem desmontar o canvas VTT.
 * Generic Table Engine: mapa, token, chat, dado, cena e movimentacao sao modelados sem campos especificos de ruleset.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
@@ -19,6 +21,8 @@
 ## 3. Restricoes
 * Nao adicionar biblioteca de canvas antes de haver manipulacao real de mapa/tokens.
 * Nao criar estado persistente falso para sessoes ou mapas.
+* Nao persistir configuracao de grid no banco ate existir contrato de cena/mapa.
+* Nao permitir que jogadores emitam alteracoes de grid.
 * Nao duplicar implementacao de ficha.
 * Nao bloquear o VTT por dados administrativos que possam carregar em overlay.
 * Nao renderizar o VTT como rota filha; ele pertence ao `CampaignLayout` e deve permanecer montado.
