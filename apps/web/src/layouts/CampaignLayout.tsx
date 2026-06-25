@@ -7,6 +7,7 @@ import { LoadingScreen } from '../components/LoadingScreen'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
+import { CampaignOverviewPage } from '../pages/campaign/CampaignOverviewPage'
 
 type MyCampaignCharacter = {
   id: string
@@ -112,6 +113,7 @@ export function CampaignLayout() {
   const campaign = campaigns.find((c) => c.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
+  const hasFloatingPanel = !isTableRoute
   const panelTitle = getPanelTitle(location.pathname)
 
   useEffect(() => {
@@ -247,13 +249,13 @@ export function CampaignLayout() {
           </header>
 
           <main className="relative z-10 h-[calc(100vh-73px)] overflow-hidden">
-            {isTableRoute ? (
-              <Outlet />
-            ) : (
+            <CampaignOverviewPage />
+
+            {hasFloatingPanel ? (
               <FloatingCampaignPanel title={panelTitle} onClose={() => navigate(`/campaign/${campaignId}/overview`)}>
                 <Outlet />
               </FloatingCampaignPanel>
-            )}
+            ) : null}
           </main>
         </div>
       </div>

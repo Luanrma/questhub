@@ -2,8 +2,10 @@
 
 ## 1. Navegacao
 * `/campaign/:campaignId/overview` representa a mesa.
-* Rotas internas como `/players`, `/characters`, `/journal` e `/settings` renderizam por cima da mesa em painel flutuante.
+* A mesa e renderizada pelo `CampaignLayout`, nao por uma rota filha exclusiva.
+* Rotas internas como `/sessions`, `/players`, `/characters`, `/journal` e `/settings` sao estado de modal e renderizam por cima da mesa em painel flutuante.
 * O painel flutuante pode ser fechado navegando de volta para `/campaign/:campaignId/overview`.
+* Clicar nos menus internos da sidebar nao pode causar reload de documento nem desmontar/remontar o VTT.
 
 ## 2. Sidebar
 * Em telas grandes, a sidebar deve ser sobreposta e nao deve reservar largura no layout.
@@ -37,6 +39,8 @@ type MyCampaignCharacter = {
 
 ## 4. Criterios de Aceitacao
 * A mesa continua visivel quando o usuario abre jogadores, configuracoes, personagens ou diario.
+* A mesa permanece montada ao alternar entre menus internos da sidebar.
+* Todos os menus internos da campanha, exceto `Mesa` e `Trocar campanha`, abrem como modal/overlay.
 * Em desktop, a mesa ocupa a largura total da viewport desde a margem esquerda.
 * Em desktop, expandir ou recolher a sidebar nao altera a largura da mesa.
 * Em desktop, a sidebar nao ocupa 100% da altura quando ha poucos menus.

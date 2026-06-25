@@ -10,6 +10,8 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * A sidebar desktop nao deve ocupar 100% da altura; sua altura acompanha a quantidade de menus.
 * Em viewports menores que 900px de largura ou 640px de altura, a sidebar muda para uma barra compacta inferior sobreposta para preservar espaco da mesa.
 * Telas laterais como jogadores, personagens, diario e configuracoes abrem como paineis flutuantes arrastaveis.
+* A navegacao pela sidebar dentro da campanha nao deve recarregar a pagina nem desmontar a mesa.
+* Os menus internos da campanha sao tratados como modais/overlays sobre o VTT persistente.
 * O Mestre ve `Personagens` para gerenciar personagens da campanha.
 * O Player nao ve `Personagens`; no lugar, ve `Minha ficha`.
 * `Minha ficha` abre diretamente a ficha do personagem vinculado a campanha usando o modal arrastavel existente.

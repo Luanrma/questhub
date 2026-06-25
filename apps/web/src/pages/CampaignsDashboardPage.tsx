@@ -175,7 +175,7 @@ export function CampaignsDashboardPage() {
                       className="text-right"
                       title="Copiar invite code"
                       onClick={async () => {
-                        const ok = await copyToClipboard(c.inviteCode)
+                        const ok = await copyToClipboard(c.inviteCode ?? '')
                         if (ok) alert('Invite code copiado!')
                         else alert('Não foi possível copiar. Copie manualmente.')
                       }}
