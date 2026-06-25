@@ -5,6 +5,8 @@ import cookiePlugin from '@fastify/cookie'
 import { registerAuthRoutes } from './modules/auth/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
+import { registerChatRoutes } from './modules/chat/routes'
+import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerCharacterSheetRoutes } from './modules/game_systems/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
@@ -54,6 +56,8 @@ registerAuthRoutes(app)
 registerCharacterRoutes(app)
 registerCharacterSheetRoutes(app)
 registerCampaignRoutes(app, presence)
+registerChatRoutes(app)
+registerChatSocketHandlers(presence.io)
 registerTradeRoutes(app, presence.io)
 
 await app.listen({ port: Number(process.env.PORT ?? 3001), host: '0.0.0.0' })

@@ -39,6 +39,7 @@ model User {
   characters       Character[]
   createdCampaigns Campaign[]  @relation("CreatedCampaigns")
   campaignLinks    CampaignCharacter[]
+  chatMessages     ChatMessage[]
 }
 
 model Campaign {
@@ -56,6 +57,7 @@ model Campaign {
   updatedAt DateTime @updatedAt
 
   characters CampaignCharacter[]
+  chatMessages ChatMessage[]
 }
 
 model Character {
@@ -71,6 +73,7 @@ model Character {
 
   user      User                @relation(fields: [userId], references: [id])
   campaigns CampaignCharacter[]
+  chatMessages ChatMessage[]
 
   @@index([userId])
   @@index([deletedAt])
@@ -96,4 +99,21 @@ model CampaignCharacter {
   @@index([userId])
   @@index([status])
   @@index([role])
+}
+
+model ChatMessage {
+  id          String   @id @default(cuid())
+  campaignId  String
+  characterId String
+  userId      String
+  content     String
+  createdAt   DateTime @default(now())
+
+  campaign  Campaign  @relation(fields: [campaignId], references: [id])
+  character Character @relation(fields: [characterId], references: [id])
+  user      User      @relation(fields: [userId], references: [id])
+
+  @@index([campaignId, createdAt])
+  @@index([characterId])
+  @@index([userId])
 }

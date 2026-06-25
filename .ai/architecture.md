@@ -12,6 +12,7 @@ QuestHub e um VTT web para campanhas de RPG online. A aplicacao atual e um monor
 * `characters`: criacao, listagem, detalhe e edicao basica de `Character`.
 * `campaigns`: criacao de campanha, entrada por convite, listagem, settings e aprovacao/recusa de jogadores.
 * `campaign-presence`: presenca realtime por campanha, estado online do mestre e eventos de entrada/saida.
+* `chat`: historico e envio realtime de mensagens por campanha.
 * `trade`: endpoint experimental de envio realtime de item entre usuarios.
 
 ## 4. Organizacao Backend

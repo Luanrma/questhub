@@ -13,6 +13,7 @@ import {
 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
+import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
 
 async function copyToClipboard(text: string) {
@@ -154,8 +155,8 @@ export function CampaignOverviewPage() {
         </div>
       </section>
 
-      <aside className="min-h-0 overflow-auto border-l border-white/10 bg-[#101116] p-5 max-xl:border-l-0 max-xl:border-t">
-        <div className="space-y-5">
+      <aside className="min-h-0 overflow-hidden border-l border-white/10 bg-[#101116] p-5 max-xl:border-l-0 max-xl:border-t">
+        <div className="flex h-full min-h-0 flex-col gap-5">
           <section>
             <div className="text-xs uppercase text-zinc-500">Campanha</div>
             <h2 className="mt-1 text-lg font-semibold text-white">{campaign?.title ?? 'Campanha'}</h2>
@@ -210,6 +211,14 @@ export function CampaignOverviewPage() {
               </div>
             </div>
           </section>
+
+          {campaignId ? (
+            <CampaignChat
+              campaignId={campaignId}
+              characterId={campaign?.myCharacterId}
+              enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')}
+            />
+          ) : null}
         </div>
       </aside>
     </div>

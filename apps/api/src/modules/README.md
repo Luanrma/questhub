@@ -13,6 +13,7 @@ Registrar rotas HTTP e eventos relacionados aos dominios do QuestHub.
 - Autenticacao.
 - Campanhas.
 - Presenca de campanha.
+- Chat em tempo real.
 - Personagens.
 - Fichas.
 - Trade experimental.
@@ -42,6 +43,8 @@ Registrar rotas HTTP e eventos relacionados aos dominios do QuestHub.
 - `characters/routes.ts`.
 - `game_systems/routes.ts`.
 - `campaign-presence/socket.ts`.
+- `chat/routes.ts`.
+- `chat/socket.ts`.
 
 ## Observacoes tecnicas e debitos
 
