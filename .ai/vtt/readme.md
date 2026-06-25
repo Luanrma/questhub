@@ -30,6 +30,8 @@ Incluido:
 * Acao `Token` para Player posicionar seu proprio token no centro da area de grid.
 * Token redondo usando o avatar do personagem do jogador, com fallback visual por inicial.
 * Token arrastavel limitado a area de grid visivel da mesa.
+* Token posicionado por coordenadas logicas do grid, preservando sua celula/hexagono ao alterar o tamanho do grid.
+* Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
 * Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
 * Fundo padrao da mesa preserva as cores atuais sem grid estatico hardcoded.
 * Sidebar overlay sem reserva de layout.

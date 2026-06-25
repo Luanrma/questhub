@@ -250,62 +250,152 @@ type VttGridBounds = {
   height: number
 }
 
-const tokenSizeLimits = { min: 40, max: 72 }
+const hexRowStepUnits = Math.sqrt(3) / 2
 
 function getTokenSize(gridSettings: VttGridSettings) {
-  return Math.min(tokenSizeLimits.max, Math.max(tokenSizeLimits.min, gridSettings.size))
+  return gridSettings.size
 }
 
-function clampTokenPosition(position: VttPlayerToken['position'], bounds: VttGridBounds, tokenSize: number) {
+function clampNumber(value: number, min: number, max: number) {
+  if (!Number.isFinite(value)) return min
+  return Math.min(Math.max(value, min), Math.max(min, max))
+}
+
+function clampTokenGridPosition(position: VttPlayerToken['position'], bounds: VttGridBounds, gridSize: number) {
+  const maxX = bounds.width / gridSize - 0.5
+  const maxY = bounds.height / gridSize - 0.5
+
   return {
-    x: Math.min(Math.max(position.x, 0), Math.max(0, bounds.width - tokenSize)),
-    y: Math.min(Math.max(position.y, 0), Math.max(0, bounds.height - tokenSize)),
+    x: clampNumber(position.x, 0.5, maxX),
+    y: clampNumber(position.y, 0.5, maxY),
   }
 }
 
-function normalizeTokenPosition(position: VttPlayerToken['position']) {
+function snapSquareTokenPosition(position: VttPlayerToken['position']) {
   return {
-    x: Math.min(Math.max(position.x, 0), 1),
-    y: Math.min(Math.max(position.y, 0), 1),
+    x: Math.floor(position.x) + 0.5,
+    y: Math.floor(position.y) + 0.5,
   }
 }
 
-function tokenPixelPosition(token: VttPlayerToken, bounds: VttGridBounds, tokenSize: number) {
+function isTokenCenterVisible(center: VttPlayerToken['position'], bounds: VttGridBounds, gridSize: number) {
+  const pixelCenter = {
+    x: center.x * gridSize,
+    y: center.y * gridSize,
+  }
+
+  return (
+    pixelCenter.x >= gridSize / 2 &&
+    pixelCenter.y >= gridSize / 2 &&
+    pixelCenter.x <= bounds.width - gridSize / 2 &&
+    pixelCenter.y <= bounds.height - gridSize / 2
+  )
+}
+
+function snapHexTokenPosition(position: VttPlayerToken['position'], bounds?: VttGridBounds, gridSize?: number) {
+  const rowEstimate = Math.round(position.y / hexRowStepUnits)
+  let closest = { x: 0.5, y: hexRowStepUnits }
+  let closestDistance = Number.POSITIVE_INFINITY
+
+  for (let row = Math.max(0, rowEstimate - 3); row <= rowEstimate + 3; row += 1) {
+    const rowOffset = row % 2 === 0 ? 0 : 0.5
+    const colEstimate = Math.round(position.x - rowOffset)
+
+    for (let col = Math.max(0, colEstimate - 3); col <= colEstimate + 3; col += 1) {
+      const candidate = {
+        x: col + rowOffset,
+        y: row * hexRowStepUnits,
+      }
+
+      if (bounds && gridSize && !isTokenCenterVisible(candidate, bounds, gridSize)) continue
+
+      const distance = (candidate.x - position.x) ** 2 + (candidate.y - position.y) ** 2
+      if (distance >= closestDistance) continue
+
+      closest = candidate
+      closestDistance = distance
+    }
+  }
+
+  return closest
+}
+
+function snapTokenGridPosition(
+  position: VttPlayerToken['position'],
+  gridShape: VttGridShape,
+  bounds?: VttGridBounds,
+  gridSize?: number,
+) {
+  if (gridShape === 'hex') return snapHexTokenPosition(position, bounds, gridSize)
+  return snapSquareTokenPosition(position)
+}
+
+function normalizeTokenPosition(
+  position: VttPlayerToken['position'],
+  gridShape: VttGridShape,
+  bounds?: VttGridBounds,
+  gridSize?: number,
+) {
+  if (bounds && gridSize) return snapTokenGridPosition(clampTokenGridPosition(position, bounds, gridSize), gridShape, bounds, gridSize)
+
   return {
-    x: token.position.x * Math.max(0, bounds.width - tokenSize),
-    y: token.position.y * Math.max(0, bounds.height - tokenSize),
+    x: Math.max(0, Number.isFinite(position.x) ? position.x : 0),
+    y: Math.max(0, Number.isFinite(position.y) ? position.y : 0),
   }
 }
 
-function tokenNormalizedPosition(position: VttPlayerToken['position'], bounds: VttGridBounds, tokenSize: number) {
-  const maxX = Math.max(0, bounds.width - tokenSize)
-  const maxY = Math.max(0, bounds.height - tokenSize)
-
+function tokenPixelPosition(token: VttPlayerToken, gridSize: number) {
   return {
-    x: maxX > 0 ? position.x / maxX : 0,
-    y: maxY > 0 ? position.y / maxY : 0,
+    x: token.position.x * gridSize - gridSize / 2,
+    y: token.position.y * gridSize - gridSize / 2,
   }
+}
+
+function tokenGridPositionFromPixelCenter(
+  position: VttPlayerToken['position'],
+  bounds: VttGridBounds,
+  gridSize: number,
+  gridShape: VttGridShape,
+) {
+  return normalizeTokenPosition(
+    {
+      x: position.x / gridSize,
+      y: position.y / gridSize,
+    },
+    gridShape,
+    bounds,
+    gridSize,
+  )
+}
+
+function closestGridCenterPosition(bounds: VttGridBounds, gridSize: number, gridShape: VttGridShape) {
+  const center = {
+    x: bounds.width / 2 / gridSize,
+    y: bounds.height / 2 / gridSize,
+  }
+
+  return normalizeTokenPosition(center, gridShape, bounds, gridSize)
 }
 
 function PlayerToken({
   token,
   tokenSize,
+  gridShape,
   gridAreaRef,
-  gridBounds,
   canDrag,
   onMove,
 }: {
   token: VttPlayerToken
   tokenSize: number
+  gridShape: VttGridShape
   gridAreaRef: React.RefObject<HTMLElement | null>
-  gridBounds: VttGridBounds
   canDrag: boolean
   onMove: (position: VttPlayerToken['position']) => void
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const [dragging, setDragging] = useState(false)
   const initial = token.name.trim().charAt(0).toUpperCase() || '?'
-  const position = tokenPixelPosition(token, gridBounds, tokenSize)
+  const position = tokenPixelPosition(token, tokenSize)
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -320,8 +410,12 @@ function PlayerToken({
         y: dragStartRef.current.tokenY + event.clientY - dragStartRef.current.pointerY,
       }
 
-      const clampedPosition = clampTokenPosition(nextPosition, gridBounds, tokenSize)
-      onMove(normalizeTokenPosition(tokenNormalizedPosition(clampedPosition, gridBounds, tokenSize)))
+      const tokenCenter = {
+        x: nextPosition.x + tokenSize / 2,
+        y: nextPosition.y + tokenSize / 2,
+      }
+
+      onMove(tokenGridPositionFromPixelCenter(tokenCenter, gridBounds, tokenSize, gridShape))
     }
 
     function onPointerUp() {
@@ -335,7 +429,7 @@ function PlayerToken({
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
     }
-  }, [dragging, gridAreaRef, onMove, tokenSize])
+  }, [dragging, gridAreaRef, gridShape, onMove, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
     if (!canDrag) return
@@ -392,6 +486,7 @@ export function CampaignOverviewPage({
   const { campaignId } = useParams()
   const { campaigns, socket } = useSession()
   const gridAreaRef = useRef<HTMLElement | null>(null)
+  const handledPlayerTokenRequestRef = useRef(0)
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
 
@@ -426,7 +521,7 @@ export function CampaignOverviewPage({
       if (payload.campaignId !== campaignId) return
 
       setTokenState((current) => {
-        const token = { ...payload.token, position: normalizeTokenPosition(payload.token.position) }
+        const token = { ...payload.token, position: normalizeTokenPosition(payload.token.position, gridSettings.shape) }
         const currentTokens = current.campaignId === campaignId ? current.tokens : []
         const index = currentTokens.findIndex((item) => item.characterId === token.characterId)
         if (index === -1) return { campaignId, tokens: [...currentTokens, token] }
@@ -441,7 +536,7 @@ export function CampaignOverviewPage({
       if (payload.campaignId !== campaignId) return
       setTokenState({
         campaignId,
-        tokens: payload.tokens.map((token) => ({ ...token, position: normalizeTokenPosition(token.position) })),
+        tokens: payload.tokens.map((token) => ({ ...token, position: normalizeTokenPosition(token.position, gridSettings.shape) })),
       })
     }
 
@@ -466,24 +561,27 @@ export function CampaignOverviewPage({
       socket.off('vtt:tokens:snapshot', onTokensSnapshot)
       socket.off('vtt:token:removed', onTokenRemoved)
     }
-  }, [socket, campaignId])
+  }, [socket, campaignId, gridSettings.shape])
 
   useEffect(() => {
     if (playerTokenRequest <= 0) return
+    if (handledPlayerTokenRequestRef.current === playerTokenRequest) return
     if (!myCharacter || myCharacter.role !== 'PLAYER') return
     if (!socket || !campaignId) return
+    if (!gridBounds.width || !gridBounds.height) return
+    handledPlayerTokenRequestRef.current = playerTokenRequest
 
     socket.emit('vtt:token:update', {
       campaignId,
-      position: { x: 0.5, y: 0.5 },
+      position: closestGridCenterPosition(gridBounds, tokenSize, gridSettings.shape),
     })
-  }, [campaignId, myCharacter, playerTokenRequest, socket])
+  }, [campaignId, gridBounds, gridSettings.shape, myCharacter, playerTokenRequest, socket, tokenSize])
 
   function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
     if (!campaignId || !socket) return
     if (myCharacter?.id !== token.characterId || myCharacter.role !== 'PLAYER') return
 
-    const nextPosition = normalizeTokenPosition(position)
+    const nextPosition = normalizeTokenPosition(position, gridSettings.shape, gridBounds, tokenSize)
     setTokenState((current) => {
       if (current.campaignId !== campaignId) return current
       return {
@@ -504,8 +602,8 @@ export function CampaignOverviewPage({
             key={token.id}
             token={token}
             tokenSize={tokenSize}
+            gridShape={gridSettings.shape}
             gridAreaRef={gridAreaRef}
-            gridBounds={gridBounds}
             canDrag={myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER'}
             onMove={(position) => movePlayerToken(token, position)}
           />

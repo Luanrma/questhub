@@ -14,6 +14,7 @@
 * Reuse Existing Modal: ficha do jogador usa o modal de ficha ja existente.
 * Layout-owned Table State: configuracoes visuais da mesa ficam no `CampaignLayout`, nao em rota filha.
 * Session-owned Realtime Tokens: tokens temporarios do MVP ficam em memoria no servidor durante a sessao ativa e sao refletidos no `CampaignLayout`.
+* Grid-coordinate Tokens: a posicao do token usa coordenadas logicas do grid, nao percentual de viewport.
 * Realtime Table Broadcast: configuracoes de mesa sao propagadas por Socket.IO para a sala da campanha.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players online.
 * Route-as-Modal-State: rotas internas da campanha indicam qual overlay esta aberto, sem desmontar o canvas VTT.
@@ -27,6 +28,7 @@
 * Nao persistir configuracao de grid no banco ate existir contrato de cena/mapa.
 * Nao permitir que jogadores emitam alteracoes de grid.
 * Nao permitir que um jogador mova token de outro personagem.
+* Nao vincular posicao de token ao tamanho da tela disponivel.
 * Nao duplicar implementacao de ficha.
 * Nao bloquear o VTT por dados administrativos que possam carregar em overlay.
 * Nao renderizar o VTT como rota filha; ele pertence ao `CampaignLayout` e deve permanecer montado.

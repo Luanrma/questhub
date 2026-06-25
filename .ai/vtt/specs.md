@@ -79,6 +79,9 @@ type MyCampaignCharacter = {
 * Sem avatar, o token exibe a inicial do nome do personagem.
 * O token deve ser redondo e arrastavel por pointer events.
 * O token nao pode sair da area de grid visivel.
+* A posicao do token deve ser calculada em coordenadas logicas do grid, nao como percentual da tela.
+* Ao aumentar ou diminuir o tamanho do grid, o token permanece no mesmo ponto logico do quadrado ou hexagono.
+* O diametro visual do token acompanha `VttGridSettings.size`.
 * A posicao do token nao e persistida no banco neste MVP.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online enquanto a sessao esta ativa.
 * Usuarios que entram depois recebem o snapshot atual de tokens da sessao.
@@ -155,10 +158,16 @@ type VttPlayerTokensSnapshotPayload = {
 ```
 
 Regras:
-* `position.x` e `position.y` representam coordenadas normalizadas entre `0` e `1` dentro da area de grid.
-* O tamanho visual inicial do token e uma celula do grid, respeitando minimo de `40px` e maximo de `72px`.
-* Ao criar/recentralizar, o token fica no centro da area de grid.
-* O drag deve prender a posicao visual entre `0` e `gridAreaSize - tokenSize`.
+* `position.x` e `position.y` representam o centro do token em unidades logicas do grid.
+* Para renderizar, `pixelCenter = position * VttGridSettings.size`.
+* O tamanho visual do token e `VttGridSettings.size`, preservando proporcao ao alterar o grid.
+* Ao criar/recentralizar, o token fica no centro da area de grid, arredondado para o centro logico mais proximo.
+* Para grid quadrado, o snap usa centros `n + 0.5`.
+* Para grid hexagonal, o snap usa os centros reais dos hexagonos renderizados, incluindo deslocamento horizontal alternado por linha.
+* Um clique no menu `Token` deve ser processado uma unica vez; mudancas posteriores de grid ou viewport nao podem recentralizar o token automaticamente.
+* A posicao logica do token nao deve ser rebaixada para o limite visivel quando a janela ou o tamanho do grid muda.
+* O limite visual deve ser aplicado apenas durante o drag, nunca durante a renderizacao passiva.
+* O drag deve prender o centro do token entre metade de uma celula e o limite visual da area de grid.
 * Apenas `PLAYER` ativo ve o menu `Token` no sidebar neste MVP.
 * O menu `Token` nao navega e nao abre modal; ele emite atualizacao realtime para a mesa.
 * Apenas o dono do personagem pode criar ou mover o proprio token.
