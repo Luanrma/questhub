@@ -25,7 +25,7 @@ O MVP reconhece:
 * `DND_5E`
 * `PATHFINDER_2E`
 
-No estado atual, esses sistemas funcionam como identificadores de compatibilidade. Regras mecanicas comuns pertencem ao modulo `character_sheet`; regras especificas pertencem aos submodulos `character_sheet/dnd_5e_sheet` e `character_sheet/pathfinder_2e_sheet`.
+No estado atual, esses sistemas funcionam como identificadores de compatibilidade. Regras mecanicas, fichas, spells, itens e catalogos especificos pertencem aos rulesets em `game_systems`. Nao deve existir um modulo global de regras de ficha fora dos sistemas de jogo.
 
 ## 5. Visao de Produto
 O QuestHub deve crescer como uma plataforma modular:

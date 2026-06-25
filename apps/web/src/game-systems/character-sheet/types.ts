@@ -1,4 +1,4 @@
-import type { Pathfinder2eSheetEnvelope } from './pathfinder_2e_sheet/types'
+import type { Pathfinder2eSheetEnvelope } from '../pathfinder-2e/character-sheet/types'
 
 export type CharacterSheetEnvelope = Pathfinder2eSheetEnvelope
 export type GameSystem = CharacterSheetEnvelope['system']

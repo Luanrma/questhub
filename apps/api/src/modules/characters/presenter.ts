@@ -1,4 +1,4 @@
-import { getCharacterSheetBio } from '../character_sheet'
+import { getCharacterSheetBio } from '../game_systems'
 
 export type CharacterForPresentation = {
   id: string

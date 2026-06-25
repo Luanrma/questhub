@@ -10,7 +10,8 @@
 * Testes unitarios para regras e calculos especificos.
 
 ## 3. Restricoes
+* Nao adicionar novas regras aqui sem antes atualizar o contrato do ruleset `game_systems/dnd_5e`.
 * Nao criar nem vincular `Character`.
 * Nao acessar canvas/tabuleiro diretamente.
-* Nao duplicar schemas comuns de `character_sheet`.
-* Expor validadores consumidos por `character_sheet`.
+* Nao duplicar schemas comuns do envelope de `game_systems`.
+* Expor validadores consumidos pelo registry de `game_systems`.

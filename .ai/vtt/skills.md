@@ -13,6 +13,8 @@
 * Role-aware Navigation: itens do menu variam conforme `Campaign.myRole`.
 * Reuse Existing Modal: ficha do jogador usa o modal de ficha ja existente.
 * Route-as-Modal-State: rotas internas da campanha indicam qual overlay esta aberto, sem desmontar o canvas VTT.
+* Generic Table Engine: mapa, token, chat, dado, cena e movimentacao sao modelados sem campos especificos de ruleset.
+* Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
 
 ## 3. Restricoes
 * Nao adicionar biblioteca de canvas antes de haver manipulacao real de mapa/tokens.
@@ -20,3 +22,5 @@
 * Nao duplicar implementacao de ficha.
 * Nao bloquear o VTT por dados administrativos que possam carregar em overlay.
 * Nao renderizar o VTT como rota filha; ele pertence ao `CampaignLayout` e deve permanecer montado.
+* Nao importar modulos internos de `game_systems/pathfinder_2e` ou `game_systems/dnd_5e` diretamente no VTT.
+* Nao adicionar campos mecanicos especificos de sistema ao token generico.

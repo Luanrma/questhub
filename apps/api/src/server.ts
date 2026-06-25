@@ -5,7 +5,7 @@ import cookiePlugin from '@fastify/cookie'
 import { registerAuthRoutes } from './modules/auth/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
-import { registerCharacterSheetRoutes } from './modules/character_sheet/routes'
+import { registerCharacterSheetRoutes } from './modules/game_systems/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
 

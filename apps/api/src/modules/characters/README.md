@@ -19,13 +19,13 @@ Criar, listar, consultar e atualizar dados basicos de personagens.
 
 ## Dependencias internas e externas
 
-- Internas: Prisma, `requireAuth`, `character_sheet`.
+- Internas: Prisma, `requireAuth`, `game_systems`.
 - Externas: Zod e Prisma types.
 
 ## Modulos relacionados
 
 - `campaigns`: vincula personagens a campanhas.
-- `character_sheet`: cria e le metadata da ficha.
+- `game_systems`: cria ficha default e le metadata da ficha.
 - Web: paginas de personagens e modal de ficha.
 
 ## Pontos de entrada
@@ -50,4 +50,5 @@ Criar, listar, consultar e atualizar dados basicos de personagens.
 
 - Nao ha rota de exclusao/arquivamento, apesar de `deletedAt` existir.
 - `DND_5E` nao e aceito pelas validacoes atuais.
+- Regras de ficha pertencem a `game_systems/[system]/character_sheet`.
 

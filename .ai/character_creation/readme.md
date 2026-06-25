@@ -5,7 +5,7 @@ Fornecer uma experiencia para criar, listar, editar, arquivar, deletar e vincula
 
 O personagem pertence primeiro ao usuario que o criou. Ele pode existir sem campanha como personagem livre. O vinculo com uma campanha acontece por meio de `CampaignCharacter`, que define papel, status e historico daquele personagem dentro da campanha.
 
-Este modulo nao implementa regras mecanicas completas de ficha. Dados como atributos, classe, HP, pericias, inventario e formulas pertencem ao modulo `character_sheet` e aos seus submodulos especificos de sistema.
+Este modulo nao implementa regras mecanicas completas de ficha. Dados como atributos, classe, HP, pericias, inventario, formulas, spells, itens e mecanicas especificas pertencem ao ruleset correspondente em `game_systems`.
 
 ## 2. Personas
 * **Jogador:** Cria e gerencia seus proprios personagens livres ou ja vinculados.
@@ -61,7 +61,8 @@ Fora de escopo:
 * NPC usa `Character` e `CampaignCharacter`, mas so pode ser criado dentro de uma campanha pelo `MASTER`.
 
 ## 6. Ficha e Compatibilidade
-* Campanha possui sistema obrigatorio: `DND_5E` ou `PATHFINDER_2E`.
+* Campanha possui sistema obrigatorio.
+* No codigo atual, criacao de personagem funcional aceita apenas `PATHFINDER_2E`; `DND_5E` esta reservado para quando o ruleset expuser ficha jogavel.
 * Personagem pode existir sem ficha e sem sistema.
 * Se um personagem sem ficha entra em campanha, pode herdar o sistema da campanha.
 * Se um personagem ja possui ficha, ele so pode entrar em campanha compativel.
@@ -70,9 +71,9 @@ Fora de escopo:
 ## 7. Relacao com Outros Modulos
 * `campaign`: define campanha, politica de entrada, sistema obrigatorio e fluxo de criacao com personagem `MASTER`.
 * `login`: identifica o usuario dono ou criador do personagem.
-* `character_sheet`: guarda e valida a ficha mecanica do personagem.
-* `character_sheet/dnd_5e_sheet`: regras especificas futuras de D&D 5e.
-* `character_sheet/pathfinder_2e_sheet`: regras especificas futuras de Pathfinder 2e.
+* `game_systems`: registra sistemas suportados, envelope de ficha, capacidades e validacoes de ruleset.
+* `game_systems/dnd_5e`: regras especificas futuras de D&D 5e.
+* `game_systems/pathfinder_2e`: regras especificas de Pathfinder 2e.
 * `canvas` ou `vtt`: consome personagens ativos da campanha para representacao no tabuleiro.
 
 ## 8. Dashboard de Campanhas por Personagem

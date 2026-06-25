@@ -6,7 +6,7 @@
 * React para formulario de edicao e visualizacao.
 
 ## 2. Padroes
-* **System Adapter:** Exportar `system`, `dataKey`, `version`, `defaultSheet` e `schema` para consumo do modulo `character_sheet`.
+* **System Adapter:** Exportar `system`, `dataKey`, `version`, `defaultSheet` e `schema` para consumo do registry de `game_systems`.
 * **Constants as Domain Vocabulary:** Ranks de proficiencia devem ser constantes numericas tipadas.
 * **Schema First:** O backend valida exatamente o mesmo contrato documentado para a ficha.
 * **Calculated Values, Persisted Snapshot:** Totais de pericia sao calculados no frontend a partir de nivel, rank e atributo chave, e persistidos como snapshot em `value`.
@@ -32,8 +32,8 @@ export const PROFICIENCY_RANKS = {
 * Nao salvar strings de rank como dado canonico.
 * Implementar apenas o calculo automatico de totais de pericias no frontend; demais calculos mecanicos continuam fora do MVP.
 * Nao validar listas oficiais de opcoes neste MVP.
-* Expor validadores e defaults para consumo do modulo `character_sheet`.
-* Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/components/character_sheet/pathfinder_2e_sheet`.
+* Expor validadores e defaults para consumo do registry de `game_systems`.
+* Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet` depois da migracao tecnica.
 * A navegacao visual por abas com icones pertence ao modal base, mas as paginas disponiveis e labels do Pathfinder 2e pertencem a este submodulo.
 * O arquivo `pathfinder_2e_sheet.json` no frontend deve representar exatamente o envelope persistido em `Character.sheet` para Pathfinder 2e.
 * Tooltips simples de descricao podem ser implementados com CSS no componente Pathfinder 2e, sem persistir descricoes no banco.

@@ -3,7 +3,7 @@
 ## 1. Responsabilidade
 Criar e gerenciar `Character` como entidade base do usuario e `CampaignCharacter` como vinculo permanente entre personagem e campanha.
 
-Este modulo define identidade basica, disponibilidade, vinculo de campanha, papeis operacionais e status narrativo/operacional do personagem dentro da campanha. A ficha mecanica continua pertencendo ao modulo `character_sheet`.
+Este modulo define identidade basica, disponibilidade, vinculo de campanha, papeis operacionais e status narrativo/operacional do personagem dentro da campanha. A ficha mecanica pertence ao ruleset correspondente em `game_systems`.
 
 ## 2. Modelo de Dominio Alvo
 
@@ -76,7 +76,8 @@ Regras:
 * `name` e obrigatorio e nao pode ser vazio.
 * `avatarUrl` e opcional.
 * `bio` e opcional, limitada a 2.000 caracteres e salva em `sheet.metadata.bio`.
-* `system` e obrigatorio no fluxo novo de criacao e define o modulo da ficha.
+* `system` e obrigatorio no fluxo novo de criacao e define o ruleset da ficha.
+* No codigo atual, `system` aceita apenas `PATHFINDER_2E`.
 * Nomes podem repetir.
 
 ### Criar campanha com personagem MASTER
@@ -159,9 +160,10 @@ Regras:
 ## 6. Compatibilidade de Sistema
 * `Campaign.system` e obrigatorio.
 * `Character.system` e obrigatorio para personagens criados no fluxo novo.
+* No codigo atual, personagens novos so podem ser criados com `PATHFINDER_2E`.
 * `Character.sheet` e criada junto com o personagem no fluxo novo.
 * Se `Character.sheet` existir, `Character.system` deve existir.
-* Ao vincular, personagem sem ficha pode receber `Character.system = Campaign.system` e uma ficha padrao do modulo.
+* Ao vincular, personagem sem ficha pode receber `Character.system = Campaign.system` e uma ficha padrao do ruleset em `game_systems`.
 * Ao vincular, personagem com sistema diferente da campanha deve bloquear o fluxo.
 * Em incompatibilidade, a UI deve oferecer apagar a ficha atual com alerta ou duplicar o personagem sem ficha.
 

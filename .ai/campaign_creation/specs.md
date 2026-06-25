@@ -62,7 +62,7 @@ model CampaignCharacter {
 ```json
 {
   "title": "Vale dos Ecos",
-  "system": "DND_5E",
+  "system": "PATHFINDER_2E",
   "joinPolicy": "PUBLIC",
   "masterCharacterName": "Arion"
 }
@@ -93,7 +93,9 @@ model CampaignCharacter {
 
 ## 5. Regras de Validacao
 * `title` e obrigatorio.
-* `system` e obrigatorio e deve ser `DND_5E` ou `PATHFINDER_2E`.
+* `system` e obrigatorio.
+* O schema Prisma reserva `DND_5E` e `PATHFINDER_2E`.
+* A API atual de criacao aceita apenas `PATHFINDER_2E`, porque e o unico ruleset com ficha jogavel.
 * `joinPolicy` deve ser `PUBLIC` ou `PRIVATE`; se omitido, usar `PUBLIC`.
 * Deve existir `masterCharacterId` ou `masterCharacterName`.
 * `masterCharacterId`, quando informado, deve pertencer ao usuario autenticado.

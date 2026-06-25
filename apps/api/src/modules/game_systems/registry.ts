@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import type { CharacterSheetEnvelope, CharacterSheetMetadata, CharacterSheetSystemAdapter } from './models'
 import { characterSheetEnvelopeSchema } from './schemas'
-import { pathfinder2eSheetAdapter } from './pathfinder_2e_sheet'
+import { pathfinder2eSheetAdapter } from './pathfinder_2e/character_sheet'
 
 const adapters = new Map<string, CharacterSheetSystemAdapter<unknown>>([
   [pathfinder2eSheetAdapter.system, pathfinder2eSheetAdapter],

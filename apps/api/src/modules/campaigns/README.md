@@ -22,13 +22,13 @@ Aplicar regras de vinculo entre usuario, personagem e campanha.
 
 ## Dependencias internas e externas
 
-- Internas: Prisma, `requireAuth`, `character_sheet`, `campaign-presence`.
+- Internas: Prisma, `requireAuth`, `game_systems`, `campaign-presence`.
 - Externas: Fastify, Socket.IO, Zod, Prisma types.
 
 ## Modulos relacionados
 
 - `characters`: personagens usados em campanhas.
-- `character_sheet`: cria ficha default.
+- `game_systems`: cria ficha default.
 - `campaign-presence`: informa status online e emite eventos.
 - Web: paginas de campanhas e jogadores.
 
@@ -57,4 +57,6 @@ Aplicar regras de vinculo entre usuario, personagem e campanha.
 - Handler e grande e concentra muitas regras.
 - Ha trecho com indentacao desalinhada no retorno de `/api/campaigns/join`.
 - Existe tratamento para erro `MASTER_OFFLINE`, mas esse erro nao e lancado no fluxo atual de join.
+- A API atual aceita apenas `PATHFINDER_2E` na criacao, apesar de `DND_5E` existir no enum Prisma.
+- Regras de ficha pertencem a `game_systems/[system]/character_sheet`.
 

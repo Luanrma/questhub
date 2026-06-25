@@ -3,7 +3,7 @@ import type { Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
-import { buildDefaultCharacterSheetEnvelope, getCharacterSheetMetadata, withCharacterSheetMetadataFromUnknown } from '../character_sheet'
+import { buildDefaultCharacterSheetEnvelope, getCharacterSheetMetadata, withCharacterSheetMetadataFromUnknown } from '../game_systems'
 import { presentCharacter } from './presenter'
 import { createCharacterSchema, updateCharacterSchema } from './validation'
 

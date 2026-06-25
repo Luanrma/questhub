@@ -1,5 +1,11 @@
 # Pathfinder 2e sheet UI
 
+## Status arquitetural
+
+Este diretorio e a implementacao atual da UI de ficha Pathfinder 2e.
+
+O destino arquitetural documentado em `.ai` e `apps/web/src/game-systems/pathfinder-2e/character-sheet`; novas telas e mecanicas Pathfinder 2e devem seguir esse limite de ruleset.
+
 ## Objetivo do modulo
 
 Renderizar o formulario Pathfinder 2e no modal de ficha.
@@ -20,7 +26,7 @@ Editar o bloco `data.pathfinder2e` do envelope.
 
 ## Modulos relacionados
 
-- `components/character_sheet/CharacterSheetModal.tsx`.
+- `game-systems/character-sheet/CharacterSheetModal.tsx`.
 - API `pathfinder_2e_sheet`.
 
 ## Pontos de entrada

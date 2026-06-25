@@ -4,6 +4,9 @@
 O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o usuario deve ver a mesa primeiro, com grid full-screen e controles de jogo, enquanto as demais areas aparecem como overlays.
 
 ## 2. Decisoes de Produto
+* O VTT e generico e nao implementa regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema de RPG.
+* Interface, chat, rolagem de dados, criacao e manipulacao de mapa, tokens, movimentacao, cenas e camadas pertencem ao VTT generico.
+* Regras como classe, ancestralidade, heranca, background, spells, itens, feats, proficiencias e calculos pertencem a `game_systems`.
 * A mesa VTT permanece visivel ao fundo durante a navegacao interna da campanha.
 * Em telas grandes, a sidebar e sempre sobreposta; recolhida ou expandida, ela nao reserva largura no layout e nao redimensiona o VTT.
 * O canvas VTT deve ocupar toda a largura disponivel desde `left: 0`.
@@ -25,6 +28,8 @@ Incluido:
 * Entrada direta na propria ficha para jogadores.
 
 Fora de escopo:
+* Regras mecanicas de sistemas de RPG.
+* Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Persistencia de cena/mapa/tokens.
 * Fog of war.
 * Medidas sincronizadas.

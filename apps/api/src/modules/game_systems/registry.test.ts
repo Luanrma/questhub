@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { buildDefaultCharacterSheetEnvelope, safeValidateCharacterSheetEnvelope } from './registry'
-import { PATHFINDER_2E_DATA_KEY, PATHFINDER_2E_SYSTEM } from './pathfinder_2e_sheet'
+import { PATHFINDER_2E_DATA_KEY, PATHFINDER_2E_SYSTEM } from './pathfinder_2e/character_sheet'
 
 test('buildDefaultCharacterSheetEnvelope creates a Pathfinder 2e envelope', () => {
   const envelope = buildDefaultCharacterSheetEnvelope(PATHFINDER_2E_SYSTEM, {

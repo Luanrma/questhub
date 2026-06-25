@@ -1,10 +1,12 @@
 # Submodulo: Ficha D&D 5e (Specs & Contracts)
 
 ## 1. Responsabilidade
-Validar e calcular dados especificos quando `GameSystem = DND_5E`.
+Definir o contrato futuro para validar e calcular dados especificos quando `GameSystem = DND_5E`.
+
+Este submodulo e o contrato autoritativo para futuras capacidades de ficha D&D 5e.
 
 ## 2. Entrada
-O submodulo recebe uma ficha ja validada pelo contrato comum de `character_sheet`.
+O submodulo recebe uma ficha ja validada pelo envelope comum de `game_systems`.
 
 ```json
 {

@@ -13,7 +13,7 @@ No QuestHub, a campanha nao possui um "membro usuario" como vinculo operacional 
 Incluido:
 * Criar campanha com titulo obrigatorio.
 * Definir descricao opcional.
-* Definir sistema obrigatorio: `DND_5E` ou `PATHFINDER_2E`.
+* Definir sistema obrigatorio. No codigo atual, o fluxo funcional aceita apenas `PATHFINDER_2E`; `DND_5E` esta reservado no dominio para implementacao futura.
 * Definir politica de entrada: `PUBLIC` ou `PRIVATE`.
 * Selecionar um personagem livre existente para ser `MASTER`.
 * Criar um novo personagem mestre durante o fluxo de criacao.
@@ -31,6 +31,7 @@ Fora de escopo:
 
 ## 4. Regras de Produto
 * Toda campanha deve ter um sistema definido na criacao.
+* No MVP funcional atual, apenas `PATHFINDER_2E` pode ser criado pela API.
 * Toda campanha deve nascer com exatamente um personagem `MASTER` ativo.
 * O personagem `MASTER` deve pertencer ao usuario autenticado.
 * O personagem `MASTER` deve estar livre, ou seja, sem `CampaignCharacter` existente e sem `deletedAt`.
@@ -43,6 +44,6 @@ Fora de escopo:
 
 ## 5. Relacao com Outros Modulos
 * `character_creation`: fornece personagens livres e cria/vincula o personagem `MASTER`.
-* `character_sheet`: define compatibilidade de sistema quando houver ficha mecanica.
+* `game_systems`: define compatibilidade de sistema e capacidades de ficha quando houver ficha mecanica.
 * `login`: identifica o usuario autenticado que cria a campanha.
 * `campaign_presence`: deve considerar a campanha online quando o personagem `MASTER` entra na presenca.

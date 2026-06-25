@@ -19,7 +19,7 @@ Fornecer blocos visuais compartilhados e o modal de ficha.
 ## Dependencias internas e externas
 
 - Externas: React, React Router e Lucide React.
-- Internas: `character_sheet`.
+- Internas: `../game-systems/character-sheet`.
 
 ## Modulos relacionados
 
@@ -34,7 +34,7 @@ Fornecer blocos visuais compartilhados e o modal de ficha.
 ## Fluxos importantes
 
 - `Aside` monta links por `campaignId`.
-- `CharacterSheetModal.tsx` reexporta o componente real em `character_sheet`.
+- `CharacterSheetModal.tsx` reexporta o componente real em `game-systems/character-sheet`.
 
 ## Arquivos criticos
 

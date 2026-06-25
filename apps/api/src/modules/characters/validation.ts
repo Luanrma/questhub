@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { CHARACTER_SHEET_BIO_MAX_LENGTH } from '../character_sheet/constants'
+import { CHARACTER_SHEET_BIO_MAX_LENGTH } from '../game_systems/constants'
 
 export const avatarUrlSchema = z
   .string()

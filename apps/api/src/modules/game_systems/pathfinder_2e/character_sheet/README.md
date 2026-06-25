@@ -1,4 +1,8 @@
-# Pathfinder 2e sheet
+# Pathfinder 2e character sheet
+
+## Status arquitetural
+
+Este diretorio e a implementacao backend da ficha Pathfinder 2e dentro do ruleset `game_systems/pathfinder_2e`.
 
 ## Objetivo do modulo
 
@@ -20,11 +24,11 @@ Fornecer constantes, tipos, schema Zod e ficha default para o adapter de fichas.
 ## Dependencias internas e externas
 
 - Externa: Zod.
-- Interna: contrato `CharacterSheetSystemAdapter`.
+- Interna: contrato `CharacterSheetSystemAdapter` de `game_systems`.
 
 ## Modulos relacionados
 
-- `character_sheet/registry.ts`.
+- `game_systems/registry.ts`.
 - Web: formulario Pathfinder 2e.
 
 ## Pontos de entrada

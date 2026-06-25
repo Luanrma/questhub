@@ -1,6 +1,6 @@
 import './http/auth.test'
-import './modules/character_sheet/pathfinder_2e_sheet/schema.test'
-import './modules/character_sheet/registry.test'
+import './modules/game_systems/pathfinder_2e/character_sheet/schema.test'
+import './modules/game_systems/registry.test'
 import './modules/characters/presenter.test'
 import './modules/characters/validation.test'
 import './modules/campaigns/invite-code.test'

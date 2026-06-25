@@ -1,5 +1,26 @@
 # Modulo: VTT (Specs & Contracts)
 
+## 0. Fronteira Generica
+O VTT define contratos genericos de mesa. Nenhum contrato base deste modulo deve exigir conhecimento de Pathfinder 2e, D&D 5e ou qualquer outro sistema.
+
+Exemplos de entidades genericas permitidas:
+* `Scene`
+* `Map`
+* `Layer`
+* `Token`
+* `ChatMessage`
+* `DiceRoll`
+* `Measurement`
+* `Asset`
+
+Exemplos de campos proibidos em contratos base do VTT:
+* `armorClass`
+* `ancestry`
+* `className`
+* `spellDc`
+* `savingThrow`
+* `proficiencyRank`
+
 ## 1. Navegacao
 * `/campaign/:campaignId/overview` representa a mesa.
 * A mesa e renderizada pelo `CampaignLayout`, nao por uma rota filha exclusiva.
@@ -49,3 +70,5 @@ type MyCampaignCharacter = {
 * Clicar em `Minha ficha` abre `CharacterSheetModal`.
 * Clicar em `Trocar campanha` pede confirmacao.
 * Em viewport pequeno, a navegacao vira barra inferior compacta.
+* O contrato base de token nao contem campos mecanicos de Pathfinder 2e ou D&D 5e.
+* O contrato base de rolagem aceita expressao generica, como `1d20+7`, e metadados opcionais de ruleset.

@@ -21,7 +21,7 @@
 
 ## 4. Integracoes
 * `character_creation`: consulta personagens livres e cria/vincula o personagem mestre.
-* `character_sheet`: fornece `GameSystem` e compatibilidade de ficha.
+* `game_systems`: fornece `GameSystem`, registry de rulesets e compatibilidade de ficha.
 * `login`: fornece usuario autenticado.
 * `campaign_presence`: marca campanha online quando o mestre entra.
 

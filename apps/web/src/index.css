@@ -17,6 +17,28 @@ body {
   font-family: "Cinzel", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
+button,
+a,
+select,
+summary,
+input[type="button"],
+input[type="checkbox"],
+input[type="file"],
+input[type="radio"],
+input[type="reset"],
+input[type="submit"],
+[role="button"],
+[onclick] {
+  cursor: pointer;
+}
+
+button:disabled,
+select:disabled,
+input:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 .character-sheet-window {
   position: fixed;
   width: min(900px, calc(100vw - 24px));

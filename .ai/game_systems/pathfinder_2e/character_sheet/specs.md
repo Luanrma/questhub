@@ -3,7 +3,7 @@
 ## 1. Responsabilidade
 Definir o contrato especifico de Pathfinder 2e para fichas com `system = PATHFINDER_2E`.
 
-O modulo `character_sheet` valida o envelope comum. Este submodulo valida o bloco `data.pathfinder2e`.
+O modulo `game_systems` valida o envelope comum. Este submodulo valida o bloco `data.pathfinder2e`.
 
 ## 2. Envelope
 
@@ -306,4 +306,4 @@ Regras:
 * A descricao de cada pericia deve ficar oculta por padrao e aparecer apenas em tooltip ao passar o mouse sobre o icone de interrogacao da linha.
 * "Intuicao" nao deve criar uma chave nova em `skills`; deve ser documentada como decisao de produto porque Pathfinder 2e divide esse conceito entre Sociedade, Ocultismo, Lore ou testes especificos de Percepcao.
 * Frontend deve usar identidade visual de ficha impressa em papel envelhecido, com linhas de preenchimento, caixas de secao e atributos em blocos destacados.
-* `apps/web/src/components/character_sheet/pathfinder_2e_sheet/pathfinder_2e_sheet.json` deve representar exatamente o envelope salvo em `Character.sheet`.
+* `apps/web/src/game-systems/pathfinder-2e/character-sheet/pathfinder_2e_sheet.json` deve representar exatamente o envelope salvo em `Character.sheet` depois da migracao tecnica.

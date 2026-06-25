@@ -4,7 +4,7 @@ import type { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
-import { buildDefaultCharacterSheetEnvelope } from '../character_sheet'
+import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
 import { generateInviteCode } from './invite-code'
 
 type CampaignRoutesDeps = {

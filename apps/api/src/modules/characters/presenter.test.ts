@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { buildDefaultCharacterSheetEnvelope } from '../character_sheet'
+import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
 import { presentCharacter } from './presenter'
 
 test('presentCharacter marks a character without campaign links as available', () => {

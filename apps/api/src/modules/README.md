@@ -40,7 +40,7 @@ Registrar rotas HTTP e eventos relacionados aos dominios do QuestHub.
 - `auth/routes.ts`.
 - `campaigns/routes.ts`.
 - `characters/routes.ts`.
-- `character_sheet/routes.ts`.
+- `game_systems/routes.ts`.
 - `campaign-presence/socket.ts`.
 
 ## Observacoes tecnicas e debitos

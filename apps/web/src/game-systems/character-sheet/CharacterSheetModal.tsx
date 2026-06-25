@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { BadgeCheck, GripHorizontal, HeartPulse, Save, UserRound, X } from 'lucide-react'
-import { Button } from '../Button'
+import { Button } from '../../components/Button'
 import { api, ApiError } from '../../lib/api'
 import { calculateBounds, clamp } from './drag'
 import type { CharacterSheetEnvelope, CharacterSheetResponse, GameSystem } from './types'
-import { PATHFINDER_2E_PAGE_TITLES, Pathfinder2eSheetForm } from './pathfinder_2e_sheet/Pathfinder2eSheetForm'
+import { PATHFINDER_2E_PAGE_TITLES, Pathfinder2eSheetForm } from '../pathfinder-2e/character-sheet/Pathfinder2eSheetForm'
 
 type Props = {
   characterId: string

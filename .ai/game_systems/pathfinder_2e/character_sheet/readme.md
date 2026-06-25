@@ -3,7 +3,9 @@
 ## 1. Proposito
 Fornecer a primeira ficha jogavel de Pathfinder 2e dentro do QuestHub.
 
-Este submodulo define o formato, os defaults, as validacoes e a experiencia de preenchimento para fichas com `system = PATHFINDER_2E`. O modulo base `character_sheet` fornece apenas o envelope e o roteamento.
+Este submodulo define o formato, os defaults, as validacoes e a experiencia de preenchimento para fichas com `system = PATHFINDER_2E`. O modulo `game_systems` fornece o envelope comum e o registry.
+
+Este submodulo e a autoridade de produto para a ficha Pathfinder 2e.
 
 ## 2. Escopo Do MVP
 A primeira entrega sera uma ficha minima jogavel, focada em armazenamento, edicao e visualizacao.

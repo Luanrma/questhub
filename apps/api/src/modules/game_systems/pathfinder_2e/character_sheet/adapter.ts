@@ -1,4 +1,4 @@
-import type { CharacterSheetSystemAdapter } from '../models'
+import type { CharacterSheetSystemAdapter } from '../../models'
 import { PATHFINDER_2E_DATA_KEY, PATHFINDER_2E_SHEET_VERSION, PATHFINDER_2E_SYSTEM } from './constants'
 import { defaultPathfinder2eSheet } from './default-sheet'
 import type { Pathfinder2eSheet } from './models'
