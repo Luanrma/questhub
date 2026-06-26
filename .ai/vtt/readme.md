@@ -33,6 +33,11 @@ Incluido:
 * Token posicionado por coordenadas logicas do grid, preservando sua celula/hexagono ao alterar o tamanho do grid.
 * Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
 * Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
+* Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
+* Rolagem visual de dado 3D sobre a mesa quando o usuario executa uma rolagem rapida.
+* No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando a area configurada para cada quadrado.
+* No grid quadrado, a cor do tracejado da regua e configurada no modal do grid.
+* No grid hexagonal, a ferramenta permite pintar hexagonos completos, escolher a cor da pintura no modal do grid e contar quantos passos foram percorridos.
 * Fundo padrao da mesa preserva as cores atuais sem grid estatico hardcoded.
 * Sidebar overlay sem reserva de layout.
 * Painel flutuante para rotas internas da campanha que nao sao a mesa.
@@ -43,6 +48,6 @@ Fora de escopo:
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Persistencia de cena/mapa/tokens.
 * Persistencia ou replay de tokens depois que a sessao termina.
+* Persistencia ou replay visual de rolagens de dado.
 * Fog of war.
-* Medidas sincronizadas.
 * Configuracao persistida de tamanho/formato do grid.

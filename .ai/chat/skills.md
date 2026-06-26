@@ -21,8 +21,12 @@
 ## 4. Eventos
 * Cliente envia `chat:message:create`.
 * Servidor emite `chat:message:created`.
+* Rolagens rapidas usam o mesmo evento `chat:message:create` para persistir e transmitir o resultado.
 
 ## 5. UI
 * O painel de chat fica no sidebar direito da mesa.
 * Deve ter historico rolavel, campo de texto e botao de envio.
 * O input fica desabilitado quando o personagem ativo ainda nao foi carregado.
+* O controle "Dados" fica na barra superior da mesa e abre um menu compacto de selecao de dado.
+* O botao com o dado selecionado fica a esquerda do menu "Dados" e executa a rolagem.
+* A mensagem confirmada por ack deve aparecer tambem para o remetente no chat aberto.

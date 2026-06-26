@@ -6,7 +6,9 @@ import { useSession } from '../contexts/SessionContext'
 
 type ChatRole = 'MASTER' | 'PLAYER' | 'NPC'
 
-type ChatMessage = {
+export const CHAT_LOCAL_MESSAGE_EVENT = 'questhub:chat-message-created'
+
+export type ChatMessage = {
   id: string
   campaignId: string
   characterId: string
@@ -22,6 +24,8 @@ type ChatAck = {
   error?: string
   message?: ChatMessage
 }
+
+type LocalChatMessageEvent = CustomEvent<ChatMessage>
 
 type Props = {
   campaignId: string
@@ -118,6 +122,25 @@ export function CampaignChat({ campaignId, characterId, enabled }: Props) {
       socket.off('chat:message:created', onMessageCreated)
     }
   }, [campaignId, socket])
+
+  useEffect(() => {
+    function onLocalMessageCreated(event: Event) {
+      const message = (event as LocalChatMessageEvent).detail
+      if (!isChatMessage(message)) return
+      if (message.campaignId !== campaignId) return
+
+      setMessages((current) => {
+        if (current.some((item) => item.id === message.id)) return current
+        return [...current, message]
+      })
+    }
+
+    window.addEventListener(CHAT_LOCAL_MESSAGE_EVENT, onLocalMessageCreated)
+
+    return () => {
+      window.removeEventListener(CHAT_LOCAL_MESSAGE_EVENT, onLocalMessageCreated)
+    }
+  }, [campaignId])
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })

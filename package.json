@@ -19,6 +19,10 @@
     "@fastify/cors": "^11.2.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "@react-three/drei": "^10.7.7",
+    "@react-three/fiber": "^9.6.1",
+    "@react-three/rapier": "^2.2.0",
+    "@types/three": "^0.185.0",
     "@vitejs/plugin-react": "^6.0.1",
     "bcryptjs": "^3.0.3",
     "cookie": "^1.1.1",
@@ -33,6 +37,7 @@
     "react-router-dom": "^7.6.2",
     "socket.io": "^4.8.3",
     "socket.io-client": "^4.8.3",
+    "three": "^0.185.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -46,6 +51,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
+    "playwright": "^1.61.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.11",
     "tsx": "^4.19.2",

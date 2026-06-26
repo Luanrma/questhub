@@ -88,6 +88,26 @@ type MyCampaignCharacter = {
 * A posicao do token nao e persistida no banco neste MVP.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online enquanto a sessao esta ativa.
 * Usuarios que entram depois recebem o snapshot atual de tokens da sessao.
+* A ferramenta `Medir` deve poder ser ativada pela toolbar do VTT.
+* No grid quadrado, pressionar no ponto A, arrastar e soltar no ponto B deve mostrar a distancia em metros.
+* No grid quadrado, `VttGridSettings.size` representa apenas o lado visual da celula em pixels.
+* No grid quadrado, `VttGridSettings.squareMeters` representa a area em metros quadrados de uma celula.
+* No grid quadrado, `VttGridSettings.squareMeasurementColor` representa a cor do tracejado da regua.
+* No grid quadrado, `VttGridSettings.squareMeters` deve aceitar apenas os valores permitidos pela escala: 1 a 10 de 1 em 1, depois de 5 em 5 ate 100, depois de 10 em 10 ate 1000, depois de 1000 em 1000 ate 10000.
+* No grid quadrado, a distancia em metros deve ser `(distanciaEmPixels / VttGridSettings.size) * sqrt(VttGridSettings.squareMeters)`.
+* No grid hexagonal, pressionar e arrastar deve registrar a rota pelos centros de hexagonos atravessados.
+* No grid hexagonal, a rota deve pintar o hexagono por completo, sem linha conectando os pontos.
+* No grid hexagonal, `VttGridSettings.hexMeasurementColor` representa a cor usada para pintar a rota.
+* No grid hexagonal, se o usuario voltar para um hexagono anterior da propria rota, os hexagonos posteriores devem ser removidos da medicao.
+* No grid hexagonal, o resultado exibido deve ser a quantidade de passos entre hexagonos, nao uma area em metros quadrados.
+* A medicao deve usar coordenadas relativas a area de grid, nao coordenadas globais da viewport.
+* A camada de medicao deve ficar acima de tokens e abaixo de ferramentas, paineis e controles do VTT.
+* Medicoes nao sao persistidas no banco neste MVP.
+* A medicao ativa da sessao deve ser sincronizada em tempo real com Mestre e Players online.
+* Usuarios que entram depois recebem o snapshot atual da medicao da sessao.
+* Ao executar uma rolagem rapida, um dado 3D deve aparecer sobre a mesa VTT, girar por um curto periodo e exibir o resultado rolado.
+* A animacao 3D de dado e local ao cliente que rolou; a mensagem persistida no chat continua sendo a fonte compartilhada para os demais usuarios.
+* A camada 3D nao pode capturar pointer events nem impedir interacao com grid, tokens, medicoes ou botoes.
 
 ## 5. Configuracao Visual do Grid
 
@@ -100,6 +120,9 @@ type VttGridSettings = {
   visible: boolean
   shape: VttGridShape
   size: number
+  squareMeters: number
+  squareMeasurementColor: string
+  hexMeasurementColor: string
   lineWidth: number
   color: string
 }
@@ -110,6 +133,10 @@ Regras:
 * Para `PLAYER`, o botao/menu de configuracao do grid nao deve aparecer.
 * O grid pode ser quadrado ou hexagonal.
 * O tamanho da celula deve respeitar minimo de `24px` e maximo de `96px`.
+* Quando o formato for quadrado, o modal deve exibir controle para configurar a area do quadrado em metros quadrados.
+* O controle de area do quadrado deve seguir o mesmo padrao visual dos controles de tamanho e espessura, exibindo o valor selecionado.
+* Quando o formato for quadrado, o modal deve exibir controle para configurar a cor do tracejado da regua.
+* Quando o formato for hexagonal, o modal deve exibir controle para configurar a cor de preenchimento dos hexagonos pintados.
 * A espessura das linhas deve respeitar minimo de `1px` e maximo de `4px`.
 * A cor das linhas deve ser configuravel por input de cor.
 * O fundo padrao da mesa deve manter a paleta atual sem o grid estatico antigo.
@@ -187,3 +214,63 @@ Eventos Socket.IO:
 * `vtt:tokens:snapshot`: emitido pelo servidor ao usuario entrar na sala da campanha.
 * `vtt:tokens:request`: emitido pelo cliente para pedir novamente o snapshot atual da sessao.
 * `vtt:token:removed`: emitido pelo servidor quando o token deixa de existir na sessao.
+
+## 7. Medicao Realtime
+
+Tipo usado pelo VTT:
+
+```ts
+type VttMeasurementPoint = {
+  x: number
+  y: number
+}
+
+type VttMeasurement =
+  | {
+      shape: 'square'
+      start: VttMeasurementPoint
+      end: VttMeasurementPoint
+      color: string
+    }
+  | {
+      shape: 'hex'
+      points: VttMeasurementPoint[]
+      color: string
+    }
+```
+
+Regras:
+* Pontos de medicao usam coordenadas logicas do grid, nao pixels de tela.
+* Para grid quadrado, `start` e `end` representam pontos logicos livres da regua.
+* Para grid hexagonal, `points` representa centros logicos dos hexagonos pintados.
+* Para grid hexagonal, a pintura deve preencher cada hexagono completo usando `color`.
+* A medicao ativa e unica por campanha neste MVP.
+* A medicao ativa fica em memoria no servidor enquanto a sessao estiver ativa.
+* Ao encerrar sessao, a medicao ativa e descartada.
+
+Eventos Socket.IO:
+
+* `vtt:measurement:update`: emitido pelo cliente para atualizar ou limpar a medicao ativa.
+* `vtt:measurement:changed`: emitido pelo servidor para toda a sala quando a medicao muda.
+* `vtt:measurement:snapshot`: emitido pelo servidor ao usuario entrar na sala da campanha ou pedir snapshot.
+* `vtt:measurement:request`: emitido pelo cliente para pedir novamente a medicao atual da sessao.
+
+## 8. Rolagem Visual 3D
+
+Tipo local usado pelo VTT:
+
+```ts
+type VttDiceRollAnimation = {
+  id: number
+  sides: 4 | 6 | 8 | 10 | 12 | 20
+  value: number
+}
+```
+
+Regras:
+* `id` muda a cada rolagem para reiniciar a animacao.
+* `sides` define a geometria aproximada do dado 3D.
+* `value` e o mesmo valor enviado para o chat.
+* A animacao deve ser renderizada em overlay absoluto sobre a area do grid.
+* A animacao deve sumir automaticamente apos terminar.
+* A camada visual e local e nao deve gerar evento Socket.IO proprio.

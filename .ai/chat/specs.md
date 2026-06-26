@@ -90,6 +90,27 @@ Regras:
 * `NPC` nao envia mensagem no MVP.
 * Broadcast vai para `campaign:{campaignId}`.
 
+### Rolagem rapida
+
+Fluxo:
+* UI exibe `D20` como dado selecionado inicial.
+* UI abre menu no botao "Dados".
+* Usuario escolhe uma das faces permitidas: `4`, `6`, `8`, `10`, `12`, `20`.
+* A escolha altera o dado selecionado, mas nao rola automaticamente.
+* Cliente calcula `roll = Math.floor(Math.random() * sides) + 1` ao clicar no botao do dado selecionado.
+* Cliente envia `chat:message:create` com `content` no formato:
+
+```text
+ROLOU D20: 17
+```
+
+Regras:
+* A rolagem exige campanha online, socket conectado e personagem ativo.
+* A rolagem usa o mesmo `characterId` do personagem ativo na campanha.
+* A mensagem retornada no ack deve ser inserida no chat do remetente.
+* Demais participantes recebem a rolagem por `chat:message:created`.
+* O cliente que executou a rolagem dispara a animacao 3D local com o mesmo dado e valor.
+
 ## 4. Criterios de Aceitacao
 * Participante ativo ve historico ao abrir a mesa.
 * Participante ativo envia mensagem e recebe ack.
@@ -97,3 +118,7 @@ Regras:
 * Usuario sem participacao ativa recebe 403 no historico e erro no socket.
 * Mensagem vazia ou acima do limite e recusada.
 * O chat aparece no painel lateral direito conforme o layout do VTT.
+* Ao clicar em "Dados", aparecem as opcoes D4, D6, D8, D10, D12 e D20.
+* Ao selecionar uma opcao, o botao de rolagem passa a exibir o dado escolhido.
+* Ao clicar no botao do dado selecionado, o valor rolado aparece no chat como mensagem.
+* Ao clicar no botao do dado selecionado, o dado 3D rola sobre o VTT e revela o mesmo valor da mensagem.

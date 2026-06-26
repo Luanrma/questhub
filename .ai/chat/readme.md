@@ -17,10 +17,10 @@ Incluido:
 * Envio realtime por Socket.IO.
 * Exibicao no painel lateral direito da mesa.
 * Autorizacao baseada em `CampaignCharacter` ativo.
+* Rolagem rapida de dados pelo controle "Dados" da mesa.
 
 Fora de escopo:
 * Mensagens privadas.
-* Comandos de dado.
 * Anexos.
 * Markdown rico.
 * Moderacao, apagar ou editar mensagens.
@@ -36,6 +36,12 @@ Fora de escopo:
 * O historico inicial exibe as ultimas 50 mensagens.
 * Mensagens novas aparecem imediatamente para usuarios conectados na sala da campanha.
 * Jogadores so entram na sala realtime quando a sessao esta online; mestre entra ao iniciar a sessao.
+* O controle "Dados" exibe as opcoes `D4`, `D6`, `D8`, `D10`, `D12` e `D20`.
+* O dado selecionado aparece em um botao proprio ao lado esquerdo do menu "Dados".
+* O dado selecionado inicia como `D20`.
+* Ao clicar no botao do dado selecionado, o cliente calcula um valor entre 1 e o numero de faces.
+* A rolagem e publicada no chat como mensagem comum do personagem ativo.
+* A rolagem tambem dispara uma animacao 3D local sobre a mesa VTT.
 
 ## 5. Relacao com Outros Modulos
 * `campaigns`: define campanha e participacao por `CampaignCharacter`.

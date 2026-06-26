@@ -5,17 +5,20 @@ import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
-import type { VttGridSettings, VttGridShape } from '../../vtt/grid'
+import { DiceRollOverlay, type DiceRollAnimation } from '../../vtt/DiceRollOverlay'
+import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
 
 const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
 
+type VttToolId = 'select' | 'move' | 'measure' | 'grid'
+
 const toolButtons = [
-  { label: 'Selecionar', icon: MousePointer2 },
-  { label: 'Mover', icon: Move },
-  { label: 'Medir', icon: Ruler },
-  { label: 'Grid', icon: Grid3X3 },
-]
+  { id: 'select', label: 'Selecionar', icon: MousePointer2 },
+  { id: 'move', label: 'Mover', icon: Move },
+  { id: 'measure', label: 'Medir', icon: Ruler },
+  { id: 'grid', label: 'Grid', icon: Grid3X3 },
+] as const
 
 function createHexGridDataUrl(settings: VttGridSettings) {
   const hexWidth = settings.size
@@ -99,6 +102,8 @@ function VttGridSettingsModal({
     onChange({ ...settings, [key]: value })
   }
 
+  const squareMetersIndex = Math.max(0, squareMetersAllowedValues.indexOf(settings.squareMeters))
+
   return (
     <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-48px))] rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur">
       <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
@@ -166,6 +171,38 @@ function VttGridSettingsModal({
           />
         </label>
 
+        {settings.shape === 'square' ? (
+          <label className="grid gap-2 text-sm">
+            <div className="flex justify-between gap-3">
+              <span className="text-zinc-200">Area do quadrado</span>
+              <span className="text-zinc-400">{settings.squareMeters}m²</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={squareMetersAllowedValues.length - 1}
+              value={squareMetersIndex}
+              className="accent-indigo-500"
+              onChange={(event) => updateSetting('squareMeters', squareMetersAllowedValues[Number(event.target.value)])}
+            />
+          </label>
+        ) : null}
+
+        <label className="flex items-center justify-between gap-3 text-sm">
+          <span className="flex items-center gap-2 text-zinc-200">
+            <Palette className="h-4 w-4 text-zinc-500" />
+            {settings.shape === 'square' ? 'Cor do tracejado' : 'Cor da pintura'}
+          </span>
+          <input
+            type="color"
+            value={settings.shape === 'square' ? settings.squareMeasurementColor : settings.hexMeasurementColor}
+            className="h-9 w-14 rounded border border-white/10 bg-transparent p-1"
+            onChange={(event) =>
+              updateSetting(settings.shape === 'square' ? 'squareMeasurementColor' : 'hexMeasurementColor', event.target.value)
+            }
+          />
+        </label>
+
         <label className="grid gap-2 text-sm">
           <div className="flex justify-between gap-3">
             <span className="text-zinc-200">Espessura</span>
@@ -210,6 +247,8 @@ type CampaignOverviewPageProps = {
     status: 'ACTIVE' | 'PENDING'
   } | null
   playerTokenRequest: number
+  diceRollAnimation: DiceRollAnimation | null
+  onDiceRollComplete: () => void
   onGridSettingsChange: (settings: VttGridSettings) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
@@ -248,6 +287,29 @@ type VttTokenState = {
 type VttGridBounds = {
   width: number
   height: number
+}
+
+type VttMeasurementPoint = {
+  x: number
+  y: number
+}
+
+type VttMeasurement =
+  | {
+      shape: 'square'
+      start: VttMeasurementPoint
+      end: VttMeasurementPoint
+      color: string
+    }
+  | {
+      shape: 'hex'
+      points: VttMeasurementPoint[]
+      color: string
+    }
+
+type VttMeasurementChangedPayload = {
+  campaignId: string
+  measurement: VttMeasurement | null
 }
 
 const hexRowStepUnits = Math.sqrt(3) / 2
@@ -377,6 +439,137 @@ function closestGridCenterPosition(bounds: VttGridBounds, gridSize: number, grid
   return normalizeTokenPosition(center, gridShape, bounds, gridSize)
 }
 
+function clampMeasurementPoint(point: VttMeasurementPoint, bounds: VttGridBounds) {
+  return {
+    x: clampNumber(point.x, 0, bounds.width),
+    y: clampNumber(point.y, 0, bounds.height),
+  }
+}
+
+function formatMeters(value: number) {
+  const precision = value < 10 ? 1 : 0
+  return `${value.toFixed(precision).replace('.', ',')} m`
+}
+
+function measurementLabel(measurement: VttMeasurement, squareMeters: number) {
+  if (measurement.shape === 'hex') {
+    const steps = Math.max(0, measurement.points.length - 1)
+    return `${steps} ${steps === 1 ? 'passo' : 'passos'}`
+  }
+
+  const distanceInGridUnits = Math.hypot(measurement.end.x - measurement.start.x, measurement.end.y - measurement.start.y)
+  return formatMeters(distanceInGridUnits * Math.sqrt(squareMeters))
+}
+
+function measurementLabelPoint(measurement: VttMeasurement) {
+  if (measurement.shape === 'hex') {
+    return measurement.points[measurement.points.length - 1] ?? { x: 0, y: 0 }
+  }
+
+  return {
+    x: (measurement.start.x + measurement.end.x) / 2,
+    y: (measurement.start.y + measurement.end.y) / 2,
+  }
+}
+
+function areMeasurementPointsEqual(a: VttMeasurementPoint, b: VttMeasurementPoint) {
+  return Math.abs(a.x - b.x) < 0.5 && Math.abs(a.y - b.y) < 0.5
+}
+
+function measurementPointToPixels(point: VttMeasurementPoint, gridSize: number) {
+  return {
+    x: point.x * gridSize,
+    y: point.y * gridSize,
+  }
+}
+
+function hexPolygonPoints(center: VttMeasurementPoint, gridSize: number) {
+  const pixelCenter = measurementPointToPixels(center, gridSize)
+  const radius = gridSize / Math.sqrt(3)
+  const halfWidth = gridSize / 2
+  const halfRadius = radius / 2
+
+  return [
+    { x: pixelCenter.x, y: pixelCenter.y - radius },
+    { x: pixelCenter.x + halfWidth, y: pixelCenter.y - halfRadius },
+    { x: pixelCenter.x + halfWidth, y: pixelCenter.y + halfRadius },
+    { x: pixelCenter.x, y: pixelCenter.y + radius },
+    { x: pixelCenter.x - halfWidth, y: pixelCenter.y + halfRadius },
+    { x: pixelCenter.x - halfWidth, y: pixelCenter.y - halfRadius },
+  ]
+    .map((point) => `${point.x},${point.y}`)
+    .join(' ')
+}
+
+function VttMeasurementOverlay({
+  measurement,
+  gridSize,
+  squareMeters,
+}: {
+  measurement: VttMeasurement | null
+  gridSize: number
+  squareMeters: number
+}) {
+  if (!measurement) return null
+
+  const labelPoint = measurementPointToPixels(measurementLabelPoint(measurement), gridSize)
+  const label = measurementLabel(measurement, squareMeters)
+  const color = measurement.color
+
+  return (
+    <>
+      <svg className="pointer-events-none absolute inset-0 z-[7] h-full w-full overflow-visible">
+        {measurement.shape === 'square' ? (
+          <>
+            <line
+              x1={measurementPointToPixels(measurement.start, gridSize).x}
+              y1={measurementPointToPixels(measurement.start, gridSize).y}
+              x2={measurementPointToPixels(measurement.end, gridSize).x}
+              y2={measurementPointToPixels(measurement.end, gridSize).y}
+              stroke={color}
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray="8 6"
+            />
+            {[measurement.start, measurement.end].map((point, index) => (
+              <circle
+                key={index}
+                cx={measurementPointToPixels(point, gridSize).x}
+                cy={measurementPointToPixels(point, gridSize).y}
+                r="5"
+                fill={color}
+                stroke="#111827"
+                strokeWidth="2"
+              />
+            ))}
+          </>
+        ) : (
+          <>
+            {measurement.points.map((point, index) => (
+              <polygon
+                key={`${point.x}-${point.y}-${index}`}
+                points={hexPolygonPoints(point, gridSize)}
+                fill={color}
+                fillOpacity="0.45"
+                stroke={color}
+                strokeOpacity="0.9"
+                strokeWidth="2"
+                strokeLinejoin="round"
+              />
+            ))}
+          </>
+        )}
+      </svg>
+      <div
+        className="pointer-events-none absolute z-[9] rounded-md border border-orange-300/40 bg-black/75 px-2 py-1 text-xs font-semibold text-orange-100 shadow-lg"
+        style={{ left: labelPoint.x, top: labelPoint.y, transform: 'translate(-50%, -140%)' }}
+      >
+        {label}
+      </div>
+    </>
+  )
+}
+
 function PlayerToken({
   token,
   tokenSize,
@@ -480,6 +673,8 @@ export function CampaignOverviewPage({
   canConfigureGrid,
   myCharacter,
   playerTokenRequest,
+  diceRollAnimation,
+  onDiceRollComplete,
   onGridSettingsChange,
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
@@ -487,13 +682,19 @@ export function CampaignOverviewPage({
   const { campaigns, socket } = useSession()
   const gridAreaRef = useRef<HTMLElement | null>(null)
   const handledPlayerTokenRequestRef = useRef(0)
+  const measuringRef = useRef(false)
+  const measurementRef = useRef<VttMeasurement | null>(null)
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
+  const [activeTool, setActiveTool] = useState<VttToolId>('select')
+  const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
+  const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.squareMeters}`
+  const measurementGridKeyRef = useRef(measurementGridKey)
 
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
   const tokenSize = getTokenSize(gridSettings)
-  const visibleToolButtons = canConfigureGrid ? toolButtons : toolButtons.filter((tool) => tool.label !== 'Grid')
+  const visibleToolButtons = canConfigureGrid ? toolButtons : toolButtons.filter((tool) => tool.id !== 'grid')
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
 
   useEffect(() => {
@@ -551,15 +752,26 @@ export function CampaignOverviewPage({
       })
     }
 
+    function onMeasurementChanged(payload: VttMeasurementChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      measurementRef.current = payload.measurement
+      setMeasurement(payload.measurement)
+    }
+
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
+    socket.on('vtt:measurement:changed', onMeasurementChanged)
+    socket.on('vtt:measurement:snapshot', onMeasurementChanged)
     socket.emit('vtt:tokens:request', { campaignId })
+    socket.emit('vtt:measurement:request', { campaignId })
 
     return () => {
       socket.off('vtt:token:changed', onTokenChanged)
       socket.off('vtt:tokens:snapshot', onTokensSnapshot)
       socket.off('vtt:token:removed', onTokenRemoved)
+      socket.off('vtt:measurement:changed', onMeasurementChanged)
+      socket.off('vtt:measurement:snapshot', onMeasurementChanged)
     }
   }, [socket, campaignId, gridSettings.shape])
 
@@ -577,6 +789,15 @@ export function CampaignOverviewPage({
     })
   }, [campaignId, gridBounds, gridSettings.shape, myCharacter, playerTokenRequest, socket, tokenSize])
 
+  useEffect(() => {
+    if (measurementGridKeyRef.current === measurementGridKey) return
+    measurementGridKeyRef.current = measurementGridKey
+    measuringRef.current = false
+    measurementRef.current = null
+    setMeasurement(null)
+    if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
+  }, [campaignId, measurementGridKey, socket])
+
   function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
     if (!campaignId || !socket) return
     if (myCharacter?.id !== token.characterId || myCharacter.role !== 'PLAYER') return
@@ -590,6 +811,93 @@ export function CampaignOverviewPage({
       }
     })
     socket.emit('vtt:token:update', { campaignId, position: nextPosition })
+  }
+
+  function publishMeasurement(nextMeasurement: VttMeasurement | null) {
+    measurementRef.current = nextMeasurement
+    setMeasurement(nextMeasurement)
+
+    if (!campaignId || !socket) return
+    socket.emit('vtt:measurement:update', { campaignId, measurement: nextMeasurement })
+  }
+
+  function getMeasurementPoint(event: React.PointerEvent<HTMLElement>) {
+    const bounds = gridAreaRef.current?.getBoundingClientRect()
+    if (!bounds) return null
+
+    return clampMeasurementPoint(
+      {
+        x: (event.clientX - bounds.left) / tokenSize,
+        y: (event.clientY - bounds.top) / tokenSize,
+      },
+      { width: bounds.width / tokenSize, height: bounds.height / tokenSize },
+    )
+  }
+
+  function snapHexMeasurementPoint(point: VttMeasurementPoint) {
+    const bounds = gridAreaRef.current?.getBoundingClientRect()
+    if (!bounds) return point
+
+    return tokenGridPositionFromPixelCenter(
+      {
+        x: point.x * tokenSize,
+        y: point.y * tokenSize,
+      },
+      { width: bounds.width, height: bounds.height },
+      tokenSize,
+      'hex',
+    )
+  }
+
+  function nextHexMeasurementPoints(points: VttMeasurementPoint[], nextPoint: VttMeasurementPoint) {
+    const existingIndex = points.findIndex((point) => areMeasurementPointsEqual(point, nextPoint))
+    if (existingIndex >= 0) return points.slice(0, existingIndex + 1)
+    return [...points, nextPoint]
+  }
+
+  function startMeasurement(event: React.PointerEvent<HTMLDivElement>) {
+    const point = getMeasurementPoint(event)
+    if (!point) return
+
+    event.preventDefault()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    measuringRef.current = true
+
+    if (gridSettings.shape === 'hex') {
+      publishMeasurement({ shape: 'hex', points: [snapHexMeasurementPoint(point)], color: gridSettings.hexMeasurementColor })
+      return
+    }
+
+    publishMeasurement({ shape: 'square', start: point, end: point, color: gridSettings.squareMeasurementColor })
+  }
+
+  function updateMeasurement(event: React.PointerEvent<HTMLDivElement>) {
+    if (!measuringRef.current) return
+
+    const point = getMeasurementPoint(event)
+    if (!point) return
+
+    if (gridSettings.shape === 'hex') {
+      const nextPoint = snapHexMeasurementPoint(point)
+      const current = measurementRef.current
+      const points = current?.shape === 'hex' ? current.points : []
+      const lastPoint = points[points.length - 1]
+      if (lastPoint && areMeasurementPointsEqual(lastPoint, nextPoint)) return
+
+      publishMeasurement({ shape: 'hex', points: nextHexMeasurementPoints(points, nextPoint), color: gridSettings.hexMeasurementColor })
+      return
+    }
+
+    const current = measurementRef.current
+    publishMeasurement(
+      current?.shape === 'square'
+        ? { ...current, end: point, color: gridSettings.squareMeasurementColor }
+        : { shape: 'square', start: point, end: point, color: gridSettings.squareMeasurementColor },
+    )
+  }
+
+  function finishMeasurement() {
+    measuringRef.current = false
   }
 
   return (
@@ -608,13 +916,24 @@ export function CampaignOverviewPage({
             onMove={(position) => movePlayerToken(token, position)}
           />
         ))}
+        <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
+        <DiceRollOverlay roll={diceRollAnimation} onComplete={onDiceRollComplete} />
+        {activeTool === 'measure' ? (
+          <div
+            className="absolute inset-0 z-[8] cursor-crosshair"
+            onPointerDown={startMeasurement}
+            onPointerMove={updateMeasurement}
+            onPointerUp={finishMeasurement}
+            onPointerCancel={finishMeasurement}
+          />
+        ) : null}
 
         <div className="pointer-events-none relative z-10 flex h-full min-h-[560px] flex-col">
           <div className="relative flex-1">
             <div className="pointer-events-auto absolute left-24 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
-              {visibleToolButtons.map((tool, index) => {
+              {visibleToolButtons.map((tool) => {
                 const Icon = tool.icon
-                const active = tool.label === 'Grid' ? gridSettingsOpen : index === 0
+                const active = tool.id === 'grid' ? gridSettingsOpen : activeTool === tool.id
 
                 return (
                   <button
@@ -626,7 +945,13 @@ export function CampaignOverviewPage({
                       active ? 'bg-indigo-600 text-white' : 'text-zinc-300 hover:bg-white/10 hover:text-white',
                     ].join(' ')}
                     onClick={() => {
-                      if (tool.label === 'Grid') onGridSettingsOpenChange(true)
+                      if (tool.id === 'grid') {
+                        onGridSettingsOpenChange(true)
+                        return
+                      }
+
+                      measuringRef.current = false
+                      setActiveTool(tool.id)
                     }}
                   >
                     <Icon className="h-4 w-4" />
@@ -705,7 +1030,9 @@ export function CampaignOverviewPage({
               <div className="flex justify-between gap-3 text-zinc-400">
                 <span>Grid</span>
                 <span className="text-zinc-200">
-                  {gridSettings.visible ? `${gridSettings.shape === 'square' ? 'Quadrado' : 'Hex'} ${gridSettings.size}px` : 'Oculto'}
+                  {gridSettings.visible
+                    ? `${gridSettings.shape === 'square' ? `Quadrado ${gridSettings.size}px - ${gridSettings.squareMeters}m2` : `Hex ${gridSettings.size}px`}`
+                    : 'Oculto'}
                 </span>
               </div>
             </div>

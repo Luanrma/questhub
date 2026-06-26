@@ -565,6 +565,32 @@ input:disabled,
   }
 }
 
+@keyframes vtt-dice-roll-overlay {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+
+  12% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  78% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(0.98);
+  }
+}
+
+.animate-vtt-dice-roll-overlay {
+  animation: vtt-dice-roll-overlay 1900ms ease both;
+}
+
 @media (max-width: 760px) {
   .sheet-identity-grid,
   .sheet-small-grid,

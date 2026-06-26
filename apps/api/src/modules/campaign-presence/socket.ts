@@ -11,6 +11,7 @@ type OnlineCampaign = { masterSocketId: string; masterUserId: string; masterChar
 type PresenceAck = (response: { ok: boolean; error?: string }) => void
 type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
 type VttTokenPosition = z.infer<typeof vttTokenPositionSchema>
+type VttMeasurement = z.infer<typeof vttMeasurementSchema>
 type VttPlayerToken = {
   id: string
   characterId: string
@@ -19,10 +20,20 @@ type VttPlayerToken = {
   position: VttTokenPosition
 }
 
+const squareMetersAllowedValues = new Set([
+  ...Array.from({ length: 10 }, (_, index) => index + 1),
+  ...Array.from({ length: 18 }, (_, index) => (index + 3) * 5),
+  ...Array.from({ length: 90 }, (_, index) => (index + 11) * 10),
+  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 1000),
+])
+
 const defaultVttGridSettings: VttGridSettings = {
   visible: false,
   shape: 'square',
   size: 32,
+  squareMeters: 1,
+  squareMeasurementColor: '#f97316',
+  hexMeasurementColor: '#f97316',
   lineWidth: 1,
   color: '#94a3b8',
 }
@@ -31,6 +42,9 @@ const vttGridSettingsSchema = z.object({
   visible: z.boolean(),
   shape: z.enum(['square', 'hex']),
   size: z.number().int().min(24).max(96),
+  squareMeters: z.number().int().min(1).max(10000).refine((value) => squareMetersAllowedValues.has(value)),
+  squareMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+  hexMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   lineWidth: z.number().int().min(1).max(4),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
 })
@@ -43,6 +57,30 @@ const vttGridUpdateSchema = z.object({
 const vttTokenPositionSchema = z.object({
   x: z.number().min(0).max(100000),
   y: z.number().min(0).max(100000),
+})
+
+const vttMeasurementPointSchema = z.object({
+  x: z.number().min(0).max(100000),
+  y: z.number().min(0).max(100000),
+})
+
+const vttMeasurementSchema = z.discriminatedUnion('shape', [
+  z.object({
+    shape: z.literal('square'),
+    start: vttMeasurementPointSchema,
+    end: vttMeasurementPointSchema,
+    color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+  }),
+  z.object({
+    shape: z.literal('hex'),
+    points: z.array(vttMeasurementPointSchema).min(1).max(500),
+    color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+  }),
+])
+
+const vttMeasurementUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  measurement: vttMeasurementSchema.nullable(),
 })
 
 const vttTokenUpdateSchema = z.object({
@@ -62,6 +100,7 @@ export function setupCampaignPresence(server: HttpServer) {
   const campaignOnline = new Map<string, OnlineCampaign>()
   const campaignGridSettings = new Map<string, VttGridSettings>()
   const campaignTokens = new Map<string, Map<string, VttPlayerToken>>()
+  const campaignMeasurements = new Map<string, VttMeasurement>()
 
   function isCampaignOnline(campaignId: string) {
     return campaignOnline.has(campaignId)
@@ -81,6 +120,7 @@ export function setupCampaignPresence(server: HttpServer) {
   async function endCampaignSession(campaignId: string, message: string) {
     campaignOnline.delete(campaignId)
     campaignTokens.delete(campaignId)
+    campaignMeasurements.delete(campaignId)
     await notifyCampaignStatus(campaignId, false)
 
     const sockets = await io.in(`campaign:${campaignId}`).fetchSockets()
@@ -133,6 +173,13 @@ export function setupCampaignPresence(server: HttpServer) {
     io.to(socketId).emit('vtt:tokens:snapshot', {
       campaignId,
       tokens: tokenMap ? Array.from(tokenMap.values()) : [],
+    })
+  }
+
+  function emitCampaignMeasurementSnapshot(campaignId: string, socketId: string) {
+    io.to(socketId).emit('vtt:measurement:snapshot', {
+      campaignId,
+      measurement: campaignMeasurements.get(campaignId) ?? null,
     })
   }
 
@@ -189,11 +236,13 @@ export function setupCampaignPresence(server: HttpServer) {
           userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
           campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId })
           campaignTokens.set(campaignId, new Map())
+          campaignMeasurements.delete(campaignId)
 
           await notifyCampaignStatus(campaignId, true)
           io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: true })
           emitCampaignGridSettings(campaignId)
           emitCampaignTokenSnapshot(campaignId, socket.id)
+          emitCampaignMeasurementSnapshot(campaignId, socket.id)
           ack?.({ ok: true })
         } catch {
           ack?.({ ok: false, error: 'Erro ao iniciar sessao' })
@@ -252,6 +301,7 @@ export function setupCampaignPresence(server: HttpServer) {
           settings: getCampaignGridSettings(campaignId),
         })
         emitCampaignTokenSnapshot(campaignId, socket.id)
+        emitCampaignMeasurementSnapshot(campaignId, socket.id)
 
         io.to(`campaign:${campaignId}`).emit('presence:update', {
           campaignId,
@@ -313,6 +363,37 @@ export function setupCampaignPresence(server: HttpServer) {
       if (socket.data.campaignId !== campaignId) return
 
       emitCampaignTokenSnapshot(campaignId, socket.id)
+    })
+
+    socket.on('vtt:measurement:update', (input: unknown) => {
+      const parsed = vttMeasurementUpdateSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, measurement } = parsed.data
+      if (!isCampaignOnline(campaignId)) return
+      if (socket.data.campaignId !== campaignId) return
+
+      if (measurement) {
+        campaignMeasurements.set(campaignId, measurement)
+      } else {
+        campaignMeasurements.delete(campaignId)
+      }
+
+      io.to(`campaign:${campaignId}`).emit('vtt:measurement:changed', {
+        campaignId,
+        measurement,
+      })
+    })
+
+    socket.on('vtt:measurement:request', (input: unknown) => {
+      const parsed = z.object({ campaignId: z.string().min(1) }).safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isCampaignOnline(campaignId)) return
+      if (socket.data.campaignId !== campaignId) return
+
+      emitCampaignMeasurementSnapshot(campaignId, socket.id)
     })
 
     socket.on('disconnect', () => {
