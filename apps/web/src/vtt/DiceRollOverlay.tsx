@@ -1,5 +1,5 @@
 import { useMemo, useEffect, useRef } from 'react';
-import { Canvas } from '@react-three/fiber';
+import { Canvas, useFrame } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { Physics, RigidBody, CuboidCollider, RapierRigidBody } from '@react-three/rapier';
 
@@ -26,24 +26,31 @@ function PhysicsDice({ onFinished, sides }: { onFinished: () => void, sides: num
   const modelPath = getDiceModelPath(sides);
   const { scene } = useGLTF(modelPath, true); 
   const copiedScene = useMemo(() => scene.clone(), [scene]);
+  const hasImpulsed = useRef(false);
 
-  useEffect(() => {
-    if (rigidBodyRef.current) {
-      // Impulso inicial para "jogar" o dado
+  useFrame(() => {
+    // Verifica se o corpo existe e se ainda não aplicamos o impulso
+    if (rigidBodyRef.current && !hasImpulsed.current) {
+      
+      // Força o objeto a acordar antes de aplicar a força
+      rigidBodyRef.current.wakeUp();
+
       rigidBodyRef.current.applyImpulse({ 
         x: (Math.random() - 0.5) * 5, 
         y: 5, 
         z: (Math.random() - 0.5) * 5 
       }, true);
       
-      // Rotação inicial
       rigidBodyRef.current.applyTorqueImpulse({ 
         x: Math.random() * 2, 
         y: Math.random() * 2, 
         z: Math.random() * 2 
       }, true);
+
+      // Marca como feito
+      hasImpulsed.current = true;
     }
-  }, []); // Executa apenas uma vez ao montar
+  });
 
   return (
     <RigidBody 
@@ -76,13 +83,16 @@ export function DiceRollOverlay({
   if (!roll) return null;
 
   return (
-    <div className="absolute inset-0 z-50 pointer-events-none">
-      <Canvas camera={{ position: [0, 5, 8], fov: 50 }}>
+    <div className="absolute inset-0 z-50">
+      <Canvas 
+          camera={{ position: [0, 5, 8], fov: 50 }}
+          style={{ pointerEvents: 'none' }} // Adicione esta linha aqui
+      >
         <ambientLight intensity={0.8} />
         <directionalLight position={[5, 10, 5]} intensity={2} />
         
         {/* Gravidade normal, puxando apenas para baixo */}
-        <Physics gravity={[0, -9.81, 0]}>
+        <Physics gravity={[-0.5, -9.81, -0.5]}>
           
           {/* Chão centralizado e maior */}
           <RigidBody type="fixed" position={[0, -1, 0]}>

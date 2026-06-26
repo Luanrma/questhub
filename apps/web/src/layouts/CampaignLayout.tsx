@@ -326,10 +326,10 @@ export function CampaignLayout() {
       alert(message)
     } finally {
       setDiceRolling(false)
-      // Keep animation visible for 3 seconds, then clear it
+      // Keep animation visible for 5 seconds, then clear it
       setTimeout(() => {
         setDiceRollAnimation(null)
-      }, 3000)
+      }, 5000)
     }
   }
 
@@ -337,7 +337,6 @@ export function CampaignLayout() {
   if (!me) return <Navigate to="/login" replace />
   if (!campaignId) return <Navigate to="/campaigns" replace />
 
-  // Enquanto carrega campanhas, mostra loading (para resolver título/GM etc.)
   if (campaignsLoading) return <LoadingScreen />
 
   if (!campaign) {
@@ -452,16 +451,15 @@ export function CampaignLayout() {
 
           <main className="relative z-10 h-[calc(100vh-73px)] overflow-hidden">
             <CampaignOverviewPage
-          gridSettings={gridSettings}
-          gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
-          canConfigureGrid={Boolean(isMaster)}
-          myCharacter={myCharacter}
-          playerTokenRequest={playerTokenRequest}
-          diceRollAnimation={diceRollAnimation}
-          onDiceRollComplete={() => setDiceRollAnimation(null)}
-          onGridSettingsChange={applyGridSettings}
-          onGridSettingsOpenChange={setGridSettingsOpen}
-        />
+              gridSettings={gridSettings}
+              gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
+              canConfigureGrid={Boolean(isMaster)}
+              myCharacter={myCharacter}
+              playerTokenRequest={playerTokenRequest}
+              diceRollAnimation={diceRollAnimation}
+              onGridSettingsChange={applyGridSettings}
+              onGridSettingsOpenChange={setGridSettingsOpen}
+            />
 
             {hasFloatingPanel ? (
               <FloatingCampaignPanel title={panelTitle} onClose={() => navigate(`/campaign/${campaignId}/overview`)}>
