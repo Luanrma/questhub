@@ -248,7 +248,6 @@ type CampaignOverviewPageProps = {
   } | null
   playerTokenRequest: number
   diceRollAnimation: DiceRollAnimation | null
-  onDiceRollComplete: () => void
   onGridSettingsChange: (settings: VttGridSettings) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
@@ -674,7 +673,6 @@ export function CampaignOverviewPage({
   myCharacter,
   playerTokenRequest,
   diceRollAnimation,
-  onDiceRollComplete,
   onGridSettingsChange,
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
@@ -917,7 +915,7 @@ export function CampaignOverviewPage({
           />
         ))}
         <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
-        <DiceRollOverlay roll={diceRollAnimation} onComplete={onDiceRollComplete} />
+        <DiceRollOverlay roll={diceRollAnimation} onComplete={function (): void {} } />
         {activeTool === 'measure' ? (
           <div
             className="absolute inset-0 z-[8] cursor-crosshair"

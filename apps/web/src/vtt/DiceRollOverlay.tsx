@@ -3,41 +3,59 @@ import { Canvas } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { Physics, RigidBody, CuboidCollider, RapierRigidBody } from '@react-three/rapier';
 
-// Define the type that matches what's in CampaignLayout
 export type DiceRollAnimation = {
   id: number;
   sides: number;
   value: number;
 };
 
-function PhysicsDice({ onFinished }: { onFinished: () => void }) {
+const getDiceModelPath = (sides: number): string => {
+  switch (sides) {
+    case 4: return '/models/D4_3D_Red.glb';
+    case 6: return '/models/D6_3D_Red.glb';
+    case 8: return '/models/D8_3D_Red.glb';
+    case 10: return '/models/D10_3D_Red.glb';
+    case 12: return '/models/D12_3D_Red.glb';
+    case 20:
+    default: return '/models/D20_3D_Red.glb';
+  }
+};
+
+function PhysicsDice({ onFinished, sides }: { onFinished: () => void, sides: number }) {
   const rigidBodyRef = useRef<RapierRigidBody>(null);
-  // Note: We'll use a placeholder model for now - in real use, you'd need to add the .glb file to public/models
-  const { scene } = useGLTF('/models/D20_3D_Red.glb', true); // true = use fallback if not found
+  const modelPath = getDiceModelPath(sides);
+  const { scene } = useGLTF(modelPath, true); 
   const copiedScene = useMemo(() => scene.clone(), [scene]);
 
   useEffect(() => {
     if (rigidBodyRef.current) {
+      // Impulso inicial para "jogar" o dado
       rigidBodyRef.current.applyImpulse({ 
-        x: (Math.random() - 0.5) * 10, 
-        y: 8, 
-        z: (Math.random() - 0.5) * 10 
+        x: (Math.random() - 0.5) * 5, 
+        y: 5, 
+        z: (Math.random() - 0.5) * 5 
       }, true);
+      
+      // Rotação inicial
       rigidBodyRef.current.applyTorqueImpulse({ 
-        x: Math.random() * 5, 
-        y: Math.random() * 5, 
-        z: Math.random() * 5 
+        x: Math.random() * 2, 
+        y: Math.random() * 2, 
+        z: Math.random() * 2 
       }, true);
     }
-    const timer = setTimeout(onFinished, 3000);
-    return () => clearTimeout(timer);
-  }, [onFinished]);
+  }, []); // Executa apenas uma vez ao montar
 
   return (
-    <RigidBody ref={rigidBodyRef} colliders="hull" restitution={0.4} friction={0.6}>
-      {/* If model isn't available, show a simple d20 shape */}
+    <RigidBody 
+      ref={rigidBodyRef}
+      onSleep={() => onFinished()}
+      colliders="hull" 
+      restitution={0.4} 
+      friction={0.6}
+      position={[0, 2, 0]} // Começa um pouco acima do chão
+    >
       {scene ? (
-        <primitive object={copiedScene} scale={0.5} />
+        <primitive object={copiedScene} scale={0.8} />
       ) : (
         <mesh>
           <dodecahedronGeometry args={[1]} />
@@ -62,20 +80,18 @@ export function DiceRollOverlay({
       <Canvas camera={{ position: [0, 5, 8], fov: 50 }}>
         <ambientLight intensity={0.8} />
         <directionalLight position={[5, 10, 5]} intensity={2} />
+        
+        {/* Gravidade normal, puxando apenas para baixo */}
         <Physics gravity={[0, -9.81, 0]}>
+          
+          {/* Chão centralizado e maior */}
           <RigidBody type="fixed" position={[0, -1, 0]}>
             <CuboidCollider args={[10, 0.5, 10]} />
           </RigidBody>
-          <PhysicsDice onFinished={onComplete} />
+          
+          <PhysicsDice onFinished={onComplete} sides={roll.sides} />
         </Physics>
       </Canvas>
-      {/* Show the result while the animation plays */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-[60] bg-black/80 border border-white/10 px-6 py-3 rounded-xl backdrop-blur">
-        <div className="text-center">
-          <div className="text-xs uppercase text-zinc-400 mb-1">Resultado</div>
-          <div className="text-4xl font-bold text-white">D{roll.sides}: {roll.value}</div>
-        </div>
-      </div>
     </div>
   );
 }
