@@ -34,11 +34,12 @@ Incluido:
 * Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
 * Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
-* Rolagem visual de dado 3D sobre a mesa quando um usuario executa uma rolagem rapida.
+* Rolagem visual de dado 3D por uma interface propria do VTT.
 * Rolagens de dado sao efeitos efemeros sincronizados para todos os usuarios conectados a sessao ativa.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
-* Cada dado visual deve usar uma simulacao fisica leve com Rapier, nascendo do lado direito da mesa, cruzando o tabuleiro em diagonal, podendo bater em limites invisiveis e estabilizando na face autoritativa do chat.
-* Ferramenta dev-only de calibracao de faces dos dados em `/dev/dice-calibration`.
+* Integracoes visuais de dados 3D, incluindo `@3d-dice/dice-box`, pertencem ao VTT generico e devem ser expostas por uma interface propria do VTT.
+* A interface de dados pode iniciar como modal sobreposto ao board quando a biblioteca exigir um container dedicado, mas a orquestracao da rolagem deve continuar no modulo `vtt/dice-roller`.
+* A fisica dos dados deve ser fornecida pela engine `@3d-dice/dice-box`, sem duplicar uma segunda simulacao visual no VTT.
 * No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando a area configurada para cada quadrado.
 * No grid quadrado, a cor do tracejado da regua e configurada no modal do grid.
 * No grid hexagonal, a ferramenta permite pintar hexagonos completos, escolher a cor da pintura no modal do grid e contar quantos passos foram percorridos.
@@ -50,6 +51,7 @@ Incluido:
 Fora de escopo:
 * Regras mecanicas de sistemas de RPG.
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
+* Dados ou formulas especificas de um game system como regra obrigatoria do VTT.
 * Persistencia de cena/mapa/tokens.
 * Persistencia ou replay de tokens depois que a sessao termina.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.

@@ -108,6 +108,8 @@ type MyCampaignCharacter = {
 * Ao executar uma rolagem rapida, um dado 3D deve aparecer sobre a mesa VTT, girar por um curto periodo e exibir o resultado rolado.
 * A animacao 3D de dado e local ao cliente que rolou; a mensagem persistida no chat continua sendo a fonte compartilhada para os demais usuarios.
 * A camada 3D nao pode capturar pointer events nem impedir interacao com grid, tokens, medicoes ou botoes.
+* A ferramenta de dados deve ser implementada como componente do VTT, nao como estado interno de `CampaignLayout`.
+* `CampaignLayout` pode fornecer `campaignId`, personagem atual, socket e estado da sessao para ferramentas VTT, mas nao deve conhecer detalhes de engine de dados, bibliotecas 3D ou formatos visuais de rolagem.
 
 ## 5. Configuracao Visual do Grid
 
@@ -257,50 +259,30 @@ Eventos Socket.IO:
 
 ## 8. Rolagem Visual 3D
 
-Tipo local usado pelo VTT:
+Tipo local usado pela interface de dados do VTT:
 
 ```ts
-type VttDiceRollAnimation = {
-  id: number
+type VttDiceRollRequest = {
   sides: 4 | 6 | 8 | 10 | 12 | 20
   value: number
-  characterId: string
-  characterName: string
-  rolledAt: number
 }
-
-type VttDiceRollVisualState = 'idle' | 'rolling' | 'settled' | 'fading'
 ```
 
 Regras:
-* `id` muda a cada rolagem para reiniciar a animacao.
-* `sides` define a geometria aproximada do dado 3D.
+* `sides` define o dado 3D suportado pela interface generica.
 * `value` e o mesmo valor enviado para o chat.
-* A animacao deve ser renderizada em overlay absoluto sobre a area do grid.
+* A animacao deve ser renderizada por `@3d-dice/dice-box` dentro da interface propria de dados do VTT.
 * A animacao deve sumir automaticamente apos terminar.
 * A camada visual e efemera e nao deve ser persistida no banco.
 * A camada visual deve ser sincronizada em tempo real para todos os usuarios dentro da sessao ativa da campanha.
-* A camada R3F deve permanecer montada enquanto a mesa estiver montada; cada rolagem apenas troca o comando ativo da animacao.
-* O estado da rolagem visual deve ficar isolado dentro do overlay de dados para nao re-renderizar `CampaignLayout`.
-* A camada 3D deve usar componentes declarativos gerados via `gltfjsx` a partir dos arquivos GLB existentes em `/models`.
+* O estado da rolagem visual deve ficar isolado dentro da interface de dados para nao re-renderizar `CampaignLayout`.
+* A integracao com `@3d-dice/dice-box` deve ficar encapsulada em `vtt/dice-roller` e publicar o mesmo contrato generico `VttDiceRollBatchPayload`.
+* O uso inicial de `@3d-dice/dice-box` renderiza em modal proprio para garantir inicializacao de canvas/assets, sem substituir o contrato generico de rolagem nem introduzir dependencia de ruleset.
+* A evolucao desejada e permitir que a mesma interface propria de dados renderize sobre a area do grid/board sem desmontar ou bloquear a mesa.
 * A camada 3D deve usar `pointer-events: none` e nunca impedir interacoes com ferramentas, tokens, medicoes, chat ou paineis.
-* O grid deve ser tratado como a superficie 2D da mesa para o dado; a animacao nao pode terminar apoiada em quina ou em repouso visual instavel.
-* A rolagem visual deve usar `@react-three/rapier` em um mundo de fisica persistente dentro do overlay de dados.
-* O backend/socket define o resultado autoritativo; o frontend deve animar ate o quaternion calibrado correspondente a `value`.
-* O mapa de faces nao pode usar fallback matematico proporcional ao numero de lados, como rotacionar apenas em Y por `(face / sides) * 2pi`; cada face deve usar quaternion ortogonal/calibrado para o GLB correspondente.
-* Durante `rolling`, cada dado deve nascer no extremo direito do plano da camera/mesa, com `X` positivo e `Z` pseudoaleatorio.
-* Ao nascer, cada dado deve receber `applyImpulse` apontando diagonalmente para a esquerda e `applyTorqueImpulse` caotico nos eixos X/Y/Z.
-* O overlay deve manter `RigidBody` de chao e paredes invisiveis para que Rapier calcule colisao, quique e bate-volta.
-* O controlador deve detectar repouso lendo `linvel()` e `angvel()` do `RigidBody`, sem setState por frame.
-* O quaternion calibrado da face sorteada deve representar a face voltada para `+Y`, paralela a superficie do grid, nao apenas a face frontal para a camera.
-* Ao detectar repouso, a fisica dinamica do dado deve ser parada/desativada e a malha visual deve alinhar por `Quaternion.slerp` ate o quaternion calibrado da face sorteada.
-* O alinhamento autoritativo deve ocorrer apenas depois do repouso fisico, evitando erro de face visivel diferente do chat.
-* Ao fim do alinhamento, o dado entra em `settled`, permanece visivel por alguns segundos e entao faz `fading`.
-* O controlador visual deve aceitar multiplas rolagens ativas simultaneas.
-* Cada dado ativo deve controlar localmente sua maquina de estados (`idle`, `rolling`, `settled`, `fading`) via refs e `useFrame`, sem disparar renders React por frame.
-* Quando um dado termina `fading`, ele deve notificar o controlador principal para ser removido da lista de rolagens ativas.
-* A rolagem visual nao deve exibir etiqueta/tooltip redundante abaixo do dado nem numero 3D descolado do modelo; o resultado compartilhado deve vir da face calibrada do modelo e da mensagem do chat.
-* A rota `/dev/dice-calibration` deve existir apenas em `import.meta.env.DEV` e oferecer controles de camera/orbita e copia de quaternion para calibracao das faces.
+* Assets da `dice-box` devem ficar sob `apps/web/public/assets/dice-box`, servidos pelo app principal.
+* Nao deve existir `package.json`, `package-lock.json`, `node_modules` ou mini app demo dentro de `apps/web/public/3d_dices`.
+* A rolagem visual nao deve exibir etiqueta/tooltip redundante abaixo do dado; o resultado compartilhado deve vir da animacao da `dice-box` e da mensagem do chat.
 
 Eventos Socket.IO:
 

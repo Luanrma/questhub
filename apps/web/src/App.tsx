@@ -1,4 +1,3 @@
-import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { PublicLayout } from './layouts/PublicLayout'
 import { AuthedLayout } from './layouts/AuthedLayout'
@@ -14,10 +13,6 @@ import { RegisterPage } from './pages/RegisterPage'
 import { CampaignPlayersPage } from './pages/campaign/CampaignPlayersPage'
 import { CampaignSettingsPage } from './pages/campaign/CampaignSettingsPage'
 import { PlaceholderPage } from './pages/campaign/PlaceholderPage'
-
-const DiceCalibrationPage = import.meta.env.DEV
-  ? lazy(() => import(/* @vite-ignore */ './vtt/dice-roller/dev/DiceCalibrationPage'))
-  : null
 
 export default function App() {
   // Rotas ficam no componente principal para manter simples (Vite + React Router).
@@ -49,17 +44,6 @@ export default function App() {
         <Route path="/campaign/:campaignId/journal" element={<PlaceholderPage title="Diário" />} />
         <Route path="/campaign/:campaignId/settings" element={<CampaignSettingsPage />} />
       </Route>
-
-      {DiceCalibrationPage ? (
-        <Route
-          path="/dev/dice-calibration"
-          element={
-            <Suspense fallback={null}>
-              <DiceCalibrationPage />
-            </Suspense>
-          }
-        />
-      ) : null}
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
