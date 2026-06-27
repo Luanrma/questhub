@@ -1,9 +1,8 @@
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { Dice5, GripHorizontal, MapPinned, Play, Power, X } from 'lucide-react'
+import { GripHorizontal, MapPinned, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
-import { CHAT_LOCAL_MESSAGE_EVENT, type ChatMessage } from '../components/CampaignChat'
 import { LoadingScreen } from '../components/LoadingScreen'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
@@ -17,6 +16,7 @@ import {
   type VttGridChangedPayload,
   type VttGridSettings,
 } from '../vtt/grid'
+import { VttDiceControls } from '../vtt/dice-roller'
 
 type MyCampaignCharacter = {
   id: string
@@ -24,19 +24,6 @@ type MyCampaignCharacter = {
   avatarUrl: string | null
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING'
-}
-
-type ChatAck = {
-  ok: boolean
-  error?: string
-  message?: ChatMessage
-}
-
-const diceOptions = [4, 6, 8, 10, 12, 20] as const
-type DiceSides = (typeof diceOptions)[number]
-
-function rollDieValue(sides: DiceSides) {
-  return Math.floor(Math.random() * sides) + 1
 }
 
 function getPanelTitle(pathname: string) {
@@ -140,10 +127,6 @@ export function CampaignLayout() {
     campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
   )
   const [gridSettingsOpen, setGridSettingsOpen] = useState(false)
-  const diceMenuRef = useRef<HTMLDivElement | null>(null)
-  const [diceMenuOpen, setDiceMenuOpen] = useState(false)
-  const [diceRolling, setDiceRolling] = useState(false)
-  const [selectedDieSides, setSelectedDieSides] = useState<DiceSides>(20)
   const campaign = campaigns.find((c) => c.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
   const canRollDice = Boolean(campaignId && campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && myCharacter?.id && socket)
@@ -171,27 +154,6 @@ export function CampaignLayout() {
       socket.off('vtt:grid:changed', onGridChanged)
     }
   }, [socket, campaignId])
-
-  useEffect(() => {
-    if (!diceMenuOpen) return
-
-    function onPointerDown(event: PointerEvent) {
-      if (diceMenuRef.current?.contains(event.target as Node)) return
-      setDiceMenuOpen(false)
-    }
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') setDiceMenuOpen(false)
-    }
-
-    window.addEventListener('pointerdown', onPointerDown)
-    window.addEventListener('keydown', onKeyDown)
-
-    return () => {
-      window.removeEventListener('pointerdown', onPointerDown)
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [diceMenuOpen])
 
   function applyGridSettings(settings: VttGridSettings) {
     if (!campaignId) return
@@ -283,43 +245,6 @@ export function CampaignLayout() {
     navigate('/campaigns')
   }
 
-  async function rollSelectedDie() {
-    if (!campaignId || !socket || !myCharacter?.id) return
-
-    const value = rollDieValue(selectedDieSides)
-    setDiceRolling(true)
-    socket.emit('vtt:dice:roll', { campaignId, sides: selectedDieSides, value })
-
-    try {
-      const ack = await new Promise<ChatAck>((resolve, reject) => {
-        socket.timeout(5000).emit(
-          'chat:message:create',
-          { campaignId, characterId: myCharacter.id, content: `ROLOU D${selectedDieSides}: ${value}` },
-          (err: Error | null, response?: ChatAck) => {
-            if (err) {
-              reject(new Error('Tempo esgotado ao publicar rolagem.'))
-              return
-            }
-
-            resolve(response ?? { ok: false, error: 'Resposta invalida do servidor.' })
-          },
-        )
-      })
-
-      if (!ack.ok || !ack.message) {
-        alert(ack.error ?? 'Nao foi possivel publicar a rolagem.')
-        return
-      }
-
-      window.dispatchEvent(new CustomEvent<ChatMessage>(CHAT_LOCAL_MESSAGE_EVENT, { detail: ack.message }))
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Nao foi possivel publicar a rolagem.'
-      alert(message)
-    } finally {
-      setDiceRolling(false)
-    }
-  }
-
   if (loading) return <LoadingScreen />
   if (!me) return <Navigate to="/login" replace />
   if (!campaignId) return <Navigate to="/campaigns" replace />
@@ -368,58 +293,7 @@ export function CampaignLayout() {
               </div>
 
               <div className="flex shrink-0 items-center gap-2">
-                <div ref={diceMenuRef} className="relative flex items-center gap-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="h-9 min-w-16 gap-2 px-3"
-                    disabled={!canRollDice || diceRolling}
-                    title={`Rolar D${selectedDieSides}`}
-                    onClick={rollSelectedDie}
-                  >
-                    <Dice5 className="h-4 w-4" />
-                    {diceRolling ? '...' : `D${selectedDieSides}`}
-                  </Button>
-
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    className="h-9 gap-2 px-3"
-                    disabled={!canRollDice || diceRolling}
-                    aria-haspopup="menu"
-                    aria-expanded={diceMenuOpen}
-                    onClick={() => setDiceMenuOpen((open) => !open)}
-                  >
-                    Dados
-                  </Button>
-
-                  {diceMenuOpen ? (
-                    <div
-                      role="menu"
-                      className="absolute right-0 top-11 z-40 grid w-44 grid-cols-2 gap-1 rounded-lg border border-white/10 bg-[#101116]/95 p-2 text-white shadow-2xl backdrop-blur"
-                    >
-                      {diceOptions.map((sides) => (
-                        <button
-                          key={sides}
-                          type="button"
-                          role="menuitem"
-                          className={[
-                            'rounded-md border px-3 py-2 text-sm font-semibold transition',
-                            selectedDieSides === sides
-                              ? 'border-indigo-300/50 bg-indigo-500/25 text-white'
-                              : 'border-white/10 bg-white/[0.03] text-zinc-100 hover:border-indigo-300/40 hover:bg-indigo-500/20 hover:text-white',
-                          ].join(' ')}
-                          onClick={() => {
-                            setSelectedDieSides(sides)
-                            setDiceMenuOpen(false)
-                          }}
-                        >
-                          D{sides}
-                        </button>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
+                <VttDiceControls campaignId={campaignId} character={myCharacter} socket={socket} enabled={canRollDice} />
 
                 {isMaster ? (
                   <Button
