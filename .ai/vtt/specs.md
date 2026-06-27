@@ -264,7 +264,12 @@ type VttDiceRollAnimation = {
   id: number
   sides: 4 | 6 | 8 | 10 | 12 | 20
   value: number
+  characterId: string
+  characterName: string
+  rolledAt: number
 }
+
+type VttDiceRollVisualState = 'idle' | 'rolling' | 'settled' | 'fading'
 ```
 
 Regras:
@@ -273,4 +278,47 @@ Regras:
 * `value` e o mesmo valor enviado para o chat.
 * A animacao deve ser renderizada em overlay absoluto sobre a area do grid.
 * A animacao deve sumir automaticamente apos terminar.
-* A camada visual e local e nao deve gerar evento Socket.IO proprio.
+* A camada visual e efemera e nao deve ser persistida no banco.
+* A camada visual deve ser sincronizada em tempo real para todos os usuarios dentro da sessao ativa da campanha.
+* A camada R3F deve permanecer montada enquanto a mesa estiver montada; cada rolagem apenas troca o comando ativo da animacao.
+* O estado da rolagem visual deve ficar isolado dentro do overlay de dados para nao re-renderizar `CampaignLayout`.
+* A camada 3D deve usar componentes declarativos gerados via `gltfjsx` a partir dos arquivos GLB existentes em `/models`.
+* A camada 3D deve usar `pointer-events: none` e nunca impedir interacoes com ferramentas, tokens, medicoes, chat ou paineis.
+* O grid deve ser tratado como a superficie 2D da mesa para o dado; a animacao nao pode terminar apoiada em quina ou em repouso visual instavel.
+* A rolagem visual deve ser uma animacao controlada e estavel, sem simulacao fisica real no MVP.
+* O backend/socket define o resultado autoritativo; o frontend deve animar ate o quaternion calibrado correspondente a `value`.
+* O controlador visual deve aceitar multiplas rolagens ativas simultaneas.
+* Cada dado ativo deve controlar localmente sua maquina de estados (`idle`, `rolling`, `settled`, `fading`) via refs e `useFrame`, sem disparar renders React por frame.
+* Quando um dado termina `fading`, ele deve notificar o controlador principal para ser removido da lista de rolagens ativas.
+* A rolagem visual nao deve exibir etiqueta/tooltip redundante abaixo do dado nem numero 3D descolado do modelo; o resultado compartilhado deve vir da face calibrada do modelo e da mensagem do chat.
+* A rota `/dev/dice-calibration` deve existir apenas em `import.meta.env.DEV` e oferecer controles de camera/orbita e copia de quaternion para calibracao das faces.
+
+Eventos Socket.IO:
+
+```ts
+type VttDiceRollPayload = {
+  campaignId: string
+  sides: 4 | 6 | 8 | 10 | 12 | 20
+  value: number
+}
+
+type VttDiceRollBatchPayload = {
+  campaignId: string
+  rolls: Array<{
+    sides: 4 | 6 | 8 | 10 | 12 | 20
+    value: number
+  }>
+}
+
+type VttDiceRolledPayload = {
+  campaignId: string
+  roll?: VttDiceRollAnimation
+  rolls: VttDiceRollAnimation[]
+}
+```
+
+* `vtt:dice:roll`: emitido por usuario ativo na sessao para publicar uma ou mais rolagens visuais efemeras.
+* `vtt:dice:rolled`: emitido pelo servidor para `campaign:{campaignId}` quando a rolagem for valida.
+* O servidor deve aceitar apenas rolagens de sockets autenticados, dentro da sala da campanha e com sessao ativa.
+* `value` deve estar entre `1` e `sides`.
+* O payload de saida deve sempre preencher `rolls`; `roll` pode existir apenas para compatibilidade com consumidores antigos.

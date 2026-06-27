@@ -1,0 +1,6 @@
+export { D4Model } from './D4'
+export { D6Model } from './D6'
+export { D8Model } from './D8'
+export { D10Model } from './D10'
+export { D12Model } from './D12'
+export { D20Model } from './D20'

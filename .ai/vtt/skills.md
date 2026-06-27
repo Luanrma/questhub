@@ -23,7 +23,14 @@
 * Grid-owned Measurement Style: cores de medicao pertencem ao modal de configuracao do grid, nao a botoes soltos da toolbar.
 * Route-as-Modal-State: rotas internas da campanha indicam qual overlay esta aberto, sem desmontar o canvas VTT.
 * Generic Table Engine: mapa, token, chat, dado, cena e movimentacao sao modelados sem campos especificos de ruleset.
-* Ephemeral 3D Overlay: dados 3D sao efeitos temporarios do cliente e nao alteram estado persistente da mesa.
+* Ephemeral 3D Overlay: dados 3D sao efeitos temporarios sincronizados por Socket.IO e nao alteram estado persistente da mesa.
+* Persistent Dice Canvas: a camada React Three Fiber de dados deve permanecer montada durante a mesa para evitar recriar WebGL, Three.js, Rapier e modelos GLB a cada rolagem.
+* Overlay-owned Dice State: o estado da animacao de dado pertence ao overlay 3D, nao ao `CampaignLayout`, para evitar re-renderizar a arvore principal da campanha.
+* Dice Roller Module: modelos, tipos, calibracao, controlador e overlay de dados pertencem a `apps/web/src/vtt/dice-roller`.
+* Generated GLTF Components: modelos GLB de dados devem ser convertidos para componentes declarativos via `gltfjsx` para evitar `scene.clone()` durante rolagens.
+* Multi Dice Controller: rolagens ativas sao uma colecao; cada dado possui maquina de estados local (`idle`, `rolling`, `settled`, `fading`) controlada por refs e `useFrame`.
+* Quaternion Face Mapping: o resultado autoritativo do backend deve animar ate o quaternion calibrado da face correspondente.
+* Dev-only Dice Calibration: a rota `/dev/dice-calibration` existe apenas em `import.meta.env.DEV` para calibrar quaternions visualmente.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
 
 ## 3. Restricoes
@@ -45,3 +52,6 @@
 * Nao importar modulos internos de `game_systems/pathfinder_2e` ou `game_systems/dnd_5e` diretamente no VTT.
 * Nao adicionar campos mecanicos especificos de sistema ao token generico.
 * A camada R3F de dados deve ser `pointer-events: none` para nao bloquear grid, tokens, medicoes ou controles.
+* Rolagens de dado nao devem montar/desmontar o `Canvas` R3F nem depender de estado visual no layout principal.
+* Nao usar fisica real para rolagem de dados no MVP; a animacao deve ser cinematica, deterministica e leve.
+* Codigo de calibracao de dados nao deve ser exposto em producao.

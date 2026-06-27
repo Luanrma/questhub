@@ -17,7 +17,6 @@ import {
   type VttGridChangedPayload,
   type VttGridSettings,
 } from '../vtt/grid'
-import { type DiceRollAnimation } from '../vtt/DiceRollOverlay'
 
 type MyCampaignCharacter = {
   id: string
@@ -34,8 +33,9 @@ type ChatAck = {
 }
 
 const diceOptions = [4, 6, 8, 10, 12, 20] as const
+type DiceSides = (typeof diceOptions)[number]
 
-function rollDieValue(sides: (typeof diceOptions)[number]) {
+function rollDieValue(sides: DiceSides) {
   return Math.floor(Math.random() * sides) + 1
 }
 
@@ -132,7 +132,6 @@ export function CampaignLayout() {
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
-  const diceRollTimeoutRef = useRef<number | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
   const [playerTokenRequest, setPlayerTokenRequest] = useState(0)
@@ -144,8 +143,7 @@ export function CampaignLayout() {
   const diceMenuRef = useRef<HTMLDivElement | null>(null)
   const [diceMenuOpen, setDiceMenuOpen] = useState(false)
   const [diceRolling, setDiceRolling] = useState(false)
-  const [selectedDieSides, setSelectedDieSides] = useState<(typeof diceOptions)[number]>(20)
-  const [diceRollAnimation, setDiceRollAnimation] = useState<DiceRollAnimation | null>(null)
+  const [selectedDieSides, setSelectedDieSides] = useState<DiceSides>(20)
   const campaign = campaigns.find((c) => c.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
   const canRollDice = Boolean(campaignId && campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && myCharacter?.id && socket)
@@ -194,12 +192,6 @@ export function CampaignLayout() {
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [diceMenuOpen])
-
-  useEffect(() => {
-    return () => {
-      if (diceRollTimeoutRef.current) window.clearTimeout(diceRollTimeoutRef.current)
-    }
-  }, [])
 
   function applyGridSettings(settings: VttGridSettings) {
     if (!campaignId) return
@@ -295,9 +287,8 @@ export function CampaignLayout() {
     if (!campaignId || !socket || !myCharacter?.id) return
 
     const value = rollDieValue(selectedDieSides)
-    const diceRollAnimationId = Date.now()
-    setDiceRollAnimation({ id: diceRollAnimationId, sides: selectedDieSides, value })
     setDiceRolling(true)
+    socket.emit('vtt:dice:roll', { campaignId, sides: selectedDieSides, value })
 
     try {
       const ack = await new Promise<ChatAck>((resolve, reject) => {
@@ -326,10 +317,6 @@ export function CampaignLayout() {
       alert(message)
     } finally {
       setDiceRolling(false)
-      // Keep animation visible for 5 seconds, then clear it
-      setTimeout(() => {
-        setDiceRollAnimation(null)
-      }, 5000)
     }
   }
 
@@ -456,7 +443,6 @@ export function CampaignLayout() {
               canConfigureGrid={Boolean(isMaster)}
               myCharacter={myCharacter}
               playerTokenRequest={playerTokenRequest}
-              diceRollAnimation={diceRollAnimation}
               onGridSettingsChange={applyGridSettings}
               onGridSettingsOpenChange={setGridSettingsOpen}
             />

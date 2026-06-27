@@ -12,6 +12,7 @@ type PresenceAck = (response: { ok: boolean; error?: string }) => void
 type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
 type VttTokenPosition = z.infer<typeof vttTokenPositionSchema>
 type VttMeasurement = z.infer<typeof vttMeasurementSchema>
+type VttDiceRoll = z.infer<typeof vttDiceRolledSchema>
 type VttPlayerToken = {
   id: string
   characterId: string
@@ -81,6 +82,37 @@ const vttMeasurementSchema = z.discriminatedUnion('shape', [
 const vttMeasurementUpdateSchema = z.object({
   campaignId: z.string().min(1),
   measurement: vttMeasurementSchema.nullable(),
+})
+
+const vttDiceSidesSchema = z.union([z.literal(4), z.literal(6), z.literal(8), z.literal(10), z.literal(12), z.literal(20)])
+
+const vttDiceRollItemSchema = z
+  .object({
+    sides: vttDiceSidesSchema,
+    value: z.number().int().min(1),
+  })
+  .refine((roll) => roll.value <= roll.sides)
+
+const vttDiceRollSchema = z
+  .object({
+    campaignId: z.string().min(1),
+    sides: vttDiceSidesSchema.optional(),
+    value: z.number().int().min(1).optional(),
+    rolls: z.array(vttDiceRollItemSchema).min(1).max(20).optional(),
+  })
+  .transform((input) => ({
+    campaignId: input.campaignId,
+    rolls: input.rolls ?? (input.sides && input.value ? [{ sides: input.sides, value: input.value }] : []),
+  }))
+  .refine((input) => input.rolls.length > 0)
+
+const vttDiceRolledSchema = z.object({
+  id: z.number().int().positive(),
+  sides: vttDiceSidesSchema,
+  value: z.number().int().min(1),
+  characterId: z.string().min(1),
+  characterName: z.string().min(1),
+  rolledAt: z.number().int().positive(),
 })
 
 const vttTokenUpdateSchema = z.object({
@@ -222,7 +254,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
           const campaignCharacter = await prisma.campaignCharacter.findFirst({
             where: { campaignId, characterId, status: 'ACTIVE', role: 'MASTER' },
-            select: { role: true, character: { select: { userId: true } } },
+            select: { role: true, character: { select: { userId: true, name: true } } },
           })
           if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
             ack?.({ ok: false, error: 'Apenas o mestre pode iniciar a sessao' })
@@ -232,6 +264,7 @@ export function setupCampaignPresence(server: HttpServer) {
           socket.data.campaignId = campaignId
           socket.data.characterId = characterId
           socket.data.characterRole = campaignCharacter.role
+          socket.data.characterName = campaignCharacter.character.name
           socket.join(`campaign:${campaignId}`)
           userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
           campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId })
@@ -394,6 +427,35 @@ export function setupCampaignPresence(server: HttpServer) {
       if (socket.data.campaignId !== campaignId) return
 
       emitCampaignMeasurementSnapshot(campaignId, socket.id)
+    })
+
+    socket.on('vtt:dice:roll', (input: unknown) => {
+      const parsed = vttDiceRollSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, rolls: diceRolls } = parsed.data
+      if (!isCampaignOnline(campaignId)) return
+      if (socket.data.campaignId !== campaignId) return
+
+      const characterId = socket.data.characterId as string | undefined
+      const characterName = socket.data.characterName as string | undefined
+      if (!characterId || !characterName) return
+
+      const rolledAt = Date.now()
+      const rolls: VttDiceRoll[] = diceRolls.map((diceRoll, index) => ({
+        id: rolledAt + index,
+        sides: diceRoll.sides,
+        value: diceRoll.value,
+        characterId,
+        characterName,
+        rolledAt,
+      }))
+
+      io.to(`campaign:${campaignId}`).emit('vtt:dice:rolled', {
+        campaignId,
+        roll: rolls[0],
+        rolls,
+      })
     })
 
     socket.on('disconnect', () => {

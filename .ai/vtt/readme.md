@@ -34,7 +34,10 @@ Incluido:
 * Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
 * Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
-* Rolagem visual de dado 3D sobre a mesa quando o usuario executa uma rolagem rapida.
+* Rolagem visual de dado 3D sobre a mesa quando um usuario executa uma rolagem rapida.
+* Rolagens de dado sao efeitos efemeros sincronizados para todos os usuarios conectados a sessao ativa.
+* Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
+* Ferramenta dev-only de calibracao de faces dos dados em `/dev/dice-calibration`.
 * No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando a area configurada para cada quadrado.
 * No grid quadrado, a cor do tracejado da regua e configurada no modal do grid.
 * No grid hexagonal, a ferramenta permite pintar hexagonos completos, escolher a cor da pintura no modal do grid e contar quantos passos foram percorridos.
@@ -48,6 +51,7 @@ Fora de escopo:
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Persistencia de cena/mapa/tokens.
 * Persistencia ou replay de tokens depois que a sessao termina.
-* Persistencia ou replay visual de rolagens de dado.
+* Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
+* Simulacao fisica real dos dados no MVP.
 * Fog of war.
 * Configuracao persistida de tamanho/formato do grid.

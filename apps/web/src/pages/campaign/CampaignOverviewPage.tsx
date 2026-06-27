@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
-import { DiceRollOverlay, type DiceRollAnimation } from '../../vtt/DiceRollOverlay'
+import { DiceRollOverlay } from '../../vtt/DiceRollOverlay'
 import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
 
 const gridSizeLimits = { min: 24, max: 96 }
@@ -247,7 +247,6 @@ type CampaignOverviewPageProps = {
     status: 'ACTIVE' | 'PENDING'
   } | null
   playerTokenRequest: number
-  diceRollAnimation: DiceRollAnimation | null
   onGridSettingsChange: (settings: VttGridSettings) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
@@ -672,7 +671,6 @@ export function CampaignOverviewPage({
   canConfigureGrid,
   myCharacter,
   playerTokenRequest,
-  diceRollAnimation,
   onGridSettingsChange,
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
@@ -915,7 +913,7 @@ export function CampaignOverviewPage({
           />
         ))}
         <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
-        <DiceRollOverlay roll={diceRollAnimation} onComplete={function (): void {} } />
+        <DiceRollOverlay campaignId={campaignId} socket={socket} />
         {activeTool === 'measure' ? (
           <div
             className="absolute inset-0 z-[8] cursor-crosshair"
