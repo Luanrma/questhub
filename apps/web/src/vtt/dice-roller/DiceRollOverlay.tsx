@@ -1,5 +1,5 @@
 import { memo, Suspense, useCallback, useEffect, useRef, useState } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import type { Socket } from 'socket.io-client'
 import { DiceRollVisual } from './DiceRollVisual'
 import type { ActiveDiceRoll, DiceRolledPayload, DiceRollAnimation } from './types'
@@ -19,6 +19,17 @@ function DiceRollFallback() {
       <meshStandardMaterial color="#ef4444" />
     </mesh>
   )
+}
+
+function DiceOverlayCamera() {
+  const camera = useThree((state) => state.camera)
+
+  useEffect(() => {
+    camera.lookAt(0, 0, 0)
+    camera.updateProjectionMatrix()
+  }, [camera])
+
+  return null
 }
 
 export const DiceRollOverlay = memo(function DiceRollOverlay({
@@ -64,6 +75,7 @@ export const DiceRollOverlay = memo(function DiceRollOverlay({
   return (
     <div className="pointer-events-none absolute inset-0 z-50">
       <Canvas camera={{ position: [0, 5, 8], fov: 50 }} dpr={[1, 1.5]} style={{ pointerEvents: 'none' }}>
+        <DiceOverlayCamera />
         <ambientLight intensity={0.8} />
         <directionalLight position={[5, 10, 5]} intensity={2} />
 

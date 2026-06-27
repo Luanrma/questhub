@@ -29,6 +29,9 @@
 * Dice Roller Module: modelos, tipos, calibracao, controlador e overlay de dados pertencem a `apps/web/src/vtt/dice-roller`.
 * Generated GLTF Components: modelos GLB de dados devem ser convertidos para componentes declarativos via `gltfjsx` para evitar `scene.clone()` durante rolagens.
 * Multi Dice Controller: rolagens ativas sao uma colecao; cada dado possui maquina de estados local (`idle`, `rolling`, `settled`, `fading`) controlada por refs e `useFrame`.
+* Cinematic Dice Trajectory: cada dado calcula uma simulacao local por velocidade no plano XZ, gravidade no eixo Y, colisao lateral e atrito horizontal, sem motor de fisica real.
+* Velocity-driven Dice Rotation: enquanto rola, a rotacao incremental deve usar eixo perpendicular ao vetor de movimento horizontal para evitar efeito de dado deslizando.
+* Relative Wear Rotation: a orientacao final calibrada e a base; a rolagem aplica um offset rotacional caotico que perde energia por atrito ate virar identidade, evitando puxao visual de fim.
 * Quaternion Face Mapping: o resultado autoritativo do backend deve animar ate o quaternion calibrado da face correspondente.
 * Dev-only Dice Calibration: a rota `/dev/dice-calibration` existe apenas em `import.meta.env.DEV` para calibrar quaternions visualmente.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
@@ -54,4 +57,5 @@
 * A camada R3F de dados deve ser `pointer-events: none` para nao bloquear grid, tokens, medicoes ou controles.
 * Rolagens de dado nao devem montar/desmontar o `Canvas` R3F nem depender de estado visual no layout principal.
 * Nao usar fisica real para rolagem de dados no MVP; a animacao deve ser cinematica, deterministica e leve.
+* A trajetoria cinematica nao deve depender de timers React nem de estado atualizado por frame; posicao, velocidade, quique, colisao e rotacao devem ser calculados em `useFrame` por refs e valores memoizados.
 * Codigo de calibracao de dados nao deve ser exposto em producao.

@@ -1,37 +1,18 @@
 import { useFrame } from '@react-three/fiber'
 import { useEffect, useMemo, useRef } from 'react'
-import { Euler, Group, Material, Mesh, Quaternion, Vector3 } from 'three'
+import { Group, Material, Mesh, Quaternion, Vector3 } from 'three'
 import { getDiceFaceQuaternion } from '../faceQuaternions'
+import {
+  createDiceKinematicBody,
+  createDiceKinematicSeed,
+  stepDiceKinematics,
+  type DiceKinematicBody,
+  type DiceKinematicStep,
+} from '../kinematics'
 import type { ActiveDiceRoll, DiceRollVisualState } from '../types'
 
-const rollingDurationSeconds = 1.45
 const settledDurationSeconds = 5
 const fadingDurationSeconds = 1
-
-const slotPositions = [
-  new Vector3(0, 0.82, 0),
-  new Vector3(-1.65, 0.82, -0.3),
-  new Vector3(1.65, 0.82, -0.3),
-  new Vector3(-0.85, 0.82, 1.15),
-  new Vector3(0.85, 0.82, 1.15),
-  new Vector3(0, 0.82, -1.45),
-]
-
-function easeOutCubic(value: number) {
-  return 1 - (1 - value) ** 3
-}
-
-function seededValue(seed: number, salt: number) {
-  const x = Math.sin(seed * 12.9898 + salt * 78.233) * 43758.5453
-  return x - Math.floor(x)
-}
-
-function createStartQuaternion(roll: ActiveDiceRoll) {
-  const x = (2 + seededValue(roll.id, 1) * 2) * Math.PI
-  const y = (2 + seededValue(roll.id, 2) * 2) * Math.PI
-  const z = (1 + seededValue(roll.id, 3) * 2) * Math.PI
-  return new Quaternion().setFromEuler(new Euler(x, y, z, 'XYZ'))
-}
 
 function cloneMaterialsForIndependentOpacity(group: Group) {
   const materials: Material[] = []
@@ -62,23 +43,39 @@ export function useDiceRollController({ roll, onIdle }: { roll: ActiveDiceRoll; 
   const stateStartedAtRef = useRef<number | null>(null)
   const notifiedIdleRef = useRef(false)
   const materialsRef = useRef<Material[]>([])
-  const startQuaternion = useMemo(() => createStartQuaternion(roll), [roll])
+  const kinematicBodyRef = useRef<DiceKinematicBody | null>(null)
+  const kinematicStepRef = useRef<DiceKinematicStep | null>(null)
   const targetQuaternion = useMemo(() => getDiceFaceQuaternion(roll.sides, roll.value), [roll.sides, roll.value])
-  const basePosition = slotPositions[roll.slot % slotPositions.length] ?? slotPositions[0]
+  const kinematicSeed = useMemo(() => createDiceKinematicSeed(roll), [roll])
 
   useEffect(() => {
     const group = groupRef.current
     if (!group) return
 
+    const kinematicBody = createDiceKinematicBody(kinematicSeed, targetQuaternion)
+    kinematicBodyRef.current = kinematicBody
+    kinematicStepRef.current = {
+      body: kinematicBody,
+      targetQuaternion,
+      deltaSeconds: 0,
+      frameDirection: new Vector3(),
+      frameAxis: new Vector3(),
+      frameRotation: new Quaternion(),
+      velocityXDelta: 0,
+      velocityZDelta: 0,
+    }
+
     group.visible = true
-    group.quaternion.copy(startQuaternion)
-    group.position.copy(basePosition)
+    group.quaternion.copy(kinematicBody.rotation)
+    group.position.copy(kinematicBody.position)
     materialsRef.current = cloneMaterialsForIndependentOpacity(group)
 
     return () => {
       materialsRef.current = []
+      kinematicBodyRef.current = null
+      kinematicStepRef.current = null
     }
-  }, [basePosition, startQuaternion])
+  }, [kinematicSeed, targetQuaternion])
 
   function setOpacity(opacity: number) {
     for (const material of materialsRef.current) {
@@ -88,7 +85,7 @@ export function useDiceRollController({ roll, onIdle }: { roll: ActiveDiceRoll; 
     }
   }
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     const group = groupRef.current
     if (!group) return
     if (startedAtRef.current === null) {
@@ -100,27 +97,29 @@ export function useDiceRollController({ roll, onIdle }: { roll: ActiveDiceRoll; 
     const stateElapsed = clock.elapsedTime - stateStartedAt
 
     if (stateRef.current === 'rolling') {
-      const progress = Math.min(stateElapsed / rollingDurationSeconds, 1)
-      const eased = easeOutCubic(progress)
-      const hop = Math.sin(progress * Math.PI) * 0.65
+      const kinematicStep = kinematicStepRef.current
+      if (!kinematicStep) return
+
+      kinematicStep.deltaSeconds = Math.min(delta, 1 / 30)
+      stepDiceKinematics(kinematicStep)
 
       group.visible = true
-      group.position.set(basePosition.x, basePosition.y + hop, basePosition.z)
-      group.quaternion.copy(startQuaternion).slerp(targetQuaternion, eased)
+      group.position.copy(kinematicStep.body.position)
+      group.quaternion.copy(kinematicStep.body.rotation)
       setOpacity(1)
 
-      if (progress < 1) return
+      if (!kinematicStep.body.settled) return
       stateRef.current = 'settled'
       stateStartedAtRef.current = clock.elapsedTime
       group.quaternion.copy(targetQuaternion)
-      group.position.copy(basePosition)
       return
     }
 
     if (stateRef.current === 'settled') {
+      const kinematicBody = kinematicBodyRef.current
       group.visible = true
       group.quaternion.copy(targetQuaternion)
-      group.position.copy(basePosition)
+      if (kinematicBody) group.position.copy(kinematicBody.position)
       setOpacity(1)
 
       if (stateElapsed < settledDurationSeconds) return

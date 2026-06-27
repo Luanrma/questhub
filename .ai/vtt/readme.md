@@ -37,6 +37,7 @@ Incluido:
 * Rolagem visual de dado 3D sobre a mesa quando um usuario executa uma rolagem rapida.
 * Rolagens de dado sao efeitos efemeros sincronizados para todos os usuarios conectados a sessao ativa.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
+* Cada dado visual deve simular um arremesso vindo do lado direito da mesa, cruzando o tabuleiro em diagonal, podendo bater no limite esquerdo e voltar com perda de energia antes de estabilizar.
 * Ferramenta dev-only de calibracao de faces dos dados em `/dev/dice-calibration`.
 * No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando a area configurada para cada quadrado.
 * No grid quadrado, a cor do tracejado da regua e configurada no modal do grid.

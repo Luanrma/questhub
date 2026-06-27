@@ -1,11 +1,12 @@
 import { OrbitControls } from '@react-three/drei'
-import { Canvas } from '@react-three/fiber'
-import { useRef, useState } from 'react'
+import { Canvas, useThree } from '@react-three/fiber'
+import { useEffect, useRef, useState } from 'react'
 import { Euler, Group, Quaternion } from 'three'
 import { DiceModel } from '../DiceModel'
 import type { DiceSides, SerializedQuaternion } from '../types'
 
 const diceOptions = [4, 6, 8, 10, 12, 20] as const
+const snapAngles = [-Math.PI, -Math.PI / 2, 0, Math.PI / 2, Math.PI]
 
 function formatQuaternion(quaternion: Quaternion): string {
   const serialized: SerializedQuaternion = [quaternion.x, quaternion.y, quaternion.z, quaternion.w]
@@ -20,6 +21,12 @@ function DiceCalibrationScene({
   rotation: { x: number; y: number; z: number }
 }) {
   const groupRef = useRef<Group>(null)
+  const camera = useThree((state) => state.camera)
+
+  useEffect(() => {
+    camera.lookAt(0, 0.85, 0)
+    camera.updateProjectionMatrix()
+  }, [camera])
 
   return (
     <>
@@ -29,7 +36,7 @@ function DiceCalibrationScene({
       <group ref={groupRef} rotation={[rotation.x, rotation.y, rotation.z]} position={[0, 0.85, 0]}>
         <DiceModel sides={sides} />
       </group>
-      <OrbitControls makeDefault />
+      <OrbitControls makeDefault target={[0, 0.85, 0]} />
     </>
   )
 }
@@ -107,6 +114,18 @@ export default function DiceCalibrationPage() {
               className="rounded-md border border-white/10 bg-black/30 px-3 py-2"
               onChange={(event) => updateRotation(axis, Number(event.target.value))}
             />
+            <div className="grid grid-cols-5 gap-1">
+              {snapAngles.map((angle) => (
+                <button
+                  key={`${axis}-${angle}`}
+                  type="button"
+                  className="rounded border border-white/10 bg-white/5 px-2 py-1 text-xs text-zinc-200 transition hover:bg-white/10"
+                  onClick={() => updateRotation(axis, angle)}
+                >
+                  {Math.round((angle * 180) / Math.PI)}°
+                </button>
+              ))}
+            </div>
           </label>
         ))}
 
@@ -124,7 +143,7 @@ export default function DiceCalibrationPage() {
       </aside>
 
       <section className="min-h-0">
-        <Canvas camera={{ position: [0, 3.5, 6], fov: 45 }}>
+        <Canvas camera={{ position: [0, 5, 8], fov: 50 }}>
           <DiceCalibrationScene sides={sides} rotation={rotation} />
         </Canvas>
       </section>
