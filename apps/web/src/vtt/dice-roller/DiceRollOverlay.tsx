@@ -77,7 +77,7 @@ export const DiceRollOverlay = memo(function DiceRollOverlay({
       <Canvas camera={{ position: [0, 5, 8], fov: 50 }} dpr={[1, 1.5]} style={{ pointerEvents: 'none' }}>
         <DiceOverlayCamera />
         <ambientLight intensity={0.8} />
-        <directionalLight position={[5, 10, 5]} intensity={2} />
+        <directionalLight position={[10, -6, 15]} intensity={3} />
 
         <Suspense fallback={<DiceRollFallback />}>
           {activeRolls.map((roll) => (

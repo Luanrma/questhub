@@ -2,7 +2,7 @@
 
 ## 1. Stack Tecnologica
 * React e React Router para composicao de layout e rotas.
-* React Three Fiber e Three.js para rolagem visual 3D de dados.
+* React Three Fiber, Three.js e `@react-three/rapier` para rolagem visual 3D de dados.
 * Tailwind CSS e CSS global para grid/overlay responsivo.
 * lucide-react para icones de ferramentas e navegacao.
 * `CharacterSheetModal` existente para ficha arrastavel.
@@ -29,9 +29,9 @@
 * Dice Roller Module: modelos, tipos, calibracao, controlador e overlay de dados pertencem a `apps/web/src/vtt/dice-roller`.
 * Generated GLTF Components: modelos GLB de dados devem ser convertidos para componentes declarativos via `gltfjsx` para evitar `scene.clone()` durante rolagens.
 * Multi Dice Controller: rolagens ativas sao uma colecao; cada dado possui maquina de estados local (`idle`, `rolling`, `settled`, `fading`) controlada por refs e `useFrame`.
-* Cinematic Dice Trajectory: cada dado calcula uma simulacao local por velocidade no plano XZ, gravidade no eixo Y, colisao lateral e atrito horizontal, sem motor de fisica real.
-* Velocity-driven Dice Rotation: enquanto rola, a rotacao incremental deve usar eixo perpendicular ao vetor de movimento horizontal para evitar efeito de dado deslizando.
-* Relative Wear Rotation: a orientacao final calibrada e a base; a rolagem aplica um offset rotacional caotico que perde energia por atrito ate virar identidade, evitando puxao visual de fim.
+* Persistent Rapier Physics: o container `<Physics>` permanece montado junto do Canvas e recebe dados dinamicos sem recriar o mundo de fisica.
+* Impulse-driven Dice Roll: cada dado aplica `applyImpulse` e `applyTorqueImpulse` uma unica vez ao nascer para gerar movimento fisico natural.
+* Post-Physics Authoritative Alignment: ao detectar repouso pelo Rapier, a malha visual faz alinhamento suave para o quaternion calibrado da face autoritativa.
 * Quaternion Face Mapping: o resultado autoritativo do backend deve animar ate o quaternion calibrado da face correspondente.
 * Dev-only Dice Calibration: a rota `/dev/dice-calibration` existe apenas em `import.meta.env.DEV` para calibrar quaternions visualmente.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
@@ -56,6 +56,6 @@
 * Nao adicionar campos mecanicos especificos de sistema ao token generico.
 * A camada R3F de dados deve ser `pointer-events: none` para nao bloquear grid, tokens, medicoes ou controles.
 * Rolagens de dado nao devem montar/desmontar o `Canvas` R3F nem depender de estado visual no layout principal.
-* Nao usar fisica real para rolagem de dados no MVP; a animacao deve ser cinematica, deterministica e leve.
-* A trajetoria cinematica nao deve depender de timers React nem de estado atualizado por frame; posicao, velocidade, quique, colisao e rotacao devem ser calculados em `useFrame` por refs e valores memoizados.
+* A fisica Rapier de dados deve ficar isolada no modulo `dice-roller` e nao pode desmontar/remontar o Canvas ou o mundo `<Physics>` por rolagem.
+* A animacao de dados nao deve depender de estado React atualizado por frame; leitura de velocidades, alinhamento, fade e maquina de estados devem ocorrer em `useFrame` por refs.
 * Codigo de calibracao de dados nao deve ser exposto em producao.

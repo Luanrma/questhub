@@ -285,20 +285,17 @@ Regras:
 * A camada 3D deve usar componentes declarativos gerados via `gltfjsx` a partir dos arquivos GLB existentes em `/models`.
 * A camada 3D deve usar `pointer-events: none` e nunca impedir interacoes com ferramentas, tokens, medicoes, chat ou paineis.
 * O grid deve ser tratado como a superficie 2D da mesa para o dado; a animacao nao pode terminar apoiada em quina ou em repouso visual instavel.
-* A rolagem visual deve ser uma animacao controlada e estavel, sem simulacao fisica real no MVP.
+* A rolagem visual deve usar `@react-three/rapier` em um mundo de fisica persistente dentro do overlay de dados.
 * O backend/socket define o resultado autoritativo; o frontend deve animar ate o quaternion calibrado correspondente a `value`.
 * O mapa de faces nao pode usar fallback matematico proporcional ao numero de lados, como rotacionar apenas em Y por `(face / sides) * 2pi`; cada face deve usar quaternion ortogonal/calibrado para o GLB correspondente.
-* Durante `rolling`, a posicao inicial do dado deve ficar no extremo direito do plano da camera/mesa, com `X` positivo e `Z` inicial pseudoaleatorio.
-* Durante `rolling`, a velocidade horizontal inicial deve apontar para a esquerda, com componente `Z` pseudoaleatoria para gerar diagonais organicas.
-* O controlador deve aplicar atrito horizontal por frame para reduzir gradualmente `vx` e `vz`, evitando movimento linear infinito.
-* Se o dado atingir o limite esquerdo durante `rolling`, o controlador deve inverter `vx` com perda de energia, como `vx *= -0.5`, e prender a posicao no limite.
-* O eixo Y representa altura/quique; o controlador deve aplicar gravidade, colisao com a superficie visual do grid e restituicao reduzida para 2 a 3 quiques perceptiveis.
-* Enquanto houver velocidade horizontal relevante, a rotacao incremental deve ser proporcional a distancia percorrida no plano XZ e usar eixo perpendicular ao vetor de movimento.
+* Durante `rolling`, cada dado deve nascer no extremo direito do plano da camera/mesa, com `X` positivo e `Z` pseudoaleatorio.
+* Ao nascer, cada dado deve receber `applyImpulse` apontando diagonalmente para a esquerda e `applyTorqueImpulse` caotico nos eixos X/Y/Z.
+* O overlay deve manter `RigidBody` de chao e paredes invisiveis para que Rapier calcule colisao, quique e bate-volta.
+* O controlador deve detectar repouso lendo `linvel()` e `angvel()` do `RigidBody`, sem setState por frame.
 * O quaternion calibrado da face sorteada deve representar a face voltada para `+Y`, paralela a superficie do grid, nao apenas a face frontal para a camera.
-* A orientacao visual deve ser composta como `targetQuaternion * residualRotation`, onde `targetQuaternion` e a face autoritativa e `residualRotation` representa a energia rotacional restante.
-* A rolagem deve aplicar velocidade angular caotica e rotacao por atrito no `residualRotation`; esse offset deve se desgastar por atrito ate identidade conforme o dado perde energia.
-* Quando velocidade horizontal e energia vertical estiverem baixas, o controlador deve apenas acelerar o desgaste do `residualRotation` ate identidade, sem puxar abruptamente o dado por um slerp global de fim.
-* Ao fim de `rolling`, translacao e quique devem parar completamente e o dado deve cravar no quaternion calibrado antes de entrar em `settled`.
+* Ao detectar repouso, a fisica dinamica do dado deve ser parada/desativada e a malha visual deve alinhar por `Quaternion.slerp` ate o quaternion calibrado da face sorteada.
+* O alinhamento autoritativo deve ocorrer apenas depois do repouso fisico, evitando erro de face visivel diferente do chat.
+* Ao fim do alinhamento, o dado entra em `settled`, permanece visivel por alguns segundos e entao faz `fading`.
 * O controlador visual deve aceitar multiplas rolagens ativas simultaneas.
 * Cada dado ativo deve controlar localmente sua maquina de estados (`idle`, `rolling`, `settled`, `fading`) via refs e `useFrame`, sem disparar renders React por frame.
 * Quando um dado termina `fading`, ele deve notificar o controlador principal para ser removido da lista de rolagens ativas.

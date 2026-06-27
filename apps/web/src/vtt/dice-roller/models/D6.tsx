@@ -24,7 +24,7 @@ export function D6Model(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/models/D6_3D_Red.glb') as unknown as GLTFResult
   return (
     <group {...props} dispose={null}>
-      <group name="d6" position={[-2.447, 0.746, 0.325]} rotation={[Math.PI / 2, 0, 0]}>
+      <group name="d6" position={[-2.447, 0.746, 0.325]} rotation={[Math.PI / -6, -0.75, -0.3]}>
         <mesh name="d6_1" geometry={nodes.d6_1.geometry} material={materials.Dice} />
         <mesh name="d6_2" geometry={nodes.d6_2.geometry} material={materials.Numbers} />
       </group>

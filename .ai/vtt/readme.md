@@ -37,7 +37,7 @@ Incluido:
 * Rolagem visual de dado 3D sobre a mesa quando um usuario executa uma rolagem rapida.
 * Rolagens de dado sao efeitos efemeros sincronizados para todos os usuarios conectados a sessao ativa.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
-* Cada dado visual deve simular um arremesso vindo do lado direito da mesa, cruzando o tabuleiro em diagonal, podendo bater no limite esquerdo e voltar com perda de energia antes de estabilizar.
+* Cada dado visual deve usar uma simulacao fisica leve com Rapier, nascendo do lado direito da mesa, cruzando o tabuleiro em diagonal, podendo bater em limites invisiveis e estabilizando na face autoritativa do chat.
 * Ferramenta dev-only de calibracao de faces dos dados em `/dev/dice-calibration`.
 * No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando a area configurada para cada quadrado.
 * No grid quadrado, a cor do tracejado da regua e configurada no modal do grid.
@@ -53,6 +53,6 @@ Fora de escopo:
 * Persistencia de cena/mapa/tokens.
 * Persistencia ou replay de tokens depois que a sessao termina.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
-* Simulacao fisica real dos dados no MVP.
+* Persistencia/replay da simulacao fisica de dados.
 * Fog of war.
 * Configuracao persistida de tamanho/formato do grid.
