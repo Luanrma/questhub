@@ -1,5 +1,5 @@
 import DiceBox, { type DiceBoxRollResult } from '@3d-dice/dice-box'
-import { Dice5, Loader2, RotateCcw, X } from 'lucide-react'
+import { Dice5, Loader2, Palette, RotateCcw, X } from 'lucide-react'
 import { memo, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import type { Socket } from 'socket.io-client'
 import { Button } from '../../components/Button'
@@ -9,6 +9,7 @@ import type { DiceRollGroup, DiceRollResultGroup, DiceSides } from './types'
 const diceOptions = [20, 12, 10, 8, 6, 4] as const
 const diceAssetPath = '/assets/dice-box/'
 const maxVisibleDice = 20
+const defaultDiceThemeColor = '#16a34a'
 
 type DestroyableDiceBox = DiceBox & {
   destroy: () => void
@@ -75,6 +76,35 @@ function requestDiceResize(container: HTMLDivElement | null) {
   sync()
   window.requestAnimationFrame(sync)
   window.requestAnimationFrame(() => window.requestAnimationFrame(sync))
+}
+
+function diceColorStorageKey(campaignId: string) {
+  return `questhub:vtt:dice-theme-color:${campaignId}`
+}
+
+function normalizeHexColor(value: string | null) {
+  if (!value) return defaultDiceThemeColor
+  return /^#[0-9a-f]{6}$/i.test(value) ? value : defaultDiceThemeColor
+}
+
+function readStoredDiceThemeColor(campaignId: string) {
+  if (typeof window === 'undefined') return defaultDiceThemeColor
+
+  try {
+    return normalizeHexColor(window.localStorage.getItem(diceColorStorageKey(campaignId)))
+  } catch {
+    return defaultDiceThemeColor
+  }
+}
+
+function storeDiceThemeColor(campaignId: string, color: string) {
+  if (typeof window === 'undefined') return
+
+  try {
+    window.localStorage.setItem(diceColorStorageKey(campaignId), normalizeHexColor(color))
+  } catch {
+    // Configuracao visual local: falha de storage nao deve bloquear a mesa.
+  }
 }
 
 function isDiceSides(value: number): value is DiceSides {
@@ -183,6 +213,7 @@ export const VttDiceControls = memo(function VttDiceControls({
   const [initializing, setInitializing] = useState(false)
   const [rolling, setRolling] = useState(false)
   const [command, setCommand] = useState('')
+  const [diceThemeColor, setDiceThemeColor] = useState(() => readStoredDiceThemeColor(campaignId))
   const [quantities, setQuantities] = useState<Record<DiceSides, number>>({ 4: 0, 6: 0, 8: 0, 10: 0, 12: 0, 20: 0 })
   const [visibleRolls, setVisibleRolls] = useState<VisibleRoll[]>([])
   const [warning, setWarning] = useState<string | null>(null)
@@ -233,6 +264,21 @@ export const VttDiceControls = memo(function VttDiceControls({
     }
   }, [])
 
+  useEffect(() => {
+    const nextColor = readStoredDiceThemeColor(campaignId)
+    setDiceThemeColor(nextColor)
+  }, [campaignId])
+
+  useEffect(() => {
+    const normalizedColor = normalizeHexColor(diceThemeColor)
+    storeDiceThemeColor(campaignId, normalizedColor)
+
+    if (!diceBoxRef.current || !initializedRef.current) return
+    diceBoxRef.current.updateConfig({ themeColor: normalizedColor }).catch(() => {
+      setWarning('Nao foi possivel atualizar a cor dos dados 3D.')
+    })
+  }, [campaignId, diceThemeColor])
+
   async function getDiceBox() {
     if (diceBoxRef.current && initializedRef.current) return diceBoxRef.current
     if (initPromiseRef.current) return initPromiseRef.current
@@ -247,6 +293,7 @@ export const VttDiceControls = memo(function VttDiceControls({
         container: `#${containerIdRef.current}`,
         assetPath: diceAssetPath,
         theme: 'default',
+        themeColor: normalizeHexColor(diceThemeColor),
         offscreen: true,
         scale: 8,
       }),
@@ -354,7 +401,7 @@ export const VttDiceControls = memo(function VttDiceControls({
 
     try {
       const diceBox = await getDiceBox()
-      const notation = resolved.groups.map((group) => ({ qty: group.count, sides: group.sides }))
+      const notation = resolved.groups.map((group) => ({ qty: group.count, sides: group.sides, themeColor: normalizeHexColor(diceThemeColor) }))
       diceBox.show()
       requestDiceResize(containerRef.current)
 
@@ -442,6 +489,19 @@ export const VttDiceControls = memo(function VttDiceControls({
             </label>
           ))}
         </div>
+
+        <label className="mt-3 flex items-center justify-between gap-3 rounded-md border border-white/10 bg-black/35 px-3 py-2 text-sm">
+          <span className="flex items-center gap-2 text-zinc-200">
+            <Palette className="h-4 w-4 text-zinc-500" />
+            Cor dos dados
+          </span>
+          <input
+            type="color"
+            value={diceThemeColor}
+            className="h-8 w-12 rounded border border-white/10 bg-transparent p-1"
+            onChange={(event) => setDiceThemeColor(normalizeHexColor(event.target.value))}
+          />
+        </label>
 
         <div className="mt-3 flex items-center gap-2">
           <Button type="button" variant="primary" className="h-9 flex-1 gap-2 px-3" disabled={!canRollDice || rolling || initializing} onClick={() => void rollDice()}>

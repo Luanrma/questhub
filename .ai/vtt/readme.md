@@ -38,6 +38,7 @@ Incluido:
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
+* Cor dos dados 3D configuravel localmente por campanha.
 * Integracoes visuais de dados 3D, incluindo `@3d-dice/dice-box`, pertencem ao VTT generico e devem ser expostas por uma interface propria do VTT.
 * A interface de dados pode iniciar como modal sobreposto ao board quando a biblioteca exigir um container dedicado, mas a orquestracao da rolagem deve continuar no modulo `vtt/dice-roller`.
 * A fisica dos dados deve ser fornecida pela engine `@3d-dice/dice-box`, sem duplicar uma segunda simulacao visual no VTT.

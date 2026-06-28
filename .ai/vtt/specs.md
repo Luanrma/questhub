@@ -282,6 +282,8 @@ Regras:
 * A interface de dados deve ser aberta por um icone de dado dentro da toolbar do grid, nao no header global da campanha.
 * Clicar novamente no icone ativo da toolbar deve fechar a ferramenta aberta, incluindo dados, medicao e configuracao de grid.
 * A interface deve aceitar comando textual como `1d20-5d6-3d10` e campos de quantidade por dado D4, D6, D8, D10, D12 e D20.
+* A interface deve permitir configurar a cor dos dados por input de cor, aplicando o hexadecimal em `themeColor` da `@3d-dice/dice-box`.
+* A cor dos dados e uma configuracao visual local por campanha e deve ser preservada no cliente.
 * Se qualquer campo de quantidade por dado receber valor maior que zero, o comando textual deve ser limpo e ignorado.
 * O limite visual padrao e de 20 dados acumulados na mesa local.
 * Se a rolagem nova exceder o limite de 20 dados acumulados, a rolagem deve ser bloqueada e o painel deve exibir aviso em vermelho.
