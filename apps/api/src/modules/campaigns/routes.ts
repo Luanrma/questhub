@@ -10,10 +10,11 @@ import { generateInviteCode } from './invite-code'
 type CampaignRoutesDeps = {
   io: SocketIOServer
   isCampaignOnline: (campaignId: string) => boolean
+  getCampaignSessionState: (campaignId: string) => 'ACTIVE' | 'PAUSED' | null
 }
 
 export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoutesDeps) {
-  const { io, isCampaignOnline } = deps
+  const { io, isCampaignOnline, getCampaignSessionState } = deps
 
   app.get('/api/campaigns', async (req, reply) => {
     const payload = requireAuth(req, reply)
@@ -66,6 +67,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           myCharacterId: entry.character.id,
           myCharacterName: entry.character.name,
           isOnline: isCampaignOnline(entry.campaign.id),
+          sessionState: getCampaignSessionState(entry.campaign.id),
         }
       }),
     )
@@ -553,6 +555,55 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         characterName: entry.character.name,
         createdAt: entry.createdAt,
         decidedAt: entry.status === 'PENDING' ? null : entry.updatedAt,
+      })),
+    )
+  })
+
+  app.get('/api/campaigns/:campaignId/token-candidates', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+    const params = req.params as { campaignId: string }
+
+    const master = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        role: 'MASTER',
+        status: 'ACTIVE',
+        character: { userId: payload.id },
+      },
+      select: { id: true },
+    })
+    if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode gerenciar tokens' })
+
+    const entries = await prisma.campaignCharacter.findMany({
+      where: {
+        campaignId: params.campaignId,
+        status: 'ACTIVE',
+        role: { in: ['PLAYER', 'NPC'] },
+      },
+      select: {
+        role: true,
+        userId: true,
+        characterId: true,
+        character: {
+          select: {
+            name: true,
+            avatarUrl: true,
+            user: { select: { email: true } },
+          },
+        },
+      },
+      orderBy: { createdAt: 'asc' },
+    })
+
+    return reply.send(
+      entries.map((entry) => ({
+        characterId: entry.characterId,
+        name: entry.character.name,
+        avatarUrl: entry.character.avatarUrl,
+        role: entry.role,
+        ownerUserId: entry.userId,
+        ownerName: entry.role === 'NPC' ? entry.character.name : entry.character.user.email,
       })),
     )
   })

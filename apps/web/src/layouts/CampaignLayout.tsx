@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
-import { GripHorizontal, MapPinned, Play, Power, X } from 'lucide-react'
+import { GripHorizontal, MapPinned, Pause, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
@@ -113,6 +113,8 @@ export function CampaignLayout() {
     enterPresence,
     startCampaignSession,
     endCampaignSession,
+    pauseCampaignSession,
+    resumeCampaignSession,
     updateVttGridSettings,
     socket,
   } = useSession()
@@ -120,7 +122,6 @@ export function CampaignLayout() {
   const presenceKeyRef = useRef<string | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
-  const [playerTokenRequest, setPlayerTokenRequest] = useState(0)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
     campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
@@ -128,6 +129,7 @@ export function CampaignLayout() {
   const [gridSettingsOpen, setGridSettingsOpen] = useState(false)
   const campaign = campaigns.find((c) => c.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
+  const sessionState = campaign?.sessionState ?? (campaign?.isOnline ? 'ACTIVE' : null)
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
   const hasFloatingPanel = !isTableRoute
   const panelTitle = getPanelTitle(location.pathname)
@@ -233,6 +235,24 @@ export function CampaignLayout() {
     await endCurrentSession()
   }
 
+  async function onTogglePauseSession() {
+    if (!campaignId || !campaign?.isOnline) return
+
+    setSessionActionLoading(true)
+    try {
+      if (sessionState === 'PAUSED') {
+        await resumeCampaignSession({ campaignId })
+      } else {
+        await pauseCampaignSession({ campaignId })
+      }
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Nao foi possivel alterar a pausa da sessao.'
+      alert(message)
+    } finally {
+      setSessionActionLoading(false)
+    }
+  }
+
   async function onSwitchCampaign() {
     if (isMaster && campaign?.isOnline) {
       await endCurrentSession('/campaigns')
@@ -263,7 +283,6 @@ export function CampaignLayout() {
           role={campaign.myRole}
           canOpenMySheet={Boolean(myCharacter?.id)}
           onOpenMySheet={() => setMySheetOpen(true)}
-          onCreatePlayerToken={() => setPlayerTokenRequest((request) => request + 1)}
           onSwitchCampaign={onSwitchCampaign}
         />
 
@@ -291,16 +310,46 @@ export function CampaignLayout() {
               </div>
 
               <div className="flex shrink-0 items-center gap-2">
+                {(!isMaster && campaign.isOnline) && (
+                  <>
+                    {sessionState === 'PAUSED' ? (
+                      <span className="text-red-500">
+                        <Pause className="h-4 w-4" />
+                      </span>
+                    ) : (
+                      <span className="text-green-500">
+                        <Play className="h-4 w-4" />
+                      </span>
+                    )}
+                    {sessionState === 'PAUSED' ? 'Sessão Pausada' : 'Sessão em Andamento'}
+                  </>
+                )}
                 {isMaster ? (
-                  <Button
-                    className="gap-2"
-                    variant={campaign.isOnline ? 'danger' : 'primary'}
-                    disabled={sessionActionLoading || !myCharacter?.id}
-                    onClick={campaign.isOnline ? onEndSession : onStartSession}
-                  >
-                    {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-                    {campaign.isOnline ? 'Encerrar Sessão' : 'Iniciar Sessão'}
-                  </Button>
+                  <>
+                    {campaign.isOnline ? (
+                      <Button
+                        className="gap-2"
+                        variant="ghost"
+                        disabled={sessionActionLoading || !myCharacter?.id}
+                        onClick={onTogglePauseSession}
+                      >
+                        {sessionState === 'PAUSED' 
+                          ? <span className="text-green-500"><Play className="h-4 w-4" /></span>
+                          : <span className="text-red-500"><Pause className="h-4 w-4" /></span>
+                        }
+                        {sessionState === 'PAUSED' ? 'Retomar Sessao' : 'Pausar Sessão'}
+                      </Button>
+                    ) : null}
+                    <Button
+                      className="gap-2"
+                      variant={campaign.isOnline ? 'danger' : 'primary'}
+                      disabled={sessionActionLoading || !myCharacter?.id}
+                      onClick={campaign.isOnline ? onEndSession : onStartSession}
+                    >
+                      {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                      {campaign.isOnline ? 'Encerrar Sessão' : 'Iniciar Sessão'}
+                    </Button>
+                  </>
                 ) : null}
               </div>
             </div>
@@ -311,8 +360,8 @@ export function CampaignLayout() {
               gridSettings={gridSettings}
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
               canConfigureGrid={Boolean(isMaster)}
+              sessionState={sessionState}
               myCharacter={myCharacter}
-              playerTokenRequest={playerTokenRequest}
               onGridSettingsChange={applyGridSettings}
               onGridSettingsOpenChange={setGridSettingsOpen}
             />

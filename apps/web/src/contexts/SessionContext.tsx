@@ -18,6 +18,7 @@ export type Campaign = {
   myCharacterId?: string | null
   myCharacterName?: string | null
   isOnline: boolean
+  sessionState?: 'ACTIVE' | 'PAUSED' | null
 }
 
 type SessionContextValue = {
@@ -33,6 +34,8 @@ type SessionContextValue = {
   enterPresence: (params: { campaignId: string; characterId: string }) => Promise<void>
   startCampaignSession: (params: { campaignId: string; characterId: string }) => Promise<void>
   endCampaignSession: (params: { campaignId: string }) => Promise<void>
+  pauseCampaignSession: (params: { campaignId: string }) => Promise<void>
+  resumeCampaignSession: (params: { campaignId: string }) => Promise<void>
   updateVttGridSettings: (params: { campaignId: string; settings: VttGridSettings }) => Promise<void>
   connectRealtime: () => Socket
   signIn: (params: { email: string; password: string }) => Promise<void>
@@ -48,6 +51,11 @@ type SocketNotificationPayload = {
   message?: string
   email?: string
   characterName?: string
+}
+
+type SessionStatePayload = {
+  campaignId?: string
+  state?: 'ACTIVE' | 'PAUSED' | null
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null)
@@ -169,6 +177,14 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
+    socketConnection.on('presence:session:state', (payload: SessionStatePayload) => {
+      if (!payload?.campaignId || !payload.state) return
+
+      setCampaigns((current) =>
+        current.map((campaign) => (campaign.id === payload.campaignId ? { ...campaign, sessionState: payload.state } : campaign)),
+      )
+    })
+
     socketConnection.on('campaign:kicked', async (payload: SocketNotificationPayload) => {
       alert(payload?.message ?? 'O mestre encerrou a sessão.')
       socketConnection.disconnect()
@@ -192,7 +208,10 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     }
   }, [])
 
-  async function emitPresenceAck(eventName: 'presence:session:start' | 'presence:session:end', params: object) {
+  async function emitPresenceAck(
+    eventName: 'presence:session:start' | 'presence:session:end' | 'presence:session:pause' | 'presence:session:resume',
+    params: object,
+  ) {
     const socketConnection = ensureSocket()
     await new Promise<void>((resolve, reject) => {
       socketConnection.timeout(5000).emit(eventName, params, (err: Error | null, response?: PresenceAck) => {
@@ -228,6 +247,20 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     await loadCampaigns({ force: true }).catch(() => {})
   }
 
+  async function pauseCampaignSession(params: { campaignId: string }) {
+    await emitPresenceAck('presence:session:pause', params)
+    setCampaigns((current) =>
+      current.map((campaign) => (campaign.id === params.campaignId ? { ...campaign, sessionState: 'PAUSED' } : campaign)),
+    )
+  }
+
+  async function resumeCampaignSession(params: { campaignId: string }) {
+    await emitPresenceAck('presence:session:resume', params)
+    setCampaigns((current) =>
+      current.map((campaign) => (campaign.id === params.campaignId ? { ...campaign, sessionState: 'ACTIVE' } : campaign)),
+    )
+  }
+
   async function updateVttGridSettings(params: { campaignId: string; settings: VttGridSettings }) {
     ensureSocket().emit('vtt:grid:update', params)
   }
@@ -249,6 +282,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     enterPresence,
     startCampaignSession,
     endCampaignSession,
+    pauseCampaignSession,
+    resumeCampaignSession,
     updateVttGridSettings,
     connectRealtime,
     signIn,
