@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 import { api } from '../lib/api'
 import type { Me } from '../lib/api'
@@ -34,6 +34,7 @@ type SessionContextValue = {
   startCampaignSession: (params: { campaignId: string; characterId: string }) => Promise<void>
   endCampaignSession: (params: { campaignId: string }) => Promise<void>
   updateVttGridSettings: (params: { campaignId: string; settings: VttGridSettings }) => Promise<void>
+  connectRealtime: () => Socket
   signIn: (params: { email: string; password: string }) => Promise<void>
   logout: () => Promise<void>
 }
@@ -41,6 +42,12 @@ type SessionContextValue = {
 type PresenceAck = {
   ok: boolean
   error?: string
+}
+
+type SocketNotificationPayload = {
+  message?: string
+  email?: string
+  characterName?: string
 }
 
 const SessionContext = createContext<SessionContextValue | null>(null)
@@ -138,22 +145,22 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       // ignore
     })
 
-    socketConnection.on('campaign:join-approved', async (payload: any) => {
+    socketConnection.on('campaign:join-approved', async (payload: SocketNotificationPayload) => {
       alert(payload?.message ?? 'Sua solicitacao foi aprovada!')
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    socketConnection.on('campaign:join-rejected', async (payload: any) => {
+    socketConnection.on('campaign:join-rejected', async (payload: SocketNotificationPayload) => {
       alert(payload?.message ?? 'Sua solicitacao foi recusada.')
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    socketConnection.on('campaign:join-requested', async (payload: any) => {
+    socketConnection.on('campaign:join-requested', async (payload: SocketNotificationPayload) => {
       alert(`Nova solicitacao de acesso: ${payload?.email ?? 'usuario'}`)
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    socketConnection.on('campaign:player-joined', async (payload: any) => {
+    socketConnection.on('campaign:player-joined', async (payload: SocketNotificationPayload) => {
       alert(`${payload?.characterName ?? 'Novo personagem'} entrou na campanha.`)
       await loadCampaigns({ force: true }).catch(() => {})
     })
@@ -162,7 +169,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    socketConnection.on('campaign:kicked', async (payload: any) => {
+    socketConnection.on('campaign:kicked', async (payload: SocketNotificationPayload) => {
       alert(payload?.message ?? 'O mestre encerrou a sessão.')
       socketConnection.disconnect()
       socketRef.current = null
@@ -225,26 +232,28 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     ensureSocket().emit('vtt:grid:update', params)
   }
 
-  const value = useMemo(
-    () => ({
-      me,
-      loading,
-      campaigns,
-      campaignsLoading,
-      activeCampaignId,
-      socket,
-      refreshMe,
-      loadCampaigns,
-      setActiveCampaignId,
-      enterPresence,
-      startCampaignSession,
-      endCampaignSession,
-      updateVttGridSettings,
-      signIn,
-      logout,
-    }),
-    [me, loading, campaigns, campaignsLoading, activeCampaignId, socket],
-  )
+  function connectRealtime() {
+    return ensureSocket()
+  }
+
+  const value = {
+    me,
+    loading,
+    campaigns,
+    campaignsLoading,
+    activeCampaignId,
+    socket,
+    refreshMe,
+    loadCampaigns,
+    setActiveCampaignId,
+    enterPresence,
+    startCampaignSession,
+    endCampaignSession,
+    updateVttGridSettings,
+    connectRealtime,
+    signIn,
+    logout,
+  }
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
 }

@@ -26,6 +26,7 @@
 * Ephemeral 3D Overlay: dados 3D sao efeitos temporarios sincronizados por Socket.IO e nao alteram estado persistente da mesa.
 * Dice Box Engine: a fisica e renderizacao dos dados 3D sao responsabilidade de `@3d-dice/dice-box`.
 * Overlay-owned Dice State: o estado da animacao de dado pertence ao overlay 3D, nao ao `CampaignLayout`, para evitar re-renderizar a arvore principal da campanha.
+* Persistent Dice Overlay: fechar a ferramenta de dados oculta apenas o painel de controle; o overlay 3D permanece montado e preserva os dados acumulados ate limpeza explicita ou encerramento da sessao.
 * Dice Roller Module: tipos, wrappers e modal de dados pertencem a `apps/web/src/vtt/dice-roller`.
 * Single Dice Implementation: nao manter uma segunda engine visual de dados paralela a `@3d-dice/dice-box`.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
@@ -50,5 +51,6 @@
 * Nao adicionar campos mecanicos especificos de sistema ao token generico.
 * A camada de dados deve usar `pointer-events: none` quando estiver sobre a mesa para nao bloquear grid, tokens, medicoes ou controles.
 * Rolagens de dado nao devem depender de estado visual no layout principal.
+* Fechar a ferramenta de dados nao deve destruir a engine `@3d-dice/dice-box` nem limpar os dados visiveis.
 * Assets da `dice-box` devem ser servidos por `apps/web/public/assets/dice-box`.
 * Nao criar `node_modules`, `package.json` ou app demo dentro de `apps/web/public`.

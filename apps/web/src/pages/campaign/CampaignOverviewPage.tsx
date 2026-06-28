@@ -676,21 +676,29 @@ export function CampaignOverviewPage({
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
   const { campaignId } = useParams()
-  const { campaigns, socket } = useSession()
+  const { campaigns, socket, connectRealtime } = useSession()
   const gridAreaRef = useRef<HTMLElement | null>(null)
   const handledPlayerTokenRequestRef = useRef(0)
   const measuringRef = useRef(false)
   const measurementRef = useRef<VttMeasurement | null>(null)
+  const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [activeTool, setActiveTool] = useState<VttToolId | null>('select')
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
+  const [diceClearSignal, setDiceClearSignal] = useState(0)
   const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.squareMeters}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
-  const canRollDice = Boolean(campaignId && campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && myCharacter?.id && socket)
+  const canRollDice = Boolean(
+    campaignId &&
+      campaign?.myStatus === 'ACTIVE' &&
+      myCharacter?.id &&
+      socket &&
+      (campaign.myRole === 'MASTER' || campaign.isOnline),
+  )
   const tokenSize = getTokenSize(gridSettings)
   const visibleToolButtons = canConfigureGrid ? toolButtons : toolButtons.filter((tool) => tool.id !== 'grid')
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
@@ -712,6 +720,31 @@ export function CampaignOverviewPage({
       observer.disconnect()
     }
   }, [])
+
+  useEffect(() => {
+    if (!campaignId) return
+    if (campaign?.myRole !== 'MASTER') return
+    if (campaign.myStatus !== 'ACTIVE') return
+    if (socket) return
+
+    connectRealtime()
+  }, [campaign?.myRole, campaign?.myStatus, campaignId, connectRealtime, socket])
+
+  useEffect(() => {
+    const online = Boolean(campaign?.isOnline)
+    const previous = previousCampaignOnlineRef.current
+
+    if (previous.campaignId !== (campaignId ?? null)) {
+      previousCampaignOnlineRef.current = { campaignId: campaignId ?? null, online }
+      return
+    }
+
+    if (previous.online && !online) {
+      setDiceClearSignal((current) => current + 1)
+    }
+
+    previousCampaignOnlineRef.current = { campaignId: campaignId ?? null, online }
+  }, [campaign?.isOnline, campaignId])
 
   useEffect(() => {
     if (!socket || !campaignId) return
@@ -959,12 +992,14 @@ export function CampaignOverviewPage({
               })}
             </div>
 
-            {campaignId && activeTool === 'dice' ? (
+            {campaignId ? (
               <VttDiceControls
                 campaignId={campaignId}
                 character={myCharacter}
                 socket={socket}
                 enabled={canRollDice}
+                open={activeTool === 'dice'}
+                clearSignal={diceClearSignal}
                 onClose={() => setActiveTool(null)}
                 className="pointer-events-none absolute inset-0 z-20"
               />

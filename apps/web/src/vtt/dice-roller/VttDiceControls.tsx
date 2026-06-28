@@ -30,6 +30,8 @@ type VttDiceControlsProps = {
   character: VttDiceCharacter | null
   socket: Socket | null
   enabled: boolean
+  open?: boolean
+  clearSignal?: number
   onClose?: () => void
   className?: string
 }
@@ -199,6 +201,8 @@ export const VttDiceControls = memo(function VttDiceControls({
   character,
   socket,
   enabled,
+  open = true,
+  clearSignal = 0,
   onClose,
   className = '',
 }: VttDiceControlsProps) {
@@ -210,6 +214,7 @@ export const VttDiceControls = memo(function VttDiceControls({
   const initializedRef = useRef(false)
   const rolledOnceRef = useRef(false)
   const pendingRollRef = useRef<{ groups: DiceRollGroup[]; command: string } | null>(null)
+  const lastClearSignalRef = useRef(clearSignal)
   const [initializing, setInitializing] = useState(false)
   const [rolling, setRolling] = useState(false)
   const [command, setCommand] = useState('')
@@ -370,6 +375,13 @@ export const VttDiceControls = memo(function VttDiceControls({
     rolledOnceRef.current = false
   }
 
+  useEffect(() => {
+    if (lastClearSignalRef.current === clearSignal) return
+
+    lastClearSignalRef.current = clearSignal
+    clearDice()
+  }, [clearSignal])
+
   function resolveRoll() {
     if (selectedCount > 0) return { groups: selectedGroups, command: buildCommand(selectedGroups) }
     return parseDiceCommand(command)
@@ -439,7 +451,8 @@ export const VttDiceControls = memo(function VttDiceControls({
         />
       </div>
 
-      <div className="pointer-events-auto absolute left-24 top-20 w-[min(360px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/60 p-3 text-white shadow-2xl backdrop-blur">
+      {open ? (
+        <div className="pointer-events-auto absolute left-24 top-20 w-[min(360px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/60 p-3 text-white shadow-2xl backdrop-blur">
         <div className="mb-2 flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-2 text-xs font-semibold uppercase text-zinc-400">
             <Dice5 className="h-4 w-4 text-indigo-300" />
@@ -523,7 +536,8 @@ export const VttDiceControls = memo(function VttDiceControls({
         <div className="mt-2 text-right text-[10px] uppercase text-zinc-500">
           {visibleCount}/{maxVisibleDice} dados na mesa
         </div>
-      </div>
+        </div>
+      ) : null}
     </div>
   )
 })

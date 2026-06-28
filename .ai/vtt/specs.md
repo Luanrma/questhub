@@ -288,6 +288,10 @@ Regras:
 * O limite visual padrao e de 20 dados acumulados na mesa local.
 * Se a rolagem nova exceder o limite de 20 dados acumulados, a rolagem deve ser bloqueada e o painel deve exibir aviso em vermelho.
 * Dados visuais acumulados devem permanecer na mesa ate o usuario clicar em `Limpar Dados`.
+* Fechar a ferramenta de dados deve ocultar apenas o painel de controle; dados visuais acumulados devem continuar visiveis na mesa.
+* Encerrar a sessao deve limpar os dados visuais acumulados do cliente do Mestre.
+* O Mestre ativo da campanha pode rolar dados mesmo quando a sessao ainda nao foi iniciada.
+* Players so podem rolar dados enquanto a campanha estiver online.
 * A camada visual de dados nao deve exibir resumo flutuante redundante no grid; o resumo compartilhado pertence ao chat.
 * A mensagem de chat para rolagens compostas deve detalhar os valores por grupo e o total, como `ROLOU 2D20-3D6 | D20: 10, 18 | D6: 1, 1, 5 | TOTAL: 35`.
 * A camada 3D deve usar `pointer-events: none` e nunca impedir interacoes com ferramentas, tokens, medicoes, chat ou paineis.
