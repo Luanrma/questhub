@@ -16,7 +16,6 @@ import {
   type VttGridChangedPayload,
   type VttGridSettings,
 } from '../vtt/grid'
-import { VttDiceControls } from '../vtt/dice-roller'
 
 type MyCampaignCharacter = {
   id: string
@@ -129,7 +128,6 @@ export function CampaignLayout() {
   const [gridSettingsOpen, setGridSettingsOpen] = useState(false)
   const campaign = campaigns.find((c) => c.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
-  const canRollDice = Boolean(campaignId && campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && myCharacter?.id && socket)
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
   const hasFloatingPanel = !isTableRoute
   const panelTitle = getPanelTitle(location.pathname)
@@ -293,8 +291,6 @@ export function CampaignLayout() {
               </div>
 
               <div className="flex shrink-0 items-center gap-2">
-                <VttDiceControls campaignId={campaignId} character={myCharacter} socket={socket} enabled={canRollDice} />
-
                 {isMaster ? (
                   <Button
                     className="gap-2"

@@ -1,21 +1,23 @@
 import type { CSSProperties } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { Grid3X3, MousePointer2, Move, Palette, Plus, Ruler, SlidersHorizontal, Users, X, ZoomIn, ZoomOut } from 'lucide-react'
+import { Dice5, Grid3X3, MousePointer2, Move, Palette, Plus, Ruler, SlidersHorizontal, Users, X, ZoomIn, ZoomOut } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
+import { VttDiceControls } from '../../vtt/dice-roller'
 import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
 
 const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
 
-type VttToolId = 'select' | 'move' | 'measure' | 'grid'
+type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice'
 
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
   { id: 'move', label: 'Mover', icon: Move },
   { id: 'measure', label: 'Medir', icon: Ruler },
+  { id: 'dice', label: 'Dados', icon: Dice5 },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
 ] as const
 
@@ -681,13 +683,14 @@ export function CampaignOverviewPage({
   const measurementRef = useRef<VttMeasurement | null>(null)
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
-  const [activeTool, setActiveTool] = useState<VttToolId>('select')
+  const [activeTool, setActiveTool] = useState<VttToolId | null>('select')
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.squareMeters}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
+  const canRollDice = Boolean(campaignId && campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && myCharacter?.id && socket)
   const tokenSize = getTokenSize(gridSettings)
   const visibleToolButtons = canConfigureGrid ? toolButtons : toolButtons.filter((tool) => tool.id !== 'grid')
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
@@ -940,12 +943,14 @@ export function CampaignOverviewPage({
                     ].join(' ')}
                     onClick={() => {
                       if (tool.id === 'grid') {
-                        onGridSettingsOpenChange(true)
+                        onGridSettingsOpenChange(!gridSettingsOpen)
+                        if (!gridSettingsOpen) setActiveTool(null)
                         return
                       }
 
+                      onGridSettingsOpenChange(false)
                       measuringRef.current = false
-                      setActiveTool(tool.id)
+                      setActiveTool((current) => (current === tool.id ? null : tool.id))
                     }}
                   >
                     <Icon className="h-4 w-4" />
@@ -953,6 +958,17 @@ export function CampaignOverviewPage({
                 )
               })}
             </div>
+
+            {campaignId && activeTool === 'dice' ? (
+              <VttDiceControls
+                campaignId={campaignId}
+                character={myCharacter}
+                socket={socket}
+                enabled={canRollDice}
+                onClose={() => setActiveTool(null)}
+                className="pointer-events-none absolute inset-0 z-20"
+              />
+            ) : null}
 
             {gridSettingsOpen && canConfigureGrid ? (
               <VttGridSettingsModal
