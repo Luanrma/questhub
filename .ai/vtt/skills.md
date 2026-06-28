@@ -15,9 +15,13 @@
 * Reuse Existing Modal: ficha do jogador usa o modal de ficha ja existente.
 * Layout-owned Table State: configuracoes visuais da mesa ficam no `CampaignLayout`, nao em rota filha.
 * Session-owned Realtime Tokens: tokens temporarios do MVP ficam em memoria no servidor durante a sessao ativa e sao refletidos no `CampaignLayout`.
+* Master-owned Token Placement: o Mestre instancia tokens no board por drag and drop a partir de modal proprio; Players nao criam nem recentralizam tokens.
+* Owner-only Token Movement: apos o drop do Mestre, apenas o Player dono pode mover o proprio token enquanto a sessao estiver ativa, o Mestre poderá mover todos os tokens se a sessao estiver `PAUSED`.
+* Session Pause State: a sessao em memoria tem estado `ACTIVE` ou `PAUSED`; `PAUSED` bloqueia interacoes VTT em tempo real exceto chat, mas mantém TUDO desbloqueado para o Mestre.
 * Grid-coordinate Tokens: a posicao do token usa coordenadas logicas do grid, nao percentual de viewport.
 * Realtime Table Broadcast: configuracoes de mesa sao propagadas por Socket.IO para a sala da campanha.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players online.
+* Master Token Toolbar: menu contextual de token pertence ao Mestre e emite acoes validadas no servidor.
 * Realtime Measurement Tool: medidas temporarias sao calculadas no cliente, armazenadas em memoria na sessao e sincronizadas por Socket.IO.
 * Grid-aware Measurement: grid quadrado converte pixels para metros pela area configurada da celula; grid hexagonal mede quantidade de passos entre centros de hexagonos.
 * Grid-owned Measurement Style: cores de medicao pertencem ao modal de configuracao do grid, nao a botoes soltos da toolbar.
@@ -38,7 +42,9 @@
 * Nao persistir medidas enquanto nao existir contrato de cena/mapa.
 * Nao persistir configuracao de grid no banco ate existir contrato de cena/mapa.
 * Nao permitir que jogadores emitam alteracoes de grid.
-* Nao permitir que um jogador mova token de outro personagem.
+* Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
+* Nao permitir que o Mestre mova token de Player durante sessao ativa; o Mestre deve editar tokens apenas por toolbar/modal ou durante sessao pausada.
+* Nao persistir estado `ACTIVE`/`PAUSED` da sessao no banco neste MVP.
 * Nao vincular posicao de token ao tamanho da tela disponivel.
 * Nao calcular medidas por percentual de viewport.
 * Nao misturar medida de distancia em metros com area da celula.

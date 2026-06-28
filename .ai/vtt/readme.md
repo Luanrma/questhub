@@ -27,12 +27,17 @@ Incluido:
 * Grid quadrado e hexagonal com tamanho, espessura e cor ajustaveis.
 * Configuracao de grid sincronizada em tempo real com jogadores ativos na sessao.
 * Configuracao de grid preservada ao iniciar ou encerrar sessao no cliente do mestre.
-* Acao `Token` para Player posicionar seu proprio token no centro da area de grid.
+* Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa.
+* Tokens entram no board apenas quando o Mestre arrasta um personagem do modal de tokens e solta no grid.
 * Token redondo usando o avatar do personagem do jogador, com fallback visual por inicial.
 * Token arrastavel limitado a area de grid visivel da mesa.
 * Token posicionado por coordenadas logicas do grid, preservando sua celula/hexagono ao alterar o tamanho do grid.
 * Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
-* Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
+* Token sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
+* Controle de movimento do token e concedido ao Player dono apenas apos o drop do Mestre no board.
+* Sessao pode ser pausada pelo Mestre; durante a pausa, tudo no VTT fica bloqueado somente para os PLAYERS exceto o chat.
+* Mestre pode remover token do board pelo menu contextual de botao direito, devolvendo o personagem para a lista disponivel.
+* Mestre pode alternar invisibilidade do token; tokens invisiveis ficam ocultos para Players e visiveis com opacidade reduzida para o Mestre.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
 * Rolagem visual de dado 3D por uma interface propria do VTT.
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.

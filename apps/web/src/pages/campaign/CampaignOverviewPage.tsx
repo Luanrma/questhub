@@ -1,23 +1,42 @@
 import type { CSSProperties } from 'react'
 import { useEffect, useRef, useState } from 'react'
-import { Dice5, Grid3X3, MousePointer2, Move, Palette, Plus, Ruler, SlidersHorizontal, Users, X, ZoomIn, ZoomOut } from 'lucide-react'
+import {
+  CircleUserRound,
+  Dice5,
+  Eye,
+  EyeOff,
+  Grid3X3,
+  MousePointer2,
+  Move,
+  Palette,
+  Plus,
+  Ruler,
+  SlidersHorizontal,
+  Trash2,
+  Users,
+  X,
+  ZoomIn,
+  ZoomOut,
+} from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
+import { api } from '../../lib/api'
 import { VttDiceControls } from '../../vtt/dice-roller'
 import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
 
 const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
 
-type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice'
+type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens'
 
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
   { id: 'move', label: 'Mover', icon: Move },
   { id: 'measure', label: 'Medir', icon: Ruler },
   { id: 'dice', label: 'Dados', icon: Dice5 },
+  { id: 'tokens', label: 'Tokens', icon: CircleUserRound },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
 ] as const
 
@@ -240,6 +259,7 @@ type CampaignOverviewPageProps = {
   gridSettings: VttGridSettings
   gridSettingsOpen: boolean
   canConfigureGrid: boolean
+  sessionState: 'ACTIVE' | 'PAUSED' | null
   myCharacter: {
     id: string
     name: string
@@ -247,7 +267,6 @@ type CampaignOverviewPageProps = {
     role: 'MASTER' | 'PLAYER'
     status: 'ACTIVE' | 'PENDING'
   } | null
-  playerTokenRequest: number
   onGridSettingsChange: (settings: VttGridSettings) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
@@ -257,6 +276,10 @@ type VttPlayerToken = {
   characterId: string
   name: string
   avatarUrl: string | null
+  ownerUserId: string
+  ownerName: string
+  role: 'PLAYER' | 'NPC'
+  hidden: boolean
   position: {
     x: number
     y: number
@@ -271,6 +294,7 @@ type VttTokenChangedPayload = {
 type VttTokensSnapshotPayload = {
   campaignId: string
   tokens: VttPlayerToken[]
+  sessionState?: 'ACTIVE' | 'PAUSED' | null
 }
 
 type VttTokenRemovedPayload = {
@@ -309,6 +333,21 @@ type VttMeasurement =
 type VttMeasurementChangedPayload = {
   campaignId: string
   measurement: VttMeasurement | null
+}
+
+type VttTokenCandidate = {
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  role: 'PLAYER' | 'NPC'
+  ownerUserId: string
+  ownerName: string
+}
+
+type VttTokenContextMenu = {
+  token: VttPlayerToken
+  x: number
+  y: number
 }
 
 const hexRowStepUnits = Math.sqrt(3) / 2
@@ -405,6 +444,17 @@ function normalizeTokenPosition(
   }
 }
 
+function normalizeTableToken(token: VttPlayerToken, gridShape: VttGridShape) {
+  return {
+    ...token,
+    ownerUserId: token.ownerUserId ?? '',
+    ownerName: token.ownerName ?? token.name,
+    role: token.role ?? 'PLAYER',
+    hidden: Boolean(token.hidden),
+    position: normalizeTokenPosition(token.position, gridShape),
+  }
+}
+
 function tokenPixelPosition(token: VttPlayerToken, gridSize: number) {
   return {
     x: token.position.x * gridSize - gridSize / 2,
@@ -427,15 +477,6 @@ function tokenGridPositionFromPixelCenter(
     bounds,
     gridSize,
   )
-}
-
-function closestGridCenterPosition(bounds: VttGridBounds, gridSize: number, gridShape: VttGridShape) {
-  const center = {
-    x: bounds.width / 2 / gridSize,
-    y: bounds.height / 2 / gridSize,
-  }
-
-  return normalizeTokenPosition(center, gridShape, bounds, gridSize)
 }
 
 function clampMeasurementPoint(point: VttMeasurementPoint, bounds: VttGridBounds) {
@@ -575,14 +616,18 @@ function PlayerToken({
   gridShape,
   gridAreaRef,
   canDrag,
+  isMasterView,
   onMove,
+  onContextMenu,
 }: {
   token: VttPlayerToken
   tokenSize: number
   gridShape: VttGridShape
   gridAreaRef: React.RefObject<HTMLElement | null>
   canDrag: boolean
+  isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
+  onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const [dragging, setDragging] = useState(false)
@@ -637,6 +682,13 @@ function PlayerToken({
     setDragging(true)
   }
 
+  function openContextMenu(event: React.MouseEvent<HTMLButtonElement>) {
+    if (!isMasterView) return
+
+    event.preventDefault()
+    onContextMenu(token, { x: event.clientX, y: event.clientY })
+  }
+
   return (
     <button
       type="button"
@@ -647,7 +699,10 @@ function PlayerToken({
           ? 'cursor-grabbing border-indigo-200 ring-4 ring-indigo-400/35'
           : canDrag
             ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
-            : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+            : isMasterView
+              ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
+              : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+        token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}
       style={{
         left: position.x,
@@ -656,6 +711,7 @@ function PlayerToken({
         height: tokenSize,
       }}
       onPointerDown={startDrag}
+      onContextMenu={openContextMenu}
     >
       {token.avatarUrl ? (
         <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} />
@@ -670,19 +726,20 @@ export function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
   canConfigureGrid,
+  sessionState,
   myCharacter,
-  playerTokenRequest,
   onGridSettingsChange,
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
   const { campaignId } = useParams()
   const { campaigns, socket, connectRealtime } = useSession()
   const gridAreaRef = useRef<HTMLElement | null>(null)
-  const handledPlayerTokenRequestRef = useRef(0)
   const measuringRef = useRef(false)
   const measurementRef = useRef<VttMeasurement | null>(null)
   const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
+  const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
+  const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [activeTool, setActiveTool] = useState<VttToolId | null>('select')
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
@@ -692,16 +749,27 @@ export function CampaignOverviewPage({
 
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
+  const sessionActive = Boolean(campaign?.isOnline && sessionState !== 'PAUSED')
+  const masterCanUseVtt = Boolean(isMaster && campaign?.isOnline)
+  const playerCanUseVtt = Boolean(!isMaster && sessionActive)
+  const realtimeVttEnabled = Boolean(sessionActive || masterCanUseVtt)
   const canRollDice = Boolean(
     campaignId &&
       campaign?.myStatus === 'ACTIVE' &&
       myCharacter?.id &&
       socket &&
-      (campaign.myRole === 'MASTER' || campaign.isOnline),
+      (campaign.myRole === 'MASTER' || playerCanUseVtt),
   )
   const tokenSize = getTokenSize(gridSettings)
-  const visibleToolButtons = canConfigureGrid ? toolButtons : toolButtons.filter((tool) => tool.id !== 'grid')
+  const visibleToolButtons = toolButtons.filter((tool) => {
+    if (tool.id === 'grid' || tool.id === 'tokens') return canConfigureGrid
+    return true
+  })
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
+  const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
+  const availableTokenCandidates = tokenCandidates.filter(
+    (candidate) => !playerTokens.some((token) => token.characterId === candidate.characterId),
+  )
 
   useEffect(() => {
     const element = gridAreaRef.current
@@ -731,6 +799,23 @@ export function CampaignOverviewPage({
   }, [campaign?.myRole, campaign?.myStatus, campaignId, connectRealtime, socket])
 
   useEffect(() => {
+    if (!campaignId || !isMaster || activeTool !== 'tokens') return
+
+    let cancelled = false
+    api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
+      .then((items) => {
+        if (!cancelled) setTokenCandidates(items)
+      })
+      .catch(() => {
+        if (!cancelled) setTokenCandidates([])
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeTool, campaignId, isMaster])
+
+  useEffect(() => {
     const online = Boolean(campaign?.isOnline)
     const previous = previousCampaignOnlineRef.current
 
@@ -753,7 +838,7 @@ export function CampaignOverviewPage({
       if (payload.campaignId !== campaignId) return
 
       setTokenState((current) => {
-        const token = { ...payload.token, position: normalizeTokenPosition(payload.token.position, gridSettings.shape) }
+        const token = normalizeTableToken(payload.token, gridSettings.shape)
         const currentTokens = current.campaignId === campaignId ? current.tokens : []
         const index = currentTokens.findIndex((item) => item.characterId === token.characterId)
         if (index === -1) return { campaignId, tokens: [...currentTokens, token] }
@@ -768,7 +853,7 @@ export function CampaignOverviewPage({
       if (payload.campaignId !== campaignId) return
       setTokenState({
         campaignId,
-        tokens: payload.tokens.map((token) => ({ ...token, position: normalizeTokenPosition(token.position, gridSettings.shape) })),
+        tokens: payload.tokens.map((token) => normalizeTableToken(token, gridSettings.shape)),
       })
     }
 
@@ -807,20 +892,6 @@ export function CampaignOverviewPage({
   }, [socket, campaignId, gridSettings.shape])
 
   useEffect(() => {
-    if (playerTokenRequest <= 0) return
-    if (handledPlayerTokenRequestRef.current === playerTokenRequest) return
-    if (!myCharacter || myCharacter.role !== 'PLAYER') return
-    if (!socket || !campaignId) return
-    if (!gridBounds.width || !gridBounds.height) return
-    handledPlayerTokenRequestRef.current = playerTokenRequest
-
-    socket.emit('vtt:token:update', {
-      campaignId,
-      position: closestGridCenterPosition(gridBounds, tokenSize, gridSettings.shape),
-    })
-  }, [campaignId, gridBounds, gridSettings.shape, myCharacter, playerTokenRequest, socket, tokenSize])
-
-  useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
     measurementGridKeyRef.current = measurementGridKey
     measuringRef.current = false
@@ -831,7 +902,9 @@ export function CampaignOverviewPage({
 
   function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
     if (!campaignId || !socket) return
-    if (myCharacter?.id !== token.characterId || myCharacter.role !== 'PLAYER') return
+    const isOwnerMove = sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER'
+    const isMasterPausedMove = sessionState === 'PAUSED' && isMaster
+    if (!isOwnerMove && !isMasterPausedMove) return
 
     const nextPosition = normalizeTokenPosition(position, gridSettings.shape, gridBounds, tokenSize)
     setTokenState((current) => {
@@ -841,10 +914,11 @@ export function CampaignOverviewPage({
         tokens: current.tokens.map((item) => (item.characterId === token.characterId ? { ...item, position: nextPosition } : item)),
       }
     })
-    socket.emit('vtt:token:update', { campaignId, position: nextPosition })
+    socket.emit('vtt:token:move', { campaignId, characterId: token.characterId, position: nextPosition })
   }
 
   function publishMeasurement(nextMeasurement: VttMeasurement | null) {
+    if (!realtimeVttEnabled) return
     measurementRef.current = nextMeasurement
     setMeasurement(nextMeasurement)
 
@@ -931,24 +1005,87 @@ export function CampaignOverviewPage({
     measuringRef.current = false
   }
 
+  function dragTokenCandidate(event: React.DragEvent<HTMLButtonElement>, candidate: VttTokenCandidate) {
+    event.dataTransfer.setData('application/x-questhub-character-id', candidate.characterId)
+    event.dataTransfer.effectAllowed = 'copy'
+  }
+
+  function tokenDropPosition(event: React.DragEvent<HTMLElement>) {
+    const bounds = gridAreaRef.current?.getBoundingClientRect()
+    if (!bounds) return null
+
+    return normalizeTokenPosition(
+      {
+        x: (event.clientX - bounds.left) / tokenSize,
+        y: (event.clientY - bounds.top) / tokenSize,
+      },
+      gridSettings.shape,
+      { width: bounds.width, height: bounds.height },
+      tokenSize,
+    )
+  }
+
+  function dropTokenCandidate(event: React.DragEvent<HTMLElement>) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    const characterId = event.dataTransfer.getData('application/x-questhub-character-id')
+    if (!characterId) return
+
+    const position = tokenDropPosition(event)
+    if (!position) return
+
+    event.preventDefault()
+    socket.emit('vtt:token:place', { campaignId, characterId, position })
+  }
+
+  function removeToken(token: VttPlayerToken) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    socket.emit('vtt:token:remove', { campaignId, characterId: token.characterId })
+    setTokenContextMenu(null)
+  }
+
+  function toggleTokenVisibility(token: VttPlayerToken) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    socket.emit('vtt:token:visibility', { campaignId, characterId: token.characterId })
+    setTokenContextMenu(null)
+  }
+
   return (
     <div className="grid h-full min-h-0 grid-cols-[minmax(0,1fr)_320px] bg-[#08090c] text-white max-xl:grid-cols-1">
-      <section ref={gridAreaRef} className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]">
+      <section
+        ref={gridAreaRef}
+        className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]"
+        onClick={() => setTokenContextMenu(null)}
+        onDragOver={(event) => {
+          if (!isMaster || !masterCanUseVtt) return
+          if (!event.dataTransfer.types.includes('application/x-questhub-character-id')) return
+          event.preventDefault()
+          event.dataTransfer.dropEffect = 'copy'
+        }}
+        onDrop={dropTokenCandidate}
+      >
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
         <VttGridOverlay settings={gridSettings} />
-        {playerTokens.map((token) => (
+        {visibleTokens.map((token) => (
           <PlayerToken
             key={token.id}
             token={token}
             tokenSize={tokenSize}
             gridShape={gridSettings.shape}
             gridAreaRef={gridAreaRef}
-            canDrag={myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER'}
+            canDrag={
+              (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER') ||
+              (sessionState === 'PAUSED' && Boolean(isMaster))
+            }
+            isMasterView={Boolean(isMaster)}
             onMove={(position) => movePlayerToken(token, position)}
+            onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
           />
         ))}
         <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
-        {activeTool === 'measure' ? (
+        {activeTool === 'measure' && realtimeVttEnabled ? (
           <div
             className="absolute inset-0 z-[8] cursor-crosshair"
             onPointerDown={startMeasurement}
@@ -964,17 +1101,20 @@ export function CampaignOverviewPage({
               {visibleToolButtons.map((tool) => {
                 const Icon = tool.icon
                 const active = tool.id === 'grid' ? gridSettingsOpen : activeTool === tool.id
+                const disabled = sessionState === 'PAUSED' && !isMaster && tool.id !== 'select'
 
                 return (
                   <button
                     key={tool.label}
                     type="button"
                     title={tool.label}
+                    disabled={disabled}
                     className={[
-                      'flex h-10 w-10 items-center justify-center rounded-md transition',
+                      'flex h-10 w-10 items-center justify-center rounded-md transition disabled:cursor-not-allowed disabled:opacity-45',
                       active ? 'bg-indigo-600 text-white' : 'text-zinc-300 hover:bg-white/10 hover:text-white',
                     ].join(' ')}
                     onClick={() => {
+                      if (disabled) return
                       if (tool.id === 'grid') {
                         onGridSettingsOpenChange(!gridSettingsOpen)
                         if (!gridSettingsOpen) setActiveTool(null)
@@ -1011,6 +1151,90 @@ export function CampaignOverviewPage({
                 onChange={onGridSettingsChange}
                 onClose={() => onGridSettingsOpenChange(false)}
               />
+            ) : null}
+
+            {activeTool === 'tokens' && isMaster ? (
+              <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/65 p-3 text-white shadow-2xl backdrop-blur">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-2 text-xs font-semibold uppercase text-zinc-400">
+                    <CircleUserRound className="h-4 w-4 text-indigo-300" />
+                    Tokens
+                  </div>
+                  <button
+                    type="button"
+                    title="Fechar tokens"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => setActiveTool(null)}
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                {sessionState === 'PAUSED' ? (
+                  <div className="mb-3 rounded-md border border-amber-300/30 bg-amber-400/10 px-3 py-2 text-xs font-semibold text-amber-100">
+                    Sessao pausada. Players estao bloqueados; o Mestre ainda pode gerenciar tokens.
+                  </div>
+                ) : null}
+
+                <div className="grid max-h-[360px] gap-2 overflow-auto pr-1">
+                  {!availableTokenCandidates.length ? (
+                    <div className="rounded-md border border-dashed border-white/10 px-3 py-6 text-center text-sm text-zinc-500">
+                      Nenhum token disponivel.
+                    </div>
+                  ) : null}
+                  {availableTokenCandidates.map((candidate) => (
+                    <button
+                      key={candidate.characterId}
+                      type="button"
+                      draggable={masterCanUseVtt}
+                      disabled={!masterCanUseVtt}
+                      onDragStart={(event) => dragTokenCandidate(event, candidate)}
+                      className="flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full bg-indigo-600 text-sm font-bold text-white">
+                        {candidate.avatarUrl ? <img src={candidate.avatarUrl} alt="" className="h-full w-full object-cover" /> : candidate.name.charAt(0).toUpperCase()}
+                      </span>
+                      <span className="min-w-0">
+                        <span className="block truncate text-sm font-semibold text-white">{candidate.name}</span>
+                        <span className="block truncate text-[11px] uppercase text-zinc-500">
+                          {candidate.role === 'NPC' ? 'NPC' : candidate.ownerName}
+                        </span>
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {tokenContextMenu && isMaster ? (
+              <div
+                className="pointer-events-auto fixed z-50 w-56 rounded-lg border border-white/10 bg-[#111217]/95 p-2 text-white shadow-2xl backdrop-blur"
+                style={{ left: tokenContextMenu.x, top: tokenContextMenu.y }}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="border-b border-white/10 px-2 pb-2">
+                  <div className="truncate text-sm font-semibold">{tokenContextMenu.token.name}</div>
+                  <div className="truncate text-xs text-zinc-500">Dono: {tokenContextMenu.token.ownerName}</div>
+                </div>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={() => toggleTokenVisibility(tokenContextMenu.token)}
+                >
+                  {tokenContextMenu.token.hidden ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                  {tokenContextMenu.token.hidden ? 'Tornar visivel' : 'Tornar invisivel'}
+                </button>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-red-200 transition hover:bg-red-500/10 hover:text-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={() => removeToken(tokenContextMenu.token)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Remover
+                </button>
+              </div>
             ) : null}
 
             <div className="pointer-events-auto absolute right-5 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">

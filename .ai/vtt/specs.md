@@ -73,8 +73,11 @@ type MyCampaignCharacter = {
 * Em viewport pequeno, a navegacao vira barra inferior compacta.
 * O contrato base de token nao contem campos mecanicos de Pathfinder 2e ou D&D 5e.
 * O contrato base de rolagem aceita expressao generica, como `1d20+7`, e metadados opcionais de ruleset.
-* Player ve um menu `Token` na sidebar da campanha.
-* Clicar em `Token` cria ou recentraliza o proprio token no centro da area de grid.
+* Player nao ve menu `Token` e nao pode criar/recentralizar o proprio token.
+* Mestre ve uma ferramenta `Tokens` que abre modal com personagens `PLAYER` e `NPC` ativos da campanha.
+* O token so existe no board depois que o Mestre arrasta um personagem do modal de tokens e solta no grid.
+* Ao concluir o drop do Mestre, o Player dono do personagem passa a poder mover o proprio token quando a sessao esta ativa.
+* O token seja ele qualquer, pode ser movido pelo mestre quando a sessao esta pausada.
 * O token usa `MyCampaignCharacter.avatarUrl` quando existir.
 * Sem avatar, o token exibe a inicial do nome do personagem.
 * O token deve ser redondo e arrastavel por pointer events.
@@ -88,6 +91,16 @@ type MyCampaignCharacter = {
 * A posicao do token nao e persistida no banco neste MVP.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online enquanto a sessao esta ativa.
 * Usuarios que entram depois recebem o snapshot atual de tokens da sessao.
+* O Mestre pode pausar ou retomar a sessao sem encerra-la.
+* Em sessao pausada, chat continua funcionando e demais interacoes VTT em tempo real ficam bloqueadas para os Players.
+* Em sessao pausada, Players nao podem mover tokens.
+* Em sessao pausada, Mestre pode mover todos os tokens.
+* Em sessao ativa, o Mestre nao pode mover token de Player por drag, para evitar conflito de input;
+* Apenas o Mestre ve o menu contextual de token por botao direito.
+* O menu contextual do Mestre deve exibir o nome do dono do token.
+* `Remover` tira o token do board e devolve o personagem para a lista de tokens disponiveis no modal.
+* `Invisibilidade` alterna opacidade reduzida para Mestre e oculta o token para Players.
+* A acao `Destruir` nao faz parte deste MVP.
 * A ferramenta `Medir` deve poder ser ativada pela toolbar do VTT.
 * No grid quadrado, pressionar no ponto A, arrastar e soltar no ponto B deve mostrar a distancia em metros.
 * No grid quadrado, `VttGridSettings.size` representa apenas o lado visual da celula em pixels.
@@ -162,56 +175,68 @@ type VttGridChangedPayload = {
 * `vtt:grid:update`: emitido pelo mestre para atualizar a configuracao da campanha.
 * `vtt:grid:changed`: emitido pelo servidor para a sala da campanha e para jogador ao entrar.
 
-## 6. Token Realtime do Player
+## 6. Tokens Centralizados Realtime
 
 Tipo usado pelo VTT:
 
 ```ts
-type VttPlayerToken = {
+type VttTableToken = {
   id: string
   characterId: string
   name: string
   avatarUrl: string | null
+  ownerUserId: string
+  ownerName: string
+  role: 'PLAYER' | 'NPC'
+  hidden: boolean
   position: {
     x: number
     y: number
   }
 }
 
-type VttPlayerTokenChangedPayload = {
+type VttTableTokenChangedPayload = {
   campaignId: string
-  token: VttPlayerToken
+  token: VttTableToken
 }
 
-type VttPlayerTokensSnapshotPayload = {
+type VttTableTokensSnapshotPayload = {
   campaignId: string
-  tokens: VttPlayerToken[]
+  tokens: VttTableToken[]
+  sessionState: 'ACTIVE' | 'PAUSED'
 }
 ```
 
 Regras:
+* `MASTER` e `GM` sao sinonimos no texto de produto; no dominio, schema Prisma e payloads o valor canonico continua sendo `MASTER`.
 * `position.x` e `position.y` representam o centro do token em unidades logicas do grid.
 * Para renderizar, `pixelCenter = position * VttGridSettings.size`.
 * O tamanho visual do token e `VttGridSettings.size`, preservando proporcao ao alterar o grid.
-* Ao criar/recentralizar, o token fica no centro da area de grid, arredondado para o centro logico mais proximo.
+* Ao posicionar via drop, o token fica no centro logico mais proximo do ponto solto no grid.
 * Para grid quadrado, o snap usa centros `n + 0.5`.
 * Para grid hexagonal, o snap usa os centros reais dos hexagonos renderizados, incluindo deslocamento horizontal alternado por linha.
-* Um clique no menu `Token` deve ser processado uma unica vez; mudancas posteriores de grid ou viewport nao podem recentralizar o token automaticamente.
 * A posicao logica do token nao deve ser rebaixada para o limite visivel quando a janela ou o tamanho do grid muda.
 * O limite visual deve ser aplicado apenas durante o drag, nunca durante a renderizacao passiva.
 * O drag deve prender o centro do token entre metade de uma celula e o limite visual da area de grid.
-* Apenas `PLAYER` ativo ve o menu `Token` no sidebar neste MVP.
-* O menu `Token` nao navega e nao abre modal; ele emite atualizacao realtime para a mesa.
-* Apenas o dono do personagem pode criar ou mover o proprio token.
-* O backend aceita atualizacoes de token apenas de socket autenticado, dentro da sala da campanha e com sessao ativa.
+* Apenas `MASTER` ativo ve a ferramenta `Tokens` neste MVP.
+* O backend aceita criacao, remocao e alteracao de invisibilidade apenas de socket autenticado como `MASTER`, dentro da sala da campanha enquanto a campanha estiver online, inclusive em sessao `PAUSED`.
+* O backend aceita movimento apenas quando `sessionActive && isPlayer && isOwner` ou `!sessionActive && isMaster`.
+* `sessionActive` significa campanha online e estado de sessao `ACTIVE`, nunca `PAUSED`.
+* Apenas o dono do personagem pode mover o proprio token apos ele existir no board.
 * Ao receber atualizacao valida, o backend armazena o token em memoria e emite para `campaign:{campaignId}`.
 * Ao entrar em uma sessao ativa, o cliente recebe `vtt:tokens:snapshot`.
-* Ao desconectar um Player, o backend remove seu token da memoria da sessao e emite `vtt:token:removed`.
+* Ao desconectar um Player, o token permanece no board enquanto a sessao continuar.
 * Ao encerrar a sessao, tokens da campanha sao descartados.
 
 Eventos Socket.IO:
 
-* `vtt:token:update`: emitido pelo Player para criar/recentralizar/mover o proprio token.
+* `presence:session:pause`: emitido pelo Mestre para pausar a sessao.
+* `presence:session:resume`: emitido pelo Mestre para retomar a sessao.
+* `presence:session:state`: emitido pelo servidor para informar `ACTIVE` ou `PAUSED`.
+* `vtt:token:place`: emitido pelo Mestre ao soltar personagem do modal no grid.
+* `vtt:token:move`: emitido pelo Player dono para mover o proprio token em sessao `ACTIVE`, ou pelo Mestre para mover qualquer token em sessao `PAUSED`.
+* `vtt:token:remove`: emitido pelo Mestre para remover token do board.
+* `vtt:token:visibility`: emitido pelo Mestre para alternar invisibilidade.
 * `vtt:token:changed`: emitido pelo servidor para toda a sala quando um token muda.
 * `vtt:tokens:snapshot`: emitido pelo servidor ao usuario entrar na sala da campanha.
 * `vtt:tokens:request`: emitido pelo cliente para pedir novamente o snapshot atual da sessao.
