@@ -150,7 +150,7 @@ Regras:
 * A configuracao nao deve ser persistida no banco neste MVP.
 * O modal deve permitir fechar sem desmontar a mesa.
 
-Eventos Socket.IO:
+Eventos Socket.IO legados:
 
 ```ts
 type VttGridChangedPayload = {
@@ -274,11 +274,20 @@ Regras:
 * A animacao deve ser renderizada por `@3d-dice/dice-box` dentro da interface propria de dados do VTT.
 * A animacao deve sumir automaticamente apos terminar.
 * A camada visual e efemera e nao deve ser persistida no banco.
-* A camada visual deve ser sincronizada em tempo real para todos os usuarios dentro da sessao ativa da campanha.
+* A camada visual deve ser local ao cliente que rolou; o resultado compartilhado deve ser publicado no chat da campanha.
 * O estado da rolagem visual deve ficar isolado dentro da interface de dados para nao re-renderizar `CampaignLayout`.
 * A integracao com `@3d-dice/dice-box` deve ficar encapsulada em `vtt/dice-roller` e publicar o mesmo contrato generico `VttDiceRollBatchPayload`.
 * O uso inicial de `@3d-dice/dice-box` renderiza em modal proprio para garantir inicializacao de canvas/assets, sem substituir o contrato generico de rolagem nem introduzir dependencia de ruleset.
 * A evolucao desejada e permitir que a mesma interface propria de dados renderize sobre a area do grid/board sem desmontar ou bloquear a mesa.
+* A interface de dados deve ser aberta por um icone de dado dentro da toolbar do grid, nao no header global da campanha.
+* Clicar novamente no icone ativo da toolbar deve fechar a ferramenta aberta, incluindo dados, medicao e configuracao de grid.
+* A interface deve aceitar comando textual como `1d20-5d6-3d10` e campos de quantidade por dado D4, D6, D8, D10, D12 e D20.
+* Se qualquer campo de quantidade por dado receber valor maior que zero, o comando textual deve ser limpo e ignorado.
+* O limite visual padrao e de 20 dados acumulados na mesa local.
+* Se a rolagem nova exceder o limite de 20 dados acumulados, a rolagem deve ser bloqueada e o painel deve exibir aviso em vermelho.
+* Dados visuais acumulados devem permanecer na mesa ate o usuario clicar em `Limpar Dados`.
+* A camada visual de dados nao deve exibir resumo flutuante redundante no grid; o resumo compartilhado pertence ao chat.
+* A mensagem de chat para rolagens compostas deve detalhar os valores por grupo e o total, como `ROLOU 2D20-3D6 | D20: 10, 18 | D6: 1, 1, 5 | TOTAL: 35`.
 * A camada 3D deve usar `pointer-events: none` e nunca impedir interacoes com ferramentas, tokens, medicoes, chat ou paineis.
 * Assets da `dice-box` devem ficar sob `apps/web/public/assets/dice-box`, servidos pelo app principal.
 * Nao deve existir `package.json`, `package-lock.json`, `node_modules` ou mini app demo dentro de `apps/web/public/3d_dices`.
@@ -308,8 +317,8 @@ type VttDiceRolledPayload = {
 }
 ```
 
-* `vtt:dice:roll`: emitido por usuario ativo na sessao para publicar uma ou mais rolagens visuais efemeras.
-* `vtt:dice:rolled`: emitido pelo servidor para `campaign:{campaignId}` quando a rolagem for valida.
+* `vtt:dice:roll`: legado do modelo visual sincronizado; nao deve ser usado pelo fluxo local de dados no grid.
+* `vtt:dice:rolled`: legado do modelo visual sincronizado; nao deve ser consumido pelo fluxo local de dados no grid.
 * O servidor deve aceitar apenas rolagens de sockets autenticados, dentro da sala da campanha e com sessao ativa.
 * `value` deve estar entre `1` e `sides`.
 * O payload de saida deve sempre preencher `rolls`; `roll` pode existir apenas para compatibilidade com consumidores antigos.

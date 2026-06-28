@@ -35,8 +35,9 @@ Incluido:
 * Token do Player sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
 * Rolagem visual de dado 3D por uma interface propria do VTT.
-* Rolagens de dado sao efeitos efemeros sincronizados para todos os usuarios conectados a sessao ativa.
+* Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
+* Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Integracoes visuais de dados 3D, incluindo `@3d-dice/dice-box`, pertencem ao VTT generico e devem ser expostas por uma interface propria do VTT.
 * A interface de dados pode iniciar como modal sobreposto ao board quando a biblioteca exigir um container dedicado, mas a orquestracao da rolagem deve continuar no modulo `vtt/dice-roller`.
 * A fisica dos dados deve ser fornecida pela engine `@3d-dice/dice-box`, sem duplicar uma segunda simulacao visual no VTT.
