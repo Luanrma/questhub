@@ -182,7 +182,7 @@ function extractRollResults(results: DiceBoxRollResult[], groups: DiceRollGroup[
   })
 
   return groups.map((group) => {
-    const values = bySides.get(group.sides)?.slice(0, group.count) ?? []
+    const values = bySides.get(group.sides)?.slice(-group.count) ?? []
     while (values.length < group.count) values.push(Math.floor(Math.random() * group.sides) + 1)
     return { ...group, values }
   })
