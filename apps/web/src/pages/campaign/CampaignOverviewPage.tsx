@@ -28,6 +28,8 @@ import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } fr
 
 const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
+const zoomLimits = { min: 50, max: 150, step: 10 }
+const boardGridLimits = { columns: 50, rows: 34 }
 
 type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens'
 
@@ -312,6 +314,11 @@ type VttGridBounds = {
   height: number
 }
 
+type VttPanOffset = {
+  x: number
+  y: number
+}
+
 type VttMeasurementPoint = {
   x: number
   y: number
@@ -354,6 +361,41 @@ const hexRowStepUnits = Math.sqrt(3) / 2
 
 function getTokenSize(gridSettings: VttGridSettings) {
   return gridSettings.size
+}
+
+function scaleGridSettings(settings: VttGridSettings, zoomPercent: number): VttGridSettings {
+  const scale = zoomPercent / 100
+
+  return {
+    ...settings,
+    size: settings.size * scale,
+    lineWidth: Math.max(1, settings.lineWidth * scale),
+  }
+}
+
+function getBoardPixelSize(gridSize: number) {
+  return {
+    width: boardGridLimits.columns * gridSize,
+    height: boardGridLimits.rows * gridSize,
+  }
+}
+
+function getMinimumZoomPercent(viewport: VttGridBounds, gridSize: number) {
+  const baseBoardSize = getBoardPixelSize(gridSize)
+  if (!viewport.width || !viewport.height || !baseBoardSize.width || !baseBoardSize.height) return zoomLimits.min
+
+  const requiredZoom = Math.ceil(Math.max(viewport.width / baseBoardSize.width, viewport.height / baseBoardSize.height) * 100)
+  return clampNumber(Math.max(zoomLimits.min, requiredZoom), zoomLimits.min, zoomLimits.max)
+}
+
+function clampPanOffset(offset: VttPanOffset, viewport: VttGridBounds, board: VttGridBounds) {
+  const minX = Math.min(0, viewport.width - board.width)
+  const minY = Math.min(0, viewport.height - board.height)
+
+  return {
+    x: clampNumber(offset.x, minX, 0),
+    y: clampNumber(offset.y, minY, 0),
+  }
 }
 
 function clampNumber(value: number, min: number, max: number) {
@@ -623,7 +665,7 @@ function PlayerToken({
   token: VttPlayerToken
   tokenSize: number
   gridShape: VttGridShape
-  gridAreaRef: React.RefObject<HTMLElement | null>
+  gridAreaRef: React.RefObject<HTMLDivElement | null>
   canDrag: boolean
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
@@ -733,17 +775,23 @@ export function CampaignOverviewPage({
 }: CampaignOverviewPageProps) {
   const { campaignId } = useParams()
   const { campaigns, socket, connectRealtime } = useSession()
-  const gridAreaRef = useRef<HTMLElement | null>(null)
+  const boardViewportRef = useRef<HTMLDivElement | null>(null)
+  const gridAreaRef = useRef<HTMLDivElement | null>(null)
   const measuringRef = useRef(false)
   const measurementRef = useRef<VttMeasurement | null>(null)
+  const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
   const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
+  const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
+  const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
+  const [isPanning, setIsPanning] = useState(false)
   const [activeTool, setActiveTool] = useState<VttToolId | null>('select')
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
+  const [zoomPercent, setZoomPercent] = useState(100)
   const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.squareMeters}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
@@ -760,7 +808,12 @@ export function CampaignOverviewPage({
       socket &&
       (campaign.myRole === 'MASTER' || playerCanUseVtt),
   )
-  const tokenSize = getTokenSize(gridSettings)
+  const minimumZoomPercent = getMinimumZoomPercent(viewportBounds, gridSettings.size)
+  const activeZoomPercent = clampNumber(zoomPercent, minimumZoomPercent, zoomLimits.max)
+  const zoomedGridSettings = scaleGridSettings(gridSettings, activeZoomPercent)
+  const tokenSize = getTokenSize(zoomedGridSettings)
+  const boardPixelSize = getBoardPixelSize(tokenSize)
+  const clampedPanOffset = clampPanOffset(panOffset, viewportBounds, boardPixelSize)
   const visibleToolButtons = toolButtons.filter((tool) => {
     if (tool.id === 'grid' || tool.id === 'tokens') return canConfigureGrid
     return true
@@ -778,6 +831,24 @@ export function CampaignOverviewPage({
     const updateBounds = () => {
       const bounds = element.getBoundingClientRect()
       setGridBounds({ width: bounds.width, height: bounds.height })
+    }
+    const animationFrame = window.requestAnimationFrame(updateBounds)
+    const observer = new ResizeObserver(updateBounds)
+    observer.observe(element)
+
+    return () => {
+      window.cancelAnimationFrame(animationFrame)
+      observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    const element = boardViewportRef.current
+    if (!element) return
+
+    const updateBounds = () => {
+      const bounds = element.getBoundingClientRect()
+      setViewportBounds({ width: bounds.width, height: bounds.height })
     }
     const animationFrame = window.requestAnimationFrame(updateBounds)
     const observer = new ResizeObserver(updateBounds)
@@ -1052,50 +1123,106 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
+  function changeZoom(direction: -1 | 1) {
+    setZoomPercent((current) => {
+      const baseZoom = Math.max(current, minimumZoomPercent)
+      return clampNumber(baseZoom + direction * zoomLimits.step, minimumZoomPercent, zoomLimits.max)
+    })
+  }
+
+  function startBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    if (activeTool !== 'move' || event.button !== 0) return
+    if (event.target !== event.currentTarget) return
+
+    event.preventDefault()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    panningRef.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY }
+    setIsPanning(true)
+  }
+
+  function updateBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    const currentPan = panningRef.current
+    if (!currentPan || currentPan.pointerId !== event.pointerId) return
+
+    const deltaX = event.clientX - currentPan.x
+    const deltaY = event.clientY - currentPan.y
+    panningRef.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY }
+
+    setPanOffset((current) => {
+      const safeCurrent = clampPanOffset(current, viewportBounds, boardPixelSize)
+      return clampPanOffset({ x: safeCurrent.x + deltaX, y: safeCurrent.y + deltaY }, viewportBounds, boardPixelSize)
+    })
+  }
+
+  function finishBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    if (panningRef.current?.pointerId !== event.pointerId) return
+
+    panningRef.current = null
+    setIsPanning(false)
+  }
+
   return (
     <div className="grid h-full min-h-0 grid-cols-[minmax(0,1fr)_320px] bg-[#08090c] text-white max-xl:grid-cols-1">
       <section
-        ref={gridAreaRef}
         className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]"
         onClick={() => setTokenContextMenu(null)}
-        onDragOver={(event) => {
-          if (!isMaster || !masterCanUseVtt) return
-          if (!event.dataTransfer.types.includes('application/x-questhub-character-id')) return
-          event.preventDefault()
-          event.dataTransfer.dropEffect = 'copy'
-        }}
-        onDrop={dropTokenCandidate}
       >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
-        <VttGridOverlay settings={gridSettings} />
-        {visibleTokens.map((token) => (
-          <PlayerToken
-            key={token.id}
-            token={token}
-            tokenSize={tokenSize}
-            gridShape={gridSettings.shape}
-            gridAreaRef={gridAreaRef}
-            canDrag={
-              (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER') ||
-              (sessionState === 'PAUSED' && Boolean(isMaster))
-            }
-            isMasterView={Boolean(isMaster)}
-            onMove={(position) => movePlayerToken(token, position)}
-            onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
-          />
-        ))}
-        <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
-        {activeTool === 'measure' && realtimeVttEnabled ? (
+        <div ref={boardViewportRef} className="absolute inset-0 overflow-hidden">
           <div
-            className="absolute inset-0 z-[8] cursor-crosshair"
-            onPointerDown={startMeasurement}
-            onPointerMove={updateMeasurement}
-            onPointerUp={finishMeasurement}
-            onPointerCancel={finishMeasurement}
-          />
-        ) : null}
+            ref={gridAreaRef}
+            className={[
+              'relative overflow-hidden border-r border-b border-blue-500/50 bg-[#0b0d12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]',
+              activeTool === 'move' ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : '',
+            ].join(' ')}
+            style={{
+              width: boardPixelSize.width,
+              height: boardPixelSize.height,
+              transform: `translate(${clampedPanOffset.x}px, ${clampedPanOffset.y}px)`,
+            }}
+            onDragOver={(event) => {
+              if (!isMaster || !masterCanUseVtt) return
+              if (!event.dataTransfer.types.includes('application/x-questhub-character-id')) return
+              event.preventDefault()
+              event.dataTransfer.dropEffect = 'copy'
+            }}
+            onDrop={dropTokenCandidate}
+            onPointerDown={startBoardPan}
+            onPointerMove={updateBoardPan}
+            onPointerUp={finishBoardPan}
+            onPointerCancel={finishBoardPan}
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
+            <VttGridOverlay settings={zoomedGridSettings} />
+            {visibleTokens.map((token) => (
+              <PlayerToken
+                key={token.id}
+                token={token}
+                tokenSize={tokenSize}
+                gridShape={gridSettings.shape}
+                gridAreaRef={gridAreaRef}
+                canDrag={
+                  (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER') ||
+                  (sessionState === 'PAUSED' && Boolean(isMaster))
+                }
+                isMasterView={Boolean(isMaster)}
+                onMove={(position) => movePlayerToken(token, position)}
+                onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
+              />
+            ))}
+            <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
+            {activeTool === 'measure' && realtimeVttEnabled ? (
+              <div
+                className="absolute inset-0 z-[8] cursor-crosshair"
+                onPointerDown={startMeasurement}
+                onPointerMove={updateMeasurement}
+                onPointerUp={finishMeasurement}
+                onPointerCancel={finishMeasurement}
+              />
+            ) : null}
+          </div>
+        </div>
 
-        <div className="pointer-events-none relative z-10 flex h-full min-h-[560px] flex-col">
+        <div className="pointer-events-none absolute inset-0 z-10 flex min-h-[560px] flex-col">
           <div className="relative flex-1">
             <div className="pointer-events-auto absolute left-24 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               {visibleToolButtons.map((tool) => {
@@ -1241,15 +1368,19 @@ export function CampaignOverviewPage({
               <button
                 type="button"
                 title="Diminuir zoom"
-                className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                disabled={activeZoomPercent <= minimumZoomPercent}
+                className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => changeZoom(-1)}
               >
                 <ZoomOut className="h-4 w-4" />
               </button>
-              <div className="flex h-10 min-w-16 items-center justify-center px-3 text-xs text-zinc-200">100%</div>
+              <div className="flex h-10 min-w-16 items-center justify-center px-3 text-xs font-semibold text-zinc-200">{activeZoomPercent}%</div>
               <button
                 type="button"
                 title="Aumentar zoom"
-                className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                disabled={activeZoomPercent >= zoomLimits.max}
+                className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-45"
+                onClick={() => changeZoom(1)}
               >
                 <ZoomIn className="h-4 w-4" />
               </button>

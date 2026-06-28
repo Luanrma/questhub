@@ -27,6 +27,8 @@ Incluido:
 * Grid quadrado e hexagonal com tamanho, espessura e cor ajustaveis.
 * Configuracao de grid sincronizada em tempo real com jogadores ativos na sessao.
 * Configuracao de grid preservada ao iniciar ou encerrar sessao no cliente do mestre.
+* Controle de zoom visual da mesa por botoes de menos/mais, com minimo de 50%, padrao de 100% e maximo de 150%.
+* Board finito com area maxima local de 50 colunas por 34 linhas de grid, navegado sem barras de rolagem por ferramenta de mover ou arraste em area vazia.
 * Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa.
 * Tokens entram no board apenas quando o Mestre arrasta um personagem do modal de tokens e solta no grid.
 * Token redondo usando o avatar do personagem do jogador, com fallback visual por inicial.
@@ -67,3 +69,4 @@ Fora de escopo:
 * Persistencia/replay da simulacao fisica de dados.
 * Fog of war.
 * Configuracao persistida de tamanho/formato do grid.
+* Navegacao do board por setas do teclado.

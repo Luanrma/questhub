@@ -19,6 +19,9 @@
 * Owner-only Token Movement: apos o drop do Mestre, apenas o Player dono pode mover o proprio token enquanto a sessao estiver ativa, o Mestre poderá mover todos os tokens se a sessao estiver `PAUSED`.
 * Session Pause State: a sessao em memoria tem estado `ACTIVE` ou `PAUSED`; `PAUSED` bloqueia interacoes VTT em tempo real exceto chat, mas mantém TUDO desbloqueado para o Mestre.
 * Grid-coordinate Tokens: a posicao do token usa coordenadas logicas do grid, nao percentual de viewport.
+* Local Board Zoom: zoom e estado visual local do cliente; aplica escala ao grid, tokens e medicao sem alterar coordenadas logicas nem contrato realtime.
+* Finite Board Surface: a mesa jogavel tem dimensoes maximas em celulas de grid; o grid, tokens e medicao nao existem fora dessa superficie.
+* Controlled Board Pan: navegacao do board finito usa deslocamento visual controlado por ferramenta e drag em area vazia, sem barras de rolagem nativas.
 * Realtime Table Broadcast: configuracoes de mesa sao propagadas por Socket.IO para a sala da campanha.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players online.
 * Master Token Toolbar: menu contextual de token pertence ao Mestre e emite acoes validadas no servidor.
@@ -45,6 +48,11 @@
 * Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
 * Nao permitir que o Mestre mova token de Player durante sessao ativa; o Mestre deve editar tokens apenas por toolbar/modal ou durante sessao pausada.
 * Nao persistir estado `ACTIVE`/`PAUSED` da sessao no banco neste MVP.
+* Nao persistir zoom da mesa no banco neste MVP.
+* Nao tratar o board como superficie infinita em todas as direcoes.
+* Nao exibir barras de rolagem horizontais ou verticais para navegar o board.
+* Nao mover o board ou tokens pelas setas do teclado neste MVP; navegacao por teclado fica reservada para feature futura.
+* Nao permitir zoom out que revele area vazia alem da borda final do board quando o tamanho da viewport exigir zoom maior que 50%.
 * Nao vincular posicao de token ao tamanho da tela disponivel.
 * Nao calcular medidas por percentual de viewport.
 * Nao misturar medida de distancia em metros com area da celula.

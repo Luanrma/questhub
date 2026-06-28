@@ -85,9 +85,23 @@ type MyCampaignCharacter = {
 * Tokens nunca podem sobrepor ferramentas, toolbar, zoom, paineis flutuantes ou controles do VTT.
 * A camada de tokens deve ficar acima do grid/mapa e abaixo da camada de UI.
 * A camada de UI nao deve bloquear pointer events da mesa fora dos controles visiveis.
+* O board jogavel deve ter limite finito e nao pode se comportar como superficie infinita.
+* No MVP, o limite visual padrao do board e de 50 colunas por 34 linhas de grid.
+* A mesa nao deve exibir barras de rolagem horizontais ou verticais para navegar o board.
+* Quando o board for maior que o viewport, a navegacao deve acontecer pela ferramenta `Mover` ou pelo arraste em area vazia do board com o botao esquerdo pressionado.
+* Setas do teclado nao devem mover o board nem tokens neste MVP; navegacao por teclado e feature futura.
+* Ao arrastar uma area vazia com a ferramenta `Mover`, o cursor deve indicar mao aberta/mao agarrando.
+* O deslocamento visual do board deve ser limitado para nunca ultrapassar as bordas finais do board.
+* Grid, tokens, drop e medicao devem ficar restritos ao retangulo finito do board.
 * A posicao do token deve ser calculada em coordenadas logicas do grid, nao como percentual da tela.
 * Ao aumentar ou diminuir o tamanho do grid, o token permanece no mesmo ponto logico do quadrado ou hexagono.
 * O diametro visual do token acompanha `VttGridSettings.size`.
+* O zoom visual da mesa deve variar de 50% a 150%, com padrao inicial de 100%.
+* Clicar no botao de diminuir zoom reduz o zoom sem passar de 50%.
+* Clicar no botao de aumentar zoom aumenta o zoom sem passar de 150%.
+* O valor percentual do zoom deve ser exibido entre os botoes de diminuir e aumentar.
+* O zoom deve escalar grid, tokens e medicao visualmente sem alterar coordenadas logicas, posicoes realtime ou configuracao persistida de grid.
+* O zoom minimo efetivo deve subir acima de 50% quando necessario para impedir que area vazia alem da borda do board apareca na viewport.
 * A posicao do token nao e persistida no banco neste MVP.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online enquanto a sessao esta ativa.
 * Usuarios que entram depois recebem o snapshot atual de tokens da sessao.
@@ -162,6 +176,9 @@ Regras:
 * Jogadores recebem `vtt:grid:changed`, mas nao podem emitir alteracoes aceitas pelo servidor.
 * A configuracao nao deve ser persistida no banco neste MVP.
 * O modal deve permitir fechar sem desmontar a mesa.
+* O controle de zoom fica na UI da mesa, separado da configuracao de grid.
+* O zoom e local ao cliente e nao deve ser emitido por Socket.IO.
+* O zoom deve aplicar escala visual sobre `VttGridSettings.size` para renderizacao, mantendo o valor configurado original.
 
 Eventos Socket.IO legados:
 
