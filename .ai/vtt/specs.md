@@ -74,6 +74,36 @@ type MyCampaignCharacter = {
 * O contrato base de token nao contem campos mecanicos de Pathfinder 2e ou D&D 5e.
 * O contrato base de rolagem aceita expressao generica, como `1d20+7`, e metadados opcionais de ruleset.
 * Player nao ve menu `Token` e nao pode criar/recentralizar o proprio token.
+* Player nao ve o rodape de preparacao de cena.
+* Mestre ve o rodape de preparacao de cena na mesa.
+* Clicar em `Preparar cena` abre modal sobre a mesa.
+* Ao abrir o modal, a interface busca todas as cenas ja upadas para o `userId` autenticado na `campaignId` atual.
+* Cenas ja upadas aparecem como cards salvos com preview via URL assinada.
+* O modal exibe cards sequenciais nomeados `Cena1`, `Cena2` etc.
+* Um card vazio exibe icone de `+` centralizado e permite selecionar uma imagem.
+* Ao selecionar imagem para `Cena1`, o card exibe preview da imagem e surge um novo card vazio `Cena2` ao lado.
+* Ao selecionar imagem para `Cena2`, surge `Cena3`, e assim sucessivamente.
+* O modal valida formato de imagem permitido e tamanho maximo antes de aceitar preview.
+* O rodape do modal exibe acao `Salvar`.
+* Clicar em `Salvar` envia as imagens selecionadas para `/api/assets?campaignId=:campaignId`.
+* O upload persistido cria registro em `Asset` e vinculo `CampaignAsset`.
+* O path no Firebase deve ser identificavel por `userId`, `campaignId` e nome do arquivo.
+* Se o mesmo arquivo ja foi salvo para o mesmo usuario e campanha, clicar em `Salvar` nao deve reenviar a imagem ao Firebase.
+* Arquivos com mesmo nome de uma cena ja carregada ou ja selecionada nao podem ser selecionados; a interface deve alertar o Mestre.
+* Se nenhuma cena possuir imagem nova pendente, o botao `Salvar` deve ficar bloqueado.
+* Ao concluir envio bem sucedido, o modal deve informar que o arquivo foi enviado com sucesso.
+* Ao salvar multiplos arquivos, o modal deve listar os nomes dos arquivos que nao foram enviados por ja existirem como asset da campanha.
+* Cada card de cena salva exibe um botao `Deletar` abaixo do card.
+* Cada card de cena ainda nao enviada exibe um botao azul `Remover` abaixo do card.
+* Clicar em `Deletar` remove a cena do modal.
+* Clicar em `Deletar` para cena salva pede confirmacao antes de apagar.
+* Quando a cena ja possui `assetId`, clicar em `Deletar` tambem chama delecao do `Asset`, removendo o registro do banco, o vinculo `CampaignAsset` e o arquivo no Firebase.
+* A selecao/preview das cenas e local no cliente; a persistencia desta etapa e do asset, nao de uma entidade `Scene`.
+* Miniaturas das cenas preparadas aparecem no rodape do Mestre.
+* Clicar em uma miniatura seleciona a cena ativa e renderiza a imagem abaixo do grid do board.
+* A imagem da cena nao deve ser deformada para ocupar o limite padrao do board; o board deve passar a usar as dimensoes naturais da imagem, respeitando o zoom visual local.
+* A cena selecionada pelo Mestre deve ser visivel para Players que estiverem na sessao.
+* Se o Mestre trocar a cena durante `PAUSED`, Players continuam vendo a cena ativa anterior e so recebem a nova cena quando a sessao voltar para `ACTIVE`.
 * Mestre ve uma ferramenta `Tokens` que abre modal com personagens `PLAYER` e `NPC` ativos da campanha.
 * O token so existe no board depois que o Mestre arrasta um personagem do modal de tokens e solta no grid.
 * Ao concluir o drop do Mestre, o Player dono do personagem passa a poder mover o proprio token quando a sessao esta ativa.

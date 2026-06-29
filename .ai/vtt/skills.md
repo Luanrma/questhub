@@ -35,6 +35,9 @@
 * Overlay-owned Dice State: o estado da animacao de dado pertence ao overlay 3D, nao ao `CampaignLayout`, para evitar re-renderizar a arvore principal da campanha.
 * Persistent Dice Overlay: fechar a ferramenta de dados oculta apenas o painel de controle; o overlay 3D permanece montado e preserva os dados acumulados ate limpeza explicita ou encerramento da sessao.
 * Dice Roller Module: tipos, wrappers e modal de dados pertencem a `apps/web/src/vtt/dice-roller`.
+* Local Scene Preparation: enquanto nao houver contrato persistente de mapa/cena, preparacao de cenas fica em estado local do `CampaignOverviewPage`.
+* Session-owned Active Scene: a cena ativa fica em memoria no servidor durante a sessao e e transmitida por Socket.IO, sem persistir entidade `Scene`.
+* Paused Scene Staging: troca de cena feita pelo Mestre em sessao `PAUSED` fica pendente para Players ate a sessao voltar para `ACTIVE`.
 * Single Dice Implementation: nao manter uma segunda engine visual de dados paralela a `@3d-dice/dice-box`.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
 
@@ -44,6 +47,7 @@
 * Nao persistir tokens enquanto nao existir contrato de cena/mapa.
 * Nao persistir medidas enquanto nao existir contrato de cena/mapa.
 * Nao persistir configuracao de grid no banco ate existir contrato de cena/mapa.
+* Nao chamar upload persistente de assets para cenas ate existir contrato de cena/mapa no VTT.
 * Nao permitir que jogadores emitam alteracoes de grid.
 * Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
 * Nao permitir que o Mestre mova token de Player durante sessao ativa; o Mestre deve editar tokens apenas por toolbar/modal ou durante sessao pausada.

@@ -6,6 +6,7 @@ import {
   Eye,
   EyeOff,
   Grid3X3,
+  ImagePlus,
   MousePointer2,
   Move,
   Palette,
@@ -22,7 +23,7 @@ import { useParams } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
-import { api } from '../../lib/api'
+import { api, apiForm } from '../../lib/api'
 import { VttDiceControls } from '../../vtt/dice-roller'
 import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
 
@@ -30,8 +31,114 @@ const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
 const zoomLimits = { min: 50, max: 150, step: 10 }
 const boardGridLimits = { columns: 50, rows: 34 }
+const sceneImageMaxBytes = Number(import.meta.env.VITE_ASSET_MAX_UPLOAD_BYTES ?? 10 * 1024 * 1024)
+const sceneImageMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'] as const
+const sceneImageMimeTypeLabels = 'JPG, PNG, WEBP ou AVIF'
 
 type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens'
+
+type PreparedScene = {
+  id: string
+  name: string
+  imageUrl: string | null
+  fileName: string | null
+  file: File | null
+  assetId: string | null
+  storagePath: string | null
+  error: string | null
+}
+
+type CampaignAssetResponse = {
+  id: string
+  storagePath: string
+  originalName: string
+  mimeType: string
+  size: number
+  signedUrl: string
+}
+
+type AssetUploadResponse = {
+  id: string
+  storagePath: string
+  signedUrl: string
+}
+
+type AssetExistsResponse = {
+  exists: boolean
+  asset: {
+    id: string
+    storagePath: string
+    originalName: string
+  } | null
+}
+
+function createPreparedScene(index: number): PreparedScene {
+  return {
+    id: `scene-${index}`,
+    name: `Cena${index}`,
+    imageUrl: null,
+    fileName: null,
+    file: null,
+    assetId: null,
+    storagePath: null,
+    error: null,
+  }
+}
+
+function formatBytes(bytes: number) {
+  if (bytes >= 1024 * 1024) return `${Math.round((bytes / 1024 / 1024) * 10) / 10} MB`
+  return `${Math.ceil(bytes / 1024)} KB`
+}
+
+function validateSceneImage(file: File) {
+  if (!sceneImageMimeTypes.includes(file.type as (typeof sceneImageMimeTypes)[number])) {
+    return `Formato invalido. Use ${sceneImageMimeTypeLabels}.`
+  }
+
+  if (file.size > sceneImageMaxBytes) {
+    return `Arquivo acima do limite de ${formatBytes(sceneImageMaxBytes)}.`
+  }
+
+  return null
+}
+
+function normalizePreparedSceneList(scenes: PreparedScene[]) {
+  const normalizedScenes = scenes.map((scene, index) => ({
+    ...scene,
+    id: `scene-${index + 1}`,
+    name: `Cena${index + 1}`,
+  }))
+
+  if (!normalizedScenes.length) return [createPreparedScene(1)]
+  if (normalizedScenes.some((scene) => !scene.imageUrl)) return normalizedScenes
+  return [...normalizedScenes, createPreparedScene(normalizedScenes.length + 1)]
+}
+
+function isObjectUrl(url: string | null) {
+  return Boolean(url?.startsWith('blob:'))
+}
+
+function revokeSceneImageUrl(scene: PreparedScene) {
+  if (scene.imageUrl && isObjectUrl(scene.imageUrl)) URL.revokeObjectURL(scene.imageUrl)
+}
+
+function filenameEquals(left: string | null, right: string) {
+  return left?.trim().toLocaleLowerCase() === right.trim().toLocaleLowerCase()
+}
+
+function readImageDimensions(imageUrl: string) {
+  return new Promise<VttGridBounds>((resolve, reject) => {
+    const image = new Image()
+    image.onload = () => {
+      resolve({
+        width: Math.max(1, image.naturalWidth),
+        height: Math.max(1, image.naturalHeight),
+      })
+    }
+    image.onerror = () => reject(new Error('Nao foi possivel carregar as dimensoes da cena.'))
+    image.src = imageUrl
+  })
+}
 
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
@@ -309,9 +416,207 @@ type VttTokenState = {
   tokens: VttPlayerToken[]
 }
 
+type VttTableScene = {
+  id: string
+  name: string
+  imageUrl: string
+  fileName: string | null
+  assetId: string | null
+  width: number
+  height: number
+}
+
+type VttSceneChangedPayload = {
+  campaignId: string
+  scene: VttTableScene | null
+}
+
 type VttGridBounds = {
   width: number
   height: number
+}
+
+function ScenePreparationModal({
+  scenes,
+  saving,
+  deletingSceneId,
+  error,
+  successMessage,
+  skippedFiles,
+  onUpload,
+  onSave,
+  onDelete,
+  onClose,
+}: {
+  scenes: PreparedScene[]
+  saving: boolean
+  deletingSceneId: string | null
+  error: string | null
+  successMessage: string | null
+  skippedFiles: string[]
+  onUpload: (sceneId: string, file: File) => void
+  onSave: () => void
+  onDelete: (sceneId: string) => void
+  onClose: () => void
+}) {
+  const canSave = scenes.some((scene) => scene.file && !scene.assetId)
+
+  return (
+    <div className="pointer-events-auto fixed inset-0 z-50 grid place-items-center bg-black/55 p-6 backdrop-blur-sm">
+      <div className="flex max-h-[min(720px,calc(100vh-48px))] w-[min(980px,calc(100vw-32px))] flex-col rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl">
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
+          <div className="flex min-w-0 items-center gap-2">
+            <ImagePlus className="h-5 w-5 text-indigo-300" />
+            <h2 className="truncate text-base font-semibold">Preparar cena</h2>
+          </div>
+          <button
+            type="button"
+            title="Fechar"
+            className="grid h-9 w-9 shrink-0 place-items-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            onClick={onClose}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        <div className="min-h-0 overflow-auto p-5">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4">
+            {scenes.map((scene) => (
+              <div key={scene.id} className="grid gap-2">
+                <label
+                  className={[
+                    'group grid aspect-[4/3] grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] transition',
+                    scene.assetId ? 'cursor-default' : 'cursor-pointer hover:border-indigo-300/50 hover:bg-white/[0.07]',
+                  ].join(' ')}
+                >
+                  <span className="border-b border-white/10 px-3 py-2 text-sm font-semibold text-zinc-100">{scene.name}</span>
+                  <span className="relative grid min-h-0 place-items-center overflow-hidden">
+                    {scene.imageUrl ? (
+                      <>
+                        <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" />
+                        <span className="absolute inset-x-0 bottom-0 truncate bg-black/60 px-3 py-2 text-xs font-semibold text-zinc-200 opacity-0 transition group-hover:opacity-100">
+                          {scene.fileName}
+                        </span>
+                        {scene.assetId ? (
+                          <span className="absolute right-2 top-2 rounded-full border border-emerald-300/30 bg-emerald-500/20 px-2 py-1 text-[10px] font-bold uppercase text-emerald-100">
+                            Salva
+                          </span>
+                        ) : null}
+                      </>
+                    ) : (
+                      <span className="grid h-14 w-14 place-items-center rounded-full border border-white/15 bg-black/35 text-zinc-200 transition group-hover:border-indigo-300/60 group-hover:text-white">
+                        <Plus className="h-7 w-7" />
+                      </span>
+                    )}
+                  </span>
+                  <input
+                    type="file"
+                    accept={sceneImageMimeTypes.join(',')}
+                    disabled={Boolean(scene.assetId)}
+                    className="sr-only"
+                    onChange={(event) => {
+                      const file = event.target.files?.[0]
+                      event.currentTarget.value = ''
+                      if (!file) return
+                      onUpload(scene.id, file)
+                    }}
+                  />
+                  {scene.error ? <span className="px-3 pb-2 text-xs font-semibold text-red-200">{scene.error}</span> : null}
+                </label>
+                {scene.imageUrl ? (
+                  <Button
+                    type="button"
+                    variant={scene.assetId ? 'danger' : 'primary'}
+                    disabled={saving || deletingSceneId === scene.id}
+                    className={[
+                      'h-8 px-3 text-xs',
+                      scene.assetId ? '' : 'bg-blue-600 text-white hover:bg-blue-700',
+                    ].join(' ')}
+                    onClick={() => onDelete(scene.id)}
+                  >
+                    {deletingSceneId === scene.id ? 'Deletando...' : scene.assetId ? 'Deletar' : 'Remover'}
+                  </Button>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-end justify-between gap-3 border-t border-white/10 px-5 py-4">
+          <div className="min-w-0">
+            {successMessage ? <div className="text-sm font-semibold text-emerald-200">{successMessage}</div> : null}
+            {skippedFiles.length ? (
+              <div className="mt-1 text-xs font-semibold text-amber-200">
+                Nao enviados: {skippedFiles.join(', ')}
+              </div>
+            ) : null}
+            {error ? <div className="mt-1 text-sm font-semibold text-red-200">{error}</div> : null}
+          </div>
+          <Button type="button" disabled={!canSave || saving} className="h-9 px-4" onClick={onSave}>
+            {saving ? 'Salvando...' : 'Salvar'}
+          </Button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SceneDock({
+  scenes,
+  activeSceneId,
+  onSelectScene,
+  onPrepareScene,
+}: {
+  scenes: PreparedScene[]
+  activeSceneId: string | null
+  onSelectScene: (sceneId: string) => void
+  onPrepareScene: () => void
+}) {
+  const sceneThumbnails = scenes.filter((scene) => scene.imageUrl)
+  const activeScene = sceneThumbnails.find((scene) => scene.id === activeSceneId)
+
+  return (
+    <div className="pointer-events-auto absolute inset-x-6 bottom-6 z-30 rounded-lg border border-white/10 bg-black/50 px-3 py-3 backdrop-blur">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <div className="min-w-0">
+          <div className="mb-2 text-sm font-semibold text-white">{activeScene ? activeScene.name : 'Cena sem mapa carregado'}</div>
+          {sceneThumbnails.length ? (
+            <div className="flex max-w-[calc(100vw-360px)] flex-wrap gap-2 max-xl:max-w-full">
+              {sceneThumbnails.map((scene) => {
+                const selected = scene.id === activeSceneId
+
+                return (
+                  <button
+                    key={scene.id}
+                    type="button"
+                    title={scene.fileName ?? scene.name}
+                    className={[
+                      'group relative h-16 w-28 overflow-hidden rounded-md border bg-white/[0.04] text-left shadow-lg transition',
+                      selected
+                        ? 'border-indigo-300 ring-2 ring-indigo-400/50'
+                        : 'border-white/10 hover:border-indigo-300/60 hover:bg-white/[0.08]',
+                    ].join(' ')}
+                    onClick={() => onSelectScene(scene.id)}
+                  >
+                    {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" /> : null}
+                    <span className="absolute inset-x-0 bottom-0 truncate bg-black/70 px-2 py-1 text-xs font-semibold text-white">
+                      {scene.name}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="text-xs text-zinc-400">Grid pronto para mapas, tokens e medidas.</div>
+          )}
+        </div>
+        <Button variant="ghost" className="h-9 gap-2 px-3" onClick={onPrepareScene}>
+          <Plus className="h-4 w-4" />
+          Preparar cena
+        </Button>
+      </div>
+    </div>
+  )
 }
 
 type VttPanOffset = {
@@ -373,15 +678,27 @@ function scaleGridSettings(settings: VttGridSettings, zoomPercent: number): VttG
   }
 }
 
-function getBoardPixelSize(gridSize: number) {
+function getDefaultBoardPixelSize(gridSize: number) {
   return {
     width: boardGridLimits.columns * gridSize,
     height: boardGridLimits.rows * gridSize,
   }
 }
 
-function getMinimumZoomPercent(viewport: VttGridBounds, gridSize: number) {
-  const baseBoardSize = getBoardPixelSize(gridSize)
+function getBoardPixelSize(gridSize: number, zoomPercent: number, scene: VttTableScene | null) {
+  if (!scene) return getDefaultBoardPixelSize(gridSize)
+
+  const scale = zoomPercent / 100
+  return {
+    width: scene.width * scale,
+    height: scene.height * scale,
+  }
+}
+
+function getMinimumZoomPercent(viewport: VttGridBounds, gridSize: number, scene: VttTableScene | null) {
+  const baseBoardSize = scene
+    ? { width: scene.width, height: scene.height }
+    : getDefaultBoardPixelSize(gridSize)
   if (!viewport.width || !viewport.height || !baseBoardSize.width || !baseBoardSize.height) return zoomLimits.min
 
   const requiredZoom = Math.ceil(Math.max(viewport.width / baseBoardSize.width, viewport.height / baseBoardSize.height) * 100)
@@ -792,6 +1109,16 @@ export function CampaignOverviewPage({
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
+  const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
+  const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([createPreparedScene(1)])
+  const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)
+  const [sceneSaveError, setSceneSaveError] = useState<string | null>(null)
+  const [sceneSuccessMessage, setSceneSuccessMessage] = useState<string | null>(null)
+  const [sceneSkippedFiles, setSceneSkippedFiles] = useState<string[]>([])
+  const [sceneSaving, setSceneSaving] = useState(false)
+  const [sceneDeletingId, setSceneDeletingId] = useState<string | null>(null)
+  const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
+  const preparedScenesRef = useRef(preparedScenes)
   const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.squareMeters}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
@@ -808,11 +1135,11 @@ export function CampaignOverviewPage({
       socket &&
       (campaign.myRole === 'MASTER' || playerCanUseVtt),
   )
-  const minimumZoomPercent = getMinimumZoomPercent(viewportBounds, gridSettings.size)
+  const minimumZoomPercent = getMinimumZoomPercent(viewportBounds, gridSettings.size, activeScene)
   const activeZoomPercent = clampNumber(zoomPercent, minimumZoomPercent, zoomLimits.max)
   const zoomedGridSettings = scaleGridSettings(gridSettings, activeZoomPercent)
   const tokenSize = getTokenSize(zoomedGridSettings)
-  const boardPixelSize = getBoardPixelSize(tokenSize)
+  const boardPixelSize = getBoardPixelSize(tokenSize, activeZoomPercent, activeScene)
   const clampedPanOffset = clampPanOffset(panOffset, viewportBounds, boardPixelSize)
   const visibleToolButtons = toolButtons.filter((tool) => {
     if (tool.id === 'grid' || tool.id === 'tokens') return canConfigureGrid
@@ -945,13 +1272,21 @@ export function CampaignOverviewPage({
       setMeasurement(payload.measurement)
     }
 
+    function onSceneChanged(payload: VttSceneChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setActiveScene(payload.scene)
+    }
+
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
     socket.on('vtt:measurement:changed', onMeasurementChanged)
     socket.on('vtt:measurement:snapshot', onMeasurementChanged)
+    socket.on('vtt:scene:changed', onSceneChanged)
+    socket.on('vtt:scene:snapshot', onSceneChanged)
     socket.emit('vtt:tokens:request', { campaignId })
     socket.emit('vtt:measurement:request', { campaignId })
+    socket.emit('vtt:scene:request', { campaignId })
 
     return () => {
       socket.off('vtt:token:changed', onTokenChanged)
@@ -959,6 +1294,8 @@ export function CampaignOverviewPage({
       socket.off('vtt:token:removed', onTokenRemoved)
       socket.off('vtt:measurement:changed', onMeasurementChanged)
       socket.off('vtt:measurement:snapshot', onMeasurementChanged)
+      socket.off('vtt:scene:changed', onSceneChanged)
+      socket.off('vtt:scene:snapshot', onSceneChanged)
     }
   }, [socket, campaignId, gridSettings.shape])
 
@@ -970,6 +1307,94 @@ export function CampaignOverviewPage({
     setMeasurement(null)
     if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
   }, [campaignId, measurementGridKey, socket])
+
+  useEffect(() => {
+    preparedScenesRef.current = preparedScenes
+  }, [preparedScenes])
+
+  useEffect(() => {
+    return () => {
+      preparedScenesRef.current.forEach((scene) => {
+        revokeSceneImageUrl(scene)
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!campaignId || !isMaster) return
+    if (sceneAssetsLoadedCampaignId === campaignId) return
+
+    let cancelled = false
+    setSceneSaveError(null)
+    setSceneSuccessMessage(null)
+    setSceneSkippedFiles([])
+
+    api<CampaignAssetResponse[]>(`/api/assets?campaignId=${encodeURIComponent(campaignId)}`)
+      .then((assets) => {
+        if (cancelled) return
+
+        setPreparedScenes((current) => {
+          current.forEach(revokeSceneImageUrl)
+          return normalizePreparedSceneList(
+            assets.map((asset, index) => ({
+              id: `scene-${index + 1}`,
+              name: `Cena${index + 1}`,
+              imageUrl: asset.signedUrl,
+              fileName: asset.originalName,
+              file: null,
+              assetId: asset.id,
+              storagePath: asset.storagePath,
+              error: null,
+            })),
+          )
+        })
+        setSceneAssetsLoadedCampaignId(campaignId)
+      })
+      .catch((err) => {
+        if (!cancelled && scenePreparationOpen) setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel carregar cenas.')
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [campaignId, isMaster, sceneAssetsLoadedCampaignId, scenePreparationOpen])
+
+  useEffect(() => {
+    if (!isMaster || !activeScene) return
+    if (preparedScenes.some((scene) => scene.id === activeScene.id && scene.imageUrl)) return
+    setActiveScene(null)
+    if (campaignId && socket && masterCanUseVtt) socket.emit('vtt:scene:select', { campaignId, scene: null })
+  }, [activeScene, campaignId, isMaster, masterCanUseVtt, preparedScenes, socket])
+
+  function publishSceneSelection(scene: VttTableScene | null) {
+    if (!campaignId || !socket || !masterCanUseVtt) return
+    socket.emit('vtt:scene:select', { campaignId, scene })
+  }
+
+  async function selectPreparedScene(sceneId: string) {
+    if (!isMaster) return
+
+    const scene = preparedScenes.find((item) => item.id === sceneId)
+    if (!scene?.imageUrl) return
+
+    try {
+      const dimensions = await readImageDimensions(scene.imageUrl)
+      const nextScene: VttTableScene = {
+        id: scene.id,
+        name: scene.name,
+        imageUrl: scene.imageUrl,
+        fileName: scene.fileName,
+        assetId: scene.assetId,
+        width: dimensions.width,
+        height: dimensions.height,
+      }
+
+      setActiveScene(nextScene)
+      publishSceneSelection(nextScene)
+    } catch (err) {
+      setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel selecionar a cena.')
+    }
+  }
 
   function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
     if (!campaignId || !socket) return
@@ -1161,6 +1586,174 @@ export function CampaignOverviewPage({
     setIsPanning(false)
   }
 
+  async function uploadSceneImage(sceneId: string, file: File) {
+    const validationError = validateSceneImage(file)
+    setSceneSaveError(null)
+    setSceneSuccessMessage(null)
+    setSceneSkippedFiles([])
+
+    const hasLocalDuplicate = preparedScenes.some((scene) => scene.id !== sceneId && filenameEquals(scene.fileName, file.name))
+    if (hasLocalDuplicate) {
+      const message = `${file.name} ja esta carregado nesta campanha.`
+      window.alert(message)
+      setPreparedScenes((current) => current.map((scene) => (scene.id === sceneId ? { ...scene, error: message } : scene)))
+      return
+    }
+
+    if (campaignId) {
+      try {
+        const exists = await api<AssetExistsResponse>(
+          `/api/assets/exists?campaignId=${encodeURIComponent(campaignId)}&filename=${encodeURIComponent(file.name)}&mimeType=${encodeURIComponent(file.type)}`,
+        )
+        if (exists.exists) {
+          const message = `${file.name} ja esta carregado nesta campanha.`
+          window.alert(message)
+          setPreparedScenes((current) => current.map((scene) => (scene.id === sceneId ? { ...scene, error: message } : scene)))
+          return
+        }
+      } catch (err) {
+        setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel validar o arquivo.')
+        return
+      }
+    }
+
+    setPreparedScenes((current) => {
+      const sceneIndex = current.findIndex((scene) => scene.id === sceneId)
+      if (sceneIndex === -1) return current
+
+      const currentScene = current[sceneIndex]
+      const nextScenes = [...current]
+
+      if (validationError) {
+        nextScenes[sceneIndex] = { ...currentScene, error: validationError }
+        return nextScenes
+      }
+
+      revokeSceneImageUrl(currentScene)
+
+      nextScenes[sceneIndex] = {
+        ...currentScene,
+        imageUrl: URL.createObjectURL(file),
+        fileName: file.name,
+        file,
+        assetId: null,
+        storagePath: null,
+        error: null,
+      }
+
+      const hasEmptySceneAfterCurrent = nextScenes.slice(sceneIndex + 1).some((scene) => !scene.imageUrl)
+      if (!hasEmptySceneAfterCurrent) {
+        const nextSceneNumber = nextScenes.length + 1
+        nextScenes.push(createPreparedScene(nextSceneNumber))
+      }
+
+      return nextScenes
+    })
+  }
+
+  async function savePreparedScenes() {
+    if (!campaignId || !isMaster || sceneSaving) return
+
+    const pendingScenes = preparedScenes.filter((scene) => scene.file && !scene.assetId)
+    if (!pendingScenes.length) return
+
+    setSceneSaving(true)
+    setSceneSaveError(null)
+    setSceneSuccessMessage(null)
+    setSceneSkippedFiles([])
+    const skippedFiles: string[] = []
+    const uploadedFiles: string[] = []
+
+    try {
+      for (const scene of pendingScenes) {
+        if (!scene.file) continue
+
+        const exists = await api<AssetExistsResponse>(
+          `/api/assets/exists?campaignId=${encodeURIComponent(campaignId)}&filename=${encodeURIComponent(scene.file.name)}&mimeType=${encodeURIComponent(scene.file.type)}`,
+        )
+
+        if (exists.exists && exists.asset) {
+          skippedFiles.push(scene.file.name)
+          setPreparedScenes((current) =>
+            current.map((item) =>
+              item.id === scene.id
+                ? {
+                    ...item,
+                    assetId: exists.asset?.id ?? null,
+                    storagePath: exists.asset?.storagePath ?? null,
+                    file: null,
+                    error: null,
+                  }
+                : item,
+            ),
+          )
+          continue
+        }
+
+        const formData = new FormData()
+        formData.append('file', scene.file)
+
+        const asset = await apiForm<AssetUploadResponse>(`/api/assets?campaignId=${encodeURIComponent(campaignId)}`, formData)
+        uploadedFiles.push(scene.file.name)
+        setPreparedScenes((current) =>
+          current.map((item) =>
+            item.id === scene.id
+              ? {
+                  ...item,
+                  assetId: asset.id,
+                  storagePath: asset.storagePath,
+                  file: null,
+                  error: null,
+                }
+              : item,
+          ),
+        )
+      }
+
+      setSceneSkippedFiles(skippedFiles)
+      if (uploadedFiles.length === 1) setSceneSuccessMessage(`${uploadedFiles[0]} enviado com sucesso.`)
+      if (uploadedFiles.length > 1) setSceneSuccessMessage(`${uploadedFiles.length} arquivos enviados com sucesso.`)
+      if (!uploadedFiles.length && skippedFiles.length) setSceneSuccessMessage(null)
+    } catch (err) {
+      setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel salvar as cenas.')
+    } finally {
+      setSceneSaving(false)
+    }
+  }
+
+  async function deletePreparedScene(sceneId: string) {
+    if (sceneDeletingId || sceneSaving) return
+
+    const targetScene = preparedScenes.find((scene) => scene.id === sceneId)
+    if (!targetScene) return
+    if (targetScene.assetId) {
+      const confirmed = window.confirm(`Deletar ${targetScene.fileName ?? targetScene.name}? Esta acao remove o asset e o arquivo no Firebase.`)
+      if (!confirmed) return
+    }
+
+    setSceneDeletingId(sceneId)
+    setSceneSaveError(null)
+    setSceneSuccessMessage(null)
+    setSceneSkippedFiles([])
+
+    try {
+      if (targetScene.assetId) {
+        await api<{ ok: true }>(`/api/assets/${encodeURIComponent(targetScene.assetId)}?force=true`, { method: 'DELETE' })
+      }
+
+      setPreparedScenes((current) => {
+        const sceneToDelete = current.find((scene) => scene.id === sceneId)
+        if (sceneToDelete) revokeSceneImageUrl(sceneToDelete)
+        return normalizePreparedSceneList(current.filter((scene) => scene.id !== sceneId))
+      })
+      setSceneSuccessMessage(`${targetScene.fileName ?? targetScene.name} deletado com sucesso.`)
+    } catch (err) {
+      setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel deletar a cena.')
+    } finally {
+      setSceneDeletingId(null)
+    }
+  }
+
   return (
     <div className="grid h-full min-h-0 grid-cols-[minmax(0,1fr)_320px] bg-[#08090c] text-white max-xl:grid-cols-1">
       <section
@@ -1191,7 +1784,22 @@ export function CampaignOverviewPage({
             onPointerUp={finishBoardPan}
             onPointerCancel={finishBoardPan}
           >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
+            {activeScene?.imageUrl ? (
+              <img
+                src={activeScene.imageUrl}
+                alt=""
+                className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain"
+                draggable={false}
+                onLoad={(event) => {
+                  const { naturalWidth, naturalHeight } = event.currentTarget
+                  if (!naturalWidth || !naturalHeight) return
+                  if (activeScene.width === naturalWidth && activeScene.height === naturalHeight) return
+                  setActiveScene({ ...activeScene, width: naturalWidth, height: naturalHeight })
+                }}
+              />
+            ) : (
+              <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
+            )}
             <VttGridOverlay settings={zoomedGridSettings} />
             {visibleTokens.map((token) => (
               <PlayerToken
@@ -1386,20 +1994,29 @@ export function CampaignOverviewPage({
               </button>
             </div>
 
-            <div className="pointer-events-auto absolute inset-x-6 bottom-6 z-30 rounded-lg border border-white/10 bg-black/45 px-4 py-3 backdrop-blur">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <div className="text-sm font-semibold text-white">Cena sem mapa carregado</div>
-                  <div className="text-xs text-zinc-400">Grid pronto para mapas, tokens e medidas.</div>
-                </div>
-                {isMaster ? (
-                  <Button variant="ghost" className="h-9 gap-2 px-3">
-                    <Plus className="h-4 w-4" />
-                    Preparar cena
-                  </Button>
-                ) : null}
-              </div>
-            </div>
+            {isMaster ? (
+              <SceneDock
+                scenes={preparedScenes}
+                activeSceneId={activeScene?.id ?? null}
+                onSelectScene={selectPreparedScene}
+                onPrepareScene={() => setScenePreparationOpen(true)}
+              />
+            ) : null}
+
+            {scenePreparationOpen && isMaster ? (
+              <ScenePreparationModal
+                scenes={preparedScenes}
+                saving={sceneSaving}
+                deletingSceneId={sceneDeletingId}
+                error={sceneSaveError}
+                successMessage={sceneSuccessMessage}
+                skippedFiles={sceneSkippedFiles}
+                onUpload={uploadSceneImage}
+                onSave={savePreparedScenes}
+                onDelete={deletePreparedScene}
+                onClose={() => setScenePreparationOpen(false)}
+              />
+            ) : null}
           </div>
         </div>
       </section>

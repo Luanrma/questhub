@@ -14,6 +14,7 @@ type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
 type VttTokenPosition = z.infer<typeof vttTokenPositionSchema>
 type VttMeasurement = z.infer<typeof vttMeasurementSchema>
 type VttDiceRoll = z.infer<typeof vttDiceRolledSchema>
+type VttTableScene = z.infer<typeof vttTableSceneSchema>
 type VttPlayerToken = {
   id: string
   characterId: string
@@ -89,6 +90,21 @@ const vttMeasurementUpdateSchema = z.object({
   measurement: vttMeasurementSchema.nullable(),
 })
 
+const vttTableSceneSchema = z.object({
+  id: z.string().min(1).max(200),
+  name: z.string().min(1).max(120),
+  imageUrl: z.string().min(1).max(12000),
+  fileName: z.string().min(1).max(255).nullable(),
+  assetId: z.string().min(1).max(200).nullable(),
+  width: z.number().int().min(1).max(100000),
+  height: z.number().int().min(1).max(100000),
+})
+
+const vttSceneSelectSchema = z.object({
+  campaignId: z.string().min(1),
+  scene: vttTableSceneSchema.nullable(),
+})
+
 const vttDiceSidesSchema = z.union([z.literal(4), z.literal(6), z.literal(8), z.literal(10), z.literal(12), z.literal(20)])
 
 const vttDiceRollItemSchema = z
@@ -150,6 +166,8 @@ export function setupCampaignPresence(server: HttpServer) {
   const campaignGridSettings = new Map<string, VttGridSettings>()
   const campaignTokens = new Map<string, Map<string, VttPlayerToken>>()
   const campaignMeasurements = new Map<string, VttMeasurement>()
+  const campaignScenes = new Map<string, VttTableScene>()
+  const campaignPendingScenes = new Map<string, VttTableScene | null>()
 
   function isCampaignOnline(campaignId: string) {
     return campaignOnline.has(campaignId)
@@ -185,6 +203,8 @@ export function setupCampaignPresence(server: HttpServer) {
     campaignOnline.delete(campaignId)
     campaignTokens.delete(campaignId)
     campaignMeasurements.delete(campaignId)
+    campaignScenes.delete(campaignId)
+    campaignPendingScenes.delete(campaignId)
     await notifyCampaignStatus(campaignId, false)
 
     const sockets = await io.in(`campaign:${campaignId}`).fetchSockets()
@@ -248,6 +268,20 @@ export function setupCampaignPresence(server: HttpServer) {
     })
   }
 
+  function emitCampaignSceneSnapshot(campaignId: string, socketId: string) {
+    io.to(socketId).emit('vtt:scene:snapshot', {
+      campaignId,
+      scene: campaignScenes.get(campaignId) ?? null,
+    })
+  }
+
+  function emitCampaignScene(campaignId: string, scene: VttTableScene | null) {
+    io.to(`campaign:${campaignId}`).emit('vtt:scene:changed', {
+      campaignId,
+      scene,
+    })
+  }
+
   function removeCampaignToken(campaignId: string, characterId: string) {
     const tokenMap = campaignTokens.get(campaignId)
     if (!tokenMap?.delete(characterId)) return
@@ -303,6 +337,8 @@ export function setupCampaignPresence(server: HttpServer) {
           campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId, state: 'ACTIVE' })
           campaignTokens.set(campaignId, new Map())
           campaignMeasurements.delete(campaignId)
+          campaignScenes.delete(campaignId)
+          campaignPendingScenes.delete(campaignId)
 
           await notifyCampaignStatus(campaignId, true)
           io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: true })
@@ -310,6 +346,7 @@ export function setupCampaignPresence(server: HttpServer) {
           emitCampaignGridSettings(campaignId)
           emitCampaignTokenSnapshot(campaignId, socket.id)
           emitCampaignMeasurementSnapshot(campaignId, socket.id)
+          emitCampaignSceneSnapshot(campaignId, socket.id)
           ack?.({ ok: true })
         } catch {
           ack?.({ ok: false, error: 'Erro ao iniciar sessao' })
@@ -373,6 +410,16 @@ export function setupCampaignPresence(server: HttpServer) {
 
         campaignOnline.set(campaignId, { ...online, state: 'ACTIVE' })
         emitCampaignSessionState(campaignId)
+        if (campaignPendingScenes.has(campaignId)) {
+          const pendingScene = campaignPendingScenes.get(campaignId) ?? null
+          campaignPendingScenes.delete(campaignId)
+          if (pendingScene) {
+            campaignScenes.set(campaignId, pendingScene)
+          } else {
+            campaignScenes.delete(campaignId)
+          }
+          emitCampaignScene(campaignId, pendingScene)
+        }
         ack?.({ ok: true })
       } catch {
         ack?.({ ok: false, error: 'Erro ao retomar sessao' })
@@ -415,6 +462,7 @@ export function setupCampaignPresence(server: HttpServer) {
         })
         emitCampaignTokenSnapshot(campaignId, socket.id)
         emitCampaignMeasurementSnapshot(campaignId, socket.id)
+        emitCampaignSceneSnapshot(campaignId, socket.id)
 
         io.to(`campaign:${campaignId}`).emit('presence:update', {
           campaignId,
@@ -587,6 +635,40 @@ export function setupCampaignPresence(server: HttpServer) {
       if (socket.data.campaignId !== campaignId) return
 
       emitCampaignMeasurementSnapshot(campaignId, socket.id)
+    })
+
+    socket.on('vtt:scene:select', (input: unknown) => {
+      const parsed = vttSceneSelectSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, scene } = parsed.data
+      const online = campaignOnline.get(campaignId)
+      if (!online) return
+      if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
+
+      if (online.state === 'PAUSED') {
+        campaignPendingScenes.set(campaignId, scene)
+        return
+      }
+
+      if (scene) {
+        campaignScenes.set(campaignId, scene)
+      } else {
+        campaignScenes.delete(campaignId)
+      }
+      campaignPendingScenes.delete(campaignId)
+      emitCampaignScene(campaignId, scene)
+    })
+
+    socket.on('vtt:scene:request', (input: unknown) => {
+      const parsed = z.object({ campaignId: z.string().min(1) }).safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isCampaignOnline(campaignId)) return
+      if (socket.data.campaignId !== campaignId) return
+
+      emitCampaignSceneSnapshot(campaignId, socket.id)
     })
 
     socket.on('vtt:dice:roll', (input: unknown) => {

@@ -3,6 +3,7 @@ import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import cookiePlugin from '@fastify/cookie'
 import { registerAuthRoutes } from './modules/auth/routes'
+import { registerAssetRoutes } from './modules/assets/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
 import { registerChatRoutes } from './modules/chat/routes'
@@ -47,6 +48,7 @@ await app.register(cors, {
 })
 
 await app.register(cookiePlugin)
+await registerAssetRoutes(app)
 
 const presence = setupCampaignPresence(app.server)
 

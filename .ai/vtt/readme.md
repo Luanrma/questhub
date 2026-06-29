@@ -44,6 +44,11 @@ Incluido:
 * Rolagem visual de dado 3D por uma interface propria do VTT.
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
+* Rodape de preparacao de cenas visivel apenas para Mestre.
+* Modal local de preparacao de cenas com cards sequenciais `Cena1`, `Cena2` etc.
+* Upload local de imagem no card da cena para exibir preview e abrir automaticamente o proximo slot de cena.
+* Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena coloca sua imagem sob o grid usando as dimensoes naturais do mapa.
+* Cena ativa e sincronizada com Players em sessao ativa; se o Mestre trocar a cena em sessao pausada, Players recebem a alteracao apenas ao retomar.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Cor dos dados 3D configuravel localmente por campanha.
 * Dados visuais acumulados permanecem na mesa ao fechar a ferramenta de dados e so somem ao clicar em `Limpar Dados` ou ao encerrar a sessao.
@@ -64,6 +69,7 @@ Fora de escopo:
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Dados ou formulas especificas de um game system como regra obrigatoria do VTT.
 * Persistencia de cena/mapa/tokens.
+* Upload persistido de mapa/cena no Firebase Storage.
 * Persistencia ou replay de tokens depois que a sessao termina.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
 * Persistencia/replay da simulacao fisica de dados.
