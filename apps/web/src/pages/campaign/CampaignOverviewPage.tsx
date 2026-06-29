@@ -695,24 +695,32 @@ function getBoardPixelSize(gridSize: number, zoomPercent: number, scene: VttTabl
   }
 }
 
-function getMinimumZoomPercent(viewport: VttGridBounds, gridSize: number, scene: VttTableScene | null) {
-  const baseBoardSize = scene
-    ? { width: scene.width, height: scene.height }
-    : getDefaultBoardPixelSize(gridSize)
-  if (!viewport.width || !viewport.height || !baseBoardSize.width || !baseBoardSize.height) return zoomLimits.min
-
-  const requiredZoom = Math.ceil(Math.max(viewport.width / baseBoardSize.width, viewport.height / baseBoardSize.height) * 100)
-  return clampNumber(Math.max(zoomLimits.min, requiredZoom), zoomLimits.min, zoomLimits.max)
-}
-
 function clampPanOffset(offset: VttPanOffset, viewport: VttGridBounds, board: VttGridBounds) {
-  const minX = Math.min(0, viewport.width - board.width)
-  const minY = Math.min(0, viewport.height - board.height)
+  if (!viewport.width || !viewport.height || !board.width || !board.height) return offset
+  const centeredX = (viewport.width - board.width) / 2
+  const centeredY = (viewport.height - board.height) / 2
+  const minX = viewport.width >= board.width ? centeredX : viewport.width - board.width
+  const maxX = viewport.width >= board.width ? centeredX : 0
+  const minY = viewport.height >= board.height ? centeredY : viewport.height - board.height
+  const maxY = viewport.height >= board.height ? centeredY : 0
 
   return {
-    x: clampNumber(offset.x, minX, 0),
-    y: clampNumber(offset.y, minY, 0),
+    x: clampNumber(offset.x, minX, maxX),
+    y: clampNumber(offset.y, minY, maxY),
   }
+}
+
+function getCenteredPanOffset(viewport: VttGridBounds, board: VttGridBounds) {
+  if (!viewport.width || !viewport.height || !board.width || !board.height) return { x: 0, y: 0 }
+
+  return clampPanOffset(
+    {
+      x: (viewport.width - board.width) / 2,
+      y: (viewport.height - board.height) / 2,
+    },
+    viewport,
+    board,
+  )
 }
 
 function clampNumber(value: number, min: number, max: number) {
@@ -1135,8 +1143,7 @@ export function CampaignOverviewPage({
       socket &&
       (campaign.myRole === 'MASTER' || playerCanUseVtt),
   )
-  const minimumZoomPercent = getMinimumZoomPercent(viewportBounds, gridSettings.size, activeScene)
-  const activeZoomPercent = clampNumber(zoomPercent, minimumZoomPercent, zoomLimits.max)
+  const activeZoomPercent = clampNumber(zoomPercent, zoomLimits.min, zoomLimits.max)
   const zoomedGridSettings = scaleGridSettings(gridSettings, activeZoomPercent)
   const tokenSize = getTokenSize(zoomedGridSettings)
   const boardPixelSize = getBoardPixelSize(tokenSize, activeZoomPercent, activeScene)
@@ -1195,6 +1202,11 @@ export function CampaignOverviewPage({
 
     connectRealtime()
   }, [campaign?.myRole, campaign?.myStatus, campaignId, connectRealtime, socket])
+
+  useEffect(() => {
+    if (!activeScene) return
+    setPanOffset(getCenteredPanOffset(viewportBounds, boardPixelSize))
+  }, [activeScene?.id, activeZoomPercent, boardPixelSize.height, boardPixelSize.width, viewportBounds.height, viewportBounds.width])
 
   useEffect(() => {
     if (!campaignId || !isMaster || activeTool !== 'tokens') return
@@ -1550,8 +1562,7 @@ export function CampaignOverviewPage({
 
   function changeZoom(direction: -1 | 1) {
     setZoomPercent((current) => {
-      const baseZoom = Math.max(current, minimumZoomPercent)
-      return clampNumber(baseZoom + direction * zoomLimits.step, minimumZoomPercent, zoomLimits.max)
+      return clampNumber(current + direction * zoomLimits.step, zoomLimits.min, zoomLimits.max)
     })
   }
 
@@ -1976,7 +1987,7 @@ export function CampaignOverviewPage({
               <button
                 type="button"
                 title="Diminuir zoom"
-                disabled={activeZoomPercent <= minimumZoomPercent}
+                disabled={activeZoomPercent <= zoomLimits.min}
                 className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-45"
                 onClick={() => changeZoom(-1)}
               >
