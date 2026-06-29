@@ -4,7 +4,7 @@ services:
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-questhub_dev}
       POSTGRES_USER: ${POSTGRES_USER:-questhub}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Defina POSTGRES_PASSWORD no arquivo .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-questhub_change_me}
     ports:
       - "5434:5432"
     volumes:
@@ -14,14 +14,16 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
+    env_file:
+      - .env.development
     environment:
-      JWT_SECRET: ${JWT_SECRET:?Defina JWT_SECRET no arquivo .env}
+      JWT_SECRET: ${JWT_SECRET:-dev_secret_change_me}
       WEB_ORIGIN: ${WEB_ORIGIN:-http://localhost:5173}
       DEV_USER_EMAIL: ${DEV_USER_EMAIL:-dev@questhub.local}
       DEV_USER_PASSWORD: ${DEV_USER_PASSWORD:-dev}
       NODE_ENV: ${NODE_ENV:-development}
       PORT: ${PORT:-3001}
-      DATABASE_URL: postgresql://${POSTGRES_USER:-questhub}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-questhub_dev}?schema=public
+      DATABASE_URL: postgresql://${POSTGRES_USER:-questhub}:${POSTGRES_PASSWORD:-questhub_change_me}@db:5432/${POSTGRES_DB:-questhub_dev}?schema=public
     ports:
       - "3001:3001"
     depends_on:

@@ -48,6 +48,30 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
   return (await res.json()) as T
 }
 
+export async function apiForm<T>(path: string, body: FormData): Promise<T> {
+  const res = await fetch(`${API_URL}${path}`, {
+    method: 'POST',
+    credentials: 'include',
+    body,
+  })
+
+  if (!res.ok) {
+    const contentType = res.headers.get('content-type') ?? ''
+    if (contentType.includes('application/json')) {
+      const responseBody = (await res.json().catch(() => null)) as ApiErrorBody | null
+      throw new ApiError(res.status, extractApiErrorMessage(responseBody, `Erro HTTP ${res.status}`))
+    }
+
+    const text = await res.text().catch(() => '')
+    throw new ApiError(res.status, text || `Erro HTTP ${res.status}`)
+  }
+
+  const contentType = res.headers.get('content-type') ?? ''
+  if (!contentType.includes('application/json')) return (undefined as T)
+
+  return (await res.json()) as T
+}
+
 export type Me = {
   id: string
   name: string
