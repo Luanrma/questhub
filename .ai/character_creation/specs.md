@@ -155,7 +155,7 @@ Regras:
 * Mestre ativo pode aprovar/rejeitar `CampaignCharacter` pendente da sua campanha.
 * Mestre ativo pode marcar personagem vinculado como `LEFT` ou `DEAD`.
 * Personagem vinculado nao deve ser deletado fisicamente pelo fluxo comum.
-* Personagem livre pode ser arquivado (`deletedAt`) ou deletado definitivamente.
+* Arquivar personagem livre (`deletedAt`) e deletar definitivamente sao comportamentos futuros; o codigo atual ainda nao possui endpoints ou UI para essas acoes.
 
 ## 6. Compatibilidade de Sistema
 * `Campaign.system` e obrigatorio.
@@ -172,7 +172,7 @@ Regras:
 * Nao e possivel criar personagem sem usuario autenticado.
 * Nao e possivel criar personagem com nome vazio.
 * Nao e possivel salvar `sheet.metadata.bio` com mais de 2.000 caracteres.
-* Nao e possivel vincular personagem arquivado.
+* Nao e possivel vincular personagem arquivado quando o fluxo de arquivamento existir.
 * Nao e possivel vincular personagem que ja possui `CampaignCharacter`.
 * Nao e possivel criar campanha sem personagem `MASTER`.
 * Nao e possivel criar campanha sem sistema.

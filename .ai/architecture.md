@@ -13,7 +13,6 @@ QuestHub e um VTT web para campanhas de RPG online. A aplicacao atual e um monor
 * `campaigns`: criacao de campanha, entrada por convite, listagem, settings e aprovacao/recusa de jogadores.
 * `campaign-presence`: presenca realtime por campanha, estado online do mestre e eventos de entrada/saida.
 * `chat`: historico e envio realtime de mensagens por campanha.
-* `trade`: endpoint experimental de envio realtime de item entre usuarios.
 
 ## 4. Organizacao Backend
 O arquivo `apps/api/src/server.ts` deve permanecer como composition root:
@@ -54,7 +53,8 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 * Testes de integracao com banco/API ficam fora do escopo inicial e devem ter setup proprio quando forem introduzidos.
 
 ## 9. Riscos e Debitos Tecnicos
-* `trade` existe no codigo, mas ainda precisa de especificacao modular propria.
+* `trade` possui apenas um stub tecnico legado no codigo e ainda nao e um fluxo de produto implementado.
+* Quando implementado, `trade` deve operar entre `Character` ativos que pertencam a mesma `campaignId`, nunca diretamente entre usuarios.
 * O codigo backend de ficha deve viver em `apps/api/src/modules/game_systems/[system]/character_sheet`.
 * O codigo frontend de ficha especifica deve viver em `apps/web/src/game-systems/[system-slug]/character-sheet`, como `apps/web/src/game-systems/pathfinder-2e/character-sheet`.
 * O schema Prisma ja reserva `DND_5E`, mas os fluxos funcionais atuais de criacao usam apenas `PATHFINDER_2E`.

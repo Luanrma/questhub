@@ -6,6 +6,7 @@ import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
 import { generateInviteCode } from './invite-code'
+import { presentCampaignDashboardEntry } from './presenter'
 
 type CampaignRoutesDeps = {
   io: SocketIOServer
@@ -49,27 +50,12 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     })
 
     return reply.send(
-      campaignCharacters.map((entry) => {
-        const master = entry.campaign.characters[0]?.character ?? null
-
-        return {
-          id: entry.campaign.id,
-          title: entry.campaign.title,
-          description: entry.campaign.description,
-          inviteCode: entry.role === 'MASTER' ? entry.campaign.inviteCode : null,
-          system: entry.campaign.system,
-          joinPolicy: entry.campaign.joinPolicy,
-          createdAt: entry.campaign.createdAt,
-          gmName: master?.name ?? 'Mestre',
-          gmUserId: master?.userId ?? '',
-          myRole: entry.role,
-          myStatus: entry.status,
-          myCharacterId: entry.character.id,
-          myCharacterName: entry.character.name,
+      campaignCharacters.map((entry) =>
+        presentCampaignDashboardEntry(entry, {
           isOnline: isCampaignOnline(entry.campaign.id),
           sessionState: getCampaignSessionState(entry.campaign.id),
-        }
-      }),
+        }),
+      ),
     )
   })
 

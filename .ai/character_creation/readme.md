@@ -24,8 +24,6 @@ Incluido:
 * Editar nome, avatar e bio da ficha de personagem livre.
 * Listar "Meus Personagens" em abas ou filtros: livres e em campanha.
 * Exibir secao compacta de personagens no dashboard inicial.
-* Arquivar personagem livre usando `deletedAt`.
-* Deletar definitivamente personagem livre quando permitido.
 * Vincular personagem livre a uma campanha por `CampaignCharacter`.
 * Criar campanha selecionando ou criando um personagem livre que sera o `MASTER`.
 * Solicitar entrada em campanha usando um personagem.
@@ -36,6 +34,8 @@ Fora de escopo:
 * Validacao completa de ficha mecanica.
 * Regras especificas de D&D 5e ou Pathfinder 2e.
 * Upload de avatar.
+* Arquivar personagem livre usando `deletedAt` no fluxo de UI/API atual.
+* Deletar definitivamente personagem livre no fluxo de UI/API atual.
 * Reutilizar personagem em outra campanha depois de vinculado.
 * Relacao direta usuario-campanha como fonte de participacao.
 
@@ -57,6 +57,7 @@ Fora de escopo:
 * A selecao de avatar acontece a partir do preview do avatar, por modal compacto com presets e URL.
 * Mestre pode editar nome, avatar e bio da ficha de personagens vinculados a sua campanha.
 * Personagem vinculado nao pode ser deletado definitivamente pelo fluxo comum.
+* Arquivamento e delete fisico sao intencoes futuras; o codigo atual ainda nao possui endpoints ou UI para essas acoes.
 * Morte ou saida da campanha muda apenas `CampaignCharacter.status` para `DEAD` ou `LEFT`.
 * NPC usa `Character` e `CampaignCharacter`, mas so pode ser criado dentro de uma campanha pelo `MASTER`.
 

@@ -34,8 +34,8 @@
 * Usar constraint unica em `CampaignCharacter.characterId` para impedir reutilizacao do personagem.
 * Validar por aplicacao que existe apenas um `MASTER` ativo por campanha.
 * Bio deve ser validada com limite de 2.000 caracteres no backend e frontend.
-* Delete fisico so deve ser permitido para personagem livre e sem restricoes de ficha/historico definidas pelo produto.
-* Arquivamento de personagem livre usa `deletedAt`.
+* Delete fisico de personagem livre ainda nao existe no codigo atual; quando for implementado, deve respeitar restricoes de ficha/historico definidas pelo produto.
+* Arquivamento de personagem livre via `deletedAt` ainda nao existe no codigo atual; quando for implementado, deve preservar personagens vinculados.
 * O formulario de criacao/edicao deve ser reaproveitado para evitar divergencia visual e de validacao.
 * A deteccao de alteracoes no frontend deve comparar o estado atual com os dados originais carregados.
 * Endpoints de dashboard devem consultar `CampaignCharacter` e incluir `character.id`, `character.name`, `role` e `status`.
