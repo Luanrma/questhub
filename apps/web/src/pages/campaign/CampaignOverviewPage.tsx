@@ -1,18 +1,23 @@
 import type { CSSProperties } from 'react'
 import { useEffect, useRef, useState } from 'react'
 import {
+  ChevronLeft,
+  ChevronRight,
   CircleUserRound,
   Dice5,
   Eye,
   EyeOff,
   Grid3X3,
   ImagePlus,
+  MessageCircle,
   MousePointer2,
   Move,
   Palette,
   Plus,
   Ruler,
   SlidersHorizontal,
+  PanelRightClose,
+  PanelRightOpen,
   Trash2,
   Users,
   X,
@@ -561,59 +566,134 @@ function ScenePreparationModal({
   )
 }
 
+function SceneSidebarScenes({
+  scenes,
+  activeSceneId,
+  showExpandButton,
+  onSelectScene,
+  onExpand,
+}: {
+  scenes: PreparedScene[]
+  activeSceneId: string | null
+  showExpandButton: boolean
+  onSelectScene: (sceneId: string) => void
+  onExpand: () => void
+}) {
+  const sceneThumbnails = scenes.filter((scene) => scene.imageUrl)
+
+  return (
+    <div className="flex min-h-[160px] flex-[1_1_0%] overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
+      {showExpandButton ? (
+        <button
+          type="button"
+          title="Expandir cenas"
+          aria-label="Expandir cenas"
+          className="grid w-12 shrink-0 place-items-center border-r border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
+          onClick={onExpand}
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+      ) : null}
+      <div className="min-w-0 flex-1 overflow-y-auto p-3">
+        {sceneThumbnails.length ? (
+          <div className="grid gap-2">
+            {sceneThumbnails.map((scene) => {
+              const selected = scene.id === activeSceneId
+
+              return (
+                <button
+                  key={scene.id}
+                  type="button"
+                  title={scene.fileName ?? scene.name}
+                  className={[
+                    'w-full truncate rounded-md border px-3 py-2 text-left text-sm font-semibold transition',
+                    selected
+                      ? 'border-indigo-300 bg-indigo-500/20 text-white'
+                      : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-indigo-300/50 hover:bg-white/[0.07] hover:text-white',
+                  ].join(' ')}
+                  onClick={() => onSelectScene(scene.id)}
+                >
+                  {scene.name}
+                </button>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="text-xs text-zinc-500">Nenhuma cena preparada.</div>
+        )}
+      </div>
+    </div>
+  )
+}
+
 function SceneDock({
   scenes,
   activeSceneId,
   onSelectScene,
   onPrepareScene,
+  onCollapsedChange,
 }: {
   scenes: PreparedScene[]
   activeSceneId: string | null
   onSelectScene: (sceneId: string) => void
   onPrepareScene: () => void
+  onCollapsedChange: (collapsed: boolean) => void
 }) {
   const sceneThumbnails = scenes.filter((scene) => scene.imageUrl)
   const activeScene = sceneThumbnails.find((scene) => scene.id === activeSceneId)
 
   return (
-    <div className="pointer-events-auto absolute inset-x-6 bottom-6 z-30 rounded-lg border border-white/10 bg-black/50 px-3 py-3 backdrop-blur">
-      <div className="flex flex-wrap items-end justify-between gap-3">
-        <div className="min-w-0">
-          <div className="mb-2 text-sm font-semibold text-white">{activeScene ? activeScene.name : 'Cena sem mapa carregado'}</div>
-          {sceneThumbnails.length ? (
-            <div className="flex max-w-[calc(100vw-360px)] flex-wrap gap-2 max-xl:max-w-full">
-              {sceneThumbnails.map((scene) => {
-                const selected = scene.id === activeSceneId
-
-                return (
-                  <button
-                    key={scene.id}
-                    type="button"
-                    title={scene.fileName ?? scene.name}
-                    className={[
-                      'group relative h-16 w-28 overflow-hidden rounded-md border bg-white/[0.04] text-left shadow-lg transition',
-                      selected
-                        ? 'border-indigo-300 ring-2 ring-indigo-400/50'
-                        : 'border-white/10 hover:border-indigo-300/60 hover:bg-white/[0.08]',
-                    ].join(' ')}
-                    onClick={() => onSelectScene(scene.id)}
-                  >
-                    {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" /> : null}
-                    <span className="absolute inset-x-0 bottom-0 truncate bg-black/70 px-2 py-1 text-xs font-semibold text-white">
-                      {scene.name}
-                    </span>
-                  </button>
-                )
-              })}
+    <div className="pointer-events-auto absolute inset-x-6 bottom-6 z-30 overflow-hidden rounded-lg border border-white/10 bg-black/50 backdrop-blur">
+      <div className="flex min-h-[104px] items-stretch">
+        <div className="flex min-w-0 flex-1 flex-wrap items-end justify-between gap-3 px-3 py-3">
+          <div className="min-w-0">
+            <div className="mb-2">
+              <div className="truncate text-sm font-semibold text-white">{activeScene ? activeScene.name : 'Cena sem mapa carregado'}</div>
             </div>
-          ) : (
-            <div className="text-xs text-zinc-400">Grid pronto para mapas, tokens e medidas.</div>
-          )}
+            {sceneThumbnails.length ? (
+              <div className="flex max-w-[calc(100vw-360px)] flex-wrap gap-2 max-xl:max-w-full">
+                {sceneThumbnails.map((scene) => {
+                  const selected = scene.id === activeSceneId
+
+                  return (
+                    <button
+                      key={scene.id}
+                      type="button"
+                      title={scene.fileName ?? scene.name}
+                      className={[
+                        'group relative h-16 w-28 overflow-hidden rounded-md border bg-white/[0.04] text-left shadow-lg transition',
+                        selected
+                          ? 'border-indigo-300 ring-2 ring-indigo-400/50'
+                          : 'border-white/10 hover:border-indigo-300/60 hover:bg-white/[0.08]',
+                      ].join(' ')}
+                      onClick={() => onSelectScene(scene.id)}
+                    >
+                      {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" /> : null}
+                      <span className="absolute inset-x-0 bottom-0 truncate bg-black/70 px-2 py-1 text-xs font-semibold text-white">
+                        {scene.name}
+                      </span>
+                    </button>
+                  )
+                })}
+              </div>
+            ) : (
+              <div className="text-xs text-zinc-400">Grid pronto para mapas, tokens e medidas.</div>
+            )}
+          </div>
+          <Button variant="ghost" className="h-9 gap-2 px-3" onClick={onPrepareScene}>
+            <Plus className="h-4 w-4" />
+            Preparar cena
+          </Button>
         </div>
-        <Button variant="ghost" className="h-9 gap-2 px-3" onClick={onPrepareScene}>
-          <Plus className="h-4 w-4" />
-          Preparar cena
-        </Button>
+        <button
+          type="button"
+          title="Recolher cenas"
+          aria-label="Recolher cenas"
+          className="grid w-12 shrink-0 place-items-center border-l border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
+          onClick={() => onCollapsedChange(true)}
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
       </div>
     </div>
   )
@@ -1117,6 +1197,8 @@ export function CampaignOverviewPage({
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
+  const [sceneDockCollapsed, setSceneDockCollapsed] = useState(false)
+  const [rightPanelCollapsed, setRightPanelCollapsed] = useState(false)
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([createPreparedScene(1)])
   const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)
@@ -1766,7 +1848,12 @@ export function CampaignOverviewPage({
   }
 
   return (
-    <div className="grid h-full min-h-0 grid-cols-[minmax(0,1fr)_320px] bg-[#08090c] text-white max-xl:grid-cols-1">
+    <div
+      className={[
+        'relative grid h-full min-h-0 bg-[#08090c] text-white max-xl:grid-cols-1',
+        rightPanelCollapsed ? 'grid-cols-[minmax(0,1fr)_72px]' : 'grid-cols-[minmax(0,1fr)_320px]',
+      ].join(' ')}
+    >
       <section
         className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]"
         onClick={() => setTokenContextMenu(null)}
@@ -2005,12 +2092,13 @@ export function CampaignOverviewPage({
               </button>
             </div>
 
-            {isMaster ? (
+            {isMaster && !sceneDockCollapsed ? (
               <SceneDock
                 scenes={preparedScenes}
                 activeSceneId={activeScene?.id ?? null}
                 onSelectScene={selectPreparedScene}
                 onPrepareScene={() => setScenePreparationOpen(true)}
+                onCollapsedChange={setSceneDockCollapsed}
               />
             ) : null}
 
@@ -2032,45 +2120,72 @@ export function CampaignOverviewPage({
         </div>
       </section>
 
-      <aside className="min-h-0 overflow-hidden border-l border-white/10 bg-[#101116] p-5 max-xl:border-l-0 max-xl:border-t">
-        <div className="flex h-full min-h-0 flex-col gap-5">
-          <section className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-            <div className="flex items-center justify-between gap-3">
-              <div className="text-sm font-semibold text-white">Jogadores</div>
-              <Users className="h-4 w-4 text-zinc-500" />
+      <aside
+        className={[
+          'min-h-0 overflow-hidden border-l border-white/10 bg-[#101116] transition-[width] max-xl:border-l-0 max-xl:border-t',
+          rightPanelCollapsed
+            ? 'p-2 max-xl:absolute max-xl:inset-y-0 max-xl:right-0 max-xl:z-40 max-xl:w-[56px] max-xl:border-l max-xl:border-t-0 max-xl:bg-[#101116]/95 max-xl:shadow-2xl max-xl:backdrop-blur'
+            : 'p-5',
+        ].join(' ')}
+      >
+        <div className={rightPanelCollapsed ? 'flex h-full min-h-0 flex-col items-center gap-3' : 'hidden'}>
+          <button
+            type="button"
+            title="Expandir painel lateral"
+            className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-200 transition hover:bg-white/10 hover:text-white"
+            onClick={() => setRightPanelCollapsed(false)}
+          >
+            <PanelRightOpen className="h-4 w-4" />
+          </button>
+          <div className="grid gap-2">
+            <div
+              title="Jogadores"
+              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-400"
+            >
+              <Users className="h-4 w-4" />
             </div>
-            <div className="mt-3 rounded-md border border-dashed border-white/10 px-3 py-5 text-center text-sm text-zinc-500">
-              {playerTokens.length ? playerTokens.map((token) => token.name).join(', ') : 'Nenhum token ativo na mesa.'}
+            <div
+              title="Sessao"
+              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-[10px] font-bold uppercase text-zinc-300"
+            >
+              {sessionState === 'PAUSED' ? 'P' : campaign?.isOnline ? 'ON' : 'OFF'}
             </div>
-          </section>
+            <div
+              title="Chat"
+              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-indigo-200"
+            >
+              <MessageCircle className="h-4 w-4" />
+            </div>
+          </div>
+        </div>
 
-          <section className="rounded-lg border border-white/10 bg-white/[0.03] p-4">
-            <div className="text-sm font-semibold text-white">Sessão</div>
-            <div className="mt-3 grid gap-2 text-sm">
-              <div className="flex justify-between gap-3 text-zinc-400">
-                <span>Rodada</span>
-                <span className="text-zinc-200">-</span>
-              </div>
-              <div className="flex justify-between gap-3 text-zinc-400">
-                <span>Turno</span>
-                <span className="text-zinc-200">Livre</span>
-              </div>
-              <div className="flex justify-between gap-3 text-zinc-400">
-                <span>Grid</span>
-                <span className="text-zinc-200">
-                  {gridSettings.visible
-                    ? `${gridSettings.shape === 'square' ? `Quadrado ${gridSettings.size}px - ${gridSettings.squareMeters}m2` : `Hex ${gridSettings.size}px`}`
-                    : 'Oculto'}
-                </span>
-              </div>
-            </div>
-          </section>
+        <div className={rightPanelCollapsed ? 'hidden h-full min-h-0 flex-col gap-4' : 'flex h-full min-h-0 flex-col gap-4'}>
+          <button
+            type="button"
+            title="Recolher painel lateral"
+            className="ml-auto grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            onClick={() => setRightPanelCollapsed(true)}
+          >
+            <PanelRightClose className="h-4 w-4" />
+          </button>
+          <div className="min-h-0 flex-[4_1_0%]">
+            {campaignId ? (
+              <CampaignChat
+                campaignId={campaignId}
+                characterId={campaign?.myCharacterId}
+                enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')}
+                className="h-full min-h-0"
+              />
+            ) : null}
+          </div>
 
-          {campaignId ? (
-            <CampaignChat
-              campaignId={campaignId}
-              characterId={campaign?.myCharacterId}
-              enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')}
+          {isMaster ? (
+            <SceneSidebarScenes
+              scenes={preparedScenes}
+              activeSceneId={activeScene?.id ?? null}
+              showExpandButton={sceneDockCollapsed}
+              onSelectScene={selectPreparedScene}
+              onExpand={() => setSceneDockCollapsed(false)}
             />
           ) : null}
         </div>

@@ -10,6 +10,7 @@ export type TokenPayload = {
   name: string
   email: string
   type: string
+  sessionId: string
 }
 
 export function signToken(payload: TokenPayload, expiresIn: jwt.SignOptions['expiresIn'] = '7d') {

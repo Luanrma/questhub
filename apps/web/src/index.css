@@ -511,6 +511,11 @@ input:disabled,
   top: 0;
 }
 
+.campaign-sidebar-collapsed {
+  inset: 0 auto auto 0;
+  width: 80px !important;
+}
+
 @media (max-width: 899px), (max-height: 639px) {
   .campaign-sidebar {
     top: auto;
@@ -521,6 +526,15 @@ input:disabled,
     margin: 0;
     width: auto !important;
     border-radius: 12px;
+  }
+
+  .campaign-sidebar-collapsed {
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: 80px !important;
+    border-radius: 0;
   }
 
   .campaign-sidebar-panel {

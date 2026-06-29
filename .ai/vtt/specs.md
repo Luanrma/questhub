@@ -33,6 +33,9 @@ Exemplos de campos proibidos em contratos base do VTT:
 * Recolher ou expandir a sidebar nao deve redimensionar o VTT.
 * O canvas VTT deve ocupar a tela ate a margem esquerda `0`.
 * Em telas grandes, a altura da sidebar deve ser `auto`, limitada ao conteudo dos menus.
+* Quando recolhida, a sidebar esquerda deve contrair para cima e exibir somente um controle compacto no header escuro.
+* O controle recolhido da sidebar esquerda deve usar uma seta para baixo roxa bem visivel.
+* A sidebar esquerda recolhida nao deve exibir lista vertical de icones reduzidos.
 * As ferramentas principais do VTT devem ter recuo suficiente para nao ficarem cobertas pela sidebar recolhida.
 * Em telas pequenas, deve virar barra inferior compacta sobreposta.
 * Deve confirmar antes de navegar para `/campaigns`.
@@ -66,6 +69,7 @@ type MyCampaignCharacter = {
 * Em desktop, a mesa ocupa a largura total da viewport desde a margem esquerda.
 * Em desktop, expandir ou recolher a sidebar nao altera a largura da mesa.
 * Em desktop, a sidebar nao ocupa 100% da altura quando ha poucos menus.
+* Ao recolher a sidebar esquerda, resta apenas a seta roxa para baixo; clicar nela abre diretamente a versao expandida.
 * Em mobile/viewport baixo, os icones da barra compacta devem permanecer visiveis.
 * Player ve `Minha ficha` e nao ve `Personagens`.
 * Clicar em `Minha ficha` abre `CharacterSheetModal`.
@@ -104,6 +108,17 @@ type MyCampaignCharacter = {
 * A imagem da cena nao deve ser deformada para ocupar o limite padrao do board; o board deve passar a usar as dimensoes naturais da imagem, respeitando o zoom visual local.
 * A cena selecionada pelo Mestre deve ser visivel para Players que estiverem na sessao.
 * Se o Mestre trocar a cena durante `PAUSED`, Players continuam vendo a cena ativa anterior e so recebem a nova cena quando a sessao voltar para `ACTIVE`.
+* O rodape de cenas deve ter controle para recolher/expandir.
+* Quando recolhido, o rodape de cenas deve reduzir para um pequeno icone visualmente reconhecivel de cena/filme no quinto inferior do painel lateral direito, abaixo do chat.
+* O painel lateral direito expandido deve reservar aproximadamente o ultimo quinto da altura para o icone recolhido de cenas quando o Mestre estiver com cenas recolhidas.
+* Quando expandido, o rodape de cenas deve exibir o controle de recolher no lado direito do cabecalho.
+* O resumo de cenas preparadas do rodape recolhido deve aparecer como alias/tooltip ao repousar o ponteiro sobre o icone.
+* A acao `Preparar cena` permanece acessivel no rodape expandido.
+* O painel lateral de jogadores, sessao e chat deve ter controle para recolher/expandir.
+* No estado expandido, o painel lateral deve priorizar o chat e nao deve exibir cards redundantes de resumo de jogadores ou sessao.
+* Quando recolhido, o painel lateral deve reduzir a largura ocupada na tela e exibir somente controles/resumos essenciais.
+* Em viewports menores, o painel lateral recolhido deve ficar sobreposto na direita da mesa como uma rail estreita, sem criar uma faixa horizontal abaixo do board.
+* Recolher o painel lateral nao deve desmontar a mesa nem perder mensagens carregadas do chat ao expandir novamente.
 * Mestre ve uma ferramenta `Tokens` que abre modal com personagens `PLAYER` e `NPC` ativos da campanha.
 * O token so existe no board depois que o Mestre arrasta um personagem do modal de tokens e solta no grid.
 * Ao concluir o drop do Mestre, o Player dono do personagem passa a poder mover o proprio token quando a sessao esta ativa.

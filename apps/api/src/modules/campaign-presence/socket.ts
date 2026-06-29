@@ -3,6 +3,7 @@ import cookie from 'cookie'
 import { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
 import { verifyToken } from '../../auth/jwt'
+import { isActiveSession } from '../../auth/session'
 import { prisma } from '../../db/prisma'
 import { TOKEN_COOKIE } from '../../http/auth'
 
@@ -300,6 +301,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
     const user = verifyToken(token)
     if (!user) return next(new Error('Token invalido'))
+    if (!isActiveSession(user.id, user.sessionId)) return next(new Error('Sessao expirada'))
 
     socket.data.user = user
     next()

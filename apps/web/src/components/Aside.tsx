@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
+  ChevronDown,
   ChevronLeft,
-  ChevronRight,
   FileText,
   House,
   Map,
@@ -45,28 +45,38 @@ export function Aside({
     [campaignId],
   )
 
+  if (collapsed) {
+    return (
+      <aside className="campaign-sidebar campaign-sidebar-collapsed z-40 text-white">
+        <button
+          type="button"
+          title="Expandir menu da campanha"
+          className="campaign-sidebar-collapsed-trigger flex h-16 w-20 items-center justify-center rounded-br-2xl border-b border-r border-white/10 bg-black/75 text-[#8b5cf6] shadow-2xl backdrop-blur transition hover:bg-zinc-900 hover:text-[#a78bfa]"
+          onClick={() => setCollapsed(false)}
+          aria-label="Expandir menu da campanha"
+        >
+          <ChevronDown className="h-8 w-8 drop-shadow-[0_0_10px_rgba(139,92,246,0.75)]" strokeWidth={3} />
+        </button>
+      </aside>
+    )
+  }
+
   return (
-    <aside
-      className={[
-        'campaign-sidebar z-40 text-white',
-        collapsed ? 'campaign-sidebar-collapsed' : 'campaign-sidebar-expanded',
-      ].join(' ')}
-    >
+    <aside className="campaign-sidebar campaign-sidebar-expanded z-40 text-white">
       <div
         className={[
-          'campaign-sidebar-panel rounded-r-2xl bg-zinc-800/90 shadow-2xl backdrop-blur',
+          'campaign-sidebar-panel w-60 rounded-r-2xl bg-zinc-800/90 shadow-2xl backdrop-blur',
           'transition-[width,transform] duration-300 ease-out',
-          collapsed ? 'w-20' : 'w-60',
         ].join(' ')}
       >
         <div className="flex items-center justify-end p-3">
           <button
             type="button"
             className="rounded-md p-2 hover:bg-white/10 transition"
-            onClick={() => setCollapsed((v) => !v)}
-            aria-label={collapsed ? 'Expandir menu' : 'Recolher menu'}
+            onClick={() => setCollapsed(true)}
+            aria-label="Recolher menu"
           >
-            {collapsed ? <ChevronRight /> : <ChevronLeft />}
+            <ChevronLeft />
           </button>
         </div>
 
@@ -85,7 +95,7 @@ export function Aside({
                     ].join(' ')}
                   >
                     <span className="text-[#6e3fae]"><FileText size={18} /></span>
-                    {!collapsed && <span>Minha ficha</span>}
+                    <span>Minha ficha</span>
                   </button>
                 </li>
               </>
@@ -110,7 +120,7 @@ export function Aside({
                   }
                 >
                   <span className="text-[#6e3fae]">{it.icon}</span>
-                  {!collapsed && <span>{it.label}</span>}
+                  <span>{it.label}</span>
                 </NavLink>
               </li>
             ))}

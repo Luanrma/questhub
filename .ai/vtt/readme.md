@@ -9,6 +9,7 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * Regras como classe, ancestralidade, heranca, background, spells, itens, feats, proficiencias e calculos pertencem a `game_systems`.
 * A mesa VTT permanece visivel ao fundo durante a navegacao interna da campanha.
 * Em telas grandes, a sidebar e sempre sobreposta; recolhida ou expandida, ela nao reserva largura no layout e nao redimensiona o VTT.
+* Quando recolhida, a sidebar esquerda contrai para o topo e exibe apenas uma seta roxa para baixo no header escuro, sem manter uma coluna de icones reduzidos.
 * O canvas VTT deve ocupar toda a largura disponivel desde `left: 0`.
 * A sidebar desktop nao deve ocupar 100% da altura; sua altura acompanha a quantidade de menus.
 * Em viewports menores que 900px de largura ou 640px de altura, a sidebar muda para uma barra compacta inferior sobreposta para preservar espaco da mesa.
@@ -49,6 +50,11 @@ Incluido:
 * Upload local de imagem no card da cena para exibir preview e abrir automaticamente o proximo slot de cena.
 * Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena coloca sua imagem sob o grid usando as dimensoes naturais do mapa.
 * Cena ativa e sincronizada com Players em sessao ativa; se o Mestre trocar a cena em sessao pausada, Players recebem a alteracao apenas ao retomar.
+* Rodape de cenas pode ser recolhido/expandido para ocupar menos espaco da mesa sem perder a acao `Preparar cena`.
+* Quando o rodape de cenas estiver recolhido, o icone de cenas fica no quinto inferior do painel lateral direito, abaixo do chat.
+* Quando o rodape de cenas estiver expandido, o controle para recolher fica no lado direito do cabecalho do rodape.
+* Painel lateral de jogadores, sessao e chat pode ser recolhido/expandido para liberar area visual da mesa sem desmontar o chat.
+* O painel lateral expandido prioriza o chat e nao exibe cards redundantes de resumo de jogadores ou sessao.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Cor dos dados 3D configuravel localmente por campanha.
 * Dados visuais acumulados permanecem na mesa ao fechar a ferramenta de dados e so somem ao clicar em `Limpar Dados` ou ao encerrar a sessao.

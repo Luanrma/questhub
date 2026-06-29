@@ -31,6 +31,7 @@ type Props = {
   campaignId: string
   characterId?: string | null
   enabled: boolean
+  className?: string
 }
 
 function isChatMessage(input: unknown): input is ChatMessage {
@@ -59,7 +60,7 @@ function formatMessageTime(value: string) {
   }).format(new Date(value))
 }
 
-export function CampaignChat({ campaignId, characterId, enabled }: Props) {
+export function CampaignChat({ campaignId, characterId, enabled, className = '' }: Props) {
   const { socket } = useSession()
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -189,7 +190,7 @@ export function CampaignChat({ campaignId, characterId, enabled }: Props) {
   }
 
   return (
-    <section className="flex min-h-[320px] flex-1 flex-col rounded-lg border border-white/10 bg-white/[0.03]">
+    <section className={['flex min-h-[320px] flex-1 flex-col rounded-lg border border-white/10 bg-white/[0.03]', className].join(' ')}>
       <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
         <div className="flex items-center gap-2">
           <MessageCircle className="h-4 w-4 text-indigo-300" />

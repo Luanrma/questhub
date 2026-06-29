@@ -1,6 +1,7 @@
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import type { TokenPayload } from '../auth/jwt'
 import { verifyToken } from '../auth/jwt'
+import { isActiveSession } from '../auth/session'
 
 export const TOKEN_COOKIE = 'token'
 
@@ -40,7 +41,7 @@ export function requireAuth(req: FastifyRequest, reply: FastifyReply): TokenPayl
   }
 
   const payload = verifyToken(token)
-  if (!payload) {
+  if (!payload || !isActiveSession(payload.id, payload.sessionId)) {
     reply.status(401).send({ error: 'Nao autenticado' })
     return null
   }

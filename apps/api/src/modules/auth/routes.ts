@@ -1,9 +1,14 @@
 import type { FastifyInstance } from 'fastify'
 import bcrypt from 'bcryptjs'
 import { z } from 'zod'
-import { signToken } from '../../auth/jwt'
+import { signToken, verifyToken } from '../../auth/jwt'
+import { clearActiveSession, createActiveSession, hasActiveSession } from '../../auth/session'
 import { prisma } from '../../db/prisma'
-import { clearAuthCookie, requireAuth, setAuthCookie } from '../../http/auth'
+import { clearAuthCookie, requireAuth, setAuthCookie, TOKEN_COOKIE } from '../../http/auth'
+
+type CookieRequest = {
+  cookies?: Record<string, string | undefined>
+}
 
 export function registerAuthRoutes(app: FastifyInstance) {
   app.post('/api/register', async (req, reply) => {
@@ -26,11 +31,13 @@ export function registerAuthRoutes(app: FastifyInstance) {
       select: { id: true, email: true },
     })
 
+    const session = createActiveSession(user.id)
     const token = signToken({
       id: user.id,
       name: user.email.split('@')[0] || 'User',
       email: user.email,
       type: 'USER',
+      sessionId: session.sessionId,
     })
 
     setAuthCookie(reply, token)
@@ -53,11 +60,17 @@ export function registerAuthRoutes(app: FastifyInstance) {
     const ok = await bcrypt.compare(password, user.passwordHash)
     if (!ok) return reply.status(401).send({ error: 'Credenciais invalidas' })
 
+    if (hasActiveSession(user.id)) {
+      return reply.status(409).send({ error: 'Usuario ja possui uma sessao ativa' })
+    }
+
+    const session = createActiveSession(user.id)
     const token = signToken({
       id: user.id,
       name: user.email.split('@')[0] || 'User',
       email: user.email,
       type: 'USER',
+      sessionId: session.sessionId,
     })
 
     setAuthCookie(reply, token)
@@ -82,7 +95,11 @@ export function registerAuthRoutes(app: FastifyInstance) {
     })
   })
 
-  app.post('/api/logout', async (_req, reply) => {
+  app.post('/api/logout', async (req, reply) => {
+    const token = (req as CookieRequest).cookies?.[TOKEN_COOKIE]
+    const payload = token ? verifyToken(token) : null
+    if (payload) clearActiveSession(payload.id, payload.sessionId)
+
     clearAuthCookie(reply)
     return reply.send({ message: 'Logout realizado com sucesso' })
   })

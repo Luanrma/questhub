@@ -9,6 +9,7 @@
 
 ## 2. Padroes
 * Persistent Canvas: o grid VTT pertence ao layout de campanha e nao deve sumir ao abrir paineis.
+* Collapsible Table Overlays: overlays do VTT podem reduzir sua area ocupada sem desmontar estado local importante, como chat, cenas preparadas ou ferramentas ativas.
 * Overlay Desktop Navigation: em telas grandes, o menu e sobreposto e nunca reserva espaco da mesa.
 * Compact Overlay Navigation: em telas pequenas, o menu vira barra inferior sobreposta.
 * Role-aware Navigation: itens do menu variam conforme `Campaign.myRole`.
@@ -19,9 +20,6 @@
 * Owner-only Token Movement: apos o drop do Mestre, apenas o Player dono pode mover o proprio token enquanto a sessao estiver ativa, o Mestre poderá mover todos os tokens se a sessao estiver `PAUSED`.
 * Session Pause State: a sessao em memoria tem estado `ACTIVE` ou `PAUSED`; `PAUSED` bloqueia interacoes VTT em tempo real exceto chat, mas mantém TUDO desbloqueado para o Mestre.
 * Grid-coordinate Tokens: a posicao do token usa coordenadas logicas do grid, nao percentual de viewport.
-* Local Board Zoom: zoom e estado visual local do cliente; aplica escala ao grid, tokens e medicao sem alterar coordenadas logicas nem contrato realtime.
-* Finite Board Surface: a mesa jogavel tem dimensoes maximas em celulas de grid; o grid, tokens e medicao nao existem fora dessa superficie.
-* Controlled Board Pan: navegacao do board finito usa deslocamento visual controlado por ferramenta e drag em area vazia, sem barras de rolagem nativas.
 * Realtime Table Broadcast: configuracoes de mesa sao propagadas por Socket.IO para a sala da campanha.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players online.
 * Master Token Toolbar: menu contextual de token pertence ao Mestre e emite acoes validadas no servidor.
@@ -35,9 +33,6 @@
 * Overlay-owned Dice State: o estado da animacao de dado pertence ao overlay 3D, nao ao `CampaignLayout`, para evitar re-renderizar a arvore principal da campanha.
 * Persistent Dice Overlay: fechar a ferramenta de dados oculta apenas o painel de controle; o overlay 3D permanece montado e preserva os dados acumulados ate limpeza explicita ou encerramento da sessao.
 * Dice Roller Module: tipos, wrappers e modal de dados pertencem a `apps/web/src/vtt/dice-roller`.
-* Local Scene Preparation: enquanto nao houver contrato persistente de mapa/cena, preparacao de cenas fica em estado local do `CampaignOverviewPage`.
-* Session-owned Active Scene: a cena ativa fica em memoria no servidor durante a sessao e e transmitida por Socket.IO, sem persistir entidade `Scene`.
-* Paused Scene Staging: troca de cena feita pelo Mestre em sessao `PAUSED` fica pendente para Players ate a sessao voltar para `ACTIVE`.
 * Single Dice Implementation: nao manter uma segunda engine visual de dados paralela a `@3d-dice/dice-box`.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
 
@@ -47,16 +42,10 @@
 * Nao persistir tokens enquanto nao existir contrato de cena/mapa.
 * Nao persistir medidas enquanto nao existir contrato de cena/mapa.
 * Nao persistir configuracao de grid no banco ate existir contrato de cena/mapa.
-* Nao chamar upload persistente de assets para cenas ate existir contrato de cena/mapa no VTT.
 * Nao permitir que jogadores emitam alteracoes de grid.
 * Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
-* Nao permitir que o Mestre mova token de Player durante sessao ativa; o Mestre deve editar tokens apenas por toolbar/modal ou durante sessao pausada.
+* Nao permitir que o Mestre mova token de Player durante sessao ativa; O Meste pode mover token durante sessao pausada.
 * Nao persistir estado `ACTIVE`/`PAUSED` da sessao no banco neste MVP.
-* Nao persistir zoom da mesa no banco neste MVP.
-* Nao tratar o board como superficie infinita em todas as direcoes.
-* Nao exibir barras de rolagem horizontais ou verticais para navegar o board.
-* Nao mover o board ou tokens pelas setas do teclado neste MVP; navegacao por teclado fica reservada para feature futura.
-* Nao permitir zoom out que revele area vazia alem da borda final do board quando o tamanho da viewport exigir zoom maior que 50%.
 * Nao vincular posicao de token ao tamanho da tela disponivel.
 * Nao calcular medidas por percentual de viewport.
 * Nao misturar medida de distancia em metros com area da celula.
