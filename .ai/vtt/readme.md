@@ -6,6 +6,7 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 ## 2. Decisoes de Produto
 * O VTT e generico e nao implementa regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema de RPG.
 * Interface, chat, rolagem de dados, criacao e manipulacao de mapa, tokens, movimentacao, cenas e camadas pertencem ao VTT generico.
+* Estado persistido de cena, grid, tokens e diarios livres da campanha pertence ao modulo `campaign_scene`; o VTT renderiza e manipula esse estado.
 * Regras como classe, ancestralidade, heranca, background, spells, itens, feats, proficiencias e calculos pertencem a `game_systems`.
 * A mesa VTT permanece visivel ao fundo durante a navegacao interna da campanha.
 * Em telas grandes, a sidebar e sempre sobreposta; recolhida ou expandida, ela nao reserva largura no layout e nao redimensiona o VTT.
@@ -24,10 +25,10 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 ## 3. Escopo Atual
 Incluido:
 * Grid visual full-screen com celula inicial de 32px.
-* Configuracao visual do grid da mesa por modal controlado pelo mestre.
+* Configuracao visual do grid da cena por modal controlado pelo mestre.
 * Grid quadrado e hexagonal com tamanho, espessura e cor ajustaveis.
-* Configuracao de grid sincronizada em tempo real com jogadores ativos na sessao.
-* Configuracao de grid preservada ao iniciar ou encerrar sessao no cliente do mestre.
+* Configuracao de grid sincronizada em tempo real com usuarios autorizados a visualizar a cena.
+* Configuracao de grid persistida por cena em `campaign_scene`.
 * Controle de zoom visual da mesa por botoes de menos/mais, com minimo de 50%, padrao de 100% e maximo de 150%.
 * Board finito com area maxima local de 50 colunas por 34 linhas de grid, navegado sem barras de rolagem por ferramenta de mover ou arraste em area vazia.
 * Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa.
@@ -37,6 +38,7 @@ Incluido:
 * Token posicionado por coordenadas logicas do grid, preservando sua celula/hexagono ao alterar o tamanho do grid.
 * Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
 * Token sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
+* Token persistido por cena em `campaign_scene`.
 * Controle de movimento do token e concedido ao Player dono apenas apos o drop do Mestre no board.
 * Sessao pode ser pausada pelo Mestre; durante a pausa, tudo no VTT fica bloqueado somente para os PLAYERS exceto o chat.
 * Mestre pode remover token do board pelo menu contextual de botao direito, devolvendo o personagem para a lista disponivel.
@@ -46,10 +48,10 @@ Incluido:
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
 * Rodape de preparacao de cenas visivel apenas para Mestre.
-* Modal local de preparacao de cenas com cards sequenciais `Cena1`, `Cena2` etc.
-* Upload local de imagem no card da cena para exibir preview e abrir automaticamente o proximo slot de cena.
-* Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena coloca sua imagem sob o grid usando as dimensoes naturais do mapa.
-* Cena ativa e sincronizada com Players em sessao ativa; se o Mestre trocar a cena em sessao pausada, Players recebem a alteracao apenas ao retomar.
+* Modal de preparacao de cenas com cards sequenciais `Cena1`, `Cena2` etc., criando ou atualizando `CampaignScene`.
+* Upload de imagem no card da cena usa `Asset`, enquanto o estado da cena persiste `assetId`, `backgroundUrl` e `backgroundCacheKey`.
+* Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena altera `masterActiveSceneId`, pausa automaticamente a sessao e renderiza o snapshot da cena.
+* Players veem a cena do proprio token, ou a cena forcada pelo Mestre enquanto `forcedSceneId` estiver ativo.
 * Rodape de cenas pode ser recolhido/expandido para ocupar menos espaco da mesa sem perder a acao `Preparar cena`.
 * Quando o rodape de cenas estiver recolhido, o icone de cenas fica no quinto inferior do painel lateral direito, abaixo do chat.
 * Quando o rodape de cenas estiver expandido, o controle para recolher fica no lado direito do cabecalho do rodape.
@@ -62,7 +64,7 @@ Incluido:
 * Integracoes visuais de dados 3D, incluindo `@3d-dice/dice-box`, pertencem ao VTT generico e devem ser expostas por uma interface propria do VTT.
 * A interface de dados pode iniciar como modal sobreposto ao board quando a biblioteca exigir um container dedicado, mas a orquestracao da rolagem deve continuar no modulo `vtt/dice-roller`.
 * A fisica dos dados deve ser fornecida pela engine `@3d-dice/dice-box`, sem duplicar uma segunda simulacao visual no VTT.
-* No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando a area configurada para cada quadrado.
+* No grid quadrado, a ferramenta mede metros entre ponto A e ponto B considerando `metersPerCell`.
 * No grid quadrado, a cor do tracejado da regua e configurada no modal do grid.
 * No grid hexagonal, a ferramenta permite pintar hexagonos completos, escolher a cor da pintura no modal do grid e contar quantos passos foram percorridos.
 * Fundo padrao da mesa preserva as cores atuais sem grid estatico hardcoded.
@@ -74,11 +76,8 @@ Fora de escopo:
 * Regras mecanicas de sistemas de RPG.
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Dados ou formulas especificas de um game system como regra obrigatoria do VTT.
-* Persistencia de cena/mapa/tokens.
-* Upload persistido de mapa/cena no Firebase Storage.
-* Persistencia ou replay de tokens depois que a sessao termina.
+* Regras mecanicas de cena, diario e persistencia, que pertencem a `campaign_scene`.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
 * Persistencia/replay da simulacao fisica de dados.
 * Fog of war.
-* Configuracao persistida de tamanho/formato do grid.
 * Navegacao do board por setas do teclado.

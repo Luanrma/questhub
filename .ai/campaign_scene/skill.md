@@ -4,14 +4,15 @@
 * React e React Router para manter a mesa montada no `CampaignLayout`.
 * Socket.IO para snapshots e eventos realtime de cena, grid, tokens e pausa.
 * Fastify para rotas HTTP do modulo.
-* Prisma e PostgreSQL para persistencia de cenas, tokens, grid e diarios.
+* Prisma e PostgreSQL para persistencia de cenas, tokens, grid e diarios livres da campanha.
 * Zod para validar payloads HTTP e Socket.IO.
 * Firebase Storage via modulo `assets` para imagens de cena.
 * Cache do navegador para armazenar imagens de cena no client.
 * Markdown renderer no frontend para preview dos diarios.
 
 ## Padroes
-* Scene-owned Table State: cena persistida e a fonte da verdade de mapa, grid, tokens e diarios.
+* Scene-owned Table State: cena persistida e a fonte da verdade de mapa, grid e tokens.
+* Campaign-owned Diaries: diarios pertencem a campanha e nao a cenas.
 * Layout-mounted VTT: trocar cena ou abrir diario/modal nao deve desmontar a mesa.
 * Master Active Scene: o Mestre possui uma cena ativa propria para administrar a mesa.
 * Token-derived Player Scene: jogador ve a cena do proprio token quando nao existe cena forcada.
@@ -28,8 +29,8 @@
 * Nao manter token/grid apenas em memoria depois da introducao deste modulo.
 * Nao usar `squareMeters` como escala canonica nova; grid quadrado deve usar `metersPerCell`.
 * Nao aplicar escala metrificada ao grid hexagonal.
-* Nao permitir que jogador edite grid, cena, visibilidade, distribuicao de tokens ou diario.
-* Nao revelar diario `MASTER_ONLY` para jogadores em respostas HTTP ou eventos realtime.
+* Nao permitir que jogador edite grid, cena, distribuicao de tokens ou diario.
+* Nao revelar diarios para jogadores neste escopo.
 * Nao revelar cena diferente da cena do token do jogador quando nao houver `forcedSceneId`.
 * Nao fazer auto-save de diario durante digitacao.
 * Nao apagar `Asset` automaticamente ao deletar cena sem seguir as regras do modulo `assets`.
