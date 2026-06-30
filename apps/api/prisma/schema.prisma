@@ -30,6 +30,11 @@ enum CampaignCharacterRole {
   NPC
 }
 
+enum CampaignSceneGridShape {
+  SQUARE
+  HEX
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -37,10 +42,11 @@ model User {
   createdAt    DateTime @default(now())
 
   characters       Character[]
-  createdCampaigns Campaign[]  @relation("CreatedCampaigns")
+  createdCampaigns Campaign[]          @relation("CreatedCampaigns")
   campaignLinks    CampaignCharacter[]
   chatMessages     ChatMessage[]
   assets           Asset[]
+  campaignDiaries  CampaignDiary[]
 }
 
 model Campaign {
@@ -57,9 +63,12 @@ model Campaign {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  characters CampaignCharacter[]
-  chatMessages ChatMessage[]
-  assets CampaignAsset[]
+  characters     CampaignCharacter[]
+  chatMessages   ChatMessage[]
+  assets         CampaignAsset[]
+  scenes         CampaignScene[]
+  sceneViewState CampaignSceneViewState?
+  diaries        CampaignDiary[]
 }
 
 model Character {
@@ -73,9 +82,10 @@ model Character {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
-  user      User                @relation(fields: [userId], references: [id])
-  campaigns CampaignCharacter[]
+  user         User                 @relation(fields: [userId], references: [id])
+  campaigns    CampaignCharacter[]
   chatMessages ChatMessage[]
+  sceneTokens  CampaignSceneToken[]
 
   @@index([userId])
   @@index([deletedAt])
@@ -132,6 +142,7 @@ model Asset {
 
   user           User            @relation(fields: [userId], references: [id])
   campaignAssets CampaignAsset[]
+  campaignScenes CampaignScene[]
 
   @@index([userId])
 }
@@ -149,4 +160,85 @@ model CampaignAsset {
   @@unique([campaignId, assetId])
   @@index([campaignId])
   @@index([assetId])
+}
+
+model CampaignScene {
+  id                     String                 @id @default(cuid())
+  campaignId             String
+  name                   String
+  order                  Int
+  assetId                String?
+  backgroundUrl          String?
+  backgroundCacheKey     String?
+  gridVisible            Boolean                @default(true)
+  gridShape              CampaignSceneGridShape @default(SQUARE)
+  gridSize               Int                    @default(32)
+  metersPerCell          Float                  @default(1)
+  squareMeasurementColor String                 @default("#facc15")
+  hexMeasurementColor    String                 @default("#38bdf8")
+  gridLineWidth          Int                    @default(1)
+  gridColor              String                 @default("#ffffff")
+  createdAt              DateTime               @default(now())
+  updatedAt              DateTime               @updatedAt
+
+  campaign            Campaign                 @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  asset               Asset?                   @relation(fields: [assetId], references: [id], onDelete: SetNull)
+  tokens              CampaignSceneToken[]
+  activeForViewStates CampaignSceneViewState[] @relation("MasterActiveScene")
+  forcedForViewStates CampaignSceneViewState[] @relation("ForcedScene")
+
+  @@unique([campaignId, order])
+  @@index([campaignId])
+  @@index([assetId])
+}
+
+model CampaignSceneToken {
+  id          String   @id @default(cuid())
+  sceneId     String
+  characterId String
+  hidden      Boolean  @default(false)
+  positionX   Float
+  positionY   Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  scene     CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  character Character     @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@unique([characterId])
+  @@index([sceneId])
+  @@index([characterId])
+}
+
+model CampaignSceneViewState {
+  id                  String   @id @default(cuid())
+  campaignId          String   @unique
+  masterActiveSceneId String?
+  forcedSceneId       String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  campaign          Campaign       @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  masterActiveScene CampaignScene? @relation("MasterActiveScene", fields: [masterActiveSceneId], references: [id], onDelete: SetNull)
+  forcedScene       CampaignScene? @relation("ForcedScene", fields: [forcedSceneId], references: [id], onDelete: SetNull)
+
+  @@index([masterActiveSceneId])
+  @@index([forcedSceneId])
+}
+
+model CampaignDiary {
+  id           String   @id @default(cuid())
+  campaignId   String
+  title        String
+  content      String   @default("")
+  createdById  String
+  lastEditedBy String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  campaign  Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  createdBy User     @relation(fields: [createdById], references: [id])
+
+  @@index([campaignId])
+  @@index([createdById])
 }

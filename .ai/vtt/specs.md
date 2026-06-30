@@ -3,6 +3,11 @@
 ## 0. Fronteira Generica
 O VTT define contratos genericos de mesa. Nenhum contrato base deste modulo deve exigir conhecimento de Pathfinder 2e, D&D 5e ou qualquer outro sistema.
 
+Nota de transicao:
+* `campaign_scene` e o modulo canonico para estado persistido de cena, grid, tokens e diarios livres da campanha.
+* Regras antigas deste documento que descrevem cena apenas como asset/background, grid apenas local/realtime, tokens apenas em memoria ou `squareMeters` como escala canonica foram superadas por `.ai/campaign_scene/spec.md`.
+* O VTT continua responsavel por renderizar mesa, ferramentas, medicao, dado visual e interacao, consumindo snapshots persistidos de `campaign_scene`.
+
 Exemplos de entidades genericas permitidas:
 * `Scene`
 * `Map`
@@ -102,12 +107,12 @@ type MyCampaignCharacter = {
 * Clicar em `Deletar` remove a cena do modal.
 * Clicar em `Deletar` para cena salva pede confirmacao antes de apagar.
 * Quando a cena ja possui `assetId`, clicar em `Deletar` tambem chama delecao do `Asset`, removendo o registro do banco, o vinculo `CampaignAsset` e o arquivo no Firebase.
-* A selecao/preview das cenas e local no cliente; a persistencia desta etapa e do asset, nao de uma entidade `Scene`.
+* A selecao/preview das cenas cria ou atualiza `CampaignScene`; imagem continua usando `Asset`, mas a entidade persistida da cena pertence a `campaign_scene`.
 * Miniaturas das cenas preparadas aparecem no rodape do Mestre.
 * Clicar em uma miniatura seleciona a cena ativa e renderiza a imagem abaixo do grid do board.
 * A imagem da cena nao deve ser deformada para ocupar o limite padrao do board; o board deve passar a usar as dimensoes naturais da imagem, respeitando o zoom visual local.
-* A cena selecionada pelo Mestre deve ser visivel para Players que estiverem na sessao.
-* Se o Mestre trocar a cena durante `PAUSED`, Players continuam vendo a cena ativa anterior e so recebem a nova cena quando a sessao voltar para `ACTIVE`.
+* A cena selecionada pelo Mestre define `masterActiveSceneId`; Players veem `forcedSceneId` quando existir, ou a cena onde o proprio token esta.
+* Trocar cena pelo Mestre pausa automaticamente a sessao; retomar sessao nao revela automaticamente a nova cena aos Players.
 * O rodape de cenas deve ter controle para recolher/expandir.
 * Quando recolhido, o rodape de cenas deve reduzir para um pequeno icone visualmente reconhecivel de cena/filme no quinto inferior do painel lateral direito, abaixo do chat.
 * O painel lateral direito expandido deve reservar aproximadamente o ultimo quinto da altura para o icone recolhido de cenas quando o Mestre estiver com cenas recolhidas.
@@ -147,9 +152,9 @@ type MyCampaignCharacter = {
 * O valor percentual do zoom deve ser exibido entre os botoes de diminuir e aumentar.
 * O zoom deve escalar grid, tokens e medicao visualmente sem alterar coordenadas logicas, posicoes realtime ou configuracao persistida de grid.
 * O zoom minimo efetivo deve subir acima de 50% quando necessario para impedir que area vazia alem da borda do board apareca na viewport.
-* A posicao do token nao e persistida no banco neste MVP.
-* A posicao do token e sincronizada em tempo real com Mestre e Players online enquanto a sessao esta ativa.
-* Usuarios que entram depois recebem o snapshot atual de tokens da sessao.
+* A posicao do token e persistida por cena em `CampaignSceneToken`.
+* A posicao do token e sincronizada em tempo real com Mestre e Players online que visualizam a cena afetada.
+* Usuarios que entram depois recebem o snapshot de cena definido por `campaign_scene`.
 * O Mestre pode pausar ou retomar a sessao sem encerra-la.
 * Em sessao pausada, chat continua funcionando e demais interacoes VTT em tempo real ficam bloqueadas para os Players.
 * Em sessao pausada, Players nao podem mover tokens.
@@ -163,10 +168,10 @@ type MyCampaignCharacter = {
 * A ferramenta `Medir` deve poder ser ativada pela toolbar do VTT.
 * No grid quadrado, pressionar no ponto A, arrastar e soltar no ponto B deve mostrar a distancia em metros.
 * No grid quadrado, `VttGridSettings.size` representa apenas o lado visual da celula em pixels.
-* No grid quadrado, `VttGridSettings.squareMeters` representa a area em metros quadrados de uma celula.
+* No grid quadrado, `VttGridSettings.metersPerCell` representa quantos metros lineares cada lado da celula representa.
 * No grid quadrado, `VttGridSettings.squareMeasurementColor` representa a cor do tracejado da regua.
-* No grid quadrado, `VttGridSettings.squareMeters` deve aceitar apenas os valores permitidos pela escala: 1 a 10 de 1 em 1, depois de 5 em 5 ate 100, depois de 10 em 10 ate 1000, depois de 1000 em 1000 ate 10000.
-* No grid quadrado, a distancia em metros deve ser `(distanciaEmPixels / VttGridSettings.size) * sqrt(VttGridSettings.squareMeters)`.
+* No grid quadrado, `VttGridSettings.metersPerCell` deve aceitar valores positivos em metros lineares, com controles de UI adequados ao VTT.
+* No grid quadrado, a distancia em metros deve ser `(distanciaEmPixels / VttGridSettings.size) * VttGridSettings.metersPerCell`.
 * No grid hexagonal, pressionar e arrastar deve registrar a rota pelos centros de hexagonos atravessados.
 * No grid hexagonal, a rota deve pintar o hexagono por completo, sem linha conectando os pontos.
 * No grid hexagonal, `VttGridSettings.hexMeasurementColor` representa a cor usada para pintar a rota.
@@ -194,7 +199,7 @@ type VttGridSettings = {
   visible: boolean
   shape: VttGridShape
   size: number
-  squareMeters: number
+  metersPerCell: number
   squareMeasurementColor: string
   hexMeasurementColor: string
   lineWidth: number
@@ -207,19 +212,19 @@ Regras:
 * Para `PLAYER`, o botao/menu de configuracao do grid nao deve aparecer.
 * O grid pode ser quadrado ou hexagonal.
 * O tamanho da celula deve respeitar minimo de `24px` e maximo de `96px`.
-* Quando o formato for quadrado, o modal deve exibir controle para configurar a area do quadrado em metros quadrados.
-* O controle de area do quadrado deve seguir o mesmo padrao visual dos controles de tamanho e espessura, exibindo o valor selecionado.
+* Quando o formato for quadrado, o modal deve exibir controle para configurar quantos metros lineares cada lado da celula representa.
+* O controle de metros por celula deve seguir o mesmo padrao visual dos controles de tamanho e espessura, exibindo o valor selecionado.
 * Quando o formato for quadrado, o modal deve exibir controle para configurar a cor do tracejado da regua.
 * Quando o formato for hexagonal, o modal deve exibir controle para configurar a cor de preenchimento dos hexagonos pintados.
 * A espessura das linhas deve respeitar minimo de `1px` e maximo de `4px`.
 * A cor das linhas deve ser configuravel por input de cor.
 * O fundo padrao da mesa deve manter a paleta atual sem o grid estatico antigo.
-* A configuracao pertence ao layout persistente da campanha no frontend.
-* A configuracao deve ser preservada no cliente do mestre ao iniciar ou encerrar sessao.
-* A configuracao deve ser sincronizada via Socket.IO com jogadores na sala da campanha.
+* A configuracao pertence a cena persistida em `campaign_scene`, nao ao layout global da campanha.
+* A configuracao deve ser carregada do snapshot da cena atual.
+* A configuracao deve ser sincronizada via Socket.IO com usuarios autorizados a visualizar a cena.
 * O backend deve aceitar alteracoes de grid apenas de socket autenticado como mestre ativo da campanha.
-* Jogadores recebem `vtt:grid:changed`, mas nao podem emitir alteracoes aceitas pelo servidor.
-* A configuracao nao deve ser persistida no banco neste MVP.
+* Jogadores recebem `campaign-scene:grid:changed`, mas nao podem emitir alteracoes aceitas pelo servidor.
+* A configuracao deve ser persistida no banco por cena.
 * O modal deve permitir fechar sem desmontar a mesa.
 * O controle de zoom fica na UI da mesa, separado da configuracao de grid.
 * O zoom e local ao cliente e nao deve ser emitido por Socket.IO.
@@ -234,8 +239,8 @@ type VttGridChangedPayload = {
 }
 ```
 
-* `vtt:grid:update`: emitido pelo mestre para atualizar a configuracao da campanha.
-* `vtt:grid:changed`: emitido pelo servidor para a sala da campanha e para jogador ao entrar.
+* `vtt:grid:update`: legado do modelo de grid por campanha; o novo fluxo deve usar `campaign-scene:grid:update`.
+* `vtt:grid:changed`: legado do modelo de grid por campanha; o novo fluxo deve usar `campaign-scene:grid:changed`.
 
 ## 6. Tokens Centralizados Realtime
 
@@ -285,24 +290,24 @@ Regras:
 * O backend aceita movimento apenas quando `sessionActive && isPlayer && isOwner` ou `!sessionActive && isMaster`.
 * `sessionActive` significa campanha online e estado de sessao `ACTIVE`, nunca `PAUSED`.
 * Apenas o dono do personagem pode mover o proprio token apos ele existir no board.
-* Ao receber atualizacao valida, o backend armazena o token em memoria e emite para `campaign:{campaignId}`.
-* Ao entrar em uma sessao ativa, o cliente recebe `vtt:tokens:snapshot`.
+* Ao receber atualizacao valida, o backend persiste o token em `campaign_scene` e emite para sockets autorizados a visualizar a cena.
+* Ao entrar em uma sessao ativa, o cliente recebe `campaign-scene:snapshot`.
 * Ao desconectar um Player, o token permanece no board enquanto a sessao continuar.
-* Ao encerrar a sessao, tokens da campanha sao descartados.
+* Ao encerrar a sessao, tokens persistidos permanecem vinculados as suas cenas.
 
 Eventos Socket.IO:
 
 * `presence:session:pause`: emitido pelo Mestre para pausar a sessao.
 * `presence:session:resume`: emitido pelo Mestre para retomar a sessao.
 * `presence:session:state`: emitido pelo servidor para informar `ACTIVE` ou `PAUSED`.
-* `vtt:token:place`: emitido pelo Mestre ao soltar personagem do modal no grid.
-* `vtt:token:move`: emitido pelo Player dono para mover o proprio token em sessao `ACTIVE`, ou pelo Mestre para mover qualquer token em sessao `PAUSED`.
-* `vtt:token:remove`: emitido pelo Mestre para remover token do board.
-* `vtt:token:visibility`: emitido pelo Mestre para alternar invisibilidade.
-* `vtt:token:changed`: emitido pelo servidor para toda a sala quando um token muda.
-* `vtt:tokens:snapshot`: emitido pelo servidor ao usuario entrar na sala da campanha.
-* `vtt:tokens:request`: emitido pelo cliente para pedir novamente o snapshot atual da sessao.
-* `vtt:token:removed`: emitido pelo servidor quando o token deixa de existir na sessao.
+* `vtt:token:place`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
+* `vtt:token:move`: legado do modelo em memoria; novo fluxo deve usar `campaign-scene:token:move`.
+* `vtt:token:remove`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
+* `vtt:token:visibility`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
+* `vtt:token:changed`: legado do modelo em memoria; novo fluxo deve usar `campaign-scene:token:moved` ou `campaign-scene:token:scene-changed`.
+* `vtt:tokens:snapshot`: legado do modelo em memoria; novo fluxo deve usar `campaign-scene:snapshot`.
+* `vtt:tokens:request`: legado do modelo em memoria; novo fluxo deve usar snapshot de cena.
+* `vtt:token:removed`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
 
 ## 7. Medicao Realtime
 

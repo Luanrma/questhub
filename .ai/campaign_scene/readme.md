@@ -1,7 +1,7 @@
 ﻿# Campaign Scene
 
 ## O que e por que
-`campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, tokens, diario e regras de exibicao independentes, permitindo que o Mestre prepare encontros antes da sessao e conduza jogadores por areas diferentes da campanha.
+`campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, tokens e regras de exibicao independentes, permitindo que o Mestre prepare encontros antes da sessao e conduza jogadores por areas diferentes da campanha.
 
 Antes deste modulo, a cena funcionava como troca de imagem de background. A partir daqui, ela passa a ser a fonte da verdade persistida para o estado de mesa relacionado a cena.
 
@@ -13,7 +13,7 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Mestre mostra uma cena para todos quando quiser compartilhar uma visao comum.
 * Mestre move tokens entre cenas por menu contextual ou por modal de distribuicao na sidebar direita.
 * Jogador ve a cena onde seu token esta, exceto quando o Mestre forca uma cena para todos.
-* Mestre escreve diarios de cena e diario global, privados por default, podendo torna-los visiveis para todos.
+* Mestre cria diarios livres da campanha, nomeando cada um como desejar, como `Cena 1`, `Cena 2` ou qualquer outro titulo.
 
 ## Regras de produto
 * Cenas persistem estado independente.
@@ -21,8 +21,8 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Retomar sessao nao revela automaticamente a cena nova.
 * Sem cena forcada, a visao do jogador e derivada da cena do proprio token.
 * Com cena forcada, todos veem a cena escolhida pelo Mestre ate ele desativar esse modo.
-* Diario de cena e diario global sao `MASTER_ONLY` por default.
-* O Mestre pode tornar um diario individual ou todos os diarios visiveis para todos.
+* Diarios nao pertencem a cenas.
+* Apenas o Mestre visualiza e gerencia diarios neste escopo.
 * Diarios salvam apenas por acao explicita no botao `Salvar`.
 * Imagens devem usar cache no client e requisitar novamente apenas quando necessario.
 
