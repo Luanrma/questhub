@@ -13,7 +13,6 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Mestre mostra uma cena para todos quando quiser compartilhar uma visao comum.
 * Mestre move tokens entre cenas por menu contextual ou por modal de distribuicao na sidebar direita.
 * Jogador ve a cena onde seu token esta, exceto quando o Mestre forca uma cena para todos.
-* Mestre cria diarios livres da campanha, nomeando cada um como desejar, como `Cena 1`, `Cena 2` ou qualquer outro titulo.
 
 ## Regras de produto
 * Cenas persistem estado independente.
@@ -21,14 +20,13 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Retomar sessao nao revela automaticamente a cena nova.
 * Sem cena forcada, a visao do jogador e derivada da cena do proprio token.
 * Com cena forcada, todos veem a cena escolhida pelo Mestre ate ele desativar esse modo.
-* Diarios nao pertencem a cenas.
-* Apenas o Mestre visualiza e gerencia diarios neste escopo.
-* Diarios salvam apenas por acao explicita no botao `Salvar`.
+* Diarios nao pertencem a `campaign_scene`; eles pertencem ao modulo `campaign_diary`.
 * Imagens devem usar cache no client e requisitar novamente apenas quando necessario.
 
 ## Relacoes com outros modulos
 * `vtt`: renderiza a mesa, ferramentas, tokens e grid usando o snapshot da cena.
 * `campaign_presence`: fornece estado online, pausa, retomada e autenticacao da sala realtime.
 * `assets`: armazena imagens de cena e renova URLs assinadas quando necessario.
+* `campaign_diary`: gerencia diarios livres da campanha, sem vinculo com cenas.
 * `chat`: continua independente; pausa de sessao nao bloqueia chat.
 * `game_systems`: nao deve ser importado por `campaign_scene`; regras mecanicas ficam fora deste modulo.

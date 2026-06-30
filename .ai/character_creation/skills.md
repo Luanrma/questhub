@@ -9,7 +9,7 @@
 ## 2. Padroes Aplicados
 * **Clean Architecture / Bounded Context:** Casos de uso de personagem nao devem conhecer regras internas de D&D 5e ou Pathfinder 2e.
 * **Policy/Guard:** Permissoes devem ser explicitas para dono do personagem, `MASTER` ativo e fluxo de NPC.
-* **Repository Boundary:** Prisma deve ficar atras de repositorios/casos de uso pequenos.
+* **Repository Boundary:** Prisma deve ficar atras de repositories; rotas e services nao acessam Prisma diretamente.
 * **Transaction Script:** Criacao de campanha + vinculo `MASTER`, entrada em campanha publica e criacao de NPC devem ser transacionais.
 * **State Machine:** `CampaignCharacter.status` deve ter transicoes controladas.
 

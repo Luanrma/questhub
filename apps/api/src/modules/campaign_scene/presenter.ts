@@ -51,17 +51,6 @@ type CampaignSceneViewStateRecord = {
   forcedSceneId: string | null
 }
 
-type CampaignDiaryRecord = {
-  id: string
-  campaignId: string
-  title: string
-  content: string
-  createdById: string
-  lastEditedBy: string
-  createdAt: Date
-  updatedAt: Date
-}
-
 export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
   if (scene.gridShape === 'HEX') {
     return {
@@ -131,19 +120,3 @@ export function presentCampaignSceneViewState(viewState: CampaignSceneViewStateR
   }
 }
 
-export function presentCampaignDiary(diary: CampaignDiaryRecord) {
-  return {
-    id: diary.id,
-    campaignId: diary.campaignId,
-    title: diary.title,
-    content: diary.content,
-    createdBy: diary.createdById,
-    lastEditedBy: diary.lastEditedBy,
-    createdAt: diary.createdAt,
-    updatedAt: diary.updatedAt,
-  }
-}
-
-export function canAccessCampaignDiary(input: { role: 'MASTER' | 'PLAYER' | 'NPC'; status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD' }) {
-  return input.role === 'MASTER' && input.status === 'ACTIVE'
-}

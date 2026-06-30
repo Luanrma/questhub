@@ -37,6 +37,7 @@ Enums documentados:
 
 ## 6. Criterios De Aceitacao
 * Migrations devem permanecer versionadas em `apps/api/prisma/migrations`.
-* A API deve consumir Prisma Client por `apps/api/src/db/prisma.ts`.
+* Repositories de modulo, dentro de `repositories/read.ts` e `repositories/write.ts`, devem consumir Prisma Client por `apps/api/src/db/prisma.ts`.
+* Rotas, presenters, validators e services nao devem acessar Prisma diretamente.
 * Participacao em campanha deve continuar modelada por `CampaignCharacter`.
 * O envelope JSON em `Character.sheet` deve continuar validavel pelo registry de `game_systems`.

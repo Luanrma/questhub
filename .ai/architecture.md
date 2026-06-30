@@ -34,7 +34,19 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 ## 6. Regras Arquiteturais
 * Novos comportamentos precisam ser documentados em `.ai/[modulo]/` antes da implementacao.
 * `server.ts` nao deve voltar a concentrar regras de negocio.
-* Prisma deve continuar encapsulado por modulo e evoluir para repositorios/casos de uso quando a complexidade crescer.
+* Toda implementacao de backend deve seguir SOLID. Cada camada, arquivo e modulo deve ter uma responsabilidade principal clara.
+* O backend deve seguir um desenho orientado a DDD sempre que houver regra de negocio: modulos representam bounded contexts, nao agrupamentos acidentais de rotas.
+* Um modulo nao deve absorver entidades sem relacao direta com seu dominio. Quando um conceito for independente, ele deve possuir modulo proprio em `.ai/` e em `apps/api/src/modules/`.
+* Rotas/controllers Fastify sao adaptadores HTTP: autenticam, validam entrada, chamam casos de uso/services e formatam resposta. Elas nao devem conter regra de negocio nem acessar Prisma diretamente.
+* Interacoes com banco devem passar por repositories do proprio modulo. Services, casos de uso e rotas nao devem depender diretamente de `PrismaClient`.
+* Repositories devem ficar sempre dentro de uma pasta `repositories/`.
+* Repositories devem ser separados por intencao em arquivos de leitura e escrita, como `repositories/read.ts` e `repositories/write.ts`.
+* Repositories nunca devem ser acessados diretamente por rotas/controllers, presenters, validators ou outros modulos. A camada autorizada a conversar com repositories e `services/`.
+* Repositories cuidam de persistencia e consultas. Eles nao devem decidir regras de produto que pertencem ao dominio ou aos services.
+* Services/casos de uso devem ficar dentro de uma pasta `services/` e coordenam regras de negocio, autorizacao operacional e fluxos que envolvem uma ou mais entidades do mesmo modulo.
+* Quando entidades de modulos diferentes tiverem relacao direta ou indireta em um fluxo, a integracao deve ser representada por um service/caso de uso de aplicacao, sem misturar responsabilidades dentro de um dos modulos envolvidos.
+* Domain deve ficar dentro de uma pasta `domain/`. Interfaces/tipos, presenters/serializers, validators e policies/helpers puros pertencem a `domain/` e nao devem acessar Prisma.
+* Prisma deve permanecer encapsulado atras de repositories; o schema e migrations definem persistencia, nao autorizacao, apresentacao ou fluxo de produto.
 * O VTT deve permanecer generico: mapa, cena, token, chat, dado, presenca, movimentacao e manipulacao visual nao podem depender de Pathfinder 2e, D&D 5e ou outro sistema especifico.
 * Regras mecanicas de RPG pertencem a `game_systems` e seus submodulos, como `game_systems/pathfinder_2e`.
 * Ficha de personagem e uma capacidade de ruleset. Nao deve existir modulo global de regras de ficha fora de `game_systems`.
@@ -50,6 +62,7 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 * Testes unitarios devem usar `node:test`, sem dependencia obrigatoria de banco, servidor HTTP real ou Socket.IO real.
 * A suite unitaria deve compilar TypeScript para `.tmp/api-tests` com `tsc` e executar um agregador unico com Node.
 * Regras puras, validadores, presenters e helpers devem ficar em arquivos pequenos e importaveis isoladamente.
+* Testes devem acompanhar a camada que exercitam: testes de repositories em `repositories/`, testes de services em `services/` e testes de domain em `domain/`.
 * Rotas Fastify devem delegar validacao/apresentacao para helpers testaveis sempre que possivel.
 * O hook Git `pre-push` deve executar a suite unitaria completa e bloquear o push quando houver falha.
 * Testes de integracao com banco/API ficam fora do escopo inicial e devem ter setup proprio quando forem introduzidos.

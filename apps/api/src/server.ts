@@ -6,6 +6,7 @@ import { registerAuthRoutes } from './modules/auth/routes'
 import { registerAssetRoutes } from './modules/assets/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
+import { registerCampaignDiaryRoutes } from './modules/campaign_diary/routes'
 import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
@@ -59,6 +60,7 @@ registerAuthRoutes(app)
 registerCharacterRoutes(app)
 registerCharacterSheetRoutes(app)
 registerCampaignRoutes(app, presence)
+registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app)
 registerChatRoutes(app)
 registerChatSocketHandlers(presence.io)

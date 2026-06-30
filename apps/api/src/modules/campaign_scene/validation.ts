@@ -1,8 +1,6 @@
 import { z } from 'zod'
 
 export const CAMPAIGN_SCENE_NAME_MAX_LENGTH = 80
-export const CAMPAIGN_DIARY_TITLE_MAX_LENGTH = 120
-export const CAMPAIGN_DIARY_CONTENT_MAX_LENGTH = 50000
 
 export const colorHexSchema = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Cor deve estar no formato hexadecimal #RRGGBB')
 
@@ -12,10 +10,6 @@ export const campaignSceneParamsSchema = z.object({
 
 export const campaignSceneIdParamsSchema = campaignSceneParamsSchema.extend({
   sceneId: z.string().trim().min(1, 'Cena invalida'),
-})
-
-export const campaignDiaryIdParamsSchema = campaignSceneParamsSchema.extend({
-  diaryId: z.string().trim().min(1, 'Diario invalido'),
 })
 
 export const campaignSceneGridSchema = z.discriminatedUnion('shape', [
@@ -87,12 +81,3 @@ export const deleteCampaignSceneQuerySchema = z.object({
   force: z.coerce.boolean().default(false),
 })
 
-export const createCampaignDiarySchema = z.object({
-  title: z.string().trim().min(1, 'Titulo e obrigatorio').max(CAMPAIGN_DIARY_TITLE_MAX_LENGTH, 'Titulo muito longo'),
-  content: z.string().max(CAMPAIGN_DIARY_CONTENT_MAX_LENGTH, 'Diario muito longo').optional(),
-})
-
-export const updateCampaignDiarySchema = z.object({
-  title: z.string().trim().min(1, 'Titulo e obrigatorio').max(CAMPAIGN_DIARY_TITLE_MAX_LENGTH, 'Titulo muito longo').optional(),
-  content: z.string().max(CAMPAIGN_DIARY_CONTENT_MAX_LENGTH, 'Diario muito longo').optional(),
-})

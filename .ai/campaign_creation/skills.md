@@ -9,7 +9,7 @@
 ## 2. Padroes Aplicados
 * **Transaction Script:** Criacao de campanha e vinculo `MASTER` devem ocorrer na mesma transacao.
 * **Policy/Guard:** Validar ownership, disponibilidade e compatibilidade do personagem mestre antes de criar a campanha.
-* **Repository Boundary:** O acesso a Prisma deve ser isolado futuramente em repositorios/casos de uso.
+* **Repository Boundary:** O acesso a Prisma deve ser isolado em repositories; rotas e services nao acessam Prisma diretamente.
 * **Idempotency Guard no Frontend:** O formulario deve bloquear duplo submit para evitar criacoes duplicadas por clique rapido.
 
 ## 3. Restricoes Arquiteturais

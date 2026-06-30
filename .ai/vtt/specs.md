@@ -4,7 +4,8 @@
 O VTT define contratos genericos de mesa. Nenhum contrato base deste modulo deve exigir conhecimento de Pathfinder 2e, D&D 5e ou qualquer outro sistema.
 
 Nota de transicao:
-* `campaign_scene` e o modulo canonico para estado persistido de cena, grid, tokens e diarios livres da campanha.
+* `campaign_scene` e o modulo canonico para estado persistido de cena, grid e tokens.
+* `campaign_diary` e o modulo canonico para diarios livres da campanha.
 * Regras antigas deste documento que descrevem cena apenas como asset/background, grid apenas local/realtime, tokens apenas em memoria ou `squareMeters` como escala canonica foram superadas por `.ai/campaign_scene/spec.md`.
 * O VTT continua responsavel por renderizar mesa, ferramentas, medicao, dado visual e interacao, consumindo snapshots persistidos de `campaign_scene`.
 

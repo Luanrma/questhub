@@ -6,7 +6,8 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 ## 2. Decisoes de Produto
 * O VTT e generico e nao implementa regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema de RPG.
 * Interface, chat, rolagem de dados, criacao e manipulacao de mapa, tokens, movimentacao, cenas e camadas pertencem ao VTT generico.
-* Estado persistido de cena, grid, tokens e diarios livres da campanha pertence ao modulo `campaign_scene`; o VTT renderiza e manipula esse estado.
+* Estado persistido de cena, grid e tokens pertence ao modulo `campaign_scene`; o VTT renderiza e manipula esse estado.
+* Diarios livres da campanha pertencem ao modulo `campaign_diary` e abrem como modal sem desmontar a mesa.
 * Regras como classe, ancestralidade, heranca, background, spells, itens, feats, proficiencias e calculos pertencem a `game_systems`.
 * A mesa VTT permanece visivel ao fundo durante a navegacao interna da campanha.
 * Em telas grandes, a sidebar e sempre sobreposta; recolhida ou expandida, ela nao reserva largura no layout e nao redimensiona o VTT.
@@ -76,7 +77,8 @@ Fora de escopo:
 * Regras mecanicas de sistemas de RPG.
 * Classes, ancestralidades, herancas, backgrounds, spells, itens e feats.
 * Dados ou formulas especificas de um game system como regra obrigatoria do VTT.
-* Regras mecanicas de cena, diario e persistencia, que pertencem a `campaign_scene`.
+* Regras mecanicas de cena e persistencia de mesa, que pertencem a `campaign_scene`.
+* Regras de diario livre da campanha, que pertencem a `campaign_diary`.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
 * Persistencia/replay da simulacao fisica de dados.
 * Fog of war.
