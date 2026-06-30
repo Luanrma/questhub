@@ -2,6 +2,14 @@ import type { PROFICIENCY_RANK_VALUES } from './constants'
 
 export type Pathfinder2eProficiencyRank = (typeof PROFICIENCY_RANK_VALUES)[number]
 
+export type Pathfinder2eGeneral = {
+  experience: {
+    current: number
+    nextLevel: number
+  }
+  movementMeters: number
+}
+
 export type Pathfinder2eIdentity = {
   level: number
   ancestry: string
@@ -59,6 +67,7 @@ export type Pathfinder2eSkills = {
 }
 
 export type Pathfinder2eSheet = {
+  general: Pathfinder2eGeneral
   identity: Pathfinder2eIdentity
   attributes: Pathfinder2eAttributes
   hitPoints: Pathfinder2eHitPoints

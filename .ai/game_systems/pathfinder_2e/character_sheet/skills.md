@@ -10,6 +10,7 @@
 * **Constants as Domain Vocabulary:** Ranks de proficiencia devem ser constantes numericas tipadas.
 * **Schema First:** O backend valida exatamente o mesmo contrato documentado para a ficha.
 * **Calculated Values, Persisted Snapshot:** Totais de pericia sao calculados no frontend a partir de nivel, rank e atributo chave, e persistidos como snapshot em `value`.
+* **Fixed Summary Panel:** O resumo lateral fixo da ficha consome e edita o mesmo bloco `data.pathfinder2e`, sem criar estado paralelo de UI.
 
 ## 3. Constantes
 
@@ -35,6 +36,7 @@ export const PROFICIENCY_RANKS = {
 * Expor validadores e defaults para consumo do registry de `game_systems`.
 * Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet` depois da migracao tecnica.
 * A navegacao visual por abas com icones pertence ao modal base, mas as paginas disponiveis e labels do Pathfinder 2e pertencem a este submodulo.
+* O painel fixo de resumo pertence ao componente Pathfinder 2e e deve receber do modal apenas o nome generico do personagem.
 * O arquivo `pathfinder_2e_sheet.json` no frontend deve representar exatamente o envelope persistido em `Character.sheet` para Pathfinder 2e.
 * Tooltips simples de descricao podem ser implementados com CSS no componente Pathfinder 2e, sem persistir descricoes no banco.
 * O motor de calculo de pericias deve ficar no submodulo Pathfinder 2e do frontend ate existir um adaptador compartilhado de regras.

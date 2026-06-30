@@ -28,6 +28,7 @@ Regras:
 
 ```ts
 type Pathfinder2eSheet = {
+  general: Pathfinder2eGeneral
   identity: Pathfinder2eIdentity
   attributes: Pathfinder2eAttributes
   hitPoints: Pathfinder2eHitPoints
@@ -37,6 +38,14 @@ type Pathfinder2eSheet = {
   savingThrows: Pathfinder2eSavingThrows
   skills: Pathfinder2eSkills
   notes: string
+}
+
+type Pathfinder2eGeneral = {
+  experience: {
+    current: number
+    nextLevel: number
+  }
+  movementMeters: number
 }
 
 type Pathfinder2eIdentity = {
@@ -102,6 +111,13 @@ type Pathfinder2eSkills = {
 
 ```json
 {
+  "general": {
+    "experience": {
+      "current": 0,
+      "nextLevel": 0
+    },
+    "movementMeters": 0
+  },
   "identity": {
     "level": 1,
     "ancestry": "",
@@ -216,7 +232,10 @@ type Pathfinder2eSkills = {
 ```
 
 ## 5. Validacoes
-* Todos os campos numericos devem ser inteiros.
+* Todos os campos numericos devem ser inteiros, exceto `general.movementMeters`, que aceita decimal.
+* `general.experience.current` deve ser maior ou igual a `0`.
+* `general.experience.nextLevel` deve ser maior ou igual a `0`.
+* `general.movementMeters` deve ser um numero maior ou igual a `0`.
 * `identity.level` deve ser maior ou igual a `1`.
 * Atributos devem ser maiores ou iguais a `1`.
 * `hitPoints.maximum` deve ser maior ou igual a `0`.
@@ -294,7 +313,7 @@ Regras:
 * Backend nao deve calcular valores derivados neste MVP; ele apenas valida e persiste o snapshot calculado pelo frontend.
 * Frontend deve exibir labels em portugues e persistir chaves em ingles.
 * Frontend deve distribuir a ficha em abas de icones, sem botoes `Anterior` e `Proxima`.
-* A primeira aba deve conter, nesta ordem: identidade, hit points/status e atributos.
+* A primeira aba deve conter, nesta ordem: Identificacao e Atributos.
 * Armor Class e Initiative pertencem ao bloco visual de hit points/status, nao a aba de proficiencias.
 * A primeira aba nao deve exibir `metadata.bio`.
 * A segunda aba deve ser uma pagina inteira de proficiencias de pericia.
@@ -306,4 +325,11 @@ Regras:
 * A descricao de cada pericia deve ficar oculta por padrao e aparecer apenas em tooltip ao passar o mouse sobre o icone de interrogacao da linha.
 * "Intuicao" nao deve criar uma chave nova em `skills`; deve ser documentada como decisao de produto porque Pathfinder 2e divide esse conceito entre Sociedade, Ocultismo, Lore ou testes especificos de Percepcao.
 * Frontend deve usar identidade visual de ficha impressa em papel envelhecido, com linhas de preenchimento, caixas de secao e atributos em blocos destacados.
+* Frontend deve exibir um painel fixo lateral a esquerda em fichas Pathfinder 2e com nome do personagem, nivel, experiencia, vida, condicoes de vida, classe de armadura, fortitude, reflexo, vontade, iniciativa, percepcao e deslocamento.
+* Classe, ancestralidade, heranca e background devem aparecer no conteudo principal a direita, acima de Atributos, em uma secao chamada Identificacao.
+* A secao Vida do painel fixo deve exibir Maxima, Atual e Temporaria com fonte maior e maior destaque visual que os campos de texto comuns.
+* Hit points/status nao devem aparecer duplicados no conteudo principal da ficha quando ja estiverem fixados no painel lateral.
+* A ficha Pathfinder 2e nao deve exibir o texto `QuestHub` no cabecalho da ficha nem no painel fixo.
+* O painel fixo lateral deve editar os campos persistidos quando o campo existir no contrato da ficha e apenas exibir o nome do personagem recebido do modal.
+* Em telas estreitas, o painel fixo lateral deve empilhar acima do conteudo da aba sem sobrepor texto ou controles.
 * `apps/web/src/game-systems/pathfinder-2e/character-sheet/pathfinder_2e_sheet.json` deve representar exatamente o envelope salvo em `Character.sheet` depois da migracao tecnica.

@@ -25,6 +25,13 @@ export type Pathfinder2eSkills = {
 }
 
 export type Pathfinder2eSheet = {
+  general: {
+    experience: {
+      current: number
+      nextLevel: number
+    }
+    movementMeters: number
+  }
   identity: {
     level: number
     ancestry: string

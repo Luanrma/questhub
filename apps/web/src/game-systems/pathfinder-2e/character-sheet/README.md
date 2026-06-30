@@ -16,8 +16,9 @@ Editar o bloco `data.pathfinder2e` do envelope.
 
 ## Funcionalidades existentes
 
-- Aba Identidade e Status: identidade, hit points/status e atributos.
-- Aba Proficiencias: somente as pericias oficiais do MVP. Armor class e iniciativa ficam em status.
+- Painel fixo Identificacao Rapida: nome, nivel, experiencia, vida, status, armor class, iniciativa, percepcao, saves e movimento.
+- Aba Atributos: identificacao e atributos principais sem duplicar vida/status.
+- Aba Proficiencias: somente as pericias oficiais do MVP.
 - Inputs numericos com limites minimos em alguns campos.
 
 ## Dependencias internas e externas

@@ -41,7 +41,7 @@ input:disabled,
 
 .character-sheet-window {
   position: fixed;
-  width: min(900px, calc(100vw - 24px));
+  width: min(1100px, calc(100vw - 24px));
   max-height: calc(100vh - 24px);
   display: flex;
   flex-direction: column;
@@ -153,6 +153,167 @@ input:disabled,
 .sheet-page {
   display: grid;
   gap: 16px;
+}
+
+.pathfinder-sheet-layout {
+  display: grid;
+  grid-template-columns: 256px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.pathfinder-sheet-main {
+  display: grid;
+  min-width: 0;
+  gap: 16px;
+}
+
+.sheet-quick-summary {
+  position: sticky;
+  top: 0;
+  display: grid;
+  gap: 11px;
+  min-width: 0;
+  border: 2px solid #2f281c;
+  border-radius: 0 0 0 18px;
+  background:
+    linear-gradient(90deg, rgb(71 51 24 / 8%) 1px, transparent 1px),
+    linear-gradient(0deg, rgb(71 51 24 / 6%) 1px, transparent 1px),
+    linear-gradient(135deg, #f2e6c8 0%, #fbf2d8 48%, #e4d5b4 100%);
+  background-size: 24px 24px, 24px 24px, auto;
+  box-shadow: 8px 10px 0 rgb(47 40 28 / 16%);
+  color: #1d1810;
+  padding: 14px;
+}
+
+.sheet-quick-brand {
+  display: grid;
+  gap: 1px;
+  border-bottom: 2px solid #2f281c;
+  padding-bottom: 6px;
+}
+
+.sheet-quick-brand strong,
+.sheet-quick-line span,
+.sheet-quick-number span,
+.sheet-quick-stat span {
+  color: #352719;
+  font-size: 9px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sheet-quick-brand strong {
+  font-size: 11px;
+}
+
+.sheet-quick-name {
+  min-width: 0;
+  overflow: hidden;
+  border-bottom: 2px solid #2f281c;
+  color: #19130c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.2;
+  padding-bottom: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sheet-quick-section-title {
+  border-bottom: 2px solid #2f281c;
+  color: #2f281c;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1;
+  padding-top: 2px;
+  text-transform: uppercase;
+}
+
+.sheet-quick-lines {
+  display: grid;
+  gap: 6px;
+}
+
+.sheet-quick-line,
+.sheet-quick-number,
+.sheet-quick-stat {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+}
+
+.sheet-quick-line input,
+.sheet-quick-number input {
+  width: 100%;
+  min-width: 0;
+  height: 28px;
+  border: 0;
+  border-bottom: 2px solid #2f281c;
+  border-radius: 0;
+  background: rgb(255 248 225 / 40%);
+  color: #111;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 800;
+  outline: none;
+  padding: 2px 4px;
+}
+
+.sheet-quick-number input {
+  text-align: center;
+}
+
+.sheet-quick-life-row .sheet-quick-number input {
+  height: 36px;
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.sheet-quick-life-row .sheet-quick-number span {
+  font-size: 10px;
+}
+
+.sheet-quick-line input:focus,
+.sheet-quick-number input:focus {
+  box-shadow: inset 0 -2px 0 #7f2d18;
+}
+
+.sheet-quick-level-row,
+.sheet-quick-health-row,
+.sheet-quick-saves-row,
+.sheet-quick-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.sheet-quick-ac-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  align-items: end;
+}
+
+.sheet-quick-stat {
+  align-content: end;
+}
+
+.sheet-quick-stat strong {
+  display: grid;
+  place-items: center;
+  min-height: 28px;
+  border: 2px solid #2f281c;
+  border-radius: 4px;
+  background: rgb(255 248 225 / 46%);
+  color: #111;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  padding: 2px 4px;
 }
 
 .sheet-section {
@@ -270,6 +431,12 @@ input:disabled,
 .sheet-identity-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) 96px;
+  gap: 12px;
+}
+
+.sheet-identification-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
 }
 
@@ -606,7 +773,17 @@ input:disabled,
 }
 
 @media (max-width: 760px) {
+  .pathfinder-sheet-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sheet-quick-summary {
+    position: relative;
+    top: auto;
+  }
+
   .sheet-identity-grid,
+  .sheet-identification-grid,
   .sheet-small-grid,
   .sheet-attributes-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));

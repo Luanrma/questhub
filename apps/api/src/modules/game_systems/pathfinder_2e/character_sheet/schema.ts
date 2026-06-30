@@ -4,6 +4,7 @@ import { PROFICIENCY_RANK_VALUES } from './constants'
 const freeTextSchema = z.string()
 const integerSchema = z.number().int()
 const nonNegativeIntegerSchema = integerSchema.min(0)
+const nonNegativeNumberSchema = z.number().min(0)
 const positiveIntegerSchema = integerSchema.min(1)
 const proficiencyRankSchema = z.union([
   z.literal(PROFICIENCY_RANK_VALUES[0]),
@@ -43,6 +44,17 @@ const skillSetSchema = z
 
 export const pathfinder2eSheetSchema = z
   .object({
+    general: z
+      .object({
+        experience: z
+          .object({
+            current: nonNegativeIntegerSchema,
+            nextLevel: nonNegativeIntegerSchema,
+          })
+          .strict(),
+        movementMeters: nonNegativeNumberSchema,
+      })
+      .strict(),
     identity: z
       .object({
         level: positiveIntegerSchema,

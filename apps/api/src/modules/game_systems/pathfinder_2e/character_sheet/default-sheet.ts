@@ -2,6 +2,13 @@ import { PROFICIENCY_RANKS } from './constants'
 import type { Pathfinder2eSheet } from './models'
 
 export const defaultPathfinder2eSheet: Pathfinder2eSheet = {
+  general: {
+    experience: {
+      current: 0,
+      nextLevel: 0,
+    },
+    movementMeters: 0,
+  },
   identity: {
     level: 1,
     ancestry: '',

@@ -8,6 +8,7 @@ import type {
 
 type Props = {
   page: number
+  characterName: string
   sheet: Pathfinder2eSheetEnvelope
   onChangeSheet: (sheet: Pathfinder2eSheetEnvelope) => void
 }
@@ -22,11 +23,19 @@ type SkillDefinition = {
   attribute: AttributeKey
 }
 
-export const PATHFINDER_2E_PAGE_TITLES = ['Identidade e Status', 'Proficiências']
+export const PATHFINDER_2E_PAGE_TITLES = ['Atributos', 'Proficiências']
 
 const UNTRAINED_PROFICIENCY: Pathfinder2eProficiencyValue = {
   rank: 0,
   value: 0,
+}
+
+const DEFAULT_GENERAL: Pathfinder2eSheet['general'] = {
+  experience: {
+    current: 0,
+    nextLevel: 0,
+  },
+  movementMeters: 0,
 }
 
 const DEFAULT_SKILLS: Pathfinder2eSkills = {
@@ -95,6 +104,17 @@ function toBoundedInteger(value: string, min?: number) {
   return Math.max(min, parsed)
 }
 
+function toBoundedNumber(value: string, min?: number) {
+  const parsed = Number.parseFloat(value)
+  const number = Number.isNaN(parsed) ? 0 : parsed
+  if (min === undefined) return number
+  return Math.max(min, number)
+}
+
+function formatSigned(value: number) {
+  return value >= 0 ? `+${value}` : String(value)
+}
+
 function getAttributeModifier(attributeScore: number) {
   return Math.floor((attributeScore - 10) / 2)
 }
@@ -129,6 +149,14 @@ function calculateSkills(pathfinder2e: Pathfinder2eSheet): Pathfinder2eSkills {
 function withDefaultSkills(pathfinder2e: Pathfinder2eSheet): Pathfinder2eSheet {
   return {
     ...pathfinder2e,
+    general: {
+      ...DEFAULT_GENERAL,
+      ...(pathfinder2e.general ?? {}),
+      experience: {
+        ...DEFAULT_GENERAL.experience,
+        ...(pathfinder2e.general?.experience ?? {}),
+      },
+    },
     skills: {
       ...DEFAULT_SKILLS,
       ...(pathfinder2e.skills ?? {}),
@@ -156,7 +184,7 @@ function updateAndCalculateSkills(current: Pathfinder2eSheet, patch: Partial<Pat
   }
 }
 
-export function Pathfinder2eSheetForm({ page, sheet, onChangeSheet }: Props) {
+export function Pathfinder2eSheetForm({ page, characterName, sheet, onChangeSheet }: Props) {
   const pathfinder2e = withCalculatedSkills(sheet.data.pathfinder2e)
 
   function updatePathfinder2e(update: (current: Pathfinder2eSheet) => Pathfinder2eSheet) {
@@ -168,28 +196,140 @@ export function Pathfinder2eSheetForm({ page, sheet, onChangeSheet }: Props) {
     })
   }
 
-  function numberInput(label: string, value: number, onChange: (value: number) => void, min?: number) {
+  function quickNumberInput(
+    label: string,
+    value: number,
+    onChange: (value: number) => void,
+    options: { min?: number; decimal?: boolean } = {},
+  ) {
     return (
-      <label className="sheet-field">
+      <label className="sheet-quick-number">
         <span>{label}</span>
         <input
           type="number"
-          inputMode="numeric"
-          step={1}
-          min={min}
+          inputMode={options.decimal ? 'decimal' : 'numeric'}
+          step={options.decimal ? 0.1 : 1}
+          min={options.min}
           value={value}
-          onChange={(event) => onChange(toBoundedInteger(event.target.value, min))}
+          onChange={(event) => {
+            const next = options.decimal
+              ? toBoundedNumber(event.target.value, options.min)
+              : toBoundedInteger(event.target.value, options.min)
+            onChange(next)
+          }}
         />
       </label>
     )
   }
 
-  function textInput(label: string, value: string, onChange: (value: string) => void) {
+  function identificationInput(label: string, value: string, onChange: (value: string) => void) {
     return (
       <label className="sheet-line-field">
         <span>{label}</span>
         <input value={value} onChange={(event) => onChange(event.target.value)} />
       </label>
+    )
+  }
+
+  function summaryValue(label: string, value: string | number) {
+    return (
+      <div className="sheet-quick-stat">
+        <span>{label}</span>
+        <strong>{value}</strong>
+      </div>
+    )
+  }
+
+  function quickSectionTitle(label: string) {
+    return <div className="sheet-quick-section-title">{label}</div>
+  }
+
+  function renderQuickSummary() {
+    const dexterityModifier = getAttributeModifier(pathfinder2e.attributes.dexterity)
+
+    return (
+      <aside className="sheet-quick-summary" aria-label="Resumo rapido Pathfinder 2e">
+        <div className="sheet-quick-brand">
+          <strong>Identificacao rapida</strong>
+        </div>
+
+        <div className="sheet-quick-name">{characterName}</div>
+
+        <div className="sheet-quick-level-row">
+          {quickNumberInput('Nivel', pathfinder2e.identity.level, (value) => {
+            updatePathfinder2e((current) => updateAndCalculateSkills(current, {
+              identity: { ...current.identity, level: value },
+            }))
+          }, { min: 1 })}
+          {quickNumberInput('EXP', pathfinder2e.general.experience.current, (value) => {
+            updatePathfinder2e((current) => ({
+              ...current,
+              general: {
+                ...current.general,
+                experience: { ...current.general.experience, current: value },
+              },
+            }))
+          }, { min: 0 })}
+          {quickNumberInput('Meta', pathfinder2e.general.experience.nextLevel, (value) => {
+            updatePathfinder2e((current) => ({
+              ...current,
+              general: {
+                ...current.general,
+                experience: { ...current.general.experience, nextLevel: value },
+              },
+            }))
+          }, { min: 0 })}
+        </div>
+
+        {quickSectionTitle('Vida')}
+        <div className="sheet-quick-health-row sheet-quick-life-row">
+          {quickNumberInput('Maxima', pathfinder2e.hitPoints.maximum, (value) => {
+            updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, maximum: value } }))
+          }, { min: 0 })}
+          {quickNumberInput('Atual', pathfinder2e.hitPoints.current, (value) => {
+            updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, current: value } }))
+          }, { min: 0 })}
+          {quickNumberInput('Temporaria', pathfinder2e.hitPoints.temporary, (value) => {
+            updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, temporary: value } }))
+          }, { min: 0 })}
+        </div>
+
+        <div className="sheet-quick-saves-row">
+          {quickNumberInput('Ferido', pathfinder2e.hitPoints.wounded, (value) => {
+            updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, wounded: value } }))
+          }, { min: 0 })}
+          {quickNumberInput('Morrendo', pathfinder2e.hitPoints.dying, (value) => {
+            updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, dying: value } }))
+          }, { min: 0 })}
+          {quickNumberInput('Condenado', pathfinder2e.hitPoints.doomed, (value) => {
+            updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, doomed: value } }))
+          }, { min: 0 })}
+        </div>
+
+        <div className="sheet-quick-ac-row">
+          {quickNumberInput('AC', pathfinder2e.armorClass, (value) => {
+            updatePathfinder2e((current) => ({ ...current, armorClass: value }))
+          }, { min: 0 })}
+          {summaryValue('Bonus', formatSigned(dexterityModifier))}
+        </div>
+
+        <div className="sheet-quick-saves-row">
+          {summaryValue('Fortitude', formatSigned(pathfinder2e.savingThrows.fortitude.value))}
+          {summaryValue('Reflexo', formatSigned(pathfinder2e.savingThrows.reflex.value))}
+          {summaryValue('Vontade', formatSigned(pathfinder2e.savingThrows.will.value))}
+        </div>
+
+        <div className="sheet-quick-bottom">
+          {summaryValue('Inic.', formatSigned(pathfinder2e.initiative))}
+          {summaryValue('Percepcao', formatSigned(pathfinder2e.perception.value))}
+          {quickNumberInput('Mov.', pathfinder2e.general.movementMeters, (value) => {
+            updatePathfinder2e((current) => ({
+              ...current,
+              general: { ...current.general, movementMeters: value },
+            }))
+          }, { min: 0, decimal: true })}
+        </div>
+      </aside>
     )
   }
 
@@ -228,70 +368,35 @@ export function Pathfinder2eSheetForm({ page, sheet, onChangeSheet }: Props) {
 
   if (page === 0) {
     return (
-      <>
+      <div className="pathfinder-sheet-layout">
+        {renderQuickSummary()}
+        <div className="pathfinder-sheet-main">
         <section className="sheet-section">
-          <div className="sheet-section-title">Identidade</div>
-          <div className="sheet-identity-grid">
-            {numberInput('Nível', pathfinder2e.identity.level, (value) => {
-              updatePathfinder2e((current) => updateAndCalculateSkills(current, {
-                identity: { ...current.identity, level: value },
-              }))
-            }, 1)}
-            {textInput('Classe', pathfinder2e.identity.className, (value) => {
+          <div className="sheet-section-title">Identificação</div>
+          <div className="sheet-identification-grid">
+            {identificationInput('Classe', pathfinder2e.identity.className, (value) => {
               updatePathfinder2e((current) => ({
                 ...current,
                 identity: { ...current.identity, className: value },
               }))
             })}
-            {textInput('Ancestralidade', pathfinder2e.identity.ancestry, (value) => {
+            {identificationInput('Ancestralidade', pathfinder2e.identity.ancestry, (value) => {
               updatePathfinder2e((current) => ({
                 ...current,
                 identity: { ...current.identity, ancestry: value },
               }))
             })}
-            {textInput('Herança', pathfinder2e.identity.heritage, (value) => {
+            {identificationInput('Herança', pathfinder2e.identity.heritage, (value) => {
               updatePathfinder2e((current) => ({
                 ...current,
                 identity: { ...current.identity, heritage: value },
               }))
             })}
-            <div className="sm:col-span-2">
-              {textInput('Background', pathfinder2e.identity.background, (value) => {
-                updatePathfinder2e((current) => ({
-                  ...current,
-                  identity: { ...current.identity, background: value },
-                }))
-              })}
-            </div>
-          </div>
-        </section>
-
-        <section className="sheet-section">
-          <div className="sheet-section-title">Hit Points e Status</div>
-          <div className="grid gap-3 sm:grid-cols-3">
-            {numberInput('HP máximo', pathfinder2e.hitPoints.maximum, (value) => {
-              updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, maximum: value } }))
-            }, 0)}
-            {numberInput('HP atual', pathfinder2e.hitPoints.current, (value) => {
-              updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, current: value } }))
-            }, 0)}
-            {numberInput('HP temporário', pathfinder2e.hitPoints.temporary, (value) => {
-              updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, temporary: value } }))
-            }, 0)}
-            {numberInput('Ferido', pathfinder2e.hitPoints.wounded, (value) => {
-              updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, wounded: value } }))
-            }, 0)}
-            {numberInput('Morrendo', pathfinder2e.hitPoints.dying, (value) => {
-              updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, dying: value } }))
-            }, 0)}
-            {numberInput('Condenado', pathfinder2e.hitPoints.doomed, (value) => {
-              updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, doomed: value } }))
-            }, 0)}
-            {numberInput('Classe de Armadura', pathfinder2e.armorClass, (value) => {
-              updatePathfinder2e((current) => ({ ...current, armorClass: value }))
-            }, 0)}
-            {numberInput('Iniciativa', pathfinder2e.initiative, (value) => {
-              updatePathfinder2e((current) => ({ ...current, initiative: value }))
+            {identificationInput('Background', pathfinder2e.identity.background, (value) => {
+              updatePathfinder2e((current) => ({
+                ...current,
+                identity: { ...current.identity, background: value },
+              }))
             })}
           </div>
         </section>
@@ -321,34 +426,40 @@ export function Pathfinder2eSheetForm({ page, sheet, onChangeSheet }: Props) {
             ))}
           </div>
         </section>
-      </>
+        </div>
+      </div>
     )
   }
 
   return (
-    <section className="sheet-section">
-      <div className="sheet-section-title">Proficiências</div>
-      <div className="sheet-proficiency-list">
-        {SKILL_LABELS.map((skill) => (
-          <div key={skill.key}>
-            {proficiencyInput(skill, pathfinder2e.skills[skill.key], (value) => {
-              updatePathfinder2e((current) => {
-                const next = withDefaultSkills(current)
-                return {
-                  ...next,
-                  skills: {
-                    ...next.skills,
-                    [skill.key]: {
-                      ...value,
-                      value: calculateSkillValue(next, skill, value.rank),
-                    },
-                  },
-                }
-              })
-            })}
+    <div className="pathfinder-sheet-layout">
+      {renderQuickSummary()}
+      <div className="pathfinder-sheet-main">
+        <section className="sheet-section">
+          <div className="sheet-section-title">Proficiências</div>
+          <div className="sheet-proficiency-list">
+            {SKILL_LABELS.map((skill) => (
+              <div key={skill.key}>
+                {proficiencyInput(skill, pathfinder2e.skills[skill.key], (value) => {
+                  updatePathfinder2e((current) => {
+                    const next = withDefaultSkills(current)
+                    return {
+                      ...next,
+                      skills: {
+                        ...next.skills,
+                        [skill.key]: {
+                          ...value,
+                          value: calculateSkillValue(next, skill, value.rank),
+                        },
+                      },
+                    }
+                  })
+                })}
+              </div>
+            ))}
           </div>
-        ))}
+        </section>
       </div>
-    </section>
+    </div>
   )
 }

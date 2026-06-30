@@ -19,6 +19,18 @@ test('pathfinder2eSheetSchema rejects decimal numbers', () => {
   assert.equal(parsed.success, false)
 })
 
+test('pathfinder2eSheetSchema accepts decimal movement', () => {
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    general: {
+      ...defaultPathfinder2eSheet.general,
+      movementMeters: 7.5,
+    },
+  })
+
+  assert.equal(parsed.success, true)
+})
+
 test('pathfinder2eSheetSchema rejects unsupported proficiency ranks', () => {
   const parsed = pathfinder2eSheetSchema.safeParse({
     ...defaultPathfinder2eSheet,

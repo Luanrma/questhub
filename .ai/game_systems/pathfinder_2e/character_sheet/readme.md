@@ -11,6 +11,7 @@ Este submodulo e a autoridade de produto para a ficha Pathfinder 2e.
 A primeira entrega sera uma ficha minima jogavel, focada em armazenamento, edicao e visualizacao.
 
 Campos incluidos:
+* General: experiencia atual, experiencia para o proximo nivel e deslocamento em metros.
 * Level.
 * Ancestry.
 * Heritage.
@@ -38,8 +39,12 @@ Campos incluidos:
 * O bonus total de uma pericia segue: bonus de proficiencia PF2e + modificador do atributo chave + outros bonus ou penalidades.
 * Destreinado nao soma nivel. Treinado, Especialista, Mestre e Lendario somam nivel + bonus do rank.
 * `Pathfinder2eProficiencyValue.value` representa o total final calculado e salvo no JSON da ficha.
+* O resumo fixo lateral da ficha deve usar dados persistidos no contrato Pathfinder 2e e permanecer visivel ao trocar de aba.
 
 ## 4. Defaults De Nova Ficha
+* `general.experience.current`: `0`
+* `general.experience.nextLevel`: `0`
+* `general.movementMeters`: `0`
 * `level`: `1`
 * `ancestry`: texto vazio
 * `heritage`: texto vazio
@@ -66,8 +71,16 @@ Campos incluidos:
 * Campos proprios para bonus de item, circunstancia, status ou penalidades.
 
 ## 6. Layout Da Ficha
+* A ficha Pathfinder 2e deve exibir um painel fixo a esquerda com resumo rapido do personagem, inspirado em ficha impressa.
+* O painel fixo deve permanecer visivel em todas as abas quando houver espaco horizontal suficiente.
+* O painel fixo deve conter nome do personagem, nivel, experiencia, vida, condicoes de vida, classe de armadura, saves, iniciativa, percepcao e deslocamento.
+* Classe, ancestralidade, heranca e background devem aparecer no conteudo principal a direita, acima de Atributos, em uma secao chamada Identificacao.
+* Vida deve aparecer no painel fixo como uma secao propria com Maxima, Atual e Temporaria em fonte maior e destacada.
+* Hit points/status nao devem aparecer duplicados no conteudo principal quando ja estiverem no painel fixo.
+* A ficha nao deve exibir o texto `QuestHub` em cabecalhos ou no painel fixo.
+* Em telas estreitas, o painel fixo deve virar o primeiro bloco vertical da ficha, antes do conteudo da aba.
 * A ficha Pathfinder 2e deve ser navegada por abas de icones, nunca por botoes `Anterior` e `Proxima`.
-* A primeira aba deve reunir, nesta ordem: identidade, hit points/status do personagem e atributos.
+* A primeira aba deve exibir Identificacao e Atributos no conteudo principal; status permanece no painel fixo.
 * Armor Class e Initiative pertencem ao status do personagem, nao a proficiencias.
 * A primeira aba nao deve exibir `metadata.bio`.
 * A segunda aba deve ser inteiramente dedicada a proficiencias de pericia.

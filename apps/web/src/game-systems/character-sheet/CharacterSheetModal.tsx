@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { BadgeCheck, GripHorizontal, HeartPulse, Save, UserRound, X } from 'lucide-react'
+import { BadgeCheck, Dumbbell, GripHorizontal, HeartPulse, Save, X } from 'lucide-react'
 import { Button } from '../../components/Button'
 import { api, ApiError } from '../../lib/api'
 import { calculateBounds, clamp } from './drag'
@@ -20,14 +20,19 @@ function getPageTitles(sheet: CharacterSheetEnvelope | null) {
 }
 
 function getPageIcon(title: string) {
-  if (title === 'Identidade e Status') return UserRound
+  if (title === 'Atributos') return Dumbbell
   if (title === 'Proficiências') return BadgeCheck
   return HeartPulse
 }
 
-function renderSheetForm(page: number, sheet: CharacterSheetEnvelope, onChangeSheet: (sheet: CharacterSheetEnvelope) => void) {
+function renderSheetForm(
+  page: number,
+  characterName: string,
+  sheet: CharacterSheetEnvelope,
+  onChangeSheet: (sheet: CharacterSheetEnvelope) => void,
+) {
   if (sheet.system === 'PATHFINDER_2E') {
-    return <Pathfinder2eSheetForm page={page} sheet={sheet} onChangeSheet={onChangeSheet} />
+    return <Pathfinder2eSheetForm page={page} characterName={characterName} sheet={sheet} onChangeSheet={onChangeSheet} />
   }
 
   return <div className="sheet-message">Sistema de ficha não suportado.</div>
@@ -183,7 +188,6 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
         <div className="sheet-paper">
           <div className="sheet-paper-header">
             <div>
-              <div className="sheet-kicker">QuestHub</div>
               <h2>Ficha de Personagem</h2>
             </div>
             <div className="sheet-system-mark">{sheet?.system === 'PATHFINDER_2E' ? 'PF2e' : 'Ficha'}</div>
@@ -214,7 +218,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
 
           {!loading && sheet ? (
             <div className="sheet-page">
-              {renderSheetForm(page, sheet, setSheet)}
+              {renderSheetForm(page, characterName, sheet, setSheet)}
             </div>
           ) : null}
         </div>

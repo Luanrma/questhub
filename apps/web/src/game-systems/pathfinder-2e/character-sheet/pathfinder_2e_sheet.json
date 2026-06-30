@@ -3,6 +3,13 @@
   "version": 1,
   "data": {
     "pathfinder2e": {
+      "general": {
+        "experience": {
+          "current": 0,
+          "nextLevel": 0
+        },
+        "movementMeters": 0
+      },
       "identity": {
         "level": 1,
         "ancestry": "",
