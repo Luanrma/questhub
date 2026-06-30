@@ -1,3 +1,4 @@
+import { BadgeCheck, Dumbbell } from 'lucide-react'
 import type {
   Pathfinder2eProficiencyRank,
   Pathfinder2eProficiencyValue,
@@ -23,7 +24,16 @@ type SkillDefinition = {
   attribute: AttributeKey
 }
 
-export const PATHFINDER_2E_PAGE_TITLES = ['Atributos', 'Proficiências']
+export const pathfinder2eCharacterSheetRenderer = {
+  systemMark: 'PF2e',
+  pages: [
+    { title: 'Atributos', Icon: Dumbbell },
+    { title: 'Proficiências', Icon: BadgeCheck },
+  ],
+  renderPage({ page, characterName, sheet, onChangeSheet }: Props) {
+    return <Pathfinder2eSheetForm page={page} characterName={characterName} sheet={sheet} onChangeSheet={onChangeSheet} />
+  },
+}
 
 const UNTRAINED_PROFICIENCY: Pathfinder2eProficiencyValue = {
   rank: 0,

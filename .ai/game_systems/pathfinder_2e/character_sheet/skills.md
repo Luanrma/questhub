@@ -35,8 +35,10 @@ export const PROFICIENCY_RANKS = {
 * Nao validar listas oficiais de opcoes neste MVP.
 * Expor validadores e defaults para consumo do registry de `game_systems`.
 * Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet` depois da migracao tecnica.
-* A navegacao visual por abas com icones pertence ao modal base, mas as paginas disponiveis e labels do Pathfinder 2e pertencem a este submodulo.
+* A navegacao visual por abas pertence ao modal base, mas paginas, labels e icones da ficha Pathfinder 2e pertencem a este submodulo.
+* O modal base nao deve conter condicionais por titulo de pagina Pathfinder 2e, nem importar icones para representar paginas Pathfinder 2e.
 * O painel fixo de resumo pertence ao componente Pathfinder 2e e deve receber do modal apenas o nome generico do personagem.
 * O arquivo `pathfinder_2e_sheet.json` no frontend deve representar exatamente o envelope persistido em `Character.sheet` para Pathfinder 2e.
 * Tooltips simples de descricao podem ser implementados com CSS no componente Pathfinder 2e, sem persistir descricoes no banco.
 * O motor de calculo de pericias deve ficar no submodulo Pathfinder 2e do frontend ate existir um adaptador compartilhado de regras.
+* Nao criar README ou documentacao paralela dentro dos diretorios de codigo da ficha Pathfinder 2e; informacoes tecnicas devem ser atualizadas nos arquivos deste diretorio canonico em `.ai`.

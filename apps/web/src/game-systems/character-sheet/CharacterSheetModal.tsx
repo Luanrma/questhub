@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { BadgeCheck, Dumbbell, GripHorizontal, HeartPulse, Save, X } from 'lucide-react'
+import { GripHorizontal, Save, X } from 'lucide-react'
 import { Button } from '../../components/Button'
 import { api, ApiError } from '../../lib/api'
 import { calculateBounds, clamp } from './drag'
+import { getCharacterSheetRenderer } from './registry'
 import type { CharacterSheetEnvelope, CharacterSheetResponse, GameSystem } from './types'
-import { PATHFINDER_2E_PAGE_TITLES, Pathfinder2eSheetForm } from '../pathfinder-2e/character-sheet/Pathfinder2eSheetForm'
 
 type Props = {
   characterId: string
@@ -12,30 +12,6 @@ type Props = {
   system?: GameSystem | null
   onClose: () => void
   onSaved?: (sheet: CharacterSheetEnvelope) => void
-}
-
-function getPageTitles(sheet: CharacterSheetEnvelope | null) {
-  if (sheet?.system === 'PATHFINDER_2E') return PATHFINDER_2E_PAGE_TITLES
-  return ['Ficha']
-}
-
-function getPageIcon(title: string) {
-  if (title === 'Atributos') return Dumbbell
-  if (title === 'Proficiências') return BadgeCheck
-  return HeartPulse
-}
-
-function renderSheetForm(
-  page: number,
-  characterName: string,
-  sheet: CharacterSheetEnvelope,
-  onChangeSheet: (sheet: CharacterSheetEnvelope) => void,
-) {
-  if (sheet.system === 'PATHFINDER_2E') {
-    return <Pathfinder2eSheetForm page={page} characterName={characterName} sheet={sheet} onChangeSheet={onChangeSheet} />
-  }
-
-  return <div className="sheet-message">Sistema de ficha não suportado.</div>
 }
 
 export function CharacterSheetModal({ characterId, characterName, system, onClose, onSaved }: Props) {
@@ -49,7 +25,9 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const pageTitles = useMemo(() => getPageTitles(sheet), [sheet])
+  const sheetRenderer = useMemo(() => getCharacterSheetRenderer(sheet), [sheet])
+  const pageDefinitions = sheetRenderer.pages
+  const currentPageTitle = pageDefinitions[page]?.title ?? pageDefinitions[0].title
   const canSave = Boolean(sheet && !loading && !saving)
 
   useEffect(() => {
@@ -87,8 +65,8 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
   }, [characterId, system])
 
   useEffect(() => {
-    setPage((current) => Math.min(current, pageTitles.length - 1))
-  }, [pageTitles.length])
+    setPage((current) => Math.min(current, pageDefinitions.length - 1))
+  }, [pageDefinitions.length])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -171,7 +149,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
             <GripHorizontal className="h-4 w-4 shrink-0" />
             <div className="min-w-0">
               <div className="truncate text-sm font-semibold">{characterName}</div>
-              <div className="text-xs">{pageTitles[page]}</div>
+              <div className="text-xs">{currentPageTitle}</div>
             </div>
           </div>
           <button
@@ -190,12 +168,11 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
             <div>
               <h2>Ficha de Personagem</h2>
             </div>
-            <div className="sheet-system-mark">{sheet?.system === 'PATHFINDER_2E' ? 'PF2e' : 'Ficha'}</div>
+            <div className="sheet-system-mark">{sheetRenderer.systemMark}</div>
           </div>
 
           <div className="sheet-tabs" aria-label="Seções da ficha">
-            {pageTitles.map((title, index) => {
-              const Icon = getPageIcon(title)
+            {pageDefinitions.map(({ title, Icon }, index) => {
               const active = index === page
               return (
                 <button
@@ -218,13 +195,13 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
 
           {!loading && sheet ? (
             <div className="sheet-page">
-              {renderSheetForm(page, characterName, sheet, setSheet)}
+              {sheetRenderer.renderPage({ page, characterName, sheet, onChangeSheet: setSheet })}
             </div>
           ) : null}
         </div>
 
         <div className="sheet-footer">
-          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{pageTitles[page]}</div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{currentPageTitle}</div>
           <Button type="button" className="gap-2" disabled={!canSave} onClick={saveSheet}>
             <Save className="h-4 w-4" />
             {saving ? 'Salvando...' : 'Salvar ficha'}

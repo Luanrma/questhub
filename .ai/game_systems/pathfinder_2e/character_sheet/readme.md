@@ -7,6 +7,11 @@ Este submodulo define o formato, os defaults, as validacoes e a experiencia de p
 
 Este submodulo e a autoridade de produto para a ficha Pathfinder 2e.
 
+## Autoridade Documental
+Este diretorio em `.ai/game_systems/pathfinder_2e/character_sheet` e o local canonico para documentacao de produto, tecnica e contratos da ficha Pathfinder 2e.
+
+Os diretorios de codigo em `apps/api/src/modules/game_systems/pathfinder_2e/character_sheet` e `apps/web/src/game-systems/pathfinder-2e/character-sheet` devem conter implementacao, tipos e fixtures, mas nao READMEs ou documentacao paralela.
+
 ## 2. Escopo Do MVP
 A primeira entrega sera uma ficha minima jogavel, focada em armazenamento, edicao e visualizacao.
 
@@ -91,3 +96,23 @@ Campos incluidos:
 * A aba de proficiencias deve conter somente as pericias: Acrobacia, Arcanismo, Atletismo, Artesanato, Diplomacia, Enganacao, Furtividade, Intimidacao, Medicina, Natureza, Ocultismo, Performance, Prestidigitacao, Religiao, Sociedade e Sobrevivencia.
 * A descricao de cada pericia nao deve aparecer diretamente na tela; ela deve aparecer apenas em tooltip ao passar o mouse sobre um icone de interrogacao.
 * "Intuicao" nao e persistida como uma pericia propria no MVP; em Pathfinder 2e ela e representada por Sociedade, Ocultismo, Lore ou testes especificos de Percepcao.
+
+## 7. Implementacao Atual
+Backend:
+* `adapter.ts`: registra a capacidade de ficha Pathfinder 2e para o registry de `game_systems`.
+* `schema.ts`: valida o bloco `data.pathfinder2e` com Zod.
+* `default-sheet.ts`: default usado pelo codigo para novas fichas.
+* `default-sheet.json`: fixture espelho do default documentado.
+* `models.ts`: tipos do contrato Pathfinder 2e.
+* `constants.ts`: constantes como sistema, data key, versao e ranks.
+
+Frontend:
+* `Pathfinder2eSheetForm.tsx`: renderiza a ficha Pathfinder 2e e edita `data.pathfinder2e`.
+* `pathfinder2eCharacterSheetRenderer`: declara paginas, icones, marca visual e renderizacao da ficha Pathfinder 2e para consumo do registry generico de ficha.
+* `types.ts`: tipos locais do envelope e do bloco Pathfinder 2e usados pela UI.
+* `pathfinder_2e_sheet.json`: fixture que representa exatamente o envelope salvo em `Character.sheet`.
+
+Fluxos importantes:
+* `onChangeSheet` substitui o envelope inteiro com o bloco Pathfinder atualizado.
+* O modal generico consome o renderer via registry e nao deve declarar titulos, icones, marca visual ou regras de Pathfinder 2e.
+* O backend valida e persiste o snapshot recebido; calculos derivados de pericia permanecem no frontend neste MVP.

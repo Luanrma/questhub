@@ -39,6 +39,8 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 * Regras mecanicas de RPG pertencem a `game_systems` e seus submodulos, como `game_systems/pathfinder_2e`.
 * Ficha de personagem e uma capacidade de ruleset. Nao deve existir modulo global de regras de ficha fora de `game_systems`.
 * Realtime de campanha pertence ao contexto `campaign-presence`; outros eventos realtime devem ter modulo e spec proprios.
+* Toda documentacao de sistema, modulo, arquitetura, contrato ou implementacao deve viver dentro de `.ai/`, exceto o `README.md` da raiz do projeto e `scripts/README.md`.
+* READMEs dentro de `apps/` ou subpastas de codigo nao devem ser usados como fonte documental; quando uma informacao for util, ela deve ser incorporada ao modulo canonico correspondente em `.ai/`.
 
 ## 7. Dependencias Principais
 * Frontend: React, React Router, Socket.IO client, Tailwind CSS, lucide-react.
