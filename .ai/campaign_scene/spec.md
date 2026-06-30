@@ -1,0 +1,305 @@
+﻿# Modulo: Campaign Scene (Specs & Contracts)
+
+## 1. Fronteira do Modulo
+`campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, tokens, diarios e regras de exibicao usadas pelo VTT.
+
+O modulo deve permanecer generico. Nenhum contrato de cena, token ou diario pode carregar regras mecanicas especificas de Pathfinder 2e, D&D 5e ou outro sistema.
+
+## 2. Decisoes Canonicas
+* A partir deste modulo, cena persistida substitui as regras antigas do MVP em que grid e tokens nao eram persistidos.
+* Nao ha obrigacao de preservar dados antigos de desenvolvimento; migracoes podem assumir que nao existe informacao importante a manter.
+* O VTT continua renderizando a mesa, mas o estado persistido de mapa, grid, tokens e diarios pertence a `campaign_scene`.
+* Trocar de cena pelo Mestre pausa automaticamente a sessao, e a nova cena inicia em estado pausado.
+* Jogadores nao recebem automaticamente a nova cena quando o Mestre retoma a sessao; por padrao, cada jogador ve a cena onde seu token esta.
+* O Mestre pode forcar uma cena para todos os jogadores, independente de onde estejam seus tokens ou de ainda nao terem token posicionado.
+* O modo "mostrar para todos" dura ate o Mestre desativar manualmente; depois cada jogador volta a ver a cena do proprio token.
+* O Mestre possui uma cena ativa propria, usada como foco da mesa dele. A cena ativa do Mestre nao obriga a visao dos jogadores enquanto "mostrar para todos" estiver desligado.
+* O Mestre pode preparar cenas antes de iniciar a campanha tanto pelo modal `Preparar cena` quanto diretamente na mesa VTT, mesmo com a campanha offline.
+* Nao existe um "editor de cena" explicito como area separada; a preparacao acontece nos fluxos existentes da mesa, do modal de preparacao e dos modais auxiliares.
+
+## 3. Modelo de Dados
+
+### 3.1 CampaignScene
+
+```ts
+type CampaignScene = {
+  id: string
+  campaignId: string
+  name: string
+  order: number
+  assetId: string | null
+  backgroundUrl: string | null
+  backgroundCacheKey: string | null
+  grid: CampaignSceneGrid
+  tokens: CampaignSceneToken[]
+  masterDiary: CampaignSceneDiary
+  createdAt: string
+  updatedAt: string
+}
+```
+
+Regras:
+* `assetId` e a referencia persistida para a imagem da cena.
+* `backgroundUrl` e persistido para renderizacao rapida, mas deve ser tratado como derivado/renovavel quando expirar ou falhar.
+* `backgroundCacheKey` identifica a imagem no cache do cliente.
+* Se `assetId` existir, a API deve conseguir renovar `backgroundUrl` a partir do modulo `assets`.
+* Se apenas `backgroundUrl` existir, a cena ainda pode renderizar, mas deve buscar vinculacao a `Asset` quando possivel.
+* Quando `assetId` muda, `backgroundCacheKey` deve mudar.
+* `order` controla a exibicao sequencial das cenas no rodape e nos cards.
+* Cenas sem imagem sao permitidas para preparo de grid, tokens e diario.
+
+### 3.2 CampaignSceneGrid
+
+```ts
+type CampaignSceneGrid =
+  | {
+      visible: boolean
+      shape: 'square'
+      size: number
+      metersPerCell: number
+      squareMeasurementColor: string
+      lineWidth: number
+      color: string
+    }
+  | {
+      visible: boolean
+      shape: 'hex'
+      size: number
+      hexMeasurementColor: string
+      lineWidth: number
+      color: string
+    }
+```
+
+Regras:
+* A configuracao de grid e persistida por cena.
+* `size` representa o tamanho visual da celula em pixels antes do zoom local.
+* `size` deve respeitar minimo de `24px` e maximo de `96px`.
+* `lineWidth` deve respeitar minimo de `1px` e maximo de `4px`.
+* No grid quadrado, `metersPerCell` representa quantos metros lineares cada lado da celula representa.
+* A regra antiga baseada em area (`squareMeters` e `sqrt(squareMeters)`) deve ser substituida por `metersPerCell`.
+* No grid quadrado, a distancia em metros deve ser `(distanciaEmPixels / size) * metersPerCell`.
+* No grid hexagonal, a medicao continua contando passos entre hexagonos e nao usa escala em metros.
+* Alterar grid de uma cena nao altera grid de outras cenas.
+* Zoom continua sendo local ao cliente e nao deve ser persistido na cena.
+
+### 3.3 CampaignSceneToken
+
+```ts
+type CampaignSceneToken = {
+  id: string
+  sceneId: string
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  ownerUserId: string | null
+  ownerName: string | null
+  role: 'PLAYER' | 'NPC'
+  hidden: boolean
+  position: {
+    x: number
+    y: number
+  }
+  createdAt: string
+  updatedAt: string
+}
+```
+
+Regras:
+* `position.x` e `position.y` representam o centro do token em unidades logicas do grid da propria cena.
+* Para renderizar, `pixelCenter = position * scene.grid.size`, com zoom aplicado apenas visualmente.
+* Ao alterar o tamanho do grid, o token permanece no mesmo ponto logico da cena.
+* Apenas o dono do personagem pode mover o proprio token durante sessao `ACTIVE`.
+* O Mestre pode mover qualquer token quando a sessao esta `PAUSED`.
+* O Mestre nao move token de Player por drag durante sessao `ACTIVE`, para evitar conflito de input.
+* O Mestre pode posicionar tokens antes de iniciar a campanha.
+* Tokens pertencem a uma cena por vez. Mover um token entre cenas altera seu `sceneId`.
+* O menu contextual do Mestre no token deve oferecer `Mover para cena...`.
+* Ao escolher destino em `Mover para cena...`, o token sai da cena atual e passa para a cena destino.
+* O Mestre tambem possui, na sidebar lateral direita, um menu que abre um modal de distribuicao de tokens por cena.
+* O modal de distribuicao mostra cada cena como card e representa personagens por seus icones.
+* O Mestre pode arrastar tokens de um card de cena para outro dentro do modal; isso move os tokens para as respectivas cenas.
+* Tokens invisiveis ficam ocultos para jogadores e visiveis com opacidade reduzida para o Mestre.
+
+### 3.4 Diarios
+
+```ts
+type CampaignSceneDiary = {
+  content: string
+  visibility: 'MASTER_ONLY' | 'EVERYONE'
+  updatedAt: string | null
+  lastEditedBy: string | null
+}
+
+type CampaignGlobalDiary = {
+  campaignId: string
+  content: string
+  visibility: 'MASTER_ONLY' | 'EVERYONE'
+  updatedAt: string | null
+  lastEditedBy: string | null
+}
+```
+
+Regras:
+* Cada cena possui um diario privado do Mestre por padrao.
+* Existe um diario global separado da cena e pertencente a campanha.
+* Todos os diarios usam Markdown.
+* Por default, todos os diarios sao visiveis apenas para o Mestre.
+* O Mestre pode tornar todos os diarios visiveis para todos.
+* O Mestre pode tornar diarios individuais visiveis para todos.
+* Jogadores veem apenas diarios com `visibility = 'EVERYONE'`.
+* Apenas o Mestre edita diarios.
+* Diarios nao usam auto-save; devem ter botao `Salvar` explicito.
+
+## 4. Visao de Cena por Usuario
+
+```ts
+type CampaignSceneViewState = {
+  campaignId: string
+  masterActiveSceneId: string | null
+  forcedSceneId: string | null
+  sessionState: 'ACTIVE' | 'PAUSED'
+}
+```
+
+Regras:
+* `masterActiveSceneId` define a cena que o Mestre esta visualizando.
+* `forcedSceneId` define a cena mostrada para todos enquanto o modo "mostrar para todos" estiver ativo.
+* Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
+* Se `forcedSceneId` nao existir, cada jogador ve a cena onde o token do seu personagem esta.
+* Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver um estado neutro de mesa aguardando posicionamento ou cena compartilhada.
+* Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao.
+* Retomar sessao nao muda a cena visivel dos jogadores por si so; a visao continua seguindo `forcedSceneId` ou cena do token.
+
+## 5. Persistencia
+
+Regras:
+* Alteracoes de grid, tokens, cena ativa e distribuicao de tokens usam auto-save por evento.
+* Eventos que devem persistir estado:
+  * troca de cena pelo Mestre;
+  * pausa de sessao;
+  * encerramento de sessao;
+  * movimentacao de token entre cenas;
+  * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes;
+  * fechamento do modal de distribuicao de tokens, quando houver alteracoes pendentes.
+* Diario e diario global devem ser persistidos apenas quando o Mestre clicar em `Salvar`.
+* O frontend pode atualizar estado de forma otimista, mas a fonte da verdade persistida deve ser atualizada pelos eventos acima.
+* Ao entrar na campanha, o cliente deve receber snapshot da cena que deve visualizar e metadados suficientes para cachear imagens.
+
+## 6. Cache de Imagem no Cliente
+
+Regras:
+* Imagens de cena devem ser armazenadas em cache nos clients.
+* O cliente deve tentar renderizar a imagem a partir do cache usando `backgroundCacheKey`.
+* A imagem so deve ser requisitada novamente quando nao existir no cache, quando o cache estiver invalido ou quando a URL assinada expirar/falhar.
+* A API deve retornar metadados suficientes para o cliente decidir se o cache ainda e valido.
+* Quando `assetId` muda, `backgroundCacheKey` deve mudar.
+* A camada de cache nao deve alterar a regra de autorizacao: somente usuarios autorizados a ver a cena podem obter ou renovar a imagem.
+
+## 7. API HTTP
+
+Endpoints esperados:
+
+```http
+GET /api/campaigns/:campaignId/scenes
+GET /api/campaigns/:campaignId/scenes/:sceneId
+POST /api/campaigns/:campaignId/scenes
+PATCH /api/campaigns/:campaignId/scenes/:sceneId
+DELETE /api/campaigns/:campaignId/scenes/:sceneId
+PATCH /api/campaigns/:campaignId/scenes/:sceneId/diary
+GET /api/campaigns/:campaignId/diary
+PATCH /api/campaigns/:campaignId/diary
+```
+
+Regras:
+* Todas as rotas exigem usuario autenticado.
+* Criar, editar e deletar cenas exige `CampaignCharacter` ativo com role `MASTER`.
+* Jogadores podem consultar apenas a cena que devem visualizar e diarios visiveis para todos.
+* Respostas de cena para jogadores nao devem incluir diario `MASTER_ONLY`.
+* Deletar cena com tokens exige confirmacao ou realocacao previa dos tokens.
+* Deletar cena com `assetId` nao deve apagar automaticamente o `Asset` sem seguir as regras do modulo `assets`.
+
+## 8. Eventos Socket.IO
+
+```ts
+type CampaignSceneChangedPayload = {
+  campaignId: string
+  sceneId: string
+  reason: 'MASTER_SWITCH' | 'FORCED_SCENE' | 'TOKEN_SCENE_CHANGED' | 'SCENE_UPDATED'
+}
+
+type CampaignSceneTokenMovedPayload = {
+  campaignId: string
+  sceneId: string
+  token: CampaignSceneToken
+}
+
+type CampaignSceneTokenSceneChangedPayload = {
+  campaignId: string
+  tokenId: string
+  fromSceneId: string
+  toSceneId: string
+}
+```
+
+Eventos:
+* `campaign-scene:snapshot`: servidor envia a cena que o socket deve visualizar.
+* `campaign-scene:switch`: Mestre troca sua cena ativa; servidor pausa a sessao e persiste o estado.
+* `campaign-scene:force`: Mestre ativa ou troca a cena forcada para todos.
+* `campaign-scene:unforce`: Mestre desativa a cena forcada para todos.
+* `campaign-scene:changed`: servidor informa que a cena visivel de um socket mudou.
+* `campaign-scene:token:move`: jogador dono em `ACTIVE` ou Mestre em `PAUSED` move token dentro da cena atual.
+* `campaign-scene:token:moved`: servidor confirma e transmite movimento valido para sockets que visualizam a cena.
+* `campaign-scene:token:move-scene`: Mestre move token para outra cena.
+* `campaign-scene:token:scene-changed`: servidor informa mudanca de cena do token e atualiza os sockets afetados.
+* `campaign-scene:grid:update`: Mestre altera grid da cena.
+* `campaign-scene:grid:changed`: servidor transmite grid atualizado para sockets que visualizam a cena.
+
+Regras:
+* Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
+* Jogadores nao podem emitir alteracoes de grid, distribuicao de cena, visibilidade ou diario.
+* Jogadores recebem apenas eventos da cena que devem visualizar.
+* Mestre pode receber eventos de todas as cenas conforme necessario para administrar a campanha.
+
+## 9. UI/UX
+
+Regras:
+* O rodape de cenas continua visivel apenas para Mestre.
+* `Preparar cena` continua sendo a entrada para criar e organizar cenas com cards.
+* Ao selecionar uma cena no rodape, o Mestre muda `masterActiveSceneId`, a sessao pausa automaticamente e a mesa dele renderiza o snapshot daquela cena.
+* A mesa deve limpar o canvas atual e reinicializar fundo, grid, tokens e medicoes visuais a partir da cena escolhida.
+* A troca de cena nao deve desmontar `CampaignLayout`.
+* A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
+* O modal de distribuicao deve exibir cenas como cards e tokens/personagens como icones arrastaveis entre cards.
+* O menu contextual de token do Mestre deve incluir `Mover para cena...`.
+* Diarios aparecem no menu `Diario` da sidebar.
+* O menu `Diario` deve permitir alternar entre diario global e diario da cena atual.
+* A interface de diario deve ter modo de edicao Markdown, preview e botao `Salvar`.
+* Controle de visibilidade de diario deve permitir marcar diario individual como `MASTER_ONLY` ou `EVERYONE`.
+* Deve existir acao do Mestre para tornar todos os diarios visiveis para todos.
+
+## 10. Criterios de Aceitacao
+* Cenas persistem imagem, grid, tokens e diario de forma independente.
+* Alterar grid em uma cena nao altera outra cena.
+* Alterar `metersPerCell` muda a medicao em metros do grid quadrado daquela cena.
+* Tokens mantem posicao logica ao alterar tamanho visual do grid.
+* Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
+* Mestre consegue preparar cenas diretamente na mesa com campanha offline.
+* Mestre consegue preparar cenas pelo modal `Preparar cena`.
+* Trocar cena pelo Mestre pausa automaticamente a sessao.
+* Retomar sessao nao revela automaticamente a nova cena para todos.
+* Player ve a cena onde seu token esta quando nao ha cena forcada.
+* Player sem token nao ve cena privada automaticamente quando nao ha cena forcada.
+* Mestre consegue forcar uma cena para todos os Players.
+* Desativar "mostrar para todos" devolve cada Player para a cena do proprio token.
+* Mestre consegue mover token entre cenas pelo menu contextual `Mover para cena...`.
+* Mestre consegue mover tokens entre cards de cena no modal da sidebar direita.
+* Jogador move apenas o proprio token em sessao `ACTIVE`.
+* Mestre move qualquer token em sessao `PAUSED`.
+* Mestre nao move token de Player por drag em sessao `ACTIVE`.
+* Diarios sao `MASTER_ONLY` por default.
+* Mestre consegue tornar um diario individual visivel para todos.
+* Mestre consegue tornar todos os diarios visiveis para todos.
+* Diario so persiste ao clicar em `Salvar`.
+* Imagens de cena sao lidas do cache do cliente quando disponiveis.
+* Imagem de cena so e requisitada novamente quando ausente, invalida ou expirada no cache.
