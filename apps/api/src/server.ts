@@ -6,6 +6,7 @@ import { registerAuthRoutes } from './modules/auth/routes'
 import { registerAssetRoutes } from './modules/assets/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
+import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerCharacterSheetRoutes } from './modules/game_systems/routes'
@@ -58,6 +59,7 @@ registerAuthRoutes(app)
 registerCharacterRoutes(app)
 registerCharacterSheetRoutes(app)
 registerCampaignRoutes(app, presence)
+registerCampaignSceneRoutes(app)
 registerChatRoutes(app)
 registerChatSocketHandlers(presence.io)
 registerTradeRoutes(app, presence.io)
