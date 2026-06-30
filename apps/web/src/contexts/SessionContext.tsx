@@ -48,6 +48,8 @@ type PresenceAck = {
 }
 
 type SocketNotificationPayload = {
+  campaignId?: string
+  online?: boolean
   message?: string
   email?: string
   characterName?: string
@@ -173,8 +175,21 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
-    socketConnection.on('campaign:status', async () => {
-      await loadCampaigns({ force: true }).catch(() => {})
+    socketConnection.on('campaign:status', (payload: SocketNotificationPayload) => {
+      if (!payload?.campaignId || typeof payload.online !== 'boolean') return
+
+      const online = payload.online
+      setCampaigns((current) =>
+        current.map((campaign) =>
+          campaign.id === payload.campaignId
+            ? {
+                ...campaign,
+                isOnline: online,
+                sessionState: online ? (campaign.sessionState ?? 'ACTIVE') : null,
+              }
+            : campaign,
+        ),
+      )
     })
 
     socketConnection.on('presence:session:state', (payload: SessionStatePayload) => {
@@ -236,7 +251,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   async function startCampaignSession(params: { campaignId: string; characterId: string }) {
     await emitPresenceAck('presence:session:start', params)
-    await loadCampaigns({ force: true }).catch(() => {})
+    setCampaigns((current) =>
+      current.map((campaign) =>
+        campaign.id === params.campaignId ? { ...campaign, isOnline: true, sessionState: 'ACTIVE' } : campaign,
+      ),
+    )
   }
 
   async function endCampaignSession(params: { campaignId: string }) {
@@ -244,7 +263,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     socketRef.current?.disconnect()
     socketRef.current = null
     setSocket(null)
-    await loadCampaigns({ force: true }).catch(() => {})
+    setCampaigns((current) =>
+      current.map((campaign) =>
+        campaign.id === params.campaignId ? { ...campaign, isOnline: false, sessionState: null } : campaign,
+      ),
+    )
   }
 
   async function pauseCampaignSession(params: { campaignId: string }) {

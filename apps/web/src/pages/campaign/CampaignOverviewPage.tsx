@@ -1215,7 +1215,7 @@ export function CampaignOverviewPage({
   const campaign = campaigns.find((item) => item.id === campaignId)
   const isMaster = campaign?.myRole === 'MASTER'
   const sessionActive = Boolean(campaign?.isOnline && sessionState !== 'PAUSED')
-  const masterCanUseVtt = Boolean(isMaster && campaign?.isOnline)
+  const masterCanUseVtt = Boolean(isMaster)
   const playerCanUseVtt = Boolean(!isMaster && sessionActive)
   const realtimeVttEnabled = Boolean(sessionActive || masterCanUseVtt)
   const canRollDice = Boolean(
@@ -1343,6 +1343,7 @@ export function CampaignOverviewPage({
 
     function onTokensSnapshot(payload: VttTokensSnapshotPayload) {
       if (payload.campaignId !== campaignId) return
+      if (isMaster) return
       setTokenState({
         campaignId,
         tokens: payload.tokens.map((token) => normalizeTableToken(token, gridSettings.shape)),
@@ -1371,27 +1372,43 @@ export function CampaignOverviewPage({
       setActiveScene(payload.scene)
     }
 
+    function onMeasurementSnapshot(payload: VttMeasurementChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      if (isMaster) return
+      measurementRef.current = payload.measurement
+      setMeasurement(payload.measurement)
+    }
+
+    function onSceneSnapshot(payload: VttSceneChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      if (isMaster) return
+      setActiveScene(payload.scene)
+    }
+
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
     socket.on('vtt:measurement:changed', onMeasurementChanged)
-    socket.on('vtt:measurement:snapshot', onMeasurementChanged)
+    socket.on('vtt:measurement:snapshot', onMeasurementSnapshot)
     socket.on('vtt:scene:changed', onSceneChanged)
-    socket.on('vtt:scene:snapshot', onSceneChanged)
-    socket.emit('vtt:tokens:request', { campaignId })
-    socket.emit('vtt:measurement:request', { campaignId })
-    socket.emit('vtt:scene:request', { campaignId })
+    socket.on('vtt:scene:snapshot', onSceneSnapshot)
+
+    if (!isMaster) {
+      socket.emit('vtt:tokens:request', { campaignId })
+      socket.emit('vtt:measurement:request', { campaignId })
+      socket.emit('vtt:scene:request', { campaignId })
+    }
 
     return () => {
       socket.off('vtt:token:changed', onTokenChanged)
       socket.off('vtt:tokens:snapshot', onTokensSnapshot)
       socket.off('vtt:token:removed', onTokenRemoved)
       socket.off('vtt:measurement:changed', onMeasurementChanged)
-      socket.off('vtt:measurement:snapshot', onMeasurementChanged)
+      socket.off('vtt:measurement:snapshot', onMeasurementSnapshot)
       socket.off('vtt:scene:changed', onSceneChanged)
-      socket.off('vtt:scene:snapshot', onSceneChanged)
+      socket.off('vtt:scene:snapshot', onSceneSnapshot)
     }
-  }, [socket, campaignId, gridSettings.shape])
+  }, [socket, campaignId, gridSettings.shape, isMaster])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return

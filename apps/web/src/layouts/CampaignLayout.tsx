@@ -143,6 +143,7 @@ export function CampaignLayout() {
 
     function onGridChanged(payload: VttGridChangedPayload) {
       if (payload.campaignId !== campaignId) return
+      if (isMaster) return
       const nextSettings = normalizeGridSettings(payload.settings)
       setGridSettings(nextSettings)
       storeGridSettings(campaignId, nextSettings)
@@ -153,7 +154,7 @@ export function CampaignLayout() {
     return () => {
       socket.off('vtt:grid:changed', onGridChanged)
     }
-  }, [socket, campaignId])
+  }, [socket, campaignId, isMaster])
 
   function applyGridSettings(settings: VttGridSettings) {
     if (!campaignId) return
@@ -202,7 +203,6 @@ export function CampaignLayout() {
     setSessionActionLoading(true)
     try {
       await startCampaignSession({ campaignId, characterId: myCharacter.id })
-      await updateVttGridSettings({ campaignId, settings: gridSettings })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível iniciar a sessão.'
       alert(message)
