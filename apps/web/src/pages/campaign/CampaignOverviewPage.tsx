@@ -1862,7 +1862,7 @@ export function CampaignOverviewPage({
           <div
             ref={gridAreaRef}
             className={[
-              'relative overflow-hidden border-r border-b border-blue-500/50 bg-[#0b0d12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]',
+              'relative overflow-hidden bg-[#0b0d12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]',
               activeTool === 'move' ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : '',
             ].join(' ')}
             style={{
