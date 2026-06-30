@@ -83,6 +83,10 @@ export const campaignSceneViewStateSchema = z.object({
   forcedSceneId: z.string().trim().min(1).nullable().optional(),
 })
 
+export const deleteCampaignSceneQuerySchema = z.object({
+  force: z.coerce.boolean().default(false),
+})
+
 export const createCampaignDiarySchema = z.object({
   title: z.string().trim().min(1, 'Titulo e obrigatorio').max(CAMPAIGN_DIARY_TITLE_MAX_LENGTH, 'Titulo muito longo'),
   content: z.string().max(CAMPAIGN_DIARY_CONTENT_MAX_LENGTH, 'Diario muito longo').optional(),
