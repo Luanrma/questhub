@@ -1681,6 +1681,31 @@ export function CampaignOverviewPage({
       onGridSettingsChange(scene.grid, { realtime: false, sceneId: scene.id })
       publishSceneSelection(nextScene)
     } catch (err) {
+      if (campaignId) {
+        try {
+          const refreshedSceneResponse = await api<CampaignSceneResponse>(
+            `/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(scene.id)}`,
+          )
+          const refreshedScene = {
+            ...sceneResponseToPreparedScene(refreshedSceneResponse, scene.order - 1),
+            name: scene.name,
+            order: scene.order,
+          }
+          if (!refreshedScene.imageUrl) throw err
+
+          const dimensions = await readImageDimensions(refreshedScene.imageUrl)
+          const nextScene = preparedSceneToTableScene(refreshedScene, dimensions)
+          sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
+
+          setPreparedScenes((current) => current.map((item) => (item.id === scene.id ? refreshedScene : item)))
+          setActiveScene(nextScene)
+          setTokenState({ campaignId, tokens: refreshedScene.tokens.map((token) => normalizeTableToken(token, refreshedScene.grid.shape)) })
+          onGridSettingsChange(refreshedScene.grid, { realtime: false, sceneId: refreshedScene.id })
+          publishSceneSelection(nextScene)
+          return
+        } catch {}
+      }
+
       setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel selecionar a cena.')
     }
   }

@@ -10,7 +10,8 @@ import {
   deleteCampaignSceneQuerySchema,
   updateCampaignSceneSchema,
 } from './validation'
-import { presentCampaignScene, presentCampaignSceneViewState } from './presenter'
+import { presentCampaignSceneViewState } from './presenter'
+import { presentCampaignSceneWithSignedBackground } from './signed-background'
 import { z } from 'zod'
 
 type CampaignAccess = {
@@ -185,7 +186,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
     ])
 
     return reply.send({
-      scene: scene ? presentCampaignScene(scene) : null,
+      scene: scene ? await presentCampaignSceneWithSignedBackground(scene) : null,
       viewState: presentCampaignSceneViewState(viewState, params.data.campaignId),
     })
   })
@@ -202,7 +203,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
 
     if (!isMaster(access)) {
       const scene = await findVisibleScene(params.data.campaignId, access)
-      return reply.send(scene ? [presentCampaignScene(scene)] : [])
+      return reply.send(scene ? [await presentCampaignSceneWithSignedBackground(scene)] : [])
     }
 
     const scenes = await prisma.campaignScene.findMany({
@@ -211,7 +212,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       orderBy: { order: 'asc' },
     })
 
-    return reply.send(scenes.map(presentCampaignScene))
+    return reply.send(await Promise.all(scenes.map(presentCampaignSceneWithSignedBackground)))
   })
 
   app.get('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {
@@ -237,7 +238,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
 
     if (!scene) return reply.status(404).send({ error: 'Cena nao encontrada' })
 
-    return reply.send(presentCampaignScene(scene))
+    return reply.send(await presentCampaignSceneWithSignedBackground(scene))
   })
 
   app.post('/api/campaigns/:campaignId/scenes', async (req, reply) => {
@@ -292,7 +293,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       update: {},
     })
 
-    return reply.status(201).send(presentCampaignScene(scene))
+    return reply.status(201).send(await presentCampaignSceneWithSignedBackground(scene))
   })
 
   app.patch('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {
@@ -347,7 +348,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       throw err
     }
 
-    return reply.send(presentCampaignScene(scene))
+    return reply.send(await presentCampaignSceneWithSignedBackground(scene))
   })
 
   app.delete('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {
