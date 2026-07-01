@@ -59,7 +59,6 @@ const vttGridUpdateSchema = z.object({
   campaignId: z.string().min(1),
   sceneId: z.string().min(1).optional(),
   settings: vttGridSettingsSchema,
-  clearSceneTokens: z.boolean().optional(),
 })
 
 const vttTokenPositionSchema = z.object({
@@ -94,7 +93,7 @@ const vttMeasurementUpdateSchema = z.object({
 const vttTableSceneSchema = z.object({
   id: z.string().min(1).max(200),
   name: z.string().min(1).max(120),
-  imageUrl: z.string().min(1).max(12000),
+  imageUrl: z.string().min(1).max(12000).nullable(),
   fileName: z.string().min(1).max(255).nullable(),
   assetId: z.string().min(1).max(200).nullable(),
   width: z.number().int().min(1).max(100000),
@@ -153,6 +152,18 @@ const vttTokenActionSchema = z.object({
   campaignId: z.string().min(1),
   characterId: z.string().min(1),
 })
+
+const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
+  z.object({
+    campaignId: z.string().min(1),
+    scope: z.literal('scene'),
+    sceneId: z.string().min(1),
+  }),
+  z.object({
+    campaignId: z.string().min(1),
+    scope: z.literal('global'),
+  }),
+])
 
 export function setupCampaignPresence(server: HttpServer) {
   const io = new SocketIOServer(server, {
@@ -317,20 +328,22 @@ export function setupCampaignPresence(server: HttpServer) {
     return Boolean(scene)
   }
 
-  async function clearSceneTokensForGridEdit(campaignId: string, sceneId: string) {
+  async function removeCampaignTokens(campaignId: string, options: { sceneId?: string | null }) {
     const tokenMap = campaignTokens.get(campaignId)
     const tokenSceneMap = campaignTokenSceneIds.get(campaignId)
     if (!tokenMap || !tokenSceneMap) return
 
-    const tokensToRemove = [...tokenMap.values()].filter((token) => tokenSceneMap.get(token.characterId) === sceneId)
+    const tokensToRemove = [...tokenMap.values()].filter((token) => {
+      if (!options.sceneId) return true
+      return tokenSceneMap.get(token.characterId) === options.sceneId
+    })
+
     for (const token of tokensToRemove) {
+      const sceneId = tokenSceneMap.get(token.characterId)
+      if (!sceneId) continue
+
       tokenMap.delete(token.characterId)
       tokenSceneMap.delete(token.characterId)
-      io.to(`user:${token.ownerUserId}`).emit('vtt:scene:editing', {
-        campaignId,
-        sceneId,
-        message: 'A cena esta sendo editada pelo mestre; seu token foi removido da cena e a visao do mapa ficara indisponivel ate ser reposicionado.',
-      })
       await emitSceneTokenRemoved(campaignId, sceneId, token.characterId)
     }
   }
@@ -373,8 +386,7 @@ export function setupCampaignPresence(server: HttpServer) {
     if (!characterId) return null
 
     const liveTokenSceneMap = campaignTokenSceneIds.get(campaignId)
-    const liveSceneId = liveTokenSceneMap?.get(characterId)
-    if (liveSceneId) return liveSceneId
+    if (liveTokenSceneMap) return liveTokenSceneMap.get(characterId) ?? null
 
     const token = await prisma.campaignSceneToken.findFirst({
       where: {
@@ -475,6 +487,7 @@ export function setupCampaignPresence(server: HttpServer) {
           sceneId,
           characterId,
         })
+        if (isRemovedTokenOwner) await emitVisibleTableSnapshot(campaignId, campaignSocket)
       }),
     )
   }
@@ -783,9 +796,9 @@ export function setupCampaignPresence(server: HttpServer) {
     if (!tokenMap?.has(characterId)) return
     if (!sceneId) return
 
-    await emitSceneTokenRemoved(campaignId, sceneId, characterId)
     tokenMap.delete(characterId)
     campaignTokenSceneIds.get(campaignId)?.delete(characterId)
+    await emitSceneTokenRemoved(campaignId, sceneId, characterId)
   }
 
   io.use((socket, next) => {
@@ -970,7 +983,7 @@ export function setupCampaignPresence(server: HttpServer) {
         const parsed = vttGridUpdateSchema.safeParse(input)
         if (!parsed.success) return
 
-        const { campaignId, sceneId: requestedSceneId, settings, clearSceneTokens } = parsed.data
+        const { campaignId, sceneId: requestedSceneId, settings } = parsed.data
         const online = campaignOnline.get(campaignId)
         if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
 
@@ -979,7 +992,6 @@ export function setupCampaignPresence(server: HttpServer) {
         if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
         setLiveSceneGrid(campaignId, sceneId, settings)
-        if (clearSceneTokens) await clearSceneTokensForGridEdit(campaignId, sceneId)
         await emitSceneGridSettings(campaignId, sceneId, settings)
       } catch {
         socket.emit('presence:error', { message: 'Nao foi possivel atualizar o grid da cena.' })
@@ -1084,6 +1096,24 @@ export function setupCampaignPresence(server: HttpServer) {
       if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
 
       await removeCampaignToken(campaignId, characterId)
+    })
+
+    socket.on('vtt:tokens:remove-bulk', async (input: unknown) => {
+      const parsed = vttTokensRemoveBulkSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      const online = campaignOnline.get(campaignId)
+      if (!online) return
+      if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
+
+      if (parsed.data.scope === 'scene') {
+        if (!(await sceneBelongsToCampaign(campaignId, parsed.data.sceneId))) return
+        await removeCampaignTokens(campaignId, { sceneId: parsed.data.sceneId })
+        return
+      }
+
+      await removeCampaignTokens(campaignId, { sceneId: null })
     })
 
     socket.on('vtt:token:visibility', async (input: unknown) => {

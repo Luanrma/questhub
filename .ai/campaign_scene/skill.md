@@ -18,7 +18,8 @@
 * Pause-on-scene-switch: toda troca de cena pelo Mestre pausa automaticamente a sessao.
 * Session Live State: grid, tokens e cena ativa podem ser alterados em memoria/cache durante a sessao online, com propagacao por Socket.IO.
 * Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como iniciar e encerrar sessao.
-* Asset-backed Backgrounds: imagem de cena deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
+* Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
+* Asset-backed Backgrounds: quando houver imagem de cena, ela deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.
 * DDD Backend Boundary: rotas chamam services/casos de uso, e todo acesso ao banco passa por repositories do modulo.
@@ -32,5 +33,6 @@
 * Nao revelar cena diferente da cena do token do jogador quando nao houver `forcedSceneId`.
 * Nao implementar diarios dentro deste modulo; diarios pertencem a `campaign_diary`.
 * Nao apagar `Asset` automaticamente ao deletar cena sem seguir as regras do modulo `assets`.
+* Nao exigir upload de imagem para criar, selecionar ou preparar cena.
 * Nao usar URL assinada como unica referencia persistida da imagem.
 * Nao ignorar cache do client quando `backgroundCacheKey` ainda for valido.

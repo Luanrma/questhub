@@ -157,7 +157,7 @@ export function CampaignLayout() {
     }
   }, [socket, campaignId, isMaster])
 
-  function applyGridSettings(settings: VttGridSettings, options?: { clearSceneTokens?: boolean; realtime?: boolean; sceneId?: string }) {
+  function applyGridSettings(settings: VttGridSettings, options?: { realtime?: boolean; sceneId?: string }) {
     if (!campaignId) return
 
     const nextSettings = normalizeGridSettings(settings)
@@ -170,7 +170,6 @@ export function CampaignLayout() {
       campaignId,
       sceneId: options?.sceneId,
       settings: nextSettings,
-      clearSceneTokens: options?.clearSceneTokens,
     }).catch(() => {})
   }
 

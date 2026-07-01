@@ -18,6 +18,12 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * O Mestre possui uma cena ativa propria, usada como foco da mesa dele. A cena ativa do Mestre nao obriga a visao dos jogadores enquanto "mostrar para todos" estiver desligado.
 * O Mestre pode preparar cenas antes de iniciar a campanha tanto pelo modal `Preparar cena` quanto diretamente na mesa VTT, mesmo com a campanha offline.
 * Nao existe um "editor de cena" explicito como area separada; a preparacao acontece nos fluxos existentes da mesa, do modal de preparacao e dos modais auxiliares.
+* Criar uma cena nao exige imagem de background.
+* O botao `+` em `Preparar cena` cria uma nova cena vazia imediatamente.
+* Vincular, trocar ou remover imagem de background e acao separada da criacao da cena.
+* Cenas vazias continuam selecionaveis e podem receber grid, tokens e estado de sessao.
+* Cenas vazias devem renderizar uma superficie neutra no VTT, sem bloquear ferramentas de grid, medicao ou tokens.
+* A modelagem deve permanecer compativel com um futuro fluxo `Construir cena`, onde elementos de construcao como paredes, chao, portas, janelas, escadas, buracos e colisao serao adicionados sem depender de imagem.
 
 ## 2.1 Nomes Canonicos
 Models Prisma esperados:
@@ -85,13 +91,17 @@ type CampaignScene = {
 
 Regras:
 * `assetId` e a referencia persistida para a imagem da cena.
+* `assetId`, `backgroundUrl` e `backgroundCacheKey` sao opcionais.
 * `backgroundUrl` e persistido para renderizacao rapida, mas deve ser tratado como derivado/renovavel quando expirar ou falhar.
 * `backgroundCacheKey` identifica a imagem no cache do cliente.
 * Se `assetId` existir, a API deve conseguir renovar `backgroundUrl` a partir do modulo `assets`.
 * Se apenas `backgroundUrl` existir, a cena ainda pode renderizar, mas deve buscar vinculacao a `Asset` quando possivel.
 * Quando `assetId` muda, `backgroundCacheKey` deve mudar.
 * `order` controla a exibicao sequencial das cenas no rodape e nos cards.
-* Cenas sem imagem sao permitidas para preparo de grid e tokens.
+* Cenas sem imagem sao permitidas para preparo, selecao, grid, tokens e visualizacao.
+* Criar cena sem imagem deve persistir `assetId`, `backgroundUrl` e `backgroundCacheKey` como `null`.
+* Vincular imagem a cena deve acontecer por `PATCH`, informando `assetId`, `backgroundUrl` e `backgroundCacheKey`.
+* Remover imagem de cena deve acontecer por `PATCH`, informando `assetId: null`, `backgroundUrl: null` e `backgroundCacheKey: null`.
 
 ### 3.2 CampaignSceneGrid
 
@@ -126,6 +136,8 @@ Regras:
 * No grid quadrado, a distancia em metros deve ser `(distanciaEmPixels / size) * metersPerCell`.
 * No grid hexagonal, a medicao continua contando passos entre hexagonos e nao usa escala em metros.
 * Alterar grid de uma cena nao altera grid de outras cenas.
+* Alterar tamanho, formato, cor ou escala do grid nao remove tokens.
+* Alterar grid nao deve exibir aviso informando que tokens serao removidos.
 * Zoom continua sendo local ao cliente e nao deve ser persistido na cena.
 
 ### 3.3 CampaignSceneToken
@@ -165,6 +177,10 @@ Regras:
 * O modal de distribuicao mostra cada cena como card e representa personagens por seus icones.
 * O Mestre pode arrastar tokens de um card de cena para outro dentro do modal; isso move os tokens para as respectivas cenas.
 * Tokens invisiveis ficam ocultos para jogadores e visiveis com opacidade reduzida para o Mestre.
+* O Mestre pode remover um token individualmente pelo menu contextual.
+* O Mestre pode remover todos os tokens da cena atual pela listagem/painel da ferramenta de tokens.
+* O Mestre pode remover todos os tokens da campanha pela listagem/painel da ferramenta de tokens.
+* Remocao em lote e sempre acao explicita do Mestre, nunca consequencia automatica de edicao de grid.
 
 ## 4. Visao de Cena por Usuario
 
@@ -182,8 +198,9 @@ Regras:
 * `forcedSceneId` define a cena mostrada para todos enquanto o modo "mostrar para todos" estiver ativo.
 * Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
 * Se `forcedSceneId` nao existir, cada jogador ve a cena onde o token do seu personagem esta.
-* Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver um estado neutro de mesa aguardando posicionamento ou cena compartilhada.
-* Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar ao estado neutro ate o token ser reposicionado.
+* Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver uma tela preta/neutra aguardando posicionamento ou cena compartilhada.
+* Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar para tela preta/neutra ate o token ser reposicionado.
+* Remover token de um jogador nunca deve redirecionar esse jogador para `masterActiveSceneId` ou para a primeira cena da campanha.
 * Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao.
 * Retomar sessao nao muda a cena visivel dos jogadores por si so; a visao continua seguindo `forcedSceneId` ou cena do token.
 
@@ -234,6 +251,27 @@ Regras:
 * Deletar cena com `assetId` nao deve apagar automaticamente o `Asset` sem seguir as regras do modulo `assets`.
 * Rotas devem delegar fluxo para services/casos de uso.
 * Acesso a Prisma deve acontecer apenas por repositories do modulo.
+* `POST /api/campaigns/:campaignId/scenes` deve aceitar payload sem `assetId`, `backgroundUrl` e `backgroundCacheKey`.
+* `PATCH /api/campaigns/:campaignId/scenes/:sceneId` deve aceitar vinculacao e remocao de imagem sem recriar a cena.
+
+Payload minimo de criacao:
+
+```json
+{
+  "name": "Cena1",
+  "order": 1
+}
+```
+
+Payload para vincular imagem:
+
+```json
+{
+  "assetId": "asset_123",
+  "backgroundUrl": "https://...",
+  "backgroundCacheKey": "storage/path/image.webp"
+}
+```
 
 ## 8. Eventos Socket.IO
 
@@ -255,6 +293,12 @@ type CampaignSceneTokenSceneChangedPayload = {
   tokenId: string
   fromSceneId: string
   toSceneId: string
+}
+
+type CampaignSceneTokensRemovedPayload = {
+  campaignId: string
+  sceneId: string | null
+  scope: 'CURRENT_SCENE' | 'GLOBAL'
 }
 ```
 

@@ -7,8 +7,9 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 
 ## Personas e casos de uso
 * Mestre prepara cenas antes de iniciar a campanha.
-* Mestre configura grid, escala em metros do grid quadrado e imagem por cena.
+* Mestre configura grid, escala em metros do grid quadrado e, opcionalmente, imagem por cena.
 * Mestre posiciona tokens em cenas especificas antes ou durante a sessao.
+* Mestre remove tokens individualmente, todos os tokens da cena atual ou todos os tokens da campanha por acoes explicitas no painel de tokens.
 * Mestre troca a propria cena ativa sem revelar automaticamente a cena nova aos jogadores.
 * Mestre mostra uma cena para todos quando quiser compartilhar uma visao comum.
 * Mestre move tokens entre cenas por menu contextual ou por modal de distribuicao na sidebar direita.
@@ -23,7 +24,13 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Sem cena forcada, a visao do jogador e derivada da cena do proprio token.
 * Com cena forcada, todos veem a cena escolhida pelo Mestre ate ele desativar esse modo.
 * Diarios nao pertencem a `campaign_scene`; eles pertencem ao modulo `campaign_diary`.
+* Uma cena pode existir sem imagem de background; nesses casos o VTT continua oferecendo grid, tokens e ferramentas sobre uma superficie neutra.
+* O fluxo `Preparar cena` cria cenas vazias sem obrigar upload.
+* Vincular imagem a uma cena e uma acao separada, acionada por menu proprio da cena.
+* Redimensionar ou alterar o formato do grid nao remove tokens e nao deve exibir aviso de remocao.
+* Tokens so sao removidos por acoes explicitas do Mestre.
 * Imagens devem usar cache no client e requisitar novamente apenas quando necessario.
+* A ausencia de imagem preserva espaco para o futuro fluxo `Construir cena`, onde o Mestre podera compor paredes, chao, portas, janelas, escadas, buracos e elementos de colisao.
 
 ## Relacoes com outros modulos
 * `vtt`: renderiza a mesa, ferramentas, tokens e grid usando o snapshot da cena.

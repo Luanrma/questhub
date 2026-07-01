@@ -54,6 +54,7 @@ type PreparedScene = {
   tokens: VttPlayerToken[]
   order: number
   error: string | null
+  draft: boolean
 }
 
 type AssetUploadResponse = {
@@ -93,6 +94,7 @@ function createPreparedScene(index: number): PreparedScene {
     tokens: [],
     order: index,
     error: null,
+    draft: true,
   }
 }
 
@@ -114,15 +116,15 @@ function validateSceneImage(file: File) {
 }
 
 function normalizePreparedSceneList(scenes: PreparedScene[]) {
-  const normalizedScenes = scenes.map((scene, index) => ({
+  const persistedScenes = scenes.filter((scene) => !isDraftPreparedScene(scene))
+  const normalizedScenes = persistedScenes.map((scene, index) => ({
     ...scene,
     id: scene.id,
     name: `Cena${index + 1}`,
     order: index + 1,
+    draft: scene.draft,
   }))
 
-  if (!normalizedScenes.length) return [createPreparedScene(1)]
-  if (normalizedScenes.some((scene) => !scene.imageUrl)) return normalizedScenes
   return [...normalizedScenes, createPreparedScene(normalizedScenes.length + 1)]
 }
 
@@ -134,8 +136,19 @@ function revokeSceneImageUrl(scene: PreparedScene) {
   if (scene.imageUrl && isObjectUrl(scene.imageUrl)) URL.revokeObjectURL(scene.imageUrl)
 }
 
+function isDraftPreparedScene(scene: PreparedScene) {
+  return scene.draft
+}
+
 function isSelectablePreparedScene(scene: PreparedScene) {
-  return Boolean(scene.imageUrl && scene.assetId)
+  return !isDraftPreparedScene(scene)
+}
+
+function getDefaultSceneDimensions(grid: VttGridSettings): VttGridBounds {
+  return {
+    width: boardGridLimits.columns * grid.size,
+    height: boardGridLimits.rows * grid.size,
+  }
 }
 
 function filenameEquals(left: string | null, right: string) {
@@ -392,7 +405,7 @@ type CampaignOverviewPageProps = {
     role: 'MASTER' | 'PLAYER'
     status: 'ACTIVE' | 'PENDING'
   } | null
-  onGridSettingsChange: (settings: VttGridSettings, options?: { clearSceneTokens?: boolean; realtime?: boolean; sceneId?: string }) => void
+  onGridSettingsChange: (settings: VttGridSettings, options?: { realtime?: boolean; sceneId?: string }) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
 
@@ -430,12 +443,6 @@ type VttTokenRemovedPayload = {
   characterId: string
 }
 
-type VttSceneEditingPayload = {
-  campaignId: string
-  sceneId?: string
-  message?: string
-}
-
 type VttTokenState = {
   campaignId: string | null
   tokens: VttPlayerToken[]
@@ -468,6 +475,7 @@ function sceneResponseToPreparedScene(scene: CampaignSceneResponse, index: numbe
     tokens: scene.tokens,
     order: scene.order,
     error: null,
+    draft: false,
   }
 }
 
@@ -483,10 +491,6 @@ function preparedSceneToTableScene(scene: PreparedScene, dimensions: VttGridBoun
     grid: scene.grid,
     tokens: scene.tokens,
   }
-}
-
-function isStructuralGridChange(current: VttGridSettings, next: VttGridSettings) {
-  return current.shape !== next.shape || current.size !== next.size
 }
 
 function sceneImageDimensionKey(scene: Pick<VttTableScene, 'id' | 'imageUrl'>) {
@@ -524,6 +528,7 @@ function ScenePreparationModal({
   error,
   successMessage,
   skippedFiles,
+  onCreateScene,
   onUpload,
   onSave,
   onDelete,
@@ -535,6 +540,7 @@ function ScenePreparationModal({
   error: string | null
   successMessage: string | null
   skippedFiles: string[]
+  onCreateScene: () => void
   onUpload: (sceneId: string, file: File) => void
   onSave: () => void
   onDelete: (sceneId: string) => void
@@ -564,60 +570,71 @@ function ScenePreparationModal({
           <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4">
             {scenes.map((scene) => (
               <div key={scene.id} className="grid gap-2">
-                <label
-                  className={[
-                    'group grid aspect-[4/3] grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] transition',
-                    scene.assetId ? 'cursor-default' : 'cursor-pointer hover:border-indigo-300/50 hover:bg-white/[0.07]',
-                  ].join(' ')}
-                >
-                  <span className="border-b border-white/10 px-3 py-2 text-sm font-semibold text-zinc-100">{scene.name}</span>
-                  <span className="relative grid min-h-0 place-items-center overflow-hidden">
-                    {scene.imageUrl ? (
-                      <>
-                        <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" />
-                        <span className="absolute inset-x-0 bottom-0 truncate bg-black/60 px-3 py-2 text-xs font-semibold text-zinc-200 opacity-0 transition group-hover:opacity-100">
-                          {scene.fileName}
-                        </span>
-                        {scene.assetId ? (
-                          <span className="absolute right-2 top-2 rounded-full border border-emerald-300/30 bg-emerald-500/20 px-2 py-1 text-[10px] font-bold uppercase text-emerald-100">
-                            Salva
-                          </span>
-                        ) : null}
-                      </>
-                    ) : (
+                {isDraftPreparedScene(scene) ? (
+                  <button
+                    type="button"
+                    disabled={saving}
+                    className="group grid aspect-[4/3] grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-lg border border-dashed border-white/15 bg-white/[0.03] text-left transition hover:border-indigo-300/50 hover:bg-white/[0.06] disabled:cursor-wait disabled:opacity-60"
+                    onClick={onCreateScene}
+                  >
+                    <span className="border-b border-white/10 px-3 py-2 text-sm font-semibold text-zinc-100">Nova cena</span>
+                    <span className="grid min-h-0 place-items-center">
                       <span className="grid h-14 w-14 place-items-center rounded-full border border-white/15 bg-black/35 text-zinc-200 transition group-hover:border-indigo-300/60 group-hover:text-white">
                         <Plus className="h-7 w-7" />
                       </span>
-                    )}
-                  </span>
-                  <input
-                    type="file"
-                    accept={sceneImageMimeTypes.join(',')}
-                    disabled={Boolean(scene.assetId)}
-                    className="sr-only"
-                    onChange={(event) => {
-                      const file = event.target.files?.[0]
-                      event.currentTarget.value = ''
-                      if (!file) return
-                      onUpload(scene.id, file)
-                    }}
-                  />
-                  {scene.error ? <span className="px-3 pb-2 text-xs font-semibold text-red-200">{scene.error}</span> : null}
-                </label>
-                {scene.imageUrl ? (
-                  <Button
-                    type="button"
-                    variant={scene.assetId ? 'danger' : 'primary'}
-                    disabled={saving || deletingSceneId === scene.id}
-                    className={[
-                      'h-8 px-3 text-xs',
-                      scene.assetId ? '' : 'bg-blue-600 text-white hover:bg-blue-700',
-                    ].join(' ')}
-                    onClick={() => onDelete(scene.id)}
-                  >
-                    {deletingSceneId === scene.id ? 'Deletando...' : scene.assetId ? 'Deletar' : 'Remover'}
-                  </Button>
-                ) : null}
+                    </span>
+                  </button>
+                ) : (
+                  <>
+                    <div className="grid aspect-[4/3] grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-lg border border-white/10 bg-white/[0.04]">
+                      <span className="border-b border-white/10 px-3 py-2 text-sm font-semibold text-zinc-100">{scene.name}</span>
+                      <span className="relative grid min-h-0 place-items-center overflow-hidden">
+                        {scene.imageUrl ? (
+                          <>
+                            <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" />
+                            <span className="absolute inset-x-0 bottom-0 truncate bg-black/60 px-3 py-2 text-xs font-semibold text-zinc-200">
+                              {scene.fileName}
+                            </span>
+                          </>
+                        ) : (
+                          <span className="px-4 text-center text-xs font-semibold uppercase tracking-wide text-zinc-500">
+                            Sem imagem
+                          </span>
+                        )}
+                        <span className="absolute right-2 top-2 rounded-full border border-emerald-300/30 bg-emerald-500/20 px-2 py-1 text-[10px] font-bold uppercase text-emerald-100">
+                          Salva
+                        </span>
+                      </span>
+                      {scene.error ? <span className="px-3 pb-2 text-xs font-semibold text-red-200">{scene.error}</span> : null}
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      <label className="grid h-8 cursor-pointer place-items-center rounded-md border border-white/10 bg-indigo-600 px-3 text-center text-xs font-semibold text-white transition hover:bg-indigo-500">
+                        Imagem
+                        <input
+                          type="file"
+                          accept={sceneImageMimeTypes.join(',')}
+                          disabled={saving || deletingSceneId === scene.id}
+                          className="sr-only"
+                          onChange={(event) => {
+                            const file = event.target.files?.[0]
+                            event.currentTarget.value = ''
+                            if (!file) return
+                            onUpload(scene.id, file)
+                          }}
+                        />
+                      </label>
+                      <Button
+                        type="button"
+                        variant="danger"
+                        disabled={saving || deletingSceneId === scene.id}
+                        className="h-8 px-3 text-xs"
+                        onClick={() => onDelete(scene.id)}
+                      >
+                        {deletingSceneId === scene.id ? 'Deletando...' : 'Deletar'}
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -1326,6 +1343,8 @@ export function CampaignOverviewPage({
     positionedCharacterIds.add(token.characterId)
     if (token.role === 'PLAYER') positionedPlayerOwnerUserIds.add(token.ownerUserId)
   })
+  const currentSceneTokenCount = playerTokens.length
+  const globalTokenCount = positionedCharacterIds.size
   const availableTokenCandidates = tokenCandidates.filter(
     (candidate) =>
       !positionedCharacterIds.has(candidate.characterId) &&
@@ -1539,14 +1558,6 @@ export function CampaignOverviewPage({
       applySceneSnapshot(payload.scene)
     }
 
-    function onSceneEditing(payload: VttSceneEditingPayload) {
-      if (payload.campaignId !== campaignId) return
-      if (isMaster) return
-      setActiveScene(null)
-      setTokenState({ campaignId, tokens: [] })
-      alert(payload.message ?? 'A cena esta sendo editada pelo mestre; sua visao do mapa foi removida ate o token ser reposicionado.')
-    }
-
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
@@ -1554,7 +1565,6 @@ export function CampaignOverviewPage({
     socket.on('vtt:measurement:snapshot', onMeasurementSnapshot)
     socket.on('vtt:scene:changed', onSceneChanged)
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
-    socket.on('vtt:scene:editing', onSceneEditing)
 
     if (!isMaster) {
       socket.emit('vtt:tokens:request', { campaignId })
@@ -1570,7 +1580,6 @@ export function CampaignOverviewPage({
       socket.off('vtt:measurement:snapshot', onMeasurementSnapshot)
       socket.off('vtt:scene:changed', onSceneChanged)
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
-      socket.off('vtt:scene:editing', onSceneEditing)
     }
   }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
 
@@ -1625,7 +1634,7 @@ export function CampaignOverviewPage({
 
   useEffect(() => {
     if (!isMaster || !activeScene) return
-    if (preparedScenes.some((scene) => scene.id === activeScene.id && scene.imageUrl)) return
+    if (preparedScenes.some((scene) => scene.id === activeScene.id && !isDraftPreparedScene(scene))) return
     setActiveScene(null)
     if (campaignId && socket && masterCanUseVtt) socket.emit('vtt:scene:select', { campaignId, scene: null })
   }, [activeScene, campaignId, isMaster, masterCanUseVtt, preparedScenes, socket])
@@ -1636,31 +1645,17 @@ export function CampaignOverviewPage({
   }
 
   function handleGridSettingsChange(settings: VttGridSettings) {
-    const shouldClearSceneTokens = Boolean(
-      campaignId && isMaster && activeScene && playerTokens.length > 0 && isStructuralGridChange(gridSettings, settings),
-    )
-
-    if (shouldClearSceneTokens) {
-      const confirmed = window.confirm(
-        'Esta cena possui tokens posicionados. Alterar o tamanho ou o formato do grid removera os tokens desta cena, e os jogadores perderao a visao do mapa ate o mestre reposicionar seus tokens. Continuar?',
-      )
-      if (!confirmed) return
-    }
-
-    onGridSettingsChange(settings, { clearSceneTokens: shouldClearSceneTokens, sceneId: activeScene?.id })
+    onGridSettingsChange(settings, { sceneId: activeScene?.id })
     if (!campaignId || !isMaster || !activeScene) return
 
     setPreparedScenes((current) =>
-      current.map((scene) =>
-        scene.id === activeScene.id ? { ...scene, grid: settings, tokens: shouldClearSceneTokens ? [] : scene.tokens } : scene,
-      ),
+      current.map((scene) => (scene.id === activeScene.id ? { ...scene, grid: settings } : scene)),
     )
-    setActiveScene((current) => (current ? { ...current, grid: settings, tokens: shouldClearSceneTokens ? [] : current.tokens } : current))
-    if (shouldClearSceneTokens) setTokenState({ campaignId, tokens: [] })
+    setActiveScene((current) => (current ? { ...current, grid: settings } : current))
     if (!campaign?.isOnline) {
       api<CampaignSceneResponse>(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(activeScene.id)}`, {
         method: 'PATCH',
-        body: JSON.stringify({ grid: settings, clearSceneTokens: shouldClearSceneTokens }),
+        body: JSON.stringify({ grid: settings }),
       }).catch(() => {})
     }
   }
@@ -1669,10 +1664,10 @@ export function CampaignOverviewPage({
     if (!isMaster) return
 
     const scene = preparedScenes.find((item) => item.id === sceneId)
-    if (!scene?.imageUrl || !scene.assetId) return
+    if (!scene || isDraftPreparedScene(scene)) return
 
     try {
-      const dimensions = await readImageDimensions(scene.imageUrl)
+      const dimensions = scene.imageUrl ? await readImageDimensions(scene.imageUrl) : getDefaultSceneDimensions(scene.grid)
       const nextScene = preparedSceneToTableScene(scene, dimensions)
       sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
 
@@ -1691,9 +1686,8 @@ export function CampaignOverviewPage({
             name: scene.name,
             order: scene.order,
           }
-          if (!refreshedScene.imageUrl) throw err
 
-          const dimensions = await readImageDimensions(refreshedScene.imageUrl)
+          const dimensions = refreshedScene.imageUrl ? await readImageDimensions(refreshedScene.imageUrl) : getDefaultSceneDimensions(refreshedScene.grid)
           const nextScene = preparedSceneToTableScene(refreshedScene, dimensions)
           sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
 
@@ -1855,6 +1849,36 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
+  function removeTokens(scope: 'scene' | 'global') {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    if (scope === 'scene' && !activeScene) return
+
+    const hasTokens = scope === 'scene' ? currentSceneTokenCount > 0 : globalTokenCount > 0
+    if (!hasTokens) return
+
+    const confirmed = window.confirm(
+      scope === 'scene'
+        ? 'Remover todos os tokens da cena atual?'
+        : 'Remover todos os tokens de todas as cenas da campanha?',
+    )
+    if (!confirmed) return
+
+    if (scope === 'scene') {
+      const sceneId = activeScene?.id
+      if (!sceneId) return
+      socket.emit('vtt:tokens:remove-bulk', { campaignId, scope, sceneId })
+      setTokenState({ campaignId, tokens: [] })
+      setPreparedScenes((current) => current.map((scene) => (scene.id === sceneId ? { ...scene, tokens: [] } : scene)))
+      setActiveScene((current) => (current?.id === sceneId ? { ...current, tokens: [] } : current))
+      return
+    }
+
+    socket.emit('vtt:tokens:remove-bulk', { campaignId, scope })
+    setTokenState({ campaignId, tokens: [] })
+    setPreparedScenes((current) => current.map((scene) => (isDraftPreparedScene(scene) ? scene : { ...scene, tokens: [] })))
+    setActiveScene((current) => (current ? { ...current, tokens: [] } : current))
+  }
+
   function toggleTokenVisibility(token: VttPlayerToken) {
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
 
@@ -1930,6 +1954,62 @@ export function CampaignOverviewPage({
       }
     }
 
+    const targetScene = preparedScenes.find((scene) => scene.id === sceneId)
+    if (campaignId && targetScene && !isDraftPreparedScene(targetScene)) {
+      if (validationError) {
+        setPreparedScenes((current) => current.map((scene) => (scene.id === sceneId ? { ...scene, error: validationError } : scene)))
+        return
+      }
+
+      setSceneSaving(true)
+      try {
+        const formData = new FormData()
+        formData.append('file', file)
+
+        const asset = await apiForm<AssetUploadResponse>(`/api/assets?campaignId=${encodeURIComponent(campaignId)}`, formData)
+        const persistedScene = await api<CampaignSceneResponse>(
+          `/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(sceneId)}`,
+          {
+            method: 'PATCH',
+            body: JSON.stringify({
+              assetId: asset.id,
+              backgroundUrl: asset.signedUrl,
+              backgroundCacheKey: asset.storagePath,
+            }),
+          },
+        )
+        const updatedScene = {
+          ...sceneResponseToPreparedScene(persistedScene, targetScene.order - 1),
+          name: targetScene.name,
+          order: targetScene.order,
+          fileName: file.name,
+        }
+        const updatedDimensions = updatedScene.imageUrl
+          ? await readImageDimensions(updatedScene.imageUrl).catch(() => getDefaultSceneDimensions(updatedScene.grid))
+          : getDefaultSceneDimensions(updatedScene.grid)
+        const updatedTableScene = preparedSceneToTableScene(updatedScene, updatedDimensions)
+
+        setPreparedScenes((current) =>
+          normalizePreparedSceneList(
+            current
+              .filter((scene) => !isDraftPreparedScene(scene))
+              .map((scene) => (scene.id === sceneId ? updatedScene : scene)),
+          ),
+        )
+        setActiveScene((current) => {
+          if (!current || current.id !== sceneId) return current
+          return updatedTableScene
+        })
+        if (activeScene?.id === sceneId) publishSceneSelection(updatedTableScene)
+        setSceneSuccessMessage(`${file.name} vinculado com sucesso.`)
+      } catch (err) {
+        setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel vincular a imagem.')
+      } finally {
+        setSceneSaving(false)
+      }
+      return
+    }
+
     setPreparedScenes((current) => {
       const sceneIndex = current.findIndex((scene) => scene.id === sceneId)
       if (sceneIndex === -1) return current
@@ -1962,6 +2042,37 @@ export function CampaignOverviewPage({
 
       return nextScenes
     })
+  }
+
+  async function createEmptyPreparedScene() {
+    if (!campaignId || !isMaster || sceneSaving) return
+
+    const persistedScenes = preparedScenes.filter((scene) => !isDraftPreparedScene(scene))
+    const nextSceneNumber = persistedScenes.length + 1
+
+    setSceneSaving(true)
+    setSceneSaveError(null)
+    setSceneSuccessMessage(null)
+    setSceneSkippedFiles([])
+
+    try {
+      const persistedScene = await api<CampaignSceneResponse>(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes`, {
+        method: 'POST',
+        body: JSON.stringify({
+          name: `Cena${nextSceneNumber}`,
+          grid: defaultGridSettings,
+        }),
+      })
+
+      setPreparedScenes((current) =>
+        normalizePreparedSceneList([...current.filter((scene) => !isDraftPreparedScene(scene)), sceneResponseToPreparedScene(persistedScene, nextSceneNumber - 1)]),
+      )
+      setSceneSuccessMessage(`${persistedScene.name} criada com sucesso.`)
+    } catch (err) {
+      setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel criar a cena.')
+    } finally {
+      setSceneSaving(false)
+    }
   }
 
   async function savePreparedScenes() {
@@ -2249,6 +2360,29 @@ export function CampaignOverviewPage({
                   </div>
                 ) : null}
 
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    title="Remover todos os tokens da cena atual"
+                    disabled={!masterCanUseVtt || !activeScene || currentSceneTokenCount === 0}
+                    className="flex items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 py-2 text-center text-xs font-semibold text-red-100 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-45"
+                    onClick={() => removeTokens('scene')}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    Cena ({currentSceneTokenCount})
+                  </button>
+                  <button
+                    type="button"
+                    title="Remover todos os tokens da campanha"
+                    disabled={!masterCanUseVtt || globalTokenCount === 0}
+                    className="flex items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 py-2 text-center text-xs font-semibold text-red-100 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-45"
+                    onClick={() => removeTokens('global')}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                    Todos ({globalTokenCount})
+                  </button>
+                </div>
+
                 <div className="grid max-h-[360px] gap-2 overflow-auto pr-1">
                   {!availableTokenCandidates.length ? (
                     <div className="rounded-md border border-dashed border-white/10 px-3 py-6 text-center text-sm text-zinc-500">
@@ -2350,6 +2484,7 @@ export function CampaignOverviewPage({
                 error={sceneSaveError}
                 successMessage={sceneSuccessMessage}
                 skippedFiles={sceneSkippedFiles}
+                onCreateScene={createEmptyPreparedScene}
                 onUpload={uploadSceneImage}
                 onSave={savePreparedScenes}
                 onDelete={deletePreparedScene}
