@@ -97,11 +97,11 @@ export function formatChatMessage(command: string, groups: DiceRollResultGroup[]
   return `ROLOU ${command} | ${details} | TOTAL: ${total}`
 }
 
-function normalizeRollValue(value: unknown, sides: DiceSides) {
+export function normalizeRollValue(value: unknown, sides: DiceSides) {
   if (typeof value !== 'number' || !Number.isFinite(value)) return null
   return Math.max(1, Math.min(sides, Math.round(value)))
 }
 
-function rollFallbackValue(sides: DiceSides) {
+export function rollFallbackValue(sides: DiceSides) {
   return Math.floor(Math.random() * sides) + 1
 }

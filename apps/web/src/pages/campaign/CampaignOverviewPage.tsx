@@ -1517,7 +1517,6 @@ export function CampaignOverviewPage({
         setTokenState({ campaignId, tokens: [] })
         measurementRef.current = null
         setMeasurement(null)
-        alert('Seu token foi removido da cena. Aguarde o Mestre reposicionar seu token.')
         return
       }
       if (payload.sceneId && payload.sceneId !== activeScene?.id) return

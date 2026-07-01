@@ -61,6 +61,14 @@ export function styleDiceCanvas(container: HTMLDivElement) {
   })
 }
 
+export function getDiceBoxAssetDiagnostics() {
+  return {
+    assetPath: diceAssetPath,
+    expectedThemeConfigUrl: `${diceAssetPath}themes/default/theme.config.json`,
+    expectedAmmoUrl: `${diceAssetPath}ammo/ammo.wasm.wasm`,
+  }
+}
+
 export function requestDiceResize(container: HTMLDivElement | null, options?: { notifyEngine?: boolean }) {
   if (!container) return
 

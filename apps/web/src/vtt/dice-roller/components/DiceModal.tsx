@@ -1,15 +1,16 @@
 import { Dice5, Loader2, X } from 'lucide-react'
 import { memo, useEffect, useId, useRef, useState } from 'react'
 import { Button } from '../../../components/Button'
-import { diceAssetPath } from '../config/constants'
+import { ascendingDiceOptions, diceAssetPath } from '../config/constants'
+import { normalizeRollValue, rollFallbackValue } from '../domain/diceRollDomain'
 import type { DiceSides } from '../domain/types'
 import {
   createDiceBox,
+  getDiceBoxAssetDiagnostics,
+  styleDiceCanvas,
   toDiceEngineRollResults,
   type DestroyableDiceBox,
 } from '../infrastructure/dice-box/diceBoxEngine'
-
-const diceOptions = [4, 6, 8, 10, 12, 20] as const
 
 type DiceModalProps = {
   isOpen: boolean
@@ -50,10 +51,8 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
 
     console.log('[DiceModal] initializing dice-box', {
       containerId: containerIdRef.current,
-      assetPath: diceAssetPath,
       absoluteAssetBaseUrl: `${window.location.origin}${diceAssetPath}`,
-      expectedThemeConfigUrl: `${diceAssetPath}themes/default/theme.config.json`,
-      expectedAmmoUrl: `${diceAssetPath}ammo/ammo.wasm.wasm`,
+      ...getDiceBoxAssetDiagnostics(),
     })
 
     const diceBox = createDiceBox({
@@ -65,11 +64,7 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
         if (!sides) return
 
         const [firstResult] = toDiceEngineRollResults(results)
-        const firstRollValue = firstResult?.value
-        const value =
-          typeof firstRollValue === 'number' && Number.isFinite(firstRollValue)
-            ? Math.max(1, Math.min(sides, Math.round(firstRollValue)))
-            : Math.floor(Math.random() * sides) + 1
+        const value = normalizeRollValue(firstResult?.value, sides) ?? rollFallbackValue(sides)
 
         const roll = { id: Date.now(), sides, value }
         setRolls((current) => [roll, ...current])
@@ -87,16 +82,9 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
         if (disposed) return
         initializedRef.current = true
         diceBox.show()
-        container.querySelectorAll<HTMLCanvasElement>('canvas').forEach((canvas) => {
-          canvas.style.display = 'block'
-          canvas.style.width = '100%'
-          canvas.style.height = '100%'
-          canvas.style.opacity = '1'
-          canvas.style.pointerEvents = 'none'
-          canvas.style.background = 'transparent'
-        })
+        styleDiceCanvas(container)
         console.log('[DiceModal] dice-box initialized', {
-          assetPath: diceAssetPath,
+          ...getDiceBoxAssetDiagnostics(),
           canvasCount: container.querySelectorAll('canvas').length,
           containerRect: container.getBoundingClientRect(),
         })
@@ -104,10 +92,8 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
       .catch((error: unknown) => {
         console.error('[DiceModal] failed to initialize dice-box', {
           error,
-          assetPath: diceAssetPath,
           attemptedAssetBaseUrl: diceAssetPath,
-          expectedThemeConfigUrl: `${diceAssetPath}themes/default/theme.config.json`,
-          expectedAmmoUrl: `${diceAssetPath}ammo/ammo.wasm.wasm`,
+          ...getDiceBoxAssetDiagnostics(),
         })
       })
       .finally(() => {
@@ -185,7 +171,7 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
 
         <section className="relative z-20 shrink-0 border-b border-white/10 bg-black/55 px-4 py-3 backdrop-blur">
           <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
-            {diceOptions.map((sides) => {
+            {ascendingDiceOptions.map((sides) => {
               const rolling = rollingSides === sides
 
               return (
