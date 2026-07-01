@@ -2281,7 +2281,7 @@ export function CampaignOverviewPage({
 
         <div className="pointer-events-none absolute inset-0 z-10 flex min-h-[560px] flex-col">
           <div className="relative flex-1">
-            <div className="pointer-events-auto absolute left-24 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="pointer-events-auto absolute left-24 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               {visibleToolButtons.map((tool) => {
                 const Icon = tool.icon
                 const active = tool.id === 'grid' ? gridSettingsOpen : activeTool === tool.id
@@ -2444,7 +2444,7 @@ export function CampaignOverviewPage({
               </div>
             ) : null}
 
-            <div className="pointer-events-auto absolute right-5 top-5 z-30 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="pointer-events-auto absolute right-5 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               <button
                 type="button"
                 title="Diminuir zoom"

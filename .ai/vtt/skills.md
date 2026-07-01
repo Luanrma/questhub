@@ -33,6 +33,8 @@
 * Dice Box Engine: a fisica e renderizacao dos dados 3D sao responsabilidade de `@3d-dice/dice-box`.
 * Overlay-owned Dice State: o estado da animacao de dado pertence ao overlay 3D, nao ao `CampaignLayout`, para evitar re-renderizar a arvore principal da campanha.
 * Persistent Dice Overlay: fechar a ferramenta de dados oculta apenas o painel de controle; o overlay 3D permanece montado e preserva os dados acumulados ate limpeza explicita ou encerramento da sessao.
+* Safe Dice Roll Zone: a area fisica/canvas da `dice-box` deve ser ampla, recortada e posicionada fora das regioes ocupadas por toolbars, paineis e rodape da mesa.
+* Warmed Dice Engine: a primeira rolagem deve aguardar inicializacao, exibicao e resize do canvas antes de enviar a notacao para a engine.
 * Dice Roller Module: tipos, wrappers e modal de dados pertencem a `apps/web/src/vtt/dice-roller`.
 * Single Dice Implementation: nao manter uma segunda engine visual de dados paralela a `@3d-dice/dice-box`.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
@@ -58,6 +60,7 @@
 * Nao importar modulos internos de `game_systems/pathfinder_2e` ou `game_systems/dnd_5e` diretamente no VTT.
 * Nao adicionar campos mecanicos especificos de sistema ao token generico.
 * A camada de dados deve usar `pointer-events: none` quando estiver sobre a mesa para nao bloquear grid, tokens, medicoes ou controles.
+* A camada de dados nao pode sobrepor visualmente toolbars, painel de dados, controles de zoom ou rodape de cenas.
 * Rolagens de dado nao devem depender de estado visual no layout principal.
 * Fechar a ferramenta de dados nao deve destruir a engine `@3d-dice/dice-box` nem limpar os dados visiveis.
 * Assets da `dice-box` devem ser servidos por `apps/web/public/assets/dice-box`.

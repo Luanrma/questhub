@@ -390,11 +390,18 @@ Regras:
 * A interface deve permitir configurar a cor dos dados por input de cor, aplicando o hexadecimal em `themeColor` da `@3d-dice/dice-box`.
 * A cor dos dados e uma configuracao visual local por campanha e deve ser preservada no cliente.
 * Se qualquer campo de quantidade por dado receber valor maior que zero, o comando textual deve ser limpo e ignorado.
-* O limite visual padrao e de 20 dados acumulados na mesa local.
-* Se a rolagem nova exceder o limite de 20 dados acumulados, a rolagem deve ser bloqueada e o painel deve exibir aviso em vermelho.
+* O limite visual padrao e de 40 dados acumulados na mesa local.
+* Se a rolagem nova exceder o limite de 40 dados acumulados, a rolagem deve ser bloqueada e o painel deve exibir aviso em vermelho.
 * Dados visuais acumulados devem permanecer na mesa ate o usuario clicar em `Limpar Dados`.
 * Fechar a ferramenta de dados deve ocultar apenas o painel de controle; dados visuais acumulados devem continuar visiveis na mesa.
 * Encerrar a sessao deve limpar os dados visuais acumulados do cliente do Mestre.
+* Dados 3D devem rolar dentro de uma zona segura ampla do board, ocupando quase toda a area visivel disponivel, mas sem sobrepor a toolbar principal, o painel de dados, o painel de grid, o painel de tokens, controles de zoom ou o rodape de cenas.
+* A zona segura dos dados deve recortar visualmente o canvas para impedir que dados transbordem para fora da area demarcada da mesa.
+* A zona segura dos dados deve manter margem fisica suficiente nas paredes de colisao para que nenhum dado seja cortado nas bordas da viewport ou do board visivel.
+* A camada dos dados deve ter z-index inferior as toolbars e paineis do VTT; dados podem passar por baixo desses controles, mas nao por cima.
+* Abrir ou fechar o painel de dados nao deve alterar as proporcoes do canvas nem deformar dados ja visiveis.
+* Alternar entre modo janela, maximizado ou redimensionar o navegador deve manter os dados visiveis e sincronizar o canvas sem zerar o contador.
+* A primeira rolagem visual da sessao deve animar como as demais; a engine `@3d-dice/dice-box` deve estar inicializada, visivel e redimensionada antes da rolagem ser enviada.
 * O Mestre ativo da campanha pode rolar dados mesmo quando a sessao ainda nao foi iniciada.
 * Players so podem rolar dados enquanto a campanha estiver online.
 * A camada visual de dados nao deve exibir resumo flutuante redundante no grid; o resumo compartilhado pertence ao chat.

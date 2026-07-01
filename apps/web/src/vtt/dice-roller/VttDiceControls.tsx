@@ -1,6 +1,6 @@
 import DiceBox, { type DiceBoxRollResult } from '@3d-dice/dice-box'
 import { Dice5, Loader2, Palette, RotateCcw, X } from 'lucide-react'
-import { memo, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { memo, useCallback, useEffect, useId, useMemo, useRef, useState, type CSSProperties } from 'react'
 import type { Socket } from 'socket.io-client'
 import { Button } from '../../components/Button'
 import { CHAT_LOCAL_MESSAGE_EVENT, type ChatMessage } from '../../components/CampaignChat'
@@ -9,7 +9,8 @@ import type { DiceRollGroup, DiceRollResultGroup, DiceSides } from './types'
 const diceOptions = [20, 12, 10, 8, 6, 4] as const
 const diceAssetPath = '/assets/dice-box/'
 const maxVisibleDice = 20
-const defaultDiceThemeColor = '#16a34a'
+const defaultDiceBoxScale = 7
+const defaultDiceThemeColor = '#7f59d9'
 
 type DestroyableDiceBox = DiceBox & {
   destroy: () => void
@@ -58,26 +59,41 @@ function ensureDestroy(diceBox: DiceBox, container: HTMLDivElement): Destroyable
 
 function styleDiceCanvas(container: HTMLDivElement) {
   container.querySelectorAll<HTMLCanvasElement>('canvas').forEach((canvas) => {
+    canvas.style.position = 'absolute'
+    canvas.style.inset = '0'
     canvas.style.display = 'block'
     canvas.style.width = '100%'
     canvas.style.height = '100%'
+    canvas.style.margin = '0'
     canvas.style.opacity = '1'
     canvas.style.pointerEvents = 'none'
     canvas.style.background = 'transparent'
   })
 }
 
-function requestDiceResize(container: HTMLDivElement | null) {
+function requestDiceResize(container: HTMLDivElement | null, options?: { notifyEngine?: boolean }) {
   if (!container) return
 
   const sync = () => {
     styleDiceCanvas(container)
-    window.dispatchEvent(new Event('resize'))
+    if (options?.notifyEngine !== false) window.dispatchEvent(new Event('resize'))
   }
 
   sync()
   window.requestAnimationFrame(sync)
   window.requestAnimationFrame(() => window.requestAnimationFrame(sync))
+}
+
+function waitForDiceReadyFrame(container: HTMLDivElement | null) {
+  return new Promise<void>((resolve) => {
+    window.requestAnimationFrame(() => {
+      requestDiceResize(container)
+      window.requestAnimationFrame(() => {
+        requestDiceResize(container)
+        resolve()
+      })
+    })
+  })
 }
 
 function diceColorStorageKey(campaignId: string) {
@@ -124,6 +140,13 @@ function normalizeGroups(groups: DiceRollGroup[]) {
 
 function rollCount(groups: DiceRollGroup[]) {
   return groups.reduce((total, group) => total + group.count, 0)
+}
+
+function resolveDiceBoxScale(totalDice: number) {
+  if (totalDice >= 35) return 4
+  if (totalDice >= 25) return 5.5
+  if (totalDice >= 15) return 6.5
+  return defaultDiceBoxScale
 }
 
 function parseDiceCommand(input: string): { groups: DiceRollGroup[]; command: string } | { error: string } {
@@ -212,7 +235,6 @@ export const VttDiceControls = memo(function VttDiceControls({
   const diceBoxRef = useRef<DestroyableDiceBox | null>(null)
   const initPromiseRef = useRef<Promise<DestroyableDiceBox> | null>(null)
   const initializedRef = useRef(false)
-  const rolledOnceRef = useRef(false)
   const pendingRollRef = useRef<{ groups: DiceRollGroup[]; command: string } | null>(null)
   const lastClearSignalRef = useRef(clearSignal)
   const [initializing, setInitializing] = useState(false)
@@ -230,6 +252,16 @@ export const VttDiceControls = memo(function VttDiceControls({
   const selectedCount = rollCount(selectedGroups)
   const visibleCount = visibleRolls.length
   const remainingSlots = Math.max(0, maxVisibleDice - visibleCount - selectedCount)
+  const diceRollZoneStyle: CSSProperties = {
+    position: 'absolute',
+    pointerEvents: 'none', // Essencial para os dados não bloquearem cliques no mapa
+    overflow: 'hidden',    // Mantém os dados contidos visualmente
+    top: '8rem',           // Equivalente a top-32
+    bottom: '8rem',       // Equivalente a bottom-48
+    left: '7rem',          // Equivalente a left-28
+    right: '7rem',         // Equivalente a right-32
+    zIndex: 10,            // Garante que fique acima do grid
+  }
 
   const publishChatMessage = useCallback(
     async (content: string) => {
@@ -284,6 +316,30 @@ export const VttDiceControls = memo(function VttDiceControls({
     })
   }, [campaignId, diceThemeColor])
 
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    let resizeFrame = 0
+    const syncDiceBox = () => {
+      window.cancelAnimationFrame(resizeFrame)
+      resizeFrame = window.requestAnimationFrame(() => {
+        diceBoxRef.current?.show()
+        requestDiceResize(container, { notifyEngine: false })
+      })
+    }
+
+    const observer = new ResizeObserver(syncDiceBox)
+    observer.observe(container)
+    window.addEventListener('resize', syncDiceBox)
+
+    return () => {
+      window.cancelAnimationFrame(resizeFrame)
+      observer.disconnect()
+      window.removeEventListener('resize', syncDiceBox)
+    }
+  }, [])
+
   async function getDiceBox() {
     if (diceBoxRef.current && initializedRef.current) return diceBoxRef.current
     if (initPromiseRef.current) return initPromiseRef.current
@@ -300,7 +356,7 @@ export const VttDiceControls = memo(function VttDiceControls({
         theme: 'default',
         themeColor: normalizeHexColor(diceThemeColor),
         offscreen: true,
-        scale: 8,
+        scale: defaultDiceBoxScale,
       }),
       container,
     )
@@ -329,10 +385,11 @@ export const VttDiceControls = memo(function VttDiceControls({
 
     initPromiseRef.current = diceBox
       .init()
-      .then(() => {
+      .then(async () => {
         initializedRef.current = true
         diceBox.show()
         requestDiceResize(container)
+        await waitForDiceReadyFrame(container)
         return diceBox
       })
       .catch((error: unknown) => {
@@ -372,7 +429,6 @@ export const VttDiceControls = memo(function VttDiceControls({
     diceBoxRef.current?.clear()
     setVisibleRolls([])
     setWarning(null)
-    rolledOnceRef.current = false
   }
 
   useEffect(() => {
@@ -414,25 +470,17 @@ export const VttDiceControls = memo(function VttDiceControls({
     try {
       const diceBox = await getDiceBox()
       const notation = resolved.groups.map((group) => ({ qty: group.count, sides: group.sides, themeColor: normalizeHexColor(diceThemeColor) }))
+      await diceBox.updateConfig({ scale: resolveDiceBoxScale(visibleCount + nextCount) }).catch(() => undefined)
       diceBox.show()
       requestDiceResize(containerRef.current)
+      await waitForDiceReadyFrame(containerRef.current)
 
-      if (rolledOnceRef.current) {
-        void diceBox.add(notation).catch(() => {
-          pendingRollRef.current = null
-          setRolling(false)
-          setWarning('Nao foi possivel rolar os dados 3D.')
-        })
-        requestDiceResize(containerRef.current)
-      } else {
-        void diceBox.roll(notation).catch(() => {
-          pendingRollRef.current = null
-          setRolling(false)
-          setWarning('Nao foi possivel rolar os dados 3D.')
-        })
-        rolledOnceRef.current = true
-        requestDiceResize(containerRef.current)
-      }
+      void diceBox.add(notation).catch(() => {
+        pendingRollRef.current = null
+        setRolling(false)
+        setWarning('Nao foi possivel rolar os dados 3D.')
+      })
+      requestDiceResize(containerRef.current)
     } catch {
       pendingRollRef.current = null
       setRolling(false)
@@ -442,17 +490,16 @@ export const VttDiceControls = memo(function VttDiceControls({
 
   return (
     <div className={className}>
-      <div className={['pointer-events-none absolute inset-0 z-20', visibleCount || rolling ? 'opacity-100' : 'opacity-0'].join(' ')}>
+      <div className={['pointer-events-none absolute inset-0 z-0', visibleCount || rolling ? 'opacity-100' : 'opacity-0'].join(' ')}>
         <div
-          ref={containerRef}
-          id={containerIdRef.current}
-          className="absolute left-1/2 top-1/2 h-[min(620px,70vh)] w-[min(920px,70vw)] -translate-x-1/2 -translate-y-1/2"
-          style={{ pointerEvents: 'none' }}
-        />
+        ref={containerRef}
+        id={containerIdRef.current}
+        style={diceRollZoneStyle}
+      />
       </div>
 
       {open ? (
-        <div className="pointer-events-auto absolute left-24 top-20 w-[min(360px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/60 p-3 text-white shadow-2xl backdrop-blur">
+        <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/60 p-3 text-white shadow-2xl backdrop-blur">
         <div className="mb-2 flex items-center justify-between gap-3">
           <div className="flex min-w-0 items-center gap-2 text-xs font-semibold uppercase text-zinc-400">
             <Dice5 className="h-4 w-4 text-indigo-300" />
