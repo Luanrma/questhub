@@ -413,17 +413,20 @@ type VttPlayerToken = {
 
 type VttTokenChangedPayload = {
   campaignId: string
+  sceneId?: string | null
   token: VttPlayerToken
 }
 
 type VttTokensSnapshotPayload = {
   campaignId: string
+  sceneId?: string | null
   tokens: VttPlayerToken[]
   sessionState?: 'ACTIVE' | 'PAUSED' | null
 }
 
 type VttTokenRemovedPayload = {
   campaignId: string
+  sceneId?: string | null
   characterId: string
 }
 
@@ -1312,12 +1315,21 @@ export function CampaignOverviewPage({
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
   const positionedCharacterIds = new Set<string>()
+  const positionedPlayerOwnerUserIds = new Set<string>()
   preparedScenes.forEach((scene) => {
-    scene.tokens.forEach((token) => positionedCharacterIds.add(token.characterId))
+    scene.tokens.forEach((token) => {
+      positionedCharacterIds.add(token.characterId)
+      if (token.role === 'PLAYER') positionedPlayerOwnerUserIds.add(token.ownerUserId)
+    })
   })
-  playerTokens.forEach((token) => positionedCharacterIds.add(token.characterId))
+  playerTokens.forEach((token) => {
+    positionedCharacterIds.add(token.characterId)
+    if (token.role === 'PLAYER') positionedPlayerOwnerUserIds.add(token.ownerUserId)
+  })
   const availableTokenCandidates = tokenCandidates.filter(
-    (candidate) => !positionedCharacterIds.has(candidate.characterId),
+    (candidate) =>
+      !positionedCharacterIds.has(candidate.characterId) &&
+      (candidate.role !== 'PLAYER' || !positionedPlayerOwnerUserIds.has(candidate.ownerUserId)),
   )
 
   useEffect(() => {
@@ -1446,6 +1458,7 @@ export function CampaignOverviewPage({
 
     function onTokenChanged(payload: VttTokenChangedPayload) {
       if (payload.campaignId !== campaignId) return
+      if (payload.sceneId && payload.sceneId !== activeScene?.id) return
 
       setTokenState((current) => {
         const token = normalizeTableToken(payload.token, gridSettings.shape)
@@ -1470,6 +1483,7 @@ export function CampaignOverviewPage({
     function onTokensSnapshot(payload: VttTokensSnapshotPayload) {
       if (payload.campaignId !== campaignId) return
       if (isMaster) return
+      if (payload.sceneId && payload.sceneId !== activeScene?.id) return
       setTokenState({
         campaignId,
         tokens: payload.tokens.map((token) => normalizeTableToken(token, gridSettings.shape)),
@@ -1478,6 +1492,16 @@ export function CampaignOverviewPage({
 
     function onTokenRemoved(payload: VttTokenRemovedPayload) {
       if (payload.campaignId !== campaignId) return
+      const isOwnRemovedToken = !isMaster && payload.characterId === myCharacter?.id
+      if (isOwnRemovedToken) {
+        setActiveScene(null)
+        setTokenState({ campaignId, tokens: [] })
+        measurementRef.current = null
+        setMeasurement(null)
+        alert('Seu token foi removido da cena. Aguarde o Mestre reposicionar seu token.')
+        return
+      }
+      if (payload.sceneId && payload.sceneId !== activeScene?.id) return
       setTokenState((current) => {
         if (current.campaignId !== campaignId) return current
         return {
@@ -1548,7 +1572,7 @@ export function CampaignOverviewPage({
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
       socket.off('vtt:scene:editing', onSceneEditing)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id])
+  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return

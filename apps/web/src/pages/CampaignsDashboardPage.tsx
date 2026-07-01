@@ -196,7 +196,7 @@ export function CampaignsDashboardPage() {
                           return
                         }
                         setActiveCampaignId(c.id)
-                        navigate(`/campaign/${c.id}/overview`)
+                        navigate(`/campaign/${c.id}/overview`, { state: { characterId: c.myCharacterId ?? null } })
                       }}
                     >
                       {getEnterButtonLabel({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}

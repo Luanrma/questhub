@@ -424,14 +424,18 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     const payload = requireAuth(req, reply)
     if (!payload) return
     const params = req.params as { campaignId: string }
+    const query = z.object({ characterId: z.string().optional() }).safeParse(req.query ?? {})
+    if (!query.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
     const campaignCharacter = await prisma.campaignCharacter.findFirst({
       where: {
         campaignId: params.campaignId,
+        ...(query.data.characterId ? { characterId: query.data.characterId } : {}),
         status: 'ACTIVE',
         role: { in: ['MASTER', 'PLAYER'] },
         character: { userId: payload.id },
       },
+      orderBy: { createdAt: 'asc' },
       select: {
         role: true,
         status: true,
@@ -624,6 +628,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       where: {
         campaignId: params.campaignId,
         userId: target.userId,
+        role: 'PLAYER',
         status: 'ACTIVE',
         NOT: { id: target.id },
       },

@@ -133,6 +133,7 @@ export function CampaignLayout() {
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
   const hasFloatingPanel = !isTableRoute
   const panelTitle = getPanelTitle(location.pathname)
+  const navigationState = location.state as { characterId?: string | null } | null
 
   useEffect(() => {
     if (campaignId) setActiveCampaignId(campaignId)
@@ -187,7 +188,9 @@ export function CampaignLayout() {
       }
 
       try {
-        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character`)
+        const selectedCharacterId = navigationState?.characterId ?? campaign.myCharacterId
+        const selectedCharacterQuery = selectedCharacterId ? `?characterId=${encodeURIComponent(selectedCharacterId)}` : ''
+        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character${selectedCharacterQuery}`)
         setMyCharacter(ch)
         if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`

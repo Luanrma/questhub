@@ -164,6 +164,7 @@ type MyCampaignCharacter = {
 * Apenas o Mestre ve o menu contextual de token por botao direito.
 * O menu contextual do Mestre deve exibir o nome do dono do token.
 * `Remover` tira o token do board e devolve o personagem para a lista de tokens disponiveis no modal.
+* Ao receber `vtt:token:removed` para o proprio personagem, o Player deve limpar a cena atual, remover tokens locais e perder a capacidade de mover ate o Mestre reposicionar o token ou forcar uma cena.
 * `Invisibilidade` alterna opacidade reduzida para Mestre e oculta o token para Players.
 * A acao `Destruir` nao faz parte deste MVP.
 * A ferramenta `Medir` deve poder ser ativada pela toolbar do VTT.
@@ -268,11 +269,13 @@ type VttTableToken = {
 
 type VttTableTokenChangedPayload = {
   campaignId: string
+  sceneId: string
   token: VttTableToken
 }
 
 type VttTableTokensSnapshotPayload = {
   campaignId: string
+  sceneId: string | null
   tokens: VttTableToken[]
   sessionState: 'ACTIVE' | 'PAUSED'
 }
@@ -293,8 +296,12 @@ Regras:
 * O backend aceita criacao, remocao e alteracao de invisibilidade apenas de socket autenticado como `MASTER`, dentro da sala da campanha enquanto a campanha estiver online, inclusive em sessao `PAUSED`.
 * O backend aceita movimento apenas quando `sessionActive && isPlayer && isOwner` ou `!sessionActive && isMaster`.
 * `sessionActive` significa campanha online e estado de sessao `ACTIVE`, nunca `PAUSED`.
+* O Mestre nao pode posicionar dois tokens `PLAYER` diferentes do mesmo `ownerUserId` na mesma campanha.
+* Se o usuario dono estiver conectado na sessao com um personagem `PLAYER`, o Mestre so pode posicionar o token desse personagem conectado.
+* O menu de tokens nao deve listar outro candidato `PLAYER` do mesmo `ownerUserId` quando ja existir um token `PLAYER` desse usuario posicionado em qualquer cena.
 * Apenas o dono do personagem pode mover o proprio token apos ele existir no board.
 * Ao receber atualizacao valida durante a sessao online, o backend atualiza o estado vivo em memoria/cache e emite para sockets autorizados a visualizar a cena.
+* Durante a sessao online, movimento e visibilidade de tokens devem consultar primeiro o estado vivo; se o token nao existir mais no estado vivo, a acao deve ser recusada mesmo que ainda exista registro persistido aguardando o encerramento da sessao.
 * O backend persiste tokens em `campaign_scene` ao iniciar e ao encerrar sessao.
 * Ao entrar em uma sessao ativa, o cliente recebe `campaign-scene:snapshot`.
 * Ao desconectar um Player, o token permanece no board enquanto a sessao continuar.
@@ -313,6 +320,7 @@ Eventos Socket.IO:
 * `vtt:tokens:snapshot`: legado do modelo em memoria; novo fluxo deve usar `campaign-scene:snapshot`.
 * `vtt:tokens:request`: legado do modelo em memoria; novo fluxo deve usar snapshot de cena.
 * `vtt:token:removed`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
+* Enquanto os eventos legados existirem, payloads de token devem carregar `sceneId` e o servidor deve emitir alteracoes apenas para sockets cuja cena visivel seja a cena do token.
 
 ## 7. Medicao Realtime
 

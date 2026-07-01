@@ -183,6 +183,7 @@ Regras:
 * Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
 * Se `forcedSceneId` nao existir, cada jogador ve a cena onde o token do seu personagem esta.
 * Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver um estado neutro de mesa aguardando posicionamento ou cena compartilhada.
+* Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar ao estado neutro ate o token ser reposicionado.
 * Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao.
 * Retomar sessao nao muda a cena visivel dos jogadores por si so; a visao continua seguindo `forcedSceneId` ou cena do token.
 
@@ -274,6 +275,8 @@ Regras:
 * Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
 * Jogadores nao podem emitir alteracoes de grid ou distribuicao de cena.
 * Jogadores recebem apenas eventos da cena que devem visualizar.
+* Movimento, remocao e invisibilidade de token devem ser emitidos apenas para sockets cuja cena visivel seja a cena atual do token.
+* Remocao de token de `PLAYER` tambem deve ser emitida ao socket dono daquele token, mesmo que a remocao faca a cena visivel do dono deixar de existir.
 * Trocar a cena ativa do Mestre nao deve emitir evento de alteracao de grid para a cena anterior; a troca apenas carrega o grid da cena escolhida no cliente do Mestre.
 * Mestre pode receber eventos de todas as cenas conforme necessario para administrar a campanha.
 
