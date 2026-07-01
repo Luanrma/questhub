@@ -36,7 +36,12 @@ type SessionContextValue = {
   endCampaignSession: (params: { campaignId: string }) => Promise<void>
   pauseCampaignSession: (params: { campaignId: string }) => Promise<void>
   resumeCampaignSession: (params: { campaignId: string }) => Promise<void>
-  updateVttGridSettings: (params: { campaignId: string; settings: VttGridSettings; clearSceneTokens?: boolean }) => Promise<void>
+  updateVttGridSettings: (params: {
+    campaignId: string
+    sceneId?: string
+    settings: VttGridSettings
+    clearSceneTokens?: boolean
+  }) => Promise<void>
   connectRealtime: () => Socket
   signIn: (params: { email: string; password: string }) => Promise<void>
   logout: () => Promise<void>
@@ -284,7 +289,12 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     )
   }
 
-  async function updateVttGridSettings(params: { campaignId: string; settings: VttGridSettings; clearSceneTokens?: boolean }) {
+  async function updateVttGridSettings(params: {
+    campaignId: string
+    sceneId?: string
+    settings: VttGridSettings
+    clearSceneTokens?: boolean
+  }) {
     ensureSocket().emit('vtt:grid:update', params)
   }
 

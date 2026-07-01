@@ -156,15 +156,21 @@ export function CampaignLayout() {
     }
   }, [socket, campaignId, isMaster])
 
-  function applyGridSettings(settings: VttGridSettings, options?: { clearSceneTokens?: boolean }) {
+  function applyGridSettings(settings: VttGridSettings, options?: { clearSceneTokens?: boolean; realtime?: boolean; sceneId?: string }) {
     if (!campaignId) return
 
     const nextSettings = normalizeGridSettings(settings)
     setGridSettings(nextSettings)
     storeGridSettings(campaignId, nextSettings)
 
+    if (options?.realtime === false) return
     if (!isMaster || !campaign?.isOnline) return
-    updateVttGridSettings({ campaignId, settings: nextSettings, clearSceneTokens: options?.clearSceneTokens }).catch(() => {})
+    updateVttGridSettings({
+      campaignId,
+      sceneId: options?.sceneId,
+      settings: nextSettings,
+      clearSceneTokens: options?.clearSceneTokens,
+    }).catch(() => {})
   }
 
   // Hooks precisam ser chamados sempre: a lógica fica DENTRO do efeito.

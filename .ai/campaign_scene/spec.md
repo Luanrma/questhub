@@ -274,6 +274,7 @@ Regras:
 * Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
 * Jogadores nao podem emitir alteracoes de grid ou distribuicao de cena.
 * Jogadores recebem apenas eventos da cena que devem visualizar.
+* Trocar a cena ativa do Mestre nao deve emitir evento de alteracao de grid para a cena anterior; a troca apenas carrega o grid da cena escolhida no cliente do Mestre.
 * Mestre pode receber eventos de todas as cenas conforme necessario para administrar a campanha.
 
 ## 9. UI/UX

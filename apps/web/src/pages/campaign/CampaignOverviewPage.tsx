@@ -392,7 +392,7 @@ type CampaignOverviewPageProps = {
     role: 'MASTER' | 'PLAYER'
     status: 'ACTIVE' | 'PENDING'
   } | null
-  onGridSettingsChange: (settings: VttGridSettings, options?: { clearSceneTokens?: boolean }) => void
+  onGridSettingsChange: (settings: VttGridSettings, options?: { clearSceneTokens?: boolean; realtime?: boolean; sceneId?: string }) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
 
@@ -1429,7 +1429,7 @@ export function CampaignOverviewPage({
       })
 
       const sceneGrid = normalizeGridSettings(scene.grid)
-      onGridSettingsChangeRef.current(sceneGrid)
+      onGridSettingsChangeRef.current(sceneGrid, { realtime: false, sceneId: scene.id })
       const sceneTokens = scene.tokens.map((token) => normalizeTableToken(token, sceneGrid.shape))
       setTokenState({
         campaignId: currentCampaignId,
@@ -1623,7 +1623,7 @@ export function CampaignOverviewPage({
       if (!confirmed) return
     }
 
-    onGridSettingsChange(settings, { clearSceneTokens: shouldClearSceneTokens })
+    onGridSettingsChange(settings, { clearSceneTokens: shouldClearSceneTokens, sceneId: activeScene?.id })
     if (!campaignId || !isMaster || !activeScene) return
 
     setPreparedScenes((current) =>
@@ -1654,7 +1654,7 @@ export function CampaignOverviewPage({
 
       setActiveScene(nextScene)
       setTokenState({ campaignId: campaignId ?? null, tokens: scene.tokens.map((token) => normalizeTableToken(token, scene.grid.shape)) })
-      onGridSettingsChange(scene.grid)
+      onGridSettingsChange(scene.grid, { realtime: false, sceneId: scene.id })
       publishSceneSelection(nextScene)
     } catch (err) {
       setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel selecionar a cena.')

@@ -13,6 +13,7 @@ export type VttGridSettings = {
 
 export type VttGridChangedPayload = {
   campaignId: string
+  sceneId?: string
   settings: VttGridSettings
 }
 

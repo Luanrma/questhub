@@ -237,12 +237,14 @@ Eventos Socket.IO legados:
 ```ts
 type VttGridChangedPayload = {
   campaignId: string
+  sceneId: string
   settings: VttGridSettings
 }
 ```
 
 * `vtt:grid:update`: legado do modelo de grid por campanha; o novo fluxo deve usar `campaign-scene:grid:update`.
 * `vtt:grid:changed`: legado do modelo de grid por campanha; o novo fluxo deve usar `campaign-scene:grid:changed`.
+* Enquanto os eventos legados existirem, payloads de grid devem carregar `sceneId` e o servidor deve emitir apenas para sockets cuja cena visivel seja a cena alterada.
 
 ## 6. Tokens Centralizados Realtime
 

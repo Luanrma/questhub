@@ -56,6 +56,7 @@ const vttGridSettingsSchema = z.object({
 
 const vttGridUpdateSchema = z.object({
   campaignId: z.string().min(1),
+  sceneId: z.string().min(1).optional(),
   settings: vttGridSettingsSchema,
   clearSceneTokens: z.boolean().optional(),
 })
@@ -307,6 +308,14 @@ export function setupCampaignPresence(server: HttpServer) {
     return true
   }
 
+  async function sceneBelongsToCampaign(campaignId: string, sceneId: string) {
+    const scene = await prisma.campaignScene.findFirst({
+      where: { id: sceneId, campaignId },
+      select: { id: true },
+    })
+    return Boolean(scene)
+  }
+
   async function clearSceneTokensForGridEdit(campaignId: string, sceneId: string) {
     const tokenMap = campaignTokens.get(campaignId)
     const tokenSceneMap = campaignTokenSceneIds.get(campaignId)
@@ -425,13 +434,19 @@ export function setupCampaignPresence(server: HttpServer) {
     }
   }
 
-  async function emitCampaignGridSettings(campaignId: string) {
-    const settings = await getActiveSceneGridSettings(campaignId)
-    campaignGridSettings.set(campaignId, settings)
-    io.to(`campaign:${campaignId}`).emit('vtt:grid:changed', {
-      campaignId,
-      settings,
-    })
+  async function emitSceneGridSettings(campaignId: string, sceneId: string, settings: VttGridSettings) {
+    const sockets = await io.in(`campaign:${campaignId}`).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId) return
+        campaignSocket.emit('vtt:grid:changed', {
+          campaignId,
+          sceneId,
+          settings,
+        })
+      }),
+    )
   }
 
   function getCampaignTokenMap(campaignId: string) {
@@ -700,6 +715,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
     io.to(socket.id).emit('vtt:grid:changed', {
       campaignId,
+      sceneId: scene?.id ?? null,
       settings: scene?.grid ?? defaultVttGridSettings,
     })
 
@@ -918,16 +934,17 @@ export function setupCampaignPresence(server: HttpServer) {
         const parsed = vttGridUpdateSchema.safeParse(input)
         if (!parsed.success) return
 
-        const { campaignId, settings, clearSceneTokens } = parsed.data
+        const { campaignId, sceneId: requestedSceneId, settings, clearSceneTokens } = parsed.data
         const online = campaignOnline.get(campaignId)
         if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
 
-        const sceneId = await getMasterActiveSceneId(campaignId)
+        const sceneId = requestedSceneId ?? (await getMasterActiveSceneId(campaignId))
         if (!sceneId) return
+        if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
         setLiveSceneGrid(campaignId, sceneId, settings)
         if (clearSceneTokens) await clearSceneTokensForGridEdit(campaignId, sceneId)
-        io.to(`campaign:${campaignId}`).emit('vtt:grid:changed', { campaignId, settings })
+        await emitSceneGridSettings(campaignId, sceneId, settings)
       } catch {
         socket.emit('presence:error', { message: 'Nao foi possivel atualizar o grid da cena.' })
       }
