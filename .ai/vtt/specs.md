@@ -225,7 +225,8 @@ Regras:
 * A configuracao deve ser sincronizada via Socket.IO com usuarios autorizados a visualizar a cena.
 * O backend deve aceitar alteracoes de grid apenas de socket autenticado como mestre ativo da campanha.
 * Jogadores recebem `campaign-scene:grid:changed`, mas nao podem emitir alteracoes aceitas pelo servidor.
-* A configuracao deve ser persistida no banco por cena.
+* Durante a sessao online, a configuracao deve ser mantida em memoria/cache e transmitida via Socket.IO sem persistir a cada evento.
+* A configuracao deve ser persistida no banco por cena ao iniciar e ao encerrar sessao.
 * O modal deve permitir fechar sem desmontar a mesa.
 * O controle de zoom fica na UI da mesa, separado da configuracao de grid.
 * O zoom e local ao cliente e nao deve ser emitido por Socket.IO.
@@ -291,7 +292,8 @@ Regras:
 * O backend aceita movimento apenas quando `sessionActive && isPlayer && isOwner` ou `!sessionActive && isMaster`.
 * `sessionActive` significa campanha online e estado de sessao `ACTIVE`, nunca `PAUSED`.
 * Apenas o dono do personagem pode mover o proprio token apos ele existir no board.
-* Ao receber atualizacao valida, o backend persiste o token em `campaign_scene` e emite para sockets autorizados a visualizar a cena.
+* Ao receber atualizacao valida durante a sessao online, o backend atualiza o estado vivo em memoria/cache e emite para sockets autorizados a visualizar a cena.
+* O backend persiste tokens em `campaign_scene` ao iniciar e ao encerrar sessao.
 * Ao entrar em uma sessao ativa, o cliente recebe `campaign-scene:snapshot`.
 * Ao desconectar um Player, o token permanece no board enquanto a sessao continuar.
 * Ao encerrar a sessao, tokens persistidos permanecem vinculados as suas cenas.

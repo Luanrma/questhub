@@ -30,7 +30,7 @@ import { CampaignChat } from '../../components/CampaignChat'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
 import { VttDiceControls } from '../../vtt/dice-roller'
-import { squareMetersAllowedValues, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
+import { defaultGridSettings, metersPerCellAllowedValues, normalizeGridSettings, type VttGridSettings, type VttGridShape } from '../../vtt/grid'
 
 const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
@@ -50,16 +50,10 @@ type PreparedScene = {
   file: File | null
   assetId: string | null
   storagePath: string | null
+  grid: VttGridSettings
+  tokens: VttPlayerToken[]
+  order: number
   error: string | null
-}
-
-type CampaignAssetResponse = {
-  id: string
-  storagePath: string
-  originalName: string
-  mimeType: string
-  size: number
-  signedUrl: string
 }
 
 type AssetUploadResponse = {
@@ -86,6 +80,18 @@ function createPreparedScene(index: number): PreparedScene {
     file: null,
     assetId: null,
     storagePath: null,
+    grid: {
+      visible: true,
+      shape: 'square',
+      size: 32,
+      metersPerCell: 1,
+      squareMeasurementColor: '#facc15',
+      hexMeasurementColor: '#38bdf8',
+      lineWidth: 1,
+      color: '#ffffff',
+    },
+    tokens: [],
+    order: index,
     error: null,
   }
 }
@@ -110,8 +116,9 @@ function validateSceneImage(file: File) {
 function normalizePreparedSceneList(scenes: PreparedScene[]) {
   const normalizedScenes = scenes.map((scene, index) => ({
     ...scene,
-    id: `scene-${index + 1}`,
+    id: scene.id,
     name: `Cena${index + 1}`,
+    order: index + 1,
   }))
 
   if (!normalizedScenes.length) return [createPreparedScene(1)]
@@ -125,6 +132,10 @@ function isObjectUrl(url: string | null) {
 
 function revokeSceneImageUrl(scene: PreparedScene) {
   if (scene.imageUrl && isObjectUrl(scene.imageUrl)) URL.revokeObjectURL(scene.imageUrl)
+}
+
+function isSelectablePreparedScene(scene: PreparedScene) {
+  return Boolean(scene.imageUrl && scene.assetId)
 }
 
 function filenameEquals(left: string | null, right: string) {
@@ -236,7 +247,7 @@ function VttGridSettingsModal({
     onChange({ ...settings, [key]: value })
   }
 
-  const squareMetersIndex = Math.max(0, squareMetersAllowedValues.indexOf(settings.squareMeters))
+  const metersPerCellIndex = Math.max(0, metersPerCellAllowedValues.indexOf(settings.metersPerCell))
 
   return (
     <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-48px))] rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur">
@@ -308,16 +319,16 @@ function VttGridSettingsModal({
         {settings.shape === 'square' ? (
           <label className="grid gap-2 text-sm">
             <div className="flex justify-between gap-3">
-              <span className="text-zinc-200">Area do quadrado</span>
-              <span className="text-zinc-400">{settings.squareMeters}m²</span>
+              <span className="text-zinc-200">Metros por celula</span>
+              <span className="text-zinc-400">{settings.metersPerCell}m</span>
             </div>
             <input
               type="range"
               min={0}
-              max={squareMetersAllowedValues.length - 1}
-              value={squareMetersIndex}
+              max={metersPerCellAllowedValues.length - 1}
+              value={metersPerCellIndex}
               className="accent-indigo-500"
-              onChange={(event) => updateSetting('squareMeters', squareMetersAllowedValues[Number(event.target.value)])}
+              onChange={(event) => updateSetting('metersPerCell', metersPerCellAllowedValues[Number(event.target.value)])}
             />
           </label>
         ) : null}
@@ -381,7 +392,7 @@ type CampaignOverviewPageProps = {
     role: 'MASTER' | 'PLAYER'
     status: 'ACTIVE' | 'PENDING'
   } | null
-  onGridSettingsChange: (settings: VttGridSettings) => void
+  onGridSettingsChange: (settings: VttGridSettings, options?: { clearSceneTokens?: boolean }) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
 
@@ -416,6 +427,12 @@ type VttTokenRemovedPayload = {
   characterId: string
 }
 
+type VttSceneEditingPayload = {
+  campaignId: string
+  sceneId?: string
+  message?: string
+}
+
 type VttTokenState = {
   campaignId: string | null
   tokens: VttPlayerToken[]
@@ -424,11 +441,67 @@ type VttTokenState = {
 type VttTableScene = {
   id: string
   name: string
-  imageUrl: string
+  imageUrl: string | null
   fileName: string | null
   assetId: string | null
   width: number
   height: number
+  grid: VttGridSettings
+  tokens: VttPlayerToken[]
+}
+
+function sceneResponseToPreparedScene(scene: CampaignSceneResponse, index: number): PreparedScene {
+  const grid = normalizeGridSettings(scene.grid)
+
+  return {
+    id: scene.id,
+    name: scene.name || `Cena${index + 1}`,
+    imageUrl: scene.backgroundUrl,
+    fileName: scene.name || `Cena${index + 1}`,
+    file: null,
+    assetId: scene.assetId,
+    storagePath: scene.backgroundCacheKey,
+    grid,
+    tokens: scene.tokens,
+    order: scene.order,
+    error: null,
+  }
+}
+
+function preparedSceneToTableScene(scene: PreparedScene, dimensions: VttGridBounds): VttTableScene {
+  return {
+    id: scene.id,
+    name: scene.name,
+    imageUrl: scene.imageUrl,
+    fileName: scene.fileName,
+    assetId: scene.assetId,
+    width: dimensions.width,
+    height: dimensions.height,
+    grid: scene.grid,
+    tokens: scene.tokens,
+  }
+}
+
+function isStructuralGridChange(current: VttGridSettings, next: VttGridSettings) {
+  return current.shape !== next.shape || current.size !== next.size
+}
+
+function sceneImageDimensionKey(scene: Pick<VttTableScene, 'id' | 'imageUrl'>) {
+  return `${scene.id}:${scene.imageUrl ?? ''}`
+}
+
+type CampaignSceneResponse = {
+  id: string
+  campaignId: string
+  name: string
+  order: number
+  assetId: string | null
+  backgroundUrl: string | null
+  backgroundCacheKey: string | null
+  grid: unknown
+  tokens: VttPlayerToken[]
+  createdAt: string
+  updatedAt: string
 }
 
 type VttSceneChangedPayload = {
@@ -579,7 +652,7 @@ function SceneSidebarScenes({
   onSelectScene: (sceneId: string) => void
   onExpand: () => void
 }) {
-  const sceneThumbnails = scenes.filter((scene) => scene.imageUrl)
+  const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
 
   return (
     <div className="flex min-h-[160px] flex-[1_1_0%] overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
@@ -639,7 +712,7 @@ function SceneDock({
   onPrepareScene: () => void
   onCollapsedChange: (collapsed: boolean) => void
 }) {
-  const sceneThumbnails = scenes.filter((scene) => scene.imageUrl)
+  const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
   const activeScene = sceneThumbnails.find((scene) => scene.id === activeSceneId)
 
   return (
@@ -938,14 +1011,14 @@ function formatMeters(value: number) {
   return `${value.toFixed(precision).replace('.', ',')} m`
 }
 
-function measurementLabel(measurement: VttMeasurement, squareMeters: number) {
+function measurementLabel(measurement: VttMeasurement, metersPerCell: number) {
   if (measurement.shape === 'hex') {
     const steps = Math.max(0, measurement.points.length - 1)
     return `${steps} ${steps === 1 ? 'passo' : 'passos'}`
   }
 
   const distanceInGridUnits = Math.hypot(measurement.end.x - measurement.start.x, measurement.end.y - measurement.start.y)
-  return formatMeters(distanceInGridUnits * Math.sqrt(squareMeters))
+  return formatMeters(distanceInGridUnits * metersPerCell)
 }
 
 function measurementLabelPoint(measurement: VttMeasurement) {
@@ -991,16 +1064,16 @@ function hexPolygonPoints(center: VttMeasurementPoint, gridSize: number) {
 function VttMeasurementOverlay({
   measurement,
   gridSize,
-  squareMeters,
+  metersPerCell,
 }: {
   measurement: VttMeasurement | null
   gridSize: number
-  squareMeters: number
+  metersPerCell: number
 }) {
   if (!measurement) return null
 
   const labelPoint = measurementPointToPixels(measurementLabelPoint(measurement), gridSize)
-  const label = measurementLabel(measurement, squareMeters)
+  const label = measurementLabel(measurement, metersPerCell)
   const color = measurement.color
 
   return (
@@ -1209,7 +1282,9 @@ export function CampaignOverviewPage({
   const [sceneDeletingId, setSceneDeletingId] = useState<string | null>(null)
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
   const preparedScenesRef = useRef(preparedScenes)
-  const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.squareMeters}`
+  const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
+  const onGridSettingsChangeRef = useRef(onGridSettingsChange)
+  const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.metersPerCell}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
   const campaign = campaigns.find((item) => item.id === campaignId)
@@ -1236,8 +1311,13 @@ export function CampaignOverviewPage({
   })
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
+  const positionedCharacterIds = new Set<string>()
+  preparedScenes.forEach((scene) => {
+    scene.tokens.forEach((token) => positionedCharacterIds.add(token.characterId))
+  })
+  playerTokens.forEach((token) => positionedCharacterIds.add(token.characterId))
   const availableTokenCandidates = tokenCandidates.filter(
-    (candidate) => !playerTokens.some((token) => token.characterId === candidate.characterId),
+    (candidate) => !positionedCharacterIds.has(candidate.characterId),
   )
 
   useEffect(() => {
@@ -1291,6 +1371,10 @@ export function CampaignOverviewPage({
   }, [activeScene?.id, activeZoomPercent, boardPixelSize.height, boardPixelSize.width, viewportBounds.height, viewportBounds.width])
 
   useEffect(() => {
+    onGridSettingsChangeRef.current = onGridSettingsChange
+  }, [onGridSettingsChange])
+
+  useEffect(() => {
     if (!campaignId || !isMaster || activeTool !== 'tokens') return
 
     let cancelled = false
@@ -1325,6 +1409,40 @@ export function CampaignOverviewPage({
 
   useEffect(() => {
     if (!socket || !campaignId) return
+    const currentCampaignId = campaignId
+
+    function applySceneSnapshot(scene: VttTableScene | null) {
+      if (!scene) {
+        setActiveScene(null)
+        setTokenState({ campaignId: currentCampaignId, tokens: [] })
+        if (!isMaster) onGridSettingsChangeRef.current(defaultGridSettings)
+        return
+      }
+
+      const sceneKey = sceneImageDimensionKey(scene)
+      setActiveScene((current) => {
+        const cachedDimensions = sceneImageDimensionsRef.current.get(sceneKey)
+        const currentDimensions =
+          current && sceneImageDimensionKey(current) === sceneKey ? { width: current.width, height: current.height } : null
+        const dimensions = cachedDimensions ?? currentDimensions
+        return dimensions ? { ...scene, width: dimensions.width, height: dimensions.height } : scene
+      })
+
+      const sceneGrid = normalizeGridSettings(scene.grid)
+      onGridSettingsChangeRef.current(sceneGrid)
+      const sceneTokens = scene.tokens.map((token) => normalizeTableToken(token, sceneGrid.shape))
+      setTokenState({
+        campaignId: currentCampaignId,
+        tokens: sceneTokens,
+      })
+      if (isMaster) {
+        setPreparedScenes((current) =>
+          current.map((preparedScene) =>
+            preparedScene.id === scene.id ? { ...preparedScene, grid: sceneGrid, tokens: sceneTokens } : preparedScene,
+          ),
+        )
+      }
+    }
 
     function onTokenChanged(payload: VttTokenChangedPayload) {
       if (payload.campaignId !== campaignId) return
@@ -1339,6 +1457,14 @@ export function CampaignOverviewPage({
         next[index] = token
         return { campaignId, tokens: next }
       })
+      setPreparedScenes((current) =>
+        current.map((scene) => {
+          if (scene.id !== activeScene?.id) return scene
+          const index = scene.tokens.findIndex((item) => item.characterId === payload.token.characterId)
+          const tokens = index === -1 ? [...scene.tokens, payload.token] : scene.tokens.map((item) => (item.characterId === payload.token.characterId ? payload.token : item))
+          return { ...scene, tokens }
+        }),
+      )
     }
 
     function onTokensSnapshot(payload: VttTokensSnapshotPayload) {
@@ -1359,6 +1485,11 @@ export function CampaignOverviewPage({
           tokens: current.tokens.filter((token) => token.characterId !== payload.characterId),
         }
       })
+      setPreparedScenes((current) =>
+        current.map((scene) =>
+          scene.id === activeScene?.id ? { ...scene, tokens: scene.tokens.filter((token) => token.characterId !== payload.characterId) } : scene,
+        ),
+      )
     }
 
     function onMeasurementChanged(payload: VttMeasurementChangedPayload) {
@@ -1369,7 +1500,7 @@ export function CampaignOverviewPage({
 
     function onSceneChanged(payload: VttSceneChangedPayload) {
       if (payload.campaignId !== campaignId) return
-      setActiveScene(payload.scene)
+      applySceneSnapshot(payload.scene)
     }
 
     function onMeasurementSnapshot(payload: VttMeasurementChangedPayload) {
@@ -1381,8 +1512,15 @@ export function CampaignOverviewPage({
 
     function onSceneSnapshot(payload: VttSceneChangedPayload) {
       if (payload.campaignId !== campaignId) return
+      applySceneSnapshot(payload.scene)
+    }
+
+    function onSceneEditing(payload: VttSceneEditingPayload) {
+      if (payload.campaignId !== campaignId) return
       if (isMaster) return
-      setActiveScene(payload.scene)
+      setActiveScene(null)
+      setTokenState({ campaignId, tokens: [] })
+      alert(payload.message ?? 'A cena esta sendo editada pelo mestre; sua visao do mapa foi removida ate o token ser reposicionado.')
     }
 
     socket.on('vtt:token:changed', onTokenChanged)
@@ -1392,6 +1530,7 @@ export function CampaignOverviewPage({
     socket.on('vtt:measurement:snapshot', onMeasurementSnapshot)
     socket.on('vtt:scene:changed', onSceneChanged)
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
+    socket.on('vtt:scene:editing', onSceneEditing)
 
     if (!isMaster) {
       socket.emit('vtt:tokens:request', { campaignId })
@@ -1407,8 +1546,9 @@ export function CampaignOverviewPage({
       socket.off('vtt:measurement:snapshot', onMeasurementSnapshot)
       socket.off('vtt:scene:changed', onSceneChanged)
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
+      socket.off('vtt:scene:editing', onSceneEditing)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster])
+  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
@@ -1440,24 +1580,13 @@ export function CampaignOverviewPage({
     setSceneSuccessMessage(null)
     setSceneSkippedFiles([])
 
-    api<CampaignAssetResponse[]>(`/api/assets?campaignId=${encodeURIComponent(campaignId)}`)
-      .then((assets) => {
+    api<CampaignSceneResponse[]>(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes`)
+      .then((scenes) => {
         if (cancelled) return
 
         setPreparedScenes((current) => {
           current.forEach(revokeSceneImageUrl)
-          return normalizePreparedSceneList(
-            assets.map((asset, index) => ({
-              id: `scene-${index + 1}`,
-              name: `Cena${index + 1}`,
-              imageUrl: asset.signedUrl,
-              fileName: asset.originalName,
-              file: null,
-              assetId: asset.id,
-              storagePath: asset.storagePath,
-              error: null,
-            })),
-          )
+          return normalizePreparedSceneList(scenes.map(sceneResponseToPreparedScene))
         })
         setSceneAssetsLoadedCampaignId(campaignId)
       })
@@ -1482,25 +1611,50 @@ export function CampaignOverviewPage({
     socket.emit('vtt:scene:select', { campaignId, scene })
   }
 
+  function handleGridSettingsChange(settings: VttGridSettings) {
+    const shouldClearSceneTokens = Boolean(
+      campaignId && isMaster && activeScene && playerTokens.length > 0 && isStructuralGridChange(gridSettings, settings),
+    )
+
+    if (shouldClearSceneTokens) {
+      const confirmed = window.confirm(
+        'Esta cena possui tokens posicionados. Alterar o tamanho ou o formato do grid removera os tokens desta cena, e os jogadores perderao a visao do mapa ate o mestre reposicionar seus tokens. Continuar?',
+      )
+      if (!confirmed) return
+    }
+
+    onGridSettingsChange(settings, { clearSceneTokens: shouldClearSceneTokens })
+    if (!campaignId || !isMaster || !activeScene) return
+
+    setPreparedScenes((current) =>
+      current.map((scene) =>
+        scene.id === activeScene.id ? { ...scene, grid: settings, tokens: shouldClearSceneTokens ? [] : scene.tokens } : scene,
+      ),
+    )
+    setActiveScene((current) => (current ? { ...current, grid: settings, tokens: shouldClearSceneTokens ? [] : current.tokens } : current))
+    if (shouldClearSceneTokens) setTokenState({ campaignId, tokens: [] })
+    if (!campaign?.isOnline) {
+      api<CampaignSceneResponse>(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(activeScene.id)}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ grid: settings, clearSceneTokens: shouldClearSceneTokens }),
+      }).catch(() => {})
+    }
+  }
+
   async function selectPreparedScene(sceneId: string) {
     if (!isMaster) return
 
     const scene = preparedScenes.find((item) => item.id === sceneId)
-    if (!scene?.imageUrl) return
+    if (!scene?.imageUrl || !scene.assetId) return
 
     try {
       const dimensions = await readImageDimensions(scene.imageUrl)
-      const nextScene: VttTableScene = {
-        id: scene.id,
-        name: scene.name,
-        imageUrl: scene.imageUrl,
-        fileName: scene.fileName,
-        assetId: scene.assetId,
-        width: dimensions.width,
-        height: dimensions.height,
-      }
+      const nextScene = preparedSceneToTableScene(scene, dimensions)
+      sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
 
       setActiveScene(nextScene)
+      setTokenState({ campaignId: campaignId ?? null, tokens: scene.tokens.map((token) => normalizeTableToken(token, scene.grid.shape)) })
+      onGridSettingsChange(scene.grid)
       publishSceneSelection(nextScene)
     } catch (err) {
       setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel selecionar a cena.')
@@ -1804,14 +1958,24 @@ export function CampaignOverviewPage({
         formData.append('file', scene.file)
 
         const asset = await apiForm<AssetUploadResponse>(`/api/assets?campaignId=${encodeURIComponent(campaignId)}`, formData)
+        const persistedScene = await api<CampaignSceneResponse>(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes`, {
+          method: 'POST',
+          body: JSON.stringify({
+            name: scene.name,
+            order: scene.order,
+            assetId: asset.id,
+            backgroundUrl: asset.signedUrl,
+            backgroundCacheKey: asset.storagePath,
+            grid: scene.grid,
+          }),
+        })
         uploadedFiles.push(scene.file.name)
         setPreparedScenes((current) =>
           current.map((item) =>
             item.id === scene.id
               ? {
-                  ...item,
-                  assetId: asset.id,
-                  storagePath: asset.storagePath,
+                  ...sceneResponseToPreparedScene(persistedScene, persistedScene.order - 1),
+                  fileName: scene.file?.name ?? persistedScene.name,
                   file: null,
                   error: null,
                 }
@@ -1833,6 +1997,7 @@ export function CampaignOverviewPage({
 
   async function deletePreparedScene(sceneId: string) {
     if (sceneDeletingId || sceneSaving) return
+    if (!campaignId) return
 
     const targetScene = preparedScenes.find((scene) => scene.id === sceneId)
     if (!targetScene) return
@@ -1848,6 +2013,10 @@ export function CampaignOverviewPage({
 
     try {
       if (targetScene.assetId) {
+        await api<{ ok: true }>(
+          `/api/campaigns/${encodeURIComponent(campaignId ?? '')}/scenes/${encodeURIComponent(targetScene.id)}?force=true`,
+          { method: 'DELETE' },
+        )
         await api<{ ok: true }>(`/api/assets/${encodeURIComponent(targetScene.assetId)}?force=true`, { method: 'DELETE' })
       }
 
@@ -1908,8 +2077,13 @@ export function CampaignOverviewPage({
                 onLoad={(event) => {
                   const { naturalWidth, naturalHeight } = event.currentTarget
                   if (!naturalWidth || !naturalHeight) return
-                  if (activeScene.width === naturalWidth && activeScene.height === naturalHeight) return
-                  setActiveScene({ ...activeScene, width: naturalWidth, height: naturalHeight })
+                  const sceneKey = sceneImageDimensionKey(activeScene)
+                  sceneImageDimensionsRef.current.set(sceneKey, { width: naturalWidth, height: naturalHeight })
+                  setActiveScene((current) => {
+                    if (!current || sceneImageDimensionKey(current) !== sceneKey) return current
+                    if (current.width === naturalWidth && current.height === naturalHeight) return current
+                    return { ...current, width: naturalWidth, height: naturalHeight }
+                  })
                 }}
               />
             ) : (
@@ -1932,7 +2106,7 @@ export function CampaignOverviewPage({
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
               />
             ))}
-            <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} squareMeters={gridSettings.squareMeters} />
+            <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} />
             {activeTool === 'measure' && realtimeVttEnabled ? (
               <div
                 className="absolute inset-0 z-[8] cursor-crosshair"
@@ -1998,7 +2172,7 @@ export function CampaignOverviewPage({
             {gridSettingsOpen && canConfigureGrid ? (
               <VttGridSettingsModal
                 settings={gridSettings}
-                onChange={onGridSettingsChange}
+                onChange={handleGridSettingsChange}
                 onClose={() => onGridSettingsOpenChange(false)}
               />
             ) : null}

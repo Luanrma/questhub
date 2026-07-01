@@ -4,7 +4,7 @@ export type VttGridSettings = {
   visible: boolean
   shape: VttGridShape
   size: number
-  squareMeters: number
+  metersPerCell: number
   squareMeasurementColor: string
   hexMeasurementColor: string
   lineWidth: number
@@ -20,7 +20,7 @@ export const defaultGridSettings: VttGridSettings = {
   visible: false,
   shape: 'square',
   size: 32,
-  squareMeters: 1,
+  metersPerCell: 1,
   squareMeasurementColor: '#f97316',
   hexMeasurementColor: '#f97316',
   lineWidth: 1,
@@ -29,11 +29,17 @@ export const defaultGridSettings: VttGridSettings = {
 
 const gridSizeLimits = { min: 24, max: 96 }
 const gridLineWidthLimits = { min: 1, max: 4 }
-export const squareMetersAllowedValues = [
+export const metersPerCellAllowedValues = [
+  0.5,
   ...Array.from({ length: 10 }, (_, index) => index + 1),
-  ...Array.from({ length: 18 }, (_, index) => (index + 3) * 5),
-  ...Array.from({ length: 90 }, (_, index) => (index + 11) * 10),
-  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 1000),
+  15,
+  20,
+  25,
+  30,
+  40,
+  50,
+  75,
+  100,
 ]
 
 function isGridShape(value: unknown): value is VttGridShape {
@@ -49,12 +55,13 @@ function clampInteger(value: unknown, min: number, max: number, fallback: number
   return Math.min(max, Math.max(min, Math.round(value)))
 }
 
-function normalizeSquareMeters(value: unknown) {
-  const candidate = clampInteger(value, 1, 10000, defaultGridSettings.squareMeters)
-  return squareMetersAllowedValues.reduce((closest, current) => {
+function normalizeMetersPerCell(value: unknown) {
+  if (typeof value !== 'number' || !Number.isFinite(value)) return defaultGridSettings.metersPerCell
+  const candidate = Math.min(10000, Math.max(0.01, value))
+  return metersPerCellAllowedValues.reduce((closest, current) => {
     if (Math.abs(current - candidate) >= Math.abs(closest - candidate)) return closest
     return current
-  }, defaultGridSettings.squareMeters)
+  }, defaultGridSettings.metersPerCell)
 }
 
 export function normalizeGridSettings(value: unknown): VttGridSettings {
@@ -66,7 +73,7 @@ export function normalizeGridSettings(value: unknown): VttGridSettings {
     visible: typeof settings.visible === 'boolean' ? settings.visible : defaultGridSettings.visible,
     shape: isGridShape(settings.shape) ? settings.shape : defaultGridSettings.shape,
     size: clampInteger(settings.size, gridSizeLimits.min, gridSizeLimits.max, defaultGridSettings.size),
-    squareMeters: normalizeSquareMeters(settings.squareMeters),
+    metersPerCell: normalizeMetersPerCell(settings.metersPerCell ?? (settings as { squareMeters?: unknown }).squareMeters),
     squareMeasurementColor: isHexColor(settings.squareMeasurementColor)
       ? settings.squareMeasurementColor
       : defaultGridSettings.squareMeasurementColor,

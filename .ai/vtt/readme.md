@@ -29,7 +29,7 @@ Incluido:
 * Configuracao visual do grid da cena por modal controlado pelo mestre.
 * Grid quadrado e hexagonal com tamanho, espessura e cor ajustaveis.
 * Configuracao de grid sincronizada em tempo real com usuarios autorizados a visualizar a cena.
-* Configuracao de grid persistida por cena em `campaign_scene`.
+* Configuracao de grid mantida em estado vivo durante a sessao e persistida por cena nos pontos de ciclo de vida definidos em `campaign_scene`.
 * Controle de zoom visual da mesa por botoes de menos/mais, com minimo de 50%, padrao de 100% e maximo de 150%.
 * Board finito com area maxima local de 50 colunas por 34 linhas de grid, navegado sem barras de rolagem por ferramenta de mover ou arraste em area vazia.
 * Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa.
@@ -39,7 +39,7 @@ Incluido:
 * Token posicionado por coordenadas logicas do grid, preservando sua celula/hexagono ao alterar o tamanho do grid.
 * Token dimensionado proporcionalmente ao tamanho atual da celula do grid.
 * Token sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
-* Token persistido por cena em `campaign_scene`.
+* Token mantido em estado vivo durante a sessao e persistido por cena nos pontos de ciclo de vida definidos em `campaign_scene`.
 * Controle de movimento do token e concedido ao Player dono apenas apos o drop do Mestre no board.
 * Sessao pode ser pausada pelo Mestre; durante a pausa, tudo no VTT fica bloqueado somente para os PLAYERS exceto o chat.
 * Mestre pode remover token do board pelo menu contextual de botao direito, devolvendo o personagem para a lista disponivel.
