@@ -58,7 +58,6 @@ export const updateCampaignSceneSchema = z.object({
   backgroundUrl: z.string().trim().max(2048).nullable().optional(),
   backgroundCacheKey: z.string().trim().max(256).nullable().optional(),
   grid: campaignSceneGridSchema.optional(),
-  clearSceneTokens: z.boolean().optional(),
 })
 
 export const campaignSceneTokenPositionSchema = z.object({
