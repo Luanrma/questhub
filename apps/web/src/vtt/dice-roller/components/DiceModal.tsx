@@ -1,15 +1,15 @@
-import DiceBox, { type DiceBoxRollResult } from '@3d-dice/dice-box'
 import { Dice5, Loader2, X } from 'lucide-react'
 import { memo, useEffect, useId, useRef, useState } from 'react'
-import { Button } from '../../components/Button'
-import type { DiceSides } from './types'
+import { Button } from '../../../components/Button'
+import { diceAssetPath } from '../config/constants'
+import type { DiceSides } from '../domain/types'
+import {
+  createDiceBox,
+  toDiceEngineRollResults,
+  type DestroyableDiceBox,
+} from '../infrastructure/dice-box/diceBoxEngine'
 
 const diceOptions = [4, 6, 8, 10, 12, 20] as const
-const diceAssetPath = '/assets/dice-box/'
-
-type DestroyableDiceBox = DiceBox & {
-  destroy: () => void
-}
 
 type DiceModalProps = {
   isOpen: boolean
@@ -24,20 +24,6 @@ type VisibleRoll = {
   value: number
 }
 
-function ensureDestroy(diceBox: DiceBox, container: HTMLDivElement): DestroyableDiceBox {
-  const destroyableDiceBox = diceBox as DestroyableDiceBox
-
-  if (typeof destroyableDiceBox.destroy === 'function') return destroyableDiceBox
-
-  destroyableDiceBox.destroy = () => {
-    diceBox.clear()
-    diceBox.hide()
-    container.querySelectorAll('canvas').forEach((canvas) => canvas.remove())
-  }
-
-  return destroyableDiceBox
-}
-
 export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onClose, onRollComplete }: DiceModalProps) {
   const reactId = useId()
   const containerIdRef = useRef(`dice-modal-box-${reactId.replace(/[^a-zA-Z0-9_-]/g, '')}`)
@@ -45,10 +31,10 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
   const diceBoxRef = useRef<DestroyableDiceBox | null>(null)
   const initializedRef = useRef(false)
   const rolledOnceRef = useRef(false)
+  const currentSidesRef = useRef<DiceSides | null>(null)
   const [initializing, setInitializing] = useState(false)
   const [rollingSides, setRollingSides] = useState<DiceSides | null>(null)
   const [rolls, setRolls] = useState<VisibleRoll[]>([])
-  const currentSidesRef = useRef<DiceSides | null>(null)
 
   useEffect(() => {
     if (!isOpen) return
@@ -70,45 +56,30 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
       expectedAmmoUrl: `${diceAssetPath}ammo/ammo.wasm.wasm`,
     })
 
-    const diceBox = ensureDestroy(
-      new DiceBox({
-        container: `#${containerIdRef.current}`,
-        assetPath: diceAssetPath,
-        theme: 'default',
-        offscreen: true,
-        scale: 15, // Aumenta a escala para melhorar a resolução
-      }),
+    const diceBox = createDiceBox({
+      containerId: containerIdRef.current,
       container,
-    )
+      scale: 15,
+      onRollComplete: (results) => {
+        const sides = currentSidesRef.current
+        if (!sides) return
+
+        const [firstResult] = toDiceEngineRollResults(results)
+        const firstRollValue = firstResult?.value
+        const value =
+          typeof firstRollValue === 'number' && Number.isFinite(firstRollValue)
+            ? Math.max(1, Math.min(sides, Math.round(firstRollValue)))
+            : Math.floor(Math.random() * sides) + 1
+
+        const roll = { id: Date.now(), sides, value }
+        setRolls((current) => [roll, ...current])
+        onRollComplete?.({ sides, value })
+        console.log('[DiceModal] roll complete', { sides, value, results })
+        setRollingSides(null)
+      },
+    })
 
     diceBoxRef.current = diceBox
-
-    diceBox.onRollComplete = (results: DiceBoxRollResult[]) => {
-      const sides = currentSidesRef.current
-      if (!sides) return
-
-      let value: number
-      try {
-        const firstResult = Array.isArray(results) ? results[0] : results
-        const rolls = firstResult?.rolls
-        const firstRoll = Array.isArray(rolls) ? rolls[0] : rolls
-        const firstRollValue = firstRoll?.value
-
-        if (typeof firstRollValue === 'number' && Number.isFinite(firstRollValue)) {
-          value = Math.max(1, Math.min(sides, Math.round(firstRollValue)))
-        } else {
-          value = Math.floor(Math.random() * sides) + 1
-        }
-      } catch {
-        value = Math.floor(Math.random() * sides) + 1
-      }
-
-      const roll = { id: Date.now(), sides, value }
-      setRolls((current) => [roll, ...current])
-      onRollComplete?.({ sides, value })
-      console.log('[DiceModal] roll complete', { sides, value, results })
-      setRollingSides(null)
-    }
 
     diceBox
       .init()
@@ -169,9 +140,9 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
 
       diceBox.show()
       if (rolledOnceRef.current) {
-        diceBox.add(`1d${sides}`)
+        void diceBox.add(`1d${sides}`)
       } else {
-        diceBox.roll(`1d${sides}`)
+        void diceBox.roll(`1d${sides}`)
         rolledOnceRef.current = true
       }
     } catch (error) {
