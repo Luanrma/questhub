@@ -6,6 +6,7 @@ import { verifyToken } from '../../auth/jwt'
 import { isActiveSession } from '../../auth/session'
 import { prisma } from '../../db/prisma'
 import { TOKEN_COOKIE } from '../../http/auth'
+import { assetService } from '../assets/service'
 
 type UserPresence = { socketId: string; campaignId: string; characterId: string }
 type CampaignSessionState = 'ACTIVE' | 'PAUSED'
@@ -687,6 +688,7 @@ export function setupCampaignPresence(server: HttpServer) {
         name: true,
         assetId: true,
         backgroundUrl: true,
+        backgroundCacheKey: true,
         gridVisible: true,
         gridShape: true,
         gridSize: true,
@@ -701,11 +703,15 @@ export function setupCampaignPresence(server: HttpServer) {
 
     const grid = campaignSceneGridSettings.get(campaignId)?.get(scene.id) ?? sceneGridToVttSettings(scene)
     const tokens = await listSceneTokens(campaignId, scene.id)
+    let imageUrl = scene.backgroundUrl
+    if (scene.backgroundCacheKey) {
+      imageUrl = await assetService.getSignedUrl(scene.backgroundCacheKey).catch(() => scene.backgroundUrl)
+    }
 
     return {
       id: scene.id,
       name: scene.name,
-      imageUrl: scene.backgroundUrl,
+      imageUrl,
       fileName: scene.name,
       assetId: scene.assetId,
       width: 50 * grid.size,
