@@ -17,6 +17,8 @@
 * Se dados legados tiverem mais de um `PLAYER ACTIVE` para o mesmo usuario e campanha, a conexao realtime deve usar explicitamente o personagem escolhido no card da campanha e nao trocar silenciosamente para outro.
 * A mesa usa `campaign.isOnline` como estado visual.
 * Paineis do VTT podem consumir `presence:update` para badges online/offline.
+* O gateway de campanha pode compor handlers de presenca e handlers VTT legados na mesma conexao Socket.IO, mas a regra de presenca deve permanecer isolada dos contratos de cena/grid/token.
+* Enquanto eventos `vtt:*` legados existirem, o handler de presenca continua responsavel apenas por autenticar a entrada na sala, emitir estado de sessao e preparar snapshots iniciais delegados ao fluxo VTT/cena.
 
 ## 3. Criterios de Aceitacao
 * Mestre abrir a tela da campanha nao torna a campanha online.

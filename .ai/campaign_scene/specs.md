@@ -53,7 +53,10 @@ Eventos Socket.IO legados que devem ser substituidos no fluxo novo:
 
 ## 2.2 Mapa Tecnico Atual
 Arquivos atuais que serao impactados:
-* `apps/api/src/modules/campaign-presence/socket.ts`: hoje concentra grid e tokens em memoria e eventos `vtt:*`; deve delegar ou integrar com handlers de `campaign_scene`.
+* `apps/api/src/modules/campaign-presence/socket.ts`: ainda registra eventos `vtt:*` legados de grid, cena, tokens, medicao e dados, mas contratos/schemas, nomes de rooms, mappers e estado vivo ja foram extraidos para arquivos dedicados.
+* `apps/api/src/modules/campaign-presence/handlers/presence-handlers.ts`: registra eventos `presence:*` e `disconnect`, mantendo sessao/presenca separados dos handlers VTT legados.
+* `apps/api/src/modules/campaign-presence/live-state.ts`: encapsula o estado em memoria usado pelo MVP enquanto nao houver adapter compartilhado.
+* `apps/api/src/modules/campaign-presence/contracts.ts`: define contratos e schemas dos eventos legados ainda consumidos pelo VTT.
 * `apps/api/src/modules/assets/routes.ts`: ja fornece upload/listagem/delecao de assets de campanha; sera usado para imagem de cena.
 * `apps/api/src/modules/assets/service.ts`: fonte para renovar URLs e metadados de imagem.
 * `apps/web/src/vtt/grid.ts`: hoje define `VttGridSettings` com `squareMeters`; deve migrar para `metersPerCell`.
