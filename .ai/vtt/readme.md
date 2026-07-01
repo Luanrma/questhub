@@ -61,6 +61,8 @@ Incluido:
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Cor dos dados 3D configuravel localmente por campanha.
 * Dados visuais acumulados permanecem na mesa ao fechar a ferramenta de dados e so somem ao clicar em `Limpar Dados` ou ao encerrar a sessao.
+* Dados 3D devem respeitar uma zona segura ampla da mesa para nao cobrir toolbars, painel de dados, controles de zoom ou rodape de cenas.
+* A primeira rolagem visual deve animar da mesma forma que as rolagens seguintes.
 * O Mestre pode rolar dados pela interface do VTT mesmo antes de iniciar a sessao da campanha.
 * Integracoes visuais de dados 3D, incluindo `@3d-dice/dice-box`, pertencem ao VTT generico e devem ser expostas por uma interface propria do VTT.
 * A interface de dados pode iniciar como modal sobreposto ao board quando a biblioteca exigir um container dedicado, mas a orquestracao da rolagem deve continuar no modulo `vtt/dice-roller`.
