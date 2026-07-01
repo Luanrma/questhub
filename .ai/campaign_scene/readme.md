@@ -16,6 +16,8 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 
 ## Regras de produto
 * Cenas persistem estado independente.
+* Durante uma sessao online, alteracoes de grid e tokens sao estado vivo da sessao: ficam em memoria/cache realtime e sao transmitidas por websocket.
+* O estado vivo da sessao e persistido no banco no encerramento da sessao e novamente ao iniciar a sessao, para preservar preparacoes feitas pelo Mestre antes de colocar a campanha online.
 * A troca de cena pelo Mestre pausa automaticamente a sessao.
 * Retomar sessao nao revela automaticamente a cena nova.
 * Sem cena forcada, a visao do jogador e derivada da cena do proprio token.

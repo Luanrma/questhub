@@ -16,7 +16,8 @@
 * Token-derived Player Scene: jogador ve a cena do proprio token quando nao existe cena forcada.
 * Forced Scene View: o Mestre pode mostrar uma cena para todos ate desativar manualmente.
 * Pause-on-scene-switch: toda troca de cena pelo Mestre pausa automaticamente a sessao.
-* Event-based Autosave: grid, tokens e troca/distribuicao de cenas salvam em eventos de ciclo de vida.
+* Session Live State: grid, tokens e cena ativa podem ser alterados em memoria/cache durante a sessao online, com propagacao por Socket.IO.
+* Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como iniciar e encerrar sessao.
 * Asset-backed Backgrounds: imagem de cena deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.
@@ -24,7 +25,7 @@
 
 ## Restricoes
 * Nao voltar a tratar cena como simples troca de background.
-* Nao manter token/grid apenas em memoria depois da introducao deste modulo.
+* Nao tratar o estado em memoria como fonte definitiva apos encerramento da sessao; ele deve ser persistido no ciclo de vida da sessao.
 * Nao usar `squareMeters` como escala canonica nova; grid quadrado deve usar `metersPerCell`.
 * Nao aplicar escala metrificada ao grid hexagonal.
 * Nao permitir que jogador edite grid, cena ou distribuicao de tokens.

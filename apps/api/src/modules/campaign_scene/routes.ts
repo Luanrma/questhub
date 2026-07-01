@@ -331,6 +331,12 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
 
     let scene
     try {
+      if (parsed.data.clearSceneTokens) {
+        await prisma.campaignSceneToken.deleteMany({
+          where: { sceneId: params.data.sceneId, scene: { campaignId: params.data.campaignId } },
+        })
+      }
+
       scene = await prisma.campaignScene.update({
         where: { id: params.data.sceneId },
         data,

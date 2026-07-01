@@ -177,6 +177,9 @@ Regras:
 * Nao e possivel criar campanha sem personagem `MASTER`.
 * Nao e possivel criar campanha sem sistema.
 * Nao e possivel ter mais de um `MASTER` ativo na mesma campanha.
+* Nao e possivel ter mais de um `PLAYER` ativo para o mesmo `userId` na mesma campanha.
+* Um novo `PLAYER` do mesmo usuario so pode ser vinculado ou aprovado quando o vinculo anterior estiver fora de `ACTIVE`.
+* `NPC` nao participa da restricao de unicidade de `PLAYER`; companions e pets serao tratados em regra futura propria.
 * `CampaignMember` nao deve ser usado pelo novo modelo.
 * `Campaign.gmName` nao deve ser usado; o nome publico do mestre vem do `Character` vinculado como `MASTER`.
 

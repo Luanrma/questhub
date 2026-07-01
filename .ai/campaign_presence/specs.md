@@ -13,6 +13,8 @@
 * Para mestre, o botao superior mostra `Iniciar Sessao` quando offline e `Encerrar Sessao` quando online.
 * Para jogador, `CampaignLayout` emite `presence:enter` ao abrir uma campanha online.
 * O jogador so e registrado como presente quando abre uma campanha online com `CampaignCharacter` `ACTIVE` e role `PLAYER`.
+* Um usuario so pode registrar presenca com um unico personagem `PLAYER` ativo por campanha.
+* Se dados legados tiverem mais de um `PLAYER ACTIVE` para o mesmo usuario e campanha, a conexao realtime deve usar explicitamente o personagem escolhido no card da campanha e nao trocar silenciosamente para outro.
 * A mesa usa `campaign.isOnline` como estado visual.
 * Paineis do VTT podem consumir `presence:update` para badges online/offline.
 

@@ -46,6 +46,9 @@ Fora de escopo:
 * Campanha privada cria `CampaignCharacter` como `PENDING`; o mestre aprova ou rejeita a solicitacao.
 * Todo personagem usado para criar campanha vira `MASTER` ativo no mesmo fluxo.
 * Uma campanha tem apenas um `MASTER` ativo.
+* Um usuario pode ter apenas um personagem `PLAYER` com status `ACTIVE` por campanha.
+* O usuario so pode ter outro `PLAYER` na mesma campanha quando o vinculo anterior deixar de estar `ACTIVE`, por exemplo `LEFT`, `DEAD` ou `REJECTED`.
+* No futuro, `NPC`, companions ou pets poderao ter multiplos controladores/instancias; essa excecao nao se aplica ao `PLAYER` principal.
 * Um usuario pode mestrar varias campanhas se usar personagens livres diferentes.
 * Nome de personagem pode repetir entre personagens do mesmo usuario e dentro da mesma campanha.
 * Bio da ficha e avatar sao opcionais.

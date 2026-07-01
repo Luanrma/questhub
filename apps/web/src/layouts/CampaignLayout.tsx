@@ -133,6 +133,7 @@ export function CampaignLayout() {
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
   const hasFloatingPanel = !isTableRoute
   const panelTitle = getPanelTitle(location.pathname)
+  const navigationState = location.state as { characterId?: string | null } | null
 
   useEffect(() => {
     if (campaignId) setActiveCampaignId(campaignId)
@@ -156,15 +157,21 @@ export function CampaignLayout() {
     }
   }, [socket, campaignId, isMaster])
 
-  function applyGridSettings(settings: VttGridSettings) {
+  function applyGridSettings(settings: VttGridSettings, options?: { clearSceneTokens?: boolean; realtime?: boolean; sceneId?: string }) {
     if (!campaignId) return
 
     const nextSettings = normalizeGridSettings(settings)
     setGridSettings(nextSettings)
     storeGridSettings(campaignId, nextSettings)
 
+    if (options?.realtime === false) return
     if (!isMaster || !campaign?.isOnline) return
-    updateVttGridSettings({ campaignId, settings: nextSettings }).catch(() => {})
+    updateVttGridSettings({
+      campaignId,
+      sceneId: options?.sceneId,
+      settings: nextSettings,
+      clearSceneTokens: options?.clearSceneTokens,
+    }).catch(() => {})
   }
 
   // Hooks precisam ser chamados sempre: a lógica fica DENTRO do efeito.
@@ -181,7 +188,9 @@ export function CampaignLayout() {
       }
 
       try {
-        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character`)
+        const selectedCharacterId = navigationState?.characterId ?? campaign.myCharacterId
+        const selectedCharacterQuery = selectedCharacterId ? `?characterId=${encodeURIComponent(selectedCharacterId)}` : ''
+        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character${selectedCharacterQuery}`)
         setMyCharacter(ch)
         if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`

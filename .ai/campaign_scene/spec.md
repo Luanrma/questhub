@@ -183,20 +183,23 @@ Regras:
 * Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
 * Se `forcedSceneId` nao existir, cada jogador ve a cena onde o token do seu personagem esta.
 * Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver um estado neutro de mesa aguardando posicionamento ou cena compartilhada.
+* Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar ao estado neutro ate o token ser reposicionado.
 * Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao.
 * Retomar sessao nao muda a cena visivel dos jogadores por si so; a visao continua seguindo `forcedSceneId` ou cena do token.
 
 ## 5. Persistencia
 
 Regras:
-* Alteracoes de grid, tokens, cena ativa e distribuicao de tokens usam auto-save por evento.
-* Eventos que devem persistir estado:
-  * troca de cena pelo Mestre;
-  * pausa de sessao;
-  * encerramento de sessao;
-  * movimentacao de token entre cenas;
-  * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes;
-  * fechamento do modal de distribuicao de tokens, quando houver alteracoes pendentes.
+* Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
+* Durante uma sessao online, alteracoes de grid e tokens ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
+* Alteracoes de grid e tokens durante a sessao online nao devem disparar escrita no banco a cada evento, para evitar loops de snapshot e inconsistencias visuais.
+* Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online.
+* Ao encerrar sessao, o servidor deve persistir o ultimo estado vivo da mesa para que a proxima sessao comece como a anterior terminou.
+* Eventos que podem persistir estado fora da sessao online:
+  * preparo de cena com campanha offline;
+  * iniciar sessao;
+  * encerrar sessao;
+  * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes.
 * O frontend pode atualizar estado de forma otimista, mas a fonte da verdade persistida deve ser atualizada pelos eventos acima.
 * Ao entrar na campanha, o cliente deve receber snapshot da cena que deve visualizar e metadados suficientes para cachear imagens.
 
@@ -272,6 +275,9 @@ Regras:
 * Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
 * Jogadores nao podem emitir alteracoes de grid ou distribuicao de cena.
 * Jogadores recebem apenas eventos da cena que devem visualizar.
+* Movimento, remocao e invisibilidade de token devem ser emitidos apenas para sockets cuja cena visivel seja a cena atual do token.
+* Remocao de token de `PLAYER` tambem deve ser emitida ao socket dono daquele token, mesmo que a remocao faca a cena visivel do dono deixar de existir.
+* Trocar a cena ativa do Mestre nao deve emitir evento de alteracao de grid para a cena anterior; a troca apenas carrega o grid da cena escolhida no cliente do Mestre.
 * Mestre pode receber eventos de todas as cenas conforme necessario para administrar a campanha.
 
 ## 9. UI/UX

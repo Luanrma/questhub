@@ -22,6 +22,7 @@
 * Grid-coordinate Tokens: a posicao do token usa coordenadas logicas do grid, nao percentual de viewport.
 * Realtime Table Broadcast: configuracoes de cena sao propagadas por Socket.IO para sockets autorizados a visualizar a cena.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players autorizados.
+* Lifecycle Table Persistence: grid e tokens alterados durante a sessao sao persistidos apenas no inicio/encerramento da sessao, nao em cada evento realtime.
 * Master Token Toolbar: menu contextual de token pertence ao Mestre e emite acoes validadas no servidor.
 * Realtime Measurement Tool: medidas temporarias sao calculadas no cliente, armazenadas em memoria na sessao e sincronizadas por Socket.IO.
 * Grid-aware Measurement: grid quadrado converte pixels para metros por `metersPerCell`; grid hexagonal mede quantidade de passos entre centros de hexagonos.
@@ -39,9 +40,9 @@
 ## 3. Restricoes
 * Nao adicionar bibliotecas visuais fora de uso concreto no VTT.
 * Nao criar estado persistente falso para sessoes.
-* Nao manter tokens apenas em memoria depois da introducao de `campaign_scene`.
+* Nao perder o estado vivo de tokens ao encerrar sessao; persistir o snapshot final em `campaign_scene`.
 * Nao persistir medidas enquanto nao existir contrato de cena/mapa.
-* Nao manter configuracao de grid apenas local ou em memoria depois da introducao de `campaign_scene`.
+* Nao perder configuracao viva de grid ao encerrar sessao; persistir o snapshot final em `campaign_scene`.
 * Nao permitir que jogadores emitam alteracoes de grid.
 * Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
 * Nao permitir que o Mestre mova token de Player durante sessao ativa; O Meste pode mover token durante sessao pausada.
