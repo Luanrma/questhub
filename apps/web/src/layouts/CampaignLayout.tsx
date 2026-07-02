@@ -7,7 +7,7 @@ import { LoadingScreen } from '../components/LoadingScreen'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
-import { CampaignOverviewPage } from '../pages/campaign/CampaignOverviewPage'
+import { CampaignOverviewPage } from '../vtt/table/CampaignOverviewPage'
 import {
   defaultGridSettings,
   normalizeGridSettings,
