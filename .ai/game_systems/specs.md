@@ -49,6 +49,7 @@ type CharacterSheetSystemAdapter = {
 }
 
 type GameSystemCatalogCapabilities = {
+  bestiary?: boolean
   ancestries?: boolean
   heritages?: boolean
   backgrounds?: boolean
@@ -81,3 +82,7 @@ type GameSystemDiceCapabilities = {
 * O VTT consegue exibir tokens e rolagens sem depender de campos especificos de ficha.
 * Regras de Pathfinder 2e podem crescer para classes, ancestralidades, herancas, backgrounds, feats, spells e itens sem alterar contratos de VTT.
 * Regras de D&D 5e podem ser adicionadas como outro adapter, sem alterar o modulo Pathfinder 2e.
+* Bestiarios pertencem ao ruleset e devem expor dados normalizados sem exigir que o VTT conheca campos mecanicos.
+* Entradas de bestiario devem preservar texto original e podem fornecer traducoes por idioma.
+* A preferencia de idioma de conteudo de sistema e por usuario, com default `pt-BR`.
+* Tokens criados a partir de bestiario nao criam `Character`; eles carregam referencia `bestiaryCreatureId` e metadados visuais suficientes para o VTT.

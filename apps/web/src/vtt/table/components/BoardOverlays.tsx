@@ -178,6 +178,7 @@ export function PlayerToken({
         top: position.y,
         width: tokenSize,
         height: tokenSize,
+        borderColor: token.tokenBorderColor ?? undefined,
       }}
       onPointerDown={startDrag}
       onContextMenu={openContextMenu}
@@ -185,7 +186,12 @@ export function PlayerToken({
       {token.avatarUrl ? (
         <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} />
       ) : (
-        <span className="grid h-full w-full place-items-center bg-indigo-600 text-lg font-bold text-white">{initial}</span>
+        <span
+          className="grid h-full w-full place-items-center text-lg font-bold text-white"
+          style={{ backgroundColor: token.tokenBorderColor ?? '#4f46e5' }}
+        >
+          {initial}
+        </span>
       )}
     </button>
   )

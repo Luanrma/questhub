@@ -14,9 +14,16 @@ export type DiceDisplaySettings = {
 
 export type CampaignUserSettings = {
   dice: DiceDisplaySettings
+  gameContent: {
+    language: 'pt-BR' | 'original'
+  }
+  vtt: {
+    preparedBestiaryCreatureIds: string[]
+  }
 }
 
 export const DICE_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:vtt:dice-display-settings-changed'
+export const PREPARED_BESTIARY_TOKENS_CHANGED_EVENT = 'questhub:vtt:prepared-bestiary-tokens-changed'
 
 function diceColorStorageKey(campaignId: string) {
   return `questhub:vtt:dice-theme-color:${campaignId}`
@@ -55,13 +62,23 @@ export function normalizeDiceDisplaySettings(value: unknown): DiceDisplaySetting
 
 export function normalizeCampaignUserSettings(value: unknown): CampaignUserSettings {
   if (!value || typeof value !== 'object') {
-    return { dice: normalizeDiceDisplaySettings(null) }
+    return { dice: normalizeDiceDisplaySettings(null), gameContent: { language: 'pt-BR' }, vtt: { preparedBestiaryCreatureIds: [] } }
   }
 
   const settings = value as Partial<CampaignUserSettings>
+  const preparedBestiaryCreatureIds = Array.isArray(settings.vtt?.preparedBestiaryCreatureIds)
+    ? Array.from(new Set(settings.vtt.preparedBestiaryCreatureIds.filter((id): id is string => typeof id === 'string' && id.trim().length > 0)))
+    : []
+
   return {
     ...settings,
     dice: normalizeDiceDisplaySettings(settings.dice),
+    gameContent: {
+      language: settings.gameContent?.language === 'original' ? 'original' : 'pt-BR',
+    },
+    vtt: {
+      preparedBestiaryCreatureIds,
+    },
   }
 }
 
@@ -114,6 +131,11 @@ export function storeCampaignUserSettings(campaignId: string, settings: Campaign
     window.dispatchEvent(
       new CustomEvent(DICE_DISPLAY_SETTINGS_CHANGED_EVENT, {
         detail: { campaignId, settings: normalizedSettings.dice },
+      }),
+    )
+    window.dispatchEvent(
+      new CustomEvent(PREPARED_BESTIARY_TOKENS_CHANGED_EVENT, {
+        detail: { campaignId, creatureIds: normalizedSettings.vtt.preparedBestiaryCreatureIds },
       }),
     )
   } catch {

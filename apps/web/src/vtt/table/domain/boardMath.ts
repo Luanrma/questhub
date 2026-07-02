@@ -154,6 +154,7 @@ export function normalizeTokenPosition(
 export function normalizeTableToken(token: VttPlayerToken, gridShape: VttGridShape) {
   return {
     ...token,
+    source: token.source ?? 'character',
     ownerUserId: token.ownerUserId ?? '',
     ownerName: token.ownerName ?? token.name,
     role: token.role ?? 'PLAYER',

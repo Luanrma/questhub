@@ -27,6 +27,8 @@ Exemplos de campos proibidos em contratos base do VTT:
 * `savingThrow`
 * `proficiencyRank`
 
+Tokens de bestiario podem carregar metadados opacos de origem, como `source = 'bestiary'` e `bestiaryCreatureId`, mas o VTT nao deve interpretar regras mecanicas da criatura.
+
 ## 1. Navegacao
 * `/campaign/:campaignId/overview` representa a mesa.
 * A mesa e renderizada pelo `CampaignLayout`, nao por uma rota filha exclusiva.
@@ -85,6 +87,7 @@ type MyCampaignCharacter = {
 * O contrato base de token nao contem campos mecanicos de Pathfinder 2e ou D&D 5e.
 * O contrato base de rolagem aceita expressao generica, como `1d20+7`, e metadados opcionais de ruleset.
 * Player nao ve menu `Token` e nao pode criar/recentralizar o proprio token.
+* Player nao pode controlar token com origem `bestiary`.
 * Player nao ve o rodape de preparacao de cena.
 * Mestre ve o rodape de preparacao de cena na mesa.
 * Clicar em `Preparar cena` abre modal sobre a mesa.
@@ -128,7 +131,12 @@ type MyCampaignCharacter = {
 * Em viewports menores, o painel lateral recolhido deve ficar sobreposto na direita da mesa como uma rail estreita, sem criar uma faixa horizontal abaixo do board.
 * Recolher o painel lateral nao deve desmontar a mesa nem perder mensagens carregadas do chat ao expandir novamente.
 * Mestre ve uma ferramenta `Tokens` que abre modal com personagens `PLAYER` e `NPC` ativos da campanha.
+* A ferramenta `Tokens` tambem pode listar criaturas do bestiario do ruleset da campanha como candidatos de token.
 * O token so existe no board depois que o Mestre arrasta um personagem do modal de tokens e solta no grid.
+* O token de bestiario so existe no board depois que o Mestre arrasta uma criatura do bestiario/modal e solta no grid.
+* Dropar uma criatura de bestiario cria um token direto de cena, nao um `Character`.
+* Multiplos drops da mesma criatura de bestiario devem criar multiplos tokens independentes.
+* Token de bestiario tem role visual `NPC`, dono exibido como Mestre/Bestiario e controle exclusivo do Mestre.
 * Ao concluir o drop do Mestre, o Player dono do personagem passa a poder mover o proprio token quando a sessao esta ativa.
 * O token seja ele qualquer, pode ser movido pelo mestre quando a sessao esta pausada.
 * O token usa `MyCampaignCharacter.avatarUrl` quando existir.

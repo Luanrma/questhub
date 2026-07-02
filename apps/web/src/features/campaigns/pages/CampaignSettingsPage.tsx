@@ -7,6 +7,7 @@ import { api } from '../../../lib/api'
 import { maxDiceAutoClearSeconds, minDiceAutoClearSeconds } from '../../../vtt/dice-roller/config/constants'
 import {
   normalizeDiceAutoClearPreference,
+  readStoredCampaignUserSettings,
   readStoredDiceDisplaySettings,
   storeCampaignUserSettings,
   storeDiceDisplaySettings,
@@ -151,6 +152,7 @@ export function CampaignSettingsPage() {
   const isMaster = campaign?.myRole === 'MASTER'
   const [joinPolicyDraft, setJoinPolicyDraft] = useState<{ campaignId?: string; value: 'PUBLIC' | 'PRIVATE' } | null>(null)
   const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{ campaignId?: string; settings: DiceDisplaySettings } | null>(null)
+  const [gameContentLanguageDraft, setGameContentLanguageDraft] = useState<{ campaignId?: string; language: 'pt-BR' | 'original' } | null>(null)
   const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -164,6 +166,10 @@ export function CampaignSettingsPage() {
     diceDisplaySettingsDraft && diceDisplaySettingsDraft.campaignId === campaignId
       ? diceDisplaySettingsDraft.settings
       : storedDiceDisplaySettings
+  const gameContentLanguage =
+    gameContentLanguageDraft && gameContentLanguageDraft.campaignId === campaignId
+      ? gameContentLanguageDraft.language
+      : campaignId ? readStoredCampaignUserSettings(campaignId).gameContent.language : 'pt-BR'
   const changed = useMemo(() => (campaign ? joinPolicy !== campaign.joinPolicy : false), [campaign, joinPolicy])
   const autoClearOptions = useMemo(
     () => Array.from({ length: maxDiceAutoClearSeconds - minDiceAutoClearSeconds + 1 }, (_, index) => minDiceAutoClearSeconds + index),
@@ -202,6 +208,30 @@ export function CampaignSettingsPage() {
       ...diceDisplaySettings,
       showResultPopup: value,
     })
+  }
+
+  function updateGameContentLanguage(language: 'pt-BR' | 'original') {
+    if (!campaignId) return
+
+    setGameContentLanguageDraft({ campaignId, language })
+    const currentSettings = readStoredCampaignUserSettings(campaignId)
+    storeCampaignUserSettings(campaignId, {
+      ...currentSettings,
+      gameContent: { language },
+    })
+    setSettingsSyncWarning(null)
+
+    void api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings: { gameContent: { language } } }),
+    })
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setGameContentLanguageDraft({ campaignId, language: response.settings.gameContent.language })
+      })
+      .catch(() => {
+        setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
+      })
   }
 
   async function onCopyInviteCode() {
@@ -261,6 +291,28 @@ export function CampaignSettingsPage() {
         onAutoClearChange={updateDiceAutoClear}
         onShowResultPopupChange={updateShowResultPopup}
       />
+
+      <CollapsibleSettingsSection
+        title="Idioma dos conteudos"
+        description="Escolha como textos de sistemas de jogo aparecem para voce."
+      >
+        <div className="grid gap-3">
+          <label className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-black/20 p-4">
+            <span>
+              <span className="block text-sm font-semibold text-white">Bestiario e regras</span>
+              <span className="mt-1 block text-xs text-zinc-400">O original importado continua preservado.</span>
+            </span>
+            <select
+              value={gameContentLanguage}
+              className="h-9 min-w-36 rounded-md border border-white/10 bg-black/45 px-3 text-sm font-semibold text-white outline-none transition focus:border-indigo-300/40"
+              onChange={(event) => updateGameContentLanguage(event.target.value === 'original' ? 'original' : 'pt-BR')}
+            >
+              <option value="pt-BR">Portugues</option>
+              <option value="original">Original</option>
+            </select>
+          </label>
+        </div>
+      </CollapsibleSettingsSection>
 
       {isMaster ? (
         <>

@@ -1,6 +1,7 @@
 # Dependencies
 node_modules/
 **/node_modules/
+pf2e-master/
 
 # Build output and caches
 dist/

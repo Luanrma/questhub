@@ -101,20 +101,31 @@ export const vttDiceRolledSchema = z.object({
 
 export const vttTokenUpdateSchema = z.object({
   campaignId: z.string().min(1),
+  tokenId: z.string().min(1).optional(),
   characterId: z.string().min(1).optional(),
   position: vttTokenPositionSchema,
 })
 
-export const vttTokenPlaceSchema = z.object({
-  campaignId: z.string().min(1),
-  characterId: z.string().min(1),
-  position: vttTokenPositionSchema,
-})
+export const vttTokenPlaceSchema = z.union([
+  z.object({
+    campaignId: z.string().min(1),
+    source: z.literal('character').optional(),
+    characterId: z.string().min(1),
+    position: vttTokenPositionSchema,
+  }),
+  z.object({
+    campaignId: z.string().min(1),
+    source: z.literal('bestiary'),
+    creatureId: z.string().min(1),
+    position: vttTokenPositionSchema,
+  }),
+])
 
 export const vttTokenActionSchema = z.object({
   campaignId: z.string().min(1),
-  characterId: z.string().min(1),
-})
+  tokenId: z.string().min(1).optional(),
+  characterId: z.string().min(1).optional(),
+}).refine((input) => Boolean(input.tokenId || input.characterId))
 
 export const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
   z.object({
@@ -163,9 +174,12 @@ export type VttTableScene = Omit<z.infer<typeof vttTableSceneSchema>, 'imageUrl'
 }
 export type VttPlayerToken = {
   id: string
-  characterId: string
+  source: 'character' | 'bestiary'
+  characterId: string | null
+  bestiaryCreatureId?: string | null
   name: string
   avatarUrl: string | null
+  tokenBorderColor?: string | null
   ownerUserId: string
   ownerName: string
   role: 'PLAYER' | 'NPC'
