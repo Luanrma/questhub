@@ -334,6 +334,7 @@ Regras:
 * `Preparar cena` continua sendo a entrada para criar e organizar cenas com cards.
 * Ao selecionar uma cena no rodape, o Mestre muda `masterActiveSceneId`, a sessao pausa automaticamente e a mesa dele renderiza o snapshot daquela cena.
 * A mesa deve limpar o canvas atual e reinicializar fundo, grid, tokens e medicoes visuais a partir da cena escolhida.
+* Durante a aplicacao de snapshot, troca de cena ou carregamento da imagem de background, a mesa deve exibir o `LoadingScreen` global ate a cena, imagem, grid e tokens estarem renderizados de forma estavel, ocultando redimensionamentos intermediarios.
 * A troca de cena nao deve desmontar `CampaignLayout`.
 * A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
 * O modal de distribuicao deve exibir cenas como cards e tokens/personagens como icones arrastaveis entre cards.
@@ -348,6 +349,7 @@ Regras:
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.
 * Mestre consegue preparar cenas pelo modal `Preparar cena`.
 * Trocar cena pelo Mestre pausa automaticamente a sessao.
+* Trocar cena, receber snapshot de cena ou carregar background nao deve expor ao usuario o reajuste visual intermediario de imagem, grid e tokens.
 * Retomar sessao nao revela automaticamente a nova cena para todos.
 * Player ve a cena onde seu token esta quando nao ha cena forcada.
 * Player sem token nao ve cena privada automaticamente quando nao ha cena forcada.

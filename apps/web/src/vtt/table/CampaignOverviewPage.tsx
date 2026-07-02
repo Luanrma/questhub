@@ -19,6 +19,7 @@ import {
 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { CampaignChat } from '../../components/CampaignChat'
+import { LoadingScreen } from '../../components/LoadingScreen'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
 import { VttDiceControls } from '../dice-roller'
@@ -100,6 +101,12 @@ type CampaignOverviewPageProps = {
   onGridSettingsOpenChange: (open: boolean) => void
 }
 
+type SceneRenderTarget = {
+  sceneId: string | null
+  imageKey: string | null
+  tokenCount: number
+}
+
 export function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
@@ -113,6 +120,7 @@ export function CampaignOverviewPage({
   const { campaigns, socket, connectRealtime } = useSession()
   const boardViewportRef = useRef<HTMLDivElement | null>(null)
   const gridAreaRef = useRef<HTMLDivElement | null>(null)
+  const backgroundImageRef = useRef<HTMLImageElement | null>(null)
   const measuringRef = useRef(false)
   const measurementRef = useRef<VttMeasurement | null>(null)
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
@@ -139,9 +147,11 @@ export function CampaignOverviewPage({
   const [sceneSaving, setSceneSaving] = useState(false)
   const [sceneDeletingId, setSceneDeletingId] = useState<string | null>(null)
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
+  const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
   const preparedScenesRef = useRef(preparedScenes)
   const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
   const onGridSettingsChangeRef = useRef(onGridSettingsChange)
+  const [sceneLoadingMessage, setSceneLoadingMessage] = useState<string | null>(null)
   const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.metersPerCell}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
@@ -243,6 +253,86 @@ export function CampaignOverviewPage({
     onGridSettingsChangeRef.current = onGridSettingsChange
   }, [onGridSettingsChange])
 
+  function startSceneLoading(scene: VttTableScene | null, message = 'Carregando cena...') {
+    const imageKey = scene?.imageUrl ? sceneImageDimensionKey(scene) : null
+    setSceneRenderTarget({
+      sceneId: scene?.id ?? null,
+      imageKey,
+      tokenCount: scene?.tokens.length ?? 0,
+    })
+    setSceneLoadingMessage(message)
+  }
+
+  function finishSceneImageLoading(scene: Pick<VttTableScene, 'id' | 'imageUrl'>) {
+    const sceneKey = sceneImageDimensionKey(scene)
+    if (sceneRenderTarget?.imageKey !== sceneKey) return
+    setSceneRenderTarget((current) => (current?.imageKey === sceneKey ? { ...current } : current))
+  }
+
+  useEffect(() => {
+    if (!sceneRenderTarget) return
+
+    let cancelled = false
+    let animationFrame = 0
+    let stableFrames = 0
+    let attempts = 0
+
+    const isSceneRendered = () => {
+      const currentSceneId = activeScene?.id ?? null
+      if (currentSceneId !== sceneRenderTarget.sceneId) return false
+      if (tokenState.campaignId !== campaignId) return false
+      if (tokenState.tokens.length !== sceneRenderTarget.tokenCount) return false
+
+      const viewport = boardViewportRef.current
+      const gridArea = gridAreaRef.current
+      if (!viewport || !gridArea) return false
+
+      const viewportBounds = viewport.getBoundingClientRect()
+      const gridBounds = gridArea.getBoundingClientRect()
+      if (viewportBounds.width <= 0 || viewportBounds.height <= 0) return false
+      if (gridBounds.width <= 0 || gridBounds.height <= 0) return false
+
+      if (Math.abs(gridBounds.width - boardPixelSize.width) > 1) return false
+      if (Math.abs(gridBounds.height - boardPixelSize.height) > 1) return false
+
+      if (!sceneRenderTarget.imageKey) return true
+      if (!activeScene || sceneImageDimensionKey(activeScene) !== sceneRenderTarget.imageKey) return false
+
+      const image = backgroundImageRef.current
+      return Boolean(image?.complete && image.naturalWidth > 0 && image.naturalHeight > 0)
+    }
+
+    const waitForStableRender = () => {
+      if (cancelled) return
+
+      attempts += 1
+      stableFrames = isSceneRendered() ? stableFrames + 1 : 0
+
+      if (stableFrames >= 4 || attempts >= 180) {
+        setSceneLoadingMessage(null)
+        setSceneRenderTarget(null)
+        return
+      }
+
+      animationFrame = window.requestAnimationFrame(waitForStableRender)
+    }
+
+    animationFrame = window.requestAnimationFrame(waitForStableRender)
+
+    return () => {
+      cancelled = true
+      window.cancelAnimationFrame(animationFrame)
+    }
+  }, [
+    activeScene,
+    boardPixelSize.height,
+    boardPixelSize.width,
+    campaignId,
+    sceneRenderTarget,
+    tokenState.campaignId,
+    tokenState.tokens.length,
+  ])
+
   useEffect(() => {
     if (!campaignId || !isMaster || activeTool !== 'tokens') return
 
@@ -281,6 +371,8 @@ export function CampaignOverviewPage({
     const currentCampaignId = campaignId
 
     function applySceneSnapshot(scene: VttTableScene | null) {
+      startSceneLoading(scene)
+
       if (!scene) {
         setActiveScene(null)
         setTokenState({ campaignId: currentCampaignId, tokens: [] })
@@ -503,10 +595,14 @@ export function CampaignOverviewPage({
     const scene = preparedScenes.find((item) => item.id === sceneId)
     if (!scene || isDraftPreparedScene(scene)) return
 
+    setSceneSaveError(null)
+    setSceneLoadingMessage('Carregando cena...')
+
     try {
       const dimensions = scene.imageUrl ? await readImageDimensions(scene.imageUrl) : getDefaultSceneDimensions(scene.grid)
       const nextScene = preparedSceneToTableScene(scene, dimensions)
       sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
+      startSceneLoading(nextScene)
 
       setActiveScene(nextScene)
       setTokenState({ campaignId: campaignId ?? null, tokens: scene.tokens.map((token) => normalizeTableToken(token, scene.grid.shape)) })
@@ -527,6 +623,7 @@ export function CampaignOverviewPage({
           const dimensions = refreshedScene.imageUrl ? await readImageDimensions(refreshedScene.imageUrl) : getDefaultSceneDimensions(refreshedScene.grid)
           const nextScene = preparedSceneToTableScene(refreshedScene, dimensions)
           sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
+          startSceneLoading(nextScene)
 
           setPreparedScenes((current) => current.map((item) => (item.id === scene.id ? refreshedScene : item)))
           setActiveScene(nextScene)
@@ -537,6 +634,7 @@ export function CampaignOverviewPage({
         } catch {}
       }
 
+      setSceneLoadingMessage(null)
       setSceneSaveError(err instanceof Error ? err.message : 'Nao foi possivel selecionar a cena.')
     }
   }
@@ -1067,13 +1165,17 @@ export function CampaignOverviewPage({
           >
             {activeScene?.imageUrl ? (
               <img
+                ref={backgroundImageRef}
                 src={activeScene.imageUrl}
                 alt=""
                 className="pointer-events-none absolute inset-0 h-full w-full select-none object-contain"
                 draggable={false}
                 onLoad={(event) => {
                   const { naturalWidth, naturalHeight } = event.currentTarget
-                  if (!naturalWidth || !naturalHeight) return
+                  if (!naturalWidth || !naturalHeight) {
+                    finishSceneImageLoading(activeScene)
+                    return
+                  }
                   const sceneKey = sceneImageDimensionKey(activeScene)
                   sceneImageDimensionsRef.current.set(sceneKey, { width: naturalWidth, height: naturalHeight })
                   setActiveScene((current) => {
@@ -1081,7 +1183,9 @@ export function CampaignOverviewPage({
                     if (current.width === naturalWidth && current.height === naturalHeight) return current
                     return { ...current, width: naturalWidth, height: naturalHeight }
                   })
+                  finishSceneImageLoading(activeScene)
                 }}
+                onError={() => finishSceneImageLoading(activeScene)}
               />
             ) : (
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
@@ -1115,6 +1219,8 @@ export function CampaignOverviewPage({
             ) : null}
           </div>
         </div>
+
+        {sceneLoadingMessage ? <LoadingScreen message={sceneLoadingMessage} /> : null}
 
         <div className="pointer-events-none absolute inset-0 z-10 flex min-h-[560px] flex-col">
           <div className="relative flex-1">
