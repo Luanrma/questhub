@@ -8,7 +8,9 @@ import { maxDiceAutoClearSeconds, minDiceAutoClearSeconds } from '../../../vtt/d
 import {
   normalizeDiceAutoClearPreference,
   readStoredDiceDisplaySettings,
+  storeCampaignUserSettings,
   storeDiceDisplaySettings,
+  type CampaignUserSettings,
   type DiceAutoClearPreference,
   type DiceDisplaySettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
@@ -100,6 +102,7 @@ export function CampaignSettingsPage() {
   const isMaster = campaign?.myRole === 'MASTER'
   const [joinPolicyDraft, setJoinPolicyDraft] = useState<{ campaignId?: string; value: 'PUBLIC' | 'PRIVATE' } | null>(null)
   const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{ campaignId?: string; settings: DiceDisplaySettings } | null>(null)
+  const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
   const storedDiceDisplaySettings = useMemo(
@@ -123,6 +126,19 @@ export function CampaignSettingsPage() {
 
     setDiceDisplaySettingsDraft({ campaignId, settings: nextSettings })
     storeDiceDisplaySettings(campaignId, nextSettings)
+    setSettingsSyncWarning(null)
+
+    void api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings: { dice: nextSettings } }),
+    })
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setDiceDisplaySettingsDraft({ campaignId, settings: response.settings.dice })
+      })
+      .catch(() => {
+        setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
+      })
   }
 
   function updateDiceAutoClear(value: DiceAutoClearPreference) {
@@ -195,6 +211,11 @@ export function CampaignSettingsPage() {
         onAutoClearChange={updateDiceAutoClear}
         onShowResultPopupChange={updateShowResultPopup}
       />
+      {settingsSyncWarning ? (
+        <p className="-mt-4 rounded-lg border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs text-amber-100">
+          {settingsSyncWarning}
+        </p>
+      ) : null}
 
       {isMaster ? (
         <>

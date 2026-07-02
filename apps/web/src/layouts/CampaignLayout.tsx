@@ -16,6 +16,10 @@ import {
   type VttGridChangedPayload,
   type VttGridSettings,
 } from '../vtt/grid'
+import {
+  storeCampaignUserSettings,
+  type CampaignUserSettings,
+} from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 
 type MyCampaignCharacter = {
   id: string
@@ -138,6 +142,24 @@ export function CampaignLayout() {
   useEffect(() => {
     if (campaignId) setActiveCampaignId(campaignId)
   }, [campaignId, setActiveCampaignId])
+
+  useEffect(() => {
+    if (!campaignId || !campaign) return
+
+    let cancelled = false
+    api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`)
+      .then((response) => {
+        if (cancelled) return
+        storeCampaignUserSettings(campaignId, response.settings)
+      })
+      .catch(() => {
+        // Cache local continua valido quando o backend nao responder.
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [campaign, campaignId])
 
   useEffect(() => {
     if (!socket || !campaignId) return

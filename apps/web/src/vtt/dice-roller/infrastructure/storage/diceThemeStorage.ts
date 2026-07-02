@@ -12,6 +12,10 @@ export type DiceDisplaySettings = {
   showResultPopup: boolean
 }
 
+export type CampaignUserSettings = {
+  dice: DiceDisplaySettings
+}
+
 export const DICE_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:vtt:dice-display-settings-changed'
 
 function diceColorStorageKey(campaignId: string) {
@@ -20,6 +24,10 @@ function diceColorStorageKey(campaignId: string) {
 
 function diceDisplaySettingsStorageKey(campaignId: string) {
   return `questhub:vtt:dice-display-settings:${campaignId}`
+}
+
+function campaignUserSettingsStorageKey(campaignId: string) {
+  return `questhub:campaign-user-settings:${campaignId}`
 }
 
 export function normalizeHexColor(value: string | null) {
@@ -45,6 +53,18 @@ export function normalizeDiceDisplaySettings(value: unknown): DiceDisplaySetting
   }
 }
 
+export function normalizeCampaignUserSettings(value: unknown): CampaignUserSettings {
+  if (!value || typeof value !== 'object') {
+    return { dice: normalizeDiceDisplaySettings(null) }
+  }
+
+  const settings = value as Partial<CampaignUserSettings>
+  return {
+    ...settings,
+    dice: normalizeDiceDisplaySettings(settings.dice),
+  }
+}
+
 export function readStoredDiceThemeColor(campaignId: string) {
   if (typeof window === 'undefined') return defaultDiceThemeColor
 
@@ -66,28 +86,45 @@ export function storeDiceThemeColor(campaignId: string, color: string) {
 }
 
 export function readStoredDiceDisplaySettings(campaignId: string) {
-  if (typeof window === 'undefined') return normalizeDiceDisplaySettings(null)
+  return readStoredCampaignUserSettings(campaignId).dice
+}
+
+export function readStoredCampaignUserSettings(campaignId: string) {
+  if (typeof window === 'undefined') return normalizeCampaignUserSettings(null)
 
   try {
-    const rawValue = window.localStorage.getItem(diceDisplaySettingsStorageKey(campaignId))
-    return normalizeDiceDisplaySettings(rawValue ? JSON.parse(rawValue) : null)
+    const rawCampaignSettings = window.localStorage.getItem(campaignUserSettingsStorageKey(campaignId))
+    if (rawCampaignSettings) return normalizeCampaignUserSettings(JSON.parse(rawCampaignSettings))
+
+    const legacyDiceSettings = window.localStorage.getItem(diceDisplaySettingsStorageKey(campaignId))
+    return normalizeCampaignUserSettings({
+      dice: legacyDiceSettings ? JSON.parse(legacyDiceSettings) : null,
+    })
   } catch {
-    return normalizeDiceDisplaySettings(null)
+    return normalizeCampaignUserSettings(null)
   }
 }
 
-export function storeDiceDisplaySettings(campaignId: string, settings: DiceDisplaySettings) {
+export function storeCampaignUserSettings(campaignId: string, settings: CampaignUserSettings) {
   if (typeof window === 'undefined') return
 
   try {
-    const normalizedSettings = normalizeDiceDisplaySettings(settings)
-    window.localStorage.setItem(diceDisplaySettingsStorageKey(campaignId), JSON.stringify(normalizedSettings))
+    const normalizedSettings = normalizeCampaignUserSettings(settings)
+    window.localStorage.setItem(campaignUserSettingsStorageKey(campaignId), JSON.stringify(normalizedSettings))
     window.dispatchEvent(
       new CustomEvent(DICE_DISPLAY_SETTINGS_CHANGED_EVENT, {
-        detail: { campaignId, settings: normalizedSettings },
+        detail: { campaignId, settings: normalizedSettings.dice },
       }),
     )
   } catch {
     // Preferencia local: falha de storage nao deve bloquear a mesa.
   }
+}
+
+export function storeDiceDisplaySettings(campaignId: string, settings: DiceDisplaySettings) {
+  const currentSettings = readStoredCampaignUserSettings(campaignId)
+  storeCampaignUserSettings(campaignId, {
+    ...currentSettings,
+    dice: normalizeDiceDisplaySettings(settings),
+  })
 }
