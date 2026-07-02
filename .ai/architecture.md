@@ -23,6 +23,18 @@ O arquivo `apps/api/src/server.ts` deve permanecer como composition root:
 
 Rotas e regras devem viver em `apps/api/src/modules/[context]/`. Utilitarios compartilhados ficam em `apps/api/src/http`, `apps/api/src/auth` e `apps/api/src/db`.
 
+## 4.1 Organizacao Frontend
+`apps/web/src/pages` deve funcionar como camada fina de rotas e compatibilidade de imports. Implementacoes com UI, estado, dominio ou infraestrutura devem viver em bounded contexts de frontend:
+
+* `apps/web/src/features/auth`
+* `apps/web/src/features/home-navigation`
+* `apps/web/src/features/campaigns`
+* `apps/web/src/features/characters`
+* `apps/web/src/features/campaign-presence`
+* `apps/web/src/vtt`
+
+Features que acumulam responsabilidades devem usar a separacao `components/`, `hooks/`, `domain/`, `infrastructure/` e `config/` quando aplicavel. Componentes de rota em `pages` nao devem voltar a concentrar regra de negocio, chamadas HTTP, Socket.IO ou parsers de dominio.
+
 ## 5. Modelo de Dominio Atual
 * `User`: dono de personagens e criador historico de campanhas.
 * `Character`: entidade base de personagem, com `system`, `sheet`, `avatarUrl` e `deletedAt`. Bio pertence a `Character.sheet.metadata.bio`, dentro do envelope definido pelo ruleset em `game_systems`.

@@ -42,3 +42,28 @@ Motivo:
 Restricao:
 * `domain/` nao deve importar `@3d-dice/dice-box`, Socket.IO, React, DOM ou storage local.
 * `components/` nao devem conhecer detalhes de engine 3D, Socket.IO ou storage.
+
+## Terceiro corte: mesa VTT por responsabilidade
+
+Contexto afetado:
+* Modulo: `vtt`
+* Camada: Frontend
+* Subdominio: mesa/table
+* Arquivos principais: `apps/web/src/vtt/table/*`
+
+Decisao:
+* Mover a implementacao da mesa de `apps/web/src/pages/campaign/CampaignOverviewPage.tsx` para `apps/web/src/vtt/table/CampaignOverviewPage.tsx`.
+* Manter `apps/web/src/pages/campaign/CampaignOverviewPage.tsx` como wrapper de rota/compatibilidade.
+* Separar a mesa em:
+  * `config/` para limites de grid, zoom, board e upload de cena.
+  * `domain/` para contratos, normalizacao de cena, calculos de board, token e medicao.
+  * `components/` para controles visuais de grid, cenas, tokens e overlay de medicao.
+
+Motivo:
+* A mesa acumulava UI, regras puras, tipos, validacao de cena, medicao, tokens, drag and drop, chamadas HTTP e eventos Socket.IO em um unico arquivo.
+* A separacao aproxima a implementacao da estrutura recomendada em `.ai/agents.md` para features frontend com complexidade real.
+
+Compatibilidade:
+* O contrato publico de `CampaignOverviewPage` foi preservado.
+* Os eventos Socket.IO legados `vtt:*` continuam sendo consumidos/emitidos nesta etapa.
+* A rota `/campaign/:campaignId/overview` continua representando a mesa persistente montada pelo `CampaignLayout`.
