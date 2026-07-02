@@ -108,6 +108,7 @@ Backend:
 
 Frontend:
 * `Pathfinder2eSheetForm.tsx`: renderiza a ficha Pathfinder 2e e edita `data.pathfinder2e`.
+* `Pathfinder2eSheetForm.css`: concentra os estilos especificos da ficha Pathfinder 2e, escopados pela classe raiz `pathfinder-sheet`.
 * `pathfinder2eCharacterSheetRenderer`: declara paginas, icones, marca visual e renderizacao da ficha Pathfinder 2e para consumo do registry generico de ficha.
 * `types.ts`: tipos locais do envelope e do bloco Pathfinder 2e usados pela UI.
 * `pathfinder_2e_sheet.json`: fixture que representa exatamente o envelope salvo em `Character.sheet`.

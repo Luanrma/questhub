@@ -130,3 +130,4 @@ Regras:
 * Abrir uma campanha carrega configuracoes do banco uma vez e hidrata o cache local.
 * Trocar uma preferencia na UI altera a mesa sem reload.
 * Recarregar a pagina restaura o cache local e, ao abrir a campanha, sincroniza com o backend.
+* A pagina de configuracoes pode agrupar preferencias locais em secoes recolhiveis, desde que o colapso seja apenas estado visual local e nao altere o contrato persistido.

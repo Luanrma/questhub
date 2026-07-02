@@ -106,6 +106,28 @@ export type VttTokenContextMenu = {
   y: number
 }
 
+export type VttCombatParticipant = {
+  tokenId: string
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  initiative: number | null
+}
+
+export type VttCombatState = {
+  campaignId: string
+  sceneId: string
+  round: number
+  activeTurnIndex: number
+  status: 'ACTIVE'
+  participants: VttCombatParticipant[]
+}
+
+export type VttCombatChangedPayload = {
+  campaignId: string
+  combat: VttCombatState | null
+}
+
 export type PreparedScene = {
   id: string
   name: string

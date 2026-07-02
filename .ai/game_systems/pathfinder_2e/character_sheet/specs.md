@@ -315,6 +315,7 @@ Regras:
 * Frontend deve distribuir a ficha em abas de icones, sem botoes `Anterior` e `Proxima`.
 * A lista de paginas, labels e icones da ficha Pathfinder 2e deve ser declarada dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet`.
 * O modal generico de ficha pode renderizar abas recebidas do ruleset, mas nao deve codificar titulos ou icones especificos de Pathfinder 2e.
+* O CSS de layout interno, resumo lateral, campos, atributos, proficiencias e responsividade da ficha Pathfinder 2e deve ser importado pelo componente Pathfinder 2e e escopado pela classe raiz `pathfinder-sheet`.
 * A primeira aba deve conter, nesta ordem: Identificacao e Atributos.
 * Armor Class e Initiative pertencem ao bloco visual de hit points/status, nao a aba de proficiencias.
 * A primeira aba nao deve exibir `metadata.bio`.

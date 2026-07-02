@@ -1,4 +1,5 @@
 import { BadgeCheck, Dumbbell } from 'lucide-react'
+import './Pathfinder2eSheetForm.css'
 import type {
   Pathfinder2eProficiencyRank,
   Pathfinder2eProficiencyValue,
@@ -378,7 +379,7 @@ export function Pathfinder2eSheetForm({ page, characterName, sheet, onChangeShee
 
   if (page === 0) {
     return (
-      <div className="pathfinder-sheet-layout">
+      <div className="pathfinder-sheet pathfinder-sheet-layout">
         {renderQuickSummary()}
         <div className="pathfinder-sheet-main">
         <section className="sheet-section">
@@ -442,7 +443,7 @@ export function Pathfinder2eSheetForm({ page, characterName, sheet, onChangeShee
   }
 
   return (
-    <div className="pathfinder-sheet-layout">
+    <div className="pathfinder-sheet pathfinder-sheet-layout">
       {renderQuickSummary()}
       <div className="pathfinder-sheet-main">
         <section className="sheet-section">

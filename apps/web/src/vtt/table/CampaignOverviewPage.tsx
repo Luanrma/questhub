@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
+  ChevronLeft,
+  ChevronRight,
   CircleUserRound,
   Dice5,
   Eye,
@@ -54,11 +56,14 @@ import {
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { SceneDock, ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay } from './components/BoardOverlays'
+import { CombatTrackerPanel } from './components/CombatTrackerPanel'
 import type {
   AssetExistsResponse,
   AssetUploadResponse,
   CampaignSceneResponse,
   PreparedScene,
+  VttCombatChangedPayload,
+  VttCombatState,
   VttGridBounds,
   VttMeasurement,
   VttMeasurementChangedPayload,
@@ -148,6 +153,7 @@ export function CampaignOverviewPage({
   const [sceneDeletingId, setSceneDeletingId] = useState<string | null>(null)
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
   const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
+  const [combatState, setCombatState] = useState<VttCombatState | null>(null)
   const preparedScenesRef = useRef(preparedScenes)
   const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
   const onGridSettingsChangeRef = useRef(onGridSettingsChange)
@@ -198,6 +204,11 @@ export function CampaignOverviewPage({
       !positionedCharacterIds.has(candidate.characterId) &&
       (candidate.role !== 'PLAYER' || !positionedPlayerOwnerUserIds.has(candidate.ownerUserId)),
   )
+  const activeCombat =
+    combatState && combatState.campaignId === campaignId ? combatState : null
+  const activeCombatCharacterId = activeCombat?.participants[activeCombat.activeTurnIndex]?.characterId ?? null
+  const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
+  const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && combatTokenCount > 0 && !activeCombat)
 
   useEffect(() => {
     const element = gridAreaRef.current
@@ -361,6 +372,7 @@ export function CampaignOverviewPage({
 
     if (previous.online && !online) {
       setDiceClearSignal((current) => current + 1)
+      setCombatState(null)
     }
 
     previousCampaignOnlineRef.current = { campaignId: campaignId ?? null, online }
@@ -487,6 +499,11 @@ export function CampaignOverviewPage({
       applySceneSnapshot(payload.scene)
     }
 
+    function onCombatChanged(payload: VttCombatChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setCombatState(payload.combat)
+    }
+
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
@@ -494,12 +511,14 @@ export function CampaignOverviewPage({
     socket.on('vtt:measurement:snapshot', onMeasurementSnapshot)
     socket.on('vtt:scene:changed', onSceneChanged)
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
+    socket.on('vtt:combat:changed', onCombatChanged)
 
     if (!isMaster) {
       socket.emit('vtt:tokens:request', { campaignId })
       socket.emit('vtt:measurement:request', { campaignId })
       socket.emit('vtt:scene:request', { campaignId })
     }
+    socket.emit('vtt:combat:request', { campaignId })
 
     return () => {
       socket.off('vtt:token:changed', onTokenChanged)
@@ -509,6 +528,7 @@ export function CampaignOverviewPage({
       socket.off('vtt:measurement:snapshot', onMeasurementSnapshot)
       socket.off('vtt:scene:changed', onSceneChanged)
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
+      socket.off('vtt:combat:changed', onCombatChanged)
     }
   }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
 
@@ -821,6 +841,31 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
+  function startCombat() {
+    if (!campaignId || !socket || !activeScene || !canStartCombat) return
+    socket.emit('vtt:combat:start', { campaignId, sceneId: activeScene.id })
+  }
+
+  function endCombat() {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:combat:end', { campaignId })
+  }
+
+  function nextCombatTurn() {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:combat:next-turn', { campaignId })
+  }
+
+  function previousCombatTurn() {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:combat:previous-turn', { campaignId })
+  }
+
+  function updateCombatInitiative(characterId: string, initiative: number | null) {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:combat:update-initiative', { campaignId, characterId, initiative })
+  }
+
   function changeZoom(direction: -1 | 1) {
     setZoomPercent((current) => {
       return clampNumber(current + direction * zoomLimits.step, zoomLimits.min, zoomLimits.max)
@@ -1129,14 +1174,9 @@ export function CampaignOverviewPage({
   }
 
   return (
-    <div
-      className={[
-        'relative grid h-full min-h-0 bg-[#08090c] text-white max-xl:grid-cols-1',
-        rightPanelCollapsed ? 'grid-cols-[minmax(0,1fr)_72px]' : 'grid-cols-[minmax(0,1fr)_320px]',
-      ].join(' ')}
-    >
+    <div className="relative h-full min-h-0 overflow-hidden bg-[#08090c] text-white">
       <section
-        className="relative min-h-0 overflow-hidden border-r border-white/10 bg-[#0b0d12]"
+        className="absolute inset-0 min-h-0 overflow-hidden bg-[#0b0d12]"
         onClick={() => setTokenContextMenu(null)}
       >
         <div ref={boardViewportRef} className="absolute inset-0 overflow-hidden">
@@ -1205,6 +1245,7 @@ export function CampaignOverviewPage({
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
+                isCombatTurn={activeCombatCharacterId === token.characterId}
               />
             ))}
             <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} />
@@ -1387,7 +1428,10 @@ export function CampaignOverviewPage({
               </div>
             ) : null}
 
-            <div className="pointer-events-auto absolute right-5 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div
+              className="pointer-events-auto absolute top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur"
+              style={{ right: rightPanelCollapsed ? 80 : 344 }}
+            >
               <button
                 type="button"
                 title="Diminuir zoom"
@@ -1413,9 +1457,9 @@ export function CampaignOverviewPage({
               <SceneDock
                 scenes={preparedScenes}
                 activeSceneId={activeScene?.id ?? null}
+                rightInset={rightPanelCollapsed ? 80 : 344}
                 onSelectScene={selectPreparedScene}
                 onPrepareScene={() => setScenePreparationOpen(true)}
-                onCollapsedChange={setSceneDockCollapsed}
               />
             ) : null}
 
@@ -1440,10 +1484,10 @@ export function CampaignOverviewPage({
 
       <aside
         className={[
-          'min-h-0 overflow-hidden border-l border-white/10 bg-[#101116] transition-[width] max-xl:border-l-0 max-xl:border-t',
+          'absolute inset-y-0 right-0 z-40 min-h-0 overflow-hidden border-l border-white/10 bg-[#101116]/95 shadow-2xl backdrop-blur transition-[width] max-xl:border-l',
           rightPanelCollapsed
-            ? 'p-2 max-xl:absolute max-xl:inset-y-0 max-xl:right-0 max-xl:z-40 max-xl:w-[56px] max-xl:border-l max-xl:border-t-0 max-xl:bg-[#101116]/95 max-xl:shadow-2xl max-xl:backdrop-blur'
-            : 'p-5',
+            ? 'w-[56px] p-2'
+            : 'w-[320px] p-5',
         ].join(' ')}
       >
         <div className={rightPanelCollapsed ? 'flex h-full min-h-0 flex-col items-center gap-3' : 'hidden'}>
@@ -1456,6 +1500,17 @@ export function CampaignOverviewPage({
             <PanelRightOpen className="h-4 w-4" />
           </button>
           <div className="grid gap-2">
+            <div
+              title="Combate"
+              className={[
+                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase',
+                activeCombat
+                  ? 'border-red-300/40 bg-red-500/20 text-red-100'
+                  : 'border-white/10 bg-white/[0.04] text-zinc-400',
+              ].join(' ')}
+            >
+              CBT
+            </div>
             <div
               title="Jogadores"
               className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-400"
@@ -1475,6 +1530,17 @@ export function CampaignOverviewPage({
               <MessageCircle className="h-4 w-4" />
             </div>
           </div>
+          {isMaster ? (
+            <button
+              type="button"
+              title={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
+              aria-label={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
+              className="mt-auto grid h-24 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
+              onClick={() => setSceneDockCollapsed((current) => !current)}
+            >
+              {sceneDockCollapsed ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
+            </button>
+          ) : null}
         </div>
 
         <div className={rightPanelCollapsed ? 'hidden h-full min-h-0 flex-col gap-4' : 'flex h-full min-h-0 flex-col gap-4'}>
@@ -1486,6 +1552,19 @@ export function CampaignOverviewPage({
           >
             <PanelRightClose className="h-4 w-4" />
           </button>
+
+          <CombatTrackerPanel
+            combat={activeCombat}
+            isMaster={Boolean(isMaster)}
+            canStart={canStartCombat}
+            tokenCount={combatTokenCount}
+            onStart={startCombat}
+            onEnd={endCombat}
+            onNextTurn={nextCombatTurn}
+            onPreviousTurn={previousCombatTurn}
+            onInitiativeChange={updateCombatInitiative}
+          />
+
           <div className="min-h-0 flex-[4_1_0%]">
             {campaignId ? (
               <CampaignChat
@@ -1501,9 +1580,9 @@ export function CampaignOverviewPage({
             <SceneSidebarScenes
               scenes={preparedScenes}
               activeSceneId={activeScene?.id ?? null}
-              showExpandButton={sceneDockCollapsed}
+              sceneDockCollapsed={sceneDockCollapsed}
               onSelectScene={selectPreparedScene}
-              onExpand={() => setSceneDockCollapsed(false)}
+              onToggleSceneDock={() => setSceneDockCollapsed((current) => !current)}
             />
           ) : null}
         </div>

@@ -19,6 +19,10 @@
 * Paineis do VTT podem consumir `presence:update` para badges online/offline.
 * O gateway de campanha pode compor handlers de presenca e handlers VTT legados na mesma conexao Socket.IO, mas a regra de presenca deve permanecer isolada dos contratos de cena/grid/token.
 * Enquanto eventos `vtt:*` legados existirem, o handler de presenca continua responsavel apenas por autenticar a entrada na sala, emitir estado de sessao e preparar snapshots iniciais delegados ao fluxo VTT/cena.
+* O MVP de combate usa estado vivo em memoria no gateway realtime da campanha.
+* Eventos `vtt:combat:*` exigem socket autenticado dentro da campanha.
+* Comandos de combate que alteram estado exigem Mestre ativo da sessao.
+* Encerrar a sessao remove o estado vivo de combate junto com os demais estados transientes do VTT.
 
 ## 3. Criterios de Aceitacao
 * Mestre abrir a tela da campanha nao torna a campanha online.

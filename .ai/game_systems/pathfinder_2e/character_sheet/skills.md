@@ -40,5 +40,6 @@ export const PROFICIENCY_RANKS = {
 * O painel fixo de resumo pertence ao componente Pathfinder 2e e deve receber do modal apenas o nome generico do personagem.
 * O arquivo `pathfinder_2e_sheet.json` no frontend deve representar exatamente o envelope persistido em `Character.sheet` para Pathfinder 2e.
 * Tooltips simples de descricao podem ser implementados com CSS no componente Pathfinder 2e, sem persistir descricoes no banco.
+* Estilos especificos da ficha Pathfinder 2e devem ficar junto do componente em `apps/web/src/game-systems/pathfinder-2e/character-sheet`, escopados por uma classe raiz do submodulo, e nao em `apps/web/src/index.css`.
 * O motor de calculo de pericias deve ficar no submodulo Pathfinder 2e do frontend ate existir um adaptador compartilhado de regras.
 * Nao criar README ou documentacao paralela dentro dos diretorios de codigo da ficha Pathfinder 2e; informacoes tecnicas devem ser atualizadas nos arquivos deste diretorio canonico em `.ai`.

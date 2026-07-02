@@ -116,12 +116,13 @@ type MyCampaignCharacter = {
 * A cena selecionada pelo Mestre define `masterActiveSceneId`; Players veem `forcedSceneId` quando existir, ou a cena onde o proprio token esta.
 * Trocar cena pelo Mestre pausa automaticamente a sessao; retomar sessao nao revela automaticamente a nova cena aos Players.
 * O rodape de cenas deve ter controle para recolher/expandir.
-* Quando recolhido, o rodape de cenas deve reduzir para um pequeno icone visualmente reconhecivel de cena/filme no quinto inferior do painel lateral direito, abaixo do chat.
-* O painel lateral direito expandido deve reservar aproximadamente o ultimo quinto da altura para o icone recolhido de cenas quando o Mestre estiver com cenas recolhidas.
-* Quando expandido, o rodape de cenas deve exibir o controle de recolher no lado direito do cabecalho.
+* O controle de recolher/expandir o rodape de cenas pertence ao painel lateral direito.
+* Quando o painel lateral direito estiver recolhido, o controle de cenas deve continuar visivel na rail direita.
+* O controle usa flecha para a esquerda para expandir o rodape de cenas e flecha para a direita para retrair.
 * O resumo de cenas preparadas do rodape recolhido deve aparecer como alias/tooltip ao repousar o ponteiro sobre o icone.
 * A acao `Preparar cena` permanece acessivel no rodape expandido.
 * O painel lateral de jogadores, sessao e chat deve ter controle para recolher/expandir.
+* O painel lateral direito deve ser sobreposto ao board em desktop e nao deve reservar coluna de layout nem alterar a largura medida do viewport do board.
 * No estado expandido, o painel lateral deve priorizar o chat e nao deve exibir cards redundantes de resumo de jogadores ou sessao.
 * Quando recolhido, o painel lateral deve reduzir a largura ocupada na tela e exibir somente controles/resumos essenciais.
 * Em viewports menores, o painel lateral recolhido deve ficar sobreposto na direita da mesa como uma rail estreita, sem criar uma faixa horizontal abaixo do board.
@@ -140,6 +141,7 @@ type MyCampaignCharacter = {
 * O board jogavel deve ter limite finito e nao pode se comportar como superficie infinita.
 * No MVP, o limite visual padrao do board e de 50 colunas por 34 linhas de grid.
 * A mesa nao deve exibir barras de rolagem horizontais ou verticais para navegar o board.
+* O shell da campanha nao deve criar barra de rolagem no documento; o VTT deve ficar contido em `100vh`, com rolagem apenas em paineis internos como chat, cenas e modais.
 * Quando o board for maior que o viewport, a navegacao deve acontecer pela ferramenta `Mover` ou pelo arraste em area vazia do board com o botao esquerdo pressionado.
 * Setas do teclado nao devem mover o board nem tokens neste MVP; navegacao por teclado e feature futura.
 * Ao arrastar uma area vazia com a ferramenta `Mover`, o cursor deve indicar mao aberta/mao agarrando.
@@ -185,6 +187,13 @@ type MyCampaignCharacter = {
 * Medicoes nao sao persistidas no banco neste MVP.
 * A medicao ativa da sessao deve ser sincronizada em tempo real com Mestre e Players online.
 * Usuarios que entram depois recebem o snapshot atual da medicao da sessao.
+* O tracker simples de combate deve aparecer no painel lateral direito sem desmontar a mesa.
+* Mestre pode iniciar combate a partir dos tokens nao ocultos da cena atual.
+* Mestre pode editar iniciativa manualmente, avancar turno, voltar turno e encerrar combate.
+* Players visualizam rodada, participante ativo e lista de iniciativa, mas nao alteram o tracker.
+* O token do participante ativo recebe destaque visual discreto na mesa.
+* O combate MVP nao bloqueia movimento de tokens por turno.
+* O combate MVP nao persiste no banco; seu estado vive durante a sessao online.
 * Ao executar uma rolagem rapida, um dado 3D deve aparecer sobre a mesa VTT, girar por um curto periodo e exibir o resultado rolado.
 * A animacao 3D de dado e local ao cliente que rolou; a mensagem persistida no chat continua sendo a fonte compartilhada para os demais usuarios.
 * A camada 3D nao pode capturar pointer events nem impedir interacao com grid, tokens, medicoes ou botoes.

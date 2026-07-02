@@ -305,9 +305,9 @@ export function CampaignLayout() {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#08090c]">
+    <div className="relative h-screen w-full overflow-hidden bg-[#08090c]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
-      <div className="min-h-screen">
+      <div className="relative h-full min-h-0">
         <Aside
           campaignId={campaignId}
           role={campaign.myRole}
@@ -316,9 +316,9 @@ export function CampaignLayout() {
           onSwitchCampaign={onSwitchCampaign}
         />
 
-        <div className="min-h-screen">
+        <div className="flex h-full min-h-0 flex-col">
           {/* Top bar (inspirado no layout de referência) */}
-          <header className="sticky top-0 z-30 border-b border-white/10 bg-black/40 backdrop-blur">
+          <header className="relative z-30 shrink-0 border-b border-white/10 bg-black/40 backdrop-blur">
             <div className="flex min-h-[73px] items-center justify-between gap-4 py-3 pl-24 pr-6 max-sm:pl-4 max-sm:pr-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 text-xs uppercase text-zinc-400">
@@ -385,7 +385,7 @@ export function CampaignLayout() {
             </div>
           </header>
 
-          <main className="relative z-10 h-[calc(100vh-73px)] overflow-hidden">
+          <main className="relative z-10 min-h-0 flex-1 overflow-hidden">
             <CampaignOverviewPage
               gridSettings={gridSettings}
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}

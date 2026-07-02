@@ -128,6 +128,21 @@ export const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
   }),
 ])
 
+export const vttCombatStartSchema = z.object({
+  campaignId: z.string().min(1),
+  sceneId: z.string().min(1),
+})
+
+export const vttCombatCommandSchema = z.object({
+  campaignId: z.string().min(1),
+})
+
+export const vttCombatUpdateInitiativeSchema = z.object({
+  campaignId: z.string().min(1),
+  characterId: z.string().min(1),
+  initiative: z.number().int().min(-1000).max(1000).nullable(),
+})
+
 export type UserPresence = { socketId: string; campaignId: string; characterId: string }
 export type CampaignSessionState = 'ACTIVE' | 'PAUSED'
 export type OnlineCampaign = {
@@ -156,6 +171,23 @@ export type VttPlayerToken = {
   role: 'PLAYER' | 'NPC'
   hidden: boolean
   position: VttTokenPosition
+}
+
+export type VttCombatParticipant = {
+  tokenId: string
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  initiative: number | null
+}
+
+export type VttCombatState = {
+  campaignId: string
+  sceneId: string
+  round: number
+  activeTurnIndex: number
+  status: 'ACTIVE'
+  participants: VttCombatParticipant[]
 }
 
 export const defaultVttGridSettings: VttGridSettings = {

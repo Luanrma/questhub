@@ -45,6 +45,8 @@ Incluido:
 * Mestre pode remover token do board pelo menu contextual de botao direito, devolvendo o personagem para a lista disponivel.
 * Mestre pode alternar invisibilidade do token; tokens invisiveis ficam ocultos para Players e visiveis com opacidade reduzida para o Mestre.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
+* Tracker simples de combate no painel lateral direito, iniciado pelo Mestre a partir dos tokens nao ocultos da cena atual.
+* Combate MVP com iniciativa manual, rodada atual, participante ativo e avancar/voltar turno sem desmontar a mesa.
 * Rolagem visual de dado 3D por uma interface propria do VTT.
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
@@ -88,5 +90,6 @@ Fora de escopo:
 * Regras de diario livre da campanha, que pertencem a `campaign_diary`.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
 * Persistencia/replay da simulacao fisica de dados.
+* Regras mecanicas de combate, iniciativa automatica, PV, CA, condicoes e economia de acoes.
 * Fog of war.
 * Navegacao do board por setas do teclado.

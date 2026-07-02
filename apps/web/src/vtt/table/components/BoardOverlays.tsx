@@ -85,6 +85,7 @@ export function PlayerToken({
   isMasterView,
   onMove,
   onContextMenu,
+  isCombatTurn = false,
 }: {
   token: VttPlayerToken
   tokenSize: number
@@ -94,6 +95,7 @@ export function PlayerToken({
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
+  isCombatTurn?: boolean
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const [dragging, setDragging] = useState(false)
@@ -163,11 +165,12 @@ export function PlayerToken({
         'absolute z-[5] grid place-items-center overflow-hidden rounded-full border-2 shadow-2xl outline-none transition',
         dragging
           ? 'cursor-grabbing border-indigo-200 ring-4 ring-indigo-400/35'
-          : canDrag
-            ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
-            : isMasterView
-              ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
-              : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+            : canDrag
+              ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
+              : isMasterView
+                ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
+                : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+        isCombatTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}
       style={{

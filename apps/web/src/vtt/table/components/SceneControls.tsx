@@ -119,25 +119,33 @@ export function ScenePreparationModal({
 export function SceneSidebarScenes({
   scenes,
   activeSceneId,
-  showExpandButton,
+  sceneDockCollapsed,
   onSelectScene,
-  onExpand,
+  onToggleSceneDock,
 }: {
   scenes: PreparedScene[]
   activeSceneId: string | null
-  showExpandButton: boolean
+  sceneDockCollapsed: boolean
   onSelectScene: (sceneId: string) => void
-  onExpand: () => void
+  onToggleSceneDock: () => void
 }) {
   const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
 
   return (
     <div className="flex min-h-[160px] flex-[1_1_0%] overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
-      {showExpandButton ? (
-        <button type="button" title="Expandir cenas" aria-label="Expandir cenas" className="grid w-12 shrink-0 place-items-center border-r border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300" onClick={onExpand}>
+      <button
+        type="button"
+        title={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
+        aria-label={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
+        className="grid w-12 shrink-0 place-items-center border-r border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
+        onClick={onToggleSceneDock}
+      >
+        {sceneDockCollapsed ? (
           <ChevronLeft className="h-5 w-5" />
-        </button>
-      ) : null}
+        ) : (
+          <ChevronRight className="h-5 w-5" />
+        )}
+      </button>
       <div className="min-w-0 flex-1 overflow-y-auto p-3">
         {sceneThumbnails.length ? (
           <div className="grid gap-2">
@@ -171,21 +179,24 @@ export function SceneSidebarScenes({
 export function SceneDock({
   scenes,
   activeSceneId,
+  rightInset,
   onSelectScene,
   onPrepareScene,
-  onCollapsedChange,
 }: {
   scenes: PreparedScene[]
   activeSceneId: string | null
+  rightInset: number
   onSelectScene: (sceneId: string) => void
   onPrepareScene: () => void
-  onCollapsedChange: (collapsed: boolean) => void
 }) {
   const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
   const activeScene = sceneThumbnails.find((scene) => scene.id === activeSceneId)
 
   return (
-    <div className="pointer-events-auto absolute inset-x-6 bottom-6 z-30 overflow-hidden rounded-lg border border-white/10 bg-black/50 backdrop-blur">
+    <div
+      className="pointer-events-auto absolute bottom-6 left-6 z-30 overflow-hidden rounded-lg border border-white/10 bg-black/50 backdrop-blur"
+      style={{ right: rightInset }}
+    >
       <div className="flex min-h-[104px] items-stretch">
         <div className="flex min-w-0 flex-1 flex-wrap items-end justify-between gap-3 px-3 py-3">
           <div className="min-w-0">
@@ -214,9 +225,6 @@ export function SceneDock({
             Preparar cena
           </Button>
         </div>
-        <button type="button" title="Recolher cenas" aria-label="Recolher cenas" className="grid w-12 shrink-0 place-items-center border-l border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300" onClick={() => onCollapsedChange(true)}>
-          <ChevronRight className="h-5 w-5" />
-        </button>
       </div>
     </div>
   )

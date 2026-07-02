@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import { Copy } from 'lucide-react'
+import { useMemo, useState, type ReactNode } from 'react'
+import { ChevronDown, Copy } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { useSession } from '../../../contexts/SessionContext'
@@ -18,8 +18,16 @@ import {
 type DiceDisplaySettingsCardProps = {
   autoClearOptions: number[]
   settings: DiceDisplaySettings
+  syncWarning: string | null
   onAutoClearChange: (value: DiceAutoClearPreference) => void
   onShowResultPopupChange: (value: boolean) => void
+}
+
+type CollapsibleSettingsSectionProps = {
+  title: string
+  description: string
+  children: ReactNode
+  defaultOpen?: boolean
 }
 
 async function copyToClipboard(text: string) {
@@ -43,18 +51,54 @@ async function copyToClipboard(text: string) {
   }
 }
 
+function CollapsibleSettingsSection({
+  title,
+  description,
+  children,
+  defaultOpen = false,
+}: CollapsibleSettingsSectionProps) {
+  const [open, setOpen] = useState(defaultOpen)
+
+  return (
+    <section className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
+      <button
+        type="button"
+        className="flex w-full items-start justify-between gap-4 p-5 text-left transition hover:bg-white/[0.03]"
+        aria-expanded={open}
+        onClick={() => setOpen((current) => !current)}
+      >
+        <span>
+          <span className="block text-lg font-semibold text-white">{title}</span>
+          <span className="mt-2 block text-sm text-zinc-300">{description}</span>
+        </span>
+        <ChevronDown
+          className={`mt-1 h-5 w-5 shrink-0 text-zinc-400 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        />
+      </button>
+
+      <div className={`grid transition-[grid-template-rows] duration-200 ease-out ${open ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+        <div className="min-h-0 overflow-hidden">
+          <div className="px-5 pb-5">{children}</div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function DiceDisplaySettingsCard({
   autoClearOptions,
   settings,
+  syncWarning,
   onAutoClearChange,
   onShowResultPopupChange,
 }: DiceDisplaySettingsCardProps) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-      <h2 className="text-lg font-semibold text-white">Preferencias da mesa</h2>
-      <p className="mt-2 text-sm text-zinc-300">Estas opcoes ficam salvas para voce neste navegador.</p>
-
-      <div className="mt-4 grid gap-3">
+    <CollapsibleSettingsSection
+      title="Preferencias da mesa"
+      description="Estas opcoes ficam salvas para sua conta nesta campanha."
+    >
+      <div className="grid gap-3">
         <label className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-black/20 p-4">
           <span>
             <span className="block text-sm font-semibold text-white">Sumir dados</span>
@@ -90,7 +134,12 @@ function DiceDisplaySettingsCard({
           />
         </label>
       </div>
-    </div>
+      {syncWarning ? (
+        <p className="mt-4 rounded-lg border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs text-amber-100">
+          {syncWarning}
+        </p>
+      ) : null}
+    </CollapsibleSettingsSection>
   )
 }
 
@@ -208,23 +257,17 @@ export function CampaignSettingsPage() {
       <DiceDisplaySettingsCard
         autoClearOptions={autoClearOptions}
         settings={diceDisplaySettings}
+        syncWarning={settingsSyncWarning}
         onAutoClearChange={updateDiceAutoClear}
         onShowResultPopupChange={updateShowResultPopup}
       />
-      {settingsSyncWarning ? (
-        <p className="-mt-4 rounded-lg border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs text-amber-100">
-          {settingsSyncWarning}
-        </p>
-      ) : null}
 
       {isMaster ? (
         <>
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <h2 className="text-lg font-semibold text-white">Convite</h2>
-            <p className="mt-2 text-sm text-zinc-300">Compartilhe este codigo com os jogadores.</p>
+          <CollapsibleSettingsSection title="Convite" description="Compartilhe este codigo com os jogadores.">
             <button
               type="button"
-              className="mt-4 flex w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-left transition hover:bg-black/30"
+              className="flex w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-left transition hover:bg-black/30"
               onClick={onCopyInviteCode}
             >
               <span className="font-mono text-sm text-indigo-200">{campaign.inviteCode ?? '-'}</span>
@@ -233,12 +276,10 @@ export function CampaignSettingsPage() {
             <div className="mt-3 text-xs text-zinc-500">
               Modo: <span className="text-zinc-300">{campaign.joinPolicy === 'PRIVATE' ? 'Privada' : 'Publica'}</span>
             </div>
-          </div>
+          </CollapsibleSettingsSection>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <h2 className="text-lg font-semibold text-white">Privacidade da campanha</h2>
-
-            <div className="mt-4 grid gap-3">
+          <CollapsibleSettingsSection title="Privacidade da campanha" description="Defina como novos jogadores entram nesta campanha.">
+            <div className="grid gap-3">
               <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
                 <input
                   type="radio"
@@ -273,7 +314,7 @@ export function CampaignSettingsPage() {
                 {saving ? 'Salvando...' : 'Salvar'}
               </Button>
             </div>
-          </div>
+          </CollapsibleSettingsSection>
         </>
       ) : null}
     </div>

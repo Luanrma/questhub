@@ -1,4 +1,4 @@
-import { defaultVttGridSettings, type OnlineCampaign, type UserPresence, type VttGridSettings, type VttMeasurement, type VttPlayerToken, type VttTableScene } from './contracts'
+import { defaultVttGridSettings, type OnlineCampaign, type UserPresence, type VttCombatState, type VttGridSettings, type VttMeasurement, type VttPlayerToken, type VttTableScene } from './contracts'
 
 export class CampaignPresenceState {
   private readonly userPresence = new Map<string, UserPresence>()
@@ -10,6 +10,7 @@ export class CampaignPresenceState {
   private readonly campaignMeasurements = new Map<string, VttMeasurement>()
   private readonly campaignScenes = new Map<string, VttTableScene>()
   private readonly campaignPendingScenes = new Map<string, VttTableScene | null>()
+  private readonly campaignCombats = new Map<string, VttCombatState>()
 
   getUserPresence(userId: string) {
     return this.userPresence.get(userId)
@@ -47,6 +48,7 @@ export class CampaignPresenceState {
     this.campaignMeasurements.delete(campaignId)
     this.campaignScenes.delete(campaignId)
     this.campaignPendingScenes.delete(campaignId)
+    this.campaignCombats.delete(campaignId)
   }
 
   getCampaignGridSettings(campaignId: string) {
@@ -152,5 +154,18 @@ export class CampaignPresenceState {
     this.campaignMeasurements.delete(campaignId)
     this.campaignScenes.delete(campaignId)
     this.campaignPendingScenes.delete(campaignId)
+    this.campaignCombats.delete(campaignId)
+  }
+
+  getCampaignCombat(campaignId: string) {
+    return this.campaignCombats.get(campaignId) ?? null
+  }
+
+  setCampaignCombat(campaignId: string, combat: VttCombatState) {
+    this.campaignCombats.set(campaignId, combat)
+  }
+
+  deleteCampaignCombat(campaignId: string) {
+    this.campaignCombats.delete(campaignId)
   }
 }
