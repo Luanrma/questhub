@@ -57,6 +57,7 @@ Incluido:
 * Quando o rodape de cenas estiver recolhido, o icone de cenas fica no quinto inferior do painel lateral direito, abaixo do chat.
 * Quando o rodape de cenas estiver expandido, o controle para recolher fica no lado direito do cabecalho do rodape.
 * Painel lateral de jogadores, sessao e chat pode ser recolhido/expandido para liberar area visual da mesa sem desmontar o chat.
+* O painel lateral direito deve iniciar recolhido por padrao, mostrando apenas a rail de controles essenciais.
 * O painel lateral expandido prioriza o chat e nao exibe cards redundantes de resumo de jogadores ou sessao.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Cor dos dados 3D configuravel localmente por campanha.

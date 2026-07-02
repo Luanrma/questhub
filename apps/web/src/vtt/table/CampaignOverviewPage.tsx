@@ -137,7 +137,7 @@ export function CampaignOverviewPage({
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
   const [sceneDockCollapsed, setSceneDockCollapsed] = useState(false)
-  const [rightPanelCollapsed, setRightPanelCollapsed] = useState(false)
+  const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([createPreparedScene(1)])
   const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)

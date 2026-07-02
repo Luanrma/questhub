@@ -76,6 +76,7 @@ type MyCampaignCharacter = {
 * Em desktop, expandir ou recolher a sidebar nao altera a largura da mesa.
 * Em desktop, a sidebar nao ocupa 100% da altura quando ha poucos menus.
 * Ao recolher a sidebar esquerda, resta apenas a seta roxa para baixo; clicar nela abre diretamente a versao expandida.
+* O painel lateral direito deve iniciar recolhido por padrao, preservando o maximo de area visivel da mesa.
 * Em mobile/viewport baixo, os icones da barra compacta devem permanecer visiveis.
 * Player ve `Minha ficha` e nao ve `Personagens`.
 * Clicar em `Minha ficha` abre `CharacterSheetModal`.
