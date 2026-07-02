@@ -61,7 +61,11 @@ Incluido:
 * O painel lateral expandido prioriza o chat e nao exibe cards redundantes de resumo de jogadores ou sessao.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Cor dos dados 3D configuravel localmente por campanha.
-* Dados visuais acumulados permanecem na mesa ao fechar a ferramenta de dados e so somem ao clicar em `Limpar Dados` ou ao encerrar a sessao.
+* Tempo de permanencia dos dados 3D e exibicao do popup de resultado configuraveis em `Configuracoes`, pela sidebar esquerda, para Mestre e Players.
+* Dados visuais acumulados permanecem na mesa ao fechar a ferramenta de dados. Por padrao somem 3 segundos apos o fim da animacao; o usuario pode escolher 3 a 10 segundos ou `Permanente`.
+* No modo `Permanente`, os dados so somem ao clicar em `Limpar Dados` ou ao encerrar a sessao; em modos com timer, o botao `Limpar Dados` nao aparece.
+* A limpeza automatica dos dados deve usar fade suave antes de limpar o canvas 3D.
+* O popup central de resultado aparece localmente no cliente que rolou e some sempre 3 segundos apos aparecer.
 * Dados 3D devem respeitar uma zona segura ampla da mesa para nao cobrir toolbars, painel de dados, controles de zoom ou rodape de cenas.
 * A primeira rolagem visual deve animar da mesma forma que as rolagens seguintes.
 * O Mestre pode rolar dados pela interface do VTT mesmo antes de iniciar a sessao da campanha.

@@ -4,3 +4,6 @@ export const diceAssetPath = '/assets/dice-box/'
 export const maxVisibleDice = 40
 export const defaultDiceBoxScale = 7
 export const defaultDiceThemeColor = '#7f59d9'
+export const defaultDiceAutoClearSeconds = 3
+export const minDiceAutoClearSeconds = 3
+export const maxDiceAutoClearSeconds = 10

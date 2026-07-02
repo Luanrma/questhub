@@ -70,6 +70,8 @@ Presenca: `CampaignLayout` chama `/api/campaigns/:campaignId/my-character`; se a
 
 Ficha: `CharacterSheetModal` busca `/api/characters/:characterId/sheet`; se nao houver ficha, busca default; o formulario Pathfinder 2e altera o envelope local; o modal salva via `PUT /api/characters/:characterId/sheet`; API valida envelope e adapter antes de persistir.
 
+Dados da mesa: `VttDiceControls` monta o painel e a area 3D; `useVttDiceRoller` inicializa `@3d-dice/dice-box`, publica o resultado no chat via Socket.IO e controla o estado visual da rolagem. A cor dos dados fica no painel de dados. As preferencias de limpeza dos dados e popup ficam na pagina `Configuracoes` da sidebar, disponivel para mestre e jogador, e persistem em `localStorage` por campanha neste navegador. Por padrao os dados somem 3 segundos apos o fim da animacao; o usuario pode escolher 3 a 10 segundos ou `Permanente`, que mantem os dados ate o clique em Limpar Dados. Quando a limpeza automatica esta ativa, o botao Limpar Dados nao aparece. O desaparecimento usa fade antes de limpar o canvas 3D. O popup central do resultado e independente dessa preferencia e some sempre 3 segundos depois de aparecer.
+
 ## Dependencias criticas
 
 - PostgreSQL e obrigatorio para API operacional.

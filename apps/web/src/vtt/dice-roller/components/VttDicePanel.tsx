@@ -12,6 +12,7 @@ type VttDicePanelProps = {
   remainingSlots: number
   rolling: boolean
   selectedCount: number
+  showClearButton: boolean
   visibleCount: number
   warning: string | null
   onClear: () => void
@@ -31,6 +32,7 @@ export function VttDicePanel({
   remainingSlots,
   rolling,
   selectedCount,
+  showClearButton,
   visibleCount,
   warning,
   onClear,
@@ -107,16 +109,18 @@ export function VttDicePanel({
           {rolling || initializing ? <Loader2 className="h-4 w-4 animate-spin" /> : <Dice5 className="h-4 w-4" />}
           Rolar Dados
         </Button>
-        <button
-          type="button"
-          title="Limpar Dados"
-          className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-3 text-xs font-semibold text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={!visibleCount}
-          onClick={onClear}
-        >
-          <RotateCcw className="h-4 w-4" />
-          Limpar Dados
-        </button>
+        {showClearButton ? (
+          <button
+            type="button"
+            title="Limpar Dados"
+            className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-md border border-white/10 px-3 text-xs font-semibold text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={!visibleCount}
+            onClick={onClear}
+          >
+            <RotateCcw className="h-4 w-4" />
+            Limpar Dados
+          </button>
+        ) : null}
       </div>
 
       <div className="mt-2 text-right text-[10px] uppercase text-zinc-500">

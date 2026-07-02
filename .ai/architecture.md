@@ -60,6 +60,7 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 * Domain deve ficar dentro de uma pasta `domain/`. Interfaces/tipos, presenters/serializers, validators e policies/helpers puros pertencem a `domain/` e nao devem acessar Prisma.
 * Prisma deve permanecer encapsulado atras de repositories; o schema e migrations definem persistencia, nao autorizacao, apresentacao ou fluxo de produto.
 * O VTT deve permanecer generico: mapa, cena, token, chat, dado, presenca, movimentacao e manipulacao visual nao podem depender de Pathfinder 2e, D&D 5e ou outro sistema especifico.
+* Preferencias locais de experiencia do VTT que nao alteram estado compartilhado da mesa, como cor dos dados, tempo de permanencia dos dados 3D e popup de resultado, podem ser persistidas no cliente por campanha via `localStorage`.
 * Regras mecanicas de RPG pertencem a `game_systems` e seus submodulos, como `game_systems/pathfinder_2e`.
 * Ficha de personagem e uma capacidade de ruleset. Nao deve existir modulo global de regras de ficha fora de `game_systems`.
 * Realtime de campanha pertence ao contexto `campaign-presence`; outros eventos realtime devem ter modulo e spec proprios.

@@ -32,7 +32,9 @@
 * Ephemeral 3D Overlay: dados 3D sao efeitos temporarios sincronizados por Socket.IO e nao alteram estado persistente da mesa.
 * Dice Box Engine: a fisica e renderizacao dos dados 3D sao responsabilidade de `@3d-dice/dice-box`.
 * Overlay-owned Dice State: o estado da animacao de dado pertence ao overlay 3D, nao ao `CampaignLayout`, para evitar re-renderizar a arvore principal da campanha.
-* Persistent Dice Overlay: fechar a ferramenta de dados oculta apenas o painel de controle; o overlay 3D permanece montado e preserva os dados acumulados ate limpeza explicita ou encerramento da sessao.
+* Persistent Dice Overlay: fechar a ferramenta de dados oculta apenas o painel de controle; o overlay 3D permanece montado e preserva os dados acumulados ate a limpeza configurada ou encerramento da sessao.
+* Local Dice Display Preferences: tempo de limpeza dos dados e popup de resultado pertencem a `Configuracoes` da campanha na sidebar, ficam em `localStorage` por campanha e usuario/navegador, e devem sincronizar com o VTT sem reload.
+* Dice Fade-out Cleanup: a limpeza visual dos dados deve transicionar opacidade antes de chamar `diceBox.clear()`, evitando desaparecimento abrupto.
 * Safe Dice Roll Zone: a area fisica/canvas da `dice-box` deve ser ampla, recortada e posicionada fora das regioes ocupadas por toolbars, paineis e rodape da mesa.
 * Warmed Dice Engine: a primeira rolagem deve aguardar inicializacao, exibicao e resize do canvas antes de enviar a notacao para a engine.
 * Dice Roller Module: tipos, wrappers e modal de dados pertencem a `apps/web/src/vtt/dice-roller`.
@@ -63,5 +65,7 @@
 * A camada de dados nao pode sobrepor visualmente toolbars, painel de dados, controles de zoom ou rodape de cenas.
 * Rolagens de dado nao devem depender de estado visual no layout principal.
 * Fechar a ferramenta de dados nao deve destruir a engine `@3d-dice/dice-box` nem limpar os dados visiveis.
+* Preferencias de exibicao dos dados nao devem ficar dentro do painel/tool de rolagem; a tool deve manter apenas controles de rolar, quantidades, comando, cor e limpeza quando aplicavel.
+* Quando o modo de limpeza dos dados nao for `Permanente`, o botao `Limpar Dados` nao deve aparecer.
 * Assets da `dice-box` devem ser servidos por `apps/web/public/assets/dice-box`.
 * Nao criar `node_modules`, `package.json` ou app demo dentro de `apps/web/public`.

@@ -1,6 +1,7 @@
 import { memo, useId, useRef, type CSSProperties } from 'react'
 import type { Socket } from 'socket.io-client'
 import { useVttDiceRoller } from '../hooks/useVttDiceRoller'
+import { DiceResultPopup } from './DiceResultPopup'
 import { VttDicePanel } from './VttDicePanel'
 
 type VttDiceCharacter = {
@@ -54,9 +55,17 @@ export const VttDiceControls = memo(function VttDiceControls({
 
   return (
     <div className={className}>
-      <div className={['pointer-events-none absolute inset-0 z-0', diceRoller.visibleCount || diceRoller.rolling ? 'opacity-100' : 'opacity-0'].join(' ')}>
+      <div
+        className={[
+          'pointer-events-none absolute inset-0 z-0 transition-opacity duration-700 ease-out',
+          diceRoller.visibleCount || diceRoller.rolling ? 'opacity-100' : 'opacity-0',
+          diceRoller.diceFading ? 'opacity-0' : '',
+        ].join(' ')}
+      >
         <div ref={containerRef} id={containerIdRef.current} style={diceRollZoneStyle} />
       </div>
+
+      <DiceResultPopup result={diceRoller.resultPopup} visible={diceRoller.displaySettings.showResultPopup} />
 
       {open ? (
         <VttDicePanel
@@ -68,6 +77,7 @@ export const VttDiceControls = memo(function VttDiceControls({
           remainingSlots={diceRoller.remainingSlots}
           rolling={diceRoller.rolling}
           selectedCount={diceRoller.selectedCount}
+          showClearButton={diceRoller.displaySettings.autoClear === 'manual'}
           visibleCount={diceRoller.visibleCount}
           warning={diceRoller.warning}
           onClear={diceRoller.clearDice}

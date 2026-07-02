@@ -39,6 +39,7 @@ QuestHub e uma plataforma web para organizar campanhas de RPG de mesa. O codigo 
 - Avatar por preset local ou URL.
 - Ficha Pathfinder 2e com identidade, atributos, vida, proficiencias e notas.
 - Criacao de campanha Pathfinder 2e.
+- Mesa virtual com rolagem de dados 3D, resultado no chat, popup central temporario e limpeza automatica configuravel por usuario.
 - Invite code unico para campanha.
 - Entrada publica ou privada.
 - Aprovacao/rejeicao de participantes.

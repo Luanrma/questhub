@@ -378,7 +378,7 @@ Regras:
 * `sides` define o dado 3D suportado pela interface generica.
 * `value` e o mesmo valor enviado para o chat.
 * A animacao deve ser renderizada por `@3d-dice/dice-box` dentro da interface propria de dados do VTT.
-* A animacao deve sumir automaticamente apos terminar.
+* A animacao deve seguir a preferencia local de exibicao dos dados: por padrao some 3 segundos apos terminar, podendo variar de 3 a 10 segundos ou ficar em modo `Permanente`.
 * A camada visual e efemera e nao deve ser persistida no banco.
 * A camada visual deve ser local ao cliente que rolou; o resultado compartilhado deve ser publicado no chat da campanha.
 * O estado da rolagem visual deve ficar isolado dentro da interface de dados para nao re-renderizar `CampaignLayout`.
@@ -390,10 +390,15 @@ Regras:
 * A interface deve aceitar comando textual como `1d20-5d6-3d10` e campos de quantidade por dado D4, D6, D8, D10, D12 e D20.
 * A interface deve permitir configurar a cor dos dados por input de cor, aplicando o hexadecimal em `themeColor` da `@3d-dice/dice-box`.
 * A cor dos dados e uma configuracao visual local por campanha e deve ser preservada no cliente.
+* A configuracao de tempo de permanencia dos dados e do popup de resultado deve ficar em `Configuracoes` na sidebar esquerda, nao no painel/tool de dados.
+* As configuracoes de exibicao dos dados devem estar disponiveis para Mestre e Players.
+* As configuracoes de exibicao dos dados sao locais por campanha e usuario/navegador, persistidas no cliente, e devem ser aplicadas ao VTT sem exigir reload da pagina.
 * Se qualquer campo de quantidade por dado receber valor maior que zero, o comando textual deve ser limpo e ignorado.
 * O limite visual padrao e de 40 dados acumulados na mesa local.
 * Se a rolagem nova exceder o limite de 40 dados acumulados, a rolagem deve ser bloqueada e o painel deve exibir aviso em vermelho.
-* Dados visuais acumulados devem permanecer na mesa ate o usuario clicar em `Limpar Dados`.
+* Dados visuais acumulados devem permanecer na mesa ate o timer configurado expirar ou, no modo `Permanente`, ate o usuario clicar em `Limpar Dados`.
+* Quando a limpeza automatica estiver ativa, o botao `Limpar Dados` nao deve aparecer no painel de dados.
+* Quando a limpeza for executada, o overlay deve aplicar fade suave antes de limpar os dados da engine/canvas.
 * Fechar a ferramenta de dados deve ocultar apenas o painel de controle; dados visuais acumulados devem continuar visiveis na mesa.
 * Encerrar a sessao deve limpar os dados visuais acumulados do cliente do Mestre.
 * Dados 3D devem rolar dentro de uma zona segura ampla do board, ocupando quase toda a area visivel disponivel, mas sem sobrepor a toolbar principal, o painel de dados, o painel de grid, o painel de tokens, controles de zoom ou o rodape de cenas.
@@ -405,7 +410,8 @@ Regras:
 * A primeira rolagem visual da sessao deve animar como as demais; a engine `@3d-dice/dice-box` deve estar inicializada, visivel e redimensionada antes da rolagem ser enviada.
 * O Mestre ativo da campanha pode rolar dados mesmo quando a sessao ainda nao foi iniciada.
 * Players so podem rolar dados enquanto a campanha estiver online.
-* A camada visual de dados nao deve exibir resumo flutuante redundante no grid; o resumo compartilhado pertence ao chat.
+* A camada visual de dados deve poder exibir um popup central local com o resultado final da rolagem, destacado sobre a mesa, sem substituir o registro compartilhado no chat.
+* O popup central do resultado deve sumir sempre 3 segundos apos aparecer, independentemente da configuracao de permanencia dos dados.
 * A mensagem de chat para rolagens compostas deve detalhar os valores por grupo e o total, como `ROLOU 2D20-3D6 | D20: 10, 18 | D6: 1, 1, 5 | TOTAL: 35`.
 * A camada 3D deve usar `pointer-events: none` e nunca impedir interacoes com ferramentas, tokens, medicoes, chat ou paineis.
 * Assets da `dice-box` devem ficar sob `apps/web/public/assets/dice-box`, servidos pelo app principal.
