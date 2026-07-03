@@ -32,6 +32,7 @@ type MyCampaignCharacter = {
 function getPanelTitle(pathname: string) {
   if (pathname.endsWith('/sessions')) return 'Sessões'
   if (pathname.endsWith('/characters')) return 'Personagens'
+  if (pathname.endsWith('/bestiary')) return 'Bestiario'
   if (pathname.endsWith('/players')) return 'Jogadores'
   if (pathname.endsWith('/journal')) return 'Diário'
   if (pathname.endsWith('/settings')) return 'Configurações'

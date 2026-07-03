@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
+import { findBestiaryCreature } from '../game_systems/bestiary/registry'
 import { generateInviteCode } from './invite-code'
 import { presentCampaignDashboardEntry } from './presenter'
 
@@ -19,6 +20,12 @@ const defaultCampaignUserSettings = {
     autoClear: 3 as number | 'manual',
     showResultPopup: true,
   },
+  gameContent: {
+    language: 'pt-BR' as 'pt-BR' | 'original',
+  },
+  vtt: {
+    preparedBestiaryCreatureIds: [] as string[],
+  },
 }
 
 const campaignUserSettingsSchema = z
@@ -27,6 +34,16 @@ const campaignUserSettingsSchema = z
       .object({
         autoClear: z.union([z.literal('manual'), z.number().int().min(3).max(10)]).optional(),
         showResultPopup: z.boolean().optional(),
+      })
+      .optional(),
+    gameContent: z
+      .object({
+        language: z.enum(['pt-BR', 'original']).optional(),
+      })
+      .optional(),
+    vtt: z
+      .object({
+        preparedBestiaryCreatureIds: z.array(z.string().trim().min(1)).max(100).optional(),
       })
       .optional(),
   })
@@ -42,12 +59,21 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
   const parsed = campaignUserSettingsSchema.safeParse(value)
   const settings = parsed.success ? parsed.data : {}
   const dice = settings.dice ?? {}
+  const gameContent = settings.gameContent ?? {}
+  const vtt = settings.vtt ?? {}
+  const preparedBestiaryCreatureIds = Array.from(new Set(vtt.preparedBestiaryCreatureIds ?? []))
 
   return {
     ...settings,
     dice: {
       autoClear: dice.autoClear ?? defaultCampaignUserSettings.dice.autoClear,
       showResultPopup: dice.showResultPopup ?? defaultCampaignUserSettings.dice.showResultPopup,
+    },
+    gameContent: {
+      language: gameContent.language ?? defaultCampaignUserSettings.gameContent.language,
+    },
+    vtt: {
+      preparedBestiaryCreatureIds,
     },
   }
 }
@@ -56,12 +82,22 @@ function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUse
   const currentSettings = normalizeCampaignUserSettings(current)
   const nextRecord = isRecord(next) ? next : {}
   const nextDice = isRecord(nextRecord.dice) ? nextRecord.dice : {}
+  const nextGameContent = isRecord(nextRecord.gameContent) ? nextRecord.gameContent : {}
+  const nextVtt = isRecord(nextRecord.vtt) ? nextRecord.vtt : {}
   const merged = {
     ...currentSettings,
     ...nextRecord,
     dice: {
       ...currentSettings.dice,
       ...nextDice,
+    },
+    gameContent: {
+      ...currentSettings.gameContent,
+      ...nextGameContent,
+    },
+    vtt: {
+      ...currentSettings.vtt,
+      ...nextVtt,
     },
   }
 
@@ -531,7 +567,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         userId: payload.id,
         status: 'ACTIVE',
       },
-      select: { id: true },
+      select: { id: true, campaign: { select: { system: true } } },
     })
     if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
 
@@ -567,7 +603,10 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         userId: payload.id,
         status: 'ACTIVE',
       },
-      select: { id: true },
+      select: {
+        id: true,
+        campaign: { select: { system: true } },
+      },
     })
     if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
 
@@ -623,7 +662,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         status: 'ACTIVE',
         character: { userId: payload.id },
       },
-      select: { id: true },
+      select: { id: true, campaign: { select: { system: true } } },
     })
     if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode alterar' })
 
@@ -700,7 +739,10 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         status: 'ACTIVE',
         character: { userId: payload.id },
       },
-      select: { id: true },
+      select: {
+        id: true,
+        campaign: { select: { system: true } },
+      },
     })
     if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode gerenciar tokens' })
 
@@ -725,16 +767,46 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       orderBy: { createdAt: 'asc' },
     })
 
-    return reply.send(
-      entries.map((entry) => ({
-        characterId: entry.characterId,
-        name: entry.character.name,
-        avatarUrl: entry.character.avatarUrl,
-        role: entry.role,
-        ownerUserId: entry.userId,
-        ownerName: entry.role === 'NPC' ? entry.character.name : entry.character.user.email,
-      })),
-    )
+    const settings = await prisma.campaignUserSettings.findUnique({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      select: { settings: true },
+    })
+    const preparedBestiaryCreatureIds = normalizeCampaignUserSettings(settings?.settings).vtt.preparedBestiaryCreatureIds
+
+    const characterCandidates = entries.map((entry) => ({
+      source: 'character',
+      characterId: entry.characterId,
+      name: entry.character.name,
+      avatarUrl: entry.character.avatarUrl,
+      tokenBorderColor: null,
+      role: entry.role,
+      ownerUserId: entry.userId,
+      ownerName: entry.role === 'NPC' ? entry.character.name : entry.character.user.email,
+    }))
+
+    const bestiaryCandidates = preparedBestiaryCreatureIds.flatMap((creatureId) => {
+      const creature = findBestiaryCreature(master.campaign.system, creatureId)
+      if (!creature) return []
+
+      return [{
+        source: 'bestiary',
+        creatureId: creature.id,
+        characterId: null,
+        name: creature.name,
+        avatarUrl: creature.token.imageUrl,
+        tokenBorderColor: creature.token.borderColor,
+        role: 'NPC',
+        ownerUserId: '',
+        ownerName: 'Bestiario',
+      }]
+    })
+
+    return reply.send([...characterCandidates, ...bestiaryCandidates])
   })
 
   app.post('/api/campaigns/:campaignId/players/:userId/approve', async (req, reply) => {

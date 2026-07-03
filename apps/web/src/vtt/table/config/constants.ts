@@ -8,3 +8,4 @@ export const sceneImageMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'im
 export const sceneImageMimeTypeLabels = 'JPG, PNG, WEBP ou AVIF'
 
 export const questhubCharacterDragType = 'application/x-questhub-character-id'
+export const questhubBestiaryDragType = 'application/x-questhub-bestiary-creature-id'

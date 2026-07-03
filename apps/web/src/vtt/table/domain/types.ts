@@ -14,9 +14,12 @@ export type VttPanOffset = {
 
 export type VttPlayerToken = {
   id: string
-  characterId: string
+  source: 'character' | 'bestiary'
+  characterId: string | null
+  bestiaryCreatureId?: string | null
   name: string
   avatarUrl: string | null
+  tokenBorderColor?: string | null
   ownerUserId: string
   ownerName: string
   role: 'PLAYER' | 'NPC'
@@ -43,7 +46,8 @@ export type VttTokensSnapshotPayload = {
 export type VttTokenRemovedPayload = {
   campaignId: string
   sceneId?: string | null
-  characterId: string
+  tokenId: string
+  characterId?: string | null
 }
 
 export type VttTokenState = {
@@ -92,9 +96,12 @@ export type VttMeasurementChangedPayload = {
 }
 
 export type VttTokenCandidate = {
-  characterId: string
+  source: 'character' | 'bestiary'
+  characterId: string | null
+  creatureId?: string
   name: string
   avatarUrl: string | null
+  tokenBorderColor?: string | null
   role: 'PLAYER' | 'NPC'
   ownerUserId: string
   ownerName: string

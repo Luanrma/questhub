@@ -11,6 +11,7 @@ import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerCharacterSheetRoutes } from './modules/game_systems/routes'
+import { registerBestiaryRoutes } from './modules/game_systems/bestiary/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
 
@@ -59,6 +60,7 @@ app.get('/api/health', async () => ({ ok: true }))
 registerAuthRoutes(app)
 registerCharacterRoutes(app)
 registerCharacterSheetRoutes(app)
+registerBestiaryRoutes(app)
 registerCampaignRoutes(app, presence)
 registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app)

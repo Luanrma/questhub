@@ -22,6 +22,8 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * O Player nao ve `Personagens`; no lugar, ve `Minha ficha`.
 * `Minha ficha` abre diretamente a ficha do personagem vinculado a campanha usando o modal arrastavel existente.
 * `Trocar campanha` exige confirmacao para evitar saida acidental da mesa.
+* O Mestre pode criar tokens efemeros a partir do bestiario do ruleset da campanha.
+* Tokens de bestiario sao NPCs de cena, nao possuem dono jogador e nao sao controlados por Players.
 
 ## 3. Escopo Atual
 Incluido:
@@ -33,7 +35,9 @@ Incluido:
 * Controle de zoom visual da mesa por botoes de menos/mais, com minimo de 50%, padrao de 100% e maximo de 150%.
 * Board finito com area maxima local de 50 colunas por 34 linhas de grid, navegado sem barras de rolagem por ferramenta de mover ou arraste em area vazia.
 * Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa.
+* O mesmo menu tambem pode listar criaturas do bestiario do sistema da campanha.
 * Tokens entram no board apenas quando o Mestre arrasta um personagem do modal de tokens e solta no grid.
+* Criaturas do bestiario tambem podem ser arrastadas do card de bestiario para o board.
 * Token redondo usando o avatar do personagem do jogador, com fallback visual por inicial.
 * Token arrastavel limitado a area de grid visivel da mesa.
 * Token posicionado por coordenadas logicas do grid, preservando sua celula/hexagono ao alterar o tamanho do grid.

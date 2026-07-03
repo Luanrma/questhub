@@ -38,6 +38,13 @@ Fora de escopo:
 * `characters`: armazena `Character.system` e `Character.sheet`, mas nao conhece detalhes internos do sistema.
 * `vtt`: consome objetos genericos de mesa e pode anexar metadados de ruleset sem depender deles.
 
+## 7. Bestiario
+O bestiario e uma capacidade de ruleset. Pathfinder 2e fornece um catalogo inicial de criaturas normalizadas a partir dos packs do Foundry.
+
+Criaturas do bestiario nao devem virar `Character` automaticamente. Quando o Mestre arrasta uma criatura para a mesa, o VTT cria um token de cena com origem `BESTIARY`, efemero e controlado apenas pelo Mestre. Isso permite casos como hordas de muitos monstros iguais na mesma cena sem poluir a lista de personagens da campanha.
+
+Textos importados devem preservar o original e podem expor traducao por preferencia de usuario. O default de exibicao e `pt-BR`; o usuario pode escolher `original`.
+
 ## 6. Decisao Arquitetural
 Regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema nao pertencem ao modulo de campanha nem ao VTT.
 

@@ -24,7 +24,12 @@ type CampaignSceneRecord = {
 type CampaignSceneTokenRecord = {
   id: string
   sceneId: string
-  characterId: string
+  source?: 'CHARACTER' | 'BESTIARY'
+  characterId: string | null
+  bestiaryCreatureId?: string | null
+  name?: string | null
+  avatarUrl?: string | null
+  tokenBorderColor?: string | null
   hidden: boolean
   positionX: number
   positionY: number
@@ -42,7 +47,7 @@ type CampaignSceneTokenRecord = {
         email: string
       }
     }>
-  }
+  } | null
 }
 
 type CampaignSceneViewStateRecord = {
@@ -76,16 +81,20 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
 
 export function presentCampaignSceneToken(token: CampaignSceneTokenRecord) {
   const campaignCharacter = token.character?.campaigns?.[0] ?? null
+  const source = token.source === 'BESTIARY' ? 'bestiary' : 'character'
 
   return {
     id: token.id,
     sceneId: token.sceneId,
-    characterId: token.characterId,
-    name: token.character?.name ?? 'Token',
-    avatarUrl: token.character?.avatarUrl ?? null,
-    ownerUserId: token.character?.userId ?? null,
-    ownerName: campaignCharacter?.user?.email ?? null,
-    role: campaignCharacter?.role ?? 'PLAYER',
+    source,
+    characterId: source === 'character' ? token.characterId : null,
+    bestiaryCreatureId: token.bestiaryCreatureId ?? null,
+    name: source === 'bestiary' ? token.name ?? 'NPC' : token.character?.name ?? 'Token',
+    avatarUrl: source === 'bestiary' ? token.avatarUrl ?? null : token.character?.avatarUrl ?? null,
+    tokenBorderColor: token.tokenBorderColor ?? null,
+    ownerUserId: source === 'bestiary' ? '' : token.character?.userId ?? null,
+    ownerName: source === 'bestiary' ? 'Mestre' : campaignCharacter?.user?.email ?? null,
+    role: source === 'bestiary' ? 'NPC' : campaignCharacter?.role ?? 'PLAYER',
     hidden: token.hidden,
     position: {
       x: token.positionX,

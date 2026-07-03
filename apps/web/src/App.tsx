@@ -4,6 +4,7 @@ import { AuthedLayout } from './layouts/AuthedLayout'
 import { CampaignLayout } from './layouts/CampaignLayout'
 import { LoginPage } from './features/auth/pages/LoginPage'
 import { RegisterPage } from './features/auth/pages/RegisterPage'
+import { CampaignBestiaryPage } from './features/bestiary/pages/CampaignBestiaryPage'
 import { CampaignPlayersPage } from './features/campaign-presence/pages/CampaignPlayersPage'
 import { CampaignCreatePage } from './features/campaigns/pages/CampaignCreatePage'
 import { CampaignJoinPage } from './features/campaigns/pages/CampaignJoinPage'
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/campaign/:campaignId/overview" element={null} />
         <Route path="/campaign/:campaignId/sessions" element={<PlaceholderPage title="Sessões" />} />
         <Route path="/campaign/:campaignId/characters" element={<PlaceholderPage title="Personagens" />} />
+        <Route path="/campaign/:campaignId/bestiary" element={<CampaignBestiaryPage />} />
         <Route path="/campaign/:campaignId/players" element={<CampaignPlayersPage />} />
         <Route path="/campaign/:campaignId/journal" element={<PlaceholderPage title="Diário" />} />
         <Route path="/campaign/:campaignId/settings" element={<CampaignSettingsPage />} />

@@ -9,6 +9,7 @@ export type Campaign = {
   title: string
   description?: string | null
   inviteCode: string | null
+  system: 'PATHFINDER_2E' | 'DND_5E'
   gmName: string
   gmUserId: string
   joinPolicy: 'PUBLIC' | 'PRIVATE'

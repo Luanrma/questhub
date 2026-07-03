@@ -35,6 +35,11 @@ enum CampaignSceneGridShape {
   HEX
 }
 
+enum CampaignSceneTokenSource {
+  CHARACTER
+  BESTIARY
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -195,21 +200,28 @@ model CampaignScene {
 }
 
 model CampaignSceneToken {
-  id          String   @id @default(cuid())
-  sceneId     String
-  characterId String
-  hidden      Boolean  @default(false)
-  positionX   Float
-  positionY   Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id                 String                   @id @default(cuid())
+  sceneId            String
+  source             CampaignSceneTokenSource @default(CHARACTER)
+  characterId        String?
+  bestiarySystem     GameSystem?
+  bestiaryCreatureId String?
+  name               String?
+  avatarUrl          String?
+  tokenBorderColor   String?
+  hidden             Boolean                  @default(false)
+  positionX          Float
+  positionY          Float
+  createdAt          DateTime                 @default(now())
+  updatedAt          DateTime                 @updatedAt
 
   scene     CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
-  character Character     @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  character Character?    @relation(fields: [characterId], references: [id], onDelete: Cascade)
 
   @@unique([characterId])
   @@index([sceneId])
   @@index([characterId])
+  @@index([bestiarySystem, bestiaryCreatureId])
 }
 
 model CampaignSceneViewState {
