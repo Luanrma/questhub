@@ -11,7 +11,8 @@ type PresenceHandlersDependencies = {
   state: CampaignPresenceState
   isCampaignOnline: (campaignId: string) => boolean
   getCampaignSessionState: (campaignId: string) => 'ACTIVE' | 'PAUSED' | null
-  emitCampaignSessionState: (campaignId: string) => void
+  getVisibleCampaignSessionState: (campaignId: string, socket: { data: unknown }) => Promise<'ACTIVE' | 'PAUSED' | null>
+  emitCampaignSessionState: (campaignId: string) => Promise<void>
   emitCampaignMeasurementSnapshot: (campaignId: string, socketId: string) => void
   emitCampaignScene: (campaignId: string, scene: VttTableScene | null) => void
   emitVisibleTableSnapshot: (campaignId: string, socket: { id: string; data: unknown }) => Promise<void>
@@ -27,6 +28,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
     state,
     isCampaignOnline,
     getCampaignSessionState,
+    getVisibleCampaignSessionState,
     emitCampaignSessionState,
     emitCampaignMeasurementSnapshot,
     emitCampaignScene,
@@ -65,19 +67,20 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         socket.data.characterName = campaignCharacter.character.name
         socket.join(campaignRoom(campaignId))
         state.setUserPresence(user.id, { socketId: socket.id, campaignId, characterId })
+        await hydrateCampaignLiveState(campaignId)
+        await persistCampaignLiveState(campaignId)
+        state.clearTransientVttState(campaignId)
+        await hydrateCampaignLiveState(campaignId)
         state.setCampaignOnline(campaignId, {
           masterSocketId: socket.id,
           masterUserId: user.id,
           masterCharacterId: characterId,
-          state: 'ACTIVE',
+          state: 'PAUSED',
         })
-        await hydrateCampaignLiveState(campaignId)
-        await persistCampaignLiveState(campaignId)
-        state.clearTransientVttState(campaignId)
 
         await notifyCampaignStatus(campaignId, true)
         io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, characterId, online: true })
-        emitCampaignSessionState(campaignId)
+        await emitCampaignSessionState(campaignId)
         emitCampaignMeasurementSnapshot(campaignId, socket.id)
         await emitVisibleTableSnapshot(campaignId, socket)
         ack?.({ ok: true })
@@ -121,7 +124,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
       }
 
       state.setCampaignOnline(campaignId, { ...online, state: 'PAUSED' })
-      emitCampaignSessionState(campaignId)
+      await emitCampaignSessionState(campaignId)
       ack?.({ ok: true })
     } catch {
       ack?.({ ok: false, error: 'Erro ao pausar sessao' })
@@ -142,7 +145,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
       }
 
       state.setCampaignOnline(campaignId, { ...online, state: 'ACTIVE' })
-      emitCampaignSessionState(campaignId)
+      await emitCampaignSessionState(campaignId)
       if (state.hasPendingCampaignScene(campaignId)) {
         const pendingScene = state.getPendingCampaignScene(campaignId)
         state.deletePendingCampaignScene(campaignId)
@@ -187,7 +190,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
       state.setUserPresence(user.id, { socketId: socket.id, campaignId, characterId })
       socket.emit('presence:session:state', {
         campaignId,
-        state: getCampaignSessionState(campaignId),
+        state: await getVisibleCampaignSessionState(campaignId, socket),
       })
       emitCampaignMeasurementSnapshot(campaignId, socket.id)
       await emitVisibleTableSnapshot(campaignId, socket)

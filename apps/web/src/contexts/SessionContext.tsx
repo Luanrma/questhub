@@ -258,7 +258,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     await emitPresenceAck('presence:session:start', params)
     setCampaigns((current) =>
       current.map((campaign) =>
-        campaign.id === params.campaignId ? { ...campaign, isOnline: true, sessionState: 'ACTIVE' } : campaign,
+        campaign.id === params.campaignId ? { ...campaign, isOnline: true, sessionState: 'PAUSED' } : campaign,
       ),
     )
   }

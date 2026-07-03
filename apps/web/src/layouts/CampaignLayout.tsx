@@ -584,6 +584,9 @@ export function CampaignLayout() {
       {mySheetOpen && myCharacter ? (
         <CharacterSheetModal characterId={myCharacter.id} characterName={myCharacter.name} onClose={() => setMySheetOpen(false)} />
       ) : null}
+      {sessionActionLoading && !campaign.isOnline ? (
+        <LoadingScreen message="Sincronizando preparacao da mesa..." />
+      ) : null}
     </div>
   )
 }

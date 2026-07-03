@@ -51,10 +51,19 @@ export function setupCampaignPresence(server: HttpServer) {
     return state.getCampaignSessionState(campaignId)
   }
 
-  function emitCampaignSessionState(campaignId: string) {
-    const state = getCampaignSessionState(campaignId)
-    if (!state) return
-    io.to(campaignRoom(campaignId)).emit('presence:session:state', { campaignId, state })
+  async function emitCampaignSessionState(campaignId: string) {
+    const sessionState = getCampaignSessionState(campaignId)
+    if (!sessionState) return
+
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        campaignSocket.emit('presence:session:state', {
+          campaignId,
+          state: await getVisibleCampaignSessionState(campaignId, campaignSocket),
+        })
+      }),
+    )
   }
 
   async function notifyCampaignStatus(campaignId: string, online: boolean) {
@@ -247,6 +256,19 @@ export function setupCampaignPresence(server: HttpServer) {
     })
 
     return token?.sceneId ?? null
+  }
+
+  async function getVisibleCampaignSessionState(campaignId: string, socket: { data: any }) {
+    const online = state.getCampaignOnline(campaignId)
+    if (!online) return null
+    if (online.state === 'PAUSED') return 'PAUSED' as const
+
+    const role = socket.data.characterRole as string | undefined
+    if (role === 'MASTER') return 'ACTIVE' as const
+
+    const masterSceneId = await getMasterActiveSceneId(campaignId)
+    const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, socket)
+    return masterSceneId && visibleSceneId === masterSceneId ? 'ACTIVE' as const : 'PAUSED' as const
   }
 
   async function findPersistedSceneTokenWithScene(
@@ -765,6 +787,7 @@ export function setupCampaignPresence(server: HttpServer) {
       state,
       isCampaignOnline,
       getCampaignSessionState,
+      getVisibleCampaignSessionState,
       emitCampaignSessionState,
       emitCampaignMeasurementSnapshot,
       emitCampaignScene,
@@ -781,14 +804,19 @@ export function setupCampaignPresence(server: HttpServer) {
 
         const { campaignId, sceneId: requestedSceneId, settings } = parsed.data
         const online = state.getCampaignOnline(campaignId)
-        if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
+        if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
 
         const sceneId = requestedSceneId ?? (await getMasterActiveSceneId(campaignId))
         if (!sceneId) return
         if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
         setLiveSceneGrid(campaignId, sceneId, settings)
-        await emitSceneGridSettings(campaignId, sceneId, settings)
+        await prisma.campaignScene.update({
+          where: { id: sceneId },
+          data: vttGridSettingsToSceneData(settings),
+        })
+        if (online) await emitSceneGridSettings(campaignId, sceneId, settings)
+        else socket.emit('vtt:grid:changed', { campaignId, sceneId, settings })
       } catch {
         socket.emit('presence:error', { message: 'Nao foi possivel atualizar o grid da cena.' })
       }
