@@ -5,6 +5,8 @@ Centralizar a integracao de sistemas de RPG suportados pelo QuestHub, como Pathf
 
 Este modulo define o conceito de ruleset: um pacote de regras, dados, validacoes, calculos e componentes de UI especificos de um sistema de RPG.
 
+Decisao arquitetural atual: rulesets devem evoluir como packages internos do monorepo, nao como pastas grandes dentro de `apps/api` ou `apps/web`. O QuestHub permanece um monorepo com engine central e packages de sistemas carregados por registry.
+
 ## 2. Fronteira de Produto
 O QuestHub possui duas camadas complementares:
 
@@ -37,6 +39,8 @@ Fora de escopo:
 * `campaigns`: armazena qual sistema a campanha usa e consulta metadados do ruleset.
 * `characters`: armazena `Character.system` e `Character.sheet`, mas nao conhece detalhes internos do sistema.
 * `vtt`: consome objetos genericos de mesa e pode anexar metadados de ruleset sem depender deles.
+* `packages/game-system-core`: define contratos de capacidades de ruleset.
+* `packages/game-system-[system]`: implementa regras, dados e UI especificos daquele sistema.
 
 ## 7. Bestiario
 O bestiario e uma capacidade de ruleset. Pathfinder 2e fornece um catalogo inicial de criaturas normalizadas a partir dos packs do Foundry.
@@ -49,3 +53,11 @@ Textos importados devem preservar o original e podem expor traducao por preferen
 Regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema nao pertencem ao modulo de campanha nem ao VTT.
 
 Campanha seleciona um ruleset. Personagem referencia um ruleset. Ficha, spells, itens, catalogos e mecanicas especificas vivem dentro do ruleset. O VTT permanece generico.
+
+Para escala de multiplos sistemas, o padrao oficial e:
+
+* manter um **Core Engine** nos apps e modulos genericos do QuestHub;
+* manter contratos compartilhados em `packages/game-system-core`;
+* implementar cada sistema em um package interno, como `packages/game-system-pathfinder-2e`;
+* evitar polirepo enquanto os sistemas forem mantidos como parte do produto QuestHub;
+* evitar plugin runtime externo ate existir necessidade real de distribuicao comunitaria.

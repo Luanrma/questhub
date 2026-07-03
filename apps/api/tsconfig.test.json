@@ -10,9 +10,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "rootDir": "src",
+    "rootDir": "../..",
     "outDir": "../../.tmp/api-tests"
   },
-  "include": ["src/unit.test.ts"],
+  "include": ["src/unit.test.ts", "../../packages/**/*.ts"],
   "exclude": ["src/server.ts"]
 }

@@ -27,9 +27,7 @@ function localizeCreature(creature: GameSystemBestiaryCreature, language: 'pt-BR
       ...creature,
       original: {
         name: creature.name,
-        rarity: creature.rarity,
-        size: creature.size,
-        traits: creature.traits,
+        display: creature.display,
       },
     }
   }
@@ -39,14 +37,13 @@ function localizeCreature(creature: GameSystemBestiaryCreature, language: 'pt-BR
     ...creature,
     original: {
       name: creature.name,
-      rarity: creature.rarity,
-      size: creature.size,
-      traits: creature.traits,
+      display: creature.display,
     },
     name: ptBR?.name ?? creature.name,
-    rarity: ptBR?.rarity ?? creature.rarity,
-    size: ptBR?.size ?? creature.size,
-    traits: ptBR?.traits ?? creature.traits,
+    display: {
+      ...creature.display,
+      ...ptBR?.display,
+    },
   }
 }
 

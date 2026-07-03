@@ -7,6 +7,14 @@ QuestHub e um VTT web para campanhas de RPG online. A aplicacao atual e um monor
 * `apps/web`: cliente React com React Router, contexto de sessao e Socket.IO client.
 * `apps/api`: API HTTP Fastify, Socket.IO, Prisma e PostgreSQL.
 
+## 2.1 Packages Internos
+O monorepo tambem possui packages internos em `packages/` para separar codigo de plataforma de codigo especifico de sistema de jogo.
+
+* `packages/game-system-core`: contratos compartilhados para capacidades de sistemas de jogo, como ficha e bestiario.
+* `packages/game-system-pathfinder-2e`: implementacao Pathfinder 2e, contendo codigo server e web especifico do sistema.
+
+`apps/api` e `apps/web` continuam sendo composition roots. Eles podem registrar/adaptar packages, mas nao devem absorver regras especificas de Pathfinder 2e, D&D 5e ou qualquer outro sistema.
+
 ## 3. Bounded Contexts Implementados
 * `auth`: cadastro, login, sessao via cookie JWT, logout e `GET /api/me`.
 * `characters`: criacao, listagem, detalhe e edicao basica de `Character`.
@@ -61,7 +69,9 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 * Prisma deve permanecer encapsulado atras de repositories; o schema e migrations definem persistencia, nao autorizacao, apresentacao ou fluxo de produto.
 * O VTT deve permanecer generico: mapa, cena, token, chat, dado, presenca, movimentacao e manipulacao visual nao podem depender de Pathfinder 2e, D&D 5e ou outro sistema especifico.
 * Preferencias locais de experiencia do VTT que nao alteram estado compartilhado da mesa, como cor dos dados, tempo de permanencia dos dados 3D e popup de resultado, podem ser persistidas no cliente por campanha via `localStorage`.
-* Regras mecanicas de RPG pertencem a `game_systems` e seus submodulos, como `game_systems/pathfinder_2e`.
+* Regras mecanicas de RPG pertencem a packages internos de game system em `packages/game-system-[system]`.
+* `apps/api/src/modules/game_systems` e `apps/web/src/game-systems` devem funcionar como registries/facades de aplicacao. Eles podem manter reexports temporarios durante migracoes, mas codigo novo especifico de sistema deve nascer no package correspondente.
+* Contratos compartilhados de sistemas devem ficar em `packages/game-system-core`; packages especificos nao devem importar contratos diretamente dos apps.
 * Ficha de personagem e uma capacidade de ruleset. Nao deve existir modulo global de regras de ficha fora de `game_systems`.
 * Realtime de campanha pertence ao contexto `campaign-presence`; outros eventos realtime devem ter modulo e spec proprios.
 * Toda documentacao de sistema, modulo, arquitetura, contrato ou implementacao deve viver dentro de `.ai/`, exceto o `README.md` da raiz do projeto e `scripts/README.md`.
@@ -83,8 +93,9 @@ Participacao operacional em campanha deve vir de `CampaignCharacter`, nao de uma
 ## 9. Riscos e Debitos Tecnicos
 * `trade` possui apenas um stub tecnico legado no codigo e ainda nao e um fluxo de produto implementado.
 * Quando implementado, `trade` deve operar entre `Character` ativos que pertencam a mesma `campaignId`, nunca diretamente entre usuarios.
-* O codigo backend de ficha deve viver em `apps/api/src/modules/game_systems/[system]/character_sheet`.
-* O codigo frontend de ficha especifica deve viver em `apps/web/src/game-systems/[system-slug]/character-sheet`, como `apps/web/src/game-systems/pathfinder-2e/character-sheet`.
+* Existem facades legadas em `apps/api/src/modules/game_systems/[system]` e `apps/web/src/game-systems/[system-slug]` para compatibilidade de imports.
+* O codigo backend especifico de sistema deve migrar para `packages/game-system-[system]/src/server`.
+* O codigo frontend especifico de sistema deve migrar para `packages/game-system-[system]/src/web`.
 * O schema Prisma ja reserva `DND_5E`, mas os fluxos funcionais atuais de criacao usam apenas `PATHFINDER_2E`.
 * Arquivar/deletar personagens, NPCs e transicoes `LEFT`/`DEAD` ainda nao possuem fluxo operacional completo.
 * Permissao do mestre para editar personagens vinculados ainda nao esta implementada.

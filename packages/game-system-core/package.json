@@ -1,0 +1,9 @@
+{
+  "name": "@questhub/game-system-core",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./server/character-sheet": "./src/server/character-sheet/index.ts",
+    "./server/bestiary": "./src/server/bestiary/index.ts"
+  }
+}
