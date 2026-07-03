@@ -533,7 +533,9 @@ export function CampaignOverviewPage({
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
     socket.on('vtt:combat:changed', onCombatChanged)
 
-    if (!isMaster) {
+    if (isMaster) {
+      socket.emit('vtt:scene:request', { campaignId })
+    } else {
       socket.emit('vtt:tokens:request', { campaignId })
       socket.emit('vtt:measurement:request', { campaignId })
       socket.emit('vtt:scene:request', { campaignId })

@@ -2,6 +2,8 @@ import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from
 import { boardGridLimits, sceneImageMaxBytes, sceneImageMimeTypeLabels, sceneImageMimeTypes } from '../config/constants'
 import type { CampaignSceneResponse, PreparedScene, VttGridBounds, VttTableScene } from './types'
 
+const hexRowStepUnits = Math.sqrt(3) / 2
+
 export function createPreparedScene(index: number): PreparedScene {
   return {
     id: `scene-${index}`,
@@ -75,6 +77,13 @@ export function isSelectablePreparedScene(scene: PreparedScene) {
 }
 
 export function getDefaultSceneDimensions(grid: VttGridSettings): VttGridBounds {
+  if (grid.shape === 'hex') {
+    return {
+      width: boardGridLimits.columns * grid.size,
+      height: (boardGridLimits.rows * hexRowStepUnits + 0.5) * grid.size,
+    }
+  }
+
   return {
     width: boardGridLimits.columns * grid.size,
     height: boardGridLimits.rows * grid.size,

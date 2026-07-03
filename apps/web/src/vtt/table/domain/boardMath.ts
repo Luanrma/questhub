@@ -18,7 +18,14 @@ export function scaleGridSettings(settings: VttGridSettings, zoomPercent: number
   }
 }
 
-export function getDefaultBoardPixelSize(gridSize: number) {
+export function getDefaultBoardPixelSize(gridSize: number, gridShape: VttGridShape = 'square') {
+  if (gridShape === 'hex') {
+    return {
+      width: boardGridLimits.columns * gridSize,
+      height: (boardGridLimits.rows * hexRowStepUnits + 0.5) * gridSize,
+    }
+  }
+
   return {
     width: boardGridLimits.columns * gridSize,
     height: boardGridLimits.rows * gridSize,

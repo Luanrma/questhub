@@ -33,6 +33,9 @@ import { CampaignPresenceState } from './live-state'
 import { sceneGridToVttSettings, tableTokenFromPersistedToken, vttGridSettingsToSceneData } from './mappers'
 import { campaignRoom, userRoom } from './rooms'
 
+const boardGridLimits = { columns: 50, rows: 34 }
+const hexRowStepUnits = Math.sqrt(3) / 2
+
 export function setupCampaignPresence(server: HttpServer) {
   const io = new SocketIOServer(server, {
     cors: {
@@ -231,6 +234,12 @@ export function setupCampaignPresence(server: HttpServer) {
     const role = socket.data.characterRole as string | undefined
     if (role === 'MASTER') return getMasterActiveSceneId(campaignId)
 
+    const online = state.getCampaignOnline(campaignId)
+    const socketUser = socket.data.user as { id: string } | undefined
+    if (!online && socketUser?.id && (await isActiveCampaignMaster(campaignId, socketUser.id))) {
+      return getMasterActiveSceneId(campaignId)
+    }
+
     const viewState = await prisma.campaignSceneViewState.findUnique({
       where: { campaignId },
       select: { forcedSceneId: true },
@@ -370,17 +379,29 @@ export function setupCampaignPresence(server: HttpServer) {
     )
   }
 
-  async function emitSceneTokenChanged(campaignId: string, sceneId: string, token: VttPlayerToken) {
+  async function emitSceneTokenChanged(
+    campaignId: string,
+    sceneId: string,
+    token: VttPlayerToken,
+    options?: { refreshOwnerVisibleScene?: boolean },
+  ) {
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     await Promise.all(
       sockets.map(async (campaignSocket) => {
         const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
-        if (visibleSceneId !== sceneId) return
+        const isTokenOwner = Boolean(token.characterId && campaignSocket.data.characterId === token.characterId)
+        if (visibleSceneId !== sceneId) {
+          if (isTokenOwner && options?.refreshOwnerVisibleScene) await emitVisibleTableSnapshot(campaignId, campaignSocket)
+          return
+        }
         campaignSocket.emit('vtt:token:changed', {
           campaignId,
           sceneId,
           token,
         })
+        if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.characterRole !== 'MASTER') {
+          await emitVisibleTableSnapshot(campaignId, campaignSocket)
+        }
       }),
     )
   }
@@ -551,6 +572,20 @@ export function setupCampaignPresence(server: HttpServer) {
     getCampaignTokenSceneMap(campaignId).set(token.id, sceneId)
   }
 
+  function getDefaultSceneDimensions(grid: VttGridSettings) {
+    if (grid.shape === 'hex') {
+      return {
+        width: boardGridLimits.columns * grid.size,
+        height: (boardGridLimits.rows * hexRowStepUnits + 0.5) * grid.size,
+      }
+    }
+
+    return {
+      width: boardGridLimits.columns * grid.size,
+      height: boardGridLimits.rows * grid.size,
+    }
+  }
+
   async function listSceneTokens(campaignId: string, sceneId?: string | null) {
     const visibleSceneId = sceneId === undefined ? await getMasterActiveSceneId(campaignId) : sceneId
     if (!visibleSceneId) return []
@@ -601,14 +636,16 @@ export function setupCampaignPresence(server: HttpServer) {
       imageUrl = await assetService.getSignedUrl(scene.backgroundCacheKey).catch(() => scene.backgroundUrl)
     }
 
+    const dimensions = getDefaultSceneDimensions(grid)
+
     return {
       id: scene.id,
       name: scene.name,
       imageUrl,
       fileName: scene.name,
       assetId: scene.assetId,
-      width: 50 * grid.size,
-      height: 34 * grid.size,
+      width: dimensions.width,
+      height: dimensions.height,
       grid,
       tokens,
     }
@@ -859,9 +896,11 @@ export function setupCampaignPresence(server: HttpServer) {
         }
 
         setLiveSceneToken(campaignId, sceneId, token)
-        await persistSceneToken(campaignId, sceneId, token)
-        if (online) await emitVisibleTableSnapshots(campaignId)
-        else socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+        if (online) await emitSceneTokenChanged(campaignId, sceneId, token, { refreshOwnerVisibleScene: true })
+        else {
+          await persistSceneToken(campaignId, sceneId, token)
+          socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+        }
         return
       }
 
@@ -916,9 +955,11 @@ export function setupCampaignPresence(server: HttpServer) {
       }
 
       setLiveSceneToken(campaignId, sceneId, token)
-      await persistSceneToken(campaignId, sceneId, token)
-      if (online) await emitVisibleTableSnapshots(campaignId)
-      else socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, token, { refreshOwnerVisibleScene: true })
+      else {
+        await persistSceneToken(campaignId, sceneId, token)
+        socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+      }
     })
 
     socket.on('vtt:token:move', async (input: unknown) => {
@@ -975,10 +1016,12 @@ export function setupCampaignPresence(server: HttpServer) {
       if (parsed.data.scope === 'scene') {
         if (!(await sceneBelongsToCampaign(campaignId, parsed.data.sceneId))) return
         await removeCampaignTokens(campaignId, { sceneId: parsed.data.sceneId })
+        if (!online) await emitVisibleTableSnapshot(campaignId, socket)
         return
       }
 
       await removeCampaignTokens(campaignId, { sceneId: null })
+      if (!online) await emitVisibleTableSnapshot(campaignId, socket)
     })
 
     socket.on('vtt:token:visibility', async (input: unknown) => {
@@ -1203,8 +1246,9 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
-      if (!isCampaignOnline(campaignId)) return
-      if (socket.data.campaignId !== campaignId) return
+      const online = state.getCampaignOnline(campaignId)
+      if (online && socket.data.campaignId !== campaignId) return
+      if (!online && !(await isActiveCampaignMaster(campaignId, user.id))) return
 
       await emitVisibleTableSnapshot(campaignId, socket)
     })

@@ -17,12 +17,14 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * O modo "mostrar para todos" dura ate o Mestre desativar manualmente; depois cada jogador volta a ver a cena do proprio token.
 * O Mestre possui uma cena ativa propria, usada como foco da mesa dele. A cena ativa do Mestre nao obriga a visao dos jogadores enquanto "mostrar para todos" estiver desligado.
 * O Mestre pode preparar cenas antes de iniciar a campanha tanto pelo modal `Preparar cena` quanto diretamente na mesa VTT, mesmo com a campanha offline.
+* No estado offline de manutencao da campanha, o Mestre pode solicitar snapshot da cena ativa e alternar `masterActiveSceneId` sem iniciar `presence:session:start`.
 * Nao existe um "editor de cena" explicito como area separada; a preparacao acontece nos fluxos existentes da mesa, do modal de preparacao e dos modais auxiliares.
 * Criar uma cena nao exige imagem de background.
 * O botao `+` em `Preparar cena` cria uma nova cena vazia imediatamente.
 * Vincular, trocar ou remover imagem de background e acao separada da criacao da cena.
 * Cenas vazias continuam selecionaveis e podem receber grid, tokens e estado de sessao.
 * Cenas vazias devem renderizar uma superficie neutra no VTT, sem bloquear ferramentas de grid, medicao ou tokens.
+* Cenas sem imagem de background devem usar dimensoes canonicas compartilhadas de board, derivadas de `boardGridLimits`, do formato do grid e do tamanho de grid da cena, para que Mestre e Players online tenham exatamente a mesma quantidade de celulas jogaveis.
 * A modelagem deve permanecer compativel com um futuro fluxo `Construir cena`, onde elementos de construcao como paredes, chao, portas, janelas, escadas, buracos e colisao serao adicionados sem depender de imagem.
 
 ## 2.1 Nomes Canonicos
@@ -70,6 +72,7 @@ Pontos de migracao conhecidos:
 * Tokens em `campaign-presence` hoje sao descartados ao encerrar sessao; no novo fluxo permanecem persistidos por cena.
 * A cena atual hoje e tratada como imagem/asset no frontend; no novo fluxo e `CampaignScene`.
 * O snapshot de entrada deve ser por usuario, nao broadcast unico para toda a campanha.
+* Drop de token online nao deve chamar broadcast de snapshot visivel para toda a campanha; deve atualizar o estado vivo e emitir delta apenas para sockets autorizados a visualizar a cena.
 * Qualquer implementacao atual de diario dentro de `campaign_scene` deve ser movida para `campaign_diary`.
 
 ## 3. Modelo de Dados
@@ -213,10 +216,15 @@ Regras:
 * Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
 * Durante uma sessao online, alteracoes de grid e tokens ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
 * Alteracoes de grid e tokens durante a sessao online nao devem disparar escrita no banco a cada evento, para evitar loops de snapshot e inconsistencias visuais.
+* Drop/criacao de token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignSceneToken` antes de atualizar os clients.
+* Drop, movimento, visibilidade e remocao de token durante sessao online devem marcar a cena como dirty para persistencia posterior.
+* Autosave eventual pode persistir cenas dirty em intervalos controlados, coalescendo varias alteracoes em um unico snapshot por cena.
 * Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online.
+* Ao iniciar sessao, o servidor deve hidratar o estado vivo a partir do snapshot persistido mais recente, incluindo remocoes e reposicionamentos feitos pelo Mestre durante a manutencao offline.
 * Ao encerrar sessao, o servidor deve persistir o ultimo estado vivo da mesa para que a proxima sessao comece como a anterior terminou.
 * Eventos que podem persistir estado fora da sessao online:
   * preparo de cena com campanha offline;
+  * autosave eventual de cenas dirty durante sessao online;
   * iniciar sessao;
   * encerrar sessao;
   * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes.
@@ -285,6 +293,12 @@ type CampaignSceneChangedPayload = {
   reason: 'MASTER_SWITCH' | 'FORCED_SCENE' | 'TOKEN_SCENE_CHANGED' | 'SCENE_UPDATED'
 }
 
+type CampaignSceneTokenPlacedPayload = {
+  campaignId: string
+  sceneId: string
+  token: CampaignSceneToken
+}
+
 type CampaignSceneTokenMovedPayload = {
   campaignId: string
   sceneId: string
@@ -311,6 +325,8 @@ Eventos:
 * `campaign-scene:force`: Mestre ativa ou troca a cena forcada para todos.
 * `campaign-scene:unforce`: Mestre desativa a cena forcada para todos.
 * `campaign-scene:changed`: servidor informa que a cena visivel de um socket mudou.
+* `campaign-scene:token:place`: Mestre cria/posiciona token na cena atual, atualizando estado vivo quando a sessao esta online.
+* `campaign-scene:token:placed`: servidor confirma e transmite token novo para sockets que visualizam a cena, sem reaplicar snapshot completo.
 * `campaign-scene:token:move`: jogador dono em sessao online ou Mestre em qualquer estado move token dentro da cena atual.
 * `campaign-scene:token:moved`: servidor confirma e transmite movimento valido para sockets que visualizam a cena.
 * `campaign-scene:token:move-scene`: Mestre move token para outra cena.
@@ -322,7 +338,9 @@ Regras:
 * Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
 * Jogadores nao podem emitir alteracoes de grid ou distribuicao de cena.
 * Jogadores recebem apenas eventos da cena que devem visualizar.
+* Drop/criacao de token durante sessao online deve emitir delta de token, nao `campaign-scene:snapshot` ou `vtt:tokens:snapshot`.
 * Movimento, remocao e invisibilidade de token devem ser emitidos apenas para sockets cuja cena visivel seja a cena atual do token.
+* Quando um token `PLAYER` passa a definir ou alterar a cena visivel do seu dono, o socket dono deve receber snapshot da cena visivel atualizada, mesmo que os demais sockets recebam apenas delta de token.
 * Remocao de token de `PLAYER` tambem deve ser emitida ao socket dono daquele token, mesmo que a remocao faca a cena visivel do dono deixar de existir.
 * Trocar a cena ativa do Mestre nao deve emitir evento de alteracao de grid para a cena anterior; a troca apenas carrega o grid da cena escolhida no cliente do Mestre.
 * Mestre pode receber eventos de todas as cenas conforme necessario para administrar a campanha.
@@ -333,8 +351,12 @@ Regras:
 * O rodape de cenas continua visivel apenas para Mestre.
 * `Preparar cena` continua sendo a entrada para criar e organizar cenas com cards.
 * Ao selecionar uma cena no rodape, o Mestre muda `masterActiveSceneId`, pausa a sessao online e a mesa dele renderiza o snapshot daquela cena.
+* Ao selecionar uma cena com a campanha offline, a mesa do Mestre deve renderizar o snapshot persistido dessa cena sem exigir que a sessao realtime esteja online.
 * A mesa deve limpar o canvas atual e reinicializar fundo, grid, tokens e medicoes visuais a partir da cena escolhida.
 * Durante a aplicacao de snapshot, troca de cena ou carregamento da imagem de background, a mesa deve exibir o `LoadingScreen` global ate a cena, imagem, grid e tokens estarem renderizados de forma estavel, ocultando redimensionamentos intermediarios.
+* Em cenas sem imagem de background, o tamanho do board deve ser calculado pela quantidade canonica de celulas, nao pelo viewport disponivel; zoom local pode alterar escala visual, mas nao pode alterar a quantidade total de celulas da superficie jogavel.
+* Drop, movimento, remocao ou invisibilidade de token nao sao transicoes estruturais de cena e nao devem acionar `LoadingScreen` global.
+* A camada de tokens deve ser atualizada independentemente do frame da cena; mudancas exclusivas de tokens nao devem recalcular background, dimensoes naturais da imagem, grid, zoom ou pan.
 * A troca de cena nao deve desmontar `CampaignLayout`.
 * A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
 * O modal de distribuicao deve exibir cenas como cards e tokens/personagens como icones arrastaveis entre cards.
@@ -348,6 +370,9 @@ Regras:
 * Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.
 * Mestre consegue preparar cenas pelo modal `Preparar cena`.
+* Dropar token durante sessao online nao exibe loading global para o Mestre nem para Players conectados.
+* Dropar token durante sessao online nao deforma grid, background, dimensoes do board, zoom ou pan.
+* Dropar token durante sessao online emite delta de token para sockets autorizados, sem reenviar snapshot completo da cena.
 * Trocar cena pelo Mestre pausa automaticamente a sessao online.
 * Trocar cena, receber snapshot de cena ou carregar background nao deve expor ao usuario o reajuste visual intermediario de imagem, grid e tokens.
 * Retomar sessao nao revela automaticamente a nova cena para todos.
