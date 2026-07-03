@@ -1,6 +1,6 @@
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { GripHorizontal, MapPinned, Maximize2, Minimize2, Pause, Play, Power, X } from 'lucide-react'
+import { Grip, MapPinned, Maximize2, Minimize2, Pause, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
@@ -104,7 +104,7 @@ function FloatingCampaignPanel({
   const [size, setSize] = useState(defaultSize)
   const [collapsed, setCollapsed] = useState(false)
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
-  const resizeStartRef = useRef({ pointerX: 0, pointerY: 0, width: 0, height: 0 })
+  const resizeStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0, width: 0, height: 0 })
   const [dragging, setDragging] = useState(false)
   const [resizing, setResizing] = useState(false)
 
@@ -135,9 +135,17 @@ function FloatingCampaignPanel({
     function onPointerMove(event: PointerEvent) {
       if (!resizing) return
 
-      setSize({
-        width: Math.min(window.innerWidth - 48, Math.max(380, resizeStartRef.current.width + event.clientX - resizeStartRef.current.pointerX)),
-        height: Math.min(window.innerHeight - 104, Math.max(220, resizeStartRef.current.height + event.clientY - resizeStartRef.current.pointerY)),
+      const maxWidth = window.innerWidth - 48
+      const maxHeight = window.innerHeight - 104
+      const nextWidth = Math.min(maxWidth, Math.max(340, resizeStartRef.current.width - (event.clientX - resizeStartRef.current.pointerX)))
+      const nextHeight = Math.min(maxHeight, Math.max(220, resizeStartRef.current.height - (event.clientY - resizeStartRef.current.pointerY)))
+      const widthDelta = resizeStartRef.current.width - nextWidth
+      const heightDelta = resizeStartRef.current.height - nextHeight
+
+      setSize({ width: nextWidth, height: nextHeight })
+      setPosition({
+        x: Math.max(16, resizeStartRef.current.panelX + widthDelta),
+        y: Math.max(78, resizeStartRef.current.panelY + heightDelta),
       })
     }
 
@@ -172,6 +180,8 @@ function FloatingCampaignPanel({
     resizeStartRef.current = {
       pointerX: event.clientX,
       pointerY: event.clientY,
+      panelX: position.x,
+      panelY: position.y,
       width: size.width,
       height: size.height,
     }
@@ -195,7 +205,15 @@ function FloatingCampaignPanel({
         onPointerDown={startDrag}
       >
         <div className="flex min-w-0 items-center gap-3">
-          <GripHorizontal className="h-4 w-4 shrink-0 text-zinc-500" />
+          <button
+            type="button"
+            title="Redimensionar painel"
+            aria-label="Redimensionar painel"
+            className="-ml-2 grid h-8 w-8 shrink-0 cursor-nwse-resize place-items-center rounded-md text-zinc-500 transition hover:bg-white/10 hover:text-white"
+            onPointerDown={startResize}
+          >
+            <Grip className="h-4 w-4 cursor-nwse-resize" />
+          </button>
           <h1 className="truncate text-sm font-semibold text-white">{title}</h1>
         </div>
         <div className="flex shrink-0 items-center gap-1">
@@ -219,16 +237,7 @@ function FloatingCampaignPanel({
           </button>
         </div>
       </div>
-      {!collapsed ? <div className="min-h-0 flex-1 overflow-auto p-5">{children(size)}</div> : null}
-      {!collapsed ? (
-        <button
-          type="button"
-          title="Redimensionar painel"
-          aria-label="Redimensionar painel"
-          className="absolute bottom-0 right-0 h-5 w-5 cursor-nwse-resize rounded-tl-md border-l border-t border-white/10 bg-white/[0.06] transition hover:bg-white/15"
-          onPointerDown={startResize}
-        />
-      ) : null}
+      {!collapsed ? <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-5">{children(size)}</div> : null}
     </section>
   )
 }

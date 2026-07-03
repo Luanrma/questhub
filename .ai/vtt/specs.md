@@ -34,6 +34,9 @@ Tokens de bestiario podem carregar metadados opacos de origem, como `source = 'b
 * A mesa e renderizada pelo `CampaignLayout`, nao por uma rota filha exclusiva.
 * Rotas internas como `/sessions`, `/players`, `/characters`, `/journal` e `/settings` sao estado de modal e renderizam por cima da mesa em painel flutuante.
 * O painel flutuante pode ser fechado navegando de volta para `/campaign/:campaignId/overview`.
+* O painel flutuante pode ser redimensionado pelo usuario sem desmontar a mesa nem o conteudo do painel.
+* O controle visual padrao de redimensionamento do painel flutuante deve aparecer no canto superior esquerdo do header.
+* Paineis flutuantes podem ter rolagem vertical interna, mas nao devem exibir barra de rolagem horizontal ao encolher.
 * Clicar nos menus internos da sidebar nao pode causar reload de documento nem desmontar/remontar o VTT.
 
 ## 2. Sidebar
@@ -132,6 +135,18 @@ type MyCampaignCharacter = {
 * Recolher o painel lateral nao deve desmontar a mesa nem perder mensagens carregadas do chat ao expandir novamente.
 * Mestre ve uma ferramenta `Tokens` que abre modal com personagens `PLAYER` e `NPC` ativos da campanha.
 * A ferramenta `Tokens` tambem pode listar criaturas do bestiario do ruleset da campanha como candidatos de token.
+* O painel de Bestiario deve renderizar cards em duas colunas quando houver largura suficiente e em uma coluna quando o modal for reduzido.
+* O painel de Bestiario deve preservar o conteudo em fluxo responsivo e nao criar rolagem horizontal quando reduzido.
+* O painel de Bestiario deve buscar criaturas paginadas por pagina e limite.
+* O painel de Bestiario deve permitir filtro por nivel exato da criatura quando disponivel no sistema de jogo.
+* O painel de Bestiario deve permitir filtro por raridade quando disponivel no sistema de jogo.
+* A pagina do Bestiario deve iniciar com 10 criaturas por pagina.
+* A pagina do Bestiario deve permitir escolher 10 ou 20 criaturas por pagina no proprio modal.
+* Ao alterar busca, filtros ou quantidade por pagina, a pagina atual do Bestiario volta para a primeira pagina.
+* A navegacao de paginas do Bestiario deve informar pagina atual, total de paginas e total de criaturas filtradas.
+* O botao de adicionar criatura preparada no card do Bestiario deve exibir o texto visivel `+ Token` e preservar descricao acessivel.
+* Quando uma criatura ja estiver preparada na toolbar, o card do Bestiario deve exibir tambem o botao `- Token`.
+* Clicar em `- Token` remove a criatura da toolbar de tokens preparados.
 * O token so existe no board depois que o Mestre arrasta um personagem do modal de tokens e solta no grid.
 * O token de bestiario so existe no board depois que o Mestre arrasta uma criatura do bestiario/modal e solta no grid.
 * Dropar uma criatura de bestiario cria um token direto de cena, nao um `Character`.

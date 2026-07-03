@@ -43,7 +43,17 @@ export type GameSystemBestiaryCreature<TSystemData = unknown> = {
   systemData: TSystemData
 }
 
+export type GameSystemBestiaryFilterValue = string | number
+
+export type GameSystemBestiaryListOptions = {
+  search?: string
+  limit?: number
+  offset?: number
+  filters?: Record<string, GameSystemBestiaryFilterValue>
+}
+
 export type GameSystemBestiaryAdapter = {
   system: string
-  listCreatures: (options?: { search?: string; limit?: number }) => GameSystemBestiaryCreature[]
+  listCreatures: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryCreature[]
+  countCreatures: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
 }

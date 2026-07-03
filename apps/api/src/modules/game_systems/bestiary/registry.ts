@@ -1,4 +1,4 @@
-import type { GameSystemBestiaryAdapter } from './models'
+import type { GameSystemBestiaryAdapter, GameSystemBestiaryListOptions } from './models'
 import { pathfinder2eBestiaryAdapter } from '../pathfinder_2e/bestiary'
 
 const bestiaryAdapters = new Map<string, GameSystemBestiaryAdapter>([
@@ -9,11 +9,18 @@ export function getBestiaryAdapter(system: string) {
   return bestiaryAdapters.get(system)
 }
 
-export function listBestiaryCreatures(system: string, options?: { search?: string; limit?: number }) {
+export function listBestiaryCreatures(system: string, options?: GameSystemBestiaryListOptions) {
   const adapter = getBestiaryAdapter(system)
   if (!adapter) return null
 
   return adapter.listCreatures(options)
+}
+
+export function countBestiaryCreatures(system: string, options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) {
+  const adapter = getBestiaryAdapter(system)
+  if (!adapter) return null
+
+  return adapter.countCreatures(options)
 }
 
 export function findBestiaryCreature(system: string, creatureId: string) {

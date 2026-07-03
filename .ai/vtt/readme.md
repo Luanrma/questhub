@@ -16,6 +16,8 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * A sidebar desktop nao deve ocupar 100% da altura; sua altura acompanha a quantidade de menus.
 * Em viewports menores que 900px de largura ou 640px de altura, a sidebar muda para uma barra compacta inferior sobreposta para preservar espaco da mesa.
 * Telas laterais como jogadores, personagens, diario e configuracoes abrem como paineis flutuantes arrastaveis.
+* Paineis flutuantes podem ser redimensionados para ocupar menos espaco da mesa sem desmontar o conteudo.
+* O handle visual padrao de redimensionamento dos paineis flutuantes aparece no canto superior esquerdo do header.
 * A navegacao pela sidebar dentro da campanha nao deve recarregar a pagina nem desmontar a mesa.
 * Os menus internos da campanha sao tratados como modais/overlays sobre o VTT persistente.
 * O Mestre ve `Personagens` para gerenciar personagens da campanha.
@@ -24,6 +26,11 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * `Trocar campanha` exige confirmacao para evitar saida acidental da mesa.
 * O Mestre pode criar tokens efemeros a partir do bestiario do ruleset da campanha.
 * Tokens de bestiario sao NPCs de cena, nao possuem dono jogador e nao sao controlados por Players.
+* O Bestiario deve funcionar bem em paineis estreitos, alternando para uma coluna de cards quando o modal for reduzido.
+* O Bestiario deve encolher sem gerar barra de rolagem horizontal.
+* O Bestiario permite filtrar criaturas por nivel e raridade quando o ruleset expuser esses metadados.
+* O Bestiario deve paginar resultados no modal, exibindo 10 criaturas por pagina por padrao e permitindo ao Mestre configurar ate 20 por pagina.
+* O Mestre pode adicionar e remover criaturas do bestiario da toolbar de tokens pelo card da criatura.
 
 ## 3. Escopo Atual
 Incluido:

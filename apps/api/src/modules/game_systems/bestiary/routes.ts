@@ -2,7 +2,7 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
-import { listBestiaryCreatures } from './registry'
+import { countBestiaryCreatures, listBestiaryCreatures } from './registry'
 import type { GameSystemBestiaryCreature } from './models'
 
 const campaignBestiaryParamsSchema = z.object({
@@ -11,7 +11,10 @@ const campaignBestiaryParamsSchema = z.object({
 
 const campaignBestiaryQuerySchema = z.object({
   q: z.string().trim().max(80).optional(),
-  limit: z.coerce.number().int().min(1).max(50).default(24),
+  level: z.coerce.number().int().optional(),
+  rarity: z.string().trim().max(40).optional(),
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(20).default(10),
 })
 
 function getGameContentLanguage(settings: unknown): 'pt-BR' | 'original' {
@@ -77,12 +80,21 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
 
     if (!access) return reply.status(403).send({ error: 'Apenas o mestre pode acessar o bestiario da campanha' })
 
+    const filters = {
+      ...(query.data.level === undefined ? {} : { level: query.data.level }),
+      ...(query.data.rarity ? { rarity: query.data.rarity } : {}),
+    }
+
     const creatures = listBestiaryCreatures(access.campaign.system, {
       search: query.data.q,
+      filters,
       limit: query.data.limit,
+      offset: (query.data.page - 1) * query.data.limit,
     })
 
     if (!creatures) return reply.status(404).send({ error: 'Bestiario nao disponivel para este sistema' })
+
+    const total = countBestiaryCreatures(access.campaign.system, { search: query.data.q, filters }) ?? 0
 
     const settings = await prisma.campaignUserSettings.findUnique({
       where: {
@@ -99,6 +111,12 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
       campaignId: access.campaign.id,
       system: access.campaign.system,
       language,
+      pagination: {
+        page: query.data.page,
+        limit: query.data.limit,
+        total,
+        totalPages: Math.max(1, Math.ceil(total / query.data.limit)),
+      },
       creatures: creatures.map((creature) => localizeCreature(creature, language)),
     })
   })

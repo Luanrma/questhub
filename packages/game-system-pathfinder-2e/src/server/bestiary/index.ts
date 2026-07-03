@@ -236,15 +236,31 @@ function matchesSearch(creature: Pathfinder2eBestiaryCreatureData, search: strin
   )
 }
 
+function matchesFilters(creature: Pathfinder2eBestiaryCreatureData, filters: Record<string, string | number> | undefined) {
+  if (!filters) return true
+  if (typeof filters.level === 'number' && creature.level !== filters.level) return false
+  if (typeof filters.rarity === 'string' && creature.rarity !== filters.rarity) return false
+  return true
+}
+
+function filterCreatures(options: { search?: string; filters?: Record<string, string | number> } | undefined) {
+  const search = options?.search ?? ''
+
+  return PATHFINDER_2E_BESTIARY_DATA.filter((creature) => matchesSearch(creature, search) && matchesFilters(creature, options?.filters))
+}
+
 export const pathfinder2eBestiaryAdapter: GameSystemBestiaryAdapter = {
   system: 'PATHFINDER_2E',
   listCreatures(options) {
     const limit = options?.limit ?? 24
-    const search = options?.search ?? ''
+    const offset = options?.offset ?? 0
 
-    return PATHFINDER_2E_BESTIARY_DATA.filter((creature) => matchesSearch(creature, search))
+    return filterCreatures(options)
       .sort((a, b) => a.level - b.level || a.name.localeCompare(b.name))
-      .slice(0, limit)
+      .slice(offset, offset + limit)
       .map(toBestiaryCreature)
+  },
+  countCreatures(options) {
+    return filterCreatures(options).length
   },
 }
