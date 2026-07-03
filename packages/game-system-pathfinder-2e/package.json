@@ -1,0 +1,10 @@
+{
+  "name": "@questhub/game-system-pathfinder-2e",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./server/character-sheet": "./src/server/character-sheet/index.ts",
+    "./server/bestiary": "./src/server/bestiary/index.ts",
+    "./web/character-sheet": "./src/web/character-sheet/Pathfinder2eSheetForm.tsx"
+  }
+}

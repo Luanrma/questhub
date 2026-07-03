@@ -64,12 +64,50 @@ type GameSystemDiceCapabilities = {
 }
 ```
 
+Contratos compartilhados de bestiario devem permanecer agnosticos:
+
+```ts
+type GameSystemBestiaryCreature<TSystemData = unknown> = {
+  id: string
+  system: string
+  name: string
+  source?: GameSystemBestiarySource
+  display: {
+    subtitle?: string
+    level?: { label: string; value: string }
+    stats: Array<{ key: string; label: string; value: string }>
+    tags: string[]
+  }
+  token: GameSystemBestiaryToken
+  systemData: TSystemData
+}
+```
+
+Campos mecanicos como `armorClass`, `hitPoints`, `traits`, `rarity`, `speed`, `spellSlots`, `savingThrows` e equivalentes nao pertencem ao core. Eles devem ficar em `systemData` tipado pelo package do sistema e ser convertidos para `display` quando a aplicacao generica precisar renderiza-los.
+
+## 3.1 Contrato de Package Interno
+Cada package de sistema deve expor capacidades por area, separando server e web:
+
+```txt
+packages/game-system-[system]/
+  src/server/character-sheet
+  src/server/bestiary
+  src/web/character-sheet
+  src/shared
+```
+
+O package pode exportar apenas as capacidades que implementar. A aplicacao deve registrar essas capacidades por registry/facade.
+
+Packages especificos de sistema devem depender de `packages/game-system-core` para contratos compartilhados. Eles nao devem importar arquivos de `apps/api` ou `apps/web`.
+
 ## 4. Regras
 * Todo `Campaign.system` deve apontar para um `GameSystemAdapter` registrado.
 * Todo `Character.system`, quando existir, deve apontar para um `GameSystemAdapter` registrado.
 * Todo `Character.sheet.system` deve ser igual a `Character.system`.
 * O registry deve ser a unica porta para descobrir metadados e capacidades de sistema.
 * Modulos genericos podem conhecer `GameSystemId`, mas nao podem importar modelos internos de ruleset.
+* Apps podem manter facades de compatibilidade durante migracao, mas essas facades devem reexportar packages internos em vez de receber codigo novo especifico.
+* `packages/game-system-core` nao deve modelar Pathfinder 2e, D&D 5e ou qualquer outro sistema indiretamente por campos mecanicos.
 * Dados especificos persistidos devem continuar dentro do envelope de ficha ou catalogos do ruleset.
 * `metadata.bio`, quando informado, e texto narrativo generico e nao pertence a nenhum sistema especifico.
 * Cada ruleset deve possuir seu proprio bloco dentro de `CharacterSheetEnvelope.data`.

@@ -44,6 +44,12 @@ Exemplos de módulos possíveis:
 
 As fronteiras entre **Frontend**, **Backend**, **WebSocket**, **Infraestrutura** e **Domínio** devem ser rigorosamente respeitadas.
 
+Funcionalidades exclusivas de sistemas de RPG, como Pathfinder 2e ou D&D 5e, devem respeitar tambem a fronteira entre **Core Engine** e **Game System Packages**. O VTT, campanhas, cenas, tokens, chat e presenca pertencem ao core. Fichas mecanicas, bestiarios, catalogos, regras, calculos e renderizadores especificos pertencem a `packages/game-system-[system]`.
+
+Codigo novo especifico de sistema nao deve ser criado diretamente em `apps/api` ou `apps/web`, exceto por registries, composition roots ou facades temporarias de compatibilidade.
+
+Contratos em `packages/game-system-core` devem ser agnosticos. Eles podem expor identificadores, nomes, tokens visuais, metadados de fonte genericos, campos de apresentacao genericos e `systemData: unknown`, mas nao devem conter campos mecanicos como `armorClass`, `hitPoints`, `savingThrows`, `spellSlots`, `proficiency`, `traits`, `rarity`, `ancestry`, `class`, `feat` ou equivalentes. Esses campos pertencem ao package do sistema e, quando precisarem aparecer em telas genericas, devem ser adaptados para estruturas neutras como `display.stats`, `display.tags` ou `display.level`.
+
 Se a funcionalidade pertencer a um módulo novo, crie uma nova subpasta dentro de `.ai/` com o nome do módulo.
 
 Exemplo:

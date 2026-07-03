@@ -11,20 +11,21 @@ import { questhubBestiaryDragType } from '../../../vtt/table/config/constants'
 
 type BestiaryCreature = {
   id: string
-  system: 'PATHFINDER_2E' | 'DND_5E'
-  sourcePack: string
-  sourceId: string
+  system: string
   name: string
-  level: number
-  rarity: string
-  size: string
-  traits: string[]
-  armorClass: number
-  hitPoints: number
-  speed: number
-  publicationTitle: string
-  remaster: boolean
-  license: string
+  display: {
+    subtitle?: string
+    level?: {
+      label: string
+      value: string
+    }
+    stats: Array<{
+      key: string
+      label: string
+      value: string
+    }>
+    tags: string[]
+  }
   token: {
     imageUrl: string | null
     fallbackInitials: string
@@ -41,20 +42,6 @@ type BestiaryResponse = {
 const systemLabels: Record<BestiaryResponse['system'], string> = {
   PATHFINDER_2E: 'Pathfinder 2e',
   DND_5E: 'Dungeons & Dragons 5e',
-}
-
-const sizeLabels: Record<string, string> = {
-  tiny: 'Miudo',
-  sm: 'Pequeno',
-  med: 'Medio',
-  lg: 'Grande',
-  huge: 'Enorme',
-  grg: 'Colossal',
-}
-
-function formatLevel(level: number) {
-  if (level < 0) return `${level}`
-  return `+${level}`
 }
 
 function CreatureToken({ creature }: { creature: BestiaryCreature }) {
@@ -90,6 +77,13 @@ function StatPill({ icon, label }: { icon: React.ReactNode; label: string }) {
       {label}
     </span>
   )
+}
+
+function statIcon(key: string) {
+  if (key === 'armorClass') return <Shield className="h-3.5 w-3.5" />
+  if (key === 'hitPoints') return <Heart className="h-3.5 w-3.5" />
+  if (key === 'speed') return <Footprints className="h-3.5 w-3.5" />
+  return <Sparkles className="h-3.5 w-3.5" />
 }
 
 export function CampaignBestiaryPage() {
@@ -233,25 +227,24 @@ export function CampaignBestiaryPage() {
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <h2 className="truncate text-base font-semibold text-white">{creature.name}</h2>
-                    <div className="mt-1 text-xs text-zinc-400">
-                      {creature.publicationTitle} - {creature.sourcePack}
-                    </div>
+                    {creature.display.subtitle ? <div className="mt-1 text-xs text-zinc-400">{creature.display.subtitle}</div> : null}
                   </div>
-                  <span className="rounded-md border border-indigo-300/20 bg-indigo-400/10 px-2 py-1 text-xs font-bold text-indigo-100">
-                    Nivel {formatLevel(creature.level)}
-                  </span>
+                  {creature.display.level ? (
+                    <span className="rounded-md border border-indigo-300/20 bg-indigo-400/10 px-2 py-1 text-xs font-bold text-indigo-100">
+                      {creature.display.level.label} {creature.display.level.value}
+                    </span>
+                  ) : null}
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <StatPill icon={<Shield className="h-3.5 w-3.5" />} label={`CA ${creature.armorClass}`} />
-                  <StatPill icon={<Heart className="h-3.5 w-3.5" />} label={`${creature.hitPoints} PV`} />
-                  <StatPill icon={<Footprints className="h-3.5 w-3.5" />} label={`${creature.speed} ft`} />
-                  <StatPill icon={<Sparkles className="h-3.5 w-3.5" />} label={sizeLabels[creature.size] ?? creature.size} />
+                  {creature.display.stats.map((stat) => (
+                    <StatPill key={stat.key} icon={statIcon(stat.key)} label={`${stat.label} ${stat.value}`} />
+                  ))}
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-1.5">
-                  {[creature.rarity, ...creature.traits].map((trait) => (
-                    <span key={trait} className="rounded border border-white/10 bg-black/25 px-2 py-0.5 text-[11px] text-zinc-300">
+                  {creature.display.tags.map((trait, index) => (
+                    <span key={`${trait}:${index}`} className="rounded border border-white/10 bg-black/25 px-2 py-0.5 text-[11px] text-zinc-300">
                       {trait}
                     </span>
                   ))}
