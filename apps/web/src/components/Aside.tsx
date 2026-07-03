@@ -22,6 +22,7 @@ type Props = {
   canOpenMySheet?: boolean
   onOpenMySheet?: () => void
   onSwitchCampaign?: () => void | Promise<void>
+  onOpenCampaignPanel?: (path: string) => void
 }
 
 export function Aside({
@@ -30,6 +31,7 @@ export function Aside({
   canOpenMySheet = false,
   onOpenMySheet,
   onSwitchCampaign,
+  onOpenCampaignPanel,
 }: Props) {
   const [collapsed, setCollapsed] = useState(true)
 
@@ -107,7 +109,13 @@ export function Aside({
                 <NavLink
                   to={it.to}
                   onClick={(event) => {
-                    if (it.to !== '/campaigns') return
+                    if (it.to !== '/campaigns') {
+                      if (it.to.startsWith(`/campaign/${campaignId}/`) && !it.to.endsWith('/overview')) {
+                        event.preventDefault()
+                        onOpenCampaignPanel?.(it.to)
+                      }
+                      return
+                    }
                     event.preventDefault()
                     const confirmed = window.confirm('Deseja sair da mesa e trocar de campanha?')
                     if (!confirmed) return

@@ -1,6 +1,6 @@
-import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
-import { useEffect, useRef, useState } from 'react'
-import { GripHorizontal, MapPinned, Pause, Play, Power, X } from 'lucide-react'
+import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { GripHorizontal, MapPinned, Maximize2, Minimize2, Pause, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
@@ -20,6 +20,10 @@ import {
   storeCampaignUserSettings,
   type CampaignUserSettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
+import { CampaignBestiaryPage } from '../features/bestiary/pages/CampaignBestiaryPage'
+import { CampaignPlayersPage } from '../features/campaign-presence/pages/CampaignPlayersPage'
+import { CampaignSettingsPage } from '../features/campaigns/pages/CampaignSettingsPage'
+import { PlaceholderPage } from '../features/campaigns/pages/PlaceholderPage'
 
 type MyCampaignCharacter = {
   id: string
@@ -27,6 +31,46 @@ type MyCampaignCharacter = {
   avatarUrl: string | null
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING'
+}
+
+type CampaignPanelId = 'sessions' | 'characters' | 'bestiary' | 'players' | 'journal' | 'settings'
+
+type FloatingPanelState = {
+  id: CampaignPanelId
+  position: { x: number; y: number }
+  size: { width: number; height: number }
+  collapsed: boolean
+  zIndex: number
+}
+
+const panelTitles: Record<CampaignPanelId, string> = {
+  sessions: 'Sessões',
+  characters: 'Personagens',
+  bestiary: 'Bestiario',
+  players: 'Jogadores',
+  journal: 'Diário',
+  settings: 'Configurações',
+}
+
+function panelIdFromPath(pathname: string): CampaignPanelId | null {
+  if (pathname.endsWith('/sessions')) return 'sessions'
+  if (pathname.endsWith('/characters')) return 'characters'
+  if (pathname.endsWith('/bestiary')) return 'bestiary'
+  if (pathname.endsWith('/players')) return 'players'
+  if (pathname.endsWith('/journal')) return 'journal'
+  if (pathname.endsWith('/settings')) return 'settings'
+  return null
+}
+
+function getDefaultPanelState(id: CampaignPanelId, index: number, zIndex: number): FloatingPanelState {
+  const largePanel = id === 'bestiary' || id === 'settings' || id === 'players'
+  return {
+    id,
+    position: { x: 112 + index * 28, y: 96 + index * 28 },
+    size: largePanel ? { width: 920, height: 720 } : { width: 620, height: 420 },
+    collapsed: false,
+    zIndex,
+  }
 }
 
 function getPanelTitle(pathname: string) {
@@ -39,10 +83,30 @@ function getPanelTitle(pathname: string) {
   return 'Painel'
 }
 
-function FloatingCampaignPanel({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
-  const [position, setPosition] = useState({ x: 112, y: 96 })
+function FloatingCampaignPanel({
+  title,
+  defaultPosition,
+  defaultSize,
+  zIndex,
+  onClose,
+  onFocus,
+  children,
+}: {
+  title: string
+  defaultPosition: { x: number; y: number }
+  defaultSize: { width: number; height: number }
+  zIndex: number
+  onClose: () => void
+  onFocus: () => void
+  children: (size: { width: number; height: number }) => ReactNode
+}) {
+  const [position, setPosition] = useState(defaultPosition)
+  const [size, setSize] = useState(defaultSize)
+  const [collapsed, setCollapsed] = useState(false)
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
+  const resizeStartRef = useRef({ pointerX: 0, pointerY: 0, width: 0, height: 0 })
   const [dragging, setDragging] = useState(false)
+  const [resizing, setResizing] = useState(false)
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -67,7 +131,31 @@ function FloatingCampaignPanel({ title, onClose, children }: { title: string; on
     }
   }, [dragging])
 
+  useEffect(() => {
+    function onPointerMove(event: PointerEvent) {
+      if (!resizing) return
+
+      setSize({
+        width: Math.min(window.innerWidth - 48, Math.max(380, resizeStartRef.current.width + event.clientX - resizeStartRef.current.pointerX)),
+        height: Math.min(window.innerHeight - 104, Math.max(220, resizeStartRef.current.height + event.clientY - resizeStartRef.current.pointerY)),
+      })
+    }
+
+    function onPointerUp() {
+      setResizing(false)
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+    }
+  }, [resizing])
+
   function startDrag(event: React.PointerEvent<HTMLDivElement>) {
+    onFocus()
     dragStartRef.current = {
       pointerX: event.clientX,
       pointerY: event.clientY,
@@ -77,10 +165,30 @@ function FloatingCampaignPanel({ title, onClose, children }: { title: string; on
     setDragging(true)
   }
 
+  function startResize(event: React.PointerEvent<HTMLButtonElement>) {
+    event.preventDefault()
+    event.stopPropagation()
+    onFocus()
+    resizeStartRef.current = {
+      pointerX: event.clientX,
+      pointerY: event.clientY,
+      width: size.width,
+      height: size.height,
+    }
+    setResizing(true)
+  }
+
   return (
     <section
-      className="campaign-floating-panel fixed z-30 flex max-h-[calc(100vh-120px)] w-[min(920px,calc(100vw-160px))] flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur"
-      style={{ left: position.x, top: position.y }}
+      className="campaign-floating-panel fixed z-30 flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur"
+      style={{
+        left: position.x,
+        top: position.y,
+        width: Math.min(size.width, window.innerWidth - 48),
+        height: collapsed ? undefined : Math.min(size.height, window.innerHeight - 104),
+        zIndex,
+      }}
+      onPointerDown={onFocus}
     >
       <div
         className="flex cursor-grab items-center justify-between gap-3 border-b border-white/10 bg-black/30 px-4 py-3 active:cursor-grabbing"
@@ -90,17 +198,37 @@ function FloatingCampaignPanel({ title, onClose, children }: { title: string; on
           <GripHorizontal className="h-4 w-4 shrink-0 text-zinc-500" />
           <h1 className="truncate text-sm font-semibold text-white">{title}</h1>
         </div>
+        <div className="flex shrink-0 items-center gap-1">
+          <button
+            type="button"
+            title={collapsed ? 'Expandir menu' : 'Recolher menu'}
+            className="rounded-md p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={() => setCollapsed((current) => !current)}
+          >
+            {collapsed ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            title="Fechar painel"
+            className="rounded-md p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            onPointerDown={(event) => event.stopPropagation()}
+            onClick={onClose}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+      {!collapsed ? <div className="min-h-0 flex-1 overflow-auto p-5">{children(size)}</div> : null}
+      {!collapsed ? (
         <button
           type="button"
-          title="Fechar painel"
-          className="rounded-md p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
-          onPointerDown={(event) => event.stopPropagation()}
-          onClick={onClose}
-        >
-          <X className="h-4 w-4" />
-        </button>
-      </div>
-      <div className="min-h-0 overflow-auto p-5">{children}</div>
+          title="Redimensionar painel"
+          aria-label="Redimensionar painel"
+          className="absolute bottom-0 right-0 h-5 w-5 cursor-nwse-resize rounded-tl-md border-l border-t border-white/10 bg-white/[0.06] transition hover:bg-white/15"
+          onPointerDown={startResize}
+        />
+      ) : null}
     </section>
   )
 }
@@ -128,6 +256,7 @@ export function CampaignLayout() {
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
+  const [openPanels, setOpenPanels] = useState<CampaignPanelId[]>([])
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
     campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
   )
@@ -136,13 +265,46 @@ export function CampaignLayout() {
   const isMaster = campaign?.myRole === 'MASTER'
   const sessionState = campaign?.sessionState ?? (campaign?.isOnline ? 'ACTIVE' : null)
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
-  const hasFloatingPanel = !isTableRoute
-  const panelTitle = getPanelTitle(location.pathname)
   const navigationState = location.state as { characterId?: string | null } | null
+
+  function openCampaignPanel(panelId: CampaignPanelId) {
+    setOpenPanels((current) => {
+      const without = current.filter((item) => item !== panelId)
+      return [...without, panelId]
+    })
+  }
+
+  function openCampaignPanelFromPath(path: string) {
+    const panelId = panelIdFromPath(path)
+    if (!panelId) return
+    openCampaignPanel(panelId)
+  }
+
+  function closeCampaignPanel(panelId: CampaignPanelId) {
+    setOpenPanels((current) => current.filter((item) => item !== panelId))
+  }
+
+  function renderCampaignPanel(panelId: CampaignPanelId, size: { width: number; height: number }) {
+    if (panelId === 'sessions') return <PlaceholderPage title="Sessões" />
+    if (panelId === 'characters') return <PlaceholderPage title="Personagens" />
+    if (panelId === 'bestiary') return <CampaignBestiaryPage compact={size.width < 720} />
+    if (panelId === 'players') return <CampaignPlayersPage />
+    if (panelId === 'journal') return <PlaceholderPage title="Diário" />
+    return <CampaignSettingsPage />
+  }
 
   useEffect(() => {
     if (campaignId) setActiveCampaignId(campaignId)
   }, [campaignId, setActiveCampaignId])
+
+  useEffect(() => {
+    if (!campaignId || isTableRoute) return
+    const panelId = panelIdFromPath(location.pathname)
+    if (!panelId) return
+    openCampaignPanel(panelId)
+    navigate(`/campaign/${campaignId}/overview`, { replace: true })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campaignId, isTableRoute, location.pathname])
 
   useEffect(() => {
     if (!campaignId || !campaign) return
@@ -315,6 +477,7 @@ export function CampaignLayout() {
           canOpenMySheet={Boolean(myCharacter?.id)}
           onOpenMySheet={() => setMySheetOpen(true)}
           onSwitchCampaign={onSwitchCampaign}
+          onOpenCampaignPanel={openCampaignPanelFromPath}
         />
 
         <div className="flex h-full min-h-0 flex-col">
@@ -397,11 +560,23 @@ export function CampaignLayout() {
               onGridSettingsOpenChange={setGridSettingsOpen}
             />
 
-            {hasFloatingPanel ? (
-              <FloatingCampaignPanel title={panelTitle} onClose={() => navigate(`/campaign/${campaignId}/overview`)}>
-                <Outlet />
-              </FloatingCampaignPanel>
-            ) : null}
+            {openPanels.map((panelId, index) => {
+              const panel = getDefaultPanelState(panelId, index, 30 + index)
+
+              return (
+                <FloatingCampaignPanel
+                  key={panelId}
+                  title={panelTitles[panelId] ?? getPanelTitle(location.pathname)}
+                  defaultPosition={panel.position}
+                  defaultSize={panel.size}
+                  zIndex={panel.zIndex}
+                  onFocus={() => openCampaignPanel(panelId)}
+                  onClose={() => closeCampaignPanel(panelId)}
+                >
+                  {(size) => renderCampaignPanel(panelId, size)}
+                </FloatingCampaignPanel>
+              )
+            })}
           </main>
         </div>
       </div>

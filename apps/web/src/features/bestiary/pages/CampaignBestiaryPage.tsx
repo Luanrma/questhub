@@ -44,13 +44,15 @@ const systemLabels: Record<BestiaryResponse['system'], string> = {
   DND_5E: 'Dungeons & Dragons 5e',
 }
 
-function CreatureToken({ creature }: { creature: BestiaryCreature }) {
+function CreatureToken({ creature, compact = false }: { creature: BestiaryCreature; compact?: boolean }) {
+  const sizeClass = compact ? 'h-10 w-10' : 'h-14 w-14'
+
   if (creature.token.imageUrl) {
     return (
       <img
         src={creature.token.imageUrl}
         alt=""
-        className="h-14 w-14 rounded-full border-2 object-cover shadow-lg"
+        className={`${sizeClass} rounded-full border-2 object-cover shadow-lg`}
         style={{ borderColor: creature.token.borderColor }}
       />
     )
@@ -58,7 +60,7 @@ function CreatureToken({ creature }: { creature: BestiaryCreature }) {
 
   return (
     <div
-      className="grid h-14 w-14 place-items-center rounded-full border-2 bg-black/45 text-sm font-bold text-white shadow-lg"
+      className={`${sizeClass} grid place-items-center rounded-full border-2 bg-black/45 text-sm font-bold text-white shadow-lg`}
       style={{
         borderColor: creature.token.borderColor,
         boxShadow: `0 0 22px ${creature.token.borderColor}33`,
@@ -86,7 +88,7 @@ function statIcon(key: string) {
   return <Sparkles className="h-3.5 w-3.5" />
 }
 
-export function CampaignBestiaryPage() {
+export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } = {}) {
   const { campaignId } = useParams()
   const [search, setSearch] = useState('')
   const [data, setData] = useState<BestiaryResponse | null>(null)
@@ -178,11 +180,11 @@ export function CampaignBestiaryPage() {
   }
 
   return (
-    <div className="space-y-5">
+    <div className={compact ? 'space-y-3' : 'space-y-5'}>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Bestiario</h1>
-          <p className="mt-2 text-sm text-zinc-300">
+          <h1 className={compact ? 'text-xl font-semibold text-white' : 'text-2xl font-semibold text-white'}>Bestiario</h1>
+          <p className={compact ? 'mt-1 text-xs text-zinc-300' : 'mt-2 text-sm text-zinc-300'}>
             {data ? systemLabels[data.system] : 'Carregando sistema da campanha...'}
           </p>
         </div>
@@ -209,24 +211,27 @@ export function CampaignBestiaryPage() {
         </div>
       ) : null}
 
-      <div className="grid gap-3 lg:grid-cols-2">
+      <div className={compact ? 'grid gap-2' : 'grid gap-3 lg:grid-cols-2'}>
         {data?.creatures.map((creature) => (
           <article
             key={creature.id}
             draggable
             title="Arraste para o tabuleiro para criar um token NPC"
-            className="cursor-grab rounded-lg border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07] active:cursor-grabbing"
+            className={[
+              'cursor-grab rounded-lg border border-white/10 bg-white/[0.04] transition hover:border-indigo-300/40 hover:bg-white/[0.07] active:cursor-grabbing',
+              compact ? 'p-3' : 'p-4',
+            ].join(' ')}
             onDragStart={(event) => {
               event.dataTransfer.setData(questhubBestiaryDragType, creature.id)
               event.dataTransfer.effectAllowed = 'copy'
             }}
           >
-            <div className="flex items-start gap-4">
-              <CreatureToken creature={creature} />
+            <div className={compact ? 'flex items-start gap-3' : 'flex items-start gap-4'}>
+              <CreatureToken creature={creature} compact={compact} />
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <h2 className="truncate text-base font-semibold text-white">{creature.name}</h2>
+                    <h2 className={compact ? 'truncate text-sm font-semibold text-white' : 'truncate text-base font-semibold text-white'}>{creature.name}</h2>
                     {creature.display.subtitle ? <div className="mt-1 text-xs text-zinc-400">{creature.display.subtitle}</div> : null}
                   </div>
                   {creature.display.level ? (
@@ -236,13 +241,13 @@ export function CampaignBestiaryPage() {
                   ) : null}
                 </div>
 
-                <div className="mt-3 flex flex-wrap gap-2">
+                <div className={compact ? 'mt-2 flex flex-wrap gap-1.5' : 'mt-3 flex flex-wrap gap-2'}>
                   {creature.display.stats.map((stat) => (
                     <StatPill key={stat.key} icon={statIcon(stat.key)} label={`${stat.label} ${stat.value}`} />
                   ))}
                 </div>
 
-                <div className="mt-3 flex flex-wrap gap-1.5">
+                <div className={compact ? 'mt-2 flex flex-wrap gap-1' : 'mt-3 flex flex-wrap gap-1.5'}>
                   {creature.display.tags.map((trait, index) => (
                     <span key={`${trait}:${index}`} className="rounded border border-white/10 bg-black/25 px-2 py-0.5 text-[11px] text-zinc-300">
                       {trait}
@@ -253,7 +258,10 @@ export function CampaignBestiaryPage() {
                 <button
                   type="button"
                   disabled={preparedCreatureIdSet.has(creature.id) || savingCreatureId === creature.id}
-                  className="mt-4 inline-flex h-9 items-center gap-2 rounded-md border border-emerald-300/20 bg-emerald-500/10 px-3 text-xs font-semibold uppercase text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-default disabled:border-white/10 disabled:bg-white/[0.04] disabled:text-zinc-400"
+                  className={[
+                    'inline-flex items-center gap-2 rounded-md border border-emerald-300/20 bg-emerald-500/10 px-3 text-xs font-semibold uppercase text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-default disabled:border-white/10 disabled:bg-white/[0.04] disabled:text-zinc-400',
+                    compact ? 'mt-3 h-8' : 'mt-4 h-9',
+                  ].join(' ')}
                   onClick={(event) => {
                     event.preventDefault()
                     event.stopPropagation()
