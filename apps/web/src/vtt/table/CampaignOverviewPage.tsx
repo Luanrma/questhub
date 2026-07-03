@@ -821,12 +821,44 @@ export function CampaignOverviewPage({
     if (!position) return
 
     event.preventDefault()
+    if (creatureId) addBestiaryCreatureToToolbar(creatureId)
     socket.emit(
       'vtt:token:place',
       creatureId
         ? { campaignId, source: 'bestiary', creatureId, position }
         : { campaignId, source: 'character', characterId, position },
     )
+  }
+
+  function addBestiaryCreatureToToolbar(creatureId: string) {
+    if (!campaignId) return
+
+    const currentSettings = readStoredCampaignUserSettings(campaignId)
+    if (currentSettings.vtt.preparedBestiaryCreatureIds.includes(creatureId)) return
+
+    const nextIds = Array.from(new Set([...currentSettings.vtt.preparedBestiaryCreatureIds, creatureId]))
+    const nextSettings: CampaignUserSettings = {
+      ...currentSettings,
+      vtt: {
+        ...currentSettings.vtt,
+        preparedBestiaryCreatureIds: nextIds,
+      },
+    }
+
+    storeCampaignUserSettings(campaignId, nextSettings)
+
+    void api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings: { vtt: { preparedBestiaryCreatureIds: nextIds } } }),
+    })
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setTokenCandidatesRefreshKey((current) => current + 1)
+      })
+      .catch(() => {
+        storeCampaignUserSettings(campaignId, currentSettings)
+        setTokenCandidatesRefreshKey((current) => current + 1)
+      })
   }
 
   function removeTokenCandidateFromToolbar(candidate: VttTokenCandidate) {
