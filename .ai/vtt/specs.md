@@ -163,6 +163,7 @@ type MyCampaignCharacter = {
 * Clicar no botao de aumentar zoom aumenta o zoom sem passar de 150%.
 * O valor percentual do zoom deve ser exibido entre os botoes de diminuir e aumentar.
 * O zoom deve escalar grid, tokens e medicao visualmente sem alterar coordenadas logicas, posicoes realtime ou configuracao persistida de grid.
+* Em cenas sem imagem de background, o zoom local pode alterar a escala visual, mas nao pode alterar a quantidade total de celulas do board; Mestre e Players devem compartilhar a mesma dimensao logica de superficie jogavel.
 * O zoom minimo efetivo deve subir acima de 50% quando necessario para impedir que area vazia alem da borda do board apareca na viewport.
 * A posicao do token e persistida por cena em `CampaignSceneToken`.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online que visualizam a cena afetada.
@@ -205,6 +206,7 @@ type MyCampaignCharacter = {
 * A camada 3D nao pode capturar pointer events nem impedir interacao com grid, tokens, medicoes ou botoes.
 * A ferramenta de dados deve ser implementada como componente do VTT, nao como estado interno de `CampaignLayout`.
 * `CampaignLayout` pode fornecer `campaignId`, personagem atual, socket e estado da sessao para ferramentas VTT, mas nao deve conhecer detalhes de engine de dados, bibliotecas 3D ou formatos visuais de rolagem.
+* Mudancas exclusivas da camada de tokens, como drop, movimento, remocao e invisibilidade, nao podem disparar `LoadingScreen` global nem reaplicar a cena inteira.
 
 ## 5. Configuracao Visual do Grid
 
@@ -317,6 +319,9 @@ Regras:
 * O menu de tokens nao deve listar outro candidato `PLAYER` do mesmo `ownerUserId` quando ja existir um token `PLAYER` desse usuario posicionado em qualquer cena.
 * Apenas o dono do personagem pode mover o proprio token apos ele existir no board.
 * Ao receber atualizacao valida durante a sessao online, o backend atualiza o estado vivo em memoria/cache e emite para sockets autorizados a visualizar a cena.
+* Drop/criacao de token durante sessao online deve seguir o mesmo principio de estado vivo: atualizar cache/memoria, emitir delta de token e marcar cena dirty para persistencia posterior.
+* Drop/criacao de token durante sessao online nao deve emitir snapshot completo de tokens/cena para toda a campanha.
+* Drop/criacao de token durante sessao online nao deve recalcular o frame da cena no cliente; somente a camada de tokens deve receber patch local.
 * Durante a sessao online, movimento e visibilidade de tokens devem consultar primeiro o estado vivo; se o token nao existir mais no estado vivo, a acao deve ser recusada mesmo que ainda exista registro persistido aguardando o encerramento da sessao.
 * O backend persiste tokens em `campaign_scene` ao iniciar e ao encerrar sessao.
 * Ao entrar em uma sessao ativa, o cliente recebe `campaign-scene:snapshot`.
@@ -337,6 +342,7 @@ Eventos Socket.IO:
 * `vtt:tokens:request`: legado do modelo em memoria; novo fluxo deve usar snapshot de cena.
 * `vtt:token:removed`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
 * Enquanto os eventos legados existirem, payloads de token devem carregar `sceneId` e o servidor deve emitir alteracoes apenas para sockets cuja cena visivel seja a cena do token.
+* Enquanto os eventos legados existirem, `vtt:token:place` online deve emitir apenas `vtt:token:changed` ou equivalente delta de token para sockets autorizados; nao deve chamar `vtt:tokens:snapshot` como resposta normal ao drop.
 
 ## 7. Medicao Realtime
 
