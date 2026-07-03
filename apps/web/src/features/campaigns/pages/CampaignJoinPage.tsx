@@ -240,7 +240,7 @@ export function CampaignJoinPage() {
                     >
                       <span className="flex items-center gap-3">
                         {character.avatarUrl ? (
-                          <img src={character.avatarUrl} alt="" className="h-10 w-10 rounded-full object-cover" />
+                          <img src={character.avatarUrl} alt="" className="h-10 w-10 rounded-full object-cover" draggable={false} />
                         ) : (
                           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-zinc-300">
                             <UserRound className="h-5 w-5" />

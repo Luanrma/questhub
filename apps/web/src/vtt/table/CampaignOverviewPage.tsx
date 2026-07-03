@@ -1453,7 +1453,7 @@ export function CampaignOverviewPage({
                         className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full bg-indigo-600 text-sm font-bold text-white"
                         style={{ backgroundColor: candidate.tokenBorderColor ?? undefined }}
                       >
-                        {candidate.avatarUrl ? <img src={candidate.avatarUrl} alt="" className="h-full w-full object-cover" /> : candidate.name.charAt(0).toUpperCase()}
+                        {candidate.avatarUrl ? <img src={candidate.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : candidate.name.charAt(0).toUpperCase()}
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate text-sm font-semibold text-white">{candidate.name}</span>

@@ -306,6 +306,7 @@ export function CharacterCreatePage() {
                   src={selectedAvatarUrl}
                   alt=""
                   className="h-24 w-24 rounded-full border border-indigo-300/20 bg-black/30 object-cover"
+                  draggable={false}
                 />
               ) : (
                 <div className="flex h-24 w-24 items-center justify-center rounded-full border border-indigo-300/20 bg-indigo-400/10 text-indigo-100">
@@ -364,7 +365,7 @@ export function CharacterCreatePage() {
                   ].join(' ')}
                   title={`Avatar ${index + 1}`}
                 >
-                  <img src={preset} alt="" className="h-full w-full rounded-lg object-cover" />
+                  <img src={preset} alt="" className="h-full w-full rounded-lg object-cover" draggable={false} />
                   {selectedAvatarUrl === preset ? (
                     <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500 text-white">
                       <Check className="h-3.5 w-3.5" />

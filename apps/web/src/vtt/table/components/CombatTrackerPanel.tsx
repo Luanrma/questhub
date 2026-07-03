@@ -109,7 +109,7 @@ export function CombatTrackerPanel({
                   ].join(' ')}
                 >
                   <span className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-indigo-600 text-xs font-bold text-white">
-                    {participant.avatarUrl ? <img src={participant.avatarUrl} alt="" className="h-full w-full object-cover" /> : initial}
+                    {participant.avatarUrl ? <img src={participant.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
                   </span>
                   <span className="min-w-0">
                     <span className="block truncate text-sm font-semibold text-white">{participant.name}</span>

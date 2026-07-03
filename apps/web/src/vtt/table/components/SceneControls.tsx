@@ -64,7 +64,7 @@ export function ScenePreparationModal({
                       <span className="relative grid min-h-0 place-items-center overflow-hidden">
                         {scene.imageUrl ? (
                           <>
-                            <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" />
+                            <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" draggable={false} />
                             <span className="absolute inset-x-0 bottom-0 truncate bg-black/60 px-3 py-2 text-xs font-semibold text-zinc-200">{scene.fileName}</span>
                           </>
                         ) : (
@@ -210,7 +210,7 @@ export function SceneDock({
 
                   return (
                     <button key={scene.id} type="button" title={scene.fileName ?? scene.name} className={['group relative h-16 w-28 overflow-hidden rounded-md border bg-white/[0.04] text-left shadow-lg transition', selected ? 'border-indigo-300 ring-2 ring-indigo-400/50' : 'border-white/10 hover:border-indigo-300/60 hover:bg-white/[0.08]'].join(' ')} onClick={() => onSelectScene(scene.id)}>
-                      {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" /> : null}
+                      {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : null}
                       <span className="absolute inset-x-0 bottom-0 truncate bg-black/70 px-2 py-1 text-xs font-semibold text-white">{scene.name}</span>
                     </button>
                   )

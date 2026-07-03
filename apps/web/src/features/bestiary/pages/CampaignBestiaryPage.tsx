@@ -61,6 +61,7 @@ function CreatureToken({ creature, compact = false }: { creature: BestiaryCreatu
         alt=""
         className={`${sizeClass} shrink-0 rounded-full border-2 object-cover shadow-lg`}
         style={{ borderColor: creature.token.borderColor }}
+        draggable={false}
       />
     )
   }
