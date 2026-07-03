@@ -11,7 +11,7 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * A partir deste modulo, cena persistida substitui as regras antigas do MVP em que grid e tokens nao eram persistidos.
 * Nao ha obrigacao de preservar dados antigos de desenvolvimento; migracoes podem assumir que nao existe informacao importante a manter.
 * O VTT continua renderizando a mesa, mas o estado persistido de mapa, grid e tokens pertence a `campaign_scene`.
-* Trocar de cena pelo Mestre pausa automaticamente a sessao, e a nova cena inicia em estado pausado.
+* Trocar de cena pelo Mestre pausa automaticamente a sessao online.
 * Jogadores nao recebem automaticamente a nova cena quando o Mestre retoma a sessao; por padrao, cada jogador ve a cena onde seu token esta.
 * O Mestre pode forcar uma cena para todos os jogadores, independente de onde estejam seus tokens ou de ainda nao terem token posicionado.
 * O modo "mostrar para todos" dura ate o Mestre desativar manualmente; depois cada jogador volta a ver a cena do proprio token.
@@ -170,8 +170,8 @@ Regras:
 * Para renderizar, `pixelCenter = position * scene.grid.size`, com zoom aplicado apenas visualmente.
 * Ao alterar o tamanho do grid, o token permanece no mesmo ponto logico da cena.
 * Apenas o dono do personagem pode mover o proprio token durante sessao `ACTIVE`.
-* O Mestre pode mover qualquer token quando a sessao esta `PAUSED`.
-* O Mestre nao move token de Player por drag durante sessao `ACTIVE`, para evitar conflito de input.
+* O Mestre pode mover qualquer token antes da sessao ou durante a sessao online.
+* O Mestre pode mover token de Player por drag durante sessao online.
 * O Mestre pode posicionar tokens antes de iniciar a campanha.
 * Tokens pertencem a uma cena por vez. Mover um token entre cenas altera seu `sceneId`.
 * O menu contextual do Mestre no token deve oferecer `Mover para cena...`.
@@ -204,7 +204,7 @@ Regras:
 * Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver uma tela preta/neutra aguardando posicionamento ou cena compartilhada.
 * Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar para tela preta/neutra ate o token ser reposicionado.
 * Remover token de um jogador nunca deve redirecionar esse jogador para `masterActiveSceneId` ou para a primeira cena da campanha.
-* Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao.
+* Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao online.
 * Retomar sessao nao muda a cena visivel dos jogadores por si so; a visao continua seguindo `forcedSceneId` ou cena do token.
 
 ## 5. Persistencia
@@ -307,11 +307,11 @@ type CampaignSceneTokensRemovedPayload = {
 
 Eventos:
 * `campaign-scene:snapshot`: servidor envia a cena que o socket deve visualizar.
-* `campaign-scene:switch`: Mestre troca sua cena ativa; servidor pausa a sessao e persiste o estado.
+* `campaign-scene:switch`: Mestre troca sua cena ativa; servidor persiste o estado e pausa a sessao quando ela esta online.
 * `campaign-scene:force`: Mestre ativa ou troca a cena forcada para todos.
 * `campaign-scene:unforce`: Mestre desativa a cena forcada para todos.
 * `campaign-scene:changed`: servidor informa que a cena visivel de um socket mudou.
-* `campaign-scene:token:move`: jogador dono em `ACTIVE` ou Mestre em `PAUSED` move token dentro da cena atual.
+* `campaign-scene:token:move`: jogador dono em sessao online ou Mestre em qualquer estado move token dentro da cena atual.
 * `campaign-scene:token:moved`: servidor confirma e transmite movimento valido para sockets que visualizam a cena.
 * `campaign-scene:token:move-scene`: Mestre move token para outra cena.
 * `campaign-scene:token:scene-changed`: servidor informa mudanca de cena do token e atualiza os sockets afetados.
@@ -332,7 +332,7 @@ Regras:
 Regras:
 * O rodape de cenas continua visivel apenas para Mestre.
 * `Preparar cena` continua sendo a entrada para criar e organizar cenas com cards.
-* Ao selecionar uma cena no rodape, o Mestre muda `masterActiveSceneId`, a sessao pausa automaticamente e a mesa dele renderiza o snapshot daquela cena.
+* Ao selecionar uma cena no rodape, o Mestre muda `masterActiveSceneId`, pausa a sessao online e a mesa dele renderiza o snapshot daquela cena.
 * A mesa deve limpar o canvas atual e reinicializar fundo, grid, tokens e medicoes visuais a partir da cena escolhida.
 * Durante a aplicacao de snapshot, troca de cena ou carregamento da imagem de background, a mesa deve exibir o `LoadingScreen` global ate a cena, imagem, grid e tokens estarem renderizados de forma estavel, ocultando redimensionamentos intermediarios.
 * A troca de cena nao deve desmontar `CampaignLayout`.
@@ -348,7 +348,7 @@ Regras:
 * Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.
 * Mestre consegue preparar cenas pelo modal `Preparar cena`.
-* Trocar cena pelo Mestre pausa automaticamente a sessao.
+* Trocar cena pelo Mestre pausa automaticamente a sessao online.
 * Trocar cena, receber snapshot de cena ou carregar background nao deve expor ao usuario o reajuste visual intermediario de imagem, grid e tokens.
 * Retomar sessao nao revela automaticamente a nova cena para todos.
 * Player ve a cena onde seu token esta quando nao ha cena forcada.
@@ -358,8 +358,8 @@ Regras:
 * Mestre consegue mover token entre cenas pelo menu contextual `Mover para cena...`.
 * Mestre consegue mover tokens entre cards de cena no modal da sidebar direita.
 * Jogador move apenas o proprio token em sessao `ACTIVE`.
-* Mestre move qualquer token em sessao `PAUSED`.
-* Mestre nao move token de Player por drag em sessao `ACTIVE`.
+* Mestre move qualquer token antes da sessao ou durante a sessao online.
+* Mestre pode mover token de Player por drag em sessao online.
 * Diarios nao ficam vinculados a cenas e nao sao implementados neste modulo.
 * Imagens de cena sao lidas do cache do cliente quando disponiveis.
 * Imagem de cena so e requisitada novamente quando ausente, invalida ou expirada no cache.

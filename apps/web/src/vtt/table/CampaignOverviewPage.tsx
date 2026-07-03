@@ -682,8 +682,8 @@ export function CampaignOverviewPage({
   function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
     if (!campaignId || !socket) return
     const isOwnerMove = sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER'
-    const isMasterPausedMove = sessionState === 'PAUSED' && isMaster
-    if (!isOwnerMove && !isMasterPausedMove) return
+    const isMasterMove = Boolean(isMaster)
+    if (!isOwnerMove && !isMasterMove) return
 
     const nextPosition = normalizeTokenPosition(position, gridSettings.shape, gridBounds, tokenSize)
     setTokenState((current) => {
@@ -1305,7 +1305,7 @@ export function CampaignOverviewPage({
                 gridAreaRef={gridAreaRef}
                 canDrag={
                   (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER') ||
-                  (sessionState === 'PAUSED' && Boolean(isMaster))
+                  Boolean(isMaster)
                 }
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
@@ -1570,7 +1570,7 @@ export function CampaignOverviewPage({
           'absolute inset-y-0 right-0 z-40 min-h-0 overflow-hidden border-l border-white/10 bg-[#101116]/95 shadow-2xl backdrop-blur transition-[width] max-xl:border-l',
           rightPanelCollapsed
             ? 'w-[56px] p-2'
-            : 'w-[320px] p-5',
+            : 'w-[320px] p-3',
         ].join(' ')}
       >
         <div className={rightPanelCollapsed ? 'flex h-full min-h-0 flex-col items-center gap-3' : 'hidden'}>
@@ -1626,11 +1626,11 @@ export function CampaignOverviewPage({
           ) : null}
         </div>
 
-        <div className={rightPanelCollapsed ? 'hidden h-full min-h-0 flex-col gap-4' : 'flex h-full min-h-0 flex-col gap-4'}>
+        <div className={rightPanelCollapsed ? 'hidden h-full min-h-0 flex-col gap-3' : 'relative flex h-full min-h-0 flex-col gap-3'}>
           <button
             type="button"
             title="Recolher painel lateral"
-            className="ml-auto grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            className="absolute right-0 top-0 z-10 grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 bg-[#15161c] text-zinc-300 transition hover:bg-white/10 hover:text-white"
             onClick={() => setRightPanelCollapsed(true)}
           >
             <PanelRightClose className="h-4 w-4" />
@@ -1648,7 +1648,7 @@ export function CampaignOverviewPage({
             onInitiativeChange={updateCombatInitiative}
           />
 
-          <div className="min-h-0 flex-[4_1_0%]">
+          <div className="min-h-0 flex-1">
             {campaignId ? (
               <CampaignChat
                 campaignId={campaignId}

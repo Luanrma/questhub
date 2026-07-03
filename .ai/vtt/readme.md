@@ -45,7 +45,7 @@ Incluido:
 * Token sincronizado em tempo real para Mestre e Players online enquanto a sessao esta ativa.
 * Token mantido em estado vivo durante a sessao e persistido por cena nos pontos de ciclo de vida definidos em `campaign_scene`.
 * Controle de movimento do token e concedido ao Player dono apenas apos o drop do Mestre no board.
-* Sessao pode ser pausada pelo Mestre; durante a pausa, tudo no VTT fica bloqueado somente para os PLAYERS exceto o chat.
+* Sessao pode ser pausada pelo Mestre; durante a pausa, tudo no VTT fica bloqueado somente para os PLAYERS exceto o chat, enquanto o Mestre ainda pode preparar/controlar a mesa e mover tokens.
 * Mestre pode remover token do board pelo menu contextual de botao direito, devolvendo o personagem para a lista disponivel.
 * Mestre pode alternar invisibilidade do token; tokens invisiveis ficam ocultos para Players e visiveis com opacidade reduzida para o Mestre.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
@@ -57,7 +57,7 @@ Incluido:
 * Rodape de preparacao de cenas visivel apenas para Mestre.
 * Modal de preparacao de cenas com cards sequenciais `Cena1`, `Cena2` etc., criando ou atualizando `CampaignScene`.
 * Upload de imagem no card da cena usa `Asset`, enquanto o estado da cena persiste `assetId`, `backgroundUrl` e `backgroundCacheKey`.
-* Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena altera `masterActiveSceneId`, pausa automaticamente a sessao e renderiza o snapshot da cena.
+* Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena altera `masterActiveSceneId`, pausa automaticamente a sessao online e renderiza o snapshot da cena.
 * Players veem a cena do proprio token, ou a cena forcada pelo Mestre enquanto `forcedSceneId` estiver ativo.
 * Rodape de cenas pode ser recolhido/expandido para ocupar menos espaco da mesa sem perder a acao `Preparar cena`.
 * Quando o rodape de cenas estiver recolhido, o icone de cenas fica no quinto inferior do painel lateral direito, abaixo do chat.

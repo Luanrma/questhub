@@ -190,8 +190,8 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '' 
   }
 
   return (
-    <section className={['flex min-h-[320px] flex-1 flex-col rounded-lg border border-white/10 bg-white/[0.03]', className].join(' ')}>
-      <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
+    <section className={['flex min-h-0 flex-1 flex-col rounded-lg border border-white/10 bg-white/[0.03]', className].join(' ')}>
+      <div className="flex items-center justify-between gap-3 border-b border-white/10 px-3 py-2">
         <div className="flex items-center gap-2">
           <MessageCircle className="h-4 w-4 text-indigo-300" />
           <h2 className="text-sm font-semibold text-white">Chat</h2>
@@ -199,7 +199,7 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '' 
         <span className="text-[10px] uppercase text-zinc-500">{enabled ? 'Mesa' : 'Offline'}</span>
       </div>
 
-      <div ref={scrollRef} className="min-h-0 flex-1 space-y-3 overflow-auto px-4 py-3">
+      <div ref={scrollRef} className="min-h-0 flex-1 space-y-2 overflow-auto px-3 py-2">
         {loading ? <div className="text-sm text-zinc-500">Carregando mensagens...</div> : null}
 
         {!loading && messages.length === 0 ? (
@@ -228,9 +228,9 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '' 
         ))}
       </div>
 
-      {error ? <div className="border-t border-red-300/20 px-4 py-2 text-xs text-red-200">{error}</div> : null}
+      {error ? <div className="border-t border-red-300/20 px-3 py-2 text-xs text-red-200">{error}</div> : null}
 
-      <form onSubmit={onSubmit} className="border-t border-white/10 p-3">
+      <form onSubmit={onSubmit} className="border-t border-white/10 p-2">
         <div className="flex items-end gap-2">
           <textarea
             value={content}
@@ -239,13 +239,13 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '' 
             maxLength={500}
             rows={2}
             placeholder={enabled ? 'Mensagem para a mesa...' : 'Chat disponivel com a mesa online.'}
-            className="min-h-11 flex-1 resize-none rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-indigo-300/40 disabled:cursor-not-allowed disabled:opacity-60"
+            className="min-h-10 flex-1 resize-none rounded-md border border-white/10 bg-black/30 px-3 py-2 text-sm text-white outline-none transition placeholder:text-zinc-600 focus:border-indigo-300/40 disabled:cursor-not-allowed disabled:opacity-60"
           />
           <button
             type="submit"
             disabled={!canSend}
             title="Enviar mensagem"
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md border border-indigo-300/20 bg-indigo-600 text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-indigo-300/20 bg-indigo-600 text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Send className="h-4 w-4" />
           </button>

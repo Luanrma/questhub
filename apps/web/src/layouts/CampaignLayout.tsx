@@ -364,7 +364,7 @@ export function CampaignLayout() {
                         disabled={sessionActionLoading || !myCharacter?.id}
                         onClick={onTogglePauseSession}
                       >
-                        {sessionState === 'PAUSED' 
+                        {sessionState === 'PAUSED'
                           ? <span className="text-green-500"><Play className="h-4 w-4" /></span>
                           : <span className="text-red-500"><Pause className="h-4 w-4" /></span>
                         }

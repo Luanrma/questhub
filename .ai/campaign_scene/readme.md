@@ -19,8 +19,8 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Cenas persistem estado independente.
 * Durante uma sessao online, alteracoes de grid e tokens sao estado vivo da sessao: ficam em memoria/cache realtime e sao transmitidas por websocket.
 * O estado vivo da sessao e persistido no banco no encerramento da sessao e novamente ao iniciar a sessao, para preservar preparacoes feitas pelo Mestre antes de colocar a campanha online.
-* A troca de cena pelo Mestre pausa automaticamente a sessao.
-* Retomar sessao nao revela automaticamente a cena nova.
+* A troca de cena pelo Mestre pausa automaticamente a sessao quando ela esta online.
+* A cena nova nao e revelada automaticamente para todos; a visao dos jogadores continua seguindo `forcedSceneId` ou a cena do proprio token.
 * Sem cena forcada, a visao do jogador e derivada da cena do proprio token.
 * Com cena forcada, todos veem a cena escolhida pelo Mestre ate ele desativar esse modo.
 * Diarios nao pertencem a `campaign_scene`; eles pertencem ao modulo `campaign_diary`.

@@ -17,8 +17,8 @@
 * Scene-owned Table State: configuracoes visuais da mesa, tokens e cena ativa devem vir de `campaign_scene`.
 * Layout-mounted Scene Renderer: `CampaignLayout` mantem a mesa montada, mas consome snapshots de cena em vez de possuir estado persistente proprio.
 * Master-owned Token Placement: o Mestre instancia tokens no board por drag and drop a partir de modal proprio; Players nao criam nem recentralizam tokens.
-* Owner-only Token Movement: apos o drop do Mestre, apenas o Player dono pode mover o proprio token enquanto a sessao estiver ativa, o Mestre poderá mover todos os tokens se a sessao estiver `PAUSED`.
-* Session Pause State: a sessao em memoria tem estado `ACTIVE` ou `PAUSED`; `PAUSED` bloqueia interacoes VTT em tempo real exceto chat, mas mantém TUDO desbloqueado para o Mestre.
+* Token Movement: o Mestre pode mover todos os tokens antes, durante e depois de iniciar a sessao; Players so podem mover o proprio token enquanto a campanha esta online e nao pausada.
+* Session Pause State: `PAUSED` bloqueia interacoes VTT dos Players exceto chat, mas nao bloqueia o Mestre de mover tokens.
 * Grid-coordinate Tokens: a posicao do token usa coordenadas logicas do grid, nao percentual de viewport.
 * Realtime Table Broadcast: configuracoes de cena sao propagadas por Socket.IO para sockets autorizados a visualizar a cena.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players autorizados.
@@ -49,7 +49,7 @@
 * Nao perder configuracao viva de grid ao encerrar sessao; persistir o snapshot final em `campaign_scene`.
 * Nao permitir que jogadores emitam alteracoes de grid.
 * Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
-* Nao permitir que o Mestre mova token de Player durante sessao ativa; O Meste pode mover token durante sessao pausada.
+* Nao bloquear o Mestre por estado de sessao ao mover tokens; o Mestre sempre controla todos os tokens da mesa.
 * Nao persistir estado `ACTIVE`/`PAUSED` da sessao no banco neste MVP.
 * Nao vincular posicao de token ao tamanho da tela disponivel.
 * Nao calcular medidas por percentual de viewport.

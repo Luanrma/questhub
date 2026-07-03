@@ -117,7 +117,7 @@ type MyCampaignCharacter = {
 * Clicar em uma miniatura seleciona a cena ativa e renderiza a imagem abaixo do grid do board.
 * A imagem da cena nao deve ser deformada para ocupar o limite padrao do board; o board deve passar a usar as dimensoes naturais da imagem, respeitando o zoom visual local.
 * A cena selecionada pelo Mestre define `masterActiveSceneId`; Players veem `forcedSceneId` quando existir, ou a cena onde o proprio token esta.
-* Trocar cena pelo Mestre pausa automaticamente a sessao; retomar sessao nao revela automaticamente a nova cena aos Players.
+* Trocar cena pelo Mestre pausa automaticamente a sessao online; a cena ativa do Mestre muda sem encerrar a sessao.
 * O rodape de cenas deve ter controle para recolher/expandir.
 * O controle de recolher/expandir o rodape de cenas pertence ao painel lateral direito.
 * Quando o painel lateral direito estiver recolhido, o controle de cenas deve continuar visivel na rail direita.
@@ -138,7 +138,7 @@ type MyCampaignCharacter = {
 * Multiplos drops da mesma criatura de bestiario devem criar multiplos tokens independentes.
 * Token de bestiario tem role visual `NPC`, dono exibido como Mestre/Bestiario e controle exclusivo do Mestre.
 * Ao concluir o drop do Mestre, o Player dono do personagem passa a poder mover o proprio token quando a sessao esta ativa.
-* O token seja ele qualquer, pode ser movido pelo mestre quando a sessao esta pausada.
+* O token, seja ele qualquer, pode ser movido pelo Mestre antes da sessao ou durante a sessao online.
 * O token usa `MyCampaignCharacter.avatarUrl` quando existir.
 * Sem avatar, o token exibe a inicial do nome do personagem.
 * O token deve ser redondo e arrastavel por pointer events.
@@ -167,11 +167,9 @@ type MyCampaignCharacter = {
 * A posicao do token e persistida por cena em `CampaignSceneToken`.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online que visualizam a cena afetada.
 * Usuarios que entram depois recebem o snapshot de cena definido por `campaign_scene`.
-* O Mestre pode pausar ou retomar a sessao sem encerra-la.
-* Em sessao pausada, chat continua funcionando e demais interacoes VTT em tempo real ficam bloqueadas para os Players.
-* Em sessao pausada, Players nao podem mover tokens.
-* Em sessao pausada, Mestre pode mover todos os tokens.
-* Em sessao ativa, o Mestre nao pode mover token de Player por drag, para evitar conflito de input;
+* Pausa de sessao continua sendo acao de produto.
+* Players so movem o proprio token quando a campanha esta online e nao pausada.
+* Mestre pode mover todos os tokens sempre que acessar a mesa.
 * Apenas o Mestre ve o menu contextual de token por botao direito.
 * O menu contextual do Mestre deve exibir o nome do dono do token.
 * `Remover` tira o token do board e devolve o personagem para a lista de tokens disponiveis no modal.
@@ -311,9 +309,9 @@ Regras:
 * O limite visual deve ser aplicado apenas durante o drag, nunca durante a renderizacao passiva.
 * O drag deve prender o centro do token entre metade de uma celula e o limite visual da area de grid.
 * Apenas `MASTER` ativo ve a ferramenta `Tokens` neste MVP.
-* O backend aceita criacao, remocao e alteracao de invisibilidade apenas de socket autenticado como `MASTER`, dentro da sala da campanha enquanto a campanha estiver online, inclusive em sessao `PAUSED`.
-* O backend aceita movimento apenas quando `sessionActive && isPlayer && isOwner` ou `!sessionActive && isMaster`.
-* `sessionActive` significa campanha online e estado de sessao `ACTIVE`, nunca `PAUSED`.
+* O backend aceita criacao, remocao, movimento e alteracao de invisibilidade de socket autenticado como `MASTER`, mesmo com a campanha offline; nesse caso persiste direto no banco e emite o evento para o proprio Mestre.
+* O backend aceita movimento quando o Player esta online e e dono do token, ou quando o socket autenticado pertence ao Mestre ativo.
+* `sessionActive` significa campanha online e nao pausada para Players; Mestre nao depende desse estado para preparar ou mover tokens.
 * O Mestre nao pode posicionar dois tokens `PLAYER` diferentes do mesmo `ownerUserId` na mesma campanha.
 * Se o usuario dono estiver conectado na sessao com um personagem `PLAYER`, o Mestre so pode posicionar o token desse personagem conectado.
 * O menu de tokens nao deve listar outro candidato `PLAYER` do mesmo `ownerUserId` quando ja existir um token `PLAYER` desse usuario posicionado em qualquer cena.

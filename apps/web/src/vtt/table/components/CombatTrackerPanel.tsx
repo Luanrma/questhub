@@ -25,14 +25,16 @@ export function CombatTrackerPanel({
   const activeParticipant = combat?.participants[combat.activeTurnIndex] ?? null
 
   return (
-    <section className="shrink-0 rounded-lg border border-white/10 bg-white/[0.035]">
-      <div className="flex items-center justify-between gap-3 border-b border-white/10 px-3 py-2">
+    <section className="max-h-[42vh] shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/[0.035]">
+      <div className="flex items-center justify-between gap-3 border-b border-white/10 py-2 pl-3 pr-11">
         <div className="flex min-w-0 items-center gap-2">
           <Swords className="h-4 w-4 shrink-0 text-red-300" />
           <div className="min-w-0">
-            <div className="truncate text-sm font-semibold text-white">Combate</div>
-            <div className="truncate text-[11px] text-zinc-500">
-              {combat ? `Rodada ${combat.round}` : `${tokenCount} token${tokenCount === 1 ? '' : 's'} na cena`}
+            <div className="truncate text-sm font-semibold text-white">
+              {combat && activeParticipant ? `Combate - ${activeParticipant.name}` : 'Combate'}
+            </div>
+            <div className="truncate text-[11px] uppercase text-zinc-500">
+              {combat ? `Rodada ${combat.round}${activeParticipant ? ' - turno atual' : ''}` : `${tokenCount} token${tokenCount === 1 ? '' : 's'} na cena`}
             </div>
           </div>
         </div>
@@ -71,12 +73,7 @@ export function CombatTrackerPanel({
           )}
         </div>
       ) : (
-        <div className="grid gap-3 p-3">
-          <div className="rounded-md border border-red-300/20 bg-red-500/10 px-3 py-2">
-            <div className="text-[11px] font-semibold uppercase text-red-100/70">Turno atual</div>
-            <div className="truncate text-sm font-semibold text-red-50">{activeParticipant?.name ?? 'Sem participante'}</div>
-          </div>
-
+        <div className="grid min-h-0 gap-2 p-3">
           {isMaster ? (
             <div className="grid grid-cols-2 gap-2">
               <button
@@ -98,7 +95,7 @@ export function CombatTrackerPanel({
             </div>
           ) : null}
 
-          <div className="grid max-h-52 gap-1 overflow-auto pr-1">
+          <div className="grid max-h-44 gap-1 overflow-auto pr-1">
             {combat.participants.map((participant, index) => {
               const active = index === combat.activeTurnIndex
               const initial = participant.name.trim().charAt(0).toUpperCase() || '?'
@@ -107,7 +104,7 @@ export function CombatTrackerPanel({
                 <div
                   key={participant.characterId}
                   className={[
-                    'grid grid-cols-[auto_minmax(0,1fr)_72px] items-center gap-2 rounded-md border px-2 py-2',
+                    'grid grid-cols-[auto_minmax(0,1fr)_72px] items-center gap-2 rounded-md border px-2 py-1.5',
                     active ? 'border-red-300/50 bg-red-500/15' : 'border-white/10 bg-black/15',
                   ].join(' ')}
                 >

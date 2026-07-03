@@ -132,12 +132,12 @@ export function SceneSidebarScenes({
   const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
 
   return (
-    <div className="flex min-h-[160px] flex-[1_1_0%] overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
+    <div className="flex max-h-40 min-h-[112px] shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
       <button
         type="button"
         title={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
         aria-label={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-        className="grid w-12 shrink-0 place-items-center border-r border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
+        className="grid w-10 shrink-0 place-items-center border-r border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
         onClick={onToggleSceneDock}
       >
         {sceneDockCollapsed ? (
@@ -146,7 +146,7 @@ export function SceneSidebarScenes({
           <ChevronRight className="h-5 w-5" />
         )}
       </button>
-      <div className="min-w-0 flex-1 overflow-y-auto p-3">
+      <div className="min-w-0 flex-1 overflow-y-auto p-2">
         {sceneThumbnails.length ? (
           <div className="grid gap-2">
             {sceneThumbnails.map((scene) => {

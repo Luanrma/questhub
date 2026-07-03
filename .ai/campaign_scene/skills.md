@@ -15,7 +15,7 @@
 * Master Active Scene: o Mestre possui uma cena ativa propria para administrar a mesa.
 * Token-derived Player Scene: jogador ve a cena do proprio token quando nao existe cena forcada.
 * Forced Scene View: o Mestre pode mostrar uma cena para todos ate desativar manualmente.
-* Pause-on-scene-switch: toda troca de cena pelo Mestre pausa automaticamente a sessao.
+* Pause-on-scene-switch: troca de cena pelo Mestre pausa automaticamente a sessao quando ela esta online.
 * Session Live State: grid, tokens e cena ativa podem ser alterados em memoria/cache durante a sessao online, com propagacao por Socket.IO.
 * Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como iniciar e encerrar sessao.
 * Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
