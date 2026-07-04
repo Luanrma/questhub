@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { GripHorizontal, Save, X } from 'lucide-react'
 import { Button } from '../../components/Button'
 import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
@@ -13,9 +14,10 @@ type Props = {
   system?: GameSystem | null
   onClose: () => void
   onSaved?: (sheet: CharacterSheetEnvelope) => void
+  readOnly?: boolean
 }
 
-export function CharacterSheetModal({ characterId, characterName, system, onClose, onSaved }: Props) {
+export function CharacterSheetModal({ characterId, characterName, system, onClose, onSaved, readOnly = false }: Props) {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [page, setPage] = useState(0)
   const [box, setBox] = useState<ResizableBox>(() => ({
@@ -34,7 +36,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
   const sheetRenderer = useMemo(() => getCharacterSheetRenderer(sheet), [sheet])
   const pageDefinitions = sheetRenderer.pages
   const currentPageTitle = pageDefinitions[page]?.title ?? pageDefinitions[0].title
-  const canSave = Boolean(sheet && !loading && !saving)
+  const canSave = Boolean(sheet && !loading && !saving && !readOnly)
 
   useEffect(() => {
     let cancelled = false
@@ -151,7 +153,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
     }
   }
 
-  return (
+  const modal = (
     <div className="fixed inset-0 z-50 bg-black/50">
       <div ref={modalRef} className="character-sheet-window" style={{ left: box.x, top: box.y, width: box.width, height: box.height }}>
         <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 680, minHeight: 520, viewportMargin: 12 }} />
@@ -206,19 +208,25 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
 
           {!loading && sheet ? (
             <div className="sheet-page">
-              {sheetRenderer.renderPage({ page, characterName, sheet, onChangeSheet: setSheet })}
+              {sheetRenderer.renderPage({ page, characterName, sheet, onChangeSheet: readOnly ? () => undefined : setSheet })}
             </div>
           ) : null}
         </div>
 
         <div className="sheet-footer">
-          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{currentPageTitle}</div>
-          <Button type="button" className="gap-2" disabled={!canSave} onClick={saveSheet}>
-            <Save className="h-4 w-4" />
-            {saving ? 'Salvando...' : 'Salvar ficha'}
-          </Button>
+          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{readOnly ? 'Somente leitura' : currentPageTitle}</div>
+          {readOnly ? null : (
+            <Button type="button" className="gap-2" disabled={!canSave} onClick={saveSheet}>
+              <Save className="h-4 w-4" />
+              {saving ? 'Salvando...' : 'Salvar ficha'}
+            </Button>
+          )}
         </div>
       </div>
     </div>
   )
+
+  if (typeof document === 'undefined') return null
+
+  return createPortal(modal, document.body)
 }

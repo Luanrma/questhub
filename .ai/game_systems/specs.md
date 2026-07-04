@@ -83,6 +83,37 @@ type GameSystemBestiaryCreature<TSystemData = unknown> = {
 }
 ```
 
+Para catalogos de bestiario, adapters podem expor lookup direto por id:
+
+```ts
+type GameSystemBestiaryAdapter = {
+  system: string
+  listCreatures: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryCreature[]
+  countCreatures: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
+  findCreature?: (creatureId: string) => GameSystemBestiaryCreature | null
+}
+```
+
+A ficha resumida de criatura deve ser exposta como apresentacao neutra, quando existir:
+
+```ts
+type GameSystemBestiarySheet = {
+  sections: Array<{
+    key: string
+    title: string
+    entries: Array<{
+      key: string
+      label: string
+      value?: string
+      detail?: string
+      tags?: string[]
+    }>
+  }>
+}
+```
+
+Essa estrutura pertence a `display.sheet`. O ruleset decide como converter seus dados mecanicos para secoes e entradas; apps genericos apenas renderizam labels, valores, detalhes e tags.
+
 Campos mecanicos como `armorClass`, `hitPoints`, `traits`, `rarity`, `speed`, `spellSlots`, `savingThrows` e equivalentes nao pertencem ao core. Eles devem ficar em `systemData` tipado pelo package do sistema e ser convertidos para `display` quando a aplicacao generica precisar renderiza-los.
 
 ## 3.1 Contrato de Package Interno
@@ -104,6 +135,9 @@ Packages especificos de sistema devem depender de `packages/game-system-core` pa
 * Todo `Campaign.system` deve apontar para um `GameSystemAdapter` registrado.
 * Todo `Character.system`, quando existir, deve apontar para um `GameSystemAdapter` registrado.
 * Todo `Character.sheet.system` deve ser igual a `Character.system`.
+* `GET /api/characters/:characterId/sheet` pode ser acessado pelo dono do personagem ou por Mestre ativo de uma campanha onde o personagem esteja vinculado.
+* `PUT /api/characters/:characterId/sheet` permanece restrito ao dono do personagem enquanto nao houver regra explicita de edicao pelo Mestre.
+* Interfaces que abrem ficha de outro usuario para o Mestre devem tratar essa visualizacao como somente leitura.
 * O registry deve ser a unica porta para descobrir metadados e capacidades de sistema.
 * Modulos genericos podem conhecer `GameSystemId`, mas nao podem importar modelos internos de ruleset.
 * Apps podem manter facades de compatibilidade durante migracao, mas essas facades devem reexportar packages internos em vez de receber codigo novo especifico.
@@ -117,10 +151,14 @@ Packages especificos de sistema devem depender de `packages/game-system-core` pa
 ## 5. Criterios de Aceitacao
 * A campanha consegue listar sistemas suportados sem importar Pathfinder ou D&D diretamente.
 * O registry consegue criar default sheet por sistema quando o ruleset expuser `characterSheet`.
+* O Mestre consegue abrir a ficha de personagem pelo token de cena quando o personagem pertence a campanha.
+* O Player consegue abrir somente a propria ficha pelo token de cena.
 * O VTT consegue exibir tokens e rolagens sem depender de campos especificos de ficha.
 * Regras de Pathfinder 2e podem crescer para classes, ancestralidades, herancas, backgrounds, feats, spells e itens sem alterar contratos de VTT.
 * Regras de D&D 5e podem ser adicionadas como outro adapter, sem alterar o modulo Pathfinder 2e.
 * Bestiarios pertencem ao ruleset e devem expor dados normalizados sem exigir que o VTT conheca campos mecanicos.
+* Catalogos grandes devem oferecer lookup direto por id no adapter quando houver endpoint de detalhe.
 * Entradas de bestiario devem preservar texto original e podem fornecer traducoes por idioma.
 * A preferencia de idioma de conteudo de sistema e por usuario, com default `pt-BR`.
 * Tokens criados a partir de bestiario nao criam `Character`; eles carregam referencia `bestiaryCreatureId` e metadados visuais suficientes para o VTT.
+* Fichas de criatura de bestiario devem seguir o guia global em `.ai/game_systems/bestiary_guide.md`.

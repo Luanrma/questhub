@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { ChevronLeft, ChevronRight, Footprints, Heart, Minus, Plus, Search, Shield, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Footprints, Heart, Minus, Plus, ScrollText, Search, Shield, Sparkles } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { api } from '../../../lib/api'
 import {
@@ -9,42 +9,8 @@ import {
   type CampaignUserSettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { questhubBestiaryDragType } from '../../../vtt/table/config/constants'
-
-type BestiaryCreature = {
-  id: string
-  system: string
-  name: string
-  display: {
-    subtitle?: string
-    level?: {
-      label: string
-      value: string
-    }
-    stats: Array<{
-      key: string
-      label: string
-      value: string
-    }>
-    tags: string[]
-  }
-  token: {
-    imageUrl: string | null
-    fallbackInitials: string
-    borderColor: string
-  }
-}
-
-type BestiaryResponse = {
-  campaignId: string
-  system: 'PATHFINDER_2E' | 'DND_5E'
-  pagination: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-  creatures: BestiaryCreature[]
-}
+import { BestiaryCreatureSheetModal } from '../components/BestiaryCreatureSheetModal'
+import type { BestiaryCreature, BestiaryResponse } from '../types'
 
 const systemLabels: Record<BestiaryResponse['system'], string> = {
   PATHFINDER_2E: 'Pathfinder 2e',
@@ -113,22 +79,19 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
   const [data, setData] = useState<BestiaryResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [preparedCreatureIds, setPreparedCreatureIds] = useState<string[]>([])
+  const [preparedCreatureIds, setPreparedCreatureIds] = useState<string[]>(() => (campaignId ? readStoredCampaignUserSettings(campaignId).vtt.preparedBestiaryCreatureIds : []))
   const [savingCreatureId, setSavingCreatureId] = useState<string | null>(null)
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState<BestiaryPageSize>(10)
   const [levelFilter, setLevelFilter] = useState('')
   const [rarityFilter, setRarityFilter] = useState('')
+  const [sheetCreature, setSheetCreature] = useState<BestiaryCreature | null>(null)
 
   const query = useMemo(() => search.trim(), [search])
   const normalizedLevelFilter = useMemo(() => levelFilter.trim(), [levelFilter])
   const preparedCreatureIdSet = useMemo(() => new Set(preparedCreatureIds), [preparedCreatureIds])
   const totalPages = data?.pagination.totalPages ?? 1
   const totalCreatures = data?.pagination.total ?? 0
-
-  useEffect(() => {
-    setPage(1)
-  }, [normalizedLevelFilter, pageSize, query, rarityFilter])
 
   useEffect(() => {
     if (!campaignId) return
@@ -148,7 +111,10 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
 
       const qs = `?${params.toString()}`
       api<BestiaryResponse>(`/api/campaigns/${campaignId}/bestiary${qs}`, { signal: controller.signal })
-        .then(setData)
+        .then((response) => {
+          setData(response)
+          if (response.pagination.totalPages < page) setPage(response.pagination.totalPages)
+        })
         .catch((err) => {
           if (controller.signal.aborted) return
           setError(err instanceof Error ? err.message : 'Nao foi possivel carregar o bestiario.')
@@ -165,16 +131,7 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
   }, [campaignId, normalizedLevelFilter, page, pageSize, query, rarityFilter])
 
   useEffect(() => {
-    if (!data) return
-    if (data.pagination.totalPages >= page) return
-    setPage(data.pagination.totalPages)
-  }, [data, page])
-
-  useEffect(() => {
     if (!campaignId) return
-
-    const storedSettings = readStoredCampaignUserSettings(campaignId)
-    setPreparedCreatureIds(storedSettings.vtt.preparedBestiaryCreatureIds)
 
     let cancelled = false
     api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`)
@@ -271,7 +228,10 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
             <span>Por pagina</span>
             <select
               value={pageSize}
-              onChange={(event) => setPageSize(Number(event.target.value) as BestiaryPageSize)}
+              onChange={(event) => {
+                setPage(1)
+                setPageSize(Number(event.target.value) as BestiaryPageSize)
+              }}
               className="min-w-0 bg-transparent text-white outline-none"
             >
               {bestiaryPageSizeOptions.map((option) => (
@@ -285,7 +245,10 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
             <span>Nivel</span>
             <input
               value={levelFilter}
-              onChange={(event) => setLevelFilter(event.target.value)}
+              onChange={(event) => {
+                setPage(1)
+                setLevelFilter(event.target.value)
+              }}
               inputMode="numeric"
               placeholder="Todos"
               className="h-full w-16 bg-transparent text-sm text-white outline-none placeholder:text-zinc-500"
@@ -293,7 +256,10 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
           </label>
           <select
             value={rarityFilter}
-            onChange={(event) => setRarityFilter(event.target.value)}
+            onChange={(event) => {
+              setPage(1)
+              setRarityFilter(event.target.value)
+            }}
             className="h-10 min-w-0 rounded-md border border-white/10 bg-black/25 px-3 text-xs font-semibold text-zinc-300 outline-none"
           >
             {bestiaryRarityOptions.map((option) => (
@@ -306,7 +272,10 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
             <input
               value={search}
-              onChange={(event) => setSearch(event.target.value)}
+              onChange={(event) => {
+                setPage(1)
+                setSearch(event.target.value)
+              }}
               placeholder="Buscar criatura ou trait"
               className="h-10 w-full rounded-md border border-white/10 bg-black/35 pl-9 pr-3 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-300/50"
             />
@@ -371,6 +340,25 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
                 </div>
 
                 <div className={compact ? 'mt-3 flex flex-wrap gap-2' : 'mt-4 flex flex-wrap gap-2'}>
+                  {creature.display.sheet?.sections.length ? (
+                    <button
+                      type="button"
+                      title="Abrir Ficha"
+                      aria-label="Abrir Ficha"
+                      className={[
+                        'inline-flex max-w-full items-center gap-2 rounded-md border border-sky-300/20 bg-sky-500/10 px-3 text-xs font-semibold uppercase text-sky-100 transition hover:bg-sky-500/20',
+                        compact ? 'h-8' : 'h-9',
+                      ].join(' ')}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        setSheetCreature(creature)
+                      }}
+                    >
+                      <ScrollText className="h-4 w-4" />
+                      <span className="min-w-0 truncate">Ficha</span>
+                    </button>
+                  ) : null}
                   <button
                     type="button"
                     title="Adicionar Token"
@@ -443,6 +431,15 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
             </button>
           </div>
         </div>
+      ) : null}
+
+      {campaignId && sheetCreature ? (
+        <BestiaryCreatureSheetModal
+          campaignId={campaignId}
+          creatureId={sheetCreature.id}
+          initialCreature={sheetCreature}
+          onClose={() => setSheetCreature(null)}
+        />
       ) : null}
     </div>
   )

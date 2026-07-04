@@ -82,6 +82,7 @@ export function PlayerToken({
   gridShape,
   gridAreaRef,
   canDrag,
+  canOpenContextMenu,
   isMasterView,
   onMove,
   onContextMenu,
@@ -92,6 +93,7 @@ export function PlayerToken({
   gridShape: VttGridShape
   gridAreaRef: React.RefObject<HTMLDivElement | null>
   canDrag: boolean
+  canOpenContextMenu: boolean
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
@@ -151,7 +153,7 @@ export function PlayerToken({
   }
 
   function openContextMenu(event: React.MouseEvent<HTMLButtonElement>) {
-    if (!isMasterView) return
+    if (!canOpenContextMenu) return
 
     event.preventDefault()
     onContextMenu(token, { x: event.clientX, y: event.clientY })
@@ -169,7 +171,9 @@ export function PlayerToken({
               ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
               : isMasterView
                 ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
-                : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+                : canOpenContextMenu
+                  ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
+                  : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
         isCombatTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}

@@ -14,6 +14,7 @@ import {
   Ruler,
   PanelRightClose,
   PanelRightOpen,
+  ScrollText,
   Trash2,
   Users,
   X,
@@ -23,8 +24,10 @@ import {
 import { useParams } from 'react-router-dom'
 import { CampaignChat } from '../../components/CampaignChat'
 import { LoadingScreen } from '../../components/LoadingScreen'
+import { CharacterSheetModal } from '../../components/CharacterSheetModal'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
+import { BestiaryCreatureSheetModal } from '../../features/bestiary/components/BestiaryCreatureSheetModal'
 import {
   PREPARED_BESTIARY_TOKENS_CHANGED_EVENT,
   readStoredCampaignUserSettings,
@@ -119,6 +122,12 @@ type SceneRenderTarget = {
   tokenCount: number
 }
 
+type CharacterTokenSheet = {
+  characterId: string
+  characterName: string
+  readOnly: boolean
+}
+
 export function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
@@ -129,7 +138,7 @@ export function CampaignOverviewPage({
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
   const { campaignId } = useParams()
-  const { campaigns, socket, connectRealtime } = useSession()
+  const { me, campaigns, socket, connectRealtime } = useSession()
   const boardViewportRef = useRef<HTMLDivElement | null>(null)
   const gridAreaRef = useRef<HTMLDivElement | null>(null)
   const backgroundImageRef = useRef<HTMLImageElement | null>(null)
@@ -141,6 +150,8 @@ export function CampaignOverviewPage({
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [tokenCandidatesRefreshKey, setTokenCandidatesRefreshKey] = useState(0)
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
+  const [bestiarySheetCreatureId, setBestiarySheetCreatureId] = useState<string | null>(null)
+  const [characterTokenSheet, setCharacterTokenSheet] = useState<CharacterTokenSheet | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
@@ -218,6 +229,20 @@ export function CampaignOverviewPage({
   const activeCombatTokenId = activeCombat?.participants[activeCombat.activeTurnIndex]?.tokenId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
   const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && combatTokenCount > 0 && !activeCombat)
+
+  function canOpenCharacterTokenSheet(token: VttPlayerToken) {
+    if (token.source !== 'character' || !token.characterId) return false
+    if (isMaster) return true
+    return Boolean(myCharacter?.role === 'PLAYER' && myCharacter.id === token.characterId)
+  }
+
+  function canOpenBestiaryTokenSheet(token: VttPlayerToken) {
+    return Boolean(isMaster && token.source === 'bestiary' && token.bestiaryCreatureId)
+  }
+
+  function canOpenTokenContextMenu(token: VttPlayerToken) {
+    return canOpenCharacterTokenSheet(token) || canOpenBestiaryTokenSheet(token)
+  }
 
   useEffect(() => {
     const element = gridAreaRef.current
@@ -939,6 +964,19 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
+  function openBestiaryTokenSheet(token: VttPlayerToken) {
+    if (!canOpenBestiaryTokenSheet(token)) return
+    if (token.source !== 'bestiary' || !token.bestiaryCreatureId) return
+    setBestiarySheetCreatureId(token.bestiaryCreatureId)
+    setTokenContextMenu(null)
+  }
+
+  function openCharacterTokenSheet(token: VttPlayerToken) {
+    if (!canOpenCharacterTokenSheet(token) || !token.characterId) return
+    setCharacterTokenSheet({ characterId: token.characterId, characterName: token.name, readOnly: token.ownerUserId !== me?.id })
+    setTokenContextMenu(null)
+  }
+
   function startCombat() {
     if (!campaignId || !socket || !activeScene || !canStartCombat) return
     socket.emit('vtt:combat:start', { campaignId, sceneId: activeScene.id })
@@ -1343,6 +1381,7 @@ export function CampaignOverviewPage({
                   (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER') ||
                   Boolean(isMaster)
                 }
+                canOpenContextMenu={canOpenTokenContextMenu(token)}
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
@@ -1516,7 +1555,7 @@ export function CampaignOverviewPage({
               </div>
             ) : null}
 
-            {tokenContextMenu && isMaster ? (
+            {tokenContextMenu && canOpenTokenContextMenu(tokenContextMenu.token) ? (
               <div
                 className="pointer-events-auto fixed z-50 w-56 rounded-lg border border-white/10 bg-[#111217]/95 p-2 text-white shadow-2xl backdrop-blur"
                 style={{ left: tokenContextMenu.x, top: tokenContextMenu.y }}
@@ -1526,24 +1565,48 @@ export function CampaignOverviewPage({
                   <div className="truncate text-sm font-semibold">{tokenContextMenu.token.name}</div>
                   <div className="truncate text-xs text-zinc-500">Dono: {tokenContextMenu.token.ownerName}</div>
                 </div>
-                <button
-                  type="button"
-                  disabled={!masterCanUseVtt}
-                  className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
-                  onClick={() => toggleTokenVisibility(tokenContextMenu.token)}
-                >
-                  {tokenContextMenu.token.hidden ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
-                  {tokenContextMenu.token.hidden ? 'Tornar visivel' : 'Tornar invisivel'}
-                </button>
-                <button
-                  type="button"
-                  disabled={!masterCanUseVtt}
-                  className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-red-200 transition hover:bg-red-500/10 hover:text-red-100 disabled:cursor-not-allowed disabled:opacity-50"
-                  onClick={() => removeToken(tokenContextMenu.token)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                  Remover
-                </button>
+                {canOpenBestiaryTokenSheet(tokenContextMenu.token) ? (
+                  <button
+                    type="button"
+                    className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => openBestiaryTokenSheet(tokenContextMenu.token)}
+                  >
+                    <ScrollText className="h-4 w-4" />
+                    Ficha
+                  </button>
+                ) : null}
+                {canOpenCharacterTokenSheet(tokenContextMenu.token) ? (
+                  <button
+                    type="button"
+                    className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => openCharacterTokenSheet(tokenContextMenu.token)}
+                  >
+                    <ScrollText className="h-4 w-4" />
+                    Ficha
+                  </button>
+                ) : null}
+                {isMaster ? (
+                  <>
+                    <button
+                      type="button"
+                      disabled={!masterCanUseVtt}
+                      className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => toggleTokenVisibility(tokenContextMenu.token)}
+                    >
+                      {tokenContextMenu.token.hidden ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
+                      {tokenContextMenu.token.hidden ? 'Tornar visivel' : 'Tornar invisivel'}
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!masterCanUseVtt}
+                      className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-red-200 transition hover:bg-red-500/10 hover:text-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => removeToken(tokenContextMenu.token)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                      Remover
+                    </button>
+                  </>
+                ) : null}
               </div>
             ) : null}
 
@@ -1709,6 +1772,23 @@ export function CampaignOverviewPage({
           ) : null}
         </div>
       </aside>
+
+      {campaignId && bestiarySheetCreatureId ? (
+        <BestiaryCreatureSheetModal
+          campaignId={campaignId}
+          creatureId={bestiarySheetCreatureId}
+          onClose={() => setBestiarySheetCreatureId(null)}
+        />
+      ) : null}
+
+      {characterTokenSheet ? (
+        <CharacterSheetModal
+          characterId={characterTokenSheet.characterId}
+          characterName={characterTokenSheet.characterName}
+          readOnly={characterTokenSheet.readOnly}
+          onClose={() => setCharacterTokenSheet(null)}
+        />
+      ) : null}
 
       {combatTrackerDetached && typeof document !== 'undefined'
         ? createPortal(

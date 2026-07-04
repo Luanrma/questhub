@@ -18,6 +18,25 @@ export type GameSystemBestiaryDisplay = {
   }
   stats: GameSystemBestiaryDisplayStat[]
   tags: string[]
+  sheet?: GameSystemBestiarySheet
+}
+
+export type GameSystemBestiarySheetEntry = {
+  key: string
+  label: string
+  value?: string
+  detail?: string
+  tags?: string[]
+}
+
+export type GameSystemBestiarySheetSection = {
+  key: string
+  title: string
+  entries: GameSystemBestiarySheetEntry[]
+}
+
+export type GameSystemBestiarySheet = {
+  sections: GameSystemBestiarySheetSection[]
 }
 
 export type GameSystemBestiarySource = {
@@ -56,4 +75,5 @@ export type GameSystemBestiaryAdapter = {
   system: string
   listCreatures: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryCreature[]
   countCreatures: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
+  findCreature?: (creatureId: string) => GameSystemBestiaryCreature | null
 }

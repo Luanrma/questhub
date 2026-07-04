@@ -30,8 +30,25 @@ export function registerCharacterSheetRoutes(app: FastifyInstance) {
     const character = await prisma.character.findFirst({
       where: {
         id: params.data.characterId,
-        userId: payload.id,
         deletedAt: null,
+        OR: [
+          { userId: payload.id },
+          {
+            campaigns: {
+              some: {
+                campaign: {
+                  characters: {
+                    some: {
+                      userId: payload.id,
+                      role: 'MASTER',
+                      status: 'ACTIVE',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       select: {
         id: true,

@@ -23,7 +23,7 @@
 * Realtime Table Broadcast: configuracoes de cena sao propagadas por Socket.IO para sockets autorizados a visualizar a cena.
 * Realtime Token Broadcast: criacao e movimentacao de token sao propagadas por Socket.IO para Mestre e Players autorizados.
 * Lifecycle Table Persistence: grid e tokens alterados durante a sessao sao persistidos apenas no inicio/encerramento da sessao, nao em cada evento realtime.
-* Master Token Toolbar: menu contextual de token pertence ao Mestre e emite acoes validadas no servidor.
+* Role-aware Token Context Menu: menu contextual de token exibe apenas acoes permitidas ao papel atual; Mestre ve fichas e acoes administrativas, Player ve somente a propria ficha quando clicar no proprio token.
 * Realtime Measurement Tool: medidas temporarias sao calculadas no cliente, armazenadas em memoria na sessao e sincronizadas por Socket.IO.
 * Grid-aware Measurement: grid quadrado converte pixels para metros por `metersPerCell`; grid hexagonal mede quantidade de passos entre centros de hexagonos.
 * Grid-owned Measurement Style: cores de medicao pertencem ao modal de configuracao do grid, nao a botoes soltos da toolbar.
@@ -50,6 +50,7 @@
 * Nao perder configuracao viva de grid ao encerrar sessao; persistir o snapshot final em `campaign_scene`.
 * Nao permitir que jogadores emitam alteracoes de grid.
 * Nao permitir que um jogador crie, recentralize, remova, oculte ou mova token de outro personagem.
+* Nao permitir que Player abra ficha de criatura do bestiario ou ficha de outro personagem pelo menu contextual.
 * Nao bloquear o Mestre por estado de sessao ao mover tokens; o Mestre sempre controla todos os tokens da mesa.
 * Nao persistir estado `ACTIVE`/`PAUSED` da sessao no banco neste MVP.
 * Nao vincular posicao de token ao tamanho da tela disponivel.

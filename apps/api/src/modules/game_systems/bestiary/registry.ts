@@ -27,5 +27,8 @@ export function findBestiaryCreature(system: string, creatureId: string) {
   const adapter = getBestiaryAdapter(system)
   if (!adapter) return null
 
-  return adapter.listCreatures({ limit: 1000 }).find((creature) => creature.id === creatureId) ?? null
+  if (adapter.findCreature) return adapter.findCreature(creatureId)
+
+  const total = adapter.countCreatures()
+  return adapter.listCreatures({ limit: total }).find((creature) => creature.id === creatureId) ?? null
 }

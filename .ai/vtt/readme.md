@@ -55,6 +55,9 @@ Incluido:
 * Sessao pode ser pausada pelo Mestre; durante a pausa, tudo no VTT fica bloqueado somente para os PLAYERS exceto o chat, enquanto o Mestre ainda pode preparar/controlar a mesa e mover tokens.
 * Mestre pode remover token do board pelo menu contextual de botao direito, devolvendo o personagem para a lista disponivel.
 * Mestre pode alternar invisibilidade do token; tokens invisiveis ficam ocultos para Players e visiveis com opacidade reduzida para o Mestre.
+* Mestre pode abrir a ficha de personagens e criaturas pelo menu contextual do token.
+* Player pode abrir apenas a propria ficha pelo menu contextual do proprio token.
+* Fichas de criaturas do bestiario sao visiveis somente para o Mestre.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
 * Tracker simples de combate no painel lateral direito, iniciado pelo Mestre a partir dos tokens nao ocultos da cena atual.
 * Combate MVP com iniciativa manual, rodada atual, participante ativo e avancar/voltar turno sem desmontar a mesa.

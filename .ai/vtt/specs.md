@@ -187,8 +187,15 @@ type MyCampaignCharacter = {
 * Pausa de sessao continua sendo acao de produto.
 * Players so movem o proprio token quando a campanha esta online e nao pausada.
 * Mestre pode mover todos os tokens sempre que acessar a mesa.
-* Apenas o Mestre ve o menu contextual de token por botao direito.
-* O menu contextual do Mestre deve exibir o nome do dono do token.
+* O menu contextual de token por botao direito e sensivel a papel e posse.
+* Mestre ve o menu contextual em qualquer token e pode abrir ficha de criatura de bestiario, ficha de personagem, alternar invisibilidade e remover.
+* Player ve o menu contextual apenas no proprio token de personagem e somente com a acao `Ficha`.
+* Player nao ve menu contextual em token de bestiario, token NPC ou token de outro jogador.
+* O menu contextual deve exibir o nome do dono do token quando essa informacao existir.
+* Fichas de criatura do bestiario sao visiveis somente para Mestre.
+* Fichas de personagem podem ser abertas pelo Mestre quando o personagem pertence a campanha, e pelo proprio dono do personagem.
+* Ficha de personagem aberta pelo Mestre para personagem de outro usuario deve ser exibida em modo somente leitura enquanto `PUT /api/characters/:characterId/sheet` permanecer restrito ao dono.
+* Fichas de personagem abertas pelo token devem usar a mesma janela global das demais fichas: portal em `document.body`, drag pela barra superior, resize por bordas/cantos e botao de fechar visivel.
 * `Remover` tira o token do board e devolve o personagem para a lista de tokens disponiveis no modal.
 * Ao receber `vtt:token:removed` para o proprio personagem, o Player deve limpar a cena atual, remover tokens locais e perder a capacidade de mover ate o Mestre reposicionar o token ou forcar uma cena.
 * `Invisibilidade` alterna opacidade reduzida para Mestre e oculta o token para Players.

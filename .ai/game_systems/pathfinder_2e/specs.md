@@ -35,6 +35,8 @@ const pathfinder2eAdapter = {
 
 Os catalogos aparecem como capacidades conhecidas, mas permanecem `false` ate existirem contratos e implementacao.
 
+O bestiario Pathfinder 2e e uma capacidade de catalogo ativa no package interno. Ele expoe criaturas normalizadas e ficha simplificada conforme `.ai/game_systems/pathfinder_2e/bestiary/specs.md`.
+
 ## 4. Compatibilidade de Ficha
 O envelope atual deve continuar valido:
 

@@ -2,11 +2,15 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
-import { countBestiaryCreatures, listBestiaryCreatures } from './registry'
+import { countBestiaryCreatures, findBestiaryCreature, listBestiaryCreatures } from './registry'
 import type { GameSystemBestiaryCreature } from './models'
 
 const campaignBestiaryParamsSchema = z.object({
   campaignId: z.string().trim().min(1, 'Campanha invalida'),
+})
+
+const campaignBestiaryCreatureParamsSchema = campaignBestiaryParamsSchema.extend({
+  creatureId: z.string().trim().min(1, 'Criatura invalida'),
 })
 
 const campaignBestiaryQuerySchema = z.object({
@@ -15,6 +19,10 @@ const campaignBestiaryQuerySchema = z.object({
   rarity: z.string().trim().max(40).optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(20).default(10),
+})
+
+const campaignBestiaryCreatureQuerySchema = z.object({
+  language: z.enum(['pt-BR', 'original']).optional(),
 })
 
 function getGameContentLanguage(settings: unknown): 'pt-BR' | 'original' {
@@ -50,6 +58,39 @@ function localizeCreature(creature: GameSystemBestiaryCreature, language: 'pt-BR
   }
 }
 
+async function getMasterBestiaryAccess(campaignId: string, userId: string) {
+  return prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId,
+      userId,
+      role: 'MASTER',
+      status: 'ACTIVE',
+    },
+    select: {
+      campaign: {
+        select: {
+          id: true,
+          system: true,
+        },
+      },
+    },
+  })
+}
+
+async function getGameContentLanguageForUser(campaignId: string, userId: string) {
+  const settings = await prisma.campaignUserSettings.findUnique({
+    where: {
+      campaignId_userId: {
+        campaignId,
+        userId,
+      },
+    },
+    select: { settings: true },
+  })
+
+  return getGameContentLanguage(settings?.settings)
+}
+
 export function registerBestiaryRoutes(app: FastifyInstance) {
   app.get('/api/campaigns/:campaignId/bestiary', async (req, reply) => {
     const payload = requireAuth(req, reply)
@@ -61,22 +102,7 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
     const query = campaignBestiaryQuerySchema.safeParse(req.query)
     if (!query.success) return reply.status(400).send({ error: 'Busca invalida' })
 
-    const access = await prisma.campaignCharacter.findFirst({
-      where: {
-        campaignId: params.data.campaignId,
-        userId: payload.id,
-        role: 'MASTER',
-        status: 'ACTIVE',
-      },
-      select: {
-        campaign: {
-          select: {
-            id: true,
-            system: true,
-          },
-        },
-      },
-    })
+    const access = await getMasterBestiaryAccess(params.data.campaignId, payload.id)
 
     if (!access) return reply.status(403).send({ error: 'Apenas o mestre pode acessar o bestiario da campanha' })
 
@@ -96,16 +122,7 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
 
     const total = countBestiaryCreatures(access.campaign.system, { search: query.data.q, filters }) ?? 0
 
-    const settings = await prisma.campaignUserSettings.findUnique({
-      where: {
-        campaignId_userId: {
-          campaignId: params.data.campaignId,
-          userId: payload.id,
-        },
-      },
-      select: { settings: true },
-    })
-    const language = getGameContentLanguage(settings?.settings)
+    const language = await getGameContentLanguageForUser(params.data.campaignId, payload.id)
 
     return reply.send({
       campaignId: access.campaign.id,
@@ -119,5 +136,25 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
       },
       creatures: creatures.map((creature) => localizeCreature(creature, language)),
     })
+  })
+
+  app.get('/api/campaigns/:campaignId/bestiary/:creatureId', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = campaignBestiaryCreatureParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Criatura invalida' })
+
+    const query = campaignBestiaryCreatureQuerySchema.safeParse(req.query)
+    if (!query.success) return reply.status(400).send({ error: 'Idioma invalido' })
+
+    const access = await getMasterBestiaryAccess(params.data.campaignId, payload.id)
+    if (!access) return reply.status(403).send({ error: 'Apenas o mestre pode acessar o bestiario da campanha' })
+
+    const creature = findBestiaryCreature(access.campaign.system, params.data.creatureId)
+    if (!creature) return reply.status(404).send({ error: 'Criatura nao encontrada no bestiario desta campanha' })
+
+    const language = query.data.language ?? (await getGameContentLanguageForUser(params.data.campaignId, payload.id))
+    return reply.send(localizeCreature(creature, language))
   })
 }
