@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import {
   ChevronLeft,
   ChevronRight,
@@ -150,6 +151,7 @@ export function CampaignOverviewPage({
   const [zoomPercent, setZoomPercent] = useState(100)
   const [sceneDockCollapsed, setSceneDockCollapsed] = useState(false)
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
+  const [combatTrackerDetached, setCombatTrackerDetached] = useState(false)
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([createPreparedScene(1)])
   const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)
@@ -1670,17 +1672,20 @@ export function CampaignOverviewPage({
             <PanelRightClose className="h-4 w-4" />
           </button>
 
-          <CombatTrackerPanel
-            combat={activeCombat}
-            isMaster={Boolean(isMaster)}
-            canStart={canStartCombat}
-            tokenCount={combatTokenCount}
-            onStart={startCombat}
-            onEnd={endCombat}
-            onNextTurn={nextCombatTurn}
-            onPreviousTurn={previousCombatTurn}
-            onInitiativeChange={updateCombatInitiative}
-          />
+          {!combatTrackerDetached ? (
+            <CombatTrackerPanel
+              combat={activeCombat}
+              isMaster={Boolean(isMaster)}
+              canStart={canStartCombat}
+              tokenCount={combatTokenCount}
+              onStart={startCombat}
+              onEnd={endCombat}
+              onNextTurn={nextCombatTurn}
+              onPreviousTurn={previousCombatTurn}
+              onInitiativeChange={updateCombatInitiative}
+              onDetach={() => setCombatTrackerDetached(true)}
+            />
+          ) : null}
 
           <div className="min-h-0 flex-1">
             {campaignId ? (
@@ -1704,6 +1709,28 @@ export function CampaignOverviewPage({
           ) : null}
         </div>
       </aside>
+
+      {combatTrackerDetached && typeof document !== 'undefined'
+        ? createPortal(
+            <CombatTrackerPanel
+              combat={activeCombat}
+              isMaster={Boolean(isMaster)}
+              canStart={canStartCombat}
+              tokenCount={combatTokenCount}
+              displayMode="detached"
+              onStart={startCombat}
+              onEnd={endCombat}
+              onNextTurn={nextCombatTurn}
+              onPreviousTurn={previousCombatTurn}
+              onInitiativeChange={updateCombatInitiative}
+              onAttach={() => {
+                setCombatTrackerDetached(false)
+                setRightPanelCollapsed(false)
+              }}
+            />,
+            document.body,
+          )
+        : null}
     </div>
   )
 }

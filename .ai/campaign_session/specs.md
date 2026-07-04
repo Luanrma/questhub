@@ -99,7 +99,7 @@ Transicoes invalidas:
 | Player mover proprio token | Nao | Nao | Sim |
 | Player medir | Nao | Nao | Sim |
 | Player rolar dado visual | Nao | Nao | Sim |
-| Mestre mover tokens | Sim | Sim | Conforme regra do VTT |
+| Mestre mover tokens | Sim | Sim | Sim |
 | Mestre alterar visibilidade/cena | Sim | Sim | Sim |
 
 ## 6. Eventos Socket.IO

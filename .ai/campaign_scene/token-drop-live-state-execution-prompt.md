@@ -1,6 +1,6 @@
 # Prompt de execucao: token drop realtime sem loading global
 
-Voce e Codex atuando no QuestHub. Antes de alterar codigo, leia `.agents/agents.md`, `.ai/playbook.md`, `.ai/campaign_scene/readme.md`, `.ai/campaign_scene/skills.md`, `.ai/campaign_scene/specs.md`, `.ai/vtt/readme.md`, `.ai/vtt/skills.md` e `.ai/vtt/specs.md`. Se encontrar ambiguidade ou conflito, siga `.ai/playbook.md`: pergunte uma unica questao com multiplas escolhas, deixando a ultima opcao para resposta livre do usuario.
+Voce e Codex atuando no QuestHub. Antes de alterar codigo, leia `AGENTS.md`, `.ai/architecture.md`, `.ai/campaign_scene/readme.md`, `.ai/campaign_scene/skills.md`, `.ai/campaign_scene/specs.md`, `.ai/vtt/readme.md`, `.ai/vtt/skills.md` e `.ai/vtt/specs.md`. Se encontrar ambiguidade ou conflito, siga `AGENTS.md`: pergunte uma unica questao com multiplas escolhas, deixando a ultima opcao para resposta livre do usuario.
 
 ## Objetivo
 

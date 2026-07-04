@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { GripHorizontal, Save, X } from 'lucide-react'
 import { Button } from '../../components/Button'
+import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
 import { api, ApiError } from '../../lib/api'
 import { calculateBounds, clamp } from './drag'
 import { getCharacterSheetRenderer } from './registry'
@@ -17,7 +18,12 @@ type Props = {
 export function CharacterSheetModal({ characterId, characterName, system, onClose, onSaved }: Props) {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [page, setPage] = useState(0)
-  const [position, setPosition] = useState({ x: 24, y: 24 })
+  const [box, setBox] = useState<ResizableBox>(() => ({
+    x: 24,
+    y: 24,
+    width: Math.min(1100, window.innerWidth - 24),
+    height: Math.min(760, window.innerHeight - 24),
+  }))
   const [dragging, setDragging] = useState(false)
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, modalX: 0, modalY: 0 })
   const [sheet, setSheet] = useState<CharacterSheetEnvelope | null>(null)
@@ -75,10 +81,11 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
       const nextX = dragStartRef.current.modalX + event.clientX - dragStartRef.current.pointerX
       const nextY = dragStartRef.current.modalY + event.clientY - dragStartRef.current.pointerY
       const bounds = calculateBounds(modalRef.current)
-      setPosition({
+      setBox((current) => ({
+        ...current,
         x: clamp(nextX, bounds.minX, bounds.maxX),
         y: clamp(nextY, bounds.minY, bounds.maxY),
-      })
+      }))
     }
 
     function onPointerUp() {
@@ -97,9 +104,12 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
   useEffect(() => {
     function keepInsideViewport() {
       const bounds = calculateBounds(modalRef.current)
-      setPosition((current) => ({
+      setBox((current) => ({
+        ...current,
         x: clamp(current.x, bounds.minX, bounds.maxX),
         y: clamp(current.y, bounds.minY, bounds.maxY),
+        width: Math.min(current.width, window.innerWidth - 24),
+        height: Math.min(current.height, window.innerHeight - 24),
       }))
     }
 
@@ -115,8 +125,8 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
     dragStartRef.current = {
       pointerX: event.clientX,
       pointerY: event.clientY,
-      modalX: position.x,
-      modalY: position.y,
+      modalX: box.x,
+      modalY: box.y,
     }
     setDragging(true)
   }
@@ -143,7 +153,8 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50">
-      <div ref={modalRef} className="character-sheet-window" style={{ left: position.x, top: position.y }}>
+      <div ref={modalRef} className="character-sheet-window" style={{ left: box.x, top: box.y, width: box.width, height: box.height }}>
+        <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 680, minHeight: 520, viewportMargin: 12 }} />
         <div className="sheet-drag-bar" onPointerDown={startDrag}>
           <div className="flex min-w-0 items-center gap-3">
             <GripHorizontal className="h-4 w-4 shrink-0" />

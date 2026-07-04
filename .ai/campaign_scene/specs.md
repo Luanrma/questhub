@@ -172,7 +172,7 @@ Regras:
 * `position.x` e `position.y` representam o centro do token em unidades logicas do grid da propria cena.
 * Para renderizar, `pixelCenter = position * scene.grid.size`, com zoom aplicado apenas visualmente.
 * Ao alterar o tamanho do grid, o token permanece no mesmo ponto logico da cena.
-* Apenas o dono do personagem pode mover o proprio token durante sessao `ACTIVE`.
+* Apenas o dono do personagem pode mover o proprio token durante sessao `ONLINE + IN_PROGRESS`.
 * O Mestre pode mover qualquer token antes da sessao ou durante a sessao online.
 * O Mestre pode mover token de Player por drag durante sessao online.
 * O Mestre pode posicionar tokens antes de iniciar a campanha.
@@ -195,11 +195,12 @@ type CampaignSceneViewState = {
   campaignId: string
   masterActiveSceneId: string | null
   forcedSceneId: string | null
-  sessionState: 'ACTIVE' | 'PAUSED'
+  runState: 'IN_PROGRESS' | 'PAUSED'
 }
 ```
 
 Regras:
+* `runState` segue o contrato canonico de `campaign_session`; payloads legados podem expor `sessionState: 'ACTIVE' | 'PAUSED'`, onde `ACTIVE` deve ser interpretado como `IN_PROGRESS`.
 * `masterActiveSceneId` define a cena que o Mestre esta visualizando.
 * `forcedSceneId` define a cena mostrada para todos enquanto o modo "mostrar para todos" estiver ativo.
 * Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
@@ -382,7 +383,7 @@ Regras:
 * Desativar "mostrar para todos" devolve cada Player para a cena do proprio token.
 * Mestre consegue mover token entre cenas pelo menu contextual `Mover para cena...`.
 * Mestre consegue mover tokens entre cards de cena no modal da sidebar direita.
-* Jogador move apenas o proprio token em sessao `ACTIVE`.
+* Jogador move apenas o proprio token em sessao `ONLINE + IN_PROGRESS`.
 * Mestre move qualquer token antes da sessao ou durante a sessao online.
 * Mestre pode mover token de Player por drag em sessao online.
 * Diarios nao ficam vinculados a cenas e nao sao implementados neste modulo.

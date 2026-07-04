@@ -1,6 +1,7 @@
 import { Dice5, Loader2, X } from 'lucide-react'
 import { memo, useEffect, useId, useRef, useState } from 'react'
 import { Button } from '../../../components/Button'
+import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { ascendingDiceOptions, diceAssetPath } from '../config/constants'
 import { normalizeRollValue, rollFallbackValue } from '../domain/diceRollDomain'
 import type { DiceSides } from '../domain/types'
@@ -36,6 +37,12 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
   const [initializing, setInitializing] = useState(false)
   const [rollingSides, setRollingSides] = useState<DiceSides | null>(null)
   const [rolls, setRolls] = useState<VisibleRoll[]>([])
+  const [box, setBox] = useState<ResizableBox>(() => ({
+    x: Math.max(16, (window.innerWidth - 920) / 2),
+    y: 80,
+    width: Math.min(920, window.innerWidth - 32),
+    height: Math.min(640, window.innerHeight - 112),
+  }))
 
   useEffect(() => {
     if (!isOpen) return
@@ -150,9 +157,11 @@ export const DiceModal = memo(function DiceModal({ isOpen, disabled = false, onC
         role="dialog"
         aria-modal="true"
         aria-label="Dados"
-        className="pointer-events-auto fixed left-1/2 top-20 flex h-[min(640px,calc(100vh-112px))] w-[min(920px,calc(100vw-32px))] -translate-x-1/2 flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116] text-white shadow-2xl"
+        className="pointer-events-auto fixed flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116] text-white shadow-2xl"
+        style={{ left: box.x, top: box.y, width: box.width, height: box.height }}
         onMouseDown={(event) => event.stopPropagation()}
       >
+        <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 560, minHeight: 420, viewportMargin: 16 }} />
         <header className="flex shrink-0 items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
           <div className="flex min-w-0 items-center gap-2">
             <Dice5 className="h-5 w-5 text-indigo-300" />

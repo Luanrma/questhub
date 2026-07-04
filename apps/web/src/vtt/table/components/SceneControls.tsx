@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { ChevronLeft, ChevronRight, ImagePlus, Plus, X } from 'lucide-react'
 import { Button } from '../../../components/Button'
+import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { sceneImageMimeTypes } from '../config/constants'
 import { isDraftPreparedScene, isSelectablePreparedScene } from '../domain/sceneDomain'
 import type { PreparedScene } from '../domain/types'
@@ -30,10 +32,20 @@ export function ScenePreparationModal({
   onClose: () => void
 }) {
   const canSave = scenes.some((scene) => scene.file && !scene.assetId)
+  const [box, setBox] = useState<ResizableBox>(() => ({
+    x: Math.max(16, (window.innerWidth - 980) / 2),
+    y: Math.max(16, (window.innerHeight - 720) / 2),
+    width: Math.min(980, window.innerWidth - 32),
+    height: Math.min(720, window.innerHeight - 48),
+  }))
 
   return (
-    <div className="pointer-events-auto fixed inset-0 z-50 grid place-items-center bg-black/55 p-6 backdrop-blur-sm">
-      <div className="flex max-h-[min(720px,calc(100vh-48px))] w-[min(980px,calc(100vw-32px))] flex-col rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl">
+    <div className="pointer-events-auto fixed inset-0 z-50 bg-black/55 backdrop-blur-sm">
+      <div
+        className="relative flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl"
+        style={{ position: 'fixed', left: box.x, top: box.y, width: box.width, height: box.height }}
+      >
+        <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 520, minHeight: 360, viewportMargin: 16 }} />
         <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
           <div className="flex min-w-0 items-center gap-2">
             <ImagePlus className="h-5 w-5 text-indigo-300" />

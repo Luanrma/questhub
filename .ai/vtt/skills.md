@@ -28,6 +28,7 @@
 * Grid-aware Measurement: grid quadrado converte pixels para metros por `metersPerCell`; grid hexagonal mede quantidade de passos entre centros de hexagonos.
 * Grid-owned Measurement Style: cores de medicao pertencem ao modal de configuracao do grid, nao a botoes soltos da toolbar.
 * Route-as-Modal-State: rotas internas da campanha indicam qual overlay esta aberto, sem desmontar o canvas VTT.
+* Edge-resizable Modals: modais e paineis flutuantes devem usar resize por bordas/cantos por meio de helper compartilhado, preservando posicao ao redimensionar pela esquerda ou topo.
 * Generic Table Engine: mapa, token, chat, dado, cena e movimentacao sao modelados sem campos especificos de ruleset.
 * Ephemeral 3D Overlay: dados 3D sao efeitos temporarios sincronizados por Socket.IO e nao alteram estado persistente da mesa.
 * Dice Box Engine: a fisica e renderizacao dos dados 3D sao responsabilidade de `@3d-dice/dice-box`.
@@ -56,6 +57,7 @@
 * Nao usar `squareMeters` como escala canonica; a escala do grid quadrado e `metersPerCell`.
 * Nao aplicar a escala em metros quadrados ao grid hexagonal.
 * Nao renderizar rota hexagonal como linha; cada hexagono da rota deve ser pintado por completo.
+* Nao criar modal novo redimensionavel apenas por canto ou handle unico quando ele representar overlay/painel flutuante.
 * Nao duplicar implementacao de ficha.
 * Nao bloquear o VTT por dados administrativos que possam carregar em overlay.
 * Nao renderizar o VTT como rota filha; ele pertence ao `CampaignLayout` e deve permanecer montado.

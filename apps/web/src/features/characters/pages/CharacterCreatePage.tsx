@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, Check, FileText, Image, Link, Plus, Save, UserRound, X } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
+import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { api, ApiError } from '../../../lib/api'
 
 const BIO_MAX_LENGTH = 2000
@@ -55,6 +56,12 @@ export function CharacterCreatePage() {
   const [canEditName, setCanEditName] = useState(true)
   const [loadingCharacter, setLoadingCharacter] = useState(isEditing)
   const [avatarModalOpen, setAvatarModalOpen] = useState(false)
+  const [avatarModalBox, setAvatarModalBox] = useState<ResizableBox>(() => ({
+    x: Math.max(16, (window.innerWidth - 512) / 2),
+    y: Math.max(16, (window.innerHeight - 560) / 2),
+    width: Math.min(512, window.innerWidth - 32),
+    height: Math.min(560, window.innerHeight - 32),
+  }))
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -336,8 +343,12 @@ export function CharacterCreatePage() {
       </div>
 
       {avatarModalOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-          <div className="w-full max-w-lg rounded-lg border border-white/10 bg-[#0f1014] p-5 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/70">
+          <div
+            className="fixed flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#0f1014] p-5 shadow-2xl"
+            style={{ left: avatarModalBox.x, top: avatarModalBox.y, width: avatarModalBox.width, height: avatarModalBox.height }}
+          >
+            <ResizableEdges box={avatarModalBox} setBox={setAvatarModalBox} limits={{ minWidth: 360, minHeight: 420, viewportMargin: 16 }} />
             <div className="flex items-center justify-between gap-4">
               <div>
                 <h2 className="text-lg font-semibold text-white">Avatar</h2>
@@ -353,7 +364,7 @@ export function CharacterCreatePage() {
               </button>
             </div>
 
-            <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="mt-5 grid min-h-0 grid-cols-2 gap-3 overflow-y-auto overflow-x-hidden pr-1 sm:grid-cols-4">
               {avatarPresets.map((preset, index) => (
                 <button
                   key={preset}

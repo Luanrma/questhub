@@ -35,7 +35,8 @@ Tokens de bestiario podem carregar metadados opacos de origem, como `source = 'b
 * Rotas internas como `/sessions`, `/players`, `/characters`, `/journal` e `/settings` sao estado de modal e renderizam por cima da mesa em painel flutuante.
 * O painel flutuante pode ser fechado navegando de volta para `/campaign/:campaignId/overview`.
 * O painel flutuante pode ser redimensionado pelo usuario sem desmontar a mesa nem o conteudo do painel.
-* O controle visual padrao de redimensionamento do painel flutuante deve aparecer no canto superior esquerdo do header.
+* Todo modal ou painel flutuante redimensionavel deve aceitar resize por qualquer borda e qualquer canto.
+* Ao redimensionar pela borda esquerda ou superior, o modal deve ajustar tambem sua posicao para manter a borda oposta estavel.
 * Paineis flutuantes podem ter rolagem vertical interna, mas nao devem exibir barra de rolagem horizontal ao encolher.
 * Clicar nos menus internos da sidebar nao pode causar reload de documento nem desmontar/remontar o VTT.
 
@@ -310,12 +311,13 @@ type VttTableTokensSnapshotPayload = {
   campaignId: string
   sceneId: string | null
   tokens: VttTableToken[]
-  sessionState: 'ACTIVE' | 'PAUSED'
+  runState: 'IN_PROGRESS' | 'PAUSED'
 }
 ```
 
 Regras:
 * `MASTER` e `GM` sao sinonimos no texto de produto; no dominio, schema Prisma e payloads o valor canonico continua sendo `MASTER`.
+* `runState` segue o contrato canonico de `campaign_session`; payloads legados podem expor `sessionState: 'ACTIVE' | 'PAUSED'`, onde `ACTIVE` deve ser interpretado como `IN_PROGRESS`.
 * `position.x` e `position.y` representam o centro do token em unidades logicas do grid.
 * Para renderizar, `pixelCenter = position * VttGridSettings.size`.
 * O tamanho visual do token e `VttGridSettings.size`, preservando proporcao ao alterar o grid.
@@ -328,7 +330,7 @@ Regras:
 * Apenas `MASTER` ativo ve a ferramenta `Tokens` neste MVP.
 * O backend aceita criacao, remocao, movimento e alteracao de invisibilidade de socket autenticado como `MASTER`, mesmo com a campanha offline; nesse caso persiste direto no banco e emite o evento para o proprio Mestre.
 * O backend aceita movimento quando o Player esta online e e dono do token, ou quando o socket autenticado pertence ao Mestre ativo.
-* `sessionActive` significa campanha online e nao pausada para Players; Mestre nao depende desse estado para preparar ou mover tokens.
+* `sessionActive`, quando ainda existir em codigo legado, significa campanha online e `runState = IN_PROGRESS` para Players; Mestre nao depende desse estado para preparar ou mover tokens.
 * O Mestre nao pode posicionar dois tokens `PLAYER` diferentes do mesmo `ownerUserId` na mesma campanha.
 * Se o usuario dono estiver conectado na sessao com um personagem `PLAYER`, o Mestre so pode posicionar o token desse personagem conectado.
 * O menu de tokens nao deve listar outro candidato `PLAYER` do mesmo `ownerUserId` quando ja existir um token `PLAYER` desse usuario posicionado em qualquer cena.
@@ -347,7 +349,7 @@ Eventos Socket.IO:
 
 * `presence:session:pause`: emitido pelo Mestre para pausar a sessao.
 * `presence:session:resume`: emitido pelo Mestre para retomar a sessao.
-* `presence:session:state`: emitido pelo servidor para informar `ACTIVE` ou `PAUSED`.
+* `presence:session:state`: emitido pelo servidor para informar `IN_PROGRESS` ou `PAUSED`; consumidores legados podem receber `ACTIVE` como alias temporario de `IN_PROGRESS`.
 * `vtt:token:place`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
 * `vtt:token:move`: legado do modelo em memoria; novo fluxo deve usar `campaign-scene:token:move`.
 * `vtt:token:remove`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.

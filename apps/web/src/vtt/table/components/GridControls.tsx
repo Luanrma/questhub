@@ -1,5 +1,6 @@
-import type { CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Palette, SlidersHorizontal, X } from 'lucide-react'
+import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { metersPerCellAllowedValues, type VttGridSettings, type VttGridShape } from '../../grid'
 import { gridLineWidthLimits, gridSizeLimits } from '../config/constants'
 
@@ -81,6 +82,8 @@ export function VttGridSettingsModal({
   onChange: (settings: VttGridSettings) => void
   onClose: () => void
 }) {
+  const [box, setBox] = useState<ResizableBox>({ x: 96, y: 80, width: 360, height: 430 })
+
   function updateSetting<Key extends keyof VttGridSettings>(key: Key, value: VttGridSettings[Key]) {
     onChange({ ...settings, [key]: value })
   }
@@ -88,7 +91,11 @@ export function VttGridSettingsModal({
   const metersPerCellIndex = Math.max(0, metersPerCellAllowedValues.indexOf(settings.metersPerCell))
 
   return (
-    <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(360px,calc(100vw-48px))] rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur">
+    <div
+      className="pointer-events-auto absolute z-30 flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur"
+      style={{ left: box.x, top: box.y, width: box.width, height: box.height }}
+    >
+      <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 320, minHeight: 360, viewportMargin: 16 }} />
       <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
         <div className="flex min-w-0 items-center gap-2">
           <SlidersHorizontal className="h-4 w-4 text-indigo-300" />
@@ -99,7 +106,7 @@ export function VttGridSettingsModal({
         </button>
       </div>
 
-      <div className="grid gap-4 p-4">
+      <div className="grid min-h-0 gap-4 overflow-y-auto overflow-x-hidden p-4">
         <label className="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-white/[0.03] px-3 py-2 text-sm">
           <span className="text-zinc-200">Mostrar grid</span>
           <input type="checkbox" className="h-4 w-4 accent-indigo-500" checked={settings.visible} onChange={(event) => updateSetting('visible', event.target.checked)} />

@@ -4,6 +4,7 @@ import { Grip, MapPinned, Maximize2, Minimize2, Pause, Play, Power, X } from 'lu
 import { Aside } from '../components/Aside'
 import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
+import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
@@ -100,22 +101,25 @@ function FloatingCampaignPanel({
   onFocus: () => void
   children: (size: { width: number; height: number }) => ReactNode
 }) {
-  const [position, setPosition] = useState(defaultPosition)
-  const [size, setSize] = useState(defaultSize)
+  const [box, setBox] = useState<ResizableBox>({
+    x: defaultPosition.x,
+    y: defaultPosition.y,
+    width: defaultSize.width,
+    height: defaultSize.height,
+  })
   const [collapsed, setCollapsed] = useState(false)
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
-  const resizeStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0, width: 0, height: 0 })
   const [dragging, setDragging] = useState(false)
-  const [resizing, setResizing] = useState(false)
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
       if (!dragging) return
 
-      setPosition({
+      setBox((current) => ({
+        ...current,
         x: Math.max(16, dragStartRef.current.panelX + event.clientX - dragStartRef.current.pointerX),
         y: Math.max(78, dragStartRef.current.panelY + event.clientY - dragStartRef.current.pointerY),
-      })
+      }))
     }
 
     function onPointerUp() {
@@ -131,89 +135,36 @@ function FloatingCampaignPanel({
     }
   }, [dragging])
 
-  useEffect(() => {
-    function onPointerMove(event: PointerEvent) {
-      if (!resizing) return
-
-      const maxWidth = window.innerWidth - 48
-      const maxHeight = window.innerHeight - 104
-      const nextWidth = Math.min(maxWidth, Math.max(340, resizeStartRef.current.width - (event.clientX - resizeStartRef.current.pointerX)))
-      const nextHeight = Math.min(maxHeight, Math.max(220, resizeStartRef.current.height - (event.clientY - resizeStartRef.current.pointerY)))
-      const widthDelta = resizeStartRef.current.width - nextWidth
-      const heightDelta = resizeStartRef.current.height - nextHeight
-
-      setSize({ width: nextWidth, height: nextHeight })
-      setPosition({
-        x: Math.max(16, resizeStartRef.current.panelX + widthDelta),
-        y: Math.max(78, resizeStartRef.current.panelY + heightDelta),
-      })
-    }
-
-    function onPointerUp() {
-      setResizing(false)
-    }
-
-    window.addEventListener('pointermove', onPointerMove)
-    window.addEventListener('pointerup', onPointerUp)
-
-    return () => {
-      window.removeEventListener('pointermove', onPointerMove)
-      window.removeEventListener('pointerup', onPointerUp)
-    }
-  }, [resizing])
-
   function startDrag(event: React.PointerEvent<HTMLDivElement>) {
     onFocus()
     dragStartRef.current = {
       pointerX: event.clientX,
       pointerY: event.clientY,
-      panelX: position.x,
-      panelY: position.y,
+      panelX: box.x,
+      panelY: box.y,
     }
     setDragging(true)
-  }
-
-  function startResize(event: React.PointerEvent<HTMLButtonElement>) {
-    event.preventDefault()
-    event.stopPropagation()
-    onFocus()
-    resizeStartRef.current = {
-      pointerX: event.clientX,
-      pointerY: event.clientY,
-      panelX: position.x,
-      panelY: position.y,
-      width: size.width,
-      height: size.height,
-    }
-    setResizing(true)
   }
 
   return (
     <section
       className="campaign-floating-panel fixed z-30 flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur"
       style={{
-        left: position.x,
-        top: position.y,
-        width: Math.min(size.width, window.innerWidth - 48),
-        height: collapsed ? undefined : Math.min(size.height, window.innerHeight - 104),
+        left: box.x,
+        top: box.y,
+        width: Math.min(box.width, window.innerWidth - 48),
+        height: collapsed ? undefined : Math.min(box.height, window.innerHeight - 104),
         zIndex,
       }}
       onPointerDown={onFocus}
     >
+      <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 340, minHeight: 220, minY: 78, viewportMargin: 16 }} />
       <div
         className="flex cursor-grab items-center justify-between gap-3 border-b border-white/10 bg-black/30 px-4 py-3 active:cursor-grabbing"
         onPointerDown={startDrag}
       >
         <div className="flex min-w-0 items-center gap-3">
-          <button
-            type="button"
-            title="Redimensionar painel"
-            aria-label="Redimensionar painel"
-            className="-ml-2 grid h-8 w-8 shrink-0 cursor-nwse-resize place-items-center rounded-md text-zinc-500 transition hover:bg-white/10 hover:text-white"
-            onPointerDown={startResize}
-          >
-            <Grip className="h-4 w-4 cursor-nwse-resize" />
-          </button>
+          <Grip className="-ml-1 h-4 w-4 shrink-0 text-zinc-500" />
           <h1 className="truncate text-sm font-semibold text-white">{title}</h1>
         </div>
         <div className="flex shrink-0 items-center gap-1">
@@ -237,7 +188,7 @@ function FloatingCampaignPanel({
           </button>
         </div>
       </div>
-      {!collapsed ? <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-5">{children(size)}</div> : null}
+      {!collapsed ? <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto p-5">{children({ width: box.width, height: box.height })}</div> : null}
     </section>
   )
 }

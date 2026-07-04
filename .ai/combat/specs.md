@@ -97,6 +97,13 @@ Regras de permissao:
 
 ## 4. UI/UX
 * O tracker aparece no painel lateral direito do VTT.
+* O tracker pode ser destacado pelo usuario para um painel flutuante horizontal no topo da mesa, mantendo os mesmos contratos e permissoes.
+* O painel destacado deve sobrepor a faixa superior da mesa sem desmontar o VTT.
+* O painel destacado deve exibir os participantes como cards de ordem de turno centralizados, com destaque mais forte e dimensao maior para o participante ativo.
+* No painel destacado, o participante ativo deve permanecer centralizado; ao avancar ou voltar turno, a lista se comporta como um carrossel circular.
+* O painel destacado nao deve exibir barra de rolagem horizontal nem cards cortados pela metade.
+* O painel destacado deve permitir redimensionamento por qualquer borda, respeitando dimensoes minimas para os controles.
+* O painel destacado deve oferecer acao para pregar o tracker novamente no painel lateral direito.
 * O painel mostra rodada, participante ativo, lista de participantes e iniciativa.
 * Mestre ve controles para iniciar, editar iniciativa, avancar, voltar e encerrar.
 * Jogador ve apenas estado atual.
