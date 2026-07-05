@@ -46,9 +46,12 @@ export type GameSystemBestiarySource = {
   license?: string
 }
 
-export type GameSystemBestiaryCreature<TSystemData = unknown> = {
+export type GameSystemBestiaryEntryCategory = 'npc' | 'hazard'
+
+export type GameSystemBestiaryEntry<TSystemData = unknown> = {
   id: string
   system: string
+  category: GameSystemBestiaryEntryCategory
   name: string
   source?: GameSystemBestiarySource
   display: GameSystemBestiaryDisplay
@@ -62,6 +65,10 @@ export type GameSystemBestiaryCreature<TSystemData = unknown> = {
   systemData: TSystemData
 }
 
+export type GameSystemBestiaryCreature<TSystemData = unknown> = GameSystemBestiaryEntry<TSystemData> & {
+  category: 'npc'
+}
+
 export type GameSystemBestiaryFilterValue = string | number
 
 export type GameSystemBestiaryListOptions = {
@@ -73,6 +80,9 @@ export type GameSystemBestiaryListOptions = {
 
 export type GameSystemBestiaryAdapter = {
   system: string
+  listEntries?: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryEntry[]
+  countEntries?: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
+  findEntry?: (entryId: string) => GameSystemBestiaryEntry | null
   listCreatures: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryCreature[]
   countCreatures: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
   findCreature?: (creatureId: string) => GameSystemBestiaryCreature | null

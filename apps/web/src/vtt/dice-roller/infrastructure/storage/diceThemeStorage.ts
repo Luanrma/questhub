@@ -21,12 +21,14 @@ export type CampaignUserSettings = {
   }
   vtt: {
     preparedBestiaryCreatureIds: string[]
+    preparedHazardEntryIds: string[]
     tokenMovementSpeed: VttTokenMovementSpeed
   }
 }
 
 export const DICE_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:vtt:dice-display-settings-changed'
 export const PREPARED_BESTIARY_TOKENS_CHANGED_EVENT = 'questhub:vtt:prepared-bestiary-tokens-changed'
+export const PREPARED_HAZARDS_CHANGED_EVENT = 'questhub:vtt:prepared-hazards-changed'
 export const VTT_TABLE_SETTINGS_CHANGED_EVENT = 'questhub:vtt:table-settings-changed'
 
 function diceColorStorageKey(campaignId: string) {
@@ -74,13 +76,16 @@ export function normalizeCampaignUserSettings(value: unknown): CampaignUserSetti
     return {
       dice: normalizeDiceDisplaySettings(null),
       gameContent: { language: 'pt-BR' },
-      vtt: { preparedBestiaryCreatureIds: [], tokenMovementSpeed: 'default' },
+      vtt: { preparedBestiaryCreatureIds: [], preparedHazardEntryIds: [], tokenMovementSpeed: 'default' },
     }
   }
 
   const settings = value as Partial<CampaignUserSettings>
   const preparedBestiaryCreatureIds = Array.isArray(settings.vtt?.preparedBestiaryCreatureIds)
     ? Array.from(new Set(settings.vtt.preparedBestiaryCreatureIds.filter((id): id is string => typeof id === 'string' && id.trim().length > 0)))
+    : []
+  const preparedHazardEntryIds = Array.isArray(settings.vtt?.preparedHazardEntryIds)
+    ? Array.from(new Set(settings.vtt.preparedHazardEntryIds.filter((id): id is string => typeof id === 'string' && id.trim().length > 0)))
     : []
 
   return {
@@ -91,6 +96,7 @@ export function normalizeCampaignUserSettings(value: unknown): CampaignUserSetti
     },
     vtt: {
       preparedBestiaryCreatureIds,
+      preparedHazardEntryIds,
       tokenMovementSpeed: normalizeVttTokenMovementSpeed(settings.vtt?.tokenMovementSpeed),
     },
   }
@@ -150,6 +156,11 @@ export function storeCampaignUserSettings(campaignId: string, settings: Campaign
     window.dispatchEvent(
       new CustomEvent(PREPARED_BESTIARY_TOKENS_CHANGED_EVENT, {
         detail: { campaignId, creatureIds: normalizedSettings.vtt.preparedBestiaryCreatureIds },
+      }),
+    )
+    window.dispatchEvent(
+      new CustomEvent(PREPARED_HAZARDS_CHANGED_EVENT, {
+        detail: { campaignId, hazardEntryIds: normalizedSettings.vtt.preparedHazardEntryIds },
       }),
     )
     window.dispatchEvent(

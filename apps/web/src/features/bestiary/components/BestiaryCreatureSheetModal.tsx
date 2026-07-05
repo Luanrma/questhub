@@ -7,12 +7,12 @@ import { Button } from '../../../components/Button'
 import { api, ApiError } from '../../../lib/api'
 import { calculateBounds, clamp } from '../../../game-systems/character-sheet/drag'
 import { readStoredCampaignUserSettings } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
-import type { BestiaryCreature } from '../types'
+import type { BestiaryEntry } from '../types'
 
 type Props = {
   campaignId: string
   creatureId: string
-  initialCreature?: BestiaryCreature | null
+  initialCreature?: BestiaryEntry | null
   onClose: () => void
 }
 
@@ -21,12 +21,12 @@ function getSystemMark(system: string) {
   return 'Ficha'
 }
 
-function renderCreatureSheet(creature: BestiaryCreature) {
+function renderCreatureSheet(creature: BestiaryEntry) {
   if (creature.system === 'PATHFINDER_2E') {
     return <Pathfinder2eBestiarySheetView creature={creature} />
   }
 
-  return <div className="sheet-message">Ficha de criatura nao suportada para este sistema.</div>
+  return <div className="sheet-message">Ficha de bestiario nao suportada para este sistema.</div>
 }
 
 export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCreature, onClose }: Props) {
@@ -39,13 +39,13 @@ export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCrea
     height: Math.min(760, window.innerHeight - 24),
   }))
   const [dragging, setDragging] = useState(false)
-  const [creature, setCreature] = useState<BestiaryCreature | null>(initialCreature ?? null)
+  const [creature, setCreature] = useState<BestiaryEntry | null>(initialCreature ?? null)
   const [loading, setLoading] = useState(!initialCreature)
   const [error, setError] = useState<string | null>(null)
   const [language, setLanguage] = useState<'pt-BR' | 'original'>(() => readStoredCampaignUserSettings(campaignId).gameContent.language)
   const [reloadKey, setReloadKey] = useState(0)
 
-  const title = creature?.name ?? 'Ficha de Criatura'
+  const title = creature?.name ?? 'Ficha de Bestiario'
   const systemMark = useMemo(() => getSystemMark(creature?.system ?? ''), [creature?.system])
 
   useEffect(() => {
@@ -58,14 +58,14 @@ export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCrea
       setError(null)
 
       try {
-        const response = await api<BestiaryCreature>(
+        const response = await api<BestiaryEntry>(
           `/api/campaigns/${campaignId}/bestiary/${encodeURIComponent(creatureId)}?language=${encodeURIComponent(language)}`,
         )
         if (cancelled) return
         setCreature(response)
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof ApiError ? err.message : 'Nao foi possivel carregar a ficha da criatura.')
+          setError(err instanceof ApiError ? err.message : 'Nao foi possivel carregar a ficha do bestiario.')
         }
       } finally {
         if (!cancelled) setLoading(false)
@@ -151,7 +151,7 @@ export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCrea
             <GripHorizontal className="h-4 w-4 shrink-0" />
             <div className="min-w-0">
               <div className="truncate text-sm font-semibold">{title}</div>
-              <div className="text-xs">Ficha de criatura</div>
+              <div className="text-xs">Ficha de bestiario</div>
             </div>
           </div>
           <button
@@ -169,7 +169,7 @@ export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCrea
           <div className="sheet-paper-header">
             <div>
               <div className="sheet-kicker">Bestiario</div>
-              <h2>Ficha de Criatura</h2>
+              <h2>Ficha de Bestiario</h2>
             </div>
             <div className="flex items-start gap-4">
               <label className="sheet-language-select">
@@ -192,7 +192,7 @@ export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCrea
         </div>
 
         <div className="sheet-footer">
-          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{creature?.display.subtitle ?? 'Catalogo de criaturas'}</div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{creature?.display.subtitle ?? 'Catalogo de bestiario'}</div>
           <Button type="button" variant="ghost" onClick={onClose}>
             Fechar
           </Button>

@@ -2,8 +2,8 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
-import { countBestiaryCreatures, findBestiaryCreature, listBestiaryCreatures } from './registry'
-import type { GameSystemBestiaryCreature } from './models'
+import { countBestiaryEntries, findBestiaryEntry, listBestiaryEntries } from './registry'
+import type { GameSystemBestiaryEntry } from './models'
 
 const campaignBestiaryParamsSchema = z.object({
   campaignId: z.string().trim().min(1, 'Campanha invalida'),
@@ -15,6 +15,7 @@ const campaignBestiaryCreatureParamsSchema = campaignBestiaryParamsSchema.extend
 
 const campaignBestiaryQuerySchema = z.object({
   q: z.string().trim().max(80).optional(),
+  category: z.enum(['npc', 'hazard', 'all']).default('npc'),
   level: z.coerce.number().int().optional(),
   rarity: z.string().trim().max(40).optional(),
   page: z.coerce.number().int().min(1).default(1),
@@ -32,27 +33,27 @@ function getGameContentLanguage(settings: unknown): 'pt-BR' | 'original' {
   return (gameContent as { language?: unknown }).language === 'original' ? 'original' : 'pt-BR'
 }
 
-function localizeCreature(creature: GameSystemBestiaryCreature, language: 'pt-BR' | 'original') {
+function localizeBestiaryEntry(entry: GameSystemBestiaryEntry, language: 'pt-BR' | 'original') {
   if (language === 'original') {
     return {
-      ...creature,
+      ...entry,
       original: {
-        name: creature.name,
-        display: creature.display,
+        name: entry.name,
+        display: entry.display,
       },
     }
   }
 
-  const ptBR = creature.translations?.ptBR
+  const ptBR = entry.translations?.ptBR
   return {
-    ...creature,
+    ...entry,
     original: {
-      name: creature.name,
-      display: creature.display,
+      name: entry.name,
+      display: entry.display,
     },
-    name: ptBR?.name ?? creature.name,
+    name: ptBR?.name ?? entry.name,
     display: {
-      ...creature.display,
+      ...entry.display,
       ...ptBR?.display,
     },
   }
@@ -107,34 +108,38 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
     if (!access) return reply.status(403).send({ error: 'Apenas o mestre pode acessar o bestiario da campanha' })
 
     const filters = {
+      category: query.data.category,
       ...(query.data.level === undefined ? {} : { level: query.data.level }),
       ...(query.data.rarity ? { rarity: query.data.rarity } : {}),
     }
 
-    const creatures = listBestiaryCreatures(access.campaign.system, {
+    const entries = listBestiaryEntries(access.campaign.system, {
       search: query.data.q,
       filters,
       limit: query.data.limit,
       offset: (query.data.page - 1) * query.data.limit,
     })
 
-    if (!creatures) return reply.status(404).send({ error: 'Bestiario nao disponivel para este sistema' })
+    if (!entries) return reply.status(404).send({ error: 'Bestiario nao disponivel para este sistema' })
 
-    const total = countBestiaryCreatures(access.campaign.system, { search: query.data.q, filters }) ?? 0
+    const total = countBestiaryEntries(access.campaign.system, { search: query.data.q, filters }) ?? 0
 
     const language = await getGameContentLanguageForUser(params.data.campaignId, payload.id)
+    const localizedEntries = entries.map((entry) => localizeBestiaryEntry(entry, language))
 
     return reply.send({
       campaignId: access.campaign.id,
       system: access.campaign.system,
       language,
+      category: query.data.category,
       pagination: {
         page: query.data.page,
         limit: query.data.limit,
         total,
         totalPages: Math.max(1, Math.ceil(total / query.data.limit)),
       },
-      creatures: creatures.map((creature) => localizeCreature(creature, language)),
+      entries: localizedEntries,
+      creatures: localizedEntries.filter((entry) => entry.category === 'npc'),
     })
   })
 
@@ -151,10 +156,10 @@ export function registerBestiaryRoutes(app: FastifyInstance) {
     const access = await getMasterBestiaryAccess(params.data.campaignId, payload.id)
     if (!access) return reply.status(403).send({ error: 'Apenas o mestre pode acessar o bestiario da campanha' })
 
-    const creature = findBestiaryCreature(access.campaign.system, params.data.creatureId)
-    if (!creature) return reply.status(404).send({ error: 'Criatura nao encontrada no bestiario desta campanha' })
+    const entry = findBestiaryEntry(access.campaign.system, params.data.creatureId)
+    if (!entry) return reply.status(404).send({ error: 'Entrada nao encontrada no bestiario desta campanha' })
 
     const language = query.data.language ?? (await getGameContentLanguageForUser(params.data.campaignId, payload.id))
-    return reply.send(localizeCreature(creature, language))
+    return reply.send(localizeBestiaryEntry(entry, language))
   })
 }

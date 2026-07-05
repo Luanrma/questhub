@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
-import { findBestiaryCreature } from '../game_systems/bestiary/registry'
+import { findBestiaryCreature, findBestiaryEntry } from '../game_systems/bestiary/registry'
 import { generateInviteCode } from './invite-code'
 import { presentCampaignDashboardEntry } from './presenter'
 
@@ -25,6 +25,7 @@ const defaultCampaignUserSettings = {
   },
   vtt: {
     preparedBestiaryCreatureIds: [] as string[],
+    preparedHazardEntryIds: [] as string[],
     tokenMovementSpeed: 'default' as 'instant' | 'fast' | 'default' | 'cinematic',
   },
 }
@@ -45,6 +46,7 @@ const campaignUserSettingsSchema = z
     vtt: z
       .object({
         preparedBestiaryCreatureIds: z.array(z.string().trim().min(1)).max(100).optional(),
+        preparedHazardEntryIds: z.array(z.string().trim().min(1)).max(100).optional(),
         tokenMovementSpeed: z.enum(['instant', 'fast', 'default', 'cinematic']).optional(),
       })
       .optional(),
@@ -64,6 +66,7 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
   const gameContent = settings.gameContent ?? {}
   const vtt = settings.vtt ?? {}
   const preparedBestiaryCreatureIds = Array.from(new Set(vtt.preparedBestiaryCreatureIds ?? []))
+  const preparedHazardEntryIds = Array.from(new Set(vtt.preparedHazardEntryIds ?? []))
 
   return {
     ...settings,
@@ -76,6 +79,7 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
     },
     vtt: {
       preparedBestiaryCreatureIds,
+      preparedHazardEntryIds,
       tokenMovementSpeed: vtt.tokenMovementSpeed ?? defaultCampaignUserSettings.vtt.tokenMovementSpeed,
     },
   }
@@ -810,6 +814,54 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     })
 
     return reply.send([...characterCandidates, ...bestiaryCandidates])
+  })
+
+  app.get('/api/campaigns/:campaignId/hazard-candidates', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+    const params = req.params as { campaignId: string }
+
+    const master = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        role: 'MASTER',
+        status: 'ACTIVE',
+        character: { userId: payload.id },
+      },
+      select: {
+        id: true,
+        campaign: { select: { system: true } },
+      },
+    })
+    if (!master) return reply.status(403).send({ error: 'Apenas o mestre pode gerenciar hazards' })
+
+    const settings = await prisma.campaignUserSettings.findUnique({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      select: { settings: true },
+    })
+    const preparedHazardEntryIds = normalizeCampaignUserSettings(settings?.settings).vtt.preparedHazardEntryIds
+
+    const hazardCandidates = preparedHazardEntryIds.flatMap((hazardEntryId) => {
+      const hazard = findBestiaryEntry(master.campaign.system, hazardEntryId)
+      if (!hazard || hazard.category !== 'hazard') return []
+
+      return [{
+        source: 'hazard',
+        hazardEntryId: hazard.id,
+        name: hazard.name,
+        level: hazard.display.level ? `${hazard.display.level.label} ${hazard.display.level.value}` : null,
+        rarity: hazard.display.tags[0] ?? null,
+        complexity: hazard.display.stats.find((stat) => stat.key === 'complexity')?.value ?? null,
+        tokenBorderColor: hazard.token.borderColor,
+      }]
+    })
+
+    return reply.send(hazardCandidates)
   })
 
   app.post('/api/campaigns/:campaignId/players/:userId/approve', async (req, reply) => {

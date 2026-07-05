@@ -8,7 +8,7 @@ import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
-import { CampaignOverviewPage } from '../vtt/table/CampaignOverviewPage'
+import { CampaignOverviewPage, type CampaignOverviewPageHandle } from '../vtt/table/CampaignOverviewPage'
 import {
   defaultGridSettings,
   normalizeGridSettings,
@@ -213,6 +213,7 @@ export function CampaignLayout() {
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
+  const campaignOverviewRef = useRef<CampaignOverviewPageHandle | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
   const [mySheetOpen, setMySheetOpen] = useState(false)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
@@ -355,6 +356,7 @@ export function CampaignLayout() {
 
     setSessionActionLoading(true)
     try {
+      await campaignOverviewRef.current?.syncTableState()
       await startCampaignSession({ campaignId, characterId: myCharacter.id })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível iniciar a sessão.'
@@ -511,6 +513,7 @@ export function CampaignLayout() {
 
           <main className="relative z-10 min-h-0 flex-1 overflow-hidden">
             <CampaignOverviewPage
+              ref={campaignOverviewRef}
               gridSettings={gridSettings}
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
               canConfigureGrid={Boolean(isMaster)}

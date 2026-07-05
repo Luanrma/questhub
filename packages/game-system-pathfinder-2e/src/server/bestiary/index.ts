@@ -1,11 +1,12 @@
 import type {
   GameSystemBestiaryAdapter,
   GameSystemBestiaryCreature,
+  GameSystemBestiaryEntry,
   GameSystemBestiarySheet,
   GameSystemBestiarySheetEntry,
   GameSystemBestiarySheetSection,
 } from '../../../../game-system-core/src/server/bestiary'
-import { PATHFINDER_2E_BESTIARY_DATA, PATHFINDER_2E_BESTIARY_SOURCE_SUMMARY } from './data.generated'
+import { PATHFINDER_2E_BESTIARY_DATA, PATHFINDER_2E_BESTIARY_HAZARD_DATA, PATHFINDER_2E_BESTIARY_SOURCE_SUMMARY } from './data.generated'
 
 type Pathfinder2eBestiarySheetAttack = {
   name: string
@@ -104,6 +105,7 @@ type Pathfinder2eBestiarySheet = {
 export type Pathfinder2eBestiaryCreatureData = {
   id: string
   system: 'PATHFINDER_2E'
+  category: 'npc'
   sourcePack: string
   sourceId: string
   name: string
@@ -132,6 +134,48 @@ export type Pathfinder2eBestiaryCreatureData = {
   }
   sheet: Pathfinder2eBestiarySheet
 }
+
+type Pathfinder2eBestiaryHazardSheet = {
+  defenses: {
+    armorClass: number
+    hardness: number
+    hitPoints: number
+    stealth: number
+    stealthDetail?: string
+    fortitude: number
+    reflex: number
+    will: number
+  }
+  disable?: string
+  routine?: string
+  reset?: string
+  description?: string
+  actions: Pathfinder2eBestiarySheetAction[]
+}
+
+export type Pathfinder2eBestiaryHazardData = {
+  id: string
+  system: 'PATHFINDER_2E'
+  category: 'hazard'
+  sourcePack: string
+  sourceId: string
+  name: string
+  level: number
+  rarity: string
+  traits: string[]
+  isComplex: boolean
+  publicationTitle: string
+  remaster: boolean
+  license: string
+  token: {
+    imageUrl: string | null
+    fallbackInitials: string
+    borderColor: string
+  }
+  sheet: Pathfinder2eBestiaryHazardSheet
+}
+
+type Pathfinder2eBestiaryEntryData = Pathfinder2eBestiaryCreatureData | Pathfinder2eBestiaryHazardData
 
 function formatLevel(level: number) {
   if (level < 0) return `${level}`
@@ -306,6 +350,7 @@ function toBestiaryCreature(creature: Pathfinder2eBestiaryCreatureData): GameSys
   return {
     id: creature.id,
     system: creature.system,
+    category: 'npc',
     name: creature.name,
     source: {
       pack: creature.sourcePack,
@@ -345,28 +390,120 @@ function toBestiaryCreature(creature: Pathfinder2eBestiaryCreatureData): GameSys
   }
 }
 
+function toHazardDisplaySheet(sheet: Pathfinder2eBestiaryHazardSheet): GameSystemBestiarySheet {
+  const defenses = compactEntries([
+    { key: 'armorClass', label: 'CA', value: String(sheet.defenses.armorClass) },
+    { key: 'hardness', label: 'Dureza', value: String(sheet.defenses.hardness) },
+    sheet.defenses.hitPoints > 0 ? { key: 'hitPoints', label: 'PV', value: String(sheet.defenses.hitPoints) } : null,
+    {
+      key: 'stealth',
+      label: 'Furtividade',
+      value: formatModifier(sheet.defenses.stealth),
+      detail: sheet.defenses.stealthDetail,
+    },
+    sheet.defenses.fortitude ? { key: 'fortitude', label: 'Fortitude', value: formatModifier(sheet.defenses.fortitude) } : null,
+    sheet.defenses.reflex ? { key: 'reflex', label: 'Reflexos', value: formatModifier(sheet.defenses.reflex) } : null,
+    sheet.defenses.will ? { key: 'will', label: 'Vontade', value: formatModifier(sheet.defenses.will) } : null,
+  ])
+
+  const operations = compactEntries([
+    sheet.description ? { key: 'description', label: 'Descricao', detail: sheet.description } : null,
+    sheet.disable ? { key: 'disable', label: 'Desarmar', detail: sheet.disable } : null,
+    sheet.routine ? { key: 'routine', label: 'Rotina', detail: sheet.routine } : null,
+    sheet.reset ? { key: 'reset', label: 'Reset', detail: sheet.reset } : null,
+  ])
+
+  const actions = sheet.actions.map((action) => ({
+    key: `action:${action.name}`,
+    label: action.name,
+    value: PT_BR_SHEET_LABELS.actionKinds[action.kind] ?? labelize(action.kind),
+    detail: action.detail,
+    tags: action.traits,
+  }))
+
+  return {
+    sections: compactSections([
+      { key: 'defenses', title: 'Defesas', entries: defenses },
+      { key: 'operations', title: 'Operacao', entries: operations },
+      { key: 'actions', title: 'Acoes', entries: actions },
+    ]),
+  }
+}
+
+function toBestiaryHazard(hazard: Pathfinder2eBestiaryHazardData): GameSystemBestiaryEntry<Pathfinder2eBestiaryHazardData> {
+  return {
+    id: hazard.id,
+    system: hazard.system,
+    category: 'hazard',
+    name: hazard.name,
+    source: {
+      pack: hazard.sourcePack,
+      id: hazard.sourceId,
+      title: hazard.publicationTitle,
+      license: hazard.license,
+    },
+    display: {
+      subtitle: `${hazard.publicationTitle} - ${hazard.sourcePack}`,
+      level: { label: 'Nivel', value: formatLevel(hazard.level) },
+      stats: [
+        { key: 'armorClass', label: 'CA', value: String(hazard.sheet.defenses.armorClass) },
+        { key: 'hardness', label: 'Dureza', value: String(hazard.sheet.defenses.hardness) },
+        { key: 'stealth', label: 'Furt.', value: formatModifier(hazard.sheet.defenses.stealth) },
+        { key: 'complexity', label: 'Tipo', value: hazard.isComplex ? 'Complexo' : 'Simples' },
+      ],
+      tags: [hazard.rarity, ...hazard.traits],
+      sheet: toHazardDisplaySheet(hazard.sheet),
+    },
+    translations: {
+      ptBR: {
+        display: {
+          stats: [
+            { key: 'armorClass', label: 'CA', value: String(hazard.sheet.defenses.armorClass) },
+            { key: 'hardness', label: 'Dureza', value: String(hazard.sheet.defenses.hardness) },
+            { key: 'stealth', label: 'Furt.', value: formatModifier(hazard.sheet.defenses.stealth) },
+            { key: 'complexity', label: 'Tipo', value: hazard.isComplex ? 'Complexo' : 'Simples' },
+          ],
+          sheet: toHazardDisplaySheet(hazard.sheet),
+        },
+      },
+    },
+    token: hazard.token,
+    systemData: hazard,
+  }
+}
+
 export { PATHFINDER_2E_BESTIARY_SOURCE_SUMMARY }
 
 export const PATHFINDER_2E_BESTIARY: GameSystemBestiaryCreature<Pathfinder2eBestiaryCreatureData>[] =
   PATHFINDER_2E_BESTIARY_DATA.map(toBestiaryCreature)
 
-const PATHFINDER_2E_BESTIARY_BY_ID = new Map(PATHFINDER_2E_BESTIARY.map((creature) => [creature.id, creature]))
+export const PATHFINDER_2E_BESTIARY_HAZARDS: GameSystemBestiaryEntry<Pathfinder2eBestiaryHazardData>[] =
+  PATHFINDER_2E_BESTIARY_HAZARD_DATA.map(toBestiaryHazard)
 
-function matchesSearch(creature: Pathfinder2eBestiaryCreatureData, search: string) {
+export const PATHFINDER_2E_BESTIARY_ENTRIES: GameSystemBestiaryEntry<Pathfinder2eBestiaryEntryData>[] = [
+  ...PATHFINDER_2E_BESTIARY,
+  ...PATHFINDER_2E_BESTIARY_HAZARDS,
+]
+
+const PATHFINDER_2E_BESTIARY_BY_ID = new Map(PATHFINDER_2E_BESTIARY.map((creature) => [creature.id, creature]))
+const PATHFINDER_2E_BESTIARY_ENTRY_BY_ID = new Map(PATHFINDER_2E_BESTIARY_ENTRIES.map((entry) => [entry.id, entry]))
+
+function matchesSearch(entry: Pathfinder2eBestiaryEntryData, search: string) {
   const normalized = search.trim().toLocaleLowerCase()
   if (!normalized) return true
 
   return (
-    creature.name.toLocaleLowerCase().includes(normalized) ||
-    creature.sourcePack.toLocaleLowerCase().includes(normalized) ||
-    creature.traits.some((trait) => trait.toLocaleLowerCase().includes(normalized))
+    entry.name.toLocaleLowerCase().includes(normalized) ||
+    entry.sourcePack.toLocaleLowerCase().includes(normalized) ||
+    entry.traits.some((trait) => trait.toLocaleLowerCase().includes(normalized))
   )
 }
 
-function matchesFilters(creature: Pathfinder2eBestiaryCreatureData, filters: Record<string, string | number> | undefined) {
+function matchesFilters(entry: Pathfinder2eBestiaryEntryData, filters: Record<string, string | number> | undefined) {
   if (!filters) return true
-  if (typeof filters.level === 'number' && creature.level !== filters.level) return false
-  if (typeof filters.rarity === 'string' && creature.rarity !== filters.rarity) return false
+  if (typeof filters.level === 'number' && entry.level !== filters.level) return false
+  if (typeof filters.rarity === 'string' && entry.rarity !== filters.rarity) return false
+  if (typeof filters.category === 'string' && filters.category !== 'all' && entry.category !== filters.category) return false
   return true
 }
 
@@ -376,8 +513,33 @@ function filterCreatures(options: { search?: string; filters?: Record<string, st
   return PATHFINDER_2E_BESTIARY_DATA.filter((creature) => matchesSearch(creature, search) && matchesFilters(creature, options?.filters))
 }
 
+function filterEntries(options: { search?: string; filters?: Record<string, string | number> } | undefined) {
+  const search = options?.search ?? ''
+
+  return [...PATHFINDER_2E_BESTIARY_DATA, ...PATHFINDER_2E_BESTIARY_HAZARD_DATA].filter((entry) => matchesSearch(entry, search) && matchesFilters(entry, options?.filters))
+}
+
+function toBestiaryEntry(entry: Pathfinder2eBestiaryEntryData) {
+  return entry.category === 'hazard' ? toBestiaryHazard(entry) : toBestiaryCreature(entry)
+}
+
 export const pathfinder2eBestiaryAdapter: GameSystemBestiaryAdapter = {
   system: 'PATHFINDER_2E',
+  listEntries(options) {
+    const limit = options?.limit ?? 24
+    const offset = options?.offset ?? 0
+
+    return filterEntries(options)
+      .sort((a, b) => a.level - b.level || a.name.localeCompare(b.name))
+      .slice(offset, offset + limit)
+      .map(toBestiaryEntry)
+  },
+  countEntries(options) {
+    return filterEntries(options).length
+  },
+  findEntry(entryId) {
+    return PATHFINDER_2E_BESTIARY_ENTRY_BY_ID.get(entryId) ?? null
+  },
   listCreatures(options) {
     const limit = options?.limit ?? 24
     const offset = options?.offset ?? 0

@@ -70,6 +70,7 @@ Contratos compartilhados de bestiario devem permanecer agnosticos:
 type GameSystemBestiaryCreature<TSystemData = unknown> = {
   id: string
   system: string
+  category: 'npc'
   name: string
   source?: GameSystemBestiarySource
   display: {
@@ -83,11 +84,33 @@ type GameSystemBestiaryCreature<TSystemData = unknown> = {
 }
 ```
 
+O bestiario tambem pode expor entradas nao-criatura, como hazards. O contrato agnostico usa uma categoria para manter a listagem unificada sem misturar mecanicas:
+
+```ts
+type GameSystemBestiaryEntryCategory = 'npc' | 'hazard'
+
+type GameSystemBestiaryEntry<TSystemData = unknown> =
+  | (GameSystemBestiaryCreature<TSystemData> & { category: 'npc' })
+  | {
+      id: string
+      system: string
+      category: 'hazard'
+      name: string
+      source?: GameSystemBestiarySource
+      display: GameSystemBestiaryDisplay
+      token: GameSystemBestiaryToken
+      systemData: TSystemData
+    }
+```
+
 Para catalogos de bestiario, adapters podem expor lookup direto por id:
 
 ```ts
 type GameSystemBestiaryAdapter = {
   system: string
+  listEntries?: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryEntry[]
+  countEntries?: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
+  findEntry?: (entryId: string) => GameSystemBestiaryEntry | null
   listCreatures: (options?: GameSystemBestiaryListOptions) => GameSystemBestiaryCreature[]
   countCreatures: (options?: Pick<GameSystemBestiaryListOptions, 'search' | 'filters'>) => number
   findCreature?: (creatureId: string) => GameSystemBestiaryCreature | null

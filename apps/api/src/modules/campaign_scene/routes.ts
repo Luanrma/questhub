@@ -8,6 +8,7 @@ import {
   campaignSceneParamsSchema,
   createCampaignSceneSchema,
   deleteCampaignSceneQuerySchema,
+  syncCampaignSceneTableStateSchema,
   updateCampaignSceneSchema,
 } from './validation'
 import { presentCampaignSceneViewState } from './presenter'
@@ -213,6 +214,125 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
     })
 
     return reply.send(await Promise.all(scenes.map(presentCampaignSceneWithSignedBackground)))
+  })
+
+  app.put('/api/campaigns/:campaignId/scenes/table-state', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = campaignSceneParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Campanha invalida' })
+
+    const access = await getCampaignAccess(params.data.campaignId, payload.id)
+    if (!isMaster(access)) return reply.status(403).send({ error: 'Apenas o mestre pode sincronizar a mesa' })
+
+    const parsed = syncCampaignSceneTableStateSchema.safeParse(req.body ?? {})
+    if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+
+    const sceneIds = parsed.data.scenes.map((scene) => scene.id)
+    const uniqueSceneIds = new Set(sceneIds)
+    if (uniqueSceneIds.size !== sceneIds.length) return reply.status(400).send({ error: 'Cenas duplicadas no snapshot' })
+
+    const characterTokenIds = parsed.data.scenes.flatMap((scene) =>
+      scene.tokens.flatMap((token) => token.source === 'character' ? [token.characterId] : []),
+    )
+    if (new Set(characterTokenIds).size !== characterTokenIds.length) {
+      return reply.status(400).send({ error: 'Personagem duplicado no snapshot de tokens' })
+    }
+
+    const [campaign, scenes] = await Promise.all([
+      prisma.campaign.findUnique({
+        where: { id: params.data.campaignId },
+        select: { system: true },
+      }),
+      prisma.campaignScene.findMany({
+        where: { campaignId: params.data.campaignId },
+        select: { id: true },
+      }),
+    ])
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+
+    const persistedSceneIds = new Set(scenes.map((scene) => scene.id))
+    const invalidSceneId = sceneIds.find((sceneId) => !persistedSceneIds.has(sceneId))
+    if (invalidSceneId) return reply.status(400).send({ error: 'Snapshot contem cena invalida' })
+
+    const invalidMasterSceneId =
+      parsed.data.masterActiveSceneId && !persistedSceneIds.has(parsed.data.masterActiveSceneId)
+        ? parsed.data.masterActiveSceneId
+        : null
+    if (invalidMasterSceneId) return reply.status(400).send({ error: 'Cena ativa invalida' })
+
+    const validCharacterIds = new Set(
+      (await prisma.campaignCharacter.findMany({
+        where: {
+          campaignId: params.data.campaignId,
+          status: 'ACTIVE',
+          role: { in: ['PLAYER', 'NPC'] },
+          characterId: { in: characterTokenIds },
+        },
+        select: { characterId: true },
+      })).map((entry) => entry.characterId),
+    )
+    const invalidCharacterId = characterTokenIds.find((characterId) => !validCharacterIds.has(characterId))
+    if (invalidCharacterId) return reply.status(400).send({ error: 'Snapshot contem personagem invalido' })
+
+    await prisma.$transaction(async (tx) => {
+      for (const scene of parsed.data.scenes) {
+        await tx.campaignScene.update({
+          where: { id: scene.id },
+          data: gridToSceneData(scene.grid),
+        })
+      }
+
+      await tx.campaignSceneToken.deleteMany({
+        where: { scene: { campaignId: params.data.campaignId } },
+      })
+
+      const tokensToCreate: Prisma.CampaignSceneTokenCreateManyInput[] = []
+      for (const scene of parsed.data.scenes) {
+        for (const token of scene.tokens) {
+          tokensToCreate.push({
+            id: token.id,
+            sceneId: scene.id,
+            source: token.source === 'bestiary' ? 'BESTIARY' : 'CHARACTER',
+            characterId: token.source === 'character' ? token.characterId : null,
+            bestiarySystem: token.source === 'bestiary' ? campaign.system : null,
+            bestiaryCreatureId: token.source === 'bestiary' ? token.bestiaryCreatureId : null,
+            name: token.source === 'bestiary' ? token.name : null,
+            avatarUrl: token.source === 'bestiary' ? token.avatarUrl ?? null : null,
+            tokenBorderColor: token.tokenBorderColor ?? null,
+            hidden: token.hidden,
+            positionX: token.position.x,
+            positionY: token.position.y,
+          })
+        }
+      }
+
+      if (tokensToCreate.length) {
+        await tx.campaignSceneToken.createMany({ data: tokensToCreate })
+      }
+
+      if (parsed.data.masterActiveSceneId !== undefined) {
+        await tx.campaignSceneViewState.upsert({
+          where: { campaignId: params.data.campaignId },
+          create: {
+            campaignId: params.data.campaignId,
+            masterActiveSceneId: parsed.data.masterActiveSceneId,
+          },
+          update: {
+            masterActiveSceneId: parsed.data.masterActiveSceneId,
+          },
+        })
+      }
+    })
+
+    const updatedScenes = await prisma.campaignScene.findMany({
+      where: { campaignId: params.data.campaignId },
+      include: sceneInclude,
+      orderBy: { order: 'asc' },
+    })
+
+    return reply.send(await Promise.all(updatedScenes.map(presentCampaignSceneWithSignedBackground)))
   })
 
   app.get('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {

@@ -41,8 +41,9 @@ Incluido:
 * Configuracao de grid mantida em estado vivo durante a sessao e persistida por cena nos pontos de ciclo de vida definidos em `campaign_scene`.
 * Controle de zoom visual da mesa por botoes de menos/mais, com minimo de 50%, padrao de 100% e maximo de 150%.
 * Board finito com area maxima local de 50 colunas por 34 linhas de grid, navegado sem barras de rolagem por ferramenta de mover ou arraste em area vazia.
-* Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa.
+* Menu `Tokens` para o Mestre abrir um modal com personagens `PLAYER` e `NPC` ativos disponiveis para a mesa, mesmo com a sessao offline.
 * O mesmo menu tambem pode listar criaturas do bestiario do sistema da campanha.
+* Tokens de jogadores aparecem primeiro na toolbar de Tokens; NPCs e tokens de bestiario aparecem abaixo, separados por um divisor visual sutil.
 * Tokens entram no board apenas quando o Mestre arrasta um personagem do modal de tokens e solta no grid.
 * Criaturas do bestiario tambem podem ser arrastadas do card de bestiario para o board.
 * Token redondo usando o avatar do personagem do jogador, com fallback visual por inicial.
@@ -59,8 +60,8 @@ Incluido:
 * Player pode abrir apenas a propria ficha pelo menu contextual do proprio token.
 * Fichas de criaturas do bestiario sao visiveis somente para o Mestre.
 * Ferramenta `Medir` sincronizada em tempo real para calcular deslocamento sobre o grid atual.
-* Tracker simples de combate no painel lateral direito, iniciado pelo Mestre a partir dos tokens nao ocultos da cena atual.
-* Combate MVP com iniciativa manual, rodada atual, participante ativo e avancar/voltar turno sem desmontar a mesa.
+* Tracker simples de Encounter Mode no painel lateral direito, iniciado pelo Mestre a partir dos tokens nao ocultos da cena atual.
+* Encontro MVP com iniciativa manual, rodada atual, participante ativo e avancar/voltar turno sem desmontar a mesa.
 * Rolagem visual de dado 3D por uma interface propria do VTT.
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
@@ -108,6 +109,6 @@ Fora de escopo:
 * Regras de diario livre da campanha, que pertencem a `campaign_diary`.
 * Persistencia ou replay visual de rolagens de dado apos a sessao ou para usuarios que entram depois.
 * Persistencia/replay da simulacao fisica de dados.
-* Regras mecanicas de combate, iniciativa automatica, PV, CA, condicoes e economia de acoes.
+* Regras mecanicas de encontro, iniciativa automatica, PV, CA, condicoes e economia de acoes.
 * Fog of war.
 * Navegacao do board por setas do teclado.

@@ -4,20 +4,21 @@ import { useParams } from 'react-router-dom'
 import { api } from '../../../lib/api'
 import {
   PREPARED_BESTIARY_TOKENS_CHANGED_EVENT,
+  PREPARED_HAZARDS_CHANGED_EVENT,
   readStoredCampaignUserSettings,
   storeCampaignUserSettings,
   type CampaignUserSettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { questhubBestiaryDragType } from '../../../vtt/table/config/constants'
 import { BestiaryCreatureSheetModal } from '../components/BestiaryCreatureSheetModal'
-import type { BestiaryCreature, BestiaryResponse } from '../types'
+import type { BestiaryEntry, BestiaryEntryCategory, BestiaryCreature, BestiaryResponse } from '../types'
 
 const systemLabels: Record<BestiaryResponse['system'], string> = {
   PATHFINDER_2E: 'Pathfinder 2e',
   DND_5E: 'Dungeons & Dragons 5e',
 }
 
-function CreatureToken({ creature, compact = false }: { creature: BestiaryCreature; compact?: boolean }) {
+function CreatureToken({ creature, compact = false }: { creature: BestiaryEntry; compact?: boolean }) {
   const sizeClass = compact ? 'h-10 w-10' : 'h-14 w-14'
 
   if (creature.token.imageUrl) {
@@ -55,6 +56,12 @@ const bestiaryRarityOptions = [
   { value: 'unique', label: 'Unico' },
 ] as const
 
+const bestiaryCategoryOptions: Array<{ value: BestiaryEntryCategory | 'all'; label: string }> = [
+  { value: 'npc', label: 'NPCs' },
+  { value: 'hazard', label: 'Hazards' },
+  { value: 'all', label: 'Todos' },
+]
+
 type BestiaryPageSize = (typeof bestiaryPageSizeOptions)[number]
 
 function StatPill({ icon, label }: { icon: ReactNode; label: string }) {
@@ -80,16 +87,20 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [preparedCreatureIds, setPreparedCreatureIds] = useState<string[]>(() => (campaignId ? readStoredCampaignUserSettings(campaignId).vtt.preparedBestiaryCreatureIds : []))
+  const [preparedHazardIds, setPreparedHazardIds] = useState<string[]>(() => (campaignId ? readStoredCampaignUserSettings(campaignId).vtt.preparedHazardEntryIds : []))
   const [savingCreatureId, setSavingCreatureId] = useState<string | null>(null)
+  const [savingHazardId, setSavingHazardId] = useState<string | null>(null)
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState<BestiaryPageSize>(10)
   const [levelFilter, setLevelFilter] = useState('')
   const [rarityFilter, setRarityFilter] = useState('')
-  const [sheetCreature, setSheetCreature] = useState<BestiaryCreature | null>(null)
+  const [categoryFilter, setCategoryFilter] = useState<BestiaryEntryCategory | 'all'>('npc')
+  const [sheetCreature, setSheetCreature] = useState<BestiaryEntry | null>(null)
 
   const query = useMemo(() => search.trim(), [search])
   const normalizedLevelFilter = useMemo(() => levelFilter.trim(), [levelFilter])
   const preparedCreatureIdSet = useMemo(() => new Set(preparedCreatureIds), [preparedCreatureIds])
+  const preparedHazardIdSet = useMemo(() => new Set(preparedHazardIds), [preparedHazardIds])
   const totalPages = data?.pagination.totalPages ?? 1
   const totalCreatures = data?.pagination.total ?? 0
 
@@ -104,6 +115,7 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
       const params = new URLSearchParams({
         page: String(page),
         limit: String(pageSize),
+        category: categoryFilter,
       })
       if (query) params.set('q', query)
       if (normalizedLevelFilter) params.set('level', normalizedLevelFilter)
@@ -128,7 +140,7 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
       window.clearTimeout(timeout)
       controller.abort()
     }
-  }, [campaignId, normalizedLevelFilter, page, pageSize, query, rarityFilter])
+  }, [campaignId, categoryFilter, normalizedLevelFilter, page, pageSize, query, rarityFilter])
 
   useEffect(() => {
     if (!campaignId) return
@@ -139,6 +151,7 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
         if (cancelled) return
         storeCampaignUserSettings(campaignId, response.settings)
         setPreparedCreatureIds(response.settings.vtt.preparedBestiaryCreatureIds)
+        setPreparedHazardIds(response.settings.vtt.preparedHazardEntryIds)
       })
       .catch(() => {})
 
@@ -162,6 +175,23 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
 
     window.addEventListener(PREPARED_BESTIARY_TOKENS_CHANGED_EVENT, onPreparedBestiaryTokensChanged)
     return () => window.removeEventListener(PREPARED_BESTIARY_TOKENS_CHANGED_EVENT, onPreparedBestiaryTokensChanged)
+  }, [campaignId])
+
+  useEffect(() => {
+    if (!campaignId) return
+
+    function onPreparedHazardsChanged(event: Event) {
+      const detail = (event as CustomEvent<{ campaignId?: string; hazardEntryIds?: unknown }>).detail
+      if (detail?.campaignId !== campaignId) return
+      if (!Array.isArray(detail.hazardEntryIds)) return
+
+      setPreparedHazardIds(
+        Array.from(new Set(detail.hazardEntryIds.filter((hazardId): hazardId is string => typeof hazardId === 'string' && hazardId.trim().length > 0))),
+      )
+    }
+
+    window.addEventListener(PREPARED_HAZARDS_CHANGED_EVENT, onPreparedHazardsChanged)
+    return () => window.removeEventListener(PREPARED_HAZARDS_CHANGED_EVENT, onPreparedHazardsChanged)
   }, [campaignId])
 
   function savePreparedCreatureIds(nextIds: string[], currentSettings: CampaignUserSettings, errorMessage: string) {
@@ -214,6 +244,56 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
     savePreparedCreatureIds(nextIds, currentSettings, 'Nao foi possivel remover o token do toolbar.')
   }
 
+  function savePreparedHazardIds(nextIds: string[], currentSettings: CampaignUserSettings, errorMessage: string) {
+    if (!campaignId) return
+
+    const nextSettings: CampaignUserSettings = {
+      ...currentSettings,
+      vtt: {
+        ...currentSettings.vtt,
+        preparedHazardEntryIds: nextIds,
+      },
+    }
+
+    setPreparedHazardIds(nextIds)
+    storeCampaignUserSettings(campaignId, nextSettings)
+
+    void api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings: { vtt: { preparedHazardEntryIds: nextIds } } }),
+    })
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setPreparedHazardIds(response.settings.vtt.preparedHazardEntryIds)
+      })
+      .catch(() => {
+        setPreparedHazardIds(currentSettings.vtt.preparedHazardEntryIds)
+        storeCampaignUserSettings(campaignId, currentSettings)
+        setError(errorMessage)
+      })
+      .finally(() => setSavingHazardId(null))
+  }
+
+  function addHazardToToolbar(hazard: BestiaryEntry) {
+    if (!campaignId || hazard.category !== 'hazard' || preparedHazardIdSet.has(hazard.id) || savingHazardId) return
+
+    const currentSettings = readStoredCampaignUserSettings(campaignId)
+    const nextIds = Array.from(new Set([...currentSettings.vtt.preparedHazardEntryIds, hazard.id]))
+
+    setSavingHazardId(hazard.id)
+    savePreparedHazardIds(nextIds, currentSettings, 'Nao foi possivel adicionar o hazard ao toolbar.')
+  }
+
+  function removeHazardFromToolbar(hazard: BestiaryEntry) {
+    if (!campaignId || hazard.category !== 'hazard' || !preparedHazardIdSet.has(hazard.id) || savingHazardId) return
+
+    const currentSettings = readStoredCampaignUserSettings(campaignId)
+    const nextIds = currentSettings.vtt.preparedHazardEntryIds.filter((hazardId) => hazardId !== hazard.id)
+
+    setSavingHazardId(hazard.id)
+    savePreparedHazardIds(nextIds, currentSettings, 'Nao foi possivel remover o hazard do toolbar.')
+  }
+
   return (
     <div className={compact ? 'min-w-0 space-y-3 overflow-x-hidden' : 'min-w-0 space-y-5 overflow-x-hidden'}>
       <div className="flex flex-wrap items-start justify-between gap-4">
@@ -241,6 +321,20 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
               ))}
             </select>
           </label>
+          <select
+            value={categoryFilter}
+            onChange={(event) => {
+              setPage(1)
+              setCategoryFilter(event.target.value as BestiaryEntryCategory | 'all')
+            }}
+            className="h-10 min-w-0 rounded-md border border-white/10 bg-black/25 px-3 text-xs font-semibold text-zinc-300 outline-none"
+          >
+            {bestiaryCategoryOptions.map((option) => (
+              <option key={option.value} value={option.value} className="bg-zinc-950 text-white">
+                {option.label}
+              </option>
+            ))}
+          </select>
           <label className="flex h-10 min-w-0 items-center gap-2 rounded-md border border-white/10 bg-black/25 px-3 text-xs font-semibold text-zinc-300">
             <span>Nivel</span>
             <input
@@ -289,23 +383,28 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
 
       {loading && !data ? <div className="text-sm text-zinc-400">Carregando bestiario...</div> : null}
 
-      {data && data.creatures.length === 0 ? (
+      {data && data.entries.length === 0 ? (
         <div className="rounded-lg border border-white/10 bg-white/5 px-4 py-6 text-sm text-zinc-300">
-          Nenhuma criatura encontrada.
+          Nenhuma entrada encontrada.
         </div>
       ) : null}
 
       <div className={compact ? 'grid gap-2' : 'grid gap-3 lg:grid-cols-2'}>
-        {data?.creatures.map((creature) => (
+        {data?.entries.map((creature) => (
           <article
             key={creature.id}
-            draggable
-            title="Arraste para o tabuleiro para criar um token NPC"
+            draggable={creature.category === 'npc'}
+            title={creature.category === 'npc' ? 'Arraste para o tabuleiro para criar um token NPC' : 'Hazard do bestiario'}
             className={[
-              'min-w-0 max-w-full cursor-grab overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] transition hover:border-indigo-300/40 hover:bg-white/[0.07] active:cursor-grabbing',
+              'min-w-0 max-w-full overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] transition hover:border-indigo-300/40 hover:bg-white/[0.07]',
+              creature.category === 'npc' ? 'cursor-grab active:cursor-grabbing' : 'cursor-default',
               compact ? 'p-3' : 'p-4',
             ].join(' ')}
             onDragStart={(event) => {
+              if (creature.category !== 'npc') {
+                event.preventDefault()
+                return
+              }
               event.dataTransfer.setData(questhubBestiaryDragType, creature.id)
               event.dataTransfer.effectAllowed = 'copy'
             }}
@@ -323,6 +422,9 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
                       {creature.display.level.label} {creature.display.level.value}
                     </span>
                   ) : null}
+                  <span className="shrink-0 rounded-md border border-white/10 bg-black/25 px-2 py-1 text-xs font-bold uppercase text-zinc-300">
+                    {creature.category === 'hazard' ? 'Hazard' : 'NPC'}
+                  </span>
                 </div>
 
                 <div className={compact ? 'mt-2 flex flex-wrap gap-1.5' : 'mt-3 flex flex-wrap gap-2'}>
@@ -359,26 +461,28 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
                       <span className="min-w-0 truncate">Ficha</span>
                     </button>
                   ) : null}
-                  <button
-                    type="button"
-                    title="Adicionar Token"
-                    aria-label="Adicionar Token"
-                    disabled={preparedCreatureIdSet.has(creature.id) || savingCreatureId === creature.id}
-                    className={[
-                      'inline-flex max-w-full items-center gap-2 rounded-md border border-emerald-300/20 bg-emerald-500/10 px-3 text-xs font-semibold uppercase text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-default disabled:border-white/10 disabled:bg-white/[0.04] disabled:text-zinc-400',
-                      compact ? 'h-8' : 'h-9',
-                    ].join(' ')}
-                    onClick={(event) => {
-                      event.preventDefault()
-                      event.stopPropagation()
-                      addCreatureToken(creature)
-                    }}
-                  >
-                    <Plus className="h-4 w-4" />
-                    <span className="min-w-0 truncate">Token</span>
-                    <span className="sr-only">Adicionar Token</span>
-                  </button>
-                  {preparedCreatureIdSet.has(creature.id) ? (
+                  {creature.category === 'npc' ? (
+                    <button
+                      type="button"
+                      title="Adicionar Token"
+                      aria-label="Adicionar Token"
+                      disabled={preparedCreatureIdSet.has(creature.id) || savingCreatureId === creature.id}
+                      className={[
+                        'inline-flex max-w-full items-center gap-2 rounded-md border border-emerald-300/20 bg-emerald-500/10 px-3 text-xs font-semibold uppercase text-emerald-100 transition hover:bg-emerald-500/20 disabled:cursor-default disabled:border-white/10 disabled:bg-white/[0.04] disabled:text-zinc-400',
+                        compact ? 'h-8' : 'h-9',
+                      ].join(' ')}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        addCreatureToken(creature as BestiaryCreature)
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                      <span className="min-w-0 truncate">Token</span>
+                      <span className="sr-only">Adicionar Token</span>
+                    </button>
+                  ) : null}
+                  {creature.category === 'npc' && preparedCreatureIdSet.has(creature.id) ? (
                     <button
                       type="button"
                       title="Remover Token"
@@ -391,11 +495,51 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
                       onClick={(event) => {
                         event.preventDefault()
                         event.stopPropagation()
-                        removeCreatureToken(creature)
+                        removeCreatureToken(creature as BestiaryCreature)
                       }}
                     >
                       <Minus className="h-4 w-4" />
                       <span className="min-w-0 truncate">Token</span>
+                    </button>
+                  ) : null}
+                  {creature.category === 'hazard' ? (
+                    <button
+                      type="button"
+                      title="Adicionar Hazard"
+                      aria-label="Adicionar Hazard"
+                      disabled={preparedHazardIdSet.has(creature.id) || savingHazardId === creature.id}
+                      className={[
+                        'inline-flex max-w-full items-center gap-2 rounded-md border border-amber-300/20 bg-amber-500/10 px-3 text-xs font-semibold uppercase text-amber-100 transition hover:bg-amber-500/20 disabled:cursor-default disabled:border-white/10 disabled:bg-white/[0.04] disabled:text-zinc-400',
+                        compact ? 'h-8' : 'h-9',
+                      ].join(' ')}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        addHazardToToolbar(creature)
+                      }}
+                    >
+                      <Plus className="h-4 w-4" />
+                      <span className="min-w-0 truncate">Hazard</span>
+                    </button>
+                  ) : null}
+                  {creature.category === 'hazard' && preparedHazardIdSet.has(creature.id) ? (
+                    <button
+                      type="button"
+                      title="Remover Hazard"
+                      aria-label="Remover Hazard"
+                      disabled={savingHazardId === creature.id}
+                      className={[
+                        'inline-flex max-w-full items-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 text-xs font-semibold uppercase text-red-100 transition hover:bg-red-500/20 disabled:cursor-default disabled:border-white/10 disabled:bg-white/[0.04] disabled:text-zinc-400',
+                        compact ? 'h-8' : 'h-9',
+                      ].join(' ')}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        removeHazardFromToolbar(creature)
+                      }}
+                    >
+                      <Minus className="h-4 w-4" />
+                      <span className="min-w-0 truncate">Hazard</span>
                     </button>
                   ) : null}
                 </div>
@@ -408,7 +552,7 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
       {data && totalCreatures > 0 ? (
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3 text-sm text-zinc-300">
           <span>
-            Pagina {data.pagination.page} de {totalPages} - {totalCreatures} criaturas
+            Pagina {data.pagination.page} de {totalPages} - {totalCreatures} entradas
           </span>
           <div className="flex items-center gap-2">
             <button

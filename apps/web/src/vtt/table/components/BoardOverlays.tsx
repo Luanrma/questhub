@@ -119,7 +119,7 @@ export function PlayerToken({
   movementPath,
   movementSpeed = 'default',
   onMovementPathComplete,
-  isCombatTurn = false,
+  isEncounterTurn = false,
 }: {
   token: VttPlayerToken
   tokenSize: number
@@ -138,7 +138,7 @@ export function PlayerToken({
   movementPath?: VttMeasurementPoint[]
   movementSpeed?: VttTokenMovementSpeed
   onMovementPathComplete?: () => void
-  isCombatTurn?: boolean
+  isEncounterTurn?: boolean
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const encounterDragMovedRef = useRef(false)
@@ -358,7 +358,7 @@ export function PlayerToken({
                 : canOpenContextMenu
                   ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
                   : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
-        isCombatTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
+        isEncounterTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
         selectedForMeasuredMovement ? 'border-orange-200 ring-4 ring-orange-300/70 shadow-orange-500/30' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}

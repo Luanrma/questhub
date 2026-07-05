@@ -133,6 +133,9 @@ type MyCampaignCharacter = {
 * Em viewports menores, o painel lateral recolhido deve ficar sobreposto na direita da mesa como uma rail estreita, sem criar uma faixa horizontal abaixo do board.
 * Recolher o painel lateral nao deve desmontar a mesa nem perder mensagens carregadas do chat ao expandir novamente.
 * Mestre ve uma ferramenta `Tokens` que abre modal com personagens `PLAYER` e `NPC` ativos da campanha.
+* Mestre pode usar a ferramenta `Tokens` e posicionar tokens de jogadores na cena ativa/preparada mesmo com a sessao offline.
+* A toolbar de `Tokens` deve listar tokens de jogadores primeiro.
+* A toolbar de `Tokens` deve listar outros tokens, como NPCs de personagem e criaturas do bestiario, abaixo dos jogadores e separados por um divisor visual sutil.
 * A ferramenta `Tokens` tambem pode listar criaturas do bestiario do ruleset da campanha como candidatos de token.
 * O painel de Bestiario deve renderizar cards em duas colunas quando houver largura suficiente e em uma coluna quando o modal for reduzido.
 * O painel de Bestiario deve preservar o conteudo em fluxo responsivo e nao criar rolagem horizontal quando reduzido.
@@ -182,6 +185,8 @@ type MyCampaignCharacter = {
 * A posicao do token e persistida por cena em `CampaignSceneToken`.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online que visualizam a cena afetada.
 * Usuarios que entram depois recebem o snapshot de cena definido por `campaign_scene`.
+* Ao clicar em `Iniciar Sessao`, o VTT deve enviar antes um snapshot completo da mesa do Mestre para `campaign_scene`, incluindo grids e tokens de todas as cenas persistidas carregadas.
+* A tela do Mestre e a fonte da verdade para o inicio da sessao; tokens removidos ou reposicionados antes da sessao nao podem reaparecer para Players por causa de snapshot antigo.
 * Pausa de sessao continua sendo acao de produto.
 * Players so movem o proprio token quando a campanha esta online e nao pausada.
 * Mestre pode mover todos os tokens sempre que acessar a mesa.
@@ -348,6 +353,7 @@ Regras:
 * O limite visual deve ser aplicado apenas durante o drag, nunca durante a renderizacao passiva.
 * O drag deve prender o centro do token entre metade de uma celula e o limite visual da area de grid.
 * Apenas `MASTER` ativo ve a ferramenta `Tokens` neste MVP.
+* A ferramenta `Tokens` nao depende de sessao online para o Mestre preparar a cena; drops offline devem persistir direto em `CampaignSceneToken`.
 * O backend aceita criacao, remocao, movimento e alteracao de invisibilidade de socket autenticado como `MASTER`, mesmo com a campanha offline; nesse caso persiste direto no banco e emite o evento para o proprio Mestre.
 * O backend aceita movimento quando o Player esta online e e dono do token, ou quando o socket autenticado pertence ao Mestre ativo.
 * `sessionActive`, quando ainda existir em codigo legado, significa campanha online e `runState = IN_PROGRESS` para Players; Mestre nao depende desse estado para preparar ou mover tokens.

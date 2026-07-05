@@ -10,16 +10,16 @@ import { assetService } from '../assets/service'
 import { findBestiaryCreature } from '../game_systems/bestiary/registry'
 import {
   defaultVttGridSettings,
-  type VttCombatParticipant,
-  type VttCombatState,
+  type VttEncounterParticipant,
+  type VttEncounterState,
   type VttDiceRoll,
   type VttGridSettings,
   type VttPlayerToken,
   type VttTableScene,
   type VttTokenPosition,
-  vttCombatCommandSchema,
-  vttCombatStartSchema,
-  vttCombatUpdateInitiativeSchema,
+  vttEncounterCommandSchema,
+  vttEncounterStartSchema,
+  vttEncounterUpdateInitiativeSchema,
   vttDiceRollSchema,
   vttGridUpdateSchema,
   vttMeasurementUpdateSchema,
@@ -204,7 +204,7 @@ export function setupCampaignPresence(server: HttpServer) {
       },
     })
 
-    removeCombatParticipants(campaignId, tokensToRemove.map((token) => token.id))
+    removeEncounterParticipants(campaignId, tokensToRemove.map((token) => token.id))
   }
 
   async function getActiveSceneGridSettings(campaignId: string) {
@@ -707,7 +707,7 @@ export function setupCampaignPresence(server: HttpServer) {
     return Boolean(online && online.masterSocketId === socketId && online.masterUserId === userId)
   }
 
-  function sortCombatParticipants(participants: VttCombatParticipant[]) {
+  function sortEncounterParticipants(participants: VttEncounterParticipant[]) {
     return participants
       .map((participant, index) => ({ participant, index }))
       .sort((left, right) => {
@@ -722,55 +722,55 @@ export function setupCampaignPresence(server: HttpServer) {
       .map((item) => item.participant)
   }
 
-  function normalizeCombatTurnIndex(combat: VttCombatState, activeCharacterId?: string | null): VttCombatState {
-    if (!combat.participants.length) return { ...combat, activeTurnIndex: 0 }
+  function normalizeEncounterTurnIndex(encounter: VttEncounterState, activeCharacterId?: string | null): VttEncounterState {
+    if (!encounter.participants.length) return { ...encounter, activeTurnIndex: 0 }
     if (!activeCharacterId) {
       return {
-        ...combat,
-        activeTurnIndex: Math.min(Math.max(combat.activeTurnIndex, 0), combat.participants.length - 1),
+        ...encounter,
+        activeTurnIndex: Math.min(Math.max(encounter.activeTurnIndex, 0), encounter.participants.length - 1),
       }
     }
 
-    const nextIndex = combat.participants.findIndex((participant) => participant.characterId === activeCharacterId)
+    const nextIndex = encounter.participants.findIndex((participant) => participant.characterId === activeCharacterId)
     return {
-      ...combat,
+      ...encounter,
       activeTurnIndex: nextIndex >= 0 ? nextIndex : 0,
     }
   }
 
-  function emitCombatChanged(campaignId: string) {
-    io.to(campaignRoom(campaignId)).emit('vtt:combat:changed', {
+  function emitEncounterChanged(campaignId: string) {
+    io.to(campaignRoom(campaignId)).emit('vtt:encounter:changed', {
       campaignId,
-      combat: state.getCampaignCombat(campaignId),
+      encounter: state.getCampaignEncounter(campaignId),
     })
   }
 
-  function removeCombatParticipants(campaignId: string, tokenIds: string[]) {
-    const combat = state.getCampaignCombat(campaignId)
-    if (!combat || !tokenIds.length) return
+  function removeEncounterParticipants(campaignId: string, tokenIds: string[]) {
+    const encounter = state.getCampaignEncounter(campaignId)
+    if (!encounter || !tokenIds.length) return
 
     const tokenIdSet = new Set(tokenIds)
-    const activeTokenId = combat.participants[combat.activeTurnIndex]?.tokenId ?? null
-    const participants = combat.participants.filter((participant) => !tokenIdSet.has(participant.tokenId))
+    const activeTokenId = encounter.participants[encounter.activeTurnIndex]?.tokenId ?? null
+    const participants = encounter.participants.filter((participant) => !tokenIdSet.has(participant.tokenId))
     if (!participants.length) {
-      state.deleteCampaignCombat(campaignId)
-      emitCombatChanged(campaignId)
+      state.deleteCampaignEncounter(campaignId)
+      emitEncounterChanged(campaignId)
       return
     }
 
-    state.setCampaignCombat(
+    state.setCampaignEncounter(
       campaignId,
-      normalizeCombatTurnIndex(
+      normalizeEncounterTurnIndex(
         {
-          ...combat,
+          ...encounter,
           participants,
         },
         activeTokenId && tokenIdSet.has(activeTokenId)
           ? null
-          : combat.participants.find((participant) => participant.tokenId === activeTokenId)?.characterId ?? null,
+          : encounter.participants.find((participant) => participant.tokenId === activeTokenId)?.characterId ?? null,
       ),
     )
-    emitCombatChanged(campaignId)
+    emitEncounterChanged(campaignId)
   }
 
   async function removeCampaignToken(
@@ -801,7 +801,7 @@ export function setupCampaignPresence(server: HttpServer) {
       tokenId: token.id,
       characterId: token.characterId,
     })
-    removeCombatParticipants(campaignId, [token.id])
+    removeEncounterParticipants(campaignId, [token.id])
   }
 
   io.use((socket, next) => {
@@ -1049,7 +1049,7 @@ export function setupCampaignPresence(server: HttpServer) {
       await persistSceneToken(campaignId, sceneId, nextToken)
       if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
       else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
-      if (nextToken.hidden) removeCombatParticipants(campaignId, [token.id])
+      if (nextToken.hidden) removeEncounterParticipants(campaignId, [token.id])
     })
 
     socket.on('vtt:tokens:request', (input: unknown) => {
@@ -1065,8 +1065,8 @@ export function setupCampaignPresence(server: HttpServer) {
         .catch(() => {})
     })
 
-    socket.on('vtt:combat:start', async (input: unknown) => {
-      const parsed = vttCombatStartSchema.safeParse(input)
+    socket.on('vtt:encounter:start', async (input: unknown) => {
+      const parsed = vttEncounterStartSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, sceneId, tokenIds } = parsed.data
@@ -1087,7 +1087,7 @@ export function setupCampaignPresence(server: HttpServer) {
         initiative: null,
       }))
 
-      state.setCampaignCombat(campaignId, {
+      state.setCampaignEncounter(campaignId, {
         campaignId,
         sceneId,
         round: 1,
@@ -1095,90 +1095,90 @@ export function setupCampaignPresence(server: HttpServer) {
         status: 'ACTIVE',
         participants,
       })
-      emitCombatChanged(campaignId)
+      emitEncounterChanged(campaignId)
     })
 
-    socket.on('vtt:combat:update-initiative', (input: unknown) => {
-      const parsed = vttCombatUpdateInitiativeSchema.safeParse(input)
+    socket.on('vtt:encounter:update-initiative', (input: unknown) => {
+      const parsed = vttEncounterUpdateInitiativeSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, characterId, initiative } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
-      const combat = state.getCampaignCombat(campaignId)
-      if (!combat) return
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter) return
 
-      const activeCharacterId = combat.participants[combat.activeTurnIndex]?.characterId ?? null
-      const participants = sortCombatParticipants(
-        combat.participants.map((participant) =>
+      const activeCharacterId = encounter.participants[encounter.activeTurnIndex]?.characterId ?? null
+      const participants = sortEncounterParticipants(
+        encounter.participants.map((participant) =>
           participant.characterId === characterId ? { ...participant, initiative } : participant,
         ),
       )
 
-      state.setCampaignCombat(campaignId, normalizeCombatTurnIndex({ ...combat, participants }, activeCharacterId))
-      emitCombatChanged(campaignId)
+      state.setCampaignEncounter(campaignId, normalizeEncounterTurnIndex({ ...encounter, participants }, activeCharacterId))
+      emitEncounterChanged(campaignId)
     })
 
-    socket.on('vtt:combat:next-turn', (input: unknown) => {
-      const parsed = vttCombatCommandSchema.safeParse(input)
+    socket.on('vtt:encounter:next-turn', (input: unknown) => {
+      const parsed = vttEncounterCommandSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
-      const combat = state.getCampaignCombat(campaignId)
-      if (!combat?.participants.length) return
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter?.participants.length) return
 
-      const isLastParticipant = combat.activeTurnIndex >= combat.participants.length - 1
-      state.setCampaignCombat(campaignId, {
-        ...combat,
-        round: isLastParticipant ? combat.round + 1 : combat.round,
-        activeTurnIndex: isLastParticipant ? 0 : combat.activeTurnIndex + 1,
+      const isLastParticipant = encounter.activeTurnIndex >= encounter.participants.length - 1
+      state.setCampaignEncounter(campaignId, {
+        ...encounter,
+        round: isLastParticipant ? encounter.round + 1 : encounter.round,
+        activeTurnIndex: isLastParticipant ? 0 : encounter.activeTurnIndex + 1,
       })
-      emitCombatChanged(campaignId)
+      emitEncounterChanged(campaignId)
     })
 
-    socket.on('vtt:combat:previous-turn', (input: unknown) => {
-      const parsed = vttCombatCommandSchema.safeParse(input)
+    socket.on('vtt:encounter:previous-turn', (input: unknown) => {
+      const parsed = vttEncounterCommandSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
-      const combat = state.getCampaignCombat(campaignId)
-      if (!combat?.participants.length) return
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter?.participants.length) return
 
-      const isFirstParticipant = combat.activeTurnIndex <= 0
-      state.setCampaignCombat(campaignId, {
-        ...combat,
-        round: isFirstParticipant ? Math.max(1, combat.round - 1) : combat.round,
-        activeTurnIndex: isFirstParticipant ? combat.participants.length - 1 : combat.activeTurnIndex - 1,
+      const isFirstParticipant = encounter.activeTurnIndex <= 0
+      state.setCampaignEncounter(campaignId, {
+        ...encounter,
+        round: isFirstParticipant ? Math.max(1, encounter.round - 1) : encounter.round,
+        activeTurnIndex: isFirstParticipant ? encounter.participants.length - 1 : encounter.activeTurnIndex - 1,
       })
-      emitCombatChanged(campaignId)
+      emitEncounterChanged(campaignId)
     })
 
-    socket.on('vtt:combat:end', (input: unknown) => {
-      const parsed = vttCombatCommandSchema.safeParse(input)
+    socket.on('vtt:encounter:end', (input: unknown) => {
+      const parsed = vttEncounterCommandSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
-      state.deleteCampaignCombat(campaignId)
-      emitCombatChanged(campaignId)
+      state.deleteCampaignEncounter(campaignId)
+      emitEncounterChanged(campaignId)
     })
 
-    socket.on('vtt:combat:request', (input: unknown) => {
-      const parsed = vttCombatCommandSchema.safeParse(input)
+    socket.on('vtt:encounter:request', (input: unknown) => {
+      const parsed = vttEncounterCommandSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
       if (!isCampaignOnline(campaignId)) return
       if (socket.data.campaignId !== campaignId) return
 
-      socket.emit('vtt:combat:changed', {
+      socket.emit('vtt:encounter:changed', {
         campaignId,
-        combat: state.getCampaignCombat(campaignId),
+        encounter: state.getCampaignEncounter(campaignId),
       })
     })
 
@@ -1226,10 +1226,10 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const sceneUpdated = await updateMasterActiveScene(campaignId, scene?.id ?? null)
       if (!sceneUpdated) return
-      const combat = state.getCampaignCombat(campaignId)
-      if (combat && combat.sceneId !== (scene?.id ?? null)) {
-        state.deleteCampaignCombat(campaignId)
-        emitCombatChanged(campaignId)
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (encounter && encounter.sceneId !== (scene?.id ?? null)) {
+        state.deleteCampaignEncounter(campaignId)
+        emitEncounterChanged(campaignId)
       }
       if (scene?.id) {
         const settings = await getActiveSceneGridSettings(campaignId)
@@ -1293,3 +1293,4 @@ export function setupCampaignPresence(server: HttpServer) {
 
   return { io, isCampaignOnline, getCampaignSessionState }
 }
+

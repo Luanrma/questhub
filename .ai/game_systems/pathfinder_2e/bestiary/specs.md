@@ -6,16 +6,16 @@ Expor criaturas Pathfinder 2e normalizadas como catalogo de ruleset e fornecer u
 ## 1.1 Entidades Encontradas nos Packs Foundry
 Ao auditar `pf2e-master/packs`, foram encontrados documentos de varios tipos. Para o bestiario atual:
 
-* `npc`: entra no catalogo de criaturas e deve ser extraido completamente.
-* `hazard`: representa perigos, armadilhas e hazards; requer catalogo proprio futuro, com contrato diferente de criatura.
+* `npc`: entra no bestiario como categoria `npc` e deve ser extraido completamente.
+* `hazard`: entra no bestiario como categoria `hazard`, com contrato interno diferente de criatura e sem criacao de token NPC.
 * `action`, `effect`, `character` e `_folders`: nao entram no catalogo de criaturas.
 
 O catalogo completo de criaturas PF2e deve considerar todos os documentos `type = "npc"` disponiveis nos packs locais, incluindo packs oficiais de bestiario, aventuras e galeria de NPCs.
 
 Auditoria atual de `pf2e-master/packs`:
 
-* `npc`: 2.141 documentos extraidos para o catalogo de criaturas.
-* `hazard`: 239 documentos mapeados como entidade futura.
+* `npc`: 5.492 documentos extraidos para a categoria `npc`.
+* `hazard`: 1.032 documentos extraidos para a categoria `hazard`.
 * Demais tipos (`action`, `effect`, `character`, itens e `_folders`): fora do catalogo de criaturas.
 
 ## 2. Contrato de Apresentacao
@@ -77,9 +77,12 @@ Secoes sem entradas devem ser omitidas.
 Resposta relevante:
 
 ```ts
-type CampaignBestiaryCreatureDto = {
+type CampaignBestiaryEntryCategory = 'npc' | 'hazard'
+
+type CampaignBestiaryEntryDto = {
   id: string
   system: string
+  category: CampaignBestiaryEntryCategory
   name: string
   display: {
     subtitle?: string
@@ -96,7 +99,17 @@ type CampaignBestiaryCreatureDto = {
 }
 ```
 
-`GET /api/campaigns/:campaignId/bestiary/:creatureId` retorna uma unica criatura localizada no mesmo formato de `CampaignBestiaryCreatureDto`.
+Durante a migracao, a resposta de listagem pode manter `creatures` como alias de compatibilidade, mas novas telas devem consumir `entries`.
+
+Query opcional da listagem:
+
+```ts
+type CampaignBestiaryListQuery = {
+  category?: 'npc' | 'hazard' | 'all'
+}
+```
+
+`GET /api/campaigns/:campaignId/bestiary/:creatureId` retorna uma unica entrada localizada no mesmo formato de `CampaignBestiaryEntryDto`.
 
 Query opcional:
 
@@ -120,10 +133,12 @@ Erros:
 * `q` deve ter no maximo 80 caracteres.
 * `level` deve ser inteiro quando informado.
 * `rarity` deve ter no maximo 40 caracteres.
+* `category`, quando informada, deve ser `npc`, `hazard` ou `all`.
 
 ## 6. Criterios de Aceitacao
-* A lista do bestiario exibe os cards atuais sem quebrar busca, filtro, paginacao, drag-and-drop e toolbar de tokens preparados.
-* Cada card pode abrir a ficha simplificada em um modal proprio.
+* A lista do bestiario exibe os cards atuais sem quebrar busca, filtro, paginacao, drag-and-drop e toolbar de tokens preparados para NPCs.
+* A lista do bestiario permite alternar entre NPCs, Hazards e todas as categorias importadas.
+* Cada card com `display.sheet` pode abrir a ficha simplificada em um modal proprio.
 * O modal deve seguir `.ai/game_systems/bestiary_guide.md`: janela global montada via portal no `document.body`, arrastavel, redimensionavel, com fechar visivel, seletor de idioma, papel claro, marca do sistema e miolo renderizado pelo package PF2e.
 * Tokens de bestiario no VTT devem expor a opcao `Ficha` somente no menu de contexto do Mestre.
 * Players nao podem visualizar ficha de criatura do bestiario.
@@ -134,11 +149,13 @@ Erros:
 * O seletor de idioma dentro da ficha nao persiste alteracao em preferencias gerais; ele apenas recarrega o detalhe da criatura com `language`.
 * O core continua sem campos mecanicos especificos de Pathfinder.
 * Tokens criados a partir do bestiario continuam contendo referencia `bestiaryCreatureId`, imagem e metadados visuais.
+* Hazards nao exibem acao de adicionar token e nao sao arrastaveis para o VTT no fluxo atual.
 * Testes do registry cobrem a existencia da ficha simplificada em criatura PF2e.
 * Testes do registry cobrem que a extracao completa possui a quantidade esperada de NPCs extraidos dos packs locais.
+* Testes do registry cobrem que hazards sao listados e contados como categoria propria.
 
-## 7. Entidade Futura: Hazard
-Hazards encontrados nos packs nao devem ser modelados como criaturas.
+## 7. Entidade: Hazard
+Hazards encontrados nos packs nao devem ser modelados como criaturas, mas pertencem ao bestiario como categoria filtravel.
 
 Contrato futuro esperado:
 
@@ -146,6 +163,7 @@ Contrato futuro esperado:
 type Pathfinder2eHazardCatalogEntry = {
   id: string
   system: 'PATHFINDER_2E'
+  category: 'hazard'
   sourcePack: string
   sourceId: string
   name: string
@@ -167,5 +185,3 @@ type Pathfinder2eHazardCatalogEntry = {
   systemData: unknown
 }
 ```
-
-Antes de implementar hazards, criar submodulo/documentacao propria em `.ai/game_systems/pathfinder_2e/hazards/` ou equivalente.

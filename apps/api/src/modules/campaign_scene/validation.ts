@@ -72,6 +72,36 @@ export const campaignSceneTokenSchema = z.object({
   position: campaignSceneTokenPositionSchema,
 })
 
+export const campaignSceneTableStateTokenSchema = z.discriminatedUnion('source', [
+  z.object({
+    id: z.string().trim().min(1, 'Token invalido'),
+    source: z.literal('character'),
+    characterId: z.string().trim().min(1, 'Personagem invalido'),
+    hidden: z.boolean(),
+    position: campaignSceneTokenPositionSchema,
+    tokenBorderColor: colorHexSchema.nullable().optional(),
+  }),
+  z.object({
+    id: z.string().trim().min(1, 'Token invalido'),
+    source: z.literal('bestiary'),
+    bestiaryCreatureId: z.string().trim().min(1, 'Criatura invalida'),
+    name: z.string().trim().min(1).max(120),
+    avatarUrl: z.string().trim().max(2048).nullable().optional(),
+    tokenBorderColor: colorHexSchema.nullable().optional(),
+    hidden: z.boolean(),
+    position: campaignSceneTokenPositionSchema,
+  }),
+])
+
+export const syncCampaignSceneTableStateSchema = z.object({
+  masterActiveSceneId: z.string().trim().min(1).nullable().optional(),
+  scenes: z.array(z.object({
+    id: z.string().trim().min(1, 'Cena invalida'),
+    grid: campaignSceneGridSchema,
+    tokens: z.array(campaignSceneTableStateTokenSchema).max(500),
+  })).max(100),
+})
+
 export const campaignSceneViewStateSchema = z.object({
   masterActiveSceneId: z.string().trim().min(1).nullable().optional(),
   forcedSceneId: z.string().trim().min(1).nullable().optional(),

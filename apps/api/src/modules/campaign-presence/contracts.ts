@@ -141,17 +141,17 @@ export const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
   }),
 ])
 
-export const vttCombatStartSchema = z.object({
+export const vttEncounterStartSchema = z.object({
   campaignId: z.string().min(1),
   sceneId: z.string().min(1),
   tokenIds: z.array(z.string().min(1)).min(1).max(100),
 }).refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
 
-export const vttCombatCommandSchema = z.object({
+export const vttEncounterCommandSchema = z.object({
   campaignId: z.string().min(1),
 })
 
-export const vttCombatUpdateInitiativeSchema = z.object({
+export const vttEncounterUpdateInitiativeSchema = z.object({
   campaignId: z.string().min(1),
   characterId: z.string().min(1),
   initiative: z.number().int().min(-1000).max(1000).nullable(),
@@ -190,7 +190,7 @@ export type VttPlayerToken = {
   position: VttTokenPosition
 }
 
-export type VttCombatParticipant = {
+export type VttEncounterParticipant = {
   tokenId: string
   characterId: string
   name: string
@@ -198,13 +198,13 @@ export type VttCombatParticipant = {
   initiative: number | null
 }
 
-export type VttCombatState = {
+export type VttEncounterState = {
   campaignId: string
   sceneId: string
   round: number
   activeTurnIndex: number
   status: 'ACTIVE'
-  participants: VttCombatParticipant[]
+  participants: VttEncounterParticipant[]
 }
 
 export const defaultVttGridSettings: VttGridSettings = {
@@ -217,3 +217,4 @@ export const defaultVttGridSettings: VttGridSettings = {
   lineWidth: 1,
   color: '#94a3b8',
 }
+

@@ -37,6 +37,8 @@ Os catalogos aparecem como capacidades conhecidas, mas permanecem `false` ate ex
 
 O bestiario Pathfinder 2e e uma capacidade de catalogo ativa no package interno. Ele expoe criaturas normalizadas e ficha simplificada conforme `.ai/game_systems/pathfinder_2e/bestiary/specs.md`.
 
+Hazards Pathfinder 2e sao entradas especializadas do Bestiario/Compendio e possuem regras proprias em `.ai/game_systems/pathfinder_2e/hazards/`. Eles nao devem ser tratados como criaturas nem como tokens NPC.
+
 ## 4. Compatibilidade de Ficha
 O envelope atual deve continuar valido:
 

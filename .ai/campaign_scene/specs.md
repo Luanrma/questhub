@@ -221,6 +221,8 @@ Regras:
 * Drop, movimento, visibilidade e remocao de token durante sessao online devem marcar a cena como dirty para persistencia posterior.
 * Autosave eventual pode persistir cenas dirty em intervalos controlados, coalescendo varias alteracoes em um unico snapshot por cena.
 * Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online.
+* Antes de emitir `presence:session:start`, o frontend do Mestre deve sincronizar o snapshot completo da mesa atual via HTTP, incluindo todas as cenas persistidas carregadas, seus grids e seus tokens.
+* A sincronizacao de snapshot completo substitui os tokens persistidos da campanha pelo estado enviado pela tela do Mestre; remocoes locais feitas antes da sessao devem ser preservadas e nao podem reaparecer ao jogador entrar.
 * Ao iniciar sessao, o servidor deve hidratar o estado vivo a partir do snapshot persistido mais recente, incluindo remocoes e reposicionamentos feitos pelo Mestre durante a manutencao offline.
 * Ao encerrar sessao, o servidor deve persistir o ultimo estado vivo da mesa para que a proxima sessao comece como a anterior terminou.
 * Eventos que podem persistir estado fora da sessao online:
@@ -252,6 +254,7 @@ GET /api/campaigns/:campaignId/scenes/visible
 GET /api/campaigns/:campaignId/scenes/:sceneId
 POST /api/campaigns/:campaignId/scenes
 PATCH /api/campaigns/:campaignId/scenes/:sceneId
+PUT /api/campaigns/:campaignId/scenes/table-state
 DELETE /api/campaigns/:campaignId/scenes/:sceneId
 ```
 
@@ -265,6 +268,9 @@ Regras:
 * Acesso a Prisma deve acontecer apenas por repositories do modulo.
 * `POST /api/campaigns/:campaignId/scenes` deve aceitar payload sem `assetId`, `backgroundUrl` e `backgroundCacheKey`.
 * `PATCH /api/campaigns/:campaignId/scenes/:sceneId` deve aceitar vinculacao e remocao de imagem sem recriar a cena.
+* `PUT /api/campaigns/:campaignId/scenes/table-state` exige Mestre ativo e recebe snapshot completo de cenas persistidas, grid e tokens da tela do Mestre.
+* `PUT /api/campaigns/:campaignId/scenes/table-state` deve validar que todas as cenas pertencem a campanha, que tokens de personagem pertencem a personagens ativos da campanha e que nao ha personagem duplicado no snapshot.
+* `PUT /api/campaigns/:campaignId/scenes/table-state` deve executar em transacao, atualizar grids das cenas enviadas, remover os tokens persistidos anteriores da campanha e recriar os tokens conforme o snapshot recebido.
 
 Payload minimo de criacao:
 

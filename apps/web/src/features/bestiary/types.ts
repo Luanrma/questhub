@@ -12,9 +12,12 @@ export type BestiarySheetSection = {
   entries: BestiarySheetEntry[]
 }
 
-export type BestiaryCreature = {
+export type BestiaryEntryCategory = 'npc' | 'hazard'
+
+export type BestiaryEntry = {
   id: string
   system: string
+  category: BestiaryEntryCategory
   name: string
   display: {
     subtitle?: string
@@ -39,14 +42,20 @@ export type BestiaryCreature = {
   }
 }
 
+export type BestiaryCreature = BestiaryEntry & {
+  category: 'npc'
+}
+
 export type BestiaryResponse = {
   campaignId: string
   system: 'PATHFINDER_2E' | 'DND_5E'
+  category: BestiaryEntryCategory | 'all'
   pagination: {
     page: number
     limit: number
     total: number
     totalPages: number
   }
+  entries: BestiaryEntry[]
   creatures: BestiaryCreature[]
 }

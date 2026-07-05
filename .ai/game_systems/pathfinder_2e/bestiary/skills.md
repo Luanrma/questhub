@@ -5,7 +5,7 @@
 * Contratos agnosticos de apresentacao em `packages/game-system-core/src/server/bestiary`.
 * React no renderer `packages/game-system-pathfinder-2e/src/web/bestiary`, consumido por modal no app web.
 * Dados extraidos/normalizados de JSONs do Foundry PF2e em `pf2e-master/packs`.
-* Geracao de dados estaticos em TypeScript para evitar parsing dos packs em runtime.
+* Geracao de dados estaticos em TypeScript via `scripts/generate-pf2e-bestiary-data.cjs` para evitar parsing dos packs em runtime.
 
 ## 2. Padroes Aplicados
 * **Anti-Corruption Layer:** nomes e estruturas internas do Foundry nao vazam para o VTT.
@@ -25,6 +25,7 @@
 ## 4. Decisoes de Performance
 * A listagem continua paginada.
 * A listagem permanece paginada e filtrada em memoria sobre dados estaticos normalizados.
+* Filtros de categoria devem usar dados ja normalizados, sem reler `pf2e-master/packs` em runtime.
 * O endpoint de detalhe deve usar lookup por id sobre o catalogo normalizado.
 * O arquivo gerado deve conter apenas campos necessarios para listagem, token, fonte, ficha simplificada e `systemData` minimo; HTML extenso do Foundry deve ser sanitizado/resumido.
 

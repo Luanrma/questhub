@@ -1,6 +1,6 @@
 import type { VttGridSettings } from '../../grid'
 
-export type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens'
+export type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens' | 'hazards'
 
 export type VttGridBounds = {
   width: number
@@ -109,13 +109,23 @@ export type VttTokenCandidate = {
   ownerName: string
 }
 
+export type VttHazardCandidate = {
+  source: 'hazard'
+  hazardEntryId: string
+  name: string
+  level: string | null
+  rarity: string | null
+  complexity: string | null
+  tokenBorderColor?: string | null
+}
+
 export type VttTokenContextMenu = {
   token: VttPlayerToken
   x: number
   y: number
 }
 
-export type VttCombatParticipant = {
+export type VttEncounterParticipant = {
   tokenId: string
   characterId: string
   name: string
@@ -123,18 +133,18 @@ export type VttCombatParticipant = {
   initiative: number | null
 }
 
-export type VttCombatState = {
+export type VttEncounterState = {
   campaignId: string
   sceneId: string
   round: number
   activeTurnIndex: number
   status: 'ACTIVE'
-  participants: VttCombatParticipant[]
+  participants: VttEncounterParticipant[]
 }
 
-export type VttCombatChangedPayload = {
+export type VttEncounterChangedPayload = {
   campaignId: string
-  combat: VttCombatState | null
+  encounter: VttEncounterState | null
 }
 
 export type PreparedScene = {
