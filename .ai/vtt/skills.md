@@ -29,6 +29,8 @@
 * Grid-owned Measurement Style: cores de medicao pertencem ao modal de configuracao do grid, nao a botoes soltos da toolbar.
 * Route-as-Modal-State: rotas internas da campanha indicam qual overlay esta aberto, sem desmontar o canvas VTT.
 * Edge-resizable Modals: modais e paineis flutuantes devem usar resize por bordas/cantos por meio de helper compartilhado, preservando posicao ao redimensionar pela esquerda ou topo.
+* Right Panel Tabs: o painel lateral direito deve alternar conteudo por header de icones, mantendo apenas a opcao selecionada visivel na area principal.
+* Dockable Chat Modal: o chat destacado deve reutilizar o componente de chat existente, com drag pela barra superior, resize por bordas/cantos, maximizar/restaurar e acao para retornar a sidebar.
 * Generic Table Engine: mapa, token, chat, dado, cena e movimentacao sao modelados sem campos especificos de ruleset.
 * Ephemeral 3D Overlay: dados 3D sao efeitos temporarios sincronizados por Socket.IO e nao alteram estado persistente da mesa.
 * Dice Box Engine: a fisica e renderizacao dos dados 3D sao responsabilidade de `@3d-dice/dice-box`.

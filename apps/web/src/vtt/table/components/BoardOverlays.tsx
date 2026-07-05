@@ -86,6 +86,9 @@ export function PlayerToken({
   isMasterView,
   onMove,
   onContextMenu,
+  selectedForEncounter = false,
+  onEncounterSelectionToggle,
+  onEncounterSelectionDrop,
   isCombatTurn = false,
 }: {
   token: VttPlayerToken
@@ -97,15 +100,27 @@ export function PlayerToken({
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
+  selectedForEncounter?: boolean
+  onEncounterSelectionToggle?: (token: VttPlayerToken) => void
+  onEncounterSelectionDrop?: (token: VttPlayerToken) => void
   isCombatTurn?: boolean
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
+  const encounterDragMovedRef = useRef(false)
   const [dragging, setDragging] = useState(false)
+  const [encounterDragging, setEncounterDragging] = useState(false)
   const initial = token.name.trim().charAt(0).toUpperCase() || '?'
   const position = tokenPixelPosition(token, tokenSize)
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
+      if (encounterDragging) {
+        const movedX = Math.abs(event.clientX - dragStartRef.current.pointerX)
+        const movedY = Math.abs(event.clientY - dragStartRef.current.pointerY)
+        if (movedX > 4 || movedY > 4) encounterDragMovedRef.current = true
+        return
+      }
+
       if (!dragging) return
 
       const bounds = gridAreaRef.current?.getBoundingClientRect()
@@ -125,8 +140,15 @@ export function PlayerToken({
       onMove(tokenGridPositionFromPixelCenter(tokenCenter, gridBounds, tokenSize, gridShape))
     }
 
-    function onPointerUp() {
+    function onPointerUp(event: PointerEvent) {
+      if (encounterDragging && onEncounterSelectionDrop) {
+        const dropTarget = document.elementFromPoint(event.clientX, event.clientY)
+        if (dropTarget?.closest('[data-encounter-dropzone="true"]')) {
+          onEncounterSelectionDrop(token)
+        }
+      }
       setDragging(false)
+      setEncounterDragging(false)
     }
 
     window.addEventListener('pointermove', onPointerMove)
@@ -136,9 +158,24 @@ export function PlayerToken({
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
     }
-  }, [dragging, gridAreaRef, gridShape, onMove, tokenSize])
+  }, [dragging, encounterDragging, gridAreaRef, gridShape, onEncounterSelectionDrop, onMove, token, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (event.shiftKey && onEncounterSelectionToggle && onEncounterSelectionDrop) {
+      event.preventDefault()
+      event.stopPropagation()
+      event.currentTarget.setPointerCapture(event.pointerId)
+      encounterDragMovedRef.current = false
+      dragStartRef.current = {
+        pointerX: event.clientX,
+        pointerY: event.clientY,
+        tokenX: position.x,
+        tokenY: position.y,
+      }
+      setEncounterDragging(true)
+      return
+    }
+
     if (!canDrag) return
 
     event.preventDefault()
@@ -159,13 +196,27 @@ export function PlayerToken({
     onContextMenu(token, { x: event.clientX, y: event.clientY })
   }
 
+  function toggleEncounterSelection(event: React.MouseEvent<HTMLButtonElement>) {
+    if (!event.shiftKey || !onEncounterSelectionToggle) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    if (encounterDragMovedRef.current) {
+      encounterDragMovedRef.current = false
+      return
+    }
+    onEncounterSelectionToggle(token)
+  }
+
   return (
     <button
       type="button"
       title={`Token de ${token.name}`}
       className={[
-        'absolute z-[5] grid place-items-center overflow-hidden rounded-full border-2 shadow-2xl outline-none transition',
-        dragging
+        'absolute z-[5] grid place-items-center overflow-visible rounded-full border-2 shadow-2xl outline-none transition',
+        encounterDragging
+          ? 'cursor-copy border-red-200 ring-4 ring-red-400/45'
+          : dragging
           ? 'cursor-grabbing border-indigo-200 ring-4 ring-indigo-400/35'
             : canDrag
               ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
@@ -185,18 +236,29 @@ export function PlayerToken({
         borderColor: token.tokenBorderColor ?? undefined,
       }}
       onPointerDown={startDrag}
+      onClick={toggleEncounterSelection}
       onContextMenu={openContextMenu}
     >
-      {token.avatarUrl ? (
-        <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} />
-      ) : (
-        <span
-          className="grid h-full w-full place-items-center text-lg font-bold text-white"
-          style={{ backgroundColor: token.tokenBorderColor ?? '#4f46e5' }}
-        >
-          {initial}
+      {selectedForEncounter ? (
+        <span className="pointer-events-none absolute inset-0 z-10 overflow-visible">
+          <span className="absolute left-1/2 top-[-13px] h-0 w-0 -translate-x-1/2 border-x-[5px] border-t-[7px] border-x-transparent border-t-red-400" />
+          <span className="absolute bottom-[-13px] left-1/2 h-0 w-0 -translate-x-1/2 border-b-[7px] border-x-[5px] border-b-red-400 border-x-transparent" />
+          <span className="absolute left-[-13px] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-l-[7px] border-y-transparent border-l-red-400" />
+          <span className="absolute right-[-13px] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-r-[7px] border-y-transparent border-r-red-400" />
         </span>
-      )}
+      ) : null}
+      <span className="pointer-events-none grid h-full w-full place-items-center overflow-hidden rounded-full">
+        {token.avatarUrl ? (
+          <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} />
+        ) : (
+          <span
+            className="grid h-full w-full place-items-center text-lg font-bold text-white"
+            style={{ backgroundColor: token.tokenBorderColor ?? '#4f46e5' }}
+          >
+            {initial}
+          </span>
+        )}
+      </span>
     </button>
   )
 }

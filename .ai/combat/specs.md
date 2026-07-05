@@ -1,7 +1,7 @@
-# Modulo: Combat (Specs & Contracts)
+# Modulo: Combat / Encounter Mode (Specs & Contracts)
 
 ## 1. Fronteira do modulo
-`combat` define o estado generico de um encontro ativo na mesa. Ele nao conhece regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema.
+`combat` define o estado generico de um encontro ativo na mesa. Em produto e UI, o modo deve ser chamado de Encounter Mode / Encontro, nao Combate. Os nomes `VttCombat*` e eventos `vtt:combat:*` podem permanecer temporariamente como compatibilidade tecnica legada ate uma migracao coordenada de contratos.
 
 Campos proibidos no contrato base:
 * `armorClass`
@@ -34,7 +34,7 @@ type VttCombatState = {
 
 Regras:
 * `sceneId` identifica a cena usada para iniciar o combate.
-* `participants` vem dos tokens nao ocultos da cena atual.
+* `participants` vem apenas dos tokens selecionados explicitamente pelo Mestre na caixa de Encounter Mode.
 * `initiative` pode ser `null` ate o Mestre preencher.
 * Participantes com iniciativa numerica aparecem antes de participantes sem iniciativa.
 * Ordenacao padrao: iniciativa descendente, mantendo ordem anterior quando houver empate.
@@ -42,7 +42,7 @@ Regras:
 * `activeTurnIndex` inicia em `0`.
 * Ao avancar alem do ultimo participante, `activeTurnIndex` volta para `0` e `round` aumenta em `1`.
 * Ao voltar antes do primeiro participante, `activeTurnIndex` vai para o ultimo participante e `round` diminui ate o minimo de `1`.
-* Encerrar combate remove o estado vivo.
+* Encerrar encontro remove o estado vivo.
 * Trocar a cena ativa remove o combate vivo quando ele pertence a uma cena diferente.
 
 ## 3. Eventos Socket.IO
@@ -70,6 +70,7 @@ Payloads:
 type VttCombatStartPayload = {
   campaignId: string
   sceneId: string
+  tokenIds: string[]
 }
 
 type VttCombatUpdateInitiativePayload = {
@@ -91,9 +92,10 @@ type VttCombatChangedPayload = {
 Regras de permissao:
 * `start`, `update-initiative`, `next-turn`, `previous-turn` e `end` exigem Mestre ativo da sessao.
 * `request` exige socket autenticado dentro da campanha.
-* O servidor nunca deve aceitar `participants` enviados pelo cliente no MVP.
-* O servidor monta participantes a partir dos tokens da cena informada.
-* Tokens ocultos devem ser filtrados antes de criar o tracker.
+* O servidor nunca deve aceitar objetos `participants` enviados pelo cliente no MVP.
+* O servidor aceita somente `tokenIds` como intencao de selecao e monta participantes a partir dos tokens da cena informada.
+* `tokenIds` deve conter de 1 a 100 ids unicos.
+* Tokens ocultos, inexistentes ou fora da cena informada devem ser filtrados/recusados antes de criar o tracker.
 
 ## 4. UI/UX
 * O tracker aparece no painel lateral direito do VTT.
@@ -105,19 +107,30 @@ Regras de permissao:
 * O painel destacado deve permitir redimensionamento por qualquer borda, respeitando dimensoes minimas para os controles.
 * O painel destacado deve oferecer acao para pregar o tracker novamente no painel lateral direito.
 * O painel mostra rodada, participante ativo, lista de participantes e iniciativa.
+* Quando nao ha encontro ativo, o painel mostra uma caixa de Encounter Mode acima do botao de inicio.
+* Mestre usa `Shift` + clique em tokens visiveis da cena atual para pre-selecionar participantes.
+* Tokens pre-selecionados devem exibir quatro setas vermelhas, uma acima, uma abaixo, uma a esquerda e uma a direita, apontando para o token com pequena margem visual.
+* Clique simples fora dos tokens deve limpar toda a pre-selecao local de Encounter Mode.
+* `Shift` + arraste em um token pre-selecionado deve arrastar o grupo pre-selecionado para a caixa de Encounter Mode sem mover nenhum token no grid.
+* Se o drop do grupo pre-selecionado nao ocorrer dentro da caixa de Encounter Mode, nada deve ser alterado.
+* O menu contextual do Mestre em um token deve oferecer acao para enviar o token selecionado, ou todo o grupo pre-selecionado quando houver mais tokens, para a caixa de Encounter Mode.
+* Enviar tokens que ja estao na caixa de Encounter Mode nao deve duplicar participantes nem alterar os itens existentes.
+* A caixa exibe os tokens selecionados e permite remover participantes antes de iniciar.
+* O botao de inicio deve usar o texto `Iniciar Encontro`.
 * Mestre ve controles para iniciar, editar iniciativa, avancar, voltar e encerrar.
 * Jogador ve apenas estado atual.
 * O token ativo deve receber destaque visual discreto na mesa.
-* Combate nao bloqueia movimento de tokens no MVP.
+* Encounter Mode nao bloqueia movimento de tokens no MVP.
 
 ## 5. Criterios de aceitacao
-* Mestre inicia combate com tokens nao ocultos da cena atual.
+* Mestre inicia encontro somente com tokens enviados para a caixa de Encounter Mode.
+* Tokens visiveis da cena que nao foram enviados para a caixa ficam fora do encontro.
 * Jogadores conectados recebem o tracker automaticamente.
 * Mestre consegue alterar iniciativa manualmente.
 * A lista reordena por iniciativa descendente.
 * Mestre consegue avancar e voltar turnos.
 * Ao passar do ultimo participante, a rodada aumenta.
-* Mestre consegue encerrar combate.
-* Encerrar sessao limpa combate ativo.
-* Trocar de cena encerra o combate ativo do MVP.
+* Mestre consegue encerrar encontro.
+* Encerrar sessao limpa encontro ativo.
+* Trocar de cena encerra o encontro ativo do MVP.
 * Nenhum campo mecanico especifico de ruleset entra no contrato base.

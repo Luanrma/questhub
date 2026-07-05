@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronLeft, ChevronRight, ImagePlus, Plus, X } from 'lucide-react'
+import { ImagePlus, Plus, X } from 'lucide-react'
 import { Button } from '../../../components/Button'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { sceneImageMimeTypes } from '../config/constants'
@@ -131,34 +131,27 @@ export function ScenePreparationModal({
 export function SceneSidebarScenes({
   scenes,
   activeSceneId,
-  sceneDockCollapsed,
   onSelectScene,
-  onToggleSceneDock,
+  onPrepareScene,
 }: {
   scenes: PreparedScene[]
   activeSceneId: string | null
-  sceneDockCollapsed: boolean
   onSelectScene: (sceneId: string) => void
-  onToggleSceneDock: () => void
+  onPrepareScene: () => void
 }) {
   const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
 
   return (
-    <div className="flex max-h-40 min-h-[112px] shrink-0 overflow-hidden rounded-lg border border-white/10 bg-white/[0.03]">
-      <button
-        type="button"
-        title={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-        aria-label={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-        className="grid w-10 shrink-0 place-items-center border-r border-white/10 text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
-        onClick={onToggleSceneDock}
-      >
-        {sceneDockCollapsed ? (
-          <ChevronLeft className="h-5 w-5" />
-        ) : (
-          <ChevronRight className="h-5 w-5" />
-        )}
-      </button>
-      <div className="min-w-0 flex-1 overflow-y-auto p-2">
+    <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-white/[0.035]">
+      <div className="flex items-center gap-2 border-b border-white/10 px-3 py-2">
+        <ImagePlus className="h-4 w-4 text-purple-300" />
+        <div className="min-w-0">
+          <div className="truncate text-sm font-semibold text-white">Cenas</div>
+          <div className="truncate text-[11px] uppercase text-zinc-500">{sceneThumbnails.length} preparada{sceneThumbnails.length === 1 ? '' : 's'}</div>
+        </div>
+      </div>
+
+      <div className="min-h-0 flex-1 overflow-y-auto p-2">
         {sceneThumbnails.length ? (
           <div className="grid gap-2">
             {sceneThumbnails.map((scene) => {
@@ -170,74 +163,36 @@ export function SceneSidebarScenes({
                   type="button"
                   title={scene.fileName ?? scene.name}
                   className={[
-                    'w-full truncate rounded-md border px-3 py-2 text-left text-sm font-semibold transition',
-                    selected ? 'border-indigo-300 bg-indigo-500/20 text-white' : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:border-indigo-300/50 hover:bg-white/[0.07] hover:text-white',
+                    'group grid w-full grid-cols-[88px_minmax(0,1fr)] overflow-hidden rounded-md border bg-white/[0.03] text-left transition',
+                    selected ? 'border-indigo-300 bg-indigo-500/20 ring-1 ring-indigo-400/40' : 'border-white/10 hover:border-indigo-300/50 hover:bg-white/[0.07]',
                   ].join(' ')}
                   onClick={() => onSelectScene(scene.id)}
                 >
-                  {scene.name}
+                  <span className="relative block h-16 overflow-hidden bg-black/30">
+                    {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : null}
+                  </span>
+                  <span className="min-w-0 self-center px-3">
+                    <span className="block truncate text-sm font-semibold text-white">{scene.name}</span>
+                    <span className="block truncate text-[11px] text-zinc-500">{scene.fileName ?? 'Sem arquivo'}</span>
+                  </span>
                 </button>
               )
             })}
           </div>
         ) : (
-          <div className="text-xs text-zinc-500">Nenhuma cena preparada.</div>
+          <div className="rounded-md border border-dashed border-white/10 px-3 py-6 text-center text-xs text-zinc-500">
+            Nenhuma cena preparada.
+          </div>
         )}
       </div>
-    </div>
-  )
-}
 
-export function SceneDock({
-  scenes,
-  activeSceneId,
-  rightInset,
-  onSelectScene,
-  onPrepareScene,
-}: {
-  scenes: PreparedScene[]
-  activeSceneId: string | null
-  rightInset: number
-  onSelectScene: (sceneId: string) => void
-  onPrepareScene: () => void
-}) {
-  const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
-  const activeScene = sceneThumbnails.find((scene) => scene.id === activeSceneId)
-
-  return (
-    <div
-      className="pointer-events-auto absolute bottom-6 left-6 z-30 overflow-hidden rounded-lg border border-white/10 bg-black/50 backdrop-blur"
-      style={{ right: rightInset }}
-    >
-      <div className="flex min-h-[104px] items-stretch">
-        <div className="flex min-w-0 flex-1 flex-wrap items-end justify-between gap-3 px-3 py-3">
-          <div className="min-w-0">
-            <div className="mb-2">
-              <div className="truncate text-sm font-semibold text-white">{activeScene ? activeScene.name : 'Cena sem mapa carregado'}</div>
-            </div>
-            {sceneThumbnails.length ? (
-              <div className="flex max-w-[calc(100vw-360px)] flex-wrap gap-2 max-xl:max-w-full">
-                {sceneThumbnails.map((scene) => {
-                  const selected = scene.id === activeSceneId
-
-                  return (
-                    <button key={scene.id} type="button" title={scene.fileName ?? scene.name} className={['group relative h-16 w-28 overflow-hidden rounded-md border bg-white/[0.04] text-left shadow-lg transition', selected ? 'border-indigo-300 ring-2 ring-indigo-400/50' : 'border-white/10 hover:border-indigo-300/60 hover:bg-white/[0.08]'].join(' ')} onClick={() => onSelectScene(scene.id)}>
-                      {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : null}
-                      <span className="absolute inset-x-0 bottom-0 truncate bg-black/70 px-2 py-1 text-xs font-semibold text-white">{scene.name}</span>
-                    </button>
-                  )
-                })}
-              </div>
-            ) : (
-              <div className="text-xs text-zinc-400">Grid pronto para mapas, tokens e medidas.</div>
-            )}
-          </div>
-          <Button variant="ghost" className="h-9 gap-2 px-3" onClick={onPrepareScene}>
-            <Plus className="h-4 w-4" />
-            Preparar cena
-          </Button>
-        </div>
+      <div className="border-t border-white/10 p-2">
+        <Button type="button" variant="ghost" className="h-9 w-full gap-2 px-3" onClick={onPrepareScene}>
+          <Plus className="h-4 w-4" />
+          Preparar Cena
+        </Button>
       </div>
-    </div>
+    </section>
   )
 }
+

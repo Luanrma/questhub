@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { FormEvent } from 'react'
+import type { FormEvent, ReactNode } from 'react'
 import { MessageCircle, Send } from 'lucide-react'
 import { api, ApiError } from '../lib/api'
 import { useSession } from '../contexts/SessionContext'
@@ -32,6 +32,8 @@ type Props = {
   characterId?: string | null
   enabled: boolean
   className?: string
+  headerAction?: ReactNode
+  hideHeader?: boolean
 }
 
 function isChatMessage(input: unknown): input is ChatMessage {
@@ -60,7 +62,7 @@ function formatMessageTime(value: string) {
   }).format(new Date(value))
 }
 
-export function CampaignChat({ campaignId, characterId, enabled, className = '' }: Props) {
+export function CampaignChat({ campaignId, characterId, enabled, className = '', headerAction, hideHeader = false }: Props) {
   const { socket } = useSession()
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -191,13 +193,18 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '' 
 
   return (
     <section className={['flex min-h-0 flex-1 flex-col rounded-lg border border-white/10 bg-white/[0.03]', className].join(' ')}>
+      {!hideHeader ? (
       <div className="flex items-center justify-between gap-3 border-b border-white/10 px-3 py-2">
         <div className="flex items-center gap-2">
           <MessageCircle className="h-4 w-4 text-indigo-300" />
           <h2 className="text-sm font-semibold text-white">Chat</h2>
         </div>
-        <span className="text-[10px] uppercase text-zinc-500">{enabled ? 'Mesa' : 'Offline'}</span>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] uppercase text-zinc-500">{enabled ? 'Mesa' : 'Offline'}</span>
+          {headerAction}
+        </div>
       </div>
+      ) : null}
 
       <div ref={scrollRef} className="min-h-0 flex-1 space-y-2 overflow-auto px-3 py-2">
         {loading ? <div className="text-sm text-zinc-500">Carregando mensagens...</div> : null}

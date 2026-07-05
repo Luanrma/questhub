@@ -1,20 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
-  ChevronLeft,
-  ChevronRight,
   CircleUserRound,
   Dice5,
   Eye,
   EyeOff,
   Grid3X3,
+  Maximize2,
   MessageCircle,
+  Minimize2,
   MousePointer2,
   Move,
   Ruler,
   PanelRightClose,
   PanelRightOpen,
+  Pin,
   ScrollText,
+  Swords,
   Trash2,
   Users,
   X,
@@ -25,6 +27,7 @@ import { useParams } from 'react-router-dom'
 import { CampaignChat } from '../../components/CampaignChat'
 import { LoadingScreen } from '../../components/LoadingScreen'
 import { CharacterSheetModal } from '../../components/CharacterSheetModal'
+import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
 import { BestiaryCreatureSheetModal } from '../../features/bestiary/components/BestiaryCreatureSheetModal'
@@ -64,7 +67,7 @@ import {
   validateSceneImage,
 } from './domain/sceneDomain'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
-import { SceneDock, ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
+import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay } from './components/BoardOverlays'
 import { CombatTrackerPanel } from './components/CombatTrackerPanel'
 import type {
@@ -128,6 +131,8 @@ type CharacterTokenSheet = {
   readOnly: boolean
 }
 
+type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'chat'
+
 export function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
@@ -160,9 +165,10 @@ export function CampaignOverviewPage({
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
-  const [sceneDockCollapsed, setSceneDockCollapsed] = useState(false)
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
+  const [rightPanelTab, setRightPanelTab] = useState<RightPanelTab>('encounter')
   const [combatTrackerDetached, setCombatTrackerDetached] = useState(false)
+  const [chatDetached, setChatDetached] = useState(false)
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([createPreparedScene(1)])
   const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)
@@ -174,6 +180,8 @@ export function CampaignOverviewPage({
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
   const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
   const [combatState, setCombatState] = useState<VttCombatState | null>(null)
+  const [encounterTokenIds, setEncounterTokenIds] = useState<string[]>([])
+  const [preselectedEncounterTokenIds, setPreselectedEncounterTokenIds] = useState<string[]>([])
   const preparedScenesRef = useRef(preparedScenes)
   const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
   const onGridSettingsChangeRef = useRef(onGridSettingsChange)
@@ -228,7 +236,13 @@ export function CampaignOverviewPage({
     combatState && combatState.campaignId === campaignId ? combatState : null
   const activeCombatTokenId = activeCombat?.participants[activeCombat.activeTurnIndex]?.tokenId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
-  const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && combatTokenCount > 0 && !activeCombat)
+  const encounterTokens = encounterTokenIds
+    .map((tokenId) => visibleTokens.find((token) => token.id === tokenId && !token.hidden))
+    .filter((token): token is VttPlayerToken => Boolean(token))
+  const preselectedEncounterTokens = preselectedEncounterTokenIds
+    .map((tokenId) => visibleTokens.find((token) => token.id === tokenId && !token.hidden))
+    .filter((token): token is VttPlayerToken => Boolean(token))
+  const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && encounterTokens.length > 0 && !activeCombat)
 
   function canOpenCharacterTokenSheet(token: VttPlayerToken) {
     if (token.source !== 'character' || !token.characterId) return false
@@ -424,6 +438,22 @@ export function CampaignOverviewPage({
 
     previousCampaignOnlineRef.current = { campaignId: campaignId ?? null, online }
   }, [campaign?.isOnline, campaignId])
+
+  useEffect(() => {
+    const availableTokenIds = new Set(visibleTokens.filter((token) => !token.hidden).map((token) => token.id))
+    setEncounterTokenIds((current) => {
+      const next = current.filter((tokenId) => availableTokenIds.has(tokenId))
+      return next.length === current.length ? current : next
+    })
+    setPreselectedEncounterTokenIds((current) => {
+      const next = current.filter((tokenId) => availableTokenIds.has(tokenId))
+      return next.length === current.length ? current : next
+    })
+  }, [activeScene?.id, visibleTokens])
+
+  useEffect(() => {
+    if (activeCombat) setEncounterTokenIds((current) => (current.length ? [] : current))
+  }, [activeCombat])
 
   useEffect(() => {
     if (!socket || !campaignId) return
@@ -977,9 +1007,47 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
+  function addTokensToEncounter(tokens: VttPlayerToken[]) {
+    if (!isMaster || activeCombat) return
+    const tokenIds = tokens.filter((token) => !token.hidden).map((token) => token.id)
+    if (!tokenIds.length) return
+    setEncounterTokenIds((current) => {
+      const next = [...current]
+      tokenIds.forEach((tokenId) => {
+        if (!next.includes(tokenId)) next.push(tokenId)
+      })
+      return next.length === current.length ? current : next
+    })
+  }
+
+  function toggleTokenEncounterPreselection(token: VttPlayerToken) {
+    if (!isMaster || activeCombat || token.hidden) return
+    setPreselectedEncounterTokenIds((current) =>
+      current.includes(token.id) ? current.filter((tokenId) => tokenId !== token.id) : [...current, token.id],
+    )
+  }
+
+  function addEncounterDragSelectionToBox(token: VttPlayerToken) {
+    if (!isMaster || activeCombat || token.hidden) return
+    const selectedTokens = preselectedEncounterTokens.length
+      ? preselectedEncounterTokens
+      : [token]
+    const tokens = selectedTokens.some((item) => item.id === token.id) ? selectedTokens : [...selectedTokens, token]
+    addTokensToEncounter(tokens)
+  }
+
+  function addContextTokenSelectionToEncounter(token: VttPlayerToken) {
+    const selectedTokens = preselectedEncounterTokens.length
+      ? preselectedEncounterTokens
+      : [token]
+    const tokens = selectedTokens.some((item) => item.id === token.id) ? selectedTokens : [...selectedTokens, token]
+    addTokensToEncounter(tokens)
+    setTokenContextMenu(null)
+  }
+
   function startCombat() {
     if (!campaignId || !socket || !activeScene || !canStartCombat) return
-    socket.emit('vtt:combat:start', { campaignId, sceneId: activeScene.id })
+    socket.emit('vtt:combat:start', { campaignId, sceneId: activeScene.id, tokenIds: encounterTokens.map((token) => token.id) })
   }
 
   function endCombat() {
@@ -1008,7 +1076,16 @@ export function CampaignOverviewPage({
     })
   }
 
+  function openRightPanelTab(tab: RightPanelTab) {
+    setRightPanelTab(tab)
+    setRightPanelCollapsed(false)
+    if (tab === 'chat') setChatDetached(false)
+  }
+
   function startBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    if (!event.shiftKey && event.target === event.currentTarget) {
+      setPreselectedEncounterTokenIds([])
+    }
     if (activeTool !== 'move' || event.button !== 0) return
     if (event.target !== event.currentTarget) return
 
@@ -1385,6 +1462,9 @@ export function CampaignOverviewPage({
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
+                selectedForEncounter={Boolean(isMaster && preselectedEncounterTokenIds.includes(token.id))}
+                onEncounterSelectionToggle={isMaster ? toggleTokenEncounterPreselection : undefined}
+                onEncounterSelectionDrop={isMaster ? addEncounterDragSelectionToBox : undefined}
                 isCombatTurn={activeCombatTokenId === token.id}
               />
             ))}
@@ -1589,6 +1669,15 @@ export function CampaignOverviewPage({
                   <>
                     <button
                       type="button"
+                      disabled={!masterCanUseVtt || Boolean(activeCombat) || tokenContextMenu.token.hidden}
+                      className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => addContextTokenSelectionToEncounter(tokenContextMenu.token)}
+                    >
+                      <Swords className="h-4 w-4" />
+                      Enviar p/ Encontro
+                    </button>
+                    <button
+                      type="button"
                       disabled={!masterCanUseVtt}
                       className="flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                       onClick={() => toggleTokenVisibility(tokenContextMenu.token)}
@@ -1635,16 +1724,6 @@ export function CampaignOverviewPage({
               </button>
             </div>
 
-            {isMaster && !sceneDockCollapsed ? (
-              <SceneDock
-                scenes={preparedScenes}
-                activeSceneId={activeScene?.id ?? null}
-                rightInset={rightPanelCollapsed ? 80 : 344}
-                onSelectScene={selectPreparedScene}
-                onPrepareScene={() => setScenePreparationOpen(true)}
-              />
-            ) : null}
-
             {scenePreparationOpen && isMaster ? (
               <ScenePreparationModal
                 scenes={preparedScenes}
@@ -1682,47 +1761,74 @@ export function CampaignOverviewPage({
             <PanelRightOpen className="h-4 w-4" />
           </button>
           <div className="grid gap-2">
-            <div
-              title="Combate"
-              className={[
-                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase',
-                activeCombat
-                  ? 'border-red-300/40 bg-red-500/20 text-red-100'
-                  : 'border-white/10 bg-white/[0.04] text-zinc-400',
-              ].join(' ')}
-            >
-              CBT
-            </div>
-            <div
-              title="Jogadores"
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-400"
-            >
-              <Users className="h-4 w-4" />
-            </div>
-            <div
-              title="Sessao"
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-[10px] font-bold uppercase text-zinc-300"
-            >
-              {sessionState === 'PAUSED' ? 'P' : campaign?.isOnline ? 'ON' : 'OFF'}
-            </div>
-            <div
-              title="Chat"
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-indigo-200"
-            >
-              <MessageCircle className="h-4 w-4" />
-            </div>
-          </div>
-          {isMaster ? (
             <button
               type="button"
-              title={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-              aria-label={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-              className="mt-auto grid h-24 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
-              onClick={() => setSceneDockCollapsed((current) => !current)}
+              title="Encounter Mode"
+              className={[
+                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase transition',
+                rightPanelTab === 'encounter' || activeCombat
+                  ? 'border-red-300/40 bg-red-500/20 text-red-100'
+                  : 'border-white/10 bg-white/[0.04] text-zinc-400 hover:bg-white/10 hover:text-white',
+              ].join(' ')}
+              onClick={() => openRightPanelTab('encounter')}
             >
-              {sceneDockCollapsed ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
+              ENC
             </button>
-          ) : null}
+            <button
+              type="button"
+              title="Jogadores"
+              className={[
+                'grid h-10 w-10 place-items-center rounded-lg border transition',
+                rightPanelTab === 'players'
+                  ? 'border-indigo-300/40 bg-indigo-500/20 text-indigo-100'
+                  : 'border-white/10 bg-white/[0.04] text-zinc-400 hover:bg-white/10 hover:text-white',
+              ].join(' ')}
+              onClick={() => openRightPanelTab('players')}
+            >
+              <Users className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              title="Sessao"
+              className={[
+                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase transition',
+                rightPanelTab === 'session'
+                  ? 'border-emerald-300/40 bg-emerald-500/20 text-emerald-100'
+                  : 'border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white',
+              ].join(' ')}
+              onClick={() => openRightPanelTab('session')}
+            >
+              {sessionState === 'PAUSED' ? '||' : campaign?.isOnline ? 'ON' : 'OFF'}
+            </button>
+            {isMaster ? (
+              <button
+                type="button"
+                title="Cenas"
+                className={[
+                  'grid h-10 w-10 place-items-center rounded-lg border transition',
+                  rightPanelTab === 'scenes'
+                    ? 'border-purple-300/40 bg-purple-500/20 text-purple-100'
+                    : 'border-white/10 bg-white/[0.04] text-purple-300 hover:bg-white/10 hover:text-purple-200',
+                ].join(' ')}
+                onClick={() => openRightPanelTab('scenes')}
+              >
+                <ScrollText className="h-4 w-4" />
+              </button>
+            ) : null}
+            <button
+              type="button"
+              title="Chat"
+              className={[
+                'grid h-10 w-10 place-items-center rounded-lg border transition',
+                rightPanelTab === 'chat'
+                  ? 'border-indigo-300/40 bg-indigo-500/20 text-indigo-100'
+                  : 'border-white/10 bg-white/[0.04] text-indigo-200 hover:bg-white/10 hover:text-white',
+              ].join(' ')}
+              onClick={() => openRightPanelTab('chat')}
+            >
+              <MessageCircle className="h-4 w-4" />
+            </button>
+          </div>
         </div>
 
         <div className={rightPanelCollapsed ? 'hidden h-full min-h-0 flex-col gap-3' : 'relative flex h-full min-h-0 flex-col gap-3'}>
@@ -1735,41 +1841,131 @@ export function CampaignOverviewPage({
             <PanelRightClose className="h-4 w-4" />
           </button>
 
-          {!combatTrackerDetached ? (
+          <div className="flex shrink-0 items-center gap-2 pr-10">
+            {[
+              { id: 'encounter' as const, title: 'Encounter Mode', icon: Swords },
+              { id: 'players' as const, title: 'Jogadores', icon: Users },
+              { id: 'session' as const, title: 'Sessao', icon: campaign?.isOnline ? Eye : EyeOff },
+              ...(isMaster ? [{ id: 'scenes' as const, title: 'Cenas', icon: ScrollText }] : []),
+              { id: 'chat' as const, title: 'Chat', icon: MessageCircle },
+            ].map((item) => {
+              const Icon = item.icon
+              const active = rightPanelTab === item.id
+
+              return (
+                <button
+                  key={item.id}
+                  type="button"
+                  title={item.title}
+                  aria-label={item.title}
+                  className={[
+                    'grid h-9 w-9 place-items-center rounded-md border transition',
+                    active
+                      ? 'border-indigo-300/45 bg-indigo-600 text-white'
+                      : 'border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white',
+                  ].join(' ')}
+                  onClick={() => setRightPanelTab(item.id)}
+                >
+                  <Icon className="h-4 w-4" />
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="min-h-0 flex-1 overflow-hidden">
+            {rightPanelTab === 'encounter' && !combatTrackerDetached ? (
             <CombatTrackerPanel
               combat={activeCombat}
               isMaster={Boolean(isMaster)}
               canStart={canStartCombat}
               tokenCount={combatTokenCount}
+              selectedTokens={encounterTokens}
               onStart={startCombat}
               onEnd={endCombat}
+              onRemoveSelectedToken={(tokenId) =>
+                setEncounterTokenIds((current) => current.filter((selectedTokenId) => selectedTokenId !== tokenId))
+              }
               onNextTurn={nextCombatTurn}
               onPreviousTurn={previousCombatTurn}
               onInitiativeChange={updateCombatInitiative}
               onDetach={() => setCombatTrackerDetached(true)}
             />
-          ) : null}
+            ) : null}
 
-          <div className="min-h-0 flex-1">
-            {campaignId ? (
-              <CampaignChat
-                campaignId={campaignId}
-                characterId={campaign?.myCharacterId}
-                enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')}
-                className="h-full min-h-0"
+            {rightPanelTab === 'encounter' && combatTrackerDetached ? (
+              <div className="grid h-full place-items-center rounded-lg border border-dashed border-white/10 bg-white/[0.025] px-4 text-center text-xs text-zinc-500">
+                Encounter Mode esta destacado em um modal.
+              </div>
+            ) : null}
+
+            {rightPanelTab === 'players' ? (
+              <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3">
+                <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+                  <Users className="h-4 w-4 text-indigo-300" />
+                  <div>
+                    <div className="text-sm font-semibold text-white">Jogadores</div>
+                    <div className="text-[11px] uppercase text-zinc-500">Mesa ativa</div>
+                  </div>
+                </div>
+                <div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">
+                  {myCharacter ? `${myCharacter.name} conectado como ${myCharacter.role === 'MASTER' ? 'Mestre' : 'Player'}.` : 'Carregando participante atual.'}
+                </div>
+              </section>
+            ) : null}
+
+            {rightPanelTab === 'session' ? (
+              <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3">
+                <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+                  {campaign?.isOnline ? <Eye className="h-4 w-4 text-emerald-300" /> : <EyeOff className="h-4 w-4 text-zinc-400" />}
+                  <div>
+                    <div className="text-sm font-semibold text-white">Sessao</div>
+                    <div className="text-[11px] uppercase text-zinc-500">{sessionState === 'PAUSED' ? 'Pausada' : campaign?.isOnline ? 'Online' : 'Offline'}</div>
+                  </div>
+                </div>
+                <div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs leading-relaxed text-zinc-400">
+                  {sessionState === 'PAUSED'
+                    ? 'Players estao bloqueados na mesa, exceto chat. O Mestre ainda pode preparar a cena.'
+                    : campaign?.isOnline
+                      ? 'A mesa esta online para participantes ativos.'
+                      : 'A sessao ainda nao foi retomada.'}
+                </div>
+              </section>
+            ) : null}
+
+            {rightPanelTab === 'scenes' && isMaster ? (
+              <SceneSidebarScenes
+                scenes={preparedScenes}
+                activeSceneId={activeScene?.id ?? null}
+                onSelectScene={selectPreparedScene}
+                onPrepareScene={() => setScenePreparationOpen(true)}
               />
             ) : null}
-          </div>
 
-          {isMaster ? (
-            <SceneSidebarScenes
-              scenes={preparedScenes}
-              activeSceneId={activeScene?.id ?? null}
-              sceneDockCollapsed={sceneDockCollapsed}
-              onSelectScene={selectPreparedScene}
-              onToggleSceneDock={() => setSceneDockCollapsed((current) => !current)}
-            />
-          ) : null}
+            {rightPanelTab === 'chat' ? (
+              campaignId && !chatDetached ? (
+                <CampaignChat
+                  campaignId={campaignId}
+                  characterId={campaign?.myCharacterId}
+                  enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && socket)}
+                  className="h-full min-h-0"
+                  headerAction={
+                    <button
+                      type="button"
+                      title="Destacar chat"
+                      className="grid h-7 w-7 shrink-0 place-items-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                      onClick={() => setChatDetached(true)}
+                    >
+                      <PanelRightOpen className="h-4 w-4" />
+                    </button>
+                  }
+                />
+              ) : (
+                <div className="grid h-full place-items-center rounded-lg border border-dashed border-white/10 text-center text-xs text-zinc-500">
+                  Chat destacado em um modal.
+                </div>
+              )
+            ) : null}
+          </div>
         </div>
       </aside>
 
@@ -1790,6 +1986,23 @@ export function CampaignOverviewPage({
         />
       ) : null}
 
+      {chatDetached && campaignId && typeof document !== 'undefined'
+        ? createPortal(
+            <DetachedChatModal
+              campaignId={campaignId}
+              characterId={campaign?.myCharacterId ?? undefined}
+              enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE' && socket)}
+              onClose={() => setChatDetached(false)}
+              onAttach={() => {
+                setChatDetached(false)
+                setRightPanelCollapsed(false)
+                setRightPanelTab('chat')
+              }}
+            />,
+            document.body,
+          )
+        : null}
+
       {combatTrackerDetached && typeof document !== 'undefined'
         ? createPortal(
             <CombatTrackerPanel
@@ -1797,9 +2010,13 @@ export function CampaignOverviewPage({
               isMaster={Boolean(isMaster)}
               canStart={canStartCombat}
               tokenCount={combatTokenCount}
+              selectedTokens={encounterTokens}
               displayMode="detached"
               onStart={startCombat}
               onEnd={endCombat}
+              onRemoveSelectedToken={(tokenId) =>
+                setEncounterTokenIds((current) => current.filter((selectedTokenId) => selectedTokenId !== tokenId))
+              }
               onNextTurn={nextCombatTurn}
               onPreviousTurn={previousCombatTurn}
               onInitiativeChange={updateCombatInitiative}
@@ -1812,5 +2029,138 @@ export function CampaignOverviewPage({
           )
         : null}
     </div>
+  )
+}
+
+function DetachedChatModal({
+  campaignId,
+  characterId,
+  enabled,
+  onClose,
+  onAttach,
+}: {
+  campaignId: string
+  characterId: string | undefined
+  enabled: boolean
+  onClose: () => void
+  onAttach: () => void
+}) {
+  const getInitialBox = (): ResizableBox => {
+    if (typeof window === 'undefined') return { x: 24, y: 72, width: 420, height: 560 }
+    const width = Math.min(480, Math.max(360, window.innerWidth * 0.32))
+    const height = Math.min(680, Math.max(420, window.innerHeight * 0.68))
+    return {
+      x: Math.max(16, window.innerWidth - width - 88),
+      y: Math.max(16, (window.innerHeight - height) / 2),
+      width,
+      height,
+    }
+  }
+  const [box, setBox] = useState<ResizableBox>(getInitialBox)
+  const [restoredBox, setRestoredBox] = useState<ResizableBox | null>(null)
+  const maximized =
+    typeof window !== 'undefined' &&
+    box.x <= 16 &&
+    box.y <= 16 &&
+    box.width >= window.innerWidth - 32 &&
+    box.height >= window.innerHeight - 32
+
+  function startDrag(event: React.PointerEvent<HTMLElement>) {
+    if (maximized) return
+    event.preventDefault()
+    const startX = event.clientX
+    const startY = event.clientY
+    const startBox = box
+
+    function onPointerMove(pointerEvent: globalThis.PointerEvent) {
+      const margin = 16
+      const nextX = clampNumber(pointerEvent.clientX - startX + startBox.x, margin, window.innerWidth - startBox.width - margin)
+      const nextY = clampNumber(pointerEvent.clientY - startY + startBox.y, margin, window.innerHeight - startBox.height - margin)
+      setBox({ ...startBox, x: nextX, y: nextY })
+    }
+
+    function onPointerUp() {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+  }
+
+  function toggleMaximized() {
+    if (typeof window === 'undefined') return
+
+    if (maximized && restoredBox) {
+      setBox(restoredBox)
+      setRestoredBox(null)
+      return
+    }
+
+    setRestoredBox(box)
+    setBox({
+      x: 16,
+      y: 16,
+      width: window.innerWidth - 32,
+      height: window.innerHeight - 32,
+    })
+  }
+
+  return (
+    <section
+      className="pointer-events-auto fixed z-[80] overflow-hidden rounded-lg border border-white/10 bg-[#08090d]/92 text-white shadow-2xl backdrop-blur-xl"
+      style={{ left: box.x, top: box.y, width: box.width, height: box.height }}
+    >
+      <ResizableEdges
+        box={box}
+        setBox={setBox}
+        limits={{ minWidth: 360, minHeight: 380, maxWidth: 1120, maxHeight: 820, viewportMargin: 16 }}
+      />
+      <div
+        className="flex cursor-grab items-center justify-between gap-3 border-b border-white/10 px-4 py-3 active:cursor-grabbing"
+        onPointerDown={startDrag}
+      >
+        <div className="flex min-w-0 items-center gap-3">
+          <MessageCircle className="h-4 w-4 shrink-0 text-indigo-300" />
+          <div className="min-w-0">
+            <div className="truncate text-sm font-semibold">Chat</div>
+            <div className="truncate text-[11px] uppercase text-zinc-500">Mesa ativa</div>
+          </div>
+        </div>
+        <div className="flex shrink-0 items-center gap-2" onPointerDown={(event) => event.stopPropagation()}>
+          <button
+            type="button"
+            title="Retornar para sidebar"
+            className="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            onClick={onAttach}
+          >
+            <Pin className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            title={maximized ? 'Encolher chat' : 'Expandir chat'}
+            className="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            onClick={toggleMaximized}
+          >
+            {maximized ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+          </button>
+          <button
+            type="button"
+            title="Fechar chat"
+            className="grid h-8 w-8 place-items-center rounded-md text-zinc-300 transition hover:bg-red-500/10 hover:text-red-100"
+            onClick={onClose}
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+      <CampaignChat
+        campaignId={campaignId}
+        characterId={characterId}
+        enabled={enabled}
+        hideHeader
+        className="h-[calc(100%-57px)] min-h-0 rounded-none border-0 bg-transparent"
+      />
+    </section>
   )
 }

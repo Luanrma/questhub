@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, PanelRightOpen, Pin, Swords, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
-import type { VttCombatParticipant, VttCombatState } from '../domain/types'
+import type { VttCombatParticipant, VttCombatState, VttPlayerToken } from '../domain/types'
 
 type CombatTrackerDisplayMode = 'sidebar' | 'detached'
 type DetachedCombatTurn = {
@@ -61,9 +61,11 @@ export function CombatTrackerPanel({
   isMaster,
   canStart,
   tokenCount,
+  selectedTokens,
   displayMode = 'sidebar',
   onStart,
   onEnd,
+  onRemoveSelectedToken,
   onNextTurn,
   onPreviousTurn,
   onInitiativeChange,
@@ -74,9 +76,11 @@ export function CombatTrackerPanel({
   isMaster: boolean
   canStart: boolean
   tokenCount: number
+  selectedTokens: VttPlayerToken[]
   displayMode?: CombatTrackerDisplayMode
   onStart: () => void
   onEnd: () => void
+  onRemoveSelectedToken: (tokenId: string) => void
   onNextTurn: () => void
   onPreviousTurn: () => void
   onInitiativeChange: (characterId: string, initiative: number | null) => void
@@ -86,8 +90,89 @@ export function CombatTrackerPanel({
   const activeParticipant = combat?.participants[combat.activeTurnIndex] ?? null
   const detached = displayMode === 'detached'
 
-  const title = combat && activeParticipant ? `Combate - ${activeParticipant.name}` : 'Combate'
-  const subtitle = combat ? `Rodada ${combat.round}${activeParticipant ? ' - turno atual' : ''}` : `${tokenCount} token${tokenCount === 1 ? '' : 's'} na cena`
+  const title = combat && activeParticipant ? `Encontro - ${activeParticipant.name}` : 'Encounter Mode'
+  const subtitle = combat ? `Rodada ${combat.round}${activeParticipant ? ' - turno atual' : ''}` : `${selectedTokens.length}/${tokenCount} token${tokenCount === 1 ? '' : 's'} selecionados`
+  const selectedTokenBox = (
+    <div
+      data-encounter-dropzone="true"
+      className={[
+        'grid min-h-24 gap-2 rounded-md border border-dashed px-3 py-3',
+        selectedTokens.length ? 'border-indigo-300/35 bg-indigo-500/10' : 'border-white/10 bg-black/20',
+      ].join(' ')}
+    >
+      {selectedTokens.length ? (
+        detached ? (
+          <div className="flex min-h-[104px] items-center gap-3 overflow-x-auto pb-1">
+            {selectedTokens.map((token, index) => {
+              const initial = token.name.trim().charAt(0).toUpperCase() || '?'
+
+              return (
+                <div
+                  key={token.id}
+                  className="relative grid min-h-[96px] w-[124px] shrink-0 place-items-center gap-1 rounded-md border border-indigo-300/25 bg-indigo-500/12 px-3 py-2 text-center"
+                >
+                  <span className="absolute left-2 top-2 grid h-4 w-4 place-items-center rounded-full border border-white/10 bg-black/40 text-[10px] text-zinc-500">
+                    {index + 1}
+                  </span>
+                  <button
+                    type="button"
+                    title="Remover do encontro"
+                    className="absolute right-1.5 top-1.5 grid h-6 w-6 place-items-center rounded-md text-zinc-400 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => onRemoveSelectedToken(token.id)}
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                  <span
+                    className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-indigo-600 text-sm font-bold text-white"
+                    style={{ backgroundColor: token.tokenBorderColor ?? undefined }}
+                  >
+                    {token.avatarUrl ? <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
+                  </span>
+                  <span className="w-full min-w-0">
+                    <span className="block truncate text-xs font-semibold text-white">{token.name}</span>
+                    <span className="block truncate text-[10px] uppercase text-zinc-500">{token.role === 'NPC' ? 'NPC' : token.ownerName}</span>
+                  </span>
+                </div>
+              )
+            })}
+          </div>
+        ) : (
+          <div className="grid max-h-36 gap-2 overflow-auto pr-1">
+          {selectedTokens.map((token) => {
+            const initial = token.name.trim().charAt(0).toUpperCase() || '?'
+
+            return (
+              <div key={token.id} className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-2 py-1.5">
+                <span
+                  className="grid h-7 w-7 place-items-center overflow-hidden rounded-full bg-indigo-600 text-xs font-bold text-white"
+                  style={{ backgroundColor: token.tokenBorderColor ?? undefined }}
+                >
+                  {token.avatarUrl ? <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
+                </span>
+                <span className="min-w-0">
+                  <span className="block truncate text-xs font-semibold text-white">{token.name}</span>
+                  <span className="block truncate text-[10px] uppercase text-zinc-500">{token.role === 'NPC' ? 'NPC' : token.ownerName}</span>
+                </span>
+                <button
+                  type="button"
+                  title="Remover do encontro"
+                  className="grid h-7 w-7 place-items-center rounded-md text-zinc-400 transition hover:bg-white/10 hover:text-white"
+                  onClick={() => onRemoveSelectedToken(token.id)}
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
+            )
+          })}
+          </div>
+        )
+      ) : (
+        <div className="grid place-items-center text-center text-xs leading-relaxed text-zinc-500">
+          Arraste tokens visiveis da cena para iniciar um encontro.
+        </div>
+      )}
+    </div>
+  )
   const [detachedBox, setDetachedBox] = useState<ResizableBox>(() => ({
     x: Math.max(16, (window.innerWidth - 860) / 2),
     y: 8,
@@ -133,7 +218,7 @@ export function CombatTrackerPanel({
             {combat && isMaster ? (
               <button
                 type="button"
-                title="Encerrar combate"
+                title="Encerrar encontro"
                 className="grid h-8 w-8 place-items-center rounded-md text-zinc-300 transition hover:bg-red-500/10 hover:text-red-100"
                 onClick={onEnd}
               >
@@ -146,8 +231,9 @@ export function CombatTrackerPanel({
         {!combat ? (
           <div className="grid gap-3 p-4" style={{ minHeight: detachedBox.height - 57 }}>
             <div className="text-xs leading-relaxed text-zinc-400">
-              Inicie um tracker simples com os tokens visiveis da cena atual.
+              Selecione tokens da cena para o Encounter Mode.
             </div>
+            {isMaster ? selectedTokenBox : null}
             {isMaster ? (
               <button
                 type="button"
@@ -156,11 +242,11 @@ export function CombatTrackerPanel({
                 onClick={onStart}
               >
                 <Swords className="h-4 w-4" />
-                Iniciar combate
+                Iniciar Encontro
               </button>
             ) : (
               <div className="rounded-md border border-dashed border-white/10 px-3 py-3 text-center text-xs text-zinc-500">
-                Nenhum combate ativo.
+                Nenhum encontro ativo.
               </div>
             )}
           </div>
@@ -265,7 +351,7 @@ export function CombatTrackerPanel({
           {onDetach ? (
             <button
               type="button"
-              title="Destacar combate"
+              title="Destacar encontro"
               className="grid h-8 w-8 place-items-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
               onClick={onDetach}
             >
@@ -275,7 +361,7 @@ export function CombatTrackerPanel({
           {combat && isMaster ? (
             <button
               type="button"
-              title="Encerrar combate"
+              title="Encerrar encontro"
               className="grid h-8 w-8 place-items-center rounded-md text-zinc-300 transition hover:bg-red-500/10 hover:text-red-100"
               onClick={onEnd}
             >
@@ -288,8 +374,9 @@ export function CombatTrackerPanel({
       {!combat ? (
         <div className="grid gap-2 p-3">
           <div className="text-xs leading-relaxed text-zinc-400">
-            Inicie um tracker simples com os tokens visiveis da cena atual.
+            Selecione tokens da cena para o Encounter Mode.
           </div>
+          {isMaster ? selectedTokenBox : null}
           {isMaster ? (
             <button
               type="button"
@@ -298,11 +385,11 @@ export function CombatTrackerPanel({
               onClick={onStart}
             >
               <Swords className="h-4 w-4" />
-              Iniciar combate
+              Iniciar Encontro
             </button>
           ) : (
             <div className="rounded-md border border-dashed border-white/10 px-3 py-3 text-center text-xs text-zinc-500">
-              Nenhum combate ativo.
+              Nenhum encontro ativo.
             </div>
           )}
         </div>

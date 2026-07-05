@@ -117,17 +117,15 @@ type MyCampaignCharacter = {
 * Clicar em `Deletar` para cena salva pede confirmacao antes de apagar.
 * Quando a cena ja possui `assetId`, clicar em `Deletar` tambem chama delecao do `Asset`, removendo o registro do banco, o vinculo `CampaignAsset` e o arquivo no Firebase.
 * A selecao/preview das cenas cria ou atualiza `CampaignScene`; imagem continua usando `Asset`, mas a entidade persistida da cena pertence a `campaign_scene`.
-* Miniaturas das cenas preparadas aparecem no rodape do Mestre.
+* Miniaturas das cenas preparadas aparecem na opcao `Cenas` do painel lateral direito do Mestre.
 * Clicar em uma miniatura seleciona a cena ativa e renderiza a imagem abaixo do grid do board.
 * A imagem da cena nao deve ser deformada para ocupar o limite padrao do board; o board deve passar a usar as dimensoes naturais da imagem, respeitando o zoom visual local.
 * A cena selecionada pelo Mestre define `masterActiveSceneId`; Players veem `forcedSceneId` quando existir, ou a cena onde o proprio token esta.
 * Trocar cena pelo Mestre pausa automaticamente a sessao online; a cena ativa do Mestre muda sem encerrar a sessao.
-* O rodape de cenas deve ter controle para recolher/expandir.
-* O controle de recolher/expandir o rodape de cenas pertence ao painel lateral direito.
-* Quando o painel lateral direito estiver recolhido, o controle de cenas deve continuar visivel na rail direita.
-* O controle usa flecha para a esquerda para expandir o rodape de cenas e flecha para a direita para retrair.
-* O resumo de cenas preparadas do rodape recolhido deve aparecer como alias/tooltip ao repousar o ponteiro sobre o icone.
-* A acao `Preparar cena` permanece acessivel no rodape expandido.
+* O rodape de cenas sobre a mesa nao deve ser renderizado.
+* Quando o painel lateral direito estiver recolhido, o icone de cenas deve continuar visivel na rail direita para abrir a opcao `Cenas`.
+* A opcao `Cenas` do painel lateral direito deve exibir miniaturas das cenas preparadas em lista vertical rolavel.
+* A acao `+ Preparar Cena` deve ficar abaixo das miniaturas na opcao `Cenas`.
 * O painel lateral de jogadores, sessao e chat deve ter controle para recolher/expandir.
 * O painel lateral direito deve ser sobreposto ao board em desktop e nao deve reservar coluna de layout nem alterar a largura medida do viewport do board.
 * No estado expandido, o painel lateral deve priorizar o chat e nao deve exibir cards redundantes de resumo de jogadores ou sessao.
@@ -217,13 +215,24 @@ type MyCampaignCharacter = {
 * Medicoes nao sao persistidas no banco neste MVP.
 * A medicao ativa da sessao deve ser sincronizada em tempo real com Mestre e Players online.
 * Usuarios que entram depois recebem o snapshot atual da medicao da sessao.
-* O tracker simples de combate deve aparecer no painel lateral direito sem desmontar a mesa.
-* Mestre pode iniciar combate a partir dos tokens nao ocultos da cena atual.
-* Mestre pode editar iniciativa manualmente, avancar turno, voltar turno e encerrar combate.
+* O tracker simples de Encounter Mode deve aparecer no painel lateral direito sem desmontar a mesa.
+* Mestre pode iniciar encontro a partir dos tokens nao ocultos da cena atual pre-selecionados com `Shift` e enviados para a caixa de participantes.
+* O gesto `Shift` + arraste para Encounter Mode nao deve mover tokens no grid; movimentacao de token continua acontecendo apenas no arraste comum permitido.
+* Mestre pode editar iniciativa manualmente, avancar turno, voltar turno e encerrar encontro.
 * Players visualizam rodada, participante ativo e lista de iniciativa, mas nao alteram o tracker.
 * O token do participante ativo recebe destaque visual discreto na mesa.
-* O combate MVP nao bloqueia movimento de tokens por turno.
-* O combate MVP nao persiste no banco; seu estado vive durante a sessao online.
+* O Encounter Mode MVP nao bloqueia movimento de tokens por turno.
+* O Encounter Mode MVP nao persiste no banco; seu estado vive durante a sessao online.
+* O painel direito deve ter um header interno com opcoes em formato de icones, seguindo a linguagem visual da toolbar principal do VTT.
+* Ao clicar em uma opcao do header interno, toda a area principal do painel lateral direito deve servir a opcao selecionada.
+* As opcoes iniciais do painel direito sao Encounter Mode, jogadores, sessao, cenas para Mestre e chat, com chat sempre por ultimo.
+* O painel direito recolhido deve continuar exibindo uma rail de controles essenciais; clicar em um icone da rail expande o painel e seleciona a opcao correspondente.
+* O chat deve preservar carregamento, historico, envio, input e eventos atuais.
+* Quando encaixado no painel direito, o chat deve aparecer como ultima opcao, ter apenas um cabecalho visual e ocupar toda a area disponivel da opcao selecionada.
+* O chat pode ser destacado a partir do painel direito como modal flutuante padrao.
+* O modal destacado do chat deve ter drag pela barra superior, resize por bordas/cantos, botao de expandir/encolher, botao de fechar e botao para retornar o chat a sidebar direita.
+* Retornar o chat a sidebar direita deve fechar o modal destacado, expandir o painel direito e selecionar a opcao de chat sem desmontar mensagens alem do necessario ao remount do componente atual.
+* O Encounter Mode destacado deve preservar a apresentacao em cards para participantes e tokens selecionados, com o participante ativo destacado no centro quando houver encontro em andamento.
 * Ao executar uma rolagem rapida, um dado 3D deve aparecer sobre a mesa VTT, girar por um curto periodo e exibir o resultado rolado.
 * A animacao 3D de dado e local ao cliente que rolou; a mensagem persistida no chat continua sendo a fonte compartilhada para os demais usuarios.
 * A camada 3D nao pode capturar pointer events nem impedir interacao com grid, tokens, medicoes ou botoes.

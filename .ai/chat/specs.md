@@ -117,7 +117,10 @@ Regras:
 * Outros participantes conectados recebem a mensagem em tempo real.
 * Usuario sem participacao ativa recebe 403 no historico e erro no socket.
 * Mensagem vazia ou acima do limite e recusada.
-* O chat aparece no painel lateral direito conforme o layout do VTT.
+* O chat aparece como ultima opcao do painel lateral direito conforme o layout do VTT.
+* No VTT, o chat pode ser destacado como modal flutuante e retornar para a sidebar direita.
+* Quando encaixado no painel lateral direito, o chat usa apenas um cabecalho visual e ocupa toda a area disponivel da opcao selecionada.
+* O envio do chat permanece bloqueado quando a sessao/socket realtime estiver off, mesmo que o historico carregado esteja visivel.
 * Ao clicar em "Dados", aparecem as opcoes D4, D6, D8, D10, D12 e D20.
 * Ao selecionar uma opcao, o botao de rolagem passa a exibir o dado escolhido.
 * Ao clicar no botao do dado selecionado, o valor rolado aparece no chat como mensagem.

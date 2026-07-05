@@ -56,13 +56,15 @@ type Pathfinder2eBestiarySheet = {
 
 Essas traducoes pertencem ao package `packages/game-system-pathfinder-2e` e devem cobrir titulos de secoes, labels, sentidos, idiomas, defesas, ataques, acoes, traits, detalhes e notas quando disponiveis. O adapter PF2e deve converter a `sheet` original ou traduzida para `display.sheet`; o core nao deve conhecer os campos mecanicos nem o formato interno de `Pathfinder2eBestiarySheetTranslation`.
 
+Quando o dado gerado nao possuir traducao humana completa, o adapter PF2e pode aplicar uma traducao deterministica por glossario local para campos estruturados da ficha (`actions`, `notes`, `attacks`, `defenses`, `languages`, `movement` e `abilities`). Essa adaptacao deve preservar o texto original no catalogo bruto e no modo `language=original`; o modo `pt-BR` nunca deve sobrescrever os dados fonte.
+
 ## 3. Secoes Iniciais PF2e
 Cada criatura pode expor:
 
 * `defenses`: percepcao, CA, PV, salvamentos, imunidades, resistencias e fraquezas;
-* `attributes`: modificadores de atributos;
+* `attributes`: modificadores de atributos com labels de tres letras no idioma exibido, por exemplo `STR`/`DEX` no original e `FOR`/`DES` em `pt-BR`;
 * `skills`: pericias relevantes;
-* `movement`: deslocamento base, outros deslocamentos, sentidos e idiomas;
+* `movement`: deslocamento base, outros deslocamentos, sentidos e idiomas; deslocamentos em pes devem exibir tambem a conversao aproximada em metros;
 * `attacks`: strikes principais com bonus, dano e traits;
 * `actions`: acoes, reacoes, free actions e passivas principais;
 * `notes`: notas publicas curtas ou informacoes operacionais.
@@ -127,6 +129,7 @@ Erros:
 * Players nao podem visualizar ficha de criatura do bestiario.
 * A ficha mostra secoes renderizadas a partir de `display.sheet`, sem layout inline no card do bestiario.
 * A ficha em `pt-BR` usa `sheet.translations.ptBR` para traduzir labels, valores textuais, tags, detalhes e notas da ficha.
+* Quando `sheet.translations.ptBR` nao trouxer conteudo especifico, a ficha em `pt-BR` aplica o glossario local do adapter para traduzir termos estruturados sem alterar o texto original armazenado.
 * A ficha em `original` preserva os textos originais do catalogo PF2e.
 * O seletor de idioma dentro da ficha nao persiste alteracao em preferencias gerais; ele apenas recarrega o detalhe da criatura com `language`.
 * O core continua sem campos mecanicos especificos de Pathfinder.

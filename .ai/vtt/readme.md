@@ -64,17 +64,19 @@ Incluido:
 * Rolagem visual de dado 3D por uma interface propria do VTT.
 * Rolagens de dado exibem efeito visual 3D local no cliente que rolou e publicam o resultado compartilhado no chat.
 * Rolagens simultaneas de multiplos dados no mesmo overlay, com ciclo visual independente por dado.
-* Rodape de preparacao de cenas visivel apenas para Mestre.
+* Preparacao de cenas visivel apenas para Mestre no painel lateral direito.
 * Modal de preparacao de cenas com cards sequenciais `Cena1`, `Cena2` etc., criando ou atualizando `CampaignScene`.
 * Upload de imagem no card da cena usa `Asset`, enquanto o estado da cena persiste `assetId`, `backgroundUrl` e `backgroundCacheKey`.
-* Miniaturas de cenas preparadas aparecem no rodape do Mestre; selecionar uma cena altera `masterActiveSceneId`, pausa automaticamente a sessao online e renderiza o snapshot da cena.
+* Miniaturas de cenas preparadas aparecem na opcao `Cenas` do painel lateral direito do Mestre; selecionar uma cena altera `masterActiveSceneId`, pausa automaticamente a sessao online e renderiza o snapshot da cena.
 * Players veem a cena do proprio token, ou a cena forcada pelo Mestre enquanto `forcedSceneId` estiver ativo.
-* Rodape de cenas pode ser recolhido/expandido para ocupar menos espaco da mesa sem perder a acao `Preparar cena`.
-* Quando o rodape de cenas estiver recolhido, o icone de cenas fica no quinto inferior do painel lateral direito, abaixo do chat.
-* Quando o rodape de cenas estiver expandido, o controle para recolher fica no lado direito do cabecalho do rodape.
+* O antigo rodape de cenas nao deve ser exibido sobre a mesa.
+* A acao `+ Preparar Cena` fica abaixo das miniaturas de cenas na opcao `Cenas` do painel lateral direito.
 * Painel lateral de jogadores, sessao e chat pode ser recolhido/expandido para liberar area visual da mesa sem desmontar o chat.
 * O painel lateral direito deve iniciar recolhido por padrao, mostrando apenas a rail de controles essenciais.
-* O painel lateral expandido prioriza o chat e nao exibe cards redundantes de resumo de jogadores ou sessao.
+* O painel lateral expandido usa um header interno de icones para alternar a area principal entre opcoes, sem empilhar todos os paineis ao mesmo tempo.
+* Cada opcao do painel lateral direito ocupa a area principal inteira quando selecionada.
+* O chat aparece como ultima opcao do header interno, preserva o comportamento atual e pode ser destacado como modal padrao.
+* Em dimensoes grandes, o chat encaixado na lateral ocupa no maximo um quarto da altura disponivel do painel direito.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
 * Cor dos dados 3D configuravel localmente por campanha.
 * Tempo de permanencia dos dados 3D e exibicao do popup de resultado configuraveis em `Configuracoes`, pela sidebar esquerda, para Mestre e Players.

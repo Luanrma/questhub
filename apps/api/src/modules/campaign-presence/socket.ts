@@ -1067,11 +1067,14 @@ export function setupCampaignPresence(server: HttpServer) {
       const parsed = vttCombatStartSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, sceneId } = parsed.data
+      const { campaignId, sceneId, tokenIds } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
       if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
-      const tokens = (await listSceneTokens(campaignId, sceneId)).filter((token) => !token.hidden)
+      const selectedTokenIds = new Set(tokenIds)
+      const tokens = (await listSceneTokens(campaignId, sceneId)).filter(
+        (token) => selectedTokenIds.has(token.id) && !token.hidden,
+      )
       if (!tokens.length) return
 
       const participants = tokens.map((token) => ({
