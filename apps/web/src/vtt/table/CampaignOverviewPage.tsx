@@ -14,6 +14,7 @@ import {
   Ruler,
   PanelRightClose,
   PanelRightOpen,
+  Pause,
   Pin,
   ScrollText,
   Swords,
@@ -234,6 +235,28 @@ export function CampaignOverviewPage({
   )
   const activeCombat =
     combatState && combatState.campaignId === campaignId ? combatState : null
+  const rightPanelSessionStatus =
+    sessionState === 'PAUSED'
+      ? {
+          title: 'Sessao pausada',
+          label: null,
+          icon: Pause,
+          className: 'border-amber-300/45 bg-amber-500/20 text-amber-100',
+        }
+      : campaign?.isOnline
+        ? {
+            title: 'Sessao online',
+            label: 'ON',
+            icon: null,
+            className: 'border-emerald-300/45 bg-emerald-500/20 text-emerald-100',
+          }
+        : {
+            title: 'Sessao offline',
+            label: 'OFF',
+            icon: null,
+            className: 'border-red-300/45 bg-red-500/20 text-red-100',
+          }
+  const RightPanelSessionStatusIcon = rightPanelSessionStatus.icon
   const activeCombatTokenId = activeCombat?.participants[activeCombat.activeTurnIndex]?.tokenId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
   const encounterTokens = encounterTokenIds
@@ -1761,18 +1784,32 @@ export function CampaignOverviewPage({
             <PanelRightOpen className="h-4 w-4" />
           </button>
           <div className="grid gap-2">
+            <div
+              title={rightPanelSessionStatus.title}
+              aria-label={rightPanelSessionStatus.title}
+              className={[
+                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase',
+                rightPanelSessionStatus.className,
+              ].join(' ')}
+            >
+              {RightPanelSessionStatusIcon ? (
+                <RightPanelSessionStatusIcon className="h-4 w-4" />
+              ) : (
+                rightPanelSessionStatus.label
+              )}
+            </div>
             <button
               type="button"
               title="Encounter Mode"
               className={[
-                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase transition',
+                'grid h-10 w-10 place-items-center rounded-lg border transition',
                 rightPanelTab === 'encounter' || activeCombat
                   ? 'border-red-300/40 bg-red-500/20 text-red-100'
                   : 'border-white/10 bg-white/[0.04] text-zinc-400 hover:bg-white/10 hover:text-white',
               ].join(' ')}
               onClick={() => openRightPanelTab('encounter')}
             >
-              ENC
+              <Swords className="h-4 w-4" />
             </button>
             <button
               type="button"
@@ -1786,19 +1823,6 @@ export function CampaignOverviewPage({
               onClick={() => openRightPanelTab('players')}
             >
               <Users className="h-4 w-4" />
-            </button>
-            <button
-              type="button"
-              title="Sessao"
-              className={[
-                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase transition',
-                rightPanelTab === 'session'
-                  ? 'border-emerald-300/40 bg-emerald-500/20 text-emerald-100'
-                  : 'border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white',
-              ].join(' ')}
-              onClick={() => openRightPanelTab('session')}
-            >
-              {sessionState === 'PAUSED' ? '||' : campaign?.isOnline ? 'ON' : 'OFF'}
             </button>
             {isMaster ? (
               <button
@@ -1842,10 +1866,23 @@ export function CampaignOverviewPage({
           </button>
 
           <div className="flex shrink-0 items-center gap-2 pr-10">
+            <div
+              title={rightPanelSessionStatus.title}
+              aria-label={rightPanelSessionStatus.title}
+              className={[
+                'grid h-9 w-9 place-items-center rounded-md border text-[10px] font-bold uppercase',
+                rightPanelSessionStatus.className,
+              ].join(' ')}
+            >
+              {RightPanelSessionStatusIcon ? (
+                <RightPanelSessionStatusIcon className="h-4 w-4" />
+              ) : (
+                rightPanelSessionStatus.label
+              )}
+            </div>
             {[
               { id: 'encounter' as const, title: 'Encounter Mode', icon: Swords },
               { id: 'players' as const, title: 'Jogadores', icon: Users },
-              { id: 'session' as const, title: 'Sessao', icon: campaign?.isOnline ? Eye : EyeOff },
               ...(isMaster ? [{ id: 'scenes' as const, title: 'Cenas', icon: ScrollText }] : []),
               { id: 'chat' as const, title: 'Chat', icon: MessageCircle },
             ].map((item) => {

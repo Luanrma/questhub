@@ -226,7 +226,10 @@ type MyCampaignCharacter = {
 * O painel direito deve ter um header interno com opcoes em formato de icones, seguindo a linguagem visual da toolbar principal do VTT.
 * Ao clicar em uma opcao do header interno, toda a area principal do painel lateral direito deve servir a opcao selecionada.
 * As opcoes iniciais do painel direito sao Encounter Mode, jogadores, sessao, cenas para Mestre e chat, com chat sempre por ultimo.
-* O painel direito recolhido deve continuar exibindo uma rail de controles essenciais; clicar em um icone da rail expande o painel e seleciona a opcao correspondente.
+* O painel direito recolhido deve continuar exibindo uma rail de controles essenciais; clicar em um icone de opcao expande o painel e seleciona a opcao correspondente.
+* O primeiro item da rail direita deve ser um indicador passivo de estado da sessao, sem clique e sem expandir o painel.
+* O indicador de sessao da rail direita deve manter `ON` verde, exibir `OFF` em vermelho e exibir icone de pausa em amarelo quando a sessao estiver pausada.
+* O item de Encounter Mode na rail direita deve usar o icone `lucide-react` `Swords`, nao texto `ENC`.
 * O chat deve preservar carregamento, historico, envio, input e eventos atuais.
 * Quando encaixado no painel direito, o chat deve aparecer como ultima opcao, ter apenas um cabecalho visual e ocupar toda a area disponivel da opcao selecionada.
 * O chat pode ser destacado a partir do painel direito como modal flutuante padrao.

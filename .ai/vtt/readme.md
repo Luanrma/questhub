@@ -75,6 +75,8 @@ Incluido:
 * O painel lateral direito deve iniciar recolhido por padrao, mostrando apenas a rail de controles essenciais.
 * O painel lateral expandido usa um header interno de icones para alternar a area principal entre opcoes, sem empilhar todos os paineis ao mesmo tempo.
 * Cada opcao do painel lateral direito ocupa a area principal inteira quando selecionada.
+* A rail direita exibe primeiro um indicador passivo de estado da sessao; `ON` permanece verde, `OFF` e vermelho e `PAUSED` usa icone de pausa amarelo.
+* O Encounter Mode usa o icone de espadas na rail direita, nao texto.
 * O chat aparece como ultima opcao do header interno, preserva o comportamento atual e pode ser destacado como modal padrao.
 * Em dimensoes grandes, o chat encaixado na lateral ocupa no maximo um quarto da altura disponivel do painel direito.
 * Interface rapida de dados no grid com comando textual e campos por tipo de dado.
