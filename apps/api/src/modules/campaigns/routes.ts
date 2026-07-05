@@ -25,6 +25,7 @@ const defaultCampaignUserSettings = {
   },
   vtt: {
     preparedBestiaryCreatureIds: [] as string[],
+    tokenMovementSpeed: 'default' as 'instant' | 'fast' | 'default' | 'cinematic',
   },
 }
 
@@ -44,6 +45,7 @@ const campaignUserSettingsSchema = z
     vtt: z
       .object({
         preparedBestiaryCreatureIds: z.array(z.string().trim().min(1)).max(100).optional(),
+        tokenMovementSpeed: z.enum(['instant', 'fast', 'default', 'cinematic']).optional(),
       })
       .optional(),
   })
@@ -74,6 +76,7 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
     },
     vtt: {
       preparedBestiaryCreatureIds,
+      tokenMovementSpeed: vtt.tokenMovementSpeed ?? defaultCampaignUserSettings.vtt.tokenMovementSpeed,
     },
   }
 }

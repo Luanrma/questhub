@@ -32,6 +32,7 @@ export const vttMeasurementSchema = z.discriminatedUnion('shape', [
     shape: z.literal('square'),
     start: vttMeasurementPointSchema,
     end: vttMeasurementPointSchema,
+    points: z.array(vttMeasurementPointSchema).min(2).max(500).optional(),
     color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   }),
   z.object({
@@ -104,6 +105,7 @@ export const vttTokenUpdateSchema = z.object({
   tokenId: z.string().min(1).optional(),
   characterId: z.string().min(1).optional(),
   position: vttTokenPositionSchema,
+  movementPath: z.array(vttTokenPositionSchema).min(2).max(500).optional(),
 })
 
 export const vttTokenPlaceSchema = z.union([

@@ -12,6 +12,8 @@ export type DiceDisplaySettings = {
   showResultPopup: boolean
 }
 
+export type VttTokenMovementSpeed = 'instant' | 'fast' | 'default' | 'cinematic'
+
 export type CampaignUserSettings = {
   dice: DiceDisplaySettings
   gameContent: {
@@ -19,11 +21,13 @@ export type CampaignUserSettings = {
   }
   vtt: {
     preparedBestiaryCreatureIds: string[]
+    tokenMovementSpeed: VttTokenMovementSpeed
   }
 }
 
 export const DICE_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:vtt:dice-display-settings-changed'
 export const PREPARED_BESTIARY_TOKENS_CHANGED_EVENT = 'questhub:vtt:prepared-bestiary-tokens-changed'
+export const VTT_TABLE_SETTINGS_CHANGED_EVENT = 'questhub:vtt:table-settings-changed'
 
 function diceColorStorageKey(campaignId: string) {
   return `questhub:vtt:dice-theme-color:${campaignId}`
@@ -60,9 +64,18 @@ export function normalizeDiceDisplaySettings(value: unknown): DiceDisplaySetting
   }
 }
 
+export function normalizeVttTokenMovementSpeed(value: unknown): VttTokenMovementSpeed {
+  if (value === 'instant' || value === 'fast' || value === 'cinematic') return value
+  return 'default'
+}
+
 export function normalizeCampaignUserSettings(value: unknown): CampaignUserSettings {
   if (!value || typeof value !== 'object') {
-    return { dice: normalizeDiceDisplaySettings(null), gameContent: { language: 'pt-BR' }, vtt: { preparedBestiaryCreatureIds: [] } }
+    return {
+      dice: normalizeDiceDisplaySettings(null),
+      gameContent: { language: 'pt-BR' },
+      vtt: { preparedBestiaryCreatureIds: [], tokenMovementSpeed: 'default' },
+    }
   }
 
   const settings = value as Partial<CampaignUserSettings>
@@ -78,6 +91,7 @@ export function normalizeCampaignUserSettings(value: unknown): CampaignUserSetti
     },
     vtt: {
       preparedBestiaryCreatureIds,
+      tokenMovementSpeed: normalizeVttTokenMovementSpeed(settings.vtt?.tokenMovementSpeed),
     },
   }
 }
@@ -136,6 +150,11 @@ export function storeCampaignUserSettings(campaignId: string, settings: Campaign
     window.dispatchEvent(
       new CustomEvent(PREPARED_BESTIARY_TOKENS_CHANGED_EVENT, {
         detail: { campaignId, creatureIds: normalizedSettings.vtt.preparedBestiaryCreatureIds },
+      }),
+    )
+    window.dispatchEvent(
+      new CustomEvent(VTT_TABLE_SETTINGS_CHANGED_EVENT, {
+        detail: { campaignId, settings: normalizedSettings.vtt },
       }),
     )
   } catch {

@@ -212,7 +212,12 @@ export function measurementLabel(measurement: VttMeasurement, metersPerCell: num
     return `${steps} ${steps === 1 ? 'passo' : 'passos'}`
   }
 
-  const distanceInGridUnits = Math.hypot(measurement.end.x - measurement.start.x, measurement.end.y - measurement.start.y)
+  const points = squareMeasurementPoints(measurement)
+  const distanceInGridUnits = points.reduce((total, point, index) => {
+    const previousPoint = points[index - 1]
+    if (!previousPoint) return total
+    return total + Math.hypot(point.x - previousPoint.x, point.y - previousPoint.y)
+  }, 0)
   return formatMeters(distanceInGridUnits * metersPerCell)
 }
 
@@ -221,10 +226,13 @@ export function measurementLabelPoint(measurement: VttMeasurement) {
     return measurement.points[measurement.points.length - 1] ?? { x: 0, y: 0 }
   }
 
-  return {
-    x: (measurement.start.x + measurement.end.x) / 2,
-    y: (measurement.start.y + measurement.end.y) / 2,
-  }
+  const points = squareMeasurementPoints(measurement)
+  return points[points.length - 1] ?? measurement.end
+}
+
+export function squareMeasurementPoints(measurement: Extract<VttMeasurement, { shape: 'square' }>) {
+  if (measurement.points && measurement.points.length >= 2) return measurement.points
+  return [measurement.start, measurement.end]
 }
 
 export function areMeasurementPointsEqual(a: VttMeasurementPoint, b: VttMeasurementPoint) {

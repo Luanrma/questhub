@@ -7,6 +7,7 @@ import { api } from '../../../lib/api'
 import { maxDiceAutoClearSeconds, minDiceAutoClearSeconds } from '../../../vtt/dice-roller/config/constants'
 import {
   normalizeDiceAutoClearPreference,
+  normalizeVttTokenMovementSpeed,
   readStoredCampaignUserSettings,
   readStoredDiceDisplaySettings,
   storeCampaignUserSettings,
@@ -14,6 +15,7 @@ import {
   type CampaignUserSettings,
   type DiceAutoClearPreference,
   type DiceDisplaySettings,
+  type VttTokenMovementSpeed,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 
 type DiceDisplaySettingsCardProps = {
@@ -24,12 +26,25 @@ type DiceDisplaySettingsCardProps = {
   onShowResultPopupChange: (value: boolean) => void
 }
 
+type MasterVttSettingsCardProps = {
+  tokenMovementSpeed: VttTokenMovementSpeed
+  syncWarning: string | null
+  onTokenMovementSpeedChange: (value: VttTokenMovementSpeed) => void
+}
+
 type CollapsibleSettingsSectionProps = {
   title: string
   description: string
   children: ReactNode
   defaultOpen?: boolean
 }
+
+const tokenMovementSpeedOptions: Array<{ value: VttTokenMovementSpeed; label: string }> = [
+  { value: 'instant', label: 'Instantanea' },
+  { value: 'fast', label: 'Rapida' },
+  { value: 'default', label: 'Padrao' },
+  { value: 'cinematic', label: 'Cinematica' },
+]
 
 async function copyToClipboard(text: string) {
   try {
@@ -144,6 +159,44 @@ function DiceDisplaySettingsCard({
   )
 }
 
+function MasterVttSettingsCard({
+  tokenMovementSpeed,
+  syncWarning,
+  onTokenMovementSpeedChange,
+}: MasterVttSettingsCardProps) {
+  return (
+    <CollapsibleSettingsSection
+      title="Ferramentas do Mestre"
+      description="Ajustes operacionais da mesa controlados pelo Mestre."
+    >
+      <div className="grid gap-3">
+        <label className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-black/20 p-4">
+          <span>
+            <span className="block text-sm font-semibold text-white">Movimento pela regua</span>
+            <span className="mt-1 block text-xs text-zinc-400">Velocidade visual ao confirmar uma rota com Espaco.</span>
+          </span>
+          <select
+            value={tokenMovementSpeed}
+            className="h-9 min-w-36 rounded-md border border-white/10 bg-black/45 px-3 text-sm font-semibold text-white outline-none transition focus:border-indigo-300/40"
+            onChange={(event) => onTokenMovementSpeedChange(normalizeVttTokenMovementSpeed(event.target.value))}
+          >
+            {tokenMovementSpeedOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </label>
+      </div>
+      {syncWarning ? (
+        <p className="mt-4 rounded-lg border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs text-amber-100">
+          {syncWarning}
+        </p>
+      ) : null}
+    </CollapsibleSettingsSection>
+  )
+}
+
 export function CampaignSettingsPage() {
   const { campaignId } = useParams()
   const { campaigns, loadCampaigns } = useSession()
@@ -153,6 +206,7 @@ export function CampaignSettingsPage() {
   const [joinPolicyDraft, setJoinPolicyDraft] = useState<{ campaignId?: string; value: 'PUBLIC' | 'PRIVATE' } | null>(null)
   const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{ campaignId?: string; settings: DiceDisplaySettings } | null>(null)
   const [gameContentLanguageDraft, setGameContentLanguageDraft] = useState<{ campaignId?: string; language: 'pt-BR' | 'original' } | null>(null)
+  const [tokenMovementSpeedDraft, setTokenMovementSpeedDraft] = useState<{ campaignId?: string; value: VttTokenMovementSpeed } | null>(null)
   const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -170,6 +224,10 @@ export function CampaignSettingsPage() {
     gameContentLanguageDraft && gameContentLanguageDraft.campaignId === campaignId
       ? gameContentLanguageDraft.language
       : campaignId ? readStoredCampaignUserSettings(campaignId).gameContent.language : 'pt-BR'
+  const tokenMovementSpeed =
+    tokenMovementSpeedDraft && tokenMovementSpeedDraft.campaignId === campaignId
+      ? tokenMovementSpeedDraft.value
+      : campaignId ? readStoredCampaignUserSettings(campaignId).vtt.tokenMovementSpeed : 'default'
   const changed = useMemo(() => (campaign ? joinPolicy !== campaign.joinPolicy : false), [campaign, joinPolicy])
   const autoClearOptions = useMemo(
     () => Array.from({ length: maxDiceAutoClearSeconds - minDiceAutoClearSeconds + 1 }, (_, index) => minDiceAutoClearSeconds + index),
@@ -228,6 +286,34 @@ export function CampaignSettingsPage() {
       .then((response) => {
         storeCampaignUserSettings(campaignId, response.settings)
         setGameContentLanguageDraft({ campaignId, language: response.settings.gameContent.language })
+      })
+      .catch(() => {
+        setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
+      })
+  }
+
+  function updateTokenMovementSpeed(value: VttTokenMovementSpeed) {
+    if (!campaignId) return
+
+    const tokenMovementSpeed = normalizeVttTokenMovementSpeed(value)
+    setTokenMovementSpeedDraft({ campaignId, value: tokenMovementSpeed })
+    const currentSettings = readStoredCampaignUserSettings(campaignId)
+    storeCampaignUserSettings(campaignId, {
+      ...currentSettings,
+      vtt: {
+        ...currentSettings.vtt,
+        tokenMovementSpeed,
+      },
+    })
+    setSettingsSyncWarning(null)
+
+    void api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings: { vtt: { tokenMovementSpeed } } }),
+    })
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setTokenMovementSpeedDraft({ campaignId, value: response.settings.vtt.tokenMovementSpeed })
       })
       .catch(() => {
         setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
@@ -316,6 +402,12 @@ export function CampaignSettingsPage() {
 
       {isMaster ? (
         <>
+          <MasterVttSettingsCard
+            tokenMovementSpeed={tokenMovementSpeed}
+            syncWarning={settingsSyncWarning}
+            onTokenMovementSpeedChange={updateTokenMovementSpeed}
+          />
+
           <CollapsibleSettingsSection title="Convite" description="Compartilhe este codigo com os jogadores.">
             <button
               type="button"

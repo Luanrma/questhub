@@ -34,6 +34,7 @@ export type VttTokenChangedPayload = {
   campaignId: string
   sceneId?: string | null
   token: VttPlayerToken
+  movementPath?: VttMeasurementPoint[]
 }
 
 export type VttTokensSnapshotPayload = {
@@ -82,6 +83,7 @@ export type VttMeasurement =
       shape: 'square'
       start: VttMeasurementPoint
       end: VttMeasurementPoint
+      points?: VttMeasurementPoint[]
       color: string
     }
   | {

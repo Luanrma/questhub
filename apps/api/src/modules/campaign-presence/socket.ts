@@ -16,6 +16,7 @@ import {
   type VttGridSettings,
   type VttPlayerToken,
   type VttTableScene,
+  type VttTokenPosition,
   vttCombatCommandSchema,
   vttCombatStartSchema,
   vttCombatUpdateInitiativeSchema,
@@ -383,7 +384,7 @@ export function setupCampaignPresence(server: HttpServer) {
     campaignId: string,
     sceneId: string,
     token: VttPlayerToken,
-    options?: { refreshOwnerVisibleScene?: boolean },
+    options?: { refreshOwnerVisibleScene?: boolean; movementPath?: VttTokenPosition[] },
   ) {
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     await Promise.all(
@@ -398,6 +399,7 @@ export function setupCampaignPresence(server: HttpServer) {
           campaignId,
           sceneId,
           token,
+          movementPath: options?.movementPath,
         })
         if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.characterRole !== 'MASTER') {
           await emitVisibleTableSnapshot(campaignId, campaignSocket)
@@ -966,7 +968,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const parsed = vttTokenUpdateSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, position } = parsed.data
+      const { campaignId, position, movementPath } = parsed.data
       const online = state.getCampaignOnline(campaignId)
       const isMasterMove = await canControlCampaignAsMaster(campaignId, socket.id, user.id)
       if (!online && !isMasterMove) return
@@ -991,8 +993,8 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!sceneId) return
       setLiveSceneToken(campaignId, sceneId, nextToken)
       await persistSceneToken(campaignId, sceneId, nextToken)
-      if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
-      else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken, { movementPath })
+      else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken, movementPath })
     })
 
     socket.on('vtt:token:remove', async (input: unknown) => {

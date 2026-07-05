@@ -1,14 +1,29 @@
 import { useEffect, useRef, useState } from 'react'
 import type { VttGridShape } from '../../grid'
+import type { VttTokenMovementSpeed } from '../../dice-roller/infrastructure/storage/diceThemeStorage'
 import {
   hexPolygonPoints,
   measurementLabel,
   measurementLabelPoint,
   measurementPointToPixels,
+  squareMeasurementPoints,
   tokenGridPositionFromPixelCenter,
   tokenPixelPosition,
 } from '../domain/boardMath'
-import type { VttMeasurement, VttPlayerToken } from '../domain/types'
+import type { VttMeasurement, VttMeasurementPoint, VttPlayerToken } from '../domain/types'
+
+function tokenMovementDurationMs(totalDistance: number, speed: VttTokenMovementSpeed) {
+  if (speed === 'instant') return 0
+
+  const msPerGridUnitBySpeed: Record<Exclude<VttTokenMovementSpeed, 'instant'>, number> = {
+    fast: 230,
+    default: 360,
+    cinematic: 550,
+  }
+  const msPerGridUnit = msPerGridUnitBySpeed[speed]
+
+  return Math.min(Math.max(totalDistance * msPerGridUnit, 550), speed === 'cinematic' ? 6500 : 4500)
+}
 
 export function VttMeasurementOverlay({
   measurement,
@@ -24,23 +39,33 @@ export function VttMeasurementOverlay({
   const labelPoint = measurementPointToPixels(measurementLabelPoint(measurement), gridSize)
   const label = measurementLabel(measurement, metersPerCell)
   const color = measurement.color
+  const squarePoints = measurement.shape === 'square' ? squareMeasurementPoints(measurement) : []
 
   return (
     <>
       <svg className="pointer-events-none absolute inset-0 z-[7] h-full w-full overflow-visible">
         {measurement.shape === 'square' ? (
           <>
-            <line
-              x1={measurementPointToPixels(measurement.start, gridSize).x}
-              y1={measurementPointToPixels(measurement.start, gridSize).y}
-              x2={measurementPointToPixels(measurement.end, gridSize).x}
-              y2={measurementPointToPixels(measurement.end, gridSize).y}
-              stroke={color}
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeDasharray="8 6"
-            />
-            {[measurement.start, measurement.end].map((point, index) => (
+            {squarePoints.slice(1).map((point, index) => {
+              const previousPoint = squarePoints[index]
+              const start = measurementPointToPixels(previousPoint, gridSize)
+              const end = measurementPointToPixels(point, gridSize)
+
+              return (
+                <line
+                  key={`${previousPoint.x}-${previousPoint.y}-${point.x}-${point.y}-${index}`}
+                  x1={start.x}
+                  y1={start.y}
+                  x2={end.x}
+                  y2={end.y}
+                  stroke={color}
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray="8 6"
+                />
+              )
+            })}
+            {squarePoints.map((point, index) => (
               <circle
                 key={index}
                 cx={measurementPointToPixels(point, gridSize).x}
@@ -87,8 +112,13 @@ export function PlayerToken({
   onMove,
   onContextMenu,
   selectedForEncounter = false,
+  selectedForMeasuredMovement = false,
   onEncounterSelectionToggle,
   onEncounterSelectionDrop,
+  onMeasureFromToken,
+  movementPath,
+  movementSpeed = 'default',
+  onMovementPathComplete,
   isCombatTurn = false,
 }: {
   token: VttPlayerToken
@@ -101,16 +131,113 @@ export function PlayerToken({
   onMove: (position: VttPlayerToken['position']) => void
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
   selectedForEncounter?: boolean
+  selectedForMeasuredMovement?: boolean
   onEncounterSelectionToggle?: (token: VttPlayerToken) => void
   onEncounterSelectionDrop?: (token: VttPlayerToken) => void
+  onMeasureFromToken?: (event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) => void
+  movementPath?: VttMeasurementPoint[]
+  movementSpeed?: VttTokenMovementSpeed
+  onMovementPathComplete?: () => void
   isCombatTurn?: boolean
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const encounterDragMovedRef = useRef(false)
+  const animationFrameRef = useRef<number | null>(null)
+  const onMovementPathCompleteRef = useRef(onMovementPathComplete)
   const [dragging, setDragging] = useState(false)
   const [encounterDragging, setEncounterDragging] = useState(false)
+  const [visualPosition, setVisualPosition] = useState(token.position)
   const initial = token.name.trim().charAt(0).toUpperCase() || '?'
-  const position = tokenPixelPosition(token, tokenSize)
+  const position = tokenPixelPosition({ ...token, position: visualPosition }, tokenSize)
+
+  useEffect(() => {
+    onMovementPathCompleteRef.current = onMovementPathComplete
+  }, [onMovementPathComplete])
+
+  useEffect(() => {
+    if (dragging || encounterDragging) {
+      setVisualPosition(token.position)
+      return
+    }
+
+    if (animationFrameRef.current !== null) {
+      window.cancelAnimationFrame(animationFrameRef.current)
+      animationFrameRef.current = null
+    }
+
+    if (!movementPath || movementPath.length < 2) {
+      setVisualPosition(token.position)
+      return
+    }
+
+    const path = movementPath
+    const segmentLengths = path.slice(1).map((point, index) => {
+      const previousPoint = path[index]
+      return Math.hypot(point.x - previousPoint.x, point.y - previousPoint.y)
+    })
+    const totalDistance = segmentLengths.reduce((total, distance) => total + distance, 0)
+
+    if (totalDistance <= 0) {
+      setVisualPosition(token.position)
+      onMovementPathCompleteRef.current?.()
+      return
+    }
+
+    const durationMs = tokenMovementDurationMs(totalDistance, movementSpeed)
+    if (durationMs <= 0) {
+      setVisualPosition(token.position)
+      onMovementPathCompleteRef.current?.()
+      return
+    }
+
+    const startedAt = window.performance.now()
+
+    function positionAtDistance(distance: number) {
+      let travelled = 0
+
+      for (let index = 0; index < segmentLengths.length; index += 1) {
+        const segmentLength = segmentLengths[index]
+        const segmentStart = path[index]
+        const segmentEnd = path[index + 1]
+
+        if (travelled + segmentLength < distance) {
+          travelled += segmentLength
+          continue
+        }
+
+        const progress = segmentLength === 0 ? 1 : (distance - travelled) / segmentLength
+        return {
+          x: segmentStart.x + (segmentEnd.x - segmentStart.x) * progress,
+          y: segmentStart.y + (segmentEnd.y - segmentStart.y) * progress,
+        }
+      }
+
+      return path[path.length - 1]
+    }
+
+    function animate(now: number) {
+      const progress = Math.min((now - startedAt) / durationMs, 1)
+      setVisualPosition(positionAtDistance(totalDistance * progress))
+
+      if (progress < 1) {
+        animationFrameRef.current = window.requestAnimationFrame(animate)
+        return
+      }
+
+      animationFrameRef.current = null
+      setVisualPosition(token.position)
+      onMovementPathCompleteRef.current?.()
+    }
+
+    animationFrameRef.current = window.requestAnimationFrame(animate)
+
+    return () => {
+      if (animationFrameRef.current !== null) {
+        window.cancelAnimationFrame(animationFrameRef.current)
+        animationFrameRef.current = null
+      }
+    }
+  }, [dragging, encounterDragging, movementPath, movementSpeed, token.position, token.position.x, token.position.y])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -161,6 +288,11 @@ export function PlayerToken({
   }, [dragging, encounterDragging, gridAreaRef, gridShape, onEncounterSelectionDrop, onMove, token, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (event.ctrlKey && onMeasureFromToken) {
+      onMeasureFromToken(event, token)
+      return
+    }
+
     if (event.shiftKey && onEncounterSelectionToggle && onEncounterSelectionDrop) {
       event.preventDefault()
       event.stopPropagation()
@@ -213,7 +345,8 @@ export function PlayerToken({
       type="button"
       title={`Token de ${token.name}`}
       className={[
-        'absolute z-[5] grid place-items-center overflow-visible rounded-full border-2 shadow-2xl outline-none transition',
+        'absolute z-[5] grid place-items-center overflow-visible rounded-full border-2 shadow-2xl outline-none',
+        dragging || encounterDragging ? 'transition-none' : 'transition-[left,top,opacity,box-shadow,border-color] duration-300 ease-out',
         encounterDragging
           ? 'cursor-copy border-red-200 ring-4 ring-red-400/45'
           : dragging
@@ -226,6 +359,7 @@ export function PlayerToken({
                   ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
                   : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
         isCombatTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
+        selectedForMeasuredMovement ? 'border-orange-200 ring-4 ring-orange-300/70 shadow-orange-500/30' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}
       style={{
@@ -246,6 +380,9 @@ export function PlayerToken({
           <span className="absolute left-[-13px] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-l-[7px] border-y-transparent border-l-red-400" />
           <span className="absolute right-[-13px] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-r-[7px] border-y-transparent border-r-red-400" />
         </span>
+      ) : null}
+      {selectedForMeasuredMovement ? (
+        <span className="pointer-events-none absolute inset-[-8px] rounded-full border-2 border-orange-300/80 shadow-[0_0_22px_rgba(251,146,60,0.65)]" />
       ) : null}
       <span className="pointer-events-none grid h-full w-full place-items-center overflow-hidden rounded-full">
         {token.avatarUrl ? (

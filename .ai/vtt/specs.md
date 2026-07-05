@@ -324,6 +324,7 @@ type VttTableTokenChangedPayload = {
   campaignId: string
   sceneId: string
   token: VttTableToken
+  movementPath?: VttMeasurementPoint[]
 }
 
 type VttTableTokensSnapshotPayload = {
@@ -379,6 +380,9 @@ Eventos Socket.IO:
 * `vtt:token:removed`: legado do modelo em memoria; novo fluxo deve usar eventos `campaign-scene:*`.
 * Enquanto os eventos legados existirem, payloads de token devem carregar `sceneId` e o servidor deve emitir alteracoes apenas para sockets cuja cena visivel seja a cena do token.
 * Enquanto os eventos legados existirem, `vtt:token:place` online deve emitir apenas `vtt:token:changed` ou equivalente delta de token para sockets autorizados; nao deve chamar `vtt:tokens:snapshot` como resposta normal ao drop.
+* Quando o movimento for confirmado a partir de uma medicao quadrada com rota, `vtt:token:move` pode carregar `movementPath` efemero em coordenadas logicas.
+* O servidor deve validar e retransmitir `movementPath` em `vtt:token:changed` para os sockets autorizados a visualizar a cena, sem persistir essa rota no token.
+* Clientes que receberem `movementPath` devem animar o token seguindo a mesma rota visual; clientes sem suporte continuam usando apenas `token.position`.
 
 ## 7. Medicao Realtime
 
@@ -395,6 +399,7 @@ type VttMeasurement =
       shape: 'square'
       start: VttMeasurementPoint
       end: VttMeasurementPoint
+      points?: VttMeasurementPoint[]
       color: string
     }
   | {
@@ -407,6 +412,20 @@ type VttMeasurement =
 Regras:
 * Pontos de medicao usam coordenadas logicas do grid, nao pixels de tela.
 * Para grid quadrado, `start` e `end` representam pontos logicos livres da regua.
+* Para grid quadrado, `points`, quando existir, representa a rota completa em ordem: origem, pontos referenciais de quebra e destino atual.
+* Para grid quadrado, a distancia exibida deve somar todos os segmentos da rota quando `points` existir; caso contrario, deve manter o calculo legado entre `start` e `end`.
+* Na ferramenta `Medir`, segurar `Ctrl` durante cliques adicionais no grid quadrado fixa pontos referenciais no caminho e permite medir rotas nao lineares.
+* Na ferramenta `Medir`, clicar novamente com `Ctrl` em um ponto referencial anterior da rota quadrada deve remover todos os pontos posteriores.
+* `Ctrl` + clique diretamente em um token no grid quadrado deve iniciar uma medicao a partir do centro logico desse token, mesmo sem arrastar a partir de uma area vazia.
+* A movimentacao por `Espaco` so deve ficar armada quando o primeiro ponto da rota for o proprio token. Clicar em um token depois de iniciar medicao em outro ponto nao deve selecionar nem mover esse token.
+* O token selecionado como origem de movimento deve receber destaque visual enquanto a rota estiver armada ou em deslocamento.
+* Quando uma medicao quadrada foi iniciada por `Ctrl` + clique em token, pressionar `Espaco` deve mover o token selecionado para o destino final da rota usando o mesmo fluxo permissivo de movimento de token existente.
+* O deslocamento visual do token confirmado por medicao deve seguir os segmentos do tracejado ate o destino, sem alterar o contrato persistido de posicao.
+* Ao finalizar o deslocamento confirmado por `Espaco`, a medicao ativa deve ser limpa da mesa e sincronizada como `measurement: null`.
+* O Mestre deve poder configurar a velocidade desse deslocamento em `Configuracoes`, com opcoes `Instantanea`, `Rapida`, `Padrao` e `Cinematica`.
+* A opcao `Instantanea` deve mover o token visualmente direto para o destino final, sem interpolacao pela rota.
+* A opcao default deve ser `Padrao`, mais rapida que a animacao cinematica inicial.
+* Pressionar `Esc` deve deselecionar a ferramenta ativa da toolbar, fechar painel de grid quando aberto e limpar a medicao ativa da mesa.
 * Para grid hexagonal, `points` representa centros logicos dos hexagonos pintados.
 * Para grid hexagonal, a pintura deve preencher cada hexagono completo usando `color`.
 * A medicao ativa e unica por campanha neste MVP.

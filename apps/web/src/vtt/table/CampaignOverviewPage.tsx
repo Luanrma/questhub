@@ -34,9 +34,12 @@ import { api, apiForm } from '../../lib/api'
 import { BestiaryCreatureSheetModal } from '../../features/bestiary/components/BestiaryCreatureSheetModal'
 import {
   PREPARED_BESTIARY_TOKENS_CHANGED_EVENT,
+  VTT_TABLE_SETTINGS_CHANGED_EVENT,
+  normalizeVttTokenMovementSpeed,
   readStoredCampaignUserSettings,
   storeCampaignUserSettings,
   type CampaignUserSettings,
+  type VttTokenMovementSpeed,
 } from '../dice-roller/infrastructure/storage/diceThemeStorage'
 import { VttDiceControls } from '../dice-roller'
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../grid'
@@ -150,9 +153,16 @@ export function CampaignOverviewPage({
   const backgroundImageRef = useRef<HTMLImageElement | null>(null)
   const measuringRef = useRef(false)
   const measurementRef = useRef<VttMeasurement | null>(null)
+  const measuredMovementTokenIdRef = useRef<string | null>(null)
+  const clearMeasurementAfterMovementTokenIdRef = useRef<string | null>(null)
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
   const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
+  const [tokenMovementPaths, setTokenMovementPaths] = useState<Record<string, VttMeasurementPoint[]>>({})
+  const [movementSelectedTokenId, setMovementSelectedTokenId] = useState<string | null>(null)
+  const [tokenMovementSpeed, setTokenMovementSpeed] = useState<VttTokenMovementSpeed>(() =>
+    campaignId ? readStoredCampaignUserSettings(campaignId).vtt.tokenMovementSpeed : 'default',
+  )
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [tokenCandidatesRefreshKey, setTokenCandidatesRefreshKey] = useState(0)
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
@@ -280,6 +290,21 @@ export function CampaignOverviewPage({
   function canOpenTokenContextMenu(token: VttPlayerToken) {
     return canOpenCharacterTokenSheet(token) || canOpenBestiaryTokenSheet(token)
   }
+
+  useEffect(() => {
+    setTokenMovementSpeed(campaignId ? readStoredCampaignUserSettings(campaignId).vtt.tokenMovementSpeed : 'default')
+  }, [campaignId])
+
+  useEffect(() => {
+    function onVttTableSettingsChanged(event: Event) {
+      const detail = (event as CustomEvent<{ campaignId: string; settings: { tokenMovementSpeed?: unknown } }>).detail
+      if (!detail || detail.campaignId !== campaignId) return
+      setTokenMovementSpeed(normalizeVttTokenMovementSpeed(detail.settings.tokenMovementSpeed))
+    }
+
+    window.addEventListener(VTT_TABLE_SETTINGS_CHANGED_EVENT, onVttTableSettingsChanged)
+    return () => window.removeEventListener(VTT_TABLE_SETTINGS_CHANGED_EVENT, onVttTableSettingsChanged)
+  }, [campaignId])
 
   useEffect(() => {
     const element = gridAreaRef.current
@@ -521,8 +546,12 @@ export function CampaignOverviewPage({
       if (payload.campaignId !== campaignId) return
       if (payload.sceneId && payload.sceneId !== activeScene?.id) return
 
+      const token = normalizeTableToken(payload.token, gridSettings.shape)
+      if (payload.movementPath && payload.movementPath.length >= 2) {
+        setTokenMovementPaths((current) => (current[token.id] ? current : { ...current, [token.id]: payload.movementPath ?? [] }))
+      }
+
       setTokenState((current) => {
-        const token = normalizeTableToken(payload.token, gridSettings.shape)
         const currentTokens = current.campaignId === campaignId ? current.tokens : []
         const index = currentTokens.findIndex((item) => item.id === token.id)
         if (index === -1) return { campaignId, tokens: [...currentTokens, token] }
@@ -761,7 +790,11 @@ export function CampaignOverviewPage({
     }
   }
 
-  function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
+  function movePlayerToken(
+    token: VttPlayerToken,
+    position: VttPlayerToken['position'],
+    options?: { movementPath?: VttMeasurementPoint[] },
+  ) {
     if (!campaignId || !socket) return
     const isOwnerMove = sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER'
     const isMasterMove = Boolean(isMaster)
@@ -775,11 +808,28 @@ export function CampaignOverviewPage({
         tokens: current.tokens.map((item) => (item.id === token.id ? { ...item, position: nextPosition } : item)),
       }
     })
-    socket.emit('vtt:token:move', { campaignId, tokenId: token.id, characterId: token.characterId ?? undefined, position: nextPosition })
+    const movementPath =
+      options?.movementPath && options.movementPath.length >= 2
+        ? [...options.movementPath.slice(0, -1), nextPosition]
+        : undefined
+    if (movementPath) {
+      setTokenMovementPaths((current) => ({ ...current, [token.id]: movementPath }))
+    }
+    socket.emit('vtt:token:move', {
+      campaignId,
+      tokenId: token.id,
+      characterId: token.characterId ?? undefined,
+      position: nextPosition,
+      movementPath,
+    })
   }
 
   function publishMeasurement(nextMeasurement: VttMeasurement | null) {
     if (!realtimeVttEnabled) return
+    if (!nextMeasurement || nextMeasurement.shape !== 'square') {
+      measuredMovementTokenIdRef.current = null
+      setMovementSelectedTokenId(null)
+    }
     measurementRef.current = nextMeasurement
     setMeasurement(nextMeasurement)
 
@@ -821,20 +871,90 @@ export function CampaignOverviewPage({
     return [...points, nextPoint]
   }
 
+  function tokenAtMeasurementPoint(point: VttMeasurementPoint) {
+    return visibleTokens.find((token) => Math.abs(token.position.x - point.x) <= 0.5 && Math.abs(token.position.y - point.y) <= 0.5)
+  }
+
+  function squareMeasurementPointsFromCurrent(current: VttMeasurement | null) {
+    if (current?.shape !== 'square') return null
+    if (current.points && current.points.length >= 2) return current.points
+    return [current.start, current.end]
+  }
+
+  function nextSquareMeasurementPoints(points: VttMeasurementPoint[], nextPoint: VttMeasurementPoint) {
+    const existingIndex = points.findIndex((point) => areMeasurementPointsEqual(point, nextPoint))
+    if (existingIndex < 0) return [...points, nextPoint]
+
+    const nextPoints = points.slice(0, existingIndex + 1)
+    if (nextPoints.length >= 2) return nextPoints
+
+    return [nextPoints[0], nextPoints[0]]
+  }
+
+  function appendSquareMeasurementPoint(point: VttMeasurementPoint) {
+    const current = measurementRef.current
+    const points = squareMeasurementPointsFromCurrent(current)
+
+    if (!points) {
+      publishMeasurement({ shape: 'square', start: point, end: point, points: [point, point], color: gridSettings.squareMeasurementColor })
+      return
+    }
+
+    const nextPoints = nextSquareMeasurementPoints(points, point)
+    const start = nextPoints[0]
+    const end = nextPoints[nextPoints.length - 1]
+    publishMeasurement({ shape: 'square', start, end, points: nextPoints, color: gridSettings.squareMeasurementColor })
+  }
+
+  function selectTokenForMeasuredMovement(tokenId: string | null) {
+    measuredMovementTokenIdRef.current = tokenId
+    setMovementSelectedTokenId(tokenId)
+  }
+
+  function startTokenMeasurement(event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) {
+    if (!event.ctrlKey || gridSettings.shape !== 'square' || !realtimeVttEnabled) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    selectTokenForMeasuredMovement(token.id)
+    setActiveTool('measure')
+    publishMeasurement({
+      shape: 'square',
+      start: token.position,
+      end: token.position,
+      points: [token.position, token.position],
+      color: gridSettings.squareMeasurementColor,
+    })
+  }
+
   function startMeasurement(event: React.PointerEvent<HTMLDivElement>) {
     const point = getMeasurementPoint(event)
     if (!point) return
 
     event.preventDefault()
     event.currentTarget.setPointerCapture(event.pointerId)
-    measuringRef.current = true
+    measuringRef.current = !event.ctrlKey
 
     if (gridSettings.shape === 'hex') {
       publishMeasurement({ shape: 'hex', points: [snapHexMeasurementPoint(point)], color: gridSettings.hexMeasurementColor })
       return
     }
 
-    publishMeasurement({ shape: 'square', start: point, end: point, color: gridSettings.squareMeasurementColor })
+    if (event.ctrlKey) {
+      const token = tokenAtMeasurementPoint(point)
+      const currentPoints = squareMeasurementPointsFromCurrent(measurementRef.current)
+      if (!currentPoints && token) {
+        selectTokenForMeasuredMovement(token.id)
+        appendSquareMeasurementPoint(token.position)
+        return
+      }
+
+      appendSquareMeasurementPoint(token?.position ?? point)
+      return
+    }
+
+    selectTokenForMeasuredMovement(null)
+    publishMeasurement({ shape: 'square', start: point, end: point, points: [point, point], color: gridSettings.squareMeasurementColor })
   }
 
   function updateMeasurement(event: React.PointerEvent<HTMLDivElement>) {
@@ -855,16 +975,75 @@ export function CampaignOverviewPage({
     }
 
     const current = measurementRef.current
+    const points = squareMeasurementPointsFromCurrent(current)
+    const nextPoints = points ? [...points.slice(0, -1), point] : [point, point]
     publishMeasurement(
       current?.shape === 'square'
-        ? { ...current, end: point, color: gridSettings.squareMeasurementColor }
-        : { shape: 'square', start: point, end: point, color: gridSettings.squareMeasurementColor },
+        ? { ...current, end: point, points: nextPoints, color: gridSettings.squareMeasurementColor }
+        : { shape: 'square', start: point, end: point, points: nextPoints, color: gridSettings.squareMeasurementColor },
     )
   }
 
   function finishMeasurement() {
     measuringRef.current = false
   }
+
+  function clearToolbarSelectionAndMeasurement() {
+    measuringRef.current = false
+    selectTokenForMeasuredMovement(null)
+    measurementRef.current = null
+    setActiveTool(null)
+    setMeasurement(null)
+    onGridSettingsOpenChange(false)
+    if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
+  }
+
+  function isEditableKeyboardTarget(target: EventTarget | null) {
+    if (!(target instanceof HTMLElement)) return false
+    const tagName = target.tagName.toLowerCase()
+    return target.isContentEditable || tagName === 'input' || tagName === 'textarea' || tagName === 'select'
+  }
+
+  function confirmMeasuredTokenMove() {
+    const tokenId = measuredMovementTokenIdRef.current
+    const currentMeasurement = measurementRef.current
+    if (!tokenId || currentMeasurement?.shape !== 'square') return false
+
+    const token = visibleTokens.find((item) => item.id === tokenId)
+    if (!token) return false
+
+    const points = squareMeasurementPointsFromCurrent(currentMeasurement)
+    const destination = points?.[points.length - 1] ?? currentMeasurement.end
+    clearMeasurementAfterMovementTokenIdRef.current = token.id
+    movePlayerToken(token, destination, { movementPath: points ?? [currentMeasurement.start, currentMeasurement.end] })
+    measuredMovementTokenIdRef.current = null
+    return true
+  }
+
+  function clearMeasurementAfterTokenMovement(tokenId: string) {
+    if (clearMeasurementAfterMovementTokenIdRef.current !== tokenId) return
+    clearMeasurementAfterMovementTokenIdRef.current = null
+    setMovementSelectedTokenId(null)
+    publishMeasurement(null)
+  }
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.code === 'Escape' && !isEditableKeyboardTarget(event.target)) {
+        clearToolbarSelectionAndMeasurement()
+        event.preventDefault()
+        return
+      }
+
+      if (event.code !== 'Space' || event.repeat || isEditableKeyboardTarget(event.target)) return
+      if (!confirmMeasuredTokenMove()) return
+
+      event.preventDefault()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  })
 
   function dragTokenCandidate(event: React.DragEvent<HTMLElement>, candidate: VttTokenCandidate) {
     if (candidate.source === 'bestiary' && candidate.creatureId) {
@@ -1486,8 +1665,21 @@ export function CampaignOverviewPage({
                 onMove={(position) => movePlayerToken(token, position)}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
                 selectedForEncounter={Boolean(isMaster && preselectedEncounterTokenIds.includes(token.id))}
+                selectedForMeasuredMovement={movementSelectedTokenId === token.id}
                 onEncounterSelectionToggle={isMaster ? toggleTokenEncounterPreselection : undefined}
                 onEncounterSelectionDrop={isMaster ? addEncounterDragSelectionToBox : undefined}
+                onMeasureFromToken={startTokenMeasurement}
+                movementPath={tokenMovementPaths[token.id]}
+                movementSpeed={tokenMovementSpeed}
+                onMovementPathComplete={() =>
+                  setTokenMovementPaths((current) => {
+                    if (!current[token.id]) return current
+                    const rest = { ...current }
+                    delete rest[token.id]
+                    clearMeasurementAfterTokenMovement(token.id)
+                    return rest
+                  })
+                }
                 isCombatTurn={activeCombatTokenId === token.id}
               />
             ))}
