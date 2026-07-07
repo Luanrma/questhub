@@ -1,5 +1,6 @@
 export { DiceModal } from './components/DiceModal'
 export { VttDiceControls } from './components/VttDiceControls'
+export type { VttDiceControlsHandle } from './components/VttDiceControls'
 export type { DiceRollRequest, DiceSides } from './domain/types'
 
 //https://fantasticdice.games/docs/usage/config

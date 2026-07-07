@@ -41,3 +41,4 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * `campaign_diary`: gerencia diarios livres da campanha, sem vinculo com cenas.
 * `chat`: continua independente; pausa de sessao nao bloqueia chat.
 * `game_systems`: nao deve ser importado por `campaign_scene`; regras mecanicas ficam fora deste modulo.
+* `game_systems/pathfinder_2e/hazards`: submodulo `hazard-instances` (`apps/api/src/modules/campaign_scene/hazard-instances/`) persiste instancias de Hazard vinculadas a uma cena (`CampaignSceneHazard`), com visibilidade e estado proprios. A orquestracao realtime desses eventos ainda vive em `campaign-presence/socket.ts`, seguindo o mesmo padrao legado de tokens/grid.

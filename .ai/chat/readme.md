@@ -48,3 +48,4 @@ Fora de escopo:
 * `campaign-presence`: compartilha a sala realtime `campaign:{campaignId}`.
 * `characters`: fornece personagem ativo e nome publico.
 * `vtt`: consome o chat como parte da experiencia de mesa.
+* `encounter`: rolagens de dado feitas com um encontro ativo na cena do personagem tambem alimentam o log de batalha do encontro (`.ai/encounter/specs.md` secao 2.1), alem da mensagem normal do chat.

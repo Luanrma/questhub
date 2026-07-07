@@ -110,6 +110,8 @@ Regras:
 * A mensagem retornada no ack deve ser inserida no chat do remetente.
 * Demais participantes recebem a rolagem por `chat:message:created`.
 * O cliente que executou a rolagem dispara a animacao 3D local com o mesmo dado e valor.
+* Quando quem rola tem personagem ativo numa cena com um encontro ativo (`.ai/encounter/specs.md` secao 2), a rolagem tambem gera uma entrada `DICE_ROLL` no log de batalha do encontro (`.ai/encounter/specs.md` secao 2.1), alem da `ChatMessage` normal. O payload de `chat:message:create` ganha campos opcionais `kind: 'DICE_ROLL'` e `diceRoll: { notation: string; total: number }` para o servidor identificar a rolagem sem depender de parsing do texto formatado; mensagens sem `kind` continuam tratadas como mensagem comum de jogador.
+* A entrada `DICE_ROLL` no log de batalha nao e mascarada por papel — o valor rolado e publico para todos os participantes do encontro, igual a mensagem de chat.
 
 ## 4. Criterios de Aceitacao
 * Participante ativo ve historico ao abrir a mesa.

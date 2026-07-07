@@ -2,16 +2,17 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { createPortal } from 'react-dom'
 import {
   CircleUserRound,
+  Cloud,
   Dice5,
   Eye,
   EyeOff,
   Grid3X3,
+  Heart,
   Maximize2,
   MessageCircle,
   Minimize2,
   MousePointer2,
   Move,
-  Ruler,
   PanelRightClose,
   PanelRightOpen,
   Pause,
@@ -22,6 +23,7 @@ import {
   TriangleAlert,
   Users,
   X,
+  Zap,
   ZoomIn,
   ZoomOut,
 } from 'lucide-react'
@@ -43,9 +45,9 @@ import {
   type CampaignUserSettings,
   type VttTokenMovementSpeed,
 } from '../dice-roller/infrastructure/storage/diceThemeStorage'
-import { VttDiceControls } from '../dice-roller'
+import { VttDiceControls, type VttDiceControlsHandle } from '../dice-roller'
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../grid'
-import { questhubBestiaryDragType, questhubCharacterDragType, zoomLimits } from './config/constants'
+import { questhubBestiaryDragType, questhubCharacterDragType, questhubHazardDragType, zoomLimits } from './config/constants'
 import {
   areMeasurementPointsEqual,
   clampMeasurementPoint,
@@ -59,6 +61,7 @@ import {
   scaleGridSettings,
   tokenGridPositionFromPixelCenter,
 } from './domain/boardMath'
+import { predictMovement } from './domain/movementPrediction'
 import {
   createPreparedScene,
   filenameEquals,
@@ -74,23 +77,35 @@ import {
 } from './domain/sceneDomain'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
-import { PlayerToken, VttMeasurementOverlay } from './components/BoardOverlays'
+import { HazardMarker, PlayerToken, VttMeasurementOverlay } from './components/BoardOverlays'
+import { CombatHealthEditorModal } from './components/CombatHealthEditorModal'
 import { EncounterTrackerPanel } from './components/EncounterTrackerPanel'
+import { BattleLogPanel } from './components/BattleLogPanel'
+import { isExactCombatantHealth } from './components/HealthBar'
+import { HazardEncounterPanel } from './components/HazardEncounterPanel'
+import { SceneHazardsPanel } from './components/SceneHazardsPanel'
 import type {
   AssetExistsResponse,
   AssetUploadResponse,
   CampaignSceneResponse,
   PreparedScene,
+  PublicNpcHealth,
+  VttCombatantHealth,
+  VttCombatHealthChangedPayload,
   VttEncounterChangedPayload,
   VttEncounterState,
   VttGridBounds,
   VttHazardCandidate,
+  VttHazardChangedPayload,
+  VttHazardRemovedPayload,
+  VttHazardsSnapshotPayload,
   VttMeasurement,
   VttMeasurementChangedPayload,
   VttMeasurementPoint,
   VttPanOffset,
   VttPlayerToken,
   VttSceneChangedPayload,
+  VttSceneHazard,
   VttTableScene,
   VttTokenCandidate,
   VttTokenChangedPayload,
@@ -104,12 +119,32 @@ import type {
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
   { id: 'move', label: 'Mover', icon: Move },
-  { id: 'measure', label: 'Medir', icon: Ruler },
   { id: 'dice', label: 'Dados', icon: Dice5 },
   { id: 'tokens', label: 'Tokens', icon: CircleUserRound },
   { id: 'hazards', label: 'Hazards', icon: TriangleAlert },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
 ] as const
+
+const hazardVisibilityLabels: Record<VttSceneHazard['visibility'], string> = {
+  HIDDEN: 'Oculto',
+  HINTED: 'Sugerido',
+  REVEALED: 'Revelado',
+}
+
+const hazardStateLabels: Record<VttSceneHazard['state'], string> = {
+  ARMED: 'Armado',
+  TRIGGERED: 'Disparado',
+  ACTIVE: 'Ativo',
+  DISABLED: 'Desativado',
+  EXPIRED: 'Expirado',
+}
+
+const hazardScopeLabels: Record<VttSceneHazard['scope'], string> = {
+  POINT: 'Ponto',
+  AREA: 'Area',
+  SCENE: 'Cena inteira',
+  TARGET: 'Alvo',
+}
 
 type CampaignOverviewPageProps = {
   gridSettings: VttGridSettings
@@ -143,7 +178,7 @@ type CharacterTokenSheet = {
   readOnly: boolean
 }
 
-type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'chat'
+type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'scene-hazards' | 'chat'
 
 export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, CampaignOverviewPageProps>(function CampaignOverviewPage({
   gridSettings,
@@ -165,6 +200,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const clearMeasurementAfterMovementTokenIdRef = useRef<string | null>(null)
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
   const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
+  const diceControlsRef = useRef<VttDiceControlsHandle | null>(null)
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
   const [tokenMovementPaths, setTokenMovementPaths] = useState<Record<string, VttMeasurementPoint[]>>({})
   const [movementSelectedTokenId, setMovementSelectedTokenId] = useState<string | null>(null)
@@ -176,7 +212,13 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const [hazardCandidates, setHazardCandidates] = useState<VttHazardCandidate[]>([])
   const [hazardCandidatesRefreshKey, setHazardCandidatesRefreshKey] = useState(0)
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
+  const [combatHealthByTokenId, setCombatHealthByTokenId] = useState<Record<string, VttCombatantHealth | PublicNpcHealth>>({})
+  const [combatHealthEditor, setCombatHealthEditor] = useState<{ tokenId: string; name: string } | null>(null)
+  const requestedHealthTokenIdsRef = useRef<Set<string>>(new Set())
+  const [sceneHazards, setSceneHazards] = useState<VttSceneHazard[]>([])
+  const [hazardInstanceMenu, setHazardInstanceMenu] = useState<{ hazard: VttSceneHazard; x: number; y: number } | null>(null)
   const [bestiarySheetCreatureId, setBestiarySheetCreatureId] = useState<string | null>(null)
+  const [activeHazardEncounter, setActiveHazardEncounter] = useState<{ candidate: VttHazardCandidate; notes: string } | null>(null)
   const [characterTokenSheet, setCharacterTokenSheet] = useState<CharacterTokenSheet | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
@@ -203,6 +245,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const [encounterState, setEncounterState] = useState<VttEncounterState | null>(null)
   const [encounterTokenIds, setEncounterTokenIds] = useState<string[]>([])
   const [preselectedEncounterTokenIds, setPreselectedEncounterTokenIds] = useState<string[]>([])
+  const [pendingEncounterHazardIds, setPendingEncounterHazardIds] = useState<string[]>([])
   const preparedScenesRef = useRef(preparedScenes)
   const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
   const onGridSettingsChangeRef = useRef(onGridSettingsChange)
@@ -283,7 +326,8 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             className: 'border-red-300/45 bg-red-500/20 text-red-100',
           }
   const RightPanelSessionStatusIcon = rightPanelSessionStatus.icon
-  const activeEncounterTokenId = activeEncounter?.participants[activeEncounter.activeTurnIndex]?.tokenId ?? null
+  const activeEncounterParticipant = activeEncounter?.participants[activeEncounter.activeTurnIndex] ?? null
+  const activeEncounterTokenId = activeEncounterParticipant?.type === 'creature' ? activeEncounterParticipant.tokenId : null
   const encounterTokenCount = visibleTokens.filter((token) => !token.hidden).length
   const encounterTokens = encounterTokenIds
     .map((tokenId) => visibleTokens.find((token) => token.id === tokenId && !token.hidden))
@@ -291,7 +335,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const preselectedEncounterTokens = preselectedEncounterTokenIds
     .map((tokenId) => visibleTokens.find((token) => token.id === tokenId && !token.hidden))
     .filter((token): token is VttPlayerToken => Boolean(token))
-  const canStartEncounter = Boolean(isMaster && masterCanUseVtt && activeScene && encounterTokens.length > 0 && !activeEncounter)
+  const pendingEncounterHazards = pendingEncounterHazardIds
+    .map((hazardId) => sceneHazards.find((hazard) => hazard.id === hazardId))
+    .filter((hazard): hazard is VttSceneHazard => Boolean(hazard))
+  const sceneEffectHazards = sceneHazards.filter((hazard) => hazard.sceneId === activeScene?.id && hazard.scope === 'SCENE')
+  const canStartEncounter = Boolean(
+    isMaster &&
+      masterCanUseVtt &&
+      sessionActive &&
+      activeScene &&
+      !activeEncounter &&
+      (encounterTokens.length > 0 || pendingEncounterHazards.length > 0),
+  )
 
   function canOpenCharacterTokenSheet(token: VttPlayerToken) {
     if (token.source !== 'character' || !token.characterId) return false
@@ -586,7 +641,9 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   }, [activeScene?.id, visibleTokens])
 
   useEffect(() => {
-    if (activeEncounter) setEncounterTokenIds((current) => (current.length ? [] : current))
+    if (!activeEncounter) return
+    setEncounterTokenIds((current) => (current.length ? [] : current))
+    setPendingEncounterHazardIds((current) => (current.length ? [] : current))
   }, [activeEncounter])
 
   useEffect(() => {
@@ -708,6 +765,27 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       setEncounterState(payload.encounter)
     }
 
+    function onHazardsSnapshot(payload: VttHazardsSnapshotPayload) {
+      if (payload.campaignId !== campaignId) return
+      setSceneHazards(payload.hazards)
+    }
+
+    function onHazardChanged(payload: VttHazardChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setSceneHazards((current) => [...current.filter((item) => item.id !== payload.hazard.id), payload.hazard])
+    }
+
+    function onHazardRemoved(payload: VttHazardRemovedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setSceneHazards((current) => current.filter((item) => item.id !== payload.hazardId))
+      setHazardInstanceMenu((current) => (current?.hazard.id === payload.hazardId ? null : current))
+    }
+
+    function onCombatHealthChanged(payload: VttCombatHealthChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setCombatHealthByTokenId((current) => ({ ...current, [payload.tokenId]: payload.health }))
+    }
+
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
@@ -716,6 +794,10 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     socket.on('vtt:scene:changed', onSceneChanged)
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
     socket.on('vtt:encounter:changed', onEncounterChanged)
+    socket.on('vtt:hazards:snapshot', onHazardsSnapshot)
+    socket.on('vtt:hazard:changed', onHazardChanged)
+    socket.on('vtt:hazard:removed', onHazardRemoved)
+    socket.on('vtt:combat:health:changed', onCombatHealthChanged)
 
     if (isMaster) {
       socket.emit('vtt:scene:request', { campaignId })
@@ -735,8 +817,39 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       socket.off('vtt:scene:changed', onSceneChanged)
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
       socket.off('vtt:encounter:changed', onEncounterChanged)
+      socket.off('vtt:hazards:snapshot', onHazardsSnapshot)
+      socket.off('vtt:hazard:changed', onHazardChanged)
+      socket.off('vtt:hazard:removed', onHazardRemoved)
+      socket.off('vtt:combat:health:changed', onCombatHealthChanged)
     }
   }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
+
+  useEffect(() => {
+    if (!encounterState) return
+    setCombatHealthByTokenId((current) => {
+      let changed = false
+      const next = { ...current }
+      for (const participant of encounterState.participants) {
+        if (participant.type !== 'creature' || !participant.health) continue
+        if (next[participant.tokenId] === participant.health) continue
+        next[participant.tokenId] = participant.health
+        changed = true
+      }
+      return changed ? next : current
+    })
+  }, [encounterState])
+
+  useEffect(() => {
+    if (!campaignId || !socket) return
+    visibleTokens.forEach((token) => {
+      // Gate so pelo resultado (combatHealthByTokenId), nao por um "ja pedi" permanente:
+      // se a 1a tentativa se perder (ex.: token ainda nao hidratado no servidor no exato
+      // instante do pedido), o efeito tenta de novo no proximo render em vez de travar pra
+      // sempre esperando uma resposta que nunca chegou.
+      if (combatHealthByTokenId[token.id] !== undefined) return
+      socket.emit('vtt:combat:health:request', { campaignId, tokenId: token.id })
+    })
+  }, [campaignId, socket, visibleTokens, combatHealthByTokenId])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
@@ -1088,9 +1201,24 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     if (!token) return false
 
     const points = squareMeasurementPointsFromCurrent(currentMeasurement)
-    const destination = points?.[points.length - 1] ?? currentMeasurement.end
+    const requestedDestination = points?.[points.length - 1] ?? currentMeasurement.end
+
+    const budget = movementBudgetForToken(token.id)
+    const destination = budget
+      ? predictMovement({
+          from: token.position,
+          to: requestedDestination,
+          cellSizePx: gridSettings.size,
+          metersPerCell: gridSettings.metersPerCell,
+          budget,
+        }).position
+      : requestedDestination
+
     clearMeasurementAfterMovementTokenIdRef.current = token.id
     movePlayerToken(token, destination, { movementPath: points ?? [currentMeasurement.start, currentMeasurement.end] })
+    if (destination.x !== token.position.x || destination.y !== token.position.y) {
+      commitTokenMovementAction(token.id)
+    }
     measuredMovementTokenIdRef.current = null
     return true
   }
@@ -1100,6 +1228,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     clearMeasurementAfterMovementTokenIdRef.current = null
     setMovementSelectedTokenId(null)
     publishMeasurement(null)
+    setActiveTool((current) => (current === 'measure' ? null : current))
   }
 
   useEffect(() => {
@@ -1162,6 +1291,114 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         ? { campaignId, source: 'bestiary', creatureId, position }
         : { campaignId, source: 'character', characterId, position },
     )
+  }
+
+  function dragHazardCandidate(event: React.DragEvent<HTMLElement>, candidate: VttHazardCandidate) {
+    event.dataTransfer.setData(questhubHazardDragType, candidate.hazardEntryId)
+    event.dataTransfer.effectAllowed = 'copy'
+  }
+
+  function dropHazardCandidate(event: React.DragEvent<HTMLElement>) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt || !activeScene) return
+
+    const hazardEntryId = event.dataTransfer.getData(questhubHazardDragType)
+    if (!hazardEntryId) return
+
+    const position = tokenDropPosition(event)
+    if (!position) return
+
+    event.preventDefault()
+    socket.emit('vtt:hazard:place', { campaignId, sceneId: activeScene.id, hazardEntryId, position })
+  }
+
+  function addSceneEffectHazard(candidate: VttHazardCandidate) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt || !activeScene) return
+
+    socket.emit('vtt:hazard:place', {
+      campaignId,
+      sceneId: activeScene.id,
+      hazardEntryId: candidate.hazardEntryId,
+      scope: 'SCENE',
+      triggerMode: 'ALWAYS_ON',
+      executionMode: 'ONGOING',
+    })
+  }
+
+  function openHazardInstanceMenu(hazard: VttSceneHazard, position: { x: number; y: number }) {
+    if (!isMaster) return
+    setHazardInstanceMenu({ hazard, x: position.x, y: position.y })
+  }
+
+  function moveHazardInstance(hazard: VttSceneHazard, position: { x: number; y: number }) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, position })
+  }
+
+  function updateHazardNotesDraft(hazard: VttSceneHazard, notes: string) {
+    setHazardInstanceMenu((current) =>
+      current?.hazard.id === hazard.id ? { ...current, hazard: { ...current.hazard, notes } } : current,
+    )
+  }
+
+  function saveHazardNotes(hazard: VttSceneHazard) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, notes: hazard.notes ?? null })
+  }
+
+  function updateSceneHazardNotes(hazard: VttSceneHazard, notes: string) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, notes: notes || null })
+  }
+
+  function cycleHazardVisibility(hazard: VttSceneHazard) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    const order: VttSceneHazard['visibility'][] = ['HIDDEN', 'HINTED', 'REVEALED']
+    const nextVisibility = order[(order.indexOf(hazard.visibility) + 1) % order.length]
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, visibility: nextVisibility })
+    setHazardInstanceMenu((current) =>
+      current?.hazard.id === hazard.id ? { ...current, hazard: { ...current.hazard, visibility: nextVisibility } } : current,
+    )
+  }
+
+  function cycleHazardState(hazard: VttSceneHazard) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    const order: VttSceneHazard['state'][] = ['ARMED', 'TRIGGERED', 'ACTIVE', 'DISABLED', 'EXPIRED']
+    const nextState = order[(order.indexOf(hazard.state) + 1) % order.length]
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, state: nextState })
+    setHazardInstanceMenu((current) =>
+      current?.hazard.id === hazard.id ? { ...current, hazard: { ...current.hazard, state: nextState } } : current,
+    )
+  }
+
+  function cycleHazardScope(hazard: VttSceneHazard) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    const nextScope: VttSceneHazard['scope'] = hazard.scope === 'AREA' ? 'POINT' : 'AREA'
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, scope: nextScope })
+    setHazardInstanceMenu((current) =>
+      current?.hazard.id === hazard.id ? { ...current, hazard: { ...current.hazard, scope: nextScope } } : current,
+    )
+  }
+
+  function toggleHazardTriggerOnTokenEnter(hazard: VttSceneHazard) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    const nextTriggerMode = hazard.triggerMode === 'ON_TOKEN_ENTER' ? 'MANUAL' : 'ON_TOKEN_ENTER'
+    socket.emit('vtt:hazard:update', { campaignId, hazardId: hazard.id, triggerMode: nextTriggerMode })
+    setHazardInstanceMenu((current) =>
+      current?.hazard.id === hazard.id
+        ? { ...current, hazard: { ...current.hazard, triggerMode: nextTriggerMode } }
+        : current,
+    )
+  }
+
+  function removeHazardInstance(hazard: VttSceneHazard) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+
+    socket.emit('vtt:hazard:remove', { campaignId, hazardId: hazard.id })
+    setHazardInstanceMenu(null)
   }
 
   function removeTokenFromLocalScene(token: Pick<VttPlayerToken, 'id' | 'characterId'>, sceneId?: string | null) {
@@ -1286,6 +1523,19 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     setBestiarySheetCreatureId(candidate.hazardEntryId)
   }
 
+  function startHazardEncounter(candidate: VttHazardCandidate) {
+    if (!isMaster) return
+    setActiveHazardEncounter({ candidate, notes: '' })
+  }
+
+  function closeHazardEncounter() {
+    setActiveHazardEncounter(null)
+  }
+
+  function updateHazardEncounterNotes(notes: string) {
+    setActiveHazardEncounter((current) => (current ? { ...current, notes } : current))
+  }
+
   function removeToken(token: VttPlayerToken) {
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
 
@@ -1331,6 +1581,47 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     setTokenContextMenu(null)
   }
 
+  function openCombatHealthEditor(tokenId: string, name: string) {
+    if (!isMaster) return
+    setCombatHealthEditor({ tokenId, name })
+    setTokenContextMenu(null)
+    if (campaignId && socket) {
+      requestedHealthTokenIdsRef.current.add(tokenId)
+      socket.emit('vtt:combat:health:request', { campaignId, tokenId })
+    }
+  }
+
+  function adjustCombatHealth(tokenId: string, operation: 'DAMAGE' | 'HEAL', amount: number, note?: string) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt || amount <= 0) return
+    socket.emit('vtt:combat:health:adjust', { campaignId, tokenId, operation, amount, note })
+  }
+
+  function saveCombatHealth(
+    tokenId: string,
+    patch: { currentHitPoints?: number; maxHitPoints?: number; temporaryHitPoints?: number },
+    note?: string,
+  ) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    if (patch.currentHitPoints === undefined && patch.maxHitPoints === undefined && patch.temporaryHitPoints === undefined) return
+    socket.emit('vtt:combat:health:set', { campaignId, tokenId, ...patch, note })
+  }
+
+  function resetParticipantMovement(participantId: string) {
+    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    socket.emit('vtt:combat:movement:reset', { campaignId, participantId })
+  }
+
+  function commitTokenMovementAction(tokenId: string) {
+    if (!campaignId || !socket) return
+    socket.emit('vtt:combat:movement:commit', { campaignId, tokenId })
+  }
+
+  function movementBudgetForToken(tokenId: string) {
+    if (!activeEncounter) return null
+    const participant = activeEncounter.participants.find((item) => item.type === 'creature' && item.tokenId === tokenId)
+    return participant?.type === 'creature' ? participant.movement : null
+  }
+
   function openBestiaryTokenSheet(token: VttPlayerToken) {
     if (!canOpenBestiaryTokenSheet(token)) return
     if (token.source !== 'bestiary' || !token.bestiaryCreatureId) return
@@ -1344,10 +1635,31 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     setTokenContextMenu(null)
   }
 
+  function isTokenInActiveEncounter(tokenId: string) {
+    return Boolean(
+      activeEncounter?.participants.some((participant) => participant.type === 'creature' && participant.tokenId === tokenId),
+    )
+  }
+
+  function isHazardInActiveEncounter(hazardInstanceId: string) {
+    return Boolean(
+      activeEncounter?.participants.some(
+        (participant) => participant.type === 'hazard' && participant.hazardInstanceId === hazardInstanceId,
+      ),
+    )
+  }
+
   function addTokensToEncounter(tokens: VttPlayerToken[]) {
-    if (!isMaster || activeEncounter) return
-    const tokenIds = tokens.filter((token) => !token.hidden).map((token) => token.id)
+    if (!isMaster) return
+    const tokenIds = tokens.filter((token) => !token.hidden && !isTokenInActiveEncounter(token.id)).map((token) => token.id)
     if (!tokenIds.length) return
+
+    if (activeEncounter) {
+      if (!campaignId || !socket) return
+      socket.emit('vtt:encounter:join', { campaignId, tokenIds, hazardInstanceIds: [] })
+      return
+    }
+
     setEncounterTokenIds((current) => {
       const next = [...current]
       tokenIds.forEach((tokenId) => {
@@ -1358,14 +1670,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   }
 
   function toggleTokenEncounterPreselection(token: VttPlayerToken) {
-    if (!isMaster || activeEncounter || token.hidden) return
+    if (!isMaster || token.hidden) return
     setPreselectedEncounterTokenIds((current) =>
       current.includes(token.id) ? current.filter((tokenId) => tokenId !== token.id) : [...current, token.id],
     )
   }
 
   function addEncounterDragSelectionToBox(token: VttPlayerToken) {
-    if (!isMaster || activeEncounter || token.hidden) return
+    if (!isMaster || token.hidden) return
     const selectedTokens = preselectedEncounterTokens.length
       ? preselectedEncounterTokens
       : [token]
@@ -1384,7 +1696,29 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
   function startEncounter() {
     if (!campaignId || !socket || !activeScene || !canStartEncounter) return
-    socket.emit('vtt:encounter:start', { campaignId, sceneId: activeScene.id, tokenIds: encounterTokens.map((token) => token.id) })
+    socket.emit('vtt:encounter:start', {
+      campaignId,
+      sceneId: activeScene.id,
+      tokenIds: encounterTokens.map((token) => token.id),
+      hazardInstanceIds: pendingEncounterHazardIds,
+    })
+  }
+
+  function addHazardInstanceToEncounterSelection(hazard: VttSceneHazard) {
+    if (!isMaster || isHazardInActiveEncounter(hazard.id)) return
+    setHazardInstanceMenu(null)
+
+    if (activeEncounter) {
+      if (!campaignId || !socket) return
+      socket.emit('vtt:encounter:join', { campaignId, tokenIds: [], hazardInstanceIds: [hazard.id] })
+      return
+    }
+
+    setPendingEncounterHazardIds((current) => (current.includes(hazard.id) ? current : [...current, hazard.id]))
+  }
+
+  function removeHazardFromEncounterSelection(hazardId: string) {
+    setPendingEncounterHazardIds((current) => current.filter((id) => id !== hazardId))
   }
 
   function endEncounter() {
@@ -1402,9 +1736,24 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     socket.emit('vtt:encounter:previous-turn', { campaignId })
   }
 
-  function updateEncounterInitiative(characterId: string, initiative: number | null) {
+  function updateEncounterInitiative(participantId: string, initiative: number | null) {
     if (!campaignId || !socket || !isMaster) return
-    socket.emit('vtt:encounter:update-initiative', { campaignId, characterId, initiative })
+    socket.emit('vtt:encounter:update-initiative', { campaignId, participantId, initiative })
+  }
+
+  function removeEncounterParticipant(participantId: string) {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:encounter:remove-participant', { campaignId, participantId })
+  }
+
+  function rollInitiative(participantId: string) {
+    if (!isMaster) return
+    diceControlsRef.current?.rollForInitiative(participantId)
+  }
+
+  function triggerHazardParticipant(participantId: string) {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:encounter:trigger-hazard', { campaignId, participantId })
   }
 
   function changeZoom(direction: -1 | 1) {
@@ -1768,7 +2117,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     return (
       <div
         key={`hazard:${candidate.hazardEntryId}`}
-        className="flex items-center gap-3 rounded-md border border-amber-300/15 bg-amber-500/[0.06] px-3 py-2 text-left transition hover:bg-amber-500/10"
+        draggable={masterCanUseVtt && Boolean(activeScene)}
+        onDragStart={(event) => dragHazardCandidate(event, candidate)}
+        title={activeScene ? 'Arraste para a mesa para posicionar na cena' : undefined}
+        className={`flex items-center gap-3 rounded-md border border-amber-300/15 bg-amber-500/[0.06] px-3 py-2 text-left transition hover:bg-amber-500/10 ${
+          masterCanUseVtt && activeScene ? 'cursor-grab active:cursor-grabbing' : ''
+        }`}
       >
         <span
           className="grid h-9 w-9 shrink-0 place-items-center rounded-md border border-amber-300/20 bg-amber-500/20 text-amber-100"
@@ -1796,6 +2150,32 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         </button>
         <button
           type="button"
+          title="Iniciar encontro (manual)"
+          disabled={!masterCanUseVtt}
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-orange-300/25 bg-orange-500/15 text-orange-100 transition hover:bg-orange-500/25 disabled:cursor-not-allowed disabled:opacity-45"
+          onClick={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            startHazardEncounter(candidate)
+          }}
+        >
+          <Swords className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
+          title="Adicionar como efeito da cena (sem posicao no mapa)"
+          disabled={!masterCanUseVtt || !activeScene}
+          className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-cyan-300/20 bg-cyan-500/10 text-cyan-100 transition hover:bg-cyan-500/20 disabled:cursor-not-allowed disabled:opacity-45"
+          onClick={(event) => {
+            event.preventDefault()
+            event.stopPropagation()
+            addSceneEffectHazard(candidate)
+          }}
+        >
+          <Cloud className="h-4 w-4" />
+        </button>
+        <button
+          type="button"
           title="Remover do toolbar"
           disabled={!masterCanUseVtt}
           className="grid h-8 w-8 shrink-0 place-items-center rounded-md border border-red-300/20 bg-red-500/10 text-red-100 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-45"
@@ -1815,7 +2195,10 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     <div className="relative h-full min-h-0 overflow-hidden bg-[#08090c] text-white">
       <section
         className="absolute inset-0 min-h-0 overflow-hidden bg-[#0b0d12]"
-        onClick={() => setTokenContextMenu(null)}
+        onClick={() => {
+          setTokenContextMenu(null)
+          setHazardInstanceMenu(null)
+        }}
       >
         <div ref={boardViewportRef} className="absolute inset-0 overflow-hidden">
           <div
@@ -1833,12 +2216,19 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               if (!isMaster || !masterCanUseVtt) return
               const hasTokenDrag =
                 event.dataTransfer.types.includes(questhubCharacterDragType) ||
-                event.dataTransfer.types.includes(questhubBestiaryDragType)
+                event.dataTransfer.types.includes(questhubBestiaryDragType) ||
+                event.dataTransfer.types.includes(questhubHazardDragType)
               if (!hasTokenDrag) return
               event.preventDefault()
               event.dataTransfer.dropEffect = 'copy'
             }}
-            onDrop={dropTokenCandidate}
+            onDrop={(event) => {
+              if (event.dataTransfer.types.includes(questhubHazardDragType)) {
+                dropHazardCandidate(event)
+                return
+              }
+              dropTokenCandidate(event)
+            }}
             onPointerDown={startBoardPan}
             onPointerMove={updateBoardPan}
             onPointerUp={finishBoardPan}
@@ -1880,9 +2270,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 gridShape={gridSettings.shape}
                 gridAreaRef={gridAreaRef}
                 canDrag={
-                  (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER') ||
+                  (sessionActive &&
+                    myCharacter?.id === token.characterId &&
+                    myCharacter.role === 'PLAYER' &&
+                    (!activeEncounter || activeEncounterTokenId === token.id)) ||
                   Boolean(isMaster)
                 }
+                turnLocked={Boolean(
+                  !isMaster &&
+                    activeEncounter &&
+                    myCharacter?.id === token.characterId &&
+                    activeEncounterTokenId !== token.id,
+                )}
                 canOpenContextMenu={canOpenTokenContextMenu(token)}
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
@@ -1904,8 +2303,25 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                   })
                 }
                 isEncounterTurn={activeEncounterTokenId === token.id}
+                health={combatHealthByTokenId[token.id]}
+                movementBudget={movementBudgetForToken(token.id)}
+                movementGridSize={gridSettings.size}
+                movementMetersPerCell={gridSettings.metersPerCell}
+                onMovementActionCommit={() => commitTokenMovementAction(token.id)}
               />
             ))}
+            {sceneHazards
+              .filter((hazard) => hazard.sceneId === activeScene?.id && hazard.position)
+              .map((hazard) => (
+                <HazardMarker
+                  key={hazard.id}
+                  hazard={hazard as VttSceneHazard & { position: { x: number; y: number } }}
+                  tokenSize={tokenSize}
+                  canControl={Boolean(isMaster && masterCanUseVtt)}
+                  onOpenMenu={openHazardInstanceMenu}
+                  onMove={moveHazardInstance}
+                />
+              ))}
             <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} />
             {activeTool === 'measure' && realtimeVttEnabled ? (
               <div
@@ -1960,6 +2376,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
             {campaignId ? (
               <VttDiceControls
+                ref={diceControlsRef}
                 campaignId={campaignId}
                 character={myCharacter}
                 socket={socket}
@@ -1967,6 +2384,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 open={activeTool === 'dice'}
                 clearSignal={diceClearSignal}
                 onClose={() => setActiveTool(null)}
+                onInitiativeRolled={updateEncounterInitiative}
                 className="pointer-events-none absolute inset-0 z-20"
               />
             ) : null}
@@ -2045,8 +2463,8 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             ) : null}
 
             {activeTool === 'hazards' && isMaster ? (
-              <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(380px,calc(100vw-128px))] rounded-lg border border-amber-300/15 bg-black/70 p-3 text-white shadow-2xl backdrop-blur">
-                <div className="mb-3 flex items-center justify-between gap-3">
+              <div className="pointer-events-auto absolute left-24 top-20 z-30 flex max-h-[calc(100vh-6rem)] w-[min(380px,calc(100vw-128px))] flex-col overflow-hidden rounded-lg border border-amber-300/15 bg-black/70 p-3 text-white shadow-2xl backdrop-blur">
+                <div className="mb-3 flex shrink-0 items-center justify-between gap-3">
                   <div className="flex min-w-0 items-center gap-2 text-xs font-semibold uppercase text-amber-200/80">
                     <TriangleAlert className="h-4 w-4 text-amber-300" />
                     Hazards
@@ -2061,11 +2479,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                   </button>
                 </div>
 
-                <div className="mb-3 rounded-md border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs text-amber-100">
+                <div className="mb-3 shrink-0 rounded-md border border-amber-300/20 bg-amber-400/10 px-3 py-2 text-xs text-amber-100">
                   Hazards preparados ficam aqui para consulta rapida do Mestre. Eles nao criam tokens NPC.
                 </div>
 
-                <div className="grid max-h-[360px] gap-2 overflow-auto pr-1">
+                <div className="grid min-h-0 flex-1 gap-2 overflow-y-auto overflow-x-hidden pr-1">
                   {!hazardCandidates.length ? (
                     <div className="rounded-md border border-dashed border-white/10 px-3 py-6 text-center text-sm text-zinc-500">
                       Nenhum hazard preparado.
@@ -2110,7 +2528,16 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                   <>
                     <button
                       type="button"
-                      disabled={!masterCanUseVtt || Boolean(activeEncounter) || tokenContextMenu.token.hidden}
+                      disabled={!masterCanUseVtt}
+                      className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                      onClick={() => openCombatHealthEditor(tokenContextMenu.token.id, tokenContextMenu.token.name)}
+                    >
+                      <Heart className="h-4 w-4" />
+                      Editar HP
+                    </button>
+                    <button
+                      type="button"
+                      disabled={!masterCanUseVtt || tokenContextMenu.token.hidden || isTokenInActiveEncounter(tokenContextMenu.token.id)}
                       className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                       onClick={() => addContextTokenSelectionToEncounter(tokenContextMenu.token)}
                     >
@@ -2137,6 +2564,104 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                     </button>
                   </>
                 ) : null}
+              </div>
+            ) : null}
+
+            {hazardInstanceMenu && isMaster ? (
+              <div
+                className="pointer-events-auto fixed z-50 w-56 rounded-lg border border-amber-300/15 bg-[#111217]/95 p-2 text-white shadow-2xl backdrop-blur"
+                style={{ left: hazardInstanceMenu.x, top: hazardInstanceMenu.y }}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <div className="border-b border-amber-300/15 px-2 pb-2">
+                  <div className="truncate text-sm font-semibold">{hazardInstanceMenu.hazard.name}</div>
+                  <div className="truncate text-xs text-zinc-500">
+                    {hazardScopeLabels[hazardInstanceMenu.hazard.scope]} - {hazardVisibilityLabels[hazardInstanceMenu.hazard.visibility]} - {hazardStateLabels[hazardInstanceMenu.hazard.state]}
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  disabled={
+                    !masterCanUseVtt ||
+                    pendingEncounterHazardIds.includes(hazardInstanceMenu.hazard.id) ||
+                    isHazardInActiveEncounter(hazardInstanceMenu.hazard.id)
+                  }
+                  className={[
+                    'mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm transition disabled:cursor-not-allowed disabled:opacity-50',
+                    hazardInstanceMenu.hazard.executionMode === 'ENCOUNTER_PARTICIPANT'
+                      ? 'bg-red-500/15 text-red-100 hover:bg-red-500/25'
+                      : 'text-zinc-200 hover:bg-white/10 hover:text-white',
+                  ].join(' ')}
+                  onClick={() => addHazardInstanceToEncounterSelection(hazardInstanceMenu.hazard)}
+                >
+                  <Swords className="h-4 w-4" />
+                  Enviar p/ Encontro
+                </button>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={() => cycleHazardVisibility(hazardInstanceMenu.hazard)}
+                >
+                  {hazardInstanceMenu.hazard.visibility === 'HIDDEN' ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  Visibilidade: {hazardVisibilityLabels[hazardInstanceMenu.hazard.visibility]}
+                </button>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={() => cycleHazardState(hazardInstanceMenu.hazard)}
+                >
+                  <TriangleAlert className="h-4 w-4" />
+                  Estado: {hazardStateLabels[hazardInstanceMenu.hazard.state]}
+                </button>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  title="Area ainda funciona como um ponto ate o editor de raio/poligono existir (Fase D)"
+                  className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={() => cycleHazardScope(hazardInstanceMenu.hazard)}
+                >
+                  <Maximize2 className="h-4 w-4" />
+                  Escopo: {hazardScopeLabels[hazardInstanceMenu.hazard.scope]}
+                </button>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  title="Dispara sozinho quando um token passa por cima desta celula"
+                  className={[
+                    'mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm transition disabled:cursor-not-allowed disabled:opacity-50',
+                    hazardInstanceMenu.hazard.triggerMode === 'ON_TOKEN_ENTER'
+                      ? 'bg-amber-500/15 text-amber-100 hover:bg-amber-500/25'
+                      : 'text-zinc-200 hover:bg-white/10 hover:text-white',
+                  ].join(' ')}
+                  onClick={() => toggleHazardTriggerOnTokenEnter(hazardInstanceMenu.hazard)}
+                >
+                  <Zap className="h-4 w-4" />
+                  Disparar ao pisar: {hazardInstanceMenu.hazard.triggerMode === 'ON_TOKEN_ENTER' ? 'Ligado' : 'Desligado'}
+                </button>
+                <div className="mt-2 grid gap-1 border-t border-amber-300/15 pt-2">
+                  <label className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Notas do Mestre</label>
+                  <textarea
+                    value={hazardInstanceMenu.hazard.notes ?? ''}
+                    disabled={!masterCanUseVtt}
+                    rows={2}
+                    className="min-h-[48px] w-full resize-none rounded-md border border-white/10 bg-black/30 px-2 py-1 text-xs text-white outline-none transition focus:border-amber-300/60 disabled:cursor-not-allowed disabled:opacity-50"
+                    placeholder="Disparado, desativado, estado..."
+                    onClick={(event) => event.stopPropagation()}
+                    onChange={(event) => updateHazardNotesDraft(hazardInstanceMenu.hazard, event.currentTarget.value)}
+                    onBlur={() => saveHazardNotes(hazardInstanceMenu.hazard)}
+                  />
+                </div>
+                <button
+                  type="button"
+                  disabled={!masterCanUseVtt}
+                  className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-red-200 transition hover:bg-red-500/10 hover:text-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+                  onClick={() => removeHazardInstance(hazardInstanceMenu.hazard)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Remover da cena
+                </button>
               </div>
             ) : null}
 
@@ -2257,6 +2782,21 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 <ScrollText className="h-4 w-4" />
               </button>
             ) : null}
+            {isMaster ? (
+              <button
+                type="button"
+                title="Hazards da Cena"
+                className={[
+                  'grid h-10 w-10 place-items-center rounded-lg border transition',
+                  rightPanelTab === 'scene-hazards'
+                    ? 'border-cyan-300/40 bg-cyan-500/20 text-cyan-100'
+                    : 'border-white/10 bg-white/[0.04] text-cyan-300 hover:bg-white/10 hover:text-cyan-200',
+                ].join(' ')}
+                onClick={() => openRightPanelTab('scene-hazards')}
+              >
+                <Cloud className="h-4 w-4" />
+              </button>
+            ) : null}
             <button
               type="button"
               title="Chat"
@@ -2302,6 +2842,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               { id: 'encounter' as const, title: 'Encounter Mode', icon: Swords },
               { id: 'players' as const, title: 'Jogadores', icon: Users },
               ...(isMaster ? [{ id: 'scenes' as const, title: 'Cenas', icon: ScrollText }] : []),
+              ...(isMaster ? [{ id: 'scene-hazards' as const, title: 'Hazards da Cena', icon: Cloud }] : []),
               { id: 'chat' as const, title: 'Chat', icon: MessageCircle },
             ].map((item) => {
               const Icon = item.icon
@@ -2327,24 +2868,43 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             })}
           </div>
 
-          <div className="min-h-0 flex-1 overflow-hidden">
+          <div
+            className={[
+              'min-h-0 flex-1 overflow-hidden',
+              rightPanelTab === 'encounter' && !encounterTrackerDetached ? 'flex flex-col gap-2' : '',
+            ]
+              .filter(Boolean)
+              .join(' ')}
+          >
             {rightPanelTab === 'encounter' && !encounterTrackerDetached ? (
-              <EncounterTrackerPanel
-                encounter={activeEncounter}
-                isMaster={Boolean(isMaster)}
-                canStart={canStartEncounter}
-                tokenCount={encounterTokenCount}
-                selectedTokens={encounterTokens}
-                onStart={startEncounter}
-                onEnd={endEncounter}
-                onRemoveSelectedToken={(tokenId) =>
-                  setEncounterTokenIds((current) => current.filter((selectedTokenId) => selectedTokenId !== tokenId))
-                }
-                onNextTurn={nextEncounterTurn}
-                onPreviousTurn={previousEncounterTurn}
-                onInitiativeChange={updateEncounterInitiative}
-                onDetach={() => setEncounterTrackerDetached(true)}
-              />
+              <>
+                <EncounterTrackerPanel
+                  campaignId={campaignId}
+                  encounter={activeEncounter}
+                  isMaster={Boolean(isMaster)}
+                  canStart={canStartEncounter}
+                  tokenCount={encounterTokenCount}
+                  selectedTokens={encounterTokens}
+                  selectedHazards={pendingEncounterHazards}
+                  onStart={startEncounter}
+                  onEnd={endEncounter}
+                  onRemoveSelectedToken={(tokenId) =>
+                    setEncounterTokenIds((current) => current.filter((selectedTokenId) => selectedTokenId !== tokenId))
+                  }
+                  onRemoveSelectedHazard={removeHazardFromEncounterSelection}
+                  onNextTurn={nextEncounterTurn}
+                  onPreviousTurn={previousEncounterTurn}
+                  onInitiativeChange={updateEncounterInitiative}
+                  onTriggerHazard={triggerHazardParticipant}
+                  onOpenHealthEditor={openCombatHealthEditor}
+                  onQuickAdjustHealth={adjustCombatHealth}
+                  onResetMovement={resetParticipantMovement}
+                  onRemoveParticipant={removeEncounterParticipant}
+                  onRollInitiative={rollInitiative}
+                  onDetach={() => setEncounterTrackerDetached(true)}
+                />
+                {activeEncounter?.status === 'ACTIVE' ? <BattleLogPanel log={activeEncounter.log} /> : null}
+              </>
             ) : null}
 
             {rightPanelTab === 'encounter' && encounterTrackerDetached ? (
@@ -2396,6 +2956,21 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               />
             ) : null}
 
+            {rightPanelTab === 'scene-hazards' && isMaster ? (
+              <SceneHazardsPanel
+                hazards={sceneEffectHazards}
+                canControl={Boolean(masterCanUseVtt)}
+                hasActiveEncounter={Boolean(activeEncounter)}
+                pendingEncounterHazardIds={pendingEncounterHazardIds}
+                onOpenSheet={(hazardEntryId) => setBestiarySheetCreatureId(hazardEntryId)}
+                onCycleVisibility={cycleHazardVisibility}
+                onCycleState={cycleHazardState}
+                onUpdateNotes={updateSceneHazardNotes}
+                onRemove={removeHazardInstance}
+                onSendToEncounter={addHazardInstanceToEncounterSelection}
+              />
+            ) : null}
+
             {rightPanelTab === 'chat' ? (
               campaignId && !chatDetached ? (
                 <CampaignChat
@@ -2432,12 +3007,37 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         />
       ) : null}
 
+      {campaignId && isMaster && activeHazardEncounter ? (
+        <HazardEncounterPanel
+          campaignId={campaignId}
+          candidate={activeHazardEncounter.candidate}
+          notes={activeHazardEncounter.notes}
+          onNotesChange={updateHazardEncounterNotes}
+          onClose={closeHazardEncounter}
+        />
+      ) : null}
+
       {characterTokenSheet ? (
         <CharacterSheetModal
           characterId={characterTokenSheet.characterId}
           characterName={characterTokenSheet.characterName}
           readOnly={characterTokenSheet.readOnly}
           onClose={() => setCharacterTokenSheet(null)}
+        />
+      ) : null}
+
+
+      {combatHealthEditor ? (
+        <CombatHealthEditorModal
+          combatantName={combatHealthEditor.name}
+          initialHealth={(() => {
+            const known = combatHealthByTokenId[combatHealthEditor.tokenId]
+            return known && isExactCombatantHealth(known) ? known : null
+          })()}
+          onApplyDamage={(amount, note) => adjustCombatHealth(combatHealthEditor.tokenId, 'DAMAGE', amount, note)}
+          onApplyHeal={(amount, note) => adjustCombatHealth(combatHealthEditor.tokenId, 'HEAL', amount, note)}
+          onSaveValues={(patch, note) => saveCombatHealth(combatHealthEditor.tokenId, patch, note)}
+          onClose={() => setCombatHealthEditor(null)}
         />
       ) : null}
 
@@ -2461,20 +3061,27 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       {encounterTrackerDetached && typeof document !== 'undefined'
         ? createPortal(
             <EncounterTrackerPanel
+              campaignId={campaignId}
               encounter={activeEncounter}
               isMaster={Boolean(isMaster)}
               canStart={canStartEncounter}
               tokenCount={encounterTokenCount}
               selectedTokens={encounterTokens}
+              selectedHazards={pendingEncounterHazards}
               displayMode="detached"
               onStart={startEncounter}
               onEnd={endEncounter}
               onRemoveSelectedToken={(tokenId) =>
                 setEncounterTokenIds((current) => current.filter((selectedTokenId) => selectedTokenId !== tokenId))
               }
+              onRemoveSelectedHazard={removeHazardFromEncounterSelection}
               onNextTurn={nextEncounterTurn}
               onPreviousTurn={previousEncounterTurn}
               onInitiativeChange={updateEncounterInitiative}
+              onTriggerHazard={triggerHazardParticipant}
+              onOpenHealthEditor={openCombatHealthEditor}
+              onRemoveParticipant={removeEncounterParticipant}
+              onRollInitiative={rollInitiative}
               onAttach={() => {
                 setEncounterTrackerDetached(false)
                 setRightPanelCollapsed(false)

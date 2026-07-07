@@ -40,6 +40,39 @@ enum CampaignSceneTokenSource {
   BESTIARY
 }
 
+enum CampaignSceneHazardVisibility {
+  HIDDEN
+  HINTED
+  REVEALED
+}
+
+enum CampaignSceneHazardState {
+  ARMED
+  TRIGGERED
+  ACTIVE
+  DISABLED
+  EXPIRED
+}
+
+enum CampaignSceneHazardScope {
+  POINT
+  AREA
+  SCENE
+  TARGET
+}
+
+enum CampaignSceneHazardTriggerMode {
+  MANUAL
+  ON_TOKEN_ENTER
+  ALWAYS_ON
+}
+
+enum CampaignSceneHazardExecutionMode {
+  INSTANT
+  ONGOING
+  ENCOUNTER_PARTICIPANT
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -191,6 +224,7 @@ model CampaignScene {
   campaign            Campaign                 @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   asset               Asset?                   @relation(fields: [assetId], references: [id], onDelete: SetNull)
   tokens              CampaignSceneToken[]
+  hazards             CampaignSceneHazard[]
   activeForViewStates CampaignSceneViewState[] @relation("MasterActiveScene")
   forcedForViewStates CampaignSceneViewState[] @relation("ForcedScene")
 
@@ -217,11 +251,80 @@ model CampaignSceneToken {
 
   scene     CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
   character Character?    @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  health    CampaignSceneTokenHealth?
 
   @@unique([characterId])
   @@index([sceneId])
   @@index([characterId])
   @@index([bestiarySystem, bestiaryCreatureId])
+}
+
+enum CombatHealthOperation {
+  DAMAGE
+  HEAL
+  SET_CURRENT
+  SET_MAX
+  SET_TEMPORARY
+  CLEAR_TEMPORARY
+}
+
+model CampaignSceneTokenHealth {
+  id                 String   @id @default(cuid())
+  tokenId            String   @unique
+  currentHitPoints   Int
+  maxHitPoints       Int
+  temporaryHitPoints Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  token CampaignSceneToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+
+  @@index([tokenId])
+}
+
+model CampaignSceneTokenHealthLog {
+  id               String                @id @default(cuid())
+  campaignId       String
+  sceneId          String
+  tokenId          String
+  actorUserId      String?
+  actorCharacterId String?
+  operation        CombatHealthOperation
+  amount           Int?
+  before           Json
+  after            Json
+  note             String?
+  createdAt        DateTime              @default(now())
+
+  @@index([campaignId, createdAt])
+  @@index([sceneId, createdAt])
+  @@index([tokenId, createdAt])
+}
+
+model CampaignSceneHazard {
+  id                  String                            @id @default(cuid())
+  sceneId             String
+  system              GameSystem
+  hazardEntryId       String
+  name                String
+  scope               CampaignSceneHazardScope          @default(POINT)
+  positionX           Float?
+  positionY           Float?
+  area                Json?
+  targetTokenId       String?
+  targetCharacterId   String?
+  visibility          CampaignSceneHazardVisibility     @default(HIDDEN)
+  state               CampaignSceneHazardState          @default(ARMED)
+  triggerMode         CampaignSceneHazardTriggerMode    @default(MANUAL)
+  executionMode       CampaignSceneHazardExecutionMode  @default(INSTANT)
+  notes               String?
+  createdAt           DateTime                          @default(now())
+  updatedAt           DateTime                          @updatedAt
+
+  scene CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+
+  @@index([sceneId])
+  @@index([system, hazardEntryId])
 }
 
 model CampaignSceneViewState {

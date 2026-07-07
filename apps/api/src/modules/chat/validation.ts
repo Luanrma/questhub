@@ -7,6 +7,13 @@ export const chatMessageCreateSchema = z.object({
   campaignId: z.string().trim().min(1, 'Campanha obrigatoria'),
   characterId: z.string().trim().min(1, 'Personagem obrigatorio'),
   content: z.string().trim().min(1, 'Mensagem obrigatoria').max(CHAT_MESSAGE_MAX_LENGTH, 'Mensagem muito longa'),
+  kind: z.literal('DICE_ROLL').optional(),
+  diceRoll: z
+    .object({
+      notation: z.string().trim().min(1).max(60),
+      total: z.number().int(),
+    })
+    .optional(),
 })
 
 export const chatCampaignParamsSchema = z.object({
