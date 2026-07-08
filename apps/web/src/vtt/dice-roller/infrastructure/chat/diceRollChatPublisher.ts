@@ -12,6 +12,7 @@ type PublishDiceRollChatMessageInput = {
   campaignId: string
   characterId: string
   content: string
+  diceRoll?: { notation: string; total: number }
 }
 
 type PublishDiceRollChatMessageResult =
@@ -28,10 +29,12 @@ export async function publishDiceRollChatMessage({
   campaignId,
   characterId,
   content,
+  diceRoll,
 }: PublishDiceRollChatMessageInput): Promise<PublishDiceRollChatMessageResult> {
   try {
+    const payload = diceRoll ? { campaignId, characterId, content, kind: 'DICE_ROLL' as const, diceRoll } : { campaignId, characterId, content }
     const ack = await new Promise<ChatAck>((resolve, reject) => {
-      socket.timeout(5000).emit('chat:message:create', { campaignId, characterId, content }, (err: Error | null, response?: ChatAck) => {
+      socket.timeout(5000).emit('chat:message:create', payload, (err: Error | null, response?: ChatAck) => {
         if (err) {
           reject(new Error('Tempo esgotado ao publicar rolagem.'))
           return

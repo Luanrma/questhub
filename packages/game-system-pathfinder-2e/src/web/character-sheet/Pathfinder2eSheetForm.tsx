@@ -324,6 +324,7 @@ export function Pathfinder2eSheetForm({ page, characterName, sheet, onChangeShee
           {summaryValue('Bonus', formatSigned(dexterityModifier))}
         </div>
 
+        {quickSectionTitle('Defesas')}
         <div className="sheet-quick-saves-row">
           {summaryValue('Fortitude', formatSigned(pathfinder2e.savingThrows.fortitude.value))}
           {summaryValue('Reflexo', formatSigned(pathfinder2e.savingThrows.reflex.value))}
@@ -333,13 +334,15 @@ export function Pathfinder2eSheetForm({ page, characterName, sheet, onChangeShee
         <div className="sheet-quick-bottom">
           {summaryValue('Inic.', formatSigned(pathfinder2e.initiative))}
           {summaryValue('Percepcao', formatSigned(pathfinder2e.perception.value))}
-          {quickNumberInput('Mov.', pathfinder2e.general.movementMeters, (value) => {
-            updatePathfinder2e((current) => ({
-              ...current,
-              general: { ...current.general, movementMeters: value },
-            }))
-          }, { min: 0, decimal: true })}
         </div>
+
+        {quickSectionTitle('Movimento')}
+        {quickNumberInput('Terrestre (m)', pathfinder2e.general.movementMeters, (value) => {
+          updatePathfinder2e((current) => ({
+            ...current,
+            general: { ...current.general, movementMeters: value },
+          }))
+        }, { min: 0, decimal: true })}
       </aside>
     )
   }

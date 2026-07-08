@@ -1,4 +1,4 @@
-import { memo, useId, useRef, type CSSProperties } from 'react'
+import { forwardRef, memo, useId, useImperativeHandle, useRef, type CSSProperties } from 'react'
 import type { Socket } from 'socket.io-client'
 import { useVttDiceRoller } from '../hooks/useVttDiceRoller'
 import { DiceResultPopup } from './DiceResultPopup'
@@ -6,6 +6,10 @@ import { VttDicePanel } from './VttDicePanel'
 
 type VttDiceCharacter = {
   id: string
+}
+
+export type VttDiceControlsHandle = {
+  rollForInitiative: (participantId: string) => void
 }
 
 type VttDiceControlsProps = {
@@ -16,6 +20,7 @@ type VttDiceControlsProps = {
   open?: boolean
   clearSignal?: number
   onClose?: () => void
+  onInitiativeRolled?: (participantId: string, total: number) => void
   className?: string
 }
 
@@ -30,16 +35,11 @@ const diceRollZoneStyle: CSSProperties = {
   zIndex: 10,
 }
 
-export const VttDiceControls = memo(function VttDiceControls({
-  campaignId,
-  character,
-  socket,
-  enabled,
-  open = true,
-  clearSignal = 0,
-  onClose,
-  className = '',
-}: VttDiceControlsProps) {
+export const VttDiceControls = memo(
+  forwardRef<VttDiceControlsHandle, VttDiceControlsProps>(function VttDiceControls(
+    { campaignId, character, socket, enabled, open = true, clearSignal = 0, onClose, onInitiativeRolled, className = '' },
+    ref,
+  ) {
   const reactId = useId()
   const containerIdRef = useRef(`vtt-dice-box-${reactId.replace(/[^a-zA-Z0-9_-]/g, '')}`)
   const containerRef = useRef<HTMLDivElement | null>(null)
@@ -51,7 +51,14 @@ export const VttDiceControls = memo(function VttDiceControls({
     clearSignal,
     containerId: containerIdRef.current,
     containerRef,
+    onInitiativeRolled,
   })
+
+  useImperativeHandle(ref, () => ({
+    rollForInitiative: (participantId: string) => {
+      void diceRoller.rollForInitiative(participantId)
+    },
+  }))
 
   return (
     <div className={className}>
@@ -90,4 +97,5 @@ export const VttDiceControls = memo(function VttDiceControls({
       ) : null}
     </div>
   )
-})
+  }),
+)

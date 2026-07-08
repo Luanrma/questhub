@@ -65,7 +65,7 @@ registerCampaignRoutes(app, presence)
 registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app)
 registerChatRoutes(app)
-registerChatSocketHandlers(presence.io)
+registerChatSocketHandlers(presence)
 registerTradeRoutes(app, presence.io)
 
 await app.listen({ port: Number(process.env.PORT ?? 3001), host: '0.0.0.0' })
