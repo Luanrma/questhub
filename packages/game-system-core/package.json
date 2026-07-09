@@ -4,6 +4,7 @@
   "type": "module",
   "exports": {
     "./server/character-sheet": "./src/server/character-sheet/index.ts",
-    "./server/bestiary": "./src/server/bestiary/index.ts"
+    "./server/bestiary": "./src/server/bestiary/index.ts",
+    "./server/items": "./src/server/items/index.ts"
   }
 }

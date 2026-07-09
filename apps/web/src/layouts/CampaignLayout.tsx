@@ -22,6 +22,7 @@ import {
   type CampaignUserSettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { CampaignBestiaryPage } from '../features/bestiary/pages/CampaignBestiaryPage'
+import { CampaignItemsPage } from '../features/items/pages/CampaignItemsPage'
 import { CampaignPlayersPage } from '../features/campaign-presence/pages/CampaignPlayersPage'
 import { CampaignSettingsPage } from '../features/campaigns/pages/CampaignSettingsPage'
 import { PlaceholderPage } from '../features/campaigns/pages/PlaceholderPage'
@@ -34,7 +35,7 @@ type MyCampaignCharacter = {
   status: 'ACTIVE' | 'PENDING'
 }
 
-type CampaignPanelId = 'sessions' | 'characters' | 'bestiary' | 'players' | 'journal' | 'settings'
+type CampaignPanelId = 'sessions' | 'characters' | 'bestiary' | 'items' | 'players' | 'journal' | 'settings'
 
 type FloatingPanelState = {
   id: CampaignPanelId
@@ -48,6 +49,7 @@ const panelTitles: Record<CampaignPanelId, string> = {
   sessions: 'Sessões',
   characters: 'Personagens',
   bestiary: 'Bestiario',
+  items: 'Itens',
   players: 'Jogadores',
   journal: 'Diário',
   settings: 'Configurações',
@@ -57,6 +59,7 @@ function panelIdFromPath(pathname: string): CampaignPanelId | null {
   if (pathname.endsWith('/sessions')) return 'sessions'
   if (pathname.endsWith('/characters')) return 'characters'
   if (pathname.endsWith('/bestiary')) return 'bestiary'
+  if (pathname.endsWith('/items')) return 'items'
   if (pathname.endsWith('/players')) return 'players'
   if (pathname.endsWith('/journal')) return 'journal'
   if (pathname.endsWith('/settings')) return 'settings'
@@ -64,7 +67,7 @@ function panelIdFromPath(pathname: string): CampaignPanelId | null {
 }
 
 function getDefaultPanelState(id: CampaignPanelId, index: number, zIndex: number): FloatingPanelState {
-  const largePanel = id === 'bestiary' || id === 'settings' || id === 'players'
+  const largePanel = id === 'bestiary' || id === 'items' || id === 'settings' || id === 'players'
   return {
     id,
     position: { x: 112 + index * 28, y: 96 + index * 28 },
@@ -78,6 +81,7 @@ function getPanelTitle(pathname: string) {
   if (pathname.endsWith('/sessions')) return 'Sessões'
   if (pathname.endsWith('/characters')) return 'Personagens'
   if (pathname.endsWith('/bestiary')) return 'Bestiario'
+  if (pathname.endsWith('/items')) return 'Itens'
   if (pathname.endsWith('/players')) return 'Jogadores'
   if (pathname.endsWith('/journal')) return 'Diário'
   if (pathname.endsWith('/settings')) return 'Configurações'
@@ -249,6 +253,7 @@ export function CampaignLayout() {
     if (panelId === 'sessions') return <PlaceholderPage title="Sessões" />
     if (panelId === 'characters') return <PlaceholderPage title="Personagens" />
     if (panelId === 'bestiary') return <CampaignBestiaryPage compact={size.width < 720} />
+    if (panelId === 'items') return <CampaignItemsPage compact={size.width < 720} />
     if (panelId === 'players') return <CampaignPlayersPage />
     if (panelId === 'journal') return <PlaceholderPage title="Diário" />
     return <CampaignSettingsPage />

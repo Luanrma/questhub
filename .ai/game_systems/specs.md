@@ -26,8 +26,25 @@ type GameSystemAdapter = {
   version: number
   status: 'PLAYABLE' | 'RESERVED'
   characterSheet?: CharacterSheetSystemAdapter
+  inventory?: InventorySystemAdapter
+  currency?: CurrencySystemAdapter
+  items?: GameSystemItemAdapter
   catalogs?: GameSystemCatalogCapabilities
   dice?: GameSystemDiceCapabilities
+}
+
+type InventorySystemAdapter = {
+  isKnownSlot: (slot: string) => boolean
+  toExclusiveSlotKey: (slot: string) => string | null
+  getDefaultSlots: () => Array<{ key: string; label: string; exclusive: boolean }>
+  normalizeItemData: (input: unknown) => UniversalItemDefinition
+}
+
+type CurrencySystemAdapter = {
+  minorUnitName: string
+  format: (minorUnit: number) => string
+  breakdown: (minorUnit: number) => Record<string, number>
+  toMinorUnit: (input: unknown) => number
 }
 
 type CharacterSheetEnvelope = {

@@ -124,6 +124,8 @@ A UI pode converter para `pp/gp/sp/cp`, mas o banco deve persistir um inteiro ca
 * Jogador pode equipar/desequipar itens do proprio inventario, se a campanha permitir.
 * Jogador pode propor ou executar transferencias permitidas pelo Mestre/configuracao da campanha.
 * NPCs podem ter inventario e wallet, mas so o Mestre pode administrar.
+* `CampaignItemDefinition` (banco de dados) e reservada para itens genericos criados/personalizados pelo Mestre dentro da propria campanha, ou clonados individualmente a partir do catalogo de referencia do ruleset quando o Mestre explicitamente envia aquele item para um jogador (ver bullet abaixo). O banco nao deve ser usado para seed em massa do compendio oficial do Pathfinder 2e — a liberdade de criacao do Mestre continua o proposito central desta tabela, nao um catalogo replicado por completo.
+* O Mestre pode enviar um item do catalogo de referencia do ruleset (`.ai/game_systems/pathfinder_2e/items/` no MVP) diretamente para o inventario de um `CampaignCharacter` com `role = PLAYER` e `status = ACTIVE`. Essa acao clona (find-or-create, deduplicado por `system`/`sourcePack`/`sourceId`) os dados daquele item especifico para uma `CampaignItemDefinition` com `source = SYSTEM_CATALOG` e entao concede uma `InventoryItem` ao jogador, com ledger `GRANT`. E uma escrita pontual por item enviado, nunca um seed em massa do catalogo inteiro.
 
 ---
 
@@ -141,10 +143,11 @@ A UI pode converter para `pp/gp/sp/cp`, mas o banco deve persistir um inteiro ca
 * Criar inventario e wallet automaticamente ao criar/ativar personagem em campanha.
 * Listar inventario do personagem.
 * Adicionar item ao inventario.
+* Enviar um item do catalogo de referencia do ruleset diretamente para o inventario de um jogador ativo.
 * Editar quantidade, notas ou nome customizado de uma instancia.
 * Remover, consumir, destruir ou dropar item.
 * Transferir item entre personagens da mesma campanha.
-* Equipar item em slot PF2e.
+* Equipar item em slot validado pelo adapter do sistema da campanha.
 * Desequipar item.
 * Consultar itens equipados separados do inventario geral.
 * Consultar wallet do personagem.
@@ -176,13 +179,13 @@ Pertence a este modulo:
 * ledger de item e moeda;
 * endpoints HTTP de inventario/economia;
 * eventos WebSocket de atualizacao de inventario/economia;
-* integracao de apresentacao com PF2e para moeda, slots e metadados.
+* integracao de apresentacao com adapters de sistema para moeda, slots e metadados.
 
 Nao pertence a este modulo:
 
 * regras completas de ficha PF2e;
 * calculo automatico de todos os bonus da ficha;
-* importacao completa de compendio oficial de itens;
+* importacao/seed em massa do compendio oficial de itens do Pathfinder para o banco de dados (decisao de produto permanente — ver `.ai/inventory/skills.md` secao 13). Um catalogo de referencia estatico do compendio existe em `packages/game-system-pathfinder-2e/src/server/items/`, fora do banco e fora deste modulo; a unica ponte permitida entre catalogo e banco e o envio pontual de um item especifico do catalogo para um jogador ativo, sempre por acao explicita do Mestre (secao 5 acima);
 * comercio com loja/NPC automatizado completo;
 * craft completo;
 * carga/bulk automatica como bloqueio duro;
