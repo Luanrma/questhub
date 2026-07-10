@@ -40,6 +40,8 @@ type VttDiceCharacter = {
   id: string
 }
 
+type PendingRoll = { groups: DiceRollGroup[]; command: string; initiativeParticipantId?: string }
+
 type UseVttDiceRollerOptions = {
   campaignId: string
   character: VttDiceCharacter | null
@@ -48,6 +50,7 @@ type UseVttDiceRollerOptions = {
   clearSignal: number
   containerId: string
   containerRef: React.RefObject<HTMLDivElement | null>
+  onInitiativeRolled?: (participantId: string, total: number) => void
 }
 
 export type DiceResultPopupData = {
@@ -64,11 +67,14 @@ export function useVttDiceRoller({
   clearSignal,
   containerId,
   containerRef,
+  onInitiativeRolled,
 }: UseVttDiceRollerOptions) {
   const diceBoxRef = useRef<DestroyableDiceBox | null>(null)
   const initPromiseRef = useRef<Promise<DestroyableDiceBox> | null>(null)
   const initializedRef = useRef(false)
-  const pendingRollRef = useRef<{ groups: DiceRollGroup[]; command: string } | null>(null)
+  const pendingRollRef = useRef<PendingRoll | null>(null)
+  const onInitiativeRolledRef = useRef(onInitiativeRolled)
+  onInitiativeRolledRef.current = onInitiativeRolled
   const lastClearSignalRef = useRef(clearSignal)
   const autoClearTimeoutRef = useRef<number | null>(null)
   const resultPopupTimeoutRef = useRef<number | null>(null)
@@ -94,10 +100,10 @@ export function useVttDiceRoller({
   const remainingSlots = Math.max(0, maxVisibleDice - visibleCount - selectedCount)
 
   const publishChatMessage = useCallback(
-    async (content: string) => {
+    async (content: string, diceRoll?: { notation: string; total: number }) => {
       if (!socket || !character?.id) return
 
-      const result = await publishDiceRollChatMessage({ socket, campaignId, characterId: character.id, content })
+      const result = await publishDiceRollChatMessage({ socket, campaignId, characterId: character.id, content, diceRoll })
       if (!result.ok) setWarning(result.error)
     },
     [campaignId, character, socket],
@@ -157,7 +163,13 @@ export function useVttDiceRoller({
 
       setVisibleRolls((current) => [...current, ...nextRolls])
       setResultPopup({ command: pendingRoll.command, groups, total })
-      void publishChatMessage(formatChatMessage(pendingRoll.command, groups))
+
+      if (pendingRoll.initiativeParticipantId) {
+        onInitiativeRolledRef.current?.(pendingRoll.initiativeParticipantId, total)
+        void publishChatMessage(`INICIATIVA (D20): ${total}`, { notation: pendingRoll.command, total })
+      } else {
+        void publishChatMessage(formatChatMessage(pendingRoll.command, groups), { notation: pendingRoll.command, total })
+      }
 
       cancelResultPopupTimeout()
       resultPopupTimeoutRef.current = window.setTimeout(() => {
@@ -327,15 +339,7 @@ export function useVttDiceRoller({
     return parseDiceCommand(command)
   }
 
-  async function rollDice() {
-    if (!canRollDice || rolling || initializing) return
-
-    const resolved = resolveRoll()
-    if ('error' in resolved) {
-      setWarning(resolved.error)
-      return
-    }
-
+  async function executeRoll(resolved: { groups: DiceRollGroup[]; command: string }, initiativeParticipantId?: string) {
     const nextCount = rollCount(resolved.groups)
     if (nextCount <= 0) {
       setWarning('Informe pelo menos um dado.')
@@ -353,7 +357,7 @@ export function useVttDiceRoller({
     cancelResultPopupTimeout()
     cancelFadeClearTimeout()
     setDiceFading(false)
-    pendingRollRef.current = resolved
+    pendingRollRef.current = initiativeParticipantId ? { ...resolved, initiativeParticipantId } : resolved
 
     try {
       const diceBox = await getDiceBox()
@@ -374,6 +378,24 @@ export function useVttDiceRoller({
       setRolling(false)
       setWarning('Nao foi possivel carregar ou rolar os dados 3D.')
     }
+  }
+
+  async function rollDice() {
+    if (!canRollDice || rolling || initializing) return
+
+    const resolved = resolveRoll()
+    if ('error' in resolved) {
+      setWarning(resolved.error)
+      return
+    }
+
+    await executeRoll(resolved)
+  }
+
+  async function rollForInitiative(participantId: string) {
+    if (!canRollDice || rolling || initializing) return
+
+    await executeRoll({ groups: [{ sides: 20, count: 1 }], command: 'D20' }, participantId)
   }
 
   function updateCommand(value: string) {
@@ -397,6 +419,7 @@ export function useVttDiceRoller({
     remainingSlots,
     resultPopup,
     rollDice,
+    rollForInitiative,
     rolling,
     selectedCount,
     setQuantity,

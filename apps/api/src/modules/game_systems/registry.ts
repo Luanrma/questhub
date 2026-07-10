@@ -2,9 +2,104 @@ import { z } from 'zod'
 import type { CharacterSheetEnvelope, CharacterSheetMetadata, CharacterSheetSystemAdapter } from './models'
 import { characterSheetEnvelopeSchema } from './schemas'
 import { pathfinder2eSheetAdapter } from './pathfinder_2e/character_sheet'
+import { pathfinder2eItemAdapter } from './pathfinder_2e/items'
+import {
+  formatPathfinder2eCurrency,
+  fromCopper,
+  isKnownPathfinder2eSlot,
+  PATHFINDER_2E_EXCLUSIVE_SLOTS,
+  PATHFINDER_2E_NON_EXCLUSIVE_SLOTS,
+  toCopper,
+  toExclusiveSlotKey,
+} from './pathfinder_2e/inventory'
+import type { CurrencySystemAdapter, GameSystemAdapter, GameSystemId, InventorySystemAdapter } from './ports'
+
+const slotLabel = (slot: string) =>
+  slot
+    .split('_')
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ')
+
+const pathfinder2eInventoryAdapter: InventorySystemAdapter = {
+  isKnownSlot: isKnownPathfinder2eSlot,
+  toExclusiveSlotKey,
+  getDefaultSlots() {
+    return [
+      ...PATHFINDER_2E_EXCLUSIVE_SLOTS.map((slot) => ({ key: slot, label: slotLabel(slot), exclusive: true })),
+      ...PATHFINDER_2E_NON_EXCLUSIVE_SLOTS.map((slot) => ({ key: slot, label: slotLabel(slot), exclusive: false })),
+    ]
+  },
+  normalizeItemData(input) {
+    const raw = (input ?? {}) as Partial<{
+      name: string
+      itemType: string
+      rarity: string | null
+      level: number | null
+      traits: string[]
+      bulk: string | null
+      priceMinorUnit: number | null
+      equipSlot: string | null
+      isStackable: boolean
+      systemData: unknown
+    }>
+
+    return {
+      name: raw.name ?? '',
+      itemType: raw.itemType ?? '',
+      rarity: raw.rarity ?? null,
+      level: raw.level ?? null,
+      traits: raw.traits ?? [],
+      bulk: raw.bulk ?? null,
+      priceMinorUnit: raw.priceMinorUnit ?? null,
+      equipSlot: raw.equipSlot ?? null,
+      isStackable: raw.isStackable ?? false,
+      systemData: raw.systemData ?? null,
+    }
+  },
+}
+
+const pathfinder2eCurrencyAdapter: CurrencySystemAdapter = {
+  minorUnitName: 'copper piece',
+  format: formatPathfinder2eCurrency,
+  breakdown: fromCopper,
+  toMinorUnit: toCopper,
+}
+
+const gameSystemAdapters = new Map<GameSystemId, GameSystemAdapter>([
+  [
+    'PATHFINDER_2E',
+    {
+      id: 'PATHFINDER_2E',
+      label: 'Pathfinder 2e',
+      version: 1,
+      status: 'PLAYABLE',
+      characterSheet: pathfinder2eSheetAdapter,
+      inventory: pathfinder2eInventoryAdapter,
+      currency: pathfinder2eCurrencyAdapter,
+      items: pathfinder2eItemAdapter,
+    },
+  ],
+  [
+    'DND_5E',
+    {
+      id: 'DND_5E',
+      label: 'D&D 5e',
+      version: 1,
+      status: 'RESERVED',
+    },
+  ],
+])
+
+export function getGameSystemAdapter(system: string) {
+  return gameSystemAdapters.get(system as GameSystemId)
+}
 
 const adapters = new Map<string, CharacterSheetSystemAdapter<unknown>>([
-  [pathfinder2eSheetAdapter.system, pathfinder2eSheetAdapter],
+  ...[...gameSystemAdapters.values()]
+    .filter((adapter): adapter is GameSystemAdapter & { characterSheet: CharacterSheetSystemAdapter<unknown> } =>
+      Boolean(adapter.characterSheet),
+    )
+    .map((adapter) => [adapter.characterSheet.system, adapter.characterSheet] as const),
 ])
 
 export function getCharacterSheetAdapter(system: string) {

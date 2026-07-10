@@ -5,7 +5,20 @@ import { chatMessageCreateSchema } from './validation'
 
 type ChatAck = (response: { ok: boolean; error?: string; message?: ReturnType<typeof presentChatMessage> }) => void
 
-export function registerChatSocketHandlers(io: SocketIOServer) {
+type CampaignPresenceFacade = {
+  io: SocketIOServer
+  appendDiceRollToActiveEncounter: (
+    campaignId: string,
+    socketLike: { data: any },
+    actorName: string,
+    notation: string,
+    total: number,
+  ) => Promise<void>
+}
+
+export function registerChatSocketHandlers(presence: CampaignPresenceFacade) {
+  const io = presence.io
+
   io.on('connection', (socket) => {
     const user = socket.data.user as { id: string } | undefined
 
@@ -72,6 +85,16 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
 
         socket.to(`campaign:${parsed.data.campaignId}`).emit('chat:message:created', presentedForBroadcast)
         ack?.({ ok: true, message: presentedForSender })
+
+        if (parsed.data.kind === 'DICE_ROLL' && parsed.data.diceRoll) {
+          await presence.appendDiceRollToActiveEncounter(
+            parsed.data.campaignId,
+            socket,
+            campaignCharacter.character.name,
+            parsed.data.diceRoll.notation,
+            parsed.data.diceRoll.total,
+          )
+        }
       } catch {
         ack?.({ ok: false, error: 'Erro ao enviar mensagem' })
       }

@@ -7,9 +7,44 @@ import { isActiveSession } from '../../auth/session'
 import { prisma } from '../../db/prisma'
 import { TOKEN_COOKIE } from '../../http/auth'
 import { assetService } from '../assets/service'
+import { presentChatMessage } from '../chat/presenter'
 import { findBestiaryCreature } from '../game_systems/bestiary/registry'
+import { derivePublicNpcHealth, toCombatantHealth } from '../combat/domain/health-rules'
+import type { CombatantIdentity, RawCombatHealth } from '../combat/domain/types'
+import {
+  vttCombatHealthAdjustSchema,
+  vttCombatHealthRequestSchema,
+  vttCombatHealthSetSchema,
+} from '../combat/domain/validation'
+import { adjustHealth, getOrInitializeHealth, presentHealthForCombatant, setHealth } from '../combat/services/combat-health-service'
+import { feetToMeters } from '../encounter_movement/domain/movement-distance'
+import { commitMovementAction, validateMovement } from '../encounter_movement/domain/movement-validation'
+import { getCatalogSpeedFeet } from '../encounter_movement/repositories/bestiary-speed'
+import { getCharacterSpeedMeters } from '../encounter_movement/repositories/character-speed'
+import { presentSceneHazardForRole } from '../campaign_scene/hazard-instances/domain/presenter'
+import { hiddenHazardName, type SceneHazardInstance } from '../campaign_scene/hazard-instances/domain/types'
+import {
+  placeSceneHazardSchema,
+  removeSceneHazardSchema,
+  requestSceneHazardsSchema,
+  updateSceneHazardSchema,
+} from '../campaign_scene/hazard-instances/domain/validation'
+import {
+  findArmedTokenEnterHazards,
+  findSceneHazardsForEncounter,
+  listSceneHazardsForRole,
+  placeSceneHazard,
+  removeSceneHazardInstance,
+  updateSceneHazardInstance,
+} from '../campaign_scene/hazard-instances/services/hazard-instance-service'
 import {
   defaultVttGridSettings,
+  vttEncounterLogLimit,
+  type PublicNpcHealth,
+  type VttCombatantHealth,
+  type VttEncounterCreatureParticipant,
+  type VttEncounterHazardParticipant,
+  type VttEncounterLogEntry,
   type VttEncounterParticipant,
   type VttEncounterState,
   type VttDiceRoll,
@@ -17,8 +52,13 @@ import {
   type VttPlayerToken,
   type VttTableScene,
   type VttTokenPosition,
+  vttCombatMovementCommitSchema,
+  vttCombatMovementResetSchema,
   vttEncounterCommandSchema,
+  vttEncounterJoinSchema,
+  vttEncounterRemoveParticipantSchema,
   vttEncounterStartSchema,
+  vttEncounterTriggerHazardSchema,
   vttEncounterUpdateInitiativeSchema,
   vttDiceRollSchema,
   vttGridUpdateSchema,
@@ -688,6 +728,193 @@ export function setupCampaignPresence(server: HttpServer) {
     })
 
     await emitCampaignTokenSnapshot(campaignId, socket.id, scene?.id ?? null)
+    await emitSceneHazardsSnapshot(campaignId, scene?.id ?? null, socket)
+  }
+
+  async function emitSceneHazardsSnapshot(campaignId: string, sceneId: string | null, socket: { id: string; data: any }) {
+    const role = socket.data.characterRole as 'MASTER' | 'PLAYER' | 'NPC' | undefined
+    const hazards = sceneId ? await listSceneHazardsForRole(sceneId, role) : []
+    io.to(socket.id).emit('vtt:hazards:snapshot', { campaignId, sceneId, hazards })
+  }
+
+  async function emitSceneHazardChanged(campaignId: string, sceneId: string, instance: SceneHazardInstance) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId) return
+
+        const role = campaignSocket.data.characterRole as 'MASTER' | 'PLAYER' | 'NPC' | undefined
+        const presented = presentSceneHazardForRole(instance, role)
+        if (presented) {
+          campaignSocket.emit('vtt:hazard:changed', { campaignId, sceneId, hazard: presented })
+        } else {
+          campaignSocket.emit('vtt:hazard:removed', { campaignId, sceneId, hazardId: instance.id })
+        }
+      }),
+    )
+  }
+
+  function toCombatantIdentity(token: VttPlayerToken): CombatantIdentity {
+    return {
+      tokenId: token.id,
+      source: token.source,
+      characterId: token.characterId,
+      bestiaryCreatureId: token.bestiaryCreatureId ?? null,
+      ownerUserId: token.ownerUserId,
+      hidden: token.hidden,
+    }
+  }
+
+  async function resolveMovementMaxMeters(campaignId: string, sceneId: string, token: VttPlayerToken): Promise<number | null> {
+    if (token.source === 'character') {
+      return token.characterId ? getCharacterSpeedMeters(token.characterId) : null
+    }
+
+    if (!token.bestiaryCreatureId) return null
+    const speedFeet = await getCatalogSpeedFeet(campaignId, token.bestiaryCreatureId)
+    if (speedFeet === null) return null
+
+    const grid = getCampaignSceneGridMap(campaignId).get(sceneId) ?? defaultVttGridSettings
+    return feetToMeters(speedFeet, grid.metersPerCell)
+  }
+
+  function resetParticipantMovement(participants: VttEncounterParticipant[], index: number): VttEncounterParticipant[] {
+    const participant = participants[index]
+    if (!participant || participant.type !== 'creature') return participants
+
+    const next = [...participants]
+    next[index] = { ...participant, movement: { ...participant.movement, actionsRemaining: 3, metersUsedThisAction: 0 } }
+    return next
+  }
+
+  async function ensureBestiaryTokenPersisted(campaignId: string, sceneId: string, token: VttPlayerToken) {
+    if (token.source !== 'bestiary') return
+    await persistSceneToken(campaignId, sceneId, token)
+  }
+
+  async function buildEncounterParticipants(
+    campaignId: string,
+    sceneId: string,
+    tokenIds: string[],
+    hazardInstanceIds: string[],
+  ): Promise<VttEncounterParticipant[]> {
+    const selectedTokenIds = new Set(tokenIds)
+    const tokens = (await listSceneTokens(campaignId, sceneId)).filter(
+      (token) => selectedTokenIds.has(token.id) && !token.hidden,
+    )
+    const hazardInstances = await findSceneHazardsForEncounter(sceneId, hazardInstanceIds)
+
+    const creatureParticipants: VttEncounterParticipant[] = await Promise.all(
+      tokens.map(async (token) => {
+        await ensureBestiaryTokenPersisted(campaignId, sceneId, token)
+        const combatant = toCombatantIdentity(token)
+        const health = await getOrInitializeHealth(combatant, campaignId)
+        const maxMetersPerAction = await resolveMovementMaxMeters(campaignId, sceneId, token)
+        return {
+          type: 'creature' as const,
+          participantId: token.id,
+          tokenId: token.id,
+          characterId: token.characterId ?? token.id,
+          source: token.source,
+          name: token.name,
+          avatarUrl: token.avatarUrl,
+          initiative: null,
+          health: health ? toCombatantHealth(health) : null,
+          movement: { maxMetersPerAction, actionsRemaining: 3, metersUsedThisAction: 0 },
+        }
+      }),
+    )
+
+    const hazardParticipants: VttEncounterParticipant[] = hazardInstances.map((instance) => ({
+      type: 'hazard',
+      participantId: instance.id,
+      hazardInstanceId: instance.id,
+      hazardEntryId: instance.hazardEntryId,
+      name: instance.name,
+      initiative: null,
+      visibility: instance.visibility === 'HIDDEN' ? 'HIDDEN' : 'REVEALED',
+      state: instance.state,
+      executionMode: instance.executionMode,
+    }))
+
+    return [...creatureParticipants, ...hazardParticipants]
+  }
+
+  async function resolveTokenForHealth(campaignId: string, tokenId: string): Promise<{ sceneId: string; token: VttPlayerToken } | null> {
+    const tokenMap = state.getCampaignTokens(campaignId)
+    const liveToken = tokenMap?.get(tokenId)
+    if (liveToken) {
+      const sceneId = getCampaignTokenSceneMap(campaignId).get(tokenId)
+      if (!sceneId) return null
+      // Tokens de bestiario ficam somente em memoria durante sessao ao vivo (setLiveSceneToken).
+      // CampaignSceneTokenHealth tem FK pra CampaignSceneToken, entao precisa existir no banco
+      // antes de qualquer leitura/gravacao de HP, senao o upsert de health quebra a constraint.
+      await ensureBestiaryTokenPersisted(campaignId, sceneId, liveToken)
+      return { sceneId, token: liveToken }
+    }
+
+    return findPersistedSceneTokenWithScene(campaignId, tokenId)
+  }
+
+  async function emitCombatHealthChanged(campaignId: string, sceneId: string, combatant: CombatantIdentity, health: RawCombatHealth) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId) return
+
+        const role = campaignSocket.data.characterRole as 'MASTER' | 'PLAYER' | 'NPC' | undefined
+        const presented = presentHealthForCombatant(health, combatant, role)
+        if (!presented) return
+
+        campaignSocket.emit('vtt:combat:health:changed', {
+          campaignId,
+          sceneId,
+          tokenId: combatant.tokenId,
+          health: presented,
+        })
+      }),
+    )
+  }
+
+  function appendEncounterLogEntry(
+    campaignId: string,
+    sceneId: string,
+    entry: Omit<VttEncounterLogEntry, 'id' | 'createdAt'>,
+  ): boolean {
+    const encounter = state.getCampaignEncounter(campaignId)
+    if (!encounter || encounter.sceneId !== sceneId || encounter.status !== 'ACTIVE') return false
+
+    const fullEntry = { ...entry, id: crypto.randomUUID(), createdAt: new Date().toISOString() } as VttEncounterLogEntry
+    const log = [...encounter.log, fullEntry].slice(-vttEncounterLogLimit)
+    state.setCampaignEncounter(campaignId, { ...encounter, log })
+    return true
+  }
+
+  function syncEncounterParticipantHealth(campaignId: string, tokenId: string, health: RawCombatHealth): boolean {
+    const encounter = state.getCampaignEncounter(campaignId)
+    if (!encounter) return false
+
+    const index = encounter.participants.findIndex((participant) => participant.type === 'creature' && participant.tokenId === tokenId)
+    if (index === -1) return false
+
+    const participants = [...encounter.participants]
+    const participant = participants[index] as VttEncounterCreatureParticipant
+    participants[index] = { ...participant, health: toCombatantHealth(health) }
+    state.setCampaignEncounter(campaignId, { ...encounter, participants })
+    return true
+  }
+
+  async function emitSceneHazardRemoved(campaignId: string, sceneId: string, hazardId: string) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId) return
+        campaignSocket.emit('vtt:hazard:removed', { campaignId, sceneId, hazardId })
+      }),
+    )
   }
 
   async function emitVisibleTableSnapshots(campaignId: string) {
@@ -700,6 +927,81 @@ export function setupCampaignPresence(server: HttpServer) {
       campaignId,
       scene,
     })
+  }
+
+  function hazardTriggerChatMessage(
+    hazardName: string,
+    executionMode: 'INSTANT' | 'ONGOING' | 'ENCOUNTER_PARTICIPANT',
+  ) {
+    if (executionMode === 'ONGOING') return `⚠ ${hazardName} esta ativo!`
+    if (executionMode === 'ENCOUNTER_PARTICIPANT') return `⚠ ${hazardName} entrou em atividade!`
+    return `⚠ ${hazardName} foi disparado!`
+  }
+
+  async function postHazardTriggerChatMessage(
+    campaignId: string,
+    sceneId: string,
+    hazardName: string,
+    executionMode: 'INSTANT' | 'ONGOING' | 'ENCOUNTER_PARTICIPANT',
+  ) {
+    const online = state.getCampaignOnline(campaignId)
+    if (!online) return
+
+    const campaignCharacter = await prisma.campaignCharacter.findFirst({
+      where: { campaignId, characterId: online.masterCharacterId, userId: online.masterUserId, status: 'ACTIVE' },
+      select: { role: true, characterId: true, character: { select: { name: true } } },
+    })
+    if (!campaignCharacter) return
+
+    const message = await prisma.chatMessage.create({
+      data: {
+        campaign: { connect: { id: campaignId } },
+        character: { connect: { id: campaignCharacter.characterId } },
+        user: { connect: { id: online.masterUserId } },
+        content: hazardTriggerChatMessage(hazardName, executionMode),
+      },
+      select: { id: true, campaignId: true, characterId: true, content: true, createdAt: true },
+    })
+
+    const presented = presentChatMessage({
+      ...message,
+      characterName: campaignCharacter.character.name,
+      role: campaignCharacter.role,
+    })
+    io.to(campaignRoom(campaignId)).emit('chat:message:created', presented)
+
+    const logged = appendEncounterLogEntry(campaignId, sceneId, {
+      type: 'SYSTEM',
+      message: hazardTriggerChatMessage(hazardName, executionMode),
+    })
+    if (logged) await emitEncounterChanged(campaignId)
+  }
+
+  async function checkTokenTriggeredHazards(campaignId: string, sceneId: string, path: VttTokenPosition[]) {
+    if (!path.length) return
+
+    const armedTriggerInstances = await findArmedTokenEnterHazards(sceneId)
+    if (!armedTriggerInstances.length) return
+
+    const gridSize = getCampaignSceneGridMap(campaignId).get(sceneId)?.size ?? defaultVttGridSettings.size
+    const cellKey = (point: VttTokenPosition) => `${Math.floor(point.x / gridSize)}:${Math.floor(point.y / gridSize)}`
+    const pathCells = new Set(path.map(cellKey))
+
+    for (const instance of armedTriggerInstances) {
+      if (!instance.position || !pathCells.has(cellKey(instance.position))) continue
+
+      const nextState = instance.executionMode === 'INSTANT' ? 'TRIGGERED' : 'ACTIVE'
+      const result = await updateSceneHazardInstance({
+        campaignId,
+        hazardId: instance.id,
+        state: nextState,
+        visibility: 'REVEALED',
+      })
+      if (!result) continue
+
+      await emitSceneHazardChanged(campaignId, result.sceneId, result.instance)
+      await postHazardTriggerChatMessage(campaignId, result.sceneId, instance.name, instance.executionMode)
+    }
   }
 
   function isActiveSessionMaster(campaignId: string, socketId: string, userId: string) {
@@ -722,36 +1024,82 @@ export function setupCampaignPresence(server: HttpServer) {
       .map((item) => item.participant)
   }
 
-  function normalizeEncounterTurnIndex(encounter: VttEncounterState, activeCharacterId?: string | null): VttEncounterState {
+  function normalizeEncounterTurnIndex(encounter: VttEncounterState, activeParticipantId?: string | null): VttEncounterState {
     if (!encounter.participants.length) return { ...encounter, activeTurnIndex: 0 }
-    if (!activeCharacterId) {
+    if (!activeParticipantId) {
       return {
         ...encounter,
         activeTurnIndex: Math.min(Math.max(encounter.activeTurnIndex, 0), encounter.participants.length - 1),
       }
     }
 
-    const nextIndex = encounter.participants.findIndex((participant) => participant.characterId === activeCharacterId)
+    const nextIndex = encounter.participants.findIndex((participant) => participant.participantId === activeParticipantId)
     return {
       ...encounter,
       activeTurnIndex: nextIndex >= 0 ? nextIndex : 0,
     }
   }
 
-  function emitEncounterChanged(campaignId: string) {
-    io.to(campaignRoom(campaignId)).emit('vtt:encounter:changed', {
-      campaignId,
-      encounter: state.getCampaignEncounter(campaignId),
-    })
+  function presentEncounterForRole(
+    encounter: VttEncounterState | null,
+    role: 'MASTER' | 'PLAYER' | 'NPC' | undefined,
+  ): VttEncounterState | null {
+    if (!encounter || role === 'MASTER') return encounter
+
+    const bestiaryParticipantIds = new Set(
+      encounter.participants
+        .filter((participant): participant is VttEncounterCreatureParticipant => participant.type === 'creature' && participant.source === 'bestiary')
+        .map((participant) => participant.participantId),
+    )
+
+    return {
+      ...encounter,
+      participants: encounter.participants.map((participant) => {
+        if (participant.type === 'hazard' && participant.visibility === 'HIDDEN') {
+          return { ...participant, name: hiddenHazardName }
+        }
+        if (participant.type === 'creature' && participant.source === 'bestiary' && participant.health) {
+          return { ...participant, health: derivePublicNpcHealth(participant.health as VttCombatantHealth) }
+        }
+        return participant
+      }),
+      log: encounter.log.map((entry) => {
+        if (entry.type !== 'DAMAGE' && entry.type !== 'HEAL') return entry
+        if (!entry.targetParticipantId || !bestiaryParticipantIds.has(entry.targetParticipantId)) return entry
+
+        const resultingHealth =
+          entry.resultingHealth && 'currentHitPoints' in entry.resultingHealth
+            ? derivePublicNpcHealth(entry.resultingHealth as VttCombatantHealth)
+            : (entry.resultingHealth as PublicNpcHealth | null)
+
+        return { ...entry, amount: null, resultingHealth }
+      }),
+    }
   }
 
-  function removeEncounterParticipants(campaignId: string, tokenIds: string[]) {
+  async function emitEncounterChanged(campaignId: string) {
     const encounter = state.getCampaignEncounter(campaignId)
-    if (!encounter || !tokenIds.length) return
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const role = campaignSocket.data.characterRole as 'MASTER' | 'PLAYER' | 'NPC' | undefined
+        campaignSocket.emit('vtt:encounter:changed', {
+          campaignId,
+          encounter: presentEncounterForRole(encounter, role),
+        })
+      }),
+    )
+  }
 
-    const tokenIdSet = new Set(tokenIds)
-    const activeTokenId = encounter.participants[encounter.activeTurnIndex]?.tokenId ?? null
-    const participants = encounter.participants.filter((participant) => !tokenIdSet.has(participant.tokenId))
+  function removeEncounterParticipantsMatching(campaignId: string, predicate: (participant: VttEncounterParticipant) => boolean) {
+    const encounter = state.getCampaignEncounter(campaignId)
+    if (!encounter) return
+
+    const activeParticipant = encounter.participants[encounter.activeTurnIndex] ?? null
+    const removingActiveParticipant = activeParticipant ? predicate(activeParticipant) : false
+    const participants = encounter.participants.filter((participant) => !predicate(participant))
+    if (participants.length === encounter.participants.length) return
+
     if (!participants.length) {
       state.deleteCampaignEncounter(campaignId)
       emitEncounterChanged(campaignId)
@@ -761,16 +1109,24 @@ export function setupCampaignPresence(server: HttpServer) {
     state.setCampaignEncounter(
       campaignId,
       normalizeEncounterTurnIndex(
-        {
-          ...encounter,
-          participants,
-        },
-        activeTokenId && tokenIdSet.has(activeTokenId)
-          ? null
-          : encounter.participants.find((participant) => participant.tokenId === activeTokenId)?.characterId ?? null,
+        { ...encounter, participants },
+        removingActiveParticipant ? null : (activeParticipant?.participantId ?? null),
       ),
     )
     emitEncounterChanged(campaignId)
+  }
+
+  function removeEncounterParticipants(campaignId: string, tokenIds: string[]) {
+    if (!tokenIds.length) return
+    const tokenIdSet = new Set(tokenIds)
+    removeEncounterParticipantsMatching(
+      campaignId,
+      (participant) => participant.type === 'creature' && tokenIdSet.has(participant.tokenId),
+    )
+  }
+
+  function removeEncounterParticipantById(campaignId: string, participantId: string) {
+    removeEncounterParticipantsMatching(campaignId, (participant) => participant.participantId === participantId)
   }
 
   async function removeCampaignToken(
@@ -988,13 +1344,57 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!token) return
       if (isPlayerOwnerMove && token.ownerUserId !== user.id) return
 
-      const nextToken = { ...token, position }
       const sceneId = getCampaignTokenSceneMap(campaignId).get(token.id) ?? persistedTokenRecord?.sceneId
       if (!sceneId) return
+
+      let finalPosition = position
+      const encounter = state.getCampaignEncounter(campaignId)
+      let encounterMovementChanged = false
+
+      if (encounter) {
+        const participantIndex = encounter.participants.findIndex(
+          (participant) => participant.type === 'creature' && participant.tokenId === token.id,
+        )
+        const participant = participantIndex >= 0 ? (encounter.participants[participantIndex] as VttEncounterCreatureParticipant) : null
+
+        if (!participant) {
+          if (!isMasterMove) return
+          // Token fora do encontro: Mestre continua livre, sem orcamento de movimento pra aplicar.
+        } else {
+          if (!isMasterMove) {
+            const isActiveTurn = encounter.participants[encounter.activeTurnIndex]?.participantId === participant.participantId
+            if (!isActiveTurn) return
+          }
+
+          const grid = getCampaignSceneGridMap(campaignId).get(sceneId) ?? defaultVttGridSettings
+          const validation = validateMovement({
+            from: token.position,
+            to: position,
+            cellSizePx: grid.size,
+            metersPerCell: grid.metersPerCell,
+            budget: participant.movement,
+          })
+          if (validation.allowed === false) return
+
+          finalPosition = validation.position
+          const participants = [...encounter.participants]
+          participants[participantIndex] = {
+            ...participant,
+            movement: { ...participant.movement, metersUsedThisAction: validation.metersUsedThisAction },
+          }
+          state.setCampaignEncounter(campaignId, { ...encounter, participants })
+          encounterMovementChanged = true
+        }
+      }
+
+      const nextToken = { ...token, position: finalPosition }
       setLiveSceneToken(campaignId, sceneId, nextToken)
       await persistSceneToken(campaignId, sceneId, nextToken)
       if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken, { movementPath })
       else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken, movementPath })
+      if (encounterMovementChanged) await emitEncounterChanged(campaignId)
+
+      await checkTokenTriggeredHazards(campaignId, sceneId, movementPath && movementPath.length ? movementPath : [finalPosition])
     })
 
     socket.on('vtt:token:remove', async (input: unknown) => {
@@ -1069,23 +1469,15 @@ export function setupCampaignPresence(server: HttpServer) {
       const parsed = vttEncounterStartSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, sceneId, tokenIds } = parsed.data
+      const { campaignId, sceneId, tokenIds, hazardInstanceIds } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+      // Encontro exige sessao rodando (nao pausada): a economia de acoes/turnos nao faz
+      // sentido com a mesa pausada.
+      if (state.getCampaignOnline(campaignId)?.state !== 'ACTIVE') return
       if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
-      const selectedTokenIds = new Set(tokenIds)
-      const tokens = (await listSceneTokens(campaignId, sceneId)).filter(
-        (token) => selectedTokenIds.has(token.id) && !token.hidden,
-      )
-      if (!tokens.length) return
-
-      const participants = tokens.map((token) => ({
-        tokenId: token.id,
-        characterId: token.characterId ?? token.id,
-        name: token.name,
-        avatarUrl: token.avatarUrl,
-        initiative: null,
-      }))
+      const participants = await buildEncounterParticipants(campaignId, sceneId, tokenIds, hazardInstanceIds)
+      if (!participants.length) return
 
       state.setCampaignEncounter(campaignId, {
         campaignId,
@@ -1094,7 +1486,48 @@ export function setupCampaignPresence(server: HttpServer) {
         activeTurnIndex: 0,
         status: 'ACTIVE',
         participants,
+        log: [],
       })
+      emitEncounterChanged(campaignId)
+    })
+
+    socket.on('vtt:encounter:join', async (input: unknown) => {
+      const parsed = vttEncounterJoinSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, tokenIds, hazardInstanceIds } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+      if (state.getCampaignOnline(campaignId)?.state !== 'ACTIVE') return
+
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter) return
+
+      const existingTokenIds = new Set(
+        encounter.participants
+          .filter((participant): participant is VttEncounterCreatureParticipant => participant.type === 'creature')
+          .map((participant) => participant.tokenId),
+      )
+      const existingHazardInstanceIds = new Set(
+        encounter.participants
+          .filter((participant): participant is VttEncounterHazardParticipant => participant.type === 'hazard')
+          .map((participant) => participant.hazardInstanceId),
+      )
+
+      const newTokenIds = tokenIds.filter((tokenId) => !existingTokenIds.has(tokenId))
+      const newHazardInstanceIds = hazardInstanceIds.filter((hazardId) => !existingHazardInstanceIds.has(hazardId))
+      if (!newTokenIds.length && !newHazardInstanceIds.length) return
+
+      const newParticipants = await buildEncounterParticipants(campaignId, encounter.sceneId, newTokenIds, newHazardInstanceIds)
+      if (!newParticipants.length) return
+
+      const activeParticipantId = encounter.participants[encounter.activeTurnIndex]?.participantId ?? null
+      const participants = sortEncounterParticipants([...encounter.participants, ...newParticipants])
+      state.setCampaignEncounter(campaignId, normalizeEncounterTurnIndex({ ...encounter, participants }, activeParticipantId))
+
+      newParticipants.forEach((participant) => {
+        appendEncounterLogEntry(campaignId, encounter.sceneId, { type: 'SYSTEM', message: `${participant.name} entrou no encontro.` })
+      })
+
       emitEncounterChanged(campaignId)
     })
 
@@ -1102,21 +1535,54 @@ export function setupCampaignPresence(server: HttpServer) {
       const parsed = vttEncounterUpdateInitiativeSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, characterId, initiative } = parsed.data
+      const { campaignId, participantId, initiative } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
       const encounter = state.getCampaignEncounter(campaignId)
       if (!encounter) return
 
-      const activeCharacterId = encounter.participants[encounter.activeTurnIndex]?.characterId ?? null
+      const activeParticipantId = encounter.participants[encounter.activeTurnIndex]?.participantId ?? null
       const participants = sortEncounterParticipants(
         encounter.participants.map((participant) =>
-          participant.characterId === characterId ? { ...participant, initiative } : participant,
+          participant.participantId === participantId ? { ...participant, initiative } : participant,
         ),
       )
 
-      state.setCampaignEncounter(campaignId, normalizeEncounterTurnIndex({ ...encounter, participants }, activeCharacterId))
+      state.setCampaignEncounter(campaignId, normalizeEncounterTurnIndex({ ...encounter, participants }, activeParticipantId))
       emitEncounterChanged(campaignId)
+    })
+
+    socket.on('vtt:encounter:trigger-hazard', async (input: unknown) => {
+      const parsed = vttEncounterTriggerHazardSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, participantId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter) return
+
+      const participant = encounter.participants.find((item) => item.participantId === participantId)
+      if (!participant || participant.type !== 'hazard' || participant.state === 'TRIGGERED' || participant.state === 'ACTIVE') return
+
+      const nextState = participant.executionMode === 'INSTANT' ? ('TRIGGERED' as const) : ('ACTIVE' as const)
+      const participants = encounter.participants.map((item) =>
+        item.participantId === participantId ? { ...item, state: nextState, visibility: 'REVEALED' as const } : item,
+      )
+      state.setCampaignEncounter(campaignId, { ...encounter, participants })
+      emitEncounterChanged(campaignId)
+
+      await postHazardTriggerChatMessage(campaignId, encounter.sceneId, participant.name, participant.executionMode)
+    })
+
+    socket.on('vtt:encounter:remove-participant', (input: unknown) => {
+      const parsed = vttEncounterRemoveParticipantSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, participantId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      removeEncounterParticipantById(campaignId, participantId)
     })
 
     socket.on('vtt:encounter:next-turn', (input: unknown) => {
@@ -1130,10 +1596,12 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!encounter?.participants.length) return
 
       const isLastParticipant = encounter.activeTurnIndex >= encounter.participants.length - 1
+      const nextActiveTurnIndex = isLastParticipant ? 0 : encounter.activeTurnIndex + 1
       state.setCampaignEncounter(campaignId, {
         ...encounter,
         round: isLastParticipant ? encounter.round + 1 : encounter.round,
-        activeTurnIndex: isLastParticipant ? 0 : encounter.activeTurnIndex + 1,
+        activeTurnIndex: nextActiveTurnIndex,
+        participants: resetParticipantMovement(encounter.participants, nextActiveTurnIndex),
       })
       emitEncounterChanged(campaignId)
     })
@@ -1149,10 +1617,67 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!encounter?.participants.length) return
 
       const isFirstParticipant = encounter.activeTurnIndex <= 0
+      const nextActiveTurnIndex = isFirstParticipant ? encounter.participants.length - 1 : encounter.activeTurnIndex - 1
       state.setCampaignEncounter(campaignId, {
         ...encounter,
         round: isFirstParticipant ? Math.max(1, encounter.round - 1) : encounter.round,
-        activeTurnIndex: isFirstParticipant ? encounter.participants.length - 1 : encounter.activeTurnIndex - 1,
+        activeTurnIndex: nextActiveTurnIndex,
+        participants: resetParticipantMovement(encounter.participants, nextActiveTurnIndex),
+      })
+      emitEncounterChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:movement:commit', async (input: unknown) => {
+      const parsed = vttCombatMovementCommitSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, tokenId } = parsed.data
+      const isMasterMove = await canControlCampaignAsMaster(campaignId, socket.id, user.id)
+
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter) return
+
+      const participantIndex = encounter.participants.findIndex(
+        (participant) => participant.type === 'creature' && participant.tokenId === tokenId,
+      )
+      if (participantIndex === -1) return
+      const participant = encounter.participants[participantIndex] as VttEncounterCreatureParticipant
+
+      if (!isMasterMove) {
+        const online = state.getCampaignOnline(campaignId)
+        const role = socket.data.characterRole as string | undefined
+        const isPlayerOwnerMove = Boolean(online && online.state === 'ACTIVE' && role === 'PLAYER')
+        if (!isPlayerOwnerMove) return
+
+        const resolved = await resolveTokenForHealth(campaignId, tokenId)
+        if (!resolved || resolved.token.ownerUserId !== user.id) return
+
+        const isActiveTurn = encounter.participants[encounter.activeTurnIndex]?.participantId === participant.participantId
+        if (!isActiveTurn) return
+      }
+
+      const participants = [...encounter.participants]
+      participants[participantIndex] = { ...participant, movement: commitMovementAction(participant.movement) }
+      state.setCampaignEncounter(campaignId, { ...encounter, participants })
+      emitEncounterChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:movement:reset', (input: unknown) => {
+      const parsed = vttCombatMovementResetSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, participantId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter) return
+
+      const index = encounter.participants.findIndex((participant) => participant.participantId === participantId)
+      if (index === -1) return
+
+      state.setCampaignEncounter(campaignId, {
+        ...encounter,
+        participants: resetParticipantMovement(encounter.participants, index),
       })
       emitEncounterChanged(campaignId)
     })
@@ -1178,7 +1703,181 @@ export function setupCampaignPresence(server: HttpServer) {
 
       socket.emit('vtt:encounter:changed', {
         campaignId,
-        encounter: state.getCampaignEncounter(campaignId),
+        encounter: presentEncounterForRole(state.getCampaignEncounter(campaignId), socket.data.characterRole),
+      })
+    })
+
+    socket.on('vtt:hazard:place', async (input: unknown) => {
+      const parsed = placeSceneHazardSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, sceneId, hazardEntryId, scope, position, triggerMode, executionMode } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
+
+      const instance = await placeSceneHazard({
+        campaignId,
+        sceneId,
+        hazardEntryId,
+        scope,
+        position: position ?? null,
+        triggerMode,
+        executionMode,
+      })
+      if (!instance) return
+
+      await emitSceneHazardChanged(campaignId, sceneId, instance)
+    })
+
+    socket.on('vtt:hazard:update', async (input: unknown) => {
+      const parsed = updateSceneHazardSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, hazardId, scope, position, visibility, state: hazardState, triggerMode, executionMode, notes } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+
+      const result = await updateSceneHazardInstance({
+        campaignId,
+        hazardId,
+        scope,
+        position,
+        visibility,
+        state: hazardState,
+        triggerMode,
+        executionMode,
+        notes,
+      })
+      if (!result) return
+
+      await emitSceneHazardChanged(campaignId, result.sceneId, result.instance)
+    })
+
+    socket.on('vtt:hazard:remove', async (input: unknown) => {
+      const parsed = removeSceneHazardSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, hazardId } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+
+      const result = await removeSceneHazardInstance({ campaignId, hazardId })
+      if (!result) return
+
+      await emitSceneHazardRemoved(campaignId, result.sceneId, hazardId)
+    })
+
+    socket.on('vtt:hazards:request', async (input: unknown) => {
+      const parsed = requestSceneHazardsSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      const online = state.getCampaignOnline(campaignId)
+      if (online && socket.data.campaignId !== campaignId) return
+      if (!online && !(await isActiveCampaignMaster(campaignId, user.id))) return
+
+      const sceneId = await getVisibleSceneIdForSocket(campaignId, socket)
+      await emitSceneHazardsSnapshot(campaignId, sceneId, socket)
+    })
+
+    socket.on('vtt:combat:health:adjust', async (input: unknown) => {
+      const parsed = vttCombatHealthAdjustSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, tokenId, operation, amount, note } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+
+      const resolved = await resolveTokenForHealth(campaignId, tokenId)
+      if (!resolved) return
+
+      const combatant = toCombatantIdentity(resolved.token)
+      const health = await adjustHealth({
+        combatant,
+        campaignId,
+        sceneId: resolved.sceneId,
+        operation,
+        amount,
+        actorUserId: user.id,
+        actorCharacterId: (socket.data.characterId as string | undefined) ?? null,
+        note: note ?? null,
+      })
+      if (!health) return
+
+      await emitCombatHealthChanged(campaignId, resolved.sceneId, combatant, health)
+      const participantSynced = syncEncounterParticipantHealth(campaignId, tokenId, health)
+
+      const encounterForLog = state.getCampaignEncounter(campaignId)
+      const targetParticipantId =
+        encounterForLog?.participants.find(
+          (participant) => participant.type === 'creature' && participant.tokenId === tokenId,
+        )?.participantId ?? null
+      const logged = appendEncounterLogEntry(campaignId, resolved.sceneId, {
+        type: operation,
+        actorName: (socket.data.characterName as string | undefined) ?? 'Mestre',
+        targetParticipantId,
+        targetName: resolved.token.name,
+        amount,
+        resultingHealth: toCombatantHealth(health),
+      })
+
+      if (participantSynced || logged) {
+        await emitEncounterChanged(campaignId)
+      }
+    })
+
+    socket.on('vtt:combat:health:set', async (input: unknown) => {
+      const parsed = vttCombatHealthSetSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, tokenId, currentHitPoints, maxHitPoints, temporaryHitPoints, note } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+
+      const resolved = await resolveTokenForHealth(campaignId, tokenId)
+      if (!resolved) return
+
+      const combatant = toCombatantIdentity(resolved.token)
+      const health = await setHealth({
+        combatant,
+        campaignId,
+        sceneId: resolved.sceneId,
+        currentHitPoints,
+        maxHitPoints,
+        temporaryHitPoints,
+        actorUserId: user.id,
+        actorCharacterId: (socket.data.characterId as string | undefined) ?? null,
+        note: note ?? null,
+      })
+      if (!health) return
+
+      await emitCombatHealthChanged(campaignId, resolved.sceneId, combatant, health)
+      if (syncEncounterParticipantHealth(campaignId, tokenId, health)) {
+        await emitEncounterChanged(campaignId)
+      }
+    })
+
+    socket.on('vtt:combat:health:request', async (input: unknown) => {
+      const parsed = vttCombatHealthRequestSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, tokenId } = parsed.data
+      const online = state.getCampaignOnline(campaignId)
+      if (online && socket.data.campaignId !== campaignId) return
+      if (!online && !(await isActiveCampaignMaster(campaignId, user.id))) return
+
+      const resolved = await resolveTokenForHealth(campaignId, tokenId)
+      if (!resolved) return
+
+      const combatant = toCombatantIdentity(resolved.token)
+      const health = await getOrInitializeHealth(combatant, campaignId)
+      if (!health) return
+
+      const role = socket.data.characterRole as 'MASTER' | 'PLAYER' | 'NPC' | undefined
+      const presented = presentHealthForCombatant(health, combatant, role)
+      if (!presented) return
+
+      socket.emit('vtt:combat:health:changed', {
+        campaignId,
+        sceneId: resolved.sceneId,
+        tokenId,
+        health: presented,
       })
     })
 
@@ -1291,6 +1990,20 @@ export function setupCampaignPresence(server: HttpServer) {
 
   })
 
-  return { io, isCampaignOnline, getCampaignSessionState }
+  async function appendDiceRollToActiveEncounter(
+    campaignId: string,
+    socketLike: { data: any },
+    actorName: string,
+    notation: string,
+    total: number,
+  ) {
+    const sceneId = await getVisibleSceneIdForSocket(campaignId, socketLike)
+    if (!sceneId) return
+
+    const logged = appendEncounterLogEntry(campaignId, sceneId, { type: 'DICE_ROLL', actorName, notation, total })
+    if (logged) await emitEncounterChanged(campaignId)
+  }
+
+  return { io, isCampaignOnline, getCampaignSessionState, appendDiceRollToActiveEncounter }
 }
 

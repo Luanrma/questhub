@@ -193,9 +193,11 @@ export function BestiaryCreatureSheetModal({ campaignId, creatureId, initialCrea
 
         <div className="sheet-footer">
           <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{creature?.display.subtitle ?? 'Catalogo de bestiario'}</div>
-          <Button type="button" variant="ghost" onClick={onClose}>
-            Fechar
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button type="button" variant="ghost" onClick={onClose}>
+              Fechar
+            </Button>
+          </div>
         </div>
       </div>
     </div>

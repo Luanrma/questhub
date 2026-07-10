@@ -56,9 +56,9 @@ Diretrizes narrativas por categoria:
 * Consultar stealth, disable, defesas, rotina, reset, descricoes e acoes.
 * Preparar Hazards em uma toolbar de acesso rapido do Mestre.
 * Futuramente criar Hazards customizados com um assistente em 8 passos: conceito, tipo, nivel, complexidade, triangulo de poder, pericias alternativas, tabelas de referencia e formatacao final.
-* Iniciar encontro a partir de um Hazard preparado ou de sua ficha.
-* Futuramente adicionar Hazard a uma cena como elemento interativo, nao como token NPC.
-* Futuramente inserir Hazard complexo em encontro/iniciativa quando suas regras exigirem rotina repetida.
+* Iniciar encontro a partir de um Hazard preparado na toolbar.
+* Adicionar Hazard a uma cena como elemento posicionado no grid (armadilha, `scope: 'POINT'`) ou como efeito ativo da cena inteira sem posicao (`scope: 'SCENE'`), nao como token NPC.
+* Inserir Hazard complexo em encontro/iniciativa quando suas regras exigirem rotina repetida.
 
 ## 7. Limites
 Pertence a este submodulo:
@@ -89,10 +89,11 @@ Nome de UX recomendado para evolucao futura:
 ## 9. Roadmap Funcional
 Ordem recomendada para evoluir Hazards no QuestHub:
 
-1. **Toolbar de Hazards:** permitir que o Mestre prepare Hazards para acesso rapido, paralelamente aos tokens preparados.
-2. **Iniciar Encontro com Hazard:** permitir iniciar um encontro manual a partir da ficha ou toolbar, com dados de disable, rotina, defesas e notas.
-3. **Instancia de Hazard em Cena:** permitir posicionar ou vincular o Hazard a uma area/objeto da cena, com estados como oculto, revelado, disparado e desativado.
-4. **Participante Especial de Encontro:** permitir que Hazards complexos entrem no encontro/iniciativa como participante nao-criatura, com rotina visivel ao Mestre.
-5. **Automacao Opcional:** por ultimo, adicionar gatilhos, rotina automatizada, prompts de dano/efeito e integracoes mais profundas com mapa e regras.
+1. ~~**Toolbar de Hazards:**~~ implementado — Mestre prepara Hazards para acesso rapido, paralelamente aos tokens preparados.
+2. ~~**Iniciar Encontro com Hazard:**~~ implementado (modo manual) — painel efemero com secoes da ficha e notas do Mestre, acessivel pelo card da toolbar (a ficha de Hazard nao tem mais esse atalho; abre so a ficha para consulta).
+3. ~~**Instancia de Hazard em Cena:**~~ implementado — Hazard posicionado na cena via drag-and-drop, com estados `HIDDEN|HINTED|REVEALED` e `ARMED|TRIGGERED|DISABLED|EXPIRED`, persistido em `CampaignSceneHazard`, incluindo reposicionar por arraste e edicao de notas na UI.
+4. ~~**Participante Especial de Encontro:**~~ implementado — instancia de Hazard ja posicionada na cena pode ser enviada ao Encounter Mode como participante `type: 'hazard'` (icone proprio, sem avatar), com visibilidade `HIDDEN|REVEALED` mascarando o nome para Jogadores. Sem checagem de `complexity` do catalogo PF2e (qualquer instancia pode entrar); ver `.ai/encounter/todo.md`.
+5. **Automacao Opcional:** iniciado — gatilho manual "Disparar Hazard" no participante de encontro (muda estado para `TRIGGERED`, revela e publica aviso no chat), lembrete de rotina (disable/rotina/reset) para o Mestre no turno do Hazard, e gatilho automatico por movimento de token (armadilha "Disparar ao pisar" configuravel por instancia de cena). Rotina automatizada por turno, prompts de dano/salvamento e integracoes com area/mapa (raio, forma de efeito) continuam pendentes.
+6. **Refatoracao em 4 eixos (tipo/escopo/gatilho/execucao):** em andamento, ver `.ai/game_systems/pathfinder_2e/hazards/questhub-hazards-refactor.md` e `refactor-todo.md`. Fases A (modelo `scope`/`triggerMode`/`executionMode` substituindo o booleano antigo), B (`scope: 'SCENE'`, efeito de cena inteira sem posicao, painel "Hazards da Cena") e C (`executionMode` mudando mensagem de chat, destaque do botao "Enviar p/ Encontro" e resultado do gatilho manual no Encounter Mode) concluidas. Fase D (`AREA` real e `TARGET`) pendente.
 
-As etapas 1 a 4 devem entregar um fluxo funcional mesmo com controle manual pelo Mestre. A etapa 5 deve ser incremental e opcional, para evitar automacao prematura ou rigida demais.
+A etapa 5 deve ser incremental e opcional, para evitar automacao prematura ou rigida demais.

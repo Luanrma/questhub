@@ -951,9 +951,9 @@ Se a instrução do usuário contradizer uma regra crítica de segurança, arqui
 
 ---
 
-## 10.1. Ambiguidade, Contradição ou Conflito
+## 10.1. Ambiguidade, Contradição, Conflito ou Dúvidas
 
-Em casos de ambiguidade, contradição ou conflito:
+Em casos de ambiguidade, contradição, conflito ou dúvidas:
 
 * pergunte oferecendo múltiplas escolhas;
 * a última escolha deve permitir que o usuário defina a resposta manualmente;

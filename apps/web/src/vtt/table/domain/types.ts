@@ -125,13 +125,85 @@ export type VttTokenContextMenu = {
   y: number
 }
 
-export type VttEncounterParticipant = {
+export type VttCombatantHealth = {
+  currentHitPoints: number
+  maxHitPoints: number
+  temporaryHitPoints: number
+  state: 'OK' | 'DOWN'
+}
+
+export type PublicNpcHealth = {
+  state: 'HEALTHY' | 'SCRATCHED' | 'INJURED' | 'BLOODIED' | 'CRITICAL' | 'DOWN'
+  percentage?: number
+}
+
+export type VttMovementBudget = {
+  maxMetersPerAction: number | null
+  actionsRemaining: number
+  metersUsedThisAction: number
+}
+
+export type VttEncounterCreatureParticipant = {
+  type: 'creature'
+  participantId: string
   tokenId: string
   characterId: string
+  source: 'character' | 'bestiary'
   name: string
   avatarUrl: string | null
   initiative: number | null
+  health?: VttCombatantHealth | PublicNpcHealth | null
+  movement: VttMovementBudget
 }
+
+export type VttEncounterHazardParticipant = {
+  type: 'hazard'
+  participantId: string
+  hazardInstanceId: string
+  hazardEntryId: string
+  name: string
+  initiative: number | null
+  visibility: 'HIDDEN' | 'REVEALED'
+  state: 'ARMED' | 'TRIGGERED' | 'ACTIVE' | 'DISABLED' | 'EXPIRED'
+  executionMode: 'INSTANT' | 'ONGOING' | 'ENCOUNTER_PARTICIPANT'
+}
+
+export type VttEncounterParticipant = VttEncounterCreatureParticipant | VttEncounterHazardParticipant
+
+export type VttCombatHealthChangedPayload = {
+  campaignId: string
+  sceneId: string
+  tokenId: string
+  health: VttCombatantHealth | PublicNpcHealth
+}
+
+export type VttEncounterLogEntryBase = {
+  id: string
+  createdAt: string
+}
+
+export type VttEncounterHealthLogEntry = VttEncounterLogEntryBase & {
+  type: 'DAMAGE' | 'HEAL'
+  actorName: string
+  targetParticipantId: string | null
+  targetName: string
+  amount: number | null
+  resultingHealth: VttCombatantHealth | PublicNpcHealth | null
+}
+
+export type VttEncounterDiceRollLogEntry = VttEncounterLogEntryBase & {
+  type: 'DICE_ROLL'
+  actorName: string
+  notation: string
+  total: number
+}
+
+export type VttEncounterSystemLogEntry = VttEncounterLogEntryBase & {
+  type: 'SYSTEM'
+  message: string
+}
+
+export type VttEncounterLogEntry = VttEncounterHealthLogEntry | VttEncounterDiceRollLogEntry | VttEncounterSystemLogEntry
 
 export type VttEncounterState = {
   campaignId: string
@@ -140,11 +212,50 @@ export type VttEncounterState = {
   activeTurnIndex: number
   status: 'ACTIVE'
   participants: VttEncounterParticipant[]
+  log: VttEncounterLogEntry[]
 }
 
 export type VttEncounterChangedPayload = {
   campaignId: string
   encounter: VttEncounterState | null
+}
+
+export type SceneHazardVisibility = 'HIDDEN' | 'HINTED' | 'REVEALED'
+export type SceneHazardState = 'ARMED' | 'TRIGGERED' | 'ACTIVE' | 'DISABLED' | 'EXPIRED'
+export type SceneHazardScope = 'POINT' | 'AREA' | 'SCENE' | 'TARGET'
+export type SceneHazardTriggerMode = 'MANUAL' | 'ON_TOKEN_ENTER' | 'ALWAYS_ON'
+export type SceneHazardExecutionMode = 'INSTANT' | 'ONGOING' | 'ENCOUNTER_PARTICIPANT'
+
+export type VttSceneHazard = {
+  id: string
+  sceneId: string
+  hazardEntryId?: string
+  name: string
+  scope: SceneHazardScope
+  position: { x: number; y: number } | null
+  visibility: SceneHazardVisibility
+  state: SceneHazardState
+  notes?: string | null
+  triggerMode?: SceneHazardTriggerMode
+  executionMode?: SceneHazardExecutionMode
+}
+
+export type VttHazardsSnapshotPayload = {
+  campaignId: string
+  sceneId: string | null
+  hazards: VttSceneHazard[]
+}
+
+export type VttHazardChangedPayload = {
+  campaignId: string
+  sceneId: string
+  hazard: VttSceneHazard
+}
+
+export type VttHazardRemovedPayload = {
+  campaignId: string
+  sceneId: string
+  hazardId: string
 }
 
 export type PreparedScene = {

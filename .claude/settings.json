@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(awk ' *)",
+      "Bash(node -e ' *)",
+      "Bash(node scripts/generate-pf2e-item-data.cjs)",
+      "Bash(npx tsx -e ' *)",
+      "Bash(npx tsx *)",
+      "Bash(xargs grep -l \"Mesa\")",
+      "Bash(npx prisma *)",
+      "Bash(echo \"EXIT:$?\")",
+      "Read(//tmp/**)"
+    ]
+  }
+}

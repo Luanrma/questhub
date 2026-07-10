@@ -141,11 +141,31 @@ export const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
   }),
 ])
 
-export const vttEncounterStartSchema = z.object({
+export const vttEncounterStartSchema = z
+  .object({
+    campaignId: z.string().min(1),
+    sceneId: z.string().min(1),
+    tokenIds: z.array(z.string().min(1)).max(100).default([]),
+    hazardInstanceIds: z.array(z.string().min(1)).max(20).default([]),
+  })
+  .refine((input) => input.tokenIds.length + input.hazardInstanceIds.length > 0)
+  .refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
+  .refine((input) => new Set(input.hazardInstanceIds).size === input.hazardInstanceIds.length)
+
+export const vttEncounterJoinSchema = z
+  .object({
+    campaignId: z.string().min(1),
+    tokenIds: z.array(z.string().min(1)).max(100).default([]),
+    hazardInstanceIds: z.array(z.string().min(1)).max(20).default([]),
+  })
+  .refine((input) => input.tokenIds.length + input.hazardInstanceIds.length > 0)
+  .refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
+  .refine((input) => new Set(input.hazardInstanceIds).size === input.hazardInstanceIds.length)
+
+export const vttEncounterRemoveParticipantSchema = z.object({
   campaignId: z.string().min(1),
-  sceneId: z.string().min(1),
-  tokenIds: z.array(z.string().min(1)).min(1).max(100),
-}).refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
+  participantId: z.string().min(1),
+})
 
 export const vttEncounterCommandSchema = z.object({
   campaignId: z.string().min(1),
@@ -153,8 +173,23 @@ export const vttEncounterCommandSchema = z.object({
 
 export const vttEncounterUpdateInitiativeSchema = z.object({
   campaignId: z.string().min(1),
-  characterId: z.string().min(1),
+  participantId: z.string().min(1),
   initiative: z.number().int().min(-1000).max(1000).nullable(),
+})
+
+export const vttEncounterTriggerHazardSchema = z.object({
+  campaignId: z.string().min(1),
+  participantId: z.string().min(1),
+})
+
+export const vttCombatMovementResetSchema = z.object({
+  campaignId: z.string().min(1),
+  participantId: z.string().min(1),
+})
+
+export const vttCombatMovementCommitSchema = z.object({
+  campaignId: z.string().min(1),
+  tokenId: z.string().min(1),
 })
 
 export type UserPresence = { socketId: string; campaignId: string; characterId: string }
@@ -190,13 +225,80 @@ export type VttPlayerToken = {
   position: VttTokenPosition
 }
 
-export type VttEncounterParticipant = {
+export type VttCombatantHealth = {
+  currentHitPoints: number
+  maxHitPoints: number
+  temporaryHitPoints: number
+  state: 'OK' | 'DOWN'
+}
+
+export type PublicNpcHealth = {
+  state: 'HEALTHY' | 'SCRATCHED' | 'INJURED' | 'BLOODIED' | 'CRITICAL' | 'DOWN'
+  percentage?: number
+}
+
+export type VttMovementBudget = {
+  maxMetersPerAction: number | null
+  actionsRemaining: number
+  metersUsedThisAction: number
+}
+
+export type VttEncounterCreatureParticipant = {
+  type: 'creature'
+  participantId: string
   tokenId: string
   characterId: string
+  source: 'character' | 'bestiary'
   name: string
   avatarUrl: string | null
   initiative: number | null
+  health?: VttCombatantHealth | PublicNpcHealth | null
+  movement: VttMovementBudget
 }
+
+export type VttEncounterHazardParticipant = {
+  type: 'hazard'
+  participantId: string
+  hazardInstanceId: string
+  hazardEntryId: string
+  name: string
+  initiative: number | null
+  visibility: 'HIDDEN' | 'REVEALED'
+  state: 'ARMED' | 'TRIGGERED' | 'ACTIVE' | 'DISABLED' | 'EXPIRED'
+  executionMode: 'INSTANT' | 'ONGOING' | 'ENCOUNTER_PARTICIPANT'
+}
+
+export type VttEncounterParticipant = VttEncounterCreatureParticipant | VttEncounterHazardParticipant
+
+export type VttEncounterLogEntryBase = {
+  id: string
+  createdAt: string
+}
+
+export type VttEncounterHealthLogEntry = VttEncounterLogEntryBase & {
+  type: 'DAMAGE' | 'HEAL'
+  actorName: string
+  targetParticipantId: string | null
+  targetName: string
+  amount: number | null
+  resultingHealth: VttCombatantHealth | PublicNpcHealth | null
+}
+
+export type VttEncounterDiceRollLogEntry = VttEncounterLogEntryBase & {
+  type: 'DICE_ROLL'
+  actorName: string
+  notation: string
+  total: number
+}
+
+export type VttEncounterSystemLogEntry = VttEncounterLogEntryBase & {
+  type: 'SYSTEM'
+  message: string
+}
+
+export type VttEncounterLogEntry = VttEncounterHealthLogEntry | VttEncounterDiceRollLogEntry | VttEncounterSystemLogEntry
+
+export const vttEncounterLogLimit = 50
 
 export type VttEncounterState = {
   campaignId: string
@@ -205,6 +307,7 @@ export type VttEncounterState = {
   activeTurnIndex: number
   status: 'ACTIVE'
   participants: VttEncounterParticipant[]
+  log: VttEncounterLogEntry[]
 }
 
 export const defaultVttGridSettings: VttGridSettings = {

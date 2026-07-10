@@ -10,4 +10,23 @@ export const pathfinder2eSheetAdapter: CharacterSheetSystemAdapter<Pathfinder2eS
   version: PATHFINDER_2E_SHEET_VERSION,
   defaultSheet: defaultPathfinder2eSheet,
   schema: pathfinder2eSheetSchema,
+  health: {
+    read: (sheet) => ({
+      current: sheet.hitPoints.current,
+      max: sheet.hitPoints.maximum,
+      temporary: sheet.hitPoints.temporary,
+    }),
+    write: (sheet, next) => ({
+      ...sheet,
+      hitPoints: {
+        ...sheet.hitPoints,
+        current: next.current,
+        maximum: next.max,
+        temporary: next.temporary,
+      },
+    }),
+  },
+  movement: {
+    read: (sheet) => ({ meters: sheet.general.movementMeters }),
+  },
 }
