@@ -41,6 +41,8 @@ export type ItemDefinitionSnapshot = {
   name: string
   system: 'DND_5E' | 'PATHFINDER_2E'
   source: 'CUSTOM' | 'SYSTEM_CATALOG' | 'IMPORTED'
+  sourcePack: string | null
+  sourceId: string | null
   itemType: string
   rarity: string | null
   level: number | null
@@ -52,11 +54,18 @@ export type ItemDefinitionSnapshot = {
   systemData: unknown
 }
 
+export type EquipmentResourceLock = {
+  resource: string
+  amount: number
+  exclusive?: boolean
+}
+
 export type EquippedItemSnapshot = {
   id: string
   inventoryItemId: string
-  slot: string
-  exclusiveSlotKey: string | null
+  equipmentOptionKey: string
+  resourceLocks: EquipmentResourceLock[]
+  systemData: unknown
   quantity: number
 }
 

@@ -1,4 +1,5 @@
 import type {
+  EquipmentResourceLock,
   InventoryItemSnapshot,
   InventoryItemState,
   InventoryLedgerType,
@@ -6,6 +7,7 @@ import type {
   ItemDefinitionSnapshot,
 } from '../../domain/types'
 import type { GameSystemId } from '../../../game_systems/ports'
+import type { EquipmentValidationResult } from '../../../game_systems/ports'
 
 export type ResolvedInventoryItem = InventoryItemSnapshot & {
   inventoryId: string
@@ -18,8 +20,9 @@ export type ResolvedEquippedItem = {
   inventoryItemId: string
   campaignCharacterId: string
   campaignId: string
-  slot: string
-  exclusiveSlotKey: string | null
+  equipmentOptionKey: string
+  resourceLocks: EquipmentResourceLock[]
+  systemData: unknown
   quantity: number
 }
 
@@ -87,17 +90,26 @@ export type UpdateItemResult = { status: 'ok'; inventory: InventorySnapshot } | 
 
 export type EquipItemInput = {
   inventoryItemId: string
-  slot: string
-  exclusiveSlotKey: string | null
+  equipmentOptionKey: string
   actorUserId: string
   actorCharacterId: string | null
+  validateEquipment(input: {
+    itemDefinition: ItemDefinitionSnapshot
+    currentEquipment: Array<{
+      inventoryItemId: string
+      equipmentOptionKey: string
+      resourceLocks: EquipmentResourceLock[]
+      systemData: unknown
+    }>
+  }): EquipmentValidationResult
 }
 
 export type EquipItemResult =
   | { status: 'ok'; inventory: InventorySnapshot }
   | { status: 'not_found' }
   | { status: 'already_equipped' }
-  | { status: 'exclusive_slot_occupied' }
+  | { status: 'equipment_conflict' }
+  | { status: 'invalid_equipment_option' }
 
 export type UnequipItemResult = { status: 'ok'; inventory: InventorySnapshot } | { status: 'not_found' }
 

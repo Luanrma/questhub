@@ -37,27 +37,34 @@ export function useInventory(campaignId: string | null | undefined, characterId:
 
   async function addItem(payload: AddInventoryItemPayload) {
     if (!campaignId || !characterId) return
-    setInventory(await addInventoryItem(campaignId, characterId, payload))
+    updateInventory(await addInventoryItem(campaignId, characterId, payload))
   }
 
   async function updateItem(inventoryItemId: string, payload: UpdateInventoryItemPayload) {
     if (!campaignId) return
-    setInventory(await updateInventoryItem(campaignId, inventoryItemId, payload))
+    updateInventory(await updateInventoryItem(campaignId, inventoryItemId, payload))
   }
 
-  async function equip(inventoryItemId: string, slot: string) {
+  function updateInventory(next: InventoryView) {
+    setInventory((current) => ({
+      ...next,
+      equipmentOptions: next.equipmentOptions ?? current?.equipmentOptions,
+    }))
+  }
+
+  async function equip(inventoryItemId: string, equipmentOptionKey: string) {
     if (!campaignId) return
-    setInventory(await equipInventoryItem(campaignId, inventoryItemId, slot))
+    updateInventory(await equipInventoryItem(campaignId, inventoryItemId, equipmentOptionKey))
   }
 
   async function unequip(equippedItemId: string) {
     if (!campaignId) return
-    setInventory(await unequipInventoryItem(campaignId, equippedItemId))
+    updateInventory(await unequipInventoryItem(campaignId, equippedItemId))
   }
 
   async function transferItem(inventoryItemId: string, payload: TransferInventoryItemPayload) {
     if (!campaignId) return
-    setInventory(await transferInventoryItem(campaignId, inventoryItemId, payload))
+    updateInventory(await transferInventoryItem(campaignId, inventoryItemId, payload))
   }
 
   return { inventory, loading, error, reload, addItem, updateItem, equip, unequip, transferItem }

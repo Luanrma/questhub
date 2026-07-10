@@ -1,4 +1,4 @@
-import type { InventoryAccess, InventoryItemState } from './types'
+import type { EquipmentResourceLock, InventoryAccess, InventoryItemState } from './types'
 
 export function buildInventoryAccess(
   actorUserId: string,
@@ -63,12 +63,15 @@ export function assertQuantityPositive(quantity: number): boolean {
   return Number.isInteger(quantity) && quantity > 0
 }
 
-export function assertExclusiveSlotAvailable(
-  existingExclusiveSlotKeys: readonly (string | null)[],
-  exclusiveSlotKey: string | null,
+export function assertEquipmentResourcesAvailable(
+  existingResourceLocks: readonly EquipmentResourceLock[],
+  requestedResourceLocks: readonly EquipmentResourceLock[],
 ): boolean {
-  if (exclusiveSlotKey === null) return true
-  return !existingExclusiveSlotKeys.includes(exclusiveSlotKey)
+  return !requestedResourceLocks.some(
+    (requested) =>
+      requested.exclusive === true &&
+      existingResourceLocks.some((existing) => existing.exclusive === true && existing.resource === requested.resource),
+  )
 }
 
 export function computeTransferSplit(sourceQuantity: number, transferQuantity: number) {

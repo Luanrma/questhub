@@ -11,7 +11,20 @@
       "Bash(xargs grep -l \"Mesa\")",
       "Bash(npx prisma *)",
       "Bash(echo \"EXIT:$?\")",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(xargs wc -l)",
+      "Bash(git -C /c/questhub mv apps/web/src/game-systems/character-sheet/drag.ts apps/web/src/components/windowDrag.ts)",
+      "Bash(git rm *)",
+      "Bash(git status *)",
+      "Bash(command -v chromium-cli)",
+      "Bash(curl -sf -o /dev/null -w \"web:%{http_code}\\\\n\" http://localhost:5173)",
+      "Bash(curl -sf -o /dev/null -w \"api:%{http_code}\\\\n\" http://localhost:3001/health)",
+      "Bash(curl -s -o /dev/null -w \"api-root:%{http_code}\\\\n\" http://localhost:3001)",
+      "Bash(curl -s -o /dev/null -w \"Iron Sword: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Weapon%20&%20Tool/Iron%20Sword.png\")",
+      "Bash(curl -s -o /dev/null -w \"Leather Armor: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Equipment/Leather%20Armor.png\")",
+      "Bash(curl -s -o /dev/null -w \"Bag: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Equipment/Bag.png\")",
+      "Bash(curl -s -o /dev/null -w \"Crystal: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Ore%20%26%20Gem/Crystal.png\")",
+      "Bash(curl -s -o /dev/null -w \"no-auth: %{http_code}\\\\n\" http://localhost:3001/api/campaigns/x/inventory-items/y/catalog-sheet)"
     ]
   }
 }

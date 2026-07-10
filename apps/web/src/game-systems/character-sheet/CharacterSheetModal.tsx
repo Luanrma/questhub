@@ -4,7 +4,7 @@ import { GripHorizontal, Save, X } from 'lucide-react'
 import { Button } from '../../components/Button'
 import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
 import { api, ApiError } from '../../lib/api'
-import { calculateBounds, clamp } from './drag'
+import { calculateBounds, clamp } from '../../components/windowDrag'
 import { getCharacterSheetRenderer } from './registry'
 import type { CharacterSheetEnvelope, CharacterSheetResponse, GameSystem } from './types'
 

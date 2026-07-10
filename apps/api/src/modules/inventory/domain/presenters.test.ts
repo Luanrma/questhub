@@ -8,6 +8,8 @@ const itemDefinition = {
   name: 'Short Sword',
   system: 'PATHFINDER_2E' as const,
   source: 'CUSTOM' as const,
+  sourcePack: null,
+  sourceId: null,
   itemType: 'weapon',
   rarity: 'common',
   level: 0,
@@ -33,17 +35,33 @@ test('presentInventory maps items and equipped items to the InventoryView contra
         state: 'EQUIPPED',
         customName: null,
         notes: null,
-        equipped: { id: 'eq-1', inventoryItemId: 'item-1', slot: 'main_hand', exclusiveSlotKey: 'main_hand', quantity: 1 },
+        equipped: {
+          id: 'eq-1',
+          inventoryItemId: 'item-1',
+          equipmentOptionKey: 'main_hand',
+          resourceLocks: [{ resource: 'equipment:main_hand', amount: 1, exclusive: true }],
+          systemData: null,
+          quantity: 1,
+        },
       },
     ],
-    equippedItems: [{ id: 'eq-1', inventoryItemId: 'item-1', slot: 'main_hand', exclusiveSlotKey: 'main_hand', quantity: 1 }],
+    equippedItems: [
+      {
+        id: 'eq-1',
+        inventoryItemId: 'item-1',
+        equipmentOptionKey: 'main_hand',
+        resourceLocks: [{ resource: 'equipment:main_hand', amount: 1, exclusive: true }],
+        systemData: null,
+        quantity: 1,
+      },
+    ],
   }
 
   const view = presentInventory(snapshot)
 
   assert.equal(view.id, 'inv-1')
   assert.equal(view.items.length, 1)
-  assert.equal(view.items[0].equipped?.slot, 'main_hand')
+  assert.equal(view.items[0].equipped?.equipmentOptionKey, 'main_hand')
   assert.equal(view.equippedItems.length, 1)
 })
 

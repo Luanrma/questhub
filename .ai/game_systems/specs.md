@@ -34,10 +34,58 @@ type GameSystemAdapter = {
 }
 
 type InventorySystemAdapter = {
-  isKnownSlot: (slot: string) => boolean
-  toExclusiveSlotKey: (slot: string) => string | null
-  getDefaultSlots: () => Array<{ key: string; label: string; exclusive: boolean }>
+  listEquipmentOptions: () => EquipmentOption[]
+  listEquippedGroups: (input: EquipmentGroupingInput) => EquipmentGroup[]
+  validateEquipment: (input: EquipmentValidationInput) => EquipmentValidationResult
   normalizeItemData: (input: unknown) => UniversalItemDefinition
+}
+
+type EquipmentOption = {
+  key: string
+  label: string
+  description?: string
+  disabled?: boolean
+  metadata?: unknown
+}
+
+type EquipmentResourceUsage = {
+  resource: string
+  amount: number
+  exclusive?: boolean
+}
+
+type EquippedItemState = {
+  inventoryItemId: string
+  equipmentOptionKey: string
+  resourceLocks: EquipmentResourceUsage[]
+  systemData: unknown
+}
+
+type EquipmentValidationInput = {
+  optionKey: string
+  item: UniversalItemDefinition
+  currentEquipment: EquippedItemState[]
+}
+
+type EquipmentValidationResult =
+  | { ok: true; optionKey: string; resourceUsage: EquipmentResourceUsage[]; systemData?: unknown }
+  | { ok: false; code: string; message: string; details?: unknown }
+
+type EquipmentGroupingInput = {
+  items: Array<{
+    equippedItemId: string
+    inventoryItemId: string
+    equipmentOptionKey: string
+    resourceLocks: EquipmentResourceUsage[]
+    item: UniversalItemDefinition
+  }>
+}
+
+type EquipmentGroup = {
+  id: string
+  label: string
+  itemIds: string[] // EquippedItem ids, ordered for presentation
+  metadata?: unknown
 }
 
 type CurrencySystemAdapter = {
@@ -180,6 +228,8 @@ Packages especificos de sistema devem depender de `packages/game-system-core` pa
 * Interfaces que abrem ficha de outro usuario para o Mestre devem tratar essa visualizacao como somente leitura.
 * O registry deve ser a unica porta para descobrir metadados e capacidades de sistema.
 * Modulos genericos podem conhecer `GameSystemId`, mas nao podem importar modelos internos de ruleset.
+* `InventorySystemAdapter.validateEquipment` deve validar tanto a existencia da opcao quanto a compatibilidade da opcao com o item. No contrato atual, `UniversalItemDefinition.equipSlot`, quando informado, representa a opcao canonica esperada pelo ruleset.
+* `InventorySystemAdapter.listEquippedGroups` deve fornecer os grupos de apresentacao da UI. O core nao deve agrupar por `equipmentOptionKey` nem exibir chaves tecnicas como `main_hand`, `armor` ou equivalentes.
 * Apps podem manter facades de compatibilidade durante migracao, mas essas facades devem reexportar packages internos em vez de receber codigo novo especifico.
 * `packages/game-system-core` nao deve modelar Pathfinder 2e, D&D 5e ou qualquer outro sistema indiretamente por campos mecanicos.
 * Dados especificos persistidos devem continuar dentro do envelope de ficha ou catalogos do ruleset.

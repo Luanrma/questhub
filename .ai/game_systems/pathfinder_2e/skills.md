@@ -31,3 +31,6 @@ pathfinder-2e/
 * Nenhuma regra Pathfinder 2e deve ser implementada em `vtt`.
 * Componentes Pathfinder 2e podem ser carregados por registry, nao por imports diretos em modulos genericos.
 * Catalogos futuros devem ter contratos proprios antes da implementacao.
+* Regras de equipamento PF2e devem ficar no adapter do ruleset. O core de `inventory` recebe apenas `equipmentOptionKey`, `resourceLocks` e `systemData`.
+* Nao recriar slots corporais antigos (cabeca, cinto, aneis, botas). PF2e deve usar usage (`held`, `worn`, `stowed`), maos, armadura, escudo e investidura.
+* O limite de investidura deve ser validado por recurso/capacidade do adapter (`pf2e:investiture`, maximo 10), nao por coluna especifica no core.

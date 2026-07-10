@@ -4,6 +4,7 @@ import { createAddItemToInventoryUseCase } from './application/add-item-to-inven
 import { createAdjustWalletUseCase } from './application/adjust-wallet.use-case'
 import { createCreateCampaignItemDefinitionUseCase } from './application/create-campaign-item-definition.use-case'
 import { createEquipItemUseCase } from './application/equip-item.use-case'
+import { createGetInventoryItemCatalogSheetUseCase } from './application/get-inventory-item-catalog-sheet.use-case'
 import { createGetInventoryLedgerUseCase } from './application/get-inventory-ledger.use-case'
 import { createGetInventoryUseCase } from './application/get-inventory.use-case'
 import { createGetWalletLedgerUseCase } from './application/get-wallet-ledger.use-case'
@@ -15,6 +16,7 @@ import { createUnequipItemUseCase } from './application/unequip-item.use-case'
 import { createUpdateInventoryItemUseCase } from './application/update-inventory-item.use-case'
 import { prismaCampaignAccessRepository } from './infra/campaign-access-repository'
 import { gameSystemCatalogItemLookup } from './infra/game-system-catalog-item-lookup'
+import { gameSystemCatalogSheetLookup } from './infra/game-system-catalog-sheet-lookup'
 import { prismaInventoryRepository } from './infra/prisma-inventory-repository'
 import { prismaWalletRepository } from './infra/prisma-wallet-repository'
 import { createSocketInventoryEventBus } from './infra/socket-inventory-event-bus'
@@ -40,6 +42,11 @@ export function registerInventoryRoutes(app: FastifyInstance, io: SocketIOServer
 
   registerInventoryHttpRoutes(app, {
     getInventory: createGetInventoryUseCase({ inventoryRepository, campaignAccess }),
+    getInventoryItemCatalogSheet: createGetInventoryItemCatalogSheetUseCase({
+      inventoryRepository,
+      campaignAccess,
+      catalogSheetLookup: gameSystemCatalogSheetLookup,
+    }),
     getWallet: createGetWalletUseCase({ walletRepository, campaignAccess }),
     createCampaignItemDefinition: createCreateCampaignItemDefinitionUseCase({ inventoryRepository, campaignAccess }),
     addItemToInventory: createAddItemToInventoryUseCase({ inventoryRepository, eventBus, campaignAccess }),

@@ -25,7 +25,7 @@ function setup() {
 
 test('owner unequips their own item and it returns to STORED', async () => {
   const { equipUseCase, unequipUseCase, item } = setup()
-  const equipped = await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, slot: 'main_hand', actorUserId: 'user-player' })
+  const equipped = await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, equipmentOptionKey: 'main_hand', actorUserId: 'user-player' })
   assert.equal(equipped.status, 'ok')
   if (equipped.status !== 'ok') return
 
@@ -40,7 +40,7 @@ test('owner unequips their own item and it returns to STORED', async () => {
 
 test('a third party cannot unequip someone else item', async () => {
   const { equipUseCase, unequipUseCase, item } = setup()
-  const equipped = await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, slot: 'main_hand', actorUserId: 'user-player' })
+  const equipped = await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, equipmentOptionKey: 'main_hand', actorUserId: 'user-player' })
   if (equipped.status !== 'ok') throw new Error('setup failed')
 
   const equippedItemId = equipped.inventory.equippedItems[0].id

@@ -33,7 +33,7 @@ import { CampaignChat } from '../../components/CampaignChat'
 import { LoadingScreen } from '../../components/LoadingScreen'
 import { CharacterSheetModal } from '../../components/CharacterSheetModal'
 import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
-import { InventoryPanel } from '../../inventory/components/InventoryPanel'
+import { InventoryModal } from '../../inventory/components/InventoryModal'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
 import { BestiaryCreatureSheetModal } from '../../features/bestiary/components/BestiaryCreatureSheetModal'
@@ -180,7 +180,12 @@ type CharacterTokenSheet = {
   readOnly: boolean
 }
 
-type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'scene-hazards' | 'inventory' | 'chat'
+type InventoryTokenModal = {
+  characterId: string
+  characterName: string
+}
+
+type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'scene-hazards' | 'chat'
 
 export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, CampaignOverviewPageProps>(function CampaignOverviewPage({
   gridSettings,
@@ -222,6 +227,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const [bestiarySheetCreatureId, setBestiarySheetCreatureId] = useState<string | null>(null)
   const [activeHazardEncounter, setActiveHazardEncounter] = useState<{ candidate: VttHazardCandidate; notes: string } | null>(null)
   const [characterTokenSheet, setCharacterTokenSheet] = useState<CharacterTokenSheet | null>(null)
+  const [inventoryTokenModal, setInventoryTokenModal] = useState<InventoryTokenModal | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
@@ -1637,6 +1643,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     setTokenContextMenu(null)
   }
 
+  function openInventoryModal(token: VttPlayerToken) {
+    if (!canOpenCharacterTokenSheet(token) || !token.characterId) return
+    setInventoryTokenModal({ characterId: token.characterId, characterName: token.name })
+    setTokenContextMenu(null)
+  }
+
   function isTokenInActiveEncounter(tokenId: string) {
     return Boolean(
       activeEncounter?.participants.some((participant) => participant.type === 'creature' && participant.tokenId === tokenId),
@@ -2526,6 +2538,16 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                     Ficha
                   </button>
                 ) : null}
+                {canOpenCharacterTokenSheet(tokenContextMenu.token) ? (
+                  <button
+                    type="button"
+                    className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => openInventoryModal(tokenContextMenu.token)}
+                  >
+                    <Backpack className="h-4 w-4" />
+                    Mochila
+                  </button>
+                ) : null}
                 {isMaster ? (
                   <>
                     <button
@@ -2769,21 +2791,6 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             >
               <Users className="h-4 w-4" />
             </button>
-            {campaign?.myCharacterId ? (
-              <button
-                type="button"
-                title="Inventario"
-                className={[
-                  'grid h-10 w-10 place-items-center rounded-lg border transition',
-                  rightPanelTab === 'inventory'
-                    ? 'border-amber-300/40 bg-amber-500/20 text-amber-100'
-                    : 'border-white/10 bg-white/[0.04] text-amber-300 hover:bg-white/10 hover:text-amber-200',
-                ].join(' ')}
-                onClick={() => openRightPanelTab('inventory')}
-              >
-                <Backpack className="h-4 w-4" />
-              </button>
-            ) : null}
             {isMaster ? (
               <button
                 type="button"
@@ -2945,15 +2952,6 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               </section>
             ) : null}
 
-            {rightPanelTab === 'inventory' && campaignId && campaign?.myCharacterId ? (
-              <InventoryPanel
-                campaignId={campaignId}
-                characterId={campaign.myCharacterId}
-                isMaster={isMaster}
-                socket={socket}
-              />
-            ) : null}
-
             {rightPanelTab === 'session' ? (
               <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3">
                 <div className="flex items-center gap-2 border-b border-white/10 pb-3">
@@ -3049,6 +3047,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
           characterName={characterTokenSheet.characterName}
           readOnly={characterTokenSheet.readOnly}
           onClose={() => setCharacterTokenSheet(null)}
+        />
+      ) : null}
+
+      {inventoryTokenModal && campaignId ? (
+        <InventoryModal
+          campaignId={campaignId}
+          characterId={inventoryTokenModal.characterId}
+          characterName={inventoryTokenModal.characterName}
+          isMaster={isMaster}
+          canManage
+          socket={socket}
+          onClose={() => setInventoryTokenModal(null)}
         />
       ) : null}
 

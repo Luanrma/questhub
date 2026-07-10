@@ -5,14 +5,19 @@ import type { CampaignAccessPort } from './ports/campaign-access'
 import type { InventoryEventBus } from './ports/inventory-event-bus'
 import type { InventoryRepository } from './ports/inventory-repository'
 
-export type EquipItemInput = { campaignId: string; inventoryItemId: string; slot: string; actorUserId: string }
+export type EquipItemInput = {
+  campaignId: string
+  inventoryItemId: string
+  equipmentOptionKey: string
+  actorUserId: string
+}
 
 export type EquipItemUseCaseResult =
   | { status: 'ok'; inventory: InventorySnapshot }
   | { status: 'not_found' }
   | { status: 'item_belongs_to_another_character' }
   | { status: 'already_equipped' }
-  | { status: 'exclusive_slot_occupied' }
+  | { status: 'equipment_conflict' }
   | { status: 'invalid_payload' }
 
 export function createEquipItemUseCase(deps: {
@@ -36,18 +41,23 @@ export function createEquipItemUseCase(deps: {
     if (!inventoryAdapter) return { status: 'invalid_payload' }
 
     if (item.state === 'EQUIPPED') return { status: 'already_equipped' }
-    if (!inventoryAdapter.isKnownSlot(input.slot)) return { status: 'invalid_payload' }
-
-    const exclusiveSlotKey = inventoryAdapter.toExclusiveSlotKey(input.slot)
 
     const result = await deps.inventoryRepository.equipItem({
       inventoryItemId: input.inventoryItemId,
-      slot: input.slot,
-      exclusiveSlotKey,
+      equipmentOptionKey: input.equipmentOptionKey,
       actorUserId: input.actorUserId,
       actorCharacterId: null,
+      validateEquipment({ itemDefinition, currentEquipment }) {
+        return inventoryAdapter.validateEquipment({
+          optionKey: input.equipmentOptionKey,
+          item: itemDefinition,
+          currentEquipment,
+        })
+      },
     })
 
+    if (result.status === 'equipment_conflict') return { status: 'equipment_conflict' }
+    if (result.status === 'invalid_equipment_option') return { status: 'invalid_payload' }
     if (result.status !== 'ok') return { status: result.status }
 
     deps.eventBus.emitInventoryChanged({

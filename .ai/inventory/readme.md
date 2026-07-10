@@ -147,9 +147,9 @@ A UI pode converter para `pp/gp/sp/cp`, mas o banco deve persistir um inteiro ca
 * Editar quantidade, notas ou nome customizado de uma instancia.
 * Remover, consumir, destruir ou dropar item.
 * Transferir item entre personagens da mesma campanha.
-* Equipar item em slot validado pelo adapter do sistema da campanha.
+* Equipar item em opcao validada pelo adapter do sistema da campanha.
 * Desequipar item.
-* Consultar itens equipados separados do inventario geral.
+* Consultar itens equipados separados do inventario geral, atraves do modal "Mochila" aberto por clique direito no token (nao mais uma aba fixa do painel lateral).
 * Consultar wallet do personagem.
 * Ajustar saldo por recompensa, compra, venda, loot ou correcao manual.
 * Transferir dinheiro entre wallets.
@@ -162,7 +162,7 @@ A UI pode converter para `pp/gp/sp/cp`, mas o banco deve persistir um inteiro ca
 
 * O Mestre ganha controle confiavel de loot e economia.
 * Jogadores ganham uma ficha mais util durante a sessao.
-* O sistema ganha base para automacoes futuras de carga, bulk, slots, investidura, consumo, municao e bonus de equipamento.
+* O sistema ganha base para automacoes futuras de carga, bulk, usage/acesso, consumo, municao e bonus de equipamento.
 * O historico reduz disputas sobre quem recebeu, gastou, vendeu ou equipou algo.
 
 ---
@@ -179,7 +179,7 @@ Pertence a este modulo:
 * ledger de item e moeda;
 * endpoints HTTP de inventario/economia;
 * eventos WebSocket de atualizacao de inventario/economia;
-* integracao de apresentacao com adapters de sistema para moeda, slots e metadados.
+* integracao de apresentacao com adapters de sistema para moeda, equipamento e metadados.
 
 Nao pertence a este modulo:
 
@@ -189,7 +189,7 @@ Nao pertence a este modulo:
 * comercio com loja/NPC automatizado completo;
 * craft completo;
 * carga/bulk automatica como bloqueio duro;
-* validacao completa de investidura PF2e;
+* efeitos mecanicos completos de investidura PF2e;
 * inventario de cena/mapa como container fisico persistente;
 * resolucao de ataques, dano ou efeitos de combate.
 
@@ -203,7 +203,9 @@ Regras PF2e esperadas inicialmente:
 
 * moeda canonica em `cp`;
 * display em `pp/gp/sp/cp`;
-* slots basicos: `main_hand`, `off_hand`, `armor`, `shield`, `worn`, `held`, `backpack`, `consumable`, `other`;
+* equipamento por usage/acesso, nao por slots corporais: `held`, `worn` e `stowed`/inventario geral;
+* recursos ativos PF2e validados pelo adapter: `main_hand`, `off_hand`, `two_hands`, `armor`, `shield`, `worn` e `backpack`/stowed;
+* limite inicial de investidura: itens com trait `invested` consomem `pf2e:investiture` ate 10;
 * campos PF2e especificos em `systemData` ou em adapter do package `game-system-pathfinder-2e`;
 * tipo, raridade, nivel, traits, bulk e preco como metadados exibiveis.
 

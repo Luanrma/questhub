@@ -5,7 +5,7 @@ import { Pathfinder2eItemSheetView } from '../../../game-systems/pathfinder-2e/i
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { Button } from '../../../components/Button'
 import { api, ApiError } from '../../../lib/api'
-import { calculateBounds, clamp } from '../../../game-systems/character-sheet/drag'
+import { calculateBounds, clamp } from '../../../components/windowDrag'
 import type { CampaignItemEntry } from '../types'
 
 type Props = {

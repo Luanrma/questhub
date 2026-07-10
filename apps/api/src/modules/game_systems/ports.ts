@@ -9,6 +9,43 @@ export type EquipmentSlotDefinition = {
   exclusive: boolean
 }
 
+export type EquipmentOption = {
+  key: string
+  label: string
+  description?: string
+  disabled?: boolean
+  metadata?: unknown
+}
+
+export type EquipmentResourceUsage = {
+  resource: string
+  amount: number
+  exclusive?: boolean
+}
+
+export type EquippedItemState = {
+  inventoryItemId: string
+  equipmentOptionKey: string
+  resourceLocks: EquipmentResourceUsage[]
+  systemData: unknown
+}
+
+export type EquipmentGroupingItem = EquippedItemState & {
+  equippedItemId: string
+  item: UniversalItemDefinition
+}
+
+export type EquipmentGroupingInput = {
+  items: EquipmentGroupingItem[]
+}
+
+export type EquipmentGroup = {
+  id: string
+  label: string
+  itemIds: string[]
+  metadata?: unknown
+}
+
 export type UniversalItemDefinition = {
   name: string
   itemType: string
@@ -22,10 +59,30 @@ export type UniversalItemDefinition = {
   systemData: unknown
 }
 
+export type EquipmentValidationInput = {
+  optionKey: string
+  item: UniversalItemDefinition
+  currentEquipment: EquippedItemState[]
+}
+
+export type EquipmentValidationResult =
+  | {
+      ok: true
+      optionKey: string
+      resourceUsage: EquipmentResourceUsage[]
+      systemData?: unknown
+    }
+  | {
+      ok: false
+      code: string
+      message: string
+      details?: unknown
+    }
+
 export interface InventorySystemAdapter {
-  isKnownSlot(slot: string): boolean
-  toExclusiveSlotKey(slot: string): string | null
-  getDefaultSlots(): EquipmentSlotDefinition[]
+  listEquipmentOptions(): EquipmentOption[]
+  listEquippedGroups(input: EquipmentGroupingInput): EquipmentGroup[]
+  validateEquipment(input: EquipmentValidationInput): EquipmentValidationResult
   normalizeItemData(input: unknown): UniversalItemDefinition
 }
 

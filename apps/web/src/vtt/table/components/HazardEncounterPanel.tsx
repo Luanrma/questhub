@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { TriangleAlert, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { ApiError, api } from '../../../lib/api'
-import { calculateBounds, clamp } from '../../../game-systems/character-sheet/drag'
+import { calculateBounds, clamp } from '../../../components/windowDrag'
 import type { BestiaryEntry } from '../../../features/bestiary/types'
 import type { VttHazardCandidate } from '../domain/types'
 

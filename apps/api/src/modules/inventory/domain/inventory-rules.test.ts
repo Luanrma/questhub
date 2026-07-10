@@ -10,7 +10,7 @@ import {
   canUpdateItemMetadata,
   canUpdateItemQuantityOrState,
   assertQuantityPositive,
-  assertExclusiveSlotAvailable,
+  assertEquipmentResourcesAvailable,
   computeTransferSplit,
   assertSufficientFunds,
   assertNoNegativeBalance,
@@ -59,13 +59,31 @@ test('assertQuantityPositive rejects zero, negative and non-integer', () => {
   assert.equal(assertQuantityPositive(1.5), false)
 })
 
-test('assertExclusiveSlotAvailable blocks a duplicate exclusive slot', () => {
-  assert.equal(assertExclusiveSlotAvailable(['main_hand'], 'off_hand'), true)
-  assert.equal(assertExclusiveSlotAvailable(['main_hand'], 'main_hand'), false)
+test('assertEquipmentResourcesAvailable blocks a duplicate exclusive resource', () => {
+  assert.equal(
+    assertEquipmentResourcesAvailable(
+      [{ resource: 'equipment:main_hand', amount: 1, exclusive: true }],
+      [{ resource: 'equipment:off_hand', amount: 1, exclusive: true }],
+    ),
+    true,
+  )
+  assert.equal(
+    assertEquipmentResourcesAvailable(
+      [{ resource: 'equipment:main_hand', amount: 1, exclusive: true }],
+      [{ resource: 'equipment:main_hand', amount: 1, exclusive: true }],
+    ),
+    false,
+  )
 })
 
-test('assertExclusiveSlotAvailable always allows non-exclusive slots', () => {
-  assert.equal(assertExclusiveSlotAvailable(['main_hand', 'main_hand'], null), true)
+test('assertEquipmentResourcesAvailable allows non-exclusive resources', () => {
+  assert.equal(
+    assertEquipmentResourcesAvailable(
+      [{ resource: 'equipment:worn', amount: 1 }],
+      [{ resource: 'equipment:worn', amount: 1 }],
+    ),
+    true,
+  )
 })
 
 test('computeTransferSplit computes remaining and transferred amounts', () => {

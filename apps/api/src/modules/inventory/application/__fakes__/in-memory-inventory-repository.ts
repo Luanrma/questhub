@@ -31,8 +31,9 @@ type FakeEquipped = {
   id: string
   campaignCharacterId: string
   inventoryItemId: string
-  slot: string
-  exclusiveSlotKey: string | null
+  equipmentOptionKey: string
+  resourceLocks: EquippedItemSnapshot['resourceLocks']
+  systemData: unknown
   quantity: number
 }
 
@@ -118,7 +119,14 @@ export function createInMemoryInventoryRepository() {
   }
 
   function toEquippedSnapshot(row: FakeEquipped): EquippedItemSnapshot {
-    return { id: row.id, inventoryItemId: row.inventoryItemId, slot: row.slot, exclusiveSlotKey: row.exclusiveSlotKey, quantity: row.quantity }
+    return {
+      id: row.id,
+      inventoryItemId: row.inventoryItemId,
+      equipmentOptionKey: row.equipmentOptionKey,
+      resourceLocks: row.resourceLocks,
+      systemData: row.systemData,
+      quantity: row.quantity,
+    }
   }
 
   function toInventorySnapshot(inventory: FakeInventoryRow): InventorySnapshot {
@@ -165,8 +173,9 @@ export function createInMemoryInventoryRepository() {
         inventoryItemId: row.inventoryItemId,
         campaignCharacterId: row.campaignCharacterId,
         campaignId: inventory.campaignId,
-        slot: row.slot,
-        exclusiveSlotKey: row.exclusiveSlotKey,
+        equipmentOptionKey: row.equipmentOptionKey,
+        resourceLocks: row.resourceLocks,
+        systemData: row.systemData,
         quantity: row.quantity,
       }
     },
@@ -259,11 +268,20 @@ export function createInMemoryInventoryRepository() {
 
       const inventory = inventories.find((inv) => inv.id === item.inventoryId)!
 
-      if (input.exclusiveSlotKey) {
-        const conflict = equipped.some(
-          (e) => e.campaignCharacterId === inventory.campaignCharacterId && e.exclusiveSlotKey === input.exclusiveSlotKey,
-        )
-        if (conflict) return { status: 'exclusive_slot_occupied' }
+      const validation = input.validateEquipment({
+        itemDefinition: toItemSnapshot(item).itemDefinition,
+        currentEquipment: equipped
+          .filter((row) => row.campaignCharacterId === inventory.campaignCharacterId)
+          .map((row) => ({
+            inventoryItemId: row.inventoryItemId,
+            equipmentOptionKey: row.equipmentOptionKey,
+            resourceLocks: row.resourceLocks,
+            systemData: row.systemData,
+          })),
+      })
+
+      if (!validation.ok) {
+        return validation.code === 'EQUIPMENT_CONFLICT' ? { status: 'equipment_conflict' } : { status: 'invalid_equipment_option' }
       }
 
       let targetItemId = item.id
@@ -288,8 +306,9 @@ export function createInMemoryInventoryRepository() {
         id: nextId('equipped'),
         campaignCharacterId: inventory.campaignCharacterId,
         inventoryItemId: targetItemId,
-        slot: input.slot,
-        exclusiveSlotKey: input.exclusiveSlotKey,
+        equipmentOptionKey: validation.optionKey,
+        resourceLocks: validation.resourceUsage,
+        systemData: validation.systemData ?? null,
         quantity: 1,
       })
 

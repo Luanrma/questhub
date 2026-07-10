@@ -67,7 +67,7 @@ Dados mecanicos PF2e devem entrar por adapters/normalizadores.
 
 O core do modulo pode saber que existe `GameSystem`, `systemData` e metadados exibiveis, mas nao deve codificar regra profunda de PF2e em controllers genericos.
 
-**Decisao registrada (2026-07-09):** as funcoes de moeda (`toCopper`, `fromCopper`, `formatPathfinder2eCurrency`, `PF2E_CURRENCY`) e de slots (`Pathfinder2eEquipmentSlot`, deteccao de slot exclusivo) continuam no package `packages/game-system-pathfinder-2e/src/server/inventory/{money.ts,slots.ts}`. O core de inventario nao importa mais a facade `pathfinder_2e/inventory` diretamente; ele resolve `inventory` e `currency` por `GameSystemAdapter` em `apps/api/src/modules/game_systems/registry.ts`. Isso preserva a fronteira core/game-system: `apps/api/src/modules/inventory/` conhece apenas o contrato generico de adapter.
+**Decisao registrada (2026-07-09):** as funcoes de moeda (`toCopper`, `fromCopper`, `formatPathfinder2eCurrency`, `PF2E_CURRENCY`) e as opcoes/recursos de equipamento PF2e continuam no package `packages/game-system-pathfinder-2e/src/server/inventory/` e no adapter registrado em `apps/api/src/modules/game_systems/registry.ts`. O core de inventario nao importa mais a facade `pathfinder_2e/inventory` diretamente; ele resolve `inventory` e `currency` por `GameSystemAdapter`. Isso preserva a fronteira core/game-system: `apps/api/src/modules/inventory/` conhece apenas o contrato generico de adapter.
 
 ---
 
@@ -131,9 +131,10 @@ Se o projeto atual estiver mais simples, uma estrutura menor pode ser aceita tem
 ```txt
 apps/web/src/inventory/
   components/
-    InventoryPanel.tsx
-    InventoryItemCard.tsx
-    EquippedItemsPanel.tsx
+    InventoryModal.tsx
+    InventoryGrid.tsx
+    InventoryItemSlot.tsx
+    InventoryItemContextMenu.tsx
     WalletPanel.tsx
     CurrencyBreakdown.tsx
   hooks/
@@ -144,6 +145,7 @@ apps/web/src/inventory/
     money.ts
     inventoryTypes.ts
     inventoryViewModel.ts
+    itemIcon.ts
   infrastructure/
     inventoryApi.ts
 ```
@@ -152,8 +154,14 @@ Regras:
 
 * Componentes renderizam UI e disparam callbacks.
 * Hooks coordenam estado, chamadas HTTP e listeners realtime.
-* `domain/money.ts` do frontend nao reimplementa conversao de moeda: apenas reexporta/adapta as funcoes de `apps/web/src/game-systems/pathfinder-2e/inventory/` (facade), decidindo qual sistema usar. `domain/inventoryViewModel.ts` monta view models agnosticos (agrupar por slot/estado).
+* `domain/money.ts` do frontend nao reimplementa conversao de moeda: apenas reexporta/adapta as funcoes de `apps/web/src/game-systems/pathfinder-2e/inventory/` (facade), decidindo qual sistema usar. `domain/inventoryViewModel.ts` monta view models agnosticos (agrupar por opcao/estado, resolver labels de equipados).
 * Services HTTP ficam em `infrastructure`.
+
+**Decisao registrada (2026-07-10):** o inventario deixou de ser renderizado como aba fixa do painel lateral (`InventoryPanel.tsx`, removido) e passou a ser um modal (`InventoryModal.tsx`) aberto por clique direito no token, com grid de slots (`InventoryGrid.tsx`/`InventoryItemSlot.tsx`) e menu de contexto por item (`InventoryItemContextMenu.tsx`) substituindo a lista de linhas com `<select>` de opcao de equipamento (`InventoryItemCard.tsx`/`EquippedItemsPanel.tsx`, removidos). A mochila usa grid fixo de 50 slots (10x5); itens sao exibidos por icone (`domain/itemIcon.ts`), resolvido por heuristica de palavras-chave contra `apps/web/public/assets/icons`, nao pelo nome em texto. Ver contrato completo em `.ai/inventory/specs.md` secao 12.1.
+
+**Decisao registrada (2026-07-10):** o utilitario generico de drag/resize de janela usado por todos os modais do sistema (`clamp`, `calculateBounds`) foi extraido de `apps/web/src/game-systems/character-sheet/drag.ts` para `apps/web/src/components/windowDrag.ts`, um local compartilhado fora de qualquer feature especifica. Isso evita que `inventory` (ou qualquer outro modulo) precise importar de dentro de `game-systems/character-sheet` so para reaproveitar matematica de janela generica. `CharacterSheetModal`, `BestiaryCreatureSheetModal`, `ItemSheetModal`, `HazardEncounterPanel` e o novo `InventoryModal` importam todos do mesmo local.
+
+**Decisao registrada (2026-07-10):** a opcao "Ficha" do menu de contexto da Mochila reutiliza `apps/web/src/features/items/components/ItemSheetModal.tsx` (o mesmo componente que o Mestre ja usa no catalogo de itens da campanha) em vez de criar uma ficha de item nova dentro do modulo `inventory`. `InventoryModal.tsx` busca a ficha via `getInventoryItemCatalogSheet` (`infrastructure/inventoryApi.ts`, novo endpoint — ver `.ai/inventory/specs.md` secao 6.12) e passa o resultado como `initialItem` para o `ItemSheetModal`, que entao pula o proprio fetch interno (o qual e restrito ao Mestre e indexado por id de catalogo, incompativel com o fluxo da Mochila). Isso e uma dependencia cruzada intencional `inventory` -> `features/items` (reuso de UI de apresentacao, nao de regra de negocio) e so cobre itens `SYSTEM_CATALOG`; itens `CUSTOM` nao mostram a opcao "Ficha".
 
 ---
 
@@ -192,34 +200,30 @@ Essas funcoes devem ser testadas com unit tests.
 
 ---
 
-## 7. Slots e Equipamento
+## 7. Equipment Agnostico
 
-O modulo deve diferenciar slots exclusivos e nao exclusivos.
+O modulo `inventory` nao deve diferenciar slots ou categorias especificas de ruleset. Ele deve persistir um estado equipado generico e pedir ao adapter do sistema que valide opcoes, conflitos, capacidade e recursos consumidos.
 
-**Local de implementacao (ver decisao secao 2.5):** o union `Pathfinder2eEquipmentSlot` e as funcoes `isExclusivePathfinder2eSlot`/`toExclusiveSlotKey` vivem em `packages/game-system-pathfinder-2e/src/server/inventory/slots.ts`, acessadas pelo registry de sistemas. `apps/api/src/modules/inventory/domain/` conhece apenas a invariante agnostica: nao pode haver dois `EquippedItem` com o mesmo `exclusiveSlotKey` para o mesmo `campaignCharacterId`.
+**Decisao registrada (2026-07-10):** chaves como `main_hand`, `off_hand`, `armor` e `shield` pertencem exclusivamente ao adapter Pathfinder 2e. O core recebe e persiste apenas `equipmentOptionKey`, `resourceLocks` e `systemData` opaco. A validacao final de equipamento deve ocorrer dentro da transacao de equipar, usando o snapshot atual de itens equipados do personagem.
 
-Slots exclusivos iniciais:
+**Decisao registrada (2026-07-10):** quando o item normalizado pelo ruleset possuir uma opcao canonica de equipamento (`equipSlot` no contrato atual), o adapter do sistema deve tratar esse valor como restricao de compatibilidade. O frontend pode usar esse mesmo campo para filtrar opcoes exibidas, mas a garantia de integridade pertence ao backend dentro da transacao.
 
-* `main_hand`;
-* `off_hand`;
-* `two_hands`;
-* `armor`;
-* `shield`.
+Conceitos permitidos no core:
 
-Slots nao exclusivos iniciais:
+* `equipmentOptionKey`;
+* `resourceLocks`;
+* `EquipmentValidationResult`;
+* `InventoryItem.state = EQUIPPED`;
+* ledger `EQUIP`/`UNEQUIP`.
 
-* `worn`;
-* `held`;
-* `backpack`;
-* `consumable`;
-* `other`.
+Conceitos proibidos no core:
 
-Regra tecnica recomendada:
-
-* `EquippedItem.inventoryItemId` deve ser unico.
-* `EquippedItem.exclusiveSlotKey` deve ser preenchido apenas para slots exclusivos.
-* Criar unique composto por `campaignCharacterId + exclusiveSlotKey` para impedir dois itens no mesmo slot exclusivo.
-* Para slots nao exclusivos, `exclusiveSlotKey` deve ser `null`.
+* maos;
+* armaduras;
+* escudos;
+* body slots;
+* itens investidos;
+* recursos ou capacidade especificos de qualquer RPG.
 
 ---
 
@@ -290,7 +294,7 @@ Criar ou atualizar testes para:
 * impedir quantidade negativa;
 * equipar item proprio;
 * impedir equipar item de outro personagem;
-* impedir dois itens no mesmo slot exclusivo;
+* impedir conflitos/capacidades reportados pelo adapter do sistema, como maos/armadura/escudo/investidura em PF2e;
 * desequipar item;
 * transferir item entre personagens da mesma campanha;
 * bloquear transferencia entre campanhas;

@@ -6,6 +6,7 @@ import type {
   ItemDefinitionSnapshot,
   WalletSnapshot,
 } from './types'
+import type { EquipmentGroup, EquipmentOption } from '../../game_systems/ports'
 
 export function presentItemDefinition(definition: ItemDefinitionSnapshot) {
   return {
@@ -28,8 +29,9 @@ export function presentEquippedItem(equipped: EquippedItemSnapshot) {
   return {
     id: equipped.id,
     inventoryItemId: equipped.inventoryItemId,
-    slot: equipped.slot,
-    exclusiveSlotKey: equipped.exclusiveSlotKey,
+    equipmentOptionKey: equipped.equipmentOptionKey,
+    resourceLocks: equipped.resourceLocks,
+    systemData: equipped.systemData,
     quantity: equipped.quantity,
   }
 }
@@ -46,14 +48,34 @@ export function presentInventoryItem(item: InventoryItemSnapshot) {
   }
 }
 
-export function presentInventory(inventory: InventorySnapshot) {
+export function presentEquippedGroup(group: EquipmentGroup, equippedItems: ReturnType<typeof presentEquippedItem>[]) {
+  const equippedById = new Map(equippedItems.map((item) => [item.id, item]))
+  return {
+    id: group.id,
+    label: group.label,
+    items: group.itemIds.flatMap((itemId) => {
+      const item = equippedById.get(itemId)
+      return item ? [item] : []
+    }),
+    ...(group.metadata === undefined ? {} : { metadata: group.metadata }),
+  }
+}
+
+export function presentInventory(
+  inventory: InventorySnapshot,
+  equipmentOptions: EquipmentOption[] = [],
+  equippedGroups: EquipmentGroup[] = [],
+) {
+  const equippedItems = inventory.equippedItems.map(presentEquippedItem)
   return {
     id: inventory.id,
     campaignId: inventory.campaignId,
     characterId: inventory.characterId,
     campaignCharacterId: inventory.campaignCharacterId,
+    ...(equipmentOptions.length ? { equipmentOptions } : {}),
+    ...(equippedGroups.length ? { equippedGroups: equippedGroups.map((group) => presentEquippedGroup(group, equippedItems)) } : {}),
     items: inventory.items.map(presentInventoryItem),
-    equippedItems: inventory.equippedItems.map(presentEquippedItem),
+    equippedItems,
   }
 }
 

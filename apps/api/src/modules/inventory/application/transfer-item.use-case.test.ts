@@ -54,7 +54,7 @@ test('blocks cross-campaign transfers', async () => {
 test('an equipped item cannot be transferred without unequipping first', async () => {
   const { transferUseCase, equipUseCase, rope, seedInventoryItem } = setup()
   const item = seedInventoryItem({ campaignId: 'camp-1', campaignCharacterId: 'player-cc', characterId: 'char-player', itemDefinitionId: rope.id })
-  await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, slot: 'held', actorUserId: 'user-player' })
+  await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, equipmentOptionKey: 'held', actorUserId: 'user-player' })
 
   const result = await transferUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, toCharacterId: 'char-other', quantity: 1, actorUserId: 'user-player' })
   assert.equal(result.status, 'item_already_equipped')

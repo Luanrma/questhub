@@ -26,14 +26,36 @@ export type InventoryItemDefinitionView = {
   isStackable: boolean
 }
 
+export type EquipmentOptionView = {
+  key: string
+  label: string
+  description?: string
+  disabled?: boolean
+  metadata?: unknown
+}
+
+export type EquipmentResourceLockView = {
+  resource: string
+  amount: number
+  exclusive?: boolean
+}
+
 export type InventoryItemState = 'STORED' | 'EQUIPPED' | 'DROPPED' | 'CONSUMED' | 'DESTROYED' | 'TRANSFERRED'
 
 export type EquippedItemView = {
   id: string
   inventoryItemId: string
-  slot: string
-  exclusiveSlotKey?: string | null
+  equipmentOptionKey: string
+  resourceLocks: EquipmentResourceLockView[]
+  systemData?: unknown
   quantity: number
+}
+
+export type EquippedGroupView = {
+  id: string
+  label: string
+  items: EquippedItemView[]
+  metadata?: unknown
 }
 
 export type InventoryItemView = {
@@ -51,6 +73,8 @@ export type InventoryView = {
   campaignId: string
   characterId: string
   campaignCharacterId: string
+  equipmentOptions?: EquipmentOptionView[]
+  equippedGroups?: EquippedGroupView[]
   items: InventoryItemView[]
   equippedItems: EquippedItemView[]
 }

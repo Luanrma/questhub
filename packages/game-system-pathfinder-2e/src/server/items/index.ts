@@ -112,6 +112,9 @@ function toItemEntry(item: Pathfinder2eCompendiumItem): GameSystemItemEntry<Path
 }
 
 const PATHFINDER_2E_ITEM_BY_ID = new Map(PATHFINDER_2E_ITEM_DATA.map((item) => [item.id, item]))
+const PATHFINDER_2E_ITEM_BY_SOURCE = new Map(
+  PATHFINDER_2E_ITEM_DATA.map((item) => [`${item.sourcePack}::${item.sourceId}`, item]),
+)
 
 function matchesSearch(item: Pathfinder2eCompendiumItem, search: string) {
   const normalized = search.trim().toLocaleLowerCase()
@@ -150,6 +153,10 @@ export const pathfinder2eItemAdapter: GameSystemItemAdapter = {
   },
   findEntry(entryId) {
     const item = PATHFINDER_2E_ITEM_BY_ID.get(entryId)
+    return item ? toItemEntry(item) : null
+  },
+  findEntryBySource(sourcePack, sourceId) {
+    const item = PATHFINDER_2E_ITEM_BY_SOURCE.get(`${sourcePack}::${sourceId}`)
     return item ? toItemEntry(item) : null
   },
 }

@@ -1,4 +1,5 @@
 import { api } from '../../lib/api'
+import type { CampaignItemEntry } from '../../features/items/types'
 import type { InventoryItemDefinitionView, InventoryView, WalletAdjustReason, WalletView } from '../domain/inventoryTypes'
 
 export type CreateCampaignItemDefinitionPayload = {
@@ -52,6 +53,11 @@ export function getInventory(campaignId: string, characterId: string): Promise<I
   return api(`/api/campaigns/${campaignId}/characters/${characterId}/inventory`)
 }
 
+/** Only resolves for items cloned from the system catalog (source = SYSTEM_CATALOG); the API returns 404/ITEM_NOT_FROM_CATALOG for custom items. */
+export function getInventoryItemCatalogSheet(campaignId: string, inventoryItemId: string): Promise<CampaignItemEntry> {
+  return api(`/api/campaigns/${campaignId}/inventory-items/${inventoryItemId}/catalog-sheet`)
+}
+
 export function getWallet(campaignId: string, characterId: string): Promise<WalletView> {
   return api(`/api/campaigns/${campaignId}/characters/${characterId}/wallet`)
 }
@@ -85,10 +91,14 @@ export function updateInventoryItem(
   })
 }
 
-export function equipInventoryItem(campaignId: string, inventoryItemId: string, slot: string): Promise<InventoryView> {
+export function equipInventoryItem(
+  campaignId: string,
+  inventoryItemId: string,
+  equipmentOptionKey: string,
+): Promise<InventoryView> {
   return api(`/api/campaigns/${campaignId}/inventory-items/${inventoryItemId}/equip`, {
     method: 'POST',
-    body: JSON.stringify({ slot }),
+    body: JSON.stringify({ equipmentOptionKey }),
   })
 }
 

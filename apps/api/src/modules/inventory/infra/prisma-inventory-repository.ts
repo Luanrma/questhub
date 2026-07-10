@@ -1,6 +1,7 @@
 import { Prisma } from '@prisma/client'
 import { prisma } from '../../../db/prisma'
 import type {
+  EquipmentResourceLock,
   EquippedItemSnapshot,
   InventoryItemSnapshot,
   InventorySnapshot,
@@ -87,6 +88,8 @@ type ItemDefinitionRow = {
   id: string
   system: ItemDefinitionSnapshot['system']
   source: ItemDefinitionSnapshot['source']
+  sourcePack: string | null
+  sourceId: string | null
   itemData: unknown
 }
 
@@ -96,6 +99,8 @@ function toItemDefinitionSnapshot(row: ItemDefinitionRow): ItemDefinitionSnapsho
     id: row.id,
     system: row.system,
     source: row.source,
+    sourcePack: row.sourcePack,
+    sourceId: row.sourceId,
     ...data,
   }
 }
@@ -103,17 +108,35 @@ function toItemDefinitionSnapshot(row: ItemDefinitionRow): ItemDefinitionSnapsho
 type EquippedItemRow = {
   id: string
   inventoryItemId: string
-  slot: string
-  exclusiveSlotKey: string | null
+  equipmentOptionKey: string
+  resourceLocks: unknown
+  systemData: unknown
   quantity: number
+}
+
+function parseResourceLocks(input: unknown): EquipmentResourceLock[] {
+  if (!Array.isArray(input)) return []
+
+  return input.flatMap((entry) => {
+    const raw = entry as Partial<EquipmentResourceLock>
+    if (typeof raw.resource !== 'string' || typeof raw.amount !== 'number') return []
+    return [
+      {
+        resource: raw.resource,
+        amount: raw.amount,
+        ...(raw.exclusive === undefined ? {} : { exclusive: raw.exclusive === true }),
+      },
+    ]
+  })
 }
 
 function toEquippedItemSnapshot(row: EquippedItemRow): EquippedItemSnapshot {
   return {
     id: row.id,
     inventoryItemId: row.inventoryItemId,
-    slot: row.slot,
-    exclusiveSlotKey: row.exclusiveSlotKey,
+    equipmentOptionKey: row.equipmentOptionKey,
+    resourceLocks: parseResourceLocks(row.resourceLocks),
+    systemData: row.systemData ?? null,
     quantity: row.quantity,
   }
 }
@@ -227,8 +250,9 @@ async function findEquippedItemById(equippedItemId: string): Promise<ResolvedEqu
     inventoryItemId: row.inventoryItemId,
     campaignCharacterId: row.campaignCharacterId,
     campaignId: row.campaignCharacter.campaignId,
-    slot: row.slot,
-    exclusiveSlotKey: row.exclusiveSlotKey,
+    equipmentOptionKey: row.equipmentOptionKey,
+    resourceLocks: parseResourceLocks(row.resourceLocks),
+    systemData: row.systemData ?? null,
     quantity: row.quantity,
   }
 }
@@ -399,16 +423,29 @@ async function equipItem(input: EquipItemInput): Promise<EquipItemResult> {
   return prisma.$transaction(async (tx) => {
     const item = await tx.inventoryItem.findUnique({
       where: { id: input.inventoryItemId },
-      include: { inventory: true, equippedItem: true },
+      include: { inventory: true, equippedItem: true, itemDefinition: true },
     })
     if (!item) return { status: 'not_found' as const }
     if (item.equippedItem) return { status: 'already_equipped' as const }
 
-    if (input.exclusiveSlotKey) {
-      const conflict = await tx.equippedItem.findFirst({
-        where: { campaignCharacterId: item.inventory.campaignCharacterId, exclusiveSlotKey: input.exclusiveSlotKey },
-      })
-      if (conflict) return { status: 'exclusive_slot_occupied' as const }
+    const currentEquipment = await tx.equippedItem.findMany({
+      where: { campaignCharacterId: item.inventory.campaignCharacterId },
+    })
+
+    const validation = input.validateEquipment({
+      itemDefinition: toItemDefinitionSnapshot(item.itemDefinition),
+      currentEquipment: currentEquipment.map((equipped) => ({
+        inventoryItemId: equipped.inventoryItemId,
+        equipmentOptionKey: equipped.equipmentOptionKey,
+        resourceLocks: parseResourceLocks(equipped.resourceLocks),
+        systemData: equipped.systemData ?? null,
+      })),
+    })
+
+    if (!validation.ok) {
+      return validation.code === 'EQUIPMENT_CONFLICT'
+        ? { status: 'equipment_conflict' as const }
+        : { status: 'invalid_equipment_option' as const }
     }
 
     let equippedInventoryItemId = item.id
@@ -454,8 +491,9 @@ async function equipItem(input: EquipItemInput): Promise<EquipItemResult> {
         data: {
           campaignCharacterId: item.inventory.campaignCharacterId,
           inventoryItemId: equippedInventoryItemId,
-          slot: input.slot,
-          exclusiveSlotKey: input.exclusiveSlotKey,
+          equipmentOptionKey: validation.optionKey,
+          resourceLocks: validation.resourceUsage as unknown as Prisma.InputJsonValue,
+          systemData: (validation.systemData ?? null) as Prisma.InputJsonValue,
         },
       })
 
@@ -468,12 +506,12 @@ async function equipItem(input: EquipItemInput): Promise<EquipItemResult> {
           actorUserId: input.actorUserId,
           actorCharacterId: input.actorCharacterId,
           type: 'EQUIP',
-          note: `slot:${equipped.slot}`,
+          note: `equipment:${equipped.equipmentOptionKey}`,
         },
       })
     } catch (error) {
       if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === 'P2002') {
-        return { status: 'exclusive_slot_occupied' as const }
+        return { status: 'already_equipped' as const }
       }
       throw error
     }
@@ -506,7 +544,7 @@ async function unequipItem(
         actorUserId,
         actorCharacterId,
         type: 'UNEQUIP',
-        note: `slot:${equipped.slot}`,
+        note: `equipment:${equipped.equipmentOptionKey}`,
       },
     })
 

@@ -490,8 +490,9 @@ model EquippedItem {
   id                  String   @id @default(cuid())
   campaignCharacterId String
   inventoryItemId     String   @unique
-  slot                String
-  exclusiveSlotKey    String?
+  equipmentOptionKey  String
+  resourceLocks       Json
+  systemData          Json?
   quantity            Int      @default(1)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
@@ -499,9 +500,8 @@ model EquippedItem {
   campaignCharacter CampaignCharacter @relation(fields: [campaignCharacterId], references: [id], onDelete: Cascade)
   inventoryItem     InventoryItem     @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
 
-  @@unique([campaignCharacterId, exclusiveSlotKey])
   @@index([campaignCharacterId])
-  @@index([slot])
+  @@index([equipmentOptionKey])
 }
 
 model Wallet {

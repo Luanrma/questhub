@@ -6,6 +6,7 @@ import type { createAddItemToInventoryUseCase } from '../application/add-item-to
 import type { createAdjustWalletUseCase } from '../application/adjust-wallet.use-case'
 import type { createCreateCampaignItemDefinitionUseCase } from '../application/create-campaign-item-definition.use-case'
 import type { createEquipItemUseCase } from '../application/equip-item.use-case'
+import type { createGetInventoryItemCatalogSheetUseCase } from '../application/get-inventory-item-catalog-sheet.use-case'
 import type { createGetInventoryLedgerUseCase } from '../application/get-inventory-ledger.use-case'
 import type { createGetInventoryUseCase } from '../application/get-inventory.use-case'
 import type { createGetWalletLedgerUseCase } from '../application/get-wallet-ledger.use-case'
@@ -32,6 +33,7 @@ import {
 
 export type InventoryUseCases = {
   getInventory: ReturnType<typeof createGetInventoryUseCase>
+  getInventoryItemCatalogSheet: ReturnType<typeof createGetInventoryItemCatalogSheetUseCase>
   getWallet: ReturnType<typeof createGetWalletUseCase>
   createCampaignItemDefinition: ReturnType<typeof createCreateCampaignItemDefinitionUseCase>
   addItemToInventory: ReturnType<typeof createAddItemToInventoryUseCase>
@@ -78,7 +80,42 @@ export function registerInventoryHttpRoutes(app: FastifyInstance, useCases: Inve
     if (result.status === 'not_found') return sendError(reply, 404, 'CAMPAIGN_CHARACTER_NOT_FOUND', 'Personagem nao encontrado na campanha')
     if (result.status === 'forbidden') return sendError(reply, 403, 'FORBIDDEN', 'Sem permissao para ver este inventario')
 
-    return reply.send(presentInventory(result.inventory))
+    const inventoryAdapter = getGameSystemAdapter(result.system)?.inventory
+    const equipmentOptions = inventoryAdapter?.listEquipmentOptions() ?? []
+    const equippedGroups = inventoryAdapter?.listEquippedGroups({
+      items: result.inventory.items.flatMap((item) =>
+        item.equipped
+          ? [
+              {
+                equippedItemId: item.equipped.id,
+                inventoryItemId: item.id,
+                equipmentOptionKey: item.equipped.equipmentOptionKey,
+                resourceLocks: item.equipped.resourceLocks,
+                systemData: item.equipped.systemData,
+                item: item.itemDefinition,
+              },
+            ]
+          : [],
+      ),
+    }) ?? []
+    return reply.send(presentInventory(result.inventory, equipmentOptions, equippedGroups))
+  })
+
+  app.get('/api/campaigns/:campaignId/inventory-items/:inventoryItemId/catalog-sheet', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = inventoryItemParamsSchema.safeParse(req.params)
+    if (!params.success) return sendError(reply, 400, 'INVALID_PAYLOAD', 'Parametros invalidos')
+
+    const result = await useCases.getInventoryItemCatalogSheet({ ...params.data, actorUserId: payload.id })
+    if (result.status === 'not_found') return sendError(reply, 404, 'INVENTORY_ITEM_NOT_FOUND', 'Item nao encontrado')
+    if (result.status === 'forbidden') return sendError(reply, 403, 'FORBIDDEN', 'Sem permissao para ver este item')
+    if (result.status === 'not_from_catalog') {
+      return sendError(reply, 404, 'ITEM_NOT_FROM_CATALOG', 'Este item nao possui ficha de catalogo')
+    }
+
+    return reply.send(result.entry)
   })
 
   app.get('/api/campaigns/:campaignId/characters/:characterId/wallet', async (req, reply) => {
@@ -170,7 +207,7 @@ export function registerInventoryHttpRoutes(app: FastifyInstance, useCases: Inve
       return sendError(reply, 403, 'ITEM_BELONGS_TO_ANOTHER_CHARACTER', 'Este item pertence a outro personagem')
     }
     if (result.status === 'already_equipped') return sendError(reply, 409, 'ITEM_ALREADY_EQUIPPED', 'Item ja equipado')
-    if (result.status === 'exclusive_slot_occupied') return sendError(reply, 409, 'EXCLUSIVE_SLOT_OCCUPIED', 'Slot ja ocupado')
+    if (result.status === 'equipment_conflict') return sendError(reply, 409, 'EQUIPMENT_CONFLICT', 'Opcao de equipamento em conflito')
     if (result.status === 'invalid_payload') return sendError(reply, 400, 'INVALID_PAYLOAD', 'Slot invalido')
 
     return reply.send(presentInventory(result.inventory))

@@ -5,7 +5,7 @@ import { Pathfinder2eBestiarySheetView } from '../../../game-systems/pathfinder-
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { Button } from '../../../components/Button'
 import { api, ApiError } from '../../../lib/api'
-import { calculateBounds, clamp } from '../../../game-systems/character-sheet/drag'
+import { calculateBounds, clamp } from '../../../components/windowDrag'
 import { readStoredCampaignUserSettings } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import type { BestiaryEntry } from '../types'
 

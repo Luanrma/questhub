@@ -62,9 +62,9 @@ Validacoes:
   - [x] `toCopper`.
   - [x] `fromCopper`.
   - [x] `formatPathfinder2eCurrency`.
-- [x] Criar regras puras de slot:
-  - [x] detectar slot exclusivo;
-  - [x] mapear `exclusiveSlotKey`;
+- [x] Criar regras puras de equipamento:
+  - [x] detectar recurso exclusivo;
+  - [x] mapear `resourceLocks`;
   - [x] validar conflito.
 - [x] Criar presenter de inventario.
 - [x] Criar presenter de wallet.
@@ -197,9 +197,9 @@ Validacoes:
 ## Fase 8 — Pathfinder 2e Inicial
 
 - [x] Implementar formatacao `pp/gp/sp/cp`.
-- [x] Implementar slots PF2e iniciais.
+- [x] Implementar opcoes PF2e iniciais por usage/recursos.
 - [x] Exibir traits, raridade, nivel, bulk e preco.
-- [x] Exibir item equipado separado por slot.
+- [x] Exibir item equipado separado por opcao de equipamento.
 - [x] Preparar `systemData` para receber dados PF2e sem acoplamento prematuro.
 - [x] Criar pelo menos alguns itens customizados manuais para validar fluxo.
 
@@ -208,14 +208,14 @@ Nao fazer nesta fase:
 - [ ] Nao importar compendio oficial completo de itens.
 - [ ] Nao calcular bonus automaticos na ficha.
 - [ ] Nao bloquear por bulk/carga.
-- [ ] Nao implementar investidura completa.
+- [x] Implementar limite inicial de investidura 0/10 pelo adapter PF2e.
 
 ---
 
 ## Fase 9 — Testes
 
 - [x] Testes de moeda.
-- [x] Testes de slots exclusivos.
+- [x] Testes de conflitos/capacidades de equipamento por adapter.
 - [x] Testes de permissao Mestre/Jogador.
 - [x] Testes de adicionar item.
 - [x] Testes de equipar/desequipar.
@@ -290,3 +290,27 @@ Entrega final esperada:
 - [x] Validar frontend para nao tipar breakdown de moeda como PF2e.
 - [x] Rodar typecheck/testes disponiveis.
 - [x] Documentar acoplamentos restantes e proximos passos.
+
+---
+
+## Fase 13 — Mochila em Modal com Grid de Slots
+
+- [x] Extrair utilitario de drag/resize de modal (`clamp`/`calculateBounds`) para `apps/web/src/components/windowDrag.ts`, atualizando `CharacterSheetModal`, `BestiaryCreatureSheetModal`, `ItemSheetModal` e `HazardEncounterPanel`.
+- [x] Adicionar `getEquippedGroupsForDisplay` em `inventoryViewModel.ts` (usa `equippedGroups` da API quando existir; fallback agrupando por `equipmentOptionKey` + resolvendo `label` via `equipmentOptions`).
+- [x] Mover `getCompatibleEquipmentOptionKeys` para `inventoryViewModel.ts` como regra pura compartilhada.
+- [x] Criar `InventoryItemSlot.tsx`, `InventoryGrid.tsx` e `InventoryItemContextMenu.tsx` (grid de slots + menu de contexto com Equipar/submenu/Consumir/Dropar/Desequipar).
+- [x] Criar `InventoryModal.tsx` (portal arrastavel/redimensionavel, mesmo padrao de `CharacterSheetModal`), reaproveitando `useInventory`/`useWallet`/`useInventoryRealtime`/`WalletPanel`/`MasterInventoryAdminPanel` sem alterar contrato.
+- [x] Remover `InventoryPanel.tsx`, `InventoryItemCard.tsx` e `EquippedItemsPanel.tsx`.
+- [x] Adicionar opcao "Mochila" no menu de contexto do token em `CampaignOverviewPage.tsx` (mesmo gate de permissao de "Ficha"), remover a aba `'inventory'` do painel lateral e renderizar `InventoryModal` junto aos demais modais de token.
+- [x] Grid da Mochila fixo em 50 slots (10x5), com placeholders vazios; sem limite rigido de capacidade.
+- [x] Itens exibidos por icone (`domain/itemIcon.ts`, heuristica de palavras-chave contra `apps/web/public/assets/icons`), nao pelo nome em texto.
+- [x] Opcao "Ficha" no menu de contexto reaproveitando `features/items/components/ItemSheetModal.tsx` (mesmo componente do catalogo do Mestre), em vez de uma ficha nova — apenas para itens `SYSTEM_CATALOG`.
+- [x] Novo endpoint `GET /api/campaigns/:campaignId/inventory-items/:inventoryItemId/catalog-sheet` (`.ai/inventory/specs.md` secao 6.12), com permissao igual a "Ver inventario"; adicionar `sourcePack`/`sourceId` a `ItemDefinitionSnapshot` e `findEntryBySource` ao `GameSystemItemAdapter`/adapter PF2e/registry de itens.
+- [x] Atualizar `.ai/inventory/readme.md`, `.ai/inventory/specs.md` (secoes 6.12 e 12.1) e `.ai/inventory/skills.md`.
+
+Validacoes:
+
+- [x] Novo endpoint de ficha de catalogo segue a mesma permissao de "Ver inventario" (nao o Master-only de `game_systems/items`); demais mutacoes continuam reaproveitando `equip`/`unequip`/`updateInventoryItem`/`equipmentOptions`/`equippedGroups` existentes sem novo contrato.
+- [x] Cabecalho de grupo equipado usa `label`, nunca `equipmentOptionKey` bruta.
+- [x] Master consegue abrir a mochila de outro personagem/NPC ativo; jogador so abre a propria.
+- [x] `npm run test:unit` (166 testes) e `npm run build:web` passam apos as mudancas de dominio/backend.

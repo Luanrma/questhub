@@ -47,9 +47,23 @@ export const updateInventoryItemSchema = z.object({
   state: z.enum(['STORED', 'CONSUMED', 'DESTROYED', 'DROPPED']).optional(),
 })
 
-export const equipInventoryItemSchema = z.object({
-  slot: z.string().trim().min(1, 'Slot e obrigatorio'),
-})
+export const equipInventoryItemSchema = z
+  .object({
+    equipmentOptionKey: z.string().trim().min(1, 'Opcao de equipamento e obrigatoria').optional(),
+    slot: z.string().trim().min(1, 'Slot e obrigatorio').optional(),
+  })
+  .transform((value, ctx) => {
+    const equipmentOptionKey = value.equipmentOptionKey ?? value.slot
+    if (!equipmentOptionKey) {
+      ctx.addIssue({
+        code: 'custom',
+        message: 'Opcao de equipamento e obrigatoria',
+        path: ['equipmentOptionKey'],
+      })
+      return z.NEVER
+    }
+    return { equipmentOptionKey }
+  })
 
 export const transferInventoryItemSchema = z.object({
   toCharacterId: z.string().trim().min(1, 'Personagem de destino invalido'),

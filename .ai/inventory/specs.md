@@ -185,8 +185,9 @@ model EquippedItem {
   id                  String   @id @default(cuid())
   campaignCharacterId String
   inventoryItemId     String   @unique
-  slot                String
-  exclusiveSlotKey    String?
+  equipmentOptionKey  String
+  resourceLocks       Json
+  systemData          Json?
   quantity            Int      @default(1)
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
@@ -195,17 +196,18 @@ model EquippedItem {
   inventoryItem     InventoryItem     @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
 
   @@index([campaignCharacterId])
-  @@index([slot])
-  @@unique([campaignCharacterId, exclusiveSlotKey])
+  @@index([equipmentOptionKey])
 }
 ```
 
 Regras:
 
 * `inventoryItemId` unico impede equipar a mesma instancia duas vezes.
-* `exclusiveSlotKey` deve ser preenchido para slots exclusivos.
-* `exclusiveSlotKey = null` para slots nao exclusivos.
-* Para PF2e, slots exclusivos iniciais: `main_hand`, `off_hand`, `two_hands`, `armor`, `shield`.
+* `equipmentOptionKey` e uma chave opaca escolhida pelo adapter do sistema.
+* `resourceLocks` e um JSON opaco para o core contendo os recursos consumidos pelo equipamento, como retornados pelo adapter do sistema.
+* `systemData` guarda metadados especificos do sistema sobre aquele estado equipado.
+* O core nao conhece maos, armaduras, escudos, body slots, investidura ou qualquer outra regra mecanica.
+* Conflitos, capacidades e mensagens de erro devem ser calculados pelo `InventorySystemAdapter` dentro do fluxo transacional de equipar.
 
 ### 3.6. Wallet
 
@@ -359,9 +361,17 @@ type InventoryItemView = {
 type EquippedItemView = {
   id: string
   inventoryItemId: string
-  slot: string
-  exclusiveSlotKey?: string | null
+  equipmentOptionKey: string
+  resourceLocks: Array<{ resource: string; amount: number; exclusive?: boolean }>
+  systemData?: unknown
   quantity: number
+}
+
+type EquippedGroupView = {
+  id: string
+  label: string
+  items: EquippedItemView[]
+  metadata?: unknown
 }
 
 type InventoryView = {
@@ -369,6 +379,8 @@ type InventoryView = {
   campaignId: string
   characterId: string
   campaignCharacterId: string
+  equipmentOptions?: EquipmentOption[]
+  equippedGroups?: EquippedGroupView[]
   items: InventoryItemView[]
   equippedItems: EquippedItemView[]
 }
@@ -523,14 +535,17 @@ Payload:
 
 ```ts
 type EquipInventoryItemRequest = {
-  slot: string
+  equipmentOptionKey: string
 }
 ```
 
 Regras:
 
 * item deve pertencer ao personagem que esta equipando;
-* se slot for exclusivo, nao pode haver outro item no mesmo `exclusiveSlotKey`;
+* `equipmentOptionKey` deve ser validado pelo adapter do sistema da campanha;
+* quando a definicao do item informar uma opcao canonica de equipamento (`equipSlot`/campo equivalente normalizado pelo adapter), o adapter deve rejeitar qualquer `equipmentOptionKey` diferente; itens legados/custom sem opcao canonica podem seguir a politica de compatibilidade do adapter;
+* conflitos, capacidade, incompatibilidades e recursos consumidos devem ser decididos pelo adapter do sistema;
+* a validacao final deve ocorrer dentro da transacao que persiste o equipamento;
 * se o item estiver em stack com `quantity > 1`, o use case deve dividir a stack ou retornar erro `STACK_MUST_BE_SPLIT`;
 * registrar ledger `EQUIP`.
 
@@ -622,6 +637,27 @@ GET /api/campaigns/:campaignId/characters/:characterId/wallet/ledger?page=1&limi
 
 Historico deve ser paginado.
 
+### 6.12. Ficha de catalogo de um item guardado
+
+```txt
+GET /api/campaigns/:campaignId/inventory-items/:inventoryItemId/catalog-sheet
+```
+
+**Decisao registrada (2026-07-10):** endpoint dedicado para a UI de "Ficha" no menu de contexto da Mochila (secao 12.1) reutilizar exatamente o mesmo componente de ficha que o Mestre ja usa no catalogo de itens (`features/items`/`ItemSheetModal`), sem duplicar a logica de apresentacao.
+
+Permissao: mesma de "Ver inventario" (secao 8) — Mestre ativo sempre; dono jogador ativo apenas para o proprio personagem; nenhum outro jogador.
+
+Resolucao:
+
+* carrega o `InventoryItem` pelo `inventoryItemId` e sua `CampaignItemDefinition`;
+* se `source !== 'SYSTEM_CATALOG'` (item `CUSTOM`/`IMPORTED`, sem origem no catalogo), retorna `404 ITEM_NOT_FROM_CATALOG` — nao existe ficha de catalogo para itens criados manualmente pelo Mestre;
+* se `source === 'SYSTEM_CATALOG'`, resolve a entrada original do catalogo de referencia do ruleset a partir de `sourcePack`+`sourceId` (os mesmos campos usados para deduplicar no envio de item — secao 3.2/6.4.1) via um novo metodo opcional do adapter de itens do sistema, `findEntryBySource(sourcePack, sourceId)`;
+* resposta e o mesmo formato usado pelo catalogo (`GameSystemItemEntry`/`CampaignItemEntry`, com `display.sheet.sections`), consumido pelo frontend sem transformacao.
+
+Erros: `401` (nao autenticado), `403 FORBIDDEN` (sem permissao para ver este inventario), `404 INVENTORY_ITEM_NOT_FOUND`, `404 ITEM_NOT_FROM_CATALOG`.
+
+Este endpoint e deliberadamente separado de `GET /api/campaigns/:campaignId/items/:itemId` (secao do modulo `game_systems/items`), que continua restrito ao Mestre e indexado por id de catalogo — a Mochila e acessivel por jogadores donos do proprio personagem, e o unico dado que o cliente possui e o `inventoryItemId`, nao o id de catalogo.
+
 ---
 
 ## 7. Contratos WebSocket
@@ -711,7 +747,8 @@ Visibilidade:
 * Item equipado nao pode ser transferido ou consumido sem resolver o equipamento antes.
 * Item nao stackavel nao deve ser mesclado em stack com quantidade maior que 1.
 * Item stackavel so pode ser equipado se a stack for dividida ou quantidade for 1.
-* Slot exclusivo deve validar conflito.
+* O adapter do sistema deve validar conflitos de equipamento com base no snapshot atual de equipamentos do personagem.
+* O adapter do sistema deve validar se a opcao escolhida e compativel com a definicao do item quando o item trouxer uma opcao canonica.
 
 ---
 
@@ -738,7 +775,7 @@ INSUFFICIENT_FUNDS
 ITEM_BELONGS_TO_ANOTHER_CHARACTER
 ITEM_ALREADY_EQUIPPED
 ITEM_NOT_EQUIPPED
-EXCLUSIVE_SLOT_OCCUPIED
+EQUIPMENT_CONFLICT
 STACK_MUST_BE_SPLIT
 CROSS_CAMPAIGN_TRANSFER_NOT_ALLOWED
 NEGATIVE_BALANCE_NOT_ALLOWED
@@ -767,7 +804,85 @@ Observacoes:
 
 ---
 
-## 12. PF2e: Contrato Inicial
+## 12. Equipment Agnostico de Sistema
+
+O modulo `inventory` deve tratar equipamento como estado persistente generico. Ele nao conhece slots, maos, armaduras, escudos, body slots ou investidura.
+
+Contratos esperados do adapter:
+
+```ts
+type EquipmentOption = {
+  key: string
+  label: string
+  description?: string
+  disabled?: boolean
+  metadata?: unknown
+}
+
+type EquipmentResourceUsage = {
+  resource: string
+  amount: number
+  exclusive?: boolean
+}
+
+type EquipmentValidationResult =
+  | {
+      ok: true
+      optionKey: string
+      resourceUsage: EquipmentResourceUsage[]
+      systemData?: unknown
+    }
+  | {
+      ok: false
+      code: string
+      message: string
+      details?: unknown
+    }
+```
+
+O adapter tambem pode devolver grupos de apresentacao de equipamento:
+
+```ts
+type EquipmentGroup = {
+  id: string
+  label: string
+  itemIds: string[]
+  metadata?: unknown
+}
+```
+
+Regras:
+
+* `itemIds` referencia ids de `EquippedItem`.
+* O core apenas transporta esses grupos para a UI, expandindo `itemIds` para `EquippedItemView[]` na resposta HTTP.
+* A UI generica deve renderizar `label` e `items`, nao `equipmentOptionKey`.
+* Chaves tecnicas como `main_hand`, `off_hand`, `armor`, `shield`, `body`, `head`, `ring` ou equivalentes pertencem ao adapter/ruleset, nao ao layout generico.
+
+Para compatibilidade temporaria, a rota HTTP pode aceitar `slot` como alias de `equipmentOptionKey`, mas nenhum codigo novo deve depender de `slot`.
+
+---
+
+## 12.1. Contrato de UI: Mochila em Modal com Grid de Slots
+
+**Decisao registrada (2026-07-10):** o inventario deixou de ser uma aba fixa do painel lateral direito e passou a ser um modal ("Mochila"), aberto por clique direito no token (mesma permissao de "Ver inventario" da tabela da secao 8: Mestre sempre, dono jogador para o proprio personagem, nenhum outro jogador). O modal segue o mesmo padrao visual/comportamental dos demais modais do sistema (portal, arrastavel, redimensionavel, botao de fechar), sem nenhum contrato HTTP/WS novo — reaproveita integralmente `equip`/`unequip`/`updateInventoryItem`/`equipmentOptions`/`equippedGroups` ja descritos nesta spec.
+
+Regras de apresentacao:
+
+* itens sao renderizados em um **grid de slots**, um item por slot; itens empilhaveis mostram um badge `xN` no slot quando `quantity > 1`;
+* cada item e representado por um **icone**, nao pelo nome em texto (nome fica disponivel como tooltip/`title`); o icone e resolvido por heuristica de palavras-chave sobre `itemType`/`name`/`traits` (campos genericos ja existentes no contrato) contra o pacote de arte estatico em `apps/web/public/assets/icons` (`apps/web/src/inventory/domain/itemIcon.ts`) — nao e um mapeamento 1:1 exato do catalogo (que tem milhares de itens), e sim o icone generico mais proximo, com fallback por `itemType` e um icone padrao final;
+* a secao **Mochila** usa um grid fixo de **50 slots (10 colunas x 5 linhas)**; slots vazios aparecem como placeholders tracejados. **Sem limite rigido de capacidade** nesta fase — se houver mais de 50 itens guardados, o grid apenas cresce em linhas extras (ainda 10 colunas), sem bloquear ou esconder itens (consistente com a decisao da secao 12/skills.md de nao bloquear por bulk/carga ainda). A secao **Equipados** continua com grid responsivo sem slots vazios (agrupada por opcao, tipicamente poucos itens por grupo);
+* o modal separa visualmente **itens equipados** (agrupados usando `equippedGroups`/`label`, nunca a `equipmentOptionKey` crua — reforcando a regra ja registrada acima) dos **itens da mochila** (`state = STORED`);
+* a interacao principal e **clique direito no item**, abrindo um menu de contexto com as acoes validas para aquele item:
+  * "Ficha" — disponivel apenas para itens com `itemDefinition.source === 'SYSTEM_CATALOG'` (clonados do catalogo de referencia do ruleset); reutiliza o mesmo modal (`ItemSheetModal`/`Pathfinder2eItemSheetView`) que o Mestre ja usa no catalogo de itens da campanha (`features/items`), em vez de criar uma ficha nova. Como o catalogo e `CampaignItemDefinition` vivem em espacos de id diferentes (`GET /api/campaigns/:campaignId/items/:itemId` espera um id de catalogo tipo `pf2e:equipment:dagger` e e restrito ao Mestre), foi adicionado um novo endpoint dedicado — ver secao 6.12 — que resolve a ficha a partir do `inventoryItemId` respeitando a mesma permissao de "Ver inventario". Itens `CUSTOM` (criados manualmente pelo Mestre, sem origem no catalogo) nao tem ficha de catalogo; a opcao "Ficha" nao aparece para eles;
+  * `STORED` com opcoes de equipamento compativeis: "Equipar" — equipa direto se houver exatamente uma opcao valida, ou abre um submenu com os `label`s de cada `EquipmentOption` quando houver mais de uma;
+  * `STORED` com `itemDefinition.itemType === 'consumable'`: "Consumir" (`PATCH .../inventory-items/:id` com `state: 'CONSUMED'`);
+  * `STORED`: "Dropar", sempre disponivel (`state: 'DROPPED'`);
+  * `EQUIPPED`: apenas "Desequipar" (`DELETE .../equipped-items/:id`);
+* **sem drag-and-drop** nesta iteracao — nao ha biblioteca de drag-and-drop no frontend hoje; reordenar/mover itens entre slots nao e suportado, apenas as acoes do menu de contexto.
+
+---
+
+## 13. PF2e: Contrato Inicial
 
 ### 12.1. Moeda
 
@@ -780,7 +895,7 @@ const PF2E_CURRENCY = {
 } as const
 ```
 
-### 12.2. Slots iniciais
+### 12.2. Opcoes iniciais de equipamento
 
 ```ts
 type Pathfinder2eEquipmentSlot =
@@ -795,6 +910,28 @@ type Pathfinder2eEquipmentSlot =
   | 'consumable'
   | 'other'
 ```
+
+Essas chaves pertencem exclusivamente ao adapter Pathfinder 2e. Para o core, elas sao apenas `equipmentOptionKey`.
+
+Quando um item PF2e do catalogo define `equipSlot`, esse valor e interpretado pelo adapter como uma categoria canonica, nao como um slot corporal antigo. Ex.: armaduras com `equipSlot = "armor"` so podem usar a opcao `armor`; armas de uma mao com `equipSlot = "main_hand"` podem usar `main_hand` ou `off_hand`; itens `held` consomem maos; itens com trait `invested` contam para o limite PF2e de 10 investiduras. Itens stowed/guardados continuam representados como itens `STORED` no inventario geral ate existir suporte persistente a containers.
+
+Recursos PF2e esperados no adapter:
+
+* `pf2e:hand:main` e `pf2e:hand:off` para maos;
+* `pf2e:armor` para armadura ativa;
+* `pf2e:shield` para escudo ativo;
+* `pf2e:investiture` para itens investidos, com capacidade maxima 10.
+
+O core continua sem saber o significado desses recursos.
+
+A apresentacao PF2e inicial deve agrupar itens equipados por estado de uso:
+
+* `held` -> `Segurados`;
+* `worn` -> `Vestidos`;
+* `invested` -> `Investidos`;
+* `prepared` -> `Preparados`.
+
+Esses labels pertencem ao adapter PF2e. A UI generica nao deve mostrar `main_hand`, `off_hand`, `armor` ou `shield` como cabecalhos.
 
 ### 12.3. Campos de exibicao recomendados
 
@@ -819,7 +956,7 @@ type Pathfinder2eItemSystemData = {
 
 ---
 
-## 13. Criterios de Aceitacao
+## 14. Criterios de Aceitacao
 
 * Existe `.ai/inventory/readme.md`, `.ai/inventory/skills.md`, `.ai/inventory/specs.md` e `.ai/inventory/todo.md`.
 * Prisma possui modelos para definicao de item, inventario, item no inventario, item equipado, wallet e ledgers.
@@ -827,7 +964,7 @@ type Pathfinder2eItemSystemData = {
 * Dinheiro e salvo como inteiro em unidade menor.
 * Item equipado referencia `InventoryItem`.
 * Nao e possivel equipar item de outro personagem.
-* Nao e possivel ter dois itens no mesmo slot exclusivo.
+* Nao e possivel violar conflitos/capacidades reportados pelo adapter do sistema.
 * Transferencia de item e moeda e atomica.
 * Toda mutacao relevante cria ledger.
 * Endpoints validam permissao de Mestre/Jogador.
@@ -838,7 +975,7 @@ type Pathfinder2eItemSystemData = {
 
 ---
 
-## 14. Decisao sobre a Rota Antiga de Trade
+## 15. Decisao sobre a Rota Antiga de Trade
 
 A rota `POST /api/items/trade` deve ser considerada legado temporario.
 

@@ -38,6 +38,24 @@ type Pathfinder2eCompendiumItem = {
 
 5.217 itens normalizados (`PATHFINDER_2E_ITEM_SOURCE_SUMMARY`: armor 165, backpack 43, consumable 1670, equipment 2178, kit 2, shield 98, treasure 153, weapon 908).
 
+### 1.2 Normalizacao de `usage` para Equipamento
+
+O campo bruto `systemData.usage` deve preservar o valor de uso do compendio Foundry sempre que existir. O campo normalizado `equipSlot` e uma pista inicial para o adapter de inventario, nao um slot corporal de PF2e.
+
+Mapeamento atual:
+
+* `weapon` com `usage` de duas maos -> `equipSlot = "two_hands"`;
+* outros `weapon` -> `equipSlot = "main_hand"`; o adapter permite `main_hand` ou `off_hand`;
+* `shield` -> `equipSlot = "shield"`;
+* `armor` -> `equipSlot = "armor"`;
+* `backpack` -> `equipSlot = "backpack"` com significado de stowed/mochila no produto;
+* `usage` iniciado por `worn` -> `equipSlot = "worn"`;
+* `usage` iniciado por `held` -> `equipSlot = "held"` e o adapter decide quais maos consome;
+* `consumable` -> compatibilidade de catalogo; o adapter deve tratar como `worn` para acesso rapido ou `held` quando o uso exigir mao;
+* `affixed`, runas, talismas, gadgets e outros casos especiais -> `equipSlot = "other"` ate existir fluxo proprio de anexo.
+
+Itens com trait `invested` devem ser reconhecidos pelo adapter de inventario PF2e e consumir `pf2e:investiture` (limite 10).
+
 ## 2. Contrato de Apresentacao
 O adapter PF2e converte cada `Pathfinder2eCompendiumItem` para o contrato neutro do core:
 

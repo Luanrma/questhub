@@ -6,7 +6,7 @@ import type { InventoryRepository } from './ports/inventory-repository'
 export type GetInventoryInput = { campaignId: string; characterId: string; actorUserId: string }
 
 export type GetInventoryResult =
-  | { status: 'ok'; inventory: InventorySnapshot }
+  | { status: 'ok'; inventory: InventorySnapshot; system: 'DND_5E' | 'PATHFINDER_2E' }
   | { status: 'not_found' }
   | { status: 'forbidden' }
 
@@ -19,7 +19,10 @@ export function createGetInventoryUseCase(deps: { inventoryRepository: Inventory
     const access = buildInventoryAccess(input.actorUserId, isMasterActive, target)
     if (!canViewInventory(access)) return { status: 'forbidden' }
 
+    const system = await deps.campaignAccess.loadCampaignSystem(input.campaignId)
+    if (!system) return { status: 'not_found' }
+
     const inventory = await deps.inventoryRepository.getOrCreateForCampaignCharacter(input.campaignId, target.id)
-    return { status: 'ok', inventory }
+    return { status: 'ok', inventory, system }
   }
 }

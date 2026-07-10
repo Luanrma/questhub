@@ -30,3 +30,10 @@ export function findCampaignItem(system: string, itemId: string) {
   const total = adapter.countEntries()
   return adapter.listEntries({ limit: total }).find((entry) => entry.id === itemId) ?? null
 }
+
+export function findCampaignItemBySource(system: string, sourcePack: string, sourceId: string) {
+  const adapter = getItemAdapter(system)
+  if (!adapter?.findEntryBySource) return null
+
+  return adapter.findEntryBySource(sourcePack, sourceId)
+}

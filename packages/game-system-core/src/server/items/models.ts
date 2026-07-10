@@ -68,4 +68,6 @@ export type GameSystemItemAdapter = {
   listEntries: (options?: GameSystemItemListOptions) => GameSystemItemEntry[]
   countEntries: (options?: Pick<GameSystemItemListOptions, 'search' | 'filters'>) => number
   findEntry?: (entryId: string) => GameSystemItemEntry | null
+  /** Looks up a catalog entry by the same sourcePack/sourceId pair stored on a cloned CampaignItemDefinition, so a granted inventory item can be traced back to its catalog sheet. */
+  findEntryBySource?: (sourcePack: string, sourceId: string) => GameSystemItemEntry | null
 }
