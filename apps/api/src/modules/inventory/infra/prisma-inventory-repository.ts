@@ -40,6 +40,10 @@ type ItemData = {
   equipSlot: string | null
   isStackable: boolean
   systemData: unknown
+  schemaVersion?: number
+  classification?: ItemDefinitionSnapshot['classification']
+  usage?: unknown
+  equipment?: ItemDefinitionSnapshot['equipment']
 }
 
 function toItemData(input: {
@@ -53,6 +57,10 @@ function toItemData(input: {
   equipSlot?: string | null
   isStackable?: boolean
   systemData?: unknown
+  schemaVersion?: number
+  classification?: ItemDefinitionSnapshot['classification']
+  usage?: unknown
+  equipment?: ItemDefinitionSnapshot['equipment']
 }): ItemData {
   return {
     name: input.name,
@@ -65,6 +73,10 @@ function toItemData(input: {
     equipSlot: input.equipSlot ?? null,
     isStackable: input.isStackable ?? false,
     systemData: input.systemData ?? null,
+    ...(input.schemaVersion === 2 ? { schemaVersion: 2 } : {}),
+    ...(input.classification ? { classification: input.classification } : {}),
+    ...(input.usage ? { usage: input.usage } : {}),
+    ...(input.equipment ? { equipment: input.equipment } : {}),
   }
 }
 
@@ -79,8 +91,12 @@ function parseItemData(itemData: unknown): ItemData {
     bulk: raw.bulk ?? null,
     priceMinorUnit: raw.priceMinorUnit ?? null,
     equipSlot: raw.equipSlot ?? null,
-    isStackable: raw.isStackable ?? false,
+    isStackable: raw.isStackable ?? (raw as { stack?: { stackable?: boolean } }).stack?.stackable ?? false,
     systemData: raw.systemData ?? null,
+    ...(raw.schemaVersion === 2 ? { schemaVersion: 2 } : {}),
+    ...(raw.classification ? { classification: raw.classification } : {}),
+    ...(raw.usage ? { usage: raw.usage } : {}),
+    ...(raw.equipment ? { equipment: raw.equipment } : {}),
   }
 }
 

@@ -70,6 +70,10 @@ export function createInMemoryInventoryRepository() {
       equipSlot: def.equipSlot ?? null,
       isStackable: def.isStackable ?? false,
       systemData: def.systemData ?? null,
+      ...(def.schemaVersion === 2 ? { schemaVersion: 2 } : {}),
+      ...(def.classification ? { classification: def.classification } : {}),
+      ...(def.usage ? { usage: def.usage } : {}),
+      ...(def.equipment ? { equipment: def.equipment } : {}),
       sourcePack: def.sourcePack ?? null,
       sourceId: def.sourceId ?? null,
     }

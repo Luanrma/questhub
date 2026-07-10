@@ -52,6 +52,21 @@ export type ItemDefinitionSnapshot = {
   equipSlot: string | null
   isStackable: boolean
   systemData: unknown
+  schemaVersion?: number
+  classification?: {
+    role?: string
+    subtype?: string | null
+  }
+  usage?: unknown
+  equipment?: {
+    equippable?: boolean
+    options?: Array<{
+      key: string
+      label: string
+      resourceUsage?: EquipmentResourceLock[]
+      metadata?: unknown
+    }>
+  }
 }
 
 export type EquipmentResourceLock = {

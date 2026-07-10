@@ -208,6 +208,8 @@ O modulo `inventory` nao deve diferenciar slots ou categorias especificas de rul
 
 **Decisao registrada (2026-07-10):** quando o item normalizado pelo ruleset possuir uma opcao canonica de equipamento (`equipSlot` no contrato atual), o adapter do sistema deve tratar esse valor como restricao de compatibilidade. O frontend pode usar esse mesmo campo para filtrar opcoes exibidas, mas a garantia de integridade pertence ao backend dentro da transacao.
 
+**Decisao registrada (2026-07-10):** `equipSlot` passa a ser compatibilidade V1. Para itens PF2e V2, o adapter do package deve validar a partir de `equipment.equippable` e `equipment.options`, usando `resourceUsage` como fonte dos locks persistidos. O core de inventario continua apenas transportando `schemaVersion`, `classification`, `usage` e `equipment` como dados opacos do item; nenhuma regra de municao, maos, armadura ou posicao corporal deve ser implementada em `apps/api/src/modules/inventory`.
+
 Conceitos permitidos no core:
 
 * `equipmentOptionKey`;

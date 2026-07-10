@@ -11,6 +11,7 @@ import { PATHFINDER_2E_ITEM_DATA, PATHFINDER_2E_ITEM_SOURCE_SUMMARY } from './da
 import type { Pathfinder2eCompendiumItem } from './models'
 
 export * from './models'
+export * from './normalize-usage'
 export { PATHFINDER_2E_ITEM_DATA, PATHFINDER_2E_ITEM_SOURCE_SUMMARY }
 
 const ITEM_TYPE_LABELS: Record<string, string> = {

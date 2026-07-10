@@ -39,6 +39,10 @@ export type CreateItemDefinitionInput = {
   equipSlot?: string | null
   isStackable?: boolean
   systemData?: unknown
+  schemaVersion?: number
+  classification?: ItemDefinitionSnapshot['classification']
+  usage?: unknown
+  equipment?: ItemDefinitionSnapshot['equipment']
   createdByUserId: string
 }
 
@@ -57,6 +61,10 @@ export type FindOrCreateItemDefinitionFromCatalogInput = {
   equipSlot?: string | null
   isStackable?: boolean
   systemData?: unknown
+  schemaVersion?: number
+  classification?: ItemDefinitionSnapshot['classification']
+  usage?: unknown
+  equipment?: ItemDefinitionSnapshot['equipment']
   createdByUserId: string
 }
 

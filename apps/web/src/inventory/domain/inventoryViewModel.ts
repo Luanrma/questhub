@@ -1,4 +1,4 @@
-import type { EquippedItemView, InventoryItemView, InventoryView } from './inventoryTypes'
+import type { EquipmentOptionView, EquippedItemView, InventoryItemView, InventoryView } from './inventoryTypes'
 
 export type EquippedGroupForDisplay = {
   id: string
@@ -63,9 +63,19 @@ export function findInventoryItemById(inventory: InventoryView, inventoryItemId:
   return inventory.items.find((item) => item.id === inventoryItemId) ?? null
 }
 
+export function getEquipmentOptionsForItem(item: InventoryItemView, fallbackOptions: EquipmentOptionView[]): EquipmentOptionView[] {
+  if (item.equipmentOptions) return item.equipmentOptions.filter((option) => !option.disabled)
+
+  const compatibleKeys = getCompatibleEquipmentOptionKeys(item)
+  return compatibleKeys
+    ? fallbackOptions.filter((option) => compatibleKeys.includes(option.key) && !option.disabled)
+    : fallbackOptions.filter((option) => !option.disabled)
+}
+
 /**
  * Compatible equipmentOptionKeys for an item based on its itemType/equipSlot (moved from
- * InventoryItemCard so the context-menu UI can reuse this pure rule too).
+ * InventoryItemCard so the context-menu UI can reuse this pure rule too). Legacy fallback only:
+ * new system adapters should send item.equipmentOptions from the API.
  */
 export function getCompatibleEquipmentOptionKeys(item: InventoryItemView): string[] | null {
   const equipSlot = item.itemDefinition.equipSlot

@@ -82,6 +82,12 @@ export function registerInventoryHttpRoutes(app: FastifyInstance, useCases: Inve
 
     const inventoryAdapter = getGameSystemAdapter(result.system)?.inventory
     const equipmentOptions = inventoryAdapter?.listEquipmentOptions() ?? []
+    const itemEquipmentOptions = new Map(
+      result.inventory.items.map((item) => [
+        item.id,
+        inventoryAdapter?.getEquipmentOptions?.(item.itemDefinition) ?? equipmentOptions,
+      ]),
+    )
     const equippedGroups = inventoryAdapter?.listEquippedGroups({
       items: result.inventory.items.flatMap((item) =>
         item.equipped
@@ -98,7 +104,7 @@ export function registerInventoryHttpRoutes(app: FastifyInstance, useCases: Inve
           : [],
       ),
     }) ?? []
-    return reply.send(presentInventory(result.inventory, equipmentOptions, equippedGroups))
+    return reply.send(presentInventory(result.inventory, equipmentOptions, equippedGroups, itemEquipmentOptions))
   })
 
   app.get('/api/campaigns/:campaignId/inventory-items/:inventoryItemId/catalog-sheet', async (req, reply) => {

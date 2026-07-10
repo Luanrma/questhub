@@ -14,7 +14,7 @@ function setup() {
   seedCharacter({ id: 'player-cc', campaignId: 'camp-1', characterId: 'char-player', userId: 'user-player', role: 'PLAYER', status: 'ACTIVE' })
   seedCharacter({ id: 'other-cc', campaignId: 'camp-1', characterId: 'char-other', userId: 'user-other', role: 'PLAYER', status: 'ACTIVE' })
 
-  const sword = seedItemDefinition({ campaignId: 'camp-1', name: 'Short Sword', itemType: 'weapon', isStackable: false })
+  const sword = seedItemDefinition({ campaignId: 'camp-1', name: 'Short Sword', itemType: 'weapon', equipSlot: 'main_hand', isStackable: false })
   const item = seedInventoryItem({ campaignId: 'camp-1', campaignCharacterId: 'player-cc', characterId: 'char-player', itemDefinitionId: sword.id })
 
   const equipUseCase = createEquipItemUseCase({ inventoryRepository, eventBus, campaignAccess })

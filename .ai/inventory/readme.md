@@ -112,6 +112,8 @@ A UI pode converter para `pp/gp/sp/cp`, mas o banco deve persistir um inteiro ca
 * Um `InventoryItem` nao pode estar equipado duas vezes ao mesmo tempo.
 * Slots exclusivos, como armadura, escudo, mao principal e mao secundaria, devem impedir conflito.
 * Slots nao exclusivos, como itens vestidos, consumiveis guardados e mochila, podem aceitar multiplas entradas.
+* Em PF2e, novos itens normalizados devem diferenciar `itemType`, `classification.role`, `usage` e `equipment`. `equipSlot` permanece apenas como compatibilidade de leitura V1.
+* Municao PF2e nao e equipamento: permanece no inventario, pode ser stackavel/consumida futuramente, mas nao deve criar opcoes de equipamento.
 * Item stackavel deve controlar `quantity`.
 * Item equipado deve representar uma unidade concreta. Se o item vier de uma stack com quantidade maior que 1, o sistema deve dividir a stack antes de equipar.
 * Toda alteracao relevante de item deve gerar ledger/historico.

@@ -61,6 +61,10 @@ export function createSendCatalogItemToPlayerUseCase(deps: {
       equipSlot: catalogItem.equipSlot,
       isStackable: catalogItem.isStackable,
       systemData: catalogItem.systemData,
+      schemaVersion: catalogItem.schemaVersion,
+      classification: catalogItem.classification,
+      usage: catalogItem.usage,
+      equipment: catalogItem.equipment,
       createdByUserId: input.actorUserId,
     })
 

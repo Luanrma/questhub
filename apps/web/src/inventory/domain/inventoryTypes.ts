@@ -61,6 +61,7 @@ export type EquippedGroupView = {
 export type InventoryItemView = {
   id: string
   itemDefinition: InventoryItemDefinitionView
+  equipmentOptions?: EquipmentOptionView[]
   quantity: number
   state: InventoryItemState
   customName?: string | null

@@ -16,7 +16,7 @@ function setup() {
   seedCharacter({ id: 'other-cc', campaignId: 'camp-1', characterId: 'char-other', userId: 'user-other', role: 'PLAYER', status: 'ACTIVE' })
   seedCharacter({ id: 'foreign-cc', campaignId: 'camp-2', characterId: 'char-foreign', userId: 'user-foreign', role: 'PLAYER', status: 'ACTIVE' })
 
-  const rope = seedItemDefinition({ campaignId: 'camp-1', name: 'Rope', itemType: 'gear', isStackable: true })
+  const rope = seedItemDefinition({ campaignId: 'camp-1', name: 'Rope', itemType: 'gear', equipSlot: 'held', isStackable: true })
 
   const transferUseCase = createTransferItemUseCase({ inventoryRepository, eventBus, campaignAccess })
   const equipUseCase = createEquipItemUseCase({ inventoryRepository, eventBus, campaignAccess })
@@ -54,7 +54,7 @@ test('blocks cross-campaign transfers', async () => {
 test('an equipped item cannot be transferred without unequipping first', async () => {
   const { transferUseCase, equipUseCase, rope, seedInventoryItem } = setup()
   const item = seedInventoryItem({ campaignId: 'camp-1', campaignCharacterId: 'player-cc', characterId: 'char-player', itemDefinitionId: rope.id })
-  await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, equipmentOptionKey: 'held', actorUserId: 'user-player' })
+  await equipUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, equipmentOptionKey: 'main_hand', actorUserId: 'user-player' })
 
   const result = await transferUseCase({ campaignId: 'camp-1', inventoryItemId: item.id, toCharacterId: 'char-other', quantity: 1, actorUserId: 'user-player' })
   assert.equal(result.status, 'item_already_equipped')

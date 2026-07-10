@@ -386,6 +386,22 @@ type InventoryView = {
 }
 ```
 
+### 5.2.1 Compatibilidade de `itemData` V1/V2
+
+Decisao registrada (2026-07-10): `CampaignItemDefinition.itemData` aceita dois envelopes durante a transicao:
+
+* **V1 legado:** campos planos com `equipSlot`, `isStackable` e `systemData.usage`;
+* **V2 normalizado:** `schemaVersion: 2`, `classification`, `usage`, `equipment`, `stack` e blocos opcionais especificos de PF2e.
+
+O modulo `inventory` permanece agnostico: nao interpreta maos, armadura, escudo, posicao corporal, municao ou investidura. Ele persiste `equipmentOptionKey` e `resourceLocks` como dados opacos retornados pelo adapter do sistema.
+
+Politica de transicao:
+
+* novos itens clonados do catalogo PF2e devem preservar `schemaVersion: 2` quando a origem ja estiver normalizada;
+* itens V1 seguem legiveis por parser de compatibilidade;
+* codigo novo nao deve gravar `equipSlot` como fonte mecanica principal;
+* V1 ambiguo nao deve receber permissao ampla para equipar.
+
 ---
 
 ## 6. Contrato HTTP
@@ -914,6 +930,14 @@ type Pathfinder2eEquipmentSlot =
 Essas chaves pertencem exclusivamente ao adapter Pathfinder 2e. Para o core, elas sao apenas `equipmentOptionKey`.
 
 Quando um item PF2e do catalogo define `equipSlot`, esse valor e interpretado pelo adapter como uma categoria canonica, nao como um slot corporal antigo. Ex.: armaduras com `equipSlot = "armor"` so podem usar a opcao `armor`; armas de uma mao com `equipSlot = "main_hand"` podem usar `main_hand` ou `off_hand`; itens `held` consomem maos; itens com trait `invested` contam para o limite PF2e de 10 investiduras. Itens stowed/guardados continuam representados como itens `STORED` no inventario geral ate existir suporte persistente a containers.
+
+Este bloco e V1 legado. Para V2, o adapter PF2e deve preferir `itemData.equipment.options`:
+
+* `equipment.equippable=false` falha no fluxo de equipar;
+* a opcao escolhida deve existir em `equipment.options`;
+* `resourceUsage` da opcao e a fonte dos `resourceLocks`;
+* municao e consumiveis sem uso segurado confiavel nao possuem opcoes de equipamento;
+* regras PF2e especificas ficam no package `packages/game-system-pathfinder-2e`, nao no registry generico.
 
 Recursos PF2e esperados no adapter:
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ChevronRight, Flame, PackageMinus, ScrollText, Shirt, Undo2 } from 'lucide-react'
-import { getCompatibleEquipmentOptionKeys } from '../domain/inventoryViewModel'
+import { getEquipmentOptionsForItem } from '../domain/inventoryViewModel'
 import type { EquipmentOptionView, InventoryItemView } from '../domain/inventoryTypes'
 
 export function InventoryItemContextMenu({
@@ -48,10 +48,7 @@ export function InventoryItemContextMenu({
   }, [onClose])
 
   const isEquipped = item.state === 'EQUIPPED'
-  const compatibleKeys = getCompatibleEquipmentOptionKeys(item)
-  const compatibleOptions = compatibleKeys
-    ? equipmentOptions.filter((option) => compatibleKeys.includes(option.key) && !option.disabled)
-    : equipmentOptions.filter((option) => !option.disabled)
+  const compatibleOptions = getEquipmentOptionsForItem(item, equipmentOptions)
   const isConsumable = item.itemDefinition.itemType === 'consumable'
 
   function equip(equipmentOptionKey: string) {

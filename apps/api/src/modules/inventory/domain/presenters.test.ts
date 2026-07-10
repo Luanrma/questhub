@@ -57,12 +57,50 @@ test('presentInventory maps items and equipped items to the InventoryView contra
     ],
   }
 
-  const view = presentInventory(snapshot)
+  const itemEquipmentOptions = new Map([
+    [
+      'item-1',
+      [
+        {
+          key: 'main_hand',
+          label: 'Mao principal',
+        },
+      ],
+    ],
+  ])
+
+  const view = presentInventory(snapshot, [], [], itemEquipmentOptions)
 
   assert.equal(view.id, 'inv-1')
   assert.equal(view.items.length, 1)
+  assert.equal(view.items[0].equipmentOptions?.[0]?.key, 'main_hand')
   assert.equal(view.items[0].equipped?.equipmentOptionKey, 'main_hand')
   assert.equal(view.equippedItems.length, 1)
+})
+
+test('presentInventory preserves empty item equipment options from the system adapter', () => {
+  const snapshot: InventorySnapshot = {
+    id: 'inv-1',
+    campaignId: 'camp-1',
+    characterId: 'char-1',
+    campaignCharacterId: 'cc-1',
+    items: [
+      {
+        id: 'item-1',
+        itemDefinition,
+        quantity: 20,
+        state: 'STORED',
+        customName: null,
+        notes: null,
+        equipped: null,
+      },
+    ],
+    equippedItems: [],
+  }
+
+  const view = presentInventory(snapshot, [], [], new Map([['item-1', []]]))
+
+  assert.deepEqual(view.items[0].equipmentOptions, [])
 })
 
 test('presentWallet embeds the injected currency display without recomputing it', () => {

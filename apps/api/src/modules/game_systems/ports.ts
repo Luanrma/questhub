@@ -57,6 +57,21 @@ export type UniversalItemDefinition = {
   equipSlot: string | null
   isStackable: boolean
   systemData: unknown
+  schemaVersion?: number
+  classification?: {
+    role?: string
+    subtype?: string | null
+  }
+  usage?: unknown
+  equipment?: {
+    equippable?: boolean
+    options?: Array<{
+      key: string
+      label: string
+      resourceUsage?: EquipmentResourceUsage[]
+      metadata?: unknown
+    }>
+  }
 }
 
 export type EquipmentValidationInput = {
@@ -81,6 +96,7 @@ export type EquipmentValidationResult =
 
 export interface InventorySystemAdapter {
   listEquipmentOptions(): EquipmentOption[]
+  getEquipmentOptions?(item: UniversalItemDefinition): EquipmentOption[]
   listEquippedGroups(input: EquipmentGroupingInput): EquipmentGroup[]
   validateEquipment(input: EquipmentValidationInput): EquipmentValidationResult
   normalizeItemData(input: unknown): UniversalItemDefinition

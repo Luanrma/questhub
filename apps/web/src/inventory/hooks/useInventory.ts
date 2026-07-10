@@ -46,10 +46,17 @@ export function useInventory(campaignId: string | null | undefined, characterId:
   }
 
   function updateInventory(next: InventoryView) {
-    setInventory((current) => ({
-      ...next,
-      equipmentOptions: next.equipmentOptions ?? current?.equipmentOptions,
-    }))
+    setInventory((current) => {
+      const previousOptionsByItemId = new Map((current?.items ?? []).map((item) => [item.id, item.equipmentOptions]))
+      return {
+        ...next,
+        equipmentOptions: next.equipmentOptions ?? current?.equipmentOptions,
+        items: next.items.map((item) => ({
+          ...item,
+          equipmentOptions: item.equipmentOptions ?? previousOptionsByItemId.get(item.id),
+        })),
+      }
+    })
   }
 
   async function equip(inventoryItemId: string, equipmentOptionKey: string) {

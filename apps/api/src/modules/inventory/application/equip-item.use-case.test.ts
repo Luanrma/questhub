@@ -19,10 +19,10 @@ function setup() {
   const shield = seedItemDefinition({ campaignId: 'camp-1', name: 'Steel Shield', itemType: 'shield', equipSlot: 'shield', isStackable: false })
   const greatsword = seedItemDefinition({ campaignId: 'camp-1', name: 'Greatsword', itemType: 'weapon', equipSlot: 'two_hands', isStackable: false })
   const investedCloak = seedItemDefinition({ campaignId: 'camp-1', name: 'Magic Cloak', itemType: 'equipment', equipSlot: 'worn', traits: ['invested'], isStackable: false })
-  const potion = seedItemDefinition({ campaignId: 'camp-1', name: 'Potion', itemType: 'consumable', equipSlot: 'held', isStackable: true })
+  const toolBundle = seedItemDefinition({ campaignId: 'camp-1', name: 'Tool Bundle', itemType: 'equipment', equipSlot: 'held', isStackable: true })
 
   const useCase = createEquipItemUseCase({ inventoryRepository, eventBus, campaignAccess })
-  return { useCase, sword, armor, shield, greatsword, investedCloak, potion, seedInventoryItem }
+  return { useCase, sword, armor, shield, greatsword, investedCloak, toolBundle, seedInventoryItem }
 }
 
 test('owner equips their own item with an equipment option', async () => {
@@ -69,8 +69,8 @@ test('cannot equip an item twice', async () => {
 })
 
 test('auto-splits a stack of quantity > 1 when equipping', async () => {
-  const { useCase, potion, seedInventoryItem } = setup()
-  const stack = seedInventoryItem({ campaignId: 'camp-1', campaignCharacterId: 'player-cc', characterId: 'char-player', itemDefinitionId: potion.id, quantity: 3 })
+  const { useCase, toolBundle, seedInventoryItem } = setup()
+  const stack = seedInventoryItem({ campaignId: 'camp-1', campaignCharacterId: 'player-cc', characterId: 'char-player', itemDefinitionId: toolBundle.id, quantity: 3 })
 
   const result = await useCase({ campaignId: 'camp-1', inventoryItemId: stack.id, equipmentOptionKey: 'main_hand', actorUserId: 'user-player' })
   assert.equal(result.status, 'ok')

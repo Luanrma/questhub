@@ -17,6 +17,9 @@ Durante a preparacao de uma sessao ou de uma loja/tesouro, o Mestre precisa cons
 * Dados mecanicos Pathfinder 2e permanecem no package `packages/game-system-pathfinder-2e`.
 * O VTT generico consome apenas campos neutros de apresentacao (`display`).
 * Documentos Foundry de equipamento (`weapon`, `armor`, `equipment`, `consumable`, `treasure`, `backpack`, `shield`, `kit`) sao tratados como entradas do catalogo de itens.
+* A normalizacao de itens deve separar tipo documental, papel mecanico, modo de uso, posicao corporal e opcoes de equipamento. A regra de produto e: `itemType != role != usage.mode != usage.placement != equipment`.
+* Municao PF2e (flechas, virotes, balas e equivalentes detectados por dados estruturados) permanece no inventario como item stackavel/consumivel, mas nao aparece como item equipavel.
+* Itens com uso bruto desconhecido ou sem classificacao segura devem falhar de forma conservadora: nao equipaveis, sem opcoes, e com warning de normalizacao.
 
 ## 4. Personas
 * **Mestre:** consulta itens por nome, trait, tipo ou nivel e abre a ficha de um item para ver detalhes antes de conceder loot ou definir precos de loja.
@@ -44,3 +47,6 @@ Nao pertence ao submodulo:
 * comercio automatizado de loja/NPC;
 * craft;
 * ficha completa de personagem jogador.
+* consumo automatico de municao em ataques;
+* anexar runas, talismas ou gadgets a armas/armaduras;
+* efeitos mecanicos completos de itens equipados.

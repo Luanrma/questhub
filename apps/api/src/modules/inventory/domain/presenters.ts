@@ -36,10 +36,11 @@ export function presentEquippedItem(equipped: EquippedItemSnapshot) {
   }
 }
 
-export function presentInventoryItem(item: InventoryItemSnapshot) {
+export function presentInventoryItem(item: InventoryItemSnapshot, equipmentOptions?: EquipmentOption[]) {
   return {
     id: item.id,
     itemDefinition: presentItemDefinition(item.itemDefinition),
+    ...(equipmentOptions ? { equipmentOptions } : {}),
     quantity: item.quantity,
     state: item.state,
     customName: item.customName,
@@ -65,6 +66,7 @@ export function presentInventory(
   inventory: InventorySnapshot,
   equipmentOptions: EquipmentOption[] = [],
   equippedGroups: EquipmentGroup[] = [],
+  itemEquipmentOptions: Map<string, EquipmentOption[]> = new Map(),
 ) {
   const equippedItems = inventory.equippedItems.map(presentEquippedItem)
   return {
@@ -74,7 +76,7 @@ export function presentInventory(
     campaignCharacterId: inventory.campaignCharacterId,
     ...(equipmentOptions.length ? { equipmentOptions } : {}),
     ...(equippedGroups.length ? { equippedGroups: equippedGroups.map((group) => presentEquippedGroup(group, equippedItems)) } : {}),
-    items: inventory.items.map(presentInventoryItem),
+    items: inventory.items.map((item) => presentInventoryItem(item, itemEquipmentOptions.has(item.id) ? itemEquipmentOptions.get(item.id) : undefined)),
     equippedItems,
   }
 }
