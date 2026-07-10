@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
+  Backpack,
   CircleUserRound,
   Cloud,
   Dice5,
@@ -32,6 +33,7 @@ import { CampaignChat } from '../../components/CampaignChat'
 import { LoadingScreen } from '../../components/LoadingScreen'
 import { CharacterSheetModal } from '../../components/CharacterSheetModal'
 import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
+import { InventoryPanel } from '../../inventory/components/InventoryPanel'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
 import { BestiaryCreatureSheetModal } from '../../features/bestiary/components/BestiaryCreatureSheetModal'
@@ -178,7 +180,7 @@ type CharacterTokenSheet = {
   readOnly: boolean
 }
 
-type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'scene-hazards' | 'chat'
+type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'scene-hazards' | 'inventory' | 'chat'
 
 export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, CampaignOverviewPageProps>(function CampaignOverviewPage({
   gridSettings,
@@ -2767,6 +2769,21 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             >
               <Users className="h-4 w-4" />
             </button>
+            {campaign?.myCharacterId ? (
+              <button
+                type="button"
+                title="Inventario"
+                className={[
+                  'grid h-10 w-10 place-items-center rounded-lg border transition',
+                  rightPanelTab === 'inventory'
+                    ? 'border-amber-300/40 bg-amber-500/20 text-amber-100'
+                    : 'border-white/10 bg-white/[0.04] text-amber-300 hover:bg-white/10 hover:text-amber-200',
+                ].join(' ')}
+                onClick={() => openRightPanelTab('inventory')}
+              >
+                <Backpack className="h-4 w-4" />
+              </button>
+            ) : null}
             {isMaster ? (
               <button
                 type="button"
@@ -2926,6 +2943,15 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                   {myCharacter ? `${myCharacter.name} conectado como ${myCharacter.role === 'MASTER' ? 'Mestre' : 'Player'}.` : 'Carregando participante atual.'}
                 </div>
               </section>
+            ) : null}
+
+            {rightPanelTab === 'inventory' && campaignId && campaign?.myCharacterId ? (
+              <InventoryPanel
+                campaignId={campaignId}
+                characterId={campaign.myCharacterId}
+                isMaster={isMaster}
+                socket={socket}
+              />
             ) : null}
 
             {rightPanelTab === 'session' ? (

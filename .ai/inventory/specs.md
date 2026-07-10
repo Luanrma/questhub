@@ -46,7 +46,8 @@ O historico fica em tabelas de ledger.
 ```prisma
 enum ItemDefinitionSource {
   CUSTOM
-  PF2E_COMPENDIUM
+  SYSTEM_CATALOG
+  IMPORTED
 }
 
 enum InventoryItemState {
@@ -102,16 +103,7 @@ model CampaignItemDefinition {
   sourcePack  String?
   sourceId    String?
 
-  name           String
-  itemType       String
-  rarity         String?
-  level          Int?
-  traits         String[]          @default([])
-  bulk           String?
-  priceMinorUnit Int?
-  equipSlot      String?
-  isStackable    Boolean           @default(false)
-  systemData     Json?
+  itemData Json?
 
   createdByUserId String?
   createdAt       DateTime @default(now())
@@ -120,18 +112,17 @@ model CampaignItemDefinition {
   campaign       Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   inventoryItems InventoryItem[]
 
+  @@unique([campaignId, source, sourcePack, sourceId])
   @@index([campaignId])
-  @@index([campaignId, name])
-  @@index([campaignId, itemType])
-  @@index([campaignId, source, sourcePack, sourceId])
 }
 ```
 
 Notas:
 
-* `source = CUSTOM` para item criado pelo Mestre.
-* `source = PF2E_COMPENDIUM` para item derivado/referenciado de catalogo PF2e futuro.
-* `systemData` pode conter dados especificos do sistema, mas controllers genericos nao devem depender de sua estrutura interna.
+* `source = CUSTOM` para item criado pelo Mestre; `sourcePack`/`sourceId` ficam `null`.
+* `source = SYSTEM_CATALOG` para item clonado do catalogo de referencia do ruleset quando o Mestre envia um item do catalogo diretamente para um jogador (secao 6.4.1). `sourcePack`/`sourceId` identificam a entrada de origem no catalogo e formam, junto com `campaignId` e `source`, a chave de deduplicacao: enviar o mesmo item do catalogo mais de uma vez na mesma campanha reaproveita a mesma `CampaignItemDefinition`, nunca cria duplicata.
+* **Decisao de modelagem (mesmo padrao de `Character.sheet`):** todos os campos mecanicos/apresentacao (`name`, `itemType`, `rarity`, `level`, `traits`, `bulk`, `priceMinorUnit`, `equipSlot`, `isStackable`, `systemData`) ficam agrupados dentro de `itemData`, em vez de colunas tipadas separadas. `itemData` e opaco para o dominio generico e so e interpretado pela camada de infra (`prisma-inventory-repository.ts`) ao converter para `ItemDefinitionSnapshot` (secao 5.2), que continua expondo esses campos individualmente para dominio/aplicacao/apresentacao/frontend — a mudanca fica isolada na infra.
+* Fora do envio de item do catalogo descrito acima, nenhum outro fluxo deve popular `CampaignItemDefinition` a partir do compendio oficial PF2e (seed, migration ou importacao em massa continuam proibidos — ver `.ai/inventory/skills.md` secao 13).
 
 ### 3.3. Inventory
 
@@ -224,7 +215,7 @@ model Wallet {
   campaignId          String
   campaignCharacterId String   @unique
   balanceMinorUnit    Int      @default(0)
-  currencySystem      String   @default("PF2E")
+  currencySystem      String   @default("CAMPAIGN_SYSTEM")
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
 
@@ -323,13 +314,6 @@ Nao guardar inventario em `Character.sheet`.
 ### 5.1. Money
 
 ```ts
-type Pathfinder2eCurrencyBreakdown = {
-  pp: number
-  gp: number
-  sp: number
-  cp: number
-}
-
 type WalletView = {
   id: string
   campaignId: string
@@ -337,8 +321,8 @@ type WalletView = {
   campaignCharacterId: string
   balanceMinorUnit: number
   display: {
-    system: 'PF2E'
-    breakdown: Pathfinder2eCurrencyBreakdown
+    system: 'PATHFINDER_2E' | 'DND_5E' | string
+    breakdown: Record<string, number>
     label: string
   }
 }
@@ -351,7 +335,7 @@ type InventoryItemDefinitionView = {
   id: string
   name: string
   system: 'PATHFINDER_2E' | 'DND_5E'
-  source: 'CUSTOM' | 'PF2E_COMPENDIUM'
+  source: 'CUSTOM' | 'SYSTEM_CATALOG' | 'IMPORTED'
   itemType: string
   rarity?: string | null
   level?: number | null
@@ -467,6 +451,43 @@ type AddInventoryItemRequest = {
 }
 ```
 
+### 6.4.1. Enviar item do catalogo de referencia para um jogador
+
+```txt
+POST /api/campaigns/:campaignId/items/:itemId/send-to-player
+```
+
+Rota registrada junto com o catalogo de itens (`.ai/game_systems/pathfinder_2e/items/`), mas implementada pelo modulo de inventario (`sendCatalogItemToPlayerUseCase`), reaproveitando `InventoryRepository.addItem`. `:itemId` e o id do catalogo de referencia do ruleset (ex.: `pf2e:equipment:dagger`), nao um `itemDefinitionId` de campanha.
+
+Permissao: somente Mestre ativo da campanha.
+
+Payload:
+
+```ts
+type SendCatalogItemToPlayerRequest = {
+  characterId: string
+  quantity?: number
+}
+```
+
+Regras:
+
+* `characterId` deve referenciar um `CampaignCharacter` da mesma campanha com `role = PLAYER` e `status = ACTIVE`; Mestre e NPC nao sao destinos validos por este endpoint;
+* `quantity` default 1, deve ser inteiro positivo;
+* o item do catalogo e clonado (find-or-create, deduplicado por `sourcePack`/`sourceId`) para uma `CampaignItemDefinition` com `source = SYSTEM_CATALOG` antes de ser concedido — ver secao 3.2;
+* a concessao em si segue as mesmas regras de `AddItemToInventoryUseCase` (empilha em stack existente quando `isStackable`, gera ledger `GRANT`, emite `inventory:changed`).
+
+Resposta (sucesso, `201`):
+
+```ts
+type SendCatalogItemToPlayerResponse = {
+  ok: true
+  itemDefinitionId: string
+}
+```
+
+Erros: `403` (nao e Mestre), `404` (personagem ou item do catalogo nao encontrado), `400` (alvo nao e jogador ativo, ou quantidade invalida).
+
 ### 6.5. Atualizar item do inventario
 
 ```txt
@@ -480,8 +501,17 @@ type UpdateInventoryItemRequest = {
   quantity?: number
   customName?: string | null
   notes?: string | null
+  state?: 'STORED' | 'CONSUMED' | 'DESTROYED' | 'DROPPED'
 }
 ```
+
+Regras de `state` (decisao registrada para cobrir remocao/consumo/descarte, ja que nao existe endpoint dedicado):
+
+* somente Mestre pode alterar `state` por este endpoint;
+* `state` alvo deve ser uma transicao valida a partir do estado atual, conforme o diagrama da secao 11 (`STORED -> CONSUMED`, `STORED -> DESTROYED`, `STORED -> DROPPED`); qualquer outra combinacao retorna `INVALID_PAYLOAD`;
+* nao e permitido setar `state` para `EQUIPPED` ou `TRANSFERRED` por este endpoint — essas transicoes tem rotas proprias (`equip`/`transfer`);
+* alterar `state` para `CONSUMED`/`DESTROYED`/`DROPPED` gera ledger (`CONSUME` para `CONSUMED`, `REMOVE` para `DESTROYED`/`DROPPED`);
+* alterar apenas `customName`/`notes` nao gera ledger; alterar `quantity` gera `ADJUST_QUANTITY` como ja descrito.
 
 ### 6.6. Equipar item
 
@@ -656,6 +686,7 @@ Visibilidade:
 | Ver inventario | Sim | Sim | Nao |
 | Ver wallet | Sim | Sim | Nao |
 | Criar item customizado | Sim | Nao | Nao |
+| Enviar item do catalogo para jogador ativo | Sim | Nao | Nao |
 | Adicionar item | Sim | Configuravel futuramente | Nao |
 | Remover item | Sim | Configuravel futuramente | Nao |
 | Equipar item | Sim | Sim | Nao |
@@ -697,6 +728,8 @@ CAMPAIGN_CHARACTER_NOT_FOUND
 INVENTORY_NOT_FOUND
 WALLET_NOT_FOUND
 ITEM_DEFINITION_NOT_FOUND
+CATALOG_ITEM_NOT_FOUND
+TARGET_NOT_ACTIVE_PLAYER
 INVENTORY_ITEM_NOT_FOUND
 EQUIPPED_ITEM_NOT_FOUND
 INVALID_QUANTITY
@@ -800,6 +833,7 @@ type Pathfinder2eItemSystemData = {
 * Endpoints validam permissao de Mestre/Jogador.
 * Eventos realtime sao emitidos apenas apos commit.
 * UI consegue listar inventario, wallet e itens equipados.
+* Mestre consegue enviar um item do catalogo de referencia do ruleset diretamente para o inventario de um jogador ativo, e o item aparece na mochila do jogador; enviar o mesmo item do catalogo novamente reaproveita a `CampaignItemDefinition` ja clonada em vez de duplicar.
 * Testes cobrem regras principais.
 
 ---

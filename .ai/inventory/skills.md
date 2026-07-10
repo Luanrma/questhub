@@ -67,6 +67,8 @@ Dados mecanicos PF2e devem entrar por adapters/normalizadores.
 
 O core do modulo pode saber que existe `GameSystem`, `systemData` e metadados exibiveis, mas nao deve codificar regra profunda de PF2e em controllers genericos.
 
+**Decisao registrada (2026-07-09):** as funcoes de moeda (`toCopper`, `fromCopper`, `formatPathfinder2eCurrency`, `PF2E_CURRENCY`) e de slots (`Pathfinder2eEquipmentSlot`, deteccao de slot exclusivo) continuam no package `packages/game-system-pathfinder-2e/src/server/inventory/{money.ts,slots.ts}`. O core de inventario nao importa mais a facade `pathfinder_2e/inventory` diretamente; ele resolve `inventory` e `currency` por `GameSystemAdapter` em `apps/api/src/modules/game_systems/registry.ts`. Isso preserva a fronteira core/game-system: `apps/api/src/modules/inventory/` conhece apenas o contrato generico de adapter.
+
 ---
 
 ## 3. Restricoes Tecnicas
@@ -88,13 +90,14 @@ O core do modulo pode saber que existe `GameSystem`, `systemData` e metadados ex
 
 ## 4. Estrutura Recomendada no Backend
 
+Moeda e slots PF2e NAO ficam em `domain/` deste modulo (ver decisao na secao 2.5). `domain/` e agnostico de sistema; o modulo `inventory` resolve essas capacidades pelo `GameSystemAdapter` registrado em `apps/api/src/modules/game_systems/registry.ts`.
+
 ```txt
 apps/api/src/modules/inventory/
   domain/
     inventory-errors.ts
     inventory-rules.ts
-    money.ts
-    slots.ts
+    presenters.ts
     types.ts
   application/
     add-item-to-inventory.use-case.ts
@@ -149,7 +152,7 @@ Regras:
 
 * Componentes renderizam UI e disparam callbacks.
 * Hooks coordenam estado, chamadas HTTP e listeners realtime.
-* Funcoes de dominio formatam moeda, validam slots e montam view models.
+* `domain/money.ts` do frontend nao reimplementa conversao de moeda: apenas reexporta/adapta as funcoes de `apps/web/src/game-systems/pathfinder-2e/inventory/` (facade), decidindo qual sistema usar. `domain/inventoryViewModel.ts` monta view models agnosticos (agrupar por slot/estado).
 * Services HTTP ficam em `infrastructure`.
 
 ---
@@ -157,6 +160,8 @@ Regras:
 ## 6. Dinheiro: Regra Tecnica
 
 Persistir moeda em unidade menor.
+
+**Local de implementacao (ver decisao secao 2.5):** as funcoes abaixo vivem em `packages/game-system-pathfinder-2e/src/server/inventory/money.ts`, nao em `apps/api/src/modules/inventory/domain/`. O backend consome moeda via `GameSystemAdapter.currency`; o frontend generico deve preferir o display normalizado retornado pela API.
 
 Para PF2e:
 
@@ -190,6 +195,8 @@ Essas funcoes devem ser testadas com unit tests.
 ## 7. Slots e Equipamento
 
 O modulo deve diferenciar slots exclusivos e nao exclusivos.
+
+**Local de implementacao (ver decisao secao 2.5):** o union `Pathfinder2eEquipmentSlot` e as funcoes `isExclusivePathfinder2eSlot`/`toExclusiveSlotKey` vivem em `packages/game-system-pathfinder-2e/src/server/inventory/slots.ts`, acessadas pelo registry de sistemas. `apps/api/src/modules/inventory/domain/` conhece apenas a invariante agnostica: nao pode haver dois `EquippedItem` com o mesmo `exclusiveSlotKey` para o mesmo `campaignCharacterId`.
 
 Slots exclusivos iniciais:
 
@@ -298,9 +305,29 @@ Criar ou atualizar testes para:
 
 ## 12. Limitacoes Conhecidas da Primeira Entrega
 
-* Nao implementar compendio oficial completo de itens PF2e no primeiro passo.
 * Nao calcular todos os bonus de equipamento automaticamente.
 * Nao implementar bulk/carga como regra bloqueante inicialmente.
 * Nao implementar lojas, craft e venda automatizada completa inicialmente.
 * Nao implementar trade com aceite/recusa se transferencia direta atender a primeira necessidade.
 * Nao remover a rota antiga de trade sem validar a UI existente.
+
+---
+
+## 13. Catalogo de Itens PF2e (Decisao Registrada)
+
+A limitacao original "nao importar compendio oficial completo de itens PF2e no primeiro passo" foi revista a pedido explicito do usuario. O catalogo oficial de equipamentos foi importado do compendio Foundry VTT (`pf2e-master/packs/equipment`, 5217 itens) para `packages/game-system-pathfinder-2e/src/server/items/`, seguindo o mesmo padrao de geracao ja usado pelo bestiario (`scripts/generate-pf2e-bestiary-data.cjs`):
+
+* `scripts/generate-pf2e-item-data.cjs` — script gerador, normaliza cada documento Foundry (`type` em `weapon|armor|equipment|consumable|treasure|backpack|shield|kit`) em um `Pathfinder2eCompendiumItem`.
+* `packages/game-system-pathfinder-2e/src/server/items/models.ts` — tipos `Pathfinder2eCompendiumItem`/`Pathfinder2eItemSystemData`.
+* `packages/game-system-pathfinder-2e/src/server/items/data.generated.ts` — array gerado (`PATHFINDER_2E_ITEM_DATA`) e resumo (`PATHFINDER_2E_ITEM_SOURCE_SUMMARY`). Arquivo gerado, nao editar manualmente — rodar o script novamente para atualizar.
+* Exportado via `packages/game-system-pathfinder-2e/package.json` (`./server/items`).
+
+Escopo desta importacao: **apenas o catalogo de referencia** (dados estaticos, sem I/O, sem tocar banco por si so).
+
+**Decisao de produto atualizada (2026-07-09):** a proibicao original de qualquer escrita em `CampaignItemDefinition` a partir do catalogo foi revista pelo usuario para permitir exatamente um fluxo controlado: o Mestre, a partir do menu "Itens", pode enviar um item especifico do catalogo diretamente para o inventario de um jogador ativo (`.ai/game_systems/pathfinder_2e/items/specs.md` secao referente a `send-to-player`, `.ai/inventory/specs.md` secao 6.4.1). Isso permanece **diferente** de um seed/importacao em massa:
+
+* a escrita e por clique, um item por vez, sempre iniciada explicitamente pelo Mestre — nunca automatica, nunca em lote, nunca disparada por migration/seed;
+* usa o enum generico `ItemDefinitionSource.SYSTEM_CATALOG` e deduplica por `campaignId + source + sourcePack + sourceId`, entao reenviar o mesmo item nao cria linhas duplicadas;
+* continua **proibido**: qualquer endpoint/UI de "importar todo o catalogo", qualquer seed de migration populando `CampaignItemDefinition` com dados do compendio, ou qualquer fluxo que clone itens sem uma acao explicita do Mestre direcionada a um jogador especifico.
+
+Fora desse fluxo pontual de envio, o catalogo em `packages/game-system-pathfinder-2e/src/server/items/` continua servindo como **referencia estatica** (consulta, listagem, ficha), sem nenhuma outra ponte para o banco.

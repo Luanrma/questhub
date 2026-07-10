@@ -49,6 +49,11 @@ Criaturas do bestiario nao devem virar `Character` automaticamente. Quando o Mes
 
 Textos importados devem preservar o original e podem expor traducao por preferencia de usuario. O default de exibicao e `pt-BR`; o usuario pode escolher `original`.
 
+## 8. Catalogo de Itens
+O catalogo de itens tambem e uma capacidade de ruleset, no mesmo formato de apresentacao usado pelo bestiario. Pathfinder 2e fornece um catalogo de referencia de equipamentos normalizados a partir dos packs do Foundry, disponivel apenas para consulta do Mestre.
+
+Este catalogo nunca alimenta o banco de itens de campanha (`CampaignItemDefinition`, modulo `.ai/inventory/`), que permanece reservado exclusivamente para itens customizados pelo Mestre. Ver `.ai/game_systems/pathfinder_2e/items/` para o submodulo completo.
+
 ## 6. Decisao Arquitetural
 Regras de Pathfinder 2e, D&D 5e ou qualquer outro sistema nao pertencem ao modulo de campanha nem ao VTT.
 

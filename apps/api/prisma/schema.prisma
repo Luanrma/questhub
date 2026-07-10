@@ -73,6 +73,51 @@ enum CampaignSceneHazardExecutionMode {
   ENCOUNTER_PARTICIPANT
 }
 
+enum ItemDefinitionSource {
+  CUSTOM
+  SYSTEM_CATALOG
+  IMPORTED
+}
+
+enum InventoryItemState {
+  STORED
+  EQUIPPED
+  DROPPED
+  CONSUMED
+  DESTROYED
+  TRANSFERRED
+}
+
+enum InventoryLedgerType {
+  GRANT
+  REMOVE
+  ADJUST_QUANTITY
+  TRANSFER_IN
+  TRANSFER_OUT
+  EQUIP
+  UNEQUIP
+  CONSUME
+  SPLIT_STACK
+  MERGE_STACK
+  PURCHASE
+  SALE
+  LOOT
+  REWARD
+  CORRECTION
+}
+
+enum WalletLedgerType {
+  SET_BALANCE
+  ADJUSTMENT
+  TRANSFER_IN
+  TRANSFER_OUT
+  PURCHASE
+  SALE
+  LOOT
+  REWARD
+  CORRECTION
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -80,7 +125,7 @@ model User {
   createdAt    DateTime @default(now())
 
   characters       Character[]
-  createdCampaigns Campaign[]          @relation("CreatedCampaigns")
+  createdCampaigns Campaign[]             @relation("CreatedCampaigns")
   campaignLinks    CampaignCharacter[]
   chatMessages     ChatMessage[]
   assets           Asset[]
@@ -102,13 +147,16 @@ model Campaign {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  characters     CampaignCharacter[]
-  chatMessages   ChatMessage[]
-  assets         CampaignAsset[]
-  scenes         CampaignScene[]
-  sceneViewState CampaignSceneViewState?
-  diaries        CampaignDiary[]
-  userSettings   CampaignUserSettings[]
+  characters      CampaignCharacter[]
+  chatMessages    ChatMessage[]
+  assets          CampaignAsset[]
+  scenes          CampaignScene[]
+  sceneViewState  CampaignSceneViewState?
+  diaries         CampaignDiary[]
+  userSettings    CampaignUserSettings[]
+  itemDefinitions CampaignItemDefinition[]
+  inventories     Inventory[]
+  wallets         Wallet[]
 }
 
 model Character {
@@ -146,6 +194,10 @@ model CampaignCharacter {
   campaign  Campaign  @relation(fields: [campaignId], references: [id])
   character Character @relation(fields: [characterId], references: [id])
   user      User      @relation(fields: [userId], references: [id])
+
+  inventory     Inventory?
+  wallet        Wallet?
+  equippedItems EquippedItem[]
 
   @@index([campaignId])
   @@index([userId])
@@ -249,8 +301,8 @@ model CampaignSceneToken {
   createdAt          DateTime                 @default(now())
   updatedAt          DateTime                 @updatedAt
 
-  scene     CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
-  character Character?    @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  scene     CampaignScene             @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  character Character?                @relation(fields: [characterId], references: [id], onDelete: Cascade)
   health    CampaignSceneTokenHealth?
 
   @@unique([characterId])
@@ -302,24 +354,24 @@ model CampaignSceneTokenHealthLog {
 }
 
 model CampaignSceneHazard {
-  id                  String                            @id @default(cuid())
-  sceneId             String
-  system              GameSystem
-  hazardEntryId       String
-  name                String
-  scope               CampaignSceneHazardScope          @default(POINT)
-  positionX           Float?
-  positionY           Float?
-  area                Json?
-  targetTokenId       String?
-  targetCharacterId   String?
-  visibility          CampaignSceneHazardVisibility     @default(HIDDEN)
-  state               CampaignSceneHazardState          @default(ARMED)
-  triggerMode         CampaignSceneHazardTriggerMode    @default(MANUAL)
-  executionMode       CampaignSceneHazardExecutionMode  @default(INSTANT)
-  notes               String?
-  createdAt           DateTime                          @default(now())
-  updatedAt           DateTime                          @updatedAt
+  id                String                           @id @default(cuid())
+  sceneId           String
+  system            GameSystem
+  hazardEntryId     String
+  name              String
+  scope             CampaignSceneHazardScope         @default(POINT)
+  positionX         Float?
+  positionY         Float?
+  area              Json?
+  targetTokenId     String?
+  targetCharacterId String?
+  visibility        CampaignSceneHazardVisibility    @default(HIDDEN)
+  state             CampaignSceneHazardState         @default(ARMED)
+  triggerMode       CampaignSceneHazardTriggerMode   @default(MANUAL)
+  executionMode     CampaignSceneHazardExecutionMode @default(INSTANT)
+  notes             String?
+  createdAt         DateTime                         @default(now())
+  updatedAt         DateTime                         @updatedAt
 
   scene CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
 
@@ -373,4 +425,146 @@ model CampaignUserSettings {
 
   @@unique([campaignId, userId])
   @@index([userId])
+}
+
+model CampaignItemDefinition {
+  id         String               @id @default(cuid())
+  campaignId String
+  system     GameSystem
+  source     ItemDefinitionSource @default(CUSTOM)
+  sourcePack String?
+  sourceId   String?
+
+  itemData Json?
+
+  createdByUserId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  campaign       Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  inventoryItems InventoryItem[]
+
+  @@unique([campaignId, source, sourcePack, sourceId])
+  @@index([campaignId])
+}
+
+model Inventory {
+  id                  String   @id @default(cuid())
+  campaignId          String
+  campaignCharacterId String   @unique
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  campaign          Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaignCharacter CampaignCharacter @relation(fields: [campaignCharacterId], references: [id], onDelete: Cascade)
+  items             InventoryItem[]
+  ledger            InventoryLedger[]
+
+  @@index([campaignId])
+  @@index([campaignCharacterId])
+}
+
+model InventoryItem {
+  id               String             @id @default(cuid())
+  inventoryId      String
+  itemDefinitionId String
+  quantity         Int                @default(1)
+  state            InventoryItemState @default(STORED)
+  customName       String?
+  notes            String?
+  systemData       Json?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  inventory      Inventory              @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  itemDefinition CampaignItemDefinition @relation(fields: [itemDefinitionId], references: [id])
+  equippedItem   EquippedItem?
+  ledger         InventoryLedger[]
+
+  @@index([inventoryId])
+  @@index([itemDefinitionId])
+  @@index([state])
+}
+
+model EquippedItem {
+  id                  String   @id @default(cuid())
+  campaignCharacterId String
+  inventoryItemId     String   @unique
+  slot                String
+  exclusiveSlotKey    String?
+  quantity            Int      @default(1)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  campaignCharacter CampaignCharacter @relation(fields: [campaignCharacterId], references: [id], onDelete: Cascade)
+  inventoryItem     InventoryItem     @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignCharacterId, exclusiveSlotKey])
+  @@index([campaignCharacterId])
+  @@index([slot])
+}
+
+model Wallet {
+  id                  String   @id @default(cuid())
+  campaignId          String
+  campaignCharacterId String   @unique
+  balanceMinorUnit    Int      @default(0)
+  currencySystem      String   @default("CAMPAIGN_SYSTEM")
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  campaign          Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  campaignCharacter CampaignCharacter @relation(fields: [campaignCharacterId], references: [id], onDelete: Cascade)
+  ledger            WalletLedger[]
+
+  @@index([campaignId])
+  @@index([campaignCharacterId])
+}
+
+model InventoryLedger {
+  id                      String              @id @default(cuid())
+  campaignId              String
+  inventoryId             String
+  inventoryItemId         String?
+  itemDefinitionId        String?
+  actorUserId             String?
+  actorCharacterId        String?
+  counterpartyInventoryId String?
+  operationId             String?
+  type                    InventoryLedgerType
+  deltaQuantity           Int?
+  before                  Json?
+  after                   Json?
+  note                    String?
+  createdAt               DateTime            @default(now())
+
+  inventory     Inventory      @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem? @relation(fields: [inventoryItemId], references: [id], onDelete: SetNull)
+
+  @@index([campaignId, createdAt])
+  @@index([inventoryId, createdAt])
+  @@index([inventoryItemId])
+  @@index([operationId])
+}
+
+model WalletLedger {
+  id                     String           @id @default(cuid())
+  campaignId             String
+  walletId               String
+  actorUserId            String?
+  actorCharacterId       String?
+  counterpartyWalletId   String?
+  operationId            String?
+  type                   WalletLedgerType
+  deltaMinorUnit         Int
+  balanceBeforeMinorUnit Int
+  balanceAfterMinorUnit  Int
+  note                   String?
+  createdAt              DateTime         @default(now())
+
+  wallet Wallet @relation(fields: [walletId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, createdAt])
+  @@index([walletId, createdAt])
+  @@index([operationId])
 }
