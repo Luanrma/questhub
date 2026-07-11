@@ -49,4 +49,4 @@ Nao pertence ao submodulo:
 * ficha completa de personagem jogador.
 * consumo automatico de municao em ataques;
 * anexar runas, talismas ou gadgets a armas/armaduras;
-* efeitos mecanicos completos de itens equipados.
+* efeitos mecanicos completos de itens equipados, com excecao dos campos brutos de armadura/escudo (`ac`, `dexCap`, `strengthRequirement`, `checkPenalty`, `speedPenaltyFeet`) capturados na normalizacao especificamente para alimentar o calculo de Armor Class — ver `.ai/game_systems/pathfinder_2e/armor_class/`. Esses campos sao dados normalizados do catalogo, nao uma engine de efeitos mecanicos.

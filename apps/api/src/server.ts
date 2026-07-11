@@ -11,6 +11,7 @@ import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerCharacterSheetRoutes } from './modules/game_systems/routes'
+import { registerCharacterOptionsRoutes } from './modules/game_systems/character-options/routes'
 import { registerBestiaryRoutes } from './modules/game_systems/bestiary/routes'
 import { registerGameSystemItemsRoutes } from './modules/game_systems/items/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
@@ -61,6 +62,7 @@ app.get('/api/health', async () => ({ ok: true }))
 registerAuthRoutes(app)
 registerCharacterRoutes(app)
 registerCharacterSheetRoutes(app)
+registerCharacterOptionsRoutes(app)
 registerBestiaryRoutes(app)
 registerGameSystemItemsRoutes(app, { sendCatalogItemToPlayer: createSendCatalogItemToPlayer(presence.io) })
 registerCampaignRoutes(app, presence)

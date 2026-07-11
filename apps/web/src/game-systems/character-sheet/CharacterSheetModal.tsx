@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { GripHorizontal, Save, X } from 'lucide-react'
+import type { Socket } from 'socket.io-client'
 import { Button } from '../../components/Button'
 import { ResizableEdges, type ResizableBox } from '../../components/ResizableEdges'
 import { api, ApiError } from '../../lib/api'
@@ -12,12 +13,27 @@ type Props = {
   characterId: string
   characterName: string
   system?: GameSystem | null
+  campaignId?: string | null
+  socket?: Socket | null
   onClose: () => void
   onSaved?: (sheet: CharacterSheetEnvelope) => void
   readOnly?: boolean
+  forceSetup?: boolean
+  identityLocked?: boolean
 }
 
-export function CharacterSheetModal({ characterId, characterName, system, onClose, onSaved, readOnly = false }: Props) {
+export function CharacterSheetModal({
+  characterId,
+  characterName,
+  system,
+  campaignId,
+  socket,
+  onClose,
+  onSaved,
+  readOnly = false,
+  forceSetup = false,
+  identityLocked = false,
+}: Props) {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [page, setPage] = useState(0)
   const [box, setBox] = useState<ResizableBox>(() => ({
@@ -37,6 +53,7 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
   const pageDefinitions = sheetRenderer.pages
   const currentPageTitle = pageDefinitions[page]?.title ?? pageDefinitions[0].title
   const canSave = Boolean(sheet && !loading && !saving && !readOnly)
+  const effectiveIdentityLocked = readOnly || identityLocked
 
   useEffect(() => {
     let cancelled = false
@@ -165,15 +182,17 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
               <div className="text-xs">{currentPageTitle}</div>
             </div>
           </div>
-          <button
-            type="button"
-            onPointerDown={(event) => event.stopPropagation()}
-            onClick={onClose}
-            className="sheet-icon-button"
-            title="Fechar"
-          >
-            <X className="h-4 w-4" />
-          </button>
+          {forceSetup ? null : (
+            <button
+              type="button"
+              onPointerDown={(event) => event.stopPropagation()}
+              onClick={onClose}
+              className="sheet-icon-button"
+              title="Fechar"
+            >
+              <X className="h-4 w-4" />
+            </button>
+          )}
         </div>
 
         <div className="sheet-paper">
@@ -208,13 +227,24 @@ export function CharacterSheetModal({ characterId, characterName, system, onClos
 
           {!loading && sheet ? (
             <div className="sheet-page">
-              {sheetRenderer.renderPage({ page, characterName, sheet, onChangeSheet: readOnly ? () => undefined : setSheet })}
+              {sheetRenderer.renderPage({
+                page,
+                characterName,
+                sheet,
+                onChangeSheet: readOnly ? () => undefined : setSheet,
+                identityLocked: effectiveIdentityLocked,
+                characterId,
+                campaignId,
+                socket,
+              })}
             </div>
           ) : null}
         </div>
 
         <div className="sheet-footer">
-          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{readOnly ? 'Somente leitura' : currentPageTitle}</div>
+          <div className="text-xs font-semibold uppercase tracking-wide text-zinc-400">
+            {forceSetup ? 'Preencha Classe, Ancestralidade, Heranca e Background' : readOnly ? 'Somente leitura' : currentPageTitle}
+          </div>
           {readOnly ? null : (
             <Button type="button" className="gap-2" disabled={!canSave} onClick={saveSheet}>
               <Save className="h-4 w-4" />

@@ -1,7 +1,7 @@
 .pathfinder-sheet.pathfinder-sheet-layout {
   display: grid;
-  grid-template-columns: 256px minmax(0, 1fr);
-  gap: 18px;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 20px;
   align-items: start;
 }
 
@@ -15,40 +15,73 @@
   position: sticky;
   top: 0;
   display: grid;
-  gap: 11px;
+  gap: 12px;
   min-width: 0;
-  border: 2px solid #2f281c;
-  border-radius: 0 0 0 18px;
-  background:
-    linear-gradient(90deg, rgb(71 51 24 / 8%) 1px, transparent 1px),
-    linear-gradient(0deg, rgb(71 51 24 / 6%) 1px, transparent 1px),
-    linear-gradient(135deg, #f2e6c8 0%, #fbf2d8 48%, #e4d5b4 100%);
+  border: 1px solid rgb(92 70 42 / 62%);
+  border-radius: 8px;
+  background: radial-gradient(circle at 50% 90px, rgba(39, 30, 16, 0.1), transparent 120px);
   background-size: 24px 24px, 24px 24px, auto;
-  box-shadow: 8px 10px 0 rgb(47 40 28 / 16%);
-  color: #1d1810;
-  padding: 14px;
+  box-shadow: .5rem .8rem .7rem rgb(3, 3, 2);
+  color: #050403;
+  padding: 16px;
 }
 
-.pathfinder-sheet .sheet-quick-brand {
+.pathfinder-sheet .sheet-character-portrait {
+  position: relative;
   display: grid;
-  gap: 1px;
-  border-bottom: 2px solid #2f281c;
-  padding-bottom: 6px;
+  place-items: center;
+  width: 112px;
+  height: 112px;
+  justify-self: center;
+  border: 2px solid rgb(92 70 42 / 68%);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle, #4c321e 0 36%, transparent 37%),
+    radial-gradient(circle, rgb(255 248 225 / 80%) 0 58%, rgb(128 94 50 / 18%) 59% 100%);
+  box-shadow: 0 0 0 6px rgb(128 94 50 / 16%), inset 0 0 0 7px rgb(255 248 225 / 62%);
 }
 
-.pathfinder-sheet .sheet-quick-brand strong,
+.pathfinder-sheet .sheet-character-portrait::before,
+.pathfinder-sheet .sheet-character-portrait::after {
+  content: "";
+  position: absolute;
+  bottom: 5px;
+  width: 54px;
+  height: 30px;
+  border-bottom: 2px solid rgb(128 94 50 / 58%);
+}
+
+.pathfinder-sheet .sheet-character-portrait::before {
+  right: 78px;
+  border-left: 2px solid rgb(128 94 50 / 42%);
+  border-radius: 0 0 0 30px;
+}
+
+.pathfinder-sheet .sheet-character-portrait::after {
+  left: 78px;
+  border-right: 2px solid rgb(128 94 50 / 42%);
+  border-radius: 0 0 30px;
+}
+
+.pathfinder-sheet .sheet-character-silhouette {
+  width: 58px;
+  height: 70px;
+  border-radius: 44% 44% 34% 34%;
+  background:
+    radial-gradient(circle at 50% 20%, #3a2719 0 18px, transparent 19px),
+    radial-gradient(ellipse at 50% 76%, #3a2719 0 34px, transparent 35px);
+}
+
 .pathfinder-sheet .sheet-quick-line span,
 .pathfinder-sheet .sheet-quick-number span,
-.pathfinder-sheet .sheet-quick-stat span {
+.pathfinder-sheet .sheet-quick-stat span,
+.pathfinder-sheet .sheet-quick-class span,
+.pathfinder-sheet .sheet-quick-hp-card span {
   color: #352719;
   font-size: 9px;
   font-weight: 900;
   line-height: 1;
   text-transform: uppercase;
-}
-
-.pathfinder-sheet .sheet-quick-brand strong {
-  font-size: 11px;
 }
 
 .pathfinder-sheet .sheet-quick-name {
@@ -57,10 +90,11 @@
   border-bottom: 2px solid #2f281c;
   color: #19130c;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 900;
   line-height: 1.2;
-  padding-bottom: 6px;
+  padding: 2px 6px 8px;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -109,6 +143,26 @@
   text-align: center;
 }
 
+.pathfinder-sheet .sheet-quick-class {
+  display: grid;
+  min-width: 0;
+  align-content: end;
+  gap: 3px;
+}
+
+.pathfinder-sheet .sheet-quick-class strong {
+  min-width: 0;
+  overflow: hidden;
+  border-bottom: 2px solid #2f281c;
+  color: #1d1810;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 28px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .pathfinder-sheet .sheet-quick-life-row .sheet-quick-number input {
   height: 36px;
   font-size: 20px;
@@ -125,6 +179,7 @@
 }
 
 .pathfinder-sheet .sheet-quick-level-row,
+.pathfinder-sheet .sheet-quick-experience-row,
 .pathfinder-sheet .sheet-quick-health-row,
 .pathfinder-sheet .sheet-quick-saves-row,
 .pathfinder-sheet .sheet-quick-bottom {
@@ -133,11 +188,83 @@
   gap: 6px;
 }
 
+.pathfinder-sheet .sheet-quick-core-row,
 .pathfinder-sheet .sheet-quick-ac-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: 88px minmax(0, 1fr);
   gap: 8px;
   align-items: end;
+}
+
+.pathfinder-sheet .sheet-quick-experience-row,
+.pathfinder-sheet .sheet-quick-bottom {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.pathfinder-sheet .sheet-quick-defense-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.pathfinder-sheet .sheet-quick-defense-row .sheet-quick-stat strong {
+  min-height: 72px;
+  border-radius: 7px 7px 48% 48%;
+  font-size: 30px;
+}
+
+.pathfinder-sheet .sheet-quick-hp-card {
+  display: grid;
+  min-width: 0;
+  align-content: center;
+  gap: 5px;
+  border: 1px solid rgb(92 70 42 / 46%);
+  border-radius: 5px;
+  background: rgb(255 248 225 / 32%);
+  padding: 10px 12px;
+}
+
+.pathfinder-sheet .sheet-quick-hp-card strong {
+  color: #1d1810;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.pathfinder-sheet .sheet-quick-hp-card em {
+  color: #5f4327;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pathfinder-sheet .sheet-shield-toggle {
+  width: 100%;
+  min-height: 30px;
+  margin-top: 6px;
+  border: 2px solid #2f281c;
+  border-radius: 3px;
+  background: #3c3620;
+  color: #fff8e1;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.pathfinder-sheet .sheet-shield-toggle:hover,
+.pathfinder-sheet .sheet-shield-toggle:focus-visible {
+  background: #24200f;
+  outline: 2px solid rgb(63 54 32 / 42%);
+  outline-offset: 2px;
+}
+
+.pathfinder-sheet .sheet-shield-toggle[aria-pressed='true'] {
+  background: #7f2d18;
 }
 
 .pathfinder-sheet .sheet-quick-stat {
@@ -161,15 +288,39 @@
 
 .pathfinder-sheet .sheet-section {
   display: grid;
-  gap: 12px;
+  gap: 14px;
+  border: 1px solid rgb(92 70 42 / 58%);
+  border-radius: 8px;
+  background: rgb(255 248 225 / 20%);
+  box-shadow: inset 0 0 0 2px rgb(255 248 225 / 26%);
+  padding: 16px 14px 14px;
 }
 
 .pathfinder-sheet .sheet-section-title {
-  border-bottom: 2px solid #2f281c;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid rgb(92 70 42 / 46%);
   color: #2f281c;
-  font-size: 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 15px;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.pathfinder-sheet .sheet-section-title::before,
+.pathfinder-sheet .sheet-section-title::after {
+  content: "";
+  height: 1px;
+  background: rgb(92 70 42 / 34%);
+}
+
+.pathfinder-sheet .sheet-section-title::before {
+  width: 18px;
+}
+
+.pathfinder-sheet .sheet-section-title::after {
+  flex: 1;
 }
 
 .pathfinder-sheet .sheet-field,
@@ -215,6 +366,12 @@
 
 .pathfinder-sheet .sheet-line-field input {
   font-weight: 600;
+}
+
+.pathfinder-sheet .sheet-option-selector input:disabled,
+.pathfinder-sheet .sheet-option-result:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
 }
 
 .pathfinder-sheet .sheet-attribute-card {
@@ -280,7 +437,336 @@
 .pathfinder-sheet .sheet-identification-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 16px;
+}
+
+.pathfinder-sheet .sheet-option-selector {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  grid-template-columns: 40px minmax(0, 1fr) 34px;
+  gap: 6px 12px;
+  border: 1px solid rgb(92 70 42 / 56%);
+  border-radius: 7px;
+  background: rgb(255 248 225 / 24%);
+  padding: 14px 12px 12px;
+}
+
+.pathfinder-sheet .sheet-option-icon {
+  grid-row: 1 / span 4;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  color: #7b5a34;
+}
+
+.pathfinder-sheet .sheet-option-label {
+  grid-column: 2;
+  color: #5f4327;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.pathfinder-sheet .sheet-option-name {
+  grid-column: 2;
+  min-width: 0;
+  overflow: hidden;
+  color: #1d1810;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pathfinder-sheet .sheet-option-edit {
+  grid-column: 3;
+  grid-row: 1 / span 2;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  justify-self: end;
+  border: 1px solid rgb(92 70 42 / 42%);
+  border-radius: 5px;
+  background: rgb(255 248 225 / 34%);
+  color: #5f4327;
+}
+
+.pathfinder-sheet .sheet-option-edit:hover,
+.pathfinder-sheet .sheet-option-edit:focus-visible {
+  background: rgb(127 45 24 / 12%);
+  outline: 2px solid rgb(127 45 24 / 32%);
+  outline-offset: 1px;
+}
+
+.pathfinder-sheet .sheet-option-selector input {
+  grid-column: 2 / -1;
+  width: 100%;
+  height: 32px;
+  min-width: 0;
+  border: 0;
+  border-bottom: 1px solid rgb(47 40 28 / 72%);
+  border-radius: 0;
+  background: rgb(255 248 225 / 45%);
+  color: #111;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 14px;
+  font-weight: 700;
+  outline: none;
+  padding: 4px 6px;
+}
+
+.pathfinder-sheet .sheet-option-selector input:focus {
+  box-shadow: inset 0 -2px 0 #7f2d18;
+}
+
+.pathfinder-sheet .sheet-option-state {
+  grid-column: 2 / -1;
+  display: flex;
+  min-height: 16px;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.pathfinder-sheet .sheet-option-state span,
+.pathfinder-sheet .sheet-option-state strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #5f4327;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pathfinder-sheet .sheet-option-results {
+  grid-column: 1 / -1;
+  display: grid;
+  min-width: 0;
+  gap: 5px;
+}
+
+.pathfinder-sheet .sheet-option-result {
+  display: grid;
+  width: 100%;
+  min-width: 0;
+  gap: 2px;
+  border: 1px solid rgb(47 40 28 / 62%);
+  border-radius: 3px;
+  background: rgb(255 248 225 / 42%);
+  color: #241b12;
+  cursor: pointer;
+  padding: 7px 8px;
+  text-align: left;
+}
+
+.pathfinder-sheet .sheet-option-result:hover,
+.pathfinder-sheet .sheet-option-result:focus-visible {
+  background: rgb(127 45 24 / 12%);
+  outline: 2px solid rgb(127 45 24 / 42%);
+  outline-offset: 1px;
+}
+
+.pathfinder-sheet .sheet-option-result strong,
+.pathfinder-sheet .sheet-option-result span,
+.pathfinder-sheet .sheet-option-result small {
+  min-width: 0;
+  overflow: hidden;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pathfinder-sheet .sheet-option-result strong {
+  color: #1d1810;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.pathfinder-sheet .sheet-option-result span,
+.pathfinder-sheet .sheet-option-result small {
+  color: #4a3822;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.pathfinder-sheet .sheet-build-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.pathfinder-sheet .sheet-build-group {
+  display: grid;
+  min-width: 0;
+  align-content: start;
   gap: 12px;
+  border: 1px solid rgb(92 70 42 / 52%);
+  border-radius: 7px;
+  background: rgb(255 248 225 / 22%);
+  padding: 12px;
+}
+
+.pathfinder-sheet .sheet-build-group-title {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  border-bottom: 1px solid rgb(92 70 42 / 32%);
+  color: #5f4327;
+  padding-bottom: 8px;
+}
+
+.pathfinder-sheet .sheet-build-group strong,
+.pathfinder-sheet .sheet-build-subgroup strong {
+  min-width: 0;
+  overflow: hidden;
+  color: #1d1810;
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pathfinder-sheet .sheet-build-subgroup {
+  display: grid;
+  min-width: 0;
+  gap: 8px;
+}
+
+.pathfinder-sheet .sheet-build-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.pathfinder-sheet .sheet-build-choice,
+.pathfinder-sheet .sheet-build-toggle {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.pathfinder-sheet .sheet-build-choice span,
+.pathfinder-sheet .sheet-build-toggle span {
+  min-width: 0;
+  overflow: hidden;
+  color: #352719;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.pathfinder-sheet .sheet-build-choice input,
+.pathfinder-sheet .sheet-build-choice select {
+  width: 100%;
+  min-width: 0;
+  height: 32px;
+  border: 0;
+  border-bottom: 2px solid #2f281c;
+  border-radius: 0;
+  background: rgb(255 248 225 / 52%);
+  color: #1d1810;
+  font-size: 13px;
+  font-weight: 700;
+  outline: none;
+  padding: 0 8px;
+}
+
+.pathfinder-sheet .sheet-build-choice input:focus,
+.pathfinder-sheet .sheet-build-choice select:focus {
+  box-shadow: inset 0 -2px 0 #7f2d18;
+}
+
+.pathfinder-sheet .sheet-build-toggle {
+  grid-template-columns: 18px minmax(0, 1fr);
+  align-items: center;
+}
+
+.pathfinder-sheet .sheet-build-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: #7f2d18;
+}
+
+.pathfinder-sheet .sheet-build-score-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.pathfinder-sheet .sheet-build-score {
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  border: 1px solid rgb(47 40 28 / 58%);
+  background: rgb(47 40 28 / 8%);
+  padding: 6px;
+}
+
+.pathfinder-sheet .sheet-build-score span {
+  color: #5f4327;
+  font-size: 10px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.pathfinder-sheet .sheet-build-score strong {
+  color: #1d1810;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1.1;
+}
+
+.pathfinder-sheet .sheet-build-apply {
+  width: 100%;
+  min-height: 34px;
+  border: 2px solid #2f281c;
+  border-radius: 3px;
+  background: #7f2d18;
+  color: #fff8e1;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.1;
+  padding: 8px 10px;
+  text-transform: uppercase;
+}
+
+.pathfinder-sheet .sheet-build-attribute-strip {
+  grid-column: 1 / -1;
+  grid-template-columns: auto minmax(0, 1fr) minmax(180px, 260px);
+  align-items: center;
+}
+
+.pathfinder-sheet .sheet-build-attribute-strip .sheet-build-group-title {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.pathfinder-sheet .sheet-build-apply:hover,
+.pathfinder-sheet .sheet-build-apply:focus-visible {
+  background: #5f2112;
+  outline: 2px solid rgb(127 45 24 / 42%);
+  outline-offset: 2px;
 }
 
 .pathfinder-sheet .sheet-attributes-row {
@@ -602,12 +1088,17 @@
 
   .pathfinder-sheet .sheet-identity-grid,
   .pathfinder-sheet .sheet-identification-grid,
+  .pathfinder-sheet .sheet-build-grid,
   .pathfinder-sheet .sheet-small-grid,
   .pathfinder-sheet .sheet-attributes-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .pathfinder-sheet .sheet-proficiency-list {
+    grid-template-columns: 1fr;
+  }
+
+  .pathfinder-sheet .sheet-build-attribute-strip {
     grid-template-columns: 1fr;
   }
 
@@ -621,5 +1112,18 @@
 
   .pathfinder-sheet .sheet-proficiency-row select {
     grid-column: 2;
+  }
+}
+
+@media (max-width: 520px) {
+  .pathfinder-sheet .sheet-build-grid,
+  .pathfinder-sheet .sheet-build-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pathfinder-sheet .sheet-identification-grid,
+  .pathfinder-sheet .sheet-build-score-grid,
+  .pathfinder-sheet .sheet-attributes-row {
+    grid-template-columns: 1fr;
   }
 }

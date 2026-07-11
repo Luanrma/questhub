@@ -186,7 +186,7 @@ Pertence a este modulo:
 Nao pertence a este modulo:
 
 * regras completas de ficha PF2e;
-* calculo automatico de todos os bonus da ficha;
+* calculo automatico de bonus da ficha dentro do proprio modulo `inventory` (o modulo continua agnostico; ele apenas expoe fatos de equipamento opacos que o adapter do sistema resolve — a excecao registrada e Armor Class em Pathfinder 2e, cujo calculo vive em `.ai/game_systems/pathfinder_2e/armor_class/` e consome esses fatos de fora do modulo);
 * importacao/seed em massa do compendio oficial de itens do Pathfinder para o banco de dados (decisao de produto permanente — ver `.ai/inventory/skills.md` secao 13). Um catalogo de referencia estatico do compendio existe em `packages/game-system-pathfinder-2e/src/server/items/`, fora do banco e fora deste modulo; a unica ponte permitida entre catalogo e banco e o envio pontual de um item especifico do catalogo para um jogador ativo, sempre por acao explicita do Mestre (secao 5 acima);
 * comercio com loja/NPC automatizado completo;
 * craft completo;

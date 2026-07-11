@@ -311,7 +311,7 @@ Criar ou atualizar testes para:
 
 ## 12. Limitacoes Conhecidas da Primeira Entrega
 
-* Nao calcular todos os bonus de equipamento automaticamente.
+* O modulo `inventory` em si nao interpreta nem calcula bonus de equipamento — permanece agnostico de sistema. Quando um ruleset precisa disso (ex.: Armor Class em Pathfinder 2e), a interpretacao mecanica vive no adapter do sistema (`InventorySystemAdapter`, ex.: `packages/game-system-pathfinder-2e`), chamado pelo `inventory` como capacidade opcional — nunca com `if (system === ...)` dentro do modulo. Ver `.ai/game_systems/pathfinder_2e/armor_class/`.
 * Nao implementar bulk/carga como regra bloqueante inicialmente.
 * Nao implementar lojas, craft e venda automatizada completa inicialmente.
 * Nao implementar trade com aceite/recusa se transferencia direta atender a primeira necessidade.

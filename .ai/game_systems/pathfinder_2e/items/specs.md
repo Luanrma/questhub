@@ -28,6 +28,10 @@ type Pathfinder2eCompendiumItem = {
     category?: string
     damage?: string
     ac?: number
+    dexCap?: number
+    strengthRequirement?: number
+    checkPenalty?: number
+    speedPenaltyFeet?: number
     description?: string
     publicationTitle?: string
     remaster?: boolean
@@ -35,6 +39,8 @@ type Pathfinder2eCompendiumItem = {
   }
 }
 ```
+
+`dexCap`, `strengthRequirement`, `checkPenalty` e `speedPenaltyFeet` foram adicionados para alimentar o calculo de Armor Class (`.ai/game_systems/pathfinder_2e/armor_class/`). `systemData` e o unico bloco que sobrevive a clonagem de um item do catalogo para `CampaignItemDefinition`/`EquippedItem` — por isso esses campos precisam estar aqui, e nao apenas no bloco tipado `armor`/`shield` da secao 1.1.1.
 
 5.217 itens normalizados (`PATHFINDER_2E_ITEM_SOURCE_SUMMARY`: armor 165, backpack 43, consumable 1670, equipment 2178, kit 2, shield 98, treasure 153, weapon 908).
 
@@ -58,7 +64,7 @@ Decisao registrada (2026-07-10): o contrato acima passa a ser tratado como **V1 
 * `classification.role`: papel mecanico (`weapon`, `armor`, `shield`, `wearable`, `held-equipment`, `ammunition`, `consumable`, `container`, `attachment`, `treasure`, `kit`, `other`);
 * `usage`: uso bruto preservado e normalizado (`raw`, `mode`, `hands`, `placement`);
 * `equipment`: politica de equipamento (`equippable`, `options`);
-* blocos especificos opcionais do ruleset (`consumable`, `ammunition`, `weapon`, `armor`);
+* blocos especificos opcionais do ruleset (`consumable`, `ammunition`, `weapon`, `armor`, `shield`);
 * `normalizationWarnings`: avisos quando o dado bruto nao puder ser classificado com seguranca.
 
 O formato V2 alvo:
@@ -101,11 +107,22 @@ type Pathfinder2eCompendiumItemV2 = {
       quantityPerAttack: number
     }
   }
-  armor?: { category?: string; group?: string; ac?: number }
+  armor?: {
+    category?: string
+    group?: string
+    ac?: number
+    dexCap?: number
+    strengthRequirement?: number
+    checkPenalty?: number
+    speedPenaltyFeet?: number
+  }
+  shield?: { ac?: number; speedPenaltyFeet?: number }
   systemData: Pathfinder2eItemSystemData
   normalizationWarnings?: string[]
 }
 ```
+
+`armor`/`shield` sao a visao tipada de catalogo (paridade de exibicao); o canal que efetivamente chega ate um item equipado em campanha e `systemData` (secao 1.1), pois a clonagem catalogo->campanha nao copia estes blocos tipados hoje.
 
 Regras V2:
 

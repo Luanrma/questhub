@@ -15,6 +15,10 @@ export type Pathfinder2eItemSystemData = {
   stackGroup?: string
   damage?: string
   ac?: number
+  dexCap?: number
+  strengthRequirement?: number
+  checkPenalty?: number
+  speedPenaltyFeet?: number
   description?: string
   publicationTitle?: string
   remaster?: boolean
@@ -134,6 +138,14 @@ export type Pathfinder2eCompendiumItemV2 = {
     category?: string
     group?: string
     ac?: number
+    dexCap?: number
+    strengthRequirement?: number
+    checkPenalty?: number
+    speedPenaltyFeet?: number
+  }
+  shield?: {
+    ac?: number
+    speedPenaltyFeet?: number
   }
   systemData: Pathfinder2eItemSystemData
   normalizationWarnings?: string[]

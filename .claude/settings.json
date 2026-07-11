@@ -24,7 +24,19 @@
       "Bash(curl -s -o /dev/null -w \"Leather Armor: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Equipment/Leather%20Armor.png\")",
       "Bash(curl -s -o /dev/null -w \"Bag: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Equipment/Bag.png\")",
       "Bash(curl -s -o /dev/null -w \"Crystal: %{http_code}\\\\n\" \"http://localhost:5173/assets/icons/Ore%20%26%20Gem/Crystal.png\")",
-      "Bash(curl -s -o /dev/null -w \"no-auth: %{http_code}\\\\n\" http://localhost:3001/api/campaigns/x/inventory-items/y/catalog-sheet)"
+      "Bash(curl -s -o /dev/null -w \"no-auth: %{http_code}\\\\n\" http://localhost:3001/api/campaigns/x/inventory-items/y/catalog-sheet)",
+      "Bash(docker exec *)",
+      "Bash(docker exec questhub-db-1 psql -U questhub -d questhub_dev -c ' *)",
+      "Bash(docker cp *)",
+      "Bash(node -e \"console.log\\('skip'\\)\")",
+      "Bash(git mv *)",
+      "Bash(mv packages/game-system-pathfinder-2e/src/web/character-sheet/hooks/useArmorClassEquipment.ts packages/game-system-pathfinder-2e/src/web/character-sheet/hooks/useArmorClassEquipment.tsx)",
+      "Bash(curl -s -o /dev/null -w \"status:%{http_code}\\\\n\" http://localhost:3001/api/character-sheets/systems/PATHFINDER_2E/default -X GET)",
+      "Bash(curl -s http://localhost:3001/api/character-sheets/systems/PATHFINDER_2E/default -H \"Cookie: none\")",
+      "Bash(curl -s -o /dev/null -w \"web status:%{http_code}\\\\n\" http://localhost:5173/)",
+      "Bash(curl -s -o /dev/null -w \"armor-class-equipment status:%{http_code}\\\\n\" \"http://localhost:3001/api/campaigns/fake/characters/fake/armor-class-equipment\")",
+      "Bash(curl -s -o /dev/null -w \"toggle-shield status:%{http_code}\\\\n\" -X PATCH \"http://localhost:3001/api/campaigns/fake/equipped-items/fake/shield\" -H \"Content-Type: application/json\" -d '{\"raised\":true}')",
+      "Bash(netstat -ano)"
     ]
   }
 }

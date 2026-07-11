@@ -28,8 +28,10 @@ export type CharacterSheetSystemAdapter<TSheet> = {
   system: string
   dataKey: string
   version: number
+  supportedVersions?: readonly number[]
   defaultSheet: TSheet
   schema: z.ZodType<TSheet>
+  migrateEnvelopeForWrite?: (envelope: CharacterSheetEnvelope) => CharacterSheetEnvelope
   health?: CharacterSheetHealthAccessor<TSheet>
   movement?: CharacterSheetMovementAccessor<TSheet>
 }

@@ -6,11 +6,13 @@ import type { createAddItemToInventoryUseCase } from '../application/add-item-to
 import type { createAdjustWalletUseCase } from '../application/adjust-wallet.use-case'
 import type { createCreateCampaignItemDefinitionUseCase } from '../application/create-campaign-item-definition.use-case'
 import type { createEquipItemUseCase } from '../application/equip-item.use-case'
+import type { createGetArmorClassEquipmentUseCase } from '../application/get-armor-class-equipment.use-case'
 import type { createGetInventoryItemCatalogSheetUseCase } from '../application/get-inventory-item-catalog-sheet.use-case'
 import type { createGetInventoryLedgerUseCase } from '../application/get-inventory-ledger.use-case'
 import type { createGetInventoryUseCase } from '../application/get-inventory.use-case'
 import type { createGetWalletLedgerUseCase } from '../application/get-wallet-ledger.use-case'
 import type { createGetWalletUseCase } from '../application/get-wallet.use-case'
+import type { createToggleShieldRaisedUseCase } from '../application/toggle-shield-raised.use-case'
 import type { createTransferCurrencyUseCase } from '../application/transfer-currency.use-case'
 import type { createTransferItemUseCase } from '../application/transfer-item.use-case'
 import type { createUnequipItemUseCase } from '../application/unequip-item.use-case'
@@ -26,6 +28,7 @@ import {
   equippedItemParamsSchema,
   inventoryItemParamsSchema,
   ledgerQuerySchema,
+  toggleShieldRaisedSchema,
   transferCurrencySchema,
   transferInventoryItemSchema,
   updateInventoryItemSchema,
@@ -40,6 +43,8 @@ export type InventoryUseCases = {
   updateInventoryItem: ReturnType<typeof createUpdateInventoryItemUseCase>
   equipItem: ReturnType<typeof createEquipItemUseCase>
   unequipItem: ReturnType<typeof createUnequipItemUseCase>
+  getArmorClassEquipment: ReturnType<typeof createGetArmorClassEquipmentUseCase>
+  toggleShieldRaised: ReturnType<typeof createToggleShieldRaisedUseCase>
   transferItem: ReturnType<typeof createTransferItemUseCase>
   adjustWallet: ReturnType<typeof createAdjustWalletUseCase>
   transferCurrency: ReturnType<typeof createTransferCurrencyUseCase>
@@ -231,6 +236,40 @@ export function registerInventoryHttpRoutes(app: FastifyInstance, useCases: Inve
     if (result.status === 'item_belongs_to_another_character') {
       return sendError(reply, 403, 'ITEM_BELONGS_TO_ANOTHER_CHARACTER', 'Este item pertence a outro personagem')
     }
+
+    return reply.send(presentInventory(result.inventory))
+  })
+
+  app.get('/api/campaigns/:campaignId/characters/:characterId/armor-class-equipment', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = campaignCharacterParamsSchema.safeParse(req.params)
+    if (!params.success) return sendError(reply, 400, 'INVALID_PAYLOAD', 'Parametros invalidos')
+
+    const result = await useCases.getArmorClassEquipment({ ...params.data, actorUserId: payload.id })
+    if (result.status === 'not_found') return sendError(reply, 404, 'CAMPAIGN_CHARACTER_NOT_FOUND', 'Personagem nao encontrado na campanha')
+    if (result.status === 'forbidden') return sendError(reply, 403, 'FORBIDDEN', 'Sem permissao para ver este personagem')
+
+    return reply.send({ system: result.system, armor: result.armor, shield: result.shield })
+  })
+
+  app.patch('/api/campaigns/:campaignId/equipped-items/:equippedItemId/shield', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = equippedItemParamsSchema.safeParse(req.params)
+    if (!params.success) return sendError(reply, 400, 'INVALID_PAYLOAD', 'Parametros invalidos')
+
+    const body = toggleShieldRaisedSchema.safeParse(req.body ?? {})
+    if (!body.success) return sendError(reply, 400, 'INVALID_PAYLOAD', 'Payload invalido')
+
+    const result = await useCases.toggleShieldRaised({ ...params.data, ...body.data, actorUserId: payload.id })
+    if (result.status === 'not_found') return sendError(reply, 404, 'EQUIPPED_ITEM_NOT_FOUND', 'Equipamento nao encontrado')
+    if (result.status === 'item_belongs_to_another_character') {
+      return sendError(reply, 403, 'ITEM_BELONGS_TO_ANOTHER_CHARACTER', 'Este item pertence a outro personagem')
+    }
+    if (result.status === 'not_a_shield') return sendError(reply, 400, 'INVALID_PAYLOAD', 'Este item nao e um escudo')
 
     return reply.send(presentInventory(result.inventory))
   })

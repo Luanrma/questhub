@@ -1,6 +1,7 @@
 import { FileText } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import type { ReactNode } from 'react'
+import type { Socket } from 'socket.io-client'
 import { pathfinder2eCharacterSheetRenderer } from '../pathfinder-2e/character-sheet/Pathfinder2eSheetForm'
 import type { CharacterSheetEnvelope, GameSystem } from './types'
 
@@ -17,6 +18,10 @@ export type CharacterSheetRenderer = {
     characterName: string
     sheet: CharacterSheetEnvelope
     onChangeSheet: (sheet: CharacterSheetEnvelope) => void
+    identityLocked?: boolean
+    characterId?: string | null
+    campaignId?: string | null
+    socket?: Socket | null
   }) => ReactNode
 }
 

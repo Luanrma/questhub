@@ -65,6 +65,10 @@ export const equipInventoryItemSchema = z
     return { equipmentOptionKey }
   })
 
+export const toggleShieldRaisedSchema = z.object({
+  raised: z.boolean(),
+})
+
 export const transferInventoryItemSchema = z.object({
   toCharacterId: z.string().trim().min(1, 'Personagem de destino invalido'),
   quantity: z.number().int().positive('Quantidade deve ser positiva'),

@@ -13,6 +13,7 @@ import type {
   TransferItemInput,
   TransferItemResult,
   UnequipItemResult,
+  UpdateEquippedItemSystemDataResult,
   UpdateItemInput,
   UpdateItemResult,
 } from '../ports/inventory-repository'
@@ -327,6 +328,16 @@ export function createInMemoryInventoryRepository() {
       const item = items.find((i) => i.id === row.inventoryItemId)!
       item.state = 'STORED'
 
+      const inventory = inventories.find((inv) => inv.id === item.inventoryId)!
+      return { status: 'ok', inventory: toInventorySnapshot(inventory) }
+    },
+
+    async updateEquippedItemSystemData(equippedItemId, systemData): Promise<UpdateEquippedItemSystemDataResult> {
+      const row = equipped.find((e) => e.id === equippedItemId)
+      if (!row) return { status: 'not_found' }
+
+      row.systemData = systemData
+      const item = items.find((i) => i.id === row.inventoryItemId)!
       const inventory = inventories.find((inv) => inv.id === item.inventoryId)!
       return { status: 'ok', inventory: toInventorySnapshot(inventory) }
     },

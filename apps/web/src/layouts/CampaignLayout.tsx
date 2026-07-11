@@ -33,6 +33,7 @@ type MyCampaignCharacter = {
   avatarUrl: string | null
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING'
+  needsSheetSetup?: boolean
 }
 
 type CampaignPanelId = 'sessions' | 'characters' | 'bestiary' | 'items' | 'players' | 'journal' | 'settings'
@@ -342,6 +343,7 @@ export function CampaignLayout() {
         const selectedCharacterQuery = selectedCharacterId ? `?characterId=${encodeURIComponent(selectedCharacterId)}` : ''
         const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character${selectedCharacterQuery}`)
         setMyCharacter(ch)
+        if (ch.needsSheetSetup) setMySheetOpen(true)
         if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`
           if (presenceKeyRef.current === key) return
@@ -550,7 +552,18 @@ export function CampaignLayout() {
       </div>
 
       {mySheetOpen && myCharacter ? (
-        <CharacterSheetModal characterId={myCharacter.id} characterName={myCharacter.name} onClose={() => setMySheetOpen(false)} />
+        <CharacterSheetModal
+          characterId={myCharacter.id}
+          characterName={myCharacter.name}
+          forceSetup={Boolean(myCharacter.needsSheetSetup)}
+          identityLocked={myCharacter.role !== 'MASTER' && !myCharacter.needsSheetSetup}
+          campaignId={campaignId}
+          socket={socket}
+          onClose={() => setMySheetOpen(false)}
+          onSaved={() => {
+            setMyCharacter((current) => current ? { ...current, needsSheetSetup: false } : current)
+          }}
+        />
       ) : null}
       {sessionActionLoading && !campaign.isOnline ? (
         <LoadingScreen message="Sincronizando preparacao da mesa..." />

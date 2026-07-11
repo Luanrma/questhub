@@ -4,9 +4,11 @@
   "type": "module",
   "exports": {
     "./server/character-sheet": "./src/server/character-sheet/index.ts",
+    "./server/character-options": "./src/server/character-options/index.ts",
     "./server/bestiary": "./src/server/bestiary/index.ts",
     "./server/inventory": "./src/server/inventory/index.ts",
     "./server/items": "./src/server/items/index.ts",
+    "./shared/armor-class": "./src/shared/armor-class.ts",
     "./web/character-sheet": "./src/web/character-sheet/Pathfinder2eSheetForm.tsx",
     "./web/bestiary": "./src/web/bestiary/Pathfinder2eBestiarySheetView.tsx",
     "./web/items": "./src/web/items/Pathfinder2eItemSheetView.tsx"

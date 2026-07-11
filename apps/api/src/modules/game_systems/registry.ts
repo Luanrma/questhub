@@ -82,7 +82,8 @@ export function validateCharacterSheetEnvelope(input: unknown): CharacterSheetEn
   const adapter = getCharacterSheetAdapter(envelope.system)
   if (!adapter) throw new Error(`Unsupported character sheet system: ${envelope.system}`)
 
-  if (envelope.version !== adapter.version) {
+  const supportedVersions = adapter.supportedVersions ?? [adapter.version]
+  if (!supportedVersions.includes(envelope.version)) {
     throw new Error(`Unsupported character sheet version: ${envelope.version}`)
   }
 
@@ -92,7 +93,7 @@ export function validateCharacterSheetEnvelope(input: unknown): CharacterSheetEn
   }
 
   adapter.schema.parse(systemData)
-  return envelope
+  return adapter.migrateEnvelopeForWrite?.(envelope) ?? envelope
 }
 
 export function safeValidateCharacterSheetEnvelope(input: unknown) {

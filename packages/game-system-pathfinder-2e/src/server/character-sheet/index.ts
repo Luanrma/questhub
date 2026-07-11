@@ -1,5 +1,6 @@
 export * from './adapter'
 export * from './constants'
 export * from './default-sheet'
+export * from './identity'
 export * from './models'
 export * from './schema'

@@ -81,6 +81,11 @@ export function CharactersHomePage() {
     }
   }, [])
 
+  const sheetCharacterCampaign = sheetCharacter
+    ? (sheetCharacter.campaigns.find((entry) => entry.status === 'ACTIVE') ?? sheetCharacter.campaigns[0] ?? null)
+    : null
+  const sheetCharacterIsMaster = sheetCharacterCampaign?.role === 'MASTER' && sheetCharacterCampaign.status === 'ACTIVE'
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between gap-4">
@@ -214,6 +219,8 @@ export function CharactersHomePage() {
           characterId={sheetCharacter.id}
           characterName={sheetCharacter.name}
           system={sheetCharacter.system === 'PATHFINDER_2E' ? 'PATHFINDER_2E' : null}
+          campaignId={sheetCharacterCampaign?.campaign.id ?? null}
+          identityLocked={sheetCharacter.hasSheet && !sheetCharacterIsMaster}
           onClose={() => setSheetCharacter(null)}
           onSaved={(sheet: CharacterSheetEnvelope) => {
             setCharacters((current) =>

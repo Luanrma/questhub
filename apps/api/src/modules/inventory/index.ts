@@ -4,12 +4,14 @@ import { createAddItemToInventoryUseCase } from './application/add-item-to-inven
 import { createAdjustWalletUseCase } from './application/adjust-wallet.use-case'
 import { createCreateCampaignItemDefinitionUseCase } from './application/create-campaign-item-definition.use-case'
 import { createEquipItemUseCase } from './application/equip-item.use-case'
+import { createGetArmorClassEquipmentUseCase } from './application/get-armor-class-equipment.use-case'
 import { createGetInventoryItemCatalogSheetUseCase } from './application/get-inventory-item-catalog-sheet.use-case'
 import { createGetInventoryLedgerUseCase } from './application/get-inventory-ledger.use-case'
 import { createGetInventoryUseCase } from './application/get-inventory.use-case'
 import { createGetWalletLedgerUseCase } from './application/get-wallet-ledger.use-case'
 import { createGetWalletUseCase } from './application/get-wallet.use-case'
 import { createSendCatalogItemToPlayerUseCase } from './application/send-catalog-item-to-player.use-case'
+import { createToggleShieldRaisedUseCase } from './application/toggle-shield-raised.use-case'
 import { createTransferCurrencyUseCase } from './application/transfer-currency.use-case'
 import { createTransferItemUseCase } from './application/transfer-item.use-case'
 import { createUnequipItemUseCase } from './application/unequip-item.use-case'
@@ -53,6 +55,8 @@ export function registerInventoryRoutes(app: FastifyInstance, io: SocketIOServer
     updateInventoryItem: createUpdateInventoryItemUseCase({ inventoryRepository, eventBus, campaignAccess }),
     equipItem: createEquipItemUseCase({ inventoryRepository, eventBus, campaignAccess }),
     unequipItem: createUnequipItemUseCase({ inventoryRepository, eventBus, campaignAccess }),
+    getArmorClassEquipment: createGetArmorClassEquipmentUseCase({ inventoryRepository, campaignAccess }),
+    toggleShieldRaised: createToggleShieldRaisedUseCase({ inventoryRepository, eventBus, campaignAccess }),
     transferItem: createTransferItemUseCase({ inventoryRepository, eventBus, campaignAccess }),
     adjustWallet: createAdjustWalletUseCase({ walletRepository, eventBus, campaignAccess }),
     transferCurrency: createTransferCurrencyUseCase({ walletRepository, eventBus, campaignAccess }),

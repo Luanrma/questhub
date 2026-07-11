@@ -23,6 +23,7 @@ Regras:
 * O bloco `data.pathfinder2e` e obrigatorio.
 * Todos os campos persistidos dentro de `pathfinder2e` usam nomes em ingles.
 * Labels de UI devem ser traduzidos para portugues na camada de apresentacao.
+* Este envelope e o contrato legado V1. A evolucao V2 e documentada na secao 7 e no modulo `.ai/game_systems/pathfinder_2e/character_options`.
 
 ## 3. Contrato Do Bloco `pathfinder2e`
 
@@ -32,7 +33,8 @@ type Pathfinder2eSheet = {
   identity: Pathfinder2eIdentity
   attributes: Pathfinder2eAttributes
   hitPoints: Pathfinder2eHitPoints
-  armorClass: number
+  armorClass: Pathfinder2eArmorClassManual
+  armorProficiencies: Pathfinder2eArmorProficiencies
   initiative: number
   perception: Pathfinder2eProficiencyValue
   savingThrows: Pathfinder2eSavingThrows
@@ -79,6 +81,21 @@ type Pathfinder2eProficiencyRank = 0 | 2 | 4 | 6 | 8
 type Pathfinder2eProficiencyValue = {
   rank: Pathfinder2eProficiencyRank
   value: number
+}
+
+type Pathfinder2eArmorCategory = 'unarmored' | 'light' | 'medium' | 'heavy'
+
+type Pathfinder2eArmorProficiencies = {
+  unarmored: Pathfinder2eProficiencyRank
+  light: Pathfinder2eProficiencyRank
+  medium: Pathfinder2eProficiencyRank
+  heavy: Pathfinder2eProficiencyRank
+}
+
+// Total de AC nao e persistido aqui. Formula, breakdown e fatos de
+// equipamento em .ai/game_systems/pathfinder_2e/armor_class/specs.md.
+type Pathfinder2eArmorClassManual = {
+  manualAdjustment: number
 }
 
 type Pathfinder2eSavingThrows = {
@@ -141,7 +158,15 @@ type Pathfinder2eSkills = {
     "dying": 0,
     "doomed": 0
   },
-  "armorClass": 10,
+  "armorClass": {
+    "manualAdjustment": 0
+  },
+  "armorProficiencies": {
+    "unarmored": 2,
+    "light": 0,
+    "medium": 0,
+    "heavy": 0
+  },
   "initiative": 0,
   "perception": {
     "rank": 0,
@@ -244,7 +269,8 @@ type Pathfinder2eSkills = {
 * `hitPoints.wounded` deve ser maior ou igual a `0`.
 * `hitPoints.dying` deve ser maior ou igual a `0`.
 * `hitPoints.doomed` deve ser maior ou igual a `0`.
-* `armorClass` deve ser maior ou igual a `0`.
+* `armorClass.manualAdjustment` pode ser qualquer inteiro (bonus ou penalidade de circunstancia/status).
+* `armorProficiencies.unarmored`/`light`/`medium`/`heavy` seguem a mesma lista de ranks de proficiencia validos.
 * `initiative` pode ser qualquer inteiro.
 * `perception.value` pode ser qualquer inteiro.
 * Saving throw `value` pode ser qualquer inteiro.
@@ -304,13 +330,103 @@ Regras:
   * Sociedade: `intelligence`.
   * Sobrevivencia: `wisdom`.
 
-## 7. Criterios De Aceitacao
+## 7. Evolucao V2 Com Catalogo De Opcoes
+A ficha PF2e V2 integra o modulo `character_options` e substitui os campos de texto livre como fonte canonica de Classe, Ancestralidade, Heranca e Background.
+
+Envelope alvo:
+
+```json
+{
+  "system": "PATHFINDER_2E",
+  "version": 2,
+  "data": {
+    "pathfinder2e": {
+      "identity": {},
+      "buildChoices": {}
+    }
+  }
+}
+```
+
+Selecao oficial:
+
+```ts
+type Pathfinder2eCatalogSelection = {
+  source: 'catalog'
+  id: string
+  sourcePack: string
+  sourceId: string
+  slug: string
+  name: string
+}
+```
+
+Selecao customizada:
+
+```ts
+type Pathfinder2eCustomSelection = {
+  source: 'custom'
+  name: string
+}
+```
+
+Identidade V2:
+
+```ts
+type Pathfinder2eIdentityV2 = {
+  level: number
+  ancestry: Pathfinder2eCatalogSelection | Pathfinder2eCustomSelection | null
+  heritage: Pathfinder2eCatalogSelection | Pathfinder2eCustomSelection | null
+  background: Pathfinder2eCatalogSelection | Pathfinder2eCustomSelection | null
+  class: Pathfinder2eCatalogSelection | Pathfinder2eCustomSelection | null
+}
+```
+
+Regras:
+
+* novas escritas V2 nao usam `className`;
+* campos vazios sao representados por `null`;
+* texto antigo sem match unico vira `source: 'custom'`;
+* Heranca catalogada deve ser validada contra Ancestralidade catalogada;
+* Heranca versatil permanece valida ao trocar Ancestralidade;
+* Heranca incompativel nao deve permanecer silenciosamente;
+* `buildChoices` armazena escolhas do usuario separadas da selecao;
+* efeitos derivados nao devem ser acumulados, e sim recalculados a partir de catalogo, selecoes, escolhas e nivel.
+* Player dono da ficha pode salvar Classe, Ancestralidade, Heranca e Background somente quando a identidade anterior ainda nao estava completa; essa primeira escrita deve enviar os quatro campos completos.
+* Depois que Classe, Ancestralidade, Heranca e Background estiverem completos, Player dono da ficha nao pode alterar esses quatro campos em novas escritas.
+* Mestre ativo de uma campanha onde o personagem esta vinculado pode criar ou alterar Classe, Ancestralidade, Heranca e Background da ficha do Player.
+
+Compatibilidade:
+
+* backend deve aceitar V1 e V2 durante a transicao;
+* edicoes de V1 devem executar migracao antes de persistir;
+* V1 nao deve ser apagada sem preservar texto original em selecoes customizadas ou issues de migracao.
+
+## 7.1 Evolucao V3 — Armor Class Dinamico
+
+**Decisao registrada:** a partir da versao `3` do envelope, Armor Class deixa de ser um numero digitado a mao. Contrato completo, formula, fatos de equipamento e reatividade em `.ai/game_systems/pathfinder_2e/armor_class/`; esta secao documenta apenas o impacto no envelope/schema da ficha.
+
+Mudancas de contrato:
+* `armorClass: number` -> `armorClass: Pathfinder2eArmorClassManual` (so o ajuste manual de circunstancia/status, ver secao 3);
+* campo novo `armorProficiencies: Pathfinder2eArmorProficiencies` (proficiencia por categoria de armadura);
+* o total de AC nunca e persistido; e sempre derivado combinando `armorClass.manualAdjustment` + `armorProficiencies` (deste bloco) com fatos de equipamento resolvidos pelo modulo `inventory`.
+
+Migracao:
+* fichas `version 1` e `version 2` com `armorClass: number` migram para `version 3` na proxima escrita (`PUT /api/characters/:id/sheet`), descartando o numero antigo e aplicando os defaults da secao 4;
+* a migracao e encadeada: V1 -> V2 (identidade estruturada, ja existente) -> V3 (Armor Class dinamico, esta secao);
+* nao ha perda de dado relevante a preservar — o numero antigo era so um valor digitado, sem breakdown.
+
+Compatibilidade:
+* o backend deve continuar aceitando o formato antigo (`armorClass: number`) na leitura/validacao de entrada durante a janela de transicao, migrando antes de persistir;
+* novas escritas nunca gravam `armorClass: number`.
+
+## 8. Criterios De Aceitacao
 * Nova ficha Pathfinder 2e deve nascer com o default documentado.
 * Ficha Pathfinder 2e deve ser persistida em `data.pathfinder2e`.
 * Ficha deve poder ser salva com textos vazios.
 * Backend deve rejeitar numeros decimais.
 * Backend deve rejeitar ranks fora da lista canonica.
-* Backend nao deve calcular valores derivados neste MVP; ele apenas valida e persiste o snapshot calculado pelo frontend.
+* Backend nao deve calcular valores derivados neste MVP para pericias/saves/percepcao; ele apenas valida e persiste o snapshot calculado pelo frontend. Armor Class e excecao: nenhum total e persistido (nem pelo frontend, nem pelo backend); o backend so valida `armorProficiencies` e `armorClass.manualAdjustment`, e o total e sempre derivado em tempo de leitura — ver `.ai/game_systems/pathfinder_2e/armor_class/specs.md`.
 * Frontend deve exibir labels em portugues e persistir chaves em ingles.
 * Frontend deve distribuir a ficha em abas de icones, sem botoes `Anterior` e `Proxima`.
 * A lista de paginas, labels e icones da ficha Pathfinder 2e deve ser declarada dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet`.
@@ -324,12 +440,16 @@ Regras:
 * A TAG de rank deve ter tamanho padronizado, texto branco, texto completo visivel, fonte adaptada ao tamanho, sem seta nativa de select box e sem sublinhado preto.
 * Cores das TAGs: Nao treinado em cinza medio, Treinado em azul marinho, Especialista em amarelo, Mestre em roxo e Lendario em laranja.
 * As opcoes abertas do rank devem usar fundo neutro em cinza claro e texto escuro, sem herdar a cor da TAG selecionada.
-* A aba de proficiencias deve conter somente as pericias oficiais presentes no MVP: Acrobacia, Arcanismo, Atletismo, Artesanato, Diplomacia, Enganacao, Furtividade, Intimidacao, Medicina, Natureza, Ocultismo, Performance, Prestidigitacao, Religiao, Sociedade e Sobrevivencia.
+* A aba de proficiencias deve conter as pericias oficiais presentes no MVP (Acrobacia, Arcanismo, Atletismo, Artesanato, Diplomacia, Enganacao, Furtividade, Intimidacao, Medicina, Natureza, Ocultismo, Performance, Prestidigitacao, Religiao, Sociedade e Sobrevivencia) e, em secao propria, as quatro proficiencias de armadura (Desarmado, Leve, Media, Pesada) usadas pelo calculo de Armor Class — ver `.ai/game_systems/pathfinder_2e/armor_class/`.
 * A descricao de cada pericia deve ficar oculta por padrao e aparecer apenas em tooltip ao passar o mouse sobre o icone de interrogacao da linha.
 * "Intuicao" nao deve criar uma chave nova em `skills`; deve ser documentada como decisao de produto porque Pathfinder 2e divide esse conceito entre Sociedade, Ocultismo, Lore ou testes especificos de Percepcao.
 * Frontend deve usar identidade visual de ficha impressa em papel envelhecido, com linhas de preenchimento, caixas de secao e atributos em blocos destacados.
 * Frontend deve exibir um painel fixo lateral a esquerda em fichas Pathfinder 2e com nome do personagem, nivel, experiencia, vida, condicoes de vida, classe de armadura, fortitude, reflexo, vontade, iniciativa, percepcao e deslocamento.
+* Na primeira aba, o painel fixo lateral deve se parecer com um cartao de personagem: retrato circular ornamental, nome em destaque, nivel/classe/experiencia, defesa, vida, condicoes, testes de resistencia e movimento. Ancestralidade e Background nao devem aparecer neste painel.
 * Classe, ancestralidade, heranca e background devem aparecer no conteudo principal a direita, acima de Atributos, em uma secao chamada Identificacao.
+* A secao Identificacao deve exibir Classe, Ancestralidade, Heranca e Background em cards de duas colunas quando houver largura suficiente. Cada card deve exibir apenas o nome selecionado no estado de leitura; campos de busca/autocomplete e resultados de catalogo devem aparecer somente durante a edicao do card.
+* Para Player, os cards de Identificacao devem ficar bloqueados quando a ficha ja existir fora do setup inicial. Para Mestre, os cards permanecem editaveis.
+* A secao Escolhas de criacao deve exibir os grupos Classe, Ancestralidade e Background como paineis compactos lado a lado, com controles internos de boosts/falhas/atributo chave. Atributos sugeridos deve ficar em uma faixa inferior com os seis valores e acao de aplicar atributos.
 * A secao Vida do painel fixo deve exibir Maxima, Atual e Temporaria com fonte maior e maior destaque visual que os campos de texto comuns.
 * Hit points/status nao devem aparecer duplicados no conteudo principal da ficha quando ja estiverem fixados no painel lateral.
 * A ficha Pathfinder 2e nao deve exibir o texto `QuestHub` no cabecalho da ficha nem no painel fixo.

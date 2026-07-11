@@ -1,4 +1,8 @@
 import type { PROFICIENCY_RANK_VALUES } from './constants'
+import type {
+  Pathfinder2eBuildChoices,
+  Pathfinder2eCharacterSelection,
+} from '../character-options/models'
 
 export type Pathfinder2eProficiencyRank = (typeof PROFICIENCY_RANK_VALUES)[number]
 
@@ -10,13 +14,23 @@ export type Pathfinder2eGeneral = {
   movementMeters: number
 }
 
-export type Pathfinder2eIdentity = {
+export type Pathfinder2eIdentityV1 = {
   level: number
   ancestry: string
   heritage: string
   background: string
   className: string
 }
+
+export type Pathfinder2eIdentityV2 = {
+  level: number
+  ancestry: Pathfinder2eCharacterSelection | null
+  heritage: Pathfinder2eCharacterSelection | null
+  background: Pathfinder2eCharacterSelection | null
+  class: Pathfinder2eCharacterSelection | null
+}
+
+export type Pathfinder2eIdentity = Pathfinder2eIdentityV1 | Pathfinder2eIdentityV2
 
 export type Pathfinder2eAttributes = {
   strength: number
@@ -39,6 +53,20 @@ export type Pathfinder2eHitPoints = {
 export type Pathfinder2eProficiencyValue = {
   rank: Pathfinder2eProficiencyRank
   value: number
+}
+
+export type Pathfinder2eArmorProficiencies = {
+  unarmored: Pathfinder2eProficiencyRank
+  light: Pathfinder2eProficiencyRank
+  medium: Pathfinder2eProficiencyRank
+  heavy: Pathfinder2eProficiencyRank
+}
+
+// Total de AC nunca e persistido. Formula, breakdown e fatos de equipamento
+// em packages/game-system-pathfinder-2e/src/shared/armor-class.ts e
+// .ai/game_systems/pathfinder_2e/armor_class/specs.md.
+export type Pathfinder2eArmorClassManual = {
+  manualAdjustment: number
 }
 
 export type Pathfinder2eSavingThrows = {
@@ -66,9 +94,13 @@ export type Pathfinder2eSkills = {
   thievery: Pathfinder2eProficiencyValue
 }
 
-export type Pathfinder2eSheet = {
+// Formato legado (identidade em texto livre). Sempre com Armor Class no
+// formato antigo (`armorClass: number`) — sheets V1 nunca chegaram a existir
+// com o Armor Class dinamico (ver Pathfinder2eSheetV2 abaixo). So permanece
+// no contrato para migrar dados existentes; novas escritas nunca a usam.
+export type Pathfinder2eSheetV1 = {
   general: Pathfinder2eGeneral
-  identity: Pathfinder2eIdentity
+  identity: Pathfinder2eIdentityV1
   attributes: Pathfinder2eAttributes
   hitPoints: Pathfinder2eHitPoints
   armorClass: number
@@ -78,3 +110,19 @@ export type Pathfinder2eSheet = {
   skills: Pathfinder2eSkills
   notes: string
 }
+
+// Formato intermediario transitorio: identidade V2 estruturada, mas ainda com
+// Armor Class no formato antigo. So existe entre a migracao de identidade
+// (V1 -> V2) e a migracao de Armor Class (-> V3); nunca e o alvo final de uma
+// escrita. Ver PATHFINDER_2E_SHEET_VERSION_LEGACY_ARMOR_CLASS em constants.ts.
+export type Pathfinder2eSheetV2LegacyArmorClass = Omit<Pathfinder2eSheetV1, 'identity'> & {
+  identity: Pathfinder2eIdentityV2
+  buildChoices: Pathfinder2eBuildChoices
+}
+
+export type Pathfinder2eSheetV2 = Omit<Pathfinder2eSheetV2LegacyArmorClass, 'armorClass'> & {
+  armorClass: Pathfinder2eArmorClassManual
+  armorProficiencies: Pathfinder2eArmorProficiencies
+}
+
+export type Pathfinder2eSheet = Pathfinder2eSheetV1 | Pathfinder2eSheetV2LegacyArmorClass | Pathfinder2eSheetV2

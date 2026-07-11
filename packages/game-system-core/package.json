@@ -5,6 +5,7 @@
   "exports": {
     "./server/character-sheet": "./src/server/character-sheet/index.ts",
     "./server/bestiary": "./src/server/bestiary/index.ts",
+    "./server/character-options": "./src/server/character-options/index.ts",
     "./server/items": "./src/server/items/index.ts"
   }
 }

@@ -1,6 +1,9 @@
 export const PATHFINDER_2E_SYSTEM = 'PATHFINDER_2E' as const
 export const PATHFINDER_2E_DATA_KEY = 'pathfinder2e' as const
-export const PATHFINDER_2E_SHEET_VERSION = 1
+export const PATHFINDER_2E_SHEET_VERSION = 3
+export const PATHFINDER_2E_LEGACY_SHEET_VERSION = 1
+// V2 identity estruturada, mas ainda com `armorClass: number` (pre Armor Class dinamico).
+export const PATHFINDER_2E_SHEET_VERSION_LEGACY_ARMOR_CLASS = 2
 
 export const PROFICIENCY_RANKS = {
   UNTRAINED: 0,

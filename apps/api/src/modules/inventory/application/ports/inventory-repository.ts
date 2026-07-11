@@ -121,6 +121,10 @@ export type EquipItemResult =
 
 export type UnequipItemResult = { status: 'ok'; inventory: InventorySnapshot } | { status: 'not_found' }
 
+export type UpdateEquippedItemSystemDataResult =
+  | { status: 'ok'; inventory: InventorySnapshot }
+  | { status: 'not_found' }
+
 export type TransferItemInput = {
   inventoryItemId: string
   toCampaignCharacterId: string
@@ -161,6 +165,7 @@ export interface InventoryRepository {
   updateItem(input: UpdateItemInput): Promise<UpdateItemResult>
   equipItem(input: EquipItemInput): Promise<EquipItemResult>
   unequipItem(equippedItemId: string, actorUserId: string, actorCharacterId: string | null): Promise<UnequipItemResult>
+  updateEquippedItemSystemData(equippedItemId: string, systemData: unknown): Promise<UpdateEquippedItemSystemDataResult>
   transferItem(input: TransferItemInput): Promise<TransferItemResult>
   listLedger(
     inventoryId: string,

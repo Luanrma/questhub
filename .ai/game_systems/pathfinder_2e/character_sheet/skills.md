@@ -31,8 +31,9 @@ export const PROFICIENCY_RANKS = {
 * Nao criar nem vincular `Character`.
 * Nao acessar canvas/tabuleiro diretamente.
 * Nao salvar strings de rank como dado canonico.
-* Implementar apenas o calculo automatico de totais de pericias no frontend; demais calculos mecanicos continuam fora do MVP.
-* Nao validar listas oficiais de opcoes neste MVP.
+* Implementar apenas o calculo automatico de totais de pericias no frontend; demais calculos mecanicos continuam fora do MVP, com excecao de Armor Class.
+* Armor Class tem calculo automatico proprio, mas nao segue o mesmo padrao de pericias: a formula vive em uma funcao pura compartilhada do pacote PF2e (nao duplicada no componente de formulario), porque depende de fatos de equipamento resolvidos pelo backend (modulo `inventory`). Contrato completo em `.ai/game_systems/pathfinder_2e/armor_class/`.
+* Nao validar listas oficiais de opcoes no contrato legado V1. A evolucao V2 deve consumir o catalogo do modulo PF2e `character_options`.
 * Expor validadores e defaults para consumo do registry de `game_systems`.
 * Manter componentes, labels, paginas e tipos de formulario Pathfinder 2e dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet` depois da migracao tecnica.
 * A navegacao visual por abas pertence ao modal base, mas paginas, labels e icones da ficha Pathfinder 2e pertencem a este submodulo.
@@ -41,5 +42,7 @@ export const PROFICIENCY_RANKS = {
 * O arquivo `pathfinder_2e_sheet.json` no frontend deve representar exatamente o envelope persistido em `Character.sheet` para Pathfinder 2e.
 * Tooltips simples de descricao podem ser implementados com CSS no componente Pathfinder 2e, sem persistir descricoes no banco.
 * Estilos especificos da ficha Pathfinder 2e devem ficar junto do componente em `apps/web/src/game-systems/pathfinder-2e/character-sheet`, escopados por uma classe raiz do submodulo, e nao em `apps/web/src/index.css`.
-* O motor de calculo de pericias deve ficar no submodulo Pathfinder 2e do frontend ate existir um adaptador compartilhado de regras.
+* O motor de calculo de pericias deve ficar no submodulo Pathfinder 2e do frontend ate existir um adaptador compartilhado de regras. Armor Class e o primeiro caso que exige esse adaptador compartilhado (`packages/game-system-pathfinder-2e/src/shared/armor-class.ts`), por depender de dados resolvidos no backend; nao usar esse precedente para mover o calculo de pericias para o backend sem necessidade equivalente.
 * Nao criar README ou documentacao paralela dentro dos diretorios de codigo da ficha Pathfinder 2e; informacoes tecnicas devem ser atualizadas nos arquivos deste diretorio canonico em `.ai`.
+* A migracao V1 para V2 deve preservar texto livre antigo como selecao customizada quando nao houver match unico no catalogo.
+* O frontend da ficha nao deve acessar a estrutura bruta dos documentos Foundry; deve consumir contratos normalizados do package PF2e/API.

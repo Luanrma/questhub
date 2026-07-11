@@ -49,12 +49,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This brightly colored +4 major resilient leather armor is inscribed with a spiral that has no end or beginning. Though it is a symbol of the ancient religion of Holy Xatramba, it also serves as a religious symbol of Pharasma. When you invest the armor, you gain void resistance 25 and can draw on the power of your ancestors. You gain an ancestry feat from your ancestry; the feat can be any level, but you must meet any other prerequisites of the feat. You lose the feat when the investment ends, and you can select a different feat each time you invest the armor again. . Activate f envision Freque...",
       "publicationTitle": "Pathfinder #174: Shadows of the Ancients",
       "remaster": false,
@@ -105,12 +113,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 leather armor has four knobbed ribs that wrap around the torso. The armor grants you resistance 2 to poison damage. . Activate 1 command Frequency once per day Effect The ribs from the armor spread into functional spider limbs. For 1 minute, you gain a climb Speed equal to half your land Speed and have your limbs free as you climb. If you use all your free limbs to help you Climb, your climb Speed equals your land Speed. . Craft Requirements The initial raw materials must include four intact legs from an ogre spider.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -161,12 +177,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 resilient leather armor has four knobbed ribs that wrap around the torso. The armor grants you resistance 5 to poison damage. . Activate 1 command Frequency once per 10 minutes Effect The ribs from the armor spread into functional spider limbs. For 1 minute, you gain a climb Speed equal to half your land Speed and have your limbs free as you climb. If you use all your free limbs to help you Climb, your climb Speed equals your land Speed. . Craft Requirements The initial raw materials must include four intact legs from a goliath spider.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -222,12 +246,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Based on the armors used by the holy warriors who served under General Arnisant in the Shining Crusade, this well-polished +2 greater resilient half plate is decorated with religious motifs and carved with sacred scripture. While wearing armor of the holy warrior, your item bonus from the greater resilient rune increases from +2 to +3; if you upgrade to a major resilient rune, the item bonus instead increases from +3 to +4. An undead that critically fails an unarmed attack against you while you wear this armor takes 1d6 vitality damage. If you are evil, you're Enfeebled 2 while wearing the arm...",
       "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
       "remaster": false,
@@ -280,11 +312,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "light",
       "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This large, thick cloak is fitted with thin strips of metal at key locations along its length. A pair of straps attaches the cloak to your arms, giving you greater control over the cloak's movements. Using these straps, you can constantly move the cloak or keep it wrapped around yourself to block and intercept attacks. Many Firebrands favor wearing armored cloaks over traditional armor for style reasons, such as matching the cloak to the rest of their outfit.",
       "publicationTitle": "Pathfinder Lost Omens Firebrands",
       "remaster": false,
@@ -338,12 +378,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "A custom, lightweight mail is fitted within the lining of a coat or similar apparel, physically hiding the armor while maintaining the wearer's fashion. While not nearly as protective as heavier armors, the armored coat allows the wearer to blend in more aesthetically during civilian functions. Like other suits of armor, the armored coat is custom-fitted to an individual's body type, ensuring comfort without sacrificing its defensive capabilities.",
       "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
       "remaster": false,
@@ -397,12 +445,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 greater resilient leather armor was made from the flayed hide of an Elysian pegasus, then dyed a bright crimson so that it appears slick with fresh blood. The wearer of assassin's skin gains a +3 item bonus to checks. Activate—Blood Revitalization f (concentrate) Frequency once per hour Trigger You would take persistent bleed damage . Effect You don't take the persistent bleed damage and instead regain Hit Points equal to the bleed damage. The persistent bleed damage ends.",
       "publicationTitle": "Pathfinder Adventure: Prey for Death",
       "remaster": true,
@@ -456,12 +512,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Made of the sturdy, thick hide of the aurochs and tempered to be both flexible and durable, this +1 resilient hide armor is imbued with the aurochs' natural defenses against venomous predators. You gain resistance 5 to poison damage. Activate—Stubborn Skin 1 You pull the layers of the armor taut, stiffening your body against incoming forces for 1 minute. While the armor is taut, you have a –1 penalty to Reflex saves and a +2 item bonus to Fortitude saves.",
       "publicationTitle": "Pathfinder #209: Destroyer's Doom",
       "remaster": true,
@@ -514,12 +578,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Woven by fey seamstresses as rewards for servants of nature, countless leaves continually changing colors in autumnal hues comprise autumn's embrace, a suit of +2 invisibility resilient leaf weave. Leaves shed from the armor as they might fall in autumn. When activating the armor's property rune, you disappear in a swirl of colorful leaves. . Activate 2 command, envision (aura) Frequency once per day Effect You call forth a storm of leaves from autumn's embrace. These leaves swirl in a @Template[emanation|distance:20] for 1 minute. Creatures within the area are , and creatures outside the area...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -573,12 +645,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Note Bakuwa Lizardfolk heritage only . Your plates are medium armor in the plate armor group that grant a +4 item bonus to AC, a Dex cap of +1, a check penalty of –2, a Speed penalty of –5 feet, a Strength value of +3, and have the aquadynamic and comfort traits. You can never wear other armor or remove your plates. You can etch armor runes onto your plates.",
       "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
       "remaster": true,
@@ -633,12 +713,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Viciously sharp spiked chains wrap around this that can be used to magically harm the wearer and channel supernatural abilities without somehow tearing at the leather itself. The barbed vest doesn't fuse to you in the usual way. It can be removed and discarded, but 1 day after doing so, you feel driven to recollect the vest at any cost until the curse is removed with a spell. Anytime you activate the barbed vest, its chains tighten around you, dealing 1d6[persistent,piercing] damage. You can remove this persistent damage as normal, but only after deactivating the item's magic as a single actio...",
       "publicationTitle": "Pathfinder #159: All or Nothing",
       "remaster": false,
@@ -692,11 +780,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light-barding",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 5,
+      "strengthRequirement": 3,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "category": "light-barding",
       "ac": 1,
+      "dexCap": 5,
+      "strengthRequirement": 3,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5,
       "description": "This light barding is covered in stylized wind motifs. When you suit up your animal companion, the barding adjusts to fit your animal companion regardless of its shape. When your companion falls, wind picks it up from below; it gains the effects of . Activate—Take Flight 2 (manipulate) Frequency once per day . Effect You trace a finger along the wind motifs on the barding, granting your companion wearing the barding a fly Speed of 30 feet for 10 minutes. Even if the companion doesn't have the mount special ability, it can still Fly while being ridden.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -750,11 +846,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "heavy-barding",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 3,
+      "strengthRequirement": 5,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "category": "heavy-barding",
       "ac": 3,
+      "dexCap": 3,
+      "strengthRequirement": 5,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This saddle is covered with well-polished metal plates on the outside and adjusts itself to fit any mount. Activate 2 Interact . Effect You touch the metal plates of the saddle, and they begin to unfold and adapt to the creature, covering your mount in heavy barding. This leaves the mount covered with the barding and wearing a simple-looking saddle. The bulk of the saddle is unchanged in either form, but your mount is not affected by the restrictions, nor the benefits, of wearing barding while in saddle form. If the mount is already wearing any barding, this has no effect. You can make the bar...",
       "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
       "remaster": false,
@@ -809,12 +913,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Worn by Iomedae's prestigious knights, this +2 resilient bastion plate is emblazoned with the Inheritor's religious symbol and sports a white cloak. While the cloak is white, this armor grants you a +2 item bonus to Diplomacy checks to , provided your target has no enmity toward Iomedae. Activate 1 command . Effect The armor's cloak becomes red for 1 minute. As long as the cloak is red, you gain the benefits of the armor's deflect melee trait without needing to spend an additional action to activate it during each turn. Craft Requirements You worship Iomedae.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -869,12 +981,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This cumbersome and sturdy plate armor has fluting and additional protection built into the cuirass, helm, pauldrons, and vambraces. Bastion plate was invented for protection in combat tournaments meant to be sporting rather than lethal.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -929,12 +1049,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "The joints of this black +2 greater resilient fortification fortress plate look like swirling vortices of silver. Non-magical ammunition and thrown weapons aimed at you are destroyed after they hit you and deal damage or miss you. You also have resistance 10 to physical damage from ranged attacks. When an enemy's ranged attack misses you or hits you and deals no damage, the armor absorbs the projectile. When it has absorbed six projectiles, the armor glows at the joints. Activate r Interact Frequency once per minute Trigger A ranged weapon Strike targets a creature within 20 feet of you and th...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -988,12 +1116,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Instead of chain links, this +1 chain shirt is assembled from metal \"leaves\" that each resemble a small blade. Activate 1 Interact . Effect You pull a link from the armor, which transforms into a +1 striking . The dagger disappears and reappears as a link in the armor after you Strike with it, or at the end of this turn if you don't make a Strike. You can Activate the blade byrnie in place of an Interact action to draw a weapon for abilities such as the feat. Upgrading the runes on the blade byrnie makes the daggers pulled from it more powerful. The daggers have a +2 weapon potency rune if the...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1047,12 +1183,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Instead of chain links, this +2 resilient chain shirt is assembled from metal \"leaves\" that each resemble a small blade. Activate 1 Interact . Effect You pull a link from the armor, which transforms into a +2 greater striking . The dagger disappears and reappears as a link in the armor after you Strike with it, or at the end of this turn if you don't make a Strike. You can Activate the blade byrnie in place of an Interact action to draw a weapon for abilities such as the feat. Upgrading the runes on the blade byrnie makes the daggers pulled from it more powerful. The daggers have a +3 weapon p...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1106,12 +1250,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Instead of chain links, this +3 greater resilient chain shirt is assembled from metal \"leaves\" that each resemble a small blade. Activate 1 Interact . Effect You pull a link from the armor, which transforms into a +3 greater striking . The dagger disappears and reappears as a link in the armor after you Strike with it, or at the end of this turn if you don't make a Strike. You can Activate the blade byrnie in place of an Interact action to draw a weapon for abilities such as the feat. Upgrading the runes on the blade byrnie makes the daggers pulled from it more powerful. The daggers have a +3...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1166,12 +1318,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Crafted from heavy steel plating and riveted together with cunning precision, this suit of +1 resilient is specifically designed to protect against sudden explosions. This added layer of security comes at the cost of movement, however. Activate r command Trigger You're affected by an area effect that requires a Reflex save, or you would take splash damage from a scatter weapon . Effect The blast suit locks together into a rigid bulwark, protecting you from the blast but preventing you from moving from your position under any circumstances. You become , gain a +2 circumstance bonus to your Refl...",
       "publicationTitle": "Pathfinder #180: The Smoking Gun",
       "remaster": false,
@@ -1227,12 +1387,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Activate 1 Interact This suit of bone-based fortress plate is a masterpiece of alchemical science. This armor has a receiver that can hold a single lodestone bomb, which takes 3 Interact actions to install. A loaded suit of bone dreadnought plate can be activated to cause the bomb to shift numerous small plates and hinges, offering a wide variety of protections, granting you resistance to cold, electricity, fire, piercing, and slashing damage equal to the loaded lodestone bomb's splash damage. These effects last for 20 minutes, but each time you're hit by an attack that deals damage of one of...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1283,12 +1451,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Though referred to as a breastplate, this type of armor consists of several pieces of plate or armor that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -1343,12 +1519,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Constructed of dull gray metal, this breastplate is decorated with the symbol of a craggy black mountaintop. This breastplate functions as a +3 greater resilient breastplate. When you're Shoved or otherwise forced to move, you can reduce the amount you move by up to 10 feet. When you invest the breastplate, you either increase your Constitution modifier by 1 or increase it to +4, whichever is higher. Activate 2 Interact Frequency once per day Effect You pound a solid and constant rhythm on your breastplate and cast a 7th-rank spell on yourself. . Activate 1 Interact Frequency once per day Effe...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1402,12 +1586,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Absalom style once led famous adventurers to wear clothing with an unusual number of buckles, pouches, and straps. This fashion birthed a trend that led to \"buckle armor,\" a colloquial name for chic armor with spacious tool storage. Buckle armor comes with the storage armor adjustment.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1462,12 +1654,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This suit of +1 assisting leaf weave is composed entirely of primal-infused leaves bestowed by a dying arboreal. The leaves display the vibrant greens of summer, as if full of life, regardless of the time that has passed since the arboreal gifted them. The armor is constantly drawing in imperceptible amounts of primal energy to help bear its wearer's burdens. You can draw deeply upon the untapped reserves of primal magic within it and infuse yourself with these energies to a limited extent, giving you a burst of quickness. Activate 2 command, envision Frequency once per day . Effect You cast t...",
       "publicationTitle": "Pathfinder #201: Pactbreaker",
       "remaster": true,
@@ -1521,12 +1721,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Traditional armor from Senghor, ceramic plate alleviates the need for metallurgy and smithing, instead relying on ceramic firing, glazing, and strong cord work with a backing of leather and thick canvas. Ceramic plate that follows Senghor's style is colorful and artistic, and is built with the armor latches armor adjustment.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1580,12 +1788,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "chain",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "chain",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "A suit of chain mail consists of several pieces of armor composed of small metal rings linked together in a protective mesh. It typically includes a chain shirt, leggings, a pair of arms, and a coif, collectively protecting most of the body.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -1639,12 +1855,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Sometimes called a hauberk, this is a long shirt constructed of the same metal rings as chain mail. However, it is much lighter than chain mail and protects only the torso, upper arms, and upper legs of its wearer.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -1697,12 +1921,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "plate",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "plate",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Sometimes, just disguising one's face just isn't convincing enough. Clockwork disguises were invented to supplement regular disguise kits, which are used all across Golarion. For example, if a spy wants to infiltrate a military camp, they must be wearing the same type of armor as the soldiers stationed there-or else have a very good explanation for their commander as to why they're out of proper uniform! The clockwork disguise is intended to help avoid such awkward, potentially fatal confrontations. The clockwork disguise looks like a harness connected to hundreds of small metal plates that co...",
       "publicationTitle": "Pathfinder Guns & Gears",
       "remaster": false,
@@ -1752,11 +1984,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 4,
+      "checkPenalty": -4,
+      "speedPenaltyFeet": -15
     },
     "systemData": {
       "category": "light",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 4,
+      "checkPenalty": -4,
+      "speedPenaltyFeet": -15,
       "description": "The clockwork diving suit is a marvel of technology that allows its user to breathe underwater for hours at a time without the aid of magic. Compared to a more traditional magically-assisted diving suit using a bottle of air, a clockwork diving suit is both less expensive and better protected, making clockwork diving suits a good choice for characters who prefer more protection. However, they also come with a built-in time limit, which magical diving suits circumvent. A clockwork diving suit is a bulky, fully sealed suit of armor lined with a complex series of filter-equipped bladders that sto...",
       "publicationTitle": "Pathfinder Guns & Gears",
       "remaster": true,
@@ -1811,12 +2051,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "The most devoted, cloistered clerics wear a cloister robe. Decorations symbolic of a specific deity adorn the robe, and the robe's colors and the complexity of its construction fit the deity's outlook. The robe serves as a religious symbol of that deity, and it doesn't need to be wielded to provide that benefit. The robe is +2 greater resilient explorer's clothing and grants a +2 item bonus to Religion checks and a +1 item bonus to the divine skill of the deity to whom the robe is dedicated. The robe doesn't grant any benefits to a wearer who doesn't worship the deity tied to the robe. In addi...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1870,12 +2118,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "The most devoted, cloistered clerics wear a cloister robe. Decorations symbolic of a specific deity adorn the robe, and the robe's colors and the complexity of its construction fit the deity's outlook. The robe serves as a religious symbol of that deity, and it doesn't need to be wielded to provide that benefit. The robe is +1 resilient explorer's clothing and grants a +1 item bonus to Religion checks. The robe doesn't grant any benefits to a wearer who doesn't worship the deity tied to the robe. In addition, when you cast a domain spell from one of the deity's domains, you gain resistance to...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1930,12 +2186,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "The most devoted, cloistered clerics wear a cloister robe. Decorations symbolic of a specific deity adorn the robe, and the robe's colors and the complexity of its construction fit the deity's outlook. The robe serves as a religious symbol of that deity, and it doesn't need to be wielded to provide that benefit. The robe is +3 greater resilient explorer's clothing and grants a +2 item bonus to Religion checks and a +1 item bonus to the divine skill of the deity to whom the robe is dedicated. The robe doesn't grant any benefits to a wearer who doesn't worship the deity tied to the robe. In addi...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -1989,12 +2253,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "The most devoted, cloistered clerics wear a cloister robe. Decorations symbolic of a specific deity adorn the robe, and the robe's colors and the complexity of its construction fit the deity's outlook. The robe serves as a religious symbol of that deity, and it doesn't need to be wielded to provide that benefit. The robe is +2 resilient explorer's clothing and grants a +2 item bonus to Religion checks. The robe doesn't grant any benefits to a wearer who doesn't worship the deity tied to the robe. In addition, when you cast a domain spell from one of the deity's domains, you gain resistance to...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2049,12 +2321,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This heavy, mechanized brass suit is studded with pistons, gears, dials, and gauges and topped with a front-facing thick glass porthole. The suit is a suit of +1 full plate. While worn, it completely encloses you, providing protection against inhaled toxins—you gain a +1 circumstance bonus to all saving throws made against such effects. The suit isn't airtight, however, and doesn't protect against drowning if you're immersed in water or suffocation if you're placed in a vacuum—at least, not until you activate it. . Activate 1 envision Frequency once per day . Effect The containment contraption...",
       "publicationTitle": "Pathfinder #179: Cradle of Quartz",
       "remaster": false,
@@ -2108,12 +2388,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "skeletal",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "skeletal",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "A good option for undersea explorers and aquatic peoples alike, coral armor consists of panels of carved coral. If worn underwater, some of this coral can even be alive.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2168,12 +2456,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Made from constrictor snakeskin, the strips of this +1 leather armor wrap around you like an anaconda might wrap around its victim. The first time you roll a 1 on any attack roll or check after donning the armor, it fuses with you and constricts. It constricts anytime you roll a 1 on any attack roll or check thereafter. When the armor constricts, you're for 1 round. Activate 1 command, Interact . Effect The armor wraps around you, allowing you to don it by the time the activation finishes.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2226,12 +2522,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Those favored by Asmodeus can be found wearing this +1 studded leather, which is lacquered in red and black. Activate r envision (fortune) Frequency once per day Trigger You critically fail an attack roll, check, or saving throw . Effect You offer a prayer to Asmodeus, who accepts under a reciprocal condition. Reroll the triggering roll with a +2 circumstance bonus and use the higher result. If this reroll improves your degree of success, the GM can later reroll one Strike against you, one saving throw against your abilities, or one secret check or saving throw you make. This is a fortune effe...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2286,12 +2590,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This +1 resilient full plate is crafted from the most colorful fragments chipped from scales of a dragon turtle's shell, traditionally incorporating that motif in the form of a thicker, sturdier backplate. While wearing this armor, you aren't from creatures that flank you, and you ignore the armor's speed penalty when you Swim and its check penalty to Athletics checks to Swim.",
       "publicationTitle": "Pathfinder #199: To Bloom Below the Web",
       "remaster": false,
@@ -2344,12 +2656,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This harness of +1 resilient half plate is made from the shell plates of a dragon turtle and has the aquadynamic trait. Fashioned from organic material, the suit is one of the few heavy armors not anathema to druids. Activate r Interact Trigger A creature adjacent to you targets you with a melee attack . Effect You roll the hefty plates of the dragon turtle armor toward the attacker to gain a +1 circumstance bonus to AC against the triggering attack. . Craft Requirements The initial raw materials must include the shell of a dragon turtle.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2404,12 +2724,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This suit of +2 greater resilient dragonhide full plate makes you look like a fearsome dragon. The armor comes in many different varieties depending on the type of dragon from which it's made, though they usually conform to the four magical traditions. . Activate—Dragon Breath 2 (manipulate) Frequency once per day . Effect You unleash a @Template[cone|distance:15] of energy with a damage type and saving throw corresponding to the tradition of the dragon used to make the armor (shown on the table below). The cone deals 14d6 damage; each creature in the area must attempt a DC 36 basic saving thr...",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -2463,12 +2791,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Shining, slippery eelskin covers the plates of this +1 resilient greater slick leather armor. The armor gives you the ability to breathe water and grants you a +2 item bonus to Athletics checks to Swim and Stealth checks you attempt in the water. . Activate—Unleash Charge 2 (manipulate) Frequency once per hour . Effect You cast a 2nd-rank with a reflex check. . Craft Requirements Supply one casting of thunderstrike.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -2521,12 +2857,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Elven chain is a made of dawnsilver that glitters in even the faintest light. Because it's constructed with small, supple rings, it has no check penalty. Created by elven artisans employing ancient crafting techniques, elven chain is exceptionally quiet. Unlike other chain shirts-even other dawnsilver chain shirts-elven chain does not have the noisy trait. This suit of armor can be etched with runes like any other dawnsilver chain shirt. Craft Requirements The initial raw materials must include dawnsilver worth at least 26,000 gp",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -2579,12 +2923,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Elven chain is a made of dawnsilver that glitters in even the faintest light. Because it's constructed with small, supple rings, it has no check penalty. Created by elven artisans employing ancient crafting techniques, elven chain is exceptionally quiet. Unlike other chain shirts-even other dawnsilver chain shirts-elven chain does not have the noisy trait. This suit of armor can be etched with runes like any other dawnsilver chain shirt. Craft Requirements The initial raw materials must include dawnsilver worth at least 3,125 sp.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -2637,12 +2989,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "chain",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "chain",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This suit of +2 resilient fortification lattice armor has latticework of fine golden wire. After negating a critical hit with its fortification rune, the latticework glows for 1 minute, shedding bright light in a 20-foot radius (and dim light for the next 20 feet). You can Dismiss this light. . Activate 2 envision (force) Requirements The energizing lattice is glowing because it negated an enemy's critical hit . Effect You release the lattice's energy and make a weapon or unarmed attack Strike that deals 6d6 additional force damage. If your Strike fails, but doesn't critically fail, the target...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2695,12 +3055,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Adventurers who don't wear armor travel in durable clothing. Though it's not armor and uses your unarmored defense proficiency, it still has a Dex Cap and can grant an item bonus to AC if etched with potency runes.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -2756,12 +3124,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Perception [[/r 1d20+23]]{+23}; precise vision (darkvision) 60 feet, imprecise hearing 30 feet Communication telepathy (Celestial, Common) Skills Diplomacy [[/r 1d20+25]]{+25}, Religion [[/r 1d20+25]]{+25} Int +4, Wis +4, Cha +6 Will [[/r 1d20+25]]{+25} . A suit of autumn's embrace armor can gain sapience when lovingly crafted by a fae monarch of sufficient power; a suit of faerie queen's bower is one such example. The armor is happy to give you and your companions counsel, hoping to guide you on a path of benevolence and aid you in battles against forces that seek to cause harm to the natural...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2816,12 +3192,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This +2 resilient , crafted from grim plates of iron, covers the entire body except for small holes for the eyes and mouth. While wearing the armor, you gain the benefits of a spell. Additionally, creatures attempting to Recall Knowledge about a subject involving you must succeed at a will check. On a success, they can attempt the check normally. On a failure, they can still attempt the check, but even if they successfully Recall Knowledge, they don't remember you (although they might remember other details about the event). Creatures that fail their save can make another attempt to Recall Kno...",
       "publicationTitle": "Pathfinder #161: Belly of the Black Whale",
       "remaster": false,
@@ -2876,12 +3260,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Dwarves of Dongun Hold developed fortress plate, which is still popular in Alkenstar and Dongun Hold. A trained wearer can adjust the articulated armor's overlapping layers of plates and panels to provide protection from missiles.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -2934,12 +3326,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Plate mail consists of interlocking plates that encase nearly the entire body in a carapace of steel. It is costly and heavy, and the wearer often requires help to don it correctly, but it provides some of the best defense armor can supply. A suit of this armor comes with an undercoat of and a pair of gauntlets.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -2993,12 +3393,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 greater resilient is made of hardened fungus. Every day the armor grows dozens of unusual mushrooms that can be used for cooking, infused reagents, or common spell material components. . Activate r or a Envision Frequency once per day Trigger You are hit by a melee, ranged, or spell attack . Effect The attack misses you, dealing no damage as you transform into a cloud of spores. You gain the benefits of a spell for 1 minute. For the duration, a cloud of deadly spores surrounds you. Each breathing creature that begins its turn within 10 feet of you takes 6d8[poison] damage (fortitude ch...",
       "publicationTitle": "Pathfinder #161: Belly of the Black Whale",
       "remaster": false,
@@ -3052,12 +3460,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": 0,
       "description": "Stitched together from pieces of ghoul skin, this suit of +1 hide armor grants you a +1 item bonus to saving throws against curses and makes you immune to the stench of ghouls. Ghoul hide with a resilient rune increases the resilient rune's item bonus to saving throws against curses by 1 (maximum +4).",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -3110,12 +3526,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Also called martial arts suits or practice clothes, gi are outfits of tough cloth built for comfort and unrestricted movement—ideal for practicing martial arts. They have reinforced stitching resistant to strenuous use.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -3171,12 +3595,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This elegant full plate is embossed with heraldic imagery and never tarnishes or loses its shine. Glorious plate is +2 resilient full plate. In battle, glorious plate sheds bright light in a 10-foot radius, which enemies see as a blinding halo that obscures creatures other than the wearer. When an enemy looks at the wearer, it must attempt a will check saving throw. The enemy is then temporarily immune for 1 minute. Success The enemy is unaffected. Failure For 1 minute, the wearer's allies within the glorious plate's 10-foot radius of light are to the enemy. Allies are concealed only while the...",
       "publicationTitle": "Pathfinder Lost Omens Character Guide",
       "remaster": false,
@@ -3229,12 +3661,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "These suits of faceless full plate were first designed and distributed under Queen Ileosa's rule, but today, each new suit of this infamous style of plate armor is made by a Gray Maiden herself or a new member's sponsor.",
       "publicationTitle": "Pathfinder Adventure: Shadows at Sundown",
       "remaster": false,
@@ -3285,12 +3725,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Half plate consists of most of the upper body plates used in full plate, with lighter or sparser steel plate protection for the arms and legs. This provides some of the protection of full plate with greater flexibility and speed. A suit of this armor comes with an undercoat of and a pair of gauntlets.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -3343,12 +3791,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Note Hardshell Surki heritage only . Your carapace is medium armor in the plate armor group that grants a +4 item bonus to AC, a Dex cap of +1, a check penalty of –2, a Speed penalty of –5 feet, a Strength value of +3, and has the comfort trait. You can never wear other armor or remove your carapace. You can etch armor runes onto your carapace.",
       "publicationTitle": "Pathfinder Howl of the Wild",
       "remaster": true,
@@ -3406,12 +3862,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Rose gold and copper rings in this +2 resilient chain shirt form a vague bird shape. The jingling links tinkle musically, almost like birdsong. While you wear the armor, effects with the auditory trait must first counteract the harmonic hauberk or they have no effect on you. The harmonic hauberk attempts to counteract spells cast on you and 4th-rank or higher heightened silence spells the first time the armor enters their area (counteract rank 4, counteract modifier [[/r 1d20+20 #Counteract]]{+20}). After failing to counteract a silence spell, the armor can't attempt to counteract the same spe...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -3464,11 +3928,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "heavy-barding",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 3,
+      "strengthRequirement": 5,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "category": "heavy-barding",
       "ac": 3,
+      "dexCap": 3,
+      "strengthRequirement": 5,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
       "license": "ORC"
@@ -3520,11 +3992,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "heavy-barding",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 3,
+      "strengthRequirement": 5,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "category": "heavy-barding",
       "ac": 3,
+      "dexCap": 3,
+      "strengthRequirement": 5,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
       "license": "ORC"
@@ -3574,12 +4054,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight breastplate serves those in the order who lack the training to wear heavy armor. A character who is a member of the Hellknights has access to these uncommon armors.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -3630,12 +4118,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifers. A character who is a member of the Hellknights has access to these uncommon armors.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -3688,12 +4184,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Few armors in the Inner Sea region are as memorable as the iconic Hellknight plate. While each order has its own flourishes, Hellknight plate is instantly recognizable to any who know of the Hellknights. Hellknights go to extreme measures to punish non-Hellknights who get their hands on Hellknight plate, and the reward is not usually worth the risk, since for non-Hellknights, the armor is functionally similar to .",
       "publicationTitle": "Pathfinder Lost Omens Character Guide",
       "remaster": false,
@@ -3746,12 +4250,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Golden images of heroic deeds decorate the black plates of this +1 resilient full plate. You gain resistance 5 to mental damage and a +1 status bonus to saves against fear. Activate—Personal Legend 1 (concentration) Frequency once per day . Effect The scenes depicted on your armor shift and change, making room to accommodate your current heroic feats. You cast on yourself.",
       "publicationTitle": "Pathfinder #202: Severed at the Root",
       "remaster": true,
@@ -3804,12 +4316,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Golden images of heroic deeds decorate the black plates of this +2 greater resilient full plate. You gain resistance 10 to mental damage and a +2 status bonus to saves against fear. Activate—Personal Legend 1 (concentration) Frequency once per day . Effect The scenes depicted on your armor shift and change, making room to accommodate your current heroic feats. You cast 6th-rank on yourself.",
       "publicationTitle": "Pathfinder #202: Severed at the Root",
       "remaster": true,
@@ -3860,12 +4380,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "A mix of furs, sturdy hide, and sometimes molded boiled leather, this armor provides protection due to its layers of leather, though its bulkiness slows the wearer down and decreases mobility.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -3922,12 +4450,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This +2 resilient fortification bastion plate is made almost entirely of stone plates. It looks almost unwearable and is in fact only wearable because of numerous minor enchantments for comfort and mobility. If you have armor specialization with heavy armor, your resistance while wearing Highhelm stronghold plate applies to both slashing and piercing damage. Activate 3 envision, Interact Frequency once per day . Effect The plating on your armor explodes off of your body, expands, and reshapes, transforming into a stone structure with the effects of . While the armor is transformed in this way,...",
       "publicationTitle": "Pathfinder Lost Omens Highhelm",
       "remaster": false,
@@ -3981,12 +4517,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Dyed green and white and studded with the natural spines of a hodag, this +1 studded leather armor is an imposing sight, especially when its wearer is barreling towards you. . Activate—Hodag Toss 2 (concentrate, manipulate) Effect You Stride up to your Speed and make a Strike at the end of your movement. If you succeed at your Strike, attempt an athletics check check against the creature's Fortitude DC. On a success, the creature is thrown 10 feet in a straight line in the direction of your choice and lands . If the creature is knocked into a solid object, it takes 1d6[bludgeoning] damage befo...",
       "publicationTitle": "Pathfinder Howl of the Wild",
       "remaster": true,
@@ -4042,12 +4586,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "chain",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "This suit of +2 resilient chain mail is made of fine white links of a strange and slightly translucent pale metal, and the sleeves and skirt are fashioned into smaller trails that resemble feathers. Unlike normal chain mail, holy chain has no Speed reduction, its armor check penalty is 0, and its Bulk is 1. You gain a +1 circumstance bonus to AC and saving throws against fiends. You appear radiant while you wear the armor, giving you a +2 item bonus to Diplomacy checks against all creatures except fiends. If you're unholy, you're Drained 2 while wearing holy chain. You can't recover from this...",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -4102,12 +4654,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This impressive +3 greater resilient greater fortification bastion plate is built like an impregnable castle, with multiple layers of defense and no weak points. When you activate the armor's deflect melee trait, you gain a +2 circumstance bonus to AC against melee attacks instead of +1, and you gain 10 temporary Hit Points that last until the start of your next turn. Activate r envision Frequency once per day Trigger You are reduced to 0 Hit Points or would die from a death effect Effect You drop to 1 Hit Point instead of being reduced to 0 HP or dying, and you gain 100 temporary Hit Points t...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4161,12 +4721,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Made of overlapping, lustrous black scales of standard-grade adamantine, this +2 greater resilient adamantine scale mail seems to momentarily thicken at the point of impact when hit. Whenever the armor's fortification rune successfully turns a significant foe's critical hit into a normal hit, one of the scales on the armor turns violet. You gain resistance to physical damage equal to the number of violet scales, to a maximum of 8. At dawn each day, all the violet scales return to normal. . Craft Requirements The initial raw materials must include 1,600 gp of adamantine.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -4221,12 +4789,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 resilient chain shirt is itself invisible. Other creatures can't see it at all, allowing you to wear it surreptitiously. Additionally, the armor's invisible composition is quieter and more comfortable than a normal chain shirt. It loses the noisy trait and gains the comfort trait. . Activate 2 envision Frequency once per minute . Effect You Stride and turn partially invisible, becoming until the end of your next turn or until you use a hostile action, whichever comes first. As normal, you can use the concealment from this activation to .",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -4280,12 +4856,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 greater resilient studded leather is traditionally inscribed with a symbol of either Norgorber or Cayden Cailean. Its leather is light as silk, and its buttons and studs are gleaming crystal. While you wear it, you get a +15-foot item bonus to your Speed, and effects that attempt to impose penalties on your Speed must first counteract the jerkin of liberation or they have no effect on you. In addition, you are hard to incapacitate. You use the jerkin's item level or your own level, whichever is higher, to determine effects of the incapacitation trait.",
       "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
       "remaster": false,
@@ -4338,12 +4922,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "plate",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "plate",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This armor consists of a chest plate, typically made out of bronze or other water-resistant alloys, strapped to the body with a leather harness and featuring a skirt of leather pleats reinforced with metal studs to protect the upper legs.",
       "publicationTitle": "Pathfinder War of Immortals",
       "remaster": true,
@@ -4397,12 +4989,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Slats of lacquered steel or other metal held together with cord, whether leather or silk, make up most lamellar breastplates. The lacquering prevents the metal from corroding.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4453,12 +5053,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "chain",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "chain",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Also known as \"varman\" in some parts of the Impossible Lands, this armor is made from fine metal cables woven into latticework patterns with plated segments to protect the head, neck, and shoulders. This armor disperses blows much like rings of chain mail but is much tighter in construction, making it quieter.",
       "publicationTitle": "Pathfinder War of Immortals",
       "remaster": true,
@@ -4511,12 +5119,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Specialized crafters, often elves, create leaf weave out of sturdy leaves from ancient or magically enriched trees. Such leaves, when treated properly, have the strength of leather, and other tough plant materials hold the leaves together to form the armor. Such suits are popular among those who wish to avoid materials taken from slain beasts. As a material, leaf weave has the same statistics as thin wood.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4567,12 +5183,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -4625,12 +5249,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "composite",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "composite",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Leather lamellar is a composite armor made of small rectangular pieces of lacquered leather laced together with high-quality cord. It's typically worn with an undershirt.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4685,12 +5317,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "chain",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "chain",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Made of cobalt-colored steel rings that flow down the entire length of the garment, this +1 resilient chain mail includes an armored face covering. The armor is said to be based on the same armor once worn by Azure Leopard, one of Old-Mage Jatembe's magic warriors. . Activate 2 command, envision Frequency once per day . Effect You call upon the ferocity and grace of the leopard. The armor's rings flatten out to become a solid piece of flexible armor. You gain a +2 item bonus to Stealth checks and Intimidation checks to , but take a -2 penalty to Diplomacy and Society checks. This lasts for 1 h...",
       "publicationTitle": "Pathfinder #170: Spoken on the Song Wind",
       "remaster": false,
@@ -4743,12 +5383,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "These +1 resilient scroll robes magically store a spell for you. During your daily preparations, choose one spell you know of 5th level or lower. You inscribe that spell on the robes, as though you had done so using the robes' inscribed trait, but without needing to go through the normal scribing process. You must provide the minimum amount of materials to Craft one scroll of that spell (typically half the Price of a scroll of that level plus any extra cost required for the spell). You don't need to be trained in Crafting, nor do you need the Magical Crafting feat. Using this ability erases an...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4801,12 +5449,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "These +2 resilient scroll robes magically store a spell for you. During your daily preparations, choose one spell you know of 6th level or lower. You inscribe that spell on the robes, as though you had done so using the robes' inscribed trait, but without needing to go through the normal scribing process. You must provide the minimum amount of materials to Craft one scroll of that spell (typically half the Price of a scroll of that level plus any extra cost required for the spell). You don't need to be trained in Crafting, nor do you need the Magical Crafting feat. Using this ability erases an...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4859,12 +5515,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "These +2 greater resilient scroll robes magically store a spell for you. During your daily preparations, choose one spell you know of 8th level or lower. You inscribe that spell on the robes, as though you had done so using the robes' inscribed trait, but without needing to go through the normal scribing process. You must provide the minimum amount of materials to Craft one scroll of that spell (typically half the Price of a scroll of that level plus any extra cost required for the spell). You don't need to be trained in Crafting, nor do you need the Magical Crafting feat. Using this ability e...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4917,12 +5581,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "These +3 greater resilient scroll robes magically store a spell for you. During your daily preparations, choose one spell you know of 9th rank or lower. You inscribe that spell on the robes, as though you had done so using the robes' inscribed trait, but without needing to go through the normal scribing process. You must provide the minimum amount of materials to Craft one scroll of that spell (typically half the Price of a scroll of that level plus any extra cost required for the spell). You don't need to be trained in Crafting, nor do you need the Magical Crafting feat. Using this ability er...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -4975,12 +5647,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This suit of +2 resilient fortification splint mail has a large, green gemstone inset in a prominent location. While wearing the armor, you feel at ease knowing the armor can protect you in even dire circumstances. The gemstone glows with life essence, casting green light as brightly as a torch. You can suppress or resume this light by using a single action, which has the concentrate trait. . Activate—Second Chance R (concentration) Frequency once per day Trigger You would die Effect The armor's gemstone turns gray as it shares life energy with you. The armor casts on you. . Activate—Shielding...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -5033,12 +5713,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This suit of +3 greater resilient greater fortification splint mail has a large, green gemstone inset in a prominent location. While wearing the armor, you feel at ease knowing the armor can protect you in even dire circumstances. The gemstone glows with life essence, casting green light as brightly as a torch. You can suppress or resume this light by using a single action, which has the concentrate trait. . Activate—Second Chance R (concentration) Frequency once per day Trigger You would die Effect The armor's gemstone turns gray as it shares life energy with you. The armor casts on you. . Ac...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -5091,11 +5779,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light-barding",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 5,
+      "strengthRequirement": 3,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "category": "light-barding",
       "ac": 1,
+      "dexCap": 5,
+      "strengthRequirement": 3,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5,
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
       "license": "ORC"
@@ -5147,12 +5843,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "The first suit of +3 greater resilient antimagic sankeit made in this fashion was crafted for the Varki linnorm king Nankou, after he claimed his title by slaying a taiga linnorm. By Varki tradition, the armor was crafted using some of the slain linnorm's body to decorate the breastplate and helm, which imbued the armor with several of the linnorm's natural abilities. Though the helm is shaped like the beast's head, a linnorm's actual head would be too large for a proper helmet. . Activate 2 Interact Frequency once per hour . Effect You breathe a @Template[cone|distance:60] of electrified vapo...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -5206,12 +5910,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Various parts of this +2 resilient half plate are forged into the shape of a lion's head. The golden lion heads grant you a commanding presence and seem to actively growl at your enemies, granting you a +2 item bonus to Intimidation. The lions on the armor work in tandem with the lion on a lion's shield. If you critically hit with the lion's shield using Lion Bite, the lions on the armor roar in support of the shield, causing the target of the shield's Strike to become Frightened 1. Activate—Roar of the Pride 2 (concentrate) Frequency once per day . Effect The lions on your armor roar, attempt...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -5265,12 +5977,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Various parts of this +3 greater resilient half plate are forged into the shape of a lion's head. The golden lion heads grant you a commanding presence and seem to actively growl at your enemies, granting you a +3 item bonus to Intimidation. The lions on the armor work in tandem with the lion on a lion's shield. If you critically hit with the lion's shield using Lion Bite, the lions on the armor roar in support of the shield, causing the target of the shield's Strike to become Frightened 1. Activate—Roar of the Pride 2 (concentrate) Frequency once per hour . Effect The lions on your armor roar...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -5326,12 +6046,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Activate 1 Interact This suit of leaf weave armor is specially modified to metabolize the alchemical accelerants in medicinal compounds. A special receptacle in the armor can hold an elixir of life, which takes 3 Interact actions to install. A loaded suit of living leaf weave can be activated to grow slithering vines from the armor, granting an item bonus to Athletics checks to , to your Fortitude DC to resist Grapple, , or attempts, and to your Reflex DCs to resist attempts. The effects last for 3 rounds, consuming the elixir of life, and once the reaction has begun it can't be deactivated.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -5385,12 +6113,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This suit of +2 resilient splint mail has a large, green gemstone inset in a prominent location. Activate F Envision Frequency once per day Trigger You are hit or critically hit with an attack, but damage hasn't been rolled yet . Effect You force the attacker to reroll the attack roll and use the worse result. This effect has the misfortune trait. Activating the armor causes the gemstone to turn gray and become inert. You cannot activate the armor again until the stone returns to its original green color. The gem turns green again after 1 week or when a significant foe critically succeeds at a...",
       "publicationTitle": "Pathfinder Core Rulebook",
       "remaster": false,
@@ -5444,12 +6180,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "The faint glow beneath the thick, algae-green scales of this suit of +1 resilient scale mail hints at the armor's source. . Activate—Luminous Lure 1 (concentrate, light, manipulate, mental, visual) Frequency Once per day Effect The mamlambo scale sheds dim light in a 20-foot emanation. The light has a duration of 1 minute, but you can extinguish the light with an Interact action. A creature that begins its turn in the light must attempt a will check save. Regardless of the save's result, the creature is temporarily immune for 1 hour. . Critical Success The creature is unaffected. Success The c...",
       "publicationTitle": "Pathfinder Howl of the Wild",
       "remaster": true,
@@ -5504,12 +6248,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "The beautiful plates of this +2 resilient Greater Ready full plate armor are shaped from the carapace of a deadly mantis, providing excellent protection with added flexibility. When wearing a suit of mantis plate, you gain a +2 item bonus to your Athletics DC. . Activate—Mandible Vambraces 2 (concentrate, manipulate) Effect Make a melee Strike. If you succeed, the target is caught by the spikes on the armor's forearms, taking an additional 6d6[piercing] damage (reflex check save). . Craft Requirements The initial raw materials must include the arms and carapace of a deadly mantis.",
       "publicationTitle": "Pathfinder Howl of the Wild",
       "remaster": true,
@@ -5562,12 +6314,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "skeletal",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "skeletal",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Construction of mantis shell armor originates with the Red Mantis assassins. Authentic mantis shell can be found in some dark markets, but wearing such armor can attract deadly attention from the armor's originators. Mantis shell comes with the weapon harness adjustment, though these special vambraces are meant to hold sawtooth sabers, and attaching anything else is an insult to the Red Mantis. A character who is a member of the Red Mantis assassins has access to this uncommon armor.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -5621,12 +6381,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This suit of +1 splint mail is worn by veteran sailors aboard warships who want as much protection as possible but still need to remain mobile enough to climb up rigging or swim should the need arise. The plates are arranged for maximum flexibility and the undercoat of padded armor is often no more than a cotton shrift. The armor grants you a +1 item bonus to Athletics checks to Climb or Swim and increases the distance you move when you successfully Climb or Swim by 5 feet.",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -5681,12 +6449,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +2 adamantine scale mail appears to have a fortification rune but grants none of its effects. Whenever you are critically hit, after taking damage, you become petrified for 1 round. Once the curse has activated for the first time, the armor fuses to you.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -5742,12 +6518,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 silver chain shirt has a collar adorned with stitched images of the phases of the moon. You can see in moonlight as though you had low-light vision. Activate—Dim Sight A (manipulate) Frequency one per day . Effect You touch the stitched image of the new moon on the armor's collar and suppress the dazzled condition for 1 minute. Craft Requirements The initial raw materials must include 33 gp of silver.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -5800,12 +6584,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "skeletal",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "skeletal",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Erutaki communities deep in the Crown of the World, where wood is hard to come by, fashion armor from slats and strips of bone or horn, along with whole bones or horns. Wealthier wearers sometimes pay for decorative embellishments made of more precious materials. Niyaháat is usually woven together with strong cord, forming a suit like a breastplate. This suit is worn over heavy clothing or a surcoat like padded armor. Some suits incorporate parts of powerful creatures, creating a storied history for the suit and its wearers.",
       "publicationTitle": "Pathfinder War of Immortals",
       "remaster": true,
@@ -5858,11 +6650,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "light",
       "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "This +2 resilient padded armor is woven from many strands of gut cord strung with dried organs and preserved xulgath scent glands. When worn, it infuses your body with a ghastly and nauseating flavor. Activate F envision Trigger You are grabbed or are hit by an unarmed attack . Effect Your attacker must attempt a fortitude check saving throw. Creatures with a stench aura, such as otyughs and xulgaths, are immune to this effect. Success The creature is unaffected and is immune to the effects of the noxious jerkin for 1 minute. Failure The creature is Sickened 1. Critical Failure The creature is...",
       "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
       "remaster": false,
@@ -5913,12 +6713,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +1 resilient breastplate is constructed from the salvaged armor plating of one of Numeria's large robots. It protects the wearer from harsh elements and common laser fire, granting the wearer fire resistance 5. Activate 1 command Frequency once per day . Effect You activate the remnants of mysterious technology within the breastplate to encase yourself in an electric field. For 1 minute, adjacent creatures that hit you with a melee Strike, as well as creatures that touch you or hit you with an unarmed attack, take 1d10[electricity] damage per hit.",
       "publicationTitle": "Pathfinder Society Scenario #1-24: Lightning Strikes, Stars Fall",
       "remaster": false,
@@ -5972,12 +6780,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Larger plates coupled with lamellar pieces to make up a suit of heavy lamellar. The custom-fitted and often highly decorative suit covers most of the body. Rounding out the suit are a tiered helmet and fearsome mask, often depicting a fiendish or monstrous creature.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -6031,12 +6847,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 resilient hide armor is decorated with the horns of many slain beasts. It has an armor check penalty of –1 instead of –2. When you use the class feat while wearing this armor, your Strike deals an additional 1d8[untyped] damage.",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -6089,12 +6913,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Activate 1 Interact This leather armor has been treated with extract from oozes, which can be reactivated in the presence of a strong acid. A receptacle in the armor can hold an acid flask, which takes 3 Interact actions to install. A loaded suit of ooze skin can be activated to cause the leather to weep slippery protoplasm, granting an item bonus to and checks equal to the acid flask's item bonus. The protoplasm also irritates the skin on prolonged contact, causing any creature that grapples or swallows you to take acid damage equal to the acid flask's splash damage. Ooze skin remains activat...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -6148,12 +6980,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This ominous-looking +3 greater resilient greater acid-resistant buckle armor is deep red in color, favored by assassins who worship Norgorber or Asmodeus, and if unfastened, the many belts and buckles writhe like living snakes. Ouroboros buckles have the comfort trait. However, while wearing ouroboros buckles, the unfathomable concept of infinity pulls at your mind, and each time you awaken, you'd swear the armor hissed into your ear while you were asleep. The hissing suggested secret wisdom to you in Aklo, though you only ever remember it vaguely, like a fading dream. Activate 2 envision, In...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -6205,11 +7045,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "light",
       "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "This armor is simply a layer of heavy, quilted cloth, but it is sometimes used because it's so inexpensive. Padded armor is easier to damage and destroy than other types of armor. Heavy armor comes with a padded armor undercoat included in its Price, though it loses the comfort trait when worn under heavy armor. You can wear just that padded armor undercoat to sleep in, if your heavy armor is destroyed, or when otherwise not wearing the full heavy armor. This allows you to keep magic armor invested and benefit from the power of any runes on the associated heavy armor, but no one else can wear...",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -6264,12 +7112,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This suit of +2 greater resilient full plate is decorated with swirling, ornate motifs of waves and fish scales. While wearing it, you take no Speed reduction or check penalty from armor when Swimming, gain a +2 item bonus to Athletics checks to Swim, can breathe underwater, and can speak Thalassic.",
       "publicationTitle": "Pathfinder Core Rulebook",
       "remaster": false,
@@ -6323,12 +7179,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This sinister suit of jet-black +1 full plate was designed to bolster the graveknights of Yled's undead armies, creating unstoppable legions. The armor gains additional abilities if it is a graveknight's armor. If a graveknight wearing undamaged plate of Yled is destroyed, the armor rebuilds its body over the course of [[/r 1d10 #Rounds]] rounds instead of 1d10 days. A living creature who dons the armor is affected by the graveknight's curse immediately instead of 1 hour. Activate 1 envision Frequency once per day Requirements Your previous action was a weapon Strike that reduced a living crea...",
       "publicationTitle": "Pathfinder Wake the Dead #5",
       "remaster": false,
@@ -6382,12 +7246,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This sinister suit of jet-black +1 resilient full plate was designed to bolster the graveknights of Yled's undead armies, creating unstoppable legions. The armor gains additional abilities if it is a graveknight's armor. If a graveknight wearing undamaged plate of Yled is destroyed, the armor rebuilds its body over the course of [[/r 1d10 #Rounds]] rounds instead of 1d10 days. A living creature who dons the armor is affected by the graveknight's curse immediately instead of 1 hour. Activate 1 envision Frequency once per day Requirements Your previous action was a weapon Strike that reduced a l...",
       "publicationTitle": "Pathfinder Wake the Dead #5",
       "remaster": false,
@@ -6441,12 +7313,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This sinister suit of jet-black +2 resilient full plate was designed to bolster the graveknights of Yled's undead armies, creating unstoppable legions. The armor gains additional abilities if it is a graveknight's armor. If a graveknight wearing undamaged plate of Yled is destroyed, the armor rebuilds its body over the course of [[/r 1d10 #Rounds]] rounds instead of 1d10 days. A living creature who dons the armor is affected by the graveknight's curse immediately instead of 1 hour. Activate 1 envision Frequency once per day Requirements Your previous action was a weapon Strike that reduced a l...",
       "publicationTitle": "Pathfinder Wake the Dead #5",
       "remaster": false,
@@ -6500,12 +7380,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This sinister suit of jet-black +2 greater resilient full plate was designed to bolster the graveknights of Yled's undead armies, creating unstoppable legions. The armor gains additional abilities if it is a graveknight's armor. If a graveknight wearing undamaged plate of Yled is destroyed, the armor rebuilds its body over the course of [[/r 1d10 #Rounds]] rounds instead of 1d10 days. A living creature who dons the armor is affected by the graveknight's curse immediately instead of 1 hour. Activate 1 envision Frequency once per day Requirements Your previous action was a weapon Strike that red...",
       "publicationTitle": "Pathfinder Wake the Dead #5",
       "remaster": false,
@@ -6556,12 +7444,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Your innovation is a cutting-edge suit of medium armor with a variety of attached gizmos and devices.",
       "publicationTitle": "Pathfinder Guns & Gears",
       "remaster": true,
@@ -6615,12 +7511,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Activate 1 Interact Stasian actuators help the limbs of this full plate move of their own accord, as long as they're supplied with power. A chamber in the chest plate can hold a single bottled lightning, which takes 3 Interact actions to install. A loaded suit of powered full plate can be activated to lower the armor's Strength requirement by 1 plus the item bonus of the loaded bomb. The armor's normal penalties still apply, based on this altered Strength. However, add the bottled lightning's item bonus to your Athletics checks to , , , and . These effects last for 10 minutes. The armor uses u...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -6674,12 +7578,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "With its standard-grade dawnsilver polished to a mirrorlike sheen, this +2 resilient glamered dawnsilver breastplate features the religious symbols of the goddesses of the Prismatic Ray pantheon-Desna, Sarenrae, and Shelyn-surrounded by a rainbow-colored set of gems. . Activate 2 command, Interact Frequency once per day . Effect You surround yourself in a coruscating field of red, orange, yellow, green, blue, indigo, and violet light for 1 minute. Each color has a different effect, based on the effects of a 7th-rank spell, and you apply the effects of each color once before it disappears from...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -6733,12 +7645,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -14
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -14,
       "description": "Transparent crystals as hard as steel take the place of metal plates on this suit of +2 greater invisibility splint mail. Also known as a coat of a thousand thoughts in Vudra and Jalmeray, where it was first developed by psychic warriors, it makes your mind an indomitable fortress. You gain resistance 5 to mental damage. Whenever you use the armor to become invisible, you also become psychically invisible. Each time you would be affected by an effect with the mental trait while you are invisible, attempt a flat check check. On a success, it doesn't affect you.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -6791,12 +7711,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "cloth",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 2,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "light",
       "ac": 2,
+      "dexCap": 2,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Quilted armor is built in a long coat intended for defensive use without other armor. Quilted armor protects the upper body and legs, differentiating it further from the typical padded undercoat. This armor is frequently made in stylish colors or patterns to facilitate use as protective outerwear or a military uniform.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -6849,12 +7777,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This armor is made from rattan reeds which are bent and woven into shaped layers then treated with oil to harden them. Due to the materials and nature of its construction, rattan armor is naturally buoyant and doesn't hinder its wearer when moving through water.",
       "publicationTitle": "Pathfinder War of Immortals",
       "remaster": true,
@@ -6908,12 +7844,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +3 greater resilient greater fortification breastplate absorbs impacts for later release. While wearing the armor, you gain resistance 5 to bludgeoning, piercing, and slashing damage and resistance 10 to force damage. Keep track of how much damage the armor prevents from enemy attacks, as the armor absorbs that damage. After 1 minute, the absorbed damage disperses harmlessly and resets to 0. Only damage caused by foes or hazards powers the armor, not damage you take from yourself, allies, or the environment. . Activate 1 Interact Requirements Your armor has absorbed at least 30 damage Eff...",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -6966,12 +7910,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "skeletal",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "skeletal",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +2 resilient coral armor, often favored by allies of merfolk and aquatic elves, is made of living coral carefully harvested from the ocean depths. Legends speak of a variety of similar coral armors with distinct powers, but surface-dwellers know of reef heart as a magic armor that makes it easier for them to travel under the sea. Reef heart enables you to breathe underwater and gives you a swim Speed equal to half your land Speed. Activate 3 command, envision, Interact Frequency once per day . Effect You cast . If you conjure the coral underwater, it ceases dealing damage after 1 minute,...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -7024,12 +7976,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "skeletal",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "skeletal",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +2 greater resilient coral armor, often favored by allies of merfolk and aquatic elves, is made of living coral carefully harvested from the ocean depths. Legends speak of a variety of similar coral armors with distinct powers, but surface-dwellers know of reef heart as a magic armor that makes it easier for them to travel under the sea. Reef heart enables you to breathe underwater and gives you a swim Speed equal to your land Speed. Activate 3 command, envision, Interact Frequency once per day . Effect You cast a 7th level . If you conjure the coral underwater, it ceases dealing damage a...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -7081,11 +8041,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "unarmored",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 1,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "unarmored",
       "ac": 3,
+      "dexCap": 1,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Granted by @Embed[Compendium.pf2e.feats-srd.Item.cilZUszwjSGB4p1W inline]",
       "publicationTitle": "Pathfinder Guns & Gears",
       "remaster": true,
@@ -7139,12 +8107,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "skeletal",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "skeletal",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +1 resilient fire-resistant niyaháat is often created to mark the passage of an Erutaki warrior into adulthood, formed from the chitinous plates of a remorhaz, with larger pieces protecting the chest, shoulders, and head. As you fight, the armor glows red hot. Activate 2 command, envision Frequency once per day Effect The armor is sheathed in a . . Activate r envision Frequency once per day Trigger You're dealt 30 or more fire damage, before any reduction from your fire resistance Requirements You've used the fire shield activation already today Effect The fire shield activation recharges...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -7197,12 +8173,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Note Conrasu Rite of Reinforcement Heritage Only . Your woven exoskeleton rivals the hardest armors that can be found. Your exoskeleton is medium armor in the plate armor group that grants a +4 item bonus to AC, a Dex cap of +1, a check penalty of -2, a speed penalty of -5 feet, and a Strength value of +3, and has the comfort trait. You can never wear other armor or remove your exoskeleton. You can etch armor runes onto your exoskeleton as normal.",
       "publicationTitle": "Pathfinder Lost Omens The Mwangi Expanse",
       "remaster": false,
@@ -7254,11 +8238,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "unarmored",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are gold, neutral robes are light blue, and evil robes are red. An evil or good robe gains the appropriate trait. The robes benefit only characters who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead Stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until y...",
       "publicationTitle": "Pathfinder Core Rulebook",
       "remaster": false,
@@ -7310,11 +8302,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "unarmored",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are gold, neutral robes are light blue, and evil robes are red. An evil or good robe gains the appropriate trait. The robes benefit only characters who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead Stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until y...",
       "publicationTitle": "Pathfinder Core Rulebook",
       "remaster": false,
@@ -7367,12 +8367,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "composite",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "composite",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 leather lamellar armor incorporates the plates of a rust monster's hide, woven together with the creature's own antennae and sinew into a functional set of armor. While wearing the rusting carapace, you gain a +2 item bonus to your Reflex save to prevent an object you're holding from being affected by rust; this also increases your Reflex DC to avoid being Disarmed by a rust monster's Antenna ability. . Activate 2 Interact Frequency once per day Effect Feathery antennae extend from between the segments of the rusting hide and brush against a nearby metal creature, non-magical metal haz...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -7425,12 +8433,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Sankeit is common armor among Varki in the northern Land of the Linnorm Kings, made of small wooden plates or longer slats, typically vertical, joined with sinew or cord and painted with decorations. Varki warriors traditionally wear sankeit with a fearsome wooden helm carved in the shape of a mighty creature.",
       "publicationTitle": "Pathfinder War of Immortals",
       "remaster": true,
@@ -7485,12 +8501,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Each Sarkorian god-caller garb is emblazoned with a unique sigil of a particular Sarkorian deity and adorned with symbols sacred to Sarkorian god callers, the summoners and religious leaders of Sarkoris. These +1 explorer's clothing outfits look as if they were stitched together from multiple types of animals, featuring feathers, fur, leather, and scales. When you cast a 3-action summoning spell while wearing this armor, the summoned creature gains a magical sigil that matches the one on the armor. As long as it is within 30 feet of you, the summoned creature gains a +1 status bonus to AC. If...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -7541,12 +8565,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Scale mail consists of many metal scales sewn onto a reinforced leather backing, often in the form of a long shirt that protects the torso, arms, and legs.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -7600,12 +8632,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 1,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "The cuirass of this +1 deathless resilient leather armor, stitched to resemble an Osiriani scarab beetle, feels strangely chitinous. You gain resistance 5 to void damage. . Activate 2 command, Interact . Effect You cast a 1st-rank . You can only become a scarab beetle. . Craft Requirements Supply one casting of pest form.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -7658,11 +8698,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "category": "light",
       "ac": 1,
+      "dexCap": 3,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "This suit of padded armor consists of a beautifully woven pleated tunic adorned with a gold pattern and narrow bands of white fur trim on a deep blue background with matching pants, all of which are meant to signal wealth and status. This +2 resilient raiment padded armor was custom designed for Alessandro Domenesso, an actor as well known for their astounding costume changes as for their roguish off-stage activities. Even without utilizing the magic of this armor, it's elegant enough that it could easily be mistaken as fine clothing. Activate—Look At Me! 2 (concentrate, illusion, mental, visu...",
       "publicationTitle": "Pathfinder #204: Stage Fright",
       "remaster": true,
@@ -7715,12 +8763,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "unarmored",
       "group": "cloth",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "cloth",
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 5,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Scroll robes are composed of paper alchemically treated for strength and flexibility. A layered structure prevents cutting and tearing, and for the purpose of calculating damage, the robes are considered to be cloth. The paper accepts all sorts of decoration, including magical writing, as detailed in the inscribed trait.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -7776,12 +8832,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "wood",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "wood",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "A shared-pain sankeit seems to be an impressive suit of +2 resilient fortification duskwood sankeit shaped to resemble a mighty linnorm. However, it protects you by drawing on the health of your nearby allies. When you roll the flat check for the armor's fortification rune, it protects you normally when you roll a 20. When you roll a 17, 18, or 19, though, the GM determines damage for the critical hit normally, then distributes half to you and the other half evenly among allies within 30 feet of you. If no ally is within range to take the distributed damage, the fortification rune fails to fun...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -7836,12 +8900,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "This suit of +2 greater resilient elven chain was worn by the elven hero Kyloss Syndar. The armor served him well, but eventually he fell in battle against the demonic hydra Slithermaw. As Kyloss slew the demonic beast, its fangs pierced his chest and mortally wounded the elf. The armor retains several ragged holes along the chest and abdomen where the hydra's teeth damaged it. Slithermaw's Bane grants its wearer poison resistance 10, and the resilient rune increases the item bonus on saving throws versus poison by 1 (to +3). . Activate—Calistria's Sting r (concentrate, divine) Frequency once...",
       "publicationTitle": "Pathfinder #211: The Secret of Deathstalk Tower",
       "remaster": true,
@@ -7899,12 +8971,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": 0,
       "description": "Perception [[/r 1d20+34 #Perception]]{+34}; precise low-light vision and hearing within 30 feet Communication telepathy (partner only) Skills Intimidation [[/r 1d20+35 #Intimidation]]{+35}, Society [[/r 1d20+33 #Society]]{+33}, Warfare [[/r 1d20+33 #Lore]]{+33} Int +5, Wis +6, Cha +7 Will [[/r 1d20+34 #Will]]{+34} . The heroism of Kyloss Syndar, founder of Greengold and slayer of the demonic hydra Slithermaw, imprinted this suit of armor with a gleaming, prismatic sheen that sparkles under bright light. The telepathic voice of Slithermaw's Bane is boisterous and grandiose, encouraging his part...",
       "publicationTitle": "Pathfinder #212: A Voice in the Blight",
       "remaster": true,
@@ -7958,12 +9038,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 resilient studded leather is adorned with colorful sequins that sparkle in even the faintest light. While wearing the spangled rider's suit, you gain a +2 item bonus to Command an Animal you are riding. Any animal you ride automatically knows the Drop Prone and Step basic actions, in addition to any other basic actions it knows (normally only Leap, Seek, Stand, Stride, and Strike). Activate R (move) Trigger You take damage while mounted or your mount Drops Prone . Effect You dismount, moving off your mount into a space adjacent to it.",
       "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
       "remaster": false,
@@ -8014,12 +9102,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "composite",
-      "ac": 5
+      "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "composite",
       "category": "heavy",
       "ac": 5,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "This type of armor is chain mail reinforced with flexible, interlocking metal plates, typically located on the wearer's torso, upper arms, and legs. A suit of this armor comes with an undercoat of and a pair of gauntlets.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -8070,12 +9166,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -8126,12 +9230,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "composite",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "composite",
       "category": "medium",
       "ac": 2,
+      "dexCap": 4,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Your innovation is a cutting-edge suit of medium armor with a variety of attached gizmos and devices.",
       "publicationTitle": "Pathfinder Guns & Gears",
       "remaster": true,
@@ -8184,12 +9296,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Price An indeterminate amount of one's lifespan, spent driving to the magic item warehouse, navigating its labyrinthine corridors, and consuming meatballs. Also some gold. . This classic, timeless suit of +1 resilient full plate is personally assembled from modular pieces of flat-packed duskwood, doubling as furniture and personal protective gear. To wear or remove the suit of armoire, you must succeed at a crafting check check (yes, this includes the +10 modifier for an \"Incredibly Difficult\" challenge); on a failure, you and all creatures within @Template[emanation|distance:30]{30 feet} must...",
       "publicationTitle": "Pathfinder Blog: April Fools",
       "remaster": false,
@@ -8239,11 +9359,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "unarmored",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 2,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 2,
+      "strengthRequirement": 0,
+      "checkPenalty": 0,
+      "speedPenaltyFeet": -5,
       "description": "These thick, overlapping layers of clothing are coupled with a matching hat, outfitted with mesh netting around its wide brim to keep you safe from insects. You gain resistance 3 to physical damage from swarms. Explorer's clothing altered in this way has a Dexterity cap of +2, check penalty of -1, and Speed penalty of -5 feet regardless of your Strength.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -8293,11 +9421,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "unarmored",
-      "ac": 0
+      "ac": 0,
+      "dexCap": 2,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "category": "unarmored",
       "ac": 0,
+      "dexCap": 2,
+      "strengthRequirement": 0,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5,
       "description": "An impenetrable swarmsuit is made of expensive, finely crafted mesh designed to completely prevent swarms from getting inside. You gain resistance 10 to physical damage from swarms. Explorer's clothing altered in this way has a Dexterity cap of +2, check penalty of -1, and Speed penalty of -5 feet regardless of your Strength.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -8352,12 +9488,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "wood",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "wood",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Dozens of pictorial stories—told in wood carvings, painting, or pyrography—adorn every outer surface of this +1 resilient wooden breastplate. All are old, and many truly ancient, depicting tales set eons ago on the Plane of Wood. You gain a +2 item bonus to Nature checks to Recall Knowledge. If you know the ritual, you can use Nature instead of Occultism if you're the primary caster. . Activate—Statue Disguise 2 Frequency once per day Effect The armor makes you look like a wooden statue version of one of the creatures depicted on the armor for 1 hour. This is a 3rd-rank , but it can make you l...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -8412,12 +9556,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "wood",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "wood",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Dozens of pictorial stories—told in wood carvings, painting, or pyrography—adorn every outer surface of this +2 resilient wooden breastplate. All are old, and many truly ancient, depicting tales set eons ago on the Plane of Wood. You gain a +2 item bonus to Nature checks to Recall Knowledge. If you know the ritual, you can use Nature instead of Occultism if you're the primary caster. . Activate—Statue Disguise 2 Frequency once per day Effect The armor makes you look like a wooden statue version of one of the creatures depicted on the armor for 1 hour. This is a 3rd-rank , but it can make you l...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -8472,12 +9624,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "wood",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "wood",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Dozens of pictorial stories—told in wood carvings, painting, or pyrography—adorn every outer surface of this +2 greater resilient wooden breastplate. All are old, and many truly ancient, depicting tales set eons ago on the Plane of Wood. You gain a +3 item bonus to Nature checks to Recall Knowledge. If you know the ritual, you can use Nature instead of Occultism if you're the primary caster. . Activate—Statue Disguise 2 Frequency once per day Effect The armor makes you look like a wooden statue version of one of the creatures depicted on the armor for 1 hour. This is a 3rd-rank , but it can ma...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -8528,12 +9688,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Rippling water motifs decorate this simple suit of +1 resilient full plate. The plate has been altered for underwater use, so it's check penalty doesn't apply to Acrobatics or Athletics checks in water or similar liquids. While wearing the armor, you gain a +2 item bonus to Athletics checks to Swim, and you can breathe underwater. Activate—Ride the Waves 2 (concentrate, manipulate) Frequency once per hour . Effect The ripples on the armor begin to undulate, matching the movement of any nearby water. The armor casts on you. Activate—Submerge 2 (concentrate, manipulate, polymorph) Frequency once...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -8586,12 +9754,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Note Titan Nagaji heritage only . Your scales are medium armor in the plate armor group that grant a +4 item bonus to AC, a Dex cap of +1, a check penalty of –2, a Speed penalty of –5 feet, a Strength value of +3, and have the comfort trait.",
       "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
       "remaster": false,
@@ -8644,12 +9820,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Note Tough Skin ancestry feat only . Your skin is medium armor in the plate armor group that grants a +4 item bonus to AC, and has a Dex cap of +1, a check penalty of –2, a Speed penalty of –5 feet, a Strength value of +3, and the comfort trait. You can never wear other armor or remove your hide. You can etch armor runes onto your hide.",
       "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
       "remaster": false,
@@ -8703,12 +9887,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Activate 1 Interact Tissue from a living troll has been integrated through this hide armor. This armor has two organic receptacles on its back that can each hold a single elixir of life. One elixir takes 3 Interact actions to install. For the armor to function properly, each elixir must be the same level. A loaded suit of troll hide can be activated, causing regenerating tissue from the armor to fill your wounds. At the start of each round, you regain Hit Points equal to the level of the loaded elixirs. Each time you regain at least 13 Hit Points from the armor, you regrow one damaged or ruine...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -8759,12 +9951,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This suit of +1 hide armor is sickly green and covered in thick warts and nodules, fashioned from the hide of a trollhound and imbued with some of the beast's vitality. Wearing this armor gives you a –1 circumstance penalty to all checks made using Diplomacy to interact with trolls and a +1 circumstance bonus to Diplomacy checks used to in communities traditionally plagued by troll attacks. Activate r Interact Trigger You take damage from a melee attack while you have half or fewer of your normal maximum Hit Points . Effect Your body knits itself back together, healing you for 3d8[healing] Hit...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -8820,12 +10020,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "Crafted from black iron, this crude suit of +2 resilient full plate is designed to make you look like a horned demon with your face peering out of the screaming maw of the beast. While wearing the armor, you can attack with the helmet's horns. They're a martial melee weapon with the effects of a +2 weapon potency rune. They deal 2d8 piercing damage and have the deadly d12 and unholy traits. On a critical hit with the horns, the target must succeed at a fortitude check or become Drained 1 (or Drained 2 on a critical failure). The horns can't be etched with any runes. If you're holy, you're Drai...",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -8881,12 +10089,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "skeletal",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "skeletal",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Made from the finest plates of monstrous insect chitin, this +2 greater resilient mantis shell offers superior protection from Mediogalti's hot weather while also allowing the wearer to blend into almost any situation and strike with hidden blades. While wearing this armor, you are protected from extreme heat and severe heat effects. Vernai shell armor includes two extradimensional spaces built into each of the armor's gloves, granting the wearer two places to store items. Each glove can hold one item of 1 Bulk or less. While an item is stored in one of the two gloves, there is nothing to indi...",
       "publicationTitle": "Pathfinder Adventure: Prey for Death",
       "remaster": true,
@@ -8941,12 +10157,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "The metal plates of this +1 resilient full plate are covered by a bright tabard featuring a distinctive coat of arms divided into four fields. This insignia magically records your recent victories, displaying one triumph in each field of the coat of arms, allowing you to call upon those victories for aid in future battles. . Activate F envision Trigger You kill or destroy a creature of a level equal to or greater than your victory plate (adjusted as usual if you add fundamental runes to victory plate). This creature must have one of the traits listed in the second activation Effect You direct...",
       "publicationTitle": "Pathfinder Advanced Player's Guide",
       "remaster": false,
@@ -9001,12 +10225,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "heavy",
       "group": "plate",
-      "ac": 6
+      "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10
     },
     "systemData": {
       "group": "plate",
       "category": "heavy",
       "ac": 6,
+      "dexCap": 0,
+      "strengthRequirement": 4,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -10,
       "description": "The metal plates of this +2 greater resilient full plate are covered by a bright tabard featuring a distinctive coat of arms divided into four fields. This insignia magically records your recent victories, displaying one triumph in each field of the coat of arms, allowing you to call upon those victories for aid in future battles. . Activate F envision Trigger You kill or destroy a creature of a level equal to or greater than your victory plate (adjusted as usual if you add fundamental runes to victory plate). This creature must have one of the traits listed in the second activation Effect You...",
       "publicationTitle": "Pathfinder Advanced Player's Guide",
       "remaster": false,
@@ -9060,12 +10292,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +1 resilient breastplate is made from shining bronze overlaid with reinforcing golden panels emblazoned with images of loyal soldiers. Wearing this breastplate grants you a commanding aura. You gain a +2 item bonus to Diplomacy checks, but you take a -2 item penalty to Stealth checks to and and Deception checks to . . Activate—Command Bravery 1 (concentrate) Frequency once per day . Effect You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who's reduces their frightened value by 1.",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -9119,12 +10359,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "plate",
-      "ac": 4
+      "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "plate",
       "category": "medium",
       "ac": 4,
+      "dexCap": 1,
+      "strengthRequirement": 3,
+      "checkPenalty": -3,
+      "speedPenaltyFeet": -5,
       "description": "This +2 resilient breastplate is made from shining bronze overlaid with reinforcing golden panels emblazoned with images of loyal soldiers. Wearing this breastplate grants you a commanding aura. You gain a +3 item bonus to Diplomacy checks, but you take a -3 item penalty to Stealth checks to and and Deception checks to . . Activate—Command Bravery 1 (concentrate) Frequency once per day . Effect You grant allies within 100 feet a +2 status bonus to saves against fear effects for 1 minute. When you activate this ability, each affected ally who's reduces their frightened value by 1.",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -9175,12 +10423,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "leather",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "leather",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "Druids and Calistria's faithful alike value this vindictive armor for its ability to turn away pests and exact revenge on foes in a manner that can easily turn coordinated enemies into a chaotic mass. Wasp guard is +1 studded leather studded with the carapaces of wasps, subtly diverting swarms away and granting a +1 status bonus to Reflex saving throws against Swarming Bites, Swarming Stings, and similar abilities from swarms. Activate r envision Frequency once per day Trigger An enemy within 30 feet Strikes you with an attack . Effect s You animate the exoskeletons of the wasp guard armor int...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -9234,11 +10490,19 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     },
     "armor": {
       "category": "light-barding",
-      "ac": 1
+      "ac": 1,
+      "dexCap": 5,
+      "strengthRequirement": 3,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "category": "light-barding",
       "ac": 1,
+      "dexCap": 5,
+      "strengthRequirement": 3,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": -5,
       "description": "This light barding is covered in wavelike patterns. The barding adjusts to fit your animal companion regardless of its shape. . Activate 2 Interact Frequency once per day . Effect You trace a finger along the wave patterns on the barding, granting your companion a swim Speed of 30 feet for 10 minutes. If your companion already had a swim Speed, it gains a +10-foot item bonus to its swim Speed for 10 minutes instead. Even if the companion doesn't have the mount special ability, it can still Swim while being ridden.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -9293,12 +10557,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 resilient chain shirt is made of small, interlocking currents of wind carefully woven together. While the links of air don't jingle against each other like chain links might, the tiny cyclones nevertheless create a blustering howl akin to standing at the center of a storm. A creature that ends its turn adjacent to you must attempt a fortitude check save. On a failure, it becomes until it moves away from you. Activate—Slicing Links 2 (concentrate) Frequency Once per day . Effect You unbind the currents that form your armor and release them as cutting whorls of air that slice into creatu...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -9353,12 +10625,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 resilient chain shirt is made of small, interlocking currents of wind carefully woven together. While the links of air don't jingle against each other like chain links might, the tiny cyclones nevertheless create a blustering howl akin to standing at the center of a storm. A creature that ends its turn adjacent to you must attempt a fortitude check save. On a failure, it becomes until it moves away from you. Activate—Slicing Links 2 (concentrate) Frequency Once per day . Effect You unbind the currents that form your armor and release them as cutting whorls of air that slice into creatu...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -9413,12 +10693,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 greater resilient chain shirt is made of small, interlocking currents of wind carefully woven together. While the links of air don't jingle against each other like chain links might, the tiny cyclones nevertheless create a blustering howl akin to standing at the center of a storm. A creature that ends its turn adjacent to you must attempt a fortitude check save. On a failure, it becomes until it moves away from you. Activate—Slicing Links 2 (concentrate) Frequency Once per day . Effect You unbind the currents that form your armor and release them as cutting whorls of air that slice int...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -9473,12 +10761,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "light",
       "group": "chain",
-      "ac": 2
+      "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0
     },
     "systemData": {
       "group": "chain",
       "category": "light",
       "ac": 2,
+      "dexCap": 3,
+      "strengthRequirement": 1,
+      "checkPenalty": -1,
+      "speedPenaltyFeet": 0,
       "description": "This +3 greater resilient chain shirt is made of small, interlocking currents of wind carefully woven together. While the links of air don't jingle against each other like chain links might, the tiny cyclones nevertheless create a blustering howl akin to standing at the center of a storm. A creature that ends its turn adjacent to you must attempt a fortitude check save. On a failure, it becomes until it moves away from you. Activate—Slicing Links 2 (concentrate) Frequency Once per day . Effect You unbind the currents that form your armor and release them as cutting whorls of air that slice int...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -9531,12 +10827,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "Barbarians, druids and other outlanders are often forced to spend the harsh winter months protecting their communities from one of the deadliest predators to stalk the forests and taiga of the northern reaches, the fearsome winter wolf. This +1 hide armor is assembled from the hide and fur of a trio of winter wolves, and it conveys on the wearer both an attack akin to the winter wolves' deadly jaws and the ability to channel the frigid cold of the winter wolf's Breath Weapon. Activate 2 Interact (cold) Frequency once per day Effect You breathe a cloud of frost in a @Template[cone|distance:15]...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -9587,12 +10891,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "wood",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "wood",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "A suit of carved and tempered wood, a wooden breastplate resembles a metal breastplate in shape and function. Such suits can be carved from large pieces of wood, but they most often come from wood coaxed magically from special trees, whether by druids, elves, fey, or plant creatures such as arboreals or leshys.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -9647,12 +10959,20 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
     "armor": {
       "category": "medium",
       "group": "leather",
-      "ac": 3
+      "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5
     },
     "systemData": {
       "group": "leather",
       "category": "medium",
       "ac": 3,
+      "dexCap": 2,
+      "strengthRequirement": 2,
+      "checkPenalty": -2,
+      "speedPenaltyFeet": -5,
       "description": "This +1 fire-resistant hide armor is adorned with the shale-like scales of the zetogeki, a giant reptile that dwells near sites of volcanic activity. Like the armor's namesake, you can adjust the scales to better absorb kinetic energy at the cost of some mobility. . Activate—Shift Scales 1 Frequency once per day Effect Until the end of your next turn, you gain resistance 5 to bludgeoning, piercing, and slashing damage, but your Speeds are reduced by 10 feet (minimum 5 feet).",
       "publicationTitle": "Pathfinder #208: Hoof, Cinder, and Storm",
       "remaster": true,
@@ -201665,8 +202985,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This tower shield was developed by followers of Ketephys, the elven god of the hunt. It's distinct for having a central ridge, and for being made from only wood and hide. AC increases to +4 if you are using the action. Ketephys's religious symbol, a hawk rising over a silver crescent, is painted on the hide stretched across the front of the shield. Each amaranthine pavise is blessed by Ketephysian priests to aid in liberating Tanglebriar and defeating the nascent demon lord Treerazer. While you have the shield raised, you gain a +2 circumstance bonus to saving throws against the innate spells...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -201722,8 +203047,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": -5
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": -5,
       "description": "This tower shield is crafted from interlocking sections of an arctic cave worm's chitin that are rimed with constant frost. It has Hardness 13, HP 104, and BT 52. . Activate—Misty Chill 1 (cold, concentrate, manipulate) Effect You Raise the Shield and an icy mist begins to flow off it. Until the beginning of your next turn, you gain resistance 5 to cold and any creature that ends its turn adjacent to you takes 3d6[cold] damage (reflex check save). . Craft Requirements The initial raw materials must include chitin from an arctic cave worm.",
       "publicationTitle": "Pathfinder Howl of the Wild",
       "remaster": true,
@@ -201778,8 +203108,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This wooden shield (Hardness 10, HP 40, BT 20) is carved with images of overlapping fletched arrows. . Activate R Interact Trigger A ranged weapon Strike targets a creature within 15 feet of you when you have this shield raised, and the attacker has not yet rolled their attack . Effect The triggering Strike targets you instead of its normal target. If it hits, you gain the effects of the reaction.",
       "publicationTitle": "Pathfinder Core Rulebook",
       "remaster": false,
@@ -201836,8 +203171,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This wooden shield is an interwoven knot of still-living tree roots (Hardness 6, HP 36, BT 18). Activate—Thirsty Roots 1 (manipulate) Frequency once per day . Effect You hold out the shield as the roots untangle themselves and launch forward, dealing 9d6[void] damage to all creatures in a @Template[line|distance:60] (reflex check save). On a failed save, a creature takes an additional 5[persistent,bleed] damage. The shield regains a number of Hit Points equal to half the void damage dealt.",
       "publicationTitle": "Pathfinder #202: Severed at the Root",
       "remaster": true,
@@ -201894,8 +203234,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Though it resembles an enormous leaf freshly plucked from a tree, a broadleaf shield is extremely durable. It also regrows rapidly, fully repairing itself when broken if it's left in sunlight for 10 consecutive minutes. At each dawn, the leaf transforms to an appearance appropriate for the season. While you're wielding the shield, you gain resistance 3 to a damage type depending on the shield's color. This resistance doubles while you have the shield raised. Pink (void resistance) In spring, the leaf is a delicate blossom-like pink and exudes the energy of life. Green (fire resistance) In summ...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -201952,8 +203297,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Though it resembles an enormous leaf freshly plucked from a tree, a broadleaf shield is extremely durable. It also regrows rapidly, fully repairing itself when broken if it's left in sunlight for 10 consecutive minutes. At each dawn, the leaf transforms to an appearance appropriate for the season. While you're wielding the shield, you gain resistance 4 to a damage type depending on the shield's color. This resistance doubles while you have the shield raised. Pink (void resistance) In spring, the leaf is a delicate blossom-like pink and exudes the energy of life. Green (fire resistance) In summ...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -202010,8 +203360,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Though it resembles an enormous leaf freshly plucked from a tree, a broadleaf shield is extremely durable. It also regrows rapidly, fully repairing itself when broken if it's left in sunlight for 10 consecutive minutes. At each dawn, the leaf transforms to an appearance appropriate for the season. While you're wielding the shield, you gain resistance 5 to a damage type depending on the shield's color. This resistance doubles while you have the shield raised. Pink (void resistance) In spring, the leaf is a delicate blossom-like pink and exudes the energy of life. Green (fire resistance) In summ...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -202068,8 +203423,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Though it resembles an enormous leaf freshly plucked from a tree, a broadleaf shield is extremely durable. It also regrows rapidly, fully repairing itself when broken if it's left in sunlight for 10 consecutive minutes. At each dawn, the leaf transforms to an appearance appropriate for the season. While you're wielding the shield, you gain resistance 6 to a damage type depending on the shield's color. This resistance doubles while you have the shield raised. Pink (void resistance) In spring, the leaf is a delicate blossom-like pink and exudes the energy of life. Green (fire resistance) In summ...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -202122,8 +203482,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This very small shield is a favorite of duelists and quick, lightly armored warriors. It's typically made of steel and strapped to your forearm. You can with your buckler as long as you have that hand free or are holding a light object that's not a weapon in that hand.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -202178,8 +203543,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This well-crafted wooden shield is covered in numerous seed pods with long spurs. You can Strike with these burrs as though they were +1 Striking Shield Spikes. . Activate 1 Interact Requirements Your previous action was a successful Strike with the burrs . Effect One of the burrs catches on the Strike's target, inflicting 1d10[bleed]. .",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -202234,8 +203604,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This small shield is made from wood. It features a special panel of parchment along the inside surface that allows for writing.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -202290,8 +203665,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This brass-coated, steel shield (Hardness 12, HP 90, BT 45) has +2 striking shield spikes made of bronze gears. Activate 1 Interact Frequency once per day . Effect The shield's gears begin to spin, subtly adjusting the shield's position as you fight. You gain an extra reaction this turn and at the start of each of your turns for the next minute that you can use only to Shield Block.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -202346,8 +203726,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This brass-coated, steel shield (Hardness 17, HP 130, and BT 65) has +3 greater striking shield spikes made of bronze gears. Activate 1 Interact Frequency once per day . Effect The shield's gears begin to spin, subtly adjusting the shield's position as you fight. You gain an extra reaction this turn and at the start of each of your turns for the next minute that you can use only to Shield Block.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -202402,8 +203787,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This tower shield is composed of interlocking hexagonal wooden tiles lined with metal. The tiles are painted a verdant green, and each is marked with a faded rune that protects against curses. While you have this shield raised, you gain a +1 circumstance bonus to saving throws against spells that target you, increasing to a +2 circumstance bonus against curses. You can unleash the energy stored in the shield to destroy a curse before it can affect you. . Activate r command Frequency once per day Trigger You are targeted with a curse spell Requirements The cursebreak bulwark is raised . Effect...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -202458,8 +203848,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This wooden shield features a spring-loaded device on its surface that can fire darts with powerful force. A small mechanism within the shield allows you to fire a dart even while actively holding the shield or blocking with it.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -202514,8 +203909,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "A dragonslayer's shield is a steel shield covered with dragonhide from a specific dragon, which visually distinguishes each shield from the others. While raised, this steel shield (Hardness 8, HP 32, BT 16) grants its circumstance bonus to Reflex saves against area effects (as well as to AC, as normal). While you hold the shield, it also grants you a +2 circumstance bonus to Will saves against a dragon's frightful presence ability. The shield has resistance 10 against the damage type corresponding to the dragon breath of the dragon whose hide was used in its creation (for example, a dragonslay...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -202571,8 +203971,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "A spiked glove is attached to the front of this buckler, functioning as +1 striking shield spikes. Perforations and slits line the defensive side, shining bright light through them when the item's magic is activated. . Activate 2 envision Frequency once per hour . Effect You activate the shield's inner light. Attempt a melee Strike with the duelist's beacon. On a hit, the target must succeed at a fortitude check save or be for 1 round. On a critical hit, the target uses the result one degree of success worse than it rolled for its Fortitude save.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -202627,8 +204032,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "A bright, octagonal frame surrounds this circular dawnsilver shield, which itself is polished to a mirrorlike sheen that reflects clear and true. While you have this standard-grade dawnsilver shield (Hardness 5, HP 20, BT 10) raised, you gain its circumstance bonus to saving throws against spells with the unholy or void trait. Activate r command (fortune) Frequency once per day Trigger You attempt a saving throw against an effect with the unholy or void traits . Effect Your saving throw result is considered one degree better than the actual result. If this effect turns a success into a critica...",
       "publicationTitle": "Pathfinder #199: To Bloom Below the Web",
       "remaster": false,
@@ -202683,8 +204093,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The magic within this wooden shield (Hardness 3, HP 12, BT 6) lashes out at your foes as the shield is destroyed. Activate—Splintering Boom f (manipulate) Trigger The exploding shield is destroyed . Effect The shield explodes outward, dealing 4d6[piercing] damage to each creature in a @Template[cone|distance:15] (reflex check save).",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -202739,8 +204154,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "A floating shield is usually carved with wing motifs. This buckler (Hardness 6, HP 24, BT 12) can protect you on its own. Activate—Float A (manipulate) Frequency once per day . Effect The shield magically releases itself and floats off your arm into the air next to you, granting you its bonus automatically, as if you had Raised the Shield. Because you're not wielding the shield, you can't use reactions such as Shield Block with the shield, but you gain its benefits even when using both of your hands. After 1 minute, the shield drops to the ground, ending its floating effect. While the shield i...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -202795,8 +204215,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "A floating shield is usually carved with wing motifs. This buckler (Hardness 6, HP 24, BT 12) can protect you on its own. Activate—Float A (manipulate) Frequency at will . Effect The shield magically releases itself and floats off your arm into the air next to you, granting you its bonus automatically, as if you had Raised the Shield. Because you're not wielding the shield, you can't use reactions such as Shield Block with the shield, but you gain its benefits even when using both of your hands. After 1 minute, the shield drops to the ground, ending its floating effect. While the shield is adj...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -202852,8 +204277,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The edges of this elaborately engraved steel shield (Hardness 8, HP 32, BT 16) bear tiny glass tiles set in mosaic patterns. . Activate—Force Bubble A (concentrate, force) Frequency once per day Effect The shield surrounds you with a bubble of force that protects you from harm, granting you resistance 5 to physical damage for 1 minute. The activation ends if you cease holding the shield.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -202908,8 +204338,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The religious symbol of Torag, the forge god-an ornate hammer of dwarven construction-adorns the face of this lesser reinforcing steel shield (Hardness 8, HP 72, BT 36). The shield is a religious symbol of Torag. You and any adjacent allies have fire resistance 5 while you have the shield raised. When used for a Shield Block, the forge warden rings out like the hammer strike of a blacksmith, and the symbol glows as if lit by the fires of a furnace. . Activate—Forge Fires F (concentrate, fire) Trigger You use the forge warden to Shield Block an adjacent creature's attack and the shield takes da...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -202964,8 +204399,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 3,
+      "speedPenaltyFeet": -10
+    },
     "systemData": {
       "ac": 3,
+      "speedPenaltyFeet": -10,
       "description": "Also known as portable walls, these thick and heavy shields are slightly larger than tower shields. Like tower shields, they're typically made from wood reinforced with metal, but many are made from larger amounts of metal or even stone. Getting the higher bonus for this shield requires using the action while the shield is raised.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203020,8 +204460,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This buckler-sized shield is segmented, allowing it to collapse into a housing bound to a gauntlet for easy storage. A small catch enables you to expand the shield quickly in battle when you're in need of defense.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203076,8 +204521,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "A glamorous buckler (Hardness 3, HP 6, BT 3) is lavishly decorated with gilding and inset gemstones that glitter in the light. While you have it raised, the glamorous buckler grants you a +1 item bonus to Deception checks to Feint. . Activate—Dazzling Feint f (concentrate) Frequency once per day Trigger You Feint Requirements You have the glamorous buckler raised . Effect As you Feint, the glamorous buckler sparkles mightily. On a successful Feint, the target is for 1 round. .",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -203133,8 +204583,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "A guardian shield is a steel shield engraved with the symbol of a good deity. . Activate 2 command, Interact Frequency once per day . Effect You conjure a Medium guardian with the effects of the spell, but it carries a shield instead of weapons and can't attack. The guardian appears in an unoccupied space next to an ally of your choice within range and uses the Raise a Shield action, granting that ally a +2 circumstance bonus to AC until the beginning of your next turn or until your ally is no longer adjacent to the spiritual guardian. Each time you Sustain the Activation, the guardian moves t...",
       "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
       "remaster": false,
@@ -203189,8 +204644,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": -5
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": -5,
       "description": "This large steel shield features a specialized opening to hold lances and similar weapons. Harnessed shields are a common backup for those who fight with jousting weapons in case they're forced into combat without their mounts. Balancing the weapon within the shield's hold is somewhat awkward, and longer weapons, like lances, need to be held closer to the body than usual for proper support.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203243,8 +204703,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "Similar in size to a buckler, this steel shield is intended to absorb as many blows as possible instead of deflecting attacks. It features multiple layers of metal and is reinforced with additional wood.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203300,8 +204765,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Shield throw 30 ft. This standard-grade duskwood meteor shield (Hardness 7, HP 28, BT 14) is a wheel from a ship. While wielding the shield, you gain a +1 item bonus to Sailing Lore and to Athletics checks to Swim. Activate 2 command Frequency once per day Requirements You're in a body of water . Effect For 10 minutes, you don't sink if you haven't succeeded at a Swim action on a turn, and if you're submerged, you automatically ascend 10 feet at the end of your turn.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203357,8 +204827,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Shield throw 30 ft. This standard-grade duskwood meteor shield (Hardness 8, HP 60, BT 30) is a wheel from a ship. While wielding the shield, you gain a +1 item bonus to Sailing Lore and to Athletics checks to Swim. Activate 2 command Frequency once per day Requirements You're in a body of water . Effect For 10 minutes, you don't sink if you haven't succeeded at a Swim action on a turn, and if you're submerged, you automatically ascend 10 feet at the end of your turn. When you Activate the shield, it casts on you.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203414,8 +204889,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Shield throw 30 ft. This standard-grade duskwood meteor shield (Hardness 11, HP 80, BT 40) is a wheel from a ship. While wielding the shield, you gain a +2 item bonus to Sailing Lore and to Athletics checks to Swim. Activate 2 command Frequency once per day Requirements You're in a body of water . Effect For 10 minutes, you don't sink if you haven't succeeded at a Swim action on a turn, and if you're submerged, you automatically ascend 10 feet at the end of your turn. When you Activate the shield, you can breathe underwater for 10 minutes",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203470,8 +204950,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Hide shields come in a variety of shapes and sizes. Specialized tanning techniques combined with tough hides from creatures such as owlbears result in these particularly tough shields. The hardened hide of the shield still has enough flexibility to diminish the impact of battering and pummeling attacks.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203528,8 +205013,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This specialized was originally designed by the members of Clan Molgrade for use by Highhelm's soldiers. The integrated blades are etched with runes, making them a +3 major striking weapon. Activate R envision Trigger You critically hit with the shield's integrated blades . Effect The shield's blades grow and dig themselves into your foe. The creature becomes as it becomes impaled on the shield spikes. While you have a creature grabbed in this way, you can't Raise the Shield, but the creature takes persistent bleed damage every round equal to the number of damage dice. This persistent bleed ca...",
       "publicationTitle": "Pathfinder Lost Omens Highhelm",
       "remaster": false,
@@ -203586,8 +205076,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This specialized was originally designed by the members of Clan Molgrade for use by Highhelm's soldiers. The integrated blades are etched with runes, making them a +1 striking weapon. Activate R envision Trigger You critically hit with the shield's integrated blades . Effect The shield's blades grow and dig themselves into your foe. The creature becomes as it becomes impaled on the shield spikes. While you have a creature grabbed in this way, you can't Raise the Shield, but the creature takes persistent bleed damage every round equal to the number of damage dice. This persistent bleed can't en...",
       "publicationTitle": "Pathfinder Lost Omens Highhelm",
       "remaster": false,
@@ -203644,8 +205139,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This specialized was originally designed by the members of Clan Molgrade for use by Highhelm's soldiers. The integrated blades are etched with runes, making them a +2 greater striking weapon. Activate R envision Trigger You critically hit with the shield's integrated blades . Effect The shield's blades grow and dig themselves into your foe. The creature becomes as it becomes impaled on the shield spikes. While you have a creature grabbed in this way, you can't Raise the Shield, but the creature takes persistent bleed damage every round equal to the number of damage dice. This persistent bleed...",
       "publicationTitle": "Pathfinder Lost Omens Highhelm",
       "remaster": false,
@@ -203702,8 +205202,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 striking klar is fashioned from the skull of a hippopotamus, with one of its canines acting as the blade. While wielding a hippopotamus klar, you gain a +1 item bonus to Intimidation checks. . Activate—Engulfing Jaws 1 (manipulate) Frequency once per day Effect The hippo jaws of the shield open impossibly wide. Make a melee Strike with the klar blade targeting two creatures adjacent to each other. Roll the attack and damage once and apply it to each creature separately. This counts as two attacks for your multiple attack penalty. . Craft Requirements The initial raw materials must incl...",
       "publicationTitle": "Pathfinder Howl of the Wild",
       "remaster": true,
@@ -203758,8 +205263,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "An indestructible shield is a high-grade greater reinforcing adamantine shield (Hardness 17, HP 136) that can withstand just about any damage. It can be damaged only by a spell (roll damage as if against a creature that failed its save) or by an artifact tied to destruction. . Craft Requirements The raw materials must include at least 4,400 gp of adamantine.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -203814,8 +205324,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This heavy bone shield is composed of a massive plate of dinosaur bone with jagged, tooth-like ridges ringing its edge. It has Hardness 12, HP 48, and BT 24. The ridges are unremovable +1 striking shield spikes that deal slashing damage instead of piercing damage. While holding the jawbreaker shield, you gain a +3 item bonus to your Reflex DC to resist Swallow Whole attacks. . Activate R Interact Trigger A creature attacks you with a jaws or fangs Strike or similar Strike using its mouth . Effect You make a shield bash Strike as a reaction against the attacker. If the shield bash hits, the tar...",
       "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
       "remaster": false,
@@ -203871,8 +205386,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This standard-grade duskwood shield is perfectly symmetrical and incredibly sturdy despite its elaborate construction. These shields are typically given to the chosen emissaries of a kizidhar shuyookh, and the shuyookh's name and title are engraved in Muan behind the shield's handle. . Activate - Repair 1 (concentrate) Frequency once per day Effect You command the shield to repair itself, awakening the restorative magic within. For the next minute, the shield heals 3 Hit Points each round at the start of your turn. . Activate - Secure Site 10 minutes (manipulate) Frequency once per day Effect...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -203927,8 +205447,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This traditional Shoanti armament combines a short metal blade with the skull of a large horned lizard, fashioned as a shield. The lightweight shield allows for quick attacks with its integrated blade.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -203983,8 +205508,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This steel shield is painted a mottled crimson, and it always glistens as if wet. Its crest is composed of eight appendages that curl around each other, resembling the swirling tentacles of a giant kraken. Two ferocious eyes sit in its center, gleaming with an inner light. . Activate 2 Raise a Shield Frequency once per hour . Effect You unleash the kraken's wrath. You Raise the Shield. The shield's appendages briefly extend to impossible length as they wriggle and lash out at your foes, dealing 10d10[bludgeoning|options:area-damage] damage to all enemies in a @Template[cone|distance:30] (refle...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -204040,8 +205570,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": -5
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": -5,
       "description": "This tower shield is a slab of limestone, shaved to a portable size and weight. The shield has Hardness 7 and 28 Hit Points. Activate—Limestone Wall 2 (concentrate, manipulate) Frequency once per day . Effect You set the shield down as it expands up to 60 feet wide and 10 feet tall. Each square of the wall has AC 10, Hardness 7, and 28 Hit Points, and it's immune to critical hits and precision damage. If a section is destroyed, this effect ends, and your limestone shield is broken. You can Dismiss this activation, which otherwise lasts for 1 minute. Activate—Block Elements R (concentrate) Freq...",
       "publicationTitle": "Pathfinder Rage of Elements",
       "remaster": true,
@@ -204096,8 +205631,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This steel shield (Hardness 6, HP 36, BT 18) is forged into the shape of a roaring lion's head. The lion's head functions as +1 striking shield boss that can't be removed from the shield. . Activate—Lion's Bite F (manipulate) Frequency once per day Requirements Your shield is raised Effect You animate the lion's head, making a melee Strike with it. The shield's biting maw is a martial melee weapon that deals 2d6 piercing damage and has the deadly d6 trait; it can't be enhanced by runes. The shield remains animated for 1 minute, during which time you can Strike with it each time you Raise the S...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -204152,8 +205692,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This moderate reinforcing cold iron shield (Hardness 10, HP 92, BT 46) is inset with lodestones that draw ammunition toward it. Activate—Attract Projectile R (manipulate) Frequency once per minute Trigger A ranged weapon Strike targets a creature within 15 feet of you when you have this shield raised, and the attacker hasn't yet rolled their attack . Effect The triggering Strike targets you instead of its normal target. If it hits, you gain the effects of the Shield Block reaction.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -204209,8 +205754,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Activate 1 Interact Copper rings spiral around this steel shield. Twin electrical probes near the grip can socket into a jar of moderate (or higher leveled) bottled lightning, which takes 3 Interact actions to install. A loaded magnetic shield can be activated to convert it into an electromagnet. When an activated magnetic shield is raised, the circumstance bonus increases by 1 against attacks made with weapons primarily made of metal. If you use a Shield Block against a creature attacking you with such a weapon, you also gain a +1 item bonus to attempts against that weapon until the end of yo...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -204266,8 +205816,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Perception +12; precise vision 30 feet, imprecise hearing 30 feet Communication speech (Common and Empyrean) Skills Diplomacy +15, Religion +13 Int +0, Wis +2, Cha +4 Will +15 . A martyr's shield is a lesser sturdy shield imbued with the compassion of a devout champion of a righteous deity, like Iomedae or Vildeis, who sacrificed themself to save an ally. In addition to good-naturedly attempting to convert you to its religion, the martyr's shield can use 1 reaction each round that, when raised, it uses to Shield Block to protect an ally adjacent to you. This follows the rules for Shield Block,...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -204322,8 +205877,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The ghastly visage of a slain medusa's head stares out from this steel shield (Hardness 13, HP 52, BT 26). The shield comes with a thick leather cover to conceal the head. . Activate—Petrifying Gaze 2 (manipulate, visual) Frequency once per day . Effect You reveal the medusa's face, focusing its gaze on one creature within 30 feet. The shield casts a DC 30 spell with a range of 30 feet. . Craft Requirements The initial raw materials must include the head of a medusa.",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -204378,8 +205938,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The ghastly visage of a slain medusa's head stares out from this steel shield (Hardness 15, HP 60, BT 30). The shield comes with a thick leather cover to conceal the head. . Activate—Petrifying Gaze 2 (manipulate, visual) Frequency once per day . Effect You reveal the medusa's face, focusing its gaze on one creature within 30 feet. The shield casts a DC 35 spell with a range of 30 feet. . Craft Requirements The initial raw materials must include the head of a medusa.",
       "publicationTitle": "Pathfinder Player Core 2",
       "remaster": true,
@@ -204434,8 +205999,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Shield throw 30 ft. Meteor shields are specifically designed with throwing in mind. A meteor shield is made from thin steel and has quick-release straps, allowing for easy, long-distance throws.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -204488,8 +206058,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This shield is grown entirely of specially treated fungi, giving it the appearance of a frilly disc. The shield has Hardness 4, HP 64, and BT 32. When left atop at least 1 bulk of organic matter, it gains fast healing 1; after 10 minutes 1 Bulk of the organic matter has been consumed by the shield. This shield doubles its hardness against bludgeoning, electricity, and sonic damage. Activate R manipulate Trigger The shield is broken . Effect The shield spews spores into one adjacent square, dealing 2d6[persistent,poison] damage to all creatures in within it; a successful fortitude check save ne...",
       "publicationTitle": "Pathfinder #193: Mantle of Gold",
       "remaster": false,
@@ -204542,8 +206117,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This shield is grown entirely of specially treated fungi, giving it the appearance of a frilly disc. The shield has Hardness 2, HP 12, and BT 6. When left atop at least 1 bulk of organic matter, it gains fast healing 1; after 10 minutes 1 Bulk of the organic matter has been consumed by the shield. This shield doubles its hardness against bludgeoning, electricity, and sonic damage. Activate R manipulate Trigger The shield is broken . Effect The shield spews spores into one adjacent square, dealing 1d6[persistent,poison] damage to all creatures in within it; a successful fortitude check save neg...",
       "publicationTitle": "Pathfinder #193: Mantle of Gold",
       "remaster": false,
@@ -204596,8 +206176,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This shield is grown entirely of specially treated fungi, giving it the appearance of a frilly disc. The shield has Hardness 6, HP 110, and BT 55. When left atop at least 1 bulk of organic matter, it gains fast healing 1; after 10 minutes 1 Bulk of the organic matter has been consumed by the shield. This shield doubles its hardness against bludgeoning, electricity, and sonic damage. Activate R manipulate Trigger The shield is broken . Effect The shield spews spores into one adjacent square, dealing 3d6[persistent,poison] damage to all creatures in within it; a successful fortitude check save n...",
       "publicationTitle": "Pathfinder #193: Mantle of Gold",
       "remaster": false,
@@ -204652,8 +206237,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This round shield is often fashioned to resemble the religious symbol of its dual-natured namesake. A Nethysian bulwark is a high-grade cold iron shield (Hardness 10, HP 40, BT 20) that defends the wielder and can explode with retributive force when struck. Activate F envision Trigger The shield becomes broken when performing a Shield Block . Effect The shield explodes in a burst of bright light and shadowy tendrils, releasing a @Template[cone|distance:15] of force that must include the attacker if possible. The cone deals 6d8[force|options:area-damage] damage to all creatures in the area (ref...",
       "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
       "remaster": false,
@@ -204708,8 +206298,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The shield's blue enameled face is cool to the touch, and displays the moon's current phase at night. When you lay your head on the reverse side of this steel shield, it becomes as pliant and supportive as the best pillows. If you complete a period of rest using the pillow shield, you can choose to transfer your recovery to the shield. Instead of recovering a number of Hit Points after resting, the shield is restored an equal number of Hit Points instead. . Activate 2 command, envision Frequency once per day . Effect The shield creates an area of vigilance. It casts centered on itself; you dec...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -204764,8 +206359,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This massive tower shield is painted a cool cyan green and is decorated with an image of Absalom's mother-sphinx emerging from a cresting wave. . Activate 2 Command Frequency once per day . Effect You transform the shield into a 1-foot-thick, 10-foot-by-10-foot stone rampart topped with a battlement and adorned with the flags of Absalom. If any part of the rampart would pass through any creatures or objects, the activation fails. At the center of each 5-foot length of the rampart is an arrow slit. The rampart has AC 10, Hardness 15, and 30 Hit Points. The rampart is immune to critical hits and...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -204821,8 +206421,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "Integrated 1d6 S, shield throw 20 ft. Several small blades line the outside edge of this steel shield. This specialized throwing shield is common among warriors in the Mwangi Expanse, where its blades can cut down foliage as it flies.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -204877,8 +206482,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This high-grade silver buckler (Hardness 6, HP 24, BT 12) is polished to a mirrorlike sheen. The shield functions as a that can also reflect spells. Activate—Reflect Spell R (concentrate) Frequency once per day Trigger You're targeted by a spell Requirements The reflecting shield is raised . Effect You attempt to reflect the spell on its caster. The shield attempts to counteract the spell, with a counteract rank of 9th and a counteract modifier of [[/r 1d20+30 #Counteract]]{+30}. If the spell is successfully counteracted, it's turned back on its caster . Craft Requirements The initial raw mate...",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -204933,8 +206543,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This steel shield contains a smoldering core of magma that never cools. Whenever the reforging shield's current Hit Points are below its Break Threshold, the shield recovers 5 Hit Points at the start of its wielder's turn each round until it is no longer broken. Each time a character Repairs the shield, the shield recovers double the number of Hit Points. The shield has Hardness 15, HP 120, and BT 60.",
       "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
       "remaster": false,
@@ -204989,8 +206604,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This specialized steel shield features an outer layer of angled wooden or steel plates, which help deflect or redirect incoming ranged projectiles but don't offer any additional protection against melee weapons.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205046,8 +206666,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This +1 striking wounding klar (Hardness 8, HP 64, BT 32) is built with spikes made of beasts' fangs. Activate f envision Frequency once per round Trigger You or a creature within 5 feet of you suffers bleed damage . Effect The sanguine klar regains a number of Hit Points equal to the bleed damage, up to an amount equal to its Hardness.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205103,8 +206728,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This +2 greater striking wounding klar (Hardness 13, HP 100, BT 50) is built with spikes made of beasts' fangs. Activate f envision Frequency once per round Trigger You or a creature within 30 feet of you suffers bleed damage . Effect The sanguine klar regains a number of Hit Points equal to the bleed damage, up to an amount equal to its Hardness.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205159,8 +206789,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 11, HP 88, and BT 44) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage. Activate 1 envision . Effect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to . It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205215,8 +206850,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 6, HP 48, and BT 24) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage. Activate 1 envision . Effect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to . It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205271,8 +206911,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 13, HP 104, and BT 52) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage. Activate 1 envision . Effect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to . It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205327,8 +206972,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 3, HP 24, and BT 12) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage. Activate 1 envision . Effect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to . It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205383,8 +207033,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 8, HP 64, and BT 32) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage. Activate 1 envision . Effect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to . It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205439,8 +207094,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 15, HP 120, and BT 60) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage. Activate 1 envision . Effect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to . It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205496,8 +207156,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Carved from a scale of the kaiju Igroon, this jagged shield refracts light around it in a shimmering haze. A scale of Igroon (Hardness 20, HP 160, BT 80) recovers 4 Hit Points at the start of its wielder's turn. When you , you can use the reaction with the scale of Igroon to block an attack or effect that deals acid, cold, electricity, fire, force, or sonic damage as well as physical damage. Activate 1 Interact Requirements You're in an area of bright or dim light . Effect You angle the shield to refract light. Until the start of your next turn, you gain a +4 item bonus to Stealth checks to an...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -205552,8 +207217,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This high-grade orichalcum shield (Hardness 16, HP 64, and BT 32) bears a +3 major striking shield boss that cannot be removed. It gleams brightly in any light, drawing attention at all times. When you Raise this Shield, ephemeral reflections of it appear in front of each of your allies within 30 feet, granting them its +2 circumstance bonus to AC for as long as they are within 30 feet of you and your shield is raised. . Activate (2 actions) Interact (force) Frequency once per minute . Effect You heft the shield and thrust it forward, causing ephemeral reflections of the shield to surround you...",
       "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
       "remaster": false,
@@ -205608,8 +207278,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Kalabrynne Iomedar commissioned the first of these shields, which have become some of the Shining Sentinels' most valued equipment, replicated among these knights. A shining shield is a seemingly simple wooden shield with the Shining Oath engraved on the inside. While raised, a shining shield moves itself to provide cover for your allies. If you have this shield raised and would provide cover to an ally against a foe by standing between them, the cover you provide increases one step. Thus, if you were to grant lesser cover, you grant standard cover instead; if you were to grant standard cover,...",
       "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
       "remaster": false,
@@ -205665,8 +207340,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This oddly fuzzy buckler resembles the abdomen of a spider. Its defensive side is covered in fine hairs, and two small spinnerets protrude from the bottom of its rim. The spinnerets serve as +2 greater striking shield spikes. . Activate 1 Command Frequency once per day . Effect You animate the silkspinner's shield. Eight spider legs sprout from the shield's rim, granting you a climb Speed of 25 feet until the end of your next turn. Additionally, the spinnerets animate and produce silk for 1 minute. Successful shield bash Strikes made with the silkspinner's shield during this time entangle the...",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -205721,8 +207401,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This shield bears eldritch glyphs to guard against magic. While you have this steel shield (Hardness 6, HP 24, BT 12) raised, you gain its circumstance bonus to saving throws against spells that target you (as well as to AC), and you can Shield Block spells that target you if you have that action.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -205777,8 +207462,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Five jagged spines project from the surface of this steel shield (Hardness 6, HP 24, BT 12). The spines are +1 striking shield spikes. When you use the Shield Block reaction with this shield, the spines take the damage before the shield itself does. When the shield would take damage (after applying Hardness), one spine snaps off per 6 damage, reducing the damage by 6. The shield takes any remaining damage. When there are no spines left, the shield takes damage as normal. When all the spines are gone, you lose the ability to attack with them until the spines regenerate the next day. Activate A...",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -205835,8 +207525,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield normally has a blank face. It can absorb a staff and transform between a shield and staff. When you prepare a staff, you can hold it up to the shield, at which point the items will merge, and the shield's face becomes an image corresponding to the type of magic, such as a skull for a staff of necromancy. . Activate 1 Interact . Effect You change the staff-storing shield from its shield form into the stored staff, which has an image of the shield on it, or change it from the stored staff back into a shield. .",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -205893,8 +207588,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield normally has a blank face. It can absorb a staff and transform between a shield and staff. When you prepare a staff, you can hold it up to the shield, at which point the items will merge, and the shield's face becomes an image corresponding to the type of magic, such as a skull for a staff of necromancy. . Activate 1 Interact . Effect You change the staff-storing shield from its shield form into the stored staff, which has an image of the shield on it, or change it from the stored staff back into a shield. .",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -205951,8 +207651,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield normally has a blank face. It can absorb a staff and transform between a shield and staff. When you prepare a staff, you can hold it up to the shield, at which point the items will merge, and the shield's face becomes an image corresponding to the type of magic, such as a skull for a staff of necromancy. . Activate 1 Interact . Effect You change the staff-storing shield from its shield form into the stored staff, which has an image of the shield on it, or change it from the stored staff back into a shield. .",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -206009,8 +207714,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield normally has a blank face. It can absorb a staff and transform between a shield and staff. When you prepare a staff, you can hold it up to the shield, at which point the items will merge, and the shield's face becomes an image corresponding to the type of magic, such as a skull for a staff of necromancy. . Activate 1 Interact . Effect You change the staff-storing shield from its shield form into the stored staff, which has an image of the shield on it, or change it from the stored staff back into a shield. .",
       "publicationTitle": "Pathfinder Secrets of Magic",
       "remaster": false,
@@ -206065,8 +207775,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 1,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 1,
+      "speedPenaltyFeet": 0,
       "description": "This high-grade adamantine heavy rondache (Hardness 17, HP 100, BT 50) bears a +3 greater striking shield boss and has dents that resemble craters on its surface. While wielding the shield, you have fire resistance 15. Activate 1 Interact Frequency once per day . Effect You Stride up to three times. This movement doesn't trigger reactions and ignores difficult terrain. At the end of your movement, you deal 6d10[bludgeoning|options:area-damage] in a @Template[emanation|distance:10] and 14d6[fire|options:area-damage] in a @Template[emanation|distance:40] (reflex check, with the results applying...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -206119,8 +207834,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -206175,8 +207895,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy. The shield has Hardness 15, HP 120, and BT 60.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -206231,8 +207956,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy. The shield has Hardness 10, HP 80, and BT 40.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -206287,8 +208017,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy. The shield has Hardness 17, HP 136, and BT 68.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -206343,8 +208078,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy. The shield has Hardness 8, HP 64, and BT 32.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -206399,8 +208139,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy. The shield has Hardness 13, HP 104, and BT 52.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -206455,8 +208200,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "With a superior design and excellent craftsmanship, this steel shield has higher Hardness than its non-magical counterparts, making it harder to break and destroy. The shield has Hardness 20, HP 160, and BT 80.",
       "publicationTitle": "Pathfinder GM Core",
       "remaster": true,
@@ -206511,8 +208261,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This specialized steel shield features several wide metal hooks along its surface. These hooks help catch swords and other blades, reducing the impact of their incoming attacks.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -206565,8 +208320,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": -5
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": -5,
       "description": "These massive shields can be used to provide cover to nearly the entire body. Due to their size, they are typically made of wood reinforced with metal. AC increases to +4 if you are using the action.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -206622,8 +208382,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "The face of this standard-grade silver salvo shield (Hardness 7, HP 28, BT 14) is polished to a mirror finish. Activate r command Frequency once per 10 minutes Trigger A ranged Strike using ammunition such as arrows, bolts, or bullets (but not siege rounds or larger projectiles) misses you Requirements You have the turnabout shield raised . Effect The ammunition enters the shield and is redirected with the same force with which it was originally fired. Make a ranged Strike using the ammunition with an attack modifier of [[/r 1d20+19]]{+19}, targeting a creature within 60 feet.",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -206678,8 +208443,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": -5
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": -5,
       "description": "An image of a keyhole adorns the coat of arms of this stone tower shield (Hardness 10, HP 40, BT 20). Activate 2 Interact Frequency once per day Effect The shield becomes a locked door in an empty, adjacent space no wider than 5 feet, becoming flush with the surrounding structure so it blocks all passage. The door has the same Hardness, HP, and Broken Threshold as the shield, with athletics check and thievery check to open. The door remains in place for 1 hour, until it's opened or broken, or until you spend an action to end this effect, at which point the shield returns to your hand (or falls...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -206734,8 +208504,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": -5
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": -5,
       "description": "An image of a keyhole adorns the coat of arms of this stone tower shield (Hardness 20, HP 80, BT 40). Activate 2 Interact Frequency once per day Effect The shield becomes a locked door in an empty, adjacent space no wider than 5 feet, becoming flush with the surrounding structure so it blocks all passage. The door has the same Hardness, HP, and Broken Threshold as the shield, with athletics check and thievery check to open.. The door remains in place for 1 hour, until it's opened or broken, or until you spend an action to end this effect, at which point the shield returns to your hand (or fall...",
       "publicationTitle": "Pathfinder Treasure Vault",
       "remaster": false,
@@ -206788,8 +208563,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.",
       "publicationTitle": "Pathfinder Player Core",
       "remaster": true,
@@ -206844,8 +208624,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -206900,8 +208685,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -206956,8 +208746,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -207012,8 +208807,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -207068,8 +208868,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,
@@ -207124,8 +208929,13 @@ export const PATHFINDER_2E_ITEM_DATA: Pathfinder2eCompendiumItem[] = [
         }
       ]
     },
+    "shield": {
+      "ac": 2,
+      "speedPenaltyFeet": 0
+    },
     "systemData": {
       "ac": 2,
+      "speedPenaltyFeet": 0,
       "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
       "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
       "remaster": false,

@@ -20,6 +20,7 @@ import type {
   TransferItemInput,
   TransferItemResult,
   UnequipItemResult,
+  UpdateEquippedItemSystemDataResult,
   UpdateItemInput,
   UpdateItemResult,
 } from '../application/ports/inventory-repository'
@@ -568,6 +569,26 @@ async function unequipItem(
   })
 }
 
+async function updateEquippedItemSystemData(
+  equippedItemId: string,
+  systemData: unknown,
+): Promise<UpdateEquippedItemSystemDataResult> {
+  return prisma.$transaction(async (tx) => {
+    const equipped = await tx.equippedItem.findUnique({
+      where: { id: equippedItemId },
+      include: { inventoryItem: { include: { inventory: true } } },
+    })
+    if (!equipped) return { status: 'not_found' as const }
+
+    await tx.equippedItem.update({
+      where: { id: equippedItemId },
+      data: { systemData: systemData as Prisma.InputJsonValue },
+    })
+
+    return { status: 'ok' as const, inventory: await loadInventorySnapshotById(tx, equipped.inventoryItem.inventoryId) }
+  })
+}
+
 async function transferItem(input: TransferItemInput): Promise<TransferItemResult> {
   return prisma.$transaction(async (tx) => {
     const item = await tx.inventoryItem.findUnique({
@@ -700,6 +721,7 @@ export const prismaInventoryRepository: InventoryRepository = {
   updateItem,
   equipItem,
   unequipItem,
+  updateEquippedItemSystemData,
   transferItem,
   listLedger,
 }

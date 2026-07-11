@@ -1,3 +1,4 @@
+import { normalizePathfinder2eArmorCategory } from '../../shared/armor-class'
 import { PATHFINDER_2E_EXCLUSIVE_SLOTS, PATHFINDER_2E_NON_EXCLUSIVE_SLOTS } from './slots'
 
 type EquipmentOption = {
@@ -56,6 +57,11 @@ type EquipmentGroup = {
   label: string
   itemIds: string[]
   metadata?: unknown
+}
+
+type ArmorClassEquipmentResolution = {
+  armor: { equippedItemId: string; category: string; itemBonus: number; dexCap: number | null } | null
+  shield: { equippedItemId: string; itemBonus: number; raised: boolean } | null
 }
 
 type EquipmentValidationInput = {
@@ -219,6 +225,18 @@ function getPathfinder2eCategory(systemData: unknown) {
   return typeof category === 'string' ? category : ''
 }
 
+function getPathfinder2eSystemDataNumber(systemData: unknown, key: string): number | undefined {
+  if (!systemData || typeof systemData !== 'object') return undefined
+  const value = (systemData as Record<string, unknown>)[key]
+  return typeof value === 'number' ? value : undefined
+}
+
+function getPathfinder2eSystemDataBoolean(systemData: unknown, key: string): boolean | undefined {
+  if (!systemData || typeof systemData !== 'object') return undefined
+  const value = (systemData as Record<string, unknown>)[key]
+  return typeof value === 'boolean' ? value : undefined
+}
+
 function toPathfinder2eResourceUsage(option: EquipmentOption, item: UniversalItemDefinition): EquipmentResourceUsage[] {
   const usage = toPathfinder2eBaseResourceUsage(option)
   if (item.traits.includes('invested')) {
@@ -325,6 +343,29 @@ export const pathfinder2eInventoryAdapter = {
       resourceUsage,
       systemData: { option },
     }
+  },
+  resolveArmorClassEquipment(input: { items: EquipmentGroupingItem[] }): ArmorClassEquipmentResolution {
+    const armorItem = input.items.find((entry) => entry.item.classification?.role === 'armor')
+    const shieldItem = input.items.find((entry) => entry.item.classification?.role === 'shield')
+
+    const armor = armorItem
+      ? {
+          equippedItemId: armorItem.equippedItemId,
+          category: normalizePathfinder2eArmorCategory(getPathfinder2eCategory(armorItem.item.systemData)),
+          itemBonus: getPathfinder2eSystemDataNumber(armorItem.item.systemData, 'ac') ?? 0,
+          dexCap: getPathfinder2eSystemDataNumber(armorItem.item.systemData, 'dexCap') ?? null,
+        }
+      : null
+
+    const shield = shieldItem
+      ? {
+          equippedItemId: shieldItem.equippedItemId,
+          itemBonus: getPathfinder2eSystemDataNumber(shieldItem.item.systemData, 'ac') ?? 0,
+          raised: getPathfinder2eSystemDataBoolean(shieldItem.systemData, 'shieldRaised') ?? false,
+        }
+      : null
+
+    return { armor, shield }
   },
   normalizeItemData(input: unknown): UniversalItemDefinition {
     const raw = (input ?? {}) as Partial<UniversalItemDefinition> & {

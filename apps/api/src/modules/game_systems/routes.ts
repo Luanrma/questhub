@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { buildDefaultCharacterSheetEnvelope, safeValidateCharacterSheetEnvelope } from './registry'
+import { validatePathfinder2eIdentityWritePolicy } from './character-sheet-policy'
 
 export function registerCharacterSheetRoutes(app: FastifyInstance) {
   app.get('/api/character-sheets/systems/:system/default', async (req, reply) => {
@@ -79,13 +80,35 @@ export function registerCharacterSheetRoutes(app: FastifyInstance) {
     const character = await prisma.character.findFirst({
       where: {
         id: params.data.characterId,
-        userId: payload.id,
         deletedAt: null,
+        OR: [
+          { userId: payload.id },
+          {
+            campaigns: {
+              some: {
+                campaign: {
+                  characters: {
+                    some: {
+                      userId: payload.id,
+                      role: 'MASTER',
+                      status: 'ACTIVE',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        ],
       },
       select: {
         id: true,
+        userId: true,
+        sheet: true,
         campaigns: {
           select: {
+            userId: true,
+            role: true,
+            status: true,
             campaign: {
               select: { system: true },
             },
@@ -98,6 +121,18 @@ export function registerCharacterSheetRoutes(app: FastifyInstance) {
 
     const incompatibleCampaign = character.campaigns.find((entry) => entry.campaign.system !== parsedSheet.data.system)
     if (incompatibleCampaign) return reply.status(409).send({ error: 'Ficha incompativel com a campanha vinculada' })
+
+    const isMaster = character.campaigns.some((entry) => entry.userId === payload.id && entry.role === 'MASTER' && entry.status === 'ACTIVE')
+    const isOwner = character.userId === payload.id
+    if (parsedSheet.data.system === 'PATHFINDER_2E') {
+      const identityPolicy = validatePathfinder2eIdentityWritePolicy({
+        previousSheet: character.sheet,
+        nextSheet: parsedSheet.data,
+        isOwner,
+        isMaster,
+      })
+      if (!identityPolicy.ok) return reply.status(identityPolicy.status).send({ error: identityPolicy.message })
+    }
 
     const updated = await prisma.character.update({
       where: { id: character.id },

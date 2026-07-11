@@ -8,10 +8,31 @@
   },
   "identity": {
     "level": 1,
-    "ancestry": "",
-    "heritage": "",
-    "background": "",
-    "className": ""
+    "ancestry": null,
+    "heritage": null,
+    "background": null,
+    "class": null
+  },
+  "buildChoices": {
+    "ancestry": {
+      "boosts": {},
+      "flaws": {},
+      "alternateBoostsEnabled": false,
+      "additionalLanguages": [],
+      "ruleSelections": {}
+    },
+    "heritage": {
+      "ruleSelections": {}
+    },
+    "background": {
+      "boosts": {},
+      "ruleSelections": {}
+    },
+    "class": {
+      "keyAbility": null,
+      "trainedSkills": [],
+      "ruleSelections": {}
+    }
   },
   "attributes": {
     "strength": 10,
@@ -29,7 +50,15 @@
     "dying": 0,
     "doomed": 0
   },
-  "armorClass": 10,
+  "armorClass": {
+    "manualAdjustment": 0
+  },
+  "armorProficiencies": {
+    "unarmored": 2,
+    "light": 0,
+    "medium": 0,
+    "heavy": 0
+  },
   "initiative": 0,
   "perception": {
     "rank": 0,

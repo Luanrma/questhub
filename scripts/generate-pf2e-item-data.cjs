@@ -273,6 +273,10 @@ function classifyItem(document, usage, systemData) {
         ...(systemData.category ? { category: systemData.category } : {}),
         ...(systemData.group ? { group: systemData.group } : {}),
         ...(typeof systemData.ac === 'number' ? { ac: systemData.ac } : {}),
+        ...(typeof systemData.dexCap === 'number' ? { dexCap: systemData.dexCap } : {}),
+        ...(typeof systemData.strengthRequirement === 'number' ? { strengthRequirement: systemData.strengthRequirement } : {}),
+        ...(typeof systemData.checkPenalty === 'number' ? { checkPenalty: systemData.checkPenalty } : {}),
+        ...(typeof systemData.speedPenaltyFeet === 'number' ? { speedPenaltyFeet: systemData.speedPenaltyFeet } : {}),
       },
       warnings,
     }
@@ -283,6 +287,10 @@ function classifyItem(document, usage, systemData) {
       classification: { role: 'shield', subtype: systemData.group ?? null },
       usage: { raw: usage.raw, mode: 'held', hands: 1, placement: null },
       equipment: { equippable: true, options: shieldOptions() },
+      shield: {
+        ...(typeof systemData.ac === 'number' ? { ac: systemData.ac } : {}),
+        ...(typeof systemData.speedPenaltyFeet === 'number' ? { speedPenaltyFeet: systemData.speedPenaltyFeet } : {}),
+      },
       warnings,
     }
   }
@@ -407,6 +415,10 @@ function normalizeItem(document, filePath) {
     stackGroup: stringValue(system.stackGroup) || undefined,
     damage: damageFor(document),
     ac: system.acBonus !== undefined ? numberValue(system.acBonus) : undefined,
+    dexCap: system.dexCap !== undefined ? numberValue(system.dexCap) : undefined,
+    strengthRequirement: system.strength !== undefined ? numberValue(system.strength) : undefined,
+    checkPenalty: system.checkPenalty !== undefined ? numberValue(system.checkPenalty) : undefined,
+    speedPenaltyFeet: system.speedPenalty !== undefined ? numberValue(system.speedPenalty) : undefined,
     description: cleanText(system.description?.value) || undefined,
     publicationTitle: stringValue(publication.title) || undefined,
     remaster: Boolean(publication.remaster),
@@ -435,6 +447,7 @@ function normalizeItem(document, filePath) {
     ...(normalized.ammunition ? { ammunition: normalized.ammunition } : {}),
     ...(normalized.weapon ? { weapon: normalized.weapon } : {}),
     ...(normalized.armor ? { armor: normalized.armor } : {}),
+    ...(normalized.shield ? { shield: normalized.shield } : {}),
     systemData,
     ...(normalized.warnings.length > 0 ? { normalizationWarnings: normalized.warnings } : {}),
   }

@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
+import { isPathfinder2eIdentityComplete } from '../game_systems/pathfinder_2e/character_sheet'
 import { findBestiaryCreature, findBestiaryEntry } from '../game_systems/bestiary/registry'
 import { generateInviteCode } from './invite-code'
 import { presentCampaignDashboardEntry } from './presenter'
@@ -541,6 +542,8 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             id: true,
             name: true,
             avatarUrl: true,
+            system: true,
+            sheet: true,
           },
         },
       },
@@ -560,6 +563,9 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       avatarUrl: campaignCharacter.character.avatarUrl,
       role: campaignCharacter.role,
       status: campaignCharacter.status,
+      needsSheetSetup: campaignCharacter.role === 'PLAYER' &&
+        campaignCharacter.character.system === 'PATHFINDER_2E' &&
+        !isPathfinder2eIdentityComplete(campaignCharacter.character.sheet),
     })
   })
 

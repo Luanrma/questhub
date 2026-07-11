@@ -178,6 +178,7 @@ type CharacterTokenSheet = {
   characterId: string
   characterName: string
   readOnly: boolean
+  identityLocked: boolean
 }
 
 type InventoryTokenModal = {
@@ -1639,7 +1640,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
   function openCharacterTokenSheet(token: VttPlayerToken) {
     if (!canOpenCharacterTokenSheet(token) || !token.characterId) return
-    setCharacterTokenSheet({ characterId: token.characterId, characterName: token.name, readOnly: token.ownerUserId !== me?.id })
+    setCharacterTokenSheet({
+      characterId: token.characterId,
+      characterName: token.name,
+      readOnly: !isMaster && token.ownerUserId !== me?.id,
+      identityLocked: !isMaster,
+    })
     setTokenContextMenu(null)
   }
 
@@ -3046,6 +3052,9 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
           characterId={characterTokenSheet.characterId}
           characterName={characterTokenSheet.characterName}
           readOnly={characterTokenSheet.readOnly}
+          identityLocked={characterTokenSheet.identityLocked}
+          campaignId={campaignId}
+          socket={socket}
           onClose={() => setCharacterTokenSheet(null)}
         />
       ) : null}

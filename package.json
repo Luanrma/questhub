@@ -14,6 +14,7 @@
     "lint:web": "eslint apps/web --config apps/web/eslint.config.js",
     "test:unit": "tsc -p apps/api/tsconfig.test.json && node scripts/prepare-unit-test-output.cjs && node .tmp/api-tests/apps/api/src/unit.test.js",
     "quality:prepush": "npm run test:unit",
+    "generate:pf2e-character-options": "node scripts/generate-pf2e-character-options.cjs",
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy"

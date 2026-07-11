@@ -1,7 +1,30 @@
 import { PROFICIENCY_RANKS } from './constants'
-import type { Pathfinder2eSheet } from './models'
+import type { Pathfinder2eBuildChoices } from '../character-options/models'
+import type { Pathfinder2eSheetV2 } from './models'
 
-export const defaultPathfinder2eSheet: Pathfinder2eSheet = {
+export const defaultPathfinder2eBuildChoices: Pathfinder2eBuildChoices = {
+  ancestry: {
+    boosts: {},
+    flaws: {},
+    alternateBoostsEnabled: false,
+    additionalLanguages: [],
+    ruleSelections: {},
+  },
+  heritage: {
+    ruleSelections: {},
+  },
+  background: {
+    boosts: {},
+    ruleSelections: {},
+  },
+  class: {
+    keyAbility: null,
+    trainedSkills: [],
+    ruleSelections: {},
+  },
+}
+
+export const defaultPathfinder2eSheet: Pathfinder2eSheetV2 = {
   general: {
     experience: {
       current: 0,
@@ -11,11 +34,12 @@ export const defaultPathfinder2eSheet: Pathfinder2eSheet = {
   },
   identity: {
     level: 1,
-    ancestry: '',
-    heritage: '',
-    background: '',
-    className: '',
+    ancestry: null,
+    heritage: null,
+    background: null,
+    class: null,
   },
+  buildChoices: defaultPathfinder2eBuildChoices,
   attributes: {
     strength: 10,
     dexterity: 10,
@@ -32,7 +56,15 @@ export const defaultPathfinder2eSheet: Pathfinder2eSheet = {
     dying: 0,
     doomed: 0,
   },
-  armorClass: 10,
+  armorClass: {
+    manualAdjustment: 0,
+  },
+  armorProficiencies: {
+    unarmored: PROFICIENCY_RANKS.TRAINED,
+    light: PROFICIENCY_RANKS.UNTRAINED,
+    medium: PROFICIENCY_RANKS.UNTRAINED,
+    heavy: PROFICIENCY_RANKS.UNTRAINED,
+  },
   initiative: 0,
   perception: {
     rank: PROFICIENCY_RANKS.UNTRAINED,

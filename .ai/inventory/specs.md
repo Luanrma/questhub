@@ -205,7 +205,7 @@ Regras:
 * `inventoryItemId` unico impede equipar a mesma instancia duas vezes.
 * `equipmentOptionKey` e uma chave opaca escolhida pelo adapter do sistema.
 * `resourceLocks` e um JSON opaco para o core contendo os recursos consumidos pelo equipamento, como retornados pelo adapter do sistema.
-* `systemData` guarda metadados especificos do sistema sobre aquele estado equipado.
+* `systemData` guarda metadados especificos do sistema sobre aquele estado equipado (ex.: em Pathfinder 2e, `shieldRaised: boolean` para o toggle de escudo erguido usado pelo calculo de Armor Class — ver `.ai/game_systems/pathfinder_2e/armor_class/specs.md` secao 5).
 * O core nao conhece maos, armaduras, escudos, body slots, investidura ou qualquer outra regra mecanica.
 * Conflitos, capacidades e mensagens de erro devem ser calculados pelo `InventorySystemAdapter` dentro do fluxo transacional de equipar.
 
@@ -674,6 +674,49 @@ Erros: `401` (nao autenticado), `403 FORBIDDEN` (sem permissao para ver este inv
 
 Este endpoint e deliberadamente separado de `GET /api/campaigns/:campaignId/items/:itemId` (secao do modulo `game_systems/items`), que continua restrito ao Mestre e indexado por id de catalogo — a Mochila e acessivel por jogadores donos do proprio personagem, e o unico dado que o cliente possui e o `inventoryItemId`, nao o id de catalogo.
 
+### 6.13. Fatos de equipamento para Armor Class (Pathfinder 2e)
+
+```txt
+GET /api/campaigns/:campaignId/characters/:characterId/armor-class-equipment
+```
+
+**Decisao registrada:** endpoint generico do modulo `inventory`, mas cujo conteudo e inteiramente resolvido pelo `InventorySystemAdapter` do sistema da campanha (capacidade opcional `resolveArmorClassEquipment`). O core so orquestra permissao e busca do inventario; nao interpreta armadura/escudo. Contrato completo da formula que consome esta resposta em `.ai/game_systems/pathfinder_2e/armor_class/specs.md`.
+
+Permissao: mesma de "Ver inventario" (secao 8) — Mestre ativo sempre; dono jogador ativo para o proprio personagem; nenhum outro jogador.
+
+Resposta:
+
+```ts
+type ArmorClassEquipmentResponse = {
+  system: string
+  armor: { equippedItemId: string; category: string; itemBonus: number; dexCap: number | null } | null
+  shield: { equippedItemId: string; itemBonus: number; raised: boolean } | null
+}
+```
+
+Erros: `401` nao autenticado; `403 FORBIDDEN` sem permissao; `404 CAMPAIGN_CHARACTER_NOT_FOUND` personagem nao encontrado na campanha.
+
+### 6.14. Alternar escudo erguido (Pathfinder 2e)
+
+```txt
+PATCH /api/campaigns/:campaignId/equipped-items/:equippedItemId/shield
+```
+
+Payload:
+
+```ts
+type ToggleShieldRaisedRequest = { raised: boolean }
+```
+
+Regras:
+
+* item alvo deve ter `classification.role === 'shield'` (validado via `CatalogSheetLookupPort`/definicao do item), senao `400 INVALID_PAYLOAD`;
+* item deve pertencer ao personagem do ator (dono ativo) ou o ator deve ser o Mestre ativo da campanha, senao `403 FORBIDDEN`;
+* grava `raised` em `EquippedItem.systemData.shieldRaised` (opaco, interpretado apenas pelo adapter PF2e);
+* emite `inventory:changed` com `reason: 'ITEM_UPDATED'` (valor ja existente no union, sem novo reason) e `changedItemIds: [inventoryItemId]`.
+
+Erros: `401` nao autenticado; `403 FORBIDDEN`; `404 EQUIPPED_ITEM_NOT_FOUND`; `400 INVALID_PAYLOAD`.
+
 ---
 
 ## 7. Contratos WebSocket
@@ -743,6 +786,8 @@ Visibilidade:
 | Remover item | Sim | Configuravel futuramente | Nao |
 | Equipar item | Sim | Sim | Nao |
 | Desequipar item | Sim | Sim | Nao |
+| Ver fatos de equipamento para AC | Sim | Sim (proprio) | Nao |
+| Alternar escudo erguido | Sim | Sim (proprio) | Nao |
 | Transferir item proprio | Sim | Configuravel | Nao |
 | Ajustar dinheiro livremente | Sim | Nao | Nao |
 | Transferir dinheiro proprio | Sim | Configuravel | Nao |

@@ -94,12 +94,25 @@ export type EquipmentValidationResult =
       details?: unknown
     }
 
+export type ArmorClassEquipmentResolution = {
+  armor: { equippedItemId: string; category: string; itemBonus: number; dexCap: number | null } | null
+  shield: { equippedItemId: string; itemBonus: number; raised: boolean } | null
+}
+
 export interface InventorySystemAdapter {
   listEquipmentOptions(): EquipmentOption[]
   getEquipmentOptions?(item: UniversalItemDefinition): EquipmentOption[]
   listEquippedGroups(input: EquipmentGroupingInput): EquipmentGroup[]
   validateEquipment(input: EquipmentValidationInput): EquipmentValidationResult
   normalizeItemData(input: unknown): UniversalItemDefinition
+  /**
+   * Resolve fatos de equipamento (armadura/escudo) para o calculo de Armor
+   * Class. Capacidade opcional — sistemas sem Armor Class dinamico (ex.:
+   * D&D 5e) simplesmente nao a implementam. O modulo `inventory` nunca
+   * interpreta armadura/escudo diretamente; ver
+   * .ai/game_systems/pathfinder_2e/armor_class/specs.md secao 4.
+   */
+  resolveArmorClassEquipment?(input: EquipmentGroupingInput): ArmorClassEquipmentResolution
 }
 
 export interface CurrencySystemAdapter {

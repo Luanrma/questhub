@@ -79,3 +79,30 @@ test('generated PF2e catalog creates explicit hand options', () => {
   )
   assert.deepEqual(splitheadBow.weapon?.ammunition?.acceptedKinds, ['arrow'])
 })
+
+test('generated PF2e catalog captures armor class mechanics for armor', () => {
+  const breastplate = itemById('pf2e:equipment:breastplate')
+  assert.equal(breastplate.classification.role, 'armor')
+  assert.equal(breastplate.armor?.category, 'medium')
+  assert.equal(breastplate.armor?.ac, 4)
+  assert.equal(breastplate.armor?.dexCap, 1)
+  assert.equal(breastplate.armor?.checkPenalty, -2)
+  assert.equal(breastplate.armor?.speedPenaltyFeet, -5)
+  assert.equal(breastplate.armor?.strengthRequirement, 3)
+  assert.equal(breastplate.systemData.dexCap, 1)
+  assert.equal(breastplate.systemData.checkPenalty, -2)
+  assert.equal(breastplate.systemData.speedPenaltyFeet, -5)
+  assert.equal(breastplate.systemData.strengthRequirement, 3)
+})
+
+test('generated PF2e catalog captures armor class mechanics for shields', () => {
+  const steelShield = itemById('pf2e:equipment:steel-shield')
+  assert.equal(steelShield.classification.role, 'shield')
+  assert.equal(steelShield.shield?.ac, 2)
+})
+
+test('generated PF2e catalog leaves dexCap undefined for unarmored/no-cap items', () => {
+  const crown = itemById('pf2e:equipment:beguiling-crown')
+  assert.equal(crown.armor, undefined)
+  assert.equal(crown.systemData.dexCap, undefined)
+})

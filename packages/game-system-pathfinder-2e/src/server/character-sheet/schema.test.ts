@@ -13,7 +13,28 @@ test('pathfinder2eSheetSchema accepts the default sheet', () => {
 test('pathfinder2eSheetSchema rejects decimal numbers', () => {
   const parsed = pathfinder2eSheetSchema.safeParse({
     ...defaultPathfinder2eSheet,
-    armorClass: 10.5,
+    armorClass: { manualAdjustment: 10.5 },
+  })
+
+  assert.equal(parsed.success, false)
+})
+
+test('pathfinder2eSheetSchema accepts negative armor class manual adjustment', () => {
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    armorClass: { manualAdjustment: -2 },
+  })
+
+  assert.equal(parsed.success, true)
+})
+
+test('pathfinder2eSheetSchema rejects unsupported armor proficiency ranks', () => {
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    armorProficiencies: {
+      ...defaultPathfinder2eSheet.armorProficiencies,
+      medium: 3,
+    },
   })
 
   assert.equal(parsed.success, false)
