@@ -67,6 +67,10 @@ type Pathfinder2eAttributes = {
   charisma: number
 }
 
+// A partir da evolucao de vida maxima calculada (ver
+// .ai/game_systems/pathfinder_2e/hit_points/specs.md secao 4), `maximum` e
+// recalculado automaticamente pelo frontend e `manualAdjustment` participa da
+// formula. Mudanca aditiva: nao ha nova versao de envelope.
 type Pathfinder2eHitPoints = {
   maximum: number
   current: number
@@ -74,6 +78,7 @@ type Pathfinder2eHitPoints = {
   wounded: number
   dying: number
   doomed: number
+  manualAdjustment: number
 }
 
 type Pathfinder2eProficiencyRank = 0 | 2 | 4 | 6 | 8
@@ -156,7 +161,8 @@ type Pathfinder2eSkills = {
     "temporary": 0,
     "wounded": 0,
     "dying": 0,
-    "doomed": 0
+    "doomed": 0,
+    "manualAdjustment": 0
   },
   "armorClass": {
     "manualAdjustment": 0
@@ -269,6 +275,7 @@ type Pathfinder2eSkills = {
 * `hitPoints.wounded` deve ser maior ou igual a `0`.
 * `hitPoints.dying` deve ser maior ou igual a `0`.
 * `hitPoints.doomed` deve ser maior ou igual a `0`.
+* `hitPoints.manualAdjustment` pode ser qualquer inteiro (bonus ou penalidade de circunstancia/status a vida maxima); ausente em fichas antigas assume `0`.
 * `armorClass.manualAdjustment` pode ser qualquer inteiro (bonus ou penalidade de circunstancia/status).
 * `armorProficiencies.unarmored`/`light`/`medium`/`heavy` seguem a mesma lista de ranks de proficiencia validos.
 * `initiative` pode ser qualquer inteiro.
@@ -420,13 +427,30 @@ Compatibilidade:
 * o backend deve continuar aceitando o formato antigo (`armorClass: number`) na leitura/validacao de entrada durante a janela de transicao, migrando antes de persistir;
 * novas escritas nunca gravam `armorClass: number`.
 
+## 7.2 Evolucao — Vida Maxima Calculada
+
+**Decisao registrada:** `hitPoints.maximum` deixa de ser um numero digitado a mao. Contrato completo, formula e regras de reconciliacao de `current` em `.ai/game_systems/pathfinder_2e/hit_points/`; esta secao documenta apenas o impacto no envelope/schema da ficha.
+
+Mudancas de contrato:
+* campo novo `hitPoints.manualAdjustment: number` (ajuste manual de circunstancia/status a vida maxima, mesmo espirito de `armorClass.manualAdjustment`);
+* `hitPoints.maximum` continua sendo um numero persistido comum — ao contrario de Armor Class, nao passa a ser "sempre derivado em leitura", pois precisa coexistir com `hitPoints.current` (dano acumulado) de forma consistente entre escritas;
+* `hitPoints.maximum` e recalculado automaticamente pelo frontend (nao pelo backend) sempre que nivel, Constituicao, ancestralidade, classe ou `manualAdjustment` mudarem, seguindo o mesmo padrao ja usado para `skills`/`savingThrows`/`perception` (secao 8: frontend calcula, backend so valida o snapshot).
+
+Migracao:
+* mudanca aditiva — `maximum`/`current`/`temporary`/`wounded`/`dying`/`doomed` nao mudam de forma; **nao ha novo valor de `PATHFINDER_2E_SHEET_VERSION`** nem migracao dedicada, ao contrario da evolucao de Armor Class (que trocou `armorClass: number` por objeto);
+* fichas sem `hitPoints.manualAdjustment` validam com o valor assumindo `0` (`schema.ts`, `.default(0)`).
+
+Compatibilidade:
+* o backend continua aceitando e validando fichas sem `manualAdjustment`;
+* novas escritas sempre gravam `manualAdjustment` (default `0` quando o formulario nao o alterar).
+
 ## 8. Criterios De Aceitacao
 * Nova ficha Pathfinder 2e deve nascer com o default documentado.
 * Ficha Pathfinder 2e deve ser persistida em `data.pathfinder2e`.
 * Ficha deve poder ser salva com textos vazios.
 * Backend deve rejeitar numeros decimais.
 * Backend deve rejeitar ranks fora da lista canonica.
-* Backend nao deve calcular valores derivados neste MVP para pericias/saves/percepcao; ele apenas valida e persiste o snapshot calculado pelo frontend. Armor Class e excecao: nenhum total e persistido (nem pelo frontend, nem pelo backend); o backend so valida `armorProficiencies` e `armorClass.manualAdjustment`, e o total e sempre derivado em tempo de leitura — ver `.ai/game_systems/pathfinder_2e/armor_class/specs.md`.
+* Backend nao deve calcular valores derivados neste MVP para pericias/saves/percepcao/vida maxima; ele apenas valida e persiste o snapshot calculado pelo frontend. Armor Class e excecao: nenhum total e persistido (nem pelo frontend, nem pelo backend); o backend so valida `armorProficiencies` e `armorClass.manualAdjustment`, e o total e sempre derivado em tempo de leitura — ver `.ai/game_systems/pathfinder_2e/armor_class/specs.md`. Vida maxima segue o padrao de pericias/saves (snapshot persistido, recalculado pelo frontend) — ver `.ai/game_systems/pathfinder_2e/hit_points/specs.md`.
 * Frontend deve exibir labels em portugues e persistir chaves em ingles.
 * Frontend deve distribuir a ficha em abas de icones, sem botoes `Anterior` e `Proxima`.
 * A lista de paginas, labels e icones da ficha Pathfinder 2e deve ser declarada dentro de `apps/web/src/game-systems/pathfinder-2e/character-sheet`.

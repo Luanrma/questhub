@@ -24,7 +24,7 @@ test('pathfinder2eSheetAdapter.health.write updates only the hit points fields',
 
   const next = pathfinder2eSheetAdapter.health?.write(sheet, { current: 4, max: 30, temporary: 0 })
 
-  assert.deepEqual(next?.hitPoints, { current: 4, maximum: 30, temporary: 0, wounded: 1, dying: 0, doomed: 0 })
+  assert.deepEqual(next?.hitPoints, { current: 4, maximum: 30, temporary: 0, wounded: 1, dying: 0, doomed: 0, manualAdjustment: 0 })
   assert.equal(next?.notes, 'ficha do jogador')
 })
 

@@ -20,6 +20,7 @@ type Props = {
   readOnly?: boolean
   forceSetup?: boolean
   identityLocked?: boolean
+  isGameMaster?: boolean
 }
 
 export function CharacterSheetModal({
@@ -33,6 +34,7 @@ export function CharacterSheetModal({
   readOnly = false,
   forceSetup = false,
   identityLocked = false,
+  isGameMaster = false,
 }: Props) {
   const modalRef = useRef<HTMLDivElement | null>(null)
   const [page, setPage] = useState(0)
@@ -54,6 +56,7 @@ export function CharacterSheetModal({
   const currentPageTitle = pageDefinitions[page]?.title ?? pageDefinitions[0].title
   const canSave = Boolean(sheet && !loading && !saving && !readOnly)
   const effectiveIdentityLocked = readOnly || identityLocked
+  const effectiveIsGameMaster = isGameMaster && !readOnly
 
   useEffect(() => {
     let cancelled = false
@@ -233,6 +236,7 @@ export function CharacterSheetModal({
                 sheet,
                 onChangeSheet: readOnly ? () => undefined : setSheet,
                 identityLocked: effectiveIdentityLocked,
+                isGameMaster: effectiveIsGameMaster,
                 characterId,
                 campaignId,
                 socket,

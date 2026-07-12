@@ -6,6 +6,7 @@ import { LoginPage } from './features/auth/pages/LoginPage'
 import { RegisterPage } from './features/auth/pages/RegisterPage'
 import { CampaignBestiaryPage } from './features/bestiary/pages/CampaignBestiaryPage'
 import { CampaignItemsPage } from './features/items/pages/CampaignItemsPage'
+import { CampaignSpellsPage } from './features/spells/pages/CampaignSpellsPage'
 import { CampaignPlayersPage } from './features/campaign-presence/pages/CampaignPlayersPage'
 import { CampaignCreatePage } from './features/campaigns/pages/CampaignCreatePage'
 import { CampaignJoinPage } from './features/campaigns/pages/CampaignJoinPage'
@@ -44,6 +45,7 @@ export default function App() {
         <Route path="/campaign/:campaignId/characters" element={<PlaceholderPage title="Personagens" />} />
         <Route path="/campaign/:campaignId/bestiary" element={<CampaignBestiaryPage />} />
         <Route path="/campaign/:campaignId/items" element={<CampaignItemsPage />} />
+        <Route path="/campaign/:campaignId/spells" element={<CampaignSpellsPage />} />
         <Route path="/campaign/:campaignId/players" element={<CampaignPlayersPage />} />
         <Route path="/campaign/:campaignId/journal" element={<PlaceholderPage title="Diário" />} />
         <Route path="/campaign/:campaignId/settings" element={<CampaignSettingsPage />} />

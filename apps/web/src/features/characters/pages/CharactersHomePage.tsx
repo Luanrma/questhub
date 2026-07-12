@@ -221,6 +221,7 @@ export function CharactersHomePage() {
           system={sheetCharacter.system === 'PATHFINDER_2E' ? 'PATHFINDER_2E' : null}
           campaignId={sheetCharacterCampaign?.campaign.id ?? null}
           identityLocked={sheetCharacter.hasSheet && !sheetCharacterIsMaster}
+          isGameMaster={sheetCharacterIsMaster}
           onClose={() => setSheetCharacter(null)}
           onSaved={(sheet: CharacterSheetEnvelope) => {
             setCharacters((current) =>

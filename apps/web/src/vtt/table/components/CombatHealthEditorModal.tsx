@@ -25,24 +25,36 @@ export function CombatHealthEditorModal({
   const [maxDraft, setMaxDraft] = useState(initialHealth ? String(initialHealth.maxHitPoints) : '')
   const [temporaryDraft, setTemporaryDraft] = useState(initialHealth ? String(initialHealth.temporaryHitPoints) : '')
   const [noteDraft, setNoteDraft] = useState('')
-  const [hasSyncedInitial, setHasSyncedInitial] = useState(Boolean(initialHealth))
   const currentCommittedRef = useRef(currentDraft)
   const maxCommittedRef = useRef(maxDraft)
   const temporaryCommittedRef = useRef(temporaryDraft)
 
+  // Resincroniza sempre que `initialHealth` trouxer um valor diferente do
+  // ultimo que este modal conhecia (ex.: Mestre editou a vida maxima direto
+  // na ficha, ou outro socket aplicou dano/cura) — nao apenas na primeira
+  // vez. So sobrescreve o campo cujo valor externo realmente mudou desde o
+  // ultimo sync/commit, para nao apagar uma edicao em andamento nos outros.
   useEffect(() => {
-    if (hasSyncedInitial || !initialHealth) return
-    const current = String(initialHealth.currentHitPoints)
-    const max = String(initialHealth.maxHitPoints)
-    const temporary = String(initialHealth.temporaryHitPoints)
-    setCurrentDraft(current)
-    setMaxDraft(max)
-    setTemporaryDraft(temporary)
-    currentCommittedRef.current = current
-    maxCommittedRef.current = max
-    temporaryCommittedRef.current = temporary
-    setHasSyncedInitial(true)
-  }, [initialHealth, hasSyncedInitial])
+    if (!initialHealth) return
+
+    const nextCurrent = String(initialHealth.currentHitPoints)
+    if (nextCurrent !== currentCommittedRef.current) {
+      currentCommittedRef.current = nextCurrent
+      setCurrentDraft(nextCurrent)
+    }
+
+    const nextMax = String(initialHealth.maxHitPoints)
+    if (nextMax !== maxCommittedRef.current) {
+      maxCommittedRef.current = nextMax
+      setMaxDraft(nextMax)
+    }
+
+    const nextTemporary = String(initialHealth.temporaryHitPoints)
+    if (nextTemporary !== temporaryCommittedRef.current) {
+      temporaryCommittedRef.current = nextTemporary
+      setTemporaryDraft(nextTemporary)
+    }
+  }, [initialHealth])
 
   const amount = Number(amountDraft)
   const canApplyAmount = amountDraft.trim() !== '' && Number.isFinite(amount) && amount > 0

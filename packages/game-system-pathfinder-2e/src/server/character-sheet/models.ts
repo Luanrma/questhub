@@ -41,6 +41,12 @@ export type Pathfinder2eAttributes = {
   charisma: number
 }
 
+// `maximum` e um snapshot persistido, recalculado pelo frontend a cada
+// mudanca de nivel/Constituicao/ancestralidade/classe/manualAdjustment
+// (mesmo padrao de skills/saves/perception, nao o de Armor Class). Formula e
+// regras de reconciliacao de `current` em
+// packages/game-system-pathfinder-2e/src/shared/hit-points.ts e
+// .ai/game_systems/pathfinder_2e/hit_points/specs.md.
 export type Pathfinder2eHitPoints = {
   maximum: number
   current: number
@@ -48,6 +54,7 @@ export type Pathfinder2eHitPoints = {
   wounded: number
   dying: number
   doomed: number
+  manualAdjustment: number
 }
 
 export type Pathfinder2eProficiencyValue = {

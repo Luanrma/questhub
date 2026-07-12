@@ -28,6 +28,35 @@ test('pathfinder2eSheetSchema accepts negative armor class manual adjustment', (
   assert.equal(parsed.success, true)
 })
 
+test('pathfinder2eSheetSchema accepts negative hit points manual adjustment', () => {
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    hitPoints: { ...defaultPathfinder2eSheet.hitPoints, manualAdjustment: -3 },
+  })
+
+  assert.equal(parsed.success, true)
+})
+
+test('pathfinder2eSheetSchema rejects decimal hit points manual adjustment', () => {
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    hitPoints: { ...defaultPathfinder2eSheet.hitPoints, manualAdjustment: 1.5 },
+  })
+
+  assert.equal(parsed.success, false)
+})
+
+test('pathfinder2eSheetSchema defaults hit points manual adjustment to 0 for legacy sheets without it', () => {
+  const { manualAdjustment: _legacyManualAdjustment, ...legacyHitPoints } = defaultPathfinder2eSheet.hitPoints
+  const parsed = pathfinder2eSheetSchema.safeParse({
+    ...defaultPathfinder2eSheet,
+    hitPoints: legacyHitPoints,
+  })
+
+  assert.equal(parsed.success, true)
+  if (parsed.success) assert.equal(parsed.data.hitPoints.manualAdjustment, 0)
+})
+
 test('pathfinder2eSheetSchema rejects unsupported armor proficiency ranks', () => {
   const parsed = pathfinder2eSheetSchema.safeParse({
     ...defaultPathfinder2eSheet,

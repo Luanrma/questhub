@@ -48,7 +48,8 @@
     "temporary": 0,
     "wounded": 0,
     "dying": 0,
-    "doomed": 0
+    "doomed": 0,
+    "manualAdjustment": 0
   },
   "armorClass": {
     "manualAdjustment": 0

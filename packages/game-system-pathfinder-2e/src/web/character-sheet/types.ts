@@ -101,6 +101,7 @@ export type Pathfinder2eSheetBase = {
     wounded: number
     dying: number
     doomed: number
+    manualAdjustment: number
   }
   initiative: number
   perception: Pathfinder2eProficiencyValue

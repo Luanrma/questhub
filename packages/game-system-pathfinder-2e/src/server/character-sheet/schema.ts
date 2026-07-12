@@ -148,6 +148,10 @@ const baseSheetFields = {
       wounded: nonNegativeIntegerSchema,
       dying: nonNegativeIntegerSchema,
       doomed: nonNegativeIntegerSchema,
+      // Aditivo (ver .ai/game_systems/pathfinder_2e/hit_points/specs.md secao 4):
+      // fichas persistidas antes desta feature nao tem este campo, entao o
+      // default cobre a leitura sem exigir migracao de versao de envelope.
+      manualAdjustment: integerSchema.default(0),
     })
     .strict(),
   initiative: integerSchema,

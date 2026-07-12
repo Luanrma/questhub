@@ -55,6 +55,7 @@ export const defaultPathfinder2eSheet: Pathfinder2eSheetV2 = {
     wounded: 0,
     dying: 0,
     doomed: 0,
+    manualAdjustment: 0,
   },
   armorClass: {
     manualAdjustment: 0,

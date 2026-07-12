@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2023",
-    "lib": ["ES2023"],
+    "lib": ["ES2023", "DOM"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    "types": ["node"],
+    "types": ["node", "vite/client"],
+    "jsx": "react-jsx",
     "noImplicitAny": false,
     "strictNullChecks": true,
     "skipLibCheck": true,
@@ -15,5 +16,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/server/**/*.ts", "src/shared/**/*.ts"]
+  "include": ["src/server/**/*.ts", "src/shared/**/*.ts", "src/web/**/*.ts", "src/web/**/*.tsx", "src/web/**/*.d.ts"]
 }

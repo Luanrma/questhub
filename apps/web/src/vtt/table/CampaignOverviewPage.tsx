@@ -175,10 +175,12 @@ type SceneRenderTarget = {
 }
 
 type CharacterTokenSheet = {
+  tokenId: string
   characterId: string
   characterName: string
   readOnly: boolean
   identityLocked: boolean
+  isGameMaster: boolean
 }
 
 type InventoryTokenModal = {
@@ -1641,10 +1643,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   function openCharacterTokenSheet(token: VttPlayerToken) {
     if (!canOpenCharacterTokenSheet(token) || !token.characterId) return
     setCharacterTokenSheet({
+      tokenId: token.id,
       characterId: token.characterId,
       characterName: token.name,
       readOnly: !isMaster && token.ownerUserId !== me?.id,
       identityLocked: !isMaster,
+      isGameMaster: isMaster,
     })
     setTokenContextMenu(null)
   }
@@ -3053,8 +3057,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
           characterName={characterTokenSheet.characterName}
           readOnly={characterTokenSheet.readOnly}
           identityLocked={characterTokenSheet.identityLocked}
+          isGameMaster={characterTokenSheet.isGameMaster}
           campaignId={campaignId}
           socket={socket}
+          onSaved={() => {
+            if (campaignId && socket) {
+              socket.emit('vtt:combat:health:request', { campaignId, tokenId: characterTokenSheet.tokenId })
+            }
+          }}
           onClose={() => setCharacterTokenSheet(null)}
         />
       ) : null}

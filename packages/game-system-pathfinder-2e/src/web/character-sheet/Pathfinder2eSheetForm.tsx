@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { BadgeCheck, BookOpen, Compass, Dumbbell, Feather, Pencil, Sparkles, type LucideIcon } from 'lucide-react'
 import type { Socket } from 'socket.io-client'
 import './Pathfinder2eSheetForm.css'
 import { calculateArmorClass, normalizePathfinder2eArmorCategory } from '../../shared/armor-class'
+import { applyMaximumHitPointsIncrease, calculateMaximumHitPoints, initializeCurrentHitPoints } from '../../shared/hit-points'
 import {
   PATHFINDER_2E_ATTRIBUTE_KEY_BY_SLUG,
   derivePathfinder2eAttributeScoresFromBuildChoices,
@@ -29,6 +30,7 @@ type Props = {
   sheet: Pathfinder2eSheetEnvelope
   onChangeSheet: (sheet: Pathfinder2eSheetEnvelope) => void
   identityLocked?: boolean
+  isGameMaster?: boolean
   characterId?: string | null
   campaignId?: string | null
   socket?: Socket | null
@@ -49,11 +51,13 @@ type Pathfinder2eAttributeChoice = {
 type CharacterOptionSystemData =
   | {
       kind: 'class'
+      hitPointsPerLevel: number
       keyAbility: { options: Pathfinder2eAttributeSlug[] }
       trainedSkills: { fixed: string[]; additional: number }
     }
   | {
       kind: 'ancestry'
+      hitPoints: number
       languages: { additional: { count: number; options: string[]; custom: string | null } }
       attributes: {
         boosts: Pathfinder2eAttributeChoice[]
@@ -120,7 +124,7 @@ export const pathfinder2eCharacterSheetRenderer = {
     { title: 'Atributos', Icon: Dumbbell },
     { title: 'Proficiências', Icon: BadgeCheck },
   ],
-  renderPage({ page, characterName, sheet, onChangeSheet, identityLocked, characterId, campaignId, socket }: Props) {
+  renderPage({ page, characterName, sheet, onChangeSheet, identityLocked, isGameMaster, characterId, campaignId, socket }: Props) {
     return (
       <Pathfinder2eSheetForm
         page={page}
@@ -128,6 +132,7 @@ export const pathfinder2eCharacterSheetRenderer = {
         sheet={sheet}
         onChangeSheet={onChangeSheet}
         identityLocked={identityLocked}
+        isGameMaster={isGameMaster}
         characterId={characterId}
         campaignId={campaignId}
         socket={socket}
@@ -209,6 +214,8 @@ const DEFAULT_ARMOR_PROFICIENCIES: Pathfinder2eArmorProficiencies = {
 const DEFAULT_ARMOR_CLASS: Pathfinder2eArmorClassManual = {
   manualAdjustment: 0,
 }
+
+const HIT_POINTS_COMBAT_ONLY_TOOLTIP = 'Dano e cura sao aplicados pelo Mestre no editor de HP do token, durante o combate.'
 
 type ArmorProficiencyDefinition = {
   key: ArmorProficiencyKey
@@ -903,12 +910,48 @@ export function Pathfinder2eSheetForm({
   sheet,
   onChangeSheet,
   identityLocked = false,
+  isGameMaster = false,
   characterId = null,
   campaignId = null,
   socket = null,
 }: Props) {
   const pathfinder2e = withDefaultArmorClass(withCalculatedSkills(sheet.data.pathfinder2e))
   const { equipment: armorClassEquipment, reload: reloadArmorClassEquipment } = useArmorClassEquipment(campaignId, characterId, socket)
+
+  const classDetailsForHitPoints = useCharacterOptionDetails('class', getIdentitySelection(pathfinder2e, 'class'))
+  const ancestryDetailsForHitPoints = useCharacterOptionDetails('ancestry', getIdentitySelection(pathfinder2e, 'ancestry'))
+  const classDataForHitPoints = classDetailsForHitPoints?.systemData.kind === 'class' ? classDetailsForHitPoints.systemData : null
+  const ancestryDataForHitPoints = ancestryDetailsForHitPoints?.systemData.kind === 'ancestry' ? ancestryDetailsForHitPoints.systemData : null
+
+  const hitPointsLevel = getSheetLevel(pathfinder2e)
+  const constitutionModifier = getAttributeModifier(pathfinder2e.attributes.constitution)
+  const hpBreakdown = calculateMaximumHitPoints({
+    level: hitPointsLevel,
+    ancestryHitPoints: ancestryDataForHitPoints?.hitPoints ?? 0,
+    classHitPointsPerLevel: classDataForHitPoints?.hitPointsPerLevel ?? 0,
+    constitutionModifier,
+    manualAdjustment: pathfinder2e.hitPoints.manualAdjustment ?? 0,
+  })
+
+  const previousLevelForHitPointsRef = useRef(hitPointsLevel)
+
+  useEffect(() => {
+    const leveledUp = hitPointsLevel !== previousLevelForHitPointsRef.current
+    previousLevelForHitPointsRef.current = hitPointsLevel
+
+    const previousMaximum = pathfinder2e.hitPoints.maximum
+    if (hpBreakdown.maximum === previousMaximum) return
+
+    const nextCurrent = leveledUp
+      ? applyMaximumHitPointsIncrease(pathfinder2e.hitPoints.current, previousMaximum, hpBreakdown.maximum)
+      : initializeCurrentHitPoints(pathfinder2e.hitPoints.current, previousMaximum, hpBreakdown.maximum)
+
+    updatePathfinder2e((current) => ({
+      ...current,
+      hitPoints: { ...current.hitPoints, maximum: hpBreakdown.maximum, current: nextCurrent },
+    }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hpBreakdown.maximum])
 
   function updatePathfinder2e(update: (current: Pathfinder2eSheet) => Pathfinder2eSheet) {
     const nextPathfinder2e = update(pathfinder2e)
@@ -925,10 +968,10 @@ export function Pathfinder2eSheetForm({
     label: string,
     value: number,
     onChange: (value: number) => void,
-    options: { min?: number; decimal?: boolean } = {},
+    options: { min?: number; decimal?: boolean; disabled?: boolean; title?: string } = {},
   ) {
     return (
-      <label className="sheet-quick-number">
+      <label className="sheet-quick-number" title={options.title}>
         <span>{label}</span>
         <input
           type="number"
@@ -936,6 +979,7 @@ export function Pathfinder2eSheetForm({
           step={options.decimal ? 0.1 : 1}
           min={options.min}
           value={value}
+          disabled={options.disabled}
           onChange={(event) => {
             const next = options.decimal
               ? toBoundedNumber(event.target.value, options.min)
@@ -976,6 +1020,13 @@ export function Pathfinder2eSheetForm({
       equippedShield: armorClassEquipment?.shield ?? null,
       manualAdjustment: getArmorClassManual(pathfinder2e).manualAdjustment,
     })
+
+    const hpBreakdownTooltip = [
+      `${hpBreakdown.ancestryHitPoints} da ancestralidade`,
+      `${hpBreakdown.classTotal} da classe (${hpBreakdown.classHitPointsPerLevel}/nivel)`,
+      `${hpBreakdown.constitutionTotal} da Constituicao (mod ${hpBreakdown.constitutionModifier})`,
+      `${hpBreakdown.manualAdjustment} de ajuste manual`,
+    ].join('\n')
 
     return (
       <aside className="sheet-quick-summary" aria-label="Resumo rapido Pathfinder 2e">
@@ -1021,7 +1072,7 @@ export function Pathfinder2eSheetForm({
         {quickSectionTitle('Defesa')}
         <div className="sheet-quick-defense-row">
           {summaryValue('AC', armorClassBreakdown.total)}
-          <div className="sheet-quick-hp-card">
+          <div className="sheet-quick-hp-card" title={hpBreakdownTooltip}>
             <span>Vida (HP)</span>
             <strong>{pathfinder2e.hitPoints.current} / {pathfinder2e.hitPoints.maximum}</strong>
             <em>Temporaria {pathfinder2e.hitPoints.temporary}</em>
@@ -1032,13 +1083,13 @@ export function Pathfinder2eSheetForm({
         <div className="sheet-quick-health-row sheet-quick-life-row">
           {quickNumberInput('Maxima', pathfinder2e.hitPoints.maximum, (value) => {
             updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, maximum: value } }))
-          }, { min: 0 })}
+          }, { min: 0, disabled: !isGameMaster, title: hpBreakdownTooltip })}
           {quickNumberInput('Atual', pathfinder2e.hitPoints.current, (value) => {
             updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, current: value } }))
-          }, { min: 0 })}
+          }, { min: 0, disabled: true, title: HIT_POINTS_COMBAT_ONLY_TOOLTIP })}
           {quickNumberInput('Temporaria', pathfinder2e.hitPoints.temporary, (value) => {
             updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, temporary: value } }))
-          }, { min: 0 })}
+          }, { min: 0, disabled: true, title: HIT_POINTS_COMBAT_ONLY_TOOLTIP })}
         </div>
 
         <div className="sheet-quick-saves-row">
@@ -1055,6 +1106,10 @@ export function Pathfinder2eSheetForm({
 
         {quickNumberInput('Ajuste de AC', armorClassBreakdown.manualAdjustment, (value) => {
           updatePathfinder2e((current) => withArmorClassPatch(current, { armorClass: { manualAdjustment: value } }))
+        })}
+
+        {quickNumberInput('Ajuste manual de vida', pathfinder2e.hitPoints.manualAdjustment ?? 0, (value) => {
+          updatePathfinder2e((current) => ({ ...current, hitPoints: { ...current.hitPoints, manualAdjustment: value } }))
         })}
 
         {armorClassEquipment?.shield ? (

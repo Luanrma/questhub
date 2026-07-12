@@ -19,6 +19,7 @@ export type CharacterSheetRenderer = {
     sheet: CharacterSheetEnvelope
     onChangeSheet: (sheet: CharacterSheetEnvelope) => void
     identityLocked?: boolean
+    isGameMaster?: boolean
     characterId?: string | null
     campaignId?: string | null
     socket?: Socket | null

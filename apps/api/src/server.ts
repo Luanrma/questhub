@@ -14,6 +14,7 @@ import { registerCharacterSheetRoutes } from './modules/game_systems/routes'
 import { registerCharacterOptionsRoutes } from './modules/game_systems/character-options/routes'
 import { registerBestiaryRoutes } from './modules/game_systems/bestiary/routes'
 import { registerGameSystemItemsRoutes } from './modules/game_systems/items/routes'
+import { registerGameSystemSpellsRoutes } from './modules/game_systems/spells/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerInventoryRoutes, createSendCatalogItemToPlayer } from './modules/inventory'
 
@@ -65,6 +66,7 @@ registerCharacterSheetRoutes(app)
 registerCharacterOptionsRoutes(app)
 registerBestiaryRoutes(app)
 registerGameSystemItemsRoutes(app, { sendCatalogItemToPlayer: createSendCatalogItemToPlayer(presence.io) })
+registerGameSystemSpellsRoutes(app)
 registerCampaignRoutes(app, presence)
 registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app)
