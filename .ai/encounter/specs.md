@@ -63,6 +63,8 @@ Regras:
 * Ao voltar antes do primeiro participante, `activeTurnIndex` vai para o ultimo participante e `round` diminui ate o minimo de `1`.
 * Encerrar encontro remove o estado vivo.
 * Trocar a cena ativa remove o encontro vivo quando ele pertence a uma cena diferente.
+* `actionsRemaining` e o contador generico de acoes do participante criatura no turno. Movimento ja consome esse contador via `encounter_movement`; `spell_casting` tambem pode debitar 1/2/3 acoes quando uma magia PF2e com tempo simples e conjurada pelo token ativo.
+* `actionsRemaining` volta a 3 quando o turno chega no participante (`next-turn`/`previous-turn`/reset manual), junto com `metersUsedThisAction`.
 
 ## 2.1. Log de Batalha
 

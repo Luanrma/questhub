@@ -129,6 +129,9 @@ export function PlayerToken({
   movementGridSize,
   movementMetersPerCell,
   onMovementActionCommit,
+  spellTargetSelectionActive = false,
+  selectedAsSpellTarget = false,
+  onSpellTargetToggle,
 }: {
   token: VttPlayerToken
   tokenSize: number
@@ -154,6 +157,10 @@ export function PlayerToken({
   movementGridSize?: number
   movementMetersPerCell?: number
   onMovementActionCommit?: () => void
+  /** Modo de selecao de alvo da conjuracao (.ai/spell_casting/) — clique simples alterna o alvo em vez do comportamento normal do token. */
+  spellTargetSelectionActive?: boolean
+  selectedAsSpellTarget?: boolean
+  onSpellTargetToggle?: (token: VttPlayerToken) => void
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const actionReferencePositionRef = useRef(token.position)
@@ -352,6 +359,8 @@ export function PlayerToken({
   ])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (spellTargetSelectionActive) return
+
     if (event.ctrlKey && onMeasureFromToken) {
       onMeasureFromToken(event, token)
       return
@@ -396,6 +405,13 @@ export function PlayerToken({
   }
 
   function toggleEncounterSelection(event: React.MouseEvent<HTMLButtonElement>) {
+    if (spellTargetSelectionActive && onSpellTargetToggle) {
+      event.preventDefault()
+      event.stopPropagation()
+      onSpellTargetToggle(token)
+      return
+    }
+
     if (!event.shiftKey || !onEncounterSelectionToggle) return
 
     event.preventDefault()
@@ -430,6 +446,8 @@ export function PlayerToken({
                     : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
         isEncounterTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
         selectedForMeasuredMovement ? 'border-orange-200 ring-4 ring-orange-300/70 shadow-orange-500/30' : '',
+        spellTargetSelectionActive ? 'cursor-pointer' : '',
+        selectedAsSpellTarget ? 'border-purple-200 ring-4 ring-purple-400/70 shadow-purple-500/30' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}
       style={{
@@ -453,6 +471,9 @@ export function PlayerToken({
       ) : null}
       {selectedForMeasuredMovement ? (
         <span className="pointer-events-none absolute inset-[-8px] rounded-full border-2 border-orange-300/80 shadow-[0_0_22px_rgba(251,146,60,0.65)]" />
+      ) : null}
+      {selectedAsSpellTarget ? (
+        <span className="pointer-events-none absolute inset-[-8px] rounded-full border-2 border-purple-300/80 shadow-[0_0_22px_rgba(168,85,247,0.65)]" />
       ) : null}
       <span className="pointer-events-none grid h-full w-full place-items-center overflow-hidden rounded-full">
         {token.avatarUrl ? (

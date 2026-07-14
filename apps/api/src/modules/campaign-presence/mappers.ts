@@ -16,6 +16,7 @@ export type PersistedSceneToken = {
   source: 'CHARACTER' | 'BESTIARY'
   characterId: string | null
   bestiaryCreatureId: string | null
+  campaignNpcDefinitionId: string | null
   name: string | null
   avatarUrl: string | null
   tokenBorderColor: string | null
@@ -66,6 +67,7 @@ export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPla
       source: 'bestiary',
       characterId: null,
       bestiaryCreatureId: token.bestiaryCreatureId,
+      campaignNpcDefinitionId: token.campaignNpcDefinitionId,
       name: token.name ?? 'NPC',
       avatarUrl: token.avatarUrl,
       tokenBorderColor: token.tokenBorderColor,

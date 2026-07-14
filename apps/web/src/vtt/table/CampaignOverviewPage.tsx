@@ -23,6 +23,7 @@ import {
   Trash2,
   TriangleAlert,
   Users,
+  Wand2,
   X,
   Zap,
   ZoomIn,
@@ -49,7 +50,7 @@ import {
 } from '../dice-roller/infrastructure/storage/diceThemeStorage'
 import { VttDiceControls, type VttDiceControlsHandle } from '../dice-roller'
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../grid'
-import { questhubBestiaryDragType, questhubCharacterDragType, questhubHazardDragType, zoomLimits } from './config/constants'
+import { questhubBestiaryDragType, questhubCharacterDragType, questhubHazardDragType, questhubNpcDefinitionDragType, zoomLimits } from './config/constants'
 import {
   areMeasurementPointsEqual,
   clampMeasurementPoint,
@@ -80,6 +81,25 @@ import {
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { HazardMarker, PlayerToken, VttMeasurementOverlay } from './components/BoardOverlays'
+import { SpellAreaOverlayView } from './components/SpellAreaOverlay'
+import {
+  SpellCastPanel,
+  buildPathfinder2eAreaShape,
+  castSpell,
+  resolveSpellCast,
+  pathfinder2eFeetToCells,
+  type Pathfinder2eAreaPlacementRequest,
+  type Pathfinder2eTargetSelectionRequest,
+  type Pathfinder2eResolveResponse,
+} from '../../game-systems/pathfinder-2e/spell-casting'
+import {
+  NpcSpellCastPanel,
+  castNpcSpell,
+  resolveNpcSpellCast,
+  type Pathfinder2eNpcTargetSelectionRequest,
+} from '../../game-systems/pathfinder-2e/npc-spellcasting'
+import { distanceInCells, hexCellCenter, hexCellFromPoint, hexDistanceInCells } from '../../../../../packages/game-system-core/src/shared/scene-geometry'
+import type { SceneAreaShape, ScenePoint } from '../../../../../packages/game-system-core/src/shared/scene-geometry'
 import { CombatHealthEditorModal } from './components/CombatHealthEditorModal'
 import { EncounterTrackerPanel } from './components/EncounterTrackerPanel'
 import { BattleLogPanel } from './components/BattleLogPanel'
@@ -108,6 +128,8 @@ import type {
   VttPlayerToken,
   VttSceneChangedPayload,
   VttSceneHazard,
+  VttSpellAreaChangedPayload,
+  VttSpellAreaOverlay,
   VttTableScene,
   VttTokenCandidate,
   VttTokenChangedPayload,
@@ -190,6 +212,51 @@ type InventoryTokenModal = {
 
 type RightPanelTab = 'encounter' | 'players' | 'session' | 'scenes' | 'scene-hazards' | 'chat'
 
+type SpellPlacementState = {
+  request: Pathfinder2eAreaPlacementRequest
+  characterId: string
+  casterTokenId: string
+  casterName: string
+}
+
+type SpellTargetSelectionState = {
+  request: Pathfinder2eTargetSelectionRequest
+  characterId: string
+  casterTokenId: string
+  casterName: string
+  selectedTokenIds: string[]
+}
+
+const SPELL_AREA_COLOR = '#a855f7'
+const SPELL_AREA_EMIT_THROTTLE_MS = 50
+const SPELL_CAST_FLASH_MS = 2500
+const DEGREE_LABEL_PT: Record<Pathfinder2eResolveResponse['results'][number]['degree'], string> = {
+  criticalSuccess: 'resistiu com sucesso critico',
+  success: 'resistiu com sucesso',
+  failure: 'falhou',
+  criticalFailure: 'falhou criticamente',
+}
+// Tipos reais de area PF2e com cobertura hex (formas "redondas" — ver
+// .ai/scene_geometry/specs.md secao 7). Cone/linha/quadrado/cubo continuam
+// bloqueados em grid hexagonal.
+const HEX_SUPPORTED_SPELL_AREA_TYPES = new Set(['burst', 'emanation', 'cylinder'])
+
+function spellShapeAnchor(shape: SceneAreaShape): ScenePoint {
+  switch (shape.kind) {
+    case 'BURST':
+    case 'CYLINDER':
+    case 'EMANATION':
+    case 'RING':
+      return shape.center
+    case 'CONE':
+    case 'LINE':
+      return shape.origin
+    case 'CUBE':
+    case 'SQUARE':
+      return { x: shape.origin.x + shape.sizeCells / 2, y: shape.origin.y + shape.sizeCells / 2 }
+  }
+}
+
 export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, CampaignOverviewPageProps>(function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
@@ -254,6 +321,23 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
   const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
   const [encounterState, setEncounterState] = useState<VttEncounterState | null>(null)
+  const [spellCastTarget, setSpellCastTarget] = useState<{ characterId: string; tokenId: string; casterName: string } | null>(null)
+  const [npcSpellCastTarget, setNpcSpellCastTarget] = useState<{ definitionId: string; tokenId: string; casterName: string } | null>(null)
+  const [npcSpellTargetSelection, setNpcSpellTargetSelection] = useState<{
+    request: Pathfinder2eNpcTargetSelectionRequest
+    definitionId: string
+    casterTokenId: string
+    casterName: string
+    selectedTokenIds: string[]
+  } | null>(null)
+  const [spellPlacement, setSpellPlacement] = useState<SpellPlacementState | null>(null)
+  const [spellTargetSelection, setSpellTargetSelection] = useState<SpellTargetSelectionState | null>(null)
+  const [spellArea, setSpellArea] = useState<VttSpellAreaOverlay | null>(null)
+  const [spellCastFeedback, setSpellCastFeedback] = useState<string | null>(null)
+  const spellAreaEmitAtRef = useRef(0)
+  const spellFlashTimeoutRef = useRef<number | null>(null)
+  const spellFeedbackTimeoutRef = useRef<number | null>(null)
+  const spellCastingBusyRef = useRef(false)
   const [encounterTokenIds, setEncounterTokenIds] = useState<string[]>([])
   const [preselectedEncounterTokenIds, setPreselectedEncounterTokenIds] = useState<string[]>([])
   const [pendingEncounterHazardIds, setPendingEncounterHazardIds] = useState<string[]>([])
@@ -288,6 +372,27 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   })
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
+  const spellPlacementRangeRing = (() => {
+    if (!spellPlacement) return null
+    const { rangeKind, rangeFeet, area } = spellPlacement.request
+    if (rangeKind !== 'feet' || !rangeFeet) return null
+    // Emanacao/cone/linha partem do proprio conjurador — sem anel de alcance.
+    if (area.type === 'emanation' || area.type === 'cone' || area.type === 'line') return null
+    const casterToken = playerTokens.find((token) => token.id === spellPlacement.casterTokenId)
+    if (!casterToken) return null
+    const radiusCells = pathfinder2eFeetToCells(rangeFeet, gridSettings.metersPerCell)
+    if (radiusCells <= 0) return null
+    const anchor = spellArea ? spellShapeAnchor(spellArea.shape) : casterToken.position
+    const measuredDistance =
+      gridSettings.shape === 'hex'
+        ? hexDistanceInCells(casterToken.position, anchor)
+        : distanceInCells(casterToken.position, anchor)
+    return {
+      center: casterToken.position,
+      radiusCells,
+      withinRange: measuredDistance <= radiusCells + 0.001,
+    }
+  })()
   const positionedCharacterIds = new Set<string>()
   const positionedPlayerOwnerUserIds = new Set<string>()
   preparedScenes.forEach((scene) => {
@@ -371,6 +476,313 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
   function canOpenTokenContextMenu(token: VttPlayerToken) {
     return canOpenCharacterTokenSheet(token) || canOpenBestiaryTokenSheet(token)
+  }
+
+  function emitSpellArea(area: VttSpellAreaOverlay | null, throttled = false) {
+    setSpellArea(area)
+    if (!campaignId || !socket) return
+    if (throttled) {
+      const now = Date.now()
+      if (now - spellAreaEmitAtRef.current < SPELL_AREA_EMIT_THROTTLE_MS) return
+      spellAreaEmitAtRef.current = now
+    }
+    socket.emit('vtt:spell-area:update', { campaignId, area })
+  }
+
+  function showSpellCastFeedback(message: string) {
+    setSpellCastFeedback(message)
+    if (spellFeedbackTimeoutRef.current !== null) window.clearTimeout(spellFeedbackTimeoutRef.current)
+    spellFeedbackTimeoutRef.current = window.setTimeout(() => setSpellCastFeedback(null), 5000)
+  }
+
+  function createClientResolveId() {
+    return globalThis.crypto?.randomUUID?.() ?? `${Date.now().toString(36)}-${Math.random().toString(36).slice(2)}`
+  }
+
+  function formatResolutionFeedback(resolution: Pathfinder2eResolveResponse) {
+    if (resolution.results.length === 0) return `${resolution.spellName}: nenhum resultado aplicado.`
+    const parts = resolution.results.map(
+      (result) => `${result.targetName} ${DEGREE_LABEL_PT[result.degree]} (${result.damageApplied} de dano)`,
+    )
+    return `${resolution.spellName} — DC ${resolution.spellDC}, dano ${resolution.damageRoll.total}: ${parts.join('; ')}.`
+  }
+
+  function openSpellCastPanel(token: VttPlayerToken) {
+    if (!token.characterId) return
+    setTokenContextMenu(null)
+    setSpellCastTarget({ characterId: token.characterId, tokenId: token.id, casterName: token.name })
+  }
+
+  function beginSpellAreaPlacement(request: Pathfinder2eAreaPlacementRequest) {
+    if (!spellCastTarget) return
+    if (gridSettings.shape === 'hex' && !HEX_SUPPORTED_SPELL_AREA_TYPES.has(request.area.type)) {
+      showSpellCastFeedback('Esta forma de area (cone/linha/quadrado/cubo) ainda nao e suportada em grid hexagonal.')
+      return
+    }
+
+    const casterToken = playerTokens.find((token) => token.id === spellCastTarget.tokenId)
+    if (!casterToken) {
+      showSpellCastFeedback('Token do conjurador nao encontrado na cena.')
+      return
+    }
+
+    const initialShape = buildPathfinder2eAreaShape(
+      { type: request.area.type, valueFeet: request.area.valueFeet },
+      casterToken.position,
+      0,
+      gridSettings.metersPerCell,
+    )
+    if (!initialShape) {
+      showSpellCastFeedback(`Tipo de area "${request.area.type}" ainda nao suportado.`)
+      return
+    }
+
+    const placement: SpellPlacementState = {
+      request,
+      characterId: spellCastTarget.characterId,
+      casterTokenId: spellCastTarget.tokenId,
+      casterName: spellCastTarget.casterName,
+    }
+    setSpellCastTarget(null)
+    setSpellPlacement(placement)
+    emitSpellArea({
+      shape: initialShape,
+      color: SPELL_AREA_COLOR,
+      label: `${request.spellName} — ${placement.casterName}`,
+      casterTokenId: placement.casterTokenId,
+      phase: 'PREVIEW',
+    })
+  }
+
+  function updateSpellPlacement(event: React.PointerEvent<HTMLDivElement>) {
+    if (!spellPlacement) return
+    const casterToken = playerTokens.find((token) => token.id === spellPlacement.casterTokenId)
+    if (!casterToken) return
+
+    const rect = event.currentTarget.getBoundingClientRect()
+    const cursor = {
+      x: (event.clientX - rect.left) / tokenSize,
+      y: (event.clientY - rect.top) / tokenSize,
+    }
+
+    const areaType = spellPlacement.request.area.type
+    let origin: ScenePoint
+    let direction = 0
+    if (areaType === 'emanation') {
+      origin = casterToken.position
+    } else if (areaType === 'cone' || areaType === 'line') {
+      origin = casterToken.position
+      direction = Math.atan2(cursor.y - origin.y, cursor.x - origin.x)
+    } else if (gridSettings.shape === 'hex') {
+      // Bursts/cilindros em hex ancoram no centro do hexagono mais proximo.
+      origin = hexCellCenter(hexCellFromPoint(cursor))
+    } else {
+      // Bursts/quadrados PF2e ancoram em intersecoes do grid quadrado.
+      origin = { x: Math.round(cursor.x), y: Math.round(cursor.y) }
+    }
+
+    const shape = buildPathfinder2eAreaShape(
+      { type: areaType, valueFeet: spellPlacement.request.area.valueFeet },
+      origin,
+      direction,
+      gridSettings.metersPerCell,
+    )
+    if (!shape) return
+
+    emitSpellArea(
+      {
+        shape,
+        color: SPELL_AREA_COLOR,
+        label: `${spellPlacement.request.spellName} — ${spellPlacement.casterName}`,
+        casterTokenId: spellPlacement.casterTokenId,
+        phase: 'PREVIEW',
+      },
+      true,
+    )
+  }
+
+  function cancelSpellPlacement() {
+    emitSpellArea(null)
+    setSpellPlacement(null)
+  }
+
+  async function confirmSpellPlacement() {
+    if (!spellPlacement || !spellArea || spellCastingBusyRef.current) return
+    if (!activeScene) {
+      showSpellCastFeedback('Cena ativa nao encontrada para validar a area.')
+      return
+    }
+    if (spellPlacementRangeRing && !spellPlacementRangeRing.withinRange) {
+      showSpellCastFeedback('Fora do alcance da magia.')
+      return
+    }
+
+    spellCastingBusyRef.current = true
+    try {
+      const result = await castSpell(spellPlacement.characterId, {
+        ...spellPlacement.request.cast,
+        placement: {
+          sceneId: activeScene.id,
+          casterTokenId: spellPlacement.casterTokenId,
+          shape: spellArea.shape,
+        },
+      })
+      emitSpellArea({ ...spellArea, phase: 'CAST' })
+      if (spellFlashTimeoutRef.current !== null) window.clearTimeout(spellFlashTimeoutRef.current)
+      spellFlashTimeoutRef.current = window.setTimeout(() => emitSpellArea(null), SPELL_CAST_FLASH_MS)
+      showSpellCastFeedback(`${result.spellName} conjurada — consumo: ${result.consumed}`)
+    } catch (error) {
+      emitSpellArea(null)
+      showSpellCastFeedback(error instanceof Error ? error.message : 'Erro ao conjurar')
+    } finally {
+      spellCastingBusyRef.current = false
+      setSpellPlacement(null)
+    }
+  }
+
+  function beginSpellTargetSelection(request: Pathfinder2eTargetSelectionRequest) {
+    if (!spellCastTarget) return
+    setSpellCastTarget(null)
+    setSpellTargetSelection({
+      request,
+      characterId: spellCastTarget.characterId,
+      casterTokenId: spellCastTarget.tokenId,
+      casterName: spellCastTarget.casterName,
+      selectedTokenIds: [],
+    })
+  }
+
+  function toggleSpellTarget(token: VttPlayerToken) {
+    setSpellTargetSelection((current) => {
+      if (!current) return current
+      const alreadySelected = current.selectedTokenIds.includes(token.id)
+      if (alreadySelected) {
+        return { ...current, selectedTokenIds: current.selectedTokenIds.filter((id) => id !== token.id) }
+      }
+      if (current.selectedTokenIds.length >= current.request.targetProfile.max) return current
+      return { ...current, selectedTokenIds: [...current.selectedTokenIds, token.id] }
+    })
+  }
+
+  function cancelSpellTargetSelection() {
+    setSpellTargetSelection(null)
+  }
+
+  async function confirmSpellTargetSelection() {
+    if (!spellTargetSelection || spellCastingBusyRef.current) return
+    if (spellTargetSelection.selectedTokenIds.length < spellTargetSelection.request.targetProfile.min) return
+    if (!activeScene) {
+      showSpellCastFeedback('Cena ativa nao encontrada para validar os alvos.')
+      return
+    }
+
+    spellCastingBusyRef.current = true
+    try {
+      const result = await castSpell(spellTargetSelection.characterId, {
+        ...spellTargetSelection.request.cast,
+        caster: { sceneId: activeScene.id, casterTokenId: spellTargetSelection.casterTokenId },
+        targets: spellTargetSelection.selectedTokenIds,
+      })
+      showSpellCastFeedback(`${result.spellName} conjurada — consumo: ${result.consumed}`)
+
+      if (spellTargetSelection.request.resolution.kind === 'basicSaveDamage') {
+        try {
+          const resolution = await resolveSpellCast(spellTargetSelection.characterId, spellTargetSelection.request.cast.spellId, {
+            clientResolveId: createClientResolveId(),
+            clientCastId: spellTargetSelection.request.cast.clientCastId,
+            entryId: spellTargetSelection.request.cast.entryId,
+            sceneId: activeScene.id,
+            casterTokenId: spellTargetSelection.casterTokenId,
+            targetTokenIds: spellTargetSelection.selectedTokenIds,
+          })
+          showSpellCastFeedback(formatResolutionFeedback(resolution))
+        } catch (resolveError) {
+          showSpellCastFeedback(resolveError instanceof Error ? resolveError.message : 'Erro ao resolver a magia')
+        }
+      }
+    } catch (error) {
+      showSpellCastFeedback(error instanceof Error ? error.message : 'Erro ao conjurar')
+    } finally {
+      spellCastingBusyRef.current = false
+      setSpellTargetSelection(null)
+    }
+  }
+
+  function openNpcSpellCastPanel(token: VttPlayerToken) {
+    if (!token.campaignNpcDefinitionId) return
+    setTokenContextMenu(null)
+    setNpcSpellCastTarget({ definitionId: token.campaignNpcDefinitionId, tokenId: token.id, casterName: token.name })
+  }
+
+  function beginNpcSpellTargetSelection(request: Pathfinder2eNpcTargetSelectionRequest) {
+    if (!npcSpellCastTarget) return
+    setNpcSpellCastTarget(null)
+    setNpcSpellTargetSelection({
+      request,
+      definitionId: npcSpellCastTarget.definitionId,
+      casterTokenId: npcSpellCastTarget.tokenId,
+      casterName: npcSpellCastTarget.casterName,
+      selectedTokenIds: [],
+    })
+  }
+
+  function toggleNpcSpellTarget(token: VttPlayerToken) {
+    setNpcSpellTargetSelection((current) => {
+      if (!current) return current
+      const alreadySelected = current.selectedTokenIds.includes(token.id)
+      if (alreadySelected) {
+        return { ...current, selectedTokenIds: current.selectedTokenIds.filter((id) => id !== token.id) }
+      }
+      if (current.selectedTokenIds.length >= current.request.targetProfile.max) return current
+      return { ...current, selectedTokenIds: [...current.selectedTokenIds, token.id] }
+    })
+  }
+
+  function cancelNpcSpellTargetSelection() {
+    setNpcSpellTargetSelection(null)
+  }
+
+  async function confirmNpcSpellTargetSelection() {
+    if (!npcSpellTargetSelection || !campaignId || spellCastingBusyRef.current) return
+    if (npcSpellTargetSelection.selectedTokenIds.length < npcSpellTargetSelection.request.targetProfile.min) return
+    if (!activeScene) {
+      showSpellCastFeedback('Cena ativa nao encontrada para validar os alvos.')
+      return
+    }
+
+    spellCastingBusyRef.current = true
+    try {
+      const result = await castNpcSpell(campaignId, npcSpellTargetSelection.definitionId, {
+        ...npcSpellTargetSelection.request.cast,
+        caster: { sceneId: activeScene.id, casterTokenId: npcSpellTargetSelection.casterTokenId },
+        targets: npcSpellTargetSelection.selectedTokenIds,
+      })
+      showSpellCastFeedback(`${result.spellName} conjurada — consumo: ${result.consumed}`)
+
+      if (npcSpellTargetSelection.request.resolution.kind === 'basicSaveDamage') {
+        try {
+          const resolution = await resolveNpcSpellCast(
+            campaignId,
+            npcSpellTargetSelection.definitionId,
+            npcSpellTargetSelection.request.cast.spellId,
+            {
+              entryId: npcSpellTargetSelection.request.cast.entryId,
+              sceneId: activeScene.id,
+              casterTokenId: npcSpellTargetSelection.casterTokenId,
+              targetTokenIds: npcSpellTargetSelection.selectedTokenIds,
+            },
+          )
+          showSpellCastFeedback(formatResolutionFeedback(resolution))
+        } catch (resolveError) {
+          showSpellCastFeedback(resolveError instanceof Error ? resolveError.message : 'Erro ao resolver a magia')
+        }
+      }
+    } catch (error) {
+      showSpellCastFeedback(error instanceof Error ? error.message : 'Erro ao conjurar')
+    } finally {
+      spellCastingBusyRef.current = false
+      setNpcSpellTargetSelection(null)
+    }
   }
 
   async function syncTableState() {
@@ -797,6 +1209,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       setCombatHealthByTokenId((current) => ({ ...current, [payload.tokenId]: payload.health }))
     }
 
+    function onSpellAreaChanged(payload: VttSpellAreaChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      setSpellArea(payload.area)
+    }
+
+    socket.on('vtt:spell-area:changed', onSpellAreaChanged)
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
@@ -818,6 +1236,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       socket.emit('vtt:scene:request', { campaignId })
     }
     socket.emit('vtt:encounter:request', { campaignId })
+    socket.emit('vtt:spell-area:request', { campaignId })
 
     return () => {
       socket.off('vtt:token:changed', onTokenChanged)
@@ -832,6 +1251,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       socket.off('vtt:hazard:changed', onHazardChanged)
       socket.off('vtt:hazard:removed', onHazardRemoved)
       socket.off('vtt:combat:health:changed', onCombatHealthChanged)
+      socket.off('vtt:spell-area:changed', onSpellAreaChanged)
     }
   }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
 
@@ -1263,6 +1683,9 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   function dragTokenCandidate(event: React.DragEvent<HTMLElement>, candidate: VttTokenCandidate) {
     if (candidate.source === 'bestiary' && candidate.creatureId) {
       event.dataTransfer.setData(questhubBestiaryDragType, candidate.creatureId)
+      if (candidate.campaignNpcDefinitionId) {
+        event.dataTransfer.setData(questhubNpcDefinitionDragType, candidate.campaignNpcDefinitionId)
+      }
     } else if (candidate.characterId) {
       event.dataTransfer.setData(questhubCharacterDragType, candidate.characterId)
     }
@@ -1289,17 +1712,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
     const characterId = event.dataTransfer.getData(questhubCharacterDragType)
     const creatureId = event.dataTransfer.getData(questhubBestiaryDragType)
+    const campaignNpcDefinitionId = event.dataTransfer.getData(questhubNpcDefinitionDragType) || undefined
     if (!characterId && !creatureId) return
 
     const position = tokenDropPosition(event)
     if (!position) return
 
     event.preventDefault()
-    if (creatureId) addBestiaryCreatureToToolbar(creatureId)
+    if (creatureId && !campaignNpcDefinitionId) addBestiaryCreatureToToolbar(creatureId)
     socket.emit(
       'vtt:token:place',
       creatureId
-        ? { campaignId, source: 'bestiary', creatureId, position }
+        ? { campaignId, source: 'bestiary', creatureId, campaignNpcDefinitionId, position }
         : { campaignId, source: 'character', characterId, position },
     )
   }
@@ -2099,7 +2523,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   function renderTokenCandidateCard(candidate: VttTokenCandidate) {
     return (
       <div
-        key={candidate.source === 'bestiary' ? `bestiary:${candidate.creatureId}` : `character:${candidate.characterId}`}
+        key={
+          candidate.source === 'bestiary'
+            ? `bestiary:${candidate.campaignNpcDefinitionId ?? candidate.creatureId}`
+            : `character:${candidate.characterId}`
+        }
         draggable={masterCanUseVtt}
         onDragStart={(event) => dragTokenCandidate(event, candidate)}
         className={`flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition hover:bg-white/10 ${
@@ -2115,10 +2543,16 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         <span className="min-w-0">
           <span className="block truncate text-sm font-semibold text-white">{candidate.name}</span>
           <span className="block truncate text-[11px] uppercase text-zinc-500">
-            {candidate.source === 'bestiary' ? 'Bestiario' : candidate.role === 'NPC' ? 'NPC' : candidate.ownerName}
+            {candidate.source === 'bestiary'
+              ? candidate.campaignNpcDefinitionId
+                ? 'NPC customizado'
+                : 'Bestiario'
+              : candidate.role === 'NPC'
+                ? 'NPC'
+                : candidate.ownerName}
           </span>
         </span>
-        {candidate.source === 'bestiary' ? (
+        {candidate.source === 'bestiary' && !candidate.campaignNpcDefinitionId ? (
           <button
             type="button"
             title="Remover do toolbar"
@@ -2332,6 +2766,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 movementGridSize={gridSettings.size}
                 movementMetersPerCell={gridSettings.metersPerCell}
                 onMovementActionCommit={() => commitTokenMovementAction(token.id)}
+                spellTargetSelectionActive={Boolean(spellTargetSelection || npcSpellTargetSelection)}
+                selectedAsSpellTarget={Boolean(
+                  spellTargetSelection?.selectedTokenIds.includes(token.id) || npcSpellTargetSelection?.selectedTokenIds.includes(token.id),
+                )}
+                onSpellTargetToggle={spellTargetSelection ? toggleSpellTarget : npcSpellTargetSelection ? toggleNpcSpellTarget : undefined}
               />
             ))}
             {sceneHazards
@@ -2347,6 +2786,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 />
               ))}
             <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} />
+            <SpellAreaOverlayView
+              area={spellArea}
+              gridSize={tokenSize}
+              gridShape={gridSettings.shape}
+              boardPixelSize={boardPixelSize}
+              tokens={visibleTokens}
+              rangeRing={spellPlacement ? spellPlacementRangeRing : null}
+            />
             {activeTool === 'measure' && realtimeVttEnabled ? (
               <div
                 className="absolute inset-0 z-[8] cursor-crosshair"
@@ -2354,6 +2801,21 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 onPointerMove={updateMeasurement}
                 onPointerUp={finishMeasurement}
                 onPointerCancel={finishMeasurement}
+              />
+            ) : null}
+            {spellPlacement ? (
+              <div
+                className="absolute inset-0 z-[8] cursor-crosshair"
+                onPointerMove={updateSpellPlacement}
+                onClick={(event) => {
+                  event.stopPropagation()
+                  void confirmSpellPlacement()
+                }}
+                onContextMenu={(event) => {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  cancelSpellPlacement()
+                }}
               />
             ) : null}
           </div>
@@ -2518,6 +2980,98 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               </div>
             ) : null}
 
+            {spellCastTarget ? (
+              <SpellCastPanel
+                characterId={spellCastTarget.characterId}
+                casterName={spellCastTarget.casterName}
+                casterContext={activeScene ? { sceneId: activeScene.id, casterTokenId: spellCastTarget.tokenId } : null}
+                onClose={() => setSpellCastTarget(null)}
+                onRequestAreaPlacement={beginSpellAreaPlacement}
+                onRequestTargetSelection={beginSpellTargetSelection}
+                onCastCommitted={({ spellName, consumed }) => showSpellCastFeedback(`${spellName} conjurada — consumo: ${consumed}`)}
+              />
+            ) : null}
+
+            {npcSpellCastTarget && campaignId ? (
+              <NpcSpellCastPanel
+                campaignId={campaignId}
+                definitionId={npcSpellCastTarget.definitionId}
+                casterName={npcSpellCastTarget.casterName}
+                onClose={() => setNpcSpellCastTarget(null)}
+                onRequestTargetSelection={beginNpcSpellTargetSelection}
+                onCastCommitted={({ spellName, consumed }) => showSpellCastFeedback(`${spellName} conjurada — consumo: ${consumed}`)}
+              />
+            ) : null}
+
+            {spellCastFeedback && typeof document !== 'undefined'
+              ? createPortal(
+                  <div className="pointer-events-none fixed left-1/2 top-20 z-[100] -translate-x-1/2 rounded-md border border-purple-300/30 bg-black/85 px-3 py-1.5 text-sm text-purple-100 shadow-xl">
+                    {spellCastFeedback}
+                  </div>,
+                  document.body,
+                )
+              : null}
+
+            {spellPlacement ? (
+              <div className="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-md border border-purple-300/30 bg-black/85 px-3 py-1.5 text-xs text-purple-100 shadow-xl">
+                Posicione a area de {spellPlacement.request.spellName} — clique para conjurar, botao direito cancela
+              </div>
+            ) : null}
+
+            {spellTargetSelection ? (
+              <div className="pointer-events-auto fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-md border border-purple-300/30 bg-black/85 px-3 py-2 text-xs text-purple-100 shadow-xl">
+                <span>
+                  Selecione{' '}
+                  {spellTargetSelection.request.targetProfile.min === spellTargetSelection.request.targetProfile.max
+                    ? spellTargetSelection.request.targetProfile.min
+                    : `${spellTargetSelection.request.targetProfile.min}-${spellTargetSelection.request.targetProfile.max}`}{' '}
+                  alvo(s) para {spellTargetSelection.request.spellName} — {spellTargetSelection.selectedTokenIds.length} selecionado(s)
+                </span>
+                <button
+                  type="button"
+                  className="rounded bg-purple-500/30 px-2 py-1 font-semibold text-purple-100 transition hover:bg-purple-500/50 disabled:cursor-not-allowed disabled:opacity-40"
+                  disabled={spellTargetSelection.selectedTokenIds.length < spellTargetSelection.request.targetProfile.min}
+                  onClick={() => void confirmSpellTargetSelection()}
+                >
+                  Confirmar
+                </button>
+                <button
+                  type="button"
+                  className="rounded border border-white/20 px-2 py-1 text-zinc-300 transition hover:bg-white/10"
+                  onClick={cancelSpellTargetSelection}
+                >
+                  Cancelar
+                </button>
+              </div>
+            ) : null}
+
+            {npcSpellTargetSelection ? (
+              <div className="pointer-events-auto fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 items-center gap-3 rounded-md border border-purple-300/30 bg-black/85 px-3 py-2 text-xs text-purple-100 shadow-xl">
+                <span>
+                  Selecione{' '}
+                  {npcSpellTargetSelection.request.targetProfile.min === npcSpellTargetSelection.request.targetProfile.max
+                    ? npcSpellTargetSelection.request.targetProfile.min
+                    : `${npcSpellTargetSelection.request.targetProfile.min}-${npcSpellTargetSelection.request.targetProfile.max}`}{' '}
+                  alvo(s) para {npcSpellTargetSelection.request.spellName} — {npcSpellTargetSelection.selectedTokenIds.length} selecionado(s)
+                </span>
+                <button
+                  type="button"
+                  className="rounded bg-purple-500/30 px-2 py-1 font-semibold text-purple-100 transition hover:bg-purple-500/50 disabled:cursor-not-allowed disabled:opacity-40"
+                  disabled={npcSpellTargetSelection.selectedTokenIds.length < npcSpellTargetSelection.request.targetProfile.min}
+                  onClick={() => void confirmNpcSpellTargetSelection()}
+                >
+                  Confirmar
+                </button>
+                <button
+                  type="button"
+                  className="rounded border border-white/20 px-2 py-1 text-zinc-300 transition hover:bg-white/10"
+                  onClick={cancelNpcSpellTargetSelection}
+                >
+                  Cancelar
+                </button>
+              </div>
+            ) : null}
+
             {tokenContextMenu && canOpenTokenContextMenu(tokenContextMenu.token) ? (
               <div
                 className="pointer-events-auto fixed z-50 w-56 rounded-lg border border-white/10 bg-[#111217]/95 p-2 text-white shadow-2xl backdrop-blur"
@@ -2556,6 +3110,26 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                   >
                     <Backpack className="h-4 w-4" />
                     Mochila
+                  </button>
+                ) : null}
+                {canOpenCharacterTokenSheet(tokenContextMenu.token) ? (
+                  <button
+                    type="button"
+                    className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => openSpellCastPanel(tokenContextMenu.token)}
+                  >
+                    <Wand2 className="h-4 w-4" />
+                    Lancar magia
+                  </button>
+                ) : null}
+                {isMaster && tokenContextMenu.token.campaignNpcDefinitionId ? (
+                  <button
+                    type="button"
+                    className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => openNpcSpellCastPanel(tokenContextMenu.token)}
+                  >
+                    <Wand2 className="h-4 w-4 text-purple-300" />
+                    Lancar magia (NPC)
                   </button>
                 ) : null}
                 {isMaster ? (

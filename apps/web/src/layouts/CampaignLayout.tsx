@@ -457,7 +457,7 @@ export function CampaignLayout() {
         <div className="flex h-full min-h-0 flex-col">
           {/* Top bar (inspirado no layout de referência) */}
           <header className="relative z-30 shrink-0 border-b border-white/10 bg-black/40 backdrop-blur">
-            <div className="flex min-h-[73px] items-center justify-between gap-4 py-3 pl-24 pr-6 max-sm:pl-4 max-sm:pr-3">
+            <div className="flex min-h-[56px] items-center justify-between gap-4 py-2 pl-24 pr-6 max-sm:pl-4 max-sm:pr-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 text-xs uppercase text-zinc-400">
                   <MapPinned className="h-4 w-4 text-indigo-300" />

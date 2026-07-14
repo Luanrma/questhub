@@ -264,6 +264,14 @@ Pode aplicar `DAMAGE`, `HEAL`, `SET_CURRENT`, `SET_MAX`, `SET_TEMPORARY` em qual
 ### 6.3. Handlers de escrita
 `vtt:combat:health:adjust` e `vtt:combat:health:set` exigem `canControlCampaignAsMaster(campaignId, socket.id, user.id)` — mesmo guard ja usado em `vtt:hazard:place`/`vtt:hazard:update`.
 
+### 6.4. Excecao: aplicacao automatica por Resolution (2026-07-13)
+
+`applyResolvedCombatHealth` (nova porta exposta por `setupCampaignPresence`, ao lado de `consumeEncounterActionsForCharacter`) aplica `DAMAGE`/`HEAL` reusando `adjustHealth` + a mesma emissao (`vtt:combat:health:changed`, sincronizacao de participante, log de encontro) do handler `vtt:combat:health:adjust` — **sem** o guard `canControlCampaignAsMaster`. Decisao confirmada com o usuario (2026-07-13): o resultado de uma resolucao de magia (`.ai/game_systems/pathfinder_2e/resolution/`) e computado inteiramente pelo servidor (Spell DC + rolagem de dado + grau de sucesso), nao digitado pelo jogador — aplicar esse resultado nao e "editar HP livremente" (secao 6.2), e uma consequencia automatica de uma acao ja validada (a conjuracao). Quem pode disparar e quem ja podia conjurar a magia: dono do personagem conjurador OU Mestre ativo da campanha (mesma checagem de posse de `.ai/spell_casting/specs.md`).
+
+Essa excecao e estritamente escopada ao fluxo de resolucao: nenhum outro caminho de escrita de HP ganhou uma excecao equivalente, e `vtt:combat:health:adjust`/`vtt:combat:health:set` continuam Mestre-only para edicao manual.
+
+**Extensao a alvo NPC** (`.ai/game_systems/pathfinder_2e/npc_spellcasting/`): o pipeline de identidade/HP (`CombatantIdentity`, `adjustHealth`, fallback de inicializacao da secao 7.1) sempre foi agnostico de `source`. **Correcao de 2026-07-13 (rodada de auditoria):** a porta em si, porem, tinha sobrado da fatia PC-only com um guard `if (resolved.token.source !== 'character')` que rejeitava alvo de bestiario — e como os dois endpoints de resolucao tratam falha da porta com `continue` silencioso, dano em alvo NPC era calculado, devolvido na resposta e registrado, mas **nunca aplicado ao HP real**. A afirmacao anterior desta secao ("nenhuma mudanca foi necessaria nesta porta") estava errada. O guard foi removido: a porta aceita qualquer token que `resolveTokenForHealth` resolva (personagem ou bestiario), e `adjustHealth` continua sendo a validacao final (retorna `null` para combatente invalido). Dano automatico em NPC via resolucao e um caso ainda mais simples de justificar do que em personagem: o Mestre ja tem controle total do HP de qualquer NPC via secao 6.1, entao a excecao so evita um passo manual redundante quando o resultado ja foi calculado pelo servidor.
+
 ## 7. Inicializacao de HP
 
 ### 7.1. Token de NPC/bestiario (Implementado)

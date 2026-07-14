@@ -63,6 +63,7 @@ import {
   vttDiceRollSchema,
   vttGridUpdateSchema,
   vttMeasurementUpdateSchema,
+  vttSpellAreaUpdateSchema,
   vttSceneSelectSchema,
   vttTokenActionSchema,
   vttTokenPlaceSchema,
@@ -336,6 +337,7 @@ export function setupCampaignPresence(server: HttpServer) {
         source: true,
         characterId: true,
         bestiaryCreatureId: true,
+        campaignNpcDefinitionId: true,
         name: true,
         avatarUrl: true,
         tokenBorderColor: true,
@@ -387,6 +389,7 @@ export function setupCampaignPresence(server: HttpServer) {
         characterId: token.source === 'character' ? token.characterId : null,
         bestiarySystem: token.source === 'bestiary' ? scene.campaign.system : null,
         bestiaryCreatureId: token.source === 'bestiary' ? token.bestiaryCreatureId ?? null : null,
+        campaignNpcDefinitionId: token.source === 'bestiary' ? token.campaignNpcDefinitionId ?? null : null,
         name: token.source === 'bestiary' ? token.name : null,
         avatarUrl: token.source === 'bestiary' ? token.avatarUrl : null,
         tokenBorderColor: token.tokenBorderColor ?? null,
@@ -507,6 +510,7 @@ export function setupCampaignPresence(server: HttpServer) {
         source: true,
         characterId: true,
         bestiaryCreatureId: true,
+        campaignNpcDefinitionId: true,
         name: true,
         avatarUrl: true,
         tokenBorderColor: true,
@@ -569,6 +573,7 @@ export function setupCampaignPresence(server: HttpServer) {
         characterId: string | null
         bestiarySystem?: 'PATHFINDER_2E' | 'DND_5E' | null
         bestiaryCreatureId?: string | null
+        campaignNpcDefinitionId?: string | null
         name?: string | null
         avatarUrl?: string | null
         tokenBorderColor?: string | null
@@ -586,6 +591,7 @@ export function setupCampaignPresence(server: HttpServer) {
           characterId: token.source === 'character' ? token.characterId : null,
           bestiarySystem: token.source === 'bestiary' ? 'PATHFINDER_2E' : null,
           bestiaryCreatureId: token.source === 'bestiary' ? token.bestiaryCreatureId ?? null : null,
+          campaignNpcDefinitionId: token.source === 'bestiary' ? token.campaignNpcDefinitionId ?? null : null,
           name: token.source === 'bestiary' ? token.name : null,
           avatarUrl: token.source === 'bestiary' ? token.avatarUrl : null,
           tokenBorderColor: token.tokenBorderColor ?? null,
@@ -1238,12 +1244,30 @@ export function setupCampaignPresence(server: HttpServer) {
         const creature = findBestiaryCreature(campaign.system, parsed.data.creatureId)
         if (!creature) return
 
+        // NPC customizado pelo Mestre (.ai/game_systems/pathfinder_2e/bestiary/specs.md
+        // secao 8): so aceita a definicao se ela realmente pertence a esta campanha e
+        // referencia a mesma criatura do catalogo — nunca confia so no id enviado pelo
+        // cliente para decidir nome/spellbook do token.
+        let campaignNpcDefinitionId: string | null = null
+        let tokenName = creature.name
+        if (parsed.data.campaignNpcDefinitionId) {
+          const definition = await prisma.campaignNpcDefinition.findFirst({
+            where: { id: parsed.data.campaignNpcDefinitionId, campaignId, bestiaryCreatureId: creature.id },
+            select: { id: true, name: true },
+          })
+          if (definition) {
+            campaignNpcDefinitionId = definition.id
+            tokenName = definition.name
+          }
+        }
+
         const token: VttPlayerToken = {
           id: `bestiary:${crypto.randomUUID()}`,
           source: 'bestiary',
           characterId: null,
           bestiaryCreatureId: creature.id,
-          name: creature.name,
+          campaignNpcDefinitionId,
+          name: tokenName,
           avatarUrl: creature.token.imageUrl,
           tokenBorderColor: creature.token.borderColor,
           ownerUserId: '',
@@ -1914,6 +1938,45 @@ export function setupCampaignPresence(server: HttpServer) {
       emitCampaignMeasurementSnapshot(campaignId, socket.id)
     })
 
+    // Preview efemero de area de magia — mesmo modelo do measurement
+    // (.ai/spell_casting/specs.md secao 3). O payload carrega a forma; cada
+    // cliente recalcula celulas/alvos localmente.
+    socket.on('vtt:spell-area:update', (input: unknown) => {
+      const parsed = vttSpellAreaUpdateSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, area } = parsed.data
+      const online = state.getCampaignOnline(campaignId)
+      if (!online) return
+      if (socket.data.campaignId !== campaignId) return
+      if (online.state === 'PAUSED' && socket.data.characterRole !== 'MASTER') return
+
+      if (area) {
+        state.setCampaignSpellArea(campaignId, area)
+      } else {
+        state.deleteCampaignSpellArea(campaignId)
+      }
+
+      io.to(campaignRoom(campaignId)).emit('vtt:spell-area:changed', {
+        campaignId,
+        area,
+      })
+    })
+
+    socket.on('vtt:spell-area:request', (input: unknown) => {
+      const parsed = z.object({ campaignId: z.string().min(1) }).safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isCampaignOnline(campaignId)) return
+      if (socket.data.campaignId !== campaignId) return
+
+      io.to(socket.id).emit('vtt:spell-area:changed', {
+        campaignId,
+        area: state.getCampaignSpellArea(campaignId) ?? null,
+      })
+    })
+
     socket.on('vtt:scene:select', async (input: unknown) => {
       const parsed = vttSceneSelectSchema.safeParse(input)
       if (!parsed.success) return
@@ -2004,6 +2067,151 @@ export function setupCampaignPresence(server: HttpServer) {
     if (logged) await emitEncounterChanged(campaignId)
   }
 
-  return { io, isCampaignOnline, getCampaignSessionState, appendDiceRollToActiveEncounter }
+  async function appendSystemLogToActiveEncounter(campaignId: string, sceneId: string, message: string) {
+    const logged = appendEncounterLogEntry(campaignId, sceneId, { type: 'SYSTEM', message })
+    if (logged) await emitEncounterChanged(campaignId)
+  }
+
+  async function consumeEncounterActionsForCharacter(input: {
+    campaignId: string
+    sceneId: string
+    characterId: string
+    actionCost: number
+  }): Promise<{ ok: true } | { ok: false; error: string }> {
+    if (input.actionCost <= 0) return { ok: true }
+
+    const encounter = state.getCampaignEncounter(input.campaignId)
+    if (!encounter || encounter.sceneId !== input.sceneId) return { ok: true }
+
+    const participantIndex = encounter.participants.findIndex(
+      (participant) => participant.type === 'creature' && participant.characterId === input.characterId,
+    )
+    if (participantIndex < 0) return { ok: false, error: 'Personagem nao participa do encontro ativo' }
+
+    const participant = encounter.participants[participantIndex]
+    if (!participant || participant.type !== 'creature') return { ok: false, error: 'Participante invalido no encontro ativo' }
+
+    const activeParticipant = encounter.participants[encounter.activeTurnIndex]
+    if (activeParticipant?.participantId !== participant.participantId) {
+      return { ok: false, error: 'Nao e o turno deste personagem' }
+    }
+
+    if (participant.movement.actionsRemaining < input.actionCost) {
+      return { ok: false, error: 'Acoes insuficientes para conjurar esta magia' }
+    }
+
+    const participants = [...encounter.participants]
+    participants[participantIndex] = {
+      ...participant,
+      movement: {
+        ...participant.movement,
+        actionsRemaining: participant.movement.actionsRemaining - input.actionCost,
+        metersUsedThisAction: 0,
+      },
+    }
+
+    state.setCampaignEncounter(input.campaignId, { ...encounter, participants })
+    await emitEncounterChanged(input.campaignId)
+    return { ok: true }
+  }
+
+  async function restoreEncounterActionsForCharacter(input: {
+    campaignId: string
+    sceneId: string
+    characterId: string
+    actionCost: number
+  }) {
+    if (input.actionCost <= 0) return
+
+    const encounter = state.getCampaignEncounter(input.campaignId)
+    if (!encounter || encounter.sceneId !== input.sceneId) return
+
+    const participantIndex = encounter.participants.findIndex(
+      (participant) => participant.type === 'creature' && participant.characterId === input.characterId,
+    )
+    if (participantIndex < 0) return
+
+    const participant = encounter.participants[participantIndex]
+    if (!participant || participant.type !== 'creature') return
+
+    const participants = [...encounter.participants]
+    participants[participantIndex] = {
+      ...participant,
+      movement: {
+        ...participant.movement,
+        actionsRemaining: Math.min(3, participant.movement.actionsRemaining + input.actionCost),
+      },
+    }
+
+    state.setCampaignEncounter(input.campaignId, { ...encounter, participants })
+    await emitEncounterChanged(input.campaignId)
+  }
+
+  /**
+   * Aplica dano/cura calculado pelo servidor (Resolution,
+   * .ai/game_systems/pathfinder_2e/resolution/) diretamente no HP do token
+   * alvo (personagem OU bestiario), sem o guard `canControlCampaignAsMaster`
+   * do handler `vtt:combat:health:adjust` — excecao documentada em
+   * .ai/combat/specs.md secao 6.4.
+   */
+  async function applyResolvedCombatHealth(input: {
+    campaignId: string
+    sceneId: string
+    tokenId: string
+    operation: 'DAMAGE' | 'HEAL'
+    amount: number
+    actorUserId: string
+    actorCharacterId: string
+    actorName: string
+    note: string
+  }): Promise<{ ok: true; health: RawCombatHealth } | { ok: false; error: string }> {
+    const resolved = await resolveTokenForHealth(input.campaignId, input.tokenId)
+    if (!resolved || resolved.sceneId !== input.sceneId) return { ok: false, error: 'Token alvo invalido' }
+
+    const combatant = toCombatantIdentity(resolved.token)
+    const health = await adjustHealth({
+      combatant,
+      campaignId: input.campaignId,
+      sceneId: resolved.sceneId,
+      operation: input.operation,
+      amount: input.amount,
+      actorUserId: input.actorUserId,
+      actorCharacterId: input.actorCharacterId,
+      note: input.note,
+    })
+    if (!health) return { ok: false, error: 'Falha ao aplicar resultado no alvo' }
+
+    await emitCombatHealthChanged(input.campaignId, resolved.sceneId, combatant, health)
+    const participantSynced = syncEncounterParticipantHealth(input.campaignId, input.tokenId, health)
+
+    const encounterForLog = state.getCampaignEncounter(input.campaignId)
+    const targetParticipantId =
+      encounterForLog?.participants.find(
+        (participant) => participant.type === 'creature' && participant.tokenId === input.tokenId,
+      )?.participantId ?? null
+    const logged = appendEncounterLogEntry(input.campaignId, resolved.sceneId, {
+      type: input.operation,
+      actorName: input.actorName,
+      targetParticipantId,
+      targetName: resolved.token.name,
+      amount: input.amount,
+      resultingHealth: toCombatantHealth(health),
+    })
+
+    if (participantSynced || logged) await emitEncounterChanged(input.campaignId)
+
+    return { ok: true, health }
+  }
+
+  return {
+    io,
+    isCampaignOnline,
+    getCampaignSessionState,
+    appendDiceRollToActiveEncounter,
+    appendSystemLogToActiveEncounter,
+    consumeEncounterActionsForCharacter,
+    restoreEncounterActionsForCharacter,
+    applyResolvedCombatHealth,
+  }
 }
 

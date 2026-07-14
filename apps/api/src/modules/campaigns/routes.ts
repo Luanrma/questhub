@@ -819,7 +819,33 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       }]
     })
 
-    return reply.send([...characterCandidates, ...bestiaryCandidates])
+    // NPCs customizados pelo Mestre (.ai/game_systems/pathfinder_2e/bestiary/specs.md
+    // secao 8) aparecem sempre como candidatos — sao uma lista ja curada pelo Mestre ao
+    // cria-los, diferente do catalogo bruto que exige "preparar" antes de aparecer aqui.
+    const npcDefinitions = await prisma.campaignNpcDefinition.findMany({
+      where: { campaignId: params.campaignId },
+      select: { id: true, bestiaryCreatureId: true, name: true },
+      orderBy: { createdAt: 'asc' },
+    })
+    const npcDefinitionCandidates = npcDefinitions.flatMap((definition) => {
+      const creature = findBestiaryCreature(master.campaign.system, definition.bestiaryCreatureId)
+      if (!creature) return []
+
+      return [{
+        source: 'bestiary',
+        creatureId: creature.id,
+        campaignNpcDefinitionId: definition.id,
+        characterId: null,
+        name: definition.name,
+        avatarUrl: creature.token.imageUrl,
+        tokenBorderColor: creature.token.borderColor,
+        role: 'NPC',
+        ownerUserId: '',
+        ownerName: 'NPC customizado',
+      }]
+    })
+
+    return reply.send([...characterCandidates, ...bestiaryCandidates, ...npcDefinitionCandidates])
   })
 
   app.get('/api/campaigns/:campaignId/hazard-candidates', async (req, reply) => {

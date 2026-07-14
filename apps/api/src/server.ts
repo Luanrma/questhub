@@ -15,6 +15,11 @@ import { registerCharacterOptionsRoutes } from './modules/game_systems/character
 import { registerBestiaryRoutes } from './modules/game_systems/bestiary/routes'
 import { registerGameSystemItemsRoutes } from './modules/game_systems/items/routes'
 import { registerGameSystemSpellsRoutes } from './modules/game_systems/spells/routes'
+import { registerCharacterSpellbookRoutes } from './modules/character_spells/routes'
+import { registerCharacterActiveEffectsRoutes } from './modules/character_effects/routes'
+import { registerSpellCastingRoutes } from './modules/spell_casting/routes'
+import { registerNpcSpellCastingRoutes } from './modules/spell_casting/npc-routes'
+import { registerNpcDefinitionRoutes } from './modules/npc_definitions/routes'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerInventoryRoutes, createSendCatalogItemToPlayer } from './modules/inventory'
 
@@ -67,6 +72,11 @@ registerCharacterOptionsRoutes(app)
 registerBestiaryRoutes(app)
 registerGameSystemItemsRoutes(app, { sendCatalogItemToPlayer: createSendCatalogItemToPlayer(presence.io) })
 registerGameSystemSpellsRoutes(app)
+registerCharacterSpellbookRoutes(app)
+registerCharacterActiveEffectsRoutes(app)
+registerSpellCastingRoutes(app, presence)
+registerNpcSpellCastingRoutes(app, presence)
+registerNpcDefinitionRoutes(app)
 registerCampaignRoutes(app, presence)
 registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app)

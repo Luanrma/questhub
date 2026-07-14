@@ -47,6 +47,40 @@ export const vttMeasurementUpdateSchema = z.object({
   measurement: vttMeasurementSchema.nullable(),
 })
 
+const vttScenePointSchema = z.object({
+  x: z.number().finite(),
+  y: z.number().finite(),
+})
+
+// Espelha SceneAreaShape de packages/game-system-core/src/shared/scene-geometry
+// (.ai/spell_casting/specs.md secao 3). O payload carrega a forma, nunca a
+// lista de celulas — cada cliente recalcula localmente.
+export const vttSpellAreaShapeSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('BURST'), center: vttScenePointSchema, radiusCells: z.number().finite().min(0).max(500) }),
+  z.object({ kind: z.literal('EMANATION'), center: vttScenePointSchema, radiusCells: z.number().finite().min(0).max(500) }),
+  z.object({ kind: z.literal('CONE'), origin: vttScenePointSchema, directionRadians: z.number().finite(), lengthCells: z.number().finite().min(0).max(500) }),
+  z.object({ kind: z.literal('LINE'), origin: vttScenePointSchema, directionRadians: z.number().finite(), lengthCells: z.number().finite().min(0).max(500), widthCells: z.number().finite().min(0).max(100) }),
+  z.object({ kind: z.literal('CUBE'), origin: vttScenePointSchema, sizeCells: z.number().finite().min(0).max(500) }),
+  z.object({ kind: z.literal('SQUARE'), origin: vttScenePointSchema, sizeCells: z.number().finite().min(0).max(500) }),
+  z.object({ kind: z.literal('CYLINDER'), center: vttScenePointSchema, radiusCells: z.number().finite().min(0).max(500) }),
+  z.object({ kind: z.literal('RING'), center: vttScenePointSchema, radiusCells: z.number().finite().min(0).max(500), thicknessCells: z.number().finite().min(0).max(500) }),
+])
+
+export const vttSpellAreaOverlaySchema = z.object({
+  shape: vttSpellAreaShapeSchema,
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+  label: z.string().min(1).max(120),
+  casterTokenId: z.string().min(1).max(200).nullable(),
+  phase: z.enum(['PREVIEW', 'CAST']),
+})
+
+export type VttSpellAreaOverlay = z.infer<typeof vttSpellAreaOverlaySchema>
+
+export const vttSpellAreaUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  area: vttSpellAreaOverlaySchema.nullable(),
+})
+
 export const vttTableSceneSchema = z.object({
   id: z.string().min(1).max(200),
   name: z.string().min(1).max(120),
@@ -119,6 +153,7 @@ export const vttTokenPlaceSchema = z.union([
     campaignId: z.string().min(1),
     source: z.literal('bestiary'),
     creatureId: z.string().min(1),
+    campaignNpcDefinitionId: z.string().min(1).optional(),
     position: vttTokenPositionSchema,
   }),
 ])
@@ -215,6 +250,7 @@ export type VttPlayerToken = {
   source: 'character' | 'bestiary'
   characterId: string | null
   bestiaryCreatureId?: string | null
+  campaignNpcDefinitionId?: string | null
   name: string
   avatarUrl: string | null
   tokenBorderColor?: string | null

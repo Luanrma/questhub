@@ -90,6 +90,15 @@ Regras:
 * `NPC` nao envia mensagem no MVP.
 * Broadcast vai para `campaign:{campaignId}`.
 
+### Mensagem automatica de conjuracao
+
+Fluxo:
+* Depois que `POST /api/characters/:characterId/cast` confirma uma conjuracao com contexto de cena, o modulo `spell_casting` cria uma `ChatMessage` persistente na mesma campanha.
+* A mensagem usa o personagem conjurador como `characterId`, o usuario autenticado que executou a conjuracao como `userId`, e conteudo no formato `Conjurou <nome da magia> (<consumo>).`
+* O servidor emite `chat:message:created` para `campaign:{campaignId}` com o mesmo presenter das mensagens comuns.
+* Esta mensagem nao passa pelo evento cliente `chat:message:create`; portanto a regra "`NPC` nao envia mensagem no MVP" continua valendo para input manual, mas um Mestre autorizado pode gerar anuncio de conjuracao de NPC via fluxo de spell casting.
+* Retry idempotente de uma conjuracao ja gravada nao cria nova mensagem.
+
 ### Rolagem rapida
 
 Fluxo:

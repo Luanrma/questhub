@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { ChevronLeft, ChevronRight, Footprints, Heart, Minus, Plus, ScrollText, Search, Shield, Sparkles } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Footprints, Heart, Minus, Plus, ScrollText, Search, Shield, Sparkles, Wand2, Trash2 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { api } from '../../../lib/api'
 import {
@@ -11,6 +11,13 @@ import {
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { questhubBestiaryDragType } from '../../../vtt/table/config/constants'
 import { BestiaryCreatureSheetModal } from '../components/BestiaryCreatureSheetModal'
+import { NpcSpellbookEditorModal } from '../components/NpcSpellbookEditorModal'
+import {
+  listNpcDefinitions,
+  createNpcDefinition,
+  deleteNpcDefinition,
+  type CampaignNpcDefinitionView,
+} from '../../../game-systems/pathfinder-2e/npc-spellcasting'
 import type { BestiaryEntry, BestiaryEntryCategory, BestiaryCreature, BestiaryResponse } from '../types'
 
 const systemLabels: Record<BestiaryResponse['system'], string> = {
@@ -96,6 +103,10 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
   const [rarityFilter, setRarityFilter] = useState('')
   const [categoryFilter, setCategoryFilter] = useState<BestiaryEntryCategory | 'all'>('npc')
   const [sheetCreature, setSheetCreature] = useState<BestiaryEntry | null>(null)
+  const [npcDefinitions, setNpcDefinitions] = useState<CampaignNpcDefinitionView[]>([])
+  const [editingDefinition, setEditingDefinition] = useState<CampaignNpcDefinitionView | null>(null)
+  const [customizingCreatureId, setCustomizingCreatureId] = useState<string | null>(null)
+  const [npcDefinitionsError, setNpcDefinitionsError] = useState<string | null>(null)
 
   const query = useMemo(() => search.trim(), [search])
   const normalizedLevelFilter = useMemo(() => levelFilter.trim(), [levelFilter])
@@ -193,6 +204,39 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
     window.addEventListener(PREPARED_HAZARDS_CHANGED_EVENT, onPreparedHazardsChanged)
     return () => window.removeEventListener(PREPARED_HAZARDS_CHANGED_EVENT, onPreparedHazardsChanged)
   }, [campaignId])
+
+  function reloadNpcDefinitions() {
+    if (!campaignId) return
+    listNpcDefinitions(campaignId)
+      .then((definitions) => setNpcDefinitions(definitions))
+      .catch(() => {})
+  }
+
+  useEffect(() => {
+    reloadNpcDefinitions()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [campaignId])
+
+  function customizeCreature(creature: BestiaryCreature) {
+    if (!campaignId || customizingCreatureId) return
+    setCustomizingCreatureId(creature.id)
+    setNpcDefinitionsError(null)
+    createNpcDefinition(campaignId, { bestiaryCreatureId: creature.id, name: creature.name })
+      .then((definition) => {
+        setNpcDefinitions((current) => (current.some((item) => item.id === definition.id) ? current : [...current, definition]))
+        setEditingDefinition(definition)
+      })
+      .catch((error) => setNpcDefinitionsError(error instanceof Error ? error.message : 'Erro ao customizar NPC'))
+      .finally(() => setCustomizingCreatureId(null))
+  }
+
+  function removeNpcDefinition(definition: CampaignNpcDefinitionView) {
+    if (!campaignId) return
+    if (!window.confirm(`Excluir "${definition.name}"? Isso so funciona se nenhum token deste NPC estiver em uma cena.`)) return
+    deleteNpcDefinition(campaignId, definition.id)
+      .then(() => setNpcDefinitions((current) => current.filter((item) => item.id !== definition.id)))
+      .catch((error) => setNpcDefinitionsError(error instanceof Error ? error.message : 'Erro ao excluir NPC customizado'))
+  }
 
   function savePreparedCreatureIds(nextIds: string[], currentSettings: CampaignUserSettings, errorMessage: string) {
     if (!campaignId) return
@@ -482,6 +526,26 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
                       <span className="sr-only">Adicionar Token</span>
                     </button>
                   ) : null}
+                  {creature.category === 'npc' ? (
+                    <button
+                      type="button"
+                      title="Customizar com magias (nao altera o catalogo original)"
+                      aria-label="Customizar NPC com magias"
+                      disabled={customizingCreatureId === creature.id}
+                      className={[
+                        'inline-flex max-w-full items-center gap-2 rounded-md border border-purple-300/20 bg-purple-500/10 px-3 text-xs font-semibold uppercase text-purple-100 transition hover:bg-purple-500/20 disabled:cursor-default disabled:opacity-50',
+                        compact ? 'h-8' : 'h-9',
+                      ].join(' ')}
+                      onClick={(event) => {
+                        event.preventDefault()
+                        event.stopPropagation()
+                        customizeCreature(creature as BestiaryCreature)
+                      }}
+                    >
+                      <Wand2 className="h-4 w-4" />
+                      <span className="min-w-0 truncate">Customizar</span>
+                    </button>
+                  ) : null}
                   {creature.category === 'npc' && preparedCreatureIdSet.has(creature.id) ? (
                     <button
                       type="button"
@@ -577,12 +641,58 @@ export function CampaignBestiaryPage({ compact = false }: { compact?: boolean } 
         </div>
       ) : null}
 
+      {npcDefinitions.length > 0 ? (
+        <div className="rounded-lg border border-purple-300/20 bg-purple-500/[0.05] p-4">
+          <h2 className="text-sm font-semibold text-purple-100">NPCs customizados (com magias)</h2>
+          <p className="mt-1 text-xs text-zinc-400">
+            Reutilizaveis entre cenas — arraste da barra de tokens preparados na mesa para colocar. O catalogo original nunca e alterado.
+          </p>
+          {npcDefinitionsError ? <p className="mt-2 text-xs text-red-300">{npcDefinitionsError}</p> : null}
+          <div className="mt-3 grid gap-2 sm:grid-cols-2">
+            {npcDefinitions.map((definition) => (
+              <div key={definition.id} className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-black/25 px-3 py-2">
+                <span className="min-w-0 truncate text-sm text-white">{definition.name}</span>
+                <div className="flex shrink-0 items-center gap-1">
+                  <button
+                    type="button"
+                    title="Editar magias"
+                    className="rounded-md border border-indigo-300/20 bg-indigo-500/10 px-2 py-1 text-xs text-indigo-100 hover:bg-indigo-500/20"
+                    onClick={() => setEditingDefinition(definition)}
+                  >
+                    <Wand2 className="h-3.5 w-3.5" />
+                  </button>
+                  <button
+                    type="button"
+                    title="Excluir"
+                    className="rounded-md border border-red-300/20 bg-red-500/10 px-2 py-1 text-xs text-red-100 hover:bg-red-500/20"
+                    onClick={() => removeNpcDefinition(definition)}
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
       {campaignId && sheetCreature ? (
         <BestiaryCreatureSheetModal
           campaignId={campaignId}
           creatureId={sheetCreature.id}
           initialCreature={sheetCreature}
           onClose={() => setSheetCreature(null)}
+        />
+      ) : null}
+
+      {campaignId && editingDefinition ? (
+        <NpcSpellbookEditorModal
+          campaignId={campaignId}
+          definition={editingDefinition}
+          onClose={() => setEditingDefinition(null)}
+          onSaved={(definition) => {
+            setNpcDefinitions((current) => current.map((item) => (item.id === definition.id ? definition : item)))
+          }}
         />
       ) : null}
     </div>

@@ -21,7 +21,7 @@
 * Nao persistir encontro no banco neste MVP.
 * Nao permitir que jogadores alterem ordem, iniciativa ou turno.
 * Nao incluir tokens ocultos no tracker publico.
-* Nao bloquear movimento de token por turno no MVP.
+* Movimento e Spell Casting podem consultar/debitar o contador generico `actionsRemaining`; regras especificas de sistema continuam fora do contrato base.
 * Nao mover tokens no grid durante o arraste de pre-selecao para Encounter Mode.
 * Nao criar tela ou rota separada para encontro.
 * Nao acoplar o tracker a `game_systems/pathfinder_2e` ou `game_systems/dnd_5e`.
@@ -35,4 +35,4 @@
 ## Limitacoes conhecidas
 * Sem persistencia, recarregar servidor ou encerrar sessao perde o encontro ativo.
 * Sem rolagem automatica, o Mestre precisa digitar iniciativas.
-* Sem controle de turno mecanico, o sistema informa o turno mas nao impede acoes fora dele.
+* O controle mecanico atual cobre movimento e a fatia minima de conjuracao (1/2/3 acoes). Reacoes, free actions, quickened/slowed/stunned e sustain ainda nao existem.

@@ -17,6 +17,7 @@ Durante a mesa, monstros e criaturas precisam ser consultados de forma mais dire
 * O VTT generico consome apenas campos neutros de apresentacao.
 * Documentos Foundry `type = "npc"` sao tratados como entradas de categoria `npc` dentro do bestiario.
 * Documentos Foundry `type = "hazard"` sao tratados como entradas de categoria `hazard` dentro do bestiario, com ficha de consulta propria, regras detalhadas no submodulo de Hazards e sem comportamento de token de criatura.
+* ✅ **Implementado em 2026-07-13:** o Mestre pode customizar uma criatura do catalogo com um livro de magias proprio (`CampaignNpcDefinition`, secao 8 de `specs.md`) e reutilizar essa mesma criatura customizada em varias cenas — o catalogo original nunca e alterado, so uma copia por campanha e criada e referenciada pelos tokens.
 
 ## 4. Personas
 * **Mestre:** consulta criaturas, prepara atalhos de token e usa a ficha simplificada durante combate.
@@ -33,6 +34,7 @@ Durante a mesa, monstros e criaturas precisam ser consultados de forma mais dire
 * Adicionar a criatura ao toolbar de tokens preparados.
 * Arrastar a criatura para o tabuleiro para criar token NPC.
 * Abrir a ficha simplificada a partir do menu de contexto de um token de bestiario na cena.
+* Customizar uma criatura do catalogo com um livro de magias e reutiliza-la em varias cenas sem repetir a configuracao — botao "Customizar" no card do bestiario, ver secao 8 de `specs.md`.
 
 ## 6. Limites
 Pertence ao submodulo:
@@ -50,3 +52,4 @@ Nao pertence ao submodulo:
 * ficha completa de personagem jogador.
 * exposicao de hazards como criaturas ou tokens NPC.
 * regras detalhadas de criacao de Hazards, que pertencem a `.ai/game_systems/pathfinder_2e/hazards/`.
+* mecanica de conjuracao/resolucao de magias de NPC (consumo de recurso, Spell DC, rolagem) — o bestiario so possui a entidade de customizacao (`CampaignNpcDefinition`) e o campo `spellbook`; a mecanica pertence a `.ai/game_systems/pathfinder_2e/npc_spellcasting/`.

@@ -488,6 +488,15 @@ export const PATHFINDER_2E_BESTIARY_ENTRIES: GameSystemBestiaryEntry<Pathfinder2
 const PATHFINDER_2E_BESTIARY_BY_ID = new Map(PATHFINDER_2E_BESTIARY.map((creature) => [creature.id, creature]))
 const PATHFINDER_2E_BESTIARY_ENTRY_BY_ID = new Map(PATHFINDER_2E_BESTIARY_ENTRIES.map((entry) => [entry.id, entry]))
 
+/**
+ * Dado bruto (nao a projecao de display) de uma criatura NPC do catalogo,
+ * usado por Resolution (.ai/game_systems/pathfinder_2e/resolution/) para ler
+ * o salvamento fixo (sheet.saves) sem passar por texto formatado.
+ */
+export function findPathfinder2eBestiaryCreature(creatureId: string): Pathfinder2eBestiaryCreatureData | null {
+  return PATHFINDER_2E_BESTIARY_BY_ID.get(creatureId)?.systemData ?? null
+}
+
 function matchesSearch(entry: Pathfinder2eBestiaryEntryData, search: string) {
   const normalized = search.trim().toLocaleLowerCase()
   if (!normalized) return true

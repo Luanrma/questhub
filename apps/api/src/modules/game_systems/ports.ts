@@ -1,4 +1,4 @@
-import type { CharacterSheetSystemAdapter } from './models'
+import type { CharacterActiveEffectsSystemAdapter, CharacterSheetSystemAdapter, CharacterSpellbookSystemAdapter } from './models'
 import type { GameSystemItemAdapter } from './items/models'
 
 export type GameSystemId = 'DND_5E' | 'PATHFINDER_2E'
@@ -130,6 +130,8 @@ export interface GameSystemAdapter {
   version: number
   status: GameSystemAdapterStatus
   characterSheet?: CharacterSheetSystemAdapter<unknown>
+  characterSpellbook?: CharacterSpellbookSystemAdapter<unknown>
+  characterActiveEffects?: CharacterActiveEffectsSystemAdapter<unknown>
   inventory?: InventorySystemAdapter
   currency?: CurrencySystemAdapter
   items?: GameSystemItemAdapter

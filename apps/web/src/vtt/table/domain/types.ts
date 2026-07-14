@@ -1,4 +1,18 @@
 import type { VttGridSettings } from '../../grid'
+import type { SceneAreaShape } from '../../../../../../packages/game-system-core/src/shared/scene-geometry'
+
+export type VttSpellAreaOverlay = {
+  shape: SceneAreaShape
+  color: string
+  label: string
+  casterTokenId: string | null
+  phase: 'PREVIEW' | 'CAST'
+}
+
+export type VttSpellAreaChangedPayload = {
+  campaignId: string
+  area: VttSpellAreaOverlay | null
+}
 
 export type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens' | 'hazards'
 
@@ -17,6 +31,7 @@ export type VttPlayerToken = {
   source: 'character' | 'bestiary'
   characterId: string | null
   bestiaryCreatureId?: string | null
+  campaignNpcDefinitionId?: string | null
   name: string
   avatarUrl: string | null
   tokenBorderColor?: string | null
@@ -101,6 +116,7 @@ export type VttTokenCandidate = {
   source: 'character' | 'bestiary'
   characterId: string | null
   creatureId?: string
+  campaignNpcDefinitionId?: string
   name: string
   avatarUrl: string | null
   tokenBorderColor?: string | null

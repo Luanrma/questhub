@@ -12,9 +12,12 @@ AC = 10
    + bonusDeItemDaArmadura
    + (escudoErguido ? bonusDeItemDoEscudo : 0)
    + ajusteManual
+   + bonusDoRuleEngine
 ```
 
 Onde `bonusDeProficiencia(nivel, rank) = rank === 0 ? 0 : nivel + rank`, identico a regra ja usada por pericias e saves (`.ai/game_systems/pathfinder_2e/character_sheet/specs.md` secao 6).
+
+`bonusDoRuleEngine` e um termo opcional adicionado por `.ai/game_systems/pathfinder_2e/character_effects/` (efeitos ativos do personagem): soma dos `FlatModifier` com `selector: 'ac'` encontrados nos Rule Elements dos efeitos ativos do personagem, apos a regra real de stacking do PF2e (`.ai/game_systems/pathfinder_2e/rule_engine/`). Quando o personagem nao tem efeitos ativos (ou a chamada nao passa `ruleElements`), esse termo e `0` e a formula e identica a versao anterior a essa integracao — ver `.ai/game_systems/pathfinder_2e/character_effects/specs.md` secao 4 para o contrato completo. Este termo e somado **fora** da regra de stacking dos demais (`itemBonus`/`shieldBonus`/`manualAdjustment` continuam somados incondicionalmente, sem reclassificacao — decisao registrada em `character_effects/skills.md` secao 2).
 
 Contrato TypeScript completo em `.ai/game_systems/pathfinder_2e/armor_class/skills.md` secao 3.
 

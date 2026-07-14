@@ -116,6 +116,88 @@ test('manual adjustment applies as a positive or negative offset', () => {
   assert.equal(penalized.total, 7)
 })
 
+test('flat modifier rule elements with selector "ac" are added on top of the existing formula', () => {
+  const result = calculateArmorClass({
+    level: 1,
+    dexterityModifier: 0,
+    armorProficiencies: untrainedProficiencies,
+    equippedArmor: null,
+    equippedShield: null,
+    manualAdjustment: 0,
+    ruleElements: [{ key: 'FlatModifier', selector: 'ac', type: 'circumstance', value: 2 }],
+  })
+
+  assert.equal(result.ruleEngineBonus, 2)
+  assert.equal(result.ruleEngineModifiers.length, 1)
+  assert.equal(result.total, 12)
+})
+
+test('same-type circumstance bonuses from rule elements do not stack, only the best applies', () => {
+  const result = calculateArmorClass({
+    level: 1,
+    dexterityModifier: 0,
+    armorProficiencies: untrainedProficiencies,
+    equippedArmor: null,
+    equippedShield: null,
+    manualAdjustment: 0,
+    ruleElements: [
+      { key: 'FlatModifier', selector: 'ac', type: 'circumstance', value: 2 },
+      { key: 'FlatModifier', selector: 'ac', type: 'circumstance', value: 1 },
+    ],
+  })
+
+  assert.equal(result.ruleEngineBonus, 2)
+  assert.equal(result.total, 12)
+})
+
+test('untyped rule element bonuses always stack with a circumstance bonus', () => {
+  const result = calculateArmorClass({
+    level: 1,
+    dexterityModifier: 0,
+    armorProficiencies: untrainedProficiencies,
+    equippedArmor: null,
+    equippedShield: null,
+    manualAdjustment: 0,
+    ruleElements: [
+      { key: 'FlatModifier', selector: 'ac', type: 'circumstance', value: 2 },
+      { key: 'FlatModifier', selector: 'ac', type: 'untyped', value: 1 },
+    ],
+  })
+
+  assert.equal(result.ruleEngineBonus, 3)
+  assert.equal(result.total, 13)
+})
+
+test('flat modifiers targeting a selector other than "ac" do not affect the AC total', () => {
+  const result = calculateArmorClass({
+    level: 1,
+    dexterityModifier: 0,
+    armorProficiencies: untrainedProficiencies,
+    equippedArmor: null,
+    equippedShield: null,
+    manualAdjustment: 0,
+    ruleElements: [{ key: 'FlatModifier', selector: 'perception', type: 'circumstance', value: 5 }],
+  })
+
+  assert.equal(result.ruleEngineBonus, 0)
+  assert.equal(result.total, 10)
+})
+
+test('omitting ruleElements keeps the exact behavior from before the Rule Engine integration', () => {
+  const result = calculateArmorClass({
+    level: 1,
+    dexterityModifier: 0,
+    armorProficiencies: untrainedProficiencies,
+    equippedArmor: null,
+    equippedShield: null,
+    manualAdjustment: 0,
+  })
+
+  assert.equal(result.ruleEngineBonus, 0)
+  assert.deepEqual(result.ruleEngineModifiers, [])
+  assert.equal(result.total, 10)
+})
+
 test('normalizePathfinder2eArmorCategory falls back to unarmored for unknown or missing values', () => {
   assert.equal(normalizePathfinder2eArmorCategory('medium'), 'medium')
   assert.equal(normalizePathfinder2eArmorCategory('unknown-category'), 'unarmored')

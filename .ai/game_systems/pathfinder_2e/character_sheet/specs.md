@@ -336,6 +336,16 @@ Regras:
   * Religiao: `wisdom`.
   * Sociedade: `intelligence`.
   * Sobrevivencia: `wisdom`.
+* Atributos chave dos salvamentos:
+  * Fortitude: `constitution`.
+  * Reflexo: `dexterity`.
+  * Vontade: `wisdom`.
+
+### 6.1. Correcao de Divergencia — Salvamentos Nao Eram Calculados (corrigido em 2026-07-13)
+
+Ate esta correcao, `savingThrows.fortitude/reflex/will.value` **nao seguia** a regra da secao 6 apesar de o contrato dizer que deveria: nao havia formula (`calculateSkills` so cobria pericias) nem seletor de rank na UI (`Pathfinder2eSheetForm.tsx` so exibia o `.value` bruto, sempre o default `0`, sem nenhum input editavel). Corrigido para seguir exatamente o mesmo padrao ja usado por pericias: uma funcao pura (`calculateSavingThrow`, `packages/game-system-pathfinder-2e/src/shared/saving-throws.ts`) calcula `bonusDeProficiencia(nivel, rank) + modificadorDoAtributoChave`, e a secao "Proficiências" da ficha (`Pathfinder2eSheetForm.tsx`, pagina 1) ganhou um seletor de rank por salvamento, no mesmo componente visual ja usado por proficiencias de armadura (`armorProficiencyInput`).
+
+Diferenca deliberada em relacao a pericias: o `.value` persistido no envelope da ficha **nao inclui** o bonus do Rule Engine (efeitos ativos, `.ai/game_systems/pathfinder_2e/character_effects/`) — só a base (`proficiencia + atributo`), a mesma razao pela qual o total de CA nunca e persistido (`.ai/game_systems/pathfinder_2e/armor_class/specs.md` secao 2): o bonus do Rule Engine depende de estado externo (efeitos ativos) que muda independente da ficha ser salva, entao persisti-lo junto arriscaria ficar desatualizado. O total exibido na ficha (resumo rapido e secao Proficiências) sempre soma o bonus do Rule Engine em tempo de renderizacao, nunca a partir do `.value` persistido.
 
 ## 7. Evolucao V2 Com Catalogo De Opcoes
 A ficha PF2e V2 integra o modulo `character_options` e substitui os campos de texto livre como fonte canonica de Classe, Ancestralidade, Heranca e Background.
@@ -434,7 +444,7 @@ Compatibilidade:
 Mudancas de contrato:
 * campo novo `hitPoints.manualAdjustment: number` (ajuste manual de circunstancia/status a vida maxima, mesmo espirito de `armorClass.manualAdjustment`);
 * `hitPoints.maximum` continua sendo um numero persistido comum — ao contrario de Armor Class, nao passa a ser "sempre derivado em leitura", pois precisa coexistir com `hitPoints.current` (dano acumulado) de forma consistente entre escritas;
-* `hitPoints.maximum` e recalculado automaticamente pelo frontend (nao pelo backend) sempre que nivel, Constituicao, ancestralidade, classe ou `manualAdjustment` mudarem, seguindo o mesmo padrao ja usado para `skills`/`savingThrows`/`perception` (secao 8: frontend calcula, backend so valida o snapshot).
+* `hitPoints.maximum` e recalculado automaticamente pelo frontend (nao pelo backend) sempre que nivel, Constituicao, ancestralidade, classe ou `manualAdjustment` mudarem, seguindo o mesmo padrao ja usado para `skills`/`savingThrows` (secao 6.1: frontend calcula, backend so valida o snapshot). `perception` ainda nao segue esse padrao — continua um numero digitado a mao, sem formula nem seletor de rank na UI; correcao pendente, nao coberta por esta secao.
 
 Migracao:
 * mudanca aditiva — `maximum`/`current`/`temporary`/`wounded`/`dying`/`doomed` nao mudam de forma; **nao ha novo valor de `PATHFINDER_2E_SHEET_VERSION`** nem migracao dedicada, ao contrario da evolucao de Armor Class (que trocou `armorClass: number` por objeto);

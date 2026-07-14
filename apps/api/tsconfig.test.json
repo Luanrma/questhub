@@ -14,5 +14,5 @@
     "outDir": "../../.tmp/api-tests"
   },
   "include": ["src/unit.test.ts", "../../packages/**/*.ts"],
-  "exclude": ["src/server.ts"]
+  "exclude": ["src/server.ts", "../../packages/*/src/web/**"]
 }

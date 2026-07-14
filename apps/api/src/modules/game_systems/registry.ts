@@ -1,7 +1,17 @@
 import { z } from 'zod'
-import type { CharacterSheetEnvelope, CharacterSheetMetadata, CharacterSheetSystemAdapter } from './models'
-import { characterSheetEnvelopeSchema } from './schemas'
+import type {
+  CharacterActiveEffectsEnvelope,
+  CharacterActiveEffectsSystemAdapter,
+  CharacterSheetEnvelope,
+  CharacterSheetMetadata,
+  CharacterSheetSystemAdapter,
+  CharacterSpellbookEnvelope,
+  CharacterSpellbookSystemAdapter,
+} from './models'
+import { characterActiveEffectsEnvelopeSchema, characterSheetEnvelopeSchema, characterSpellbookEnvelopeSchema } from './schemas'
 import { pathfinder2eSheetAdapter } from './pathfinder_2e/character_sheet'
+import { pathfinder2eCharacterSpellbookAdapter } from './pathfinder_2e/character_spells'
+import { pathfinder2eCharacterActiveEffectsAdapter } from './pathfinder_2e/character_effects'
 import { pathfinder2eItemAdapter } from './pathfinder_2e/items'
 import {
   formatPathfinder2eCurrency,
@@ -31,6 +41,8 @@ const gameSystemAdapters = new Map<GameSystemId, GameSystemAdapter>([
       version: 1,
       status: 'PLAYABLE',
       characterSheet: pathfinder2eSheetAdapter,
+      characterSpellbook: pathfinder2eCharacterSpellbookAdapter,
+      characterActiveEffects: pathfinder2eCharacterActiveEffectsAdapter,
       inventory: pathfinder2eInventoryAdapter,
       currency: pathfinder2eCurrencyAdapter,
       items: pathfinder2eItemAdapter,
@@ -99,6 +111,110 @@ export function validateCharacterSheetEnvelope(input: unknown): CharacterSheetEn
 export function safeValidateCharacterSheetEnvelope(input: unknown) {
   try {
     return { success: true as const, data: validateCharacterSheetEnvelope(input) }
+  } catch (error) {
+    if (error instanceof z.ZodError) return { success: false as const, error }
+    return { success: false as const, error }
+  }
+}
+
+const spellbookAdapters = new Map<string, CharacterSpellbookSystemAdapter<unknown>>([
+  ...[...gameSystemAdapters.values()]
+    .filter((adapter): adapter is GameSystemAdapter & { characterSpellbook: CharacterSpellbookSystemAdapter<unknown> } =>
+      Boolean(adapter.characterSpellbook),
+    )
+    .map((adapter) => [adapter.characterSpellbook.system, adapter.characterSpellbook] as const),
+])
+
+export function getCharacterSpellbookAdapter(system: string) {
+  return spellbookAdapters.get(system)
+}
+
+export function buildDefaultCharacterSpellbookEnvelope(system: string): CharacterSpellbookEnvelope {
+  const adapter = getCharacterSpellbookAdapter(system)
+  if (!adapter) throw new Error(`Unsupported character spellbook system: ${system}`)
+
+  return {
+    system: adapter.system,
+    version: adapter.version,
+    data: {
+      [adapter.dataKey]: adapter.defaultSpellbook,
+    },
+  }
+}
+
+export function validateCharacterSpellbookEnvelope(input: unknown): CharacterSpellbookEnvelope {
+  const envelope = characterSpellbookEnvelopeSchema.parse(input)
+  const adapter = getCharacterSpellbookAdapter(envelope.system)
+  if (!adapter) throw new Error(`Unsupported character spellbook system: ${envelope.system}`)
+
+  if (envelope.version !== adapter.version) {
+    throw new Error(`Unsupported character spellbook version: ${envelope.version}`)
+  }
+
+  const systemData = envelope.data[adapter.dataKey]
+  if (systemData === undefined) {
+    throw new Error(`Missing character spellbook data block: ${adapter.dataKey}`)
+  }
+
+  adapter.schema.parse(systemData)
+  return envelope
+}
+
+export function safeValidateCharacterSpellbookEnvelope(input: unknown) {
+  try {
+    return { success: true as const, data: validateCharacterSpellbookEnvelope(input) }
+  } catch (error) {
+    if (error instanceof z.ZodError) return { success: false as const, error }
+    return { success: false as const, error }
+  }
+}
+
+const activeEffectsAdapters = new Map<string, CharacterActiveEffectsSystemAdapter<unknown>>([
+  ...[...gameSystemAdapters.values()]
+    .filter((adapter): adapter is GameSystemAdapter & { characterActiveEffects: CharacterActiveEffectsSystemAdapter<unknown> } =>
+      Boolean(adapter.characterActiveEffects),
+    )
+    .map((adapter) => [adapter.characterActiveEffects.system, adapter.characterActiveEffects] as const),
+])
+
+export function getCharacterActiveEffectsAdapter(system: string) {
+  return activeEffectsAdapters.get(system)
+}
+
+export function buildDefaultCharacterActiveEffectsEnvelope(system: string): CharacterActiveEffectsEnvelope {
+  const adapter = getCharacterActiveEffectsAdapter(system)
+  if (!adapter) throw new Error(`Unsupported character active effects system: ${system}`)
+
+  return {
+    system: adapter.system,
+    version: adapter.version,
+    data: {
+      [adapter.dataKey]: adapter.defaultData,
+    },
+  }
+}
+
+export function validateCharacterActiveEffectsEnvelope(input: unknown): CharacterActiveEffectsEnvelope {
+  const envelope = characterActiveEffectsEnvelopeSchema.parse(input)
+  const adapter = getCharacterActiveEffectsAdapter(envelope.system)
+  if (!adapter) throw new Error(`Unsupported character active effects system: ${envelope.system}`)
+
+  if (envelope.version !== adapter.version) {
+    throw new Error(`Unsupported character active effects version: ${envelope.version}`)
+  }
+
+  const systemData = envelope.data[adapter.dataKey]
+  if (systemData === undefined) {
+    throw new Error(`Missing character active effects data block: ${adapter.dataKey}`)
+  }
+
+  adapter.schema.parse(systemData)
+  return envelope
+}
+
+export function safeValidateCharacterActiveEffectsEnvelope(input: unknown) {
+  try {
+    return { success: true as const, data: validateCharacterActiveEffectsEnvelope(input) }
   } catch (error) {
     if (error instanceof z.ZodError) return { success: false as const, error }
     return { success: false as const, error }

@@ -1,14 +1,20 @@
 import { useEffect, useRef, useState } from 'react'
-import { BadgeCheck, BookOpen, Compass, Dumbbell, Feather, Pencil, Sparkles, type LucideIcon } from 'lucide-react'
+import { BadgeCheck, BookOpen, Compass, Dumbbell, Feather, Pencil, Sparkles, Wand2, type LucideIcon } from 'lucide-react'
 import type { Socket } from 'socket.io-client'
 import './Pathfinder2eSheetForm.css'
 import { calculateArmorClass, normalizePathfinder2eArmorCategory } from '../../shared/armor-class'
 import { applyMaximumHitPointsIncrease, calculateMaximumHitPoints, initializeCurrentHitPoints } from '../../shared/hit-points'
+import { calculateSavingThrow, PATHFINDER_2E_SAVING_THROW_ATTRIBUTE } from '../../shared/saving-throws'
+import type { Pathfinder2eSavingThrowKey } from '../../shared/saving-throws'
+import { getPathfinder2eAttributeModifier } from '../../shared/attribute-modifier'
 import {
   PATHFINDER_2E_ATTRIBUTE_KEY_BY_SLUG,
   derivePathfinder2eAttributeScoresFromBuildChoices,
 } from './domain/buildChoices'
 import { toggleArmorClassShieldRaised, useArmorClassEquipment } from './hooks/useArmorClassEquipment'
+import { SpellsPage } from './spells/components/SpellsPage'
+import { ActiveEffectsCard } from './active-effects/components/ActiveEffectsCard'
+import { useCharacterActiveEffects } from './active-effects/hooks/useCharacterActiveEffects'
 import type {
   Pathfinder2eArmorClassManual,
   Pathfinder2eArmorProficiencies,
@@ -123,6 +129,7 @@ export const pathfinder2eCharacterSheetRenderer = {
   pages: [
     { title: 'Atributos', Icon: Dumbbell },
     { title: 'Proficiências', Icon: BadgeCheck },
+    { title: 'Magias', Icon: Wand2 },
   ],
   renderPage({ page, characterName, sheet, onChangeSheet, identityLocked, isGameMaster, characterId, campaignId, socket }: Props) {
     return (
@@ -266,6 +273,19 @@ const SKILL_LABELS: SkillDefinition[] = [
   { key: 'survival', label: 'Sobrevivência', detail: 'Sabedoria - rastrear, orientar-se, eliminar rastros', attribute: 'wisdom' },
 ]
 
+type SavingThrowDefinition = {
+  key: Pathfinder2eSavingThrowKey
+  label: string
+  detail: string
+  attribute: AttributeKey
+}
+
+const SAVING_THROW_LABELS: SavingThrowDefinition[] = [
+  { key: 'fortitude', label: 'Fortitude', detail: 'Constituição - resistir a veneno, doença, exaustão', attribute: PATHFINDER_2E_SAVING_THROW_ATTRIBUTE.fortitude },
+  { key: 'reflex', label: 'Reflexo', detail: 'Destreza - esquivar de explosões, armadilhas, quedas', attribute: PATHFINDER_2E_SAVING_THROW_ATTRIBUTE.reflex },
+  { key: 'will', label: 'Vontade', detail: 'Sabedoria - resistir a mental, medo, encantamento', attribute: PATHFINDER_2E_SAVING_THROW_ATTRIBUTE.will },
+]
+
 function toInteger(value: string) {
   const parsed = Number.parseInt(value, 10)
   return Number.isNaN(parsed) ? 0 : parsed
@@ -288,9 +308,7 @@ function formatSigned(value: number) {
   return value >= 0 ? `+${value}` : String(value)
 }
 
-function getAttributeModifier(attributeScore: number) {
-  return Math.floor((attributeScore - 10) / 2)
-}
+const getAttributeModifier = getPathfinder2eAttributeModifier
 
 function getRankBonus(level: number, rank: Pathfinder2eProficiencyRank) {
   if (rank === 0) return 0
@@ -917,6 +935,16 @@ export function Pathfinder2eSheetForm({
 }: Props) {
   const pathfinder2e = withDefaultArmorClass(withCalculatedSkills(sheet.data.pathfinder2e))
   const { equipment: armorClassEquipment, reload: reloadArmorClassEquipment } = useArmorClassEquipment(campaignId, characterId, socket)
+  const activeEffects = useCharacterActiveEffects(characterId)
+
+  function getSavingThrowBreakdown(definition: SavingThrowDefinition) {
+    return calculateSavingThrow(definition.key, {
+      level: getSheetLevel(pathfinder2e),
+      rank: pathfinder2e.savingThrows[definition.key].rank,
+      attributeModifier: getAttributeModifier(pathfinder2e.attributes[definition.attribute]),
+      ruleElements: activeEffects.data.effects.flatMap((effect) => effect.rules),
+    })
+  }
 
   const classDetailsForHitPoints = useCharacterOptionDetails('class', getIdentitySelection(pathfinder2e, 'class'))
   const ancestryDetailsForHitPoints = useCharacterOptionDetails('ancestry', getIdentitySelection(pathfinder2e, 'ancestry'))
@@ -1019,6 +1047,7 @@ export function Pathfinder2eSheetForm({
         : null,
       equippedShield: armorClassEquipment?.shield ?? null,
       manualAdjustment: getArmorClassManual(pathfinder2e).manualAdjustment,
+      ruleElements: activeEffects.data.effects.flatMap((effect) => effect.rules),
     })
 
     const hpBreakdownTooltip = [
@@ -1079,6 +1108,14 @@ export function Pathfinder2eSheetForm({
           </div>
         </div>
 
+        <ActiveEffectsCard
+          data={activeEffects.data}
+          saving={activeEffects.saving}
+          error={activeEffects.error}
+          addEffect={activeEffects.addEffect}
+          removeEffect={activeEffects.removeEffect}
+        />
+
         {quickSectionTitle('Vida')}
         <div className="sheet-quick-health-row sheet-quick-life-row">
           {quickNumberInput('Maxima', pathfinder2e.hitPoints.maximum, (value) => {
@@ -1133,9 +1170,9 @@ export function Pathfinder2eSheetForm({
 
         {quickSectionTitle('Defesas')}
         <div className="sheet-quick-saves-row">
-          {summaryValue('Fortitude', formatSigned(pathfinder2e.savingThrows.fortitude.value))}
-          {summaryValue('Reflexo', formatSigned(pathfinder2e.savingThrows.reflex.value))}
-          {summaryValue('Vontade', formatSigned(pathfinder2e.savingThrows.will.value))}
+          {SAVING_THROW_LABELS.map((definition) => (
+            <div key={definition.key}>{summaryValue(definition.label, formatSigned(getSavingThrowBreakdown(definition).total))}</div>
+          ))}
         </div>
 
         <div className="sheet-quick-bottom">
@@ -1204,6 +1241,38 @@ export function Pathfinder2eSheetForm({
         </span>
         <label className="sheet-proficiency-total">
           <input type="number" inputMode="numeric" step={1} value={bonus} readOnly aria-label={`Bonus de ${definition.label}`} />
+          <span>{definition.label}</span>
+        </label>
+        <select
+          aria-label={`Rank de ${definition.label}`}
+          className={getRankClassName(rank)}
+          value={rank}
+          onChange={(event) => onChange(Number(event.target.value) as Pathfinder2eProficiencyRank)}
+        >
+          {PROFICIENCY_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    )
+  }
+
+  function savingThrowInput(definition: SavingThrowDefinition, onChange: (rank: Pathfinder2eProficiencyRank) => void) {
+    const rank = pathfinder2e.savingThrows[definition.key].rank
+    const breakdown = getSavingThrowBreakdown(definition)
+
+    return (
+      <div className="sheet-proficiency-row">
+        <span className="sheet-proficiency-help" aria-label={definition.detail} tabIndex={0}>
+          ?
+          <span className="sheet-proficiency-tooltip" role="tooltip">
+            {definition.detail}
+          </span>
+        </span>
+        <label className="sheet-proficiency-total">
+          <input type="number" inputMode="numeric" step={1} value={breakdown.total} readOnly aria-label={`Total de ${definition.label}`} />
           <span>{definition.label}</span>
         </label>
         <select
@@ -1302,6 +1371,23 @@ export function Pathfinder2eSheetForm({
     )
   }
 
+  if (page === 2) {
+    return (
+      <div className="pathfinder-sheet pathfinder-sheet-layout">
+        {renderQuickSummary()}
+        <SpellsPage
+          characterId={characterId}
+          campaignId={campaignId}
+          classSelectionId={(() => {
+            const selection = getIdentitySelection(pathfinder2e, 'class')
+            return selection?.source === 'catalog' ? selection.id : null
+          })()}
+          level={getSheetLevel(pathfinder2e)}
+        />
+      </div>
+    )
+  }
+
   return (
     <div className="pathfinder-sheet pathfinder-sheet-layout">
       {renderQuickSummary()}
@@ -1318,6 +1404,29 @@ export function Pathfinder2eSheetForm({
                       [definition.key]: rank,
                     },
                   }))
+                })}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="sheet-section">
+          <div className="sheet-section-title">Salvamentos</div>
+          <div className="sheet-proficiency-list">
+            {SAVING_THROW_LABELS.map((definition) => (
+              <div key={definition.key}>
+                {savingThrowInput(definition, (rank) => {
+                  updatePathfinder2e((current) => {
+                    const attributeModifier = getAttributeModifier(current.attributes[definition.attribute])
+                    const baseTotal = getRankBonus(getSheetLevel(current), rank) + attributeModifier
+                    return {
+                      ...current,
+                      savingThrows: {
+                        ...current.savingThrows,
+                        [definition.key]: { rank, value: baseTotal },
+                      },
+                    }
+                  })
                 })}
               </div>
             ))}

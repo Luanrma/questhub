@@ -10,6 +10,8 @@ Este diretorio em `.ai/game_systems/pathfinder_2e/armor_class` e o local canonic
 
 Isto substitui a decisao anterior (registrada em `.ai/game_systems/pathfinder_2e/character_sheet/skills.md` e `specs.md`) de que Armor Class era um campo numerico solto, fora de escopo para bonus de item. Essa decisao foi revertida por pedido explicito de produto: AC deve refletir equipamento automaticamente.
 
+Desde `.ai/game_systems/pathfinder_2e/character_effects/`, o calculo tambem soma (opcionalmente) o bonus vindo de efeitos ativos do personagem resolvidos pelo Rule Engine (`.ai/game_systems/pathfinder_2e/rule_engine/`) — primeiro consumidor real desse motor. Ver `specs.md` secao 2 para o termo `bonusDoRuleEngine` na formula.
+
 ## 2. Problema Resolvido
 Antes desta feature, `armorClass` era um numero digitado a mao, sem nenhuma relacao com armadura, escudo, proficiencia ou Destreza. O jogador precisava recalcular manualmente toda vez que equipava, desequipava ou trocava de armadura/escudo, e frequentemente esquecia de aplicar o limite de Destreza da armadura (dex cap) ou o bonus de proficiencia correto.
 

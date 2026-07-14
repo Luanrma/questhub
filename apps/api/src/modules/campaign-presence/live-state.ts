@@ -1,4 +1,4 @@
-import { defaultVttGridSettings, type OnlineCampaign, type UserPresence, type VttEncounterState, type VttGridSettings, type VttMeasurement, type VttPlayerToken, type VttTableScene } from './contracts'
+import { defaultVttGridSettings, type OnlineCampaign, type UserPresence, type VttEncounterState, type VttGridSettings, type VttMeasurement, type VttPlayerToken, type VttSpellAreaOverlay, type VttTableScene } from './contracts'
 
 export class CampaignPresenceState {
   private readonly userPresence = new Map<string, UserPresence>()
@@ -8,6 +8,7 @@ export class CampaignPresenceState {
   private readonly campaignTokenSceneIds = new Map<string, Map<string, string>>()
   private readonly campaignSceneGridSettings = new Map<string, Map<string, VttGridSettings>>()
   private readonly campaignMeasurements = new Map<string, VttMeasurement>()
+  private readonly campaignSpellAreas = new Map<string, VttSpellAreaOverlay>()
   private readonly campaignScenes = new Map<string, VttTableScene>()
   private readonly campaignPendingScenes = new Map<string, VttTableScene | null>()
   private readonly campaignEncounters = new Map<string, VttEncounterState>()
@@ -46,6 +47,7 @@ export class CampaignPresenceState {
     this.campaignTokenSceneIds.delete(campaignId)
     this.campaignSceneGridSettings.delete(campaignId)
     this.campaignMeasurements.delete(campaignId)
+    this.campaignSpellAreas.delete(campaignId)
     this.campaignScenes.delete(campaignId)
     this.campaignPendingScenes.delete(campaignId)
     this.campaignEncounters.delete(campaignId)
@@ -126,6 +128,18 @@ export class CampaignPresenceState {
     this.campaignMeasurements.delete(campaignId)
   }
 
+  getCampaignSpellArea(campaignId: string) {
+    return this.campaignSpellAreas.get(campaignId)
+  }
+
+  setCampaignSpellArea(campaignId: string, area: VttSpellAreaOverlay) {
+    this.campaignSpellAreas.set(campaignId, area)
+  }
+
+  deleteCampaignSpellArea(campaignId: string) {
+    this.campaignSpellAreas.delete(campaignId)
+  }
+
   getCampaignScene(campaignId: string) {
     return this.campaignScenes.get(campaignId)
   }
@@ -152,6 +166,7 @@ export class CampaignPresenceState {
 
   clearTransientVttState(campaignId: string) {
     this.campaignMeasurements.delete(campaignId)
+    this.campaignSpellAreas.delete(campaignId)
     this.campaignScenes.delete(campaignId)
     this.campaignPendingScenes.delete(campaignId)
     this.campaignEncounters.delete(campaignId)

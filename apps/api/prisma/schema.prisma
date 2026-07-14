@@ -157,6 +157,7 @@ model Campaign {
   itemDefinitions CampaignItemDefinition[]
   inventories     Inventory[]
   wallets         Wallet[]
+  npcDefinitions  CampaignNpcDefinition[]
 }
 
 model Character {
@@ -170,13 +171,45 @@ model Character {
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 
-  user         User                 @relation(fields: [userId], references: [id])
-  campaigns    CampaignCharacter[]
-  chatMessages ChatMessage[]
-  sceneTokens  CampaignSceneToken[]
+  user          User                    @relation(fields: [userId], references: [id])
+  campaigns     CampaignCharacter[]
+  chatMessages  ChatMessage[]
+  sceneTokens   CampaignSceneToken[]
+  spellbook     CharacterSpellbook?
+  activeEffects CharacterActiveEffects?
 
   @@index([userId])
   @@index([deletedAt])
+}
+
+model CharacterSpellbook {
+  id          String     @id @default(cuid())
+  characterId String     @unique
+  system      GameSystem
+  version     Int        @default(1)
+  revision    Int        @default(1)
+  data        Json
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  character Character @relation(fields: [characterId], references: [id])
+
+  @@index([characterId])
+}
+
+model CharacterActiveEffects {
+  id          String     @id @default(cuid())
+  characterId String     @unique
+  system      GameSystem
+  version     Int        @default(1)
+  revision    Int        @default(1)
+  data        Json
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  character Character @relation(fields: [characterId], references: [id])
+
+  @@index([characterId])
 }
 
 model CampaignCharacter {
@@ -286,29 +319,58 @@ model CampaignScene {
 }
 
 model CampaignSceneToken {
-  id                 String                   @id @default(cuid())
-  sceneId            String
-  source             CampaignSceneTokenSource @default(CHARACTER)
-  characterId        String?
-  bestiarySystem     GameSystem?
-  bestiaryCreatureId String?
-  name               String?
-  avatarUrl          String?
-  tokenBorderColor   String?
-  hidden             Boolean                  @default(false)
-  positionX          Float
-  positionY          Float
-  createdAt          DateTime                 @default(now())
-  updatedAt          DateTime                 @updatedAt
+  id                      String                   @id @default(cuid())
+  sceneId                 String
+  source                  CampaignSceneTokenSource @default(CHARACTER)
+  characterId             String?
+  bestiarySystem          GameSystem?
+  bestiaryCreatureId      String?
+  campaignNpcDefinitionId String?
+  name                    String?
+  avatarUrl               String?
+  tokenBorderColor        String?
+  hidden                  Boolean                  @default(false)
+  positionX               Float
+  positionY               Float
+  createdAt               DateTime                 @default(now())
+  updatedAt               DateTime                 @updatedAt
 
-  scene     CampaignScene             @relation(fields: [sceneId], references: [id], onDelete: Cascade)
-  character Character?                @relation(fields: [characterId], references: [id], onDelete: Cascade)
-  health    CampaignSceneTokenHealth?
+  scene                 CampaignScene             @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  character             Character?                @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  campaignNpcDefinition CampaignNpcDefinition?    @relation(fields: [campaignNpcDefinitionId], references: [id])
+  health                CampaignSceneTokenHealth?
 
   @@unique([characterId])
   @@index([sceneId])
   @@index([characterId])
   @@index([bestiarySystem, bestiaryCreatureId])
+  @@index([campaignNpcDefinitionId])
+}
+
+enum NpcDefinitionSource {
+  SYSTEM_CATALOG
+  CUSTOM
+}
+
+model CampaignNpcDefinition {
+  id                 String              @id @default(cuid())
+  campaignId         String
+  system             GameSystem
+  source             NpcDefinitionSource @default(SYSTEM_CATALOG)
+  sourcePack         String?
+  bestiaryCreatureId String
+  name               String
+  spellbook          Json?
+
+  createdByUserId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  campaign    Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  sceneTokens CampaignSceneToken[]
+
+  @@unique([campaignId, source, sourcePack, bestiaryCreatureId, name])
+  @@index([campaignId])
 }
 
 enum CombatHealthOperation {

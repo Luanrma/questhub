@@ -185,3 +185,79 @@ type Pathfinder2eHazardCatalogEntry = {
   systemData: unknown
 }
 ```
+
+## 8. Customizacao de NPC pelo Mestre (`CampaignNpcDefinition`) — implementado em 2026-07-13
+
+**Status: ✅ implementado nesta rodada** (migration `20260713194318_add_campaign_npc_definition` aplicada; CRUD em `apps/api/src/modules/npc_definitions/routes.ts`). Ver `.ai/game_systems/pathfinder_2e/npc_spellcasting/` para o consumo desses dados por conjuracao/resolucao.
+
+### Problema
+O Mestre precisa poder preparar magias para uma criatura do bestiario (ex.: "este Goblin Warchanter conhece Guidance e Heal") e reaproveitar essa mesma criatura customizada em varias cenas/encontros diferentes, sem repetir a configuracao a cada vez — e sem alterar o catalogo original (`pf2e-master/packs`), que continua sendo dado de referencia imutavel do compendio.
+
+### Decisao (2026-07-13, confirmada com o usuario)
+Mesmo padrao ja usado para itens customizados do Mestre (`CampaignItemDefinition`, `.ai/inventory/specs.md` secao 3.2): uma entidade **por campanha**, clonada a partir do catalogo (nunca o catalogo em si e mutado), que os tokens de cena referenciam. Alternativas descartadas: customizacao por token individual (nao reaproveitavel entre cenas — motivo explicito do usuario para rejeitar) e um modelo hibrido com override por token (escopo maior, adiado para uma evolucao futura caso surja necessidade real).
+
+### Modelo de Dados (Prisma, implementado)
+
+```prisma
+enum NpcDefinitionSource {
+  SYSTEM_CATALOG // clonado de uma entrada real do bestiario (fluxo unico previsto nesta fatia)
+  CUSTOM         // criatura montada do zero pelo Mestre, sem origem no catalogo (fora de escopo nesta fatia, campo reservado para simetria com ItemDefinitionSource)
+}
+
+model CampaignNpcDefinition {
+  id                 String              @id @default(cuid())
+  campaignId         String
+  system             GameSystem
+  source             NpcDefinitionSource @default(SYSTEM_CATALOG)
+  sourcePack         String?             // pack Foundry de origem, quando source = SYSTEM_CATALOG
+  bestiaryCreatureId String              // sempre aponta para a entrada original do catalogo — nunca mutada; usada para herdar defesas/ataques/PV base (mesma leitura que um token "cru" ja faz hoje)
+  name               String              // nome customizado exibido (ex.: "Goblin Warchanter — Xamã da Tribo"), pode divergir do nome do catalogo
+  spellbook          Json?               // Pathfinder2eNpcSpellbookData — null = sem magias preparadas
+
+  createdByUserId String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  campaign    Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  sceneTokens CampaignSceneToken[]
+
+  @@unique([campaignId, source, sourcePack, bestiaryCreatureId, name])
+  @@index([campaignId])
+}
+```
+
+`CampaignSceneToken` ganha um campo novo, opcional, aditivo (nao substitui `bestiaryCreatureId`, que continua a fonte de defesas/ataques/PV como hoje):
+
+```prisma
+model CampaignSceneToken {
+  // campos existentes...
+  campaignNpcDefinitionId String?
+  campaignNpcDefinition   CampaignNpcDefinition? @relation(fields: [campaignNpcDefinitionId], references: [id])
+}
+```
+
+`campaignNpcDefinitionId` so e valido quando `source = BESTIARY`. Token sem esse campo (todo dado existente hoje) continua funcionando exatamente como antes — a customizacao e estritamente aditiva, sem migracao de dado existente.
+
+### Regras de Negocio
+* O catalogo (`pf2e-master/packs`, dados extraidos em `Pathfinder2eBestiaryCreatureData`) nunca e escrito — `CampaignNpcDefinition` e sempre uma copia/extensao por campanha, igual ao principio ja registrado para itens (`.ai/inventory/skills.md` secao 13: nunca seed/import em massa do compendio).
+* Deduplicacao: customizar a mesma criatura do catalogo mais de uma vez na mesma campanha com o mesmo nome reaproveita a `CampaignNpcDefinition` existente (chave `[campaignId, source, sourcePack, bestiaryCreatureId, name]`), nao cria duplicata — mesmo principio de `CampaignItemDefinition`. Nomes diferentes para a mesma criatura de origem criam definicoes distintas (ex.: dois xamas goblin diferentes, ambos baseados no mesmo `bestiaryCreatureId`).
+* Um `CampaignNpcDefinition` pode ser instanciado (via `campaignNpcDefinitionId`) em quantos tokens/cenas o Mestre quiser — todos compartilham o mesmo `spellbook`. Editar o spellbook da definicao afeta todas as instancias ja colocadas (mesmo padrao de "editar a fonte, nao a copia" usado em outros catalogos deste projeto).
+* PV continua por instancia de token (`CampaignSceneTokenHealth`, `.ai/combat/specs.md`), nao pela definicao — dois goblins xamas na mesma cena tem vidas independentes mesmo compartilhando spellbook.
+* Apenas o Mestre ativo da campanha pode criar, editar ou excluir `CampaignNpcDefinition` (mesma regra de posse de `CampaignItemDefinition`).
+* **Decisao tomada na implementacao**: excluir uma `CampaignNpcDefinition` que ainda tem tokens instanciados retorna `409` e nao apaga nada — o Mestre precisa remover os tokens da cena primeiro. Mais simples e mais seguro que desvincular silenciosamente; pode ser revisto se se provar incomodo no uso real.
+
+### Contrato HTTP (implementado)
+
+```ts
+GET    /api/campaigns/:campaignId/npc-definitions                     // lista, Mestre-only
+POST   /api/campaigns/:campaignId/npc-definitions                     // body: {bestiaryCreatureId, name} -> upsert dedup pela chave unica
+PATCH  /api/campaigns/:campaignId/npc-definitions/:definitionId       // body: {name}
+DELETE /api/campaigns/:campaignId/npc-definitions/:definitionId       // 409 se houver token instanciado
+PUT    /api/campaigns/:campaignId/npc-definitions/:definitionId/spellbook  // body: Pathfinder2eCharacterSpellbookData bruto (sem envelope, sem revision — so o Mestre edita, sem concorrencia otimista)
+```
+
+Cada resposta serializa `spellbook` sempre como `Pathfinder2eCharacterSpellbookData` valido (nunca o Json bruto) — `parseNpcSpellbook` (`apps/api/src/modules/npc_definitions/routes.ts`) cai para o spellbook vazio (`DEFAULT_PATHFINDER_2E_CHARACTER_SPELLBOOK`) se o dado salvo nao passar no schema, nunca retorna erro 500 por dado corrompido.
+
+### Colocacao de token (implementado)
+
+`vtt:token:place` (evento existente, `.ai/vtt/specs.md`) ganhou um campo opcional `campaignNpcDefinitionId` no branch `source: 'bestiary'` (`apps/api/src/modules/campaign-presence/contracts.ts`). Quando presente, o servidor busca a definicao (deve pertencer a mesma campanha e ao mesmo `bestiaryCreatureId` — nunca confia no nome/spellbook que o cliente diria ter), usa `definition.name` como nome do token e grava `campaignNpcDefinitionId` no token persistido. `GET /api/campaigns/:campaignId/token-candidates` (`apps/api/src/modules/campaigns/routes.ts`) inclui automaticamente todo `CampaignNpcDefinition` da campanha como candidato arrastavel — diferente do catalogo bruto, NPCs customizados nao precisam ser "preparados" primeiro (ja sao uma lista curada pelo proprio Mestre ao cria-los).
