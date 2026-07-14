@@ -2,20 +2,21 @@ import { useEffect, useMemo, useState } from 'react'
 import { BookOpen, Check, ChevronDown, Plus, Save, Search, Sparkles, Trash2, X } from 'lucide-react'
 import { Pathfinder2eSpellSheetView } from '../../../spells/Pathfinder2eSpellSheetView'
 import { useCharacterSpellbook } from '../hooks/useCharacterSpellbook'
+import { fetchCampaignSpell } from '../infrastructure/spellCatalogSearchApi'
 import { SpellSearchPicker } from './SpellSearchPicker'
 import { SuggestedEntryCard } from './SuggestedEntryCard'
 import {
   SPELLCASTING_CATEGORY_LABELS,
   addKnownSpell,
-  addPreparedSlot,
-  createSpellcastingEntry,
+  preparedSlotsMatchSlotRanks,
   removePreparedSlot,
   setPreparedSpell,
-  setSlotMax,
+  syncPreparedSlotsWithSlotRanks,
   toggleExpended,
   withEntry,
 } from '../domain/spellbookHelpers'
 import type {
+  Pathfinder2eCampaignSpellEntry,
   Pathfinder2eCharacterSpellbookData,
   Pathfinder2eRitualEntry,
   Pathfinder2eSpellSearchResult,
@@ -28,28 +29,6 @@ type Props = {
   campaignId: string | null
   classSelectionId?: string | null
   level?: number
-}
-
-type SpellSheetEntry = {
-  key: string
-  label: string
-  value?: string
-  detail?: string
-  tags?: string[]
-}
-
-type CampaignSpellEntry = {
-  id: string
-  system: string
-  category: 'spell' | 'ritual'
-  name: string
-  display: {
-    subtitle?: string
-    level?: { label: string; value: string }
-    stats: Array<{ key: string; label: string; value: string }>
-    tags: string[]
-    sheet?: { sections: Array<{ key: string; title: string; entries: SpellSheetEntry[] }> }
-  }
 }
 
 type SpellRow =
@@ -105,13 +84,6 @@ type SpellRow =
       name: string
     }
 
-const CATEGORY_OPTIONS: Array<[Pathfinder2eSpellcastingCategory, string]> = Object.entries(SPELLCASTING_CATEGORY_LABELS) as Array<[
-  Pathfinder2eSpellcastingCategory,
-  string,
-]>
-
-const TRADITION_OPTIONS = ['arcane', 'divine', 'occult', 'primal'] as const
-const ABILITY_OPTIONS = ['int', 'wis', 'cha'] as const
 const PROFICIENCY_LABELS: Record<number, string> = {
   0: 'Nao treinado',
   2: 'Treinado',
@@ -290,18 +262,13 @@ function SpellRowButton({
   onClearPrepared: () => void
 }) {
   const hasSpell = Boolean(row.spellId && row.name)
-  const categoryLabel = SPELLCASTING_CATEGORY_LABELS[row.category]
+  const rowMeta = row.kind === 'prepared' ? `Slot ${row.slotIndex + 1}` : row.kind === 'innate' ? row.uses : SPELLCASTING_CATEGORY_LABELS[row.category]
 
   return (
     <div className={selected ? 'spellbook-row spellbook-row-selected' : 'spellbook-row'}>
       <button type="button" className="spellbook-row-main" onClick={onSelect}>
-        <span className="spellbook-row-rank">{rankLabel(row.rank)}</span>
         <span className="spellbook-row-name">{row.name ?? 'Slot vazio'}</span>
-        <span className="spellbook-row-meta">
-          {categoryLabel}
-          {row.kind === 'prepared' ? ` - Slot ${row.slotIndex + 1}` : ''}
-          {row.kind === 'innate' ? ` - ${row.uses}` : ''}
-        </span>
+        <span className="spellbook-row-meta">{rowMeta}</span>
       </button>
       <div className="spellbook-row-actions">
         {row.kind === 'prepared' && hasSpell ? (
@@ -427,7 +394,7 @@ function SpellDetailPanel({
   campaignId: string | null
   onOpenSheet: (spellId: string) => void
 }) {
-  const [spell, setSpell] = useState<CampaignSpellEntry | null>(null)
+  const [spell, setSpell] = useState<Pathfinder2eCampaignSpellEntry | null>(null)
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -439,8 +406,7 @@ function SpellDetailPanel({
 
     let cancelled = false
     setLoading(true)
-    fetch(`/api/campaigns/${campaignId}/spells/${encodeURIComponent(row.spellId)}`, { credentials: 'include' })
-      .then(async (response) => (response.ok ? ((await response.json()) as CampaignSpellEntry) : null))
+    fetchCampaignSpell(campaignId, row.spellId)
       .then((data) => {
         if (!cancelled) setSpell(data)
       })
@@ -549,84 +515,8 @@ function SpellDetailPanel({
         <button type="button" className="spellbook-cast-button" disabled>
           Conjurar
         </button>
-        {row.kind === 'prepared' ? (
-          <button type="button" className="spellbook-outline-button" disabled>
-            {row.expended ? 'Marcar preparado' : 'Preparado'}
-          </button>
-        ) : null}
       </div>
     </section>
-  )
-}
-
-function NewEntryPanel({ onAdd }: { onAdd: (entry: Pathfinder2eSpellcastingEntry) => void }) {
-  const [open, setOpen] = useState(false)
-  const [name, setName] = useState('')
-  const [category, setCategory] = useState<Pathfinder2eSpellcastingCategory>('PREPARED')
-  const [tradition, setTradition] = useState<(typeof TRADITION_OPTIONS)[number]>('arcane')
-  const [ability, setAbility] = useState<(typeof ABILITY_OPTIONS)[number]>('int')
-
-  return (
-    <div className="spellbook-manage-card">
-      <button type="button" className="spellbook-manage-toggle" onClick={() => setOpen((current) => !current)}>
-        <Plus size={15} />
-        Nova entrada
-        <ChevronDown size={14} />
-      </button>
-      {open ? (
-        <div className="spellbook-manage-body">
-          <label className="spellbook-field">
-            <span>Nome</span>
-            <input value={name} onChange={(event) => setName(event.target.value)} placeholder="Conjuracao de Mago" />
-          </label>
-          <div className="spellbook-field-grid">
-            <label className="spellbook-field">
-              <span>Categoria</span>
-              <select value={category} onChange={(event) => setCategory(event.target.value as Pathfinder2eSpellcastingCategory)}>
-                {CATEGORY_OPTIONS.filter(([value]) => value !== 'ITEMS').map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="spellbook-field">
-              <span>Tradicao</span>
-              <select value={tradition} onChange={(event) => setTradition(event.target.value as (typeof TRADITION_OPTIONS)[number])}>
-                {TRADITION_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {titleCase(option)}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <label className="spellbook-field">
-              <span>Atributo</span>
-              <select value={ability} onChange={(event) => setAbility(event.target.value as (typeof ABILITY_OPTIONS)[number])}>
-                {ABILITY_OPTIONS.map((option) => (
-                  <option key={option} value={option}>
-                    {option.toUpperCase()}
-                  </option>
-                ))}
-              </select>
-            </label>
-          </div>
-          <button
-            type="button"
-            className="spellbook-outline-button"
-            disabled={!name.trim()}
-            onClick={() => {
-              onAdd(createSpellcastingEntry(name.trim(), category, tradition, ability))
-              setName('')
-              setOpen(false)
-            }}
-          >
-            <Plus size={14} />
-            Adicionar
-          </button>
-        </div>
-      ) : null}
-    </div>
   )
 }
 
@@ -638,7 +528,6 @@ function PreparationPanel({
   onSelectedEntryChange,
   onChangeEntry,
   onRemoveEntry,
-  onAddEntry,
 }: {
   open: boolean
   entries: Pathfinder2eSpellcastingEntry[]
@@ -647,9 +536,7 @@ function PreparationPanel({
   onSelectedEntryChange: (entryId: string) => void
   onChangeEntry: (entry: Pathfinder2eSpellcastingEntry) => void
   onRemoveEntry: (entryId: string) => void
-  onAddEntry: (entry: Pathfinder2eSpellcastingEntry) => void
 }) {
-  const [slotRank, setSlotRank] = useState(1)
   const [slotToPrepare, setSlotToPrepare] = useState<string | null>(null)
   const entry = entries.find((candidate) => candidate.id === selectedEntryId) ?? entries[0] ?? null
 
@@ -664,6 +551,8 @@ function PreparationPanel({
     if (entry.known.some((spell) => spell.spellId === result.id)) return
     onChangeEntry(addKnownSpell(entry, { spellId: result.id, name: result.name, rank: spellRankFromSearch(result) }))
   }
+
+  const shouldShowPreparedSlotSync = Boolean(entry && entry.slots.length > 0 && !preparedSlotsMatchSlotRanks(entry))
 
   return (
     <section className="spellbook-preparation-panel">
@@ -683,31 +572,8 @@ function PreparationPanel({
 
       <div className="spellbook-preparation-grid">
         <div className="spellbook-preparation-column">
-          <NewEntryPanel onAdd={onAddEntry} />
           {entry ? (
             <>
-              <div className="spellbook-subtitle">Dados da entrada</div>
-              <div className="spellbook-field-grid">
-                <label className="spellbook-field">
-                  <span>Prof.</span>
-                  <select value={entry.proficiencyRank} onChange={(event) => onChangeEntry({ ...entry, proficiencyRank: Number(event.target.value) })}>
-                    {[0, 2, 4, 6, 8].map((rank) => (
-                      <option key={rank} value={rank}>
-                        {PROFICIENCY_LABELS[rank]}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="spellbook-field">
-                  <span>Tradicao</span>
-                  <strong>{titleCase(entry.tradition)}</strong>
-                </label>
-                <label className="spellbook-field">
-                  <span>Atributo</span>
-                  <strong>{entry.ability.toUpperCase()}</strong>
-                </label>
-              </div>
-
               <div className="spellbook-subtitle">Adicionar ao livro/repertorio</div>
               <SpellSearchPicker campaignId={campaignId} category="spell" onPick={addKnown} compact />
 
@@ -728,16 +594,12 @@ function PreparationPanel({
           {entry?.category === 'PREPARED' ? (
             <>
               <div className="spellbook-subtitle">Slots preparados</div>
-              <div className="spellbook-slot-add-row">
-                <label className="spellbook-field">
-                  <span>Novo slot</span>
-                  <input type="number" min={0} max={10} value={slotRank} onChange={(event) => setSlotRank(Number(event.target.value))} />
-                </label>
-                <button type="button" className="spellbook-outline-button" onClick={() => onChangeEntry(addPreparedSlot(entry, slotRank))}>
-                  <Plus size={14} />
-                  Adicionar slot
+              {shouldShowPreparedSlotSync ? (
+                <button type="button" className="spellbook-outline-button spellbook-sync-button" onClick={() => onChangeEntry(syncPreparedSlotsWithSlotRanks(entry))}>
+                  <Check size={14} />
+                  Sincronizar slots da classe
                 </button>
-              </div>
+              ) : null}
 
               <div className="spellbook-prep-ranks">
                 {[...new Set(entry.prepared.map((slot) => slot.rank))]
@@ -791,29 +653,7 @@ function PreparationPanel({
                       </div>
                     )
                   })}
-                {entry.prepared.length === 0 ? <div className="spellbook-empty">Adicione slots para preparar magias.</div> : null}
-              </div>
-            </>
-          ) : null}
-
-          {entry && entry.category !== 'PREPARED' ? (
-            <>
-              <div className="spellbook-subtitle">Recursos por rank</div>
-              <div className="spellbook-slot-config">
-                {entry.slots.map((slot) => (
-                  <label key={slot.rank} className="spellbook-field">
-                    <span>{rankLabel(slot.rank)}</span>
-                    <input type="number" min={0} value={slot.max} onChange={(event) => onChangeEntry(setSlotMax(entry, slot.rank, Number(event.target.value)))} />
-                  </label>
-                ))}
-                <label className="spellbook-field">
-                  <span>Novo rank</span>
-                  <input type="number" min={0} max={10} value={slotRank} onChange={(event) => setSlotRank(Number(event.target.value))} />
-                </label>
-                <button type="button" className="spellbook-outline-button" onClick={() => onChangeEntry(setSlotMax(entry, slotRank, Math.max(1, entry.slots.find((slot) => slot.rank === slotRank)?.max ?? 1)))}>
-                  <Plus size={14} />
-                  Rank
-                </button>
+                {entry.prepared.length === 0 ? <div className="spellbook-empty">Nenhum slot preparado derivado da entrada.</div> : null}
               </div>
             </>
           ) : null}
@@ -875,7 +715,7 @@ function SpellSheetPopover({
   spellId: string
   onClose: () => void
 }) {
-  const [spell, setSpell] = useState<CampaignSpellEntry | null>(null)
+  const [spell, setSpell] = useState<Pathfinder2eCampaignSpellEntry | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -884,14 +724,7 @@ function SpellSheetPopover({
     setLoading(true)
     setError(null)
 
-    fetch(`/api/campaigns/${campaignId}/spells/${encodeURIComponent(spellId)}`, { credentials: 'include' })
-      .then(async (response) => {
-        if (!response.ok) {
-          const body = (await response.json().catch(() => null)) as { error?: string } | null
-          throw new Error(body?.error ?? 'Nao foi possivel abrir a ficha da magia.')
-        }
-        return response.json() as Promise<CampaignSpellEntry>
-      })
+    fetchCampaignSpell(campaignId, spellId)
       .then((data) => {
         if (!cancelled) setSpell(data)
       })
@@ -1027,7 +860,6 @@ export function SpellsPage({ characterId, campaignId, classSelectionId = null, l
                 onSelectedEntryChange={setSelectedEntryId}
                 onChangeEntry={(next) => updateDraft((current) => withEntry(current, next.id, () => next))}
                 onRemoveEntry={(entryId) => updateDraft((current) => ({ ...current, entries: current.entries.filter((item) => item.id !== entryId) }))}
-                onAddEntry={(entry) => updateDraft((current) => addEntryToSpellbook(current, entry))}
               />
               <RitualManager
                 campaignId={campaignId}

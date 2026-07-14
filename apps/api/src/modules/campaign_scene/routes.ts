@@ -280,7 +280,10 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       for (const scene of parsed.data.scenes) {
         await tx.campaignScene.update({
           where: { id: scene.id },
-          data: gridToSceneData(scene.grid),
+          data: {
+            ...gridToSceneData(scene.grid),
+            walls: scene.walls ?? [],
+          },
         })
       }
 
@@ -395,6 +398,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
           assetId: parsed.data.assetId ?? null,
           backgroundUrl: parsed.data.backgroundUrl ?? null,
           backgroundCacheKey: parsed.data.backgroundCacheKey ?? null,
+          walls: parsed.data.walls ?? [],
           ...(parsed.data.grid ? gridToSceneData(parsed.data.grid) : {}),
         },
         include: sceneInclude,
@@ -447,6 +451,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       ...(parsed.data.assetId !== undefined ? { asset: parsed.data.assetId ? { connect: { id: parsed.data.assetId } } : { disconnect: true } } : {}),
       ...(parsed.data.backgroundUrl !== undefined ? { backgroundUrl: parsed.data.backgroundUrl } : {}),
       ...(parsed.data.backgroundCacheKey !== undefined ? { backgroundCacheKey: parsed.data.backgroundCacheKey } : {}),
+      ...(parsed.data.walls !== undefined ? { walls: parsed.data.walls } : {}),
       ...(parsed.data.grid ? gridToSceneData(parsed.data.grid) : {}),
     }
 

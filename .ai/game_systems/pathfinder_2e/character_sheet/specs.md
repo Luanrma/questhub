@@ -412,6 +412,7 @@ Regras:
 * Player dono da ficha pode salvar Classe, Ancestralidade, Heranca e Background somente quando a identidade anterior ainda nao estava completa; essa primeira escrita deve enviar os quatro campos completos.
 * Depois que Classe, Ancestralidade, Heranca e Background estiverem completos, Player dono da ficha nao pode alterar esses quatro campos em novas escritas.
 * Mestre ativo de uma campanha onde o personagem esta vinculado pode criar ou alterar Classe, Ancestralidade, Heranca e Background da ficha do Player.
+* Correcao de 2026-07-14: no `PUT /api/characters/:characterId/sheet`, a autorizacao de escrita e a flag `isMaster` da politica PF2e devem consultar membros ativos da campanha vinculada ao personagem, nao apenas o `CampaignCharacter` do proprio personagem. Caso contrario, um Mestre autorizado passa pelo filtro de leitura/escrita, mas a politica de identidade recebe `isMaster = false` e rejeita a escrita com a mensagem "Apenas o dono do personagem ou o Mestre pode salvar esta ficha".
 
 Compatibilidade:
 

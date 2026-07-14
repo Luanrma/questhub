@@ -12,7 +12,7 @@
 * Master-owned Encounter Control: apenas o Mestre controla o estado do encontro.
 * Explicit Participant Selection: participantes entram no encontro somente quando o Mestre pre-seleciona tokens com `Shift` e os envia para a caixa de Encounter Mode.
 * Realtime Encounter Broadcast: mudancas de encontro sao emitidas para a room da campanha.
-* Manual Initiative MVP: iniciativa e editada manualmente pelo Mestre.
+* Master Initiative Control: iniciativa e editada manualmente pelo Mestre, rolada individualmente com animacao 3D, ou rolada em lote no servidor sem animacao.
 * Ruleset Boundary: formulas e automacoes mecanicas ficam fora do contrato base.
 * Ephemeral Encounter State: encontro ativo e estado de sessao, descartado ao encerrar a campanha online.
 
@@ -34,5 +34,5 @@
 
 ## Limitacoes conhecidas
 * Sem persistencia, recarregar servidor ou encerrar sessao perde o encontro ativo.
-* Sem rolagem automatica, o Mestre precisa digitar iniciativas.
+* A rolagem em lote usa `1d20` seco por participante; modificadores, percepcao/stealth e desempates especificos de sistema ainda nao existem.
 * O controle mecanico atual cobre movimento e a fatia minima de conjuracao (1/2/3 acoes). Reacoes, free actions, quickened/slowed/stunned e sustain ainda nao existem.

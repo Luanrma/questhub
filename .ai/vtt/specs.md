@@ -14,6 +14,8 @@ Exemplos de entidades genericas permitidas:
 * `Map`
 * `Layer`
 * `Token`
+* `Wall`
+* `Door`
 * `ChatMessage`
 * `DiceRoll`
 * `Measurement`
@@ -41,12 +43,22 @@ Tokens de bestiario podem carregar metadados opacos de origem, como `source = 'b
 * Clicar nos menus internos da sidebar nao pode causar reload de documento nem desmontar/remontar o VTT.
 
 ## 2. Sidebar
+* O header superior da campanha deve ser compacto, com altura reduzida e fundo quase transparente.
+* O header superior deve exibir apenas informacoes essenciais de contexto, como estado da mesa e nome da campanha.
+* O header superior nao deve exibir a linha redundante `Mestre: ...`.
+* Os botoes de sessao do lado direito do header devem usar dimensoes compactas para nao dominar a mesa.
+* A toolbar principal de ferramentas da mesa deve poder ser recolhida para um icone compacto de ferramentas.
+* Clicar no icone compacto de ferramentas deve reexpandir a toolbar principal.
+* Recolher a toolbar principal deve fechar paineis de ferramenta abertos, como dados, tokens, grid, hazards, paredes ou selecao por area.
 * Em telas grandes, a sidebar deve ser sobreposta e nao deve reservar largura no layout.
 * Recolher ou expandir a sidebar nao deve redimensionar o VTT.
 * O canvas VTT deve ocupar a tela ate a margem esquerda `0`.
 * Em telas grandes, a altura da sidebar deve ser `auto`, limitada ao conteudo dos menus.
 * Quando recolhida, a sidebar esquerda deve contrair para cima e exibir somente um controle compacto no header escuro.
+* O controle recolhido da sidebar esquerda deve ser menor que a versao MVP anterior, ocupar apenas o necessario para a seta e area de clique, e alinhar verticalmente com o header superior compacto.
 * O controle recolhido da sidebar esquerda deve usar uma seta para baixo roxa bem visivel.
+* Quando expandida, a sidebar esquerda deve manter o controle no mesmo ponto visual do estado recolhido, trocando para uma seta para cima.
+* Pressionar `Esc` com a sidebar esquerda expandida deve recolher a sidebar sem desmontar a mesa.
 * A sidebar esquerda recolhida nao deve exibir lista vertical de icones reduzidos.
 * As ferramentas principais do VTT devem ter recuo suficiente para nao ficarem cobertas pela sidebar recolhida.
 * Em telas pequenas, deve virar barra inferior compacta sobreposta.
@@ -185,8 +197,9 @@ type MyCampaignCharacter = {
 * A posicao do token e persistida por cena em `CampaignSceneToken`.
 * A posicao do token e sincronizada em tempo real com Mestre e Players online que visualizam a cena afetada.
 * Usuarios que entram depois recebem o snapshot de cena definido por `campaign_scene`.
-* Ao clicar em `Iniciar Sessao`, o VTT deve enviar antes um snapshot completo da mesa do Mestre para `campaign_scene`, incluindo grids e tokens de todas as cenas persistidas carregadas.
+* Ao clicar em `Iniciar Sessao`, o VTT deve enviar antes um snapshot completo da mesa do Mestre para `campaign_scene`, incluindo grids, tokens, paredes e portas de todas as cenas persistidas carregadas.
 * A tela do Mestre e a fonte da verdade para o inicio da sessao; tokens removidos ou reposicionados antes da sessao nao podem reaparecer para Players por causa de snapshot antigo.
+* Antes de pausar, retomar, encerrar sessao ou trocar campanha, o VTT do Mestre deve sincronizar o snapshot atual da mesa quando estiver montado, preservando paredes e portas preparadas.
 * Pausa de sessao continua sendo acao de produto.
 * Players so movem o proprio token quando a campanha esta online e nao pausada.
 * Mestre pode mover todos os tokens sempre que acessar a mesa.
@@ -223,6 +236,15 @@ type MyCampaignCharacter = {
 * O tracker simples de Encounter Mode deve aparecer no painel lateral direito sem desmontar a mesa.
 * Mestre pode iniciar encontro a partir dos tokens nao ocultos da cena atual pre-selecionados com `Shift` e enviados para a caixa de participantes.
 * O gesto `Shift` + arraste para Encounter Mode nao deve mover tokens no grid; movimentacao de token continua acontecendo apenas no arraste comum permitido.
+* A toolbar deve oferecer uma ferramenta de selecao por area para o Mestre selecionar multiplos tokens da cena ativa.
+* A selecao por area e local ao VTT e deve manter um estado de multiselecao proprio.
+* Na ferramenta de selecao por area, pressionar o botao esquerdo e arrastar sobre o grid desenha um retangulo; ao soltar, todos os tokens cujo centro logico esteja dentro do retangulo ficam pre-selecionados.
+* O atalho `Ctrl` + botao esquerdo em uma area vazia do grid deve iniciar a mesma selecao por area, sem ativar pan e sem mover tokens.
+* O atalho de selecao por area nao deve interferir no `Ctrl` + arraste da ferramenta `Paredes`, que continua criando retangulos de parede apenas quando `Paredes` esta ativa.
+* Multiselecao por area deve usar destaque visual diferente das setas vermelhas de alvo de combate.
+* Setas vermelhas apontando para o token representam alvo de combate, nao multiselecao.
+* Se houver multiselecao ativa, abrir menu contextual em qualquer token e escolher uma acao operacional de mesa em lote deve aplicar a acao a todos os tokens multiselecionados, independente de o token clicado fazer parte da selecao.
+* Acoes que abrem telas intrinsicamente individuais, como ficha, mochila, magia e editor de HP, continuam usando o token clicado.
 * Mestre pode editar iniciativa manualmente, avancar turno, voltar turno e encerrar encontro.
 * Players visualizam rodada, participante ativo e lista de iniciativa, mas nao alteram o tracker.
 * O token do participante ativo recebe destaque visual discreto na mesa.
@@ -391,6 +413,85 @@ Eventos Socket.IO:
 * Clientes que receberem `movementPath` devem animar o token seguindo a mesma rota visual; clientes sem suporte continuam usando apenas `token.position`.
 
 ## 7. Medicao Realtime
+
+## 6.1 Paredes e Portas
+
+Tipos usados pelo VTT:
+
+```ts
+type VttDoorState = {
+  open: boolean
+  locked: boolean
+  blocked: boolean
+  ajar: boolean
+}
+
+type VttWallSegment = {
+  id: string
+  kind: 'wall' | 'door'
+  start: VttMeasurementPoint
+  end: VttMeasurementPoint
+  color?: string
+  playerVisible?: boolean
+  door?: VttDoorState
+}
+```
+
+Regras:
+* Paredes e portas pertencem a cena ativa e usam coordenadas logicas do grid.
+* A ferramenta `Paredes` aparece apenas para `MASTER`.
+* O Mestre escolhe se o proximo segmento sera `Parede` ou `Porta`.
+* O Mestre pode editar paredes e portas antes da sessao estar iniciada, durante sessao online ou apos a sessao; a alteracao deve pertencer a cena e persistir para o proximo inicio de sessao.
+* Paredes e portas criadas em qualquer cena devem permanecer ao iniciar sessao, pausar, retomar, encerrar sessao, trocar campanha ou voltar no dia seguinte.
+* O Mestre pode configurar a cor padrao de novas paredes e a cor padrao de novas portas por input de cor na ferramenta `Paredes`.
+* `color`, quando presente, deve ser hexadecimal `#RRGGBB`; quando ausente, o cliente usa a cor padrao visual da ferramenta.
+* `playerVisible`, quando ausente, deve ser interpretado como `false`; por padrao Players nao veem paredes.
+* `playerVisible` controla apenas renderizacao visual para Players; paredes ocultas continuam presentes no snapshot de regras e continuam bloqueando movimento.
+* Portas sempre podem ser vistas por Players para indicar passagem/estado, mesmo quando paredes estao ocultas.
+* O painel do Mestre deve permitir alternar se Players veem as paredes da cena atual; essa configuracao atualiza `playerVisible` nas paredes da cena.
+* Clique inicial/final cria um segmento entre dois pontos da cena.
+* No modo `Parede`, `Ctrl` + arrastar cria quatro segmentos de parede formando um retangulo/quadrado entre o ponto inicial e final.
+* No modo `Porta`, criar uma porta sobre um trecho colinear de parede deve substituir esse trecho por uma porta e manter os trechos restantes como paredes.
+* No modo `Porta`, a criacao sobre parede deve aceitar tolerancia visual: se uma extremidade atingir a area da parede, a outra extremidade deve ser projetada para a mesma parede e o trecho projetado deve virar porta.
+* No modo `Porta`, criar uma porta fora de uma parede existente so e valido quando cada extremidade da porta toca uma parede existente.
+* Ao ligar duas paredes com uma porta, as extremidades devem fazer snap para o ponto mais proximo das paredes dentro da tolerancia visual.
+* Portas soltas, sem conversao de parede e sem conexao nas duas extremidades, devem ser recusadas pela UI.
+* Parede sempre bloqueia movimento de tokens.
+* Porta bloqueia movimento quando `door.open === false`.
+* Porta aberta deve ter `locked = false`, `blocked = false` e `ajar = false`.
+* Porta fechada pode marcar qualquer combinacao entre `locked`, `blocked` e `ajar`.
+* Clique direito em uma porta abre menu contextual com checkboxes `Aberta`, `Trancada`, `Obstruida` e `Encostada`.
+* Clique direito em uma parede abre menu contextual com acao de remover aquela parede; apenas Mestre pode ver essa acao.
+* Ao marcar `Aberta`, os demais checkboxes ficam desmarcados e desabilitados.
+* Ao marcar qualquer status fechado, `Aberta` fica falso.
+* Movimento de token de Player e recusado localmente quando o segmento entre posicao anterior e destino cruza uma parede ou porta fechada.
+* Movimento medido de Player deve validar todos os segmentos da rota planejada, incluindo pontos intermediarios, nao apenas o destino final.
+* Movimento de token feito pelo Mestre ignora paredes e portas; o Mestre pode atravessar qualquer barreira ao reposicionar tokens.
+* `Ctrl+Z` na mesa desfaz a ultima criacao de parede, retangulo de paredes ou porta feita pelo Mestre na cena atual.
+* A colisao deve ser calculada por funcao pura em `domain/`, sem dependencia de React, DOM ou Socket.IO.
+* No MVP, a colisao e geometrica por segmento: se o centro do token atravessa uma barreira, o destino e mantido na posicao anterior.
+* Segmentos com tamanho zero sao ignorados.
+* A camada visual de paredes fica acima do mapa/grid e abaixo de tokens e ferramentas.
+* A ferramenta `Paredes` deve usar icone proprio, diferente do icone do grid.
+* Segurar `Alt` temporariamente ativa pan visual da mesa com cursor de mao; com `Alt` + botao esquerdo e arraste, o mapa deve mover mesmo que a ferramenta ativa nao seja `Mover`.
+* Segurar `Alt` e rolar o scroll do mouse deve aplicar zoom local da mesa, respeitando os mesmos limites do controle de zoom.
+
+Criterios de aceitacao:
+* Mestre consegue criar uma parede pela toolbar e ve o segmento desenhado na cena.
+* Mestre consegue criar uma porta pela mesma ferramenta.
+* Mestre consegue criar um retangulo de quatro paredes com `Ctrl` + arrastar no modo Parede.
+* Mestre consegue transformar trecho de parede em porta desenhando a porta sobre a parede.
+* Mestre consegue criar uma porta conectando duas paredes existentes pelas extremidades.
+* Mestre consegue escolher cores para novas paredes e portas e ve essas cores na cena.
+* Token nao atravessa parede.
+* Token nao atravessa porta fechada.
+* Token atravessa porta aberta.
+* O menu contextual da porta permite ligar/desligar status por checkbox.
+* O menu contextual da parede permite remover uma parede especifica.
+* Ao abrir uma porta, `Trancada`, `Obstruida` e `Encostada` ficam desligados.
+* Player nao ve a ferramenta de criar/editar paredes.
+* Player nao ve paredes por padrao, mas ve portas e a colisao se aplica ao proprio token.
+* Quando o Mestre habilita visibilidade de paredes para Players, Players passam a ver paredes da cena atual sem ganhar permissao de edicao.
 
 Tipo usado pelo VTT:
 

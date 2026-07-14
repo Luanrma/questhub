@@ -14,7 +14,7 @@ export type VttSpellAreaChangedPayload = {
   area: VttSpellAreaOverlay | null
 }
 
-export type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens' | 'hazards'
+export type VttToolId = 'select' | 'area-select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens' | 'hazards' | 'walls'
 
 export type VttGridBounds = {
   width: number
@@ -81,6 +81,7 @@ export type VttTableScene = {
   height: number
   grid: VttGridSettings
   tokens: VttPlayerToken[]
+  walls: VttWallSegment[]
 }
 
 export type VttSceneChangedPayload = {
@@ -88,9 +89,37 @@ export type VttSceneChangedPayload = {
   scene: VttTableScene | null
 }
 
+export type VttWallsChangedPayload = {
+  campaignId: string
+  sceneId: string
+  walls: VttWallSegment[]
+}
+
 export type VttMeasurementPoint = {
   x: number
   y: number
+}
+
+export type VttSelectionArea = {
+  start: VttMeasurementPoint
+  end: VttMeasurementPoint
+}
+
+export type VttDoorState = {
+  open: boolean
+  locked: boolean
+  blocked: boolean
+  ajar: boolean
+}
+
+export type VttWallSegment = {
+  id: string
+  kind: 'wall' | 'door'
+  start: VttMeasurementPoint
+  end: VttMeasurementPoint
+  color?: string
+  playerVisible?: boolean
+  door?: VttDoorState
 }
 
 export type VttMeasurement =
@@ -284,6 +313,7 @@ export type PreparedScene = {
   storagePath: string | null
   grid: VttGridSettings
   tokens: VttPlayerToken[]
+  walls: VttWallSegment[]
   order: number
   error: string | null
   draft: boolean
@@ -299,6 +329,7 @@ export type CampaignSceneResponse = {
   backgroundCacheKey: string | null
   grid: unknown
   tokens: VttPlayerToken[]
+  walls?: unknown
   createdAt: string
   updatedAt: string
 }

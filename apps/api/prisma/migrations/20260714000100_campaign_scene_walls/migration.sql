@@ -1,0 +1,1 @@
+ALTER TABLE "CampaignScene" ADD COLUMN "walls" JSONB NOT NULL DEFAULT '[]';

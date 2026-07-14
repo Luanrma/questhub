@@ -56,6 +56,42 @@ export function addPreparedSlot(entry: Pathfinder2eSpellcastingEntry, rank: numb
   return { ...entry, prepared: [...entry.prepared, slot] }
 }
 
+export function syncPreparedSlotsWithSlotRanks(entry: Pathfinder2eSpellcastingEntry): Pathfinder2eSpellcastingEntry {
+  if (entry.category !== 'PREPARED') return entry
+
+  const nextPrepared: Pathfinder2ePreparedSpellSlot[] = []
+  const sortedSlots = [...entry.slots].sort((left, right) => left.rank - right.rank)
+
+  for (const slotRank of sortedSlots) {
+    const maximum = Math.max(0, Math.floor(slotRank.max))
+    for (let slotIndex = 0; slotIndex < maximum; slotIndex += 1) {
+      const existing = entry.prepared.find((slot) => slot.rank === slotRank.rank && slot.slotIndex === slotIndex)
+      nextPrepared.push(existing ?? { rank: slotRank.rank, slotIndex, spellId: null, name: null, expended: false })
+    }
+  }
+
+  return { ...entry, prepared: nextPrepared }
+}
+
+export function preparedSlotsMatchSlotRanks(entry: Pathfinder2eSpellcastingEntry): boolean {
+  if (entry.category !== 'PREPARED') return true
+
+  const expected = new Map(entry.slots.map((slot) => [slot.rank, Math.max(0, Math.floor(slot.max))]))
+  const actual = new Map<number, number>()
+
+  for (const slot of entry.prepared) {
+    actual.set(slot.rank, (actual.get(slot.rank) ?? 0) + 1)
+  }
+
+  if (expected.size !== actual.size) return false
+
+  for (const [rank, maximum] of expected) {
+    if (actual.get(rank) !== maximum) return false
+  }
+
+  return true
+}
+
 export function setPreparedSpell(entry: Pathfinder2eSpellcastingEntry, rank: number, slotIndex: number, spellId: string | null, name: string | null): Pathfinder2eSpellcastingEntry {
   return {
     ...entry,

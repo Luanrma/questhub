@@ -206,3 +206,13 @@ Regras:
 * Uma magia de foco consumida em qualquer entry reduz o mesmo `spellbook.focusPool.points`; conjurar por outra entry deve falhar quando esse reservatorio global esta em `0`.
 * Descanso restaura `spellbook.focusPool.points` para `spellbook.focusPool.max`.
 * Refocar restaura exatamente `1` ponto no `spellbook.focusPool`, respeitando o maximo, e pode ser repetido.
+
+## 9. Correcao de UI: Entradas e Slots Derivados
+
+Correcao de 2026-07-14: a UI nao deve oferecer criacao manual de entrada por nome livre nem botao de "adicionar slot" com rank arbitrario. Entradas de classe devem nascer a partir do perfil de classe do adapter PF2e; slots preparados devem ser sincronizados a partir de `entry.slots`/progressao conhecida, preservando magias ja preparadas quando possivel.
+
+A busca manual continua existindo apenas para escolher uma magia do catalogo em uma colecao/slot ja pertencente ao personagem.
+
+O painel normal de preparo nao deve exibir metadados estruturais da entrada (`proficiencyRank`, `tradition`, `ability`) nem controles de recursos por rank. Esses dados pertencem ao perfil da classe/adapter e a uma futura area avancada de correcao pelo Mestre, nao ao fluxo comum de vincular/preparar magias.
+
+A lista principal deve manter a coluna de magias compacta e priorizar o painel de detalhe. Como as linhas ja sao agrupadas por header de rank/tipo, cada linha nao deve repetir `Rank X`, `Truques` ou `Rituais` antes do nome da magia; a linha deve exibir somente o nome e o estado operacional necessario (por exemplo, slot ou usos).

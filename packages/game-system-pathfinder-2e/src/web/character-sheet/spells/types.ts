@@ -103,3 +103,25 @@ export type Pathfinder2eSpellSearchResult = {
   rank: string | null
   tags: string[]
 }
+
+export type Pathfinder2eSpellSheetEntry = {
+  key: string
+  label: string
+  value?: string
+  detail?: string
+  tags?: string[]
+}
+
+export type Pathfinder2eCampaignSpellEntry = {
+  id: string
+  system: string
+  category: 'spell' | 'ritual'
+  name: string
+  display: {
+    subtitle?: string
+    level?: { label: string; value: string }
+    stats: Array<{ key: string; label: string; value: string }>
+    tags: string[]
+    sheet?: { sections: Array<{ key: string; title: string; entries: Pathfinder2eSpellSheetEntry[] }> }
+  }
+}

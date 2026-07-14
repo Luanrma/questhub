@@ -10,8 +10,10 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * Diarios livres da campanha pertencem ao modulo `campaign_diary` e abrem como modal sem desmontar a mesa.
 * Regras como classe, ancestralidade, heranca, background, spells, itens, feats, proficiencias e calculos pertencem a `game_systems`.
 * A mesa VTT permanece visivel ao fundo durante a navegacao interna da campanha.
+* O header superior da mesa deve ser compacto e pouco intrusivo para preservar area visual do mapa.
 * Em telas grandes, a sidebar e sempre sobreposta; recolhida ou expandida, ela nao reserva largura no layout e nao redimensiona o VTT.
-* Quando recolhida, a sidebar esquerda contrai para o topo e exibe apenas uma seta roxa para baixo no header escuro, sem manter uma coluna de icones reduzidos.
+* Quando recolhida, a sidebar esquerda contrai para o topo e exibe apenas uma seta roxa compacta para baixo alinhada ao header superior, sem manter uma coluna de icones reduzidos.
+* Quando expandida, o controle da sidebar esquerda permanece no mesmo ponto visual e muda a seta para cima para indicar recolhimento.
 * O canvas VTT deve ocupar toda a largura disponivel desde `left: 0`.
 * A sidebar desktop nao deve ocupar 100% da altura; sua altura acompanha a quantidade de menus.
 * Em viewports menores que 900px de largura ou 640px de altura, a sidebar muda para uma barra compacta inferior sobreposta para preservar espaco da mesa.
@@ -31,6 +33,11 @@ O VTT e a experiencia principal dentro de uma campanha. Ao abrir uma campanha, o
 * O Bestiario permite filtrar criaturas por nivel e raridade quando o ruleset expuser esses metadados.
 * O Bestiario deve paginar resultados no modal, exibindo 10 criaturas por pagina por padrao e permitindo ao Mestre configurar ate 20 por pagina.
 * O Mestre pode adicionar e remover criaturas do bestiario da toolbar de tokens pelo card da criatura.
+* O Mestre pode desenhar paredes e portas na cena ativa pela toolbar da mesa.
+* Paredes e portas pertencem ao VTT generico: bloqueiam deslocamento de tokens, mas nao carregam regras mecanicas de sistema.
+* Portas abertas nao bloqueiam movimento; portas fechadas bloqueiam e podem estar trancadas, obstruidas ou apenas encostadas.
+* O Mestre pode preparar ou editar paredes e portas antes, durante ou depois da sessao; esse estado pertence a cena e deve estar persistido ao iniciar a sessao.
+* Paredes e portas possuem cor visual configuravel pelo Mestre, persistida como metadado generico da cena.
 
 ## 3. Escopo Atual
 Incluido:
@@ -100,6 +107,16 @@ Incluido:
 * Sidebar overlay sem reserva de layout.
 * Painel flutuante para rotas internas da campanha que nao sao a mesa.
 * Entrada direta na propria ficha para jogadores.
+* Ferramenta `Paredes` para Mestre desenhar segmentos bloqueadores e portas na cena ativa.
+* Ferramenta `Selecao por area` para o Mestre selecionar varios tokens da cena ativa por retangulo em um estado local de multiselecao.
+* Atalho de selecao por area: `Ctrl` + botao esquerdo em ponto vazio do grid e arraste abre um retangulo de selecao de tokens.
+* Multiselecao por area usa destaque proprio discreto no token e nao usa as setas vermelhas de alvo de combate.
+* A toolbar de ferramentas da mesa pode ser recolhida para um botao compacto de ferramentas e reexpandida por esse mesmo botao.
+* Menu contextual de porta para alternar Aberta, Trancada, Obstruida e Encostada, garantindo que porta aberta nao mantenha outros status.
+* Colisao cliente-side entre o segmento de movimento do token e paredes/portas fechadas da cena ativa.
+* Portas devem ser criadas conectadas a duas paredes existentes, ou pela conversao de um trecho de uma parede existente em porta.
+* No modo Parede, `Ctrl` + arrastar cria um retangulo/quadrado composto por quatro paredes.
+* Mestre pode escolher a cor usada para novas paredes e novas portas na ferramenta de paredes.
 
 Fora de escopo:
 * Regras mecanicas de sistemas de RPG.
@@ -112,3 +129,5 @@ Fora de escopo:
 * Regras mecanicas de encontro, iniciativa automatica, PV, CA, condicoes e economia de acoes.
 * Fog of war.
 * Navegacao do board por setas do teclado.
+* Visao dinamica/fog of war baseada em paredes.
+* Som, armadilhas, chaves, permissao de abrir porta por personagem ou testes mecanicos para destrancar/forcar portas.

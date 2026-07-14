@@ -1,4 +1,5 @@
 import type { Server as HttpServer } from 'node:http'
+import { randomInt } from 'node:crypto'
 import cookie from 'cookie'
 import { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
@@ -23,6 +24,7 @@ import { getCatalogSpeedFeet } from '../encounter_movement/repositories/bestiary
 import { getCharacterSpeedMeters } from '../encounter_movement/repositories/character-speed'
 import { presentSceneHazardForRole } from '../campaign_scene/hazard-instances/domain/presenter'
 import { hiddenHazardName, type SceneHazardInstance } from '../campaign_scene/hazard-instances/domain/types'
+import { isMovementPathBlockedBySceneWalls, normalizeSceneWalls } from '../campaign_scene/domain/wall-geometry'
 import {
   placeSceneHazardSchema,
   removeSceneHazardSchema,
@@ -69,6 +71,7 @@ import {
   vttTokenPlaceSchema,
   vttTokenUpdateSchema,
   vttTokensRemoveBulkSchema,
+  vttWallsUpdateSchema,
 } from './contracts'
 import { registerPresenceHandlers } from './handlers/presence-handlers'
 import { CampaignPresenceState } from './live-state'
@@ -266,6 +269,7 @@ export function setupCampaignPresence(server: HttpServer) {
         hexMeasurementColor: true,
         gridLineWidth: true,
         gridColor: true,
+        walls: true,
       },
     })
 
@@ -494,6 +498,7 @@ export function setupCampaignPresence(server: HttpServer) {
         hexMeasurementColor: true,
         gridLineWidth: true,
         gridColor: true,
+        walls: true,
       },
     })
 
@@ -620,6 +625,13 @@ export function setupCampaignPresence(server: HttpServer) {
     getCampaignTokenSceneMap(campaignId).set(token.id, sceneId)
   }
 
+  function setLiveSceneWalls(campaignId: string, sceneId: string, walls: VttTableScene['walls']) {
+    const activeScene = state.getCampaignScene(campaignId)
+    if (activeScene?.id === sceneId) {
+      state.setCampaignScene(campaignId, { ...activeScene, walls })
+    }
+  }
+
   function getDefaultSceneDimensions(grid: VttGridSettings) {
     if (grid.shape === 'hex') {
       return {
@@ -673,6 +685,7 @@ export function setupCampaignPresence(server: HttpServer) {
         hexMeasurementColor: true,
         gridLineWidth: true,
         gridColor: true,
+        walls: true,
       },
     })
     if (!scene) return null
@@ -696,7 +709,16 @@ export function setupCampaignPresence(server: HttpServer) {
       height: dimensions.height,
       grid,
       tokens,
+      walls: Array.isArray(scene.walls) ? scene.walls : [],
     }
+  }
+
+  async function getSceneWalls(campaignId: string, sceneId: string) {
+    const scene = await prisma.campaignScene.findFirst({
+      where: { id: sceneId, campaignId },
+      select: { walls: true },
+    })
+    return normalizeSceneWalls(scene?.walls)
   }
 
   async function emitCampaignTokenSnapshot(campaignId: string, socketId: string, sceneId?: string | null) {
@@ -926,6 +948,17 @@ export function setupCampaignPresence(server: HttpServer) {
   async function emitVisibleTableSnapshots(campaignId: string) {
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     await Promise.all(sockets.map((campaignSocket) => emitVisibleTableSnapshot(campaignId, campaignSocket)))
+  }
+
+  async function emitSceneWallsChanged(campaignId: string, sceneId: string, walls: unknown[]) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId) return
+        campaignSocket.emit('vtt:walls:changed', { campaignId, sceneId, walls })
+      }),
+    )
   }
 
   function emitCampaignScene(campaignId: string, scene: VttTableScene | null) {
@@ -1411,6 +1444,15 @@ export function setupCampaignPresence(server: HttpServer) {
         }
       }
 
+      if (!isMasterMove) {
+        const walls = await getSceneWalls(campaignId, sceneId)
+        const pathPoints =
+          movementPath && movementPath.length >= 2
+            ? [...movementPath.slice(0, -1), finalPosition]
+            : [token.position, finalPosition]
+        if (isMovementPathBlockedBySceneWalls({ points: pathPoints, walls })) return
+      }
+
       const nextToken = { ...token, position: finalPosition }
       setLiveSceneToken(campaignId, sceneId, nextToken)
       await persistSceneToken(campaignId, sceneId, nextToken)
@@ -1559,7 +1601,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const parsed = vttEncounterUpdateInitiativeSchema.safeParse(input)
       if (!parsed.success) return
 
-      const { campaignId, participantId, initiative } = parsed.data
+      const { campaignId, participantId, initiative, activateHighest } = parsed.data
       if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
 
       const encounter = state.getCampaignEncounter(campaignId)
@@ -1572,7 +1614,37 @@ export function setupCampaignPresence(server: HttpServer) {
         ),
       )
 
-      state.setCampaignEncounter(campaignId, normalizeEncounterTurnIndex({ ...encounter, participants }, activeParticipantId))
+      state.setCampaignEncounter(
+        campaignId,
+        activateHighest
+          ? { ...encounter, activeTurnIndex: 0, participants: resetParticipantMovement(participants, 0) }
+          : normalizeEncounterTurnIndex({ ...encounter, participants }, activeParticipantId),
+      )
+      emitEncounterChanged(campaignId)
+    })
+
+    socket.on('vtt:encounter:roll-all-initiatives', (input: unknown) => {
+      const parsed = vttEncounterCommandSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      const encounter = state.getCampaignEncounter(campaignId)
+      if (!encounter?.participants.length) return
+
+      const participants = sortEncounterParticipants(
+        encounter.participants.map((participant) => ({
+          ...participant,
+          initiative: randomInt(1, 21),
+        })),
+      )
+
+      state.setCampaignEncounter(campaignId, {
+        ...encounter,
+        activeTurnIndex: 0,
+        participants: resetParticipantMovement(participants, 0),
+      })
       emitEncounterChanged(campaignId)
     })
 
@@ -1988,6 +2060,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const sceneUpdated = await updateMasterActiveScene(campaignId, scene?.id ?? null)
       if (!sceneUpdated) return
+      if (online) await persistCampaignLiveState(campaignId)
       const encounter = state.getCampaignEncounter(campaignId)
       if (encounter && encounter.sceneId !== (scene?.id ?? null)) {
         state.deleteCampaignEncounter(campaignId)
@@ -2006,6 +2079,28 @@ export function setupCampaignPresence(server: HttpServer) {
       await emitVisibleTableSnapshot(campaignId, socket)
 
       state.deletePendingCampaignScene(campaignId)
+    })
+
+    socket.on('vtt:walls:update', async (input: unknown) => {
+      const parsed = vttWallsUpdateSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, sceneId, walls } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+
+      const scene = await prisma.campaignScene.findFirst({
+        where: { id: sceneId, campaignId },
+        select: { id: true },
+      })
+      if (!scene) return
+
+      await prisma.campaignScene.update({
+        where: { id: sceneId },
+        data: { walls },
+      })
+
+      setLiveSceneWalls(campaignId, sceneId, walls)
+      await emitSceneWallsChanged(campaignId, sceneId, walls)
     })
 
     socket.on('vtt:scene:request', async (input: unknown) => {

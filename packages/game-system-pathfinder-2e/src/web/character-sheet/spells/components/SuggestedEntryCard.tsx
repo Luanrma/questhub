@@ -4,7 +4,7 @@ import {
   buildPathfinder2eSuggestedSlots,
   getPathfinder2eCasterClassProfile,
 } from '../../../../shared/spellcasting-suggestion'
-import { createSpellcastingEntry } from '../domain/spellbookHelpers'
+import { createSpellcastingEntry, syncPreparedSlotsWithSlotRanks } from '../domain/spellbookHelpers'
 import type { Pathfinder2eSpellcastingEntry } from '../types'
 
 const TRADITION_OPTIONS = ['arcane', 'divine', 'occult', 'primal'] as const
@@ -47,11 +47,11 @@ export function SuggestedEntryCard({
       resolvedTradition,
       resolvedAbility,
     )
-    onCreate({
+    onCreate(syncPreparedSlotsWithSlotRanks({
       ...entry,
       proficiencyRank: 2,
       slots: buildPathfinder2eSuggestedSlots(profile.slotProgression, level),
-    })
+    }))
   }
 
   return (

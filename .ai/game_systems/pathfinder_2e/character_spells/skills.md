@@ -37,3 +37,11 @@
 `focusPool` foi movido para o nivel raiz do spellbook para cumprir o documento normativo de magias (Parte I K.1; Parte II 7.1-7.3/7.6). `entry.focusPool` continua aceito pelo schema como campo legado, mas services de conjuracao devem normalizar para `spellbook.focusPool` antes de persistir novo estado.
 
 Enquanto o custo estruturado de cada magia de foco ainda nao estiver no spellbook, a normalizacao de compatibilidade pode derivar um maximo legado a partir dos `entry.focusPool.max` existentes, sempre limitado a 3.
+
+## 7. Adendo Tecnico: UI Sem Entradas Livres
+
+Entradas e slots preparados nao devem ser criados por campos livres de nome/rank na UI principal. Use `SuggestedEntryCard` + perfis de classe (`spellcasting-suggestion`) para criar a entrada inicial e uma funcao pura de sincronizacao para derivar `prepared[]` de `slots[]`.
+
+Se a classe/arquetipo exigir escolha ainda nao modelada, a UI deve pedir a escolha minima documentada (tradicao/atributo) ou deixar a configuracao avancada para uma fase futura, em vez de aceitar qualquer nome e qualquer quantidade de slots.
+
+Nao renderizar `Dados da entrada` nem `Recursos por rank` no painel de preparo comum. Se esses ajustes forem necessarios para dados quebrados ou regra excepcional, devem virar uma tela avancada com decisao de produto propria e validacoes especificas, nao campos sempre visiveis.

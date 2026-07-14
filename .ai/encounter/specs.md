@@ -122,6 +122,7 @@ vtt:encounter:start
 vtt:encounter:join
 vtt:encounter:remove-participant
 vtt:encounter:update-initiative
+vtt:encounter:roll-all-initiatives
 vtt:encounter:next-turn
 vtt:encounter:previous-turn
 vtt:encounter:end
@@ -159,6 +160,11 @@ type VttEncounterUpdateInitiativePayload = {
   campaignId: string
   participantId: string
   initiative: number | null
+  activateHighest?: boolean
+}
+
+type VttEncounterRollAllInitiativesPayload = {
+  campaignId: string
 }
 
 type VttEncounterCommandPayload = {
@@ -172,7 +178,7 @@ type VttEncounterChangedPayload = {
 ```
 
 Regras de permissao:
-* `start`, `join`, `remove-participant`, `update-initiative`, `next-turn`, `previous-turn` e `end` exigem Mestre ativo da sessao.
+* `start`, `join`, `remove-participant`, `update-initiative`, `roll-all-initiatives`, `next-turn`, `previous-turn` e `end` exigem Mestre ativo da sessao.
 * `request` exige socket autenticado dentro da campanha.
 * O servidor nunca deve aceitar objetos `participants` enviados pelo cliente no MVP.
 * O servidor aceita somente `tokenIds`/`hazardInstanceIds` como intencao de selecao e monta participantes a partir dos tokens e instancias de Hazard da cena informada.
@@ -216,10 +222,11 @@ Regras de permissao:
 * Jogador ve apenas estado atual.
 * O token ativo deve receber destaque visual discreto na mesa.
 * Encounter Mode nao bloqueia movimento de tokens no MVP.
-* Ao lado do campo de iniciativa de cada participante (painel lateral e destacado), um icone de dado permite ao Mestre rolar `1d20` e atribuir o resultado automaticamente aquele participante. A rolagem reaproveita o mesmo motor 3D (`dice-box`) e o mesmo container ja usado pelo controle de dados da toolbar (`VttDiceControls`/`useVttDiceRoller`, exposto via ref imperativo `rollForInitiative`), nao uma segunda instancia. A rolagem tambem publica no chat da campanha (`INICIATIVA (D20): <valor>`) e, se houver encontro ativo na cena, aparece como entrada `DICE_ROLL` no Log de Batalha (secao 2.1), igual a qualquer outra rolagem.
+* O tracker oferece uma acao Mestre-only para rolar iniciativa de todos os participantes do encontro ativo. Esse comando usa `vtt:encounter:roll-all-initiatives`, rola `1d20` no servidor para cada participante, nao abre animacao 3D, nao publica chat e nao cria entrada `DICE_ROLL` no Log de Batalha. Depois da rolagem, a lista e reordenada por iniciativa descendente e `activeTurnIndex` volta para `0`, fazendo o maior resultado agir primeiro.
+* Ao lado do campo de iniciativa de cada participante (painel lateral e destacado), um icone de dado permite ao Mestre rolar `1d20` e atribuir o resultado automaticamente aquele participante. A rolagem reaproveita o mesmo motor 3D (`dice-box`) e o mesmo container ja usado pelo controle de dados da toolbar (`VttDiceControls`/`useVttDiceRoller`, exposto via ref imperativo `rollForInitiative`), nao uma segunda instancia. A rolagem tambem publica no chat da campanha (`INICIATIVA (D20): <valor>`) e, se houver encontro ativo na cena, aparece como entrada `DICE_ROLL` no Log de Batalha (secao 2.1), igual a qualquer outra rolagem. Ao confirmar o resultado no tracker, o cliente envia `activateHighest: true` em `vtt:encounter:update-initiative`, fazendo o servidor reordenar por iniciativa descendente e colocar `activeTurnIndex` em `0`.
 * O campo de iniciativa continua editavel manualmente a qualquer momento, mesmo depois de uma rolagem — rolar e digitar sao dois jeitos de preencher o mesmo campo, sem exclusividade entre eles.
-* A linha do participante ativo (`type: 'creature'`) na lista de participantes do tracker (painel lateral, nao destacado) ja tem destaque visual proprio (borda/fundo vermelho) por ser o turno atual; quando o Mestre esta olhando essa linha, ela ganha uma segunda faixa abaixo com edicao rapida de PV: um campo de quantidade e dois botoes ("Causar dano"/"Curar"), que chamam `vtt:combat:health:adjust` diretamente pelo `tokenId` do participante. Nao existe um card separado de "turno atual" — a sinalizacao de turno e a edicao rapida de PV vivem na mesma linha, para nao duplicar informacao.
-* O icone de coracao (abre `CombatHealthEditorModal`) continua disponivel em qualquer participante `creature` (ativo ou nao), para ajustar PV maximo/temporario ou quando o participante nao esta no turno atual. A edicao rapida inline e um atalho para o caso mais comum (dano/cura no proprio turno), nao substitui o modal.
+* A linha do participante ativo (`type: 'creature'`) na lista de participantes do tracker tem destaque visual proprio (borda/fundo vermelho) por ser o turno atual, mas nao oferece atalho inline de "Causar dano"/"Curar" contra si mesmo.
+* O icone de coracao (abre `CombatHealthEditorModal`) continua disponivel em qualquer participante `creature` (ativo ou nao), para ajustar PV maximo/temporario ou corrigir PV quando necessario.
 * Abaixo da lista de participantes, um painel de Log de Batalha (`BattleLogPanel`) ocupa todo o espaco restante da aba "Encounter Mode" no painel lateral direito — a mesma area que antes ficava vazia entre o card de encontro e o rodape do painel. O container da aba "encounter" vira um flex column direto (sem wrapper `h-full` aninhado) para que o Log de Batalha realmente cresca (`flex-1`) e preencha a area, em vez de encolher ao tamanho do conteudo.
 * O Log de Batalha e visivel para Mestre e Jogadores, sem controles de edicao (somente leitura).
 * O Log de Batalha renderiza as entradas de `encounter.log` em ordem cronologica, com rolagem automatica para a entrada mais recente ao chegar uma nova.
@@ -249,4 +256,5 @@ Regras de permissao:
 * Mestre consegue remover um participante de um encontro ativo sem remover o token da cena.
 * Remover o ultimo participante de um encontro ativo o encerra.
 * Mestre consegue rolar `1d20` pelo icone de dado ao lado do campo de iniciativa e o valor e atribuido automaticamente ao participante.
+* Mestre consegue rolar iniciativa de todos os participantes com uma unica acao sem animacao, chat ou log de batalha, e o primeiro turno fica com o maior resultado.
 * O campo de iniciativa continua editavel manualmente a qualquer momento, com ou sem rolagem previa.

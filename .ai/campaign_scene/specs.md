@@ -90,6 +90,7 @@ type CampaignScene = {
   backgroundCacheKey: string | null
   grid: CampaignSceneGrid
   tokens: CampaignSceneToken[]
+  walls: CampaignSceneWall[]
   createdAt: string
   updatedAt: string
 }
@@ -108,6 +109,7 @@ Regras:
 * Criar cena sem imagem deve persistir `assetId`, `backgroundUrl` e `backgroundCacheKey` como `null`.
 * Vincular imagem a cena deve acontecer por `PATCH`, informando `assetId`, `backgroundUrl` e `backgroundCacheKey`.
 * Remover imagem de cena deve acontecer por `PATCH`, informando `assetId: null`, `backgroundUrl: null` e `backgroundCacheKey: null`.
+* `walls` persiste segmentos genericos de parede/porta da cena em JSON validado pela aplicacao.
 
 ### 3.2 CampaignSceneGrid
 
@@ -188,6 +190,41 @@ Regras:
 * O Mestre pode remover todos os tokens da campanha pela listagem/painel da ferramenta de tokens.
 * Remocao em lote e sempre acao explicita do Mestre, nunca consequencia automatica de edicao de grid.
 
+### 3.4 CampaignSceneWall
+
+```ts
+type CampaignSceneWall = {
+  id: string
+  kind: 'wall' | 'door'
+  start: { x: number; y: number }
+  end: { x: number; y: number }
+  color?: string
+  playerVisible?: boolean
+  door?: {
+    open: boolean
+    locked: boolean
+    blocked: boolean
+    ajar: boolean
+  }
+}
+```
+
+Regras:
+* Paredes e portas sao agnosticas de sistema e pertencem ao core da cena.
+* `start` e `end` usam coordenadas logicas do grid da cena.
+* `kind: 'wall'` sempre bloqueia movimento.
+* `kind: 'door'` bloqueia movimento somente quando `door.open` e falso.
+* `color`, quando presente, e metadado visual hexadecimal `#RRGGBB` usado pelo VTT para renderizar o segmento.
+* `playerVisible`, quando presente em paredes, controla se o Player pode ver a parede; quando ausente, o valor canonico e falso.
+* `playerVisible` nao altera colisao: paredes ocultas para Players continuam bloqueando movimento de tokens de jogadores.
+* Portas sao sempre visiveis para Players; `playerVisible` nao concede permissao de edicao.
+* Porta aberta nao pode persistir `locked`, `blocked` ou `ajar` como verdadeiro.
+* Segmentos de tamanho zero devem ser rejeitados ou ignorados na normalizacao.
+* Apenas Mestre ativo pode criar, editar ou remover paredes/portas.
+* Apenas Mestre pode desfazer a ultima criacao de parede/porta na cena ou remover uma parede/porta por menu contextual.
+* Colisao de movimento deve validar rotas medidas por segmentos, incluindo pontos intermediarios.
+* O Mestre pode atualizar paredes e portas em qualquer estado de sessao; quando a campanha estiver offline, a API persiste imediatamente, e quando estiver online a mudanca deve ficar refletida na cena viva e persistir para o proximo ciclo da sessao.
+
 ## 4. Visao de Cena por Usuario
 
 ```ts
@@ -215,21 +252,28 @@ Regras:
 
 Regras:
 * Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
-* Durante uma sessao online, alteracoes de grid e tokens ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
+* Durante uma sessao online, alteracoes de grid, tokens, paredes e portas ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
 * Alteracoes de grid e tokens durante a sessao online nao devem disparar escrita no banco a cada evento, para evitar loops de snapshot e inconsistencias visuais.
+* Alteracoes de paredes e portas feitas pelo Mestre devem ser persistidas imediatamente e tambem refletidas no estado vivo da cena, para que pausas, retomadas, troca de cena/campanha e encerramento nao restaurem snapshot antigo.
 * Drop/criacao de token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignSceneToken` antes de atualizar os clients.
 * Drop, movimento, visibilidade e remocao de token durante sessao online devem marcar a cena como dirty para persistencia posterior.
 * Autosave eventual pode persistir cenas dirty em intervalos controlados, coalescendo varias alteracoes em um unico snapshot por cena.
-* Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online.
-* Antes de emitir `presence:session:start`, o frontend do Mestre deve sincronizar o snapshot completo da mesa atual via HTTP, incluindo todas as cenas persistidas carregadas, seus grids e seus tokens.
+* Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online, incluindo paredes e portas de todas as cenas carregadas pelo snapshot do Mestre.
+* Antes de emitir `presence:session:start`, o frontend do Mestre deve sincronizar o snapshot completo da mesa atual via HTTP, incluindo todas as cenas persistidas carregadas, seus grids, tokens e paredes/portas.
 * A sincronizacao de snapshot completo substitui os tokens persistidos da campanha pelo estado enviado pela tela do Mestre; remocoes locais feitas antes da sessao devem ser preservadas e nao podem reaparecer ao jogador entrar.
-* Ao iniciar sessao, o servidor deve hidratar o estado vivo a partir do snapshot persistido mais recente, incluindo remocoes e reposicionamentos feitos pelo Mestre durante a manutencao offline.
-* Ao encerrar sessao, o servidor deve persistir o ultimo estado vivo da mesa para que a proxima sessao comece como a anterior terminou.
+* Ao iniciar sessao, o servidor deve hidratar o estado vivo a partir do snapshot persistido mais recente, incluindo remocoes, reposicionamentos e paredes/portas feitas pelo Mestre durante a manutencao offline.
+* Ao pausar ou retomar sessao, o servidor deve persistir o ultimo estado vivo da mesa antes de alterar o estado da sessao.
+* Ao trocar a cena ativa do Mestre durante sessao online, o servidor deve persistir o estado vivo atual antes de pausar e emitir o novo snapshot.
+* Ao encerrar sessao, trocar campanha ou desconectar o Mestre, o servidor deve persistir o ultimo estado vivo da mesa para que a proxima sessao comece como a anterior terminou.
+* Nenhum ponto de ciclo de vida pode sobrescrever `CampaignScene.walls` com array vazio ou estado antigo quando a cena ja possui paredes/portas persistidas ou vivas.
 * Eventos que podem persistir estado fora da sessao online:
   * preparo de cena com campanha offline;
   * autosave eventual de cenas dirty durante sessao online;
   * iniciar sessao;
+  * pausar sessao;
+  * retomar sessao;
   * encerrar sessao;
+  * troca de campanha pelo Mestre;
   * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes.
 * O frontend pode atualizar estado de forma otimista, mas a fonte da verdade persistida deve ser atualizada pelos eventos acima.
 * Ao entrar na campanha, o cliente deve receber snapshot da cena que deve visualizar e metadados suficientes para cachear imagens.
@@ -271,6 +315,7 @@ Regras:
 * `PUT /api/campaigns/:campaignId/scenes/table-state` exige Mestre ativo e recebe snapshot completo de cenas persistidas, grid e tokens da tela do Mestre.
 * `PUT /api/campaigns/:campaignId/scenes/table-state` deve validar que todas as cenas pertencem a campanha, que tokens de personagem pertencem a personagens ativos da campanha e que nao ha personagem duplicado no snapshot.
 * `PUT /api/campaigns/:campaignId/scenes/table-state` deve executar em transacao, atualizar grids das cenas enviadas, remover os tokens persistidos anteriores da campanha e recriar os tokens conforme o snapshot recebido.
+* `POST`, `PATCH` e `PUT /table-state` podem receber `walls` para persistir paredes/portas da cena.
 
 Payload minimo de criacao:
 
@@ -312,6 +357,12 @@ type CampaignSceneTokenMovedPayload = {
   token: CampaignSceneToken
 }
 
+type CampaignSceneWallsChangedPayload = {
+  campaignId: string
+  sceneId: string
+  walls: CampaignSceneWall[]
+}
+
 type CampaignSceneTokenSceneChangedPayload = {
   campaignId: string
   tokenId: string
@@ -340,6 +391,8 @@ Eventos:
 * `campaign-scene:token:scene-changed`: servidor informa mudanca de cena do token e atualiza os sockets afetados.
 * `campaign-scene:grid:update`: Mestre altera grid da cena.
 * `campaign-scene:grid:changed`: servidor transmite grid atualizado para sockets que visualizam a cena.
+* `campaign-scene:walls:update`: Mestre altera paredes/portas da cena.
+* `campaign-scene:walls:changed`: servidor transmite paredes/portas atualizadas para sockets que visualizam a cena.
 
 Regras:
 * Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
@@ -382,6 +435,8 @@ Regras:
 * Dropar token durante sessao online emite delta de token para sockets autorizados, sem reenviar snapshot completo da cena.
 * Trocar cena pelo Mestre pausa automaticamente a sessao online.
 * Trocar cena, receber snapshot de cena ou carregar background nao deve expor ao usuario o reajuste visual intermediario de imagem, grid e tokens.
+* Paredes e portas persistidas aparecem ao carregar a cena.
+* Paredes e portas persistidas bloqueiam movimentacao de tokens conforme contrato do VTT.
 * Retomar sessao nao revela automaticamente a nova cena para todos.
 * Player ve a cena onde seu token esta quando nao ha cena forcada.
 * Player sem token nao ve cena privada automaticamente quando nao ha cena forcada.

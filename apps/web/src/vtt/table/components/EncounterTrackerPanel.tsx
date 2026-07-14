@@ -107,10 +107,10 @@ export function EncounterTrackerPanel({
   onInitiativeChange,
   onTriggerHazard,
   onOpenHealthEditor,
-  onQuickAdjustHealth,
   onResetMovement,
   onRemoveParticipant,
   onRollInitiative,
+  onRollAllInitiatives,
   onDetach,
   onAttach,
 }: {
@@ -131,16 +131,15 @@ export function EncounterTrackerPanel({
   onInitiativeChange: (participantId: string, initiative: number | null) => void
   onTriggerHazard?: (participantId: string) => void
   onOpenHealthEditor?: (tokenId: string, name: string) => void
-  onQuickAdjustHealth?: (tokenId: string, operation: 'DAMAGE' | 'HEAL', amount: number) => void
   onResetMovement?: (participantId: string) => void
   onRemoveParticipant?: (participantId: string) => void
   onRollInitiative?: (participantId: string) => void
+  onRollAllInitiatives?: () => void
   onDetach?: () => void
   onAttach?: () => void
 }) {
   const activeParticipant = encounter?.participants[encounter.activeTurnIndex] ?? null
   const detached = displayMode === 'detached'
-  const [quickHealthAmount, setQuickHealthAmount] = useState(1)
 
   const title = encounter && activeParticipant ? `Encontro - ${activeParticipant.name}` : 'Encounter Mode'
   const subtitle = encounter
@@ -314,6 +313,16 @@ export function EncounterTrackerPanel({
             </div>
           </div>
           <div className="flex shrink-0 items-center gap-2">
+            {encounter && isMaster && onRollAllInitiatives ? (
+              <button
+                type="button"
+                title="Rolar iniciativas de todos"
+                className="grid h-8 w-8 place-items-center rounded-md border border-white/10 bg-white/[0.04] text-amber-300 transition hover:bg-amber-500/15 hover:text-amber-100"
+                onClick={onRollAllInitiatives}
+              >
+                <Dices className="h-4 w-4" />
+              </button>
+            ) : null}
             {onAttach ? (
               <button
                 type="button"
@@ -608,6 +617,16 @@ export function EncounterTrackerPanel({
                 Avancar
                 <ChevronRight className="h-4 w-4" />
               </button>
+              {onRollAllInitiatives ? (
+                <button
+                  type="button"
+                  className="col-span-2 flex h-8 items-center justify-center gap-2 rounded-md border border-amber-300/20 bg-amber-500/10 text-xs font-semibold text-amber-100 transition hover:bg-amber-500/15 hover:text-white"
+                  onClick={onRollAllInitiatives}
+                >
+                  <Dices className="h-4 w-4" />
+                  Rolar iniciativas
+                </button>
+              ) : null}
             </div>
           ) : null}
 
@@ -734,36 +753,6 @@ export function EncounterTrackerPanel({
                   ) : (
                     <span className="text-center text-sm font-semibold text-zinc-200">{participant.initiative ?? '-'}</span>
                   )}
-                  {active && isMaster && participant.type === 'creature' && onQuickAdjustHealth ? (
-                    <div className="col-span-3 flex items-center gap-1.5 border-t border-white/10 pt-1.5">
-                      <input
-                        type="number"
-                        inputMode="numeric"
-                        min={1}
-                        title="Quantidade de PV"
-                        value={quickHealthAmount}
-                        className="h-7 w-16 shrink-0 rounded-md border border-white/10 bg-black/30 px-2 text-center text-xs font-semibold text-white outline-none transition focus:border-red-300/60"
-                        onChange={(event) => {
-                          const value = Math.max(1, Math.floor(Number(event.currentTarget.value)) || 1)
-                          setQuickHealthAmount(value)
-                        }}
-                      />
-                      <button
-                        type="button"
-                        className="flex h-7 flex-1 items-center justify-center rounded-md bg-red-600 text-[11px] font-semibold text-white transition hover:bg-red-500"
-                        onClick={() => onQuickAdjustHealth(participant.tokenId, 'DAMAGE', quickHealthAmount)}
-                      >
-                        Causar dano
-                      </button>
-                      <button
-                        type="button"
-                        className="flex h-7 flex-1 items-center justify-center rounded-md bg-emerald-600 text-[11px] font-semibold text-white transition hover:bg-emerald-500"
-                        onClick={() => onQuickAdjustHealth(participant.tokenId, 'HEAL', quickHealthAmount)}
-                      >
-                        Curar
-                      </button>
-                    </div>
-                  ) : null}
                 </div>
               )
             })}

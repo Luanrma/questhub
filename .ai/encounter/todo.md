@@ -74,7 +74,7 @@ Feedback com print anotado (1a rodada): o log de batalha gerava a entrada certa 
 
 Feedback com print anotado (2a rodada): o usuario rejeitou o banner separado — pediu para unir a sinalizacao de "token ativo" com edicao de PV diretamente na mesma linha do participante ativo, dentro do proprio box do Encounter Mode, sem precisar abrir o modal.
 - [x] `ActiveTurnBanner.tsx` removido (arquivo deletado, import/uso retirado de `CampaignOverviewPage.tsx`).
-- [x] `EncounterTrackerPanel.tsx`: nova prop `onQuickAdjustHealth?: (tokenId, operation, amount) => void`. A linha do participante ativo (`type: 'creature'`, lista do painel lateral) ganha uma faixa extra abaixo (`col-span-3` no grid da linha) com input de quantidade + botoes "Causar dano"/"Curar", chamando `onQuickAdjustHealth` (que emite `vtt:combat:health:adjust` direto, reaproveitando `adjustCombatHealth` ja existente em `CampaignOverviewPage.tsx` — a mesma funcao usada pelo modal). O icone de coracao (abre `CombatHealthEditorModal`) continua disponivel para todos os participantes, incluindo o ativo, para ajustes de PV maximo/temporario.
+- [x] `EncounterTrackerPanel.tsx`: a faixa inline de dano/cura do participante ativo foi removida em 2026-07-14, porque fazia o token do turno aparecer como alvo de dano de si mesmo. O icone de coracao (`CombatHealthEditorModal`) continua disponivel para todos os participantes, incluindo o ativo, para ajustes/correcao de PV.
 - [x] Escopo limitado ao painel lateral (nao destacado) — o card carrossel do modo destacado (`displayMode="detached"`) nao ganhou o editor inline nesta rodada, mantem so o icone de coracao.
 - [x] Verificacao: `tsc -b apps/web/tsconfig.json --force` limpo, `vite build` ok.
 
@@ -91,6 +91,8 @@ Pedido do usuario: tokens devem poder entrar/sair de um encontro ja em andamento
 - [x] `VttDiceControls.tsx` vira `forwardRef` (`memo(forwardRef(...))`), expondo `rollForInitiative` via `useImperativeHandle` (tipo `VttDiceControlsHandle`, exportado por `dice-roller/index.ts`) e aceitando `onInitiativeRolled`.
 - [x] `CampaignOverviewPage.tsx`: `diceControlsRef` (ref pro `VttDiceControls` ja renderizado na toolbar), `onInitiativeRolled={updateEncounterInitiative}` no `VttDiceControls`, nova funcao `rollInitiative(participantId)` que chama `diceControlsRef.current?.rollForInitiative(...)`, passada como `onRollInitiative` para os dois `EncounterTrackerPanel` (painel lateral e destacado).
 - [x] `EncounterTrackerPanel.tsx`: icone de dado (`Dices`, lucide-react) ao lado do input de iniciativa em ambos os modos (lateral e destacado), chamando `onRollInitiative`. Campo de iniciativa continua editavel manualmente nos dois modos, sem exclusividade com a rolagem.
+- [x] Pedido de 2026-07-14: novo comando `vtt:encounter:roll-all-initiatives` para rolar `1d20` de todos os participantes no servidor, sem animacao 3D, sem chat/log, reordenando por iniciativa descendente e colocando o maior resultado como turno atual.
+- [x] Correcao de 2026-07-14: rolagem individual de iniciativa passa a enviar `activateHighest: true` em `vtt:encounter:update-initiative`, para que o maior resultado assuma o primeiro turno apos a reordenacao. Edicao manual preserva o turno atual.
 - [x] Verificacao: `tsc -p apps/api/tsconfig.test.json --noEmit` limpo, `tsc -b apps/web/tsconfig.json --force` limpo, `npm run test:unit` 92/92, `vite build` ok.
 
 ## Fora de escopo (decisao registrada em 2026-07-08)

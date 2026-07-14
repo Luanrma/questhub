@@ -123,6 +123,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         return
       }
 
+      await persistCampaignLiveState(campaignId)
       state.setCampaignOnline(campaignId, { ...online, state: 'PAUSED' })
       await emitCampaignSessionState(campaignId)
       ack?.({ ok: true })
@@ -144,6 +145,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         return
       }
 
+      await persistCampaignLiveState(campaignId)
       state.setCampaignOnline(campaignId, { ...online, state: 'ACTIVE' })
       await emitCampaignSessionState(campaignId)
       if (state.hasPendingCampaignScene(campaignId)) {

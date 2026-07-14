@@ -1,6 +1,6 @@
 import type { VttGridSettings, VttGridShape } from '../../grid'
 import { boardGridLimits } from '../config/constants'
-import type { VttGridBounds, VttMeasurement, VttMeasurementPoint, VttPanOffset, VttPlayerToken, VttTableScene } from './types'
+import type { VttGridBounds, VttMeasurement, VttMeasurementPoint, VttPanOffset, VttPlayerToken, VttSelectionArea, VttTableScene } from './types'
 
 const hexRowStepUnits = Math.sqrt(3) / 2
 
@@ -199,6 +199,25 @@ export function clampMeasurementPoint(point: VttMeasurementPoint, bounds: VttGri
     x: clampNumber(point.x, 0, bounds.width),
     y: clampNumber(point.y, 0, bounds.height),
   }
+}
+
+export function selectionAreaBounds(area: VttSelectionArea) {
+  return {
+    left: Math.min(area.start.x, area.end.x),
+    right: Math.max(area.start.x, area.end.x),
+    top: Math.min(area.start.y, area.end.y),
+    bottom: Math.max(area.start.y, area.end.y),
+  }
+}
+
+export function isTokenInsideSelectionArea(token: VttPlayerToken, area: VttSelectionArea) {
+  const bounds = selectionAreaBounds(area)
+  return (
+    token.position.x >= bounds.left &&
+    token.position.x <= bounds.right &&
+    token.position.y >= bounds.top &&
+    token.position.y <= bounds.bottom
+  )
 }
 
 export function formatMeters(value: number) {

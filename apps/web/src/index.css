@@ -224,10 +224,15 @@ input:disabled,
   position: fixed;
   left: 0;
   top: 0;
-  width: 80px;
+  width: 48px;
   height: auto;
   margin: 0;
   overflow: visible;
+}
+
+.campaign-sidebar-toggle {
+  width: 48px;
+  height: 38px;
 }
 
 .campaign-sidebar-panel {
@@ -244,7 +249,7 @@ input:disabled,
 
 .campaign-sidebar-collapsed {
   inset: 0 auto auto 0;
-  width: 80px !important;
+  width: 48px !important;
 }
 
 @media (max-width: 899px), (max-height: 639px) {
@@ -264,7 +269,7 @@ input:disabled,
     right: auto;
     bottom: auto;
     left: 0;
-    width: 80px !important;
+    width: 48px !important;
     border-radius: 0;
   }
 

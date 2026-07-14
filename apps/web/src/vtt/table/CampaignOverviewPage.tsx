@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import { createPortal } from 'react-dom'
 import {
   Backpack,
+  BrickWall,
   CircleUserRound,
   Cloud,
   Dice5,
@@ -19,11 +20,13 @@ import {
   Pause,
   Pin,
   ScrollText,
+  SquareDashedMousePointer,
   Swords,
   Trash2,
   TriangleAlert,
   Users,
   Wand2,
+  Wrench,
   X,
   Zap,
   ZoomIn,
@@ -59,9 +62,11 @@ import {
   getBoardPixelSize,
   getCenteredPanOffset,
   getTokenSize,
+  isTokenInsideSelectionArea,
   normalizeTableToken,
   normalizeTokenPosition,
   scaleGridSettings,
+  selectionAreaBounds,
   tokenGridPositionFromPixelCenter,
 } from './domain/boardMath'
 import { predictMovement } from './domain/movementPrediction'
@@ -71,6 +76,7 @@ import {
   getDefaultSceneDimensions,
   isDraftPreparedScene,
   normalizePreparedSceneList,
+  normalizeWallSegments,
   preparedSceneToTableScene,
   readImageDimensions,
   revokeSceneImageUrl,
@@ -78,9 +84,10 @@ import {
   sceneResponseToPreparedScene,
   validateSceneImage,
 } from './domain/sceneDomain'
+import { applyDoorToWalls, createRectangleWallSegments, isMovementPathBlockedByWalls, normalizeDoorState } from './domain/wallGeometry'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
-import { HazardMarker, PlayerToken, VttMeasurementOverlay } from './components/BoardOverlays'
+import { HazardMarker, PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
 import { SpellAreaOverlayView } from './components/SpellAreaOverlay'
 import {
   SpellCastPanel,
@@ -128,6 +135,7 @@ import type {
   VttPlayerToken,
   VttSceneChangedPayload,
   VttSceneHazard,
+  VttSelectionArea,
   VttSpellAreaChangedPayload,
   VttSpellAreaOverlay,
   VttTableScene,
@@ -138,16 +146,23 @@ import type {
   VttTokenState,
   VttTokensSnapshotPayload,
   VttToolId,
+  VttWallSegment,
+  VttWallsChangedPayload,
 } from './domain/types'
 
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
+  { id: 'area-select', label: 'Selecao por area', icon: SquareDashedMousePointer },
   { id: 'move', label: 'Mover', icon: Move },
   { id: 'dice', label: 'Dados', icon: Dice5 },
   { id: 'tokens', label: 'Tokens', icon: CircleUserRound },
   { id: 'hazards', label: 'Hazards', icon: TriangleAlert },
+  { id: 'walls', label: 'Paredes', icon: BrickWall },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
 ] as const
+
+const defaultWallColor = '#e5e7eb'
+const defaultDoorColor = '#f59e0b'
 
 const hazardVisibilityLabels: Record<VttSceneHazard['visibility'], string> = {
   HIDDEN: 'Oculto',
@@ -302,7 +317,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
   const [isPanning, setIsPanning] = useState(false)
+  const [altNavigationActive, setAltNavigationActive] = useState(false)
   const [activeTool, setActiveTool] = useState<VttToolId | null>('select')
+  const [toolsCollapsed, setToolsCollapsed] = useState(false)
+  const [wallToolKind, setWallToolKind] = useState<VttWallSegment['kind']>('wall')
+  const [wallColor, setWallColor] = useState(defaultWallColor)
+  const [doorColor, setDoorColor] = useState(defaultDoorColor)
+  const [wallDrafts, setWallDrafts] = useState<VttWallSegment[]>([])
+  const wallDraftStartRef = useRef<VttMeasurementPoint | null>(null)
+  const wallUndoStackRef = useRef<VttWallSegment[][]>([])
+  const [wallContextMenu, setWallContextMenu] = useState<{ wall: VttWallSegment; x: number; y: number } | null>(null)
+  const [selectionAreaDraft, setSelectionAreaDraft] = useState<VttSelectionArea | null>(null)
+  const selectionAreaStartRef = useRef<{ pointerId: number; point: VttMeasurementPoint } | null>(null)
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
@@ -340,8 +366,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const spellCastingBusyRef = useRef(false)
   const [encounterTokenIds, setEncounterTokenIds] = useState<string[]>([])
   const [preselectedEncounterTokenIds, setPreselectedEncounterTokenIds] = useState<string[]>([])
+  const [multiSelectedTokenIds, setMultiSelectedTokenIds] = useState<string[]>([])
   const [pendingEncounterHazardIds, setPendingEncounterHazardIds] = useState<string[]>([])
   const preparedScenesRef = useRef(preparedScenes)
+  const activeSceneRef = useRef<VttTableScene | null>(null)
+  const gridShapeRef = useRef(gridSettings.shape)
+  const myCharacterIdRef = useRef<string | null>(myCharacter?.id ?? null)
   const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
   const onGridSettingsChangeRef = useRef(onGridSettingsChange)
   const [sceneLoadingMessage, setSceneLoadingMessage] = useState<string | null>(null)
@@ -367,11 +397,13 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   const boardPixelSize = getBoardPixelSize(tokenSize, activeZoomPercent, activeScene)
   const clampedPanOffset = clampPanOffset(panOffset, viewportBounds, boardPixelSize)
   const visibleToolButtons = toolButtons.filter((tool) => {
-    if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'hazards') return canConfigureGrid
+    if (tool.id === 'area-select') return Boolean(isMaster)
+    if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'hazards' || tool.id === 'walls') return canConfigureGrid
     return true
   })
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
+  const playersCanSeeSceneWalls = Boolean(activeScene?.walls.some((wall) => wall.kind === 'wall' && wall.playerVisible))
   const spellPlacementRangeRing = (() => {
     if (!spellPlacement) return null
     const { rangeKind, rangeFeet, area } = spellPlacement.request
@@ -450,6 +482,9 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     .filter((token): token is VttPlayerToken => Boolean(token))
   const preselectedEncounterTokens = preselectedEncounterTokenIds
     .map((tokenId) => visibleTokens.find((token) => token.id === tokenId && !token.hidden))
+    .filter((token): token is VttPlayerToken => Boolean(token))
+  const multiSelectedTokens = multiSelectedTokenIds
+    .map((tokenId) => visibleTokens.find((token) => token.id === tokenId))
     .filter((token): token is VttPlayerToken => Boolean(token))
   const pendingEncounterHazards = pendingEncounterHazardIds
     .map((hazardId) => sceneHazards.find((hazard) => hazard.id === hazardId))
@@ -788,11 +823,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   async function syncTableState() {
     if (!campaignId || !isMaster) return
 
-    const scenes = preparedScenes
+    const currentActiveScene = activeSceneRef.current
+    const currentPreparedScenes = preparedScenesRef.current
+
+    const scenes = currentPreparedScenes
       .filter((scene) => !isDraftPreparedScene(scene))
       .map((scene) => ({
         id: scene.id,
-        grid: activeScene?.id === scene.id ? gridSettings : scene.grid,
+        grid: currentActiveScene?.id === scene.id ? gridSettings : scene.grid,
         tokens: scene.tokens.map((token) => ({
           id: token.id,
           source: token.source,
@@ -804,6 +842,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
           hidden: token.hidden,
           position: token.position,
         })),
+        walls: currentActiveScene?.id === scene.id ? currentActiveScene.walls : scene.walls,
       }))
 
     const syncedScenes = await api<CampaignSceneResponse[]>(
@@ -811,7 +850,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       {
         method: 'PUT',
         body: JSON.stringify({
-          masterActiveSceneId: activeScene?.id ?? null,
+          masterActiveSceneId: currentActiveScene?.id ?? null,
           scenes,
         }),
       },
@@ -819,15 +858,43 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
     setPreparedScenes((current) => {
       current.forEach(revokeSceneImageUrl)
-      return normalizePreparedSceneList(syncedScenes.map(sceneResponseToPreparedScene))
+      const next = normalizePreparedSceneList(syncedScenes.map(sceneResponseToPreparedScene))
+      preparedScenesRef.current = next
+      activeSceneRef.current = currentActiveScene
+      return next
     })
   }
 
-  useImperativeHandle(ref, () => ({ syncTableState }), [activeScene?.id, campaignId, gridSettings, isMaster, preparedScenes])
+  useImperativeHandle(ref, () => ({ syncTableState }), [campaignId, gridSettings, isMaster])
 
   useEffect(() => {
     setTokenMovementSpeed(campaignId ? readStoredCampaignUserSettings(campaignId).vtt.tokenMovementSpeed : 'default')
   }, [campaignId])
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Alt') setAltNavigationActive(true)
+    }
+
+    function onKeyUp(event: KeyboardEvent) {
+      if (event.key === 'Alt') setAltNavigationActive(false)
+    }
+
+    function onWindowBlur() {
+      setAltNavigationActive(false)
+      panningRef.current = null
+      setIsPanning(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keyup', onKeyUp)
+    window.addEventListener('blur', onWindowBlur)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+      window.removeEventListener('blur', onWindowBlur)
+    }
+  }, [])
 
   useEffect(() => {
     function onVttTableSettingsChanged(event: Event) {
@@ -891,17 +958,45 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   }, [activeScene?.id, activeZoomPercent, boardPixelSize.height, boardPixelSize.width, viewportBounds.height, viewportBounds.width])
 
   useEffect(() => {
+    wallUndoStackRef.current = []
+    setWallContextMenu(null)
+  }, [activeScene?.id])
+
+  useEffect(() => {
     onGridSettingsChangeRef.current = onGridSettingsChange
   }, [onGridSettingsChange])
 
+  useEffect(() => {
+    activeSceneRef.current = activeScene
+  }, [activeScene])
+
+  useEffect(() => {
+    gridShapeRef.current = gridSettings.shape
+  }, [gridSettings.shape])
+
+  useEffect(() => {
+    myCharacterIdRef.current = myCharacter?.id ?? null
+  }, [myCharacter?.id])
+
   function startSceneLoading(scene: VttTableScene | null, message = 'Carregando cena...') {
     const imageKey = scene?.imageUrl ? sceneImageDimensionKey(scene) : null
-    setSceneRenderTarget({
+    const nextTarget = {
       sceneId: scene?.id ?? null,
       imageKey,
       tokenCount: scene?.tokens.length ?? 0,
+    }
+    setSceneRenderTarget((current) => {
+      if (
+        current?.sceneId === nextTarget.sceneId &&
+        current.imageKey === nextTarget.imageKey &&
+        current.tokenCount === nextTarget.tokenCount
+      ) {
+        return current
+      }
+
+      return nextTarget
     })
-    setSceneLoadingMessage(message)
+    setSceneLoadingMessage((current) => (current === message ? current : message))
   }
 
   function finishSceneImageLoading(scene: Pick<VttTableScene, 'id' | 'imageUrl'>) {
@@ -1061,6 +1156,10 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       const next = current.filter((tokenId) => availableTokenIds.has(tokenId))
       return next.length === current.length ? current : next
     })
+    setMultiSelectedTokenIds((current) => {
+      const next = current.filter((tokenId) => availableTokenIds.has(tokenId))
+      return next.length === current.length ? current : next
+    })
   }, [activeScene?.id, visibleTokens])
 
   useEffect(() => {
@@ -1083,13 +1182,16 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         return
       }
 
+      const normalizedScene = { ...scene, walls: normalizeWallSegments(scene.walls) }
       const sceneKey = sceneImageDimensionKey(scene)
       setActiveScene((current) => {
         const cachedDimensions = sceneImageDimensionsRef.current.get(sceneKey)
         const currentDimensions =
           current && sceneImageDimensionKey(current) === sceneKey ? { width: current.width, height: current.height } : null
         const dimensions = cachedDimensions ?? currentDimensions
-        return dimensions ? { ...scene, width: dimensions.width, height: dimensions.height } : scene
+        const nextScene = dimensions ? { ...normalizedScene, width: dimensions.width, height: dimensions.height } : normalizedScene
+        activeSceneRef.current = nextScene
+        return nextScene
       })
 
       const sceneGrid = normalizeGridSettings(scene.grid)
@@ -1100,19 +1202,22 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         tokens: sceneTokens,
       })
       if (isMaster) {
-        setPreparedScenes((current) =>
-          current.map((preparedScene) =>
-            preparedScene.id === scene.id ? { ...preparedScene, grid: sceneGrid, tokens: sceneTokens } : preparedScene,
-          ),
-        )
+        setPreparedScenes((current) => {
+          const next = current.map((preparedScene) =>
+            preparedScene.id === scene.id ? { ...preparedScene, grid: sceneGrid, tokens: sceneTokens, walls: normalizedScene.walls } : preparedScene,
+          )
+          preparedScenesRef.current = next
+          return next
+        })
       }
     }
 
     function onTokenChanged(payload: VttTokenChangedPayload) {
       if (payload.campaignId !== campaignId) return
-      if (payload.sceneId && payload.sceneId !== activeScene?.id) return
+      const activeSceneId = activeSceneRef.current?.id ?? null
+      if (payload.sceneId && payload.sceneId !== activeSceneId) return
 
-      const token = normalizeTableToken(payload.token, gridSettings.shape)
+      const token = normalizeTableToken(payload.token, gridShapeRef.current)
       if (payload.movementPath && payload.movementPath.length >= 2) {
         setTokenMovementPaths((current) => (current[token.id] ? current : { ...current, [token.id]: payload.movementPath ?? [] }))
       }
@@ -1128,7 +1233,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       })
       setPreparedScenes((current) =>
         current.map((scene) => {
-          if (scene.id !== activeScene?.id) return scene
+          if (scene.id !== activeSceneId) return scene
           const index = scene.tokens.findIndex((item) => item.id === payload.token.id)
           const tokens = index === -1 ? [...scene.tokens, payload.token] : scene.tokens.map((item) => (item.id === payload.token.id ? payload.token : item))
           return { ...scene, tokens }
@@ -1139,16 +1244,16 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     function onTokensSnapshot(payload: VttTokensSnapshotPayload) {
       if (payload.campaignId !== campaignId) return
       if (isMaster) return
-      if (payload.sceneId && payload.sceneId !== activeScene?.id) return
+      if (payload.sceneId && payload.sceneId !== activeSceneRef.current?.id) return
       setTokenState({
         campaignId,
-        tokens: payload.tokens.map((token) => normalizeTableToken(token, gridSettings.shape)),
+        tokens: payload.tokens.map((token) => normalizeTableToken(token, gridShapeRef.current)),
       })
     }
 
     function onTokenRemoved(payload: VttTokenRemovedPayload) {
       if (payload.campaignId !== campaignId) return
-      const isOwnRemovedToken = !isMaster && payload.characterId === myCharacter?.id
+      const isOwnRemovedToken = !isMaster && payload.characterId === myCharacterIdRef.current
       if (isOwnRemovedToken) {
         setActiveScene(null)
         setTokenState({ campaignId, tokens: [] })
@@ -1156,7 +1261,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         setMeasurement(null)
         return
       }
-      if (payload.sceneId && payload.sceneId !== activeScene?.id) return
+      if (payload.sceneId && payload.sceneId !== activeSceneRef.current?.id) return
       removeTokenFromLocalScene({ id: payload.tokenId, characterId: payload.characterId ?? null }, payload.sceneId ?? null)
     }
 
@@ -1181,6 +1286,22 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     function onSceneSnapshot(payload: VttSceneChangedPayload) {
       if (payload.campaignId !== campaignId) return
       applySceneSnapshot(payload.scene)
+    }
+
+    function onWallsChanged(payload: VttWallsChangedPayload) {
+      if (payload.campaignId !== campaignId) return
+      if (payload.sceneId !== activeSceneRef.current?.id) return
+      const walls = normalizeWallSegments(payload.walls)
+      setActiveScene((current) => {
+        const next = current && current.id === payload.sceneId ? { ...current, walls } : current
+        activeSceneRef.current = next
+        return next
+      })
+      setPreparedScenes((current) => {
+        const next = current.map((scene) => (scene.id === payload.sceneId ? { ...scene, walls } : scene))
+        preparedScenesRef.current = next
+        return next
+      })
     }
 
     function onEncounterChanged(payload: VttEncounterChangedPayload) {
@@ -1222,6 +1343,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     socket.on('vtt:measurement:snapshot', onMeasurementSnapshot)
     socket.on('vtt:scene:changed', onSceneChanged)
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
+    socket.on('vtt:walls:changed', onWallsChanged)
     socket.on('vtt:encounter:changed', onEncounterChanged)
     socket.on('vtt:hazards:snapshot', onHazardsSnapshot)
     socket.on('vtt:hazard:changed', onHazardChanged)
@@ -1246,6 +1368,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       socket.off('vtt:measurement:snapshot', onMeasurementSnapshot)
       socket.off('vtt:scene:changed', onSceneChanged)
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
+      socket.off('vtt:walls:changed', onWallsChanged)
       socket.off('vtt:encounter:changed', onEncounterChanged)
       socket.off('vtt:hazards:snapshot', onHazardsSnapshot)
       socket.off('vtt:hazard:changed', onHazardChanged)
@@ -1253,7 +1376,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       socket.off('vtt:combat:health:changed', onCombatHealthChanged)
       socket.off('vtt:spell-area:changed', onSpellAreaChanged)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
+  }, [socket, campaignId, isMaster])
 
   useEffect(() => {
     if (!encounterState) return
@@ -1318,7 +1441,9 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
         setPreparedScenes((current) => {
           current.forEach(revokeSceneImageUrl)
-          return normalizePreparedSceneList(scenes.map(sceneResponseToPreparedScene))
+          const next = normalizePreparedSceneList(scenes.map(sceneResponseToPreparedScene))
+          preparedScenesRef.current = next
+          return next
         })
         setSceneAssetsLoadedCampaignId(campaignId)
       })
@@ -1359,6 +1484,113 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     }
   }
 
+  function persistSceneWalls(sceneId: string, walls: VttWallSegment[]) {
+    if (!campaignId || !isMaster) return
+
+    api<CampaignSceneResponse>(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(sceneId)}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ walls }),
+    }).catch(() => {})
+  }
+
+  function applyActiveSceneWalls(nextWalls: VttWallSegment[]) {
+    const currentActiveScene = activeSceneRef.current ?? activeScene
+    if (!currentActiveScene || !isMaster) return
+
+    const nextActiveScene = { ...currentActiveScene, walls: nextWalls }
+    const nextPreparedScenes = preparedScenesRef.current.map((scene) =>
+      scene.id === currentActiveScene.id ? { ...scene, walls: nextWalls } : scene,
+    )
+
+    activeSceneRef.current = nextActiveScene
+    preparedScenesRef.current = nextPreparedScenes
+
+    setActiveScene((current) => {
+      if (!current || current.id !== currentActiveScene.id) return current
+      return nextActiveScene
+    })
+    setPreparedScenes(nextPreparedScenes)
+    persistSceneWalls(currentActiveScene.id, nextWalls)
+    if (campaignId && socket) socket.emit('vtt:walls:update', { campaignId, sceneId: currentActiveScene.id, walls: nextWalls })
+  }
+
+  function updateActiveSceneWalls(updater: (walls: VttWallSegment[]) => VttWallSegment[], options?: { recordUndo?: boolean }) {
+    const currentActiveScene = activeSceneRef.current ?? activeScene
+    if (!currentActiveScene || !isMaster) return
+
+    const previousWalls = currentActiveScene.walls
+    const nextWalls = updater(previousWalls)
+    if (options?.recordUndo && nextWalls !== previousWalls) {
+      wallUndoStackRef.current = [...wallUndoStackRef.current.slice(-24), previousWalls]
+    }
+    applyActiveSceneWalls(nextWalls)
+  }
+
+  function undoLastWallCreation() {
+    if (!isMaster) return false
+    const previousWalls = wallUndoStackRef.current.pop()
+    if (!previousWalls) return false
+    applyActiveSceneWalls(previousWalls)
+    setWallContextMenu(null)
+    return true
+  }
+
+  function createWallId() {
+    return `wall:${Date.now()}:${Math.random().toString(36).slice(2, 8)}`
+  }
+
+  function createWallSegment(start: VttMeasurementPoint, end: VttMeasurementPoint, kind = wallToolKind): VttWallSegment | null {
+    if (Math.hypot(end.x - start.x, end.y - start.y) <= 0.001) return null
+
+    const id = createWallId()
+    if (kind === 'door') {
+      return {
+        id,
+        kind: 'door',
+        start,
+        end,
+        color: doorColor,
+        door: { open: false, locked: false, blocked: false, ajar: true },
+      }
+    }
+
+    return { id, kind: 'wall', start, end, color: wallColor, playerVisible: false }
+  }
+
+  function createWallDrafts(start: VttMeasurementPoint, end: VttMeasurementPoint, rectangle: boolean) {
+    if (rectangle && wallToolKind === 'wall') {
+      return createRectangleWallSegments({ start, end, color: wallColor, playerVisible: false, createId: createWallId })
+    }
+
+    const segment = createWallSegment(start, end)
+    return segment ? [segment] : []
+  }
+
+  function updateDoorState(wallId: string, patch: Partial<NonNullable<VttWallSegment['door']>>) {
+    updateActiveSceneWalls((walls) =>
+      walls.map((wall) => {
+        if (wall.id !== wallId || wall.kind !== 'door') return wall
+        const nextDoor = normalizeDoorState({ ...wall.door, ...patch })
+        return { ...wall, door: nextDoor }
+      }),
+    )
+    setWallContextMenu((current) => {
+      if (!current || current.wall.id !== wallId || current.wall.kind !== 'door') return current
+      return { ...current, wall: { ...current.wall, door: normalizeDoorState({ ...current.wall.door, ...patch }) } }
+    })
+  }
+
+  function removeWallSegment(wallId: string) {
+    updateActiveSceneWalls((walls) => walls.filter((wall) => wall.id !== wallId), { recordUndo: true })
+    setWallContextMenu(null)
+  }
+
+  function setPlayerWallVisibility(visible: boolean) {
+    updateActiveSceneWalls((walls) =>
+      walls.map((wall) => (wall.kind === 'wall' ? { ...wall, playerVisible: visible } : wall)),
+    )
+  }
+
   async function selectPreparedScene(sceneId: string) {
     if (!isMaster) return
 
@@ -1374,6 +1606,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
       startSceneLoading(nextScene)
 
+      activeSceneRef.current = nextScene
       setActiveScene(nextScene)
       setTokenState({ campaignId: campaignId ?? null, tokens: scene.tokens.map((token) => normalizeTableToken(token, scene.grid.shape)) })
       onGridSettingsChange(scene.grid, { realtime: false, sceneId: scene.id })
@@ -1395,7 +1628,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
           sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
           startSceneLoading(nextScene)
 
-          setPreparedScenes((current) => current.map((item) => (item.id === scene.id ? refreshedScene : item)))
+          setPreparedScenes((current) => {
+            const next = current.map((item) => (item.id === scene.id ? refreshedScene : item))
+            preparedScenesRef.current = next
+            return next
+          })
+          activeSceneRef.current = nextScene
           setActiveScene(nextScene)
           setTokenState({ campaignId, tokens: refreshedScene.tokens.map((token) => normalizeTableToken(token, refreshedScene.grid.shape)) })
           onGridSettingsChange(refreshedScene.grid, { realtime: false, sceneId: refreshedScene.id })
@@ -1420,6 +1658,13 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     if (!isOwnerMove && !isMasterMove) return
 
     const nextPosition = normalizeTokenPosition(position, gridSettings.shape, gridBounds, tokenSize)
+    if (isOwnerMove && activeScene?.walls.length) {
+      const movementPathForCollision =
+        options?.movementPath && options.movementPath.length >= 2
+          ? [...options.movementPath.slice(0, -1), nextPosition]
+          : [token.position, nextPosition]
+      if (isMovementPathBlockedByWalls({ points: movementPathForCollision, walls: activeScene.walls })) return
+    }
     setTokenState((current) => {
       if (current.campaignId !== campaignId) return current
       return {
@@ -1467,6 +1712,96 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       },
       { width: bounds.width / tokenSize, height: bounds.height / tokenSize },
     )
+  }
+
+  function getWallPoint(event: React.PointerEvent<HTMLElement>) {
+    const point = getMeasurementPoint(event)
+    if (!point) return null
+    return gridSettings.shape === 'hex' ? snapHexMeasurementPoint(point) : point
+  }
+
+  function startAreaSelection(event: React.PointerEvent<HTMLDivElement>) {
+    if (!isMaster || !activeScene || event.button !== 0) return false
+    const point = getMeasurementPoint(event)
+    if (!point) return false
+
+    event.preventDefault()
+    event.stopPropagation()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    selectionAreaStartRef.current = { pointerId: event.pointerId, point }
+    setSelectionAreaDraft({ start: point, end: point })
+    return true
+  }
+
+  function updateAreaSelection(event: React.PointerEvent<HTMLDivElement>) {
+    const start = selectionAreaStartRef.current
+    if (!start || start.pointerId !== event.pointerId) return
+    const point = getMeasurementPoint(event)
+    if (!point) return
+
+    setSelectionAreaDraft({ start: start.point, end: point })
+  }
+
+  function finishAreaSelection(event: React.PointerEvent<HTMLDivElement>) {
+    const start = selectionAreaStartRef.current
+    if (!start || start.pointerId !== event.pointerId) return
+
+    selectionAreaStartRef.current = null
+    setSelectionAreaDraft(null)
+
+    const point = getMeasurementPoint(event)
+    if (!point) return
+
+    const area = { start: start.point, end: point }
+    const selectedTokenIds = visibleTokens.filter((token) => isTokenInsideSelectionArea(token, area)).map((token) => token.id)
+    setMultiSelectedTokenIds(selectedTokenIds)
+  }
+
+  function cancelAreaSelection(event?: React.PointerEvent<HTMLDivElement>) {
+    if (event && selectionAreaStartRef.current?.pointerId !== event.pointerId) return
+    selectionAreaStartRef.current = null
+    setSelectionAreaDraft(null)
+  }
+
+  function startWallDrawing(event: React.PointerEvent<HTMLDivElement>) {
+    if (!isMaster || !activeScene || event.button !== 0) return
+    const point = getWallPoint(event)
+    if (!point) return
+
+    event.preventDefault()
+    event.stopPropagation()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    wallDraftStartRef.current = point
+    setWallDrafts(createWallDrafts(point, point, event.ctrlKey))
+  }
+
+  function updateWallDrawing(event: React.PointerEvent<HTMLDivElement>) {
+    const start = wallDraftStartRef.current
+    if (!start) return
+    const point = getWallPoint(event)
+    if (!point) return
+
+    setWallDrafts(createWallDrafts(start, point, event.ctrlKey))
+  }
+
+  function finishWallDrawing(event: React.PointerEvent<HTMLDivElement>) {
+    const start = wallDraftStartRef.current
+    wallDraftStartRef.current = null
+    setWallDrafts([])
+    if (!start) return
+
+    const point = getWallPoint(event)
+    if (!point) return
+
+    const segments = createWallDrafts(start, point, event.ctrlKey)
+    if (!segments.length) return
+
+    updateActiveSceneWalls((walls) => {
+      if (segments.length > 1) return [...walls, ...segments]
+      const [segment] = segments
+      if (segment.kind === 'door') return applyDoorToWalls({ walls, door: segment, createId: createWallId })
+      return [...walls, segment]
+    }, { recordUndo: true })
   }
 
   function snapHexMeasurementPoint(point: VttMeasurementPoint) {
@@ -1609,12 +1944,21 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
   function clearToolbarSelectionAndMeasurement() {
     measuringRef.current = false
+    wallDraftStartRef.current = null
+    selectionAreaStartRef.current = null
+    setWallDrafts([])
+    setSelectionAreaDraft(null)
     selectTokenForMeasuredMovement(null)
     measurementRef.current = null
     setActiveTool(null)
     setMeasurement(null)
     onGridSettingsOpenChange(false)
     if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
+  }
+
+  function collapseToolsToolbar() {
+    clearToolbarSelectionAndMeasurement()
+    setToolsCollapsed(true)
   }
 
   function isEditableKeyboardTarget(target: EventTarget | null) {
@@ -1645,6 +1989,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         }).position
       : requestedDestination
 
+    const routePoints = points?.length ? points : [currentMeasurement.start, currentMeasurement.end]
+    const routeWithDestination =
+      routePoints.length >= 2 ? [...routePoints.slice(0, -1), destination] : [token.position, destination]
+
+    if (!isMaster && activeScene?.walls.length && isMovementPathBlockedByWalls({ points: routeWithDestination, walls: activeScene.walls })) {
+      return true
+    }
+
     clearMeasurementAfterMovementTokenIdRef.current = token.id
     movePlayerToken(token, destination, { movementPath: points ?? [currentMeasurement.start, currentMeasurement.end] })
     if (destination.x !== token.position.x || destination.y !== token.position.y) {
@@ -1664,6 +2016,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z' && !isEditableKeyboardTarget(event.target)) {
+        if (undoLastWallCreation()) event.preventDefault()
+        return
+      }
+
       if (event.code === 'Escape' && !isEditableKeyboardTarget(event.target)) {
         clearToolbarSelectionAndMeasurement()
         event.preventDefault()
@@ -1850,7 +2207,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     setPreparedScenes((current) =>
       current.map((scene) => {
         if (sceneId && scene.id !== sceneId) return scene
-        if (!sceneId && scene.id !== activeScene?.id) return scene
+        if (!sceneId && scene.id !== activeSceneRef.current?.id) return scene
         return { ...scene, tokens: scene.tokens.filter((item) => !matchesToken(item)) }
       }),
     )
@@ -1859,6 +2216,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
       if (sceneId && current.id !== sceneId) return current
       return { ...current, tokens: current.tokens.filter((item) => !matchesToken(item)) }
     })
+  }
+
+  function contextActionTokens(fallbackToken: VttPlayerToken) {
+    return multiSelectedTokens.length ? multiSelectedTokens : [fallbackToken]
+  }
+
+  function contextActionTokenCount(fallbackToken: VttPlayerToken) {
+    return contextActionTokens(fallbackToken).length
   }
 
   function addBestiaryCreatureToToolbar(creatureId: string) {
@@ -1974,8 +2339,13 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   function removeToken(token: VttPlayerToken) {
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
 
-    socket.emit('vtt:token:remove', { campaignId, tokenId: token.id, characterId: token.characterId ?? undefined })
-    removeTokenFromLocalScene(token, activeScene?.id ?? null)
+    const tokens = contextActionTokens(token)
+    tokens.forEach((item) => {
+      socket.emit('vtt:token:remove', { campaignId, tokenId: item.id, characterId: item.characterId ?? undefined })
+      removeTokenFromLocalScene(item, activeScene?.id ?? null)
+    })
+    setMultiSelectedTokenIds([])
+    setPreselectedEncounterTokenIds((current) => current.filter((tokenId) => !tokens.some((item) => item.id === tokenId)))
     setTokenContextMenu(null)
   }
 
@@ -2012,7 +2382,9 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   function toggleTokenVisibility(token: VttPlayerToken) {
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
 
-    socket.emit('vtt:token:visibility', { campaignId, tokenId: token.id, characterId: token.characterId ?? undefined })
+    contextActionTokens(token).forEach((item) => {
+      socket.emit('vtt:token:visibility', { campaignId, tokenId: item.id, characterId: item.characterId ?? undefined })
+    })
     setTokenContextMenu(null)
   }
 
@@ -2134,9 +2506,13 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   }
 
   function addContextTokenSelectionToEncounter(token: VttPlayerToken) {
-    const selectedTokens = preselectedEncounterTokens.length
-      ? preselectedEncounterTokens
-      : [token]
+    if (multiSelectedTokens.length) {
+      addTokensToEncounter(multiSelectedTokens)
+      setTokenContextMenu(null)
+      return
+    }
+
+    const selectedTokens = preselectedEncounterTokens.length ? preselectedEncounterTokens : [token]
     const tokens = selectedTokens.some((item) => item.id === token.id) ? selectedTokens : [...selectedTokens, token]
     addTokensToEncounter(tokens)
     setTokenContextMenu(null)
@@ -2184,9 +2560,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     socket.emit('vtt:encounter:previous-turn', { campaignId })
   }
 
-  function updateEncounterInitiative(participantId: string, initiative: number | null) {
+  function updateEncounterInitiative(participantId: string, initiative: number | null, options?: { activateHighest?: boolean }) {
     if (!campaignId || !socket || !isMaster) return
-    socket.emit('vtt:encounter:update-initiative', { campaignId, participantId, initiative })
+    socket.emit('vtt:encounter:update-initiative', {
+      campaignId,
+      participantId,
+      initiative,
+      activateHighest: Boolean(options?.activateHighest),
+    })
+  }
+
+  function updateEncounterInitiativeFromRoll(participantId: string, initiative: number) {
+    updateEncounterInitiative(participantId, initiative, { activateHighest: true })
   }
 
   function removeEncounterParticipant(participantId: string) {
@@ -2197,6 +2582,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   function rollInitiative(participantId: string) {
     if (!isMaster) return
     diceControlsRef.current?.rollForInitiative(participantId)
+  }
+
+  function rollAllEncounterInitiatives() {
+    if (!campaignId || !socket || !isMaster) return
+    socket.emit('vtt:encounter:roll-all-initiatives', { campaignId })
   }
 
   function triggerHazardParticipant(participantId: string) {
@@ -2210,6 +2600,12 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
     })
   }
 
+  function handleBoardWheel(event: React.WheelEvent<HTMLDivElement>) {
+    if (!event.altKey) return
+    event.preventDefault()
+    changeZoom(event.deltaY < 0 ? 1 : -1)
+  }
+
   function openRightPanelTab(tab: RightPanelTab) {
     setRightPanelTab(tab)
     setRightPanelCollapsed(false)
@@ -2217,19 +2613,38 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   }
 
   function startBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    const shortcutAreaSelection =
+      isMaster &&
+      activeScene &&
+      event.ctrlKey &&
+      event.button === 0 &&
+      event.target === event.currentTarget &&
+      activeTool !== 'measure' &&
+      activeTool !== 'walls'
+    if (shortcutAreaSelection && startAreaSelection(event)) return
+
     if (!event.shiftKey && event.target === event.currentTarget) {
       setPreselectedEncounterTokenIds([])
+      setMultiSelectedTokenIds([])
     }
-    if (activeTool !== 'move' || event.button !== 0) return
-    if (event.target !== event.currentTarget) return
+    const altPan = event.altKey
+    if (activeTool !== 'move' && !altPan) return
+    if (event.button !== 0) return
+    if (!altPan && event.target !== event.currentTarget) return
 
     event.preventDefault()
+    event.stopPropagation()
     event.currentTarget.setPointerCapture(event.pointerId)
     panningRef.current = { pointerId: event.pointerId, x: event.clientX, y: event.clientY }
     setIsPanning(true)
   }
 
   function updateBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    if (selectionAreaStartRef.current?.pointerId === event.pointerId) {
+      updateAreaSelection(event)
+      return
+    }
+
     const currentPan = panningRef.current
     if (!currentPan || currentPan.pointerId !== event.pointerId) return
 
@@ -2244,6 +2659,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
   }
 
   function finishBoardPan(event: React.PointerEvent<HTMLDivElement>) {
+    if (selectionAreaStartRef.current?.pointerId === event.pointerId) {
+      finishAreaSelection(event)
+      return
+    }
+
     if (panningRef.current?.pointerId !== event.pointerId) return
 
     panningRef.current = null
@@ -2656,6 +3076,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
         onClick={() => {
           setTokenContextMenu(null)
           setHazardInstanceMenu(null)
+          setWallContextMenu(null)
         }}
       >
         <div ref={boardViewportRef} className="absolute inset-0 overflow-hidden">
@@ -2663,7 +3084,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             ref={gridAreaRef}
             className={[
               'relative overflow-hidden bg-[#0b0d12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]',
-              activeTool === 'move' ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : '',
+              activeTool === 'move' || altNavigationActive ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : '',
             ].join(' ')}
             style={{
               width: boardPixelSize.width,
@@ -2690,7 +3111,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
             onPointerDown={startBoardPan}
             onPointerMove={updateBoardPan}
             onPointerUp={finishBoardPan}
-            onPointerCancel={finishBoardPan}
+            onPointerCancel={(event) => {
+              if (selectionAreaStartRef.current?.pointerId === event.pointerId) {
+                cancelAreaSelection(event)
+                return
+              }
+              finishBoardPan(event)
+            }}
+            onWheel={handleBoardWheel}
           >
             {activeScene?.imageUrl ? (
               <img
@@ -2720,6 +3148,14 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
             )}
             <VttGridOverlay settings={zoomedGridSettings} />
+            <VttWallsOverlay
+              walls={activeScene?.walls ?? []}
+              drafts={wallDrafts}
+              gridSize={tokenSize}
+              isMasterView={Boolean(isMaster)}
+              canOpenWallMenu={Boolean(isMaster)}
+              onWallContextMenu={(wall, position) => setWallContextMenu({ wall, ...position })}
+            />
             {visibleTokens.map((token) => (
               <PlayerToken
                 key={token.id}
@@ -2744,6 +3180,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
+                selectedForMultiSelect={Boolean(isMaster && multiSelectedTokenIds.includes(token.id))}
                 selectedForEncounter={Boolean(isMaster && preselectedEncounterTokenIds.includes(token.id))}
                 selectedForMeasuredMovement={movementSelectedTokenId === token.id}
                 onEncounterSelectionToggle={isMaster ? toggleTokenEncounterPreselection : undefined}
@@ -2794,6 +3231,29 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               tokens={visibleTokens}
               rangeRing={spellPlacement ? spellPlacementRangeRing : null}
             />
+            {selectionAreaDraft ? (
+              <div
+                className="pointer-events-none absolute z-[9] rounded-sm border border-sky-200/80 bg-sky-400/15 shadow-[0_0_20px_rgba(56,189,248,0.22)]"
+                style={(() => {
+                  const bounds = selectionAreaBounds(selectionAreaDraft)
+                  return {
+                    left: bounds.left * tokenSize,
+                    top: bounds.top * tokenSize,
+                    width: Math.max(1, (bounds.right - bounds.left) * tokenSize),
+                    height: Math.max(1, (bounds.bottom - bounds.top) * tokenSize),
+                  }
+                })()}
+              />
+            ) : null}
+            {activeTool === 'area-select' && isMaster && activeScene ? (
+              <div
+                className="absolute inset-0 z-[8] cursor-crosshair"
+                onPointerDown={startAreaSelection}
+                onPointerMove={updateAreaSelection}
+                onPointerUp={finishAreaSelection}
+                onPointerCancel={cancelAreaSelection}
+              />
+            ) : null}
             {activeTool === 'measure' && realtimeVttEnabled ? (
               <div
                 className="absolute inset-0 z-[8] cursor-crosshair"
@@ -2801,6 +3261,18 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 onPointerMove={updateMeasurement}
                 onPointerUp={finishMeasurement}
                 onPointerCancel={finishMeasurement}
+              />
+            ) : null}
+            {activeTool === 'walls' && isMaster && activeScene ? (
+              <div
+                className="absolute inset-0 z-[8] cursor-crosshair"
+                onPointerDown={startWallDrawing}
+                onPointerMove={updateWallDrawing}
+                onPointerUp={finishWallDrawing}
+                onPointerCancel={() => {
+                  wallDraftStartRef.current = null
+                  setWallDrafts([])
+                }}
               />
             ) : null}
             {spellPlacement ? (
@@ -2825,40 +3297,67 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
 
         <div className="pointer-events-none absolute inset-0 z-10 flex min-h-[560px] flex-col">
           <div className="relative flex-1">
-            <div className="pointer-events-auto absolute left-24 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
-              {visibleToolButtons.map((tool) => {
-                const Icon = tool.icon
-                const active = tool.id === 'grid' ? gridSettingsOpen : activeTool === tool.id
-                const disabled = sessionState === 'PAUSED' && !isMaster && tool.id !== 'select'
+            {toolsCollapsed ? (
+              <button
+                type="button"
+                title="Expandir ferramentas"
+                aria-label="Expandir ferramentas"
+                className="pointer-events-auto absolute left-24 top-5 z-40 flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/45 text-zinc-200 shadow-2xl backdrop-blur transition hover:bg-white/10 hover:text-white"
+                onClick={() => setToolsCollapsed(false)}
+              >
+                <Wrench className="h-4 w-4" />
+              </button>
+            ) : (
+              <div className="pointer-events-auto absolute left-24 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+                <button
+                  type="button"
+                  title="Recolher ferramentas"
+                  aria-label="Recolher ferramentas"
+                  className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                  onClick={collapseToolsToolbar}
+                >
+                  <Wrench className="h-4 w-4" />
+                </button>
+                <span className="mx-1 my-1 w-px bg-white/10" aria-hidden="true" />
+                {visibleToolButtons.map((tool) => {
+                  const Icon = tool.icon
+                  const active = tool.id === 'grid' ? gridSettingsOpen : activeTool === tool.id
+                  const disabled = sessionState === 'PAUSED' && !isMaster && tool.id !== 'select'
 
-                return (
-                  <button
-                    key={tool.label}
-                    type="button"
-                    title={tool.label}
-                    disabled={disabled}
-                    className={[
-                      'flex h-10 w-10 items-center justify-center rounded-md transition disabled:cursor-not-allowed disabled:opacity-45',
-                      active ? 'bg-indigo-600 text-white' : 'text-zinc-300 hover:bg-white/10 hover:text-white',
-                    ].join(' ')}
-                    onClick={() => {
-                      if (disabled) return
-                      if (tool.id === 'grid') {
-                        onGridSettingsOpenChange(!gridSettingsOpen)
-                        if (!gridSettingsOpen) setActiveTool(null)
-                        return
-                      }
+                  return (
+                    <button
+                      key={tool.label}
+                      type="button"
+                      title={tool.label}
+                      disabled={disabled}
+                      className={[
+                        'flex h-10 w-10 items-center justify-center rounded-md transition disabled:cursor-not-allowed disabled:opacity-45',
+                        active ? 'bg-indigo-600 text-white' : 'text-zinc-300 hover:bg-white/10 hover:text-white',
+                      ].join(' ')}
+                      onClick={() => {
+                        if (disabled) return
+                        if (tool.id === 'grid') {
+                          onGridSettingsOpenChange(!gridSettingsOpen)
+                          if (!gridSettingsOpen) setActiveTool(null)
+                          return
+                        }
 
-                      onGridSettingsOpenChange(false)
-                      measuringRef.current = false
-                      setActiveTool((current) => (current === tool.id ? null : tool.id))
-                    }}
-                  >
-                    <Icon className="h-4 w-4" />
-                  </button>
-                )
-              })}
-            </div>
+                        onGridSettingsOpenChange(false)
+                        measuringRef.current = false
+                        wallDraftStartRef.current = null
+                        selectionAreaStartRef.current = null
+                        setWallDrafts([])
+                        setSelectionAreaDraft(null)
+                        setWallContextMenu(null)
+                        setActiveTool((current) => (current === tool.id ? null : tool.id))
+                      }}
+                    >
+                      <Icon className="h-4 w-4" />
+                    </button>
+                  )
+                })}
+              </div>
+            )}
 
             {campaignId ? (
               <VttDiceControls
@@ -2870,7 +3369,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 open={activeTool === 'dice'}
                 clearSignal={diceClearSignal}
                 onClose={() => setActiveTool(null)}
-                onInitiativeRolled={updateEncounterInitiative}
+                onInitiativeRolled={updateEncounterInitiativeFromRoll}
                 className="pointer-events-none absolute inset-0 z-20"
               />
             ) : null}
@@ -2980,6 +3479,91 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               </div>
             ) : null}
 
+            {activeTool === 'walls' && isMaster ? (
+              <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(320px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/70 p-3 text-white shadow-2xl backdrop-blur">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-2 text-xs font-semibold uppercase text-zinc-300">
+                    <BrickWall className="h-4 w-4 text-sky-300" />
+                    Paredes
+                  </div>
+                  <button
+                    type="button"
+                    title="Fechar paredes"
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                    onClick={() => setActiveTool(null)}
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  {[
+                    { id: 'wall' as const, label: 'Parede' },
+                    { id: 'door' as const, label: 'Porta' },
+                  ].map((item) => (
+                    <button
+                      key={item.id}
+                      type="button"
+                      className={[
+                        'rounded-md border px-3 py-2 text-sm font-semibold transition',
+                        wallToolKind === item.id
+                          ? 'border-sky-300/45 bg-sky-500/20 text-sky-100'
+                          : 'border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white',
+                      ].join(' ')}
+                      onClick={() => setWallToolKind(item.id)}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mb-3 grid grid-cols-2 gap-2">
+                  <label className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.04] px-2 py-2 text-xs text-zinc-300">
+                    Parede
+                    <input
+                      type="color"
+                      value={wallColor}
+                      className="h-7 w-9 cursor-pointer rounded border border-white/10 bg-transparent"
+                      onChange={(event) => setWallColor(event.currentTarget.value)}
+                    />
+                  </label>
+                  <label className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.04] px-2 py-2 text-xs text-zinc-300">
+                    Porta
+                    <input
+                      type="color"
+                      value={doorColor}
+                      className="h-7 w-9 cursor-pointer rounded border border-white/10 bg-transparent"
+                      onChange={(event) => setDoorColor(event.currentTarget.value)}
+                    />
+                  </label>
+                </div>
+
+                <label className="mb-3 flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-300">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 accent-sky-500"
+                    checked={playersCanSeeSceneWalls}
+                    onChange={(event) => setPlayerWallVisibility(event.currentTarget.checked)}
+                  />
+                  Jogadores veem paredes
+                </label>
+
+                <div className="rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-xs leading-relaxed text-zinc-400">
+                  Clique e arraste na cena para criar um segmento. Ctrl + arraste no modo Parede cria um retangulo.
+                </div>
+
+                <button
+                  type="button"
+                  disabled={!activeScene?.walls.length}
+                  className="mt-3 flex h-9 w-full items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 text-xs font-semibold text-red-100 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-45"
+                  onClick={() => updateActiveSceneWalls(() => [])}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Limpar paredes da cena
+                </button>
+              </div>
+            ) : null}
+
             {spellCastTarget ? (
               <SpellCastPanel
                 characterId={spellCastTarget.characterId}
@@ -3081,6 +3665,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 <div className="border-b border-white/10 px-2 pb-2">
                   <div className="truncate text-sm font-semibold">{tokenContextMenu.token.name}</div>
                   <div className="truncate text-xs text-zinc-500">Dono: {tokenContextMenu.token.ownerName}</div>
+                  {multiSelectedTokens.length ? (
+                    <div className="mt-1 truncate text-xs font-semibold text-cyan-200">
+                      {multiSelectedTokens.length} tokens multiselecionados
+                    </div>
+                  ) : null}
                 </div>
                 {canOpenBestiaryTokenSheet(tokenContextMenu.token) ? (
                   <button
@@ -3145,12 +3734,15 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                     </button>
                     <button
                       type="button"
-                      disabled={!masterCanUseVtt || tokenContextMenu.token.hidden || isTokenInActiveEncounter(tokenContextMenu.token.id)}
+                      disabled={
+                        !masterCanUseVtt ||
+                        contextActionTokens(tokenContextMenu.token).every((token) => token.hidden || isTokenInActiveEncounter(token.id))
+                      }
                       className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                       onClick={() => addContextTokenSelectionToEncounter(tokenContextMenu.token)}
                     >
                       <Swords className="h-4 w-4" />
-                      Enviar p/ Encontro
+                      Enviar p/ Encontro{contextActionTokenCount(tokenContextMenu.token) > 1 ? ` (${contextActionTokenCount(tokenContextMenu.token)})` : ''}
                     </button>
                     <button
                       type="button"
@@ -3159,7 +3751,11 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                       onClick={() => toggleTokenVisibility(tokenContextMenu.token)}
                     >
                       {tokenContextMenu.token.hidden ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
-                      {tokenContextMenu.token.hidden ? 'Tornar visivel' : 'Tornar invisivel'}
+                      {contextActionTokenCount(tokenContextMenu.token) > 1
+                        ? `Alternar invisibilidade (${contextActionTokenCount(tokenContextMenu.token)})`
+                        : tokenContextMenu.token.hidden
+                          ? 'Tornar visivel'
+                          : 'Tornar invisivel'}
                     </button>
                     <button
                       type="button"
@@ -3168,7 +3764,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                       onClick={() => removeToken(tokenContextMenu.token)}
                     >
                       <Trash2 className="h-4 w-4" />
-                      Remover
+                      Remover{contextActionTokenCount(tokenContextMenu.token) > 1 ? ` (${contextActionTokenCount(tokenContextMenu.token)})` : ''}
                     </button>
                   </>
                 ) : null}
@@ -3269,6 +3865,49 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                 >
                   <Trash2 className="h-4 w-4" />
                   Remover da cena
+                </button>
+              </div>
+            ) : null}
+
+            {wallContextMenu && isMaster ? (
+              <div
+                className="pointer-events-auto fixed z-50 w-56 overflow-hidden rounded-lg border border-white/10 bg-[#111218] p-2 text-white shadow-2xl"
+                style={{ left: wallContextMenu.x, top: wallContextMenu.y }}
+                onClick={(event) => event.stopPropagation()}
+                onContextMenu={(event) => event.preventDefault()}
+              >
+                <div className="border-b border-white/10 px-2 pb-2">
+                  <div className="truncate text-sm font-semibold">{wallContextMenu.wall.kind === 'door' ? 'Porta' : 'Parede'}</div>
+                  <div className="truncate text-xs text-zinc-500">
+                    {wallContextMenu.wall.kind === 'door' ? 'Status da passagem' : 'Barreira da cena'}
+                  </div>
+                </div>
+                {wallContextMenu.wall.kind === 'door'
+                  ? [
+                      { key: 'open' as const, label: 'Aberta', disabled: false },
+                      { key: 'locked' as const, label: 'Trancada', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                      { key: 'blocked' as const, label: 'Obstruida', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                      { key: 'ajar' as const, label: 'Encostada', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                    ].map((item) => (
+                      <label key={item.key} className="mt-2 flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-200 transition hover:bg-white/10">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 accent-sky-500"
+                          disabled={item.disabled}
+                          checked={Boolean(wallContextMenu.wall.door?.[item.key])}
+                          onChange={(event) => updateDoorState(wallContextMenu.wall.id, { [item.key]: event.currentTarget.checked })}
+                        />
+                        {item.label}
+                      </label>
+                    ))
+                  : null}
+                <button
+                  type="button"
+                  className="mt-2 flex h-8 w-full items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 text-xs font-semibold text-red-100 transition hover:bg-red-500/20"
+                  onClick={() => removeWallSegment(wallContextMenu.wall.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  {wallContextMenu.wall.kind === 'door' ? 'Remover porta' : 'Remover parede'}
                 </button>
               </div>
             ) : null}
@@ -3505,10 +4144,10 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
                   onInitiativeChange={updateEncounterInitiative}
                   onTriggerHazard={triggerHazardParticipant}
                   onOpenHealthEditor={openCombatHealthEditor}
-                  onQuickAdjustHealth={adjustCombatHealth}
                   onResetMovement={resetParticipantMovement}
                   onRemoveParticipant={removeEncounterParticipant}
                   onRollInitiative={rollInitiative}
+                  onRollAllInitiatives={rollAllEncounterInitiatives}
                   onDetach={() => setEncounterTrackerDetached(true)}
                 />
                 {activeEncounter?.status === 'ACTIVE' ? <BattleLogPanel log={activeEncounter.log} /> : null}
@@ -3711,6 +4350,7 @@ export const CampaignOverviewPage = forwardRef<CampaignOverviewPageHandle, Campa
               onOpenHealthEditor={openCombatHealthEditor}
               onRemoveParticipant={removeEncounterParticipant}
               onRollInitiative={rollInitiative}
+              onRollAllInitiatives={rollAllEncounterInitiatives}
               onAttach={() => {
                 setEncounterTrackerDetached(false)
                 setRightPanelCollapsed(false)

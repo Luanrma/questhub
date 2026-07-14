@@ -43,6 +43,13 @@
 * Dice Roller Module: tipos, wrappers e modal de dados pertencem a `apps/web/src/vtt/dice-roller`.
 * Single Dice Implementation: nao manter uma segunda engine visual de dados paralela a `@3d-dice/dice-box`.
 * Ruleset Metadata Boundary: metadados especificos podem acompanhar eventos, mas nao podem alterar o contrato base do VTT.
+* Scene Obstacles: paredes e portas sao segmentos genericos persistidos em `campaign_scene`; geometria de colisao fica em `domain/` e componentes apenas renderizam/encaminham callbacks.
+* Area Token Selection: selecao por retangulo e interacao local do VTT; calculo de bounds e inclusao de tokens deve ficar em `domain/`, sem persistencia ou evento WebSocket.
+* Token Selection Semantics: setas vermelhas representam alvo de combate; multiselecao por area deve usar destaque visual distinto e acionar acoes de contexto em lote.
+* Door State Normalization: porta aberta deve limpar `locked`, `blocked` e `ajar`; porta fechada pode combinar esses flags conforme edicao do Mestre.
+* Wall Shape Tools: a criacao de retangulos/quadrados por `Ctrl` + arrastar deve ser regra pura de dominio e aplicada apenas quando a ferramenta estiver no modo `Parede`.
+* Door Placement Rules: porta desenhada diretamente so e aceita quando seus extremos conectam em paredes existentes; desenhar porta sobre uma parede divide o segmento de parede e converte o trecho central em porta.
+* Wall Visual Metadata: cores de paredes e portas sao metadados genericos de VTT, validados como hexadecimal e persistidos junto aos segmentos da cena.
 
 ## 3. Restricoes
 * Nao adicionar bibliotecas visuais fora de uso concreto no VTT.
@@ -74,3 +81,9 @@
 * Quando o modo de limpeza dos dados nao for `Permanente`, o botao `Limpar Dados` nao deve aparecer.
 * Assets da `dice-box` devem ser servidos por `apps/web/public/assets/dice-box`.
 * Nao criar `node_modules`, `package.json` ou app demo dentro de `apps/web/public`.
+* Nao colocar regra de colisao dentro de componente visual ou listener de pointer; use funcoes puras de dominio.
+* Nao colocar calculo de selecao por area dentro de componente visual; componentes devem apenas capturar ponteiros, exibir draft e aplicar o resultado.
+* Nao reutilizar o visual de alvo de combate para multiselecao de tokens.
+* Nao permitir que Players criem, removam ou editem paredes/portas.
+* Nao interpretar `locked`, `blocked` ou `ajar` como regra mecanica de ruleset; sao metadados visuais/operacionais do VTT generico.
+* Nao criar porta solta desconectada do mapa; uma porta precisa substituir trecho de parede ou tocar duas paredes.

@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
   ChevronDown,
-  ChevronLeft,
+  ChevronUp,
   FileText,
   House,
   Map,
@@ -37,6 +37,18 @@ export function Aside({
 }: Props) {
   const [collapsed, setCollapsed] = useState(true)
 
+  useEffect(() => {
+    if (collapsed) return
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== 'Escape') return
+      setCollapsed(true)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [collapsed])
+
   const items = useMemo<NavItem[]>(
     () => [
       { to: `/campaign/${campaignId}/overview`, label: 'Mesa', icon: <Map size={18} /> },
@@ -59,11 +71,11 @@ export function Aside({
         <button
           type="button"
           title="Expandir menu da campanha"
-          className="campaign-sidebar-collapsed-trigger flex h-16 w-20 items-center justify-center rounded-br-2xl border-b border-r border-white/10 bg-black/75 text-[#8b5cf6] shadow-2xl backdrop-blur transition hover:bg-zinc-900 hover:text-[#a78bfa]"
+          className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/75 text-[#8b5cf6] shadow-2xl backdrop-blur transition hover:bg-zinc-900 hover:text-[#a78bfa]"
           onClick={() => setCollapsed(false)}
           aria-label="Expandir menu da campanha"
         >
-          <ChevronDown className="h-8 w-8 drop-shadow-[0_0_10px_rgba(139,92,246,0.75)]" strokeWidth={3} />
+          <ChevronDown className="h-5 w-5 drop-shadow-[0_0_10px_rgba(139,92,246,0.75)]" strokeWidth={3} />
         </button>
       </aside>
     )
@@ -77,14 +89,15 @@ export function Aside({
           'transition-[width,transform] duration-300 ease-out',
         ].join(' ')}
       >
-        <div className="flex items-center justify-end p-3">
+        <div className="flex items-center justify-start">
           <button
             type="button"
-            className="rounded-md p-2 hover:bg-white/10 transition"
+            title="Recolher menu da campanha"
+            className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/30 text-[#a78bfa] transition hover:bg-white/10 hover:text-white"
             onClick={() => setCollapsed(true)}
             aria-label="Recolher menu"
           >
-            <ChevronLeft />
+            <ChevronUp className="h-5 w-5" strokeWidth={3} />
           </button>
         </div>
 

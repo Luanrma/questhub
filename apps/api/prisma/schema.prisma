@@ -303,6 +303,7 @@ model CampaignScene {
   hexMeasurementColor    String                 @default("#38bdf8")
   gridLineWidth          Int                    @default(1)
   gridColor              String                 @default("#ffffff")
+  walls                  Json                   @default("[]")
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
 

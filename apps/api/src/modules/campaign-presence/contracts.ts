@@ -52,6 +52,37 @@ const vttScenePointSchema = z.object({
   y: z.number().finite(),
 })
 
+const vttDoorStateSchema = z.object({
+  open: z.boolean(),
+  locked: z.boolean().default(false),
+  blocked: z.boolean().default(false),
+  ajar: z.boolean().default(false),
+}).transform((door) => (
+  door.open
+    ? { open: true, locked: false, blocked: false, ajar: false }
+    : door
+))
+
+export const vttWallSegmentSchema = z.discriminatedUnion('kind', [
+  z.object({
+    id: z.string().min(1).max(200),
+    kind: z.literal('wall'),
+    start: vttScenePointSchema,
+    end: vttScenePointSchema,
+    color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+    playerVisible: z.boolean().default(false),
+  }),
+  z.object({
+    id: z.string().min(1).max(200),
+    kind: z.literal('door'),
+    start: vttScenePointSchema,
+    end: vttScenePointSchema,
+    color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+    playerVisible: z.boolean().default(false),
+    door: vttDoorStateSchema,
+  }),
+])
+
 // Espelha SceneAreaShape de packages/game-system-core/src/shared/scene-geometry
 // (.ai/spell_casting/specs.md secao 3). O payload carrega a forma, nunca a
 // lista de celulas — cada cliente recalcula localmente.
@@ -89,11 +120,18 @@ export const vttTableSceneSchema = z.object({
   assetId: z.string().min(1).max(200).nullable(),
   width: z.number().int().min(1).max(100000),
   height: z.number().int().min(1).max(100000),
+  walls: z.array(vttWallSegmentSchema).max(1000).default([]),
 })
 
 export const vttSceneSelectSchema = z.object({
   campaignId: z.string().min(1),
   scene: vttTableSceneSchema.nullable(),
+})
+
+export const vttWallsUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  sceneId: z.string().min(1),
+  walls: z.array(vttWallSegmentSchema).max(1000).default([]),
 })
 
 export const vttDiceSidesSchema = z.union([
@@ -210,6 +248,7 @@ export const vttEncounterUpdateInitiativeSchema = z.object({
   campaignId: z.string().min(1),
   participantId: z.string().min(1),
   initiative: z.number().int().min(-1000).max(1000).nullable(),
+  activateHighest: z.boolean().optional().default(false),
 })
 
 export const vttEncounterTriggerHazardSchema = z.object({

@@ -811,7 +811,7 @@
 }
 
 .pathfinder-sheet .spellbook-cast-button {
-  min-width: 132px;
+  min-width: 104px;
   border-color: #7f2d18;
   background: #7f2d18;
   color: #fff8e1;
@@ -908,8 +908,8 @@
 
 .pathfinder-sheet .spellbook-layout {
   display: grid;
-  grid-template-columns: minmax(420px, 1.1fr) minmax(320px, 0.9fr);
-  gap: 18px;
+  grid-template-columns: minmax(340px, 0.82fr) minmax(460px, 1.18fr);
+  gap: 16px;
   align-items: start;
 }
 
@@ -948,8 +948,8 @@
 
 .pathfinder-sheet .spellbook-list-toolbar {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(150px, 190px) auto;
-  gap: 8px;
+  grid-template-columns: minmax(150px, 1fr) minmax(132px, 160px) auto;
+  gap: 6px;
   align-items: center;
   margin: 10px 0 12px;
 }
@@ -1009,7 +1009,7 @@
 
 .pathfinder-sheet .spellbook-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 42px;
+  grid-template-columns: minmax(0, 1fr) auto;
   min-width: 0;
   align-items: stretch;
   border: 1px solid rgb(92 70 42 / 24%);
@@ -1025,17 +1025,16 @@
 .pathfinder-sheet .spellbook-row-main {
   display: grid;
   min-width: 0;
-  grid-template-columns: 68px minmax(0, 1fr) minmax(86px, 0.45fr) minmax(136px, 0.75fr);
-  gap: 3px 10px;
+  grid-template-columns: minmax(0, 1fr) minmax(54px, auto);
+  gap: 3px 8px;
   border: 0;
   background: transparent;
   color: #1d1810;
   cursor: pointer;
-  padding: 8px 10px;
+  padding: 8px 9px;
   text-align: left;
 }
 
-.pathfinder-sheet .spellbook-row-rank,
 .pathfinder-sheet .spellbook-row-meta {
   color: #5f4327;
   font-size: 10px;
@@ -1066,10 +1065,11 @@
 
 .pathfinder-sheet .spellbook-row-actions {
   display: flex;
+  min-width: max-content;
   align-items: center;
   gap: 4px;
   justify-content: center;
-  padding: 6px 5px;
+  padding: 5px 4px;
 }
 
 .pathfinder-sheet .spellbook-detail-heading {
@@ -1172,9 +1172,10 @@
 
 .pathfinder-sheet .spellbook-detail-actions {
   display: grid;
-  grid-template-columns: minmax(150px, 1fr) minmax(132px, 0.75fr) minmax(150px, 1fr);
-  gap: 10px;
-  margin-top: 14px;
+  grid-template-columns: repeat(2, minmax(104px, 170px));
+  justify-content: end;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .pathfinder-sheet .spellbook-manage {
@@ -1320,11 +1321,8 @@
   text-transform: uppercase;
 }
 
-.pathfinder-sheet .spellbook-slot-add-row {
-  display: grid;
-  grid-template-columns: minmax(110px, 160px) auto;
-  gap: 8px;
-  align-items: end;
+.pathfinder-sheet .spellbook-sync-button {
+  justify-self: end;
 }
 
 .pathfinder-sheet .spellbook-prep-ranks {

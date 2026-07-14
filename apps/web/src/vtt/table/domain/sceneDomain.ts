@@ -1,6 +1,6 @@
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../../grid'
 import { boardGridLimits, sceneImageMaxBytes, sceneImageMimeTypeLabels, sceneImageMimeTypes } from '../config/constants'
-import type { CampaignSceneResponse, PreparedScene, VttGridBounds, VttTableScene } from './types'
+import type { CampaignSceneResponse, PreparedScene, VttGridBounds, VttTableScene, VttWallSegment } from './types'
 
 const hexRowStepUnits = Math.sqrt(3) / 2
 
@@ -24,10 +24,62 @@ export function createPreparedScene(index: number): PreparedScene {
       color: '#ffffff',
     },
     tokens: [],
+    walls: [],
     order: index,
     error: null,
     draft: true,
   }
+}
+
+function isWallSegment(value: unknown): value is VttWallSegment {
+  if (!value || typeof value !== 'object') return false
+  const wall = value as VttWallSegment
+  if (wall.kind !== 'wall' && wall.kind !== 'door') return false
+  if (!wall.id || typeof wall.id !== 'string') return false
+  if (!wall.start || !wall.end) return false
+  if (!Number.isFinite(wall.start.x) || !Number.isFinite(wall.start.y)) return false
+  if (!Number.isFinite(wall.end.x) || !Number.isFinite(wall.end.y)) return false
+  return Math.hypot(wall.end.x - wall.start.x, wall.end.y - wall.start.y) > 0.001
+}
+
+function normalizeWallColor(value: unknown) {
+  return typeof value === 'string' && /^#[0-9a-fA-F]{6}$/.test(value) ? value : undefined
+}
+
+export function normalizeWallSegments(value: unknown): VttWallSegment[] {
+  if (!Array.isArray(value)) return []
+
+  return value.filter(isWallSegment).map((wall) => {
+    if (wall.kind === 'wall') {
+      return {
+        id: wall.id,
+        kind: 'wall',
+        start: wall.start,
+        end: wall.end,
+        color: normalizeWallColor(wall.color),
+        playerVisible: Boolean(wall.playerVisible),
+      }
+    }
+
+    const door = wall.door?.open
+      ? { open: true, locked: false, blocked: false, ajar: false }
+      : {
+          open: false,
+          locked: Boolean(wall.door?.locked),
+          blocked: Boolean(wall.door?.blocked),
+          ajar: Boolean(wall.door?.ajar),
+        }
+
+    return {
+      id: wall.id,
+      kind: 'door',
+      start: wall.start,
+      end: wall.end,
+      color: normalizeWallColor(wall.color),
+      playerVisible: Boolean(wall.playerVisible),
+      door,
+    }
+  })
 }
 
 export function formatBytes(bytes: number) {
@@ -121,6 +173,7 @@ export function sceneResponseToPreparedScene(scene: CampaignSceneResponse, index
     storagePath: scene.backgroundCacheKey,
     grid,
     tokens: scene.tokens,
+    walls: normalizeWallSegments(scene.walls),
     order: scene.order,
     error: null,
     draft: false,
@@ -138,6 +191,7 @@ export function preparedSceneToTableScene(scene: PreparedScene, dimensions: VttG
     height: dimensions.height,
     grid: scene.grid,
     tokens: scene.tokens,
+    walls: scene.walls,
   }
 }
 

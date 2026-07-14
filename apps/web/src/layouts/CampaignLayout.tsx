@@ -383,6 +383,7 @@ export function CampaignLayout() {
 
     setSessionActionLoading(true)
     try {
+      await campaignOverviewRef.current?.syncTableState()
       await endCampaignSession({ campaignId })
       if (destination) {
         setActiveCampaignId(null)
@@ -407,6 +408,7 @@ export function CampaignLayout() {
 
     setSessionActionLoading(true)
     try {
+      await campaignOverviewRef.current?.syncTableState()
       if (sessionState === 'PAUSED') {
         await resumeCampaignSession({ campaignId })
       } else {
@@ -426,6 +428,7 @@ export function CampaignLayout() {
       return
     }
 
+    if (isMaster) await campaignOverviewRef.current?.syncTableState()
     setActiveCampaignId(null)
     navigate('/campaigns')
   }
@@ -456,15 +459,15 @@ export function CampaignLayout() {
 
         <div className="flex h-full min-h-0 flex-col">
           {/* Top bar (inspirado no layout de referência) */}
-          <header className="relative z-30 shrink-0 border-b border-white/10 bg-black/40 backdrop-blur">
-            <div className="flex min-h-[56px] items-center justify-between gap-4 py-2 pl-24 pr-6 max-sm:pl-4 max-sm:pr-3">
+          <header className="relative z-30 shrink-0 border-b border-white/5 bg-black/18 backdrop-blur-[2px]">
+            <div className="flex min-h-[38px] items-center justify-between gap-3 py-1 pl-16 pr-3 max-sm:pl-3 max-sm:pr-2">
               <div className="min-w-0">
-                <div className="flex items-center gap-2 text-xs uppercase text-zinc-400">
-                  <MapPinned className="h-4 w-4 text-indigo-300" />
+                <div className="flex items-center gap-2 text-[10px] uppercase leading-none text-zinc-400">
+                  <MapPinned className="h-3.5 w-3.5 text-indigo-300" />
                   Mesa ativa
                   <span
                     className={[
-                      'rounded-full border px-2 py-0.5 text-[10px]',
+                      'rounded-full border px-1.5 py-0.5 text-[9px] leading-none',
                       campaign.isOnline
                         ? 'border-emerald-300/25 bg-emerald-400/10 text-emerald-200'
                         : 'border-zinc-300/20 bg-zinc-400/10 text-zinc-300',
@@ -473,11 +476,10 @@ export function CampaignLayout() {
                     {campaign.isOnline ? 'Online' : 'Offline'}
                   </span>
                 </div>
-                <div className="truncate font-semibold text-white">{campaign.title}</div>
-                <div className="text-xs text-zinc-300">Mestre: {campaign.gmName}</div>
+                <div className="truncate text-sm font-semibold leading-tight text-white/90">{campaign.title}</div>
               </div>
 
-              <div className="flex shrink-0 items-center gap-2">
+              <div className="flex shrink-0 items-center gap-1.5">
                 {(!isMaster && campaign.isOnline) && (
                   <>
                     {sessionState === 'PAUSED' ? (
@@ -496,25 +498,25 @@ export function CampaignLayout() {
                   <>
                     {campaign.isOnline ? (
                       <Button
-                        className="gap-2"
+                        className="h-8 gap-1.5 px-3 text-xs"
                         variant="ghost"
                         disabled={sessionActionLoading || !myCharacter?.id}
                         onClick={onTogglePauseSession}
                       >
                         {sessionState === 'PAUSED'
-                          ? <span className="text-green-500"><Play className="h-4 w-4" /></span>
-                          : <span className="text-red-500"><Pause className="h-4 w-4" /></span>
+                          ? <span className="text-green-500"><Play className="h-3.5 w-3.5" /></span>
+                          : <span className="text-red-500"><Pause className="h-3.5 w-3.5" /></span>
                         }
                         {sessionState === 'PAUSED' ? 'Retomar Sessao' : 'Pausar Sessão'}
                       </Button>
                     ) : null}
                     <Button
-                      className="gap-2"
+                      className="h-8 gap-1.5 px-3 text-xs"
                       variant={campaign.isOnline ? 'danger' : 'primary'}
                       disabled={sessionActionLoading || !myCharacter?.id}
                       onClick={campaign.isOnline ? onEndSession : onStartSession}
                     >
-                      {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+                      {campaign.isOnline ? <Power className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
                       {campaign.isOnline ? 'Encerrar Sessão' : 'Iniciar Sessão'}
                     </Button>
                   </>

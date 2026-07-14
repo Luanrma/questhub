@@ -110,7 +110,18 @@ export function registerCharacterSheetRoutes(app: FastifyInstance) {
             role: true,
             status: true,
             campaign: {
-              select: { system: true },
+              select: {
+                system: true,
+                characters: {
+                  where: {
+                    userId: payload.id,
+                    role: 'MASTER',
+                    status: 'ACTIVE',
+                  },
+                  select: { id: true },
+                  take: 1,
+                },
+              },
             },
           },
         },
@@ -122,7 +133,7 @@ export function registerCharacterSheetRoutes(app: FastifyInstance) {
     const incompatibleCampaign = character.campaigns.find((entry) => entry.campaign.system !== parsedSheet.data.system)
     if (incompatibleCampaign) return reply.status(409).send({ error: 'Ficha incompativel com a campanha vinculada' })
 
-    const isMaster = character.campaigns.some((entry) => entry.userId === payload.id && entry.role === 'MASTER' && entry.status === 'ACTIVE')
+    const isMaster = character.campaigns.some((entry) => entry.campaign.characters.length > 0)
     const isOwner = character.userId === payload.id
     if (parsedSheet.data.system === 'PATHFINDER_2E') {
       const identityPolicy = validatePathfinder2eIdentityWritePolicy({

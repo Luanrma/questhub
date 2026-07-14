@@ -11,7 +11,7 @@ import {
   tokenGridPositionFromPixelCenter,
   tokenPixelPosition,
 } from '../domain/boardMath'
-import type { PublicNpcHealth, VttCombatantHealth, VttMeasurement, VttMeasurementPoint, VttMovementBudget, VttPlayerToken, VttSceneHazard } from '../domain/types'
+import type { PublicNpcHealth, VttCombatantHealth, VttMeasurement, VttMeasurementPoint, VttMovementBudget, VttPlayerToken, VttSceneHazard, VttWallSegment } from '../domain/types'
 import { predictMovement } from '../domain/movementPrediction'
 import { HealthBar } from './HealthBar'
 
@@ -104,6 +104,87 @@ export function VttMeasurementOverlay({
   )
 }
 
+export function VttWallsOverlay({
+  walls,
+  drafts,
+  gridSize,
+  isMasterView,
+  canOpenWallMenu,
+  onWallContextMenu,
+}: {
+  walls: VttWallSegment[]
+  drafts: VttWallSegment[]
+  gridSize: number
+  isMasterView: boolean
+  canOpenWallMenu: boolean
+  onWallContextMenu: (wall: VttWallSegment, position: { x: number; y: number }) => void
+}) {
+  const roleVisibleWalls = isMasterView ? walls : walls.filter((wall) => wall.kind === 'door' || wall.playerVisible)
+  const visibleWalls = drafts.length && isMasterView ? [...roleVisibleWalls, ...drafts] : roleVisibleWalls
+
+  return (
+    <svg className="pointer-events-none absolute inset-0 z-[4] h-full w-full overflow-visible">
+      {visibleWalls.map((wall) => {
+        const start = measurementPointToPixels(wall.start, gridSize)
+        const end = measurementPointToPixels(wall.end, gridSize)
+        const isDoor = wall.kind === 'door'
+        const open = Boolean(wall.door?.open)
+        const stroke = wall.color ?? (isDoor ? (open ? '#34d399' : '#f59e0b') : '#e5e7eb')
+        const midpoint = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 }
+
+        return (
+          <g key={wall.id}>
+            <line
+              x1={start.x}
+              y1={start.y}
+              x2={end.x}
+              y2={end.y}
+              stroke="#030712"
+              strokeWidth={isDoor ? 9 : 7}
+              strokeLinecap="round"
+            />
+            <line
+              x1={start.x}
+              y1={start.y}
+              x2={end.x}
+              y2={end.y}
+              stroke={stroke}
+              strokeWidth={isDoor ? 5 : 4}
+              strokeDasharray={isDoor && open ? '10 8' : undefined}
+              strokeLinecap="round"
+            />
+            {isDoor ? (
+              <>
+                <circle cx={midpoint.x} cy={midpoint.y} r="7" fill="#09090b" stroke={stroke} strokeWidth="2" />
+                <text x={midpoint.x} y={midpoint.y + 3.5} fill={stroke} textAnchor="middle" className="select-none text-[10px] font-black">
+                  {open ? 'O' : 'D'}
+                </text>
+              </>
+            ) : null}
+            {canOpenWallMenu ? (
+              <line
+                className="pointer-events-auto cursor-context-menu"
+                x1={start.x}
+                y1={start.y}
+                x2={end.x}
+                y2={end.y}
+                stroke="transparent"
+                strokeWidth="18"
+                strokeLinecap="round"
+                onContextMenu={(event) => {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  onWallContextMenu(wall, { x: event.clientX, y: event.clientY })
+                }}
+              />
+            ) : null}
+          </g>
+        )
+      })}
+    </svg>
+  )
+}
+
 export function PlayerToken({
   token,
   tokenSize,
@@ -114,6 +195,7 @@ export function PlayerToken({
   isMasterView,
   onMove,
   onContextMenu,
+  selectedForMultiSelect = false,
   selectedForEncounter = false,
   selectedForMeasuredMovement = false,
   onEncounterSelectionToggle,
@@ -142,6 +224,7 @@ export function PlayerToken({
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
+  selectedForMultiSelect?: boolean
   selectedForEncounter?: boolean
   selectedForMeasuredMovement?: boolean
   onEncounterSelectionToggle?: (token: VttPlayerToken) => void
@@ -445,6 +528,7 @@ export function PlayerToken({
                     ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
                     : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
         isEncounterTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
+        selectedForMultiSelect ? 'border-cyan-100 ring-4 ring-cyan-300/65 shadow-cyan-400/30' : '',
         selectedForMeasuredMovement ? 'border-orange-200 ring-4 ring-orange-300/70 shadow-orange-500/30' : '',
         spellTargetSelectionActive ? 'cursor-pointer' : '',
         selectedAsSpellTarget ? 'border-purple-200 ring-4 ring-purple-400/70 shadow-purple-500/30' : '',
@@ -468,6 +552,9 @@ export function PlayerToken({
           <span className="absolute left-[-13px] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-l-[7px] border-y-transparent border-l-red-400" />
           <span className="absolute right-[-13px] top-1/2 h-0 w-0 -translate-y-1/2 border-y-[5px] border-r-[7px] border-y-transparent border-r-red-400" />
         </span>
+      ) : null}
+      {selectedForMultiSelect ? (
+        <span className="pointer-events-none absolute inset-[-5px] rounded-full border-2 border-cyan-200/80 shadow-[0_0_18px_rgba(34,211,238,0.45)]" />
       ) : null}
       {selectedForMeasuredMovement ? (
         <span className="pointer-events-none absolute inset-[-8px] rounded-full border-2 border-orange-300/80 shadow-[0_0_22px_rgba(251,146,60,0.65)]" />
