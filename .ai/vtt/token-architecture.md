@@ -120,6 +120,7 @@ As autorizações são separadas.
 - Visualização e edição da identidade ou de dados mantidos por módulos externos possuem regras próprias.
 - Transferir o controle do Token não transfere propriedade do `Character`.
 - Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
+- Excluir o `Character` vinculado não exclui o Token; o vínculo recebe `characterId = null`, preservando cena, aparência e controlador.
 
 ### 7. Escopo de campanha e permanência em cena
 
@@ -145,7 +146,8 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 7. Controlar o Token não implica editar o `Character`.
 8. Um Token não depende de `Character` para possuir controlador.
 9. Excluir uma cena não pode excluir seus Tokens.
-10. O VTT Core não depende de ficha, sistema ou ruleset.
+10. Excluir um `Character` não pode excluir o Token vinculado.
+11. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
@@ -158,6 +160,7 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - controlador independente de `characterId`;
 - preservação do Token quando ele sair de uma cena;
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
+- uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com `Character`;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
 Os nomes finais dos modelos e campos serão definidos durante a implementação, após o encerramento das decisões arquiteturais.
@@ -178,5 +181,5 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Comportamento ao excluir um `Character` ou um participante controlador.
+- Comportamento quando o participante controlador deixa a campanha ou é excluído.
 - Posição inicial ao transferir um Token para outra cena.
