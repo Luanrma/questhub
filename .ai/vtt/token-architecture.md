@@ -98,6 +98,7 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
 - O Mestre pode conceder ao controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração do nome e da imagem do Token.
 - Jogadores controladores não podem transferir o Token entre cenas.
+- Quando o jogador controlador deixa a campanha, o controle é removido automaticamente; o Token permanece sob autoridade do Mestre e pode ser reatribuído.
 
 ### 5. Main Character
 
@@ -147,7 +148,8 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 8. Um Token não depende de `Character` para possuir controlador.
 9. Excluir uma cena não pode excluir seus Tokens.
 10. Excluir um `Character` não pode excluir o Token vinculado.
-11. O VTT Core não depende de ficha, sistema ou ruleset.
+11. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
+12. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
@@ -161,6 +163,7 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - preservação do Token quando ele sair de uma cena;
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com `Character`;
+- remoção automática do controlador quando ele deixa a campanha;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
 Os nomes finais dos modelos e campos serão definidos durante a implementação, após o encerramento das decisões arquiteturais.
@@ -181,5 +184,4 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Comportamento quando o participante controlador deixa a campanha ou é excluído.
 - Posição inicial ao transferir um Token para outra cena.
