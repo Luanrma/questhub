@@ -94,7 +94,9 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - O controle permanece quando o Token é transferido entre cenas.
 - O Token pode receber um jogador controlador mesmo sem possuir `characterId`.
 - Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
-- Jogadores controladores podem movimentar o Token dentro da cena atual.
+- O controle-base permite selecionar, movimentar, rotacionar, medir deslocamento e executar interações operacionais permitidas no tabuleiro.
+- O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
+- O Mestre pode conceder ao controlador uma permissão adicional para alterar o nome e a imagem do Token.
 - Jogadores controladores não podem transferir o Token entre cenas.
 
 ### 5. Main Character
@@ -161,15 +163,18 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 | Ação | Mestre | Jogador controlador | Outro jogador |
 | --- | --- | --- | --- |
 | Visualizar Token | Conforme visibilidade da cena | Conforme visibilidade da cena | Conforme visibilidade da cena |
-| Mover na cena atual | Sim | Sim | Não |
+| Selecionar, mover, rotacionar e medir | Sim | Sim | Não |
+| Alterar nome e imagem | Sim | Somente com permissão adicional | Não |
+| Alterar tamanho, camada ou visibilidade | Sim | Não | Não |
 | Transferir entre cenas | Sim | Não | Não |
 | Conceder ou revogar controle | Sim | Não | Não |
 | Alterar o vínculo com Character | Sim | Não definido | Não |
+| Excluir Token | Sim | Não | Não |
 | Editar Character | Regra externa ao controle do Token | Regra separada | Regra separada |
 
 ## Decisões pendentes
 
-- Quais ações, além de movimento, fazem parte da permissão de controle.
+- Se a permissão adicional de personalização controla nome e imagem em conjunto ou separadamente.
 - Quem pode criar, remover ou substituir o vínculo opcional com `Character`.
 - Comportamento ao excluir uma cena, um `Character` ou um participante controlador.
 - Posição inicial ao transferir um Token para outra cena.
