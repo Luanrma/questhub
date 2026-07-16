@@ -119,6 +119,7 @@ As autorizações são separadas.
 - Controlar um Token não concede automaticamente permissão para editar o `Character`.
 - Visualização e edição da identidade ou de dados mantidos por módulos externos possuem regras próprias.
 - Transferir o controle do Token não transfere propriedade do `Character`.
+- Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
 
 ### 7. Escopo de campanha e permanência em cena
 
@@ -168,12 +169,11 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 | Alterar tamanho, camada ou visibilidade | Sim | Não | Não |
 | Transferir entre cenas | Sim | Não | Não |
 | Conceder ou revogar controle | Sim | Não | Não |
-| Alterar o vínculo com Character | Sim | Não definido | Não |
+| Alterar o vínculo com Character | Sim | Não | Não |
 | Excluir Token | Sim | Não | Não |
 | Editar Character | Regra externa ao controle do Token | Regra separada | Regra separada |
 
 ## Decisões pendentes
 
-- Quem pode criar, remover ou substituir o vínculo opcional com `Character`.
 - Comportamento ao excluir uma cena, um `Character` ou um participante controlador.
 - Posição inicial ao transferir um Token para outra cena.
