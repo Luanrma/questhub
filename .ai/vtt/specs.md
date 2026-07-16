@@ -38,6 +38,8 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * O Mestre controla todos os Tokens da campanha.
 * Um jogador pode controlar vários Tokens, mas cada Token possui no máximo um jogador controlador além do Mestre.
 * O controle pertence ao jogador participante da campanha, é persistido entre sessões e permanece durante transferências entre cenas.
+* Um Token sem `characterId` também pode possuir um jogador controlador persistente.
+* Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 * Conceder o controle a outro jogador substitui o controlador anterior.
 * O jogador controlador pode mover o Token dentro da cena atual, mas não pode transferi-lo entre cenas.
 * O jogador do Main Character recebe automaticamente o controle do Token vinculado; o Mestre pode transferir esse controle sem alterar a propriedade do `Character`.
