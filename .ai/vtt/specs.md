@@ -30,7 +30,8 @@
 A especificação detalhada está em [token-architecture.md](./token-architecture.md).
 
 * `CampaignToken` é uma entidade da campanha e pode existir sem `characterId` e sem posicionamento.
-* `CampaignTokenPlacement` representa a presença do Token em uma cena e possui `tokenId`, `sceneId`, `positionX` e `positionY`.
+* `CampaignToken` guarda nome, imagem, cor, tamanho, vínculo com `Character`, controlador e permissão adicional de personalização.
+* `CampaignTokenPlacement` representa a presença do Token em uma cena e possui `tokenId`, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade.
 * Cada `CampaignToken` possui no máximo um `CampaignTokenPlacement`; `tokenId` deve ser único no posicionamento.
 * Remover o Token da cena exclui somente o posicionamento; colocar o Token no grid cria um novo posicionamento com coordenadas escolhidas pelo Mestre.
 * Não existe transferência direta entre cenas: o Mestre remove o posicionamento atual e depois cria outro por meio do painel de Tokens.
