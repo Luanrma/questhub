@@ -115,6 +115,8 @@ Quando o Main Character é vinculado a um Token:
 
 Propriedade da identidade e controle do Token são conceitos distintos.
 
+Personagens adicionais associados a jogadores usam `CampaignCharacterRole.SECONDARY`. Esse papel abrange segundo personagem, companion, familiar, pet, montaria ou outra identidade secundária sem classificá-la como NPC. O papel não concede controle de Token por si só.
+
 ### 6. Controle do Token e acesso ao Character
 
 As autorizações são separadas.
@@ -170,6 +172,7 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com `Character`;
 - remoção automática do controlador quando ele deixa a campanha;
+- inclusão de `SECONDARY` em `CampaignCharacterRole`;
 - garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
@@ -191,4 +194,3 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Como personagens adicionais controlados pelo jogador serão classificados em `CampaignCharacterRole`.
