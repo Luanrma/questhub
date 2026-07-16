@@ -139,7 +139,8 @@ CampaignToken 1 <-> 0..1 CampaignTokenPlacement
 
 Regras:
 
-- `CampaignTokenPlacement` possui obrigatoriamente `tokenId`, `sceneId`, `positionX` e `positionY`;
+- `CampaignToken` guarda nome, imagem, cor, tamanho, vínculo com `Character`, controlador e permissão de personalização;
+- `CampaignTokenPlacement` possui obrigatoriamente `tokenId`, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade;
 - `tokenId` é único em `CampaignTokenPlacement`, impedindo o mesmo Token de ocupar duas cenas;
 - um Token sem registro de posicionamento fica disponível no painel de Tokens da toolbar;
 - remover um Token da cena exclui somente seu `CampaignTokenPlacement`;
@@ -171,8 +172,8 @@ Regras:
 
 A implementação deverá substituir a responsabilidade atual de `CampaignSceneToken` por:
 
-- `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com `characterId` opcional e único, controlador opcional e permissão adicional de personalização;
-- `CampaignTokenPlacement`, com `tokenId` único, `sceneId`, `positionX` e `positionY`;
+- `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com nome, imagem, cor, tamanho, `characterId` opcional e único, controlador opcional e permissão adicional de personalização;
+- `CampaignTokenPlacement`, com `tokenId` único, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade;
 - exclusão em cascata de posicionamentos quando a cena for excluída, sem excluir os Tokens;
 - `onDelete: SetNull` ou comportamento transacional equivalente no vínculo de `CampaignToken` com `Character`;
 - remoção automática do controlador quando ele deixar a campanha;
@@ -195,4 +196,4 @@ A implementação deverá substituir a responsabilidade atual de `CampaignSceneT
 
 ## Decisões pendentes
 
-- Quais propriedades visuais e espaciais, além das coordenadas, pertencem a `CampaignToken` ou a `CampaignTokenPlacement`.
+- Quais valores iniciais rotação, camada e visibilidade recebem ao criar um novo posicionamento.
