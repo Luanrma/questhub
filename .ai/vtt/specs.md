@@ -35,6 +35,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Token pode ocupar no máximo uma cena por vez e sua associação com cena é opcional.
 * Alterar a cena ativa ou visualizada não move Tokens automaticamente.
 * Tokens sem cena permanecem disponíveis no painel de Tokens da toolbar e recebem sua nova posição quando o Mestre os coloca no grid.
+* No painel de Tokens, entidades vinculadas ao Main Character de jogadores aparecem antes dos demais Tokens.
 * Excluir uma cena preserva seus Tokens na campanha com `sceneId = null`; não há exclusão em cascata de Tokens.
 * Não existe transferência direta entre cenas: somente o Mestre remove o Token da cena atual, deixando `sceneId = null`, e depois posiciona a mesma entidade em outra cena pelo painel de Tokens da toolbar.
 * O Mestre controla todos os Tokens da campanha.
