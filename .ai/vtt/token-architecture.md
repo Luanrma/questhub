@@ -143,7 +143,7 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 - Não existe transferência direta de uma cena para outra.
 - O Mestre primeiro remove o Token da cena atual, fazendo `sceneId = null`.
 - O Token removido permanece disponível no painel de Tokens da toolbar.
-- No painel, Tokens vinculados ao Main Character de jogadores aparecem antes dos demais Tokens.
+- O painel ordena Tokens em três grupos: primeiro Tokens de Main Characters, depois Tokens secundários controlados por jogadores e, por último, Tokens exclusivos do Mestre.
 - Depois de abrir a nova cena, o Mestre posiciona esse mesmo Token no grid a partir do painel.
 - A posição é definida no momento em que o Token é colocado na nova cena.
 - O processo não cria uma duplicata.
