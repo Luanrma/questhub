@@ -130,10 +130,13 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 - A cena atual do Token é uma associação opcional.
 - Trocar a cena ativa ou visualizada pelo Mestre não transporta Tokens automaticamente.
 - O Token permanece na cena em que estava.
-- O Mestre pode trazer o mesmo Token para outra cena.
-- Ao transferi-lo, o Token deixa a cena anterior e passa a ocupar a nova.
-- A transferência não cria uma duplicata.
-- A transferência não altera o controlador.
+- Não existe transferência direta de uma cena para outra.
+- O Mestre primeiro remove o Token da cena atual, fazendo `sceneId = null`.
+- O Token removido permanece disponível no painel de Tokens da toolbar.
+- Depois de abrir a nova cena, o Mestre posiciona esse mesmo Token no grid a partir do painel.
+- A posição é definida no momento em que o Token é colocado na nova cena.
+- O processo não cria uma duplicata.
+- Remover ou reposicionar o Token não altera seu controlador.
 - Excluir uma cena não exclui seus Tokens; eles permanecem na campanha com `sceneId = null`.
 
 ## Invariantes do domínio
@@ -184,4 +187,3 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Posição inicial ao transferir um Token para outra cena.
