@@ -39,6 +39,19 @@ O VTT Core permanece independente de sistemas e regras de RPG.
 
 Portanto, no VTT Core, o Token está vinculado opcionalmente a uma identidade, não diretamente a uma ficha.
 
+## Limite da campanha
+
+A campanha é o limite de isolamento do mundo de jogo.
+
+- `CampaignToken`, `CampaignTokenPlacement`, cenas, controles e vínculos operacionais sempre pertencem a uma única campanha.
+- Nenhuma cena, Token, posicionamento ou permissão pode referenciar conteúdo de outra campanha.
+- `User` é a conta global e pode possuir vários Characters.
+- Um `Character` pode ser criado antes de participar de uma campanha.
+- Depois que um `CampaignCharacter` o vincula, esse Character participa de exatamente uma campanha e não pode ser reutilizado em outra.
+- O usuário pode possuir Characters diferentes vinculados a campanhas diferentes.
+- Um Token só pode ser vinculado a um Character que participe da mesma campanha.
+- A escolha futura de sistema e ficha do Character permanece fora do VTT Core desta branch.
+
 ## Decisões consolidadas
 
 ### 1. Token independente
@@ -179,7 +192,7 @@ A implementação deverá substituir a responsabilidade atual de `CampaignSceneT
 - `onDelete: SetNull` ou comportamento transacional equivalente no vínculo de `CampaignToken` com `Character`;
 - remoção automática do controlador quando ele deixar a campanha;
 - garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
-- validação de que Token, cena, identidade e controlador pertencem à mesma campanha.
+- validação de que Token, posicionamento, cena, Character e controlador pertencem à mesma campanha, impedindo referências cruzadas entre mundos.
 
 ## Permissões mínimas
 
