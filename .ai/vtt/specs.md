@@ -27,6 +27,10 @@
 
 ## Tokens agnósticos e controle
 
+* A campanha é o limite de isolamento do mundo: Tokens, posicionamentos, cenas, controles e vínculos não podem referenciar recursos de outra campanha.
+* Um `Character` pode ser criado pelo `User` antes de entrar em uma campanha; depois de vinculado por `CampaignCharacter`, participa de exatamente uma campanha e não pode ser reutilizado em outra.
+* Um Token só pode ser vinculado a um `Character` participante da mesma campanha.
+
 A especificação detalhada está em [token-architecture.md](./token-architecture.md).
 
 * `CampaignToken` é uma entidade da campanha e pode existir sem `characterId` e sem posicionamento.
