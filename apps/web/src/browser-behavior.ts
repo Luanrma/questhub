@@ -1,6 +1,6 @@
-import { questhubCharacterDragType } from './vtt/table/config/constants'
+import { questhubCharacterDragType, questhubTokenDragType } from './vtt/table/config/constants'
 
-const questhubDragTypes = new Set([questhubCharacterDragType])
+const questhubDragTypes = new Set([questhubCharacterDragType, questhubTokenDragType])
 
 function hasQuesthubDragType(dataTransfer: DataTransfer) {
   return Array.from(dataTransfer.types).some((type) => questhubDragTypes.has(type))

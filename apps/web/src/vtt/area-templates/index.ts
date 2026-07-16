@@ -1,0 +1,7 @@
+export { AreaOverlay } from './components/AreaOverlay'
+export { AreaTemplatesPanel } from './components/AreaTemplatesPanel'
+export { AreaEffectContextMenu } from './components/AreaEffectContextMenu'
+export { useAreaTemplates } from './hooks/useAreaTemplates'
+export { calculateAreaRender, directionDegrees, snapAreaOrigin } from './domain/geometry'
+export { areaScaleForMeters, primaryAreaDimension } from './domain/instanceMeasurement'
+export type { AreaPlacement, AreaRenderModel, CampaignAreaTemplate, SceneAreaEffect } from './domain/types'

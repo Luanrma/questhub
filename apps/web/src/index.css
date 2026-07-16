@@ -166,3 +166,88 @@ input:disabled,
 .animate-vtt-dice-roll-overlay {
   animation: vtt-dice-roll-overlay 1900ms ease both;
 }
+@keyframes questhub-area-fire-rise {
+  from { transform: translateY(0); }
+  to { transform: translateY(-72px); }
+}
+
+.questhub-area-fire-flow {
+  animation: questhub-area-fire-rise 1.35s linear infinite;
+}
+
+.questhub-area-fire-surface {
+  filter: drop-shadow(0 0 5px rgb(249 115 22 / 65%));
+}
+
+@keyframes questhub-area-electric-pulse {
+  0%, 100% { opacity: 0.55; transform: translate(0, 0); }
+  18% { opacity: 1; transform: translate(1px, -1px); }
+  22% { opacity: 0.35; }
+  48% { opacity: 0.95; transform: translate(-1px, 1px); }
+  55% { opacity: 0.45; }
+}
+
+@keyframes questhub-area-spark-pulse {
+  0%, 100% { opacity: 0.25; }
+  45% { opacity: 1; }
+}
+
+.questhub-area-electric-flow { animation: questhub-area-electric-pulse 780ms steps(2, end) infinite; }
+.questhub-area-electric-sparks { animation: questhub-area-spark-pulse 520ms ease-in-out infinite; }
+.questhub-area-electric-surface { filter: drop-shadow(0 0 6px rgb(34 211 238 / 75%)); }
+
+@keyframes questhub-area-healing-rise {
+  from { transform: translateY(48px); opacity: 0.25; }
+  35% { opacity: 1; }
+  to { transform: translateY(-72px); opacity: 0.2; }
+}
+
+.questhub-area-healing-rise { animation: questhub-area-healing-rise 2.4s ease-in-out infinite; }
+.questhub-area-healing-surface { filter: drop-shadow(0 0 6px rgb(74 222 128 / 65%)); }
+
+@keyframes questhub-area-earth-shake {
+  0%, 78%, 100% { transform: translate(0, 0); }
+  82% { transform: translate(-2px, 1px); }
+  86% { transform: translate(2px, -1px); }
+  90% { transform: translate(-1px, -1px); }
+  94% { transform: translate(1px, 1px); }
+}
+
+.questhub-area-earth-shake { animation: questhub-area-earth-shake 1.8s linear infinite; }
+.questhub-area-earth-surface { filter: drop-shadow(0 0 4px rgb(180 83 9 / 55%)); }
+
+@keyframes questhub-area-vines-grow {
+  from { stroke-dashoffset: 52; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes questhub-area-vines-breathe {
+  0%, 100% { opacity: 0.62; transform: scale(0.94); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+.questhub-area-vines-grow { stroke-dasharray: 38 14; animation: questhub-area-vines-grow 2.2s linear infinite; }
+.questhub-area-vines-leaves { transform-box: fill-box; transform-origin: center; animation: questhub-area-vines-breathe 1.8s ease-in-out infinite; }
+.questhub-area-vines-surface { filter: drop-shadow(0 0 5px rgb(101 163 13 / 60%)); }
+
+@keyframes questhub-area-leaves-gust {
+  from { transform: translate(-72px, 28px); opacity: 0.35; }
+  30% { opacity: 1; }
+  to { transform: translate(72px, -28px); opacity: 0.45; }
+}
+
+.questhub-area-leaves-gust { animation: questhub-area-leaves-gust 1.7s linear infinite; }
+.questhub-area-leaves-surface { filter: drop-shadow(0 0 5px rgb(132 204 22 / 65%)); }
+
+@media (prefers-reduced-motion: reduce) {
+  .questhub-area-fire-flow,
+  .questhub-area-electric-flow,
+  .questhub-area-electric-sparks,
+  .questhub-area-healing-rise,
+  .questhub-area-earth-shake,
+  .questhub-area-vines-grow,
+  .questhub-area-vines-leaves,
+  .questhub-area-leaves-gust {
+    animation: none;
+  }
+}

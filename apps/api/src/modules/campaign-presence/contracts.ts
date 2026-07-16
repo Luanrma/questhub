@@ -68,6 +68,7 @@ export const vttWallSegmentSchema = z.discriminatedUnion('kind', [
     end: vttScenePointSchema,
     color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
     playerVisible: z.boolean().default(false),
+    blocksEffects: z.boolean().default(true),
   }),
   z.object({
     id: z.string().min(1).max(200),
@@ -76,6 +77,7 @@ export const vttWallSegmentSchema = z.discriminatedUnion('kind', [
     end: vttScenePointSchema,
     color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
     playerVisible: z.boolean().default(false),
+    blocksEffects: z.boolean().default(true),
     door: vttDoorStateSchema,
   }),
 ])
@@ -142,19 +144,27 @@ export const vttDiceRolledSchema = z.object({
 
 export const vttTokenUpdateSchema = z.object({
   campaignId: z.string().min(1),
-  characterId: z.string().min(1).optional(),
+  tokenId: z.string().min(1),
   position: vttTokenPositionSchema,
 })
 
 export const vttTokenPlaceSchema = z.object({
   campaignId: z.string().min(1),
-  characterId: z.string().min(1),
+  tokenId: z.string().min(1),
   position: vttTokenPositionSchema,
 })
 
 export const vttTokenActionSchema = z.object({
   campaignId: z.string().min(1),
-  characterId: z.string().min(1),
+  tokenId: z.string().min(1),
+})
+
+export const vttTokenRotateSchema = vttTokenActionSchema.extend({
+  rotation: z.number().finite().min(-36000).max(36000),
+})
+
+export const vttTokenLayerSchema = vttTokenActionSchema.extend({
+  layer: z.enum(['OBJECT', 'TOKEN', 'OVERLAY']),
 })
 
 export const vttTokensRemoveBulkSchema = z.discriminatedUnion('scope', [
@@ -181,7 +191,7 @@ export const vttCombatCommandSchema = z.object({
 
 export const vttCombatUpdateInitiativeSchema = z.object({
   campaignId: z.string().min(1),
-  characterId: z.string().min(1),
+  tokenId: z.string().min(1),
   initiative: z.number().int().min(-1000).max(1000).nullable(),
 })
 
@@ -205,19 +215,26 @@ export type VttTableScene = Omit<z.infer<typeof vttTableSceneSchema>, 'imageUrl'
 }
 export type VttPlayerToken = {
   id: string
-  characterId: string
+  characterId: string | null
   name: string
   avatarUrl: string | null
-  ownerUserId: string
-  ownerName: string
-  role: 'PLAYER' | 'NPC'
+  color: string | null
+  size: number
+  ownerUserId: string | null
+  ownerName: string | null
+  controllerMemberId: string | null
+  controllerUserId: string | null
+  role: 'PLAYER' | 'NPC' | 'GENERIC'
+  canCustomizeAppearance: boolean
   hidden: boolean
+  rotation: number
+  layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
   position: VttTokenPosition
 }
 
 export type VttCombatParticipant = {
   tokenId: string
-  characterId: string
+  characterId: string | null
   name: string
   avatarUrl: string | null
   initiative: number | null

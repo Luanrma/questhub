@@ -6,6 +6,7 @@ type SceneWallSegmentBase = {
   end: SceneWallPoint
   color?: string
   playerVisible: boolean
+  blocksEffects: boolean
 }
 
 export type SceneWallSegment =
@@ -32,10 +33,11 @@ function normalizeSceneWallSegment(value: unknown): SceneWallSegment | null {
   if (!hasValidSceneWallShape(value)) return null
 
   const wall = value as SceneWallSegment
-  if (wall.kind === 'wall') return { ...wall, playerVisible: wall.playerVisible ?? false }
+  if (wall.kind === 'wall') return { ...wall, playerVisible: wall.playerVisible ?? false, blocksEffects: wall.blocksEffects ?? true }
   return {
     ...wall,
     playerVisible: wall.playerVisible ?? false,
+    blocksEffects: wall.blocksEffects ?? !wall.door.open,
     door: {
       open: wall.door.open,
       locked: wall.door.locked,

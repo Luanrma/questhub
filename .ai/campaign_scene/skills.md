@@ -10,7 +10,8 @@
 * Cache do navegador para armazenar imagens de cena no client.
 
 ## Padroes
-* Scene-owned Table State: cena persistida e a fonte da verdade de mapa, grid e tokens.
+* Campaign-owned Token Identity: a campanha e a fonte da verdade da identidade e do controle do Token.
+* Scene-owned Token Placement: a cena guarda apenas a presenca visual atual do Token.
 * Layout-mounted VTT: trocar cena ou abrir modal de cena nao deve desmontar a mesa.
 * Master Active Scene: o Mestre possui uma cena ativa propria para administrar a mesa.
 * Token-derived Player Scene: jogador ve a cena do proprio token quando nao existe cena forcada.
@@ -25,7 +26,7 @@
 * Asset-backed Backgrounds: quando houver imagem de cena, ela deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.
-* Generic Token Model: token de cena e entidade visual/operacional independente; `Character` e apenas uma associacao opcional.
+* Generic Token Model: Token da campanha e entidade visual/operacional independente; `Character` e apenas uma associacao opcional e exclusiva.
 * DDD Backend Boundary: rotas chamam services/casos de uso, e todo acesso ao banco passa por repositories do modulo.
 
 ## Restricoes
@@ -40,6 +41,9 @@
 * Nao revelar cena diferente da cena do token do jogador quando nao houver `forcedSceneId`.
 * Nao exigir `characterId`, ficha, bestiario, inventario, combate ou ruleset para criar token de teste.
 * Nao adicionar campos mecanicos como PV, CA, spell slots, item state, source pack ou creature id ao contrato base de token.
+* Nao apagar Token ao excluir cena ou Character.
+* Nao apagar Character ao excluir Token.
+* Nao permitir transferencia direta entre cenas; remover o posicionamento atual e criar outro sao duas acoes explicitas.
 * Nao implementar diarios dentro deste modulo; diarios pertencem a `campaign_diary`.
 * Nao apagar `Asset` automaticamente ao deletar cena sem seguir as regras do modulo `assets`.
 * Nao exigir upload de imagem para criar, selecionar ou preparar cena.

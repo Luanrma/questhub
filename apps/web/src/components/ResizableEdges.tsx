@@ -22,13 +22,14 @@ type ResizeHandleProps = {
   box: ResizableBox
   setBox: Dispatch<SetStateAction<ResizableBox>>
   limits: ResizeLimits
+  edges?: readonly ResizableEdge[]
 }
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
 }
 
-export function startEdgeResize({
+function startEdgeResize({
   edge,
   event,
   box,
@@ -78,17 +79,20 @@ export function startEdgeResize({
   window.addEventListener('pointerup', onPointerUp)
 }
 
-export function ResizableEdges({ box, setBox, limits }: ResizeHandleProps) {
+const allResizableEdges: readonly ResizableEdge[] = ['n', 's', 'e', 'w', 'ne', 'nw', 'se', 'sw']
+
+export function ResizableEdges({ box, setBox, limits, edges = allResizableEdges }: ResizeHandleProps) {
+  const enabled = (edge: ResizableEdge) => edges.includes(edge)
   return (
     <>
-      <span className="absolute inset-x-3 top-0 z-20 h-2 cursor-ns-resize" onPointerDown={(event) => startEdgeResize({ edge: 'n', event, box, setBox, limits })} />
-      <span className="absolute inset-x-3 bottom-0 z-20 h-2 cursor-ns-resize" onPointerDown={(event) => startEdgeResize({ edge: 's', event, box, setBox, limits })} />
-      <span className="absolute inset-y-3 left-0 z-20 w-2 cursor-ew-resize" onPointerDown={(event) => startEdgeResize({ edge: 'w', event, box, setBox, limits })} />
-      <span className="absolute inset-y-3 right-0 z-20 w-2 cursor-ew-resize" onPointerDown={(event) => startEdgeResize({ edge: 'e', event, box, setBox, limits })} />
-      <span className="absolute left-0 top-0 z-20 h-4 w-4 cursor-nwse-resize" onPointerDown={(event) => startEdgeResize({ edge: 'nw', event, box, setBox, limits })} />
-      <span className="absolute right-0 top-0 z-20 h-4 w-4 cursor-nesw-resize" onPointerDown={(event) => startEdgeResize({ edge: 'ne', event, box, setBox, limits })} />
-      <span className="absolute bottom-0 left-0 z-20 h-4 w-4 cursor-nesw-resize" onPointerDown={(event) => startEdgeResize({ edge: 'sw', event, box, setBox, limits })} />
-      <span className="absolute bottom-0 right-0 z-20 h-4 w-4 cursor-nwse-resize" onPointerDown={(event) => startEdgeResize({ edge: 'se', event, box, setBox, limits })} />
+      {enabled('n') ? <span className="absolute inset-x-3 top-0 z-20 h-2 cursor-ns-resize" onPointerDown={(event) => startEdgeResize({ edge: 'n', event, box, setBox, limits })} /> : null}
+      {enabled('s') ? <span className="absolute inset-x-3 bottom-0 z-20 h-2 cursor-ns-resize" onPointerDown={(event) => startEdgeResize({ edge: 's', event, box, setBox, limits })} /> : null}
+      {enabled('w') ? <span className="absolute inset-y-3 left-0 z-20 w-2 cursor-ew-resize" onPointerDown={(event) => startEdgeResize({ edge: 'w', event, box, setBox, limits })} /> : null}
+      {enabled('e') ? <span className="absolute inset-y-3 right-0 z-20 w-2 cursor-ew-resize" onPointerDown={(event) => startEdgeResize({ edge: 'e', event, box, setBox, limits })} /> : null}
+      {enabled('nw') ? <span className="absolute left-0 top-0 z-20 h-4 w-4 cursor-nwse-resize" onPointerDown={(event) => startEdgeResize({ edge: 'nw', event, box, setBox, limits })} /> : null}
+      {enabled('ne') ? <span className="absolute right-0 top-0 z-20 h-4 w-4 cursor-nesw-resize" onPointerDown={(event) => startEdgeResize({ edge: 'ne', event, box, setBox, limits })} /> : null}
+      {enabled('sw') ? <span className="absolute bottom-0 left-0 z-20 h-4 w-4 cursor-nesw-resize" onPointerDown={(event) => startEdgeResize({ edge: 'sw', event, box, setBox, limits })} /> : null}
+      {enabled('se') ? <span className="absolute bottom-0 right-0 z-20 h-4 w-4 cursor-nwse-resize" onPointerDown={(event) => startEdgeResize({ edge: 'se', event, box, setBox, limits })} /> : null}
     </>
   )
 }

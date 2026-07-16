@@ -91,6 +91,7 @@ export function createRectangleWallSegments(input: {
   end: VttMeasurementPoint
   color?: string
   playerVisible?: boolean
+  blocksEffects?: boolean
   createId: () => string
 }) {
   const topLeft = { x: input.start.x, y: input.start.y }
@@ -99,10 +100,10 @@ export function createRectangleWallSegments(input: {
   const bottomLeft = { x: input.start.x, y: input.end.y }
 
   return [
-    { id: input.createId(), kind: 'wall' as const, start: topLeft, end: topRight, color: input.color, playerVisible: Boolean(input.playerVisible) },
-    { id: input.createId(), kind: 'wall' as const, start: topRight, end: bottomRight, color: input.color, playerVisible: Boolean(input.playerVisible) },
-    { id: input.createId(), kind: 'wall' as const, start: bottomRight, end: bottomLeft, color: input.color, playerVisible: Boolean(input.playerVisible) },
-    { id: input.createId(), kind: 'wall' as const, start: bottomLeft, end: topLeft, color: input.color, playerVisible: Boolean(input.playerVisible) },
+    { id: input.createId(), kind: 'wall' as const, start: topLeft, end: topRight, color: input.color, playerVisible: Boolean(input.playerVisible), blocksEffects: input.blocksEffects ?? true },
+    { id: input.createId(), kind: 'wall' as const, start: topRight, end: bottomRight, color: input.color, playerVisible: Boolean(input.playerVisible), blocksEffects: input.blocksEffects ?? true },
+    { id: input.createId(), kind: 'wall' as const, start: bottomRight, end: bottomLeft, color: input.color, playerVisible: Boolean(input.playerVisible), blocksEffects: input.blocksEffects ?? true },
+    { id: input.createId(), kind: 'wall' as const, start: bottomLeft, end: topLeft, color: input.color, playerVisible: Boolean(input.playerVisible), blocksEffects: input.blocksEffects ?? true },
   ].filter((wall) => segmentLength(wall.start, wall.end) > 0.001)
 }
 

@@ -6,7 +6,7 @@ test('scene wall blocks token movement crossing its segment', () => {
   assert.equal(isMovementBlockedBySceneWalls({
     from: { x: 1, y: 1 },
     to: { x: 3, y: 1 },
-    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 2, y: 0 }, end: { x: 2, y: 2 }, playerVisible: false }],
+    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 2, y: 0 }, end: { x: 2, y: 2 }, playerVisible: false, blocksEffects: true }],
   }), true)
 })
 
@@ -17,6 +17,7 @@ test('open scene door does not block token movement', () => {
     walls: [{
       id: 'door-1', kind: 'door', start: { x: 2, y: 0 }, end: { x: 2, y: 2 },
       playerVisible: false,
+      blocksEffects: true,
       door: { open: true, locked: false, blocked: false, ajar: false },
     }],
   }), false)
@@ -29,6 +30,7 @@ test('closed scene door blocks token movement', () => {
     walls: [{
       id: 'door-1', kind: 'door', start: { x: 2, y: 0 }, end: { x: 2, y: 2 },
       playerVisible: false,
+      blocksEffects: true,
       door: { open: false, locked: false, blocked: false, ajar: true },
     }],
   }), true)
@@ -37,6 +39,6 @@ test('closed scene door blocks token movement', () => {
 test('scene wall blocks movement when an intermediate route segment crosses it', () => {
   assert.equal(isMovementPathBlockedBySceneWalls({
     points: [{ x: 1, y: 1 }, { x: 3, y: 1 }, { x: 1, y: 1.5 }],
-    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 2, y: 0 }, end: { x: 2, y: 2 }, playerVisible: false }],
+    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 2, y: 0 }, end: { x: 2, y: 2 }, playerVisible: false, blocksEffects: true }],
   }), true)
 })

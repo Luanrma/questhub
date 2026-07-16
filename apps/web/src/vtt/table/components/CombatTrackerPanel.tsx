@@ -83,7 +83,7 @@ export function CombatTrackerPanel({
   onRemoveSelectedToken?: (tokenId: string) => void
   onNextTurn: () => void
   onPreviousTurn: () => void
-  onInitiativeChange: (characterId: string, initiative: number | null) => void
+  onInitiativeChange: (tokenId: string, initiative: number | null) => void
   onDetach?: () => void
   onAttach?: () => void
 }) {
@@ -270,7 +270,7 @@ export function CombatTrackerPanel({
 
                   return (
                     <div
-                      key={participant.characterId}
+                      key={participant.tokenId}
                       className={[
                         'relative grid shrink-0 place-items-center rounded-md border text-center transition',
                         active
@@ -306,7 +306,7 @@ export function CombatTrackerPanel({
                           onChange={(event) => {
                             const value = event.currentTarget.value.trim()
                             const initiative = Number(value)
-                            onInitiativeChange(participant.characterId, value && Number.isFinite(initiative) ? initiative : null)
+                            onInitiativeChange(participant.tokenId, value && Number.isFinite(initiative) ? initiative : null)
                           }}
                         />
                       ) : null}
@@ -421,7 +421,7 @@ export function CombatTrackerPanel({
 
               return (
                 <div
-                  key={participant.characterId}
+                  key={participant.tokenId}
                   className={[
                     'grid grid-cols-[auto_minmax(0,1fr)_72px] items-center gap-2 rounded-md border px-2 py-1.5',
                     active ? 'border-red-300/50 bg-red-500/15' : 'border-white/10 bg-black/15',
@@ -445,7 +445,7 @@ export function CombatTrackerPanel({
                       onChange={(event) => {
                         const value = event.currentTarget.value.trim()
                         const initiative = Number(value)
-                        onInitiativeChange(participant.characterId, value && Number.isFinite(initiative) ? initiative : null)
+                        onInitiativeChange(participant.tokenId, value && Number.isFinite(initiative) ? initiative : null)
                       }}
                     />
                   ) : (
