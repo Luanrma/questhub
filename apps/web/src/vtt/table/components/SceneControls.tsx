@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronLeft, ChevronRight, ImagePlus, Plus, X } from 'lucide-react'
+import { ImagePlus, Plus, X } from 'lucide-react'
 import { Button } from '../../../components/Button'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { sceneImageMimeTypes } from '../config/constants'
@@ -131,27 +131,15 @@ export function ScenePreparationModal({
 export function SceneSidebarScenes({
   scenes,
   activeSceneId,
-  sceneDockCollapsed = false,
   onSelectScene,
-  onToggleSceneDock,
   onPrepareScene,
 }: {
   scenes: PreparedScene[]
   activeSceneId: string | null
-  sceneDockCollapsed?: boolean
   onSelectScene: (sceneId: string) => void
-  onToggleSceneDock?: () => void
-  onPrepareScene?: () => void
+  onPrepareScene: () => void
 }) {
   const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
-
-  if (sceneDockCollapsed) {
-    return (
-      <button type="button" title="Expandir cenas" className="grid h-full min-h-24 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.035] text-purple-300" onClick={onToggleSceneDock}>
-        <ChevronLeft className="h-5 w-5" />
-      </button>
-    )
-  }
 
   return (
     <section className="flex h-full min-h-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-white/[0.035]">
@@ -161,7 +149,6 @@ export function SceneSidebarScenes({
           <div className="truncate text-sm font-semibold text-white">Cenas</div>
           <div className="truncate text-[11px] uppercase text-zinc-500">{sceneThumbnails.length} preparada{sceneThumbnails.length === 1 ? '' : 's'}</div>
         </div>
-        {onToggleSceneDock ? <button type="button" title="Recolher cenas" className="ml-auto text-zinc-400 hover:text-white" onClick={onToggleSceneDock}><ChevronRight className="h-4 w-4" /></button> : null}
       </div>
 
       <div className="min-h-0 flex-1 overflow-y-auto p-2">
@@ -199,33 +186,12 @@ export function SceneSidebarScenes({
         )}
       </div>
 
-      {onPrepareScene ? <div className="border-t border-white/10 p-2">
+      <div className="border-t border-white/10 p-2">
         <Button type="button" variant="ghost" className="h-9 w-full gap-2 px-3" onClick={onPrepareScene}>
           <Plus className="h-4 w-4" />
           Preparar Cena
         </Button>
-      </div> : null}
+      </div>
     </section>
-  )
-}
-
-export function SceneDock({ scenes, activeSceneId, rightInset, onSelectScene, onPrepareScene }: {
-  scenes: PreparedScene[]
-  activeSceneId: string | null
-  rightInset: number
-  onSelectScene: (sceneId: string) => void
-  onPrepareScene: () => void
-}) {
-  const sceneThumbnails = scenes.filter(isSelectablePreparedScene)
-
-  return (
-    <div className="pointer-events-auto absolute bottom-5 left-1/2 z-40 flex max-w-[min(760px,calc(100vw-220px))] -translate-x-1/2 gap-2 overflow-x-auto rounded-lg border border-white/10 bg-black/60 p-2 shadow-2xl backdrop-blur" style={{ marginRight: rightInset }}>
-      {sceneThumbnails.map((scene) => (
-        <button key={scene.id} type="button" title={scene.name} className={['h-14 w-20 shrink-0 overflow-hidden rounded-md border', scene.id === activeSceneId ? 'border-indigo-300 ring-1 ring-indigo-400' : 'border-white/10'].join(' ')} onClick={() => onSelectScene(scene.id)}>
-          {scene.imageUrl ? <img src={scene.imageUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : <span className="grid h-full place-items-center text-[10px] text-zinc-400">{scene.name}</span>}
-        </button>
-      ))}
-      <button type="button" title="Preparar cena" className="grid h-14 w-14 shrink-0 place-items-center rounded-md border border-dashed border-white/20 text-zinc-300 hover:border-indigo-300 hover:text-white" onClick={onPrepareScene}><Plus className="h-5 w-5" /></button>
-    </div>
   )
 }

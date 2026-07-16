@@ -38,6 +38,7 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Paredes e portas fechadas impedem que jogadores atravessem seus segmentos; portas abertas liberam passagem.
 * Imagens devem usar cache no client e requisitar novamente apenas quando necessario.
 * A ausencia de imagem nao impede a composicao de paredes e portas sobre a superficie neutra.
+* Preparacao e selecao de cenas ficam integradas a aba `Cenas` da sidebar direita, mantendo o mapa visivel.
 
 ## Relacoes com outros modulos
 * `vtt`: renderiza a mesa, ferramentas, tokens e grid usando o snapshot da cena.

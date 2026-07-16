@@ -118,6 +118,8 @@ export function PlayerToken({
   canDrag,
   isMasterView,
   onMove,
+  onMeasureFromToken,
+  selectedForMeasuredMovement = false,
   onContextMenu,
   isCombatTurn = false,
 }: {
@@ -128,6 +130,8 @@ export function PlayerToken({
   canDrag: boolean
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
+  onMeasureFromToken?: (event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) => void
+  selectedForMeasuredMovement?: boolean
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
   isCombatTurn?: boolean
 }) {
@@ -171,6 +175,10 @@ export function PlayerToken({
   }, [dragging, gridAreaRef, gridShape, onMove, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (event.ctrlKey && onMeasureFromToken) {
+      onMeasureFromToken(event, token)
+      return
+    }
     if (!canDrag) return
 
     event.preventDefault()
@@ -205,6 +213,7 @@ export function PlayerToken({
                 ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
                 : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
         isCombatTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
+        selectedForMeasuredMovement ? 'border-orange-200 ring-4 ring-orange-400/50' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}
       style={{

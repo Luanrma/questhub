@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
-  ChevronLeft,
-  ChevronRight,
   BrickWall,
   CircleUserRound,
   Dice5,
@@ -15,8 +13,12 @@ import {
   Ruler,
   PanelRightClose,
   PanelRightOpen,
+  Pause,
+  ScrollText,
+  Swords,
   Trash2,
   Users,
+  Wrench,
   X,
   ZoomIn,
   ZoomOut,
@@ -56,7 +58,7 @@ import {
   validateSceneImage,
 } from './domain/sceneDomain'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
-import { SceneDock, ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
+import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
 import { CombatTrackerPanel } from './components/CombatTrackerPanel'
 import type {
@@ -117,6 +119,8 @@ type SceneRenderTarget = {
   tokenCount: number
 }
 
+type RightPanelTab = 'combat' | 'players' | 'session' | 'scenes' | 'chat'
+
 export function CampaignOverviewPage({
   gridSettings,
   gridSettingsOpen,
@@ -135,6 +139,7 @@ export function CampaignOverviewPage({
   const drawingWallRef = useRef(false)
   const wallDraftRef = useRef<Pick<VttWallSegment, 'kind' | 'start' | 'end'> | null>(null)
   const measurementRef = useRef<VttMeasurement | null>(null)
+  const measuredMovementCharacterIdRef = useRef<string | null>(null)
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
   const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
@@ -144,15 +149,18 @@ export function CampaignOverviewPage({
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
   const [isPanning, setIsPanning] = useState(false)
+  const [altNavigationActive, setAltNavigationActive] = useState(false)
   const [activeTool, setActiveTool] = useState<VttToolId | null>('select')
+  const [toolsCollapsed, setToolsCollapsed] = useState(false)
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
+  const [measuredMovementCharacterId, setMeasuredMovementCharacterId] = useState<string | null>(null)
   const [wallDraft, setWallDraft] = useState<Pick<VttWallSegment, 'kind' | 'start' | 'end'> | null>(null)
   const [wallKind, setWallKind] = useState<VttWallSegment['kind']>('wall')
   const [wallsPlayerVisible, setWallsPlayerVisible] = useState(false)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
-  const [sceneDockCollapsed, setSceneDockCollapsed] = useState(false)
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
+  const [rightPanelTab, setRightPanelTab] = useState<RightPanelTab>('combat')
   const [combatTrackerDetached, setCombatTrackerDetached] = useState(false)
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([createPreparedScene(1)])
@@ -217,6 +225,12 @@ export function CampaignOverviewPage({
   )
   const activeCombat =
     combatState && combatState.campaignId === campaignId ? combatState : null
+  const rightPanelSessionStatus = sessionState === 'PAUSED'
+    ? { title: 'Sessao pausada', label: null, icon: Pause, className: 'border-amber-300/45 bg-amber-500/20 text-amber-100' }
+    : campaign?.isOnline
+      ? { title: 'Sessao online', label: 'ON', icon: null, className: 'border-emerald-300/45 bg-emerald-500/20 text-emerald-100' }
+      : { title: 'Sessao offline', label: 'OFF', icon: null, className: 'border-red-300/45 bg-red-500/20 text-red-100' }
+  const RightPanelSessionStatusIcon = rightPanelSessionStatus.icon
   const activeCombatCharacterId = activeCombat?.participants[activeCombat.activeTurnIndex]?.characterId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
   const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && combatTokenCount > 0 && !activeCombat)
@@ -787,6 +801,37 @@ export function CampaignOverviewPage({
     measuringRef.current = false
   }
 
+  function beginMeasuredMovement(event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) {
+    if (!event.ctrlKey || gridSettings.shape !== 'square' || !realtimeVttEnabled) return
+    const canMoveToken = Boolean(isMaster) || (sessionActive && myCharacter?.id === token.characterId && myCharacter.role === 'PLAYER')
+    if (!canMoveToken) return
+    event.preventDefault()
+    event.stopPropagation()
+    measuredMovementCharacterIdRef.current = token.characterId
+    setMeasuredMovementCharacterId(token.characterId)
+    setActiveTool('measure')
+    publishMeasurement({
+      shape: 'square',
+      start: token.position,
+      end: token.position,
+      color: gridSettings.squareMeasurementColor,
+    })
+  }
+
+  function confirmMeasuredMovement() {
+    const characterId = measuredMovementCharacterIdRef.current
+    const currentMeasurement = measurementRef.current
+    if (!characterId || currentMeasurement?.shape !== 'square') return false
+    const token = visibleTokens.find((item) => item.characterId === characterId)
+    if (!token) return false
+    movePlayerToken(token, currentMeasurement.end)
+    measuredMovementCharacterIdRef.current = null
+    setMeasuredMovementCharacterId(null)
+    publishMeasurement(null)
+    setActiveTool(null)
+    return true
+  }
+
   function publishWalls(walls: VttWallSegment[]) {
     if (!campaignId || !socket || !activeScene || !isMaster) return
     setActiveScene((current) => current ? { ...current, walls } : current)
@@ -842,6 +887,86 @@ export function CampaignOverviewPage({
         : { open: true, locked: false, blocked: false, ajar: false },
     } : item))
   }
+
+  function isEditableKeyboardTarget(target: EventTarget | null) {
+    if (!(target instanceof HTMLElement)) return false
+    const tagName = target.tagName.toLowerCase()
+    return target.isContentEditable || tagName === 'input' || tagName === 'textarea' || tagName === 'select'
+  }
+
+  function clearTransientTools() {
+    measuringRef.current = false
+    drawingWallRef.current = false
+    wallDraftRef.current = null
+    measurementRef.current = null
+    measuredMovementCharacterIdRef.current = null
+    setWallDraft(null)
+    setMeasurement(null)
+    setMeasuredMovementCharacterId(null)
+    setActiveTool(null)
+    onGridSettingsOpenChange(false)
+    if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
+  }
+
+  function collapseToolsToolbar() {
+    clearTransientTools()
+    setToolsCollapsed(true)
+  }
+
+  function openRightPanelTab(tab: RightPanelTab) {
+    setRightPanelTab(tab)
+    setRightPanelCollapsed(false)
+  }
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Alt') setAltNavigationActive(true)
+    }
+
+    function onKeyUp(event: KeyboardEvent) {
+      if (event.key === 'Alt') setAltNavigationActive(false)
+    }
+
+    function onWindowBlur() {
+      setAltNavigationActive(false)
+      panningRef.current = null
+      setIsPanning(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    window.addEventListener('keyup', onKeyUp)
+    window.addEventListener('blur', onWindowBlur)
+    return () => {
+      window.removeEventListener('keydown', onKeyDown)
+      window.removeEventListener('keyup', onKeyUp)
+      window.removeEventListener('blur', onWindowBlur)
+    }
+  }, [])
+
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (isEditableKeyboardTarget(event.target)) return
+
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z' && activeTool === 'walls') {
+        if (activeScene?.walls.length) {
+          publishWalls(activeScene.walls.slice(0, -1))
+          event.preventDefault()
+        }
+        return
+      }
+
+      if (event.key === 'Escape') {
+        clearTransientTools()
+        event.preventDefault()
+        return
+      }
+
+      if (event.code === 'Space' && !event.repeat && confirmMeasuredMovement()) event.preventDefault()
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  })
 
   function dragTokenCandidate(event: React.DragEvent<HTMLButtonElement>, candidate: VttTokenCandidate) {
     event.dataTransfer.setData(questhubCharacterDragType, candidate.characterId)
@@ -952,7 +1077,8 @@ export function CampaignOverviewPage({
   }
 
   function startBoardPan(event: React.PointerEvent<HTMLDivElement>) {
-    if (activeTool !== 'move' || event.button !== 0) return
+    if (activeTool !== 'move' && !event.altKey && !altNavigationActive) return
+    if (event.button !== 0) return
     if (event.target !== event.currentTarget) return
 
     event.preventDefault()
@@ -1263,7 +1389,7 @@ export function CampaignOverviewPage({
             ref={gridAreaRef}
             className={[
               'relative overflow-hidden bg-[#0b0d12] shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]',
-              activeTool === 'move' ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : '',
+              activeTool === 'move' || altNavigationActive ? (isPanning ? 'cursor-grabbing' : 'cursor-grab') : '',
             ].join(' ')}
             style={{
               width: boardPixelSize.width,
@@ -1331,6 +1457,8 @@ export function CampaignOverviewPage({
                 }
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
+                onMeasureFromToken={beginMeasuredMovement}
+                selectedForMeasuredMovement={measuredMovementCharacterId === token.characterId}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
                 isCombatTurn={activeCombatCharacterId === token.characterId}
               />
@@ -1361,7 +1489,16 @@ export function CampaignOverviewPage({
 
         <div className="pointer-events-none absolute inset-0 z-10 flex min-h-[560px] flex-col">
           <div className="relative flex-1">
-            <div className="pointer-events-auto absolute left-24 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            {toolsCollapsed ? (
+              <button type="button" title="Expandir ferramentas" aria-label="Expandir ferramentas" className="pointer-events-auto absolute left-16 top-5 z-40 flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/45 text-zinc-200 shadow-2xl backdrop-blur transition hover:bg-white/10 hover:text-white" onClick={() => setToolsCollapsed(false)}>
+                <Wrench className="h-4 w-4" />
+              </button>
+            ) : (
+            <div className="pointer-events-auto absolute left-16 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+              <button type="button" title="Recolher ferramentas" aria-label="Recolher ferramentas" className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white" onClick={collapseToolsToolbar}>
+                <Wrench className="h-4 w-4" />
+              </button>
+              <span className="mx-1 my-1 w-px bg-white/10" aria-hidden="true" />
               {visibleToolButtons.map((tool) => {
                 const Icon = tool.icon
                 const active = tool.id === 'grid' ? gridSettingsOpen : activeTool === tool.id
@@ -1371,7 +1508,7 @@ export function CampaignOverviewPage({
                   <button
                     key={tool.label}
                     type="button"
-                    title={tool.label}
+                    title={`${tool.label}${tool.id === 'move' ? ' (Alt)' : tool.id === 'measure' ? ' (Ctrl+clique, Espaco confirma)' : tool.id === 'walls' ? ' (Ctrl+Z desfaz)' : ''}`}
                     disabled={disabled}
                     className={[
                       'flex h-10 w-10 items-center justify-center rounded-md transition disabled:cursor-not-allowed disabled:opacity-45',
@@ -1398,6 +1535,7 @@ export function CampaignOverviewPage({
                 )
               })}
             </div>
+            )}
 
             {campaignId ? (
               <VttDiceControls
@@ -1577,16 +1715,6 @@ export function CampaignOverviewPage({
               </button>
             </div>
 
-            {isMaster && !sceneDockCollapsed ? (
-              <SceneDock
-                scenes={preparedScenes}
-                activeSceneId={activeScene?.id ?? null}
-                rightInset={rightPanelCollapsed ? 80 : 344}
-                onSelectScene={selectPreparedScene}
-                onPrepareScene={() => setScenePreparationOpen(true)}
-              />
-            ) : null}
-
             {scenePreparationOpen && isMaster ? (
               <ScenePreparationModal
                 scenes={preparedScenes}
@@ -1615,103 +1743,58 @@ export function CampaignOverviewPage({
         ].join(' ')}
       >
         <div className={rightPanelCollapsed ? 'flex h-full min-h-0 flex-col items-center gap-3' : 'hidden'}>
-          <button
-            type="button"
-            title="Expandir painel lateral"
-            className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-200 transition hover:bg-white/10 hover:text-white"
-            onClick={() => setRightPanelCollapsed(false)}
-          >
+          <button type="button" title="Expandir painel lateral" className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-200 transition hover:bg-white/10 hover:text-white" onClick={() => setRightPanelCollapsed(false)}>
             <PanelRightOpen className="h-4 w-4" />
           </button>
           <div className="grid gap-2">
             <div
-              title="Combate"
-              className={[
-                'grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase',
-                activeCombat
-                  ? 'border-red-300/40 bg-red-500/20 text-red-100'
-                  : 'border-white/10 bg-white/[0.04] text-zinc-400',
-              ].join(' ')}
+              title={rightPanelSessionStatus.title}
+              className={['grid h-10 w-10 place-items-center rounded-lg border text-[10px] font-bold uppercase', rightPanelSessionStatus.className].join(' ')}
             >
-              CBT
+              {RightPanelSessionStatusIcon ? <RightPanelSessionStatusIcon className="h-4 w-4" /> : rightPanelSessionStatus.label}
             </div>
-            <div
-              title="Jogadores"
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-zinc-400"
-            >
-              <Users className="h-4 w-4" />
-            </div>
-            <div
-              title="Sessao"
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-[10px] font-bold uppercase text-zinc-300"
-            >
-              {sessionState === 'PAUSED' ? 'P' : campaign?.isOnline ? 'ON' : 'OFF'}
-            </div>
-            <div
-              title="Chat"
-              className="grid h-10 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-indigo-200"
-            >
-              <MessageCircle className="h-4 w-4" />
-            </div>
+            {[
+              { id: 'combat' as const, title: 'Combate', icon: Swords },
+              { id: 'players' as const, title: 'Jogadores', icon: Users },
+              { id: 'session' as const, title: 'Sessao', icon: Eye },
+              ...(isMaster ? [{ id: 'scenes' as const, title: 'Cenas', icon: ScrollText }] : []),
+              { id: 'chat' as const, title: 'Chat', icon: MessageCircle },
+            ].map((item) => {
+              const Icon = item.icon
+              return <button key={item.id} type="button" title={item.title} className={['grid h-10 w-10 place-items-center rounded-lg border transition', rightPanelTab === item.id || (item.id === 'combat' && activeCombat) ? 'border-indigo-300/40 bg-indigo-500/20 text-indigo-100' : 'border-white/10 bg-white/[0.04] text-zinc-400 hover:bg-white/10 hover:text-white'].join(' ')} onClick={() => openRightPanelTab(item.id)}><Icon className="h-4 w-4" /></button>
+            })}
           </div>
-          {isMaster ? (
-            <button
-              type="button"
-              title={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-              aria-label={sceneDockCollapsed ? 'Expandir cenas' : 'Recolher cenas'}
-              className="mt-auto grid h-24 w-10 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-purple-400 transition hover:bg-white/10 hover:text-purple-300"
-              onClick={() => setSceneDockCollapsed((current) => !current)}
-            >
-              {sceneDockCollapsed ? <ChevronLeft className="h-5 w-5" /> : <ChevronRight className="h-5 w-5" />}
-            </button>
-          ) : null}
         </div>
 
         <div className={rightPanelCollapsed ? 'hidden h-full min-h-0 flex-col gap-3' : 'relative flex h-full min-h-0 flex-col gap-3'}>
-          <button
-            type="button"
-            title="Recolher painel lateral"
-            className="absolute right-0 top-0 z-10 grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 bg-[#15161c] text-zinc-300 transition hover:bg-white/10 hover:text-white"
-            onClick={() => setRightPanelCollapsed(true)}
-          >
+          <button type="button" title="Recolher painel lateral" className="absolute right-0 top-0 z-10 grid h-8 w-8 shrink-0 place-items-center rounded-lg border border-white/10 bg-[#15161c] text-zinc-300 transition hover:bg-white/10 hover:text-white" onClick={() => setRightPanelCollapsed(true)}>
             <PanelRightClose className="h-4 w-4" />
           </button>
 
-          {!combatTrackerDetached ? (
-            <CombatTrackerPanel
-              combat={activeCombat}
-              isMaster={Boolean(isMaster)}
-              canStart={canStartCombat}
-              tokenCount={combatTokenCount}
-              onStart={startCombat}
-              onEnd={endCombat}
-              onNextTurn={nextCombatTurn}
-              onPreviousTurn={previousCombatTurn}
-              onInitiativeChange={updateCombatInitiative}
-              onDetach={() => setCombatTrackerDetached(true)}
-            />
-          ) : null}
-
-          <div className="min-h-0 flex-1">
-            {campaignId ? (
-              <CampaignChat
-                campaignId={campaignId}
-                characterId={campaign?.myCharacterId}
-                enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')}
-                className="h-full min-h-0"
-              />
-            ) : null}
+          <div className="flex shrink-0 items-center gap-2 pr-10">
+            <div title={rightPanelSessionStatus.title} className={['grid h-9 w-9 place-items-center rounded-md border text-[10px] font-bold uppercase', rightPanelSessionStatus.className].join(' ')}>
+              {RightPanelSessionStatusIcon ? <RightPanelSessionStatusIcon className="h-4 w-4" /> : rightPanelSessionStatus.label}
+            </div>
+            {[
+              { id: 'combat' as const, title: 'Combate', icon: Swords },
+              { id: 'players' as const, title: 'Jogadores', icon: Users },
+              { id: 'session' as const, title: 'Sessao', icon: Eye },
+              ...(isMaster ? [{ id: 'scenes' as const, title: 'Cenas', icon: ScrollText }] : []),
+              { id: 'chat' as const, title: 'Chat', icon: MessageCircle },
+            ].map((item) => {
+              const Icon = item.icon
+              return <button key={item.id} type="button" title={item.title} aria-label={item.title} className={['grid h-9 w-9 place-items-center rounded-md border transition', rightPanelTab === item.id ? 'border-indigo-300/45 bg-indigo-600 text-white' : 'border-white/10 bg-white/[0.04] text-zinc-300 hover:bg-white/10 hover:text-white'].join(' ')} onClick={() => setRightPanelTab(item.id)}><Icon className="h-4 w-4" /></button>
+            })}
           </div>
 
-          {isMaster ? (
-            <SceneSidebarScenes
-              scenes={preparedScenes}
-              activeSceneId={activeScene?.id ?? null}
-              sceneDockCollapsed={sceneDockCollapsed}
-              onSelectScene={selectPreparedScene}
-              onToggleSceneDock={() => setSceneDockCollapsed((current) => !current)}
-            />
-          ) : null}
+          <div className="min-h-0 flex-1 overflow-hidden">
+            {rightPanelTab === 'combat' && !combatTrackerDetached ? <CombatTrackerPanel combat={activeCombat} isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} onStart={startCombat} onEnd={endCombat} onNextTurn={nextCombatTurn} onPreviousTurn={previousCombatTurn} onInitiativeChange={updateCombatInitiative} onDetach={() => setCombatTrackerDetached(true)} /> : null}
+            {rightPanelTab === 'combat' && combatTrackerDetached ? <div className="grid h-full place-items-center rounded-lg border border-dashed border-white/10 px-4 text-center text-xs text-zinc-500">Combate destacado em uma janela.</div> : null}
+            {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{myCharacter ? `${myCharacter.name} conectado como ${myCharacter.role === 'MASTER' ? 'Mestre' : 'Jogador'}.` : 'Carregando participante atual.'}</div></section> : null}
+            {rightPanelTab === 'session' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3">{campaign?.isOnline ? <Eye className="h-4 w-4 text-emerald-300" /> : <EyeOff className="h-4 w-4 text-zinc-400" />}<div><div className="text-sm font-semibold">Sessao</div><div className="text-[11px] uppercase text-zinc-500">{rightPanelSessionStatus.title}</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs leading-relaxed text-zinc-400">{sessionState === 'PAUSED' ? 'Jogadores estao bloqueados na mesa, exceto no chat. O Mestre ainda pode preparar cenas.' : campaign?.isOnline ? 'A mesa esta disponivel para participantes ativos.' : 'A mesa esta em modo de preparacao offline.'}</div></section> : null}
+            {rightPanelTab === 'scenes' && isMaster ? <SceneSidebarScenes scenes={preparedScenes} activeSceneId={activeScene?.id ?? null} onSelectScene={selectPreparedScene} onPrepareScene={() => setScenePreparationOpen(true)} /> : null}
+            {rightPanelTab === 'chat' && campaignId ? <CampaignChat campaignId={campaignId} characterId={campaign?.myCharacterId} enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')} className="h-full min-h-0" /> : null}
+          </div>
         </div>
       </aside>
 

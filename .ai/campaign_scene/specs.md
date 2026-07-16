@@ -17,6 +17,8 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * O modo "mostrar para todos" dura ate o Mestre desativar manualmente; depois cada jogador volta a ver a cena do proprio token.
 * O Mestre possui uma cena ativa propria, usada como foco da mesa dele. A cena ativa do Mestre nao obriga a visao dos jogadores enquanto "mostrar para todos" estiver desligado.
 * O Mestre pode preparar cenas antes de iniciar a campanha tanto pelo modal `Preparar cena` quanto diretamente na mesa VTT, mesmo com a campanha offline.
+* A aba `Cenas` da sidebar direita lista thumbnails, destaca a cena ativa e abre `Preparar cena`.
+* O antigo dock duplicado no rodape nao deve competir com a aba `Cenas`; a sidebar e a fonte de navegacao visual entre cenas.
 * O Mestre pode criar tokens de teste sem `Character`, ficha, bestiario ou sistema de jogo.
 * No estado offline de manutencao da campanha, o Mestre pode solicitar snapshot da cena ativa e alternar `masterActiveSceneId` sem iniciar `presence:session:start`.
 * Nao existe um "editor de cena" explicito como area separada; a preparacao acontece nos fluxos existentes da mesa, do modal de preparacao e dos modais auxiliares.
