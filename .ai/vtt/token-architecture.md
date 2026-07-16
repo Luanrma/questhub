@@ -23,7 +23,8 @@ O estado atual do Prisma ainda reflete esse modelo:
 - `CampaignSceneToken.characterId` é obrigatório;
 - `CampaignSceneToken.sceneId` é obrigatório;
 - o Token é removido em cascata com a cena;
-- não existe controlador jogador persistido no Token.
+- não existe controlador jogador persistido no Token;
+- identidade do Token e posicionamento na cena ocupam o mesmo registro.
 
 O estado-alvo descrito neste documento ainda deverá ser implementado após a conclusão das decisões pendentes.
 
@@ -44,17 +45,7 @@ Portanto, no VTT Core, o Token está vinculado opcionalmente a uma identidade, n
 
 O Token é uma entidade independente dentro da campanha.
 
-Ele pode ser criado, posicionado e utilizado sem `characterId`. Um Token genérico pode armazenar somente propriedades visuais e espaciais do VTT, como:
-
-- nome visual;
-- imagem ou cor;
-- tamanho;
-- posição;
-- rotação;
-- camada;
-- visibilidade.
-
-O Token não deve presumir campos mecânicos universais.
+Ele pode ser criado e utilizado sem `characterId` e sem estar posicionado em uma cena. Um Token genérico pode possuir propriedades visuais como nome, imagem, cor e tamanho sem presumir campos mecânicos universais.
 
 ### 2. Vínculo opcional e exclusivo com Character
 
@@ -68,7 +59,7 @@ A associação entre Token e `Character` é opcional e exclusiva:
 Cardinalidade:
 
 ```text
-Token 0..1 <-> 0..1 Character
+CampaignToken 0..1 <-> 0..1 Character
 ```
 
 O vínculo não torna o Token dependente do `Character` para existir.
@@ -79,7 +70,7 @@ O Mestre:
 
 - controla todos os Tokens da campanha;
 - pode conceder, transferir ou revogar o controle de um Token;
-- é o único autorizado a transferir Tokens entre cenas.
+- é o único autorizado a remover Tokens de cenas e posicioná-los em outras cenas.
 
 A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser repetida como uma permissão individual em cada Token.
 
@@ -91,13 +82,13 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - A permissão pertence ao jogador participante da campanha, não ao `Character`.
 - O controlador deve ser persistido no banco de dados.
 - O controle permanece entre sessões.
-- O controle permanece quando o Token é transferido entre cenas.
+- O controle permanece quando o posicionamento do Token muda.
 - O Token pode receber um jogador controlador mesmo sem possuir `characterId`.
 - Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 - O controle-base permite selecionar, movimentar, rotacionar, medir deslocamento e executar interações operacionais permitidas no tabuleiro.
 - O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
 - O Mestre pode conceder ao controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração do nome e da imagem do Token.
-- Jogadores controladores não podem transferir o Token entre cenas.
+- Jogadores controladores não podem remover o Token de uma cena nem posicioná-lo em outra.
 - Quando o jogador controlador deixa a campanha, o controle é removido automaticamente; o Token permanece sob autoridade do Mestre e pode ser reatribuído.
 
 ### 5. Main Character e Tokens secundários
@@ -131,58 +122,62 @@ As autorizações são separadas.
 - Visualização e edição da identidade ou de dados mantidos por módulos externos possuem regras próprias.
 - Transferir o controle do Token não transfere propriedade do `Character`.
 - Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
-- Excluir o `Character` vinculado não exclui o Token; o vínculo recebe `characterId = null`, preservando cena, aparência e controlador.
+- Excluir o `Character` vinculado não exclui o Token; o vínculo recebe `characterId = null`, preservando posicionamento, aparência e controlador.
 
-### 7. Escopo de campanha e permanência em cena
+### 7. Token e posicionamento em entidades separadas
 
-O Token pertence à campanha e pode estar posicionado em no máximo uma cena por vez.
+A persistência é dividida em duas entidades:
 
-- A cena atual do Token é uma associação opcional.
-- Trocar a cena ativa ou visualizada pelo Mestre não transporta Tokens automaticamente.
-- O Token permanece na cena em que estava.
-- Não existe transferência direta de uma cena para outra.
-- O Mestre primeiro remove o Token da cena atual, fazendo `sceneId = null`.
-- O Token removido permanece disponível no painel de Tokens da toolbar.
-- O painel ordena Tokens em três grupos: primeiro Tokens de Main Characters, depois Tokens secundários controlados por jogadores e, por último, Tokens exclusivos do Mestre.
-- Depois de abrir a nova cena, o Mestre posiciona esse mesmo Token no grid a partir do painel.
-- A posição é definida no momento em que o Token é colocado na nova cena.
-- O processo não cria uma duplicata.
-- Remover ou reposicionar o Token não altera seu controlador.
-- Excluir uma cena não exclui seus Tokens; eles permanecem na campanha com `sceneId = null`.
+- `CampaignToken` representa o Token persistente e pertence obrigatoriamente à campanha;
+- `CampaignTokenPlacement` representa a presença atual desse Token em uma cena.
+
+A relação é opcional e exclusiva:
+
+```text
+CampaignToken 1 <-> 0..1 CampaignTokenPlacement
+```
+
+Regras:
+
+- `CampaignTokenPlacement` possui obrigatoriamente `tokenId`, `sceneId`, `positionX` e `positionY`;
+- `tokenId` é único em `CampaignTokenPlacement`, impedindo o mesmo Token de ocupar duas cenas;
+- um Token sem registro de posicionamento fica disponível no painel de Tokens da toolbar;
+- remover um Token da cena exclui somente seu `CampaignTokenPlacement`;
+- posicionar o Token em uma cena cria um novo `CampaignTokenPlacement` com a posição escolhida pelo Mestre;
+- não existe transferência direta entre cenas: primeiro o posicionamento atual é removido e depois outro é criado;
+- remover ou recriar o posicionamento não altera vínculo, controlador ou aparência do `CampaignToken`;
+- excluir uma cena remove seus registros de posicionamento, mas preserva os respectivos `CampaignToken`;
+- trocar a cena ativa ou visualizada não altera posicionamentos;
+- o painel ordena Tokens em três grupos: primeiro Tokens de Main Characters, depois Tokens secundários controlados por jogadores e, por último, Tokens exclusivos do Mestre.
 
 ## Invariantes do domínio
 
-1. Um `Character` não pode estar vinculado a mais de um Token.
-2. Um Token não pode ocupar mais de uma cena simultaneamente.
-3. Um Token não pode possuir mais de um jogador controlador simultaneamente.
-4. O Mestre sempre mantém autoridade sobre todos os Tokens da campanha.
-5. Alterar o controlador não altera a propriedade do `Character`.
-6. Alterar a cena não altera o controlador.
-7. Controlar o Token não implica editar o `Character`.
-8. Um Token não depende de `Character` para possuir controlador.
-9. `SECONDARY` deve ser derivado do controlador e do Main Character, sem ser persistido como papel.
-10. Excluir uma cena não pode excluir seus Tokens.
-11. Excluir um `Character` não pode excluir o Token vinculado.
-12. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
-13. O VTT Core não depende de ficha, sistema ou ruleset.
+1. Um `Character` não pode estar vinculado a mais de um `CampaignToken`.
+2. Um `CampaignToken` não pode possuir mais de um `CampaignTokenPlacement`.
+3. Um Token não pode ocupar mais de uma cena simultaneamente.
+4. Um Token não pode possuir mais de um jogador controlador simultaneamente.
+5. O Mestre sempre mantém autoridade sobre todos os Tokens da campanha.
+6. Alterar o controlador não altera a propriedade do `Character`.
+7. Alterar o posicionamento não altera o controlador.
+8. Controlar o Token não implica editar o `Character`.
+9. Um Token não depende de `Character` para possuir controlador.
+10. `SECONDARY` deve ser derivado do controlador e do Main Character, sem ser persistido como papel.
+11. Excluir uma cena não pode excluir seus Tokens.
+12. Excluir um `Character` não pode excluir o Token vinculado.
+13. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
+14. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
-A implementação deverá revisar o modelo atual `CampaignSceneToken` para suportar:
+A implementação deverá substituir a responsabilidade atual de `CampaignSceneToken` por:
 
-- pertencimento obrigatório à campanha;
-- `sceneId` opcional;
-- `characterId` opcional e único;
-- referência opcional ao único jogador controlador;
-- controlador independente de `characterId`;
-- preservação do Token quando ele sair de uma cena;
-- uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
-- uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com `Character`;
-- remoção automática do controlador quando ele deixa a campanha;
+- `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com `characterId` opcional e único, controlador opcional e permissão adicional de personalização;
+- `CampaignTokenPlacement`, com `tokenId` único, `sceneId`, `positionX` e `positionY`;
+- exclusão em cascata de posicionamentos quando a cena for excluída, sem excluir os Tokens;
+- `onDelete: SetNull` ou comportamento transacional equivalente no vínculo de `CampaignToken` com `Character`;
+- remoção automática do controlador quando ele deixar a campanha;
 - garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
-- validação de que cena, identidade e controlador pertencem à mesma campanha.
-
-Os nomes finais dos modelos e campos serão definidos durante a implementação, após o encerramento das decisões arquiteturais.
+- validação de que Token, cena, identidade e controlador pertencem à mesma campanha.
 
 ## Permissões mínimas
 
@@ -192,7 +187,7 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 | Selecionar, mover, rotacionar e medir | Sim | Sim | Não |
 | Alterar nome e imagem | Sim | Somente com permissão adicional | Não |
 | Alterar tamanho, camada ou visibilidade | Sim | Não | Não |
-| Transferir entre cenas | Sim | Não | Não |
+| Remover da cena ou posicionar em outra | Sim | Não | Não |
 | Conceder ou revogar controle | Sim | Não | Não |
 | Alterar o vínculo com Character | Sim | Não | Não |
 | Excluir Token | Sim | Não | Não |
@@ -200,3 +195,4 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
+- Quais propriedades visuais e espaciais, além das coordenadas, pertencem a `CampaignToken` ou a `CampaignTokenPlacement`.
