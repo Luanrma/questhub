@@ -8,6 +8,11 @@
 * Paredes e portas usam coordenadas da cena, persistem com ela e sincronizam por websocket.
 * Paredes e portas fechadas bloqueiam movimento de jogadores; portas abertas nao bloqueiam.
 * A visibilidade visual de um segmento para jogadores e independente de sua colisao.
+* A toolbar exibe a ferramenta de regua para Mestre e jogadores com acesso a mesa, independentemente das ferramentas administrativas exclusivas do Mestre.
+* A troca do formato do grid entre quadrado e hexagonal aplica e persiste o novo formato no primeiro clique.
+* `Ctrl+arraste` com a ferramenta Parede ativa cria um retangulo composto por quatro segmentos; o arraste comum cria um unico segmento.
+* Portas sao inseridas sobre segmentos de parede quando houver intersecao/proximidade valida e podem ser abertas, trancadas, obstruidas ou encostadas pelo menu contextual.
+* Abrir uma porta limpa automaticamente os estados trancada, obstruida e encostada.
 * Camera por campanha e persistida separadamente.
 * Nenhum payload base contem campos mecanicos, ruleset, ficha, bestiario, inventario, economia, PV, CA, magia, condicao ou efeito ativo.
 * O menu esquerdo abre mais de um painel flutuante sem navegar para fora nem desmontar a mesa.

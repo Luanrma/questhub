@@ -10,38 +10,82 @@ import {
 } from '../domain/boardMath'
 import type { VttMeasurement, VttPlayerToken, VttWallSegment } from '../domain/types'
 
-export function VttWallsOverlay({ walls, gridSize, isMasterView, editable, draft, onDoorToggle }: {
+export function VttWallsOverlay({ walls, drafts, gridSize, isMasterView, canOpenWallMenu, onWallContextMenu }: {
   walls: VttWallSegment[]
+  drafts: VttWallSegment[]
   gridSize: number
   isMasterView: boolean
-  editable: boolean
-  draft?: Pick<VttWallSegment, 'kind' | 'start' | 'end'> | null
-  onDoorToggle?: (wall: VttWallSegment) => void
+  canOpenWallMenu: boolean
+  onWallContextMenu: (wall: VttWallSegment, position: { x: number; y: number }) => void
 }) {
-  const visibleWalls = isMasterView ? walls : walls.filter((wall) => wall.playerVisible)
+  const roleVisibleWalls = isMasterView ? walls : walls.filter((wall) => wall.kind === 'door' || wall.playerVisible)
+  const visibleWalls = drafts.length && isMasterView ? [...roleVisibleWalls, ...drafts] : roleVisibleWalls
+  const draftIds = new Set(drafts.map((draft) => draft.id))
 
-  function renderLine(wall: Pick<VttWallSegment, 'id' | 'kind' | 'start' | 'end' | 'color' | 'door'>, preview = false) {
-    const isOpenDoor = wall.kind === 'door' && wall.door?.open
-    return <line
-      key={wall.id}
-      x1={wall.start.x * gridSize}
-      y1={wall.start.y * gridSize}
-      x2={wall.end.x * gridSize}
-      y2={wall.end.y * gridSize}
-      stroke={wall.color ?? (wall.kind === 'door' ? '#f59e0b' : '#ef4444')}
-      strokeWidth={wall.kind === 'door' ? 6 : 4}
-      strokeLinecap="round"
-      strokeDasharray={preview || isOpenDoor ? '10 7' : undefined}
-      opacity={preview ? 0.7 : isOpenDoor ? 0.55 : 0.95}
-      className={editable && wall.kind === 'door' ? 'pointer-events-auto cursor-pointer' : undefined}
-      onClick={editable && wall.kind === 'door' && onDoorToggle ? () => onDoorToggle(wall as VttWallSegment) : undefined}
-    />
-  }
+  return (
+    <svg className="pointer-events-none absolute inset-0 z-[6] h-full w-full overflow-visible">
+      {visibleWalls.map((wall) => {
+        const start = measurementPointToPixels(wall.start, gridSize)
+        const end = measurementPointToPixels(wall.end, gridSize)
+        const isDoor = wall.kind === 'door'
+        const isDraft = draftIds.has(wall.id)
+        const open = Boolean(wall.door?.open)
+        const stateColor = open
+          ? '#34d399'
+          : wall.door?.locked
+            ? '#fb7185'
+            : wall.door?.blocked
+              ? '#f43f5e'
+              : wall.door?.ajar
+                ? '#fbbf24'
+                : '#f59e0b'
+        const stroke = wall.color ?? (isDoor ? stateColor : '#e5e7eb')
+        const midpoint = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 }
+        const doorLabel = open ? 'A' : wall.door?.locked ? 'T' : wall.door?.blocked ? 'O' : wall.door?.ajar ? 'E' : 'F'
 
-  return <svg className="pointer-events-none absolute inset-0 z-[6] h-full w-full overflow-visible">
-    {visibleWalls.map((wall) => renderLine(wall))}
-    {draft ? renderLine({ id: 'wall-draft', ...draft }, true) : null}
-  </svg>
+        return (
+          <g key={wall.id} opacity={isDraft ? 0.68 : 1}>
+            <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} stroke="#030712" strokeWidth={isDoor ? 9 : 7} strokeLinecap="round" />
+            <line
+              x1={start.x}
+              y1={start.y}
+              x2={end.x}
+              y2={end.y}
+              stroke={stroke}
+              strokeWidth={isDoor ? 5 : 4}
+              strokeDasharray={isDraft || (isDoor && open) ? '10 8' : undefined}
+              strokeLinecap="round"
+            />
+            {isDoor ? (
+              <>
+                <circle cx={midpoint.x} cy={midpoint.y} r="7" fill="#09090b" stroke={stateColor} strokeWidth="2" />
+                <text x={midpoint.x} y={midpoint.y + 3.5} fill={stateColor} textAnchor="middle" className="select-none text-[9px] font-black">
+                  {doorLabel}
+                </text>
+              </>
+            ) : null}
+            {canOpenWallMenu && !isDraft ? (
+              <line
+                className="pointer-events-auto cursor-context-menu"
+                x1={start.x}
+                y1={start.y}
+                x2={end.x}
+                y2={end.y}
+                stroke="transparent"
+                strokeWidth="18"
+                strokeLinecap="round"
+                onContextMenu={(event) => {
+                  event.preventDefault()
+                  event.stopPropagation()
+                  onWallContextMenu(wall, { x: event.clientX, y: event.clientY })
+                }}
+              />
+            ) : null}
+          </g>
+        )
+      })}
+    </svg>
+  )
 }
 
 export function VttMeasurementOverlay({

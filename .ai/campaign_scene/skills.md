@@ -21,6 +21,7 @@
 * Stable Scene Frame: background, dimensoes do board, grid, zoom e pan nao devem ser recalculados por mudancas exclusivas da camada de tokens.
 * Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como autosave eventual, iniciar e encerrar sessao.
 * Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
+* Scene Wall Editing: segmentos, retangulos e portas sao editados como estado visual generico da cena e preservados no mesmo snapshot.
 * Asset-backed Backgrounds: quando houver imagem de cena, ela deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.

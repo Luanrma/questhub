@@ -9,7 +9,7 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Mestre prepara cenas antes de iniciar a campanha.
 * Mestre configura grid, escala em metros do grid quadrado e, opcionalmente, imagem por cena.
 * Mestre cria e posiciona tokens genericos em cenas especificas antes ou durante a sessao, sem depender de ficha ou sistema de jogo.
-* Mestre desenha paredes e portas, escolhe sua visibilidade e altera portas entre abertas e fechadas.
+* Mestre desenha paredes, cria retangulos, insere portas nos segmentos, escolhe sua visibilidade e configura os estados de passagem.
 * Mestre remove tokens individualmente, todos os tokens da cena atual ou todos os tokens da campanha por acoes explicitas no painel de tokens.
 * Mestre troca a propria cena ativa sem revelar automaticamente a cena nova aos jogadores.
 * Mestre mostra uma cena para todos quando quiser compartilhar uma visao comum.
@@ -36,6 +36,7 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Associar token a ficha, bestiario, inventario, PV, magia, hazard mecanico ou ruleset pertence a extensoes opcionais e nao ao `campaign_scene`.
 * Paredes e portas persistem como segmentos da cena e sao sincronizadas em tempo real.
 * Paredes e portas fechadas impedem que jogadores atravessem seus segmentos; portas abertas liberam passagem.
+* Portas fechadas podem ser marcadas como trancadas, obstruidas ou encostadas; abrir a porta limpa esses estados mutuamente exclusivos.
 * Imagens devem usar cache no client e requisitar novamente apenas quando necessario.
 * A ausencia de imagem nao impede a composicao de paredes e portas sobre a superficie neutra.
 * Preparacao e selecao de cenas ficam integradas a aba `Cenas` da sidebar direita, mantendo o mapa visivel.

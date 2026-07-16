@@ -57,6 +57,7 @@ import {
   sceneResponseToPreparedScene,
   validateSceneImage,
 } from './domain/sceneDomain'
+import { applyDoorToWalls, createRectangleWallSegments, normalizeDoorState } from './domain/wallGeometry'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
@@ -90,12 +91,15 @@ import type {
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
   { id: 'move', label: 'Mover', icon: Move },
-  { id: 'measure', label: 'Medir', icon: Ruler },
+  { id: 'measure', label: 'Régua', icon: Ruler },
   { id: 'dice', label: 'Dados', icon: Dice5 },
   { id: 'tokens', label: 'Tokens', icon: CircleUserRound },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
   { id: 'walls', label: 'Paredes e portas', icon: BrickWall },
 ] as const
+
+const defaultWallColor = '#e5e7eb'
+const defaultDoorColor = '#f59e0b'
 
 type CampaignOverviewPageProps = {
   gridSettings: VttGridSettings
@@ -136,8 +140,8 @@ export function CampaignOverviewPage({
   const gridAreaRef = useRef<HTMLDivElement | null>(null)
   const backgroundImageRef = useRef<HTMLImageElement | null>(null)
   const measuringRef = useRef(false)
-  const drawingWallRef = useRef(false)
-  const wallDraftRef = useRef<Pick<VttWallSegment, 'kind' | 'start' | 'end'> | null>(null)
+  const wallDraftStartRef = useRef<VttMeasurementPoint | null>(null)
+  const wallUndoStackRef = useRef<VttWallSegment[][]>([])
   const measurementRef = useRef<VttMeasurement | null>(null)
   const measuredMovementCharacterIdRef = useRef<string | null>(null)
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
@@ -154,9 +158,12 @@ export function CampaignOverviewPage({
   const [toolsCollapsed, setToolsCollapsed] = useState(false)
   const [measurement, setMeasurement] = useState<VttMeasurement | null>(null)
   const [measuredMovementCharacterId, setMeasuredMovementCharacterId] = useState<string | null>(null)
-  const [wallDraft, setWallDraft] = useState<Pick<VttWallSegment, 'kind' | 'start' | 'end'> | null>(null)
+  const [wallDrafts, setWallDrafts] = useState<VttWallSegment[]>([])
   const [wallKind, setWallKind] = useState<VttWallSegment['kind']>('wall')
-  const [wallsPlayerVisible, setWallsPlayerVisible] = useState(false)
+  const [wallColor, setWallColor] = useState(defaultWallColor)
+  const [doorColor, setDoorColor] = useState(defaultDoorColor)
+  const [wallUndoCount, setWallUndoCount] = useState(0)
+  const [wallContextMenu, setWallContextMenu] = useState<{ wall: VttWallSegment; x: number; y: number } | null>(null)
   const [diceClearSignal, setDiceClearSignal] = useState(0)
   const [zoomPercent, setZoomPercent] = useState(100)
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
@@ -202,6 +209,7 @@ export function CampaignOverviewPage({
     if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'walls') return canConfigureGrid
     return true
   })
+  const playersCanSeeSceneWalls = Boolean(activeScene?.walls.some((wall) => wall.kind === 'wall' && wall.playerVisible))
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
   const positionedCharacterIds = new Set<string>()
@@ -841,51 +849,140 @@ export function CampaignOverviewPage({
     socket.emit('vtt:walls:update', { campaignId, sceneId: activeScene.id, walls })
   }
 
-  function startWall(event: React.PointerEvent<HTMLDivElement>) {
+  function updateActiveSceneWalls(
+    updater: (walls: VttWallSegment[]) => VttWallSegment[],
+    options?: { recordUndo?: boolean },
+  ) {
+    if (!activeScene || !isMaster) return
+    const previousWalls = activeScene.walls
+    const nextWalls = updater(previousWalls)
+    if (nextWalls === previousWalls) return
+
+    if (options?.recordUndo) {
+      wallUndoStackRef.current = [...wallUndoStackRef.current.slice(-24), previousWalls]
+      setWallUndoCount(wallUndoStackRef.current.length)
+    }
+    publishWalls(nextWalls)
+  }
+
+  function undoLastWallCreation() {
+    if (!isMaster) return false
+    const previousWalls = wallUndoStackRef.current.pop()
+    if (!previousWalls) return false
+    setWallUndoCount(wallUndoStackRef.current.length)
+    publishWalls(previousWalls)
+    setWallContextMenu(null)
+    return true
+  }
+
+  function createWallId() {
+    return globalThis.crypto.randomUUID()
+  }
+
+  function createWallSegment(start: VttMeasurementPoint, end: VttMeasurementPoint): VttWallSegment | null {
+    if (Math.hypot(end.x - start.x, end.y - start.y) <= 0.001) return null
+
+    if (wallKind === 'door') {
+      return {
+        id: createWallId(),
+        kind: 'door',
+        start,
+        end,
+        color: doorColor,
+        playerVisible: true,
+        door: normalizeDoorState({ ajar: true }),
+      }
+    }
+
+    return {
+      id: createWallId(),
+      kind: 'wall',
+      start,
+      end,
+      color: wallColor,
+      playerVisible: playersCanSeeSceneWalls,
+    }
+  }
+
+  function createWallDrafts(start: VttMeasurementPoint, end: VttMeasurementPoint, rectangle: boolean) {
+    if (rectangle && wallKind === 'wall') {
+      return createRectangleWallSegments({
+        start,
+        end,
+        color: wallColor,
+        playerVisible: playersCanSeeSceneWalls,
+        createId: createWallId,
+      })
+    }
+
+    const segment = createWallSegment(start, end)
+    return segment ? [segment] : []
+  }
+
+  function getWallPoint(event: React.PointerEvent<HTMLElement>) {
     const point = getMeasurementPoint(event)
-    if (!point || !activeScene || !isMaster) return
+    if (!point) return null
+    return gridSettings.shape === 'hex' ? snapHexMeasurementPoint(point) : point
+  }
+
+  function startWall(event: React.PointerEvent<HTMLDivElement>) {
+    if (event.button !== 0 || !activeScene || !isMaster) return
+    const point = getWallPoint(event)
+    if (!point) return
     event.preventDefault()
+    event.stopPropagation()
     event.currentTarget.setPointerCapture(event.pointerId)
-    drawingWallRef.current = true
-    wallDraftRef.current = { kind: wallKind, start: point, end: point }
-    setWallDraft(wallDraftRef.current)
+    wallDraftStartRef.current = point
+    setWallDrafts(createWallDrafts(point, point, event.ctrlKey))
   }
 
   function updateWall(event: React.PointerEvent<HTMLDivElement>) {
-    if (!drawingWallRef.current) return
-    const point = getMeasurementPoint(event)
-    if (point && wallDraftRef.current) {
-      wallDraftRef.current = { ...wallDraftRef.current, end: point }
-      setWallDraft(wallDraftRef.current)
-    }
+    const start = wallDraftStartRef.current
+    if (!start) return
+    const point = getWallPoint(event)
+    if (!point) return
+    setWallDrafts(createWallDrafts(start, point, event.ctrlKey))
   }
 
-  function finishWall() {
-    drawingWallRef.current = false
-    const draft = wallDraftRef.current
-    if (draft && Math.hypot(draft.end.x - draft.start.x, draft.end.y - draft.start.y) > 0.05) {
-      const wall: VttWallSegment = {
-        ...draft,
-        id: globalThis.crypto?.randomUUID?.() ?? `wall-${Date.now()}`,
-        playerVisible: wallsPlayerVisible,
-        ...(draft.kind === 'door' ? {
-          door: { open: false, locked: false, blocked: false, ajar: true },
-        } : {}),
-      }
-      publishWalls([...(activeScene?.walls ?? []), wall])
-    }
-    wallDraftRef.current = null
-    setWallDraft(null)
+  function finishWall(event: React.PointerEvent<HTMLDivElement>) {
+    const start = wallDraftStartRef.current
+    wallDraftStartRef.current = null
+    setWallDrafts([])
+    if (!start) return
+
+    const point = getWallPoint(event)
+    if (!point) return
+    const segments = createWallDrafts(start, point, event.ctrlKey)
+    if (!segments.length) return
+
+    updateActiveSceneWalls((walls) => {
+      if (segments.length > 1) return [...walls, ...segments]
+      const [segment] = segments
+      if (segment.kind === 'door') return applyDoorToWalls({ walls, door: segment, createId: createWallId })
+      return [...walls, segment]
+    }, { recordUndo: true })
   }
 
-  function toggleDoor(wall: VttWallSegment) {
-    if (wall.kind !== 'door' || !activeScene) return
-    publishWalls(activeScene.walls.map((item) => item.id === wall.id ? {
-      ...item,
-      door: item.door?.open
-        ? { open: false, locked: false, blocked: false, ajar: true }
-        : { open: true, locked: false, blocked: false, ajar: false },
-    } : item))
+  function updateDoorState(wallId: string, patch: Partial<NonNullable<VttWallSegment['door']>>) {
+    updateActiveSceneWalls((walls) => walls.map((wall) => {
+      if (wall.id !== wallId || wall.kind !== 'door') return wall
+      return { ...wall, door: normalizeDoorState({ ...wall.door, ...patch }) }
+    }))
+    setWallContextMenu((current) => {
+      if (!current || current.wall.id !== wallId || current.wall.kind !== 'door') return current
+      return { ...current, wall: { ...current.wall, door: normalizeDoorState({ ...current.wall.door, ...patch }) } }
+    })
+  }
+
+  function removeWallSegment(wallId: string) {
+    updateActiveSceneWalls((walls) => walls.filter((wall) => wall.id !== wallId), { recordUndo: true })
+    setWallContextMenu(null)
+  }
+
+  function setPlayerWallVisibility(visible: boolean) {
+    updateActiveSceneWalls((walls) => walls.map((wall) =>
+      wall.kind === 'wall' ? { ...wall, playerVisible: visible } : wall,
+    ))
   }
 
   function isEditableKeyboardTarget(target: EventTarget | null) {
@@ -896,11 +993,11 @@ export function CampaignOverviewPage({
 
   function clearTransientTools() {
     measuringRef.current = false
-    drawingWallRef.current = false
-    wallDraftRef.current = null
+    wallDraftStartRef.current = null
     measurementRef.current = null
     measuredMovementCharacterIdRef.current = null
-    setWallDraft(null)
+    setWallDrafts([])
+    setWallContextMenu(null)
     setMeasurement(null)
     setMeasuredMovementCharacterId(null)
     setActiveTool(null)
@@ -948,10 +1045,7 @@ export function CampaignOverviewPage({
       if (isEditableKeyboardTarget(event.target)) return
 
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'z' && activeTool === 'walls') {
-        if (activeScene?.walls.length) {
-          publishWalls(activeScene.walls.slice(0, -1))
-          event.preventDefault()
-        }
+        if (undoLastWallCreation()) event.preventDefault()
         return
       }
 
@@ -1382,7 +1476,10 @@ export function CampaignOverviewPage({
     <div className="relative h-full min-h-0 overflow-hidden bg-[#08090c] text-white">
       <section
         className="absolute inset-0 min-h-0 overflow-hidden bg-[#0b0d12]"
-        onClick={() => setTokenContextMenu(null)}
+        onClick={() => {
+          setTokenContextMenu(null)
+          setWallContextMenu(null)
+        }}
       >
         <div ref={boardViewportRef} className="absolute inset-0 overflow-hidden">
           <div
@@ -1438,11 +1535,11 @@ export function CampaignOverviewPage({
             <VttGridOverlay settings={zoomedGridSettings} />
             <VttWallsOverlay
               walls={activeScene?.walls ?? []}
+              drafts={wallDrafts}
               gridSize={tokenSize}
               isMasterView={Boolean(isMaster)}
-              editable={Boolean(isMaster && activeTool === 'walls')}
-              draft={wallDraft}
-              onDoorToggle={toggleDoor}
+              canOpenWallMenu={Boolean(isMaster && activeTool !== 'walls')}
+              onWallContextMenu={(wall, position) => setWallContextMenu({ wall, ...position })}
             />
             {visibleTokens.map((token) => (
               <PlayerToken
@@ -1494,7 +1591,7 @@ export function CampaignOverviewPage({
                 <Wrench className="h-4 w-4" />
               </button>
             ) : (
-            <div className="pointer-events-auto absolute left-16 top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
+            <div className="pointer-events-auto absolute left-16 top-5 z-40 flex max-w-[calc(100vw-9rem)] overflow-x-auto rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur">
               <button type="button" title="Recolher ferramentas" aria-label="Recolher ferramentas" className="flex h-10 w-10 items-center justify-center rounded-md text-zinc-300 transition hover:bg-white/10 hover:text-white" onClick={collapseToolsToolbar}>
                 <Wrench className="h-4 w-4" />
               </button>
@@ -1508,6 +1605,8 @@ export function CampaignOverviewPage({
                   <button
                     key={tool.label}
                     type="button"
+                    data-vtt-tool={tool.id}
+                    aria-label={tool.label}
                     title={`${tool.label}${tool.id === 'move' ? ' (Alt)' : tool.id === 'measure' ? ' (Ctrl+clique, Espaco confirma)' : tool.id === 'walls' ? ' (Ctrl+Z desfaz)' : ''}`}
                     disabled={disabled}
                     className={[
@@ -1524,9 +1623,9 @@ export function CampaignOverviewPage({
 
                       onGridSettingsOpenChange(false)
                       measuringRef.current = false
-                      drawingWallRef.current = false
-                      wallDraftRef.current = null
-                      setWallDraft(null)
+                      wallDraftStartRef.current = null
+                      setWallDrafts([])
+                      setWallContextMenu(null)
                       setActiveTool((current) => (current === tool.id ? null : tool.id))
                     }}
                   >
@@ -1552,6 +1651,7 @@ export function CampaignOverviewPage({
 
             {gridSettingsOpen && canConfigureGrid ? (
               <VttGridSettingsModal
+                key={activeScene?.id ?? 'campaign-grid'}
                 settings={gridSettings}
                 onChange={handleGridSettingsChange}
                 onClose={() => onGridSettingsOpenChange(false)}
@@ -1559,26 +1659,41 @@ export function CampaignOverviewPage({
             ) : null}
 
             {activeTool === 'walls' && isMaster ? (
-              <div className="pointer-events-auto absolute left-24 top-20 z-30 w-72 rounded-lg border border-white/10 bg-black/70 p-3 text-white shadow-2xl backdrop-blur">
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="flex items-center gap-2 text-xs font-semibold uppercase text-zinc-300"><BrickWall className="h-4 w-4 text-red-300" />Paredes e portas</span>
+              <div className="pointer-events-auto absolute left-24 top-20 z-30 w-[min(320px,calc(100vw-128px))] rounded-lg border border-white/10 bg-black/70 p-3 text-white shadow-2xl backdrop-blur">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <span className="flex items-center gap-2 text-xs font-semibold uppercase text-zinc-300"><BrickWall className="h-4 w-4 text-sky-300" />Paredes e portas</span>
                   <button type="button" title="Fechar" className="rounded p-1 text-zinc-400 hover:bg-white/10 hover:text-white" onClick={() => setActiveTool(null)}><X className="h-4 w-4" /></button>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
                   {(['wall', 'door'] as const).map((kind) => (
-                    <button key={kind} type="button" className={['rounded-md border px-3 py-2 text-xs font-semibold', wallKind === kind ? 'border-indigo-300 bg-indigo-500/25 text-white' : 'border-white/10 text-zinc-300 hover:bg-white/10'].join(' ')} onClick={() => setWallKind(kind)}>
+                    <button key={kind} type="button" className={['rounded-md border px-3 py-2 text-xs font-semibold transition', wallKind === kind ? 'border-sky-300/45 bg-sky-500/20 text-sky-100' : 'border-white/10 text-zinc-300 hover:bg-white/10'].join(' ')} onClick={() => setWallKind(kind)}>
                       {kind === 'wall' ? 'Parede' : 'Porta'}
                     </button>
                   ))}
                 </div>
-                <label className="mt-3 flex items-center gap-2 text-xs text-zinc-300">
-                  <input type="checkbox" checked={wallsPlayerVisible} onChange={(event) => setWallsPlayerVisible(event.target.checked)} />
-                  Visível aos jogadores
-                </label>
-                <p className="mt-3 text-[11px] leading-4 text-zinc-500">Arraste sobre o mapa para desenhar. Clique em uma porta existente para abrir ou fechar.</p>
+
                 <div className="mt-3 grid grid-cols-2 gap-2">
-                  <button type="button" disabled={!activeScene?.walls.length} className="rounded-md border border-white/10 px-3 py-2 text-xs font-semibold text-zinc-300 hover:bg-white/10 disabled:opacity-40" onClick={() => publishWalls(activeScene?.walls.slice(0, -1) ?? [])}>Desfazer</button>
-                  <button type="button" disabled={!activeScene?.walls.length} className="rounded-md border border-red-300/20 px-3 py-2 text-xs font-semibold text-red-200 hover:bg-red-500/10 disabled:opacity-40" onClick={() => publishWalls([])}>Limpar</button>
+                  <label className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.04] px-2 py-2 text-xs text-zinc-300">
+                    Parede
+                    <input type="color" value={wallColor} className="h-7 w-9 cursor-pointer rounded border border-white/10 bg-transparent" onChange={(event) => setWallColor(event.currentTarget.value)} />
+                  </label>
+                  <label className="flex items-center justify-between gap-2 rounded-md border border-white/10 bg-white/[0.04] px-2 py-2 text-xs text-zinc-300">
+                    Porta
+                    <input type="color" value={doorColor} className="h-7 w-9 cursor-pointer rounded border border-white/10 bg-transparent" onChange={(event) => setDoorColor(event.currentTarget.value)} />
+                  </label>
+                </div>
+
+                <label className="mt-3 flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-300">
+                  <input type="checkbox" className="h-4 w-4 accent-sky-500" checked={playersCanSeeSceneWalls} onChange={(event) => setPlayerWallVisibility(event.currentTarget.checked)} />
+                  Jogadores veem paredes
+                </label>
+
+                <p className="mt-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] leading-4 text-zinc-400">
+                  Arraste para criar um segmento. Ctrl + arraste no modo Parede cria um retângulo. Clique com o botão direito em uma parede ou porta para editar.
+                </p>
+                <div className="mt-3 grid grid-cols-2 gap-2">
+                  <button type="button" disabled={!wallUndoCount} className="rounded-md border border-white/10 px-3 py-2 text-xs font-semibold text-zinc-300 hover:bg-white/10 disabled:opacity-40" onClick={undoLastWallCreation}>Desfazer</button>
+                  <button type="button" disabled={!activeScene?.walls.length} className="rounded-md border border-red-300/20 px-3 py-2 text-xs font-semibold text-red-200 hover:bg-red-500/10 disabled:opacity-40" onClick={() => updateActiveSceneWalls(() => [], { recordUndo: true })}>Limpar</button>
                 </div>
               </div>
             ) : null}
@@ -1686,6 +1801,49 @@ export function CampaignOverviewPage({
                 >
                   <Trash2 className="h-4 w-4" />
                   Remover
+                </button>
+              </div>
+            ) : null}
+
+            {wallContextMenu && isMaster ? (
+              <div
+                className="pointer-events-auto fixed z-50 w-56 overflow-hidden rounded-lg border border-white/10 bg-[#111218] p-2 text-white shadow-2xl"
+                style={{ left: wallContextMenu.x, top: wallContextMenu.y }}
+                onClick={(event) => event.stopPropagation()}
+                onContextMenu={(event) => event.preventDefault()}
+              >
+                <div className="border-b border-white/10 px-2 pb-2">
+                  <div className="truncate text-sm font-semibold">{wallContextMenu.wall.kind === 'door' ? 'Porta' : 'Parede'}</div>
+                  <div className="truncate text-xs text-zinc-500">
+                    {wallContextMenu.wall.kind === 'door' ? 'Status da passagem' : 'Barreira da cena'}
+                  </div>
+                </div>
+                {wallContextMenu.wall.kind === 'door'
+                  ? [
+                      { key: 'open' as const, label: 'Aberta', disabled: false },
+                      { key: 'locked' as const, label: 'Trancada', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                      { key: 'blocked' as const, label: 'Obstruída', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                      { key: 'ajar' as const, label: 'Encostada', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                    ].map((item) => (
+                      <label key={item.key} className="mt-2 flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-200 transition hover:bg-white/10">
+                        <input
+                          type="checkbox"
+                          className="h-4 w-4 accent-sky-500"
+                          disabled={item.disabled}
+                          checked={Boolean(wallContextMenu.wall.door?.[item.key])}
+                          onChange={(event) => updateDoorState(wallContextMenu.wall.id, { [item.key]: event.currentTarget.checked })}
+                        />
+                        {item.label}
+                      </label>
+                    ))
+                  : null}
+                <button
+                  type="button"
+                  className="mt-2 flex h-8 w-full items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 text-xs font-semibold text-red-100 transition hover:bg-red-500/20"
+                  onClick={() => removeWallSegment(wallContextMenu.wall.id)}
+                >
+                  <Trash2 className="h-4 w-4" />
+                  {wallContextMenu.wall.kind === 'door' ? 'Remover porta' : 'Remover parede'}
                 </button>
               </div>
             ) : null}

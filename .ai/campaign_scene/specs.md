@@ -27,6 +27,9 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * Vincular, trocar ou remover imagem de background e acao separada da criacao da cena.
 * Cenas vazias continuam selecionaveis e podem receber grid, tokens e estado de sessao.
 * Cenas vazias devem renderizar uma superficie neutra no VTT, sem bloquear ferramentas de grid, medicao ou tokens.
+* A alteracao do formato do grid entre quadrado e hexagonal deve produzir o novo snapshot da cena no primeiro clique.
+* A ferramenta de paredes cria um segmento com arraste comum e quatro segmentos retangulares com `Ctrl+arraste`.
+* Portas podem dividir um segmento de parede e persistem os estados `open`, `locked`, `blocked` e `ajar`; quando `open` for verdadeiro, os demais estados devem ser falsos.
 * Cenas sem imagem de background devem usar dimensoes canonicas compartilhadas de board, derivadas de `boardGridLimits`, do formato do grid e do tamanho de grid da cena, para que Mestre e Players online tenham exatamente a mesma quantidade de celulas jogaveis.
 * A modelagem deve permanecer compativel com um futuro fluxo `Construir cena`, onde elementos de construcao como paredes, chao, portas, janelas, escadas, buracos e colisao serao adicionados sem depender de imagem.
 

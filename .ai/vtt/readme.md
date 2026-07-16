@@ -6,6 +6,8 @@ O VTT core deve funcionar sem sistema de jogo implementado. Criar campanha, abri
 
 Personagens podem funcionar como identidades e controladores de tokens, mas essa associacao e opcional. Um token generico com nome, imagem/cor e posicao e valido por si so. O menu da campanha expoe apenas capacidades do VTT, sem atalho ou dependencia de ficha mecanica.
 
-Paredes e portas pertencem a cena. O Mestre pode desenhar segmentos, definir sua visibilidade e abrir ou fechar portas em tempo real. Segmentos fechados bloqueiam o deslocamento de jogadores; o Mestre preserva controle total durante a preparacao.
+Paredes e portas pertencem a cena. O Mestre pode desenhar segmentos e retangulos, definir sua visibilidade e configurar portas abertas, trancadas, obstruidas ou encostadas em tempo real. Segmentos fechados bloqueiam o deslocamento de jogadores; o Mestre preserva controle total durante a preparacao.
+
+A toolbar mantem a regua como ferramenta primaria para Mestre e jogadores autorizados. A configuracao de grid troca entre quadrado e hexagonal no primeiro clique, sem exigir uma segunda interacao.
 
 A mesa preserva o contexto visual enquanto ferramentas administrativas sao abertas. O menu esquerdo abre paineis flutuantes independentes sobre o VTT; a sidebar direita concentra combate, participantes, sessao, cenas e chat em abas; e a toolbar pode ser recolhida sem desmontar a cena.
