@@ -37,13 +37,13 @@ function applyDamageHeightening(
   baseFormula: DiceFormula,
   effectiveRank: number | undefined,
 ): DiceFormula {
-  if (effectiveRank === undefined || effectiveRank <= definition.rank || !definition.heightening) return baseFormula
+  if (effectiveRank === undefined || effectiveRank <= definition.rank) return baseFormula
 
   const heightening = definition.heightening
   let formula = baseFormula
 
-  if (heightening.type === 'interval') {
-    const interval = heightening.interval
+  if (heightening.kind === 'INTERVAL') {
+    const interval = heightening.everyRanks
     const extraRaw = heightening.damage?.[damageKey]
     if (!extraRaw || interval <= 0) return baseFormula
 
@@ -69,16 +69,21 @@ export function resolvePathfinder2eSpellResolutionProfile(
   definition: Pathfinder2eSpellDefinition | null,
   options: Pathfinder2eSpellResolutionProfileOptions = {},
 ): Pathfinder2eSpellResolutionProfile {
-  if (!definition?.defense || !definition.defense.save.basic) return { kind: 'none' }
+  if (!definition || definition.defense.kind !== 'SAVE' || !definition.defense.basic) return { kind: 'none' }
 
-  const damageComponents = Object.entries(definition.damage).filter(([, component]) => component.kinds.includes('damage'))
+  const damageComponents = definition.damage.filter((component) => component.kind === 'DAMAGE')
   if (damageComponents.length !== 1) return { kind: 'none' }
 
-  const [damageKey, damageComponent] = damageComponents[0] as [string, Pathfinder2eSpellDamageComponent]
+  const damageComponent = damageComponents[0] as Pathfinder2eSpellDamageComponent
   const baseFormula = parseDiceFormula(damageComponent.formula)
   if (!baseFormula) return { kind: 'none' }
 
-  const formula = applyDamageHeightening(definition, damageKey, baseFormula, options.effectiveRank)
+  const formula = applyDamageHeightening(definition, damageComponent.id, baseFormula, options.effectiveRank)
 
-  return { kind: 'basicSaveDamage', formula, damageType: damageComponent.type, statistic: definition.defense.save.statistic }
+  return {
+    kind: 'basicSaveDamage',
+    formula,
+    damageType: damageComponent.damageType,
+    statistic: definition.defense.statistic.toLocaleLowerCase() as Pathfinder2eSavingThrowKey,
+  }
 }

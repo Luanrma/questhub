@@ -1,6 +1,6 @@
 import type { Pathfinder2eCharacterSpellbookData, Pathfinder2eSpellcastingEntry } from '../character-spells/models'
 import type { Pathfinder2eSpellDefinition } from '../spells/models'
-import { parsePathfinder2eSpellRange } from '../../shared/spell-area'
+import { formatPathfinder2eCastingTime } from '../spells'
 import { parsePathfinder2eSpellTargetCount } from '../../shared/spell-target'
 import type { Pathfinder2eSpellTargetProfile } from '../../shared/spell-target'
 import { normalizePathfinder2eFocusPool } from './consume'
@@ -111,18 +111,28 @@ export function buildPathfinder2eCastOptions(
     const spells: Pathfinder2eCastableSpell[] = collectEntrySpells(entry).map((reference) => {
       const definition = findSpell(reference.spellId)
       const isCantrip = definition ? definition.traits.includes('cantrip') : reference.rank === 0
-      const rangeProfile = definition ? parsePathfinder2eSpellRange(definition.range) : null
+      const rangeProfile = definition?.targeting.range
 
       return {
         spellId: reference.spellId,
         name: definition?.name ?? reference.name,
         rank: definition?.rank ?? reference.rank ?? 0,
         isCantrip,
-        time: definition?.time ?? null,
-        rangeFeet: rangeProfile?.kind === 'feet' ? rangeProfile.feet : null,
-        rangeKind: rangeProfile ? rangeProfile.kind : 'none',
-        area: definition?.area ? { type: definition.area.type, valueFeet: definition.area.value } : null,
-        targetProfile: parsePathfinder2eSpellTargetCount(definition?.target),
+        time: definition ? formatPathfinder2eCastingTime(definition.casting.time) : null,
+        rangeFeet: rangeProfile?.kind === 'DISTANCE' ? rangeProfile.feet : null,
+        rangeKind: rangeProfile?.kind === 'DISTANCE'
+          ? 'feet'
+          : rangeProfile?.kind === 'TOUCH'
+            ? 'touch'
+            : rangeProfile?.kind === 'UNLIMITED'
+              ? 'unlimited'
+              : rangeProfile?.kind === 'TEXT'
+                ? 'unsupported'
+                : 'none',
+        area: definition?.targeting.area
+          ? { type: definition.targeting.area.shape.toLocaleLowerCase(), valueFeet: definition.targeting.area.feet }
+          : null,
+        targetProfile: parsePathfinder2eSpellTargetCount(definition?.targeting.target),
         resolution: resolvePathfinder2eSpellResolutionProfile(definition ?? null),
         resource: resolveResource(entry, reference.spellId, isCantrip),
       }

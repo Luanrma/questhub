@@ -1,6 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { countCampaignSpells, findCampaignSpell, listCampaignSpells } from './registry'
+import { PATHFINDER_2E_SPELL_DATA } from '../../../../../../packages/game-system-pathfinder-2e/src/server/spells'
 
 test('listCampaignSpells returns Pathfinder 2e spells ordered by rank', () => {
   const spells = listCampaignSpells('PATHFINDER_2E')
@@ -30,16 +31,17 @@ test('listCampaignSpells paginates Pathfinder 2e spells', () => {
 })
 
 test('countCampaignSpells counts the complete extracted Pathfinder 2e spell catalog', () => {
-  assert.equal(countCampaignSpells('PATHFINDER_2E'), 1716)
-  assert.equal(countCampaignSpells('PATHFINDER_2E', { filters: { category: 'ritual' } }), 134)
-  assert.equal(countCampaignSpells('PATHFINDER_2E', { filters: { category: 'spell' } }), 1582)
+  const rituals = PATHFINDER_2E_SPELL_DATA.filter((spell) => spell.kind === 'RITUAL').length
+  assert.equal(countCampaignSpells('PATHFINDER_2E'), PATHFINDER_2E_SPELL_DATA.length)
+  assert.equal(countCampaignSpells('PATHFINDER_2E', { filters: { category: 'ritual' } }), rituals)
+  assert.equal(countCampaignSpells('PATHFINDER_2E', { filters: { category: 'spell' } }), PATHFINDER_2E_SPELL_DATA.length - rituals)
 })
 
 test('listCampaignSpells filters Pathfinder 2e spells by category', () => {
   const rituals = listCampaignSpells('PATHFINDER_2E', { filters: { category: 'ritual' }, limit: 200 })
 
   assert.ok(rituals)
-  assert.equal(rituals.length, 134)
+  assert.equal(rituals.length, PATHFINDER_2E_SPELL_DATA.filter((spell) => spell.kind === 'RITUAL').length)
   assert.ok(rituals.every((spell) => spell.category === 'ritual'))
 })
 

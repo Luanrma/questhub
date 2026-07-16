@@ -1,139 +1,107 @@
-export type Pathfinder2eSpellCategory = 'spell' | 'ritual'
+/**
+ * Modelo canonico de magias do QuestHub.
+ *
+ * Este arquivo nao representa documentos do Foundry. Fontes externas devem ser
+ * traduzidas para estes contratos no importador e descartadas em seguida.
+ */
+export type Pathfinder2eSpellKind = 'SPELL' | 'RITUAL'
+export type Pathfinder2eSpellRarity = 'COMMON' | 'UNCOMMON' | 'RARE' | 'UNIQUE'
+export type Pathfinder2eTradition = 'ARCANE' | 'DIVINE' | 'OCCULT' | 'PRIMAL'
+export type Pathfinder2eSave = 'FORTITUDE' | 'REFLEX' | 'WILL'
 
-export type Pathfinder2eSpellDamageKind = 'damage' | 'healing'
+export type Pathfinder2eCastingTime =
+  | { kind: 'ACTIONS'; actions: 1 | 2 | 3 }
+  | { kind: 'REACTION' }
+  | { kind: 'FREE_ACTION' }
+  | { kind: 'LONG'; text: string }
+  | { kind: 'VARIABLE'; text: string }
+  | { kind: 'UNKNOWN'; text: string }
 
-export type Pathfinder2eSpellDamageComponent = {
-  formula: string
-  type: string
-  kinds: Pathfinder2eSpellDamageKind[]
-  category: string | null
-  applyMod: boolean
-  materials: string[]
-}
+export type Pathfinder2eSpellRange =
+  | { kind: 'SELF' | 'TOUCH' | 'UNLIMITED' }
+  | { kind: 'DISTANCE'; feet: number }
+  | { kind: 'TEXT'; text: string }
+  | { kind: 'NONE' }
 
 export type Pathfinder2eSpellArea = {
-  type: string
-  value: number
-  details?: string
+  shape: 'BURST' | 'CONE' | 'CUBE' | 'CYLINDER' | 'EMANATION' | 'LINE' | 'SQUARE' | 'OTHER'
+  feet: number
+  text?: string
 }
 
-export type Pathfinder2eSpellDefense = {
-  save: {
-    statistic: 'fortitude' | 'reflex' | 'will'
-    basic: boolean
-  }
-} | null
+export type Pathfinder2eSpellDefense =
+  | { kind: 'SAVE'; statistic: Pathfinder2eSave; basic: boolean }
+  | { kind: 'SPELL_ATTACK' }
+  | { kind: 'NONE' }
 
-export type Pathfinder2eSpellDuration = {
-  value: string
-  sustained: boolean
-}
-
-export type Pathfinder2eSpellHeighteningInterval = {
-  type: 'interval'
-  interval: number
-  damage?: Record<string, string>
-  area?: number
-}
-
-export type Pathfinder2eSpellHeighteningFixed = {
-  type: 'fixed'
-  levels: Record<string, unknown>
-}
-
-export type Pathfinder2eSpellHeightening = Pathfinder2eSpellHeighteningInterval | Pathfinder2eSpellHeighteningFixed | null
-
-export type Pathfinder2eSpellOverlay = {
+export type Pathfinder2eSpellDamageComponent = {
   id: string
-  name?: string
-  overlayType: string
-  sort: number
-  system: Record<string, unknown>
+  formula: string
+  damageType: string
+  kind: 'DAMAGE' | 'HEALING'
+  applyAbilityModifier: boolean
 }
 
-export type Pathfinder2eRuleElementSource = Record<string, unknown> & { key: string }
+export type Pathfinder2eSpellHeightening =
+  | { kind: 'INTERVAL'; everyRanks: number; damage: Record<string, string>; areaFeet?: number }
+  | { kind: 'MANUAL'; text: string }
+  | { kind: 'NONE' }
 
-export type Pathfinder2eRitualData = {
+export type Pathfinder2eRitual = {
   primaryCheck?: string
   secondaryChecks?: string
   secondaryCasters?: number
 }
 
+export type Pathfinder2eSpellAutomation = {
+  status: 'SUPPORTED' | 'PARTIAL' | 'MANUAL'
+  reasons: string[]
+}
+
 export type Pathfinder2eSpellSource = {
-  pack: string
-  id: string
-  title?: string
+  provider: 'PAIZO'
+  sourceId: string
+  book?: string
   license?: string
   remaster: boolean
 }
 
-export type Pathfinder2eRichTextNode =
-  | { kind: 'TEXT'; value: string }
-  | { kind: 'UUID'; uuid: string; label?: string }
-  | { kind: 'CHECK'; statistic: string; dc?: string; basic?: boolean; against?: string }
-  | { kind: 'DAMAGE'; formula: string; damageTypes: string[]; label?: string }
-  | { kind: 'TEMPLATE'; shape: string; distance?: number; width?: number }
-  | { kind: 'LOCALIZE'; key: string }
-  | { kind: 'ACTION_GLYPH'; actions: string }
-
-export type Pathfinder2eRichTextDocument = {
-  raw: string
-  nodes: Pathfinder2eRichTextNode[]
-}
-
 export type Pathfinder2eSpellDefinition = {
   id: string
-  source: Pathfinder2eSpellSource
   name: string
-  category: Pathfinder2eSpellCategory
+  kind: Pathfinder2eSpellKind
   rank: number
-  rarity: string
+  rarity: Pathfinder2eSpellRarity
   traits: string[]
-  traditions: string[]
-  time: string
-  cost?: string
-  requirements?: string
-  range?: string
-  target?: string
-  area: Pathfinder2eSpellArea | null
-  duration: Pathfinder2eSpellDuration
+  traditions: Pathfinder2eTradition[]
+  casting: {
+    time: Pathfinder2eCastingTime
+    cost?: string
+    requirements?: string
+  }
+  targeting: {
+    range: Pathfinder2eSpellRange
+    target?: string
+    area: Pathfinder2eSpellArea | null
+  }
+  duration: { text: string; sustained: boolean }
   defense: Pathfinder2eSpellDefense
-  damage: Record<string, Pathfinder2eSpellDamageComponent>
+  damage: Pathfinder2eSpellDamageComponent[]
   heightening: Pathfinder2eSpellHeightening
-  overlays: Pathfinder2eSpellOverlay[]
   counteraction: boolean
-  ritual: Pathfinder2eRitualData | null
-  rules: Pathfinder2eRuleElementSource[]
-  description: Pathfinder2eRichTextDocument
-  dependencyIds: string[]
+  ritual: Pathfinder2eRitual | null
+  description: string
+  automation: Pathfinder2eSpellAutomation
+  source: Pathfinder2eSpellSource
 }
 
-export type Pathfinder2eSpellEffectDocumentType = 'effect' | 'condition'
-
-export type Pathfinder2eSpellEffectDependency = {
-  id: string
-  sourcePack: string
-  sourceId: string
-  name: string
-  documentType: Pathfinder2eSpellEffectDocumentType
-  rules: Pathfinder2eRuleElementSource[]
-  description: Pathfinder2eRichTextDocument
-}
-
-export type Pathfinder2eSourceManifest = {
-  repository: 'foundryvtt/pf2e'
-  systemVersion: string
-  commitSha: string | null
+/** Metadados auditaveis do processo de importacao; nao fazem parte da magia. */
+export type Pathfinder2eSpellImportManifest = {
+  importerVersion: number
+  provider: 'FOUNDRY_PF2E'
+  providerVersion: string
   importedAt: string
-  packs: Array<{ path: string; fileCount: number; checksum: string }>
-}
-
-export type Pathfinder2eSpellCompatibilityReport = {
-  sourceManifest: Pathfinder2eSourceManifest
-  totalSpells: number
-  totalRituals: number
-  totalDependencies: number
-  unresolvedReferences: Array<{ fromId: string; uuid: string }>
-  unknownRuleElementKeys: string[]
-  compilationFailures: Array<{ id: string; reason: string }>
+  inputChecksum: string
+  imported: number
+  rejected: Array<{ sourceId: string; reason: string }>
 }

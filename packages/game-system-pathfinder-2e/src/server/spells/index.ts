@@ -2,263 +2,143 @@ import type {
   GameSystemSpellAdapter,
   GameSystemSpellDisplayStat,
   GameSystemSpellEntry,
-  GameSystemSpellSheet,
   GameSystemSpellSheetEntry,
   GameSystemSpellSheetSection,
 } from '../../../../game-system-core/src/server/spells'
-import { PATHFINDER_2E_SPELL_DATA, PATHFINDER_2E_SPELL_EFFECT_DEPENDENCIES, PATHFINDER_2E_SPELL_SOURCE_SUMMARY } from './data.generated'
-import { PATHFINDER_2E_SPELL_SOURCE_MANIFEST } from './source-manifest.generated'
-import { PATHFINDER_2E_SPELL_COMPATIBILITY_REPORT } from './compatibility-report.generated'
+import { PATHFINDER_2E_SPELL_DATA } from './data.generated'
+import { PATHFINDER_2E_SPELL_IMPORT_MANIFEST } from './import-manifest.generated'
 import type {
-  Pathfinder2eSpellDamageComponent,
-  Pathfinder2eSpellDefense,
+  Pathfinder2eCastingTime,
+  Pathfinder2eSpellArea,
   Pathfinder2eSpellDefinition,
-  Pathfinder2eSpellHeightening,
-  Pathfinder2eRichTextDocument,
-  Pathfinder2eRichTextNode,
+  Pathfinder2eSpellRange,
 } from './models'
 
 export * from './models'
-export {
-  PATHFINDER_2E_SPELL_DATA,
-  PATHFINDER_2E_SPELL_EFFECT_DEPENDENCIES,
-  PATHFINDER_2E_SPELL_SOURCE_SUMMARY,
-  PATHFINDER_2E_SPELL_SOURCE_MANIFEST,
-  PATHFINDER_2E_SPELL_COMPATIBILITY_REPORT,
-}
+export { PATHFINDER_2E_SPELL_DATA, PATHFINDER_2E_SPELL_IMPORT_MANIFEST }
 
-const SPELL_DEFINITION_BY_ID = new Map(PATHFINDER_2E_SPELL_DATA.map((spell) => [spell.id, spell]))
+const SPELL_BY_ID = new Map(PATHFINDER_2E_SPELL_DATA.map((spell) => [spell.id, spell]))
 
 export function findPathfinder2eSpellDefinition(spellId: string) {
-  return SPELL_DEFINITION_BY_ID.get(spellId) ?? null
+  return SPELL_BY_ID.get(spellId) ?? null
 }
 
-const SAVE_LABELS: Record<string, string> = {
-  fortitude: 'Fortitude',
-  reflex: 'Reflexos',
-  will: 'Vontade',
+function label(value: string) {
+  return value.toLocaleLowerCase().replace(/(^|_)(\p{L})/gu, (_, prefix, letter) => `${prefix ? ' ' : ''}${letter.toLocaleUpperCase()}`)
 }
 
-function labelize(value: string) {
-  return value
-    .split(/[-_]/)
-    .map((part) => (part ? `${part[0].toLocaleUpperCase()}${part.slice(1)}` : part))
-    .join(' ')
+export function formatPathfinder2eCastingTime(time: Pathfinder2eCastingTime) {
+  if (time.kind === 'ACTIONS') return `${time.actions} acao(oes)`
+  if (time.kind === 'REACTION') return 'Reacao'
+  if (time.kind === 'FREE_ACTION') return 'Acao livre'
+  return time.text
 }
 
-function formatSave(defense: Pathfinder2eSpellDefense) {
-  if (!defense) return undefined
-  const label = SAVE_LABELS[defense.save.statistic] ?? labelize(defense.save.statistic)
-  return defense.save.basic ? `${label} (basico)` : label
+export function formatPathfinder2eSpellRange(range: Pathfinder2eSpellRange) {
+  if (range.kind === 'NONE') return undefined
+  if (range.kind === 'DISTANCE') return `${range.feet} pes`
+  if (range.kind === 'TEXT') return range.text
+  return label(range.kind)
 }
 
-function formatArea(area: Pathfinder2eSpellDefinition['area']) {
-  if (!area || !area.value || !area.type) return undefined
-  return `${area.value} pes (${labelize(area.type)})`
+function formatArea(area: Pathfinder2eSpellArea | null) {
+  return area ? `${area.feet} pes (${label(area.shape)})` : undefined
 }
 
-function formatDamageComponent(component: Pathfinder2eSpellDamageComponent) {
-  const isHealingOnly = component.kinds.includes('healing') && !component.kinds.includes('damage')
-  return `${component.formula} ${component.type}${isHealingOnly ? ' (cura)' : ''}`.trim()
+function compact<T>(items: Array<T | null>): T[] {
+  return items.filter((item): item is T => item !== null)
 }
 
-function formatDamage(damage: Pathfinder2eSpellDefinition['damage']) {
-  const components = Object.values(damage).map(formatDamageComponent)
-  return components.length > 0 ? components.join('; ') : undefined
-}
-
-function formatHeightening(heightening: Pathfinder2eSpellHeightening) {
-  if (!heightening) return undefined
-  if (heightening.type === 'interval') return `A cada ${heightening.interval} rank(s)`
-  const ranks = Object.keys(heightening.levels)
-    .map(Number)
-    .filter((rank) => Number.isFinite(rank))
-    .sort((left, right) => left - right)
-  return ranks.length > 0 ? `Ranks ${ranks.join(', ')}` : undefined
-}
-
-function renderRichTextNode(node: Pathfinder2eRichTextNode): string {
-  switch (node.kind) {
-    case 'TEXT':
-      return node.value
-    case 'UUID':
-      return node.label ?? node.uuid.split('.').pop() ?? node.uuid
-    case 'CHECK': {
-      const label = SAVE_LABELS[node.statistic] ?? labelize(node.statistic)
-      const parts = [label]
-      if (node.dc) parts.push(`CD ${node.dc}`)
-      if (node.basic) parts.push('(basico)')
-      return `[${parts.join(' ')}]`
-    }
-    case 'DAMAGE': {
-      const types = node.damageTypes.join(', ')
-      return node.label ?? `${node.formula}${types ? ` (${types})` : ''}`
-    }
-    case 'TEMPLATE': {
-      const distance = node.distance !== undefined ? ` ${node.distance} pes` : ''
-      return `[${labelize(node.shape)}${distance}]`
-    }
-    case 'LOCALIZE':
-      return `[${node.key}]`
-    case 'ACTION_GLYPH':
-      return `[${node.actions} acao(oes)]`
-    default:
-      return ''
-  }
-}
-
-function renderRichText(document: Pathfinder2eRichTextDocument) {
-  return document.nodes
-    .map(renderRichTextNode)
-    .join(' ')
-    .replace(/ +\n/g, '\n')
-    .trim()
-}
-
-function compactEntries(entries: Array<GameSystemSpellSheetEntry | null>) {
-  return entries.filter((entry): entry is GameSystemSpellSheetEntry => entry !== null)
-}
-
-function compactStats(stats: Array<GameSystemSpellDisplayStat | null>) {
-  return stats.filter((stat): stat is GameSystemSpellDisplayStat => stat !== null)
-}
-
-function compactSections(sections: Array<GameSystemSpellSheetSection | null>) {
-  return sections.filter((section): section is GameSystemSpellSheetSection => section !== null && section.entries.length > 0)
-}
-
-function toDisplaySheet(spell: Pathfinder2eSpellDefinition): GameSystemSpellSheet {
-  const casting = compactEntries([
-    spell.time ? { key: 'castingTime', label: 'Tempo de Conjuracao', value: spell.time } : null,
-    spell.cost ? { key: 'cost', label: 'Custo', value: spell.cost } : null,
-    spell.traditions.length > 0 ? { key: 'traditions', label: 'Tradicoes', value: spell.traditions.map(labelize).join(', ') } : null,
-    spell.requirements ? { key: 'requirements', label: 'Requisitos', value: spell.requirements } : null,
+function toSheet(spell: Pathfinder2eSpellDefinition) {
+  const casting = compact<GameSystemSpellSheetEntry>([
+    { key: 'castingTime', label: 'Tempo de Conjuracao', value: formatPathfinder2eCastingTime(spell.casting.time) },
+    spell.casting.cost ? { key: 'cost', label: 'Custo', value: spell.casting.cost } : null,
+    spell.traditions.length ? { key: 'traditions', label: 'Tradicoes', value: spell.traditions.map(label).join(', ') } : null,
+    spell.casting.requirements ? { key: 'requirements', label: 'Requisitos', value: spell.casting.requirements } : null,
   ])
-
-  const targeting = compactEntries([
-    spell.range ? { key: 'range', label: 'Alcance', value: spell.range } : null,
-    spell.target ? { key: 'target', label: 'Alvo', value: spell.target } : null,
-    formatArea(spell.area) ? { key: 'area', label: 'Area', value: formatArea(spell.area) } : null,
+  const targeting = compact<GameSystemSpellSheetEntry>([
+    formatPathfinder2eSpellRange(spell.targeting.range) ? { key: 'range', label: 'Alcance', value: formatPathfinder2eSpellRange(spell.targeting.range) } : null,
+    spell.targeting.target ? { key: 'target', label: 'Alvo', value: spell.targeting.target } : null,
+    formatArea(spell.targeting.area) ? { key: 'area', label: 'Area', value: formatArea(spell.targeting.area) } : null,
   ])
-
-  const effect = compactEntries([
-    spell.duration.value ? { key: 'duration', label: 'Duracao', value: spell.duration.sustained ? `${spell.duration.value} (sustentada)` : spell.duration.value } : null,
-    spell.defense ? { key: 'save', label: 'Salvamento', value: formatSave(spell.defense) } : null,
-    formatDamage(spell.damage) ? { key: 'damage', label: 'Dano/Cura', value: formatDamage(spell.damage) } : null,
-    spell.counteraction ? { key: 'counteraction', label: 'Counteract', value: 'Sim' } : null,
+  const defense = spell.defense.kind === 'SAVE'
+    ? `${label(spell.defense.statistic)}${spell.defense.basic ? ' (basico)' : ''}`
+    : spell.defense.kind === 'SPELL_ATTACK' ? 'Ataque de magia' : undefined
+  const effect = compact<GameSystemSpellSheetEntry>([
+    spell.duration.text ? { key: 'duration', label: 'Duracao', value: `${spell.duration.text}${spell.duration.sustained ? ' (sustentada)' : ''}` } : null,
+    defense ? { key: 'defense', label: 'Defesa', value: defense } : null,
+    spell.damage.length ? { key: 'damage', label: 'Dano/Cura', value: spell.damage.map((part) => `${part.formula} ${part.damageType}${part.kind === 'HEALING' ? ' (cura)' : ''}`.trim()).join('; ') } : null,
+    { key: 'automation', label: 'Automacao', value: label(spell.automation.status) },
   ])
-
-  const overlays = compactEntries(
-    spell.overlays
-      .slice()
-      .sort((left, right) => left.sort - right.sort)
-      .map((overlay) => (overlay.name ? { key: overlay.id, label: 'Variante', value: overlay.name } : null)),
-  )
-
-  const description = compactEntries([{ key: 'text', label: 'Descricao', detail: renderRichText(spell.description) }])
-
-  const heightening = compactEntries([formatHeightening(spell.heightening) ? { key: 'heightening', label: 'Aprimoramento', value: formatHeightening(spell.heightening) } : null])
-
-  const ritual = compactEntries([
-    spell.ritual?.primaryCheck ? { key: 'primaryCheck', label: 'Verificador Primario', value: spell.ritual.primaryCheck } : null,
-    spell.ritual?.secondaryChecks ? { key: 'secondaryChecks', label: 'Verificadores Secundarios', value: spell.ritual.secondaryChecks } : null,
-    typeof spell.ritual?.secondaryCasters === 'number'
-      ? { key: 'secondaryCasters', label: 'Conjuradores Secundarios', value: String(spell.ritual.secondaryCasters) }
-      : null,
+  const sections = compact<GameSystemSpellSheetSection>([
+    { key: 'casting', title: 'Conjuracao', entries: casting },
+    targeting.length ? { key: 'targeting', title: 'Alvo e Area', entries: targeting } : null,
+    { key: 'effect', title: 'Efeito', entries: effect },
+    spell.description ? { key: 'description', title: 'Descricao', entries: [{ key: 'text', label: 'Descricao', detail: spell.description }] } : null,
+    spell.heightening.kind !== 'NONE' ? { key: 'heightening', title: 'Aprimoramento', entries: [{ key: 'heightening', label: 'Regra', value: spell.heightening.kind === 'INTERVAL' ? `A cada ${spell.heightening.everyRanks} rank(s)` : spell.heightening.text }] } : null,
+    spell.ritual ? {
+      key: 'ritual',
+      title: 'Ritual',
+      entries: compact([
+        spell.ritual.primaryCheck ? { key: 'primaryCheck', label: 'Teste primario', value: spell.ritual.primaryCheck } : null,
+        spell.ritual.secondaryChecks ? { key: 'secondaryChecks', label: 'Testes secundarios', value: spell.ritual.secondaryChecks } : null,
+        typeof spell.ritual.secondaryCasters === 'number' ? { key: 'secondaryCasters', label: 'Conjuradores secundarios', value: String(spell.ritual.secondaryCasters) } : null,
+      ]),
+    } : null,
   ])
-
-  const source = compactEntries([
-    spell.source.title ? { key: 'publication', label: 'Publicacao', value: spell.source.title } : null,
-    spell.source.license ? { key: 'license', label: 'Licenca', value: spell.source.license } : null,
-  ])
-
-  return {
-    sections: compactSections([
-      { key: 'casting', title: 'Conjuracao', entries: casting },
-      { key: 'targeting', title: 'Alvo e Area', entries: targeting },
-      { key: 'effect', title: 'Efeito', entries: effect },
-      { key: 'overlays', title: 'Variantes', entries: overlays },
-      { key: 'description', title: 'Descricao', entries: description },
-      { key: 'heightening', title: 'Aprimoramento', entries: heightening },
-      { key: 'ritual', title: 'Ritual', entries: ritual },
-      { key: 'source', title: 'Fonte', entries: source },
-    ]),
-  }
+  return { sections }
 }
 
-function toSpellEntry(spell: Pathfinder2eSpellDefinition): GameSystemSpellEntry<Pathfinder2eSpellDefinition> {
-  const isCantrip = spell.traits.includes('cantrip')
-
+function toEntry(spell: Pathfinder2eSpellDefinition): GameSystemSpellEntry<Pathfinder2eSpellDefinition> {
+  const cantrip = spell.traits.includes('cantrip')
+  const stats = compact<GameSystemSpellDisplayStat>([
+    { key: 'castingTime', label: 'Tempo', value: formatPathfinder2eCastingTime(spell.casting.time) },
+    formatPathfinder2eSpellRange(spell.targeting.range) ? { key: 'range', label: 'Alcance', value: formatPathfinder2eSpellRange(spell.targeting.range) ?? '' } : null,
+  ])
   return {
     id: spell.id,
     system: 'PATHFINDER_2E',
-    category: spell.category,
+    category: spell.kind === 'RITUAL' ? 'ritual' : 'spell',
     name: spell.name,
-    source: {
-      pack: spell.source.pack,
-      id: spell.source.id,
-      title: spell.source.title,
-      license: spell.source.license,
-    },
+    source: { id: spell.source.sourceId, title: spell.source.book, license: spell.source.license },
     display: {
-      subtitle: spell.source.title ? `${spell.source.title} - ${spell.source.pack}` : spell.source.pack,
-      level: { label: 'Rank', value: isCantrip ? 'Truque' : String(spell.rank) },
-      stats: compactStats([
-        spell.time ? { key: 'castingTime', label: 'Tempo', value: spell.time } : null,
-        spell.range ? { key: 'range', label: 'Alcance', value: spell.range } : null,
-        spell.defense ? { key: 'save', label: 'Salvamento', value: formatSave(spell.defense) ?? '' } : null,
-      ]),
-      tags: [spell.rarity, ...spell.traditions, ...spell.traits],
-      sheet: toDisplaySheet(spell),
+      subtitle: spell.source.book,
+      level: { label: 'Rank', value: cantrip ? 'Truque' : String(spell.rank) },
+      stats,
+      tags: [spell.rarity.toLocaleLowerCase(), ...spell.traditions.map((item) => item.toLocaleLowerCase()), ...spell.traits],
+      sheet: toSheet(spell),
     },
     systemData: spell,
   }
 }
 
-const PATHFINDER_2E_SPELL_BY_ID = new Map(PATHFINDER_2E_SPELL_DATA.map((spell) => [spell.id, spell]))
-
-function matchesSearch(spell: Pathfinder2eSpellDefinition, search: string) {
-  const normalized = search.trim().toLocaleLowerCase()
-  if (!normalized) return true
-
-  return (
-    spell.name.toLocaleLowerCase().includes(normalized) ||
-    spell.traits.some((trait) => trait.toLocaleLowerCase().includes(normalized)) ||
-    spell.traditions.some((tradition) => tradition.toLocaleLowerCase().includes(normalized))
-  )
-}
-
-function matchesFilters(spell: Pathfinder2eSpellDefinition, filters: Record<string, string | number> | undefined) {
-  if (!filters) return true
-  if (typeof filters.rank === 'number' && spell.rank !== filters.rank) return false
-  if (typeof filters.rarity === 'string' && spell.rarity !== filters.rarity) return false
-  if (typeof filters.tradition === 'string' && !spell.traditions.includes(filters.tradition)) return false
-  if (typeof filters.category === 'string' && filters.category !== 'all' && spell.category !== filters.category) return false
-  return true
-}
-
-function filterSpells(options: { search?: string; filters?: Record<string, string | number> } | undefined) {
-  const search = options?.search ?? ''
-
-  return PATHFINDER_2E_SPELL_DATA.filter((spell) => matchesSearch(spell, search) && matchesFilters(spell, options?.filters))
+function filtered(options?: { search?: string; filters?: Record<string, string | number> }) {
+  const search = options?.search?.trim().toLocaleLowerCase() ?? ''
+  const filters = options?.filters
+  return PATHFINDER_2E_SPELL_DATA.filter((spell) => {
+    if (search && !spell.name.toLocaleLowerCase().includes(search) && !spell.traits.some((item) => item.toLocaleLowerCase().includes(search))) return false
+    if (typeof filters?.rank === 'number' && spell.rank !== filters.rank) return false
+    if (typeof filters?.rarity === 'string' && spell.rarity !== filters.rarity.toUpperCase()) return false
+    if (typeof filters?.tradition === 'string' && !spell.traditions.includes(filters.tradition.toUpperCase() as never)) return false
+    if (typeof filters?.category === 'string' && filters.category !== 'all' && spell.kind.toLocaleLowerCase() !== filters.category) return false
+    return true
+  })
 }
 
 export const pathfinder2eSpellAdapter: GameSystemSpellAdapter = {
   system: 'PATHFINDER_2E',
   listEntries(options) {
-    const limit = options?.limit ?? 24
-    const offset = options?.offset ?? 0
-
-    return filterSpells(options)
-      .sort((a, b) => a.rank - b.rank || a.name.localeCompare(b.name))
-      .slice(offset, offset + limit)
-      .map(toSpellEntry)
+    return filtered(options)
+      .slice()
+      .sort((left, right) => left.rank - right.rank || left.name.localeCompare(right.name))
+      .slice(options?.offset ?? 0, (options?.offset ?? 0) + (options?.limit ?? 24))
+      .map(toEntry)
   },
   countEntries(options) {
-    return filterSpells(options).length
+    return filtered(options).length
   },
   findEntry(entryId) {
-    const spell = PATHFINDER_2E_SPELL_BY_ID.get(entryId)
-    return spell ? toSpellEntry(spell) : null
+    const spell = SPELL_BY_ID.get(entryId)
+    return spell ? toEntry(spell) : null
   },
 }

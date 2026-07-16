@@ -262,29 +262,30 @@ export function isExpectedShapeForArea(
   metersPerCell: number,
   casterPosition: ScenePoint,
 ): boolean {
-  if (!spell.area) return false
-  const expectedCells = pathfinder2eFeetToCells(spell.area.value, metersPerCell)
+  const area = spell.targeting.area
+  if (!area) return false
+  const expectedCells = pathfinder2eFeetToCells(area.feet, metersPerCell)
   if (expectedCells <= 0) return false
 
-  switch (spell.area.type) {
-    case 'burst':
+  switch (area.shape) {
+    case 'BURST':
       return shape.kind === 'BURST' && nearlyEqual(shape.radiusCells, expectedCells)
-    case 'cylinder':
+    case 'CYLINDER':
       return shape.kind === 'CYLINDER' && nearlyEqual(shape.radiusCells, expectedCells)
-    case 'emanation':
+    case 'EMANATION':
       return shape.kind === 'EMANATION' && nearlyEqual(shape.radiusCells, expectedCells) && samePoint(shape.center, casterPosition)
-    case 'cone':
+    case 'CONE':
       return shape.kind === 'CONE' && nearlyEqual(shape.lengthCells, expectedCells) && samePoint(shape.origin, casterPosition)
-    case 'line':
+    case 'LINE':
       return (
         shape.kind === 'LINE' &&
         nearlyEqual(shape.lengthCells, expectedCells) &&
         nearlyEqual(shape.widthCells, pathfinder2eFeetToCells(5, metersPerCell)) &&
         samePoint(shape.origin, casterPosition)
       )
-    case 'square':
+    case 'SQUARE':
       return shape.kind === 'SQUARE' && nearlyEqual(shape.sizeCells, expectedCells)
-    case 'cube':
+    case 'CUBE':
       return shape.kind === 'CUBE' && nearlyEqual(shape.sizeCells, expectedCells)
     default:
       return false
@@ -298,8 +299,8 @@ export function isWithinSpellRange(
   shape: SceneAreaShape,
   gridShape: 'SQUARE' | 'HEX',
 ) {
-  const range = parsePathfinder2eSpellRange(spell.range)
-  if (!range || range.kind !== 'feet') return true
+  const range = spell.targeting.range
+  if (range.kind !== 'DISTANCE') return true
 
   const maxCells = pathfinder2eFeetToCells(range.feet, metersPerCell)
   if (maxCells <= 0) return true
@@ -355,7 +356,7 @@ async function validateCastPlacement(
   placement: CastPlacement | undefined,
 ): Promise<{ ok: true; context: CastSceneContext | null } | { ok: false; error: string }> {
   const spell = findPathfinder2eSpellDefinition(spellId)
-  if (!spell?.area) {
+  if (!spell?.targeting.area) {
     if (placement) return { ok: false, error: 'Esta magia nao possui area para posicionar' }
     return { ok: true, context: null }
   }
@@ -365,7 +366,7 @@ async function validateCastPlacement(
   const resolved = await resolveCastSceneContext(characterId, placement)
   if (!resolved.ok) return resolved
 
-  if (resolved.context.gridShape === 'HEX' && !HEX_SUPPORTED_SPELL_AREA_TYPES.has(spell.area.type)) {
+  if (resolved.context.gridShape === 'HEX' && !HEX_SUPPORTED_SPELL_AREA_TYPES.has(spell.targeting.area.shape.toLocaleLowerCase())) {
     return { ok: false, error: 'Esta forma de area (cone/linha/quadrado/cubo) ainda nao e suportada em grid hexagonal' }
   }
 
@@ -402,7 +403,7 @@ async function resolveNonAreaCastContext(
   targets: string[] | undefined,
 ): Promise<{ ok: true; context: CastSceneContext | null; targetNames: string[] } | { ok: false; error: string }> {
   const spell = findPathfinder2eSpellDefinition(spellId)
-  const targetProfile = parsePathfinder2eSpellTargetCount(spell?.target)
+  const targetProfile = parsePathfinder2eSpellTargetCount(spell?.targeting.target)
 
   if (targetProfile.kind !== 'count') {
     if (!caster) return { ok: true, context: null, targetNames: [] }
@@ -454,8 +455,8 @@ async function resolveNonAreaCastContext(
   if (targetTokens.some((token) => !token)) return { ok: false, error: 'Alvo invalido: token nao encontrado na cena' }
 
   const casterPosition = { x: casterToken.positionX, y: casterToken.positionY }
-  const range = parsePathfinder2eSpellRange(spell?.range)
-  if (range?.kind === 'feet') {
+  const range = spell?.targeting.range
+  if (range?.kind === 'DISTANCE') {
     const maxCells = pathfinder2eFeetToCells(range.feet, scene.metersPerCell)
     if (maxCells > 0) {
       for (const token of targetTokens) {
@@ -484,9 +485,7 @@ async function resolveNonAreaCastContext(
 
 function getActionCost(spellId: string): number | null {
   const spell = findPathfinder2eSpellDefinition(spellId)
-  const parsed = parsePathfinder2eCastActionCost(spell?.time)
-  if (parsed.kind !== 'actions') return null
-  return parsed.actions
+  return spell?.casting.time.kind === 'ACTIONS' ? spell.casting.time.actions : null
 }
 
 const VALID_PROFICIENCY_RANKS = new Set<number>([0, 2, 4, 6, 8])
@@ -563,7 +562,7 @@ export async function resolveSpellResolutionScene(
   | { ok: true; context: CastSceneContext; targetTokens: ResolvedTargetToken[] }
   | { ok: false; error: string }
 > {
-  const targetProfile = parsePathfinder2eSpellTargetCount(spell?.target)
+  const targetProfile = parsePathfinder2eSpellTargetCount(spell?.targeting.target)
   if (targetProfile.kind === 'count' && (targetTokenIds.length < targetProfile.min || targetTokenIds.length > targetProfile.max)) {
     return { ok: false, error: `Esta magia exige ${targetCountLabel(targetProfile)}` }
   }
@@ -624,8 +623,8 @@ export async function resolveSpellResolutionScene(
   }
 
   const casterPosition = { x: casterToken!.positionX, y: casterToken!.positionY }
-  const range = parsePathfinder2eSpellRange(spell?.range)
-  if (range?.kind === 'feet') {
+  const range = spell?.targeting.range
+  if (range?.kind === 'DISTANCE') {
     const maxCells = pathfinder2eFeetToCells(range.feet, scene.metersPerCell)
     if (maxCells > 0) {
       for (const token of targetTokens) {

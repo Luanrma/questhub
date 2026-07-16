@@ -115,7 +115,7 @@ async function validateNpcCastPlacement(
   placement: CastPlacement | undefined,
 ): Promise<{ ok: true; context: CastSceneContext | null } | { ok: false; error: string }> {
   const spell = findPathfinder2eSpellDefinition(spellId)
-  if (!spell?.area) {
+  if (!spell?.targeting.area) {
     if (placement) return { ok: false, error: 'Esta magia nao possui area para posicionar' }
     return { ok: true, context: null }
   }
@@ -124,7 +124,7 @@ async function validateNpcCastPlacement(
   const resolved = await resolveNpcCastSceneContext(campaignId, definitionId, placement)
   if (!resolved.ok) return resolved
 
-  if (resolved.context.gridShape === 'HEX' && !HEX_SUPPORTED_SPELL_AREA_TYPES.has(spell.area.type)) {
+  if (resolved.context.gridShape === 'HEX' && !HEX_SUPPORTED_SPELL_AREA_TYPES.has(spell.targeting.area.shape.toLocaleLowerCase())) {
     return { ok: false, error: 'Esta forma de area (cone/linha/quadrado/cubo) ainda nao e suportada em grid hexagonal' }
   }
   if (!isExpectedShapeForArea(placement.shape, spell, resolved.context.metersPerCell, resolved.context.casterPosition)) {
@@ -144,7 +144,7 @@ async function resolveNpcNonAreaCastContext(
   targets: string[] | undefined,
 ): Promise<{ ok: true; context: CastSceneContext | null; targetNames: string[] } | { ok: false; error: string }> {
   const spell = findPathfinder2eSpellDefinition(spellId)
-  const targetProfile = parsePathfinder2eSpellTargetCount(spell?.target)
+  const targetProfile = parsePathfinder2eSpellTargetCount(spell?.targeting.target)
 
   if (targetProfile.kind !== 'count') {
     if (!caster) return { ok: true, context: null, targetNames: [] }
@@ -192,8 +192,8 @@ async function resolveNpcNonAreaCastContext(
   if (targetTokens.some((token) => !token)) return { ok: false, error: 'Alvo invalido: token nao encontrado na cena' }
 
   const casterPosition = { x: casterToken.positionX, y: casterToken.positionY }
-  const range = parsePathfinder2eSpellRange(spell?.range)
-  if (range?.kind === 'feet') {
+  const range = spell?.targeting.range
+  if (range?.kind === 'DISTANCE') {
     const maxCells = pathfinder2eFeetToCells(range.feet, scene.metersPerCell)
     if (maxCells > 0) {
       for (const token of targetTokens) {
