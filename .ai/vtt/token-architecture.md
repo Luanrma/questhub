@@ -46,6 +46,7 @@ A campanha é o limite de isolamento do mundo de jogo.
 - `CampaignToken`, `CampaignTokenPlacement`, cenas, controles e vínculos operacionais sempre pertencem a uma única campanha.
 - Nenhuma cena, Token, posicionamento ou permissão pode referenciar conteúdo de outra campanha.
 - `User` é a conta global e pode possuir vários Characters.
+- `CampaignMember` representa esse User dentro de uma campanha específica e deve ser único por combinação de `campaignId` e `userId`.
 - Um `Character` pode ser criado antes de participar de uma campanha.
 - Depois que um `CampaignCharacter` o vincula, esse Character participa de exatamente uma campanha e não pode ser reutilizado em outra.
 - O usuário pode possuir Characters diferentes vinculados a campanhas diferentes.
@@ -92,7 +93,8 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - Um jogador pode controlar vários Tokens.
 - Cada Token pode ter no máximo um jogador controlador, além do Mestre.
 - Conceder o controle a outro jogador substitui o controlador anterior.
-- A permissão pertence ao jogador participante da campanha, não ao `Character`.
+- A permissão pertence ao `CampaignMember` do jogador, não ao `User` global nem ao `Character`.
+- `CampaignToken.controllerMemberId` referencia opcionalmente o único jogador controlador dentro daquele mundo.
 - O controlador deve ser persistido no banco de dados.
 - O controle permanece entre sessões.
 - O controle permanece quando o posicionamento do Token muda.
@@ -102,7 +104,7 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
 - O Mestre pode conceder ao controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração do nome e da imagem do Token.
 - Jogadores controladores não podem remover o Token de uma cena nem posicioná-lo em outra.
-- Quando o jogador controlador deixa a campanha, o controle é removido automaticamente; o Token permanece sob autoridade do Mestre e pode ser reatribuído.
+- Quando o jogador controlador deixa a campanha, `controllerMemberId` é removido automaticamente; o Token permanece sob autoridade do Mestre e pode ser reatribuído.
 
 ### 5. Main Character e Tokens secundários
 
@@ -186,13 +188,14 @@ Regras:
 
 A implementação deverá substituir a responsabilidade atual de `CampaignSceneToken` por:
 
-- `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com nome, imagem, cor, tamanho, `characterId` opcional e único, controlador opcional e permissão adicional de personalização;
+- `CampaignMember`, único por `campaignId` e `userId`, representando a participação do usuário naquele mundo;
+- `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com nome, imagem, cor, tamanho, `characterId` opcional e único, `controllerMemberId` opcional e permissão adicional de personalização;
 - `CampaignTokenPlacement`, com `tokenId` único, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade;
 - exclusão em cascata de posicionamentos quando a cena for excluída, sem excluir os Tokens;
 - `onDelete: SetNull` ou comportamento transacional equivalente no vínculo de `CampaignToken` com `Character`;
 - remoção automática do controlador quando ele deixar a campanha;
 - garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
-- validação de que Token, posicionamento, cena, Character e controlador pertencem à mesma campanha, impedindo referências cruzadas entre mundos.
+- validação de que Token, posicionamento, cena, Character e `CampaignMember` controlador pertencem à mesma campanha, impedindo referências cruzadas entre mundos.
 
 ## Permissões mínimas
 
