@@ -66,3 +66,4 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Controlar um Token não concede automaticamente permissão para editar o `Character` nem dados mantidos por módulos externos.
 * Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
 * Excluir o `Character` vinculado preserva o Token, o posicionamento, a aparência e o controlador, removendo somente o vínculo.
+* Excluir o `CampaignToken` remove seu posicionamento e seu vínculo, mas nunca exclui o `Character` associado.
