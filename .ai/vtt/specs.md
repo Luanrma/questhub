@@ -46,6 +46,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
 * O Mestre pode conceder ao jogador controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração de nome e imagem.
 * O jogador controlador não pode transferir o Token entre cenas.
+* Quando o jogador controlador deixa a campanha, sua associação é removida automaticamente; o Token permanece sob autoridade do Mestre.
 * O jogador do Main Character recebe automaticamente o controle do Token vinculado; o Mestre pode transferir esse controle sem alterar a propriedade do `Character`.
 * Controlar um Token não concede automaticamente permissão para editar o `Character` nem dados mantidos por módulos externos.
 * Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
