@@ -145,6 +145,7 @@ Regras:
 - um Token sem registro de posicionamento fica disponível no painel de Tokens da toolbar;
 - remover um Token da cena exclui somente seu `CampaignTokenPlacement`;
 - posicionar o Token em uma cena cria um novo `CampaignTokenPlacement` com a posição escolhida pelo Mestre;
+- todo novo posicionamento começa com rotação `0`, camada padrão de Tokens e visibilidade ativada;
 - não existe transferência direta entre cenas: primeiro o posicionamento atual é removido e depois outro é criado;
 - remover ou recriar o posicionamento não altera vínculo, controlador ou aparência do `CampaignToken`;
 - excluir uma cena remove seus registros de posicionamento, mas preserva os respectivos `CampaignToken`;
@@ -196,4 +197,3 @@ A implementação deverá substituir a responsabilidade atual de `CampaignSceneT
 
 ## Decisões pendentes
 
-- Quais valores iniciais rotação, camada e visibilidade recebem ao criar um novo posicionamento.
