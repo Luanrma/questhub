@@ -100,7 +100,7 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - Jogadores controladores não podem transferir o Token entre cenas.
 - Quando o jogador controlador deixa a campanha, o controle é removido automaticamente; o Token permanece sob autoridade do Mestre e pode ser reatribuído.
 
-### 5. Main Character
+### 5. Main Character e Tokens secundários
 
 Cada jogador possui exatamente um Main Character ativo dentro da campanha.
 
@@ -115,7 +115,13 @@ Quando o Main Character é vinculado a um Token:
 
 Propriedade da identidade e controle do Token são conceitos distintos.
 
-Personagens adicionais associados a jogadores usam `CampaignCharacterRole.SECONDARY`. Esse papel abrange segundo personagem, companion, familiar, pet, montaria ou outra identidade secundária sem classificá-la como NPC. O papel não concede controle de Token por si só.
+`SECONDARY` é uma classificação derivada do controle do Token, não um valor de `CampaignCharacterRole`:
+
+- o Token do Main Character não é secundário para seu jogador;
+- qualquer outro Token controlado por esse jogador é um Token secundário dele;
+- um Token secundário pode estar vinculado ou não a um `Character`;
+- conceder, transferir ou revogar o controle atualiza automaticamente essa classificação derivada;
+- não existe `CampaignCharacterRole.SECONDARY` nem persistência duplicada dessa informação.
 
 ### 6. Controle do Token e acesso ao Character
 
@@ -154,10 +160,11 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 6. Alterar a cena não altera o controlador.
 7. Controlar o Token não implica editar o `Character`.
 8. Um Token não depende de `Character` para possuir controlador.
-9. Excluir uma cena não pode excluir seus Tokens.
-10. Excluir um `Character` não pode excluir o Token vinculado.
-11. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
-12. O VTT Core não depende de ficha, sistema ou ruleset.
+9. `SECONDARY` deve ser derivado do controlador e do Main Character, sem ser persistido como papel.
+10. Excluir uma cena não pode excluir seus Tokens.
+11. Excluir um `Character` não pode excluir o Token vinculado.
+12. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
+13. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
@@ -172,7 +179,6 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com `Character`;
 - remoção automática do controlador quando ele deixa a campanha;
-- inclusão de `SECONDARY` em `CampaignCharacterRole`;
 - garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
