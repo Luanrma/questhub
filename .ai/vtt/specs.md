@@ -34,6 +34,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * `CampaignTokenPlacement` representa a presença do Token em uma cena e possui `tokenId`, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade.
 * Cada `CampaignToken` possui no máximo um `CampaignTokenPlacement`; `tokenId` deve ser único no posicionamento.
 * Remover o Token da cena exclui somente o posicionamento; colocar o Token no grid cria um novo posicionamento com coordenadas escolhidas pelo Mestre.
+* Um novo posicionamento começa com rotação `0`, camada padrão de Tokens e visibilidade ativada.
 * Não existe transferência direta entre cenas: o Mestre remove o posicionamento atual e depois cria outro por meio do painel de Tokens.
 * Tokens sem posicionamento permanecem disponíveis no painel da toolbar.
 * Excluir uma cena remove seus posicionamentos, mas preserva os Tokens da campanha.
