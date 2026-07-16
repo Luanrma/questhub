@@ -5,6 +5,9 @@
 * Token armazena posicao, tamanho, visibilidade, rotacao, camada, nome visual e imagem/cor opcional.
 * Associacao com identidade/personagem e opcional; token generico sem `characterId` e valido.
 * Cena armazena mapa, grid, configuracao visual, paredes e portas.
+* O Mestre pode selecionar e visualizar qualquer cena preparada enquanto a sessao estiver offline; a cena ativa escolhida deve ser persistida e restaurada sem exigir entrada em room de sessao.
+* Campanha pode existir sem nenhuma cena preparada; o VTT nao cria nem exige uma `Cena 1` automaticamente.
+* Deletar a ultima cena preparada deixa a campanha sem cena ativa/preparada, sem recriar draft automatico e sem disparar recarregamento em loop.
 * Paredes e portas usam coordenadas da cena, persistem com ela e sincronizam por websocket.
 * Paredes e portas fechadas bloqueiam movimento de jogadores; portas abertas nao bloqueiam.
 * A visibilidade visual de um segmento para jogadores e independente de sua colisao.
@@ -40,6 +43,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * `CampaignTokenPlacement` representa a presença do Token em uma cena e possui `tokenId`, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade.
 * Cada `CampaignToken` possui no máximo um `CampaignTokenPlacement`; `tokenId` deve ser único no posicionamento.
 * Remover o Token da cena exclui somente o posicionamento; colocar o Token no grid cria um novo posicionamento com coordenadas escolhidas pelo Mestre.
+* Ao arrastar um Token sem posicionamento do painel para o grid da cena ativa, o navegador deve aceitar a operacao de movimento e o cliente deve emitir `vtt:token:place` com o centro normalizado na celula de destino.
 * Um novo posicionamento começa com rotação `0`, camada padrão de Tokens e visibilidade ativada.
 * Não existe transferência direta entre cenas: o Mestre remove o posicionamento atual e depois cria outro por meio do painel de Tokens.
 * Tokens sem posicionamento permanecem disponíveis no painel da toolbar.

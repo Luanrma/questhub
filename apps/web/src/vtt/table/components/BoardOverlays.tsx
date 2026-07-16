@@ -182,7 +182,12 @@ export function PlayerToken({
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const [dragging, setDragging] = useState(false)
   const initial = token.name.trim().charAt(0).toUpperCase() || '?'
-  const position = tokenPixelPosition(token, tokenSize)
+  const displaySize = tokenSize * token.size
+  const basePosition = tokenPixelPosition(token, tokenSize)
+  const position = {
+    x: basePosition.x - (displaySize - tokenSize) / 2,
+    y: basePosition.y - (displaySize - tokenSize) / 2,
+  }
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -198,8 +203,8 @@ export function PlayerToken({
       }
 
       const tokenCenter = {
-        x: nextPosition.x + tokenSize / 2,
-        y: nextPosition.y + tokenSize / 2,
+        x: nextPosition.x + displaySize / 2,
+        y: nextPosition.y + displaySize / 2,
       }
 
       onMove(tokenGridPositionFromPixelCenter(tokenCenter, gridBounds, tokenSize, gridShape))
@@ -216,7 +221,7 @@ export function PlayerToken({
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
     }
-  }, [dragging, gridAreaRef, gridShape, onMove, tokenSize])
+  }, [displaySize, dragging, gridAreaRef, gridShape, onMove, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
     if (event.ctrlKey && onMeasureFromToken) {
@@ -237,8 +242,6 @@ export function PlayerToken({
   }
 
   function openContextMenu(event: React.MouseEvent<HTMLButtonElement>) {
-    if (!isMasterView) return
-
     event.preventDefault()
     onContextMenu(token, { x: event.clientX, y: event.clientY })
   }
@@ -263,8 +266,10 @@ export function PlayerToken({
       style={{
         left: position.x,
         top: position.y,
-        width: tokenSize,
-        height: tokenSize,
+        width: displaySize,
+        height: displaySize,
+        transform: `rotate(${token.rotation}deg)`,
+        zIndex: token.layer === 'OBJECT' ? 3 : token.layer === 'OVERLAY' ? 7 : 5,
       }}
       onPointerDown={startDrag}
       onContextMenu={openContextMenu}

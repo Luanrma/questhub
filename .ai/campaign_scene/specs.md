@@ -1,7 +1,7 @@
 ﻿# Modulo: Campaign Scene (Specs & Contracts)
 
 ## 1. Fronteira do Modulo
-`campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, tokens genericos e regras de exibicao usadas pelo VTT.
+`campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, posicionamentos de Tokens genericos e regras de exibicao usadas pelo VTT. A identidade do Token pertence a campanha.
 
 O modulo deve permanecer generico. Nenhum contrato de cena ou token pode carregar regras mecanicas, ruleset, ficha, bestiario, inventario, economia, PV, CA, magias, condicoes ou hazards mecanicos.
 
@@ -36,13 +36,15 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 ## 2.1 Nomes Canonicos
 Models Prisma esperados:
 * `CampaignScene`
-* `CampaignSceneToken`
+* `CampaignToken`
+* `CampaignTokenPlacement`
 * `CampaignSceneViewState`
 
 Tipos frontend/backend esperados:
 * `CampaignScene`
 * `CampaignSceneGrid`
-* `CampaignSceneToken`
+* `CampaignToken`
+* `CampaignTokenPlacement`
 * `CampaignSceneViewState`
 
 Eventos Socket.IO novos usam prefixo `campaign-scene:*`.
@@ -95,7 +97,7 @@ type CampaignScene = {
   backgroundUrl: string | null
   backgroundCacheKey: string | null
   grid: CampaignSceneGrid
-  tokens: CampaignSceneToken[]
+  tokenPlacements: CampaignTokenPlacement[]
   createdAt: string
   updatedAt: string
 }
@@ -152,21 +154,26 @@ Regras:
 * Alterar grid nao deve exibir aviso informando que tokens serao removidos.
 * Zoom continua sendo local ao cliente e nao deve ser persistido na cena.
 
-### 3.3 CampaignSceneToken
+### 3.3 CampaignToken e CampaignTokenPlacement
 
 ```ts
-type CampaignSceneToken = {
+type CampaignToken = {
   id: string
-  sceneId: string
+  campaignId: string
   characterId: string | null
   name: string
   avatarUrl: string | null
   color: string | null
-  ownerUserId: string | null
-  ownerName: string | null
-  controlMode: 'MASTER' | 'OWNER'
-  hidden: boolean
+  controllerMemberId: string | null
+  canCustomizeAppearance: boolean
   size: number
+  placement: CampaignTokenPlacement | null
+}
+
+type CampaignTokenPlacement = {
+  tokenId: string
+  sceneId: string
+  hidden: boolean
   rotation: number
   layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
   position: {
@@ -182,8 +189,7 @@ Regras:
 * Token e entidade visual/operacional do VTT; nao representa ficha mecanica.
 * `characterId` e opcional e existe apenas para vincular uma identidade narrativa/controlavel ao token.
 * Token sem `characterId` e valido e deve poder ser criado, movido, ocultado e removido pelo Mestre.
-* `ownerUserId` e opcional; quando existir junto de `controlMode = 'OWNER'`, permite que um Player controle o proprio token conforme estado de sessao.
-* `controlMode = 'MASTER'` indica token controlado apenas pelo Mestre.
+* `controllerMemberId` e opcional e referencia no maximo um jogador dentro da mesma campanha; o Mestre controla todos os Tokens independentemente desse campo.
 * `name`, `avatarUrl` e `color` sao apresentacao visual; nao implicam origem de ruleset.
 * `size`, `rotation` e `layer` sao propriedades visuais/genericamente operacionais.
 * `position.x` e `position.y` representam o centro do token em unidades logicas do grid da propria cena.
@@ -193,12 +199,10 @@ Regras:
 * O Mestre pode mover qualquer token antes da sessao ou durante a sessao online.
 * O Mestre pode mover token controlado por Player por drag durante sessao online.
 * O Mestre pode posicionar tokens antes de iniciar a campanha.
-* Tokens pertencem a uma cena por vez. Mover um token entre cenas altera seu `sceneId`.
-* O menu contextual do Mestre no token deve oferecer `Mover para cena...`.
-* Ao escolher destino em `Mover para cena...`, o token sai da cena atual e passa para a cena destino.
-* O Mestre tambem possui, na sidebar lateral direita, um menu que abre um modal de distribuicao de tokens por cena.
-* O modal de distribuicao mostra cada cena como card e representa personagens por seus icones.
-* O Mestre pode arrastar tokens de um card de cena para outro dentro do modal; isso move os tokens para as respectivas cenas.
+* Cada Token possui zero ou um `CampaignTokenPlacement`; por isso nunca ocupa duas cenas.
+* Remover da cena exclui somente o posicionamento e devolve o Token ao painel.
+* Posicionar em outra cena exige que o Token esteja sem posicionamento e cria um novo registro.
+* Nao existe transferencia direta entre cenas.
 * Tokens invisiveis ficam ocultos para jogadores e visiveis com opacidade reduzida para o Mestre.
 * O Mestre pode remover um token individualmente pelo menu contextual.
 * O Mestre pode remover todos os tokens da cena atual pela listagem/painel da ferramenta de tokens.
@@ -235,7 +239,7 @@ Regras:
 * Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
 * Durante uma sessao online, alteracoes de grid e tokens ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
 * Alteracoes de grid e tokens durante a sessao online nao devem disparar escrita no banco a cada evento, para evitar loops de snapshot e inconsistencias visuais.
-* Drop/criacao de token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignSceneToken` antes de atualizar os clients.
+* Criar o posicionamento de um Token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignTokenPlacement` antes de atualizar os clients.
 * Drop, movimento, visibilidade e remocao de token durante sessao online devem marcar a cena como dirty para persistencia posterior.
 * Autosave eventual pode persistir cenas dirty em intervalos controlados, coalescendo varias alteracoes em um unico snapshot por cena.
 * Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online.
@@ -277,7 +281,7 @@ Regras:
 * Todas as rotas exigem usuario autenticado.
 * Criar, editar e deletar cenas exige `CampaignCharacter` ativo com role `MASTER`.
 * Jogadores podem consultar apenas a cena que devem visualizar.
-* Deletar cena com tokens exige confirmacao ou realocacao previa dos tokens.
+* Deletar cena remove seus posicionamentos, mas preserva os Tokens da campanha.
 * Deletar cena com `assetId` nao deve apagar automaticamente o `Asset` sem seguir as regras do modulo `assets`.
 * Rotas devem delegar fluxo para services/casos de uso.
 * Acesso a Prisma deve acontecer apenas por repositories do modulo.
@@ -312,23 +316,16 @@ type CampaignSceneChangedPayload = {
   reason: 'MASTER_SWITCH' | 'FORCED_SCENE' | 'TOKEN_SCENE_CHANGED' | 'SCENE_UPDATED'
 }
 
-type CampaignSceneTokenPlacedPayload = {
+type CampaignTokenPlacedPayload = {
   campaignId: string
   sceneId: string
-  token: CampaignSceneToken
+  token: CampaignToken
 }
 
-type CampaignSceneTokenMovedPayload = {
+type CampaignTokenMovedPayload = {
   campaignId: string
   sceneId: string
-  token: CampaignSceneToken
-}
-
-type CampaignSceneTokenSceneChangedPayload = {
-  campaignId: string
-  tokenId: string
-  fromSceneId: string
-  toSceneId: string
+  token: CampaignToken
 }
 
 type CampaignSceneTokensRemovedPayload = {
@@ -348,8 +345,6 @@ Eventos:
 * `campaign-scene:token:placed`: servidor confirma e transmite token novo para sockets que visualizam a cena, sem reaplicar snapshot completo.
 * `campaign-scene:token:move`: jogador dono em sessao online ou Mestre em qualquer estado move token dentro da cena atual.
 * `campaign-scene:token:moved`: servidor confirma e transmite movimento valido para sockets que visualizam a cena.
-* `campaign-scene:token:move-scene`: Mestre move token para outra cena.
-* `campaign-scene:token:scene-changed`: servidor informa mudanca de cena do token e atualiza os sockets afetados.
 * `campaign-scene:grid:update`: Mestre altera grid da cena.
 * `campaign-scene:grid:changed`: servidor transmite grid atualizado para sockets que visualizam a cena.
 
@@ -378,8 +373,8 @@ Regras:
 * A camada de tokens deve ser atualizada independentemente do frame da cena; mudancas exclusivas de tokens nao devem recalcular background, dimensoes naturais da imagem, grid, zoom ou pan.
 * A troca de cena nao deve desmontar `CampaignLayout`.
 * A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
-* O modal de distribuicao deve exibir cenas como cards e tokens como icones arrastaveis entre cards; quando houver identidade associada, ela pode enriquecer nome/avatar.
-* O menu contextual de token do Mestre deve incluir `Mover para cena...`.
+* O painel de Tokens deve listar primeiro Main Characters, depois secundarios controlados por Players e por ultimo Tokens exclusivos do Mestre.
+* O Mestre remove primeiro o posicionamento atual; o Token sem cena fica disponivel no painel para novo posicionamento.
 
 ## 10. Criterios de Aceitacao
 * Cenas persistem imagem, grid e tokens de forma independente.
@@ -400,8 +395,9 @@ Regras:
 * Player sem token nao ve cena privada automaticamente quando nao ha cena forcada.
 * Mestre consegue forcar uma cena para todos os Players.
 * Desativar "mostrar para todos" devolve cada Player para a cena do proprio token.
-* Mestre consegue mover token entre cenas pelo menu contextual `Mover para cena...`.
-* Mestre consegue mover tokens entre cards de cena no modal da sidebar direita.
+* Mestre consegue remover o Token da cena sem excluir sua identidade e depois posiciona-lo em outra cena pelo painel.
+* Excluir Character apenas define `characterId = null` no Token.
+* Excluir Token preserva o Character vinculado.
 * Jogador move apenas o proprio token em sessao `ONLINE + IN_PROGRESS`.
 * Mestre move qualquer token antes da sessao ou durante a sessao online.
 * Mestre pode mover token controlado por Player por drag em sessao online.

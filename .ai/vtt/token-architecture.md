@@ -2,7 +2,7 @@
 
 ## Status
 
-Decisão arquitetural em evolução.
+Decisão arquitetural aprovada para implementação na branch `feat/agnostic-token-control`.
 
 Este documento consolida apenas as decisões sobre:
 
@@ -18,7 +18,7 @@ Questões sobre estrutura de fichas, GameSystem, Packages, bestiários e regras 
 
 O modelo anterior pressupõe Tokens vinculados a personagens e persistidos diretamente em uma cena. Esse desenho limita representações genéricas como objetos, animais, montarias, marcadores e outras entidades que podem existir sem personagem ou ficha.
 
-O estado atual do Prisma ainda reflete esse modelo:
+O modelo de origem da branch refletia esse desenho:
 
 - `CampaignSceneToken.characterId` é obrigatório;
 - `CampaignSceneToken.sceneId` é obrigatório;
@@ -26,7 +26,7 @@ O estado atual do Prisma ainda reflete esse modelo:
 - não existe controlador jogador persistido no Token;
 - identidade do Token e posicionamento na cena ocupam o mesmo registro.
 
-O estado-alvo descrito neste documento ainda deverá ser implementado após a conclusão das decisões pendentes.
+O estado-alvo descrito neste documento é o contrato canônico desta implementação.
 
 ## Fronteira do VTT Core
 
@@ -186,9 +186,9 @@ Regras:
 14. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
 15. O VTT Core não depende de ficha, sistema ou ruleset.
 
-## Impactos esperados na persistência
+## Persistência implementada
 
-A implementação deverá substituir a responsabilidade atual de `CampaignSceneToken` por:
+A implementação substitui a responsabilidade de `CampaignSceneToken` por:
 
 - `CampaignMember`, único por `campaignId` e `userId`, representando a participação do usuário naquele mundo;
 - `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com nome, imagem, cor, tamanho, `characterId` opcional e único, `controllerMemberId` opcional e permissão adicional de personalização;
@@ -216,3 +216,5 @@ A implementação deverá substituir a responsabilidade atual de `CampaignSceneT
 
 ## Decisões pendentes
 
+Não há decisões pendentes dentro deste recorte. Fichas, sistemas, Packages e regras
+mecânicas serão tratados em iniciativas próprias.

@@ -14,13 +14,20 @@ export type VttPanOffset = {
 
 export type VttPlayerToken = {
   id: string
-  characterId: string
+  characterId: string | null
   name: string
   avatarUrl: string | null
-  ownerUserId: string
-  ownerName: string
-  role: 'PLAYER' | 'NPC'
+  color: string | null
+  size: number
+  ownerUserId: string | null
+  ownerName: string | null
+  controllerMemberId: string | null
+  controllerUserId: string | null
+  role: 'PLAYER' | 'NPC' | 'GENERIC'
+  canCustomizeAppearance: boolean
   hidden: boolean
+  rotation: number
+  layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
   position: {
     x: number
     y: number
@@ -43,7 +50,8 @@ export type VttTokensSnapshotPayload = {
 export type VttTokenRemovedPayload = {
   campaignId: string
   sceneId?: string | null
-  characterId: string
+  tokenId: string
+  characterId: string | null
 }
 
 export type VttTokenState = {
@@ -124,6 +132,38 @@ export type VttTokenCandidate = {
   ownerName: string
 }
 
+export type CampaignToken = {
+  id: string
+  campaignId: string
+  characterId: string | null
+  name: string
+  avatarUrl: string | null
+  color: string | null
+  size: number
+  canCustomizeAppearance: boolean
+  controllerMemberId: string | null
+  controllerUserId: string | null
+  controllerName: string | null
+  characterOwnerUserId: string | null
+  category: 'MAIN' | 'SECONDARY' | 'MASTER_ONLY'
+  placement: {
+    sceneId: string
+    hidden: boolean
+    position: { x: number; y: number }
+    rotation: number
+    layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  } | null
+}
+
+export type CampaignPlayer = {
+  userId: string
+  email: string
+  role: 'MASTER' | 'PLAYER' | 'NPC'
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
+  characterId: string
+  characterName: string
+}
+
 export type VttTokenContextMenu = {
   token: VttPlayerToken
   x: number
@@ -132,7 +172,7 @@ export type VttTokenContextMenu = {
 
 export type VttCombatParticipant = {
   tokenId: string
-  characterId: string
+  characterId: string | null
   name: string
   avatarUrl: string | null
   initiative: number | null

@@ -98,16 +98,16 @@ export const updateCampaignSceneSchema = z.object({
   walls: campaignSceneWallsSchema.optional(),
 })
 
-export const campaignSceneTokenPositionSchema = z.object({
+export const campaignTokenPositionSchema = z.object({
   x: z.number().finite().min(0),
   y: z.number().finite().min(0),
 })
 
-export const campaignSceneTokenSchema = z.object({
+export const campaignTokenPlacementSchema = z.object({
   sceneId: z.string().trim().min(1, 'Cena invalida'),
-  characterId: z.string().trim().min(1, 'Personagem invalido'),
+  tokenId: z.string().trim().min(1, 'Token invalido'),
   hidden: z.boolean().optional(),
-  position: campaignSceneTokenPositionSchema,
+  position: campaignTokenPositionSchema,
 })
 
 export const campaignSceneViewStateSchema = z.object({

@@ -4,33 +4,6 @@ import type { CampaignSceneResponse, PreparedScene, VttGridBounds, VttTableScene
 
 const hexRowStepUnits = Math.sqrt(3) / 2
 
-export function createPreparedScene(index: number): PreparedScene {
-  return {
-    id: `scene-${index}`,
-    name: `Cena${index}`,
-    imageUrl: null,
-    fileName: null,
-    file: null,
-    assetId: null,
-    storagePath: null,
-    grid: {
-      visible: true,
-      shape: 'square',
-      size: 32,
-      metersPerCell: 1,
-      squareMeasurementColor: '#facc15',
-      hexMeasurementColor: '#38bdf8',
-      lineWidth: 1,
-      color: '#ffffff',
-    },
-    tokens: [],
-    walls: [],
-    order: index,
-    error: null,
-    draft: true,
-  }
-}
-
 function isWallSegment(value: unknown): value is VttWallSegment {
   if (!value || typeof value !== 'object') return false
   const wall = value as VttWallSegment
@@ -80,15 +53,13 @@ export function validateSceneImage(file: File) {
 
 export function normalizePreparedSceneList(scenes: PreparedScene[]) {
   const persistedScenes = scenes.filter((scene) => !isDraftPreparedScene(scene))
-  const normalizedScenes = persistedScenes.map((scene, index) => ({
+  return persistedScenes.map((scene, index) => ({
     ...scene,
     id: scene.id,
     name: `Cena${index + 1}`,
     order: index + 1,
     draft: scene.draft,
   }))
-
-  return [...normalizedScenes, createPreparedScene(normalizedScenes.length + 1)]
 }
 
 export function isObjectUrl(url: string | null) {

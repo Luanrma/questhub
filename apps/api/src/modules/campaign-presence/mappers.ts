@@ -13,18 +13,30 @@ export type PersistedSceneGrid = {
 
 export type PersistedSceneToken = {
   id: string
-  characterId: string
+  tokenId: string
+  sceneId: string
   hidden: boolean
   positionX: number
   positionY: number
-  character: {
+  rotation: number
+  layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  token: {
+    id: string
+    characterId: string | null
     name: string
     avatarUrl: string | null
-    userId: string
-    campaigns: Array<{
-      role: 'PLAYER' | 'NPC' | 'MASTER'
-      user: { email: string } | null
-    }>
+    color: string | null
+    size: number
+    canCustomizeAppearance: boolean
+    character: {
+      userId: string
+      campaigns: Array<{ role: 'PLAYER' | 'NPC' | 'MASTER' }>
+    } | null
+    controllerMember: {
+      id: string
+      userId: string
+      user: { email: string }
+    } | null
   }
 }
 
@@ -55,18 +67,25 @@ export function vttGridSettingsToSceneData(settings: VttGridSettings) {
 }
 
 export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPlayerToken {
-  const campaignCharacter = token.character.campaigns[0]
-  const role = campaignCharacter?.role === 'NPC' ? 'NPC' : 'PLAYER'
+  const campaignCharacter = token.token.character?.campaigns[0]
+  const role = campaignCharacter?.role === 'NPC' ? 'NPC' : campaignCharacter?.role === 'PLAYER' ? 'PLAYER' : 'GENERIC'
 
   return {
-    id: token.id,
-    characterId: token.characterId,
-    name: token.character.name,
-    avatarUrl: token.character.avatarUrl,
-    ownerUserId: token.character.userId,
-    ownerName: campaignCharacter?.user?.email ?? token.character.name,
+    id: token.token.id,
+    characterId: token.token.characterId,
+    name: token.token.name,
+    avatarUrl: token.token.avatarUrl,
+    color: token.token.color,
+    size: token.token.size,
+    ownerUserId: token.token.character?.userId ?? null,
+    ownerName: token.token.controllerMember?.user.email ?? null,
+    controllerMemberId: token.token.controllerMember?.id ?? null,
+    controllerUserId: token.token.controllerMember?.userId ?? null,
     role,
+    canCustomizeAppearance: token.token.canCustomizeAppearance,
     hidden: token.hidden,
+    rotation: token.rotation,
+    layer: token.layer,
     position: {
       x: token.positionX,
       y: token.positionY,

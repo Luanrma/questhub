@@ -57,6 +57,12 @@ export function ScenePreparationModal({
         </div>
 
         <div className="min-h-0 overflow-auto p-5">
+          <div className="mb-4 flex justify-end">
+            <Button type="button" disabled={saving} className="h-9 gap-2 px-4" onClick={onCreateScene}>
+              <Plus className="h-4 w-4" />
+              Nova cena
+            </Button>
+          </div>
           <div className="grid grid-cols-[repeat(auto-fill,minmax(180px,1fr))] gap-4">
             {scenes.map((scene) => (
               <div key={scene.id} className="grid gap-2">

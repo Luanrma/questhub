@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { Palette, SlidersHorizontal, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { metersPerCellAllowedValues, type VttGridSettings, type VttGridShape } from '../../grid'
@@ -83,21 +83,12 @@ export function VttGridSettingsModal({
   onClose: () => void
 }) {
   const [box, setBox] = useState<ResizableBox>({ x: 96, y: 80, width: 360, height: 430 })
-  const [draftSettings, setDraftSettings] = useState(settings)
-
-  useEffect(() => {
-    setDraftSettings(settings)
-  }, [settings])
 
   function updateSetting<Key extends keyof VttGridSettings>(key: Key, value: VttGridSettings[Key]) {
-    setDraftSettings((current) => {
-      const nextSettings = { ...current, [key]: value }
-      onChange(nextSettings)
-      return nextSettings
-    })
+    onChange({ ...settings, [key]: value })
   }
 
-  const metersPerCellIndex = Math.max(0, metersPerCellAllowedValues.indexOf(draftSettings.metersPerCell))
+  const metersPerCellIndex = Math.max(0, metersPerCellAllowedValues.indexOf(settings.metersPerCell))
 
   return (
     <div
@@ -118,7 +109,7 @@ export function VttGridSettingsModal({
       <div className="grid min-h-0 gap-4 overflow-y-auto overflow-x-hidden p-4">
         <label className="flex items-center justify-between gap-3 rounded-md border border-white/10 bg-white/[0.03] px-3 py-2 text-sm">
           <span className="text-zinc-200">Mostrar grid</span>
-          <input type="checkbox" className="h-4 w-4 accent-indigo-500" checked={draftSettings.visible} onChange={(event) => updateSetting('visible', event.target.checked)} />
+          <input type="checkbox" className="h-4 w-4 accent-indigo-500" checked={settings.visible} onChange={(event) => updateSetting('visible', event.target.checked)} />
         </label>
 
         <div className="grid gap-2">
@@ -133,7 +124,7 @@ export function VttGridSettingsModal({
                 type="button"
                 className={[
                   'rounded-md border px-3 py-2 text-sm font-semibold transition',
-                  draftSettings.shape === value
+                  settings.shape === value
                     ? 'border-indigo-300/40 bg-indigo-500/20 text-indigo-100'
                     : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:bg-white/10 hover:text-white',
                 ].join(' ')}
@@ -148,16 +139,16 @@ export function VttGridSettingsModal({
         <label className="grid gap-2 text-sm">
           <div className="flex justify-between gap-3">
             <span className="text-zinc-200">Tamanho</span>
-            <span className="text-zinc-400">{draftSettings.size}px</span>
+            <span className="text-zinc-400">{settings.size}px</span>
           </div>
-          <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} value={draftSettings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
+          <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} value={settings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
         </label>
 
-        {draftSettings.shape === 'square' ? (
+        {settings.shape === 'square' ? (
           <label className="grid gap-2 text-sm">
             <div className="flex justify-between gap-3">
               <span className="text-zinc-200">Metros por celula</span>
-              <span className="text-zinc-400">{draftSettings.metersPerCell}m</span>
+              <span className="text-zinc-400">{settings.metersPerCell}m</span>
             </div>
             <input type="range" min={0} max={metersPerCellAllowedValues.length - 1} value={metersPerCellIndex} className="accent-indigo-500" onChange={(event) => updateSetting('metersPerCell', metersPerCellAllowedValues[Number(event.target.value)])} />
           </label>
@@ -166,22 +157,22 @@ export function VttGridSettingsModal({
         <label className="flex items-center justify-between gap-3 text-sm">
           <span className="flex items-center gap-2 text-zinc-200">
             <Palette className="h-4 w-4 text-zinc-500" />
-            {draftSettings.shape === 'square' ? 'Cor do tracejado' : 'Cor da pintura'}
+            {settings.shape === 'square' ? 'Cor do tracejado' : 'Cor da pintura'}
           </span>
           <input
             type="color"
-            value={draftSettings.shape === 'square' ? draftSettings.squareMeasurementColor : draftSettings.hexMeasurementColor}
+            value={settings.shape === 'square' ? settings.squareMeasurementColor : settings.hexMeasurementColor}
             className="h-9 w-14 rounded border border-white/10 bg-transparent p-1"
-            onChange={(event) => updateSetting(draftSettings.shape === 'square' ? 'squareMeasurementColor' : 'hexMeasurementColor', event.target.value)}
+            onChange={(event) => updateSetting(settings.shape === 'square' ? 'squareMeasurementColor' : 'hexMeasurementColor', event.target.value)}
           />
         </label>
 
         <label className="grid gap-2 text-sm">
           <div className="flex justify-between gap-3">
             <span className="text-zinc-200">Espessura</span>
-            <span className="text-zinc-400">{draftSettings.lineWidth}px</span>
+            <span className="text-zinc-400">{settings.lineWidth}px</span>
           </div>
-          <input type="range" min={gridLineWidthLimits.min} max={gridLineWidthLimits.max} value={draftSettings.lineWidth} className="accent-indigo-500" onChange={(event) => updateSetting('lineWidth', Number(event.target.value))} />
+          <input type="range" min={gridLineWidthLimits.min} max={gridLineWidthLimits.max} value={settings.lineWidth} className="accent-indigo-500" onChange={(event) => updateSetting('lineWidth', Number(event.target.value))} />
         </label>
 
         <label className="flex items-center justify-between gap-3 text-sm">
@@ -189,7 +180,7 @@ export function VttGridSettingsModal({
             <Palette className="h-4 w-4 text-zinc-500" />
             Cor
           </span>
-          <input type="color" value={draftSettings.color} className="h-9 w-14 rounded border border-white/10 bg-transparent p-1" onChange={(event) => updateSetting('color', event.target.value)} />
+          <input type="color" value={settings.color} className="h-9 w-14 rounded border border-white/10 bg-transparent p-1" onChange={(event) => updateSetting('color', event.target.value)} />
         </label>
       </div>
     </div>

@@ -1,7 +1,7 @@
 ﻿# Campaign Scene
 
 ## O que e por que
-`campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, tokens, paredes, portas e regras de exibicao independentes, permitindo que o Mestre prepare a mesa antes da sessao e conduza jogadores por areas diferentes da campanha.
+`campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, posicionamentos de Tokens, paredes, portas e regras de exibicao independentes. A identidade persistente do Token pertence a campanha e continua existindo mesmo quando nao esta em uma cena.
 
 Antes deste modulo, a cena funcionava como troca de imagem de background. A partir daqui, ela passa a ser a fonte da verdade persistida para o estado de mesa relacionado a cena.
 
@@ -13,7 +13,7 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Mestre remove tokens individualmente, todos os tokens da cena atual ou todos os tokens da campanha por acoes explicitas no painel de tokens.
 * Mestre troca a propria cena ativa sem revelar automaticamente a cena nova aos jogadores.
 * Mestre mostra uma cena para todos quando quiser compartilhar uma visao comum.
-* Mestre move tokens entre cenas por menu contextual ou por modal de distribuicao na sidebar direita.
+* Mestre remove o Token da cena atual e depois o posiciona em outra pelo painel de Tokens.
 * Jogador ve a cena onde seu token esta, exceto quando o Mestre forca uma cena para todos.
 
 ## Regras de produto
@@ -31,8 +31,10 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * O fluxo `Preparar cena` cria cenas vazias sem obrigar upload.
 * Vincular imagem a uma cena e uma acao separada, acionada por menu proprio da cena.
 * Redimensionar ou alterar o formato do grid nao remove tokens e nao deve exibir aviso de remocao.
-* Tokens so sao removidos por acoes explicitas do Mestre.
+* Posicionamentos so sao removidos por acoes explicitas do Mestre ou pela exclusao da cena; o Token da campanha e preservado.
 * Tokens podem ser avulsos ou associados opcionalmente a uma identidade (`Character`) para controle de jogador.
+* Excluir um `Character` apenas desfaz seu vinculo opcional; o Token permanece.
+* Excluir um Token nao exclui o `Character` vinculado.
 * Associar token a ficha, bestiario, inventario, PV, magia, hazard mecanico ou ruleset pertence a extensoes opcionais e nao ao `campaign_scene`.
 * Paredes e portas persistem como segmentos da cena e sao sincronizadas em tempo real.
 * Paredes e portas fechadas impedem que jogadores atravessem seus segmentos; portas abertas liberam passagem.

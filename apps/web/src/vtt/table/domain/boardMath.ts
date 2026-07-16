@@ -32,8 +32,14 @@ export function getDefaultBoardPixelSize(gridSize: number, gridShape: VttGridSha
   }
 }
 
-export function getBoardPixelSize(gridSize: number, zoomPercent: number, scene: VttTableScene | null) {
-  if (!scene) return getDefaultBoardPixelSize(gridSize)
+export function getBoardPixelSize(
+  gridSize: number,
+  zoomPercent: number,
+  scene: VttTableScene | null,
+  gridShape: VttGridShape = 'square',
+) {
+  if (!scene) return getDefaultBoardPixelSize(gridSize, gridShape)
+  if (!scene.imageUrl) return getDefaultBoardPixelSize(gridSize, gridShape)
 
   const scale = zoomPercent / 100
   return {
@@ -161,10 +167,18 @@ export function normalizeTokenPosition(
 export function normalizeTableToken(token: VttPlayerToken, gridShape: VttGridShape) {
   return {
     ...token,
-    ownerUserId: token.ownerUserId ?? '',
-    ownerName: token.ownerName ?? token.name,
-    role: token.role ?? 'PLAYER',
+    characterId: token.characterId ?? null,
+    color: token.color ?? null,
+    size: token.size ?? 1,
+    ownerUserId: token.ownerUserId ?? null,
+    ownerName: token.ownerName ?? null,
+    controllerMemberId: token.controllerMemberId ?? null,
+    controllerUserId: token.controllerUserId ?? null,
+    role: token.role ?? 'GENERIC',
+    canCustomizeAppearance: Boolean(token.canCustomizeAppearance),
     hidden: Boolean(token.hidden),
+    rotation: token.rotation ?? 0,
+    layer: token.layer ?? 'TOKEN',
     position: normalizeTokenPosition(token.position, gridShape),
   }
 }
