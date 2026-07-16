@@ -34,6 +34,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Para o VTT Core, `Character` é somente uma identidade; o módulo não acessa nem valida ficha, `GameSystem`, Package, bestiário ou ruleset.
 * Token pode ocupar no máximo uma cena por vez e sua associação com cena é opcional.
 * Alterar a cena ativa ou visualizada não move Tokens automaticamente.
+* Excluir uma cena preserva seus Tokens na campanha com `sceneId = null`; não há exclusão em cascata de Tokens.
 * Somente o Mestre pode transferir um Token entre cenas; a transferência move a mesma entidade, sem duplicá-la.
 * O Mestre controla todos os Tokens da campanha.
 * Um jogador pode controlar vários Tokens, mas cada Token possui no máximo um jogador controlador além do Mestre.
