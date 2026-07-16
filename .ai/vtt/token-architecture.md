@@ -96,7 +96,7 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 - O controle-base permite selecionar, movimentar, rotacionar, medir deslocamento e executar interações operacionais permitidas no tabuleiro.
 - O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
-- O Mestre pode conceder ao controlador uma permissão adicional para alterar o nome e a imagem do Token.
+- O Mestre pode conceder ao controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração do nome e da imagem do Token.
 - Jogadores controladores não podem transferir o Token entre cenas.
 
 ### 5. Main Character
@@ -174,7 +174,6 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Se a permissão adicional de personalização controla nome e imagem em conjunto ou separadamente.
 - Quem pode criar, remover ou substituir o vínculo opcional com `Character`.
 - Comportamento ao excluir uma cena, um `Character` ou um participante controlador.
 - Posição inicial ao transferir um Token para outra cena.
