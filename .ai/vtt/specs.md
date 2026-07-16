@@ -41,6 +41,9 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Um Token sem `characterId` também pode possuir um jogador controlador persistente.
 * Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 * Conceder o controle a outro jogador substitui o controlador anterior.
-* O jogador controlador pode mover o Token dentro da cena atual, mas não pode transferi-lo entre cenas.
+* O controle-base permite selecionar, movimentar, rotacionar, medir deslocamento e usar interações operacionais permitidas no tabuleiro.
+* O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
+* O Mestre pode conceder ao jogador controlador uma permissão adicional para alterar nome e imagem.
+* O jogador controlador não pode transferir o Token entre cenas.
 * O jogador do Main Character recebe automaticamente o controle do Token vinculado; o Mestre pode transferir esse controle sem alterar a propriedade do `Character`.
 * Controlar um Token não concede automaticamente permissão para editar o `Character` nem dados mantidos por módulos externos.
