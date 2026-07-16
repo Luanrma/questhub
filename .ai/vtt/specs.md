@@ -29,25 +29,27 @@
 
 A especificação detalhada está em [token-architecture.md](./token-architecture.md).
 
-* Token é uma entidade da campanha e pode existir sem `characterId`.
+* `CampaignToken` é uma entidade da campanha e pode existir sem `characterId` e sem posicionamento.
+* `CampaignTokenPlacement` representa a presença do Token em uma cena e possui `tokenId`, `sceneId`, `positionX` e `positionY`.
+* Cada `CampaignToken` possui no máximo um `CampaignTokenPlacement`; `tokenId` deve ser único no posicionamento.
+* Remover o Token da cena exclui somente o posicionamento; colocar o Token no grid cria um novo posicionamento com coordenadas escolhidas pelo Mestre.
+* Não existe transferência direta entre cenas: o Mestre remove o posicionamento atual e depois cria outro por meio do painel de Tokens.
+* Tokens sem posicionamento permanecem disponíveis no painel da toolbar.
+* Excluir uma cena remove seus posicionamentos, mas preserva os Tokens da campanha.
+* Alterar a cena ativa ou visualizada não move Tokens automaticamente.
+* O painel ordena primeiro os Main Characters, depois os Tokens secundários controlados por jogadores e, por último, os Tokens exclusivos do Mestre.
 * O vínculo opcional entre Token e `Character` é exclusivo nos dois sentidos: um Token referencia no máximo um `Character`, e um `Character` não pode estar vinculado a mais de um Token.
 * Para o VTT Core, `Character` é somente uma identidade; o módulo não acessa nem valida ficha, `GameSystem`, Package, bestiário ou ruleset.
-* Token pode ocupar no máximo uma cena por vez e sua associação com cena é opcional.
-* Alterar a cena ativa ou visualizada não move Tokens automaticamente.
-* Tokens sem cena permanecem disponíveis no painel de Tokens da toolbar e recebem sua nova posição quando o Mestre os coloca no grid.
-* O painel de Tokens ordena primeiro os Main Characters, depois os Tokens secundários controlados por jogadores e, por último, os Tokens exclusivos do Mestre.
-* Excluir uma cena preserva seus Tokens na campanha com `sceneId = null`; não há exclusão em cascata de Tokens.
-* Não existe transferência direta entre cenas: somente o Mestre remove o Token da cena atual, deixando `sceneId = null`, e depois posiciona a mesma entidade em outra cena pelo painel de Tokens da toolbar.
 * O Mestre controla todos os Tokens da campanha.
 * Um jogador pode controlar vários Tokens, mas cada Token possui no máximo um jogador controlador além do Mestre.
-* O controle pertence ao jogador participante da campanha, é persistido entre sessões e permanece durante transferências entre cenas.
+* O controle pertence ao jogador participante da campanha, é persistido entre sessões e permanece quando o posicionamento muda.
 * Um Token sem `characterId` também pode possuir um jogador controlador persistente.
 * Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 * Conceder o controle a outro jogador substitui o controlador anterior.
 * O controle-base permite selecionar, movimentar, rotacionar, medir deslocamento e usar interações operacionais permitidas no tabuleiro.
 * O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
 * O Mestre pode conceder ao jogador controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração de nome e imagem.
-* O jogador controlador não pode transferir o Token entre cenas.
+* O jogador controlador não pode remover o Token de uma cena nem posicioná-lo em outra.
 * Quando o jogador controlador deixa a campanha, sua associação é removida automaticamente; o Token permanece sob autoridade do Mestre.
 * O Main Character é o único `CampaignCharacter` ativo com `role = PLAYER` para aquele jogador na campanha.
 * `SECONDARY` não é um `CampaignCharacterRole`: qualquer Token controlado por um jogador, exceto o Token de seu Main Character, é classificado de forma derivada como Token secundário desse jogador.
@@ -55,4 +57,4 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * O jogador do Main Character recebe automaticamente o controle do Token vinculado; o Mestre pode transferir esse controle sem alterar a propriedade do `Character`.
 * Controlar um Token não concede automaticamente permissão para editar o `Character` nem dados mantidos por módulos externos.
 * Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
-* Excluir o `Character` vinculado preserva o Token, sua cena, aparência e controlador, definindo `characterId = null`.
+* Excluir o `Character` vinculado preserva o Token, o posicionamento, a aparência e o controlador, removendo somente o vínculo.
