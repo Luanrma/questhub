@@ -5,22 +5,19 @@ import { Button } from '../components/Button'
 import { api, ApiError } from '../lib/api'
 import { useSession } from '../contexts/SessionContext'
 
-type GameSystem = 'DND_5E' | 'PATHFINDER_2E'
 type JoinPolicy = 'PUBLIC' | 'PRIVATE'
 
 type CharacterOption = {
   id: string
   name: string
   avatarUrl?: string | null
-  system?: GameSystem | null
   available: boolean
 }
 
 type MasterMode = 'existing' | 'new'
 
-const systemLabels: Record<GameSystem, string> = {
-  DND_5E: 'D&D 5e',
-  PATHFINDER_2E: 'Pathfinder 2e',
+type CreatedCampaign = {
+  id: string
 }
 
 export function CampaignCreatePage() {
@@ -30,7 +27,6 @@ export function CampaignCreatePage() {
   const [characters, setCharacters] = useState<CharacterOption[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [system, setSystem] = useState<GameSystem>('PATHFINDER_2E')
   const [joinPolicy, setJoinPolicy] = useState<JoinPolicy>('PUBLIC')
   const [masterMode, setMasterMode] = useState<MasterMode>('existing')
   const [masterCharacterId, setMasterCharacterId] = useState('')
@@ -40,10 +36,9 @@ export function CampaignCreatePage() {
   const submittingRef = useRef(false)
 
   const availableCharacters = useMemo(() => {
-    return characters.filter((character) => character.available && (!character.system || character.system === system))
-  }, [characters, system])
+    return characters.filter((character) => character.available)
+  }, [characters])
 
-  const selectedCharacter = availableCharacters.find((character) => character.id === masterCharacterId)
   const hasExistingCharacters = availableCharacters.length > 0
   const canCreate = useMemo(() => {
     if (!title.trim()) return false
@@ -60,7 +55,7 @@ export function CampaignCreatePage() {
         if (cancelled) return
 
         setCharacters(list)
-        const firstAvailable = list.find((character) => character.available && (!character.system || character.system === 'PATHFINDER_2E'))
+        const firstAvailable = list.find((character) => character.available)
         if (firstAvailable) {
           setMasterMode('existing')
           setMasterCharacterId(firstAvailable.id)
@@ -90,12 +85,11 @@ export function CampaignCreatePage() {
     setError(null)
 
     try {
-      const created = await api<any>('/api/campaigns', {
+      const created = await api<CreatedCampaign>('/api/campaigns', {
         method: 'POST',
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || undefined,
-          system,
           joinPolicy,
           masterCharacterId: masterMode === 'existing' ? masterCharacterId : undefined,
           masterCharacterName: masterMode === 'new' ? masterCharacterName.trim() : undefined,
@@ -136,7 +130,7 @@ export function CampaignCreatePage() {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-white">Criar nova campanha</h1>
-            <p className="text-sm text-zinc-300 mt-1">Escolha o sistema e o personagem que sera o mestre.</p>
+            <p className="text-sm text-zinc-300 mt-1">Defina a campanha e a identidade que sera o mestre.</p>
           </div>
         </div>
 
@@ -155,18 +149,7 @@ export function CampaignCreatePage() {
             className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-28"
           />
 
-          <div className="grid gap-3 md:grid-cols-2">
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-zinc-200">Sistema</span>
-              <select
-                value={system}
-                onChange={(event) => setSystem(event.target.value as GameSystem)}
-                className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                <option value="PATHFINDER_2E">{systemLabels.PATHFINDER_2E}</option>
-              </select>
-            </label>
-
+          <div className="grid gap-3">
             <label className="grid gap-2">
               <span className="text-sm font-medium text-zinc-200">Entrada</span>
               <select
@@ -235,12 +218,7 @@ export function CampaignCreatePage() {
                             <UserRound className="h-5 w-5" />
                           </span>
                         )}
-                        <span>
-                          <span className="block text-sm font-semibold text-white">{character.name}</span>
-                          <span className="text-xs text-zinc-400">
-                            {character.system ? systemLabels[character.system] : 'Sem sistema'}
-                          </span>
-                        </span>
+                        <span className="block text-sm font-semibold text-white">{character.name}</span>
                       </span>
                       {masterCharacterId === character.id ? <Check className="h-4 w-4 text-indigo-200" /> : null}
                     </button>
@@ -256,12 +234,6 @@ export function CampaignCreatePage() {
               />
             )}
           </section>
-
-          {selectedCharacter?.system && selectedCharacter.system !== system ? (
-            <div className="rounded-lg border border-amber-300/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-              Este personagem tem outro sistema. Escolha uma campanha compativel ou outro personagem.
-            </div>
-          ) : null}
 
           {error ? (
             <div className="rounded-lg border border-red-300/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">

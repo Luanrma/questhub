@@ -1,42 +1,7 @@
-# Modulo: Criacao de Personagem (Skills & Tech)
+# Identidades de Personagem: Skills
 
-## 1. Stack Tecnologica
-* **Frontend:** React para "Meus Personagens", secao compacta no dashboard, fluxo de criar campanha com personagem `MASTER` e fluxo de entrada em campanha com personagem.
-* **Backend:** Node.js/Fastify para API de persistencia, autorizacao e transacoes.
-* **Validacao:** Zod para contratos de entrada e resposta.
-* **Persistencia:** Prisma com `Character` e `CampaignCharacter`.
-
-## 2. Padroes Aplicados
-* **Clean Architecture / Bounded Context:** Casos de uso de personagem nao devem conhecer regras internas de D&D 5e ou Pathfinder 2e.
-* **Policy/Guard:** Permissoes devem ser explicitas para dono do personagem, `MASTER` ativo e fluxo de NPC.
-* **Repository Boundary:** Prisma deve ficar atras de repositories; rotas e services nao acessam Prisma diretamente.
-* **Transaction Script:** Criacao de campanha + vinculo `MASTER`, entrada em campanha publica e criacao de NPC devem ser transacionais.
-* **State Machine:** `CampaignCharacter.status` deve ter transicoes controladas.
-
-## 3. Restricoes Arquiteturais
-* `CampaignMember` nao deve ser usado pelo novo modelo.
-* `Character` nao deve carregar role de campanha.
-* Disponibilidade de personagem e derivada da ausencia de `CampaignCharacter` e de `deletedAt`.
-* `Character.sheet` nao deve ser validado por este modulo.
-* Este modulo pode verificar compatibilidade simples entre `Character.system` e `Campaign.system`, mas nao valida regras mecanicas.
-* O modulo nao deve depender diretamente do canvas/tabuleiro.
-* Nao ha upload de avatar no MVP; `avatarUrl` e apenas uma string opcional.
-
-## 4. Integracoes
-* `campaign`: criacao de campanha exige sistema e personagem `MASTER`.
-* `login`: usuario autenticado define ownership do `Character`.
-* `game_systems`: define o envelope comum de `Character.sheet`, mantem coerencia com `Character.system` e fornece registry de sistemas, validadores e capacidades especificas por ruleset.
-* `canvas` ou `vtt`: deve consumir apenas `CampaignCharacter` com status `ACTIVE`.
-
-## 5. Regras Tecnicas Importantes
-* Usar transacao ao criar campanha e `CampaignCharacter` do mestre.
-* Usar transacao ao criar NPC e vinculo de campanha.
-* Usar constraint unica em `CampaignCharacter.characterId` para impedir reutilizacao do personagem.
-* Validar por aplicacao que existe apenas um `MASTER` ativo por campanha.
-* Bio deve ser validada com limite de 2.000 caracteres no backend e frontend.
-* Delete fisico de personagem livre ainda nao existe no codigo atual; quando for implementado, deve respeitar restricoes de ficha/historico definidas pelo produto.
-* Arquivamento de personagem livre via `deletedAt` ainda nao existe no codigo atual; quando for implementado, deve preservar personagens vinculados.
-* O formulario de criacao/edicao deve ser reaproveitado para evitar divergencia visual e de validacao.
-* A deteccao de alteracoes no frontend deve comparar o estado atual com os dados originais carregados.
-* Endpoints de dashboard devem consultar `CampaignCharacter` e incluir `character.id`, `character.name`, `role` e `status`.
-* A UI nao deve inferir participacao por `createdByUserId`, invite code ou estado online da campanha.
+* Zod valida nome, URL de avatar e bio.
+* Nome tem ate 80 caracteres; bio tem ate 2.000.
+* Personagem livre pode ter sua identidade editada pelo dono.
+* Nome de personagem vinculado nao pode ser alterado pelo jogador.
+* Disponibilidade e derivada da ausencia de vinculos.

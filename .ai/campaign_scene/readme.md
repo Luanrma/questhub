@@ -29,4 +29,4 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * `assets`: armazena imagens de cena e renova URLs assinadas quando necessario.
 * `campaign_diary`: gerencia diarios livres da campanha, sem vinculo com cenas.
 * `chat`: continua independente; pausa de sessao nao bloqueia chat.
-* `game_systems`: nao deve ser importado por `campaign_scene`; regras mecanicas ficam fora deste modulo.
+* Extensoes mecanicas nao devem ser importadas por `campaign_scene`.

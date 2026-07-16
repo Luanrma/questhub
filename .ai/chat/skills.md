@@ -12,7 +12,7 @@
 * Realtime Room: eventos sao emitidos para `campaign:{campaignId}`.
 
 ## 3. Restricoes Tecnicas
-* Chat nao deve depender de regras de D&D 5e ou Pathfinder 2e.
+* Chat nao deve depender de regras mecanicas.
 * Chat nao deve inferir participacao por `createdByUserId`.
 * Chat deve usar `CampaignCharacter`, nao usuario direto, como identidade operacional da mesa.
 * A API deve limitar historico e tamanho da mensagem.

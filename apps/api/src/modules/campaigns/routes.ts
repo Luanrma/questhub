@@ -1,10 +1,8 @@
 import type { FastifyInstance } from 'fastify'
-import type { Prisma } from '@prisma/client'
 import type { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
-import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
 import { generateInviteCode } from './invite-code'
 import { presentCampaignDashboardEntry } from './presenter'
 
@@ -35,7 +33,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: true,
             description: true,
             inviteCode: true,
-            system: true,
             joinPolicy: true,
             createdAt: true,
             characters: {
@@ -76,7 +73,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         title: true,
         description: true,
         inviteCode: true,
-        system: true,
         joinPolicy: true,
         createdAt: true,
         characters: {
@@ -95,7 +91,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: campaign.title,
       description: campaign.description,
       inviteCode: campaign.inviteCode,
-      system: campaign.system,
       joinPolicy: campaign.joinPolicy,
       createdAt: campaign.createdAt,
       gmName: master?.name ?? 'Mestre',
@@ -112,7 +107,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: z.string().trim().min(1, 'Titulo e obrigatorio'),
       description: z.string().optional(),
       joinPolicy: z.enum(['PUBLIC', 'PRIVATE']).default('PUBLIC'),
-      system: z.enum(['PATHFINDER_2E']),
       masterCharacterId: z.string().optional(),
       masterCharacterName: z.string().trim().min(1).max(80).optional(),
     })
@@ -134,8 +128,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
                 id: true,
                 userId: true,
                 name: true,
-                system: true,
-                sheet: true,
                 deletedAt: true,
                 campaigns: { select: { id: true } },
               },
@@ -145,43 +137,16 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         if (masterCharacter && masterCharacter.userId !== payload.id) throw new Error('CHARACTER_FORBIDDEN')
         if (masterCharacter && masterCharacter.deletedAt) throw new Error('CHARACTER_ARCHIVED')
         if (masterCharacter && masterCharacter.campaigns.length > 0) throw new Error('CHARACTER_ALREADY_LINKED')
-        if (masterCharacter?.system && masterCharacter.system !== parsed.data.system) throw new Error('INCOMPATIBLE_SYSTEM')
-
         if (!masterCharacter) {
           masterCharacter = await tx.character.create({
             data: {
               userId: payload.id,
               name: parsed.data.masterCharacterName ?? 'Mestre',
-              system: parsed.data.system,
-              sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system) as unknown as Prisma.InputJsonValue,
             },
             select: {
               id: true,
               userId: true,
               name: true,
-              system: true,
-              sheet: true,
-              deletedAt: true,
-              campaigns: { select: { id: true } },
-            },
-          })
-        }
-
-        if (!masterCharacter.system || !masterCharacter.sheet) {
-          masterCharacter = await tx.character.update({
-            where: { id: masterCharacter.id },
-            data: {
-              system: parsed.data.system,
-              ...(!masterCharacter.sheet
-                ? { sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system) as unknown as Prisma.InputJsonValue }
-                : {}),
-            },
-            select: {
-              id: true,
-              userId: true,
-              name: true,
-              system: true,
-              sheet: true,
               deletedAt: true,
               campaigns: { select: { id: true } },
             },
@@ -193,7 +158,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: parsed.data.title,
             description: parsed.data.description?.trim() || null,
             inviteCode,
-            system: parsed.data.system,
             joinPolicy: parsed.data.joinPolicy,
             createdByUserId: payload.id,
           },
@@ -202,7 +166,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: true,
             description: true,
             inviteCode: true,
-            system: true,
             joinPolicy: true,
             createdAt: true,
           },
@@ -236,7 +199,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       if (message === 'CHARACTER_FORBIDDEN') return reply.status(403).send({ error: 'Personagem nao pertence ao usuario' })
       if (message === 'CHARACTER_ARCHIVED') return reply.status(400).send({ error: 'Personagem arquivado' })
       if (message === 'CHARACTER_ALREADY_LINKED') return reply.status(409).send({ error: 'Personagem ja esta vinculado' })
-      if (message === 'INCOMPATIBLE_SYSTEM') return reply.status(409).send({ error: 'Sistema do personagem incompativel com a campanha' })
       throw err
     }
   })
@@ -264,7 +226,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: true,
             description: true,
             inviteCode: true,
-            system: true,
             joinPolicy: true,
             createdAt: true,
             characters: {
@@ -295,8 +256,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
                 id: true,
                 userId: true,
                 name: true,
-                system: true,
-                sheet: true,
                 deletedAt: true,
                 campaigns: { select: { id: true } },
               },
@@ -306,44 +265,17 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         if (character && character.userId !== payload.id) throw Object.assign(new Error('CHARACTER_FORBIDDEN'), { statusCode: 403 })
         if (character && character.deletedAt) throw Object.assign(new Error('CHARACTER_ARCHIVED'), { statusCode: 400 })
         if (character && character.campaigns.length > 0) throw Object.assign(new Error('CHARACTER_ALREADY_LINKED'), { statusCode: 409 })
-        if (character?.system && character.system !== campaign.system) throw Object.assign(new Error('INCOMPATIBLE_SYSTEM'), { statusCode: 409 })
-
         if (!character) {
           if (!parsed.data.characterName) return { campaign, status: 'PENDING' as const, missingCharacterName: true }
           character = await tx.character.create({
             data: {
               userId: payload.id,
               name: parsed.data.characterName,
-              system: campaign.system,
-              sheet: buildDefaultCharacterSheetEnvelope(campaign.system) as unknown as Prisma.InputJsonValue,
             },
             select: {
               id: true,
               userId: true,
               name: true,
-              system: true,
-              sheet: true,
-              deletedAt: true,
-              campaigns: { select: { id: true } },
-            },
-          })
-        }
-
-        if (!character.system || !character.sheet) {
-          character = await tx.character.update({
-            where: { id: character.id },
-            data: {
-              system: campaign.system,
-              ...(!character.sheet
-                ? { sheet: buildDefaultCharacterSheetEnvelope(campaign.system) as unknown as Prisma.InputJsonValue }
-                : {}),
-            },
-            select: {
-              id: true,
-              userId: true,
-              name: true,
-              system: true,
-              sheet: true,
               deletedAt: true,
               campaigns: { select: { id: true } },
             },
@@ -392,7 +324,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         title: result.campaign.title,
         description: result.campaign.description,
         inviteCode: null,
-        system: result.campaign.system,
         joinPolicy: result.campaign.joinPolicy,
         createdAt: result.campaign.createdAt,
         gmName: master?.name ?? 'Mestre',

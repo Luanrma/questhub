@@ -37,4 +37,4 @@ Trade deve ocorrer apenas entre `Character` ativos que pertencam a mesma `campai
 * `character_creation`: define `Character` e o vinculo `CampaignCharacter`.
 * `campaign_creation`: define a campanha e a politica de acesso.
 * `campaign_presence`: pode fornecer sala realtime da campanha.
-* `game_systems`: futuramente define estrutura e regras de itens por sistema.
+* Extensoes opcionais podem futuramente definir estruturas de item.

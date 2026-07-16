@@ -9,7 +9,7 @@
 ## 2. Padroes Aplicados
 * Policy/Guard: validar ownership do personagem de origem e participacao ativa dos dois personagens na mesma campanha.
 * Transaction Script: quando houver persistencia de inventario, a transferencia deve ser atomica.
-* Bounded Context: trade nao deve acoplar regras mecanicas internas de D&D 5e ou Pathfinder 2e.
+* Bounded Context: trade nao deve acoplar regras mecanicas.
 
 ## 3. Restricoes Tecnicas
 * Nao implementar trade direto por `toUserId`.
@@ -18,7 +18,7 @@
 * `fromCharacterId` deve pertencer ao usuario autenticado.
 * `fromCharacterId` e `toCharacterId` devem ter `CampaignCharacter` na mesma campanha.
 * Ambos os vinculos devem estar `ACTIVE`.
-* Regras de item por sistema pertencem a `game_systems`.
+* Regras de item pertencem a extensoes externas ao nucleo.
 
 ## 4. Estado Atual do Codigo
 `apps/api/src/modules/trade/routes.ts` contem um stub legado que emite `trade:received` para `user:{toUserId}`.

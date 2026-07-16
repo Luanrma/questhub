@@ -1,6 +1,4 @@
 import './http/auth.test'
-import './modules/game_systems/pathfinder_2e/character_sheet/schema.test'
-import './modules/game_systems/registry.test'
 import './modules/characters/presenter.test'
 import './modules/characters/validation.test'
 import './modules/chat/presenter.test'

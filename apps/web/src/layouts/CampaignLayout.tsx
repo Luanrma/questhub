@@ -2,7 +2,6 @@ import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-rou
 import { useEffect, useRef, useState } from 'react'
 import { GripHorizontal, MapPinned, Pause, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
-import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { LoadingScreen } from '../components/LoadingScreen'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
@@ -121,7 +120,6 @@ export function CampaignLayout() {
 
   const presenceKeyRef = useRef<string | null>(null)
   const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
-  const [mySheetOpen, setMySheetOpen] = useState(false)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
     campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
@@ -281,8 +279,6 @@ export function CampaignLayout() {
         <Aside
           campaignId={campaignId}
           role={campaign.myRole}
-          canOpenMySheet={Boolean(myCharacter?.id)}
-          onOpenMySheet={() => setMySheetOpen(true)}
           onSwitchCampaign={onSwitchCampaign}
         />
 
@@ -375,9 +371,6 @@ export function CampaignLayout() {
         </div>
       </div>
 
-      {mySheetOpen && myCharacter ? (
-        <CharacterSheetModal characterId={myCharacter.id} characterName={myCharacter.name} onClose={() => setMySheetOpen(false)} />
-      ) : null}
     </div>
   )
 }

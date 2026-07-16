@@ -3,7 +3,7 @@
 ## 1. Fronteira do Modulo
 `campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, tokens e regras de exibicao usadas pelo VTT.
 
-O modulo deve permanecer generico. Nenhum contrato de cena ou token pode carregar regras mecanicas especificas de Pathfinder 2e, D&D 5e ou outro sistema.
+O modulo deve permanecer generico. Nenhum contrato de cena ou token pode carregar regras mecanicas.
 
 Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como `Cena 1`, esse diario continua sendo um documento livre da campanha e pertence ao bounded context `campaign_diary`.
 

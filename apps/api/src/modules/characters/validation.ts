@@ -1,5 +1,6 @@
 import { z } from 'zod'
-import { CHARACTER_SHEET_BIO_MAX_LENGTH } from '../game_systems/constants'
+
+export const CHARACTER_BIO_MAX_LENGTH = 2000
 
 export const avatarUrlSchema = z
   .string()
@@ -19,14 +20,12 @@ export const avatarUrlSchema = z
 
 export const createCharacterSchema = z.object({
   name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo'),
-  system: z.enum(['PATHFINDER_2E']),
   avatarUrl: avatarUrlSchema.nullable().optional(),
-  bio: z.string().trim().max(CHARACTER_SHEET_BIO_MAX_LENGTH, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
+  bio: z.string().trim().max(CHARACTER_BIO_MAX_LENGTH, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
 })
 
 export const updateCharacterSchema = z.object({
   name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo').optional(),
-  system: z.enum(['PATHFINDER_2E']).optional(),
   avatarUrl: avatarUrlSchema.nullable().optional(),
-  bio: z.string().trim().max(CHARACTER_SHEET_BIO_MAX_LENGTH, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
+  bio: z.string().trim().max(CHARACTER_BIO_MAX_LENGTH, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
 })

@@ -1,11 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
-import { FileText, Pencil, Plus, ScrollText, UserRound } from 'lucide-react'
+import { Pencil, Plus, ScrollText, UserRound } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
-import { CharacterSheetModal } from '../components/CharacterSheetModal'
 import { api } from '../lib/api'
-
-type GameSystem = 'DND_5E' | 'PATHFINDER_2E'
 
 type CharacterCampaign = {
   role: 'MASTER' | 'PLAYER' | 'NPC'
@@ -13,7 +10,6 @@ type CharacterCampaign = {
   campaign: {
     id: string
     title: string
-    system: GameSystem
   }
 }
 
@@ -22,22 +18,9 @@ type Character = {
   name: string
   avatarUrl?: string | null
   bio?: string | null
-  system?: GameSystem | null
   createdAt: string
   campaigns: CharacterCampaign[]
   available: boolean
-  hasSheet: boolean
-}
-
-type CharacterSheetEnvelope = {
-  metadata?: {
-    bio?: string | null
-  }
-}
-
-const systemLabels: Record<GameSystem, string> = {
-  DND_5E: 'D&D 5e',
-  PATHFINDER_2E: 'Pathfinder 2e',
 }
 
 const roleLabels: Record<CharacterCampaign['role'], string> = {
@@ -49,7 +32,6 @@ const roleLabels: Record<CharacterCampaign['role'], string> = {
 export function CharactersHomePage() {
   const navigate = useNavigate()
   const [characters, setCharacters] = useState<Character[]>([])
-  const [sheetCharacter, setSheetCharacter] = useState<Character | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -158,11 +140,6 @@ export function CharactersHomePage() {
                         >
                           {character.available ? 'Livre' : 'Em campanha'}
                         </span>
-                        {character.hasSheet ? (
-                          <span className="rounded-full border border-zinc-300/20 bg-zinc-400/10 px-2 py-0.5 text-[10px] text-zinc-200">
-                            Ficha
-                          </span>
-                        ) : null}
                       </div>
 
                       <Button
@@ -173,10 +150,6 @@ export function CharactersHomePage() {
                         <Pencil className="h-3.5 w-3.5" />
                         Editar
                       </Button>
-                    </div>
-
-                    <div className="mt-1 text-xs text-zinc-400">
-                      {character.system ? systemLabels[character.system] : 'Sem sistema definido'}
                     </div>
 
                     {character.bio ? <p className="mt-3 text-sm text-zinc-300">{character.bio}</p> : null}
@@ -190,16 +163,6 @@ export function CharactersHomePage() {
                       </div>
                     ) : null}
 
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      <Button
-                        variant="ghost"
-                        className="gap-2 px-3 py-1.5 text-xs"
-                        onClick={() => setSheetCharacter(character)}
-                      >
-                        <FileText className="h-3.5 w-3.5" />
-                        Ficha
-                      </Button>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -208,28 +171,6 @@ export function CharactersHomePage() {
         </div>
       </section>
 
-      {sheetCharacter ? (
-        <CharacterSheetModal
-          characterId={sheetCharacter.id}
-          characterName={sheetCharacter.name}
-          system={sheetCharacter.system === 'PATHFINDER_2E' ? 'PATHFINDER_2E' : null}
-          onClose={() => setSheetCharacter(null)}
-          onSaved={(sheet: CharacterSheetEnvelope) => {
-            setCharacters((current) =>
-              current.map((character) =>
-                character.id === sheetCharacter.id
-                  ? {
-                      ...character,
-                      bio: sheet.metadata?.bio ?? null,
-                      hasSheet: true,
-                      system: 'PATHFINDER_2E',
-                    }
-                  : character,
-              ),
-            )
-          }}
-        />
-      ) : null}
     </div>
   )
 }
