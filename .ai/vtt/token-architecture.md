@@ -102,7 +102,9 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 
 ### 5. Main Character
 
-Cada jogador possui um Main Character dentro da campanha.
+Cada jogador possui exatamente um Main Character ativo dentro da campanha.
+
+O Main Character é identificado pelo vínculo `CampaignCharacter` ativo com `role = PLAYER`. Para cada combinação de jogador e campanha, não pode existir mais de um vínculo ativo com esse papel.
 
 Quando o Main Character é vinculado a um Token:
 
@@ -168,6 +170,7 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
 - uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com `Character`;
 - remoção automática do controlador quando ele deixa a campanha;
+- garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
 Os nomes finais dos modelos e campos serão definidos durante a implementação, após o encerramento das decisões arquiteturais.
@@ -188,4 +191,4 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Como o Main Character será identificado de forma persistente na campanha.
+- Como personagens adicionais controlados pelo jogador serão classificados em `CampaignCharacterRole`.
