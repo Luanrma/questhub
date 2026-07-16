@@ -24,7 +24,7 @@
 * Rolagens rapidas usam o mesmo evento `chat:message:create` para persistir e transmitir o resultado.
 
 ## 5. UI
-* O painel de chat fica no sidebar direito da mesa.
+* O painel de chat fica como ultima opcao do sidebar direito da mesa e pode ser destacado como modal flutuante pelo VTT.
 * Deve ter historico rolavel, campo de texto e botao de envio.
 * O input fica desabilitado quando o personagem ativo ainda nao foi carregado.
 * O controle "Dados" fica na barra superior da mesa e abre um menu compacto de selecao de dado.

@@ -42,6 +42,7 @@ model User {
   chatMessages     ChatMessage[]
   assets           Asset[]
   campaignDiaries  CampaignDiary[]
+  campaignSettings CampaignUserSettings[]
 }
 
 model Campaign {
@@ -63,6 +64,7 @@ model Campaign {
   scenes         CampaignScene[]
   sceneViewState CampaignSceneViewState?
   diaries        CampaignDiary[]
+  userSettings   CampaignUserSettings[]
 }
 
 model Character {
@@ -171,6 +173,7 @@ model CampaignScene {
   hexMeasurementColor    String                 @default("#38bdf8")
   gridLineWidth          Int                    @default(1)
   gridColor              String                 @default("#ffffff")
+  walls                  Json                   @default("[]")
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
 
@@ -234,4 +237,19 @@ model CampaignDiary {
 
   @@index([campaignId])
   @@index([createdById])
+}
+
+model CampaignUserSettings {
+  id         String   @id @default(cuid())
+  campaignId String
+  userId     String
+  settings   Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, userId])
+  @@index([userId])
 }

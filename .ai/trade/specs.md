@@ -5,6 +5,8 @@ Definir o contrato futuro para troca de itens entre personagens ativos na mesma 
 
 No estado atual do produto, trade ainda nao esta implementado. O endpoint legado existente nao deve ser considerado contrato valido.
 
+Este modulo e opcional e nao faz parte do VTT core. Nenhum fluxo de cena, token, grid ou sessao deve depender de trade, inventario ou item.
+
 ## 2. Contrato Alvo
 
 ### Solicitar ou enviar trade

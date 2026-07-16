@@ -119,6 +119,7 @@ export function CharactersHomePage() {
                       src={character.avatarUrl}
                       alt=""
                       className="h-12 w-12 rounded-full border border-white/10 object-cover"
+                      draggable={false}
                     />
                   ) : (
                     <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/10 text-zinc-300">

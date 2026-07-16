@@ -5,3 +5,4 @@
 * Personagem livre pode ter sua identidade editada pelo dono.
 * Nome de personagem vinculado nao pode ser alterado pelo jogador.
 * Disponibilidade e derivada da ausencia de vinculos.
+* Nao acoplar identidade a token generico; associacao entre token e `Character` e opcional e pertence ao contrato de cena.

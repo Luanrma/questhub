@@ -1,5 +1,5 @@
 # Prisma
 
-Prisma persiste entidades do VTT: usuarios, identidades, campanhas, vinculos, chat, assets, cenas, tokens, camera e diario.
+Prisma persiste entidades do VTT core: usuarios, identidades opcionais, campanhas, vinculos, chat, assets, cenas, tokens genericos, camera e diario.
 
-O schema nao armazena fichas nem regras mecanicas. Extensoes futuras devem manter persistencia separada e opcional.
+O schema do core nao armazena fichas nem regras mecanicas. Tokens persistidos no core nao exigem `characterId`, bestiario, inventario, combate ou sistema de jogo. Extensoes futuras devem manter persistencia separada e opcional.

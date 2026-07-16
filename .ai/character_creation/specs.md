@@ -18,3 +18,4 @@ model Character {
 * `GET /api/characters/:characterId`: retorna identidade do usuario.
 * `PATCH /api/characters/:characterId`: atualiza os mesmos campos conforme permissao.
 * Nenhum endpoint exige ou retorna ficha ou identificador de regras.
+* Nenhum endpoint de identidade e pre-requisito para criar token generico no VTT core.

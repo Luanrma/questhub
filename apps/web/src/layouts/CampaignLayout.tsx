@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from 'react'
 import { GripHorizontal, MapPinned, Pause, Play, Power, X } from 'lucide-react'
 import { Aside } from '../components/Aside'
 import { LoadingScreen } from '../components/LoadingScreen'
+import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import { useSession } from '../contexts/SessionContext'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
-import { CampaignOverviewPage } from '../pages/campaign/CampaignOverviewPage'
+import { CampaignOverviewPage } from '../vtt/table/CampaignOverviewPage'
 import {
   defaultGridSettings,
   normalizeGridSettings,
@@ -15,6 +16,10 @@ import {
   type VttGridChangedPayload,
   type VttGridSettings,
 } from '../vtt/grid'
+import {
+  storeCampaignUserSettings,
+  type CampaignUserSettings,
+} from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 
 type MyCampaignCharacter = {
   id: string
@@ -34,7 +39,12 @@ function getPanelTitle(pathname: string) {
 }
 
 function FloatingCampaignPanel({ title, onClose, children }: { title: string; onClose: () => void; children: React.ReactNode }) {
-  const [position, setPosition] = useState({ x: 112, y: 96 })
+  const [box, setBox] = useState<ResizableBox>({
+    x: 112,
+    y: 96,
+    width: 920,
+    height: 640,
+  })
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
   const [dragging, setDragging] = useState(false)
 
@@ -42,10 +52,11 @@ function FloatingCampaignPanel({ title, onClose, children }: { title: string; on
     function onPointerMove(event: PointerEvent) {
       if (!dragging) return
 
-      setPosition({
+      setBox((current) => ({
+        ...current,
         x: Math.max(16, dragStartRef.current.panelX + event.clientX - dragStartRef.current.pointerX),
         y: Math.max(78, dragStartRef.current.panelY + event.clientY - dragStartRef.current.pointerY),
-      })
+      }))
     }
 
     function onPointerUp() {
@@ -65,17 +76,23 @@ function FloatingCampaignPanel({ title, onClose, children }: { title: string; on
     dragStartRef.current = {
       pointerX: event.clientX,
       pointerY: event.clientY,
-      panelX: position.x,
-      panelY: position.y,
+      panelX: box.x,
+      panelY: box.y,
     }
     setDragging(true)
   }
 
   return (
     <section
-      className="campaign-floating-panel fixed z-30 flex max-h-[calc(100vh-120px)] w-[min(920px,calc(100vw-160px))] flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur"
-      style={{ left: position.x, top: position.y }}
+      className="campaign-floating-panel fixed z-30 flex flex-col overflow-hidden rounded-lg border border-white/10 bg-[#101116]/95 text-white shadow-2xl backdrop-blur"
+      style={{
+        left: box.x,
+        top: box.y,
+        width: Math.min(box.width, window.innerWidth - 48),
+        height: Math.min(box.height, window.innerHeight - 104),
+      }}
     >
+      <ResizableEdges box={box} setBox={setBox} limits={{ minWidth: 340, minHeight: 220, minY: 78, viewportMargin: 16 }} />
       <div
         className="flex cursor-grab items-center justify-between gap-3 border-b border-white/10 bg-black/30 px-4 py-3 active:cursor-grabbing"
         onPointerDown={startDrag}
@@ -94,7 +111,7 @@ function FloatingCampaignPanel({ title, onClose, children }: { title: string; on
           <X className="h-4 w-4" />
         </button>
       </div>
-      <div className="min-h-0 overflow-auto p-5">{children}</div>
+      <div className="min-h-0 flex-1 overflow-auto p-5">{children}</div>
     </section>
   )
 }
@@ -131,10 +148,29 @@ export function CampaignLayout() {
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
   const hasFloatingPanel = !isTableRoute
   const panelTitle = getPanelTitle(location.pathname)
+  const navigationState = location.state as { characterId?: string | null } | null
 
   useEffect(() => {
     if (campaignId) setActiveCampaignId(campaignId)
   }, [campaignId, setActiveCampaignId])
+
+  useEffect(() => {
+    if (!campaignId || !campaign) return
+
+    let cancelled = false
+    api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`)
+      .then((response) => {
+        if (cancelled) return
+        storeCampaignUserSettings(campaignId, response.settings)
+      })
+      .catch(() => {
+        // Cache local continua valido quando o backend nao responder.
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [campaign, campaignId])
 
   useEffect(() => {
     if (!socket || !campaignId) return
@@ -154,15 +190,20 @@ export function CampaignLayout() {
     }
   }, [socket, campaignId, isMaster])
 
-  function applyGridSettings(settings: VttGridSettings) {
+  function applyGridSettings(settings: VttGridSettings, options?: { realtime?: boolean; sceneId?: string }) {
     if (!campaignId) return
 
     const nextSettings = normalizeGridSettings(settings)
     setGridSettings(nextSettings)
     storeGridSettings(campaignId, nextSettings)
 
+    if (options?.realtime === false) return
     if (!isMaster || !campaign?.isOnline) return
-    updateVttGridSettings({ campaignId, settings: nextSettings }).catch(() => {})
+    updateVttGridSettings({
+      campaignId,
+      sceneId: options?.sceneId,
+      settings: nextSettings,
+    }).catch(() => {})
   }
 
   // Hooks precisam ser chamados sempre: a lógica fica DENTRO do efeito.
@@ -179,7 +220,9 @@ export function CampaignLayout() {
       }
 
       try {
-        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character`)
+        const selectedCharacterId = navigationState?.characterId ?? campaign.myCharacterId
+        const selectedCharacterQuery = selectedCharacterId ? `?characterId=${encodeURIComponent(selectedCharacterId)}` : ''
+        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character${selectedCharacterQuery}`)
         setMyCharacter(ch)
         if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`
@@ -273,18 +316,18 @@ export function CampaignLayout() {
   }
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-[#08090c]">
+    <div className="relative h-screen w-full overflow-hidden bg-[#08090c]">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
-      <div className="min-h-screen">
+      <div className="relative h-full min-h-0">
         <Aside
           campaignId={campaignId}
           role={campaign.myRole}
           onSwitchCampaign={onSwitchCampaign}
         />
 
-        <div className="min-h-screen">
+        <div className="flex h-full min-h-0 flex-col">
           {/* Top bar (inspirado no layout de referência) */}
-          <header className="sticky top-0 z-30 border-b border-white/10 bg-black/40 backdrop-blur">
+          <header className="relative z-30 shrink-0 border-b border-white/10 bg-black/40 backdrop-blur">
             <div className="flex min-h-[73px] items-center justify-between gap-4 py-3 pl-24 pr-6 max-sm:pl-4 max-sm:pr-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 text-xs uppercase text-zinc-400">
@@ -329,7 +372,7 @@ export function CampaignLayout() {
                         disabled={sessionActionLoading || !myCharacter?.id}
                         onClick={onTogglePauseSession}
                       >
-                        {sessionState === 'PAUSED' 
+                        {sessionState === 'PAUSED'
                           ? <span className="text-green-500"><Play className="h-4 w-4" /></span>
                           : <span className="text-red-500"><Pause className="h-4 w-4" /></span>
                         }
@@ -351,7 +394,7 @@ export function CampaignLayout() {
             </div>
           </header>
 
-          <main className="relative z-10 h-[calc(100vh-73px)] overflow-hidden">
+          <main className="relative z-10 min-h-0 flex-1 overflow-hidden">
             <CampaignOverviewPage
               gridSettings={gridSettings}
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
@@ -371,6 +414,9 @@ export function CampaignLayout() {
         </div>
       </div>
 
+      {sessionActionLoading && !campaign.isOnline ? (
+        <LoadingScreen message="Sincronizando preparacao da mesa..." />
+      ) : null}
     </div>
   )
 }

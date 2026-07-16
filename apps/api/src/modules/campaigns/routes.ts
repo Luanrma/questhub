@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify'
+import type { Prisma } from '@prisma/client'
 import type { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
@@ -10,6 +11,60 @@ type CampaignRoutesDeps = {
   io: SocketIOServer
   isCampaignOnline: (campaignId: string) => boolean
   getCampaignSessionState: (campaignId: string) => 'ACTIVE' | 'PAUSED' | null
+}
+
+const defaultCampaignUserSettings = {
+  dice: {
+    autoClear: 3 as number | 'manual',
+    showResultPopup: true,
+  },
+}
+
+const campaignUserSettingsSchema = z
+  .object({
+    dice: z
+      .object({
+        autoClear: z.union([z.literal('manual'), z.number().int().min(3).max(10)]).optional(),
+        showResultPopup: z.boolean().optional(),
+      })
+      .optional(),
+  })
+  .passthrough()
+
+type CampaignUserSettingsPayload = z.infer<typeof campaignUserSettingsSchema>
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayload {
+  const parsed = campaignUserSettingsSchema.safeParse(value)
+  const settings = parsed.success ? parsed.data : {}
+  const dice = settings.dice ?? {}
+
+  return {
+    ...settings,
+    dice: {
+      autoClear: dice.autoClear ?? defaultCampaignUserSettings.dice.autoClear,
+      showResultPopup: dice.showResultPopup ?? defaultCampaignUserSettings.dice.showResultPopup,
+    },
+  }
+}
+
+function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUserSettingsPayload {
+  const currentSettings = normalizeCampaignUserSettings(current)
+  const nextRecord = isRecord(next) ? next : {}
+  const nextDice = isRecord(nextRecord.dice) ? nextRecord.dice : {}
+  const merged = {
+    ...currentSettings,
+    ...nextRecord,
+    dice: {
+      ...currentSettings.dice,
+      ...nextDice,
+    },
+  }
+
+  return normalizeCampaignUserSettings(merged)
 }
 
 export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoutesDeps) {
@@ -355,14 +410,18 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     const payload = requireAuth(req, reply)
     if (!payload) return
     const params = req.params as { campaignId: string }
+    const query = z.object({ characterId: z.string().optional() }).safeParse(req.query ?? {})
+    if (!query.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
     const campaignCharacter = await prisma.campaignCharacter.findFirst({
       where: {
         campaignId: params.campaignId,
+        ...(query.data.characterId ? { characterId: query.data.characterId } : {}),
         status: 'ACTIVE',
         role: { in: ['MASTER', 'PLAYER'] },
         character: { userId: payload.id },
       },
+      orderBy: { createdAt: 'asc' },
       select: {
         role: true,
         status: true,
@@ -390,6 +449,91 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       avatarUrl: campaignCharacter.character.avatarUrl,
       role: campaignCharacter.role,
       status: campaignCharacter.status,
+    })
+  })
+
+  app.get('/api/campaigns/:campaignId/my-settings', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = req.params as { campaignId: string }
+    const access = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        userId: payload.id,
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    })
+    if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const settings = await prisma.campaignUserSettings.findUnique({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      select: { settings: true },
+    })
+
+    return reply.send({
+      settings: normalizeCampaignUserSettings(settings?.settings),
+    })
+  })
+
+  app.patch('/api/campaigns/:campaignId/my-settings', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = req.params as { campaignId: string }
+    const bodySchema = z.object({
+      settings: campaignUserSettingsSchema,
+    })
+    const parsed = bodySchema.safeParse(req.body ?? {})
+    if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+
+    const access = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        userId: payload.id,
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    })
+    if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const current = await prisma.campaignUserSettings.findUnique({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      select: { settings: true },
+    })
+    const settings = mergeCampaignUserSettings(current?.settings, parsed.data.settings)
+
+    const updated = await prisma.campaignUserSettings.upsert({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      create: {
+        campaignId: params.campaignId,
+        userId: payload.id,
+        settings: settings as Prisma.InputJsonValue,
+      },
+      update: {
+        settings: settings as Prisma.InputJsonValue,
+      },
+      select: { settings: true },
+    })
+
+    return reply.send({
+      settings: normalizeCampaignUserSettings(updated.settings),
     })
   })
 
@@ -555,6 +699,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       where: {
         campaignId: params.campaignId,
         userId: target.userId,
+        role: 'PLAYER',
         status: 'ACTIVE',
         NOT: { id: target.id },
       },

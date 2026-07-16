@@ -2,6 +2,7 @@
 
 *, *::before, *::after {
   box-sizing: border-box;
+  user-select: none;
 }
 
 html, body, #root {
@@ -14,6 +15,13 @@ body {
   color: #f0f0f0;
   overscroll-behavior-y: contain;
   font-family: "Cinzel", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+
+input,
+textarea,
+[contenteditable="true"],
+[data-user-select="text"] {
+  user-select: text;
 }
 
 button,

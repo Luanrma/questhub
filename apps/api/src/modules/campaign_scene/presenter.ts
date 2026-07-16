@@ -16,6 +16,7 @@ type CampaignSceneRecord = {
   hexMeasurementColor: string
   gridLineWidth: number
   gridColor: string
+  walls?: unknown
   createdAt: Date
   updatedAt: Date
   tokens?: CampaignSceneTokenRecord[]
@@ -107,6 +108,7 @@ export function presentCampaignScene(scene: CampaignSceneRecord) {
     backgroundCacheKey: scene.backgroundCacheKey,
     grid: presentCampaignSceneGrid(scene),
     tokens: scene.tokens?.map(presentCampaignSceneToken) ?? [],
+    walls: Array.isArray(scene.walls) ? scene.walls : [],
     createdAt: scene.createdAt,
     updatedAt: scene.updatedAt,
   }
@@ -119,4 +121,3 @@ export function presentCampaignSceneViewState(viewState: CampaignSceneViewStateR
     forcedSceneId: viewState?.forcedSceneId ?? null,
   }
 }
-

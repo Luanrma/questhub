@@ -13,10 +13,10 @@ O botao `Iniciar Sessao` nao significa "comecar a aventura" em termos narrativos
 
 O botao `Encerrar Sessao` fecha essa conexao realtime. O Mestre pode continuar acessando o VTT, preparando cenas e organizando a mesa, mas Players nao conseguem conectar enquanto a sessao estiver offline.
 
-Os botoes `Pausar Sessao` e `Retomar Sessao` so existem quando a sessao esta online. Eles controlam permissao, interacao e visibilidade dos Players dentro da sessao aberta.
+Os botoes `Pausar Sessao` e `Retomar Sessao` existem quando a sessao esta online. Eles controlam permissao, interacao e visibilidade dos Players dentro da sessao aberta.
 
 ## 3. Personas
-* Mestre: acessa o VTT mesmo com a sessao offline, inicia/encerra WebSocket e controla pausa/andamento.
+* Mestre: acessa o VTT mesmo com a sessao offline, inicia/encerra WebSocket, controla pausa/andamento e controla a mesa.
 * Player: so acessa a mesa quando a sessao esta online.
 * Sistema: valida conexao, permissao e visibilidade conforme os dois estados.
 
@@ -46,3 +46,10 @@ Os botoes `Pausar Sessao` e `Retomar Sessao` so existem quando a sessao esta onl
 * `campaign_scene` consome pausa/andamento para decidir visibilidade, troca de cena e permissao de movimento.
 * `vtt` consome ambos os estados para habilitar ou bloquear ferramentas.
 * `chat` deve seguir a decisao de produto definida para sessao pausada: por padrao, pode continuar disponivel se o Player estiver conectado, salvo regra futura em contrario.
+
+## 8. Decisao Atual - Movimento do Mestre
+* Pausar e Retomar continuam sendo acoes de produto.
+* O Mestre pode preparar a mesa com a campanha offline: selecionar cena, posicionar tokens, remover tokens, alternar visibilidade e mover qualquer token.
+* Durante sessao online, o Mestre pode mover todos os tokens tanto em `PAUSED` quanto em `IN_PROGRESS`.
+* Players so interagem com a mesa quando a sessao esta online e nao pausada, e continuam restritos aos tokens que controlam operacionalmente.
+* Trocar a cena ativa do Mestre pode pausar a sessao conforme regra do fluxo de cena.

@@ -6,153 +6,36 @@ import { verifyToken } from '../../auth/jwt'
 import { isActiveSession } from '../../auth/session'
 import { prisma } from '../../db/prisma'
 import { TOKEN_COOKIE } from '../../http/auth'
+import { assetService } from '../assets/service'
+import { isMovementBlockedBySceneWalls, normalizeSceneWalls } from '../campaign_scene/domain/wall-geometry'
+import {
+  defaultVttGridSettings,
+  type VttCombatParticipant,
+  type VttCombatState,
+  type VttDiceRoll,
+  type VttGridSettings,
+  type VttPlayerToken,
+  type VttTableScene,
+  vttCombatCommandSchema,
+  vttCombatStartSchema,
+  vttCombatUpdateInitiativeSchema,
+  vttDiceRollSchema,
+  vttGridUpdateSchema,
+  vttMeasurementUpdateSchema,
+  vttSceneSelectSchema,
+  vttTokenActionSchema,
+  vttTokenPlaceSchema,
+  vttTokenUpdateSchema,
+  vttTokensRemoveBulkSchema,
+  vttWallsUpdateSchema,
+} from './contracts'
+import { registerPresenceHandlers } from './handlers/presence-handlers'
+import { CampaignPresenceState } from './live-state'
+import { sceneGridToVttSettings, tableTokenFromPersistedToken, vttGridSettingsToSceneData } from './mappers'
+import { campaignRoom, userRoom } from './rooms'
 
-type UserPresence = { socketId: string; campaignId: string; characterId: string }
-type CampaignSessionState = 'ACTIVE' | 'PAUSED'
-type OnlineCampaign = { masterSocketId: string; masterUserId: string; masterCharacterId: string; state: CampaignSessionState }
-type PresenceAck = (response: { ok: boolean; error?: string }) => void
-type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
-type VttTokenPosition = z.infer<typeof vttTokenPositionSchema>
-type VttMeasurement = z.infer<typeof vttMeasurementSchema>
-type VttDiceRoll = z.infer<typeof vttDiceRolledSchema>
-type VttTableScene = z.infer<typeof vttTableSceneSchema>
-type VttPlayerToken = {
-  id: string
-  characterId: string
-  name: string
-  avatarUrl: string | null
-  ownerUserId: string
-  ownerName: string
-  role: 'PLAYER' | 'NPC'
-  hidden: boolean
-  position: VttTokenPosition
-}
-
-const squareMetersAllowedValues = new Set([
-  ...Array.from({ length: 10 }, (_, index) => index + 1),
-  ...Array.from({ length: 18 }, (_, index) => (index + 3) * 5),
-  ...Array.from({ length: 90 }, (_, index) => (index + 11) * 10),
-  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 1000),
-])
-
-const defaultVttGridSettings: VttGridSettings = {
-  visible: false,
-  shape: 'square',
-  size: 32,
-  squareMeters: 1,
-  squareMeasurementColor: '#f97316',
-  hexMeasurementColor: '#f97316',
-  lineWidth: 1,
-  color: '#94a3b8',
-}
-
-const vttGridSettingsSchema = z.object({
-  visible: z.boolean(),
-  shape: z.enum(['square', 'hex']),
-  size: z.number().int().min(24).max(96),
-  squareMeters: z.number().int().min(1).max(10000).refine((value) => squareMetersAllowedValues.has(value)),
-  squareMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  hexMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  lineWidth: z.number().int().min(1).max(4),
-  color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-})
-
-const vttGridUpdateSchema = z.object({
-  campaignId: z.string().min(1),
-  settings: vttGridSettingsSchema,
-})
-
-const vttTokenPositionSchema = z.object({
-  x: z.number().min(0).max(100000),
-  y: z.number().min(0).max(100000),
-})
-
-const vttMeasurementPointSchema = z.object({
-  x: z.number().min(0).max(100000),
-  y: z.number().min(0).max(100000),
-})
-
-const vttMeasurementSchema = z.discriminatedUnion('shape', [
-  z.object({
-    shape: z.literal('square'),
-    start: vttMeasurementPointSchema,
-    end: vttMeasurementPointSchema,
-    color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  }),
-  z.object({
-    shape: z.literal('hex'),
-    points: z.array(vttMeasurementPointSchema).min(1).max(500),
-    color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  }),
-])
-
-const vttMeasurementUpdateSchema = z.object({
-  campaignId: z.string().min(1),
-  measurement: vttMeasurementSchema.nullable(),
-})
-
-const vttTableSceneSchema = z.object({
-  id: z.string().min(1).max(200),
-  name: z.string().min(1).max(120),
-  imageUrl: z.string().min(1).max(12000),
-  fileName: z.string().min(1).max(255).nullable(),
-  assetId: z.string().min(1).max(200).nullable(),
-  width: z.number().int().min(1).max(100000),
-  height: z.number().int().min(1).max(100000),
-})
-
-const vttSceneSelectSchema = z.object({
-  campaignId: z.string().min(1),
-  scene: vttTableSceneSchema.nullable(),
-})
-
-const vttDiceSidesSchema = z.union([z.literal(4), z.literal(6), z.literal(8), z.literal(10), z.literal(12), z.literal(20)])
-
-const vttDiceRollItemSchema = z
-  .object({
-    sides: vttDiceSidesSchema,
-    value: z.number().int().min(1),
-  })
-  .refine((roll) => roll.value <= roll.sides)
-
-const vttDiceRollSchema = z
-  .object({
-    campaignId: z.string().min(1),
-    sides: vttDiceSidesSchema.optional(),
-    value: z.number().int().min(1).optional(),
-    rolls: z.array(vttDiceRollItemSchema).min(1).max(20).optional(),
-  })
-  .transform((input) => ({
-    campaignId: input.campaignId,
-    rolls: input.rolls ?? (input.sides && input.value ? [{ sides: input.sides, value: input.value }] : []),
-  }))
-  .refine((input) => input.rolls.length > 0)
-
-const vttDiceRolledSchema = z.object({
-  id: z.number().int().positive(),
-  sides: vttDiceSidesSchema,
-  value: z.number().int().min(1),
-  characterId: z.string().min(1),
-  characterName: z.string().min(1),
-  rolledAt: z.number().int().positive(),
-})
-
-const vttTokenUpdateSchema = z.object({
-  campaignId: z.string().min(1),
-  characterId: z.string().min(1).optional(),
-  position: vttTokenPositionSchema,
-})
-
-const vttTokenPlaceSchema = z.object({
-  campaignId: z.string().min(1),
-  characterId: z.string().min(1),
-  position: vttTokenPositionSchema,
-})
-
-const vttTokenActionSchema = z.object({
-  campaignId: z.string().min(1),
-  characterId: z.string().min(1),
-})
+const boardGridLimits = { columns: 50, rows: 34 }
+const hexRowStepUnits = Math.sqrt(3) / 2
 
 export function setupCampaignPresence(server: HttpServer) {
   const io = new SocketIOServer(server, {
@@ -162,31 +45,34 @@ export function setupCampaignPresence(server: HttpServer) {
     },
   })
 
-  const userPresence = new Map<string, UserPresence>()
-  const campaignOnline = new Map<string, OnlineCampaign>()
-  const campaignGridSettings = new Map<string, VttGridSettings>()
-  const campaignTokens = new Map<string, Map<string, VttPlayerToken>>()
-  const campaignMeasurements = new Map<string, VttMeasurement>()
-  const campaignScenes = new Map<string, VttTableScene>()
-  const campaignPendingScenes = new Map<string, VttTableScene | null>()
+  const state = new CampaignPresenceState()
 
   function isCampaignOnline(campaignId: string) {
-    return campaignOnline.has(campaignId)
+    return state.isCampaignOnline(campaignId)
   }
 
   function isSessionMaster(campaignId: string, socketId: string, userId: string) {
-    const online = campaignOnline.get(campaignId)
+    const online = state.getCampaignOnline(campaignId)
     return Boolean(online && online.masterSocketId === socketId && online.masterUserId === userId)
   }
 
   function getCampaignSessionState(campaignId: string) {
-    return campaignOnline.get(campaignId)?.state ?? null
+    return state.getCampaignSessionState(campaignId)
   }
 
-  function emitCampaignSessionState(campaignId: string) {
-    const state = getCampaignSessionState(campaignId)
-    if (!state) return
-    io.to(`campaign:${campaignId}`).emit('presence:session:state', { campaignId, state })
+  async function emitCampaignSessionState(campaignId: string) {
+    const sessionState = getCampaignSessionState(campaignId)
+    if (!sessionState) return
+
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        campaignSocket.emit('presence:session:state', {
+          campaignId,
+          state: await getVisibleCampaignSessionState(campaignId, campaignSocket),
+        })
+      }),
+    )
   }
 
   async function notifyCampaignStatus(campaignId: string, online: boolean) {
@@ -196,19 +82,16 @@ export function setupCampaignPresence(server: HttpServer) {
     })
 
     for (const member of members) {
-      io.to(`user:${member.character.userId}`).emit('campaign:status', { campaignId, online })
+      io.to(userRoom(member.character.userId)).emit('campaign:status', { campaignId, online })
     }
   }
 
   async function endCampaignSession(campaignId: string, message: string) {
-    campaignOnline.delete(campaignId)
-    campaignTokens.delete(campaignId)
-    campaignMeasurements.delete(campaignId)
-    campaignScenes.delete(campaignId)
-    campaignPendingScenes.delete(campaignId)
+    await persistCampaignLiveState(campaignId)
+    state.clearCampaignSession(campaignId)
     await notifyCampaignStatus(campaignId, false)
 
-    const sockets = await io.in(`campaign:${campaignId}`).fetchSockets()
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     for (const campaignSocket of sockets) {
       const role = campaignSocket.data.characterRole as string | undefined
       const socketUser = campaignSocket.data.user as { id: string } | undefined
@@ -219,14 +102,14 @@ export function setupCampaignPresence(server: HttpServer) {
       }
 
       if (socketUser?.id) {
-        userPresence.delete(socketUser.id)
+        state.deleteUserPresence(socketUser.id)
       }
 
       if (characterId) {
-        io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: false })
+        io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, characterId, online: false })
       }
 
-      campaignSocket.leave(`campaign:${campaignId}`)
+      campaignSocket.leave(campaignRoom(campaignId))
       campaignSocket.data.campaignId = undefined
       campaignSocket.data.characterId = undefined
       campaignSocket.data.characterRole = undefined
@@ -234,30 +117,520 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   function getCampaignGridSettings(campaignId: string) {
-    return campaignGridSettings.get(campaignId) ?? defaultVttGridSettings
+    return state.getCampaignGridSettings(campaignId)
   }
 
-  function emitCampaignGridSettings(campaignId: string) {
-    io.to(`campaign:${campaignId}`).emit('vtt:grid:changed', {
-      campaignId,
-      settings: getCampaignGridSettings(campaignId),
+  async function getMasterActiveSceneId(campaignId: string) {
+    const viewState = await prisma.campaignSceneViewState.findUnique({
+      where: { campaignId },
+      select: { masterActiveSceneId: true },
     })
+    if (viewState?.masterActiveSceneId) return viewState.masterActiveSceneId
+
+    const firstScene = await prisma.campaignScene.findFirst({
+      where: { campaignId },
+      orderBy: { order: 'asc' },
+      select: { id: true },
+    })
+    return firstScene?.id ?? null
+  }
+
+  async function updateMasterActiveScene(campaignId: string, sceneId: string | null) {
+    if (sceneId) {
+      const scene = await prisma.campaignScene.findFirst({
+        where: { id: sceneId, campaignId },
+        select: { id: true },
+      })
+      if (!scene) return false
+    }
+
+    await prisma.campaignSceneViewState.upsert({
+      where: { campaignId },
+      create: { campaignId, masterActiveSceneId: sceneId },
+      update: { masterActiveSceneId: sceneId },
+    })
+    return true
+  }
+
+  async function isActiveCampaignMaster(campaignId: string, userId: string) {
+    const master = await prisma.campaignCharacter.findFirst({
+      where: { campaignId, userId, role: 'MASTER', status: 'ACTIVE' },
+      select: { id: true },
+    })
+    return Boolean(master)
+  }
+
+  async function canControlCampaignAsMaster(campaignId: string, socketId: string, userId: string) {
+    const online = state.getCampaignOnline(campaignId)
+    if (online) return online.masterSocketId === socketId && online.masterUserId === userId
+    return isActiveCampaignMaster(campaignId, userId)
+  }
+
+  async function sceneBelongsToCampaign(campaignId: string, sceneId: string) {
+    const scene = await prisma.campaignScene.findFirst({
+      where: { id: sceneId, campaignId },
+      select: { id: true },
+    })
+    return Boolean(scene)
+  }
+
+  async function removeCampaignTokens(campaignId: string, options: { sceneId?: string | null }) {
+    const tokenMap = state.getCampaignTokens(campaignId)
+    const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
+    if (!tokenMap || !tokenSceneMap) return
+
+    const tokensToRemove = [...tokenMap.values()].filter((token) => {
+      if (!options.sceneId) return true
+      return tokenSceneMap.get(token.characterId) === options.sceneId
+    })
+
+    for (const token of tokensToRemove) {
+      const sceneId = tokenSceneMap.get(token.characterId)
+      if (!sceneId) continue
+
+      tokenMap.delete(token.characterId)
+      tokenSceneMap.delete(token.characterId)
+      await emitSceneTokenRemoved(campaignId, sceneId, token.characterId)
+    }
+
+    removeCombatParticipants(campaignId, tokensToRemove.map((token) => token.characterId))
+  }
+
+  async function getActiveSceneGridSettings(campaignId: string) {
+    const sceneId = await getMasterActiveSceneId(campaignId)
+    if (!sceneId) return getCampaignGridSettings(campaignId)
+
+    const liveGrid = state.getCampaignSceneGridSettings(campaignId)?.get(sceneId)
+    if (liveGrid) return liveGrid
+
+    const scene = await prisma.campaignScene.findUnique({
+      where: { id: sceneId },
+      select: {
+        gridVisible: true,
+        gridShape: true,
+        gridSize: true,
+        metersPerCell: true,
+        squareMeasurementColor: true,
+        hexMeasurementColor: true,
+        gridLineWidth: true,
+        gridColor: true,
+      },
+    })
+
+    return scene ? sceneGridToVttSettings(scene) : getCampaignGridSettings(campaignId)
+  }
+
+  async function getVisibleSceneIdForSocket(campaignId: string, socket: { data: any }) {
+    const role = socket.data.characterRole as string | undefined
+    if (role === 'MASTER') return getMasterActiveSceneId(campaignId)
+
+    const online = state.getCampaignOnline(campaignId)
+    const socketUser = socket.data.user as { id: string } | undefined
+    if (!online && socketUser?.id && (await isActiveCampaignMaster(campaignId, socketUser.id))) {
+      return getMasterActiveSceneId(campaignId)
+    }
+
+    const viewState = await prisma.campaignSceneViewState.findUnique({
+      where: { campaignId },
+      select: { forcedSceneId: true },
+    })
+    if (viewState?.forcedSceneId) return viewState.forcedSceneId
+
+    const characterId = socket.data.characterId as string | undefined
+    if (!characterId) return null
+
+    const liveTokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
+    if (liveTokenSceneMap) return liveTokenSceneMap.get(characterId) ?? null
+
+    const token = await prisma.campaignSceneToken.findFirst({
+      where: {
+        characterId,
+        scene: { campaignId },
+      },
+      select: { sceneId: true },
+    })
+
+    return token?.sceneId ?? null
+  }
+
+  async function getVisibleCampaignSessionState(campaignId: string, socket: { data: any }) {
+    const online = state.getCampaignOnline(campaignId)
+    if (!online) return null
+    if (online.state === 'PAUSED') return 'PAUSED' as const
+
+    const role = socket.data.characterRole as string | undefined
+    if (role === 'MASTER') return 'ACTIVE' as const
+
+    const masterSceneId = await getMasterActiveSceneId(campaignId)
+    const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, socket)
+    return masterSceneId && visibleSceneId === masterSceneId ? 'ACTIVE' as const : 'PAUSED' as const
+  }
+
+  async function findPersistedSceneToken(campaignId: string, characterId: string): Promise<VttPlayerToken | null> {
+    const token = await prisma.campaignSceneToken.findFirst({
+      where: { characterId, scene: { campaignId } },
+      select: {
+        id: true,
+        characterId: true,
+        hidden: true,
+        positionX: true,
+        positionY: true,
+        character: {
+          select: {
+            name: true,
+            avatarUrl: true,
+            userId: true,
+            campaigns: {
+              where: { campaignId },
+              select: {
+                role: true,
+                user: { select: { email: true } },
+              },
+            },
+          },
+        },
+      },
+    })
+    if (!token) return null
+
+    const campaignCharacter = token.character.campaigns[0]
+    const role = campaignCharacter?.role === 'NPC' ? 'NPC' : 'PLAYER'
+
+    return {
+      id: token.id,
+      characterId: token.characterId,
+      name: token.character.name,
+      avatarUrl: token.character.avatarUrl,
+      ownerUserId: token.character.userId,
+      ownerName: campaignCharacter?.user?.email ?? token.character.name,
+      role,
+      hidden: token.hidden,
+      position: {
+        x: token.positionX,
+        y: token.positionY,
+      },
+    }
+  }
+
+  async function emitSceneGridSettings(campaignId: string, sceneId: string, settings: VttGridSettings) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId) return
+        campaignSocket.emit('vtt:grid:changed', {
+          campaignId,
+          sceneId,
+          settings,
+        })
+      }),
+    )
+  }
+
+  async function emitSceneTokenChanged(
+    campaignId: string,
+    sceneId: string,
+    token: VttPlayerToken,
+    options?: { refreshOwnerVisibleScene?: boolean },
+  ) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        const isTokenOwner = Boolean(token.characterId && campaignSocket.data.characterId === token.characterId)
+        if (visibleSceneId !== sceneId) {
+          if (isTokenOwner && options?.refreshOwnerVisibleScene) await emitVisibleTableSnapshot(campaignId, campaignSocket)
+          return
+        }
+        campaignSocket.emit('vtt:token:changed', {
+          campaignId,
+          sceneId,
+          token,
+        })
+        if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.characterRole !== 'MASTER') {
+          await emitVisibleTableSnapshot(campaignId, campaignSocket)
+        }
+      }),
+    )
+  }
+
+  async function emitSceneTokenRemoved(campaignId: string, sceneId: string, characterId: string) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const isRemovedTokenOwner = campaignSocket.data.characterId === characterId
+        const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+        if (visibleSceneId !== sceneId && !isRemovedTokenOwner) return
+        campaignSocket.emit('vtt:token:removed', {
+          campaignId,
+          sceneId,
+          characterId,
+        })
+        if (isRemovedTokenOwner) await emitVisibleTableSnapshot(campaignId, campaignSocket)
+      }),
+    )
   }
 
   function getCampaignTokenMap(campaignId: string) {
-    const existing = campaignTokens.get(campaignId)
-    if (existing) return existing
-
-    const next = new Map<string, VttPlayerToken>()
-    campaignTokens.set(campaignId, next)
-    return next
+    return state.getOrCreateCampaignTokenMap(campaignId)
   }
 
-  function emitCampaignTokenSnapshot(campaignId: string, socketId: string) {
-    const tokenMap = campaignTokens.get(campaignId)
+  function getCampaignTokenSceneMap(campaignId: string) {
+    return state.getOrCreateCampaignTokenSceneMap(campaignId)
+  }
+
+  function getCampaignSceneGridMap(campaignId: string) {
+    return state.getOrCreateCampaignSceneGridMap(campaignId)
+  }
+
+  async function hydrateCampaignLiveState(campaignId: string) {
+    const scenes = await prisma.campaignScene.findMany({
+      where: { campaignId },
+      select: {
+        id: true,
+        gridVisible: true,
+        gridShape: true,
+        gridSize: true,
+        metersPerCell: true,
+        squareMeasurementColor: true,
+        hexMeasurementColor: true,
+        gridLineWidth: true,
+        gridColor: true,
+        walls: true,
+      },
+    })
+
+    const sceneGridMap = new Map<string, VttGridSettings>()
+    for (const scene of scenes) {
+      sceneGridMap.set(scene.id, sceneGridToVttSettings(scene))
+    }
+
+    const persistedTokens = await prisma.campaignSceneToken.findMany({
+      where: { scene: { campaignId } },
+      select: {
+        id: true,
+        sceneId: true,
+        characterId: true,
+        hidden: true,
+        positionX: true,
+        positionY: true,
+        character: {
+          select: {
+            name: true,
+            avatarUrl: true,
+            userId: true,
+            campaigns: {
+              where: { campaignId },
+              select: {
+                role: true,
+                user: { select: { email: true } },
+              },
+            },
+          },
+        },
+      },
+    })
+
+    const tokenMap = new Map<string, VttPlayerToken>()
+    const tokenSceneMap = new Map<string, string>()
+    for (const persistedToken of persistedTokens) {
+      tokenMap.set(persistedToken.characterId, tableTokenFromPersistedToken(persistedToken))
+      tokenSceneMap.set(persistedToken.characterId, persistedToken.sceneId)
+    }
+
+    state.setCampaignSceneGridSettings(campaignId, sceneGridMap)
+    state.setCampaignTokens(campaignId, tokenMap)
+    state.setCampaignTokenSceneIds(campaignId, tokenSceneMap)
+  }
+
+  async function persistCampaignLiveState(campaignId: string) {
+    const sceneGridMap = state.getCampaignSceneGridSettings(campaignId)
+    const tokenMap = state.getCampaignTokens(campaignId)
+    const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
+
+    if (sceneGridMap) {
+      await Promise.all(
+        [...sceneGridMap.entries()].map(([sceneId, settings]) =>
+          prisma.campaignScene.update({
+            where: { id: sceneId },
+            data: vttGridSettingsToSceneData(settings),
+          }),
+        ),
+      )
+    }
+
+    if (!tokenMap || !tokenSceneMap) return
+
+    await prisma.$transaction(async (tx) => {
+      await tx.campaignSceneToken.deleteMany({ where: { scene: { campaignId } } })
+      const tokensToCreate: Array<{
+        sceneId: string
+        characterId: string
+        hidden: boolean
+        positionX: number
+        positionY: number
+      }> = []
+      for (const token of tokenMap.values()) {
+        const sceneId = tokenSceneMap.get(token.characterId)
+        if (!sceneId) continue
+        tokensToCreate.push({
+          sceneId,
+          characterId: token.characterId,
+          hidden: token.hidden,
+          positionX: token.position.x,
+          positionY: token.position.y,
+        })
+      }
+
+      if (tokensToCreate.length) {
+        await tx.campaignSceneToken.createMany({
+          data: tokensToCreate,
+          skipDuplicates: true,
+        })
+      }
+    })
+  }
+
+  function setLiveSceneGrid(campaignId: string, sceneId: string, settings: VttGridSettings) {
+    getCampaignSceneGridMap(campaignId).set(sceneId, settings)
+    state.setCampaignGridSettings(campaignId, settings)
+  }
+
+  function setLiveSceneToken(campaignId: string, sceneId: string, token: VttPlayerToken) {
+    getCampaignTokenMap(campaignId).set(token.characterId, token)
+    getCampaignTokenSceneMap(campaignId).set(token.characterId, sceneId)
+  }
+
+  async function persistSceneToken(campaignId: string, sceneId: string, token: VttPlayerToken) {
+    const scene = await prisma.campaignScene.findFirst({
+      where: { id: sceneId, campaignId },
+      select: { id: true },
+    })
+    if (!scene) return
+
+    await prisma.campaignSceneToken.upsert({
+      where: { characterId: token.characterId },
+      create: {
+        sceneId,
+        characterId: token.characterId,
+        hidden: token.hidden,
+        positionX: token.position.x,
+        positionY: token.position.y,
+      },
+      update: {
+        sceneId,
+        hidden: token.hidden,
+        positionX: token.position.x,
+        positionY: token.position.y,
+      },
+    })
+  }
+
+  function getDefaultSceneDimensions(grid: VttGridSettings) {
+    if (grid.shape === 'hex') {
+      return {
+        width: boardGridLimits.columns * grid.size,
+        height: (boardGridLimits.rows * hexRowStepUnits + 0.5) * grid.size,
+      }
+    }
+
+    return {
+      width: boardGridLimits.columns * grid.size,
+      height: boardGridLimits.rows * grid.size,
+    }
+  }
+
+  async function listSceneTokens(campaignId: string, sceneId?: string | null) {
+    const visibleSceneId = sceneId ?? (await getMasterActiveSceneId(campaignId))
+    if (!visibleSceneId) return []
+
+    const liveTokenMap = state.getCampaignTokens(campaignId)
+    const liveTokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
+    if (liveTokenMap && liveTokenSceneMap) {
+      return [...liveTokenMap.values()].filter((token) => liveTokenSceneMap.get(token.characterId) === visibleSceneId)
+    }
+
+    const tokens = await prisma.campaignSceneToken.findMany({
+      where: { sceneId: visibleSceneId },
+      select: { characterId: true },
+      orderBy: { createdAt: 'asc' },
+    })
+
+    const hydratedTokens = await Promise.all(tokens.map((token) => findPersistedSceneToken(campaignId, token.characterId)))
+    return hydratedTokens.filter((token): token is VttPlayerToken => Boolean(token))
+  }
+
+  async function findTableScene(campaignId: string, sceneId: string | null): Promise<VttTableScene | null> {
+    if (!sceneId) return null
+
+    const scene = await prisma.campaignScene.findFirst({
+      where: { id: sceneId, campaignId },
+      select: {
+        id: true,
+        name: true,
+        assetId: true,
+        backgroundUrl: true,
+        backgroundCacheKey: true,
+        walls: true,
+        gridVisible: true,
+        gridShape: true,
+        gridSize: true,
+        metersPerCell: true,
+        squareMeasurementColor: true,
+        hexMeasurementColor: true,
+        gridLineWidth: true,
+        gridColor: true,
+      },
+    })
+    if (!scene) return null
+
+    const grid = state.getCampaignSceneGridSettings(campaignId)?.get(scene.id) ?? sceneGridToVttSettings(scene)
+    const tokens = await listSceneTokens(campaignId, scene.id)
+    let imageUrl = scene.backgroundUrl
+    if (scene.backgroundCacheKey) {
+      imageUrl = await assetService.getSignedUrl(scene.backgroundCacheKey).catch(() => scene.backgroundUrl)
+    }
+
+    const dimensions = getDefaultSceneDimensions(grid)
+
+    return {
+      id: scene.id,
+      name: scene.name,
+      imageUrl,
+      fileName: scene.name,
+      assetId: scene.assetId,
+      width: dimensions.width,
+      height: dimensions.height,
+      grid,
+      tokens,
+      walls: normalizeSceneWalls(scene.walls),
+    }
+  }
+
+  async function getSceneWalls(campaignId: string, sceneId: string) {
+    const scene = await prisma.campaignScene.findFirst({
+      where: { id: sceneId, campaignId },
+      select: { walls: true },
+    })
+    return normalizeSceneWalls(scene?.walls)
+  }
+
+  async function emitSceneWallsChanged(campaignId: string, sceneId: string, walls: unknown[]) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(sockets.map(async (campaignSocket) => {
+      const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
+      if (visibleSceneId === sceneId) campaignSocket.emit('vtt:walls:changed', { campaignId, sceneId, walls })
+    }))
+  }
+
+  async function emitCampaignTokenSnapshot(campaignId: string, socketId: string, sceneId?: string | null) {
+    const persistedTokens = await listSceneTokens(campaignId, sceneId)
+    const tokenMap = getCampaignTokenMap(campaignId)
+    persistedTokens.forEach((token) => tokenMap.set(token.characterId, token))
     io.to(socketId).emit('vtt:tokens:snapshot', {
       campaignId,
-      tokens: tokenMap ? Array.from(tokenMap.values()) : [],
+      sceneId: sceneId ?? null,
+      tokens: persistedTokens,
       sessionState: getCampaignSessionState(campaignId),
     })
   }
@@ -265,32 +638,119 @@ export function setupCampaignPresence(server: HttpServer) {
   function emitCampaignMeasurementSnapshot(campaignId: string, socketId: string) {
     io.to(socketId).emit('vtt:measurement:snapshot', {
       campaignId,
-      measurement: campaignMeasurements.get(campaignId) ?? null,
+      measurement: state.getCampaignMeasurement(campaignId) ?? null,
     })
   }
 
-  function emitCampaignSceneSnapshot(campaignId: string, socketId: string) {
-    io.to(socketId).emit('vtt:scene:snapshot', {
+  async function emitVisibleTableSnapshot(campaignId: string, socket: { id: string; data: any }) {
+    const sceneId = await getVisibleSceneIdForSocket(campaignId, socket)
+    const scene = await findTableScene(campaignId, sceneId)
+
+    io.to(socket.id).emit('vtt:scene:snapshot', {
       campaignId,
-      scene: campaignScenes.get(campaignId) ?? null,
+      scene,
     })
+
+    io.to(socket.id).emit('vtt:grid:changed', {
+      campaignId,
+      sceneId: scene?.id ?? null,
+      settings: scene?.grid ?? defaultVttGridSettings,
+    })
+
+    await emitCampaignTokenSnapshot(campaignId, socket.id, scene?.id ?? null)
+  }
+
+  async function emitVisibleTableSnapshots(campaignId: string) {
+    const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
+    await Promise.all(sockets.map((campaignSocket) => emitVisibleTableSnapshot(campaignId, campaignSocket)))
   }
 
   function emitCampaignScene(campaignId: string, scene: VttTableScene | null) {
-    io.to(`campaign:${campaignId}`).emit('vtt:scene:changed', {
+    io.to(campaignRoom(campaignId)).emit('vtt:scene:changed', {
       campaignId,
       scene,
     })
   }
 
-  function removeCampaignToken(campaignId: string, characterId: string) {
-    const tokenMap = campaignTokens.get(campaignId)
-    if (!tokenMap?.delete(characterId)) return
+  function isActiveSessionMaster(campaignId: string, socketId: string, userId: string) {
+    const online = state.getCampaignOnline(campaignId)
+    return Boolean(online && online.masterSocketId === socketId && online.masterUserId === userId)
+  }
 
-    io.to(`campaign:${campaignId}`).emit('vtt:token:removed', {
+  function sortCombatParticipants(participants: VttCombatParticipant[]) {
+    return participants
+      .map((participant, index) => ({ participant, index }))
+      .sort((left, right) => {
+        const leftInitiative = left.participant.initiative
+        const rightInitiative = right.participant.initiative
+        if (leftInitiative === null && rightInitiative === null) return left.index - right.index
+        if (leftInitiative === null) return 1
+        if (rightInitiative === null) return -1
+        if (rightInitiative !== leftInitiative) return rightInitiative - leftInitiative
+        return left.index - right.index
+      })
+      .map((item) => item.participant)
+  }
+
+  function normalizeCombatTurnIndex(combat: VttCombatState, activeCharacterId?: string | null): VttCombatState {
+    if (!combat.participants.length) return { ...combat, activeTurnIndex: 0 }
+    if (!activeCharacterId) {
+      return {
+        ...combat,
+        activeTurnIndex: Math.min(Math.max(combat.activeTurnIndex, 0), combat.participants.length - 1),
+      }
+    }
+
+    const nextIndex = combat.participants.findIndex((participant) => participant.characterId === activeCharacterId)
+    return {
+      ...combat,
+      activeTurnIndex: nextIndex >= 0 ? nextIndex : 0,
+    }
+  }
+
+  function emitCombatChanged(campaignId: string) {
+    io.to(campaignRoom(campaignId)).emit('vtt:combat:changed', {
       campaignId,
-      characterId,
+      combat: state.getCampaignCombat(campaignId),
     })
+  }
+
+  function removeCombatParticipants(campaignId: string, characterIds: string[]) {
+    const combat = state.getCampaignCombat(campaignId)
+    if (!combat || !characterIds.length) return
+
+    const characterIdSet = new Set(characterIds)
+    const activeCharacterId = combat.participants[combat.activeTurnIndex]?.characterId ?? null
+    const participants = combat.participants.filter((participant) => !characterIdSet.has(participant.characterId))
+    if (!participants.length) {
+      state.deleteCampaignCombat(campaignId)
+      emitCombatChanged(campaignId)
+      return
+    }
+
+    state.setCampaignCombat(
+      campaignId,
+      normalizeCombatTurnIndex(
+        {
+          ...combat,
+          participants,
+        },
+        activeCharacterId && characterIdSet.has(activeCharacterId) ? null : activeCharacterId,
+      ),
+    )
+    emitCombatChanged(campaignId)
+  }
+
+  async function removeCampaignToken(campaignId: string, characterId: string) {
+    const tokenMap = state.getCampaignTokens(campaignId)
+    const sceneId = state.getCampaignTokenSceneIds(campaignId)?.get(characterId)
+    if (!tokenMap?.has(characterId)) return
+    if (!sceneId) return
+
+    tokenMap.delete(characterId)
+    state.getCampaignTokenSceneIds(campaignId)?.delete(characterId)
+    await emitSceneTokenRemoved(campaignId, sceneId, characterId)
+    removeCombatParticipants(campaignId, [characterId])
   }
 
   io.use((socket, next) => {
@@ -310,182 +770,44 @@ export function setupCampaignPresence(server: HttpServer) {
   io.on('connection', (socket) => {
     const user = socket.data.user as { id: string }
 
-    socket.join(`user:${user.id}`)
-
-    socket.on(
-      'presence:session:start',
-      async ({ campaignId, characterId }: { campaignId: string; characterId: string }, ack?: PresenceAck) => {
-        try {
-          if (!campaignId || !characterId) {
-            ack?.({ ok: false, error: 'Dados invalidos' })
-            return
-          }
-
-          const campaignCharacter = await prisma.campaignCharacter.findFirst({
-            where: { campaignId, characterId, status: 'ACTIVE', role: 'MASTER' },
-            select: { role: true, character: { select: { userId: true, name: true } } },
-          })
-          if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
-            ack?.({ ok: false, error: 'Apenas o mestre pode iniciar a sessao' })
-            return
-          }
-
-          socket.data.campaignId = campaignId
-          socket.data.characterId = characterId
-          socket.data.characterRole = campaignCharacter.role
-          socket.data.characterName = campaignCharacter.character.name
-          socket.join(`campaign:${campaignId}`)
-          userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
-          campaignOnline.set(campaignId, { masterSocketId: socket.id, masterUserId: user.id, masterCharacterId: characterId, state: 'ACTIVE' })
-          campaignTokens.set(campaignId, new Map())
-          campaignMeasurements.delete(campaignId)
-          campaignScenes.delete(campaignId)
-          campaignPendingScenes.delete(campaignId)
-
-          await notifyCampaignStatus(campaignId, true)
-          io.to(`campaign:${campaignId}`).emit('presence:update', { campaignId, characterId, online: true })
-          emitCampaignSessionState(campaignId)
-          emitCampaignGridSettings(campaignId)
-          emitCampaignTokenSnapshot(campaignId, socket.id)
-          emitCampaignMeasurementSnapshot(campaignId, socket.id)
-          emitCampaignSceneSnapshot(campaignId, socket.id)
-          ack?.({ ok: true })
-        } catch {
-          ack?.({ ok: false, error: 'Erro ao iniciar sessao' })
-        }
-      },
-    )
-
-    socket.on('presence:session:end', async ({ campaignId }: { campaignId: string }, ack?: PresenceAck) => {
-      try {
-        if (!campaignId) {
-          ack?.({ ok: false, error: 'Dados invalidos' })
-          return
-        }
-
-        const online = campaignOnline.get(campaignId)
-        if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) {
-          ack?.({ ok: false, error: 'Sessao nao iniciada por este mestre' })
-          return
-        }
-
-        await endCampaignSession(campaignId, 'O mestre encerrou a sessão.')
-        ack?.({ ok: true })
-      } catch {
-        ack?.({ ok: false, error: 'Erro ao encerrar sessao' })
-      }
+    registerPresenceHandlers(socket, {
+      io,
+      state,
+      isCampaignOnline,
+      getCampaignSessionState,
+      getVisibleCampaignSessionState,
+      emitCampaignSessionState,
+      emitCampaignMeasurementSnapshot,
+      emitCampaignScene,
+      emitVisibleTableSnapshot,
+      notifyCampaignStatus,
+      hydrateCampaignLiveState,
+      persistCampaignLiveState,
+      endCampaignSession,
     })
-
-    socket.on('presence:session:pause', async ({ campaignId }: { campaignId: string }, ack?: PresenceAck) => {
+    socket.on('vtt:grid:update', async (input: unknown) => {
       try {
-        if (!campaignId) {
-          ack?.({ ok: false, error: 'Dados invalidos' })
-          return
-        }
+        const parsed = vttGridUpdateSchema.safeParse(input)
+        if (!parsed.success) return
 
-        const online = campaignOnline.get(campaignId)
-        if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) {
-          ack?.({ ok: false, error: 'Sessao nao iniciada por este mestre' })
-          return
-        }
+        const { campaignId, sceneId: requestedSceneId, settings } = parsed.data
+        const online = state.getCampaignOnline(campaignId)
+        if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
 
-        campaignOnline.set(campaignId, { ...online, state: 'PAUSED' })
-        emitCampaignSessionState(campaignId)
-        ack?.({ ok: true })
+        const sceneId = requestedSceneId ?? (await getMasterActiveSceneId(campaignId))
+        if (!sceneId) return
+        if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
+
+        setLiveSceneGrid(campaignId, sceneId, settings)
+        await prisma.campaignScene.update({
+          where: { id: sceneId },
+          data: vttGridSettingsToSceneData(settings),
+        })
+        if (online) await emitSceneGridSettings(campaignId, sceneId, settings)
+        else socket.emit('vtt:grid:changed', { campaignId, sceneId, settings })
       } catch {
-        ack?.({ ok: false, error: 'Erro ao pausar sessao' })
+        socket.emit('presence:error', { message: 'Nao foi possivel atualizar o grid da cena.' })
       }
-    })
-
-    socket.on('presence:session:resume', async ({ campaignId }: { campaignId: string }, ack?: PresenceAck) => {
-      try {
-        if (!campaignId) {
-          ack?.({ ok: false, error: 'Dados invalidos' })
-          return
-        }
-
-        const online = campaignOnline.get(campaignId)
-        if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) {
-          ack?.({ ok: false, error: 'Sessao nao iniciada por este mestre' })
-          return
-        }
-
-        campaignOnline.set(campaignId, { ...online, state: 'ACTIVE' })
-        emitCampaignSessionState(campaignId)
-        if (campaignPendingScenes.has(campaignId)) {
-          const pendingScene = campaignPendingScenes.get(campaignId) ?? null
-          campaignPendingScenes.delete(campaignId)
-          if (pendingScene) {
-            campaignScenes.set(campaignId, pendingScene)
-          } else {
-            campaignScenes.delete(campaignId)
-          }
-          emitCampaignScene(campaignId, pendingScene)
-        }
-        ack?.({ ok: true })
-      } catch {
-        ack?.({ ok: false, error: 'Erro ao retomar sessao' })
-      }
-    })
-
-    socket.on('presence:enter', async ({ campaignId, characterId }: { campaignId: string; characterId: string }) => {
-      try {
-        if (!campaignId || !characterId) return
-
-        const campaignCharacter = await prisma.campaignCharacter.findFirst({
-          where: { campaignId, characterId, status: 'ACTIVE' },
-          select: { role: true, character: { select: { userId: true, name: true, avatarUrl: true } } },
-        })
-        if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
-          socket.emit('presence:error', { message: 'Acesso nao liberado' })
-          return
-        }
-        if (campaignCharacter.role === 'NPC') return
-        if (campaignCharacter.role !== 'PLAYER') return
-        if (!isCampaignOnline(campaignId)) {
-          socket.emit('presence:error', { message: 'Mestre offline' })
-          return
-        }
-
-        socket.data.campaignId = campaignId
-        socket.data.characterId = characterId
-        socket.data.characterRole = campaignCharacter.role
-        socket.data.characterName = campaignCharacter.character.name
-        socket.data.characterAvatarUrl = campaignCharacter.character.avatarUrl
-        socket.join(`campaign:${campaignId}`)
-        userPresence.set(user.id, { socketId: socket.id, campaignId, characterId })
-        socket.emit('vtt:grid:changed', {
-          campaignId,
-          settings: getCampaignGridSettings(campaignId),
-        })
-        socket.emit('presence:session:state', {
-          campaignId,
-          state: getCampaignSessionState(campaignId),
-        })
-        emitCampaignTokenSnapshot(campaignId, socket.id)
-        emitCampaignMeasurementSnapshot(campaignId, socket.id)
-        emitCampaignSceneSnapshot(campaignId, socket.id)
-
-        io.to(`campaign:${campaignId}`).emit('presence:update', {
-          campaignId,
-          characterId,
-          online: true,
-        })
-      } catch {
-        socket.emit('presence:error', { message: 'Erro de presenca' })
-      }
-    })
-
-    socket.on('vtt:grid:update', (input: unknown) => {
-      const parsed = vttGridUpdateSchema.safeParse(input)
-      if (!parsed.success) return
-
-      const { campaignId, settings } = parsed.data
-      const online = campaignOnline.get(campaignId)
-      if (!online || online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
-
-      campaignGridSettings.set(campaignId, settings)
-      emitCampaignGridSettings(campaignId)
     })
 
     socket.on('vtt:token:place', async (input: unknown) => {
@@ -493,9 +815,11 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!parsed.success) return
 
       const { campaignId, characterId, position } = parsed.data
-      const online = campaignOnline.get(campaignId)
-      if (!online) return
-      if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
+      const online = state.getCampaignOnline(campaignId)
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+
+      const sceneId = await getMasterActiveSceneId(campaignId)
+      if (!sceneId) return
 
       const campaignCharacter = await prisma.campaignCharacter.findFirst({
         where: {
@@ -513,6 +837,21 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!campaignCharacter) return
       if (campaignCharacter.role !== 'PLAYER' && campaignCharacter.role !== 'NPC') return
 
+      const tokenMap = getCampaignTokenMap(campaignId)
+      const existingToken = tokenMap.get(characterId)
+      if (existingToken) return
+      if (campaignCharacter.role === 'PLAYER') {
+        const ownerPresence = state.getUserPresence(campaignCharacter.userId)
+        const isOwnerConnectedToAnotherCharacter =
+          ownerPresence?.campaignId === campaignId && ownerPresence.characterId !== characterId
+        if (isOwnerConnectedToAnotherCharacter) return
+
+        const hasOtherPlayerTokenFromOwner = [...tokenMap.values()].some(
+          (token) => token.role === 'PLAYER' && token.ownerUserId === campaignCharacter.userId && token.characterId !== characterId,
+        )
+        if (hasOtherPlayerTokenFromOwner) return
+      }
+
       const token: VttPlayerToken = {
         id: `token:${characterId}`,
         characterId,
@@ -525,19 +864,20 @@ export function setupCampaignPresence(server: HttpServer) {
         position,
       }
 
-      getCampaignTokenMap(campaignId).set(characterId, token)
-      io.to(`campaign:${campaignId}`).emit('vtt:token:changed', {
-        campaignId,
-        token,
-      })
+      setLiveSceneToken(campaignId, sceneId, token)
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, token, { refreshOwnerVisibleScene: true })
+      else {
+        await persistSceneToken(campaignId, sceneId, token)
+        socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+      }
     })
 
-    socket.on('vtt:token:move', (input: unknown) => {
+    socket.on('vtt:token:move', async (input: unknown) => {
       const parsed = vttTokenUpdateSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, position } = parsed.data
-      const online = campaignOnline.get(campaignId)
+      const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
 
@@ -549,50 +889,73 @@ export function setupCampaignPresence(server: HttpServer) {
       const characterId = isMasterPausedMove ? parsed.data.characterId : (socket.data.characterId as string | undefined)
       if (!characterId) return
 
-      const tokenMap = campaignTokens.get(campaignId)
-      const token = tokenMap?.get(characterId)
+      const tokenMap = state.getCampaignTokens(campaignId)
+      const token = tokenMap ? tokenMap.get(characterId) : await findPersistedSceneToken(campaignId, characterId)
       if (!token) return
       if (isPlayerOwnerMove && token.ownerUserId !== user.id) return
 
       const nextToken = { ...token, position }
-      tokenMap?.set(characterId, nextToken)
-      io.to(`campaign:${campaignId}`).emit('vtt:token:changed', {
-        campaignId,
-        token: nextToken,
-      })
+      const sceneId = getCampaignTokenSceneMap(campaignId).get(characterId)
+      if (!sceneId) return
+      if (isPlayerOwnerMove) {
+        const walls = await getSceneWalls(campaignId, sceneId)
+        if (isMovementBlockedBySceneWalls({ from: token.position, to: position, walls })) return
+      }
+      setLiveSceneToken(campaignId, sceneId, nextToken)
+      await emitSceneTokenChanged(campaignId, sceneId, nextToken)
     })
 
-    socket.on('vtt:token:remove', (input: unknown) => {
+    socket.on('vtt:token:remove', async (input: unknown) => {
       const parsed = vttTokenActionSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, characterId } = parsed.data
-      const online = campaignOnline.get(campaignId)
+      const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
 
-      removeCampaignToken(campaignId, characterId)
+      await removeCampaignToken(campaignId, characterId)
     })
 
-    socket.on('vtt:token:visibility', (input: unknown) => {
+    socket.on('vtt:tokens:remove-bulk', async (input: unknown) => {
+      const parsed = vttTokensRemoveBulkSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      const online = state.getCampaignOnline(campaignId)
+      if (!online) return
+      if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
+
+      if (parsed.data.scope === 'scene') {
+        if (!(await sceneBelongsToCampaign(campaignId, parsed.data.sceneId))) return
+        await removeCampaignTokens(campaignId, { sceneId: parsed.data.sceneId })
+        if (!online) await emitVisibleTableSnapshot(campaignId, socket)
+        return
+      }
+
+      await removeCampaignTokens(campaignId, { sceneId: null })
+      if (!online) await emitVisibleTableSnapshot(campaignId, socket)
+    })
+
+    socket.on('vtt:token:visibility', async (input: unknown) => {
       const parsed = vttTokenActionSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, characterId } = parsed.data
-      const online = campaignOnline.get(campaignId)
+      const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
 
-      const tokenMap = campaignTokens.get(campaignId)
-      const token = tokenMap?.get(characterId)
+      const tokenMap = state.getCampaignTokens(campaignId)
+      const token = tokenMap ? tokenMap.get(characterId) : await findPersistedSceneToken(campaignId, characterId)
       if (!token) return
 
       const nextToken = { ...token, hidden: !token.hidden }
-      tokenMap?.set(characterId, nextToken)
-      io.to(`campaign:${campaignId}`).emit('vtt:token:changed', {
-        campaignId,
-        token: nextToken,
-      })
+      const sceneId = getCampaignTokenSceneMap(campaignId).get(characterId)
+      if (!sceneId) return
+      setLiveSceneToken(campaignId, sceneId, nextToken)
+      await emitSceneTokenChanged(campaignId, sceneId, nextToken)
+      if (nextToken.hidden) removeCombatParticipants(campaignId, [characterId])
     })
 
     socket.on('vtt:tokens:request', (input: unknown) => {
@@ -603,7 +966,126 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!isCampaignOnline(campaignId)) return
       if (socket.data.campaignId !== campaignId) return
 
-      emitCampaignTokenSnapshot(campaignId, socket.id)
+      getVisibleSceneIdForSocket(campaignId, socket)
+        .then((sceneId) => emitCampaignTokenSnapshot(campaignId, socket.id, sceneId))
+        .catch(() => {})
+    })
+
+    socket.on('vtt:combat:start', async (input: unknown) => {
+      const parsed = vttCombatStartSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, sceneId, tokenIds } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+      if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
+
+      const selectedTokenIds = new Set(tokenIds)
+      const tokens = (await listSceneTokens(campaignId, sceneId)).filter(
+        (token) => selectedTokenIds.has(token.id) && !token.hidden,
+      )
+      if (!tokens.length) return
+
+      const participants = tokens.map((token) => ({
+        tokenId: token.id,
+        characterId: token.characterId,
+        name: token.name,
+        avatarUrl: token.avatarUrl,
+        initiative: null,
+      }))
+
+      state.setCampaignCombat(campaignId, {
+        campaignId,
+        sceneId,
+        round: 1,
+        activeTurnIndex: 0,
+        status: 'ACTIVE',
+        participants,
+      })
+      emitCombatChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:update-initiative', (input: unknown) => {
+      const parsed = vttCombatUpdateInitiativeSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, characterId, initiative } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      const combat = state.getCampaignCombat(campaignId)
+      if (!combat) return
+
+      const activeCharacterId = combat.participants[combat.activeTurnIndex]?.characterId ?? null
+      const participants = sortCombatParticipants(
+        combat.participants.map((participant) =>
+          participant.characterId === characterId ? { ...participant, initiative } : participant,
+        ),
+      )
+
+      state.setCampaignCombat(campaignId, normalizeCombatTurnIndex({ ...combat, participants }, activeCharacterId))
+      emitCombatChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:next-turn', (input: unknown) => {
+      const parsed = vttCombatCommandSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      const combat = state.getCampaignCombat(campaignId)
+      if (!combat?.participants.length) return
+
+      const isLastParticipant = combat.activeTurnIndex >= combat.participants.length - 1
+      state.setCampaignCombat(campaignId, {
+        ...combat,
+        round: isLastParticipant ? combat.round + 1 : combat.round,
+        activeTurnIndex: isLastParticipant ? 0 : combat.activeTurnIndex + 1,
+      })
+      emitCombatChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:previous-turn', (input: unknown) => {
+      const parsed = vttCombatCommandSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      const combat = state.getCampaignCombat(campaignId)
+      if (!combat?.participants.length) return
+
+      const isFirstParticipant = combat.activeTurnIndex <= 0
+      state.setCampaignCombat(campaignId, {
+        ...combat,
+        round: isFirstParticipant ? Math.max(1, combat.round - 1) : combat.round,
+        activeTurnIndex: isFirstParticipant ? combat.participants.length - 1 : combat.activeTurnIndex - 1,
+      })
+      emitCombatChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:end', (input: unknown) => {
+      const parsed = vttCombatCommandSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isActiveSessionMaster(campaignId, socket.id, user.id)) return
+
+      state.deleteCampaignCombat(campaignId)
+      emitCombatChanged(campaignId)
+    })
+
+    socket.on('vtt:combat:request', (input: unknown) => {
+      const parsed = vttCombatCommandSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      if (!isCampaignOnline(campaignId)) return
+      if (socket.data.campaignId !== campaignId) return
+
+      socket.emit('vtt:combat:changed', {
+        campaignId,
+        combat: state.getCampaignCombat(campaignId),
+      })
     })
 
     socket.on('vtt:measurement:update', (input: unknown) => {
@@ -611,18 +1093,18 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!parsed.success) return
 
       const { campaignId, measurement } = parsed.data
-      const online = campaignOnline.get(campaignId)
+      const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
       if (online.state === 'PAUSED' && socket.data.characterRole !== 'MASTER') return
 
       if (measurement) {
-        campaignMeasurements.set(campaignId, measurement)
+        state.setCampaignMeasurement(campaignId, measurement)
       } else {
-        campaignMeasurements.delete(campaignId)
+        state.deleteCampaignMeasurement(campaignId)
       }
 
-      io.to(`campaign:${campaignId}`).emit('vtt:measurement:changed', {
+      io.to(campaignRoom(campaignId)).emit('vtt:measurement:changed', {
         campaignId,
         measurement,
       })
@@ -639,38 +1121,59 @@ export function setupCampaignPresence(server: HttpServer) {
       emitCampaignMeasurementSnapshot(campaignId, socket.id)
     })
 
-    socket.on('vtt:scene:select', (input: unknown) => {
+    socket.on('vtt:scene:select', async (input: unknown) => {
       const parsed = vttSceneSelectSchema.safeParse(input)
       if (!parsed.success) return
 
       const { campaignId, scene } = parsed.data
-      const online = campaignOnline.get(campaignId)
+      const online = state.getCampaignOnline(campaignId)
+      if (online && (online.masterSocketId !== socket.id || online.masterUserId !== user.id)) return
+      if (!online && socket.data.characterRole !== 'MASTER') return
+
+      const sceneUpdated = await updateMasterActiveScene(campaignId, scene?.id ?? null)
+      if (!sceneUpdated) return
+      const combat = state.getCampaignCombat(campaignId)
+      if (combat && combat.sceneId !== (scene?.id ?? null)) {
+        state.deleteCampaignCombat(campaignId)
+        emitCombatChanged(campaignId)
+      }
+      if (scene?.id) {
+        const settings = await getActiveSceneGridSettings(campaignId)
+        state.setCampaignGridSettings(campaignId, settings)
+      }
+
       if (!online) return
-      if (online.masterSocketId !== socket.id || online.masterUserId !== user.id) return
 
-      if (online.state === 'PAUSED') {
-        campaignPendingScenes.set(campaignId, scene)
-        return
-      }
+      const pausedOnline = { ...online, state: 'PAUSED' as const }
+      state.setCampaignOnline(campaignId, pausedOnline)
+      emitCampaignSessionState(campaignId)
+      await emitVisibleTableSnapshot(campaignId, socket)
 
-      if (scene) {
-        campaignScenes.set(campaignId, scene)
-      } else {
-        campaignScenes.delete(campaignId)
-      }
-      campaignPendingScenes.delete(campaignId)
-      emitCampaignScene(campaignId, scene)
+      state.deletePendingCampaignScene(campaignId)
     })
 
-    socket.on('vtt:scene:request', (input: unknown) => {
+    socket.on('vtt:scene:request', async (input: unknown) => {
       const parsed = z.object({ campaignId: z.string().min(1) }).safeParse(input)
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
-      if (!isCampaignOnline(campaignId)) return
-      if (socket.data.campaignId !== campaignId) return
+      const online = state.getCampaignOnline(campaignId)
+      if (online && socket.data.campaignId !== campaignId) return
+      if (!online && !(await isActiveCampaignMaster(campaignId, user.id))) return
 
-      emitCampaignSceneSnapshot(campaignId, socket.id)
+      await emitVisibleTableSnapshot(campaignId, socket)
+    })
+
+    socket.on('vtt:walls:update', async (input: unknown) => {
+      const parsed = vttWallsUpdateSchema.safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId, sceneId, walls } = parsed.data
+      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
+
+      await prisma.campaignScene.update({ where: { id: sceneId }, data: { walls } })
+      await emitSceneWallsChanged(campaignId, sceneId, walls)
     })
 
     socket.on('vtt:dice:roll', (input: unknown) => {
@@ -678,7 +1181,7 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!parsed.success) return
 
       const { campaignId, rolls: diceRolls } = parsed.data
-      const online = campaignOnline.get(campaignId)
+      const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
       if (online.state === 'PAUSED' && socket.data.characterRole !== 'MASTER') return
@@ -697,34 +1200,13 @@ export function setupCampaignPresence(server: HttpServer) {
         rolledAt,
       }))
 
-      io.to(`campaign:${campaignId}`).emit('vtt:dice:rolled', {
+      io.to(campaignRoom(campaignId)).emit('vtt:dice:rolled', {
         campaignId,
         roll: rolls[0],
         rolls,
       })
     })
 
-    socket.on('disconnect', () => {
-      const prev = userPresence.get(user.id)
-      if (prev?.socketId !== socket.id) return
-
-      const role = socket.data.characterRole as string | undefined
-
-      if (role === 'MASTER') {
-        const online = campaignOnline.get(prev.campaignId)
-        if (online?.masterSocketId === socket.id) {
-          endCampaignSession(prev.campaignId, 'O mestre foi desconectado da sessão.')
-            .catch(() => {})
-        }
-      }
-
-      io.to(`campaign:${prev.campaignId}`).emit('presence:update', {
-        campaignId: prev.campaignId,
-        characterId: prev.characterId,
-        online: false,
-      })
-      userPresence.delete(user.id)
-    })
   })
 
   return { io, isCampaignOnline, getCampaignSessionState }
