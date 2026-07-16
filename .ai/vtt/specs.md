@@ -24,3 +24,21 @@
 * A toolbar pode ser recolhida para um unico botao e, ao recolher, limpa ferramentas e overlays transitorios.
 * A sidebar direita abre recolhida e usa abas para combate, participantes, sessao, cenas e chat.
 * A aba de cenas e exclusiva do Mestre e e a entrada principal para selecionar e preparar cenas.
+
+## Tokens agnósticos e controle
+
+A especificação detalhada está em [token-architecture.md](./token-architecture.md).
+
+* Token é uma entidade da campanha e pode existir sem `characterId`.
+* O vínculo opcional entre Token e `Character` é exclusivo nos dois sentidos: um Token referencia no máximo um `Character`, e um `Character` não pode estar vinculado a mais de um Token.
+* Para o VTT Core, `Character` é somente uma identidade; o módulo não acessa nem valida ficha, `GameSystem`, Package, bestiário ou ruleset.
+* Token pode ocupar no máximo uma cena por vez e sua associação com cena é opcional.
+* Alterar a cena ativa ou visualizada não move Tokens automaticamente.
+* Somente o Mestre pode transferir um Token entre cenas; a transferência move a mesma entidade, sem duplicá-la.
+* O Mestre controla todos os Tokens da campanha.
+* Um jogador pode controlar vários Tokens, mas cada Token possui no máximo um jogador controlador além do Mestre.
+* O controle pertence ao jogador participante da campanha, é persistido entre sessões e permanece durante transferências entre cenas.
+* Conceder o controle a outro jogador substitui o controlador anterior.
+* O jogador controlador pode mover o Token dentro da cena atual, mas não pode transferi-lo entre cenas.
+* O jogador do Main Character recebe automaticamente o controle do Token vinculado; o Mestre pode transferir esse controle sem alterar a propriedade do `Character`.
+* Controlar um Token não concede automaticamente permissão para editar o `Character` nem dados mantidos por módulos externos.
