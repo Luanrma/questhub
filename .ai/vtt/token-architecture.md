@@ -132,6 +132,7 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 - Ao transferi-lo, o Token deixa a cena anterior e passa a ocupar a nova.
 - A transferência não cria uma duplicata.
 - A transferência não altera o controlador.
+- Excluir uma cena não exclui seus Tokens; eles permanecem na campanha com `sceneId = null`.
 
 ## Invariantes do domínio
 
@@ -143,7 +144,8 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 6. Alterar a cena não altera o controlador.
 7. Controlar o Token não implica editar o `Character`.
 8. Um Token não depende de `Character` para possuir controlador.
-9. O VTT Core não depende de ficha, sistema ou ruleset.
+9. Excluir uma cena não pode excluir seus Tokens.
+10. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
@@ -155,6 +157,7 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - referência opcional ao único jogador controlador;
 - controlador independente de `characterId`;
 - preservação do Token quando ele sair de uma cena;
+- uso de `onDelete: SetNull` ou comportamento transacional equivalente no vínculo com a cena;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
 Os nomes finais dos modelos e campos serão definidos durante a implementação, após o encerramento das decisões arquiteturais.
@@ -175,5 +178,5 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Comportamento ao excluir uma cena, um `Character` ou um participante controlador.
+- Comportamento ao excluir um `Character` ou um participante controlador.
 - Posição inicial ao transferir um Token para outra cena.
