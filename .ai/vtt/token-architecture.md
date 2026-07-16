@@ -92,6 +92,8 @@ A autoridade global do Mestre deriva de seu papel na campanha e não precisa ser
 - O controlador deve ser persistido no banco de dados.
 - O controle permanece entre sessões.
 - O controle permanece quando o Token é transferido entre cenas.
+- O Token pode receber um jogador controlador mesmo sem possuir `characterId`.
+- Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 - Jogadores controladores podem movimentar o Token dentro da cena atual.
 - Jogadores controladores não podem transferir o Token entre cenas.
 
@@ -137,7 +139,8 @@ O Token pertence à campanha e pode estar posicionado em no máximo uma cena por
 5. Alterar o controlador não altera a propriedade do `Character`.
 6. Alterar a cena não altera o controlador.
 7. Controlar o Token não implica editar o `Character`.
-8. O VTT Core não depende de ficha, sistema ou ruleset.
+8. Um Token não depende de `Character` para possuir controlador.
+9. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
@@ -147,6 +150,7 @@ A implementação deverá revisar o modelo atual `CampaignSceneToken` para supor
 - `sceneId` opcional;
 - `characterId` opcional e único;
 - referência opcional ao único jogador controlador;
+- controlador independente de `characterId`;
 - preservação do Token quando ele sair de uma cena;
 - validação de que cena, identidade e controlador pertencem à mesma campanha.
 
@@ -165,7 +169,6 @@ Os nomes finais dos modelos e campos serão definidos durante a implementação,
 
 ## Decisões pendentes
 
-- Se um Token sem `characterId` pode receber um jogador controlador.
 - Quais ações, além de movimento, fazem parte da permissão de controle.
 - Quem pode criar, remover ou substituir o vínculo opcional com `Character`.
 - Comportamento ao excluir uma cena, um `Character` ou um participante controlador.
