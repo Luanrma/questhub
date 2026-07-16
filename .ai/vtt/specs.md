@@ -28,6 +28,8 @@
 ## Tokens agnósticos e controle
 
 * A campanha é o limite de isolamento do mundo: Tokens, posicionamentos, cenas, controles e vínculos não podem referenciar recursos de outra campanha.
+* `CampaignMember` representa o `User` dentro de uma campanha e é único por `campaignId` e `userId`.
+* `CampaignToken.controllerMemberId` aponta opcionalmente para o único jogador controlador dentro da mesma campanha.
 * Um `Character` pode ser criado pelo `User` antes de entrar em uma campanha; depois de vinculado por `CampaignCharacter`, participa de exatamente uma campanha e não pode ser reutilizado em outra.
 * Um Token só pode ser vinculado a um `Character` participante da mesma campanha.
 
@@ -48,7 +50,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Para o VTT Core, `Character` é somente uma identidade; o módulo não acessa nem valida ficha, `GameSystem`, Package, bestiário ou ruleset.
 * O Mestre controla todos os Tokens da campanha.
 * Um jogador pode controlar vários Tokens, mas cada Token possui no máximo um jogador controlador além do Mestre.
-* O controle pertence ao jogador participante da campanha, é persistido entre sessões e permanece quando o posicionamento muda.
+* O controle pertence ao `CampaignMember` do jogador, não ao `User` global nem ao `Character`; é persistido entre sessões e permanece quando o posicionamento muda.
 * Um Token sem `characterId` também pode possuir um jogador controlador persistente.
 * Vincular ou desvincular um `Character` não remove automaticamente o controlador existente.
 * Conceder o controle a outro jogador substitui o controlador anterior.
@@ -56,7 +58,7 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
 * O Mestre pode conceder ao jogador controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração de nome e imagem.
 * O jogador controlador não pode remover o Token de uma cena nem posicioná-lo em outra.
-* Quando o jogador controlador deixa a campanha, sua associação é removida automaticamente; o Token permanece sob autoridade do Mestre.
+* Quando o jogador controlador deixa a campanha, `controllerMemberId` é removido automaticamente; o Token permanece sob autoridade do Mestre.
 * O Main Character é o único `CampaignCharacter` ativo com `role = PLAYER` para aquele jogador na campanha.
 * `SECONDARY` não é um `CampaignCharacterRole`: qualquer Token controlado por um jogador, exceto o Token de seu Main Character, é classificado de forma derivada como Token secundário desse jogador.
 * Um Token secundário pode existir com ou sem `characterId`; transferir ou revogar seu controlador atualiza a classificação sem persistência duplicada.
