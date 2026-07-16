@@ -138,6 +138,7 @@ As autorizações são separadas.
 - Transferir o controle do Token não transfere propriedade do `Character`.
 - Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
 - Excluir o `Character` vinculado não exclui o Token; o vínculo recebe `characterId = null`, preservando posicionamento, aparência e controlador.
+- Excluir o `CampaignToken` não exclui o `Character` vinculado; apenas o Token, seu posicionamento e seu vínculo são removidos.
 
 ### 7. Token e posicionamento em entidades separadas
 
@@ -181,8 +182,9 @@ Regras:
 10. `SECONDARY` deve ser derivado do controlador e do Main Character, sem ser persistido como papel.
 11. Excluir uma cena não pode excluir seus Tokens.
 12. Excluir um `Character` não pode excluir o Token vinculado.
-13. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
-14. O VTT Core não depende de ficha, sistema ou ruleset.
+13. Excluir um `CampaignToken` não pode excluir o `Character` vinculado.
+14. Um Token não pode manter como controlador um jogador que não participa mais da campanha.
+15. O VTT Core não depende de ficha, sistema ou ruleset.
 
 ## Impactos esperados na persistência
 
@@ -192,6 +194,7 @@ A implementação deverá substituir a responsabilidade atual de `CampaignSceneT
 - `CampaignToken`, pertencente obrigatoriamente a `Campaign`, com nome, imagem, cor, tamanho, `characterId` opcional e único, `controllerMemberId` opcional e permissão adicional de personalização;
 - `CampaignTokenPlacement`, com `tokenId` único, `sceneId`, `positionX`, `positionY`, rotação, camada e visibilidade;
 - exclusão em cascata de posicionamentos quando a cena for excluída, sem excluir os Tokens;
+- exclusão em cascata do posicionamento quando o `CampaignToken` for excluído, sem excluir o `Character` vinculado;
 - `onDelete: SetNull` ou comportamento transacional equivalente no vínculo de `CampaignToken` com `Character`;
 - remoção automática do controlador quando ele deixar a campanha;
 - garantia de no máximo um `CampaignCharacter` ativo com `role = PLAYER` por jogador e campanha;
