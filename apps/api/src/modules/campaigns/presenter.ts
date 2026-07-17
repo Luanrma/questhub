@@ -10,7 +10,6 @@ type CampaignDashboardEntry = {
     title: string
     description: string | null
     inviteCode: string
-    system: string
     joinPolicy: string
     createdAt: Date
     characters: Array<{
@@ -37,7 +36,6 @@ export function presentCampaignDashboardEntry(
     title: entry.campaign.title,
     description: entry.campaign.description,
     inviteCode: entry.role === 'MASTER' ? entry.campaign.inviteCode : null,
-    system: entry.campaign.system,
     joinPolicy: entry.campaign.joinPolicy,
     createdAt: entry.campaign.createdAt,
     gmName: master?.name ?? 'Mestre',

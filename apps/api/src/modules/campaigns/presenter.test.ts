@@ -15,7 +15,6 @@ function dashboardEntry(role: 'MASTER' | 'PLAYER' | 'NPC') {
       title: 'Sombras de Absalom',
       description: 'Campanha semanal',
       inviteCode: 'ABC12345',
-      system: 'PATHFINDER_2E',
       joinPolicy: 'PRIVATE',
       createdAt: new Date('2026-06-29T10:00:00.000Z'),
       characters: [

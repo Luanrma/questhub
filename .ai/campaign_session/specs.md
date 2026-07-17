@@ -99,7 +99,7 @@ Transicoes invalidas:
 | Player mover proprio token | Nao | Nao | Sim |
 | Player medir | Nao | Nao | Sim |
 | Player rolar dado visual | Nao | Nao | Sim |
-| Mestre mover tokens | Sim | Sim | Conforme regra do VTT |
+| Mestre mover tokens | Sim | Sim | Sim |
 | Mestre alterar visibilidade/cena | Sim | Sim | Sim |
 
 ## 6. Eventos Socket.IO
@@ -168,3 +168,18 @@ Regras:
 * `Retomar Sessao` nao muda visualmente a mesa do Mestre.
 * Codigo novo nao deve usar `PAUSED` como sinonimo de offline.
 * Codigo novo nao deve decidir permissao de Player apenas por `isOnline` quando a regra depende de `PAUSED` versus `IN_PROGRESS`.
+
+## 10. Decisao Atual - Movimento do Mestre
+`PAUSED`, `presence:session:pause` e `presence:session:resume` continuam fazendo parte do fluxo de produto. A permissao especial e apenas para o Mestre mover tokens em qualquer fase.
+
+Permissoes atuais:
+
+| Acao | Campanha offline | Sessao online |
+| --- | --- | --- |
+| Mestre selecionar cena | Permitido | Permitido |
+| Mestre posicionar/remover/ocultar tokens | Permitido | Permitido |
+| Mestre mover qualquer token | Permitido | Permitido em `PAUSED` e `IN_PROGRESS` |
+| Player mover proprio token | Bloqueado | Permitido somente em `IN_PROGRESS` |
+| Player mover token sem ownership ou controlado por outro usuario | Bloqueado | Bloqueado |
+
+Trocar `masterActiveSceneId` pelo Mestre pode pausar a sessao conforme regra do fluxo de cena.

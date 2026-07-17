@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Check, FileText, Image, Link, Plus, Save, UserRound, X } from 'lucide-react'
+import { ArrowLeft, Check, Image, Link, Plus, Save, UserRound, X } from 'lucide-react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { api, ApiError } from '../lib/api'
@@ -14,12 +14,6 @@ const avatarPresets = [
 ]
 
 type AvatarMode = 'preset' | 'url'
-type GameSystem = 'PATHFINDER_2E'
-
-const systemLabels: Record<GameSystem, string> = {
-  PATHFINDER_2E: 'Pathfinder 2e',
-}
-
 type CharacterCampaign = {
   id: string
 }
@@ -29,7 +23,6 @@ type Character = {
   name: string
   avatarUrl?: string | null
   bio?: string | null
-  system?: GameSystem | null
   campaigns: CharacterCampaign[]
   available: boolean
 }
@@ -38,7 +31,6 @@ type FormSnapshot = {
   name: string
   bio: string
   avatarUrl: string
-  system: GameSystem
 }
 
 export function CharacterCreatePage() {
@@ -47,7 +39,6 @@ export function CharacterCreatePage() {
   const isEditing = Boolean(characterId)
   const [name, setName] = useState('')
   const [bio, setBio] = useState('')
-  const [system, setSystem] = useState<GameSystem>('PATHFINDER_2E')
   const [avatarMode, setAvatarMode] = useState<AvatarMode>('preset')
   const [avatarUrl, setAvatarUrl] = useState('')
   const [selectedPreset, setSelectedPreset] = useState(avatarPresets[0])
@@ -64,9 +55,8 @@ export function CharacterCreatePage() {
       name: name.trim(),
       bio: bio.trim(),
       avatarUrl: selectedAvatarUrl.trim(),
-      system,
     }),
-    [bio, name, selectedAvatarUrl, system],
+    [bio, name, selectedAvatarUrl],
   )
   const isDirty = useMemo(() => {
     if (!isEditing) return true
@@ -75,8 +65,7 @@ export function CharacterCreatePage() {
     return (
       currentSnapshot.name !== original.name ||
       currentSnapshot.bio !== original.bio ||
-      currentSnapshot.avatarUrl !== original.avatarUrl ||
-      currentSnapshot.system !== original.system
+      currentSnapshot.avatarUrl !== original.avatarUrl
     )
   }, [currentSnapshot, isEditing, original])
   const canSubmit = useMemo(() => {
@@ -103,13 +92,11 @@ export function CharacterCreatePage() {
         const loadedAvatarUrl = character.avatarUrl ?? ''
         setName(character.name)
         setBio(character.bio ?? '')
-        setSystem(character.system ?? 'PATHFINDER_2E')
         setCanEditName(character.available)
         setOriginal({
           name: character.name.trim(),
           bio: (character.bio ?? '').trim(),
           avatarUrl: loadedAvatarUrl.trim(),
-          system: character.system ?? 'PATHFINDER_2E',
         })
 
         if (avatarPresets.includes(loadedAvatarUrl)) {
@@ -152,7 +139,6 @@ export function CharacterCreatePage() {
     try {
       const body = JSON.stringify({
         name: canEditName ? currentSnapshot.name : undefined,
-        system: currentSnapshot.system,
         avatarUrl: currentSnapshot.avatarUrl || null,
         bio: currentSnapshot.bio || null,
       })
@@ -221,7 +207,7 @@ export function CharacterCreatePage() {
                 {isEditing ? 'Editar personagem' : 'Criar personagem'}
               </h1>
               <p className="text-sm text-zinc-300">
-                {isEditing ? 'Atualize identidade, avatar e bio.' : 'Comece com identidade basica. A ficha pode vir depois.'}
+                {isEditing ? 'Atualize identidade, avatar e bio.' : 'Crie uma identidade que pode ser usada em qualquer campanha.'}
               </p>
             </div>
           </div>
@@ -241,34 +227,6 @@ export function CharacterCreatePage() {
                 <span className="text-xs text-zinc-400">Personagens vinculados mantem o nome da campanha.</span>
               ) : null}
             </label>
-
-            <section className="grid gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-emerald-300/20 bg-emerald-400/10 text-emerald-100">
-                  <FileText className="h-4 w-4" />
-                </div>
-                <div>
-                  <h2 className="text-sm font-semibold text-white">Ficha</h2>
-                  <p className="text-xs text-zinc-400">O módulo define o formato da ficha criada para este personagem.</p>
-                </div>
-              </div>
-
-              <label className="grid gap-2">
-                <span className="text-sm font-medium text-zinc-200">Módulo</span>
-                <select
-                  value={system}
-                  onChange={(event) => setSystem(event.target.value as GameSystem)}
-                  disabled={isEditing}
-                  className="rounded border border-white/10 bg-gray-900 p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  required
-                >
-                  <option value="PATHFINDER_2E">{systemLabels.PATHFINDER_2E}</option>
-                </select>
-                {isEditing ? (
-                  <span className="text-xs text-zinc-400">O módulo da ficha não muda depois que o personagem é criado.</span>
-                ) : null}
-              </label>
-            </section>
 
             <label className="grid gap-2">
               <div className="flex items-center justify-between gap-3">
@@ -306,6 +264,7 @@ export function CharacterCreatePage() {
                   src={selectedAvatarUrl}
                   alt=""
                   className="h-24 w-24 rounded-full border border-indigo-300/20 bg-black/30 object-cover"
+                  draggable={false}
                 />
               ) : (
                 <div className="flex h-24 w-24 items-center justify-center rounded-full border border-indigo-300/20 bg-indigo-400/10 text-indigo-100">
@@ -364,7 +323,7 @@ export function CharacterCreatePage() {
                   ].join(' ')}
                   title={`Avatar ${index + 1}`}
                 >
-                  <img src={preset} alt="" className="h-full w-full rounded-lg object-cover" />
+                  <img src={preset} alt="" className="h-full w-full rounded-lg object-cover" draggable={false} />
                   {selectedAvatarUrl === preset ? (
                     <span className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500 text-white">
                       <Check className="h-3.5 w-3.5" />

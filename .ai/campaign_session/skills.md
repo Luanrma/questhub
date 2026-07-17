@@ -17,7 +17,7 @@
 ## 3. Fronteiras tecnicas
 * `campaign_session` nao armazena presenca individual de usuarios. Isso pertence a `campaign_presence`.
 * `campaign_session` nao armazena tokens, grid ou cena. Isso pertence a `campaign_scene`.
-* `campaign_session` nao contem regras de Pathfinder 2e, D&D 5e ou qualquer sistema de RPG.
+* `campaign_session` nao contem regras mecanicas de RPG.
 * `PAUSED` nao pode ser usado como sinonimo de offline.
 * `isOnline` deve representar somente conectividade realtime, nao permissao de interacao.
 

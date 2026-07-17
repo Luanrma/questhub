@@ -11,11 +11,6 @@ enum CampaignJoinPolicy {
   PRIVATE
 }
 
-enum GameSystem {
-  DND_5E
-  PATHFINDER_2E
-}
-
 enum CampaignCharacterStatus {
   PENDING
   ACTIVE
@@ -35,6 +30,12 @@ enum CampaignSceneGridShape {
   HEX
 }
 
+enum CampaignTokenLayer {
+  OBJECT
+  TOKEN
+  OVERLAY
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -42,11 +43,15 @@ model User {
   createdAt    DateTime @default(now())
 
   characters       Character[]
-  createdCampaigns Campaign[]          @relation("CreatedCampaigns")
+  createdCampaigns Campaign[]             @relation("CreatedCampaigns")
   campaignLinks    CampaignCharacter[]
+  campaignMembers  CampaignMember[]
   chatMessages     ChatMessage[]
   assets           Asset[]
   campaignDiaries  CampaignDiary[]
+  campaignSettings CampaignUserSettings[]
+  createdAreaTemplates CampaignAreaTemplate[] @relation("AreaTemplateCreator")
+  createdAreaEffects   SceneAreaEffect[]      @relation("AreaEffectCreator")
 }
 
 model Campaign {
@@ -54,7 +59,6 @@ model Campaign {
   title       String
   description String?
   inviteCode  String             @unique
-  system      GameSystem
   joinPolicy  CampaignJoinPolicy @default(PUBLIC)
 
   createdByUserId String
@@ -64,28 +68,32 @@ model Campaign {
   updatedAt DateTime @updatedAt
 
   characters     CampaignCharacter[]
+  members        CampaignMember[]
+  tokens         CampaignToken[]
   chatMessages   ChatMessage[]
   assets         CampaignAsset[]
   scenes         CampaignScene[]
   sceneViewState CampaignSceneViewState?
   diaries        CampaignDiary[]
+  userSettings   CampaignUserSettings[]
+  areaTemplates  CampaignAreaTemplate[]
+  areaEffects    SceneAreaEffect[]
 }
 
 model Character {
-  id        String      @id @default(cuid())
+  id        String    @id @default(cuid())
   userId    String
   name      String
   avatarUrl String?
-  system    GameSystem?
-  sheet     Json?
+  bio       String?
   deletedAt DateTime?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 
-  user         User                 @relation(fields: [userId], references: [id])
-  campaigns    CampaignCharacter[]
-  chatMessages ChatMessage[]
-  sceneTokens  CampaignSceneToken[]
+  user           User                @relation(fields: [userId], references: [id])
+  campaigns      CampaignCharacter[]
+  chatMessages   ChatMessage[]
+  campaignTokens CampaignToken[]
 
   @@index([userId])
   @@index([deletedAt])
@@ -111,6 +119,22 @@ model CampaignCharacter {
   @@index([userId])
   @@index([status])
   @@index([role])
+}
+
+model CampaignMember {
+  id         String   @id @default(cuid())
+  campaignId String
+  userId     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  controlledTokens CampaignToken[] @relation("CampaignTokenController")
+
+  @@unique([campaignId, userId])
+  @@index([campaignId])
+  @@index([userId])
 }
 
 model ChatMessage {
@@ -178,36 +202,125 @@ model CampaignScene {
   hexMeasurementColor    String                 @default("#38bdf8")
   gridLineWidth          Int                    @default(1)
   gridColor              String                 @default("#ffffff")
+  walls                  Json                   @default("[]")
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
 
   campaign            Campaign                 @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   asset               Asset?                   @relation(fields: [assetId], references: [id], onDelete: SetNull)
-  tokens              CampaignSceneToken[]
+  tokenPlacements     CampaignTokenPlacement[]
   activeForViewStates CampaignSceneViewState[] @relation("MasterActiveScene")
   forcedForViewStates CampaignSceneViewState[] @relation("ForcedScene")
+  areaEffects         SceneAreaEffect[]
 
   @@unique([campaignId, order])
   @@index([campaignId])
   @@index([assetId])
 }
 
-model CampaignSceneToken {
-  id          String   @id @default(cuid())
-  sceneId     String
-  characterId String
-  hidden      Boolean  @default(false)
-  positionX   Float
-  positionY   Float
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+model CampaignAreaTemplate {
+  id                    String   @id @default(cuid())
+  campaignId            String
+  createdByUserId       String
+  name                  String
+  description           String?
+  category              String?
+  tags                  Json     @default("[]")
+  iconAssetId           String?
+  shape                 String
+  volumeShape           String
+  dimensions            Json
+  measurementMode       String
+  measurementUnit       String?
+  originMode            String
+  placementMode         String
+  propagationMode       String
+  persistenceMode       String
+  movementMode          String
+  cellInclusionRule     String
+  tokenIntersectionRule String
+  includesOrigin        Boolean  @default(true)
+  stopAtFirstObstacle   Boolean  @default(false)
+  duration              Json?
+  style                 Json
+  visibility            String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 
-  scene     CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
-  character Character     @relation(fields: [characterId], references: [id], onDelete: Cascade)
+  campaign      Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  createdByUser User              @relation("AreaTemplateCreator", fields: [createdByUserId], references: [id])
+  areaEffects   SceneAreaEffect[]
 
-  @@unique([characterId])
+  @@index([campaignId, name])
+  @@index([createdByUserId])
+}
+
+model SceneAreaEffect {
+  id                    String   @id @default(cuid())
+  campaignId            String
+  sceneId               String
+  templateId            String?
+  createdByUserId       String
+  sourceTokenId         String?
+  targetTokenId         String?
+  originX               Float
+  originY               Float
+  originElevation       Float?
+  rotationDegrees       Float    @default(0)
+  scale                 Float    @default(1)
+  configurationSnapshot Json
+  state                 String   @default("ACTIVE")
+  createdAt             DateTime @default(now())
+  expiresAt             DateTime?
+
+  campaign      Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  scene         CampaignScene        @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  template      CampaignAreaTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
+  createdByUser User                 @relation("AreaEffectCreator", fields: [createdByUserId], references: [id])
+
+  @@index([campaignId, sceneId, state])
+  @@index([templateId])
+  @@index([createdByUserId])
+}
+
+model CampaignToken {
+  id                     String   @id @default(cuid())
+  campaignId             String
+  characterId            String?  @unique
+  controllerMemberId     String?
+  name                   String
+  avatarUrl              String?
+  color                  String?
+  size                   Float    @default(1)
+  canCustomizeAppearance Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  campaign         Campaign                @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  character        Character?              @relation(fields: [characterId], references: [id], onDelete: SetNull)
+  controllerMember CampaignMember?         @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
+  placement        CampaignTokenPlacement?
+
+  @@index([campaignId])
+  @@index([controllerMemberId])
+}
+
+model CampaignTokenPlacement {
+  id        String             @id @default(cuid())
+  tokenId   String             @unique
+  sceneId   String
+  hidden    Boolean            @default(false)
+  positionX Float
+  positionY Float
+  rotation  Float              @default(0)
+  layer     CampaignTokenLayer @default(TOKEN)
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+
+  token CampaignToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+  scene CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+
   @@index([sceneId])
-  @@index([characterId])
 }
 
 model CampaignSceneViewState {
@@ -241,4 +354,19 @@ model CampaignDiary {
 
   @@index([campaignId])
   @@index([createdById])
+}
+
+model CampaignUserSettings {
+  id         String   @id @default(cuid())
+  campaignId String
+  userId     String
+  settings   Json
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([campaignId, userId])
+  @@index([userId])
 }

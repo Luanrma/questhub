@@ -16,32 +16,41 @@ type CampaignSceneRecord = {
   hexMeasurementColor: string
   gridLineWidth: number
   gridColor: string
+  walls?: unknown
   createdAt: Date
   updatedAt: Date
-  tokens?: CampaignSceneTokenRecord[]
+  tokenPlacements?: CampaignTokenPlacementRecord[]
 }
 
-type CampaignSceneTokenRecord = {
+type CampaignTokenPlacementRecord = {
   id: string
+  tokenId: string
   sceneId: string
-  characterId: string
   hidden: boolean
   positionX: number
   positionY: number
+  rotation: number
+  layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
   createdAt: Date
   updatedAt: Date
-  character?: {
+  token: {
     id: string
+    characterId: string | null
     name: string
     avatarUrl: string | null
-    userId: string
-    campaigns?: Array<{
-      role: 'MASTER' | 'PLAYER' | 'NPC'
-      user?: {
-        id: string
-        email: string
-      }
-    }>
+    color: string | null
+    size: number
+    canCustomizeAppearance: boolean
+    character?: {
+      id: string
+      userId: string
+      campaigns?: Array<{ role: 'MASTER' | 'PLAYER' | 'NPC' }>
+    } | null
+    controllerMember?: {
+      id: string
+      userId: string
+      user: { email: string }
+    } | null
   }
 }
 
@@ -74,25 +83,34 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
   }
 }
 
-export function presentCampaignSceneToken(token: CampaignSceneTokenRecord) {
+export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecord) {
+  const token = placement.token
   const campaignCharacter = token.character?.campaigns?.[0] ?? null
 
   return {
     id: token.id,
-    sceneId: token.sceneId,
+    sceneId: placement.sceneId,
     characterId: token.characterId,
-    name: token.character?.name ?? 'Token',
-    avatarUrl: token.character?.avatarUrl ?? null,
+    name: token.name,
+    avatarUrl: token.avatarUrl,
+    color: token.color,
+    size: token.size,
+    controllerMemberId: token.controllerMember?.id ?? null,
+    controllerUserId: token.controllerMember?.userId ?? null,
+    controllerName: token.controllerMember?.user.email ?? null,
     ownerUserId: token.character?.userId ?? null,
-    ownerName: campaignCharacter?.user?.email ?? null,
-    role: campaignCharacter?.role ?? 'PLAYER',
-    hidden: token.hidden,
+    ownerName: token.controllerMember?.user.email ?? null,
+    role: campaignCharacter?.role === 'PLAYER' ? 'PLAYER' : campaignCharacter?.role === 'NPC' ? 'NPC' : 'GENERIC',
+    canCustomizeAppearance: token.canCustomizeAppearance,
+    hidden: placement.hidden,
+    rotation: placement.rotation,
+    layer: placement.layer,
     position: {
-      x: token.positionX,
-      y: token.positionY,
+      x: placement.positionX,
+      y: placement.positionY,
     },
-    createdAt: token.createdAt,
-    updatedAt: token.updatedAt,
+    createdAt: placement.createdAt,
+    updatedAt: placement.updatedAt,
   }
 }
 
@@ -106,7 +124,8 @@ export function presentCampaignScene(scene: CampaignSceneRecord) {
     backgroundUrl: scene.backgroundUrl,
     backgroundCacheKey: scene.backgroundCacheKey,
     grid: presentCampaignSceneGrid(scene),
-    tokens: scene.tokens?.map(presentCampaignSceneToken) ?? [],
+    tokens: scene.tokenPlacements?.map(presentCampaignSceneToken) ?? [],
+    walls: Array.isArray(scene.walls) ? scene.walls : [],
     createdAt: scene.createdAt,
     updatedAt: scene.updatedAt,
   }
@@ -119,4 +138,3 @@ export function presentCampaignSceneViewState(viewState: CampaignSceneViewStateR
     forcedSceneId: viewState?.forcedSceneId ?? null,
   }
 }
-

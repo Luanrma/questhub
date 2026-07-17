@@ -28,7 +28,7 @@ Fora de escopo:
 
 ## 4. Regras de Produto
 * Apenas participantes com `CampaignCharacter.status = ACTIVE` podem ler e enviar mensagens.
-* NPC nao envia mensagem no MVP.
+* Tokens sem usuario/identidade participante nao enviam mensagem no MVP.
 * O nome exibido vem do `Character.name` vinculado.
 * A mensagem pertence a uma campanha e a um personagem.
 * Mensagem vazia nao pode ser enviada.
@@ -42,6 +42,7 @@ Fora de escopo:
 * Ao clicar no botao do dado selecionado, o cliente calcula um valor entre 1 e o numero de faces.
 * A rolagem e publicada no chat como mensagem comum do personagem ativo.
 * A rolagem tambem dispara uma animacao 3D local sobre a mesa VTT.
+* Chat e dados visuais nao exigem ruleset; eles tambem nao sao pre-requisito para criar ou testar tokens genericos.
 
 ## 5. Relacao com Outros Modulos
 * `campaigns`: define campanha e participacao por `CampaignCharacter`.

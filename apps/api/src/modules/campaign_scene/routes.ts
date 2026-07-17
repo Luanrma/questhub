@@ -7,16 +7,20 @@ import {
   campaignSceneIdParamsSchema,
   campaignSceneParamsSchema,
   createCampaignSceneSchema,
-  deleteCampaignSceneQuerySchema,
   updateCampaignSceneSchema,
 } from './validation'
-import { presentCampaignScene, presentCampaignSceneViewState } from './presenter'
+import { presentCampaignSceneViewState } from './presenter'
+import { presentCampaignSceneWithSignedBackground } from './signed-background'
 import { z } from 'zod'
 
 type CampaignAccess = {
   role: 'MASTER' | 'PLAYER' | 'NPC'
   status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
   characterId: string
+}
+
+type CampaignSceneRoutesDeps = {
+  removeScenePlacementsFromLiveState: (campaignId: string, sceneId: string) => Promise<void>
 }
 
 type CampaignSceneGridInput = z.infer<typeof campaignSceneGridSchema>
@@ -33,19 +37,21 @@ type CampaignSceneGridData = {
 }
 
 const sceneInclude = {
-  tokens: {
+  tokenPlacements: {
     include: {
-      character: {
-        select: {
-          id: true,
-          name: true,
-          avatarUrl: true,
-          userId: true,
-          campaigns: {
+      token: {
+        include: {
+          character: {
             select: {
-              role: true,
-              user: { select: { id: true, email: true } },
+              id: true,
+              userId: true,
+              campaigns: {
+                select: { role: true },
+              },
             },
+          },
+          controllerMember: {
+            select: { id: true, userId: true, user: { select: { email: true } } },
           },
         },
       },
@@ -135,15 +141,14 @@ async function getVisibleSceneIdForAccess(campaignId: string, access: CampaignAc
 
   if (viewState?.forcedSceneId) return viewState.forcedSceneId
 
-  const token = await prisma.campaignSceneToken.findFirst({
+  const token = await prisma.campaignToken.findUnique({
     where: {
       characterId: access.characterId,
-      scene: { campaignId },
     },
-    select: { sceneId: true },
+    select: { campaignId: true, placement: { select: { sceneId: true } } },
   })
 
-  return token?.sceneId ?? null
+  return token?.campaignId === campaignId ? token.placement?.sceneId ?? null : null
 }
 
 async function findVisibleScene(campaignId: string, access: CampaignAccess) {
@@ -165,7 +170,7 @@ async function sceneIsVisibleToAccess(campaignId: string, sceneId: string, acces
   return visibleSceneId === sceneId
 }
 
-export function registerCampaignSceneRoutes(app: FastifyInstance) {
+export function registerCampaignSceneRoutes(app: FastifyInstance, deps: CampaignSceneRoutesDeps) {
   app.get('/api/campaigns/:campaignId/scenes/visible', async (req, reply) => {
     const payload = requireAuth(req, reply)
     if (!payload) return
@@ -185,7 +190,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
     ])
 
     return reply.send({
-      scene: scene ? presentCampaignScene(scene) : null,
+      scene: scene ? await presentCampaignSceneWithSignedBackground(scene) : null,
       viewState: presentCampaignSceneViewState(viewState, params.data.campaignId),
     })
   })
@@ -202,7 +207,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
 
     if (!isMaster(access)) {
       const scene = await findVisibleScene(params.data.campaignId, access)
-      return reply.send(scene ? [presentCampaignScene(scene)] : [])
+      return reply.send(scene ? [await presentCampaignSceneWithSignedBackground(scene)] : [])
     }
 
     const scenes = await prisma.campaignScene.findMany({
@@ -211,7 +216,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       orderBy: { order: 'asc' },
     })
 
-    return reply.send(scenes.map(presentCampaignScene))
+    return reply.send(await Promise.all(scenes.map(presentCampaignSceneWithSignedBackground)))
   })
 
   app.get('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {
@@ -237,7 +242,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
 
     if (!scene) return reply.status(404).send({ error: 'Cena nao encontrada' })
 
-    return reply.send(presentCampaignScene(scene))
+    return reply.send(await presentCampaignSceneWithSignedBackground(scene))
   })
 
   app.post('/api/campaigns/:campaignId/scenes', async (req, reply) => {
@@ -274,6 +279,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
           assetId: parsed.data.assetId ?? null,
           backgroundUrl: parsed.data.backgroundUrl ?? null,
           backgroundCacheKey: parsed.data.backgroundCacheKey ?? null,
+          walls: parsed.data.walls ?? [],
           ...(parsed.data.grid ? gridToSceneData(parsed.data.grid) : {}),
         },
         include: sceneInclude,
@@ -292,7 +298,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       update: {},
     })
 
-    return reply.status(201).send(presentCampaignScene(scene))
+    return reply.status(201).send(await presentCampaignSceneWithSignedBackground(scene))
   })
 
   app.patch('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {
@@ -326,6 +332,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       ...(parsed.data.assetId !== undefined ? { asset: parsed.data.assetId ? { connect: { id: parsed.data.assetId } } : { disconnect: true } } : {}),
       ...(parsed.data.backgroundUrl !== undefined ? { backgroundUrl: parsed.data.backgroundUrl } : {}),
       ...(parsed.data.backgroundCacheKey !== undefined ? { backgroundCacheKey: parsed.data.backgroundCacheKey } : {}),
+      ...(parsed.data.walls !== undefined ? { walls: parsed.data.walls } : {}),
       ...(parsed.data.grid ? gridToSceneData(parsed.data.grid) : {}),
     }
 
@@ -341,7 +348,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       throw err
     }
 
-    return reply.send(presentCampaignScene(scene))
+    return reply.send(await presentCampaignSceneWithSignedBackground(scene))
   })
 
   app.delete('/api/campaigns/:campaignId/scenes/:sceneId', async (req, reply) => {
@@ -350,9 +357,6 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
 
     const params = campaignSceneIdParamsSchema.safeParse(req.params)
     if (!params.success) return reply.status(400).send({ error: 'Cena invalida' })
-
-    const query = deleteCampaignSceneQuerySchema.safeParse(req.query ?? {})
-    if (!query.success) return reply.status(400).send({ error: 'Parametro force invalido' })
 
     const access = await getCampaignAccess(params.data.campaignId, payload.id)
     if (!isMaster(access)) return reply.status(403).send({ error: 'Apenas o mestre pode deletar cenas' })
@@ -364,19 +368,11 @@ export function registerCampaignSceneRoutes(app: FastifyInstance) {
       },
       select: {
         id: true,
-        tokens: { select: { id: true } },
       },
     })
     if (!scene) return reply.status(404).send({ error: 'Cena nao encontrada' })
 
-    if (scene.tokens.length > 0 && !query.data.force) {
-      return reply.status(409).send({
-        error: 'Cena possui tokens',
-        warning: 'Realocar os tokens ou envie force=true para remover a cena e seus tokens.',
-        tokenCount: scene.tokens.length,
-      })
-    }
-
+    await deps.removeScenePlacementsFromLiveState(params.data.campaignId, scene.id)
     await prisma.campaignScene.delete({ where: { id: scene.id } })
 
     return reply.send({ ok: true })

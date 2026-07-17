@@ -5,14 +5,11 @@ import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
 import { api, ApiError } from '../lib/api'
 
-type GameSystem = 'DND_5E' | 'PATHFINDER_2E'
-
 type FoundCampaign = {
   id: string
   title: string
   description?: string | null
   inviteCode: string
-  system: GameSystem
   gmName: string
   gmUserId: string
   joinPolicy: 'PUBLIC' | 'PRIVATE'
@@ -24,7 +21,6 @@ type CharacterOption = {
   id: string
   name: string
   avatarUrl?: string | null
-  system?: GameSystem | null
   available: boolean
 }
 
@@ -33,11 +29,6 @@ type CharacterMode = 'existing' | 'new'
 type JoinedCampaign = {
   id: string
   status?: 'ACTIVE' | 'PENDING'
-}
-
-const systemLabels: Record<GameSystem, string> = {
-  DND_5E: 'D&D 5e',
-  PATHFINDER_2E: 'Pathfinder 2e',
 }
 
 export function CampaignJoinPage() {
@@ -55,12 +46,8 @@ export function CampaignJoinPage() {
 
   const visibleCampaigns = foundCampaign ? [foundCampaign] : []
   const availableCharacters = useMemo(() => {
-    return characters.filter((character) => {
-      if (!character.available) return false
-      if (!foundCampaign) return true
-      return !character.system || character.system === foundCampaign.system
-    })
-  }, [characters, foundCampaign])
+    return characters.filter((character) => character.available)
+  }, [characters])
   const hasExistingCharacters = availableCharacters.length > 0
   const selectedCharacterId = availableCharacters.some((character) => character.id === requestedCharacterId)
     ? requestedCharacterId
@@ -224,7 +211,7 @@ export function CampaignJoinPage() {
             {activeCharacterMode === 'existing' ? (
               <div className="grid gap-2">
                 {availableCharacters.length === 0 ? (
-                  <div className="text-sm text-zinc-400">Nenhum personagem livre disponivel para {systemLabels[foundCampaign.system]}.</div>
+                  <div className="text-sm text-zinc-400">Nenhum personagem livre disponivel.</div>
                 ) : (
                   availableCharacters.map((character) => (
                     <button
@@ -240,18 +227,13 @@ export function CampaignJoinPage() {
                     >
                       <span className="flex items-center gap-3">
                         {character.avatarUrl ? (
-                          <img src={character.avatarUrl} alt="" className="h-10 w-10 rounded-full object-cover" />
+                          <img src={character.avatarUrl} alt="" className="h-10 w-10 rounded-full object-cover" draggable={false} />
                         ) : (
                           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-zinc-300">
                             <UserRound className="h-5 w-5" />
                           </span>
                         )}
-                        <span>
-                          <span className="block text-sm font-semibold text-white">{character.name}</span>
-                          <span className="text-xs text-zinc-400">
-                            {character.system ? systemLabels[character.system] : 'Sem sistema'}
-                          </span>
-                        </span>
+                        <span className="block text-sm font-semibold text-white">{character.name}</span>
                       </span>
                       {selectedCharacterId === character.id ? <Check className="h-4 w-4 text-indigo-200" /> : null}
                     </button>

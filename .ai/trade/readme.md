@@ -5,6 +5,8 @@ Permitir troca de itens entre personagens ativos de uma mesma campanha.
 
 Trade e uma interacao de mesa/campanha. A troca nao acontece entre usuarios diretamente; usuarios participam apenas por controlarem personagens vinculados a campanha.
 
+Trade nao pertence ao VTT core. Mesa, cenas, grid e tokens devem funcionar mesmo sem inventario, item ou sistema de jogo.
+
 ## 2. Estado Atual
 O fluxo de produto de trade ainda nao esta implementado.
 
@@ -37,4 +39,4 @@ Trade deve ocorrer apenas entre `Character` ativos que pertencam a mesma `campai
 * `character_creation`: define `Character` e o vinculo `CampaignCharacter`.
 * `campaign_creation`: define a campanha e a politica de acesso.
 * `campaign_presence`: pode fornecer sala realtime da campanha.
-* `game_systems`: futuramente define estrutura e regras de itens por sistema.
+* Extensoes opcionais podem futuramente definir estruturas de item.

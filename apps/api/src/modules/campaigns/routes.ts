@@ -4,7 +4,6 @@ import type { Server as SocketIOServer } from 'socket.io'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
-import { buildDefaultCharacterSheetEnvelope } from '../game_systems'
 import { generateInviteCode } from './invite-code'
 import { presentCampaignDashboardEntry } from './presenter'
 
@@ -12,10 +11,182 @@ type CampaignRoutesDeps = {
   io: SocketIOServer
   isCampaignOnline: (campaignId: string) => boolean
   getCampaignSessionState: (campaignId: string) => 'ACTIVE' | 'PAUSED' | null
+  removeCampaignTokenFromLiveState: (campaignId: string, tokenId: string) => void
+  refreshCampaignTokenInLiveState: (campaignId: string, tokenId: string) => Promise<void>
 }
 
+const defaultCampaignUserSettings = {
+  dice: {
+    autoClear: 3 as number | 'manual',
+    showResultPopup: true,
+  },
+}
+
+const campaignUserSettingsSchema = z
+  .object({
+    dice: z
+      .object({
+        autoClear: z.union([z.literal('manual'), z.number().int().min(3).max(10)]).optional(),
+        showResultPopup: z.boolean().optional(),
+      })
+      .optional(),
+  })
+  .passthrough()
+
+type CampaignUserSettingsPayload = z.infer<typeof campaignUserSettingsSchema>
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
+}
+
+function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayload {
+  const parsed = campaignUserSettingsSchema.safeParse(value)
+  const settings = parsed.success ? parsed.data : {}
+  const dice = settings.dice ?? {}
+
+  return {
+    ...settings,
+    dice: {
+      autoClear: dice.autoClear ?? defaultCampaignUserSettings.dice.autoClear,
+      showResultPopup: dice.showResultPopup ?? defaultCampaignUserSettings.dice.showResultPopup,
+    },
+  }
+}
+
+function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUserSettingsPayload {
+  const currentSettings = normalizeCampaignUserSettings(current)
+  const nextRecord = isRecord(next) ? next : {}
+  const nextDice = isRecord(nextRecord.dice) ? nextRecord.dice : {}
+  const merged = {
+    ...currentSettings,
+    ...nextRecord,
+    dice: {
+      ...currentSettings.dice,
+      ...nextDice,
+    },
+  }
+
+  return normalizeCampaignUserSettings(merged)
+}
+
+const campaignTokenCreateSchema = z.object({
+  characterId: z.string().min(1).nullable().optional(),
+  controllerUserId: z.string().min(1).nullable().optional(),
+  name: z.string().trim().min(1).max(80).optional(),
+  avatarUrl: z.string().trim().url().max(2048).nullable().optional(),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/).nullable().optional(),
+  size: z.number().positive().max(20).optional(),
+  canCustomizeAppearance: z.boolean().optional(),
+})
+
+const campaignTokenUpdateSchema = campaignTokenCreateSchema.partial()
+
+async function requireActiveMaster(campaignId: string, userId: string) {
+  return prisma.campaignCharacter.findFirst({
+    where: { campaignId, userId, role: 'MASTER', status: 'ACTIVE' },
+    select: { id: true },
+  })
+}
+
+async function findActivePlayerMember(campaignId: string, userId: string) {
+  return prisma.campaignMember.findFirst({
+    where: {
+      campaignId,
+      userId,
+      user: {
+        campaignLinks: {
+          some: { campaignId, userId, role: 'PLAYER', status: 'ACTIVE' },
+        },
+      },
+    },
+    select: { id: true, userId: true },
+  })
+}
+
+function presentCampaignToken(token: {
+  id: string
+  campaignId: string
+  characterId: string | null
+  name: string
+  avatarUrl: string | null
+  color: string | null
+  size: number
+  canCustomizeAppearance: boolean
+  createdAt: Date
+  updatedAt: Date
+  character: { userId: string; campaigns: Array<{ role: 'MASTER' | 'PLAYER' | 'NPC' }> } | null
+  controllerMember: { id: string; userId: string; user: { email: string } } | null
+  placement: {
+    sceneId: string
+    hidden: boolean
+    positionX: number
+    positionY: number
+    rotation: number
+    layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  } | null
+}) {
+  const characterRole = token.character?.campaigns[0]?.role
+  const category: 'MAIN' | 'SECONDARY' | 'MASTER_ONLY' =
+    characterRole === 'PLAYER' ? 'MAIN' : token.controllerMember ? 'SECONDARY' : 'MASTER_ONLY'
+
+  return {
+    id: token.id,
+    campaignId: token.campaignId,
+    characterId: token.characterId,
+    name: token.name,
+    avatarUrl: token.avatarUrl,
+    color: token.color,
+    size: token.size,
+    canCustomizeAppearance: token.canCustomizeAppearance,
+    controllerMemberId: token.controllerMember?.id ?? null,
+    controllerUserId: token.controllerMember?.userId ?? null,
+    controllerName: token.controllerMember?.user.email ?? null,
+    characterOwnerUserId: token.character?.userId ?? null,
+    category,
+    placement: token.placement
+      ? {
+          sceneId: token.placement.sceneId,
+          hidden: token.placement.hidden,
+          position: { x: token.placement.positionX, y: token.placement.positionY },
+          rotation: token.placement.rotation,
+          layer: token.placement.layer,
+        }
+      : null,
+    createdAt: token.createdAt,
+    updatedAt: token.updatedAt,
+  }
+}
+
+const campaignTokenInclude = {
+  character: {
+    select: {
+      userId: true,
+      campaigns: { select: { role: true } },
+    },
+  },
+  controllerMember: {
+    select: { id: true, userId: true, user: { select: { email: true } } },
+  },
+  placement: {
+    select: {
+      sceneId: true,
+      hidden: true,
+      positionX: true,
+      positionY: true,
+      rotation: true,
+      layer: true,
+    },
+  },
+} as const
+
 export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoutesDeps) {
-  const { io, isCampaignOnline, getCampaignSessionState } = deps
+  const {
+    io,
+    isCampaignOnline,
+    getCampaignSessionState,
+    removeCampaignTokenFromLiveState,
+    refreshCampaignTokenInLiveState,
+  } = deps
 
   app.get('/api/campaigns', async (req, reply) => {
     const payload = requireAuth(req, reply)
@@ -35,7 +206,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: true,
             description: true,
             inviteCode: true,
-            system: true,
             joinPolicy: true,
             createdAt: true,
             characters: {
@@ -76,7 +246,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         title: true,
         description: true,
         inviteCode: true,
-        system: true,
         joinPolicy: true,
         createdAt: true,
         characters: {
@@ -95,7 +264,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: campaign.title,
       description: campaign.description,
       inviteCode: campaign.inviteCode,
-      system: campaign.system,
       joinPolicy: campaign.joinPolicy,
       createdAt: campaign.createdAt,
       gmName: master?.name ?? 'Mestre',
@@ -112,7 +280,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: z.string().trim().min(1, 'Titulo e obrigatorio'),
       description: z.string().optional(),
       joinPolicy: z.enum(['PUBLIC', 'PRIVATE']).default('PUBLIC'),
-      system: z.enum(['PATHFINDER_2E']),
       masterCharacterId: z.string().optional(),
       masterCharacterName: z.string().trim().min(1).max(80).optional(),
     })
@@ -134,8 +301,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
                 id: true,
                 userId: true,
                 name: true,
-                system: true,
-                sheet: true,
                 deletedAt: true,
                 campaigns: { select: { id: true } },
               },
@@ -145,43 +310,16 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         if (masterCharacter && masterCharacter.userId !== payload.id) throw new Error('CHARACTER_FORBIDDEN')
         if (masterCharacter && masterCharacter.deletedAt) throw new Error('CHARACTER_ARCHIVED')
         if (masterCharacter && masterCharacter.campaigns.length > 0) throw new Error('CHARACTER_ALREADY_LINKED')
-        if (masterCharacter?.system && masterCharacter.system !== parsed.data.system) throw new Error('INCOMPATIBLE_SYSTEM')
-
         if (!masterCharacter) {
           masterCharacter = await tx.character.create({
             data: {
               userId: payload.id,
               name: parsed.data.masterCharacterName ?? 'Mestre',
-              system: parsed.data.system,
-              sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system) as unknown as Prisma.InputJsonValue,
             },
             select: {
               id: true,
               userId: true,
               name: true,
-              system: true,
-              sheet: true,
-              deletedAt: true,
-              campaigns: { select: { id: true } },
-            },
-          })
-        }
-
-        if (!masterCharacter.system || !masterCharacter.sheet) {
-          masterCharacter = await tx.character.update({
-            where: { id: masterCharacter.id },
-            data: {
-              system: parsed.data.system,
-              ...(!masterCharacter.sheet
-                ? { sheet: buildDefaultCharacterSheetEnvelope(parsed.data.system) as unknown as Prisma.InputJsonValue }
-                : {}),
-            },
-            select: {
-              id: true,
-              userId: true,
-              name: true,
-              system: true,
-              sheet: true,
               deletedAt: true,
               campaigns: { select: { id: true } },
             },
@@ -193,7 +331,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: parsed.data.title,
             description: parsed.data.description?.trim() || null,
             inviteCode,
-            system: parsed.data.system,
             joinPolicy: parsed.data.joinPolicy,
             createdByUserId: payload.id,
           },
@@ -202,7 +339,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: true,
             description: true,
             inviteCode: true,
-            system: true,
             joinPolicy: true,
             createdAt: true,
           },
@@ -217,6 +353,10 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             status: 'ACTIVE',
             joinedAt: new Date(),
           },
+        })
+
+        await tx.campaignMember.create({
+          data: { campaignId: campaign.id, userId: payload.id },
         })
 
         return { campaign, masterCharacter }
@@ -236,7 +376,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       if (message === 'CHARACTER_FORBIDDEN') return reply.status(403).send({ error: 'Personagem nao pertence ao usuario' })
       if (message === 'CHARACTER_ARCHIVED') return reply.status(400).send({ error: 'Personagem arquivado' })
       if (message === 'CHARACTER_ALREADY_LINKED') return reply.status(409).send({ error: 'Personagem ja esta vinculado' })
-      if (message === 'INCOMPATIBLE_SYSTEM') return reply.status(409).send({ error: 'Sistema do personagem incompativel com a campanha' })
       throw err
     }
   })
@@ -264,7 +403,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             title: true,
             description: true,
             inviteCode: true,
-            system: true,
             joinPolicy: true,
             createdAt: true,
             characters: {
@@ -295,8 +433,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
                 id: true,
                 userId: true,
                 name: true,
-                system: true,
-                sheet: true,
                 deletedAt: true,
                 campaigns: { select: { id: true } },
               },
@@ -306,44 +442,17 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         if (character && character.userId !== payload.id) throw Object.assign(new Error('CHARACTER_FORBIDDEN'), { statusCode: 403 })
         if (character && character.deletedAt) throw Object.assign(new Error('CHARACTER_ARCHIVED'), { statusCode: 400 })
         if (character && character.campaigns.length > 0) throw Object.assign(new Error('CHARACTER_ALREADY_LINKED'), { statusCode: 409 })
-        if (character?.system && character.system !== campaign.system) throw Object.assign(new Error('INCOMPATIBLE_SYSTEM'), { statusCode: 409 })
-
         if (!character) {
           if (!parsed.data.characterName) return { campaign, status: 'PENDING' as const, missingCharacterName: true }
           character = await tx.character.create({
             data: {
               userId: payload.id,
               name: parsed.data.characterName,
-              system: campaign.system,
-              sheet: buildDefaultCharacterSheetEnvelope(campaign.system) as unknown as Prisma.InputJsonValue,
             },
             select: {
               id: true,
               userId: true,
               name: true,
-              system: true,
-              sheet: true,
-              deletedAt: true,
-              campaigns: { select: { id: true } },
-            },
-          })
-        }
-
-        if (!character.system || !character.sheet) {
-          character = await tx.character.update({
-            where: { id: character.id },
-            data: {
-              system: campaign.system,
-              ...(!character.sheet
-                ? { sheet: buildDefaultCharacterSheetEnvelope(campaign.system) as unknown as Prisma.InputJsonValue }
-                : {}),
-            },
-            select: {
-              id: true,
-              userId: true,
-              name: true,
-              system: true,
-              sheet: true,
               deletedAt: true,
               campaigns: { select: { id: true } },
             },
@@ -361,6 +470,12 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             joinedAt: status === 'ACTIVE' ? new Date() : null,
           },
           select: { status: true, characterId: true },
+        })
+
+        await tx.campaignMember.upsert({
+          where: { campaignId_userId: { campaignId: campaign.id, userId: payload.id } },
+          create: { campaignId: campaign.id, userId: payload.id },
+          update: {},
         })
 
         const master = campaign.characters[0]?.character ?? null
@@ -392,7 +507,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         title: result.campaign.title,
         description: result.campaign.description,
         inviteCode: null,
-        system: result.campaign.system,
         joinPolicy: result.campaign.joinPolicy,
         createdAt: result.campaign.createdAt,
         gmName: master?.name ?? 'Mestre',
@@ -424,14 +538,18 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     const payload = requireAuth(req, reply)
     if (!payload) return
     const params = req.params as { campaignId: string }
+    const query = z.object({ characterId: z.string().optional() }).safeParse(req.query ?? {})
+    if (!query.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
     const campaignCharacter = await prisma.campaignCharacter.findFirst({
       where: {
         campaignId: params.campaignId,
+        ...(query.data.characterId ? { characterId: query.data.characterId } : {}),
         status: 'ACTIVE',
         role: { in: ['MASTER', 'PLAYER'] },
         character: { userId: payload.id },
       },
+      orderBy: { createdAt: 'asc' },
       select: {
         role: true,
         status: true,
@@ -459,6 +577,91 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       avatarUrl: campaignCharacter.character.avatarUrl,
       role: campaignCharacter.role,
       status: campaignCharacter.status,
+    })
+  })
+
+  app.get('/api/campaigns/:campaignId/my-settings', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = req.params as { campaignId: string }
+    const access = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        userId: payload.id,
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    })
+    if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const settings = await prisma.campaignUserSettings.findUnique({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      select: { settings: true },
+    })
+
+    return reply.send({
+      settings: normalizeCampaignUserSettings(settings?.settings),
+    })
+  })
+
+  app.patch('/api/campaigns/:campaignId/my-settings', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    const params = req.params as { campaignId: string }
+    const bodySchema = z.object({
+      settings: campaignUserSettingsSchema,
+    })
+    const parsed = bodySchema.safeParse(req.body ?? {})
+    if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+
+    const access = await prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId: params.campaignId,
+        userId: payload.id,
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    })
+    if (!access) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const current = await prisma.campaignUserSettings.findUnique({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      select: { settings: true },
+    })
+    const settings = mergeCampaignUserSettings(current?.settings, parsed.data.settings)
+
+    const updated = await prisma.campaignUserSettings.upsert({
+      where: {
+        campaignId_userId: {
+          campaignId: params.campaignId,
+          userId: payload.id,
+        },
+      },
+      create: {
+        campaignId: params.campaignId,
+        userId: payload.id,
+        settings: settings as Prisma.InputJsonValue,
+      },
+      update: {
+        settings: settings as Prisma.InputJsonValue,
+      },
+      select: { settings: true },
+    })
+
+    return reply.send({
+      settings: normalizeCampaignUserSettings(updated.settings),
     })
   })
 
@@ -566,6 +769,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         campaignId: params.campaignId,
         status: 'ACTIVE',
         role: { in: ['PLAYER', 'NPC'] },
+        character: { campaignTokens: { none: {} } },
       },
       select: {
         role: true,
@@ -592,6 +796,195 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         ownerName: entry.role === 'NPC' ? entry.character.name : entry.character.user.email,
       })),
     )
+  })
+
+  app.get('/api/campaigns/:campaignId/tokens', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+    const params = req.params as { campaignId: string }
+
+    if (!(await requireActiveMaster(params.campaignId, payload.id))) {
+      return reply.status(403).send({ error: 'Apenas o mestre pode gerenciar tokens' })
+    }
+
+    const tokens = await prisma.campaignToken.findMany({
+      where: { campaignId: params.campaignId },
+      include: campaignTokenInclude,
+      orderBy: { createdAt: 'asc' },
+    })
+
+    const categoryOrder = { MAIN: 0, SECONDARY: 1, MASTER_ONLY: 2 } as const
+    return reply.send(
+      tokens
+        .map(presentCampaignToken)
+        .sort((left, right) => categoryOrder[left.category] - categoryOrder[right.category]),
+    )
+  })
+
+  app.post('/api/campaigns/:campaignId/tokens', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+    const params = req.params as { campaignId: string }
+    const parsed = campaignTokenCreateSchema.safeParse(req.body ?? {})
+    if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+
+    if (!(await requireActiveMaster(params.campaignId, payload.id))) {
+      return reply.status(403).send({ error: 'Apenas o mestre pode criar tokens' })
+    }
+
+    const character = parsed.data.characterId
+      ? await prisma.campaignCharacter.findFirst({
+          where: {
+            campaignId: params.campaignId,
+            characterId: parsed.data.characterId,
+            status: 'ACTIVE',
+            role: { in: ['PLAYER', 'NPC'] },
+          },
+          select: {
+            role: true,
+            userId: true,
+            character: { select: { id: true, name: true, avatarUrl: true } },
+          },
+        })
+      : null
+    if (parsed.data.characterId && !character) {
+      return reply.status(400).send({ error: 'Character nao pertence a esta campanha' })
+    }
+
+    const controllerUserId = parsed.data.controllerUserId ?? (character?.role === 'PLAYER' ? character.userId : null)
+    const controller = controllerUserId
+      ? await findActivePlayerMember(params.campaignId, controllerUserId)
+      : null
+    if (controllerUserId && !controller) {
+      return reply.status(400).send({ error: 'Controlador nao participa desta campanha' })
+    }
+
+    try {
+      const token = await prisma.campaignToken.create({
+        data: {
+          campaignId: params.campaignId,
+          characterId: character?.character.id ?? null,
+          controllerMemberId: controller?.id ?? null,
+          name: parsed.data.name ?? character?.character.name ?? 'Novo Token',
+          avatarUrl: parsed.data.avatarUrl !== undefined ? parsed.data.avatarUrl : character?.character.avatarUrl ?? null,
+          color: parsed.data.color ?? null,
+          size: parsed.data.size ?? 1,
+          canCustomizeAppearance: parsed.data.canCustomizeAppearance ?? false,
+        },
+        include: campaignTokenInclude,
+      })
+      return reply.status(201).send(presentCampaignToken(token))
+    } catch (err: any) {
+      if (err?.code === 'P2002') return reply.status(409).send({ error: 'Character ja esta vinculado a outro Token' })
+      throw err
+    }
+  })
+
+  app.patch('/api/campaigns/:campaignId/tokens/:tokenId', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+    const params = req.params as { campaignId: string; tokenId: string }
+    const parsed = campaignTokenUpdateSchema.safeParse(req.body ?? {})
+    if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
+
+    const current = await prisma.campaignToken.findFirst({
+      where: { id: params.tokenId, campaignId: params.campaignId },
+      include: campaignTokenInclude,
+    })
+    if (!current) return reply.status(404).send({ error: 'Token nao encontrado' })
+
+    const isMaster = Boolean(await requireActiveMaster(params.campaignId, payload.id))
+    const changedKeys = Object.keys(parsed.data)
+    const appearanceOnly = changedKeys.every((key) => key === 'name' || key === 'avatarUrl')
+    const canPlayerCustomize =
+      appearanceOnly &&
+      current.canCustomizeAppearance &&
+      current.controllerMember?.userId === payload.id
+    if (!isMaster && !canPlayerCustomize) {
+      return reply.status(403).send({ error: 'Sem permissao para alterar este Token' })
+    }
+
+    let character: { role: 'MASTER' | 'PLAYER' | 'NPC'; userId: string; character: { id: string } } | null = null
+    if (isMaster && parsed.data.characterId) {
+      character = await prisma.campaignCharacter.findFirst({
+        where: {
+          campaignId: params.campaignId,
+          characterId: parsed.data.characterId,
+          status: 'ACTIVE',
+          role: { in: ['PLAYER', 'NPC'] },
+        },
+        select: { role: true, userId: true, character: { select: { id: true } } },
+      })
+      if (!character) return reply.status(400).send({ error: 'Character nao pertence a esta campanha' })
+    }
+
+    let controllerMemberId: string | null | undefined
+    const automaticControllerUserId =
+      isMaster && parsed.data.characterId !== undefined && character?.role === 'PLAYER'
+        ? character.userId
+        : undefined
+    const requestedControllerUserId =
+      parsed.data.controllerUserId !== undefined ? parsed.data.controllerUserId : automaticControllerUserId
+    if (isMaster && requestedControllerUserId !== undefined) {
+      if (requestedControllerUserId === null) controllerMemberId = null
+      else {
+        const member = await findActivePlayerMember(params.campaignId, requestedControllerUserId)
+        if (!member) return reply.status(400).send({ error: 'Controlador nao participa desta campanha' })
+        controllerMemberId = member.id
+      }
+    }
+
+    try {
+      const token = await prisma.campaignToken.update({
+        where: { id: current.id },
+        data: {
+          ...(isMaster && parsed.data.characterId !== undefined ? { characterId: parsed.data.characterId } : {}),
+          ...(controllerMemberId !== undefined ? { controllerMemberId } : {}),
+          ...(parsed.data.name !== undefined ? { name: parsed.data.name } : {}),
+          ...(parsed.data.avatarUrl !== undefined ? { avatarUrl: parsed.data.avatarUrl } : {}),
+          ...(isMaster && parsed.data.color !== undefined ? { color: parsed.data.color } : {}),
+          ...(isMaster && parsed.data.size !== undefined ? { size: parsed.data.size } : {}),
+          ...(isMaster && parsed.data.canCustomizeAppearance !== undefined
+            ? { canCustomizeAppearance: parsed.data.canCustomizeAppearance }
+            : {}),
+        },
+        include: campaignTokenInclude,
+      })
+      const presented = presentCampaignToken(token)
+      await refreshCampaignTokenInLiveState(params.campaignId, token.id)
+      io.to(`campaign:${params.campaignId}`).emit('vtt:token:metadata-changed', {
+        campaignId: params.campaignId,
+        token: presented,
+      })
+      return reply.send(presented)
+    } catch (err: any) {
+      if (err?.code === 'P2002') return reply.status(409).send({ error: 'Character ja esta vinculado a outro Token' })
+      throw err
+    }
+  })
+
+  app.delete('/api/campaigns/:campaignId/tokens/:tokenId', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+    const params = req.params as { campaignId: string; tokenId: string }
+
+    if (!(await requireActiveMaster(params.campaignId, payload.id))) {
+      return reply.status(403).send({ error: 'Apenas o mestre pode excluir tokens' })
+    }
+
+    const token = await prisma.campaignToken.findFirst({
+      where: { id: params.tokenId, campaignId: params.campaignId },
+      select: { id: true },
+    })
+    if (!token) return reply.status(404).send({ error: 'Token nao encontrado' })
+
+    removeCampaignTokenFromLiveState(params.campaignId, token.id)
+    await prisma.campaignToken.delete({ where: { id: token.id } })
+    io.to(`campaign:${params.campaignId}`).emit('vtt:token:deleted', {
+      campaignId: params.campaignId,
+      tokenId: token.id,
+    })
+    return reply.send({ ok: true })
   })
 
   app.post('/api/campaigns/:campaignId/players/:userId/approve', async (req, reply) => {
@@ -624,6 +1017,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       where: {
         campaignId: params.campaignId,
         userId: target.userId,
+        role: 'PLAYER',
         status: 'ACTIVE',
         NOT: { id: target.id },
       },
@@ -673,10 +1067,16 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     })
     if (!target) return reply.status(404).send({ error: 'Solicitacao nao encontrada' })
 
-    const updated = await prisma.campaignCharacter.update({
-      where: { id: target.id },
-      data: { status: 'REJECTED' },
-      select: { campaignId: true, character: { select: { userId: true } } },
+    const updated = await prisma.$transaction(async (tx) => {
+      const campaignCharacter = await tx.campaignCharacter.update({
+        where: { id: target.id },
+        data: { status: 'REJECTED' },
+        select: { campaignId: true, character: { select: { userId: true } } },
+      })
+      await tx.campaignMember.deleteMany({
+        where: { campaignId: params.campaignId, userId: params.userId },
+      })
+      return campaignCharacter
     })
 
     io.to(`user:${updated.character.userId}`).emit('campaign:join-rejected', {

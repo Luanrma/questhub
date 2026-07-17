@@ -1,14 +1,6 @@
 -- CreateEnum
 DO $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'GameSystem') THEN
-    CREATE TYPE "GameSystem" AS ENUM ('DND_5E', 'PATHFINDER_2E');
-  END IF;
-END $$;
-
--- CreateEnum
-DO $$
-BEGIN
   IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'CampaignCharacterStatus') THEN
     CREATE TYPE "CampaignCharacterStatus" AS ENUM ('PENDING', 'ACTIVE', 'REJECTED', 'LEFT', 'DEAD');
   END IF;
@@ -22,20 +14,17 @@ BEGIN
   END IF;
 END $$;
 
--- Campaign: replace direct GM fields with audit creator and mandatory game system.
+-- Campaign: replace direct GM fields with an audit creator.
 ALTER TABLE "Campaign"
-  ADD COLUMN "system" "GameSystem",
   ADD COLUMN "createdByUserId" TEXT,
   ADD COLUMN "updatedAt" TIMESTAMP(3);
 
 UPDATE "Campaign"
 SET
-  "system" = 'DND_5E',
   "createdByUserId" = "gmUserId",
   "updatedAt" = COALESCE("createdAt", CURRENT_TIMESTAMP);
 
 ALTER TABLE "Campaign"
-  ALTER COLUMN "system" SET NOT NULL,
   ALTER COLUMN "createdByUserId" SET NOT NULL,
   ALTER COLUMN "updatedAt" SET NOT NULL;
 
@@ -43,7 +32,6 @@ ALTER TABLE "Campaign"
 ALTER TABLE "Character"
   ADD COLUMN "avatarUrl" TEXT,
   ADD COLUMN "bio" TEXT,
-  ADD COLUMN "system" "GameSystem",
   ADD COLUMN "deletedAt" TIMESTAMP(3),
   ADD COLUMN "updatedAt" TIMESTAMP(3);
 

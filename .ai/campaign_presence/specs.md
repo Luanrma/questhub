@@ -13,8 +13,16 @@
 * Para mestre, o botao superior mostra `Iniciar Sessao` quando offline e `Encerrar Sessao` quando online.
 * Para jogador, `CampaignLayout` emite `presence:enter` ao abrir uma campanha online.
 * O jogador so e registrado como presente quando abre uma campanha online com `CampaignCharacter` `ACTIVE` e role `PLAYER`.
+* Um usuario so pode registrar presenca com um unico personagem `PLAYER` ativo por campanha.
+* Se dados legados tiverem mais de um `PLAYER ACTIVE` para o mesmo usuario e campanha, a conexao realtime deve usar explicitamente o personagem escolhido no card da campanha e nao trocar silenciosamente para outro.
 * A mesa usa `campaign.isOnline` como estado visual.
 * Paineis do VTT podem consumir `presence:update` para badges online/offline.
+* O gateway de campanha pode compor handlers de presenca e handlers VTT legados na mesma conexao Socket.IO, mas a regra de presenca deve permanecer isolada dos contratos de cena/grid/token.
+* Enquanto eventos `vtt:*` legados existirem, o handler de presenca continua responsavel apenas por autenticar a entrada na sala, emitir estado de sessao e preparar snapshots iniciais delegados ao fluxo VTT/cena.
+* Modulos opcionais sobre a mesa, como Encounter Mode, podem usar estado vivo em memoria no gateway realtime da campanha.
+* Eventos opcionais sobre a mesa exigem socket autenticado dentro da campanha e nao podem introduzir dependencia de ruleset no VTT core.
+* Comandos opcionais que alteram estado compartilhado exigem Mestre ativo da sessao, salvo contrato explicito em contrario.
+* Encerrar a sessao remove estados transientes opcionais junto com os demais estados vivos do VTT.
 
 ## 3. Criterios de Aceitacao
 * Mestre abrir a tela da campanha nao torna a campanha online.
