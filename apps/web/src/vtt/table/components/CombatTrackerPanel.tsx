@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, PanelRightOpen, Pin, Swords, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import type { VttCombatParticipant, VttCombatState, VttPlayerToken } from '../domain/types'
+import { TokenAvatar } from './TokenAvatar'
 
 type CombatTrackerDisplayMode = 'sidebar' | 'detached'
 type DetachedCombatTurn = {
@@ -104,7 +105,6 @@ export function CombatTrackerPanel({
         detached ? (
           <div className="flex min-h-[104px] items-center gap-3 overflow-x-auto pb-1">
             {selectedTokens.map((token, index) => {
-              const initial = token.name.trim().charAt(0).toUpperCase() || '?'
 
               return (
                 <div
@@ -123,9 +123,9 @@ export function CombatTrackerPanel({
                     <X className="h-3.5 w-3.5" />
                   </button>
                   <span
-                    className="grid h-10 w-10 place-items-center overflow-hidden rounded-full bg-indigo-600 text-sm font-bold text-white"
+                    className="grid h-10 w-10 place-items-center overflow-hidden rounded-full text-sm font-bold text-white"
                   >
-                    {token.avatarUrl ? <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
+                    <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
                   </span>
                   <span className="w-full min-w-0">
                     <span className="block truncate text-xs font-semibold text-white">{token.name}</span>
@@ -138,14 +138,13 @@ export function CombatTrackerPanel({
         ) : (
           <div className="grid max-h-36 gap-2 overflow-auto pr-1">
           {selectedTokens.map((token) => {
-            const initial = token.name.trim().charAt(0).toUpperCase() || '?'
 
             return (
               <div key={token.id} className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-2 py-1.5">
                 <span
-                  className="grid h-7 w-7 place-items-center overflow-hidden rounded-full bg-indigo-600 text-xs font-bold text-white"
+                  className="grid h-7 w-7 place-items-center overflow-hidden rounded-full text-xs font-bold text-white"
                 >
-                  {token.avatarUrl ? <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
+                  <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
                 </span>
                 <span className="min-w-0">
                   <span className="block truncate text-xs font-semibold text-white">{token.name}</span>
@@ -266,7 +265,6 @@ export function CombatTrackerPanel({
 
               <div className="flex min-w-0 items-center justify-center gap-3 overflow-hidden px-2 py-1">
                 {detachedTurns.map(({ participant, index, active }) => {
-                  const initial = participant.name.trim().charAt(0).toUpperCase() || '?'
 
                   return (
                     <div
@@ -283,11 +281,11 @@ export function CombatTrackerPanel({
                       </span>
                       <span
                         className={[
-                          'grid place-items-center overflow-hidden rounded-full bg-indigo-600 font-bold text-white transition',
+                          'grid place-items-center overflow-hidden rounded-full font-bold text-white transition',
                           active ? 'h-12 w-12 text-sm ring-2 ring-red-200/70' : 'h-9 w-9 text-xs',
                         ].join(' ')}
                       >
-                        {participant.avatarUrl ? <img src={participant.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
+                        <TokenAvatar avatarUrl={participant.avatarUrl} name={participant.name} fallbackSeed={participant.tokenId} color={participant.color} />
                       </span>
                       <span className="w-full min-w-0">
                         <span className={['block truncate font-semibold text-white', active ? 'text-sm' : 'text-xs'].join(' ')}>{participant.name}</span>
@@ -417,7 +415,6 @@ export function CombatTrackerPanel({
           <div className="grid max-h-44 gap-1 overflow-auto pr-1">
             {combat.participants.map((participant, index) => {
               const active = index === combat.activeTurnIndex
-              const initial = participant.name.trim().charAt(0).toUpperCase() || '?'
 
               return (
                 <div
@@ -427,8 +424,8 @@ export function CombatTrackerPanel({
                     active ? 'border-red-300/50 bg-red-500/15' : 'border-white/10 bg-black/15',
                   ].join(' ')}
                 >
-                  <span className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full bg-indigo-600 text-xs font-bold text-white">
-                    {participant.avatarUrl ? <img src={participant.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : initial}
+                  <span className="grid h-8 w-8 shrink-0 place-items-center overflow-hidden rounded-full text-xs font-bold text-white">
+                    <TokenAvatar avatarUrl={participant.avatarUrl} name={participant.name} fallbackSeed={participant.tokenId} color={participant.color} />
                   </span>
                   <span className="min-w-0">
                     <span className="block truncate text-sm font-semibold text-white">{participant.name}</span>

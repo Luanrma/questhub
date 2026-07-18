@@ -11,6 +11,8 @@ type CampaignSceneRecord = {
   gridVisible: boolean
   gridShape: DbCampaignSceneGridShape
   gridSize: number
+  gridOffsetX: number
+  gridOffsetY: number
   metersPerCell: number
   squareMeasurementColor: string
   hexMeasurementColor: string
@@ -66,6 +68,8 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
       visible: scene.gridVisible,
       shape: 'hex' as const,
       size: scene.gridSize,
+      offsetX: scene.gridOffsetX,
+      offsetY: scene.gridOffsetY,
       hexMeasurementColor: scene.hexMeasurementColor,
       lineWidth: scene.gridLineWidth,
       color: scene.gridColor,
@@ -76,6 +80,8 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
     visible: scene.gridVisible,
     shape: 'square' as const,
     size: scene.gridSize,
+    offsetX: scene.gridOffsetX,
+    offsetY: scene.gridOffsetY,
     metersPerCell: scene.metersPerCell,
     squareMeasurementColor: scene.squareMeasurementColor,
     lineWidth: scene.gridLineWidth,

@@ -2,14 +2,17 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
   BrickWall,
+  CircleMinus,
   CircleUserRound,
   Dice5,
   Eye,
   EyeOff,
   Grid3X3,
   MessageCircle,
+  Image as ImageIcon,
   MousePointer2,
   Move,
+  Pencil,
   Ruler,
   PanelRightClose,
   PanelRightOpen,
@@ -37,8 +40,10 @@ import {
   areaScaleForMeters,
   calculateAreaRender,
   directionDegrees,
+  findIntersectingTargetTokenId,
   primaryAreaDimension,
   snapAreaOrigin,
+  toggleTargetSelection,
   useAreaTemplates,
   type AreaPlacement,
   type CampaignAreaTemplate,
@@ -77,6 +82,9 @@ import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneCon
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
 import { CombatTrackerPanel } from './components/CombatTrackerPanel'
 import { TokenContextMenu } from './components/TokenContextMenu'
+import { TokenImagePickerDialog } from './components/TokenImagePickerDialog'
+import { TokenAvatar } from './components/TokenAvatar'
+import { getLastTokenColor } from './infrastructure/tokenAppearancePreferences'
 import type {
   AssetExistsResponse,
   AssetUploadResponse,
@@ -118,6 +126,15 @@ const toolButtons = [
 
 const defaultWallColor = '#e5e7eb'
 const defaultDoorColor = '#f59e0b'
+
+function scaleWallsForZoom(walls: VttWallSegment[], zoomPercent: number): VttWallSegment[] {
+  const scale = zoomPercent / 100
+  return walls.map((wall) => ({
+    ...wall,
+    start: { x: wall.start.x * scale, y: wall.start.y * scale },
+    end: { x: wall.end.x * scale, y: wall.end.y * scale },
+  }))
+}
 
 type CampaignOverviewPageProps = {
   gridSettings: VttGridSettings
@@ -177,6 +194,7 @@ export function CampaignOverviewPage({
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [campaignPlayers, setCampaignPlayers] = useState<CampaignPlayer[]>([])
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
+  const [tokenImageEditTarget, setTokenImageEditTarget] = useState<CampaignToken | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
@@ -209,6 +227,8 @@ export function CampaignOverviewPage({
   const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
   const [combatState, setCombatState] = useState<VttCombatState | null>(null)
   const [activeAreaTemplate, setActiveAreaTemplate] = useState<CampaignAreaTemplate | null>(null)
+  const [selectedAreaTargetIds, setSelectedAreaTargetIds] = useState<string[]>([])
+  const [appliedAreaEffect, setAppliedAreaEffect] = useState<{ tokenIds: string[]; color: string } | null>(null)
   const [areaTemplatesDetached, setAreaTemplatesDetached] = useState(false)
   const [areaDraftOrigin, setAreaDraftOrigin] = useState<{ x: number; y: number } | null>(null)
   const [areaPointer, setAreaPointer] = useState<{ x: number; y: number } | null>(null)
@@ -222,13 +242,14 @@ export function CampaignOverviewPage({
     draftPlacement: AreaPlacement
   } | null>(null)
   const areaHandleDragRef = useRef<AreaHandleDragState | null>(null)
+  const targetEffectTimeoutRef = useRef<number | null>(null)
   const [areaHandleDrag, setAreaHandleDrag] = useState<AreaHandleDragState | null>(null)
   const preparedScenesRef = useRef(preparedScenes)
   const sceneImageDimensionsRef = useRef(new Map<string, VttGridBounds>())
   const onGridSettingsChangeRef = useRef(onGridSettingsChange)
   const sceneGridRevisionRef = useRef(0)
   const [sceneLoadingMessage, setSceneLoadingMessage] = useState<string | null>(null)
-  const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.metersPerCell}`
+  const measurementGridKey = `${gridSettings.shape}:${gridSettings.size}:${gridSettings.offsetX}:${gridSettings.offsetY}:${gridSettings.metersPerCell}`
   const measurementGridKeyRef = useRef(measurementGridKey)
 
   const campaign = campaigns.find((item) => item.id === campaignId)
@@ -268,11 +289,11 @@ export function CampaignOverviewPage({
     key: `effect-${effect.id}`,
     effectId: effect.id,
     template: effect.configurationSnapshot,
-    origin: { x: effect.origin.x * tokenSize, y: effect.origin.y * tokenSize },
+    origin: { x: effect.origin.x * tokenSize + zoomedGridSettings.offsetX, y: effect.origin.y * tokenSize + zoomedGridSettings.offsetY },
     rotationDegrees: effect.rotationDegrees,
     scale: effect.scale,
     selected: false,
-  })), [areaLibrary.effects, tokenSize])
+  })), [areaLibrary.effects, tokenSize, zoomedGridSettings.offsetX, zoomedGridSettings.offsetY])
   const displayedPersistentAreaPlacements = useMemo(() => {
     const menu = areaEffectContextMenu
     return persistentAreaPlacements.map((placement) => {
@@ -295,17 +316,20 @@ export function CampaignOverviewPage({
     }
   }, [activeAreaTemplate, activeTool, areaDraftOrigin, areaEffectContextMenu, areaPointer, pendingAreaPlacement])
   const renderedAreas = useMemo(() => {
-    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: activeScene?.walls ?? [] }
+    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: scaleWallsForZoom(activeScene?.walls ?? [], activeZoomPercent) }
     return [...displayedPersistentAreaPlacements.filter((placement) => placement.effectId !== editingAreaEffectId), ...(previewAreaPlacement ? [previewAreaPlacement] : [])].map((placement) => calculateAreaRender(placement, context))
-  }, [activeScene?.walls, displayedPersistentAreaPlacements, editingAreaEffectId, gridBounds, previewAreaPlacement, visibleTokens, zoomedGridSettings])
+  }, [activeScene?.walls, activeZoomPercent, displayedPersistentAreaPlacements, editingAreaEffectId, gridBounds, previewAreaPlacement, visibleTokens, zoomedGridSettings])
   const affectedTokenRings = useMemo(() => {
     const rings = new Map<string, CampaignAreaTemplate['style']['affectedTokenRing']>()
     for (const area of renderedAreas) for (const tokenId of area.touchedTokenIds) rings.set(tokenId, area.template.style.affectedTokenRing)
+    if (activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET') {
+      for (const tokenId of selectedAreaTargetIds) rings.set(tokenId, activeAreaTemplate.style.affectedTokenRing)
+    }
     return rings
-  }, [renderedAreas])
+  }, [activeAreaTemplate, activeTool, renderedAreas, selectedAreaTargetIds])
   const previewAreaRender = renderedAreas.find((area) => area.selected)
   const currentSceneTokenCount = playerTokens.length
-  const globalTokenCount = campaignTokens.length
+  const placedCampaignTokenCount = campaignTokens.filter((token) => token.placement).length
   const availableCampaignTokens = campaignTokens.filter((token) => !token.placement)
   const activeCombat =
     combatState && combatState.campaignId === campaignId ? combatState : null
@@ -345,6 +369,10 @@ export function CampaignOverviewPage({
     window.addEventListener('pointermove', followAreaCursor)
     return () => window.removeEventListener('pointermove', followAreaCursor)
   }, [activeAreaTemplate, activeTool, pendingAreaPlacement])
+
+  useEffect(() => () => {
+    if (targetEffectTimeoutRef.current !== null) window.clearTimeout(targetEffectTimeoutRef.current)
+  }, [])
 
   useEffect(() => {
     const element = boardViewportRef.current
@@ -603,6 +631,14 @@ export function CampaignOverviewPage({
 
     function onTokenRemoved(payload: VttTokenRemovedPayload) {
       if (payload.campaignId !== campaignId) return
+      setCampaignTokens((current) => current.map((token) =>
+        token.id === payload.tokenId ? { ...token, placement: null } : token,
+      ))
+      setPreparedScenes((current) =>
+        current.map((scene) =>
+          scene.id === payload.sceneId ? { ...scene, tokens: scene.tokens.filter((token) => token.id !== payload.tokenId) } : scene,
+        ),
+      )
       const isOwnRemovedToken = !isMaster && payload.characterId === myCharacter?.id
       if (isOwnRemovedToken) {
         setActiveScene(null)
@@ -619,14 +655,6 @@ export function CampaignOverviewPage({
           tokens: current.tokens.filter((token) => token.id !== payload.tokenId),
         }
       })
-      setPreparedScenes((current) =>
-        current.map((scene) =>
-          scene.id === activeScene?.id ? { ...scene, tokens: scene.tokens.filter((token) => token.id !== payload.tokenId) } : scene,
-        ),
-      )
-      setCampaignTokens((current) => current.map((token) =>
-        token.id === payload.tokenId ? { ...token, placement: null } : token,
-      ))
     }
 
     function onTokenMetadataChanged(payload: { campaignId: string; token: CampaignToken }) {
@@ -920,8 +948,8 @@ export function CampaignOverviewPage({
 
     return clampMeasurementPoint(
       {
-        x: (event.clientX - bounds.left) / tokenSize,
-        y: (event.clientY - bounds.top) / tokenSize,
+        x: (event.clientX - bounds.left - zoomedGridSettings.offsetX) / tokenSize,
+        y: (event.clientY - bounds.top - zoomedGridSettings.offsetY) / tokenSize,
       },
       { width: bounds.width / tokenSize, height: bounds.height / tokenSize },
     )
@@ -1107,9 +1135,20 @@ export function CampaignOverviewPage({
   }
 
   function getWallPoint(event: React.PointerEvent<HTMLElement>) {
-    const point = getMeasurementPoint(event)
-    if (!point) return null
-    return gridSettings.shape === 'hex' ? snapHexMeasurementPoint(point) : point
+    const bounds = gridAreaRef.current?.getBoundingClientRect()
+    if (!bounds) return null
+    const zoomScale = activeZoomPercent / 100
+    const renderedPoint = { x: event.clientX - bounds.left, y: event.clientY - bounds.top }
+    if (gridSettings.shape !== 'hex') return { x: renderedPoint.x / zoomScale, y: renderedPoint.y / zoomScale }
+    const logicalPoint = {
+      x: (renderedPoint.x - zoomedGridSettings.offsetX) / tokenSize,
+      y: (renderedPoint.y - zoomedGridSettings.offsetY) / tokenSize,
+    }
+    const snapped = snapHexMeasurementPoint(logicalPoint)
+    return {
+      x: (snapped.x * tokenSize + zoomedGridSettings.offsetX) / zoomScale,
+      y: (snapped.y * tokenSize + zoomedGridSettings.offsetY) / zoomScale,
+    }
   }
 
   function startWall(event: React.PointerEvent<HTMLDivElement>) {
@@ -1176,6 +1215,7 @@ export function CampaignOverviewPage({
     setAreaDraftOrigin(null)
     setAreaPointer(null)
     setPendingAreaPlacement(null)
+    setSelectedAreaTargetIds([])
     setActiveTool('area-templates')
     onGridSettingsOpenChange(false)
   }
@@ -1189,13 +1229,38 @@ export function CampaignOverviewPage({
     setEditingAreaEffectId(null)
     setAreaEffectContextMenu(null)
     setAreaHandleDragState(null)
+    setSelectedAreaTargetIds([])
+  }
+
+  function toggleAreaTarget(token: VttPlayerToken) {
+    if (activeAreaTemplate?.shape !== 'TARGET') return
+    const targetCount = activeAreaTemplate.dimensions.targetCount ?? 1
+    setSelectedAreaTargetIds((current) => toggleTargetSelection(current, token.id, targetCount))
+  }
+
+  function showAppliedAreaEffect(tokenIds: string[], color: string) {
+    if (tokenIds.length === 0) return
+    if (targetEffectTimeoutRef.current !== null) window.clearTimeout(targetEffectTimeoutRef.current)
+    setAppliedAreaEffect({ tokenIds: [...tokenIds], color })
+    targetEffectTimeoutRef.current = window.setTimeout(() => {
+      setAppliedAreaEffect(null)
+      targetEffectTimeoutRef.current = null
+    }, 900)
+  }
+
+  function confirmAreaTargets() {
+    if (activeAreaTemplate?.shape !== 'TARGET' || selectedAreaTargetIds.length === 0) return
+    const selectedNames = visibleTokens.filter((token) => selectedAreaTargetIds.includes(token.id)).map((token) => token.name)
+    showAppliedAreaEffect(selectedAreaTargetIds, activeAreaTemplate.style.affectedTokenRing.color)
+    setSceneSuccessMessage(`${activeAreaTemplate.name}: ${selectedNames.join(', ')}.`)
+    cancelAreaPlacement()
   }
 
   async function confirmAreaPlacement(placement: AreaPlacement) {
     if (!activeScene) return
     if (editingAreaEffectId) {
       const updated = await areaLibrary.updateEffect(editingAreaEffectId, {
-        origin: { x: placement.origin.x / tokenSize, y: placement.origin.y / tokenSize },
+        origin: { x: (placement.origin.x - zoomedGridSettings.offsetX) / tokenSize, y: (placement.origin.y - zoomedGridSettings.offsetY) / tokenSize },
         rotationDegrees: Math.round(placement.rotationDegrees),
         scale: placement.scale,
       })
@@ -1204,13 +1269,16 @@ export function CampaignOverviewPage({
     } else if (placement.template.persistenceMode === 'PERSISTENT') {
       const created = await areaLibrary.createEffect({
         templateId: placement.template.id,
-        origin: { x: placement.origin.x / tokenSize, y: placement.origin.y / tokenSize },
+        origin: { x: (placement.origin.x - zoomedGridSettings.offsetX) / tokenSize, y: (placement.origin.y - zoomedGridSettings.offsetY) / tokenSize },
         rotationDegrees: Math.round(placement.rotationDegrees),
         scale: placement.scale,
       })
       if (!created) return
       setSceneSuccessMessage(`${placement.template.name} adicionada a cena.`)
     }
+    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: scaleWallsForZoom(activeScene.walls, activeZoomPercent) }
+    const touchedTokenIds = calculateAreaRender(placement, context).touchedTokenIds
+    showAppliedAreaEffect(touchedTokenIds, placement.template.style.affectedTokenRing.color)
     cancelAreaPlacement()
   }
 
@@ -1289,7 +1357,7 @@ export function CampaignOverviewPage({
     if (!moved) return
     const point = getAreaPoint(event)
     if (!point) return
-    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: activeScene.walls }
+    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: scaleWallsForZoom(activeScene.walls, activeZoomPercent) }
     const placement = { ...drag.placement, origin: snapAreaOrigin(point, drag.placement.template, context) }
     setAreaHandleDragState({ ...drag, placement, moved: true })
     if (!drag.effectId) setPendingAreaPlacement(placement)
@@ -1322,7 +1390,7 @@ export function CampaignOverviewPage({
       return
     }
     void areaLibrary.updateEffect(drag.effectId, {
-      origin: { x: drag.placement.origin.x / tokenSize, y: drag.placement.origin.y / tokenSize },
+      origin: { x: (drag.placement.origin.x - zoomedGridSettings.offsetX) / tokenSize, y: (drag.placement.origin.y - zoomedGridSettings.offsetY) / tokenSize },
     })
   }
 
@@ -1336,9 +1404,18 @@ export function CampaignOverviewPage({
     if (event.button !== 0 || !activeAreaTemplate || !activeScene || pendingAreaPlacement) return
     const point = getAreaPoint(event)
     if (!point) return
+    if (activeAreaTemplate.shape === 'TARGET') {
+      const tokenId = findIntersectingTargetTokenId(point, visibleTokens, tokenSize)
+      const token = visibleTokens.find((candidate) => candidate.id === tokenId)
+      if (!token) return
+      event.preventDefault()
+      event.stopPropagation()
+      toggleAreaTarget(token)
+      return
+    }
     event.preventDefault()
     event.stopPropagation()
-    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: activeScene.walls }
+    const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: scaleWallsForZoom(activeScene.walls, activeZoomPercent) }
     if (activeAreaTemplate.placementMode === 'DIRECTIONAL' && !areaDraftOrigin) {
       const origin = snapAreaOrigin(point, activeAreaTemplate, context)
       setAreaDraftOrigin(origin)
@@ -1471,6 +1548,12 @@ export function CampaignOverviewPage({
         return
       }
 
+      if (event.key === 'Enter' && activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET' && selectedAreaTargetIds.length > 0) {
+        confirmAreaTargets()
+        event.preventDefault()
+        return
+      }
+
       if (event.code === 'Space' && !event.repeat && confirmMeasuredMovement()) event.preventDefault()
     }
 
@@ -1478,7 +1561,7 @@ export function CampaignOverviewPage({
     return () => window.removeEventListener('keydown', onKeyDown)
   })
 
-  function dragCampaignToken(event: React.DragEvent<HTMLButtonElement>, token: CampaignToken) {
+  function dragCampaignToken(event: React.DragEvent<HTMLElement>, token: CampaignToken) {
     event.dataTransfer.setData(questhubTokenDragType, token.id)
     event.dataTransfer.effectAllowed = 'move'
   }
@@ -1489,8 +1572,8 @@ export function CampaignOverviewPage({
 
     return normalizeTokenPosition(
       {
-        x: (event.clientX - bounds.left) / tokenSize,
-        y: (event.clientY - bounds.top) / tokenSize,
+        x: (event.clientX - bounds.left - zoomedGridSettings.offsetX) / tokenSize,
+        y: (event.clientY - bounds.top - zoomedGridSettings.offsetY) / tokenSize,
       },
       gridSettings.shape,
       { width: bounds.width, height: bounds.height },
@@ -1515,6 +1598,21 @@ export function CampaignOverviewPage({
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
 
     socket.emit('vtt:token:remove', { campaignId, tokenId: token.id })
+    setCampaignTokens((current) => current.map((item) =>
+      item.id === token.id ? { ...item, placement: null } : item,
+    ))
+    setTokenState((current) => ({
+      ...current,
+      tokens: current.tokens.filter((item) => item.id !== token.id),
+    }))
+    setPreparedScenes((current) => current.map((scene) => ({
+      ...scene,
+      tokens: scene.tokens.filter((item) => item.id !== token.id),
+    })))
+    setActiveScene((current) => current ? {
+      ...current,
+      tokens: current.tokens.filter((item) => item.id !== token.id),
+    } : current)
     setTokenContextMenu(null)
   }
 
@@ -1522,13 +1620,13 @@ export function CampaignOverviewPage({
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
     if (scope === 'scene' && !activeScene) return
 
-    const hasTokens = scope === 'scene' ? currentSceneTokenCount > 0 : globalTokenCount > 0
+    const hasTokens = scope === 'scene' ? currentSceneTokenCount > 0 : placedCampaignTokenCount > 0
     if (!hasTokens) return
 
     const confirmed = window.confirm(
       scope === 'scene'
         ? 'Remover todos os tokens da cena atual?'
-        : 'Excluir todos os Tokens da campanha? As fichas vinculadas serao preservadas.',
+        : 'Remover todos os Tokens de todas as cenas? Os Tokens permanecerao na toolbox.',
     )
     if (!confirmed) return
 
@@ -1539,11 +1637,14 @@ export function CampaignOverviewPage({
       setTokenState({ campaignId, tokens: [] })
       setPreparedScenes((current) => current.map((scene) => (scene.id === sceneId ? { ...scene, tokens: [] } : scene)))
       setActiveScene((current) => (current?.id === sceneId ? { ...current, tokens: [] } : current))
+      setCampaignTokens((current) => current.map((token) =>
+        token.placement?.sceneId === sceneId ? { ...token, placement: null } : token,
+      ))
       return
     }
 
     socket.emit('vtt:tokens:remove-bulk', { campaignId, scope })
-    setCampaignTokens([])
+    setCampaignTokens((current) => current.map((token) => ({ ...token, placement: null })))
     setTokenState({ campaignId, tokens: [] })
     setPreparedScenes((current) => current.map((scene) => (isDraftPreparedScene(scene) ? scene : { ...scene, tokens: [] })))
     setActiveScene((current) => (current ? { ...current, tokens: [] } : current))
@@ -1614,11 +1715,9 @@ export function CampaignOverviewPage({
 
   async function createGenericToken() {
     if (!campaignId || !isMaster) return
-    const name = window.prompt('Nome do novo Token:', 'Novo Token')?.trim()
-    if (!name) return
     const token = await api<CampaignToken>(`/api/campaigns/${campaignId}/tokens`, {
       method: 'POST',
-      body: JSON.stringify({ name }),
+      body: JSON.stringify({ name: 'Novo Token', color: getLastTokenColor() }),
     })
     setCampaignTokens((current) => [...current, token])
   }
@@ -1687,7 +1786,12 @@ export function CampaignOverviewPage({
     return token
   }
 
-  async function deleteCampaignToken(token: VttPlayerToken) {
+  function updateCampaignTokenName(token: CampaignToken) {
+    const name = window.prompt('Nome do Token:', token.name)?.trim()
+    if (name) void updateCampaignToken(token.id, { name })
+  }
+
+  async function deleteCampaignToken(token: Pick<VttPlayerToken, 'id' | 'name'>) {
     if (!campaignId || !isMaster) return
     if (!window.confirm(`Excluir o Token “${token.name}”? A ficha vinculada sera preservada.`)) return
     await api(`/api/campaigns/${campaignId}/tokens/${token.id}`, { method: 'DELETE' })
@@ -2013,10 +2117,11 @@ export function CampaignOverviewPage({
         ? createPortal(
             <div
               className="pointer-events-none fixed z-[100] grid h-9 w-9 place-items-center rounded-lg border border-violet-200/70 bg-violet-600 text-white shadow-[0_0_20px_rgba(124,58,237,0.8)]"
-              style={{ left: areaCursorPosition.x + 12, top: areaCursorPosition.y + 12 }}
+              style={{ left: areaCursorPosition.x, top: areaCursorPosition.y, transform: 'translate(-50%, -50%)' }}
               aria-hidden="true"
             >
               <Sparkles className="h-4 w-4" />
+              {activeAreaTemplate.shape === 'TARGET' ? <span className="absolute -right-2 -top-2 min-w-6 rounded-full border border-violet-100 bg-zinc-950 px-1 py-0.5 text-center text-[9px] font-bold leading-none text-violet-100 shadow-lg">{selectedAreaTargetIds.length}/{activeAreaTemplate.dimensions.targetCount ?? 1}</span> : null}
             </div>,
             document.body,
           )
@@ -2030,6 +2135,7 @@ export function CampaignOverviewPage({
           dimensionMeters={(areaEffectMenuDimension?.baseMeters ?? 1) * areaEffectContextMenu.draftPlacement.scale}
           minimumDimensionMeters={(areaEffectMenuDimension?.baseMeters ?? 1) * 0.1}
           maximumDimensionMeters={(areaEffectMenuDimension?.baseMeters ?? 1) * 10}
+          canRotate={areaEffectContextMenu.draftPlacement.template.shape !== 'CIRCLE' && areaEffectContextMenu.draftPlacement.template.shape !== 'ORTHOGONAL' && areaEffectContextMenu.draftPlacement.template.shape !== 'RING'}
           canReposition={Boolean(areaEffectContextMenu.effectId)}
           canDelete={Boolean(areaEffectContextMenu.effectId)}
           onPreview={previewAreaEffectMenu}
@@ -2109,12 +2215,19 @@ export function CampaignOverviewPage({
             <VttWallsOverlay
               walls={activeScene?.walls ?? []}
               drafts={wallDrafts}
-              gridSize={tokenSize}
+              zoomScale={activeZoomPercent / 100}
               isMasterView={Boolean(isMaster)}
               canOpenWallMenu={Boolean(isMaster && activeTool !== 'walls')}
               onWallContextMenu={(wall, position) => setWallContextMenu({ wall, ...position })}
             />
             <AreaOverlay areas={renderedAreas} />
+            {activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET' ? (
+              <div className="pointer-events-auto absolute left-1/2 top-4 z-[20] flex -translate-x-1/2 items-center gap-3 rounded-lg border border-violet-300/30 bg-black/90 px-3 py-2 text-xs text-violet-100 shadow-xl backdrop-blur">
+                <span>{selectedAreaTargetIds.length >= (activeAreaTemplate.dimensions.targetCount ?? 1) ? 'Limite de alvos atingido' : 'Clique nos tokens para selecionar alvos'}</span>
+                <button type="button" onClick={cancelAreaPlacement} className="rounded border border-white/15 px-2 py-1 text-zinc-200 hover:bg-white/10">Cancelar</button>
+                <button type="button" disabled={selectedAreaTargetIds.length === 0} onClick={confirmAreaTargets} className="rounded bg-violet-600 px-2 py-1 font-semibold text-white hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-40">Usar</button>
+              </div>
+            ) : null}
             {displayedPersistentAreaPlacements.filter((placement) => placement.effectId !== editingAreaEffectId).map((placement) => {
               const effect = areaLibrary.effects.find((item) => item.id === placement.effectId)
               if (!effect) return null
@@ -2176,6 +2289,7 @@ export function CampaignOverviewPage({
                 token={token}
                 tokenSize={tokenSize}
                 gridShape={gridSettings.shape}
+                gridOffset={{ x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY }}
                 gridAreaRef={gridAreaRef}
                 canDrag={
                   (sessionActive && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER') ||
@@ -2188,9 +2302,12 @@ export function CampaignOverviewPage({
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
                 isCombatTurn={activeCombatTokenId === token.id}
                 affectedRing={affectedTokenRings.get(token.id)}
+                appliedAreaEffectColor={appliedAreaEffect?.tokenIds.includes(token.id) ? appliedAreaEffect.color : undefined}
+                onSelectAsTarget={activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET' ? toggleAreaTarget : undefined}
+                selectedAsTarget={selectedAreaTargetIds.includes(token.id)}
               />
             ))}
-            <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} />
+            <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} gridOffset={{ x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY }} />
             {activeTool === 'measure' && realtimeVttEnabled ? (
               <div
                 className="absolute inset-0 z-[8] cursor-crosshair"
@@ -2265,6 +2382,7 @@ export function CampaignOverviewPage({
                         setAreaCursorPosition(null)
                         setEditingAreaEffectId(null)
                         setAreaEffectContextMenu(null)
+                        setSelectedAreaTargetIds([])
                       }
                       setActiveTool((current) => (current === tool.id ? null : tool.id))
                     }}
@@ -2398,18 +2516,18 @@ export function CampaignOverviewPage({
                     className="flex items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 py-2 text-center text-xs font-semibold text-red-100 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-45"
                     onClick={() => removeTokens('scene')}
                   >
-                    <Trash2 className="h-4 w-4" />
+                    <CircleMinus className="h-4 w-4" />
                     Cena ({currentSceneTokenCount})
                   </button>
                   <button
                     type="button"
-                    title="Excluir todos os Tokens da campanha sem excluir fichas"
-                    disabled={!masterCanUseVtt || globalTokenCount === 0}
+                    title="Remover todos os Tokens de todas as cenas"
+                    disabled={!masterCanUseVtt || placedCampaignTokenCount === 0}
                     className="flex items-center justify-center gap-2 rounded-md border border-red-300/20 bg-red-500/10 px-3 py-2 text-center text-xs font-semibold text-red-100 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-45"
                     onClick={() => removeTokens('global')}
                   >
-                    <Trash2 className="h-4 w-4" />
-                    Todos ({globalTokenCount})
+                    <CircleMinus className="h-4 w-4" />
+                    Todos ({placedCampaignTokenCount})
                   </button>
                 </div>
 
@@ -2429,16 +2547,14 @@ export function CampaignOverviewPage({
                     </div>
                   ) : null}
                   {availableCampaignTokens.map((token) => (
-                    <button
+                    <div
                       key={token.id}
-                      type="button"
                       draggable={masterCanUseVtt}
-                      disabled={!masterCanUseVtt}
                       onDragStart={(event) => dragCampaignToken(event, token)}
-                      className="flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-50"
+                      className={`flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition hover:bg-white/10 ${masterCanUseVtt ? 'cursor-grab' : 'opacity-50'}`}
                     >
-                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full bg-indigo-600 text-sm font-bold text-white">
-                        {token.avatarUrl ? <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : token.name.charAt(0).toUpperCase()}
+                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full text-sm font-bold text-white">
+                        <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate text-sm font-semibold text-white">{token.name}</span>
@@ -2446,7 +2562,39 @@ export function CampaignOverviewPage({
                           {token.category === 'MAIN' ? 'Main Character' : token.category === 'SECONDARY' ? 'Secondary' : 'Somente Mestre'}
                         </span>
                       </span>
-                    </button>
+                      <span className="ml-auto flex shrink-0 gap-1">
+                        <button
+                          type="button"
+                          title="Alterar nome"
+                          disabled={!masterCanUseVtt}
+                          draggable={false}
+                          className="rounded-md p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white disabled:opacity-40"
+                          onClick={() => updateCampaignTokenName(token)}
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          title="Alterar imagem"
+                          disabled={!masterCanUseVtt}
+                          draggable={false}
+                          className="rounded-md p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white disabled:opacity-40"
+                          onClick={() => setTokenImageEditTarget(token)}
+                        >
+                          <ImageIcon className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          title="Excluir Token"
+                          disabled={!masterCanUseVtt}
+                          draggable={false}
+                          className="rounded-md p-1.5 text-zinc-400 hover:bg-red-500/15 hover:text-red-200 disabled:opacity-40"
+                          onClick={() => void deleteCampaignToken(token)}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </span>
+                    </div>
                   ))}
 
                   {tokenCandidates.length ? (
@@ -2462,8 +2610,8 @@ export function CampaignOverviewPage({
                       onClick={() => void createTokenFromCandidate(candidate)}
                       className="flex items-center gap-3 rounded-md border border-dashed border-white/10 bg-white/[0.02] px-3 py-2 text-left transition hover:bg-white/10 disabled:opacity-50"
                     >
-                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full bg-zinc-700 text-sm font-bold text-white">
-                        {candidate.avatarUrl ? <img src={candidate.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} /> : candidate.name.charAt(0).toUpperCase()}
+                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full text-sm font-bold text-white">
+                        <TokenAvatar avatarUrl={candidate.avatarUrl} name={candidate.name} />
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate text-sm font-semibold text-white">{candidate.name}</span>
@@ -2490,6 +2638,16 @@ export function CampaignOverviewPage({
                 onToggleVisibility={toggleTokenVisibility}
                 onRemoveFromScene={removeToken}
                 onDelete={(token) => void deleteCampaignToken(token)}
+              />
+            ) : null}
+            {tokenImageEditTarget ? (
+              <TokenImagePickerDialog
+                tokenName={tokenImageEditTarget.name}
+                currentAvatarUrl={tokenImageEditTarget.avatarUrl}
+                currentColor={tokenImageEditTarget.color}
+                tokenId={tokenImageEditTarget.id}
+                onCancel={() => setTokenImageEditTarget(null)}
+                onSave={(changes) => void updateCampaignToken(tokenImageEditTarget.id, changes)}
               />
             ) : null}
             {wallContextMenu && isMaster ? (

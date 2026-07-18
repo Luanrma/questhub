@@ -176,6 +176,7 @@ export type VttCombatParticipant = {
   characterId: string | null
   name: string
   avatarUrl: string | null
+  color: string | null
   initiative: number | null
 }
 

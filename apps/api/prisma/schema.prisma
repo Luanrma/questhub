@@ -197,6 +197,8 @@ model CampaignScene {
   gridVisible            Boolean                @default(true)
   gridShape              CampaignSceneGridShape @default(SQUARE)
   gridSize               Int                    @default(32)
+  gridOffsetX            Int                    @default(0)
+  gridOffsetY            Int                    @default(0)
   metersPerCell          Float                  @default(1)
   squareMeasurementColor String                 @default("#facc15")
   hexMeasurementColor    String                 @default("#38bdf8")

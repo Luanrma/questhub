@@ -29,6 +29,8 @@ type CampaignSceneGridData = {
   gridVisible: boolean
   gridShape: 'SQUARE' | 'HEX'
   gridSize: number
+  gridOffsetX: number
+  gridOffsetY: number
   metersPerCell?: number
   squareMeasurementColor?: string
   hexMeasurementColor?: string
@@ -86,6 +88,8 @@ function gridToSceneData(grid: CampaignSceneGridInput): CampaignSceneGridData {
       gridVisible: grid.visible,
       gridShape: 'HEX',
       gridSize: grid.size,
+      gridOffsetX: grid.offsetX,
+      gridOffsetY: grid.offsetY,
       hexMeasurementColor: grid.hexMeasurementColor,
       gridLineWidth: grid.lineWidth,
       gridColor: grid.color,
@@ -96,6 +100,8 @@ function gridToSceneData(grid: CampaignSceneGridInput): CampaignSceneGridData {
     gridVisible: grid.visible,
     gridShape: 'SQUARE',
     gridSize: grid.size,
+    gridOffsetX: grid.offsetX,
+    gridOffsetY: grid.offsetY,
     metersPerCell: grid.metersPerCell,
     squareMeasurementColor: grid.squareMeasurementColor,
     gridLineWidth: grid.lineWidth,

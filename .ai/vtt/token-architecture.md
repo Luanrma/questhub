@@ -144,7 +144,7 @@ As autorizações são separadas.
 
 A persistência é dividida em duas entidades:
 
-- `CampaignToken` representa o Token persistente e pertence obrigatoriamente à campanha;
+- `CampaignToken` representa o Token persistente e pertence obrigatoriamente à campanha; sua aparência inclui imagem e cor opcionais, enquanto a letra fallback A-Z e derivada de `token.id` sem persistencia adicional;
 - `CampaignTokenPlacement` representa a presença atual desse Token em uma cena.
 
 A relação é opcional e exclusiva:

@@ -7,6 +7,7 @@
 * Coordenadas, grid, zoom e movimentacao permanecem genericos.
 * Nenhum componente do VTT importa regras, fichas, bestiarios, inventario, economia, combate mecanico ou rulesets.
 * Fluxos de teste do VTT devem conseguir criar tokens genericos sem `characterId` e sem qualquer modulo de sistema de jogo.
+* O catalogo de imagens locais de Token deve ser consultado dinamicamente pelo modulo `assets` e nunca embutido no bundle; remover um arquivo local deve remove-lo da proxima abertura do seletor.
 * O drag-and-drop nativo de Tokens deve usar a mesma operacao em `DataTransfer.effectAllowed` e `DataTransfer.dropEffect`; combinacoes incompativeis podem impedir o evento `drop` no navegador.
 * Atalhos globais devem ignorar inputs, textareas, selects e conteudo editavel.
 * `Ctrl+arraste` na ferramenta de paredes cria os quatro segmentos de um retangulo.

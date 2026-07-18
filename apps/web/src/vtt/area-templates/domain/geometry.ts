@@ -8,6 +8,7 @@ import type {
   CellInclusionRule,
   CoveredAreaCell,
 } from './types'
+import { measurementUnitInMeters } from './measurement'
 
 const EPSILON = 0.001
 const HEX_ROW_STEP = Math.sqrt(3) / 2
@@ -27,7 +28,7 @@ function dimensionToPixels(value: number | undefined, template: CampaignAreaTemp
   const dimension = value ?? 0
   return template.measurementMode === 'GRID_CELLS'
     ? dimension * gridSize
-    : dimension / Math.max(metersPerCell, EPSILON) * gridSize
+    : dimension * measurementUnitInMeters(template.measurementUnit) / Math.max(metersPerCell, EPSILON) * gridSize
 }
 
 function circlePolygon(radius: number, segments = 48) {
@@ -39,7 +40,7 @@ function circlePolygon(radius: number, segments = 48) {
 
 export function buildAreaPolygon(placement: AreaPlacement, context: Pick<AreaCalculationContext, 'grid'>) {
   const { template, origin, rotationDegrees, scale } = placement
-  const toPixels = (value: number | undefined) => dimensionToPixels(value, template, context.grid.size, context.grid.metersPerCell) * scale
+  const toPixels = (value: number | undefined, applyInstanceScale = true) => dimensionToPixels(value, template, context.grid.size, context.grid.metersPerCell) * (applyInstanceScale ? scale : 1)
   let local: AreaPoint[]
   let innerLocal: AreaPoint[] | undefined
 
@@ -55,13 +56,13 @@ export function buildAreaPolygon(placement: AreaPlacement, context: Pick<AreaCal
     }
     case 'CONE': {
       const length = toPixels(template.dimensions.length)
-      const angle = template.dimensions.angleDegrees ?? (Math.atan2(toPixels(template.dimensions.endWidth) / 2, length) * 360 / Math.PI)
+      const angle = template.dimensions.angleDegrees ?? (Math.atan2(toPixels(template.dimensions.endWidth, false) / 2, length) * 360 / Math.PI)
       const half = angle / 2 * Math.PI / 180
       const arc = Array.from({ length: 25 }, (_, index) => {
         const current = -half + index / 24 * half * 2
         return { x: Math.cos(current) * length, y: Math.sin(current) * length }
       })
-      const startHalfWidth = toPixels(template.dimensions.startWidth) / 2
+      const startHalfWidth = toPixels(template.dimensions.startWidth, false) / 2
       local = startHalfWidth > 0
         ? [{ x: 0, y: -startHalfWidth }, ...arc, { x: 0, y: startHalfWidth }]
         : [{ x: 0, y: 0 }, ...arc]
@@ -69,18 +70,21 @@ export function buildAreaPolygon(placement: AreaPlacement, context: Pick<AreaCal
     }
     case 'LINE': {
       const length = toPixels(template.dimensions.length)
-      const halfWidth = toPixels(template.dimensions.width) / 2
-      local = [{ x: 0, y: -halfWidth }, { x: length, y: -halfWidth }, { x: length, y: halfWidth }, { x: 0, y: halfWidth }]
-      break
-    }
-    case 'RECTANGLE': {
-      const length = toPixels(template.dimensions.length)
-      const halfWidth = toPixels(template.dimensions.width) / 2
+      const halfWidth = toPixels(template.dimensions.width, false) / 2
       local = [{ x: 0, y: -halfWidth }, { x: length, y: -halfWidth }, { x: length, y: halfWidth }, { x: 0, y: halfWidth }]
       break
     }
     case 'POLYGON': {
       local = (template.dimensions.polygonPoints ?? []).map((point) => ({ x: toPixels(point.x), y: toPixels(point.y) }))
+      break
+    }
+    case 'ORTHOGONAL': {
+      const radius = toPixels(template.dimensions.radius)
+      local = [{ x: 0, y: -radius }, { x: radius, y: 0 }, { x: 0, y: radius }, { x: -radius, y: 0 }]
+      break
+    }
+    case 'TARGET': {
+      local = []
       break
     }
   }
@@ -160,22 +164,20 @@ function blocksEffects(wall: VttWallSegment) {
   return wall.kind === 'wall' || !wall.door?.open
 }
 
-function hasLineOfEffect(origin: AreaPoint, target: AreaPoint, walls: VttWallSegment[], gridSize: number) {
+function hasLineOfEffect(origin: AreaPoint, target: AreaPoint, walls: VttWallSegment[]) {
   return !walls.some((wall) => {
     if (!blocksEffects(wall)) return false
-    const start = { x: wall.start.x * gridSize, y: wall.start.y * gridSize }
-    const end = { x: wall.end.x * gridSize, y: wall.end.y * gridSize }
-    return segmentsProperlyIntersect(origin, target, start, end)
+    return segmentsProperlyIntersect(origin, target, wall.start, wall.end)
   })
 }
 
-function clipTargetAtWalls(origin: AreaPoint, target: AreaPoint, walls: VttWallSegment[], gridSize: number) {
+function clipTargetAtWalls(origin: AreaPoint, target: AreaPoint, walls: VttWallSegment[]) {
   const ray = { x: target.x - origin.x, y: target.y - origin.y }
   let closest = 1
   for (const wall of walls) {
     if (!blocksEffects(wall)) continue
-    const start = { x: wall.start.x * gridSize, y: wall.start.y * gridSize }
-    const segment = { x: (wall.end.x - wall.start.x) * gridSize, y: (wall.end.y - wall.start.y) * gridSize }
+    const start = wall.start
+    const segment = { x: wall.end.x - wall.start.x, y: wall.end.y - wall.start.y }
     const determinant = ray.x * segment.y - ray.y * segment.x
     if (Math.abs(determinant) < EPSILON) continue
     const offset = { x: start.x - origin.x, y: start.y - origin.y }
@@ -191,16 +193,18 @@ function clipTargetAtWalls(origin: AreaPoint, target: AreaPoint, walls: VttWallS
 
 function squareCells(box: ReturnType<typeof boundingBox>, context: AreaCalculationContext) {
   const size = context.grid.size
-  const minColumn = Math.max(0, Math.floor(box.minX / size))
-  const maxColumn = Math.min(Math.ceil(context.board.width / size) - 1, Math.floor(box.maxX / size))
-  const minRow = Math.max(0, Math.floor(box.minY / size))
-  const maxRow = Math.min(Math.ceil(context.board.height / size) - 1, Math.floor(box.maxY / size))
+  const offsetX = context.grid.offsetX
+  const offsetY = context.grid.offsetY
+  const minColumn = Math.floor((Math.max(0, box.minX) - offsetX) / size)
+  const maxColumn = Math.floor((Math.min(context.board.width, box.maxX) - offsetX) / size)
+  const minRow = Math.floor((Math.max(0, box.minY) - offsetY) / size)
+  const maxRow = Math.floor((Math.min(context.board.height, box.maxY) - offsetY) / size)
   const cells: CoveredAreaCell[] = []
   for (let row = minRow; row <= maxRow; row += 1) {
     for (let column = minColumn; column <= maxColumn; column += 1) {
       cells.push({ id: `square:${column}:${row}`, polygon: [
-        { x: column * size, y: row * size }, { x: (column + 1) * size, y: row * size },
-        { x: (column + 1) * size, y: (row + 1) * size }, { x: column * size, y: (row + 1) * size },
+        { x: column * size + offsetX, y: row * size + offsetY }, { x: (column + 1) * size + offsetX, y: row * size + offsetY },
+        { x: (column + 1) * size + offsetX, y: (row + 1) * size + offsetY }, { x: column * size + offsetX, y: (row + 1) * size + offsetY },
       ] })
     }
   }
@@ -219,15 +223,15 @@ function hexCellPolygon(center: AreaPoint, size: number) {
 function hexCells(box: ReturnType<typeof boundingBox>, context: AreaCalculationContext) {
   const size = context.grid.size
   const rowStep = HEX_ROW_STEP * size
-  const minRow = Math.max(0, Math.floor(box.minY / rowStep) - 1)
-  const maxRow = Math.min(Math.ceil(context.board.height / rowStep), Math.ceil(box.maxY / rowStep) + 1)
+  const minRow = Math.max(0, Math.floor((box.minY - context.grid.offsetY) / rowStep) - 1)
+  const maxRow = Math.min(Math.ceil((context.board.height - context.grid.offsetY) / rowStep), Math.ceil((box.maxY - context.grid.offsetY) / rowStep) + 1)
   const cells: CoveredAreaCell[] = []
   for (let row = minRow; row <= maxRow; row += 1) {
     const offset = row % 2 === 0 ? 0 : 0.5
-    const minColumn = Math.max(0, Math.floor(box.minX / size - offset) - 1)
-    const maxColumn = Math.min(Math.ceil(context.board.width / size), Math.ceil(box.maxX / size - offset) + 1)
+    const minColumn = Math.max(0, Math.floor((box.minX - context.grid.offsetX) / size - offset) - 1)
+    const maxColumn = Math.min(Math.ceil((context.board.width - context.grid.offsetX) / size), Math.ceil((box.maxX - context.grid.offsetX) / size - offset) + 1)
     for (let column = minColumn; column <= maxColumn; column += 1) {
-      const center = { x: (column + offset) * size, y: row * rowStep }
+      const center = { x: (column + offset) * size + context.grid.offsetX, y: row * rowStep + context.grid.offsetY }
       cells.push({ id: `hex:${column}:${row}`, polygon: hexCellPolygon(center, size) })
     }
   }
@@ -241,8 +245,8 @@ function distanceToSegment(point: AreaPoint, start: AreaPoint, end: AreaPoint) {
   return Math.hypot(point.x - (start.x + amount * (end.x - start.x)), point.y - (start.y + amount * (end.y - start.y)))
 }
 
-function tokenCoverage(token: VttPlayerToken, polygon: AreaPoint[], innerPolygon: AreaPoint[] | undefined, gridSize: number) {
-  const center = { x: token.position.x * gridSize, y: token.position.y * gridSize }
+function tokenCoverage(token: VttPlayerToken, polygon: AreaPoint[], innerPolygon: AreaPoint[] | undefined, gridSize: number, gridOffset: AreaPoint) {
+  const center = { x: token.position.x * gridSize + gridOffset.x, y: token.position.y * gridSize + gridOffset.y }
   const radius = token.size * gridSize / 2
   const centerInside = pointInPolygon(center, polygon) && (!innerPolygon || !pointInPolygon(center, innerPolygon))
   const edgeOverlap = polygonEdges(polygon).some(([start, end]) => distanceToSegment(center, start, end) < radius - EPSILON)
@@ -269,8 +273,8 @@ function tokenCoverage(token: VttPlayerToken, polygon: AreaPoint[], innerPolygon
   return { anyOverlap, ratio: circleSamples ? covered / circleSamples : 0, centerInside, fullyInside: circumferenceInside }
 }
 
-function tokenSpacePolygon(token: VttPlayerToken, gridSize: number) {
-  const center = { x: token.position.x * gridSize, y: token.position.y * gridSize }
+function tokenSpacePolygon(token: VttPlayerToken, gridSize: number, gridOffset: AreaPoint) {
+  const center = { x: token.position.x * gridSize + gridOffset.x, y: token.position.y * gridSize + gridOffset.y }
   const halfSize = token.size * gridSize / 2
   return [
     { x: center.x - halfSize, y: center.y - halfSize },
@@ -280,17 +284,18 @@ function tokenSpacePolygon(token: VttPlayerToken, gridSize: number) {
   ]
 }
 
-function tokenOccupiesCoveredCell(token: VttPlayerToken, coveredCells: CoveredAreaCell[], gridSize: number) {
-  const tokenSpace = tokenSpacePolygon(token, gridSize)
+function tokenOccupiesCoveredCell(token: VttPlayerToken, coveredCells: CoveredAreaCell[], gridSize: number, gridOffset: AreaPoint) {
+  const tokenSpace = tokenSpacePolygon(token, gridSize, gridOffset)
   return coveredCells.some((cell) => sampleCoverage(cell.polygon, tokenSpace) > 0 || sampleCoverage(tokenSpace, cell.polygon) > 0)
 }
 
 function touchedTokens(placement: AreaPlacement, polygon: AreaPoint[], innerPolygon: AreaPoint[] | undefined, coveredCells: CoveredAreaCell[], context: AreaCalculationContext) {
   return context.tokens.filter((token) => {
-    const center = { x: token.position.x * context.grid.size, y: token.position.y * context.grid.size }
-    if (placement.template.propagationMode === 'BLOCKED_BY_WALLS' && !hasLineOfEffect(placement.origin, center, context.walls, context.grid.size)) return false
-    if (placement.template.tokenIntersectionRule === 'COVERED_CELLS') return tokenOccupiesCoveredCell(token, coveredCells, context.grid.size)
-    const coverage = tokenCoverage(token, polygon, innerPolygon, context.grid.size)
+    const gridOffset = { x: context.grid.offsetX, y: context.grid.offsetY }
+    const center = { x: token.position.x * context.grid.size + gridOffset.x, y: token.position.y * context.grid.size + gridOffset.y }
+    if (placement.template.propagationMode === 'BLOCKED_BY_WALLS' && !hasLineOfEffect(placement.origin, center, context.walls)) return false
+    if (placement.template.tokenIntersectionRule === 'COVERED_CELLS') return tokenOccupiesCoveredCell(token, coveredCells, context.grid.size, gridOffset)
+    const coverage = tokenCoverage(token, polygon, innerPolygon, context.grid.size, gridOffset)
     switch (placement.template.tokenIntersectionRule) {
       case 'CENTER_INSIDE': return coverage.centerInside
       case 'HALF_OR_MORE': return coverage.ratio >= 0.5
@@ -303,15 +308,16 @@ function touchedTokens(placement: AreaPlacement, polygon: AreaPoint[], innerPoly
 
 export function calculateAreaRender(placement: AreaPlacement, context: AreaCalculationContext): AreaRenderModel {
   const built = buildAreaPolygon(placement, context)
+  if (placement.template.shape === 'TARGET') return { ...placement, polygon: [], coveredCells: [], touchedTokenIds: [] }
   const polygon = placement.template.propagationMode === 'BLOCKED_BY_WALLS'
-    ? built.polygon.map((point) => clipTargetAtWalls(placement.origin, point, context.walls, context.grid.size))
+    ? built.polygon.map((point) => clipTargetAtWalls(placement.origin, point, context.walls))
     : built.polygon
   const innerPolygon = built.innerPolygon
   const candidates = !context.grid.visible ? [] : context.grid.shape === 'hex' ? hexCells(boundingBox(polygon), context) : squareCells(boundingBox(polygon), context)
   const coveredCells = candidates.filter((cell) => {
     if (!cellIncluded(cell.polygon, polygon, innerPolygon, placement.template.cellInclusionRule)) return false
     if (placement.template.propagationMode !== 'BLOCKED_BY_WALLS') return true
-    return hasLineOfEffect(placement.origin, polygonCenter(cell.polygon), context.walls, context.grid.size)
+    return hasLineOfEffect(placement.origin, polygonCenter(cell.polygon), context.walls)
   })
   return { ...placement, polygon, innerPolygon, coveredCells, touchedTokenIds: touchedTokens(placement, polygon, innerPolygon, coveredCells, context) }
 }
@@ -319,14 +325,16 @@ export function calculateAreaRender(placement: AreaPlacement, context: AreaCalcu
 export function snapAreaOrigin(point: AreaPoint, template: CampaignAreaTemplate, context: AreaCalculationContext) {
   if (template.originMode === 'FREE_POINT') return point
   const size = context.grid.size
-  if (template.originMode === 'GRID_INTERSECTION') return { x: Math.round(point.x / size) * size, y: Math.round(point.y / size) * size }
+  const offsetX = context.grid.offsetX
+  const offsetY = context.grid.offsetY
+  if (template.originMode === 'GRID_INTERSECTION') return { x: Math.round((point.x - offsetX) / size) * size + offsetX, y: Math.round((point.y - offsetY) / size) * size + offsetY }
   if (context.grid.shape === 'hex') {
-    const row = Math.max(0, Math.round(point.y / (HEX_ROW_STEP * size)))
+    const row = Math.max(0, Math.round((point.y - offsetY) / (HEX_ROW_STEP * size)))
     const offset = row % 2 === 0 ? 0 : 0.5
-    const column = Math.max(0, Math.round(point.x / size - offset))
-    return { x: (column + offset) * size, y: row * HEX_ROW_STEP * size }
+    const column = Math.max(0, Math.round((point.x - offsetX) / size - offset))
+    return { x: (column + offset) * size + offsetX, y: row * HEX_ROW_STEP * size + offsetY }
   }
-  return { x: (Math.floor(point.x / size) + 0.5) * size, y: (Math.floor(point.y / size) + 0.5) * size }
+  return { x: (Math.floor((point.x - offsetX) / size) + 0.5) * size + offsetX, y: (Math.floor((point.y - offsetY) / size) + 0.5) * size + offsetY }
 }
 
 export function directionDegrees(origin: AreaPoint, pointer: AreaPoint) {

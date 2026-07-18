@@ -4,6 +4,8 @@ export type VttGridSettings = {
   visible: boolean
   shape: VttGridShape
   size: number
+  offsetX: number
+  offsetY: number
   metersPerCell: number
   squareMeasurementColor: string
   hexMeasurementColor: string
@@ -21,6 +23,8 @@ export const defaultGridSettings: VttGridSettings = {
   visible: false,
   shape: 'square',
   size: 32,
+  offsetX: 0,
+  offsetY: 0,
   metersPerCell: 1,
   squareMeasurementColor: '#f97316',
   hexMeasurementColor: '#f97316',
@@ -74,6 +78,8 @@ export function normalizeGridSettings(value: unknown): VttGridSettings {
     visible: typeof settings.visible === 'boolean' ? settings.visible : defaultGridSettings.visible,
     shape: isGridShape(settings.shape) ? settings.shape : defaultGridSettings.shape,
     size: clampInteger(settings.size, gridSizeLimits.min, gridSizeLimits.max, defaultGridSettings.size),
+    offsetX: clampInteger(settings.offsetX, -96, 96, defaultGridSettings.offsetX),
+    offsetY: clampInteger(settings.offsetY, -96, 96, defaultGridSettings.offsetY),
     metersPerCell: normalizeMetersPerCell(settings.metersPerCell ?? (settings as { squareMeters?: unknown }).squareMeters),
     squareMeasurementColor: isHexColor(settings.squareMeasurementColor)
       ? settings.squareMeasurementColor

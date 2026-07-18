@@ -67,6 +67,49 @@ test('area template validation requires dimensions for the selected shape', () =
   assert.equal(parsed.success, false)
 })
 
+test('area template validation stores meters and rejects mutable display units', () => {
+  assert.equal(createAreaTemplateSchema.safeParse({ ...validTemplate, measurementUnit: 'm' }).success, true)
+  assert.equal(createAreaTemplateSchema.safeParse({ ...validTemplate, measurementUnit: 'ft' }).success, false)
+  assert.equal(createAreaTemplateSchema.safeParse({ ...validTemplate, measurementUnit: 'yards' }).success, false)
+})
+
+test('area template validation rejects the removed rectangle shape', () => {
+  assert.equal(createAreaTemplateSchema.safeParse({
+    ...validTemplate,
+    shape: 'RECTANGLE',
+    dimensions: { length: 6, width: 2 },
+  }).success, false)
+})
+
+test('orthogonal template requires radius and square-cell point placement', () => {
+  const orthogonalTemplate = {
+    ...validTemplate,
+    shape: 'ORTHOGONAL',
+    dimensions: { radius: 9 },
+    originMode: 'GRID_CELL',
+    placementMode: 'POINT',
+    tokenIntersectionRule: 'COVERED_CELLS',
+  }
+  assert.equal(createAreaTemplateSchema.safeParse(orthogonalTemplate).success, true)
+  assert.equal(createAreaTemplateSchema.safeParse({ ...orthogonalTemplate, dimensions: {} }).success, false)
+  assert.equal(createAreaTemplateSchema.safeParse({ ...orthogonalTemplate, tokenIntersectionRule: 'ANY_OVERLAP' }).success, true)
+})
+
+test('target template requires a bounded target count and manual instantaneous selection', () => {
+  const targetTemplate = {
+    ...validTemplate,
+    shape: 'TARGET',
+    dimensions: { targetCount: 3 },
+    originMode: 'TARGET_TOKEN',
+    placementMode: 'POINT',
+    persistenceMode: 'INSTANT',
+    tokenIntersectionRule: 'MANUAL',
+  }
+  assert.equal(createAreaTemplateSchema.safeParse(targetTemplate).success, true)
+  assert.equal(createAreaTemplateSchema.safeParse({ ...targetTemplate, dimensions: { targetCount: 0 } }).success, false)
+  assert.equal(createAreaTemplateSchema.safeParse({ ...targetTemplate, persistenceMode: 'PERSISTENT' }).success, false)
+})
+
 test('scene effect input rejects invalid scale and non-finite coordinates', () => {
   assert.equal(createSceneAreaEffectSchema.safeParse({
     templateId: 'template-1',

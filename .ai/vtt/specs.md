@@ -3,6 +3,19 @@
 * Mestre ativo pode criar e editar cenas e tokens.
 * Jogador ativo acessa a mesa enquanto o mestre esta online.
 * Token armazena posicao, tamanho, visibilidade, rotacao, camada, nome visual e imagem/cor opcional.
+* Criar um Token generico deve ser uma acao imediata de um clique, persistindo `Novo Token` sem imagem e sem abrir formulario intermediario.
+* Depois da criacao, o Mestre ou controlador com permissao de personalizacao pode editar o nome e escolher uma imagem do catalogo gerado recursivamente a partir de `apps/web/public/tokens/`; o cliente persiste a escolha como URL publica relativa sob `/tokens/`.
+* O contrato HTTP de criacao e atualizacao de Token aceita tanto URLs absolutas validas quanto assets locais sob `/tokens/`, rejeitando caminhos relativos externos a esse prefixo e segmentos de traversal.
+* Criar um Token generico persiste `avatarUrl = null`; a biblioteca de imagens default nunca e persistida no banco.
+* Ao escolher uma imagem, `CampaignToken.avatarUrl` persiste somente a referencia: path publico local, URL externa ou, quando integrado ao storage, a referencia canonica resolvida pelo modulo `assets`; conteudo binario, catalogo e URL assinada temporaria nao pertencem ao Token.
+* Se uma referencia local persistida deixar de existir, a UI deve exibir o fallback com a inicial do Token e o seletor nao deve listar o arquivo removido.
+* Token sem imagem deve possuir `color` valida e renderizar uma letra entre `A` e `Z` derivada deterministicamente de `token.id`; esse estado nunca pode ser transparente.
+* Token com imagem usa `color = null` por padrao e preserva transparencia do arquivo, sem preenchimento artificial.
+* Token com imagem pode receber `color` opcional para renderizar um fundo circular atras da arte; a imagem usa ajuste de conteudo sem recorte do PNG transparente.
+* Token com imagem e `color = null` nao renderiza anel, borda ou fundo circular default; indicadores transitorios de selecao, combate ou efeito continuam permitidos quando ativos.
+* Ao vincular uma nova imagem sem enviar cor explicitamente, o backend normaliza `color = null`. Ao remover a imagem sem enviar cor valida, o backend aplica a cor default segura.
+* A letra fallback nao cria coluna, campo de API ou persistencia adicional no banco.
+* A ultima cor escolhida e preferencia local do cliente e serve de default para novos Tokens e edicoes sem imagem; cada Token persiste sua propria cor efetiva para sincronizacao.
 * Associacao com identidade/personagem e opcional; token generico sem `characterId` e valido.
 * Cena armazena mapa, grid, configuracao visual, paredes e portas.
 * O Mestre pode selecionar e visualizar qualquer cena preparada enquanto a sessao estiver offline; a cena ativa escolhida deve ser persistida e restaurada sem exigir entrada em room de sessao.
@@ -47,6 +60,10 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Um novo posicionamento começa com rotação `0`, camada padrão de Tokens e visibilidade ativada.
 * Não existe transferência direta entre cenas: o Mestre remove o posicionamento atual e depois cria outro por meio do painel de Tokens.
 * Tokens sem posicionamento permanecem disponíveis no painel da toolbar.
+* Remover um Token da cena atual deve atualizar imediatamente o estado local e recoloca-lo na toolbox, antes da confirmacao propagada pelo servidor.
+* A acao em massa `Cena` remove somente os posicionamentos da cena atual e preserva todos os Tokens.
+* A acao em massa `Todos` remove os posicionamentos de todas as cenas e preserva todos os Tokens da campanha; ela nunca executa exclusao de `CampaignToken`.
+* A exclusao de um Token acontece somente pelo icone de lixeira no proprio card da toolbox ou pela acao `Excluir Token` em `Configuracoes` no menu contextual da cena.
 * Excluir uma cena remove seus posicionamentos, mas preserva os Tokens da campanha.
 * Alterar a cena ativa ou visualizada não move Tokens automaticamente.
 * O painel ordena primeiro os Main Characters, depois os Tokens secundários controlados por jogadores e, por último, os Tokens exclusivos do Mestre.

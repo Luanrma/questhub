@@ -16,6 +16,8 @@ test('presentCampaignScene maps square grid and tokens', () => {
     gridVisible: true,
     gridShape: 'SQUARE',
     gridSize: 48,
+    gridOffsetX: 3,
+    gridOffsetY: -2,
     metersPerCell: 1.5,
     squareMeasurementColor: '#facc15',
     hexMeasurementColor: '#38bdf8',
@@ -40,7 +42,7 @@ test('presentCampaignScene maps square grid and tokens', () => {
           characterId: 'character-1',
           name: 'Aria',
           avatarUrl: null,
-          color: null,
+          color: '#4f46e5',
           size: 1,
           canCustomizeAppearance: false,
           character: {
@@ -60,6 +62,8 @@ test('presentCampaignScene maps square grid and tokens', () => {
 
   assert.equal(result.grid.shape, 'square')
   assert.equal(result.grid.metersPerCell, 1.5)
+  assert.equal(result.grid.offsetX, 3)
+  assert.equal(result.grid.offsetY, -2)
   assert.equal(result.tokens[0]?.position.x, 3.5)
   assert.equal(result.tokens[0]?.name, 'Aria')
 })
@@ -86,6 +90,8 @@ test('presentCampaignScene keeps a generic token without Character', () => {
     gridVisible: true,
     gridShape: 'SQUARE',
     gridSize: 32,
+    gridOffsetX: 0,
+    gridOffsetY: 0,
     metersPerCell: 1,
     squareMeasurementColor: '#facc15',
     hexMeasurementColor: '#38bdf8',

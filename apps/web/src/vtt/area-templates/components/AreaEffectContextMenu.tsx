@@ -3,7 +3,7 @@ import { Move, Save, Trash2, X } from 'lucide-react'
 
 type AreaEffectEditInput = { rotationDegrees: number; dimensionMeters: number }
 
-export function AreaEffectContextMenu({ name, position, rotationDegrees, dimensionLabel, dimensionMeters, minimumDimensionMeters, maximumDimensionMeters, canReposition, canDelete, onPreview, onSave, onReposition, onDelete, onClose }: {
+export function AreaEffectContextMenu({ name, position, rotationDegrees, dimensionLabel, dimensionMeters, minimumDimensionMeters, maximumDimensionMeters, canRotate, canReposition, canDelete, onPreview, onSave, onReposition, onDelete, onClose }: {
   name: string
   position: { x: number; y: number }
   rotationDegrees: number
@@ -11,6 +11,7 @@ export function AreaEffectContextMenu({ name, position, rotationDegrees, dimensi
   dimensionMeters: number
   minimumDimensionMeters: number
   maximumDimensionMeters: number
+  canRotate: boolean
   canReposition: boolean
   canDelete: boolean
   onPreview: (input: AreaEffectEditInput) => void
@@ -23,7 +24,7 @@ export function AreaEffectContextMenu({ name, position, rotationDegrees, dimensi
   const [dimension, setDimension] = useState(String(Number(dimensionMeters.toFixed(2))))
   const parsedRotation = Number(rotation)
   const parsedDimension = Number(dimension)
-  const valid = Number.isInteger(parsedRotation) && Number.isFinite(parsedDimension) && parsedDimension >= minimumDimensionMeters && parsedDimension <= maximumDimensionMeters
+  const valid = (!canRotate || Number.isInteger(parsedRotation)) && Number.isFinite(parsedDimension) && parsedDimension >= minimumDimensionMeters && parsedDimension <= maximumDimensionMeters
 
   function preview(nextRotation: string, nextDimension: string) {
     const rotationValue = Number(nextRotation)
@@ -35,7 +36,7 @@ export function AreaEffectContextMenu({ name, position, rotationDegrees, dimensi
   return (
     <div
       className="pointer-events-auto fixed z-[100] w-52 rounded-lg border border-white/15 bg-[#111218]/95 p-2 text-white shadow-2xl backdrop-blur"
-      style={{ left: Math.max(8, Math.min(position.x, window.innerWidth - 220)), top: Math.max(8, Math.min(position.y, window.innerHeight - 238)) }}
+      style={{ left: Math.max(8, Math.min(position.x + 12, window.innerWidth - 220)), top: Math.max(8, Math.min(position.y + 12, window.innerHeight - (canRotate ? 238 : 202))) }}
       onClick={(event) => event.stopPropagation()}
       onContextMenu={(event) => event.preventDefault()}
     >
@@ -43,8 +44,8 @@ export function AreaEffectContextMenu({ name, position, rotationDegrees, dimensi
         <span className="min-w-0 truncate text-xs font-semibold">{name}</span>
         <button type="button" title="Fechar" onClick={onClose} className="rounded p-1 text-zinc-400 hover:bg-white/10 hover:text-white"><X className="h-3.5 w-3.5" /></button>
       </div>
-      <div className="grid grid-cols-2 gap-1.5">
-        <label className="text-[10px] uppercase text-zinc-500">Rotacao (graus)<input type="number" step="1" value={rotation} onChange={(event) => { const value = event.currentTarget.value; setRotation(value); preview(value, dimension) }} className="mt-1 h-7 w-full rounded border border-white/10 bg-black/40 px-2 text-xs text-white" /></label>
+      <div className={canRotate ? 'grid grid-cols-2 gap-1.5' : 'grid grid-cols-1'}>
+        {canRotate ? <label className="text-[10px] uppercase text-zinc-500">Rotacao (graus)<input type="number" step="1" value={rotation} onChange={(event) => { const value = event.currentTarget.value; setRotation(value); preview(value, dimension) }} className="mt-1 h-7 w-full rounded border border-white/10 bg-black/40 px-2 text-xs text-white" /></label> : null}
         <label className="text-[10px] uppercase text-zinc-500">{dimensionLabel}<input type="number" min={minimumDimensionMeters} max={maximumDimensionMeters} step="0.1" value={dimension} onChange={(event) => { const value = event.currentTarget.value; setDimension(value); preview(rotation, value) }} className="mt-1 h-7 w-full rounded border border-white/10 bg-black/40 px-2 text-xs text-white" /></label>
       </div>
       <button type="button" disabled={!valid} onClick={() => onSave({ rotationDegrees: parsedRotation, dimensionMeters: parsedDimension })} className="mt-2 flex h-7 w-full items-center justify-center gap-1.5 rounded bg-violet-600 text-[10px] font-semibold hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-40"><Save className="h-3 w-3" />Salvar</button>

@@ -7,6 +7,8 @@ test('campaign scene grid accepts square metersPerCell scale', () => {
     visible: true,
     shape: 'square',
     size: 32,
+    offsetX: 8,
+    offsetY: -6,
     metersPerCell: 1.5,
     squareMeasurementColor: '#facc15',
     lineWidth: 2,
@@ -15,6 +17,8 @@ test('campaign scene grid accepts square metersPerCell scale', () => {
 
   assert.equal(result.shape, 'square')
   assert.equal(result.metersPerCell, 1.5)
+  assert.equal(result.offsetX, 8)
+  assert.equal(result.offsetY, -6)
 })
 
 test('campaign scene grid rejects old squareMeters field', () => {

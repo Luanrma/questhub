@@ -6,6 +6,7 @@ import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { optimizeAssetBuffer } from './optimizer'
 import { assetService, extensionForAssetMimeType } from './service'
+import { listLocalTokenImages } from './token-library'
 
 const paramsSchema = z.object({
   assetId: z.string().min(1),
@@ -41,6 +42,14 @@ export async function registerAssetRoutes(app: FastifyInstance) {
       files: 1,
       fileSize: env.ASSET_MAX_UPLOAD_BYTES,
     },
+  })
+
+  app.get('/api/assets/token-library', async (req, reply) => {
+    const payload = requireAuth(req, reply)
+    if (!payload) return
+
+    reply.header('Cache-Control', 'no-store')
+    return reply.send({ assets: await listLocalTokenImages() })
   })
 
   app.get('/api/assets', async (req, reply) => {

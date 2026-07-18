@@ -6,6 +6,7 @@ import type {
   VttTokenCandidate,
   VttTokenContextMenu,
 } from '../domain/types'
+import { TokenImagePickerDialog } from './TokenImagePickerDialog'
 
 const viewportPadding = 12
 const rootMenuWidth = 208
@@ -65,6 +66,7 @@ export function TokenContextMenu({
   onDelete,
 }: TokenContextMenuProps) {
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [imagePickerOpen, setImagePickerOpen] = useState(false)
   const positions = getMenuPositions(menu)
   const token = menu.token
 
@@ -73,11 +75,6 @@ export function TokenContextMenu({
   function updateName() {
     const name = window.prompt('Nome do Token:', token.name)?.trim()
     if (name) onUpdateToken(token.id, { name })
-  }
-
-  function updateImage() {
-    const avatarUrl = window.prompt('URL da imagem (vazio para remover):', token.avatarUrl ?? '')
-    if (avatarUrl !== null) onUpdateToken(token.id, { avatarUrl: avatarUrl.trim() || null })
   }
 
   return (
@@ -191,7 +188,7 @@ export function TokenContextMenu({
               <button type="button" className="rounded-md bg-white/[0.05] px-2 py-1.5 text-xs hover:bg-white/10" onClick={updateName}>
                 Alterar nome
               </button>
-              <button type="button" className="rounded-md bg-white/[0.05] px-2 py-1.5 text-xs hover:bg-white/10" onClick={updateImage}>
+              <button type="button" className="rounded-md bg-white/[0.05] px-2 py-1.5 text-xs hover:bg-white/10" onClick={() => setImagePickerOpen(true)}>
                 Alterar imagem
               </button>
             </div>
@@ -244,6 +241,16 @@ export function TokenContextMenu({
             </>
           ) : null}
         </div>
+      ) : null}
+      {imagePickerOpen ? (
+        <TokenImagePickerDialog
+          tokenName={token.name}
+          currentAvatarUrl={token.avatarUrl}
+          currentColor={token.color}
+          tokenId={token.id}
+          onCancel={() => setImagePickerOpen(false)}
+          onSave={(changes) => onUpdateToken(token.id, changes)}
+        />
       ) : null}
     </>
   )

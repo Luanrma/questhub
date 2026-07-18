@@ -891,6 +891,24 @@ Para WebSocket, valide pelo menos:
 
 Mudanças de persistência devem ser documentadas em `specs.md`.
 
+### 8.1. Aprovação Obrigatória para Alterações de Banco
+
+Qualquer decisão que altere a estrutura do banco de dados deve ser consultada com o usuário e receber aprovação explícita antes de atualizar documentação, schema, migrations ou código dependente.
+
+Essa obrigação inclui, sem exceção:
+
+* criar, remover ou renomear tabelas;
+* criar, remover, renomear ou alterar colunas;
+* alterar tipos, nulabilidade ou valores default;
+* criar ou alterar relacionamentos e chaves estrangeiras;
+* criar, remover ou alterar índices, constraints ou enums;
+* criar, editar, executar ou remover migrations;
+* realizar backfills ou transformações de dados existentes.
+
+Não presuma autorização porque a alteração parece pequena, necessária, compatível ou tecnicamente recomendável. Antes de qualquer uma dessas ações, explique objetivamente a necessidade, o impacto, as alternativas sem mudança de banco e aguarde a decisão do usuário.
+
+Analisar o schema atual e propor uma alteração continua permitido sem aprovação, desde que nenhum arquivo seja modificado e nenhuma migration seja criada ou executada.
+
 Ao alterar schema, documente:
 
 * tabelas afetadas;

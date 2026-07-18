@@ -125,6 +125,8 @@ type CampaignSceneGrid =
       visible: boolean
       shape: 'square'
       size: number
+      offsetX: number
+      offsetY: number
       metersPerCell: number
       squareMeasurementColor: string
       lineWidth: number
@@ -134,6 +136,8 @@ type CampaignSceneGrid =
       visible: boolean
       shape: 'hex'
       size: number
+      offsetX: number
+      offsetY: number
       hexMeasurementColor: string
       lineWidth: number
       color: string
@@ -143,6 +147,7 @@ type CampaignSceneGrid =
 Regras:
 * A configuracao de grid e persistida por cena.
 * `size` representa o tamanho visual da celula em pixels antes do zoom local.
+* `offsetX` e `offsetY` representam o ajuste fino da origem do grid em pixels da cena, entre `-96` e `96`, antes do zoom local.
 * `size` deve respeitar minimo de `24px` e maximo de `96px`.
 * `lineWidth` deve respeitar minimo de `1px` e maximo de `4px`.
 * No grid quadrado, `metersPerCell` representa quantos metros lineares cada lado da celula representa.
@@ -151,8 +156,18 @@ Regras:
 * No grid hexagonal, a medicao continua contando passos entre hexagonos e nao usa escala em metros.
 * Alterar grid de uma cena nao altera grid de outras cenas.
 * Alterar tamanho, formato, cor ou escala do grid nao remove tokens.
+* Alterar `size`, `offsetX` ou `offsetY` reposiciona visualmente os tokens porque suas posicoes permanecem logicas em relacao ao grid.
+* Alterar `size`, `offsetX` ou `offsetY` nunca modifica nem reposiciona paredes e portas.
 * Alterar grid nao deve exibir aviso informando que tokens serao removidos.
 * Zoom continua sendo local ao cliente e nao deve ser persistido na cena.
+
+### 3.2.1 Coordenadas de paredes
+
+* `VttWallSegment.start` e `end` sao persistidos em pixels absolutos da cena antes do zoom.
+* A renderizacao aplica somente o zoom local aos pontos da parede; nao aplica `grid.size`, `offsetX` ou `offsetY`.
+* Ao desenhar uma parede, o ponteiro visual e convertido de pixels com zoom para pixels absolutos da cena.
+* Colisao converte o centro logico do token para pixels da cena usando `pixel = position * grid.size + offset` antes de testar os segmentos.
+* A migracao de coordenadas legadas multiplica cada ponto existente pelo `gridSize` vigente na respectiva cena uma unica vez.
 
 ### 3.3 CampaignToken e CampaignTokenPlacement
 
@@ -191,15 +206,19 @@ Regras:
 * Token sem `characterId` e valido e deve poder ser criado, movido, ocultado e removido pelo Mestre.
 * `controllerMemberId` e opcional e referencia no maximo um jogador dentro da mesma campanha; o Mestre controla todos os Tokens independentemente desse campo.
 * `name`, `avatarUrl` e `color` sao apresentacao visual; nao implicam origem de ruleset.
+* Sem `avatarUrl`, a UI deriva uma letra A-Z de `token.id` sem persistencia adicional e `color` deve ser nao nula.
+* Com `avatarUrl`, `color = null` representa fundo transparente e uma cor representa fundo circular opcional.
 * `size`, `rotation` e `layer` sao propriedades visuais/genericamente operacionais.
 * `position.x` e `position.y` representam o centro do token em unidades logicas do grid da propria cena.
 * Para renderizar, `pixelCenter = position * scene.grid.size`, com zoom aplicado apenas visualmente.
+* Com ajuste fino, `pixelCenter = position * scene.grid.size + scene.grid.offset`, com zoom aplicado ao resultado.
 * Ao alterar o tamanho do grid, o token permanece no mesmo ponto logico da cena.
 * Apenas o dono operacional pode mover o proprio token durante sessao `ONLINE + IN_PROGRESS`.
 * O Mestre pode mover qualquer token antes da sessao ou durante a sessao online.
 * O Mestre pode mover token controlado por Player por drag durante sessao online.
 * O Mestre pode posicionar tokens antes de iniciar a campanha.
 * Cada Token possui zero ou um `CampaignTokenPlacement`; por isso nunca ocupa duas cenas.
+* Remocoes em massa por cena ou por campanha excluem apenas `CampaignTokenPlacement`; nunca excluem `CampaignToken`.
 * Remover da cena exclui somente o posicionamento e devolve o Token ao painel.
 * Posicionar em outra cena exige que o Token esteja sem posicionamento e cria um novo registro.
 * Nao existe transferencia direta entre cenas.
@@ -381,6 +400,7 @@ Regras:
 * Alterar grid em uma cena nao altera outra cena.
 * Alterar `metersPerCell` muda a medicao em metros do grid quadrado daquela cena.
 * Tokens mantem posicao logica ao alterar tamanho visual do grid.
+* Tokens acompanham o ajuste fino X/Y do grid, enquanto paredes permanecem ancoradas ao background.
 * Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
 * Mestre consegue criar e testar token generico sem personagem, ficha, bestiario ou sistema de jogo.
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.

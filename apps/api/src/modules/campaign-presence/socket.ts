@@ -179,10 +179,7 @@ export function setupCampaignPresence(server: HttpServer) {
   async function removeCampaignTokens(campaignId: string, options: { sceneId?: string | null }) {
     const tokenMap = state.getCampaignTokens(campaignId)
     const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
-    if (!tokenMap || !tokenSceneMap) {
-      if (!options.sceneId) await prisma.campaignToken.deleteMany({ where: { campaignId } })
-      return
-    }
+    if (!tokenMap || !tokenSceneMap) return
 
     const tokensToRemove = [...tokenMap.values()].filter((token) => {
       if (!options.sceneId) return true
@@ -194,16 +191,13 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!sceneId) continue
 
       tokenSceneMap.delete(token.id)
-      if (!options.sceneId) tokenMap.delete(token.id)
       await emitSceneTokenRemoved(campaignId, sceneId, token)
     }
 
     removeCombatParticipants(campaignId, tokensToRemove.map((token) => token.id))
 
     if (!options.sceneId) {
-      tokenMap.clear()
       tokenSceneMap.clear()
-      await prisma.campaignToken.deleteMany({ where: { campaignId } })
     }
   }
 
@@ -220,6 +214,8 @@ export function setupCampaignPresence(server: HttpServer) {
         gridVisible: true,
         gridShape: true,
         gridSize: true,
+        gridOffsetX: true,
+        gridOffsetY: true,
         metersPerCell: true,
         squareMeasurementColor: true,
         hexMeasurementColor: true,
@@ -424,6 +420,8 @@ export function setupCampaignPresence(server: HttpServer) {
         gridVisible: true,
         gridShape: true,
         gridSize: true,
+        gridOffsetX: true,
+        gridOffsetY: true,
         metersPerCell: true,
         squareMeasurementColor: true,
         hexMeasurementColor: true,
@@ -620,6 +618,8 @@ export function setupCampaignPresence(server: HttpServer) {
         gridVisible: true,
         gridShape: true,
         gridSize: true,
+        gridOffsetX: true,
+        gridOffsetY: true,
         metersPerCell: true,
         squareMeasurementColor: true,
         hexMeasurementColor: true,
@@ -652,12 +652,17 @@ export function setupCampaignPresence(server: HttpServer) {
     }
   }
 
-  async function getSceneWalls(campaignId: string, sceneId: string) {
+  async function getSceneWallCollisionContext(campaignId: string, sceneId: string) {
     const scene = await prisma.campaignScene.findFirst({
       where: { id: sceneId, campaignId },
-      select: { walls: true },
+      select: { walls: true, gridSize: true, gridOffsetX: true, gridOffsetY: true },
     })
-    return normalizeSceneWalls(scene?.walls)
+    return scene ? {
+      walls: normalizeSceneWalls(scene.walls),
+      gridSize: scene.gridSize,
+      offsetX: scene.gridOffsetX,
+      offsetY: scene.gridOffsetY,
+    } : null
   }
 
   async function emitSceneWallsChanged(campaignId: string, sceneId: string, walls: unknown[]) {
@@ -982,8 +987,13 @@ export function setupCampaignPresence(server: HttpServer) {
       const sceneId = getCampaignTokenSceneMap(campaignId).get(tokenId)
       if (!sceneId) return
       if (isPlayerMove) {
-        const walls = await getSceneWalls(campaignId, sceneId)
-        if (isMovementBlockedBySceneWalls({ from: token.position, to: position, walls })) return
+        const collision = await getSceneWallCollisionContext(campaignId, sceneId)
+        if (!collision) return
+        const toScenePixels = (point: { x: number; y: number }) => ({
+          x: point.x * collision.gridSize + collision.offsetX,
+          y: point.y * collision.gridSize + collision.offsetY,
+        })
+        if (isMovementBlockedBySceneWalls({ from: toScenePixels(token.position), to: toScenePixels(position), walls: collision.walls })) return
       }
       setLiveSceneToken(campaignId, sceneId, nextToken)
       await emitSceneTokenChanged(campaignId, sceneId, nextToken)
@@ -1070,6 +1080,9 @@ export function setupCampaignPresence(server: HttpServer) {
       }
 
       await removeCampaignTokens(campaignId, { sceneId: null })
+      if (!online) {
+        await prisma.campaignTokenPlacement.deleteMany({ where: { token: { campaignId } } })
+      }
       if (!online) await emitVisibleTableSnapshot(campaignId, socket)
     })
 
@@ -1128,6 +1141,7 @@ export function setupCampaignPresence(server: HttpServer) {
         characterId: token.characterId,
         name: token.name,
         avatarUrl: token.avatarUrl,
+        color: token.color,
         initiative: null,
       }))
 

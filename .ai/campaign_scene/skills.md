@@ -20,6 +20,7 @@
 * Session Live State: grid, tokens e cena ativa podem ser alterados em memoria/cache durante a sessao online, com propagacao por Socket.IO.
 * Token Delta Broadcast: drop, criacao, movimento, remocao e invisibilidade de tokens durante sessao online devem emitir deltas leves para sockets autorizados, sem reenviar snapshot completo da cena.
 * Stable Scene Frame: background, dimensoes do board, grid, zoom e pan nao devem ser recalculados por mudancas exclusivas da camada de tokens.
+* Independent Wall Coordinates: paredes usam pixels da cena antes do zoom; nunca unidades logicas do grid.
 * Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como autosave eventual, iniciar e encerrar sessao.
 * Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
 * Scene Wall Editing: segmentos, retangulos e portas sao editados como estado visual generico da cena e preservados no mesmo snapshot.
@@ -37,6 +38,7 @@
 * Nao usar `LoadingScreen` global para esconder deformacao causada por drop, movimento, remocao ou invisibilidade de token.
 * Nao usar `squareMeters` como escala canonica nova; grid quadrado deve usar `metersPerCell`.
 * Nao aplicar escala metrificada ao grid hexagonal.
+* Nao multiplicar coordenadas persistidas de paredes por `grid.size` nem somar o deslocamento fino do grid.
 * Nao permitir que jogador edite grid, cena ou distribuicao de tokens.
 * Nao revelar cena diferente da cena do token do jogador quando nao houver `forcedSceneId`.
 * Nao exigir `characterId`, ficha, bestiario, inventario, combate ou ruleset para criar token de teste.

@@ -6,6 +6,7 @@ import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { generateInviteCode } from './invite-code'
 import { presentCampaignDashboardEntry } from './presenter'
+import { normalizeTokenColor } from './token-appearance'
 
 type CampaignRoutesDeps = {
   io: SocketIOServer
@@ -69,11 +70,26 @@ function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUse
   return normalizeCampaignUserSettings(merged)
 }
 
+const campaignTokenAvatarUrlSchema = z.string().trim().max(2048).refine((value) => {
+  if (value.startsWith('/tokens/')) {
+    try {
+      const relativePath = decodeURIComponent(value).slice('/tokens/'.length)
+      return !relativePath.includes('\\') && relativePath.split('/').every((segment) => (
+        segment.length > 0 && segment !== '.' && segment !== '..'
+      ))
+    } catch {
+      return false
+    }
+  }
+
+  return z.url().safeParse(value).success
+}, 'Informe uma URL valida ou um asset local em /tokens/')
+
 const campaignTokenCreateSchema = z.object({
   characterId: z.string().min(1).nullable().optional(),
   controllerUserId: z.string().min(1).nullable().optional(),
   name: z.string().trim().min(1).max(80).optional(),
-  avatarUrl: z.string().trim().url().max(2048).nullable().optional(),
+  avatarUrl: campaignTokenAvatarUrlSchema.nullable().optional(),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/).nullable().optional(),
   size: z.number().positive().max(20).optional(),
   canCustomizeAppearance: z.boolean().optional(),
@@ -860,14 +876,20 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     }
 
     try {
+      const avatarUrl = parsed.data.avatarUrl !== undefined
+        ? parsed.data.avatarUrl
+        : character?.character.avatarUrl ?? null
       const token = await prisma.campaignToken.create({
         data: {
           campaignId: params.campaignId,
           characterId: character?.character.id ?? null,
           controllerMemberId: controller?.id ?? null,
           name: parsed.data.name ?? character?.character.name ?? 'Novo Token',
-          avatarUrl: parsed.data.avatarUrl !== undefined ? parsed.data.avatarUrl : character?.character.avatarUrl ?? null,
-          color: parsed.data.color ?? null,
+          avatarUrl,
+          color: normalizeTokenColor({
+            nextAvatarUrl: avatarUrl,
+            requestedColor: parsed.data.color,
+          }),
           size: parsed.data.size ?? 1,
           canCustomizeAppearance: parsed.data.canCustomizeAppearance ?? false,
         },
@@ -895,7 +917,9 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
     const isMaster = Boolean(await requireActiveMaster(params.campaignId, payload.id))
     const changedKeys = Object.keys(parsed.data)
-    const appearanceOnly = changedKeys.every((key) => key === 'name' || key === 'avatarUrl')
+    const appearanceOnly = changedKeys.every((key) => (
+      key === 'name' || key === 'avatarUrl' || key === 'color'
+    ))
     const canPlayerCustomize =
       appearanceOnly &&
       current.canCustomizeAppearance &&
@@ -935,6 +959,13 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     }
 
     try {
+      const nextAvatarUrl = parsed.data.avatarUrl !== undefined ? parsed.data.avatarUrl : current.avatarUrl
+      const nextColor = normalizeTokenColor({
+        nextAvatarUrl,
+        requestedColor: parsed.data.color,
+        currentColor: current.color,
+        avatarChanged: parsed.data.avatarUrl !== undefined,
+      })
       const token = await prisma.campaignToken.update({
         where: { id: current.id },
         data: {
@@ -942,7 +973,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           ...(controllerMemberId !== undefined ? { controllerMemberId } : {}),
           ...(parsed.data.name !== undefined ? { name: parsed.data.name } : {}),
           ...(parsed.data.avatarUrl !== undefined ? { avatarUrl: parsed.data.avatarUrl } : {}),
-          ...(isMaster && parsed.data.color !== undefined ? { color: parsed.data.color } : {}),
+          ...((parsed.data.avatarUrl !== undefined || parsed.data.color !== undefined) ? { color: nextColor } : {}),
           ...(isMaster && parsed.data.size !== undefined ? { size: parsed.data.size } : {}),
           ...(isMaster && parsed.data.canCustomizeAppearance !== undefined
             ? { canCustomizeAppearance: parsed.data.canCustomizeAppearance }

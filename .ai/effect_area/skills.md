@@ -28,14 +28,21 @@ Backend em `apps/api/src/modules/effect_area/`:
 
 ## Decisoes de implementacao
 
-* Novas dimensoes sao armazenadas em metros, nunca em pixels. O motor ainda le `GRID_CELLS` para compatibilidade e o editor converte templates legados para metros sem alterar seu tamanho geometrico.
+* Novas dimensoes sao armazenadas em metros, nunca em pixels. A equivalencia visual usa o fator exato `0.3048 m/ft`, sem participar da geometria. O motor ainda le `GRID_CELLS` e normaliza eventual dado legado em `ft` para metros no editor.
 * A geometria continua em coordenadas do board e a fonte da verdade.
 * O calculo de preview e local e limitado ao bounding box da forma.
 * Grid quadrado e hexagonal usam seus poligonos reais; nao ha matriz quadrada oculta para hexagonos.
+* `ORTHOGONAL` usa um losango continuo como fonte geometrica e o mesmo classificador de celulas das demais formas. No grid quadrado, o resultado visual corresponde a distancia ortogonal; no hexagonal, classifica os hexagonos reais sem introduzir uma matriz quadrada oculta.
+* Efeitos visuais ortogonais usam uma unica mascara SVG composta pelas celulas cobertas quando elas existem; sem grid visivel, a animacao usa diretamente o losango continuo. Nao ha pattern ou animacao separado por celula.
 * `ANY_OVERLAP`, `CENTER_INSIDE`, `HALF_OR_MORE` e `FULLY_INSIDE` sao suportados para celulas e tokens no motor geometrico.
 * Bloqueio por paredes usa linha de efeito entre origem e amostras da forma. `SPREAD_AROUND_WALLS` e validado no contrato, mas nao pode ser criado pelo editor do MVP.
 * Prisma armazena configuracoes flexiveis em JSON, protegidas por schemas Zod na entrada e por normalizacao na saida.
 * Snapshots sao copias JSON independentes do template.
+* `TARGET` reutiliza o campo JSON `dimensions.targetCount` para manter a mudanca aditiva sem nova coluna; o schema Zod garante inteiro entre 1 e 100.
+* A selecao de alvos e estado local da toolbar e intercepta o gesto primario do token enquanto ativa, sem iniciar drag-and-drop.
+* O marcador de posicionamento existente e reutilizado em `TARGET`; um badge sobre o proprio icone apresenta a contagem sem criar um segundo componente de cursor.
+* O hit-test ampliado de `TARGET` e uma funcao pura baseada no raio visual do token somado ao raio do marcador, independente do DOM.
+* A emanacao de confirmacao e local, temporaria e puramente visual; reutiliza os ids calculados por geometria ou selecionados por `TARGET`, sem criar timers de dominio, persistencia ou mensagens realtime.
 * `DEFAULT` preserva a renderizacao geometrica; `FIRE`, `ELECTRIC`, `HEALING`, `EARTH`, `VINES` e `LEAVES` adicionam preenchimentos animados sem interferir no hit-test, nas celulas ou nos tokens tocados.
 * A preferencia `prefers-reduced-motion` desativa o movimento dos efeitos sem remover sua identificacao visual.
 
@@ -47,6 +54,7 @@ Backend em `apps/api/src/modules/effect_area/`:
 * Eventos de ponteiro sao consolidados pelo ciclo de renderizacao do React e nao geram persistencia.
 * Efeitos SVG compartilham o mesmo overlay e nao criam canvas, loop JavaScript ou emissao de particulas por frame.
 * Edicao de instancia usa draft local para preview imediato; apenas `Salvar` envia um unico `PATCH`, enquanto fechar descarta o draft.
+* O escalar persistido da instancia e interpretado por forma, nao como escala uniforme: a largura da linha nao e multiplicada ao editar seu comprimento.
 * O painel de templates reutiliza `ResizableEdges` e o padrao de janela flutuante do sistema para destacar, arrastar, redimensionar e pregar novamente. A janela destacada nao minimiza automaticamente, usa altura intrinseca ate o limite configurado e ativa rolagem vertical interna somente quando o conteudo excede esse limite.
 
 ## Seguranca
@@ -60,6 +68,7 @@ Backend em `apps/api/src/modules/effect_area/`:
 ## Restricoes conhecidas do MVP
 
 * `SOURCE_TOKEN`, `TARGET_TOKEN`, `ATTACHED` e `DRAWN` fazem parte do contrato, mas o editor inicial oferece `FREE_POINT`/`GRID_CELL` com `POINT`/`DIRECTIONAL`.
-* `RING` e `POLYGON` fazem parte do contrato persistido; a toolbar inicial cria e posiciona circulo, cone, linha e retangulo.
+* `RING` e `POLYGON` fazem parte do contrato persistido; a toolbar cria circulo, cone, linha e selecao `TARGET`.
+* A migracao `remove_rectangle_area_shape` converte `CampaignAreaTemplate.shape` e `SceneAreaEffect.configurationSnapshot.shape` de `RECTANGLE` para `LINE` antes da remocao do valor dos contratos Zod e TypeScript.
 * `SPREAD_AROUND_WALLS`, volumes 3D, duracao automatica, texturas externas e visibilidade por jogadores selecionados nao sao automatizados.
 * Realtime de preview nao e transmitido; jogadores veem apenas instancias persistentes permitidas quando o snapshot e carregado.

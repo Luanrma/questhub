@@ -55,6 +55,7 @@ function getGridStyle(settings: VttGridSettings): CSSProperties {
     return {
       backgroundImage: createHexGridDataUrl(settings),
       backgroundSize: `${settings.size * 2}px ${rowStep * 2}px`,
+      backgroundPosition: `${settings.offsetX}px ${settings.offsetY}px`,
       opacity: 0.72,
     }
   }
@@ -65,6 +66,7 @@ function getGridStyle(settings: VttGridSettings): CSSProperties {
       `linear-gradient(90deg, ${settings.color} ${settings.lineWidth}px, transparent ${settings.lineWidth}px)`,
     ].join(', '),
     backgroundSize: `${settings.size}px ${settings.size}px`,
+    backgroundPosition: `${settings.offsetX}px ${settings.offsetY}px`,
     opacity: 0.72,
   }
 }
@@ -143,6 +145,19 @@ export function VttGridSettingsModal({
           </div>
           <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} value={settings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
         </label>
+
+        <div className="grid gap-3 rounded-md border border-white/10 bg-white/[0.03] p-3">
+          <div className="flex items-center justify-between gap-3">
+            <span className="text-xs font-semibold uppercase text-zinc-400">Ajuste fino</span>
+            <button type="button" className="rounded border border-white/10 px-2 py-1 text-[10px] text-zinc-300 hover:bg-white/10" onClick={() => onChange({ ...settings, offsetX: 0, offsetY: 0 })}>Centralizar</button>
+          </div>
+          {([['offsetX', 'Eixo X'], ['offsetY', 'Eixo Y']] as const).map(([key, label]) => (
+            <label key={key} className="grid gap-1.5 text-sm">
+              <div className="flex justify-between gap-3"><span className="text-zinc-200">{label}</span><span className="text-zinc-400">{settings[key]}px</span></div>
+              <input type="range" min="-96" max="96" step="1" value={settings[key]} className="accent-indigo-500" onChange={(event) => updateSetting(key, Number(event.target.value))} />
+            </label>
+          ))}
+        </div>
 
         {settings.shape === 'square' ? (
           <label className="grid gap-2 text-sm">

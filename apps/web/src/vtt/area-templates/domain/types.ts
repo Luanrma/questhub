@@ -1,7 +1,7 @@
 import type { VttGridSettings } from '../../grid'
 import type { VttGridBounds, VttPlayerToken, VttWallSegment } from '../../table/domain/types'
 
-export type AreaShape = 'CIRCLE' | 'CONE' | 'LINE' | 'RECTANGLE' | 'RING' | 'POLYGON'
+export type AreaShape = 'CIRCLE' | 'CONE' | 'LINE' | 'ORTHOGONAL' | 'RING' | 'POLYGON' | 'TARGET'
 export type AreaVolumeShape = 'NONE' | 'SPHERE' | 'CYLINDER' | 'CUBE' | 'CUSTOM'
 export type MeasurementMode = 'WORLD_UNIT' | 'GRID_CELLS'
 export type AreaOriginMode = 'SOURCE_TOKEN' | 'TARGET_TOKEN' | 'FREE_POINT' | 'GRID_CELL' | 'GRID_INTERSECTION'
@@ -17,6 +17,7 @@ export type AreaVisualEffect = 'DEFAULT' | 'FIRE' | 'ELECTRIC' | 'HEALING' | 'EA
 export type AreaPoint = { x: number; y: number }
 
 export type AreaDimensions = {
+  targetCount?: number
   radius?: number
   innerRadius?: number
   length?: number
@@ -170,7 +171,7 @@ export const defaultAreaTemplateInput: AreaTemplateInput = {
   originMode: 'GRID_CELL',
   placementMode: 'POINT',
   propagationMode: 'IGNORE_WALLS',
-  persistenceMode: 'PREVIEW_ONLY',
+  persistenceMode: 'INSTANT',
   movementMode: 'STATIC',
   cellInclusionRule: 'ANY_OVERLAP',
   tokenIntersectionRule: 'COVERED_CELLS',

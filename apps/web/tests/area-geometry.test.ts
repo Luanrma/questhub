@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import { buildAreaPolygon, calculateAreaRender } from '../src/vtt/area-templates/domain/geometry'
 import { areaScaleForMeters, primaryAreaDimension } from '../src/vtt/area-templates/domain/instanceMeasurement'
-import { areaTemplateForMeterEditor } from '../src/vtt/area-templates/domain/measurement'
+import { areaTemplateForMeterEditor, metersToFeet } from '../src/vtt/area-templates/domain/measurement'
 import { areaTemplateToInput, defaultAreaTemplateInput, type AreaCalculationContext, type AreaPlacement, type CampaignAreaTemplate } from '../src/vtt/area-templates/domain/types'
 
 function template(overrides: Partial<CampaignAreaTemplate> = {}): CampaignAreaTemplate {
@@ -18,7 +18,7 @@ function template(overrides: Partial<CampaignAreaTemplate> = {}): CampaignAreaTe
 }
 
 const context: AreaCalculationContext = {
-  grid: { visible: true, shape: 'square', size: 32, metersPerCell: 1, squareMeasurementColor: '#ffffff', hexMeasurementColor: '#ffffff', lineWidth: 1, color: '#ffffff' },
+  grid: { visible: true, shape: 'square', size: 32, offsetX: 0, offsetY: 0, metersPerCell: 1, squareMeasurementColor: '#ffffff', hexMeasurementColor: '#ffffff', lineWidth: 1, color: '#ffffff' },
   board: { width: 320, height: 320 },
   walls: [],
   tokens: [{
@@ -66,6 +66,23 @@ test('instance editor exposes primary dimensions in meters and converts them to 
   assert.equal(areaScaleForMeters(1000, legacyCone.baseMeters), 10)
 })
 
+test('feet are informational and legacy feet normalize to stored meters', () => {
+  const feetTemplate = template({ measurementMode: 'WORLD_UNIT', measurementUnit: 'ft', dimensions: { radius: 10 } })
+  const normalized = areaTemplateForMeterEditor(feetTemplate, 1)
+  assert.equal(normalized.measurementUnit, 'm')
+  assert.ok(Math.abs((normalized.dimensions.radius ?? 0) - 3.048) < 0.001)
+  assert.ok(Math.abs(metersToFeet(3.048) - 10) < 0.001)
+})
+
+test('line instance scale changes length without changing configured width', () => {
+  const line = template({ shape: 'LINE', dimensions: { length: 4, width: 2 } })
+  const base = buildAreaPolygon(placement(line), { grid: context.grid }).polygon
+  const stretched = buildAreaPolygon({ ...placement(line), scale: 2 }, { grid: context.grid }).polygon
+  const extent = (points: typeof base, axis: 'x' | 'y') => Math.max(...points.map((point) => point[axis])) - Math.min(...points.map((point) => point[axis]))
+  assert.equal(extent(stretched, 'x'), extent(base, 'x') * 2)
+  assert.equal(extent(stretched, 'y'), extent(base, 'y'))
+})
+
 test('covered-cell token mode includes a token whose square is touched outside the exact radius', () => {
   const edgeContext: AreaCalculationContext = {
     ...context,
@@ -81,7 +98,7 @@ test('covered-cell token mode includes a token whose square is touched outside t
 test('blocking wall removes line of effect to a touched token', () => {
   const blockedContext: AreaCalculationContext = {
     ...context,
-    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 3, y: 0 }, end: { x: 3, y: 5 }, playerVisible: false, blocksEffects: true }],
+    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 96, y: 0 }, end: { x: 96, y: 160 }, playerVisible: false, blocksEffects: true }],
   }
   const blockedTemplate = template({ propagationMode: 'BLOCKED_BY_WALLS', dimensions: { radius: 4 } })
   const blocked = calculateAreaRender(placement(blockedTemplate), blockedContext)
@@ -97,6 +114,31 @@ test('hexagonal projection emits real hexagon cells', () => {
   const result = calculateAreaRender(placement(template({ dimensions: { radius: 2 } })), hexContext)
   assert.ok(result.coveredCells.length > 0)
   assert.ok(result.coveredCells.every((cell) => cell.polygon.length === 6))
+})
+
+test('orthogonal shape applies cell inclusion rules on square and hex grids', () => {
+  const orthogonal = template({
+    shape: 'ORTHOGONAL',
+    dimensions: { radius: 2 },
+    placementMode: 'POINT',
+    originMode: 'GRID_CELL',
+    tokenIntersectionRule: 'COVERED_CELLS',
+  })
+  const result = calculateAreaRender(placement(orthogonal), context)
+  assert.ok(result.coveredCells.length > 0)
+  assert.ok(result.coveredCells.some((cell) => cell.id === 'square:4:2'))
+  assert.deepEqual(result.touchedTokenIds, ['inside'])
+
+  const fullyInsideResult = calculateAreaRender(placement(template({
+    ...orthogonal,
+    cellInclusionRule: 'FULLY_INSIDE',
+  })), context)
+  assert.ok(fullyInsideResult.coveredCells.length < result.coveredCells.length)
+
+  const hexResult = calculateAreaRender(placement(orthogonal), { ...context, grid: { ...context.grid, shape: 'hex' } })
+  assert.ok(hexResult.coveredCells.length > 0)
+  assert.ok(hexResult.coveredCells.every((cell) => cell.polygon.length === 6))
+  assert.deepEqual(hexResult.touchedTokenIds, ['inside'])
 })
 
 test('template edit payload excludes server-owned entity fields', () => {

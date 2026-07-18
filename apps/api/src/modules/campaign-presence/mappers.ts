@@ -4,6 +4,8 @@ export type PersistedSceneGrid = {
   gridVisible: boolean
   gridShape: 'SQUARE' | 'HEX'
   gridSize: number
+  gridOffsetX: number
+  gridOffsetY: number
   metersPerCell: number
   squareMeasurementColor: string
   hexMeasurementColor: string
@@ -45,6 +47,8 @@ export function sceneGridToVttSettings(scene: PersistedSceneGrid): VttGridSettin
     visible: scene.gridVisible,
     shape: scene.gridShape === 'HEX' ? 'hex' : 'square',
     size: scene.gridSize,
+    offsetX: scene.gridOffsetX,
+    offsetY: scene.gridOffsetY,
     metersPerCell: scene.metersPerCell,
     squareMeasurementColor: scene.squareMeasurementColor,
     hexMeasurementColor: scene.hexMeasurementColor,
@@ -58,6 +62,8 @@ export function vttGridSettingsToSceneData(settings: VttGridSettings) {
     gridVisible: settings.visible,
     gridShape: settings.shape === 'hex' ? 'HEX' as const : 'SQUARE' as const,
     gridSize: settings.size,
+    gridOffsetX: settings.offsetX,
+    gridOffsetY: settings.offsetY,
     metersPerCell: settings.metersPerCell,
     squareMeasurementColor: settings.squareMeasurementColor,
     hexMeasurementColor: settings.hexMeasurementColor,

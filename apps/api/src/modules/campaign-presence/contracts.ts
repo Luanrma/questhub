@@ -4,6 +4,8 @@ export const vttGridSettingsSchema = z.object({
   visible: z.boolean(),
   shape: z.enum(['square', 'hex']),
   size: z.number().int().min(24).max(96),
+  offsetX: z.number().int().min(-96).max(96),
+  offsetY: z.number().int().min(-96).max(96),
   metersPerCell: z.number().positive().max(10000),
   squareMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   hexMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
@@ -237,6 +239,7 @@ export type VttCombatParticipant = {
   characterId: string | null
   name: string
   avatarUrl: string | null
+  color: string | null
   initiative: number | null
 }
 
@@ -253,6 +256,8 @@ export const defaultVttGridSettings: VttGridSettings = {
   visible: false,
   shape: 'square',
   size: 32,
+  offsetX: 0,
+  offsetY: 0,
   metersPerCell: 1,
   squareMeasurementColor: '#f97316',
   hexMeasurementColor: '#f97316',

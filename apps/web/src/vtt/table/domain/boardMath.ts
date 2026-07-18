@@ -14,6 +14,8 @@ export function scaleGridSettings(settings: VttGridSettings, zoomPercent: number
   return {
     ...settings,
     size: settings.size * scale,
+    offsetX: settings.offsetX * scale,
+    offsetY: settings.offsetY * scale,
     lineWidth: Math.max(1, settings.lineWidth * scale),
   }
 }
@@ -183,10 +185,10 @@ export function normalizeTableToken(token: VttPlayerToken, gridShape: VttGridSha
   }
 }
 
-export function tokenPixelPosition(token: VttPlayerToken, gridSize: number) {
+export function tokenPixelPosition(token: VttPlayerToken, gridSize: number, gridOffset = { x: 0, y: 0 }) {
   return {
-    x: token.position.x * gridSize - gridSize / 2,
-    y: token.position.y * gridSize - gridSize / 2,
+    x: token.position.x * gridSize + gridOffset.x - gridSize / 2,
+    y: token.position.y * gridSize + gridOffset.y - gridSize / 2,
   }
 }
 
@@ -195,11 +197,12 @@ export function tokenGridPositionFromPixelCenter(
   bounds: VttGridBounds,
   gridSize: number,
   gridShape: VttGridShape,
+  gridOffset = { x: 0, y: 0 },
 ) {
   return normalizeTokenPosition(
     {
-      x: position.x / gridSize,
-      y: position.y / gridSize,
+      x: (position.x - gridOffset.x) / gridSize,
+      y: (position.y - gridOffset.y) / gridSize,
     },
     gridShape,
     bounds,
@@ -244,15 +247,19 @@ export function areMeasurementPointsEqual(a: VttMeasurementPoint, b: VttMeasurem
   return Math.abs(a.x - b.x) < 0.5 && Math.abs(a.y - b.y) < 0.5
 }
 
-export function measurementPointToPixels(point: VttMeasurementPoint, gridSize: number) {
+export function measurementPointToPixels(point: VttMeasurementPoint, gridSize: number, gridOffset = { x: 0, y: 0 }) {
   return {
-    x: point.x * gridSize,
-    y: point.y * gridSize,
+    x: point.x * gridSize + gridOffset.x,
+    y: point.y * gridSize + gridOffset.y,
   }
 }
 
-export function hexPolygonPoints(center: VttMeasurementPoint, gridSize: number) {
-  const pixelCenter = measurementPointToPixels(center, gridSize)
+export function scenePointToRenderedPixels(point: VttMeasurementPoint, zoomScale: number) {
+  return { x: point.x * zoomScale, y: point.y * zoomScale }
+}
+
+export function hexPolygonPoints(center: VttMeasurementPoint, gridSize: number, gridOffset = { x: 0, y: 0 }) {
+  const pixelCenter = measurementPointToPixels(center, gridSize, gridOffset)
   const radius = gridSize / Math.sqrt(3)
   const halfWidth = gridSize / 2
   const halfRadius = radius / 2

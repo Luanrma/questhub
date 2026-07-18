@@ -5,15 +5,17 @@ import {
   measurementLabel,
   measurementLabelPoint,
   measurementPointToPixels,
+  scenePointToRenderedPixels,
   tokenGridPositionFromPixelCenter,
   tokenPixelPosition,
 } from '../domain/boardMath'
 import type { VttMeasurement, VttPlayerToken, VttWallSegment } from '../domain/types'
+import { TokenAvatar } from './TokenAvatar'
 
-export function VttWallsOverlay({ walls, drafts, gridSize, isMasterView, canOpenWallMenu, onWallContextMenu }: {
+export function VttWallsOverlay({ walls, drafts, zoomScale, isMasterView, canOpenWallMenu, onWallContextMenu }: {
   walls: VttWallSegment[]
   drafts: VttWallSegment[]
-  gridSize: number
+  zoomScale: number
   isMasterView: boolean
   canOpenWallMenu: boolean
   onWallContextMenu: (wall: VttWallSegment, position: { x: number; y: number }) => void
@@ -25,8 +27,8 @@ export function VttWallsOverlay({ walls, drafts, gridSize, isMasterView, canOpen
   return (
     <svg className="pointer-events-none absolute inset-0 z-[6] h-full w-full overflow-visible">
       {visibleWalls.map((wall) => {
-        const start = measurementPointToPixels(wall.start, gridSize)
-        const end = measurementPointToPixels(wall.end, gridSize)
+        const start = scenePointToRenderedPixels(wall.start, zoomScale)
+        const end = scenePointToRenderedPixels(wall.end, zoomScale)
         const isDoor = wall.kind === 'door'
         const isDraft = draftIds.has(wall.id)
         const open = Boolean(wall.door?.open)
@@ -92,14 +94,16 @@ export function VttMeasurementOverlay({
   measurement,
   gridSize,
   metersPerCell,
+  gridOffset,
 }: {
   measurement: VttMeasurement | null
   gridSize: number
   metersPerCell: number
+  gridOffset: { x: number; y: number }
 }) {
   if (!measurement) return null
 
-  const labelPoint = measurementPointToPixels(measurementLabelPoint(measurement), gridSize)
+  const labelPoint = measurementPointToPixels(measurementLabelPoint(measurement), gridSize, gridOffset)
   const label = measurementLabel(measurement, metersPerCell)
   const color = measurement.color
 
@@ -109,10 +113,10 @@ export function VttMeasurementOverlay({
         {measurement.shape === 'square' ? (
           <>
             <line
-              x1={measurementPointToPixels(measurement.start, gridSize).x}
-              y1={measurementPointToPixels(measurement.start, gridSize).y}
-              x2={measurementPointToPixels(measurement.end, gridSize).x}
-              y2={measurementPointToPixels(measurement.end, gridSize).y}
+              x1={measurementPointToPixels(measurement.start, gridSize, gridOffset).x}
+              y1={measurementPointToPixels(measurement.start, gridSize, gridOffset).y}
+              x2={measurementPointToPixels(measurement.end, gridSize, gridOffset).x}
+              y2={measurementPointToPixels(measurement.end, gridSize, gridOffset).y}
               stroke={color}
               strokeWidth="3"
               strokeLinecap="round"
@@ -121,8 +125,8 @@ export function VttMeasurementOverlay({
             {[measurement.start, measurement.end].map((point, index) => (
               <circle
                 key={index}
-                cx={measurementPointToPixels(point, gridSize).x}
-                cy={measurementPointToPixels(point, gridSize).y}
+                cx={measurementPointToPixels(point, gridSize, gridOffset).x}
+                cy={measurementPointToPixels(point, gridSize, gridOffset).y}
                 r="5"
                 fill={color}
                 stroke="#111827"
@@ -135,7 +139,7 @@ export function VttMeasurementOverlay({
             {measurement.points.map((point, index) => (
               <polygon
                 key={`${point.x}-${point.y}-${index}`}
-                points={hexPolygonPoints(point, gridSize)}
+                points={hexPolygonPoints(point, gridSize, gridOffset)}
                 fill={color}
                 fillOpacity="0.45"
                 stroke={color}
@@ -158,6 +162,7 @@ export function PlayerToken({
   token,
   tokenSize,
   gridShape,
+  gridOffset,
   gridAreaRef,
   canDrag,
   isMasterView,
@@ -167,10 +172,14 @@ export function PlayerToken({
   onContextMenu,
   isCombatTurn = false,
   affectedRing,
+  onSelectAsTarget,
+  selectedAsTarget = false,
+  appliedAreaEffectColor,
 }: {
   token: VttPlayerToken
   tokenSize: number
   gridShape: VttGridShape
+  gridOffset: { x: number; y: number }
   gridAreaRef: React.RefObject<HTMLDivElement | null>
   canDrag: boolean
   isMasterView: boolean
@@ -180,16 +189,19 @@ export function PlayerToken({
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
   isCombatTurn?: boolean
   affectedRing?: { color: string; opacity: number; thicknessPx: number; gapPx: number; pulse: boolean }
+  onSelectAsTarget?: (token: VttPlayerToken) => void
+  selectedAsTarget?: boolean
+  appliedAreaEffectColor?: string
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
   const [dragging, setDragging] = useState(false)
-  const initial = token.name.trim().charAt(0).toUpperCase() || '?'
   const displaySize = tokenSize * token.size
-  const basePosition = tokenPixelPosition(token, tokenSize)
+  const basePosition = tokenPixelPosition(token, tokenSize, gridOffset)
   const position = {
     x: basePosition.x - (displaySize - tokenSize) / 2,
     y: basePosition.y - (displaySize - tokenSize) / 2,
   }
+  const hasTransparentImage = Boolean(token.avatarUrl && token.color === null)
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -209,7 +221,7 @@ export function PlayerToken({
         y: nextPosition.y + displaySize / 2,
       }
 
-      onMove(tokenGridPositionFromPixelCenter(tokenCenter, gridBounds, tokenSize, gridShape))
+      onMove(tokenGridPositionFromPixelCenter(tokenCenter, gridBounds, tokenSize, gridShape, gridOffset))
     }
 
     function onPointerUp() {
@@ -223,9 +235,15 @@ export function PlayerToken({
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
     }
-  }, [displaySize, dragging, gridAreaRef, gridShape, onMove, tokenSize])
+  }, [displaySize, dragging, gridAreaRef, gridOffset, gridShape, onMove, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (onSelectAsTarget) {
+      event.preventDefault()
+      event.stopPropagation()
+      onSelectAsTarget(token)
+      return
+    }
     if (event.ctrlKey && onMeasureFromToken) {
       onMeasureFromToken(event, token)
       return
@@ -249,6 +267,19 @@ export function PlayerToken({
   }
 
   return (<>
+    {appliedAreaEffectColor ? <div
+      aria-hidden="true"
+      className="pointer-events-none absolute z-[8] animate-ping rounded-full"
+      style={{
+        left: position.x - displaySize * 0.2,
+        top: position.y - displaySize * 0.2,
+        width: displaySize * 1.4,
+        height: displaySize * 1.4,
+        border: `6px solid ${appliedAreaEffectColor}`,
+        backgroundColor: `${appliedAreaEffectColor}55`,
+        boxShadow: `0 0 28px 10px ${appliedAreaEffectColor}`,
+      }}
+    /> : null}
     {affectedRing ? <div
       aria-hidden="true"
       className={['pointer-events-none absolute z-[6] rounded-full', affectedRing.pulse ? 'animate-pulse' : ''].join(' ')}
@@ -266,16 +297,18 @@ export function PlayerToken({
       type="button"
       title={`Token de ${token.name}`}
       className={[
-        'absolute z-[5] grid place-items-center overflow-hidden rounded-full border-2 shadow-2xl outline-none transition',
+        'absolute z-[5] grid place-items-center overflow-hidden rounded-full outline-none transition',
+        hasTransparentImage ? 'border-0 shadow-none' : 'border-2 shadow-2xl',
         dragging
-          ? 'cursor-grabbing border-indigo-200 ring-4 ring-indigo-400/35'
+          ? `cursor-grabbing ${hasTransparentImage ? '' : 'border-indigo-200 ring-4 ring-indigo-400/35'}`
             : canDrag
-              ? 'cursor-grab border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'
+              ? `cursor-grab ${hasTransparentImage ? '' : 'border-indigo-300/80 ring-2 ring-black/50 hover:ring-indigo-300/40'}`
               : isMasterView
-                ? 'cursor-context-menu border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'
-                : 'cursor-default border-zinc-200/70 ring-2 ring-black/50',
+                ? `cursor-context-menu ${hasTransparentImage ? '' : 'border-zinc-200/70 ring-2 ring-black/50 hover:ring-indigo-300/40'}`
+                : `cursor-default ${hasTransparentImage ? '' : 'border-zinc-200/70 ring-2 ring-black/50'}`,
         isCombatTurn ? 'border-red-200 ring-4 ring-red-400/50' : '',
         selectedForMeasuredMovement ? 'border-orange-200 ring-4 ring-orange-400/50' : '',
+        selectedAsTarget ? 'border-violet-100 ring-4 ring-violet-400/60' : '',
         token.hidden && isMasterView ? 'opacity-35 saturate-50' : '',
       ].join(' ')}
       style={{
@@ -289,11 +322,9 @@ export function PlayerToken({
       onPointerDown={startDrag}
       onContextMenu={openContextMenu}
     >
-      {token.avatarUrl ? (
-        <img src={token.avatarUrl} alt="" className="h-full w-full object-cover" draggable={false} />
-      ) : (
-        <span className="grid h-full w-full place-items-center bg-indigo-600 text-lg font-bold text-white">{initial}</span>
-      )}
+      <span className="grid h-full w-full place-items-center text-lg font-bold text-white">
+        <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
+      </span>
     </button>
   </>)
 }

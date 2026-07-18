@@ -40,6 +40,14 @@ Uploads de cena/mapa aceitam apenas:
 `CampaignAsset.assetId` usa cascade quando `Asset` e removido. A rota de delecao deve retornar aviso e exigir confirmacao quando houver vinculos.
 
 ## API
+`GET /api/assets/token-library`
+* Autenticado.
+* Le recursivamente as imagens atualmente existentes em `apps/web/public/tokens/`.
+* Aceita `avif`, `gif`, `jpeg`, `jpg`, `png`, `svg` e `webp`.
+* Retorna apenas `name` e `path` publico sob `/tokens/`, com `Cache-Control: no-store`.
+* Nao consulta nem altera `Asset`, `CampaignAsset` ou qualquer tabela.
+* Arquivos removidos nao aparecem na consulta seguinte.
+
 `GET /api/assets?campaignId=:campaignId`
 * Autenticado.
 * Valida que o usuario autenticado e Mestre ativo da campanha.

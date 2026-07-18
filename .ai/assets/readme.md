@@ -5,11 +5,14 @@ O contexto de assets centraliza o armazenamento de arquivos enviados por usuario
 
 Assets devem ser persistidos no Firebase Storage, nao no filesystem local da API, para que ambientes de desenvolvimento e producao usem o mesmo mecanismo de infraestrutura sem depender do disco do container.
 
+Imagens embarcadas com a aplicacao, como a biblioteca em `apps/web/public/tokens/`, sao recursos estaticos somente leitura e nao sao registros `Asset`. O modulo apenas publica dinamicamente suas referencias para selecao; nao copia seus metadados para o banco.
+
 ## Personas e casos de uso
 * Usuario autenticado envia um arquivo para usar como recurso visual ou operacional.
 * Usuario autenticado consulta a URL de acesso de um asset proprio.
 * Usuario autenticado remove um asset proprio.
 * Mestre ou fluxo de campanha pode vincular assets a uma campanha via `CampaignAsset`.
+* Usuario autenticado consulta a biblioteca atual de imagens locais disponibilizadas pelo sistema para Tokens.
 
 ## Regras de negocio
 * Todo asset pertence a um `User` por `userId`.
@@ -20,3 +23,4 @@ Assets devem ser persistidos no Firebase Storage, nao no filesystem local da API
 * Cada usuario possui uma quota total de storage para assets, configurada por ambiente.
 * Cada upload possui tamanho maximo bruto, configurado por ambiente.
 * Imagens raster devem ser otimizadas antes do upload quando o tipo suportar compressao sem quebrar o uso do asset.
+* Remover um arquivo da biblioteca local deve remove-lo da proxima listagem sem migracao, limpeza de banco ou novo registro persistido.

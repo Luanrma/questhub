@@ -31,12 +31,14 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * O fluxo `Preparar cena` cria cenas vazias sem obrigar upload.
 * Vincular imagem a uma cena e uma acao separada, acionada por menu proprio da cena.
 * Redimensionar ou alterar o formato do grid nao remove tokens e nao deve exibir aviso de remocao.
+* O grid possui deslocamento fino persistente nos eixos X e Y para alinhar suas linhas ao background sem alterar o tamanho das celulas.
+* Tokens permanecem relativos ao grid e acompanham alteracoes de tamanho e deslocamento. Paredes e portas usam coordenadas absolutas da cena e nao se movem quando o grid e recalibrado.
 * Posicionamentos so sao removidos por acoes explicitas do Mestre ou pela exclusao da cena; o Token da campanha e preservado.
 * Tokens podem ser avulsos ou associados opcionalmente a uma identidade (`Character`) para controle de jogador.
 * Excluir um `Character` apenas desfaz seu vinculo opcional; o Token permanece.
 * Excluir um Token nao exclui o `Character` vinculado.
 * Associar token a ficha, bestiario, inventario, PV, magia, hazard mecanico ou ruleset pertence a extensoes opcionais e nao ao `campaign_scene`.
-* Paredes e portas persistem como segmentos da cena e sao sincronizadas em tempo real.
+* Paredes e portas persistem como segmentos em pixels absolutos da cena e sao sincronizadas em tempo real.
 * Paredes e portas fechadas impedem que jogadores atravessem seus segmentos; portas abertas liberam passagem.
 * Portas fechadas podem ser marcadas como trancadas, obstruidas ou encostadas; abrir a porta limpa esses estados mutuamente exclusivos.
 * Imagens devem usar cache no client e requisitar novamente apenas quando necessario.

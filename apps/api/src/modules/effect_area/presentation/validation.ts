@@ -5,9 +5,10 @@ const finitePositive = z.number().finite().positive().max(100_000)
 const optionalDimension = finitePositive.optional()
 const colorSchema = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Cor hexadecimal invalida')
 
-export const areaShapeSchema = z.enum(['CIRCLE', 'CONE', 'LINE', 'RECTANGLE', 'RING', 'POLYGON'])
+export const areaShapeSchema = z.enum(['CIRCLE', 'CONE', 'LINE', 'ORTHOGONAL', 'RING', 'POLYGON', 'TARGET'])
 export const areaVolumeShapeSchema = z.enum(['NONE', 'SPHERE', 'CYLINDER', 'CUBE', 'CUSTOM'])
 export const measurementModeSchema = z.enum(['WORLD_UNIT', 'GRID_CELLS'])
+export const measurementUnitSchema = z.literal('m')
 export const originModeSchema = z.enum(['SOURCE_TOKEN', 'TARGET_TOKEN', 'FREE_POINT', 'GRID_CELL', 'GRID_INTERSECTION'])
 export const placementModeSchema = z.enum(['POINT', 'DIRECTIONAL', 'ATTACHED', 'DRAWN'])
 export const propagationModeSchema = z.enum(['BLOCKED_BY_WALLS', 'SPREAD_AROUND_WALLS', 'IGNORE_WALLS'])
@@ -19,6 +20,7 @@ export const visibilitySchema = z.enum(['MASTER_ONLY', 'ALL_PLAYERS', 'SELECTED_
 export const visualEffectSchema = z.enum(['DEFAULT', 'FIRE', 'ELECTRIC', 'HEALING', 'EARTH', 'VINES', 'LEAVES'])
 
 export const dimensionsSchema = z.object({
+  targetCount: z.number().int().min(1).max(100).optional(),
   radius: optionalDimension,
   innerRadius: z.number().finite().min(0).max(100_000).optional(),
   length: optionalDimension,
@@ -69,7 +71,7 @@ const templateFieldsSchema = z.object({
   volumeShape: areaVolumeShapeSchema.default('NONE'),
   dimensions: dimensionsSchema,
   measurementMode: measurementModeSchema,
-  measurementUnit: z.string().trim().min(1).max(30).optional(),
+  measurementUnit: measurementUnitSchema.optional(),
   originMode: originModeSchema,
   placementMode: placementModeSchema,
   propagationMode: propagationModeSchema,
@@ -91,12 +93,12 @@ function validateShapeDimensions(value: z.infer<typeof templateFieldsSchema>, co
     message: `Dimensao ${field} obrigatoria para ${value.shape}`,
   })
 
-  if (value.shape === 'CIRCLE' && value.dimensions.radius === undefined) missing('radius')
+  if ((value.shape === 'CIRCLE' || value.shape === 'ORTHOGONAL') && value.dimensions.radius === undefined) missing('radius')
   if (value.shape === 'CONE') {
     if (value.dimensions.length === undefined) missing('length')
     if (value.dimensions.angleDegrees === undefined && value.dimensions.endWidth === undefined) missing('angleDegrees')
   }
-  if (value.shape === 'LINE' || value.shape === 'RECTANGLE') {
+  if (value.shape === 'LINE') {
     if (value.dimensions.length === undefined) missing('length')
     if (value.dimensions.width === undefined) missing('width')
   }
@@ -108,6 +110,18 @@ function validateShapeDimensions(value: z.infer<typeof templateFieldsSchema>, co
     }
   }
   if (value.shape === 'POLYGON' && !value.dimensions.polygonPoints) missing('polygonPoints')
+  if (value.shape === 'TARGET' && value.dimensions.targetCount === undefined) missing('targetCount')
+
+  if (value.shape === 'TARGET') {
+    if (value.originMode !== 'TARGET_TOKEN') context.addIssue({ code: 'custom', path: ['originMode'], message: 'Target exige origem TARGET_TOKEN' })
+    if (value.placementMode !== 'POINT') context.addIssue({ code: 'custom', path: ['placementMode'], message: 'Target exige posicionamento POINT' })
+    if (value.tokenIntersectionRule !== 'MANUAL') context.addIssue({ code: 'custom', path: ['tokenIntersectionRule'], message: 'Target exige selecao MANUAL' })
+    if (value.persistenceMode !== 'INSTANT') context.addIssue({ code: 'custom', path: ['persistenceMode'], message: 'Target exige persistencia INSTANT' })
+  }
+  if (value.shape === 'ORTHOGONAL') {
+    if (value.originMode !== 'GRID_CELL') context.addIssue({ code: 'custom', path: ['originMode'], message: 'Ortogonal exige origem GRID_CELL' })
+    if (value.placementMode !== 'POINT') context.addIssue({ code: 'custom', path: ['placementMode'], message: 'Ortogonal exige posicionamento POINT' })
+  }
 }
 
 export const createAreaTemplateSchema = templateFieldsSchema.superRefine(validateShapeDimensions)

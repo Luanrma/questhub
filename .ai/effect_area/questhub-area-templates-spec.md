@@ -162,9 +162,10 @@ type AreaShape =
   | "CIRCLE"
   | "CONE"
   | "LINE"
-  | "RECTANGLE"
+  | "ORTHOGONAL"
   | "RING"
-  | "POLYGON";
+  | "POLYGON"
+  | "TARGET";
 ```
 
 Formas volumétricas opcionais:
@@ -182,7 +183,7 @@ Na visualização 2D:
 
 - uma esfera é projetada como um círculo;
 - um cilindro é projetado como um círculo;
-- um cubo é projetado como um quadrado ou retângulo;
+- um cubo futuro deverá usar polígono ou projeção customizada;
 - altura e elevação devem permanecer armazenadas para suporte futuro.
 
 ### 5.3. Dimensões por forma
@@ -208,12 +209,6 @@ O QuestHub não deve impor que todo cone termine com largura igual ao compriment
 - largura;
 - opção para interromper a linha no primeiro obstáculo.
 
-#### Retângulo ou cubo
-
-- comprimento;
-- largura;
-- altura opcional.
-
 #### Anel
 
 - raio interno;
@@ -224,6 +219,17 @@ O QuestHub não deve impor que todo cone termine com largura igual ao compriment
 - lista de vértices;
 - fechamento automático do último ponto com o primeiro;
 - opção de edição posterior dos vértices.
+
+#### Target
+
+- quantidade máxima de alvos (`targetCount`), inteira entre 1 e 100;
+- seleção manual de tokens distintos;
+- marcador de magia junto ao ponteiro com contador `selecionados/máximo`;
+- confirmação permitida com qualquer quantidade entre 1 e `targetCount`;
+- seleção por interseção parcial entre marcador e área visual do token;
+- confirmação por botão ou `Enter`, seguida de uma emanação visual temporária nos alvos;
+- a mesma emanação é aplicada aos tokens atingidos ao confirmar qualquer forma geométrica;
+- não possui geometria, projeção no grid ou persistência de instância na cena.
 
 ### 5.4. Unidade e escala
 
@@ -762,7 +768,6 @@ A prévia não deve ser salva como `SceneAreaEffect` antes da confirmação.
 - círculo;
 - cone;
 - linha;
-- retângulo;
 - posicionamento por ponto e direção;
 - grid quadrado;
 - suporte geométrico ao grid hexagonal;
