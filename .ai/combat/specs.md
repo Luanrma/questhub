@@ -125,7 +125,9 @@ Regras de permissao:
 * Mestre ve controles para iniciar, editar iniciativa, avancar, voltar e encerrar.
 * Jogador ve apenas estado atual.
 * O token ativo deve receber destaque visual discreto na mesa.
-* Encounter Mode nao bloqueia movimento de tokens no MVP.
+* Encounter Mode bloqueia arraste direto de Token para PLAYER.
+* PLAYER movimenta somente o Token do turno ativo que estiver sob seu controle, por meio do trajeto medido iniciado com `Ctrl` + botao esquerdo e confirmado com `Espaco`.
+* O Mestre continua podendo movimentar diretamente ou por trajeto qualquer Token da cena.
 
 ## 5. Criterios de aceitacao
 * Mestre inicia encontro somente com tokens enviados para a caixa de Encounter Mode.
@@ -136,6 +138,9 @@ Regras de permissao:
 * Mestre consegue avancar e voltar turnos.
 * Ao passar do ultimo participante, a rodada aumenta.
 * Mestre consegue encerrar encontro.
+* Durante encontro, tentativa de arraste direto feita por PLAYER nao altera estado local nem e aceita pelo servidor.
+* Durante encontro, movimento medido de PLAYER so e aceito para o participante do turno ativo sob seu controle.
+* O trajeto confirmado e animado pela mesma timeline para todos os clientes conectados.
 * Encerrar sessao limpa encontro ativo.
 * Trocar de cena encerra o encontro ativo do MVP.
 * Nenhum campo mecanico especifico de ruleset entra no contrato base.

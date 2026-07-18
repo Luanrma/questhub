@@ -1,6 +1,7 @@
 import type { VttGridSettings, VttGridShape } from '../../grid'
 import { boardGridLimits } from '../config/constants'
 import type { VttGridBounds, VttMeasurement, VttMeasurementPoint, VttPanOffset, VttPlayerToken, VttTableScene } from './types'
+import { movementPathDistance } from './tokenMovement'
 
 const hexRowStepUnits = Math.sqrt(3) / 2
 
@@ -223,24 +224,11 @@ export function formatMeters(value: number) {
 }
 
 export function measurementLabel(measurement: VttMeasurement, metersPerCell: number) {
-  if (measurement.shape === 'hex') {
-    const steps = Math.max(0, measurement.points.length - 1)
-    return `${steps} ${steps === 1 ? 'passo' : 'passos'}`
-  }
-
-  const distanceInGridUnits = Math.hypot(measurement.end.x - measurement.start.x, measurement.end.y - measurement.start.y)
-  return formatMeters(distanceInGridUnits * metersPerCell)
+  return formatMeters(movementPathDistance(measurement.points) * metersPerCell)
 }
 
 export function measurementLabelPoint(measurement: VttMeasurement) {
-  if (measurement.shape === 'hex') {
-    return measurement.points[measurement.points.length - 1] ?? { x: 0, y: 0 }
-  }
-
-  return {
-    x: (measurement.start.x + measurement.end.x) / 2,
-    y: (measurement.start.y + measurement.end.y) / 2,
-  }
+  return measurement.points[measurement.points.length - 1] ?? { x: 0, y: 0 }
 }
 
 export function areMeasurementPointsEqual(a: VttMeasurementPoint, b: VttMeasurementPoint) {

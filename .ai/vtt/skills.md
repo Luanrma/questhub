@@ -10,6 +10,10 @@
 * O catalogo de imagens locais de Token deve ser consultado dinamicamente pelo modulo `assets` e nunca embutido no bundle; remover um arquivo local deve remove-lo da proxima abertura do seletor.
 * O drag-and-drop nativo de Tokens deve usar a mesma operacao em `DataTransfer.effectAllowed` e `DataTransfer.dropEffect`; combinacoes incompativeis podem impedir o evento `drop` no navegador.
 * Atalhos globais devem ignorar inputs, textareas, selects e conteudo editavel.
+* Movimento medido usa um comando WebSocket autoritativo com trajeto completo, instante de inicio e duracao calculada no servidor; os clientes interpolam a mesma timeline sem publicar cada frame.
+* A duracao Smooth e adaptativa: trajetos curtos permanecem legiveis e trajetos longos aceleram progressivamente, com limite superior para evitar animacoes excessivamente demoradas.
+* Colisao de paredes para movimento medido deve validar cada segmento do trajeto no backend.
+* O cliente tambem valida o novo segmento antes de criar um waypoint, oferecendo resposta imediata; essa verificacao nunca substitui a validacao autoritativa do backend.
 * `Ctrl+arraste` na ferramenta de paredes cria os quatro segmentos de um retangulo.
 * Estados de porta devem ser normalizados: uma porta aberta nao pode permanecer trancada, obstruida ou encostada.
 * Controles de grid devem calcular e publicar o proximo estado de forma atomica para evitar atualizacoes com props defasadas.

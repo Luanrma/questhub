@@ -29,19 +29,12 @@ const vttMeasurementPointSchema = z.object({
   y: z.number().min(0).max(100000),
 })
 
-export const vttMeasurementSchema = z.discriminatedUnion('shape', [
-  z.object({
-    shape: z.literal('square'),
-    start: vttMeasurementPointSchema,
-    end: vttMeasurementPointSchema,
-    color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  }),
-  z.object({
-    shape: z.literal('hex'),
-    points: z.array(vttMeasurementPointSchema).min(1).max(500),
-    color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
-  }),
-])
+export const vttMeasurementSchema = z.object({
+  tokenId: z.string().min(1),
+  sceneId: z.string().min(1),
+  points: z.array(vttMeasurementPointSchema).min(1).max(100),
+  color: z.string().regex(/^#[0-9a-fA-F]{6}$/),
+})
 
 export const vttMeasurementUpdateSchema = z.object({
   campaignId: z.string().min(1),
@@ -150,6 +143,17 @@ export const vttTokenUpdateSchema = z.object({
   position: vttTokenPositionSchema,
 })
 
+export const vttTokenMovePathSchema = z.object({
+  campaignId: z.string().min(1),
+  tokenId: z.string().min(1),
+  sceneId: z.string().min(1),
+  path: z.array(vttMeasurementPointSchema).min(2).max(100),
+}).refine((input) => input.path.some((point, index) => {
+  if (index === 0) return false
+  const previous = input.path[index - 1]
+  return Math.hypot(point.x - previous.x, point.y - previous.y) > 0.001
+}))
+
 export const vttTokenPlaceSchema = z.object({
   campaignId: z.string().min(1),
   tokenId: z.string().min(1),
@@ -209,6 +213,11 @@ export type PresenceAck = (response: { ok: boolean; error?: string }) => void
 export type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
 export type VttTokenPosition = z.infer<typeof vttTokenPositionSchema>
 export type VttMeasurement = z.infer<typeof vttMeasurementSchema>
+export type VttTokenMovePath = z.infer<typeof vttTokenMovePathSchema>
+export type VttTokenMovementStarted = VttTokenMovePath & {
+  startedAt: number
+  durationMs: number
+}
 export type VttDiceRoll = z.infer<typeof vttDiceRolledSchema>
 export type VttTableScene = Omit<z.infer<typeof vttTableSceneSchema>, 'imageUrl'> & {
   imageUrl: string | null

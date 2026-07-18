@@ -20,11 +20,12 @@ O objetivo do MVP e dar uma ordenacao operacional de turnos para qualquer situac
 * Encerrar a sessao limpa o encontro ativo.
 * Trocar a cena ativa do Mestre limpa o encontro ativo no MVP.
 * Apenas o Mestre pode escolher participantes, iniciar, editar iniciativa, avancar turno, voltar turno ou encerrar encontro.
-* Jogadores podem apenas visualizar o tracker.
+* Jogadores podem apenas visualizar e, no proprio turno, mover por trajeto medido o Token ativo que controlam.
 * Tokens ocultos nao podem ser adicionados ao encontro publico para evitar revelar informacao privada.
 * Tokens da cena nao entram automaticamente no encontro; o Mestre deve pre-seleciona-los com `Shift` e envia-los para a caixa de Encounter Mode antes de iniciar.
 * A pre-selecao para encontro nao move tokens no grid e nao altera a cena.
 * Iniciativa e manual no MVP.
+* Durante um encontro ativo, o PLAYER nao pode arrastar Tokens diretamente. Seu unico movimento e o trajeto iniciado no Token ativo com `Ctrl` + botao esquerdo e confirmado com `Espaco`.
 * Regras como modificadores de iniciativa, desempate, surpresa, acoes, reacoes, PV e condicoes pertencem a extensoes opcionais futuras, nunca ao contrato base do VTT.
 
 ## Relacoes com outros modulos

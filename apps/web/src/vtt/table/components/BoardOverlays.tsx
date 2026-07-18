@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { VttGridShape } from '../../grid'
 import {
-  hexPolygonPoints,
   measurementLabel,
   measurementLabelPoint,
   measurementPointToPixels,
@@ -110,46 +109,29 @@ export function VttMeasurementOverlay({
   return (
     <>
       <svg className="pointer-events-none absolute inset-0 z-[7] h-full w-full overflow-visible">
-        {measurement.shape === 'square' ? (
-          <>
-            <line
-              x1={measurementPointToPixels(measurement.start, gridSize, gridOffset).x}
-              y1={measurementPointToPixels(measurement.start, gridSize, gridOffset).y}
-              x2={measurementPointToPixels(measurement.end, gridSize, gridOffset).x}
-              y2={measurementPointToPixels(measurement.end, gridSize, gridOffset).y}
-              stroke={color}
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeDasharray="8 6"
-            />
-            {[measurement.start, measurement.end].map((point, index) => (
-              <circle
-                key={index}
-                cx={measurementPointToPixels(point, gridSize, gridOffset).x}
-                cy={measurementPointToPixels(point, gridSize, gridOffset).y}
-                r="5"
-                fill={color}
-                stroke="#111827"
-                strokeWidth="2"
-              />
-            ))}
-          </>
-        ) : (
-          <>
-            {measurement.points.map((point, index) => (
-              <polygon
-                key={`${point.x}-${point.y}-${index}`}
-                points={hexPolygonPoints(point, gridSize, gridOffset)}
-                fill={color}
-                fillOpacity="0.45"
-                stroke={color}
-                strokeOpacity="0.9"
-                strokeWidth="2"
-                strokeLinejoin="round"
-              />
-            ))}
-          </>
-        )}
+        <polyline
+          points={measurement.points.map((point) => {
+            const pixels = measurementPointToPixels(point, gridSize, gridOffset)
+            return `${pixels.x},${pixels.y}`
+          }).join(' ')}
+          fill="none"
+          stroke={color}
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="8 6"
+        />
+        {measurement.points.map((point, index) => {
+          const pixels = measurementPointToPixels(point, gridSize, gridOffset)
+          return (
+            <g key={`${point.x}-${point.y}-${index}`}>
+              <circle cx={pixels.x} cy={pixels.y} r="9" fill="#111827" stroke={color} strokeWidth="3" />
+              <text x={pixels.x} y={pixels.y + 3.5} fill="#fff" textAnchor="middle" className="select-none text-[9px] font-black">
+                {String.fromCharCode(65 + Math.min(index, 25))}
+              </text>
+            </g>
+          )
+        })}
       </svg>
       <div className="pointer-events-none absolute z-[9] rounded-md border border-orange-300/40 bg-black/75 px-2 py-1 text-xs font-semibold text-orange-100 shadow-lg" style={{ left: labelPoint.x, top: labelPoint.y, transform: 'translate(-50%, -140%)' }}>
         {label}

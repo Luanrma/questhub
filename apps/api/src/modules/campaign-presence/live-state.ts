@@ -11,6 +11,7 @@ export class CampaignPresenceState {
   private readonly campaignScenes = new Map<string, VttTableScene>()
   private readonly campaignPendingScenes = new Map<string, VttTableScene | null>()
   private readonly campaignCombats = new Map<string, VttCombatState>()
+  private readonly campaignTokenMovementDeadlines = new Map<string, Map<string, number>>()
 
   getUserPresence(userId: string) {
     return this.userPresence.get(userId)
@@ -49,6 +50,7 @@ export class CampaignPresenceState {
     this.campaignScenes.delete(campaignId)
     this.campaignPendingScenes.delete(campaignId)
     this.campaignCombats.delete(campaignId)
+    this.campaignTokenMovementDeadlines.delete(campaignId)
   }
 
   getCampaignGridSettings(campaignId: string) {
@@ -155,6 +157,7 @@ export class CampaignPresenceState {
     this.campaignScenes.delete(campaignId)
     this.campaignPendingScenes.delete(campaignId)
     this.campaignCombats.delete(campaignId)
+    this.campaignTokenMovementDeadlines.delete(campaignId)
   }
 
   getCampaignCombat(campaignId: string) {
@@ -167,5 +170,19 @@ export class CampaignPresenceState {
 
   deleteCampaignCombat(campaignId: string) {
     this.campaignCombats.delete(campaignId)
+  }
+
+  isTokenMovementActive(campaignId: string, tokenId: string, now = Date.now()) {
+    const deadline = this.campaignTokenMovementDeadlines.get(campaignId)?.get(tokenId)
+    if (!deadline) return false
+    if (deadline > now) return true
+    this.campaignTokenMovementDeadlines.get(campaignId)?.delete(tokenId)
+    return false
+  }
+
+  setTokenMovementDeadline(campaignId: string, tokenId: string, deadline: number) {
+    const movements = this.campaignTokenMovementDeadlines.get(campaignId) ?? new Map<string, number>()
+    movements.set(tokenId, deadline)
+    this.campaignTokenMovementDeadlines.set(campaignId, movements)
   }
 }

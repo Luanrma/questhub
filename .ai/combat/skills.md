@@ -22,7 +22,8 @@
 * Nao persistir encontro no banco neste MVP.
 * Nao permitir que jogadores alterem ordem, iniciativa ou turno.
 * Nao incluir tokens ocultos no tracker publico.
-* Nao bloquear movimento de token por turno no MVP.
+* O backend bloqueia movimento de PLAYER fora do turno e rejeita arraste direto durante o encontro; o Mestre preserva controle operacional completo.
+* O movimento medido do turno usa o contrato autoritativo do modulo `vtt` e e transmitido como timeline, nao como sequencia de frames.
 * Nao mover tokens no grid durante o arraste de pre-selecao para Encounter Mode.
 * Nao criar tela ou rota separada para combate.
 * Nao acoplar o tracker a qualquer modulo de ruleset, ficha, bestiario, inventario ou economia.

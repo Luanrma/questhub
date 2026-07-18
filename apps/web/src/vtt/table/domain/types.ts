@@ -1,6 +1,6 @@
 import type { VttGridSettings } from '../../grid'
 
-export type VttToolId = 'select' | 'move' | 'measure' | 'grid' | 'dice' | 'tokens' | 'walls' | 'area-templates'
+export type VttToolId = 'select' | 'move' | 'grid' | 'dice' | 'tokens' | 'walls' | 'area-templates'
 
 export type VttGridBounds = {
   width: number
@@ -106,18 +106,12 @@ export type VttWallsChangedPayload = {
   walls: VttWallSegment[]
 }
 
-export type VttMeasurement =
-  | {
-      shape: 'square'
-      start: VttMeasurementPoint
-      end: VttMeasurementPoint
-      color: string
-    }
-  | {
-      shape: 'hex'
-      points: VttMeasurementPoint[]
-      color: string
-    }
+export type VttMeasurement = {
+  tokenId: string
+  sceneId: string
+  points: VttMeasurementPoint[]
+  color: string
+}
 
 export type VttMeasurementChangedPayload = {
   campaignId: string
@@ -178,6 +172,15 @@ export type VttCombatParticipant = {
   avatarUrl: string | null
   color: string | null
   initiative: number | null
+}
+
+export type VttTokenMovementStartedPayload = {
+  campaignId: string
+  sceneId: string
+  tokenId: string
+  path: VttMeasurementPoint[]
+  startedAt: number
+  durationMs: number
 }
 
 export type VttCombatState = {

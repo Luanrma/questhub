@@ -16,6 +16,7 @@ import {
   type VttGridSettings,
   type VttPlayerToken,
   type VttTableScene,
+  type VttTokenMovementStarted,
   vttCombatCommandSchema,
   vttCombatStartSchema,
   vttCombatUpdateInitiativeSchema,
@@ -25,12 +26,14 @@ import {
   vttSceneSelectSchema,
   vttTokenActionSchema,
   vttTokenLayerSchema,
+  vttTokenMovePathSchema,
   vttTokenPlaceSchema,
   vttTokenRotateSchema,
   vttTokenUpdateSchema,
   vttTokensRemoveBulkSchema,
   vttWallsUpdateSchema,
 } from './contracts'
+import { areMovementPointsEqual, movementDurationMs, pathHasBlockedSegment } from './domain/token-movement'
 import { registerPresenceHandlers } from './handlers/presence-handlers'
 import { CampaignPresenceState } from './live-state'
 import { sceneGridToVttSettings, tableTokenFromPersistedToken, vttGridSettingsToSceneData } from './mappers'
@@ -378,6 +381,17 @@ export function setupCampaignPresence(server: HttpServer) {
         if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.characterRole !== 'MASTER') {
           await emitVisibleTableSnapshot(campaignId, campaignSocket)
         }
+      }),
+    )
+  }
+
+  async function emitSceneTokenMovementStarted(movement: VttTokenMovementStarted) {
+    const sockets = await io.in(campaignRoom(movement.campaignId)).fetchSockets()
+    await Promise.all(
+      sockets.map(async (campaignSocket) => {
+        const visibleSceneId = await getVisibleSceneIdForSocket(movement.campaignId, campaignSocket)
+        if (visibleSceneId !== movement.sceneId) return
+        campaignSocket.emit('vtt:token:movement-started', movement)
       }),
     )
   }
@@ -982,6 +996,8 @@ export function setupCampaignPresence(server: HttpServer) {
       const token = await refreshLiveTokenIdentity(campaignId, cachedToken)
       if (!token) return
       if (isPlayerMove && token.controllerUserId !== user.id) return
+      if (isPlayerMove && state.getCampaignCombat(campaignId)) return
+      if (state.isTokenMovementActive(campaignId, tokenId)) return
 
       const nextToken = { ...token, position }
       const sceneId = getCampaignTokenSceneMap(campaignId).get(tokenId)
@@ -998,6 +1014,76 @@ export function setupCampaignPresence(server: HttpServer) {
       setLiveSceneToken(campaignId, sceneId, nextToken)
       await emitSceneTokenChanged(campaignId, sceneId, nextToken)
       if (!online) await persistSceneToken(campaignId, sceneId, nextToken)
+    })
+
+    socket.on('vtt:token:move-path', async (
+      input: unknown,
+      ack?: (response: { ok: true } | { ok: false; error: { code: string; message: string } }) => void,
+    ) => {
+      const reject = (code: string, message: string) => ack?.({ ok: false, error: { code, message } })
+      const parsed = vttTokenMovePathSchema.safeParse(input)
+      if (!parsed.success) return reject('INVALID_PAYLOAD', 'Trajeto invalido.')
+
+      const { campaignId, tokenId, sceneId, path } = parsed.data
+      const online = state.getCampaignOnline(campaignId)
+      const isMasterMove = await canControlCampaignAsMaster(campaignId, socket.id, user.id)
+      const isPlayerMove = Boolean(
+        online?.state === 'ACTIVE' &&
+        socket.data.campaignId === campaignId &&
+        socket.data.characterRole === 'PLAYER',
+      )
+      if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao autorizado.')
+      if (state.isTokenMovementActive(campaignId, tokenId)) return reject('TOKEN_MOVING', 'O Token ja esta em movimento.')
+
+      const tokenMap = state.getCampaignTokens(campaignId)
+      const cachedToken = tokenMap ? tokenMap.get(tokenId) : await findPersistedSceneToken(campaignId, tokenId)
+      if (!cachedToken) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado.')
+      const token = await refreshLiveTokenIdentity(campaignId, cachedToken)
+      if (!token) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado.')
+      if (getCampaignTokenSceneMap(campaignId).get(tokenId) !== sceneId) return reject('INVALID_MOVE', 'Token fora da cena informada.')
+      if (!areMovementPointsEqual(path[0], token.position)) return reject('INVALID_MOVE', 'O trajeto nao inicia na posicao atual do Token.')
+      if (isPlayerMove && token.controllerUserId !== user.id) return reject('FORBIDDEN', 'Token sem controle do jogador.')
+
+      const combat = state.getCampaignCombat(campaignId)
+      const activeCombatTokenId = combat?.participants[combat.activeTurnIndex]?.tokenId ?? null
+      if (isPlayerMove && combat && activeCombatTokenId !== tokenId) {
+        return reject('NOT_ACTIVE_TURN', 'Somente o Token do turno ativo pode se mover.')
+      }
+
+      const collision = await getSceneWallCollisionContext(campaignId, sceneId)
+      if (!collision) return reject('INVALID_MOVE', 'Nao foi possivel validar a cena.')
+      const toScenePixels = (point: { x: number; y: number }) => ({
+        x: point.x * collision.gridSize + collision.offsetX,
+        y: point.y * collision.gridSize + collision.offsetY,
+      })
+      const blocked = pathHasBlockedSegment(path, (from, to) => isMovementBlockedBySceneWalls({
+        from: toScenePixels(from),
+        to: toScenePixels(to),
+        walls: collision.walls,
+      }))
+      if (blocked) return reject('INVALID_MOVE', 'O trajeto atravessa uma parede fechada.')
+
+      const durationMs = movementDurationMs(path)
+      const startedAt = Date.now() + 120
+      const finalPosition = path[path.length - 1]
+      const nextToken = { ...token, position: finalPosition }
+      setLiveSceneToken(campaignId, sceneId, nextToken)
+      state.setTokenMovementDeadline(campaignId, tokenId, startedAt + durationMs)
+
+      const movement = { campaignId, tokenId, sceneId, path, startedAt, durationMs }
+      if (online) {
+        await emitSceneTokenMovementStarted(movement)
+      } else {
+        socket.emit('vtt:token:movement-started', movement)
+        await persistSceneToken(campaignId, sceneId, nextToken)
+      }
+      setTimeout(() => {
+        const currentMeasurement = state.getCampaignMeasurement(campaignId)
+        if (currentMeasurement?.tokenId !== tokenId) return
+        state.deleteCampaignMeasurement(campaignId)
+        io.to(campaignRoom(campaignId)).emit('vtt:measurement:changed', { campaignId, measurement: null })
+      }, Math.max(0, startedAt + durationMs - Date.now()))
+      ack?.({ ok: true })
     })
 
     socket.on('vtt:token:remove', async (input: unknown) => {
@@ -1251,8 +1337,26 @@ export function setupCampaignPresence(server: HttpServer) {
       if (online.state === 'PAUSED' && socket.data.characterRole !== 'MASTER') return
 
       if (measurement) {
+        const token = state.getCampaignTokens(campaignId)?.get(measurement.tokenId)
+        const tokenSceneId = state.getCampaignTokenSceneIds(campaignId)?.get(measurement.tokenId)
+        if (!token || tokenSceneId !== measurement.sceneId) return
+        const isMasterMeasurement = socket.data.characterRole === 'MASTER'
+        const isPlayerMeasurement = socket.data.characterRole === 'PLAYER' && token.controllerUserId === user.id
+        if (!isMasterMeasurement && !isPlayerMeasurement) return
+        if (!areMovementPointsEqual(measurement.points[0], token.position)) return
+        const combat = state.getCampaignCombat(campaignId)
+        const activeTokenId = combat?.participants[combat.activeTurnIndex]?.tokenId ?? null
+        if (isPlayerMeasurement && combat && activeTokenId !== measurement.tokenId) return
         state.setCampaignMeasurement(campaignId, measurement)
       } else {
+        const currentMeasurement = state.getCampaignMeasurement(campaignId)
+        if (currentMeasurement) {
+          const token = state.getCampaignTokens(campaignId)?.get(currentMeasurement.tokenId)
+          const canClear = socket.data.characterRole === 'MASTER' || (
+            socket.data.characterRole === 'PLAYER' && token?.controllerUserId === user.id
+          )
+          if (!canClear) return
+        }
         state.deleteCampaignMeasurement(campaignId)
       }
 

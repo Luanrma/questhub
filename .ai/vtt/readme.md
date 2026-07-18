@@ -8,7 +8,7 @@ Personagens podem funcionar como identidades e controladores de tokens, mas essa
 
 Paredes e portas pertencem a cena. O Mestre pode desenhar segmentos e retangulos, definir sua visibilidade e configurar portas abertas, trancadas, obstruidas ou encostadas em tempo real. Segmentos fechados bloqueiam o deslocamento de jogadores; o Mestre preserva controle total durante a preparacao.
 
-A toolbar mantem a regua como ferramenta primaria para Mestre e jogadores autorizados. A configuracao de grid troca entre quadrado e hexagonal no primeiro clique, sem exigir uma segunda interacao.
+A medicao de deslocamento pertence ao Token controlavel, sem ferramenta de regua na toolbar. `Ctrl` + botao esquerdo no Token ativa o modo de movimentacao; depois disso, cada clique simples no grid fixa uma nova secao, sem manter `Ctrl`, segurar ou arrastar o mouse. `Espaco` confirma um movimento suave e sincronizado, e a linha permanece visivel ate o Token concluir o trajeto. A configuracao de grid troca entre quadrado e hexagonal no primeiro clique, sem exigir uma segunda interacao.
 
 A mesa pode iniciar sem cenas preparadas. O Mestre cria cenas explicitamente quando quiser preparar mapa, grid, paredes, portas ou tokens; o VTT nao deve gerar uma cena obrigatoria por padrao.
 

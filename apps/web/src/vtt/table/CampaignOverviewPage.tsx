@@ -13,7 +13,6 @@ import {
   MousePointer2,
   Move,
   Pencil,
-  Ruler,
   PanelRightClose,
   PanelRightOpen,
   Pause,
@@ -52,7 +51,6 @@ import {
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../grid'
 import { questhubTokenDragType, zoomLimits } from './config/constants'
 import {
-  areMeasurementPointsEqual,
   clampMeasurementPoint,
   clampNumber,
   clampPanOffset,
@@ -64,6 +62,7 @@ import {
   scaleGridSettings,
   tokenGridPositionFromPixelCenter,
 } from './domain/boardMath'
+import { appendMovementPoint, areMovementPointsEqual, movementPathDistance, truncatePathAtPoint } from './domain/tokenMovement'
 import {
   filenameEquals,
   getDefaultSceneDimensions,
@@ -76,7 +75,7 @@ import {
   sceneResponseToPreparedScene,
   validateSceneImage,
 } from './domain/sceneDomain'
-import { applyDoorToWalls, createRectangleWallSegments, normalizeDoorState } from './domain/wallGeometry'
+import { applyDoorToWalls, createRectangleWallSegments, isMovementBlockedBySceneWalls, normalizeDoorState } from './domain/wallGeometry'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
@@ -85,6 +84,7 @@ import { TokenContextMenu } from './components/TokenContextMenu'
 import { TokenImagePickerDialog } from './components/TokenImagePickerDialog'
 import { TokenAvatar } from './components/TokenAvatar'
 import { getLastTokenColor } from './infrastructure/tokenAppearancePreferences'
+import { useSmoothTokenMovement } from './hooks/useSmoothTokenMovement'
 import type {
   AssetExistsResponse,
   AssetUploadResponse,
@@ -104,6 +104,7 @@ import type {
   VttTableScene,
   VttTokenCandidate,
   VttTokenChangedPayload,
+  VttTokenMovementStartedPayload,
   VttTokenContextMenu,
   VttTokenRemovedPayload,
   VttTokenState,
@@ -116,7 +117,6 @@ import type {
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
   { id: 'move', label: 'Mover', icon: Move },
-  { id: 'measure', label: 'Régua', icon: Ruler },
   { id: 'dice', label: 'Dados', icon: Dice5 },
   { id: 'tokens', label: 'Tokens', icon: CircleUserRound },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
@@ -182,7 +182,6 @@ export function CampaignOverviewPage({
   const boardViewportRef = useRef<HTMLDivElement | null>(null)
   const gridAreaRef = useRef<HTMLDivElement | null>(null)
   const backgroundImageRef = useRef<HTMLImageElement | null>(null)
-  const measuringRef = useRef(false)
   const wallDraftStartRef = useRef<VttMeasurementPoint | null>(null)
   const wallUndoStackRef = useRef<VttWallSegment[][]>([])
   const measurementRef = useRef<VttMeasurement | null>(null)
@@ -190,6 +189,19 @@ export function CampaignOverviewPage({
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
   const previousCampaignOnlineRef = useRef<{ campaignId: string | null; online: boolean }>({ campaignId: null, online: false })
   const [tokenState, setTokenState] = useState<VttTokenState>({ campaignId: null, tokens: [] })
+  const { startMovement: startSmoothTokenMovement, movingTokenIds } = useSmoothTokenMovement(
+    (tokenId, position) => {
+      setTokenState((current) => ({
+        ...current,
+        tokens: current.tokens.map((token) => token.id === tokenId ? { ...token, position } : token),
+      }))
+    },
+    (tokenId) => {
+      if (measurementRef.current?.tokenId !== tokenId) return
+      measurementRef.current = null
+      setMeasurement(null)
+    },
+  )
   const [campaignTokens, setCampaignTokens] = useState<CampaignToken[]>([])
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [campaignPlayers, setCampaignPlayers] = useState<CampaignPlayer[]>([])
@@ -690,6 +702,15 @@ export function CampaignOverviewPage({
       setMeasurement(payload.measurement)
     }
 
+    function onTokenMovementStarted(payload: VttTokenMovementStartedPayload) {
+      if (payload.campaignId !== campaignId || payload.sceneId !== activeScene?.id) return
+      if (measuredMovementTokenIdRef.current === payload.tokenId) {
+        measuredMovementTokenIdRef.current = null
+        setMeasuredMovementTokenId(null)
+      }
+      startSmoothTokenMovement(payload)
+    }
+
     function onSceneSnapshot(payload: VttSceneChangedPayload) {
       if (payload.campaignId !== campaignId) return
       applySceneSnapshot(payload.scene)
@@ -715,6 +736,7 @@ export function CampaignOverviewPage({
     socket.on('vtt:token:deleted', onTokenDeleted)
     socket.on('vtt:measurement:changed', onMeasurementChanged)
     socket.on('vtt:measurement:snapshot', onMeasurementSnapshot)
+    socket.on('vtt:token:movement-started', onTokenMovementStarted)
     socket.on('vtt:scene:changed', onSceneChanged)
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
     socket.on('vtt:combat:changed', onCombatChanged)
@@ -737,21 +759,22 @@ export function CampaignOverviewPage({
       socket.off('vtt:token:deleted', onTokenDeleted)
       socket.off('vtt:measurement:changed', onMeasurementChanged)
       socket.off('vtt:measurement:snapshot', onMeasurementSnapshot)
+      socket.off('vtt:token:movement-started', onTokenMovementStarted)
       socket.off('vtt:scene:changed', onSceneChanged)
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
       socket.off('vtt:combat:changed', onCombatChanged)
       socket.off('vtt:walls:changed', onWallsChanged)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id])
+  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id, startSmoothTokenMovement])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
     measurementGridKeyRef.current = measurementGridKey
-    measuringRef.current = false
+    if (measurementRef.current && movingTokenIds.has(measurementRef.current.tokenId)) return
     measurementRef.current = null
     setMeasurement(null)
     if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
-  }, [campaignId, measurementGridKey, socket])
+  }, [campaignId, measurementGridKey, movingTokenIds, socket])
 
   useEffect(() => {
     preparedScenesRef.current = preparedScenes
@@ -942,17 +965,18 @@ export function CampaignOverviewPage({
     socket.emit('vtt:measurement:update', { campaignId, measurement: nextMeasurement })
   }
 
-  function getMeasurementPoint(event: React.PointerEvent<HTMLElement>) {
+  function getMeasurementPoint(event: { clientX: number; clientY: number }) {
     const bounds = gridAreaRef.current?.getBoundingClientRect()
     if (!bounds) return null
 
-    return clampMeasurementPoint(
+    const clamped = clampMeasurementPoint(
       {
         x: (event.clientX - bounds.left - zoomedGridSettings.offsetX) / tokenSize,
         y: (event.clientY - bounds.top - zoomedGridSettings.offsetY) / tokenSize,
       },
       { width: bounds.width / tokenSize, height: bounds.height / tokenSize },
     )
+    return normalizeTokenPosition(clamped, gridSettings.shape, { width: bounds.width, height: bounds.height }, tokenSize)
   }
 
   function snapHexMeasurementPoint(point: VttMeasurementPoint) {
@@ -970,85 +994,66 @@ export function CampaignOverviewPage({
     )
   }
 
-  function nextHexMeasurementPoints(points: VttMeasurementPoint[], nextPoint: VttMeasurementPoint) {
-    const existingIndex = points.findIndex((point) => areMeasurementPointsEqual(point, nextPoint))
-    if (existingIndex >= 0) return points.slice(0, existingIndex + 1)
-    return [...points, nextPoint]
-  }
-
-  function startMeasurement(event: React.PointerEvent<HTMLDivElement>) {
+  function startNextMeasuredSegment(event: React.PointerEvent<HTMLDivElement>) {
+    if (!measuredMovementTokenIdRef.current || event.button !== 0) return
     const point = getMeasurementPoint(event)
-    if (!point) return
+    const current = measurementRef.current
+    if (!point || !current) return
 
     event.preventDefault()
-    event.currentTarget.setPointerCapture(event.pointerId)
-    measuringRef.current = true
-
-    if (gridSettings.shape === 'hex') {
-      publishMeasurement({ shape: 'hex', points: [snapHexMeasurementPoint(point)], color: gridSettings.hexMeasurementColor })
+    event.stopPropagation()
+    const existingIndex = current.points.findIndex((candidate) => areMovementPointsEqual(candidate, point))
+    const lastIndex = current.points.length - 1
+    if (existingIndex >= 0 && existingIndex < lastIndex) {
+      publishMeasurement({ ...current, points: truncatePathAtPoint(current.points, point) })
       return
     }
 
-    publishMeasurement({ shape: 'square', start: point, end: point, color: gridSettings.squareMeasurementColor })
-  }
+    const lastPoint = current.points[lastIndex]
+    const toScenePixels = (movementPoint: VttMeasurementPoint) => ({
+      x: movementPoint.x * gridSettings.size + gridSettings.offsetX,
+      y: movementPoint.y * gridSettings.size + gridSettings.offsetY,
+    })
+    if (activeScene && isMovementBlockedBySceneWalls({
+      from: toScenePixels(lastPoint),
+      to: toScenePixels(point),
+      walls: activeScene.walls,
+    })) return
 
-  function updateMeasurement(event: React.PointerEvent<HTMLDivElement>) {
-    if (!measuringRef.current) return
-
-    const point = getMeasurementPoint(event)
-    if (!point) return
-
-    if (gridSettings.shape === 'hex') {
-      const nextPoint = snapHexMeasurementPoint(point)
-      const current = measurementRef.current
-      const points = current?.shape === 'hex' ? current.points : []
-      const lastPoint = points[points.length - 1]
-      if (lastPoint && areMeasurementPointsEqual(lastPoint, nextPoint)) return
-
-      publishMeasurement({ shape: 'hex', points: nextHexMeasurementPoints(points, nextPoint), color: gridSettings.hexMeasurementColor })
-      return
-    }
-
-    const current = measurementRef.current
-    publishMeasurement(
-      current?.shape === 'square'
-        ? { ...current, end: point, color: gridSettings.squareMeasurementColor }
-        : { shape: 'square', start: point, end: point, color: gridSettings.squareMeasurementColor },
-    )
-  }
-
-  function finishMeasurement() {
-    measuringRef.current = false
+    const points = appendMovementPoint(current.points, point)
+    if (points !== current.points) publishMeasurement({ ...current, points })
   }
 
   function beginMeasuredMovement(event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) {
-    if (!event.ctrlKey || gridSettings.shape !== 'square' || !realtimeVttEnabled) return
+    if (event.button !== 0 || !event.ctrlKey || !realtimeVttEnabled || !activeScene || movingTokenIds.has(token.id)) return
     const canMoveToken = Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER')
     if (!canMoveToken) return
+    if (!isMaster && activeCombatTokenId && activeCombatTokenId !== token.id) return
     event.preventDefault()
     event.stopPropagation()
     measuredMovementTokenIdRef.current = token.id
     setMeasuredMovementTokenId(token.id)
-    setActiveTool('measure')
     publishMeasurement({
-      shape: 'square',
-      start: token.position,
-      end: token.position,
-      color: gridSettings.squareMeasurementColor,
+      tokenId: token.id,
+      sceneId: activeScene.id,
+      points: [token.position],
+      color: gridSettings.shape === 'square' ? gridSettings.squareMeasurementColor : gridSettings.hexMeasurementColor,
     })
   }
 
   function confirmMeasuredMovement() {
     const tokenId = measuredMovementTokenIdRef.current
     const currentMeasurement = measurementRef.current
-    if (!tokenId || currentMeasurement?.shape !== 'square') return false
-    const token = visibleTokens.find((item) => item.id === tokenId)
-    if (!token) return false
-    movePlayerToken(token, currentMeasurement.end)
-    measuredMovementTokenIdRef.current = null
-    setMeasuredMovementTokenId(null)
-    publishMeasurement(null)
-    setActiveTool(null)
+    if (!tokenId || !currentMeasurement || currentMeasurement.points.length < 2 || !socket || !campaignId) return false
+    if (movementPathDistance(currentMeasurement.points) <= 0.001) return false
+    socket.emit('vtt:token:move-path', {
+      campaignId,
+      tokenId,
+      sceneId: currentMeasurement.sceneId,
+      path: currentMeasurement.points,
+    }, (response: { ok: true } | { ok: false; error: { code: string; message: string } }) => {
+      if (!response.ok) setSceneSaveError(response.error.message)
+    })
     return true
   }
 
@@ -1472,13 +1477,17 @@ export function CampaignOverviewPage({
   }
 
   function clearTransientTools() {
-    measuringRef.current = false
+    const preserveMovementLine = Boolean(
+      measurementRef.current && movingTokenIds.has(measurementRef.current.tokenId),
+    )
     wallDraftStartRef.current = null
-    measurementRef.current = null
     measuredMovementTokenIdRef.current = null
     setWallDrafts([])
     setWallContextMenu(null)
-    setMeasurement(null)
+    if (!preserveMovementLine) {
+      measurementRef.current = null
+      setMeasurement(null)
+    }
     setMeasuredMovementTokenId(null)
     setActiveAreaTemplate(null)
     setAreaDraftOrigin(null)
@@ -1490,7 +1499,9 @@ export function CampaignOverviewPage({
     setAreaHandleDragState(null)
     setActiveTool(null)
     onGridSettingsOpenChange(false)
-    if (campaignId && socket) socket.emit('vtt:measurement:update', { campaignId, measurement: null })
+    if (!preserveMovementLine && campaignId && socket) {
+      socket.emit('vtt:measurement:update', { campaignId, measurement: null })
+    }
   }
 
   function collapseToolsToolbar() {
@@ -2292,8 +2303,10 @@ export function CampaignOverviewPage({
                 gridOffset={{ x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY }}
                 gridAreaRef={gridAreaRef}
                 canDrag={
-                  (sessionActive && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER') ||
-                  Boolean(isMaster)
+                  !movingTokenIds.has(token.id) && (
+                    (sessionActive && !activeCombat && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER') ||
+                    Boolean(isMaster)
+                  )
                 }
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
@@ -2308,13 +2321,10 @@ export function CampaignOverviewPage({
               />
             ))}
             <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} gridOffset={{ x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY }} />
-            {activeTool === 'measure' && realtimeVttEnabled ? (
+            {measuredMovementTokenId && realtimeVttEnabled ? (
               <div
                 className="absolute inset-0 z-[8] cursor-crosshair"
-                onPointerDown={startMeasurement}
-                onPointerMove={updateMeasurement}
-                onPointerUp={finishMeasurement}
-                onPointerCancel={finishMeasurement}
+                onPointerDown={startNextMeasuredSegment}
               />
             ) : null}
             {activeTool === 'walls' && isMaster && activeScene ? (
@@ -2354,7 +2364,7 @@ export function CampaignOverviewPage({
                     type="button"
                     data-vtt-tool={tool.id}
                     aria-label={tool.label}
-                    title={`${tool.label}${tool.id === 'move' ? ' (Alt)' : tool.id === 'measure' ? ' (Ctrl+clique, Espaco confirma)' : tool.id === 'walls' ? ' (Ctrl+Z desfaz)' : ''}`}
+                    title={`${tool.label}${tool.id === 'move' ? ' (Alt)' : tool.id === 'walls' ? ' (Ctrl+Z desfaz)' : ''}`}
                     disabled={disabled}
                     className={[
                       'flex h-10 w-10 items-center justify-center rounded-md transition disabled:cursor-not-allowed disabled:opacity-45',
@@ -2369,7 +2379,6 @@ export function CampaignOverviewPage({
                       }
 
                       onGridSettingsOpenChange(false)
-                      measuringRef.current = false
                       wallDraftStartRef.current = null
                       setWallDrafts([])
                       setWallContextMenu(null)

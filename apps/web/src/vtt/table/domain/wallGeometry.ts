@@ -3,6 +3,46 @@ import type { VttDoorState, VttMeasurementPoint, VttWallSegment } from './types'
 const epsilon = 0.000001
 const doorTouchTolerance = 0.75
 
+function orientation(a: VttMeasurementPoint, b: VttMeasurementPoint, c: VttMeasurementPoint) {
+  const value = (b.y - a.y) * (c.x - b.x) - (b.x - a.x) * (c.y - b.y)
+  if (Math.abs(value) < epsilon) return 0
+  return value > 0 ? 1 : 2
+}
+
+function isPointOnSegment(a: VttMeasurementPoint, b: VttMeasurementPoint, c: VttMeasurementPoint) {
+  return b.x <= Math.max(a.x, c.x) + epsilon && b.x + epsilon >= Math.min(a.x, c.x) &&
+    b.y <= Math.max(a.y, c.y) + epsilon && b.y + epsilon >= Math.min(a.y, c.y)
+}
+
+function segmentsIntersect(
+  firstStart: VttMeasurementPoint,
+  firstEnd: VttMeasurementPoint,
+  secondStart: VttMeasurementPoint,
+  secondEnd: VttMeasurementPoint,
+) {
+  const o1 = orientation(firstStart, firstEnd, secondStart)
+  const o2 = orientation(firstStart, firstEnd, secondEnd)
+  const o3 = orientation(secondStart, secondEnd, firstStart)
+  const o4 = orientation(secondStart, secondEnd, firstEnd)
+  if (o1 !== o2 && o3 !== o4) return true
+  if (o1 === 0 && isPointOnSegment(firstStart, secondStart, firstEnd)) return true
+  if (o2 === 0 && isPointOnSegment(firstStart, secondEnd, firstEnd)) return true
+  if (o3 === 0 && isPointOnSegment(secondStart, firstStart, secondEnd)) return true
+  if (o4 === 0 && isPointOnSegment(secondStart, firstEnd, secondEnd)) return true
+  return false
+}
+
+export function isMovementBlockedBySceneWalls(input: {
+  from: VttMeasurementPoint
+  to: VttMeasurementPoint
+  walls: VttWallSegment[]
+}) {
+  return input.walls.some((wall) => {
+    const blocksMovement = wall.kind === 'wall' || !wall.door?.open
+    return blocksMovement && segmentsIntersect(input.from, input.to, wall.start, wall.end)
+  })
+}
+
 export function normalizeDoorState(door: Partial<VttDoorState> | undefined): VttDoorState {
   if (door?.open) return { open: true, locked: false, blocked: false, ajar: false }
 

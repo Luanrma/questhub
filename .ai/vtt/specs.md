@@ -24,7 +24,7 @@
 * Paredes e portas usam coordenadas da cena, persistem com ela e sincronizam por websocket.
 * Paredes e portas fechadas bloqueiam movimento de jogadores; portas abertas nao bloqueiam.
 * A visibilidade visual de um segmento para jogadores e independente de sua colisao.
-* A toolbar exibe a ferramenta de regua para Mestre e jogadores com acesso a mesa, independentemente das ferramentas administrativas exclusivas do Mestre.
+* A toolbar nao exibe ferramenta de regua; medicao de deslocamento e iniciada exclusivamente a partir de um Token controlavel.
 * A troca do formato do grid entre quadrado e hexagonal aplica e persiste o novo formato no primeiro clique.
 * `Ctrl+arraste` com a ferramenta Parede ativa cria um retangulo composto por quatro segmentos; o arraste comum cria um unico segmento.
 * Portas sao inseridas sobre segmentos de parede quando houver intersecao/proximidade valida e podem ser abertas, trancadas, obstruidas ou encostadas pelo menu contextual.
@@ -36,7 +36,40 @@
 * `Escape` fecha o menu esquerdo quando ele estiver aberto e limpa a selecao/ferramenta ativa da mesa quando o foco nao estiver em campo editavel.
 * Segurar `Alt` ativa navegacao temporaria do mapa; soltar `Alt` restaura a ferramenta anterior.
 * `Ctrl+Z` ou `Cmd+Z` desfaz a ultima criacao de parede enquanto a ferramenta de paredes estiver ativa.
-* `Ctrl+clique` em um token inicia medicao de deslocamento no grid quadrado e `Espaco` confirma o destino medido quando o usuario pode controlar o token.
+* `Ctrl` + botao esquerdo em um Token controlavel inicia medicao de deslocamento a partir da posicao atual do Token, em grid quadrado ou hexagonal.
+* O `Ctrl` e exigido somente no clique inicial sobre o Token. Depois que o modo de movimentacao estiver ativo, cada clique simples no grid fixa imediatamente a proxima secao, formando os pontos `A`, `B`, `C` e seguintes.
+* Nao e necessario manter `Ctrl`, segurar o botao esquerdo ou arrastar o mouse para demarcar o trajeto.
+* Clicar em uma interseccao ja fixada preserva esse ponto e remove todas as interseccoes seguintes.
+* Antes de inserir um ponto, o cliente valida o segmento entre o ultimo ponto fixado e o ponto clicado. Se o segmento cruzar uma parede ou porta fechada, o novo ponto nao e criado.
+* `Espaco` confirma o trajeto e envia um unico comando autoritativo; o servidor valida controle, cena, Encounter Mode, turno ativo e colisao de cada segmento antes de publicar o movimento.
+* O fato de movimento contem o trajeto aceito, `startedAt` e `durationMs`. Todos os clientes interpolam o Token pela mesma timeline; frames intermediarios nao sao enviados pelo WebSocket.
+* A duracao segue curva adaptativa definida pelo servidor: `clamp(450 + 180 * distanciaEmCelulas^0.86, 550, 6000)` milissegundos. O ritmo base e deliberadamente mais lento, enquanto trajetos longos ainda ganham velocidade para nao se tornarem cansativos.
+* A linha tracejada permanece visivel durante toda a timeline e e removida somente quando o Token alcanca o ponto final.
+* Ao concluir a timeline, a posicao final confirmada passa a ser o estado vivo e persistivel do Token.
+* Fora de um encontro ativo, o arraste direto continua permitido para Mestre e PLAYER controlador. Durante um encontro, PLAYER nao pode mover Token por arraste direto.
+* Durante um encontro, PLAYER pode confirmar movimento medido somente para o Token do turno ativo, desde que tambem seja seu controlador. O Mestre preserva movimentacao direta e medida de qualquer Token controlavel por ele.
+
+### Contratos WebSocket de movimento medido
+
+```ts
+type VttTokenMovePathCommand = {
+  campaignId: string
+  sceneId: string
+  tokenId: string
+  path: Array<{ x: number; y: number }> // 2..100 pontos
+}
+
+type VttTokenMovementStartedEvent = VttTokenMovePathCommand & {
+  startedAt: number
+  durationMs: number
+}
+```
+
+* Comando do cliente: `vtt:token:move-path`, com ACK padrao de sucesso ou erro.
+* Fato do servidor: `vtt:token:movement-started` para os sockets que visualizam a cena.
+* Erros previstos: `INVALID_PAYLOAD`, `FORBIDDEN`, `TOKEN_NOT_FOUND`, `TOKEN_MOVING`, `NOT_ACTIVE_TURN` e `INVALID_MOVE`.
+* O primeiro ponto deve coincidir com a posicao autoritativa atual e o trajeto deve possuir ao menos um segmento efetivo.
+* O servidor nao aceita novo movimento do mesmo Token enquanto a timeline anterior estiver ativa.
 * A toolbar pode ser recolhida para um unico botao e, ao recolher, limpa ferramentas e overlays transitorios.
 * A sidebar direita abre recolhida e usa abas para combate, participantes, sessao, cenas e chat.
 * A aba de cenas e exclusiva do Mestre e e a entrada principal para selecionar e preparar cenas.
