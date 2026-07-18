@@ -24,6 +24,7 @@
 * Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como autosave eventual, iniciar e encerrar sessao.
 * Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
 * Scene Wall Editing: segmentos, retangulos e portas sao editados como estado visual generico da cena e preservados no mesmo snapshot.
+* Door-to-Wall Snap: a criacao de porta usa tolerancia visual convertida para pixels absolutos da cena e projeta as duas extremidades sobre um unico segmento de parede.
 * Asset-backed Backgrounds: quando houver imagem de cena, ela deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.
@@ -39,6 +40,7 @@
 * Nao usar `squareMeters` como escala canonica nova; grid quadrado deve usar `metersPerCell`.
 * Nao aplicar escala metrificada ao grid hexagonal.
 * Nao multiplicar coordenadas persistidas de paredes por `grid.size` nem somar o deslocamento fino do grid.
+* Nao persistir porta isolada, ligada a paredes diferentes ou sobreposta a um trecho de parede que continue bloqueando movimento.
 * Nao permitir que jogador edite grid, cena ou distribuicao de tokens.
 * Nao revelar cena diferente da cena do token do jogador quando nao houver `forcedSceneId`.
 * Nao exigir `characterId`, ficha, bestiario, inventario, combate ou ruleset para criar token de teste.

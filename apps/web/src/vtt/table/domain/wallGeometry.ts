@@ -1,7 +1,8 @@
 import type { VttDoorState, VttMeasurementPoint, VttWallSegment } from './types'
 
 const epsilon = 0.000001
-const doorTouchTolerance = 0.75
+
+export const doorSnapToleranceInRenderedPixels = 12
 
 function orientation(a: VttMeasurementPoint, b: VttMeasurementPoint, c: VttMeasurementPoint) {
   const value = (b.y - a.y) * (c.x - b.x) - (b.x - a.x) * (c.y - b.y)
@@ -83,23 +84,22 @@ function projectPointToWall(point: VttMeasurementPoint, wall: VttWallSegment) {
   }
 }
 
-function nearestWallProjection(point: VttMeasurementPoint, walls: VttWallSegment[]) {
-  let nearest: { wall: VttWallSegment; point: VttMeasurementPoint; distance: number } | null = null
+function findDoorTargetWall(door: VttWallSegment, walls: VttWallSegment[], snapTolerance: number) {
+  let nearest: { wall: VttWallSegment; start: VttMeasurementPoint; end: VttMeasurementPoint; distance: number } | null = null
 
   for (const wall of walls) {
     if (wall.kind !== 'wall') continue
-    const projection = projectPointToWall(point, wall)
-    if (projection.distance > doorTouchTolerance) continue
-    if (!nearest || projection.distance < nearest.distance) nearest = { wall, ...projection }
+    const startProjection = projectPointToWall(door.start, wall)
+    const endProjection = projectPointToWall(door.end, wall)
+    if (startProjection.distance > snapTolerance || endProjection.distance > snapTolerance) continue
+
+    const distance = startProjection.distance + endProjection.distance
+    if (!nearest || distance < nearest.distance) {
+      nearest = { wall, start: startProjection.point, end: endProjection.point, distance }
+    }
   }
 
   return nearest
-}
-
-function isDoorOnWall(door: VttWallSegment, wall: VttWallSegment) {
-  return wall.kind === 'wall'
-    && projectPointToWall(door.start, wall).distance <= doorTouchTolerance
-    && projectPointToWall(door.end, wall).distance <= doorTouchTolerance
 }
 
 function replaceWallSliceWithDoor(input: {
@@ -116,6 +116,7 @@ function replaceWallSliceWithDoor(input: {
   const secondParameter = Math.max(startParameter, endParameter)
   const doorStart = pointAtParameter(input.wall.start, input.wall.end, firstParameter)
   const doorEnd = pointAtParameter(input.wall.start, input.wall.end, secondParameter)
+  if (segmentLength(doorStart, doorEnd) <= 0.001) return input.walls
 
   const replacement: VttWallSegment[] = [
     { ...input.wall, id: input.createId(), start: input.wall.start, end: doorStart },
@@ -151,39 +152,19 @@ export function applyDoorToWalls(input: {
   walls: VttWallSegment[]
   door: VttWallSegment
   createId: () => string
+  snapTolerance?: number
 }) {
-  const targetWall = input.walls.find((wall) => isDoorOnWall(input.door, wall))
+  const target = findDoorTargetWall(
+    input.door,
+    input.walls,
+    input.snapTolerance ?? doorSnapToleranceInRenderedPixels,
+  )
+  if (!target) return input.walls
 
-  if (targetWall) {
-    return replaceWallSliceWithDoor({
-      ...input,
-      wall: targetWall,
-      doorStart: projectPointToWall(input.door.start, targetWall).point,
-      doorEnd: projectPointToWall(input.door.end, targetWall).point,
-    })
-  }
-
-  const startProjection = nearestWallProjection(input.door.start, input.walls)
-  const endProjection = nearestWallProjection(input.door.end, input.walls)
-
-  if (startProjection && !endProjection) {
-    return replaceWallSliceWithDoor({
-      ...input,
-      wall: startProjection.wall,
-      doorStart: startProjection.point,
-      doorEnd: projectPointToWall(input.door.end, startProjection.wall).point,
-    })
-  }
-
-  if (!startProjection && endProjection) {
-    return replaceWallSliceWithDoor({
-      ...input,
-      wall: endProjection.wall,
-      doorStart: projectPointToWall(input.door.start, endProjection.wall).point,
-      doorEnd: endProjection.point,
-    })
-  }
-
-  if (!startProjection || !endProjection || startProjection.wall.id === endProjection.wall.id) return input.walls
-  return [...input.walls, { ...input.door, start: startProjection.point, end: endProjection.point }]
+  return replaceWallSliceWithDoor({
+    ...input,
+    wall: target.wall,
+    doorStart: target.start,
+    doorEnd: target.end,
+  })
 }

@@ -75,7 +75,7 @@ import {
   sceneResponseToPreparedScene,
   validateSceneImage,
 } from './domain/sceneDomain'
-import { applyDoorToWalls, createRectangleWallSegments, isMovementBlockedBySceneWalls, normalizeDoorState } from './domain/wallGeometry'
+import { applyDoorToWalls, createRectangleWallSegments, doorSnapToleranceInRenderedPixels, isMovementBlockedBySceneWalls, normalizeDoorState } from './domain/wallGeometry'
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
@@ -1189,7 +1189,12 @@ export function CampaignOverviewPage({
     updateActiveSceneWalls((walls) => {
       if (segments.length > 1) return [...walls, ...segments]
       const [segment] = segments
-      if (segment.kind === 'door') return applyDoorToWalls({ walls, door: segment, createId: createWallId })
+      if (segment.kind === 'door') return applyDoorToWalls({
+        walls,
+        door: segment,
+        createId: createWallId,
+        snapTolerance: doorSnapToleranceInRenderedPixels / (activeZoomPercent / 100),
+      })
       return [...walls, segment]
     }, { recordUndo: true })
   }

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { appendMovementPoint, positionAlongMovementPath, truncatePathAtPoint } from '../src/vtt/table/domain/tokenMovement'
-import { isMovementBlockedBySceneWalls } from '../src/vtt/table/domain/wallGeometry'
+import { applyDoorToWalls, isMovementBlockedBySceneWalls } from '../src/vtt/table/domain/wallGeometry'
 import type { VttWallSegment } from '../src/vtt/table/domain/types'
 
 test('smooth movement follows breakpoints proportionally to segment length', () => {
@@ -35,4 +35,62 @@ test('a waypoint segment is rejected when it crosses a closed wall', () => {
     to: { x: 20, y: 10 },
     walls: [wall],
   }), true)
+})
+
+test('a door near a wall snaps onto it and replaces the blocking slice', () => {
+  const wall: VttWallSegment = {
+    id: 'wall-1',
+    kind: 'wall',
+    start: { x: 10, y: 0 },
+    end: { x: 10, y: 30 },
+    playerVisible: true,
+    blocksEffects: true,
+  }
+  const door: VttWallSegment = {
+    id: 'door-1',
+    kind: 'door',
+    start: { x: 15, y: 10 },
+    end: { x: 14, y: 20 },
+    playerVisible: true,
+    blocksEffects: true,
+    door: { open: true, locked: false, blocked: false, ajar: false },
+  }
+
+  const walls = applyDoorToWalls({ walls: [wall], door, createId: () => 'wall-slice', snapTolerance: 6 })
+  assert.deepEqual(walls.find((segment) => segment.kind === 'door'), {
+    ...door,
+    start: { x: 10, y: 10 },
+    end: { x: 10, y: 20 },
+  })
+  assert.equal(isMovementBlockedBySceneWalls({ from: { x: 0, y: 15 }, to: { x: 20, y: 15 }, walls }), false)
+})
+
+test('a closed snapped door keeps blocking the replaced wall slice', () => {
+  const door: VttWallSegment = {
+    id: 'door-1', kind: 'door', start: { x: 14, y: 10 }, end: { x: 15, y: 20 },
+    playerVisible: true, blocksEffects: true,
+    door: { open: false, locked: false, blocked: false, ajar: false },
+  }
+  const walls = applyDoorToWalls({
+    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 10, y: 0 }, end: { x: 10, y: 30 }, playerVisible: true, blocksEffects: true }],
+    door,
+    createId: () => 'wall-slice',
+    snapTolerance: 6,
+  })
+
+  assert.equal(isMovementBlockedBySceneWalls({ from: { x: 0, y: 15 }, to: { x: 20, y: 15 }, walls }), true)
+})
+
+test('a door is not created unless both ends are near the same wall', () => {
+  const walls: VttWallSegment[] = [
+    { id: 'wall-1', kind: 'wall', start: { x: 10, y: 0 }, end: { x: 10, y: 30 }, playerVisible: true, blocksEffects: true },
+    { id: 'wall-2', kind: 'wall', start: { x: 30, y: 0 }, end: { x: 30, y: 30 }, playerVisible: true, blocksEffects: true },
+  ]
+  const door: VttWallSegment = {
+    id: 'door-1', kind: 'door', start: { x: 11, y: 10 }, end: { x: 29, y: 20 },
+    playerVisible: true, blocksEffects: true,
+    door: { open: true, locked: false, blocked: false, ajar: false },
+  }
+
+  assert.equal(applyDoorToWalls({ walls, door, createId: () => 'unused', snapTolerance: 3 }), walls)
 })

@@ -30,6 +30,9 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * A alteracao do formato do grid entre quadrado e hexagonal deve produzir o novo snapshot da cena no primeiro clique.
 * A ferramenta de paredes cria um segmento com arraste comum e quatro segmentos retangulares com `Ctrl+arraste`.
 * Portas podem dividir um segmento de parede e persistem os estados `open`, `locked`, `blocked` e `ajar`; quando `open` for verdadeiro, os demais estados devem ser falsos.
+* Ao desenhar uma porta, as duas extremidades podem estar dentro de uma tolerancia visual de `12px` renderizados do mesmo segmento de parede. O cliente projeta as extremidades para esse segmento, recorta a parede e persiste a porta exatamente sobre o trecho projetado.
+* Se as duas extremidades nao puderem ser associadas ao mesmo segmento dentro da tolerancia, a porta nao e criada. Portas isoladas ou ligando paredes diferentes nao fazem parte do contrato.
+* O trecho substituido pela porta nao pode permanecer como parede sobreposta. Porta aberta nao bloqueia movimento; porta fechada bloqueia.
 * Cenas sem imagem de background devem usar dimensoes canonicas compartilhadas de board, derivadas de `boardGridLimits`, do formato do grid e do tamanho de grid da cena, para que Mestre e Players online tenham exatamente a mesma quantidade de celulas jogaveis.
 * A modelagem deve permanecer compativel com um futuro fluxo `Construir cena`, onde elementos de construcao como paredes, chao, portas, janelas, escadas, buracos e colisao serao adicionados sem depender de imagem.
 
@@ -166,6 +169,7 @@ Regras:
 * `VttWallSegment.start` e `end` sao persistidos em pixels absolutos da cena antes do zoom.
 * A renderizacao aplica somente o zoom local aos pontos da parede; nao aplica `grid.size`, `offsetX` ou `offsetY`.
 * Ao desenhar uma parede, o ponteiro visual e convertido de pixels com zoom para pixels absolutos da cena.
+* A tolerancia visual para encaixe de porta e convertida para pixels absolutos da cena dividindo-a pelo zoom local, mantendo a mesma area de captura percebida em qualquer zoom.
 * Colisao converte o centro logico do token para pixels da cena usando `pixel = position * grid.size + offset` antes de testar os segmentos.
 * A migracao de coordenadas legadas multiplica cada ponto existente pelo `gridSize` vigente na respectiva cena uma unica vez.
 
@@ -401,6 +405,9 @@ Regras:
 * Alterar `metersPerCell` muda a medicao em metros do grid quadrado daquela cena.
 * Tokens mantem posicao logica ao alterar tamanho visual do grid.
 * Tokens acompanham o ajuste fino X/Y do grid, enquanto paredes permanecem ancoradas ao background.
+* Mestre consegue desenhar uma porta ate `12px` renderizados afastada de uma parede e a porta e encaixada exatamente nela, substituindo o trecho correspondente.
+* Uma porta que nao esteja proxima do mesmo segmento de parede em ambas as extremidades nao e criada.
+* Jogadores conseguem atravessar o trecho de uma porta aberta e sao bloqueados pelo mesmo trecho quando a porta esta fechada.
 * Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
 * Mestre consegue criar e testar token generico sem personagem, ficha, bestiario ou sistema de jogo.
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.
