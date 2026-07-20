@@ -9,6 +9,7 @@ import {
   tokenPixelPosition,
 } from '../domain/boardMath'
 import type { VttMeasurement, VttPlayerToken, VttWallSegment } from '../domain/types'
+import { resizedTokenSize, rotatedTokenDegrees } from '../domain/tokenTransform'
 import { TokenAvatar } from './TokenAvatar'
 
 export function VttWallsOverlay({ walls, drafts, zoomScale, isMasterView, canOpenWallMenu, onWallContextMenu }: {
@@ -147,8 +148,15 @@ export function PlayerToken({
   gridOffset,
   gridAreaRef,
   canDrag,
+  canSelect,
+  canResize,
+  canRotate,
+  selected = false,
   isMasterView,
   onMove,
+  onSelect,
+  onResize,
+  onRotate,
   onMeasureFromToken,
   selectedForMeasuredMovement = false,
   onContextMenu,
@@ -164,8 +172,15 @@ export function PlayerToken({
   gridOffset: { x: number; y: number }
   gridAreaRef: React.RefObject<HTMLDivElement | null>
   canDrag: boolean
+  canSelect: boolean
+  canResize: boolean
+  canRotate: boolean
+  selected?: boolean
   isMasterView: boolean
   onMove: (position: VttPlayerToken['position']) => void
+  onSelect: (token: VttPlayerToken) => void
+  onResize: (token: VttPlayerToken, size: number) => void
+  onRotate: (token: VttPlayerToken, rotation: number) => void
   onMeasureFromToken?: (event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) => void
   selectedForMeasuredMovement?: boolean
   onContextMenu: (token: VttPlayerToken, position: { x: number; y: number }) => void
@@ -176,14 +191,65 @@ export function PlayerToken({
   appliedAreaEffectColor?: string
 }) {
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, tokenX: 0, tokenY: 0 })
+  const transformRef = useRef<
+    | { kind: 'resize'; pointerId: number; center: { x: number; y: number }; initialDistance: number; initialSize: number; currentSize: number }
+    | { kind: 'rotate'; pointerId: number; center: { x: number; y: number }; previousAngle: number; currentRotation: number }
+    | null
+  >(null)
   const [dragging, setDragging] = useState(false)
-  const displaySize = tokenSize * token.size
+  const [draftSize, setDraftSize] = useState<number | null>(null)
+  const [draftRotation, setDraftRotation] = useState<number | null>(null)
+  const renderedSize = selected ? draftSize ?? token.size : token.size
+  const renderedRotation = selected ? draftRotation ?? token.rotation : token.rotation
+  const displaySize = tokenSize * renderedSize
   const basePosition = tokenPixelPosition(token, tokenSize, gridOffset)
   const position = {
     x: basePosition.x - (displaySize - tokenSize) / 2,
     y: basePosition.y - (displaySize - tokenSize) / 2,
   }
   const hasTransparentImage = Boolean(token.avatarUrl && token.color === null)
+
+  useEffect(() => {
+    function onPointerMove(event: PointerEvent) {
+      const transform = transformRef.current
+      if (!transform || transform.pointerId !== event.pointerId) return
+      const deltaX = event.clientX - transform.center.x
+      const deltaY = event.clientY - transform.center.y
+      if (transform.kind === 'resize') {
+        const size = resizedTokenSize(transform.initialSize, transform.initialDistance, Math.hypot(deltaX, deltaY))
+        transform.currentSize = size
+        setDraftSize(size)
+        return
+      }
+      const currentAngle = Math.atan2(deltaY, deltaX)
+      const rotation = rotatedTokenDegrees(transform.currentRotation, transform.previousAngle, currentAngle)
+      transform.previousAngle = currentAngle
+      transform.currentRotation = rotation
+      setDraftRotation(rotation)
+    }
+
+    function onPointerUp(event: PointerEvent) {
+      const transform = transformRef.current
+      if (!transform || transform.pointerId !== event.pointerId) return
+      transformRef.current = null
+      if (transform.kind === 'resize') {
+        onResize(token, transform.currentSize)
+        setDraftSize(null)
+        return
+      }
+      onRotate(token, transform.currentRotation)
+      setDraftRotation(null)
+    }
+
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+    window.addEventListener('pointercancel', onPointerUp)
+    return () => {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('pointercancel', onPointerUp)
+    }
+  }, [onResize, onRotate, token])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -220,6 +286,7 @@ export function PlayerToken({
   }, [displaySize, dragging, gridAreaRef, gridOffset, gridShape, onMove, tokenSize])
 
   function startDrag(event: React.PointerEvent<HTMLButtonElement>) {
+    if (event.button !== 0) return
     if (onSelectAsTarget) {
       event.preventDefault()
       event.stopPropagation()
@@ -246,6 +313,49 @@ export function PlayerToken({
   function openContextMenu(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
     onContextMenu(token, { x: event.clientX, y: event.clientY })
+  }
+
+  function selectToken(event: React.MouseEvent<HTMLButtonElement>) {
+    if (!canSelect) return
+    event.preventDefault()
+    event.stopPropagation()
+    transformRef.current = null
+    setDraftSize(null)
+    setDraftRotation(null)
+    onSelect(token)
+  }
+
+  function tokenCenterInViewport() {
+    const bounds = gridAreaRef.current?.getBoundingClientRect()
+    if (!bounds) return null
+    return { x: bounds.left + position.x + displaySize / 2, y: bounds.top + position.y + displaySize / 2 }
+  }
+
+  function startResize(event: React.PointerEvent<HTMLButtonElement>) {
+    if (!canResize || event.button !== 0) return
+    const center = tokenCenterInViewport()
+    if (!center) return
+    event.preventDefault()
+    event.stopPropagation()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    const initialDistance = Math.max(1, Math.hypot(event.clientX - center.x, event.clientY - center.y))
+    transformRef.current = { kind: 'resize', pointerId: event.pointerId, center, initialDistance, initialSize: token.size, currentSize: token.size }
+  }
+
+  function startRotation(event: React.PointerEvent<HTMLButtonElement>) {
+    if (!canRotate || event.button !== 0) return
+    const center = tokenCenterInViewport()
+    if (!center) return
+    event.preventDefault()
+    event.stopPropagation()
+    event.currentTarget.setPointerCapture(event.pointerId)
+    transformRef.current = {
+      kind: 'rotate',
+      pointerId: event.pointerId,
+      center,
+      previousAngle: Math.atan2(event.clientY - center.y, event.clientX - center.x),
+      currentRotation: token.rotation,
+    }
   }
 
   return (<>
@@ -279,7 +389,7 @@ export function PlayerToken({
       type="button"
       title={`Token de ${token.name}`}
       className={[
-        'absolute z-[5] grid place-items-center overflow-hidden rounded-full outline-none transition',
+        'absolute z-[5] grid place-items-center overflow-hidden rounded-full outline-none transition-[border-color,box-shadow,opacity,filter]',
         hasTransparentImage ? 'border-0 shadow-none' : 'border-2 shadow-2xl',
         dragging
           ? `cursor-grabbing ${hasTransparentImage ? '' : 'border-indigo-200 ring-4 ring-indigo-400/35'}`
@@ -298,15 +408,56 @@ export function PlayerToken({
         top: position.y,
         width: displaySize,
         height: displaySize,
-        transform: `rotate(${token.rotation}deg)`,
+        transform: `rotate(${renderedRotation}deg)`,
         zIndex: token.layer === 'OBJECT' ? 3 : token.layer === 'OVERLAY' ? 7 : 5,
       }}
       onPointerDown={startDrag}
+      onClick={(event) => event.stopPropagation()}
+      onDoubleClick={selectToken}
       onContextMenu={openContextMenu}
     >
       <span className="grid h-full w-full place-items-center text-lg font-bold text-white">
         <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
       </span>
     </button>
+    {selected && canSelect ? <div
+      aria-label={`Controles de transformacao do Token ${token.name}`}
+      className="pointer-events-none absolute z-[10] border border-dashed border-violet-200/80"
+      style={{
+        left: position.x,
+        top: position.y,
+        width: displaySize,
+        height: displaySize,
+        transform: `rotate(${renderedRotation}deg)`,
+      }}
+    >
+      {canResize ? ([
+        ['-left-2 -top-2', 'noroeste'],
+        ['-right-2 -top-2', 'nordeste'],
+        ['-right-2 -bottom-2', 'sudeste'],
+        ['-left-2 -bottom-2', 'sudoeste'],
+      ] as const).map(([className, corner]) => <button
+        key={corner}
+        type="button"
+        title={`Redimensionar Token pelo canto ${corner}`}
+        aria-label={`Redimensionar Token pelo canto ${corner}`}
+        className={`pointer-events-auto absolute h-4 w-4 rounded-full border-2 border-white bg-violet-500 shadow-[0_0_0_2px_rgba(76,29,149,0.75)] ${className} cursor-nwse-resize`}
+        style={{ touchAction: 'none' }}
+        onClick={(event) => event.stopPropagation()}
+        onPointerDown={startResize}
+      />) : null}
+      {canRotate ? <>
+        <span aria-hidden="true" className="absolute bottom-full left-1/2 h-10 border-l-2 border-dashed border-violet-200/90" />
+        <button
+          type="button"
+          title="Girar Token"
+          aria-label="Girar Token"
+          className="pointer-events-auto absolute -top-12 left-1/2 h-4 w-4 -translate-x-1/2 rounded-full border-2 border-white bg-amber-400 shadow-[0_0_0_2px_rgba(120,53,15,0.8)] cursor-grab active:cursor-grabbing"
+          style={{ touchAction: 'none' }}
+          onClick={(event) => event.stopPropagation()}
+          onPointerDown={startRotation}
+        />
+      </> : null}
+    </div> : null}
   </>)
 }

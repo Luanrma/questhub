@@ -26,7 +26,7 @@ const baseToken: VttPlayerToken = {
   position: { x: 1, y: 1 },
 }
 
-function renderToken(token: VttPlayerToken) {
+function renderToken(token: VttPlayerToken, selected = false) {
   return renderToStaticMarkup(
     <PlayerToken
       token={token}
@@ -35,8 +35,15 @@ function renderToken(token: VttPlayerToken) {
       gridOffset={{ x: 0, y: 0 }}
       gridAreaRef={{ current: null }}
       canDrag
+      canSelect
+      canResize
+      canRotate
+      selected={selected}
       isMasterView
       onMove={() => undefined}
+      onSelect={() => undefined}
+      onResize={() => undefined}
+      onRotate={() => undefined}
       onContextMenu={() => undefined}
     />,
   )
@@ -54,4 +61,12 @@ test('token with an explicit background keeps the default circular border and ri
 
   assert.match(markup, /border-2 shadow-2xl/)
   assert.match(markup, /ring-black/)
+})
+
+test('selected token renders four resize handles and one rotation handle', () => {
+  const markup = renderToken(baseToken, true)
+
+  assert.equal((markup.match(/aria-label="Redimensionar Token pelo canto/g) ?? []).length, 4)
+  assert.match(markup, /aria-label="Girar Token"/)
+  assert.match(markup, /border-dashed border-violet-200/)
 })

@@ -109,6 +109,74 @@ test('blocking wall removes line of effect to a touched token', () => {
   assert.deepEqual(calculateAreaRender(placement(ignoredTemplate), blockedContext).touchedTokenIds, ['inside'])
 })
 
+test('blocking wall truncates a nearby line without deforming its width', () => {
+  const blockedContext: AreaCalculationContext = {
+    ...context,
+    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 96, y: 0 }, end: { x: 96, y: 160 }, playerVisible: false, blocksEffects: true }],
+  }
+  const line = template({
+    shape: 'LINE',
+    propagationMode: 'BLOCKED_BY_WALLS',
+    dimensions: { length: 4, width: 2 },
+  })
+  const result = calculateAreaRender(placement(line), blockedContext)
+
+  assert.deepEqual(result.polygon.map((point) => Math.round(point.y)), [48, 48, 112, 112])
+  assert.deepEqual(result.polygon.map((point) => Math.round(point.x)), [80, 96, 96, 80])
+  assert.ok(Math.abs(result.polygon[1].x - result.polygon[2].x) < 0.0001)
+})
+
+test('blocking wall preserves the width of a rotated line', () => {
+  const rotationDegrees = 30
+  const radians = rotationDegrees * Math.PI / 180
+  const axis = { x: Math.cos(radians), y: Math.sin(radians) }
+  const normal = { x: -axis.y, y: axis.x }
+  const wallCenter = { x: 80 + axis.x * 16, y: 80 + axis.y * 16 }
+  const blockedContext: AreaCalculationContext = {
+    ...context,
+    walls: [{
+      id: 'wall-1',
+      kind: 'wall',
+      start: { x: wallCenter.x - normal.x * 100, y: wallCenter.y - normal.y * 100 },
+      end: { x: wallCenter.x + normal.x * 100, y: wallCenter.y + normal.y * 100 },
+      playerVisible: false,
+      blocksEffects: true,
+    }],
+  }
+  const linePlacement = { ...placement(template({
+    shape: 'LINE',
+    propagationMode: 'BLOCKED_BY_WALLS',
+    dimensions: { length: 4, width: 2 },
+  })), rotationDegrees }
+  const result = calculateAreaRender(linePlacement, blockedContext)
+  const toLocal = (point: { x: number; y: number }) => ({
+    x: (point.x - 80) * axis.x + (point.y - 80) * axis.y,
+    y: (point.x - 80) * normal.x + (point.y - 80) * normal.y,
+  })
+  const localPolygon = result.polygon.map(toLocal)
+
+  assert.deepEqual(localPolygon.map((point) => Math.round(point.x)), [0, 16, 16, 0])
+  assert.deepEqual(localPolygon.map((point) => Math.round(point.y)), [-32, -32, 32, 32])
+})
+
+test('wall touching only the side of a line does not reduce its reach to a token', () => {
+  const sideWallContext: AreaCalculationContext = {
+    ...context,
+    walls: [{ id: 'wall-1', kind: 'wall', start: { x: 160, y: 100 }, end: { x: 160, y: 150 }, playerVisible: false, blocksEffects: true }],
+    tokens: [{ ...context.tokens[0], id: 'near-end', position: { x: 5.5, y: 2.5 } }],
+  }
+  const line = template({
+    shape: 'LINE',
+    propagationMode: 'BLOCKED_BY_WALLS',
+    tokenIntersectionRule: 'ANY_OVERLAP',
+    dimensions: { length: 4, width: 2 },
+  })
+  const result = calculateAreaRender(placement(line), sideWallContext)
+
+  assert.deepEqual(result.polygon.map((point) => Math.round(point.x)), [80, 208, 208, 80])
+  assert.deepEqual(result.touchedTokenIds, ['near-end'])
+})
+
 test('hexagonal projection emits real hexagon cells', () => {
   const hexContext: AreaCalculationContext = { ...context, grid: { ...context.grid, shape: 'hex' } }
   const result = calculateAreaRender(placement(template({ dimensions: { radius: 2 } })), hexContext)

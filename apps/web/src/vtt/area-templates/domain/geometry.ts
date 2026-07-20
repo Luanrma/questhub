@@ -191,6 +191,23 @@ function clipTargetAtWalls(origin: AreaPoint, target: AreaPoint, walls: VttWallS
   return { x: origin.x + ray.x * safeAmount, y: origin.y + ray.y * safeAmount }
 }
 
+function clipLineAtWalls(placement: AreaPlacement, polygon: AreaPoint[], walls: VttWallSegment[]) {
+  const toLocal = (point: AreaPoint) => rotate({ x: point.x - placement.origin.x, y: point.y - placement.origin.y }, -placement.rotationDegrees)
+  const localPolygon = polygon.map(toLocal)
+  const length = Math.max(...localPolygon.map((point) => point.x))
+  const halfWidth = Math.max(...localPolygon.map((point) => Math.abs(point.y)))
+  const transform = (point: AreaPoint) => translate(rotate(point, placement.rotationDegrees), placement.origin)
+  const clippedTarget = clipTargetAtWalls(placement.origin, transform({ x: length, y: 0 }), walls)
+  const safeLength = Math.max(0, Math.min(length, toLocal(clippedTarget).x))
+  if (safeLength >= length - EPSILON) return polygon
+  return [
+    { x: 0, y: -halfWidth },
+    { x: safeLength, y: -halfWidth },
+    { x: safeLength, y: halfWidth },
+    { x: 0, y: halfWidth },
+  ].map(transform)
+}
+
 function squareCells(box: ReturnType<typeof boundingBox>, context: AreaCalculationContext) {
   const size = context.grid.size
   const offsetX = context.grid.offsetX
@@ -310,7 +327,9 @@ export function calculateAreaRender(placement: AreaPlacement, context: AreaCalcu
   const built = buildAreaPolygon(placement, context)
   if (placement.template.shape === 'TARGET') return { ...placement, polygon: [], coveredCells: [], touchedTokenIds: [] }
   const polygon = placement.template.propagationMode === 'BLOCKED_BY_WALLS'
-    ? built.polygon.map((point) => clipTargetAtWalls(placement.origin, point, context.walls))
+    ? placement.template.shape === 'LINE'
+      ? clipLineAtWalls(placement, built.polygon, context.walls)
+      : built.polygon.map((point) => clipTargetAtWalls(placement.origin, point, context.walls))
     : built.polygon
   const innerPolygon = built.innerPolygon
   const candidates = !context.grid.visible ? [] : context.grid.shape === 'hex' ? hexCells(boundingBox(polygon), context) : squareCells(boundingBox(polygon), context)

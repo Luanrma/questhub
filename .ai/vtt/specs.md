@@ -111,6 +111,12 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Conceder o controle a outro jogador substitui o controlador anterior.
 * O controle-base permite selecionar, movimentar, rotacionar, medir deslocamento e usar interações operacionais permitidas no tabuleiro.
 * O controle-base não permite alterar nome, imagem, tamanho, camada, visibilidade, vínculo, controlador, cena ou excluir o Token.
+* Duplo clique com o botao esquerdo seleciona um Token controlavel e exibe seus controles de transformacao. Clique fora do Token ou `Escape` limpa a selecao.
+* O duplo clique continua disponivel depois de interagir com a toolbar ou paineis laterais. Quando necessario, ele encerra a ferramenta transitoria atual, ativa `Selecionar` e entao seleciona o Token. A selecao manual de alvos `TARGET` permanece exclusiva enquanto estiver ativa.
+* A selecao do Mestre exibe quatro handles diagonais proximos ao Token para redimensionamento proporcional e um handle superior afastado, ligado por uma haste tracejada, para rotacao. O tamanho varia em passos de `0.25`, entre `0.25x` e `20x`, preservando o centro do Token.
+* A selecao do jogador controlador exibe o handle de rotacao, mas nao os handles de tamanho, pois o controle-base nao autoriza alterar `CampaignToken.size`.
+* Arrastar um handle produz preview local continuo e confirma apenas um update ao soltar. Rotacao usa o evento autoritativo existente `vtt:token:rotate`; tamanho usa a atualizacao HTTP de metadados do Token, restrita ao Mestre.
+* Ao cruzar o eixo angular inicial, o preview de rotacao deve continuar pelo menor delta entre eventos consecutivos, sem animar uma volta de 360 graus. O handle de rotacao permanece sobre o topo visual do Token durante todo o gesto.
 * O Mestre pode conceder ao jogador controlador uma única permissão adicional de personalização, que autoriza conjuntamente a alteração de nome e imagem.
 * O jogador controlador não pode remover o Token de uma cena nem posicioná-lo em outra.
 * Quando o jogador controlador deixa a campanha, `controllerMemberId` é removido automaticamente; o Token permanece sob autoridade do Mestre.

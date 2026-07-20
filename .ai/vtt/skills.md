@@ -18,3 +18,4 @@
 * Estados de porta devem ser normalizados: uma porta aberta nao pode permanecer trancada, obstruida ou encostada.
 * Controles de grid devem calcular e publicar o proximo estado de forma atomica para evitar atualizacoes com props defasadas.
 * Paineis administrativos flutuantes devem ser arrastaveis, redimensionaveis, minimizaveis e independentes entre si.
+* Controles de transformacao de Token usam preview local durante o arraste e publicam uma unica alteracao confirmada ao soltar o ponteiro; tamanho e limitado e quantizado no dominio. A rotacao acumula deltas angulares continuos durante o gesto e e normalizada entre 0 e 359 graus apenas na confirmacao.

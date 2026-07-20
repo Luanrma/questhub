@@ -32,6 +32,7 @@ O Mestre precisa representar rapidamente explosoes, cones, linhas, auras e outra
 * Excluir ou alterar template nao altera instancias existentes.
 * Excluir instancia nao altera template.
 * Paredes declaram `blocksEffects` separadamente de visibilidade e movimento.
+* Linhas bloqueadas por paredes preservam sua largura configurada: o primeiro obstaculo que cruza seu eixo longitudinal reduz somente o comprimento, sem transformar o retangulo em trapezio ou perder alcance por um contato apenas lateral.
 * Nomes de templates sao compactos e limitados a 60 caracteres. Duplicacoes recebem um sufixo numerico estavel (`Copia1`, `Copia2`, ...), sem acumular textos de copia.
 * Quando destacada, a biblioteca permanece aberta durante o posicionamento para servir como acesso rapido do Mestre.
 * O editor compacta persistencia, paredes e visibilidade em uma unica linha. Na toolbar, persistencia oferece somente `Instantanea` e `Permanente`, e visibilidade usa os rotulos curtos `Mestre` e `Todos`.

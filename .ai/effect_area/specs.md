@@ -170,7 +170,7 @@ O editor deve enviar somente `AreaTemplateInput`. Campos de leitura da entidade 
 
 `VttWallSegment` ganha `blocksEffects: boolean`. Segmentos antigos normalizam para `true` quando `kind === 'wall'` ou quando a porta nao esta aberta. O editor permite alterar esse campo sem modificar `playerVisible` ou as regras de movimento.
 
-`BLOCKED_BY_WALLS` remove amostras/celulas sem linha de efeito. Para `LINE` com `stopAtFirstObstacle`, o comprimento visual e truncado no primeiro segmento bloqueador. `IGNORE_WALLS` nao consulta paredes.
+`BLOCKED_BY_WALLS` remove amostras/celulas sem linha de efeito. Para `LINE`, o comprimento visual e truncado uniformemente no primeiro segmento bloqueador que cruza seu eixo longitudinal; a largura permanece constante e a geometria continua retangular, inclusive quando a origem esta proxima da parede. Um segmento que toca somente a lateral da faixa nao reduz o alcance longitudinal. `stopAtFirstObstacle` permanece no snapshot por compatibilidade com o contrato generico. `IGNORE_WALLS` nao consulta paredes.
 
 ## 9. Criterios de aceite cobertos pelo MVP
 

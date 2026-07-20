@@ -63,6 +63,7 @@ import {
   tokenGridPositionFromPixelCenter,
 } from './domain/boardMath'
 import { appendMovementPoint, areMovementPointsEqual, movementPathDistance, truncatePathAtPoint } from './domain/tokenMovement'
+import { normalizeTokenRotation } from './domain/tokenTransform'
 import {
   filenameEquals,
   getDefaultSceneDimensions,
@@ -206,6 +207,7 @@ export function CampaignOverviewPage({
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [campaignPlayers, setCampaignPlayers] = useState<CampaignPlayer[]>([])
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
+  const [selectedTokenId, setSelectedTokenId] = useState<string | null>(null)
   const [tokenImageEditTarget, setTokenImageEditTarget] = useState<CampaignToken | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
@@ -1489,6 +1491,7 @@ export function CampaignOverviewPage({
     measuredMovementTokenIdRef.current = null
     setWallDrafts([])
     setWallContextMenu(null)
+    setSelectedTokenId(null)
     if (!preserveMovementLine) {
       measurementRef.current = null
       setMeasurement(null)
@@ -1632,6 +1635,12 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
+  function selectTokenForTransform(token: VttPlayerToken) {
+    clearTransientTools()
+    setActiveTool('select')
+    setSelectedTokenId(token.id)
+  }
+
   function removeTokens(scope: 'scene' | 'global') {
     if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
     if (scope === 'scene' && !activeScene) return
@@ -1673,19 +1682,33 @@ export function CampaignOverviewPage({
     setTokenContextMenu(null)
   }
 
-  function rotateToken(token: VttPlayerToken, delta: number) {
+  function setTokenRotation(token: VttPlayerToken, rotation: number) {
     if (!campaignId || !socket) return
     const canRotate = Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id)
     if (!canRotate) return
-    const rotation = ((token.rotation + delta) % 360 + 360) % 360
+    const normalizedRotation = normalizeTokenRotation(rotation)
     setTokenState((current) => ({
       ...current,
-      tokens: current.tokens.map((item) => item.id === token.id ? { ...item, rotation } : item),
+      tokens: current.tokens.map((item) => item.id === token.id ? { ...item, rotation: normalizedRotation } : item),
     }))
     setTokenContextMenu((current) => current?.token.id === token.id
-      ? { ...current, token: { ...current.token, rotation } }
+      ? { ...current, token: { ...current.token, rotation: normalizedRotation } }
       : current)
-    socket.emit('vtt:token:rotate', { campaignId, tokenId: token.id, rotation })
+    socket.emit('vtt:token:rotate', { campaignId, tokenId: token.id, rotation: normalizedRotation })
+  }
+
+  function rotateToken(token: VttPlayerToken, delta: number) {
+    setTokenRotation(token, token.rotation + delta)
+  }
+
+  function resizeToken(token: VttPlayerToken, size: number) {
+    if (!campaignId || !isMaster) return
+    setTokenState((current) => ({
+      ...current,
+      tokens: current.tokens.map((item) => item.id === token.id ? { ...item, size } : item),
+    }))
+    setCampaignTokens((current) => current.map((item) => item.id === token.id ? { ...item, size } : item))
+    void updateCampaignToken(token.id, { size })
   }
 
   function setTokenLayer(token: VttPlayerToken, layer: VttPlayerToken['layer']) {
@@ -2170,6 +2193,7 @@ export function CampaignOverviewPage({
       <section
         className="absolute inset-0 min-h-0 overflow-hidden bg-[#0b0d12]"
         onClick={() => {
+          setSelectedTokenId(null)
           setTokenContextMenu(null)
           setWallContextMenu(null)
           setAreaEffectContextMenu(null)
@@ -2313,8 +2337,18 @@ export function CampaignOverviewPage({
                     Boolean(isMaster)
                   )
                 }
+                canSelect={
+                  !(activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET') &&
+                  (Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id))
+                }
+                canResize={Boolean(isMaster)}
+                canRotate={Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id)}
+                selected={selectedTokenId === token.id}
                 isMasterView={Boolean(isMaster)}
                 onMove={(position) => movePlayerToken(token, position)}
+                onSelect={selectTokenForTransform}
+                onResize={resizeToken}
+                onRotate={setTokenRotation}
                 onMeasureFromToken={beginMeasuredMovement}
                 selectedForMeasuredMovement={measuredMovementTokenId === token.id}
                 onContextMenu={(contextToken, position) => setTokenContextMenu({ token: contextToken, ...position })}
@@ -2334,7 +2368,7 @@ export function CampaignOverviewPage({
             ) : null}
             {activeTool === 'walls' && isMaster && activeScene ? (
               <div
-                className="absolute inset-0 z-[5] cursor-crosshair"
+                className="absolute inset-0 z-[2] cursor-crosshair"
                 onPointerDown={startWall}
                 onPointerMove={updateWall}
                 onPointerUp={finishWall}

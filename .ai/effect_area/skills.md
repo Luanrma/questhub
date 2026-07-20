@@ -36,6 +36,7 @@ Backend em `apps/api/src/modules/effect_area/`:
 * Efeitos visuais ortogonais usam uma unica mascara SVG composta pelas celulas cobertas quando elas existem; sem grid visivel, a animacao usa diretamente o losango continuo. Nao ha pattern ou animacao separado por celula.
 * `ANY_OVERLAP`, `CENTER_INSIDE`, `HALF_OR_MORE` e `FULLY_INSIDE` sao suportados para celulas e tokens no motor geometrico.
 * Bloqueio por paredes usa linha de efeito entre origem e amostras da forma. `SPREAD_AROUND_WALLS` e validado no contrato, mas nao pode ser criado pelo editor do MVP.
+* `LINE` e tratada como uma faixa orientada no bloqueio: o raio longitudinal central determina o comprimento truncado, preservando lados paralelos e largura constante. Intersecoes apenas laterais nao encurtam o eixo; celulas e tokens continuam sujeitos a linha de efeito.
 * Prisma armazena configuracoes flexiveis em JSON, protegidas por schemas Zod na entrada e por normalizacao na saida.
 * Snapshots sao copias JSON independentes do template.
 * `TARGET` reutiliza o campo JSON `dimensions.targetCount` para manter a mudanca aditiva sem nova coluna; o schema Zod garante inteiro entre 1 e 100.
