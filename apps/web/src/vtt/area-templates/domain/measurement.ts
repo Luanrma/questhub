@@ -6,6 +6,10 @@ export function metersToFeet(meters: number) {
   return meters / metersPerFoot
 }
 
+export function feetToMeters(feet: number) {
+  return feet * metersPerFoot
+}
+
 export function measurementUnitInMeters(unit: string | undefined) {
   return unit?.toLowerCase() === 'ft' ? metersPerFoot : 1
 }

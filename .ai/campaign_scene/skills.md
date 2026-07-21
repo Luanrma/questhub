@@ -5,6 +5,7 @@
 * Socket.IO para snapshots e eventos realtime de cena, grid, tokens e pausa.
 * Fastify para rotas HTTP do modulo.
 * Prisma e PostgreSQL para persistencia de cenas, tokens, grid e estado de visualizacao por campanha.
+* O modulo `fog_of_war` persiste configuracao de cena e fontes fixas sem transferir calculo de frames para o backend.
 * Zod para validar payloads HTTP e Socket.IO.
 * Firebase Storage via modulo `assets` para imagens de cena.
 * Cache do navegador para armazenar imagens de cena no client.
@@ -25,6 +26,8 @@
 * Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
 * Scene Wall Editing: segmentos, retangulos e portas sao editados como estado visual generico da cena e preservados no mesmo snapshot.
 * Door-to-Wall Snap: a criacao de porta usa tolerancia visual convertida para pixels absolutos da cena e projeta as duas extremidades sobre um unico segmento de parede.
+* Scene Fog Configuration: a cena persiste somente configuracao e fontes fixas; mascaras de exploracao usam entidade propria do modulo `fog_of_war`.
+* Shared Metric Scale: `metersPerCell` e canonico para calculos metricos em grid quadrado e hexagonal, mesmo quando a exibicao hexagonal mede movimento por passos. A UI pode editar/exibir pes usando `1ft = 0.3048m`, sem persistir uma segunda escala.
 * Asset-backed Backgrounds: quando houver imagem de cena, ela deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.
@@ -38,7 +41,8 @@
 * Nao emitir snapshot completo de cena como resposta normal a drop ou movimento de token durante sessao online.
 * Nao usar `LoadingScreen` global para esconder deformacao causada por drop, movimento, remocao ou invisibilidade de token.
 * Nao usar `squareMeters` como escala canonica nova; grid quadrado deve usar `metersPerCell`.
-* Nao aplicar escala metrificada ao grid hexagonal.
+* Nao remover `metersPerCell` do grid hexagonal; movimento pode continuar contando passos, mas alcance de visao e luz usa a escala metrica da cena.
+* Nao inferir distancia fisica apenas de `grid.size`: pixels calibram o desenho sobre o mapa e `metersPerCell` define a distancia do mundo.
 * Nao multiplicar coordenadas persistidas de paredes por `grid.size` nem somar o deslocamento fino do grid.
 * Nao persistir porta isolada, ligada a paredes diferentes ou sobreposta a um trecho de parede que continue bloqueando movimento.
 * Nao permitir que jogador edite grid, cena ou distribuicao de tokens.
@@ -53,3 +57,4 @@
 * Nao exigir upload de imagem para criar, selecionar ou preparar cena.
 * Nao usar URL assinada como unica referencia persistida da imagem.
 * Nao ignorar cache do client quando `backgroundCacheKey` ainda for valido.
+* Nao armazenar mascaras de exploracao no JSON da cena nem regravar `CampaignScene` por frame.

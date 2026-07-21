@@ -182,6 +182,9 @@ export function normalizeTableToken(token: VttPlayerToken, gridShape: VttGridSha
     hidden: Boolean(token.hidden),
     rotation: token.rotation ?? 0,
     layer: token.layer ?? 'TOKEN',
+    visionConfig: token.visionConfig ?? {},
+    lightConfig: token.lightConfig ?? {},
+    blocksVisionAndLight: Boolean(token.blocksVisionAndLight),
     position: normalizeTokenPosition(token.position, gridShape),
   }
 }

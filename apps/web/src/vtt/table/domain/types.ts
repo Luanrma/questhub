@@ -1,6 +1,7 @@
 import type { VttGridSettings } from '../../grid'
+import type { FogFixedLightSource } from '../../fog-of-war/domain/types'
 
-export type VttToolId = 'select' | 'move' | 'grid' | 'dice' | 'tokens' | 'walls' | 'area-templates'
+export type VttToolId = 'select' | 'move' | 'grid' | 'dice' | 'tokens' | 'walls' | 'area-templates' | 'fog'
 
 export type VttGridBounds = {
   width: number
@@ -28,6 +29,9 @@ export type VttPlayerToken = {
   hidden: boolean
   rotation: number
   layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  visionConfig: unknown
+  lightConfig: unknown
+  blocksVisionAndLight: boolean
   position: {
     x: number
     y: number
@@ -70,6 +74,8 @@ export type VttTableScene = {
   grid: VttGridSettings
   tokens: VttPlayerToken[]
   walls: VttWallSegment[]
+  fogConfig: unknown
+  fixedLightSources: FogFixedLightSource[]
 }
 
 export type VttSceneChangedPayload = {
@@ -91,13 +97,15 @@ export type VttDoorState = {
 
 export type VttWallSegment = {
   id: string
-  kind: 'wall' | 'door'
+  kind: 'wall' | 'door' | 'window'
   start: VttMeasurementPoint
   end: VttMeasurementPoint
   color?: string
   playerVisible: boolean
   blocksEffects: boolean
+  allowsLight?: boolean
   door?: VttDoorState
+  window?: VttDoorState
 }
 
 export type VttWallsChangedPayload = {
@@ -136,6 +144,8 @@ export type CampaignToken = {
   color: string | null
   size: number
   canCustomizeAppearance: boolean
+  visionConfig: unknown
+  lightConfig: unknown
   controllerMemberId: string | null
   controllerUserId: string | null
   controllerName: string | null
@@ -147,6 +157,7 @@ export type CampaignToken = {
     position: { x: number; y: number }
     rotation: number
     layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+    blocksVisionAndLight: boolean
   } | null
 }
 
@@ -208,6 +219,8 @@ export type PreparedScene = {
   grid: VttGridSettings
   tokens: VttPlayerToken[]
   walls: VttWallSegment[]
+  fogConfig: unknown
+  fixedLightSources: FogFixedLightSource[]
   order: number
   error: string | null
   draft: boolean
@@ -224,6 +237,8 @@ export type CampaignSceneResponse = {
   grid: unknown
   tokens: VttPlayerToken[]
   walls?: unknown
+  fogConfig?: unknown
+  fixedLightSources?: unknown
   createdAt: string
   updatedAt: string
 }

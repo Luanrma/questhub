@@ -128,6 +128,8 @@ function presentCampaignToken(token: {
   color: string | null
   size: number
   canCustomizeAppearance: boolean
+  visionConfig: unknown
+  lightConfig: unknown
   createdAt: Date
   updatedAt: Date
   character: { userId: string; campaigns: Array<{ role: 'MASTER' | 'PLAYER' | 'NPC' }> } | null
@@ -139,6 +141,7 @@ function presentCampaignToken(token: {
     positionY: number
     rotation: number
     layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+    blocksVisionAndLight: boolean
   } | null
 }) {
   const characterRole = token.character?.campaigns[0]?.role
@@ -154,6 +157,8 @@ function presentCampaignToken(token: {
     color: token.color,
     size: token.size,
     canCustomizeAppearance: token.canCustomizeAppearance,
+    visionConfig: token.visionConfig,
+    lightConfig: token.lightConfig,
     controllerMemberId: token.controllerMember?.id ?? null,
     controllerUserId: token.controllerMember?.userId ?? null,
     controllerName: token.controllerMember?.user.email ?? null,
@@ -166,6 +171,7 @@ function presentCampaignToken(token: {
           position: { x: token.placement.positionX, y: token.placement.positionY },
           rotation: token.placement.rotation,
           layer: token.placement.layer,
+          blocksVisionAndLight: token.placement.blocksVisionAndLight,
         }
       : null,
     createdAt: token.createdAt,
@@ -191,6 +197,7 @@ const campaignTokenInclude = {
       positionY: true,
       rotation: true,
       layer: true,
+      blocksVisionAndLight: true,
     },
   },
 } as const

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
   BrickWall,
+  CloudFog,
   CircleMinus,
   CircleUserRound,
   Dice5,
@@ -49,6 +50,12 @@ import {
   type SceneAreaEffect,
 } from '../area-templates'
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../grid'
+import { FogControlsPanel, type FogSetupDraft } from '../fog-of-war/components/FogControlsPanel'
+import { FogLightTokens } from '../fog-of-war/components/FogLightTokens'
+import { FogOverlay, FogVisibleLayer } from '../fog-of-war/components/FogOverlay'
+import { normalizeFixedLightSources, normalizeSceneFogConfig } from '../fog-of-war/domain/config'
+import type { FogLightSourceConfig, TokenVisionConfig } from '../fog-of-war/domain/types'
+import { useFogOfWar } from '../fog-of-war/hooks/useFogOfWar'
 import { questhubTokenDragType, zoomLimits } from './config/constants'
 import {
   clampMeasurementPoint,
@@ -122,6 +129,7 @@ const toolButtons = [
   { id: 'tokens', label: 'Tokens', icon: CircleUserRound },
   { id: 'grid', label: 'Grid', icon: Grid3X3 },
   { id: 'walls', label: 'Paredes e portas', icon: BrickWall },
+  { id: 'fog', label: 'Fog of War', icon: CloudFog },
   { id: 'area-templates', label: 'Templates de Area', icon: Sparkles },
 ] as const
 
@@ -232,6 +240,7 @@ export function CampaignOverviewPage({
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([])
   const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)
+  const [fogSetupPreview, setFogSetupPreview] = useState<FogSetupDraft | null>(null)
   const [sceneSaveError, setSceneSaveError] = useState<string | null>(null)
   const [sceneSuccessMessage, setSceneSuccessMessage] = useState<string | null>(null)
   const [sceneSkippedFiles, setSceneSkippedFiles] = useState<string[]>([])
@@ -293,12 +302,44 @@ export function CampaignOverviewPage({
   const boardPixelSize = getBoardPixelSize(tokenSize, activeZoomPercent, activeScene, gridSettings.shape)
   const clampedPanOffset = clampPanOffset(panOffset, viewportBounds, boardPixelSize)
   const visibleToolButtons = toolButtons.filter((tool) => {
-    if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'walls' || tool.id === 'area-templates') return canConfigureGrid
+    if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'walls' || tool.id === 'area-templates' || tool.id === 'fog') return canConfigureGrid
     return true
   })
   const playersCanSeeSceneWalls = Boolean(activeScene?.walls.some((wall) => wall.kind === 'wall' && wall.playerVisible))
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
+  const selectedToken = visibleTokens.find((token) => token.id === selectedTokenId) ?? null
+  const fogPreviewTokens = fogSetupPreview?.token
+    ? visibleTokens.map((token) => token.id === fogSetupPreview.token?.id ? {
+      ...token,
+      visionConfig: fogSetupPreview.token.visionConfig,
+      blocksVisionAndLight: fogSetupPreview.token.blocksVisionAndLight,
+      } : token)
+    : visibleTokens
+  const fogPreviewScene = activeScene && fogSetupPreview ? {
+    ...activeScene,
+    fogConfig: fogSetupPreview.fogConfig,
+    fixedLightSources: fogSetupPreview.fixedLights,
+  } : activeScene
+  const mainCampaignToken = campaignTokens.find((token) => token.category === 'MAIN' && token.placement?.sceneId === activeScene?.id)
+  const fogVisionToken = isMaster
+    ? fogPreviewTokens.find((token) => token.id === selectedTokenId) ?? null
+    : fogPreviewTokens.find((token) => token.id === mainCampaignToken?.id && token.controllerUserId === me?.id) ?? null
+  const scaledSceneWalls = useMemo(() => scaleWallsForZoom(activeScene?.walls ?? [], activeZoomPercent), [activeScene?.walls, activeZoomPercent])
+  const fog = useFogOfWar({
+    campaignId,
+    scene: fogPreviewScene,
+    tokens: fogPreviewTokens,
+    walls: scaledSceneWalls,
+    grid: zoomedGridSettings,
+    board: boardPixelSize,
+    zoomPercent: activeZoomPercent,
+    visionToken: fogVisionToken,
+    isMaster: Boolean(isMaster),
+    sessionState,
+  })
+  const resetLocalFogExploration = fog.resetLocalExploration
+  const flushFogExploration = fog.flush
   const persistentAreaPlacements = useMemo<AreaPlacement[]>(() => areaLibrary.effects.map((effect) => ({
     key: `effect-${effect.id}`,
     effectId: effect.id,
@@ -619,6 +660,8 @@ export function CampaignOverviewPage({
               controllerMemberId: payload.token.controllerMemberId,
               controllerUserId: payload.token.controllerUserId,
               canCustomizeAppearance: payload.token.canCustomizeAppearance,
+              visionConfig: payload.token.visionConfig,
+              lightConfig: payload.token.lightConfig,
               placement: payload.sceneId
                 ? {
                     sceneId: payload.sceneId,
@@ -626,6 +669,7 @@ export function CampaignOverviewPage({
                     position: payload.token.position,
                     rotation: payload.token.rotation,
                     layer: payload.token.layer,
+                    blocksVisionAndLight: payload.token.blocksVisionAndLight,
                   }
                 : token.placement,
             }
@@ -731,6 +775,38 @@ export function CampaignOverviewPage({
       ))
     }
 
+    function onFogSceneConfigured(payload: { campaignId: string; sceneId: string; fogConfig: unknown; fixedLightSources: unknown }) {
+      if (payload.campaignId !== campaignId) return
+      const fixedLightSources = normalizeFixedLightSources(payload.fixedLightSources)
+      setActiveScene((current) => current?.id === payload.sceneId ? { ...current, fogConfig: payload.fogConfig, fixedLightSources } : current)
+      setPreparedScenes((current) => current.map((scene) => scene.id === payload.sceneId ? { ...scene, fogConfig: payload.fogConfig, fixedLightSources } : scene))
+    }
+
+    function onFogTokenVisionConfigured(payload: { campaignId: string; tokenId: string; visionConfig: unknown }) {
+      if (payload.campaignId !== campaignId) return
+      updateFogToken(payload.tokenId, { visionConfig: payload.visionConfig })
+    }
+
+    function onFogLightToggled(payload: { campaignId: string; tokenId: string; lightConfig: unknown }) {
+      if (payload.campaignId !== campaignId) return
+      updateFogToken(payload.tokenId, { lightConfig: payload.lightConfig })
+    }
+
+    function onFogPlacementOcclusionConfigured(payload: { campaignId: string; tokenId: string; blocksVisionAndLight: boolean }) {
+      if (payload.campaignId !== campaignId) return
+      updateFogToken(payload.tokenId, { blocksVisionAndLight: payload.blocksVisionAndLight })
+    }
+
+    function onFogExplorationReset(payload: { campaignId: string; sceneId: string }) {
+      if (payload.campaignId !== campaignId || payload.sceneId !== activeScene?.id) return
+      resetLocalFogExploration()
+    }
+
+    function onFogExplorationFlushRequest(payload: { campaignId: string }, ack?: () => void) {
+      if (payload.campaignId !== campaignId) return ack?.()
+      void flushFogExploration().finally(() => ack?.())
+    }
+
     socket.on('vtt:token:changed', onTokenChanged)
     socket.on('vtt:tokens:snapshot', onTokensSnapshot)
     socket.on('vtt:token:removed', onTokenRemoved)
@@ -743,6 +819,12 @@ export function CampaignOverviewPage({
     socket.on('vtt:scene:snapshot', onSceneSnapshot)
     socket.on('vtt:combat:changed', onCombatChanged)
     socket.on('vtt:walls:changed', onWallsChanged)
+    socket.on('fog:scene:configured', onFogSceneConfigured)
+    socket.on('fog:token:vision:configured', onFogTokenVisionConfigured)
+    socket.on('fog:light:toggled', onFogLightToggled)
+    socket.on('fog:placement:occlusion:configured', onFogPlacementOcclusionConfigured)
+    socket.on('fog:exploration:reset', onFogExplorationReset)
+    socket.on('fog:exploration:flush-request', onFogExplorationFlushRequest)
 
     if (isMaster) {
       socket.emit('vtt:scene:request', { campaignId })
@@ -766,8 +848,14 @@ export function CampaignOverviewPage({
       socket.off('vtt:scene:snapshot', onSceneSnapshot)
       socket.off('vtt:combat:changed', onCombatChanged)
       socket.off('vtt:walls:changed', onWallsChanged)
+      socket.off('fog:scene:configured', onFogSceneConfigured)
+      socket.off('fog:token:vision:configured', onFogTokenVisionConfigured)
+      socket.off('fog:light:toggled', onFogLightToggled)
+      socket.off('fog:placement:occlusion:configured', onFogPlacementOcclusionConfigured)
+      socket.off('fog:exploration:reset', onFogExplorationReset)
+      socket.off('fog:exploration:flush-request', onFogExplorationFlushRequest)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id, startSmoothTokenMovement])
+  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id, startSmoothTokenMovement, resetLocalFogExploration, flushFogExploration])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
@@ -948,6 +1036,8 @@ export function CampaignOverviewPage({
     if (!isOwnerMove && !isMasterMove) return
 
     const nextPosition = normalizeTokenPosition(position, gridSettings.shape, gridBounds, tokenSize)
+    const previousPosition = token.position
+    const fogCheckpoint = fog.createExplorationCheckpoint()
     setTokenState((current) => {
       if (current.campaignId !== campaignId) return current
       return {
@@ -955,7 +1045,11 @@ export function CampaignOverviewPage({
         tokens: current.tokens.map((item) => (item.id === token.id ? { ...item, position: nextPosition } : item)),
       }
     })
-    socket.emit('vtt:token:move', { campaignId, tokenId: token.id, position: nextPosition })
+    socket.emit('vtt:token:move', { campaignId, tokenId: token.id, position: nextPosition }, (response: { ok: boolean }) => {
+      if (response.ok) return
+      setTokenState((current) => ({ ...current, tokens: current.tokens.map((item) => item.id === token.id ? { ...item, position: previousPosition } : item) }))
+      fog.restoreExplorationCheckpoint(fogCheckpoint)
+    })
   }
 
   function publishMeasurement(nextMeasurement: VttMeasurement | null) {
@@ -1101,16 +1195,18 @@ export function CampaignOverviewPage({
   function createWallSegment(start: VttMeasurementPoint, end: VttMeasurementPoint): VttWallSegment | null {
     if (Math.hypot(end.x - start.x, end.y - start.y) <= 0.001) return null
 
-    if (wallKind === 'door') {
+    if (wallKind === 'door' || wallKind === 'window') {
+      const passage = normalizeDoorState({ ajar: true })
       return {
         id: createWallId(),
-        kind: 'door',
+        kind: wallKind,
         start,
         end,
-        color: doorColor,
+        color: wallKind === 'window' ? '#38bdf8' : doorColor,
         playerVisible: true,
         blocksEffects: true,
-        door: normalizeDoorState({ ajar: true }),
+        allowsLight: wallKind === 'window',
+        ...(wallKind === 'door' ? { door: passage } : { window: passage }),
       }
     }
 
@@ -1191,7 +1287,7 @@ export function CampaignOverviewPage({
     updateActiveSceneWalls((walls) => {
       if (segments.length > 1) return [...walls, ...segments]
       const [segment] = segments
-      if (segment.kind === 'door') return applyDoorToWalls({
+      if (segment.kind === 'door' || segment.kind === 'window') return applyDoorToWalls({
         walls,
         door: segment,
         createId: createWallId,
@@ -1203,12 +1299,16 @@ export function CampaignOverviewPage({
 
   function updateDoorState(wallId: string, patch: Partial<NonNullable<VttWallSegment['door']>>) {
     updateActiveSceneWalls((walls) => walls.map((wall) => {
-      if (wall.id !== wallId || wall.kind !== 'door') return wall
-      return { ...wall, door: normalizeDoorState({ ...wall.door, ...patch }) }
+      if (wall.id !== wallId || wall.kind === 'wall') return wall
+      return wall.kind === 'door'
+        ? { ...wall, door: normalizeDoorState({ ...wall.door, ...patch }) }
+        : { ...wall, window: normalizeDoorState({ ...wall.window, ...patch }) }
     }))
     setWallContextMenu((current) => {
-      if (!current || current.wall.id !== wallId || current.wall.kind !== 'door') return current
-      return { ...current, wall: { ...current.wall, door: normalizeDoorState({ ...current.wall.door, ...patch }) } }
+      if (!current || current.wall.id !== wallId || current.wall.kind === 'wall') return current
+      return current.wall.kind === 'door'
+        ? { ...current, wall: { ...current.wall, door: normalizeDoorState({ ...current.wall.door, ...patch }) } }
+        : { ...current, wall: { ...current.wall, window: normalizeDoorState({ ...current.wall.window, ...patch }) } }
     })
   }
 
@@ -1242,6 +1342,78 @@ export function CampaignOverviewPage({
     setAreaEffectContextMenu(null)
     setAreaHandleDragState(null)
     setSelectedAreaTargetIds([])
+  }
+
+  function updateFogToken(tokenId: string, patch: Partial<VttPlayerToken>) {
+    setTokenState((current) => ({ ...current, tokens: current.tokens.map((token) => token.id === tokenId ? { ...token, ...patch } : token) }))
+    setPreparedScenes((current) => current.map((scene) => ({ ...scene, tokens: scene.tokens.map((token) => token.id === tokenId ? { ...token, ...patch } : token) })))
+    setActiveScene((current) => current ? { ...current, tokens: current.tokens.map((token) => token.id === tokenId ? { ...token, ...patch } : token) } : current)
+    setCampaignTokens((current) => current.map((token) => token.id === tokenId ? { ...token, ...patch } : token))
+    setTokenContextMenu((current) => current?.token.id === tokenId ? { ...current, token: { ...current.token, ...patch } } : current)
+  }
+
+  async function configureTokenFog(tokenId: string, visionConfig: TokenVisionConfig, lightConfig: FogLightSourceConfig) {
+    if (!campaignId || !isMaster) throw new Error('Somente o Mestre pode configurar visão e iluminação.')
+    const encodedTokenId = encodeURIComponent(tokenId)
+    const [visionResult, lightResult] = await Promise.all([
+      api<{ visionConfig: unknown }>(`/api/campaigns/${encodeURIComponent(campaignId)}/tokens/${encodedTokenId}/vision`, {
+        method: 'PATCH',
+        body: JSON.stringify({ visionConfig }),
+      }),
+      api<{ lightConfig: unknown }>(`/api/campaigns/${encodeURIComponent(campaignId)}/tokens/${encodedTokenId}/light`, {
+        method: 'PATCH',
+        body: JSON.stringify({ lightConfig }),
+      }),
+    ])
+    updateFogToken(tokenId, { visionConfig: visionResult.visionConfig, lightConfig: lightResult.lightConfig })
+  }
+
+  async function applyFogSetup(draft: FogSetupDraft) {
+    if (!campaignId || !activeScene || !isMaster) throw new Error('Cena indisponível para configuração.')
+    const sceneId = activeScene.id
+    const explorationCheckpoint = fog.createExplorationCheckpoint()
+    const requests: Promise<unknown>[] = [
+      api(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(sceneId)}/fog`, {
+        method: 'PATCH',
+        body: JSON.stringify({ fogConfig: draft.fogConfig, fixedLightSources: draft.fixedLights }),
+      }),
+    ]
+    if (draft.token) {
+      const tokenId = encodeURIComponent(draft.token.id)
+      requests.push(
+        api(`/api/campaigns/${encodeURIComponent(campaignId)}/tokens/${tokenId}/vision`, { method: 'PATCH', body: JSON.stringify({ visionConfig: draft.token.visionConfig }) }),
+        api(`/api/campaigns/${encodeURIComponent(campaignId)}/tokens/${tokenId}/placement-occlusion`, { method: 'PATCH', body: JSON.stringify({ blocksVisionAndLight: draft.token.blocksVisionAndLight }) }),
+      )
+    }
+    await Promise.all(requests)
+    setActiveScene((current) => current?.id === sceneId ? { ...current, fogConfig: draft.fogConfig, fixedLightSources: draft.fixedLights } : current)
+    setPreparedScenes((current) => current.map((scene) => scene.id === sceneId ? { ...scene, fogConfig: draft.fogConfig, fixedLightSources: draft.fixedLights } : scene))
+    if (draft.token) updateFogToken(draft.token.id, {
+      visionConfig: draft.token.visionConfig,
+      blocksVisionAndLight: draft.token.blocksVisionAndLight,
+    })
+    fog.restoreExplorationCheckpoint(explorationCheckpoint)
+    setFogSetupPreview(null)
+  }
+
+  function moveFogLight(lightId: string, position: { x: number; y: number }) {
+    setFogSetupPreview((current) => current ? {
+      ...current,
+      fixedLights: current.fixedLights.map((light) => light.id === lightId ? { ...light, position } : light),
+    } : current)
+  }
+
+  function resetFogExploration() {
+    if (!campaignId || !activeScene || !isMaster) return
+    if (socket) {
+      socket.emit('fog:exploration:reset', { campaignId, sceneId: activeScene.id }, (response: { ok: boolean }) => {
+        if (!response.ok) setSceneSaveError('Não foi possível apagar a exploração da cena.')
+      })
+      return
+    }
+    void api(`/api/campaigns/${encodeURIComponent(campaignId)}/scenes/${encodeURIComponent(activeScene.id)}/fog/exploration`, { method: 'DELETE' })
+      .then(() => resetLocalFogExploration())
+      .catch(() => setSceneSaveError('Não foi possível apagar a exploração da cena.'))
   }
 
   function toggleAreaTarget(token: VttPlayerToken) {
@@ -1697,10 +1869,6 @@ export function CampaignOverviewPage({
     socket.emit('vtt:token:rotate', { campaignId, tokenId: token.id, rotation: normalizedRotation })
   }
 
-  function rotateToken(token: VttPlayerToken, delta: number) {
-    setTokenRotation(token, token.rotation + delta)
-  }
-
   function resizeToken(token: VttPlayerToken, size: number) {
     if (!campaignId || !isMaster) return
     setTokenState((current) => ({
@@ -1709,18 +1877,6 @@ export function CampaignOverviewPage({
     }))
     setCampaignTokens((current) => current.map((item) => item.id === token.id ? { ...item, size } : item))
     void updateCampaignToken(token.id, { size })
-  }
-
-  function setTokenLayer(token: VttPlayerToken, layer: VttPlayerToken['layer']) {
-    if (!campaignId || !socket || !isMaster) return
-    setTokenState((current) => ({
-      ...current,
-      tokens: current.tokens.map((item) => item.id === token.id ? { ...item, layer } : item),
-    }))
-    setTokenContextMenu((current) => current?.token.id === token.id
-      ? { ...current, token: { ...current.token, layer } }
-      : current)
-    socket.emit('vtt:token:layer', { campaignId, tokenId: token.id, layer })
   }
 
   function startCombat() {
@@ -1792,6 +1948,8 @@ export function CampaignOverviewPage({
         controllerUserId: token.controllerUserId,
         ownerName: token.controllerName,
         canCustomizeAppearance: token.canCustomizeAppearance,
+        visionConfig: token.visionConfig,
+        lightConfig: token.lightConfig,
       } : item),
     }))
     setTokenContextMenu((current) => current?.token.id === token.id ? {
@@ -1807,6 +1965,8 @@ export function CampaignOverviewPage({
         controllerUserId: token.controllerUserId,
         ownerName: token.controllerName,
         canCustomizeAppearance: token.canCustomizeAppearance,
+        visionConfig: token.visionConfig,
+        lightConfig: token.lightConfig,
       },
     } : current)
   }
@@ -2252,15 +2412,17 @@ export function CampaignOverviewPage({
               <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,rgba(99,102,241,0.10),transparent_36%),linear-gradient(180deg,rgba(8,9,12,0)_0%,rgba(8,9,12,0.72)_100%)]" />
             )}
             <VttGridOverlay key={gridRenderKey} settings={zoomedGridSettings} />
-            <VttWallsOverlay
-              walls={activeScene?.walls ?? []}
-              drafts={wallDrafts}
-              zoomScale={activeZoomPercent / 100}
-              isMasterView={Boolean(isMaster)}
-              canOpenWallMenu={Boolean(isMaster && activeTool !== 'walls')}
-              onWallContextMenu={(wall, position) => setWallContextMenu({ wall, ...position })}
-            />
-            <AreaOverlay areas={renderedAreas} />
+            <FogVisibleLayer maskUrl={fog.currentMaskUrl}>
+              <VttWallsOverlay
+                walls={activeScene?.walls ?? []}
+                drafts={wallDrafts}
+                zoomScale={activeZoomPercent / 100}
+                isMasterView={Boolean(isMaster)}
+                canOpenWallMenu={Boolean(isMaster && activeTool !== 'walls')}
+                onWallContextMenu={(wall, position) => setWallContextMenu({ wall, ...position })}
+              />
+              <AreaOverlay areas={renderedAreas} />
+            </FogVisibleLayer>
             {activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET' ? (
               <div className="pointer-events-auto absolute left-1/2 top-4 z-[20] flex -translate-x-1/2 items-center gap-3 rounded-lg border border-violet-300/30 bg-black/90 px-3 py-2 text-xs text-violet-100 shadow-xl backdrop-blur">
                 <span>{selectedAreaTargetIds.length >= (activeAreaTemplate.dimensions.targetCount ?? 1) ? 'Limite de alvos atingido' : 'Clique nos tokens para selecionar alvos'}</span>
@@ -2323,6 +2485,7 @@ export function CampaignOverviewPage({
                 <span className="ml-2 font-normal text-zinc-400">{pendingAreaPlacement ? 'Previa pronta para usar' : 'Clique para fixar a direcao'}</span>
               </div>
             ) : null}
+            <FogVisibleLayer maskUrl={fog.currentMaskUrl}>
             {visibleTokens.map((token) => (
               <PlayerToken
                 key={token.id}
@@ -2359,7 +2522,17 @@ export function CampaignOverviewPage({
                 selectedAsTarget={selectedAreaTargetIds.includes(token.id)}
               />
             ))}
-            <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} gridOffset={{ x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY }} />
+              <VttMeasurementOverlay measurement={measurement} gridSize={tokenSize} metersPerCell={gridSettings.metersPerCell} gridOffset={{ x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY }} />
+            </FogVisibleLayer>
+            <FogOverlay overlayUrl={fog.overlayUrl} masterOpacity={fog.masterOverlayOpacity} />
+            {activeTool === 'fog' && isMaster && fogSetupPreview ? <FogLightTokens
+              lights={fogSetupPreview.fixedLights}
+              zoomPercent={activeZoomPercent}
+              gridSize={zoomedGridSettings.size}
+              metersPerCell={zoomedGridSettings.metersPerCell}
+              boardRef={gridAreaRef}
+              onMove={moveFogLight}
+            /> : null}
             {measuredMovementTokenId && realtimeVttEnabled ? (
               <div
                 className="absolute inset-0 z-[8] cursor-crosshair"
@@ -2382,6 +2555,19 @@ export function CampaignOverviewPage({
 
         <div className="pointer-events-none absolute inset-0 z-10 flex min-h-[560px] flex-col">
           <div className="relative flex-1">
+            {activeTool === 'fog' && isMaster && activeScene ? <FogControlsPanel
+              key={`${activeScene.id}:${selectedToken?.id ?? 'scene'}`}
+              sceneFog={normalizeSceneFogConfig(activeScene.fogConfig)}
+              fixedLights={normalizeFixedLightSources(activeScene.fixedLightSources)}
+              selectedToken={selectedToken}
+              masterMode={fog.masterMode}
+              onMasterModeChange={fog.setMasterMode}
+              onPreview={setFogSetupPreview}
+              previewDraft={fogSetupPreview}
+              onApply={applyFogSetup}
+              onResetExploration={resetFogExploration}
+              boardCenter={{ x: activeScene.width / 2, y: activeScene.height / 2 }}
+            /> : null}
             {toolsCollapsed ? (
               <button type="button" title="Expandir ferramentas" aria-label="Expandir ferramentas" className="pointer-events-auto absolute left-16 top-5 z-40 flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/45 text-zinc-200 shadow-2xl backdrop-blur transition hover:bg-white/10 hover:text-white" onClick={() => setToolsCollapsed(false)}>
                 <Wrench className="h-4 w-4" />
@@ -2471,9 +2657,9 @@ export function CampaignOverviewPage({
                   <button type="button" title="Fechar" className="rounded p-1 text-zinc-400 hover:bg-white/10 hover:text-white" onClick={() => setActiveTool(null)}><X className="h-4 w-4" /></button>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  {(['wall', 'door'] as const).map((kind) => (
+                  {(['wall', 'door', 'window'] as const).map((kind) => (
                     <button key={kind} type="button" className={['rounded-md border px-3 py-2 text-xs font-semibold transition', wallKind === kind ? 'border-sky-300/45 bg-sky-500/20 text-sky-100' : 'border-white/10 text-zinc-300 hover:bg-white/10'].join(' ')} onClick={() => setWallKind(kind)}>
-                      {kind === 'wall' ? 'Parede' : 'Porta'}
+                      {kind === 'wall' ? 'Parede' : kind === 'door' ? 'Porta' : 'Janela'}
                     </button>
                   ))}
                 </div>
@@ -2681,8 +2867,7 @@ export function CampaignOverviewPage({
                 tokenCandidates={tokenCandidates}
                 campaignPlayers={campaignPlayers}
                 onUpdateToken={(tokenId, changes) => void updateCampaignToken(tokenId, changes)}
-                onSetLayer={setTokenLayer}
-                onRotate={rotateToken}
+                onConfigureFog={configureTokenFog}
                 onToggleVisibility={toggleTokenVisibility}
                 onRemoveFromScene={removeToken}
                 onDelete={(token) => void deleteCampaignToken(token)}
@@ -2706,30 +2891,39 @@ export function CampaignOverviewPage({
                 onContextMenu={(event) => event.preventDefault()}
               >
                 <div className="border-b border-white/10 px-2 pb-2">
-                  <div className="truncate text-sm font-semibold">{wallContextMenu.wall.kind === 'door' ? 'Porta' : 'Parede'}</div>
+                  <div className="truncate text-sm font-semibold">{wallContextMenu.wall.kind === 'door' ? 'Porta' : wallContextMenu.wall.kind === 'window' ? 'Janela' : 'Parede'}</div>
                   <div className="truncate text-xs text-zinc-500">
-                    {wallContextMenu.wall.kind === 'door' ? 'Status da passagem' : 'Barreira da cena'}
+                    {wallContextMenu.wall.kind !== 'wall' ? 'Status da passagem' : 'Barreira da cena'}
                   </div>
                 </div>
-                {wallContextMenu.wall.kind === 'door'
+                {wallContextMenu.wall.kind !== 'wall'
                   ? [
                       { key: 'open' as const, label: 'Aberta', disabled: false },
-                      { key: 'locked' as const, label: 'Trancada', disabled: Boolean(wallContextMenu.wall.door?.open) },
-                      { key: 'blocked' as const, label: 'Obstruída', disabled: Boolean(wallContextMenu.wall.door?.open) },
-                      { key: 'ajar' as const, label: 'Encostada', disabled: Boolean(wallContextMenu.wall.door?.open) },
+                      { key: 'locked' as const, label: 'Trancada', disabled: Boolean((wallContextMenu.wall.door ?? wallContextMenu.wall.window)?.open) },
+                      { key: 'blocked' as const, label: 'Obstruída', disabled: Boolean((wallContextMenu.wall.door ?? wallContextMenu.wall.window)?.open) },
+                      { key: 'ajar' as const, label: 'Encostada', disabled: Boolean((wallContextMenu.wall.door ?? wallContextMenu.wall.window)?.open) },
                     ].map((item) => (
                       <label key={item.key} className="mt-2 flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-200 transition hover:bg-white/10">
                         <input
                           type="checkbox"
                           className="h-4 w-4 accent-sky-500"
                           disabled={item.disabled}
-                          checked={Boolean(wallContextMenu.wall.door?.[item.key])}
+                          checked={Boolean((wallContextMenu.wall.door ?? wallContextMenu.wall.window)?.[item.key])}
                           onChange={(event) => updateDoorState(wallContextMenu.wall.id, { [item.key]: event.currentTarget.checked })}
                         />
                         {item.label}
                       </label>
                     ))
                   : null}
+                {wallContextMenu.wall.kind === 'wall' ? <label className="mt-2 flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-200 transition hover:bg-white/10">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 accent-amber-500"
+                    checked={Boolean(wallContextMenu.wall.allowsLight)}
+                    onChange={(event) => updateActiveSceneWalls((walls) => walls.map((wall) => wall.id === wallContextMenu.wall.id ? { ...wall, allowsLight: event.currentTarget.checked } : wall))}
+                  />
+                  Permite passagem de luz
+                </label> : null}
                 <label className="mt-2 flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm text-zinc-200 transition hover:bg-white/10">
                   <input
                     type="checkbox"
@@ -2745,7 +2939,7 @@ export function CampaignOverviewPage({
                   onClick={() => removeWallSegment(wallContextMenu.wall.id)}
                 >
                   <Trash2 className="h-4 w-4" />
-                  {wallContextMenu.wall.kind === 'door' ? 'Remover porta' : 'Remover parede'}
+                  {wallContextMenu.wall.kind === 'door' ? 'Remover porta' : wallContextMenu.wall.kind === 'window' ? 'Remover janela' : 'Remover parede'}
                 </button>
               </div>
             ) : null}

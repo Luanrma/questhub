@@ -1,4 +1,5 @@
 import { defaultGridSettings, normalizeGridSettings, type VttGridSettings } from '../../grid'
+import { normalizeFixedLightSources } from '../../fog-of-war/domain/config'
 import { boardGridLimits, sceneImageMaxBytes, sceneImageMimeTypeLabels, sceneImageMimeTypes } from '../config/constants'
 import type { CampaignSceneResponse, PreparedScene, VttGridBounds, VttTableScene, VttWallSegment } from './types'
 
@@ -7,7 +8,7 @@ const hexRowStepUnits = Math.sqrt(3) / 2
 function isWallSegment(value: unknown): value is VttWallSegment {
   if (!value || typeof value !== 'object') return false
   const wall = value as VttWallSegment
-  if (wall.kind !== 'wall' && wall.kind !== 'door') return false
+  if (wall.kind !== 'wall' && wall.kind !== 'door' && wall.kind !== 'window') return false
   if (!wall.id || typeof wall.id !== 'string') return false
   if (!wall.start || !wall.end) return false
   if (!Number.isFinite(wall.start.x) || !Number.isFinite(wall.start.y)) return false
@@ -21,7 +22,8 @@ export function normalizeWallSegments(value: unknown): VttWallSegment[] {
     ...wall,
     color: typeof wall.color === 'string' && /^#[0-9a-fA-F]{6}$/.test(wall.color) ? wall.color : undefined,
     playerVisible: Boolean(wall.playerVisible),
-    blocksEffects: typeof wall.blocksEffects === 'boolean' ? wall.blocksEffects : wall.kind === 'wall' || !wall.door?.open,
+    blocksEffects: typeof wall.blocksEffects === 'boolean' ? wall.blocksEffects : wall.kind === 'wall' || !(wall.door ?? wall.window)?.open,
+    allowsLight: typeof wall.allowsLight === 'boolean' ? wall.allowsLight : wall.kind === 'window',
     ...(wall.kind === 'door' ? {
       door: wall.door?.open
         ? { open: true, locked: false, blocked: false, ajar: false }
@@ -30,6 +32,16 @@ export function normalizeWallSegments(value: unknown): VttWallSegment[] {
             locked: Boolean(wall.door?.locked),
             blocked: Boolean(wall.door?.blocked),
             ajar: Boolean(wall.door?.ajar),
+          },
+    } : {}),
+    ...(wall.kind === 'window' ? {
+      window: wall.window?.open
+        ? { open: true, locked: false, blocked: false, ajar: false }
+        : {
+            open: false,
+            locked: Boolean(wall.window?.locked),
+            blocked: Boolean(wall.window?.blocked),
+            ajar: Boolean(wall.window?.ajar),
           },
     } : {}),
   }))
@@ -125,6 +137,8 @@ export function sceneResponseToPreparedScene(scene: CampaignSceneResponse, index
     grid,
     tokens: scene.tokens,
     walls: normalizeWallSegments(scene.walls),
+    fogConfig: scene.fogConfig ?? {},
+    fixedLightSources: normalizeFixedLightSources(scene.fixedLightSources),
     order: scene.order,
     error: null,
     draft: false,
@@ -143,6 +157,8 @@ export function preparedSceneToTableScene(scene: PreparedScene, dimensions: VttG
     grid: scene.grid,
     tokens: scene.tokens,
     walls: scene.walls,
+    fogConfig: scene.fogConfig,
+    fixedLightSources: scene.fixedLightSources,
   }
 }
 

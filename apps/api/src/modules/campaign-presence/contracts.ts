@@ -46,7 +46,7 @@ const vttScenePointSchema = z.object({
   y: z.number().finite().min(0).max(100000),
 })
 
-const vttDoorStateSchema = z.object({
+const vttPassageStateSchema = z.object({
   open: z.boolean(),
   locked: z.boolean().default(false),
   blocked: z.boolean().default(false),
@@ -64,6 +64,7 @@ export const vttWallSegmentSchema = z.discriminatedUnion('kind', [
     color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
     playerVisible: z.boolean().default(false),
     blocksEffects: z.boolean().default(true),
+    allowsLight: z.boolean().default(false),
   }),
   z.object({
     id: z.string().min(1).max(200),
@@ -73,7 +74,18 @@ export const vttWallSegmentSchema = z.discriminatedUnion('kind', [
     color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
     playerVisible: z.boolean().default(false),
     blocksEffects: z.boolean().default(true),
-    door: vttDoorStateSchema,
+    door: vttPassageStateSchema,
+  }),
+  z.object({
+    id: z.string().min(1).max(200),
+    kind: z.literal('window'),
+    start: vttScenePointSchema,
+    end: vttScenePointSchema,
+    color: z.string().regex(/^#[0-9a-fA-F]{6}$/).optional(),
+    playerVisible: z.boolean().default(false),
+    blocksEffects: z.boolean().default(true),
+    allowsLight: z.boolean().default(true),
+    window: vttPassageStateSchema,
   }),
 ])
 
@@ -86,6 +98,8 @@ export const vttTableSceneSchema = z.object({
   width: z.number().int().min(1).max(100000),
   height: z.number().int().min(1).max(100000),
   walls: z.array(vttWallSegmentSchema).max(1000).default([]),
+  fogConfig: z.unknown().default({}),
+  fixedLightSources: z.array(z.unknown()).max(256).default([]),
 })
 
 export const vttSceneSelectSchema = z.object({
@@ -237,9 +251,12 @@ export type VttPlayerToken = {
   controllerUserId: string | null
   role: 'PLAYER' | 'NPC' | 'GENERIC'
   canCustomizeAppearance: boolean
+  visionConfig: unknown
+  lightConfig: unknown
   hidden: boolean
   rotation: number
   layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  blocksVisionAndLight: boolean
   position: VttTokenPosition
 }
 

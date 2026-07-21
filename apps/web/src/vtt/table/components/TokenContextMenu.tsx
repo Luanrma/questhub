@@ -7,6 +7,8 @@ import type {
   VttTokenContextMenu,
 } from '../domain/types'
 import { TokenImagePickerDialog } from './TokenImagePickerDialog'
+import { normalizeFogLightSource, normalizeTokenVisionConfig } from '../../fog-of-war/domain/config'
+import type { FogLightSourceConfig, TokenVisionConfig } from '../../fog-of-war/domain/types'
 
 const viewportPadding = 12
 const rootMenuWidth = 208
@@ -22,8 +24,7 @@ type TokenContextMenuProps = {
   tokenCandidates: VttTokenCandidate[]
   campaignPlayers: CampaignPlayer[]
   onUpdateToken: (tokenId: string, changes: Record<string, unknown>) => void
-  onSetLayer: (token: VttPlayerToken, layer: VttPlayerToken['layer']) => void
-  onRotate: (token: VttPlayerToken, delta: number) => void
+  onConfigureFog: (tokenId: string, visionConfig: TokenVisionConfig, lightConfig: FogLightSourceConfig) => Promise<void>
   onToggleVisibility: (token: VttPlayerToken) => void
   onRemoveFromScene: (token: VttPlayerToken) => void
   onDelete: (token: VttPlayerToken) => void
@@ -59,14 +60,21 @@ export function TokenContextMenu({
   tokenCandidates,
   campaignPlayers,
   onUpdateToken,
-  onSetLayer,
-  onRotate,
+  onConfigureFog,
   onToggleVisibility,
   onRemoveFromScene,
   onDelete,
 }: TokenContextMenuProps) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [imagePickerOpen, setImagePickerOpen] = useState(false)
+  const initialVision = normalizeTokenVisionConfig(menu.token.visionConfig)
+  const initialLight = normalizeFogLightSource(menu.token.lightConfig, `token-light:${menu.token.id}`)
+  const [visionRangeMeters, setVisionRangeMeters] = useState(initialVision.rangeMeters)
+  const [lightEnabled, setLightEnabled] = useState(initialLight.enabled)
+  const [lightRangeMeters, setLightRangeMeters] = useState(initialLight.rangeMeters)
+  const [fogSaving, setFogSaving] = useState(false)
+  const [fogSaveError, setFogSaveError] = useState<string | null>(null)
+  const [fogSaved, setFogSaved] = useState(false)
   const positions = getMenuPositions(menu)
   const token = menu.token
 
@@ -75,6 +83,28 @@ export function TokenContextMenu({
   function updateName() {
     const name = window.prompt('Nome do Token:', token.name)?.trim()
     if (name) onUpdateToken(token.id, { name })
+  }
+
+  async function saveFogSettings() {
+    setFogSaving(true)
+    setFogSaveError(null)
+    setFogSaved(false)
+    try {
+      const visionConfig = normalizeTokenVisionConfig({ rangeMeters: visionRangeMeters })
+      const lightConfig = normalizeFogLightSource({
+        ...initialLight,
+        enabled: lightEnabled,
+        rangeMeters: lightRangeMeters,
+      }, `token-light:${token.id}`)
+      await onConfigureFog(token.id, visionConfig, lightConfig)
+      setVisionRangeMeters(visionConfig.rangeMeters)
+      setLightRangeMeters(lightConfig.rangeMeters)
+      setFogSaved(true)
+    } catch (error) {
+      setFogSaveError(error instanceof Error ? error.message : 'Não foi possível salvar visão e iluminação.')
+    } finally {
+      setFogSaving(false)
+    }
   }
 
   return (
@@ -156,30 +186,52 @@ export function TokenContextMenu({
                   ))}
                 </select>
               </label>
-              <div className="mt-2 grid grid-cols-2 gap-2 px-2">
+              <section className="mt-2 grid gap-2 border-y border-white/10 px-2 py-2">
+                <div className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Visão e iluminação</div>
                 <label className="grid gap-1 text-[10px] font-semibold uppercase text-zinc-500">
-                  Tamanho
-                  <select
-                    value={token.size}
-                    className="rounded-md border border-white/10 bg-black/40 px-2 py-1.5 text-xs font-normal text-white"
-                    onChange={(event) => onUpdateToken(token.id, { size: Number(event.target.value) })}
-                  >
-                    {[0.5, 1, 1.5, 2, 3, 4].map((size) => <option key={size} value={size}>{size}x</option>)}
-                  </select>
+                  Alcance da visão (m)
+                  <input
+                    type="number"
+                    min="0.5"
+                    max="1000"
+                    step="0.5"
+                    value={visionRangeMeters}
+                    className="rounded-md border border-white/10 bg-black/40 px-2 py-1.5 text-xs font-normal normal-case text-white"
+                    onChange={(event) => { setVisionRangeMeters(Number(event.currentTarget.value)); setFogSaved(false) }}
+                  />
+                </label>
+                <label className="flex items-center gap-2 text-xs text-zinc-200">
+                  <input
+                    type="checkbox"
+                    checked={lightEnabled}
+                    className="h-4 w-4 accent-amber-500"
+                    onChange={(event) => { setLightEnabled(event.currentTarget.checked); setFogSaved(false) }}
+                  />
+                  Fonte de luz própria
                 </label>
                 <label className="grid gap-1 text-[10px] font-semibold uppercase text-zinc-500">
-                  Camada
-                  <select
-                    value={token.layer}
-                    className="rounded-md border border-white/10 bg-black/40 px-2 py-1.5 text-xs font-normal text-white"
-                    onChange={(event) => onSetLayer(token, event.target.value as VttPlayerToken['layer'])}
-                  >
-                    <option value="OBJECT">Objeto</option>
-                    <option value="TOKEN">Token</option>
-                    <option value="OVERLAY">Overlay</option>
-                  </select>
+                  Alcance da iluminação (m)
+                  <input
+                    type="number"
+                    min="0.5"
+                    max="1000"
+                    step="0.5"
+                    value={lightRangeMeters}
+                    className="rounded-md border border-white/10 bg-black/40 px-2 py-1.5 text-xs font-normal normal-case text-white disabled:opacity-50"
+                    onChange={(event) => { setLightRangeMeters(Number(event.currentTarget.value)); setFogSaved(false) }}
+                  />
                 </label>
-              </div>
+                {fogSaveError ? <p className="text-[10px] text-red-300">{fogSaveError}</p> : null}
+                {fogSaved ? <p className="text-[10px] text-emerald-300">Visão e iluminação salvas.</p> : null}
+                <button
+                  type="button"
+                  disabled={fogSaving}
+                  className="rounded-md bg-indigo-600 px-2 py-1.5 text-xs font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+                  onClick={() => void saveFogSettings()}
+                >
+                  {fogSaving ? 'Salvando...' : 'Salvar visão e luz'}
+                </button>
+              </section>
             </>
           ) : null}
 
@@ -203,11 +255,6 @@ export function TokenContextMenu({
               {token.canCustomizeAppearance ? '✓ Player pode alterar nome e imagem' : 'Player nao altera nome e imagem'}
             </button>
           ) : null}
-
-          <div className="grid grid-cols-2 gap-1 px-2 pb-1">
-            <button type="button" className="rounded-md bg-white/[0.05] px-2 py-1.5 text-xs hover:bg-white/10" onClick={() => onRotate(token, -45)}>↺ 45°</button>
-            <button type="button" className="rounded-md bg-white/[0.05] px-2 py-1.5 text-xs hover:bg-white/10" onClick={() => onRotate(token, 45)}>↻ 45°</button>
-          </div>
 
           {isMaster ? (
             <>

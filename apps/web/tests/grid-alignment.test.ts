@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { defaultGridSettings, normalizeGridSettings } from '../src/vtt/grid'
+import { feetToMeters, metersToFeet } from '../src/vtt/area-templates/domain/measurement'
+import { defaultGridSettings, metersPerCellAllowedValues, normalizeGridSettings, normalizeMetersPerCell } from '../src/vtt/grid'
 import { scaleGridSettings, scenePointToRenderedPixels, tokenGridPositionFromPixelCenter, tokenPixelPosition } from '../src/vtt/table/domain/boardMath'
 import type { VttPlayerToken } from '../src/vtt/table/domain/types'
 
@@ -35,4 +36,31 @@ test('wall scene coordinates ignore grid size and fine adjustment', () => {
   const afterGridCalibration = scenePointToRenderedPixels(point, 1)
   assert.deepEqual(afterGridCalibration, before)
   assert.deepEqual(scenePointToRenderedPixels(point, 1.5), { x: 360, y: 270 })
+})
+
+test('grid physical scale uses only coherent discrete meter values', () => {
+  assert.deepEqual(metersPerCellAllowedValues, [
+    0.5,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+    20, 30, 40, 50, 60, 70, 80, 90, 100,
+    200, 300, 400, 500, 600, 700, 800, 900, 1000,
+  ])
+
+  for (const shape of ['square', 'hex'] as const) {
+    const settings = normalizeGridSettings({ ...defaultGridSettings, shape, metersPerCell: 1.524 })
+    assert.equal(settings.metersPerCell, 2)
+  }
+})
+
+test('legacy grid scales normalize to the nearest allowed value and prefer the lower value on ties', () => {
+  assert.equal(normalizeMetersPerCell(0.01), 0.5)
+  assert.equal(normalizeMetersPerCell(1.5), 1)
+  assert.equal(normalizeMetersPerCell(16), 20)
+  assert.equal(normalizeMetersPerCell(150), 100)
+  assert.equal(normalizeMetersPerCell(5000), 1000)
+})
+
+test('grid and effect areas share the same meters and feet conversion', () => {
+  assert.equal(feetToMeters(5), 1.524)
+  assert.ok(Math.abs(metersToFeet(feetToMeters(5)) - 5) < Number.EPSILON)
 })

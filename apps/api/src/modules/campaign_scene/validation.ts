@@ -30,6 +30,7 @@ export const campaignSceneGridSchema = z.discriminatedUnion('shape', [
     size: z.number().int().min(24).max(96),
     offsetX: z.number().int().min(-96).max(96).default(0),
     offsetY: z.number().int().min(-96).max(96).default(0),
+    metersPerCell: z.number().positive().max(10000),
     hexMeasurementColor: colorHexSchema,
     lineWidth: z.number().int().min(1).max(4),
     color: colorHexSchema,
@@ -53,7 +54,7 @@ const campaignSceneWallPointSchema = z.object({
   y: z.number().finite().min(0).max(100000),
 })
 
-const campaignSceneDoorStateSchema = z.object({
+const campaignScenePassageStateSchema = z.object({
   open: z.boolean(),
   locked: z.boolean().default(false),
   blocked: z.boolean().default(false),
@@ -71,6 +72,7 @@ export const campaignSceneWallSchema = z.discriminatedUnion('kind', [
     color: colorHexSchema.optional(),
     playerVisible: z.boolean().default(false),
     blocksEffects: z.boolean().default(true),
+    allowsLight: z.boolean().default(false),
   }),
   z.object({
     id: z.string().trim().min(1).max(200),
@@ -80,7 +82,18 @@ export const campaignSceneWallSchema = z.discriminatedUnion('kind', [
     color: colorHexSchema.optional(),
     playerVisible: z.boolean().default(false),
     blocksEffects: z.boolean().default(true),
-    door: campaignSceneDoorStateSchema.default({ open: false, locked: false, blocked: false, ajar: true }),
+    door: campaignScenePassageStateSchema.default({ open: false, locked: false, blocked: false, ajar: true }),
+  }),
+  z.object({
+    id: z.string().trim().min(1).max(200),
+    kind: z.literal('window'),
+    start: campaignSceneWallPointSchema,
+    end: campaignSceneWallPointSchema,
+    color: colorHexSchema.optional(),
+    playerVisible: z.boolean().default(false),
+    blocksEffects: z.boolean().default(true),
+    allowsLight: z.boolean().default(true),
+    window: campaignScenePassageStateSchema.default({ open: false, locked: false, blocked: false, ajar: false }),
   }),
 ]).refine((wall) => Math.hypot(wall.end.x - wall.start.x, wall.end.y - wall.start.y) > 0.001, 'Segmento invalido')
 

@@ -22,6 +22,7 @@ export type PersistedSceneToken = {
   positionY: number
   rotation: number
   layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  blocksVisionAndLight: boolean
   token: {
     id: string
     characterId: string | null
@@ -30,6 +31,8 @@ export type PersistedSceneToken = {
     color: string | null
     size: number
     canCustomizeAppearance: boolean
+    visionConfig: unknown
+    lightConfig: unknown
     character: {
       userId: string
       campaigns: Array<{ role: 'PLAYER' | 'NPC' | 'MASTER' }>
@@ -89,9 +92,12 @@ export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPla
     controllerUserId: token.token.controllerMember?.userId ?? null,
     role,
     canCustomizeAppearance: token.token.canCustomizeAppearance,
+    visionConfig: token.token.visionConfig,
+    lightConfig: token.token.lightConfig,
     hidden: token.hidden,
     rotation: token.rotation,
     layer: token.layer,
+    blocksVisionAndLight: token.blocksVisionAndLight,
     position: {
       x: token.positionX,
       y: token.positionY,

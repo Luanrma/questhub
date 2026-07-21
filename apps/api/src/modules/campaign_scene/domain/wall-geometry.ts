@@ -7,22 +7,25 @@ type SceneWallSegmentBase = {
   color?: string
   playerVisible: boolean
   blocksEffects: boolean
+  allowsLight?: boolean
 }
 
 export type SceneWallSegment =
   | (SceneWallSegmentBase & { kind: 'wall' })
   | (SceneWallSegmentBase & { kind: 'door'; door: { open: boolean; locked: boolean; blocked: boolean; ajar: boolean } })
+  | (SceneWallSegmentBase & { kind: 'window'; window: { open: boolean; locked: boolean; blocked: boolean; ajar: boolean } })
 
 const epsilon = 0.000001
 
 function hasValidSceneWallShape(value: unknown) {
   if (!value || typeof value !== 'object') return false
-  const wall = value as { kind?: unknown; start?: Partial<SceneWallPoint>; end?: Partial<SceneWallPoint>; door?: unknown }
-  if (wall.kind !== 'wall' && wall.kind !== 'door') return false
+  const wall = value as { kind?: unknown; start?: Partial<SceneWallPoint>; end?: Partial<SceneWallPoint>; door?: unknown; window?: unknown }
+  if (wall.kind !== 'wall' && wall.kind !== 'door' && wall.kind !== 'window') return false
   if (!wall.start || !wall.end) return false
   if (!Number.isFinite(wall.start.x) || !Number.isFinite(wall.start.y)) return false
   if (!Number.isFinite(wall.end.x) || !Number.isFinite(wall.end.y)) return false
   if (wall.kind === 'door' && !wall.door) return false
+  if (wall.kind === 'window' && !wall.window) return false
 
   const start = wall.start as SceneWallPoint
   const end = wall.end as SceneWallPoint
@@ -33,11 +36,29 @@ function normalizeSceneWallSegment(value: unknown): SceneWallSegment | null {
   if (!hasValidSceneWallShape(value)) return null
 
   const wall = value as SceneWallSegment
-  if (wall.kind === 'wall') return { ...wall, playerVisible: wall.playerVisible ?? false, blocksEffects: wall.blocksEffects ?? true }
+  if (wall.kind === 'wall') return {
+    ...wall,
+    playerVisible: wall.playerVisible ?? false,
+    blocksEffects: wall.blocksEffects ?? true,
+    allowsLight: wall.allowsLight ?? false,
+  }
+  if (wall.kind === 'window') return {
+    ...wall,
+    playerVisible: wall.playerVisible ?? false,
+    blocksEffects: wall.blocksEffects ?? !wall.window.open,
+    allowsLight: wall.allowsLight ?? true,
+    window: {
+      open: wall.window.open,
+      locked: wall.window.locked,
+      blocked: wall.window.blocked,
+      ajar: wall.window.ajar,
+    },
+  }
   return {
     ...wall,
     playerVisible: wall.playerVisible ?? false,
     blocksEffects: wall.blocksEffects ?? !wall.door.open,
+    allowsLight: wall.allowsLight ?? wall.door.open,
     door: {
       open: wall.door.open,
       locked: wall.door.locked,
@@ -63,7 +84,20 @@ export function normalizeSceneWalls(value: unknown): SceneWallSegment[] {
 }
 
 export function isWallBlockingMovement(wall: SceneWallSegment) {
-  return wall.kind === 'wall' || !wall.door.open
+  if (wall.kind === 'wall') return true
+  if (wall.kind === 'window') return !wall.window.open
+  return !wall.door.open
+}
+
+export function isWallBlockingVision(wall: SceneWallSegment) {
+  if (wall.kind === 'wall') return true
+  if (wall.kind === 'window') return false
+  return !wall.door.open
+}
+
+export function isWallBlockingLight(wall: SceneWallSegment) {
+  if (wall.kind === 'door') return !wall.door.open
+  return !wall.allowsLight
 }
 
 function orientation(a: SceneWallPoint, b: SceneWallPoint, c: SceneWallPoint) {
