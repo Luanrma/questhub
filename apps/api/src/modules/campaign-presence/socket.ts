@@ -289,6 +289,7 @@ export function setupCampaignPresence(server: HttpServer) {
         positionY: true,
         rotation: true,
         layer: true,
+        blocksVisionAndLight: true,
         token: {
           include: {
             controllerMember: {
@@ -340,6 +341,8 @@ export function setupCampaignPresence(server: HttpServer) {
       controllerUserId: identity.controllerMember?.userId ?? null,
       role: role === 'PLAYER' ? 'PLAYER' as const : role === 'NPC' ? 'NPC' as const : 'GENERIC' as const,
       canCustomizeAppearance: identity.canCustomizeAppearance,
+      visionConfig: identity.visionConfig,
+      lightConfig: identity.lightConfig,
     }
   }
 
@@ -461,6 +464,7 @@ export function setupCampaignPresence(server: HttpServer) {
         positionY: true,
         rotation: true,
         layer: true,
+        blocksVisionAndLight: true,
         token: {
           include: {
             controllerMember: {
@@ -520,6 +524,7 @@ export function setupCampaignPresence(server: HttpServer) {
         positionY: number
         rotation: number
         layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+        blocksVisionAndLight: boolean
       }> = []
       for (const token of tokenMap.values()) {
         const sceneId = tokenSceneMap.get(token.id)
@@ -532,6 +537,7 @@ export function setupCampaignPresence(server: HttpServer) {
           positionY: token.position.y,
           rotation: token.rotation,
           layer: token.layer,
+          blocksVisionAndLight: token.blocksVisionAndLight,
         })
       }
 
@@ -571,6 +577,7 @@ export function setupCampaignPresence(server: HttpServer) {
         positionY: token.position.y,
         rotation: token.rotation,
         layer: token.layer,
+        blocksVisionAndLight: token.blocksVisionAndLight,
       },
       update: {
         sceneId,
@@ -579,6 +586,7 @@ export function setupCampaignPresence(server: HttpServer) {
         positionY: token.position.y,
         rotation: token.rotation,
         layer: token.layer,
+        blocksVisionAndLight: token.blocksVisionAndLight,
       },
     })
   }
@@ -639,6 +647,8 @@ export function setupCampaignPresence(server: HttpServer) {
         hexMeasurementColor: true,
         gridLineWidth: true,
         gridColor: true,
+        fogConfig: true,
+        fixedLightSources: true,
       },
     })
     if (!scene) return null
@@ -662,7 +672,9 @@ export function setupCampaignPresence(server: HttpServer) {
       height: dimensions.height,
       grid,
       tokens,
-      walls: normalizeSceneWalls(scene.walls),
+      walls: normalizeSceneWalls(scene.walls).map((wall) => ({ ...wall, allowsLight: wall.allowsLight ?? wall.kind === 'window' })),
+      fogConfig: scene.fogConfig,
+      fixedLightSources: Array.isArray(scene.fixedLightSources) ? scene.fixedLightSources : [],
     }
   }
 
@@ -780,6 +792,12 @@ export function setupCampaignPresence(server: HttpServer) {
     io.to(campaignRoom(campaignId)).emit('vtt:combat:changed', {
       campaignId,
       combat: state.getCampaignCombat(campaignId),
+    })
+  }
+
+  function requestFogExplorationFlush(campaignId: string) {
+    return new Promise<void>((resolve) => {
+      io.timeout(500).to(campaignRoom(campaignId)).emit('fog:exploration:flush-request', { campaignId, reason: 'SCENE_CHANGE' }, () => resolve())
     })
   }
 
@@ -962,9 +980,12 @@ export function setupCampaignPresence(server: HttpServer) {
         controllerUserId: campaignToken.controllerMember?.userId ?? null,
         role: characterRole === 'PLAYER' ? 'PLAYER' : characterRole === 'NPC' ? 'NPC' : 'GENERIC',
         canCustomizeAppearance: campaignToken.canCustomizeAppearance,
+        visionConfig: campaignToken.visionConfig,
+        lightConfig: campaignToken.lightConfig,
         hidden: false,
         rotation: 0,
         layer: 'TOKEN',
+        blocksVisionAndLight: false,
         position,
       }
 
@@ -976,9 +997,13 @@ export function setupCampaignPresence(server: HttpServer) {
       }
     })
 
-    socket.on('vtt:token:move', async (input: unknown) => {
+    socket.on('vtt:token:move', async (
+      input: unknown,
+      ack?: (response: { ok: true } | { ok: false; error: { code: string; message: string } }) => void,
+    ) => {
+      const reject = (code: string, message: string) => ack?.({ ok: false, error: { code, message } })
       const parsed = vttTokenUpdateSchema.safeParse(input)
-      if (!parsed.success) return
+      if (!parsed.success) return reject('INVALID_PAYLOAD', 'Movimento invalido')
 
       const { campaignId, tokenId, position } = parsed.data
       const online = state.getCampaignOnline(campaignId)
@@ -988,32 +1013,33 @@ export function setupCampaignPresence(server: HttpServer) {
         socket.data.campaignId === campaignId &&
         socket.data.characterRole === 'PLAYER',
       )
-      if (!isMasterMove && !isPlayerMove) return
+      if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao permitido')
 
       const tokenMap = state.getCampaignTokens(campaignId)
       const cachedToken = tokenMap ? tokenMap.get(tokenId) : await findPersistedSceneToken(campaignId, tokenId)
-      if (!cachedToken) return
+      if (!cachedToken) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado')
       const token = await refreshLiveTokenIdentity(campaignId, cachedToken)
-      if (!token) return
-      if (isPlayerMove && token.controllerUserId !== user.id) return
-      if (isPlayerMove && state.getCampaignCombat(campaignId)) return
-      if (state.isTokenMovementActive(campaignId, tokenId)) return
+      if (!token) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado')
+      if (isPlayerMove && token.controllerUserId !== user.id) return reject('FORBIDDEN', 'Token nao controlado')
+      if (isPlayerMove && state.getCampaignCombat(campaignId)) return reject('INVALID_MOVE', 'Movimento livre indisponivel em combate')
+      if (state.isTokenMovementActive(campaignId, tokenId)) return reject('INVALID_MOVE', 'Token ja esta em movimento')
 
       const nextToken = { ...token, position }
       const sceneId = getCampaignTokenSceneMap(campaignId).get(tokenId)
-      if (!sceneId) return
+      if (!sceneId) return reject('TOKEN_NOT_FOUND', 'Token fora da cena')
       if (isPlayerMove) {
         const collision = await getSceneWallCollisionContext(campaignId, sceneId)
-        if (!collision) return
+        if (!collision) return reject('SCENE_NOT_FOUND', 'Cena nao encontrada')
         const toScenePixels = (point: { x: number; y: number }) => ({
           x: point.x * collision.gridSize + collision.offsetX,
           y: point.y * collision.gridSize + collision.offsetY,
         })
-        if (isMovementBlockedBySceneWalls({ from: toScenePixels(token.position), to: toScenePixels(position), walls: collision.walls })) return
+        if (isMovementBlockedBySceneWalls({ from: toScenePixels(token.position), to: toScenePixels(position), walls: collision.walls })) return reject('INVALID_MOVE', 'Movimento bloqueado por uma barreira')
       }
       setLiveSceneToken(campaignId, sceneId, nextToken)
       await emitSceneTokenChanged(campaignId, sceneId, nextToken)
       if (!online) await persistSceneToken(campaignId, sceneId, nextToken)
+      ack?.({ ok: true })
     })
 
     socket.on('vtt:token:move-path', async (
@@ -1385,6 +1411,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const online = state.getCampaignOnline(campaignId)
       if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
 
+      if (online) await requestFogExplorationFlush(campaignId)
       const sceneUpdated = await updateMasterActiveScene(campaignId, scene?.id ?? null)
       if (!sceneUpdated) return
       const combat = state.getCampaignCombat(campaignId)

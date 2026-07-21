@@ -8,6 +8,10 @@ import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
 import { registerCampaignDiaryRoutes } from './modules/campaign_diary/routes'
 import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
+import { FogService } from './modules/fog-of-war/application/fog-service'
+import { PrismaFogRepository } from './modules/fog-of-war/infra/prisma-fog-repository'
+import { registerFogRoutes } from './modules/fog-of-war/presentation/routes'
+import { registerFogSocketHandlers } from './modules/fog-of-war/presentation/socket'
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerCharacterRoutes } from './modules/characters/routes'
@@ -53,6 +57,7 @@ await app.register(cookiePlugin)
 await registerAssetRoutes(app)
 
 const presence = setupCampaignPresence(app.server)
+const fogService = new FogService(new PrismaFogRepository())
 
 app.get('/api/health', async () => ({ ok: true }))
 
@@ -61,6 +66,8 @@ registerCharacterRoutes(app)
 registerCampaignRoutes(app, presence)
 registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app, presence)
+registerFogRoutes(app, fogService, presence.io)
+registerFogSocketHandlers(presence.io, fogService)
 registerEffectAreaRoutes(app, presence.io)
 registerChatRoutes(app)
 registerChatSocketHandlers(presence.io)

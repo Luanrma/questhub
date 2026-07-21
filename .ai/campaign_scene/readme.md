@@ -1,15 +1,17 @@
 ﻿# Campaign Scene
 
 ## O que e por que
-`campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, posicionamentos de Tokens, paredes, portas e regras de exibicao independentes. A identidade persistente do Token pertence a campanha e continua existindo mesmo quando nao esta em uma cena.
+`campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, posicionamentos de Tokens, paredes, portas, janelas, configuracao de FOG, fontes de luz fixas e regras de exibicao independentes. A identidade persistente do Token pertence a campanha e continua existindo mesmo quando nao esta em uma cena.
 
 Antes deste modulo, a cena funcionava como troca de imagem de background. A partir daqui, ela passa a ser a fonte da verdade persistida para o estado de mesa relacionado a cena.
 
 ## Personas e casos de uso
 * Mestre prepara cenas antes de iniciar a campanha.
-* Mestre configura grid, escala em metros do grid quadrado e, opcionalmente, imagem por cena.
+* Mestre configura grid e sua escala fisica por quadrado/hexagono em metros ou pes, com metros como fonte canonica usada por alcance de visao/luz em ambos os formatos; a medicao de movimento hexagonal pode continuar baseada em passos.
 * Mestre cria e posiciona tokens genericos em cenas especificas antes ou durante a sessao, sem depender de ficha ou sistema de jogo.
 * Mestre desenha paredes, cria retangulos, insere portas com encaixe tolerante nos segmentos, escolhe sua visibilidade e configura os estados de passagem.
+* Mestre ativa o FOG, escolhe o ambiente da cena e prepara fontes de luz fixas.
+* Mestre insere janelas que permitem visao e, por padrao, luz, mas bloqueiam movimento enquanto fechadas.
 * Mestre remove tokens individualmente, todos os tokens da cena atual ou todos os tokens da campanha por acoes explicitas no painel de tokens.
 * Mestre troca a propria cena ativa sem revelar automaticamente a cena nova aos jogadores.
 * Mestre mostra uma cena para todos quando quiser compartilhar uma visao comum.
@@ -39,6 +41,8 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * Excluir um Token nao exclui o `Character` vinculado.
 * Associar token a ficha, bestiario, inventario, PV, magia, hazard mecanico ou ruleset pertence a extensoes opcionais e nao ao `campaign_scene`.
 * Paredes e portas persistem como segmentos em pixels absolutos da cena e sao sincronizadas em tempo real.
+* Janelas usam a mesma base geometrica e de estados das portas, mas possuem contratos proprios de visao, luz e movimento.
+* Configuracao de FOG e fontes fixas pertencem ao snapshot persistido da cena; memoria de exploracao permanece separada por Token e cena.
 * Uma porta so pode ser criada sobre uma parede; o traco proximo e projetado para a parede e substitui o trecho correspondente, sem manter colisao de parede sob a abertura.
 * Paredes e portas fechadas impedem que jogadores atravessem seus segmentos; portas abertas liberam passagem.
 * Portas fechadas podem ser marcadas como trancadas, obstruidas ou encostadas; abrir a porta limpa esses estados mutuamente exclusivos.
@@ -52,4 +56,5 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * `assets`: armazena imagens de cena e renova URLs assinadas quando necessario.
 * `campaign_diary`: gerencia diarios livres da campanha, sem vinculo com cenas.
 * `chat`: continua independente; pausa de sessao nao bloqueia chat.
+* `fog_of_war`: calcula visao, iluminacao e exploracao usando a geometria e a escala persistidas pela cena.
 * Extensoes mecanicas nao devem ser importadas por `campaign_scene` nem ser pre-requisito para criar, testar ou mover tokens.

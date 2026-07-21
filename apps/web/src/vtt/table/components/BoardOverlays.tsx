@@ -20,7 +20,7 @@ export function VttWallsOverlay({ walls, drafts, zoomScale, isMasterView, canOpe
   canOpenWallMenu: boolean
   onWallContextMenu: (wall: VttWallSegment, position: { x: number; y: number }) => void
 }) {
-  const roleVisibleWalls = isMasterView ? walls : walls.filter((wall) => wall.kind === 'door' || wall.playerVisible)
+  const roleVisibleWalls = isMasterView ? walls : walls.filter((wall) => wall.kind !== 'wall' || wall.playerVisible)
   const visibleWalls = drafts.length && isMasterView ? [...roleVisibleWalls, ...drafts] : roleVisibleWalls
   const draftIds = new Set(drafts.map((draft) => draft.id))
 
@@ -30,35 +30,38 @@ export function VttWallsOverlay({ walls, drafts, zoomScale, isMasterView, canOpe
         const start = scenePointToRenderedPixels(wall.start, zoomScale)
         const end = scenePointToRenderedPixels(wall.end, zoomScale)
         const isDoor = wall.kind === 'door'
+        const isWindow = wall.kind === 'window'
+        const passage = wall.door ?? wall.window
         const isDraft = draftIds.has(wall.id)
-        const open = Boolean(wall.door?.open)
+        const open = Boolean(passage?.open)
         const stateColor = open
           ? '#34d399'
-          : wall.door?.locked
+          : passage?.locked
             ? '#fb7185'
-            : wall.door?.blocked
+            : passage?.blocked
               ? '#f43f5e'
-              : wall.door?.ajar
+              : passage?.ajar
                 ? '#fbbf24'
-                : '#f59e0b'
-        const stroke = wall.color ?? (isDoor ? stateColor : '#e5e7eb')
+                : isWindow ? '#38bdf8' : '#f59e0b'
+        const isPassage = isDoor || isWindow
+        const stroke = wall.color ?? (isPassage ? stateColor : '#e5e7eb')
         const midpoint = { x: (start.x + end.x) / 2, y: (start.y + end.y) / 2 }
-        const doorLabel = open ? 'A' : wall.door?.locked ? 'T' : wall.door?.blocked ? 'O' : wall.door?.ajar ? 'E' : 'F'
+        const doorLabel = open ? 'A' : passage?.locked ? 'T' : passage?.blocked ? 'O' : passage?.ajar ? 'E' : 'F'
 
         return (
           <g key={wall.id} opacity={isDraft ? 0.68 : 1}>
-            <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} stroke="#030712" strokeWidth={isDoor ? 9 : 7} strokeLinecap="round" />
+            <line x1={start.x} y1={start.y} x2={end.x} y2={end.y} stroke="#030712" strokeWidth={isPassage ? 9 : 7} strokeLinecap="round" />
             <line
               x1={start.x}
               y1={start.y}
               x2={end.x}
               y2={end.y}
               stroke={stroke}
-              strokeWidth={isDoor ? 5 : 4}
-              strokeDasharray={isDraft || (isDoor && open) ? '10 8' : undefined}
+              strokeWidth={isPassage ? 5 : 4}
+              strokeDasharray={isDraft || (isPassage && open) || isWindow ? '10 8' : undefined}
               strokeLinecap="round"
             />
-            {isDoor ? (
+            {isPassage ? (
               <>
                 <circle cx={midpoint.x} cy={midpoint.y} r="7" fill="#09090b" stroke={stateColor} strokeWidth="2" />
                 <text x={midpoint.x} y={midpoint.y + 3.5} fill={stateColor} textAnchor="middle" className="select-none text-[9px] font-black">
@@ -389,7 +392,7 @@ export function PlayerToken({
       type="button"
       title={`Token de ${token.name}`}
       className={[
-        'absolute z-[5] grid place-items-center overflow-hidden rounded-full outline-none transition-[border-color,box-shadow,opacity,filter]',
+        'pointer-events-auto absolute z-[5] grid place-items-center overflow-hidden rounded-full outline-none transition-[border-color,box-shadow,opacity,filter]',
         hasTransparentImage ? 'border-0 shadow-none' : 'border-2 shadow-2xl',
         dragging
           ? `cursor-grabbing ${hasTransparentImage ? '' : 'border-indigo-200 ring-4 ring-indigo-400/35'}`

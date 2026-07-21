@@ -205,6 +205,8 @@ model CampaignScene {
   gridLineWidth          Int                    @default(1)
   gridColor              String                 @default("#ffffff")
   walls                  Json                   @default("[]")
+  fogConfig              Json                   @default("{}")
+  fixedLightSources      Json                   @default("[]")
   createdAt              DateTime               @default(now())
   updatedAt              DateTime               @updatedAt
 
@@ -214,6 +216,7 @@ model CampaignScene {
   activeForViewStates CampaignSceneViewState[] @relation("MasterActiveScene")
   forcedForViewStates CampaignSceneViewState[] @relation("ForcedScene")
   areaEffects         SceneAreaEffect[]
+  fogExplorations     CampaignFogExploration[]
 
   @@unique([campaignId, order])
   @@index([campaignId])
@@ -295,6 +298,8 @@ model CampaignToken {
   color                  String?
   size                   Float    @default(1)
   canCustomizeAppearance Boolean  @default(false)
+  visionConfig           Json     @default("{}")
+  lightConfig            Json     @default("{}")
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
 
@@ -302,6 +307,7 @@ model CampaignToken {
   character        Character?              @relation(fields: [characterId], references: [id], onDelete: SetNull)
   controllerMember CampaignMember?         @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
   placement        CampaignTokenPlacement?
+  fogExplorations  CampaignFogExploration[]
 
   @@index([campaignId])
   @@index([controllerMemberId])
@@ -316,6 +322,7 @@ model CampaignTokenPlacement {
   positionY Float
   rotation  Float              @default(0)
   layer     CampaignTokenLayer @default(TOKEN)
+  blocksVisionAndLight Boolean @default(false)
   createdAt DateTime           @default(now())
   updatedAt DateTime           @updatedAt
 
@@ -323,6 +330,24 @@ model CampaignTokenPlacement {
   scene CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
 
   @@index([sceneId])
+}
+
+model CampaignFogExploration {
+  id         String   @id @default(cuid())
+  sceneId    String
+  tokenId    String
+  revision   Int      @default(0)
+  mask       Bytes?
+  maskWidth  Int      @default(0)
+  maskHeight Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  scene CampaignScene @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  token CampaignToken @relation(fields: [tokenId], references: [id], onDelete: Cascade)
+
+  @@unique([sceneId, tokenId])
+  @@index([tokenId])
 }
 
 model CampaignSceneViewState {

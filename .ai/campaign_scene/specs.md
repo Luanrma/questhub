@@ -1,7 +1,7 @@
 ﻿# Modulo: Campaign Scene (Specs & Contracts)
 
 ## 1. Fronteira do Modulo
-`campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, posicionamentos de Tokens genericos e regras de exibicao usadas pelo VTT. A identidade do Token pertence a campanha.
+`campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, posicionamentos de Tokens genericos, geometria, configuracao de FOG, fontes de luz fixas e regras de exibicao usadas pelo VTT. A identidade do Token pertence a campanha.
 
 O modulo deve permanecer generico. Nenhum contrato de cena ou token pode carregar regras mecanicas, ruleset, ficha, bestiario, inventario, economia, PV, CA, magias, condicoes ou hazards mecanicos.
 
@@ -35,6 +35,9 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * O trecho substituido pela porta nao pode permanecer como parede sobreposta. Porta aberta nao bloqueia movimento; porta fechada bloqueia.
 * Cenas sem imagem de background devem usar dimensoes canonicas compartilhadas de board, derivadas de `boardGridLimits`, do formato do grid e do tamanho de grid da cena, para que Mestre e Players online tenham exatamente a mesma quantidade de celulas jogaveis.
 * A modelagem deve permanecer compativel com um futuro fluxo `Construir cena`, onde elementos de construcao como paredes, chao, portas, janelas, escadas, buracos e colisao serao adicionados sem depender de imagem.
+* O FOG e opcional por cena, desativado por padrao e definido pelo bounded context `fog_of_war`.
+* Ao forcar uma cena, o Mestre escolhe se os jogadores preservam o FOG relativo ao Token ou recebem revelacao temporaria do mapa inteiro.
+* Janelas pertencem a geometria da cena: sempre permitem visao, permitem luz por padrao e liberam movimento somente quando totalmente abertas.
 
 ## 2.1 Nomes Canonicos
 Models Prisma esperados:
@@ -42,6 +45,7 @@ Models Prisma esperados:
 * `CampaignToken`
 * `CampaignTokenPlacement`
 * `CampaignSceneViewState`
+* `CampaignFogExploration`, pertencente ao modulo `fog_of_war`
 
 Tipos frontend/backend esperados:
 * `CampaignScene`
@@ -49,6 +53,7 @@ Tipos frontend/backend esperados:
 * `CampaignToken`
 * `CampaignTokenPlacement`
 * `CampaignSceneViewState`
+* `SceneFogConfig`, `TokenVisionConfig` e `FogLightSourceConfig`, definidos por `fog_of_war`
 
 Eventos Socket.IO novos usam prefixo `campaign-scene:*`.
 
@@ -100,6 +105,8 @@ type CampaignScene = {
   backgroundUrl: string | null
   backgroundCacheKey: string | null
   grid: CampaignSceneGrid
+  fogConfig: SceneFogConfig
+  fixedLightSources: FogFixedLightSource[]
   tokenPlacements: CampaignTokenPlacement[]
   createdAt: string
   updatedAt: string
@@ -119,6 +126,8 @@ Regras:
 * Criar cena sem imagem deve persistir `assetId`, `backgroundUrl` e `backgroundCacheKey` como `null`.
 * Vincular imagem a cena deve acontecer por `PATCH`, informando `assetId`, `backgroundUrl` e `backgroundCacheKey`.
 * Remover imagem de cena deve acontecer por `PATCH`, informando `assetId: null`, `backgroundUrl: null` e `backgroundCacheKey: null`.
+* `fogConfig` usa os defaults do modulo `fog_of_war`; cenas existentes permanecem com FOG desativado.
+* `fixedLightSources` contem somente fontes ancoradas em pontos da cena. Luzes de Token pertencem ao `CampaignToken`.
 
 ### 3.2 CampaignSceneGrid
 
@@ -141,6 +150,7 @@ type CampaignSceneGrid =
       size: number
       offsetX: number
       offsetY: number
+      metersPerCell: number
       hexMeasurementColor: string
       lineWidth: number
       color: string
@@ -150,13 +160,17 @@ type CampaignSceneGrid =
 Regras:
 * A configuracao de grid e persistida por cena.
 * `size` representa o tamanho visual da celula em pixels antes do zoom local.
+* `size` nao representa distancia do mundo: ele alinha o grid ao mapa, enquanto `metersPerCell` define a escala fisica de cada quadrado ou hexagono.
 * `offsetX` e `offsetY` representam o ajuste fino da origem do grid em pixels da cena, entre `-96` e `96`, antes do zoom local.
 * `size` deve respeitar minimo de `24px` e maximo de `96px`.
 * `lineWidth` deve respeitar minimo de `1px` e maximo de `4px`.
-* No grid quadrado, `metersPerCell` representa quantos metros lineares cada lado da celula representa.
+* Em grids quadrados e hexagonais, `metersPerCell` representa quantos metros lineares cada celula representa e aceita valores decimais entre `0.01` e `10000` sem ajuste para uma lista predefinida.
+* A UI deve oferecer inputs numericos vinculados de metros e pes para ambos os formatos, usando `feet = meters / 0.3048` e `meters = feet * 0.3048`.
+* Pes sao apenas uma unidade de entrada/apresentacao; somente `metersPerCell` integra o snapshot persistido.
+* A UI deve informar `1 celula = Xm = Yft` e que os `size` pixels configurados representam essa mesma distancia fisica.
 * A regra antiga baseada em area (`squareMeters` e `sqrt(squareMeters)`) deve ser substituida por `metersPerCell`.
 * No grid quadrado, a distancia em metros deve ser `(distanciaEmPixels / size) * metersPerCell`.
-* No grid hexagonal, a medicao continua contando passos entre hexagonos e nao usa escala em metros.
+* No grid hexagonal, a medicao de movimento pode continuar contando passos entre hexagonos, mas `metersPerCell` e obrigatorio para alcance metrico de visao e luz.
 * Alterar grid de uma cena nao altera grid de outras cenas.
 * Alterar tamanho, formato, cor ou escala do grid nao remove tokens.
 * Alterar `size`, `offsetX` ou `offsetY` reposiciona visualmente os tokens porque suas posicoes permanecem logicas em relacao ao grid.
@@ -164,7 +178,7 @@ Regras:
 * Alterar grid nao deve exibir aviso informando que tokens serao removidos.
 * Zoom continua sendo local ao cliente e nao deve ser persistido na cena.
 
-### 3.2.1 Coordenadas de paredes
+### 3.2.1 Coordenadas de paredes, portas e janelas
 
 * `VttWallSegment.start` e `end` sao persistidos em pixels absolutos da cena antes do zoom.
 * A renderizacao aplica somente o zoom local aos pontos da parede; nao aplica `grid.size`, `offsetX` ou `offsetY`.
@@ -172,6 +186,7 @@ Regras:
 * A tolerancia visual para encaixe de porta e convertida para pixels absolutos da cena dividindo-a pelo zoom local, mantendo a mesma area de captura percebida em qualquer zoom.
 * Colisao converte o centro logico do token para pixels da cena usando `pixel = position * grid.size + offset` antes de testar os segmentos.
 * A migracao de coordenadas legadas multiplica cada ponto existente pelo `gridSize` vigente na respectiva cena uma unica vez.
+* Janelas usam as mesmas coordenadas absolutas e o mesmo encaixe geometrico de portas.
 
 ### 3.3 CampaignToken e CampaignTokenPlacement
 
@@ -186,6 +201,8 @@ type CampaignToken = {
   controllerMemberId: string | null
   canCustomizeAppearance: boolean
   size: number
+  visionConfig: TokenVisionConfig
+  lightConfig: FogLightSourceConfig
   placement: CampaignTokenPlacement | null
 }
 
@@ -195,6 +212,7 @@ type CampaignTokenPlacement = {
   hidden: boolean
   rotation: number
   layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  blocksVisionAndLight: boolean
   position: {
     x: number
     y: number
@@ -213,6 +231,8 @@ Regras:
 * Sem `avatarUrl`, a UI deriva uma letra A-Z de `token.id` sem persistencia adicional e `color` deve ser nao nula.
 * Com `avatarUrl`, `color = null` representa fundo transparente e uma cor representa fundo circular opcional.
 * `size`, `rotation` e `layer` sao propriedades visuais/genericamente operacionais.
+* `visionConfig` e `lightConfig` sao configuracoes agnosticas administradas somente pelo Mestre e normalizadas por `fog_of_war`.
+* `blocksVisionAndLight` so produz efeito quando `layer = 'OBJECT'`; novos posicionamentos usam `false`.
 * `position.x` e `position.y` representam o centro do token em unidades logicas do grid da propria cena.
 * Para renderizar, `pixelCenter = position * scene.grid.size`, com zoom aplicado apenas visualmente.
 * Com ajuste fino, `pixelCenter = position * scene.grid.size + scene.grid.offset`, com zoom aplicado ao resultado.
@@ -249,6 +269,9 @@ Regras:
 * `masterActiveSceneId` define a cena que o Mestre esta visualizando.
 * `forcedSceneId` define a cena mostrada para todos enquanto o modo "mostrar para todos" estiver ativo.
 * Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
+* Ao definir `forcedSceneId`, o Mestre informa `fogMode = 'PRESERVE_FOG' | 'REVEAL_ALL'`.
+* `PRESERVE_FOG` seleciona a cena sem conceder uma fonte de visao; jogador sem Main Character posicionado nela ve cobertura total.
+* `REVEAL_ALL` revela temporariamente o mapa inteiro, nao altera a memoria de exploracao e continua respeitando Tokens marcados como invisiveis.
 * Se `forcedSceneId` nao existir, cada jogador ve a cena onde esta seu token controlavel.
 * Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver uma tela preta/neutra aguardando posicionamento ou cena compartilhada.
 * Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar para tela preta/neutra ate o token ser reposicionado.
@@ -276,6 +299,8 @@ Regras:
   * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes.
 * O frontend pode atualizar estado de forma otimista, mas a fonte da verdade persistida deve ser atualizada pelos eventos acima.
 * Ao entrar na campanha, o cliente deve receber snapshot da cena que deve visualizar e metadados suficientes para cachear imagens.
+* Configuracao de FOG e fontes fixas fazem parte do snapshot da cena.
+* Memoria de exploracao e persistida separadamente por `sceneId + tokenId` e segue revisoes e checkpoints definidos em `.ai/fog_of_war/specs.md`.
 
 ## 6. Cache de Imagem no Cliente
 
@@ -356,12 +381,18 @@ type CampaignSceneTokensRemovedPayload = {
   sceneId: string | null
   scope: 'CURRENT_SCENE' | 'GLOBAL'
 }
+
+type CampaignSceneForceCommand = {
+  campaignId: string
+  sceneId: string
+  fogMode: 'PRESERVE_FOG' | 'REVEAL_ALL'
+}
 ```
 
 Eventos:
 * `campaign-scene:snapshot`: servidor envia a cena que o socket deve visualizar.
 * `campaign-scene:switch`: Mestre troca sua cena ativa; servidor persiste o estado e pausa a sessao quando ela esta online.
-* `campaign-scene:force`: Mestre ativa ou troca a cena forcada para todos.
+* `campaign-scene:force`: Mestre ativa ou troca a cena forcada para todos e informa o tratamento do FOG.
 * `campaign-scene:unforce`: Mestre desativa a cena forcada para todos.
 * `campaign-scene:changed`: servidor informa que a cena visivel de um socket mudou.
 * `campaign-scene:token:place`: Mestre cria/posiciona token na cena atual, atualizando estado vivo quando a sessao esta online.
@@ -381,6 +412,7 @@ Regras:
 * Remocao de token controlavel por Player tambem deve ser emitida ao socket dono daquele token, mesmo que a remocao faca a cena visivel do dono deixar de existir.
 * Trocar a cena ativa do Mestre nao deve emitir evento de alteracao de grid para a cena anterior; a troca apenas carrega o grid da cena escolhida no cliente do Mestre.
 * Mestre pode receber eventos de todas as cenas conforme necessario para administrar a campanha.
+* Eventos de FOG, visao, fontes e exploracao seguem o namespace e os ACKs definidos em `.ai/fog_of_war/specs.md`.
 
 ## 9. UI/UX
 
@@ -398,16 +430,21 @@ Regras:
 * A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
 * O painel de Tokens deve listar primeiro Main Characters, depois secundarios controlados por Players e por ultimo Tokens exclusivos do Mestre.
 * O Mestre remove primeiro o posicionamento atual; o Token sem cena fica disponivel no painel para novo posicionamento.
+* Ao ativar o FOG, o Mestre deve escolher dia, entardecer, noite ou escuridao antes da confirmacao.
+* Ao forcar uma cena com FOG ativo, a UI exige a escolha entre preservar FOG e revelar tudo.
 
 ## 10. Criterios de Aceitacao
 * Cenas persistem imagem, grid e tokens de forma independente.
 * Alterar grid em uma cena nao altera outra cena.
 * Alterar `metersPerCell` muda a medicao em metros do grid quadrado daquela cena.
+* Informar `5ft` na escala do grid resulta em `1.524m` por celula e permanece equivalente ao reabrir a configuracao.
+* Grid hexagonal expoe `metersPerCell` para calculos metricos de visao e luz sem alterar sua medicao de movimento por passos.
 * Tokens mantem posicao logica ao alterar tamanho visual do grid.
 * Tokens acompanham o ajuste fino X/Y do grid, enquanto paredes permanecem ancoradas ao background.
 * Mestre consegue desenhar uma porta ate `12px` renderizados afastada de uma parede e a porta e encaixada exatamente nela, substituindo o trecho correspondente.
 * Uma porta que nao esteja proxima do mesmo segmento de parede em ambas as extremidades nao e criada.
 * Jogadores conseguem atravessar o trecho de uma porta aberta e sao bloqueados pelo mesmo trecho quando a porta esta fechada.
+* Jogadores veem atraves de janela fechada e so conseguem atravessa-la quando estiver aberta.
 * Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
 * Mestre consegue criar e testar token generico sem personagem, ficha, bestiario ou sistema de jogo.
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.
@@ -431,3 +468,5 @@ Regras:
 * Diarios nao ficam vinculados a cenas e nao sao implementados neste modulo.
 * Imagens de cena sao lidas do cache do cliente quando disponiveis.
 * Imagem de cena so e requisitada novamente quando ausente, invalida ou expirada no cache.
+* Cena forcada preserva FOG ou revela tudo conforme a escolha explicita do Mestre.
+* Os criterios completos de visao, luz e exploracao estao em `.ai/fog_of_war/specs.md`.

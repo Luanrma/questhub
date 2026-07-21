@@ -17,15 +17,20 @@
 * A letra fallback nao cria coluna, campo de API ou persistencia adicional no banco.
 * A ultima cor escolhida e preferencia local do cliente e serve de default para novos Tokens e edicoes sem imagem; cada Token persiste sua propria cor efetiva para sincronizacao.
 * Associacao com identidade/personagem e opcional; token generico sem `characterId` e valido.
-* Cena armazena mapa, grid, configuracao visual, paredes e portas.
+* Cena armazena mapa, grid, configuracao visual, paredes, portas, janelas e configuracao opcional de FOG.
 * O Mestre pode selecionar e visualizar qualquer cena preparada enquanto a sessao estiver offline; a cena ativa escolhida deve ser persistida e restaurada sem exigir entrada em room de sessao.
 * Campanha pode existir sem nenhuma cena preparada; o VTT nao cria nem exige uma `Cena 1` automaticamente.
 * Deletar a ultima cena preparada deixa a campanha sem cena ativa/preparada, sem recriar draft automatico e sem disparar recarregamento em loop.
-* Paredes e portas usam coordenadas da cena, persistem com ela e sincronizam por websocket.
+* Paredes, portas e janelas usam coordenadas da cena, persistem com ela e sincronizam por websocket.
 * Paredes e portas fechadas bloqueiam movimento de jogadores; portas abertas nao bloqueiam.
 * A visibilidade visual de um segmento para jogadores e independente de sua colisao.
 * A toolbar nao exibe ferramenta de regua; medicao de deslocamento e iniciada exclusivamente a partir de um Token controlavel.
 * A troca do formato do grid entre quadrado e hexagonal aplica e persiste o novo formato no primeiro clique.
+* A configuracao de grid deve distinguir `size`, tamanho visual da celula em pixels, de `metersPerCell`, distancia fisica representada por cada quadrado ou hexagono.
+* A escala fisica deve ser ajustada em metros por um slider discreto exibido junto ao controle de tamanho visual, para ambos os formatos, atualizando o `metersPerCell` canonico.
+* Os valores permitidos de `metersPerCell` sao: `0,5m`; de `1m` a `10m` em passos de `1m`; de `20m` a `100m` em passos de `10m`; e de `200m` a `1000m` em passos de `100m`.
+* Valores legados ou externos fora da lista permitida devem ser normalizados para a opcao mais proxima; em caso de empate, prevalece o menor valor.
+* A UI nao deve exibir campos numericos separados de metros e pes. Deve manter a equivalencia informativa `1 celula = Xm = Yft` e quantos pixels no mapa representam essa distancia, seguindo a mesma conversao de `Effect Area`; nenhum valor em pes e persistido separadamente.
 * `Ctrl+arraste` com a ferramenta Parede ativa cria um retangulo composto por quatro segmentos; o arraste comum cria um unico segmento.
 * Portas sao inseridas sobre segmentos de parede quando houver intersecao/proximidade valida e podem ser abertas, trancadas, obstruidas ou encostadas pelo menu contextual.
 * Abrir uma porta limpa automaticamente os estados trancada, obstruida e encostada.
@@ -66,6 +71,7 @@ type VttTokenMovementStartedEvent = VttTokenMovePathCommand & {
 ```
 
 * Comando do cliente: `vtt:token:move-path`, com ACK padrao de sucesso ou erro.
+* Comando do cliente: `vtt:token:move`, com ACK padrao; rejeicao restaura posicao e exploracao provisoria no cliente.
 * Fato do servidor: `vtt:token:movement-started` para os sockets que visualizam a cena.
 * Erros previstos: `INVALID_PAYLOAD`, `FORBIDDEN`, `TOKEN_NOT_FOUND`, `TOKEN_MOVING`, `NOT_ACTIVE_TURN` e `INVALID_MOVE`.
 * O primeiro ponto deve coincidir com a posicao autoritativa atual e o trajeto deve possuir ao menos um segmento efetivo.
@@ -73,6 +79,16 @@ type VttTokenMovementStartedEvent = VttTokenMovePathCommand & {
 * A toolbar pode ser recolhida para um unico botao e, ao recolher, limpa ferramentas e overlays transitorios.
 * A sidebar direita abre recolhida e usa abas para combate, participantes, sessao, cenas e chat.
 * A aba de cenas e exclusiva do Mestre e e a entrada principal para selecionar e preparar cenas.
+
+## Fog of War
+
+* O FOG fica desativado por padrao e e configurado por cena.
+* A visao do jogador e relativa a um unico Token selecionado, com fallback para o Token do Main Character.
+* Sem Main Character posicionado na cena exibida, o jogador ve a cena coberta quando o FOG deve ser preservado.
+* A memoria de exploracao pertence ao Token e nao e compartilhada automaticamente.
+* O Mestre configura visao, iluminacao, bloqueadores e capacidades noturnas.
+* Ao forcar uma cena para todos, o Mestre escolhe entre preservar o FOG ou revelar temporariamente o mapa inteiro.
+* O renderer e os contratos completos de visao, luz, exploracao, persistencia e realtime pertencem a [`fog_of_war`](../fog_of_war/specs.md).
 
 ## Tokens agnósticos e controle
 
@@ -104,6 +120,8 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * Para o VTT Core, `Character` é somente uma identidade; o módulo não acessa nem valida ficha, `GameSystem`, Package, bestiário ou ruleset.
 * O Mestre controla todos os Tokens da campanha.
 * O clique com o botao direito em um Token controlavel abre um menu contextual de primeiro nivel com a opcao `Configuracoes`; ao aciona-la, um submenu exibe somente as configuracoes e acoes autorizadas para o usuario atual.
+* Para o Mestre, o submenu `Configuracoes` inclui alcance maximo de visao, checkbox de fonte de luz propria e alcance dessa iluminacao, conforme contratos do modulo `fog_of_war`.
+* O submenu `Configuracoes` nao exibe seletores de tamanho ou camada nem botoes de rotacao. Redimensionamento e rotacao continuam disponiveis pelos handles diretos do tabuleiro conforme as permissoes existentes; os valores persistidos nao sao alterados ao abrir o menu.
 * Um jogador pode controlar vários Tokens, mas cada Token possui no máximo um jogador controlador além do Mestre.
 * O controle pertence ao `CampaignMember` do jogador, não ao `User` global nem ao `Character`; é persistido entre sessões e permanece quando o posicionamento muda.
 * Um Token sem `characterId` também pode possuir um jogador controlador persistente.

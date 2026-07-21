@@ -37,15 +37,9 @@ const gridLineWidthLimits = { min: 1, max: 4 }
 export const metersPerCellAllowedValues = [
   0.5,
   ...Array.from({ length: 10 }, (_, index) => index + 1),
-  15,
-  20,
-  25,
-  30,
-  40,
-  50,
-  75,
-  100,
-]
+  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 10),
+  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 100),
+] as const
 
 function isGridShape(value: unknown): value is VttGridShape {
   return value === 'square' || value === 'hex'
@@ -60,13 +54,11 @@ function clampInteger(value: unknown, min: number, max: number, fallback: number
   return Math.min(max, Math.max(min, Math.round(value)))
 }
 
-function normalizeMetersPerCell(value: unknown) {
+export function normalizeMetersPerCell(value: unknown) {
   if (typeof value !== 'number' || !Number.isFinite(value)) return defaultGridSettings.metersPerCell
-  const candidate = Math.min(10000, Math.max(0.01, value))
-  return metersPerCellAllowedValues.reduce((closest, current) => {
-    if (Math.abs(current - candidate) >= Math.abs(closest - candidate)) return closest
-    return current
-  }, defaultGridSettings.metersPerCell)
+  return metersPerCellAllowedValues.reduce((closest, current) => (
+    Math.abs(current - value) < Math.abs(closest - value) ? current : closest
+  ), metersPerCellAllowedValues[0])
 }
 
 export function normalizeGridSettings(value: unknown): VttGridSettings {

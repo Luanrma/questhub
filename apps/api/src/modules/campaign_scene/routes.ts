@@ -90,6 +90,7 @@ function gridToSceneData(grid: CampaignSceneGridInput): CampaignSceneGridData {
       gridSize: grid.size,
       gridOffsetX: grid.offsetX,
       gridOffsetY: grid.offsetY,
+      metersPerCell: grid.metersPerCell,
       hexMeasurementColor: grid.hexMeasurementColor,
       gridLineWidth: grid.lineWidth,
       gridColor: grid.color,

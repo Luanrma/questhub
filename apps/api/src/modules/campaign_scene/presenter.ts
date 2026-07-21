@@ -19,6 +19,8 @@ type CampaignSceneRecord = {
   gridLineWidth: number
   gridColor: string
   walls?: unknown
+  fogConfig?: unknown
+  fixedLightSources?: unknown
   createdAt: Date
   updatedAt: Date
   tokenPlacements?: CampaignTokenPlacementRecord[]
@@ -33,6 +35,7 @@ type CampaignTokenPlacementRecord = {
   positionY: number
   rotation: number
   layer: 'OBJECT' | 'TOKEN' | 'OVERLAY'
+  blocksVisionAndLight?: boolean
   createdAt: Date
   updatedAt: Date
   token: {
@@ -43,6 +46,8 @@ type CampaignTokenPlacementRecord = {
     color: string | null
     size: number
     canCustomizeAppearance: boolean
+    visionConfig?: unknown
+    lightConfig?: unknown
     character?: {
       id: string
       userId: string
@@ -70,6 +75,7 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
       size: scene.gridSize,
       offsetX: scene.gridOffsetX,
       offsetY: scene.gridOffsetY,
+      metersPerCell: scene.metersPerCell,
       hexMeasurementColor: scene.hexMeasurementColor,
       lineWidth: scene.gridLineWidth,
       color: scene.gridColor,
@@ -108,9 +114,12 @@ export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecor
     ownerName: token.controllerMember?.user.email ?? null,
     role: campaignCharacter?.role === 'PLAYER' ? 'PLAYER' : campaignCharacter?.role === 'NPC' ? 'NPC' : 'GENERIC',
     canCustomizeAppearance: token.canCustomizeAppearance,
+    visionConfig: token.visionConfig ?? {},
+    lightConfig: token.lightConfig ?? {},
     hidden: placement.hidden,
     rotation: placement.rotation,
     layer: placement.layer,
+    blocksVisionAndLight: placement.blocksVisionAndLight ?? false,
     position: {
       x: placement.positionX,
       y: placement.positionY,
@@ -132,6 +141,8 @@ export function presentCampaignScene(scene: CampaignSceneRecord) {
     grid: presentCampaignSceneGrid(scene),
     tokens: scene.tokenPlacements?.map(presentCampaignSceneToken) ?? [],
     walls: Array.isArray(scene.walls) ? scene.walls : [],
+    fogConfig: scene.fogConfig ?? {},
+    fixedLightSources: Array.isArray(scene.fixedLightSources) ? scene.fixedLightSources : [],
     createdAt: scene.createdAt,
     updatedAt: scene.updatedAt,
   }

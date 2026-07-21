@@ -1,8 +1,11 @@
 import { useState, type CSSProperties } from 'react'
 import { Palette, SlidersHorizontal, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
-import { metersPerCellAllowedValues, type VttGridSettings, type VttGridShape } from '../../grid'
+import { metersToFeet } from '../../area-templates/domain/measurement'
+import { metersPerCellAllowedValues, normalizeMetersPerCell, type VttGridSettings, type VttGridShape } from '../../grid'
 import { gridLineWidthLimits, gridSizeLimits } from '../config/constants'
+
+const distanceFormatter = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 4 })
 
 function createHexGridDataUrl(settings: VttGridSettings) {
   const hexWidth = settings.size
@@ -90,7 +93,9 @@ export function VttGridSettingsModal({
     onChange({ ...settings, [key]: value })
   }
 
-  const metersPerCellIndex = Math.max(0, metersPerCellAllowedValues.indexOf(settings.metersPerCell))
+  const feetPerCell = metersToFeet(settings.metersPerCell)
+  const cellLabel = settings.shape === 'square' ? 'quadrado' : 'hexagono'
+  const metersPerCellIndex = metersPerCellAllowedValues.indexOf(normalizeMetersPerCell(settings.metersPerCell))
 
   return (
     <div
@@ -138,13 +143,39 @@ export function VttGridSettingsModal({
           </div>
         </div>
 
-        <label className="grid gap-2 text-sm">
-          <div className="flex justify-between gap-3">
-            <span className="text-zinc-200">Tamanho</span>
-            <span className="text-zinc-400">{settings.size}px</span>
-          </div>
-          <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} value={settings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
-        </label>
+        <section className="grid gap-3">
+          <label className="grid gap-2 text-sm">
+            <div className="flex justify-between gap-3">
+              <span className="text-zinc-200">Tamanho visual da celula</span>
+              <span className="text-zinc-400">{settings.size}px</span>
+            </div>
+            <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} value={settings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
+          </label>
+
+          <label className="grid gap-2 text-sm">
+            <div className="flex justify-between gap-3">
+              <span className="text-zinc-200">Metros por celula</span>
+              <span className="text-zinc-400">{distanceFormatter.format(settings.metersPerCell)}m</span>
+            </div>
+            <input
+              type="range"
+              aria-label="Metros por celula"
+              min={0}
+              max={metersPerCellAllowedValues.length - 1}
+              step={1}
+              value={metersPerCellIndex}
+              className="accent-indigo-500"
+              onChange={(event) => updateSetting('metersPerCell', metersPerCellAllowedValues[Number(event.target.value)])}
+            />
+          </label>
+
+          <span className="text-[11px] leading-4 text-zinc-500">Pixels alinham o grid sobre a imagem; metros definem a distancia real.</span>
+        </section>
+
+        <div className="rounded border border-indigo-300/20 bg-indigo-500/[0.06] px-2.5 py-2 text-[11px] leading-4 text-zinc-300">
+          <div>1 {cellLabel} = {distanceFormatter.format(settings.metersPerCell)}m = {distanceFormatter.format(feetPerCell)}ft</div>
+          <div className="text-zinc-500">{settings.size}px no mapa representam essa distancia.</div>
+        </div>
 
         <div className="grid gap-3 rounded-md border border-white/10 bg-white/[0.03] p-3">
           <div className="flex items-center justify-between gap-3">
@@ -158,16 +189,6 @@ export function VttGridSettingsModal({
             </label>
           ))}
         </div>
-
-        {settings.shape === 'square' ? (
-          <label className="grid gap-2 text-sm">
-            <div className="flex justify-between gap-3">
-              <span className="text-zinc-200">Metros por celula</span>
-              <span className="text-zinc-400">{settings.metersPerCell}m</span>
-            </div>
-            <input type="range" min={0} max={metersPerCellAllowedValues.length - 1} value={metersPerCellIndex} className="accent-indigo-500" onChange={(event) => updateSetting('metersPerCell', metersPerCellAllowedValues[Number(event.target.value)])} />
-          </label>
-        ) : null}
 
         <label className="flex items-center justify-between gap-3 text-sm">
           <span className="flex items-center gap-2 text-zinc-200">

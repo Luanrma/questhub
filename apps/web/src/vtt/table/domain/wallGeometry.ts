@@ -39,7 +39,7 @@ export function isMovementBlockedBySceneWalls(input: {
   walls: VttWallSegment[]
 }) {
   return input.walls.some((wall) => {
-    const blocksMovement = wall.kind === 'wall' || !wall.door?.open
+    const blocksMovement = wall.kind === 'wall' || (wall.kind === 'door' ? !wall.door?.open : !wall.window?.open)
     return blocksMovement && segmentsIntersect(input.from, input.to, wall.start, wall.end)
   })
 }

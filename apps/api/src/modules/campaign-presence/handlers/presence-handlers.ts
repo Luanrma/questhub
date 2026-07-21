@@ -41,6 +41,12 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
 
   const user = socket.data.user as AuthenticatedSocketUser
 
+  function requestFogExplorationFlush(campaignId: string, reason: 'PAUSE' | 'END') {
+    return new Promise<void>((resolve) => {
+      io.timeout(500).to(campaignRoom(campaignId)).emit('fog:exploration:flush-request', { campaignId, reason }, () => resolve())
+    })
+  }
+
   socket.join(userRoom(user.id))
 
   socket.on(
@@ -103,6 +109,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         return
       }
 
+      await requestFogExplorationFlush(campaignId, 'END')
       await endCampaignSession(campaignId, 'O mestre encerrou a sessao.')
       ack?.({ ok: true })
     } catch {
@@ -123,6 +130,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         return
       }
 
+      await requestFogExplorationFlush(campaignId, 'PAUSE')
       state.setCampaignOnline(campaignId, { ...online, state: 'PAUSED' })
       await emitCampaignSessionState(campaignId)
       ack?.({ ok: true })
