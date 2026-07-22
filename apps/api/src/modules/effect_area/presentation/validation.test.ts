@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { createAreaTemplateSchema, createSceneAreaEffectSchema, updateSceneAreaEffectSchema } from './validation'
+import { areaPreviewUpdateSchema, createAreaTemplateSchema, createSceneAreaEffectSchema, updateSceneAreaEffectSchema } from './validation'
 
 const validTemplate = {
   name: 'Bola de fogo',
@@ -65,6 +65,21 @@ test('area template validation limits names to 60 characters', () => {
 test('area template validation requires dimensions for the selected shape', () => {
   const parsed = createAreaTemplateSchema.safeParse({ ...validTemplate, shape: 'LINE', dimensions: { length: 6 } })
   assert.equal(parsed.success, false)
+})
+
+test('area preview accepts a compact ephemeral placement and clear command', () => {
+  assert.equal(areaPreviewUpdateSchema.safeParse({
+    campaignId: 'campaign-1',
+    sceneId: 'scene-1',
+    preview: {
+      templateId: 'template-1',
+      origin: { x: 2.5, y: 3.5 },
+      rotationDegrees: 45,
+      scale: 1,
+      selectedTargetIds: ['token-1'],
+    },
+  }).success, true)
+  assert.equal(areaPreviewUpdateSchema.safeParse({ campaignId: 'campaign-1', sceneId: 'scene-1', preview: null }).success, true)
 })
 
 test('area template validation stores meters and rejects mutable display units', () => {

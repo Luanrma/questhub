@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import { appendMovementPoint, positionAlongMovementPath, truncatePathAtPoint } from '../src/vtt/table/domain/tokenMovement'
-import { applyDoorToWalls, isMovementBlockedBySceneWalls } from '../src/vtt/table/domain/wallGeometry'
+import { applyDoorToWalls, isMovementBlockedBySceneWalls, visibleWallSegmentsForRole } from '../src/vtt/table/domain/wallGeometry'
 import type { VttWallSegment } from '../src/vtt/table/domain/types'
 
 test('smooth movement follows breakpoints proportionally to segment length', () => {
@@ -35,6 +35,18 @@ test('a waypoint segment is rejected when it crosses a closed wall', () => {
     to: { x: 20, y: 10 },
     walls: [wall],
   }), true)
+})
+
+test('players only receive visible wall, door and window markings', () => {
+  const passage = { open: false, locked: false, blocked: false, ajar: false }
+  const walls: VttWallSegment[] = [
+    { id: 'wall', kind: 'wall', start: { x: 0, y: 0 }, end: { x: 1, y: 0 }, playerVisible: false, blocksEffects: true },
+    { id: 'door', kind: 'door', start: { x: 1, y: 0 }, end: { x: 2, y: 0 }, playerVisible: false, blocksEffects: true, door: passage },
+    { id: 'window', kind: 'window', start: { x: 2, y: 0 }, end: { x: 3, y: 0 }, playerVisible: true, blocksEffects: true, window: passage },
+  ]
+
+  assert.deepEqual(visibleWallSegmentsForRole(walls, false).map((wall) => wall.id), ['window'])
+  assert.equal(visibleWallSegmentsForRole(walls, true).length, 3)
 })
 
 test('a door near a wall snaps onto it and replaces the blocking slice', () => {

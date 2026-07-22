@@ -24,6 +24,7 @@
 * Paredes, portas e janelas usam coordenadas da cena, persistem com ela e sincronizam por websocket.
 * Paredes e portas fechadas bloqueiam movimento de jogadores; portas abertas nao bloqueiam.
 * A visibilidade visual de um segmento para jogadores e independente de sua colisao.
+* Marcacoes de parede, porta e janela somente sao renderizadas para Players quando `playerVisible = true`; ocultar a marcacao nunca desativa sua colisao.
 * A toolbar nao exibe ferramenta de regua; medicao de deslocamento e iniciada exclusivamente a partir de um Token controlavel.
 * A troca do formato do grid entre quadrado e hexagonal aplica e persiste o novo formato no primeiro clique.
 * A configuracao de grid deve distinguir `size`, tamanho visual da celula em pixels, de `metersPerCell`, distancia fisica representada por cada quadrado ou hexagono.
@@ -46,6 +47,7 @@
 * Nao e necessario manter `Ctrl`, segurar o botao esquerdo ou arrastar o mouse para demarcar o trajeto.
 * Clicar em uma interseccao ja fixada preserva esse ponto e remove todas as interseccoes seguintes.
 * Antes de inserir um ponto, o cliente valida o segmento entre o ultimo ponto fixado e o ponto clicado. Se o segmento cruzar uma parede ou porta fechada, o novo ponto nao e criado.
+* Durante o arraste direto de um Token controlado por Player, o cliente valida cada deslocamento contra paredes, portas fechadas e janelas fechadas antes do preview e da emissao; o backend repete a validacao autoritativa.
 * `Espaco` confirma o trajeto e envia um unico comando autoritativo; o servidor valida controle, cena, Encounter Mode, turno ativo e colisao de cada segmento antes de publicar o movimento.
 * O fato de movimento contem o trajeto aceito, `startedAt` e `durationMs`. Todos os clientes interpolam o Token pela mesma timeline; frames intermediarios nao sao enviados pelo WebSocket.
 * A duracao segue curva adaptativa definida pelo servidor: `clamp(450 + 180 * distanciaEmCelulas^0.86, 550, 6000)` milissegundos. O ritmo base e deliberadamente mais lento, enquanto trajetos longos ainda ganham velocidade para nao se tornarem cansativos.
@@ -142,6 +144,8 @@ A especificação detalhada está em [token-architecture.md](./token-architectur
 * `SECONDARY` não é um `CampaignCharacterRole`: qualquer Token controlado por um jogador, exceto o Token de seu Main Character, é classificado de forma derivada como Token secundário desse jogador.
 * Um Token secundário pode existir com ou sem `characterId`; transferir ou revogar seu controlador atualiza a classificação sem persistência duplicada.
 * O jogador do Main Character recebe automaticamente o controle do Token vinculado; o Mestre pode transferir esse controle sem alterar a propriedade do `Character`.
+* A cena visivel do jogador e resolvida pelos Tokens cujo `controllerMemberId` pertence a ele, e nao apenas pelo `characterId`; um Token generico controlado tambem concede acesso a sua cena.
+* Sem cena forcada e sem Token controlado posicionado, o jogador recebe cena nula e nenhum Token; a cena ativa do Mestre nao pode ser usada como fallback.
 * Controlar um Token não concede automaticamente permissão para editar o `Character` nem dados mantidos por módulos externos.
 * Somente o Mestre pode criar, remover ou substituir o vínculo entre Token e `Character`.
 * Excluir o `Character` vinculado preserva o Token, o posicionamento, a aparência e o controlador, removendo somente o vínculo.

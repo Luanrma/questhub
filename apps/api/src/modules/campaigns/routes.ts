@@ -993,6 +993,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       io.to(`campaign:${params.campaignId}`).emit('vtt:token:metadata-changed', {
         campaignId: params.campaignId,
         token: presented,
+        previousControllerUserId: current.controllerMember?.userId ?? null,
       })
       return reply.send(presented)
     } catch (err: any) {

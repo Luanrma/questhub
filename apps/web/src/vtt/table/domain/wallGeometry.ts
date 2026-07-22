@@ -44,6 +44,10 @@ export function isMovementBlockedBySceneWalls(input: {
   })
 }
 
+export function visibleWallSegmentsForRole(walls: VttWallSegment[], isMaster: boolean) {
+  return isMaster ? walls : walls.filter((wall) => wall.playerVisible)
+}
+
 export function normalizeDoorState(door: Partial<VttDoorState> | undefined): VttDoorState {
   if (door?.open) return { open: true, locked: false, blocked: false, ajar: false }
 

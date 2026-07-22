@@ -65,8 +65,28 @@ Eventos confirmados usam a room `campaign:<campaignId>`:
 * `area-effect:created` - emitido depois da persistencia para instancias `ALL_PLAYERS`;
 * `area-effect:updated` - emitido depois da edicao confirmada de uma instancia `ALL_PLAYERS`;
 * `area-effect:removed` - emitido depois da exclusao confirmada.
+* `area-template:created` - emitido para a campanha depois da criacao ou duplicacao confirmada; todos os membros ativos atualizam a biblioteca sem recarregar.
+* `area-template:updated` - emitido para a campanha depois da edicao confirmada.
+* `area-template:removed` - emitido para a campanha depois da exclusao confirmada.
+* Comando `area-preview:update` - Mestre ou Player ativo publica ou limpa sua previa durante sessao `ACTIVE`; usa ACK padrao.
+* Fato `area-preview:changed` - servidor transmite o estado efemero somente aos demais sockets que visualizam a mesma cena.
+* Fato `area-preview:cleared` - servidor remove a previa ao cancelar, trocar de cena ou desconectar.
 
-Previews nao produzem evento de rede.
+```ts
+type AreaPreviewUpdate = {
+  campaignId: string
+  sceneId: string
+  preview: null | {
+    templateId: string
+    origin: { x: number; y: number } // coordenadas logicas do grid
+    rotationDegrees: number
+    scale: number
+    selectedTargetIds: string[]
+  }
+}
+```
+
+O servidor valida autenticacao do socket, sessao ativa, participacao na campanha e cena atualmente visivel. Preview nao acessa Prisma, nao cria `SceneAreaEffect` e nao concede permissao persistente ao Player.
 
 Erros: `400` payload invalido, `403` acesso/permissao, `404` recurso fora do escopo ou inexistente, `409` conflito de integridade.
 
@@ -99,7 +119,7 @@ Ordem: converter medida para pixels da cena, construir poligono/curva, aplicar o
 
 ## 7. Fluxo de UI
 
-1. Mestre abre `Templates de Area` na toolbar.
+1. Mestre ou Player ativo abre `Templates de Area` na toolbar durante uma sessao em andamento. Fora da sessao, somente o Mestre possui acesso administrativo.
 2. A biblioteca abre em painel compacto: busca curta, templates em linhas unicas e acoes inline para usar/editar/duplicar/excluir. Somente o editor pode expandir a largura para acomodar o formulario.
 3. O primeiro `Usar` recolhe a biblioteca, mantem a toolbar inalterada e prende ao ponteiro um marcador com o mesmo icone da ferramenta na toolbar.
 4. Nenhum painel, modal ou faixa de instrucao deve substituir a biblioteca durante o posicionamento; somente o icone acompanha o mouse.
@@ -125,7 +145,7 @@ Ordem: converter medida para pixels da cena, construir poligono/curva, aplicar o
 24. O modo destacado possui largura maxima de 520px e altura maxima de 640px, ainda limitadas pelo viewport. Sua altura e autocontida: cresce conforme o conteudo ate o limite, nao reserva espaco vazio e usa somente rolagem vertical quando o conteudo excede a altura disponivel.
 25. O editor oferece `Target` entre as formas. Ao seleciona-lo, mostra `Quantidade maxima de alvos`, oculta dimensoes, escala, paredes, inclusao de celulas e efeito visual, e normaliza o template para selecao manual instantanea.
 26. Ao usar um template `TARGET`, clicar em um token alterna sua selecao sem iniciar arraste. Tokens selecionados recebem o anel configurado pelo template; tokens adicionais nao podem ser escolhidos depois de atingir `targetCount`.
-27. O marcador roxo de magia usado pelas demais formas acompanha o ponteiro e exibe `<selecionados>/<targetCount>` em um badge no proprio icone. Uma faixa compacta oferece `Cancelar` e habilita `Usar` depois do primeiro alvo, mesmo antes de atingir o maximo. Confirmar encerra o modo e informa os alvos selecionados, sem persistencia ou realtime.
+27. O marcador roxo de magia usado pelas demais formas acompanha o ponteiro e exibe `<selecionados>/<targetCount>` em um badge no proprio icone. Uma faixa compacta oferece `Cancelar` e habilita `Usar` depois do primeiro alvo, mesmo antes de atingir o maximo. Confirmar encerra o modo e informa os alvos selecionados, sem persistencia.
 28. Em `TARGET`, o marcador fica centralizado no ponteiro. O hit-test seleciona o token quando a distancia entre o ponteiro e o centro do token for menor ou igual a `raio do token + raio do marcador`, permitindo intersecao parcial.
 29. `Enter` equivale a `Usar` quando existe ao menos um alvo. A confirmacao dispara uma emanacao local forte nos alvos por aproximadamente 900ms e encerra a selecao; sem alvos, `Enter` nao produz efeito.
 30. Toda forma geometrica confirmada tambem dispara a mesma emanacao nos `touchedTokenIds` resultantes de sua geometria, regras de celulas e bloqueio por paredes. O feedback ocorre somente depois de uma persistencia bem-sucedida quando o template for persistente.
@@ -133,6 +153,9 @@ Ordem: converter medida para pixels da cena, construir poligono/curva, aplicar o
 32. `Forma`, `Unidade` e as dimensoes usam uma unica linha. Forma possui a menor coluna. Em `CONE`, `Comprimento` e `Abertura`; em `LINE`, `Comprimento` e `Largura` permanecem lado a lado. O rotulo da dimensao nao repete a unidade, pois ela esta explicita no select. O checkbox de celulas e o conjunto de inclusao usam a largura completa, e as quatro regras sao apresentadas em grade 2x2. O campo `Descricao` nao aparece no editor compacto, embora continue aceito pela API.
 33. `Unidade` nao e um select: exibe `Metros (m)` e, abaixo, o equivalente do valor principal em pes usando `1 ft = 0.3048 m`. Essa informacao nao altera formulario, payload, geometria ou configuracao do grid.
 34. `Ortogonal` usa posicionamento por ponto/celula e distancia em metros. A forma aplica o efeito visual por uma mascara SVG formada pelas celulas classificadas. O checkbox `Usar celulas do grid para atingir tokens` permanece disponivel: marcado exibe as mesmas quatro regras de inclusao dos outros formatos e usa ocupacao das celulas quadradas ou hexagonais resultantes; desmarcado usa intersecao com o losango continuo. Ao confirmar, todos os `touchedTokenIds` recebem a emanacao visual comum.
+35. Players visualizam somente busca e acao `Usar`; criar, editar, duplicar, excluir templates e administrar instancias persistentes permanecem exclusivos do Mestre.
+36. A geometria pendente e os alvos selecionados sao compartilhados em tempo real com os demais participantes que visualizam a mesma cena; o emissor mantem sua propria previa local.
+37. Criacao, duplicacao, edicao ou exclusao de template pelo Mestre atualiza imediatamente a biblioteca dos Players conectados na campanha. A consulta de efeitos da cena usa a mesma regra de cena visivel do VTT, incluindo token atribuido por `controllerMember`; falhas dessa consulta nao sao apresentadas como erro da biblioteca de templates.
 
 ## 7.2 Efeitos visuais
 
@@ -175,7 +198,9 @@ O editor deve enviar somente `AreaTemplateInput`. Campos de leitura da entidade 
 ## 9. Criterios de aceite cobertos pelo MVP
 
 * Isolamento e autorizacao no servidor para CRUD e persistencia.
-* Biblioteca por campanha e toolbar para Mestre.
+* Biblioteca por campanha e toolbar para Mestre e Players ativos durante a sessao.
+* Biblioteca sincronizada em tempo real apos CRUD do Mestre, sem recarregar a pagina.
+* Preview efemero sincronizado entre participantes da mesma cena, sem escrita no banco.
 * Preview cancelavel, formas direcionais e escala da cena.
 * Celulas quadradas e hexagonais classificadas sem grid oculto.
 * Deteccao e anel em tokens de tamanhos variados.

@@ -10,6 +10,7 @@ import {
 } from '../domain/boardMath'
 import type { VttMeasurement, VttPlayerToken, VttWallSegment } from '../domain/types'
 import { resizedTokenSize, rotatedTokenDegrees } from '../domain/tokenTransform'
+import { visibleWallSegmentsForRole } from '../domain/wallGeometry'
 import { TokenAvatar } from './TokenAvatar'
 
 export function VttWallsOverlay({ walls, drafts, zoomScale, isMasterView, canOpenWallMenu, onWallContextMenu }: {
@@ -20,7 +21,7 @@ export function VttWallsOverlay({ walls, drafts, zoomScale, isMasterView, canOpe
   canOpenWallMenu: boolean
   onWallContextMenu: (wall: VttWallSegment, position: { x: number; y: number }) => void
 }) {
-  const roleVisibleWalls = isMasterView ? walls : walls.filter((wall) => wall.kind !== 'wall' || wall.playerVisible)
+  const roleVisibleWalls = visibleWallSegmentsForRole(walls, isMasterView)
   const visibleWalls = drafts.length && isMasterView ? [...roleVisibleWalls, ...drafts] : roleVisibleWalls
   const draftIds = new Set(drafts.map((draft) => draft.id))
 

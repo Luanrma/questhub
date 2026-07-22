@@ -17,6 +17,7 @@ import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
 import { registerEffectAreaRoutes } from './modules/effect_area/presentation/routes'
+import { registerEffectAreaSocketHandlers } from './modules/effect_area/presentation/socket'
 
 const app = Fastify({ logger: true })
 
@@ -69,6 +70,7 @@ registerCampaignSceneRoutes(app, presence)
 registerFogRoutes(app, fogService, presence.io)
 registerFogSocketHandlers(presence.io, fogService)
 registerEffectAreaRoutes(app, presence.io)
+registerEffectAreaSocketHandlers(presence.io, presence)
 registerChatRoutes(app)
 registerChatSocketHandlers(presence.io)
 registerTradeRoutes(app, presence.io)

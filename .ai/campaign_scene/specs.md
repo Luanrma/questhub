@@ -38,6 +38,8 @@ Diarios nao fazem parte deste modulo. Mesmo que um Mestre nomeie um diario como 
 * O FOG e opcional por cena, desativado por padrao e definido pelo bounded context `fog_of_war`.
 * Ao forcar uma cena, o Mestre escolhe se os jogadores preservam o FOG relativo ao Token ou recebem revelacao temporaria do mapa inteiro.
 * Janelas pertencem a geometria da cena: sempre permitem visao, permitem luz por padrao e liberam movimento somente quando totalmente abertas.
+* `playerVisible` controla a exibicao das marcacoes administrativas de todos os segmentos (`wall`, `door` e `window`); quando falso, o Player nao ve a marcacao, mas colisao, visao e luz continuam respeitando sua geometria.
+* O checkbox global de visibilidade aplica o mesmo valor a paredes, portas e janelas existentes e serve de default para novos segmentos de qualquer tipo.
 
 ## 2.1 Nomes Canonicos
 Models Prisma esperados:
@@ -272,8 +274,10 @@ Regras:
 * Ao definir `forcedSceneId`, o Mestre informa `fogMode = 'PRESERVE_FOG' | 'REVEAL_ALL'`.
 * `PRESERVE_FOG` seleciona a cena sem conceder uma fonte de visao; jogador sem Main Character posicionado nela ve cobertura total.
 * `REVEAL_ALL` revela temporariamente o mapa inteiro, nao altera a memoria de exploracao e continua respeitando Tokens marcados como invisiveis.
-* Se `forcedSceneId` nao existir, cada jogador ve a cena onde esta seu token controlavel.
+* Se `forcedSceneId` nao existir, cada jogador ve a cena onde esta um Token cujo `controllerMemberId` referencia sua participacao ativa, mesmo quando o Token nao possui `characterId`.
+* Quando o jogador controla varios Tokens posicionados, o Token vinculado ao seu Main Character tem prioridade para definir a cena; na ausencia dele, o primeiro Token controlado e posicionado define a cena.
 * Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver uma tela preta/neutra aguardando posicionamento ou cena compartilhada.
+* Um snapshot sem cena visivel deve conter `scene = null` e lista de Tokens vazia; a cena ativa do Mestre nunca pode ser usada como fallback para Tokens do jogador.
 * Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar para tela preta/neutra ate o token ser reposicionado.
 * Remover token de um jogador nunca deve redirecionar esse jogador para `masterActiveSceneId` ou para a primeira cena da campanha.
 * Trocar `masterActiveSceneId` pelo Mestre pausa automaticamente a sessao online.
@@ -429,6 +433,8 @@ Regras:
 * A troca de cena nao deve desmontar `CampaignLayout`.
 * A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
 * O painel de Tokens deve listar primeiro Main Characters, depois secundarios controlados por Players e por ultimo Tokens exclusivos do Mestre.
+* O seletor `Player controlador` do menu contextual deve carregar todos os Players ativos da campanha independentemente de o painel da ferramenta `Tokens` ter sido aberto.
+* Atribuir, transferir ou revogar o controlador deve recalcular imediatamente a cena visivel dos jogadores afetados que estiverem conectados.
 * O Mestre remove primeiro o posicionamento atual; o Token sem cena fica disponivel no painel para novo posicionamento.
 * Ao ativar o FOG, o Mestre deve escolher dia, entardecer, noite ou escuridao antes da confirmacao.
 * Ao forcar uma cena com FOG ativo, a UI exige a escolha entre preservar FOG e revelar tudo.
@@ -457,6 +463,8 @@ Regras:
 * Retomar sessao nao revela automaticamente a nova cena para todos.
 * Player ve a cena onde seu token esta quando nao ha cena forcada.
 * Player sem token nao ve cena privada automaticamente quando nao ha cena forcada.
+* Player sem Token controlado recebe snapshot sem cena e sem Tokens, sem vazamento da cena ativa do Mestre.
+* Mestre consegue atribuir um Token generico, sem ficha vinculada, a um Player ativo pelo menu contextual; o Player passa a visualizar a cena desse Token imediatamente.
 * Mestre consegue forcar uma cena para todos os Players.
 * Desativar "mostrar para todos" devolve cada Player para a cena do proprio token.
 * Mestre consegue remover o Token da cena sem excluir sua identidade e depois posiciona-lo em outra cena pelo painel.

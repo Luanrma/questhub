@@ -98,13 +98,14 @@ function TemplateEditor({ template, gridScale, onCancel, onSave }: {
   )
 }
 
-export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId, gridScale, detached, onClose, onUse, onSave, onDuplicate, onDelete, persistentEffects, onDeleteEffect, onDetachedChange }: {
+export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId, gridScale, detached, canManageTemplates, onClose, onUse, onSave, onDuplicate, onDelete, persistentEffects, onDeleteEffect, onDetachedChange }: {
   templates: CampaignAreaTemplate[]
   loading: boolean
   error: string | null
   activeTemplateId?: string
   gridScale: { metersPerCell: number }
   detached: boolean
+  canManageTemplates: boolean
   onClose: () => void
   onUse: (template: CampaignAreaTemplate) => void
   onSave: (input: AreaTemplateInput, id?: string) => Promise<CampaignAreaTemplate | null>
@@ -160,23 +161,23 @@ export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId
       </div>
       <div className={['min-h-0 min-w-0 overflow-y-auto overflow-x-hidden', editing ? 'p-3' : 'p-2', detached ? 'flex-1' : ''].join(' ')}>
       {editing ? <TemplateEditor template={editing === 'new' ? undefined : editing} gridScale={gridScale} onCancel={() => setEditing(null)} onSave={onSave} /> : <>
-        <div className="mb-2 flex gap-1.5"><label className="relative flex-1"><Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-zinc-500" /><input value={search} onChange={(event) => setSearch(event.currentTarget.value)} placeholder="Pesquisar" className="h-8 w-full rounded-md border border-white/10 bg-black/40 pl-8 pr-2 text-xs" /></label><button type="button" title="Criar template" onClick={() => setEditing('new')} className="grid h-8 w-8 place-items-center rounded-md bg-orange-600 text-white"><Plus className="h-3.5 w-3.5" /></button></div>
+        <div className="mb-2 flex gap-1.5"><label className="relative flex-1"><Search className="absolute left-2.5 top-2 h-3.5 w-3.5 text-zinc-500" /><input value={search} onChange={(event) => setSearch(event.currentTarget.value)} placeholder="Pesquisar" className="h-8 w-full rounded-md border border-white/10 bg-black/40 pl-8 pr-2 text-xs" /></label>{canManageTemplates ? <button type="button" title="Criar template" onClick={() => setEditing('new')} className="grid h-8 w-8 place-items-center rounded-md bg-orange-600 text-white"><Plus className="h-3.5 w-3.5" /></button> : null}</div>
         {error ? <div className="mb-2 rounded border border-red-400/25 bg-red-500/10 px-3 py-2 text-xs text-red-200">{error}</div> : null}
         <div className="grid max-h-[260px] min-w-0 gap-1.5 overflow-y-auto overflow-x-hidden pr-1">
           {loading ? <div className="py-6 text-center text-sm text-zinc-500">Carregando...</div> : null}
           {!loading && !filtered.length ? <div className="rounded border border-dashed border-white/10 py-6 text-center text-sm text-zinc-500">Nenhum template nesta campanha.</div> : null}
           {filtered.map((template) => <div key={template.id} className={['grid min-h-12 w-full min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-1.5 overflow-hidden rounded-lg border px-2 py-1.5', activeTemplateId === template.id ? 'border-orange-300/50 bg-orange-500/15' : 'border-white/10 bg-white/[0.04]'].join(' ')}>
             <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: template.style.fillColor }} />
-            <div className="min-w-0 overflow-hidden" title={template.name}><div className="truncate text-xs font-semibold">{template.name}</div><div className="truncate text-[9px] uppercase text-zinc-500">{shapeLabels[template.shape]} · {template.persistenceMode === 'PERSISTENT' ? 'Persistente' : 'Temporaria'}</div></div>
+            <div className="min-w-0 overflow-hidden" title={template.name}><div className="truncate text-xs font-semibold">{template.name}</div><div className="truncate text-[9px] uppercase text-zinc-500">{shapeLabels[template.shape]} · {template.persistenceMode === 'PERSISTENT' && canManageTemplates ? 'Persistente' : 'Previa'}</div></div>
             <div className="flex min-w-fit shrink-0 items-center gap-0.5">
-              <button title="Editar" type="button" onClick={() => setEditing(template)} className="rounded p-1 text-zinc-400 hover:bg-white/10"><Pencil className="h-3 w-3" /></button>
+              {canManageTemplates ? <><button title="Editar" type="button" onClick={() => setEditing(template)} className="rounded p-1 text-zinc-400 hover:bg-white/10"><Pencil className="h-3 w-3" /></button>
               <button title="Duplicar" type="button" onClick={() => onDuplicate(template.id)} className="rounded p-1 text-zinc-400 hover:bg-white/10"><Copy className="h-3 w-3" /></button>
-              <button title="Excluir" type="button" onClick={() => onDelete(template.id)} className="rounded p-1 text-red-300 hover:bg-red-500/10"><Trash2 className="h-3 w-3" /></button>
+              <button title="Excluir" type="button" onClick={() => onDelete(template.id)} className="rounded p-1 text-red-300 hover:bg-red-500/10"><Trash2 className="h-3 w-3" /></button></> : null}
               <button type="button" onClick={() => onUse(template)} className="ml-0.5 h-7 rounded bg-orange-600 px-2 text-[10px] font-semibold">Usar</button>
             </div>
           </div>)}
         </div>
-        {persistentEffects.length ? <div className="mt-3 min-w-0 border-t border-white/10 pt-3"><div className="mb-2 text-[11px] font-semibold uppercase text-zinc-500">Areas nesta cena</div><div className="grid max-h-28 min-w-0 gap-1 overflow-y-auto overflow-x-hidden">{persistentEffects.map((effect) => <div key={effect.id} className="flex min-w-0 items-center justify-between rounded bg-white/[0.04] px-2 py-1.5 text-xs"><span className="min-w-0 truncate">{effect.name}</span><button type="button" title="Remover area" onClick={() => onDeleteEffect(effect.id)} className="shrink-0 text-red-300"><Trash2 className="h-3.5 w-3.5" /></button></div>)}</div></div> : null}
+        {persistentEffects.length ? <div className="mt-3 min-w-0 border-t border-white/10 pt-3"><div className="mb-2 text-[11px] font-semibold uppercase text-zinc-500">Areas nesta cena</div><div className="grid max-h-28 min-w-0 gap-1 overflow-y-auto overflow-x-hidden">{persistentEffects.map((effect) => <div key={effect.id} className="flex min-w-0 items-center justify-between rounded bg-white/[0.04] px-2 py-1.5 text-xs"><span className="min-w-0 truncate">{effect.name}</span>{canManageTemplates ? <button type="button" title="Remover area" onClick={() => onDeleteEffect(effect.id)} className="shrink-0 text-red-300"><Trash2 className="h-3.5 w-3.5" /></button> : null}</div>)}</div></div> : null}
       </>}
       </div>
     </section>

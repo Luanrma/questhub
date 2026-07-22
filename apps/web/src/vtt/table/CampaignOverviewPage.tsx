@@ -45,6 +45,7 @@ import {
   snapAreaOrigin,
   toggleTargetSelection,
   useAreaTemplates,
+  useSharedAreaPreviews,
   type AreaPlacement,
   type CampaignAreaTemplate,
   type SceneAreaEffect,
@@ -280,8 +281,11 @@ export function CampaignOverviewPage({
   const areaLibrary = useAreaTemplates(campaignId, activeScene?.id, Boolean(campaignId && campaign?.myStatus === 'ACTIVE'), socket)
   const sessionActive = Boolean(campaign?.isOnline && sessionState !== 'PAUSED')
   const masterCanUseVtt = Boolean(isMaster)
+  const shouldLoadTokenManagement = Boolean(isMaster && (activeTool === 'tokens' || tokenContextMenu))
   const playerCanUseVtt = Boolean(!isMaster && sessionActive)
+  const canUseAreaTemplates = Boolean(isMaster || playerCanUseVtt)
   const realtimeVttEnabled = Boolean(sessionActive || masterCanUseVtt)
+  const sharedAreaPreviews = useSharedAreaPreviews(campaignId, activeScene?.id, socket, sessionActive)
   const canRollDice = Boolean(
     campaignId &&
       campaign?.myStatus === 'ACTIVE' &&
@@ -302,10 +306,11 @@ export function CampaignOverviewPage({
   const boardPixelSize = getBoardPixelSize(tokenSize, activeZoomPercent, activeScene, gridSettings.shape)
   const clampedPanOffset = clampPanOffset(panOffset, viewportBounds, boardPixelSize)
   const visibleToolButtons = toolButtons.filter((tool) => {
-    if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'walls' || tool.id === 'area-templates' || tool.id === 'fog') return canConfigureGrid
+    if (tool.id === 'area-templates') return canUseAreaTemplates
+    if (tool.id === 'grid' || tool.id === 'tokens' || tool.id === 'walls' || tool.id === 'fog') return canConfigureGrid
     return true
   })
-  const playersCanSeeSceneWalls = Boolean(activeScene?.walls.some((wall) => wall.kind === 'wall' && wall.playerVisible))
+  const playersCanSeeSceneWalls = Boolean(activeScene?.walls.length && activeScene.walls.every((wall) => wall.playerVisible))
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
   const selectedToken = visibleTokens.find((token) => token.id === selectedTokenId) ?? null
@@ -321,10 +326,10 @@ export function CampaignOverviewPage({
     fogConfig: fogSetupPreview.fogConfig,
     fixedLightSources: fogSetupPreview.fixedLights,
   } : activeScene
-  const mainCampaignToken = campaignTokens.find((token) => token.category === 'MAIN' && token.placement?.sceneId === activeScene?.id)
+  const controlledVisionTokens = fogPreviewTokens.filter((token) => token.controllerUserId === me?.id)
   const fogVisionToken = isMaster
     ? fogPreviewTokens.find((token) => token.id === selectedTokenId) ?? null
-    : fogPreviewTokens.find((token) => token.id === mainCampaignToken?.id && token.controllerUserId === me?.id) ?? null
+    : controlledVisionTokens.find((token) => token.characterId === myCharacter?.id) ?? controlledVisionTokens[0] ?? null
   const scaledSceneWalls = useMemo(() => scaleWallsForZoom(activeScene?.walls ?? [], activeZoomPercent), [activeScene?.walls, activeZoomPercent])
   const fog = useFogOfWar({
     campaignId,
@@ -370,18 +375,85 @@ export function CampaignOverviewPage({
       selected: true,
     }
   }, [activeAreaTemplate, activeTool, areaDraftOrigin, areaEffectContextMenu, areaPointer, pendingAreaPlacement])
+  const remoteAreaPlacements = useMemo<AreaPlacement[]>(() => sharedAreaPreviews.remotePreviews.flatMap((preview) => {
+    const template = areaLibrary.templates.find((candidate) => candidate.id === preview.templateId)
+    if (!template || template.shape === 'TARGET') return []
+    return [{
+      key: `remote-preview-${preview.previewId}`,
+      template,
+      origin: {
+        x: preview.origin.x * tokenSize + zoomedGridSettings.offsetX,
+        y: preview.origin.y * tokenSize + zoomedGridSettings.offsetY,
+      },
+      rotationDegrees: preview.rotationDegrees,
+      scale: preview.scale,
+      selected: false,
+    }]
+  }), [areaLibrary.templates, sharedAreaPreviews.remotePreviews, tokenSize, zoomedGridSettings.offsetX, zoomedGridSettings.offsetY])
+
+  useEffect(() => {
+    if (!sessionActive || activeTool !== 'area-templates' || !activeAreaTemplate) {
+      sharedAreaPreviews.publishPreview(null)
+      return
+    }
+    if (activeAreaTemplate.shape === 'TARGET') {
+      if (!selectedAreaTargetIds.length) {
+        sharedAreaPreviews.publishPreview(null)
+        return
+      }
+      sharedAreaPreviews.publishPreview({
+        templateId: activeAreaTemplate.id,
+        origin: { x: 0, y: 0 },
+        rotationDegrees: 0,
+        scale: 1,
+        selectedTargetIds: selectedAreaTargetIds,
+      })
+      return
+    }
+    const placement = pendingAreaPlacement ?? previewAreaPlacement
+    if (!placement) {
+      sharedAreaPreviews.publishPreview(null)
+      return
+    }
+    sharedAreaPreviews.publishPreview({
+      templateId: placement.template.id,
+      origin: {
+        x: (placement.origin.x - zoomedGridSettings.offsetX) / tokenSize,
+        y: (placement.origin.y - zoomedGridSettings.offsetY) / tokenSize,
+      },
+      rotationDegrees: placement.rotationDegrees,
+      scale: placement.scale,
+      selectedTargetIds: [],
+    })
+  }, [
+    activeAreaTemplate,
+    activeTool,
+    pendingAreaPlacement,
+    previewAreaPlacement,
+    selectedAreaTargetIds,
+    sessionActive,
+    sharedAreaPreviews.publishPreview,
+    tokenSize,
+    zoomedGridSettings.offsetX,
+    zoomedGridSettings.offsetY,
+  ])
   const renderedAreas = useMemo(() => {
     const context = { grid: zoomedGridSettings, board: gridBounds, tokens: visibleTokens, walls: scaleWallsForZoom(activeScene?.walls ?? [], activeZoomPercent) }
-    return [...displayedPersistentAreaPlacements.filter((placement) => placement.effectId !== editingAreaEffectId), ...(previewAreaPlacement ? [previewAreaPlacement] : [])].map((placement) => calculateAreaRender(placement, context))
-  }, [activeScene?.walls, activeZoomPercent, displayedPersistentAreaPlacements, editingAreaEffectId, gridBounds, previewAreaPlacement, visibleTokens, zoomedGridSettings])
+    return [...displayedPersistentAreaPlacements.filter((placement) => placement.effectId !== editingAreaEffectId), ...remoteAreaPlacements, ...(previewAreaPlacement ? [previewAreaPlacement] : [])].map((placement) => calculateAreaRender(placement, context))
+  }, [activeScene?.walls, activeZoomPercent, displayedPersistentAreaPlacements, editingAreaEffectId, gridBounds, previewAreaPlacement, remoteAreaPlacements, visibleTokens, zoomedGridSettings])
   const affectedTokenRings = useMemo(() => {
     const rings = new Map<string, CampaignAreaTemplate['style']['affectedTokenRing']>()
     for (const area of renderedAreas) for (const tokenId of area.touchedTokenIds) rings.set(tokenId, area.template.style.affectedTokenRing)
     if (activeTool === 'area-templates' && activeAreaTemplate?.shape === 'TARGET') {
       for (const tokenId of selectedAreaTargetIds) rings.set(tokenId, activeAreaTemplate.style.affectedTokenRing)
     }
+    for (const preview of sharedAreaPreviews.remotePreviews) {
+      const template = areaLibrary.templates.find((candidate) => candidate.id === preview.templateId)
+      if (!template || template.shape !== 'TARGET') continue
+      for (const tokenId of preview.selectedTargetIds) rings.set(tokenId, template.style.affectedTokenRing)
+    }
     return rings
-  }, [activeAreaTemplate, activeTool, renderedAreas, selectedAreaTargetIds])
+  }, [activeAreaTemplate, activeTool, areaLibrary.templates, renderedAreas, selectedAreaTargetIds, sharedAreaPreviews.remotePreviews])
   const previewAreaRender = renderedAreas.find((area) => area.selected)
   const currentSceneTokenCount = playerTokens.length
   const placedCampaignTokenCount = campaignTokens.filter((token) => token.placement).length
@@ -546,31 +618,25 @@ export function CampaignOverviewPage({
   ])
 
   useEffect(() => {
-    if (!campaignId || !isMaster || activeTool !== 'tokens') return
+    if (!campaignId || !shouldLoadTokenManagement) return
 
     let cancelled = false
-    Promise.all([
-      api<CampaignToken[]>(`/api/campaigns/${campaignId}/tokens`),
-      api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`),
-      api<CampaignPlayer[]>(`/api/campaigns/${campaignId}/players`),
-    ])
-      .then(([tokens, candidates, players]) => {
-        if (cancelled) return
-        setCampaignTokens(tokens)
-        setTokenCandidates(candidates)
-        setCampaignPlayers(players.filter((player) => player.role === 'PLAYER' && player.status === 'ACTIVE'))
+    void api<CampaignToken[]>(`/api/campaigns/${campaignId}/tokens`)
+      .then((tokens) => { if (!cancelled) setCampaignTokens(tokens) })
+      .catch(() => { if (!cancelled) setCampaignTokens([]) })
+    void api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
+      .then((candidates) => { if (!cancelled) setTokenCandidates(candidates) })
+      .catch(() => { if (!cancelled) setTokenCandidates([]) })
+    void api<CampaignPlayer[]>(`/api/campaigns/${campaignId}/players`)
+      .then((players) => {
+        if (!cancelled) setCampaignPlayers(players.filter((player) => player.role === 'PLAYER' && player.status === 'ACTIVE'))
       })
-      .catch(() => {
-        if (cancelled) return
-        setCampaignTokens([])
-        setTokenCandidates([])
-        setCampaignPlayers([])
-      })
+      .catch(() => { if (!cancelled) setCampaignPlayers([]) })
 
     return () => {
       cancelled = true
     }
-  }, [activeTool, campaignId, isMaster])
+  }, [campaignId, shouldLoadTokenManagement])
 
   useEffect(() => {
     const online = Boolean(campaign?.isOnline)
@@ -715,9 +781,18 @@ export function CampaignOverviewPage({
       })
     }
 
-    function onTokenMetadataChanged(payload: { campaignId: string; token: CampaignToken }) {
+    function onTokenMetadataChanged(payload: {
+      campaignId: string
+      token: CampaignToken
+      previousControllerUserId: string | null
+    }) {
       if (payload.campaignId !== campaignId) return
       applyCampaignTokenUpdate(payload.token)
+      const controllerChanged = payload.previousControllerUserId !== payload.token.controllerUserId
+      const currentUserAffected = payload.previousControllerUserId === me?.id || payload.token.controllerUserId === me?.id
+      if (!isMaster && controllerChanged && currentUserAffected) {
+        socket?.emit('vtt:scene:request', { campaignId })
+      }
     }
 
     function onTokenDeleted(payload: { campaignId: string; tokenId: string }) {
@@ -855,7 +930,7 @@ export function CampaignOverviewPage({
       socket.off('fog:exploration:reset', onFogExplorationReset)
       socket.off('fog:exploration:flush-request', onFogExplorationFlushRequest)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, myCharacter?.id, startSmoothTokenMovement, resetLocalFogExploration, flushFogExploration])
+  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, me?.id, myCharacter?.id, startSmoothTokenMovement, resetLocalFogExploration, flushFogExploration])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
@@ -1037,6 +1112,17 @@ export function CampaignOverviewPage({
 
     const nextPosition = normalizeTokenPosition(position, gridSettings.shape, gridBounds, tokenSize)
     const previousPosition = token.position
+    if (isOwnerMove && activeScene) {
+      const toScenePixels = (point: VttPlayerToken['position']) => ({
+        x: point.x * gridSettings.size + gridSettings.offsetX,
+        y: point.y * gridSettings.size + gridSettings.offsetY,
+      })
+      if (isMovementBlockedBySceneWalls({
+        from: toScenePixels(previousPosition),
+        to: toScenePixels(nextPosition),
+        walls: activeScene.walls,
+      })) return
+    }
     const fogCheckpoint = fog.createExplorationCheckpoint()
     setTokenState((current) => {
       if (current.campaignId !== campaignId) return current
@@ -1203,7 +1289,7 @@ export function CampaignOverviewPage({
         start,
         end,
         color: wallKind === 'window' ? '#38bdf8' : doorColor,
-        playerVisible: true,
+        playerVisible: playersCanSeeSceneWalls,
         blocksEffects: true,
         allowsLight: wallKind === 'window',
         ...(wallKind === 'door' ? { door: passage } : { window: passage }),
@@ -1450,7 +1536,7 @@ export function CampaignOverviewPage({
       })
       if (!updated) return
       setSceneSuccessMessage(`${placement.template.name} atualizada.`)
-    } else if (placement.template.persistenceMode === 'PERSISTENT') {
+    } else if (placement.template.persistenceMode === 'PERSISTENT' && isMaster) {
       const created = await areaLibrary.createEffect({
         templateId: placement.template.id,
         origin: { x: (placement.origin.x - zoomedGridSettings.offsetX) / tokenSize, y: (placement.origin.y - zoomedGridSettings.offsetY) / tokenSize },
@@ -1644,9 +1730,7 @@ export function CampaignOverviewPage({
   }
 
   function setPlayerWallVisibility(visible: boolean) {
-    updateActiveSceneWalls((walls) => walls.map((wall) =>
-      wall.kind === 'wall' ? { ...wall, playerVisible: visible } : wall,
-    ))
+    updateActiveSceneWalls((walls) => walls.map((wall) => ({ ...wall, playerVisible: visible })))
   }
 
   function isEditableKeyboardTarget(target: EventTarget | null) {
@@ -2430,7 +2514,7 @@ export function CampaignOverviewPage({
                 <button type="button" disabled={selectedAreaTargetIds.length === 0} onClick={confirmAreaTargets} className="rounded bg-violet-600 px-2 py-1 font-semibold text-white hover:bg-violet-500 disabled:cursor-not-allowed disabled:opacity-40">Usar</button>
               </div>
             ) : null}
-            {displayedPersistentAreaPlacements.filter((placement) => placement.effectId !== editingAreaEffectId).map((placement) => {
+            {isMaster ? displayedPersistentAreaPlacements.filter((placement) => placement.effectId !== editingAreaEffectId).map((placement) => {
               const effect = areaLibrary.effects.find((item) => item.id === placement.effectId)
               if (!effect) return null
               return (
@@ -2449,7 +2533,7 @@ export function CampaignOverviewPage({
                   <Sparkles className="h-4 w-4" />
                 </button>
               )
-            })}
+            }) : null}
             {pendingAreaPlacement ? (
               <>
                 <button
@@ -2677,7 +2761,7 @@ export function CampaignOverviewPage({
 
                 <label className="mt-3 flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-300">
                   <input type="checkbox" className="h-4 w-4 accent-sky-500" checked={playersCanSeeSceneWalls} onChange={(event) => setPlayerWallVisibility(event.currentTarget.checked)} />
-                  Jogadores veem paredes
+                  Jogadores veem marcações de barreiras
                 </label>
 
                 <p className="mt-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-[11px] leading-4 text-zinc-400">
@@ -2690,7 +2774,7 @@ export function CampaignOverviewPage({
               </div>
             ) : null}
 
-            {isMaster && (areaTemplatesDetached || (activeTool === 'area-templates' && !activeAreaTemplate)) ? (
+            {canUseAreaTemplates && (areaTemplatesDetached || (activeTool === 'area-templates' && !activeAreaTemplate)) ? (
               <AreaTemplatesPanel
                 templates={areaLibrary.templates}
                 loading={areaLibrary.loading}
@@ -2698,6 +2782,7 @@ export function CampaignOverviewPage({
                 activeTemplateId={activeAreaTemplate?.id}
                 gridScale={{ metersPerCell: gridSettings.metersPerCell }}
                 detached={areaTemplatesDetached}
+                canManageTemplates={Boolean(isMaster)}
                 onClose={() => {
                   setAreaTemplatesDetached(false)
                   setActiveTool(null)

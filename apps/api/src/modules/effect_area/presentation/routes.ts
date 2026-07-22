@@ -38,7 +38,9 @@ export function registerEffectAreaRoutes(app: FastifyInstance, io?: Server, serv
     const body = createAreaTemplateSchema.safeParse(req.body)
     if (!params.success || !body.success) return reply.status(400).send({ error: body.success ? 'Campanha invalida' : body.error.flatten() })
     try {
-      return reply.status(201).send(presentAreaTemplate(await service.createTemplate(params.data.campaignId, auth.id, body.data)))
+      const presented = presentAreaTemplate(await service.createTemplate(params.data.campaignId, auth.id, body.data))
+      io?.to(campaignRoom(params.data.campaignId)).emit('area-template:created', presented)
+      return reply.status(201).send(presented)
     } catch (error) { return sendError(reply, error) }
   })
 
@@ -49,7 +51,9 @@ export function registerEffectAreaRoutes(app: FastifyInstance, io?: Server, serv
     const body = updateAreaTemplateSchema.safeParse(req.body)
     if (!params.success || !body.success) return reply.status(400).send({ error: body.success ? 'Parametros invalidos' : body.error.flatten() })
     try {
-      return reply.send(presentAreaTemplate(await service.updateTemplate(params.data.campaignId, params.data.templateId, auth.id, body.data)))
+      const presented = presentAreaTemplate(await service.updateTemplate(params.data.campaignId, params.data.templateId, auth.id, body.data))
+      io?.to(campaignRoom(params.data.campaignId)).emit('area-template:updated', presented)
+      return reply.send(presented)
     } catch (error) { return sendError(reply, error) }
   })
 
@@ -59,7 +63,9 @@ export function registerEffectAreaRoutes(app: FastifyInstance, io?: Server, serv
     const params = templateParamsSchema.safeParse(req.params)
     if (!params.success) return reply.status(400).send({ error: 'Parametros invalidos' })
     try {
-      return reply.status(201).send(presentAreaTemplate(await service.duplicateTemplate(params.data.campaignId, params.data.templateId, auth.id)))
+      const presented = presentAreaTemplate(await service.duplicateTemplate(params.data.campaignId, params.data.templateId, auth.id))
+      io?.to(campaignRoom(params.data.campaignId)).emit('area-template:created', presented)
+      return reply.status(201).send(presented)
     } catch (error) { return sendError(reply, error) }
   })
 
@@ -70,6 +76,10 @@ export function registerEffectAreaRoutes(app: FastifyInstance, io?: Server, serv
     if (!params.success) return reply.status(400).send({ error: 'Parametros invalidos' })
     try {
       await service.deleteTemplate(params.data.campaignId, params.data.templateId, auth.id)
+      io?.to(campaignRoom(params.data.campaignId)).emit('area-template:removed', {
+        campaignId: params.data.campaignId,
+        templateId: params.data.templateId,
+      })
       return reply.send({ ok: true })
     } catch (error) { return sendError(reply, error) }
   })

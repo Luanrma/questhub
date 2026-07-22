@@ -13,18 +13,19 @@ O Mestre precisa representar rapidamente explosoes, cones, linhas, auras e outra
 ## Personas e casos de uso
 
 * Mestre cria, pesquisa, edita, duplica e exclui templates pertencentes a campanha, escolhendo entre o visual geometrico padrao e efeitos imersivos suportados.
-* Mestre seleciona um template na toolbar e posiciona uma previa por ponto/direcao, projeta uma distancia ortogonal pelo grid ou seleciona diretamente um ou mais tokens quando a forma e `TARGET`.
+* Mestre e Players ativos selecionam um template na toolbar e posicionam uma previa por ponto/direcao, projetam uma distancia ortogonal pelo grid ou selecionam diretamente um ou mais tokens quando a forma e `TARGET` durante uma sessao em andamento.
 * Mestre ve celulas cobertas e tokens geometricamente tocados em tempo real.
 * Mestre confirma uma area temporaria ou persiste uma instancia na cena.
 * Mestre remove instancias persistentes.
-* Jogador visualiza instancias permitidas, sem poder cria-las ou altera-las.
+* Jogador usa templates existentes para previsualizacao compartilhada e visualiza instancias permitidas, sem poder administrar templates nem criar ou alterar instancias persistentes.
 
 ## Regras de negocio
 
 * Templates e instancias pertencem sempre a uma campanha.
 * Instancias pertencem tambem a uma cena e guardam snapshot completo da configuracao usada.
-* Apenas Mestre pode criar, alterar, duplicar, excluir ou posicionar areas.
-* Previa e estado local do cliente e nunca e persistida antes da confirmacao.
+* Apenas Mestre pode criar, alterar, duplicar ou excluir templates e criar, alterar ou remover instancias persistentes.
+* Mestre e Players ativos podem posicionar areas transitorias durante `ONLINE + IN_PROGRESS`.
+* Previa e estado efemero sincronizado entre os sockets que visualizam a mesma cena e nunca e persistida antes da confirmacao.
 * Dimensoes criadas ou editadas pela interface sao expressas em metros (`m`) e convertidas pela escala `metersPerCell`; pes (`ft`) aparecem somente como equivalencia visual, sem alterar dados, geometria ou grid.
 * Contato apenas por borda, sem area positiva de sobreposicao, nao toca token.
 * O anel significa somente intersecao geometrica.
@@ -56,5 +57,5 @@ Nao pertencem ao modulo: regras de magia, ataques, dano, salvamentos, condicoes,
 ## Relacoes
 
 * `campaign_scene` fornece cena, escala, grid, paredes e tokens.
-* `campaign_presence` fornece a room da campanha para sincronizar criacao/remocao de instancias confirmadas; a previa continua local.
+* `campaign_presence` fornece sessao, identidade, cena visivel e rooms para sincronizar instancias confirmadas e previews efemeros.
 * `assets` podera fornecer icones e texturas em evolucoes posteriores.

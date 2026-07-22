@@ -154,6 +154,18 @@ export const updateSceneAreaEffectSchema = z.object({
   scale: z.number().finite().min(0.1).max(10).optional(),
 }).strict().refine((value) => Object.keys(value).length > 0, 'Informe ao menos uma alteracao')
 
+export const areaPreviewUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  sceneId: z.string().min(1),
+  preview: z.object({
+    templateId: z.string().min(1),
+    origin: z.object({ x: z.number().finite(), y: z.number().finite() }).strict(),
+    rotationDegrees: z.number().finite(),
+    scale: z.number().finite().min(0.1).max(10),
+    selectedTargetIds: z.array(z.string().min(1)).max(100),
+  }).strict().nullable(),
+}).strict()
+
 export type AreaTemplateInput = z.infer<typeof createAreaTemplateSchema>
 export type AreaTemplatePatch = z.infer<typeof updateAreaTemplateSchema>
 export type SceneAreaEffectInput = z.infer<typeof createSceneAreaEffectSchema>

@@ -34,6 +34,7 @@ import {
   vttWallsUpdateSchema,
 } from './contracts'
 import { areMovementPointsEqual, movementDurationMs, pathHasBlockedSegment } from './domain/token-movement'
+import { selectPlayerVisibleSceneId } from './domain/scene-visibility'
 import { registerPresenceHandlers } from './handlers/presence-handlers'
 import { CampaignPresenceState } from './live-state'
 import { sceneGridToVttSettings, tableTokenFromPersistedToken, vttGridSettingsToSceneData } from './mappers'
@@ -247,21 +248,35 @@ export function setupCampaignPresence(server: HttpServer) {
     if (viewState?.forcedSceneId) return viewState.forcedSceneId
 
     const characterId = socket.data.characterId as string | undefined
-    if (!characterId) return null
+    if (!socketUser?.id) return null
 
     const liveTokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
     const liveTokenMap = state.getCampaignTokens(campaignId)
     if (liveTokenSceneMap && liveTokenMap) {
-      const mainToken = [...liveTokenMap.values()].find((token) => token.characterId === characterId)
-      return mainToken ? liveTokenSceneMap.get(mainToken.id) ?? null : null
+      return selectPlayerVisibleSceneId(
+        liveTokenMap.values(),
+        liveTokenSceneMap,
+        socketUser.id,
+        characterId ?? null,
+      )
     }
 
-    const token = await prisma.campaignToken.findUnique({
-      where: { characterId },
-      select: { campaignId: true, placement: { select: { sceneId: true } } },
+    const controlledTokenWhere = {
+      campaignId,
+      controllerMember: { userId: socketUser.id },
+      placement: { isNot: null },
+    } as const
+    const mainToken = characterId ? await prisma.campaignToken.findFirst({
+      where: { ...controlledTokenWhere, characterId },
+      select: { placement: { select: { sceneId: true } } },
+    }) : null
+    const token = mainToken ?? await prisma.campaignToken.findFirst({
+      where: controlledTokenWhere,
+      orderBy: { createdAt: 'asc' },
+      select: { placement: { select: { sceneId: true } } },
     })
 
-    return token?.campaignId === campaignId ? token.placement?.sceneId ?? null : null
+    return token?.placement?.sceneId ?? null
   }
 
   async function getVisibleCampaignSessionState(campaignId: string, socket: { data: any }) {
@@ -605,18 +620,17 @@ export function setupCampaignPresence(server: HttpServer) {
     }
   }
 
-  async function listSceneTokens(campaignId: string, sceneId?: string | null) {
-    const visibleSceneId = sceneId ?? (await getMasterActiveSceneId(campaignId))
-    if (!visibleSceneId) return []
+  async function listSceneTokens(campaignId: string, sceneId: string | null) {
+    if (!sceneId) return []
 
     const liveTokenMap = state.getCampaignTokens(campaignId)
     const liveTokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
     if (liveTokenMap && liveTokenSceneMap) {
-      return [...liveTokenMap.values()].filter((token) => liveTokenSceneMap.get(token.id) === visibleSceneId)
+      return [...liveTokenMap.values()].filter((token) => liveTokenSceneMap.get(token.id) === sceneId)
     }
 
     const tokens = await prisma.campaignTokenPlacement.findMany({
-      where: { sceneId: visibleSceneId },
+      where: { sceneId },
       select: { tokenId: true },
       orderBy: { createdAt: 'asc' },
     })
@@ -699,7 +713,7 @@ export function setupCampaignPresence(server: HttpServer) {
     }))
   }
 
-  async function emitCampaignTokenSnapshot(campaignId: string, socketId: string, sceneId?: string | null) {
+  async function emitCampaignTokenSnapshot(campaignId: string, socketId: string, sceneId: string | null) {
     const persistedTokens = await listSceneTokens(campaignId, sceneId)
     const tokenMap = getCampaignTokenMap(campaignId)
     const tokenSceneMap = getCampaignTokenSceneMap(campaignId)
@@ -1495,6 +1509,10 @@ export function setupCampaignPresence(server: HttpServer) {
     io,
     isCampaignOnline,
     getCampaignSessionState,
+    getVisibleSceneId: async (campaignId: string, socketId: string) => {
+      const targetSocket = io.sockets.sockets.get(socketId)
+      return targetSocket ? getVisibleSceneIdForSocket(campaignId, targetSocket) : null
+    },
     removeCampaignTokenFromLiveState,
     refreshCampaignTokenInLiveState,
     removeScenePlacementsFromLiveState,

@@ -7,16 +7,17 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
   const [templates, setTemplates] = useState<CampaignAreaTemplate[]>([])
   const [effects, setEffects] = useState<SceneAreaEffect[]>([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  const [templateError, setTemplateError] = useState<string | null>(null)
+  const [effectsError, setEffectsError] = useState<string | null>(null)
 
   const loadTemplates = useCallback(async () => {
     if (!campaignId || !enabled) return
     setLoading(true)
-    setError(null)
+    setTemplateError(null)
     try {
       setTemplates(await areaTemplatesApi.listTemplates(campaignId))
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel carregar templates de area.')
+      setTemplateError(reason instanceof Error ? reason.message : 'Nao foi possivel carregar templates de area.')
     } finally {
       setLoading(false)
     }
@@ -25,12 +26,15 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
   const loadEffects = useCallback(async () => {
     if (!campaignId || !sceneId || !enabled) {
       setEffects([])
+      setEffectsError(null)
       return
     }
     try {
       setEffects(await areaTemplatesApi.listEffects(campaignId, sceneId))
+      setEffectsError(null)
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel carregar areas da cena.')
+      setEffects([])
+      setEffectsError(reason instanceof Error ? reason.message : 'Nao foi possivel carregar areas da cena.')
     }
   }, [campaignId, enabled, sceneId])
 
@@ -42,6 +46,26 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
     const task = window.setTimeout(() => void loadEffects(), 0)
     return () => window.clearTimeout(task)
   }, [loadEffects])
+
+  useEffect(() => {
+    if (!socket || !campaignId) return
+    const upsertTemplate = (template: CampaignAreaTemplate) => {
+      if (template.campaignId !== campaignId) return
+      setTemplates((current) => [...current.filter((item) => item.id !== template.id), template].sort((a, b) => a.name.localeCompare(b.name)))
+    }
+    const removeTemplate = (payload: { campaignId: string; templateId: string }) => {
+      if (payload.campaignId !== campaignId) return
+      setTemplates((current) => current.filter((template) => template.id !== payload.templateId))
+    }
+    socket.on('area-template:created', upsertTemplate)
+    socket.on('area-template:updated', upsertTemplate)
+    socket.on('area-template:removed', removeTemplate)
+    return () => {
+      socket.off('area-template:created', upsertTemplate)
+      socket.off('area-template:updated', upsertTemplate)
+      socket.off('area-template:removed', removeTemplate)
+    }
+  }, [campaignId, socket])
 
   useEffect(() => {
     if (!socket || !campaignId || !sceneId) return
@@ -65,7 +89,7 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
 
   async function saveTemplate(input: AreaTemplateInput, templateId?: string) {
     if (!campaignId) return null
-    setError(null)
+    setTemplateError(null)
     try {
       const saved = templateId
         ? await areaTemplatesApi.updateTemplate(campaignId, templateId, input)
@@ -73,7 +97,7 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       setTemplates((current) => [...current.filter((template) => template.id !== saved.id), saved].sort((a, b) => a.name.localeCompare(b.name)))
       return saved
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel salvar o template.')
+      setTemplateError(reason instanceof Error ? reason.message : 'Nao foi possivel salvar o template.')
       return null
     }
   }
@@ -82,9 +106,9 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
     if (!campaignId) return
     try {
       const duplicated = await areaTemplatesApi.duplicateTemplate(campaignId, templateId)
-      setTemplates((current) => [...current, duplicated].sort((a, b) => a.name.localeCompare(b.name)))
+      setTemplates((current) => [...current.filter((template) => template.id !== duplicated.id), duplicated].sort((a, b) => a.name.localeCompare(b.name)))
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel duplicar o template.')
+      setTemplateError(reason instanceof Error ? reason.message : 'Nao foi possivel duplicar o template.')
     }
   }
 
@@ -94,7 +118,7 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       await areaTemplatesApi.deleteTemplate(campaignId, templateId)
       setTemplates((current) => current.filter((template) => template.id !== templateId))
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel excluir o template.')
+      setTemplateError(reason instanceof Error ? reason.message : 'Nao foi possivel excluir o template.')
     }
   }
 
@@ -105,7 +129,7 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       setEffects((current) => [...current.filter((effect) => effect.id !== created.id), created])
       return created
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel persistir a area.')
+      setEffectsError(reason instanceof Error ? reason.message : 'Nao foi possivel persistir a area.')
       return null
     }
   }
@@ -116,7 +140,7 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       await areaTemplatesApi.deleteEffect(campaignId, sceneId, effectId)
       setEffects((current) => current.filter((effect) => effect.id !== effectId))
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel remover a area.')
+      setEffectsError(reason instanceof Error ? reason.message : 'Nao foi possivel remover a area.')
     }
   }
 
@@ -127,10 +151,10 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       setEffects((current) => current.map((effect) => effect.id === updated.id ? updated : effect))
       return updated
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Nao foi possivel editar a area.')
+      setEffectsError(reason instanceof Error ? reason.message : 'Nao foi possivel editar a area.')
       return null
     }
   }
 
-  return { templates, effects, loading, error, setError, saveTemplate, duplicateTemplate, deleteTemplate, createEffect, updateEffect, deleteEffect, reloadEffects: loadEffects }
+  return { templates, effects, loading, error: templateError, effectsError, setError: setTemplateError, saveTemplate, duplicateTemplate, deleteTemplate, createEffect, updateEffect, deleteEffect, reloadEffects: loadEffects }
 }

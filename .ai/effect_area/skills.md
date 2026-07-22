@@ -30,7 +30,7 @@ Backend em `apps/api/src/modules/effect_area/`:
 
 * Novas dimensoes sao armazenadas em metros, nunca em pixels. A equivalencia visual usa o fator exato `0.3048 m/ft`, sem participar da geometria. O motor ainda le `GRID_CELLS` e normaliza eventual dado legado em `ft` para metros no editor.
 * A geometria continua em coordenadas do board e a fonte da verdade.
-* O calculo de preview e local e limitado ao bounding box da forma.
+* O calculo geometrico de preview permanece local e limitado ao bounding box; o realtime transmite somente template, origem logica, rotacao, escala e alvos selecionados.
 * Grid quadrado e hexagonal usam seus poligonos reais; nao ha matriz quadrada oculta para hexagonos.
 * `ORTHOGONAL` usa um losango continuo como fonte geometrica e o mesmo classificador de celulas das demais formas. No grid quadrado, o resultado visual corresponde a distancia ortogonal; no hexagonal, classifica os hexagonos reais sem introduzir uma matriz quadrada oculta.
 * Efeitos visuais ortogonais usam uma unica mascara SVG composta pelas celulas cobertas quando elas existem; sem grid visivel, a animacao usa diretamente o losango continuo. Nao ha pattern ou animacao separado por celula.
@@ -49,7 +49,7 @@ Backend em `apps/api/src/modules/effect_area/`:
 
 ## Performance
 
-* Preview nao acessa rede nem banco.
+* Preview nao acessa banco. Durante sessao ativa, deltas compactos sao publicados por Socket.IO com throttling e descartados ao cancelar, trocar de cena ou desconectar.
 * Celulas candidatas sao limitadas pelo bounding box.
 * Tokens candidatos sao filtrados por bounding box antes da intersecao detalhada.
 * Eventos de ponteiro sao consolidados pelo ciclo de renderizacao do React e nao geram persistencia.
@@ -72,4 +72,4 @@ Backend em `apps/api/src/modules/effect_area/`:
 * `RING` e `POLYGON` fazem parte do contrato persistido; a toolbar cria circulo, cone, linha e selecao `TARGET`.
 * A migracao `remove_rectangle_area_shape` converte `CampaignAreaTemplate.shape` e `SceneAreaEffect.configurationSnapshot.shape` de `RECTANGLE` para `LINE` antes da remocao do valor dos contratos Zod e TypeScript.
 * `SPREAD_AROUND_WALLS`, volumes 3D, duracao automatica, texturas externas e visibilidade por jogadores selecionados nao sao automatizados.
-* Realtime de preview nao e transmitido; jogadores veem apenas instancias persistentes permitidas quando o snapshot e carregado.
+* Previews realtime sao efemeros, limitados a participantes ativos que visualizam a mesma cena e nao possuem recuperacao historica apos reconexao.
