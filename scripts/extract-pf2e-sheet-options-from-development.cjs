@@ -3,6 +3,8 @@ const fs = require('node:fs')
 const path = require('node:path')
 
 const DEVELOPMENT_REF = 'origin/development'
+const PF2E_REFERENCE_COMMIT = '5069fb7a421a5ba1789652764447cced91ffb0e2'
+const PF2E_CHECKOUT_ROOT = '/tmp/pf2e-reference'
 const outputRoot = path.join(
   process.cwd(),
   'apps/api/src/modules/game_systems/pathfinder_2e/character-sheet/options',
@@ -36,56 +38,30 @@ function uniqueSortedNames(entries) {
     .sort((left, right) => left.localeCompare(right, 'en'))
 }
 
-function listDevelopmentPaths() {
-  return git('ls-tree', '-r', '--name-only', DEVELOPMENT_REF)
-    .split(/\r?\n/)
-    .filter(Boolean)
+function walkJsonFiles(root) {
+  return fs.readdirSync(root, { withFileTypes: true }).flatMap((entry) => {
+    const fullPath = path.join(root, entry.name)
+    if (entry.isDirectory()) return walkJsonFiles(fullPath)
+    if (entry.isFile() && entry.name.endsWith('.json') && entry.name !== '_folders.json') return [fullPath]
+    return []
+  })
 }
 
-function parseDeities(paths) {
-  const generatedCandidates = paths.filter((filePath) => /deit(?:y|ies).*generated\.ts$/i.test(filePath))
-  for (const filePath of generatedCandidates) {
-    try {
-      const entries = parseGeneratedArray(readFromDevelopment(filePath), filePath)
-      const names = uniqueSortedNames(entries)
-      if (names.length) return { names, source: filePath }
-    } catch {
-      // Continue to the next candidate.
-    }
+function parsePinnedDeities() {
+  const packRoot = path.join(PF2E_CHECKOUT_ROOT, 'packs', 'pf2e', 'deities')
+  if (!fs.existsSync(packRoot)) throw new Error(`Missing pinned PF2e deity pack at ${packRoot}`)
+
+  const entries = walkJsonFiles(packRoot).map((filePath) => JSON.parse(fs.readFileSync(filePath, 'utf8')))
+  return {
+    names: uniqueSortedNames(entries),
+    source: `foundryvtt/pf2e@${PF2E_REFERENCE_COMMIT}:packs/pf2e/deities`,
   }
-
-  const rawCandidates = paths.filter((filePath) =>
-    /(?:^|\/)deities(?:\/|$)/i.test(filePath) && filePath.endsWith('.json') && !filePath.endsWith('_folders.json'),
-  )
-  const rawNames = rawCandidates.flatMap((filePath) => {
-    try {
-      const document = JSON.parse(readFromDevelopment(filePath))
-      return typeof document?.name === 'string' && document.name.trim() ? [document.name.trim()] : []
-    } catch {
-      return []
-    }
-  })
-  if (rawNames.length) return { names: [...new Set(rawNames)].sort((a, b) => a.localeCompare(b, 'en')), source: 'development deity JSON files' }
-
-  const discovery = paths.filter((filePath) => /deit/i.test(filePath))
-  fs.mkdirSync(outputRoot, { recursive: true })
-  fs.writeFileSync(
-    path.join(outputRoot, 'deity-discovery.txt'),
-    [
-      'No deity catalog was found automatically in the development branch.',
-      '',
-      'Paths containing "deit":',
-      ...discovery,
-      '',
-    ].join('\n'),
-  )
-  return { names: [], source: null }
 }
 
 function writeNamesFile(key, constantName, names, source) {
   const lines = [
-    `// Static names extracted from branch development: ${source ?? 'source not found'}.`,
-    '// Keep this file independent from the other PF2e select catalogs.',
+    `// Static names extracted once from ${source}.`,
+    '// This file is intentionally independent from the other PF2e select catalogs.',
     `export const ${constantName} = [`,
     ...names.map((name) => `  ${JSON.stringify(name)},`),
     '] as const',
@@ -99,14 +75,16 @@ fs.mkdirSync(outputRoot, { recursive: true })
 for (const [key, sourcePath] of Object.entries(generatedSources)) {
   const entries = parseGeneratedArray(readFromDevelopment(sourcePath), sourcePath)
   const names = uniqueSortedNames(entries)
-  writeNamesFile(key, `PATHFINDER_2E_${key.toUpperCase()}`, names, sourcePath)
+  writeNamesFile(key, `PATHFINDER_2E_${key.toUpperCase()}`, names, `branch development:${sourcePath}`)
 }
 
-const developmentPaths = listDevelopmentPaths()
-const deityResult = parseDeities(developmentPaths)
+const deityResult = parsePinnedDeities()
 writeNamesFile('deities', 'PATHFINDER_2E_DEITIES', deityResult.names, deityResult.source)
 
-console.log('PF2e sheet select catalogs extracted from development:')
+const obsoleteDiscoveryPath = path.join(outputRoot, 'deity-discovery.txt')
+if (fs.existsSync(obsoleteDiscoveryPath)) fs.unlinkSync(obsoleteDiscoveryPath)
+
+console.log('PF2e sheet select catalogs extracted as static name-only files:')
 for (const key of [...Object.keys(generatedSources), 'deities']) {
   const content = fs.readFileSync(path.join(outputRoot, `${key}.ts`), 'utf8')
   const count = (content.match(/^  "/gm) ?? []).length
