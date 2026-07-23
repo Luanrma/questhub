@@ -1,4 +1,4 @@
-name: Prepare PF2e character sheet phase
+name: Verify PF2e character sheet phase
 
 on:
   push:
@@ -9,13 +9,18 @@ permissions:
   contents: write
 
 jobs:
-  prepare:
+  verify:
     if: ${{ !contains(github.event.head_commit.message, '[skip sheet preparation]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
 
       - name: Fetch development branch
         run: git fetch origin development:refs/remotes/origin/development
@@ -32,13 +37,33 @@ jobs:
       - name: Apply sheet integration
         run: node scripts/apply-pf2e-character-sheet-phase.cjs
 
-      - name: Commit prepared phase
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate Prisma schema
+        run: npm run db:generate
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Build frontend
+        run: npm run build:web
+
+      - name: Record successful verification
+        run: |
+          cat > .pf2e-sheet-verification.txt <<'EOF'
+          Prisma generate: passed
+          Unit tests: passed
+          Frontend build: passed
+          EOF
+
+      - name: Commit generated catalogs, integration and verification
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add apps/api apps/web
+          git add apps/api apps/web .pf2e-sheet-verification.txt
           if git diff --cached --quiet; then
             exit 0
           fi
-          git commit -m "chore: prepare clean PF2e sheet phase [skip sheet preparation]"
+          git commit -m "chore: verify clean PF2e sheet phase [skip sheet preparation]"
           git push
