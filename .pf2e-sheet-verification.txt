@@ -1,0 +1,3 @@
+Prisma generate: passed
+Unit tests: passed
+Frontend build: passed
