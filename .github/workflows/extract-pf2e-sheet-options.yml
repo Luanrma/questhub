@@ -20,6 +20,12 @@ jobs:
       - name: Fetch development branch
         run: git fetch origin development:refs/remotes/origin/development
 
+      - name: Checkout pinned official deity source
+        run: |
+          git clone --filter=blob:none --no-checkout https://github.com/foundryvtt/pf2e.git /tmp/pf2e-reference
+          git -C /tmp/pf2e-reference sparse-checkout set packs/pf2e/deities
+          git -C /tmp/pf2e-reference checkout 5069fb7a421a5ba1789652764447cced91ffb0e2
+
       - name: Extract static select names
         run: node scripts/extract-pf2e-sheet-options-from-development.cjs
 
