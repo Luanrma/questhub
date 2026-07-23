@@ -13,6 +13,7 @@ import { PlaceholderPage } from './features/campaigns/pages/PlaceholderPage'
 import { CharacterCreatePage } from './pages/CharacterCreatePage'
 import { CharactersHomePage } from './pages/CharactersHomePage'
 import { HomePage } from './features/home-navigation/pages/HomePage'
+import { Pathfinder2eCharacterSheetPage } from './features/pathfinder-2e/character-sheet/Pathfinder2eCharacterSheetPage'
 
 export default function App() {
   // Rotas ficam no componente principal para manter simples (Vite + React Router).
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/characters" element={<CharactersHomePage />} />
         <Route path="/characters/new" element={<CharacterCreatePage />} />
         <Route path="/characters/:characterId/edit" element={<CharacterCreatePage />} />
+        <Route path="/characters/:characterId/pathfinder-2e-sheet" element={<Pathfinder2eCharacterSheetPage />} />
       </Route>
 
       {/* Depois de escolher/entrar/criar uma campanha (com aside) */}

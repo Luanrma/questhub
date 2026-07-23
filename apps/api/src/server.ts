@@ -18,6 +18,7 @@ import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
 import { registerEffectAreaRoutes } from './modules/effect_area/presentation/routes'
 import { registerEffectAreaSocketHandlers } from './modules/effect_area/presentation/socket'
+import { registerPathfinder2eCharacterSheetRoutes } from './modules/game_systems/pathfinder_2e/character-sheet/routes'
 
 const app = Fastify({ logger: true })
 
@@ -64,6 +65,7 @@ app.get('/api/health', async () => ({ ok: true }))
 
 registerAuthRoutes(app)
 registerCharacterRoutes(app)
+registerPathfinder2eCharacterSheetRoutes(app)
 registerCampaignRoutes(app, presence)
 registerCampaignDiaryRoutes(app)
 registerCampaignSceneRoutes(app, presence)
