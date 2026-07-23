@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { Pathfinder2eProficiencyRank, Pathfinder2eProficiencyValue } from '../types'
 
 const inputClass =
@@ -6,7 +7,7 @@ const inputClass =
 export function SheetSection({ title, description, children }: {
   title: string
   description?: string
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <section className="rounded-xl border border-white/10 bg-white/5 p-5">
