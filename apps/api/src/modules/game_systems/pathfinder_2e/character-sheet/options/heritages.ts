@@ -1,5 +1,5 @@
-// Static names extracted from branch development: packages/game-system-pathfinder-2e/src/server/character-options/data/heritages.generated.ts.
-// Keep this file independent from the other PF2e select catalogs.
+// Static names extracted once from branch development:packages/game-system-pathfinder-2e/src/server/character-options/data/heritages.generated.ts.
+// This file is intentionally independent from the other PF2e select catalogs.
 export const PATHFINDER_2E_HERITAGES = [
   "Abyssal Merfolk",
   "Adaptive Anadi",

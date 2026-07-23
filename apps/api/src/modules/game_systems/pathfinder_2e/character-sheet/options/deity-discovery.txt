@@ -1,3 +1,0 @@
-No deity catalog was found automatically in the development branch.
-
-Paths containing "deit":
