@@ -16,8 +16,6 @@ export const PATHFINDER_PLAYER_CORE_SPELLS_PT_BR: readonly Pathfinder2eContentTr
       duration: 'instantânea',
       defense: 'salvamento básico de Reflexos',
       heightening: 'Aprimorada (+1): o dano aumenta em 1d4.',
-      traits: { cantrip: 'truque', concentrate: 'concentração', electricity: 'eletricidade', manipulate: 'manipulação' },
-      traditions: { arcane: 'arcana', primal: 'primal' },
     },
   },
   {
@@ -34,8 +32,6 @@ export const PATHFINDER_PLAYER_CORE_SPELLS_PT_BR: readonly Pathfinder2eContentTr
       target: '1 criatura por fragmento',
       duration: 'instantânea',
       heightening: 'Aprimorada (+2): dispare um fragmento adicional para cada ação utilizada.',
-      traits: { concentrate: 'concentração', force: 'força', manipulate: 'manipulação' },
-      traditions: { arcane: 'arcana', occult: 'ocultista' },
     },
   },
   {
@@ -54,8 +50,6 @@ export const PATHFINDER_PLAYER_CORE_SPELLS_PT_BR: readonly Pathfinder2eContentTr
       duration: 'instantânea',
       defense: 'salvamento básico de Fortitude para alvos mortos-vivos',
       heightening: 'Aprimorada (+1): a cura ou o dano aumenta em 1d8; o bônus de cura da versão de 2 ações aumenta em 8.',
-      traits: { healing: 'cura', manipulate: 'manipulação', vitality: 'vitalidade' },
-      traditions: { divine: 'divina', primal: 'primal' },
     },
   },
 ]
