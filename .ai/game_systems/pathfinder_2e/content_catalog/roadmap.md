@@ -48,14 +48,16 @@ Faixa planejada:
 
 ### Piloto congelado para validação
 
-Status atual: `REVIEWING`.
+Status atual: `READY`.
 
 Snapshot da fonte:
 
 - Foundry PF2e `8.3.0`;
 - commit `01114da5851f31404078d8020809b13e4000bc4b`;
 - licença dos nove registros: `ORC`;
-- imagens não foram copiadas.
+- o caminho `img` original dos nove registros foi preservado;
+- assets pertencentes ao repositório PF2e são resolvidos pelo commit travado;
+- assets do Foundry Core mantêm fallback genérico até receberem `displayUrl` próprio.
 
 Conteúdo do piloto:
 
@@ -65,7 +67,7 @@ Conteúdo do piloto:
 | Skeleton Guard | Force Barrage | Leather Armor |
 | Wolf | Heal | Shortbow |
 
-Todos os registros possuem original `en-US`, tradução separada `pt-BR`, origem e hash. As traduções estão como `MACHINE_DRAFT`; a rodada não pode ser publicada até revisão.
+Todos os registros possuem original `en-US`, tradução separada `pt-BR`, origem, hash e metadado de imagem. As nove traduções estão como `REVIEWED`, com cobertura 3/3 nos três domínios.
 
 ## Rodada 2 — níveis baixos
 
