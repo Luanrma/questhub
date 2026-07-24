@@ -9,6 +9,7 @@ O VTT sabe apenas renderizar:
 - cards resumidos;
 - traits;
 - status editorial;
+- imagem opcional com fallback;
 - uma ficha composta por seções e campos.
 
 A escolha dos campos e toda interpretação do conteúdo pertencem ao adapter Pathfinder 2e.
@@ -23,9 +24,26 @@ Cada card contém:
 - estatísticas principais;
 - traits traduzidas;
 - status editorial separado;
+- imagem opcional;
 - botão `Ficha`.
 
 `Tradução em revisão` não é uma trait. O status deve ser enviado em `editorialStatus` e renderizado com cor própria.
+
+## Filtro editorial
+
+A listagem aceita o parâmetro:
+
+```text
+editorialStatus=all|review|ready
+```
+
+O filtro é aplicado no provider antes da paginação. Na interface PT-BR existem três opções:
+
+- Todas as traduções;
+- Tradução em revisão;
+- Tradução revisada.
+
+O filtro não é exibido na visualização EN-US.
 
 ## Ficha
 
@@ -42,6 +60,38 @@ A resposta usa seções genéricas. Pathfinder 2e define internamente:
 - Bestiário: defesas, percepção, atributos, perícias, ataques e habilidades;
 - Magias: conjuração, alcance, alvo, defesa, dano ou cura e aprimoramento;
 - Itens: informações de uso, preço, volume, dano ou valores de armadura.
+
+## Imagens
+
+A imagem pertence ao registro original e não à tradução:
+
+```ts
+image: {
+  upstreamPath: 'systems/pf2e/icons/spells/magic-missile.webp',
+  displayUrl: '/game-systems/pathfinder-2e/spells/force-barrage.webp', // opcional
+}
+```
+
+- `upstreamPath` preserva exatamente o campo `img` do Foundry.
+- `displayUrl` permite usar facilmente um arquivo local, CDN ou asset próprio do QuestHub.
+- quando `displayUrl` não existe e o caminho começa com `systems/pf2e/`, o provider monta uma URL do repositório oficial fixada no commit de origem;
+- caminhos começando apenas com `icons/` pertencem aos assets do Foundry Core e não estão armazenados no repositório do sistema PF2e;
+- se nenhuma URL pública puder ser resolvida, o frontend mantém o ícone genérico.
+- falhas de carregamento também retornam automaticamente ao ícone genérico.
+
+### Imagens da primeira rodada
+
+| Conteúdo | Caminho oficial no Foundry | Resultado no QuestHub |
+|---|---|---|
+| Goblin Warrior | `systems/pf2e/icons/default-icons/npc.svg` | ícone oficial padrão |
+| Wolf | `systems/pf2e/icons/default-icons/npc.svg` | ícone oficial padrão |
+| Skeleton Guard | `systems/pf2e/icons/default-icons/npc.svg` | ícone oficial padrão |
+| Electric Arc | `icons/magic/lightning/bolt-strike-forked-blue.webp` | fallback genérico |
+| Force Barrage | `systems/pf2e/icons/spells/magic-missile.webp` | imagem oficial |
+| Heal | `icons/magic/life/cross-worn-green.webp` | fallback genérico |
+| Dogslicer | `systems/pf2e/icons/equipment/weapons/dogslicer.webp` | imagem oficial |
+| Shortbow | `icons/weapons/bows/shortbow-leather.webp` | fallback genérico |
+| Leather Armor | `icons/equipment/chest/breastplate-banded-simple-leather-brown.webp` | fallback genérico |
 
 ### Termos preservados
 
