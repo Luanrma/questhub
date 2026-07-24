@@ -36,11 +36,19 @@ export type Pathfinder2eSourceIdentity = {
   remaster?: boolean
 }
 
+export type Pathfinder2eContentImage = {
+  /** Exact value of the upstream Foundry `img` property. */
+  upstreamPath: string
+  /** Optional local or CDN URL used by QuestHub instead of the upstream path. */
+  displayUrl?: string
+}
+
 export type Pathfinder2eOriginalContentRecord<TData = unknown> = {
   contentId: string
   domain: Pathfinder2eContentDomain
   locale: 'en-US'
   source: Pathfinder2eSourceIdentity
+  image?: Pathfinder2eContentImage
   sourceHash: string
   translatableHash: string
   data: TData
