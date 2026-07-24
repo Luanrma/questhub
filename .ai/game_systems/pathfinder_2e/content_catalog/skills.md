@@ -14,12 +14,13 @@ A implementação existente na `development` deve ser tratada como referência d
 
 Toda execução de importação deve registrar:
 
-- provedor;
 - versão do sistema de origem;
 - commit exato da fonte;
 - checksum da entrada;
 - versão do importador;
 - data da execução.
+
+O modelo não armazena um enum ou identificador de provedor externo.
 
 É proibido publicar uma entrega gerada a partir de uma branch móvel sem commit identificado.
 
@@ -28,10 +29,17 @@ Toda execução de importação deve registrar:
 A identidade externa mínima é:
 
 ```text
-provider + sourcePack + sourceId
+sourcePack + sourceId
 ```
 
 O `slug` é auxiliar de busca e nunca substitui o ID da origem.
+
+A identidade não pode conter:
+
+- enum de provedor;
+- URL de repositório;
+- hostname externo;
+- instrução de download em runtime.
 
 ## 4. Original e tradução
 
@@ -80,7 +88,26 @@ containers
 kits
 ```
 
-## 6. Determinismo
+## 6. Assets visuais
+
+Todo asset exibido em runtime deve estar versionado no repositório QuestHub.
+
+Diretório público:
+
+```text
+apps/web/public/game-systems/pathfinder-2e/
+```
+
+Regras:
+
+- registros apontam somente para caminhos iniciados por `/game-systems/pathfinder-2e/`;
+- URLs absolutas e CDNs externas são proibidas;
+- o backend não monta URLs externas;
+- não há download de imagens em runtime;
+- sem arquivo local, o campo `image` é omitido;
+- o frontend usa o ícone genérico quando `image` não existe ou falha.
+
+## 7. Determinismo
 
 Com a mesma fonte, configuração e versão do importador, o resultado deve ser idêntico.
 
@@ -93,7 +120,7 @@ Obrigatório:
 - relatórios gerados a partir dos manifests;
 - nenhuma escolha aleatória.
 
-## 7. Planejamento de entregas
+## 8. Planejamento de entregas
 
 Dentro de cada programa:
 
@@ -111,7 +138,7 @@ Spells: até 30 entradas
 Items: até 40 entradas
 ```
 
-## 8. Tradução
+## 9. Tradução
 
 A tradução `pt-BR` deve usar:
 
@@ -120,15 +147,15 @@ A tradução `pt-BR` deve usar:
 - revisão humana antes de publicar;
 - referência pelo ID interno de ações ou elementos incorporados, nunca pela posição em arrays.
 
-## 9. Segurança e licenças
+## 10. Segurança e licenças
 
-Cada registro deve preservar publicação, licença, indicador de Remaster e origem técnica. Conteúdo não pode ser publicado se a licença estiver ausente ou bloqueada para o uso pretendido.
+Cada registro deve preservar publicação, licença, indicador de Remaster e origem técnica neutra. Conteúdo e assets não podem ser publicados se a licença estiver ausente ou bloqueada para o uso pretendido.
 
-## 10. Integrações proibidas nesta etapa
+## 11. Integrações proibidas nesta etapa
 
 O catálogo não pode depender de canvas, combate, tokens, inventário de campanha, personagens, efeitos ativos, WebSocket ou módulos em `apps/api/src/modules`.
 
-## 11. Testes mínimos
+## 12. Testes mínimos
 
 Devem existir testes para garantir:
 
@@ -138,4 +165,5 @@ Devem existir testes para garantir:
 - originais e traduções separados;
 - source lock válido;
 - próxima entrega calculada deterministicamente;
-- nenhuma publicação com pendência obrigatória.
+- nenhuma publicação com pendência obrigatória;
+- nenhuma URL externa em `imageUrl`.
