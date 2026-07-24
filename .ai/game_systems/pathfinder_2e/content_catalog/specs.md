@@ -110,8 +110,10 @@ Regras:
 - `translatableHash` considera apenas campos traduzíveis;
 - o registro deve continuar consultável mesmo sem tradução;
 - `image.path`, quando presente, aponta exclusivamente para um arquivo versionado no repositório QuestHub;
-- o caminho público deve começar com `/game-systems/pathfinder-2e/`;
-- sem arquivo local, `image` deve ser omitido e a interface usa o ícone genérico.
+- o caminho deve começar com `/api/game-systems/pathfinder-2e/icons/`;
+- o arquivo físico correspondente fica em `apps/api/src/game_systems/pathfinder_2e/icons/`;
+- sem correspondência local exata, `image` deve ser omitido e a interface usa o ícone genérico;
+- a remoção do arquivo não pode impedir o build nem remover o registro do catálogo.
 
 ## 5. Overlay de tradução
 
@@ -132,7 +134,10 @@ Regras:
 - chaves mecânicas permanecem no original;
 - elementos incorporados devem ser endereçados por ID estável;
 - se `sourceTranslatableHash` divergir do original atual, a tradução fica `STALE`;
-- fallback para `en-US` não altera o status de tradução.
+- fallback para `en-US` não altera o status de tradução;
+- `REVIEWED` não gera tag visual;
+- traduções ainda pendentes geram `Tradução em revisão` em `editorialStatus`;
+- o filtro `ready` continua usando o status persistido, mesmo sem tag visual.
 
 ## 6. Contrato de rodada
 
@@ -262,6 +267,7 @@ Esses números são baseline de migração, não constantes permanentes. A fonte
 - existe função determinística para localizar a próxima rodada;
 - existe validação automática do roadmap;
 - a fundação não importa módulos do VTT;
-- nenhuma rota ou automação é criada nesta entrega;
+- nenhuma automação mecânica do VTT é criada nesta entrega;
 - nenhum conteúdo original é alterado;
-- nenhuma imagem é carregada de URL externa em runtime.
+- nenhuma imagem é carregada de URL externa em runtime;
+- a ausência de todos os ícones mantém o catálogo funcional.
