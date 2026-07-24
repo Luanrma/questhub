@@ -20,11 +20,17 @@ const inviteParamsSchema = z.object({ inviteCode: z.string().trim().min(1) })
 const catalogParamsSchema = campaignParamsSchema.extend({
   domain: z.enum(['bestiary', 'spells', 'items']),
 })
+const catalogEntryParamsSchema = catalogParamsSchema.extend({
+  contentId: z.string().trim().min(1),
+})
 const catalogQuerySchema = z.object({
   locale: z.enum(['en-US', 'pt-BR']).default('pt-BR'),
   q: z.string().trim().max(120).optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(60).default(24),
+})
+const catalogEntryQuerySchema = z.object({
+  locale: z.enum(['en-US', 'pt-BR']).default('pt-BR'),
 })
 const createCharacterSheetSchema = z.object({
   name: z.string().trim().min(1).max(80),
@@ -468,6 +474,47 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
       domain,
       locale: query.data.locale,
       ...result,
+    })
+  })
+
+  app.get('/api/campaigns/:campaignId/catalog/:domain/:contentId', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = catalogEntryParamsSchema.safeParse(req.params)
+    const query = catalogEntryQuerySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) {
+      return reply.status(400).send({ error: 'Consulta de ficha invalida' })
+    }
+
+    const campaign = await findAccessibleCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+
+    const descriptor = getGameSystemDescriptor(campaign.gameSystem)
+    if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
+
+    const domain = domainByPath[params.data.domain]
+    if (!descriptor.catalogDomains.includes(domain)) {
+      return reply.status(404).send({ error: 'Catalogo nao disponivel para este sistema' })
+    }
+
+    const provider = getGameSystemCatalogProvider(campaign.gameSystem as GameSystemKey)
+    if (!provider) return reply.status(404).send({ error: 'Catalogo ainda nao instalado' })
+
+    const entry = await provider.get({
+      campaignId: campaign.id,
+      domain,
+      locale: query.data.locale as GameSystemContentLocale,
+      contentId: params.data.contentId,
+    })
+    if (!entry) return reply.status(404).send({ error: 'Entidade nao encontrada' })
+
+    return reply.send({
+      available: true,
+      system: descriptor,
+      domain,
+      locale: query.data.locale,
+      entry,
     })
   })
 }
