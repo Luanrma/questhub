@@ -8,10 +8,7 @@ import type {
 } from '../../catalog'
 import { resolvePathfinder2eContentEntry } from './catalog'
 import type { Pathfinder2eContentEntry } from './content-entry'
-import {
-  PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES,
-  PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE,
-} from './deliveries/core-remaster-starting-content'
+import { PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES } from './deliveries/core-remaster-starting-content'
 import { pathfinder2eContextualCatalogProvider } from './contextual-provider'
 import {
   translatePathfinder2eRarity,
@@ -83,15 +80,9 @@ function localizedName(entry: Pathfinder2eContentEntry, locale: GameSystemConten
 }
 
 function resolveImageUrl(entry: Pathfinder2eContentEntry): string | null {
-  const image = entry.original.image
-  if (!image) return null
-  if (image.displayUrl) return image.displayUrl
-
-  const systemPrefix = 'systems/pf2e/'
-  if (!image.upstreamPath.startsWith(systemPrefix)) return null
-
-  const repositoryPath = `static/${image.upstreamPath.slice(systemPrefix.length)}`
-  return `https://raw.githubusercontent.com/foundryvtt/pf2e/${PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE.sourceCommit}/${repositoryPath}`
+  const path = entry.original.image?.path?.trim()
+  if (!path || !path.startsWith('/game-systems/pathfinder-2e/')) return null
+  return path
 }
 
 function cardWithImage(
