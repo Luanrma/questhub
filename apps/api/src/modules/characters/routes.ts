@@ -10,6 +10,7 @@ const characterSelect = {
   name: true,
   avatarUrl: true,
   bio: true,
+  gameSystem: true,
   createdAt: true,
   updatedAt: true,
   campaigns: {
@@ -17,7 +18,7 @@ const characterSelect = {
       id: true,
       role: true,
       status: true,
-      campaign: { select: { id: true, title: true } },
+      campaign: { select: { id: true, title: true, gameSystem: true } },
     },
   },
 } as const
@@ -34,6 +35,7 @@ export function registerCharacterRoutes(app: FastifyInstance) {
       data: {
         userId: payload.id,
         name: parsed.data.name,
+        gameSystem: parsed.data.gameSystem,
         avatarUrl: parsed.data.avatarUrl?.trim() || null,
         bio: parsed.data.bio?.trim() || null,
       },
