@@ -49,6 +49,13 @@ function matchesEditorialFilter(
   return entry.translation.status !== 'REVIEWED' && entry.translation.status !== 'NOT_REQUIRED'
 }
 
+function visibleEditorialStatus(
+  entry: Pathfinder2eContentEntry,
+  status: GameSystemCatalogCard['editorialStatus'],
+) {
+  return entry.translation.status === 'REVIEWED' ? null : status
+}
+
 function localizedSearchText(
   entry: Pathfinder2eContentEntry,
   domain: GameSystemCatalogDomain,
@@ -94,6 +101,7 @@ function cardWithImage(
   return {
     ...card,
     imageUrl: resolveImageUrl(entry),
+    editorialStatus: visibleEditorialStatus(entry, card.editorialStatus),
   }
 }
 
@@ -104,6 +112,7 @@ function sheetWithImage(
   return {
     ...sheet,
     imageUrl: resolveImageUrl(entry),
+    editorialStatus: visibleEditorialStatus(entry, sheet.editorialStatus),
   }
 }
 
