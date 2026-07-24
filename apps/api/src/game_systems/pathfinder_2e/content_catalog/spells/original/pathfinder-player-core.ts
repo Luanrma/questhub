@@ -34,6 +34,7 @@ export const PATHFINDER_PLAYER_CORE_SPELL_ORIGINALS: readonly Pathfinder2eOrigin
     sourceHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
     translatableHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
     source: { sourcePack: 'spells-srd', sourceId: 'gKKqvLohtrSJj3BM', slug: 'force-barrage', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
+    image: { path: '/api/game-systems/pathfinder-2e/icons/spells/magic-missile.webp' },
     data: {
       schemaVersion: 1,
       name: 'Force Barrage',
