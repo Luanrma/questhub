@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
+  BookOpen,
   ChevronLeft,
   ChevronRight,
   Package,
@@ -9,6 +10,7 @@ import {
   X,
 } from 'lucide-react'
 import { api } from '../lib/api'
+import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
 import {
   catalogDomainLabels,
   catalogDomainPaths,
@@ -17,13 +19,19 @@ import {
   type GameSystemKey,
 } from './registry'
 
+type EditorialStatus = {
+  label: string
+  tone: 'review' | 'ready' | 'warning' | 'info'
+}
+
 type CatalogCard = {
   id: string
   name: string
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  badges?: readonly string[]
+  traits?: readonly string[]
+  editorialStatus?: EditorialStatus | null
   stats?: ReadonlyArray<{ label: string; value: string }>
 }
 
@@ -56,6 +64,13 @@ const domainIcons = {
   ITEMS: Package,
 } satisfies Record<GameSystemCatalogDomain, typeof PawPrint>
 
+const statusClasses: Record<EditorialStatus['tone'], string> = {
+  review: 'border-amber-300/35 bg-amber-500/15 text-amber-100',
+  ready: 'border-emerald-300/35 bg-emerald-500/15 text-emerald-100',
+  warning: 'border-red-300/35 bg-red-500/15 text-red-100',
+  info: 'border-sky-300/35 bg-sky-500/15 text-sky-100',
+}
+
 function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSystemCatalogDomain }) {
   const Icon = domainIcons[domain]
 
@@ -84,17 +99,23 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
   const [data, setData] = useState<CatalogResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null)
   const Icon = domainIcons[domain]
   const title = catalogDomainLabels[domain]
   const normalizedSearch = useMemo(() => search.trim(), [search])
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') onClose()
+      if (event.key !== 'Escape') return
+      if (selectedEntryId) {
+        setSelectedEntryId(null)
+        return
+      }
+      onClose()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [onClose])
+  }, [onClose, selectedEntryId])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -135,7 +156,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
       aria-modal="true"
       aria-label={title}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose()
+        if (event.target === event.currentTarget && !selectedEntryId) onClose()
       }}
     >
       <section className="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]">
@@ -219,7 +240,6 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
               <div className="font-semibold text-amber-100">Catálogo ainda não instalado</div>
               <p className="mt-2 text-sm leading-6 text-amber-100/75">
                 A campanha já está vinculada ao sistema, mas o pacote de conteúdo ainda não registrou este catálogo.
-                Após o rebase da branch de conteúdo, os cards aparecerão aqui sem alterar o VTT.
               </p>
             </div>
           ) : null}
@@ -235,7 +255,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
               {data.entries.map((entry) => (
                 <article
                   key={entry.id}
-                  className="min-w-0 rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]"
+                  className="flex min-w-0 flex-col rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]"
                 >
                   <div className="flex min-w-0 items-start gap-4">
                     <CatalogImage entry={entry} domain={domain} />
@@ -258,15 +278,29 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
                     <p className="mt-3 line-clamp-3 text-xs leading-5 text-zinc-400">{entry.description}</p>
                   ) : null}
 
-                  {entry.badges?.length ? (
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {entry.badges.map((badge) => (
-                        <span key={badge} className="max-w-full truncate rounded border border-indigo-300/15 bg-indigo-500/10 px-2 py-0.5 text-[10px] uppercase text-indigo-100/80">
-                          {badge}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                    {entry.traits?.map((trait) => (
+                      <span key={trait} className="max-w-full truncate rounded border border-indigo-300/15 bg-indigo-500/10 px-2 py-0.5 text-[10px] uppercase text-indigo-100/80">
+                        {trait}
+                      </span>
+                    ))}
+                    {entry.editorialStatus ? (
+                      <span className={`max-w-full truncate rounded border px-2 py-0.5 text-[10px] font-semibold uppercase ${statusClasses[entry.editorialStatus.tone]}`}>
+                        {entry.editorialStatus.label}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div className="mt-auto flex justify-end pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedEntryId(entry.id)}
+                      className="inline-flex items-center gap-2 rounded-lg border border-indigo-300/25 bg-indigo-500/10 px-3 py-2 text-xs font-semibold text-indigo-100 transition hover:border-indigo-300/50 hover:bg-indigo-500/20"
+                    >
+                      <BookOpen className="h-4 w-4" />
+                      Ficha
+                    </button>
+                  </div>
                 </article>
               ))}
             </div>
@@ -298,6 +332,16 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
           </footer>
         ) : null}
       </section>
+
+      {selectedEntryId ? (
+        <CatalogEntitySheetModal
+          campaignId={campaignId}
+          contentId={selectedEntryId}
+          domain={domain}
+          locale={locale}
+          onClose={() => setSelectedEntryId(null)}
+        />
+      ) : null}
     </div>
   )
 }
