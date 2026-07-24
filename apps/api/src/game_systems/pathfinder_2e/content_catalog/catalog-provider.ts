@@ -94,16 +94,37 @@ function resolveImageUrl(entry: Pathfinder2eContentEntry): string | null {
   return `https://raw.githubusercontent.com/foundryvtt/pf2e/${PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE.sourceCommit}/${repositoryPath}`
 }
 
-function withImage<T extends GameSystemCatalogCard>(entry: Pathfinder2eContentEntry, value: T): T {
+function cardWithImage(
+  entry: Pathfinder2eContentEntry,
+  card: GameSystemCatalogCard,
+): GameSystemCatalogCard {
   return {
-    ...value,
+    ...card,
+    imageUrl: resolveImageUrl(entry),
+  }
+}
+
+function sheetWithImage(
+  entry: Pathfinder2eContentEntry,
+  sheet: GameSystemCatalogSheet,
+): GameSystemCatalogSheet {
+  return {
+    ...sheet,
     imageUrl: resolveImageUrl(entry),
   }
 }
 
 function sheetToCard(sheet: GameSystemCatalogSheet): GameSystemCatalogCard {
-  const { sections: _sections, source: _source, ...card } = sheet
-  return card
+  return {
+    id: sheet.id,
+    name: sheet.name,
+    subtitle: sheet.subtitle,
+    description: sheet.description,
+    imageUrl: sheet.imageUrl,
+    traits: sheet.traits,
+    editorialStatus: sheet.editorialStatus,
+    stats: sheet.stats,
+  }
 }
 
 export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
@@ -126,7 +147,7 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
         locale: query.locale,
         contentId: entry.original.contentId,
       })
-      return sheet ? withImage(entry, sheetToCard(sheet)) : null
+      return sheet ? cardWithImage(entry, sheetToCard(sheet)) : null
     }))
 
     return {
@@ -148,6 +169,6 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
     if (!entry) return null
 
     const sheet = await pathfinder2eContextualCatalogProvider.get(query)
-    return sheet ? withImage(entry, sheet) : null
+    return sheet ? sheetWithImage(entry, sheet) : null
   },
 }
