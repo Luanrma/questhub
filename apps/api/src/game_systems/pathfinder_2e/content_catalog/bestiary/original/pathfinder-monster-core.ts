@@ -9,6 +9,7 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_ORIGINALS: readonly Pathfinder2eOr
     sourceHash: 'git-blob:d242458d376fb3f258e8a9c20cc7e2f500c298a1',
     translatableHash: 'git-blob:d242458d376fb3f258e8a9c20cc7e2f500c298a1',
     source: { provider: 'FOUNDRY_PF2E', sourcePack: 'pathfinder-monster-core', sourceId: 'fLLKuOXwPq1Iq0U4', slug: 'goblin-warrior', publicationTitle: 'Pathfinder Monster Core', license: 'ORC', remaster: true },
+    image: { upstreamPath: 'systems/pf2e/icons/default-icons/npc.svg' },
     data: {
       schemaVersion: 1,
       name: 'Goblin Warrior',
@@ -40,6 +41,7 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_ORIGINALS: readonly Pathfinder2eOr
     sourceHash: 'git-blob:d93e78ff6feddaf9c7114e900bc13c718bc924c9',
     translatableHash: 'git-blob:d93e78ff6feddaf9c7114e900bc13c718bc924c9',
     source: { provider: 'FOUNDRY_PF2E', sourcePack: 'pathfinder-monster-core', sourceId: 'BN5Lb6IsQ9Wyu3rL', slug: 'wolf', publicationTitle: 'Pathfinder Monster Core', license: 'ORC', remaster: true },
+    image: { upstreamPath: 'systems/pf2e/icons/default-icons/npc.svg' },
     data: {
       schemaVersion: 1,
       name: 'Wolf',
@@ -71,6 +73,7 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_ORIGINALS: readonly Pathfinder2eOr
     sourceHash: 'git-blob:fb28b14a418faa3e0db57c8a3bc534ba4643dd97',
     translatableHash: 'git-blob:fb28b14a418faa3e0db57c8a3bc534ba4643dd97',
     source: { provider: 'FOUNDRY_PF2E', sourcePack: 'pathfinder-monster-core', sourceId: 'trchDxbDR2TiPMxT', slug: 'skeleton-guard', publicationTitle: 'Pathfinder Monster Core', license: 'ORC', remaster: true },
+    image: { upstreamPath: 'systems/pf2e/icons/default-icons/npc.svg' },
     data: {
       schemaVersion: 1,
       name: 'Skeleton Guard',
