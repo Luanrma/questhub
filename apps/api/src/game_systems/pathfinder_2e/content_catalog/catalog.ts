@@ -1,18 +1,18 @@
-import type { Pathfinder2eContentLocale } from './models'
+import type { Pathfinder2eContentEntry } from './content-entry'
 import {
-  PATHFINDER_2E_ROUND_01_COVERAGE,
-  PATHFINDER_2E_ROUND_01_ENTRIES,
-  PATHFINDER_2E_ROUND_01_ID,
-  PATHFINDER_2E_ROUND_01_SOURCE_LOCK,
-  type Pathfinder2eRoundContentEntry,
-} from './round-01'
+  PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE,
+  PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES,
+  PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID,
+  PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE,
+} from './deliveries/core-remaster-starting-content'
+import type { Pathfinder2eContentLocale } from './models'
 
-const ROUND_ENTRIES = new Map<string, readonly Pathfinder2eRoundContentEntry[]>([
-  [PATHFINDER_2E_ROUND_01_ID, PATHFINDER_2E_ROUND_01_ENTRIES],
+const DELIVERY_ENTRIES = new Map<string, readonly Pathfinder2eContentEntry[]>([
+  [PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID, PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES],
 ])
 
-function originalDisplayFields(entry: Pathfinder2eRoundContentEntry) {
-  const data = entry.original.data
+function originalDisplayFields(entry: Pathfinder2eContentEntry) {
+  const data = entry.original.data as { name: string; description: string }
   return {
     name: data.name,
     description: data.description,
@@ -20,7 +20,7 @@ function originalDisplayFields(entry: Pathfinder2eRoundContentEntry) {
 }
 
 export function resolvePathfinder2eContentEntry(
-  entry: Pathfinder2eRoundContentEntry,
+  entry: Pathfinder2eContentEntry,
   locale: Pathfinder2eContentLocale,
 ) {
   const translatedFields = locale === 'pt-BR' ? entry.translation.fields : null
@@ -52,14 +52,14 @@ export function listPathfinder2eRoundEntries(
   roundId: string,
   locale: Pathfinder2eContentLocale,
 ) {
-  return (ROUND_ENTRIES.get(roundId) ?? []).map((entry) => resolvePathfinder2eContentEntry(entry, locale))
+  return (DELIVERY_ENTRIES.get(roundId) ?? []).map((entry) => resolvePathfinder2eContentEntry(entry, locale))
 }
 
 export function findPathfinder2eContentEntry(
   contentId: string,
   locale: Pathfinder2eContentLocale,
 ) {
-  for (const entries of ROUND_ENTRIES.values()) {
+  for (const entries of DELIVERY_ENTRIES.values()) {
     const entry = entries.find((candidate) => candidate.original.contentId === contentId)
     if (entry) return resolvePathfinder2eContentEntry(entry, locale)
   }
@@ -68,12 +68,12 @@ export function findPathfinder2eContentEntry(
 }
 
 export function getPathfinder2eRoundSummary(roundId: string) {
-  if (roundId !== PATHFINDER_2E_ROUND_01_ID) return null
+  if (roundId !== PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID) return null
 
   return {
-    id: PATHFINDER_2E_ROUND_01_ID,
+    id: PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID,
     status: 'REVIEWING' as const,
-    sourceLock: PATHFINDER_2E_ROUND_01_SOURCE_LOCK,
-    coverage: PATHFINDER_2E_ROUND_01_COVERAGE,
+    sourceLock: PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE,
+    coverage: PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE,
   }
 }
