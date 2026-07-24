@@ -9,6 +9,7 @@ export const PATHFINDER_PLAYER_CORE_WEAPON_ORIGINALS: readonly Pathfinder2eOrigi
     sourceHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
     translatableHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
     source: { sourcePack: 'equipment-srd', sourceId: 'olwngGXM3hpgoLEP', slug: 'dogslicer', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
+    image: { path: '/api/game-systems/pathfinder-2e/icons/equipment/weapons/dogslicer.webp' },
     data: {
       schemaVersion: 1,
       name: 'Dogslicer',
