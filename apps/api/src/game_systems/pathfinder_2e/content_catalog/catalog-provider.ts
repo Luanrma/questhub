@@ -22,6 +22,8 @@ const DOMAIN_MAP: Record<Pathfinder2eContentEntry['original']['domain'], GameSys
   ITEM: 'ITEMS',
 }
 
+const LOCAL_ICON_ROUTE_PREFIX = '/api/game-systems/pathfinder-2e/icons/'
+
 function asRecord(value: unknown): Record<string, unknown> {
   return value && typeof value === 'object' && !Array.isArray(value)
     ? value as Record<string, unknown>
@@ -81,7 +83,7 @@ function localizedName(entry: Pathfinder2eContentEntry, locale: GameSystemConten
 
 function resolveImageUrl(entry: Pathfinder2eContentEntry): string | null {
   const path = entry.original.image?.path?.trim()
-  if (!path || !path.startsWith('/game-systems/pathfinder-2e/')) return null
+  if (!path || !path.startsWith(LOCAL_ICON_ROUTE_PREFIX)) return null
   return path
 }
 
