@@ -1,4 +1,4 @@
-import type { GameSystemContentLocale } from '../../../catalog'
+import type { GameSystemContentLocale } from '../../../../catalog'
 
 const TRAITS_PT_BR: Readonly<Record<string, string>> = {
   agile: 'ágil',
