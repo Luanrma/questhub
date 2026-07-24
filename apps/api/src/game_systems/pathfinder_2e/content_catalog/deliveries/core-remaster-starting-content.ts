@@ -48,7 +48,7 @@ const domainCoverage = {
   imported: 3,
   normalized: 3,
   translated: 3,
-  reviewed: 0,
+  reviewed: 3,
   stale: 0,
   rejected: 0,
 }
