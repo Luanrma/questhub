@@ -6,7 +6,7 @@ export const PATHFINDER_PLAYER_CORE_ARMOR_PT_BR: readonly Pathfinder2eContentTra
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:2b7f4b94cf7653e8b9bbc6ebd4ed9be93566dbc8',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Armadura de Couro',
       description: 'Uma combinação de couro flexível e couro fervido moldado que oferece proteção sem comprometer a mobilidade.',
