@@ -32,8 +32,13 @@ function asText(value: unknown): string | null {
   return typeof value === 'string' && value.trim() ? value.trim() : null
 }
 
+function asNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null
+}
+
 function asNumberText(value: unknown): string | null {
-  return typeof value === 'number' && Number.isFinite(value) ? String(value) : null
+  const number = asNumber(value)
+  return number === null ? null : String(number)
 }
 
 function asTextList(value: unknown): string[] {
@@ -61,6 +66,53 @@ function preservePathfinderCurrencyAbbreviations(value: string) {
     .replace(/\b(?:po|gp)\b/gi, 'GP')
     .replace(/\b(?:pp|sp)\b/gi, 'SP')
     .replace(/\b(?:pc|cp)\b/gi, 'CP')
+}
+
+function formatPtBrNumber(value: number) {
+  return Number.isInteger(value)
+    ? String(value)
+    : value.toLocaleString('pt-BR', { maximumFractionDigits: 2 })
+}
+
+function formatDualDistance(feet: number) {
+  const meters = feet * 0.3
+  const feetUnit = feet === 1 ? 'pé' : 'pés'
+  const meterUnit = meters === 1 ? 'metro' : 'metros'
+  return `${formatPtBrNumber(feet)} ${feetUnit} (${formatPtBrNumber(meters)} ${meterUnit})`
+}
+
+function extractFeetValues(value: string | null) {
+  if (!value) return []
+
+  return [...value.matchAll(/(\d+(?:\.\d+)?)\s*-?\s*(?:feet|foot|ft)\b/gi)]
+    .map((match) => Number(match[1]))
+    .filter(Number.isFinite)
+}
+
+function preserveFeetAndAddMeters(
+  originalValue: string | null,
+  localizedValue: string | null,
+  locale: GameSystemContentLocale,
+) {
+  if (locale !== 'pt-BR') return localizedValue ?? originalValue
+
+  const feetValues = extractFeetValues(originalValue)
+  if (feetValues.length === 0) return localizedValue ?? originalValue
+
+  const baseValue = localizedValue ?? originalValue ?? ''
+  let feetIndex = 0
+  const withDualUnits = baseValue.replace(/\d+(?:[.,]\d+)?\s*metros?\b/gi, (metricValue) => {
+    const feet = feetValues[feetIndex]
+    if (feet === undefined) return metricValue
+    feetIndex += 1
+    return formatDualDistance(feet)
+  })
+
+  if (feetIndex > 0) return withDualUnits
+
+  return baseValue.replace(/(\d+(?:\.\d+)?)\s*-?\s*(?:feet|foot|ft)\b/gi, (_, feetValue: string) => (
+    formatDualDistance(Number(feetValue))
+  ))
 }
 
 function localizeTraits(
@@ -185,6 +237,45 @@ function localizeItemWeaponFields(
   }]
 }
 
+function localizeSpellDistanceField(
+  field: GameSystemCatalogSheetField,
+  entry: Pathfinder2eContentEntry,
+  locale: GameSystemContentLocale,
+) {
+  const keyByLabel: Readonly<Record<string, string>> = {
+    Alcance: 'range',
+    Range: 'range',
+    Alvo: 'target',
+    Target: 'target',
+    Área: 'area',
+    Area: 'area',
+  }
+  const key = keyByLabel[field.label]
+  if (!key) return field
+
+  const original = asRecord(entry.original.data)
+  const translated = translatedFields(entry, locale)
+  const value = preserveFeetAndAddMeters(asText(original[key]), asText(translated[key]), locale)
+
+  return value ? { ...field, value } : field
+}
+
+function localizeBestiaryMovementField(
+  field: GameSystemCatalogSheetField,
+  entry: Pathfinder2eContentEntry,
+  locale: GameSystemContentLocale,
+) {
+  if (field.label !== 'Deslocamento' && field.label !== 'Speed') return field
+
+  const speedFeet = asNumber(asRecord(entry.original.data).speedFeet)
+  if (speedFeet === null) return field
+
+  return {
+    ...field,
+    value: locale === 'pt-BR' ? formatDualDistance(speedFeet) : `${speedFeet} ft`,
+  }
+}
+
 function localizeSections(
   sheet: GameSystemCatalogSheet,
   entry: Pathfinder2eContentEntry | undefined,
@@ -207,28 +298,38 @@ function localizeSections(
     return {
       ...section,
       fields: section.fields.map((field) => {
+        let localizedField = field
+
         if (domain === 'SPELLS' && field.label === 'Círculo') {
-          return { ...field, label: 'Rank' }
+          localizedField = { ...localizedField, label: 'Rank' }
+        }
+
+        if (entry && domain === 'SPELLS' && section.title === 'Conjuração') {
+          localizedField = localizeSpellDistanceField(localizedField, entry, locale)
+        }
+
+        if (entry && domain === 'BESTIARY' && section.title === 'Percepção e movimento') {
+          localizedField = localizeBestiaryMovementField(localizedField, entry, locale)
         }
 
         if (domain === 'ITEMS' && (field.label === 'Preço' || field.label === 'Price')) {
-          return {
-            ...field,
-            value: preservePathfinderCurrencyAbbreviations(field.value),
+          localizedField = {
+            ...localizedField,
+            value: preservePathfinderCurrencyAbbreviations(localizedField.value),
           }
         }
 
         if (domain === 'BESTIARY' && section.title === 'Perícias e idiomas') {
-          return {
-            ...field,
-            label: translatePathfinder2eTerm(field.label, locale, {
+          localizedField = {
+            ...localizedField,
+            label: translatePathfinder2eTerm(localizedField.label, locale, {
               domain: 'BESTIARY',
               category: 'skill',
             }),
           }
         }
 
-        return field
+        return localizedField
       }),
     }
   })
