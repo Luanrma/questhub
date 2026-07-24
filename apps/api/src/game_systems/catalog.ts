@@ -15,14 +15,39 @@ export type GameSystemCatalogCardStat = {
   value: string
 }
 
+export type GameSystemCatalogEditorialStatus = {
+  label: string
+  tone: 'review' | 'ready' | 'warning' | 'info'
+}
+
 export type GameSystemCatalogCard = {
   id: string
   name: string
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  badges?: readonly string[]
+  traits?: readonly string[]
+  editorialStatus?: GameSystemCatalogEditorialStatus | null
   stats?: readonly GameSystemCatalogCardStat[]
+}
+
+export type GameSystemCatalogSheetField = {
+  label: string
+  value: string
+  wide?: boolean
+}
+
+export type GameSystemCatalogSheetSection = {
+  title: string
+  fields: readonly GameSystemCatalogSheetField[]
+}
+
+export type GameSystemCatalogSheet = GameSystemCatalogCard & {
+  sections: readonly GameSystemCatalogSheetSection[]
+  source?: {
+    publication?: string | null
+    license?: string | null
+  }
 }
 
 export type GameSystemCatalogQuery = {
@@ -32,6 +57,13 @@ export type GameSystemCatalogQuery = {
   search?: string
   page: number
   limit: number
+}
+
+export type GameSystemCatalogEntryQuery = {
+  campaignId: string
+  domain: GameSystemCatalogDomain
+  locale: GameSystemContentLocale
+  contentId: string
 }
 
 export type GameSystemCatalogResult = {
@@ -46,6 +78,7 @@ export type GameSystemCatalogResult = {
 
 export type GameSystemCatalogProvider = {
   list(query: GameSystemCatalogQuery): Promise<GameSystemCatalogResult> | GameSystemCatalogResult
+  get(query: GameSystemCatalogEntryQuery): Promise<GameSystemCatalogSheet | null> | GameSystemCatalogSheet | null
 }
 
 export const GAME_SYSTEM_DESCRIPTORS: readonly GameSystemDescriptor[] = [
