@@ -17,7 +17,6 @@ import { PATHFINDER_2E_ITEM_ENTRIES } from './items'
 import { PATHFINDER_2E_CONTENT_ROADMAP } from './roadmap'
 import { PATHFINDER_2E_SPELL_ENTRIES } from './spells'
 
-
 test('PF2e content is composed from bestiary, spells and item categories', () => {
   assert.equal(PATHFINDER_2E_BESTIARY_ENTRIES.length, 3)
   assert.equal(PATHFINDER_2E_SPELL_ENTRIES.length, 3)
@@ -28,7 +27,7 @@ test('PF2e content is composed from bestiary, spells and item categories', () =>
     (candidate) => candidate.id === PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID,
   )
   assert.ok(delivery)
-  assert.equal(delivery.status, 'REVIEWING')
+  assert.equal(delivery.status, 'READY')
   assert.deepEqual(
     new Set([
       ...delivery.frozenEntryIds.bestiary,
@@ -39,11 +38,11 @@ test('PF2e content is composed from bestiary, spells and item categories', () =>
   )
 })
 
-test('PF2e originals and pt-BR translations remain separate records', () => {
+test('PF2e originals and reviewed pt-BR translations remain separate records', () => {
   for (const entry of PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES) {
     assert.equal(entry.original.locale, 'en-US')
     assert.equal(entry.translation.locale, 'pt-BR')
-    assert.equal(entry.translation.status, 'MACHINE_DRAFT')
+    assert.equal(entry.translation.status, 'REVIEWED')
     assert.equal(entry.translation.contentId, entry.original.contentId)
     assert.equal(entry.translation.sourceTranslatableHash, entry.original.translatableHash)
     assert.equal(typeof entry.translation.fields.name, 'string')
@@ -71,17 +70,17 @@ test('PF2e catalog switches locale without mutating original content', () => {
   assert.equal((original.original as { name: string }).name, 'Electric Arc')
   assert.equal((translated.original as { name: string }).name, 'Electric Arc')
   assert.equal(original.translation, null)
-  assert.equal(translated.translation?.status, 'MACHINE_DRAFT')
+  assert.equal(translated.translation?.status, 'REVIEWED')
 })
 
-test('PF2e starting content remains blocked until translation review', () => {
-  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.ready, false)
-  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.bestiary.reviewed, 0)
-  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.spells.reviewed, 0)
-  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.items.reviewed, 0)
+test('PF2e starting content is ready after translation review', () => {
+  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.ready, true)
+  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.bestiary.reviewed, 3)
+  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.spells.reviewed, 3)
+  assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE.items.reviewed, 3)
 
   const summary = getPathfinder2eRoundSummary(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID)
   assert.ok(summary)
-  assert.equal(summary.status, 'REVIEWING')
+  assert.equal(summary.status, 'READY')
   assert.equal(listPathfinder2eRoundEntries(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID, 'pt-BR').length, 9)
 })
