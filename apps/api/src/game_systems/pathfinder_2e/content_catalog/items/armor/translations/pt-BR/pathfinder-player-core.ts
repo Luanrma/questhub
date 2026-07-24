@@ -11,11 +11,9 @@ export const PATHFINDER_PLAYER_CORE_ARMOR_PT_BR: readonly Pathfinder2eContentTra
       name: 'Armadura de Couro',
       description: 'Uma combinação de couro flexível e couro fervido moldado que oferece proteção sem comprometer a mobilidade.',
       itemType: 'armadura',
-      rarity: 'comum',
       usage: 'vestida como armadura',
       category: 'leve',
       group: 'couro',
-      traits: {},
     },
   },
 ]
