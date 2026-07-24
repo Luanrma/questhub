@@ -43,6 +43,18 @@ A resposta usa seções genéricas. Pathfinder 2e define internamente:
 - Magias: conjuração, alcance, alvo, defesa, dano ou cura e aprimoramento;
 - Itens: informações de uso, preço, volume, dano ou valores de armadura.
 
+### Termos preservados
+
+`Rank` é terminologia oficial do sistema e não deve ser traduzido. Cards e fichas de magia usam sempre:
+
+```text
+Rank 1
+Rank 2
+Rank 3
+```
+
+O idioma selecionado não altera esse rótulo.
+
 ## Glossário central
 
 Termos compartilhados não devem ser traduzidos em cada registro.
@@ -58,7 +70,19 @@ O glossário mantém mapas separados para:
 - traits;
 - raridades;
 - tradições mágicas;
+- tipos de dano;
+- tipos de efeito;
+- perícias;
 - termos mecânicos reutilizados.
+
+Toda tradução potencialmente ambígua deve receber contexto explícito:
+
+```text
+domínio: BESTIARY | SPELLS | ITEMS
+categoria: trait | rarity | tradition | damage-type | effect-kind | skill | general
+```
+
+Isso permite que o mesmo identificador original tenha traduções diferentes conforme seu significado em uma criatura, magia ou item.
 
 Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays individuais armazenam somente textos específicos daquela entidade, como nome, descrição, ataques e habilidades próprias.
 
