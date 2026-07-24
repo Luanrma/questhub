@@ -92,19 +92,26 @@ kits
 
 Todo asset exibido em runtime deve estar versionado no repositório QuestHub.
 
-Diretório público:
+Diretório único:
 
 ```text
-apps/web/public/game-systems/pathfinder-2e/
+apps/api/src/game_systems/pathfinder_2e/icons/
+```
+
+Rota local:
+
+```text
+/api/game-systems/pathfinder-2e/icons/
 ```
 
 Regras:
 
-- registros apontam somente para caminhos iniciados por `/game-systems/pathfinder-2e/`;
-- URLs absolutas e CDNs externas são proibidas;
-- o backend não monta URLs externas;
+- registros apontam somente para caminhos iniciados por `/api/game-systems/pathfinder-2e/icons/`;
+- URLs absolutas e CDNs externas são proibidas nos registros;
+- a rota bloqueia path traversal e extensões não permitidas;
 - não há download de imagens em runtime;
-- sem arquivo local, o campo `image` é omitido;
+- sem correspondência exata no pacote local, o campo `image` é omitido;
+- remover o arquivo não pode impedir o build nem remover a entidade;
 - o frontend usa o ícone genérico quando `image` não existe ou falha.
 
 ## 7. Determinismo
@@ -147,6 +154,12 @@ A tradução `pt-BR` deve usar:
 - revisão humana antes de publicar;
 - referência pelo ID interno de ações ou elementos incorporados, nunca pela posição em arrays.
 
+Regra visual:
+
+- `REVIEWED` não exibe tag;
+- estados ainda pendentes exibem `Tradução em revisão` fora da lista de traits;
+- o filtro editorial continua usando o status real, independentemente da tag visual.
+
 ## 10. Segurança e licenças
 
 Cada registro deve preservar publicação, licença, indicador de Remaster e origem técnica neutra. Conteúdo e assets não podem ser publicados se a licença estiver ausente ou bloqueada para o uso pretendido.
@@ -166,4 +179,6 @@ Devem existir testes para garantir:
 - source lock válido;
 - próxima entrega calculada deterministicamente;
 - nenhuma publicação com pendência obrigatória;
-- nenhuma URL externa em `imageUrl`.
+- nenhuma URL externa em `imageUrl`;
+- fallback quando o arquivo local não existe;
+- ausência de tag visual em traduções revisadas.
