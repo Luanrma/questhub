@@ -8,8 +8,7 @@ export const PATHFINDER_PLAYER_CORE_SPELL_ORIGINALS: readonly Pathfinder2eOrigin
     locale: 'en-US',
     sourceHash: 'git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1',
     translatableHash: 'git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1',
-    source: { provider: 'FOUNDRY_PF2E', sourcePack: 'spells-srd', sourceId: 'kBhaPuzLUSwS6vVf', slug: 'electric-arc', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    image: { upstreamPath: 'icons/magic/lightning/bolt-strike-forked-blue.webp' },
+    source: { sourcePack: 'spells-srd', sourceId: 'kBhaPuzLUSwS6vVf', slug: 'electric-arc', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
     data: {
       schemaVersion: 1,
       name: 'Electric Arc',
@@ -34,8 +33,7 @@ export const PATHFINDER_PLAYER_CORE_SPELL_ORIGINALS: readonly Pathfinder2eOrigin
     locale: 'en-US',
     sourceHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
     translatableHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
-    source: { provider: 'FOUNDRY_PF2E', sourcePack: 'spells-srd', sourceId: 'gKKqvLohtrSJj3BM', slug: 'force-barrage', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    image: { upstreamPath: 'systems/pf2e/icons/spells/magic-missile.webp' },
+    source: { sourcePack: 'spells-srd', sourceId: 'gKKqvLohtrSJj3BM', slug: 'force-barrage', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
     data: {
       schemaVersion: 1,
       name: 'Force Barrage',
@@ -60,8 +58,7 @@ export const PATHFINDER_PLAYER_CORE_SPELL_ORIGINALS: readonly Pathfinder2eOrigin
     locale: 'en-US',
     sourceHash: 'git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8',
     translatableHash: 'git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8',
-    source: { provider: 'FOUNDRY_PF2E', sourcePack: 'spells-srd', sourceId: 'rfZpqmj0AIIdkVIs', slug: 'heal', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
-    image: { upstreamPath: 'icons/magic/life/cross-worn-green.webp' },
+    source: { sourcePack: 'spells-srd', sourceId: 'rfZpqmj0AIIdkVIs', slug: 'heal', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
     data: {
       schemaVersion: 1,
       name: 'Heal',
