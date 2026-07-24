@@ -1,0 +1,7 @@
+import { PATHFINDER_2E_ARMOR_ENTRIES } from './armor'
+import { PATHFINDER_2E_WEAPON_ENTRIES } from './weapons'
+
+export const PATHFINDER_2E_ITEM_ENTRIES = [
+  ...PATHFINDER_2E_WEAPON_ENTRIES,
+  ...PATHFINDER_2E_ARMOR_ENTRIES,
+]
