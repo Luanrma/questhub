@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
@@ -36,10 +36,9 @@ async function findOwnedCharacter(characterId: string, userId: string) {
 }
 
 function ensurePathfinderCharacter(
-  character: Awaited<ReturnType<typeof findOwnedCharacter>>,
-  reply: Parameters<FastifyInstance['get']>[1] extends never ? never : any,
+  character: NonNullable<Awaited<ReturnType<typeof findOwnedCharacter>>>,
+  reply: FastifyReply,
 ) {
-  if (!character) return false
   if (character.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
     reply.status(409).send({ error: 'Esta ficha pertence a outro sistema de jogo' })
     return false
