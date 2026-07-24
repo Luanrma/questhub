@@ -12,7 +12,6 @@ import { PATHFINDER_2E_SPELL_ENTRIES } from '../spells'
 export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID = 'pf2e-core-remaster-01'
 
 export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE: Pathfinder2eSourceLock = {
-  provider: 'FOUNDRY_PF2E',
   systemVersion: '8.3.0',
   sourceCommit: '01114da5851f31404078d8020809b13e4000bc4b',
   inputChecksum: 'b25766f9c74d8eef993c10753a709324208df9b4c09514991ea5e65dab0a1fa2',
