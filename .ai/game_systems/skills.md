@@ -31,7 +31,10 @@ apps/api/src/
 - `apps/api/src/main.ts` e o bootstrap executavel autorizado a unir o servidor
   do VTT ao registrador agregado de sistemas;
 - `apps/api/src/game_systems/register.ts` agrega somente registradores de alto
-  nivel, nunca rotas individuais de ficha, bestiario, item ou spell;
+  nivel no formato `./<boundary>/register`, incluindo o registro neutro e os
+  sistemas; nunca importa arquivos de rotas diretamente;
+- `apps/api/src/game_systems/registry/register.ts` concentra o registro das
+  entradas HTTP neutras do contexto, sem incorporar mecanicas de um sistema;
 - cada `apps/api/src/game_systems/<system>/register.ts` registra internamente as
   capacidades daquele sistema;
 - um sistema em `apps/api/src/game_systems/<system>` nao importa arquivos de

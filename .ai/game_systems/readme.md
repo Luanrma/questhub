@@ -27,9 +27,10 @@ apps/api/src/game_systems/
 registradores, rotas, recursos ou implementacoes de nenhum sistema de jogo.
 
 A composicao executavel acontece em `apps/api/src/main.ts`. Esse bootstrap chama
-o registrador agregado de `game_systems`, enquanto cada sistema expoe seu proprio
-registrador e mantem internamente suas fichas, bestiarios, itens, spells e demais
-capacidades.
+o registrador agregado de `game_systems`. O agregador delega as entradas neutras
+ao registrador `registry` e as capacidades mecanicas ao registrador de cada
+sistema. Cada sistema mantem internamente suas fichas, bestiarios, itens, spells
+e demais capacidades.
 
 ## Regras de negocio
 

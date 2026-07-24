@@ -62,13 +62,16 @@ O fluxo de composicao HTTP e:
 main.ts
   -> createVttServer()                         // somente VTT
   -> registerGameSystems(app)                  // entrada agregada
+       -> registerGameSystemRoutes(app)         // registry neutro
        -> registerPathfinder2e(app)             // limite do sistema
             -> registradores internos do PF2e  // ficha, bestiario, itens, spells...
 ```
 
-Adicionar uma capacidade a Pathfinder altera somente seu registrador interno.
-Adicionar outro sistema altera o agregador de sistemas, mas nao `server.ts` nem
-o registrador de Pathfinder.
+O agregador importa exclusivamente entradas de alto nivel no formato
+`./<boundary>/register`; ele nao importa arquivos de rotas diretamente. Adicionar
+uma capacidade a Pathfinder altera somente seu registrador interno. Adicionar
+outro sistema altera o agregador de sistemas, mas nao `server.ts`, o registry
+neutro nem o registrador de Pathfinder.
 
 A coexistencia no mesmo processo HTTP nao torna um sistema modulo do VTT.
 
