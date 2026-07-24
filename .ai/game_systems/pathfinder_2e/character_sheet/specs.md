@@ -1,5 +1,18 @@
 # Pathfinder 2e - Especificacao da ficha manual V1
 
+## 0. Localizacao e dependencia
+
+O codigo backend desta ficha reside em:
+
+```text
+apps/api/src/game_systems/pathfinder_2e/character-sheet/
+```
+
+Ele nao pode importar `apps/api/src/modules/**`. Modulos do VTT tambem nao podem
+importar regras desta ficha. Seu registrador e consumido somente por
+`apps/api/src/game_systems/pathfinder_2e/register.ts`; `server.ts`, `main.ts` e o
+agregador global nao conhecem a ficha diretamente.
+
 ## 1. Persistencia
 
 ```prisma

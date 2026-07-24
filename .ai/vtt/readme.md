@@ -4,6 +4,11 @@ O VTT oferece mesa, cenas, mapas, grid, tokens genericos, paredes, portas, camer
 
 O VTT core deve funcionar sem sistema de jogo implementado. Criar campanha, abrir mesa, preparar cena, criar token, mover token, ocultar token, medir, rolar dados visuais e testar paredes/portas nao pode depender de ficha, bestiario, inventario, combate, PV ou qualquer ruleset.
 
+No backend, `apps/api/src/server.ts` monta exclusivamente capacidades do VTT. A
+ativacao de sistemas de jogo ocorre fora desse arquivo, no bootstrap da
+aplicacao. O VTT pode no maximo conhecer descritores neutros com os nomes/chaves
+dos sistemas suportados.
+
 Personagens podem funcionar como identidades e controladores de tokens, mas essa associacao e opcional. Um token generico com nome, imagem/cor e posicao e valido por si so. O menu da campanha expoe apenas capacidades do VTT, sem atalho ou dependencia de ficha mecanica.
 
 Paredes, portas e janelas pertencem a cena. O Mestre pode desenhar segmentos e retangulos, definir sua visibilidade e configurar passagens abertas, trancadas, obstruidas ou encostadas em tempo real. Segmentos fechados bloqueiam o deslocamento de jogadores; o Mestre preserva controle total durante a preparacao.

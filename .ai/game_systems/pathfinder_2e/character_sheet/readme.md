@@ -6,6 +6,18 @@ Esta branch implementa somente a primeira fase da ficha de personagem Pathfinder
 
 A entrega permite abrir, preencher manualmente, salvar e recarregar a ficha de um `Character` existente.
 
+## Fronteira arquitetural
+
+Pathfinder 2e e um `game_system`, nao um modulo do VTT. Seu backend reside em:
+
+```text
+apps/api/src/game_systems/pathfinder_2e/
+```
+
+Regras Pathfinder nunca devem ser colocadas em `apps/api/src/modules` nem
+importadas por modulos internos do VTT. A ficha e registrada pelo registrador
+interno de Pathfinder 2e; `server.ts` nao conhece o sistema nem essa capacidade.
+
 ## Escopo aprovado
 
 - todos os campos exibidos na ficha sao editaveis manualmente;
