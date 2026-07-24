@@ -96,8 +96,37 @@ function coreRound(
   }
 }
 
+const firstRound: Pathfinder2eContentRound = {
+  ...coreRound(
+    'pf2e-core-remaster-01',
+    1,
+    'Core Remaster — início de jogo',
+    { min: -1, max: 2 },
+    { min: 0, max: 1 },
+    { min: 0, max: 1 },
+  ),
+  status: 'REVIEWING',
+  frozenEntryIds: {
+    bestiary: [
+      'pf2e:bestiary:pathfinder-monster-core:goblin-warrior',
+      'pf2e:bestiary:pathfinder-monster-core:skeleton-guard',
+      'pf2e:bestiary:pathfinder-monster-core:wolf',
+    ],
+    spells: [
+      'pf2e:spell:spells-srd:electric-arc',
+      'pf2e:spell:spells-srd:force-barrage',
+      'pf2e:spell:spells-srd:heal',
+    ],
+    items: [
+      'pf2e:item:equipment-srd:dogslicer',
+      'pf2e:item:equipment-srd:leather-armor',
+      'pf2e:item:equipment-srd:shortbow',
+    ],
+  },
+}
+
 const ROUNDS: readonly Pathfinder2eContentRound[] = [
-  coreRound('pf2e-core-remaster-01', 1, 'Core Remaster — início de jogo', { min: -1, max: 2 }, { min: 0, max: 1 }, { min: 0, max: 1 }),
+  firstRound,
   coreRound('pf2e-core-remaster-02', 2, 'Core Remaster — níveis baixos', { min: 3, max: 4 }, { min: 2, max: 2 }, { min: 2, max: 4 }),
   coreRound('pf2e-core-remaster-03', 3, 'Core Remaster — intermediário I', { min: 5, max: 8 }, { min: 3, max: 4 }, { min: 5, max: 8 }),
   coreRound('pf2e-core-remaster-04', 4, 'Core Remaster — intermediário II', { min: 9, max: 12 }, { min: 5, max: 6 }, { min: 9, max: 12 }),
