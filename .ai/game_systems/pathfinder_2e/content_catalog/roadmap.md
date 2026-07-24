@@ -39,10 +39,33 @@ As publicações são agrupadas porque criaturas, magias e itens não ficam nece
 
 ## Rodada 1 — início de jogo
 
+Faixa planejada:
+
 - Bestiário: níveis −1 a 2;
 - Spells: truques e rank 1;
 - Items: níveis 0 e 1;
-- limites: 20 / 30 / 40.
+- limites máximos: 20 / 30 / 40.
+
+### Piloto congelado para validação
+
+Status atual: `REVIEWING`.
+
+Snapshot da fonte:
+
+- Foundry PF2e `8.3.0`;
+- commit `01114da5851f31404078d8020809b13e4000bc4b`;
+- licença dos nove registros: `ORC`;
+- imagens não foram copiadas.
+
+Conteúdo do piloto:
+
+| Bestiário | Spells | Items |
+|---|---|---|
+| Goblin Warrior | Electric Arc | Dogslicer |
+| Skeleton Guard | Force Barrage | Leather Armor |
+| Wolf | Heal | Shortbow |
+
+Todos os registros possuem original `en-US`, tradução separada `pt-BR`, origem e hash. As traduções estão como `MACHINE_DRAFT`; a rodada não pode ser publicada até revisão.
 
 ## Rodada 2 — níveis baixos
 
