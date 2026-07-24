@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
 import { api, ApiError } from '../lib/api'
+import { getGameSystemOption, type GameSystemKey } from '../game-systems/registry'
 
 type FoundCampaign = {
   id: string
@@ -12,6 +13,7 @@ type FoundCampaign = {
   inviteCode: string
   gmName: string
   gmUserId: string
+  gameSystem: GameSystemKey
   joinPolicy: 'PUBLIC' | 'PRIVATE'
   createdAt: string
   isOnline: boolean
@@ -21,6 +23,7 @@ type CharacterOption = {
   id: string
   name: string
   avatarUrl?: string | null
+  gameSystem: GameSystemKey
   available: boolean
 }
 
@@ -29,6 +32,11 @@ type CharacterMode = 'existing' | 'new'
 type JoinedCampaign = {
   id: string
   status?: 'ACTIVE' | 'PENDING'
+}
+
+type CampaignSystemLookup = {
+  campaignId: string
+  gameSystem: GameSystemKey
 }
 
 export function CampaignJoinPage() {
@@ -46,8 +54,11 @@ export function CampaignJoinPage() {
 
   const visibleCampaigns = foundCampaign ? [foundCampaign] : []
   const availableCharacters = useMemo(() => {
-    return characters.filter((character) => character.available)
-  }, [characters])
+    if (!foundCampaign) return []
+    return characters.filter(
+      (character) => character.available && character.gameSystem === foundCampaign.gameSystem,
+    )
+  }, [characters, foundCampaign])
   const hasExistingCharacters = availableCharacters.length > 0
   const selectedCharacterId = availableCharacters.some((character) => character.id === requestedCharacterId)
     ? requestedCharacterId
@@ -61,17 +72,7 @@ export function CampaignJoinPage() {
     async function loadCharacters() {
       try {
         const list = await api<CharacterOption[]>('/api/characters')
-        if (cancelled) return
-
-        setCharacters(list)
-        const firstAvailable = list.find((character) => character.available)
-        if (firstAvailable) {
-          setCharacterMode('existing')
-          setRequestedCharacterId(firstAvailable.id)
-          return
-        }
-
-        setCharacterMode('new')
+        if (!cancelled) setCharacters(list)
       } catch {
         if (!cancelled) setCharacterMode('new')
       }
@@ -84,6 +85,25 @@ export function CampaignJoinPage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!foundCampaign) {
+      setRequestedCharacterId('')
+      return
+    }
+
+    const firstCompatible = characters.find(
+      (character) => character.available && character.gameSystem === foundCampaign.gameSystem,
+    )
+    if (firstCompatible) {
+      setCharacterMode('existing')
+      setRequestedCharacterId(firstCompatible.id)
+      return
+    }
+
+    setCharacterMode('new')
+    setRequestedCharacterId('')
+  }, [characters, foundCampaign])
+
   async function onSearch() {
     const code = inviteCode.trim().toUpperCase()
     if (!code) return
@@ -93,14 +113,17 @@ export function CampaignJoinPage() {
     setFoundCampaign(null)
 
     try {
-      const campaign = await api<FoundCampaign>(`/api/campaigns/invite/${encodeURIComponent(code)}`)
-      setFoundCampaign(campaign)
+      const [campaign, system] = await Promise.all([
+        api<Omit<FoundCampaign, 'gameSystem'>>(`/api/campaigns/invite/${encodeURIComponent(code)}`),
+        api<CampaignSystemLookup>(`/api/game-systems/campaign-invites/${encodeURIComponent(code)}`),
+      ])
+      setFoundCampaign({ ...campaign, gameSystem: system.gameSystem })
     } catch (err) {
       if (err instanceof ApiError && err.status === 404) {
-        setError('Campanha nao encontrada. Confira o codigo de convite.')
+        setError('Campanha não encontrada. Confira o código de convite.')
         return
       }
-      setError('Nao foi possivel procurar a campanha agora.')
+      setError('Não foi possível procurar a campanha agora.')
     } finally {
       setLoadingSearch(false)
     }
@@ -108,7 +131,7 @@ export function CampaignJoinPage() {
 
   async function onJoin(campaign: FoundCampaign) {
     if (!canJoin) {
-      setError(activeCharacterMode === 'existing' ? 'Selecione um personagem livre para continuar.' : 'Informe o nome do personagem para continuar.')
+      setError(activeCharacterMode === 'existing' ? 'Selecione um personagem compatível para continuar.' : 'Informe o nome do personagem para continuar.')
       return
     }
 
@@ -122,13 +145,14 @@ export function CampaignJoinPage() {
           inviteCode: campaign.inviteCode,
           characterId: activeCharacterMode === 'existing' ? selectedCharacterId : undefined,
           characterName: activeCharacterMode === 'new' ? characterName.trim() : undefined,
+          gameSystem: campaign.gameSystem,
         }),
       })
 
       await loadCampaigns({ force: true })
 
       if (joined.status === 'PENDING') {
-        alert('Solicitacao enviada! Aguarde o mestre aprovar.')
+        alert('Solicitação enviada! Aguarde o mestre aprovar.')
         navigate('/campaigns', { replace: true })
         return
       }
@@ -141,7 +165,7 @@ export function CampaignJoinPage() {
         return
       }
 
-      setError('Nao foi possivel entrar. Confira o codigo e o personagem.')
+      setError('Não foi possível entrar. Confira o código e o personagem.')
     } finally {
       setLoadingJoin(false)
     }
@@ -159,7 +183,7 @@ export function CampaignJoinPage() {
 
       <div className="rounded-xl border border-white/10 bg-white/5 p-6">
         <h1 className="text-2xl font-semibold text-white">Entrar em uma campanha</h1>
-        <p className="text-sm text-zinc-300 mt-1">Digite o invite code fornecido pelo mestre.</p>
+        <p className="text-sm text-zinc-300 mt-1">Digite o código de convite fornecido pelo mestre.</p>
 
         <div className="mt-6 grid gap-3">
           <input
@@ -169,7 +193,7 @@ export function CampaignJoinPage() {
               setFoundCampaign(null)
               setError(null)
             }}
-            placeholder="Codigo de convite (ex.: ABCD-1234)"
+            placeholder="Código de convite (ex.: ABCD-1234)"
             className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 uppercase"
           />
           <Button className="w-full" disabled={loadingSearch || !inviteCode.trim()} onClick={onSearch}>
@@ -180,7 +204,12 @@ export function CampaignJoinPage() {
         {foundCampaign ? (
           <section className="mt-6 grid gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-sm font-semibold text-white">Seu personagem</h2>
+              <div>
+                <h2 className="text-sm font-semibold text-white">Seu personagem</h2>
+                <p className="mt-1 text-xs text-zinc-400">
+                  Apenas personagens de {getGameSystemOption(foundCampaign.gameSystem)?.label ?? foundCampaign.gameSystem} podem entrar.
+                </p>
+              </div>
               <div className="inline-flex rounded-lg border border-white/10 bg-black/20 p-1">
                 <button
                   type="button"
@@ -211,7 +240,7 @@ export function CampaignJoinPage() {
             {activeCharacterMode === 'existing' ? (
               <div className="grid gap-2">
                 {availableCharacters.length === 0 ? (
-                  <div className="text-sm text-zinc-400">Nenhum personagem livre disponivel.</div>
+                  <div className="text-sm text-zinc-400">Nenhum personagem livre deste sistema.</div>
                 ) : (
                   availableCharacters.map((character) => (
                     <button
@@ -263,7 +292,7 @@ export function CampaignJoinPage() {
           <div className="h-px flex-1 bg-white/10" />
         </div>
 
-        <h2 className="text-lg font-semibold text-white">Campanhas disponiveis para voce</h2>
+        <h2 className="text-lg font-semibold text-white">Campanhas disponíveis para você</h2>
         <div className="mt-4 grid gap-3">
           {visibleCampaigns.length === 0 ? (
             <div className="text-sm text-zinc-400">Nenhuma campanha ainda.</div>
@@ -271,6 +300,7 @@ export function CampaignJoinPage() {
             visibleCampaigns.map((campaign) => {
               const isFound = foundCampaign?.id === campaign.id
               const isPrivate = campaign.joinPolicy === 'PRIVATE'
+              const system = getGameSystemOption(campaign.gameSystem)
 
               return (
                 <div key={campaign.id} className="w-full rounded-lg border border-white/10 bg-black/20 p-4">
@@ -278,8 +308,11 @@ export function CampaignJoinPage() {
                     <div>
                       <div className="text-white font-semibold flex flex-wrap items-center gap-2">
                         {campaign.title}
+                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-100 border border-purple-300/20">
+                          {system?.label ?? campaign.gameSystem}
+                        </span>
                         <span className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-400/10 text-zinc-200 border border-zinc-300/20">
-                          {isPrivate ? 'Privada' : 'Publica'}
+                          {isPrivate ? 'Privada' : 'Pública'}
                         </span>
                         <span
                           className={[
