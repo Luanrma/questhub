@@ -2,6 +2,8 @@ import { z } from 'zod'
 
 export const CHARACTER_BIO_MAX_LENGTH = 2000
 
+export const gameSystemSchema = z.enum(['PATHFINDER_2E'])
+
 export const avatarUrlSchema = z
   .string()
   .trim()
@@ -20,6 +22,7 @@ export const avatarUrlSchema = z
 
 export const createCharacterSchema = z.object({
   name: z.string().trim().min(1, 'Nome e obrigatorio').max(80, 'Nome muito longo'),
+  gameSystem: gameSystemSchema,
   avatarUrl: avatarUrlSchema.nullable().optional(),
   bio: z.string().trim().max(CHARACTER_BIO_MAX_LENGTH, 'Bio deve ter no maximo 2000 caracteres').nullable().optional(),
 })
