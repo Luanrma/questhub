@@ -39,15 +39,46 @@ Bestiário + Spells + Items
 
 Cada conjunto pode ter quantidade diferente, mas deve possuir ao menos uma entrada. Quando uma publicação não possuir conteúdo em um dos domínios, ela deve ser agrupada com a próxima publicação coerente do mesmo programa editorial até completar os três conjuntos.
 
+A rodada é somente um manifesto de entrega. Criaturas, magias e itens não pertencem a arquivos nomeados pela rodada.
+
 ## 4. Idiomas
 
 - `en-US` é a versão original e imutável.
 - `pt-BR` é um overlay de tradução.
+- Original e tradução ficam fisicamente separados.
 - IDs, slugs, fórmulas, traits internos e referências não são traduzidos.
 - A ausência de tradução usa fallback para `en-US`, mas uma rodada não é considerada concluída enquanto os campos obrigatórios em `pt-BR` não estiverem revisados.
 - Alternar idioma não altera a entidade mecânica nem cria outra cópia do registro.
 
-## 5. Fronteira arquitetural
+## 5. Organização do catálogo
+
+O filesystem representa o que o conteúdo é, não a rodada em que ele foi entregue:
+
+```text
+content_catalog/
+  bestiary/
+    original/<publication>.ts
+    translations/pt-BR/<publication>.ts
+  spells/
+    original/<publication>.ts
+    translations/pt-BR/<publication>.ts
+  items/
+    weapons/
+    armor/
+    shields/
+    equipment/
+    consumables/
+    ammunition/
+    treasure/
+    containers/
+    kits/
+  deliveries/
+    <delivery-name>.ts
+```
+
+As categorias de Items são criadas somente quando houver conteúdo. `deliveries/` guarda apenas source lock, IDs, manifest e cobertura.
+
+## 6. Fronteira arquitetural
 
 Este módulo pertence exclusivamente a:
 
@@ -63,7 +94,7 @@ PATHFINDER_2E
 
 O catálogo não será registrado em `apps/api/src/server.ts` e não pode importar módulos do VTT.
 
-## 6. Fora do escopo
+## 7. Fora do escopo
 
 Não pertencem a este trabalho:
 
@@ -77,14 +108,14 @@ Não pertencem a este trabalho:
 
 Esses temas são independentes do processo de aquisição, tradução e publicação do catálogo.
 
-## 7. Personas
+## 8. Personas
 
 - **Responsável pelo conteúdo:** acompanha importação, tradução, revisão e cobertura.
 - **Tradutor/revisor:** trabalha somente nos campos traduzíveis e preserva o original.
 - **Desenvolvedor do sistema Pathfinder 2e:** mantém normalizadores e contratos dentro da fronteira do sistema.
 - **Usuário do QuestHub:** alterna entre `en-US` e `pt-BR` sem alterar o conteúdo original.
 
-## 8. Valor entregue
+## 9. Valor entregue
 
 - entregas pequenas e verificáveis;
 - redução de retrabalho;
