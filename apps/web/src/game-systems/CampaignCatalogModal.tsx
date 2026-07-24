@@ -24,7 +24,7 @@ type CatalogCard = {
   description?: string | null
   imageUrl?: string | null
   badges?: readonly string[]
-  stats?: readonly Array<{ label: string; value: string }>
+  stats?: ReadonlyArray<{ label: string; value: string }>
 }
 
 type CatalogResponse = {
