@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import type { FastifyInstance } from 'fastify'
+import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
@@ -7,6 +7,7 @@ import { createDefaultPathfinder2eManualCharacterSheet } from './defaults'
 import { pathfinder2eCharacterSheetOptions } from './options'
 import { pathfinder2eManualCharacterSheetSchema } from './schema'
 
+const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
 const PATHFINDER_2E_SYSTEM_KEY = 'pathfinder-2e'
 const PATHFINDER_2E_SHEET_VERSION = 1
 
@@ -21,6 +22,7 @@ async function findOwnedCharacter(characterId: string, userId: string) {
       name: true,
       avatarUrl: true,
       bio: true,
+      gameSystem: true,
       sheet: {
         select: {
           systemKey: true,
@@ -31,6 +33,17 @@ async function findOwnedCharacter(characterId: string, userId: string) {
       },
     },
   })
+}
+
+function ensurePathfinderCharacter(
+  character: NonNullable<Awaited<ReturnType<typeof findOwnedCharacter>>>,
+  reply: FastifyReply,
+) {
+  if (character.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
+    reply.status(409).send({ error: 'Esta ficha pertence a outro sistema de jogo' })
+    return false
+  }
+  return true
 }
 
 export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
@@ -49,6 +62,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
 
     const character = await findOwnedCharacter(params.data.characterId, auth.id)
     if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+    if (!ensurePathfinderCharacter(character, reply)) return
 
     if (character.sheet && character.sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
       return reply.status(409).send({ error: 'O personagem possui uma ficha de outro sistema' })
@@ -69,6 +83,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
         name: character.name,
         avatarUrl: character.avatarUrl,
         bio: character.bio,
+        gameSystem: character.gameSystem,
       },
       sheet: {
         systemKey: PATHFINDER_2E_SYSTEM_KEY,
@@ -92,6 +107,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
 
     const character = await findOwnedCharacter(params.data.characterId, auth.id)
     if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+    if (!ensurePathfinderCharacter(character, reply)) return
 
     if (character.sheet && character.sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
       return reply.status(409).send({ error: 'O personagem possui uma ficha de outro sistema' })

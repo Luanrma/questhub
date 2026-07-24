@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { api, ApiError } from '../lib/api'
 import { useSession } from '../contexts/SessionContext'
+import { GAME_SYSTEM_OPTIONS, type GameSystemKey } from '../game-systems/registry'
 
 type JoinPolicy = 'PUBLIC' | 'PRIVATE'
 
@@ -11,6 +12,7 @@ type CharacterOption = {
   id: string
   name: string
   avatarUrl?: string | null
+  gameSystem: GameSystemKey
   available: boolean
 }
 
@@ -27,6 +29,7 @@ export function CampaignCreatePage() {
   const [characters, setCharacters] = useState<CharacterOption[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [gameSystem, setGameSystem] = useState<GameSystemKey | ''>('')
   const [joinPolicy, setJoinPolicy] = useState<JoinPolicy>('PUBLIC')
   const [masterMode, setMasterMode] = useState<MasterMode>('existing')
   const [masterCharacterId, setMasterCharacterId] = useState('')
@@ -36,15 +39,16 @@ export function CampaignCreatePage() {
   const submittingRef = useRef(false)
 
   const availableCharacters = useMemo(() => {
-    return characters.filter((character) => character.available)
-  }, [characters])
+    if (!gameSystem) return []
+    return characters.filter((character) => character.available && character.gameSystem === gameSystem)
+  }, [characters, gameSystem])
 
   const hasExistingCharacters = availableCharacters.length > 0
   const canCreate = useMemo(() => {
-    if (!title.trim()) return false
+    if (!title.trim() || !gameSystem) return false
     if (masterMode === 'existing') return Boolean(masterCharacterId)
     return Boolean(masterCharacterName.trim())
-  }, [masterCharacterId, masterCharacterName, masterMode, title])
+  }, [gameSystem, masterCharacterId, masterCharacterName, masterMode, title])
 
   useEffect(() => {
     let cancelled = false
@@ -53,16 +57,7 @@ export function CampaignCreatePage() {
       try {
         const list = await api<CharacterOption[]>('/api/characters')
         if (cancelled) return
-
         setCharacters(list)
-        const firstAvailable = list.find((character) => character.available)
-        if (firstAvailable) {
-          setMasterMode('existing')
-          setMasterCharacterId(firstAvailable.id)
-          return
-        }
-
-        setMasterMode('new')
       } catch {
         if (!cancelled) setMasterMode('new')
       }
@@ -75,9 +70,29 @@ export function CampaignCreatePage() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!gameSystem) {
+      setMasterCharacterId('')
+      return
+    }
+
+    const firstAvailable = characters.find(
+      (character) => character.available && character.gameSystem === gameSystem,
+    )
+
+    if (firstAvailable) {
+      setMasterMode('existing')
+      setMasterCharacterId(firstAvailable.id)
+      return
+    }
+
+    setMasterMode('new')
+    setMasterCharacterId('')
+  }, [characters, gameSystem])
+
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault()
-    if (!canCreate) return
+    if (!canCreate || !gameSystem) return
     if (submittingRef.current) return
 
     submittingRef.current = true
@@ -90,6 +105,7 @@ export function CampaignCreatePage() {
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || undefined,
+          gameSystem,
           joinPolicy,
           masterCharacterId: masterMode === 'existing' ? masterCharacterId : undefined,
           masterCharacterName: masterMode === 'new' ? masterCharacterName.trim() : undefined,
@@ -130,7 +146,7 @@ export function CampaignCreatePage() {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-white">Criar nova campanha</h1>
-            <p className="text-sm text-zinc-300 mt-1">Defina a campanha e a identidade que sera o mestre.</p>
+            <p className="text-sm text-zinc-300 mt-1">Defina a campanha, o sistema e a identidade que será o mestre.</p>
           </div>
         </div>
 
@@ -138,34 +154,53 @@ export function CampaignCreatePage() {
           <input
             value={title}
             onChange={(event) => setTitle(event.target.value)}
-            placeholder="Titulo da campanha"
+            placeholder="Título da campanha"
             className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
 
           <textarea
             value={description}
             onChange={(event) => setDescription(event.target.value)}
-            placeholder="Descricao (opcional)"
+            placeholder="Descrição (opcional)"
             className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-28"
           />
 
-          <div className="grid gap-3">
-            <label className="grid gap-2">
-              <span className="text-sm font-medium text-zinc-200">Entrada</span>
-              <select
-                value={joinPolicy}
-                onChange={(event) => setJoinPolicy(event.target.value as JoinPolicy)}
-                className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              >
-                <option value="PUBLIC">Publica</option>
-                <option value="PRIVATE">Privada</option>
-              </select>
-            </label>
-          </div>
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-zinc-200">Sistema de jogo *</span>
+            <select
+              value={gameSystem}
+              onChange={(event) => setGameSystem(event.target.value as GameSystemKey | '')}
+              required
+              className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="">Selecione o sistema</option>
+              {GAME_SYSTEM_OPTIONS.map((system) => (
+                <option key={system.key} value={system.key}>{system.label}</option>
+              ))}
+            </select>
+            <span className="text-xs text-zinc-400">
+              O sistema define quais fichas e catálogos estarão disponíveis dentro da campanha.
+            </span>
+          </label>
+
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-zinc-200">Entrada</span>
+            <select
+              value={joinPolicy}
+              onChange={(event) => setJoinPolicy(event.target.value as JoinPolicy)}
+              className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="PUBLIC">Pública</option>
+              <option value="PRIVATE">Privada</option>
+            </select>
+          </label>
 
           <section className="grid gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
             <div className="flex items-center justify-between gap-3">
-              <h2 className="text-sm font-semibold text-white">Personagem mestre</h2>
+              <div>
+                <h2 className="text-sm font-semibold text-white">Personagem mestre</h2>
+                {!gameSystem ? <p className="mt-1 text-xs text-zinc-400">Selecione o sistema primeiro.</p> : null}
+              </div>
               <div className="inline-flex rounded-lg border border-white/10 bg-black/20 p-1">
                 <button
                   type="button"
@@ -181,9 +216,10 @@ export function CampaignCreatePage() {
                 </button>
                 <button
                   type="button"
+                  disabled={!gameSystem}
                   onClick={() => setMasterMode('new')}
                   className={[
-                    'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs transition',
+                    'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs transition disabled:opacity-40',
                     masterMode === 'new' ? 'bg-white/10 text-white' : 'text-zinc-300 hover:text-white',
                   ].join(' ')}
                 >
@@ -196,7 +232,9 @@ export function CampaignCreatePage() {
             {masterMode === 'existing' ? (
               <div className="grid gap-2">
                 {availableCharacters.length === 0 ? (
-                  <div className="text-sm text-zinc-400">Nenhum personagem livre disponivel.</div>
+                  <div className="text-sm text-zinc-400">
+                    {gameSystem ? 'Nenhum personagem livre deste sistema.' : 'Selecione o sistema da campanha.'}
+                  </div>
                 ) : (
                   availableCharacters.map((character) => (
                     <button
@@ -230,7 +268,8 @@ export function CampaignCreatePage() {
                 value={masterCharacterName}
                 onChange={(event) => setMasterCharacterName(event.target.value)}
                 placeholder="Nome do personagem mestre"
-                className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                disabled={!gameSystem}
+                className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-40"
               />
             )}
           </section>

@@ -3,6 +3,7 @@ import { ArrowLeft, Check, Image, Link, Plus, Save, UserRound, X } from 'lucide-
 import { useNavigate, useParams } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { api, ApiError } from '../lib/api'
+import { GAME_SYSTEM_OPTIONS, getGameSystemOption, type GameSystemKey } from '../game-systems/registry'
 
 const BIO_MAX_LENGTH = 2000
 
@@ -23,6 +24,7 @@ type Character = {
   name: string
   avatarUrl?: string | null
   bio?: string | null
+  gameSystem: GameSystemKey
   campaigns: CharacterCampaign[]
   available: boolean
 }
@@ -39,6 +41,7 @@ export function CharacterCreatePage() {
   const isEditing = Boolean(characterId)
   const [name, setName] = useState('')
   const [bio, setBio] = useState('')
+  const [gameSystem, setGameSystem] = useState<GameSystemKey | ''>('')
   const [avatarMode, setAvatarMode] = useState<AvatarMode>('preset')
   const [avatarUrl, setAvatarUrl] = useState('')
   const [selectedPreset, setSelectedPreset] = useState(avatarPresets[0])
@@ -50,6 +53,7 @@ export function CharacterCreatePage() {
   const [error, setError] = useState<string | null>(null)
 
   const selectedAvatarUrl = avatarMode === 'preset' ? selectedPreset : avatarUrl.trim()
+  const selectedSystem = getGameSystemOption(gameSystem)
   const currentSnapshot = useMemo(
     () => ({
       name: name.trim(),
@@ -70,11 +74,12 @@ export function CharacterCreatePage() {
   }, [currentSnapshot, isEditing, original])
   const canSubmit = useMemo(() => {
     if (!name.trim()) return false
+    if (!gameSystem) return false
     if (bio.length > BIO_MAX_LENGTH) return false
     if (loadingCharacter) return false
     if (isEditing) return isDirty
     return true
-  }, [bio.length, isDirty, isEditing, loadingCharacter, name])
+  }, [bio.length, gameSystem, isDirty, isEditing, loadingCharacter, name])
 
   useEffect(() => {
     if (!characterId) return
@@ -92,6 +97,7 @@ export function CharacterCreatePage() {
         const loadedAvatarUrl = character.avatarUrl ?? ''
         setName(character.name)
         setBio(character.bio ?? '')
+        setGameSystem(character.gameSystem)
         setCanEditName(character.available)
         setOriginal({
           name: character.name.trim(),
@@ -131,7 +137,7 @@ export function CharacterCreatePage() {
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault()
-    if (!canSubmit) return
+    if (!canSubmit || !gameSystem) return
 
     setLoading(true)
     setError(null)
@@ -139,6 +145,7 @@ export function CharacterCreatePage() {
     try {
       const body = JSON.stringify({
         name: canEditName ? currentSnapshot.name : undefined,
+        ...(!isEditing ? { gameSystem } : {}),
         avatarUrl: currentSnapshot.avatarUrl || null,
         bio: currentSnapshot.bio || null,
       })
@@ -162,7 +169,7 @@ export function CharacterCreatePage() {
         return
       }
 
-      setError('Nao foi possivel criar o personagem agora.')
+      setError('Não foi possível criar o personagem agora.')
     } finally {
       setLoading(false)
     }
@@ -207,24 +214,45 @@ export function CharacterCreatePage() {
                 {isEditing ? 'Editar personagem' : 'Criar personagem'}
               </h1>
               <p className="text-sm text-zinc-300">
-                {isEditing ? 'Atualize identidade, avatar e bio.' : 'Crie uma identidade que pode ser usada em qualquer campanha.'}
+                {isEditing
+                  ? 'Atualize identidade, avatar e bio. O sistema não pode ser alterado.'
+                  : 'Escolha o sistema antes de criar a identidade do personagem.'}
               </p>
             </div>
           </div>
 
           <form onSubmit={onSubmit} className="mt-6 grid gap-5">
             <label className="grid gap-2">
+              <span className="text-sm font-medium text-zinc-200">Sistema de jogo *</span>
+              <select
+                value={gameSystem}
+                onChange={(event) => setGameSystem(event.target.value as GameSystemKey | '')}
+                disabled={isEditing || loadingCharacter}
+                required
+                className="rounded bg-gray-900 p-3 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                <option value="">Selecione o sistema</option>
+                {GAME_SYSTEM_OPTIONS.map((system) => (
+                  <option key={system.key} value={system.key}>{system.label}</option>
+                ))}
+              </select>
+              <span className="text-xs text-zinc-400">
+                A ficha só poderá entrar em campanhas do mesmo sistema.
+              </span>
+            </label>
+
+            <label className="grid gap-2">
               <span className="text-sm font-medium text-zinc-200">Nome</span>
               <input
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="Nome publico do personagem"
+                placeholder="Nome público do personagem"
                 maxLength={80}
                 disabled={!canEditName || loadingCharacter}
                 className="rounded bg-gray-900 p-3 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               {!canEditName ? (
-                <span className="text-xs text-zinc-400">Personagens vinculados mantem o nome da campanha.</span>
+                <span className="text-xs text-zinc-400">Personagens vinculados mantêm o nome da campanha.</span>
               ) : null}
             </label>
 
@@ -238,7 +266,7 @@ export function CharacterCreatePage() {
               <textarea
                 value={bio}
                 onChange={(event) => setBio(event.target.value)}
-                placeholder="Uma historia curta, uma motivacao, ou uma pista sobre quem esse personagem e."
+                placeholder="Uma história curta, uma motivação ou uma pista sobre quem esse personagem é."
                 className="min-h-36 rounded bg-gray-900 p-3 text-white border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
             </label>
@@ -273,6 +301,9 @@ export function CharacterCreatePage() {
               )}
               <div>
                 <div className="text-lg font-semibold text-white">{name.trim() || 'Novo personagem'}</div>
+                <div className="mt-1 text-xs text-indigo-200">
+                  {selectedSystem?.label ?? 'Sistema não selecionado'}
+                </div>
                 <div className="mt-1 text-xs text-zinc-400">
                   {selectedAvatarUrl ? 'Avatar selecionado' : 'Sem avatar'}
                 </div>
@@ -288,7 +319,7 @@ export function CharacterCreatePage() {
           </div>
 
           <div className="mt-4 text-sm text-zinc-300">
-            {bio.trim() || 'A bio fica privada para voce e mestres das campanhas onde este personagem entrar.'}
+            {bio.trim() || 'A bio fica privada para você e mestres das campanhas onde este personagem entrar.'}
           </div>
         </aside>
       </div>
