@@ -45,7 +45,29 @@ test('catalog never exposes external runtime image urls', async () => {
   }
 })
 
-test('entities without QuestHub-local assets use the generic fallback', async () => {
+test('catalog remains complete when every optional image is absent', async () => {
+  const domains = ['BESTIARY', 'SPELLS', 'ITEMS'] as const
+  let totalEntries = 0
+
+  for (const domain of domains) {
+    const result = await pathfinder2eCatalogProvider.list({
+      campaignId: 'campaign-1',
+      domain,
+      locale: 'pt-BR',
+      page: 1,
+      limit: 24,
+    })
+
+    assert.equal(result.pagination.total, 3)
+    assert.equal(result.entries.length, 3)
+    assert.equal(result.entries.every((entry) => entry.imageUrl === null), true)
+    totalEntries += result.entries.length
+  }
+
+  assert.equal(totalEntries, 9)
+})
+
+test('entities without QuestHub-local assets keep their complete detail sheet', async () => {
   const sheet = await pathfinder2eCatalogProvider.get({
     campaignId: 'campaign-1',
     domain: 'BESTIARY',
@@ -53,5 +75,8 @@ test('entities without QuestHub-local assets use the generic fallback', async ()
     contentId: 'pf2e:bestiary:pathfinder-monster-core:wolf',
   })
 
-  assert.equal(sheet?.imageUrl, null)
+  assert.ok(sheet)
+  assert.equal(sheet.imageUrl, null)
+  assert.equal(sheet.name, 'Lobo')
+  assert.equal(sheet.sections.length > 0, true)
 })
