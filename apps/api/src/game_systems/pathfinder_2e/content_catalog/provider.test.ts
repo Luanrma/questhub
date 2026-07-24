@@ -28,10 +28,10 @@ test('provider keeps editorial status separate from localized traits', async () 
 
   assert.ok(skeleton)
   assert.equal(skeleton.traits?.includes('morto-vivo'), true)
-  assert.equal(skeleton.traits?.includes('Tradução em revisão'), false)
+  assert.equal(skeleton.traits?.includes('Tradução revisada'), false)
   assert.deepEqual(skeleton.editorialStatus, {
-    label: 'Tradução em revisão',
-    tone: 'review',
+    label: 'Tradução revisada',
+    tone: 'ready',
   })
 })
 
