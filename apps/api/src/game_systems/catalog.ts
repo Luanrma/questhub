@@ -2,6 +2,7 @@ export type GameSystemKey = 'PATHFINDER_2E'
 
 export type GameSystemCatalogDomain = 'BESTIARY' | 'SPELLS' | 'ITEMS'
 export type GameSystemContentLocale = 'en-US' | 'pt-BR'
+export type GameSystemCatalogEditorialFilter = 'all' | 'review' | 'ready'
 
 export type GameSystemDescriptor = {
   key: GameSystemKey
@@ -55,6 +56,7 @@ export type GameSystemCatalogQuery = {
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
   search?: string
+  editorialStatus?: GameSystemCatalogEditorialFilter
   page: number
   limit: number
 }
