@@ -105,7 +105,7 @@ const firstRound: Pathfinder2eContentRound = {
     { min: 0, max: 1 },
     { min: 0, max: 1 },
   ),
-  status: 'REVIEWING',
+  status: 'READY',
   frozenEntryIds: {
     bestiary: [
       'pf2e:bestiary:pathfinder-monster-core:goblin-warrior',
