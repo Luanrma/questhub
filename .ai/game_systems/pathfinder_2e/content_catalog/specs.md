@@ -50,11 +50,12 @@ type TranslationStatus =
   | 'NOT_REQUIRED'
 ```
 
-## 3. Referência da fonte
+## 3. Referência neutra da fonte
+
+O catálogo não conhece um tipo de provedor externo. A origem é registrada apenas com identificadores técnicos neutros e dados editoriais.
 
 ```ts
 type SourceLock = {
-  provider: 'FOUNDRY_PF2E'
   systemVersion: string
   sourceCommit: string
   inputChecksum: string
@@ -63,7 +64,6 @@ type SourceLock = {
 }
 
 type SourceIdentity = {
-  provider: 'FOUNDRY_PF2E'
   sourcePack: string
   sourceId: string
   slug?: string
@@ -76,8 +76,15 @@ type SourceIdentity = {
 A chave canônica é:
 
 ```text
-FOUNDRY_PF2E:{sourcePack}:{sourceId}
+{sourcePack}:{sourceId}
 ```
+
+É proibido adicionar ao modelo:
+
+- enum de provedor externo;
+- URL de repositório externo;
+- lógica de download em runtime;
+- dependência de uma aplicação ou serviço de terceiros.
 
 ## 4. Documento original
 
@@ -87,6 +94,9 @@ type OriginalContentRecord<TData = unknown> = {
   domain: Pathfinder2eContentDomain
   locale: 'en-US'
   source: SourceIdentity
+  image?: {
+    path: string
+  }
   sourceHash: string
   translatableHash: string
   data: TData
@@ -98,7 +108,10 @@ Regras:
 - `data` nunca é substituído por uma tradução;
 - `sourceHash` considera todo o registro normalizado;
 - `translatableHash` considera apenas campos traduzíveis;
-- o registro deve continuar consultável mesmo sem tradução.
+- o registro deve continuar consultável mesmo sem tradução;
+- `image.path`, quando presente, aponta exclusivamente para um arquivo versionado no repositório QuestHub;
+- o caminho público deve começar com `/game-systems/pathfinder-2e/`;
+- sem arquivo local, `image` deve ser omitido e a interface usa o ícone genérico.
 
 ## 5. Overlay de tradução
 
@@ -250,4 +263,5 @@ Esses números são baseline de migração, não constantes permanentes. A fonte
 - existe validação automática do roadmap;
 - a fundação não importa módulos do VTT;
 - nenhuma rota ou automação é criada nesta entrega;
-- nenhum conteúdo original é alterado.
+- nenhum conteúdo original é alterado;
+- nenhuma imagem é carregada de URL externa em runtime.
