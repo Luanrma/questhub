@@ -50,6 +50,19 @@ test('PF2e originals and reviewed pt-BR translations remain separate records', (
   }
 })
 
+test('PF2e source metadata stays provider-neutral and assets stay inside QuestHub', () => {
+  assert.equal('provider' in PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE, false)
+
+  for (const entry of PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES) {
+    assert.equal('provider' in entry.original.source, false)
+    assert.equal(
+      entry.original.image === undefined
+        || entry.original.image.path.startsWith('/game-systems/pathfinder-2e/'),
+      true,
+    )
+  }
+})
+
 test('PF2e delivery metadata is locked without owning catalog content', () => {
   assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE.systemVersion, '8.3.0')
   assert.equal(PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE.sourceCommit, '01114da5851f31404078d8020809b13e4000bc4b')
