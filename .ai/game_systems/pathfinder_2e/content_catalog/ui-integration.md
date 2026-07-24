@@ -14,6 +14,12 @@ O VTT sabe apenas renderizar:
 
 A escolha dos campos e toda interpretação do conteúdo pertencem ao adapter Pathfinder 2e.
 
+Hazards usam o mesmo domínio visual `BESTIARY`, porém a ficha respeita
+`entryType = "HAZARD"`. Cards exibem tipo simples/complexo, Furtividade, CA, PV
+e Dureza. A ficha separa Detecção e Desarme para manter o procedimento legível,
+e organiza as seções como Detecção, Desarme, Defesas, Comportamento e Ações e
+reações; seções vazias e seções exclusivas de criatura não são renderizadas.
+
 ## Cards
 
 Cada card contém:
@@ -48,6 +54,24 @@ O filtro é aplicado no provider antes da paginação. Na interface PT-BR existe
 O filtro `ready` continua funcionando mesmo que os registros revisados não exibam tag visual.
 
 O filtro não é exibido na visualização EN-US.
+
+## Filtro por tipo do Bestiário
+
+Quando o domínio aberto é `BESTIARY`, a listagem exibe três opções:
+
+- Todos;
+- Criaturas;
+- Hazards.
+
+A consulta usa:
+
+```text
+bestiaryType=all|creatures|hazards
+```
+
+Esse filtro é independente do idioma e do status editorial, pode ser combinado
+com a busca e é aplicado antes da paginação. Ao trocar de domínio ou opção, a
+interface retorna à primeira página.
 
 ## Ficha
 
@@ -110,6 +134,23 @@ Associações exatas disponíveis:
 | Corta-Cão | `equipment/weapons/dogslicer.webp` |
 
 Arco Elétrico, Curar, Arco Curto e Armadura de Couro permanecem no fallback genérico.
+
+### Estado da segunda rodada
+
+Associações exatas disponíveis:
+
+| Conteúdo | Ícone |
+|---|---|
+| Estátua Animada | `default-icons/npc.svg` |
+| Dríade | `default-icons/npc.svg` |
+| Grifo | `default-icons/npc.svg` |
+| Dissipar Magia | `spells/dispel-magic.webp` |
+| Invisibilidade | `spells/invisibility.webp` |
+| Armadura Completa | `equipment/armor/fullplate.webp` |
+
+Raio Flamejante, Kit de Curandeiro (Expandido) e Luneta (de Precisão) usam
+fallback genérico. Assets de variantes parecidas não são tratados como
+correspondência exata.
 
 ### Termos preservados
 

@@ -131,19 +131,101 @@ Obrigatório:
 
 Dentro de cada programa:
 
-1. ordenar publicações conforme o roadmap;
-2. aplicar os filtros de nível/rank;
-3. agrupar publicações adjacentes quando necessário para possuir os três domínios;
-4. respeitar os limites máximos configurados;
-5. congelar os IDs selecionados antes da tradução.
+1. gerar o inventário completo das publicações do programa;
+2. em Bestiário, considerar elegíveis documentos de ator com `type = "npc"` ou
+   `type = "hazard"`;
+3. remover somente IDs já publicados ou rejeitados com justificativa;
+4. ordenar Bestiário e Items por nível crescente e identidade da origem;
+5. ordenar Spells por Rank crescente e identidade da origem;
+6. selecionar o menor nível ou Rank ainda incompleto;
+7. preencher o lote até o limite sem saltar registros anteriores;
+8. congelar os IDs selecionados antes da tradução.
 
-Limites iniciais:
+Limites atuais por lote:
 
 ```text
-Bestiário: até 20 entradas
-Spells: até 30 entradas
-Items: até 40 entradas
+Bestiário: até 100 entradas
+Spells: até 40 entradas
+Items: até 100 entradas
 ```
+
+A Cobertura exaustiva 02 inaugura esses limites, dobrando a capacidade da
+Cobertura exaustiva 01. O tamanho maior não altera o cursor editorial: o
+importador continua descontando todos os IDs já congelados e seleciona os
+próximos registros em ordem crescente de nível ou Rank e identidade da fonte.
+
+Os limites são máximos, não metas obrigatórias. Enquanto o pipeline estiver sendo
+validado por amostragem, uma rodada pode congelar um conjunto representativo menor,
+desde que:
+
+- mantenha ao menos uma entrada nos três domínios;
+- documente as publicações e faixas aplicadas;
+- declare o critério editorial usado para representar estruturas distintas;
+- congele os IDs antes da tradução;
+- não apresente a amostra como cobertura integral da faixa.
+
+As Rodadas 1 e 2 do Core Remaster são pilotos históricos com três entradas por
+domínio. Elas não autorizam o cursor editorial a avançar de nível ou Rank.
+
+Cada domínio mantém dois cursores independentes: publicação e nível/Rank. A
+publicação atual só avança depois que todas as suas entradas elegíveis tiverem
+sido importadas ou rejeitadas com justificativa. O avanço de uma publicação em
+um domínio não altera os cursores dos demais. Na fila Core Remaster:
+
+- Bestiário avança de `Pathfinder Monster Core` para
+  `Pathfinder Monster Core 2` depois do esgotamento comprovado do primeiro
+  livro na Cobertura exaustiva 06;
+- Spells avança de `Pathfinder Player Core` para `Pathfinder Player Core 2`
+  depois do esgotamento comprovado do primeiro livro na Cobertura exaustiva 09;
+- Items avança de `Pathfinder Player Core` para `Pathfinder Player Core 2`
+  depois do esgotamento comprovado do primeiro livro na Cobertura exaustiva 03
+  e para `Pathfinder GM Core` depois do esgotamento de Player Core 2 na
+  Cobertura exaustiva 06.
+
+Uma mesma rodada pode, portanto, usar publicações diferentes entre os três
+domínios, desde que cada seleção respeite seu próprio cursor e o manifesto
+registre explicitamente as publicações utilizadas.
+
+Quando um programa editorial se esgota em um domínio enquanto outros domínios
+do mesmo programa ainda possuem pendências, somente o cursor esgotado avança
+para o programa seguinte. A entrega de transição permanece classificada no
+programa editorial mais antigo que ainda possui qualquer cursor pendente. O
+campo `program` da rodada representa essa prioridade de execução, não a
+propriedade editorial de todas as entradas; cada registro continua preservando
+sua publicação real em `source.publicationTitle`.
+
+O cursor de Bestiário também registra o pack técnico exato da publicação. Esse
+pack deve ser informado ao importador quando for diferente de
+`pathfinder-monster-core`; derivar diretório por semelhança de título é
+proibido.
+
+Uma cobertura pode consumir mais de um pack de Bestiário quando precisa
+concluir a publicação corrente e avançar para a seguinte sem ultrapassar o
+limite. Publicações e packs são informados em listas posicionais separadas por
+`|`; a ordem dessas listas define a precedência editorial antes da ordenação
+por nível e identidade.
+
+Hazards são normalizados com contrato próprio:
+
+- `entryType = "HAZARD"`;
+- nível, raridade, tamanho e traits;
+- descrição, furtividade e detalhes de detecção;
+- procedimento de desarme;
+- complexidade, rotina e reset;
+- CA, PV, Dureza, salvamentos e defesas;
+- ações incorporadas endereçadas por ID.
+
+É proibido preencher campos exclusivos de criatura com valores artificiais
+para acomodar um hazard.
+
+Se um nível ou Rank possuir mais entradas que o limite, ele gera quantos lotes
+forem necessários. Um lote só pode incluir o nível ou Rank seguinte quando
+todas as entradas elegíveis dos valores anteriores estiverem publicadas ou
+rejeitadas com justificativa.
+
+Registros `kit` do Player Core que não possuem `system.level` explícito são
+normalizados como nível 0, coerente com o restante do equipamento inicial. O
+manifesto registra um aviso para tornar essa decisão auditável.
 
 ## 9. Tradução
 
@@ -154,6 +236,42 @@ A tradução `pt-BR` deve usar:
 - revisão humana antes de publicar;
 - referência pelo ID interno de ações ou elementos incorporados, nunca pela posição em arrays.
 
+Traits estruturadas de Bestiário, ataques e Items devem possuir cobertura
+explícita no glossário, inclusive quando a grafia correta em português for
+igual à original. Famílias parametrizadas (`reach-*`, `thrown-*`, `deadly-*`,
+`fatal-*`, `reload-*`, `two-hand-*`, `versatile-*` e `volley-*`) são resolvidas
+por regras determinísticas. O fallback que apenas devolve o slug inglês não
+pode ser tratado como tradução coberta.
+
+Não criar traduções fictícias copiando o texto inglês. Um original importado
+sem tradução recebe `NOT_STARTED`; quando nomes e campos descritivos forem
+traduzidos automaticamente, recebe `MACHINE_DRAFT` e permanece pendente de
+revisão humana.
+
+O importador pode associar um ícone somente pelo caminho `img` exato da fonte.
+Ele não pode fazer busca aproximada por nome ou slug.
+
+### 9.1. Markup técnico da fonte
+
+Descrições da fonte podem conter comandos de apresentação do Foundry, como
+`@Damage[...]`, `@Template[...]`, `@item.level` e `@item.rank`. Esses comandos
+não fazem parte do conteúdo editorial e nunca podem ser exibidos literalmente
+em cards ou fichas.
+
+Regras:
+
+- o importador converte comandos conhecidos para uma representação textual
+  neutra;
+- o adapter Pathfinder aplica a mesma normalização na fronteira de
+  apresentação para cobrir lotes já congelados;
+- `@item.level` e `@item.rank` usam o nível ou Rank do próprio registro;
+- expressões aritméticas suportadas são calculadas sem `eval`;
+- anotações de dano e área são convertidas em texto legível no locale
+  solicitado;
+- um comando desconhecido recebe fallback textual seguro e não pode vazar
+  como uma expressão iniciada por `@`;
+- o VTT genérico não conhece nem interpreta markup do sistema de origem.
+
 Regra visual:
 
 - `REVIEWED` não exibe tag;
@@ -163,6 +281,13 @@ Regra visual:
 ## 10. Segurança e licenças
 
 Cada registro deve preservar publicação, licença, indicador de Remaster e origem técnica neutra. Conteúdo e assets não podem ser publicados se a licença estiver ausente ou bloqueada para o uso pretendido.
+
+A classificação no programa `LEGACY_OGL` usa o indicador editorial
+`remaster = false`, não apenas o texto da licença. Uma publicação de transição
+como `Pathfinder Rage of Elements` permanece em `RULEBOOKS` quando seus
+registros estão marcados como Remaster, ainda que a fonte travada preserve
+`license = "OGL"`. Licença e classificação editorial continuam sendo campos
+independentes e ambos devem permanecer auditáveis.
 
 ## 11. Integrações proibidas nesta etapa
 

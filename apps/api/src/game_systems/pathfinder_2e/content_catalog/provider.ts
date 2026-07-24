@@ -8,8 +8,13 @@ import type {
   GameSystemContentLocale,
 } from '../../catalog'
 import { resolvePathfinder2eContentEntry } from './catalog'
+import { matchesPathfinder2eBestiaryFilter } from './bestiary-filter'
 import type { Pathfinder2eContentEntry } from './content-entry'
-import { PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES } from './deliveries/core-remaster-starting-content'
+import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
+import {
+  resolvePathfinder2eInlineText,
+  type Pathfinder2eInlineTextContext,
+} from './inline-text'
 import {
   translatePathfinder2eRarity,
   translatePathfinder2eTerm,
@@ -42,6 +47,12 @@ function asNumberText(value: unknown): string | null {
   return number === null ? null : String(number)
 }
 
+function asModifierText(value: unknown): string | null {
+  const number = asNumber(value)
+  if (number === null) return null
+  return number >= 0 ? `+${number}` : String(number)
+}
+
 function asTextList(value: unknown): string[] {
   return Array.isArray(value)
     ? value.filter((entry): entry is string => typeof entry === 'string' && entry.trim().length > 0)
@@ -63,6 +74,30 @@ function fields(values: Array<GameSystemCatalogSheetField | null>) {
 
 function translatedFields(entry: Pathfinder2eContentEntry, locale: GameSystemContentLocale) {
   return locale === 'pt-BR' ? asRecord(entry.translation.fields) : {}
+}
+
+function inlineTextContext(
+  entry: Pathfinder2eContentEntry,
+  locale: GameSystemContentLocale,
+): Pathfinder2eInlineTextContext {
+  const data = asRecord(entry.original.data)
+  const abilities = asRecord(data.abilities)
+
+  return {
+    locale,
+    itemLevel: asNumber(data.level) ?? asNumber(data.rank) ?? undefined,
+    itemRank: asNumber(data.rank) ?? asNumber(data.level) ?? undefined,
+    actorLevel: asNumber(data.level) ?? undefined,
+    actorStrengthModifier: asNumber(abilities.str) ?? undefined,
+  }
+}
+
+function presentedText(
+  value: string | null,
+  entry: Pathfinder2eContentEntry,
+  locale: GameSystemContentLocale,
+) {
+  return value ? resolvePathfinder2eInlineText(value, inlineTextContext(entry, locale)) : null
 }
 
 function localizedString(
@@ -139,9 +174,24 @@ function buildCard(entry: Pathfinder2eContentEntry, locale: GameSystemContentLoc
 
   if (entry.original.domain === 'BESTIARY') {
     addStat(stats, 'Nível', asNumberText(data.level))
-    addStat(stats, 'CA', asNumberText(data.armorClass))
-    addStat(stats, 'PV', asNumberText(data.hitPoints))
-    addStat(stats, 'Tamanho', localizedString(data, translated, 'size'))
+    if (data.entryType === 'HAZARD') {
+      const stealth = asRecord(data.stealth)
+      addStat(
+        stats,
+        locale === 'pt-BR' ? 'Tipo' : 'Type',
+        data.isComplex === true
+          ? (locale === 'pt-BR' ? 'Perigo complexo' : 'Complex hazard')
+          : (locale === 'pt-BR' ? 'Perigo simples' : 'Simple hazard'),
+      )
+      addStat(stats, locale === 'pt-BR' ? 'Furtividade' : 'Stealth', asModifierText(stealth.modifier))
+      addStat(stats, 'CA', asNumberText(data.armorClass))
+      addStat(stats, 'PV', asNumberText(data.hitPoints))
+      addStat(stats, locale === 'pt-BR' ? 'Dureza' : 'Hardness', asNumberText(data.hardness))
+    } else {
+      addStat(stats, 'CA', asNumberText(data.armorClass))
+      addStat(stats, 'PV', asNumberText(data.hitPoints))
+      addStat(stats, locale === 'pt-BR' ? 'Tamanho' : 'Size', localizedString(data, translated, 'size'))
+    }
   }
 
   if (entry.original.domain === 'SPELL') {
@@ -160,7 +210,7 @@ function buildCard(entry: Pathfinder2eContentEntry, locale: GameSystemContentLoc
     id: resolved.contentId,
     name: resolved.display.name,
     subtitle: entry.original.source.publicationTitle ?? entry.original.source.sourcePack,
-    description: resolved.display.description,
+    description: presentedText(resolved.display.description, entry, locale) ?? '',
     imageUrl: null,
     traits: buildTraits(entry, locale),
     editorialStatus: editorialStatus(entry, locale),
@@ -172,12 +222,141 @@ function translatedNestedRecord(translated: Record<string, unknown>, key: string
   return asRecord(asRecord(translated[key])[id])
 }
 
+function hazardSheet(
+  entry: Pathfinder2eContentEntry,
+  locale: GameSystemContentLocale,
+  card: GameSystemCatalogCard,
+): GameSystemCatalogSheet {
+  const data = asRecord(entry.original.data)
+  const translated = translatedFields(entry, locale)
+  const stealth = asRecord(data.stealth)
+  const saves = asRecord(data.saves)
+  const defenses = asRecord(data.defenses)
+  const translatedDefenses = asRecord(translated.defenses)
+  const actions = Array.isArray(data.actions) ? data.actions.map(asRecord) : []
+
+  const actionFields = actions.map((action) => {
+    const id = asText(action.id) ?? ''
+    const translatedAction = translatedNestedRecord(translated, 'actions', id)
+    const name = asText(translatedAction.name) ?? asText(action.name)
+      ?? (locale === 'pt-BR' ? 'Ação' : 'Action')
+    const description = presentedText(
+      asText(translatedAction.description) ?? asText(action.description),
+      entry,
+      locale,
+    )
+    const traits = translatePathfinder2eTraits(asTextList(action.traits), locale)
+    const value = [traits.length ? traits.join(', ') : null, description]
+      .filter((part): part is string => Boolean(part))
+      .join(' · ')
+
+    return field(name, value || null, true)
+  })
+
+  return {
+    ...card,
+    sections: [
+      {
+        title: locale === 'pt-BR' ? 'Detecção' : 'Detection',
+        fields: fields([
+          field(
+            locale === 'pt-BR' ? 'Furtividade' : 'Stealth',
+            asModifierText(stealth.modifier),
+          ),
+          field(
+            locale === 'pt-BR' ? 'Requisitos de detecção' : 'Detection requirements',
+            presentedText(
+              asText(translated.stealthDetails) ?? asText(stealth.details),
+              entry,
+              locale,
+            ),
+            true,
+          ),
+        ]),
+      },
+      {
+        title: locale === 'pt-BR' ? 'Desarme' : 'Disable',
+        fields: fields([
+          field(
+            locale === 'pt-BR' ? 'Procedimento' : 'Procedure',
+            presentedText(asText(translated.disable) ?? asText(data.disable), entry, locale),
+            true,
+          ),
+        ]),
+      },
+      {
+        title: locale === 'pt-BR' ? 'Defesas' : 'Defenses',
+        fields: fields([
+          field('CA', asNumberText(data.armorClass)),
+          field('PV', asNumberText(data.hitPoints)),
+          field(locale === 'pt-BR' ? 'Dureza' : 'Hardness', asNumberText(data.hardness)),
+          field('Fortitude', asModifierText(saves.fortitude)),
+          field(locale === 'pt-BR' ? 'Reflexos' : 'Reflex', asModifierText(saves.reflex)),
+          field(locale === 'pt-BR' ? 'Vontade' : 'Will', asModifierText(saves.will)),
+          field(
+            locale === 'pt-BR' ? 'Imunidades' : 'Immunities',
+            localizedMappedList(
+              asTextList(defenses.immunities),
+              translatedDefenses.immunities,
+              locale,
+            ).join(', ') || null,
+            true,
+          ),
+          field(
+            locale === 'pt-BR' ? 'Resistências' : 'Resistances',
+            localizedMappedList(
+              asTextList(defenses.resistances),
+              translatedDefenses.resistances,
+              locale,
+            ).join(', ') || null,
+            true,
+          ),
+          field(
+            locale === 'pt-BR' ? 'Fraquezas' : 'Weaknesses',
+            localizedMappedList(
+              asTextList(defenses.weaknesses),
+              translatedDefenses.weaknesses,
+              locale,
+            ).join(', ') || null,
+            true,
+          ),
+        ]),
+      },
+      {
+        title: locale === 'pt-BR' ? 'Comportamento' : 'Behavior',
+        fields: fields([
+          field(
+            locale === 'pt-BR' ? 'Rotina' : 'Routine',
+            presentedText(asText(translated.routine) ?? asText(data.routine), entry, locale),
+            true,
+          ),
+          field(
+            locale === 'pt-BR' ? 'Reinicialização' : 'Reset',
+            presentedText(asText(translated.reset) ?? asText(data.reset), entry, locale),
+            true,
+          ),
+        ]),
+      },
+      {
+        title: locale === 'pt-BR' ? 'Ações e reações' : 'Actions and reactions',
+        fields: fields(actionFields),
+      },
+    ].filter((section) => section.fields.length > 0),
+    source: {
+      publication: entry.original.source.publicationTitle,
+      license: entry.original.source.license,
+    },
+  }
+}
+
 function bestiarySheet(
   entry: Pathfinder2eContentEntry,
   locale: GameSystemContentLocale,
   card: GameSystemCatalogCard,
 ): GameSystemCatalogSheet {
   const data = asRecord(entry.original.data)
+  if (data.entryType === 'HAZARD') return hazardSheet(entry, locale, card)
+
   const translated = translatedFields(entry, locale)
   const perception = asRecord(data.perception)
   const saves = asRecord(data.saves)
@@ -187,6 +366,7 @@ function bestiarySheet(
 
   const attacks = Array.isArray(data.attacks) ? data.attacks.map(asRecord) : []
   const actions = Array.isArray(data.actions) ? data.actions.map(asRecord) : []
+  const spellcasting = Array.isArray(data.spellcasting) ? data.spellcasting.map(asRecord) : []
 
   const attackFields = attacks.map((attack) => {
     const id = asText(attack.id) ?? ''
@@ -204,8 +384,35 @@ function bestiarySheet(
     const id = asText(action.id) ?? ''
     const translatedAction = translatedNestedRecord(translated, 'actions', id)
     const name = asText(translatedAction.name) ?? asText(action.name) ?? 'Ação'
-    const description = asText(translatedAction.description) ?? asText(action.description)
+    const description = presentedText(
+      asText(translatedAction.description) ?? asText(action.description),
+      entry,
+      locale,
+    )
     return field(name, description, true)
+  })
+
+  const spellcastingFields = spellcasting.map((entry) => {
+    const id = asText(entry.id) ?? ''
+    const translatedEntry = translatedNestedRecord(translated, 'spellcasting', id)
+    const translatedSpells = asRecord(translatedEntry.spells)
+    const spells = Array.isArray(entry.spells) ? entry.spells.map(asRecord) : []
+    const header = [
+      asText(entry.tradition)
+        ? translatePathfinder2eTradition(asText(entry.tradition) ?? '', locale)
+        : null,
+      asText(translatedEntry.category) ?? asText(entry.category),
+      asNumberText(entry.saveDc) ? `DC ${asNumberText(entry.saveDc)}` : null,
+      asNumberText(entry.attackModifier) ? `+${asNumberText(entry.attackModifier)}` : null,
+    ].filter((value): value is string => Boolean(value))
+    const spellList = spells.map((spell) => {
+      const spellId = asText(spell.id) ?? ''
+      const translatedSpell = asRecord(translatedSpells[spellId])
+      const name = asText(translatedSpell.name) ?? asText(spell.name) ?? 'Spell'
+      return `Rank ${asNumberText(spell.rank) ?? '0'}: ${name}`
+    })
+    const name = asText(translatedEntry.name) ?? asText(entry.name) ?? 'Spellcasting'
+    return field(name, [...header, ...spellList].join(' · '), true)
   })
 
   return {
@@ -272,6 +479,7 @@ function bestiarySheet(
         ]),
       },
       { title: locale === 'pt-BR' ? 'Ataques' : 'Attacks', fields: fields(attackFields) },
+      { title: locale === 'pt-BR' ? 'Conjuração' : 'Spellcasting', fields: fields(spellcastingFields) },
       { title: locale === 'pt-BR' ? 'Ações e habilidades' : 'Actions and abilities', fields: fields(actionFields) },
     ].filter((section) => section.fields.length > 0),
     source: {
@@ -325,7 +533,11 @@ function spellSheet(
       {
         title: locale === 'pt-BR' ? 'Aprimoramento' : 'Heightening',
         fields: fields([
-          field(locale === 'pt-BR' ? 'Efeito aprimorado' : 'Heightened effect', localizedString(data, translated, 'heightening'), true),
+          field(
+            locale === 'pt-BR' ? 'Efeito aprimorado' : 'Heightened effect',
+            presentedText(localizedString(data, translated, 'heightening'), entry, locale),
+            true,
+          ),
         ]),
       },
     ].filter((section) => section.fields.length > 0),
@@ -419,8 +631,9 @@ function searchableText(entry: Pathfinder2eContentEntry, locale: GameSystemConte
 export const pathfinder2eContentCatalogProvider: GameSystemCatalogProvider = {
   list(query) {
     const normalizedSearch = query.search?.trim().toLocaleLowerCase(query.locale) ?? ''
-    const matching = PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES
+    const matching = PATHFINDER_2E_CONTENT_ENTRIES
       .filter((entry) => DOMAIN_MAP[entry.original.domain] === query.domain)
+      .filter((entry) => matchesPathfinder2eBestiaryFilter(entry, query.domain, query.bestiaryType))
       .filter((entry) => !normalizedSearch || searchableText(entry, query.locale).includes(normalizedSearch))
       .map((entry) => buildCard(entry, query.locale))
       .sort((left, right) => left.name.localeCompare(right.name, query.locale))
@@ -441,7 +654,7 @@ export const pathfinder2eContentCatalogProvider: GameSystemCatalogProvider = {
   },
 
   get(query) {
-    const entry = PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES.find(
+    const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
       (candidate) => candidate.original.contentId === query.contentId
         && DOMAIN_MAP[candidate.original.domain] === query.domain,
     )

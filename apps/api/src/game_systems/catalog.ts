@@ -3,6 +3,7 @@ export type GameSystemKey = 'PATHFINDER_2E'
 export type GameSystemCatalogDomain = 'BESTIARY' | 'SPELLS' | 'ITEMS'
 export type GameSystemContentLocale = 'en-US' | 'pt-BR'
 export type GameSystemCatalogEditorialFilter = 'all' | 'review' | 'ready'
+export type GameSystemCatalogBestiaryFilter = 'all' | 'creatures' | 'hazards'
 
 export type GameSystemDescriptor = {
   key: GameSystemKey
@@ -57,6 +58,7 @@ export type GameSystemCatalogQuery = {
   locale: GameSystemContentLocale
   search?: string
   editorialStatus?: GameSystemCatalogEditorialFilter
+  bestiaryType?: GameSystemCatalogBestiaryFilter
   page: number
   limit: number
 }

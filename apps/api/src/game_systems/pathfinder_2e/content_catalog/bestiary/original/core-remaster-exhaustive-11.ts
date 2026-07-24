@@ -1,0 +1,13495 @@
+import type { Pathfinder2eOriginalContentRecord } from '../../records'
+import type { Pathfinder2eBestiaryData } from '../types'
+
+export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_ORIGINALS: readonly Pathfinder2eOriginalContentRecord<Pathfinder2eBestiaryData>[] = [
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:sportlebore",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "iFhJMyHC1nkQVrnb",
+      "slug": "sportlebore",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:55378d83de67fe0498868dfa0c24ca199512fdac82b0623a9b1bfb498dae918d",
+    "translatableHash": "sha256:42e15c4fa402c540c544c89a878bb5263a50f23f62f9bb234748f41e93996f9d",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Sportlebore",
+      "level": 7,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "animal",
+        "environmental"
+      ],
+      "description": "A sportlebore hides amid the victuals on a plate of food or within a pack of trail rations.",
+      "armorClass": 0,
+      "hitPoints": 10,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 16,
+        "details": "(expert)"
+      },
+      "disable": "A creature that notices the sportlebore can remove it from the food it is hidden within automatically as an Interact action.",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "WleycA2DC7Pz8RYR",
+          "name": "Mimic Food",
+          "kind": "reaction",
+          "description": "Trigger A creature eats food the sportlebore is hidden within\nEffect The sportlebore rapidly multiplies in the host's stomach, exposing the host to sportlebore infestation",
+          "traits": []
+        },
+        {
+          "id": "nCcx1LK7XrbDnVXI",
+          "name": "Sportlebore Infestation",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:22, basic)\nStage 1 carrier with no ill effect (1 day)\nStage 2 Enfeebled 1 (1 hour)\nStage 3 Enfeebled 2 (1 hour)\nStage 4 4d6 bludgeoning damage (check (fortitude, dc:25, basic) save) as the host painfully vomits out a sportlebore swarm and returns to stage 1",
+          "traits": [
+            "disease"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:resurrection-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "ahSJaAKNhPGcVOgr",
+      "slug": "resurrection-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5e90c76d06a10efe599887802227de38d36ed97857ff1dd64d9eca342b70b49c",
+    "translatableHash": "sha256:1734ce0d77e33bd560fb2b2779267917209e51e2b8ab05af6fff47b54740435f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Resurrection Dragon (Ancient)",
+      "level": 17,
+      "rarity": "uncommon",
+      "size": "huge",
+      "traits": [
+        "divine",
+        "dragon"
+      ],
+      "description": "Resurrection dragons teeter between life and death. They have a mastery of vital energies, allowing them to restore life to the dead, and a mastery of void energies, to bestow death on others. They make use of their abilities to play with the lives of mortals, calling on spirits to aid them or reviving creatures they find important or interesting. The lair of a resurrection dragon is generally a barren place. While they still hoard wealth like other dragons, they do little to decorate their lairs and treasures are generally kept in dark niches, as if the dragon has little care for their possessions. Resurrection dragons tend to take tokens from those they resurrect or plan to resurrect, however, and these are kept particularly safe.",
+      "armorClass": 39,
+      "hitPoints": 320,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 28,
+        "reflex": 27,
+        "will": 32
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 6,
+        "int": 5,
+        "wis": 9,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 28,
+        "arcana": 28,
+        "athletics": 33,
+        "diplomacy": 31,
+        "medicine": 33,
+        "religion": 33,
+        "stealth": 30
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [
+          "spirit 20"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "I4Fc31lnhp82weCJ",
+          "name": "Jaws",
+          "bonus": 33,
+          "damage": "3d12+15 piercing; 1d6 void",
+          "traits": [
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "nPF8Cb7ZRAMjmXSt",
+          "name": "Claw",
+          "bonus": 33,
+          "damage": "3d10+15 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-10"
+          ]
+        },
+        {
+          "id": "MgM7NXJsmS3NTvsO",
+          "name": "Tail",
+          "bonus": 31,
+          "damage": "3d12+15 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "NMPK6lhp2OOB6OWm",
+          "name": "Reawaken!",
+          "kind": "reaction",
+          "description": "Trigger A living creature the resurrection dragon can see dies\nEffect The resurrection dragon uses divine and vital energy to retether the soul to its dead body. The willing creature is returned to life with half of their total Hit Points. A creature can be resurrected by this ability only once.",
+          "traits": [
+            "divine",
+            "spirit",
+            "vitality"
+          ]
+        },
+        {
+          "id": "hpxkGqOrHF4syPRM",
+          "name": "Risen Commander",
+          "kind": "passive",
+          "description": "A resurrection dragon has a strong connection with its minions and can Sustain Summon Undead or Invoke Spirits as a free action once per turn.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "SHGSNKhRLCJ5x8DV",
+          "name": "Siphon Life",
+          "kind": "reaction",
+          "description": "Trigger A creature within 60 feet uses a healing effect that restores Hit Points\nEffect The resurrection dragon redirects vital energies away from the effect, minimizing its impact. The triggering effect results in the minimum amount on any dice rolls to restore Hit Points, and any flat values for restoring Hit Points (such as the additional Hit Points for a two-action Heal spell) are cut in half. The dragon then gains 3d8 temporary Hit Points that last for 1 round.",
+          "traits": [
+            "divine",
+            "healing",
+            "vitality"
+          ]
+        },
+        {
+          "id": "AVeCp0hrGkLxjYtI",
+          "name": "Arise!",
+          "kind": "passive",
+          "description": "The resurrection dragon uses their mastery over life energy to cast their own soul into the Boneyard and pull a willing creature's soul back to its body in a process that takes 1 hour. This has the effects of Raise Dead, except the maximum level of the target is 13th and the soul is tethered to the dragon's. Only one creature can be tethered to the dragon's soul at a time. If the creature and the dragon are no longer on the same plane or the dragon dies, the raised creature dies and can't be raised with Arise! again. The dragon can Dismiss the connection at any time. Doing so doesn't prevent the dragon from raising the creature with Arise! again.\nWhile raised in this way, the creature is still a valid target for raise dead, Resurrect, and similar effects. Returning the creature to life in this way fully restores the creature, severing the connection to the dragon and allowing the dragon to establish a connection with a different creature.",
+          "traits": [
+            "divine",
+            "exploration",
+            "healing"
+          ]
+        },
+        {
+          "id": "Zhqu3PdvrWKykPMZ",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw strikes and one tail strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "WIa9oPm47kC5weT9",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "The dragon recharges their Soul Siphoning Breath whenever they score a critical hit with a Strike.",
+          "traits": []
+        },
+        {
+          "id": "t12q6tHImrfj9gBu",
+          "name": "Necro Puppeteer",
+          "kind": "action",
+          "description": "The dragon siphons energy into an undead creature, a dying creature, or a corpse they can see within 60 feet. The dragon moves the target creature 30 feet and causes it to unleash a wave of void energy in a 10-foot type:emanation, dealing 6d8 void damage (check (reflex, dc:32, basic, options:area-effect) save).",
+          "traits": [
+            "divine",
+            "void"
+          ]
+        },
+        {
+          "id": "xocggVl34iamkAuY",
+          "name": "Soul Siphoning Breath",
+          "kind": "action",
+          "description": "The dragon unleashes a torrent of divine energy, dealing 16d6 void damage in a 50-foot type:cone (check (fortitude, dc:38, basic, options:area-effect) save) that draws the life force from creatures within. The dragon gains fast healing 15 until their Soul Siphoning Breath recharges. The resurrection dragon can't use Soul Siphoning Breath again for [[/gmr 1d4 #Recharge Soul Siphoning Breath]].",
+          "traits": [
+            "divine",
+            "void"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "tKsTs82dmSyNYScu",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 0,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "2Lrt0rRtAiZirise",
+              "name": "Guidance",
+              "rank": 1
+            },
+            {
+              "id": "vhK6W5pvcMuMjGNX",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "Vt5ntcKYFooB3r4j",
+              "name": "Void Warp",
+              "rank": 1
+            },
+            {
+              "id": "CArRWyh5UaMCs8iE",
+              "name": "Talking Corpse",
+              "rank": 4
+            },
+            {
+              "id": "bAIgvb81XSjPjIzy",
+              "name": "Harm",
+              "rank": 9
+            },
+            {
+              "id": "71yzJ4lQ9yU6JrLV",
+              "name": "Invoke Spirits",
+              "rank": 9
+            },
+            {
+              "id": "Lm7766u7DwCbb0mT",
+              "name": "Raise Dead",
+              "rank": 9
+            },
+            {
+              "id": "t2AUpf72SQPiiIxc",
+              "name": "Summon Undead (At Will)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:resurrection-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "CZc6eVvRcsVJgjBU",
+      "slug": "resurrection-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b94fade215d6430fdcd9eafac9a15b73b997f37b9383f904d42f91304bf12477",
+    "translatableHash": "sha256:9b13568420bfbbd06a90786c5cc9451075b06a73e0d1a2810d15581a961815f1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Resurrection Dragon (Ancient, Spellcaster)",
+      "level": 17,
+      "rarity": "uncommon",
+      "size": "huge",
+      "traits": [
+        "divine",
+        "dragon"
+      ],
+      "description": "Resurrection dragons teeter between life and death. They have a mastery of vital energies, allowing them to restore life to the dead, and a mastery of void energies, to bestow death on others. They make use of their abilities to play with the lives of mortals, calling on spirits to aid them or reviving creatures they find important or interesting. The lair of a resurrection dragon is generally a barren place. While they still hoard wealth like other dragons, they do little to decorate their lairs and treasures are generally kept in dark niches, as if the dragon has little care for their possessions. Resurrection dragons tend to take tokens from those they resurrect or plan to resurrect, however, and these are kept particularly safe.",
+      "armorClass": 39,
+      "hitPoints": 320,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 28,
+        "reflex": 27,
+        "will": 32
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 6,
+        "int": 5,
+        "wis": 9,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 28,
+        "arcana": 28,
+        "athletics": 33,
+        "diplomacy": 31,
+        "medicine": 33,
+        "religion": 33,
+        "stealth": 30
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [
+          "spirit 20"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "I4Fc31lnhp82weCJ",
+          "name": "Jaws",
+          "bonus": 33,
+          "damage": "3d12+15 piercing; 1d6 void",
+          "traits": [
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "nPF8Cb7ZRAMjmXSt",
+          "name": "Claw",
+          "bonus": 33,
+          "damage": "3d10+15 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-10"
+          ]
+        },
+        {
+          "id": "MgM7NXJsmS3NTvsO",
+          "name": "Tail",
+          "bonus": 31,
+          "damage": "3d12+15 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "NMPK6lhp2OOB6OWm",
+          "name": "Reawaken!",
+          "kind": "reaction",
+          "description": "Trigger A living creature the resurrection dragon can see dies\nEffect The resurrection dragon uses divine and vital energy to retether the soul to its dead body. The willing creature is returned to life with half of their total Hit Points. A creature can be resurrected by this ability only once.",
+          "traits": [
+            "divine",
+            "spirit",
+            "vitality"
+          ]
+        },
+        {
+          "id": "hpxkGqOrHF4syPRM",
+          "name": "Risen Commander",
+          "kind": "passive",
+          "description": "A resurrection dragon has a strong connection with its minions and can Sustain Summon Undead or Invoke Spirits as a free action once per turn.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "SHGSNKhRLCJ5x8DV",
+          "name": "Siphon Life",
+          "kind": "reaction",
+          "description": "Trigger A creature within 60 feet uses a healing effect that restores Hit Points\nEffect The resurrection dragon redirects vital energies away from the effect, minimizing its impact. The triggering effect results in the minimum amount on any dice rolls to restore Hit Points, and any flat values for restoring Hit Points (such as the additional Hit Points for a two-action Heal spell) are cut in half. The dragon then gains 3d8 temporary Hit Points that last for 1 round.",
+          "traits": [
+            "divine",
+            "healing",
+            "vitality"
+          ]
+        },
+        {
+          "id": "AVeCp0hrGkLxjYtI",
+          "name": "Arise!",
+          "kind": "passive",
+          "description": "The resurrection dragon uses their mastery over life energy to cast their own soul into the Boneyard and pull a willing creature's soul back to its body in a process that takes 1 hour. This has the effects of Raise Dead, except the maximum level of the target is 13th and the soul is tethered to the dragon's. Only one creature can be tethered to the dragon's soul at a time. If the creature and the dragon are no longer on the same plane or the dragon dies, the raised creature dies and can't be raised with Arise! again. The dragon can Dismiss the connection at any time. Doing so doesn't prevent the dragon from raising the creature with Arise! again.\nWhile raised in this way, the creature is still a valid target for raise dead, Resurrect, and similar effects. Returning the creature to life in this way fully restores the creature, severing the connection to the dragon and allowing the dragon to establish a connection with a different creature.",
+          "traits": [
+            "divine",
+            "exploration",
+            "healing"
+          ]
+        },
+        {
+          "id": "t12q6tHImrfj9gBu",
+          "name": "Necro Puppeteer",
+          "kind": "action",
+          "description": "The dragon siphons energy into an undead creature, a dying creature, or a corpse they can see within 60 feet. The dragon moves the target creature 30 feet and causes it to unleash a wave of void energy in a 10-foot type:emanation, dealing 6d8 void damage (check (reflex, dc:32, basic, options:area-effect) save).",
+          "traits": [
+            "divine",
+            "void"
+          ]
+        },
+        {
+          "id": "xocggVl34iamkAuY",
+          "name": "Soul Siphoning Breath",
+          "kind": "action",
+          "description": "The dragon unleashes a torrent of divine energy, dealing 16d6 void damage in a 50-foot type:cone (check (fortitude, dc:38, basic, options:area-effect) save) that draws the life force from creatures within. The dragon gains fast healing 15 until their Soul Siphoning Breath recharges. The resurrection dragon can't use Soul Siphoning Breath again for [[/gmr 1d4 #Recharge Soul Siphoning Breath]].",
+          "traits": [
+            "divine",
+            "void"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "szmf9rRGIywfSuiY",
+          "name": "Divine Prepared Spells",
+          "tradition": "divine",
+          "category": "prepared",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "KajTFfrkNkDW6vlx",
+              "name": "Command",
+              "rank": 1
+            },
+            {
+              "id": "MViW4VoxPEhiAHcR",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "A7PoM8dMhH9DUd7e",
+              "name": "Grim Tendrils",
+              "rank": 1
+            },
+            {
+              "id": "sr5EfYXB4H5B3ZAp",
+              "name": "Guidance",
+              "rank": 1
+            },
+            {
+              "id": "LO9XUNifkn80jB56",
+              "name": "Harm",
+              "rank": 1
+            },
+            {
+              "id": "ubBQqsaxFVPpQUaF",
+              "name": "Haunting Hymn",
+              "rank": 1
+            },
+            {
+              "id": "ozGnnelWR5O7aVAZ",
+              "name": "Heal",
+              "rank": 1
+            },
+            {
+              "id": "SY2CTBSWAwGpE7g0",
+              "name": "Infuse Vitality",
+              "rank": 1
+            },
+            {
+              "id": "jHf899WM252Tj9LH",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "lamVW0wYBScRG6eZ",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "anSbCqdW6ATaJO7u",
+              "name": "Summon Undead",
+              "rank": 1
+            },
+            {
+              "id": "ctYhi2hs0ikjDyMx",
+              "name": "Dispel Magic",
+              "rank": 2
+            },
+            {
+              "id": "lZS5WHoAeldQZsj9",
+              "name": "Final Sacrifice",
+              "rank": 2
+            },
+            {
+              "id": "OjgaFR4DGP0niAl7",
+              "name": "Share Life",
+              "rank": 2
+            },
+            {
+              "id": "rFxoSt4WwXkN771q",
+              "name": "Spirit Sense",
+              "rank": 2
+            },
+            {
+              "id": "BXry4FFFzVX1Tnlm",
+              "name": "Sudden Blight",
+              "rank": 2
+            },
+            {
+              "id": "TN9v4JzNJHjVUHhj",
+              "name": "Vampiric Feast",
+              "rank": 3
+            },
+            {
+              "id": "EVeHhs0f2JXipgbG",
+              "name": "Talking Corpse",
+              "rank": 4
+            },
+            {
+              "id": "CMBwJvPyicto0jec",
+              "name": "Invoke Spirits",
+              "rank": 5
+            },
+            {
+              "id": "MbrtaLhnSHFZj9FI",
+              "name": "Field of Life",
+              "rank": 6
+            },
+            {
+              "id": "itJ4Im4HXUgrHsUD",
+              "name": "Raise Dead",
+              "rank": 6
+            },
+            {
+              "id": "C60j6dv60tjmbD8S",
+              "name": "Execute",
+              "rank": 7
+            },
+            {
+              "id": "RuT1I6F0P7wQJaPj",
+              "name": "Regenerate",
+              "rank": 7
+            },
+            {
+              "id": "MRPdlF0DTmHOsj8r",
+              "name": "Moment of Renewal",
+              "rank": 8
+            }
+          ]
+        },
+        {
+          "id": "tKsTs82dmSyNYScu",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 0,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "2Lrt0rRtAiZirise",
+              "name": "Guidance",
+              "rank": 1
+            },
+            {
+              "id": "vhK6W5pvcMuMjGNX",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "Vt5ntcKYFooB3r4j",
+              "name": "Void Warp",
+              "rank": 1
+            },
+            {
+              "id": "CArRWyh5UaMCs8iE",
+              "name": "Talking Corpse (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "bAIgvb81XSjPjIzy",
+              "name": "Harm",
+              "rank": 9
+            },
+            {
+              "id": "71yzJ4lQ9yU6JrLV",
+              "name": "Invoke Spirits",
+              "rank": 9
+            },
+            {
+              "id": "Lm7766u7DwCbb0mT",
+              "name": "Raise Dead",
+              "rank": 9
+            },
+            {
+              "id": "t2AUpf72SQPiiIxc",
+              "name": "Summon Undead (At Will)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:coral-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "Ec8MUOsVm84nDhaU",
+      "slug": "coral-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:fff8df08f1dc1a3157142b92a220c97b239e22fe4a1491047b1ce8d065cd5aaa",
+    "translatableHash": "sha256:7eac773f155ca447d52539996a12813ad5ac9829e584da9e87430276b62de093",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Coral Dragon (Ancient, Spellcaster)",
+      "level": 17,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "amphibious",
+        "dragon",
+        "primal"
+      ],
+      "description": "Coral dragons are the primal guardians of the vast living coral reefs found in oceans across Golarion. Even by draconic standards, coral dragons stand out for their arrogance and vanity, boasting inordinate pride in the vibrant hues of their own coral-encrusted scales and the dazzling splendor of the reefs they protect. Coral dragons like to decorate their reefs, which they view as lairs, with objects of beauty, dotted with the occasional bit of valuables like coins. Those who seek the favor of a coral dragon often find the creature easily swayed by flattery, particularly when paired with shiny or brightly colored gifts that complement the scintillating beauty of the dragon and their underwater domain.",
+      "armorClass": 39,
+      "hitPoints": 315,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "wavesense-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 27,
+        "will": 28
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 6,
+        "int": 5,
+        "wis": 5,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 28,
+        "athletics": 30,
+        "diplomacy": 34,
+        "intimidation": 34,
+        "nature": 30,
+        "society": 26,
+        "stealth": 30,
+        "survival": 31
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [
+          "dazzled",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "OPzELGn6ZKAMLLQ6",
+          "name": "Jaws",
+          "bonus": 34,
+          "damage": "3d12+17 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "dnY6CWQb134wKiOt",
+          "name": "Claw",
+          "bonus": 34,
+          "damage": "3d8+17 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "OY0h3cpcfWVhHPf4",
+          "name": "Tail",
+          "bonus": 32,
+          "damage": "3d10+17 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "jsLeYfUGQHAMlEI3",
+          "name": "+2 Status to All Saves vs. Primal",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "dhF6fJi6O0G9ZKmt",
+          "name": "Biomineralize",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit by a melee weapon without reach or an unarmed attack that deals slashing or piercing damage\nEffect A gout of blood spurts from the dragon's wound and instantaneously calcifies into a jagged branch of sharpened coral. The coral branch impales the triggering creature, dealing 8d6 piercing damage (check (reflex, dc:38, basic) save). The triggering creature also takes 1d4 persistent bleed damage on a critical failure. Regardless of the outcome, the coral then crumbles to dust.",
+          "traits": []
+        },
+        {
+          "id": "OWtobT819Yt0FTNY",
+          "name": "Kaleidoscopic Display",
+          "kind": "passive",
+          "description": "90 feet. The coral formations covering the dragon's body glow and shimmer with vivid colors, overwhelming the senses and forcing any creature entering or beginning their turn in the aura to attempt a check (fortitude, dc:36, options:area-effect,inflicts:dazzled,inflicts:blinded) save. Regardless of the outcome, the creature is temporarily immune to the dragon's kaleidoscopic display for 1 minute.\nCritical Success The creature is unaffected.\nSuccess The creature is Dazzled for 1 round.\nFailure The creature is Blinded for 1 round.\nCritical Failure The creature is blinded for 1 round and dazzled for 1 minute.",
+          "traits": [
+            "aura",
+            "visual"
+          ]
+        },
+        {
+          "id": "P4udhPlUFL1dXZ9A",
+          "name": "Reef Bond",
+          "kind": "passive",
+          "description": "Every coral dragon is mystically bound to a single living coral reef. If the dragon moves more than 3 miles from their reef, they become Sickened 1 and unable to recover, with the sickened value increasing by 1 every 6 hours unless they succeed at a check (fortitude, dc:40) save. After 24 hours, the dragon becomes Drained 1; its drained value increases by 1 every 24 hours.\nIf the dragon's reef suffers significant damage, they immediately become aware of the location where the reef was harmed but not the source or nature of the damage. Should the reef ever be completely destroyed, the dragon is immediately slain.",
+          "traits": []
+        },
+        {
+          "id": "27lO5hJcHjPjslLT",
+          "name": "Hydraulic Breath",
+          "kind": "action",
+          "description": "The dragon exhales a pressurized jet of water that deals 18d6 bludgeoning damage in an 120-foot type:line (check (reflex, dc:38, basic, options:area-effect,forced-movement,inflicts:prone) save). Creatures that critically fail their Reflex save against the Hydraulic Breath are pushed back 10 feet and knocked Prone. The dragon can't use Hydraulic Breath again for [[/gmr 1d4 #Recharge Hydraulic Breath]].",
+          "traits": [
+            "primal",
+            "water"
+          ]
+        },
+        {
+          "id": "Foxebihcova9nAO9",
+          "name": "Reef Armor",
+          "kind": "action",
+          "description": "Frequency once per day\nEffect The dragon encases themself in an shell of protective coral, gaining 50 temporary Hit Points and resistance 10 to piercing and slashing damage until the temporary Hit Points are depleted. The effect lasts for 1 minute, until destroyed, or until the dragon Dismisses the effect.",
+          "traits": [
+            "primal"
+          ]
+        },
+        {
+          "id": "DrGbBNaXvcBQvYSR",
+          "name": "Reef Meld",
+          "kind": "action",
+          "description": "Frequency once per day\nRequirements The coral dragon is in physical contact with their bound reef\nEffect The dragon physically merges with the reef and vanishes, along with up to eight willing creatures, into an extradimensional space where it can neither affect nor be affected by the outside world. The effect lasts indefinitely or until the dragon Dismisses it. Once merged, the dragon can spend 1 minute traveling to and emerging from any point on its reef up to 10 mile away.",
+          "traits": [
+            "extradimensional",
+            "primal"
+          ]
+        },
+        {
+          "id": "AvrgY4fX7eFf5LtE",
+          "name": "Improved Push",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "W2m2P4SmozPmYDkZ",
+          "name": "Primal Prepared Spells",
+          "tradition": "primal",
+          "category": "prepared",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "MjBddG7oJ1OEUSOX",
+              "name": "Air Bubble",
+              "rank": 1
+            },
+            {
+              "id": "orJekilBmWUtFhHj",
+              "name": "Create Water",
+              "rank": 1
+            },
+            {
+              "id": "YgI9apYvqPMdANgg",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "0y5ICJbB2Ozmdks2",
+              "name": "Know the Way",
+              "rank": 1
+            },
+            {
+              "id": "gzQLLQiLjLgXXWFH",
+              "name": "Prestidigitation",
+              "rank": 1
+            },
+            {
+              "id": "5tKRmLH15ugKkpux",
+              "name": "Spout",
+              "rank": 1
+            },
+            {
+              "id": "mDPY81XDQbICRTnW",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "zNchat4MmYeEFUGk",
+              "name": "Tailwind",
+              "rank": 1
+            },
+            {
+              "id": "EMruWDoHZLVEI1Dh",
+              "name": "Mist",
+              "rank": 2
+            },
+            {
+              "id": "j53qDZZTUzymGHMs",
+              "name": "Water Breathing",
+              "rank": 2
+            },
+            {
+              "id": "QRiBt2hbx1d1JYA1",
+              "name": "Water Walk",
+              "rank": 2
+            },
+            {
+              "id": "kjs6INu8fRficPxr",
+              "name": "Aqueous Orb",
+              "rank": 3
+            },
+            {
+              "id": "AHxHHl181eVmcfBz",
+              "name": "Crashing Wave",
+              "rank": 3
+            },
+            {
+              "id": "a0e7rN9rNqsw1AUs",
+              "name": "Slow",
+              "rank": 3
+            },
+            {
+              "id": "Mmpy7EvzBg2cX4JG",
+              "name": "Hydraulic Torrent",
+              "rank": 4
+            },
+            {
+              "id": "88MElNYmZMb7Mv6e",
+              "name": "Mirage",
+              "rank": 4
+            },
+            {
+              "id": "2jDZEC1VyEmmEnYi",
+              "name": "Vapor Form",
+              "rank": 4
+            },
+            {
+              "id": "62FBbSdwtJ0SWAJt",
+              "name": "Chameleon Coat",
+              "rank": 5
+            },
+            {
+              "id": "Ag22VFyFImHAWa7B",
+              "name": "Control Water",
+              "rank": 5
+            },
+            {
+              "id": "Dn1uw1GM7qSvamCm",
+              "name": "Mariner's Curse",
+              "rank": 5
+            },
+            {
+              "id": "2S862DaG0P1H1v3F",
+              "name": "Petrify",
+              "rank": 6
+            },
+            {
+              "id": "y9Ws9AB1QSpoFRZe",
+              "name": "Regenerate",
+              "rank": 7
+            },
+            {
+              "id": "DF2RzilPHpF4Wahk",
+              "name": "Unfettered Pack",
+              "rank": 7
+            },
+            {
+              "id": "7P8obsrQezs8uvbO",
+              "name": "Desiccate",
+              "rank": 8
+            },
+            {
+              "id": "SWJRh7LdJD4hoy4O",
+              "name": "Moment of Renewal",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:ximtal",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "FlrIq6SquIYb9REJ",
+      "slug": "ximtal",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:f7be7117ce38af59b1c1e36e5ef73f8e817b572fac2b19570ab31a15e3070cce",
+    "translatableHash": "sha256:e507c5bea734803dd8947c51cde850e8993ce718dfab0b07809a1aded7b0a49c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ximtal",
+      "level": 17,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "fiend",
+        "sahkil",
+        "unholy"
+      ],
+      "description": "The struggles of loneliness and the anxiety that accompanies that feeling plague many creatures, and ximtals delight in exploiting this fear for their own perverse gain. Appearing as hybrids of rats and crabs with grasping tentacles, these scheming fiends manipulate their victims over long spans of time, like pakalchis, to savor the most fear they can. Ximtals use subtlety to entrap their prey and often don't directly engage their targets. They use insecurities as a tool and force poor behavior in mortals they set their sights on. They prefer to focus their machinations on strong-willed and well-intentioned mortals, hoping to erode their pride and self-worth and ultimately lead them eschew altruistic efforts.\nRather than focusing on a single victim, a ximtal might instead seek out a particular cause of interest to the sahkil's appetites. These creatures often wander the multiverse seeking to sabotage societal crusades or suppress divergent ideologies.\nWhile most ximtals work alone, they sometimes enlist the assistance of pakalchis, who share similar tastes in mortal fear. Together and focused, these two types of fiends can dissolve individual self-worth, relationships, and even entire organizations.\nAges ago, when this cycle of the multiverse was still adolescent, a cabal of psychopomps who already felt bored and restrained in their role of ushering souls to their ultimate resting place rebelled against their station. It was this corruption of the cycle of souls that spawned the first sahkils.\nAmbivalent to the prescribed order of the multiverse and spiteful of mortals, sahkils delight in spreading fear and unease to all beings, clogging up the metaphysical cycle with anxiety-ridden mortals too scared to achieve their potential. These fiends have drastically changed from their dedicated psychopomp predecessors. They are creatures of spite and torment, fear and disgust. They exploit the most common and rare fears for their own perverse satisfaction, and they want nothing more than to frighten mortals and make them question their reason for existence.\nMost sahkils lurk on the Ethereal Plane, but they frequently invade the Material Plane to torment mortals and spread terror. They use their innate ability to slip between the veils of the Ethereal and Material effortlessly, often stalking their targets for days or weeks before enacting their devious plots.",
+      "armorClass": 39,
+      "hitPoints": 380,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 30,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 26,
+        "will": 28
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 3,
+        "con": 9,
+        "int": 2,
+        "wis": 5,
+        "cha": 8
+      },
+      "skills": {
+        "arcana": 27,
+        "deception": 33,
+        "intimidation": 33,
+        "occultism": 27,
+        "religion": 30,
+        "stealth": 28
+      },
+      "languages": [
+        "chthonian",
+        "diabolic",
+        "empyrean",
+        "requian"
+      ],
+      "defenses": {
+        "immunities": [
+          "fear-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 10"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "AF48h2X3hAjthWZX",
+          "name": "Jaws",
+          "bonus": 34,
+          "damage": "3d12+17 piercing; 2d6 spirit",
+          "traits": [
+            "magical",
+            "reach-10",
+            "unarmed",
+            "unholy"
+          ]
+        },
+        {
+          "id": "7cU2Ki9ZUte4XeOY",
+          "name": "Claw",
+          "bonus": 34,
+          "damage": "3d8+17 slashing; 2d6 spirit",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tYuLpzQVztYcrBmM",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "OU34B5fiyPMmjnXO",
+          "name": "Easy to Call",
+          "kind": "passive",
+          "description": "A ximtal's level is considered 2 lower for the purpose of being conjured by the Binding Circle ritual (and potentially other rituals, at the GM's discretion), but it is always free to attack or leave instead of negotiate unless the primary caster's check is a critical success.",
+          "traits": []
+        },
+        {
+          "id": "CK5NsrPLZx91r8av",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "gpsZOiwpAEi2TKTL",
+          "name": "Despoiler",
+          "kind": "passive",
+          "description": "1000 feet. Creatures within the aura take a –2 circumstance penalty to all saving throws against poisons, diseases, and drugs.\nEffect: Despoiler",
+          "traits": [
+            "aura",
+            "divine"
+          ]
+        },
+        {
+          "id": "fmxx7smV9KEkfRN8",
+          "name": "Isolate Foes",
+          "kind": "action",
+          "description": "Frequency once per day\nEffect The ximtal attempts to isolate its enemy's companions, forcing an impression that each creature's friends and allies have vanished and they are all alone against an insurmountable threat. The ximtal chooses up to four creatures, each of whom must be adjacent to one other target. Each target must attempt a check (will, dc:38) save. On a failure, a target becomes out of phase with all allies. The affected creatures can't perceive their allies or interact with them in any way, and they can move into allies' spaces as if their allies simply weren't there. Allies similarly can't perceive or interact with the affected creatures with one exception: an ally can target an affected creature with Cleanse Affliction to remove the effects. Every 24 hours, an affected creature can attempt a new saving throw to end this effect.",
+          "traits": [
+            "curse",
+            "divine",
+            "emotion",
+            "incapacitation",
+            "mental"
+          ]
+        },
+        {
+          "id": "89pRruq95QsvuZYX",
+          "name": "Sensory Fever",
+          "kind": "passive",
+          "description": "A ximtal's withering attacks cause a debilitating disease targeting the senses\nSaving Throw check (fortitude, dc:36)\nStage1 creature loses one sense determined randomly: taste, smell, hearing, or sight (1 day)\nStage 2 creature loses an additional sense from the stage 1 list (1 day)\nStage 3 creature loses an additional sense from the stage 1 list (1 day)\nStage 4 creature loses the last sense from the stage 1 list and any special senses, such as tremorsense or lifesense (1 day)\nStage 5 all lost senses are permanent unless restored via Sound Body or a similar effect.",
+          "traits": [
+            "disease"
+          ]
+        },
+        {
+          "id": "zj5lykgkozQXgCYv",
+          "name": "Skip Between",
+          "kind": "action",
+          "description": "The sahkil moves from the Universe to the Ethereal Plane or vice-versa. While in the Ethereal Plane, they're unable to affect anything in the Universe, and they cannot be seen by beings or abilities in the Universe, unless these have an ability that can gaze into the Ethereal Plane. While on the Material Plane the inverse is true for anything on the Ethereal Plane. A summoned sahkil can't use Skip Between.",
+          "traits": [
+            "divine",
+            "teleportation"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "B3PHbeLF2gRQOeiE",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "deqn3ghZ7DGreuEE",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "9CkT3hi0Gg6sbZ9m",
+              "name": "Desiccate",
+              "rank": 8
+            },
+            {
+              "id": "oO5skXG5ftXBZMOy",
+              "name": "Fear (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "mAnSlmlZdeGck3Z5",
+              "name": "Quandary",
+              "rank": 8
+            },
+            {
+              "id": "tGQoXYsXkBD0QJqW",
+              "name": "Suggestion (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "mfMQfHlseAniOEDn",
+              "name": "Fly (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "vhqkYjS61HJPKQvd",
+              "name": "Truesight (Constant)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:kadamel",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "jDJ5XzsSAMDasITG",
+      "slug": "kadamel",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:2218f5704bade42eb6c6504a668439ba1ca2ddffa1f8b4bd9f97f4f8ad8a1f47",
+    "translatableHash": "sha256:dcba190d418c55595d2e8055548717b9a99728e4369718ac0756d8b8db93ae69",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kadamel",
+      "level": 17,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "archon",
+        "celestial",
+        "holy"
+      ],
+      "description": "Fiends spread corruption to places across the planes—every place they can reach. Kadamels guard the most crucial pathways and holy sanctums. They hold a patient vigil, never distracted from their task. Most crucially, they watch over planar portals, barring passage to all but the most powerful fends. When encountered, these archons speak and react little. They rarely even move or react, though they readily accept any assistance in defeating fendish invaders. Even this, they accept with only an ominous nod.",
+      "armorClass": 40,
+      "hitPoints": 300,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 29,
+        "reflex": 26,
+        "will": 32
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 7,
+        "int": 4,
+        "wis": 9,
+        "cha": 7
+      },
+      "skills": {
+        "athletics": 32,
+        "diplomacy": 30,
+        "intimidation": 32,
+        "religion": 34
+      },
+      "languages": [
+        "diabolic",
+        "draconic",
+        "empyrean",
+        "utopian"
+      ],
+      "defenses": {
+        "immunities": [
+          "fear-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "unholy 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "52OgLjC1xlgRtKS8",
+          "name": "Stone Axe",
+          "bonus": 32,
+          "damage": "3d10+15 slashing; 2d12 electricity",
+          "traits": [
+            "holy",
+            "magical",
+            "sweep"
+          ]
+        },
+        {
+          "id": "Hu9HG4NrRIBbcEPg",
+          "name": "Stone Axe",
+          "bonus": 32,
+          "damage": "3d10+15 slashing; 2d12 electricity",
+          "traits": [
+            "brutal",
+            "holy",
+            "magical",
+            "thrown-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "GzPQqwg1lc90FiFL",
+          "name": "Stone Shield",
+          "kind": "passive",
+          "description": "The kadamel can create a stone shield for defense, which grants a +2 circumstance bonus to AC and has Hardness 15, HP 120, and BT 60.",
+          "traits": []
+        },
+        {
+          "id": "YcmMuTVDMlGyehbN",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "gLpBcRyze5jaQR3x",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "TkUzxf9ya6Oqy96g",
+          "name": "Archon's Protection",
+          "kind": "reaction",
+          "description": "Trigger An enemy damages the archon's ally and both are within 15 feet of the archon\nEffect The ally gains resistance 20 to all damage against the triggering damage, and the archon can make a Strike against the enemy.\nEffect: Archon's Protection",
+          "traits": []
+        },
+        {
+          "id": "daXutD2J6MIsWA1H",
+          "name": "Patience of Stone",
+          "kind": "passive",
+          "description": "10 feet. Any enemy that ends its turn in the aura must succeed at a check (fortitude, dc:36, options:area-effect,inflicts:slowed) save or be Slowed 1 for 1 minute. If the creature succeeds, it's temporarily immune for 24 hours.",
+          "traits": [
+            "aura",
+            "divine"
+          ]
+        },
+        {
+          "id": "rORsP64sPWT0bP8l",
+          "name": "Shield Block",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "hrNpW5vBm1YlAgA4",
+          "name": "Calcifying Cloud",
+          "kind": "action",
+          "description": "Requirements The kadamel hit with a stone axe Strike during its most recent action\nEffect The kadamel's axe explodes into calcifying powder. The creature the axe hit and each non-archon creature in a 5-foot type:emanation must succeed at a check (fortitude, dc:38, options:area-effect,inflicts:slowed,inflicts:petrified) save or become Slowed 1 for 1 minute. If the creature was already slowed by one of the kadamel's abilities, a failed save causes it to be Petrified permanently.",
+          "traits": [
+            "divine",
+            "incapacitation"
+          ]
+        },
+        {
+          "id": "GBMBMc3ptaAPJPqr",
+          "name": "Guardian Glyph",
+          "kind": "action",
+          "description": "Frequency once per day\nEffect The kadamel alters the inscriptions on their body to store an 8th-rank spell, choosing from Divine Decree, Divine Immolation, Divine Wrath, or Planar Seal. While storing the spell, the kadamel chooses an area they're guarding, typically a room containing a planar portal. When an intruder enters the area, the spell is cast automatically and expended. If the spell is targeted, it targets the triggering creature, and if it has an area, the area is centered on the triggering creature. Noticing the glyph requires a successful check (perception, dc:38) check. The glyph has an unlimited duration and ends if the kadamel uses this ability again or Dismisses the glyph.",
+          "traits": [
+            "concentrate"
+          ]
+        },
+        {
+          "id": "anx0Mh6T878Ca0zi",
+          "name": "Re-Arm",
+          "kind": "passive",
+          "description": "The kadamel forms a new stone axe or stone shield in a free hand",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "Fwzhj2ueizrjBGiJ",
+          "name": "Statue",
+          "kind": "action",
+          "description": "Until the next time they act, the kadamel appears to be a statue. They have an automatic result of 50 on Deception checks and DCs to pass as a statue. While remaining motionless in this way, the kadamel has fast healing 20.",
+          "traits": [
+            "concentrate"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "MiaL4Ts2r5HTX7E4",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "g3lXoOiPVZQbwh2i",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "1bOv4CoSGkGYOMzu",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "abOJxa2Oy1f4XqTa",
+              "name": "Blessed Boundary",
+              "rank": 7
+            },
+            {
+              "id": "VOXROsKKBKwygHmI",
+              "name": "Interplanar Teleport",
+              "rank": 7
+            },
+            {
+              "id": "HqSXBbNYjbyFMaaS",
+              "name": "Planar Tether",
+              "rank": 7
+            },
+            {
+              "id": "jkHfmsFGGvgZY9t5",
+              "name": "Planar Seal",
+              "rank": 8
+            },
+            {
+              "id": "HAbUUKwQPx6xRBsg",
+              "name": "Truesight (Constant)",
+              "rank": 8
+            },
+            {
+              "id": "Znlp4T2gmNHvHHYN",
+              "name": "Truespeech (Constant)",
+              "rank": 8
+            },
+            {
+              "id": "k1z19JPq8aurOFYy",
+              "name": "Veil of Privacy (Constant)",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:phasmadaemon",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "kqbvkWsmrnlziWNp",
+      "slug": "phasmadaemon",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:97f8c2f8d9bf1742ca48e1206601c3cf3a79916b48edd6274707d70dffefa09c",
+    "translatableHash": "sha256:54bbb17b80e733522c19f872906a0208e3df63bb0f0ef09f4cc5c3e7dc67c82b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phasmadaemon",
+      "level": 17,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "daemon",
+        "fiend",
+        "unholy"
+      ],
+      "description": "The horrifying phasmadaemons make use of illusions and their own frightening appearances (that of serpents with bony tails, horned crocodilian skulls for heads, and several insectile pincers) to strike fear into the hearts of others. They represent deaths brought about by fright. Ultimately, any kind of fear can lead to the creation of a phasmadaemon, but a soul who transforms into such a fiend must quickly find other fears to feed on to build up their own strength. Without the nourishment of human fear, the newborn phasmadaemon begins to waste away, eventually \"dying\" and becoming planar quintessence. Only the most clever and capable phasmadaemons survive their initial hunger, learning how to prey on even the bravest souls as a result.",
+      "armorClass": 39,
+      "hitPoints": 340,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 29,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 31,
+        "reflex": 26,
+        "will": 31
+      },
+      "abilities": {
+        "str": 8,
+        "dex": 8,
+        "con": 6,
+        "int": 3,
+        "wis": 4,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 31,
+        "deception": 31,
+        "intimidation": 33,
+        "religion": 29
+      },
+      "languages": [
+        "common",
+        "daemonic"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "fear-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "mAgs54KfKOGCX0su",
+          "name": "Jaws",
+          "bonus": 33,
+          "damage": "3d10+19 piercing",
+          "traits": [
+            "magical",
+            "reach-10",
+            "unarmed",
+            "unholy"
+          ]
+        },
+        {
+          "id": "YIwPQWP7YuFAa73b",
+          "name": "Claw",
+          "bonus": 33,
+          "damage": "3d8+19 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-10",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "mZ7xTP9hQa2Ol0JR",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "cFfZrAZTt2J9XqLs",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "fABPf8ocjTyx8gpJ",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "osNdvwv5r9amDfjr",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "60 feet. check (will, dc:35, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "9sgT96Y5W35hJXLZ",
+          "name": "Unending Terror",
+          "kind": "passive",
+          "description": "Escaping fear near a phasmadaemon is no simple task. Creatures don't automatically reduce their Frightened condition while they are within the phasmadaemon's Frightful Presence aura. Instead, they must attempt a Will save at the end of their turn against the DC of the effect that caused the condition. On a success, the creature's frightened condition is reduced by 1.",
+          "traits": []
+        },
+        {
+          "id": "pXAdWYUV5VQxQGEs",
+          "name": "Constrict",
+          "kind": "action",
+          "description": "(3d10+9)[bludgeoning], check (fortitude, dc:35, basic)",
+          "traits": []
+        },
+        {
+          "id": "yVkFmFVbB6g9Iyno",
+          "name": "Consume Fear",
+          "kind": "action",
+          "description": "Requirements The phasmadaemon has a creature Grabbed or Restrained\nEffect The phasmadaemon feeds on the creature's mortality and innate terror, dealing 6d8 mental damage. The creature must attempt a check (will, dc:38) save.\nCritical Success The creature takes no damage and manages to break free from the phasmadaemon's Grab.\nSuccess The creature takes half damage.\nFailure The creature takes full damage and increases their frightened conditioned by 1, to a maximum of Frightened 4.\nCritical Failure The creature takes double damage and increases their frightened condition by 2, to a maximum of frightened 4. If the creature is already frightened 4, it must attempt a check (fortitude, dc:38) saving throw. If it fails, it's reduced to 0 Hit Points and dies. This effect has the death and incapacitation traits.",
+          "traits": [
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "0FXMcfinGX0dztEM",
+          "name": "Inescapable Form",
+          "kind": "passive",
+          "description": "The phasmadaemon can Squeeze through tight spaces as if it were a Small creature. While Squeezing, it can move at its full Speed. The phasmadaemon can even Squeeze through spaces that typically fit only a Tiny creature, but does so at the standard speed for Squeezing.",
+          "traits": []
+        },
+        {
+          "id": "tMkt2eYm6UhxBsoX",
+          "name": "Rend",
+          "kind": "action",
+          "description": "Claw",
+          "traits": []
+        },
+        {
+          "id": "vh2ymbYqQ3pbRq4B",
+          "name": "Grab",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "bGv7AwfTXpXCsBRX",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "bACA0Q4axetDjm52",
+              "name": "Nightmare (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "QGwqew7WFUDrQbJQ",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "LNaQdElwCt7cR4lL",
+              "name": "Shadow Blast",
+              "rank": 5
+            },
+            {
+              "id": "K6l6Ad5tJaNtNzDw",
+              "name": "Translocate",
+              "rank": 5
+            },
+            {
+              "id": "aK6I3Ya94r5vV9ML",
+              "name": "Shadow Blast",
+              "rank": 6
+            },
+            {
+              "id": "BvzTdot3iy8v5yE1",
+              "name": "Shadow Blast",
+              "rank": 7
+            },
+            {
+              "id": "K4N7ZtunQPipVw7P",
+              "name": "Vision of Death",
+              "rank": 7
+            },
+            {
+              "id": "oA1PsMH59QQTRCEw",
+              "name": "Mask of Terror",
+              "rank": 8
+            },
+            {
+              "id": "9KdpeXGhqIpkfBJY",
+              "name": "Duplicate Foe",
+              "rank": 9
+            },
+            {
+              "id": "4933UV3lza9uV60F",
+              "name": "Phantasmagoria",
+              "rank": 9
+            },
+            {
+              "id": "FezflIkbobJhPBDA",
+              "name": "Truesight (Constant)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:coral-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "L0GbthgIX8icmRhF",
+      "slug": "coral-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:2dba35d6650ab3600207a1cc2e25b3a7aac74965f322f72f4d182d9b4d4f9e06",
+    "translatableHash": "sha256:ba9d3ab8cbd6c1c446c5e8fa75c752194755f21cd6d20a311c85d14d82ad5388",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Coral Dragon (Ancient)",
+      "level": 17,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "amphibious",
+        "dragon",
+        "primal"
+      ],
+      "description": "Coral dragons are the primal guardians of the vast living coral reefs found in oceans across Golarion. Even by draconic standards, coral dragons stand out for their arrogance and vanity, boasting inordinate pride in the vibrant hues of their own coral-encrusted scales and the dazzling splendor of the reefs they protect. Coral dragons like to decorate their reefs, which they view as lairs, with objects of beauty, dotted with the occasional bit of valuables like coins. Those who seek the favor of a coral dragon often find the creature easily swayed by flattery, particularly when paired with shiny or brightly colored gifts that complement the scintillating beauty of the dragon and their underwater domain.",
+      "armorClass": 39,
+      "hitPoints": 315,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "wavesense-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 27,
+        "will": 28
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 6,
+        "int": 5,
+        "wis": 5,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 28,
+        "athletics": 30,
+        "diplomacy": 34,
+        "intimidation": 34,
+        "nature": 30,
+        "society": 26,
+        "stealth": 30,
+        "survival": 31
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [
+          "dazzled",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "OPzELGn6ZKAMLLQ6",
+          "name": "Jaws",
+          "bonus": 34,
+          "damage": "3d12+17 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "dnY6CWQb134wKiOt",
+          "name": "Claw",
+          "bonus": 34,
+          "damage": "3d8+17 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "OY0h3cpcfWVhHPf4",
+          "name": "Tail",
+          "bonus": 32,
+          "damage": "3d10+17 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "Yiei1c0o3eTFwLUa",
+          "name": "+2 Status to All Saves vs. Primal",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "dhF6fJi6O0G9ZKmt",
+          "name": "Biomineralize",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit by a melee weapon without reach or an unarmed attack that deals slashing or piercing damage\nEffect A gout of blood spurts from the dragon's wound and instantaneously calcifies into a jagged branch of sharpened coral. The coral branch impales the triggering creature, dealing 8d6 piercing damage (check (reflex, dc:38, basic) save). The triggering creature also takes 1d4 persistent bleed damage on a critical failure. Regardless of the outcome, the coral then crumbles to dust.",
+          "traits": []
+        },
+        {
+          "id": "Vwzh2ZT18smQFh7V",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw Strikes and one tail Strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "OWtobT819Yt0FTNY",
+          "name": "Kaleidoscopic Display",
+          "kind": "passive",
+          "description": "90 feet. The coral formations covering the dragon's body glow and shimmer with vivid colors, overwhelming the senses and forcing any creature entering or beginning their turn in the aura to attempt a check (fortitude, dc:36, options:area-effect,inflicts:dazzled,inflicts:blinded) save. Regardless of the outcome, the creature is temporarily immune to the dragon's kaleidoscopic display for 1 minute.\nCritical Success The creature is unaffected.\nSuccess The creature is Dazzled for 1 round.\nFailure The creature is Blinded for 1 round.\nCritical Failure The creature is blinded for 1 round and dazzled for 1 minute.",
+          "traits": [
+            "aura",
+            "visual"
+          ]
+        },
+        {
+          "id": "P4udhPlUFL1dXZ9A",
+          "name": "Reef Bond",
+          "kind": "passive",
+          "description": "Every coral dragon is mystically bound to a single living coral reef. If the dragon moves more than 3 miles from their reef, they become Sickened 1 and unable to recover, with the sickened value increasing by 1 every 6 hours unless they succeed at a check (fortitude, dc:40) save. After 24 hours, the dragon becomes Drained 1; its drained value increases by 1 every 24 hours.\nIf the dragon's reef suffers significant damage, they immediately become aware of the location where the reef was harmed but not the source or nature of the damage. Should the reef ever be completely destroyed, the dragon is immediately slain.",
+          "traits": []
+        },
+        {
+          "id": "hqcT43pkMnsO31x0",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "The dragon recharges their Hydraulic Breath whenever they score a critical hit with a Strike.",
+          "traits": []
+        },
+        {
+          "id": "27lO5hJcHjPjslLT",
+          "name": "Hydraulic Breath",
+          "kind": "action",
+          "description": "The dragon exhales a pressurized jet of water that deals 18d6 bludgeoning damage in an 120-foot type:line (check (reflex, dc:38, basic, options:area-effect,forced-movement,inflicts:prone) save). Creatures that critically fail their Reflex save against the Hydraulic Breath are pushed back 10 feet and knocked Prone. The dragon can't use Hydraulic Breath again for [[/gmr 1d4 #Recharge Hydraulic Breath]].",
+          "traits": [
+            "primal",
+            "water"
+          ]
+        },
+        {
+          "id": "fI9l9alXTyrPjxOo",
+          "name": "Reef Armor",
+          "kind": "action",
+          "description": "Frequency once per day\nEffect The dragon encases themself in an shell of protective coral, gaining 50 temporary Hit Points and resistance 10 to piercing and slashing damage until the temporary Hit Points are depleted. The effect lasts for 1 minute, until destroyed, or until the dragon Dismisses the effect.",
+          "traits": [
+            "primal"
+          ]
+        },
+        {
+          "id": "DrGbBNaXvcBQvYSR",
+          "name": "Reef Meld",
+          "kind": "action",
+          "description": "Frequency once per day\nRequirements The coral dragon is in physical contact with their bound reef\nEffect The dragon physically merges with the reef and vanishes, along with up to eight willing creatures, into an extradimensional space where it can neither affect nor be affected by the outside world. The effect lasts indefinitely or until the dragon Dismisses it. Once merged, the dragon can spend 1 minute traveling to and emerging from any point on its reef up to 10 mile away.",
+          "traits": [
+            "extradimensional",
+            "primal"
+          ]
+        },
+        {
+          "id": "OZLuQyz46ZEwHaYh",
+          "name": "Improved Knockdown",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:ninkonda",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "nBTJHNrjvCOu43SJ",
+      "slug": "ninkonda",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:4ff7581ed28f7532b62f8bca95c80ec4ac8512a525e7a7ea7a101b9de31f68b2",
+    "translatableHash": "sha256:9388cd129bdc86e07e7f99da20c80d6030507cb5b653d67431843ee5b0114a3b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ninkonda",
+      "level": 17,
+      "rarity": "uncommon",
+      "size": "large",
+      "traits": [
+        "angel",
+        "celestial",
+        "holy"
+      ],
+      "description": "When once-honorable mortals fall to wickedness and perform terrible atrocities, ninkondas set out to track them down. Clad in plate armor that features a brilliantly shining mirror in the chest and bearing spikes and nails impaled into their bodies, ninkondas serve as hunters for celestial forces. Rather than immediately slaying their quarries, however, ninkondas do their best to encourage a change of heart and foster eventual redemption in their targets. Ninkondas use their mirrors to refect the sins of the target and showcase the state of their soul, and many targets seek to change after glimpsing this refection. Those who don't soon fnd themselves facing off against the wordless might of their hunter.",
+      "armorClass": 39,
+      "hitPoints": 350,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 29,
+        "senses": [
+          "darkvision",
+          "truesight-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 30,
+        "reflex": 27,
+        "will": 33
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 4,
+        "con": 7,
+        "int": 3,
+        "wis": 6,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 27,
+        "athletics": 34,
+        "diplomacy": 34,
+        "intimidation": 30,
+        "religion": 28,
+        "society": 26
+      },
+      "languages": [
+        "common",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "unholy 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "6iNuw4E8JzhNWIg3",
+          "name": "Nailed Fist",
+          "bonus": 34,
+          "damage": "2d8 piercing; 2d6+17 bludgeoning",
+          "traits": [
+            "agile",
+            "holy",
+            "magical",
+            "versatile-p"
+          ]
+        },
+        {
+          "id": "VfMjb0JfXxAHI6ky",
+          "name": "Nail Blast",
+          "bonus": 34,
+          "damage": "3d8+8 piercing; 2d8 bleed",
+          "traits": [
+            "holy",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "IMrhT7ZTCCE5wbK3",
+          "name": "Aura of Refection",
+          "kind": "passive",
+          "description": "60 feet. The ninkonda's mirror refects the weaknesses in creatures' souls. A creature that enters or starts its turn in the aura must succeed at a check (will, dc:36, options:area-effect,inflicts:dazzled) save or be Dazzled and take a –2 penalty to Will saves against the ninkonda's abilities for 1 round.\nEffect: Aura of Reflection",
+          "traits": [
+            "aura",
+            "divine",
+            "holy",
+            "mental",
+            "visual"
+          ]
+        },
+        {
+          "id": "L4e2qN0vXu0ZekxT",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "f8pZew4jc9KVpmrS",
+          "name": "Refect Spell",
+          "kind": "reaction",
+          "description": "Trigger The ninkonda is targeted by a ranged spell attack\nEffect The ninkonda attempts to refect the spell with the mirror in their armor. They gain a +4 circumstance bonus to AC against the triggering attack. If the attack misses, the spell is refected back at the caster, who must roll a second ranged spell attack against their own AC to determine if the spell hits them instead.",
+          "traits": []
+        },
+        {
+          "id": "15m85YW5E3xihSjQ",
+          "name": "Nail Barrage",
+          "kind": "action",
+          "description": "The ninkonda sprays a mass of nails that deal 14d8 piercing damage in a 20-foot type:emanation with a check (reflex, dc:38, basic, options:area-effect) save. They can't use Nail Barrage again for [[/gmr 1d4 #Recharge Nail Barrage]].",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "RC9Ywa7wvr7GzLsT",
+          "name": "Soul Reflection",
+          "kind": "action",
+          "description": "The ninkonda aims the mirror in their armor at a creature Dazzled by their aura of refection to force the creature to gaze upon its past sins. The creature must succeed at a check (will, dc:38) save or become Slowed 1 for 1 round as it refects upon its actions (or 1 minute on a critical failure, as the creature's actions continue to weigh on it). A holy creature or a morally upstanding creature (as determined by the GM) uses the outcome that is one degree of success better than it rolled on its save. A creature that fails its save is then temporarily immune to Soul Refection for 1 minute.",
+          "traits": [
+            "divine",
+            "holy",
+            "mental",
+            "visual"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "HgFkJLcacV4e3Va3",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "f8Mp3Wxqjx04LZpz",
+              "name": "Divine Lance",
+              "rank": 1
+            },
+            {
+              "id": "lXCJUzn2enOooCVw",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "y01mR7biGS3IgfMx",
+              "name": "Ring of Truth (At Will)",
+              "rank": 3
+            },
+            {
+              "id": "BQSXikSMv4sCiTvm",
+              "name": "Truespeech",
+              "rank": 5
+            },
+            {
+              "id": "gl10uoLC25hFO3Eq",
+              "name": "Truesight (Constant)",
+              "rank": 6
+            },
+            {
+              "id": "GASMwuOc08s2QbDx",
+              "name": "Truespeech (Constant)",
+              "rank": 6
+            },
+            {
+              "id": "ZbXHNP4xP2wV3vui",
+              "name": "Interplanar Teleport (self only)",
+              "rank": 7
+            },
+            {
+              "id": "9O8nd5uA87MFD1EL",
+              "name": "Pinpoint",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:vaspercham",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "PLHzkMMyajrodRUU",
+      "slug": "vaspercham",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:d9b81eaa1f423742492220f5ca7926c6d6ebe9d0efbbd32c247e9c0df1e5a6d5",
+    "translatableHash": "sha256:f84030711f322ecb0dc3e9d32959772abd1121b04be9c3ff9c3bf3f27d5b762e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vaspercham",
+      "level": 17,
+      "rarity": "common",
+      "size": "huge",
+      "traits": [
+        "aberration",
+        "aquatic"
+      ],
+      "description": "Vasperchams are aquatic horrors who delight in violence, lurking in the shallows near shorelines. Once a vaspercham settles on a home, they stubbornly stay there, regardless of any communities dwelling nearby. A vaspercham's physical might and magic-warping abilities make them incredibly hard to dislodge once entrenched. Vasperchams respond only to strength, so one must best them in combat to gain their begrudging cooperation. But once a vaspercham recovers their strength, they inevitably betray any temporary alliance.",
+      "armorClass": 41,
+      "hitPoints": 335,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 30,
+        "senses": [
+          "darkvision",
+          "see-invisibility"
+        ]
+      },
+      "saves": {
+        "fortitude": 31,
+        "reflex": 25,
+        "will": 32
+      },
+      "abilities": {
+        "str": 8,
+        "dex": 4,
+        "con": 6,
+        "int": 8,
+        "wis": 5,
+        "cha": 6
+      },
+      "skills": {
+        "arcana": 33,
+        "athletics": 33,
+        "deception": 31,
+        "intimidation": 29
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "cold 10",
+          "electricity 10"
+        ],
+        "weaknesses": [
+          "fire 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "wzbVzgCl8Ejv0s18",
+          "name": "Tentacle",
+          "bonus": 33,
+          "damage": "3d10+16 bludgeoning",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "drqzKqFXOw70bPmE",
+          "name": "Water Blast",
+          "bonus": 33,
+          "damage": "2d8+16 bludgeoning",
+          "traits": [
+            "brutal",
+            "magical",
+            "water"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "7BpL9qbiSLI8Fp6k",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "auspxEF3QavdLLBP",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "Fd8Zr9WjpFqLtgVz",
+          "name": "Magic-Warping Aura",
+          "kind": "passive",
+          "description": "30 feet. A vaspercham's shell distorts nearby magic. Any creature in the aura who Casts a Spell must attempt a check (will, dc:37) save.\nCritical Success The spell is unaffected, and the caster is temporarily immune to the magic-warping aura for 1 minute.\nSuccess The spell is unaffected, but if the spell allows a saving throw, the vaspercham gains a +1 circumstance bonus to save against it.\nFailure If the spell has a target and there are one or more viable targets within its range, the spell's target changes, determined randomly by the GM. If there's no other possible target within range or the spell has no target, the spell is disrupted.\nCritical Failure The caster instead Casts another Spell, choosing randomly from their spell repertoire, prepared spells, or available focus spells (as appropriate) and selecting any targets at random.",
+          "traits": [
+            "arcane",
+            "aura"
+          ]
+        },
+        {
+          "id": "UatiISk7rst9v1bD",
+          "name": "Hallucinatory Brine",
+          "kind": "passive",
+          "description": "A creature hit by the vaspercham's Strikes or Mindwarping Tide must attempt a check (fortitude, dc:38) save. On a failure, the creature is overwhelmed with phantasmal visions, becoming Confused for 1 round (1 minute on a critical failure).",
+          "traits": [
+            "arcane",
+            "illusion",
+            "mental"
+          ]
+        },
+        {
+          "id": "pQNTOJ37q0yg6EkQ",
+          "name": "Mindwarping Tide",
+          "kind": "action",
+          "description": "The vaspercham releases an effusion of noxious water from its shell. Creatures within a 15-foot type:emanation must save against the vaspercham's hallucinatory brine.",
+          "traits": [
+            "concentrate"
+          ]
+        },
+        {
+          "id": "jrrylK7A3Yr4alC7",
+          "name": "Whipping Tentacles",
+          "kind": "action",
+          "description": "The vaspercham makes four tentacle Strikes, each against a different target. These attacks count toward the vaspercham's multiple attack penalty, but the multiple attack penalty doesn't increase until after the vaspercham makes all of their attacks.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "xcWPp5PiZiT28mlA",
+          "name": "Arcane Innate Spells",
+          "tradition": "arcane",
+          "category": "innate",
+          "attackModifier": 33,
+          "saveDc": 41,
+          "spells": [
+            {
+              "id": "FgWm0D6J046GOf3J",
+              "name": "Control Water (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "8sz3adTjUoBrx4gq",
+              "name": "Spellwrack",
+              "rank": 6
+            },
+            {
+              "id": "M6jLg7HBK2BRWpNp",
+              "name": "Regenerate",
+              "rank": 7
+            },
+            {
+              "id": "UIdrHtM1AixVpQWf",
+              "name": "See the Unseen (Constant)",
+              "rank": 7
+            },
+            {
+              "id": "w60iNJG9t0jMelt9",
+              "name": "Lightning Bolt",
+              "rank": 8
+            },
+            {
+              "id": "5pDdIXOgnZp1M6RW",
+              "name": "Dispelling Globe",
+              "rank": 9
+            },
+            {
+              "id": "4C05GQZLjkLd6yhQ",
+              "name": "Howling Blizzard",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:radiant-warden",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "qF9hjssrMjHuVFYK",
+      "slug": "radiant-warden",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:938740415aafe9d79baa30e5d16fb8dee2f23b118802956452c42e9d542e24c8",
+    "translatableHash": "sha256:1c44cc7f6be7ff4b25c1600db7967277d93e6c1ebf39561d700b5175f7fb5aa6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Radiant Warden",
+      "level": 17,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "construct"
+      ],
+      "description": "The enigmatic and strange radiant wardens were constructed thousands of years ago to protect observatories and scholars against the incursion of alien aggressors from the Dominion of the Black. Over time, their roles as guardians expanded to include watching over any region where the laws of time and space have worn thin, particularly near portals and permanent gates between planets, planes, or dimensions.\nNamed for both the radial nature of the concentric rings that make up their bodies as well as the glowing radiance of their attacks, radiant wardens carry on their orders, defending sites from invasion with single-minded purpose.",
+      "armorClass": 40,
+      "hitPoints": 300,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 30,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 29,
+        "will": 28
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 6,
+        "con": 5,
+        "int": 6,
+        "wis": 5,
+        "cha": 0
+      },
+      "skills": {
+        "arcana": 32,
+        "athletics": 33,
+        "occultism": 32
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "mental 15",
+          "physical 15 except adamantine"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "Hjc58tHW1YMAxSZK",
+          "name": "Hammer",
+          "bonus": 32,
+          "damage": "3d12+15 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-15",
+            "shove"
+          ]
+        },
+        {
+          "id": "lNgVZToQWNyd1cHl",
+          "name": "Radiant Beam",
+          "bonus": 31,
+          "damage": "4d10+6 force",
+          "traits": [
+            "force",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qNpcWI6cg5eouBeq",
+          "name": "Gatekeeper Aura",
+          "kind": "passive",
+          "description": "60 feet. A creature that uses a teleportation ability within the aura's emanation or enters it via a teleportation ability must succeed a check (will, dc:38, options:area-effect,inflicts:sickened) save or become Sickened 1 and have its destination changed to a point of the radiant warden's choosing within the aura. On a successful save, the creature arrives as intended but is still sickened 1.",
+          "traits": [
+            "aura",
+            "occult"
+          ]
+        },
+        {
+          "id": "HtqQsx42P5qDV39A",
+          "name": "Orrery",
+          "kind": "action",
+          "description": "Until it acts, the radiant warden appears to be an orrery (or similar large mechanical contraption, such as a telescope). It has an automatic result of 53 on Deception checks and DCs to convincingly pass as such a machine.",
+          "traits": [
+            "concentrate"
+          ]
+        },
+        {
+          "id": "8Nk4QrVg754PVlCV",
+          "name": "Radiant Blast",
+          "kind": "action",
+          "description": "The radiant warden releases a 50-foot type:cone of bright energy that deals 10d12 force damage (check (reflex, dc:38, basic, options:area-effect) save). The radiant warden can't use Radiant Blast for [[/gmr 1d4 #Recharge Radiant Blast]].",
+          "traits": [
+            "force",
+            "occult"
+          ]
+        },
+        {
+          "id": "I2rtFgA7ashRozwk",
+          "name": "Radiant Blow",
+          "kind": "passive",
+          "description": "When a creature is hit by the radiant warden's hammer Strike, a flash of radiant energy attempts to anchor the creature in place. The creature must attempt a check (will, dc:38, options:inflicts:blinded) save; on a failure, the creature can't use any teleportation effects for 1 minute. On a critical failure, the creature is also permanently Blinded.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "QQcPmR7zBk9Qn2oX",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "Tf5kSstwd6TEIMpV",
+              "name": "Translocate (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "eUxvxzWuTNLyHCiP",
+              "name": "Planar Seal",
+              "rank": 7
+            },
+            {
+              "id": "G812LYgoPAPUTb5r",
+              "name": "Wall of Force",
+              "rank": 7
+            },
+            {
+              "id": "9inXJxQnBoZxIcWR",
+              "name": "Collective Transposition",
+              "rank": 8
+            },
+            {
+              "id": "Ff7bYFayNBpe8sXp",
+              "name": "Pinpoint",
+              "rank": 8
+            },
+            {
+              "id": "HBj4CHsCw9iGRu0o",
+              "name": "Teleport",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:deimavigga",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "rxeSI37OvsSoXvYf",
+      "slug": "deimavigga",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:7285b35b9e5a24322a9dc7d69cdc5370aa45f628422fac7cfb75f9da6cd15943",
+    "translatableHash": "sha256:481db363fbf8c12151691a2d3e847908ae5ca49be06727fef2a5057b2f7f5db6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Deimavigga",
+      "level": 17,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "devil",
+        "fiend",
+        "unholy"
+      ],
+      "description": "As masters of cold, calculated logic and perfectly timed proselytization, the loathsome deimaviggas seek to set friend against friend and turn the faithful from their beliefs at every opportunity. Their most common tools are mortal ego and despair. Those who are high-ranking or ambitious among their faith are lured toward self-aggrandizement until they see themselves first and their deity and clergy second. Those prone to doubt or heartache are isolated, as the deimavigga disrupts their divine spells and weakens their faith.\nThere are countless legions of lawful fiends in the nine layers of Hell, warring against the celestial planes and scouring the Material Plane for souls to corrupt.",
+      "armorClass": 40,
+      "hitPoints": 285,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "greater-darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 27,
+        "reflex": 29,
+        "will": 32
+      },
+      "abilities": {
+        "str": 7,
+        "dex": 8,
+        "con": 6,
+        "int": 4,
+        "wis": 7,
+        "cha": 9
+      },
+      "skills": {
+        "acrobatics": 29,
+        "deception": 34,
+        "diplomacy": 36,
+        "intimidation": 30,
+        "religion": 30,
+        "society": 27,
+        "stealth": 33
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "diabolic",
+        "draconic",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire"
+        ],
+        "resistances": [
+          "physical 15 except silver"
+        ],
+        "weaknesses": [
+          "holy 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "xUovRSHL0ImgkXwW",
+          "name": "Claw",
+          "bonus": 33,
+          "damage": "3d8+18 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "vrYCafAUKL8c1AqG",
+          "name": "Greater Darkvision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "iSb0ggfBLG0UH0a0",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "RfnALQOTvViQPec5",
+          "name": "+4 Bonus on Perception to Sense motive",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "AKn4Oke8VMoU85yk",
+          "name": "Indomitable Oration",
+          "kind": "passive",
+          "description": "Any creature capable of comprehending speech understands the deimavigga, as if they constantly spoke in all languages at once.",
+          "traits": []
+        },
+        {
+          "id": "vGPorxL6swyKt73y",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "cyqkRqwp35f8CtAJ",
+          "name": "Whispers of Discord",
+          "kind": "reaction",
+          "description": "Trigger A creature within 60 feet is targeted by a spell that would restore Hit Points or provide a status bonus (the deimavigga automatically recognizes such effects)\nEffect The deimavigga whispers disturbing lies, audible only to the target, to shake the target's faith in the spell's caster. The target must attempt a check (will, dc:38) save.\nCritical Success The target disbelieves the lies and receives the intended benefit of the spell; the target becomes temporarily immune to Whispers of Discord for 24 hours.\nSuccess As critical success, but the target isn't temporarily immune.\nFailure The spell fails to affect the target. The target refuses all aid from that caster for 1 round and doesn't count as the caster's ally.\nCritical Failure As failure, but the duration is 1 minute.",
+          "traits": []
+        },
+        {
+          "id": "Fk0okw5jh318HfC0",
+          "name": "Boundless Reach",
+          "kind": "passive",
+          "description": "A deimavigga's razor-sharp claws can slice through reality, allowing them to make claw Strikes and use spells with a range of touch against any creature they can see directly or via magic. A creature targeted in this way can retaliate until the start of the deimavigga's next turn; it can target the devil's claws as if the devil were physically present and adjacent to the target, though the claws are Concealed.",
+          "traits": [
+            "divine",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "vjjTR5hrPf5pDmGk",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The deimavigga can take on the appearance of any humanoid. This doesn't change their Speed or attack and damage bonuses with Strikes but might change the damage type their Strikes deal (typically to bludgeoning).",
+          "traits": [
+            "concentrate",
+            "divine",
+            "polymorph"
+          ]
+        },
+        {
+          "id": "LrGPFAVrLLeOkRJj",
+          "name": "Whisper Earworm",
+          "kind": "action",
+          "description": "The deimavigga whispers a terrifying multiversal truth to one adjacent creature, shaking its faith in reality and divinity. The target must attempt a check (will, dc:38) save. Celestials and fiends gain a +2 status bonus to this save.\nCritical Success The target is unaffected and temporarily immune to Whisper Earworm for 24 hours.\nSuccess The target is unaffected.\nFailure The next time the target rests, it ruminates on the deimavigga's words instead of sleeping or otherwise resting and awakens Fatigued. The target also becomes Drained 1 and Stupefied 1 until it's no longer fatigued.\nCritical Failure As failure, but Drained 2. After this rest, the target must attempt another check (will, dc:38) save. On a failure, the target becomes Stupefied 2 and takes a –4 status penalty to Will saves against effects from unholy creatures. These effects last until the target unlearns the truth spoken by the deimavigga, requiring a Rewrite Memory spell, other means of modifying their memory, or powerful magic such as a Wish ritual.\nEffect: Whisper Earworm (Critical Failure)",
+          "traits": [
+            "divine",
+            "emotion",
+            "mental"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "ocaP6LaliHuaCU2C",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 34,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "kycAUAYz8r93C0rh",
+              "name": "Dream Message (At Will)",
+              "rank": 3
+            },
+            {
+              "id": "c7YpC1Ci4OMIRnBv",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "oouqd15CTcFX0aG1",
+              "name": "Illusory Disguise",
+              "rank": 7
+            },
+            {
+              "id": "pZv6rsGlTUq8kBna",
+              "name": "Scrying",
+              "rank": 7
+            },
+            {
+              "id": "RihYX3cP67J9yWkR",
+              "name": "Stupefy (At Will)",
+              "rank": 7
+            },
+            {
+              "id": "3zFMZCBt4olio0o7",
+              "name": "Translocate",
+              "rank": 7
+            },
+            {
+              "id": "yvQzm7VO7AAHiLQL",
+              "name": "Warp Mind",
+              "rank": 7
+            },
+            {
+              "id": "qvXVB3A4zd7I77XB",
+              "name": "Divine Decree",
+              "rank": 9
+            },
+            {
+              "id": "Lhuv3WNAEMk0TbbT",
+              "name": "Dominate",
+              "rank": 9
+            },
+            {
+              "id": "LrGNMndnfZN9X3Nf",
+              "name": "Illusory Scene",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:eseneth",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "TOysExbCm3LNzrDl",
+      "slug": "eseneth",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:fa3e63b1555fa9aa81a0db5bcffa8a9fb01cf1175c166befd59576e660325982",
+    "translatableHash": "sha256:89e92cdb925ebb7e0b13f00b8fcb265c3cca6389536d6d16390afd0984699a6b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eseneth",
+      "level": 17,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "monitor",
+        "psychopomp"
+      ],
+      "description": "Eseneths, commonly known as soul-stitchers, are dispassionate surgeons who repair damaged souls. They operate with professional efficiency, manifesting large stitching needles composed of spirit energy to do their necessary work. An eseneth appears as a slim, hairless, gray-skinned humanoid with no facial features. Patches of dark, raised flesh dot their upper chest and shoulders.\nMany psychopomps are intimately involved with the Boneyard's massive bureaucracy. Few pursue mercy, justice, or personal gain; their duties to Pharasma and her Boneyard are supreme. Nevertheless, individual psychopomps interpret their duties in different ways, which might put them in conflict with mortals or even with each other.",
+      "armorClass": 39,
+      "hitPoints": 290,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 29,
+        "senses": [
+          "darkvision",
+          "lifesense-120"
+        ]
+      },
+      "saves": {
+        "fortitude": 28,
+        "reflex": 32,
+        "will": 27
+      },
+      "abilities": {
+        "str": 8,
+        "dex": 8,
+        "con": 5,
+        "int": 6,
+        "wis": 4,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 33,
+        "athletics": 33,
+        "medicine": 31,
+        "stealth": 33
+      },
+      "languages": [
+        "chthonian",
+        "diabolic",
+        "empyrean",
+        "requian"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease"
+        ],
+        "resistances": [
+          "poison 15",
+          "void 15"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "Eg2Adq54lq90U6gF",
+          "name": "Spirit Needle",
+          "bonus": 33,
+          "damage": "3d10+14 piercing",
+          "traits": [
+            "magical"
+          ]
+        },
+        {
+          "id": "FgQr9udZ1295hNZ3",
+          "name": "Spirit Needle",
+          "bonus": 33,
+          "damage": "3d10+14 piercing",
+          "traits": [
+            "magical",
+            "thrown-30"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "Bnk1kYVLPXkeGjla",
+          "name": "Lifesense 120 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "OseXGVFGFvhKRUWb",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "2cx2PQA7lix3P8oo",
+          "name": "Mend Soul",
+          "kind": "action",
+          "description": "Frequency once per round\nEffect The eseneth restores 25 healing HP to itself or an incorporeal creature it has Grabbed.",
+          "traits": [
+            "manipulate"
+          ]
+        },
+        {
+          "id": "HURkm00g5oujRpFn",
+          "name": "Seize Soul",
+          "kind": "action",
+          "description": "Requirements The eseneth has a corporeal creature Grabbed or Restrained\nEffect The eseneth tries to yank the soul out of the required creature. The eseneth attempts an Athletics check against the target's Fortitude DC.\nCritical Success The eseneth grabs the target's soul. The body is released and is Paralyzed for 2 rounds. When the body ceases being paralyzed, its soul returns instantly, and the target wakes. The soul—grabbed by the eseneth—is incorporeal, is Invisible, has a fly Speed equal to the creature's Speed, and otherwise has all the same statistics. It can't attack, cast spells, or attempt any skill checks that require a physical body other than checks to Escape (DC 38), and it must always maintain line of effect to its body.\nSuccess As critical success, but the paralysis ends after 1 round.\nFailure The target remains grabbed or restrained, but its soul remains in its body.\nCritical Failure The target is no longer grabbed or restrained.",
+          "traits": [
+            "attack",
+            "incapacitation"
+          ]
+        },
+        {
+          "id": "L1Bx8YGunhWmzUhS",
+          "name": "Shepherd's Touch",
+          "kind": "passive",
+          "description": "A eseneth's Strikes affect incorporeal creatures with the effects of a Ghost Touch property rune and deal 2d6 void damage to living creatures and 2d6 vitality damage to undead.",
+          "traits": []
+        },
+        {
+          "id": "YY5wQP6SvaLjjpZK",
+          "name": "Shred Soul",
+          "kind": "action",
+          "description": "Frequency once per round\nRequirements The eseneth has an incorporeal creature Grabbed or Restrained\nEffect The eseneth deals (3d10+14)[force] damage to the required creature.",
+          "traits": []
+        },
+        {
+          "id": "KxtuVKre78DIfkgK",
+          "name": "Spirit Grasp",
+          "kind": "passive",
+          "description": "An eseneth can Grapple incorporeal creatures despite being corporeal. The eseneth uses Athletics to Grapple incorporeal creatures as normal but can't use Athletics for other actions against incorporeal creatures, like Shove or Trip.",
+          "traits": []
+        },
+        {
+          "id": "gm5IV41NyjW38Y7O",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "jsZmimnHZ0Fb3dFD",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "hhn9TPlE4G033rH6",
+              "name": "Invisibility (At will, Self Only)",
+              "rank": 2
+            },
+            {
+              "id": "pGpSixuPq9eT1fTt",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "1Os5JLH8fn88E3n0",
+              "name": "Unfettered Movement (Constant)",
+              "rank": 4
+            },
+            {
+              "id": "mYVZrvc4OzJGwhnW",
+              "name": "Spirit Blast",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:despair-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "5aLSif13KCcvnuLO",
+      "slug": "despair-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:099868e7760b9280925e58286285b6f30ee4da0a04fe638dc3a2d7fa7657c847",
+    "translatableHash": "sha256:ad893a3509b10339a002626b848f1398c1058e81bb9a092393d7ec270daf3501",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Despair Dragon (Ancient)",
+      "level": 18,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "dragon",
+        "occult"
+      ],
+      "description": "Fear is one of the most powerful emotions, and despair dragons are masters of channeling those feelings of terror and hopelessness for their own benefit. As with other occult dragons, despair dragons are driven by an innate compulsion, in their case, the desire to strike terror in others. Despair dragons tend to settle near settlements, so they have a source of fear to draw from. The most common items in despair dragon hoards are scrolls, tomes, and relics that serve as research material. Through these, despair dragons learn of local folklore, urban legends, and more to better haunt their targets.",
+      "armorClass": 41,
+      "hitPoints": 325,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 31,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 28,
+        "reflex": 30,
+        "will": 32
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 4,
+        "int": 5,
+        "wis": 5,
+        "cha": 8
+      },
+      "skills": {
+        "acrobatics": 31,
+        "athletics": 33,
+        "deception": 32,
+        "diplomacy": 32,
+        "intimidation": 35,
+        "occultism": 29,
+        "society": 29,
+        "stealth": 33
+      },
+      "languages": [
+        "common",
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "fear-effects",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "mq904JVyNxtmFV4X",
+          "name": "Jaws",
+          "bonus": 33,
+          "damage": "3d12+20 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "SYPLTHqAQmYgxKer",
+          "name": "Claws",
+          "bonus": 33,
+          "damage": "3d10+20 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "17WZ0S8ST7vMcthy",
+          "name": "Tail",
+          "bonus": 31,
+          "damage": "3d8+18 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "zU9nOUxSthPhZozR",
+          "name": "Telepathy 90 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "LQtS71i0MUK191tk",
+          "name": "Fearsense",
+          "kind": "passive",
+          "description": "The dragon senses all creatures with the frightened condition at the listed range.",
+          "traits": [
+            "emotion",
+            "mental",
+            "occult"
+          ]
+        },
+        {
+          "id": "0urWxnGpb1Pz0gP8",
+          "name": "+2 Status to All Saves vs. Occult",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "ogo4m8E85pSwAqbt",
+          "name": "Consume Fear",
+          "kind": "reaction",
+          "description": "Trigger A creature within 60 feet loses the frightened condition\nEffect The dragon feasts upon the fear that leaves the triggering creature's body, gaining 7d8 temporary Hit Points that last for 1 minute.",
+          "traits": [
+            "occult"
+          ]
+        },
+        {
+          "id": "gEfh2JBGmxpYDpno",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "60 feet. check (will, dc:40, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "jguPXubA9RRMJmGr",
+          "name": "Unbidden Thoughts",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit with a weapon or unarmed attack\nEffect The attacker's mind fills with visions of their worst fears that overwhelm their senses, and they must choose one of the following results: either the triggering attack becomes a normal success, or the critical hit is unaffected but the triggering creature becomes Frightened 2.",
+          "traits": [
+            "emotion",
+            "fear",
+            "mental",
+            "occult"
+          ]
+        },
+        {
+          "id": "tFsdlv6jCbltJ3u3",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw Strikes and one tail Strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "JzeDzMLmHSZ7TFVn",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "The dragon recharges their Shrieking Breath whenever they score a critical hit with a Strike.",
+          "traits": []
+        },
+        {
+          "id": "oFMxWaLY4skr3wjR",
+          "name": "Look Behind You",
+          "kind": "passive",
+          "description": "Trigger The dragon successfully Hides from a creature within 90 feet\nEffect The dragon teleports to a space directly behind the target creature. The dragon immediately becomes detected unless their chosen position has cover or another means to remain Hidden.",
+          "traits": [
+            "occult",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "XaV9EbmhjP3b8nYt",
+          "name": "Shrieking Breath",
+          "kind": "action",
+          "description": "The dragon lets out a cacophonous sound made of every scream the dragon has drawn from a terrified enemy, dealing 17d6 sonic damage in a 50-foot type:cone (check (will, dc:40, basic, options:area-effect) save). Creatures who fail their Will save must spend the first action of their next turn doing nothing but screaming. The dragon can't use Shrieking Breath again for [[/gmr 1d4 #Recharge Shrieking Breath]].",
+          "traits": [
+            "mental",
+            "occult",
+            "sonic"
+          ]
+        },
+        {
+          "id": "IgQebS6T9lTVTa9g",
+          "name": "Tongue Decoy",
+          "kind": "passive",
+          "description": "The despair dragon inflates several bladders at the end of its tongue to create the basic form of a creature. This process takes 1 minute to complete, during which the dragon is Off-Guard. If the dragon stops or is interrupted in this process, the bladders deflate, and the dragon must start over. Once the process is complete, the dragon can maintain the inflated bladders indefinitely, and can Dismiss to deflate the bladders and retract its tongue instantly.\nThe inflated tongue takes the basic form of an animal or humanoid and can be inflated to be either Small or Medium. The form resembles the general silhouette of a creature, though closer inspection and success at a check (perception, dc:30) check can determine the true nature of the tongue. While inflated, the dragon can send its voice through the decoy, though keeping its tongue inflated makes it difficult to speak, causing the dragon to take a –4 circumstance penalty to any checks related to speaking, such as Deception checks to Lie.\nThe dragon's tongue can extend up to 90 feet from the dragon's body and it can fully extend its tongue as part of the process to inflate the bladders. The dragon can move the inflated part of its tongue up to 15 feet at a time with an action, which has the concentrate, manipulate, and move traits. While extended, the inflated end of the tongue occupies space as a creature of the appropriate size, but the rest of the tongue doesn't impede or block movement in any way. The dragon's scent functions through cilia at the end of the tongue, but otherwise the dragon has no means of knowing what's near its tongue.\nAttacking the tongue is the same as attacking the dragon, except that the tongue is always Off-Guard. If the tongue takes any damage, it immediately deflates and remains out. The dragon remains off-guard as long as its tongue is out, but the dragon can retract its tongue with two consecutive Interact actions. If the tongue takes damage, the dragon can't use its tongue decoy again for 1 day.",
+          "traits": [
+            "manipulate",
+            "occult"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "2WgNRvMvvtQdUMc5",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "BREqjedSaVUlCdCL",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            },
+            {
+              "id": "W27gXnK1HHLVBUYt",
+              "name": "Fear (At Will)",
+              "rank": 7
+            },
+            {
+              "id": "BdFDFCote9xdad5D",
+              "name": "Wave of Despair",
+              "rank": 7
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:urveth",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "Loyg6crVl1LcdZ6c",
+      "slug": "urveth",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:a6006b6e157a56c63c91418915e82d1f14e3925874be044f9388c06eda6edb61",
+    "translatableHash": "sha256:06a038a7f2f71660d704c12d4b04ec9f38145b80d861edc07a0255b0b88d9336",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Urveth",
+      "level": 18,
+      "rarity": "common",
+      "size": "gargantuan",
+      "traits": [
+        "darvakka",
+        "shadow",
+        "undead",
+        "unholy"
+      ],
+      "description": "An urveth is a massive, four-armed burrowing terror with a wormlike body and gaping maw that devours everything it can. Urveths burrow deep underground to hide from the sun, emerging under the cover of darkness to kill and consume.\nDarvakkas, also called nightshades, are a ravenous evil made up of equal parts darkness and malice. Originally creatures of the Outer Planes who travel to the convergence of the Shadow Plane and the Void—where the power of nothingness obliterates them—these undead abominations are the physical embodiment of entropy. They burn with an intense hatred for all life, working to bring a final, dark night to the Material Plane where nothing but ash and ice remain.\nAs creatures twisted by darkness and shadow, darvakkas have a great aversion to sunlight and all sources of vitality energy. On the Material Plane, they spend the hours of daylight hidden below ground, amid ruins, or submerged deep in the ocean's darkest chasms beyond the reach of the sun's rays, emerging when darkness shelters them overhead.\nDarvakkas have an aura of entropy that attracts undead thralls to serve as warriors and heralds. They rarely seek alliances with each other or other creatures, existing in solitude as the heads of individual armies of the dead.",
+      "armorClass": 40,
+      "hitPoints": 460,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "greater-darkvision",
+          "lifesense-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 29,
+        "will": 34
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 5,
+        "con": 8,
+        "int": 5,
+        "wis": 6,
+        "cha": 6
+      },
+      "skills": {
+        "arcana": 29,
+        "athletics": 35,
+        "religion": 32,
+        "stealth": 31
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "diabolic",
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [
+          "cold 15"
+        ],
+        "weaknesses": [
+          "holy 15",
+          "silver 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "es9ibq62fqcl30pn",
+          "name": "Jaws",
+          "bonus": 36,
+          "damage": "3d10+14 slashing; 2d10 cold",
+          "traits": [
+            "magical",
+            "reach-15",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "p3fyg7e66y8gq61g",
+          "name": "Claw",
+          "bonus": 36,
+          "damage": "3d6+14 slashing; 2d10 cold",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "1y7qe4eff55izld8",
+          "name": "Stinger",
+          "bonus": 36,
+          "damage": "3d6+14 piercing; 2d10 cold",
+          "traits": [
+            "magical",
+            "poison",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "a0e3JLzKlammUKQN",
+          "name": "Greater Darkvision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "zg7Z1iRkgMeZ4dln",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "IeIZXKmchA7BgVL3",
+          "name": "Lifesense 60 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "c0cED5WAyOCC6wwV",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "f55now7bu1g173vg",
+          "name": "Entropy's Shadow",
+          "kind": "passive",
+          "description": "60 feet. Urveths leak entropy and corruption from their very being. A living creature entering or starting its turn in the aura takes 5d6 void damage with a check (fortitude, dc:38, basic). If it fails, it's also Enfeebled 1 for 1 minute and pulled 10 feet toward the urveth.",
+          "traits": [
+            "aura",
+            "divine",
+            "void"
+          ]
+        },
+        {
+          "id": "3QjbF2vO8TMt8aUt",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "Claw only. An urveth gains 3 extra reactions each round that they can use only to make Reactive Strikes.",
+          "traits": []
+        },
+        {
+          "id": "43rtpaawc0hyjxs2",
+          "name": "Sunlight Powerlessness",
+          "kind": "passive",
+          "description": "A urveth caught in sunlight is Stunned 2 and Clumsy 2.",
+          "traits": []
+        },
+        {
+          "id": "P7FUCg0CYhhrSYXp",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "H9XeL3LQ06KgkEE1",
+          "name": "Frenzy",
+          "kind": "action",
+          "description": "The urveth makes two claw Strikes and one stinger Strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "dIjjf4Tqor8DWWHu",
+          "name": "Swallow Whole",
+          "kind": "action",
+          "description": "Huge, (2d10+5)[bludgeoning], Rupture 35\nA living creature that ends its turn swallowed whole by an urveth becomes Drained 1 or increases its drained condition by 1, and the urveth gains 10 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies.",
+          "traits": [
+            "attack"
+          ]
+        },
+        {
+          "id": "266u1f6h9sli518d",
+          "name": "Urveth Venom",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:37)\nMaximum Duration 6 rounds\nStage 1 3d6 void damage] (1 round)\nStage 2 3d6 void damage], and Enfeebled 2 (1 round)\nStage 3 3d6 void damage], and Enfeebled 4 (1 round)",
+          "traits": [
+            "poison"
+          ]
+        },
+        {
+          "id": "DyODtsSqvxOCAjTD",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "Yv49fZ7FOxFBIwPP",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "vIj3tpNmmkyj6gZJ",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "YPP8yxLHuW6dBk3A",
+              "name": "Darkness (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "EnlzUbGagNisi8kc",
+              "name": "Eclipse Burst",
+              "rank": 7
+            },
+            {
+              "id": "SNMKCPwnj2TgJsVv",
+              "name": "Interplanar Teleport (to the Universe, Void, or Netherworld only)",
+              "rank": 7
+            },
+            {
+              "id": "0jCZ6yhd1GVqTb8m",
+              "name": "Truesight",
+              "rank": 7
+            },
+            {
+              "id": "EdWcUGG4FLEKqJxo",
+              "name": "Harm",
+              "rank": 8
+            },
+            {
+              "id": "IJB57vOyZxNyssuR",
+              "name": "Fly (Constant)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:phase-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "NrfzOgCuPadLmKwj",
+      "slug": "phase-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:71aa0123420d6509ddf9119e5cd68356c84a1aff06c340c375d20c9b7dfdf51f",
+    "translatableHash": "sha256:b939f1ecf0c61b3f5360dd9db6a715d21f8fa91b2fec556458d76d098b780ccd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phase Dragon (Ancient)",
+      "level": 18,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "arcane",
+        "dragon"
+      ],
+      "description": "No place can contain a phase dragon or even hold their interest for long; their innate arcane connection ties them to teleportation and repositioning magic. Explorers and scholars, phase dragons move about at will, discovering new locales and the arcane secrets of teleportation. They frequently establish multiple lairs in far-flung places they repeatedly visit. Beyond the typical wealth found in lairs, phase dragons tend to keep items of sentimental value from their travels, such as a particularly rare flower from the region or a piece by a local artist.",
+      "armorClass": 41,
+      "hitPoints": 250,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 27,
+        "reflex": 32,
+        "will": 31
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 8,
+        "con": 4,
+        "int": 9,
+        "wis": 7,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 34,
+        "arcana": 35,
+        "athletics": 32,
+        "diplomacy": 33,
+        "nature": 31,
+        "occultism": 33,
+        "religion": 31
+      },
+      "languages": [
+        "common",
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "immobilized",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "hwVTHE65N85DrHL2",
+          "name": "Jaws",
+          "bonus": 26,
+          "damage": "3d12+12 piercing",
+          "traits": [
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "KudDtuUSae43oIRA",
+          "name": "Claw",
+          "bonus": 26,
+          "damage": "3d8+12 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-10"
+          ]
+        },
+        {
+          "id": "ukNVJkk1tnyP3Vs7",
+          "name": "Tail",
+          "bonus": 24,
+          "damage": "3d10+12 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "JF2Uc2JjaJccnY8l",
+          "name": "+2 Status to All Saves vs. Arcane",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "Y2kAReDuNOZUARtX",
+          "name": "Shoo!",
+          "kind": "reaction",
+          "description": "Trigger An enemy within 15 feet damages the dragon\nEffect The dragon teleports the creature up to 35 feet away. The destination must be on the ground and in a space with no hazards.",
+          "traits": [
+            "arcane",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "XxJKecC13F9ZMVC0",
+          "name": "Unerring Location",
+          "kind": "passive",
+          "description": "The dragon automatically attempts to counteract any teleportation effect that targets them (counteract rank 9th, counteract modifier [[/r 1d20+32 #Counteract]]). The dragon can choose to be affected normally instead. Other creatures targeted by the same effect remain affected normally.",
+          "traits": []
+        },
+        {
+          "id": "xvkd6bkDrndweeuM",
+          "name": "Blinking Barrage",
+          "kind": "action",
+          "description": "The dragon channels all their teleportation prowess into a remarkable series of blows. The dragon teleports up to 60 feet to a space adjacent to a creature and makes a claw Strike against that creature. The dragon can do this up to four times, teleporting to a different creature each time. Each attack counts toward their multiple attack penalty, but the penalty does not increase until all attacks have been made. The dragon cannot take actions with the teleportation trait again until the end of their next turn.",
+          "traits": [
+            "arcane",
+            "concentrate",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "z6zrzAGUnQzvtxt2",
+          "name": "Dislocating Breath",
+          "kind": "action",
+          "description": "The dragon exhales a swirl of energy that pulls creatures apart, dealing 17d6 force damage in a 50-foot type:cone (check (reflex, dc:40, basic, options:area-effect) save). The dragon can teleport any creature that fails its save, teleporting that creature up to 50 feet (or twice as far on a critical failure) in any direction. The destination must be on the ground and in a space with no hazards. The dragon can't use Dislocating Breath again for [[/gmr 1d4 #Recharge Dislocating Breath]].",
+          "traits": [
+            "arcane",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "O6kyu3EStwpikOKy",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw Strikes and one tail Strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "VlzllOaXXNnvU4jJ",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "Whenever they score a critical hit with a Strike, the dragon chooses to either recharge Dislocating Breath or regain an expended teleportation spell.",
+          "traits": []
+        },
+        {
+          "id": "DR5DVel5zxSC5osK",
+          "name": "Phase Jump",
+          "kind": "action",
+          "description": "Frequency once per round\nEffect The dragon teleports up to 75 feet. If they are airborne, they maintain their momentum, and do not fall at the end of their turn, even if they didn't use an action to Fly.",
+          "traits": [
+            "arcane",
+            "concentrate",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "urfhl0ShllPM8lPS",
+          "name": "Portal Strike",
+          "kind": "action",
+          "description": "The dragon momentarily opens a small portal and makes a claw Strike against a creature within 90 feet. The target is Off-Guard to the Strike.",
+          "traits": [
+            "arcane",
+            "concentrate",
+            "manipulate",
+            "teleportation"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "qH04eSMfzZOzMeXE",
+          "name": "Arcane Innate Spells",
+          "tradition": "arcane",
+          "category": "innate",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "QbcvybUu3KKlRX29",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "2iRhf5JAH4ahbNbQ",
+              "name": "Know the Way (Constant)",
+              "rank": 1
+            },
+            {
+              "id": "PV8VRLRdLIgjW4cc",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "o2p2js0hQnXgWrbQ",
+              "name": "Flicker",
+              "rank": 4
+            },
+            {
+              "id": "lRB9F7iRqsq7qOuT",
+              "name": "Planar Tether",
+              "rank": 4
+            },
+            {
+              "id": "BD2nNYaIt8DdSnwL",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "KYFpPg8ROHgzuv8f",
+              "name": "Translocate",
+              "rank": 5
+            },
+            {
+              "id": "KotFZYRmB3SQKd98",
+              "name": "Teleport",
+              "rank": 6
+            },
+            {
+              "id": "uXEJcyP95LbuGtWk",
+              "name": "Interplanar Teleport",
+              "rank": 7
+            },
+            {
+              "id": "XNOi31ntupEdSto1",
+              "name": "Planar Seal",
+              "rank": 7
+            },
+            {
+              "id": "qlGv3qzCqyOEOxwT",
+              "name": "Quandary",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:phase-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "OEa6bKFqSc11OUl4",
+      "slug": "phase-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8cc99d54edb01dd8ff0b427099ced702347d163e05dab89f41be0b41c998eb76",
+    "translatableHash": "sha256:9e163cc5b8e5c7b7754e24dbd969db02aff590ca32d79499c326052a0a9789b1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phase Dragon (Ancient, Spellcaster)",
+      "level": 18,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "arcane",
+        "dragon"
+      ],
+      "description": "No place can contain a phase dragon or even hold their interest for long; their innate arcane connection ties them to teleportation and repositioning magic. Explorers and scholars, phase dragons move about at will, discovering new locales and the arcane secrets of teleportation. They frequently establish multiple lairs in far-flung places they repeatedly visit. Beyond the typical wealth found in lairs, phase dragons tend to keep items of sentimental value from their travels, such as a particularly rare flower from the region or a piece by a local artist.",
+      "armorClass": 41,
+      "hitPoints": 250,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 27,
+        "reflex": 32,
+        "will": 31
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 8,
+        "con": 4,
+        "int": 9,
+        "wis": 7,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 34,
+        "arcana": 35,
+        "athletics": 32,
+        "diplomacy": 33,
+        "nature": 31,
+        "occultism": 33,
+        "religion": 31
+      },
+      "languages": [
+        "common",
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "immobilized",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "hwVTHE65N85DrHL2",
+          "name": "Jaws",
+          "bonus": 26,
+          "damage": "3d12+12 piercing",
+          "traits": [
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "KudDtuUSae43oIRA",
+          "name": "Claw",
+          "bonus": 26,
+          "damage": "3d8+12 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-10"
+          ]
+        },
+        {
+          "id": "ukNVJkk1tnyP3Vs7",
+          "name": "Tail",
+          "bonus": 24,
+          "damage": "3d10+12 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "JF2Uc2JjaJccnY8l",
+          "name": "+2 Status to All Saves vs. Arcane",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "Y2kAReDuNOZUARtX",
+          "name": "Shoo!",
+          "kind": "reaction",
+          "description": "Trigger An enemy within 15 feet damages the dragon\nEffect The dragon teleports the creature up to 35 feet away. The destination must be on the ground and in a space with no hazards.",
+          "traits": [
+            "arcane",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "XxJKecC13F9ZMVC0",
+          "name": "Unerring Location",
+          "kind": "passive",
+          "description": "The dragon automatically attempts to counteract any teleportation effect that targets them (counteract rank 9th, counteract modifier [[/r 1d20+32 #Counteract]]). The dragon can choose to be affected normally instead. Other creatures targeted by the same effect remain affected normally.",
+          "traits": []
+        },
+        {
+          "id": "xvkd6bkDrndweeuM",
+          "name": "Blinking Barrage",
+          "kind": "action",
+          "description": "The dragon channels all their teleportation prowess into a remarkable series of blows. The dragon teleports up to 60 feet to a space adjacent to a creature and makes a claw Strike against that creature. The dragon can do this up to four times, teleporting to a different creature each time. Each attack counts toward their multiple attack penalty, but the penalty does not increase until all attacks have been made. The dragon cannot take actions with the teleportation trait again until the end of their next turn.",
+          "traits": [
+            "arcane",
+            "concentrate",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "z6zrzAGUnQzvtxt2",
+          "name": "Dislocating Breath",
+          "kind": "action",
+          "description": "The dragon exhales a swirl of energy that pulls creatures apart, dealing 17d6 force damage in a 50-foot type:cone (check (reflex, dc:40, basic, options:area-effect) save). The dragon can teleport any creature that fails its save, teleporting that creature up to 50 feet (or twice as far on a critical failure) in any direction. The destination must be on the ground and in a space with no hazards. The dragon can't use Dislocating Breath again for [[/gmr 1d4 #Recharge Dislocating Breath]].",
+          "traits": [
+            "arcane",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "DR5DVel5zxSC5osK",
+          "name": "Phase Jump",
+          "kind": "action",
+          "description": "Frequency once per round\nEffect The dragon teleports up to 75 feet. If they are airborne, they maintain their momentum, and do not fall at the end of their turn, even if they didn't use an action to Fly.",
+          "traits": [
+            "arcane",
+            "concentrate",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "urfhl0ShllPM8lPS",
+          "name": "Portal Strike",
+          "kind": "action",
+          "description": "The dragon momentarily opens a small portal and makes a claw Strike against a creature within 90 feet. The target is Off-Guard to the Strike.",
+          "traits": [
+            "arcane",
+            "concentrate",
+            "manipulate",
+            "teleportation"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "zs8F4fATLIzqtu8O",
+          "name": "Arcane Prepared Spells",
+          "tradition": "arcane",
+          "category": "prepared",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "C6JeilJpxIl2mgZr",
+              "name": "Ant Haul",
+              "rank": 1
+            },
+            {
+              "id": "ydJjbvAodnLdQJ0L",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "kkP9yce8k1YYiL6k",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "oyV2MAJJsSXf6OTc",
+              "name": "Force Barrage",
+              "rank": 1
+            },
+            {
+              "id": "WlHZhF4n4UEb6vx8",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "hvcbzQm2IN8jnOSI",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "4CNBXNmUfeWTawzY",
+              "name": "Tailwind",
+              "rank": 1
+            },
+            {
+              "id": "DB66dnNV18eKwpfv",
+              "name": "Telekinetic Projectile",
+              "rank": 1
+            },
+            {
+              "id": "USVNvE3GWgzC49eG",
+              "name": "Blur",
+              "rank": 2
+            },
+            {
+              "id": "GqXB1pqZrLxlNjmM",
+              "name": "Dispel Magic",
+              "rank": 2
+            },
+            {
+              "id": "LUjIzizabp1KMEJJ",
+              "name": "Humanoid Form",
+              "rank": 2
+            },
+            {
+              "id": "AHxMDGrUoh9bMjXv",
+              "name": "Clairaudience",
+              "rank": 3
+            },
+            {
+              "id": "ZZghjZHgNwd1zYXQ",
+              "name": "Haste",
+              "rank": 3
+            },
+            {
+              "id": "UfMVjUnmhvjBrgIP",
+              "name": "Safe Passage",
+              "rank": 3
+            },
+            {
+              "id": "MYFwOd7oVoxBsmsG",
+              "name": "Liminal Doorway",
+              "rank": 4
+            },
+            {
+              "id": "DxEqADdH4fMb9EMi",
+              "name": "Mirage",
+              "rank": 4
+            },
+            {
+              "id": "8uFgLXwwZmt0u94U",
+              "name": "Unfettered Movement",
+              "rank": 4
+            },
+            {
+              "id": "9Z1bw6pM5pGWuNmP",
+              "name": "Banishment",
+              "rank": 5
+            },
+            {
+              "id": "JG6Xu8Ejun3RS4Eh",
+              "name": "Sending",
+              "rank": 5
+            },
+            {
+              "id": "MZPWwvtEYYTtJQFn",
+              "name": "Disintegrate",
+              "rank": 6
+            },
+            {
+              "id": "FleVVhva5e6zZn71",
+              "name": "Scrying",
+              "rank": 6
+            },
+            {
+              "id": "Sn04T2LjqTD8s6Zs",
+              "name": "Teleport",
+              "rank": 6
+            },
+            {
+              "id": "zu5rpEGwkRrCF9CX",
+              "name": "Wall of Force",
+              "rank": 6
+            },
+            {
+              "id": "PC7XxCb0u6D6CrL1",
+              "name": "Contingency",
+              "rank": 7
+            },
+            {
+              "id": "72c0ZaUG9BTHehfy",
+              "name": "Energy Aegis",
+              "rank": 7
+            },
+            {
+              "id": "DTsMiSvI8WN0PeBw",
+              "name": "Retrocognition",
+              "rank": 7
+            },
+            {
+              "id": "JjjdNpHfdUZYYsQn",
+              "name": "Pinpoint",
+              "rank": 8
+            }
+          ]
+        },
+        {
+          "id": "qH04eSMfzZOzMeXE",
+          "name": "Arcane Innate Spells",
+          "tradition": "arcane",
+          "category": "innate",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "QbcvybUu3KKlRX29",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "2iRhf5JAH4ahbNbQ",
+              "name": "Know the Way (Constant)",
+              "rank": 1
+            },
+            {
+              "id": "PV8VRLRdLIgjW4cc",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "o2p2js0hQnXgWrbQ",
+              "name": "Flicker",
+              "rank": 4
+            },
+            {
+              "id": "lRB9F7iRqsq7qOuT",
+              "name": "Planar Tether",
+              "rank": 4
+            },
+            {
+              "id": "BD2nNYaIt8DdSnwL",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "KYFpPg8ROHgzuv8f",
+              "name": "Translocate",
+              "rank": 5
+            },
+            {
+              "id": "KotFZYRmB3SQKd98",
+              "name": "Teleport",
+              "rank": 6
+            },
+            {
+              "id": "uXEJcyP95LbuGtWk",
+              "name": "Interplanar Teleport",
+              "rank": 7
+            },
+            {
+              "id": "XNOi31ntupEdSto1",
+              "name": "Planar Seal",
+              "rank": 7
+            },
+            {
+              "id": "qlGv3qzCqyOEOxwT",
+              "name": "Quandary",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:shoggoth",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "p4GHJGguGRp5ucHV",
+      "slug": "shoggoth",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5e527ed0579b1bba2d142579e904a1fee36d18b8b5c1965266d8369d94f3a4fc",
+    "translatableHash": "sha256:93f20f6aeaf65503fbb97b1b2080d963cb114335416e8e6062dfdba6df5394f8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shoggoth",
+      "level": 18,
+      "rarity": "rare",
+      "size": "huge",
+      "traits": [
+        "aberration",
+        "amphibious"
+      ],
+      "description": "Although even raving fanatics and doom-saying prophets desperately claim the monstrous shoggoth is nothing more than a drug-induced vision or a thankfully unreal nightmare, the truth is altogether more dire. Shoggoths exist, yet they tend keep to the deepest of ocean trenches or the most remote of caverns and ruins, emerging to spread chaos and destruction in their slimy wakes.\nThe first shoggoths were created by an alien species to serve as mindless beasts of burden. Their vast bulk, incredible strength, and amorphous nature made them useful slave labor, and their ability to spontaneously form whatever new eyes, mouths, limbs, and other organs they might need made them incredibly versatile. Eventually, the shoggoths developed enough intelligence to rebel against their masters, and now they lurk, patient but potent, in the lightless deeps.\nA shoggoth has goals and methods unknowable to humanoid beings. They remember their eons of servitude and, compared to their mysterious masters, humans, elves, dwarves and other intelligent beings are mere specks which crawl upon the surface of the world, indistinguishable from animals. When a shoggoth rolls its immense, hideous body over a band of explorers, engulfing them in a gelatinous press of flesh and gnawing teeth, it is not so much evil as uncaring.\nShoggoths can become the object of worship for humanoid cults dedicated to chaos and entropy. The shoggoth does not respond to this worship, but it can be counted on to consume any hapless victim the cult can capture and sacrifice to it. Rumors of shoggoths that have developed even greater intellects are, one would hope, just that, for the damage a shoggoth capable of reasoning could wreak upon a world is unsettling to say the least.",
+      "armorClass": 39,
+      "hitPoints": 275,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60",
+          "tremorsense-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 33,
+        "reflex": 30,
+        "will": 30
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 6,
+        "con": 9,
+        "int": -3,
+        "wis": 6,
+        "cha": 1
+      },
+      "skills": {
+        "athletics": 36,
+        "intimidation": 29
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [
+          "blinded",
+          "controlled",
+          "critical-hits",
+          "deafened",
+          "precision",
+          "sleep"
+        ],
+        "resistances": [
+          "acid 20",
+          "cold 20",
+          "sonic 20"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "yrfY15KIhcsy07PS",
+          "name": "Pseudopod",
+          "bonus": 35,
+          "damage": "4d10+18 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-30",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "EISoRK24Azg22k0m",
+          "name": "Tremorsense (Imprecise) 60 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "d1Cp4BUTiymkJs98",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "HO9oEygHulZKXSSM",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "Dy5EMIJUvL46ibmR",
+          "name": "Fast Healing 20",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "6Y0H1qKcOuLLE2PK",
+          "name": "Maddening Cacophony",
+          "kind": "passive",
+          "description": "60 feet. A shoggoth constantly voices syllables and mutterings that mortals were not meant to hear. A creature entering the aura or starting its turn in the aura must succeed at a check (will, dc:38, options:area-effect,inflicts:confused) save or become Confused for 1 round ([[/gmr 2d4 #rounds]] on a critical failure). A creature that successfully saves is temporarily immune for 24 hours.",
+          "traits": [
+            "auditory",
+            "aura",
+            "incapacitation",
+            "mental"
+          ]
+        },
+        {
+          "id": "HknPH5MLDixmpO4o",
+          "name": "Constrict",
+          "kind": "action",
+          "description": "(2d10+15)[bludgeoning], check (fortitude, dc:40, basic)",
+          "traits": []
+        },
+        {
+          "id": "avV91CD5YGdSAFSf",
+          "name": "Eat Away",
+          "kind": "passive",
+          "description": "A creature that begins its turn inside the shoggoth takes 9d6 acid damage.",
+          "traits": []
+        },
+        {
+          "id": "GSyhdPMQNpUa9LQJ",
+          "name": "Engulf",
+          "kind": "action",
+          "description": "check (reflex, dc:40, options:damaging-effect,inflicts:grabbed,inflicts:slowed), 6d6 acid damage, [[/act escape dc=40]], Rupture 40",
+          "traits": []
+        },
+        {
+          "id": "COj5z6LGtivQPuf0",
+          "name": "Grab",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:katpaskir",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "TbkLKyfQI6hBwaVo",
+      "slug": "katpaskir",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:0600be3038949a13b45ed36c807e5b440115c2353455a7141042327c71abd7a8",
+    "translatableHash": "sha256:5ed723f6403ff188fb1190f6cd4c5ed5317037406c0e8f11d738564e4fad6d3c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Katpaskir",
+      "level": 18,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "demon",
+        "fiend",
+        "unholy"
+      ],
+      "description": "Born of the souls of doomsayers and cult leaders who sought to undermine and unravel reality, katpaskirs are demons of nihilism and unmaking. They pry into the edges of reality, placing themselves into the cracks between realms and scratching away at the composure of existence itself. Katpaskirs have an uncanny sense for locating portals and other planar convergences. They seek to corrupt and expand these gateways, setting them loose to expand on their own or drift across the multiverse. As they do, they slowly contribute to the ultimate unraveling of reality. Katpaskirs often appear as insectile humanoids with multiple arms or legs, each capable of scratching and clawing away at the seams of existence.",
+      "armorClass": 41,
+      "hitPoints": 415,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 31,
+        "senses": [
+          "darkvision",
+          "see-invisibility"
+        ]
+      },
+      "saves": {
+        "fortitude": 35,
+        "reflex": 29,
+        "will": 30
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 5,
+        "con": 9,
+        "int": 7,
+        "wis": 6,
+        "cha": 5
+      },
+      "skills": {
+        "acrobatics": 31,
+        "arcana": 35,
+        "deception": 31,
+        "occultism": 33,
+        "religion": 32,
+        "stealth": 31,
+        "thievery": 31
+      },
+      "languages": [
+        "aklo",
+        "chthonian",
+        "common",
+        "draconic",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [
+          "poison"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 15",
+          "holy 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "TEusVaKtUP4r9pct",
+          "name": "Claw",
+          "bonus": 34,
+          "damage": "3d12+14 slashing; 1d6 spirit",
+          "traits": [
+            "magical",
+            "unarmed",
+            "unholy"
+          ]
+        },
+        {
+          "id": "CeMnX0QFo8I8Rb95",
+          "name": "Talon",
+          "bonus": 34,
+          "damage": "3d8+14 slashing; 1d6 spirit",
+          "traits": [
+            "agile",
+            "magical",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "4A3T6njQ9VRFvp6m",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "KX50wCOuxXd6QMHv",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "07YDS12fytfqO5il",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "zJMxnCoMxMuUOhQ4",
+          "name": "Breach Planar Wards",
+          "kind": "passive",
+          "description": "Trigger An effect attempts to prevent the katpaskir from using a teleportation effect or from casting Summon Fiend\nEffect The katpaskir attempts to counteract the triggering effect (counteract modifier of [[/r 1d20+29 #Counteract]]). The katpaskir automatically fails against an artifact's effect.",
+          "traits": []
+        },
+        {
+          "id": "wv2jreZ6OKD7iboM",
+          "name": "Distortion Field",
+          "kind": "passive",
+          "description": "30 feet. Reality bends and warps on the level of all senses without displacing the katpaskir's actual location. Creatures of the katpaskir's choice who start their turn in the aura must succeed at a check (will, dc:37) save or treat the area as greater difficult terrain and uneven ground ([[/act balance dc=20]]). A creature who succeeds still treats the area as difficult terrain. For such creatures, the distance through the aura is doubled for determining range penalty.",
+          "traits": [
+            "aura"
+          ]
+        },
+        {
+          "id": "KyMj8mEHMYtcr0nn",
+          "name": "Mirrored Summons",
+          "kind": "reaction",
+          "description": "Trigger A creature within 30 feet that the katpaskir is aware of casts Summon Celestial or otherwise summons a holy creature\nEffect The katpaskir casts summon fiend, regaining the daily ability to do so if needed. This effect is automatically sustained as long as the triggering summoning is sustained, for up to 1 minute.",
+          "traits": []
+        },
+        {
+          "id": "KCMKv3sljGPTzd6c",
+          "name": "Warp Sense",
+          "kind": "passive",
+          "description": "The katpaskir senses changes in the planar fabric within 1 mile, including any teleportation effect, sensing the direction and distance to the disturbance. If it senses such a disturbance within 500 feet, the katpaskir can cast Scouting Eye to observe the area without needing line of sight to the location.",
+          "traits": []
+        },
+        {
+          "id": "TJUpGJx18jtv9pnw",
+          "name": "Dimensional Ambush",
+          "kind": "action",
+          "description": "The katpaskir casts Translocate, then makes a melee Strike that deals three extra dice of damage. This Strike counts as two attacks when calculating the katpaskir's multiple attack penalty.",
+          "traits": [
+            "divine",
+            "teleportation"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "bGqLe5wJ9e5cypB9",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "mlxyIrg5LsLVXlwY",
+              "name": "Planar Tether (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "FdqNXgYytrpbJjkQ",
+              "name": "Scouting Eye (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "z4YqT5T6vgw63tMx",
+              "name": "Translocate (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "Dt4AB3dgWjriU696",
+              "name": "Interplanar Teleport",
+              "rank": 7
+            },
+            {
+              "id": "RsyzUgxXV4ylVXnG",
+              "name": "Teleport",
+              "rank": 7
+            },
+            {
+              "id": "eHZhwn88cHIQVsBK",
+              "name": "Banishment",
+              "rank": 8
+            },
+            {
+              "id": "8T2sNr0RHZH7SQal",
+              "name": "Disintegrate",
+              "rank": 8
+            },
+            {
+              "id": "QpWsGyyviBVaXk0y",
+              "name": "Flicker",
+              "rank": 8
+            },
+            {
+              "id": "fJLGPCu3WqUm616T",
+              "name": "See the Unseen (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "SsKeitRXd8FXK4L4",
+              "name": "Summon Fiend (Demons only)",
+              "rank": 9
+            },
+            {
+              "id": "6s50vozD5NGq0QEX",
+              "name": "Unfettered Movement (Constant)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:adamant-sentinel",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "w6MKljfQYYaCYsFR",
+      "slug": "adamant-sentinel",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:3cb1743854cf3f8dbdf0959b9e67705623af3450bb7840d0049d9cfe7538f668",
+    "translatableHash": "sha256:eb4c027e39422861f1338dca40107adb5f4955aad193658e6b85c86cd6322d56",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Adamant Sentinel",
+      "level": 18,
+      "rarity": "rare",
+      "size": "huge",
+      "traits": [
+        "construct",
+        "mindless"
+      ],
+      "description": "Crafted from a nigh-indestructible metal of great rarity, adamant sentinels can't be destroyed except by the most powerful foes. Crafting an adamant sentinel requires a quantity of adamantine so massive that collecting it usually requires mounting a mining expedition to a distant planet, the Plane of Earth, or an Outer Plane.",
+      "armorClass": 42,
+      "hitPoints": 255,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 26,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 33,
+        "reflex": 27,
+        "will": 29
+      },
+      "abilities": {
+        "str": 9,
+        "dex": -1,
+        "con": 9,
+        "int": -5,
+        "wis": 0,
+        "cha": -5
+      },
+      "skills": {
+        "athletics": 38
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "physical 20 except vorpal-adamantine",
+          "spells 20"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "RVKn86nfvO4Zlgzq",
+          "name": "Fist",
+          "bonus": 35,
+          "damage": "3d10+17 bludgeoning",
+          "traits": [
+            "deadly-3d12",
+            "magical",
+            "reach-15"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "vzKvAZRlu4GWvWhV",
+          "name": "Repair Mode",
+          "kind": "passive",
+          "description": "When the adamant sentinel is at 0 HP, it isn't destroyed. Instead, it enters repair mode, during which it's Slowed 1, can't take reactions, and can take only the Self-Repair action. Once it has more than 30 HP, it can use any type of action and can use reactions, though it remains slowed 1 and can't take any reactions until the start of its next turn. If a critical hit with a Vorpal adamantine weapon reduces the sentinel to 0 HP, or if such a weapon hits it while it's already at 0 HP, the sentinel is destroyed.",
+          "traits": []
+        },
+        {
+          "id": "CH5GoYz2ZgnnwodL",
+          "name": "Destructive Strike",
+          "kind": "passive",
+          "description": "On a critical hit, the adamant sentinel's fist Strike breaks the target's armor, if any, in addition to dealing damage to the target. If the target has a shield raised, the sentinel breaks the shield instead.",
+          "traits": []
+        },
+        {
+          "id": "BMzVFs0AdPpW1E9J",
+          "name": "Inexorable March",
+          "kind": "action",
+          "description": "The adamant sentinel Strides up to its Speed, pushing back each creature whose space it moves into and damaging them if they try to stop its movement. A creature can try to bar the way by attempting a check (fortitude, dc:45, options:damaging-effect) save.\nCritical Success The sentinel halts its movement and cannot enter the creature's square.\nSuccess As critical success, but the resisting creature takes (3d10+17)[bludgeoning] damage.\nFailure The resisting creature takes (3d10+17)[bludgeoning] damage, and its armor, if any, is broken. If the resisting creature has a shield raised, the sentinel breaks the shield instead.",
+          "traits": []
+        },
+        {
+          "id": "zheqb66ZfWQy3rCc",
+          "name": "Self-Repair",
+          "kind": "action",
+          "description": "The sentinel repairs itself, regaining 30 healing Hit Points.",
+          "traits": [
+            "manipulate"
+          ]
+        },
+        {
+          "id": "LcTLFm6mVOfK9AEb",
+          "name": "Vent",
+          "kind": "action",
+          "description": "The sentinel vents a 30-foot type:cone of superheated steam from its internal forge. This deals 15d6 fire damage to all creatures in the cone (check (reflex, dc:40, basic, options:area-effect)). The sentinel can't use Vent again for [[/gmr 1d6 #Recharge Vent]].",
+          "traits": [
+            "fire"
+          ]
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:despair-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "wfsRPYfsXIEhNEXd",
+      "slug": "despair-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:cfa67ce0b4f82bdb204d6993cce9a08026c416e6a2c88b97e14b9fe3f21fbfcb",
+    "translatableHash": "sha256:9818ad7e04e2ce46170d26934dcfefa56252fe377cc65d3e2d55c9db5ff12f97",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Despair Dragon (Ancient, Spellcaster)",
+      "level": 18,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "dragon",
+        "occult"
+      ],
+      "description": "Fear is one of the most powerful emotions, and despair dragons are masters of channeling those feelings of terror and hopelessness for their own benefit. As with other occult dragons, despair dragons are driven by an innate compulsion, in their case, the desire to strike terror in others. Despair dragons tend to settle near settlements, so they have a source of fear to draw from. The most common items in despair dragon hoards are scrolls, tomes, and relics that serve as research material. Through these, despair dragons learn of local folklore, urban legends, and more to better haunt their targets.",
+      "armorClass": 41,
+      "hitPoints": 325,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 31,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 28,
+        "reflex": 30,
+        "will": 32
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 4,
+        "int": 5,
+        "wis": 5,
+        "cha": 8
+      },
+      "skills": {
+        "acrobatics": 31,
+        "athletics": 33,
+        "deception": 32,
+        "diplomacy": 32,
+        "intimidation": 35,
+        "occultism": 29,
+        "society": 29,
+        "stealth": 33
+      },
+      "languages": [
+        "common",
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "fear-effects",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "mq904JVyNxtmFV4X",
+          "name": "Jaws",
+          "bonus": 33,
+          "damage": "3d12+20 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "SYPLTHqAQmYgxKer",
+          "name": "Claws",
+          "bonus": 33,
+          "damage": "3d10+20 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "17WZ0S8ST7vMcthy",
+          "name": "Tail",
+          "bonus": 31,
+          "damage": "3d8+18 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "XuUiLZ0Z6tYuTEdN",
+          "name": "Telepathy 90 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "LQtS71i0MUK191tk",
+          "name": "Fearsense",
+          "kind": "passive",
+          "description": "The dragon senses all creatures with the frightened condition at the listed range.",
+          "traits": [
+            "emotion",
+            "mental",
+            "occult"
+          ]
+        },
+        {
+          "id": "0urWxnGpb1Pz0gP8",
+          "name": "+2 Status to All Saves vs. Occult",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "ogo4m8E85pSwAqbt",
+          "name": "Consume Fear",
+          "kind": "reaction",
+          "description": "Trigger A creature within 60 feet loses the frightened condition\nEffect The dragon feasts upon the fear that leaves the triggering creature's body, gaining 7d8 temporary Hit Points that last for 1 minute.",
+          "traits": [
+            "occult"
+          ]
+        },
+        {
+          "id": "gEfh2JBGmxpYDpno",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "60 feet. check (will, dc:40, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "jguPXubA9RRMJmGr",
+          "name": "Unbidden Thoughts",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit with a weapon or unarmed attack\nEffect The attacker's mind fills with visions of their worst fears that overwhelm their senses, and they must choose one of the following results: either the triggering attack becomes a normal success, or the critical hit is unaffected but the triggering creature becomes Frightened 2.",
+          "traits": [
+            "emotion",
+            "fear",
+            "mental",
+            "occult"
+          ]
+        },
+        {
+          "id": "oFMxWaLY4skr3wjR",
+          "name": "Look Behind You",
+          "kind": "passive",
+          "description": "Trigger The dragon successfully Hides from a creature within 90 feet\nEffect The dragon teleports to a space directly behind the target creature. The dragon immediately becomes detected unless their chosen position has cover or another means to remain Hidden.",
+          "traits": [
+            "occult",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "XaV9EbmhjP3b8nYt",
+          "name": "Shrieking Breath",
+          "kind": "action",
+          "description": "The dragon lets out a cacophonous sound made of every scream the dragon has drawn from a terrified enemy, dealing 17d6 sonic damage in a 50-foot type:cone (check (will, dc:40, basic, options:area-effect) save). Creatures who fail their Will save must spend the first action of their next turn doing nothing but screaming. The dragon can't use Shrieking Breath again for [[/gmr 1d4 #Recharge Shrieking Breath]].",
+          "traits": [
+            "mental",
+            "occult",
+            "sonic"
+          ]
+        },
+        {
+          "id": "IgQebS6T9lTVTa9g",
+          "name": "Tongue Decoy",
+          "kind": "passive",
+          "description": "The despair dragon inflates several bladders at the end of its tongue to create the basic form of a creature. This process takes 1 minute to complete, during which the dragon is Off-Guard. If the dragon stops or is interrupted in this process, the bladders deflate, and the dragon must start over. Once the process is complete, the dragon can maintain the inflated bladders indefinitely, and can Dismiss to deflate the bladders and retract its tongue instantly.\nThe inflated tongue takes the basic form of an animal or humanoid and can be inflated to be either Small or Medium. The form resembles the general silhouette of a creature, though closer inspection and success at a check (perception, dc:30) check can determine the true nature of the tongue. While inflated, the dragon can send its voice through the decoy, though keeping its tongue inflated makes it difficult to speak, causing the dragon to take a –4 circumstance penalty to any checks related to speaking, such as Deception checks to Lie.\nThe dragon's tongue can extend up to 90 feet from the dragon's body and it can fully extend its tongue as part of the process to inflate the bladders. The dragon can move the inflated part of its tongue up to 15 feet at a time with an action, which has the concentrate, manipulate, and move traits. While extended, the inflated end of the tongue occupies space as a creature of the appropriate size, but the rest of the tongue doesn't impede or block movement in any way. The dragon's scent functions through cilia at the end of the tongue, but otherwise the dragon has no means of knowing what's near its tongue.\nAttacking the tongue is the same as attacking the dragon, except that the tongue is always Off-Guard. If the tongue takes any damage, it immediately deflates and remains out. The dragon remains off-guard as long as its tongue is out, but the dragon can retract its tongue with two consecutive Interact actions. If the tongue takes damage, the dragon can't use its tongue decoy again for 1 day.",
+          "traits": [
+            "manipulate",
+            "occult"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "LfsJktPWqZDu90OD",
+          "name": "Occult Prepared Spells",
+          "tradition": "occult",
+          "category": "prepared",
+          "attackModifier": 31,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "0JhEHH4NzGfeHjCq",
+              "name": "Command",
+              "rank": 1
+            },
+            {
+              "id": "R7EfsHhhz56UUyQX",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "4k1aL0ZZZR1BqKrR",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "LT9DGBfiDhfZhHUF",
+              "name": "Haunting Hymn",
+              "rank": 1
+            },
+            {
+              "id": "QqIWHMWdlEmmVDw0",
+              "name": "Ill Omen",
+              "rank": 1
+            },
+            {
+              "id": "LDPwE8ngyiyny8ei",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "TaadLhwLjwafQ3Hn",
+              "name": "Sleep",
+              "rank": 1
+            },
+            {
+              "id": "5K1mrVl9GPxO9uQ8",
+              "name": "Telekinetic Projectile",
+              "rank": 1
+            },
+            {
+              "id": "1HvJZV4Rum19HFLj",
+              "name": "Ventriloquism",
+              "rank": 1
+            },
+            {
+              "id": "4Nk4tM4UmY9qjMFt",
+              "name": "Darkness",
+              "rank": 2
+            },
+            {
+              "id": "AyXNv8hpdSmrL9Ns",
+              "name": "Noise Blast",
+              "rank": 2
+            },
+            {
+              "id": "zFpZGatoPeLqgZvQ",
+              "name": "Paranoia",
+              "rank": 2
+            },
+            {
+              "id": "yBpXoXBgjnOZHxV3",
+              "name": "Stupefy",
+              "rank": 2
+            },
+            {
+              "id": "UldhgAYSDHNN5h60",
+              "name": "Mind Reading",
+              "rank": 3
+            },
+            {
+              "id": "07S2PE07wqKAjOMi",
+              "name": "Slow",
+              "rank": 3
+            },
+            {
+              "id": "Mq749yJKAQgUlp8Y",
+              "name": "Detect Scrying",
+              "rank": 4
+            },
+            {
+              "id": "jNiAb8NMMWGZhMhw",
+              "name": "Nightmare",
+              "rank": 4
+            },
+            {
+              "id": "p0y2FMM1TqcXb1hk",
+              "name": "Strange Geometry",
+              "rank": 5
+            },
+            {
+              "id": "6KBfu5ZZDtF8MjCO",
+              "name": "Synaptic Pulse",
+              "rank": 5
+            },
+            {
+              "id": "QN5MnDiBr4MQk87T",
+              "name": "Wave of Despair",
+              "rank": 5
+            },
+            {
+              "id": "yWWFMObeiF19kfKG",
+              "name": "Mislead",
+              "rank": 6
+            },
+            {
+              "id": "Maf6LXbkBFHo0ibf",
+              "name": "Phantasmal Calamity",
+              "rank": 6
+            },
+            {
+              "id": "dpeHp1d7mU6rSvvi",
+              "name": "Scrying",
+              "rank": 6
+            },
+            {
+              "id": "6MpuYfd1IzcMp0Vr",
+              "name": "Mask of Terror",
+              "rank": 7
+            },
+            {
+              "id": "JQTDhyZa6Wic5NSP",
+              "name": "Visions of Danger",
+              "rank": 7
+            },
+            {
+              "id": "6L1cCCYwpXFMytjD",
+              "name": "Canticle of Everlasting Grief",
+              "rank": 8
+            },
+            {
+              "id": "gmnJjXdFclvMiJgV",
+              "name": "Hidden Mind",
+              "rank": 8
+            },
+            {
+              "id": "dg0NhFa1hOBVWUuy",
+              "name": "Pinpoint",
+              "rank": 8
+            }
+          ]
+        },
+        {
+          "id": "2WgNRvMvvtQdUMc5",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 32,
+          "saveDc": 40,
+          "spells": [
+            {
+              "id": "BREqjedSaVUlCdCL",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            },
+            {
+              "id": "W27gXnK1HHLVBUYt",
+              "name": "Fear (At Will)",
+              "rank": 7
+            },
+            {
+              "id": "BdFDFCote9xdad5D",
+              "name": "Wave of Despair",
+              "rank": 7
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:obcisidaemon",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "5AafVmcECTFaicll",
+      "slug": "obcisidaemon",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:68071f67d39677bc542d4b39168cd707235b98cb1b4997b8ee6a2536b784e57f",
+    "translatableHash": "sha256:c4fd8a5a2babd9f705800155bddb1e900d9d16b4d366ec4b5fea26181587eef9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Obcisidaemon",
+      "level": 19,
+      "rarity": "common",
+      "size": "gargantuan",
+      "traits": [
+        "daemon",
+        "fiend",
+        "unholy"
+      ],
+      "description": "While war can have many facets, obcisidaemons care only for the brutality and violence that conflict brings. These devastating daemons seek only to destroy, leaving rubble and ash in their wake. Reflecting the mortal desire to fully eradicate one's enemy, obcisidaemons never intentionally leave a soul behind in their war paths. They claim the souls of those they slaughter, adding them to a profane cloak that seeps from their bodies as a clinging mist. Souls added to the cloak are unable to travel into the afterlife, and most obcisidaemons can hold only a handful of these souls at a time. Whenever an obcisidaemon's cloak is overburdened or during times when the fiend needs greater power, they consume a soul and receive rejuvenation or the might they need to cause further destruction.",
+      "armorClass": 43,
+      "hitPoints": 425,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 35,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 35,
+        "reflex": 29,
+        "will": 32
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 4,
+        "con": 8,
+        "int": 4,
+        "wis": 5,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 33,
+        "athletics": 39,
+        "deception": 34,
+        "intimidation": 36,
+        "religion": 32
+      },
+      "languages": [
+        "common",
+        "daemonic"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "Qdc3rwbtDJafOhc0",
+          "name": "Halberd",
+          "bonus": 36,
+          "damage": "3d10+23 piercing",
+          "traits": [
+            "magical",
+            "reach-25",
+            "unholy",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "vsmkhx2KExY8JeAO",
+          "name": "Jaws",
+          "bonus": 34,
+          "damage": "4d6+20 piercing",
+          "traits": [
+            "magical",
+            "reach-15",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "yU6CGgm8we5hKDNy",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "FlD58esbuTTmEz45",
+          "name": "Cloak of Souls",
+          "kind": "passive",
+          "description": "An obcisidaemon is shrouded at all times in a cloak of captured souls. It can hold a number of souls equal to the daemon's Charisma modifier. Destroying the daemon frees the souls, though this doesn't return the deceased creatures to life. A creature whose soul is trapped within this cloak can't be resurrected except by a 9th-rank Resurrect ritual or similarly powerful magic.",
+          "traits": []
+        },
+        {
+          "id": "otF69WqTYD7RJsAK",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "LtvcUFUOeqJ7S8zl",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "0qFN4QwW7PNkz1OJ",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "t8fwxSEacZkh0vFB",
+          "name": "Scorched Earth",
+          "kind": "passive",
+          "description": "60 feet. Any creature who dies within the aura and isn't drawn into the obcisidaemon's Cloak of Souls via Inherit Soul must attempt a check (fortitude, dc:38) save. On a failure, the creature's body (but not its gear) is immediately reduced to a fine smear of ashes.",
+          "traits": [
+            "aura",
+            "divine"
+          ]
+        },
+        {
+          "id": "Dn7wQCPFEtj3HcX3",
+          "name": "Consume Soul",
+          "kind": "action",
+          "description": "The obcisidaemon consumes a soul from their cloak to gain one of the following effects. A soul consumed in this way can't be resurrected except by a wish ritual or a similarly powerful effect.\nEmpower Spell The obcisidaemon gains a +2 status bonus to their spell DCs and spell attack modifiers until the end of their next turn.\nEmpower Weapon The obcisidaemon's weapon gains the effects of a greater flaming, greater frost, greater shock, or wounding rune until the end of their next turn.\nHealing (healing, vitality) The daemon regains 8d8+64 healing Hit Points.\nEffect: Consume Soul",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "up62eMECQNjF6sQA",
+          "name": "Inherit Soul",
+          "kind": "reaction",
+          "description": "Trigger The obcisidaemon slays a creature\nEffect The obcisidaemon attempts to draw the creature's soul into its cloak of souls. The triggering creature must attempt a check (fortitude, dc:38) save. On a failure, its soul is consumed and added to the cloak of souls. If the obcisidaemon's cloak can't hold any more souls, the daemon can release one of the souls as a free action; otherwise, the soul isn't absorbed.",
+          "traits": [
+            "divine",
+            "incapacitation"
+          ]
+        },
+        {
+          "id": "KLdcI6Rcf3lnwyyb",
+          "name": "Grab",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "GkUJBHLSdNPoskjG",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 30,
+          "saveDc": 38,
+          "spells": [
+            {
+              "id": "CoSDJ1SXNya5967t",
+              "name": "Translocate",
+              "rank": 4
+            },
+            {
+              "id": "p4A4J5qzRWDNRXkd",
+              "name": "Translocate",
+              "rank": 5
+            },
+            {
+              "id": "q6WH6aBSkK7w6AL7",
+              "name": "Toxic Cloud",
+              "rank": 6
+            },
+            {
+              "id": "vzJ4VzkAmjC1fRPu",
+              "name": "Paralyze",
+              "rank": 7
+            },
+            {
+              "id": "mkztgvrvPfT308oo",
+              "name": "Spell Riposte",
+              "rank": 7
+            },
+            {
+              "id": "Ggcmmioek3hJVlrH",
+              "name": "Disintegrate",
+              "rank": 9
+            },
+            {
+              "id": "SzA2mTHPgT0AQazD",
+              "name": "Falling Stars",
+              "rank": 9
+            },
+            {
+              "id": "epXdBP1oRcEmiKpF",
+              "name": "Massacre",
+              "rank": 10
+            },
+            {
+              "id": "5cEDQQAXp8sQ584v",
+              "name": "Truesight (Constant)",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:hesperid-queen",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "dA6UaeIi9wFgBAQO",
+      "slug": "hesperid-queen",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:a07354492720b2ad535bebb54f405d619cc71775658fe5c58ea08d2e5c99ed40",
+    "translatableHash": "sha256:f27401c523901250d015afb7f9c440dc554aee4c5333268afc8b672c696c8656",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hesperid Queen",
+      "level": 19,
+      "rarity": "uncommon",
+      "size": "medium",
+      "traits": [
+        "fey",
+        "light",
+        "nymph"
+      ],
+      "description": "Hesperid queens rule over isolated regions soaked in the light of sunset. They guard countless treasures and secrets, though for those who approach them with respect and offer an intriguing bargain, they're willing to part with knowledge or items beyond those secrets or valuables they've sworn to keep to themselves.\nHesperid queens are relatively likely to have powerful objects under their protection, such as ancient relics or artifacts. As such, they're keenly aware of the danger posed by unscrupulous treasure hunters seeking to obtain these items at any cost, and they use their incredible minds to set up devious countermeasures to protect their wards, even in the event of their own deaths.\nNymphs are fey guardians of nature possessed of great beauty and forms that meld breathtaking humanoid features with the natural elements they guard. Nymph queens are powerful nymphs who rule over and protect a much greater territory of untouched wilderness. For instance, a lampad might guard a beautiful underground cavern, but a lampad queen might call an entire system of caves their domain.",
+      "armorClass": 44,
+      "hitPoints": 305,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 31,
+        "reflex": 36,
+        "will": 34
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 9,
+        "con": 6,
+        "int": 7,
+        "wis": 7,
+        "cha": 10
+      },
+      "skills": {
+        "acrobatics": 32,
+        "arcana": 30,
+        "athletics": 28,
+        "deception": 37,
+        "diplomacy": 39,
+        "intimidation": 37,
+        "nature": 32,
+        "performance": 35,
+        "society": 30,
+        "stealth": 32
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "empyrean",
+        "fey",
+        "utopian"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "6DJ5UGod5sVQIgQ8",
+          "name": "Sunset Ribbon",
+          "bonus": 36,
+          "damage": "4d10+13 slashing; 1d6 fire; 1d6 vitality",
+          "traits": [
+            "agile",
+            "finesse"
+          ]
+        },
+        {
+          "id": "VvTUZ7JyzVpWPNRj",
+          "name": "Sunset Ray",
+          "bonus": 36,
+          "damage": "4d12+13 fire; 1d6 vitality",
+          "traits": [
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "1Skzxnout1K9TVNP",
+          "name": "Tied to the Land",
+          "kind": "passive",
+          "description": "A hesperid queen is intrinsically tied to a isolated region, usually an island or island chain, a remote coast, or secluded valley. As long as the queen is healthy, the environment is exceptionally resilient, allowing the hesperid queen to automatically attempt to counteract spells and rituals such as Blight that would harm the environment, with a [[/r 1d20+37 #Counteract]] counteract modifier and a counteract rank of 10.\nWhen the hesperid queen becomes physically or psychologically unhealthy, however, her warded region eventually becomes twisted or unhealthy as well. In that case, restoring the hesperid queen swiftly heals the entire region.",
+          "traits": []
+        },
+        {
+          "id": "ajC29c9gmHsNUgs1",
+          "name": "Nymph's Beauty",
+          "kind": "passive",
+          "description": "30 feet. Creatures that start their turn in the aura must succeed at a check (will, dc:38, options:area-effect,inflicts:stunned) save or become transfixed in awe, causing them to be Stunned for 1 round.",
+          "traits": [
+            "aura",
+            "emotion",
+            "incapacitation",
+            "mental",
+            "primal",
+            "visual"
+          ]
+        },
+        {
+          "id": "GBOycFh1m1Y5Jb9h",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "Hesperid queens can transform between their original form, which looks much like a typical nymph of their kind, and any Small or Medium humanoid form, typically choosing a version of their natural form that more closely resembles a humanoid.",
+          "traits": [
+            "polymorph",
+            "primal"
+          ]
+        },
+        {
+          "id": "iRJk9tacSkOQcb2p",
+          "name": "Create Golden Apple",
+          "kind": "action",
+          "description": "While the hesperid queen is within their bonded location, they can spin golden light around an object they're holding of up to 20 cubic feet in volume and up to 80 Bulk. Doing so condenses the object into a magic apple made of golden light with light Bulk.\nThe golden apple reverts back to its original shape after a full day away from the hesperid's bonded location, or when the hesperid queen spends a single action (which has the concentrate trait) to end the effect.",
+          "traits": [
+            "primal"
+          ]
+        },
+        {
+          "id": "yO6YNvoUDLZPlNwE",
+          "name": "Focus Beauty",
+          "kind": "action",
+          "description": "The hesperid queen focuses her beauty upon a target within her aura. The creature must attempt a check (will, dc:38) save. On a failure, it is affected as if by the hesperid queen's nymph's beauty aura; if it was already affected by the aura, it becomes overwhelmed with visions of bliss and beauty. The creature departs from the hesperid queen's domain as quickly and efficiently as it can for 1 hour, after which time it forgets ever reaching the hesperid queen's domain, how it did so, and everything that happened while it was within the domain.",
+          "traits": [
+            "emotion",
+            "incapacitation",
+            "mental",
+            "primal",
+            "visual"
+          ]
+        },
+        {
+          "id": "fXKjy8wUG1Jgkyga",
+          "name": "Inspiration",
+          "kind": "action",
+          "description": "A hesperid queen can inspire a single intelligent creature by giving that creature a token of her favor, typically a lock of her hair. As long as the creature carries her token and remains in good standing with the lampad queen, the creature gains a +1 status bonus to all Crafting checks, Performance checks, and Will saves.\nIf a hesperid queen grants her Inspiration to a bard and they are that bard's muse, the bard gains an additional benefit depending on their muse theme: for lore muse, the bard also gains a +1 status bonus to all Lore checks; for maestro muse, the status bonus to Performance checks increases to +2 for the purpose of determining the effects of compositions; for polymath muse, the bard gains a +4 status bonus to untrained skill checks; and for all other muses, the Will save bonus increases to +2 against fey.\nEffect: Nymph Queen's Inspiration",
+          "traits": [
+            "emotion",
+            "mental",
+            "primal"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "8i5X0cG9TunkPc2L",
+          "name": "Primal Prepared Spells",
+          "tradition": "primal",
+          "category": "prepared",
+          "attackModifier": 0,
+          "saveDc": 44,
+          "spells": [
+            {
+              "id": "cHt1B7KVqlsEl8fT",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "EZkP2Y0UJiO5mxn4",
+              "name": "Electric Arc",
+              "rank": 1
+            },
+            {
+              "id": "k71O1BKLuF6ZUYbT",
+              "name": "Gentle Landing",
+              "rank": 1
+            },
+            {
+              "id": "siVmRhdKrR24Aofo",
+              "name": "Guidance",
+              "rank": 1
+            },
+            {
+              "id": "Tx64Av84z9rfCDCS",
+              "name": "Gust of Wind",
+              "rank": 1
+            },
+            {
+              "id": "3wNJDCtYXKtL6Lky",
+              "name": "Prestidigitation",
+              "rank": 1
+            },
+            {
+              "id": "KeEGf6MEowqqOdzk",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "dEOlp2k0rMSUlDEE",
+              "name": "Vanishing Tracks",
+              "rank": 1
+            },
+            {
+              "id": "Ob1PMIWUIYBx5FPn",
+              "name": "Animal Messenger",
+              "rank": 2
+            },
+            {
+              "id": "Equ8MakdpMyQgfXA",
+              "name": "Dispel Magic",
+              "rank": 2
+            },
+            {
+              "id": "jAWr5HLOzRYsfKsE",
+              "name": "Resist Energy",
+              "rank": 2
+            },
+            {
+              "id": "zC7q9qMIjToZ4zU8",
+              "name": "Revealing Light",
+              "rank": 2
+            },
+            {
+              "id": "PxWXOoHjpUCozcvv",
+              "name": "Water Breathing",
+              "rank": 2
+            },
+            {
+              "id": "yFU0TA1H3N20zBGM",
+              "name": "Earthbind",
+              "rank": 3
+            },
+            {
+              "id": "hIyOeYtCbeZqv5GH",
+              "name": "Haste",
+              "rank": 3
+            },
+            {
+              "id": "lpVvvR2oJuhQMqy4",
+              "name": "One with Stone",
+              "rank": 3
+            },
+            {
+              "id": "VtMuXGcpVox1Xrl5",
+              "name": "Slow",
+              "rank": 3
+            },
+            {
+              "id": "uPBDbIrLX00PMmiZ",
+              "name": "Mirage",
+              "rank": 4
+            },
+            {
+              "id": "19G9AHDIIOQfmzCG",
+              "name": "Mountain Resilience",
+              "rank": 4
+            },
+            {
+              "id": "1d96k4WjWxOE15bS",
+              "name": "Unfettered Movement",
+              "rank": 4
+            },
+            {
+              "id": "6eSmbqS5iyL3k3i6",
+              "name": "Vital Beacon",
+              "rank": 4
+            },
+            {
+              "id": "d2S3rRfjtJNM2wmd",
+              "name": "Breath of Life",
+              "rank": 5
+            },
+            {
+              "id": "RrfT0kGXiywobhIm",
+              "name": "Control Water",
+              "rank": 5
+            },
+            {
+              "id": "USsf6ZHU0bB2hSON",
+              "name": "Truesight",
+              "rank": 6
+            },
+            {
+              "id": "3QgWRIhnP9YuEzMD",
+              "name": "Energy Aegis",
+              "rank": 7
+            },
+            {
+              "id": "yZjkrP4J1bk4NeWG",
+              "name": "Regenerate",
+              "rank": 7
+            },
+            {
+              "id": "Ry3vbJMeCkRk7p1v",
+              "name": "Sunburst",
+              "rank": 7
+            },
+            {
+              "id": "O5yTe4WCAHlWbY5a",
+              "name": "Volcanic Eruption",
+              "rank": 7
+            },
+            {
+              "id": "6ySkv3JfPCWa7lgY",
+              "name": "Migration",
+              "rank": 8
+            },
+            {
+              "id": "YQwfXnNQcnMoE3zm",
+              "name": "Punishing Winds",
+              "rank": 8
+            },
+            {
+              "id": "w3gNuh8FxzxbKZsX",
+              "name": "Falling Stars",
+              "rank": 9
+            },
+            {
+              "id": "ROpvNSf2ugb7BZeS",
+              "name": "Wrathful Storm",
+              "rank": 9
+            },
+            {
+              "id": "vnkEF9xZ9UuIdIOy",
+              "name": "Manifestation",
+              "rank": 10
+            }
+          ]
+        },
+        {
+          "id": "TjuBXxdJpElgZfcg",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 36,
+          "saveDc": 44,
+          "spells": [
+            {
+              "id": "kU701eGTplmZmdN1",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "RsQNeyTEoGegsO5h",
+              "name": "Heal",
+              "rank": 10
+            },
+            {
+              "id": "lbemcUtUwBV5rF5R",
+              "name": "Holy Light",
+              "rank": 10
+            },
+            {
+              "id": "YVIckAUtDfgqSxG5",
+              "name": "Illusory Disguise",
+              "rank": 10
+            },
+            {
+              "id": "D2lLgKr0UIBUMFDq",
+              "name": "Revealing Light",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:cinder-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "dbcJTXE93zLQQ3Vx",
+      "slug": "cinder-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:500a9539ab2cae6fb6dd2d61b101f247574ed42a5629c0d7da02822811969131",
+    "translatableHash": "sha256:f4691d9e08f6988844055a8f7fc9446fb0b468cd2a194b4504557cdd011c212f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cinder Dragon (Ancient)",
+      "level": 19,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "dragon",
+        "fire",
+        "primal"
+      ],
+      "description": "Among the largest and fiercest dragons, cinder dragons are typically volatile, demanding respect—even deference—from lesser creatures. Cinder dragons' appearance evokes their flame, often in scales with mixed patterns of red, orange, and yellow. Many cinder dragons dwell in active volcanoes and similarly fiery locales. Cinder dragons prefer treasures that can withstand the heat of their bodies and lairs, with gemstones, gold, and silver common among their hoards.",
+      "armorClass": 42,
+      "hitPoints": 425,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 35,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 34,
+        "reflex": 30,
+        "will": 32
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 4,
+        "con": 8,
+        "int": 5,
+        "wis": 6,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 30,
+        "athletics": 38,
+        "diplomacy": 35,
+        "intimidation": 37,
+        "nature": 36,
+        "stealth": 37
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "pyric"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "IrTg9nWwV4OiOQW8",
+          "name": "Jaws",
+          "bonus": 36,
+          "damage": "1d8 fire; 4d12+12 piercing",
+          "traits": [
+            "fire",
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "yOmS98L3WqFRPhXZ",
+          "name": "Horn",
+          "bonus": 34,
+          "damage": "3d12+16 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "ZGe2glGQxF2jA1C2",
+          "name": "Claw",
+          "bonus": 36,
+          "damage": "4d10+12 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "nSwGIvjZwxGfs5ON",
+          "name": "Tail",
+          "bonus": 34,
+          "damage": "4d8+12 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        },
+        {
+          "id": "Usl81LEUxCtzXkzk",
+          "name": "Wing",
+          "bonus": 34,
+          "damage": "4d8+12 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "9SJBTraIuJdXV6FB",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "Smoke doesn't impair a cinder dragon's vision; they ignore the Concealed condition from smoke.",
+          "traits": []
+        },
+        {
+          "id": "T5A6q7Af8YZ9uCkW",
+          "name": "+2 Status to All Saves vs. Primal",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "zNzGiGscx8mWgPNk",
+          "name": "Boiling Blood",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit with a melee attack\nEffect The dragon's superheated blood spills onto the attacker. The target takes 10d6 fire damage (check (reflex, dc:41, basic) save).",
+          "traits": [
+            "fire"
+          ]
+        },
+        {
+          "id": "SqfVOvexkATbeU7x",
+          "name": "Dragon Heat",
+          "kind": "passive",
+          "description": "5 feet. 4d6 fire damage (check (reflex, dc:37, basic, options:area-effect) save)",
+          "traits": [
+            "aura",
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "FvCzcBVRvmZ11mTe",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "90 feet. check (will, dc:39, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "QWxMF0tTh2JjNiIy",
+          "name": "Reactive Strike (Jaws only)",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "qg1YTpzUg6KvMuWQ",
+          "name": "All Becomes Flame",
+          "kind": "action",
+          "description": "The dragon curses a creature within 60 feet to have its magic replaced with primordial flames. The creature must attempt a check (will, dc:39) save. Regardless of the result, the target becomes temporarily immune for 1 day.\nCritical Success The creature is unaffected.\nSuccess The creature is cursed for 1 round. While cursed, any damage the cursed creature would deal by any means becomes fire damage, regardless of the original damage type. The cursed creature can temporarily suppress the curse for 1 round as an action.\nFailure As success, but the curse's duration is 1 hour.\nCritical Failure As success, but the curse's duration is 1 day.",
+          "traits": [
+            "curse",
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "jJAaOJxctRpOQvaI",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw Strikes and one wing Strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "ZxIcKCg8VlLaYO7J",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "The dragon recharges their Pyre Breath whenever they score a critical hit with a Strike.",
+          "traits": []
+        },
+        {
+          "id": "NEGCX9pCG8gyZcjL",
+          "name": "Pyre Breath",
+          "kind": "action",
+          "description": "The dragon breathes a blast of flame that deals 18d6 fire damage in a 60-foot type:cone (check (reflex, dc:41, basic, options:area-effect) save). Creatures that critically fail their save catch fire, taking 2d6 persistent fire damage. The area then fills with black smoke for 1 minute. This has the effects of mist, except it fills the cone's area. The dragon can't use Pyre Breath again for [[/gmr 1d4 #Recharge Pyre Breath]].",
+          "traits": [
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "jmrC9phVteComdYb",
+          "name": "Stoke the Flames",
+          "kind": "action",
+          "description": "The dragon intensifies nearby fires. Every foe within 60 feet that is taking persistent fire damage takes 5d6 fire damage.",
+          "traits": [
+            "fire",
+            "primal"
+          ]
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:rune-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "tyjxoRht7sjiwHnz",
+      "slug": "rune-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:2e2d8afa2e3a892011bedb53266a13a3bb7e4b52a0667026ab335d3bb3b8011d",
+    "translatableHash": "sha256:788a7f5f10836ad657eb1d06977703b0861e9fc8f8693781360b2b6a7070876a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rune Dragon (Ancient, Spellcaster)",
+      "level": 19,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "arcane",
+        "dragon"
+      ],
+      "description": "Rune dragons have an innate insight on the power of runes. Most rune dragons keep a variety of runes etched on their scales, which their bodies can magically empower. They typically don't cast spells themselves, instead relying on their ability to create runes on the fly to produce desired effects. A rune dragon often refers to their hoard as their library, as it's full of important historical texts, plays, speeches, textbooks, and spellbooks written by people of different cultures in a variety of languages. While they can often speak a language with the aid of magic, they much prefer to learn languages in the context of their speakers so they can grasp the nuances hidden within the syntax and the magic within their symbols.",
+      "armorClass": 43,
+      "hitPoints": 355,
+      "speedFeet": 80,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "darkvision",
+          "magicsense-imprecise-60",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 30,
+        "will": 34
+      },
+      "abilities": {
+        "str": 8,
+        "dex": 8,
+        "con": 9,
+        "int": 10,
+        "wis": 8,
+        "cha": 5
+      },
+      "skills": {
+        "acrobatics": 34,
+        "arcana": 38,
+        "athletics": 36,
+        "crafting": 36,
+        "diplomacy": 34,
+        "performance": 36,
+        "society": 34,
+        "survival": 34
+      },
+      "languages": [
+        "common",
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "nMoAKfyDDAoQfjPJ",
+          "name": "Claw",
+          "bonus": 35,
+          "damage": "4d6+16 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "vWI3q4eiStz5qqHx",
+          "name": "Jaws",
+          "bonus": 35,
+          "damage": "4d8+16 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "8A5XIY3Hlr1wxzJm",
+          "name": "Tail",
+          "bonus": 33,
+          "damage": "4d10+16 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "RlvDOe4pR33tuNVr",
+          "name": "Magic Sense",
+          "kind": "passive",
+          "description": "The rune dragon is aware of any active magical abilities and effects within the listed range. When the dragon Seeks, it gains the benefits of a 4th-rank detect magic spell within the listed range (in addition to the normal benefits of Seeking).",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "qwuKOZdikMj02pRU",
+          "name": "Runic Scales",
+          "kind": "passive",
+          "description": "The rune dragon's scales function as runestones. The rune dragon can't use the effects or abilities of the runes etched on its scales, but they can transfer these runes to appropriate objects. Transferring a rune to or from an item in this way requires 1 minute, during which the dragon is Off-Guard. The process is automatic and doesn't require a check, but if the dragon stops or is interrupted in this process, the rune is destroyed. A rune dragon can have any number of runes etched on its scales, though they typically have only a handful of runes etched on their scales at a time.",
+          "traits": []
+        },
+        {
+          "id": "5Nrc64gApPzUy279",
+          "name": "+2 Status to All Saves vs. Arcane",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "SI4dLQQdhQ6nWs5J",
+          "name": "Canceling Rune",
+          "kind": "reaction",
+          "description": "Trigger The dragon is the target of a spell that requires a saving throw\nEffect The dragon attempts to unmake the spell's foundational runes. They attempt to counteract the spell (counteract rank 10th, counteract modifier [[/r 1d20+33 #Counteract]]). If successful, the dragon is unaffected by the spell; other subjects are affected by the spell normally. The dragon can't use Canceling Rune again for [[/gmr 1d4 #Recharge Canceling Rune]].",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "L8w8yFgsSTRZPPKw",
+          "name": "Retributive Rune",
+          "kind": "reaction",
+          "description": "Trigger A creature within 15 feet damages the rune dragon\nEffect With a burst of runic magic, the rune dragon uses their detonating rune ability on the triggering creature and immediately causes the rune to detonate if it didn't automatically do so.",
+          "traits": []
+        },
+        {
+          "id": "Rj2vwCAvhtc4VbOw",
+          "name": "Detonating Rune",
+          "kind": "passive",
+          "description": "The rune dragon's Strikes and abilities can leave a detonating rune on their targets. If a creature would receive a detonating rune while they already have one, instead of adding another rune, their current detonating rune activates, dealing 6d6 untyped damage to the target and expending the rune. The detonating rune's damage type matches the dragon's current Shifting Rune. A creature can use an Interact action to remove the rune. Detonating runes fade after 1 minute if not detonated.",
+          "traits": []
+        },
+        {
+          "id": "DYsAQWK06hC13mD4",
+          "name": "Entangling Rune",
+          "kind": "action",
+          "description": "The rune dragon creates a large trapping rune in a 10-foot type:burst within 60 feet. A creature other than the dragon that enters a trapped area or ends their turn in the trapped area activates the rune, causing it to entangle them. That creature must succeed at a check (reflex, dc:41) save or become Immobilized for 1 minute or until it Escapes. The rune can trap only a single creature at a time. The rune vanishes either when a creature succeeds against the rune, when a creature successfully Escapes the rune, or after 1 minute. A creature adjacent to the rune can use an Interact action to remove the rune.",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "i7kuaOQCvKjQ623q",
+          "name": "Runic Breath",
+          "kind": "action",
+          "description": "The dragon launches hundreds of exploding runes that detonate upon impact, dealing 17d6 untyped damage in a 50-foot type:cone (check (reflex, dc:41, basic, options:area-effect) save). The damage type of this ability is determined by Shifting Rune. Creatures who fail the save are also affected by detonating rune. The dragon can't use Runic Breath again for [[/gmr 1d4 #Recharge Runic Breath]].",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "aXvfwxeI9u0AxsD4",
+          "name": "Shifting Runes",
+          "kind": "action",
+          "description": "The rune dragon chooses between acid, cold, electricity, fire, or sonic damage. The runes etched upon the dragon shift, forming runes of that energy on its scales. The dragon gains immunity to that damage type, and their detonating runes and Runic Breath deal that damage type. Anyone trained in Arcana can immediately recognize the energy type of the etched rune without a check.",
+          "traits": []
+        },
+        {
+          "id": "CQ9nD7pDn1twxnL1",
+          "name": "Trail of Runes",
+          "kind": "action",
+          "description": "The rune dragon Strides, leaving behind a collection of runes wherever it steps. The dragon chooses to leave behind either detonating runes or entangling runes. Every space that the dragon moves through, including spaces occupied by creatures, gains a rune. These runes automatically activate when a creature other than the rune dragon enters the space or ends its turn in the space. The runes can otherwise be removed or vanish like normal.",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "B3ruyvS6l8vioWPg",
+          "name": "Improved Push 15 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "nEyhWzDPgazwMsA7",
+          "name": "Arcane Prepared Spells",
+          "tradition": "arcane",
+          "category": "prepared",
+          "attackModifier": 33,
+          "saveDc": 41,
+          "spells": [
+            {
+              "id": "6V0YjvR0dQDedoUH",
+              "name": "Alarm",
+              "rank": 1
+            },
+            {
+              "id": "1AIMjaJEuOY6dpGd",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "1YJJutu8IkZVw1s6",
+              "name": "Fear",
+              "rank": 1
+            },
+            {
+              "id": "54j75KYBClp8c9iE",
+              "name": "Gust of Wind",
+              "rank": 1
+            },
+            {
+              "id": "3p0oHMsmZGSKc2Tb",
+              "name": "Ignition",
+              "rank": 1
+            },
+            {
+              "id": "yrHGy1lB0AwO2mA3",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "myzzlJQfRiNYxPCD",
+              "name": "Sigil",
+              "rank": 1
+            },
+            {
+              "id": "O9yDmIXbdQXbbGN4",
+              "name": "Telekinetic Hand",
+              "rank": 1
+            },
+            {
+              "id": "lfbmnQ4WgPBNOp4k",
+              "name": "Blur",
+              "rank": 2
+            },
+            {
+              "id": "r6Mb7KCSSugAioi1",
+              "name": "Dispel Magic",
+              "rank": 2
+            },
+            {
+              "id": "eCzurVg4BDjtDGnG",
+              "name": "Embed Message",
+              "rank": 2
+            },
+            {
+              "id": "DF25BOxvTUvURcOw",
+              "name": "Translate",
+              "rank": 2
+            },
+            {
+              "id": "OiykRQTKvyhzjRlD",
+              "name": "Fireball",
+              "rank": 3
+            },
+            {
+              "id": "6TnwtPiQfcBjFwdt",
+              "name": "Gravity Well",
+              "rank": 3
+            },
+            {
+              "id": "nSvr1M5jODicR5RW",
+              "name": "Veil of Privacy",
+              "rank": 3
+            },
+            {
+              "id": "M3gDzozoz65dxKG3",
+              "name": "Wall of Fire",
+              "rank": 4
+            },
+            {
+              "id": "I3VYQf6KRTq03GjP",
+              "name": "Howling Blizzard",
+              "rank": 5
+            },
+            {
+              "id": "ijFc3zAbPPFzLO4a",
+              "name": "Imaginary Lockbox",
+              "rank": 5
+            },
+            {
+              "id": "nBihXzDO5d93TvYh",
+              "name": "Truespeech",
+              "rank": 5
+            },
+            {
+              "id": "a773jSBk5DbxQqxs",
+              "name": "Chain Lightning",
+              "rank": 6
+            },
+            {
+              "id": "A4jKElUl7lYkJTEU",
+              "name": "Scrying",
+              "rank": 6
+            },
+            {
+              "id": "NPh3SL1S9c0IX8XG",
+              "name": "Wall of Force",
+              "rank": 6
+            },
+            {
+              "id": "ZsqhFi5tBJqL2zSa",
+              "name": "Planar Seal",
+              "rank": 7
+            },
+            {
+              "id": "5A1ojLziOEYy2glF",
+              "name": "Spell Riposte",
+              "rank": 7
+            },
+            {
+              "id": "eFUl1UhMwsJNf6vs",
+              "name": "Hidden Mind",
+              "rank": 8
+            },
+            {
+              "id": "RAwJd78wBkKLKwOf",
+              "name": "Quandary",
+              "rank": 8
+            },
+            {
+              "id": "t8Rc0aZokDd6k4RR",
+              "name": "Unrelenting Observation",
+              "rank": 8
+            },
+            {
+              "id": "cBXY6ukY95UGdtbw",
+              "name": "Detonate Magic",
+              "rank": 9
+            },
+            {
+              "id": "ZwxZ7zhBHXvzvwJJ",
+              "name": "Falling Stars",
+              "rank": 9
+            },
+            {
+              "id": "8Hyhq6XlMP6ZGRU9",
+              "name": "Foresight",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:rune-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "VK5OKW5viAEWQVzU",
+      "slug": "rune-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:55e21620ed04955970a3fbf96d3f8ea8dca957d0a59837b2760b066cf5888b4c",
+    "translatableHash": "sha256:a6455d5aca3b89e9e304c83921c128ed572bf898479041a4a915312ffda3aee9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rune Dragon (Ancient)",
+      "level": 19,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "arcane",
+        "dragon"
+      ],
+      "description": "Rune dragons have an innate insight on the power of runes. Most rune dragons keep a variety of runes etched on their scales, which their bodies can magically empower. They typically don't cast spells themselves, instead relying on their ability to create runes on the fly to produce desired effects. A rune dragon often refers to their hoard as their library, as it's full of important historical texts, plays, speeches, textbooks, and spellbooks written by people of different cultures in a variety of languages. While they can often speak a language with the aid of magic, they much prefer to learn languages in the context of their speakers so they can grasp the nuances hidden within the syntax and the magic within their symbols.",
+      "armorClass": 43,
+      "hitPoints": 355,
+      "speedFeet": 80,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "darkvision",
+          "magicsense-imprecise-60",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 32,
+        "reflex": 30,
+        "will": 34
+      },
+      "abilities": {
+        "str": 8,
+        "dex": 8,
+        "con": 9,
+        "int": 10,
+        "wis": 8,
+        "cha": 5
+      },
+      "skills": {
+        "acrobatics": 34,
+        "arcana": 38,
+        "athletics": 36,
+        "crafting": 36,
+        "diplomacy": 34,
+        "performance": 36,
+        "society": 34,
+        "survival": 34
+      },
+      "languages": [
+        "common",
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "nMoAKfyDDAoQfjPJ",
+          "name": "Claw",
+          "bonus": 35,
+          "damage": "4d6+16 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "vWI3q4eiStz5qqHx",
+          "name": "Jaws",
+          "bonus": 35,
+          "damage": "4d8+16 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "8A5XIY3Hlr1wxzJm",
+          "name": "Tail",
+          "bonus": 33,
+          "damage": "4d10+16 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "RlvDOe4pR33tuNVr",
+          "name": "Magic Sense",
+          "kind": "passive",
+          "description": "The rune dragon is aware of any active magical abilities and effects within the listed range. When the dragon Seeks, it gains the benefits of a 4th-rank detect magic spell within the listed range (in addition to the normal benefits of Seeking).",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "qwuKOZdikMj02pRU",
+          "name": "Runic Scales",
+          "kind": "passive",
+          "description": "The rune dragon's scales function as runestones. The rune dragon can't use the effects or abilities of the runes etched on its scales, but they can transfer these runes to appropriate objects. Transferring a rune to or from an item in this way requires 1 minute, during which the dragon is Off-Guard. The process is automatic and doesn't require a check, but if the dragon stops or is interrupted in this process, the rune is destroyed. A rune dragon can have any number of runes etched on its scales, though they typically have only a handful of runes etched on their scales at a time.",
+          "traits": []
+        },
+        {
+          "id": "5Nrc64gApPzUy279",
+          "name": "+2 Status to All Saves vs. Arcane",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "SI4dLQQdhQ6nWs5J",
+          "name": "Canceling Rune",
+          "kind": "reaction",
+          "description": "Trigger The dragon is the target of a spell that requires a saving throw\nEffect The dragon attempts to unmake the spell's foundational runes. They attempt to counteract the spell (counteract rank 10th, counteract modifier [[/r 1d20+33 #Counteract]]). If successful, the dragon is unaffected by the spell; other subjects are affected by the spell normally. The dragon can't use Canceling Rune again for [[/gmr 1d4 #Recharge Canceling Rune]].",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "L8w8yFgsSTRZPPKw",
+          "name": "Retributive Rune",
+          "kind": "reaction",
+          "description": "Trigger A creature within 15 feet damages the rune dragon\nEffect With a burst of runic magic, the rune dragon uses their detonating rune ability on the triggering creature and immediately causes the rune to detonate if it didn't automatically do so.",
+          "traits": []
+        },
+        {
+          "id": "Rj2vwCAvhtc4VbOw",
+          "name": "Detonating Rune",
+          "kind": "passive",
+          "description": "The rune dragon's Strikes and abilities can leave a detonating rune on their targets. If a creature would receive a detonating rune while they already have one, instead of adding another rune, their current detonating rune activates, dealing 6d6 untyped damage to the target and expending the rune. The detonating rune's damage type matches the dragon's current Shifting Rune. A creature can use an Interact action to remove the rune. Detonating runes fade after 1 minute if not detonated.",
+          "traits": []
+        },
+        {
+          "id": "eHozVgrHl2EW2OBo",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw Strikes and one tail Strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "IiyJK3dEYHm1gnNg",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "The dragon recharges their Runic Breath whenever they score a critical hit with a Strike.",
+          "traits": []
+        },
+        {
+          "id": "DYsAQWK06hC13mD4",
+          "name": "Entangling Rune",
+          "kind": "action",
+          "description": "The rune dragon creates a large trapping rune in a 10-foot type:burst within 60 feet. A creature other than the dragon that enters a trapped area or ends their turn in the trapped area activates the rune, causing it to entangle them. That creature must succeed at a check (reflex, dc:41) save or become Immobilized for 1 minute or until it Escapes. The rune can trap only a single creature at a time. The rune vanishes either when a creature succeeds against the rune, when a creature successfully Escapes the rune, or after 1 minute. A creature adjacent to the rune can use an Interact action to remove the rune.",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "i7kuaOQCvKjQ623q",
+          "name": "Runic Breath",
+          "kind": "action",
+          "description": "The dragon launches hundreds of exploding runes that detonate upon impact, dealing 17d6 untyped damage in a 50-foot type:cone (check (reflex, dc:41, basic, options:area-effect) save). The damage type of this ability is determined by Shifting Rune. Creatures who fail the save are also affected by detonating rune. The dragon can't use Runic Breath again for [[/gmr 1d4 #Recharge Runic Breath]].",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "aXvfwxeI9u0AxsD4",
+          "name": "Shifting Runes",
+          "kind": "action",
+          "description": "The rune dragon chooses between acid, cold, electricity, fire, or sonic damage. The runes etched upon the dragon shift, forming runes of that energy on its scales. The dragon gains immunity to that damage type, and their detonating runes and Runic Breath deal that damage type. Anyone trained in Arcana can immediately recognize the energy type of the etched rune without a check.",
+          "traits": []
+        },
+        {
+          "id": "CQ9nD7pDn1twxnL1",
+          "name": "Trail of Runes",
+          "kind": "action",
+          "description": "The rune dragon Strides, leaving behind a collection of runes wherever it steps. The dragon chooses to leave behind either detonating runes or entangling runes. Every space that the dragon moves through, including spaces occupied by creatures, gains a rune. These runes automatically activate when a creature other than the rune dragon enters the space or ends its turn in the space. The runes can otherwise be removed or vanish like normal.",
+          "traits": [
+            "arcane"
+          ]
+        },
+        {
+          "id": "B3ruyvS6l8vioWPg",
+          "name": "Improved Push 15 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:tzitzimitl",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "Ws6554On4eh2Blq7",
+      "slug": "tzitzimitl",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:2f394ca15b9546ec2267675787b979d71084df514e2fc3527508a2f3592e5cfc",
+    "translatableHash": "sha256:eae13da91dc0614e91181b859069efad2ad433cebbac6f8abf6ab4ee15eaf532",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tzitzimitl",
+      "level": 19,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "electricity",
+        "undead",
+        "unholy"
+      ],
+      "description": "Due to their affinity for darkness and apocalyptic terror, tzitzimitls are widely feared as harbingers of death and destruction. A solar eclipse marks their arrival, and they draw strange powers of darkness and electricity from these phenomena. Some sages believe tzitzimitls to be instruments of the gods, called down to destroy worlds whose times have come, while others claim they're the undead remains of stranded exiles from a far-off civilization of spacefaring giants. Such legends are ancient and fragmented, but some tell of tzitzimitls being defeated by great heroes and sealed away—though these tales imply that the enormous undead now lie buried and waiting, soon to rampage again should their tombs be breached.",
+      "armorClass": 43,
+      "hitPoints": 390,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 32,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 29,
+        "reflex": 32,
+        "will": 35
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 8,
+        "con": 6,
+        "int": 5,
+        "wis": 7,
+        "cha": 8
+      },
+      "skills": {
+        "acrobatics": 33,
+        "arcana": 37,
+        "athletics": 33,
+        "nature": 37,
+        "occultism": 37,
+        "religion": 40
+      },
+      "languages": [
+        "aklo",
+        "chthonian",
+        "common",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "death-effects",
+          "disease",
+          "electricity",
+          "paralyzed",
+          "poison",
+          "unconscious"
+        ],
+        "resistances": [
+          "cold 15",
+          "physical 15 except bludgeoning"
+        ],
+        "weaknesses": [
+          "holy 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "HX7brgti33CpG500",
+          "name": "Claw",
+          "bonus": 34,
+          "damage": "4d12+10 slashing; 3d8 electricity",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "mBQOdRR8ip1bwowt",
+          "name": "Eye Beam",
+          "bonus": 34,
+          "damage": "4d12 electricity; 10d6 force",
+          "traits": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "HAgM1p434yiOuIsm",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "QeKCPHhK6KpCJFHc",
+          "name": "Fast Healing 15",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "edfwgCM7hHGenY8w",
+          "name": "Light to Dark",
+          "kind": "reaction",
+          "description": "Trigger A creature uses an ability or spell with the vitality trait within 120 feet of the tzitzimitl\nEffect The tzitzimitl inverts the energy used in the triggering ability or spell, causing it to lose the vitality trait and gain the void trait, and changing all instances of vitality energy or healing in the ability's description to void energy.",
+          "traits": [
+            "divine",
+            "void"
+          ]
+        },
+        {
+          "id": "aRkL3pTg7b3AwDtI",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "MnxoiTB0KjKxqQyb",
+          "name": "Drain Life",
+          "kind": "passive",
+          "description": "When a tzitzimitl's claw Strike deals damage to a living creature, the tzitzimitl gains 20 temporary Hit Points, and the target must succeed at a check (fortitude, dc:41, options:inflicts:drained) save or become Drained 2. Further damage dealt by a tzitzimitl's claw Strike increases the value of the drained condition by 2 on a failed save, to a maximum of Drained 4.\nEffect: Drain Life",
+          "traits": []
+        },
+        {
+          "id": "FD51vd3EOaMnqu67",
+          "name": "Eclipse",
+          "kind": "action",
+          "description": "Effect The tzitzimitl casts darkness and drains the heat and warmth from the darkness spell's area. Each creature within the spell's area must attempt a check (fortitude, dc:41) save.\nCritical Success The creature takes 4d8 cold damage.\nSuccess The creature takes 8d8 cold damage and is Slowed 1 for 1 round.\nFailure The creature takes 16d8 cold damage and is slowed 1 for 1 minute.\nCritical Failure The creature takes 16d8 cold damage, is Slowed 2 for 1 minute, and is Doomed 1.",
+          "traits": [
+            "cold",
+            "occult"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "1r5gMk85DnCBJX6E",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 0,
+          "saveDc": 0,
+          "spells": [
+            {
+              "id": "yPeVMbPHP0DBygq2",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "KlYBwTZ9vxurSSVa",
+              "name": "Haste",
+              "rank": 3
+            },
+            {
+              "id": "3ct8sc1S4nXiK9Hu",
+              "name": "Darkness",
+              "rank": 4
+            },
+            {
+              "id": "FJKJfYGvks8v0031",
+              "name": "Truesight (Constant)",
+              "rank": 6
+            },
+            {
+              "id": "Hu1mowNKI2QBSQ6U",
+              "name": "Eclipse Burst",
+              "rank": 7
+            },
+            {
+              "id": "pLvCaQBJMCUyPCrN",
+              "name": "Teleport",
+              "rank": 7
+            },
+            {
+              "id": "ATaUsqyi3sZyG74R",
+              "name": "Darkness",
+              "rank": 9
+            },
+            {
+              "id": "VbbfnJlW8s4ctHGZ",
+              "name": "Teleport",
+              "rank": 9
+            },
+            {
+              "id": "xJYDv1jtT7Q9Ad5e",
+              "name": "Wails of the Damned",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:cinder-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "ZpI0J6giV6hacfTw",
+      "slug": "cinder-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:1775fe9c4d31249231085243250d6f60aa8df4fa418f6b6e7d9f9e9e188fb174",
+    "translatableHash": "sha256:41f6610f37c67bf83f827ea5f1354250cfd41030e714f6e7afd67879cb32fb68",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cinder Dragon (Ancient, Spellcaster)",
+      "level": 19,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "dragon",
+        "fire",
+        "primal"
+      ],
+      "description": "Among the largest and fiercest dragons, cinder dragons are typically volatile, demanding respect—even deference—from lesser creatures. Cinder dragons' appearance evokes their flame, often in scales with mixed patterns of red, orange, and yellow. Many cinder dragons dwell in active volcanoes and similarly fiery locales. Cinder dragons prefer treasures that can withstand the heat of their bodies and lairs, with gemstones, gold, and silver common among their hoards.",
+      "armorClass": 42,
+      "hitPoints": 425,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 35,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 34,
+        "reflex": 30,
+        "will": 32
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 4,
+        "con": 8,
+        "int": 5,
+        "wis": 6,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 30,
+        "athletics": 38,
+        "diplomacy": 35,
+        "intimidation": 37,
+        "nature": 36,
+        "stealth": 37
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "pyric"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "IrTg9nWwV4OiOQW8",
+          "name": "Jaws",
+          "bonus": 36,
+          "damage": "1d8 fire; 4d12+12 piercing",
+          "traits": [
+            "fire",
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "yOmS98L3WqFRPhXZ",
+          "name": "Horn",
+          "bonus": 34,
+          "damage": "3d12+16 piercing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "ZGe2glGQxF2jA1C2",
+          "name": "Claw",
+          "bonus": 36,
+          "damage": "4d10+12 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "nSwGIvjZwxGfs5ON",
+          "name": "Tail",
+          "bonus": 34,
+          "damage": "4d8+12 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        },
+        {
+          "id": "Usl81LEUxCtzXkzk",
+          "name": "Wing",
+          "bonus": 34,
+          "damage": "4d8+12 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "9SJBTraIuJdXV6FB",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "Smoke doesn't impair a cinder dragon's vision; they ignore the Concealed condition from smoke.",
+          "traits": []
+        },
+        {
+          "id": "T5A6q7Af8YZ9uCkW",
+          "name": "+2 Status to All Saves vs. Primal",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "zNzGiGscx8mWgPNk",
+          "name": "Boiling Blood",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit with a melee attack\nEffect The dragon's superheated blood spills onto the attacker. The target takes 10d6 fire damage (check (reflex, dc:41, basic) save).",
+          "traits": [
+            "fire"
+          ]
+        },
+        {
+          "id": "SqfVOvexkATbeU7x",
+          "name": "Dragon Heat",
+          "kind": "passive",
+          "description": "5 feet. 4d6 fire damage (check (reflex, dc:37, basic, options:area-effect) save)",
+          "traits": [
+            "aura",
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "FvCzcBVRvmZ11mTe",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "90 feet. check (will, dc:39, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "QWxMF0tTh2JjNiIy",
+          "name": "Reactive Strike (Jaws only)",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "qg1YTpzUg6KvMuWQ",
+          "name": "All Becomes Flame",
+          "kind": "action",
+          "description": "The dragon curses a creature within 60 feet to have its magic replaced with primordial flames. The creature must attempt a check (will, dc:39) save. Regardless of the result, the target becomes temporarily immune for 1 day.\nCritical Success The creature is unaffected.\nSuccess The creature is cursed for 1 round. While cursed, any damage the cursed creature would deal by any means becomes fire damage, regardless of the original damage type. The cursed creature can temporarily suppress the curse for 1 round as an action.\nFailure As success, but the curse's duration is 1 hour.\nCritical Failure As success, but the curse's duration is 1 day.",
+          "traits": [
+            "curse",
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "NEGCX9pCG8gyZcjL",
+          "name": "Pyre Breath",
+          "kind": "action",
+          "description": "The dragon breathes a blast of flame that deals 18d6 fire damage in a 60-foot type:cone (check (reflex, dc:41, basic, options:area-effect) save). Creatures that critically fail their save catch fire, taking 2d6 persistent fire damage. The area then fills with black smoke for 1 minute. This has the effects of mist, except it fills the cone's area. The dragon can't use Pyre Breath again for [[/gmr 1d4 #Recharge Pyre Breath]].",
+          "traits": [
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "jmrC9phVteComdYb",
+          "name": "Stoke the Flames",
+          "kind": "action",
+          "description": "The dragon intensifies nearby fires. Every foe within 60 feet that is taking persistent fire damage takes 5d6 fire damage.",
+          "traits": [
+            "fire",
+            "primal"
+          ]
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "Qegys3OfHC3yEFrw",
+          "name": "Primal Prepared Spells",
+          "tradition": "primal",
+          "category": "prepared",
+          "attackModifier": 33,
+          "saveDc": 41,
+          "spells": [
+            {
+              "id": "ZLVe5r1kwiWun4ap",
+              "name": "Cleanse Cuisine",
+              "rank": 1
+            },
+            {
+              "id": "U1ZZgdqQJvGBKTqQ",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "9hRQF2eGoNE3FekQ",
+              "name": "Fear",
+              "rank": 1
+            },
+            {
+              "id": "16eZNZYp1HwQvZbi",
+              "name": "Ignition",
+              "rank": 1
+            },
+            {
+              "id": "rC9lhD4oFfvYY1kW",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "ziCFbNNdnLNZPN6Y",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "DCiK3ztenhoQchRV",
+              "name": "Sigil",
+              "rank": 1
+            },
+            {
+              "id": "ScAfboeIPOOvRArQ",
+              "name": "Ventriloquism",
+              "rank": 1
+            },
+            {
+              "id": "e3OuYdLM1bGKLwtV",
+              "name": "Blazing Bolt",
+              "rank": 2
+            },
+            {
+              "id": "p8VdZNLYqCnVxp17",
+              "name": "Dispel Magic",
+              "rank": 2
+            },
+            {
+              "id": "yk5hpXT2mPi6shcG",
+              "name": "Floating Flame",
+              "rank": 2
+            },
+            {
+              "id": "2P2SGh2CCimYDJKe",
+              "name": "Mist",
+              "rank": 2
+            },
+            {
+              "id": "kWRPV4dim2iFtlXY",
+              "name": "Revealing Light",
+              "rank": 2
+            },
+            {
+              "id": "W4WuqH7sifaPwDHN",
+              "name": "Fireball",
+              "rank": 3
+            },
+            {
+              "id": "8RqgdakmnskbKZlG",
+              "name": "Haste",
+              "rank": 3
+            },
+            {
+              "id": "VcKSTTNu3smhzrzg",
+              "name": "Fire Shield",
+              "rank": 4
+            },
+            {
+              "id": "VKxNIiOg6ohyqdJV",
+              "name": "Mountain Resilience",
+              "rank": 4
+            },
+            {
+              "id": "6ozfJUt6YiQQ62Zx",
+              "name": "Wall of Fire",
+              "rank": 4
+            },
+            {
+              "id": "LeHl80popIZA0wNM",
+              "name": "Toxic Cloud",
+              "rank": 5
+            },
+            {
+              "id": "DQpfnyDstiCfC7Pg",
+              "name": "Cursed Metamorphosis",
+              "rank": 6
+            },
+            {
+              "id": "zem75ef0wYMCrupp",
+              "name": "Truesight",
+              "rank": 6
+            },
+            {
+              "id": "5vFzSAmbYMW4Gccg",
+              "name": "Execute",
+              "rank": 7
+            },
+            {
+              "id": "aY1Ib1toijKUt5jd",
+              "name": "Fiery Body",
+              "rank": 7
+            },
+            {
+              "id": "1o49bQyDezgEJWtD",
+              "name": "Volcanic Eruption",
+              "rank": 7
+            },
+            {
+              "id": "jAmeihv6QZevLpGt",
+              "name": "Desiccate",
+              "rank": 8
+            },
+            {
+              "id": "cWtYAsEgsIW2rHJ3",
+              "name": "Detonate Magic",
+              "rank": 9
+            },
+            {
+              "id": "jqLlqCDQp82VhNB5",
+              "name": "Falling Stars (asteroids only)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:draconal",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "7gzLs1OP0aCZZNU9",
+      "slug": "draconal",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5abc96f96a36043c7e14f07cc10e8ad4270cc84c3ccca6c574a060e3fb443d28",
+    "translatableHash": "sha256:333602529139e573c464e57cf17767f3f9563719cc0ac6e9fd6d7bd12dbf18a6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Draconal",
+      "level": 20,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "agathion",
+        "celestial",
+        "holy"
+      ],
+      "description": "Dragon agathions, known as draconals, number among the most powerful of their kin and also the wisest, embodying the wisdom of a benevolent philosopher-king. With their wisdom comes an elevation above material matters, making them the most removed from the troubles and lives of mortals. Draconals serve as the guardians of powerful magic, and they dispense their wisdom in service of the greater good of Nirvana and the celestial planes.\nAs celestial beings, draconals are opposed to unholy and wicked forces. They're patient and ageless creatures, and their machinations against the forces of evil sometimes move at a glacial pace. Draconals tend to have more immediate and direct impact working as mentors to mortals. They can provide counsel and knowledge to individuals or groups of heroes working against wickedness, guiding the mortals to excise evil with scalpel-like precision. This mentorship also allows a draconal to maintain their focus on planar matters or a larger, long-term plan against evil. Some draconals see the presence of evil as something useful, a motivation to stir benevolent creatures into action. To mortals, this outlook can sometimes appear as indifference, but draconals rarely knowingly allow an evil to grow out of hand.\nDraconals appear more draconic than humanoid. They walk on their hind legs and balance on their long, serpent-like tails. Sharp claws tip their scaled humanoid hands. Each draconal often embodies a core wisdom of some kind. This wisdom often affects their physical appearance in distinct ways. For example, a draconal who believes the greatest wisdom is in understanding yourself will likely have refective scales, allowing those who look upon them to see themselves fully. Because of this, draconals come in all different shapes, sizes, and colors.",
+      "armorClass": 45,
+      "hitPoints": 370,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 34,
+        "reflex": 31,
+        "will": 38
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 5,
+        "con": 8,
+        "int": 8,
+        "wis": 10,
+        "cha": 9
+      },
+      "skills": {
+        "arcana": 38,
+        "crafting": 30,
+        "deception": 35,
+        "diplomacy": 37,
+        "intimidation": 35,
+        "medicine": 34,
+        "nature": 34,
+        "religion": 36,
+        "society": 32,
+        "survival": 32
+      },
+      "languages": [
+        "diabolic",
+        "draconic",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "jM8u0XT9Sa7pRtSV",
+          "name": "Jaws",
+          "bonus": 38,
+          "damage": "4d6 spirit; 3d12+18 piercing",
+          "traits": [
+            "holy",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "KT7W9p8kGmSrImjf",
+          "name": "Claw",
+          "bonus": 38,
+          "damage": "3d8+18 slashing; 4d6 spirit",
+          "traits": [
+            "agile",
+            "holy",
+            "magical",
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "h8RD2dr2488hXgPv",
+          "name": "Breath of Wisdom",
+          "kind": "action",
+          "description": "The draconal breathes a blast of energy that deals 21d6 spirit damage to creatures they choose to damage in a 60-foot type:cone (check (reflex, dc:44, basic, options:area-effect) save). They can make this efect nonlethal for selected creatures in the area or choose not to damage certain creatures at all. They can't use Breath of Wisdom again for [[/gmr 1d4 #Recharge Breath of Wisdom]].",
+          "traits": [
+            "divine",
+            "holy"
+          ]
+        },
+        {
+          "id": "ESaeFbsRtq9zNe1L",
+          "name": "Dragon's Wisdom",
+          "kind": "passive",
+          "description": "Draconals embody the core value of wisdom, and all wisdom is obtained through understanding. If a draconal successfully Recalls Knowledge about a creature, they learn their highest weakness in addition to any other obtained knowledge, and any spirit damage they do to that creature becomes damage of their highest known weakness instead.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "bTWrHeFhzqKFfcTT",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 38,
+          "saveDc": 46,
+          "spells": [
+            {
+              "id": "jaak7zWehU9263D0",
+              "name": "Speak with Animals (Constant)",
+              "rank": 7
+            },
+            {
+              "id": "IN3IEtcFSZw5DOe9",
+              "name": "Truesight (Constant)",
+              "rank": 7
+            },
+            {
+              "id": "lv6AfezIYSklIqfZ",
+              "name": "Truespeech (Constant)",
+              "rank": 7
+            },
+            {
+              "id": "Eewha27y6U3TnemO",
+              "name": "Breath of Life",
+              "rank": 9
+            },
+            {
+              "id": "77BJuK3o6qLYepDM",
+              "name": "Dispel Magic",
+              "rank": 9
+            },
+            {
+              "id": "79sP0aVYxBPOyKVv",
+              "name": "Divine Decree",
+              "rank": 9
+            },
+            {
+              "id": "Rc79YR6QnHs9Z9vR",
+              "name": "Earthquake",
+              "rank": 9
+            },
+            {
+              "id": "EXtPcYTrIgZOlu6K",
+              "name": "Heal",
+              "rank": 9
+            },
+            {
+              "id": "gosMKmQEqb3OWXLM",
+              "name": "Implosion",
+              "rank": 9
+            },
+            {
+              "id": "OhZJs8sPATjdhHPK",
+              "name": "Wrathful Storm",
+              "rank": 9
+            },
+            {
+              "id": "RMkWXBUEM8oUot68",
+              "name": "Manifestation",
+              "rank": 10
+            }
+          ]
+        },
+        {
+          "id": "OkvUeU7hnlPh9jRR",
+          "name": "Champion Focus Spell",
+          "tradition": "divine",
+          "category": "focus",
+          "attackModifier": 0,
+          "saveDc": 46,
+          "spells": [
+            {
+              "id": "J1wp5cLRhXki10bb",
+              "name": "Lay on Hands",
+              "rank": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:requiem-dragon-ancient",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "ct5z8lpPOFlOTkMz",
+      "slug": "requiem-dragon-ancient",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:fc5e101229769df94ce7e7b8f9a2c5faa7cb3e6ab9adfa7c3bc8688c41273ae6",
+    "translatableHash": "sha256:33253c3eb66233467ef54cba3f42f9bb061a603419447ad919477631df261ad5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Requiem Dragon (Ancient)",
+      "level": 20,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "divine",
+        "dragon"
+      ],
+      "description": "Requiem dragons are stewards of the River of Souls and the process through which souls reach their final destination in the afterlife. The safe journey of a soul is of utmost importance to a requiem dragon, and some will follow individual souls from their first entry into the river through to their judgment in the Boneyard and eventually to their ultimate resting place. Most requiem dragons tie themselves to specific planes and shepherd any souls bound to that plane, leading to dragons linked to places like Heaven or Hell, though these dragons never swear true allegiance to these planes. Requiem dragons fill their lairs along the River of Souls—patchworks of somber architecture rescued from other planes—with invaluable records and mementos of great accomplishments.",
+      "armorClass": 44,
+      "hitPoints": 370,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision",
+          "lifesense-imprecise-120",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 33,
+        "reflex": 30,
+        "will": 36
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 6,
+        "con": 7,
+        "int": 6,
+        "wis": 10,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 32,
+        "athletics": 38,
+        "diplomacy": 34,
+        "medicine": 41,
+        "religion": 38
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "daemonic",
+        "draconic",
+        "empyrean",
+        "requian"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "knzrD5SFrlVeyHhp",
+          "name": "Horn",
+          "bonus": 38,
+          "damage": "4d10+15 piercing; 2d8 spirit",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "wyJW030tjlMqlOFy",
+          "name": "Claw",
+          "bonus": 38,
+          "damage": "4d6+15 slashing; 2d8 spirit",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "MfU1Is4nFaLYi4YN",
+          "name": "Tail",
+          "bonus": 36,
+          "damage": "4d8+15 bludgeoning; 2d8 spirit",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qd9Km8K4PdsnWLbX",
+          "name": "Soul Journey",
+          "kind": "passive",
+          "description": "The dragon spends 1 hour traveling through planar channels to reach the River of Souls, and then reaches any point along the river. This has the effects of Interplanar Teleport, except that the dragon can arrive precisely where they like on any major plane.",
+          "traits": [
+            "divine",
+            "exploration"
+          ]
+        },
+        {
+          "id": "cyDi0Va1gzTRN2G4",
+          "name": "Status Sight",
+          "kind": "passive",
+          "description": "The requiem dragon automatically knows the Hit Points of all creatures they can see.",
+          "traits": []
+        },
+        {
+          "id": "So4yBcmRWdbLG8JN",
+          "name": "Soul Anchor",
+          "kind": "reaction",
+          "description": "A creature within 60 feet would drop to 0 Hit Points\nEffect The dragon anchors the triggering creature's soul to its body. The creature remains at 1 Hit Point, becomes Doomed 2, and gains fast healing equal to the dragon's level for 1 minute. The creature becomes temporarily immune to further Soul Anchor usages for 24 hours.\nEffect: Soul Anchor",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "3kVLpqskZEeFu5Jc",
+          "name": "Withhold Death",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit by an attack\nEffect The dragon resists the loosening of its own soul, preventing some of the damage. The dragon gains resistance 20 to all damage against the triggering attack.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "O3ebBljtcItTfmVr",
+          "name": "Dooming Breath",
+          "kind": "action",
+          "description": "Energy from Creation's Forge erupts from the dragon's mouth, dealing 16d8 spirit damage in a 120-foot type:line (check (reflex, dc:42, basic, options:area-effect) save). Undead creatures who fail the save must also succeed at a check (will, dc:42, options:area-effect,inflicts:doomed) save or become Doomed 1. If the target is already doomed, the doomed value increases by 1 (to a maximum of Doomed 4). The dragon can't use Dooming Breath again for [[/gmr 1d4 #Recharge Dooming Breath]].",
+          "traits": [
+            "divine",
+            "spirit"
+          ]
+        },
+        {
+          "id": "OPtrKq8gnuusiAqH",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The dragon makes two claw strikes and one tail strike in any order.",
+          "traits": []
+        },
+        {
+          "id": "WS1ygMI5ueVbLBHQ",
+          "name": "Draconic Momentum",
+          "kind": "passive",
+          "description": "The dragon recharges their Dooming Breath whenever they score a critical hit with a Strike.",
+          "traits": []
+        },
+        {
+          "id": "DEBBR8MAQkVMQvCH",
+          "name": "Redirect River",
+          "kind": "action",
+          "description": "The requiem dragon redirects a small portion of the River of Souls, using their body as a spiritual connection. The river swells around them, filling the area in a 15-foot type:emanation for 1 round, becoming difficult terrain to all other creatures. Additionally, creatures that begin their turn in the emanation or enter it for the first time each round must succeed a check (fortitude, dc:42, basic, options:area-effect,inflicts:drained,inflicts:doomed) save or become Drained 1 and Doomed 1. If the target is already drained or doomed, the value increases by 1 (to a maximum of 4). The dragon can Sustain the effect.",
+          "traits": [
+            "concentrate",
+            "death",
+            "divine"
+          ]
+        },
+        {
+          "id": "pVA84K2nKuClLYVw",
+          "name": "Soul Shield",
+          "kind": "action",
+          "description": "Frequency once per day\nEffect The requiem dragon uses their life essence to create a shield of spiritual energy around a creature within 60 feet. The shield creates a link between the dragon and the creature with the effects of Share Life except that the effect doesn't end regardless of distance and remains for 1 hour. In addition, the creature gains resistance 10 to physical and spirit damage that applies to the half of damage it receives. The dragon can Dismiss the effect.",
+          "traits": [
+            "concentrate",
+            "divine"
+          ]
+        },
+        {
+          "id": "4A1V10giNIvOoOG4",
+          "name": "Grab",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "G4dVxcO1EbpdB0xz",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 0,
+          "saveDc": 39,
+          "spells": [
+            {
+              "id": "ofkR72Hv3Oee1zyU",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "3XiAKSCJlDJwf8no",
+              "name": "Heal",
+              "rank": 9
+            },
+            {
+              "id": "Fu2fOQrUhkn6hBVN",
+              "name": "Heal",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:bikkhasura",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "D5bZbv6KOSyDqEmj",
+      "slug": "bikkhasura",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5c8945b8b23b17c8f57d9740558a41d53ac9c258690a45cbad885f4201218d4f",
+    "translatableHash": "sha256:e989e5b412e43475a56c15193a568395b8d7181fd6f83713d71520e0cbbe869c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bikkhasura",
+      "level": 20,
+      "rarity": "common",
+      "size": "huge",
+      "traits": [
+        "asura",
+        "spirit"
+      ],
+      "description": "Asura who have been forcibly reincarnated across countless lifetimes, bikkhasuras have grown to nearly godlike levels of power.",
+      "armorClass": 44,
+      "hitPoints": 380,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 35,
+        "reflex": 32,
+        "will": 32
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 7,
+        "con": 10,
+        "int": 7,
+        "wis": 7,
+        "cha": 8
+      },
+      "skills": {
+        "acrobatics": 33,
+        "athletics": 38,
+        "diplomacy": 36,
+        "intimidation": 34,
+        "performance": 34,
+        "religion": 35,
+        "stealth": 33
+      },
+      "languages": [
+        "common",
+        "diabolic"
+      ],
+      "defenses": {
+        "immunities": [
+          "curse",
+          "disease",
+          "illusion",
+          "poison",
+          "polymorph"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "co85oJMEYT4np1Ws",
+          "name": "Spirit Blade",
+          "bonus": 37,
+          "damage": "4d6+15 slashing; 4d6 spirit",
+          "traits": [
+            "magical",
+            "reach-15",
+            "versatile-p"
+          ]
+        },
+        {
+          "id": "t3W7x3vMgxBkz2rv",
+          "name": "Jaws",
+          "bonus": 37,
+          "damage": "4d6 poison; 4d10+15 piercing",
+          "traits": [
+            "magical"
+          ]
+        },
+        {
+          "id": "NVXYzTDStWOO8NBj",
+          "name": "Claw",
+          "bonus": 35,
+          "damage": "4d8+15 slashing; 1d6 spirit",
+          "traits": [
+            "agile",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "SXT1G9YECDHuUU9z",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "9qxyNm7RriAoZgT3",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "pjKgG3BlSBcGOvHy",
+          "name": "+2 Status to All Saves vs. Mental",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "NLbEftfTzEEe0lJa",
+          "name": "Regeneration 20",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "aFKzNiRVaunG84Pr",
+          "name": "Inescapable Aura",
+          "kind": "passive",
+          "description": "30 feet. Creatures cannot teleport into or out of the bikkhasura's aura. Creatures attempting to teleport into the aura instead teleport to the nearest edge of the aura. Any attempts to teleport out of the aura are automatically disrupted.",
+          "traits": [
+            "aura",
+            "divine"
+          ]
+        },
+        {
+          "id": "7t9Oam4tBklr87Er",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "The bikkhasura gains 5 additional reactions at the beginning of each of their turns that they can use only for a Reactive Strike.",
+          "traits": []
+        },
+        {
+          "id": "oarMdl7V46eiEQpW",
+          "name": "Bladestorm",
+          "kind": "action",
+          "description": "Requirements The bikkhasura is holding six spirit blades\nEffect The bikkhasura makes up to six spirit blade Strikes, each against a diferent target. These attacks count toward the bikkhasura's multiple attack penalty, but the multiple attack penalty doesn't increase until after all the attacks.",
+          "traits": []
+        },
+        {
+          "id": "rDoIdBrmNSbmf70H",
+          "name": "Curse of Wisdom",
+          "kind": "passive",
+          "description": "Saving Throw check (will, dc:42)\nStage 1 12d6 mental damage and target cannot use reactions (1 round)\nStage 2 14d6 mental damage and the target is Slowed 2 (1 round)\nStage 3 15d6 mental damage and target is Paralyzed (1 round)",
+          "traits": [
+            "curse"
+          ]
+        },
+        {
+          "id": "hsqjHuz0M1HBbm0p",
+          "name": "Direct Spirit Blades",
+          "kind": "action",
+          "description": "Requirements The bikkhasura has their spirit blades\nEffect The bikkhasura directs one of its spirit blades to attack a target up to a distance of 50 feet away. Once a bikkhasura directs a spirit blade to attack a foe, the blade continues to make a single attack against that foe each round on the bikkhasura's turn until directed otherwise by the bikkhasura and as long as the foe remains within 50 feet of the bikkhasura. These weapons attack using the same statistics as the bikkhasura's spirit blade Strike and use the bikkhasura's multiple attack penalty. Any blades that are not within 50 feet of the bikkhasura at the end of its turn vanish.",
+          "traits": []
+        },
+        {
+          "id": "4I1S8HFMMtC8fOp9",
+          "name": "Glorious Visage",
+          "kind": "action",
+          "description": "The asura sanctifies themselves as either holy or unholy, gaining the trait corresponding to their choice and losing the opposing trait; their strikes, spells, and abilities also gain the trait corresponding to their choice. The asura also gains weakness 15 to the opposing sanctification and loses any weakness to its chosen sanctification. The choice is permanent until the asura uses this ability to change their sanctification.",
+          "traits": []
+        },
+        {
+          "id": "56TN3B8LosXiCjw1",
+          "name": "Horrific Glimpse",
+          "kind": "passive",
+          "description": "Frequency once per round\nTrigger The bikkhasura uses Glorious Visage\nEffect The bikkhasura explodes with spiritual energy, dealing 9d6 spirit damage to all creatures within 30 feet. This ability has the holy trait if the bikkhasura has the holy trait and the unholy trait when the bikkhasura has the unholy trait.",
+          "traits": []
+        },
+        {
+          "id": "GN6yyhXaCmNIepzW",
+          "name": "Spirit Blades",
+          "kind": "action",
+          "description": "Frequency once per hour\nEffect The bikkhasura summons six blades made out of spiritual energy. The blades either appear in the bikkhasura's hands or foat next to the bikkhasura until the asura directs one or spends an Interact action to grab it. The spirit blades can be dispelled with a successful counteract check (counteract rank 10, counteract DC 42). A successful counteract dispels all blades, even if some have been directed away from the bikkhasura.",
+          "traits": []
+        },
+        {
+          "id": "JWDjkf5ALYjOtnRJ",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "MFIXbI8eKRTx1JTl",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 0,
+          "saveDc": 44,
+          "spells": [
+            {
+              "id": "TETg5tutCN9137Kf",
+              "name": "Planar Tether",
+              "rank": 5
+            },
+            {
+              "id": "qcMnhVzGf0Yk4uF4",
+              "name": "Translocate (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "umdv5cQIEtcsLoAi",
+              "name": "Wave of Despair (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "4m6bcDHhetOikQks",
+              "name": "Cursed Metamorphosis",
+              "rank": 8
+            },
+            {
+              "id": "ppxkiIHxcT2RhBCW",
+              "name": "Dispel Magic",
+              "rank": 8
+            },
+            {
+              "id": "bJvx5r13A1QV4mR7",
+              "name": "Unfettered Movement",
+              "rank": 8
+            },
+            {
+              "id": "6jLJZ6cXzrHSNUjo",
+              "name": "Weapon Storm",
+              "rank": 8
+            },
+            {
+              "id": "fr1vMJFpl10mG1MZ",
+              "name": "Harm",
+              "rank": 9
+            },
+            {
+              "id": "NvorHpL2zBBukd9e",
+              "name": "Heal",
+              "rank": 9
+            },
+            {
+              "id": "2vmco86q5Hoj0vYV",
+              "name": "Implosion",
+              "rank": 9
+            },
+            {
+              "id": "ZAZOeAfGgHLDETLS",
+              "name": "Metamorphosis",
+              "rank": 9
+            },
+            {
+              "id": "IA0DhrJNoPvSlEPk",
+              "name": "Wails of the Damned",
+              "rank": 9
+            },
+            {
+              "id": "yQRLNanvsFaz1dHQ",
+              "name": "Freeze Time",
+              "rank": 10
+            },
+            {
+              "id": "kmNvZ6Hs6tu7dwYt",
+              "name": "Truesight (Constant)",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:kimenhul",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "dl5JB5ZgKPcbKEMw",
+      "slug": "kimenhul",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:0cbf5e341fb8e900568901bedfed6e3b229ee4ecb76121fc27834af9b55a408c",
+    "translatableHash": "sha256:a2df09c158b6acb793d96618b2ba1f9dd7c0ea4dce925679a2be3f7df765cac8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kimenhul",
+      "level": 20,
+      "rarity": "common",
+      "size": "huge",
+      "traits": [
+        "fiend",
+        "sahkil",
+        "unholy"
+      ],
+      "description": "Among the strongest of their kind aside from the sahkil tormentors, kimenhuls work their craft to foment despair in those who fear failure, forming cycles of self-loathing. These powerful sahkils focus their attention on mortals who are seemingly at the peak of their ability yet harbor secret fears of inadequacy. A kimenhul's predations can leave an indelible mark on its victims. The kimenhul whispers threats and sends fears of crushing failure to its prey, seemingly originating from their own minds, a trauma that can be difficult to bear without help. These sahkils torment their prey as long as the hapless victims live, using their Eternal Fear ability every day to psychically remind their previous victims of their failings.\nSome unique kimenhuls find themselves in a position of leadership in Xibalba, where they carve out their own small kingdoms and direct groups of sahkils to help them find mortals to torment. They rule these nightmare kingdoms through terror, often delighting in tormenting new petitioners or scheming ways to work against their immortal foes.\nAges ago, when this cycle of the multiverse was still adolescent, a cabal of psychopomps who already felt bored and restrained in their role of ushering souls to their ultimate resting place rebelled against their station. It was this corruption of the cycle of souls that spawned the first sahkils.\nAmbivalent to the prescribed order of the multiverse and spiteful of mortals, sahkils delight in spreading fear and unease to all beings, clogging up the metaphysical cycle with anxiety-ridden mortals too scared to achieve their potential. These fiends have drastically changed from their dedicated psychopomp predecessors. They are creatures of spite and torment, fear and disgust. They exploit the most common and rare fears for their own perverse satisfaction, and they want nothing more than to frighten mortals and make them question their reason for existence.\nMost sahkils lurk on the Ethereal Plane, but they frequently invade the Material Plane to torment mortals and spread terror. They use their innate ability to slip between the veils of the Ethereal and Material effortlessly, often stalking their targets for days or weeks before enacting their devious plots.",
+      "armorClass": 45,
+      "hitPoints": 425,
+      "speedFeet": 45,
+      "perception": {
+        "modifier": 35,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 33,
+        "reflex": 32,
+        "will": 35
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 8,
+        "con": 9,
+        "int": 5,
+        "wis": 7,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 36,
+        "arcana": 33,
+        "athletics": 34,
+        "deception": 38,
+        "occultism": 33,
+        "religion": 35,
+        "stealth": 36
+      },
+      "languages": [
+        "chthonian",
+        "diabolic",
+        "empyrean",
+        "requian"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "fear-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "Gj7A4LTikw9f1cDC",
+          "name": "Jaws",
+          "bonus": 38,
+          "damage": "4d12+18 piercing; 3d6 spirit",
+          "traits": [
+            "magical",
+            "reach-15",
+            "unarmed",
+            "unholy"
+          ]
+        },
+        {
+          "id": "3xQc4jPhxkh2EbIF",
+          "name": "Claw",
+          "bonus": 38,
+          "damage": "4d8+18 slashing; 3d6 spirit",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "MCwfL8BjOxB8qBiz",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "UYKJzdzZCg9KRzcD",
+          "name": "Easy to Call",
+          "kind": "passive",
+          "description": "A kimenhul's level is considered 2 lower for the purpose of being conjured by the Binding Circle ritual (and potentially other rituals, at the GM's discretion), but it is always free to attack or leave instead of negotiate unless the primary caster's check is a critical success.",
+          "traits": []
+        },
+        {
+          "id": "Ol5nO6bgZS5cJIkA",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "pgNaQm9L35oslwOp",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "dWa7XGI4buL9uDdZ",
+          "name": "Feed on Fear",
+          "kind": "passive",
+          "description": "The kimenhul regains 30 healing Hit Points at the start of its turn as long as any Frightened creature is within 100-foot emanation of it.",
+          "traits": []
+        },
+        {
+          "id": "E8sTp4v2QCJbCQmh",
+          "name": "Reactive Strike (Special)",
+          "kind": "reaction",
+          "description": "If the triggering creature is frightened, the kimenhul can make two claw Strikes against the creature instead of one Strike.",
+          "traits": []
+        },
+        {
+          "id": "bnU4poD2v5S9mLDT",
+          "name": "Eternal Fear",
+          "kind": "action",
+          "description": "The kimenhul contorts its faces and presents itself to its enemies in a terrifying and traumatic display that causes lingering fear. Each creature within 100 feet that can observe the kimenhul must make a check (will, dc:42) save.\nThey are then temporarily immune for 10 minutes.\nCritical Success The target is unaffected.\nSuccess The target becomes Frightened 3.\nFailure The target becomes Frightened 3 and is Fleeing as long as it's frightened. Even after recovering from the initial experience, the trauma is lodged in the target's mind for 1 year. Once per day, the kimenhul can communicate telepathically with the target for 1 minute as long as both creatures are on the same plane. Any time a creature under the effect of Eternal Fear is in a stressful situation (such as combat or intense social pressure), they must succeed at a check (flat, dc:11) check or become Frightened 2. While Eternal Fear lasts, the target always becomes fleeing as long as it's frightened, regardless of the source of the fear. The target can attempt a new saving throw each week to remove these effects, but they can otherwise be removed only by powerful magic such as Wish.\nCritical Failure As failure, but the effects are permanent and the target doesn't get to attempt a weekly save to end the effect.",
+          "traits": [
+            "divine",
+            "emotion",
+            "fear",
+            "incapacitation",
+            "mental"
+          ]
+        },
+        {
+          "id": "N2oBeSLsFrTuwOTn",
+          "name": "Frightening Flurry",
+          "kind": "action",
+          "description": "The kimenhul makes one jaws Strike and two claw Strikes against a single target, in any order. The target becomes Frightened with a condition value equal to the number of Strikes that hit it, to a maximum of frightened 3 if all three Strikes hit.",
+          "traits": []
+        },
+        {
+          "id": "4TqIsk44LcZm61Ws",
+          "name": "Rend",
+          "kind": "action",
+          "description": "Claw",
+          "traits": []
+        },
+        {
+          "id": "F9hcxqTd9pv3rmpZ",
+          "name": "Skip Between",
+          "kind": "action",
+          "description": "The sahkil moves from the Universe to the Ethereal Plane or vice-versa. While in the Ethereal Plane, they're unable to affect anything in the Universe, and they cannot be seen by beings or abilities in the Universe, unless these have an ability that can gaze into the Ethereal Plane. While on the Material Plane the inverse is true for anything on the Ethereal Plane. A summoned sahkil can't use Skip Between.",
+          "traits": [
+            "divine",
+            "teleportation"
+          ]
+        },
+        {
+          "id": "HiTMvvga2hoAWC9Y",
+          "name": "Snatch Between",
+          "kind": "passive",
+          "description": "When using Skip Between, the kimenhul can bring along any creatures it has Grabbed.",
+          "traits": []
+        },
+        {
+          "id": "BHNm9PtnZ9Hrj6fQ",
+          "name": "Unsettled Mind",
+          "kind": "passive",
+          "description": "Any creature affected by any of a kimenhul's mental spells or abilities becomes Stupefied 3 for the duration of that effect and for [[/gmr 1d4 #Duration Stupefied]] thereafter.",
+          "traits": []
+        },
+        {
+          "id": "1D6LEQGzk95aGl48",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "bm1p6Vp0YfRmEdMO",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 34,
+          "saveDc": 42,
+          "spells": [
+            {
+              "id": "ncJ8HnYInZTkZibk",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "kUPRHHAJdkvqe2e8",
+              "name": "Confusion",
+              "rank": 9
+            },
+            {
+              "id": "PEOn8z7pdSJEfEv0",
+              "name": "Dispel Magic (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "hoFifX6XQgPdwCZN",
+              "name": "Fear (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "irsJJWGBsP14ZQeM",
+              "name": "Hidden Mind (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "WdIG7qExvn1SpJjV",
+              "name": "Mask of Terror (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "HkfSCFXCDNPH4Cc9",
+              "name": "Phantasmagoria",
+              "rank": 9
+            },
+            {
+              "id": "LKGIHU6qykXFuUrx",
+              "name": "Phantasmal Calamity",
+              "rank": 9
+            },
+            {
+              "id": "qAzTuZJKqbcHw1eu",
+              "name": "Suggestion (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "u2p7qhu0mpuxD7Ru",
+              "name": "Truesight (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "jtRMZ0Iw0fB5hHfo",
+              "name": "Warp Mind",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:baomal",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "Hk2cd4HlPbhBJKfx",
+      "slug": "baomal",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:fe3ffe2bae1f0ca7d4f4cf2d4001661cb8559f913f52a980d537db9b16412447",
+    "translatableHash": "sha256:5f91ec3f8af8ed0d19a7c9d4764b34ed9e1c39185ec698d1f96ca596e67988f2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Baomal",
+      "level": 20,
+      "rarity": "common",
+      "size": "gargantuan",
+      "traits": [
+        "aberration",
+        "aquatic"
+      ],
+      "description": "Few sea monsters are as dreaded and feared as the two-headed baomal. These massive predatory beasts typically dwell in the deepest waters and compete with krakens and other monsters for food. They feed on whales and other large sea creatures, sometimes following them to the water's surface. Near the surface, baomals that encounter ships quickly learn that they contain a variety of tasty morsels. The creatures use their devastating spikes to rip open the ships' hulls, then leisurely feed on the helpless sailors.",
+      "armorClass": 46,
+      "hitPoints": 315,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-80"
+        ]
+      },
+      "saves": {
+        "fortitude": 36,
+        "reflex": 30,
+        "will": 34
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 2,
+        "con": 8,
+        "int": -3,
+        "wis": 6,
+        "cha": 1
+      },
+      "skills": {
+        "athletics": 41,
+        "stealth": 31,
+        "survival": 37
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "physical 10"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "SnCGhLws82aS8xpS",
+          "name": "Jaws",
+          "bonus": 38,
+          "damage": "4d12+18 piercing",
+          "traits": [
+            "reach-20",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "SmRyQEGPbRIR82tT",
+          "name": "Tsunami Jet",
+          "bonus": 38,
+          "damage": "4d10+18 bludgeoning",
+          "traits": [
+            "brutal"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "v2Vcuxvy5icZyHkj",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "LZ3htI7JRHvcwAhU",
+          "name": "Doubled Reaction",
+          "kind": "passive",
+          "description": "A baomal gains an extra reaction each round that it can use only to make a Reactive Strike. It must use a different head for each one it attempts, and it can't make more than one Reactive Strike for the same triggering action.",
+          "traits": []
+        },
+        {
+          "id": "LkBIOwt4NW6BfYFE",
+          "name": "Psychic Static Aura",
+          "kind": "passive",
+          "description": "120 feet. All creatures, except aberrations, that begin their turn in the area take 5d6 mental damage.",
+          "traits": [
+            "aura",
+            "mental",
+            "occult"
+          ]
+        },
+        {
+          "id": "Y8YhMW3CgscQr8Cd",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "74Xu2C6KzxtSFcNe",
+          "name": "Two Heads",
+          "kind": "passive",
+          "description": "Any ability that would sever a baomal's head (such as a critical hit with a Vorpal weapon) severs one head at random. Losing one head doesn't kill a baomal, but it does prevent the baomal from making Strikes with the lost head and from using Double Reaction or Two-Headed Strike.",
+          "traits": []
+        },
+        {
+          "id": "ZuxcOScsfkdklfi8",
+          "name": "Breath of the Sea",
+          "kind": "action",
+          "description": "A baomal can inhale tremendous amounts of water, drawing everything in the sea nearby closer. All creatures and objects in the water within 60-foot emanation of the baomal (including ships) are pulled toward it. Creatures must succeed at a check (athletics, dc:42, options:forced-movement) check or be pulled up to 20 feet toward the baomal (40 feet on a critical failure). For ships, use the captain's Sailing Lore in place of Athletics. Unattended objects are automatically pulled.",
+          "traits": [
+            "attack"
+          ]
+        },
+        {
+          "id": "y6bETzshaXTYx4Wq",
+          "name": "Shell Rake",
+          "kind": "action",
+          "description": "The baomal Swims or Strides alongside a creature or the hull of a vessel, dealing damage with the strong spikes on its shell. Each creature or ship the baomal is adjacent to at any point during its movement takes (6d6+10)[slashing,(6d6+10)[piercing]] (check (reflex, dc:42, basic) save). Against vessels, Shell Rake ignores the first 5 Hardness and creates an explosion of splinters that deals (3d6+5)[untyped|options:area-damage] damage to every creature within 10-foot burst of the deck's edge (check (reflex, dc:42, basic, options:area-effect) save).",
+          "traits": [
+            "move"
+          ]
+        },
+        {
+          "id": "2MJUBT30Vn8bziTk",
+          "name": "Two-Headed Strike",
+          "kind": "action",
+          "description": "The baomal makes a Strike with each set of jaws, each against a different creature. These Strikes count as one attack for the baomal's multiple attack penalty, and the penalty doesn't increase until after both attacks.",
+          "traits": []
+        },
+        {
+          "id": "5Jg7JbtLR6ciGJiV",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "uPAAssuXj8CktZTI",
+          "name": "Push 40 feet",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:requiem-dragon-ancient-spellcaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "jYkywyKGULplBGla",
+      "slug": "requiem-dragon-ancient-spellcaster",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:9c91cf2db0447f6807c335e3eba9482f401097904d1c213b14e41d1101e412e1",
+    "translatableHash": "sha256:a32c546e93891d69c1a2e3dac1cf54cf865c875214f1f1723bb35dd4e35b1b35",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Requiem Dragon (Ancient, Spellcaster)",
+      "level": 20,
+      "rarity": "uncommon",
+      "size": "gargantuan",
+      "traits": [
+        "divine",
+        "dragon"
+      ],
+      "description": "Requiem dragons are stewards of the River of Souls and the process through which souls reach their final destination in the afterlife. The safe journey of a soul is of utmost importance to a requiem dragon, and some will follow individual souls from their first entry into the river through to their judgment in the Boneyard and eventually to their ultimate resting place. Most requiem dragons tie themselves to specific planes and shepherd any souls bound to that plane, leading to dragons linked to places like Heaven or Hell, though these dragons never swear true allegiance to these planes. Requiem dragons fill their lairs along the River of Souls—patchworks of somber architecture rescued from other planes—with invaluable records and mementos of great accomplishments.",
+      "armorClass": 44,
+      "hitPoints": 370,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision",
+          "lifesense-imprecise-120",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 33,
+        "reflex": 30,
+        "will": 36
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 6,
+        "con": 7,
+        "int": 6,
+        "wis": 10,
+        "cha": 7
+      },
+      "skills": {
+        "acrobatics": 32,
+        "athletics": 38,
+        "diplomacy": 34,
+        "medicine": 41,
+        "religion": 38
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "daemonic",
+        "draconic",
+        "empyrean",
+        "requian"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "knzrD5SFrlVeyHhp",
+          "name": "Horn",
+          "bonus": 38,
+          "damage": "4d10+15 piercing; 2d8 spirit",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "wyJW030tjlMqlOFy",
+          "name": "Claw",
+          "bonus": 38,
+          "damage": "4d6+15 slashing; 2d8 spirit",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "MfU1Is4nFaLYi4YN",
+          "name": "Tail",
+          "bonus": 36,
+          "damage": "4d8+15 bludgeoning; 2d8 spirit",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qd9Km8K4PdsnWLbX",
+          "name": "Soul Journey",
+          "kind": "passive",
+          "description": "The dragon spends 1 hour traveling through planar channels to reach the River of Souls, and then reaches any point along the river. This has the effects of Interplanar Teleport, except that the dragon can arrive precisely where they like on any major plane.",
+          "traits": [
+            "divine",
+            "exploration"
+          ]
+        },
+        {
+          "id": "cyDi0Va1gzTRN2G4",
+          "name": "Status Sight",
+          "kind": "passive",
+          "description": "The requiem dragon automatically knows the Hit Points of all creatures they can see.",
+          "traits": []
+        },
+        {
+          "id": "So4yBcmRWdbLG8JN",
+          "name": "Soul Anchor",
+          "kind": "reaction",
+          "description": "A creature within 60 feet would drop to 0 Hit Points\nEffect The dragon anchors the triggering creature's soul to its body. The creature remains at 1 Hit Point, becomes Doomed 2, and gains fast healing equal to the dragon's level for 1 minute. The creature becomes temporarily immune to further Soul Anchor usages for 24 hours.\nEffect: Soul Anchor",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "3kVLpqskZEeFu5Jc",
+          "name": "Withhold Death",
+          "kind": "reaction",
+          "description": "Trigger The dragon is critically hit by an attack\nEffect The dragon resists the loosening of its own soul, preventing some of the damage. The dragon gains resistance 20 to all damage against the triggering attack.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "O3ebBljtcItTfmVr",
+          "name": "Dooming Breath",
+          "kind": "action",
+          "description": "Energy from Creation's Forge erupts from the dragon's mouth, dealing 16d8 spirit damage in a 120-foot type:line (check (reflex, dc:42, basic, options:area-effect) save). Undead creatures who fail the save must also succeed at a check (will, dc:42, options:area-effect,inflicts:doomed) save or become Doomed 1. If the target is already doomed, the doomed value increases by 1 (to a maximum of Doomed 4). The dragon can't use Dooming Breath again for [[/gmr 1d4 #Recharge Dooming Breath]].",
+          "traits": [
+            "divine",
+            "spirit"
+          ]
+        },
+        {
+          "id": "DEBBR8MAQkVMQvCH",
+          "name": "Redirect River",
+          "kind": "action",
+          "description": "The requiem dragon redirects a small portion of the River of Souls, using their body as a spiritual connection. The river swells around them, filling the area in a 15-foot type:emanation for 1 round, becoming difficult terrain to all other creatures. Additionally, creatures that begin their turn in the emanation or enter it for the first time each round must succeed a check (fortitude, dc:42, basic, options:area-effect,inflicts:drained,inflicts:doomed) save or become Drained 1 and Doomed 1. If the target is already drained or doomed, the value increases by 1 (to a maximum of 4). The dragon can Sustain the effect.",
+          "traits": [
+            "concentrate",
+            "death",
+            "divine"
+          ]
+        },
+        {
+          "id": "pVA84K2nKuClLYVw",
+          "name": "Soul Shield",
+          "kind": "action",
+          "description": "Frequency once per day\nEffect The requiem dragon uses their life essence to create a shield of spiritual energy around a creature within 60 feet. The shield creates a link between the dragon and the creature with the effects of Share Life except that the effect doesn't end regardless of distance and remains for 1 hour. In addition, the creature gains resistance 10 to physical and spirit damage that applies to the half of damage it receives. The dragon can Dismiss the effect.",
+          "traits": [
+            "concentrate",
+            "divine"
+          ]
+        },
+        {
+          "id": "9TJ7aB0wkzOsVuoX",
+          "name": "Grab",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "fpjdfWubC2WyLhEd",
+          "name": "Divine Prepared Spells",
+          "tradition": "divine",
+          "category": "prepared",
+          "attackModifier": 34,
+          "saveDc": 42,
+          "spells": [
+            {
+              "id": "rpJKhtNvYIRTOmmp",
+              "name": "Guidance",
+              "rank": 1
+            },
+            {
+              "id": "JKmKgIj0iBXKpN71",
+              "name": "Haunting Hymn",
+              "rank": 1
+            },
+            {
+              "id": "TtqS7Au0EmcIsn6b",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "bTZZNnq91PUBCVxt",
+              "name": "Protection",
+              "rank": 1
+            },
+            {
+              "id": "G4aXseCIPuKdoKrq",
+              "name": "Sanctuary",
+              "rank": 1
+            },
+            {
+              "id": "BajUh2rL9u3mNv5K",
+              "name": "Sigil",
+              "rank": 1
+            },
+            {
+              "id": "ApurIolcB4VrTM3m",
+              "name": "Spirit Link",
+              "rank": 1
+            },
+            {
+              "id": "ACrUKEeNAabGlIqw",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "ytB2F1Jr9tdzxtFs",
+              "name": "Thoughtful Gift",
+              "rank": 1
+            },
+            {
+              "id": "EGTFLACKTnbNRPaw",
+              "name": "See the Unseen",
+              "rank": 2
+            },
+            {
+              "id": "2rHlT3ISeI05Jxap",
+              "name": "Share Life",
+              "rank": 2
+            },
+            {
+              "id": "zPUiYtaYNhMoGraw",
+              "name": "Ring of Truth",
+              "rank": 3
+            },
+            {
+              "id": "kL10PKTPGK6Sd7ZY",
+              "name": "Safe Passage",
+              "rank": 3
+            },
+            {
+              "id": "dX9w451e4lWAnCHS",
+              "name": "Ghostly Tragedy",
+              "rank": 4
+            },
+            {
+              "id": "2Sxd0JBEKJIeBngO",
+              "name": "Talking Corpse",
+              "rank": 4
+            },
+            {
+              "id": "DlYz4fFyMplRopkM",
+              "name": "Vital Beacon",
+              "rank": 4
+            },
+            {
+              "id": "4eFm4uZ3aMRUxiuV",
+              "name": "Banishment",
+              "rank": 5
+            },
+            {
+              "id": "G8Ok4AJuqQxVFTUo",
+              "name": "Breath of Life",
+              "rank": 5
+            },
+            {
+              "id": "5HxSCkNUrJCOM9BW",
+              "name": "Invoke Spirits",
+              "rank": 5
+            },
+            {
+              "id": "WbUapHsHOkq8A6ba",
+              "name": "Field of Life",
+              "rank": 6
+            },
+            {
+              "id": "96eqY3v3DFeXDm2u",
+              "name": "Raise Dead",
+              "rank": 6
+            },
+            {
+              "id": "30DmNZZ3RkyRkEZV",
+              "name": "Interplanar Teleport",
+              "rank": 7
+            },
+            {
+              "id": "fWIWlOVB0xwDVL6D",
+              "name": "Planar Seal",
+              "rank": 7
+            },
+            {
+              "id": "Mz54OsPtkPCguHz4",
+              "name": "Regenerate",
+              "rank": 7
+            },
+            {
+              "id": "2qZLkBZMIRUhXowa",
+              "name": "Spirit Song",
+              "rank": 8
+            },
+            {
+              "id": "hD028t874wWPcVsw",
+              "name": "Foresight",
+              "rank": 9
+            },
+            {
+              "id": "8DkeqBnmczDHQ4jx",
+              "name": "Seize Soul",
+              "rank": 9
+            }
+          ]
+        },
+        {
+          "id": "G4dVxcO1EbpdB0xz",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 0,
+          "saveDc": 39,
+          "spells": [
+            {
+              "id": "ofkR72Hv3Oee1zyU",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "3XiAKSCJlDJwf8no",
+              "name": "Heal",
+              "rank": 9
+            },
+            {
+              "id": "Fu2fOQrUhkn6hBVN",
+              "name": "Heal",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:veranallia",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "n2zUhVaFXuOJE8a1",
+      "slug": "veranallia",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:cf670482a5f224ea3b2b33e5c4eb166dcd99b1dd4e32dfb0a8b757b2802d2d08",
+    "translatableHash": "sha256:5255db30b0eab3aab9a8efde74cfb1c9db624fa23493aa0fc39b02938b90aef7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Veranallia",
+      "level": 20,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "azata",
+        "celestial",
+        "holy"
+      ],
+      "description": "Veranallias represent the freedom of life to grow, change, and adapt. They rarely interact directly with non-azatas, as most other beings find their nature hard to comprehend, but those who secure their aid find them powerful allies. The lower half of a veranallia's body is made of vegetation that constantly repeats a dizzying cycle of sprouting, blooming, thriving, and wilting. The upper half of their body appears as that of a humanoid of any gender-it is rare for a veranallia to remain consistent in their gender for more than a few seasons at a time.\nVeranallias transform the landscape in their wake, bringing creation and destruction alike. The world around them overflows with an abundance of vegetation, with plenty of food for nearby animals, and when they bring destruction, they do so without cruelty, as it is sometimes necessary to make room for new life. They trigger forest fires in woodlands before dry brush piles up to dangerous levels, and bring bitter winters to areas plagued with parasites that thrive in hot weather.",
+      "armorClass": 45,
+      "hitPoints": 475,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 38,
+        "senses": [
+          "darkvision",
+          "tremorsense-imprecise-120"
+        ]
+      },
+      "saves": {
+        "fortitude": 36,
+        "reflex": 34,
+        "will": 38
+      },
+      "abilities": {
+        "str": 8,
+        "dex": 6,
+        "con": 8,
+        "int": 6,
+        "wis": 10,
+        "cha": 8
+      },
+      "skills": {
+        "athletics": 34,
+        "deception": 36,
+        "diplomacy": 38,
+        "intimidation": 36,
+        "medicine": 36,
+        "nature": 34,
+        "survival": 38
+      },
+      "languages": [
+        "diabolic",
+        "draconic",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "fire 20",
+          "cold 20"
+        ],
+        "weaknesses": [
+          "cold-iron 20",
+          "unholy 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "ImVU4G37cmGJMDoA",
+          "name": "Sickle",
+          "bonus": 36,
+          "damage": "3d4+12 slashing; 4d6 cold; 1d6 spirit",
+          "traits": [
+            "agile",
+            "finesse",
+            "holy",
+            "magical",
+            "trip"
+          ]
+        },
+        {
+          "id": "PgZtqgPtRR9DRaGz",
+          "name": "Vine",
+          "bonus": 36,
+          "damage": "4d12+16 bludgeoning; 1d6 spirit",
+          "traits": [
+            "holy",
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "QVlwvsf0cmEupKV2",
+          "name": "Tremorsense 120 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "vPzVhI5rLf9ZTI5N",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "9WzRmRmcle5Fmp7N",
+          "name": "Alter Weather",
+          "kind": "action",
+          "description": "Frequency three times per day\nEffect The veranallia dramatically alters weather patterns in the surrounding area, producing any of the results of a successful 9th-rank Control Weather ritual.",
+          "traits": []
+        },
+        {
+          "id": "iCMR05ML275h0Gek",
+          "name": "Rebirth",
+          "kind": "passive",
+          "description": "Frequency once per day\nEffect The veranallia spends a minute to encase a creature that has been dead for no more than a year in a cocoon. After 24 hours, the creature is restored to life, and the cocoon explodes in a shower of colorful blossoms. If the veranallia's chooses, Rebirth can change the creature's ancestry or heritage, typically into an nephilim.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "ZATwHrEH0dFylWzW",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "hyuJvmXFcS4R6bfc",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 34,
+          "saveDc": 42,
+          "spells": [
+            {
+              "id": "T1jTn0jRuZqV93CM",
+              "name": "Cursed Metamorphosis (At Will)",
+              "rank": 6
+            },
+            {
+              "id": "ISGa39OKNaOBS5Rb",
+              "name": "Tangling Creepers (At Will)",
+              "rank": 6
+            },
+            {
+              "id": "A3hsg1sR7EY6G9Ne",
+              "name": "Arctic Rift (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "IHpzMqwVP4Qwisa6",
+              "name": "Sunburst (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "V36tT2G4lUfNUNVI",
+              "name": "Nature's Enmity",
+              "rank": 9
+            },
+            {
+              "id": "4qmaoet30Rr2gRnV",
+              "name": "Nature's Pathway (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "r7jklHq5DEK3sMRb",
+              "name": "Regenerate",
+              "rank": 9
+            },
+            {
+              "id": "4wGOi1Y9QjvOIUWd",
+              "name": "Speak with Animals (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "X8HPyH2dWuDAiYT3",
+              "name": "Speak with Plants (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "r9Vti0pP2In1fPgO",
+              "name": "Truespeech (Constant)",
+              "rank": 9
+            },
+            {
+              "id": "aqTE0mNiRzVxxeCY",
+              "name": "Wrathful Storm",
+              "rank": 9
+            },
+            {
+              "id": "PdBEp2mT1BlLgcrf",
+              "name": "Cataclysm",
+              "rank": 10
+            },
+            {
+              "id": "gapottkCkDGz63Yv",
+              "name": "Manifestation (once per year)",
+              "rank": 10
+            },
+            {
+              "id": "5UtjlyksOFdxQt2b",
+              "name": "Revival",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:nasurgeth",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "sz52sgsgCjOROtST",
+      "slug": "nasurgeth",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:d45b9e204b04fa71eed164ebc33d9a11f9d868abd723d6f1bdf5fcc6e1303dd3",
+    "translatableHash": "sha256:b13bb2840988661b8ed861e5371d60ec032c2b6d7c394b9a5002497d57ff82c2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Nasurgeth",
+      "level": 20,
+      "rarity": "common",
+      "size": "gargantuan",
+      "traits": [
+        "aquatic",
+        "darvakka",
+        "shadow",
+        "undead",
+        "unholy"
+      ],
+      "description": "Nasurgeths are hungry voids with glowing eyestalks and thousands of teeth. They lurk deep beneath the waves where the sunlight doesn't reach. At night, they ascend to the skies and rain destruction and ruin down on all the living.\nDarvakkas, also called nightshades, are a ravenous evil made up of equal parts darkness and malice. Originally creatures of the Outer Planes who travel to the convergence of the Shadow Plane and the Void—where the power of nothingness obliterates them—these undead abominations are the physical embodiment of entropy. They burn with an intense hatred for all life, working to bring a final, dark night to the Material Plane where nothing but ash and ice remain.\nAs creatures twisted by darkness and shadow, darvakkas have a great aversion to sunlight and all sources of vitality energy. On the Material Plane, they spend the hours of daylight hidden below ground, amid ruins, or submerged deep in the ocean's darkest chasms beyond the reach of the sun's rays, emerging when darkness shelters them overhead.\nDarvakkas have an aura of entropy that attracts undead thralls to serve as warriors and heralds. They rarely seek alliances with each other or other creatures, existing in solitude as the heads of individual armies of the dead.",
+      "armorClass": 45,
+      "hitPoints": 510,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "greater-darkvision",
+          "lifesense-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 35,
+        "reflex": 32,
+        "will": 36
+      },
+      "abilities": {
+        "str": 11,
+        "dex": 6,
+        "con": 7,
+        "int": 8,
+        "wis": 8,
+        "cha": 7
+      },
+      "skills": {
+        "arcana": 36,
+        "athletics": 39,
+        "religion": 36,
+        "stealth": 34
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "diabolic",
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "cold",
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 15",
+          "silver 15"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "7lt4725ubnitaecg",
+          "name": "Jaws",
+          "bonus": 39,
+          "damage": "3d10+19 piercing; 2d10 cold",
+          "traits": [
+            "magical",
+            "reach-15",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "ezj7d0ajdqts6n00",
+          "name": "Tail",
+          "bonus": 39,
+          "damage": "3d6+19 bludgeoning; 2d10 cold",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "U0g3auuSZ4pwJU82",
+          "name": "Greater Darkvision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "pPFQRbQlLR10sSbh",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "MFUrmw36LIlgw5UX",
+          "name": "Lifesense 60 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "hndwksut71ohgybj",
+          "name": "Midnight Depths",
+          "kind": "passive",
+          "description": "60 feet. A nasurgeth's entropy grows even stronger underwater. All water within the aura is completely dark (as 4th-rank Darkness). Magical light with a counteract rank of 4th level or lower, along with magical light cantrips, are suppressed. A living creature entering or starting its turn in the aura takes 4d6 void damage, and the creature also takes an additional 2d10 cold damage if it's in water (check (fortitude, dc:39, basic, options:area-effect,forced-movement,inflicts:enfeebled)). If it fails, it's also Enfeebled 1 for 1 minute and pulled 10 feet toward the nasurgeth.",
+          "traits": [
+            "aura",
+            "cold",
+            "darkness",
+            "divine",
+            "void"
+          ]
+        },
+        {
+          "id": "15ji0gz9dw3xxfog",
+          "name": "Spray Black Bile",
+          "kind": "reaction",
+          "description": "Trigger The nasurgeth takes slashing or piercing damage from a critical hit, or a swallowed creature cuts itself free\nEffect Darkness and void energy spill out from the nasurgeth's wound, dealing 8d8 void damage to creatures within 20 feet (check (fortitude, dc:40, basic)).",
+          "traits": []
+        },
+        {
+          "id": "ssocwemmugpprhuc",
+          "name": "Sunlight Powerlessness",
+          "kind": "passive",
+          "description": "A nasurgeth caught in sunlight is Stunned 2 and Clumsy 2.",
+          "traits": []
+        },
+        {
+          "id": "sjrL9SViifyZvj1G",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "tvvsxwr3fxjxf5ho",
+          "name": "Broken Barb",
+          "kind": "action",
+          "description": "Requirements A creature is Grabbed or Restrained in the nasurgeth's jaws\nEffect The nasurgeth breaks a tooth off in the target, who takes 3d10 persistent bleed damage and is no longer grabbed or restrained. If the target is adjacent to a surface, the tooth also pins it in place, making it Immobilized ([[/act escape dc=45]]).",
+          "traits": []
+        },
+        {
+          "id": "7avv9wov0dsg3srf",
+          "name": "Ravenous Void",
+          "kind": "action",
+          "description": "The nasurgeth barrels forward with their mouth open, Swimming twice in a straight line and moving through the spaces of Huge or smaller creatures. The nasurgeth deals the damage of their jaws Strike to each creature whose space they enter (check (reflex, dc:45, basic)). Any creature that critically fails is automatically Swallowed Whole.",
+          "traits": []
+        },
+        {
+          "id": "0jGEzNSvC3mj1gAv",
+          "name": "Swallow Whole",
+          "kind": "action",
+          "description": "Huge, (2d10+9)[bludgeoning], Rupture 40\nA living creature that ends its turn swallowed whole by a nasurgeth becomes Drained 1 or increases its drained condition by 1, and the nasurgeth gains 20 temporary Hit Points. A creature whose drained condition increases to 5 in this way dies.",
+          "traits": [
+            "attack"
+          ]
+        },
+        {
+          "id": "tLqZsl7HmPDlI9X7",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "sUsdrW2eEA7nzp6P",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 35,
+          "saveDc": 43,
+          "spells": [
+            {
+              "id": "g4nAs8DaVHUEISTF",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "3rKCigKvwBeinC4a",
+              "name": "Interplanar Teleport (to the Universe, Void, or Netherworld only)",
+              "rank": 7
+            },
+            {
+              "id": "LchpmrFeDQkys77y",
+              "name": "Truesight",
+              "rank": 7
+            },
+            {
+              "id": "ohQx5dugLsoCEut1",
+              "name": "Eclipse Burst",
+              "rank": 8
+            },
+            {
+              "id": "2iedxp0Ne7Wbbp94",
+              "name": "Harm",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:izfiitar",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "TbkQnciNLvcWCrxo",
+      "slug": "izfiitar",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:def26e9b00cccf738d6a148df63a2a11971ad06416437df65bba172994cd5651",
+    "translatableHash": "sha256:5648f44a636bc42efbb05d0dc0f208b3dee294a5560ad240d4d101e0459577f6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Izfiitar",
+      "level": 20,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "monitor",
+        "protean"
+      ],
+      "description": "Occupying the pinnacle of the loose protean caste system, izfiitars enact the ever-shifting plans of the vaunted protean lords and those of the divine Speakers of the Depths.\nProteans are manifestations of chaos made flesh, natives of the Maelstrom that embody the primeval potency of entropy in their serpentine forms.",
+      "armorClass": 44,
+      "hitPoints": 360,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 33,
+        "reflex": 36,
+        "will": 38
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 10,
+        "con": 9,
+        "int": 7,
+        "wis": 8,
+        "cha": 9
+      },
+      "skills": {
+        "acrobatics": 38,
+        "arcana": 35,
+        "athletics": 35,
+        "deception": 37,
+        "diplomacy": 37,
+        "occultism": 36,
+        "religion": 38,
+        "society": 35,
+        "stealth": 38
+      },
+      "languages": [
+        "chthonian",
+        "empyrean",
+        "protean"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "acid 20",
+          "precision 20",
+          "protean-anatomy 25"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "2i7RkOuFOY9hzi25",
+          "name": "Jaws",
+          "bonus": 38,
+          "damage": "4d10+19 piercing",
+          "traits": [
+            "finesse",
+            "magical"
+          ]
+        },
+        {
+          "id": "MaC47StIgiYcbjOR",
+          "name": "Claw",
+          "bonus": 38,
+          "damage": "4d8+19 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical"
+          ]
+        },
+        {
+          "id": "9bcCo1mQae8WAr6u",
+          "name": "Tail",
+          "bonus": 38,
+          "damage": "4d12+19 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tDMBFQ69nPNIDvVL",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "Tw3YjNactlZkz6f5",
+          "name": "Entropy Sense (Imprecise) 120 feet",
+          "kind": "passive",
+          "description": "A Izfiitar can anticipate the most likely location of a creature through their supernatural insight into the forces of chaotic probabilities and chance. This grants the izflitar the ability to sense creatures within the listed range.\nThe izflitar's entropy sense doesn't detect creatures under the effects of Veil of Privacy or that are otherwise shielded from divinations and predictions.",
+          "traits": [
+            "divine",
+            "prediction"
+          ]
+        },
+        {
+          "id": "w1yLYqB1KxZJBs5w",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "54WOsqAo6qC3BpxR",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "ChRMEkPy5PRSWPqu",
+          "name": "Fast Healing 20",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "zcXmXYiey1ALgBc2",
+          "name": "Kiss of the Speakers",
+          "kind": "passive",
+          "description": "The izfiitar continuously tinkers with the myriad possibilities in which it can move or manipulate magic. The izfiitar is always Quickened and can use the extra action only to Step, Stride, or as part of Casting a Spell.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "K1G5PkDyd9v0F4cW",
+          "name": "Prescient Revision",
+          "kind": "reaction",
+          "description": "Trigger The izfiitar fails a check\nEffect The izfiitar rerolls the triggering check and takes the better result. For [[/gmr 1d4 #rounds]], it loses the effects of Kiss of the Speakers and can't use Reshape Reality.",
+          "traits": [
+            "divine",
+            "fortune"
+          ]
+        },
+        {
+          "id": "zsVt4kFtUsLstrgv",
+          "name": "Protean Anatomy 25",
+          "kind": "passive",
+          "description": "A izfiitar's vital organs shift and change shape and position constantly. Immediately after the izfiitar takes acid, electricity, or sonic damage, it gains the listed amount of resistance to that damage type. This lasts for 1 hour or until the next time the protean takes damage of one of the other types (in which case its resistance changes to match that type), whichever comes first.\nThe izfiitar is immune to polymorph effects unless it is a willing target. If Blinded or Deafened, the izfiitar automatically recovers at the end of its next turn as new sensory organs grow to replace the compromised ones.\nEffect: Protean Anatomy",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "vQPlPvqwhvVQLqDP",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The izfiitar takes the appearance of any Huge or smaller creature. This doesn't change its Speed or its attack and damage bonuses with its Strikes, but might change the damage type its Strikes deal.",
+          "traits": [
+            "concentrate",
+            "divine",
+            "polymorph"
+          ]
+        },
+        {
+          "id": "tgoQM79wjs7GKqej",
+          "name": "Constrict",
+          "kind": "action",
+          "description": "(2d8+17)[bludgeoning] damage, check (fortitude, dc:44, basic)",
+          "traits": []
+        },
+        {
+          "id": "eNBZq39osfEn6lxc",
+          "name": "Greater Warpwave Strike",
+          "kind": "passive",
+          "description": "Any creature struck and damaged by an izfiitar's jaws or claw Strike must succeed at a check (fortitude, dc:42) save or be subject to a particularly powerful Warpwave.\nRoll twice and apply both affects, rerolling any duplicates.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "PSp8p0TXeXlS7tms",
+          "name": "Reshape Reality",
+          "kind": "passive",
+          "description": "When the izfiitar casts Mirage, it infuses the illusion with quasi-real substance. Creatures that don't disbelieve the illusion treat structures and terrain created through the spell as though they were real, ascending illusory stairs, becoming trapped by illusory quicksand, and so on.",
+          "traits": [
+            "divine",
+            "polymorph"
+          ]
+        },
+        {
+          "id": "eAVEsQrBLcSiqErs",
+          "name": "Storm of Claws",
+          "kind": "action",
+          "description": "The izfiitar makes up to six claw Strikes, each against a different target.",
+          "traits": []
+        },
+        {
+          "id": "2PS4rb2U1m5GYgMq",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "DBIuCC9Q0DlOtiTX",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 39,
+          "saveDc": 47,
+          "spells": [
+            {
+              "id": "5TRv4sIpACTh1KJD",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            },
+            {
+              "id": "dOgIA29XvZTYnTAn",
+              "name": "Unfettered Movement (Constant)",
+              "rank": 4
+            },
+            {
+              "id": "O1gJKj4GFYZ8y48Q",
+              "name": "Creation (At Will)",
+              "rank": 5
+            },
+            {
+              "id": "u9Zwc7GZo3XKkQAJ",
+              "name": "Mirage (At Will, See Reshape Reality)",
+              "rank": 5
+            },
+            {
+              "id": "z53CxBPNB10jJuGb",
+              "name": "Translocate",
+              "rank": 5
+            },
+            {
+              "id": "nEsKHRDs6rvaMkzS",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            },
+            {
+              "id": "Baw1DOhmcqyCapp2",
+              "name": "Teleport (At Will, Self Only)",
+              "rank": 6
+            },
+            {
+              "id": "wSDqyxkHEX7eUEDr",
+              "name": "Warp Mind (At Will)",
+              "rank": 7
+            },
+            {
+              "id": "Nbb46hq2eYsrL0WA",
+              "name": "Confusion",
+              "rank": 8
+            },
+            {
+              "id": "cwds0IRzkuv1AOhV",
+              "name": "Cursed Metamorphosis",
+              "rank": 8
+            },
+            {
+              "id": "ROGkkzNljbiAHBjZ",
+              "name": "Disintegrate",
+              "rank": 8
+            },
+            {
+              "id": "ynxSRWlpkmglj00Q",
+              "name": "Dispel Magic",
+              "rank": 8
+            },
+            {
+              "id": "uoXFUeNjxbHlfsh1",
+              "name": "Divine Wrath",
+              "rank": 9
+            },
+            {
+              "id": "BCsBma1eBqSe3eKo",
+              "name": "Massacre",
+              "rank": 9
+            },
+            {
+              "id": "F89Fz9gbr9Q0hB8c",
+              "name": "Overwhelming Presence",
+              "rank": 9
+            },
+            {
+              "id": "W5bbvpuKlT6SLesH",
+              "name": "Manifestation",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:eremite",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "zYVxMOCM8Yqnjn6T",
+      "slug": "eremite",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b98e4b2e0cab023a905b9d6a7a5b91f083c218a9da37d086eb9e32d3692c1f0e",
+    "translatableHash": "sha256:8f20a335effdc661c1c1d2f7588890e9180737bf0f1fd56df1f0c1eacd374ad0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eremite",
+      "level": 20,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "fiend",
+        "unholy",
+        "velstrac"
+      ],
+      "description": "",
+      "armorClass": 45,
+      "hitPoints": 375,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 34,
+        "senses": [
+          "greater-darkvision",
+          "truesight-5"
+        ]
+      },
+      "saves": {
+        "fortitude": 37,
+        "reflex": 32,
+        "will": 34
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 6,
+        "con": 7,
+        "int": 6,
+        "wis": 6,
+        "cha": 10
+      },
+      "skills": {
+        "athletics": 33,
+        "deception": 38,
+        "diplomacy": 36,
+        "intimidation": 40,
+        "medicine": 36,
+        "religion": 34,
+        "stealth": 36
+      },
+      "languages": [
+        "common",
+        "diabolic",
+        "shadowtongue"
+      ],
+      "defenses": {
+        "immunities": [
+          "cold",
+          "fear-effects",
+          "nonlethal-attacks"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 20",
+          "silver 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "RK2j6TDKNEv5UzMs",
+          "name": "Jaws",
+          "bonus": 39,
+          "damage": "2d6 bleed; 4d8+19 piercing",
+          "traits": [
+            "magical",
+            "unholy"
+          ]
+        },
+        {
+          "id": "WqYO71OiVV3AVqoy",
+          "name": "Claw",
+          "bonus": 39,
+          "damage": "3d6+19 slashing; 2d6 bleed",
+          "traits": [
+            "agile",
+            "magical",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "lZmpfqnhczYxmC3k",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "2AUsdKKeOILPLmtd",
+          "name": "Painsight",
+          "kind": "passive",
+          "description": "A velstrac automatically knows whether a creature it sees has any of the Doomed, Dying, and Wounded conditions as well as the value of those conditions.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "teom9TUDDfzqDhSs",
+          "name": "Regeneration 25 (Deactivated by Holy or Silver)",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "fUk5Evip1bKzDM4z",
+          "name": "Ignore Pain",
+          "kind": "passive",
+          "description": "An eremite's actions can't be disrupted due to damage or Strikes (such as Reactive Strike).",
+          "traits": []
+        },
+        {
+          "id": "aD4aMwhqekfn6aOd",
+          "name": "Paralytic Perfection",
+          "kind": "passive",
+          "description": "30 feet. When a creature ends its turn in the aura, it feels compelled to offer pieces of its own flesh to the eremite. The creature must succeed at a check (will, dc:40, options:area-effect,inflicts:paralyzed) save or become Paralyzed for 1 round.",
+          "traits": [
+            "aura",
+            "divine",
+            "fear",
+            "incapacitation",
+            "mental",
+            "visual"
+          ]
+        },
+        {
+          "id": "1LFp8O8agv2KqacK",
+          "name": "Evisceration",
+          "kind": "action",
+          "description": "Requirements The eremite has a creature Grabbed or Restrained\nEffect The eremite excises flesh or bone from a creature they've grabbed or restrained. The target takes 6d10 persistent bleed damage.",
+          "traits": [
+            "attack"
+          ]
+        },
+        {
+          "id": "TPyLMUdPql12YgPE",
+          "name": "Exquisite Pain",
+          "kind": "action",
+          "description": "An eremite's knowledge of pressure points and pain centers is unsurpassed. A creature hit by an eremite's melee Strikes must succeed at a check (fortitude, dc:40, options:inflicts:stunned) save or be Stunned 2 (Stunned 4 on a critical failure). A creature that critically succeeds is temporarily immune for 24 hours.",
+          "traits": []
+        },
+        {
+          "id": "MiOeL8gu2oDPwjX8",
+          "name": "Focus Gaze",
+          "kind": "action",
+          "description": "The eremite stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against paralytic perfection. In addition, if the creature was already Paralyzed, on a failed save, its unnatural longing causes it to become Doomed 1. After attempting this save, the creature is then temporarily immune to Focus Gaze until the start of the eremite's next turn.",
+          "traits": [
+            "concentrate",
+            "divine",
+            "fear",
+            "mental",
+            "visual"
+          ]
+        },
+        {
+          "id": "dIlHFr1dhXc6lGR3",
+          "name": "Graft Flesh",
+          "kind": "action",
+          "description": "Requirements The eremite holds a piece of flesh they collected via Evisceration\nEffect The eremite attaches the stolen flesh to themself. They either regain 100 Hit Points; reduce the value of their Clumsy, Drained, Enfeebled, or Stupefied condition by 3; or reduce the stage of any affliction affecting them by 3.",
+          "traits": []
+        },
+        {
+          "id": "ybRytrWk5mQ1tODD",
+          "name": "Shadow Traveler",
+          "kind": "passive",
+          "description": "When an eremite uses Interplanar Teleport, they arrive at exactly their intended destination.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "vYmXaGsxJAjvJvFW",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "dS5QpaAGaBluN6Vd",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 34,
+          "saveDc": 42,
+          "spells": [
+            {
+              "id": "QHajacAJGfL7p2bn",
+              "name": "Stabilize",
+              "rank": 1
+            },
+            {
+              "id": "TPshjpi5CKdU8nuU",
+              "name": "Interplanar Teleport (to the Netherworld or the Universe only)",
+              "rank": 7
+            },
+            {
+              "id": "Hg6qc00Ial6ZJucI",
+              "name": "Planar Seal",
+              "rank": 7
+            },
+            {
+              "id": "nyZyBmYgkvCAVRVk",
+              "name": "Shadow Blast",
+              "rank": 7
+            },
+            {
+              "id": "zlpRDfSMKpTAaiZe",
+              "name": "Translocate (At Will)",
+              "rank": 7
+            },
+            {
+              "id": "cnt9UFcWkTeMjOvz",
+              "name": "Warp Mind",
+              "rank": 7
+            },
+            {
+              "id": "xNbuWcPRfnco1Yea",
+              "name": "Blessed Boundary",
+              "rank": 9
+            },
+            {
+              "id": "1nwj0nE3sgMZETbh",
+              "name": "Harm",
+              "rank": 9
+            },
+            {
+              "id": "adVy5JcoezKB7Wbk",
+              "name": "Heal",
+              "rank": 9
+            },
+            {
+              "id": "81Of45a5Ny3a6dI9",
+              "name": "Seize Soul",
+              "rank": 9
+            },
+            {
+              "id": "dwPLCsQdXzYWscPH",
+              "name": "Shadow Blast",
+              "rank": 9
+            },
+            {
+              "id": "2bNHB9QBsVQPAoTx",
+              "name": "Truesight (Constant)",
+              "rank": 9
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:ravener",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "iOYLNPBikuBfVBDu",
+      "slug": "ravener",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5e634feda97a5bd1ebe2dd7b6e6b6e7f9a871ac52d8990de764b978b893296eb",
+    "translatableHash": "sha256:f6a0747ee040f8ed6176d9181002bb5f292e23137012c77ff55a481f6604dcdd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ravener",
+      "level": 21,
+      "rarity": "rare",
+      "size": "gargantuan",
+      "traits": [
+        "dragon",
+        "fire",
+        "primal",
+        "undead",
+        "unholy"
+      ],
+      "description": "The ravener presented here was once an ancient cinder dragon.\nThough their lifespans can measure in millennia, all dragons must eventually perish. While many do so on the blades or under the spells of dragonslayers, some manage to outlast their enemies and must, in time, face the truth that awaits all living creatures at the end of their natural life span. As with many other creatures, some dragons respond to such looming reminders of their own mortality poorly, and the particularly prideful or wrathful of their kind often lash out in anger when confronted by this grim truth. Peace and acceptance are found by some dragons, but the most stubborn of their ilk (and invariably the most wicked) can pursue a different answer to the problem. These dragons seek out sinister rites that can transform them into undead creatures known as raveners.\nA ravener's flesh is stripped away as part of the transformation, leaving only bones. What they lose in flesh, however, the dragon gains in soul-rending power, as their spiritual energy forms a protective barrier around their body, keeping it intact and allowing flight with now-skeletal wings. This existence isn't as easy to maintain as other forms of undeath, however, and the ravener must feed regularly on living souls to power their profane metabolism. Their hunger is much greater than that of a living dragon, so raveners are forced to relocate regularly, traveling to fresh hunting grounds each time they strip their current home of prey.",
+      "armorClass": 47,
+      "hitPoints": 500,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 37,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 38,
+        "reflex": 34,
+        "will": 37
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 5,
+        "con": 9,
+        "int": 5,
+        "wis": 6,
+        "cha": 8
+      },
+      "skills": {
+        "acrobatics": 32,
+        "athletics": 39,
+        "deception": 38,
+        "diplomacy": 38,
+        "intimidation": 40,
+        "nature": 32,
+        "stealth": 35
+      },
+      "languages": [
+        "common",
+        "draconic",
+        "necril",
+        "pyric"
+      ],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "death-effects",
+          "disease",
+          "fire",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 20",
+          "holy 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "7vC2Ax7gT2rVncuX",
+          "name": "Jaws",
+          "bonus": 39,
+          "damage": "4d12+13 piercing; 2d6 fire; 2d6 void",
+          "traits": [
+            "fire",
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "ojYLClOcYqfHY4B2",
+          "name": "Horn",
+          "bonus": 37,
+          "damage": "2d6 void; 4d12+17 slashing",
+          "traits": [
+            "magical",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "1P2v1ZZGD1tc4uhc",
+          "name": "Claw",
+          "bonus": 39,
+          "damage": "4d10+13 slashing; 2d6 void",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "ZZvgnbaQFzbbLYCE",
+          "name": "Tail",
+          "bonus": 37,
+          "damage": "4d8+13 slashing; 2d6 void",
+          "traits": [
+            "magical",
+            "reach-25"
+          ]
+        },
+        {
+          "id": "sISxV6zXMFsaq8k8",
+          "name": "Wing",
+          "bonus": 37,
+          "damage": "4d8+13 slashing; 2d6 void",
+          "traits": [
+            "agile",
+            "magical",
+            "reach-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "xcv5RqQDqPUZO64y",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "Smoke doesn't impair a cinder ravener's vision; it ignores the Concealed condition from smoke.",
+          "traits": []
+        },
+        {
+          "id": "oERaiyaSRysA2sZ2",
+          "name": "Soulsense 60 feet",
+          "kind": "passive",
+          "description": "A ravener senses the spiritual essence of living and undead creatures within the listed range. Creatures whose material bodies are one unit with their souls, like celestials and fiends, appear brighter to this sense.",
+          "traits": []
+        },
+        {
+          "id": "UaJYVpVyFCLmyzSf",
+          "name": "+2 Status to All Saves vs. Primal",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "ET8pngtbf9wgjHPR",
+          "name": "Cowering Fear",
+          "kind": "passive",
+          "description": "90 feet. check (will, dc:42, options:area-effect,inflicts:frightened,inflicts:immobilized)\nA ravener's frightful presence causes creatures to cower in fear as well. As long as a creature is at least Frightened 2 or more as a result of the ravener's frightful presence, it's also Immobilized from the fear.",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "gXGuh7J7RRLkbzSe",
+          "name": "Discorporate",
+          "kind": "passive",
+          "description": "Trigger The ravener takes excess damage to their soul ward but still has at least 51 Hit Points in their soul ward\nEffect The ravener draws deeply into their soul ward, discorporating their body into soul energy to escape. They take 50 untyped damage to their soul ward and their physical body vanishes, reappearing [[/gmr 1d4 #hours]] later in a random location within 1 mile from the location where they used Discorporate.",
+          "traits": [
+            "primal"
+          ]
+        },
+        {
+          "id": "a85DzEynRWXcWgON",
+          "name": "Reactive Strike (Jaws Only)",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "BTIzB29OCX9LdUn5",
+          "name": "Soul Ward",
+          "kind": "passive",
+          "description": "200 HP\nAn intangible field of necromantic energy protects a ravener from total destruction. A soul ward has 150 maximum Hit Points, or 200 if the ravener is level 21 or higher. Whenever a ravener would be reduced below 1 Hit Point, all damage in excess of what would reduce them to 1 Hit Point is instead dealt to their soul ward. If this damage reduces the soul ward to fewer than 0 Hit Points, the ravener is destroyed. A soul ward's Hit Points can be restored only via specific ravener abilities such as Consume Soul, Void Breath, or vicious criticals. A ravener who goes more than a week without successfully using Consume Soul to feed on a dying creature starves, and their soul ward loses 1d4 Hit Points each day until they feed. If the ravener's soul ward loses all its Hit Points while the ravener still has more than 1 HP, they become a ravener husk.",
+          "traits": []
+        },
+        {
+          "id": "jnw1jAEdaxQu19ow",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "f3zHkq2zmnlBI36y",
+          "name": "All Becomes Flame",
+          "kind": "action",
+          "description": "The ravener curses a creature within 60 feet to have their magic replaced with primordial flames. The creature must attempt a check (will, dc:42) save. Regardless of the result, the target becomes temporarily immune for 1 day. Critical Success The creature is unaffected.\nSuccess The creature is cursed for 1 round. While cursed, any spells that the creature casts gain the fire trait and have their damage type changed to fire damage, regardless of the original damage type or types of the spell. Additionally, any magical items that the cursed target holds or wields are affected in the same manner, such as changing the cold damage of a frost rune to fire damage. The cursed creature can attempt to temporarily suppress the curse as an action, which has the concentrate trait. If the creature succeeds a check (will, dc:42) save, the curse is suppressed until the end of their turn.\nFailure As success, but the curse's duration is 1 hour.\nCritical Failure As success, but the curse's duration is 1 day, and the DC to suppress the curse increases to DC 44.",
+          "traits": [
+            "curse",
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "xxO9fB5wdVjIMq5m",
+          "name": "Consume Soul",
+          "kind": "passive",
+          "description": "Trigger A living creature within 30 feet of the ravener dies\nEffect The ravener tears the creature's soul from its body with their maw and gulps it down. The dying creature must attempt a check (fortitude, dc:44) save with the same DC as the ravener's breath ability.\nCritical Success The creature is unaffected.\nSuccess The ravener tears off a small chunk of the creature's soul. If the victim is restored to life, they are Drained 1 in addition to any other side effects of returning to life. The ravener adds a number of Hit Points to their soul ward equal to half the creature's level.\nFailure As success, but the creature's soul is ravaged. The creature is Drained 3 and the ravener adds a number of Hit Points to their soul ward equal to the creature's level.\nCritical Failure As failure, but the ravener devours the entire soul. The victim can't be restored to life as long as the ravener exists except via powerful magic such as a wish ritual, and the ravener adds a number of Hit Points to their soul ward equal to twice the creature's level.",
+          "traits": [
+            "death",
+            "primal"
+          ]
+        },
+        {
+          "id": "rErZsPXNuFbptayx",
+          "name": "Manipulate Flames",
+          "kind": "action",
+          "description": "The ravener intensifies nearby fires. Every foe within 60 feet taking persistent fire damage takes 5d6 fire damage.",
+          "traits": [
+            "fire",
+            "primal"
+          ]
+        },
+        {
+          "id": "FHYUjs1iNFgXMFd5",
+          "name": "Vicious Criticals",
+          "kind": "passive",
+          "description": "The ravener treats an attack roll as a critical hit on a roll of 19 or 20, as long as the attack roll was a success. Additionally, whenever the ravener makes a critical hit with one of their Strikes, the target must succeed on a check (fortitude, dc:42) save or gain the Drained 1 condition. If the target already has a drained value of greater than 0, their drained value instead increases by 1, to a maximum of drained 4. Whenever the ravener applies drain to a creature in this way, their soul ward gains 5 Hit Points.",
+          "traits": []
+        },
+        {
+          "id": "XvT3rzgSxpBmdzd1",
+          "name": "Void Breath",
+          "kind": "action",
+          "description": "The ravener breathes a blast of necrotic flame that deals 20d6 fire damage|options:area-damage] damage (check (reflex, dc:44, basic, options:area-effect,inflicts:drained) save). A creature that fails its save is also Drained 1 (or Drained 2 on a critical failure). If a creature is drained by the ravener's Void Breath, the ravener's soul ward gains 5 HP. The ravener can't use Void Breath again for [[/gmr 1d4 #Recharge Void Breath]].",
+          "traits": [
+            "primal",
+            "void"
+          ]
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:elysian-titan",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "synED0IrMbFHimtc",
+      "slug": "elysian-titan",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:893ab6c7338c6e9acd4a7a5f4b6f076b23a3c8de4a911f9a878eb190f27b98fd",
+    "translatableHash": "sha256:e935c75eda527c3de9d3e4d776ec3542c3ce8735d9d792392ccb0dd1521918f1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elysian Titan",
+      "level": 21,
+      "rarity": "rare",
+      "size": "gargantuan",
+      "traits": [
+        "humanoid",
+        "titan"
+      ],
+      "description": "Those titans who remained true to their creators, refusing to participate in their peers' rebellion, earned their freedom while the others were imprisoned. Many Elysian titans train aspiring champions of freedom, sacrifice, and selflessness.\nCreated by ancient deities long before the rise of mortal ancestries, titans united and attempted to overthrow their deific progenitors. The resulting war still figures prominently throughout mortal myths, in which most titans were cast down and imprisoned for eons.",
+      "armorClass": 46,
+      "hitPoints": 400,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 37,
+        "reflex": 34,
+        "will": 35
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 7,
+        "con": 8,
+        "int": 6,
+        "wis": 8,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 36,
+        "athletics": 43,
+        "crafting": 37,
+        "diplomacy": 37,
+        "intimidation": 35,
+        "religion": 37,
+        "survival": 37
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "rfOg5NKnws2VtxfU",
+          "name": "Greatpick",
+          "bonus": 41,
+          "damage": "4d10+20 piercing",
+          "traits": [
+            "fatal-d12",
+            "magical",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "ZKlu5Rcj7aPQWIqR",
+          "name": "Fist",
+          "bonus": 38,
+          "damage": "4d8+20 bludgeoning",
+          "traits": [
+            "agile",
+            "reach-30"
+          ]
+        },
+        {
+          "id": "uEg92TegciEioxUO",
+          "name": "Piercing Flash",
+          "bonus": 35,
+          "damage": "2d10 fire; 3d12+10 piercing",
+          "traits": [
+            "agile",
+            "fire",
+            "light",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "F3uEsWGDl6JMsUMC",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "H7zBL2zGojuMZHs8",
+          "name": "+4 Status to All Saves vs. Mental",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "IuheuN8Mn3uMbRb7",
+          "name": "Impossible Stature",
+          "kind": "passive",
+          "description": "100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a check (will, dc:44, options:area-effect) save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.",
+          "traits": [
+            "aura",
+            "divine",
+            "illusion",
+            "mental"
+          ]
+        },
+        {
+          "id": "hm8LWYr2a28rjFMo",
+          "name": "Titanic Grasp",
+          "kind": "action",
+          "description": "The titan makes a fist Strike against a creature affected by their impossible stature, even if it's outside of the titan's normal reach. On a hit, the titan automatically Grabs the creature and, if out of their reach, pulls it within reach.",
+          "traits": []
+        },
+        {
+          "id": "6ZblyWwq5cYJAhMd",
+          "name": "Wide Cleave",
+          "kind": "action",
+          "description": "The titan makes a melee weapon Strike against each foe within their reach. This counts as three attacks for the titan's multiple attack penalty, but the penalty doesn't increase until all attacks have been made.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "EsrBm06U5yVs9TW2",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 36,
+          "saveDc": 44,
+          "spells": [
+            {
+              "id": "ZUmmTkAyHwFJwOyX",
+              "name": "Sending",
+              "rank": 5
+            },
+            {
+              "id": "GtdalJyNgPLARtUZ",
+              "name": "Scrying",
+              "rank": 6
+            },
+            {
+              "id": "sgtzTdbawtyaiimV",
+              "name": "Interplanar Teleport (At Will)",
+              "rank": 7
+            },
+            {
+              "id": "spU5guuyXwyMxznn",
+              "name": "Dispel Magic (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "RRkfgWXW0cl7nq6z",
+              "name": "Unfettered Movement (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "0mxN9LBYp82oUyJw",
+              "name": "Falling Stars",
+              "rank": 10
+            },
+            {
+              "id": "c51SjLHFINDNMXoK",
+              "name": "Revival",
+              "rank": 10
+            },
+            {
+              "id": "HpRgymwj9MvfisFt",
+              "name": "Truesight (Constant)",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:thanatotic-titan",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "Ww4WnWmMJcfqZlCX",
+      "slug": "thanatotic-titan",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:30e56bda8b57529ec225b2668a0a94f9fe03e6e1867c8558bf6ec7f5b27b83c3",
+    "translatableHash": "sha256:52e300f9596090a21b1fc46c3f368276c597901b7900ada68ec67c29760d01ed",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thanatotic Titan",
+      "level": 22,
+      "rarity": "rare",
+      "size": "gargantuan",
+      "traits": [
+        "humanoid",
+        "titan"
+      ],
+      "description": "Thanatotic titans served as assassins in the war against the deities. They learned to sever their targets' divine connections, murdering mortal priests and divine heralds alike. Thanatotic titans were locked away in the Outer Rifts, but some have freed themselves and crept out from the Outer Rifts so they might continue their sprees of murder and mayhem. They maintain a devotion to their purpose and a grudge, and to this day, they seek out the faithful for slaughter.\nCreated by ancient deities long before the rise of mortal ancestries, titans united and attempted to overthrow their deific progenitors. The resulting war still figures prominently throughout mortal myths, in which most titans were cast down and imprisoned for eons.",
+      "armorClass": 46,
+      "hitPoints": 540,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 36,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 37,
+        "reflex": 34,
+        "will": 35
+      },
+      "abilities": {
+        "str": 10,
+        "dex": 4,
+        "con": 9,
+        "int": 8,
+        "wis": 6,
+        "cha": 8
+      },
+      "skills": {
+        "athletics": 45,
+        "crafting": 41,
+        "deception": 36,
+        "intimidation": 38,
+        "religion": 38,
+        "stealth": 36
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "iKjCxLql2lhfuXDL",
+          "name": "Halberd",
+          "bonus": 42,
+          "damage": "4d10+25 piercing",
+          "traits": [
+            "magical",
+            "reach-40",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "MIlxJti4iMxIIWGc",
+          "name": "Foot",
+          "bonus": 39,
+          "damage": "4d8+20 bludgeoning",
+          "traits": [
+            "agile",
+            "reach-30"
+          ]
+        },
+        {
+          "id": "bfc0W3IxSMkDXCjG",
+          "name": "Void Chunk",
+          "bonus": 39,
+          "damage": "3d12 bludgeoning; 2d10 void",
+          "traits": [
+            "brutal",
+            "void"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "kJOpmqcMPeRBZ3ym",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "njXyzU8c5iZjJXwG",
+          "name": "+4 Status to All Saves vs. Mental or Divine",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "1IpSC5BgfkhuN2in",
+          "name": "Impossible Stature",
+          "kind": "passive",
+          "description": "100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a check (will, dc:47, options:area-effect) save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.",
+          "traits": [
+            "aura",
+            "divine",
+            "illusion",
+            "mental"
+          ]
+        },
+        {
+          "id": "OIsH1o10P4w9aMfp",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "The titan can use their Reactive Strike when a creature within their reach uses a concentrate action, in additional to its normal trigger. They disrupt actions on any hit, not just a critical hit—including triggering concentrate actions.",
+          "traits": []
+        },
+        {
+          "id": "tnmr6jdcqoKKxVeM",
+          "name": "Godslayer",
+          "kind": "passive",
+          "description": "Trigger The titan damages a creature capable of using divine spells or abilities\nEffect The creature must attempt a check (will, dc:45, options:inflicts:frightened) save.\nCritical Success The creature is unaffected.\nSuccess The creature can't use divine spells or abilities for 1 round and is Frightened 2. Only powerful non-divine magic, such as manifestation, can undo this effect.\nFailure As success, but the duration is 1 minute.\nCritical Failure As success, but the duration is unlimited.",
+          "traits": [
+            "divine"
+          ]
+        },
+        {
+          "id": "BOO1q9hsqVtL948K",
+          "name": "Titanic Charge",
+          "kind": "action",
+          "description": "The titan Strides twice and makes a melee Strike. If the Strike hits, the titan can cast Earthquake centered on the target as a free action.",
+          "traits": []
+        },
+        {
+          "id": "rGH5e5TzVneH5FLM",
+          "name": "Trample",
+          "kind": "action",
+          "description": "Huge or smaller, foot, check (reflex, dc:45, basic)",
+          "traits": []
+        },
+        {
+          "id": "a9G1B1m6bCxIXwdz",
+          "name": "Void Explosion",
+          "kind": "passive",
+          "description": "If the titan's void chunk Strike isn't a critical failure, the chunk explodes, dealing 10d6 void damage to all creatures in a 20-foot type:burst (check (reflex, dc:45, basic, options:area-effect) save).",
+          "traits": []
+        },
+        {
+          "id": "Icg3lA70DW5ox8xJ",
+          "name": "Wide Cleave",
+          "kind": "action",
+          "description": "The titan makes a melee weapon Strike against each foe within their reach. This counts as three attacks for the titan's multiple attack penalty, but the penalty doesn't increase until all attacks have been made.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "u2MLddH7GhOuvZaz",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 37,
+          "saveDc": 45,
+          "spells": [
+            {
+              "id": "3RRRDaa3vAPMvPYZ",
+              "name": "Sending",
+              "rank": 5
+            },
+            {
+              "id": "iHGWh3iCx3qvGbVc",
+              "name": "Scrying",
+              "rank": 6
+            },
+            {
+              "id": "qKZOLPNYGRuEEx1N",
+              "name": "Spell Riposte",
+              "rank": 7
+            },
+            {
+              "id": "SbEPXgfioeOQz0RI",
+              "name": "Dispel Magic (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "EUER3AvSzAxCaeel",
+              "name": "Spiritual Epidemic (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "ke25kCsvoS3ZDDFf",
+              "name": "Suggestion (At Will)",
+              "rank": 8
+            },
+            {
+              "id": "6QXGFf0oyvtE15YP",
+              "name": "Falling Stars",
+              "rank": 10
+            },
+            {
+              "id": "CLuHdgsZjv1YYdYB",
+              "name": "Massacre",
+              "rank": 10
+            },
+            {
+              "id": "r0Vikc9RGQDe4k7l",
+              "name": "Truesight (Constant)",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:volnagur",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "XVEpt8dz9fMBXROb",
+      "slug": "volnagur",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:fec9bf09907e18980144ad552a1b7713a0ff1b18ef4e4ab4504ca9bb5c508227",
+    "translatableHash": "sha256:da414785560b555f467d8982dbd111c462c397ece3bc3695fa02aba32aab54f0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Volnagur",
+      "level": 22,
+      "rarity": "unique",
+      "size": "gargantuan",
+      "traits": [
+        "beast"
+      ],
+      "description": "Of all Rovagug's spawn, the creature known as Volnagur is the one that has most distanced itself from the Dead Vault at Golarion's core, instead making its home among the skies. Volnagur possesses many wings, and they're mismatched, asymmetrical, and uncoordinated, yet the massive spawn is capable of powerful flight that carries it as far as Arcadia, Tian Xia, and even Sarusan. Though capable of wreaking great destruction with both its many razor-sharp tongues and powerful blasts of energy from its four eyes, Volnagur's most fearsome ability is the discordant song produced by the precise angling of its wings against the wind, which drives all who hear it to violence, setting neighbor against neighbor.\nThough not spotted for decades, astronomers have recently located a satellite in the upper bounds of Golarion's atmosphere, where Volnagur hangs motionless. As it drifts from continent to continent, its eyes seem to alternately turn to the moon, then back to Golarion, as if waiting for a signal.\nThough the destroyer god Rovagug lies trapped in the core of the planet like a fly trapped in amber, imprisoned since the Age of Creation by a coalition of deities, his cage has weakened with the passing of time, allowing his influence to seep forth and take form as living calamities known as the Spawn of Rovagug. These massive creatures have plagued Golarion for eons, their rampages responsible for shattered mountains, blasted deserts, and oceans that now fill craters in the earth, and their regenerative abilities ensure they're an eternal threat, never fully killed. That these creatures of utter destruction hold such a inextinguishable grip on life is a paradox scholars struggle to resolve. Some believe that each Spawn possesses the smallest fragment of their divine parent's blessings; others posit that their immortality comes from the destruction they cause, gaining an eternal future for every one stolen from their victims.\nAccounts of the Spawns' attacks throughout history have an odd through line: each attack is followed by a notable, if brief, golden age for the region. While most attribute this to the cooperation required to fend off or at the very least survive a Spawn's depredations, some see this is a twisted sign that the creatures are bringers of \"true\" peace. These believers often lead cults intent on calling forth or reviving any recently slain Spawn.\nThough many of the Spawn haven't been seen in years, the death of the god Gorum—one of the original architects of the Dead Vault—has weakened the seal once more, sending a ripple of Rovagug's will throughout Golarion. As if in answer, many of his Spawn have begun to reemerge, alarming Golarion's leaders, scholars, and warriors. After all, if a single Spawn is a generation-defining disaster, requiring the sacrifice of armies merely to minimize the damage it can cause, what unimaginable destruction would occur if all of them were to awaken at once?",
+      "armorClass": 48,
+      "hitPoints": 515,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 39,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 39,
+        "reflex": 36,
+        "will": 33
+      },
+      "abilities": {
+        "str": 9,
+        "dex": 11,
+        "con": 11,
+        "int": -2,
+        "wis": 3,
+        "cha": 7
+      },
+      "skills": {
+        "athletics": 42,
+        "performance": 45
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [
+          "clumsy",
+          "disease",
+          "drained",
+          "enfeebled",
+          "mental",
+          "paralyzed",
+          "petrified",
+          "poison",
+          "polymorph",
+          "sonic",
+          "stupefied"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "AdONeXiMlE2HZrcA",
+          "name": "Jaws",
+          "bonus": 41,
+          "damage": "4d10+24 piercing",
+          "traits": [
+            "finesse",
+            "reach-20"
+          ]
+        },
+        {
+          "id": "w5ewzi0XNevqNEw7",
+          "name": "Razor Tongues",
+          "bonus": 41,
+          "damage": "4d8+24 slashing",
+          "traits": [
+            "finesse",
+            "reach-40"
+          ]
+        },
+        {
+          "id": "DuwsGSfkCicsyv4w",
+          "name": "Eye Beam",
+          "bonus": 41,
+          "damage": "6d12 sonic",
+          "traits": [
+            "magical",
+            "sonic"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "6i35bofGCBImK7Fi",
+          "name": "Slumbering Armageddon",
+          "kind": "passive",
+          "description": "Volnagur's slumber increases the rate of wildlife attacks, swarms of vermin and pests, and violent crime.\nSpawn of Rovagug can sleep for centuries in a regenerative hibernation. While slumbering, a Spawn doesn't need to eat, drink, or even breathe, and its resistances double in value. It can't be located by detection, revelation, or scrying effects, and for any saving throw, it uses the outcome one degree of success better than the result. With no outlet while the Spawn slumbers, its massive destructive energies turn outward and infect its surroundings, causing natural disasters of a type matching the Spawn to occur more frequently and with greater severity in a 1-mile emanation from the Spawn's resting place, increasing in radius by roughly a mile every decade the Spawn slumbers.",
+          "traits": []
+        },
+        {
+          "id": "PxikUNFCB3jNXy1N",
+          "name": "Absolute Regeneration",
+          "kind": "passive",
+          "description": "Volnagur's regeneration can be deactivated if a choir of no less than 12 exquisitely skilled and inspired individuals sings a song of beginnings and hope over its corpse for 1 year and 1 day without pause or flaw.\nThis functions as regeneration, though it requires very specific actions to be deactivated. A Spawn of Rovagug's regeneration is powerful enough to revive it even if slain by a death effect. If the Spawn fails a save against an effect that would kill it instantly, it rises from death 3 rounds later with 1 Hit Point. A Spawn can still be banished, imprisoned, or transported away as a means to save a region or kept in a state of dying by an effect that deals constant damage.",
+          "traits": []
+        },
+        {
+          "id": "11CRC34uLvzuS1BU",
+          "name": "Alien Harmonics",
+          "kind": "passive",
+          "description": "60 feet.\nVolnagur constantly emits a cacophony that drowns out sound and thought while reinforcing Volnagur's song. Creatures that enter the aura must attempt a check (fortitude, dc:43, options:area-effect,inflicts:deafened) save or Volnagur's song becomes all they can hear for as long as they remain within the aura, making creatures Deafened against all sources other than Volnagur.\nOn a critical failure, the effect is permanent, and the cacophony rings in the target's ears regardless of range. The aura also attempts to counteract any auditory effect, any effect that would provide resistance or immunity to auditory or sonic effects, or any effect that would create silence (counteract rank 10, counteract modifier [[/r 1d20+33 #Counteract]]).",
+          "traits": [
+            "auditory",
+            "aura",
+            "sonic"
+          ]
+        },
+        {
+          "id": "78iUNBR6nybyHlsn",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "300 feet. check (will, dc:42, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "VNbpBk2pVWYd7pM2",
+          "name": "Intercepting Eyes",
+          "kind": "reaction",
+          "description": "Trigger Volnagur is targeted by a ranged attack\nRequirements Volnagur is aware of the attack and not Off-Guard to it\nEffect One of Volnagur's eyes fixes on the attack, shooting it down with an eye beam. The attack becomes a critical failure.",
+          "traits": []
+        },
+        {
+          "id": "VwtuwlF25fRtFuwl",
+          "name": "Reactive",
+          "kind": "passive",
+          "description": "Volnagur gains 3 reactions each round. It can still use only one reaction per trigger.",
+          "traits": []
+        },
+        {
+          "id": "M3T6RMWUAwxIV9v4",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "0BNDWrvoySpF4N3s",
+          "name": "Endsong",
+          "kind": "passive",
+          "description": "Subtle vibrations laced under Volnagur's attacks confuse its targets and fill their minds with the desire to destroy. A creature damaged by one of Volnagur's Strikes must attempt a check (will, dc:45) save.\nCritical Success The target is unaffected and is temporarily immune for 24 hours or until it takes damage from Scream of the End.\nSuccess The target is unaffected.\nFailure The target is Confused for [[/gmr 1d4 #rounds]]. It never attempts to attack Volnagur or another creature affected by endsong.\nCritical Failure As failure, but the target is confused for 1 hour. While confused, its Strikes resonate with Volnagur's song, dealing an additional 1d6 sonic damage and forcing the target to save against endsong.",
+          "traits": [
+            "curse",
+            "mental",
+            "sonic"
+          ]
+        },
+        {
+          "id": "9ngplMQctzFP1NHv",
+          "name": "Gaze Upon",
+          "kind": "action",
+          "description": "Volnagur makes an eye beam Strike against every creature in a 120-foot type:cone. These attacks count toward Volnagur's multiple attack penalty, but the multiple attack penalty doesn't increase until after Volnagur makes all its attacks. It can't use Gaze Upon again for [[/gmr 1d4 #Recharge Gaze Upon]], but until the start of Volnagur's next turn, it can use Intercepting Eyes as a free action.",
+          "traits": []
+        },
+        {
+          "id": "OB3ZWGUreeenpfwH",
+          "name": "Scream of the End",
+          "kind": "action",
+          "description": "Requirements Volnagur has a creature Grabbed or Restrained\nEffect Volnagur holds a creature close to its eyes before blasting the creature at point-blank range. Volnagur deals 23d6 sonic damage to the target (check (reflex, dc:46, basic) save). Regardless of the save's result, the target is no longer grabbed or restrained, is pushed 120 feet away from Volnagur, and falls Prone.",
+          "traits": [
+            "sonic"
+          ]
+        },
+        {
+          "id": "Mpwmw4x7ELbkdZ6A",
+          "name": "Grab",
+          "kind": "action",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:danava-titan",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "l3ULL4wKnaoOZ51P",
+      "slug": "danava-titan",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:92c9e31a1b65109c97472e490cb90a0e11d0996e80a68b5464e78c8a2d561e35",
+    "translatableHash": "sha256:d0f5a5114fbbfdd15d628964aed0f57d3d76ac9c53f2eff48de208d66e3309b6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Danava Titan",
+      "level": 23,
+      "rarity": "rare",
+      "size": "gargantuan",
+      "traits": [
+        "humanoid",
+        "titan",
+        "water"
+      ],
+      "description": "Danava titans once regulated the foundational forces that shaped reality. Rebuked by the gods for being harsh and inflexible overseers, these spurned titans joined their siblings in the failed war against their creators. Defeated, the danavas were cast into the paralyzing depths of the cosmos's seas. The few danava titans who have escaped now wield the cold, darkness, and crushing pressure of their prisons in pursuit of their ancient visions of reality. Danavas split mountains, wake primordial beasts, or level whole civilizations in accordance with grand designs they forged at the dawn of time. Others hunt and harvest the balance-enforcing aeons, whom they see as usurpers of their divine responsibility.\nCreated by ancient deities long before the rise of mortal ancestries, titans united and attempted to overthrow their deific progenitors. The resulting war still figures prominently throughout mortal myths, in which most titans were cast down and imprisoned for eons.",
+      "armorClass": 49,
+      "hitPoints": 470,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 41,
+        "senses": [
+          "darkvision",
+          "truesight-60",
+          "wavesense-imprecise-100"
+        ]
+      },
+      "saves": {
+        "fortitude": 41,
+        "reflex": 37,
+        "will": 37
+      },
+      "abilities": {
+        "str": 11,
+        "dex": 8,
+        "con": 10,
+        "int": 10,
+        "wis": 8,
+        "cha": 6
+      },
+      "skills": {
+        "acrobatics": 39,
+        "arcana": 43,
+        "athletics": 46,
+        "crafting": 43,
+        "nature": 41,
+        "occultism": 43,
+        "religion": 41,
+        "society": 43
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "empyrean",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "VC7GF4m402xkxeEZ",
+          "name": "Greatclub",
+          "bonus": 43,
+          "damage": "2d12 cold; 4d10+20 bludgeoning",
+          "traits": [
+            "backswing",
+            "magical",
+            "reach-40",
+            "shove"
+          ]
+        },
+        {
+          "id": "eRAeYQ2PY2ilSwSi",
+          "name": "Foot",
+          "bonus": 40,
+          "damage": "2d12 cold; 4d8+20 bludgeoning",
+          "traits": [
+            "agile",
+            "reach-30"
+          ]
+        },
+        {
+          "id": "lquMaNYp8mYioGgS",
+          "name": "Benthic Wave",
+          "bonus": 40,
+          "damage": "2d12 cold; 4d6+20 bludgeoning",
+          "traits": [
+            "brutal",
+            "magical",
+            "water"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "eG60B7eDA6vgPraQ",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "drcreUYOEtB2eRWu",
+          "name": "+4 Status to All Saves vs. Mental or Divine",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "EerNckNJMB7FhQxU",
+          "name": "Hadalic Presence",
+          "kind": "passive",
+          "description": "Creatures that fail their Will save against the titan's impossible stature aura also experience the crushing depths and darkness of the ocean floor. Such creatures see as if in an area of Darkness (10th rank), and the titan can use their wavesense to detect such creatures as a precise sense, even if neither are in water. On a critical failure, the creature is also Immobilized.",
+          "traits": [
+            "divine",
+            "illusion",
+            "mental",
+            "water"
+          ]
+        },
+        {
+          "id": "xr5BJ4GnCyarIA0N",
+          "name": "Impossible Stature",
+          "kind": "passive",
+          "description": "100 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a check (will, dc:46, options:area-effect) save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.",
+          "traits": [
+            "aura",
+            "divine",
+            "illusion",
+            "mental"
+          ]
+        },
+        {
+          "id": "uifzZ1VIYzUs1rIn",
+          "name": "Relentless",
+          "kind": "passive",
+          "description": "The titan is as ever-moving as ocean waves. They're permanently Quickened, and the extra action can be used only to Stride, Strike, or Sustain a Spell, or as one of the actions necessary to cast Dispel Magic.",
+          "traits": []
+        },
+        {
+          "id": "kMk5ApEZUJgW23lq",
+          "name": "Roiling Rebuke",
+          "kind": "reaction",
+          "description": "Trigger A creature within 200 feet targets the titan with or includes the titan in the area of an attack, spell, or other effect\nEffect The titan makes a benthic wave Strike against the triggering creature. If the Strike hits, the titan disrupts the triggering action.",
+          "traits": []
+        },
+        {
+          "id": "WUlYOu0PnwqFXxfW",
+          "name": "Trample",
+          "kind": "action",
+          "description": "Huge or smaller, foot, check (reflex, dc:46, basic)",
+          "traits": []
+        },
+        {
+          "id": "euGd1sr7zVM2YQAQ",
+          "name": "Wide Cleave",
+          "kind": "action",
+          "description": "The titan makes a melee weapon Strike against each foe within their reach. This counts as three attacks for the titan's multiple attack penalty, but the penalty doesn't increase until all attacks have been made.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "a3t3OQweb0D68SN0",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 38,
+          "saveDc": 46,
+          "spells": [
+            {
+              "id": "G6gDxqxIeWctEafW",
+              "name": "Control Water (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "LFf59CKuXvcdlzmQ",
+              "name": "Dispel Magic (At Will)",
+              "rank": 9
+            },
+            {
+              "id": "y2KNxFWDK9bYehwW",
+              "name": "Eclipse Burst",
+              "rank": 9
+            },
+            {
+              "id": "z4paekEeTh3FGNoD",
+              "name": "Heal",
+              "rank": 9
+            },
+            {
+              "id": "lmtW7GeLQFKoB7b4",
+              "name": "Hydraulic Push",
+              "rank": 9
+            },
+            {
+              "id": "HMa0R9mv6qRQ9PVs",
+              "name": "Hydraulic Torrent",
+              "rank": 9
+            },
+            {
+              "id": "5u4DJz3qKzm0QWDI",
+              "name": "Implosion",
+              "rank": 10
+            },
+            {
+              "id": "HIEEo9lndlwKQjsG",
+              "name": "Truesight (Constant)",
+              "rank": 10
+            },
+            {
+              "id": "MC1HTmEjvPWwjn6G",
+              "name": "Water Walk (Constant)",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:hekatonkheires-titan",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "TWr3kyBo1FhAX2oH",
+      "slug": "hekatonkheires-titan",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:3548f4d957863d8144d16b84c2a2dc8ac2aa6e4ff606a559df39def6a3c61bcd",
+    "translatableHash": "sha256:83480e7327351f6f75ec8a719f9a490c216f98ee0b3842dd5e02c86b3caaa785",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hekatonkheires Titan",
+      "level": 24,
+      "rarity": "rare",
+      "size": "gargantuan",
+      "traits": [
+        "aberration",
+        "titan"
+      ],
+      "description": "The first three hekatonkheires were meant to guard the gates to the Outer Rifts, but they proved too terrifying and rebellious—and so, in disgust, the gods cast them into the gulfs between the planes. Hekatonkheires titans are incomplete, monstrous progeny of the original three, from whom these titans calved like icebergs. Hekatonkheires wield interstellar darkness as a weapon and spurn the limits of physical reality, literally reaching through space with their countless arms. Filled with a drive to either discover their lost identity or create a new one, they metaphysically disembowel ancient beings and cosmic magics, using the entrails to find clues regarding their own nature and parentage or to serve as raw materials for fueling some alien apotheosis.\nCreated by ancient deities long before the rise of mortal ancestries, titans united and attempted to overthrow their deific progenitors. The resulting war still figures prominently throughout mortal myths, in which most titans were cast down and imprisoned for eons.",
+      "armorClass": 52,
+      "hitPoints": 500,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 43,
+        "senses": [
+          "darkvision",
+          "truesight-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 44,
+        "reflex": 40,
+        "will": 37
+      },
+      "abilities": {
+        "str": 12,
+        "dex": 10,
+        "con": 12,
+        "int": 7,
+        "wis": 7,
+        "cha": 9
+      },
+      "skills": {
+        "acrobatics": 42,
+        "athletics": 48,
+        "intimidation": 45,
+        "occultism": 41,
+        "survival": 39
+      },
+      "languages": [
+        "aklo",
+        "chthonian",
+        "common",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "sJGimQAnB7Ajh01b",
+          "name": "Empty Weapon",
+          "bonus": 45,
+          "damage": "4d12+18 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-50",
+            "versatile-p",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "7wN1CJskLk0J87LG",
+          "name": "Empty Weapon",
+          "bonus": 43,
+          "damage": "4d12+18 bludgeoning",
+          "traits": [
+            "magical",
+            "thrown-200",
+            "versatile-p",
+            "versatile-s"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "nabnxrUY71hiOkK7",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": "",
+          "traits": [
+            "aura",
+            "magical",
+            "mental"
+          ]
+        },
+        {
+          "id": "Kxh6sYGll5ANl6jP",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "TkY7iWoNGBkC753V",
+          "name": "+4 Status to All Saves vs. Mental or Divine",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "qOEGvrqLvYESF0K4",
+          "name": "Impossible Stature",
+          "kind": "passive",
+          "description": "120 feet. Titans warp perception and distance around them to seem even larger and more imposing. A creature that enters or begins its turn within the emanation must succeed at a check (will, dc:48, options:area-effect) save or its movement toward the titan is movement over difficult terrain (greater difficult terrain on a critical failure) for 1 round.",
+          "traits": [
+            "aura",
+            "divine",
+            "illusion",
+            "mental"
+          ]
+        },
+        {
+          "id": "GnOERW3B2fZAtnvB",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "The hekatonkheires gains 99 extra reactions on their turn that they can use only to make Reactive Strikes.",
+          "traits": []
+        },
+        {
+          "id": "TdLxPZk0EVDr9Q9c",
+          "name": "Demolish Veil",
+          "kind": "passive",
+          "description": "Frequency once per month\nTrigger The titan casts Interplanar Teleport\nEffect The titan arrives in a storm of shattered planar barriers. This has the effects of a 10th-rank Wrathful Storm.",
+          "traits": []
+        },
+        {
+          "id": "TzgJuOy9d6ud4UfQ",
+          "name": "Hundred-Dimension Grasp",
+          "kind": "action",
+          "description": "The titan reaches between realities to drag foes closer. They attempt an check (athletics, against:fortitude, options:area-effect,inflicts:paralyzed) check and compare the result to the Fortitude DCs of all foes within 120 feet. On a success, a foe is teleported to any square the titan chooses within 120 feet; on a critical success, it's also Paralyzed for 1 round. The titan can Grab any foe brought within 30 feet as a free action.",
+          "traits": []
+        },
+        {
+          "id": "yKIJVkzzwZ5BKOlN",
+          "name": "Hundred-Handed Whirlwind",
+          "kind": "action",
+          "description": "The titan overwhelms opponents with blows both conventional and interplanar. They make one empty weapon Strike against each foe within reach. Even on a failed attack (but not a critical failure), the titan deals 24 force damage to the target. This counts as three attacks for the titan's multiple attack penalty, but the penalty doesn't increase until all attacks have been made.",
+          "traits": []
+        },
+        {
+          "id": "6KvIkhBbUU6e1rTa",
+          "name": "Send Beyond",
+          "kind": "action",
+          "description": "Requirements The titan has a creature Grabbed or Restrained\nEffect The titan thrusts the creature into a nightmare realm full of lightless hands and eyes. This has the effects of Quandary (DC 48). The titan can't use Send Beyond for [[/gmr 1d4 #Recharge Send Beyond]].",
+          "traits": []
+        },
+        {
+          "id": "cICaV0tZHykBk7xk",
+          "name": "Shape Emptiness",
+          "kind": "passive",
+          "description": "The titan molds a weapon from interstellar darkness. This empty weapon is a +3 major striking weapon in any form. The titan can't be disarmed of this weapon and it deals an additional 2d12 force damage. If Released, an empty weapon vanishes.",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "3PEFPC1Q7M18JMjJ",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 40,
+          "saveDc": 48,
+          "spells": [
+            {
+              "id": "DfDx9tPhBEjEy5Vw",
+              "name": "Interplanar Teleport",
+              "rank": 9
+            },
+            {
+              "id": "QhWileQvnPTPApCf",
+              "name": "Phantasmagoria",
+              "rank": 9
+            },
+            {
+              "id": "aKr7oVMme42CrsMA",
+              "name": "Seize Soul",
+              "rank": 9
+            },
+            {
+              "id": "YGbDouXSq4uaGblt",
+              "name": "Translocate",
+              "rank": 9
+            },
+            {
+              "id": "4afUuH1ju3eaUiKB",
+              "name": "Truesight (Constant)",
+              "rank": 10
+            },
+            {
+              "id": "lvWAYsHVWyupACrD",
+              "name": "Unfettered Movement (Constant)",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:green-man",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "vpXcLtLPWNRGSQWA",
+      "slug": "green-man",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:f36efb03c82c41bfb249cf54ea32a989d873a3bf6bd4b67a6ac99e63b1653a4f",
+    "translatableHash": "sha256:920d2aa84828c088ef5237725dd6f8c9627a23f2b6a13e967f7ce5cbc45052c9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Green Man",
+      "level": 24,
+      "rarity": "rare",
+      "size": "medium",
+      "traits": [
+        "leshy",
+        "plant"
+      ],
+      "description": "Green men are ancient, enigmatic lesser deities of the primeval forests, living embodiments of nature and plantkind. When a forest or other woodland terrain generates enough nature spirits, beings of the same sort of vital essence that embodies leshys or answers the call of a commune with nature, they naturally coalesce together and apotheosize into a green man. Green men aren't concerned with all the multifarious processes of nature like Gozreh or many other nature deities. Instead, they focus nearly all their attention on the plants of their home, only concerning themselves with animals, minerals, and the like insomuch as they affect the plants. Despite their name, green men aren't necessarily male; as creatures of pure natural power, to many of them, the concept of gender holds no meaning, and to those that do, they can be of any gender.\nMost green men are neutral and tend to ignore \"animals,\" which to them include sapient creatures such as humans. However, good and evil green men do exist. These individuals are far more likely to attempt to spread their influence far and wide, either for good or ill. Good green men provide succor to all that come within their home, not only to plants, providing wisdom like a nurturing parent. Evil green men, however, allow rare and dangerous plants to thrive in their domains by spreading fear and devastation to all those who might threaten plant life, though they might keep a few animals around to hunt for sport.",
+      "armorClass": 51,
+      "hitPoints": 525,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 42,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 43,
+        "reflex": 39,
+        "will": 42
+      },
+      "abilities": {
+        "str": 12,
+        "dex": 9,
+        "con": 11,
+        "int": 7,
+        "wis": 10,
+        "cha": 8
+      },
+      "skills": {
+        "acrobatics": 39,
+        "athletics": 40,
+        "deception": 40,
+        "diplomacy": 40,
+        "intimidation": 40,
+        "nature": 48,
+        "stealth": 41,
+        "survival": 44
+      },
+      "languages": [
+        "arboreal",
+        "fey",
+        "wildsong"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "bludgeoning 20",
+          "piercing 20"
+        ],
+        "weaknesses": [
+          "axe-vulnerability 20",
+          "fire 20"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "hyj6N5o5oSyNgbJd",
+          "name": "Vine",
+          "bonus": 46,
+          "damage": "4d10 + 27 bludgeoning",
+          "traits": [
+            "deadly-3d12",
+            "versatile-p"
+          ]
+        },
+        {
+          "id": "Q9YkvCkVgM00oIy8",
+          "name": "Thorn",
+          "bonus": 43,
+          "damage": "4d8 + 27 piercing",
+          "traits": [
+            "fatal-d12",
+            "reload-0"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "hVTC4rrt8IWJq51F",
+          "name": "Green Tongue",
+          "kind": "passive",
+          "description": "A green man can communicate with plants, with the effects of Speak with Plants, and can use Diplomacy to Make an Impression on plants and Request things from plants.",
+          "traits": []
+        },
+        {
+          "id": "UmrTl2VeCsF3GsBm",
+          "name": "Plantsense 60 feet",
+          "kind": "passive",
+          "description": "A green man can sense life force via plants. This allows them to observe a living or undead creature's vital essence within 60 feet of the green man, but they can also use this precise sense to observe any living or undead creature within 60 feet of any plant matter within 120 feet of the green man. This allows the green man to see living things through solid plant matter, as well as seeing through other barriers if there are plants on the other side.",
+          "traits": []
+        },
+        {
+          "id": "7lG8jBDPOKE6KGt2",
+          "name": "Green Caress",
+          "kind": "passive",
+          "description": "60 feet. Living creatures in the area other than plants slowly transform into non-creature plants. The green man can exclude creatures from this effect, but they must be aware of a creature's presence and location to do so. A non-plant creature in the area must attempt a check (fortitude, dc:45) save immediately before the start of its turn.\nCritical Success The creature is unaffected, or if it is slowed by green caress, it reduces its slowed value by 2.\nSuccess The creature is unaffected, or if it is slowed by green caress, it reduces its slowed value by 1.\nFailure The creature becomes Slowed 1, or if it was already slowed by green caress, increases the slowed value by 1, as their body transforms more and more into a non-creature plant. If the creature ever becomes slowed to the point they have no actions left for their turn, they become an inanimate plant, a condition that can only be reversed by Primal Phenomenon or similarly powerful magic.\nCritical Failure As failure, except the creature becomes Slowed 2 (or increases the condition value by 2).",
+          "traits": [
+            "aura",
+            "incapacitation",
+            "plant",
+            "primal"
+          ]
+        },
+        {
+          "id": "7OHhyz8S9jaICp6G",
+          "name": "Root In Place",
+          "kind": "reaction",
+          "description": "Trigger A creature within the green man's reach uses a move action or leaves a square during a move action it's using\nEffect The green man lashes out to hold the foe in place. The green man makes a vine Strike against the triggering creature. If the attack hits, the green man disrupts the action. If the creature was Flying when its action was disrupted, it falls.",
+          "traits": []
+        },
+        {
+          "id": "iFhR8LsLMNJ2v6O0",
+          "name": "Absorb Magic",
+          "kind": "action",
+          "description": "The green man's vines leach away magic and transform it into life essence for the green man. On a successful vine Strike, the green man attempts to counteract one spell active on the target (typically one vexing the green man, or determined randomly if they aren't aware of specific effects), with a counteract rank of 10 and a modifier of [[/r 1d20+38 #Counteract]].\nIf the effect is counteracted, the green man gains [[/r 30 #Temporary Hit Points]] that last for 10 minutes.",
+          "traits": []
+        },
+        {
+          "id": "bDZ6kq6HqfFLK2PU",
+          "name": "Embed",
+          "kind": "passive",
+          "description": "The green man's thorns embed themselves into any creature they damage, taking root into the ground. A target damaged by a thorn has its Speeds halved, and it can't Step, Fly, or otherwise leave the ground until the thorn is removed. Removing a thorn requires 3 Interact actions, which don't have to be consecutive. If the creature performing the final action doesn't succeed at a check (medicine, dc:45) check as part of that action, the target takes 10d6 piercing damage upon the thorn's removal.",
+          "traits": []
+        },
+        {
+          "id": "vTV8lwwNuVs4eL7F",
+          "name": "Focus Vines",
+          "kind": "action",
+          "description": "The green man focuses all their vines against a single vexing foe, making a single vine Strike.\nOn a success, the target takes 5d10 additional damage and is affected by Absorb Magic three times. Even on a failure, the target takes the normal effects of a hit with a vine Strike, but on a critical failure, the vines miss completely.",
+          "traits": []
+        },
+        {
+          "id": "nEE49kEL2IsSaPcv",
+          "name": "Green Grab",
+          "kind": "passive",
+          "description": "A green man can use their Improved Grab action against a creature of any size.",
+          "traits": []
+        },
+        {
+          "id": "ICqXmQ1I3WhSNBF7",
+          "name": "Green Rituals",
+          "kind": "passive",
+          "description": "A green man can perform all their rituals without secondary casters, relying on their own primal ties to the vital essence in spirits of nature.\nA green man's Awaken Animal and Primal Call rituals work on plants instead of their usual range of choices.\nMost green men also know the ritual to create various types of leshys and possibly even magic allowing the creation of arboreals or more powerful plant creatures.",
+          "traits": []
+        },
+        {
+          "id": "MGarveOJoEZEZRDb",
+          "name": "Vine Forest",
+          "kind": "action",
+          "description": "The green man lashes out with all six vines to attack many opponents. They make up to six vine Strikes, each against a different target; this counts as one attack for their multiple attack penalty, increasing only after all the attacks are made.",
+          "traits": []
+        },
+        {
+          "id": "bTNygOkcj07sIda5",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "qki0wO5XwHHhxpMl",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 40,
+          "saveDc": 48,
+          "spells": [
+            {
+              "id": "SRhEvuVcADf4oYP4",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "p1szTSDCzHjFDFZB",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "rqUzCByCeFdvD2ZW",
+              "name": "Fly",
+              "rank": 8
+            },
+            {
+              "id": "08Xykf7g5uDssr20",
+              "name": "Unfettered Movement",
+              "rank": 8
+            },
+            {
+              "id": "FVOkoy07iXgrB1sy",
+              "name": "Energy Aegis",
+              "rank": 9
+            },
+            {
+              "id": "mXvmPCHrU57vHHEG",
+              "name": "Heal",
+              "rank": 10
+            },
+            {
+              "id": "xlHkYvaiTYowQxRz",
+              "name": "Manifestation",
+              "rank": 10
+            },
+            {
+              "id": "pCYui6n9e9HBtE9b",
+              "name": "Nature's Pathway (At Will)",
+              "rank": 10
+            },
+            {
+              "id": "VljZIJFtT5dam4yO",
+              "name": "Regenerate",
+              "rank": 10
+            },
+            {
+              "id": "vlXGzutBWKtj2GzX",
+              "name": "Truesight",
+              "rank": 10
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core-2:sorvuth-ka",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core-2",
+      "sourceId": "yRZhGvSBQSShp9HF",
+      "slug": "sorvuth-ka",
+      "publicationTitle": "Pathfinder Monster Core 2",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8a7ccc4f99313296de70006383afe57af7da8c4202b4ba31610e4c16c2071181",
+    "translatableHash": "sha256:ef2d812a33aca6462c1a807220c56bd41eeb0af6c11af6dc5ecd00b42889e58b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sorvuth-Ka",
+      "level": 24,
+      "rarity": "unique",
+      "size": "gargantuan",
+      "traits": [
+        "beast"
+      ],
+      "description": "Sorvuth-ka is the youngest of Rovagug's spawn. It has never been seen eating; lacking the ravenous hunger observed in the other Spawn, it seems to destroy simply for the pleasure of it, approaching each of its attacks with novel, inventive cruelty. Sorvuth-ka might pause while destroying a town to give the populace just enough time to flee, only for them to realize in despair that their only route of escape is a mountain pass that Sorvuth-ka has already collapsed. However, the creature grows bored easily, swiftly dispatching prey with bladed limbs if its games stop going to plan or take too long to come to fruition.\nCuriously, despite Sorvuth-ka's regenerative abilities—powerful even for a Spawn and capable of rendering it resistant to attacks that have injured it—it has several wounds that refuse to heal, most notably a great gash across its face. Some scholars theorize that these wounds are some cruel design of Rovagug, the better to allow access to the amber blood that is Sorvuth-ka's primary instrument of destruction. Others take it as proof of the existence of a weapon capable of ending the threat of the Spawn of Rovagug once and for all.\nThough the destroyer god Rovagug lies trapped in the core of the planet like a fly trapped in amber, imprisoned since the Age of Creation by a coalition of deities, his cage has weakened with the passing of time, allowing his influence to seep forth and take form as living calamities known as the Spawn of Rovagug. These massive creatures have plagued Golarion for eons, their rampages responsible for shattered mountains, blasted deserts, and oceans that now fill craters in the earth, and their regenerative abilities ensure they're an eternal threat, never fully killed. That these creatures of utter destruction hold such a inextinguishable grip on life is a paradox scholars struggle to resolve. Some believe that each Spawn possesses the smallest fragment of their divine parent's blessings; others posit that their immortality comes from the destruction they cause, gaining an eternal future for every one stolen from their victims.\nAccounts of the Spawns' attacks throughout history have an odd through line: each attack is followed by a notable, if brief, golden age for the region. While most attribute this to the cooperation required to fend off or at the very least survive a Spawn's depredations, some see this is a twisted sign that the creatures are bringers of \"true\" peace. These believers often lead cults intent on calling forth or reviving any recently slain Spawn.\nThough many of the Spawn haven't been seen in years, the death of the god Gorum—one of the original architects of the Dead Vault—has weakened the seal once more, sending a ripple of Rovagug's will throughout Golarion. As if in answer, many of his Spawn have begun to reemerge, alarming Golarion's leaders, scholars, and warriors. After all, if a single Spawn is a generation-defining disaster, requiring the sacrifice of armies merely to minimize the damage it can cause, what unimaginable destruction would occur if all of them were to awaken at once?",
+      "armorClass": 52,
+      "hitPoints": 550,
+      "speedFeet": 60,
+      "perception": {
+        "modifier": 42,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 42,
+        "reflex": 38,
+        "will": 36
+      },
+      "abilities": {
+        "str": 12,
+        "dex": 9,
+        "con": 12,
+        "int": 10,
+        "wis": 7,
+        "cha": 5
+      },
+      "skills": {
+        "acrobatics": 45,
+        "athletics": 45,
+        "intimidation": 41,
+        "survival": 45
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [
+          "clumsy",
+          "disease",
+          "drained",
+          "enfeebled",
+          "mental",
+          "paralyzed",
+          "petrified",
+          "poison",
+          "polymorph",
+          "stupefied",
+          "visual"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "WtCnY7UFjuIpHAqq",
+          "name": "Claw",
+          "bonus": 44,
+          "damage": "4d8+27 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "jl8rDGyGlBcKj81e",
+          "name": "Crystallized Blood",
+          "bonus": 44,
+          "damage": "5d6+21 slashing",
+          "traits": [
+            "propulsive"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "YJv8jxIk5OdnsIIS",
+          "name": "Slumbering Armageddon",
+          "kind": "passive",
+          "description": "Sorvuth-ka's slumber accelerates erosion and weathering, timed to always break at the point of maximum harm via rockslides, sinkholes, treefalls, and other collapses.\nSpawn of Rovagug can sleep for centuries in a regenerative hibernation. While slumbering, a Spawn doesn't need to eat, drink, or even breathe, and its resistances double in value. It can't be located by detection, revelation, or scrying effects, and for any saving throw, it uses the outcome one degree of success better than the result. With no outlet while the Spawn slumbers, its massive destructive energies turn outward and infect its surroundings, causing natural disasters of a type matching the Spawn to occur more frequently and with greater severity in a 1-mile emanation from the Spawn's resting place, increasing in radius by roughly a mile every decade the Spawn slumbers.",
+          "traits": []
+        },
+        {
+          "id": "VvGebuOtezYnHBYc",
+          "name": "Absolute Regeneration",
+          "kind": "passive",
+          "description": "Sorvuth-ka's regeneration can be deactivated by slaying it with a weapon made from the bones of Chemnosit, Kothogaz, Ulunat, Volnagur, and Xotani.\nThis functions as regeneration, though it requires very specific actions to be deactivated. A Spawn of Rovagug's regeneration is powerful enough to revive it even if slain by a death effect. If the Spawn fails a save against an effect that would kill it instantly, it rises from death 3 rounds later with 1 Hit Point. A Spawn can still be banished, imprisoned, or transported away as a means to save a region or kept in a state of dying by an effect that deals constant damage.",
+          "traits": []
+        },
+        {
+          "id": "dcg3u5ovHBNc8pFR",
+          "name": "Adaptive Defenses",
+          "kind": "passive",
+          "description": "When injured, Sorvuth-ka's body adapts to ensure that the triggering insult can't harm it again. Immediately after it takes damage, it becomes immune to that type of damage. It can become immune to three different types of damage in this way, with newer immunities replacing older ones.",
+          "traits": []
+        },
+        {
+          "id": "4WBvZhaArTY9jOPO",
+          "name": "Bleed Destruction",
+          "kind": "passive",
+          "description": "Trigger Sorvuth-ka takes physical damage\nEffect Amber blood spurts from Sorvuth-ka's wound, creating a blood pool in a square adjacent to Sorvuth-ka. The blood remains in the area until removed or it dries, which typically takes 1 day.",
+          "traits": []
+        },
+        {
+          "id": "SEMsJGIh2w443p2M",
+          "name": "Frightful Presence",
+          "kind": "passive",
+          "description": "300 feet. check (will, dc:45, options:area-effect,inflicts:frightened)",
+          "traits": [
+            "aura",
+            "emotion",
+            "fear",
+            "mental"
+          ]
+        },
+        {
+          "id": "eOxUYUXTjbx8fnb5",
+          "name": "Reactive",
+          "kind": "passive",
+          "description": "Sorvuth-ka gains 3 reactions each round. It can still use only one reaction per trigger.",
+          "traits": []
+        },
+        {
+          "id": "RJ4SyBBmOwFdwp1h",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": "",
+          "traits": []
+        },
+        {
+          "id": "VbINFr4N3zDmmk8h",
+          "name": "Amber Strikes",
+          "kind": "action",
+          "description": "Requirements Sorvuth-ka's previous action was a successful Strike against the target\nEffect After landing a Strike, Sorvuth-ka commands it blood to continue the assault, choosing one of the three following options: Crystallize, Inject, or Splash. If the previous attack was a critical hit, Amber Strikes is a free action.\n• Crystallize Sorvuth-ka's blood flows around the target's limbs before hardening. The creature must succeed at a check (reflex, dc:48) save or become Immobilized and Off-Guard until it Escapes. If the creature was flying, it falls.\n• Inject Sorvuth-ka's blood invades the target through its wounds. The target must succeed at a check (fortitude, dc:48) save or become Sickened 2 (Sickened 3 on a critical failure). As long as the target is sickened, Sorvuth-ka's blood will attempt to counteract any effect that could restore Hit Points to the target (counteract rank 10, counteract modifier [[/r 1d20+38 #Counteract]]).\n• Splash Sorvuth-ka's blood splashes violently, dazzling the target until the end of its next turn and creating a blood pool in a square adjacent to the target.",
+          "traits": []
+        },
+        {
+          "id": "Mmdee5NRIxNVJtld",
+          "name": "Detonate Blood",
+          "kind": "action",
+          "description": "Requirements A pool of Sorvuth-ka's blood is within 500 feet\nEffect Sorvuth-ka's blood detonates into crystalline amber flechettes. Every creature either in the required blood pool's square or in a 10-foot type:emanation of that pool other than Sorvuth-ka takes 20d8 piercing damage (check (reflex, dc:48, basic) save). On a critical failure, any resistances to physical damage the creature has are reduced by 10 for 1 minute.",
+          "traits": []
+        },
+        {
+          "id": "VbLqJNITCGyQpWMD",
+          "name": "Rough Rampage",
+          "kind": "action",
+          "description": "Requirements Sorvuth-ka has at least one creature Grabbed or Restrained\nEffect Sorvuth-ka Strides, dragging any creatures it's grabbed or restrained along with it. Each grabbed or restrained creature takes 11d6 bludgeoning damage (check (fortitude, dc:48, basic) save). On a failure, the creature is also Clumsy 2 (or Clumsy 3 on a critical failure) until it Escapes.",
+          "traits": []
+        },
+        {
+          "id": "C8fyP1hihBwXtGf2",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": "",
+          "traits": []
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:hidden-pit",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "BHq5wpQU8hQEke8D",
+      "slug": "hidden-pit",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:645d9d31313903e6afa81eb7191a4e011cf5bd74c17304c4f190275a5e1359c3",
+    "translatableHash": "sha256:2a0ceadf0f5e17bc102b67debcb16b236f9a41c2c490f4be669b8f23e1f13d84",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Hidden Pit",
+      "level": 0,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A wooden trapdoor covers a pit that's 10 feet square and 20 feet deep.",
+      "armorClass": 10,
+      "hitPoints": 12,
+      "hardness": 3,
+      "stealth": {
+        "modifier": 8,
+        "details": "(or 0 if the trapdoor is disabled or broken)"
+      },
+      "disable": "check (thievery, dc:12, name:Remove the Trapdoor) to remove the trapdoor",
+      "isComplex": false,
+      "routine": "",
+      "reset": "Creatures can still fall into the trap, but the trapdoor must be reset manually for the trap to become hidden again.",
+      "saves": {
+        "fortitude": 1,
+        "reflex": 1,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "lY83oUjx0DLxDByK",
+          "name": "Pitfall",
+          "kind": "reaction",
+          "description": "Trigger A creature walks onto the trapdoor.\nEffect The triggering creature falls in and takes falling damage (typically 10 bludgeoning damage). That creature can use the Grab an Edge reaction to avoid falling.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:snowfall",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "VA4VL3kVUxBYbwRf",
+      "slug": "snowfall",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:753959470e4dadf1b29000b40c9f4f8b3ac204b3a57dd8f0f76cf36ecbd64490",
+    "translatableHash": "sha256:fe17cf2be2fb23ca05c3ce35d7cd2caa768bac662ce4716f3ccb6f432a5a393e",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Snowfall",
+      "level": 0,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "environmental"
+      ],
+      "description": "Loose snow and ice have built up on a high surface, such as a tree branch or a rooftop. Its grip on the surface is tenuous, and it is likely to fall if the surface moves.",
+      "armorClass": 16,
+      "hitPoints": 8,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 6,
+        "details": "(trained)"
+      },
+      "disable": "check (survival, dc:19, name:Safely Dislodge the Snow) (trained) to safely dislodge the snow, or deal any amount of fire damage to destroy the hazard without triggering it",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 10,
+        "reflex": 8,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "hoSnbd89PgLy85mP",
+          "name": "Snowdrop",
+          "kind": "reaction",
+          "description": "Trigger A creature moves beneath where the snowfall is resting.\nEffect Ice and snow fall on the triggering creature, dealing (2d6+3)[bludgeoning] damage (check (reflex, dc:18, basic) save) and soaking their clothing. Until they change into fresh clothing or spend at least an hour in an area of normal or higher temperature, they treat cold environments as one step colder (for example, mild cold as severe cold).",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:slamming-door",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "4O7wKZdeAemTEbvG",
+      "slug": "slamming-door",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:724d0763c0aec79e07e5127e46f75a5571f64aab190ba5fa267de6b6715684a2",
+    "translatableHash": "sha256:7593e54172531fe1427b7019f2bd51508852587362299b049947480a4257626e",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Slamming Door",
+      "level": 1,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "Pressure-sensitive panels in the floor connect to a stone slab hidden in a hallway's ceiling.",
+      "armorClass": 16,
+      "hitPoints": 20,
+      "hardness": 5,
+      "stealth": {
+        "modifier": 7,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:15, name:Disable Floor Panel) (trained) on the floor panels before the slab falls",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 10,
+        "reflex": 2,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "34y07VryqAVeJhfG",
+          "name": "Slam Shut",
+          "kind": "reaction",
+          "description": "Trigger Pressure is placed on any floor tile.\nEffect The door falls, closing off the hallway. The stone slab deals 3d8 bludgeoning damage to anyone beneath or adjacent to the slab when it drops and pushes them out of its space in a random direction. A creature that succeeds at a check (reflex, dc:17, traits:damaging-effect) save takes no damage and rolls out of the way in a random direction. On a critical success, they can choose the direction.\nLifting the fallen slab requires a successful check (athletics, dc:25, name:Lift a Slab Athletics, showDC:all) check.\nHitting the floor panels triggers the trap. The slab uses the same AC and saves as the trap, but it has Hardness 12, HP 48 (BT 24).",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:hampering-web",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "98rS64gLzy1ReXoR",
+      "slug": "hampering-web",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:39af573c5ad3fa24cb21158ed5b1208bf642682f5911ec829cd5fb58a8de76e8",
+    "translatableHash": "sha256:bdc11a522b384d11838f59ca56d5cc9d51df7d69991163e2c061a027a6deede3",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Hampering Web",
+      "level": 1,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "environmental"
+      ],
+      "description": "Semitransparent sheets of webbing span the entryway, ready to capture small insects or hamper larger creatures that pass through.",
+      "armorClass": 19,
+      "hitPoints": 26,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 8,
+        "details": "(expert)"
+      },
+      "disable": "check (survival, dc:17, name:Dislodge Web) (trained) to dislodge it",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 10,
+        "reflex": 11,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "CHZ0RRKgpq6eI2AS",
+          "name": "Ensnare",
+          "kind": "reaction",
+          "description": "Trigger A creature that isn't a spider walks into the web\nEffect The web wraps around the triggering creature's body, clinging to their limbs. The triggering creature must succeed at a check (reflex, dc:20) save or take a –10-foot circumstance penalty to all their Speeds until they Escape the web (DC 20). On a critical failure, the webbing also clings to the creature's face, making them Sickened 1, and they can't attempt to reduce this condition until they Escape the web.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:summoning-rune",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "nO4osrBRnpWKFCMP",
+      "slug": "summoning-rune",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:08d9d8a8077064d538cbf9c52ec87cf8d3c976f6d6ad6dda10db5bc446ed898c",
+    "translatableHash": "sha256:cdb06f0af81a59a3a45571e0aafa7c41211f241617b4aaa580ad80e7dec07c2c",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Summoning Rune",
+      "level": 1,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "trap"
+      ],
+      "description": "A cloud of invisible magical sensors in a 10-foot radius surrounds an invisible wall or floor rune the size of the creature to be summoned.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 7,
+        "details": "(trained)"
+      },
+      "disable": "check (acrobatics, dc:15, name:Approach Rune) to approach without triggering the trap followed by check (thievery, dc:17, name:Erase Rune, traits:action:disable-a-device) (trained) to erase the rune, or Dispel Magic (1st rank; counteract DC 15) to counteract the rune",
+      "isComplex": true,
+      "routine": "",
+      "reset": "The trap resets each day at dawn.",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "1M9OasbKWAPME9IC",
+          "name": "Summon Monster",
+          "kind": "reaction",
+          "description": "Trigger A creature enters the cloud of magical sensors\nEffect This trap summons a specific 1st-level creature, determined when the trap is created. The creature rolls initiative and remains for [[/br 2d6 #rounds]], after which the spell ends and the creature disappears. The creature also disappears if someone disables the trap before the duration expires. The summoned creature can use 3 actions each round and can use reactions, unlike most summoned creatures.",
+          "traits": [
+            "arcane",
+            "summon"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:poisoned-lock",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "v2xIxZ9ZZ6fJyATF",
+      "slug": "poisoned-lock",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:42908f609e825d74e3f3154ead1cd5f3eaeae23754b111e8654783567dfa5636",
+    "translatableHash": "sha256:019bfb7d9b0f46d35eb6f2bf6eabe9364156a0266472399109150d3d10c8998a",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Poisoned Lock",
+      "level": 1,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A spring-loaded, poisoned spine is hidden near the keyhole of a lock. Disabling or breaking the trap does not disable or break the lock.",
+      "armorClass": 15,
+      "hitPoints": 24,
+      "hardness": 6,
+      "stealth": {
+        "modifier": 7,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:17, name:Disarm Lock Trap, traits:mechanical,trap) (trained) on the spring mechanism",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 8,
+        "reflex": 4,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "1bvXbELRBoJTBqsR",
+          "name": "Spring",
+          "kind": "reaction",
+          "description": "Trigger A creature tries to unlock or Pick the Lock.\nEffect A spine extends to Strike the triggering creature.",
+          "traits": [
+            "attack"
+          ]
+        },
+        {
+          "id": "HoWRGPkBlJjsL9zl",
+          "name": "Cladis Poison",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:19)\nMaximum Duration 4 hours\nStage 1 1d6 poison damage and Drained 1 (1 hour)\nStage 2 2d6 poison damage and Drained 2 (1 hour)\nStage 3 3d6 poison damage and drained 2 (1 hour)",
+          "traits": [
+            "poison"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:poisonous-mold",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "AqK60DreNDtgDb4o",
+      "slug": "poisonous-mold",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:d06fc4be0d265397ebf17ccd250d0c846b0382fd2880b37969c8be2abcd9cac0",
+    "translatableHash": "sha256:c5ef3952951317f5f90c88afa830282da7a1d04fa464e5a08f681eb62e451d96",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Poisonous Mold",
+      "level": 2,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "environmental",
+        "fungus"
+      ],
+      "description": "This grotesque fungus releases poisonous spores when a creature comes near.",
+      "armorClass": 18,
+      "hitPoints": 30,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 11,
+        "details": "(trained)"
+      },
+      "disable": "check (survival, dc:18) (trained) to safely remove the mold",
+      "isComplex": false,
+      "routine": "",
+      "reset": "Unless entirely eradicated (typically with acid or fire), the mold regrows over the course of 2 weeks.",
+      "saves": {
+        "fortitude": 11,
+        "reflex": 5,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "fire 10"
+        ]
+      },
+      "actions": [
+        {
+          "id": "748inOlksdAeFB0A",
+          "name": "Feed on Decay",
+          "kind": "passive",
+          "description": "The mold expands when fed by blood or decay. If at any point a creature takes bleed damage while adjacent to the mold or a dying or dead body is adjacent to the mold, the mold grows to expand into every square adjacent to its current space. This can happen only once per day.",
+          "traits": []
+        },
+        {
+          "id": "ZN34eJalpkCoNMeM",
+          "name": "Spore Burst",
+          "kind": "reaction",
+          "description": "Frequency once per day\nTrigger A creature touches the mold, hits it, or damages it\nEffect The mold explodes in a burst of spores and mold clusters, dealing (2d6+6)[poison] damage to creatures within 10 feet of it, with a check (fortitude, dc:18, basic) save.",
+          "traits": [
+            "poison"
+          ]
+        },
+        {
+          "id": "h7tMZClq2efB1OYA",
+          "name": "Floating Spores",
+          "kind": "passive",
+          "description": "5 feet. A creature that enters or starts its turn in the aura takes 2d6 poison damage.",
+          "traits": [
+            "aura",
+            "poison"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:spear-launcher",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "vlMuFskctUvjJe8X",
+      "slug": "spear-launcher",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:cb469c1b682034da201b70f7f6def31d7c4a84f48c0578f39148f476b188c9ff",
+    "translatableHash": "sha256:9aa7101e9e5b3cc7a43ae60f6c6c04c81e753f7731656a205b3fb71e0fccabac",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Spear Launcher",
+      "level": 2,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A wall socket loaded with a spear connects to a floor tile in one 5-foot square.",
+      "armorClass": 18,
+      "hitPoints": 32,
+      "hardness": 8,
+      "stealth": {
+        "modifier": 10,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:18, name:Disable Thievery) (trained) on the floor tile or wall socket",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 11,
+        "reflex": 3,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "0KrOaCLFSEcIdcej",
+          "name": "Spear",
+          "kind": "reaction",
+          "description": "Trigger Pressure is applied to the floor tile.\nEffect The trap shoots a spear, making a Strike against the creature or object on the floor tile.",
+          "traits": [
+            "attack"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:electric-latch-rune",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "491qhVbjsHnOuMZW",
+      "slug": "electric-latch-rune",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:d62280cc1300d9a6dc30f20af424348cc90f4ce7770e2591ca5e2ba53d543690",
+    "translatableHash": "sha256:c1c5b596a9e784c04b1866bb48f92dab07f280db5d1c1f2134237862023c194f",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Electric Latch Rune",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "electricity",
+        "magical",
+        "trap"
+      ],
+      "description": "An invisible rune imprinted on a door latch releases a powerful electric discharge.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 10,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:20, name:Scratch Out the Rune, traits:action:disable-a-device) (expert) to scratch out the rune without allowing electricity to flow, or Dispel Magic (2nd rank; counteract DC 18) to counteract the rune",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "FzfgLXTt6R8bYmTP",
+          "name": "Electrocution",
+          "kind": "reaction",
+          "description": "Trigger A creature grasps the door latch directly or with a tool\nEffect The trap deals 3d12 electricity damage to the triggering creature (check (reflex, dc:22, basic) save).",
+          "traits": [
+            "arcane",
+            "electricity"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:quicksand",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "C6nFe8SCWJ8FmLOT",
+      "slug": "quicksand",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:ee56de4ac57cff87d62fe1f8a245fa2b16d472fdf4afcb15567b618f75c685d0",
+    "translatableHash": "sha256:6d34929d6b5c6e0ea572b2c755ef49c74d50053000a24fbe769bd624cabb55e2",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Quicksand",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "environmental"
+      ],
+      "description": "A 15-foot-wide patch of water and sand attempts to submerge creatures that step onto it.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 12,
+        "details": "(trained) (or -10 and no minimum proficiency if the surface is disturbed)"
+      },
+      "disable": "check (survival, dc:18, name:Safely Disturb the Surface) (trained) to disturb the surface",
+      "isComplex": true,
+      "routine": "(1 action) On its initiative, the quicksand pulls down each creature within it. A creature that was submerged up to its waist becomes submerged up to its neck, and a creature that was submerged up to its neck is pulled under and has to hold its breath to avoid suffocation. A creature in the quicksand can attempt a check (athletics, dc:20, traits:action:swim) check to Swim to either raise itself by one step if it's submerged to its neck or worse, or to move 5 feet if it's submerged only up to its waist. On a critical failure, the creature is pulled down one step. A creature that Swims out of the quicksand escapes the hazard and is Prone in a space adjacent to the quicksand patch. Other creatures can Aid the creature, typically by using a rope or similar aid, or attempt to pull the creature out with their own check (athletics, dc:20, name:Aid Another Creature in Quicksand) check, with the same results as if the creature attempted the check.",
+      "reset": "The hazard still submerges anyone who walks in, but the surface doesn't become hidden again until it settles over the course of 24 hours.",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "Ey8CknllSG5csxdG",
+          "name": "Submerge",
+          "kind": "passive",
+          "description": "Trigger A Huge or smaller creature walks onto the quicksand\nEffect The triggering creature sinks into the quicksand up to its waist. The quicksand rolls initiative if it hasn't already.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:drowning-pit",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "OekigjNLNp9XENjx",
+      "slug": "drowning-pit",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:dea6fe28c1c5ade94179d2c47fdf30116d1d141c0236b931627d4b5395548eba",
+    "translatableHash": "sha256:6d579449305eeb4463156756effd29472c91b59b7dfa495aee66af99f3d875f3",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Drowning Pit",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A trapdoor covers a 10-foot-square pit that's 30 feet deep and has 5 feet of water at the bottom. Four water spouts in the walls connect to hidden water tanks. Each water spout extends out of a different wall, 6 inches from the top of the pit.",
+      "armorClass": 19,
+      "hitPoints": 60,
+      "hardness": 15,
+      "stealth": {
+        "modifier": 10,
+        "details": "(trained); check (perception, dc:22, traits:action:seek) (expert) to notice the water spouts once the pit opens"
+      },
+      "disable": "check (thievery, dc:18) (trained) to seal each water spout, check (thievery, dc:22) (trained) to open the trapdoor, or check (athletics, dc:22) to Force Open: Athletics the trapdoor",
+      "isComplex": true,
+      "routine": "(4 actions) The trap loses 1 action each turn for each disabled water spout. On each of the trap's actions, a spout pours water, increasing the depth of the water by 5 feet. Once the pit is full of water, the pit stops using actions, but creatures in the pit begin drowning.",
+      "reset": "The trap can be reset if the door is manually reengaged and the water tanks are refilled; it can be reset without draining the pit, but doing so renders the pit less effective.",
+      "saves": {
+        "fortitude": 8,
+        "reflex": 5,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "iji2yCS44gpqc5p3",
+          "name": "Pitfall",
+          "kind": "reaction",
+          "description": "Trigger A creature walks onto the trapdoor\nEffect The triggering creature falls in and takes damage from the fall, reduced by 5 feet for falling into the water (typically 12 bludgeoning damage). A creature can Grab an Edge to avoid falling. The trapdoor then slams shut, and the hazard rolls initiative.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:titanic-flytrap",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "6In2S3lDnxNgZ2np",
+      "slug": "titanic-flytrap",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:98509dfffd80a0e37618e078c616d1c8b487e3447d80223f6b309410656c1215",
+    "translatableHash": "sha256:ac61f46b72166fa4546c97a7d7aa1704c94d5d5b536dbfea8dd53e72a35236e7",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Titanic Flytrap",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "environmental"
+      ],
+      "description": "On the surface, a titanic flytrap appears to be a patch of the more common flytrap plant, but beneath murky waters it hides a far larger set of jaws, reaching 10 feet across, reinforced with woody branches and lined with paralytic hairs.",
+      "armorClass": 21,
+      "hitPoints": 56,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 15,
+        "details": "(trained)"
+      },
+      "disable": "check (survival, dc:22, name:Mislead the Flytrap's Senses) (trained) to mislead the flytrap's sense of weight and pressure",
+      "isComplex": false,
+      "routine": "",
+      "reset": "1 hour (or longer, after a large meal)",
+      "saves": {
+        "fortitude": 15,
+        "reflex": 8,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "mental"
+        ],
+        "resistances": [
+          "acid 20",
+          "fire 10"
+        ],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "f9aVsy30iGDJTtb4",
+          "name": "Snap Shut",
+          "kind": "reaction",
+          "description": "Trigger A Small or Medium creature moves into a square that is within reach of the flytrap's hidden jaws\nEffect The flytrap's jaws snap shut, making a jaws Strike against the triggering creature.",
+          "traits": []
+        },
+        {
+          "id": "eauYGISAGprcOwH4",
+          "name": "Devour",
+          "kind": "passive",
+          "description": "The target is trapped by the flytrap's jaws, gaining the Grabbed condition until it [[/act escape dc=21]]. Additionally, it is exposed to the titanic flytrap toxin from the hundreds of tiny hairs that line the inside of its leaves. If the flytrap's jaws Strike was a critical success, the target takes a –2 circumstance penalty to its saving throws against this poison. At the end of each of the target's turns that it remains grabbed, the target takes 3d6 acid damage.",
+          "traits": []
+        },
+        {
+          "id": "qBQpsAk64L9c0sJ2",
+          "name": "Titanic Flytrap Toxin",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:21)\nMaximum Duration 4 rounds\nStage 1 2d6 poison damage and Stunned 1 (1 round)\nStage 2 3d6 poison damage and Stunned 2 (1 round)\nStage 3 4d6 poison damage and Paralyzed (1 round)",
+          "traits": [
+            "contact",
+            "poison"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:scythe-blades",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "7VqibTAEXXX6PIhh",
+      "slug": "scythe-blades",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:b0800babb66db277e08cfca9d7bbc7dbb35403206e4437cdea132a977fdb86fd",
+    "translatableHash": "sha256:f43425d2e9ef71bef4257f02158a6f8436724d79971664103b4b4e8208a73f98",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Scythe Blades",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "Two blades, each hidden in a 15-foot-long ceiling groove, are both connected to a trip wire.",
+      "armorClass": 21,
+      "hitPoints": 44,
+      "hardness": 11,
+      "stealth": {
+        "modifier": 13,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:21, name:Disable a Blade) (trained) to disable each blade",
+      "isComplex": false,
+      "routine": "",
+      "reset": "The trap resets after 15 minutes.",
+      "saves": {
+        "fortitude": 12,
+        "reflex": 8,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "0fjRyLkdj1a2kfGM",
+          "name": "Falling Scythes",
+          "kind": "reaction",
+          "description": "Trigger The trip wire is pulled or severed.\nEffect Both blades swing down, each one Striking all creatures under the ceiling grooves.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:spinning-blade-pillar",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "HnPd9Vqh5NHKEdRq",
+      "slug": "spinning-blade-pillar",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:066256aef05831f185dfce6321d604f1017a7aa32e88f4b277727d9dc9f45407",
+    "translatableHash": "sha256:21929164c53e4c3220a74e264149e9cdd77fb216063242575974f7c81020ca09",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Spinning Blade Pillar",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A metal pole with three razor-sharp spinning blades is hidden in the floor, connected to trigger plates in up to eight floor tiles and a hidden control panel within 30 feet.",
+      "armorClass": 21,
+      "hitPoints": 48,
+      "hardness": 12,
+      "stealth": {
+        "modifier": 11,
+        "details": "(trained) or check (perception, dc:26, traits:action:seek) (expert) to notice the control panel"
+      },
+      "disable": "check (thievery, dc:21, name:Disable Pillar, traits:action:disable-a-device) (trained) twice on the pillar, or check (thievery, dc:19, name:Disable Trap (Control Panel), traits:action:disable-a-device) (expert) once on the control panel deactivates the whole trap. Breaking the control panel prevents anyone from disabling the trap using the control panel and prevents the trap from deactivating automatically.",
+      "isComplex": true,
+      "routine": "(3 actions) The trap uses its first action to make a spinning blade Strike against each adjacent creature, its second action to move straight in a random direction (roll [[/gmr 1d4 #Direction]] to determine the direction), and its third to make a spinning blade Strike against each adjacent creature. This trap doesn't take a multiple attack penalty.",
+      "reset": "The trap deactivates and resets after 1 minute.",
+      "saves": {
+        "fortitude": 10,
+        "reflex": 12,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "F0I1pLJQm1AQtXPH",
+          "name": "Rising Pillar",
+          "kind": "reaction",
+          "description": "Trigger A creature steps on one of the trapped floor tiles\nEffect The trap pops up in a grid intersection and makes a spinning blade Strike against one adjacent creature (if any), then rolls initiative.",
+          "traits": [
+            "attack"
+          ]
+        },
+        {
+          "id": "6wV9i41Jd4HThaAi",
+          "name": "Speed",
+          "kind": "passive",
+          "description": "10 feet",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:fireball-rune",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "2GAOUxDfoA48uCWP",
+      "slug": "fireball-rune",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:bc4b951923bbccec6e7f63da4cf1c426feefee941521fdd2b3a881fa6a995bc4",
+    "translatableHash": "sha256:795c2a54e33ddee844edde6c68fcbf1beda94b3dd5bc2e53dd026d3fe310b944",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Fireball Rune",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "fire",
+        "magical",
+        "trap"
+      ],
+      "description": "An invisible rune creates an invisible, spherical magical sensor with a 20-foot radius.",
+      "armorClass": 0,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 14,
+        "details": "(expert)"
+      },
+      "disable": "check (thievery, dc:22, name:Erase the Rune) (expert) to erase the rune without triggering the sensor, or Dispel Magic (3rd rank; counteract DC 20) to counteract the rune",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "uJpg7vUJ1qag7R3t",
+          "name": "Fireball",
+          "kind": "reaction",
+          "description": "Trigger A living creature enters the sensor area\nEffect The rune detonates a Fireball centered on the triggering creature's square. This is a 3rd-rank fireball spell that deals 6d6 fire damage (check (reflex, dc:22, basic) save).",
+          "traits": [
+            "arcane",
+            "fire"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:spectral-reflection",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "Uw2iVgbbeyn3mOjt",
+      "slug": "spectral-reflection",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:2294740ef2ecba8f65aee9daccc6a79cdb5198cae58975ccbbe3018762624fd5",
+    "translatableHash": "sha256:92b948afc9dea13cbb98ba6c17f2952f5efd078520c987796eae48f890bc2513",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Spectral Reflection",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "The reflection in the mirror subtly twists and distorts, its expression taking on an unnerving sneer of malice.",
+      "armorClass": 19,
+      "hitPoints": 50,
+      "hardness": 13,
+      "stealth": {
+        "modifier": 16,
+        "details": "(expert)"
+      },
+      "disable": "check (religion, dc:23, name:Exorcise Spirit) (trained) to exorcise the spirit, or check (thievery, dc:23, name:Cover the Mirror, traits:action:disable-a-device) (trained) to quickly cover the mirror",
+      "isComplex": false,
+      "routine": "",
+      "reset": "The haunt re-forms after 1 minute, manifesting in any mirror within its infused area (see Special below).",
+      "saves": {
+        "fortitude": 15,
+        "reflex": 10,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "hEtVGo9EpKcXlhPI",
+          "name": "Spectral Impale",
+          "kind": "reaction",
+          "description": "Trigger A living creature approaches within 15 feet of the mirror, and the mirror is lit with dim or brighter light.\nEffect Shadowy barbs impale the body of the reflected creature as the haunt makes a shadow barbs Strike.",
+          "traits": []
+        },
+        {
+          "id": "17gJOHIRtWXfYMKa",
+          "name": "Sap Vitality",
+          "kind": "passive",
+          "description": "A creature hit by the reflection's shadow barbs must attempt a check (fortitude, dc:22) save as the haunt tries to draw a portion of its vital essence into the mirror. The target is Drained 1 on a failed saving throw, or Drained 2 on a critical failure.",
+          "traits": []
+        },
+        {
+          "id": "V7tWWuB9NSEsMEae",
+          "name": "Special",
+          "kind": "passive",
+          "description": "Spectral reflections often infuse entire buildings, manifesting in any sufficiently large mirror. The example Hit Points and Hardness given represent a typical mirror reinforced by the haunt; at your discretion, the haunt might appear in reflective surfaces that are harder to destroy. Defeating a manifestation through damage destroys the surface, preventing the haunt from using it again. If this haunt appears in an area with many mirrors, consider giving PCs double or even triple the XP for a typical simple hazard.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:ghostly-choir",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "d3YklujLpBFC5HfB",
+      "slug": "ghostly-choir",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:2ecc56c001d621b949c0e6c6a4933793ac739130de21867bf1088c14526e7da2",
+    "translatableHash": "sha256:a1198d79b8cebf05a0d97a72052e194000ee41e50abb754f5b7dffa798c33163",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Ghostly Choir",
+      "level": 6,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "A choir of lost souls rises out of the floor, singing an eerie chant that terrifies its listeners and buffets their bodies with walls of sound.",
+      "armorClass": 0,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 10,
+        "details": "(expert)"
+      },
+      "disable": "check (performance, dc:28, name:Sing a Different Tune, traits:haunt) (trained) to disrupt the song's resonance with another tune or check (religion, dc:28, name:Ritually Silence the Haunt, traits:haunt) (trained) to ritually silence the spirits",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "oZGdTS4jvoAj1myH",
+          "name": "Profane Chant",
+          "kind": "reaction",
+          "description": "Trigger A creature moves within 10 feet of the section of floor from which the choir can arise\nEffect The choir rises, and its song deals (4d8+18)[mental] damage to living creatures within 30 feet of the souls' spectral forms. Affected creatures must each attempt a check (will, dc:24, traits:damaging-effect) save.\nCritical Success The creature is unaffected.\nSuccess The creature takes half damage and becomes Frightened 1.\nFailure The creature takes full damage and becomes Frightened 2.\nCritical Failure The creature takes double damage. It also becomes Frightened 3 and Fleeing for 1 round.",
+          "traits": [
+            "auditory",
+            "emotion",
+            "fear",
+            "mental",
+            "occult"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:wheel-of-misery",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "H2GX04CQXLPQHT8h",
+      "slug": "wheel-of-misery",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:fd01616b7aac1695305fa4ae1c331123f361e042704acd88c1d46c240d1466a1",
+    "translatableHash": "sha256:17fc57fb2ecef365d554ae4ff752452def857ea6bbea5a42577ea94fb2435846",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Wheel Of Misery",
+      "level": 6,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "mechanical",
+        "trap"
+      ],
+      "description": "An ornate wheel set into a wall-divided into six segments with colored runes on each-is controlled by a magical sensor that detects any creature within 100 feet in front of it.",
+      "armorClass": 24,
+      "hitPoints": 56,
+      "hardness": 14,
+      "stealth": {
+        "modifier": 16,
+        "details": "(expert) to detect the magical sensor; noticing the wheel has a DC of 0"
+      },
+      "disable": "check (thievery, dc:26, name:Stop Wheel from Spinning, traits:action:disable-a-device) (expert) on the wheel to stop it from spinning, check (thievery, dc:22, name:Erase Rune, traits:action:disable-a-device) (master) to erase each rune, or Dispel Magic (4th rank; counteract DC 22) to counteract each rune",
+      "isComplex": true,
+      "routine": "(2 actions) On its initiative, the trap uses its first action to spin, then stops. Roll 1d6 to determine which segment is topmost when the wheel stops spinning. The wheel uses its second action to replicate the spell listed for that segment (3rd rank, DC 24, spell attack modifier +14). This spell's target is centered on or otherwise includes the nearest creature in the area. This increases the spell's range to 100 feet if necessary. Any spell cast by this trap is arcane.\n1 Sleep\n2 Paralyze\n3 Lightning Bolt (100-foot line)\n4 Blindness\n5 Caustic Blast\n6 Enfeeble",
+      "reset": "The trap deactivates and resets if 1 minute passes without any creature moving within range of its sensor.",
+      "saves": {
+        "fortitude": 15,
+        "reflex": 13,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "ZS4b3rYv9jOgbMzm",
+          "name": "Wheel Spin",
+          "kind": "reaction",
+          "description": "Trigger A creature enters the sensor's detection area.\nEffect The wheel begins to spin and rolls initiative.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:hallucination-powder-trap",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "uEZ4Jv2wNyukJTRL",
+      "slug": "hallucination-powder-trap",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:c7bb3261dc7c53b9b41e58fc5df8ea9997054200c8fac681718fe7f1668910b7",
+    "translatableHash": "sha256:438335799754e6e12ecbc40768e8e901810cba9560139d0495b45179ae260489",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Hallucination Powder Trap",
+      "level": 6,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A tube of hallucinogenic powder armed with a miniature explosive is connected to a doorknob or similar latch.",
+      "armorClass": 24,
+      "hitPoints": 1,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 14,
+        "details": "(expert)"
+      },
+      "disable": "check (thievery, dc:26, name:Disable Hammer, traits:action:disable-a-device) (expert) to disable the hammer that strikes the percussion cap",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "NjmHPcx6IEA14Yul",
+          "name": "Powder Burst",
+          "kind": "reaction",
+          "description": "Trigger The latch is opened or the tube is broken.\nEffect The tube explodes, spraying hallucinogenic powder in a 30-foot cone. Any creature in the cone must succeed at a check (will, dc:24) save or be confused for 1 round and take a -2 status penalty to Perception checks and saves against mental effects for [[/gmr 1d4 #hours]]. On a critical failure, the penalty is instead -4.\nEffect: Powder Burst",
+          "traits": [
+            "mental",
+            "poison"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:pharaohs-ward",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "m4PRYxFq9ojcwesh",
+      "slug": "pharaohs-ward",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:34acdf6ffa172d2c2892d0a7e02a2664f3fc57a43ada9bbff64dc71af621b7aa",
+    "translatableHash": "sha256:0e7721d7f002c9fcacf2a109739b786138c9a9bba64bc75c397e7ba5d0d7efab",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Pharaoh's Ward",
+      "level": 7,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "trap"
+      ],
+      "description": "A curse is imbued on an entryway's threshold.",
+      "armorClass": 0,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 15,
+        "details": "(expert)"
+      },
+      "disable": "check (thievery, dc:27, name:Remove the Lintel) (master) to painstakingly remove the lintel without triggering the magic, or Dispel Magic (4th rank; counteract DC 25) to counteract the rune",
+      "isComplex": false,
+      "routine": "",
+      "reset": "The trap resets when the door is shut.",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "Cc30YjKZ7qSxVjSC",
+          "name": "Curse the Intruders",
+          "kind": "reaction",
+          "description": "Trigger The seal on the tomb is broken from the outside.\nEffect Each living creature within 60 feet must succeed at a check (will, dc:23) save or be subjected to the pharaoh's curse. A cursed creature takes a -2 status penalty to Fortitude saves, and any natural or magical healing it receives is halved. The curse remains until removed by Cleanse Affliction or similar magic.",
+          "traits": [
+            "curse",
+            "divine"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:eternal-flame",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "O0qA1ElCOgYGEBtL",
+      "slug": "eternal-flame",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:1e46e6f863962242ac7434e98e9baf8c9a426c23a30122026836367fad3274e6",
+    "translatableHash": "sha256:14e0eda676067ff368c5f26be0b5f7bf74686c3a5a36d24029002942d4885a0d",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Eternal Flame",
+      "level": 7,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "A raging spectral inferno arises out of thin air, strengthening all undead creatures within its area. This haunt most often arises from the charred remains of a group of three people who burned to death, whether in a terrible accident or a deliberate execution, and their unavenged souls burn with rage.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 18,
+        "details": "(expert)"
+      },
+      "disable": "check (diplomacy, dc:27, name:Calm the Spirit's Rage) (expert) to temporarily calm the rage of one of the three spirits, or check (religion, dc:30, name:Exorcise Spirit) (trained) to exorcise one of the spirits; three total successes are required to disable the haunt",
+      "isComplex": true,
+      "routine": "(1 action) Phantom flames rage across the haunted area, dealing 4d6 fire damage to each living creature within the area (check (will, dc:23, basic) save). Undead creatures in the area are infused with flames for the following round. They gain the fire trait and immunity to fire, and all their attacks deal an additional 1d6 fire damage. Objects in the area are unaffected.",
+      "reset": "The flames cease 1 minute after all living creatures leave the area, but after 1 hour, the anger and pain simmer up and the haunt is ready to trigger again.",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "E8X8ETVNwXuUF08C",
+          "name": "Searing Agony",
+          "kind": "reaction",
+          "description": "Trigger A living creature approaches within 10 feet of the remains of a victim of the original fire\nEffect Memories of the pain suffered by the fire's past victims assault the triggering creature's mind. The creature must attempt a check (will, dc:25) save, and the haunt then rolls initiative.\nCritical Success The creature is unaffected.\nSuccess The creature is Sickened 1.\nFailure The creature is Sickened 2.\nCritical Failure The creature is Sickened 3, and it is Off-Guard for as long as it remains within the haunt's area and for 3 rounds thereafter.",
+          "traits": [
+            "mental"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:poisoned-dart-gallery",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "lVqVDjXnHboMif7F",
+      "slug": "poisoned-dart-gallery",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:a4dfc5afb3743ef23a671f15e4db2f942cf682fb9d114321c576153d9a35c6ba",
+    "translatableHash": "sha256:3996bbc33163b6b5a19c8bbd7d3ad97febb50b0c300509ad3b92437b738eb5f5",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Poisoned Dart Gallery",
+      "level": 8,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "Countless holes to launch poison darts from line a long hallway with a hidden control panel on the far end.",
+      "armorClass": 27,
+      "hitPoints": 56,
+      "hardness": 14,
+      "stealth": {
+        "modifier": 16,
+        "details": "(expert) or check (perception, dc:31, traits:action:seek) (master) to notice the control panel"
+      },
+      "disable": "check (thievery, dc:21, name:Disable Trap (Control Panel), traits:action:disable-a-device) (expert) on the control panel deactivates the trap.",
+      "isComplex": true,
+      "routine": "(1 action) The trap launches one dart against every creature in the gallery as 1 action. Because it launches darts continuously, the trap can also use the Continuous Barrage free action (see below) to launch darts at each creature during that creature's turn.",
+      "reset": "The trap deactivates and resets after 1 minute.",
+      "saves": {
+        "fortitude": 13,
+        "reflex": 17,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "precision",
+          "critical-hits"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "KFCwJINs8Uu4riRs",
+          "name": "Dart Volley",
+          "kind": "reaction",
+          "description": "Trigger A creature enters the hallway or ends its turn in the hallway\nEffect The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative.",
+          "traits": []
+        },
+        {
+          "id": "hkSWLZaKG41zef8w",
+          "name": "Continuous Barrage",
+          "kind": "passive",
+          "description": "Trigger A creature within the active gallery finishes an action\nEffect The trap makes a poisoned dart Strike against the triggering creature.",
+          "traits": []
+        },
+        {
+          "id": "eY731rvsYJZ2o5Sh",
+          "name": "Flesset Poison",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:22)\nMaximum Duration 6 rounds\nStage 1 1d6 poison damage and Clumsy 1 (1 round)\nStage 2 2d6 poison damage and Clumsy 2 (1 round)\nStage 3 3d6 poison damage and Clumsy 3 (1 round)",
+          "traits": [
+            "poison"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:confounding-betrayal",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "sFaAWmy1szDRmFtk",
+      "slug": "confounding-betrayal",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:1e4814017bbaeaf2bbc5e2180579c8de9108228d4a6af5edf57a4807ccd84545",
+    "translatableHash": "sha256:94e588c78a06b3a517cb0304ee6b9c8d7f1c6a08e1dbc0aa5bb0b36a05dd2fae",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Confounding Betrayal",
+      "level": 8,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "Allies appear to shed their disguises and reveal themselves to be malevolent monsters.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 21,
+        "details": "(expert)"
+      },
+      "disable": "check (deception, dc:28, name:Confound the Haunt) (expert) twice to confound the haunt with your own deceptions, or check (occultism, dc:28, name:Create a Ward Against Influence) (trained) twice to create a ward against the haunt's mental influence",
+      "isComplex": true,
+      "routine": "(1 action; illusion, incapacitation, occult) The haunt continues to confound victims' senses and inspire them to commit violence against each other. Each creature in the haunt's area must attempt a check (will, dc:26) save.\nCritical Success The creature is unaffected and temporarily immune for 1 minute.\nSuccess The creature is unaffected.\nFailure The creature is Confused for 1 round.\nCritical Failure The creature is confused for 1 minute.",
+      "reset": "The haunt deactivates 1 minute after all creatures leave the area but resets immediately thereafter.",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "QrgnumULVnz8pWfK",
+          "name": "Unmask",
+          "kind": "reaction",
+          "description": "Trigger Two or more creatures enter the haunt's area\nEffect Each creature sees the forms of nearby creatures shift and change, appearing to transform into fiendish or aberrant beings with a thirst for blood. Each creature in the area must attempt a check (will, dc:30) save. The haunt then rolls initiative.\nCritical Success The creature sees through the illusions entirely and is temporarily immune to the haunt's routine for 1 minute.\nSuccess The creature is unaffected by the strange images.\nFailure The creature believes the illusions to be true; if they become Confused by the haunt's routine, they can't attempt flat checks to end the confused condition when they take damage.\nCritical Failure As failure, but the creature is left with a lingering suspicion of others and can't benefit from Aid reactions for 24 hours.",
+          "traits": [
+            "illusion",
+            "occult"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:bottomless-pit",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "xkqjwu1ox0pQLOnb",
+      "slug": "bottomless-pit",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:f80f44bece80f639e93fde9b2bef574da49abd3fd45bd10a4ee3a1a4a112c592",
+    "translatableHash": "sha256:825c117472533e3d6f2fd525ec2076e703433a92aa9d1d68b58ec0e58da16c33",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Bottomless Pit",
+      "level": 9,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "mechanical",
+        "trap"
+      ],
+      "description": "An iron trapdoor covers an infinitely deep 10-foot-square pit.",
+      "armorClass": 28,
+      "hitPoints": 36,
+      "hardness": 9,
+      "stealth": {
+        "modifier": 20,
+        "details": "(or 0 if the trapdoor is disabled or broken) or detect magic"
+      },
+      "disable": "check (thievery, dc:28, name:Remove Trapdoor, traits:action:disable-a-device) (trained) to remove the trapdoor",
+      "isComplex": false,
+      "routine": "",
+      "reset": "The trap still causes creatures to fall forever if they fall in, but the trapdoor must be reset manually for the trap to become Hidden again.",
+      "saves": {
+        "fortitude": 12,
+        "reflex": 12,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "WJtDPJzNrJO19H6k",
+          "name": "Infinite Pitfall",
+          "kind": "reaction",
+          "description": "Trigger A creature walks onto the trapdoor\nEffect The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling. The DC to Climb the walls or Grab an Edge is 26. The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:bloodthirsty-urge",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "su4TRBOoso4vjkoK",
+      "slug": "bloodthirsty-urge",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:0126107f7649220c0960866b814d0b3e2d5c693510da40731edc1998c0133508",
+    "translatableHash": "sha256:b04b78ca7f6fbcc156069fc0446ed8a0f812ff5c86cc0509785560c95aebf8dc",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Bloodthirsty Urge",
+      "level": 10,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "An object haunted by the echoes of a vicious mind attempts to kill someone who comes near.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 21,
+        "details": "(trained)"
+      },
+      "disable": "check (religion, dc:29, name:Exorcise Spirit) (master) to exorcise the spirit or check (diplomacy, dc:31, name:Talk Down the Spirit) (expert) to talk it down",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "0FpzSygcs7G688GT",
+          "name": "Quietus",
+          "kind": "reaction",
+          "description": "Trigger A creature moves within 10 feet of the haunted object\nEffect The haunt takes control of the triggering creature, forcing it to attack itself. The creature must attempt a check (will, dc:29) save.\nCritical Success The target is unaffected.\nSuccess The target makes a Strike against itself and automatically hits; the target also becomes Frightened 1.\nFailure The target makes a Strike against itself and automatically scores a critical hit; the target also becomes Frightened 2.\nCritical Failure The target attempts a Fortitude save. If the target succeeds, it is subject to the effects of a failure instead. If the target fails, it is reduced to 0 HP and dies",
+          "traits": [
+            "death",
+            "emotion",
+            "fear",
+            "illusion",
+            "mental",
+            "occult"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:hammer-of-forbiddance",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "tbwGr6FIr5WpvQ6l",
+      "slug": "hammer-of-forbiddance",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:8b441c650306d4d96237a141c251af911468be355a1d4804a20d8ed0741fb908",
+    "translatableHash": "sha256:5a328d686364cb398075cceb10162536238e74a5ded61cbe518e897f349108ce",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Hammer Of Forbiddance",
+      "level": 11,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "mechanical",
+        "trap"
+      ],
+      "description": "An enormous hammer at an edifice's entrance swings down in an attempt to damage a creature entering an area, push it back, and prevent it from going any further.",
+      "armorClass": 32,
+      "hitPoints": 88,
+      "hardness": 22,
+      "stealth": {
+        "modifier": 20,
+        "details": "(expert)"
+      },
+      "disable": "check (thievery, dc:28, name:Prevent Hammer from Swinging, traits:action:disable-a-device) (expert) once on the hammer itself and once on its joint to prevent the hammer from swinging",
+      "isComplex": false,
+      "routine": "",
+      "reset": "The trap resets over the course of the round, and is ready to swing again 1 round later.",
+      "saves": {
+        "fortitude": 24,
+        "reflex": 15,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "caUgV11OydLsLw1j",
+          "name": "Forbid Entry",
+          "kind": "reaction",
+          "description": "Trigger A creature attempts to enter through the entrance.\nEffect The hammer swings down, making a Strike against the triggering creature.",
+          "traits": [
+            "divine"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:flensing-blades",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "g9HovYB4pfHgIML9",
+      "slug": "flensing-blades",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:b6c8c87ae03c2d48708ea40a3b46ff608cc14274795a278ac24fdbdb4ae97476",
+    "translatableHash": "sha256:10b58d1a802e53040655e91fce483b1edbc728200b63cfd4901bc967787f013d",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Flensing Blades",
+      "level": 12,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "A whirling tornado of spectrally propelled glass and steel slices whatever it touches to ribbons.",
+      "armorClass": 33,
+      "hitPoints": 100,
+      "hardness": 20,
+      "stealth": {
+        "modifier": 25,
+        "details": "(expert)"
+      },
+      "disable": "check (thievery, dc:35, name:Adjust Blades, traits:action:disable-a-device) (master) to precisely adjust the blades so that they destroy each other, or check (religion, dc:38, name:Weaken the Haunt) (expert) to weaken the haunt; four successes are required to disable it",
+      "isComplex": true,
+      "routine": "(3 actions) The tornado of blades uses 3 actions to move, traveling up to 30 feet with each action and dealing (2d10+10)[slashing] damage. Each creature in its path must attempt a check (reflex, dc:33).\nCritical Success The creature is unaffected.\nSuccess The creature takes half damage.\nFailure The creature takes full damage plus 1d10 persistent bleed damage.\nCritical Failure The creature takes double damage and 1d10 persistent bleed damage. It also becomes Wounded 1 (or increases its wounded value by 1, if it is already wounded).\nEach successful check to disable this hazard reduces the haunt's movement by 30 feet, and the fourth success disables it completely.",
+      "reset": "The haunt draws jagged shards back into its area over the course of an hour, after which it can trigger again.",
+      "saves": {
+        "fortitude": 27,
+        "reflex": 25,
+        "will": 22
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "vitality 15"
+        ]
+      },
+      "actions": [
+        {
+          "id": "jSBfyDGUXAPbIJTT",
+          "name": "Whirling Blades",
+          "kind": "reaction",
+          "description": "Trigger Three or more creatures enter the area of the haunt\nEffect Sharp fragments lift up from the ground and begin to spin in rapid circles taking up one 5-foot square. The haunt rolls initiative.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:polymorph-trap",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "H8CPGJn81JSTCRNx",
+      "slug": "polymorph-trap",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:ab60b851a7a320a34630f72df664de684014e0e7ac7d13349e0522e2e4407711",
+    "translatableHash": "sha256:c006035ea826aa238657863f385486e50adb251292a24aad94d589c7ce0a15d5",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Polymorph Trap",
+      "level": 12,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "trap"
+      ],
+      "description": "A Druidic glyph tries to transforms a trespasser into an animal.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 24,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:32, name:Drain Glyph's Power, traits:action:disable-a-device) (master) to drain the glyph's power harmlessly, or Dispel Magic (6th rank; counteract DC 30) to counteract the glyph",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "TxhvkFafggYWv5D7",
+          "name": "Cursed Metamorphosis",
+          "kind": "reaction",
+          "description": "Trigger A creature moves within 30 feet of the glyph without speaking the passphrase in Druidic\nEffect The creature is targeted by Cursed Metamorphosis (check (will, dc:32) save).",
+          "traits": [
+            "primal"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:planar-rift",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "yM4G2LvMwvkIRx0G",
+      "slug": "planar-rift",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:d025974e9e11db74c8c15908a8e4352da0f333260a86f3aa8c0aee792e908a23",
+    "translatableHash": "sha256:2edb487f72d931fdc697fca798d6992f74b22b2962fcff2dce6b82c62f1f0f30",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Planar Rift",
+      "level": 13,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "magical",
+        "trap"
+      ],
+      "description": "A rift attempts to draw creatures into another plane (the GM chooses the specific plane).",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 25,
+        "details": "(trained)"
+      },
+      "disable": "check (thievery, dc:33, name:Assemble a Rift Seal, traits:action:disable-a-device) (master) to assemble a rift seal using objects strongly grounded to your plane, or Dispel Magic (7th rank; counteract DC 31) to counteract the rift",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "K7Ya0U5jerfvH0vw",
+          "name": "Into the Great Beyond",
+          "kind": "reaction",
+          "description": "Trigger A creature moves within 10 feet of the rift.\nEffect The triggering creature and all creatures within 30 feet of the rift are drawn into another plane. Each creature can attempt a check (reflex, dc:33) save to avoid this fate.",
+          "traits": [
+            "occult",
+            "teleportation"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:dance-of-death",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "ZUCGvc2dTJUlM9dC",
+      "slug": "dance-of-death",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:9a0858b55bb2491a65b9b2e671c8b27f4416fbe98decbf70ebe7950cbd30edb2",
+    "translatableHash": "sha256:89432d9a2a17f04634c8f7754c9571c43b9399536f7ca900295eb5e1cfaa60c6",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Dance Of Death",
+      "level": 16,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "haunt"
+      ],
+      "description": "An eerie orchestra compels all who hear it to dance until they collapse from exhaustion.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 32,
+        "details": "(master)"
+      },
+      "disable": "check (intimidation, dc:42, name:Frighten the Orchestra, traits:action:demoralize) (expert) three times to frighten dancers and spectral musicians alike away from participating in the deadly performance, check (performance, dc:40, name:Disrupt Compulsion) (master) twice to produce a tune discordant enough to disrupt the compulsion, or check (religion, dc:42, name:Banish Spirits) (master) three times to banish the spirits with prayers",
+      "isComplex": true,
+      "routine": "(1 action; auditory, incapacitation, mental, occult) The orchestra performs a raucous tune, compelling all creatures that can hear it to spend actions dancing. Each round, creature must attempt a check (will, dc:37) save; the results of this save modify the number of actions that the creature must spend dancing each round. If this would cause the creature to spend more actions dancing than it can use on its turn, the creature takes 10d6 damage (or double that on a critical failure) from moving faster than its body can manage.\nCritical Success The creature decreases the number of actions it must spend dancing by 1.\nSuccess No effect.\nFailure The creature increases the actions it must spend dancing by 1.\nCritical Failure The creature increases the actions it must spend dancing by 2.",
+      "reset": "The eerie orchestra spends an hour retuning its phantasmal instruments, after which it is ready to begin its routine again.",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "Bov9feGVYpn5nmUl",
+          "name": "Prelude",
+          "kind": "reaction",
+          "description": "Trigger A creature approaches within 30 feet of the orchestra\nEffect The orchestra compels all creatures that can hear it to begin dancing. Each creature must attempt a check (will, dc:41) save, with the following effects. The haunt then rolls initiative.\nCritical Success The creature is unaffected.\nSuccess The creature is Off-Guard and cannot use reactions. Additionally, it must spend 1 of its actions each round dancing. Dancing is a move action that allows the creature to Stride up to half its Speed.\nFailure As success, except the creature must spend 2 of its actions each round dancing.\nCritical Failure As failure, except the creature must spend 3 of its actions each round dancing.",
+          "traits": [
+            "auditory",
+            "incapacitation",
+            "occult"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:vorpal-executioner",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "J4YChuob7MIPT5Mq",
+      "slug": "vorpal-executioner",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:d08e2a72395202f995067082ffbeab0aac89eb8344f0810b5633a7436a76d33e",
+    "translatableHash": "sha256:4765c9b04cd96ad69691455705b9f4c4651a69436d9e24a0f65448ed8a14b1c0",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Vorpal Executioner",
+      "level": 19,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "mechanical",
+        "trap"
+      ],
+      "description": "A wickedly sharp saw blade descends and travels along grooves in a complex path throughout the room, attempting to decapitate everyone within.",
+      "armorClass": 43,
+      "hitPoints": 120,
+      "hardness": 30,
+      "stealth": {
+        "modifier": 33,
+        "details": "(expert)"
+      },
+      "disable": "check (thievery, dc:41, name:Jam Saw Blade, traits:action:disable-a-device) (expert) at four different junctions to jam all the saw blade's possible paths, preventing it from traveling through the room",
+      "isComplex": false,
+      "routine": "",
+      "reset": "The trap resets over the course of the round and can be triggered again 1 round later.",
+      "saves": {
+        "fortitude": 32,
+        "reflex": 32,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "precision"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "4QF1yNgj2FX7rO4C",
+          "name": "Total Decapitation",
+          "kind": "reaction",
+          "description": "Trigger A creature attempts to exit the room.\nEffect The saw blade travels along its path, making one Strike against each creature in the room, twisting and varying its height for a maximum chance of beheading its targets.",
+          "traits": []
+        },
+        {
+          "id": "mPVesRXUMN4Ws9IR",
+          "name": "Decapitation",
+          "kind": "passive",
+          "description": "On a critical hit, a target must succeed at a check (fortitude, dc:39, traits:damaging-effect) save or be decapitated, dying instantly unless it can survive without a head.",
+          "traits": []
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:hazards:armageddon-orb",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "hazards",
+      "sourceId": "BsZ6o2YrwVovKfNh",
+      "slug": "armageddon-orb",
+      "publicationTitle": "Pathfinder GM Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg"
+    },
+    "sourceHash": "sha256:89ffba1e60703ffd8d9207e24211d195d36f87e28862ef16c1276238ccf275c1",
+    "translatableHash": "sha256:ed8be3035a0da32d0fd5bb7bf84e550ed9222ce18d369b7d737df8781be9dae1",
+    "data": {
+      "schemaVersion": 1,
+      "entryType": "HAZARD",
+      "name": "Armageddon Orb",
+      "level": 23,
+      "rarity": "rare",
+      "size": "medium",
+      "traits": [
+        "magical"
+      ],
+      "description": "A roiling red orb, forged from a drop of the god Rovagug's blood, rains fire from the sky when a specified condition is met.",
+      "armorClass": 10,
+      "hitPoints": 0,
+      "hardness": 0,
+      "stealth": {
+        "modifier": 0,
+        "details": "or detect magic"
+      },
+      "disable": "check (thievery, dc:48, name:Imbue Thieves' Tools, traits:action:disable-a-device) (legendary) to imbue a thieves' toolkit with aspects representing Asmodeus and Sarenrae and use them to drain away the orb's power over 10 minutes; the character attempting this check takes 5 fire damage each round until the orb is depleted",
+      "isComplex": false,
+      "routine": "",
+      "reset": "",
+      "saves": {
+        "fortitude": 0,
+        "reflex": 0,
+        "will": 0
+      },
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "actions": [
+        {
+          "id": "KaYeYfefttO5X9OF",
+          "name": "Burn It All",
+          "kind": "reaction",
+          "description": "Trigger A special condition set by the trap's creator occurs, typically the event of their death.\nEffect Fire rains from the sky in a 100-mile radius, dealing 10d6 fire damage to creatures and objects in the area. Each creature or object can attempt a check (reflex, dc:46, basic) save. Any creature reduced to 0 Hit Points by this damage dies instantly. This is not enough damage to completely burn away a forest or level an entire mountain or city, but it typically kills most creatures in the area.",
+          "traits": [
+            "death",
+            "divine",
+            "fire"
+          ]
+        }
+      ]
+    }
+  }
+]

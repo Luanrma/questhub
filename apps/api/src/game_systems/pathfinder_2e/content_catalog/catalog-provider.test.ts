@@ -17,15 +17,57 @@ test('reviewed filter works without rendering a positive editorial tag', async (
     locale: 'pt-BR',
     editorialStatus: 'review',
     page: 1,
-    limit: 24,
+    limit: 100,
   })
 
   assert.equal(ready.pagination.total, 3)
   assert.equal(ready.entries.length, 2)
   assert.equal(ready.pagination.totalPages, 2)
   assert.equal(ready.entries.every((entry) => entry.editorialStatus === null), true)
-  assert.equal(review.pagination.total, 0)
-  assert.equal(review.entries.length, 0)
+  assert.equal(review.pagination.total, 1_319)
+  assert.equal(review.entries.length, 100)
+  assert.equal(
+    review.entries.every((entry) => entry.editorialStatus?.label === 'Tradução em revisão'),
+    true,
+  )
+})
+
+test('Bestiary filter separates creatures and hazards before pagination', async () => {
+  const all = await pathfinder2eCatalogProvider.list({
+    campaignId: 'campaign-1',
+    domain: 'BESTIARY',
+    locale: 'pt-BR',
+    bestiaryType: 'all',
+    page: 1,
+    limit: 24,
+  })
+  const creatures = await pathfinder2eCatalogProvider.list({
+    campaignId: 'campaign-1',
+    domain: 'BESTIARY',
+    locale: 'pt-BR',
+    bestiaryType: 'creatures',
+    page: 1,
+    limit: 24,
+  })
+  const hazards = await pathfinder2eCatalogProvider.list({
+    campaignId: 'campaign-1',
+    domain: 'BESTIARY',
+    locale: 'pt-BR',
+    bestiaryType: 'hazards',
+    page: 1,
+    limit: 24,
+  })
+
+  assert.equal(hazards.pagination.total > 0, true)
+  assert.equal(all.pagination.total, creatures.pagination.total + hazards.pagination.total)
+  assert.equal(
+    hazards.entries.every((entry) => entry.stats?.some((stat) => stat.label === 'Tipo')),
+    true,
+  )
+  assert.equal(
+    creatures.entries.every((entry) => !entry.stats?.some((stat) => stat.label === 'Tipo')),
+    true,
+  )
 })
 
 test('catalog exposes only QuestHub-local API icon paths', async () => {
@@ -48,47 +90,61 @@ test('catalog exposes only QuestHub-local API icon paths', async () => {
   }
 })
 
-test('catalog associates the five exact icons available in the local package', async () => {
+test('catalog associates only exact icons available in the local package', async () => {
   const bestiary = await pathfinder2eCatalogProvider.list({
     campaignId: 'campaign-1',
     domain: 'BESTIARY',
     locale: 'pt-BR',
     page: 1,
-    limit: 24,
+    limit: 100,
   })
-  const spells = await pathfinder2eCatalogProvider.list({
-    campaignId: 'campaign-1',
-    domain: 'SPELLS',
-    locale: 'pt-BR',
-    page: 1,
-    limit: 24,
-  })
-  const items = await pathfinder2eCatalogProvider.list({
-    campaignId: 'campaign-1',
-    domain: 'ITEMS',
-    locale: 'pt-BR',
-    page: 1,
-    limit: 24,
-  })
+
+  const getImage = async (
+    domain: 'SPELLS' | 'ITEMS',
+    contentId: string,
+  ) => (
+    await pathfinder2eCatalogProvider.get({
+      campaignId: 'campaign-1',
+      domain,
+      locale: 'pt-BR',
+      contentId,
+    })
+  )?.imageUrl
 
   assert.equal(
     bestiary.entries.every((entry) => (
       entry.imageUrl === '/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg'
+      || entry.imageUrl === '/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg'
     )),
     true,
   )
   assert.equal(
-    spells.entries.find((entry) => entry.name === 'Barragem de Força')?.imageUrl,
+    await getImage('SPELLS', 'pf2e:spell:spells-srd:force-barrage'),
     '/api/game-systems/pathfinder-2e/icons/spells/magic-missile.webp',
   )
-  assert.equal(spells.entries.find((entry) => entry.name === 'Arco Elétrico')?.imageUrl, null)
-  assert.equal(spells.entries.find((entry) => entry.name === 'Curar')?.imageUrl, null)
+  assert.equal(await getImage('SPELLS', 'pf2e:spell:spells-srd:electric-arc'), null)
+  assert.equal(await getImage('SPELLS', 'pf2e:spell:spells-srd:heal'), null)
+  assert.equal(await getImage('SPELLS', 'pf2e:spell:spells-srd:blazing-bolt'), null)
   assert.equal(
-    items.entries.find((entry) => entry.name === 'Corta-Cão')?.imageUrl,
+    await getImage('SPELLS', 'pf2e:spell:spells-srd:dispel-magic'),
+    '/api/game-systems/pathfinder-2e/icons/spells/dispel-magic.webp',
+  )
+  assert.equal(
+    await getImage('SPELLS', 'pf2e:spell:spells-srd:invisibility'),
+    '/api/game-systems/pathfinder-2e/icons/spells/invisibility.webp',
+  )
+  assert.equal(
+    await getImage('ITEMS', 'pf2e:item:equipment-srd:dogslicer'),
     '/api/game-systems/pathfinder-2e/icons/equipment/weapons/dogslicer.webp',
   )
-  assert.equal(items.entries.find((entry) => entry.name === 'Arco Curto')?.imageUrl, null)
-  assert.equal(items.entries.find((entry) => entry.name === 'Armadura de Couro')?.imageUrl, null)
+  assert.equal(await getImage('ITEMS', 'pf2e:item:equipment-srd:shortbow'), null)
+  assert.equal(await getImage('ITEMS', 'pf2e:item:equipment-srd:leather-armor'), null)
+  assert.equal(
+    await getImage('ITEMS', 'pf2e:item:equipment-srd:full-plate'),
+    '/api/game-systems/pathfinder-2e/icons/equipment/armor/fullplate.webp',
+  )
+  assert.equal(await getImage('ITEMS', 'pf2e:item:equipment-srd:healers-toolkit-expanded'), null)
+  assert.equal(await getImage('ITEMS', 'pf2e:item:equipment-srd:spyglass-fine'), null)
 })
 
 test('entities without an exact local icon keep their complete detail sheet', async () => {

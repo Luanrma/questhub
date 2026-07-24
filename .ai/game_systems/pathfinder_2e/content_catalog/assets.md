@@ -38,6 +38,37 @@ image: {
 
 Arco Elétrico, Curar, Arco Curto e Armadura de Couro permanecem sem `image`, pois os ícones originais correspondentes não existem no pacote local enviado. A interface utiliza o fallback genérico.
 
+## Associações da segunda rodada
+
+| Conteúdo | Ícone local |
+|---|---|
+| Estátua Animada | `default-icons/npc.svg` |
+| Dríade | `default-icons/npc.svg` |
+| Grifo | `default-icons/npc.svg` |
+| Dissipar Magia | `spells/dispel-magic.webp` |
+| Invisibilidade | `spells/invisibility.webp` |
+| Armadura Completa | `equipment/armor/fullplate.webp` |
+
+Raio Flamejante, Kit de Curandeiro (Expandido) e Luneta (de Precisão)
+permanecem sem `image`. Os arquivos visualmente próximos do kit e da luneta não
+são associados porque representam outras variantes.
+
+## Associações de lotes gerados
+
+Para lotes gerados a partir da revisão travada, o campo `img` do JSON original
+é a identidade do asset. Quando ele começa com `systems/pf2e/icons/`, o
+importador remove somente esse prefixo e verifica a existência do mesmo caminho
+dentro de `apps/api/src/game_systems/pathfinder_2e/icons/`.
+
+- arquivo local existente: publicar a rota local `/api/game-systems/pathfinder-2e/icons/*`;
+- arquivo local ausente ou caminho fora de `systems/pf2e/icons/`: não associar imagem;
+- é proibido procurar outro arquivo por nome, slug ou semelhança visual.
+
+Na cobertura exaustiva 11, os 33 hazards apontam exatamente para
+`systems/pf2e/icons/default-icons/hazard.svg`; portanto, todos publicam
+`/api/game-systems/pathfinder-2e/icons/default-icons/hazard.svg`. Esse caminho
+não é inferido pelo tipo da entrada.
+
 ## Remoção segura
 
 Remover um ou todos os arquivos não pode exigir alteração de código nem impedir o build.

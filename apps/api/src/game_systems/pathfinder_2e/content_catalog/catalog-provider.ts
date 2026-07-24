@@ -8,7 +8,8 @@ import type {
 } from '../../catalog'
 import { resolvePathfinder2eContentEntry } from './catalog'
 import type { Pathfinder2eContentEntry } from './content-entry'
-import { PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES } from './deliveries/core-remaster-starting-content'
+import { matchesPathfinder2eBestiaryFilter } from './bestiary-filter'
+import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
 import { pathfinder2eContextualCatalogProvider } from './contextual-provider'
 import {
   translatePathfinder2eRarity,
@@ -132,8 +133,9 @@ function sheetToCard(sheet: GameSystemCatalogSheet): GameSystemCatalogCard {
 export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
   async list(query) {
     const normalizedSearch = query.search?.trim().toLocaleLowerCase(query.locale) ?? ''
-    const matching = PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES
+    const matching = PATHFINDER_2E_CONTENT_ENTRIES
       .filter((entry) => DOMAIN_MAP[entry.original.domain] === query.domain)
+      .filter((entry) => matchesPathfinder2eBestiaryFilter(entry, query.domain, query.bestiaryType))
       .filter((entry) => matchesEditorialFilter(entry, query.editorialStatus))
       .filter((entry) => !normalizedSearch || localizedSearchText(entry, query.domain, query.locale).includes(normalizedSearch))
       .sort((left, right) => localizedName(left, query.locale).localeCompare(localizedName(right, query.locale), query.locale))
@@ -164,7 +166,7 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
   },
 
   async get(query) {
-    const entry = PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES.find(
+    const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
       (candidate) => candidate.original.contentId === query.contentId
         && DOMAIN_MAP[candidate.original.domain] === query.domain,
     )

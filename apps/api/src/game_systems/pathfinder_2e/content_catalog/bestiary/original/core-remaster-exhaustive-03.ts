@@ -1,0 +1,12824 @@
+import type { Pathfinder2eOriginalContentRecord } from '../../records'
+import type { Pathfinder2eBestiaryData } from '../types'
+
+export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_ORIGINALS: readonly Pathfinder2eOriginalContentRecord<Pathfinder2eBestiaryData>[] = [
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:wight",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "DBTbqI9QQRtlJwWh",
+      "slug": "wight",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:555087321a3b4cc648dcd9adec0ebcab5e79879c430d82777b179395587b7b93",
+    "translatableHash": "sha256:7f28e7ceb5b7a40f8d1587168a339812d663fcd4f16c38ded7c6fbaa42376af4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wight",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "undead",
+        "unholy",
+        "wight"
+      ],
+      "description": "Wights are intelligent undead spawned through inescapable cycles of spite. This spite might come from their own malevolent will in life, or can be instilled by necromantic rituals, typically involving the desecration of burial sites. Wights usually haunt burial grounds, catacombs, or other places of the dead. Their hunger is targeted toward the living—those whose pumping hearts and ruddy warmth inspire visceral hatred.\nAs many types of wights exist as types of people from which they might be created. Hulking brutes, skittering sneaks, and cunning tinkers all make for different wights with different niches to fill. The environment, too, plays a part in determining a wight's special abilities and defenses. Frost wights, for instance, can be found in parts of the world where exposure is a common end and the resentment of being left alone in the wild is a common source of spite. Durable and sustained by void energy, wights can last in harsh environments without decaying the way some lesser undead do.\nA single wight can wreak significant havoc if it is compelled to rise from its tomb. Because creatures slain under a wight's curse can become wights as well, all it takes is a single wight and a handful of unlucky graveyard visitors to create a veritable horde of these undead. Thus, canny priests and adventurers know that the best solution to a wight problem is swift and total eradication. Care must be taken, though, to destroy wight spawn before attempting to destroy the parent wight, for spawn without a master gain the ability to create spawn of their own.",
+      "armorClass": 18,
+      "hitPoints": 40,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 6,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 1,
+        "con": 4,
+        "int": 0,
+        "wis": 3,
+        "cha": 2
+      },
+      "skills": {
+        "athletics": 10,
+        "intimidation": 9,
+        "stealth": 8
+      },
+      "languages": [
+        "common",
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "u9tY2pkbZxNzmxoe",
+          "name": "Claw",
+          "bonus": 12,
+          "damage": "1d4+6 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "RnueWYRhhqKihTLI",
+          "name": "Dagger",
+          "bonus": 12,
+          "damage": "1d4+6 piercing",
+          "traits": [
+            "agile",
+            "finesse",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "R4l8wTZ4F9f4HKuc",
+          "name": "Dagger",
+          "bonus": 10,
+          "damage": "1d4+6 slashing",
+          "traits": [
+            "agile",
+            "thrown-10",
+            "versatile-s"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "jctfdTEk17wxWNxa",
+          "name": "Grave Weapon",
+          "kind": "passive",
+          "description": "The wight is bound to a dagger it was buried with. Other wights can be bound to different weapons."
+        },
+        {
+          "id": "Kpl3lLjfHM0hWhT5",
+          "name": "Final Spite",
+          "kind": "reaction",
+          "description": "Trigger The wight is reduced to 0 Hit Points\nEffect The wight makes a Strike before being destroyed. This Strike can inflict corrupting spite, but fueled by spite doesn't apply."
+        },
+        {
+          "id": "42Ed2uef57l5TBHw",
+          "name": "Fueled by Spite",
+          "kind": "passive",
+          "description": "Each time a creature loses Hit Points due to a corrupting spite curse the wight inflicted, the wight gains 3 temporary Hit Points."
+        },
+        {
+          "id": "anRs7G7U6p0N15yh",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "a4zniVDr4KnimCxI",
+          "name": "Corrupting Spite",
+          "kind": "passive",
+          "description": "The wight's unarmed attacks and bound weapons inflict a curse that makes a creature grow weak and spiteful. If a wight inflicts corrupting spite on a creature already afflicted by it, the victim attempts a new save, ignoring the result if it's better than a failure.\nA living humanoid that dies while under the curse rises as a wight after [[/gmr 1d4 #Wight Spawn Timer]]{1d4 rounds}, controlled by the wight that killed it. The wight spawn can't inflict corrupting spite and is Clumsy 2. If its creator dies or after roughly a month of existence, the new wight becomes autonomous and turns into a normal wight\nSaving Throw check (fortitude, dc:17);\nStage 1 Drained 1 (1 round)\nStage 2 Drained 2 and doesn't treat any creatures as allies (1 round)\nStage 3 As stage 2, except Drained 3 (1 round)\nStage 4 As stage 2, except Drained 4 (1 round)."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:pachycephalosaurus",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "dUI8N2AXDGcf3qRD",
+      "slug": "pachycephalosaurus",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b4659bbf4374b129828ac9ae8ee4227fedc5919514c2c61f759a9626a305ccde",
+    "translatableHash": "sha256:0fc4b316ac4352625bdaba3c35725f7081f70958bc4f370ce1d9660cebb16aab",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pachycephalosaurus",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal",
+        "dinosaur"
+      ],
+      "description": "Pachycephalosauruses are normally peaceful, herbivorous dinosaurs, but they grow much more violent during mating season, when they fight one another to win over mates and warn away interlopers. They also defend themselves vehemently if potential predators stray too close to their herd. The pachycephalosaurus's skull has a distinctive dome-shaped crown surrounded by numerous blunt, bony horns. This feature, combined with the dinosaur's powerful, compact neck, allows it to make battering-ramlike charges capable of inflicting great damage.\nSome humanoid groups have successfully trained pachycephalosauruses as mounts, but the creatures aren't particularly well suited to the task.\nPachycephalosauruses grow to a length of 15 feet and weigh 1,400 pounds.\nRemnants from the world's primeval era, these enormous reptilian animals still exist in large numbers in remote wildernesses or underground in magical Darklands caverns. Lizardfolk, orcs, giants, and other humanoids who live near dinosaurs use the animals as mounts, guards, or hunting beasts. Occasionally, rich nobles will collect dinosaurs to display them in menageries, which almost inevitably leads to cast-offs being nursed back to health by druids and other champions of nature. When dinosaurs establish themselves in regions outside their normal habitats, it's often the result of a large collection being released.",
+      "armorClass": 17,
+      "hitPoints": 65,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 11,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 4,
+        "int": -4,
+        "wis": 3,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 11,
+        "intimidation": 7
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "WpPQsA9BHFxmr54k",
+          "name": "Skull",
+          "bonus": 11,
+          "damage": "1d10+6 bludgeoning",
+          "traits": [
+            "forceful",
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "uAKDE9WbARcraQJx",
+          "name": "Clobbering Charge",
+          "kind": "action",
+          "description": "The pachycephalosaurus Strides up to its Speed. If it ends its movement within melee reach of a target, it can make a skull Strike against that target. If the pachycephalosaurus critically hits with this Strike, the creature hit is Stunned 1."
+        },
+        {
+          "id": "aFiPts0pbbuzRaLf",
+          "name": "Sudden Shove",
+          "kind": "reaction",
+          "description": "Trigger The pachycephalosaurus damages a Medium or smaller foe with its skull Strike\nEffect The pachycephalosaurus digs in and flings its head up, shoving its foe away. It attempts an check (athletics, defense:fortitude) check against the target's Fortitude DC.\nCritical Success The pachycephalosaurus pushes the opponent up to 10 feet away from itself and knocks the target Prone.\nSuccess The pachycephalosaurus pushes the opponent back 5 feet.\nFailure The pachycephalosaurus fails to push the opponent.\nCritical Failure As failure, but the failed attempt leaves the pachycephalosaurus Off-Guard for 1 round."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:sea-hag",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "EYiIQh526d0HLiDu",
+      "slug": "sea-hag",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:49e7d2b3913b84be2eb44244cd9acd9e1747783e3ef356f8cc6c11b997f2cffa",
+    "translatableHash": "sha256:a7589d14171832784e615f51b3783a163f06613f74f826bf1d4c3e6079877ddd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sea Hag",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "amphibious",
+        "hag",
+        "humanoid"
+      ],
+      "description": "Sea hags specialize in transformation magic, preying on those who are desperate to change some aspect of their physical appearance. Targets often include those suffering from insecurity about their bodies or those desperate to reside in a different environment, such as aquatic creatures who wish to live on land. These hags are known for tempting desperate victims into tragic and excruciating bargains, though they're also happy to drown and eat mariners who stray too close to their dwellings.\nA sea hag has the upper half of a humanoid and the lower half of an octopus, with translucent skin and glowing lights visible beneath their flesh. Sea hags can join covens, but their aquatic nature often prevents them from joining mixed covens with other kinds of hags.\nHags are malevolent predators who use magic and manipulation to lure children and young adults into their clutches. Though their true forms are eldritch and horrifying, hags spend much of their lives disguised as ordinary women. They seek out targets who are unhappy, innocent, or otherwise vulnerable, preying on their weaknesses before snatching them up. The typical hag is abusive, controlling, and narcissistic. Though less malicious hags possibly exist, they rarely reveal their true forms, making them nearly impossible to find.",
+      "armorClass": 19,
+      "hitPoints": 45,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 8,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 4,
+        "int": 1,
+        "wis": 3,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 8,
+        "athletics": 11,
+        "deception": 10,
+        "occultism": 8,
+        "stealth": 8
+      },
+      "languages": [
+        "aklo",
+        "common",
+        "jotun",
+        "fey",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [
+          "polymorph"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 3"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "4NBL0GmmD67fgNk5",
+          "name": "Claw",
+          "bonus": 12,
+          "damage": "1d10+4 slashing",
+          "traits": [
+            "agile",
+            "magical",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "DXn63TBMmkKeN9Wu",
+          "name": "Coven",
+          "kind": "passive",
+          "description": "A sea hag adds Humanoid Form, Mariner's Curse, and Water Walk to their coven's spells. Their spell DC when leading a coven is 20."
+        },
+        {
+          "id": "ydbvsWl1BoVazVZj",
+          "name": "Sea Hag's Bargain",
+          "kind": "passive",
+          "description": "The sea hag can make a bargain with a willing creature who must be of sound mind. The creature gives away a special or cherished quality—such as its courage, its beauty, or its voice. In exchange, the sea hag spends 1 minute polymorphing the creature into a form the target desires.\nThis functions as Change Shape. It might be a total transformation or just changing one or more aspects of the target's body, and it can't make the creature more than one size smaller or larger. The creature changes its Speeds as appropriate for the new form. It doesn't change the attack and damage bonuses with its Strikes, but it might change the damage type the Strikes deal. This has an unlimited duration, and as long as it's transformed, the creature is Sickened 2 and can't reduce its sickened condition below 2. The creature can slowly and carefully eat and drink despite being sickened. The only way to restore the lost quality used as payment is to defeat the sea hag or make another bargain for its return. Ending the bargain in this way also removes the transformation."
+        },
+        {
+          "id": "R3u6nnIK33qXVJNK",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "icuRBAbmsZKQdilF",
+          "name": "Dread Gaze",
+          "kind": "action",
+          "description": "The hag gazes upon a creature, afflicting it with a gnawing sense of impending doom, with a result depending on its check (will, dc:20) save. The target doesn't need to be able to see the sea hag.\nCritical Success The creature is unaffected.\nSuccess The creature is Frightened 1.\nFailure The creature is frightened 1 and is Slowed 1 for 1 round. If the target was Dying, it remains Unconscious for 1 day. At the end of the day, it must attempt a check (fortitude, dc:20) save against the same DC; if it fails, it dies.\nCritical Failure As failure, but the creature is Frightened 2 and slowed 1 for 1 minute."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "itPzrsYivMMWwHm3",
+          "name": "Coven Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 12,
+          "saveDc": 20,
+          "spells": [
+            {
+              "id": "8iPERo2IAL7dHRNe",
+              "name": "Augury",
+              "rank": 5
+            },
+            {
+              "id": "kCLHPnUhjF8aJ0M8",
+              "name": "Charm",
+              "rank": 5
+            },
+            {
+              "id": "AmRaG94hTGD5Y6LJ",
+              "name": "Clairaudience",
+              "rank": 5
+            },
+            {
+              "id": "lQCHbzlmk3l0Mmfv",
+              "name": "Clairvoyance",
+              "rank": 5
+            },
+            {
+              "id": "dmV8CphRAGWUpN98",
+              "name": "Dream Message",
+              "rank": 5
+            },
+            {
+              "id": "QyKzjXFBPLu3ZCB1",
+              "name": "Humanoid Form",
+              "rank": 5
+            },
+            {
+              "id": "h7y2ZHyIUWJcphJg",
+              "name": "Illusory Disguise",
+              "rank": 5
+            },
+            {
+              "id": "CLEXU4peEoPOvhoX",
+              "name": "Illusory Scene",
+              "rank": 5
+            },
+            {
+              "id": "KBDFYarDxvBWKgCl",
+              "name": "Mariner's Curse",
+              "rank": 5
+            },
+            {
+              "id": "mDDncZQEWNsISd3Z",
+              "name": "Scouting Eye",
+              "rank": 5
+            },
+            {
+              "id": "Y0YNwyZUuUNcOcRx",
+              "name": "Talking Corpse",
+              "rank": 5
+            },
+            {
+              "id": "e9B7yKCrWaUh7wuv",
+              "name": "Water Walk",
+              "rank": 5
+            },
+            {
+              "id": "acx6hYfVLaUaVkbf",
+              "name": "Cursed Metamorphosis",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:boggard-swampseer",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "F2Xhn4rqPAj55w3O",
+      "slug": "boggard-swampseer",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8a6bc7db9769983c9915db58daed5dbb65d004e7b337de46d04f337afbd31c16",
+    "translatableHash": "sha256:95cdb42b14f3036abbe4f7d692f7671be0e315eda92e5cc12d0cb048bbf7ccc6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boggard Swampseer",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "amphibious",
+        "boggard",
+        "humanoid"
+      ],
+      "description": "The boggard swampseer has been gifted with magic through their worship of the demon lord Gogunta, and they use their power to rule a boggard village, keeping the rest of the village in line and planning raids on nearby communities.\nBoggards are aggressive humanoid amphibians who thrive in swamps, marshes, and even some rain forests. Boggards hatch from eggs into tadpoles, fiercely competing for food and even consuming their siblings in that struggle. Over 3 years, the surviving boggards develop arms, legs, and lungs while learning the rudiments of hunting, crafts, and warfare—everything needed to survive in their might-makes-right society. At the top of most boggard hierarchies lords a hulking swampseer imbued with sinister divine magic.",
+      "armorClass": 18,
+      "hitPoints": 40,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 7,
+        "will": 11
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 0,
+        "con": 2,
+        "int": 0,
+        "wis": 4,
+        "cha": 3
+      },
+      "skills": {
+        "athletics": 8,
+        "intimidation": 8,
+        "medicine": 9,
+        "nature": 11,
+        "performance": 8,
+        "religion": 9
+      },
+      "languages": [
+        "boggard",
+        "chthonian",
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "bg3DA0xcxyfSwJZm",
+          "name": "Staff",
+          "bonus": 10,
+          "damage": "1d4+6 bludgeoning",
+          "traits": [
+            "two-hand-d8"
+          ]
+        },
+        {
+          "id": "4gP2dSNnL1rudfAt",
+          "name": "Tongue",
+          "bonus": 10,
+          "damage": "",
+          "traits": [
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "9SboqcQona3PXQIx",
+          "name": "Destructive Croak",
+          "kind": "action",
+          "description": "The swampseer utters a powerful croak that deals 4d6[sonic|options:area-damage] damage to any non-boggard within a @Template[emanation|distance:15] (check (fortitude, dc:19, basic, options:area-effect) save); any creature with the Frightened condition takes additional sonic damage equal to twice the value of its frightened condition.\nThe boggard can't use Destructive Croak again for [[/gmr 1d4 #Recharge Destructive Croak]]{1d4 rounds}."
+        },
+        {
+          "id": "80CuEcGtDQ6fUIyY",
+          "name": "Drowning Drone",
+          "kind": "reaction",
+          "description": "Trigger The boggard swampseer or one of their allies within 60 feet attempts a saving throw against an auditory or sonic effect\nEffect The swampseer releases a croak that drowns out other sounds. They roll a check (performance) check. They and boggard allies in the area can use the higher result between the swampseer's Performance check and their saves to resolve the effects against the auditory or sonic effect."
+        },
+        {
+          "id": "xBIoPO0Yl00JwtXW",
+          "name": "Swamp Passage",
+          "kind": "passive",
+          "description": "A boggard swampseer ignores difficult terrain caused by swamp terrain features."
+        },
+        {
+          "id": "z8bl09rqF4yCJDy4",
+          "name": "Terrifying Croak",
+          "kind": "action",
+          "description": "The boggard swampseer unleashes a terrifying croak. Any non-boggard within @Template[emanation|distance:30]{30 feet} becomes Frightened 1 unless they succeed at a check (will, dc:19) save; those who critically succeed are temporarily immune for 1 minute."
+        },
+        {
+          "id": "A33mGw1DCgRJRDSe",
+          "name": "Tongue Grab",
+          "kind": "passive",
+          "description": "If the boggard swampseer hits a creature with their tongue, that creature becomes Grabbed by the boggard. Unlike with a normal Grab, the creature isn't Immobilized, but it can't move beyond the reach of the boggard's tongue. A creature can sever the tongue by hitting AC 15 and dealing at least 4 slashing damage. Though this doesn't deal any damage to the boggard, it prevents them from using their tongue Strike until they regrow their tongue, which takes a week."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "pFruogrBBB4pvImp",
+          "name": "Primal Prepared Spells",
+          "tradition": "primal",
+          "category": "prepared",
+          "attackModifier": 11,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "AkSsiJ58dkxKnrk2",
+              "name": "Caustic Blast",
+              "rank": 1
+            },
+            {
+              "id": "Qbn0uhHtIRCzEAb3",
+              "name": "Fear",
+              "rank": 1
+            },
+            {
+              "id": "YKdWPoZsLPSLZDLb",
+              "name": "Frostbite",
+              "rank": 1
+            },
+            {
+              "id": "o9uaU3FLX0eVzaLk",
+              "name": "Jump",
+              "rank": 1
+            },
+            {
+              "id": "ILgXClbN1INHezup",
+              "name": "Runic Weapon",
+              "rank": 1
+            },
+            {
+              "id": "orVGBuNQ3dG8h9In",
+              "name": "Tangle Vine",
+              "rank": 1
+            },
+            {
+              "id": "MwLOJYcV0KBwtv5q",
+              "name": "Acid Grip",
+              "rank": 2
+            },
+            {
+              "id": "eJFYD8sgKSJUZNrG",
+              "name": "Mist",
+              "rank": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:brine-shark",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "H7z7VHzlHlEFev1r",
+      "slug": "brine-shark",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:cc73edf8d7388506fc1da1c44dbdeb58022402e3a62b26f68cd0f8d392338792",
+    "translatableHash": "sha256:46cd16e5e2ce7a3c4a8499f48a84f7dd242d1022dfd06675c80b4aa147518360",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Brine Shark",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "aquatic",
+        "elemental",
+        "water"
+      ],
+      "description": "Brine sharks are deadly elementals that roam the endless oceans of the Plane of Water. They often slip into mortal oceans as well, competing with natural predators or even joining schools of flesh and blood sharks.\nWater elementals can be very destructive, but often not intentionally so; just as water can bring life to mortals in need, its waves can pound shores and rains can flood cities. Water elementals are similarly difficult to predict.",
+      "armorClass": 19,
+      "hitPoints": 45,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 11,
+        "will": 6
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 2,
+        "con": 2,
+        "int": -4,
+        "wis": 1,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 10,
+        "stealth": 11,
+        "survival": 8
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [
+          "fire 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "B9C716BDIWeqDrLI",
+          "name": "Jaws",
+          "bonus": 11,
+          "damage": "1d12+7 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "Fc10tuSKXi4OAWw6",
+          "name": "Deep Plunge",
+          "kind": "action",
+          "description": "The brine shark dives straight down into the water, moving up to twice its swim Speed in a straight vertical line. It can use this ability while grabbing a creature."
+        },
+        {
+          "id": "2d3ZGRIXERcjqnmJ",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:werewolf",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "Hg7nCvltRBQOiijQ",
+      "slug": "werewolf",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:214f245cea86fee955d8cd8b8e8fd07f4cb01e78f4638049d812696b8d69e6ba",
+    "translatableHash": "sha256:bba5bfe48e9a0aace8d3f4e0ea2045634c3b5dd84bf4879941b340d4cc04adac",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Werewolf",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "beast",
+        "human",
+        "humanoid",
+        "werecreature"
+      ],
+      "description": "The curse of the werewolf—known as lycanthropy to many—instills in its carriers the hungry bloodlust and predatory instincts of the wolf. Werewolves tend to dwell on the fringes of society or in small settlements where, in their humanoid forms, they work as laborers, hunters, farmers, or trappers. At night, however, these same villagers transform into violent killers and sadistic stalkers who prey on their neighbors. Werewolves are the quintessential werecreature, and the first that comes to mind when most people speak of such beings.\nAlthough most werewolves hide their curse by adopting solitary lifestyles, some retain the pack mentality of true wolves. A small group of such werewolves typically forms a family-like pack, with the eldest or most powerful werewolf serving as the leader. New pack mates are hand-chosen and inculcated into the family as its influence grows.\nWerecreatures are humanoids doomed to transform into animals and animalhumanoid hybrids under the light of the full moon. These shapechanging creatures are the result of an ancient primal curse that they can, in turn, transmit through their own bites. Their ability to lurk unseen in the wilds as well as among people, combined with the contagiousness of their condition, makes werecreatures a perennial cause of panicked suspicion.",
+      "armorClass": 17,
+      "hitPoints": 63,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 9,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 2,
+        "int": -1,
+        "wis": 2,
+        "cha": 1
+      },
+      "skills": {
+        "acrobatics": 7,
+        "athletics": 9,
+        "survival": 10
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "silver 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "uFWe6jAjZ0J95ox9",
+          "name": "Battle Axe",
+          "bonus": 11,
+          "damage": "1d8+8 slashing",
+          "traits": [
+            "sweep"
+          ]
+        },
+        {
+          "id": "Imio5DQk9gfplk5I",
+          "name": "Composite Shortbow",
+          "bonus": 9,
+          "damage": "1d6+4 piercing",
+          "traits": [
+            "deadly-d10",
+            "reload-0"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "ii0tl0zE2tEgfPD4",
+          "name": "Wolf Empathy",
+          "kind": "passive",
+          "description": "The werewolf can communicate with canine creatures.\nThe werecreature can ask questions of, receive answers from, and use the Diplomacy skill with animals of its general kind."
+        },
+        {
+          "id": "MrB76lHBd24yhsy6",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "oXq7JKUPh72N7tPy",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "• Human\n• Melee fist +11 Damage 1d4+8\n• Animal\n• Speed 40 feet\n• Melee jaws with Knockdown\nThe werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.\nIn humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.\nIn animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes."
+        },
+        {
+          "id": "Xmaw18x2qDwDq7tB",
+          "name": "Curse of the Werewolf",
+          "kind": "passive",
+          "description": "This curse affects only humanoids.\nSaving Throw check (fortitude, dc:17)\nOn each full moon, the cursed creature must succeed at another Fortitude save or turn into the same kind of werecreature until dawn.\nThe creature is under the GM's control and goes on a rampage for half the night before falling unconscious until dawn."
+        },
+        {
+          "id": "y22Jw3B6gV1YXd2p",
+          "name": "Moon Frenzy",
+          "kind": "passive",
+          "description": "When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of its jaws by 2.\nWhen the moon sets or the sun rises, the werecreature returns to humanoid form and is Fatigued for [[/br 2d4 #hours]]{2d4 hours}.\nEffect: Moon Frenzy"
+        },
+        {
+          "id": "I5zNTSZyjvhCKz3D",
+          "name": "Pack Attack",
+          "kind": "passive",
+          "description": "The werewolf's Strikes deal 1d6 extra damage to creatures within reach of at least two of the werewolf's allies."
+        },
+        {
+          "id": "iJft7hfUxz5EctCG",
+          "name": "Knockdown (Animal Shape)",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:chupacabra",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "Hl1Nnnda8KSf0Obp",
+      "slug": "chupacabra",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8517f12c278e44e9c4dc0ee060f1c223a1bb4fe42ed2868949c6849a15779ff2",
+    "translatableHash": "sha256:9ebf3d1a98b72f75e85a71331109687880a8dd9afdfc8de6f9bd46cb8e3d47a4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Chupacabra",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "beast"
+      ],
+      "description": "These notorious predators have an undeniable thirst for blood. Chupacabras prefer to prey on the weak and slow, often hiding in wait and watching potential prey for long periods before attacking. Spry and stealthy, they most often make their homes in areas of high grass and protective rock, their slightly reflective scales allowing them to blend in well with such surroundings.\nChupacabras prefer to eat lone travelers and farm animals (particularly goats) and leave little evidence of their presence apart from the grisly, blood-drained husks of their meals. Their tendency to stay out of sight combined with their naturally nocturnal activity often leads superstitious locals to conclude the worst, imagining that a particularly reckless vampire lives in the area.\nA typical chupacabra measures nearly 4 feet from its muzzle to the tip of its spiny tail, and it stands just under 3-1/2 feet tall. With their slight build and lightweight bones, most weigh close to 50 pounds. They mate rarely and only during the hottest months, with the females each producing a single egg that hatches into a tiny, dehydrated creature. The mother usually leaves helpless prey in her cave so the hatchling can immediately feed.\nAlthough chupacabras are typically solitary creatures, they have been known to form small gangs in bountiful areas. Members of these groups work well together, growing bold enough to attack larger animals, small herds, and otherwise more dangerous prey. Stories of chupacabras attacking travelers or laying siege to farmhouses typically stem from the hunting practices of such gangs. Regions where chupacabra activity like this is more common often have complex and colorful myths and tall tales about chupacabra capabilities or motive—and a few of the claims, such as that some chupacabras can fly, are all too true.",
+      "armorClass": 18,
+      "hitPoints": 45,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 11,
+        "will": 7
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 2,
+        "int": -3,
+        "wis": 2,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 9,
+        "athletics": 9,
+        "stealth": 9
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "t8m638wy4P8pa4PZ",
+          "name": "Jaws",
+          "bonus": 11,
+          "damage": "1d10+5 piercing",
+          "traits": [
+            "finesse",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "npIgzch2HZkhFifI",
+          "name": "Claw",
+          "bonus": 11,
+          "damage": "1d6+5 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "UmF9ATrgifYyt9He",
+          "name": "Pounce",
+          "kind": "action",
+          "description": "The chupacabra Strides and makes a Strike at the end of that movement. If the chupacabra began this action Hidden, it remains hidden until after this ability's Strike."
+        },
+        {
+          "id": "abGmJgduMKED2VeX",
+          "name": "Suck Blood",
+          "kind": "action",
+          "description": "Requirements The chupacabra has a creature Grabbed\nEffect The chupacabra sucks blood from the grabbed creature. The chupacabra gains the Quickened condition for 1 minute and can use the extra action only for Strike and Stride actions.\nA chupacabra can't Suck Blood again while it is quickened in this way.\nA creature that has its blood drained by a chupacabra is Drained 1 until it receives healing (of any kind or amount)."
+        },
+        {
+          "id": "hegoW9J1eMFWn0I6",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:pegasus",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "HMfH0CI1CQCXB9Xr",
+      "slug": "pegasus",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:08ba1dafc94724ab45012511fbff04176d9156d586c28b45b26cd9303260e714",
+    "translatableHash": "sha256:f0751021e5dd0cb5af839ec284ee621679c51533ef1cc3197d46f96f51d90698",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pegasus",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast"
+      ],
+      "description": "The pegasus is a winged horse prized for its capacity to serve as an aerial mount. Unfortunately for those who desire a saddle-trained pegasus, pegasi are wild creatures and do not readily accept even well-intentioned riders.\nPegasi actively resist being mounted or controlled by evil creatures, attempting to buck an unwanted rider at every opportunity. A typical pegasus stands 6 feet high at the shoulder, weighs 1,500 pounds, and has a wingspan of 20 feet.\nPegasi are highly intelligent beasts and have a strong sense of pride and honor. The best way to entreat a pegasus is by speaking to it with grace and offering gifts appropriate to a creature of such majesty. Prospective riders who seek the mount for a worthy cause or virtuous quest have a much easier time coaxing a pegasus into granting its favor. Regardless, a pegasus never accepts a bit or saddle, for reasons both practical (a standard horse saddle interferes with its wings) and purely out of its pride as a free and untamed creature.\nIn the wild, pegasi live in small herds and establish territories on remote mountains where they are relatively safe from hunters and foal thieves. They occasionally move to lower ground during foal fledging season. They mature at the same rate as horses and can even breed with other equines, though the outcome of such unions is typically a foal with the traits of its least magical parent. On rare occasions, the interbreeding of a pegasus and a unicorn may result in a winged unicorn with characteristics of both parents and an unrivaled sense of righteousness.\nSome pegasi carry in them the blood of a mighty and heroic ancestor. These champions of pegasus-kind dedicate their long lives to the pursuit of justice. They possess powerful supernatural abilities to aid them in this fight, such as resistance to fire and poison, immunity to petrification, and holy hoof attacks.",
+      "armorClass": 18,
+      "hitPoints": 55,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 11,
+        "will": 7
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 2,
+        "int": 0,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 10
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "2fZ7E297Z4PtEWQg",
+          "name": "Hoof",
+          "bonus": 10,
+          "damage": "1d8+5 bludgeoning",
+          "traits": []
+        },
+        {
+          "id": "eDMgpSPjK69nCKMZ",
+          "name": "Wing",
+          "bonus": 10,
+          "damage": "1d6+5 bludgeoning",
+          "traits": [
+            "agile"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "bqcTHqymDNnpRDg9",
+          "name": "Buck",
+          "kind": "reaction",
+          "description": "check (reflex, dc:19)"
+        },
+        {
+          "id": "YdXTRnJYFdbi7JTh",
+          "name": "Assisted Mount",
+          "kind": "action",
+          "description": "Requirements The pegasus is Flying without a rider.\nEffect The pegasus Flies. At any point during the movement, it can allow a willing adjacent creature to Mount it. That creature must use a reaction to do so."
+        },
+        {
+          "id": "kHo1nNFrNvhFTdVm",
+          "name": "Gallop",
+          "kind": "action",
+          "description": "The pegasus uses 2 move actions, each of which can be either Stride or Fly. It gains a +20-foot circumstance bonus to its Speeds during a Gallop."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:bugbear-tormentor",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "httXfBPGseF9csXa",
+      "slug": "bugbear-tormentor",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:696667f2efbba1ab9984669f24a2610b46575534e5bb1787465f4125969e07e4",
+    "translatableHash": "sha256:838051686da053c41e78e14e34f9b4f2e3dae479103bd88b5a839b4c513ab20b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bugbear Tormentor",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "bugbear",
+        "humanoid"
+      ],
+      "description": "The bugbear tormentor seeks to torture their prey as much through psychological intimidation as through physical harm. The longer a bugbear tormentor can keep their victim alive and terrified, the better they feel.\nThese stealthy and cruel goblinoid creatures delight in spreading fear and tormenting their victims. Bugbears are the monsters lurking in the closet and hiding under the bed. Preying on remote farmsteads, bugbears reveal their presence with thumps in the night or creaks of boards to build lurking dread and arouse suspicion and fear.",
+      "armorClass": 20,
+      "hitPoints": 44,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 10,
+        "will": 6
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 2,
+        "int": -1,
+        "wis": 1,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 8,
+        "athletics": 9,
+        "intimidation": 7,
+        "stealth": 8,
+        "thievery": 8
+      },
+      "languages": [
+        "common",
+        "goblin"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "QX0Ta7fQzEhuiCCB",
+          "name": "Dagger",
+          "bonus": 11,
+          "damage": "1d4+6 piercing",
+          "traits": [
+            "agile",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "i0HAcFnNZ6dlKhwT",
+          "name": "Sickle",
+          "bonus": 11,
+          "damage": "1d4+6 slashing",
+          "traits": [
+            "agile",
+            "trip"
+          ]
+        },
+        {
+          "id": "0xfJmXxtDph8nDjZ",
+          "name": "Dagger",
+          "bonus": 10,
+          "damage": "1d4+6 piercing",
+          "traits": [
+            "agile",
+            "thrown-10",
+            "versatile-s"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "YMj2YteKtdg79DoF",
+          "name": "Sneak Attack",
+          "kind": "passive",
+          "description": "The bugbear tormentor deals 1d6 extra precision damage to Off-Guard creatures."
+        },
+        {
+          "id": "bpECAdKNxGcT7pXU",
+          "name": "Twin Feint",
+          "kind": "action",
+          "description": "The bugbear tormentor makes a dazzling series of attacks with two weapons, using the first attack to throw their foe off-guard against a second attack at a different angle. They make one Strike with each of their two melee weapons, both against the same target. The target is automatically Off-Guard against the second attack. The bugbear tormentor applies their multiple attack penalty to these Strikes normally."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:winged-chupacabra",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "K0mtYv1v0J1utap1",
+      "slug": "winged-chupacabra",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:344989cbe528ca97fea111cd731a4c1550b20f1cabe241427757d87e25557cf6",
+    "translatableHash": "sha256:010a9a7bde2fa5fa0a392e80e28b9b8eed9e1c510c56020dfc5d88b4bf688fac",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Winged Chupacabra",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "beast"
+      ],
+      "description": "Some chupacabras are mutants with large reptilian wings and have been known to carry off goats or even children.\nThese notorious predators have an undeniable thirst for blood. Chupacabras prefer to prey on the weak and slow, often hiding in wait and watching potential prey for long periods before attacking. Spry and stealthy, they most often make their homes in areas of high grass and protective rock, their slightly reflective scales allowing them to blend in well with such surroundings.\nChupacabras prefer to eat lone travelers and farm animals (particularly goats) and leave little evidence of their presence apart from the grisly, blood-drained husks of their meals. Their tendency to stay out of sight combined with their naturally nocturnal activity often leads superstitious locals to conclude the worst, imagining that a particularly reckless vampire lives in the area.\nA typical chupacabra measures nearly 4 feet from its muzzle to the tip of its spiny tail, and it stands just under 3-1/2 feet tall. With their slight build and lightweight bones, most weigh close to 50 pounds. They mate rarely and only during the hottest months, with the females each producing a single egg that hatches into a tiny, dehydrated creature. The mother usually leaves helpless prey in her cave so the hatchling can immediately feed.\nAlthough chupacabras are typically solitary creatures, they have been known to form small gangs in bountiful areas. Members of these groups work well together, growing bold enough to attack larger animals, small herds, and otherwise more dangerous prey. Stories of chupacabras attacking travelers or laying siege to farmhouses typically stem from the hunting practices of such gangs. Regions where chupacabra activity like this is more common often have complex and colorful myths and tall tales about chupacabra capabilities or motive—and a few of the claims, such as that some chupacabras can fly, are all too true.",
+      "armorClass": 18,
+      "hitPoints": 45,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 11,
+        "will": 7
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 2,
+        "int": -3,
+        "wis": 2,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 9,
+        "athletics": 9,
+        "stealth": 9
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "t8m638wy4P8pa4PZ",
+          "name": "Jaws",
+          "bonus": 11,
+          "damage": "1d10+5 piercing",
+          "traits": [
+            "finesse",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "npIgzch2HZkhFifI",
+          "name": "Claw",
+          "bonus": 11,
+          "damage": "1d6+5 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "UmF9ATrgifYyt9He",
+          "name": "Pounce",
+          "kind": "action",
+          "description": "The chupacabra Strides and makes a Strike at the end of that movement. If the chupacabra began this action Hidden, it remains hidden until after this ability's Strike."
+        },
+        {
+          "id": "abGmJgduMKED2VeX",
+          "name": "Suck Blood",
+          "kind": "action",
+          "description": "Requirements The chupacabra has a creature Grabbed\nEffect The chupacabra sucks blood from the grabbed creature. The chupacabra gains the Quickened condition for 1 minute and can use the extra action only for Strike and Stride actions.\nA chupacabra can't Suck Blood again while it is quickened in this way.\nA creature that has its blood drained by a chupacabra is Drained 1 until it receives healing (of any kind or amount)."
+        },
+        {
+          "id": "hegoW9J1eMFWn0I6",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:giant-mantis",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "KCVKMVYRuq6huXGz",
+      "slug": "giant-mantis",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:e8246fe20acaac6d18a3b403fd62577b4aa3fef58b5111b98730c8fd7ed1fcf4",
+    "translatableHash": "sha256:2401dc5f3083e42f7f32cf0395a208187f54b47c7e34b8f75a84c73ca6588c8f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Giant Mantis",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "These massive cousins of praying mantises stand taller than an average human.\nThese predators possess lightning-quick forelegs and a bone-breaking bite.",
+      "armorClass": 18,
+      "hitPoints": 40,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 12,
+        "will": 7
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 3,
+        "con": 3,
+        "int": -5,
+        "wis": 2,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 8,
+        "athletics": 10,
+        "stealth": 12
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "Mo3NNcPkDUwnRiIF",
+          "name": "Leg",
+          "bonus": 12,
+          "damage": "1d10+5 piercing",
+          "traits": [
+            "agile",
+            "reach-10"
+          ]
+        },
+        {
+          "id": "GDRN1E60FSxKpOv0",
+          "name": "Mandibles",
+          "bonus": 12,
+          "damage": "1d12+5 piercing",
+          "traits": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "MqZKv72y1ZKA6RAE",
+          "name": "Capturing Grab",
+          "kind": "action",
+          "description": "This ability functions as Grab, plus on a success, the mantis can choose to pull the creature adjacent to it, then makes a mandibles Strike against the creature. This extra benefit doesn't apply when the mantis maintains the Grab."
+        },
+        {
+          "id": "yEhFyHlybvFRrc0k",
+          "name": "Lunging Strike",
+          "kind": "action",
+          "description": "The giant mantis lunges forward, making a leg Strike with an extended reach of 20 feet. If it hits, the mantis can use Capturing Grab after the Strike even if the creature is out of reach."
+        },
+        {
+          "id": "nmSxnKrk324bG1w4",
+          "name": "Sudden Strike",
+          "kind": "passive",
+          "description": "On the first round of combat, creatures that haven't acted are Off-Guard to the giant mantis."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:unicorn",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "lYoAwofYGbhWL75Q",
+      "slug": "unicorn",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5e9fe07bf2da24fa4d0a4632ddb211c8464e5b6795cb0025fcbec317f6f17dce",
+    "translatableHash": "sha256:b35efd2fb15475313a8d2519e60936ba27400b598b5e83d58ce426b3f0dfa765",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unicorn",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast",
+        "fey",
+        "holy"
+      ],
+      "description": "Symbols of grace and purity, unicorns resemble proud and noble horses. They typically have pure white coats, but they are best known for the single, delicate horn that extends from the center of their forehead. While unicorns often serve as protectors of unspoiled wilderness and sacred places, they are themselves highly sought after for their horns, which are said to possess potent magical properties. To many, the mere idea of hunting such a magnificent creature in the hopes of severing its horn is utterly reprehensible. Indeed, a dehorned unicorn is a sorry sight, and few such unicorns survive much longer in the wild.\nUnicorns are found almost exclusively in remote, unsullied areas of wilderness. Sometimes associated with good-aligned deities, other times associated with nature and the fey, unicorns are always known for their righteousness and nobility. They are wary, at best, of most humanoid creatures, due in large part to poachers' tendency to hunt them for their horns, but unicorns are often rumored to have a weakness for those who are pure of both heart and spirit. Despite some tales, unicorns are equally likely to recognize purity in people of all genders.",
+      "armorClass": 20,
+      "hitPoints": 45,
+      "speedFeet": 45,
+      "perception": {
+        "modifier": 13,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 8,
+        "will": 11
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 3,
+        "int": 0,
+        "wis": 4,
+        "cha": 4
+      },
+      "skills": {
+        "acrobatics": 10,
+        "diplomacy": 11,
+        "stealth": 8,
+        "survival": 9
+      },
+      "languages": [
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [
+          "poison"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "2OIVJJBOOtBD6Bce",
+          "name": "Horn",
+          "bonus": 12,
+          "damage": "1d10+4 piercing; 1d4 spirit",
+          "traits": [
+            "holy",
+            "magical",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "PAY2I7fJGT3XbkIX",
+          "name": "Hoof",
+          "bonus": 12,
+          "damage": "1d8+4 bludgeoning",
+          "traits": [
+            "agile",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "QL3594a7048GPCem",
+          "name": "Animal Empathy",
+          "kind": "passive",
+          "description": "The unicorn has a connection to the creatures of the natural world that allows them to communicate with animals. They can ask questions of, receive answers from, and use the Diplomacy skill with animals."
+        },
+        {
+          "id": "Av5F60Xe1vXr81pb",
+          "name": "+2 to Will Saves vs. Mental",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "vNaUr8lkk7o1zXWJ",
+          "name": "Ghost Touch",
+          "kind": "passive",
+          "description": "A unicorn's Strikes have the effects of a Ghost Touch property rune."
+        },
+        {
+          "id": "65E6IqqYN0IW2HsH",
+          "name": "Powerful Charge",
+          "kind": "action",
+          "description": "The unicorn Strides up to double its Speed in a straight line and then makes a horn Strike. If the unicorn moved at least 20 feet, it deals an additional 2d6 damage on a hit."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "bQaD3ryddLU1MPFx",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "tmtbAzkurYA51P6E",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "Su3RDaUEBCT4fy7J",
+              "name": "Cleanse Affliction",
+              "rank": 3
+            },
+            {
+              "id": "Djva170z7MbhOEdN",
+              "name": "Heal",
+              "rank": 3
+            },
+            {
+              "id": "G2gUJHzvtggMcp8H",
+              "name": "Nature's Pathway",
+              "rank": 5
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:cockatrice",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "MrzlaE7k1PEsd3iQ",
+      "slug": "cockatrice",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:3c7b1f526d7621d63bf196269c0602d38a371411a2a3445b60c6fd50b2dbee61",
+    "translatableHash": "sha256:01e5fdc513ddb36d664ca746778c6ecc6dc8e6dbe8f606a7243b467114eca80a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cockatrice",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "beast"
+      ],
+      "description": "Ugly and aggressive, the dread cockatrice stalks garbage pits and hillside dumps in search of prey that it can turn to stone with its petrifying beak and subsequently consume piece by broken piece. Cockatrices resemble gaunt and sickly roosters with bat wings and serpentine tails, and they rarely grow more than 2 feet tall and twice as long. Their absentminded clucking gives smart prey ample warning of their presence, and when angered cockatrices let out a shrill crow like that of a rooster. Their peck releases a magical toxin that causes flesh to quickly calcify, and any creature pecked repeatedly by an irritable cockatrice eventually transforms into a stone statue of itself.\nThe first cockatrice is rumored to have hatched from a rooster's egg incubated on a dung hill by a toad. Whether or not the rumor is true, the cockatrice's monstrous appearance certainly doesn't contradict its strange and filthy origin story, and these creatures are more than capable of propagating on their own. Cockatrices are remarkably fecund and gather in flocks of up to a dozen members. Each flock contains only a few females. The males—which differ in appearance from the females by having warty wattles and gnarled combs—often fight with each other, with lower-ranking males eventually driven away to find their own lairs or compete among other flocks. Most creatures who run afoul of a solitary cockatrice do so with one of these surly outcasts.\nCockatrice lairs are often littered with fragments of statuary from past victims, although these are as likely to be remnants of lizards and insects as people. Curiously, weasels and ferrets, which infiltrate cockatrice lairs to steal eggs, are immune to the creatures' petrifying bites. For unknown reasons, cockatrices are terrified of and enraged by roosters, and they are equally likely to flee or attack one when confronted.\nParticularly brave (or foolhardy) individuals sometimes keep cockatrices as pets or guard animals. In their natural habitat among plains, forests, and sewers near humanoid settlements, cockatrices are content to live off vermin or scraps of waste, but their greatest pleasure is consuming warm meals of freshly petrified flesh.",
+      "armorClass": 17,
+      "hitPoints": 45,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 11,
+        "will": 6
+      },
+      "abilities": {
+        "str": -2,
+        "dex": 4,
+        "con": 1,
+        "int": -3,
+        "wis": 1,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 11
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "petrified"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "DGMkGaAm8sHK2QzD",
+          "name": "Beak",
+          "bonus": 13,
+          "damage": "1d8-2 piercing",
+          "traits": [
+            "finesse",
+            "magical",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "JChdzk7WZ7KUXqF7",
+          "name": "Calcification",
+          "kind": "passive",
+          "description": "A peck from a cockatrice hardens the flesh of the creature struck. The target must succeed at a check (fortitude, dc:20, inflicts:slowed,inflicts:petrified) save or become Slowed 1 (or Slowed 2 on a critical failure). Further failed saves against calcification increase the slowed condition. Once a creature's actions are reduced to 0 by calcification, that creature becomes Petrified. If the creature isn't petrified, the slowed conditions end once 1 minute passes without the creature failing a save against calcification.\nEvery 24 hours after it was petrified, the victim can attempt a check (fortitude, dc:20) save to recover. On a success, it becomes flesh again, but is slowed 1 for the next 24 hours. On a critical success, the creature recovers and isn't slowed. On a failure, the creature remains petrified but can try again in 24 hours. On a critical failure, the petrification is permanent, and the creature can't attempt any more saves."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:river-drake",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "nMC9d7ORMz3cdaHa",
+      "slug": "river-drake",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:1f6eac74184fc47eaba695cc9033d3847cd893ea326f93df0c2c3aab54efa6ca",
+    "translatableHash": "sha256:2d8f47b2dc34447541728244bcf7fcae84ebe5b187ac20a7286b7ca0a428880a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "River Drake",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "amphibious",
+        "dragon",
+        "water"
+      ],
+      "description": "Although the glistening scales and sleek, fin-like wings on these drakes give them an appearance reminiscent of river fish, they are actually distant relatives of the dragons that rule the oceans. While smaller than most drakes, river drakes are more than capable of plaguing river travelers and are equally at home above and below the water's surface. This flexibility allows them to catch a wide variety of prey, from fish and boggards to deer and the occasional ferry passenger.\nRavenous, bestial, and driven by instinct, drakes are draconic monsters who bear a fraction of the terrifying might of the primal dragons they share evolutionary roots with. While they're weaker, slower, and less inclined toward reason than dragons, drakes are nonetheless a menace to creatures and settlements around them. Their propensity for forming raiding parties—small social groups fittingly called \"rampages\"—makes them all the more dangerous; a single rampage of river drakes can quickly lay waste to a waterside village, and roving rampages of desert drakes are a plague to caravan traders.\nDrakes share a number of physical characteristics that unite them as one species despite their wide variety of habitats and abilities. For example, drakes lack forearms, leaving them with their formidable jaws and thickscaled tails to use in close combat. Most drakes would rather avoid this, however, preferring to use their magical breath to wreak havoc in wide swaths from comfortable distances while flying overhead. Finally, all drakes have small reservoirs of their ancestral draconic power that they can tap into to perform incredible feats of speed.\nDifferent species of drakes rarely come into conflict. Part of this is their distinct habitats, but drakes are open to negotiating simple agreements between rampages. This courtesy does not extend to dragonets, which drakes happily take as prey. Solitary tamed drakes are also excluded from such agreements and considered free game if their tamer isn't strong enough to protect them.\nDrake Eggs\nWhile drake hides aren't any more valuable than those of similarly sized creatures, drake eggs are prized commodities. They are used as components in powerful spells as well as eaten by various cultures, but the most common use for drake eggs is hatching and rearing drakes to serve as mounts and guardians.\nA typical drake lays a clutch of 2d4 eggs every 5 years. Eggs hatch within 3 to 6 weeks, during which time they must be kept in conditions appropriate to their natural environment, perhaps the most difficult aspect of drake husbandry. While it is generally easy for breeders to incubate the eggs of desert or jungle drakes (which require mildly warm temperatures to hatch) or river drakes (which must be submerged in running water), the eggs of flame and frost drakes require extreme temperatures in order to hatch, which can be difficult to replicate safely.\nA drake egg is an object with Hardness 3, 5 HP, and no Broken Threshold. The coloration of drake eggs varies only slightly from one species to the next. A creature must succeed at a check (nature, dc:20) check, or a relevant DC 20 Lore check, to identify the drake species of a specific egg.\nOnce a drake hatches, they imprint on the first creature that they see. A creature imprinted on in this way can use Nature to Train and Command that drake. The market price of a drake egg varies depending on the type of drake and the exact legal situation. Because drakes are dangerous and intelligent creatures, many societies do not condone the trade of drake eggs and criminalize those who engage in it.\nIt takes 2 years for a drake hatchling to grow to full size. A well-trained drake can make a fearsome mount or guardian, but many careless would-be drake trainers are devoured by their charges.",
+      "armorClass": 17,
+      "hitPoints": 45,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 9,
+        "will": 7
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 2,
+        "int": -1,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 10,
+        "intimidation": 6,
+        "stealth": 9,
+        "survival": 7
+      },
+      "languages": [
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [
+          "acid 10"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "lg0ZOYopXDTR0Atj",
+          "name": "Fangs",
+          "bonus": 12,
+          "damage": "2d8+3 piercing",
+          "traits": []
+        },
+        {
+          "id": "NHmjLWLocmpqvoi9",
+          "name": "Tail",
+          "bonus": 12,
+          "damage": "2d6+3 bludgeoning",
+          "traits": [
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "jbjsVEFvVsslwVHa",
+          "name": "Tail Lash",
+          "kind": "reaction",
+          "description": "Trigger A creature within reach of the river drake's tail uses an action to Strike or attempt a skill check.\nEffect The river drake attempts to Strike the triggering creature with its tail. If it hits, the creature takes a -2 circumstance penalty to the triggering roll.\nEffect: Tail Lash"
+        },
+        {
+          "id": "xheziaVMnj1iAjP5",
+          "name": "Caustic Mucus",
+          "kind": "action",
+          "description": "The river drake spits a ball of caustic mucus up to a range of 50 feet that explodes in a @Template[burst|distance:10]. Creatures within the burst take 4d6[acid|options:area-damage] damage (check (reflex, dc:19, basic, options:area-effect) save). Those that fail this save also take 1d6[persistent,acid] damage and take a –5-foot status penalty to their Speed. This Speed reduction ends with the persistent acid damage.\nThe river drake can't use Caustic Mucus again for [[/gmr 1d6 #Recharge Caustic Mucus]]{1d6 rounds}.\nEffect: Caustic Mucus"
+        },
+        {
+          "id": "GsSxwd5EPNBqxdWC",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The river drake makes one Fangs Strike and two Tail Strikes in any order."
+        },
+        {
+          "id": "qugqAWTLubz9fcj2",
+          "name": "Speed Surge",
+          "kind": "action",
+          "description": "Frequency three times per day;\nEffect The river drake Strides or Flies twice."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:gorilla",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "PlkRv9NMKq9TShYf",
+      "slug": "gorilla",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:6d5894b2bff288b31f53a1bd01fccde5db546e232fea7c0292337d1227edadb9",
+    "translatableHash": "sha256:0082554c6c1c44a6de1417b1fdcbc925f05ad784993c90a79921aff35e4cb0cf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gorilla",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "Gorillas can be territorial creatures, particularly if provoked by hunters or the presence of more dangerous monsters. A gorilla uses its fangs and powerful arms to bite and pummel trespassers with wild abandon.\nWhile many apes exhibit peaceful or reclusive behavior, gorillas can be territorial, and the megaprimatus is especially aggressive and dangerous.",
+      "armorClass": 18,
+      "hitPoints": 45,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 9,
+        "will": 6
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 3,
+        "int": -4,
+        "wis": 1,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 9,
+        "athletics": 11,
+        "stealth": 7
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "T50Unm8nAUbNCLxu",
+          "name": "Fist",
+          "bonus": 11,
+          "damage": "2d6+4 bludgeoning",
+          "traits": [
+            "agile",
+            "reach-10",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "D4XA5YtJ0G4E1and",
+          "name": "Jaws",
+          "bonus": 11,
+          "damage": "1d8+4 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "7PQkG1Vfc7aynb2X",
+          "name": "Frightening Display",
+          "kind": "action",
+          "description": "The gorilla beats its chest in a terrifying display. Creatures within @Template[emanation|distance:30]{30 feet} must attempt a check (will, dc:20, options:area-effect,inflicts:frightened,inflicts:off-guard) save.\nWhile a creature is frightened by this ability, it is Off-Guard to the gorilla.\nCritical Success No effect and temporarily immune for 1 minute.\nSuccess The creature is unaffected.\nFailure The creature is Frightened 1.\nCritical Failure The creature is Frightened 2."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:athamaru-hunter",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "pzQhR0mc8HEhXLOZ",
+      "slug": "athamaru-hunter",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:ca449226f025c68faa21a01294699dcc4c12fb157b036c8a99d5ca94f116d634",
+    "translatableHash": "sha256:3fd9ef98f09f98a53557800a57f8f52e8aa08cbfa922cdb8f220e35fcd471a63",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Athamaru Hunter",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "amphibious",
+        "humanoid",
+        "locathah"
+      ],
+      "description": "Deep in the sea, schools of athamarus—piscine humanoids armed with spears and specialized crossbows—stalk sharks, sea serpents, and giant squid from the backs of their giant moray eel mounts. The first hunters to strike are armed with barbed harpoons that deploy large fans of seaweed, slowing and exhausting their prey. A daring few athamarus use the embedded harpoon as a handle to ride prey for a short time. Once the creature is tired, remaining hunters finish it with longspears. Athamarus developed this hunting tradition to forge skilled warriors and deter potential attackers, partially in response to centuries of oppression and mistreatment from other aquatic cultures.\nAthamarus rarely hunt land-dwellers, instead offering to trade their services as guides in exchange for metal and ceramic items they can't build underwater—and for tubers, which they consider earthy delicacies. They render aid to damaged sailing ships and rescue shipwrecked sailors, providing food and guidance.\nAthamaru communities—usually villages of 200 individuals or fewer—are matriarchal. The ruler of a given community is also the primary egg-layer, providing each generation with powerful familial bonds. The communities are tight-knit and loyal. Matriarchs are advised and assisted by primal spellcasters and healers.",
+      "armorClass": 20,
+      "hitPoints": 38,
+      "speedFeet": 10,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 7,
+        "reflex": 10,
+        "will": 9
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 0,
+        "int": 1,
+        "wis": 2,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 11,
+        "diplomacy": 5,
+        "nature": 7,
+        "stealth": 8,
+        "survival": 7
+      },
+      "languages": [
+        "common",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "8hoPxayirM6ubTyC",
+          "name": "Longspear",
+          "bonus": 11,
+          "damage": "1d8+4 piercing",
+          "traits": [
+            "reach-10"
+          ]
+        },
+        {
+          "id": "KnlMKaajUHNW24mj",
+          "name": "Crossbow",
+          "bonus": 10,
+          "damage": "1d8 piercing",
+          "traits": [
+            "reload-1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "KjameIcuKwYkyTzJ",
+          "name": "Cooperative Hunting",
+          "kind": "passive",
+          "description": "After the hunter attempts a Strike at a Large or larger target (regardless of success or failure), the next Strike one of the hunter's allies makes against the same target gains a +2 circumstance bonus to the attack roll."
+        },
+        {
+          "id": "F0RaqdAbEfogkX2c",
+          "name": "Fan Bolt",
+          "kind": "passive",
+          "description": "The hunter prepares their hooked crossbow bolts with carefully woven seaweed.\nOn a successful crossbow Strike, the bolt embeds and the seaweed fan deploys. The target takes a –10-foot status penalty to its swim Speed. A creature can Interact to attempt a check (athletics, dc:18) check, removing the bolt on a success.\nEffect: Fan Bolt"
+        },
+        {
+          "id": "eBzYlEBFycddJLAk",
+          "name": "Hunt Prey",
+          "kind": "action",
+          "description": "The athamaru hunter designates a single creature they can see and hear, or one they're Tracking, as their prey. The hunter gains a +2 circumstance bonus to Perception checks to Seek the prey and to Survival checks to Track the prey.\nThe first time the athamaru hits their designated prey in a round, they deal an additional 1d8 precision damage. These effects last until the hunter uses Hunt Prey again."
+        },
+        {
+          "id": "VtDOTpa01IbIaeYP",
+          "name": "Pack Attack",
+          "kind": "passive",
+          "description": "The hunter's Strikes deal an additional 1d8 damage to creatures within reach of at least two of the hunter's allies."
+        },
+        {
+          "id": "zAfIfdV5UBJtB564",
+          "name": "Smooth Swimmer",
+          "kind": "passive",
+          "description": "The athamaru hunter ignores difficult terrain caused by aquatic terrain features."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:centaur-herbalist",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "Q1qjdG3i8TZuEOq6",
+      "slug": "centaur-herbalist",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:58d18e56f2b53529deabd30f4a3b5c9cb2dfd90fd0bf4e35465427d725443075",
+    "translatableHash": "sha256:85149c66135973daab8435a20535a40dc5a5f946ed6a03f204e56b0a876231c6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Centaur Herbalist",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast",
+        "centaur",
+        "humanoid"
+      ],
+      "description": "Many centaurs are skilled in the study of plants, especially those in the areas in which they roam. They can use such herbs to both heal and cause distress in those who attack them.\nCentaurs are legendary hunters and trackers who resemble heavily muscled humans with the bodies of powerful horses from the waist down. They are typically nomadic and consider themselves the stewards of the surrounding landscapes. While stories of bloody clashes between centaurs and humanoid travelers are well known, centaurs are neither intrinsically bloodthirsty nor recklessly aggressive. Rather, they are proud and stubborn and do not take kindly to outsiders who seeks to plunder the natural resources of the areas in which their communities have lived, some of which have been home to centaurs for thousands of years. Against despoilers of nature who fail to heed their warnings, centaurs do not hesitate to use their finely honed hunting skills to inflict deadly wounds.\nCentaurs train with weapons as well as their heavy hooves, and the thunder of centaurs charging across the plains is often mistaken for a stampede or even an earthquake. Despite the tight bonds they form with their kin, some centaurs establish close alliances with elves, fey, gnomes, and isolated human communities. Such allies often benefit by learning from the centaurs' extensive knowledge of herbalism and wilderness survival. While centaurs enjoying traveling, most find it difficult to cut ties with their families and leave their bands to seek adventure in the wider world.\nCentaurs have incredible variation in their individual size and coloration. Their upper torsos share the same variation in skin tone as other humanoids of their region, but their lower bodies—like those of horses—can vary widely from parent to child. Most centaurs are at least 7 feet tall and weigh more than 2,000 pounds.\nCentaurs live in groups of dozens of members, usually led by an individual who has carried out many noble deeds and earned a lifetime of respect from their comrades. The revered leader guides the habits of their entire group; a wise seer might encourage the clan to roam far from civilization to preserve some unspoiled terrain, while an aggressive warrior might foster skirmishes with nearby humanoid settlements and rival centaur groups.",
+      "armorClass": 18,
+      "hitPoints": 40,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 9,
+        "will": 9
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 2,
+        "con": 1,
+        "int": 0,
+        "wis": 3,
+        "cha": 1
+      },
+      "skills": {
+        "athletics": 11,
+        "diplomacy": 6,
+        "medicine": 7,
+        "nature": 7,
+        "survival": 7
+      },
+      "languages": [
+        "common",
+        "elven",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "h8HPqnXI3dI7KFxV",
+          "name": "Hoof",
+          "bonus": 9,
+          "damage": "1d10+4 bludgeoning",
+          "traits": [
+            "agile"
+          ]
+        },
+        {
+          "id": "7FSZKQa3FSyez6aO",
+          "name": "Sling",
+          "bonus": 8,
+          "damage": "1d6+1 bludgeoning",
+          "traits": [
+            "propulsive",
+            "reload-1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "ax2RVnLzNrdfglxj",
+          "name": "Load Sachet",
+          "kind": "action",
+          "description": "Requirements The centaur herbalist has at least one herbal sachet;\nEffect The centaur herbalist Interacts to load an herbal sachet in her sling. The next ranged Strike she makes with her sling deals an additional 1d6 poison damage."
+        },
+        {
+          "id": "ihI9TF3YdNJFYytf",
+          "name": "Trample",
+          "kind": "action",
+          "description": "Medium or smaller, hoof, check (reflex, dc:18, basic)"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:string-slime",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "r3EXyntNIazKf2gP",
+      "slug": "string-slime",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:1688ecb17e8d320fcb97e1a5af234ec72e53ad3a33f7e91f2c2fbe282c325777",
+    "translatableHash": "sha256:b4475cf815f773c7963274cc25886100b3604eee04d5e33488634b2da62ca072",
+    "data": {
+      "schemaVersion": 1,
+      "name": "String Slime",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "mindless",
+        "ooze"
+      ],
+      "description": "Found underground or in dungeons, these quivering, slug-like ropes of slime continuously scour their domain for food. In addition to their shape, they are named for their ability to shoot out expanding ribbons of slime that resemble tangled strings.\nSlimes, molds, and other oozes can be found in dank dungeons and shadowed forests. While not necessarily evil, some grow to enormous sizes and have insatiable appetites.",
+      "armorClass": 10,
+      "hitPoints": 90,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 5,
+        "senses": [
+          "motion-sense-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 0,
+        "will": 5
+      },
+      "abilities": {
+        "str": 4,
+        "dex": -5,
+        "con": 5,
+        "int": -5,
+        "wis": 0,
+        "cha": -5
+      },
+      "skills": {
+        "athletics": 11
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "acid",
+          "critical-hits",
+          "precision",
+          "slashing",
+          "unconscious",
+          "visual",
+          "bleed"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "vObNXky0MRJAvLys",
+          "name": "Pseudopod",
+          "bonus": 11,
+          "damage": "1d8+4 bludgeoning; 1d6 acid",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "LIfeVtjLRBsBRIF5",
+          "name": "Motion Sense",
+          "kind": "passive",
+          "description": "A string slime can feel nearby motion through vibration and air movement."
+        },
+        {
+          "id": "UlW5OHvaMswBBNb1",
+          "name": "Split",
+          "kind": "passive",
+          "description": "Whenever a string slime would take slashing damage (if it weren't immune) and has at least 10 HP, it splits into two identical slimes with half the original's HP. One string slime is in the same space as the original, and the other appears in an adjacent unoccupied space. If no adjacent space is unoccupied, move smaller creatures and objects out of the way to make a space or the split is canceled at the GM's discretion."
+        },
+        {
+          "id": "txSoRn67SYcT0oVZ",
+          "name": "Tag Team",
+          "kind": "action",
+          "description": "Requirements another string slime is within 30 feet\nEffect The slime arcs protoplasm to the other string slime. Creatures in that line take 3d6[acid|options:area-damage] damage with a check (reflex, dc:16, basic, options:area-effect,inflicts:prone) save. A creature that fails its save is also knocked Prone."
+        },
+        {
+          "id": "ZbOO0TuSXq9Qjcj5",
+          "name": "Weak Acid",
+          "kind": "passive",
+          "description": "A string slime's acid damages only organic material—not metal, stone, or other inorganic substances."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:tooth-fairy-swarm",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "rmJItn5jMW7Af0Iy",
+      "slug": "tooth-fairy-swarm",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:98bd81a1a0fb108ffe46637393c04c7946e22463e86a13f3abdc37299f75fe56",
+    "translatableHash": "sha256:b463ea9c6d6ba0e3c636c2a81c2acc380940f69543ee487dd41b6cbbba0652b4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tooth Fairy Swarm",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "fey",
+        "swarm"
+      ],
+      "description": "A mob of tooth fairies working together can conduct forced dentistry in seconds.\nTooth fairies spawn when a child's tooth (or, less commonly, an entire child) is buried in terrain rife with fey energies. Hatching from the buried teeth like larvae from an egg, tooth fairies build crude pliers from whatever they can find, then go hunting for more teeth—regardless of the owners' willingness.",
+      "armorClass": 18,
+      "hitPoints": 28,
+      "speedFeet": 10,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 5,
+        "reflex": 10,
+        "will": 7
+      },
+      "abilities": {
+        "str": -2,
+        "dex": 3,
+        "con": 0,
+        "int": -1,
+        "wis": 2,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 10,
+        "stealth": 10,
+        "thievery": 12
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "precision",
+          "swarm-mind"
+        ],
+        "resistances": [
+          "bludgeoning 2",
+          "piercing 5",
+          "slashing 5"
+        ],
+        "weaknesses": [
+          "area-damage 5",
+          "cold-iron 5",
+          "splash-damage 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "gZ11aiTmjuFfS0D9",
+          "name": "Swarm Mind",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "rxu5E3okZFA5hwkO",
+          "name": "Plaque Burst",
+          "kind": "passive",
+          "description": "When killed, a tooth fairy swarm bursts into sticky, foul-smelling white dust. Each creature in a @Template[emanation|distance:15] must succeed at a check (fortitude, dc:20) save or become Sickened 1 (Sickened 2 on a critical failure)."
+        },
+        {
+          "id": "lFFJEvkkHiFKVLEu",
+          "name": "Pinch",
+          "kind": "action",
+          "description": "Tooth fairies pinch their victims' fingers, noses, ears, or similar protruding body parts. Each enemy in the swarm's space takes 2d6[bludgeoning] damage (check (reflex, dc:20, basic) save). Creatures that critically fail this save are Sickened 1 from the pain."
+        },
+        {
+          "id": "DwbOG3M8gGZfp6CI",
+          "name": "Pry",
+          "kind": "action",
+          "description": "The tooth fairies try to pry out one of their target's teeth. One enemy in the swarm's space takes 4d6[bludgeoning] damage with a check (reflex, dc:20, basic) save. On a failed save, the target takes 2[bleed] damage and loses a tooth.\nIf the creature loses a tooth, it takes a –1 status penalty to Charisma-based skill checks and must succeed at a check (flat, dc:5) to Cast a Spell unless that spell has the subtle trait. These effects last for 1 day, or until the stolen tooth is returned and the target regains at least 1 Hit Point.\nEffect: Tooth Tug"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:changeling-exile",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "RqX0vfUjlycKjGyp",
+      "slug": "changeling-exile",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:7da5493bcf20b9ea154c705db3a95fadf5afa7698e5785235b348971e1f1590a",
+    "translatableHash": "sha256:460fad6e29670e74cb9844aac08c5289e754c860390285ab5576b633e1b006cf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Changeling Exile",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "changeling",
+        "human",
+        "humanoid"
+      ],
+      "description": "This changeling exile is the child of a cuckoo hag.\nAs children of hags, perhaps destined to become hags themselves, changelings face a life of conflict. Born of supernatural creatures who usually kill and consume the child's father, changelings are deposited into their father's society to be raised. These offspring appear to be members of their paternal ancestry and have been found among dwarves, gnomes, orcs, goblins, and others, but human-ancestry changelings are by far the most common. Within the normal range for their ancestry, changelings tend toward slighter builds, darker hair, and pale complexions, though their most common feature is a nearly universal heterochromia, leading to widespread superstition about individuals with different colored eyes.\nWhen changelings come of age, they sometimes manifest abilities granted by their hag heritage. Some gain the ability to see in the dark, some grow fingernails long and hard enough to serve as claws, and others gain even stranger abilities specific to their hag mother. For instance, dream mays, the children of cuckoo hags, can gain an enhanced ability to resist the magic of dreams and sleep. Other types of changelings include slag mays, the children of iron hags; callow mays, the children of sweet hags; brine mays, the children of sea hags; and others for each type of hag.\nAs beings infused with supernatural power, changelings find themselves drawn to either the occult magic common among hags or primal magic. At roughly the same time in their lives, many changelings—women in particular—begin to hear the Call, a psychic urging from their hag mother luring them away from the communities that raised them. If followed, the Call eventually leads the changeling to the hag's coven, where they are twisted into hags themselves. Some changelings are able to resist this Call and continue on with their mortal lives. The fact that the Call disproportionately targets female changelings has led to a widespread misunderstanding that all changelings are female, while changelings of other genders are simply assumed to be members of their paternal ancestry.",
+      "armorClass": 19,
+      "hitPoints": 45,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 7,
+        "reflex": 8,
+        "will": 11
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 1,
+        "con": 0,
+        "int": 0,
+        "wis": 4,
+        "cha": 2
+      },
+      "skills": {
+        "deception": 9,
+        "medicine": 9,
+        "nature": 11,
+        "stealth": 8,
+        "survival": 9
+      },
+      "languages": [
+        "common",
+        "wildsong"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "FUIS7buU2stLWVpK",
+          "name": "Claws",
+          "bonus": 11,
+          "damage": "1d4+4 slashing",
+          "traits": [
+            "agile"
+          ]
+        },
+        {
+          "id": "IYZ7DcFhTBCpe9MA",
+          "name": "Staff",
+          "bonus": 11,
+          "damage": "1d4+4 bludgeoning",
+          "traits": [
+            "two-hand-d8"
+          ]
+        },
+        {
+          "id": "d1ri3R4mSkHguHkF",
+          "name": "Sickle",
+          "bonus": 11,
+          "damage": "1d4+4 slashing",
+          "traits": [
+            "agile",
+            "trip"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "3WumD6XU2ACGghbI",
+          "name": "+2 Circumstance to All Saves vs. Dream and Sleep",
+          "kind": "passive",
+          "description": ""
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "AH4yYBLDuS7Gvkck",
+          "name": "Primal Prepared Spells",
+          "tradition": "primal",
+          "category": "prepared",
+          "attackModifier": 11,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "YgEkAFzmmIoXbZj8",
+              "name": "Breathe Fire",
+              "rank": 1
+            },
+            {
+              "id": "XQ2wz8302EnZJ3tH",
+              "name": "Ignition",
+              "rank": 1
+            },
+            {
+              "id": "BUFRAsB1ADqkq9b5",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "OOq2ZDeBUrquG0B0",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "vPWleK3clC5l1tAH",
+              "name": "Spider Sting",
+              "rank": 1
+            },
+            {
+              "id": "ZmISxIX1FLZEthXP",
+              "name": "Tangle Vine",
+              "rank": 1
+            },
+            {
+              "id": "T3r3T6eOgQGE95Rn",
+              "name": "Ventriloquism",
+              "rank": 1
+            },
+            {
+              "id": "jQq0LeiUsHe8EWsG",
+              "name": "Darkness",
+              "rank": 2
+            },
+            {
+              "id": "PQ05yQRp2zQNUFzP",
+              "name": "Humanoid Form",
+              "rank": 2
+            }
+          ]
+        },
+        {
+          "id": "YfPJcSHzuZ8KIdff",
+          "name": "Druid Order Spells",
+          "tradition": "primal",
+          "category": "focus",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "aMbtw5eK7uWnBqqo",
+              "name": "Untamed Form",
+              "rank": 1
+            },
+            {
+              "id": "s169QKI2FSD3D7Qo",
+              "name": "Untamed Shift",
+              "rank": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:hell-hound",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "RTviEfjYnsXa0wkT",
+      "slug": "hell-hound",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:497d0ad46c04db33cb17eb157a9e85547e7b0b8fac20c5601733e19e6c37caf5",
+    "translatableHash": "sha256:3690358e3136e6fa18a17ae2cd24fdd8731ff84750d74e7c85e8fcb836f2aef3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hell Hound",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "beast",
+        "fiend",
+        "fire",
+        "unholy"
+      ],
+      "description": "A hell hound's appearance dismisses any doubts as to their infernal origins—flesh the color of burning pitch, teeth as sharp as any fiend's pitchfork, and a shroud of ever-burning hellfire are all trademark features.\nHell hounds are fiendish, extraplanar canines hailing from the Pit that can hunt down quarry and breathe supernatural gouts of flame. They are temperamental and quick to exhibit aggressive behavior.",
+      "armorClass": 17,
+      "hitPoints": 40,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 10,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 2,
+        "int": -2,
+        "wis": 2,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 8,
+        "athletics": 9,
+        "stealth": 8,
+        "survival": 9
+      },
+      "languages": [
+        "diabolic"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "IvEp0FjtG1bxA4Xw",
+          "name": "Jaws",
+          "bonus": 13,
+          "damage": "1d8+4 piercing; 1d6 fire",
+          "traits": [
+            "magical",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "GsQeeSV97T6FPvoY",
+          "name": "Hellfire Breath",
+          "kind": "action",
+          "description": "The hell hound breathes flames that deal 4d6[fire|options:area-damage] damage to all creatures in a @Template[cone|distance:15] (check (reflex, dc:19, basic, options:area-effect) save).\nThe hell hound can't use Hellfire Breath again for [[/gmr 1d4 #Recharge Hellfire Breath]]{1d4 rounds}. If the hell hound would take fire damage or be targeted by a fire effect, their Hellfire Breath recharges."
+        },
+        {
+          "id": "frHG44PbB1HwdeMl",
+          "name": "Pack Attack",
+          "kind": "passive",
+          "description": "The hell hound's Strikes deal 1d4 extra damage to creatures within the reach of at least two of the hell hounds' allies."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:zephyr-hawk",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "sAfjpjAS56jtrUbi",
+      "slug": "zephyr-hawk",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:c814d0bd124401ae9a19dfe352bf189e9815d92af2285315140f00cc91c24ad5",
+    "translatableHash": "sha256:66393a3805eb92b35643284f529cfbbe619bf1edfd3461380514beabe4e1ae12",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Zephyr Hawk",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "air",
+        "elemental"
+      ],
+      "description": "Zephyr hawks drift among the currents of the Plane of Air in great flocks. They delight in riding the air currents with no destination in mind.\nHailing from the Plane of Air, these beings appear in a variety of sizes and shapes. They're noted for being elusive, swift, and often difficult to detect due to being composed primarily of air.",
+      "armorClass": 18,
+      "hitPoints": 36,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 7,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 6,
+        "reflex": 13,
+        "will": 7
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 1,
+        "int": -4,
+        "wis": 0,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 13,
+        "stealth": 11
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "ANrh02werSO57j4X",
+          "name": "Wing",
+          "bonus": 11,
+          "damage": "1d8+4 slashing",
+          "traits": [
+            "agile",
+            "finesse"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "x8uwJOVGskq8pjOH",
+          "name": "Circling Attack",
+          "kind": "action",
+          "description": "The zephyr hawk Flies up to half its Speed, makes two wing Strikes, then Flies up to half its Speed again to return to its original location. The second half of this movement doesn't trigger reactions. Both attacks count toward the zephyr hawk's multiple attack penalty, but the penalty doesn't increase until after it makes both attacks."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:skeletal-giant",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "sEgjgitJmwYYa4mV",
+      "slug": "skeletal-giant",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:482378bf52392f70820d4b3f89ccf1331bb7854d43d713f8fa3315f243d46f49",
+    "translatableHash": "sha256:f719ff2034512b2b2084954ff8d9a061b42c572b3b004f43fb1d4bf8f0186e10",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skeletal Giant",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "mindless",
+        "skeleton",
+        "undead",
+        "unholy"
+      ],
+      "description": "The reanimated bones of giants make excellent necromantic thralls.\nAnimated skeletons are among the most common types of undead.",
+      "armorClass": 17,
+      "hitPoints": 50,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 7,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 8,
+        "will": 7
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 1,
+        "con": 3,
+        "int": -5,
+        "wis": 0,
+        "cha": 2
+      },
+      "skills": {
+        "athletics": 12,
+        "intimidation": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [
+          "cold 5",
+          "electricity 5",
+          "fire 5",
+          "piercing 5",
+          "slashing 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "4uWQE7ermpG8oEr3",
+          "name": "Glaive",
+          "bonus": 12,
+          "damage": "1d8+7 slashing",
+          "traits": [
+            "deadly-d8",
+            "forceful",
+            "reach-15"
+          ]
+        },
+        {
+          "id": "l4eldMZrkZle4K3Y",
+          "name": "Horns",
+          "bonus": 12,
+          "damage": "1d10+5 piercing",
+          "traits": [
+            "agile"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "RdYqZ3Dt6i0ca94C",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "4gkC6A8D27Jzv7nH",
+          "name": "Broad Swipe",
+          "kind": "action",
+          "description": "The giant makes two Strikes with its glaive against two adjacent foes, both of whom are within its reach. Both attacks count toward the giant's multiple attack penalty, but the penalty doesn't increase until after both attacks."
+        },
+        {
+          "id": "emPcqeSFXdyr6CgV",
+          "name": "Terrifying Charge",
+          "kind": "action",
+          "description": "The giant Strides and makes a horns Strike with a +4 circumstance bonus to damage.\nIf the strike hits, the giant attempts to [[/act demoralize]] the target."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:centipede-swarm",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "sldauWtSyK4JEiRl",
+      "slug": "centipede-swarm",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:07f364038a6b5fed03e0df39ed52476f983ddbd7341ff56489e441135751c1d7",
+    "translatableHash": "sha256:bbca9d89658a108d907c8b0e5b775743eede1ee37d35bd3fe133ed1f95942567",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Centipede Swarm",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal",
+        "swarm"
+      ],
+      "description": "Swarms of centipedes are dangerous indeed, ravenous carpets of skittering hunger capable of devouring a traveler whole in a matter of minutes. Kobolds and mitflits are both known to incorporate swarms of centipedes into cunning traps.\nHunters and scavengers that live amid dung and detritus, centipedes are a relatively common and often reviled threat faced by adventurers. Scurrying about with surprising speed on the scores of legs attached to their long, segmented bodies, centipedes strike with poisoned mandibles to slow and torment their prey with a vicious toxin before they settle down to feed in slow and disgusting leisure.",
+      "armorClass": 18,
+      "hitPoints": 30,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision",
+          "tremorsense-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 11,
+        "will": 5
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 3,
+        "int": -5,
+        "wis": 0,
+        "cha": -4
+      },
+      "skills": {
+        "acrobatics": 9,
+        "athletics": 7,
+        "stealth": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "precision",
+          "swarm-mind"
+        ],
+        "resistances": [
+          "bludgeoning 5",
+          "piercing 5",
+          "slashing 2"
+        ],
+        "weaknesses": [
+          "area-damage 5",
+          "splash-damage 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "Ibj6bgSG7PZrEoiR",
+          "name": "Tremorsense (Imprecise) 30 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "a0WPpTOOGc0FAn2o",
+          "name": "Swarm Mind",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "wYcs9eIcJSh0thsP",
+          "name": "Centipede Swarm Venom",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:20)\nMaximum Duration 6 rounds\nStage 1 1d6[poison] damage and Off-Guard (1 round)\nStage 2 1d8[poison] damage, Clumsy 1, and off-guard (1 round)"
+        },
+        {
+          "id": "e6gQA5jXDMbCKyDj",
+          "name": "Swarming Bites",
+          "kind": "action",
+          "description": "Each enemy in the swarm's space takes 1d8[piercing|options:area-damage] damage (check (reflex, dc:20, basic, options:area-effect) save) plus centipede swarm venom."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:ogre-warrior",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "Twvzy1yRo6m6dM8D",
+      "slug": "ogre-warrior",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:1d0725b8e0533b4e9423260939a18be0e5b594a89f1f87d67cb23a687bb365d1",
+    "translatableHash": "sha256:397d040d966351a9e3f011560b08940990b98933ab064cf0f3e9a0ecdce452cb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ogre Warrior",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "giant",
+        "humanoid"
+      ],
+      "description": "The simplest of ogres are slabs of muscle with hateful eyes, misshapen visages, and malformed bodies. Always eager for mayhem and murder, ogre warriors are quick to turn on their kin when there's a shortage of smaller folk to torment, so those who lead ogres do their best to keep them constantly distracted with new opportunities for raids and ruin.\nFor many societies, ogres embody brutish, amoral violence and greedy cruelty. Standing 10 feet tall and densely muscled, ogres are usually as strong as they are vicious. The worst ogres are sadists, enjoying remorseless murder, torture, and violence in all of its forms. Although they prefer to vent their violent urges on other humanoids—the smaller the better—ogre captivity can end in a horrifying fate for anyone unlucky enough to fall within their meaty grasp: becoming dinner. But for all their creativity in inflicting pain, ogres often forget that their playthings lack their own robust fortitude and high pain tolerance, and many of their captives die sooner than the ogres might prefer. Meanwhile, those who manage to survive captivity in an ogre's larder often emerge with lasting mental scars. A captive able to keep their wits about them, however, can sometimes trick the brutes by promising treasure, more plentiful food sources, or other crude amusements, taking advantage of an ogre's often-limited intellect to engineer opportunities to escape or gain revenge.\nOgres are social creatures only in the most debased sense. They gather together in groups called families, though members are not always related by blood. The most powerful ogre in any family is the \"boss\"—usually the family's patriarch or matriarch—whom the other ogres in the family learn to quickly obey or risk being brutalized by the boss's loyal kin. Ogres lair in caves, crumbling ruins, or dilapidated shacks close enough to humanoid settlements or animal trails to make raiding easy. Their lairs are filthy and frequently contain all-too-recognizable evidence of their depravity, along with assorted treasures stolen from past captives.",
+      "armorClass": 17,
+      "hitPoints": 50,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 5,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 6,
+        "will": 5
+      },
+      "abilities": {
+        "str": 5,
+        "dex": -1,
+        "con": 4,
+        "int": -2,
+        "wis": 0,
+        "cha": -2
+      },
+      "skills": {
+        "athletics": 12,
+        "intimidation": 9
+      },
+      "languages": [
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "qjYI8SCJrXWZopn6",
+          "name": "Ogre Hook",
+          "bonus": 12,
+          "damage": "1d10+7 piercing",
+          "traits": [
+            "deadly-d10",
+            "reach-10",
+            "trip"
+          ]
+        },
+        {
+          "id": "kN3B1jnfTS7LsbUS",
+          "name": "Javelin",
+          "bonus": 6,
+          "damage": "1d6+7 piercing",
+          "traits": [
+            "thrown-30"
+          ]
+        }
+      ],
+      "actions": [],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:dero-strangler",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "uUP9MQscB0EFPptr",
+      "slug": "dero-strangler",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:0451be732bca96b3399ae281e6913b1ffe9cfe97a62b810d138ca316dbe72236",
+    "translatableHash": "sha256:ad02c5aa893096c8f176079e51a3f8c55c5afefaf6257bae21be23dd6afee704",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dero Strangler",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "dero",
+        "humanoid"
+      ],
+      "description": "Dero stranglers specialize in capturing living victims, and they are often called upon to aid in abductions.\nDeros are short, wiry humanoids with milky white eyes, gray-blue skin, and wild shocks of off-white or gray hair. The descendants of a mysterious type of fey abandoned in the deepest, darkest caverns of Golarion, deros are the subject of fearful legends and folk tales to most of the world's surface races. They skulk beneath major metropolitan areas, performing cruel and twisted experiments on unwilling subjects.\nDeros, particularly the leading magisters, are fixated with curing their allergy to sunlight. To understand how the surface dwellers can withstand the light of the sun, deros conduct late-night raids on surface cities, abducting victims and performing terrible experiments on them. Those who survive are often returned with much of their memory erased and their bodies bearing mysterious scars.\nThe largest dero settlements are built around esoteric machines of floating crystals. As these crystals grind against each other and hum with sickening blue energy, crystal flakes and powdery residue collect beneath the machinery. Dero magisters gather these products, creating tools and repurposing the crystals to power magical items.",
+      "armorClass": 19,
+      "hitPoints": 45,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 6,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 8,
+        "will": 6
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 3,
+        "int": 0,
+        "wis": -1,
+        "cha": 2
+      },
+      "skills": {
+        "athletics": 11,
+        "intimidation": 7,
+        "medicine": 6,
+        "stealth": 10
+      },
+      "languages": [
+        "aklo",
+        "sakvroth"
+      ],
+      "defenses": {
+        "immunities": [
+          "confused"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "yVIAiphm8lYPffV3",
+          "name": "Spiked Chain",
+          "bonus": 11,
+          "damage": "1d8+6 bludgeoning",
+          "traits": [
+            "disarm",
+            "trip"
+          ]
+        },
+        {
+          "id": "5HRKFbIvbD2qXTXD",
+          "name": "Hand Crossbow",
+          "bonus": 10,
+          "damage": "1d6+2 piercing",
+          "traits": [
+            "reload-1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "HCUXasleODboE32A",
+          "name": "Ill Glow",
+          "kind": "passive",
+          "description": "A non-dero living creature that starts its turn Grabbed or Restrained by the strangler is exposed to the sickly blue light from the strangler's cytillesh toolkit. It must succeed at a check (fortitude, dc:19) save or become Sickened 1. This has no effect if the strangler isn't wearing the toolkit."
+        },
+        {
+          "id": "uldVZLVdwiLD1q6v",
+          "name": "Vulnerable to Sunlight",
+          "kind": "passive",
+          "description": "A dero strangler takes 8[untyped] damage for every hour they're exposed to sunlight."
+        },
+        {
+          "id": "qwNhCiHQVyMkQrfX",
+          "name": "Dero Medicine",
+          "kind": "action",
+          "description": "Requirements The dero is wearing a cytillesh toolkit and has a hand free\nEffect The dero excises damaged flesh and crudely stitches wounds shut, healing themself or an ally in reach for 2d8[healing]{2d8 Hit Points}. For 1 hour, the target has slashing weakness 2 and is immune to Dero Medicine.\nEffect: Dero Medicine"
+        },
+        {
+          "id": "ZDJkjnIor7qxsiSU",
+          "name": "Strangle",
+          "kind": "action",
+          "description": "Requirements The dero must have two free hands or be wielding a spiked chain\nEffect The dero attempts an Athletics check to Grapple with a +2 circumstance bonus. On a success, the target also takes (1d6+6)[bludgeoning] damage and can't speak (including to Cast a Spell) as long as they're Grabbed or Restrained."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "osyjgXeJV4vv5i3F",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 11,
+          "saveDc": 19,
+          "spells": [
+            {
+              "id": "qfnBEDuh8ayHKkWs",
+              "name": "Daze",
+              "rank": 1
+            },
+            {
+              "id": "kPF6n3s1IPsFX2Rb",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "BXH4bWGyUJ2Gym04",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "E9yEjfkAzFYDW6Iy",
+              "name": "Darkness",
+              "rank": 2
+            },
+            {
+              "id": "JKUGAFQ39KZZKJxq",
+              "name": "Revealing Light",
+              "rank": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:draxie",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "UuQHd4v6gG8ONdCt",
+      "slug": "draxie",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:4d1d63546507e3aa69a0538060d4e77e383d0b2c5270a2e65cfbdb81b0a0ae74",
+    "translatableHash": "sha256:a27ab16a16fe0c2b3187c53407728b425ebf67894aced3318f1f8614ffc0a12c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Draxie",
+      "level": 3,
+      "rarity": "common",
+      "size": "tiny",
+      "traits": [
+        "fey",
+        "sprite"
+      ],
+      "description": "The mischievous dragon sprites called draxies have dueled their pixie cousins for the title of ultimate prankster for centuries. They exercise patience and planning to create the perfect pranks, spending months, or even years, on their efforts. One exception to their flighty nature is the elucrea, a lifelong bond between a draxie and a creature they're particularly fond of, typically one with a good sense of humor. According to draxie legend, a little piece of a draxie's spirit remembers being united as the ancient fey dragonet Elucredassa, and that causes draxies to yearn for such connections with others.\nElusive, flighty, and ebullient, sprites are what many villagers first imagine when they hear the terms \"fey\" or \"fairy.\" While their dispositions vary, all sprites share a connection to magic and a diminutive size. This family of fey shares its name with its slightest and most populous member, the common sprite.",
+      "armorClass": 19,
+      "hitPoints": 45,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 6,
+        "reflex": 11,
+        "will": 8
+      },
+      "abilities": {
+        "str": -1,
+        "dex": 4,
+        "con": 1,
+        "int": 3,
+        "wis": 1,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 9,
+        "deception": 10,
+        "diplomacy": 8,
+        "nature": 6,
+        "stealth": 11
+      },
+      "languages": [
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "9hTzL7fC49Gu7r0d",
+          "name": "Jaws",
+          "bonus": 11,
+          "damage": "1d8+3 bludgeoning",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "hfMabMzyolY9p2Gw",
+          "name": "Euphoric Spark",
+          "bonus": 7,
+          "damage": "2d4+3 mental",
+          "traits": [
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "jTvAXL1UqsQrbQhO",
+          "name": "Telepathy (Touch)",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "5eqtzIqWpDscyCIh",
+          "name": "Draxie Dust",
+          "kind": "action",
+          "description": "The draxie breathes magical dust in a @Template[cone|distance:15]. Roll [[/r 1d4]] to determine the effect. Each creature in the area must succeed at a check (will, dc:17) save or be affected.\nThe draxie can't use Draxie Dust again for [[/gmr 1d4 #Recharge Draxie Dust]]{1d4 rounds}.\n• The target takes the effects of the Charm spell.\n• The target loses its last 5 minutes of memory.\n• The target takes the effects of a Sleep spell.\n• For 1 minute, the target is in a state of euphoria that makes it Stupefied 2 and Slowed 1."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "ct5v7Ozu8ADoqRMV",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 12,
+          "saveDc": 20,
+          "spells": [
+            {
+              "id": "46V2u3s73ltWYjte",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "ie3DpnWqfx0kEgtQ",
+              "name": "Illusory Disguise",
+              "rank": 1
+            },
+            {
+              "id": "1B1SGiCs7ZhSXB2R",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "ighJX8r2pw1fE61k",
+              "name": "Prestidigitation",
+              "rank": 1
+            },
+            {
+              "id": "xenWAvARdQmasWwH",
+              "name": "Invisibility",
+              "rank": 2
+            },
+            {
+              "id": "CKmf7ukekoMyIzlD",
+              "name": "Revealing Light",
+              "rank": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:ankhrav",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "V1Kr5aiPaTM0mDFu",
+      "slug": "ankhrav",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:64b10f10811c32784a61325c834f9f7b2ebb0332a3c54742fe812760e759d4e4",
+    "translatableHash": "sha256:a23cd1042849a62f24d9b1b8f578e1789c5c712ec727dc2179848c28ac00f671",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ankhrav",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "These horse-sized, burrowing monsters generally avoid heavily settled areas like cities, but ankhravs' predilection for livestock and humanoid flesh ensures that the creatures do not remain in the deep wilderness for long. Desperate farmers whose fields become infested by ankhravs often have little recourse but to seek the aid of adventurers.\nAnkhravs are immense, burrowing, and insectile predators, considered by inhabitants of the rural areas of the world to be an all-too-common plague.",
+      "armorClass": 18,
+      "hitPoints": 40,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 7,
+        "senses": [
+          "darkvision",
+          "tremorsense-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 8,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 1,
+        "con": 3,
+        "int": -4,
+        "wis": 0,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 6,
+        "athletics": 11,
+        "stealth": 8
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "Oi2IinqJzQhrUE4R",
+          "name": "Mandibles",
+          "bonus": 13,
+          "damage": "1d8+4 piercing; 1d6 acid",
+          "traits": [
+            "acid"
+          ]
+        },
+        {
+          "id": "6gzE3WOZs1801eyS",
+          "name": "Acid Spit",
+          "bonus": 10,
+          "damage": "3d6 acid",
+          "traits": [
+            "acid"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "PdyYBEM94DTjouMT",
+          "name": "Tremorsense (Imprecise) 30 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "GlLMuMgpxJ9FZVfm",
+          "name": "Armor-Rending Bite",
+          "kind": "action",
+          "description": "The ankhrav makes a mandibles Strike; if the Strike hits, the target's armor takes the damage and the acid damage bypasses the armor's Hardness."
+        },
+        {
+          "id": "tz3Jv4IQgO8ygZjo",
+          "name": "Spray Acid",
+          "kind": "action",
+          "description": "Frequency once per hour\nEffect The ankhrav spews acid in a @Template[cone|distance:30], dealing 3d6[acid,1d6[persistent,acid]|options:area-damage]{3d6 acid damage and 1d6 persistent acid damage} (check (reflex, dc:20, basic, options:area-effect) save)."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:grothlut",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "VCYF0NAfPKwTHkK1",
+      "slug": "grothlut",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:9c9c109e9515bab001f40f746cdc77fae4851baa0e05f0043b357d82875c1c4b",
+    "translatableHash": "sha256:01fcbf4c71e49e5c88b1a493cb01e0e80ca52d6f792d93fe4e7a309ccc168fa0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grothlut",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "aberration",
+        "mindless"
+      ],
+      "description": "Sluglike abominations, grothluts are grotesque dregs of the fleshwarping process. While their head and torso are vaguely humanoid, their arms are rubbery and move awkwardly at their sides. Wretched creatures, they moan piteously when other creatures are near, perhaps as the last remnants of their mind pleads to be free from their horrid warped form.\nMany fleshwarpers consider the grothlut to be a failure of a creation, as the transformation all but stamps out consciousness. Others disagree, arguing that warping the creature's mind makes it all the more useful, since it becomes pliable and easy to herd. Cultists of Haagenti typically use grothluts as guardians that slowly patrol the edges of their enclaves. Once in position, grothluts can be used as crude shock troops, unleashed to soften enemy forces before more valuable warriors wade in and cut down the enemies who have been nauseated by the grothluts' exploded organs and flesh.\nMagical mishaps, divine curses, and untested technology are all capable of wreaking drastic transformations on the body, and are all rampant on the world of Golarion and beyond. Creatures that have undergone changes so drastic they no longer can be considered the same ancestry as they were before are known as fleshwarps. These beings are rare, and their unsettling appearance often provokes horrified responses from other people.\nSome creatures revel in the total degradation of their defeated foes through fleshwarping. Though the technique was originally taught to mortals by the demon lord Haagenti, mortals have spent eons modifying and perfecting the method. Fleshcrafters torture their enemies in vats of churning magical reagents, reshaping their flesh and psyche alike into horrid and monstrous things.",
+      "armorClass": 17,
+      "hitPoints": 50,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 5,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 5,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": -2,
+        "con": 4,
+        "int": -5,
+        "wis": 0,
+        "cha": -3
+      },
+      "skills": {
+        "athletics": 11
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "acid"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "y0ncwssgPJfLWMgt",
+          "name": "Claw",
+          "bonus": 11,
+          "damage": "1d10+8 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "kvPHtl3puURCTaGk",
+          "name": "Digestive Spew",
+          "bonus": 7,
+          "damage": "2d6 acid; 1d6 acid",
+          "traits": [
+            "acid",
+            "splash"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "NKOHZ7Ua7fqQNsAy",
+          "name": "Disgusting Demise",
+          "kind": "passive",
+          "description": "When the grothlut is reduced to 0 Hit Points, its digestive organs rupture, unleashing alchemical acid and poison upon all creatures in a @Template[emanation|distance:30]. Each creature in the area must succeed at a check (fortitude, dc:19, options:area-effect,damaging-effect) save or take 2d6[acid|options:area-damage] damage and become Sickened 1 (double damage and Sickened 2 on a critical failure)."
+        },
+        {
+          "id": "3XJEBmHGHfUj7TbN",
+          "name": "Piteous Moan",
+          "kind": "passive",
+          "description": "60 feet.\nEach nongrothlut creature that enters or starts its turn within the area must succeed at a check (will, dc:17) saving throw or become Sickened 1 (Sickened 2 on a critical failure). The creature then becomes temporarily immune for 1 minute.\nThe grothlut can Dismiss this aura.\nA grothlut usually does not begin moaning until it senses the presence of a non-grothlut creature, and it usually stops once it doesn't sense any more such creatures."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:sod-hound",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "VQPzDz3xnCQGFOGL",
+      "slug": "sod-hound",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:e7396e859c45798dd10ed95f0c87b55915a077b3ee9a5481319bb515c0759fa7",
+    "translatableHash": "sha256:f3cb064bacbee336e5721cea0f2aba145054f9524da844feac693d5ce0cc5e3c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sod Hound",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "earth",
+        "elemental"
+      ],
+      "description": "Sod hounds are mossy extraplanar canines formed of packed dirt and pebbles. On their native plane, they are often tasked with guarding less secure sites and finding mineral deposits. Others live in the comparative lap of luxury as pets to jabalis.\nEarth elementals make excellent bodyguards for adventuresome spelunkers and are ideal protectors of important subterranean locations such as vaults and treasuries.",
+      "armorClass": 19,
+      "hitPoints": 44,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 6,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": -1,
+        "con": 3,
+        "int": -4,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 11,
+        "survival": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "dp1n1eKrdXWBGI47",
+          "name": "Jaws",
+          "bonus": 11,
+          "damage": "1d10+6 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "hDYxH5VuENin7Q0I",
+          "name": "Crystal Sense (Imprecise) 60 feet",
+          "kind": "passive",
+          "description": "A sod hound can sense crystals or gems within 60 feet as if using the Scent ability"
+        },
+        {
+          "id": "59wy5xK7MEQmYRxg",
+          "name": "Earth Glide",
+          "kind": "passive",
+          "description": "The sod hound can Burrow through any earthen matter, including rock. When it does so, the sod hound moves at its full burrow Speed, leaving no tunnels or signs of its passing."
+        },
+        {
+          "id": "3USivzG0qztGd1dK",
+          "name": "Knockdown",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:snapping-flytrap",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "vRAdYovWcy2euwuL",
+      "slug": "snapping-flytrap",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:85b97db5b842877d0e962cec31524405af059b826e564926d2634db5a15b0c8c",
+    "translatableHash": "sha256:d4040c8be884f81f8338803a571355df33cf56cedbecc84264086692938138d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Snapping Flytrap",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "mindless",
+        "plant"
+      ],
+      "description": "Snapping flytraps typically have two sets of tooth-edged leaves, each measuring 3 feet wide, at the end of 10-foot-long stalks.\nFlytraps eagerly feed on humanoids, monstrous insects, and larger prey.",
+      "armorClass": 18,
+      "hitPoints": 50,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 7,
+        "senses": [
+          "tremorsense-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 8,
+        "will": 7
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 3,
+        "con": 5,
+        "int": -5,
+        "wis": 2,
+        "cha": -2
+      },
+      "skills": {
+        "athletics": 11,
+        "stealth": 10
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "acid 5"
+        ],
+        "weaknesses": [
+          "fire 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "t8uaryivfTb4jrjH",
+          "name": "Leaf",
+          "bonus": 11,
+          "damage": "1d8+2 piercing; 1d6 acid",
+          "traits": [
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tyjUqs7S8mA70wiw",
+          "name": "Tremorsense (Imprecise) 30 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "gXUEOhZBMg1NCOMw",
+          "name": "Quick Capture",
+          "kind": "reaction",
+          "description": "Trigger A creature hits or touches the flytrap.\nEffect The flytrap makes a leaf Strike against the triggering creature. If it hits, the creature is Grabbed in that leaf."
+        },
+        {
+          "id": "QTipkgJAwLBZFcwu",
+          "name": "Focused Assault",
+          "kind": "action",
+          "description": "The flytrap attacks a single target with both its two leaves. The flytrap makes one leaf Strike. On a success, the flytrap deals the damage from one leaf Strike plus an additional 1d8 piercing damage for every leaf beyond the first. On a failure, the flytrap deals the damage from one leaf Strike, but it can't use Improved Grab. It deals no damage on a critical failure. This counts toward the flytrap's multiple attack penalty as a number of attacks equal to the number of leaves the flytrap has."
+        },
+        {
+          "id": "oB9Lh7ZFScaG3Z04",
+          "name": "Hungry Flurry",
+          "kind": "action",
+          "description": "The flytrap makes two leaf Strikes at a -2 penalty, each against a different target. These attacks count toward the flytrap's multiple attack penalty, but the multiple attack penalty doesn't increase until after it makes all its attacks."
+        },
+        {
+          "id": "0JCakW3iPRouHFU2",
+          "name": "Swallow Whole",
+          "kind": "action",
+          "description": "Medium, (1d8+1)[bludgeoning,1d6[acid]], Rupture 5"
+        },
+        {
+          "id": "CyCkk2GjnKUtz2Va",
+          "name": "Improved Grab",
+          "kind": "passive",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:aapoph-serpentfolk",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "X3QcYLr2rBcIsJrC",
+      "slug": "aapoph-serpentfolk",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:d54141c10e03e385b54b8b0fb1a22798b836a293d0d9e5321663140b37160c0d",
+    "translatableHash": "sha256:b3820d93fb4276702a0b25e028abb9fa8c60eac5663e04d6510487803f5bb5e9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Aapoph Serpentfolk",
+      "level": 3,
+      "rarity": "uncommon",
+      "size": "medium",
+      "traits": [
+        "humanoid",
+        "mutant",
+        "serpentfolk"
+      ],
+      "description": "Aapophs possess greater strength and stronger venom than their zyss kin, but they lack zyss's innate magic. Unlike their selfish superiors, aapophs are communal and group together to hunt, wrestle, and sleep curled together in pits.\nAapophs often have physical mutations—horns, vestigial tails, or spines protruding from their scales—yet these have little impact on their overall combat prowess—and combat prowess is the measure by which zyss judge them.\nBefore their ancient clash with humanity devastated their civilization, serpentfolk were masters of a sprawling underground empire. Their power was shattered and their god Ydersius decapitated (although not quite slain). The cunning, intelligence, and magical abilities of serpentfolk have diminished from their ancient heights, and most are born without these boons. This is partially the result of cruel genetic meddling among serpentfolk—though the ruling class, zyss, are born with an innate spellcasting ability, their blood runs thin, making them susceptible to wounds. Seen as the failures of the serpentfolk's experiments are the aapophs, who are strong but prone to mutation and lack innate spellcasting.\nToday, the central realm of the Darklands retains the old name of the serpentfolk empire that once dominated this region—Sekamina. This name is also the source of the serpentfolk's Aklo title, sekmin, which they are often called in ancient texts. Serpentfolk dominion had declined before ghouls, gugs, umbral gnomes, and other forces. Yet their recent ventures have brought them back to a stronger place in the Darklands. Many serpentfolk sleeping in torpor in secluded vaults have awakened.\nZyss serpentfolk tend toward megalomania, with dreams of returning to their place of dominance. Many of their plans hinge on resurrecting Ydersius, their decapitated god. His headless body still thrashes about, mindless, in the Darklands, waiting to be reunited with his lost skull. Serpentfolk numbers are so small that reclaiming their dominance seems a distant dream, especially since their reproduction is slow. Though a parent can birth a dozen young at once, the gestation period lasts up to a decade, and the likelihood that even one will be zyss is low. There's no telling whether a child will be zyss or aapoph, regardless of parentage. A coveted zyss child is just as likely to arise from aapoph parents as from two zyss, and every serpentfolk colony has someone in charge of sorting the young, identifying the earliest signs of magic in them.",
+      "armorClass": 18,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 7,
+        "will": 6
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 3,
+        "int": -1,
+        "wis": 1,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 7,
+        "athletics": 11,
+        "intimidation": 6
+      },
+      "languages": [
+        "aklo",
+        "sakvroth"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "poison 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "p5OQLHvMklzKmrbR",
+          "name": "Scimitar",
+          "bonus": 11,
+          "damage": "1d6+6 slashing",
+          "traits": [
+            "forceful",
+            "sweep"
+          ]
+        },
+        {
+          "id": "5rN2CIypbGA4N34M",
+          "name": "Fangs",
+          "bonus": 11,
+          "damage": "1d8+6 piercing",
+          "traits": []
+        },
+        {
+          "id": "icFkORI0Y4bNqBbP",
+          "name": "Tail",
+          "bonus": 11,
+          "damage": "1d6+6 bludgeoning",
+          "traits": [
+            "agile"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "xumH4auLNLHoCwRg",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "wW41Q1RjdWEoDyvF",
+          "name": "+2 Status to Will Saves vs. Mental",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "eF6NcpKDaf08BJPY",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "HTGkYCrWWOoIvAja",
+          "name": "Serpentfolk Venom",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:20)\nMaximum Duration 6 rounds\nStage 1 1d4[poison] damage and Enfeebled 1 (1 round)\nStage 2 2d4[poison] damage and enfeebled 1 (1 round)"
+        },
+        {
+          "id": "0ToPGrofmnFDeqOe",
+          "name": "Slithering Attack",
+          "kind": "action",
+          "description": "The aapoph serpentfolk makes one scimitar or fangs Strike and one tail Strike, each targeting a different creature. These attacks both count toward the aapoph's multiple attack penalty, but the penalty doesn't increase until after the aapoph makes both attacks."
+        },
+        {
+          "id": "I2ICHtXckQoNKHcm",
+          "name": "Knockdown",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:giant-eagle",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "XEjkJ8fQqLc02hrU",
+      "slug": "giant-eagle",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:59ba7f9b5472075aa72f3520fa756bb09f3f5ccc02b5f6fd61e9a8384d25cc7a",
+    "translatableHash": "sha256:494169c5d08fa1672a8fa1479ea1573fdc812f5b92e3d2cd1737f8b356f0e039",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Giant Eagle",
+      "level": 3,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast"
+      ],
+      "description": "No mere animals, giant eagles have a keen intellect and a strong sense of honor. As guardians of their mountain homes, giant eagles attempt to prevent the encroachment of civilization upon wild land and the predations of wicked humanoid settlements. Giant eagles congregate within aeries holding up to a dozen members and work together to protect their domains.\nGiant eagles have wingspans up to 30 feet across and weigh up to 500 pounds. A giant eagle may allow a trusted friend to ride it, but they invariably resist saddles, harnesses, or other equipment that might suggest they are mere beasts of burden. Long-lived, they take debts and oaths very seriously, often remembering slights for years and remaining slow to forgive.\nFew avian creatures can match the beauty and grace of the eagle.",
+      "armorClass": 17,
+      "hitPoints": 45,
+      "speedFeet": 10,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 6,
+        "reflex": 11,
+        "will": 9
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 1,
+        "int": 0,
+        "wis": 2,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 8
+      },
+      "languages": [
+        "fey",
+        "sussuran"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "AFLPUVObYcXb0ATY",
+          "name": "Beak",
+          "bonus": 12,
+          "damage": "2d8+5 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        },
+        {
+          "id": "pB0p0rg2zJNouFjM",
+          "name": "Talon",
+          "bonus": 12,
+          "damage": "1d10+5 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "Wf7eTH5SNYNO98tC",
+          "name": "Evasive Maneuvers",
+          "kind": "passive",
+          "description": "When a giant eagle rolls a success on a Reflex save, it gets a critical success instead."
+        },
+        {
+          "id": "jJ0nUZ8hgrpWlXtS",
+          "name": "Carry",
+          "kind": "passive",
+          "description": "A giant eagle can Fly at half Speed while it has a creature Grabbed or Restrained in its talons, carrying that creature along with it."
+        },
+        {
+          "id": "KWrM4BkUQ8ldHG0I",
+          "name": "Eagle Dive",
+          "kind": "action",
+          "description": "The giant eagle Flies up to double its fly Speed in a straight line, descending at least 10 feet, and then makes a talon Strike."
+        },
+        {
+          "id": "YcE1Kg1c0njojA8b",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:cinder-rat",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "xN5J9S485LxFZMkL",
+      "slug": "cinder-rat",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:398c925d7bf003fc4a9ab286b1adc91c699ab6b9211bd142988b912cc4bdb742",
+    "translatableHash": "sha256:f56ef115ffde022f531a257d7237847af1c6864a9a816d2acf1e9028558d87ec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cinder Rat",
+      "level": 3,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "elemental",
+        "fire"
+      ],
+      "description": "These oversized rodents are made of smoldering charcoal and elemental fire, and noxious fumes continually bellow from their flaming flesh. Even other fire elementals find cinder rats unpleasant and are glad when they're summoned away from the Plane of Fire.\nFire elementals are destructive manifestations of the scorching Plane of Fire. Although most fire elementals revel in the chance to experience new kinds of fires away from their home plane, even the most considerate fire elemental can be a danger to humanoids and their property.",
+      "armorClass": 18,
+      "hitPoints": 45,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 12,
+        "will": 6
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 3,
+        "con": 2,
+        "int": -4,
+        "wis": 2,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 10,
+        "stealth": 10,
+        "survival": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "fire",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 5",
+          "water 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "SNb64KWDBMrTorTI",
+          "name": "Jaws",
+          "bonus": 10,
+          "damage": "1d8+4 fire; 1d4 fire",
+          "traits": [
+            "finesse",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "wqhHoIIgE3jfAgCx",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "The cinder rat ignores the Concealed condition from smoke."
+        },
+        {
+          "id": "vhcrEIRKkfTwrwDs",
+          "name": "Fetid Fumes",
+          "kind": "passive",
+          "description": "5 feet.\nA creature that enters the aura or begins its turn there must succeed at a check (fortitude, dc:22) save or become Sickened 1.\nEverything within the aura, including the cinder rat, is Concealed by smoke."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:kholo-bonekeeper",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "yogotW0edcHEPeuR",
+      "slug": "kholo-bonekeeper",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:a4323c40d005243df03e5c547e9cb90ea0270e2126d92a08938aae292b5bac56",
+    "translatableHash": "sha256:48d325becbc34905c035a00741273748a84dc434c75bcbbd5d16adfceccbac16",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kholo Bonekeeper",
+      "level": 3,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "humanoid",
+        "kholo"
+      ],
+      "description": "Some kholos serve as conduits to the divine and are responsible for placating spirits and gods alike. Lamashtu is a favored deity of kholo bonekeepers, as many kholos believe their kind were birthed from the Mother of Monsters. While some kholos embrace the Old Mother completely, others see her as a nightmarish power only to be approached if they're willing to pay the price. Other popular kholo deities include Calistria, Nethys, Mahathallah, or Shelyn.\nKholo are tall, hyena-headed humanoids who dwell in savannas, warm grasslands, and arid hills. Given their appearance, their affinity for hyenas should not be surprising; kholos share their homes, food, and even many of their behaviors with these animals. Much like hyenas, kholos have a notorious reputation, for much the same reason—their uncanny laughter, frightening intelligence, and efficient pack tactics make them intimidating competition or foes. Kholos are keen to lean into these rumors, using them as a form of psychological warfare against their enemies.\nAlso like hyenas, kholos prefer to hunt in packs, and are exceptionally skilled at setting up ambushes or separating individual targets from larger groups. As kholo packs value all their members highly, any tactic that gives them an advantage in dangerous situations is seen as virtuous, while chivalry and honor are derided as pointlessly risky. It's a philosophy borne from a deep respect and love for their kholo brethren, but to most other people, it makes kholos terrible neighbors.\nKholos willingly eat nearly any other creature, including dead kholos, which can evoke strong reactions from people and cultures with a taboo against cannibalism or desecrating the dead. To a kholo, it's often more offensive to not eat a dead body, no matter its origin; kholos see no point in wasting precious meat in a harsh and challenging world. Worse still is the refusal to eat the flesh of a dead kholo, which they consider an insult to that kholo's memory and an implication that their flesh is unworthy of consumption. Eating the flesh of honored enemies is, for kholos, a respectful ritual, allowing that being to live on within the pack instead of rotting like trash on the ground.\nKholo women are often larger and stronger than kholo men and are typically considered the leaders of their hunting packs and clans.",
+      "armorClass": 19,
+      "hitPoints": 45,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 6,
+        "will": 10
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 2,
+        "con": 0,
+        "int": 0,
+        "wis": 3,
+        "cha": 0
+      },
+      "skills": {
+        "intimidation": 7,
+        "medicine": 7,
+        "religion": 10,
+        "stealth": 7,
+        "survival": 8
+      },
+      "languages": [
+        "chthonian",
+        "common",
+        "kholo"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "kN3GBlB8fFVIQvRu",
+          "name": "Falchion",
+          "bonus": 10,
+          "damage": "1d10+3 slashing",
+          "traits": [
+            "forceful",
+            "sweep"
+          ]
+        },
+        {
+          "id": "f024HTNWMSNizvqn",
+          "name": "Jaws",
+          "bonus": 10,
+          "damage": "1d6+3 piercing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "jfJXOP78x7xyHplx",
+          "name": "Pack Attack",
+          "kind": "passive",
+          "description": "A kholo bonekeeper deals 1d4 extra damage to any creature that's within reach of at least two of the kholo bonekeeper's allies."
+        },
+        {
+          "id": "1TgSjt8UKPwTjAH9",
+          "name": "Rugged Travel",
+          "kind": "passive",
+          "description": "A kholo ignores the first square of difficult terrain they move into each time they Step or Stride."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "mFf9kwHNM5V0Un7y",
+          "name": "Divine Prepared Spells",
+          "tradition": "divine",
+          "category": "prepared",
+          "attackModifier": 10,
+          "saveDc": 22,
+          "spells": [
+            {
+              "id": "wURMWB5nL7eNGncw",
+              "name": "Command",
+              "rank": 1
+            },
+            {
+              "id": "ewtfUi7ODodBLda2",
+              "name": "Daze",
+              "rank": 1
+            },
+            {
+              "id": "eEUuX9rY6z75X42h",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "5WiWsla9Jc9Yu9oL",
+              "name": "Fear",
+              "rank": 1
+            },
+            {
+              "id": "i7UprdgPKoWKKaxd",
+              "name": "Harm",
+              "rank": 1
+            },
+            {
+              "id": "g0sE7AHKyMt9n4uI",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "3Jh4BtNsJhATVt6z",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "ZDS2S4w5AFcVbBNg",
+              "name": "Runic Weapon",
+              "rank": 1
+            },
+            {
+              "id": "81X4rN0AWLmFqSgt",
+              "name": "Sigil",
+              "rank": 1
+            },
+            {
+              "id": "BwNKlmCNCNTUSeUY",
+              "name": "Darkness",
+              "rank": 2
+            },
+            {
+              "id": "0cOTd3qm2mrWOkjE",
+              "name": "Spiritual Armament",
+              "rank": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:arboreal-warden",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "0rm0UDbXvwg4sSxQ",
+      "slug": "arboreal-warden",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:4ec38e8f6b778aac10e1854a9e6e011dda319239c887a2e71186c42ce22a634b",
+    "translatableHash": "sha256:88342eae54450d384eb55be8d81c3703ae3b4e0044de4a4a7792bef7e29a9e63",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Arboreal Warden",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "plant",
+        "wood"
+      ],
+      "description": "Arboreal wardens are the rangers of arboreal society. These itinerant folk have an innate curiosity about the woodlands in which they dwell, and rarely stop to take root and rest in the same part of the forest twice. This wanderlust makes wardens ideal forest patrollers and scouts. While they are robust combatants, they know better than to confront dangerous foes on their own. Instead, they report any dangers to arboreal regents. In rare cases, large groups of arboreal wardens congregate to form a copse. Copses travel beyond the boundaries of a forest to investigate the hinterlands and gather intelligence on potential threats before returning to report their findings. Arboreal wardens do not pretend to understand to other creatures' motives—like most forces of the natural world, they are ambivalent about mortal affairs that do not involve their forest.\nArboreals are guardians of the forest and representatives of the trees. As long-lived as the woods they watch over, arboreals consider themselves parents and shepherds of trees rather than their gardeners. Consequently, while arboreals tend to be slow and methodical, they are terrifyingly swift when forced to fight in defense of the woods. Though they rarely seek out the companionship of short-lived folk—even elves are fugacious in the eyes of arboreals—and have an inherent distrust of change, arboreals have been known to tolerate those who seek to learn from their long-winded, rambling monologues, especially if such pupils also express a desire to protect the timberlands. Against those who threaten their realm, such as loggers eager to harvest lumber or settlers aiming to establish croplands or a town, arboreals' wrath is unwavering and devastating. Perhaps ironically, arboreals are gifted at tearing down what others build—a trait that serves vengeful members of their kind well.",
+      "armorClass": 20,
+      "hitPoints": 75,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 9,
+        "will": 11
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 1,
+        "con": 3,
+        "int": 1,
+        "wis": 3,
+        "cha": 1
+      },
+      "skills": {
+        "athletics": 13,
+        "stealth": 9
+      },
+      "languages": [
+        "arboreal",
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "bludgeoning 5",
+          "piercing 5"
+        ],
+        "weaknesses": [
+          "axe-vulnerability 5",
+          "fire 10"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "svh3YWWgNYDh2wu5",
+          "name": "Stone Longsword",
+          "bonus": 13,
+          "damage": "1d8+10 bludgeoning",
+          "traits": [
+            "reach-10"
+          ]
+        },
+        {
+          "id": "dD0COaIGpOldIcFD",
+          "name": "Shield Bash",
+          "bonus": 13,
+          "damage": "1d6+10 bludgeoning",
+          "traits": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "GNJcken8ybxAehEY",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "cZc6wNhJDpipF2uK",
+          "name": "Shield Block",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "ZWzIyAxYv8ApHu3K",
+          "name": "Shield Push",
+          "kind": "action",
+          "description": "The arboreal warden Strides and then makes a shield bash Strike. If the attack hits, the target is pushed 10 feet."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:scarecrow",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "2p7MEk4SdXfLbzxO",
+      "slug": "scarecrow",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:9a83a49fe220b503c2f73308e57881b5fb4b8e2e88acf96baf08b89238f81953",
+    "translatableHash": "sha256:70f051bfe6af8418305a57121deecf8bd44936ac8230db4f7574aea965bbf3b9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scarecrow",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "construct"
+      ],
+      "description": "A ramshackle collection of materials in a human shape, the scarecrow construct is indistinguishable from a normal scarecrow until it slowly creaks to life. As it animates, its carved pumpkin or sackcloth face bursts into eldritch flame, sending fear creeping into the air around it. Each scarecrow is handcrafted and unique in its appearance, though most are 5 to 6 feet tall and constructed of a combination of wood, cloth, rope, straw, sawdust, discarded husks and cobs, and similar materials, all dressed in ragged pastoral garments. This rudimentary construction makes a scarecrow somewhat fragile, prone to snapping limbs in the crush of battle. Yet its structure is adaptable, allowing it to reshape another piece of itself into a clawed limb or grip a severed portion of itself to swat at its foes.\nWhen a scarecrow is created, it must be anointed with a drop of its creator's blood into each of its eyes. This blood soaks into the material and siphons a tiny sliver of the creator's soul away—not enough to harm the creator, but more than enough to imbue the scarecrow with an instinctive intellect that allows it to follow commands as eagerly as a well-trained (if ill-tempered) guard dog. When a scarecrow is destroyed, the blood leaks back out from its eyes, but the portion of the creator's soul never returns.",
+      "armorClass": 19,
+      "hitPoints": 60,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 8,
+        "will": 11
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 2,
+        "con": 3,
+        "int": -4,
+        "wis": 3,
+        "cha": -2
+      },
+      "skills": {
+        "athletics": 12
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "fear-effects"
+        ],
+        "resistances": [
+          "physical 5 except slashing"
+        ],
+        "weaknesses": [
+          "fire 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "cS4RQnXm1y1xugCt",
+          "name": "Claw",
+          "bonus": 13,
+          "damage": "2d6+7 bludgeoning",
+          "traits": [
+            "unarmed",
+            "versatile-s"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "TAIcUgt3JKg5c7fV",
+          "name": "Scarecrow's Leer",
+          "kind": "passive",
+          "description": "40 feet.\nThe scarecrow's eyes flicker with an unnerving glow. A creature can't reduce its Frightened condition below 1 as long as it is in the aura's emanation. When a creature enters or starts its turn in the aura, it must attempt a check (will, dc:18) save. Birds and other avian creatures take a -2 circumstance penalty to this save.\nCritical Success The creature is unaffected and is then temporarily immune for 24 hours.\nSuccess The creature is Frightened 1.\nFailure The creature is Frightened 2 and is Fascinated by the scarecrow until the end of its next turn.\nCritical Failure As failure, but Frightened 3."
+        },
+        {
+          "id": "1V1IFVEwiJA8p72B",
+          "name": "Baleful Glow",
+          "kind": "passive",
+          "description": "The scarecrow's head bursts into ghostly, heatless flame that sheds bright light in a @Template[emanation|distance:20] (and dim light to the next 20 feet). If the scarecrow uses this ability on the first round of combat, any creature that has not acted yet is startled and becomes Off-Guard against the scarecrow for 1 round. It can suppress the light by using this action again."
+        },
+        {
+          "id": "oYtncLyCKuBAQThk",
+          "name": "Clawing Fear",
+          "kind": "passive",
+          "description": "The scarecrow's strikes deal an additional 1d6 mental damage to Frightened creatures."
+        },
+        {
+          "id": "NTWIBx9lvUwV7F1W",
+          "name": "Mundane Appearance",
+          "kind": "action",
+          "description": "Until it acts, the scarecrow resembles an ordinary scarecrow. It has an automatic result of 32 on Deception checks and DCs to pass as an ordinary scarecrow."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:duskwalker-ghost-hunter",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "3t1z62LREP4nnIDr",
+      "slug": "duskwalker-ghost-hunter",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:bb49db63e48ff35429ea21fa7aff158ca155ec8b4cdee2360717264899d39b12",
+    "translatableHash": "sha256:db1a6de64bcc8ae70a6f9c9bd17b31188986df817eb3b1af855328913de59c4a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Duskwalker Ghost Hunter",
+      "level": 4,
+      "rarity": "uncommon",
+      "size": "medium",
+      "traits": [
+        "duskwalker",
+        "human",
+        "humanoid"
+      ],
+      "description": "Duskwalkers are infused with the same energies as psychopomps. These ashen scions are reborn in the mortal Universe to guard the cycle of life and death.\nMany immortals dwell upon the other planes of the Great Beyond. Some are benevolent and kind, like angels. Others are cruel and destructive, like demons. And some fit roles outside of morality, like psychopomps. It's far from unheard of for mortals and immortals alike to become entangled romantically, and the children of such engagements carry a supernatural element in their bloodlines for generations to follow. After the first generation, this otherworldly influence usually lies dormant, but now and then, the influence can manifest strongly in descendants many years later. These inheritors of extraplanar legacies are known collectively as planar scions.",
+      "armorClass": 21,
+      "hitPoints": 56,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 12,
+        "will": 10
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 1,
+        "int": 0,
+        "wis": 2,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 10,
+        "athletics": 8,
+        "deception": 6,
+        "intimidation": 6,
+        "nature": 8,
+        "stealth": 12,
+        "survival": 8
+      },
+      "languages": [
+        "common",
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "void 2"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "ZTtP9ifJTYHBXH8d",
+          "name": "Hatchet",
+          "bonus": 12,
+          "damage": "1d6+5 slashing",
+          "traits": [
+            "agile",
+            "sweep"
+          ]
+        },
+        {
+          "id": "6wXxUMuYVHcPeCm1",
+          "name": "Hatchet",
+          "bonus": 14,
+          "damage": "1d6+5 slashing",
+          "traits": [
+            "agile",
+            "sweep",
+            "thrown-10"
+          ]
+        },
+        {
+          "id": "5Qq44Y2MrPleByoB",
+          "name": "Composite Longbow",
+          "bonus": 14,
+          "damage": "1d8+4 piercing",
+          "traits": [
+            "deadly-d10",
+            "propulsive",
+            "reload-0",
+            "volley-30"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "rh2quedjlo5wYnpP",
+          "name": "+1 Status to All Saves vs. Death Effects",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "O0oXYDBnyXZnXshG",
+          "name": "Ghost Dodge",
+          "kind": "reaction",
+          "description": "Trigger The duskwalker is targeted by a Strike or spell\nEffect The duskwalker gains a +2 circumstance bonus to AC, resistance 5 to spirit damage, and increases their resistance to void damage to 5, all against the triggering attack."
+        },
+        {
+          "id": "NUQlBj6YHAwX4fEr",
+          "name": "Ghost Hunter",
+          "kind": "passive",
+          "description": "The duskwalker's weapons have the benefits of the Ghost Touch property rune on attacks against incorporeal undead."
+        },
+        {
+          "id": "5TVlHOsmwK2Om8pu",
+          "name": "Spirit Hunter",
+          "kind": "action",
+          "description": "The duskwalker designates a single creature they can observe as their prey.\nThe duskwalker gains a +2 circumstance bonus to Deception checks, Intimidation checks, and Stealth checks against their prey and to any check to Recall Knowledge about it, and deal an additional 2[spirit] damage with all weapon Strikes against their prey.\nThese effects last until the duskwalker uses Spirit Hunter again."
+        },
+        {
+          "id": "BVtWjIcXEObj4Rr9",
+          "name": "Spirit Shot",
+          "kind": "action",
+          "description": "Frequency once per round\nRequirements The duskwalker has designated a creature as their prey using Spirit Hunter\nEffect The duskwalker makes two ranged Strikes against their prey. If both Strikes hit, combine their damage for the purpose of resistances and weaknesses."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:hadrosaurid",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "3zqVFz4FfRYv5Sgy",
+      "slug": "hadrosaurid",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:eb27eee4fcf0e2653686533fc07e7145d48c2cf1ba2de9b9c664e73b7d578072",
+    "translatableHash": "sha256:4d92fe90113647736b6b76f9d1a16a17c8ea3c7555ce6b9fcf558a1457eafc14",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hadrosaurid",
+      "level": 4,
+      "rarity": "common",
+      "size": "huge",
+      "traits": [
+        "animal",
+        "dinosaur"
+      ],
+      "description": "Hadrosaurids are a broad grouping of herbivorous dinosaurs that share characteristic flat snouts filled with rows of grinding teeth well suited for feeding on vegetation. Also known as \"duck-billed dinosaurs\" due to the unusual shape of their jaws, hadrosaurids are lumbering creatures that can rival an elephant in size, although they tend to be much less aggressive and are prone to flight when confronted with danger. Many species of hadrosaurids have uniquely shaped crests on their heads, making them easily recognizable even to amateur dinosaur watchers.\nGiants and other oversized creatures have been known to domesticate hadrosaurids to serve as livestock. Despite their ability to sprint quickly, they don't make particularly viable mounts due to their timid natures, but a panicked herd of hadrosaurids can wreak great damage.\nRemnants from the world's primeval era, these enormous reptilian animals still exist in large numbers in remote wildernesses or underground in magical Darklands caverns. Lizardfolk, orcs, giants, and other humanoids who live near dinosaurs use the animals as mounts, guards, or hunting beasts. Occasionally, rich nobles will collect dinosaurs to display them in menageries, which almost inevitably leads to cast-offs being nursed back to health by druids and other champions of nature. When dinosaurs establish themselves in regions outside their normal habitats, it's often the result of a large collection being released.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 13,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 10,
+        "will": 11
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 2,
+        "con": 3,
+        "int": -4,
+        "wis": 1,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 12,
+        "stealth": 10
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "kKubgrbJBPv5ke6D",
+          "name": "Tail",
+          "bonus": 14,
+          "damage": "2d6+8 bludgeoning",
+          "traits": [
+            "reach-15"
+          ]
+        },
+        {
+          "id": "K1woMBH8Ut9J50As",
+          "name": "Foot",
+          "bonus": 12,
+          "damage": "2d4+8 bludgeoning",
+          "traits": [
+            "reach-15",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qfIg2ulL65DhV6X2",
+          "name": "Sprint",
+          "kind": "action",
+          "description": "Frequency once per minute\nEffect The hadrosaurid Strides twice. It has a +20-foot circumstance bonus to its Speed during these Strides."
+        },
+        {
+          "id": "rASGf5YkW2lQXMFQ",
+          "name": "Trample",
+          "kind": "action",
+          "description": "Large or smaller, foot, check (reflex, dc:21, basic)"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:gigantopithecus",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "4GXL5FLmN7IxPzVC",
+      "slug": "gigantopithecus",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:1569c6c6937871a9818ea391197ade7da278e6f9efdf00aaa542735e5f92b67c",
+    "translatableHash": "sha256:0c9a29e4fe3ef5ad0b4755e763100d603fa43ffdf34b6b424120da3e718dd1b7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gigantopithecus",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "These fierce kin of orangutans are three times heavier than a gorilla.\nWhile many apes exhibit peaceful or reclusive behavior, gorillas can be territorial, and the megaprimatus is especially aggressive and dangerous.",
+      "armorClass": 20,
+      "hitPoints": 60,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 11,
+        "will": 8
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 3,
+        "int": -4,
+        "wis": 1,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 13,
+        "stealth": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "T50Unm8nAUbNCLxu",
+          "name": "Fist",
+          "bonus": 13,
+          "damage": "2d6+6 bludgeoning",
+          "traits": [
+            "agile",
+            "reach-10",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "D4XA5YtJ0G4E1and",
+          "name": "Jaws",
+          "bonus": 13,
+          "damage": "1d8+6 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "7PQkG1Vfc7aynb2X",
+          "name": "Frightening Display",
+          "kind": "action",
+          "description": "The gorilla beats its chest in a terrifying display. Creatures within @Template[emanation|distance:30]{30 feet} must attempt a check (will, dc:22, options:area-effect,inflicts:frightened,inflicts:off-guard) save.\nWhile a creature is frightened by this ability, it is Off-Guard to the gigantopithecus.\nCritical Success No effect and temporarily immune for 1 minute.\nSuccess The creature is unaffected.\nFailure The creature is Frightened 1.\nCritical Failure The creature is Frightened 2."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:scorpion-swarm",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "5SFDHViyTCZ47TR5",
+      "slug": "scorpion-swarm",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:586ccdcdfa2c36fd1542429769e06a773744de7bf0169b33c6f4426641e2817d",
+    "translatableHash": "sha256:54f940be53d8c80a7e9f6c665d882cc99b7dd4bc28b4fa79488546c4d0c468bf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scorpion Swarm",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal",
+        "swarm"
+      ],
+      "description": "These massive, terrifying arachnids are typically 8 feet long from head to the base of the tail. Giant scorpions are the favored pack animals and war beasts of various desert-dwelling creatures, particularly kholos. They are most commonly encountered in the wild, however. There they lair in mountainside caves or burrow beneath shallow layers of sand where they lie in wait for prey to wander near.\nChitinous scourges of deserts, forests, savannas, and badlands, scorpions are deadly arachnids with powerful pincers and a painful sting. Scorpions can be found in nearly every climate, where they hunt their prey with a mixture of patient stealth and raw strength. Most scorpions live in underground burrows, either as lone hunters or part of a larger colony. These arachnids are so feared and dangerous that in many cultures, they are treated as deities or dualistic symbols of both death and protection from said death.",
+      "armorClass": 21,
+      "hitPoints": 55,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 13,
+        "will": 8
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 5,
+        "con": 2,
+        "int": -5,
+        "wis": 0,
+        "cha": -4
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 6,
+        "stealth": 11
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "precision",
+          "swarm-mind"
+        ],
+        "resistances": [
+          "bludgeoning 3",
+          "piercing 7",
+          "slashing 7"
+        ],
+        "weaknesses": [
+          "area-damage 5",
+          "splash-damage 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "APm9xzjMvRMHIYon",
+          "name": "Scorpion Venom",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:18)\nMaximum Duration 6 rounds\nStage 1 1d6[poison] damage (1 round)\nStage 2 1d6[poison] damage and Enfeebled 1 (1 round)"
+        },
+        {
+          "id": "tZ39PkV2oWLySkOs",
+          "name": "Swarming Stings",
+          "kind": "action",
+          "description": "Each enemy in the swarm's space takes 2d8[piercing] damage (check (reflex, dc:21, basic) save) and is exposed to scorpion venom."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:barghest",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "8CYHgj4SV2LvlaUs",
+      "slug": "barghest",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:2fd23a84b15c4715cdcb958b8621d90f9a3f2c140764b21d77f19f402f05e7a9",
+    "translatableHash": "sha256:babbfcd5339d849347f97374a0af0352ab4a5e11e2202348a035a33e92f1b79c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Barghest",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "beast",
+        "unholy"
+      ],
+      "description": "Barghests are canine beasts that take great joy in the hunt, often lurking near humanoid settlements to find prey that can provide a suitable challenge. Even in the deepest wilderness, barghests choose the most clever or difficult prey, searching endlessly for challenges like giants, nymphs, and unicorns.\nMore than victory or even the possibility of a meal at the end, barghests enjoy the thrill of the chase and the fear they create within their prey. Particularly terrified targets of a hunting barghest might even be allowed to escape, spreading the terror and enticing hunters who can become the barghest's next victims. A handful of barghests resort to learning magical methods of causing fear directly, though they find such fear hollow and unsatisfying.\nAlthough they rarely tolerate the competition of another barghest's presence, these hunters will happily work with anyone who helps them find prey to torment and kill. This often involves enforcing the will of hags or particularly cruel fey, but a bored barghest might also force a family of weaker humanoids to work as scouts and bait.\nTypical barghests often make use of their shapechanging abilities to hide in plain sight, only taking their true forms to frighten their prey and exult in the hunt. However, they are often still exposed by their trail of victims or the curiously unhealing wounds they inflict, even in humanoid form. Tales of powerful barghests with invisible heads are sometimes told in remote and dwindling villages. These barghests generally dispense with hiding as a humanoid or dog, instead terrifying entire communities and openly hunting increasingly dangerous prey. Some also extend this pride to their intellect, insisting on matching wits with their prey or even with those who believe they're hunting the barghest.",
+      "armorClass": 20,
+      "hitPoints": 50,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 12,
+        "will": 8
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 2,
+        "con": 3,
+        "int": 2,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "athletics": 13,
+        "deception": 11,
+        "diplomacy": 9,
+        "intimidation": 11,
+        "stealth": 10,
+        "survival": 12
+      },
+      "languages": [
+        "common",
+        "goblin",
+        "fey",
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "physical 5 except cold-iron"
+        ],
+        "weaknesses": [
+          "holy 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "hr88vSwb8UXcgsA0",
+          "name": "Claw",
+          "bonus": 13,
+          "damage": "2d6+5 slashing",
+          "traits": [
+            "agile",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "1GXb9MJwA1hE2Ey6",
+          "name": "Primal Hunt",
+          "kind": "reaction",
+          "description": "Trigger A creature within the barghest's reach takes a move or teleportation action\nEffect After the triggering action, the barghest can teleport up to 60 feet to a space adjacent to that creature."
+        },
+        {
+          "id": "shEp3scXXBxti42q",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The barghest takes on the shape of a humanoid, a dog, or its true form. Their size changes to match the new form. When the barghest is a humanoid, their claw Strike deals bludgeoning damage and they lose their jaws Strike. When the barghest is a dog, their Speed changes to 35 feet. Each individual barghest has only one humanoid form and one dog form."
+        },
+        {
+          "id": "wvm4r5nQM5hhQ41O",
+          "name": "Unhealing Wound",
+          "kind": "passive",
+          "description": "A creature damaged by the barghest's claws must succeed at a check (fortitude, dc:21) save or be cursed. The cursed creature can't regain Hit Points except via magic until it returns to maximum Hit Points. The creature can attempt a new saving throw against the curse every 24 hours."
+        },
+        {
+          "id": "pDhfqZxCN1JT8gHg",
+          "name": "Knockdown",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "BuvtHVq16FzLQ1Fi",
+          "name": "Divine Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "Dxo5W3xYNU0CgLL8",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "ctdscR5XV7TsOg4l",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "KyXEYBiDEftHrEbb",
+              "name": "Invisibility",
+              "rank": 2
+            },
+            {
+              "id": "Hic08UjwgOBPLeh8",
+              "name": "Mist",
+              "rank": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:phantom-knight",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "9VMoTqyVaKc4ZR4H",
+      "slug": "phantom-knight",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:c0c51afd79e2e20453d884fa4bfb8d9086f2270293f033033ecbd148abd47565",
+    "translatableHash": "sha256:059e657fe74cf1f9993ec4740b92d5b67da0d123e55d156d31c3761bac3abcbb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phantom Knight",
+      "level": 4,
+      "rarity": "uncommon",
+      "size": "medium",
+      "traits": [
+        "ethereal",
+        "incorporeal",
+        "phantom",
+        "spirit"
+      ],
+      "description": "Cavaliers and knights who died for their cause make for particularly strongwilled phantoms. Though their motives vary, these phantoms often seek to continue their lifelong missions even in their purgatorial states, and their strong forces of will make them formidable fighters in spite of their incorporeality. A phantom knight might strive to find living followers of their church or order, or seek out other mortals they knew in life as a way of staying grounded and avoiding the corruption of undeath.\nThe typical trajectory for souls passing to the afterlife is fairly straightforward, according to most theologians. When a mortal dies, their soul enters the River of Souls and eventually reaches the Boneyard, where it is judged by Pharasma. The judged soul moves onto its appropriate domain of final rest—Heaven, Hell, Abaddon, and so forth—where it becomes a shade.\nComplications arise, however, when a soul in queue for judgment prematurely departs from the River of Souls and is shunted into the Ethereal Plane. Whether as a result of nefarious interlopers like daemons or hags, malignant planar magic, or even fate, these souls become dislodged from the natural order of life and death and linger in a sort of purgatory. Unlike petitioners, these ethereal phantoms retain memories of their life before death, and unlike spirits such as ghosts, phantoms aren't tinged with the foul influences of undeath—at least, not at first, though the threat of corruption hangs heavy over a phantom's existence. Some eventually succumb to that fate, while others eventually rejoin the River of Souls. Until then, these wandering souls are a kind unto themselves—one without a true home, agenda, or purpose.\nMany phantoms have no desire to remain in their strange state of purgatory, either because they seek to continue their journey through the River of Souls or because they fear the corruption of undeath. In order to complete the natural spiritual cycle and become judged so they can continue to the afterlife, a phantom must find a way back into the River of Souls. Such a quest is no easy feat, however—the hazy mists of the Ethereal Plane can befuddle even the most experienced traveler, and numerous predators prowl the realm in search of stray souls to bind or devour.",
+      "armorClass": 21,
+      "hitPoints": 45,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 13,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 12,
+        "will": 13
+      },
+      "abilities": {
+        "str": -5,
+        "dex": 4,
+        "con": 0,
+        "int": 0,
+        "wis": 5,
+        "cha": 4
+      },
+      "skills": {
+        "intimidation": 12
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [
+          "disease",
+          "paralyzed",
+          "poison",
+          "precision",
+          "bleed"
+        ],
+        "resistances": [
+          "all-damage 3 except force, ghost-touch, spirit"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "Jzdce7Z64aM5gu70",
+          "name": "Phantom Sword",
+          "bonus": 14,
+          "damage": "1d8+7 slashing",
+          "traits": [
+            "finesse",
+            "magical",
+            "versatile-p"
+          ]
+        },
+        {
+          "id": "XuhLACe64duPSQuG",
+          "name": "Phantom Bow",
+          "bonus": 14,
+          "damage": "1d8+5 piercing",
+          "traits": [
+            "deadly-d10",
+            "magical",
+            "volley-30"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "1oCth6jpnhdrJCOk",
+          "name": "Walk the Ethereal Line",
+          "kind": "action",
+          "description": "The phantom walks the thin line between the Ethereal Plane and the Universe in order to exist on both planes simultaneously.\nThey can shift back to solely the Ethereal Plane by using this ability again."
+        },
+        {
+          "id": "j68N9UkahC1d6lhq",
+          "name": "-1 Status to All Saves vs. Death Effects",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "AwRCPMRzo9dIymmM",
+          "name": "Susceptible to Death",
+          "kind": "passive",
+          "description": "Though phantoms aren't alive, neither are they undead, and they are uniquely vulnerable to the effects of death.\nA phantom whose Hit Points are reduced to 0 as a result of a death effect (such as from a spell like Execute) is immediately whisked away to the River of Souls, where their soul resumes the usual path to the afterlife."
+        },
+        {
+          "id": "XvOTWzFd6aOalVNt",
+          "name": "Phantom Touch",
+          "kind": "passive",
+          "description": "Each time they make a Strike, a phantom can choose to deal spirit damage instead of the normal physical damage type."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:caligni-hunter",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "AcUb8s5fiktYw8Fx",
+      "slug": "caligni-hunter",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:52094e8c682b0b6674f89e60bfbe42ba074e527517b49bedc5e9c246451c64c9",
+    "translatableHash": "sha256:63a0814b34d733af527a4a59c6daf2b1089e2485a7b4830872d54864389a39aa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Caligni Hunter",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "caligni",
+        "humanoid"
+      ],
+      "description": "Although caligni hunters are often pressed into leading their skulker kin, most hunters prefer to wander the Darklands or raid the surface free from those responsibilities. Their preferred assaults are usually done by solo caligni hunters or in small groups of two or three.\nCalignis lurk in subterranean cities, with each caligni growing into a specific role and form determined by supernatural influences in caligni society. Regardless of their size or role, all calignis are gaunt, with pale flesh and white eyes. Many relish the chance to creep above ground at night to steal resources, shadow their surface counterparts, or simply make mischief.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "greater-darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 13,
+        "will": 8
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 5,
+        "con": 2,
+        "int": -1,
+        "wis": 2,
+        "cha": 1
+      },
+      "skills": {
+        "acrobatics": 13,
+        "athletics": 8,
+        "stealth": 13,
+        "survival": 12,
+        "thievery": 11
+      },
+      "languages": [
+        "caligni",
+        "sakvroth"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "ovaI2nqsEYxoo4Ys",
+          "name": "Shortsword",
+          "bonus": 13,
+          "damage": "1d6+7 piercing",
+          "traits": [
+            "agile",
+            "finesse",
+            "versatile-s"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "7SNUgV6SLqC5TzXJ",
+          "name": "Greater Darkvision",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "jh2wtTVUkKkGBqPv",
+          "name": "At-Will Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "KFObwL3fuLfRhdtm",
+          "name": "Final Fate",
+          "kind": "passive",
+          "description": "When the hunter dies, their soul leaves their body in an explosion of spiritual energy. All creatures in a @Template[burst|distance:20] take 5d6[spirit|options:area-damage] damage (check (will, dc:19, basic, options:area-effect) save).\nThe hunter's possessions are left in a pile where they died."
+        },
+        {
+          "id": "BmQOyLxye6DAZpWI",
+          "name": "Light Blindness",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "TBlcp9L0tEkA3jyF",
+          "name": "Double Slice",
+          "kind": "action",
+          "description": "The caligni hunter makes two Strikes against the same target, one with each of their shortswords. The hunter combines the damage of any attacks that hit and applies precision damage, resistances, and weaknesses only once. Both attacks count toward the hunter's multiple attack penalty, but the penalty increases only after both attacks."
+        },
+        {
+          "id": "Wa8dbVwSNL2tEHKt",
+          "name": "Encircling Command",
+          "kind": "action",
+          "description": "Each caligni skulker within @Template[emanation|distance:30]{30 feet} of the skulker can Step. Each creeper can benefit from Encircling Command only once per round."
+        },
+        {
+          "id": "MjvAem9y7U9Z9AnV",
+          "name": "Sneak Attack",
+          "kind": "passive",
+          "description": "The caligni hunter deals 1d6 extra precision damage to Off-Guard creatures."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "mKaR7LWvVhRIbJCG",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 11,
+          "saveDc": 19,
+          "spells": [
+            {
+              "id": "rnD8F4HJ4TQ04Mdq",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "uqDhwoaUPCRyB1if",
+              "name": "Darkness (At Will)",
+              "rank": 2
+            },
+            {
+              "id": "NkLmdBOrc5rSHLBi",
+              "name": "See the Unseen (At Will)",
+              "rank": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:satyr",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "aj4ZJUULa7VoPYWy",
+      "slug": "satyr",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:9906a7e309388d38abd02354d1b607a7743ecbb5f4fdf6276c67b395e2ef00c7",
+    "translatableHash": "sha256:a8e0049129a7a7296f529bead86c28dce6300cdbffb5fe59d66149ead871fe10",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Satyr",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "fey"
+      ],
+      "description": "To a satyr, life is a party and everyone is invited. Notorious for their hedonism, these fey believe there's no greater beauty than can be found in song, drink, indulgent meals, and carnal pleasures. Satyrs use their enchanting songs and natural charm to encourage all manner of people to follow their true desires and free themselves from society's rules. This usually involves enticing mortals to join raucous parties or engage in trysts in moonlit glades. If a potential companion rejects a satyr's advances, however, the satyr has little interest in continuing a conversation and goes off to find more amenable revelers.\nThe lifestyle of a satyr leaves no room for ongoing affairs or long-term friends. Once his party is over or his lust is satiated, the satyr disappears back into the forest. The offspring satyrs leave behind are satyrs themselves, and they usually end up being taken from their cradles by other fey rather than left in mortals' care. Satyrs are always male.\nThe untouched beauty of the forest is sacred and precious to a satyr. Brutish intruders who clear-cut trees or massacre animals without eating them risk drawing a satyr's ire. A satyr so provoked uses his spells to undermine foes and attempts to dispatch them either with brutal ambushes or by leading a rush of forest animals to attack.\nOther fey, particularly more benevolent fey, look upon satyrs as loutish, embarrassing cousins. They're rarely hostile toward satyrs, but most find them insufferable and advise any mortals they like to steer clear of satyrs' glades.",
+      "armorClass": 19,
+      "hitPoints": 80,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 11,
+        "will": 12
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 1,
+        "int": 1,
+        "wis": 2,
+        "cha": 5
+      },
+      "skills": {
+        "athletics": 8,
+        "deception": 13,
+        "diplomacy": 13,
+        "intimidation": 11,
+        "nature": 9,
+        "performance": 13,
+        "stealth": 11,
+        "survival": 8
+      },
+      "languages": [
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "jInvivt7qyjg6Q4R",
+          "name": "Dagger",
+          "bonus": 14,
+          "damage": "1d4+6 piercing",
+          "traits": [
+            "agile",
+            "finesse",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "UDSpeDfwP5gNIdMY",
+          "name": "Dagger",
+          "bonus": 14,
+          "damage": "1d4+6 piercing",
+          "traits": [
+            "agile",
+            "thrown-10",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "hT4tTJSS8Sm6qFZz",
+          "name": "Shortbow",
+          "bonus": 14,
+          "damage": "1d6+3 piercing",
+          "traits": [
+            "deadly-d10",
+            "reload-0"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "h4qPfDnAjrfUEFX6",
+          "name": "Sylvan Wine",
+          "kind": "passive",
+          "description": "A satyr's wineskin magically enchants any alcohol inside. With an Interact action, a living creature can imbibe the alcohol and gain a +1 item bonus to Will saves and a +3 item bonus to Will saves against fear effects for the following hour. When the wineskin is removed from a satyr's person, the magic remains only until the wine spoils. The wineskin holds up to eight drafts of wine.\nEffect: Sylvan Wine"
+        },
+        {
+          "id": "hbBhekpAkC55ljY1",
+          "name": "Fleet Performer",
+          "kind": "passive",
+          "description": "When the satyr Plays the Pipes to cast a spell, he can Step or Stride as part of the activity."
+        },
+        {
+          "id": "vius8NahqzVZYRSE",
+          "name": "Play the Pipes",
+          "kind": "action",
+          "description": "Requirements The satyr is holding a musical instrument.\nEffect The satyr plays a melody on his instrument to cast Charm, Fear, Sleep, or Suggestion without expending the spell slot.\nThe spell gains the auditory trait and targets all creatures in a @Template[emanation|distance:60] instead of its usual targets. A creature that succeeds at its Will save against any spell is then temporarily immune from spells played from that satyr's pipes for 1 minute. Satyrs are immune to this music."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "GA9tSWJmy7KFgUjB",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "Axc28NH61gYWs3xU",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "Pwact5COnsrYuVY6",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "u9QRCf3Z1wvolsmg",
+              "name": "Courageous Anthem",
+              "rank": 2
+            },
+            {
+              "id": "AqcJ3xPezc5pGNnJ",
+              "name": "Triple Time",
+              "rank": 2
+            },
+            {
+              "id": "IjTVlnlas8qKomms",
+              "name": "Uplifting Overture",
+              "rank": 2
+            },
+            {
+              "id": "zxRV3UCdogW17Ayj",
+              "name": "Charm",
+              "rank": 4
+            },
+            {
+              "id": "3zqJBP97qUEsI3WJ",
+              "name": "Fear",
+              "rank": 4
+            },
+            {
+              "id": "gfYcMrqFFaXjICDR",
+              "name": "Sleep",
+              "rank": 4
+            },
+            {
+              "id": "FDiljsZChKUdeREs",
+              "name": "Suggestion",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:ratfolk-grenadier",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "C1gYuDSwTkTIkAcC",
+      "slug": "ratfolk-grenadier",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b1791e03d8b6e7acf8d36c4f0a45b2b77556bc528330b15127d729b51a6ab5aa",
+    "translatableHash": "sha256:9420741d937cf1d11b57f7a6d69cb4b38f6c70b4d32985afcaeef50a1c563f04",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ratfolk Grenadier",
+      "level": 4,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "humanoid",
+        "ratfolk"
+      ],
+      "description": "Grenadiers use alchemical techniques and stealth to defend their communities.\nTrue to their name, ratfolk are rodent-like humanoids well suited to living on the outskirts of mainstream society. Despite common misconceptions that they are dirty or diseased, ratfolk, or ysoki, as they call themselves, keep impeccably clean. Ratfolk are also sometimes mistaken for wererats and initially treated with fear until they can correct the mistaken identification—if they get the chance to do so.\nIn general, ratfolk have a keen understanding of pathological and alchemical sciences, which they employ in trade and self-defense. They make accomplished alchemists and inventors, and they often protect their lairs with traps, bombs, and other creations. Ratfolk merchants regularly dispatch large trade caravans that travel widely for a year or more before returning to their home community. During this time, they make an effort to learn new things from the people they encounter and collect interesting materials and goods that they can bring back to their warrens.\nIn their warrens, on the road, and in cities, ratfolk are extremely communal, thriving on proximity to and contact with one another even in relatively tight spaces. In addition, ratfolk are excellent at fighting in cramped spaces alongside their kin. Threatening one ratfolk or their allies is a surefire way to rally the whole community.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 13,
+        "will": 9
+      },
+      "abilities": {
+        "str": 0,
+        "dex": 4,
+        "con": 2,
+        "int": 4,
+        "wis": 2,
+        "cha": 1
+      },
+      "skills": {
+        "acrobatics": 9,
+        "crafting": 12,
+        "deception": 7,
+        "society": 10,
+        "stealth": 12,
+        "thievery": 9
+      },
+      "languages": [
+        "common",
+        "ysoki"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "D78seCDEZ9opnhed",
+          "name": "Fangs",
+          "bonus": 12,
+          "damage": "1d4 piercing",
+          "traits": [
+            "agile",
+            "finesse"
+          ]
+        },
+        {
+          "id": "IGfkgbLbjh2L2NgU",
+          "name": "Alchemical Grenade",
+          "bonus": 13,
+          "damage": "1d6 acid",
+          "traits": [
+            "splash"
+          ]
+        },
+        {
+          "id": "4jo5EjR59Kycpzcy",
+          "name": "Hand Crossbow",
+          "bonus": 12,
+          "damage": "1d6 piercing",
+          "traits": [
+            "reload-1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "YS1lNceoORGTpa2L",
+          "name": "Alchemical Grenades",
+          "kind": "passive",
+          "description": "The grenadier carries 6 alchemical grenades that deal either acid, cold, or fire damage plus 2 persistent damage and 2 splash damage of the same type (typically two of each). The grenadier replenishes these each day using scavenged materials."
+        },
+        {
+          "id": "MVS8VVm9BG19yQpr",
+          "name": "Cheek Pouches",
+          "kind": "passive",
+          "description": "A ratfolk grenadier has stretchy cheek pouches that can store up to 1 cubic foot of objects (though no more than 4 light items). The ratfolk can remove or store an item using the Interact action. As long as the ratfolk has at least one object in their cheek pouches, their speech is noticeably difficult to understand."
+        },
+        {
+          "id": "y2ok0WY6i66HeQwf",
+          "name": "Quick Grenadier",
+          "kind": "action",
+          "description": "The ratfolk grenadier draws an alchemical grenade with an Interact action and throws it as a ranged Strike."
+        },
+        {
+          "id": "ktAqGeswWwl10ORn",
+          "name": "Quick Stow",
+          "kind": "passive",
+          "description": "Frequency once per round\nEffect The ratfolk grenadier stores one held item of light or negligible Bulk in its cheek pouches."
+        },
+        {
+          "id": "pwxCJBVZsNZOzHqr",
+          "name": "Swarming",
+          "kind": "passive",
+          "description": "A ratfolk grenadier can end its movement in the same square as an ally that also has this ability. Only two such creatures can share the same space."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:jann",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "Ccjg08wVRO43YlTf",
+      "slug": "jann",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8bdceccc2d3be42be196c5b01518a7a94509c64f62d464851fdbbadc25c73b38",
+    "translatableHash": "sha256:7116459a160f93ebccaf57890a00e52200e12d2c0d0a8eb08f8f1756fedc0f06",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jann",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "air",
+        "earth",
+        "elemental",
+        "fire",
+        "genie",
+        "metal",
+        "water",
+        "wood"
+      ],
+      "description": "All six elements build each jann and fill them with a constant desire to travel, typically jaunting about the Universe. The eldest among geniekind, they command respect from their distant offspring. Any jann can grant wishes, not just shuyookhs—a vestige of their ancient power.\nBefore mortal history, genies were some of the first creations of the cosmos to possess free will. Formed of elemental matter, they traversed the Universe and the six elemental planes of air, earth, fire, metal, water, and wood. The genies who remained on each elemental plane found their matter replaced with those elements. Genies of metal and wood appear in Pathfinder Rage of Elements.\nGenie Shuyookhs\nOlder, wiser, and more powerful genies possess greater power and are revered with the title of shuyookh (typically adjusted to \"sheikha\" if the genie is female or \"sheikh\" for a male). Generally at least 5 levels higher than a typical example of their kind, a shuyookh gains additional spells. The basics of shuyookhs appear here in sidebars and are detailed further in Rage of Elements.\nThe most wondrous of their powers is their ability to grant wishes three times per year. This is not an innate ability but a ritual practice passed down over time in an attempt to replicate the wish-granting abilities of janns.",
+      "armorClass": 20,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 10,
+        "will": 13
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 2,
+        "int": 3,
+        "wis": 3,
+        "cha": 1
+      },
+      "skills": {
+        "acrobatics": 8,
+        "arcana": 10,
+        "crafting": 8,
+        "deception": 7,
+        "survival": 11
+      },
+      "languages": [
+        "common",
+        "muan",
+        "petran",
+        "pyric",
+        "sussuran",
+        "talican",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "fire 5",
+          "electricity 5",
+          "cold 5",
+          "air 5",
+          "earth 5",
+          "metal 5",
+          "wood 5",
+          "water 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "p1yl81yMK4bvehu5",
+          "name": "Scimitar",
+          "bonus": 14,
+          "damage": "1d6+7 slashing",
+          "traits": [
+            "forceful",
+            "sweep"
+          ]
+        },
+        {
+          "id": "6PogEuLJfheJMDfl",
+          "name": "Fist",
+          "bonus": 14,
+          "damage": "1d4+7 bludgeoning",
+          "traits": [
+            "agile",
+            "magical",
+            "nonlethal",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "LRAh1zPRfZ1jQ8a6",
+          "name": "Composite Shortbow",
+          "bonus": 12,
+          "damage": "1d6+5 piercing",
+          "traits": [
+            "deadly-d10",
+            "propulsive",
+            "reload-0"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "UjYkJDhCATPUMaSL",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "HxaBXnMAm5tCAkjg",
+          "name": "Commanding Presence",
+          "kind": "passive",
+          "description": "20 feet.\nA creature that enters the aura must succeed at a check (will, dc:19) save or be Frightened 1 (Frightened 2 on a critical failure) and is then temporarily immune for 1 minute.\nA genie (with the exception of another jann) takes a –4 circumstance penalty to its save."
+        },
+        {
+          "id": "759vyvbtPWquA69w",
+          "name": "Elemental Resistance",
+          "kind": "passive",
+          "description": "The jann's elemental resistance applies to cold, electricity, and fire damage, as well as all damage from elemental sources (including environmental damage from the elemental planes and damage from anything with the air, earth, fire, metal, water, or wood trait)."
+        },
+        {
+          "id": "f4EInJedLsDIMWKj",
+          "name": "All Made One",
+          "kind": "action",
+          "description": "The jann calls upon all of the elements that make up their being to gain an additional arcane spell they can cast at will and empower their Strikes with the element, dealing an extra 1d4 damage of the listed type. These benefits last until the jann uses this ability again.\n• Air Tailwind, 1d4 electricity;\n• Earth Pummeling Rubble, 1d4 bludgeoning;\n• Fire Breathe Fire, 1d4 fire;\n• Metal Thunderstrike, 1d4 electricity;\n• Water Hydraulic Push, 1d4 bludgeoning;\n• Wood Summon Plant or Fungus, 1d4 piercing."
+        },
+        {
+          "id": "5OZLVp7EXwCyL3ck",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The jann transforms into any Small or Medium animal. This doesn't affect their statistics, but it could change the damage type of their Strikes."
+        },
+        {
+          "id": "FDu1YkNcE3PLXcDU",
+          "name": "Wanderer's Wish",
+          "kind": "action",
+          "description": "Frequency three times per year\nEffect The jann instantly grants the benefits of a critical success with the Wish ritual to a mortal creature. This has no cost. That creature specifies what they wish for, but the interpretation is up to the jann. A jann typically attempts to grant wishes in a way that encourages growth and exploration.\nA summoned jann can't use this ability."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "DxjaCZWO3bSIqi7x",
+          "name": "Arcane Innate Spells",
+          "tradition": "arcane",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "OSlKwoL3l8hGPF6A",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "BxouK4GhIwzBaWTS",
+              "name": "Know the Way",
+              "rank": 1
+            },
+            {
+              "id": "fksE6YodlqgMvbCJ",
+              "name": "Invisibility",
+              "rank": 2
+            },
+            {
+              "id": "TgH9aI8YB0Zodunc",
+              "name": "Read Omens",
+              "rank": 4
+            },
+            {
+              "id": "A4e8W6gYVQuQLNjv",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            },
+            {
+              "id": "KiV6ULlu39sXHCjs",
+              "name": "Interplanar Teleport (to Astral Plane, Elemental Planes, or the Universe only)",
+              "rank": 7
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:shadow-spawn",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "clzHAfegb9Rn6DOe",
+      "slug": "shadow-spawn",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:f4d48ce529606b88a19615608d2899b9be5ee925520af76284689c7f2f834bba",
+    "translatableHash": "sha256:544ec8e89bb5c57eb1f9248bfc4861de6646bbbcddd6772bc87c3e92dc829976",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shadow Spawn",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "incorporeal",
+        "undead",
+        "unholy"
+      ],
+      "description": "The mysterious undead known as shadows lurk in dark places and feed on those who stray too far from the light.",
+      "armorClass": 20,
+      "hitPoints": 40,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 14,
+        "will": 12
+      },
+      "abilities": {
+        "str": -5,
+        "dex": 4,
+        "con": 0,
+        "int": -2,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 10,
+        "stealth": 14
+      },
+      "languages": [
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "precision",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [
+          "all-damage 5 except force, ghost-touch, vitality, spirit"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "x47iDfIE9albveGl",
+          "name": "Shadow Hand",
+          "bonus": 15,
+          "damage": "2d6+3 void",
+          "traits": [
+            "finesse",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "ACHlnYzXVxizzqPw",
+          "name": "Light Vulnerability",
+          "kind": "passive",
+          "description": "Attacks against the shadow are treated as magical if made by a creature who is in magical light or with an object that is in magical light (such as from the Light spell)."
+        },
+        {
+          "id": "YzglqmBZyUccF3kd",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "0QWVJ7Of8cQNKp0N",
+          "name": "Slink in Shadows",
+          "kind": "passive",
+          "description": "The shadow can Hide or end its Sneak in a creature's or object's shadow."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:gargoyle",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "cvfIkEF6xmWn2soN",
+      "slug": "gargoyle",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:9801e34767ddc653c23f0e81c842d066fda75bfb718ea53fbeba38636721fcdb",
+    "translatableHash": "sha256:ac093e589ed2a3942ad1487e1249def1a739497c48067361d59003c0e0b5759d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gargoyle",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "beast",
+        "earth"
+      ],
+      "description": "Gargoyles are monstrous hunters made of elemental stone. They use their resemblance to decorative statues to hide in plain sight in cities during the day and descend upon unlucky pedestrians at night. Their most common form is that of a horned humanoid with bat-like wings, but individual gargoyles show a great deal of variation, with some appearing more or less humanoid and others resembling no known creature. A gargoyle's features are not fixed; city-dwelling gargoyles who remain in the same locale long enough slowly morph, day by day, to match the style of the local architecture. These patient monsters can stay disguised for long stretches of time as they patiently await an opportunity to strike.\nGargoyles tend to be lone hunters, though sometimes they band into fearsome groups called wings for protection or sport. On rare occasions, wings become relatively stable communities, and gargoyles in wings may even ally with other creatures such as demons and intelligent aberrations, though these alliances exist on a razor's edge. The majority of gargoyles are treacherous, vindictive, and petty—traits that preclude lasting partnerships. Almost all have some subject they spend days mulling over while in statue form. Some are collectors, focusing on anything from books to grim trophies, while others are ritualistic or overly passionate about niche intellectual subjects or certain artistic motifs. These tendencies often contribute to the dissolution of wings as individuals with conflicting focuses clash.\nSanctified Roosts\nIn addition to their appearances matching their environment, gargoyles that position themselves on temples or other consecrated ground slowly succumb to the influence of that location. These gargoyles gain the holy or unholy trait, as do their unarmed Strikes. A gargoyle roosting on a temple of Asmodeus, for example, will eventually gain the unholy trait along with changes to their personality that bring it more in line with the god's ethos. Holy gargoyles are also possible, although gargoyles at such locations often abandon their roosts as their changing personality conflicts with their need to hunt.",
+      "armorClass": 21,
+      "hitPoints": 40,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 10,
+        "will": 10
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 2,
+        "con": 3,
+        "int": -2,
+        "wis": 2,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 10,
+        "athletics": 9,
+        "stealth": 12
+      },
+      "languages": [
+        "common",
+        "petran"
+      ],
+      "defenses": {
+        "immunities": [
+          "bleed"
+        ],
+        "resistances": [
+          "physical 5 except adamantine"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "qhS5ZEJcqNFytqWd",
+          "name": "Jaws",
+          "bonus": 13,
+          "damage": "2d8+3 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        },
+        {
+          "id": "cprgu1LyMWRqzI0w",
+          "name": "Claw",
+          "bonus": 13,
+          "damage": "2d6+3 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "DsvyLX53TeuZHMQ3",
+          "name": "Clawed Feet",
+          "kind": "reaction",
+          "description": "Trigger The gargoyle is Flying, and a creature moves into an adjacent square below it.\nEffect The gargoyle makes a claw Strike against the triggering creature."
+        },
+        {
+          "id": "9bomxaBEHSLvRrkq",
+          "name": "Statue",
+          "kind": "action",
+          "description": "Until the next time it acts, the gargoyle appears to be a statue. It has an automatic result of 32 on Deception checks and DCs to pass as a statue."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:vampire-servitor",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "dFzTXkrpoOOdbzuW",
+      "slug": "vampire-servitor",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:46e0206b2e9277987b29ec25565013039d1a909163eaf85da0c9698ea98b0bd2",
+    "translatableHash": "sha256:b68c54ea5dca5ee5be59b445ec2ad30e2fb3e9af5af49d0967ae0f9b4ed6f705",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vampire Servitor",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "undead",
+        "unholy",
+        "vampire"
+      ],
+      "description": "Vampires use their servitor pawns for infiltration and reconnaissance.\nVampires are undead creatures that feed on the blood of the living.",
+      "armorClass": 22,
+      "hitPoints": 40,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 13,
+        "will": 11
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 5,
+        "con": 1,
+        "int": -1,
+        "wis": 3,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 9,
+        "intimidation": 8,
+        "society": 5,
+        "stealth": 12
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [
+          "physical 5 except silver"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "fG5TPYbHYwwOdPbD",
+          "name": "Claw",
+          "bonus": 14,
+          "damage": "1d8+6 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "gxj7cGSco9mq9DF4",
+          "name": "Fast Healing 5",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "RaYfxxlT031lUgCP",
+          "name": "Coffin Restoration",
+          "kind": "passive",
+          "description": "Unlike other undead, a vampire isn't destroyed at 0 HP. Instead, it falls Unconscious. If its body rests in its coffin for 1 hour, the vampire gains 1 HP, after which its fast healing begins to function normally."
+        },
+        {
+          "id": "mK3REH0Jcz0NP7Bh",
+          "name": "Vampire Vulnerabilities",
+          "kind": "passive",
+          "description": "All vampires possess the following vulnerabilities.\n• Compulsions Vampires are creatures with strange and unknowable compulsions. A typical vampire can't voluntarily cross running water unless they're transported while they hide within their coffin, nor can they enter a private dwelling unless invited in by someone with the authority to do so. At your discretion, vampires might have different compulsions—a pirate vampire might not be able to set foot on solid ground without being invited, for example. The vampire can still be forced to do these things and might be able to overcome their compulsion just as they do their revulsion.\n• Revulsion A vampire can't voluntarily come within 10 feet of brandished garlic or a brandished religious symbol of a deity with a holy sanctification option. To brandish garlic or a religious symbol, a creature must Interact to do so, and it remains brandished for 1 round (similar to Raising a Shield). If the vampire involuntarily comes within 10 feet of an object of their revulsion, they gain the Fleeing condition, running from the object of their revulsion until they end an action beyond 10 feet. After 1 round of being exposed to the subject of their revulsion, a vampire can attempt a check (will, dc:25) save as a single action, which has the concentrate trait. On a success, they overcome their revulsions for [[/gmr 1d6 #rounds]]{1d6 rounds} (or 1 hour on a critical success).\n• Stake A wooden stake driven through a vampire's heart drops the vampire to 0 HP and prevents them from healing above 0 HP, even in their coffin. Staking a vampire requires 3 actions and works only if the vampire is Unconscious. If the stake is removed, the vampire can heal above 0 HP again, and if they're in their coffin, the 1-hour rest period begins once the stake is removed. If the vampire's head is severed and anointed with holy water while the stake is in place, the vampire is destroyed.\n• Sunlight If exposed to direct sunlight, a vampire immediately becomes Slowed 1. The slowed value increases by 1 each time the vampire ends their turn in sunlight, and the condition ends when they're no longer in sunlight. If the vampire loses all their actions in this way, they're destroyed. Due to their supernatural aversion to light, vampires don't cast shadows or show a reflection in mirrors"
+        },
+        {
+          "id": "yYXID6QLMJVxA2xM",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "hn5GBufYeA5C1oOg",
+          "name": "Drink Blood",
+          "kind": "action",
+          "description": "Requirement A Grabbed, Paralyzed, Restrained, Unconscious, or willing creature is within the vampire's reach.\nEffect The vampire sinks its fangs into that creature to drink its blood. This requires an check (athletics, defense:fortitude) check against the victim's Fortitude DC if the victim is grabbed and is automatic for any of the other conditions.\nThe victim is Drained 1 and the vampire regains 5[healing]{5 HP}, gaining any excess HP as temporary Hit Points. Drinking Blood from a creature that's already drained doesn't restore any HP to the vampire but increases the victim's drained value by 1, killing the victim when it reaches drained 5. A vampire can also consume blood that's been emptied into a vessel for sustenance, but it gains no HP from doing so.\nA victim's drained condition decreases by 1 per week. A blood transfusion, which requires a check (medicine, dc:20, name:Blood Transfusion) check and sufficient blood or a blood donor, reduces the drain by 1 after 10 minutes."
+        },
+        {
+          "id": "1jREnmv7xdTiRRHp",
+          "name": "Sneak Attack",
+          "kind": "passive",
+          "description": "The servitor deals 1d6 extra precision damage to Off-Guard creatures."
+        },
+        {
+          "id": "bQOfAaZEAHrScsHM",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:pixie",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "Ehtm5k9iBYTvSUcZ",
+      "slug": "pixie",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:87bacc7391c0c802890a013137b928d49c3c1bdae2063644e9b74e9e84bc9ac5",
+    "translatableHash": "sha256:0a1632c3a1ceb7ad918759ce657089c245562b4799e5345da352ee5287b0a9c3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pixie",
+      "level": 4,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "fey",
+        "sprite"
+      ],
+      "description": "Insatiably curious, overly excitable, and just a bit puckish, pixies are wanderers and tricksters who use their pixie dust to create all sorts of whimsical situations, as well as to defend themselves. They take great pride in their skill at archery, even when not using their arrows to deliver magical ailments. They often practice by shooting drops of dew or severing vines and hairs. Other creatures often have trouble understanding a pixie's rapid, rambling way of speaking.\nElusive, flighty, and ebullient, sprites are what many villagers first imagine when they hear the terms \"fey\" or \"fairy.\" While their dispositions vary, all sprites share a connection to magic and a diminutive size. This family of fey shares its name with its slightest and most populous member, the common sprite.",
+      "armorClass": 23,
+      "hitPoints": 40,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 14,
+        "will": 12
+      },
+      "abilities": {
+        "str": -1,
+        "dex": 5,
+        "con": 1,
+        "int": 3,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 13,
+        "deception": 11,
+        "nature": 10,
+        "stealth": 11
+      },
+      "languages": [
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "y7q6NFl7HXFqMYWW",
+          "name": "Shortsword",
+          "bonus": 13,
+          "damage": "1d6+4 piercing",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "jKUKY0ByHy5vvU8u",
+          "name": "Longbow",
+          "bonus": 13,
+          "damage": "1d8+4 piercing",
+          "traits": [
+            "deadly-d10",
+            "magical",
+            "reload-0",
+            "volley-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "0mf0RfMRzuYHP7t3",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "giE56Vm25ZKR3ZJm",
+          "name": "Sprinkle Pixie Dust",
+          "kind": "action",
+          "description": "The pixie sprinkles pixie dust onto one of their arrows. If the pixie hits a creature with that arrow before the pixie's next turn, the arrow inflicts one of the following special effects of the pixie's choice instead of dealing damage. Each effect depends on the target's check (will, dc:21) save. On a critical hit, the target gets a result one degree worse than it rolled.\n• Charm (emotion, incapacitation, mental) The arrow has the effect of a Charm spell, except the target doesn't gain a bonus to its save if the only hostile act was the pixie firing its bow, and the pixie can choose to direct the target's adoration toward another creature rather than itself.\n• Memory Loss (mental) On a failed Will save, the target loses the last 5 minutes of its memory.\n• Sleep (incapacitation, mental, sleep) The target suffers the effects of a 3rd-rank Sleep spell.\n• Subdual (mental, nonlethal) The target takes 4d6[mental] damage, depending on its basic Will save."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "hFpiEAg9uOUfaval",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "dYmQ8Wd5gn24nx4h",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "u0psV1t4RuymSbrN",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "JeG4dh9ZOjeaFtAD",
+              "name": "Illusory Disguise",
+              "rank": 1
+            },
+            {
+              "id": "OD564a6xvrEy4iuc",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "BQB70Acbs3mnalg8",
+              "name": "Shield",
+              "rank": 1
+            },
+            {
+              "id": "pLR2iiJNQaUPDTXM",
+              "name": "Entangling Flora",
+              "rank": 2
+            },
+            {
+              "id": "UPhtE5tcz5A09fXa",
+              "name": "Revealing Light",
+              "rank": 2
+            },
+            {
+              "id": "cRleoNJHYfJ30LyW",
+              "name": "Dispel Magic",
+              "rank": 3
+            },
+            {
+              "id": "wWQh6Woll8mxFFlQ",
+              "name": "Invisibility (At Will, Self Only)",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:ugothol",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "fRjJkktWp7s8NBN7",
+      "slug": "ugothol",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:c8f8541517a8d957595891083b944c1edfcb5de99ee46e877668037701ff2f8d",
+    "translatableHash": "sha256:35303cff6f2d61fde3a18c9fb285b41211f58d7f9636eaef047947818baa2dc5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ugothol",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "aberration"
+      ],
+      "description": "Among the subtler of the alghollthu creations were the ugothols—also known as faceless stalkers. These twisted beings used shapeshifting to infiltrate settlements and assassinate key targets. They sowed discord and replaced leaders, causing unwanted organizations to implode and bothersome people to lose face and eventually disappear.\nIn bygone millennia, aquatic monsters known as alghollthus used their occult powers to conquer and rule vast swaths of the world. Alghollthus shaped their servitors and other creatures using mental manipulation and physically transformative magic. The rulers of the alghollthus, the so-called \"veiled masters,\" further shaped entire societies by assuming the forms of those they controlled.\nIn time, the alghollthus grew frustrated with upstart surface societies and meddling gods. They used incredible magical power to call forth a cataclysm, hoping to destroy the rebellious societies they'd manipulated. Yet they miscalculated the will to survive of those they treated as their pawns, and in time the world recovered, this time free of alghollthu influence.\nToday, the alghollthus have mostly remained within the deep aquatic realms where they still rule without question. Yet they have not abandoned their plots entirely, and the reemergence of servitors like faceless stalkers suggests that the alghollthus have turned their hateful eyes to the surface once again.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 9,
+        "will": 12
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 3,
+        "int": 0,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 12,
+        "athletics": 12,
+        "deception": 13,
+        "stealth": 13,
+        "thievery": 9
+      },
+      "languages": [
+        "alghollthu",
+        "common",
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "bludgeoning 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "gD3kGPuZGxBNXQTG",
+          "name": "Longsword",
+          "bonus": 14,
+          "damage": "1d8+6 slashing",
+          "traits": [
+            "versatile-p"
+          ]
+        },
+        {
+          "id": "d26CTzuFe7OR9K5L",
+          "name": "Claw",
+          "bonus": 12,
+          "damage": "2d6+6 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "NN3qDwLQRgho4Tub",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "ZCRCrZQCOFtODRBG",
+          "name": "+2 Status to All Saves vs. Auditory and Visual",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "K2pwGyKWkDm1x4Xh",
+          "name": "Assume Form",
+          "kind": "passive",
+          "description": "The ugothol spends 10 minutes reshaping its appearance to take on the shape of any Small or Medium humanoid. It gains a +4 circumstance bonus to Deception checks to pass as that creature."
+        },
+        {
+          "id": "PHSSOZNHO0AKJt1q",
+          "name": "Blood Nourishment",
+          "kind": "action",
+          "description": "The ugothol uses its three-pronged tongue to drink the blood of an adjacent Restrained or Unconscious creature. The creature gains Drained 1"
+        },
+        {
+          "id": "u5ZGQOwAVraOXVuo",
+          "name": "Compression",
+          "kind": "passive",
+          "description": "When the ugothol successfully Squeezes, it moves through the tight space at full speed. Narrow confines are not difficult terrain for an ugothol."
+        },
+        {
+          "id": "yxQPTCjmsUlWSm7n",
+          "name": "Revert Form",
+          "kind": "passive",
+          "description": "Requirements The ugothol is in an assumed form\nEffect The ugothol resumes its true form. Until the start of its next turn, it gains a +2 status bonus to attack rolls, damage rolls, saving throws, and skill checks.\nEffect: Revert Form"
+        },
+        {
+          "id": "KjBveNLcC22szBCP",
+          "name": "Sneak Attack",
+          "kind": "passive",
+          "description": "The ugothol deals 1d6 extra precision damage to Off-Guard creatures."
+        },
+        {
+          "id": "WJYznUjqpKPO2kQz",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "RQ0SxaYgQ0WCzXyb",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 11,
+          "saveDc": 19,
+          "spells": [
+            {
+              "id": "r3lAOkFyEmPI0FDI",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:werebear",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "h3JksV9Idr9eZLkE",
+      "slug": "werebear",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:e8bf4e5e4ffa145637cb4f3b7e0f23494556162d06bf33ac2e41b1db8a334f77",
+    "translatableHash": "sha256:d726f7f8aae783d3d6d21466714d898d837d81776e584a9a5b1d36a7442a3498",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Werebear",
+      "level": 4,
+      "rarity": "uncommon",
+      "size": "large",
+      "traits": [
+        "beast",
+        "human",
+        "humanoid",
+        "werecreature"
+      ],
+      "description": "Unwavering conviction fills a werebear during their transformations. This can drive them zealously into noble causes, but it can also make them ruthless, violent, and single-minded. Alliances can fall from a werebear's mind as their bestial temper overcomes them and their goal overwhelms all. As a result, werebears are loners, rarely even living together as families longer than necessary. As long as there is nothing around to threaten it or the natural area it protects (typically a forest), a werebear in its animal form is generally content to forage and sleep away the night.\nWerecreatures are humanoids doomed to transform into animals and animalhumanoid hybrids under the light of the full moon. These shapechanging creatures are the result of an ancient primal curse that they can, in turn, transmit through their own bites. Their ability to lurk unseen in the wilds as well as among people, combined with the contagiousness of their condition, makes werecreatures a perennial cause of panicked suspicion.",
+      "armorClass": 23,
+      "hitPoints": 75,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 10,
+        "will": 10
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 2,
+        "con": 4,
+        "int": 1,
+        "wis": 3,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 12,
+        "medicine": 9,
+        "nature": 11,
+        "stealth": 11,
+        "survival": 11
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "silver 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "Lt1Gndh1LAlY6Q2u",
+          "name": "Greataxe",
+          "bonus": 13,
+          "damage": "1d12+7 slashing",
+          "traits": [
+            "reach-10",
+            "sweep"
+          ]
+        },
+        {
+          "id": "1pyQC74ZkhcOllQ8",
+          "name": "Hatchet",
+          "bonus": 13,
+          "damage": "1d6+7 slashing",
+          "traits": [
+            "agile",
+            "sweep"
+          ]
+        },
+        {
+          "id": "ZREK2bLfJEVr6kpv",
+          "name": "Hatchet",
+          "bonus": 10,
+          "damage": "1d6+7 slashing",
+          "traits": [
+            "agile",
+            "sweep",
+            "thrown-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "fjsDRLGq7Hpbxrfn",
+          "name": "Bear Empathy",
+          "kind": "passive",
+          "description": "The werebear can communicate with ursine creatures.\nThe werecreature can ask questions of, receive answers from, and use the Diplomacy skill with animals of its general kind."
+        },
+        {
+          "id": "ERGEti8Jc1RonWRj",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "• Human\n• Size Medium\n• Melee fist +13 Damage 1d4+7\n• Grizzly Bear\n• Speed 35 feet\nThe werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.\nIn humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.\nIn animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes."
+        },
+        {
+          "id": "8fKFzS7zqR9XbC5k",
+          "name": "Curse of the Werebear",
+          "kind": "passive",
+          "description": "This curse affects only humanoids.\nSaving Throw check (fortitude, dc:18)\nOn each full moon, the cursed creature must succeed at another Fortitude save or turn into the same kind of werecreature until dawn.\nThe creature is under the GM's control and goes on a rampage for half the night before falling unconscious until dawn."
+        },
+        {
+          "id": "yvHOZTfOKMN7JNu7",
+          "name": "Hunt Prey",
+          "kind": "action",
+          "description": "The werebear designates a single creature they can see and hear, or one they're Tracking, as their prey. The werebear gains a +2 circumstance bonus to Perception checks when they Seek their prey and to Survival checks when they Track their prey. The first time the werebear hits the designated prey in a round, they deal an additional 1d8 precision damage. These effects last until the werebear uses Hunt Prey again."
+        },
+        {
+          "id": "wfMs8RYiuhFeQMau",
+          "name": "Mauler",
+          "kind": "passive",
+          "description": "The werebear gains a +2 circumstance bonus to damage rolls against creatures it has Grabbed."
+        },
+        {
+          "id": "m53HcXgUGgipalh0",
+          "name": "Moon Frenzy",
+          "kind": "passive",
+          "description": "When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of its jaws by 2.\nWhen the moon sets or the sun rises, the werecreature returns to humanoid form and is Fatigued for [[/br 2d4 #hours]]{2d4 hours}.\nEffect: Moon Frenzy"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:wasp-swarm",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "h7je8nkscJQ2Ac8j",
+      "slug": "wasp-swarm",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:7c05e16d147e4c8183bc75962377d5457c6f5f01cb4c8a041235ae392b24d902",
+    "translatableHash": "sha256:7f41469fbd1466d733ed3b26f9dd22f142529f332e4cd74f451400f7daf32a35",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wasp Swarm",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal",
+        "swarm"
+      ],
+      "description": "Wasp nests are made of chewed wood fibers foraged from the surrounding flora, which the wasps make into a material similar to paper. A single wasp nest can house thousands of individuals that emerge as a massive swarm. Most swarms attack only to protect their nest or if otherwise agitated, though druids and other primal enchanters can bend these venomous vermin to their will—to deadly effect.\nWhile the common wasp poses little threat to a hardy adventurer aside from an uncomfortable sting, a large and aggressive swarm of these territorial insects—to say nothing of their oversized kin—can lay low an entire party of heroes. The wasps represented here are of the common variety, also known as yellow jackets, but many other sorts of dangerous wasps exist, such as a Garundi variant that swarms in such great numbers that it can decimate entire villages.",
+      "armorClass": 18,
+      "hitPoints": 45,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 12,
+        "will": 8
+      },
+      "abilities": {
+        "str": -4,
+        "dex": 4,
+        "con": 2,
+        "int": -5,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 12
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "precision",
+          "swarm-mind"
+        ],
+        "resistances": [
+          "bludgeoning 7",
+          "piercing 7",
+          "slashing 3"
+        ],
+        "weaknesses": [
+          "area-damage 5",
+          "splash-damage 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "HgRvaTh0mJv6CbTu",
+          "name": "Swarm Mind",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "z8Vh23jCIh7iroYs",
+          "name": "Swarming Stings",
+          "kind": "action",
+          "description": "Each enemy in the swarm's space takes 2d8[piercing] damage (check (reflex, dc:21, basic) save). A creature that fails its save is also exposed to wasp venom."
+        },
+        {
+          "id": "OwDiH7gzfhf1i4hu",
+          "name": "Wasp Venom",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:21)\nMaximum Duration 6 rounds\nStage 1 1d6[poison] (1 round)\nStage 2 2d6[poison] and Clumsy 2 (2 rounds)"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:gancanagh",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "hGYIynV60GGfg8Du",
+      "slug": "gancanagh",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:6f4bd754f4fb18ca2dd94619df26c4f021dc104fa198990fdb1e66434d326131",
+    "translatableHash": "sha256:043b747b205d8f5667ec1124b74dd7b10230c3c32f32c4903ede60c7e1dd6ebe",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gancanagh",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "azata",
+        "celestial",
+        "holy"
+      ],
+      "description": "Gancanaghs are lovers, revelers, and dashing duelists of Elysium. Embodiments of free love, they eagerly throw themselves into courting targets for brief but earnest flings until their quicksilver passions change their desires. They serve Cayden Cailean as well as other bacchanalian deities and empyreal lords of Elysium who understand their desires for love and parties. Gancanaghs hate evil beings that profane the spirit of romance and passion, as such creatures (especially the demonic tempters known as succubi) reinforce stigmas against open and free love. One can give no greater insult to a gancanagh than to mistake them for such a creature, and more than one hotheaded gancanagh has challenged a misinformed champion to a duel over such a slight. While they enjoy drinking and carousing, gancanaghs can't stand smoke. Nonetheless, many gancanaghs carry whimsical-looking smoking pipes because they think it makes them look dapper. They cherish their silver flutes, for they enjoy the beauty of flutes' music and its ability to sway the heart.\nThe majority of gancanaghs present themselves as male, but the concept of gender to a creature like a gancanagh, who can change their shape freely, is much more fluid and open to interpretation than for many mortals. Gancanaghs enjoy using this flexibility to confront and test mortals' convictions when faced with fear or prejudice, but when encountering mortals who themselves are open-minded about sexuality or gender identity, they can become lifelong allies. For those who are persecuted for such reasons, gancanaghs are tireless defenders and eager supporters, quick to provide safety and to punish those who would attempt to impose narrower beliefs upon a world that deserves more diversity than it often gets. If possible, a gancanagh seeks to educate and redeem those who hold destructive beliefs or prejudices, resorting to combat only to defend themself or an endangered mortal, or when no other option seems tenable—yet even then, they fight with sadness.\nAzatas are manifestations of freedom and unrestrained joy—kindly celestials with a penchant for curious exploration, spontaneous revelry, and whimsical quests. Born of good dreams and heartfelt wishes for a better world, they reside in the untamable wilds of Elysium. Azatas are passionate and mercurial, as beautiful and bright as a child's fantasy, but also fiercely loyal to those they hold dear. They act quickly and directly against fiendish and foul influences, but they tend to avoid guiding mortal affairs otherwise, allowing people to choose their own destiny without the meddling of otherworldly forces.\nAzatas reject the dual chains of both duty and tyranny, but also the heavy chains of despair that reality so often inflicts upon those who live in it. This can give them a dubious reputation with other celestials, who consider azatas to be flighty and unreliable, but azatas know that unrelenting self-sacrifice can be just as destructive to the soul as evil. Azatas refuse to compromise the beauty of the world with such banality, instead living without regret and savoring every triumph and agony they encounter upon the way.",
+      "armorClass": 21,
+      "hitPoints": 75,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 13,
+        "will": 11
+      },
+      "abilities": {
+        "str": 1,
+        "dex": 5,
+        "con": 3,
+        "int": 2,
+        "wis": 1,
+        "cha": 5
+      },
+      "skills": {
+        "athletics": 9,
+        "deception": 13,
+        "diplomacy": 13,
+        "performance": 14,
+        "religion": 9,
+        "stealth": 11
+      },
+      "languages": [
+        "diabolic",
+        "draconic",
+        "empyrean"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5",
+          "unholy 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "2V6mUk75bI02ShGa",
+          "name": "Silver Rapier",
+          "bonus": 13,
+          "damage": "1d6+7 piercing",
+          "traits": [
+            "deadly-d10",
+            "disarm",
+            "finesse",
+            "holy",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "mY4nViC7Uak0YXkg",
+          "name": "At-Will Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "sj5zKlTpK679kiLP",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "MFz1cM1MqbifkyHH",
+          "name": "Vulnerable to Smoke",
+          "kind": "passive",
+          "description": "A gancanagh's lungs can't tolerate smoke. They take a -2 circumstance penalty to saving throws against effects that create some form of smoke."
+        },
+        {
+          "id": "fxVaypsTZKjHprzh",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The gancanagh can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or their attack and damage bonuses with their Strikes but might change the damage type their Strikes deal (typically to bludgeoning)."
+        },
+        {
+          "id": "RQyE6xYaEg8W7C38",
+          "name": "Invigorating Passion",
+          "kind": "action",
+          "description": "The gancanagh embraces or kisses a willing creature adjacent to them, infusing that creature with their invigorating passion. For 10 minutes, the creature gains a +1 status bonus to attack rolls and 10 temporary Hit Points. After that time, the target becomes Fatigued for 10 minutes unless it succeeds at a check (fortitude, dc:21) save.\nEffect: Invigorating Passion"
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "k3r3UHSeKp4tTrp0",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 15,
+          "saveDc": 23,
+          "spells": [
+            {
+              "id": "HOxFXzO0EybJofs0",
+              "name": "Charm (At Will)",
+              "rank": 1
+            },
+            {
+              "id": "6fXDA3A1lSocvqJS",
+              "name": "Heal",
+              "rank": 2
+            },
+            {
+              "id": "109ZC5DlxP2cNC0F",
+              "name": "Sure Footing",
+              "rank": 2
+            },
+            {
+              "id": "tufCei1DMYGU7MbB",
+              "name": "Heroism",
+              "rank": 3
+            },
+            {
+              "id": "6imjxdQuSf3gIiFc",
+              "name": "Suggestion",
+              "rank": 4
+            },
+            {
+              "id": "ayhFlahTrKxPvHBc",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:tiger",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "JGwKk83oX4gTGlqe",
+      "slug": "tiger",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:cec0e5b771f77ffe1ed4868436d0de5f7ad87cbd5f8872ec6bd8584a0d87b3c4",
+    "translatableHash": "sha256:6df2a39925165a874e01a6bdb10ad892943f04306e1801696d0d474e740ce2ab",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tiger",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "Tigers are solitary and territorial hunters, using their striped hides to blend into the forests and jungles they call home and preferring to attack with surprise.\nFew predators of the natural world can match the cat's talent for stalking and stealth. Large cats can be found in almost any environment, usually keeping their distance from settlements. When civilization encroaches onto a big cat's hunting grounds, the animals are often driven to making desperate attacks against unwary travelers.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 11,
+        "will": 8
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 3,
+        "con": 3,
+        "int": -4,
+        "wis": 2,
+        "cha": -2
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 13,
+        "stealth": 13
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "KkDrWaAN2q7y1azB",
+          "name": "Jaws",
+          "bonus": 13,
+          "damage": "1d10+7 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        },
+        {
+          "id": "bgQ0VnpFrkVAGfAI",
+          "name": "Claw",
+          "bonus": 13,
+          "damage": "1d8+7 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "blGUawuZyyQVnVXf",
+          "name": "Pounce",
+          "kind": "action",
+          "description": "The tiger Strides and makes a Strike at the end of that movement. If the tiger began this action Hidden, it remains hidden until after this ability's Strike."
+        },
+        {
+          "id": "G3Hz9uWIYCEyoBRq",
+          "name": "Sneak Attack",
+          "kind": "passive",
+          "description": "The tiger deals 1d6 extra precision damage to Off-Guard creatures."
+        },
+        {
+          "id": "g51BzhmOH3vHLWup",
+          "name": "Wrestle",
+          "kind": "action",
+          "description": "The tiger makes a claw Strike against a creature it is Grabbing. If the attack hits, that creature is knocked Prone."
+        },
+        {
+          "id": "SjtL4vaiiGNkeXDm",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:hobgoblin-archer",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "JwOlSrHk1pkAKMRn",
+      "slug": "hobgoblin-archer",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b678aed4796fe5e3849b653fc5b9ca839b6ae6d448ce549caac8684be8141622",
+    "translatableHash": "sha256:7346d82c52db8ed076ca039bf441bf864df6f1c6777676904911e7c9134b0030",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hobgoblin Archer",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "hobgoblin",
+        "humanoid"
+      ],
+      "description": "Bands of hobgoblin soldiers typically have at least one archer among their ranks. In smaller groups, the hobgoblin archer also serves as that band's captain.\nHobgoblins may appear to outsiders to be the most civilized of goblinkind, but their civilization is hardly one of kindness and equality-instead, they revel in all that is militaristic, tyrannical, cruel, and destructive. Hobgoblins are singularly devoted to war, and their entire culture is built upon fostering and maintaining conflict while simultaneously proving their superiority in battle. Hobgoblins are highly organized, and they work efficiently and effectively in groups, whether that group is a small raiding party, a roving war band, or a fully regimented army. Hobgoblin rulers require little provocation before declaring war, and more often than not, such wars are waged to gain slaves or territory. Physically, hobgoblins stand about as tall as humans and have gray, ashen skin.\nHobgoblin society is organized along military lines, and every hobgoblin is effectively a member of the army. Each hobgoblin in a community has a rank in the military hierarchy, and individuals are naturally ambitious and obsessed with advancement. Hobgoblins are constantly expected to prove that they're fearless, ruthless, cunning, and strong. Demonstrating such aptitudes is an individual hobgoblin's best hope for promotion through the ranks, but failure leads only to cruel exploitation at the hands of their superiors. Though brutal, hobgoblin society is a true meritocracy, and all hobgoblins, regardless of age, gender, or birth, wield authority and earn respect from their peers based on their skill in battle. Even those individuals who serve in non-combat roles in hobgoblin society-blacksmiths, builders, cooks, messengers, quartermasters, and the like-know that they perform vital jobs that support the larger hobgoblin army, though they rarely rise above the rank of common soldier. Everyone contributes to the larger whole, ensuring that hobgoblin society is the strongest and most efficient it can be, and anyone who fails to do so is culled from the army and this hobgoblin society as dead weight. Hobgoblins don't usually engage in trade with other races, or even with other hobgoblin tribes, preferring to take what they want by force.",
+      "armorClass": 23,
+      "hitPoints": 50,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 12,
+        "will": 8
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 2,
+        "int": 0,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 8,
+        "athletics": 8,
+        "stealth": 10
+      },
+      "languages": [
+        "common",
+        "goblin"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "vUwGp8Kc7J2fDUxa",
+          "name": "Shortsword",
+          "bonus": 12,
+          "damage": "1d6+4 piercing",
+          "traits": [
+            "agile",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "bwU9HIhgyMLShCWw",
+          "name": "Crossbow",
+          "bonus": 14,
+          "damage": "1d8+2 piercing",
+          "traits": [
+            "reload-1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "rWeRpLhEFS7p5VCy",
+          "name": "Formation",
+          "kind": "passive",
+          "description": "When it's adjacent to at least two other allies, the hobgoblin archer gains a +1 circumstance bonus to AC and saving throws. This bonus increases to +2 to Reflex saves against area effects."
+        },
+        {
+          "id": "kMmbg9uYz80oPVxp",
+          "name": "Crossbow Precision",
+          "kind": "passive",
+          "description": "The first time the archer hits with a crossbow attack in a round, it deals 1d8 extra precision damage."
+        },
+        {
+          "id": "LcpFmBryvzaDNDcL",
+          "name": "Perfect Aim",
+          "kind": "passive",
+          "description": "The hobgoblin archer ignores the Concealed condition.\nTheir targets don't benefit from lesser cover, and they reduce the AC bonus from standard cover by 2 against the hobgoblin archer's attack."
+        },
+        {
+          "id": "9ja6Q3mPufB7rxnt",
+          "name": "Running Reload",
+          "kind": "action",
+          "description": "The archer Strides, Steps, or Sneaks, then Interacts to reload."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:rhinoceros",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "LiURMjxzav8SBKSq",
+      "slug": "rhinoceros",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:72d22e9d00efd8a36b13c3881dc773fc3ce0c79c44b52f06b0082fc44aab4503",
+    "translatableHash": "sha256:32a1ce37fc9d18850a6529a81d711aa7ba6a5fbab1a31e7c3a9c716b03358154",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rhinoceros",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "Rhinoceroses are short-tempered, territorial, and easily startled, and these traits combined with their innate ferocity means their natural instinct when disturbed is to attack. When intruders disturb or surprise rhinoceroses, they respond by charging directly at the interlopers and then lashing out with their mighty horns.\nThis hefty animal is easily recognizable by the distinctive upward-thrusting horn on its snout. Rhinoceroses are herbivorous and, in spite of their hulking size, can run at considerable speed. While rhinos have good hearing and a keen sense of smell, their eyesight is relatively poor.",
+      "armorClass": 22,
+      "hitPoints": 70,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 8,
+        "will": 11
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 0,
+        "con": 4,
+        "int": -4,
+        "wis": 3,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 12,
+        "survival": 10
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "YvhSv5FSqLRo98YJ",
+          "name": "Horn",
+          "bonus": 14,
+          "damage": "2d8+6 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        },
+        {
+          "id": "2aU81mgG4GTqpajQ",
+          "name": "Foot",
+          "bonus": 12,
+          "damage": "2d6+6 bludgeoning",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "OeHuAJLeUtdJFHfo",
+          "name": "Rhinoceros Charge",
+          "kind": "action",
+          "description": "The rhinoceros Strides twice, then makes a horn Strike. As long as the rhinoceros moved at least 20 feet, the Strike's damage increases to (3d8+6)[piercing] damage. A Medium or smaller creature struck by this attack must succeed at a check (reflex, dc:21) save or be automatically Shoved back 5 feet and knocked Prone by the force of the blow."
+        },
+        {
+          "id": "VQZuQhcA0A15y8kQ",
+          "name": "Trample",
+          "kind": "action",
+          "description": "Medium or smaller, foot, check (reflex, dc:18, basic)"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:larval-ofalth",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "lK4Xfb58mUNygoae",
+      "slug": "larval-ofalth",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5f99a6920eb424e375fbb70b04bad96a120258baa8334adeb3b755e5d76a607b",
+    "translatableHash": "sha256:b9f43e1df2767df6fe7f194833416a692a45b60e973358c79f825b3f4c3fddae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Larval Ofalth",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "aberration"
+      ],
+      "description": "Ofalths reproduce asexually. When they first hatch from their leathery eggs, larval ofalths resemble a tendril of flesh supported by spindly legs, but they soon cocoon themselves in trash, to serve as both armor and camouflage.\nFound in castle dung heaps, city dumps, and sewers, ofalths are living amalgamations of wet detritus, sewage, and rubbish. They carry a disease called wretched weeps that causes the victim's blood to seep from its pores.",
+      "armorClass": 20,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 9,
+        "will": 9
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 1,
+        "con": 3,
+        "int": -2,
+        "wis": 1,
+        "cha": -2
+      },
+      "skills": {
+        "athletics": 13,
+        "stealth": 9
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [
+          "disease",
+          "poison"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "agznCoc5GcClpjNG",
+          "name": "Claw",
+          "bonus": 13,
+          "damage": "2d8+5 slashing",
+          "traits": [
+            "unarmed"
+          ]
+        },
+        {
+          "id": "2JCJetGFaNdE8tgp",
+          "name": "Leachate",
+          "bonus": 11,
+          "damage": "3d8 acid",
+          "traits": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "EtoI34to9k9pC7Qt",
+          "name": "Hide in Filth",
+          "kind": "passive",
+          "description": "A larval ofalth can hide in any pile of filth or trash that is its size or larger, allowing it to use Stealth for initiative. If it rolls Stealth for initiative, on the first round of combat, creatures that haven't acted yet are Off-Guard to it."
+        },
+        {
+          "id": "vlLyTP62nnkbI5Vd",
+          "name": "Shield Block",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "xetvdjAx9ebrj84z",
+          "name": "Stench",
+          "kind": "passive",
+          "description": "30 feet. check (fortitude, dc:19, options:area-effect,inflicts:sickened,inflicts:slowed)"
+        },
+        {
+          "id": "2yUMSMe13I4xztbd",
+          "name": "Wretched Weeps",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:19)\nStage 1 carrier with no ill effect (1 day)\nStage 2 2d4[bleed]{2d4 persistent bleed} every hour and Enfeebled 1 (1 day);\nStage 3 2d6[bleed]{2d6 persistent bleed} every hour and Enfeebled 2 (1 day)"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:giant-stag-beetle",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "MkupNnMKqDBElhhp",
+      "slug": "giant-stag-beetle",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:277af11dea2b2e6f06c0427a9c14585d158f3786e2883bf8203e95ed045be8e0",
+    "translatableHash": "sha256:c9c8880c6659c307ac45483e476b88b1c86d0f450cdad1da2987e470ffbcdc69",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Giant Stag Beetle",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "The giant stag beetle is larger than a horse, and the sight of one flying (if slowly and somewhat clumsily) on great buzzing wings is unnerving. Its enormous mandibles are used to impress mates, intimidate rivals, and discourage predators, for they can deliver deadly blows. While giant stag beetles are deadly predators, skilled wranglers can domesticate them. In such a capacity, these beetles serve well as beasts of burden or even as mounts.\nGiant stag beetles can be a serious menace in marshes, cavern complexes, and heavy forests. More than one logging camp has attracted a cluster of giant stag beetles and had to be completely abandoned, yielding all its lumber to the hunger of the giant insects.\nNot all beetles are harmless creatures that can be easily crushed underfoot. Oversized and ravenous giant beetles can be found throughout the temperate and tropical regions of the world. They are often benign creatures, though when threatened or roused, giant beetles are quite dangerous. Their powerful mandibles and tough exoskeletons make for a challenging combatant.",
+      "armorClass": 22,
+      "hitPoints": 55,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 9,
+        "will": 8
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 1,
+        "con": 5,
+        "int": -5,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 9,
+        "athletics": 13
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "rwK2kJnSkkWTKSwP",
+          "name": "Mandibles",
+          "bonus": 13,
+          "damage": "2d8+5 piercing",
+          "traits": []
+        },
+        {
+          "id": "onqCyoeB5jfvwrI0",
+          "name": "Foot",
+          "bonus": 11,
+          "damage": "1d10+5 bludgeoning",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "NhKBmdf3sh4wyA1u",
+          "name": "Trample",
+          "kind": "action",
+          "description": "Medium or smaller, foot, check (reflex, dc:21, basic)"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:ghost-commoner",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "N98ug9jQHqeFoK1N",
+      "slug": "ghost-commoner",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:5cebc0b798bddb4f8a34d976ea3e2941d9fa9107cace627dffdef13ac578996c",
+    "translatableHash": "sha256:cbbf92e421a1c2b93e9f980f42ffee5b02fe02caf870e13e572c0cf436b253e2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ghost Commoner",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "ghost",
+        "incorporeal",
+        "spirit",
+        "undead",
+        "unholy"
+      ],
+      "description": "The ghost commoner is an ordinary person who believes they died unjustly.\nWhen some mortals die through tragic circumstances or without closure, their souls can linger and haunt a locale significant to them in life.",
+      "armorClass": 20,
+      "hitPoints": 30,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 11,
+        "will": 8
+      },
+      "abilities": {
+        "str": -5,
+        "dex": 3,
+        "con": 0,
+        "int": 0,
+        "wis": 2,
+        "cha": 2
+      },
+      "skills": {
+        "stealth": 12
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "precision",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [
+          "all-damage 5 except force, ghost-touch, spirit, vitality"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "nWtiD4ASp2FFsobD",
+          "name": "Ghostly Hand",
+          "bonus": 13,
+          "damage": "2d6+2 void",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "CfzB5r8CSHETuXfA",
+          "name": "Site Bound",
+          "kind": "passive",
+          "description": "A typical ghost can stray only a short distance from where it was killed or the place it haunts. A typical limit is 120 feet. Some ghosts are instead bound to a room, building, item, or creature that was special to it rather than a location."
+        },
+        {
+          "id": "HvOzFzF3j47WTzIv",
+          "name": "Rejuvenation",
+          "kind": "passive",
+          "description": "Setting right the injustice that led to the commoner's death allows it to move on to the afterlife.\nWhen a ghost is destroyed, it re-forms after [[/br 2d4 #days]]{2d4 days} within the location it's bound to, fully healed. A ghost can be permanently destroyed only if someone determines the reason for its existence and sets right whatever prevents the spirit from resting."
+        },
+        {
+          "id": "gdGHPerbX8DzQ8D5",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "uYQrEbjjw3XIQ1cO",
+          "name": "Frightful Moan",
+          "kind": "action",
+          "description": "The ghost laments its fate, forcing each living creature within @Template[emanation|distance:30]{30 feet} to attempt a check (will, dc:21, options:area-effect,inflicts:frightened) save. On a failure, a creature becomes Frightened 2 (or Frightened 3 on a critical failure). On a success, a creature is temporarily immune to this ghost's frightful moan for 1 minute."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:dwarf-stonecaster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "nEB0UekUmP5L8Tj8",
+      "slug": "dwarf-stonecaster",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:6d8de79b3d1310cfa4bd57483bd7c0ad7a8381e1241b1643612bb5bb86ce5566",
+    "translatableHash": "sha256:190ad07a5c9e918c58be620459f8f6cd2db3d3e35ca84b62b6fd96d0f9a6b50a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dwarf Stonecaster",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "dwarf",
+        "humanoid"
+      ],
+      "description": "All dwarves share a connection to the earth, but stonecasters have focused and polished that connection. Their years of meditation have granted them the ability to create boulders and shake the very earth. These elemental specialists are often highly respected in their community, which prizes their art of geomancy. Young dwarves who show a stronger than normal connection to the earth might be sent to a stonecaster to train at an early age.\nA dwarf's strength comes from their stoic determination, quality equipment, and their ability to hold grudges for centuries.",
+      "armorClass": 20,
+      "hitPoints": 70,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 13,
+        "senses": [
+          "darkvision",
+          "tremorsense-imprecise-10"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 8,
+        "will": 14
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 3,
+        "int": 2,
+        "wis": 5,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 11,
+        "crafting": 8,
+        "nature": 12
+      },
+      "languages": [
+        "common",
+        "dwarven",
+        "petran"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "CHq8IjgvJfDzmmAK",
+          "name": "Staff",
+          "bonus": 12,
+          "damage": "1d4+4 bludgeoning",
+          "traits": [
+            "two-hand-d8"
+          ]
+        },
+        {
+          "id": "sjOXKAbJB6uXmECO",
+          "name": "Clan Dagger",
+          "bonus": 12,
+          "damage": "1d4+4 piercing",
+          "traits": [
+            "agile",
+            "parry",
+            "versatile-b"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tr6fPchbSeWF7U6r",
+          "name": "Tremorsense (Imprecise) 10 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "lqcINWo9rs1fUl8W",
+          "name": "Boulder Roll",
+          "kind": "action",
+          "description": "The stonecaster conjures a rolling boulder that deals 5d6[bludgeoning|options:area-damage] damage to each creature in a @Template[line|distance:60] with a check (reflex, dc:21, basic, options:area-effect) save.\nThe stonecaster can't use Boulder Roll again for [[/gmr 1d4 #Recharge Boulder Roll]]{1d4 rounds}."
+        },
+        {
+          "id": "Y9uwye09GZjxaP9T",
+          "name": "Dwarven Doughtiness",
+          "kind": "passive",
+          "description": "A dwarf is often calm and collected in the face of imminent danger. At the end of this dwarf's turn, reduce their frightened condition by 2 instead of 1."
+        },
+        {
+          "id": "VBOE9uRcSpXxBDKF",
+          "name": "Tremor",
+          "kind": "action",
+          "description": "The stonecaster causes the earth below to tremble. Each creature on the ground in a @Template[emanation|distance:10] takes 2d8[bludgeoning|options:area-damage] damage with a check (fortitude, dc:21, basic, options:area-effect,inflicts:prone) save. A creature that critically fails is knocked Prone."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:alce",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "nlnPjvP35lPLUYQp",
+      "slug": "alce",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8f379039f67e5938f095bc8de07895ae42d82b8e1cd31d4c4c7eb698b6c0ddc5",
+    "translatableHash": "sha256:3bd7404c8c5cea5fdf44efab46c864c5b0850743f63937e3f1b01f7f0b20385f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alce",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "Wingless griffons, known as alces, result from a rare mutation. Among a clutch of winged griffons, the alce is typically considered the runt, so alces are rarely seen on their own in the wild, though they're often intentionally bred in captivity as relatively affordable exotic mounts.\nGriffons are regal beasts revered as symbols of freedom and strength in many cultures. They are physically striking, with the hindquarters of a lion and the head, wings, and forelimbs of a great bird of prey—typically an eagle, but some instead bear the features of a hawk, falcon, or even an osprey or vulture. In rare cases, the griffon's hindquarters may resemble those of a different great cat, such as a leopard or tiger. The variations seem to conform to the griffon's environment—for instance, especially rare griffons of northern Avistan have the hindquarters of a Grungir lynx and the upper body of a snowy owl.\nWild griffons rely on their powerful wings to hold them aloft and their keen eyesight to spy out prey. The speed with which they plunge toward the ground and snatch up victims is astonishing. They often tear apart a kill's flesh with razor-sharp beaks but not before alighting to secluded location where they can enjoy their meal without interruption. Griffons hunting to feed their chicks are more cautious, tearing apart prey rather than risking bringing a living creature back to their nests.\nSkilled animal trainers long ago learned how to raise griffons as mounts for military forces or powerful individuals. Such mounts are known for their strength, bravery, and unfailing loyalty. They are among the smartest of animals, and many griffon variants are considered intelligent beasts instead; it's thought that a griffon chooses its rider as much as a rider chooses the griffon. The process of training a griffon to accept and carry a rider in flight is a long and expensive ordeal. Griffon trainers charge rich sums for their services, and a ruler who can boast of owning a stable of griffons is the subject of great respect and envy.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 13,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 13,
+        "will": 7
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 3,
+        "int": -4,
+        "wis": 1,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 12,
+        "intimidation": 10,
+        "stealth": 11,
+        "survival": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "oN5KE37Rg66tMPMp",
+          "name": "Beak",
+          "bonus": 14,
+          "damage": "2d8+4 piercing",
+          "traits": [
+            "deadly-d10",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "hTNAzHRu1qlREBai",
+          "name": "Talon",
+          "bonus": 14,
+          "damage": "2d6+4 piercing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "OAt8guQQNXMQRYHW",
+          "name": "Pounce",
+          "kind": "action",
+          "description": "The alce Strides and makes a talon Strike at the end of that movement. If the alce began this action Hidden, it remains hidden until after the attack."
+        },
+        {
+          "id": "zbeji4Adkt0WFV5B",
+          "name": "Regal Shriek",
+          "kind": "action",
+          "description": "The alce unleashes a shriek that transitions into a terrifying roar. Each creature in a @Template[emanation|distance:60] must attempt a check (will, dc:20) save. Regardless of the result, creatures are temporarily immune to all griffons' Regal Shrieks for 10 minutes.\nCritical Success The creature is unaffected.\nSuccess The creature is Frightened 1.\nFailure The creature is Frightened 2. Animals are Slowed 1 for as long as they're frightened.\nCritical Failure The creature is Frightened 3. Animals are Paralyzed as long as they're frightened."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:qarna",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "QJgC1lWvwekWJjkD",
+      "slug": "qarna",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:d4d794d3cec325ea2502ce159f0ff7dbbed88e3046a982bd557deb76d3ab8526",
+    "translatableHash": "sha256:d43da4b4bb7d62a01c1bbcbeac8db1f03d00f7a677aad4837ea59d7138cffb51",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Qarna",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "archon",
+        "celestial",
+        "holy"
+      ],
+      "description": "Qarnas are secretive and tireless sentinels and scouts, patrolling the Outer Sphere's untamed wilds for evil to eliminate and keeping small communities safe from demons, devils, and worse. They resemble ornate statuesque creations with four stag-like heads and golden horns. When requested to do so by their allies, especially the god Erastil, they journey into the Universe and patrol dangerous frontier areas, secretly performing acts of kindness such as leading hunters to food, helping lost children, and driving off evil creatures.\nArchons are guardians of Heaven and enemies of corruption. Before gods and their servants set foot in the celestial planes, archons already resided in Heaven, the original inhabitants of the realm. Upon meeting, the archons and divine angels quickly discovered they were of a kind, holding justice and righteousness in their hearts. An alliance was formed, and archons now serve as stalwart allies to all celestials and mortals they find worthy.\nWhile the first archons coalesced from the immense seven-tiered mountain of Heaven, they choose willing and worthy Heaven-bound souls to join their ranks. These mortals hear and answer the call of a mysterious voice, manifesting in the Garden at the mountain's peak. There they swear to forever serve the cause of justice and transform into their new archon forms.\nThough deeply concerned with defending mortal life and willing to sacrifice themselves in battle against fiends, archons often feel rote and inscrutable to others, and their forms can border on frightening and bizarre. For this reason, they often have issues with interacting with mortals, or with the free spirited azatas. Despite this, archons draw great strength from others, especially those who exemplify virtue.\nBeyond their celestial allies, archons also maintain ancient ties with aeons. The inscrutable factions can still be seen working together to defend longforgotten secrets and enforce rules that predate mortal life. Archons explain these missions as necessary without further elaboration, leaving even their angelic allies frustrated with archons' obstinance.",
+      "armorClass": 22,
+      "hitPoints": 65,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 10,
+        "will": 11
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 3,
+        "int": 1,
+        "wis": 3,
+        "cha": 1
+      },
+      "skills": {
+        "acrobatics": 12,
+        "athletics": 11,
+        "intimidation": 11,
+        "nature": 11,
+        "religion": 9,
+        "stealth": 10,
+        "survival": 11
+      },
+      "languages": [
+        "diabolic",
+        "draconic",
+        "empyrean",
+        "utopian"
+      ],
+      "defenses": {
+        "immunities": [
+          "fear-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "unholy 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "Ns1wlz5lqjcw17wG",
+          "name": "Horn",
+          "bonus": 13,
+          "damage": "1d8+9 piercing",
+          "traits": [
+            "holy",
+            "magical",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "xcQaiQT7ltOfYe6D",
+          "name": "Composite Longbow",
+          "bonus": 14,
+          "damage": "1d8+7 piercing",
+          "traits": [
+            "deadly-d10",
+            "holy",
+            "magical",
+            "propulsive",
+            "volley-30"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "JrrGiAWp0zd5ydJ6",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "8kjo9ZCTyhvPHZRy",
+          "name": "All-Around Vision",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "9EtiQCjTxZjo7qUc",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "fHJ8nd0W2SbII4o1",
+          "name": "Archon's Protection",
+          "kind": "reaction",
+          "description": "Trigger An enemy damages the archon's ally and both are within 15 feet of the archon\nEffect The ally gains resistance 5 to all damage against the triggering damage and the archon can make a Strike against the enemy."
+        },
+        {
+          "id": "MwMQRd6zWTqreigg",
+          "name": "Archon's Pursuit",
+          "kind": "action",
+          "description": "Frequency once per day\nRequirements The qarna saw another creature teleport within the last round and has at least one Translocate spell remaining\nEffect The qarna casts one of their translocate spells, which is heightened to 5th rank and causes the qarna to arrive in an unoccupied space it chooses within 30 feet of the creature it's pursuing. If the creature is too far away, the qarna arrives as close as possible."
+        },
+        {
+          "id": "hEBQNhGdU6rR3bG8",
+          "name": "Distracting Arrow",
+          "kind": "action",
+          "description": "The qarna makes a composite longbow Strike. If it hits, the arrow lodges in the target and that creature's senses focus on the archon, leaving all else blurry. That creature takes a –2 status penalty to attack rolls and Perception checks against any target other than the qarna. The creature can Interact to remove the arrow, which ends the effect."
+        },
+        {
+          "id": "HR0Fks1hp7OzgTVy",
+          "name": "Touch of Charity",
+          "kind": "action",
+          "description": "The qarna touches a willing living creature to take on that creature's wounds. The qarna transfers up to 30 of their own HP to the touched creature. (The qarna can't transfer more HP than they currently have.)"
+        },
+        {
+          "id": "U9xzdqtQIhnSpDSV",
+          "name": "Push",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "q4ykki72TAUXX3em",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "1GNhG54Fw3E36RT9",
+              "name": "Charm (Animals Only)",
+              "rank": 1
+            },
+            {
+              "id": "qmX9fZjqiOJ7XGc6",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "OCatAKY6noUvewfJ",
+              "name": "Sure Strike",
+              "rank": 1
+            },
+            {
+              "id": "cHmWSBM57RwWDlRT",
+              "name": "Animal Messenger",
+              "rank": 2
+            },
+            {
+              "id": "oLsHv6YAxMolp9nz",
+              "name": "Translocate",
+              "rank": 4
+            },
+            {
+              "id": "BDcMWYHNZCbxp8n5",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:kholo-sergeant",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "SipdgBCL7XuuEjn6",
+      "slug": "kholo-sergeant",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b8c1c70fb9c081a8efb9d6d1b917a2f38754b1ea3239ea7d122d2ad111a7f81f",
+    "translatableHash": "sha256:2b4cd999c50fc5fdc3d972dd52d9bc0617bf2efe6a6899c4280dc8d0d419bc84",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kholo Sergeant",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "humanoid",
+        "kholo"
+      ],
+      "description": "When kholos band together to form mercenary bands or raiding parties, the strongest or most respected among them is often designated the hunt leader or sergeant. These kholo are responsible for the safety and success of their packmates and train extensively in the art of war. Their skill at arms makes them powerful adversaries. A kholo sergeant might also serve as a mercenary group's leader in other affairs, such as sorting out domestic disputes or negotiating with rival kholo bands.\nKholo are tall, hyena-headed humanoids who dwell in savannas, warm grasslands, and arid hills. Given their appearance, their affinity for hyenas should not be surprising; kholos share their homes, food, and even many of their behaviors with these animals. Much like hyenas, kholos have a notorious reputation, for much the same reason—their uncanny laughter, frightening intelligence, and efficient pack tactics make them intimidating competition or foes. Kholos are keen to lean into these rumors, using them as a form of psychological warfare against their enemies.\nAlso like hyenas, kholos prefer to hunt in packs, and are exceptionally skilled at setting up ambushes or separating individual targets from larger groups. As kholo packs value all their members highly, any tactic that gives them an advantage in dangerous situations is seen as virtuous, while chivalry and honor are derided as pointlessly risky. It's a philosophy borne from a deep respect and love for their kholo brethren, but to most other people, it makes kholos terrible neighbors.\nKholos willingly eat nearly any other creature, including dead kholos, which can evoke strong reactions from people and cultures with a taboo against cannibalism or desecrating the dead. To a kholo, it's often more offensive to not eat a dead body, no matter its origin; kholos see no point in wasting precious meat in a harsh and challenging world. Worse still is the refusal to eat the flesh of a dead kholo, which they consider an insult to that kholo's memory and an implication that their flesh is unworthy of consumption. Eating the flesh of honored enemies is, for kholos, a respectful ritual, allowing that being to live on within the pack instead of rotting like trash on the ground.\nKholo women are often larger and stronger than kholo men and are typically considered the leaders of their hunting packs and clans.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 10,
+        "will": 8
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 2,
+        "int": 0,
+        "wis": 1,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 13,
+        "intimidation": 9,
+        "stealth": 11,
+        "survival": 10
+      },
+      "languages": [
+        "common",
+        "kholo"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "QFbge8UGIYYOgoxR",
+          "name": "Scimitar",
+          "bonus": 14,
+          "damage": "1d6+7 slashing",
+          "traits": [
+            "forceful",
+            "sweep"
+          ]
+        },
+        {
+          "id": "cjpf10fNDqFN7zh9",
+          "name": "Jaws",
+          "bonus": 14,
+          "damage": "1d6+7 piercing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "hcXr2FC36bTLJ9kF",
+          "name": "Composite Shortbow",
+          "bonus": 12,
+          "damage": "1d6+4 piercing",
+          "traits": [
+            "deadly-d10",
+            "propulsive",
+            "reload-0"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "eLJ7xhMJWouj2meO",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "gZHu2APmbYnWCFLm",
+          "name": "Bark Orders",
+          "kind": "action",
+          "description": "The kholo sergeant commands its allies to reposition. Any allies who hear and understand this order can use a reaction to Step."
+        },
+        {
+          "id": "KcCw29PtlpuADI1x",
+          "name": "Pack Attack",
+          "kind": "passive",
+          "description": "A kholo sergeant deals 1d4 extra damage to any creature that's within reach of at least two of the kholo sergeant's allies."
+        },
+        {
+          "id": "3RCPLD1d6zfYm2VI",
+          "name": "Rugged Travel",
+          "kind": "passive",
+          "description": "A kholo ignores the first square of difficult terrain they move into each time they Step or Stride."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:great-white-shark",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "uNNOQFvuMq8ZsQkn",
+      "slug": "great-white-shark",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:0150440c5646e00650562151a0fc6470feaabe91aed33b5491793df3ffc602eb",
+    "translatableHash": "sha256:d53737e631cee03fdbaa880dc6fd74cd1dbfff4f232b9dc4431b288d457bc8e7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Great White Shark",
+      "level": 4,
+      "rarity": "common",
+      "size": "huge",
+      "traits": [
+        "animal",
+        "aquatic"
+      ],
+      "description": "An apex predator among the coastal surface waters where it hunts, the great white shark is one of the largest shark species. These silent killers glide gracefully through the ocean, always in search of their next meal.\nSharks of all shapes and sizes have stalked the oceans, largely unchanged, since primordial times. They are efficient, ruthless predators with multiple rows of razor-sharp teeth capable of rending prey in an instant. Their uncanny ability to smell blood in the water means sharks might show up at any scene of aquatic carnage.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "scent-imprecise-100"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 10,
+        "will": 9
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 2,
+        "con": 4,
+        "int": -4,
+        "wis": 1,
+        "cha": -4
+      },
+      "skills": {
+        "athletics": 14,
+        "stealth": 12,
+        "survival": 9
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "8x287oYylzurAA7X",
+          "name": "Jaws",
+          "bonus": 14,
+          "damage": "1d12+8 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "V45K2AmQDPCGIMET",
+          "name": "Blood Scent",
+          "kind": "passive",
+          "description": "The shark can smell blood in the water from up to 1 mile away."
+        },
+        {
+          "id": "CEngjOQBRH1DpQeo",
+          "name": "Breach",
+          "kind": "action",
+          "description": "The shark Swims up to its swim Speed, then Leaps vertically out of the water up to 25 feet high, making a Strike against a creature at any point during the jump (this lets it attack a creature within 30 feet of the water's surface). After the Strike, the shark splashes back down into the water."
+        },
+        {
+          "id": "6inoR3FiOAzUbSZ8",
+          "name": "Savage",
+          "kind": "action",
+          "description": "Requirements The shark hit with a jaws Strike on its most recent action this turn.\nEffect The creature the shark hit takes 1d12[slashing] damage."
+        },
+        {
+          "id": "BbFyjI0o6Aed5DYL",
+          "name": "Strafing Chomp",
+          "kind": "action",
+          "description": "The shark Swims up to half its swim Speed, makes a jaws Strike, and then Swims up to half its Speed further. The Strike deals half damage."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:daeodon",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "v4KP0HYaygoFOIlo",
+      "slug": "daeodon",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:e79373e03ca45b09a48493e37ecb6f3f1e48fcfb243d103a959efa0a1d8eafc2",
+    "translatableHash": "sha256:bc4a1c863a1b99e5899bfce050354a2b7bf48ee46ed419153468866bd61a7353",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Daeodon",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "Where the typical boar is merely ill-tempered and generally unfriendly, the towering daeodon is legitimately hateful and ruthlessly violent. Although omnivorous, the daeodon (known in some regions simply as a giant boar) prefers to feed on flesh. While it is primarily a scavenger, the daeodon isn't adverse to attacking creatures it encounters while searching for easier meals, or to protect any perceived encroachment into its lair or feeding grounds. Particularly brave or skilled orcs are fond of using daeodons as mounts or war-trained battle beasts; orc cavalry mounted on daeodons is a fearsome force indeed.\nA typical adult daeodon is 10 feet long and 7 feet tall at the shoulder. It weighs approximately 2,000 pounds.\nWhile domesticated pigs are a staple of farm life, wild boars are much more dangerous. Foul-tempered warthogs are relatively common, while the lumbering, primeval beasts known as daeodons are less so. Voracious boars can ravage the countryside in which they live, making them a particular nuisance to farmers. Boars breed freely, and a pair of boars can rapidly grow to a large family.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 9,
+        "will": 10
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 0,
+        "con": 3,
+        "int": -4,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 8,
+        "athletics": 12,
+        "survival": 10
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "hr7MMe0oUKYOwUNV",
+          "name": "Tusk",
+          "bonus": 14,
+          "damage": "2d8+6 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "iZTnwEyJWIaqvI8B",
+          "name": "Ferocity",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "TEn7gmE6LHEqbMLJ",
+          "name": "Daeodon Charge",
+          "kind": "action",
+          "description": "The daeodon Strides twice and then makes a tusk Strike. As long as it moved at least 20 feet, it gains a +2 circumstance bonus to its attack roll. A Medium or smaller creature struck by this attack must succeed at a check (reflex, dc:19) save or be knocked Prone by the force of the blow."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:minotaur-hunter",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "vN2alMciNlKpBpKN",
+      "slug": "minotaur-hunter",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:73aca8daeb26da57d0bc3623c42bcb5922a8e32524c86bf81f92cecd9df481dd",
+    "translatableHash": "sha256:8a352493817efaad72d21824b087595930e508836e4fe12ad53f9d80c606b70a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Minotaur Hunter",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast",
+        "humanoid"
+      ],
+      "description": "A minotaur is a large humanoid with bovine features such as horns, hooves, and a layer of hair that covers their entire body. Their head also resembles that of a bull or cow, though with eyes that brim with curiosity or fury, depending on the minotaur's temperament. Though often mistaken for aggressive brutes due to their size and reputation, many minotaurs are skilled artisans who spend much of their lives perfecting their craft. Minotaur communities tend to be insular and are found at the heart of a cunning labyrinth or within a tangle of underground caverns.\nThe myth many minotaurs like to tell of their origin involves a stonemason living in ancient Iblydos. After accidentally insulting a hero-god, he was cursed to become the first minotaur. He then retreated into a series of caves beneath a temple he had built, but continued his work, sculpting stone statues for any who dared to brave the subterranean passages.\nSometimes, a lone minotaur is compelled, exiled, or chooses to live alone within a maze, a warren, or old ruins. This solitude drives them to become a monstrous tormentor who delights in hunting any who stumble across their lair. They slowly close in on their prey, thrilling in the terror of the hunted becoming lost within corridors the minotaur knows all too well. Only then does the minotaur charge in for the kill, cutting foes down with powerful strikes or impaling them on their sharp horns. Unfortunately, the world tends to judge all minotaurs by the stories of these lone, vicious hunters.",
+      "armorClass": 20,
+      "hitPoints": 70,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 8,
+        "will": 10
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 0,
+        "con": 3,
+        "int": -2,
+        "wis": 2,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 14,
+        "intimidation": 9,
+        "survival": 12
+      },
+      "languages": [
+        "jotun",
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "GqnL43j2bn0yBMad",
+          "name": "Greataxe",
+          "bonus": 14,
+          "damage": "1d12+8 slashing",
+          "traits": [
+            "reach-10",
+            "sweep"
+          ]
+        },
+        {
+          "id": "XSsZeFbx7x1xTI4H",
+          "name": "Horn",
+          "bonus": 14,
+          "damage": "1d8+8 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "UnFKmdjf3kYOmNvW",
+          "name": "Perfect Orienteering",
+          "kind": "passive",
+          "description": "A minotaur automatically critically succeeds at Survival checks to Sense Direction or Track."
+        },
+        {
+          "id": "VdbR3tZZovSqgWq8",
+          "name": "Axe Swipe",
+          "kind": "action",
+          "description": "The minotaur swings their axe in a wide arc, making greataxe Strikes against any two foes who are adjacent to each other and within the minotaur's reach. The multiple attack penalty does not increase until after both attacks are resolved."
+        },
+        {
+          "id": "NoNrnnXaKdOmoBx6",
+          "name": "Hunted Fear",
+          "kind": "action",
+          "description": "The minotaur snorts and clomps as they hunt their prey, inspiring terror. The minotaur makes an Intimidation check to Demoralize all living creatures within 60 feet that can hear the minotaur but not see them. Roll once and apply the result to all creatures.\nIf the targets are in a maze or similarly difficult-to-navigate structure, the minotaur gains a +4 circumstance bonus to this check. Creatures that become frightened as a result also take a –2 circumstance penalty to Survival checks to avoid getting lost for 1 minute. Each target is temporarily immune for 1 minute.\nEffect: Hunted Fear"
+        },
+        {
+          "id": "MVKA8eKi1YTMeHKK",
+          "name": "Powerful Charge",
+          "kind": "action",
+          "description": "The minotaur Strides twice, then makes a horn Strike. If they moved at least 20 feet from their starting position, the Strike's damage is increased to 2d8+10."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:shadow",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "VotlWUsFKdOrHWF6",
+      "slug": "shadow",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:2b78829ed912bbfd4f3d3633ffa3d3e93f333637280bfeca8948bf5a7e89a4ac",
+    "translatableHash": "sha256:0c2af100f42d5b3c6e39a0f98094d2e4d7f4b4d03ea2522067f76046660ddd5a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shadow",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "incorporeal",
+        "undead",
+        "unholy"
+      ],
+      "description": "The mysterious undead known as shadows lurk in dark places and feed on those who stray too far from the light.",
+      "armorClass": 20,
+      "hitPoints": 40,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 8,
+        "reflex": 14,
+        "will": 12
+      },
+      "abilities": {
+        "str": -5,
+        "dex": 4,
+        "con": 0,
+        "int": -2,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 10,
+        "stealth": 14
+      },
+      "languages": [
+        "necril"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "precision",
+          "unconscious",
+          "bleed"
+        ],
+        "resistances": [
+          "all-damage 5 except force, ghost-touch, vitality, spirit"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "x47iDfIE9albveGl",
+          "name": "Shadow Hand",
+          "bonus": 15,
+          "damage": "2d6+3 void",
+          "traits": [
+            "finesse",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "ACHlnYzXVxizzqPw",
+          "name": "Light Vulnerability",
+          "kind": "passive",
+          "description": "Attacks against the shadow are treated as magical if made by a creature who is in magical light or with an object that is in magical light (such as from the Light spell)."
+        },
+        {
+          "id": "YzglqmBZyUccF3kd",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "0Qt9ULbGzJV8ZG3W",
+          "name": "Shadow Spawn",
+          "kind": "passive",
+          "description": "When a creature's shadow is pulled free by Steal Shadow, it becomes a shadow spawn under the command of the shadow that created it. This Shadow Spawn doesn't have Steal Shadow and is perpetually and incurably Clumsy 2.\nIf the creature the shadow spawn was pulled from dies, the shadow spawn becomes a full-fledged, autonomous shadow. If the creature recovers from its enfeeblement, its shadow returns to it and the shadow spawn is extinguished."
+        },
+        {
+          "id": "0QWVJ7Of8cQNKp0N",
+          "name": "Slink in Shadows",
+          "kind": "passive",
+          "description": "The shadow can Hide or end its Sneak in a creature's or object's shadow."
+        },
+        {
+          "id": "Kjifw1jgDvfmrEGU",
+          "name": "Steal Shadow",
+          "kind": "action",
+          "description": "Requirements The shadow hit a living creature with a shadow hand Strike on its previous action\nEffect The shadow pulls at the target's shadow, making the creature Enfeebled 1. This is cumulative with other enfeebled conditions from shadows, to a maximum of Enfeebled 4. If this increases a creature's enfeebled value to 3 or more, the target's shadow is separated from its body (see shadow spawn). The enfeebled value from Steal Shadow decreases by 1 every hour."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:sedacthy-marauder",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "VzkfSgbtsGV79WZH",
+      "slug": "sedacthy-marauder",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:52ecb15c1927173ca1190aa4c8620c059124b87504d6ed065dc5b15329b64749",
+    "translatableHash": "sha256:6ef6862c1e2e56e50c219c49773a034fc9bff5c5c19832070b62f153a78a398d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sedacthy Marauder",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "amphibious",
+        "humanoid",
+        "sedacthy"
+      ],
+      "description": "Physically imposing sedacthies prove their status by controlling dangerous aquatic creatures like great white sharks and giant moray eels.\nSedacthies are amphibious, fish-like humanoids who lurk in Golarion's oceans and are known for leading their animal servants ashore to devour air breathers. When an entire fishing village disappears overnight, sedacthies are the first suspects. Sedacthies pride themselves as natural leaders, with ambition limited only by their strict adherence to hierarchy. A sedacthy's station is determined by the strength of the animal servants they press into service, and the mettle they prove during hunts and in battles against outsiders.",
+      "armorClass": 19,
+      "hitPoints": 75,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 9,
+        "senses": [
+          "darkvision",
+          "wavesense-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 9,
+        "will": 9
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 3,
+        "con": 4,
+        "int": 0,
+        "wis": 1,
+        "cha": 3
+      },
+      "skills": {
+        "athletics": 14,
+        "intimidation": 13,
+        "survival": 9
+      },
+      "languages": [
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "z709NE55b7pycBPc",
+          "name": "Claw",
+          "bonus": 14,
+          "damage": "2d4+8 slashing",
+          "traits": [
+            "agile",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "3dxOGrQoDzppQoe8",
+          "name": "Jaws",
+          "bonus": 14,
+          "damage": "1d4 bleed; 1d4+8 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        },
+        {
+          "id": "foI1SiQ6qTsw7WVS",
+          "name": "Spear",
+          "bonus": 14,
+          "damage": "1d6+10 piercing",
+          "traits": []
+        },
+        {
+          "id": "yXwtqMgkoPvJh7UW",
+          "name": "Spear",
+          "bonus": 11,
+          "damage": "1d6+10 piercing",
+          "traits": [
+            "thrown-20"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "VB0Z1gk8s6rpPDtt",
+          "name": "Sea Speech",
+          "kind": "passive",
+          "description": "A sedacthy speaking Thalassic can be understood by any animal that has a swim Speed or the amphibious or aquatic trait. By spending a week regularly interacting with such an animal, the sedacthy can make it permanently helpful."
+        },
+        {
+          "id": "x39lznw79Cb9Hhwp",
+          "name": "Wavesense (Imprecise) 30 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "fY8dk7lJNG1GzpgM",
+          "name": "Vengeful Throw",
+          "kind": "reaction",
+          "description": "Trigger The marauder takes damage from a creature 20 feet or further away\nEffect The marauder makes a ranged spear Strike against the triggering creature. This attack doesn't take a range increment penalty if the target is within the second range increment."
+        },
+        {
+          "id": "ohHJzQEBpGflXH8x",
+          "name": "Challenging Shriek",
+          "kind": "action",
+          "description": "The marauder unleashes a terrifying battle cry. Each enemy in a @Template[emanation|distance:30] must attempt a check (will, dc:21) save. Regardless of the results, creatures are temporarily immune for 1 minute.\nCritical Success The creature is unaffected.\nSuccess The creature is Frightened 1.\nFailure The creature is Frightened 2.\nCritical Failure The creature is Immobilized for 1 round and Frightened 3."
+        },
+        {
+          "id": "fBGjxXIH7xlxx0nY",
+          "name": "Shared Feast",
+          "kind": "action",
+          "description": "The sedacthy makes a jaws Strike. If it hits, an ally of their choice can spend a reaction to make a jaws Strike against the same target. Allies with beaks or similar attacks can use those instead of jaws."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:poracha",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "WNUvjcKRAqdguWfN",
+      "slug": "poracha",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:cf633c17af0aea25ca5a83ecc17d530a5c411e8e3f89f5c351a52f67ac2c2ba4",
+    "translatableHash": "sha256:10a0d38a5be1de37b5724b371fb3e438c6b082ad49fd73a54515cf6688d82214",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poracha",
+      "level": 4,
+      "rarity": "uncommon",
+      "size": "medium",
+      "traits": [
+        "beast"
+      ],
+      "description": "Porachas are feline beasts native to the mystical Forest of Spirits in Tian Xia. In their natural form, these graceful eight-legged creatures sport a gray tabby coat of fur streaked with lines of olive green, but they are rarely seen this way. Even the youngest porachas are capable of hiding within objects, making them incredibly elusive and rarely seen except on their own terms. Because porachas can so effortlessly blend in with the forest and emerge from its dark corners in an instant, superstitious locals believe these beasts are related to kami—nature spirits who embody individual trees, stones, or other elements of nature in the Forest of Spirits. The truth is, while porachas frequently associate with kami, they are their own breed of monster.\nThe poracha's most iconic feature is its ability to bend reality to teleport, or jaunt, short distances. But a poracha can also rest within objects, allowing it to safely sleep inside. Given that a poracha experiences time very slowly while hiding within objects, it can sleep inside one for an extended period. Once it wakes, a poracha departs to play in the living world.\nPorachas especially enjoy resting inside roadside milestones, to maximize their chances of coming across travelers. Porachas rarely tread humanoid-occupied lands, preferring the company of the kami and their natural habitat in the Forest of Spirits. Though they enjoy occasional conversation, they're extremely sensitive to sound; they speak softly and request the same from those they speak with. Their territories span vast swaths of the wood, making them ideal allies for hunters or treasure seekers who would otherwise become lost in the dense trees. But porachas are nothing if not fickle, and typically demand inscrutable favors in return for their aid, such as the planting of a rare sapling or the clearing of an invasive monster species. Any attempt to coerce or trick a poracha into service is ill advised, for these sacred beasts have many friends among the kami as well as others of their kind. Though they generally don't travel in groups, porachas know where to find more of their kind in times of need, and an organized pack of porachas is a disorienting threat.",
+      "armorClass": 23,
+      "hitPoints": 50,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "tremorsense-imprecise-10",
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 13,
+        "will": 10
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 5,
+        "con": 3,
+        "int": 0,
+        "wis": 2,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 13,
+        "athletics": 9,
+        "deception": 11,
+        "diplomacy": 11,
+        "stealth": 13,
+        "survival": 10
+      },
+      "languages": [
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "sonic 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "sEBLtOOpyQCNzmBJ",
+          "name": "Jaws",
+          "bonus": 13,
+          "damage": "2d6+7 piercing",
+          "traits": [
+            "finesse",
+            "magical",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "50tgcNZoPBn2RCy3",
+          "name": "Claw",
+          "bonus": 13,
+          "damage": "2d4+7 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "ZA1vPfnoLP9PkAG2",
+          "name": "Tremorsense (Imprecise) 10 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "zYGuLe2x3OTlMc06",
+          "name": "Jaunt",
+          "kind": "action",
+          "description": "The poracha teleports up to 40 feet to a location it can see.\nIt can't use Jaunt again for [[/gmr 1d4 #Recharge Jaunt]]{1d4 rounds}."
+        },
+        {
+          "id": "GzpsUYZPjfrvA0Yh",
+          "name": "Object Meld",
+          "kind": "action",
+          "description": "The poracha touches an adjacent object of enough volume to contain it. It merges into the object indefinitely, and while it's inside, time moves exceptionally slowly for it and it has only limited perception of the outside world. The poracha can sense what's going on outside the object only using tremorsense.\nThe poracha can use only mental actions or Jaunt; if it Jaunts, it leaves the object and appears where it chooses. If a creature Strikes the object, the poracha is expelled unharmed."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:ogre-glutton",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "X7PaA6XgvrY5ByfM",
+      "slug": "ogre-glutton",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:943a9696e043d08f60cbf7989429ade1228919be3e69e3c1f360934ea7ae2cee",
+    "translatableHash": "sha256:1b05b5ae14196f625bf2acb08f31417bf23ac7ed65127b77b6b47a32f9d30f9c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ogre Glutton",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "giant",
+        "humanoid"
+      ],
+      "description": "Ogre gluttons take the act of feeding to a horrific extreme, capable of extending their already cavernous mouths wide enough to gulp down a halfling. Stories of ogre gluttons being tricked into eating razor-edged shields or barrels filled with poisoned meat are common, but such tales are of little consolation to those who have been gobbled whole by these ravenous giants. In addition to their sadistic table manners, ogre gluttons have a disturbing knack for coming up with violent \"games\" that are little more than drawn-out torments, yet those who somehow manage to beat a glutton at the rules of their own game can often enrage the ogre enough that the resulting tantrum provides an opportunity for the captives to escape.\nFor many societies, ogres embody brutish, amoral violence and greedy cruelty. Standing 10 feet tall and densely muscled, ogres are usually as strong as they are vicious. The worst ogres are sadists, enjoying remorseless murder, torture, and violence in all of its forms. Although they prefer to vent their violent urges on other humanoids—the smaller the better—ogre captivity can end in a horrifying fate for anyone unlucky enough to fall within their meaty grasp: becoming dinner. But for all their creativity in inflicting pain, ogres often forget that their playthings lack their own robust fortitude and high pain tolerance, and many of their captives die sooner than the ogres might prefer. Meanwhile, those who manage to survive captivity in an ogre's larder often emerge with lasting mental scars. A captive able to keep their wits about them, however, can sometimes trick the brutes by promising treasure, more plentiful food sources, or other crude amusements, taking advantage of an ogre's often-limited intellect to engineer opportunities to escape or gain revenge.\nOgres are social creatures only in the most debased sense. They gather together in groups called families, though members are not always related by blood. The most powerful ogre in any family is the \"boss\"—usually the family's patriarch or matriarch—whom the other ogres in the family learn to quickly obey or risk being brutalized by the boss's loyal kin. Ogres lair in caves, crumbling ruins, or dilapidated shacks close enough to humanoid settlements or animal trails to make raiding easy. Their lairs are filthy and frequently contain all-too-recognizable evidence of their depravity, along with assorted treasures stolen from past captives.",
+      "armorClass": 18,
+      "hitPoints": 70,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 6,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 7,
+        "will": 6
+      },
+      "abilities": {
+        "str": 6,
+        "dex": -1,
+        "con": 4,
+        "int": -2,
+        "wis": 0,
+        "cha": -2
+      },
+      "skills": {
+        "athletics": 12,
+        "intimidation": 10,
+        "survival": 6
+      },
+      "languages": [
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "qXMpQcdrpm3l454K",
+          "name": "Greataxe",
+          "bonus": 14,
+          "damage": "1d12+8 slashing",
+          "traits": [
+            "reach-10",
+            "sweep"
+          ]
+        },
+        {
+          "id": "D4kBzUzbrcoM0VDr",
+          "name": "Jaws",
+          "bonus": 14,
+          "damage": "1d8+8 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "SzfxfFohnnwRyEeK",
+          "name": "Glutton's Feast",
+          "kind": "passive",
+          "description": "If the ogre glutton damages a living creature with their jaws Strike, they gain 1d4 temporary Hit Points for 1 minute.\nEffect: Glutton's Feast"
+        },
+        {
+          "id": "DvjFG8xZGQmhN7AK",
+          "name": "Glutton's Rush",
+          "kind": "action",
+          "description": "The ogre glutton Strides twice and makes a jaws Strike. If they damage a living creature with this Strike, the temporary Hit Points they receive from Glutton's Feast is increased to 2d4."
+        },
+        {
+          "id": "OQICdYHqGHNlnuut",
+          "name": "Swallow Whole",
+          "kind": "action",
+          "description": "Small, (2d4+4)[bludgeoning], Rupture 14"
+        },
+        {
+          "id": "iw0W5WgXZN9Y21ul",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:coil-spy",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "y2w2jjs2O3gP0H5v",
+      "slug": "coil-spy",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:0f20c7212ae8fe0bb40612d30cc9c1ac28483402fa356424657d4048abe17865",
+    "translatableHash": "sha256:0a353e1ca0c6b4e6cf21da7c7e6adaa506973fd8648cb767423514362e309227",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Coil Spy",
+      "level": 4,
+      "rarity": "uncommon",
+      "size": "medium",
+      "traits": [
+        "humanoid",
+        "serpentfolk"
+      ],
+      "description": "Some serpentfolk undergo intense ritual training and practice to improve their innate ability to disguise themselves. These serpentfolk often identify as members of a sinister society known as the Coils of Ydersius, and the most devoted of their number seek out methods of reincarnating into new forms to infiltrate enemy societies even more efficiently. Coil spies train in methods of infiltrating other societies to such an extent that they might be capable of infiltrating a mammalian civilization for years. Though they're expected to work entirely toward the eventual triumph of their people, most Coil spies also find personal pursuits. When Coil spies get caught, it's rarely due to a lack of skill, but rather to their arrogance or recklessness as they pursue their hedonistic desires.\nBefore their ancient clash with humanity devastated their civilization, serpentfolk were masters of a sprawling underground empire. Their power was shattered and their god Ydersius decapitated (although not quite slain). The cunning, intelligence, and magical abilities of serpentfolk have diminished from their ancient heights, and most are born without these boons. This is partially the result of cruel genetic meddling among serpentfolk—though the ruling class, zyss, are born with an innate spellcasting ability, their blood runs thin, making them susceptible to wounds. Seen as the failures of the serpentfolk's experiments are the aapophs, who are strong but prone to mutation and lack innate spellcasting.\nToday, the central realm of the Darklands retains the old name of the serpentfolk empire that once dominated this region—Sekamina. This name is also the source of the serpentfolk's Aklo title, sekmin, which they are often called in ancient texts. Serpentfolk dominion had declined before ghouls, gugs, umbral gnomes, and other forces. Yet their recent ventures have brought them back to a stronger place in the Darklands. Many serpentfolk sleeping in torpor in secluded vaults have awakened.\nZyss serpentfolk tend toward megalomania, with dreams of returning to their place of dominance. Many of their plans hinge on resurrecting Ydersius, their decapitated god. His headless body still thrashes about, mindless, in the Darklands, waiting to be reunited with his lost skull. Serpentfolk numbers are so small that reclaiming their dominance seems a distant dream, especially since their reproduction is slow. Though a parent can birth a dozen young at once, the gestation period lasts up to a decade, and the likelihood that even one will be zyss is low. There's no telling whether a child will be zyss or aapoph, regardless of parentage. A coveted zyss child is just as likely to arise from aapoph parents as from two zyss, and every serpentfolk colony has someone in charge of sorting the young, identifying the earliest signs of magic in them.",
+      "armorClass": 22,
+      "hitPoints": 48,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 12,
+        "will": 10
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 1,
+        "int": 4,
+        "wis": 2,
+        "cha": 5
+      },
+      "skills": {
+        "acrobatics": 10,
+        "deception": 13,
+        "diplomacy": 11,
+        "intimidation": 11,
+        "occultism": 10,
+        "society": 10,
+        "stealth": 12,
+        "thievery": 12
+      },
+      "languages": [
+        "aklo",
+        "common",
+        "dwarven",
+        "gnomish",
+        "sakvroth"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "poison 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "H8b5ywUVrI7pjhB8",
+          "name": "Shortsword",
+          "bonus": 14,
+          "damage": "1d6+5 piercing",
+          "traits": [
+            "agile",
+            "finesse",
+            "versatile-s"
+          ]
+        },
+        {
+          "id": "2yuX2a5ufNBYmWHK",
+          "name": "Fangs",
+          "bonus": 14,
+          "damage": "1d6+5 piercing",
+          "traits": [
+            "finesse"
+          ]
+        },
+        {
+          "id": "umE4aR6ccDxLqz3l",
+          "name": "Hand Crossbow (Spider Venom)",
+          "bonus": 10,
+          "damage": "1d6+3 piercing",
+          "traits": [
+            "reload-1"
+          ]
+        },
+        {
+          "id": "bMLV80N79GMyKDyo",
+          "name": "Hand Crossbow (Serpentfolk Venom)",
+          "bonus": 10,
+          "damage": "1d6+3 piercing",
+          "traits": [
+            "reload-1"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "dSwI8FF7cQX1dTCw",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "xSbOcJARBuvqJu4y",
+          "name": "+4 Status to Will Saves vs. Mental",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "it4FWMBLsXEBWcMl",
+          "name": "Thin of Blood",
+          "kind": "passive",
+          "description": "Coil spies recover slowly from injuries. When they take physical damage from a critical hit, they gain 1d4[persistent,bleed] damage. They take a –2 circumstance penalty to flat checks to recover from persistent damage and saving throws against afflictions."
+        },
+        {
+          "id": "0jpjkgun2zt97YLL",
+          "name": "Deceptive Reposition",
+          "kind": "action",
+          "description": "The Coil spy Strides up to half their Speed and attempts a Feint, in either order."
+        },
+        {
+          "id": "q2KJwlgmVEKQMJPb",
+          "name": "Maintain Disguise",
+          "kind": "passive",
+          "description": "A Coil spy can maintain an ongoing Illusory Disguise as long as they are conscious without having to re-cast the spell; they need only Cast the Spell again to reassume their illusory disguise if they wish to change their appearance or if the active spell is dispelled.\nCoil spies typically seek privacy when they need to sleep, as an ongoing illusory disguise ends an hour after they fall Unconscious."
+        },
+        {
+          "id": "WLcykyc9hp2QiTO4",
+          "name": "Serpentfolk Venom",
+          "kind": "passive",
+          "description": "Saving Throw check (fortitude, dc:19)\nMaximum Duration 6 rounds\nStage 1 1d4[poison] damage and Enfeebled 1 (1 round)\nStage 2 2d4[poison] damage and enfeebled 1 (1 round)"
+        },
+        {
+          "id": "YRhZxIyDuKIuiHky",
+          "name": "Sneak Attack",
+          "kind": "passive",
+          "description": "The Coil spy's Strikes deal an extra 2d6 precision damage to Off-Guard creatures."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "cJf7dfR7gJ442K2d",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "8Wc80N6643DMhq4e",
+              "name": "Ventriloquism (At Will)",
+              "rank": 1
+            },
+            {
+              "id": "okYX1ESJXRvdsg73",
+              "name": "Blur (Self Only, At Will)",
+              "rank": 2
+            },
+            {
+              "id": "gvVSNdwxZh7uvitl",
+              "name": "Illusory Disguise (At Will)",
+              "rank": 3
+            },
+            {
+              "id": "bM77m6Bgo63oMvqu",
+              "name": "Suggestion",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:weretiger",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "yS0bUM8R6hb4fIx2",
+      "slug": "weretiger",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:1f685437508bc4afe0347d1fed62754fb6de254980f06fce21f80201ca9b1fdd",
+    "translatableHash": "sha256:cc4b859e1747a15b9ac55959c637e5a28038e5464aca1a1a7326b0893ee6b741",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Weretiger",
+      "level": 4,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast",
+        "human",
+        "humanoid",
+        "werecreature"
+      ],
+      "description": "These ferocious werecreatures stalk prey with the cunning and skill of a true apex predator. Weretigers typically view all life as a potential meal. Powerful nocturnal hunters with excellent senses that help them ambush prey, weretigers are adaptable to an extreme range of environments. However, weretigers living in densely populated cities (potentially as courtesans, assassins, or guild leaders) often struggle to suppress their killer instincts, becoming overwhelmed by the urge to hunt.\nWerecreatures are humanoids doomed to transform into animals and animalhumanoid hybrids under the light of the full moon. These shapechanging creatures are the result of an ancient primal curse that they can, in turn, transmit through their own bites. Their ability to lurk unseen in the wilds as well as among people, combined with the contagiousness of their condition, makes werecreatures a perennial cause of panicked suspicion.",
+      "armorClass": 21,
+      "hitPoints": 75,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 13,
+        "will": 9
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 3,
+        "int": 0,
+        "wis": 3,
+        "cha": -1
+      },
+      "skills": {
+        "acrobatics": 11,
+        "athletics": 12,
+        "deception": 7,
+        "society": 10,
+        "stealth": 11
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "silver 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "UI2oqnHXnGO5sCNx",
+          "name": "Tiger Empathy",
+          "kind": "passive",
+          "description": "The weretiger can communicate with felines.\nThe werecreature can ask questions of, receive answers from, and use the Diplomacy skill with animals of its general kind."
+        },
+        {
+          "id": "irXwQ6noOJsw82r7",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "HjO34r6rvHwtE2xe",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "• Human• Melee fist +14 Damage 1d4+7\n• Animal• Speed 30 feet\n• Wrestle\nThe werecreature changes into its humanoid, hybrid, or animal shape. Each shape has a specific, persistent appearance. A true werecreature's natural form is its hybrid shape.\nIn humanoid shape, the werecreature uses its original humanoid size, loses its jaws and claws Strikes, and gains a melee fist Strike that deals bludgeoning damage equal to the slashing damage dealt by its claw.\nIn animal shape, its Speed and size change to that of the animal, it gains any special Strike effects of the animal that it didn't already have (such as Grab), and it loses its weapon Strikes."
+        },
+        {
+          "id": "G1dRRkzfZaVXg1pw",
+          "name": "Curse of the Weretiger",
+          "kind": "passive",
+          "description": "This curse affects only humanoids.\nSaving Throw check (fortitude, dc:21)\nOn each full moon, the cursed creature must succeed at another Fortitude save or turn into the same kind of werecreature until dawn.\nThe creature is under the GM's control and goes on a rampage for half the night before falling unconscious until dawn."
+        },
+        {
+          "id": "AKOKPl5zfFti3EZh",
+          "name": "Moon Frenzy",
+          "kind": "passive",
+          "description": "When a full moon appears in the night sky, the werecreature must enter hybrid form, can't Change Shape thereafter, becomes one size larger, increases its reach by 5 feet, and increases the damage of its jaws by 2.\nWhen the moon sets or the sun rises, the werecreature returns to humanoid form and is Fatigued for [[/br 2d4 #hours]]{2d4 hours}.\nEffect: Moon Frenzy"
+        },
+        {
+          "id": "3t8p1OnCR5iUrhxt",
+          "name": "Pounce",
+          "kind": "action",
+          "description": "The weretiger Strides and makes a Strike at the end of that movement. If the weretiger began this action Hidden, they remain hidden until after this ability's Strike."
+        },
+        {
+          "id": "p8Evyqv8pdGxIXIQ",
+          "name": "Rend",
+          "kind": "action",
+          "description": "Claw"
+        },
+        {
+          "id": "8l6UxI1NK1aNu3og",
+          "name": "Wrestle",
+          "kind": "action",
+          "description": "The weretiger makes a claw Strike against a creature it is Grabbing. If the attack hits, that creature is knocked Prone."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:sweet-hag",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "zrzoj0L0ZwfCbHXr",
+      "slug": "sweet-hag",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:9afafb757b3eb0e363966adb8dc4e7cc2c8c7da8ca62346aabf6809bac6365e8",
+    "translatableHash": "sha256:30456cb3da4dafc4df59074d6981e3bb5566ca306b869509a4d060f5338390c3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sweet Hag",
+      "level": 4,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "hag",
+        "humanoid"
+      ],
+      "description": "Sweet hags use bright colors, pleasant visages, and sugary treats to draw in children and the young at heart. Their favorite prey is impoverished youngsters who are unlikely to be missed—sweet hags offer them food and a veneer of kindness before devouring the hapless child. Sweet hags also enchant their food to magically charm others, often using these bespelled servitors to handle all of their busywork. Though they present a lovely and generous face to the world, they turn vicious when insulted or defied. A sweet hag's true form is a dribbling mass of flesh with gumdrop eyes, often resembling melting taffy.\nHags are malevolent predators who use magic and manipulation to lure children and young adults into their clutches. Though their true forms are eldritch and horrifying, hags spend much of their lives disguised as ordinary women. They seek out targets who are unhappy, innocent, or otherwise vulnerable, preying on their weaknesses before snatching them up. The typical hag is abusive, controlling, and narcissistic. Though less malicious hags possibly exist, they rarely reveal their true forms, making them nearly impossible to find.",
+      "armorClass": 21,
+      "hitPoints": 70,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 11,
+        "will": 12
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 3,
+        "con": 3,
+        "int": 2,
+        "wis": 2,
+        "cha": 4
+      },
+      "skills": {
+        "acrobatics": 9,
+        "athletics": 11,
+        "deception": 10,
+        "nature": 8,
+        "occultism": 8,
+        "society": 9
+      },
+      "languages": [
+        "aklo",
+        "common",
+        "fey",
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "W6zB8L6mVcLC12mo",
+          "name": "Candy Cane Claw",
+          "bonus": 14,
+          "damage": "1d10+5 piercing",
+          "traits": [
+            "agile",
+            "magical"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "4B53NxcnufuOkGSF",
+          "name": "Coven",
+          "kind": "passive",
+          "description": "A sweet hag adds Charm, Honeyed Words, and Outcast's Curse to their coven's spells."
+        },
+        {
+          "id": "SkfchuI2ZEZgnl6U",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "pfqWq7ND3LIBUGTa",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "WuotNn100zUQUxvj",
+          "name": "Betraying Touch",
+          "kind": "action",
+          "description": "The sweet hag touches a creature that doesn't realize the hag is an enemy. The betrayed creature is affected by soporific strike with a –4 circumstance penalty to their saving throw."
+        },
+        {
+          "id": "bGfQxCimFAFe4AaV",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The sweet hag can take on the appearance of any Medium humanoid woman. This doesn't change their Speed or their attack and damage bonuses with their Strikes, but it might change the damage type their Strikes deal (typically to bludgeoning)."
+        },
+        {
+          "id": "kf8hPtLO45Y8n026",
+          "name": "Poisoned Candy",
+          "kind": "action",
+          "description": "The sweet hag casts an innate spell that can normally target 1 creature on a piece of food, typically a sweet treat. The spell is stored in the food. The first creature that eats any of the food is affected by the spell and takes a –4 circumstance penalty to their saving throw against that effect."
+        },
+        {
+          "id": "BBK6VRtgLyiTZvrD",
+          "name": "Soporific Touch",
+          "kind": "passive",
+          "description": "A creature damaged by a sweet hag's claw must succeed at a check (fortitude, dc:20) save or be Enfeebled 1 for 1 day.\nIf the creature critically fails or fails this save while already enfeebled by soporific strike, it falls Unconscious and dreams of eating delicious sweets; this is a mental sleep effect. If not woken up before 1 minute passes, the creature wakes up automatically."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "yYIw6I9l5DKwkiMJ",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 14,
+          "saveDc": 20,
+          "spells": [
+            {
+              "id": "Aup94rvt9k16Mrug",
+              "name": "Charm (At Will)",
+              "rank": 1
+            },
+            {
+              "id": "oqhALuaqYIBOQTWJ",
+              "name": "Cleanse Cuisine (At Will)",
+              "rank": 1
+            },
+            {
+              "id": "dLJYBwELBRBn4qZV",
+              "name": "Daze",
+              "rank": 1
+            },
+            {
+              "id": "OgwUzgSkjWAET8pk",
+              "name": "Figment",
+              "rank": 1
+            },
+            {
+              "id": "26VE14BjiXr7OJvG",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "WItZDcFFPKbYK9EQ",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "3jU8ZYoAxOEWFUc0",
+              "name": "Spider Sting",
+              "rank": 1
+            },
+            {
+              "id": "U1i1bCXfZlWJLADT",
+              "name": "Create Food (Sweets Only)",
+              "rank": 2
+            },
+            {
+              "id": "UTewi60BfOrtCo6N",
+              "name": "Invisibility (At Will)",
+              "rank": 2
+            },
+            {
+              "id": "5l7i30tVUs1KnRKg",
+              "name": "Laughing Fit",
+              "rank": 2
+            },
+            {
+              "id": "AexFlLux6FLdyHf0",
+              "name": "Shrink",
+              "rank": 2
+            },
+            {
+              "id": "AHBi87ltZHwj5rXB",
+              "name": "Sleep",
+              "rank": 2
+            },
+            {
+              "id": "JVbrUk7ggLUlZEVh",
+              "name": "Truespeech (Constant)",
+              "rank": 5
+            }
+          ]
+        },
+        {
+          "id": "hzY5nJhjn5f6bWEL",
+          "name": "Coven Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 14,
+          "saveDc": 20,
+          "spells": [
+            {
+              "id": "d55erXGaBqMdHvoZ",
+              "name": "Augury",
+              "rank": 5
+            },
+            {
+              "id": "LdxNTPyKd0vR4eQb",
+              "name": "Charm",
+              "rank": 5
+            },
+            {
+              "id": "fX1TdADnyDO4fXC7",
+              "name": "Clairaudience",
+              "rank": 5
+            },
+            {
+              "id": "kY6hbPcfkXabZVVl",
+              "name": "Clairvoyance",
+              "rank": 5
+            },
+            {
+              "id": "e1jlXEj9DmredsGG",
+              "name": "Honeyed Words",
+              "rank": 5
+            },
+            {
+              "id": "nofbnXWToUKNGep4",
+              "name": "Illusory Disguise",
+              "rank": 5
+            },
+            {
+              "id": "ipi0tpXW3QBIvOad",
+              "name": "Illusory Scene",
+              "rank": 5
+            },
+            {
+              "id": "a2DUc9mnvF1siMLv",
+              "name": "Outcast's Curse",
+              "rank": 5
+            },
+            {
+              "id": "yRmMB8DOPTx95hhf",
+              "name": "Scouting Eye",
+              "rank": 5
+            },
+            {
+              "id": "PNxwbCeos4Bk4N3P",
+              "name": "Talking Corpse",
+              "rank": 5
+            },
+            {
+              "id": "2uYOJ3Um9ebekKz1",
+              "name": "Cursed Metamorphosis",
+              "rank": 8
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:living-waterfall",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "1AZoRkLec47xrTqY",
+      "slug": "living-waterfall",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:a4d128d014bb13509a7975997b9266e2ba954c912d0f206e8f8f41f6a754a0ec",
+    "translatableHash": "sha256:5ee7b5ba1e02396a53c96bfe15381d527d1fcbf5383e297ca7a0271d7fcc3e73",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Living Waterfall",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "aquatic",
+        "elemental",
+        "water"
+      ],
+      "description": "Living waterfalls are humanoid-shaped columns of churning water. They see the water as their natural domain and even aquatic animals as interlopers. When summoned, they are surly, but will grudgingly guard all forms of aquatic sites.\nWater elementals can be very destructive, but often not intentionally so; just as water can bring life to mortals in need, its waves can pound shores and rains can flood cities. Water elementals are similarly difficult to predict.",
+      "armorClass": 20,
+      "hitPoints": 90,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 12,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 3,
+        "int": -2,
+        "wis": 1,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 13,
+        "stealth": 12
+      },
+      "languages": [
+        "thalassic"
+      ],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [
+          "fire 5"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "u3YnULJ9YqMBkD6D",
+          "name": "Wave",
+          "bonus": 15,
+          "damage": "2d8+7 bludgeoning",
+          "traits": [
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "krINP0tRSuTbpzys",
+          "name": "Waterbound",
+          "kind": "passive",
+          "description": "When not touching water, the living waterfall is Slowed 1 and can't use reactions."
+        },
+        {
+          "id": "3jppXkfB2qjbeRic",
+          "name": "Vortex",
+          "kind": "passive",
+          "description": "30 feet.\nWater in the area that is in the same body of water as the living waterfall is difficult terrain for Swimming creatures that don't have the water trait."
+        },
+        {
+          "id": "Ita7hOSbzKOHxexv",
+          "name": "Drench",
+          "kind": "action",
+          "description": "The elemental puts out all fires in a @Template[emanation|distance:5].\nIt extinguishes all non-magical fires automatically and attempts to counteract magical fires ([[/r 1d20+14 #Drench]]{+14} counteract modifier)."
+        },
+        {
+          "id": "kZqLmEhJGdtImTFg",
+          "name": "Push or Pull 5 feet",
+          "kind": "action",
+          "description": "The living waterfall can choose whether to push or pull the creature on a successful hit.\nPush 1\nPull 1"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:living-landslide",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "4Ejgj6p1LAu1RAN3",
+      "slug": "living-landslide",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:94c2e241ca4ea41bb0b2cbaa48dce13a2f9d24f7eaf1f877cc81f5112989330d",
+    "translatableHash": "sha256:55edcce2efbe363dbe05f4cab033f48bb7aa4a7396ce239bb169aacd06a289b9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Living Landslide",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "earth",
+        "elemental"
+      ],
+      "description": "Living landslides resemble humanoids made of earth and gravel. They find moving across the many surfaces of the mortal Universe strangely liberating.\nEarth elementals make excellent bodyguards for adventuresome spelunkers and are ideal protectors of important subterranean locations such as vaults and treasuries.",
+      "armorClass": 21,
+      "hitPoints": 90,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision",
+          "tremorsense-imprecise-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 15,
+        "reflex": 8,
+        "will": 10
+      },
+      "abilities": {
+        "str": 5,
+        "dex": -1,
+        "con": 4,
+        "int": -2,
+        "wis": 1,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 14,
+        "stealth": 8
+      },
+      "languages": [
+        "petran"
+      ],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "oWIxJUR2edElUUod",
+          "name": "Fist",
+          "bonus": 16,
+          "damage": "2d8+8 bludgeoning",
+          "traits": [
+            "reach-10",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "WUUFHNKmZ2orqvtO",
+          "name": "Tremorsense (Imprecise) 60 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "80b2NmnlvaPumpDV",
+          "name": "Earthbound",
+          "kind": "passive",
+          "description": "When not touching solid ground, the living landslide is Slowed 1 and can't use reactions."
+        },
+        {
+          "id": "LLFFYMBrnhFoDMRh",
+          "name": "Crumble",
+          "kind": "reaction",
+          "description": "Trigger The living landslide takes damage from a hostile source while atop rock or earth\nEffect The living landslide crumbles into the ground, Burrowing down 10 feet. This Burrowing does not trigger reactions.\nThe living landslide can't Crumble again for [[/gmr 1d4 #Recharge Crumble]]{1d4 rounds}."
+        },
+        {
+          "id": "pkJjWhKaHykBdCEO",
+          "name": "Earth Glide",
+          "kind": "passive",
+          "description": "The living landslide can Burrow through any earthen matter, including rock. When it does so, the living landslide moves at its full burrow Speed, leaving no tunnels or signs of its passing."
+        },
+        {
+          "id": "wP5r73zRcdD0VFws",
+          "name": "Sliding Earth",
+          "kind": "action",
+          "description": "The living landslide Strides up to twice its normal Speed in a straight line, then attempts to Trip a creature in its reach. If a creature falls Prone from this Trip, it takes 1d4[bludgeoning] damage for every 10 feet the living landslide moved."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:brimorak",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "6UrgCT8MwC8CeGbu",
+      "slug": "brimorak",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:60efecd536f375d98ca002973ee1e3f679bbfed8be3851086ac6ee5c3a099aa2",
+    "translatableHash": "sha256:3a38b4139e903c10c64a77d07b65673c5f0ac99cc86ec4e85395e9e3d3d9b31b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Brimorak",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "demon",
+        "fiend",
+        "unholy"
+      ],
+      "description": "These goat-headed demons have glowing red eyes and flaming hooves. Born from the souls of arsonists, the fiery brimoraks continue the work they pursued in life, as everything they touch quickly burns.\nBrimoraks are ill-tempered even for demons, although their spite turns to glee in the face of a growing fire. Those who have survived encounters with these fiends report that they remember the braying sound of the brimoraks' laughter as clearly as the heat of the flames or the choking scent of smoke.\nWhen a sinful mortal soul is judged and sent on to the Outer Rifts, it can become a deadly fiend—a demon. Demons are living incarnations of sin—be they classic sins like wrath or gluttony, or more \"specialized\" depravities like an obsession with torture or the act of treason or treachery. Once formed, a demon's driving goals are twofold—the amassing of personal power, and the corruption of mortal souls to cause them to become tainted by sin. In this way demons ensure a never-ending supply of new demons to bolster their ever-growing ranks in the Outer Rifts.\nDemons are selfish and self-absorbed creatures, and most firmly believe that mortals only play at being more virtuous than fiends. They enjoy tempting mortals into damnation to both indulge their egos and swell their armies. Like many other fiends, one of the great rewards of this manipulation is fulfilling their hunger for souls. In their eyes, the primary use for these souls is to spawn new demons, who can serve as soldiers, slaves, pawns, or even currency for their more powerful masters.",
+      "armorClass": 22,
+      "hitPoints": 80,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 15,
+        "reflex": 12,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 3,
+        "con": 4,
+        "int": 1,
+        "wis": 1,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 12,
+        "deception": 11,
+        "religion": 10,
+        "stealth": 12
+      },
+      "languages": [
+        "chthonian",
+        "draconic",
+        "empyrean",
+        "pyric"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5",
+          "holy 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "ngkPL0GL8aCtZQ2t",
+          "name": "Flaming Sword",
+          "bonus": 15,
+          "damage": "2d8+4 slashing; 1d6 fire",
+          "traits": [
+            "magical",
+            "unholy"
+          ]
+        },
+        {
+          "id": "8So4CPwp508RfAuQ",
+          "name": "Hoof",
+          "bonus": 15,
+          "damage": "2d4+4 bludgeoning; 1d6 fire",
+          "traits": [
+            "agile",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "CybU0X1fwtJZX5W4",
+          "name": "Telepathy 60 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "MzHIjOVqhOXnluws",
+          "name": "Extinguishing Aversion",
+          "kind": "passive",
+          "description": "Dousing a brimorak with water, either ordinary water or from a water effect, causes no physical harm to the fiend but deals 3d6[mental] damage. Fully immersing the brimorak in water deals 5d6[mental] damage per round."
+        },
+        {
+          "id": "EViJHho1D7U93moQ",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "Smoke doesn't impair a brimorak's vision; they ignore the Concealed condition from smoke."
+        },
+        {
+          "id": "E06rANySjyXiIjDH",
+          "name": "Boiling Blood",
+          "kind": "passive",
+          "description": "Each time an adjacent creature deals slashing or piercing damage to the brimorak, the attacker is sprayed with the brimorak's boiling blood, which deals 2d4[fire] damage (check (reflex, dc:19, basic) save)."
+        },
+        {
+          "id": "VRhuQIGcrHKCOyL4",
+          "name": "Flaming Weapon",
+          "kind": "passive",
+          "description": "A brimorak's hooves and any weapon they wield burst into flame. They can also Interact to create a sword of fire and steel, which dissolves if it leaves their grip."
+        },
+        {
+          "id": "Bh4tXIFDTCdh3Vzs",
+          "name": "Frothing Spew",
+          "kind": "action",
+          "description": "The brimorak spits their boiling blood in a @Template[line|distance:20] that deals 6d6[fire|options:area-damage] damage (check (reflex, dc:21, basic, options:area-effect)). Creatures that fail the save also fall Prone as they slip in the greasy blood.\nThe brimorak can't use Frothing Spew again for [[/gmr 1d4 #Recharge Frothing Spew]]{1d4 rounds}."
+        },
+        {
+          "id": "GdnX1i87yKmvFsjB",
+          "name": "Fume",
+          "kind": "action",
+          "description": "Frequency once per minute\nEffect The brimorak emits a cloud of thick black smoke in a @Template[burst|distance:10] adjacent to them. The cloud remains for 1 minute. All creatures within the smoke become Concealed, and all creatures outside the smoke become concealed to creatures within it.\nA creature that enters or begins its turn within the smoke it must succeed at a check (fortitude, dc:21) save or become Sickened 1 (Sickened 2 on a critical failure)."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "D1C3re9l8xuzleoq",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "87SdEeu9PvWfmVe8",
+              "name": "Ignition",
+              "rank": 1
+            },
+            {
+              "id": "BIsT0ulpxCh4SjZH",
+              "name": "Dispel Magic",
+              "rank": 3
+            },
+            {
+              "id": "6Zl1rcKWmkW3U2PZ",
+              "name": "Fireball",
+              "rank": 3
+            },
+            {
+              "id": "yYcXvghqDLQtY2Nt",
+              "name": "Translocate",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:umbral-gnome-rockwarden",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "6yTmbDaZmrkXUJ4t",
+      "slug": "umbral-gnome-rockwarden",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:963dfb2b09ff9e9531f47aff85d14b8e2447ef9dccf718dd8a342a3402b4d1f7",
+    "translatableHash": "sha256:b7d9b7352019d1fbf4df5e370356aa51d74a50f07a798ac94380aab3781ffd99",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Umbral Gnome Rockwarden",
+      "level": 5,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "gnome",
+        "humanoid"
+      ],
+      "description": "Umbral gnome rockwardens follow druidic teachings and commune with the natural elemental influences and denizens of the Darklands.\nGnomes are known for being creative and curious. They stand at around 3 feet tall, and their vivid personalities match their naturally vivid hair and eye color. Gnomes possess a natural connection to their ancestral home, the First World. They crave adventure and new experiences to fight off an ancestry-wide affliction known as the Bleaching. Gnomes who fail to dream and innovate begin to slowly lose their color and fall into a deep depression.\nA notable subgroup of gnomes called umbral gnomes typically have gray or brown skin with a stony texture, and thin, pale hair or bald pates. Umbral gnomes are most numerous in the Darklands, where they go by the name drathnelar. Umbral gnomes often attribute these physical changes to the gnome deity regarded as the first of their kind, Nivi Rhombodazzle. Nivi was a surface gnome who traveled deep into the Darklands and was ultimately rewarded with demigodhood when she exchanged a particular gemstone with the dwarven deity, Torag. Nivi is immune to the Bleaching, and umbral gnomes are often immune or resistant to it as well.",
+      "armorClass": 22,
+      "hitPoints": 63,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 14,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 9,
+        "will": 14
+      },
+      "abilities": {
+        "str": 1,
+        "dex": 2,
+        "con": 3,
+        "int": 0,
+        "wis": 5,
+        "cha": 2
+      },
+      "skills": {
+        "crafting": 9,
+        "diplomacy": 11,
+        "nature": 14,
+        "stealth": 9
+      },
+      "languages": [
+        "gnomish",
+        "petran",
+        "sakvroth"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "GNpyzaHN2uioOy3x",
+          "name": "Pick",
+          "bonus": 10,
+          "damage": "1d6 piercing",
+          "traits": [
+            "fatal-d10"
+          ]
+        },
+        {
+          "id": "HQrZGDENHs9wuZxK",
+          "name": "Sling",
+          "bonus": 11,
+          "damage": "1d6 bludgeoning",
+          "traits": [
+            "propulsive"
+          ]
+        }
+      ],
+      "actions": [],
+      "spellcasting": [
+        {
+          "id": "asa3KdXDutuDly1Q",
+          "name": "Primal Prepared Spells",
+          "tradition": "primal",
+          "category": "prepared",
+          "attackModifier": 14,
+          "saveDc": 24,
+          "spells": [
+            {
+              "id": "WR1YEnWr0YSBE9oP",
+              "name": "Ant Haul",
+              "rank": 1
+            },
+            {
+              "id": "acA0ZZGguLdoCwEn",
+              "name": "Caustic Blast",
+              "rank": 1
+            },
+            {
+              "id": "wo3ZDWmKIsp97TiG",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "FIVWDVvvwdVXdz0o",
+              "name": "Ignition",
+              "rank": 1
+            },
+            {
+              "id": "iX4icrbXaVnr7rtA",
+              "name": "Prestidigitation",
+              "rank": 1
+            },
+            {
+              "id": "ySn5ZeGFRyElOYZj",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "XCbsW0E27mr5uEAY",
+              "name": "Thunderstrike",
+              "rank": 1
+            },
+            {
+              "id": "4QiyU9QNTgzlt9Zn",
+              "name": "Ventriloquism",
+              "rank": 1
+            },
+            {
+              "id": "0luDY7FaeXlW8vkF",
+              "name": "Acid Grip",
+              "rank": 2
+            },
+            {
+              "id": "T967UOVgkP4GEUin",
+              "name": "Deafness",
+              "rank": 2
+            },
+            {
+              "id": "wjDqYkt5wJO3OlfH",
+              "name": "Gecko Grip",
+              "rank": 2
+            },
+            {
+              "id": "inMjsHl3oFcR2aKV",
+              "name": "Blindness",
+              "rank": 3
+            },
+            {
+              "id": "d5iVvEjPlUjwzkJm",
+              "name": "One with Stone",
+              "rank": 3
+            }
+          ]
+        },
+        {
+          "id": "ONfkRVRg1gkRXJAJ",
+          "name": "Primal Innate Spells",
+          "tradition": "primal",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "qkborusYcXXun6jv",
+              "name": "Illusory Disguise",
+              "rank": 1
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:yeti",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "alPZcKVrHTcMdtIU",
+      "slug": "yeti",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:717b65d9450e5d1c09f628218fa8e636daf028c4bd5dd6da627cbadf43e5da17",
+    "translatableHash": "sha256:5a41ed71fd4355bb009fba0a30eff63a9205d1f676eb5bf2dfcd670f13a91274",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Yeti",
+      "level": 5,
+      "rarity": "uncommon",
+      "size": "large",
+      "traits": [
+        "humanoid"
+      ],
+      "description": "Nearly a myth, a yeti is rarely seen—and even when it is, it is often too late. Yetis dwell amid the highest, most remote peaks of the world, coming down from their snowy mountain holds to raid, steal livestock, and sometimes feed their insatiable urges for slaughter and destruction. Those folks who live at the foot of a yeti-ruled mountain warn of the \"abominable snowmen\": monstrous, furcovered humanoids who leave strange and bloody tracks in the snow.\nIn actuality, most yetis protect the world rather than hunt its other denizens, guarding eldritch portals that link the mortal Universe and other, much stranger dimensions of reality. From within these snow-covered arches and ancient stone doorways, aliens, living nightmares, fiends, and worse can emerge into the world. Yetis who guard these portals sometimes succumb to the horrors within, taking on the bloodthirsty urges and horrific behaviors of the very monsters they strive to guard against. Driven out of their clans and forced to wander alone, they give rise to the myth of the abominable snowman. These exiled yetis often fully embrace the corrupting elements that caused their exile in the first place, growing more powerful and more deadly.",
+      "armorClass": 21,
+      "hitPoints": 115,
+      "speedFeet": 35,
+      "perception": {
+        "modifier": 15,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 15,
+        "reflex": 11,
+        "will": 13
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 2,
+        "con": 4,
+        "int": -1,
+        "wis": 4,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 14,
+        "stealth": 12,
+        "survival": 11
+      },
+      "languages": [
+        "aklo"
+      ],
+      "defenses": {
+        "immunities": [
+          "cold"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "fire 10"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "ui6XZl3S0T45fJFu",
+          "name": "Claw",
+          "bonus": 15,
+          "damage": "2d10+5 slashing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qaf6YFqcLoAJ5CM4",
+          "name": "Snowblind",
+          "kind": "passive",
+          "description": "When Hiding, the yeti is Concealed by any snowfall, even if it's not thick enough to make other creatures concealed."
+        },
+        {
+          "id": "eoHwXTgs9Au82i4J",
+          "name": "Nightmare Guardian",
+          "kind": "passive",
+          "description": "Yetis gain a +4 status bonus to saves against fear and against spells and abilities that affect dreams. A yeti that falls prey to a supernatural nightmare loses this ability and becomes permanently enraged, gaining a +1 status bonus to attack and damage rolls and a -1 status penalty to AC."
+        },
+        {
+          "id": "wfIAFcaANDUUhMSm",
+          "name": "Vanish",
+          "kind": "reaction",
+          "description": "Trigger The yeti is Hidden or Undetected while not in combat, and a creature would observe it.\nEffect The yeti Strides or Climbs up to half its Speed to a location where it can Hide, then Hides. If its new Stealth check result meets or exceeds the triggering creature's Perception DC, the yeti remains hidden."
+        },
+        {
+          "id": "JzaTbuj22X9HmmQi",
+          "name": "Arctic Passage",
+          "kind": "passive",
+          "description": "The yeti ignores difficult terrain caused by ice or snow."
+        },
+        {
+          "id": "hsU755t5zFbchRub",
+          "name": "Grizzly Arrival",
+          "kind": "passive",
+          "description": "Trigger The yeti hits a creature in the first round of combat and the yeti was Hidden from that creature at the start of combat.\nEffect Each enemy within @Template[emanation|distance:30]{30 feet} that witnesses the attack (including the target of the attack) must attempt a check (will, dc:23) save. On a failure, the creature is Frightened 2; on a critical failure, it's Frightened 4."
+        },
+        {
+          "id": "mxb42HlUBxVyw38F",
+          "name": "Rend",
+          "kind": "action",
+          "description": "Claw"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:venedaemon",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "byShcvERXQVHNaoL",
+      "slug": "venedaemon",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:bef39e323170c21ec2e27ce3a4c84180adb0dc84ea9c4549a3313cb995840ef6",
+    "translatableHash": "sha256:01b3692e6ab0c190d0fdb7dc8d4402bf13523f4b993317a9a3a774663f26f856",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Venedaemon",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "daemon",
+        "fiend",
+        "unholy"
+      ],
+      "description": "Those killed by magic or killed in the pursuit of magic can arise as venedaemons. Although among the weaker daemons, these robed figures can often be seen serving as researchers or clerks throughout the plane. Even within the mortal Universe, scholars barter souls or arcane knowledge with venedaemons for their secrets and assistance.\nDenizens of the bleak and terrible plane of Abaddon, daemons are shaped by and devoted to the destruction of life in all its forms. They seek the death of every mortal being by the most painful and horrible means possible, in service to the Apocalypse Riders. Each kind of daemon represents a different way to die, and their powers are nearly always aimed at spreading that particular form of death. Through the use of these powers, they seek to drag all existence down into a pit of hopelessness and despair, and to commit all souls to oblivion.\nWhile mortals who summon daemons usually seek to use the creatures' destructive and corrupting powers for their own ends, daemons always look for ways to spread fear, doubt, and despair wherever they go. Often, daemons disguise their plots as the workings of other fiends, knowing that such confusion compounds mortals' fear and keeps those mortals from bringing the most effective weapons. As a result, learned mortals sometimes refer to daemons as \"riders\" after their leaders or \"soul mongers\" after their largest industry.\nWhile many fiends seek to tempt mortals into lives of nihilistic evil to increase their own numbers and power on their native planes, daemons are further driven by a supernatural hunger for mortal souls and use a variety of methods—not least of which is the cacodaemons' soul gems—to entrap them. On Abaddon and in other forbidding places across the multiverse, souls are simultaneously a delicacy, a trade good, and a source of magical power, and the daemons are among the greatest gluttons, merchants, and abusers of this spiritual \"resource.\"",
+      "armorClass": 21,
+      "hitPoints": 75,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 11,
+        "will": 14
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 2,
+        "int": 5,
+        "wis": 3,
+        "cha": 3
+      },
+      "skills": {
+        "acrobatics": 13,
+        "arcana": 16,
+        "deception": 12,
+        "occultism": 14,
+        "religion": 13
+      },
+      "languages": [
+        "aklo",
+        "chthonian",
+        "common",
+        "daemonic",
+        "diabolic",
+        "draconic",
+        "requian"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "holy 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "ZqRoOxAHVz2cr39O",
+          "name": "Tentacle",
+          "bonus": 13,
+          "damage": "2d6+5 bludgeoning",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "reach-10",
+            "unarmed",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "OwPNI9rZzSlSd90s",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "ENatWXP382xesOfq",
+          "name": "Smell Magic (Imprecise) 60 feet",
+          "kind": "passive",
+          "description": "A venedaemon is aware of magical items and active spells as an imprecise sense. The subtle differences in these scents reveal the tradition and traits of the magic."
+        },
+        {
+          "id": "aiPVg2reoHjToHXv",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "EXFfGINJSbHmcAki",
+          "name": "Residual Force",
+          "kind": "action",
+          "description": "Requirements The venedaemon's most recent action was to cast a spell\nEffect Fading runes cling to the venedaemon's tentacles. The venedaemon makes a tentacle Strike that has a reach of 20 feet and deals 2d4 additional force damage."
+        },
+        {
+          "id": "1E0sdxKyksdPrnuZ",
+          "name": "Soul Spell",
+          "kind": "passive",
+          "description": "If a venedaemon ingest a soul gem from a cacodaemon, they can recover an expended spell slot instead of gaining fast healing. The spell slot's rank can be no higher than half the level of the creature whose soul was consumed, rounded up."
+        },
+        {
+          "id": "NtFRF9lyIg4kj664",
+          "name": "Twisted Whispers",
+          "kind": "action",
+          "description": "The venedaemon whispers to a creature within 15 feet, which must succeed at a check (will, dc:22) save or be Stupefied 2 for 1 minute (or Stupefied 3 on a critical failure).\nRegardless of the results of the save, the creature is immune to Twisted Whispers for 24 hours."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "PQajf0lLhmX6r431",
+          "name": "Arcane Spontaneous Spells",
+          "tradition": "arcane",
+          "category": "spontaneous",
+          "attackModifier": 14,
+          "saveDc": 22,
+          "spells": [
+            {
+              "id": "LkHV5y9CX7jO9ndv",
+              "name": "Electric Arc",
+              "rank": 1
+            },
+            {
+              "id": "GCCiE9AznRlRKAYq",
+              "name": "Enfeeble",
+              "rank": 1
+            },
+            {
+              "id": "0eB98pDlg4dSx7C6",
+              "name": "Fear",
+              "rank": 1
+            },
+            {
+              "id": "3mSlO6S0KN62thZg",
+              "name": "Force Barrage",
+              "rank": 1
+            },
+            {
+              "id": "vKlsMUklkuyWv4ye",
+              "name": "Illusory Disguise",
+              "rank": 1
+            },
+            {
+              "id": "aENqofvkTGs9Y3JX",
+              "name": "Shield",
+              "rank": 1
+            },
+            {
+              "id": "Ira2JbGxUp2HTWnE",
+              "name": "Sigil",
+              "rank": 1
+            },
+            {
+              "id": "2Nw7kNsiLiv8jo0F",
+              "name": "Telekinetic Hand",
+              "rank": 1
+            },
+            {
+              "id": "genBL1KEljSLff2c",
+              "name": "Void Warp",
+              "rank": 1
+            },
+            {
+              "id": "X4PES0zHIm5pIjrT",
+              "name": "Blazing Bolt",
+              "rank": 2
+            },
+            {
+              "id": "C6ruoMJPRjM7GJVW",
+              "name": "Dispel Magic",
+              "rank": 2
+            },
+            {
+              "id": "qVjyhvXj2P5UcSxN",
+              "name": "Invisibility",
+              "rank": 2
+            },
+            {
+              "id": "bAgTEMmgqh7jbtvG",
+              "name": "Noise Blast",
+              "rank": 2
+            },
+            {
+              "id": "VKiRKmywhGzBGbo8",
+              "name": "Fireball",
+              "rank": 3
+            },
+            {
+              "id": "xbtZyDowG8QVk1Ba",
+              "name": "Levitate",
+              "rank": 3
+            },
+            {
+              "id": "ggrPlTKVPwNCl1PV",
+              "name": "Paralyze",
+              "rank": 3
+            }
+          ]
+        },
+        {
+          "id": "5HgK6o7OwwLdByNL",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 14,
+          "saveDc": 22,
+          "spells": [
+            {
+              "id": "qMXZzf352BqNGruI",
+              "name": "Translocate",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:tomb-jelly",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "C1MfXltrIJRnFaZg",
+      "slug": "tomb-jelly",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:4b10d065e2f5a00f83d771a297f8825b0048f1f5c64166e0cd686c13d86c741a",
+    "translatableHash": "sha256:deb2c9623f8bdebdb1ca836744484f238564b8bf68b37942104406f9bbe746ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tomb Jelly",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "mindless",
+        "ooze"
+      ],
+      "description": "Tomb jellies are animate masses of protoplasm with a sickly combination of yellow, gray, and black hues. Their acidic bodies dissolve flesh but leave other materials, including a victim's gear and bones, intact. Some ancient cultures entombed bodies in stone sarcophagi with tomb jellies to allow the ooze to break down the flesh and clean and polish the bones.\nSlimes, molds, and other oozes can be found in dank dungeons and shadowed forests. While not necessarily evil, some grow to enormous sizes and have insatiable appetites.",
+      "armorClass": 12,
+      "hitPoints": 150,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 7,
+        "senses": [
+          "motion-sense-60"
+        ]
+      },
+      "saves": {
+        "fortitude": 15,
+        "reflex": 4,
+        "will": 7
+      },
+      "abilities": {
+        "str": 6,
+        "dex": -5,
+        "con": 6,
+        "int": -5,
+        "wis": 0,
+        "cha": -5
+      },
+      "skills": {
+        "athletics": 13
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "acid",
+          "visual",
+          "bleed",
+          "critical-hits",
+          "precision",
+          "slashing",
+          "unconscious",
+          "void"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "2vNOWipXsprXmJET",
+          "name": "Pseudopod",
+          "bonus": 15,
+          "damage": "1d6 acid; 1d8+6 bludgeoning",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "rKZevHCH4PMtuj6Z",
+          "name": "Motion Sense",
+          "kind": "passive",
+          "description": "A tomb jelly can feel nearby motion through vibration and air movement."
+        },
+        {
+          "id": "BzmoXVcXW8cazBe5",
+          "name": "Bound in Death",
+          "kind": "action",
+          "description": "The tomb jelly splatters some of its substance on a willing undead creature within its reach. The target regains 5[void,healing|shortLabel] HP and its melee Strikes get the benefits of tomb curse until the end of its next turn."
+        },
+        {
+          "id": "snySLSbjtHjATjFS",
+          "name": "Flesh-dissolving Acid",
+          "kind": "passive",
+          "description": "A tomb jelly's acid damages only flesh."
+        },
+        {
+          "id": "A872unbEeSXWQvTn",
+          "name": "Tomb Curse",
+          "kind": "passive",
+          "description": "A creature hit by a tomb jelly's pseudopod takes 1d6[persistent,void]{1d6 persistent void damage}. If the creature dies while it has this persistent damage, its corpse is affected by Peaceful Rest, except the tomb jelly can still dissolve its flesh."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:azuretzi",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "cRBVKMNukkRgELMs",
+      "slug": "azuretzi",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:f387922c03e00e326973f94654d737d2a74a4b3b9977d0a81c311f47f83453d9",
+    "translatableHash": "sha256:01a841851edc6fbc71b68124d3c7f3a23afb66ad9bfd50b4dbb5307f092fea37",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Azuretzi",
+      "level": 5,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "monitor",
+        "protean"
+      ],
+      "description": "Azuretzis are sinuous, serpentine creatures with daggersharp teeth covered in brilliant blue scales and mottled purple and pink highlights that shimmer in a pareidolic approximation of leering, laughing faces. The Maelstrom's chaotic forces spawn these small proteans from a variety of sources: physical mating between older azuretzis, the paradoxical promotion of bestial naunets, and possibly from mortal petitioners, though these azuretzis may just be confusing putative mortal memories with experiences gained from games of mimicry. Never expect azuretzis to operate by any rational, self-consistent rules.\nAzuretzis represent the humor of chaos, particularly in the form of mockery and parody via exaggerated mimicry, twisting a target's features into a laughingstock.\nGuardians of disorder and natives of the primal plane of chaos known as the Maelstrom, proteans consider it their calling to spread bedlam and hasten entropic ends. The most powerful proteans are demigods known collectively as the protean lords, although they are mysterious entities whose cults in the Universe tend to be obscure and secretive.\nProteans divide themselves into a loose caste system and possess a dizzying variety of powers. Most proteans have a serpentine body with the head of a primeval beast. Scholars have long been intrigued by this fact—that scions of dissolution and disorder would share so many features—pointing out that there is some semblance of order even in the purest chaos. Others note that the serpentine form is one of the most primeval shapes, perhaps suggesting that in a reality at the dawn of time, such shapes were all that could exist. The proteans themselves have little to say on the matter, which, perhaps ironically, only adds to the confusion and lack of consensus surrounding their kind. After all, if even chaos cannot be trusted to be chaotic, would that not be the purest form of entropy?",
+      "armorClass": 22,
+      "hitPoints": 75,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 15,
+        "will": 11
+      },
+      "abilities": {
+        "str": 2,
+        "dex": 4,
+        "con": 4,
+        "int": 4,
+        "wis": 2,
+        "cha": 4
+      },
+      "skills": {
+        "acrobatics": 11,
+        "arcana": 11,
+        "deception": 13,
+        "performance": 13,
+        "stealth": 13,
+        "survival": 11,
+        "thievery": 13
+      },
+      "languages": [
+        "chthonian",
+        "empyrean",
+        "protean"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [
+          "precision 5",
+          "protean-anatomy 8"
+        ],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "h1bIOksYIZLff4Jb",
+          "name": "Jaws",
+          "bonus": 15,
+          "damage": "2d10+5 piercing",
+          "traits": [
+            "finesse",
+            "magical",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "5nazHNTE9SHWxEH5",
+          "name": "Claw",
+          "bonus": 15,
+          "damage": "2d8+5 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "dOkhtnPU3mvJbRar",
+          "name": "Tail",
+          "bonus": 13,
+          "damage": "2d12+5 bludgeoning",
+          "traits": [
+            "magical",
+            "reach-15"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "sMNeAt05PFEaDVIK",
+          "name": "Entropy Sense",
+          "kind": "passive",
+          "description": "An azuretzi can anticipate the most likely presence of a creature through a supernatural insight into chaotic probabilities and chance. This grants them the ability to sense creatures within the listed range. Veil of Privacy prevents a creature from being detected via entropy sense automatically (without a counteract check)."
+        },
+        {
+          "id": "0G6ZKuqCpYAAIPki",
+          "name": "Constant Spells",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "k0aZXtcO9BWwc4Hz",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "Uus1jecX7kww8spI",
+          "name": "Fast Healing 2",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "QOTAHN3u4KDHAUOH",
+          "name": "Protean Anatomy 8",
+          "kind": "passive",
+          "description": "An azuretzi's vital organs shift and change shape and position constantly. Immediately after the azuretzi takes acid, electricity, or sonic damage, they gain the listed amount of resistance to that damage type. This lasts for 1 hour or until the next time the protean takes damage of one of the other types (in which case their resistance changes to match that type), whichever comes first.\nThe azuretzi is immune to polymorph effects unless they're a willing target. If Blinded or Deafened, the azuretzi automatically recovers at the end of their next turn as new sensory organs grow to replace the compromised ones.\nEffect: Protean Anatomy"
+        },
+        {
+          "id": "czBySBdDeH7WSORn",
+          "name": "Spell Pilfer",
+          "kind": "reaction",
+          "description": "Trigger A creature with an active spell effect within 30 feet of the azuretzi fails to resist another azuretzi's Mocking Touch\nEffect The azuretzi attempts a check (thievery) check to counteract one spell affecting the target creature. On a success, the azuretzi transfers the spell effect to themself, keeping the same remaining duration. The target then becomes temporarily immune to Spell Pilfer for 24 hours."
+        },
+        {
+          "id": "xRcOZkgwBwJLmsbr",
+          "name": "Constrict",
+          "kind": "action",
+          "description": "(1d12+5)[bludgeoning], check (fortitude, dc:21, basic)"
+        },
+        {
+          "id": "b9sqjjGGkWII8xxu",
+          "name": "Mimic Form",
+          "kind": "action",
+          "description": "As Change Shape, but an azuretzi can assume the form of a Medium or smaller creature. They can mimic a specific creature they can see, but they must succeed at a check (perception, dc:25) check or the attempt is disrupted. The azuretzi can transform into the same creature again without a check but can retain the details of only one specific appearance at a time. The azuretzi can Dismiss the effect as a free action to return to their natural form."
+        },
+        {
+          "id": "voMMMHUogUu7LSeF",
+          "name": "Mocking Touch",
+          "kind": "action",
+          "description": "Requirements The azuretzi is not currently using Mocking Touch on a spell\nEffect The azuretzi mocks a creature's magical ability with a touch. The azuretzi attempts a check (thievery, defense:will) check against the target's Will DC.\nCritical Success The azuretzi learns all spells of 3rd rank or lower the target has available to cast and chooses one. The azuretzi gains that spell as a mock divine innate spell and can cast it once as an innate divine spell using their own DC and spell attack modifier. The spell is lost if unused after 24 hours. The creature can't cast the mock spell until the azuretzi casts it first or the 24 hour period passes, whichever comes first.\nSuccess As critical success, but the mock spell is lost after 1 hour, and the creature touched can cast the spell normally.\nFailure As critical success, but the mock spell is lost at the end of the azuretzi's next turn, and the creature touched can cast the spell normally.\nCritical Failure Mocking Touch has no effect."
+        },
+        {
+          "id": "MDX9dw99EkjeyPM0",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "DvGdYVJB2tQSEu99",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 12,
+          "saveDc": 22,
+          "spells": [
+            {
+              "id": "JBSHDGJGWtzX4xSj",
+              "name": "Laughing Fit",
+              "rank": 2
+            },
+            {
+              "id": "63uRyWSe681aXgXv",
+              "name": "Crisis of Faith",
+              "rank": 3
+            },
+            {
+              "id": "KKl1fKNNjaEOPbTX",
+              "name": "Dispel Magic",
+              "rank": 3
+            },
+            {
+              "id": "TE3AtV0zh3tGVc3T",
+              "name": "Shatter",
+              "rank": 3
+            },
+            {
+              "id": "x88bZiaj8dps4jFO",
+              "name": "Translocate",
+              "rank": 4
+            },
+            {
+              "id": "IXaa87n7VZSJvRcU",
+              "name": "Unfettered Movement (Constant)",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:witchwarg",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "diU0V2M3LiMDMsS0",
+      "slug": "witchwarg",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:64135f5462547757567b6370da557f0f3723b8b016dc44aa806ca7745bbca084",
+    "translatableHash": "sha256:ec1839654b05916a46cfe28e47383d6847d1249f42efe92d99451281441b4cca",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Witchwarg",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "beast",
+        "cold"
+      ],
+      "description": "Witchwargs are related to wargs, but are larger, smarter, and far more dangerous. They are capable of exhaling plumes of freezing breath. When they deign to serve others, they usually reserve this privilege for more dangerous creatures, such as the winter witches of Irrisen.\nThe warg is an intelligent and malevolent wolf that dwells among goblins, hobgoblins, orcs, and violent humanoids.",
+      "armorClass": 23,
+      "hitPoints": 70,
+      "speedFeet": 40,
+      "perception": {
+        "modifier": 14,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 15,
+        "will": 10
+      },
+      "abilities": {
+        "str": 6,
+        "dex": 4,
+        "con": 4,
+        "int": 2,
+        "wis": 3,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 13,
+        "athletics": 13,
+        "deception": 11,
+        "intimidation": 11,
+        "stealth": 13,
+        "survival": 12
+      },
+      "languages": [
+        "common",
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [
+          "cold"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "fire 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "XbEOrTGzNN49cBsV",
+          "name": "Jaws",
+          "bonus": 15,
+          "damage": "1d10+6 piercing; 1d6 cold",
+          "traits": [
+            "cold",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "HFyEFMKsCld64B15",
+          "name": "Avenging Bite",
+          "kind": "reaction",
+          "description": "Trigger A creature within reach of the witchwarg's jaws attacks one of the witchwarg's allies.\nEffect The witchwarg makes a jaws Strike against the triggering creature."
+        },
+        {
+          "id": "hdyD6t2duHPLOLyi",
+          "name": "Buck",
+          "kind": "reaction",
+          "description": "check (reflex, dc:21)"
+        },
+        {
+          "id": "9RRqDOZEOM8rUI1P",
+          "name": "Pack Attack",
+          "kind": "passive",
+          "description": "The witchwarg's Strikes deal 1d6 extra damage to creatures within the reach of at least two of the witchwarg's allies."
+        },
+        {
+          "id": "dPsbBLbGfNPn6v9L",
+          "name": "Winter Breath",
+          "kind": "action",
+          "description": "The witchwarg breathes a cloud of frost in a @Template[cone|distance:15] that deals 5d8[cold|options:area-damage] damage (check (reflex, dc:23, basic, options:area-effect) save).\nThe witchwarg can't use Winter Breath again for [[/gmr 1d4 #Recharge Winter Breath]]{1d4 rounds}."
+        },
+        {
+          "id": "SlsCmJyWx3dgIo2X",
+          "name": "Knockdown",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:army-ant-swarm",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "drcSWbCIWc7P4lKO",
+      "slug": "army-ant-swarm",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:00c122b3dc48e4e9d6163006f73a86998bad11a3475d3e39f2c91d7e28b7ee8e",
+    "translatableHash": "sha256:9ab72cb4ea3cdc19899d13c6f86679d32ff245ece78719b80ceacd859d057409",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Army Ant Swarm",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal",
+        "swarm"
+      ],
+      "description": "An army ant swarm is a terrifying carpet of stinging insects that devours all in its path.\nAnts are industrious insects that aid the natural processes of decay and renewal.",
+      "armorClass": 21,
+      "hitPoints": 55,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 11,
+        "will": 9
+      },
+      "abilities": {
+        "str": -2,
+        "dex": 4,
+        "con": 4,
+        "int": -5,
+        "wis": 2,
+        "cha": -4
+      },
+      "skills": {
+        "athletics": 7
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "precision",
+          "swarm-mind"
+        ],
+        "resistances": [
+          "bludgeoning 2",
+          "piercing 5",
+          "slashing 5"
+        ],
+        "weaknesses": [
+          "area-damage 5",
+          "splash-damage 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "Z08HAZUvnJBGvImG",
+          "name": "Swarm Mind",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "54mSt8tnFXfSUjhU",
+          "name": "Cling",
+          "kind": "reaction",
+          "description": "Trigger A creature leaves the swarm's space\nEffect The swarm takes 1d6[untyped] damage as ants cling to the creature and continue biting, dealing 3d6[persistent,piercing] damage. High winds or immersion in water reduces the DC of the flat check to end this persistent damage to 5. Any area damage dealt to the creature destroys these clinging ants."
+        },
+        {
+          "id": "H9cKHc9OAHiXKDzf",
+          "name": "Swarming Bites",
+          "kind": "action",
+          "description": "Each enemy in the swarm's space takes 3d6[piercing|options:area-damage] damage (check (fortitude, dc:21, basic, options:area-effect,inflicts:clumsy) save). A creature that fails its save against Swarming Bites becomes Clumsy 1 for 1 round. If the creature attempts a concentrate or manipulate action while affected, it must succeed at a check (flat, dc:5) or the action is lost; roll the check after spending the action, but before any effects are applied.\nEffect: Swarming Bites"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:giant-frilled-lizard",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "FFnsYr2aIfDGnUVS",
+      "slug": "giant-frilled-lizard",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:8eab9c626d705c2da57d0b2dd9719c98d1e8236abe6dc33a8b78ca79ef59a1ec",
+    "translatableHash": "sha256:55c08f6aba7d20c82e2adce9f073e94cdf5be5de546c8d42a2eda80164f60f9d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Giant Frilled Lizard",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "animal"
+      ],
+      "description": "Found in warm and tropical forests and savannas, these immense lizards are a deadly threat to the unsuspecting traveler. When they aren't sleeping or stalking prey, giant frilled lizards bask in the sunlight for hours at a time. Explorers sometimes mistakenly think they are related to dragons due to their large size, elaborate neck frills (which, when displayed in a show of aggression and dominance, can be mistaken for wings), and ferocious hissing vocalizations used to frighten away creatures too large to eat.\nA giant frilled lizard's primary food sources are oversized arthropods and other invertebrates, but it won't hesitate to augment its diet with vertebrates, including other lizards, monkeys, and just about anything it can fit into its mouth—even humanoids. Although capable of short bursts of speed, a giant frilled lizard normally lies perfectly still while hunting, hoping to ambush its prey.\nLizards have a wide range of appearances and abilities, but most share a basic reptilian shape—long tails, wide toothy mouths, and four legs. While a few species are capable of movement on two legs for short periods of time, most are strictly quadrupedal. The three species presented here represent the most common and well-known of the larger species.",
+      "armorClass": 22,
+      "hitPoints": 75,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "low-light-vision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 12,
+        "will": 9
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 1,
+        "con": 4,
+        "int": -4,
+        "wis": 2,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 10,
+        "athletics": 14,
+        "stealth": 10
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "9v2mzebQFMTkRDd9",
+          "name": "Jaws",
+          "bonus": 16,
+          "damage": "2d8+7 piercing",
+          "traits": [
+            "reach-10",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "XD6GRQzVXAnrWid6",
+          "name": "Tail",
+          "bonus": 16,
+          "damage": "2d6+7 bludgeoning",
+          "traits": [
+            "agile",
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "ONIHyZ3rL5vCjJod",
+          "name": "Intimidating Display",
+          "kind": "action",
+          "description": "The giant frilled lizard Strides. If it ends that Stride adjacent to at least one other creature, it suddenly displays its colorful neck frills and issues a frightening hiss. Each adjacent creature must succeed at a check (will, dc:21) save or become Frightened 2 (or Frightened 3 on a critical failure).\nThe creature is then temporarily immune to Intimidating Display for 1 minute."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:redcap",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "fWAjkhQ0y50Eh2BT",
+      "slug": "redcap",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:111c49c4ad1901389fe77a541990ade7d2b3da649804120eead31e3d311e0eb7",
+    "translatableHash": "sha256:16deac6a5de39b1194a219293192435aace8e87708c2b1b14bac5c2691d3ba3e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Redcap",
+      "level": 5,
+      "rarity": "common",
+      "size": "small",
+      "traits": [
+        "fey"
+      ],
+      "description": "Redcaps are sadistic and capricious fey who thrill in bloodletting and murder. While they are most famous for appearing as wizened, bearded men, redcaps of other genders are no less fearsome or cruel. However, redcaps are ultimately craven bullies, cowed by anything more powerful than themselves, a trait that leads them to fear and despise the symbols of deities.\nMany fairy tales explain how the redcaps draw power from dipping the hats for which they are named in fresh blood. Just as iconic to these cruel little fey are their iron-clad boots, and the clanging sound of their metal soles clanking on stone floors is both discordant and disconcerting—especially to those who recognize the sound for what it is. Redcaps typically stand only 3 feet tall, with hunched frames, pointed ears, crooked teeth, and long, white, tangled hair.\nThough unlikely to share true affection, redcaps find camaraderie in murder. Small troupes of redcaps travel together, sharing bloody kills and reminiscing on their brutal exploits. They loathe the company of most other creatures, with the notable exception of the feline fey called elananxes.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 15,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 4,
+        "con": 2,
+        "int": 1,
+        "wis": 1,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 13,
+        "athletics": 15,
+        "deception": 11,
+        "intimidation": 13,
+        "nature": 10,
+        "stealth": 13
+      },
+      "languages": [
+        "common",
+        "fey"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "cold-iron 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "r4Qkdy83VOkw6r0p",
+          "name": "Iron Boot",
+          "bonus": 13,
+          "damage": "1d6+8 piercing",
+          "traits": [
+            "agile",
+            "versatile-b"
+          ]
+        },
+        {
+          "id": "yAIj38QXWuDtirvf",
+          "name": "Halberd",
+          "bonus": 15,
+          "damage": "1d10+10 piercing",
+          "traits": [
+            "reach-10",
+            "versatile-s"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "2OPayJrYVYfP1LZk",
+          "name": "Red Cap",
+          "kind": "passive",
+          "description": "A redcap's woolen hat is dyed with the blood of their victims. If the redcap loses their cap, they no longer benefit from fast healing and take a –4 status penalty to their damage rolls. They can create a new cap in 10 minutes, but that cap doesn't grant them powers until the redcap has turned it red with Blood Soak. A cap has no benefit for creatures other than the redcap who made it.\nEffect: Lost Red Cap"
+        },
+        {
+          "id": "xxGqls5RMZVYvmHf",
+          "name": "Fast Healing 10",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "7XdX39vruCh59MIe",
+          "name": "Divine Revulsion",
+          "kind": "passive",
+          "description": "If a redcap sees a creature brandish a religious symbol of a deity (which requires an Interact action by that creature) or cast a divine spell while wearing a religious symbol, the redcap must attempt a check (will, dc:19) save. They then become temporarily immune to all brandished religious symbols for 10 minutes.\nCritical Success The redcap is unaffected.\nSuccess The redcap is Frightened 2.\nFailure The redcap gains the Fleeing condition for 1 round and is Frightened 4."
+        },
+        {
+          "id": "ivsgBmmJjZW5Wr5S",
+          "name": "Blood Soak",
+          "kind": "action",
+          "description": "The redcap dips their cap in the blood of a slain foe. The foe must have died in the last minute, and the redcap must have helped kill it. The redcap gains a +4 status bonus to damage rolls for 1 minute.\nEffect: Blood Soak"
+        },
+        {
+          "id": "Q9TQFtMzhVqywWrB",
+          "name": "Deadly Cleave",
+          "kind": "reaction",
+          "description": "Trigger The redcap reduces a creature to 0 Hit Points with a halberd Strike\nEffect The redcap makes another halberd Strike against a different creature, using the same multiple attack penalty as the halberd Strike that triggered this reaction. This counts toward their multiple attack penalty as normal."
+        },
+        {
+          "id": "P7S7nuGr7qWkygVT",
+          "name": "Stomp",
+          "kind": "action",
+          "description": "The redcap Strides up to half its Speed and makes a boot Strike at any point during that movement. If the boot Strike hits a Prone creature, it deals an extra 2d6[bleed]."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:globster",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "H9CHNiW18cRFocNO",
+      "slug": "globster",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:d633979418662cc926e684de0b64e36bd4784672085e06ec146cc04669dd93b0",
+    "translatableHash": "sha256:d867601d63992b4377a24284131e5f28eb4dc23647ebee2d9ef1424bbbde06ed",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Globster",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "aquatic",
+        "ooze"
+      ],
+      "description": "The tide washes ashore all manner of detritus, from harmless seaweed and shells to the rotting corpses of massive aquatic creatures. The globster is often mistaken for such, and this assumption isn't entirely incorrect—these mindless, oozing masses are composed of decaying sea creatures, half-digested and merged into a revolting, reeking heap of blubbery sludge.\nThough mindless, globsters are predators that seek out living quarry. They often huddle on the seafloor, where their own fetid mass attracts scavengers who swiftly become the ooze's next meal. When the tides wash these monsters ashore, they simply shift to hunting land-bound prey. Coastal communities usually notice the smell of a washed-up globster long before they see it. Those sent to investigate often mistake a globster for the carcass of a beached whale before discovering the presumed corpse is very much alive and hungry.\nSages once believed globsters were undead, undulating wads of rotting flesh driven to feed, but though mindless, they are very much alive. They are attracted to waterside refuse dumps and floating garbage scows and are dimly aware enough to congregate where food is plentiful.\nSince they consist of so much blubber and oily tissue, globsters can be collected for lamp oil, grease, cooking fat, and more. The goo that remains when they decompose works for this purpose, if one can stand the smell. The firmer fat deteriorates quickly, but many an impromptu goblin beach barbecue has deep-fried slabs of it as a delicacy.\nGlobsters consume living creatures but digest only a portion of them. The undigested dross accumulates within the globster as it becomes more and more bloated. They carry this fetid mass within their squelching bodies until instinct or injury provokes them to vomit forth a new globster to help devour everything nearby. A globster with enough dross to create a new globster automatically does so as a free action triggered upon taking damage. Treat any encounter with such a globster as though it were against two level 5 creatures, instead of just one. As far as scholars know, this is the only way these creatures can create more of their kind.",
+      "armorClass": 12,
+      "hitPoints": 170,
+      "speedFeet": 15,
+      "perception": {
+        "modifier": 9,
+        "senses": []
+      },
+      "saves": {
+        "fortitude": 16,
+        "reflex": 6,
+        "will": 9
+      },
+      "abilities": {
+        "str": 6,
+        "dex": -5,
+        "con": 5,
+        "int": -5,
+        "wis": 0,
+        "cha": -5
+      },
+      "skills": {
+        "athletics": 15
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "critical-hits",
+          "mental",
+          "unconscious"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "electricity 10"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "8cXuUewtlaWaE5MT",
+          "name": "Tendril",
+          "bonus": 15,
+          "damage": "2d8 + 6 bludgeoning",
+          "traits": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "4SQEQrnRpLXFksTc",
+          "name": "Stench",
+          "kind": "passive",
+          "description": "30 feet. check (fortitude, dc:19, options:area-effect,inflicts:sickened,inflicts:slowed)"
+        },
+        {
+          "id": "gzGzxCPvcdZu8f4O",
+          "name": "Constrict",
+          "kind": "action",
+          "description": "(1d8+6)[bludgeoning], check (fortitude, dc:22, basic)"
+        },
+        {
+          "id": "7H5EOw27GyoL0zDR",
+          "name": "Nauseating Slap",
+          "kind": "passive",
+          "description": "A living creature struck by a globster's tendril must attempt a check (fortitude, dc:19) save. On a failure, the creature becomes Sickened 1. If the creature is already sickened, the condition value increases by 1, to a maximum of sickened 4.\nOnce a creature succeeds at its saving throw, it is temporarily immune for 24 hours."
+        },
+        {
+          "id": "NO59VkQbOQIqZLrI",
+          "name": "Saturated",
+          "kind": "passive",
+          "description": "A globster can survive for 1 hour out of the water, after which it risks drowning and suffocation."
+        },
+        {
+          "id": "mfooCk9alzoismP0",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:forest-troll",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "htK4dElL6YvFCLkz",
+      "slug": "forest-troll",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:cea80a5ead96ad7be8b41147469cc32b6c64d02aa08105e2a42645f45253dded",
+    "translatableHash": "sha256:c64e9d4d8ec972f1daa949edaa21b74538ff651e04a51b46ad902ad296a6c43b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Forest Troll",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "giant",
+        "humanoid",
+        "troll",
+        "wood"
+      ],
+      "description": "Forest trolls are gangly giants who stalk the fringes of civilization. They rely on their incredible strength to overpower foes with their vicious claws and toothy maws. These trolls stand anywhere from 12 to 16 feet tall, though they prefer to hunch for comfort and to lull foes into a false sense of security. Trolls are truly creatures of the forest, deeply linked in flesh and blood to the verdant habitats they consider their territory. In fact, when a forest troll is killed, their flesh turns into blackened lumps of charcoal, often still glowing with coals. Despite that, these creatures roam farther and wider than most of their kin, to the extent that they're the first creatures a common person thinks of when they hear the word \"troll.\"\nSlavering, cruel, invincible brutes: this is the villager's stock description for the dread monsters known as trolls. The roots of these stories are undoubtedly true. Trolls' flesh endlessly regrows, going so far as to sprout aberrant limbs or additional heads if not pruned, and a bottomless hunger is required to feed such unfettered growth. Even in the process of glutting themselves, however, trolls find opportunities to taunt their prey and inflict petty cruelties.\nA troll's ability to survive is so strong that they believe even the smallest scrap of flesh will slowly regenerate into a new form, suffering as all the powers of the land are gathered to revive them. Despite the pain, trolls speak of this unassailable vitality as a blessing from their creator. Few trolls have heard the laughter of demons who claim that creator cursed the trolls and cast them down from lofty heights, binding them so they could never rise again.\nTrolls prefer to remain solitary, keeping every scrap of food for themselves. In rare instances, an old and powerful troll comes to lead groups of trolls. Such warleaders possess enough cunning to lead their hordes in devastating raids and massacres, and their presence permanently alters the surrounding ecosystem. This link to their environment is an often misunderstood aspect of trollkind, and grows more acute with a troll's age and power. That's not to say trolls are valorous protectors of nature. They're vicious and territorial, and will blight their own territory forever if it means more to eat for a day.",
+      "armorClass": 20,
+      "hitPoints": 125,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 17,
+        "reflex": 11,
+        "will": 7
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 2,
+        "con": 6,
+        "int": -2,
+        "wis": 0,
+        "cha": -2
+      },
+      "skills": {
+        "athletics": 12,
+        "intimidation": 12
+      },
+      "languages": [
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": [
+          "fire 10",
+          "electricity 10"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "f4rcDncEwu2OdC1a",
+          "name": "Jaws",
+          "bonus": 14,
+          "damage": "2d10+5 piercing",
+          "traits": [
+            "reach-10",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "bA2QzO0CkyheAgub",
+          "name": "Claw",
+          "bonus": 14,
+          "damage": "2d8+5 slashing",
+          "traits": [
+            "agile",
+            "reach-10",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "xvqAuoj6PiYh7fkw",
+          "name": "Easily Misled",
+          "kind": "passive",
+          "description": "The forest troll gets a –4 circumstance penalty to their Perception DC against Deception checks."
+        },
+        {
+          "id": "50Meu5uWTOPYtMu6",
+          "name": "Regeneration 20 (Deactivated by Electricity or Fire)",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "aOSp9qgmlmphNocN",
+          "name": "Furious Flailing",
+          "kind": "reaction",
+          "description": "Trigger The forest troll takes electricity or fire damage\nEffect The troll makes a claw Strike against a random creature within its reach. If the troll has persistent fire damage, they attempt a check (flat, dc:15) to remove it."
+        },
+        {
+          "id": "hL2lPp4NV9CDYF29",
+          "name": "Chase Prey",
+          "kind": "action",
+          "description": "The forest troll rushes forward on all fours, Striding and then making two claw Strikes."
+        },
+        {
+          "id": "scw9HnbCVwAyFzok",
+          "name": "Rend",
+          "kind": "action",
+          "description": "Claw"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:vescavor-swarm",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "ksJuhQGIyTejZYWS",
+      "slug": "vescavor-swarm",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:57e899582782745401c9d0b28d852c2a7ddc2dc9e5533288c02cc7ff0070927a",
+    "translatableHash": "sha256:478fd00f750aafb4a1037adc980d34ad8e5174b4df0dae7da0de89497d68f3b3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vescavor Swarm",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "fiend",
+        "swarm",
+        "unholy"
+      ],
+      "description": "The most common and numerous vescavors are the raving swarms. If left alone and unchecked, many believe they would eventually consume themselves once everything else in the immediate vicinity was consumed. What is even more vexing than their hunger is their song. While it sounds like gibberish at first, once bitten, the song will drive people into chaos.\nThese gluttonous green vermin travel from the Outer Rifts in an endless search for food. Along the way, these acrid wasps devour everything in sight. Not even the ground itself is spared from their appetite. While any single vescavor is no problem, they travel in swarms to overwhelm anything trying to stop them. In a truly unfortunate situation, several swarms will be gathered and led by a vescavor queen. These queens, while fearsome on their own, can drive their brood into a feeding rage unlike any other. Swarms found without a queen are directionless, destroying anything around them indiscriminately.\nWhenever a vescavor swarm is not eating, it gibbers mind-numbing songs from the fiends' dark world. Adapted to the shrieking jungles of their home plane, they issue a call that confuses and corrupts mortals.\nPhilosophers who ponder the Outer Rifts often conjecture as to what kind of soul forms a vescavor. The idea of insect souls being sent to the Outer Rifts is often laughed off but never entirely dismissed. Some assume that they are demons of gluttony, plain and simple. Some of the more creative explanations of vescavor origins posit that all the bits of soul eaten up by attacking demons are what coalesce into these endless swarms. Such an explanation would account for how these endlessly feeding demons also seem to be endless in number.",
+      "armorClass": 21,
+      "hitPoints": 60,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 15,
+        "will": 9
+      },
+      "abilities": {
+        "str": -2,
+        "dex": 5,
+        "con": 4,
+        "int": -3,
+        "wis": 1,
+        "cha": 1
+      },
+      "skills": {
+        "acrobatics": 13,
+        "athletics": 10,
+        "stealth": 13
+      },
+      "languages": [
+        "chthonian"
+      ],
+      "defenses": {
+        "immunities": [
+          "mental",
+          "precision"
+        ],
+        "resistances": [
+          "bludgeoning 5",
+          "piercing 5",
+          "slashing 2"
+        ],
+        "weaknesses": [
+          "area-damage 5",
+          "cold-iron 5",
+          "holy 5",
+          "splash-damage 5"
+        ]
+      },
+      "attacks": [],
+      "actions": [
+        {
+          "id": "bkcCXMIocRFyzjlW",
+          "name": "Swarm Mind",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "9he851OaVPSpTPTg",
+          "name": "Devour All",
+          "kind": "action",
+          "description": "The swarm eat away the very earth beneath their feet. The swarms Strides. All squares they occupy during their movement becomes difficult terrain. Any creatures they move through must succeed a check (reflex, dc:21) save or fall Prone."
+        },
+        {
+          "id": "4yvGfMCIeRQHkhLP",
+          "name": "Maddening Gibbers",
+          "kind": "action",
+          "description": "Each stupefied creature in the swarm's space must attempt a check (will, dc:21) saving throw as the swarm yammers the endless chorus of the Outer Rifts.\nCritical Success The target is unaffected and is temporarily immune to Maddening Gibbers for 1 minute.\nSuccess The target is unaffected and is immune to Maddening Gibbers for 1 round.\nFailure The target becomes Confused for 1 round.\nCritical Failure The target becomes confused for 1 round and can't target fiends while confused in this way."
+        },
+        {
+          "id": "1IPpNFHT1dgYNnrz",
+          "name": "Ravenous Bites",
+          "kind": "action",
+          "description": "Each enemy in the swarm's space takes 3d6[piercing] damage (check (fortitude, dc:20, basic) save). A creature that fails its save is also Stupefied 1 for 1 round."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:basilisk",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "mX47c0W9rizbmMBM",
+      "slug": "basilisk",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:ba2b8f43eae420095542cf74fd1a325c26927ff32b6e1fd9245afb7fc4d9b634",
+    "translatableHash": "sha256:028398bc784a23d1482cedd14ffe555188d722d2c61f1be72640f7e0780afdbf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Basilisk",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "beast"
+      ],
+      "description": "The basilisk is a reptile with a nasty disposition and the ability to turn creatures to stone with its gaze. Folklore holds that, much like the cockatrice, the first basilisks hatched from leathery eggs laid by snakes and incubated by roosters, but little in the basilisk's physiology lends any credence to this claim.\nA basilisk prefers to eat petrified flesh. Once a victim has been turned to stone, the basilisk crunches the fossilized corpse with its powerful jaws and lets its potent stomach acids do the rest. This digestive process is extremely slow and inefficient, causing the basilisk to move so lethargically that it appears as if in mid-petrification itself. This has even led to the saying \"as slow as a well-fed basilisk.\" Certainly, basilisks are well-known for their slow gait and slothful nature, but a predator that can turn its prey to stone with a glance hardly has much need for speed.\nAn adult basilisk is 13 feet long from head to tail and weighs roughly 300 pounds. These reptiles make hissing sounds when moving about that turn to a guttural gurgle when they're agitated.\nThough they are normally solitary creatures that come together only to mate and lay eggs, there are periodic reports of regions being infested with unusual numbers of basilisks. What causes these unusual congregations of basilisk activity is a mystery.\nFor unknown reasons, weasels and ferrets are immune to the basilisk's stare, and they sometimes sneak into basilisk lairs while a parent is hunting in order to consume eggs or freshly hatched young. Some legends suggest that a basilisk's blood can transmute common stones into other materials, but this is likely a case of witnesses misinterpreting the magical restoration of previously petrified creatures or body parts.",
+      "armorClass": 22,
+      "hitPoints": 75,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 11,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 8,
+        "will": 11
+      },
+      "abilities": {
+        "str": 4,
+        "dex": -1,
+        "con": 5,
+        "int": -3,
+        "wis": 2,
+        "cha": 1
+      },
+      "skills": {
+        "athletics": 13,
+        "stealth": 8
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [
+          "petrified"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "L4dKqPtdmyspmZtd",
+          "name": "Jaws",
+          "bonus": 15,
+          "damage": "2d8+4 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "Nl15bkRTLq869IPi",
+          "name": "Petrifying Glance",
+          "kind": "reaction",
+          "description": "30 feet.\nTrigger A creature within 30 feet that the basilisk can see starts its turn.\nEffect The target must attempt a check (fortitude, dc:20, options:inflicts:slowed) save. If it fails, it's Slowed 1 for 1 minute as its body slowly stiffens."
+        },
+        {
+          "id": "tOCS9mkYR5K1LuOZ",
+          "name": "Petrifying Gaze",
+          "kind": "action",
+          "description": "The basilisk stares at a creature it can see within 30 feet. That creature must attempt a check (fortitude, dc:22, options:inflicts:slowed,inflicts:petrified) save. If it fails and has not already been slowed by Petrifying Glance or this ability, it becomes Slowed 1. If the creature was already slowed by this ability or Petrifying Glance, a failed save causes the creature to be Petrified permanently.\nA creature petrified in this manner that is coated (not just splashed) with fresh basilisk blood no more than 1 hour old is instantly restored to flesh. A single basilisk contains enough blood to coat [[/gmr 1d4 #Medium Creatures]] Medium creatures in this manner."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:jaathoom",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "OCZR5r4EBUrt97Ai",
+      "slug": "jaathoom",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:153a57e1bcf53481d426405d52a191555036c543d9439ed6998c1d7d4eee0bf5",
+    "translatableHash": "sha256:fd75736f74100c624b6b2d8ab3ca5e7ed3a88610f083593d0fd52144455cb669",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jaathoom",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "air",
+        "elemental",
+        "genie"
+      ],
+      "description": "Possessing all the subtlety and elegance of air itself, the jaathooms of the Plane of Air operate within dreams, nightmares, and time.\nBefore mortal history, genies were some of the first creations of the cosmos to possess free will. Formed of elemental matter, they traversed the Universe and the six elemental planes of air, earth, fire, metal, water, and wood. The genies who remained on each elemental plane found their matter replaced with those elements. Genies of metal and wood appear in Pathfinder Rage of Elements.\nGenie Shuyookhs\nOlder, wiser, and more powerful genies possess greater power and are revered with the title of shuyookh (typically adjusted to \"sheikha\" if the genie is female or \"sheikh\" for a male). Generally at least 5 levels higher than a typical example of their kind, a shuyookh gains additional spells. The basics of shuyookhs appear here in sidebars and are detailed further in Rage of Elements.\nThe most wondrous of their powers is their ability to grant wishes three times per year. This is not an innate ability but a ritual practice passed down over time in an attempt to replicate the wish-granting abilities of janns.",
+      "armorClass": 22,
+      "hitPoints": 55,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 15,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 14,
+        "will": 11
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 5,
+        "con": 2,
+        "int": 2,
+        "wis": 2,
+        "cha": 4
+      },
+      "skills": {
+        "acrobatics": 14,
+        "arcana": 11,
+        "athletics": 11,
+        "crafting": 9,
+        "deception": 11,
+        "diplomacy": 13,
+        "society": 9,
+        "stealth": 12
+      },
+      "languages": [
+        "common",
+        "sussuran"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "8EmRJwYnesD02GOh",
+          "name": "Scimitar",
+          "bonus": 15,
+          "damage": "1d6+10 slashing",
+          "traits": [
+            "forceful",
+            "reach-10",
+            "sweep"
+          ]
+        },
+        {
+          "id": "rtgmVsdePPj1Qutv",
+          "name": "Fist",
+          "bonus": 16,
+          "damage": "1d4+10 bludgeoning",
+          "traits": [
+            "agile",
+            "finesse",
+            "magical",
+            "nonlethal",
+            "reach-10",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "1ArJ2KyY45DuuLtC",
+          "name": "Crashing Wind",
+          "bonus": 16,
+          "damage": "1d8+8 bludgeoning",
+          "traits": [
+            "air",
+            "arcane"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "MzGAwDy4a9P00NOn",
+          "name": "Cloud of Visions",
+          "kind": "passive",
+          "description": "60 feet.\nA jaathoom has Telepathy 60 feet but can only show images, not speak."
+        },
+        {
+          "id": "W70HmW8TK21V8pWA",
+          "name": "Naturally Invisible",
+          "kind": "passive",
+          "description": "The jaathoom is Invisible at all times, though when they take a hostile action of any kind, they are Hidden instead of undetected until the start of their next turn, as the vague outline of their form is faintly visible for a short period of time."
+        },
+        {
+          "id": "aD6MGcEF5IHZE5vn",
+          "name": "Turbulent Skies",
+          "kind": "passive",
+          "description": "20 feet.\nAll squares in the emanation are difficult terrain for Striding and Flying creatures. Creatures with the air trait are immune.\nThe jaathoom can activate or deactivate this aura as a single action with the concentrate trait."
+        },
+        {
+          "id": "9gKykGpSYjcojkCw",
+          "name": "Change Shape",
+          "kind": "action",
+          "description": "The jaathoom transforms into a Small or Medium air elemental or aerial animal, such as an owl. This doesn't affect their statistics, but it could change the damage type of their Strikes."
+        },
+        {
+          "id": "k0b4P1F8sPglTEue",
+          "name": "Hurricane Blast",
+          "kind": "action",
+          "description": "Frequency once per round\nEffect The jaathoom moves all creatures without the air trait in their turbulent skies aura 20 feet directly away, clockwise, or counterclockwise. A creature avoids being moved if it succeeds at a check (fortitude, dc:21) save."
+        },
+        {
+          "id": "JKbYUjDXzNXugMpJ",
+          "name": "Ominous Dreams",
+          "kind": "action",
+          "description": "The jaathoom sends a prophetic dream to a sleeping creature within 10 feet. An unwilling creature avoids the vision if it succeeds at a check (will, dc:23) save.\nThe jaathoom chooses the dream's subject, but not its exact events. The target sees a brief vision of its future related to that subject, with the effect of Augury. If the result is bad or mixed, the creature is Frightened 2 and can't recover from being frightened until it wakes."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "lL38DigkATyHvflx",
+          "name": "Arcane Innate Spells",
+          "tradition": "arcane",
+          "category": "innate",
+          "attackModifier": 13,
+          "saveDc": 21,
+          "spells": [
+            {
+              "id": "FZkbmNBQD1yrtSSV",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "CE5AsyPfMcR4b8u1",
+              "name": "Ill Omen",
+              "rank": 3
+            },
+            {
+              "id": "ep8NMSZvf9RehGaR",
+              "name": "Illusory Creature",
+              "rank": 3
+            },
+            {
+              "id": "2xd2Fjrc9cBKnCrL",
+              "name": "Illusory Object",
+              "rank": 3
+            },
+            {
+              "id": "GE4Xz1VBBoRSYeWw",
+              "name": "Sleep",
+              "rank": 3
+            },
+            {
+              "id": "jcws24V8waluNee5",
+              "name": "Nightmare",
+              "rank": 4
+            },
+            {
+              "id": "8Dq1vUWtKCn02my4",
+              "name": "Vapor Form",
+              "rank": 4
+            },
+            {
+              "id": "VzooMmK9vuJaii3J",
+              "name": "Interplanar Teleport (to Astral Plane, Elemental Planes, or the Universe only)",
+              "rank": 7
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:cyclops",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "oZVeE7D70bHOrs1d",
+      "slug": "cyclops",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:fe219cbf5c381d849e362bc3a1521dac769e98deff08772257f914b360b7c5f8",
+    "translatableHash": "sha256:416b5b890707f3e3fd16092649563e415f250d841d7cb451b8fbdbccac22f984",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cyclops",
+      "level": 5,
+      "rarity": "uncommon",
+      "size": "large",
+      "traits": [
+        "giant",
+        "humanoid"
+      ],
+      "description": "The kingdoms of the cyclopes date to an age before the rise of humanity, when dragons and giants and serpentfolk ruled the world. The cyclopes built enormous stone cities and prayed to ancient gods of brutality and wrath, but their power to foresee the future failed them and their civilization collapsed. Today, most cyclopes have virtually no knowledge of the former glory of their kind, even though it is not uncommon for them to dwell among the ruins of their greatness. Cyclops cities include monuments and imposing murals which depict their peoples' history, but few now among them can read or interpret these relics of the past.\nIn addition to their single eye, cyclopes are also famous for their neverending hunger, an appetite so all-consuming that some scholars theorize it may in fact be some kind of curse. The ever-present hunger of the cyclopes seems to have some connection to the death of their civilization—though whether this voracity was the cause or a side-effect of their people's downfall is likely destined to remain a mystery.\nAlthough details of the cyclopes' gods have largely been lost to the annals of time, what little is known about these deities suggests they were vindictive and petty enough to curse their own people if they felt neglected or badly served.\nThe cyclopes are violent giants with a tragic past. Although they possess only one eye, they could once see far more than most, possessing occult wisdom and divinatory magic that gave them the mystic ability of foresight. But their legendary oracular powers failed to prevent the fall of their society, and the vast kingdoms of the cyclops long ago collapsed into ruin. Today, cyclopes have forgotten much of what they once knew, and they skulk among the crumbling remains of their fallen cities like forgotten kings and queens of their own fallen kingdoms.",
+      "armorClass": 21,
+      "hitPoints": 80,
+      "speedFeet": 30,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 8,
+        "will": 12
+      },
+      "abilities": {
+        "str": 5,
+        "dex": -1,
+        "con": 2,
+        "int": 0,
+        "wis": 3,
+        "cha": -1
+      },
+      "skills": {
+        "athletics": 14,
+        "intimidation": 10,
+        "survival": 12
+      },
+      "languages": [
+        "common",
+        "cyclops",
+        "jotun"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "9Aa0Gupq2BHChPd3",
+          "name": "Greataxe",
+          "bonus": 14,
+          "damage": "1d12+9 slashing",
+          "traits": [
+            "reach-10",
+            "sweep"
+          ]
+        },
+        {
+          "id": "tdX5F9iFFF0sboNA",
+          "name": "Heavy Crossbow",
+          "bonus": 8,
+          "damage": "1d10+4 piercing",
+          "traits": [
+            "reload-2"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qUaqzRZJuoid0Hha",
+          "name": "Ferocity",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "DxRFNpdsIZg6cyAK",
+          "name": "Flash of Insight",
+          "kind": "passive",
+          "description": "Frequency once per day.\nTrigger The cyclops is about to roll a d20.\nEffect The cyclops peers into an occluded spectrum of possible futures. It gets a success (but not a critical success) on the roll instead of rolling."
+        },
+        {
+          "id": "cpZUZlhLCvv2qK9o",
+          "name": "Swipe",
+          "kind": "action",
+          "description": "Frequency once per round\nEffect The cyclops makes a melee Strike and compares the attack roll result to the AC of up to two foes, each of whom must be within their melee reach and adjacent to each other. Roll damage only once and apply it to each creature hit. A Swipe counts as two attacks for the cyclops's multiple attack penalty."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:living-wildfire",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "pVbggIyXxCo8pPue",
+      "slug": "living-wildfire",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:b990a3a1296984b9bb4b3fd9557405a61ef7c64e9ea3f4e9dd95447eed02f78b",
+    "translatableHash": "sha256:69aa9c8edcaf73b95aba68997707964ed7c750043ad9e3a6579907e3d9464aa5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Living Wildfire",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "elemental",
+        "fire"
+      ],
+      "description": "Living wildfires appear as humanoids made of living fire, burning everything they come across for the pure joy of it. Summoners take advantage of this joy and the elementals' explosive ends to spread destruction.\nFire elementals are destructive manifestations of the scorching Plane of Fire. Although most fire elementals revel in the chance to experience new kinds of fires away from their home plane, even the most considerate fire elemental can be a danger to humanoids and their property.",
+      "armorClass": 22,
+      "hitPoints": 80,
+      "speedFeet": 50,
+      "perception": {
+        "modifier": 10,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 11,
+        "reflex": 15,
+        "will": 10
+      },
+      "abilities": {
+        "str": 3,
+        "dex": 4,
+        "con": 2,
+        "int": -2,
+        "wis": 3,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 13
+      },
+      "languages": [
+        "pyric"
+      ],
+      "defenses": {
+        "immunities": [
+          "bleed",
+          "fire",
+          "paralyzed",
+          "poison",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 5",
+          "water 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "wPoobMAF8dEMbXzS",
+          "name": "Tendril",
+          "bonus": 15,
+          "damage": "2d6+6 fire; 2d4 fire",
+          "traits": [
+            "agile",
+            "finesse",
+            "reach-10"
+          ]
+        },
+        {
+          "id": "gZywv8nUOzTjloep",
+          "name": "Fire Mote",
+          "bonus": 15,
+          "damage": "2d6+3 fire",
+          "traits": []
+        }
+      ],
+      "actions": [
+        {
+          "id": "nGzfYxHKFp5jqc76",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "The living wildfire ignores the Concealed condition from smoke."
+        },
+        {
+          "id": "mbDpJL0NCrFdM2bb",
+          "name": "Explosion",
+          "kind": "passive",
+          "description": "When the living wildfire dies, it explodes, dealing 3d6[fire|options:area-damage] damage to each creature in a @Template[emanation|distance:10|traits:fire,damaging-effect] (check (reflex, dc:19, basic, options:area-effect) save)."
+        },
+        {
+          "id": "tZ5Jxc70Z1fyXCqr",
+          "name": "Spreading Flames",
+          "kind": "action",
+          "description": "Requirements The living wildfire's last action was a Strike that dealt fire damage\nEffect The fire flares, dealing 3d6[fire] damage to each creature adjacent to that target with a check (reflex, dc:19, basic) save."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:flame-drake",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "qlxVPpwVFw5qIVQM",
+      "slug": "flame-drake",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:c63d6c532028ebb107a4487fa4cb55856a5a785d6965da6bfb8a04fd580f3af9",
+    "translatableHash": "sha256:ef58ea37f4423db61bedfecfe2d542b9ed73b1b178f9e2952323b75617c5572a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Flame Drake",
+      "level": 5,
+      "rarity": "common",
+      "size": "large",
+      "traits": [
+        "dragon",
+        "fire"
+      ],
+      "description": "Flame drakes dwell near volcanoes and magma, but it's not unheard of for one to drift into nearby areas like forests or wooded hills. Their scales are usually some shade of red, occasionally fading to smoky blacks and grays along the edges of their wings and the tips of their tails.\nRampages of flame drakes often grudgingly live alongside clans of fire giants, rather than be forced from their volcanic homes.\nRavenous, bestial, and driven by instinct, drakes are draconic monsters who bear a fraction of the terrifying might of the primal dragons they share evolutionary roots with. While they're weaker, slower, and less inclined toward reason than dragons, drakes are nonetheless a menace to creatures and settlements around them. Their propensity for forming raiding parties—small social groups fittingly called \"rampages\"—makes them all the more dangerous; a single rampage of river drakes can quickly lay waste to a waterside village, and roving rampages of desert drakes are a plague to caravan traders.\nDrakes share a number of physical characteristics that unite them as one species despite their wide variety of habitats and abilities. For example, drakes lack forearms, leaving them with their formidable jaws and thickscaled tails to use in close combat. Most drakes would rather avoid this, however, preferring to use their magical breath to wreak havoc in wide swaths from comfortable distances while flying overhead. Finally, all drakes have small reservoirs of their ancestral draconic power that they can tap into to perform incredible feats of speed.\nDifferent species of drakes rarely come into conflict. Part of this is their distinct habitats, but drakes are open to negotiating simple agreements between rampages. This courtesy does not extend to dragonets, which drakes happily take as prey. Solitary tamed drakes are also excluded from such agreements and considered free game if their tamer isn't strong enough to protect them.\nDrake Eggs\nWhile drake hides aren't any more valuable than those of similarly sized creatures, drake eggs are prized commodities. They are used as components in powerful spells as well as eaten by various cultures, but the most common use for drake eggs is hatching and rearing drakes to serve as mounts and guardians.\nA typical drake lays a clutch of 2d4 eggs every 5 years. Eggs hatch within 3 to 6 weeks, during which time they must be kept in conditions appropriate to their natural environment, perhaps the most difficult aspect of drake husbandry. While it is generally easy for breeders to incubate the eggs of desert or jungle drakes (which require mildly warm temperatures to hatch) or river drakes (which must be submerged in running water), the eggs of flame and frost drakes require extreme temperatures in order to hatch, which can be difficult to replicate safely.\nA drake egg is an object with Hardness 3, 5 HP, and no Broken Threshold. The coloration of drake eggs varies only slightly from one species to the next. A creature must succeed at a check (nature, dc:20) check, or a relevant DC 20 Lore check, to identify the drake species of a specific egg.\nOnce a drake hatches, they imprint on the first creature that they see. A creature imprinted on in this way can use Nature to Train and Command that drake. The market price of a drake egg varies depending on the type of drake and the exact legal situation. Because drakes are dangerous and intelligent creatures, many societies do not condone the trade of drake eggs and criminalize those who engage in it.\nIt takes 2 years for a drake hatchling to grow to full size. A well-trained drake can make a fearsome mount or guardian, but many careless would-be drake trainers are devoured by their charges.",
+      "armorClass": 22,
+      "hitPoints": 75,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision",
+          "scent-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 12,
+        "reflex": 10,
+        "will": 10
+      },
+      "abilities": {
+        "str": 5,
+        "dex": 1,
+        "con": 3,
+        "int": -1,
+        "wis": 3,
+        "cha": 0
+      },
+      "skills": {
+        "acrobatics": 10,
+        "athletics": 12,
+        "stealth": 9,
+        "survival": 10
+      },
+      "languages": [
+        "draconic"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire",
+          "paralyzed",
+          "sleep"
+        ],
+        "resistances": [],
+        "weaknesses": [
+          "cold 10"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "FdJtaUOMkZdu6F7C",
+          "name": "Fangs",
+          "bonus": 14,
+          "damage": "2d8+5 piercing; 1d6 fire",
+          "traits": []
+        },
+        {
+          "id": "xzuGv08xYVhfHdXW",
+          "name": "Tail",
+          "bonus": 14,
+          "damage": "2d6+5 bludgeoning",
+          "traits": [
+            "reach-10"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "S6FJYbxVlzTTwn0T",
+          "name": "Smoke Vision",
+          "kind": "passive",
+          "description": "Smoke doesn't impair a flame drake's vision; they ignore Concealment from smoke."
+        },
+        {
+          "id": "3rv6K5DjOMWvXmod",
+          "name": "Reactive Strike (Fangs Only)",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "IuK4DrLEyP6BmKi2",
+          "name": "Draconic Frenzy",
+          "kind": "action",
+          "description": "The flame drake makes two Fangs Strikes and one Tail Strike in any order."
+        },
+        {
+          "id": "KhgTIBtP3uB7Ls0w",
+          "name": "Fireball Breath",
+          "kind": "action",
+          "description": "The flame drake expels a ball of flame to a range of 180 feet that explodes in a @Template[burst|distance:20]. Creatures in the burst take 6d6[fire|options:area-damage] damage (check (reflex, dc:22, basic, options:area-effect) save).\nThe flame drake can't use Fireball Breath again for [[/gmr 1d6 #Recharge Fireball Breath]]{1d6 rounds}."
+        },
+        {
+          "id": "YXiHAcR16OtpzApO",
+          "name": "Speed Surge",
+          "kind": "action",
+          "description": "Frequency three times per day\nEffect The flame drake Strides or Flies twice."
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:vordine",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "qvagIV8gqF0g3m3l",
+      "slug": "vordine",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:10787925039424f83a9681f2ac0207c0dd8014d3dd9c1ff4ee9fb2d51832bb3f",
+    "translatableHash": "sha256:0e1e82113cd987bffec970d4f9ff36b7f191351c0ac05ac2694dcc925e406b50",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vordine",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "devil",
+        "fiend",
+        "unholy"
+      ],
+      "description": "The vast city of Dis trains endless legions of vordines to guard the upper layers of Hell and march across the planes at the archdevils' orders. Although quick to bend their knees to higher-ranking devils and even mortals favored by Asmodeus, vordines are relentlessly cruel to orts and other devils they can call their subordinates.\nAlthough higher ranks in the infernal military are held by more powerful devils, like the nessari who serve as generals, a labyrinthine structure gives each vordine a rank and certain responsibilities. Some vordines are responsible for the battlefield command of squads, while others relay orders from above or are set to handling specific administrative tasks for their unit. The greatest gift one can offer a vordine is an increased rank to lord over other vordines.\nMasters of corruption and architects of conquest, devils seek both to tempt mortal life to join in their pursuit of all things profane and to spread tyranny throughout all worlds. The temptations they offer mortals range from great powers granted by the signing of an infernal contract to twisted favors following a whispered pledge to a diabolic patron, or any number of even subtler exchanges. Those who succumb to these temptations find themselves consigned to an afterlife of endless torment in the pits of Hell, wherein the only hope of escape lies in the chance of being promoted to become a devil in the infernal ranks.\nEvery devil has a specific role to play in the upkeep of the remorseless bureaucratic machine that is Hell, from soldiers and scholars to inquisitors, lawyers, judges, and executioners. Lowly orts perform subservient labor to more powerful and specialized devils, such as infantry and contract devils, while the greatest nessaris command entire infernal armies.\nAsmodeus stands at the apex of the structure he created, but the layers below him are marked by a constant jockeying for position. Most diabolic plans ultimately serve to improve the schemer's place in the hierarchy.",
+      "armorClass": 22,
+      "hitPoints": 60,
+      "speedFeet": 25,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "greater-darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 13,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 4,
+        "con": 5,
+        "int": 2,
+        "wis": 3,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 13,
+        "athletics": 15,
+        "intimidation": 13,
+        "religion": 12
+      },
+      "languages": [
+        "common",
+        "diabolic"
+      ],
+      "defenses": {
+        "immunities": [
+          "fire"
+        ],
+        "resistances": [
+          "physical 5 except silver",
+          "poison 5"
+        ],
+        "weaknesses": [
+          "holy 5"
+        ]
+      },
+      "attacks": [
+        {
+          "id": "LRYnhnBnreU2c8LQ",
+          "name": "Trident",
+          "bonus": 15,
+          "damage": "1d8+10 piercing",
+          "traits": [
+            "magical",
+            "unholy"
+          ]
+        },
+        {
+          "id": "TlxdPHeP98om5tqc",
+          "name": "Whip",
+          "bonus": 15,
+          "damage": "1d4+10 bludgeoning",
+          "traits": [
+            "disarm",
+            "finesse",
+            "magical",
+            "nonlethal",
+            "reach-10",
+            "trip",
+            "unholy"
+          ]
+        },
+        {
+          "id": "em1G8z7zN6t6Vtjb",
+          "name": "Hoof",
+          "bonus": 15,
+          "damage": "1d4+7 bludgeoning; 1d4 fire",
+          "traits": [
+            "agile",
+            "magical",
+            "unholy"
+          ]
+        },
+        {
+          "id": "zqZNyUM7raJFY5Uz",
+          "name": "Trident",
+          "bonus": 13,
+          "damage": "1d8+10 piercing",
+          "traits": [
+            "magical",
+            "thrown-20",
+            "unholy"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tgQe5TSWsX4P7bow",
+          "name": "Greater Darkvision",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "n4scccvDx3O7sjFG",
+          "name": "Telepathy 100 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "pPlbZeWmu7cXNcGS",
+          "name": "+1 Status to All Saves vs. Magic",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "ylgFkKkXbfdCqI1F",
+          "name": "Reactive Strike",
+          "kind": "reaction",
+          "description": ""
+        },
+        {
+          "id": "htudWd2S9lUKBAuJ",
+          "name": "Burning Hoofprints",
+          "kind": "action",
+          "description": "The vordine Strides, trailing hoofprints in each square they exit. The hoofprints burn for 1 minute. A creature on the ground that enters a square with burning hoofprints or begins its turn in one takes 1d4[fire] damage."
+        },
+        {
+          "id": "x38RhSkJxk1CkeQZ",
+          "name": "Trident of Dis",
+          "kind": "action",
+          "description": "The vordine makes a trident Strike, increasing their reach to 10 feet for that Strike. If there is an unholy ally between the vordine and their target, that creature's energy causes the Strike to deal an additional 1d6 spirit damage."
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "Yw04fJxkApON9NSf",
+          "name": "Divine Innate Spells",
+          "tradition": "divine",
+          "category": "innate",
+          "attackModifier": 11,
+          "saveDc": 19,
+          "spells": [
+            {
+              "id": "ZbZxZrzsZJ8FeYu3",
+              "name": "Translocate (At Will)",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:dero-magister",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "qyCcr32PVcnNm4Wr",
+      "slug": "dero-magister",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:c40546f1f60d6ecc961daeb58cb9d9ed75c09d55ee33893547389618a742d07c",
+    "translatableHash": "sha256:337177900759d833a8ec18765f368bc0a31050ad9cdec10f7a80bd8aa97a7387",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dero Magister",
+      "level": 5,
+      "rarity": "uncommon",
+      "size": "small",
+      "traits": [
+        "dero",
+        "humanoid"
+      ],
+      "description": "Dero magisters are leaders among dero society. They perform the bulk of the cruel operations and memory-altering procedures inflicted upon their victims.\nDeros are short, wiry humanoids with milky white eyes, gray-blue skin, and wild shocks of off-white or gray hair. The descendants of a mysterious type of fey abandoned in the deepest, darkest caverns of Golarion, deros are the subject of fearful legends and folk tales to most of the world's surface races. They skulk beneath major metropolitan areas, performing cruel and twisted experiments on unwilling subjects.\nDeros, particularly the leading magisters, are fixated with curing their allergy to sunlight. To understand how the surface dwellers can withstand the light of the sun, deros conduct late-night raids on surface cities, abducting victims and performing terrible experiments on them. Those who survive are often returned with much of their memory erased and their bodies bearing mysterious scars.\nThe largest dero settlements are built around esoteric machines of floating crystals. As these crystals grind against each other and hum with sickening blue energy, crystal flakes and powdery residue collect beneath the machinery. Dero magisters gather these products, creating tools and repurposing the crystals to power magical items.",
+      "armorClass": 22,
+      "hitPoints": 65,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 8,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 10,
+        "reflex": 13,
+        "will": 10
+      },
+      "abilities": {
+        "str": 1,
+        "dex": 4,
+        "con": 2,
+        "int": 3,
+        "wis": -1,
+        "cha": 5
+      },
+      "skills": {
+        "crafting": 12,
+        "medicine": 10,
+        "occultism": 12,
+        "stealth": 11
+      },
+      "languages": [
+        "aklo",
+        "sakvroth"
+      ],
+      "defenses": {
+        "immunities": [
+          "confused"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "7hO4ioKwQPzn4TOw",
+          "name": "Staff",
+          "bonus": 10,
+          "damage": "1d4+3 bludgeoning",
+          "traits": [
+            "two-hand-d8"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "qtsF75k2Zterahrt",
+          "name": "Vulnerable to Sunlight",
+          "kind": "passive",
+          "description": "A dero magister takes 10[untyped] damage for every hour they're exposed to sunlight."
+        },
+        {
+          "id": "36QKwrAooz1cygR4",
+          "name": "Cytillesh Stare",
+          "kind": "action",
+          "description": "Frequency once per round\nEffect The magister focuses their gaze on a creature they can see within 30 feet. The target is Dazzled for 1 round and must succeed at a check (will, dc:24) saving throw or be Confused for 1 round."
+        },
+        {
+          "id": "qVHhxPquRcpNmlyB",
+          "name": "Dero Medicine",
+          "kind": "action",
+          "description": "Requirements The dero is wearing a cytillesh toolkit and has a hand free\nEffect The dero excises damaged flesh and crudely stitches wounds shut, healing themself or an ally in reach for (2d8+10)[healing]{2d8+10 Hit Points}. For 1 hour, the target has slashing weakness 2 and is immune to Dero Medicine.\nEffect: Dero Medicine"
+        }
+      ],
+      "spellcasting": [
+        {
+          "id": "YuejnaqH1UUSFEtm",
+          "name": "Occult Spontaneous Spells",
+          "tradition": "occult",
+          "category": "spontaneous",
+          "attackModifier": 16,
+          "saveDc": 24,
+          "spells": [
+            {
+              "id": "mxkALYlRqksTohjN",
+              "name": "Detect Magic",
+              "rank": 1
+            },
+            {
+              "id": "pBV3QaNAJXxEzJBu",
+              "name": "Forbidding Ward",
+              "rank": 1
+            },
+            {
+              "id": "jIWECHVpMk9WBdkE",
+              "name": "Force Barrage",
+              "rank": 1
+            },
+            {
+              "id": "cAciMFV8jWdRUKjn",
+              "name": "Grim Tendrils",
+              "rank": 1
+            },
+            {
+              "id": "QGdfFMuQH4t6ap9g",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "NnPwyXW9roUWdVV3",
+              "name": "Message",
+              "rank": 1
+            },
+            {
+              "id": "MEw4zMzFIB5gJtRL",
+              "name": "Phantom Pain",
+              "rank": 1
+            },
+            {
+              "id": "Jy7G7iO8hpvkDoea",
+              "name": "Soothe",
+              "rank": 1
+            },
+            {
+              "id": "b5adsQzS4Etrkb47",
+              "name": "Void Warp",
+              "rank": 1
+            },
+            {
+              "id": "YjZKrM6UqE6SGsLw",
+              "name": "Laughing Fit",
+              "rank": 2
+            },
+            {
+              "id": "Zz1AliTSfSuhrCga",
+              "name": "Paranoia",
+              "rank": 2
+            },
+            {
+              "id": "4RjBDpKjCVsDfefW",
+              "name": "Stupefy",
+              "rank": 2
+            },
+            {
+              "id": "RACbil05pP5Xr8bY",
+              "name": "Telekinetic Maneuver",
+              "rank": 2
+            },
+            {
+              "id": "9e83JGqtlV9gW82I",
+              "name": "Blindness",
+              "rank": 3
+            },
+            {
+              "id": "HYWJURSykbNlNrMk",
+              "name": "Levitate",
+              "rank": 3
+            },
+            {
+              "id": "fc2wcMkY0eNE6Mh6",
+              "name": "Vampiric Feast",
+              "rank": 3
+            }
+          ]
+        },
+        {
+          "id": "bKldotvWkspZfjHv",
+          "name": "Occult Innate Spells",
+          "tradition": "occult",
+          "category": "innate",
+          "attackModifier": 16,
+          "saveDc": 24,
+          "spells": [
+            {
+              "id": "xQCGKQSBVZbxMx3R",
+              "name": "Daze",
+              "rank": 1
+            },
+            {
+              "id": "0E3EYCWutBL8Vh2Y",
+              "name": "Light",
+              "rank": 1
+            },
+            {
+              "id": "Mg3f3jaujQ92OyGX",
+              "name": "Read Aura",
+              "rank": 1
+            },
+            {
+              "id": "FgioWJI6sDKA9mxn",
+              "name": "Darkness",
+              "rank": 2
+            },
+            {
+              "id": "kLMRqA7ukbfxsG50",
+              "name": "Revealing Light",
+              "rank": 2
+            },
+            {
+              "id": "F8FCFH4XnmTvXG3A",
+              "name": "Nightmare",
+              "rank": 4
+            },
+            {
+              "id": "Pz9hjbDqjhS6chhP",
+              "name": "Rewrite Memory",
+              "rank": 4
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:giant-crawling-hand",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "TlDmc2ZKeIAJuD5v",
+      "slug": "giant-crawling-hand",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:7ee51cdf3bbe6293df2682bc4fa20a608b3661bcce015c795c2d4cbd5f908b0e",
+    "translatableHash": "sha256:23adfa6026263f7795cd2836132610e11810ddbae716cbeaf49cd918425d51bd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Giant Crawling Hand",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "undead",
+        "unholy"
+      ],
+      "description": "A giant crawling hand is the appendage of a very large creature, such as a giant.\nTypically, crawling hands are formed when severed appendages are endowed with a crude sentience by evil necromantic energies that turn them into tireless killers. Yet crawling hands can also arise spontaneously, usually when a creature loses an appendage in a place rife with necromantic energy or with a connection to the Void.",
+      "armorClass": 22,
+      "hitPoints": 75,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "lifesense-30",
+          "tremorsense-imprecise-30"
+        ]
+      },
+      "saves": {
+        "fortitude": 13,
+        "reflex": 11,
+        "will": 10
+      },
+      "abilities": {
+        "str": 4,
+        "dex": 2,
+        "con": 4,
+        "int": -4,
+        "wis": 3,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 13,
+        "stealth": 11,
+        "survival": 12
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [
+          "death-effects",
+          "disease",
+          "paralyzed",
+          "poison",
+          "unconscious",
+          "visual",
+          "bleed"
+        ],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "4J4DJgMerRgq1mfr",
+          "name": "Claw",
+          "bonus": 15,
+          "damage": "2d6+7 slashing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tOMw33x9d2qXTKwi",
+          "name": "Tremorsense (Imprecise) 30 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "yb7yQZeKyk9xJFnV",
+          "name": "Lifesense 30 feet",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "l6ptuF1kw5FfVHfl",
+          "name": "Pus Burst",
+          "kind": "reaction",
+          "description": "Trigger The giant crawling hand takes piercing or slashing damage\nEffect A random creature adjacent to the giant crawling hand is sprayed with vile pus that deals 4d6[void] damage. The affected creature must attempt a check (reflex, dc:21) save.\nCritical Success The creature takes no damage.\nSuccess The creature takes half damage and becomes Sickened 1.\nFailure The creature takes full damage and becomes Sickened 2.\nCritical Failure The creature takes double damage and becomes Sickened 3."
+        },
+        {
+          "id": "u6T8tsZkOcFjvrzG",
+          "name": "Void Healing",
+          "kind": "passive",
+          "description": ""
+        },
+        {
+          "id": "QACVidUBGQoHHpqW",
+          "name": "Mark Quarry",
+          "kind": "passive",
+          "description": "A crawling hand can be assigned a quarry by anointing the hand with a drop of the intended quarry's blood. If the hand ever has no quarry, it automatically gains the next creature it damages as its quarry. The hand gains a +1 circumstance bonus to Perception checks when it Seeks its quarry, to Survival checks when it Tracks its quarry, and damage rolls when it Strikes its quarry."
+        },
+        {
+          "id": "LJ98Uh0Kt9H0AdSx",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:harpy",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "uBNm3R9wbLTPrM9i",
+      "slug": "harpy",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:94acf67abeed3be7c651a6b07608cf514923c420b4a60c53366c28d85977fd38",
+    "translatableHash": "sha256:7cb68ef200cd18b5f401363749bf8117d7700347df4d0d2455b0dd99a3a929f1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harpy",
+      "level": 5,
+      "rarity": "common",
+      "size": "medium",
+      "traits": [
+        "air",
+        "beast",
+        "humanoid"
+      ],
+      "description": "Harpies are amalgamations of human and bird, resembling feral humans with wings, talons, and sharp teeth. They use their ancestral control of the wind to lure prey or even directly pull in their next meal. They enjoy causing confusion and fear in their prey before they strike, believing it creates a savory flavor in the flesh. Harpies can eat most creatures but strongly prefer sapient prey—humans and elves in particular. Although harpies will eat goblins if sufficiently hungry, they dislike their flavor and avoid eating them if possible. This doesn't comfort goblins, of course, who have a particularly strong fear of harpies.\nBecause their aeries often reek with the gore of their kills and careless spatters of guano, harpies carry a distinctly vile scent that canny travelers associate with danger. Harpies who roost close to civilization make better efforts to keep clean, though these efforts have mixed results.\nSomewhere among the filth, most aeries have a shrine dedicated to the demon lord Pazuzu. Harpy legends credit him with raising them up from simple air spirits to their current station, and their gratitude typically takes the shape of a sketched figure in a corner piled with offerings. More devout families build portable wooden shrines that are carried from aerie to aerie for generations.\nHarpies live in family groups or larger clans. Most adults stand 5 feet tall and weigh around 90 pounds. While some use relatively simple weapons, those who master the use of the bow are regarded as heroes among their kind.",
+      "armorClass": 21,
+      "hitPoints": 75,
+      "speedFeet": 20,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "darkvision"
+        ]
+      },
+      "saves": {
+        "fortitude": 9,
+        "reflex": 15,
+        "will": 12
+      },
+      "abilities": {
+        "str": 1,
+        "dex": 4,
+        "con": 0,
+        "int": -1,
+        "wis": 1,
+        "cha": 2
+      },
+      "skills": {
+        "acrobatics": 13,
+        "deception": 11,
+        "intimidation": 13,
+        "performance": 11,
+        "stealth": 11,
+        "thievery": 13
+      },
+      "languages": [
+        "common"
+      ],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "BmhB6hl9Ivt5pnw6",
+          "name": "Talon",
+          "bonus": 15,
+          "damage": "2d6+4 slashing",
+          "traits": [
+            "agile",
+            "finesse",
+            "unarmed"
+          ]
+        },
+        {
+          "id": "twwXWSLPxnAXSs6h",
+          "name": "Jaws",
+          "bonus": 15,
+          "damage": "2d8+4 piercing",
+          "traits": [
+            "finesse",
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "4SfQwlsDB7yPjSXZ",
+          "name": "Wind's Whispers",
+          "kind": "passive",
+          "description": "When a harpy speaks, they can choose one creature within 90 feet. That creature can hear the harpy's words over any other sound, but no other creature hears the words at all."
+        },
+        {
+          "id": "roUoPrTHvP2EhoDm",
+          "name": "Stench",
+          "kind": "passive",
+          "description": "30 feet. check (fortitude, dc:21, options:area-effect,inflicts:sickened,inflicts:slowed)"
+        },
+        {
+          "id": "YqOXI5e96og3s7to",
+          "name": "Hungry Winds",
+          "kind": "action",
+          "description": "The harpy uses the wind to pull its prey closer. A target within 20 feet must succeed at a check (fortitude, dc:21) save or be pulled adjacent to the harpy, where they make a jaws Strike against the target. If the target was pulled off the ground and can't fly, it then falls as normal."
+        },
+        {
+          "id": "qcy89Ztl9BMxwhem",
+          "name": "Putrid Plague",
+          "kind": "passive",
+          "description": "The sickened and unconscious conditions from putrid plague can't end or be reduced until the disease is cured\nSaving Throw check (fortitude, dc:19)\nStage 1 carrier with no ill effect (1d4 hours),\nStage 2 Sickened 1 (1 day),\nStage 3 sickened 1 and Slowed 1 (1 day),\nStage 4 Unconscious (1 day),\nStage 5 dead"
+        }
+      ],
+      "spellcasting": []
+    }
+  },
+  {
+    "contentId": "pf2e:bestiary:pathfinder-monster-core:orca",
+    "domain": "BESTIARY",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "pathfinder-monster-core",
+      "sourceId": "uco1YijAEotYjdnF",
+      "slug": "orca",
+      "publicationTitle": "Pathfinder Monster Core",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/npc.svg"
+    },
+    "sourceHash": "sha256:49ed38d4a74e87b160ee7fa3f1029edc14b6462808d5603097b7e2408ecbb7e4",
+    "translatableHash": "sha256:b118348fea83040507cac07191b564dcddd5231222bce419995ac20c5c380aa7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Orca",
+      "level": 5,
+      "rarity": "common",
+      "size": "huge",
+      "traits": [
+        "animal"
+      ],
+      "description": "While many know orcas as \"killer whales,\" they're actually the largest species of dolphin. These powerful animals hunt together in pods to take down seals, sharks, and even whales. Adult orcas are typically 15–25 feet long and weigh 8,000–12,000 pounds.\nDolphins encompass a wide range of aquatic mammals, all of which are social, intelligent, and widespread throughout the world's oceans.",
+      "armorClass": 21,
+      "hitPoints": 75,
+      "speedFeet": 0,
+      "perception": {
+        "modifier": 12,
+        "senses": [
+          "echolocation-120",
+          "low-light-vision"
+        ]
+      },
+      "saves": {
+        "fortitude": 14,
+        "reflex": 11,
+        "will": 12
+      },
+      "abilities": {
+        "str": 7,
+        "dex": 2,
+        "con": 5,
+        "int": -4,
+        "wis": 3,
+        "cha": 0
+      },
+      "skills": {
+        "athletics": 14,
+        "stealth": 13
+      },
+      "languages": [],
+      "defenses": {
+        "immunities": [],
+        "resistances": [],
+        "weaknesses": []
+      },
+      "attacks": [
+        {
+          "id": "rUvfMcCzgvir0ElO",
+          "name": "Jaws",
+          "bonus": 13,
+          "damage": "2d8+9 piercing",
+          "traits": [
+            "unarmed"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "tkqzuUsreLrNt0sh",
+          "name": "Aquatic Echolocation 120 feet",
+          "kind": "passive",
+          "description": "An orca can use its hearing as a precise sense at the listed range, but only underwater."
+        },
+        {
+          "id": "reVIS3aes83WAuF2",
+          "name": "Deep Breath",
+          "kind": "passive",
+          "description": "An orca can hold its breath for 2 hours."
+        },
+        {
+          "id": "9bSMDZ283g6Zq6IU",
+          "name": "Aquatic Ambush",
+          "kind": "action",
+          "description": "30 feet.\nAn orca can travel no further than 5 feet onto land as part of an Aquatic Ambush. After it does so, it's Prone until it Crawls to return to the water."
+        },
+        {
+          "id": "k3o7ZpWc6J6flWCQ",
+          "name": "Breach",
+          "kind": "action",
+          "description": "The orca Swims up to its swim Speed, then Leap vertically out of the water up to 25 feet in the air, making a Strike against a creature at any point during the jump (this lets it attack a creature within 30 feet of the water's surface). After the Strike, the orca splashes back down into the water."
+        },
+        {
+          "id": "J9iEljd9P9EPB4wm",
+          "name": "Grab",
+          "kind": "action",
+          "description": ""
+        }
+      ],
+      "spellcasting": []
+    }
+  }
+]

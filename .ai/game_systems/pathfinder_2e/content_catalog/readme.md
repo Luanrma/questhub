@@ -6,11 +6,15 @@ Importar progressivamente o conteúdo Pathfinder 2e já disponível na branch `d
 
 Cada rodada de conteúdo deve conter obrigatoriamente:
 
-- Bestiário;
+- Bestiário, incluindo criaturas e hazards;
 - Spells;
 - Items;
 - conteúdo original `en-US` preservado;
 - tradução `pt-BR` armazenada separadamente.
+
+As rodadas são lotes técnicos de tamanho limitado. Elas não representam a
+conclusão de uma faixa de nível ou Rank enquanto ainda houver qualquer entrada
+elegível não importada nessa faixa.
 
 O objetivo final é alcançar a cobertura de conteúdo existente na `development`, sem tentar migrar tudo de uma vez.
 
@@ -26,6 +30,10 @@ Este módulo transforma a migração em uma sequência determinística de rodada
 4. o que está desatualizado;
 5. qual é a próxima rodada;
 6. por que essa rodada vem em seguida.
+
+O catálogo também deve informar o menor nível ou Rank ainda incompleto em cada
+domínio. Nenhum domínio pode avançar silenciosamente deixando conteúdo elegível
+para trás.
 
 ## 3. Regra principal das rodadas
 
@@ -75,6 +83,11 @@ content_catalog/
   deliveries/
     <delivery-name>.ts
 ```
+
+Hazards pertencem ao domínio visual `BESTIARY`, mas preservam
+`entryType = "HAZARD"` e seus campos próprios. Eles não são convertidos em
+criaturas nem recebem atributos, percepção, ataques ou deslocamento
+artificiais.
 
 As categorias de Items são criadas somente quando houver conteúdo. `deliveries/` guarda apenas source lock, IDs, manifest e cobertura.
 

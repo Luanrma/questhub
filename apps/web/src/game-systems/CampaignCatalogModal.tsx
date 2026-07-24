@@ -26,6 +26,7 @@ type EditorialStatus = {
 }
 
 type EditorialFilter = 'all' | 'review' | 'ready'
+type BestiaryFilter = 'all' | 'creatures' | 'hazards'
 
 type CatalogCard = {
   id: string
@@ -47,6 +48,7 @@ type CatalogResponse = {
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
   editorialStatus?: EditorialFilter
+  bestiaryType?: BestiaryFilter
   entries: CatalogCard[]
   pagination: {
     page: number
@@ -79,8 +81,6 @@ function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSyste
   const [failed, setFailed] = useState(false)
   const Icon = domainIcons[domain]
 
-  useEffect(() => setFailed(false), [entry.imageUrl])
-
   if (entry.imageUrl && !failed) {
     return (
       <img
@@ -104,6 +104,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
   const [locale, setLocale] = useState<GameSystemContentLocale>('pt-BR')
   const [search, setSearch] = useState('')
   const [editorialFilter, setEditorialFilter] = useState<EditorialFilter>('all')
+  const [bestiaryFilter, setBestiaryFilter] = useState<BestiaryFilter>('all')
   const [page, setPage] = useState(1)
   const [data, setData] = useState<CatalogResponse | null>(null)
   const [loading, setLoading] = useState(false)
@@ -136,6 +137,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
         limit: '24',
       })
       if (normalizedSearch) params.set('q', normalizedSearch)
+      if (domain === 'BESTIARY') params.set('bestiaryType', bestiaryFilter)
 
       setLoading(true)
       setError(null)
@@ -157,7 +159,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
       window.clearTimeout(timeout)
       controller.abort()
     }
-  }, [campaignId, domain, editorialFilter, locale, normalizedSearch, page, title])
+  }, [bestiaryFilter, campaignId, domain, editorialFilter, locale, normalizedSearch, page, title])
 
   return (
     <div
@@ -239,6 +241,25 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
               />
             </div>
 
+            {domain === 'BESTIARY' ? (
+              <label className="relative md:w-44">
+                <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+                <select
+                  value={bestiaryFilter}
+                  onChange={(event) => {
+                    setBestiaryFilter(event.target.value as BestiaryFilter)
+                    setPage(1)
+                  }}
+                  aria-label="Filtrar por tipo do Bestiário"
+                  className="h-11 w-full appearance-none rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-zinc-200 outline-none transition focus:border-indigo-300/50"
+                >
+                  <option value="all">Todos</option>
+                  <option value="creatures">Criaturas</option>
+                  <option value="hazards">Hazards</option>
+                </select>
+              </label>
+            ) : null}
+
             {locale === 'pt-BR' ? (
               <label className="relative md:w-60">
                 <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
@@ -290,7 +311,11 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
                   className="flex min-w-0 flex-col rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]"
                 >
                   <div className="flex min-w-0 items-start gap-4">
-                    <CatalogImage entry={entry} domain={domain} />
+                    <CatalogImage
+                      key={`${entry.id}:${entry.imageUrl ?? 'fallback'}`}
+                      entry={entry}
+                      domain={domain}
+                    />
                     <div className="min-w-0 flex-1">
                       <h2 className="truncate text-sm font-semibold text-white">{entry.name}</h2>
                       {entry.subtitle ? <p className="mt-1 truncate text-xs text-zinc-400">{entry.subtitle}</p> : null}

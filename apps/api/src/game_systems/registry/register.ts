@@ -27,6 +27,7 @@ const catalogQuerySchema = z.object({
   locale: z.enum(['en-US', 'pt-BR']).default('pt-BR'),
   q: z.string().trim().max(120).optional(),
   editorialStatus: z.enum(['all', 'review', 'ready']).default('all'),
+  bestiaryType: z.enum(['all', 'creatures', 'hazards']).default('all'),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(60).default(24),
 })
@@ -466,6 +467,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
       locale: query.data.locale as GameSystemContentLocale,
       search: query.data.q,
       editorialStatus: query.data.editorialStatus,
+      bestiaryType: query.data.bestiaryType,
       page: query.data.page,
       limit: query.data.limit,
     })
@@ -476,6 +478,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
       domain,
       locale: query.data.locale,
       editorialStatus: query.data.editorialStatus,
+      bestiaryType: query.data.bestiaryType,
       ...result,
     })
   })

@@ -1,5 +1,8 @@
 import { PATHFINDER_2E_BESTIARY_ENTRIES } from '../bestiary'
-import type { Pathfinder2eContentEntry } from '../content-entry'
+import {
+  selectPathfinder2eContentEntries,
+  type Pathfinder2eContentEntry,
+} from '../content-entry'
 import { PATHFINDER_2E_ITEM_ENTRIES } from '../items'
 import { calculatePathfinder2eRoundReadiness } from '../progress'
 import type {
@@ -19,17 +22,38 @@ export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE: Pathfinder2eSo
   importedAt: '2026-07-24T01:40:02.000Z',
 }
 
-export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES: readonly Pathfinder2eContentEntry[] = [
-  ...PATHFINDER_2E_BESTIARY_ENTRIES,
-  ...PATHFINDER_2E_SPELL_ENTRIES,
-  ...PATHFINDER_2E_ITEM_ENTRIES,
-]
-
 export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_IDS = {
-  bestiary: PATHFINDER_2E_BESTIARY_ENTRIES.map((entry) => entry.original.contentId),
-  spells: PATHFINDER_2E_SPELL_ENTRIES.map((entry) => entry.original.contentId),
-  items: PATHFINDER_2E_ITEM_ENTRIES.map((entry) => entry.original.contentId),
+  bestiary: [
+    'pf2e:bestiary:pathfinder-monster-core:goblin-warrior',
+    'pf2e:bestiary:pathfinder-monster-core:skeleton-guard',
+    'pf2e:bestiary:pathfinder-monster-core:wolf',
+  ],
+  spells: [
+    'pf2e:spell:spells-srd:electric-arc',
+    'pf2e:spell:spells-srd:force-barrage',
+    'pf2e:spell:spells-srd:heal',
+  ],
+  items: [
+    'pf2e:item:equipment-srd:dogslicer',
+    'pf2e:item:equipment-srd:leather-armor',
+    'pf2e:item:equipment-srd:shortbow',
+  ],
 } as const
+
+export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES: readonly Pathfinder2eContentEntry[] = [
+  ...selectPathfinder2eContentEntries(
+    PATHFINDER_2E_BESTIARY_ENTRIES,
+    PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_IDS.bestiary,
+  ),
+  ...selectPathfinder2eContentEntries(
+    PATHFINDER_2E_SPELL_ENTRIES,
+    PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_IDS.spells,
+  ),
+  ...selectPathfinder2eContentEntries(
+    PATHFINDER_2E_ITEM_ENTRIES,
+    PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_IDS.items,
+  ),
+]
 
 export const PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_IMPORTS: readonly Pathfinder2eImportManifestEntry[] =
   PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES.map((entry) => ({

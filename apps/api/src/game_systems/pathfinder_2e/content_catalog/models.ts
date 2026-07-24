@@ -54,8 +54,15 @@ export type Pathfinder2eContentProgramPlan = {
   id: Pathfinder2eContentProgram
   order: number
   title: string
-  strategy: 'LEVEL_BANDS' | 'PUBLICATION_QUEUE' | 'SERIES_AND_VOLUME' | 'SEASON_AND_SCENARIO'
+  strategy: 'EXHAUSTIVE_ASCENDING' | 'PUBLICATION_QUEUE' | 'SERIES_AND_VOLUME' | 'SEASON_AND_SCENARIO'
   description: string
+}
+
+export type Pathfinder2eCoverageInventoryEntry = {
+  contentId: string
+  value: number
+  sourcePack: string
+  sourceId: string
 }
 
 export type Pathfinder2eContentRoadmap = {

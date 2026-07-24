@@ -7,7 +7,7 @@ import type {
   GameSystemContentLocale,
 } from '../../catalog'
 import type { Pathfinder2eContentEntry } from './content-entry'
-import { PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES } from './deliveries/core-remaster-starting-content'
+import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
 import { pathfinder2eContentCatalogProvider } from './provider'
 import {
   translatePathfinder2eRarity,
@@ -56,7 +56,7 @@ function translatedNestedRecord(translated: Record<string, unknown>, key: string
 }
 
 function findEntry(contentId: string, domain: GameSystemCatalogDomain) {
-  return PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ENTRIES.find(
+  return PATHFINDER_2E_CONTENT_ENTRIES.find(
     (entry) => entry.original.contentId === contentId && DOMAIN_MAP[entry.original.domain] === domain,
   )
 }
