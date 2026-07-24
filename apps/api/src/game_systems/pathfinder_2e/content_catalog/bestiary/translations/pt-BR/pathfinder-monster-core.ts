@@ -11,7 +11,6 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_PT_BR: readonly Pathfinder2eConten
       name: 'Guerreiro Goblin',
       description: 'Combatentes goblins da linha de frente preferem lutar em grandes grupos e subjugar seus inimigos usando superioridade numérica e mobilidade.',
       size: 'Pequeno',
-      traits: { goblin: 'goblin', humanoid: 'humanoide' },
       senses: { darkvision: 'visão no escuro' },
       languages: { goblin: 'goblin', common: 'comum' },
       attacks: {
@@ -36,7 +35,6 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_PT_BR: readonly Pathfinder2eConten
       name: 'Lobo',
       description: 'Lobos caçam em matilhas, cercam presas vulneráveis e obtêm vantagem quando seus aliados estão próximos do mesmo alvo.',
       size: 'Médio',
-      traits: { animal: 'animal' },
       senses: { 'low-light-vision': 'visão na penumbra', 'scent-imprecise-30': 'faro impreciso 9 metros' },
       attacks: { NX0owCPUZbsVJ4az: { name: 'Mandíbulas', damage: '1d6+2 perfurante' } },
       actions: {
@@ -58,7 +56,6 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_PT_BR: readonly Pathfinder2eConten
       name: 'Guarda Esqueleto',
       description: 'Guardas esqueletos estão entre os mortos-vivos animados mais comuns e normalmente são criados para proteger um local.',
       size: 'Médio',
-      traits: { mindless: 'sem mente', skeleton: 'esqueleto', undead: 'morto-vivo', unholy: 'profano' },
       senses: { darkvision: 'visão no escuro' },
       defenses: {
         immunities: ['efeitos de morte', 'doença', 'paralisado', 'veneno', 'inconsciente', 'sangramento'],
