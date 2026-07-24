@@ -1,5 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { pathfinder2eCatalogProvider } from './catalog-provider'
 import { pathfinder2eContentCatalogProvider } from './provider'
 
 test('provider exposes the three starting bestiary entries in pt-BR', async () => {
@@ -16,8 +17,8 @@ test('provider exposes the three starting bestiary entries in pt-BR', async () =
   assert.equal(result.entries.every((entry) => entry.stats?.length), true)
 })
 
-test('provider keeps editorial status separate from localized traits', async () => {
-  const result = await pathfinder2eContentCatalogProvider.list({
+test('reviewed translations keep traits clean and expose no editorial tag', async () => {
+  const result = await pathfinder2eCatalogProvider.list({
     campaignId: 'campaign-1',
     domain: 'BESTIARY',
     locale: 'pt-BR',
@@ -29,10 +30,7 @@ test('provider keeps editorial status separate from localized traits', async () 
   assert.ok(skeleton)
   assert.equal(skeleton.traits?.includes('morto-vivo'), true)
   assert.equal(skeleton.traits?.includes('Tradução revisada'), false)
-  assert.deepEqual(skeleton.editorialStatus, {
-    label: 'Tradução revisada',
-    tone: 'ready',
-  })
+  assert.equal(skeleton.editorialStatus, null)
 })
 
 test('provider exposes a detailed bestiary sheet through the neutral contract', async () => {
