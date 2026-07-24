@@ -5,6 +5,7 @@ import { pathfinder2eCharacterSheetManagerProvider } from './character-sheet/man
 import { registerPathfinder2eCharacterSheetRoutes } from './character-sheet/routes'
 import { pathfinder2eCatalogProvider } from './content_catalog/catalog-provider'
 import { registerPathfinder2eContentCatalogRoutes } from './content_catalog/routes'
+import { registerPathfinder2eIconAssetRoutes } from './icon-assets'
 
 let characterSheetManagerRegistered = false
 
@@ -20,4 +21,5 @@ export function registerPathfinder2e(app: FastifyInstance) {
   registerGameSystemCatalogProvider('PATHFINDER_2E', pathfinder2eCatalogProvider)
   registerPathfinder2eCharacterSheetRoutes(app)
   registerPathfinder2eContentCatalogRoutes(app)
+  registerPathfinder2eIconAssetRoutes(app)
 }
