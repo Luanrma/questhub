@@ -3,6 +3,7 @@ import {
   BookOpen,
   ChevronLeft,
   ChevronRight,
+  ListFilter,
   Package,
   PawPrint,
   Search,
@@ -24,6 +25,8 @@ type EditorialStatus = {
   tone: 'review' | 'ready' | 'warning' | 'info'
 }
 
+type EditorialFilter = 'all' | 'review' | 'ready'
+
 type CatalogCard = {
   id: string
   name: string
@@ -43,6 +46,7 @@ type CatalogResponse = {
   }
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
+  editorialStatus?: EditorialFilter
   entries: CatalogCard[]
   pagination: {
     page: number
@@ -72,14 +76,18 @@ const statusClasses: Record<EditorialStatus['tone'], string> = {
 }
 
 function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSystemCatalogDomain }) {
+  const [failed, setFailed] = useState(false)
   const Icon = domainIcons[domain]
 
-  if (entry.imageUrl) {
+  useEffect(() => setFailed(false), [entry.imageUrl])
+
+  if (entry.imageUrl && !failed) {
     return (
       <img
         src={entry.imageUrl}
         alt=""
         draggable={false}
+        onError={() => setFailed(true)}
         className="h-16 w-16 shrink-0 rounded-xl border border-indigo-300/25 bg-black/30 object-cover shadow-lg"
       />
     )
@@ -95,6 +103,7 @@ function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSyste
 export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
   const [locale, setLocale] = useState<GameSystemContentLocale>('pt-BR')
   const [search, setSearch] = useState('')
+  const [editorialFilter, setEditorialFilter] = useState<EditorialFilter>('all')
   const [page, setPage] = useState(1)
   const [data, setData] = useState<CatalogResponse | null>(null)
   const [loading, setLoading] = useState(false)
@@ -122,6 +131,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
     const timeout = window.setTimeout(() => {
       const params = new URLSearchParams({
         locale,
+        editorialStatus: locale === 'pt-BR' ? editorialFilter : 'all',
         page: String(page),
         limit: '24',
       })
@@ -147,7 +157,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
       window.clearTimeout(timeout)
       controller.abort()
     }
-  }, [campaignId, domain, locale, normalizedSearch, page, title])
+  }, [campaignId, domain, editorialFilter, locale, normalizedSearch, page, title])
 
   return (
     <div
@@ -192,6 +202,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
                 type="button"
                 onClick={() => {
                   setLocale('en-US')
+                  setEditorialFilter('all')
                   setPage(1)
                 }}
                 className={[
@@ -214,17 +225,38 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
         </header>
 
         <div className="border-b border-white/10 px-5 py-4">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-            <input
-              value={search}
-              onChange={(event) => {
-                setSearch(event.target.value)
-                setPage(1)
-              }}
-              placeholder={`Buscar em ${title.toLowerCase()}`}
-              className="h-11 w-full rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-300/50"
-            />
+          <div className="flex flex-col gap-3 md:flex-row">
+            <div className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+              <input
+                value={search}
+                onChange={(event) => {
+                  setSearch(event.target.value)
+                  setPage(1)
+                }}
+                placeholder={`Buscar em ${title.toLowerCase()}`}
+                className="h-11 w-full rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-300/50"
+              />
+            </div>
+
+            {locale === 'pt-BR' ? (
+              <label className="relative md:w-60">
+                <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+                <select
+                  value={editorialFilter}
+                  onChange={(event) => {
+                    setEditorialFilter(event.target.value as EditorialFilter)
+                    setPage(1)
+                  }}
+                  aria-label="Filtrar por status da tradução"
+                  className="h-11 w-full appearance-none rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-zinc-200 outline-none transition focus:border-indigo-300/50"
+                >
+                  <option value="all">Todas as traduções</option>
+                  <option value="review">Tradução em revisão</option>
+                  <option value="ready">Tradução revisada</option>
+                </select>
+              </label>
+            ) : null}
           </div>
         </div>
 
@@ -246,7 +278,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
 
           {data?.available && data.entries.length === 0 ? (
             <div className="rounded-xl border border-white/10 bg-white/[0.04] px-5 py-8 text-center text-sm text-zinc-400">
-              Nenhum conteúdo encontrado.
+              Nenhum conteúdo encontrado para os filtros selecionados.
             </div>
           ) : null}
 
