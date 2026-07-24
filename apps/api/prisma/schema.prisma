@@ -94,9 +94,24 @@ model Character {
   campaigns      CampaignCharacter[]
   chatMessages   ChatMessage[]
   campaignTokens CampaignToken[]
+  sheet          CharacterSheet?
 
   @@index([userId])
   @@index([deletedAt])
+}
+
+model CharacterSheet {
+  id            String   @id @default(cuid())
+  characterId   String   @unique
+  systemKey     String
+  schemaVersion Int      @default(1)
+  data          Json
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  character Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
+
+  @@index([systemKey])
 }
 
 model CampaignCharacter {

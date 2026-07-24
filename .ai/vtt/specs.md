@@ -37,6 +37,10 @@
 * Abrir uma porta limpa automaticamente os estados trancada, obstruida e encostada.
 * Camera por campanha e persistida separadamente.
 * Nenhum payload base contem campos mecanicos, ruleset, ficha, bestiario, inventario, economia, PV, CA, magia, condicao ou efeito ativo.
+* `apps/api/src/server.ts` nao conhece sistemas concretos nem registra rotas de
+  ficha, bestiario, item, spell ou qualquer capacidade de `game_systems`.
+* Se o VTT precisar listar sistemas suportados, o contrato compartilhado se
+  limita a descritores neutros de nome/chave, sem schemas, handlers ou regras.
 * O menu esquerdo abre mais de um painel flutuante sem navegar para fora nem desmontar a mesa.
 * Cada painel flutuante pode receber foco, ser movido, redimensionado, minimizado e fechado de forma independente.
 * `Escape` fecha o menu esquerdo quando ele estiver aberto e limpa a selecao/ferramenta ativa da mesa quando o foco nao estiver em campo editavel.

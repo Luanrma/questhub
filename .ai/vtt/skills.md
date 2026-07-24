@@ -7,6 +7,9 @@
 * Com a sessao offline, comandos administrativos do Mestre devem validar sua associacao persistida com a campanha, sem depender de `socket.data.characterRole`, preenchido pelo fluxo da sessao online.
 * Coordenadas, grid, zoom e movimentacao permanecem genericos.
 * Nenhum componente do VTT importa regras, fichas, bestiarios, inventario, economia, combate mecanico ou rulesets.
+* `apps/api/src/server.ts` e o composition root exclusivo do VTT e nao importa
+  registradores de `game_systems`; a composicao executavel externa pertence a
+  `apps/api/src/main.ts`.
 * Fluxos de teste do VTT devem conseguir criar tokens genericos sem `characterId` e sem qualquer modulo de sistema de jogo.
 * O catalogo de imagens locais de Token deve ser consultado dinamicamente pelo modulo `assets` e nunca embutido no bundle; remover um arquivo local deve remove-lo da proxima abertura do seletor.
 * O drag-and-drop nativo de Tokens deve usar a mesma operacao em `DataTransfer.effectAllowed` e `DataTransfer.dropEffect`; combinacoes incompativeis podem impedir o evento `drop` no navegador.

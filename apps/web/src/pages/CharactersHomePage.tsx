@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Pencil, Plus, ScrollText, UserRound } from 'lucide-react'
+import { FileText, Pencil, Plus, ScrollText, UserRound } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
@@ -143,14 +143,24 @@ export function CharactersHomePage() {
                         </span>
                       </div>
 
-                      <Button
-                        variant="ghost"
-                        className="shrink-0 gap-2 px-3 py-1.5 text-xs"
-                        onClick={() => navigate(`/characters/${character.id}/edit`)}
-                      >
-                        <Pencil className="h-3.5 w-3.5" />
-                        Editar
-                      </Button>
+                      <div className="flex shrink-0 flex-wrap justify-end gap-2">
+                        <Button
+                          variant="ghost"
+                          className="gap-2 px-3 py-1.5 text-xs"
+                          onClick={() => navigate(`/characters/${character.id}/pathfinder-2e-sheet`)}
+                        >
+                          <FileText className="h-3.5 w-3.5" />
+                          Ficha PF2e
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          className="gap-2 px-3 py-1.5 text-xs"
+                          onClick={() => navigate(`/characters/${character.id}/edit`)}
+                        >
+                          <Pencil className="h-3.5 w-3.5" />
+                          Editar
+                        </Button>
+                      </div>
                     </div>
 
                     {character.bio ? <p className="mt-3 text-sm text-zinc-300">{character.bio}</p> : null}

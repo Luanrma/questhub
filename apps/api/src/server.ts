@@ -1,4 +1,3 @@
-import './env'
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
 import cookiePlugin from '@fastify/cookie'
@@ -19,8 +18,6 @@ import { registerTradeRoutes } from './modules/trade/routes'
 import { registerEffectAreaRoutes } from './modules/effect_area/presentation/routes'
 import { registerEffectAreaSocketHandlers } from './modules/effect_area/presentation/socket'
 
-const app = Fastify({ logger: true })
-
 function parseOrigins(raw?: string) {
   if (!raw) return []
   return raw
@@ -29,50 +26,53 @@ function parseOrigins(raw?: string) {
     .filter(Boolean)
 }
 
-const allowedOrigins = new Set(parseOrigins(process.env.WEB_ORIGIN))
+export async function createVttServer() {
+  const app = Fastify({ logger: true })
+  const allowedOrigins = new Set(parseOrigins(process.env.WEB_ORIGIN))
 
-await app.register(cors, {
-  origin: (origin, cb) => {
-    if (!origin) return cb(null, true)
+  await app.register(cors, {
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true)
 
-    const isLocalhost =
-      origin.startsWith('http://localhost:') ||
-      origin.startsWith('http://127.0.0.1:') ||
-      origin.startsWith('http://0.0.0.0:')
+      const isLocalhost =
+        origin.startsWith('http://localhost:') ||
+        origin.startsWith('http://127.0.0.1:') ||
+        origin.startsWith('http://0.0.0.0:')
 
-    if (process.env.NODE_ENV !== 'production') {
-      if (isLocalhost) return cb(null, true)
-      if (allowedOrigins.has(origin)) return cb(null, true)
-      return cb(null, true)
-    }
+      if (process.env.NODE_ENV !== 'production') {
+        if (isLocalhost) return cb(null, true)
+        if (allowedOrigins.has(origin)) return cb(null, true)
+        return cb(null, true)
+      }
 
-    if (allowedOrigins.size === 0) return cb(null, false)
-    return cb(null, allowedOrigins.has(origin))
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type'],
-})
+      if (allowedOrigins.size === 0) return cb(null, false)
+      return cb(null, allowedOrigins.has(origin))
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+  })
 
-await app.register(cookiePlugin)
-await registerAssetRoutes(app)
+  await app.register(cookiePlugin)
+  await registerAssetRoutes(app)
 
-const presence = setupCampaignPresence(app.server)
-const fogService = new FogService(new PrismaFogRepository())
+  const presence = setupCampaignPresence(app.server)
+  const fogService = new FogService(new PrismaFogRepository())
 
-app.get('/api/health', async () => ({ ok: true }))
+  app.get('/api/health', async () => ({ ok: true }))
 
-registerAuthRoutes(app)
-registerCharacterRoutes(app)
-registerCampaignRoutes(app, presence)
-registerCampaignDiaryRoutes(app)
-registerCampaignSceneRoutes(app, presence)
-registerFogRoutes(app, fogService, presence.io)
-registerFogSocketHandlers(presence.io, fogService)
-registerEffectAreaRoutes(app, presence.io)
-registerEffectAreaSocketHandlers(presence.io, presence)
-registerChatRoutes(app)
-registerChatSocketHandlers(presence.io)
-registerTradeRoutes(app, presence.io)
+  registerAuthRoutes(app)
+  registerCharacterRoutes(app)
+  registerCampaignRoutes(app, presence)
+  registerCampaignDiaryRoutes(app)
+  registerCampaignSceneRoutes(app, presence)
+  registerFogRoutes(app, fogService, presence.io)
+  registerFogSocketHandlers(presence.io, fogService)
+  registerEffectAreaRoutes(app, presence.io)
+  registerEffectAreaSocketHandlers(presence.io, presence)
+  registerChatRoutes(app)
+  registerChatSocketHandlers(presence.io)
+  registerTradeRoutes(app, presence.io)
 
-await app.listen({ port: Number(process.env.PORT ?? 3001), host: '0.0.0.0' })
+  return app
+}
