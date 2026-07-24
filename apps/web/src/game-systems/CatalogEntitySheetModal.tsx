@@ -83,7 +83,7 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
       `/api/campaigns/${campaignId}/catalog/${catalogDomainPaths[domain]}/${encodeURIComponent(contentId)}?locale=${locale}`,
       { signal: controller.signal },
     )
-      .then(setData)
+      .then((response) => setData(response))
       .catch((cause) => {
         if (controller.signal.aborted) return
         setError(cause instanceof Error ? cause.message : 'Não foi possível carregar a ficha.')
@@ -207,8 +207,8 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
 
               {entry.source?.publication || entry.source?.license ? (
                 <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4 text-xs text-zinc-500">
-                  <span>{entry.source.publication}</span>
-                  {entry.source.license ? <span>Licença {entry.source.license}</span> : null}
+                  <span>{entry.source?.publication}</span>
+                  {entry.source?.license ? <span>Licença {entry.source.license}</span> : null}
                 </footer>
               ) : null}
             </div>
