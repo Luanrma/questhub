@@ -9,6 +9,7 @@ export const PATHFINDER_PLAYER_CORE_WEAPON_ORIGINALS: readonly Pathfinder2eOrigi
     sourceHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
     translatableHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
     source: { provider: 'FOUNDRY_PF2E', sourcePack: 'equipment-srd', sourceId: 'olwngGXM3hpgoLEP', slug: 'dogslicer', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
+    image: { upstreamPath: 'systems/pf2e/icons/equipment/weapons/dogslicer.webp' },
     data: {
       schemaVersion: 1,
       name: 'Dogslicer',
@@ -32,6 +33,7 @@ export const PATHFINDER_PLAYER_CORE_WEAPON_ORIGINALS: readonly Pathfinder2eOrigi
     sourceHash: 'git-blob:85e9cff7de9660efbd81a485713e39e1dc2fc8d8',
     translatableHash: 'git-blob:85e9cff7de9660efbd81a485713e39e1dc2fc8d8',
     source: { provider: 'FOUNDRY_PF2E', sourcePack: 'equipment-srd', sourceId: 'hIgqLgH3YcLZBeoT', slug: 'shortbow', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
+    image: { upstreamPath: 'icons/weapons/bows/shortbow-leather.webp' },
     data: {
       schemaVersion: 1,
       name: 'Shortbow',
