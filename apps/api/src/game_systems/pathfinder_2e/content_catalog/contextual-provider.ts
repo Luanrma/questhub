@@ -56,6 +56,13 @@ function findEntry(contentId: string, domain: GameSystemCatalogDomain) {
   )
 }
 
+function preservePathfinderCurrencyAbbreviations(value: string) {
+  return value
+    .replace(/\b(?:po|gp)\b/gi, 'GP')
+    .replace(/\b(?:pp|sp)\b/gi, 'SP')
+    .replace(/\b(?:pc|cp)\b/gi, 'CP')
+}
+
 function localizeTraits(
   entry: Pathfinder2eContentEntry,
   domain: GameSystemCatalogDomain,
@@ -83,6 +90,9 @@ function localizeStats(
   return stats?.map((stat) => ({
     ...stat,
     label: domain === 'SPELLS' && stat.label === 'Círculo' ? 'Rank' : stat.label,
+    value: domain === 'ITEMS' && (stat.label === 'Preço' || stat.label === 'Price')
+      ? preservePathfinderCurrencyAbbreviations(stat.value)
+      : stat.value,
   }))
 }
 
@@ -199,6 +209,13 @@ function localizeSections(
       fields: section.fields.map((field) => {
         if (domain === 'SPELLS' && field.label === 'Círculo') {
           return { ...field, label: 'Rank' }
+        }
+
+        if (domain === 'ITEMS' && (field.label === 'Preço' || field.label === 'Price')) {
+          return {
+            ...field,
+            value: preservePathfinderCurrencyAbbreviations(field.value),
+          }
         }
 
         if (domain === 'BESTIARY' && section.title === 'Perícias e idiomas') {
