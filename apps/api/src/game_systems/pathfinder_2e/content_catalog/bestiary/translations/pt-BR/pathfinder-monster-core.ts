@@ -6,7 +6,7 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_PT_BR: readonly Pathfinder2eConten
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:d242458d376fb3f258e8a9c20cc7e2f500c298a1',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Guerreiro Goblin',
       description: 'Combatentes goblins da linha de frente preferem lutar em grandes grupos e subjugar seus inimigos usando superioridade numérica e mobilidade.',
@@ -30,7 +30,7 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_PT_BR: readonly Pathfinder2eConten
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:d93e78ff6feddaf9c7114e900bc13c718bc924c9',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Lobo',
       description: 'Lobos caçam em matilhas, cercam presas vulneráveis e obtêm vantagem quando seus aliados estão próximos do mesmo alvo.',
@@ -51,7 +51,7 @@ export const PATHFINDER_MONSTER_CORE_BESTIARY_PT_BR: readonly Pathfinder2eConten
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:fb28b14a418faa3e0db57c8a3bc534ba4643dd97',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Guarda Esqueleto',
       description: 'Guardas esqueletos estão entre os mortos-vivos animados mais comuns e normalmente são criados para proteger um local.',
