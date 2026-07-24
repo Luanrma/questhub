@@ -6,7 +6,7 @@ export const PATHFINDER_PLAYER_CORE_SPELLS_PT_BR: readonly Pathfinder2eContentTr
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:a6c45ae8e1dd8cf140d9c1396494dbd8b26e82d1',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Arco Elétrico',
       description: 'Um arco de eletricidade salta de um alvo para outro. Cada alvo sofre 2d4 de dano elétrico, com um salvamento básico de Reflexos.',
@@ -23,7 +23,7 @@ export const PATHFINDER_PLAYER_CORE_SPELLS_PT_BR: readonly Pathfinder2eContentTr
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:c92171de982d94a73361f42b3cf5a15426b37258',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Barragem de Força',
       description: 'Você dispara um fragmento de magia solidificada que acerta automaticamente e causa 1d4+1 de dano de força. Cada ação adicional de conjuração cria outro fragmento, até o máximo de três.',
@@ -39,7 +39,7 @@ export const PATHFINDER_PLAYER_CORE_SPELLS_PT_BR: readonly Pathfinder2eContentTr
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:104b9892805d3248b2afea3ecaced5c3c93d53d8',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Curar',
       description: 'Você canaliza energia vital para restaurar 1d8 Pontos de Vida de uma criatura viva voluntária ou causar 1d8 de dano de vitalidade a um alvo morto-vivo. A quantidade de ações altera o alcance e os alvos.',
