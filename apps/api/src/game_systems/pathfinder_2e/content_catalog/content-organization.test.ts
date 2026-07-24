@@ -57,7 +57,7 @@ test('PF2e source metadata stays provider-neutral and assets stay inside QuestHu
     assert.equal('provider' in entry.original.source, false)
     assert.equal(
       entry.original.image === undefined
-        || entry.original.image.path.startsWith('/game-systems/pathfinder-2e/'),
+        || entry.original.image.path.startsWith('/api/game-systems/pathfinder-2e/icons/'),
       true,
     )
   }
