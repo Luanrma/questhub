@@ -9,7 +9,7 @@ O VTT sabe apenas renderizar:
 - cards resumidos;
 - traits;
 - status editorial;
-- imagem opcional com fallback;
+- imagem local opcional com fallback;
 - uma ficha composta por seções e campos.
 
 A escolha dos campos e toda interpretação do conteúdo pertencem ao adapter Pathfinder 2e.
@@ -24,7 +24,7 @@ Cada card contém:
 - estatísticas principais;
 - traits traduzidas;
 - status editorial separado;
-- imagem opcional;
+- imagem local opcional;
 - botão `Ficha`.
 
 `Tradução em revisão` não é uma trait. O status deve ser enviado em `editorialStatus` e renderizado com cor própria.
@@ -63,35 +63,32 @@ A resposta usa seções genéricas. Pathfinder 2e define internamente:
 
 ## Imagens
 
-A imagem pertence ao registro original e não à tradução:
+A imagem pertence ao registro original e nunca à tradução:
 
 ```ts
 image: {
-  upstreamPath: 'systems/pf2e/icons/spells/magic-missile.webp',
-  displayUrl: '/game-systems/pathfinder-2e/spells/force-barrage.webp', // opcional
+  path: '/game-systems/pathfinder-2e/spells/force-barrage.webp'
 }
 ```
 
-- `upstreamPath` preserva exatamente o campo `img` do Foundry.
-- `displayUrl` permite usar facilmente um arquivo local, CDN ou asset próprio do QuestHub.
-- quando `displayUrl` não existe e o caminho começa com `systems/pf2e/`, o provider monta uma URL do repositório oficial fixada no commit de origem;
-- caminhos começando apenas com `icons/` pertencem aos assets do Foundry Core e não estão armazenados no repositório do sistema PF2e;
-- se nenhuma URL pública puder ser resolvida, o frontend mantém o ícone genérico.
-- falhas de carregamento também retornam automaticamente ao ícone genérico.
+O arquivo correspondente deve existir em:
 
-### Imagens da primeira rodada
+```text
+apps/web/public/game-systems/pathfinder-2e/spells/force-barrage.webp
+```
 
-| Conteúdo | Caminho oficial no Foundry | Resultado no QuestHub |
-|---|---|---|
-| Goblin Warrior | `systems/pf2e/icons/default-icons/npc.svg` | ícone oficial padrão |
-| Wolf | `systems/pf2e/icons/default-icons/npc.svg` | ícone oficial padrão |
-| Skeleton Guard | `systems/pf2e/icons/default-icons/npc.svg` | ícone oficial padrão |
-| Electric Arc | `icons/magic/lightning/bolt-strike-forked-blue.webp` | fallback genérico |
-| Force Barrage | `systems/pf2e/icons/spells/magic-missile.webp` | imagem oficial |
-| Heal | `icons/magic/life/cross-worn-green.webp` | fallback genérico |
-| Dogslicer | `systems/pf2e/icons/equipment/weapons/dogslicer.webp` | imagem oficial |
-| Shortbow | `icons/weapons/bows/shortbow-leather.webp` | fallback genérico |
-| Leather Armor | `icons/equipment/chest/breastplate-banded-simple-leather-brown.webp` | fallback genérico |
+Regras obrigatórias:
+
+- somente caminhos locais iniciados por `/game-systems/pathfinder-2e/` são aceitos;
+- URLs absolutas, CDNs e repositórios externos são proibidos;
+- a API não monta nem consulta URLs externas;
+- imagens não são baixadas em runtime;
+- sem arquivo versionado no QuestHub, o campo `image` deve ser omitido;
+- o frontend mantém o ícone genérico quando não há imagem ou quando o arquivo local falha.
+
+### Estado da primeira rodada
+
+Nenhum dos nove registros aponta para asset externo. Enquanto as imagens definitivas não forem adicionadas ao repositório QuestHub, Bestiário, Magias e Itens continuam usando os ícones genéricos já aprovados.
 
 ### Termos preservados
 
@@ -173,4 +170,5 @@ Novas traduções compartilhadas devem ser adicionadas ao glossário. Overlays i
 - o VTT não calcula regras;
 - o provider Pathfinder converte conteúdo do sistema para o contrato neutro;
 - a ficha é somente visualização nesta etapa;
-- não há criação de tokens, aplicação de dano, conjuração ou equipamento automático.
+- não há criação de tokens, aplicação de dano, conjuração ou equipamento automático;
+- não há dependência de assets externos em runtime.
