@@ -72,6 +72,7 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [imageFailed, setImageFailed] = useState(false)
   const Icon = domainIcons[domain]
 
   useEffect(() => {
@@ -97,6 +98,8 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
 
   const entry = data?.entry
 
+  useEffect(() => setImageFailed(false), [entry?.imageUrl])
+
   return (
     <div
       className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
@@ -110,9 +113,19 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
       <section className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218] text-white shadow-[0_35px_120px_rgba(0,0,0,0.8)]">
         <header className="flex items-start justify-between gap-4 border-b border-white/10 bg-black/30 px-6 py-5">
           <div className="flex min-w-0 items-start gap-4">
-            <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg">
-              <Icon className="h-7 w-7" />
-            </div>
+            {entry?.imageUrl && !imageFailed ? (
+              <img
+                src={entry.imageUrl}
+                alt=""
+                draggable={false}
+                onError={() => setImageFailed(true)}
+                className="h-14 w-14 shrink-0 rounded-xl border border-indigo-300/25 bg-black/30 object-cover shadow-lg"
+              />
+            ) : (
+              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-xl border border-indigo-300/25 bg-indigo-500/10 text-indigo-200 shadow-lg">
+                <Icon className="h-7 w-7" />
+              </div>
+            )}
             <div className="min-w-0">
               <div className="flex items-center gap-2 text-xs uppercase tracking-[0.16em] text-indigo-200/70">
                 <BookOpen className="h-3.5 w-3.5" />
