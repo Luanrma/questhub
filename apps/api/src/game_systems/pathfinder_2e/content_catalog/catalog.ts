@@ -72,7 +72,7 @@ export function getPathfinder2eRoundSummary(roundId: string) {
 
   return {
     id: PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_ID,
-    status: 'REVIEWING' as const,
+    status: 'READY' as const,
     sourceLock: PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_SOURCE,
     coverage: PATHFINDER_2E_CORE_REMASTER_STARTING_CONTENT_COVERAGE,
   }
