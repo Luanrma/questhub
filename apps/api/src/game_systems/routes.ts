@@ -12,6 +12,7 @@ import {
 } from './catalog'
 
 const campaignParamsSchema = z.object({ campaignId: z.string().trim().min(1) })
+const inviteParamsSchema = z.object({ inviteCode: z.string().trim().min(1) })
 const catalogParamsSchema = campaignParamsSchema.extend({
   domain: z.enum(['bestiary', 'spells', 'items']),
 })
@@ -51,6 +52,29 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const auth = requireAuth(req, reply)
     if (!auth) return
     return reply.send(GAME_SYSTEM_DESCRIPTORS)
+  })
+
+  app.get('/api/game-systems/campaign-invites/:inviteCode', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = inviteParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Codigo de convite invalido' })
+
+    const campaign = await prisma.campaign.findUnique({
+      where: { inviteCode: params.data.inviteCode.toUpperCase() },
+      select: { id: true, gameSystem: true },
+    })
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+
+    const descriptor = getGameSystemDescriptor(campaign.gameSystem)
+    if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
+
+    return reply.send({
+      campaignId: campaign.id,
+      gameSystem: campaign.gameSystem,
+      descriptor,
+    })
   })
 
   app.get('/api/campaigns/:campaignId/game-system', async (req, reply) => {
