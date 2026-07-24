@@ -8,7 +8,7 @@ O VTT sabe apenas renderizar:
 
 - cards resumidos;
 - traits;
-- status editorial;
+- status editorial pendente;
 - imagem local opcional com fallback;
 - uma ficha composta por seções e campos.
 
@@ -23,11 +23,13 @@ Cada card contém:
 - descrição resumida;
 - estatísticas principais;
 - traits traduzidas;
-- status editorial separado;
+- status editorial somente quando houver pendência;
 - imagem local opcional;
 - botão `Ficha`.
 
 `Tradução em revisão` não é uma trait. O status deve ser enviado em `editorialStatus` e renderizado com cor própria.
+
+Uma tradução `REVIEWED` não exibe tag. O estado continua disponível para filtros e relatórios, mas `editorialStatus` deve ser `null` no card e na ficha.
 
 ## Filtro editorial
 
@@ -42,6 +44,8 @@ O filtro é aplicado no provider antes da paginação. Na interface PT-BR existe
 - Todas as traduções;
 - Tradução em revisão;
 - Tradução revisada.
+
+O filtro `ready` continua funcionando mesmo que os registros revisados não exibam tag visual.
 
 O filtro não é exibido na visualização EN-US.
 
@@ -67,28 +71,45 @@ A imagem pertence ao registro original e nunca à tradução:
 
 ```ts
 image: {
-  path: '/game-systems/pathfinder-2e/spells/force-barrage.webp'
+  path: '/api/game-systems/pathfinder-2e/icons/spells/magic-missile.webp'
 }
 ```
 
-O arquivo correspondente deve existir em:
+O arquivo correspondente fica dentro do repositório:
 
 ```text
-apps/web/public/game-systems/pathfinder-2e/spells/force-barrage.webp
+apps/api/src/game_systems/pathfinder_2e/icons/spells/magic-missile.webp
+```
+
+A API serve o arquivo por:
+
+```text
+GET /api/game-systems/pathfinder-2e/icons/*
 ```
 
 Regras obrigatórias:
 
-- somente caminhos locais iniciados por `/game-systems/pathfinder-2e/` são aceitos;
-- URLs absolutas, CDNs e repositórios externos são proibidos;
-- a API não monta nem consulta URLs externas;
+- somente caminhos iniciados por `/api/game-systems/pathfinder-2e/icons/` são aceitos;
+- URLs externas, CDNs e repositórios externos são proibidos nos registros;
+- a rota bloqueia path traversal e extensões não permitidas;
 - imagens não são baixadas em runtime;
-- sem arquivo versionado no QuestHub, o campo `image` deve ser omitido;
-- o frontend mantém o ícone genérico quando não há imagem ou quando o arquivo local falha.
+- sem correspondência exata no pacote local, o campo `image` deve ser omitido;
+- o frontend mantém o ícone genérico quando não há imagem ou quando o arquivo local falha;
+- remover todos os arquivos não pode quebrar cards, fichas, busca, filtros ou build.
 
 ### Estado da primeira rodada
 
-Nenhum dos nove registros aponta para asset externo. Enquanto as imagens definitivas não forem adicionadas ao repositório QuestHub, Bestiário, Magias e Itens continuam usando os ícones genéricos já aprovados.
+Associações exatas disponíveis:
+
+| Conteúdo | Ícone |
+|---|---|
+| Guerreiro Goblin | `default-icons/npc.svg` |
+| Lobo | `default-icons/npc.svg` |
+| Guarda Esqueleto | `default-icons/npc.svg` |
+| Barragem de Força | `spells/magic-missile.webp` |
+| Corta-Cão | `equipment/weapons/dogslicer.webp` |
+
+Arco Elétrico, Curar, Arco Curto e Armadura de Couro permanecem no fallback genérico.
 
 ### Termos preservados
 
