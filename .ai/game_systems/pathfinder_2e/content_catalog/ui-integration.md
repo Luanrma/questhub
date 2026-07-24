@@ -55,6 +55,37 @@ Rank 3
 
 O idioma selecionado não altera esse rótulo.
 
+### Moedas preservadas
+
+As abreviações monetárias do Pathfinder não são traduzidas. Cards e fichas usam sempre:
+
+```text
+GP
+SP
+CP
+```
+
+Não devem ser exibidas adaptações como `PO`, `PP` ou `PC`.
+
+### Distâncias em PT-BR
+
+A visualização em `pt-BR` preserva a medida original em pés e acrescenta a conversão para metros.
+
+Padrão de exibição:
+
+```text
+120 pés (36 metros)
+25 pés (7,5 metros)
+```
+
+A conversão segue a escala usada pelo Pathfinder:
+
+```text
+5 pés = 1,5 metro
+```
+
+Essa regra se aplica aos campos de distância, incluindo alcance, área, distâncias mencionadas em alvos e deslocamento.
+
 ## Glossário central
 
 Termos compartilhados não devem ser traduzidos em cada registro.
