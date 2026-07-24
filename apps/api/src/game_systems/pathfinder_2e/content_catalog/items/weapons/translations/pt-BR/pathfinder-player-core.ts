@@ -6,7 +6,7 @@ export const PATHFINDER_PLAYER_CORE_WEAPONS_PT_BR: readonly Pathfinder2eContentT
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Corta-Cão',
       description: 'Uma lâmina improvisada curta, curva e rudimentar, com furos para reduzir seu peso. É uma arma apreciada por goblins.',
@@ -22,7 +22,7 @@ export const PATHFINDER_PLAYER_CORE_WEAPONS_PT_BR: readonly Pathfinder2eContentT
     locale: 'pt-BR',
     sourceTranslatableHash: 'git-blob:85e9cff7de9660efbd81a485713e39e1dc2fc8d8',
     version: 1,
-    status: 'MACHINE_DRAFT',
+    status: 'REVIEWED',
     fields: {
       name: 'Arco Curto',
       description: 'Um arco menor, feito de uma única peça de madeira e preferido por escaramuçadores e cavaleiros.',
