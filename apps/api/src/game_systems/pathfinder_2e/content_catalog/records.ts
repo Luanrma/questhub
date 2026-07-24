@@ -18,7 +18,6 @@ export type Pathfinder2eTranslationStatus =
   | 'NOT_REQUIRED'
 
 export type Pathfinder2eSourceLock = {
-  provider: 'FOUNDRY_PF2E'
   systemVersion: string
   sourceCommit: string
   inputChecksum: string
@@ -27,7 +26,6 @@ export type Pathfinder2eSourceLock = {
 }
 
 export type Pathfinder2eSourceIdentity = {
-  provider: 'FOUNDRY_PF2E'
   sourcePack: string
   sourceId: string
   slug?: string
@@ -37,10 +35,8 @@ export type Pathfinder2eSourceIdentity = {
 }
 
 export type Pathfinder2eContentImage = {
-  /** Exact value of the upstream Foundry `img` property. */
-  upstreamPath: string
-  /** Optional local or CDN URL used by QuestHub instead of the upstream path. */
-  displayUrl?: string
+  /** Public path of an asset versioned inside the QuestHub repository. */
+  path: string
 }
 
 export type Pathfinder2eOriginalContentRecord<TData = unknown> = {
@@ -93,7 +89,7 @@ export type Pathfinder2eRoundCoverage = {
 }
 
 export function pathfinder2eSourceKey(source: Pathfinder2eSourceIdentity): string {
-  return `${source.provider}:${source.sourcePack}:${source.sourceId}`
+  return `${source.sourcePack}:${source.sourceId}`
 }
 
 export function isPathfinder2eTranslationStale(
