@@ -1,4 +1,4 @@
-# Fichas exclusivas da campanha
+# Fichas exclusivas e independentes da campanha
 
 ## Status
 
@@ -6,54 +6,73 @@ Decisão arquitetural canônica para a branch `feat/game-system-runtime`.
 
 ## Regra principal
 
-Uma ficha mecânica não existe fora de uma campanha.
+Uma ficha mecânica é um agregado próprio da campanha.
 
 - somente o Mestre cria fichas;
 - a ficha é criada dentro de uma campanha específica;
 - a campanha determina o sistema de jogo;
-- o cliente não escolhe o tipo de ficha durante a criação;
-- o Mestre pode criar uma ficha para si, para um Player ativo ou como NPC;
-- uma ficha atribuída a um Player permanece pertencendo ao mundo da campanha;
-- trocar o Player atribuído não transforma a ficha em conteúdo global;
-- sair da campanha não move nem exporta a ficha para uma biblioteca pessoal.
-
-## Identidade de participação não é ficha
-
-O sistema pode manter uma identidade técnica mínima para representar um usuário dentro da campanha e sustentar presença, chat e permissões antes de existir uma ficha mecânica.
-
-Essa identidade:
-
-- é criada durante a criação ou entrada na campanha;
-- não possui dados mecânicos do sistema;
-- não aparece no gerenciador como uma ficha não salva;
-- não permite ao jogador escolher sistema, classe, ancestralidade ou outros dados;
-- só recebe `CharacterSheet` quando o Mestre cria a ficha.
+- criar uma ficha não exige Player, NPC, Token, ator ou qualquer outro registro;
+- a ficha nasce sem usuário atribuído e sem Token vinculado;
+- o Mestre pode criar quantas fichas quiser;
+- atribuições são opcionais, posteriores e reversíveis;
+- várias fichas podem ser atribuídas ao mesmo usuário;
+- um Token pode possuir no máximo uma ficha vinculada;
+- excluir ou desvincular um Token não exclui a ficha;
+- remover a atribuição de usuário não exclui a ficha.
 
 Portanto:
 
 ```text
-Participação na campanha != Ficha mecânica
+Ficha != Player
+Ficha != NPC
+Ficha != Token
+Ficha != identidade de participação
 ```
+
+## Identidade de participação não é ficha
+
+O sistema mantém identidades técnicas mínimas para presença, chat e permissões da campanha.
+
+Essas identidades:
+
+- são criadas durante a criação ou entrada na campanha;
+- não possuem dados mecânicos do sistema;
+- não são necessárias para criar uma ficha;
+- não aparecem no gerenciador de fichas;
+- não determinam quantas fichas um usuário pode receber.
+
+## Modelo autoritativo
+
+```text
+Campaign
+  └── CampaignCharacterSheet[]
+        ├── assignedUserId?  (opcional)
+        ├── tokenId?         (opcional e único)
+        ├── systemKey
+        ├── schemaVersion
+        └── data
+```
+
+A ficha pertence diretamente à campanha. Nenhum `CampaignCharacterRole` é criado para representar uma ficha sem atribuição.
+
+O antigo `CharacterSheet` vinculado obrigatoriamente a `Character` permanece apenas como estrutura legada durante a transição e não é usado pelo novo fluxo.
 
 ## Fonte do sistema
 
-A única fonte autoritativa é:
+A única fonte autoritativa para escolher o provider e o renderer é:
 
 ```text
 Campaign.gameSystem
 ```
 
-`Character.gameSystem`, enquanto ainda existir por compatibilidade de banco, não é usado para escolher o renderer e deve sempre ser sincronizado com a campanha.
-
 Fluxo de abertura:
 
 ```text
-Token.characterId
-      -> solicitação genérica de abertura
-      -> campanha atual
-      -> Campaign.gameSystem
-      -> registro de renderers
-      -> renderer da ficha do sistema
+sheetId
+   -> campanha atual
+   -> Campaign.gameSystem
+   -> registro de renderers
+   -> renderer do sistema
 ```
 
 O VTT não contém verificações como:
@@ -70,25 +89,71 @@ Endpoint genérico:
 POST /api/campaigns/:campaignId/character-sheets
 ```
 
-Entrada genérica:
+Entrada:
 
 ```ts
 {
   name: string
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  assignedUserId?: string
   avatarUrl?: string | null
   bio?: string | null
 }
 ```
 
-O Runtime seleciona o provider registrado para `Campaign.gameSystem`. O provider fornece os dados padrão e a versão do schema; a rota genérica persiste a identidade, o vínculo com a campanha e a ficha em uma transação.
+O payload não aceita:
+
+- `role`;
+- `assignedUserId`;
+- `tokenId`;
+- `gameSystem`;
+- tipo de ficha concreto.
+
+O Runtime seleciona o provider registrado para `Campaign.gameSystem`, solicita os dados padrão e cria `CampaignCharacterSheet` diretamente.
+
+## Atribuições posteriores
+
+Endpoint genérico:
+
+```text
+PATCH /api/campaigns/:campaignId/character-sheets/:sheetId/assignments
+```
+
+Entrada parcial:
+
+```ts
+{
+  assignedUserId?: string | null
+  tokenId?: string | null
+}
+```
+
+Regras:
+
+- somente o Mestre ativo altera atribuições;
+- `assignedUserId` deve identificar um Mestre ou Player ativo da campanha;
+- o mesmo usuário pode receber várias fichas;
+- `null` remove a atribuição;
+- `tokenId` deve pertencer à campanha;
+- o mesmo Token não pode estar vinculado a duas fichas;
+- `null` remove o vínculo com o Token;
+- usuário e Token são vínculos independentes.
+
+Uma ficha usada como NPC não precisa possuir um tipo `NPC`. Ela pode permanecer sem usuário e, quando necessário, ser vinculada a um Token.
+
+## Abertura pelo Token
+
+O VTT entrega apenas `campaignId` e `tokenId` a um resolvedor genérico:
+
+```text
+GET /api/campaigns/:campaignId/tokens/:tokenId/character-sheet
+```
+
+O resolvedor retorna `sheetId` e título quando houver vínculo e acesso. O VTT não conhece o sistema ou o formato da ficha.
 
 ## Abertura dentro da mesa
 
 Abrir uma ficha nunca navega para `/characters`, nunca abre outra aba e nunca desmonta `CampaignLayout`.
 
-A mesa possui um workspace genérico de janelas de ficha com:
+A mesa possui um workspace genérico com:
 
 - arraste pelo cabeçalho;
 - redimensionamento;
@@ -105,8 +170,8 @@ A mesa possui um workspace genérico de janelas de ficha com:
 
 Conhece somente:
 
-- `characterId` opcional no Token;
-- comando genérico `open character sheet`;
+- `tokenId`;
+- comando genérico para resolver e abrir ficha;
 - permissões operacionais do Token.
 
 Não conhece:
@@ -114,7 +179,7 @@ Não conhece:
 - Pathfinder;
 - páginas da ficha;
 - fórmulas;
-- endpoints específicos;
+- endpoints específicos do sistema;
 - classes, ancestralidades, CA ou PV.
 
 ### Workspace de fichas
@@ -122,6 +187,7 @@ Não conhece:
 Conhece:
 
 - campanha atual;
+- `sheetId`;
 - chave genérica do sistema;
 - janelas, posição, tamanho, foco e minimização;
 - registro de renderers.
@@ -137,23 +203,17 @@ Conhece:
 - endpoints específicos do adaptador;
 - cálculos e warnings devolvidos pelo Runtime.
 
-## Fluxos removidos
-
-- criação global em `/characters/new`;
-- seleção de personagem global ao criar campanha;
-- seleção ou criação de personagem ao entrar por convite;
-- redirecionamento da mesa para uma página externa de ficha;
-- escolha do sistema pelo formulário de personagem.
-
 ## Critérios de aceite
 
-1. somente Mestre ativo cria uma ficha;
-2. toda ficha está vinculada a exatamente uma campanha;
-3. o sistema da ficha vem exclusivamente da campanha;
-4. jogadores entram na campanha sem criar ficha;
-5. identidades sem `CharacterSheet` não aparecem como fichas;
-6. abrir ficha pelo Token mantém a mesma sessão e a mesma rota;
-7. abrir ficha pelo painel mantém a mesma sessão e a mesma rota;
-8. a janela pode ser movida, redimensionada, paginada, minimizada, restaurada e fechada;
-9. o VTT não importa nenhum renderer específico;
-10. remover o renderer Pathfinder não impede o VTT de compilar e operar Tokens.
+1. o Mestre cria uma ficha informando apenas o nome;
+2. a criação funciona com zero Players e zero Tokens na campanha;
+3. criar uma ficha não cria `Character`, `CampaignCharacter` ou papel `NPC`;
+4. o Mestre pode criar múltiplas fichas sem atribuição;
+5. a ficha permanece acessível ao Mestre sem usuário ou Token;
+6. uma atribuição de usuário pode ser adicionada, trocada ou removida depois;
+7. várias fichas podem ser atribuídas ao mesmo usuário;
+8. um vínculo com Token pode ser adicionado, trocado ou removido depois;
+9. excluir o Token preserva a ficha;
+10. abrir pelo Token usa um resolvedor genérico;
+11. o sistema da ficha vem exclusivamente da campanha;
+12. o VTT não importa nenhum renderer específico.
