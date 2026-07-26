@@ -137,7 +137,7 @@ export type Pathfinder2eResolvedCharacterSheet = {
 }
 
 export type Pathfinder2eCharacterSheetResponse = {
-  character: {
+  metadata: {
     id: string
     name: string
     avatarUrl: string | null
