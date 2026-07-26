@@ -1,5 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
-import { Check, Plus, UserRound } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { useSession } from '../contexts/SessionContext'
@@ -19,16 +18,6 @@ type FoundCampaign = {
   isOnline: boolean
 }
 
-type CharacterOption = {
-  id: string
-  name: string
-  avatarUrl?: string | null
-  gameSystem: GameSystemKey
-  available: boolean
-}
-
-type CharacterMode = 'existing' | 'new'
-
 type JoinedCampaign = {
   id: string
   status?: 'ACTIVE' | 'PENDING'
@@ -41,68 +30,12 @@ type CampaignSystemLookup = {
 
 export function CampaignJoinPage() {
   const navigate = useNavigate()
-  const { loadCampaigns, setActiveCampaignId } = useSession()
+  const { me, loadCampaigns, setActiveCampaignId } = useSession()
   const [inviteCode, setInviteCode] = useState('')
-  const [characters, setCharacters] = useState<CharacterOption[]>([])
-  const [characterMode, setCharacterMode] = useState<CharacterMode>('existing')
-  const [requestedCharacterId, setRequestedCharacterId] = useState('')
-  const [characterName, setCharacterName] = useState('')
   const [foundCampaign, setFoundCampaign] = useState<FoundCampaign | null>(null)
   const [loadingSearch, setLoadingSearch] = useState(false)
   const [loadingJoin, setLoadingJoin] = useState(false)
   const [error, setError] = useState<string | null>(null)
-
-  const visibleCampaigns = foundCampaign ? [foundCampaign] : []
-  const availableCharacters = useMemo(() => {
-    if (!foundCampaign) return []
-    return characters.filter(
-      (character) => character.available && character.gameSystem === foundCampaign.gameSystem,
-    )
-  }, [characters, foundCampaign])
-  const hasExistingCharacters = availableCharacters.length > 0
-  const selectedCharacterId = availableCharacters.some((character) => character.id === requestedCharacterId)
-    ? requestedCharacterId
-    : (availableCharacters[0]?.id ?? '')
-  const activeCharacterMode: CharacterMode = characterMode === 'existing' && !hasExistingCharacters ? 'new' : characterMode
-  const canJoin = activeCharacterMode === 'existing' ? Boolean(selectedCharacterId) : Boolean(characterName.trim())
-
-  useEffect(() => {
-    let cancelled = false
-
-    async function loadCharacters() {
-      try {
-        const list = await api<CharacterOption[]>('/api/characters')
-        if (!cancelled) setCharacters(list)
-      } catch {
-        if (!cancelled) setCharacterMode('new')
-      }
-    }
-
-    loadCharacters()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!foundCampaign) {
-      setRequestedCharacterId('')
-      return
-    }
-
-    const firstCompatible = characters.find(
-      (character) => character.available && character.gameSystem === foundCampaign.gameSystem,
-    )
-    if (firstCompatible) {
-      setCharacterMode('existing')
-      setRequestedCharacterId(firstCompatible.id)
-      return
-    }
-
-    setCharacterMode('new')
-    setRequestedCharacterId('')
-  }, [characters, foundCampaign])
 
   async function onSearch() {
     const code = inviteCode.trim().toUpperCase()
@@ -118,64 +51,57 @@ export function CampaignJoinPage() {
         api<CampaignSystemLookup>(`/api/game-systems/campaign-invites/${encodeURIComponent(code)}`),
       ])
       setFoundCampaign({ ...campaign, gameSystem: system.gameSystem })
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 404) {
+    } catch (cause) {
+      if (cause instanceof ApiError && cause.status === 404) {
         setError('Campanha não encontrada. Confira o código de convite.')
-        return
+      } else {
+        setError('Não foi possível procurar a campanha agora.')
       }
-      setError('Não foi possível procurar a campanha agora.')
     } finally {
       setLoadingSearch(false)
     }
   }
 
   async function onJoin(campaign: FoundCampaign) {
-    if (!canJoin) {
-      setError(activeCharacterMode === 'existing' ? 'Selecione um personagem compatível para continuar.' : 'Informe o nome do personagem para continuar.')
-      return
-    }
-
     setLoadingJoin(true)
     setError(null)
 
     try {
+      const identityName = me?.email?.split('@')[0]?.trim() || 'Jogador'
       const joined = await api<JoinedCampaign>('/api/campaigns/join', {
         method: 'POST',
         body: JSON.stringify({
           inviteCode: campaign.inviteCode,
-          characterId: activeCharacterMode === 'existing' ? selectedCharacterId : undefined,
-          characterName: activeCharacterMode === 'new' ? characterName.trim() : undefined,
-          gameSystem: campaign.gameSystem,
+          characterName: identityName,
         }),
       })
 
       await loadCampaigns({ force: true })
 
       if (joined.status === 'PENDING') {
-        alert('Solicitação enviada! Aguarde o mestre aprovar.')
+        alert('Solicitação enviada! Aguarde o Mestre aprovar. A ficha será criada pelo Mestre dentro da campanha.')
         navigate('/campaigns', { replace: true })
         return
       }
 
       setActiveCampaignId(joined.id)
       navigate(`/campaign/${joined.id}/overview`, { replace: true })
-    } catch (err) {
-      if (err instanceof ApiError) {
-        setError(err.message)
-        return
+    } catch (cause) {
+      if (cause instanceof ApiError) {
+        setError(cause.message)
+      } else {
+        setError('Não foi possível entrar. Confira o código da campanha.')
       }
-
-      setError('Não foi possível entrar. Confira o código e o personagem.')
     } finally {
       setLoadingJoin(false)
     }
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
+    <div className="mx-auto max-w-3xl">
       <button
         type="button"
-        className="text-sm text-zinc-300 hover:text-white mb-4"
+        className="mb-4 text-sm text-zinc-300 hover:text-white"
         onClick={() => navigate('/campaigns')}
       >
         Voltar
@@ -183,7 +109,7 @@ export function CampaignJoinPage() {
 
       <div className="rounded-xl border border-white/10 bg-white/5 p-6">
         <h1 className="text-2xl font-semibold text-white">Entrar em uma campanha</h1>
-        <p className="text-sm text-zinc-300 mt-1">Digite o código de convite fornecido pelo mestre.</p>
+        <p className="mt-1 text-sm text-zinc-300">Digite o código de convite fornecido pelo Mestre.</p>
 
         <div className="mt-6 grid gap-3">
           <input
@@ -194,91 +120,12 @@ export function CampaignJoinPage() {
               setError(null)
             }}
             placeholder="Código de convite (ex.: ABCD-1234)"
-            className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 uppercase"
+            className="rounded border border-white/10 bg-gray-900 p-3 uppercase focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <Button className="w-full" disabled={loadingSearch || !inviteCode.trim()} onClick={onSearch}>
             {loadingSearch ? 'Procurando...' : 'Procurar campanha'}
           </Button>
         </div>
-
-        {foundCampaign ? (
-          <section className="mt-6 grid gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <h2 className="text-sm font-semibold text-white">Seu personagem</h2>
-                <p className="mt-1 text-xs text-zinc-400">
-                  Apenas personagens de {getGameSystemOption(foundCampaign.gameSystem)?.label ?? foundCampaign.gameSystem} podem entrar.
-                </p>
-              </div>
-              <div className="inline-flex rounded-lg border border-white/10 bg-black/20 p-1">
-                <button
-                  type="button"
-                  disabled={!hasExistingCharacters}
-                  onClick={() => setCharacterMode('existing')}
-                  className={[
-                    'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs transition disabled:opacity-40',
-                    activeCharacterMode === 'existing' ? 'bg-white/10 text-white' : 'text-zinc-300 hover:text-white',
-                  ].join(' ')}
-                >
-                  <UserRound className="h-3.5 w-3.5" />
-                  Existente
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setCharacterMode('new')}
-                  className={[
-                    'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs transition',
-                    activeCharacterMode === 'new' ? 'bg-white/10 text-white' : 'text-zinc-300 hover:text-white',
-                  ].join(' ')}
-                >
-                  <Plus className="h-3.5 w-3.5" />
-                  Novo
-                </button>
-              </div>
-            </div>
-
-            {activeCharacterMode === 'existing' ? (
-              <div className="grid gap-2">
-                {availableCharacters.length === 0 ? (
-                  <div className="text-sm text-zinc-400">Nenhum personagem livre deste sistema.</div>
-                ) : (
-                  availableCharacters.map((character) => (
-                    <button
-                      key={character.id}
-                      type="button"
-                      onClick={() => setRequestedCharacterId(character.id)}
-                      className={[
-                        'flex items-center justify-between gap-3 rounded-lg border p-3 text-left transition',
-                        selectedCharacterId === character.id
-                          ? 'border-indigo-300/70 bg-indigo-500/10'
-                          : 'border-white/10 bg-gray-900 hover:border-white/20',
-                      ].join(' ')}
-                    >
-                      <span className="flex items-center gap-3">
-                        {character.avatarUrl ? (
-                          <img src={character.avatarUrl} alt="" className="h-10 w-10 rounded-full object-cover" draggable={false} />
-                        ) : (
-                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-zinc-300">
-                            <UserRound className="h-5 w-5" />
-                          </span>
-                        )}
-                        <span className="block text-sm font-semibold text-white">{character.name}</span>
-                      </span>
-                      {selectedCharacterId === character.id ? <Check className="h-4 w-4 text-indigo-200" /> : null}
-                    </button>
-                  ))
-                )}
-              </div>
-            ) : (
-              <input
-                value={characterName}
-                onChange={(event) => setCharacterName(event.target.value)}
-                placeholder="Nome do seu personagem"
-                className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-              />
-            )}
-          </section>
-        ) : null}
 
         {error ? (
           <div className="mt-4 rounded-lg border border-red-300/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">
@@ -286,66 +133,39 @@ export function CampaignJoinPage() {
           </div>
         ) : null}
 
-        <div className="my-6 flex items-center gap-3">
-          <div className="h-px flex-1 bg-white/10" />
-          <div className="text-xs text-zinc-400">resultado</div>
-          <div className="h-px flex-1 bg-white/10" />
-        </div>
-
-        <h2 className="text-lg font-semibold text-white">Campanhas disponíveis para você</h2>
-        <div className="mt-4 grid gap-3">
-          {visibleCampaigns.length === 0 ? (
-            <div className="text-sm text-zinc-400">Nenhuma campanha ainda.</div>
-          ) : (
-            visibleCampaigns.map((campaign) => {
-              const isFound = foundCampaign?.id === campaign.id
-              const isPrivate = campaign.joinPolicy === 'PRIVATE'
-              const system = getGameSystemOption(campaign.gameSystem)
-
-              return (
-                <div key={campaign.id} className="w-full rounded-lg border border-white/10 bg-black/20 p-4">
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="text-white font-semibold flex flex-wrap items-center gap-2">
-                        {campaign.title}
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-purple-400/10 text-purple-100 border border-purple-300/20">
-                          {system?.label ?? campaign.gameSystem}
-                        </span>
-                        <span className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-400/10 text-zinc-200 border border-zinc-300/20">
-                          {isPrivate ? 'Privada' : 'Pública'}
-                        </span>
-                        <span
-                          className={[
-                            'text-[10px] px-2 py-0.5 rounded-full border',
-                            campaign.isOnline
-                              ? 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20'
-                              : 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
-                          ].join(' ')}
-                        >
-                          {campaign.isOnline ? 'Online' : 'Offline'}
-                        </span>
-                      </div>
-                      <div className="text-xs text-zinc-300 mt-1">Mestre: {campaign.gmName}</div>
-                      {campaign.description ? (
-                        <p className="mt-2 text-sm text-zinc-400">{campaign.description}</p>
-                      ) : null}
-                    </div>
-
-                    {isFound ? (
-                      <Button
-                        className="shrink-0 px-3 py-1.5 text-xs"
-                        disabled={loadingJoin || !canJoin}
-                        onClick={() => onJoin(campaign)}
-                      >
-                        {isPrivate ? 'Solicitar entrada' : 'Entrar'}
-                      </Button>
-                    ) : null}
-                  </div>
+        {foundCampaign ? (
+          <section className="mt-6 rounded-lg border border-white/10 bg-black/20 p-5">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="text-lg font-semibold text-white">{foundCampaign.title}</h2>
+                  <span className="rounded-full border border-purple-300/20 bg-purple-400/10 px-2 py-0.5 text-[10px] text-purple-100">
+                    {getGameSystemOption(foundCampaign.gameSystem)?.label ?? foundCampaign.gameSystem}
+                  </span>
+                  <span className="rounded-full border border-zinc-300/20 bg-zinc-400/10 px-2 py-0.5 text-[10px] text-zinc-200">
+                    {foundCampaign.joinPolicy === 'PRIVATE' ? 'Privada' : 'Pública'}
+                  </span>
                 </div>
-              )
-            })
-          )}
-        </div>
+                <div className="mt-1 text-xs text-zinc-300">Mestre: {foundCampaign.gmName}</div>
+                {foundCampaign.description ? (
+                  <p className="mt-3 text-sm text-zinc-400">{foundCampaign.description}</p>
+                ) : null}
+              </div>
+
+              <Button
+                className="shrink-0"
+                disabled={loadingJoin}
+                onClick={() => void onJoin(foundCampaign)}
+              >
+                {loadingJoin ? 'Entrando...' : 'Entrar'}
+              </Button>
+            </div>
+
+            <div className="mt-4 rounded-lg border border-indigo-300/15 bg-indigo-500/10 px-4 py-3 text-sm text-indigo-100/80">
+              Você entrará apenas como participante. O sistema e o formato da ficha são definidos pela campanha, e somente o Mestre poderá criar e atribuir sua ficha.
+            </div>
+          </section>
+        ) : null}
       </div>
     </div>
   )
