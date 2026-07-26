@@ -32,7 +32,6 @@ export default function App() {
       <Route element={<CampaignLayout />}>
         <Route path="/campaign/:campaignId/overview" element={null} />
         <Route path="/campaign/:campaignId/sessions" element={<PlaceholderPage title="Sessões" />} />
-        <Route path="/campaign/:campaignId/characters" element={<PlaceholderPage title="Personagens" />} />
         <Route path="/campaign/:campaignId/players" element={<CampaignPlayersPage />} />
         <Route path="/campaign/:campaignId/journal" element={<PlaceholderPage title="Diário" />} />
         <Route path="/campaign/:campaignId/settings" element={<CampaignSettingsPage />} />
