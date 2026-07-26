@@ -42,10 +42,14 @@ export function CampaignCreatePage() {
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || undefined,
-          gameSystem,
           joinPolicy,
           masterCharacterName: 'Mestre',
         }),
+      })
+
+      await api(`/api/campaigns/${created.id}/game-system`, {
+        method: 'PATCH',
+        body: JSON.stringify({ gameSystem }),
       })
 
       await loadCampaigns({ force: true })
