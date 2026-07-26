@@ -14,6 +14,8 @@ Game System Adapter
 
 O chamador entrega dados desconhecidos ao Runtime junto de um adaptador. O Runtime solicita migração, validação e derivação ao adaptador e devolve um envelope padronizado.
 
+O VTT nunca importa adaptadores de sistemas concretos. Capacidades visuais e administrativas são localizadas por registros genéricos usando o `GameSystem` da campanha.
+
 ## 2. Contrato de ficha
 
 ```ts
@@ -44,7 +46,7 @@ export type CharacterSheetRuntimeResult<TData, TDerived> = {
 }
 ```
 
-## 3. Fluxo
+## 3. Fluxo de derivação
 
 1. receber `unknown`;
 2. executar `adapter.migrate`;
@@ -76,9 +78,131 @@ Não persistir como fonte da verdade:
 - total de perícias;
 - bônus de proficiência calculado.
 
-## 5. Pathfinder 2e - ficha V2
+## 5. Registro de gerenciadores de ficha
 
-### 5.1 Dados fundamentais
+O Runtime compartilhado expõe um registro independente dos adaptadores concretos:
+
+```ts
+export type GameSystemCharacterSheetManagerProvider = {
+  list(params: {
+    campaignId: string
+  }): Promise<readonly GameSystemCharacterSheetManagerEntry[]>
+}
+```
+
+Registro:
+
+```ts
+registerGameSystemCharacterSheetManagerProvider(system, provider)
+getGameSystemCharacterSheetManagerProvider(system)
+```
+
+Regras:
+
+- o Runtime não importa nenhum provider concreto;
+- cada sistema registra no máximo um provider;
+- o provider conhece apenas dados do próprio sistema e a identidade genérica do Character;
+- os cards retornados usam um contrato genérico;
+- o VTT renderiza cards sem interpretar atributos ou fórmulas específicas.
+
+Contrato genérico resumido:
+
+```ts
+type GameSystemCharacterSheetManagerEntry = {
+  characterId: string
+  name: string
+  avatarUrl: string | null
+  role: 'MASTER' | 'PLAYER' | 'NPC'
+  status: CampaignCharacterStatus
+  ownerLabel: string
+  hasSheet: boolean
+  updatedAt: Date | null
+  token: { id: string; name: string } | null
+  subtitle: string | null
+  badges: readonly string[]
+  stats: readonly Array<{ label: string; value: string }>
+  warnings: readonly string[]
+}
+```
+
+`stats`, `badges` e `subtitle` são produzidos pelo sistema. O painel não sabe que um stat representa CA, PV ou qualquer outra regra.
+
+## 6. API genérica do gerenciador
+
+```text
+GET /api/campaigns/:campaignId/character-sheets
+```
+
+Regras:
+
+- exige autenticação;
+- exige papel `MASTER` ativo na campanha;
+- identifica o provider pelo `GameSystem` da campanha;
+- retorna `available: false` quando o sistema não registrar a capacidade;
+- não permite informar outro sistema por query ou payload;
+- não mistura fichas de campanhas diferentes.
+
+Resposta:
+
+```ts
+{
+  available: boolean
+  system: GameSystemDescriptor
+  entries: GameSystemCharacterSheetManagerEntry[]
+}
+```
+
+O endpoint `/api/campaigns/:campaignId/game-system` informa também:
+
+```ts
+characterSheetsAvailable: boolean
+```
+
+O menu esquerdo só oferece `Fichas` ao Mestre quando essa capacidade estiver registrada.
+
+## 7. Resolução genérica do editor
+
+Rota de frontend:
+
+```text
+/campaigns/:campaignId/characters/:characterId/sheet
+```
+
+Fluxo:
+
+1. consultar `/api/campaigns/:campaignId/game-system`;
+2. ler `descriptor.characterSheetPathSegment`;
+3. redirecionar para o editor concreto;
+4. encaminhar `campaignId` como contexto opcional;
+5. deixar o backend concreto validar proprietário ou autoridade do Mestre.
+
+O Token e o painel de fichas usam somente essa rota genérica.
+
+## 8. Limite entre Token e ficha
+
+O contrato do Token continua sendo:
+
+```text
+characterId: string | null
+```
+
+O Token não recebe:
+
+- CA;
+- PV;
+- classe;
+- ancestralidade;
+- sistema concreto;
+- URL concreta do editor;
+- permissões mecânicas.
+
+A ação `Abrir ficha` apenas encaminha `campaignId` e `characterId` ao resolvedor genérico.
+
+Controlar um Token não concede automaticamente acesso ao Character. A autorização da ficha é responsabilidade do sistema e da campanha.
+
+## 9. Pathfinder 2e - ficha V2
+
+### Dados fundamentais
 
 ```ts
 schemaVersion: 2
@@ -119,9 +243,9 @@ armorProficiencies: {
 }
 ```
 
-Os atributos representam modificadores, não os antigos valores de atributo.
+Os atributos representam modificadores.
 
-### 5.2 Proficiência
+### Proficiência
 
 ```text
 Não treinado: 0
@@ -131,9 +255,7 @@ Mestre: nível + 6
 Lendário: nível + 8
 ```
 
-### 5.3 Pontos de Vida
-
-Neste recorte:
+### Pontos de Vida
 
 ```text
 PV máximo = PV da ancestralidade
@@ -141,13 +263,9 @@ PV máximo = PV da ancestralidade
           + bônus manual
 ```
 
-Se ancestralidade ou classe não estiverem selecionadas, sua parcela é zero e um warning é retornado.
+### Classe de Armadura
 
-Herança, background e divindade ainda não adicionam modificadores automáticos.
-
-### 5.4 Classe de Armadura
-
-Enquanto equipamentos não estiverem integrados, a ficha usa defesa sem armadura:
+Enquanto equipamentos não estiverem integrados:
 
 ```text
 CA = 10
@@ -156,9 +274,7 @@ CA = 10
    + bônus manual
 ```
 
-Armaduras leve, média e pesada permanecem registradas, mas não participam da CA até existir uma instância equipada.
-
-### 5.5 Percepção, saves e perícias
+### Percepção, saves e perícias
 
 ```text
 Total = modificador do atributo
@@ -166,40 +282,24 @@ Total = modificador do atributo
       + bônus manual
 ```
 
-Mapeamento:
-
-- Percepção: Sabedoria;
-- Fortitude: Constituição;
-- Reflexos: Destreza;
-- Vontade: Sabedoria;
-- Acrobacia, Furtividade e Ladroagem: Destreza;
-- Arcanismo, Manufatura, Ocultismo e Sociedade: Inteligência;
-- Atletismo: Força;
-- Enganação, Diplomacia, Intimidação e Performance: Carisma;
-- Medicina, Natureza, Religião e Sobrevivência: Sabedoria.
-
-### 5.6 Iniciativa
-
-A iniciativa padrão desta fase usa Percepção:
+### Iniciativa
 
 ```text
 Iniciativa = total de Percepção + bônus manual de iniciativa
 ```
 
-A escolha de outra perícia para iniciativa será adicionada em uma fase posterior.
-
-## 6. Migração V1 -> V2
+## 10. Migração V1 -> V2
 
 - `hitPoints.maximum` deixa de ser persistido;
 - `armorClass` antigo é descartado como total manual e inicia com bônus zero;
 - `initiative` antigo é descartado como total manual e inicia com bônus zero;
-- `ProficiencyValue.value` é migrado para `bonus: 0`, pois o total antigo não permite separar atributo, nível e bônus;
+- `ProficiencyValue.value` é migrado para `bonus: 0`;
 - PV atual e demais estados são preservados;
 - identidade, atributos, graus e anotações são preservados.
 
-A migração não tenta inferir bônus a partir de totais antigos para não criar dados falsos.
+A migração não tenta inferir bônus a partir de totais antigos.
 
-## 7. API Pathfinder inicial
+## 11. APIs Pathfinder iniciais
 
 ```text
 GET  /api/characters/:characterId/pathfinder-2e-sheet
@@ -209,14 +309,19 @@ PUT  /api/characters/:characterId/pathfinder-2e-sheet
 
 `GET` e `PUT` retornam `data`, `derived` e `warnings`. `POST /derive` calcula uma prévia sem persistir.
 
-## 8. Critérios de aceitação
+As rotas permitem acesso ao proprietário ou ao Mestre ativo da campanha do Character. Controle de Token isoladamente não é autorização suficiente.
+
+## 12. Critérios de aceitação
 
 1. alterar nível recalcula todo valor com proficiência;
 2. selecionar Human e Fighter calcula as parcelas base de PV correspondentes;
 3. alterar Constituição recalcula PV máximo e Fortitude;
 4. alterar Destreza recalcula CA, Reflexos e perícias relacionadas;
 5. grau não treinado nunca adiciona o nível;
-6. CA usa somente defesa sem armadura nesta fase;
-7. valores derivados não são aceitos no payload persistido;
-8. dados V1 existentes abrem por migração;
-9. nenhum arquivo do Runtime ou do adaptador importa Token, Canvas, campanha ou Area Effect.
+6. valores derivados não são aceitos no payload persistido;
+7. o Runtime não importa sistemas concretos;
+8. o painel genérico lista cards produzidos pelo provider da campanha;
+9. somente o Mestre acessa a listagem completa;
+10. o Token abre uma rota genérica usando apenas `characterId`;
+11. controlar Token de terceiro não concede acesso à ficha;
+12. remover o pacote Pathfinder preserva compiláveis os contratos genéricos do Runtime e do VTT.
