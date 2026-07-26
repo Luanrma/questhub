@@ -24,7 +24,7 @@ export type Pathfinder2eCharacterSheetPage = 'identity' | 'statistics' | 'skills
 
 type Props = {
   campaignId: string
-  characterId: string
+  sheetId: string
   activePage: Pathfinder2eCharacterSheetPage
 }
 
@@ -69,7 +69,7 @@ const armorLabels: Array<{ key: keyof Pathfinder2eCharacterSheetData['armorProfi
   { key: 'heavy', label: 'Armadura pesada' },
 ]
 
-export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, activePage }: Props) {
+export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, activePage }: Props) {
   const [response, setResponse] = useState<Pathfinder2eCharacterSheetResponse | null>(null)
   const [options, setOptions] = useState<Pathfinder2eCharacterSheetOptions | null>(null)
   const [sheet, setSheet] = useState<Pathfinder2eCharacterSheetData | null>(null)
@@ -82,9 +82,9 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
   const [error, setError] = useState<string | null>(null)
   const [savedMessage, setSavedMessage] = useState<string | null>(null)
 
-  const campaignQuery = useMemo(
-    () => `?${new URLSearchParams({ campaignId }).toString()}`,
-    [campaignId],
+  const sheetEndpoint = useMemo(
+    () => `/api/campaigns/${campaignId}/character-sheets/${sheetId}/pathfinder-2e`,
+    [campaignId, sheetId],
   )
   const dirty = useMemo(
     () => Boolean(sheet && JSON.stringify(sheet) !== savedSnapshot),
@@ -99,9 +99,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
       setError(null)
       try {
         const [sheetResponse, sheetOptions] = await Promise.all([
-          api<Pathfinder2eCharacterSheetResponse>(
-            `/api/characters/${characterId}/pathfinder-2e-sheet${campaignQuery}`,
-          ),
+          api<Pathfinder2eCharacterSheetResponse>(sheetEndpoint),
           api<Pathfinder2eCharacterSheetOptions>('/api/game-systems/pathfinder-2e/character-sheet/options'),
         ])
         if (cancelled) return
@@ -123,7 +121,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
     return () => {
       cancelled = true
     }
-  }, [campaignQuery, characterId])
+  }, [sheetEndpoint])
 
   useEffect(() => {
     if (!sheet || loading) return
@@ -132,7 +130,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
       setDeriving(true)
       try {
         const preview = await api<Pathfinder2eResolvedCharacterSheet>(
-          `/api/characters/${characterId}/pathfinder-2e-sheet/derive${campaignQuery}`,
+          `${sheetEndpoint}/derive`,
           {
             method: 'POST',
             body: JSON.stringify({ data: sheet }),
@@ -154,7 +152,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
       cancelled = true
       window.clearTimeout(timeout)
     }
-  }, [campaignQuery, characterId, loading, sheet])
+  }, [loading, sheet, sheetEndpoint])
 
   async function save() {
     if (!sheet || saving) return
@@ -163,7 +161,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
     setSavedMessage(null)
     try {
       const saved = await api<Pathfinder2eResolvedCharacterSheet>(
-        `/api/characters/${characterId}/pathfinder-2e-sheet${campaignQuery}`,
+        sheetEndpoint,
         {
           method: 'PUT',
           body: JSON.stringify({ data: sheet }),
@@ -221,8 +219,8 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
     <div className="space-y-4 pb-6">
       <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-indigo-300/15 bg-indigo-500/10 p-4">
         <div className="flex min-w-0 items-center gap-3">
-          {response.character.avatarUrl ? (
-            <img src={response.character.avatarUrl} alt="" className="h-12 w-12 rounded-full border border-white/15 object-cover" />
+          {response.metadata.avatarUrl ? (
+            <img src={response.metadata.avatarUrl} alt="" className="h-12 w-12 rounded-full border border-white/15 object-cover" />
           ) : (
             <div className="flex h-12 w-12 items-center justify-center rounded-full border border-white/15 bg-black/20 text-zinc-300">
               <UserRound className="h-6 w-6" />
@@ -230,7 +228,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
           )}
           <div className="min-w-0">
             <div className="text-xs font-semibold uppercase tracking-[0.2em] text-indigo-200">Pathfinder 2e</div>
-            <h2 className="truncate text-lg font-semibold text-white">{response.character.name}</h2>
+            <h2 className="truncate text-lg font-semibold text-white">{response.metadata.name}</h2>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -251,7 +249,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, characterId, ac
 
       {activePage === 'identity' ? (
         <>
-          <SheetSection title="Identidade" description="A campanha determina o sistema; o Mestre administra esta ficha dentro do mundo.">
+          <SheetSection title="Identidade" description="A campanha determina o sistema; a ficha pode existir sem Player, NPC ou Token atribuído.">
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               <ManualNumberField label="Nível" value={sheet.identity.level} min={1} max={20} onChange={(level) => setSheet({ ...sheet, identity: { ...sheet.identity, level } })} />
               <ManualCatalogSelect label="Ancestralidade" value={sheet.identity.ancestry} options={options.ancestries} onChange={(ancestry) => setSheet({ ...sheet, identity: { ...sheet.identity, ancestry } })} />
