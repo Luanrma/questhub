@@ -6,18 +6,18 @@ export type GameSystemCharacterSheetManagerStat = {
 }
 
 export type GameSystemCharacterSheetManagerEntry = {
-  characterId: string
+  sheetId: string
   name: string
   avatarUrl: string | null
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
-  ownerLabel: string
-  hasSheet: boolean
-  updatedAt: Date | null
+  assignedUser: {
+    id: string
+    label: string
+  } | null
   token: {
     id: string
     name: string
   } | null
+  updatedAt: Date
   subtitle: string | null
   badges: readonly string[]
   stats: readonly GameSystemCharacterSheetManagerStat[]
