@@ -8,6 +8,11 @@ import {
 
 const provider: GameSystemCharacterSheetManagerProvider = {
   list: async () => [],
+  createDefault: () => ({
+    systemKey: 'test',
+    schemaVersion: 1,
+    data: {},
+  }),
 }
 
 test('character sheet manager provider is registered by game system', () => {
