@@ -10,19 +10,18 @@ function compact(values: Array<string | null | undefined>) {
   return values.filter((value): value is string => Boolean(value))
 }
 
-function invalidEntry(
-  entry: Awaited<ReturnType<typeof loadCampaignCharacters>>[number],
-): GameSystemCharacterSheetManagerEntry {
+type StoredCampaignSheet = Awaited<ReturnType<typeof loadCampaignSheets>>[number]
+
+function invalidEntry(entry: StoredCampaignSheet): GameSystemCharacterSheetManagerEntry {
   return {
-    characterId: entry.character.id,
-    name: entry.character.name,
-    avatarUrl: entry.character.avatarUrl,
-    role: entry.role,
-    status: entry.status,
-    ownerLabel: entry.character.user.email,
-    hasSheet: true,
-    updatedAt: entry.character.sheet?.updatedAt ?? null,
-    token: entry.character.campaignTokens[0] ?? null,
+    sheetId: entry.id,
+    name: entry.name,
+    avatarUrl: entry.avatarUrl,
+    assignedUser: entry.assignedUser
+      ? { id: entry.assignedUser.id, label: entry.assignedUser.email }
+      : null,
+    token: entry.token,
+    updatedAt: entry.updatedAt,
     subtitle: 'Ficha Pathfinder 2e inválida',
     badges: [],
     stats: [],
@@ -30,45 +29,22 @@ function invalidEntry(
   }
 }
 
-async function loadCampaignCharacters(campaignId: string) {
-  return prisma.campaignCharacter.findMany({
+async function loadCampaignSheets(campaignId: string) {
+  return prisma.campaignCharacterSheet.findMany({
     where: {
       campaignId,
-      character: {
-        deletedAt: null,
-        sheet: { isNot: null },
-      },
+      systemKey: pathfinder2eCharacterSheetRuntimeAdapter.systemKey,
     },
     select: {
-      role: true,
-      status: true,
-      createdAt: true,
-      character: {
-        select: {
-          id: true,
-          name: true,
-          avatarUrl: true,
-          user: { select: { email: true } },
-          sheet: {
-            select: {
-              systemKey: true,
-              schemaVersion: true,
-              data: true,
-              updatedAt: true,
-            },
-          },
-          campaignTokens: {
-            where: { campaignId },
-            select: { id: true, name: true },
-            take: 1,
-          },
-        },
-      },
+      id: true,
+      name: true,
+      avatarUrl: true,
+      data: true,
+      updatedAt: true,
+      assignedUser: { select: { id: true, email: true } },
+      token: { select: { id: true, name: true } },
     },
-    orderBy: [
-      { role: 'asc' },
-      { createdAt: 'asc' },
-    ],
+    orderBy: { createdAt: 'asc' },
   })
 }
 
@@ -87,26 +63,25 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
   },
 
   async list({ campaignId }) {
-    const entries = await loadCampaignCharacters(campaignId)
+    const entries = await loadCampaignSheets(campaignId)
 
     return entries.map((entry): GameSystemCharacterSheetManagerEntry => {
       try {
         const resolved = gameSystemRuntime.resolveCharacterSheet(
           pathfinder2eCharacterSheetRuntimeAdapter,
-          entry.character.sheet?.data,
+          entry.data,
         )
         const identity = resolved.data.identity
 
         return {
-          characterId: entry.character.id,
-          name: entry.character.name,
-          avatarUrl: entry.character.avatarUrl,
-          role: entry.role,
-          status: entry.status,
-          ownerLabel: entry.character.user.email,
-          hasSheet: true,
-          updatedAt: entry.character.sheet?.updatedAt ?? null,
-          token: entry.character.campaignTokens[0] ?? null,
+          sheetId: entry.id,
+          name: entry.name,
+          avatarUrl: entry.avatarUrl,
+          assignedUser: entry.assignedUser
+            ? { id: entry.assignedUser.id, label: entry.assignedUser.email }
+            : null,
+          token: entry.token,
+          updatedAt: entry.updatedAt,
           subtitle: compact([
             identity.class,
             identity.ancestry,
@@ -114,7 +89,8 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
           ]).join(' · ') || 'Identidade mecânica não preenchida',
           badges: compact([
             identity.deity ? `Divindade: ${identity.deity}` : null,
-            entry.character.campaignTokens[0] ? `Token: ${entry.character.campaignTokens[0].name}` : 'Sem Token',
+            entry.assignedUser ? `Atribuída: ${entry.assignedUser.email}` : 'Não atribuída',
+            entry.token ? `Token: ${entry.token.name}` : 'Sem Token',
           ]),
           stats: [
             { label: 'Nível', value: String(identity.level) },
