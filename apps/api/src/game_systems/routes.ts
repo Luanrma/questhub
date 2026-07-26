@@ -10,6 +10,7 @@ import {
   type GameSystemContentLocale,
   type GameSystemKey,
 } from './catalog'
+import { getGameSystemCharacterSheetManagerProvider } from './character-sheets'
 
 const campaignParamsSchema = z.object({ campaignId: z.string().trim().min(1) })
 const inviteParamsSchema = z.object({ inviteCode: z.string().trim().min(1) })
@@ -36,6 +37,25 @@ async function findAccessibleCampaign(campaignId: string, userId: string) {
       characters: {
         some: {
           userId,
+          status: 'ACTIVE',
+        },
+      },
+    },
+    select: {
+      id: true,
+      gameSystem: true,
+    },
+  })
+}
+
+async function findMasterCampaign(campaignId: string, userId: string) {
+  return prisma.campaign.findFirst({
+    where: {
+      id: campaignId,
+      characters: {
+        some: {
+          userId,
+          role: 'MASTER',
           status: 'ACTIVE',
         },
       },
@@ -95,6 +115,39 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
       gameSystem: campaign.gameSystem,
       descriptor,
       catalogAvailable: Boolean(getGameSystemCatalogProvider(campaign.gameSystem as GameSystemKey)),
+      characterSheetsAvailable: Boolean(
+        getGameSystemCharacterSheetManagerProvider(campaign.gameSystem as GameSystemKey),
+      ),
+    })
+  })
+
+  app.get('/api/campaigns/:campaignId/character-sheets', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = campaignParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Campanha invalida' })
+
+    const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode gerenciar fichas' })
+
+    const descriptor = getGameSystemDescriptor(campaign.gameSystem)
+    if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
+
+    const provider = getGameSystemCharacterSheetManagerProvider(campaign.gameSystem as GameSystemKey)
+    if (!provider) {
+      return reply.send({
+        available: false,
+        system: descriptor,
+        entries: [],
+      })
+    }
+
+    const entries = await provider.list({ campaignId: campaign.id })
+    return reply.send({
+      available: true,
+      system: descriptor,
+      entries,
     })
   })
 
