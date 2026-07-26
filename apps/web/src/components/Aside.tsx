@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
+  BookUser,
   ChevronDown,
   ChevronUp,
   House,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react'
 import { api } from '../lib/api'
 import { CampaignCatalogModal } from '../game-systems/CampaignCatalogModal'
+import { CampaignCharacterSheetsModal } from '../game-systems/CampaignCharacterSheetsModal'
 import {
   catalogDomainLabels,
   type GameSystemCatalogDomain,
@@ -33,6 +35,7 @@ type CampaignSystemResponse = {
     catalogDomains: GameSystemCatalogDomain[]
   }
   catalogAvailable: boolean
+  characterSheetsAvailable: boolean
 }
 
 type Props = {
@@ -57,17 +60,18 @@ export function Aside({
   const [collapsed, setCollapsed] = useState(true)
   const [system, setSystem] = useState<CampaignSystemResponse | null>(null)
   const [catalogDomain, setCatalogDomain] = useState<GameSystemCatalogDomain | null>(null)
+  const [characterSheetsOpen, setCharacterSheetsOpen] = useState(false)
 
   useEffect(() => {
     if (collapsed) return
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && !catalogDomain) setCollapsed(true)
+      if (event.key === 'Escape' && !catalogDomain && !characterSheetsOpen) setCollapsed(true)
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [catalogDomain, collapsed])
+  }, [catalogDomain, characterSheetsOpen, collapsed])
 
   useEffect(() => {
     let cancelled = false
@@ -159,6 +163,19 @@ export function Aside({
                 </li>
               ))}
 
+              {role === 'MASTER' && system?.characterSheetsAvailable ? (
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => setCharacterSheetsOpen(true)}
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                  >
+                    <span className="text-[#6e3fae]"><BookUser size={18} /></span>
+                    <span>Fichas</span>
+                  </button>
+                </li>
+              ) : null}
+
               {catalogDomains.map((domain) => {
                 const Icon = catalogIcons[domain]
                 return (
@@ -210,6 +227,13 @@ export function Aside({
           campaignId={campaignId}
           domain={catalogDomain}
           onClose={() => setCatalogDomain(null)}
+        />
+      ) : null}
+
+      {characterSheetsOpen ? (
+        <CampaignCharacterSheetsModal
+          campaignId={campaignId}
+          onClose={() => setCharacterSheetsOpen(false)}
         />
       ) : null}
     </>
