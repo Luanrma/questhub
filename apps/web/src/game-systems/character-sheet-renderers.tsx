@@ -7,7 +7,7 @@ import type { GameSystemKey } from './registry'
 
 export type CharacterSheetRendererProps = {
   campaignId: string
-  characterId: string
+  sheetId: string
   activePage: string
 }
 
@@ -32,7 +32,7 @@ function PathfinderRenderer(props: CharacterSheetRendererProps) {
   return (
     <Pathfinder2eCharacterSheetRenderer
       campaignId={props.campaignId}
-      characterId={props.characterId}
+      sheetId={props.sheetId}
       activePage={props.activePage as Pathfinder2eCharacterSheetPage}
     />
   )
