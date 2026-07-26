@@ -1,19 +1,22 @@
-# Pathfinder 2e - Especificacao da ficha manual V1
+# Pathfinder 2e - Especificação da ficha automatizada V2
 
-## 0. Localizacao e dependencia
-
-O codigo backend desta ficha reside em:
+## 0. Localização e dependências
 
 ```text
+apps/api/src/game_systems/runtime/
+apps/api/src/game_systems/character-sheets.ts
 apps/api/src/game_systems/pathfinder_2e/character-sheet/
+apps/web/src/features/pathfinder-2e/character-sheet/
+apps/web/src/game-systems/
 ```
 
-Ele nao pode importar `apps/api/src/modules/**`. Modulos do VTT tambem nao podem
-importar regras desta ficha. Seu registrador e consumido somente por
-`apps/api/src/game_systems/pathfinder_2e/register.ts`; `server.ts`, `main.ts` e o
-agregador global nao conhecem a ficha diretamente.
+O Runtime não conhece Pathfinder. O adaptador Pathfinder conhece somente contratos do Runtime e seus próprios dados. Nenhum dos dois importa implementações de Token, Canvas, grid, cena ou outras ferramentas do VTT.
 
-## 1. Persistencia
+O VTT pode encaminhar um `characterId` para a rota genérica de ficha, mas não interpreta o conteúdo mecânico retornado pelo sistema.
+
+## 1. Persistência
+
+O model genérico permanece:
 
 ```prisma
 model CharacterSheet {
@@ -25,163 +28,332 @@ model CharacterSheet {
 }
 ```
 
-`Character` continua contendo somente identidade generica. Campos Pathfinder nao sao adicionados diretamente ao model.
+`Character` continua contendo somente identidade genérica. A coluna `data` armazena somente a ficha fundamental V2.
 
-## 2. Identidade mecanica
+## 2. Schema persistido V2
 
-Campos editaveis:
+### Identidade
 
 ```text
-nivel
+nível
 ancestralidade
-heranca
+herança
 background
 classe
 divindade
 ```
 
-Os cinco ultimos campos usam `select`.
+Valor vazio é permitido. Valores preenchidos devem existir nos catálogos locais.
 
-Regras:
-
-- valor vazio e permitido;
-- valor preenchido deve existir no arquivo correspondente;
-- a opcao salva e somente o nome;
-- selecionar uma opcao nao modifica atributos, PV, movimento, proficiencias ou qualquer outro campo.
-
-## 3. Campos manuais
-
-### Progressao
+### Progressão
 
 ```text
 EXP atual
-EXP para o proximo nivel
+EXP para o próximo nível
 movimento em metros
 ```
 
-### Atributos
+### Modificadores de atributo
 
 ```text
-Forca
+Força
 Destreza
-Constituicao
-Inteligencia
+Constituição
+Inteligência
 Sabedoria
 Carisma
 ```
 
-### Vida e sobrevivencia
+Os campos armazenam modificadores.
+
+### Vida e sobrevivência
+
+Persistidos:
 
 ```text
-Vida maxima
 Vida atual
-Vida temporaria
+Vida temporária
 Ferido
 Morrendo
 Condenado
-Bonus
+Bônus de PV
 ```
 
-### Defesa
+`Vida máxima` é derivada.
+
+### Defesa e iniciativa
+
+Persistidos:
 
 ```text
-Classe de Armadura
-Iniciativa
-Percepcao: grau e total
+Bônus de CA
+Bônus de iniciativa
+Grau e bônus de Percepção
+Graus de armadura
 ```
 
-### Testes de resistencia
+`CA` e `Iniciativa` são derivadas.
+
+### Saves e perícias
+
+Cada entrada persiste:
+
+```ts
+{ rank: 0 | 2 | 4 | 6 | 8; bonus: number }
+```
+
+O total não é persistido.
+
+## 3. Fórmulas
+
+### Proficiência
 
 ```text
-Fortitude: grau e total
-Reflexos: grau e total
-Vontade: grau e total
+rank 0: 0
+rank 2: nível + 2
+rank 4: nível + 4
+rank 6: nível + 6
+rank 8: nível + 8
 ```
 
-### Pericias
-
-Cada pericia possui grau e total editaveis:
+### PV máximo
 
 ```text
-Acrobacia
-Arcanismo
-Atletismo
-Manufatura
-Enganacao
-Diplomacia
-Intimidacao
-Medicina
-Natureza
-Ocultismo
-Performance
-Religiao
-Sociedade
-Furtividade
-Sobrevivencia
-Ladroagem
+PV = PV ancestral
+   + nível × (PV da classe + Constituição)
+   + bônus de PV
 ```
 
-### Armaduras
+O resultado mínimo é zero.
 
-Graus editaveis:
+### CA nesta fase
 
 ```text
-Sem armadura
-Armadura leve
-Armadura media
-Armadura pesada
+CA = 10
+   + Destreza
+   + proficiência sem armadura
+   + bônus de CA
 ```
 
-### Texto livre
+Equipamentos não participam do cálculo.
+
+### Estatísticas
 
 ```text
-Anotacoes
+Total = atributo + proficiência + bônus
 ```
 
-## 4. Graus de proficiencia
+Mapeamento de atributo:
 
-O select armazena os valores usados pelo Pathfinder:
+- Percepção e Vontade: Sabedoria;
+- Fortitude: Constituição;
+- Reflexos: Destreza;
+- Acrobacia, Furtividade e Ladroagem: Destreza;
+- Arcanismo, Manufatura, Ocultismo e Sociedade: Inteligência;
+- Atletismo: Força;
+- Enganação, Diplomacia, Intimidação e Performance: Carisma;
+- Medicina, Natureza, Religião e Sobrevivência: Sabedoria.
+
+### Iniciativa
 
 ```text
-0 Nao treinado
-2 Treinado
-4 Especialista
-6 Mestre
-8 Lendario
+Iniciativa = Percepção total + bônus de iniciativa
 ```
 
-O valor total ao lado do grau continua manual e nao e recalculado.
+## 4. Resultado derivado
 
-## 5. API
+```ts
+type Pathfinder2eDerivedCharacterSheet = {
+  mechanics: {
+    ancestryHitPoints: number
+    classHitPointsPerLevel: number
+  }
+  hitPoints: { maximum: number }
+  armorClass: {
+    value: number
+    dexterityModifier: number
+    proficiencyBonus: number
+    bonus: number
+    armorCategory: 'unarmored'
+  }
+  initiative: {
+    value: number
+    source: 'perception'
+    sourceValue: number
+    bonus: number
+  }
+  perception: DerivedStatistic
+  savingThrows: Record<string, DerivedStatistic>
+  skills: Record<string, DerivedStatistic>
+}
+```
+
+## 5. APIs da ficha
 
 ```text
-GET /api/game-systems/pathfinder-2e/character-sheet/options
-GET /api/characters/:characterId/pathfinder-2e-sheet
-PUT /api/characters/:characterId/pathfinder-2e-sheet
+GET  /api/game-systems/pathfinder-2e/character-sheet/options
+GET  /api/characters/:characterId/pathfinder-2e-sheet
+POST /api/characters/:characterId/pathfinder-2e-sheet/derive
+PUT  /api/characters/:characterId/pathfinder-2e-sheet
 ```
 
-Somente o proprietario do `Character` acessa e altera sua ficha nesta fase.
-
-## 6. Frontend
-
-Rota:
+As três rotas da ficha aceitam opcionalmente:
 
 ```text
-/characters/:characterId/pathfinder-2e-sheet
+?campaignId=<campaignId>
 ```
 
-A pagina `/characters` possui o botao `Ficha PF2e`.
+### Acesso
 
-Fluxo de aceite:
+O acesso à ficha é independente do controle do Token.
 
-1. abrir a ficha;
-2. selecionar os cinco campos de identidade;
-3. editar qualquer campo numerico;
-4. salvar;
-5. recarregar a pagina;
-6. confirmar que os valores permaneceram iguais;
-7. confirmar que nenhuma selecao alterou outro campo.
+- o proprietário do `Character` pode visualizar, derivar e salvar sua própria ficha;
+- um Mestre ativo pode visualizar, derivar e salvar fichas de Characters vinculados a uma campanha em que ele seja Mestre;
+- quando `campaignId` é informado, o Character precisa pertencer àquela campanha;
+- quando `campaignId` não é informado, o backend pode inferir o acesso do Mestre pelo vínculo exclusivo do Character com a campanha;
+- controlar um Token secundário ou companion não concede acesso à ficha vinculada;
+- outro jogador recebe `404` sem revelar se o Character existe.
 
-## 7. Exclusoes desta fase
+### GET
 
-Nenhum arquivo desta fase deve importar ou alterar codigo de Token, grid, tamanho, combate, inventario, spells, bestiario, hazards ou areas de efeito.
+Retorna personagem e envelope completo da ficha:
+
+```text
+systemKey
+schemaVersion
+data
+derived
+warnings
+persisted
+updatedAt
+```
+
+Se a ficha armazenada for V1, ela é migrada em memória antes da resposta. A persistência V2 ocorre no próximo PUT.
+
+### POST derive
+
+- recebe `{ data }`;
+- não persiste;
+- retorna `data`, `derived` e `warnings`;
+- usa as mesmas regras de acesso do GET;
+- rejeita valores derivados no payload porque o schema é estrito.
+
+### PUT
+
+- executa migração, validação e derivação;
+- persiste somente `data` normalizado;
+- grava `schemaVersion: 2`;
+- retorna o envelope recalculado;
+- usa as mesmas regras de acesso do GET.
+
+## 6. Gerenciador de fichas da campanha
+
+O Pathfinder registra um `GameSystemCharacterSheetManagerProvider` no Runtime compartilhado.
+
+Endpoint genérico consumido pelo painel esquerdo:
+
+```text
+GET /api/campaigns/:campaignId/character-sheets
+```
+
+Regras:
+
+- somente o Mestre ativo acessa o endpoint;
+- o endpoint genérico seleciona o provider pelo `GameSystem` da campanha;
+- o provider PF2e resolve cada ficha com o mesmo Runtime usado pelo editor;
+- uma ficha ainda não persistida aparece com seus defaults calculados;
+- uma ficha inválida aparece no gerenciador com warning, sem derrubar toda a listagem.
+
+Cada card PF2e informa:
+
+```text
+nome e avatar
+papel e status na campanha
+proprietário
+classe, ancestralidade e herança
+nível
+PV atual/máximo
+CA
+Token vinculado ou ausência de Token
+divindade, quando preenchida
+warnings do Runtime
+```
+
+## 7. Acesso pelo Token
+
+O Token continua conhecendo somente `characterId`.
+
+Fluxo:
+
+```text
+menu do Token
+  -> rota genérica da ficha da campanha
+  -> descriptor do GameSystem
+  -> rota concreta Pathfinder
+  -> editor Pathfinder existente
+```
+
+Rota genérica de frontend:
+
+```text
+/campaigns/:campaignId/characters/:characterId/sheet
+```
+
+O botão `Abrir ficha` é exibido quando:
+
+- o Token possui `characterId`; e
+- o usuário é o Mestre; ou
+- o usuário controla o Token do próprio Character.
+
+O botão não aparece para Tokens genéricos nem para controladores de Tokens vinculados a Characters de terceiros.
+
+A ficha abre em uma nova aba para preservar o estado da mesa, cena, ferramentas e seleção do VTT.
+
+## 8. Migração V1
+
+Preservar:
+
+- identidade;
+- progressão e movimento;
+- atributos;
+- PV atual, temporário, estados e bônus;
+- graus de proficiência;
+- graus de armadura;
+- anotações.
+
+Descartar como totais antigos:
+
+- PV máximo;
+- CA;
+- iniciativa;
+- `value` de Percepção, saves e perícias.
+
+Os novos bônus desses totais iniciam em zero.
+
+## 9. Frontend
+
+- totais derivados são somente leitura;
+- grau e bônus permanecem editáveis;
+- alterações disparam prévia com debounce de 180 ms;
+- warnings são exibidos sem impedir edição;
+- salvar usa o resultado autoritativo devolvido pelo backend;
+- a tela informa explicitamente que CA ainda usa defesa sem armadura;
+- o gerenciador de campanha possui busca e atualização manual;
+- abrir uma ficha pelo gerenciador ou Token reutiliza o mesmo editor, sem duplicar UI ou regras.
+
+## 10. Critérios de aceite
+
+1. mudar nível recalcula todas as proficiências treinadas ou superiores;
+2. mudar Constituição recalcula PV e Fortitude;
+3. mudar Destreza recalcula CA, Reflexos e perícias de Destreza;
+4. selecionar ancestralidade altera a parcela ancestral de PV;
+5. selecionar classe altera os PV por nível;
+6. rank zero não adiciona nível;
+7. o cliente não consegue salvar um total derivado;
+8. ficha V1 abre sem perder identidade ou estado atual;
+9. o Mestre visualiza todas as fichas da campanha no painel esquerdo;
+10. o Mestre abre e edita qualquer ficha listada;
+11. o proprietário abre sua ficha pelo próprio Token;
+12. controlar Token de terceiro não concede acesso à ficha;
+13. Token genérico não oferece ação de ficha;
+14. nenhum código do adaptador PF2e importa Canvas, grid, cena ou componentes de Token.

@@ -1,5 +1,8 @@
-import { useState } from 'react'
-import { ChevronRight, Eye, EyeOff, Settings, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
+import { requestCampaignCharacterSheetOpen } from '../../../game-systems/character-sheet-window-events'
+import { api, ApiError } from '../../../lib/api'
 import type {
   CampaignPlayer,
   VttPlayerToken,
@@ -30,6 +33,11 @@ type TokenContextMenuProps = {
   onDelete: (token: VttPlayerToken) => void
 }
 
+type ResolvedTokenSheet = {
+  sheetId: string
+  title: string
+}
+
 function clamp(value: number, minimum: number, maximum: number) {
   return Math.min(Math.max(value, minimum), Math.max(minimum, maximum))
 }
@@ -57,7 +65,6 @@ export function TokenContextMenu({
   isMaster,
   isCurrentController,
   masterCanUseVtt,
-  tokenCandidates,
   campaignPlayers,
   onUpdateToken,
   onConfigureFog,
@@ -65,8 +72,11 @@ export function TokenContextMenu({
   onRemoveFromScene,
   onDelete,
 }: TokenContextMenuProps) {
+  const { campaignId } = useParams()
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [imagePickerOpen, setImagePickerOpen] = useState(false)
+  const [linkedSheet, setLinkedSheet] = useState<ResolvedTokenSheet | null>(null)
+  const [sheetLoading, setSheetLoading] = useState(false)
   const initialVision = normalizeTokenVisionConfig(menu.token.visionConfig)
   const initialLight = normalizeFogLightSource(menu.token.lightConfig, `token-light:${menu.token.id}`)
   const [visionRangeMeters, setVisionRangeMeters] = useState(initialVision.rangeMeters)
@@ -78,11 +88,45 @@ export function TokenContextMenu({
   const positions = getMenuPositions(menu)
   const token = menu.token
 
+  useEffect(() => {
+    if (!campaignId || (!isMaster && !isCurrentController)) return
+    let cancelled = false
+    setSheetLoading(true)
+    setLinkedSheet(null)
+
+    api<ResolvedTokenSheet>(`/api/campaigns/${campaignId}/tokens/${token.id}/character-sheet`)
+      .then((result) => {
+        if (!cancelled) setLinkedSheet(result)
+      })
+      .catch((cause) => {
+        if (cancelled) return
+        if (!(cause instanceof ApiError) || cause.status !== 404) {
+          setLinkedSheet(null)
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setSheetLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [campaignId, isCurrentController, isMaster, token.id])
+
   if (!isMaster && !isCurrentController) return null
 
   function updateName() {
     const name = window.prompt('Nome do Token:', token.name)?.trim()
     if (name) onUpdateToken(token.id, { name })
+  }
+
+  function openCharacterSheet() {
+    if (!campaignId || !linkedSheet) return
+    requestCampaignCharacterSheetOpen({
+      campaignId,
+      sheetId: linkedSheet.sheetId,
+      title: linkedSheet.title,
+    })
   }
 
   async function saveFogSettings() {
@@ -123,6 +167,21 @@ export function TokenContextMenu({
             {isMaster ? `Controle: ${token.ownerName ?? 'somente Mestre'}` : 'Token controlado por voce'}
           </div>
         </div>
+
+        {linkedSheet ? (
+          <button
+            type="button"
+            role="menuitem"
+            className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+            onClick={openCharacterSheet}
+          >
+            <FileText className="h-4 w-4" />
+            <span>Abrir ficha</span>
+          </button>
+        ) : sheetLoading ? (
+          <div className="mt-2 px-2 py-2 text-xs text-zinc-500">Verificando ficha...</div>
+        ) : null}
+
         <button
           type="button"
           role="menuitem"
@@ -159,20 +218,9 @@ export function TokenContextMenu({
 
           {isMaster ? (
             <>
-              <label className="mt-2 grid gap-1 px-2 text-[10px] font-semibold uppercase text-zinc-500">
-                Ficha vinculada
-                <select
-                  value={token.characterId ?? ''}
-                  className="rounded-md border border-white/10 bg-black/40 px-2 py-1.5 text-xs font-normal normal-case text-white"
-                  onChange={(event) => onUpdateToken(token.id, { characterId: event.target.value || null })}
-                >
-                  <option value="">Sem ficha</option>
-                  {token.characterId ? <option value={token.characterId}>{token.name} (atual)</option> : null}
-                  {tokenCandidates.map((candidate) => (
-                    <option key={candidate.characterId} value={candidate.characterId}>{candidate.name}</option>
-                  ))}
-                </select>
-              </label>
+              <div className="mt-2 rounded-md border border-white/10 bg-black/20 px-2 py-2 text-[10px] text-zinc-500">
+                O vínculo com ficha é gerenciado no painel <strong className="text-zinc-300">Fichas</strong> da campanha.
+              </div>
               <label className="mt-2 grid gap-1 px-2 text-[10px] font-semibold uppercase text-zinc-500">
                 Player controlador
                 <select

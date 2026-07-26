@@ -7,7 +7,6 @@ export type GameSystemDescriptor = {
   key: GameSystemKey
   slug: string
   label: string
-  characterSheetPathSegment: string
   catalogDomains: readonly GameSystemCatalogDomain[]
 }
 
@@ -54,7 +53,6 @@ export const GAME_SYSTEM_DESCRIPTORS: readonly GameSystemDescriptor[] = [
     key: 'PATHFINDER_2E',
     slug: 'pathfinder-2e',
     label: 'Pathfinder 2e',
-    characterSheetPathSegment: 'pathfinder-2e-sheet',
     catalogDomains: ['BESTIARY', 'SPELLS', 'ITEMS'],
   },
 ]

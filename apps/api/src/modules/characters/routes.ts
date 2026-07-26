@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { presentCharacter } from './presenter'
-import { createCharacterSchema, updateCharacterSchema } from './validation'
+import { updateCharacterSchema } from './validation'
 
 const characterSelect = {
   id: true,
@@ -28,21 +28,9 @@ export function registerCharacterRoutes(app: FastifyInstance) {
     const payload = requireAuth(req, reply)
     if (!payload) return
 
-    const parsed = createCharacterSchema.safeParse(req.body ?? {})
-    if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
-
-    const character = await prisma.character.create({
-      data: {
-        userId: payload.id,
-        name: parsed.data.name,
-        gameSystem: parsed.data.gameSystem,
-        avatarUrl: parsed.data.avatarUrl?.trim() || null,
-        bio: parsed.data.bio?.trim() || null,
-      },
-      select: characterSelect,
+    return reply.status(403).send({
+      error: 'Fichas sao criadas somente pelo Mestre dentro de uma campanha',
     })
-
-    return reply.status(201).send(presentCharacter(character))
   })
 
   app.get('/api/characters/:characterId', async (req, reply) => {

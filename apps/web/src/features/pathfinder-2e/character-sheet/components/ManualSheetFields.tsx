@@ -47,6 +47,22 @@ export function ManualNumberField({ label, value, onChange, step = 1, min, max }
   )
 }
 
+export function DerivedNumberField({ label, value, detail }: {
+  label: string
+  value: number
+  detail?: string
+}) {
+  return (
+    <div className="grid gap-2">
+      <span className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{label}</span>
+      <div className="rounded-lg border border-indigo-300/15 bg-indigo-500/10 px-3 py-2 text-sm font-semibold text-indigo-100">
+        {value}
+      </div>
+      {detail ? <span className="text-xs text-zinc-500">{detail}</span> : null}
+    </div>
+  )
+}
+
 export function ManualCatalogSelect({ label, value, options, onChange }: {
   label: string
   value: string
@@ -74,13 +90,14 @@ const proficiencyOptions: Array<{ value: Pathfinder2eProficiencyRank; label: str
   { value: 8, label: 'Lendario' },
 ]
 
-export function ProficiencyEditor({ label, value, onChange }: {
+export function ProficiencyEditor({ label, value, total, onChange }: {
   label: string
   value: Pathfinder2eProficiencyValue
+  total: number
   onChange: (value: Pathfinder2eProficiencyValue) => void
 }) {
   return (
-    <div className="grid gap-2 rounded-lg border border-white/10 bg-black/15 p-3 sm:grid-cols-[minmax(0,1fr)_150px_110px] sm:items-end">
+    <div className="grid gap-2 rounded-lg border border-white/10 bg-black/15 p-3 sm:grid-cols-[minmax(0,1fr)_150px_110px_90px] sm:items-end">
       <div className="text-sm font-medium text-zinc-200">{label}</div>
       <label className="grid gap-1">
         <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Grau</span>
@@ -95,17 +112,23 @@ export function ProficiencyEditor({ label, value, onChange }: {
         </select>
       </label>
       <label className="grid gap-1">
-        <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Total</span>
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Bonus</span>
         <input
           className={inputClass}
           type="number"
-          value={value.value}
+          value={value.bonus}
           onChange={(event) => {
             const parsed = Number(event.target.value)
-            onChange({ ...value, value: Number.isFinite(parsed) ? parsed : 0 })
+            onChange({ ...value, bonus: Number.isFinite(parsed) ? parsed : 0 })
           }}
         />
       </label>
+      <div className="grid gap-1">
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Total</span>
+        <div className="rounded-lg border border-indigo-300/15 bg-indigo-500/10 px-3 py-2 text-center text-sm font-semibold text-indigo-100">
+          {total}
+        </div>
+      </div>
     </div>
   )
 }

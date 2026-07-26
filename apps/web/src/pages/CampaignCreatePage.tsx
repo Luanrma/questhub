@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
-import { ArrowLeft, Check, Crown, Plus, UserRound } from 'lucide-react'
+import { useMemo, useRef, useState } from 'react'
+import { ArrowLeft, Crown } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { api, ApiError } from '../lib/api'
@@ -8,16 +8,6 @@ import { GAME_SYSTEM_OPTIONS, type GameSystemKey } from '../game-systems/registr
 
 type JoinPolicy = 'PUBLIC' | 'PRIVATE'
 
-type CharacterOption = {
-  id: string
-  name: string
-  avatarUrl?: string | null
-  gameSystem: GameSystemKey
-  available: boolean
-}
-
-type MasterMode = 'existing' | 'new'
-
 type CreatedCampaign = {
   id: string
 }
@@ -25,75 +15,22 @@ type CreatedCampaign = {
 export function CampaignCreatePage() {
   const navigate = useNavigate()
   const { loadCampaigns, setActiveCampaignId } = useSession()
-
-  const [characters, setCharacters] = useState<CharacterOption[]>([])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [gameSystem, setGameSystem] = useState<GameSystemKey | ''>('')
   const [joinPolicy, setJoinPolicy] = useState<JoinPolicy>('PUBLIC')
-  const [masterMode, setMasterMode] = useState<MasterMode>('existing')
-  const [masterCharacterId, setMasterCharacterId] = useState('')
-  const [masterCharacterName, setMasterCharacterName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const submittingRef = useRef(false)
 
-  const availableCharacters = useMemo(() => {
-    if (!gameSystem) return []
-    return characters.filter((character) => character.available && character.gameSystem === gameSystem)
-  }, [characters, gameSystem])
-
-  const hasExistingCharacters = availableCharacters.length > 0
-  const canCreate = useMemo(() => {
-    if (!title.trim() || !gameSystem) return false
-    if (masterMode === 'existing') return Boolean(masterCharacterId)
-    return Boolean(masterCharacterName.trim())
-  }, [gameSystem, masterCharacterId, masterCharacterName, masterMode, title])
-
-  useEffect(() => {
-    let cancelled = false
-
-    async function loadCharacters() {
-      try {
-        const list = await api<CharacterOption[]>('/api/characters')
-        if (cancelled) return
-        setCharacters(list)
-      } catch {
-        if (!cancelled) setMasterMode('new')
-      }
-    }
-
-    loadCharacters()
-
-    return () => {
-      cancelled = true
-    }
-  }, [])
-
-  useEffect(() => {
-    if (!gameSystem) {
-      setMasterCharacterId('')
-      return
-    }
-
-    const firstAvailable = characters.find(
-      (character) => character.available && character.gameSystem === gameSystem,
-    )
-
-    if (firstAvailable) {
-      setMasterMode('existing')
-      setMasterCharacterId(firstAvailable.id)
-      return
-    }
-
-    setMasterMode('new')
-    setMasterCharacterId('')
-  }, [characters, gameSystem])
+  const canCreate = useMemo(
+    () => Boolean(title.trim() && gameSystem),
+    [gameSystem, title],
+  )
 
   async function onSubmit(event: React.FormEvent) {
     event.preventDefault()
-    if (!canCreate || !gameSystem) return
-    if (submittingRef.current) return
+    if (!canCreate || !gameSystem || submittingRef.current) return
 
     submittingRef.current = true
     setLoading(true)
@@ -105,23 +42,25 @@ export function CampaignCreatePage() {
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim() || undefined,
-          gameSystem,
           joinPolicy,
-          masterCharacterId: masterMode === 'existing' ? masterCharacterId : undefined,
-          masterCharacterName: masterMode === 'new' ? masterCharacterName.trim() : undefined,
+          masterCharacterName: 'Mestre',
         }),
       })
 
-      await loadCampaigns()
+      await api(`/api/campaigns/${created.id}/game-system`, {
+        method: 'PATCH',
+        body: JSON.stringify({ gameSystem }),
+      })
+
+      await loadCampaigns({ force: true })
       setActiveCampaignId(created.id)
       navigate(`/campaign/${created.id}/overview`, { replace: true })
-    } catch (err) {
-      if (err instanceof ApiError) {
-        setError(err.message)
-        return
+    } catch (cause) {
+      if (cause instanceof ApiError) {
+        setError(cause.message)
+      } else {
+        setError('Erro ao criar campanha. Verifique a API/DB.')
       }
-
-      setError('Erro ao criar campanha. Verifique a API/DB.')
     } finally {
       submittingRef.current = false
       setLoading(false)
@@ -129,7 +68,7 @@ export function CampaignCreatePage() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="mx-auto max-w-4xl">
       <button
         type="button"
         className="mb-4 inline-flex items-center gap-2 text-sm text-zinc-300 hover:text-white"
@@ -146,24 +85,33 @@ export function CampaignCreatePage() {
           </div>
           <div>
             <h1 className="text-2xl font-semibold text-white">Criar nova campanha</h1>
-            <p className="text-sm text-zinc-300 mt-1">Defina a campanha, o sistema e a identidade que será o mestre.</p>
+            <p className="mt-1 text-sm text-zinc-300">
+              O sistema escolhido determinará os catálogos, regras e o renderer das fichas criadas dentro desta campanha.
+            </p>
           </div>
         </div>
 
         <form onSubmit={onSubmit} className="mt-6 grid gap-5">
-          <input
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            placeholder="Título da campanha"
-            className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-zinc-200">Título *</span>
+            <input
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              placeholder="Título da campanha"
+              maxLength={120}
+              className="rounded border border-white/10 bg-gray-900 p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </label>
 
-          <textarea
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
-            placeholder="Descrição (opcional)"
-            className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-28"
-          />
+          <label className="grid gap-2">
+            <span className="text-sm font-medium text-zinc-200">Descrição</span>
+            <textarea
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              placeholder="Descrição opcional"
+              className="min-h-28 rounded border border-white/10 bg-gray-900 p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </label>
 
           <label className="grid gap-2">
             <span className="text-sm font-medium text-zinc-200">Sistema de jogo *</span>
@@ -171,7 +119,7 @@ export function CampaignCreatePage() {
               value={gameSystem}
               onChange={(event) => setGameSystem(event.target.value as GameSystemKey | '')}
               required
-              className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="rounded border border-white/10 bg-gray-900 p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="">Selecione o sistema</option>
               {GAME_SYSTEM_OPTIONS.map((system) => (
@@ -179,7 +127,7 @@ export function CampaignCreatePage() {
               ))}
             </select>
             <span className="text-xs text-zinc-400">
-              O sistema define quais fichas e catálogos estarão disponíveis dentro da campanha.
+              Jogadores não escolhem sistema nem criam fichas. O Mestre fará isso dentro da campanha.
             </span>
           </label>
 
@@ -188,91 +136,16 @@ export function CampaignCreatePage() {
             <select
               value={joinPolicy}
               onChange={(event) => setJoinPolicy(event.target.value as JoinPolicy)}
-              className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="rounded border border-white/10 bg-gray-900 p-3 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
             >
               <option value="PUBLIC">Pública</option>
               <option value="PRIVATE">Privada</option>
             </select>
           </label>
 
-          <section className="grid gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
-            <div className="flex items-center justify-between gap-3">
-              <div>
-                <h2 className="text-sm font-semibold text-white">Personagem mestre</h2>
-                {!gameSystem ? <p className="mt-1 text-xs text-zinc-400">Selecione o sistema primeiro.</p> : null}
-              </div>
-              <div className="inline-flex rounded-lg border border-white/10 bg-black/20 p-1">
-                <button
-                  type="button"
-                  disabled={!hasExistingCharacters}
-                  onClick={() => setMasterMode('existing')}
-                  className={[
-                    'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs transition disabled:opacity-40',
-                    masterMode === 'existing' ? 'bg-white/10 text-white' : 'text-zinc-300 hover:text-white',
-                  ].join(' ')}
-                >
-                  <UserRound className="h-3.5 w-3.5" />
-                  Existente
-                </button>
-                <button
-                  type="button"
-                  disabled={!gameSystem}
-                  onClick={() => setMasterMode('new')}
-                  className={[
-                    'inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-xs transition disabled:opacity-40',
-                    masterMode === 'new' ? 'bg-white/10 text-white' : 'text-zinc-300 hover:text-white',
-                  ].join(' ')}
-                >
-                  <Plus className="h-3.5 w-3.5" />
-                  Novo
-                </button>
-              </div>
-            </div>
-
-            {masterMode === 'existing' ? (
-              <div className="grid gap-2">
-                {availableCharacters.length === 0 ? (
-                  <div className="text-sm text-zinc-400">
-                    {gameSystem ? 'Nenhum personagem livre deste sistema.' : 'Selecione o sistema da campanha.'}
-                  </div>
-                ) : (
-                  availableCharacters.map((character) => (
-                    <button
-                      key={character.id}
-                      type="button"
-                      onClick={() => setMasterCharacterId(character.id)}
-                      className={[
-                        'flex items-center justify-between gap-3 rounded-lg border p-3 text-left transition',
-                        masterCharacterId === character.id
-                          ? 'border-indigo-300/70 bg-indigo-500/10'
-                          : 'border-white/10 bg-gray-900 hover:border-white/20',
-                      ].join(' ')}
-                    >
-                      <span className="flex items-center gap-3">
-                        {character.avatarUrl ? (
-                          <img src={character.avatarUrl} alt="" className="h-10 w-10 rounded-full object-cover" draggable={false} />
-                        ) : (
-                          <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-zinc-300">
-                            <UserRound className="h-5 w-5" />
-                          </span>
-                        )}
-                        <span className="block text-sm font-semibold text-white">{character.name}</span>
-                      </span>
-                      {masterCharacterId === character.id ? <Check className="h-4 w-4 text-indigo-200" /> : null}
-                    </button>
-                  ))
-                )}
-              </div>
-            ) : (
-              <input
-                value={masterCharacterName}
-                onChange={(event) => setMasterCharacterName(event.target.value)}
-                placeholder="Nome do personagem mestre"
-                disabled={!gameSystem}
-                className="p-3 rounded bg-gray-900 border border-white/10 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-40"
-              />
-            )}
-          </section>
+          <div className="rounded-lg border border-indigo-300/15 bg-indigo-500/10 px-4 py-3 text-sm text-indigo-100/80">
+            A campanha será criada sem ficha mecânica do Mestre. Depois, use <strong>Fichas</strong> no painel lateral para criar e atribuir fichas.
+          </div>
 
           {error ? (
             <div className="rounded-lg border border-red-300/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">

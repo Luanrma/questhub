@@ -3,47 +3,78 @@ import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
-import { createDefaultPathfinder2eManualCharacterSheet } from './defaults'
+import { gameSystemRuntime } from '../../runtime/game-system-runtime'
+import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
 import { pathfinder2eCharacterSheetOptions } from './options'
-import { pathfinder2eManualCharacterSheetSchema } from './schema'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
-const PATHFINDER_2E_SYSTEM_KEY = 'pathfinder-2e'
-const PATHFINDER_2E_SHEET_VERSION = 1
+const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.systemKey
+const PATHFINDER_2E_SHEET_VERSION = pathfinder2eCharacterSheetRuntimeAdapter.schemaVersion
 
-const paramsSchema = z.object({ characterId: z.string().trim().min(1) })
-const saveSchema = z.object({ data: pathfinder2eManualCharacterSheetSchema }).strict()
+const paramsSchema = z.object({
+  campaignId: z.string().trim().min(1),
+  sheetId: z.string().trim().min(1),
+})
+const sheetBodySchema = z.object({ data: z.unknown() }).strict()
 
-async function findOwnedCharacter(characterId: string, userId: string) {
-  return prisma.character.findFirst({
-    where: { id: characterId, userId, deletedAt: null },
+async function findAccessibleSheet(campaignId: string, sheetId: string, userId: string) {
+  const access = await prisma.campaignCharacter.findFirst({
+    where: {
+      campaignId,
+      userId,
+      status: 'ACTIVE',
+      role: { in: ['MASTER', 'PLAYER'] },
+    },
+    select: { role: true },
+  })
+  if (!access) return null
+
+  const sheet = await prisma.campaignCharacterSheet.findFirst({
+    where: { id: sheetId, campaignId },
     select: {
       id: true,
+      campaignId: true,
+      assignedUserId: true,
       name: true,
       avatarUrl: true,
       bio: true,
-      gameSystem: true,
-      sheet: {
-        select: {
-          systemKey: true,
-          schemaVersion: true,
-          data: true,
-          updatedAt: true,
-        },
-      },
+      systemKey: true,
+      schemaVersion: true,
+      data: true,
+      updatedAt: true,
+      campaign: { select: { gameSystem: true } },
     },
   })
+  if (!sheet) return null
+  if (access.role !== 'MASTER' && sheet.assignedUserId !== userId) return null
+
+  return sheet
 }
 
-function ensurePathfinderCharacter(
-  character: NonNullable<Awaited<ReturnType<typeof findOwnedCharacter>>>,
+function ensurePathfinderSheet(
+  sheet: NonNullable<Awaited<ReturnType<typeof findAccessibleSheet>>>,
   reply: FastifyReply,
 ) {
-  if (character.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
-    reply.status(409).send({ error: 'Esta ficha pertence a outro sistema de jogo' })
+  if (sheet.campaign.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
+    reply.status(409).send({ error: 'A campanha utiliza outro sistema de jogo' })
+    return false
+  }
+  if (sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
+    reply.status(409).send({ error: 'A ficha armazenada pertence a outro sistema' })
     return false
   }
   return true
+}
+
+function resolveCharacterSheet(input: unknown) {
+  return gameSystemRuntime.resolveCharacterSheet(pathfinder2eCharacterSheetRuntimeAdapter, input)
+}
+
+function sendInvalidSheet(reply: FastifyReply, error: unknown) {
+  if (error instanceof z.ZodError) {
+    return reply.status(400).send({ error: error.flatten() })
+  }
+  throw error
 }
 
 export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
@@ -53,90 +84,95 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     return reply.send(pathfinder2eCharacterSheetOptions)
   })
 
-  app.get('/api/characters/:characterId/pathfinder-2e-sheet', async (req, reply) => {
+  app.get('/api/campaigns/:campaignId/character-sheets/:sheetId/pathfinder-2e', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
     const params = paramsSchema.safeParse(req.params)
-    if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+    if (!params.success) return reply.status(400).send({ error: 'Ficha invalida' })
 
-    const character = await findOwnedCharacter(params.data.characterId, auth.id)
-    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
-    if (!ensurePathfinderCharacter(character, reply)) return
+    const sheet = await findAccessibleSheet(params.data.campaignId, params.data.sheetId, auth.id)
+    if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada ou sem acesso' })
+    if (!ensurePathfinderSheet(sheet, reply)) return
 
-    if (character.sheet && character.sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
-      return reply.status(409).send({ error: 'O personagem possui uma ficha de outro sistema' })
-    }
-
-    const parsedSheet = character.sheet
-      ? pathfinder2eManualCharacterSheetSchema.safeParse(character.sheet.data)
-      : { success: true as const, data: createDefaultPathfinder2eManualCharacterSheet() }
-
-    if (!parsedSheet.success) {
-      req.log.error({ characterId: character.id, issues: parsedSheet.error.issues }, 'Stored PF2e character sheet is invalid')
+    let resolved
+    try {
+      resolved = resolveCharacterSheet(sheet.data)
+    } catch (error) {
+      req.log.error({ sheetId: sheet.id, error }, 'Stored PF2e campaign character sheet is invalid')
       return reply.status(500).send({ error: 'A ficha armazenada esta invalida' })
     }
 
     return reply.send({
-      character: {
-        id: character.id,
-        name: character.name,
-        avatarUrl: character.avatarUrl,
-        bio: character.bio,
-        gameSystem: character.gameSystem,
+      metadata: {
+        id: sheet.id,
+        name: sheet.name,
+        avatarUrl: sheet.avatarUrl,
+        bio: sheet.bio,
       },
       sheet: {
-        systemKey: PATHFINDER_2E_SYSTEM_KEY,
-        schemaVersion: PATHFINDER_2E_SHEET_VERSION,
-        persisted: Boolean(character.sheet),
-        updatedAt: character.sheet?.updatedAt ?? null,
-        data: parsedSheet.data,
+        ...resolved,
+        persisted: true,
+        updatedAt: sheet.updatedAt,
       },
     })
   })
 
-  app.put('/api/characters/:characterId/pathfinder-2e-sheet', async (req, reply) => {
+  app.post('/api/campaigns/:campaignId/character-sheets/:sheetId/pathfinder-2e/derive', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
     const params = paramsSchema.safeParse(req.params)
-    if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
-
-    const body = saveSchema.safeParse(req.body ?? {})
-    if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
-
-    const character = await findOwnedCharacter(params.data.characterId, auth.id)
-    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
-    if (!ensurePathfinderCharacter(character, reply)) return
-
-    if (character.sheet && character.sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
-      return reply.status(409).send({ error: 'O personagem possui uma ficha de outro sistema' })
+    const body = sheetBodySchema.safeParse(req.body ?? {})
+    if (!params.success || !body.success) {
+      return reply.status(400).send({ error: body.success ? 'Ficha invalida' : body.error.flatten() })
     }
 
-    const stored = await prisma.characterSheet.upsert({
-      where: { characterId: character.id },
-      create: {
-        characterId: character.id,
+    const sheet = await findAccessibleSheet(params.data.campaignId, params.data.sheetId, auth.id)
+    if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada ou sem acesso' })
+    if (!ensurePathfinderSheet(sheet, reply)) return
+
+    try {
+      return reply.send(resolveCharacterSheet(body.data.data))
+    } catch (error) {
+      return sendInvalidSheet(reply, error)
+    }
+  })
+
+  app.put('/api/campaigns/:campaignId/character-sheets/:sheetId/pathfinder-2e', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = paramsSchema.safeParse(req.params)
+    const body = sheetBodySchema.safeParse(req.body ?? {})
+    if (!params.success || !body.success) {
+      return reply.status(400).send({ error: body.success ? 'Ficha invalida' : body.error.flatten() })
+    }
+
+    const sheet = await findAccessibleSheet(params.data.campaignId, params.data.sheetId, auth.id)
+    if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada ou sem acesso' })
+    if (!ensurePathfinderSheet(sheet, reply)) return
+
+    let resolved
+    try {
+      resolved = resolveCharacterSheet(body.data.data)
+    } catch (error) {
+      return sendInvalidSheet(reply, error)
+    }
+
+    const stored = await prisma.campaignCharacterSheet.update({
+      where: { id: sheet.id },
+      data: {
         systemKey: PATHFINDER_2E_SYSTEM_KEY,
         schemaVersion: PATHFINDER_2E_SHEET_VERSION,
-        data: body.data.data as Prisma.InputJsonValue,
+        data: resolved.data as Prisma.InputJsonValue,
       },
-      update: {
-        systemKey: PATHFINDER_2E_SYSTEM_KEY,
-        schemaVersion: PATHFINDER_2E_SHEET_VERSION,
-        data: body.data.data as Prisma.InputJsonValue,
-      },
-      select: {
-        schemaVersion: true,
-        data: true,
-        updatedAt: true,
-      },
+      select: { updatedAt: true },
     })
 
     return reply.send({
-      systemKey: PATHFINDER_2E_SYSTEM_KEY,
-      schemaVersion: stored.schemaVersion,
-      data: stored.data,
+      ...resolved,
+      persisted: true,
       updatedAt: stored.updatedAt,
     })
   })
