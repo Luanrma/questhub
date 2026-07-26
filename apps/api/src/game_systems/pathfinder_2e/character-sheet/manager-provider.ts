@@ -89,8 +89,6 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
           ]).join(' · ') || 'Identidade mecânica não preenchida',
           badges: compact([
             identity.deity ? `Divindade: ${identity.deity}` : null,
-            entry.assignedUser ? `Atribuída: ${entry.assignedUser.email}` : 'Não atribuída',
-            entry.token ? `Token: ${entry.token.name}` : 'Sem Token',
           ]),
           stats: [
             { label: 'Nível', value: String(identity.level) },
