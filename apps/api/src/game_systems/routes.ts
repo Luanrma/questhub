@@ -15,6 +15,9 @@ import { getGameSystemCharacterSheetManagerProvider } from './character-sheets'
 
 const campaignParamsSchema = z.object({ campaignId: z.string().trim().min(1) })
 const inviteParamsSchema = z.object({ inviteCode: z.string().trim().min(1) })
+const setCampaignGameSystemSchema = z.object({
+  gameSystem: z.enum(['PATHFINDER_2E']),
+}).strict()
 const catalogParamsSchema = campaignParamsSchema.extend({
   domain: z.enum(['bestiary', 'spells', 'items']),
 })
@@ -167,6 +170,61 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
       characterSheetsAvailable: Boolean(
         getGameSystemCharacterSheetManagerProvider(campaign.gameSystem as GameSystemKey),
       ),
+    })
+  })
+
+  app.patch('/api/campaigns/:campaignId/game-system', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = campaignParamsSchema.safeParse(req.params)
+    const body = setCampaignGameSystemSchema.safeParse(req.body ?? {})
+    if (!params.success || !body.success) {
+      return reply.status(400).send({ error: body.success ? 'Campanha invalida' : body.error.flatten() })
+    }
+
+    const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode definir o sistema' })
+
+    const descriptor = getGameSystemDescriptor(body.data.gameSystem)
+    if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
+
+    const sheetCount = await prisma.characterSheet.count({
+      where: {
+        character: {
+          campaigns: {
+            some: { campaignId: campaign.id },
+          },
+        },
+      },
+    })
+    if (sheetCount > 0 && campaign.gameSystem !== body.data.gameSystem) {
+      return reply.status(409).send({ error: 'O sistema nao pode ser alterado depois da criacao de fichas' })
+    }
+
+    const updated = await prisma.$transaction(async (tx) => {
+      const result = await tx.campaign.update({
+        where: { id: campaign.id },
+        data: { gameSystem: body.data.gameSystem },
+        select: { id: true, gameSystem: true },
+      })
+
+      await tx.character.updateMany({
+        where: {
+          campaigns: {
+            some: { campaignId: campaign.id },
+          },
+        },
+        data: { gameSystem: body.data.gameSystem },
+      })
+
+      return result
+    })
+
+    return reply.send({
+      campaignId: updated.id,
+      gameSystem: updated.gameSystem,
+      descriptor,
     })
   })
 
