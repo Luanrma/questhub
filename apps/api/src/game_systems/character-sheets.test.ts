@@ -7,7 +7,7 @@ import {
 } from './character-sheets'
 
 const provider: GameSystemCharacterSheetManagerProvider = {
-  list: () => [],
+  list: async () => [],
 }
 
 test('character sheet manager provider is registered by game system', () => {
