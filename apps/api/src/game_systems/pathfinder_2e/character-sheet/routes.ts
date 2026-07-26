@@ -3,16 +3,16 @@ import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
-import { createDefaultPathfinder2eManualCharacterSheet } from './defaults'
+import { gameSystemRuntime } from '../../runtime/game-system-runtime'
+import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
 import { pathfinder2eCharacterSheetOptions } from './options'
-import { pathfinder2eManualCharacterSheetSchema } from './schema'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
-const PATHFINDER_2E_SYSTEM_KEY = 'pathfinder-2e'
-const PATHFINDER_2E_SHEET_VERSION = 1
+const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.systemKey
+const PATHFINDER_2E_SHEET_VERSION = pathfinder2eCharacterSheetRuntimeAdapter.schemaVersion
 
 const paramsSchema = z.object({ characterId: z.string().trim().min(1) })
-const saveSchema = z.object({ data: pathfinder2eManualCharacterSheetSchema }).strict()
+const sheetBodySchema = z.object({ data: z.unknown() }).strict()
 
 async function findOwnedCharacter(characterId: string, userId: string) {
   return prisma.character.findFirst({
@@ -46,6 +46,17 @@ function ensurePathfinderCharacter(
   return true
 }
 
+function resolveCharacterSheet(input?: unknown) {
+  return gameSystemRuntime.resolveCharacterSheet(pathfinder2eCharacterSheetRuntimeAdapter, input)
+}
+
+function sendInvalidSheet(reply: FastifyReply, error: unknown) {
+  if (error instanceof z.ZodError) {
+    return reply.status(400).send({ error: error.flatten() })
+  }
+  throw error
+}
+
 export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
   app.get('/api/game-systems/pathfinder-2e/character-sheet/options', async (req, reply) => {
     const auth = requireAuth(req, reply)
@@ -68,12 +79,11 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
       return reply.status(409).send({ error: 'O personagem possui uma ficha de outro sistema' })
     }
 
-    const parsedSheet = character.sheet
-      ? pathfinder2eManualCharacterSheetSchema.safeParse(character.sheet.data)
-      : { success: true as const, data: createDefaultPathfinder2eManualCharacterSheet() }
-
-    if (!parsedSheet.success) {
-      req.log.error({ characterId: character.id, issues: parsedSheet.error.issues }, 'Stored PF2e character sheet is invalid')
+    let resolved
+    try {
+      resolved = resolveCharacterSheet(character.sheet?.data)
+    } catch (error) {
+      req.log.error({ characterId: character.id, error }, 'Stored PF2e character sheet is invalid')
       return reply.status(500).send({ error: 'A ficha armazenada esta invalida' })
     }
 
@@ -86,13 +96,32 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
         gameSystem: character.gameSystem,
       },
       sheet: {
-        systemKey: PATHFINDER_2E_SYSTEM_KEY,
-        schemaVersion: PATHFINDER_2E_SHEET_VERSION,
+        ...resolved,
         persisted: Boolean(character.sheet),
         updatedAt: character.sheet?.updatedAt ?? null,
-        data: parsedSheet.data,
       },
     })
+  })
+
+  app.post('/api/characters/:characterId/pathfinder-2e-sheet/derive', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = paramsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+
+    const body = sheetBodySchema.safeParse(req.body ?? {})
+    if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
+
+    const character = await findOwnedCharacter(params.data.characterId, auth.id)
+    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+    if (!ensurePathfinderCharacter(character, reply)) return
+
+    try {
+      return reply.send(resolveCharacterSheet(body.data.data))
+    } catch (error) {
+      return sendInvalidSheet(reply, error)
+    }
   })
 
   app.put('/api/characters/:characterId/pathfinder-2e-sheet', async (req, reply) => {
@@ -102,7 +131,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     const params = paramsSchema.safeParse(req.params)
     if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
-    const body = saveSchema.safeParse(req.body ?? {})
+    const body = sheetBodySchema.safeParse(req.body ?? {})
     if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
 
     const character = await findOwnedCharacter(params.data.characterId, auth.id)
@@ -113,30 +142,34 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
       return reply.status(409).send({ error: 'O personagem possui uma ficha de outro sistema' })
     }
 
+    let resolved
+    try {
+      resolved = resolveCharacterSheet(body.data.data)
+    } catch (error) {
+      return sendInvalidSheet(reply, error)
+    }
+
     const stored = await prisma.characterSheet.upsert({
       where: { characterId: character.id },
       create: {
         characterId: character.id,
         systemKey: PATHFINDER_2E_SYSTEM_KEY,
         schemaVersion: PATHFINDER_2E_SHEET_VERSION,
-        data: body.data.data as Prisma.InputJsonValue,
+        data: resolved.data as Prisma.InputJsonValue,
       },
       update: {
         systemKey: PATHFINDER_2E_SYSTEM_KEY,
         schemaVersion: PATHFINDER_2E_SHEET_VERSION,
-        data: body.data.data as Prisma.InputJsonValue,
+        data: resolved.data as Prisma.InputJsonValue,
       },
       select: {
-        schemaVersion: true,
-        data: true,
         updatedAt: true,
       },
     })
 
     return reply.send({
-      systemKey: PATHFINDER_2E_SYSTEM_KEY,
-      schemaVersion: stored.schemaVersion,
-      data: stored.data,
+      ...resolved,
+      persisted: true,
       updatedAt: stored.updatedAt,
     })
   })
