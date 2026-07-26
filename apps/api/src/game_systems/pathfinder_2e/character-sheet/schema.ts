@@ -8,6 +8,7 @@ import {
 } from './options'
 
 const integer = z.number().int().finite().min(-100_000).max(100_000)
+const attributeModifier = z.number().int().finite().min(-20).max(20)
 const nonNegativeInteger = z.number().int().finite().min(0).max(100_000_000)
 const nonNegativeNumber = z.number().finite().min(0).max(100_000_000)
 const proficiencyRankSchema = z.union([z.literal(0), z.literal(2), z.literal(4), z.literal(6), z.literal(8)])
@@ -21,11 +22,11 @@ function catalogSelectionSchema(values: readonly string[], label: string) {
 
 const proficiencyValueSchema = z.object({
   rank: proficiencyRankSchema,
-  value: integer,
+  bonus: integer,
 }).strict()
 
-export const pathfinder2eManualCharacterSheetSchema = z.object({
-  schemaVersion: z.literal(1),
+export const pathfinder2eCharacterSheetSchema = z.object({
+  schemaVersion: z.literal(2),
   general: z.object({
     experience: z.object({
       current: nonNegativeInteger,
@@ -42,15 +43,14 @@ export const pathfinder2eManualCharacterSheetSchema = z.object({
     deity: catalogSelectionSchema(PATHFINDER_2E_DEITIES, 'Divindade'),
   }).strict(),
   attributes: z.object({
-    strength: integer,
-    dexterity: integer,
-    constitution: integer,
-    intelligence: integer,
-    wisdom: integer,
-    charisma: integer,
+    strength: attributeModifier,
+    dexterity: attributeModifier,
+    constitution: attributeModifier,
+    intelligence: attributeModifier,
+    wisdom: attributeModifier,
+    charisma: attributeModifier,
   }).strict(),
   hitPoints: z.object({
-    maximum: nonNegativeInteger,
     current: nonNegativeInteger,
     temporary: nonNegativeInteger,
     wounded: nonNegativeInteger,
@@ -58,8 +58,12 @@ export const pathfinder2eManualCharacterSheetSchema = z.object({
     doomed: nonNegativeInteger,
     bonus: integer,
   }).strict(),
-  armorClass: integer,
-  initiative: integer,
+  armorClass: z.object({
+    bonus: integer,
+  }).strict(),
+  initiative: z.object({
+    bonus: integer,
+  }).strict(),
   perception: proficiencyValueSchema,
   savingThrows: z.object({
     fortitude: proficiencyValueSchema,
@@ -93,6 +97,10 @@ export const pathfinder2eManualCharacterSheetSchema = z.object({
   notes: z.string().max(20_000),
 }).strict()
 
-export type Pathfinder2eManualCharacterSheet = z.infer<typeof pathfinder2eManualCharacterSheetSchema>
+// Alias temporario para reduzir o impacto em imports da ficha V1 durante a migracao.
+export const pathfinder2eManualCharacterSheetSchema = pathfinder2eCharacterSheetSchema
+
+export type Pathfinder2eCharacterSheetData = z.infer<typeof pathfinder2eCharacterSheetSchema>
+export type Pathfinder2eManualCharacterSheet = Pathfinder2eCharacterSheetData
 export type Pathfinder2eProficiencyRank = z.infer<typeof proficiencyRankSchema>
 export type Pathfinder2eProficiencyValue = z.infer<typeof proficiencyValueSchema>
