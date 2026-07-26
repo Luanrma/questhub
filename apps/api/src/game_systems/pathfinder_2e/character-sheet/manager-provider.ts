@@ -20,7 +20,7 @@ function invalidEntry(
     role: entry.role,
     status: entry.status,
     ownerLabel: entry.character.user.email,
-    hasSheet: Boolean(entry.character.sheet),
+    hasSheet: true,
     updatedAt: entry.character.sheet?.updatedAt ?? null,
     token: entry.character.campaignTokens[0] ?? null,
     subtitle: 'Ficha Pathfinder 2e inválida',
@@ -34,7 +34,10 @@ async function loadCampaignCharacters(campaignId: string) {
   return prisma.campaignCharacter.findMany({
     where: {
       campaignId,
-      character: { deletedAt: null },
+      character: {
+        deletedAt: null,
+        sheet: { isNot: null },
+      },
     },
     select: {
       role: true,
@@ -70,6 +73,19 @@ async function loadCampaignCharacters(campaignId: string) {
 }
 
 export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheetManagerProvider = {
+  createDefault() {
+    const resolved = gameSystemRuntime.resolveCharacterSheet(
+      pathfinder2eCharacterSheetRuntimeAdapter,
+      undefined,
+    )
+
+    return {
+      systemKey: resolved.systemKey,
+      schemaVersion: resolved.schemaVersion,
+      data: resolved.data,
+    }
+  },
+
   async list({ campaignId }) {
     const entries = await loadCampaignCharacters(campaignId)
 
@@ -88,7 +104,7 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
           role: entry.role,
           status: entry.status,
           ownerLabel: entry.character.user.email,
-          hasSheet: Boolean(entry.character.sheet),
+          hasSheet: true,
           updatedAt: entry.character.sheet?.updatedAt ?? null,
           token: entry.character.campaignTokens[0] ?? null,
           subtitle: compact([
