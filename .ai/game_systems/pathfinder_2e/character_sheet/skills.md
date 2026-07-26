@@ -3,36 +3,77 @@
 ## Stack
 
 - TypeScript;
-- Zod para o schema da ficha manual;
-- Fastify para as rotas HTTP;
-- Prisma por meio da infraestrutura compartilhada existente;
-- Node Test para validacao dos schemas e defaults.
+- Zod para dados persistidos;
+- Game System Runtime para migracao, validacao e derivacao;
+- Fastify para autenticacao e rotas HTTP;
+- Prisma somente na camada externa de persistencia;
+- Node Test para schemas, migracao e formulas;
+- React apenas para estado e apresentacao.
 
 ## Localizacao
 
-O backend da ficha fica em:
-
 ```text
 apps/api/src/game_systems/pathfinder_2e/character-sheet/
+  adapter.ts
+  defaults.ts
+  derivation.ts
+  mechanical-catalog.ts
+  routes.ts
+  schema.ts
 ```
-
-Ele nao pertence a `apps/api/src/modules`, que e reservado ao VTT.
 
 ## Restricoes
 
-- nao importar modulos de campanha, Token, cena, grid, combate ou inventario;
-- nao introduzir calculos automaticos nesta fase;
-- manter catalogos estaticos, independentes e sem download em runtime;
+- nao importar modulos de campanha, Token, cena, grid, combate, Area Effect ou inventario;
+- nao executar formulas em componentes React;
+- nao confiar em totais enviados pelo cliente;
+- nao persistir valores derivados como fonte da verdade;
 - validar todo payload antes da persistencia;
-- usar apenas identidade generica do personagem na integracao existente;
-- nao adicionar regras Pathfinder aos modulos genericos do VTT.
-- expor o registrador da ficha apenas ao registrador interno de Pathfinder 2e;
-- nao registrar esta rota diretamente em `server.ts`, `main.ts` ou no agregador
-  global de sistemas.
+- manter derivacao pura, sincrona e deterministica;
+- usar o mesmo adaptador no GET, na previa e no PUT;
+- migrar explicitamente qualquer schema anterior;
+- nao inferir bonus ocultos de totais manuais antigos;
+- nao aplicar automaticamente efeitos de heranca, background ou divindade sem dados mecanicos estruturados;
+- nao considerar armadura equipada antes da integracao com inventario.
+
+## Catalogos mecanicos
+
+A ficha possui um catalogo compacto e local contendo somente:
+
+- PV base por ancestralidade;
+- PV por nivel de cada classe.
+
+O catalogo nao faz download em runtime e deve permanecer coerente com os nomes dos selects.
+
+## Backend autoritativo
+
+O frontend envia somente `data`. O backend devolve:
+
+```text
+data
+-derived
+-warnings
+```
+
+`derived` nunca e aceito como entrada de salvamento.
+
+## Previa reativa
+
+O frontend usa debounce antes de chamar:
+
+```text
+POST /api/characters/:characterId/pathfinder-2e-sheet/derive
+```
+
+A rota valida ownership e executa o mesmo Runtime usado no salvamento.
 
 ## Testes
 
-- defaults devem validar no schema;
-- campos manuais devem permanecer editaveis;
-- selecoes devem aceitar apenas vazio ou nomes dos catalogos;
-- a fronteira arquitetural global deve permanecer valida.
+- default V2 valida;
+- proficiencia nao treinada nao recebe nivel;
+- proficiencias treinada, especialista, mestre e lendaria recebem nivel;
+- Human + Fighter calcula PV corretamente;
+- Constituicao afeta PV e Fortitude;
+- Destreza afeta CA, Reflexos e pericias relacionadas;
+- migracao V1 preserva dados fundamentais;
+- selects rejeitam nomes fora dos catalogos.
