@@ -2,7 +2,7 @@ export const campaignCharacterSheetOpenEvent = 'questhub:campaign-character-shee
 
 export type CampaignCharacterSheetOpenRequest = {
   campaignId: string
-  characterId: string
+  sheetId: string
   title?: string
 }
 
