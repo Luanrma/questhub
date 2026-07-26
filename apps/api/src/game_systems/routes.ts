@@ -14,10 +14,9 @@ import {
 import { getGameSystemCharacterSheetManagerProvider } from './character-sheets'
 
 const campaignParamsSchema = z.object({ campaignId: z.string().trim().min(1) })
+const sheetParamsSchema = campaignParamsSchema.extend({ sheetId: z.string().trim().min(1) })
+const tokenSheetParamsSchema = campaignParamsSchema.extend({ tokenId: z.string().trim().min(1) })
 const inviteParamsSchema = z.object({ inviteCode: z.string().trim().min(1) })
-const setCampaignGameSystemSchema = z.object({
-  gameSystem: z.enum(['PATHFINDER_2E']),
-}).strict()
 const catalogParamsSchema = campaignParamsSchema.extend({
   domain: z.enum(['bestiary', 'spells', 'items']),
 })
@@ -29,18 +28,18 @@ const catalogQuerySchema = z.object({
 })
 const createCharacterSheetSchema = z.object({
   name: z.string().trim().min(1).max(80),
-  role: z.enum(['MASTER', 'PLAYER', 'NPC']),
-  assignedUserId: z.string().trim().min(1).optional(),
   avatarUrl: z.string().trim().max(2048).nullable().optional(),
   bio: z.string().trim().max(2000).nullable().optional(),
-}).superRefine((value, context) => {
-  if (value.role === 'PLAYER' && !value.assignedUserId) {
-    context.addIssue({
-      code: 'custom',
-      path: ['assignedUserId'],
-      message: 'Selecione o Player que recebera a ficha',
-    })
-  }
+})
+const updateCharacterSheetAssignmentsSchema = z.object({
+  assignedUserId: z.string().trim().min(1).nullable().optional(),
+  tokenId: z.string().trim().min(1).nullable().optional(),
+}).refine(
+  (value) => value.assignedUserId !== undefined || value.tokenId !== undefined,
+  'Informe ao menos uma atribuição para alterar',
+)
+const setCampaignGameSystemSchema = z.object({
+  gameSystem: z.enum(['PATHFINDER_2E']),
 })
 
 const domainByPath: Record<'bestiary' | 'spells' | 'items', GameSystemCatalogDomain> = {
@@ -87,36 +86,55 @@ async function findMasterCampaign(campaignId: string, userId: string) {
   })
 }
 
+async function findActiveCampaignRole(campaignId: string, userId: string) {
+  return prisma.campaignCharacter.findFirst({
+    where: { campaignId, userId, status: 'ACTIVE' },
+    select: { role: true },
+  })
+}
+
 async function listAssignmentTargets(campaignId: string) {
-  const entries = await prisma.campaignCharacter.findMany({
-    where: {
-      campaignId,
-      role: { in: ['MASTER', 'PLAYER'] },
-      status: 'ACTIVE',
-    },
-    select: {
-      userId: true,
-      role: true,
-      character: {
-        select: {
-          id: true,
-          name: true,
-          sheet: { select: { id: true } },
-          user: { select: { email: true } },
+  const [participants, tokens] = await Promise.all([
+    prisma.campaignCharacter.findMany({
+      where: {
+        campaignId,
+        role: { in: ['MASTER', 'PLAYER'] },
+        status: 'ACTIVE',
+      },
+      select: {
+        userId: true,
+        role: true,
+        character: {
+          select: {
+            user: { select: { email: true } },
+          },
         },
       },
-    },
-    orderBy: [{ role: 'asc' }, { createdAt: 'asc' }],
-  })
+      orderBy: [{ role: 'asc' }, { createdAt: 'asc' }],
+    }),
+    prisma.campaignToken.findMany({
+      where: { campaignId },
+      select: {
+        id: true,
+        name: true,
+        characterSheet: { select: { id: true } },
+      },
+      orderBy: { createdAt: 'asc' },
+    }),
+  ])
 
-  return entries.map((entry) => ({
-    userId: entry.userId,
-    role: entry.role,
-    email: entry.character.user.email,
-    identityCharacterId: entry.character.id,
-    identityName: entry.character.name,
-    hasSheet: Boolean(entry.character.sheet),
-  }))
+  return {
+    users: participants.map((entry) => ({
+      userId: entry.userId,
+      role: entry.role,
+      email: entry.character.user.email,
+    })),
+    tokens: tokens.map((token) => ({
+      tokenId: token.id,
+      name: token.name,
+      assignedSheetId: token.characterSheet?.id ?? null,
+    })),
+  }
 }
 
 export function registerGameSystemRoutes(app: FastifyInstance) {
@@ -189,14 +207,8 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const descriptor = getGameSystemDescriptor(body.data.gameSystem)
     if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
 
-    const sheetCount = await prisma.characterSheet.count({
-      where: {
-        character: {
-          campaigns: {
-            some: { campaignId: campaign.id },
-          },
-        },
-      },
+    const sheetCount = await prisma.campaignCharacterSheet.count({
+      where: { campaignId: campaign.id },
     })
     if (sheetCount > 0 && campaign.gameSystem !== body.data.gameSystem) {
       return reply.status(409).send({ error: 'O sistema nao pode ser alterado depois da criacao de fichas' })
@@ -278,94 +290,129 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     if (!provider) return reply.status(409).send({ error: 'O sistema da campanha nao fornece fichas' })
 
     const defaultSheet = provider.createDefault()
+    const created = await prisma.campaignCharacterSheet.create({
+      data: {
+        campaignId: campaign.id,
+        createdByUserId: auth.id,
+        name: body.data.name,
+        avatarUrl: body.data.avatarUrl?.trim() || null,
+        bio: body.data.bio?.trim() || null,
+        systemKey: defaultSheet.systemKey,
+        schemaVersion: defaultSheet.schemaVersion,
+        data: defaultSheet.data as Prisma.InputJsonValue,
+      },
+      select: { id: true },
+    })
+
+    const entries = await provider.list({ campaignId: campaign.id })
+    const entry = entries.find((candidate) => candidate.sheetId === created.id)
+    return reply.status(201).send({ sheetId: created.id, entry: entry ?? null })
+  })
+
+  app.patch('/api/campaigns/:campaignId/character-sheets/:sheetId/assignments', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = sheetParamsSchema.safeParse(req.params)
+    const body = updateCharacterSheetAssignmentsSchema.safeParse(req.body ?? {})
+    if (!params.success || !body.success) {
+      return reply.status(400).send({ error: body.success ? 'Ficha invalida' : body.error.flatten() })
+    }
+
+    const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode atribuir fichas' })
+
+    const sheet = await prisma.campaignCharacterSheet.findFirst({
+      where: { id: params.data.sheetId, campaignId: campaign.id },
+      select: { id: true },
+    })
+    if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada' })
+
+    if (body.data.assignedUserId) {
+      const participant = await prisma.campaignCharacter.findFirst({
+        where: {
+          campaignId: campaign.id,
+          userId: body.data.assignedUserId,
+          role: { in: ['MASTER', 'PLAYER'] },
+          status: 'ACTIVE',
+        },
+        select: { id: true },
+      })
+      if (!participant) return reply.status(400).send({ error: 'Usuario nao participa ativamente da campanha' })
+    }
+
+    if (body.data.tokenId) {
+      const token = await prisma.campaignToken.findFirst({
+        where: { id: body.data.tokenId, campaignId: campaign.id },
+        select: { id: true },
+      })
+      if (!token) return reply.status(400).send({ error: 'Token nao pertence a esta campanha' })
+    }
 
     try {
-      const characterId = await prisma.$transaction(async (tx) => {
-        if (body.data.role === 'NPC') {
-          const character = await tx.character.create({
-            data: {
-              userId: auth.id,
-              name: body.data.name,
-              avatarUrl: body.data.avatarUrl?.trim() || null,
-              bio: body.data.bio?.trim() || null,
-              gameSystem: campaign.gameSystem,
-            },
-            select: { id: true },
-          })
-
-          await tx.campaignCharacter.create({
-            data: {
-              campaignId: campaign.id,
-              characterId: character.id,
-              userId: auth.id,
-              role: 'NPC',
-              status: 'ACTIVE',
-              joinedAt: new Date(),
-            },
-          })
-
-          await tx.characterSheet.create({
-            data: {
-              characterId: character.id,
-              systemKey: defaultSheet.systemKey,
-              schemaVersion: defaultSheet.schemaVersion,
-              data: defaultSheet.data as Prisma.InputJsonValue,
-            },
-          })
-
-          return character.id
-        }
-
-        const targetUserId = body.data.role === 'MASTER' ? auth.id : body.data.assignedUserId
-        if (!targetUserId) throw new Error('ASSIGNMENT_REQUIRED')
-
-        const identity = await tx.campaignCharacter.findFirst({
-          where: {
-            campaignId: campaign.id,
-            userId: targetUserId,
-            role: body.data.role,
-            status: 'ACTIVE',
-          },
-          select: {
-            characterId: true,
-            character: { select: { sheet: { select: { id: true } } } },
-          },
-        })
-        if (!identity) throw new Error('ASSIGNMENT_NOT_FOUND')
-        if (identity.character.sheet) throw new Error('ASSIGNMENT_ALREADY_HAS_SHEET')
-
-        await tx.character.update({
-          where: { id: identity.characterId },
-          data: {
-            name: body.data.name,
-            avatarUrl: body.data.avatarUrl?.trim() || null,
-            bio: body.data.bio?.trim() || null,
-            gameSystem: campaign.gameSystem,
-          },
-        })
-
-        await tx.characterSheet.create({
-          data: {
-            characterId: identity.characterId,
-            systemKey: defaultSheet.systemKey,
-            schemaVersion: defaultSheet.schemaVersion,
-            data: defaultSheet.data as Prisma.InputJsonValue,
-          },
-        })
-
-        return identity.characterId
+      const updated = await prisma.campaignCharacterSheet.update({
+        where: { id: sheet.id },
+        data: {
+          ...(body.data.assignedUserId !== undefined ? { assignedUserId: body.data.assignedUserId } : {}),
+          ...(body.data.tokenId !== undefined ? { tokenId: body.data.tokenId } : {}),
+        },
+        select: {
+          id: true,
+          assignedUser: { select: { id: true, email: true } },
+          token: { select: { id: true, name: true } },
+        },
       })
 
-      const entries = await provider.list({ campaignId: campaign.id })
-      const entry = entries.find((candidate) => candidate.characterId === characterId)
-      return reply.status(201).send({ characterId, entry: entry ?? null })
-    } catch (error) {
-      const message = error instanceof Error ? error.message : ''
-      if (message === 'ASSIGNMENT_REQUIRED') return reply.status(400).send({ error: 'Selecione quem recebera a ficha' })
-      if (message === 'ASSIGNMENT_NOT_FOUND') return reply.status(404).send({ error: 'Participante ativo nao encontrado' })
-      if (message === 'ASSIGNMENT_ALREADY_HAS_SHEET') return reply.status(409).send({ error: 'Este participante ja possui uma ficha' })
+      return reply.send({
+        sheetId: updated.id,
+        assignedUser: updated.assignedUser
+          ? { id: updated.assignedUser.id, label: updated.assignedUser.email }
+          : null,
+        token: updated.token,
+      })
+    } catch (error: unknown) {
+      const prismaError = error as { code?: string }
+      if (prismaError.code === 'P2002') {
+        return reply.status(409).send({ error: 'Este Token ja esta vinculado a outra ficha' })
+      }
       throw error
     }
+  })
+
+  app.get('/api/campaigns/:campaignId/tokens/:tokenId/character-sheet', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = tokenSheetParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Token invalido' })
+
+    const role = await findActiveCampaignRole(params.data.campaignId, auth.id)
+    if (!role) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const token = await prisma.campaignToken.findFirst({
+      where: { id: params.data.tokenId, campaignId: params.data.campaignId },
+      select: {
+        controllerMember: { select: { userId: true } },
+        characterSheet: {
+          select: {
+            id: true,
+            name: true,
+            assignedUserId: true,
+          },
+        },
+      },
+    })
+    if (!token?.characterSheet) return reply.status(404).send({ error: 'Token sem ficha vinculada' })
+
+    const canOpen = role.role === 'MASTER'
+      || token.controllerMember?.userId === auth.id
+      || token.characterSheet.assignedUserId === auth.id
+    if (!canOpen) return reply.status(403).send({ error: 'Sem permissao para abrir esta ficha' })
+
+    return reply.send({
+      sheetId: token.characterSheet.id,
+      title: token.characterSheet.name,
+    })
   })
 
   app.get('/api/campaigns/:campaignId/catalog/:domain', async (req, reply) => {
