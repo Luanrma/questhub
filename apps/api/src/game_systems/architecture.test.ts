@@ -11,13 +11,16 @@ const legacyGameSystemsRoot = path.join(vttModulesRoot, 'game_systems')
 const vttServerFile = path.join(apiSourceRoot, 'server.ts')
 const applicationBootstrapFile = path.join(apiSourceRoot, 'main.ts')
 const gameSystemsRegisterFile = path.join(gameSystemsRoot, 'register.ts')
+const webSourceRoot = path.join(process.cwd(), 'apps', 'web', 'src')
+const webVttRoot = path.join(webSourceRoot, 'vtt')
+const webPathfinderRoot = path.join(webSourceRoot, 'features', 'pathfinder-2e')
 
 function collectTypeScriptFiles(directory: string): string[] {
   return readdirSync(directory).flatMap((entry) => {
     const entryPath = path.join(directory, entry)
     return statSync(entryPath).isDirectory()
       ? collectTypeScriptFiles(entryPath)
-      : entry.endsWith('.ts')
+      : entry.endsWith('.ts') || entry.endsWith('.tsx')
         ? [entryPath]
         : []
   })
@@ -41,7 +44,7 @@ function findRelativeImportsInto(sourceRoot: string, forbiddenRoot: string): str
         (!relativeToForbiddenRoot.startsWith('..') && !path.isAbsolute(relativeToForbiddenRoot))
 
       if (entersForbiddenRoot) {
-        violations.push(`${path.relative(apiSourceRoot, sourceFile)} -> ${specifier}`)
+        violations.push(`${path.relative(process.cwd(), sourceFile)} -> ${specifier}`)
       }
     }
   }
@@ -168,5 +171,26 @@ test('the shared runtime never imports a concrete game system', () => {
     violations,
     [],
     `The shared runtime cannot depend on a concrete system:\n${violations.join('\n')}`,
+  )
+})
+
+test('the web VTT never imports or names the Pathfinder renderer', () => {
+  const importViolations = findRelativeImportsInto(webVttRoot, webPathfinderRoot)
+  const namingViolations = collectTypeScriptFiles(webVttRoot).flatMap((sourceFile) => {
+    const source = readFileSync(sourceFile, 'utf8')
+    return /PATHFINDER_2E|pathfinder-2e|Pathfinder2e|Pathfinder 2e/i.test(source)
+      ? [path.relative(process.cwd(), sourceFile)]
+      : []
+  })
+
+  assert.deepEqual(
+    importViolations,
+    [],
+    `The VTT cannot import a concrete sheet renderer:\n${importViolations.join('\n')}`,
+  )
+  assert.deepEqual(
+    namingViolations,
+    [],
+    `The VTT cannot branch on or name Pathfinder:\n${namingViolations.join('\n')}`,
   )
 })
