@@ -9,6 +9,7 @@ import { resolvePathfinder2eInlineText } from './inline-text'
 import { PATHFINDER_2E_EXHAUSTIVE_08_ITEM_ORIGINALS } from './items/original/core-remaster-exhaustive-08'
 import { PATHFINDER_2E_EXHAUSTIVE_09_ITEM_ORIGINALS } from './items/original/core-remaster-exhaustive-09'
 import { PATHFINDER_2E_EXHAUSTIVE_10_ITEM_ORIGINALS } from './items/original/core-remaster-exhaustive-10'
+import { localizePathfinder2eSpellDefense } from './spell-defense'
 import {
   hasPathfinder2eTraitTranslation,
   translatePathfinder2eTerm,
@@ -45,6 +46,83 @@ test('spell sheets localize damage type and effect kind using spell context', as
 
   assert.equal(casting?.fields.some((field) => field.label === 'Rank' && field.value === '1'), true)
   assert.equal(effects?.fields[0]?.value, '1d4+1 · força · dano')
+})
+
+test('structured spell damage resolves Rank tokens before presentation', async () => {
+  const sheet = await pathfinder2eContextualCatalogProvider.get({
+    campaignId: 'campaign-1',
+    domain: 'SPELLS',
+    locale: 'pt-BR',
+    contentId: 'pf2e:spell:spells-srd:purging-toxins',
+  })
+  const effects = sheet?.sections.find((section) => section.title === 'Dano ou cura')
+
+  assert.ok(sheet)
+  assert.equal(effects?.fields[0]?.value, '3 · veneno · dano')
+  assert.doesNotMatch(effects?.fields[0]?.value ?? '', /@item\.rank/i)
+})
+
+test('spell defenses use Pathfinder save terminology instead of literal machine translations', async () => {
+  const expectedTranslations = {
+    'will save': 'teste de Vontade',
+    'fortitude save': 'teste de Fortitude',
+    'reflex save': 'teste de Reflexos',
+    'basic will save': 'teste básico de Vontade',
+    'basic fortitude save': 'teste básico de Fortitude',
+    'basic reflex save': 'teste básico de Reflexos',
+  } as const
+
+  for (const [original, expected] of Object.entries(expectedTranslations)) {
+    assert.equal(
+      localizePathfinder2eSpellDefense(original, 'tradução literal inválida', 'pt-BR'),
+      expected,
+    )
+  }
+
+  const telepathicDemand = await pathfinder2eContextualCatalogProvider.get({
+    campaignId: 'campaign-1',
+    domain: 'SPELLS',
+    locale: 'pt-BR',
+    contentId: 'pf2e:spell:spells-srd:telepathic-demand',
+  })
+  const casting = telepathicDemand?.sections.find((section) => section.title === 'Conjuração')
+
+  assert.ok(telepathicDemand)
+  assert.equal(
+    casting?.fields.some((field) => (
+      field.label === 'Defesa' && field.value === 'teste de Vontade'
+    )),
+    true,
+  )
+})
+
+test('all imported structured spell defenses use the deterministic pt-BR vocabulary', () => {
+  const expectedTranslations: Readonly<Record<string, string>> = {
+    'will save': 'teste de Vontade',
+    'fortitude save': 'teste de Fortitude',
+    'reflex save': 'teste de Reflexos',
+    'basic will save': 'teste básico de Vontade',
+    'basic fortitude save': 'teste básico de Fortitude',
+    'basic reflex save': 'teste básico de Reflexos',
+    'fortitude-dc': 'CD de Fortitude',
+    ac: 'CA',
+  }
+
+  for (const entry of PATHFINDER_2E_CONTENT_ENTRIES) {
+    if (entry.original.domain !== 'SPELL') continue
+
+    const originalDefense = (entry.original.data as { defense?: unknown }).defense
+    if (typeof originalDefense !== 'string') continue
+
+    const expected = expectedTranslations[originalDefense.toLowerCase()]
+    if (!expected) continue
+
+    assert.equal(
+      entry.translation.fields.defense,
+      expected,
+      `${entry.original.contentId} has an invalid pt-BR defense`,
+    )
+  }
 })
 
 test('item prices preserve GP, SP and CP in cards and sheets', async () => {
@@ -170,6 +248,31 @@ test('inline text resolver converts source check macros into localized rules tex
 
   assert.equal(localizedSkill, 'Ladinagem CD 26 (especialista)')
   assert.equal(localizedSave, 'salvamento básico de Reflexos CD 41')
+})
+
+test('inline text resolver converts enriched roll and action commands into readable text', () => {
+  const portuguese = resolvePathfinder2eInlineText(
+    'Role [[/r 1d4 #Added Effect]], depois [[/act escape show-dc=all dc=25]].',
+    { locale: 'pt-BR' },
+  )
+  const english = resolvePathfinder2eInlineText(
+    'Recharge [[/gmr 1d4 #Recharge Ability]] and hide with [[/act hide]].',
+    { locale: 'en-US' },
+  )
+
+  assert.equal(portuguese, 'Role 1d4, depois Escapar CD 25.')
+  assert.equal(english, 'Recharge 1d4 and hide with Hide.')
+  assert.doesNotMatch(`${portuguese} ${english}`, /\[\[\//)
+})
+
+test('inline text resolver removes nested damage automation options', () => {
+  const portuguese = resolvePathfinder2eInlineText(
+    'Sofre (6d12)[fire|options:area-damage] damage.',
+    { locale: 'pt-BR' },
+  )
+
+  assert.equal(portuguese, 'Sofre 6d12 de dano de fogo.')
+  assert.doesNotMatch(portuguese, /options|opções|\[[^\]]+\]/i)
 })
 
 test('catalog presentation does not expose runtime source tokens from imported entries', async () => {

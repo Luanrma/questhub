@@ -277,6 +277,27 @@ function replaceCheckMacros(value: string, locale: GameSystemContentLocale) {
   return resolved
 }
 
+const ACTION_LABELS_PT_BR: Readonly<Record<string, string>> = {
+  escape: 'Escapar',
+  hide: 'Esconder-se',
+}
+
+function formatActionCommand(value: string, locale: GameSystemContentLocale) {
+  const [action = 'action', ...options] = value.trim().split(/\s+/)
+  const difficultyClass = options
+    .map((option) => option.match(/^(?:dc|cd)=(\d+)$/i)?.[1])
+    .find(Boolean)
+  const englishLabel = action
+    .split('-')
+    .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
+    .join(' ')
+  const label = locale === 'pt-BR'
+    ? ACTION_LABELS_PT_BR[action.toLowerCase()] ?? englishLabel
+    : englishLabel
+
+  return `${label}${difficultyClass ? ` ${locale === 'pt-BR' ? 'CD' : 'DC'} ${difficultyClass}` : ''}`
+}
+
 export function resolvePathfinder2eInlineText(
   value: string,
   context: Pathfinder2eInlineTextContext,
@@ -288,13 +309,22 @@ export function resolvePathfinder2eInlineText(
     )
       .replace(/@Template\[([^\]\n]+)\]/gi, (_, options: string) => formatTemplate(options, context.locale))
       .replace(
-        /\[\[\/gmr\s+([^\]#]+?)(?:\s+#[^\]]*)?\]\](?:\{[^}\n]*\})?/gi,
+        /\[\[\/(?:r|gmr|br)\s+([^\]#]+?)(?:\s+#[^\]]*)?\]\](?:\{[^}\n]*\})?/gi,
         (_, formula: string) => formula.trim(),
       )
       .replace(
-        /(\b\d+(?:\.\d+)?(?:d\d+(?:[+-]\d+)?)?)\[([^\]\n]+)\](?:\{[^}\n]*\})?(?:\s+(?:damage|de dano))?/gi,
+        /\[\[\/act\s+([^\]]+)\]\](?:\{[^}\n]*\})?/gi,
+        (_, action: string) => formatActionCommand(action, context.locale),
+      )
+      .replace(
+        /\[\[\/([a-z][a-z0-9-]*)(?:\s+[^\]]*)?\]\](?:\{[^}\n]*\})?/gi,
+        (_, command: string) => command.replaceAll('-', ' '),
+      )
+      .replace(
+        /\(?(\b\d+(?:\.\d+)?(?:d\d+(?:[+-]\d+)?)?)\)?\[([^\]\n]+)\](?:\{[^}\n]*\})?(?:\s+(?:damage|de dano))?/gi,
         (_, formula: string, annotation: string) => formatDamageAnnotation(formula, annotation, context.locale),
       )
+      .replace(/\|(?:options|opções):[^\]\n]+\]/gi, '')
       .replace(/\{[^}\n]*\}/g, '')
       .replace(/[ \t]{2,}/g, ' ')
       .trim(),

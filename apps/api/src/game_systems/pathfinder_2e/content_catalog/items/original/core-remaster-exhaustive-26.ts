@@ -1,0 +1,14814 @@
+import type { Pathfinder2eOriginalContentRecord } from '../../records'
+import type { Pathfinder2eItemData } from '../types'
+
+export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOriginalContentRecord<Pathfinder2eItemData>[] = [
+  {
+    "contentId": "pf2e:item:equipment-srd:horned-hand-rests-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uQNw11Osk2pwx6d8",
+      "slug": "horned-hand-rests-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/companion-items/horned-hand-rests.webp"
+    },
+    "sourceHash": "sha256:a82a8c202278806b155617d484c8213559ec0f6fde5692ef076420023e08491d",
+    "translatableHash": "sha256:e5c4c721fef082075960b9f5cb9e00c05f707725cd9f21d86bb90edb02fb08d0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Horned Hand Rests (Greater)",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "common",
+      "traits": [
+        "companion",
+        "invested",
+        "magical"
+      ],
+      "description": "These thick bull or ram horns fuse into the armrests of your legchair companion, giving it more aggressive options. Your animal companion can only invest this item if it is a legchair.\nActivate 1 or 2 envision\nFrequency once per minute\nEffect You trace your finger along the base of the ram horns, with an effect depending on how many actions you spent.\n1 Your legchair draws force from its momentum. Until the end of this turn, if your legchair Strides, it deals 3d6 additional force damage on its next Strike and, on a critical success, pushes the target away by 10 feet.\n2 Your legchair fires a beam of force from its ram horns. The target takes 6d6 force damage and must attempt a check (fortitude, dc:32) save.\nCritical Success The target is unaffected.\nSuccess The target takes half damage and is pushed 5 feet.\nFailure The target takes full damage and is pushed 10 feet.\nCritical Failure The target takes double damage and is pushed 20 feet.",
+      "bulk": 1,
+      "price": {
+        "gp": 2750
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:paired-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VqT8sHEf2gcY6arL",
+      "slug": "paired-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:bb7394ecc2b5e50331f085a079c0b4c5a9ca2767d3c8d395e17c84da423aabbe",
+    "translatableHash": "sha256:ba8ccdd3d64cd3582d097e9521cbe33ba4280f330ac45e7df58452751121f4d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Paired (Major)",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "teleportation"
+      ],
+      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different characters, and are on the same plane as each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
+      "bulk": 0,
+      "price": {
+        "gp": 2750
+      },
+      "usage": "each-rune-applied-to-a-separate-item-that-has-pockets",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stanching-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZTdRDRew1B0zTGiU",
+      "slug": "stanching-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:6e9b1360dc37a52519c75b556f6bcf3b6339e7c41ebc60e3e5ea295676356e12",
+    "translatableHash": "sha256:a006a0066b5f27766609b006c686d314b5bf70a16844508848f1646490041baa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stanching (Major)",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "These symbols close bloody wounds. Armor with this rune reduces the DC of the flat check to end persistent bleed damage from 15 to 8 (3 with particularly effective assistance).",
+      "bulk": 0,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eye-of-the-unseen-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7CCGLWYzsRuodCMM",
+      "slug": "eye-of-the-unseen-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/eye-of-the-unseen.webp"
+    },
+    "sourceHash": "sha256:23aa736c3ac44b51894bf9817505ecb47cf7249d92ef4de87b26b1d13be80a58",
+    "translatableHash": "sha256:5b205cad50a3b121e87269ab5956dfa988d2b184514f23377d97683762607e11",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eye of the Unseen (Greater)",
+      "itemType": "equipment",
+      "level": 14,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This prosthetic eye was designed by elven crafters but comes in a range of appearances for different ancestries. While wearing the eye, you gain a +2 item bonus to visual Perception checks.\nActivate 2 command, envision\nFrequency once per day\nEffect You focus on the eye to see the unseen. The eye casts 5th-rank See the Unseen on you.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4000
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:brilliant-rapier",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kCN0QxUbJrvidysF",
+      "slug": "brilliant-rapier",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/brilliant-rapier.webp"
+    },
+    "sourceHash": "sha256:1e70ebfa428f7139d831a281a49a405251a0ae0c71603781ea48387831f75951",
+    "translatableHash": "sha256:c2466b4439186b01d655ffb70aef83b9eef0fcebd6b8390b53b605f89e9e1b08",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Brilliant Rapier",
+      "itemType": "weapon",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d8",
+        "disarm",
+        "finesse",
+        "good",
+        "holy",
+        "versatile-spirit",
+        "versatile-vitality"
+      ],
+      "description": "This +2 brilliant greater striking rapier is formed entirely out of radiant energy, even more so than a usual brilliant weapon, and has left its physical form behind entirely. Instead of dealing piercing damage, it deals fire damage, and in addition to a rapier's normal weapon traits, it gains the versatile spirit or vitality trait.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4500
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "fire"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:memory-palace",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KyIYS1RDED6gL33N",
+      "slug": "memory-palace",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/memory-palace.webp"
+    },
+    "sourceHash": "sha256:69e90af92cac912a93d623ff807ee3a058474dd04c45ea7bee91e5a223380cf1",
+    "translatableHash": "sha256:773b8a26d67bb6db00ff69ae83d72cb4c80d3fbe347c8c71d3dbb55d64eb53ac",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Memory Palace",
+      "itemType": "equipment",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "structure"
+      ],
+      "description": "A memory palace is an elaborate magical structure that safely stores memories for easy access. It appears to be a miniature Taldan villa small enough to fit in the palm of a human hand.\nActivate (10 minutes) envision, Interact\nFrequency once per day\nEffect The miniature grows into a building connected to the Astral Plane for 1 hour. The memory palace has a 30-foot-square central courtyard surrounded by 12 10-foot-square chambers. Arranged within these chambers are various items referred to as the palace's nodes-statues, tapestries, fountains, and other works of art are common, but a node can take other forms at the GM's discretion. As a 10-minute activity, you can imprint one extended memory onto a node: the contents of a specific simple book, for example, or the events of a recent adventure. When you do, the node changes its shape and appearance to visually represent the memory you have imprinted onto it. If the node was already imprinted with a memory, the old one can be overwritten to repurpose the node.\nMemories you have imprinted on a node can be mentally accessed at any time by a creature holding the memory palace in its miniature form, regardless of who imprinted them. This grants a +2 item bonus to Recall Knowledge checks relating to details specifically occurring within the memory. What exactly qualifies is up to the GM's discretion, but a node shouldn't grant the benefits for most uses of a given skill. For example, a node dedicated to a book about trees found in the Mwangi Expanse would help with Recall Knowledge checks for such trees, but it wouldn't grant the benefits for all Nature checks to Recall Knowledge.\nA memory palace node can also store the text from a spellbook or magical tome, but these memories aren't a substitute for having the book in your possession. A wizard can't prepare spells from a memory palace, though they could use it as source material to try to Learn a Spell. However, since storing spells in a node would only benefit someone else who later discovers the memory palace, few choose to take such an action. The memories contained within the nodes aren't real, and thus don't cause harmful effects, even if the source of the memory was a mental danger. Many memory palaces have leftover memories from previous users-now long dead-imprinted on their various nodes.",
+      "bulk": 0,
+      "price": {
+        "gp": 4200
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:chopping-evisceration-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pV5M6IYoPDhTy6FA",
+      "slug": "chopping-evisceration-snare",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/snares/chopping-evisceration-snare.webp"
+    },
+    "sourceHash": "sha256:f05197cd23832d31e6b6b8196ac4c56bcc640d945cefe43e19b17daec697043f",
+    "translatableHash": "sha256:27195571c99e6d2a9c4cc3a9e7190049c568be4fee6e065ea207cc3c44b8620e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Chopping Evisceration Snare",
+      "itemType": "consumable",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "An almost-impossible number of axes spring out at a target with lethal force. When a creature enters the snare's square, it's nearly buried beneath a storm of sharpened metal, which deals 16d8 slashing damage (check (reflex, dc:33, basic, showDC:all)).",
+      "bulk": 0,
+      "price": {
+        "gp": 700
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:brewers-regret-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RN8TnAhWQ4tNKHgP",
+      "slug": "brewers-regret-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tapas/brewers-regret.webp"
+    },
+    "sourceHash": "sha256:b6d82b26187c537a0b793af3a3da0ba26c3b7d3c20bdc2975f96958eac63ff68",
+    "translatableHash": "sha256:f8dbd2e918a99d34a13d1cb9b1a99514f7d9451743de64de8c8d4ae4b8142e67",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Brewer's Regret (Greater)",
+      "itemType": "consumable",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nWhen a brewer makes a batch of something they'd rather not drink, they often boil it down; add myrrh, mugwort extract, and violet salt; and sell it to chefs looking for cheap sandwich fillings. The thick, salty sourness ruins the taste of most other food, but it also creates a strong desire to live to taste anything else. For 1 hour after consumption, you gain a +3 item bonus to saves against death and void effects. In addition, your doomed value decreases by 1 (minimum 0). You can reduce the doomed condition with brewer's regret only once per day, and after you do, you can't reduce the doomed condition from the Restoration spell that same day (or vice versa).\nEffect: Brewer's Regret",
+      "bulk": 0.1,
+      "price": {
+        "gp": 625
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skyrider-sword",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SatFUtE2UaPvC394",
+      "slug": "skyrider-sword",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:4b8642553024aad248266cfaf3ebf6485e7ff735b967a9c2b8d8c76282acb668",
+    "translatableHash": "sha256:1377476f54f041bd5e4ca4a415b7b975043e5f10f66f79aae1a0e04a0ceedae7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skyrider Sword",
+      "itemType": "weapon",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "air",
+        "magical",
+        "versatile-p"
+      ],
+      "description": "This +2 greater striking shock greatsword has a broad, flat blade that can support the weight of a Medium-sized or smaller wielder. Magic allows the weapon to soar through the air, carrying its wielder along with it.\nActivate 1 command\nFrequency once per day\nRequirements You're holding the sword in at least one hand\nEffect You leap upon your sword as it soars through the air for up to 10 minutes. You gain a fly Speed of 25 feet or your land Speed, whichever is slower, but you can't Strike with your weapon except via the weapon's other activation (see below). You can Dismiss the activation, and it ends automatically if you cease holding the weapon with at least one hand.\nEffect: Skyrider Sword\nActivate 2 Interact\nRequirements You are riding on your weapon\nEffect You ride your weapon into a foe, attacking it as you fly past. You Fly, making a melee Strike with the weapon once at any point during your movement.",
+      "bulk": 2,
+      "price": {
+        "gp": 4500
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d12",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragons-breath-6th-level-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SNxXDIoD0XE9WVQ7",
+      "slug": "dragons-breath-6th-level-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:9a8531022609deea32f3a8802f373ca78b76652ebed850d4acfe095d3b3b9ce1",
+    "translatableHash": "sha256:3ef29d667326e8db9c8dd9157a809c19655c4f1f0a60ee7b5706e5a833eaa85f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragon's Breath (6th Level Spell)",
+      "itemType": "equipment",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune depicts a specific type of dragon, resizing after application to fit the surface of the item.\nActivate f envision (spellshape)\nRequirements You're receiving a bonus to AC from your dragon's breath cape or shield\nEffect If your next action is to Cast a Spell with an area of effect that deals the same type of damage as the depicted dragon's breath weapon, the spell gains the effects of the Widen Spell feat. The rune can only affect spells of 6th level or lower.",
+      "bulk": 0,
+      "price": {
+        "gp": 4500
+      },
+      "usage": "applied-to-dueling-cape-or-shield",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:malleable-mixture-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TKOe8epJTCef87Bj",
+      "slug": "malleable-mixture-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/malleable-mixture.webp"
+    },
+    "sourceHash": "sha256:fe795845ea14c632e8cea22b18dc1192c88eaddcad62098bc3484ffd4cd30903",
+    "translatableHash": "sha256:568cf19d41571def5a65b08454949b1bd4f709ed76c00de1040960a2858ef876",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Malleable Mixture (Greater)",
+      "itemType": "consumable",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Your bones, muscles, and organs become vastly softer and more pliable. You can fit into and through small or narrow spaces as though you were 2 sizes smaller than your normal size (minimum tiny), and you gain a +3 item bonus to your Fortitude and Reflex DCs against attempts to Grapple, Shove, or Trip you for 10 minutes.\nEffect: Malleable Mixture (Greater)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 750
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wind-catcher-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wbCw7hNyQZSuy4QL",
+      "slug": "wind-catcher-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:95170b289ce7671cef3f5a53030324fe0cefa22d1285a17a72e2fb4816c8610d",
+    "translatableHash": "sha256:96a97a6298611c845b0aa4bbf38256c73eb960551652febd9252801ed3a7de40",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wind-Catcher (Greater)",
+      "itemType": "equipment",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune is invested by the captain or pilot of the vehicle. The vehicle gains a +10-foot item bonus to its Speed. If lack of wind prevents the vehicle from moving, it can still move at a Speed of 10 feet.",
+      "bulk": 0,
+      "price": {
+        "gp": 4250
+      },
+      "usage": "applied-to-a-wind-powered-vehicle",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:transposition-ammunition-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9CNxvAalHBPdSUFl",
+      "slug": "transposition-ammunition-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/ammunition/transposition-ammunition.webp"
+    },
+    "sourceHash": "sha256:cf521c2254755e6e71452a661ba9673162b5d352a30d1468958d1f261e69cd1b",
+    "translatableHash": "sha256:0619224a8d02884f72690e6eebe640a1c3dd4c6848823d9ea706de0ad5206d89",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Transposition Ammunition (Greater)",
+      "itemType": "ammunition",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "teleportation"
+      ],
+      "description": "Ammunition any\nActivate 2 Interact\nTransposition ammunition has a milky-white cast and will sometimes shift position subtly of its own accord. When you activate the ammunition, instead of making your Strike against a foe, you fire transposition ammunition at any unoccupied square you can see within your weapon's first range increment and succeed without making an attack roll. You pull yourself through the Astral Plane, teleporting along with any items you are holding into the square where you shot the ammunition. When you teleport, you can take along up to two willing adjacent creatures. These creatures must each arrive in unoccupied squares adjacent to the transposition ammunition; if there's not enough space for both of them, you choose which one is teleported.",
+      "bulk": 0,
+      "price": {
+        "gp": 1250
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-spiritual-warfare-6th-rank-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bjjp7rXqikby6NU5",
+      "slug": "wand-of-spiritual-warfare-6th-rank-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-spiritual-warfare.webp"
+    },
+    "sourceHash": "sha256:59c54792e93a24f58a094296c3241d87c0236cf2131f50ca88c94701cbb96193",
+    "translatableHash": "sha256:68330ce30aba1a2aad6ecafcb42261065bb9fdfbcaf84f9743b1f9859876235c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Spiritual Warfare (6th-Rank Spell)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "force",
+        "magical",
+        "wand"
+      ],
+      "description": "This wand juts from an ornate hilt like a short, wooden dagger blade.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Spiritual Weapon at 6th-rank. When you critically hit, you apply the weapon's critical specialization effect. In addition, you can etch one of the following property runes onto the wand: corrosive, flaming, frost, shock, thundering, or their respective greater versions. The spiritual weapon's Strikes gain the effects of this rune.\nCraft Requirements Supply a casting of spiritual weapon of 6th-rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6500
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:folding-boat-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FQnK379odYh4Tors",
+      "slug": "folding-boat-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/folding-boat.webp"
+    },
+    "sourceHash": "sha256:23e766b96ddff6667a0aa493537b74a5ea41743ae2f1c1947ebf3e2c2e1f77b6",
+    "translatableHash": "sha256:8973429b7004bec2b1910f27094dbd74225da1f100e57095a768593c63aca4c8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Folding Boat (Greater)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This simple carved box can fold or unfold into a boat when activated.\nActivate 2 command, Interact\nEffect The folding boat can take two shapes. The first is a wooden box that's 12 inches long, 6 inches wide, and 4 inches high; it weighs 1 Bulk and can store up to 1 Bulk of items. The other form is a Cutter, piloted and crewed by ethereal sailors. The ethereal sailors don't prevent you from activating the boat to return it to a box. If the chosen form can't fit in the space, it takes the largest shape that does fit. You can activate the boat again to revert it to its original shape. If the boat is occupied, the item can't be activated. Much like a magical structure, a folding boat can't harm creatures when it unfolds and creatures within it are set aside harmlessly when it folds.\nAny items that were stored inside the box appear in the boat or ship. Items stored on the boat or ship form that are too large to fit inside the box form are ejected from the vehicle and appear on the ground adjacent to the box. A folding boat with the Broken condition must be repaired before it can change form again.",
+      "bulk": 1,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:big-rock-bullet-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Fz6jQ0M3v55R8CqA",
+      "slug": "big-rock-bullet-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ae449ae5d138cd43548701b2d3a8620f0a43afd468af0f87082e90130a067078",
+    "translatableHash": "sha256:7e7fc63f45d3bc12db680d2a4453af751e399504efe9be059bf25a3343b6157c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Big Rock Bullet (Major)",
+      "itemType": "ammunition",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "earth",
+        "magical"
+      ],
+      "description": "Ammunition sling bullet\nActivate 1 Interact\nA big rock bullet is a sling bullet made of heavy granite, but each piece of ammunition feels much more dense than it appears. When activated, a big rock bullet transforms into a giant rock just before hitting the target. The target takes 12d6 bludgeoning damage on a successful hit. Even on a failed attack roll (but not a critical failure), the target takes 6d6 bludgeoning damage. Creatures with the Catch Rock reaction can use it against a big rock bullet.",
+      "bulk": 0,
+      "price": {
+        "gp": 1150
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:arctic-vigor-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nSG5bwiZBEjj53Ya",
+      "slug": "arctic-vigor-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/tattoos/arctic-vigor.webp"
+    },
+    "sourceHash": "sha256:9b396a1a993d4e28314b627ceb925d648926a015373d05fa7153376fbe38444c",
+    "translatableHash": "sha256:c9d19f7c85464605407904fd175cb4ad2c673fa841734aa1cb3ebd8612b091b8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Arctic Vigor (Greater)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "cold",
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "This tattoo takes the shape of the face of a roaring polar bear with piercing, ice-blue eyes. You don't take damage from extreme cold or severe cold. While exposed to incredible cold, you only take minor cold damage every hour, instead of moderate cold damage every minute. You ignore the uneven ground and difficult terrain caused by ice and the difficult terrain caused by snow (reducing greater difficult terrain from ice or snow to normal difficult terrain).\nActivate 2 command\nFrequency once per day\nEffect You call forth a blast of polar wind in your choice of a 10-foot burst, 15-foot burst, or 20-foot burst within a range of 60 feet that deals 12d6 cold damage. All creatures in the area must attempt a check (fortitude, dc:27, basic, name:Tattoo Polar Blast, showDC:all, options:area-effect) save.",
+      "bulk": 0,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fanged-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qL1S3vGfv8Dh5yAE",
+      "slug": "fanged-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:95473309385ab02c4e65e298f64e5936bfe788529a8f0979f0a2767878425186",
+    "translatableHash": "sha256:d046e5f5314d0d6f107e00651a8cb5616cb20977e56815175d02ac2e3d1418e7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fanged (Major)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "When etched with this rune, a weapon's hilt or haft becomes engraved with grooves that match the imprints of a wolf's teeth. By putting a fanged weapon in your mouth, you can transform into an animal.\nActivate 1 Interact (magical, polymorph, transmutation)\nEffect You transform into a Small or Medium animal that wields the fanged weapon in its jaws; the animal matches the animal you are most closely associated with (a lizardfolk would turn into a lizard, a kitsune into a fox, a deer instinct barbarian into a deer, etc.) or a wolf if no specific animal is applicable. While in this form, you can attack with the fanged weapon even though you don't have any hands. However, you can attack only with the fanged weapon and you don't have hands or the ability to hold items. For effects dependent on how many hands you are using to hold the item, such as the two-hand trait, you are holding the weapon in two hands. You can Dismiss this effect, and it ends automatically if you drop the fanged weapon (whether or not of your own volition).\nIn animal form, you gain low-light vision, imprecise scent to a range of 30 feet, and a +10-foot item bonus to your Speed.\nEffect: Fanged Rune Animal Form",
+      "bulk": 0,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "etched-onto-melee-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:silkspinners-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SJaFNXiHGILhwEMk",
+      "slug": "silkspinners-shield",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/silkspinners-shield.webp"
+    },
+    "sourceHash": "sha256:267636b3430efcaeaa82b0e8290f691dfe078b265e559c03d0bf54bf6dd83b1e",
+    "translatableHash": "sha256:9559e0883f6131cdf1484e3a57536782d99b5662037a75eeab2045879ec0e882",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Silkspinner's Shield",
+      "itemType": "shield",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "light",
+        "magical"
+      ],
+      "description": "This oddly fuzzy buckler resembles the abdomen of a spider. Its defensive side is covered in fine hairs, and two small spinnerets protrude from the bottom of its rim. The spinnerets serve as +2 greater striking shield spikes.\nActivate 1 Command\nFrequency once per day\nEffect You animate the silkspinner's shield. Eight spider legs sprout from the shield's rim, granting you a climb Speed of 25 feet until the end of your next turn. Additionally, the spinnerets animate and produce silk for 1 minute. Successful shield bash Strikes made with the silkspinner's shield during this time entangle the target in silk. The target takes a –10-foot circumstance penalty to its Speeds for 1 round. If your Strike was a critical hit, the target becomes Immobilized for 1 round instead. Regardless, the target can attempt to Escape (DC 30) to end the effect early.\nEffect: Silkspinner's Shield (Animated Strike)\nEffect: Silkspinner's Shield (Climb)\nHardness |\nHP |\nBT |\n10 |\n60 |\n30 |",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "buckler"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cold-comfort-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "sVTg7RMv8qFuQD3y",
+      "slug": "cold-comfort-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:66aad6c3dfcc2ee6243801e1dd22c4a3898488b609c72316dcce6af5bb705528",
+    "translatableHash": "sha256:cc53c9bad58b4ae35d8978fe1d20ea0032f1edcd1c6f34577288a7ea9c71f325",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cold Comfort (Greater)",
+      "itemType": "consumable",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "cold",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nDuration Ice created by the pellets lasts for 3 hours or until broken.\nThe contraption called cold comfort is a watertight pouch filled with a handful of small, heavy, silvery pellets. When emptied into an adjacent body of water, the pellets freeze the water's surface almost instantly, creating an ice block in a 20-foot square to a depth of 1 foot. Any creatures inside this space must attempt a check (reflex, dc:34, name:Avoid Being Frozen in Ice, options:damaging-effect,inflicts:immobilized, showDC:all) save. On a failure, the creature takes 4d6 cold damage and is Immobilized for 1 minute or until it Escapes (DC 31) or the ice is broken. The entire ice block has AC 10, Hardness 10, and 40 Hit Points, and it's immune to critical hits, cold damage, and precision damage. The ice is strong enough to support one Huge creature, up to two Large creatures or up to eight Medium or Small creatures. Traversing the slippery ice requires a successful check (acrobatics, dc:20, name:Balance on Ice, options:action:balance, showDC:all) check to Balance.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1300
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-thundering-echoes-6th-rank-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "UBWWeT6u5uHD5vT9",
+      "slug": "wand-of-thundering-echoes-6th-rank-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-thundering-echoes.webp"
+    },
+    "sourceHash": "sha256:0979eb661492f85b9a425b768ac81b330a49b8d223d7019b154015f687c39c27",
+    "translatableHash": "sha256:7426a19aa0c53491fc2a0ca68bbded976e4e7dfcc62c9d7c6b5a590196c59605",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Thundering Echoes (6th-Rank Spell)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "sonic",
+        "wand"
+      ],
+      "description": "A forked, lightning-like crack runs down the length of this ornate stone wand, which rumbles slightly with the peals of distant thunder.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Noise Blast of the indicated level. After you Cast the Spell, at the start of each of your turns, the sound echoes in the same area as if you had cast it again, though it deals one fewer d10. This effect lasts until the damage is reduced to below 2d10. The echoes don't affect structures or other items.\nCraft Requirements Supply a casting of sound burst of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6500
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dinosaur-boots-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6epYSje4gOgYPvK0",
+      "slug": "dinosaur-boots-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:91f5afe259ac33e848712fc08638b25c4dfc137e1e9542e6049b1cc7470a1212",
+    "translatableHash": "sha256:24f018f81f3f43db8d42b9181fd72abe44d64d921f1effc30ea963c2680184cb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dinosaur Boots (Greater)",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "The tough, scaled leather of these heavy boots comes from a mighty dinosaur, granting you the steadiness of a lumbering beast. Any time an action or effect would cause you to make a forced movement, roll a check (flat, dc:17) check. On a success, the forced movement fails to affect you.\nActivate 1 command (magical, morph, transmutation)\nFrequency once per day\nEffect You grow to size Huge if you choose, with the effects of 4th-rank Enlarge for 1 minute. During that time, you gain dinosaur features; your legs and feet transform into a dinosaur's. You gain a foot unarmed attack that has the same statistics as your fist unarmed attack, except its damage die is increased from 1d4 to 1d8. During the duration, you can use the Trample 3-action activity to Trample creatures one size smaller than you or smaller. This deals an amount of damage to each creature equal to that of your foot unarmed attack (including any extra weapon damage dice, bonuses, or additional damage as normal), with a check (reflex, dc:27, basic, name:Dinosaur Trample, traits:magical,transmutation, showDC:all) save. You can Dismiss the activation.\nEffect: Dinosaur Boots",
+      "bulk": 1,
+      "price": {
+        "gp": 9500
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodthirsty",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "AgDNThyJHtsp1Vjt",
+      "slug": "bloodthirsty",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:013aea29cbc3d2d1fa6564c13ab94accad49e054fd252e0523aaa69660b12105",
+    "translatableHash": "sha256:734220f3bc7dd452d6391be42b3afb7d47f216ed549d6ed15ba87cb58b423e50",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodthirsty",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "The magic in this rune sings in time with your attacks and coaxes you into finishing your opponent. When you critically hit a target that's taking persistent bleed damage, your target becomes Drained 1.\nActivate r envision\nTrigger You reduce a creature to 0 Hit Points with the weapon\nEffect You gain a number of temporary Hit Points equal to twice the creature's level. These Hit Points remain for 1 minute.",
+      "bulk": 0,
+      "price": {
+        "gp": 8500
+      },
+      "usage": "etched-onto-piercing-or-slashing-melee-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragons-breath-7th-level-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bgCBFy3yybTYo4Ec",
+      "slug": "dragons-breath-7th-level-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1af23fc1802bbb2d6eeff0ae0f93ccbe90940972d863af4aa17c5dc0028123c1",
+    "translatableHash": "sha256:3c7d3e1b08ba2a9e98eda89c5c31ecc25e9613596752650ce860d3ad9e5b15ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragon's Breath (7th Level Spell)",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune depicts a specific type of dragon, resizing after application to fit the surface of the item.\nActivate f envision (spellshape)\nRequirements You're receiving a bonus to AC from your dragon's breath cape or shield\nEffect If your next action is to Cast a Spell with an area of effect that deals the same type of damage as the depicted dragon's breath weapon, the spell gains the effects of the Widen Spell feat. The rune can only affect spells of 7th level or lower.",
+      "bulk": 0,
+      "price": {
+        "gp": 10000
+      },
+      "usage": "applied-to-dueling-cape-or-shield",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wovenwood-shield-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "e9Xiei2wduOEGI5r",
+      "slug": "wovenwood-shield-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/wovenwood-shield.webp"
+    },
+    "sourceHash": "sha256:af36509598b2e74ae3493dc21622996d8bf0f89abf7c363aad6f72ae82eabed9",
+    "translatableHash": "sha256:f930cffb0ef067dab9894fea43b05a585fd767dcb97940b5e7d87dcff88e88fc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wovenwood Shield (Major)",
+      "itemType": "shield",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
+      "bulk": 1,
+      "price": {
+        "gp": 8500
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "wooden-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pocket-gala",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LxaNamrRrGzJo6cL",
+      "slug": "pocket-gala",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8ccbf5175867f3e0ad15e9f43c8c43cf3f3dc721d569bcea02bcbe0a173b9fbf",
+    "translatableHash": "sha256:70334fccbcfc369f0fcb607b56136f6711d760c7ef812173819af8fbe6dc5dcb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pocket Gala",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "structure"
+      ],
+      "description": "This item appears to be a miniature stone replica of an aristocratic home or a simple castle.\nActivate (10 minutes) command, envision, Interact\nFrequency once per day\nEffect You place the figurine on the ground, and a harmonious note rings out as it grows into a spacious, elegant ballroom. The ballroom is 60 feet long, 45 feet wide, and features a ceiling that rises to a height of 20 feet. Elegant double doors on either end of the ballroom allow entry.\nInside, the ballroom is fully stocked with tables and chairs along both sides. A feasting table in the center of each seating area provides enough food and drink for up to 36 guests, and a cadre of unseen servants tend to guests' basic needs.\nWhile inside, you can utter a command word to call forth music, which echoes through the ballroom. Repeating the command word can alter the dynamics of the music, such as the musical style or tempo, or stop the music entirely. A second command word produces a set of masked, illusory dancers that immediately take to the floor and begin dancing to the current music. When there's no music, the illusory guests chatter among themselves in a nonsense language. An illusory dancer will gladly dance with anyone who asks. Repeating the command word dismisses the dancers.\nYou can utter a third command word declaring the gala over to revert the ballroom to its original form. As it reverts, the illusory dancers clap and cheer for your hospitality. If you don't revert the ballroom on your own, it automatically returns to its original state at the next sunrise.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:alluring-scarf-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oRQFgqcl8L5ix8h1",
+      "slug": "alluring-scarf-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/alluring-scarf.webp"
+    },
+    "sourceHash": "sha256:a0d7da34e979e822bc3fa138452a5e775393d68a8f27e457c4c67d74f8d9afdd",
+    "translatableHash": "sha256:79d589edb03da45dd45b4e9bb92d9cb4bb999252a7f4556caa060569e7065553",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alluring Scarf (Major)",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This thin, multicolored scarf shifts between hues in almost dizzying patterns.\nActivate 2 Interact (emotion, enchantment, mental, visual)\nFrequency once per day\nEffect You Stride. All creatures within 30 feet of you when you started the Stride must attempt a check (will, dc:35, traits:emotion,mental,visual) save. On a failure, a creature becomes Fascinated and must spend at least one of its actions on its next turn to move toward you. A fascinated creature can attempt another Will save if you move more than 30 feet away from them, and as normal, acting hostile to a creature or its allies breaks fascination automatically. Creatures that critically failed their save don't receive further saves if you move more than 30 feet away, and acting hostile to such a creature's allies allows them to attempt another save, rather than automatically ending the fascination. You can Sustain the Activation for up to 1 minute.",
+      "bulk": 0,
+      "price": {
+        "gp": 8000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-final-rest-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SSZojuAMC9Npvfm3",
+      "slug": "staff-of-final-rest-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/staff-of-final-rest.webp"
+    },
+    "sourceHash": "sha256:74f759faa65d69151c5b462d33b88e74829e45e7321760867e770daef658ba6a",
+    "translatableHash": "sha256:e7dc4022cffa4f1aef19cecf31e837b307af5d9b1518d4fdc1b584a04b0ab071",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of Final Rest (Major)",
+      "itemType": "weapon",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This white marble staff is carved into the figure of an abstract knight, its shield bearing the symbol of Lastwall, with a wickedly pointed sword made of dark wood raised high above its head. When you wield it as a weapon, it gains the versatile P trait and functions as a wooden stake, allowing you to use it to stake vampires, and your Strikes with the staff gain a +3 circumstance bonus to damage rolls against undead.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Vitality Lash\n• 1st Infuse Vitality, Heal\n• 2nd Heal, Peaceful Rest\n• 3rd Bind Undead, Infuse Vitality, Heal\n• 4th Heal, Holy Cascade\n• 5th Death Ward, Infuse Vitality, Heal\n• 6th Field of Life, Heal, Holy Cascade\n• 7th Heal, Holy Cascade, Sunburst\nCraft Requirements Supply one casting of all listed levels of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 9000
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:waffle-iron-high-grade-mithral",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TPQjZzF9yioMr9Bu",
+      "slug": "waffle-iron-high-grade-mithral",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/waffle-iron-mithral.webp"
+    },
+    "sourceHash": "sha256:1ca8b0c3acf81f4f231f609e6ff8781a84df1c53f4a5054b2e1da570a6cc6006",
+    "translatableHash": "sha256:92b2c961daccf9e2d7830d89b1b0b216b13d46349672e88bbb855184e3f0708b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Waffle Iron (High-grade Mithral)",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This set of hinged metal plates features studs on the inside of each plate to provide a texture for the pastry cakes you cook with it. You pour batter on the plates, close the device, and place it on a fire or stove to cook.\nTruly fit for emperors and demigods, this waffle iron is made of high-grade dawnsilver. Although most metallurgists are certain that the much more affordable standard-grade dawnsilver waffle iron maintains dawnsilver's full non-stick properties, the super elite insist that only waffles made from high-grade dawnsilver waffle irons conform to the most perfect shape and texture.\nNadian has one high-grade dawnsilver waffle iron for sale emblazoned with an archaic symbol associated with Milani from before she became a deity, supposedly used to make Milani herself waffles during her mortal life. As it's made of dawnsilver, this is an uncommon item.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6005
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:crown-of-the-fire-eater-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vfVpgUuieLdPoqY7",
+      "slug": "crown-of-the-fire-eater-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a0c9a09c26807739d3859d791a50dd0431c5c699dcbe046280924f21a51a762f",
+    "translatableHash": "sha256:63ec233386a956fa1d2ffdc4c71c916dd9fdb8c9d484a423f1ccdb97508c66a6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Crown of the Fire Eater (Major)",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A wreath of flames dances around the rim of this golden crown. You gain resistance 15 to fire.\nActivate r command\nFrequency once per day\nTrigger You take fire damage\nEffect You absorb some of the flame that would harm you. Increase your fire resistance from the crown from 15 to 35. Just after taking any remaining fire damage, you regain a number of Hit Points equal to 35 or the fire damage dealt by the triggering attack before damage resistance, whichever is less.",
+      "bulk": 0,
+      "price": {
+        "gp": 10000
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:prismatic-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "630xJ5zceXFXiTi2",
+      "slug": "prismatic-plate",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/specific-magic-armor/prismatic-plate.webp"
+    },
+    "sourceHash": "sha256:9357e25d310630b5ee9ad4612ccc5f90586cb197d742411619868924b3a4937e",
+    "translatableHash": "sha256:1d3a339469e1d52942170e193df69e87945ff7e429b4b70ae6975b73f90d653b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Prismatic Plate",
+      "itemType": "armor",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "With its standard-grade dawnsilver polished to a mirrorlike sheen, this +2 resilient glamered dawnsilver breastplate features the religious symbols of the goddesses of the Prismatic Ray pantheon-Desna, Sarenrae, and Shelyn-surrounded by a rainbow-colored set of gems.\nActivate 2 command, Interact\nFrequency once per day\nEffect You surround yourself in a coruscating field of red, orange, yellow, green, blue, indigo, and violet light for 1 minute. Each color has a different effect, based on the effects of a 7th-rank Chromatic Wall spell, and you apply the effects of each color once before it disappears from your field of light, which can happen in the following two ways.\nFirst, the field attempts a counteract check (counteract rank 7, counteract modifier 1d20+27) against any effect that would be blocked by a chromatic wall of any of the colors still surrounding you in your field of light. Succeed or fail, that color then disappears from your field of light.\nSecond, any creature that touches you or damages you with an unarmed attack or non-reach melee weapon is affected by a random remaining color from your field. As normal, this doesn't affect creatures you choose to touch.\nA creature can also remove a color from your field of light by using a specific spell, as described in chromatic wall. The effect ends early if each color disappears from your field of light, or if you choose to Dismiss it.\nCraft Requirements The initial raw materials must include 1,600 gp of dawnsilver.",
+      "bulk": 1,
+      "price": {
+        "gp": 14000
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 4,
+        "dexterityCap": 1,
+        "checkPenalty": -2,
+        "speedPenaltyFeet": -5
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fire-and-iceberg-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9Fps57Xc1XxxWK0j",
+      "slug": "fire-and-iceberg-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tapas/fire-and-iceberg.webp"
+    },
+    "sourceHash": "sha256:27e63f4affe50c66a9c97346c85a53165d2933947a65d0b272e265994c7c617e",
+    "translatableHash": "sha256:95f4bef40eba654a918805014c4d8ef81a35fbf4b85e5df4350ef514defc501a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fire and Iceberg (Major)",
+      "itemType": "consumable",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nFiery Anulite paprika, sunrise cinnamon, and winterbite are hidden inside this salad's translucent leaves, bringing the cool of snow and the heat of steam to every bite. The dueling sensations make some diners sweat and others shiver, but all leave with a lasting sense of heat and cold that make other sources pale in comparison. When you consume the salad, you gain resistance 15 to fire and cold for 10 minutes.\nEffect: Fire and Iceberg (Major)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stanching-true",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dLYifig01WulSNVF",
+      "slug": "stanching-true",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:72cbe530f77e2278baa1d702e253e4e6b697ffceaf0aa60409d46904bf12a64b",
+    "translatableHash": "sha256:5b1315cda1808de341536aa6bb3a24dd5e230f43cf5a1ca1ab372429aba1833f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stanching (True)",
+      "itemType": "equipment",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "These symbols close bloody wounds. Armor with this rune reduces the DC of the flat check to end persistent bleed damage from 15 to 5 (particularly effective assistance automatically removes persistent bleed damage).",
+      "bulk": 0,
+      "price": {
+        "gp": 12500
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:impossible-cake-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IBJIBTkTilVV0BdC",
+      "slug": "impossible-cake-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tapas/impossible-cake.webp"
+    },
+    "sourceHash": "sha256:8b59f3e09bf70c5ce28982c8aa92b40f8bdcb3023167c63f5014cce453db0d76",
+    "translatableHash": "sha256:0bd41fbd2ce307b8557d6bea2ca3eb53fc1b592a736a98a64d955b85dd00ff1b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Impossible Cake (Major)",
+      "itemType": "consumable",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nThis sleight-of-hand for the taste buds is flavored with absinthe and honey and always resembles something completely unlike a cake, from a pile of armor to a bowl of soup. Eating the cake gives you the confidence to make the impossible seem possible: for 1 hour after the meal, you gain a +4 item bonus to your Deception checks to Impersonate, as well as to Lie to convince others that you possess knowledge about the type of item that the cake resembles.\nEffect: Impossible Cake (Major)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:brooch-of-inspiration-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IxcUx7trxUdhF9DQ",
+      "slug": "brooch-of-inspiration-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:76d51a01855fbb4207ed98b36629e406be8f86341a35c0a30e4459a3c97cab04",
+    "translatableHash": "sha256:5f60257413d9caf98c51ec09bb2870c80734f5049098a71e0a83e9cfb6ea5ac5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Brooch of Inspiration (Major)",
+      "itemType": "equipment",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "divine",
+        "invested",
+        "magical"
+      ],
+      "description": "This finely cut garnet brooch fills your mind with vigor and occasional bursts of mental clarity. While wearing the brooch, you gain a +3 item bonus to checks to Recall Knowledge with any skill.\nActivate 1 envision (fortune)\nFrequency once per 10 minutes\nEffect You think hard on a topic and receive a sudden inspiration. You attempt to Recall Knowledge with any skill. On this check, you roll twice and take the higher result.",
+      "bulk": 0,
+      "price": {
+        "gp": 12500
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vexing-vapor-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RXpM5Kbuf3BYfK6f",
+      "slug": "vexing-vapor-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:23eef3a7f42d62d5044255961f92d1392bfd9c0e8a079ca7006523704f24159d",
+    "translatableHash": "sha256:ff3775a06639f0e97ac3bbf4c6431493cc059f477364a0844aeb5447a2bb2128",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vexing Vapor (Major)",
+      "itemType": "weapon",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "inhaled",
+        "mental",
+        "poison",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nThis flask contains a fine red powder made from toxic berries. You gain a +3 item bonus to attack rolls. A major vexing vapor bomb deals 4d6 mental damage and 4 splash)[mental damage]. On a hit, the target must succeed at a check (flat, dc:5) check before taking actions with the concentrate trait. This lasts until the end of its next turn (1 minute on a critical hit).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 4,
+        "die": "d6",
+        "type": "mental"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:queasy-lantern-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ToSrWLocAD4AffSB",
+      "slug": "queasy-lantern-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:47d8a84901fb2cf0653a8ff5d8a3e3f4a4dd207006eae70a4b29e20ba922a7d6",
+    "translatableHash": "sha256:251f59c490e6c9e27b80aa74ed2469d0cfe16597a01774d2e9015657aa2e20d0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Queasy Lantern (Greater)",
+      "itemType": "equipment",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "light",
+        "magical"
+      ],
+      "description": "This Lantern (Bull's Eye) is wrapped in decrepit leather skin. It constantly emits light in a 60-foot cone (and dim light in the next 60 feet). You can close or open internal shutters with an Interact action to block or reveal the light.\nActivate 2 Interact\nFrequency once per day\nEffect You slide in a magical lens that causes the lantern to emit a pale green light and then aim the lantern. All creatures in the lantern's 60-foot cone of bright light (but not those in the dim light), must attempt a check (fortitude, dc:37, name:Queasy Lantern, showDC:all) save. On a failure, a creature becomes Sickened 3 (Sickened 4 on a critical failure). The light then reverts to normal as the lens slides out of place.",
+      "bulk": 1,
+      "price": {
+        "gp": 13500
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-thundering-echoes-7th-rank-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VcZ5VVYMvnQQXzX9",
+      "slug": "wand-of-thundering-echoes-7th-rank-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-thundering-echoes.webp"
+    },
+    "sourceHash": "sha256:58af908136c6e2b07e8363e4231be05cf9da50e30112e1b35c9780d02ff059f2",
+    "translatableHash": "sha256:ac9a71760757cddbc815b9821a1caa9b53616e7fe9752330b041caec5782335f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Thundering Echoes (7th-Rank Spell)",
+      "itemType": "equipment",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "sonic",
+        "wand"
+      ],
+      "description": "A forked, lightning-like crack runs down the length of this ornate stone wand, which rumbles slightly with the peals of distant thunder.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Noise Blast of the indicated level. After you Cast the Spell, at the start of each of your turns, the sound echoes in the same area as if you had cast it again, though it deals one fewer d10. This effect lasts until the damage is reduced to below 2d10. The echoes don't affect structures or other items.\nCraft Requirements Supply a casting of sound burst of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cursebreak-bulwark",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VioxW97SUADl3zTt",
+      "slug": "cursebreak-bulwark",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/cursebreaker-bulwark.webp"
+    },
+    "sourceHash": "sha256:bb9ac0341063afab3daac0c58d660f264d30de2f562a8dd4e0f91aee4123bbbe",
+    "translatableHash": "sha256:b4e5401f0a248b07d9bf0f5f213a5a974c1660265cbcb22ecc9e5fb05807251c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cursebreak Bulwark",
+      "itemType": "shield",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This tower shield is composed of interlocking hexagonal wooden tiles lined with metal. The tiles are painted a verdant green, and each is marked with a faded rune that protects against curses. While you have this shield raised, you gain a +1 circumstance bonus to saving throws against spells that target you, increasing to a +2 circumstance bonus against curses. You can unleash the energy stored in the shield to destroy a curse before it can affect you.\nActivate r command\nFrequency once per day\nTrigger You are targeted with a curse spell\nRequirements The cursebreak bulwark is raised\nEffect You activate the shield's countermeasures. It casts 8th-rank Cleanse Affliction with a counteract modifier of 1d20+27 against the triggering curse.\nHardness | HP | BT |\n14 | 56 | 28 |",
+      "bulk": 4,
+      "price": {
+        "gp": 14500
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "tower-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sulfur-bomb-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yPndyLkx3Nj2GMiz",
+      "slug": "sulfur-bomb-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-bombs/sulfur-bomb.webp"
+    },
+    "sourceHash": "sha256:4b489fd5a4e183562e4fa15a4aef28b246d417cbdb1b32ae408765f02e249a58",
+    "translatableHash": "sha256:9c723181bf105099627ba0415e028ca3514d9c1eb4ae3eb73fabc1d6dc7eb82e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sulfur Bomb (Major)",
+      "itemType": "weapon",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "acid",
+        "alchemical",
+        "bomb",
+        "consumable",
+        "olfactory",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nA thick, sulfurous, irritating gas fills this golden-yellow flask. You gain a +3 item bonus to attack rolls. The bomb deals 4d4 acid damage and 4 acid splash damage. On a hit, the target takes a -1 status penalty to Perception checks and attack rolls until the end of its next turn, or becomes Sickened 1 on a critical hit. Creatures hit with this bomb are temporarily immune to the effects of the bomb for 1 minute.\nEffect: Sulfur Bomb",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2750
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 4,
+        "die": "d4",
+        "type": "acid"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dread-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6PW3zAn8fWW3IYA0",
+      "slug": "dread-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:9aa80d211b1eaa8aebedaaf457dd8279144d0c7ee23c1e0fd1f9ff5087e2143b",
+    "translatableHash": "sha256:106d6132f6c93e8f94b8621b4414197275b92c69f986608dea5e8affc4c4b9ef",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dread (Greater)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Eerie symbols cover your armor, inspiring terror in your foes. Frightened enemies within 30 feet that can see you must attempt a check (will, dc:38, name:Dread Rune, traits:fear, showDC:all) save at the end of their turn; on a failure, the value of their Frightened condition doesn't decrease that turn, no matter the value.",
+      "bulk": 0,
+      "price": {
+        "gp": 21000
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragons-breath-8th-level-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "He5idiYCqLJJU83h",
+      "slug": "dragons-breath-8th-level-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e16bcb162e94cbdaef900d238f6500f70fceed8382a89104f6baa65e0114e3c8",
+    "translatableHash": "sha256:b4b43ce38c1676efa103b74faf866157f49c6f96e8b85e218e38a122618b92ec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragon's Breath (8th Level Spell)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune depicts a specific type of dragon, resizing after application to fit the surface of the item.\nActivate f envision (spellshape)\nRequirements You're receiving a bonus to AC from your dragon's breath cape or shield\nEffect If your next action is to Cast a Spell with an area of effect that deals the same type of damage as the depicted dragon's breath weapon, the spell gains the effects of the Widen Spell feat. The rune can only affect spells of 8th level or lower.",
+      "bulk": 0,
+      "price": {
+        "gp": 24000
+      },
+      "usage": "applied-to-dueling-cape-or-shield",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anchoring-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kY41VIXUSEJYEznp",
+      "slug": "anchoring-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:db6ac9ec826a3ed18830f8afc061ac09c2b4bcdb11f0bdb5bbbdb640a8356780",
+    "translatableHash": "sha256:5148d4d549540f83b668c64f454e01767cdd88e5a394b995828e5801cac118b5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anchoring (Greater)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune prevents enemies from escaping your grasp by Fleeing to other planes.\nWhen you critically hit a target with a weapon with the anchoring rune, the weapon casts 8th-rank Planar Tether on the target (check (will, dc:38, name:Dimensional Anchor), counteract modifier 1d20+28), except that if the target critically succeeds at its Will save, instead of having no effect, the dimensional anchor lasts for 1 round. When you hit a target with the weapon but don't critically hit, the target is affected by 4th-rank dimensional anchor for 1 round without a save (this still uses a counteract modifier of +28).",
+      "bulk": 0,
+      "price": {
+        "gp": 22000
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:avalanche-of-stones-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nlm26zGDAHTISTh6",
+      "slug": "avalanche-of-stones-snare",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:35559a5b24fef002e599c0077ee2616e7c7f210675dabc2a56f84ebb0d98744d",
+    "translatableHash": "sha256:17d614f188a1c3a7edb2bcbce359189db89cc2a6260e758fb0c6295d932c27de",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Avalanche of Stones Snare",
+      "itemType": "consumable",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "When a creature enters the snare's square, the snare releases countless stones to batter the creature, dealing 22d8 bludgeoning damage (check (reflex, dc:40, basic, showDC:all)).",
+      "bulk": 0,
+      "price": {
+        "gp": 3750
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-the-dreamlands-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NWMHPsVBIaNZ5X2W",
+      "slug": "staff-of-the-dreamlands-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1c1823142e9cddba711482f03cce7d1e25ad40429da6c6ccab08ada7c09e73c3",
+    "translatableHash": "sha256:043f777f658927ab851bfb061fd3436977ce80a96c9c720d75fe63824d242947",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of the Dreamlands (Major)",
+      "itemType": "weapon",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "monk",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "The carved night hag's hand at the end of this sandalwood staff clutches a rough gem. The Staff of the Dreamlands makes it easier to navigate and survive in the Dreamlands and recognize its denizens. When wielding the staff, you gain a +1 circumstance bonus to Survival checks while in the Dreamlands and to checks to Recall Knowledge about creatures with the dream trait.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Daze\n• 1st Alarm, Déjà Vu, Sleep\n• 2nd Phantasmal Treasure, Silence\n• 3rd Dream Message\n• 4th dream message, Nightmare, sleep\n• 5th Dreaming Potential, Illusory Scene\n• 6th illusory scene\n• 7th Project Image, Visions of Danger\n• 8th Dream Council, Quandary, visions of danger\nCraft Requirements Supply one casting of all listed levels of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 24000
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stone-circle-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "adqiLRzIEHiG356b",
+      "slug": "stone-circle-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/stone-circle.webp"
+    },
+    "sourceHash": "sha256:5a76b20a467aa4e170d543be122fa83033a9102ff86c0552848c19053bc9491b",
+    "translatableHash": "sha256:f43dc18fc830ec197408dd62bc33c070695199bb5d3cebf80929151e7fbb421c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stone Circle (Greater)",
+      "itemType": "equipment",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "structure"
+      ],
+      "description": "A stone circle appears to be a thumb-sized rectangular gray stone until activated.\nActivate (1 minute) envision, Interact\nFrequency once per day\nEffect When the circle is stood on the ground and activated, the stone grows into a massive stone pillar 13 feet high, 7 feet across, and weighing 25 tons. Identical pillars rise up from the ground marking a circle 100 feet across, with capstones connecting the pillars. There must be enough space to deploy the circle or it won't activate. During the activation, you align the stone circle to face a single astronomical feature, such as the sun, the moon, or a constellation. You can revert the stone circle back to its original state by using an Interact action to push over the original stone pillar. Once you do, the rest of the stone circle collapses in a dramatic fashion, the stones falling, cracking, and disintegrating into dust. If you don't begin a ritual inside of the stone circle within 1 day of its activation, it reverts back to its original state.\nWhen you cast any ritual within the stone circle, the secondary check with the worst degree of success is improved by one degree of success, even if that secondary check succeeded. Once you complete a ritual within the stone circle, regardless of the result, the stones collapse and it reverts back to its original form.",
+      "bulk": 0,
+      "price": {
+        "gp": 32000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-spiritual-warfare-8th-rank-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dR6d7wAWP9KtpWLA",
+      "slug": "wand-of-spiritual-warfare-8th-rank-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-spiritual-warfare.webp"
+    },
+    "sourceHash": "sha256:e17182daa9feeb5458fcbd5383f7b22f76b1adf521ab484f4d437e4b5006ac11",
+    "translatableHash": "sha256:6eef25be28e4e11ee19bb8384aab59a2dd03a86a4837333b9dcb1240ae216bd0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Spiritual Warfare (8th-Rank Spell)",
+      "itemType": "equipment",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "force",
+        "magical",
+        "wand"
+      ],
+      "description": "This wand juts from an ornate hilt like a short, wooden dagger blade.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Spiritual Weapon at 8th-rank. When you critically hit, you apply the weapon's critical specialization effect. In addition, you can etch one of the following property runes onto the wand: corrosive, flaming, frost, shock, thundering, or their respective greater versions. The spiritual weapon's Strikes gain the effects of this rune.\nCraft Requirements Supply a casting of spiritual weapon of 8th-rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:krakens-guard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "f6antZJS94JyijFl",
+      "slug": "krakens-guard",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/krakens-guard.webp"
+    },
+    "sourceHash": "sha256:4e67d661723899ba88a4256e791846df9347e58094acf08dc1d2451df906f4fb",
+    "translatableHash": "sha256:0bc6898537b84d454c7c93691a19c319117d2d946ea01c4f132332ab6fdb9a07",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kraken's Guard",
+      "itemType": "shield",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This steel shield is painted a mottled crimson, and it always glistens as if wet. Its crest is composed of eight appendages that curl around each other, resembling the swirling tentacles of a giant kraken. Two ferocious eyes sit in its center, gleaming with an inner light.\nHardness |\nHP |\nBT |\n16 |\n96 |\n48 |\nActivate 2 Raise a Shield\nFrequency once per hour\nEffect You unleash the kraken's wrath. You Raise the Shield. The shield's appendages briefly extend to impossible length as they wriggle and lash out at your foes, dealing 10d10 bludgeoning damage to all enemies in a 30-foot cone (check (reflex, dc:41, basic, name:Kraken's Guard Tentacle Attack, options:area-effect) save). The shield remains animated for 1 minute, during which you can use it to Grapple a creature within 10 feet of you without needing a free hand. When you use the shield to Grapple, you gain a +3 item bonus to your Athletics check.\nEffect: Kraken's Guard",
+      "bulk": 0,
+      "price": {
+        "gp": 40000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "steel-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragons-blood-pudding-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kUvjWSGWpwBvTVax",
+      "slug": "dragons-blood-pudding-major",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tapas/dragons-blood-pudding.webp"
+    },
+    "sourceHash": "sha256:a07da4d5cd00e7ff2e5e93851bb0451fda63e5c07ddb3ac09273d1b5572b27a2",
+    "translatableHash": "sha256:0e19a52ad8481e15de52b90264fc13c495c3052e5764b5f75e1ce5e91bdc8729",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragon's Blood Pudding (Major)",
+      "itemType": "consumable",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nWhile some unscrupulous chefs claim that this savory pudding is made with real dragon's blood, its crimson color and acrid smell actually come from bloody mandrake paste, ginger root, and distilled terrap sap. This potent combination singes the nostrils and throat, removing effects that make you sluggish. When you consume the pudding, it attempts a counteract check with a r counteract modifier to remove the Slowed condition from a single source, using the source of that condition to determine the counteract rank and DC. You also become Quickened for 2 rounds. While taking the additional action from being quickened, you scream, as a result of both the flavor and the mandrake paste's properties. You can use the additional action to Step, Stride, Strike, or Demoralize. If you choose to Demoralize, you gain a +4 item bonus to the Intimidation check.\nEffect: Dragon's Blood Pudding (Major)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5500
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wovenwood-shield-true",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qXzP7yH72fxAChNU",
+      "slug": "wovenwood-shield-true",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/wovenwood-shield.webp"
+    },
+    "sourceHash": "sha256:5b163a97675f91aec1898d3af0678a2137f28e7e01135f3e454786209332951c",
+    "translatableHash": "sha256:7c775430e15ef6aeb58fd125fc82b7f238598d2ce7b0e8ff2cbdd0170310028d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wovenwood Shield (True)",
+      "itemType": "shield",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This magically reinforced wooden shield is made by skilled Ekujae mages, who've developed unique spells for reinforcing wood collected from their forests. Each shield is embossed with the signatures of the mage and artisan who crafted it.",
+      "bulk": 1,
+      "price": {
+        "gp": 34000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "wooden-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skyrider-sword-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "y49tnkAWZqJRMkba",
+      "slug": "skyrider-sword-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:25c783c8665d32d2ce1eac587246c966b04129c61f87f50257f24125aef047d0",
+    "translatableHash": "sha256:997a7979641042fc807afe36e7db5645848d8075a4d33131f4abcdba7ccb98e6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skyrider Sword (Greater)",
+      "itemType": "weapon",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "air",
+        "magical",
+        "versatile-p"
+      ],
+      "description": "This +3 greater striking greater shock greatsword has a broad, flat blade that can support the weight of a Medium-sized or smaller wielder. Magic allows the weapon to soar through the air, carrying its wielder along with it.\nActivate 1 command\nRequirements You're holding the sword in at least one hand\nEffect You leap upon your sword as it soars through the air. You gain a fly Speed of 25 feet or your land Speed, whichever is slower, but you can't Strike with your weapon except via the weapon's other activation (see below). You can Dismiss the activation, and it ends automatically if you cease holding the weapon with at least one hand.\nEffect: Skyrider Sword\nActivate 2 Interact\nRequirements You are riding on your weapon\nEffect You ride your weapon into a foe, attacking it as you fly past. You Fly, making a melee Strike with the weapon once at any point during your movement.",
+      "bulk": 2,
+      "price": {
+        "gp": 32000
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d12",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-thundering-echoes-8th-rank-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Z7xfDpdf1qwkJR94",
+      "slug": "wand-of-thundering-echoes-8th-rank-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-thundering-echoes.webp"
+    },
+    "sourceHash": "sha256:75edeac51188f5a84a7be9ef6b681cd80a0218497a6864ef669dbfa770a166d7",
+    "translatableHash": "sha256:4bd513aef3c22383f13804b4b0795edff07b36af17d8dc463de7ecd28c909823",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Thundering Echoes (8th-Rank Spell)",
+      "itemType": "equipment",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "sonic",
+        "wand"
+      ],
+      "description": "A forked, lightning-like crack runs down the length of this ornate stone wand, which rumbles slightly with the peals of distant thunder.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Noise Blast of the indicated level. After you Cast the Spell, at the start of each of your turns, the sound echoes in the same area as if you had cast it again, though it deals one fewer d10. This effect lasts until the damage is reduced to below 2d10. The echoes don't affect structures or other items.\nCraft Requirements Supply a casting of sound burst of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:drum-of-upheaval",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9o8DDJMWoaZiC5N2",
+      "slug": "drum-of-upheaval",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/drum-of-upheaval.webp"
+    },
+    "sourceHash": "sha256:20f1d6c71eb9d13d6bcab3fdd3a8a8f46494e9ad42023c104420ac1863977939",
+    "translatableHash": "sha256:66572989baaaba255151a8ab5d3e1836ffe033cc741260af5d569dbd71169d78",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Drum of Upheaval",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "earth",
+        "magical"
+      ],
+      "description": "This heavy drum is engraved along the sides with images of centaurs in fierce combat. The drum grants you a +3 item bonus on Performance checks you make using the drum. Additionally, it imparts the rhythms of two songs upon your mind as soon as you touch it. One is a fast marching cadence; the other is a frenetic ritual dance. Each song has a different activation.\nActivate 2 Interact\nFrequency once per minute\nEffect Dozens of spectral centaurs burst from the drum and stampede in a 60-foot cone. The stampede deals 7d10 force damage (check (reflex, dc:43, basic, name:Spectral Centaur Stampede, showDC:all, options:area-effect)).\nActivate 2 Interact\nFrequency once per day\nEffect The drum casts a check (reflex, dc:43, name:Earthquake, options:area-effect,damaging-effect, showDC:all) Earthquake spell.\nCraft Requirements You are a centaur.",
+      "bulk": 1,
+      "price": {
+        "gp": 60000
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragons-breath-9th-level-spell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cFJUxi5kCcBV6lz1",
+      "slug": "dragons-breath-9th-level-spell",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a8db4ada34304cfd93b957b22663c7e300bd11415dff15eb279fa6874aaae2b2",
+    "translatableHash": "sha256:fc8c22b7fc338a12ca80da10ac97f404957ffb82fc349e742943d43430241d38",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragon's Breath (9th Level Spell)",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune depicts a specific type of dragon, resizing after application to fit the surface of the item.\nActivate f envision (spellshape)\nRequirements You're receiving a bonus to AC from your dragon's breath cape or shield\nEffect If your next action is to Cast a Spell with an area of effect that deals the same type of damage as the depicted dragon's breath weapon, the spell gains the effects of the Widen Spell feat. The rune can only affect spells of 9th rank or lower.",
+      "bulk": 0,
+      "price": {
+        "gp": 70000
+      },
+      "usage": "applied-to-dueling-cape-or-shield",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wardrobe-stone-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gbDVj8XRLN9OVVjL",
+      "slug": "wardrobe-stone-greater",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/talismans/basilisk-eye.webp"
+    },
+    "sourceHash": "sha256:19c070f4206ac569c31342fdf6c892d48b7d562304d62fabd62d27e6be71255f",
+    "translatableHash": "sha256:f89b9aeaf64a2654418a37f7ab39d28e2339b816368688142f45b80463f3d8fa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wardrobe Stone (Greater)",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "illusion",
+        "invested",
+        "magical"
+      ],
+      "description": "This large stone eye is the size of a fist and decorated with elaborate carvings of robes and other garments. You gain +3 item bonus to Perception checks involving sight and you gain a +3 item bonus to a specific Lore skill associated with your outfit, such as Carpentry Lore when wearing a carpenter's outfit or Cooking Lore when wearing a chef's outfit.\nActivate (1 minute) envision, Interact\nEffect You enter a brief trance in which you envision yourself entering a large dressing room. You maneuver through the endless dressing-room mindscape and search for whatever articles of clothing, accessories, and other garments you desire. After the activation, you gain the effects of Illusory Disguise, except that it only causes you to appear to be wearing the exact outfit you selected within the mindscape. The illusion also disguises the wardrobe stone to match your outfit and not appear out of place, such as by appearing to be a glove or bracelet, though it continues to occupy your hand while you're under the effects of illusory disguise. You can actively Dismiss the Spell, but the effects are also dismissed immediately when you're no longer holding the wardrobe stone.\nActivate (1 minute) envision, Interact\nFrequency once per day\nEffect You cast Scouting Eye.\nActivate (10 minutes) envision, Interact\nEffect The wardrobe stone splits open and permanently transforms into a specific type of magical robe of your choosing. It can transform into any 20th-level or lower magical robe to which you have access, except for items that can't normally be Crafted, such as artifacts. This process is irreversible.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 55000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:silhouette-cloak",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vhhjN70J1j3RfECJ",
+      "slug": "silhouette-cloak",
+      "publicationTitle": "Pathfinder Lost Omens The Grand Bazaar",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/siluette-cloak.webp"
+    },
+    "sourceHash": "sha256:2278b19e2afda10f1111391192d28f1ad945206b7f6d0b670ad4f42ea0362e98",
+    "translatableHash": "sha256:06d91aec9416b3865c3b1e10adbce2d1be5ed61d8dab68165e47dbc2d5678009",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Silhouette Cloak",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "In bright light, this dark cloak shimmers with patches of color that shift and move even when the cloth is still. In dim light or darkness, the cloak seems to blend into your surroundings and grants you a +3 item bonus to Stealth checks.\nActivate Interact (1 minute)\nEffect You and objects you wear or carry fall into your shadow, becoming a twodimensional silhouette. In this form you aren't incorporeal, but you also don't have a solid form and don't occupy your space, allowing other creatures to pass through or end their turn there. You gain resistance 20 to all damage except force damage, damage from effects with the light trait, and damage from Strikes with the ghost touch property rune. This increases to resistance 40 against nonmagical damage. Other creatures can't attempt Strength-based skill checks against you.\nYour land and climb Speeds both become 40 feet. You can't use actions except Climb, Step, or Stride actions using the granted Speeds or an Interact activation to return to your normal form. If your current space doesn't have sufficient room for you to return to your normal form, you return to your normal form in the nearest open space.\nActivate r Interact\nFrequency once per day\nTrigger You take damage\nEffect You fold the cloak over yourself and vanish into your shadow for a moment, gaining the benefits of the first activation until the end of the current creature's turn. The damage resistance applies to the triggering damage.",
+      "bulk": 0,
+      "price": {
+        "gp": 70000
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:appetizing-flavor-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "60RuBISKBTuYquBe",
+      "slug": "appetizing-flavor-snare",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:65871cd3d5ebbf15d481dcf23c7083dc3e92dedffb744b3df274604847caed72",
+    "translatableHash": "sha256:4fe7122b6ebcd23af59c8093ede89bf3ea650b06555d5570ce08a6eb83a797c2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Appetizing Flavor Snare",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "You construct this snare around a sealed bladder containing substances that local predators find delicious, such as scent glands from prey animals or fresh carrion. The first creature to enter the square must succeed at a check (reflex, dc:15) save or be doused with the substances. For 1 hour, animals attracted to the flavor (such as most predators, at the GM's discretion) can smell the creature from double the usual distance of their scent and are likely to approach to investigate the smell. A creature can wash away the appetizing flavor with 1 minute of vigorous scrubbing.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:expulsion-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gYYlqHTW1lgwd6ri",
+      "slug": "expulsion-snare",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:9edbf1dd5a9df6ec827f0ad1fdfebb21c97dfe0e101ff302921c4f9ec6692336",
+    "translatableHash": "sha256:206874f7241081899d993e2799f5f69a972880d8474a0e01b7d9173a1184bb73",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Expulsion Snare",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "You conceal a rounded board or thin metal plate just beneath the ground, concave side down. The first creature to enter the snare's square finds it unexpectedly springy and is bounced back out of the square when the flattened board springs back into place. The triggering creature must succeed at a check (fortitude, dc:17) saving throw or be moved into an adjacent square (chosen by you when you craft the snare). This is forced movement. On a critical failure, the creature falls Prone in that square.",
+      "bulk": 0,
+      "price": {
+        "gp": 6
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:jacks-tattered-cape",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QOAjwtH9gycbDZCY",
+      "slug": "jacks-tattered-cape",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/backfire-mantle.webp"
+    },
+    "sourceHash": "sha256:8c136faf2519fe2f070c56cc8dfa4e201ec1015a6c4f3f68d9a1d6461c5f3231",
+    "translatableHash": "sha256:c0ec8f35ece30ec5827fd073e9855ec7ba4c114c8670e7d5fc1db64a7dfbd140",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jack's Tattered Cape",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "rare",
+      "traits": [
+        "illusion",
+        "invested",
+        "magical"
+      ],
+      "description": "This ragged, mud-stained cape closes with a single black button engraved with a leering devil's face. When you Leap, High Jump, or Long Jump (or Vault, if you're Spring-Heeled Jack), you gain a +1 item bonus to Stealth checks to Hide or Sneak until the start of your next turn.\nEffect: Jack's Tattered Cape",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:little-love",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RgVOC3rpptrwENbu",
+      "slug": "little-love",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/dagger.webp"
+    },
+    "sourceHash": "sha256:6a808a328acf69cd798c3b5615845f736d216c11a0ddd64e2799f3c7830a4c7e",
+    "translatableHash": "sha256:9c1062ff281248ed6a77b2354cd3aaeab3100b8d812f7de023131ff908be32b1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Little Love",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "rare",
+      "traits": [
+        "agile",
+        "finesse",
+        "thrown-10",
+        "versatile-s"
+      ],
+      "description": "This steel +1 dagger is chipped and worn but no less deadly for its much-used appearance. When you critically succeed at an attack roll with Little Love, you can activate the dagger to spring away from your foes.\nActivate F (manipulate)\nFrequency once per 10 minutes\nTrigger You critically hit a creature with Little Love\nEffect You Leap (or Vault, if you're Spring-Heeled Jack).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fire-douse-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "76vu5p2S0wN77fJw",
+      "slug": "fire-douse-snare",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:9cd5b77190c74b8672c5d7f3c1856bfa3340db2371da1e6b2fdaa7a4bb7b3f72",
+    "translatableHash": "sha256:7b1e9f634af3805552ce0dff7f9873da8748a4544735899295c718d500668be9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fire-Douse Snare",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "You carefully pack rare, heat-absorbing powders into a specially prepared clay vessel, then bury the vessel in the ground up to its neck. When a creature enters the square, the vessel's neck shatters, dispersing the powders into the air. The powder instantly douses non-magical fires the size of a campfire or smaller within 10 feet of the snare. The creature triggering the snare must attempt a check (reflex, dc:20) save to avoid getting powder in its face. A creature Blinded or Dazzled by the powder can use an Interact action to attempt a check (flat, dc:10, showDC:owner) check; on a success, it removes the condition. On a failure, it can try again, with a check (flat, dc:5, showDC:owner) check on the next Interact check. If it fails a second time, it automatically removes the condition with a third Interact action.\nCritical Success The creature is unaffected.\nSuccess The creature is dazzled for 1 round.\nFailure The creature is blinded until the end of its next turn and dazzled for 1 minute afterwards.\nCritical Failure The creature is blinded for 1 minute and dazzled for 10 minutes afterwards.",
+      "bulk": 0,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grease-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KVrCsckKUW68FWcV",
+      "slug": "grease-snare",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:56efa0beecf4d75da2830b93c1d32a3412f32b55483ae869f125a451cee14463",
+    "translatableHash": "sha256:8bfb082e53cc9d0f6ff1a800aecf782fece4a0e8e9a1982f2e2c36ec5aef4d28",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grease Snare",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "This snare releases a stream of grease that coats the area, making movement difficult and potentially making the target slippery and clumsy. The square with the snare, as well as three adjacent squares you determine when you set the snare, become difficult terrain when a creature triggers the snare. The triggering creature must attempt a check (reflex, dc:22) saving throw. A creature can use three Interact actions to wipe away the grease from a single square or from the triggering creature; removing the grease from the triggering creature ends the effects on it.\nCritical Success The creature is unaffected.\nSuccess The creature is Clumsy 1 for 1 round.\nFailure For 1 minute, the creature is clumsy 1 and must roll twice and use the worse result whenever attempting a Thievery check. If the target rolls a failure at a Thievery check, it gets a critical failure instead. This is a misfortune effect.\nCritical Failure As failure, but the effects last for 1 hour instead of 1 minute, and removing the grease from the triggering creature requires a 1-minute activity instead of three Interact actions.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:piercing-whistle-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ymSbtkmW9xg9kWyN",
+      "slug": "piercing-whistle-snare",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:d6030808db47ea42b498968edae16dd8a7b51049e2870dc9b18eee818bd56d6b",
+    "translatableHash": "sha256:5f596563afcab0e350b67d5da7ca7097141b49d10d50eb182c4b83f186f84310",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Piercing Whistle Snare",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "This snare forces air through several high-pitched, whistle-like pipes or reeds. The shrill noise can be heard clearly up to 2 miles away but is most intense near the snare's trigger. The snare deals 4d6 sonic damage (check (fortitude, dc:22, basic) save) to creatures within 10 feet; a creature that fails this save is Deafened for 1 round (1 hour on a critical failure). The triggering creature is deafened for 1 minute on a failure, or 1 hour on a critical failure.",
+      "bulk": 0,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rusting-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NXYEgMq4ERIzbJKx",
+      "slug": "rusting-snare",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:42d6ebf93823b052341f2edde02c7b9adf4348a5e14c113455dc398f4cd644b3",
+    "translatableHash": "sha256:b68042887c0782532b034b89bcdcb94b841baed09342083bcafd9cb524d6e7e6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rusting Snare",
+      "itemType": "consumable",
+      "level": 8,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "This snare emits puffs of oxidizing chemicals that rapidly degrade metal items; skymetals and most precious metals are immune. The chemicals affect a non-magical metal item of up to 1 Bulk that the triggering creature is holding or openly wearing (determined randomly if the creature is holding or wearing more than one). The triggering creature must attempt a check (reflex, dc:25) saving throw. The snare deals 2d6 to the item; this damage ignores the item's Hardness and might deal persistent damage on a failed Reflex save. The creature, or an adjacent creature, can attempt to scrape off the chemicals as an Interact action to prevent the persistent damage; doing so reduces the DC of the flat check to end persistent damage to 10 and grants an immediate flat check. Thin iron or steel items, such as weapons, typically have 20 HP and a Broken Threshold of 10, and thicker iron or steel items, such as most suits of armor, typically have 36 HP and a Broken Threshold of 18. Other materials' statistics can be found on pages 577-579 of the Core Rulebook.\nCritical Success The object is unaffected.\nSuccess The object takes full damage.\nFailure The object takes full damage as well as 1d6.\nCritical Failure The object takes double damage as well as 2d6.",
+      "bulk": 0,
+      "price": {
+        "gp": 75
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:devils-trident",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TO8UvbBy1NfVbrdB",
+      "slug": "devils-trident",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/trident.webp"
+    },
+    "sourceHash": "sha256:a848bb40f9a865c3f430394553fe7d4a273093a4270ffb52694ddc3487fc6a2b",
+    "translatableHash": "sha256:df71ff40613fbdf2f5d6d3d35a8c4e0b991feba5c8208ad1967e0918afb5549c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Devil's Trident",
+      "itemType": "weapon",
+      "level": 9,
+      "rarity": "unique",
+      "traits": [
+        "thrown-20"
+      ],
+      "description": "This +1 striking returning trident is made of an ancient black metal that glistens unnaturally and is cold to the touch. The prongs of this trident drip with metallic lake water. Strikes with the Devil's Trident trigger the weaknesses of any creature with a weakness to water.\nActivate r Command\nTrigger You critically hit a creature\nEffect The target must succeed at a check (fortitude, dc:25, traits:disease,virulent) save or become infected with sewer haze.\nActivate 2 envision, Interact\nFrequency once per hour\nEffect The trident casts 3rd-rank Quench with a DC of 25 and a counteract modifier of 1d20+15. You can Sustain the Spell as normal.\nActivate 3 envision, Interact\nFrequency once per day\nEffect You call upon the corrupted power of the trident to stay a foe. Attempt a Strike. On a hit, the trident casts 3rd-rank Paralyze on the target (DC 25). If the Strike was a critical hit, the target is Stunned 1 even if it critically succeeds at the save.\nSewer Haze\ndisease\nvirulent\nMany healers and alchemists suspect that sewer haze has a supernatural origin, but the study is so unpleasant that research has made little progress.\nSaving Throw check (fortitude, dc:23, traits:disease,virulent)\nOnset 2 days\nStage 1 Stupefied 2 (1 day)\nStage 2 Drained 2 and stupefied 2 (1 day)\nStage 3 Drained 3 and Stupefied 3 (1 day)",
+      "bulk": 1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:star-chart-tattoo",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FNNfdpu1SfZtLohQ",
+      "slug": "star-chart-tattoo",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:67ea9056930ed752e838bf4bed032a3a1c0422f67449987a19ba3814341db8f7",
+    "translatableHash": "sha256:48ef77d63d835f7158a533942c47affa1e0937d12b3916a08704a0a165ac73ec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Star Chart Tattoo",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "rare",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "This tattoo consists of numerous asterisks at regular intervals along the fingers of one hand, perfect for measuring stars against the horizon. When used against a clear night sky, the tattoo grants a +2 circumstance bonus to Survival checks to Sense Direction and counts as a compass for the purpose of that action.\nActivate 1 Interact (divination, spellshape)\nFrequency once per day\nEffect The dots of the tattoo turn to points of light and fly above the head of a creature within 30 feet, where they form a three-star constellation that guides your spells further than they could normally travel. The constellation sheds dim light and remains visible even if the creature hides, aiding in locating it. Furthermore, while the constellation lasts, if you Cast a Spell that has a range and that spell would affect only the marked creature, the spell's range is increased by 30 feet. As is standard for increasing spell ranges, if the spell normally has a range of touch, you extend its range to 30 feet. Each time you use this benefit, one of the stars above the creature's head winks out; when all three have winked out or after 1 minute has passed, the effect ends.",
+      "bulk": 0,
+      "price": {
+        "gp": 900
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gamepiece-chariot",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Ua9KWFlVjXW8sSXm",
+      "slug": "gamepiece-chariot",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/treasure/art-objects/moderate-art-object/parade-armor-with-flourishes.webp"
+    },
+    "sourceHash": "sha256:3e82c0e6b8ce15f292b8a2550b3cfd499598a89e50768f469f96b63f8206deb7",
+    "translatableHash": "sha256:f0837f8d7d367b6bba4bdba4cf03a962e71d0009a66d0f745285c9cbb5896808",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gamepiece Chariot",
+      "itemType": "equipment",
+      "level": 11,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "This stone figurine of a chariot pulled by two horses was used by Tekritanin adults during strategy game competitions. Sometimes, though, mischievous adolescents snatched pieces like this one for joyriding.\nActivate 2 Interact\nFrequency once per day\nEffect You place the figurine on the ground and roll it forward. As the chariot begins to move, it rapidly expands to the size of a Large heavy chariot pulled by two animated stone war horses. You can board the chariot and drive it up to 80 feet in a straight line. You can move through spaces occupied by creatures of size Medium or smaller, dealing 4d8+10 bludgeoning damage to those creatures. Affected creatures must attempt a check (reflex, dc:28, basic) save; on a failure, a creature is knocked Prone. The chariot returns to its figurine form once it stops moving.",
+      "bulk": 0,
+      "price": {
+        "gp": 1200
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tidal-fishhook",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YCGMVbqlWT8f1F6v",
+      "slug": "tidal-fishhook",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/combat-grapnel.webp"
+    },
+    "sourceHash": "sha256:5d7a0bdfc9f55aa4893985dc4dd7964ef70a8ce9773961b88213676c73de9ed7",
+    "translatableHash": "sha256:e4a1265f1ac491f6d6e5ad699f84f107b24172cd3524cf4fedd2bed6e0bf6482",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tidal Fishhook",
+      "itemType": "weapon",
+      "level": 12,
+      "rarity": "rare",
+      "traits": [
+        "finesse",
+        "grapple",
+        "tethered",
+        "thrown-20",
+        "water"
+      ],
+      "description": "This +2 greater striking returning Combat Grapnel takes the form of a fishhook made of scavenged bones and stone with a cord of braided water. Attacks with a tidal fishhook don't take any of the normal penalties for fighting underwater. A broken (but not destroyed) tidal fishhook can be fully repaired by submerging it in an ocean for 1 minute.\nActivation 2 Interact (teleportation, water)\nFrequency once per hour\nEffect A tidal fishhook can travel between bodies of water to strike distant foes. You throw the fishhook into a 5-foot square that's fully covered with water, and it emerges to Strike or Grapple a target from another such square within 60 feet; the squares can be part of the same body of water or different ones. The distance between the bodies of water doesn't count toward the fishhook's range increment. If you successfully Grapple the target as part of this Strike, you can pull yourself along the fishhook's line, teleporting to the secondary body of water.",
+      "bulk": 1,
+      "price": {
+        "gp": 1700
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sandstorm-top",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4tBK20Atzi5AgCd4",
+      "slug": "sandstorm-top",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/earplugs.webp"
+    },
+    "sourceHash": "sha256:fcf94ddaab175880788dbcb12f2fbbfd4a81f5bcd7bc18ebcde59cd1865676b2",
+    "translatableHash": "sha256:d1d55cfccc77764de58d9ff091a8975a59352bc5ca76cb19e0f6407ad2fa8c23",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sandstorm Top",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "On Tekritanin holidays, children reenacted legendary battles of deities by playing with magical tops. Though the paint on this wooden top has long since faded, its magical runes once gleamed yellow-gold and fiery orange, evoking the color of the sky during a sandstorm. To set the top in motion, wind a string around its bottom and upward along its body, and then throw it while gripping the string.\nActivate 1 Interact\nFrequency once per day\nEffect You throw the sandstorm top 10 feet away from you. For 1 minute, as it spins, the top generates a magical sandstorm in a 5-foot radius. Any creature that starts its turn in the area or moves into the area takes 4d6 slashing damage (check (reflex, dc:30, basic, options:area-effect) save). Additionally, a creature within the sandstorm must hold its breath or begin suffocating.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ivory-baton",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yzgMOspvPTLDe6Ln",
+      "slug": "ivory-baton",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/ivory-baton.webp"
+    },
+    "sourceHash": "sha256:8338e9be91e80c4ee07fa1674af0832aa4c33dd908082e86ec0a12060adb50b6",
+    "translatableHash": "sha256:241a18c262271ba7806a52a0b91118e19cd1905bd5ac108405c9cdce80079dff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ivory Baton",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "This white, slender rod bears intricately carved reliefs of magnificent animals that bow and dance to some unseen commander. The baton enables you to command constructs.\nActivate 2 command, Interact (enchantment, incapacitation)\nFrequency once per day\nEffect You take control of a construct. This has the effects of Dominate with a DC of 30, but it affects only constructs. It lacks the mental trait and functions on mindless constructs. It also ignores any golem antimagic the target might have. The effect's duration endsif the baton is destroyed or leaves your possession for at least 1 minute, and you can issue commands to the target only while holding the baton.\nActivate 1 Interact\nFrequency once per round\nEffect You closely direct the actions of one construct you control and can see within 60 feet. That construct gains a +1 status bonus to attack rolls, damage rolls, and saving throws (except saving throws against the ivory baton).\nEffect: Ivory Baton",
+      "bulk": 1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:godsbreath-bow",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aYFelpLdqrvZMx2Q",
+      "slug": "godsbreath-bow",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/composite-shortbow.webp"
+    },
+    "sourceHash": "sha256:bdf8e6712490e3448736a7fb3ea06afac91c5665c2ad036ce5c3f20521de3b3c",
+    "translatableHash": "sha256:d8d265b190d4d187bce1c9d2ac13a46d379f74a91120c0cb32976ada51dda2f8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Godsbreath Bow",
+      "itemType": "weapon",
+      "level": 15,
+      "rarity": "rare",
+      "traits": [
+        "deadly-d10",
+        "propulsive"
+      ],
+      "description": "This +2 greater striking composite shortbow is made from wood, horn, and sinew. Once wielded by Ninshaburian heretics, it's carried in a leather case etched with images of Namzaruum in combat with Somnalu. On a successful Strike, it deals an additional 1d6 bludgeoning damage.\nActivate 2 command\nFrequency once per day\nEffect You make a ranged Strike. On a hit, a vortex of air trails the arrow as it travels. When the arrow strikes its target, the vortex expands to a 30-foot burst from its point of impact. The arrow deals an additional 1d8 bludgeoning damage against its target. For the next 3 minutes, any physical ranged attacks that would strike a target within the vortex deal an additional 1d8 bludgeoning damage. The vortex is difficult terrain, and creatures attempting to fly through the vortex using a move action must attempt a check (fortitude, dc:34, traits:evocation,magical, showDC:owner) save, losing its move action on a failed save. Any gases within the vortex are cleared by the winds.",
+      "bulk": 1,
+      "price": {
+        "gp": 6500
+      },
+      "usage": "held-in-one-plus-hands",
+      "category": "martial",
+      "group": "bow",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-hero",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2LO9eMNpQiku5UDn",
+      "slug": "taljjaes-mask-the-hero",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f53ce2cd04c0cbbeb45f0f72afa3f3d0d0117e1dc89d961471d0177d6d7497f7",
+    "translatableHash": "sha256:b6683c112764f1ee6edff8d03544001c7e68639edb60ca5dead00c7b02852c3f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The Hero)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nActivate 1\nFrequency once per day\nEffect The Hero grants its wearer a +3 status bonus to attack rolls with bows for 1 minute.\nEffect: Taljjae's Mask (The Hero)",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-nobleman",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4jzASWzF2riszO3U",
+      "slug": "taljjaes-mask-the-nobleman",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ea20ec2f2d6d92dc36c61c63c14058efac4a423c78a581c23d6b2fa9071a330d",
+    "translatableHash": "sha256:7873befc11f849e360aaee341dc8223eb45403f8aa5d0d089197aa70fd227841",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The Nobleman)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nActivate 2\nFrequency once per 10 minutes\nEffect You hold out a hand and attempt to take something that doesn't belong to you. You telekinetically attracts an unattended, unsecured object of up to 5 Bulk within 100 feet. If the object is in a creature's possession, you must critically succeed at an attempt to Disarm that creature, but you can't critically fail.",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mantle-of-the-grogrisant",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "atWlXr78lWJSNbws",
+      "slug": "mantle-of-the-grogrisant",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:adaf2b3202ef3c64b9a4a733d4cb59750148a653ef231b978f5aac1ab858472c",
+    "translatableHash": "sha256:7f3e2fc4e5d57a601724667007d9be2684f6f79c35836229382a715ee7b8af10",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mantle of the Grogrisant",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "primal"
+      ],
+      "description": "This long, golden cloak is among the royal regalia of the emperors of Taldor. It was fashioned from the pelt of Grogrisant itself, after being slain by Taldaris, and Grogrisant's mane was fashioned into a thick fringe that runs all along the mantle's edges. The paws of the Grogrisant cross beneath the wearer's throat, giving you an imposing appearance. The Mantle of the Grogrisant grants you fire resistance 15 and physical resistance 5 (except bludgeoning).\nActivate 1 envision, Interact (evocation, incapacitation, light, primal, visual)\nFrequency once per day\nEffect You pull the hood of the mantle over your face, revealing the six eyes of Grogrisant. The mantle gives off a flash of blinding light in a 60-foot emanation. All enemies within this area must attempt a check (fortitude, dc:38, name:Blinding Flash, traits:evocation,incapacitation,light,visual) saving throw. On a failure, they're Blinded for 1 minute. On a critical failure, they're permanently blinded.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 22000
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-hermit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "d8w28UjKHALM2GNu",
+      "slug": "taljjaes-mask-the-hermit",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:3780187bedda60a17ff9cdfa6bae0f5b95f07ad7eafac5a04153a7bd04515b5f",
+    "translatableHash": "sha256:78aa021ff9daa6cbbeb22a43fb26f7a083eb72596ce04fbfb7f7415480be155f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The Hermit)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nThe Hermit allows its wearer to cast 8th-rank Spirit Blast and 7th-rank Flame Strike, each as a divine innate spell, once per day.",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-beast",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dPg0hrkIaCdMKQoK",
+      "slug": "taljjaes-mask-the-beast",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:feccc2d43730a092c2eda747c26a77b2253ebfc1ae1c49ab4fac3812a1ef490f",
+    "translatableHash": "sha256:1a4f388029d61eb57146cc8c4025f8e981cb45e79931aff62f3213f34c50d758",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The Beast)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nThe Beast brings out its wearer's feral nature, granting it a claw melee unarmed attack that deals 1d4 slashing damage and has the agile trait, or increasing the damage die of their claw unarmed attack from 1d4 to 1d6 damage if they have a claw unarmed attack that deals 1d4 damage.",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-general",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JSbBiTCtFctuJFhS",
+      "slug": "taljjaes-mask-the-general",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:4b9b2eae3c88cd471f58fd1f07537edbe4cfcce172c3d993fc724c97e7e378aa",
+    "translatableHash": "sha256:38880c95ae8f6b5f078209c7153927d0106907300b82cfd43e4769eec222b4be",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The General)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nActivate 1\nFrequency once per day\nEffect The General grants its wearer a +3 status bonus to attack rolls with polearms for 1 minute.\nEffect: Taljjae's Mask (The General)",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-grandmother",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ma4BlTSjaMHrQmoz",
+      "slug": "taljjaes-mask-the-grandmother",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b5cbd9a342d32ecf4705b2704a284e18115a339f4bf880d089adff3b04d29db7",
+    "translatableHash": "sha256:3bfad61949aa0f1bc9164544178d2dbe464a2f742150eae5d8f382e859c268c1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The Grandmother)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nThe Grandmother allows its wearer to cast 8th-rank Heal and 7th-rank Breath of Life, each as a divine innate spell, once per day.",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taljjaes-mask-the-wanderer",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nbBtszla32wRC1bp",
+      "slug": "taljjaes-mask-the-wanderer",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:2cfbca5a044bf641f2cc0fa758a5caac52f10ce3bcddcb231a3982661a585d03",
+    "translatableHash": "sha256:9c4f793c4351ebb34d18a98e388f617c25c17d2945d763af3832d836a97f85aa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taljjae's Mask (The Wanderer)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Those who gain one of Taljjae's masks, either by defeating Taljjae or some other means, are known as its understudies and gain a fraction of its power. Each of Taljjae's masks is an 18th-level unique item with the invested and magical traits; if broken, they're automatically repaired to full HP when invested during daily preparations. The effect of a mask on a PC is noted in the mask's Understudy entry. Wearing one of Taljjae's masks also imposes Taljjae's jelly sense and jelly gluttony on the creature as long as it wears the mask.\nThe Wanderer allows its wearer to cast 7th-rank Air Walk and 8th-rank Unfettered Movement, each as a divine innate spell, once per day.",
+      "bulk": 0,
+      "price": {},
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ivory-baton-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ISsagQkLvsgpoLxP",
+      "slug": "ivory-baton-greater",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/ivory-baton.webp"
+    },
+    "sourceHash": "sha256:64b56903f4176abaae4915bf86f479461481b4a2c28b5a4e566fd4d6b5bd6ab6",
+    "translatableHash": "sha256:c73ab4a987f6fe72d17747dad8f297d0c43d904545aec3291c910d8092020f88",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ivory Baton (Greater)",
+      "itemType": "equipment",
+      "level": 19,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "This white, slender rod bears intricately carved reliefs of magnificent animals that bow and dance to some unseen commander. The baton enables you to command constructs.\nActivate 2 command, Interact (enchantment, incapacitation)\nFrequency once per day\nEffect You take control of a construct. This has the effects of 9th-rank Dominate with a DC of 39, but it affects only constructs. It lacks the mental trait and functions on mindless constructs. It also ignores any golem antimagic the target might have. The effect's duration endsif the baton is destroyed or leaves your possession for at least 1 minute, and you can issue commands to the target only while holding the baton.\nActivate 1 Interact\nFrequency once per round\nEffect You closely direct the actions of one construct you control and can see within 60 feet. That construct gains a +1 status bonus to attack rolls, damage rolls, and saving throws (except saving throws against the ivory baton).\nEffect: Ivory Baton",
+      "bulk": 1,
+      "price": {
+        "gp": 35000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spear-of-the-destroyers-flame",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kg6tEjEBFGeilmLO",
+      "slug": "spear-of-the-destroyers-flame",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/longspear.webp"
+    },
+    "sourceHash": "sha256:81f34a3079f1ba41d6b361e763bc4413e875ed8c9511af3a0b91d08e8a75f3fb",
+    "translatableHash": "sha256:41cb95e1503184e46d970e18a04b4b62affa7cecba01f022e0aa536cb112ae0a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spear of the Destroyer's Flame",
+      "itemType": "weapon",
+      "level": 20,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "reach"
+      ],
+      "description": "The tip of this +3 major striking greater flaming returning speed longspear is edged with several razor-sharp obsidian blades. The spear has the thrown 30 feet weapon trait, in addition to the normal weapon traits for a longspear.\nWhile the Spear of the Destroyer's Flame is in your possession, you gain fire resistance 20. When you critically hit a creature with the spear, the creature's blood begins to boil, unleashing blasts of heat from the wound. The creature takes 2d8 persistent fire damage, in addition to the persistent fire damage from the greater flaming rune; all creatures adjacent to the creature when it takes the persistent fire damage take an equal amount of fire damage. Like the fire damage from the greater flaming rune, this fire damage ignores a creature's fire resistance, though it doesn't ignore fire immunity.\nIn addition to its deadliness as a weapon, the Spear of the Destroyer's Flame gives its wielder full control over the Army of Fire, though the orders of the Commander of Flame supersede the orders of anyone wielding the spear, as noted on page 17. While the spear is in your possession, you're aware of the location of the Army of Fire and the army's distance from you. In addition, you can give orders to the Army of Fire, and the army's members will understand and obey you, regardless of what language you speak. If you're within 1 mile of the Army of Fire, the army and its members gain a +10 circumstance bonus to their Speeds. Any members of the Army of Fire within 100 feet of you become Quickened and can use the additional action to Step, Stride, or Strike. The army remains quickened for 1 minute after moving further than 100 feet from you.\nThe Army of Fire has unwavering loyalty to the Commander of Flame, an individual who has completed a special activation that ties their soul to the spear. As long as the Army of Fire can see and hear the Commander of Flame, the army will follow the Commander's orders. The Commander of Flame can sense the presence of the Army of Fire and issue orders, regardless of language, with the same effects as for someone in possession of the spear. The Commander of Flame still needs the spear in hand to muster the Army of Fire, however.\nIf the Commander of Flame doesn't hold the Spear of the Destroyer's Flame for 1 week, it returns to Cuetzmonquali's gut, instantly teleporting to the creature's location. If Cuetzmonquali is dead at this time, the spear also resurrects the creature, using the effects of a critical success on a 10th-rank Resurrect ritual.\nActivate 1 minute (envision, Interact)\nFrequency once per day\nEffect You attempt to tie your soul to the spear. If the current Commander of Flame still lives, you must attempt either a Will save, Diplomacy check, Intimidation check, or Warfare Lore check. The DC of this check is equal to the current Commander's Will DC, Diplomacy DC, Intimidation DC, or Warfare Lore DC, whichever is highest. On a success, you become the Commander of Flame. On a failure, the current Commander knows your name and appearance and is aware of your exact location for 24 hours. Activate 1 hour (envision, Interact)\nFrequency once per week\nEffect You use the spear's power to muster the Army of Fire. You can choose to either call the Army of Fire to your location or move yourself to the army's location. When calling the army, you select an area you can see within 500 feet. The army is instantly teleported to the location you select, spreading out as necessary to arrive safely. When moving yourself, you instantly teleport yourself to a location within 500 feet of the army. The army is composed of souls given form as burning humanoids, elementals, spirits, and undead.\nDestruction If the entire Army of Fire is destroyed and the Commander of Flame is slain with the Spear of the Destroyer's Flame, the spear shatters into a massive explosion of flame, dealing 20d10 fire damage in a 30-foot burst (check (reflex, dc:43, basic, name:Spear of the Destroyer's Flame Destruction, traits:evocation,magical,fire) save). In addition, the Commander's soul burns away to nothing, destroying the Commander forever and releasing the bound souls of the Army of Fire to the River of Souls.",
+      "bulk": 2,
+      "price": {},
+      "usage": "held-in-two-hands",
+      "category": "simple",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ridill",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VJbZuJFTooFckp26",
+      "slug": "ridill",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b89862ec5eca92677658012c4c48d83378ded9f85acd7959241ec528d3cb72ba",
+    "translatableHash": "sha256:3cf96fdba669a19eefd8b8fff5d4117bc509a76d3bc3023edab500dffb3f36f5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ridill",
+      "itemType": "weapon",
+      "level": 20,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "versatile-p"
+      ],
+      "description": "This 12-foot sword was made by a cyclops in the ancient past. It might be the greatest dragon-killing weapon ever made, and Fafnheir justly fears it, which is why he keeps it hidden in his hoard. Runes of dragon slaying are written down its blade. Ridill is a +3 major striking dragon bane speed adamantine greatsword. While wielding Ridill, you gain a +2 circumstance bonus to saves against fear. This increases to +4 if the effect is from a dragon. If you have an ability that depends on Large weapons (such as barbarian giant instinct), it works with Ridill.\nRidill is always considered to have the appropriate material or damage type necessary to deactivate a dragon's regeneration or cause the dragon's weakness to apply. For example, Ridill is considered to be cold iron when attacking a linnorm, while it would be treated as having dealt cold damage when attacking a red dragon. If the dragon has more than one weakness, only the highest value applies.\nDestruction If you boil Ridill in the blood of 10 different types of dragon (blue dragon, red dragon, etc.) and drop the eye of a cyclops seer into the brew, Ridill melts away into nothingness.",
+      "bulk": 4,
+      "price": {},
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d12",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:golden-rod-memento",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wUBJ6osUKvNnOtft",
+      "slug": "golden-rod-memento",
+      "publicationTitle": "Pathfinder Lost Omens Monsters of Myth",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/pathfinderss-coin.webp"
+    },
+    "sourceHash": "sha256:ff460ad136d228a37204086e10ae224ee044524aa02e91ae35fc9408ff78cd9f",
+    "translatableHash": "sha256:edfee65d905c7aed8ae7f5d62bad86e4d6d75ea756449f8e0928cb3288664da7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Golden Rod Memento",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "magical"
+      ],
+      "description": "This coin-sized golden pin depicts a bundle of five trimmed tree branches. Once you've stolen the pin, accepted it from Krampus willingly, or carried it for at least 1 minute, its curse activates. After that happens, the pin fastens itself to your clothing, providing you an insistent empathic admonition not to be naughty and constantly informing Krampus of your location, as Status. The pin reappears and reattaches itself within moments if discarded or destroyed. The pin constantly monitors your actions, judging you against a good-aligned champion's code of conduct, plus the following third tenet:\n• You must never knowingly steal or inflict harm with the goal of stealing the victim's wealth.\nThis tenet doesn't prevent you from looting those you harm primarily in the defense of yourself and others. Whenever you violate this code of conduct, one of the golden branches tarnishes (and utterly egregious violations might tarnish multiple branches). During the winter following the curse activating, the pin transforms based on the number of golden branches remaining.\n5 Branches: The pin either transforms into a pile of golden trinkets whose gold piece value equals your level × 25, or it grants you absolution for your misdeeds as a critically successful Atone ritual for any good-aligned faith. You don't need to perform a special quest; your exemplary behavior over the past year qualifies.\n3-4 Branches: The pin either becomes a non-magical golden pin worth 10 gp, or it grants you absolution for your misdeeds as a successful atone ritual for any good-aligned faith.\n1-2 Branches: The pin transforms into a leering Krampus face. As long as you wear it, it grants you weakness 5 to bludgeoning damage, and you still can't remove it.\n0 Branches: The pin transforms into Krampus, who appears in an adjacent space and knows of your misdeeds while wearing the pin.",
+      "bulk": 0,
+      "price": {},
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hollowed-hilt",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ETwv7GshGM9IXnqH",
+      "slug": "hollowed-hilt",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ac51a5bb92413300e335aff46679f161ea0d0ac506b7dcd5ce1f54917ee06c8e",
+    "translatableHash": "sha256:e7765d2d845e35137663dcf93cb318bb1d3c6355f62c127c125e2f2c66d553f6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hollowed Hilt",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "A hollowed hilt is a weapon modification that allows a pommel to be detached and its hilt meticulously hollowed out to create a small compartment without greatly affecting its balance. Often used by knight emissaries to hide important missives, this space can hold an object of light Bulk about the size of a scroll. A creature studying the weapon can find the hilt compartment with a successful check (perception, dc:20) check. Any weapon with an appropriate hilt or pommel can be converted into a hollowed one by paying the equipment's price.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:armored-coat",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mkMWda6ivlhnXq4d",
+      "slug": "armored-coat",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d01f68282bdea58f25a585560fdae72603d148efc8284661e2239bafa0ed6390",
+    "translatableHash": "sha256:d01e4739600dc5db940003920e8cb3bbc6e5b1869bc0f12ea8664def68b95959",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Armored Coat",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "comfort",
+        "flexible"
+      ],
+      "description": "A custom, lightweight mail is fitted within the lining of a coat or similar apparel, physically hiding the armor while maintaining the wearer's fashion. While not nearly as protective as heavier armors, the armored coat allows the wearer to blend in more aesthetically during civilian functions. Like other suits of armor, the armored coat is custom-fitted to an individual's body type, ensuring comfort without sacrificing its defensive capabilities.",
+      "bulk": 2,
+      "price": {
+        "gp": 20
+      },
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 2,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:knights-standard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yXipdeJUEGMPT4dM",
+      "slug": "knights-standard",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/banner-of-the-restful.webp"
+    },
+    "sourceHash": "sha256:f1130a2f0f24920d6e2e1a43a71549b8e11903eca3aff5393b4190c7e9a7e334",
+    "translatableHash": "sha256:9d7795b7beeba902addbd5fe8668c5c95f8c178790f205abf113f5a0b47aa5a7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Knight's Standard",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This cloth flag or banner, no larger than a few feet long, bears the symbol or heraldry of a deity, knightly house, nation, or similar organization. A typical standard comes with a stand or pole to hold it aloft. You can instead spend 2 consecutive Interact actions to mount a knight's standard on a two-handed polearm or spear weapon; the standard is visible as long as you wield the weapon with two hands. Some individuals are inspired by the sight of a standard or demoralized by the destruction of one.",
+      "bulk": 1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:travelers-cloak",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MHJLBBESka5n3Bsg",
+      "slug": "travelers-cloak",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/coyote-cloak.webp"
+    },
+    "sourceHash": "sha256:6e5cc2e25cff0befc2b34c138c48ec28c7b88048de40f8d8ba8f6f8f7682a2bb",
+    "translatableHash": "sha256:bfe4d7531a45d45f12b9b4dd7d92060174bcff6a49c962e1d7bcabb591b47367",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Traveler's Cloak",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "These cloaks are designed to accommodate long treks through various climates. Traveler's cloaks for hot climates might be bleached white and created from lighter materials, while those intended for cold climates are made of thicker materials and have linings intended to retain heat. While wearing a traveler's cloak for the appropriate type of weather, increase the time it takes to become Fatigued from temperature effects by 2 hours. A traveler's cloak has no effect at extreme or incredible temperatures.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 7
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:throwing-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ydpA0pz0pPNqIUXU",
+      "slug": "throwing-shield",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/other/attached-items/throwing-shield.webp"
+    },
+    "sourceHash": "sha256:702f384c0ba150b42d99e1ca41085bd77be1b058bfe43c5e64a42eac0fa5bc2c",
+    "translatableHash": "sha256:0da780e4b78d1e6ff8783ad8fd58a7d92b1eb01471b1f7ed5eca2e27a92aa6cc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Throwing Shield",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "adjustment"
+      ],
+      "description": "These special straps and weightings fit over a shield or buckler, but not a tower shield. They are designed to let you doff and throw the shield in one swift movement. You can quickly remove the shield by spending a free action as part of the Strike to throw the shield. When thrown in this way, the shield is a martial thrown weapon that deals 1d6 bludgeoning damage and has the thrown 20 feet trait. A shield with the throwing shield attachment can't have any attached weapons, such as shield spikes or a shield boss, and the adjustments to make it more aerodynamic make it slightly less sturdy, reducing its Hardness by 1.",
+      "bulk": 0,
+      "price": {
+        "gp": 5
+      },
+      "usage": "applied-to-buckler-shield",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:parade-armor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hHOi8jV85CN8WRJT",
+      "slug": "parade-armor",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:438f75be2b59fe694b586c9c28c1d5163c19bcc56488dd52a26bc7fcab8cc149",
+    "translatableHash": "sha256:f2cf16d281d0206d331e3b1b2cdaf37e23692620bd4b10c661e5d14dac472eb6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Parade Armor",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "adjustment"
+      ],
+      "description": "Parade armor is an armor adjustment that creates a set of pseudo-decorative armor to wear during noncombat functions. Any medium or heavy armor can be fashioned into parade armor, which features custom designs based on the wearer's affiliation, military branch, or rank. A particular faction typically has one uniform appearance for its set of parade armor. While wearing this armor, you gain a +1 item bonus to Diplomacy and Intimidation checks against creatures of the same affiliation as your parade armor, though the bonus to Intimidation doesn't apply when interacting with creatures of higher rank than you. The armor is slightly bulkier, increasing the Bulk by 1.",
+      "bulk": 0,
+      "price": {
+        "gp": 10
+      },
+      "usage": "affixed-to-medium-heavy-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:portable-altar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "PO0n5F4j8Pa0LB0Q",
+      "slug": "portable-altar",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1b2f79521ab51ce135af9326f7f19303037bcff5bde4041f51514688031e5392",
+    "translatableHash": "sha256:a24ef10d2ea81ae29ad69dc86f3d4ae2d97c1aab62212b027121e9843655c162",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Portable Altar",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This travel-ready kit contains a small altar featuring a deity's iconography. The altar's top can be lifted to reveal a compartment for materials of no more than light Bulk (such as candles, incense, oils, and small texts). The altar grants a +1 item bonus to checks made to conduct religious rites using Performance or Religion.",
+      "bulk": 3,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:knights-tabard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZIt62AQb997FatRw",
+      "slug": "knights-tabard",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/dueling-cape.webp"
+    },
+    "sourceHash": "sha256:e8a5c0ea86511d3869cc68976488b8ca34d06bd60b357649a3b13bf2c14ef03e",
+    "translatableHash": "sha256:cdf5141eddaa0ca967eeb8a2c6d935d4baaa39a31a6f10223d7e0a13eae176d7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Knight's Tabard",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This cloth vestment features the heraldry or symbol associated with an entity (such as a deity, kingdom, or organization). Knights typically wear it over armor and other clothing, helping them identify allies on the battlefield or distinguishing themselves in more peaceful situations. An individual wearing a tabard gains a +1 item bonus to Make an Impression on creatures who have a positive association with the entity represented on the tabard.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anointing-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "89955RkZoEmVNo3V",
+      "slug": "anointing-oil",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/oils/anointing-oil.webp"
+    },
+    "sourceHash": "sha256:9e7945d3dd0a21be2e533925c45e3cdfe35f887496a32ea5cc13d2a5079c31aa",
+    "translatableHash": "sha256:43e9ec04033b39d2e9f943422bd520ca930dd6184ed646ccfccb7c246428f6ec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anointing Oil",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Carried by many Knights of Lastwall, this amber-colored, fragrant-smelling oil is meant to prevent those who fall in battle from rising as undead. Applying anointing oil to a corpse casts Peaceful Rest on it. The effects last for 24 hours.\nThe oil is repugnant to the undead. An undead creature that touches a corpse treated with this oil is Enfeebled 1 until the contact is broken or the oil's effect wears off.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 18
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ghost-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MIP28AmODXgyF2D2",
+      "slug": "ghost-oil",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/oils/ghost-oil.webp"
+    },
+    "sourceHash": "sha256:03056f95a1a83ed59e3baaac351ee00071d9f363a5e1adbb2570b5a3138fbce2",
+    "translatableHash": "sha256:9a706bb3fe39585579b91a3a9fb949972538b3dc7b9ffdbc6e858a5db83df557",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ghost Oil",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "The vials containing this translucent, unsubstantial oil are always cold to the touch. Applying ghost oil to a melee weapon you're wielding or carrying causes it to become semitransparent and gain the effects of a Ghost Touch rune, but it also makes the weapon unable to harm corporeal creatures. The oil has no effect when applied to another creature's weapon. The effect of the oil lasts for 1 minute.\nEffect: Ghost Oil",
+      "bulk": 0.1,
+      "price": {
+        "gp": 18
+      },
+      "usage": "held-in-one-hand",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camp-shroud-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Yqz5M71vM1RcvlCx",
+      "slug": "camp-shroud-minor",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/camp-shroud.webp"
+    },
+    "sourceHash": "sha256:1d37708d67fe85f0422653f7fe94e2fe4a454140a82d407bebf4c71e0195b8d6",
+    "translatableHash": "sha256:05d8fe78ada524f03022dc565b97d3cc0f8978ee982a543f4e77c1d4eaef48b6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camp Shroud (Minor)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "illusion",
+        "magical"
+      ],
+      "description": "Knights make use of this magically treated powder to help hide their camps while traveling through the Gravelands or other dangerous regions. When you toss the powder into a campfire or other sizable fire, the fire produces a thin mist that enshrouds everything in a 10-foot emanation from the fire. The mist creates protective illusions that remain for up to 12 hours and make it difficult to spot the area from afar. You can end the effect earlier by putting out the fire. Light and smoke produced in the area aren't visible from outside the area. The illusions don't prevent sound from traveling nor prevent the area or its inhabitants from being seen.\nA creature outside the area that uses the Seek action or Search activity to examine the area or look for smoke and light coming from that direction can attempt a check (perception, dc:18, traits:action:seek) check to disbelieve the illusion.",
+      "bulk": 0,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:knights-maintenance-kit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Dc2DRXybi5dCxmqP",
+      "slug": "knights-maintenance-kit",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:92de68075aca336ea012d5e88f961655b85a664c6294fe2f66292d263034d044",
+    "translatableHash": "sha256:35f8f4bfec940b15ca95f2d3d834581cfc4b9293a1809abd79e87ae6efce9c58",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Knight's Maintenance Kit",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This set of gear contains a repair kit, cloth rolls for storing or covering equipment, and specialized mixtures developed by the Knights of Lastwall to clean and treat armaments for continued use. This kit gives you a +1 item bonus to checks to Repair weapons, shields, and armor using the Crafting skill, and you restore an additional 5 Hit Points when you successfully Repair such items using it.",
+      "bulk": 1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camp-shroud-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1XoBUEUearOzrwEs",
+      "slug": "camp-shroud-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/camp-shroud.webp"
+    },
+    "sourceHash": "sha256:c108f4e53b579e23477ae33a715f209e91789247279b104b96229e37e1190d94",
+    "translatableHash": "sha256:107f591f44f47357368ed0093e087ad9faa648f2d0520aa5b1c8a35025fd244a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camp Shroud (Lesser)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "illusion",
+        "magical"
+      ],
+      "description": "Knights make use of this magically treated powder to help hide their camps while traveling through the Gravelands or other dangerous regions. When you toss the powder into a campfire or other sizable fire, the fire produces a thin mist that enshrouds everything in a 15-foot emanation from the fire. The mist creates protective illusions that remain for up to 12 hours and make it difficult to spot the area from afar. You can end the effect earlier by putting out the fire. Light and smoke produced in the area aren't visible from outside the area. The illusions don't prevent sound from traveling nor prevent the area or its inhabitants from being seen.\nA creature outside the area that uses the Seek action or Search activity to examine the area or look for smoke and light coming from that direction can attempt a check (perception, dc:23, traits:action:seek) check to disbelieve the illusion.",
+      "bulk": 0,
+      "price": {
+        "gp": 65
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:called-lastwall",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6XX3tYxkyQXCMAbd",
+      "slug": "called-lastwall",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:1dab79f3697f0d10ffdcedd3c66c6d8b439dca940d0eed63cff1273a8d502d4d",
+    "translatableHash": "sha256:02595b6ebe09d330f47194ebc9b8b7aa02c5ceb43aef020c344059c89afe1409",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Called (Lastwall)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "A called weapon can be teleported to its owner's hand.\nActivate 1 minute (command, envision)\nEffect You imprint upon the weapon, proclaiming yourself as its owner. This allows you to use the rune's second activation until someone else uses this activation or succeeds at a Will save to prevent you from using the second activation.\nActivate 2 command, envision\nEffect You extend your hand and call the weapon. If the weapon is within 100 feet of you, it appears in your hand even if it was Restrained. If the weapon is in another creature's possession, that creature can attempt a check (will, against:will) save against your Will DC. If the creature succeeds, your bond as the owner is broken, and you can't use this activation again until you use the first activation to restore the connection.",
+      "bulk": 0,
+      "price": {
+        "gp": 350
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:swiftmount-saddle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "K0uJJSso0WGpFzYe",
+      "slug": "swiftmount-saddle",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ff6ec700d28c3938c5e4eede7eb4f92508a24685162f7a1ab1046ff6336ab541",
+    "translatableHash": "sha256:7c52d01a9303993a4ecc6bd1f3e8abab388998d2b86b967a0010dc844242e65d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Swiftmount Saddle",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "companion",
+        "invested",
+        "magical",
+        "primal"
+      ],
+      "description": "This sturdy leather saddle was designed to improve communication between mount and rider, allowing even inexperienced knights to command their mounts in battle. A swiftmount saddle grants a +2 item bonus to Nature checks made to Command an Animal for anyone who is riding the creature wearing it.\nActivate F Interact\nFrequency once per day\nRequirements You're adjacent to the creature wearing the swiftmount saddle and could Mount it\nEffect You Mount the creature wearing the swiftmount saddle.",
+      "bulk": 2,
+      "price": {
+        "gp": 360
+      },
+      "usage": "wornsaddle",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:detector-stone",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "znWf2DgWyElwzQwJ",
+      "slug": "detector-stone",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/detector-stone.webp"
+    },
+    "sourceHash": "sha256:8f22ca713068690b71ea2e80bdf0e98814ba1e9a18aa609b7741e724f0a6a835",
+    "translatableHash": "sha256:ded2ae06b35ffe77d4f500e2992b67b0ac3585d2361d578b03b1b38abfd54bad",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Detector Stone",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "During their journeys across the Gravelands, the Knights of Lastwall found several smoky, gemstone-like objects that knights refer to as detector stones. Some of the knights' Magaambyan allies believe the stones are aeon stones corrupted by the same energies that corrupted the Gravelands, though they don't display the characteristic orbiting behavior of aeon stones when invested. Despite the controversy, many knights use the stones for their ability to detect the presence of undead.\nWhile you have a detector stone invested, it glows faintly when an undead creature is within 30 feet of you, unless the undead is Hidden or disguised with a Deception or Stealth result of 20 or higher. An invested stone may be carried in a pocket, but some knights set them in necklaces, bracelets, or weapon hilts.\nActivate 1 envision\nFrequency once per minute\nEffect You channel your life-force into the stone, empowering it temporarily. The stone can detect undead within 60 feet of you, rather than 30 feet, until the end of your turn. Undead hiding or disguising themselves must make an additional Deception or Stealth check to remain disguised or hidden from the activation, and the DC of the check is 23 rather than 20.\nActivate 2 envision, Interact\nFrequency once per hour\nEffect You focus on the stone as it glows, and your eyes glow with the same tainted light. You detect the auras of evil undead in a 30-foot radius around you and learn each aura's location and strength. This has the effects of a 2nd-rank detect alignment spell but only detects evil undead.",
+      "bulk": 0,
+      "price": {
+        "gp": 360
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:campaign-stable",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XZleXDXQ5eThTLWd",
+      "slug": "campaign-stable",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1cc0efb0511dbd98bd3df69e4880e12d296d92bd8e7de4d1bdfc1da8636f1e70",
+    "translatableHash": "sha256:c7acb794906bec788132b7a6a1eca35eca1df3f172ed1c9b0cf2b73fe32feea2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Campaign Stable",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "structure"
+      ],
+      "description": "Used to facilitate the care of mounts during long campaigns or when it's necessary to move camp frequently, this object appears to be a simple, worn wooden horseshoe.\nActivate (1 minute) command, Interact\nFrequency once per day\nEffect You place the horseshoe on the ground and it unfolds into a spacious stable with a wide central aisle, stalls to accommodate up to eight horses, and sufficient feed and water to sustain the horses for 1 day. The stalls can house other quadrupedal mounts, but the stable provides only horse feed, which might be unsuitable for other creatures. As a 1-minute activity, which has the concentrate trait, you can alter the shape of the stalls to accommodate different mounts, though the space available within the stable never changes, only the layout.\nA metal horseshoe hangs inside the stable near the entrance. You can remove the horseshoe with an Interact action, which causes the stable to fold into the horseshoe, leaving it again looking as if it's made of worn wood.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camp-shroud-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JPNKZPtsdNpoLsBT",
+      "slug": "camp-shroud-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/camp-shroud.webp"
+    },
+    "sourceHash": "sha256:6f0da10bd686e8c2b60dc00d924064903cda0dfdacd8ec6484eafd699d271d1e",
+    "translatableHash": "sha256:cb1443ffe1335f6d53afada1de48e6282fbb3b334de5ff32d122df5e1b9de9e2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camp Shroud (Moderate)",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "illusion",
+        "magical"
+      ],
+      "description": "Knights make use of this magically treated powder to help hide their camps while traveling through the Gravelands or other dangerous regions. When you toss the powder into a campfire or other sizable fire, the fire produces a thin mist that enshrouds everything in a 20-foot emanation from the fire. The mist creates protective illusions that remain for up to 12 hours and make it difficult to spot the area from afar. You can end the effect earlier by putting out the fire. Light and smoke produced in the area aren't visible from outside the area. The illusions don't prevent sound from traveling nor prevent the area or its inhabitants from being seen.\nA creature outside the area that uses the Seek action or Search activity to examine the area or look for smoke and light coming from that direction can attempt a check (perception, dc:27, traits:action:seek) check to disbelieve the illusion.",
+      "bulk": 0,
+      "price": {
+        "gp": 175
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:shining-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "M8QYa10fHOyViC5V",
+      "slug": "shining-shield",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:10aae1a3e6e917ef0db487bc3cc8125b824bd2224e36433020464eee661e6716",
+    "translatableHash": "sha256:426f84bec2bb8f914f293f6c47963d48479131e93324e089d1a0a281a0b317ce",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shining Shield",
+      "itemType": "shield",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "Kalabrynne Iomedar commissioned the first of these shields, which have become some of the Shining Sentinels' most valued equipment, replicated among these knights. A shining shield is a seemingly simple wooden shield with the Shining Oath engraved on the inside.\nWhile raised, a shining shield moves itself to provide cover for your allies. If you have this shield raised and would provide cover to an ally against a foe by standing between them, the cover you provide increases one step. Thus, if you were to grant lesser cover, you grant standard cover instead; if you were to grant standard cover, you instead grant greater cover.\nActivate 3 command, Interact\nFrequency once per day\nEffect You shout an oath to protect the innocent and weak, and the shield gives off bright light. All enemies in a 30-foot emanation around you must attempt a check (will, dc:27) save, with the following effects.\nSuccess The creature is unaffected.\nFailure For 1 round, the creature ignores other creatures in the area and concentrates on bringing you down. The creature will still attack anyone preventing them from attacking you, uses tactics deemed most convenient to defeat you, and works with other creatures that confront you.\nCritical Failure As failure, but the duration is 1 minute.\nHardness |\nHP |\nBT |\n6 |\n24 |\n12 |",
+      "bulk": 1,
+      "price": {
+        "gp": 1000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "wooden-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:lastwall-soup-improved",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VcEd9Bh4q5vQfpLv",
+      "slug": "lastwall-soup-improved",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/lastwall-soup.webp"
+    },
+    "sourceHash": "sha256:56e6fd30353e2f4a0948b8b2b500bf69c1de0d61d088375fca78668730b40e1b",
+    "translatableHash": "sha256:c80686d9a39fc732beb9c47245f291b64072c38b3f9d73dac72023ac84f6c42a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Lastwall Soup (Improved)",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 minute (Interact)\nCrimson Reclaimers make this rich, hearty soup using herbs that baffle the senses of the undead. A bowl of Lastwall soup is as nourishing as a full meal. Gravelands Herbalists have spent time with the Knights of Lastwall, and have learned how to improve upon Lastwall soup.\nFor 1 hour after consuming a bowl of improved Lastwall soup, you gain a +3 item bonus to Stealth checks and DCs against undead.\nEffect: Lastwall Soup\nNote: Paizo did not provide a price for this item, so we set it as appropriate for a level 10 consumable.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anointing-oil-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "znITT3WIS59TYtCu",
+      "slug": "anointing-oil-greater",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/oils/anointing-oil.webp"
+    },
+    "sourceHash": "sha256:ef7c47fb9c51cdcb0e14aac559362186241181a5258764d5e6ccfdbe6fad219e",
+    "translatableHash": "sha256:f70b8839e6939d5f2117a8beb256552eb3f669b652c0005cbd20aefbef125dad",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anointing Oil (Greater)",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Carried by many Knights of Lastwall, this amber-colored, fragrant-smelling oil is meant to prevent those who fall in battle from rising as undead. Applying anointing oil to a corpse casts a 5th-rank Peaceful Rest on it. The effects last for 24 hours. The funerary rites of the Knights of Lastwall sometimes include using this type of oil on their dead if they are to be buried.\nThe oil is repugnant to the undead. An undead creature that touches a corpse treated with this oil is Enfeebled 1 until the contact is broken or the oil's effect wears off.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 180
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:guardian-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hY6Qn7HwKxYaGk2S",
+      "slug": "guardian-shield",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/guardian-shield.webp"
+    },
+    "sourceHash": "sha256:8babe5b4f695ac77bc9e255d972b59defbbb468d467b5bbd067c8277624bb0e1",
+    "translatableHash": "sha256:1ce95ee4cd3a75512b41a4241321f3bdff2c385463e5009c1932cf1bd5b2efd8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Guardian Shield",
+      "itemType": "shield",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "divine",
+        "magical"
+      ],
+      "description": "A guardian shield is a steel shield engraved with the symbol of a good deity.\nActivate 2 command, Interact\nFrequency once per day\nEffect You conjure a Medium guardian with the effects of the Spiritual Guardian spell, but it carries a shield instead of weapons and can't attack. The guardian appears in an unoccupied space next to an ally of your choice within range and uses the Raise a Shield action, granting that ally a +2 circumstance bonus to AC until the beginning of your next turn or until your ally is no longer adjacent to the spiritual guardian. Each time you Sustain the Activation, the guardian moves to the ally, as long as the ally remains within range, and Raises its Shield, granting its bonus again until the beginning of your next turn or until your ally is no longer adjacent to the spiritual guardian. When the ally receiving the AC bonus takes damage beyond the 10 that's redirected to the guardian, you can use a reaction to have the guardian reduce damage for your ally even more by interposing itself further. When it blocks damage in this way, it reduces the damage your ally takes by an additional 20 (for a total of 30 damage reduced), but Dismisses the guardian, immediately ending the activation.\nHardness |\nHP |\nBT |\n9 |\n36 |\n18 |",
+      "bulk": 1,
+      "price": {
+        "gp": 1200
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "steel-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camp-shroud-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "AGD0qLB8zKGinKwv",
+      "slug": "camp-shroud-greater",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/camp-shroud.webp"
+    },
+    "sourceHash": "sha256:cd1f8722ec4d0628463264fcb83ee245f45d3d4071d0e4f15fc2c7bf0048a71e",
+    "translatableHash": "sha256:97314bb623db70b29551f3043345c221e73fdac7fec658876ca3e4f3cbb53449",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camp Shroud (Greater)",
+      "itemType": "consumable",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "illusion",
+        "magical"
+      ],
+      "description": "Knights make use of this magically treated powder to help hide their camps while traveling through the Gravelands or other dangerous regions. When you toss the powder into a campfire or other sizable fire, the fire produces a thin mist that enshrouds everything in a 25-foot emanation from the fire. The mist creates protective illusions that remain for up to 12 hours and make it difficult to spot the area from afar. You can end the effect earlier by putting out the fire. Light and smoke produced in the area aren't visible from outside the area. The illusions don't prevent sound from traveling nor prevent the area or its inhabitants from being seen.\nA creature outside the area that uses the Seek action or Search activity to examine the area or look for smoke and light coming from that direction can attempt a check (perception, dc:30, traits:action:seek) check to disbelieve the illusion.",
+      "bulk": 0,
+      "price": {
+        "gp": 500
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:knight-captains-lance",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EmTK4nPOORXtb58X",
+      "slug": "knight-captains-lance",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/lance.webp"
+    },
+    "sourceHash": "sha256:427ab7f56776fdd7da3d80b8f237aca964bd72d09efa79ae4acfe203544f7afb",
+    "translatableHash": "sha256:98d1c0ebaf36909bd4a32a67e6b3f01e9db8aa4e756ffce8b48c7f503d20cf74",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Knight Captain's Lance",
+      "itemType": "weapon",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d8",
+        "divine",
+        "jousting-d6",
+        "reach"
+      ],
+      "description": "The appearance of this beautifully crafted +2 disrupting greater striking lance changes to match the armor of its wielder. It has a cloth flag attached behind the lance point that displays whatever heraldry the wielder wishes.\nIf a cavalier with the Cavalier's Banner feat takes the knight captain's lance, it instead automatically displays the banner of their pledge.\nActivate R Interact\nTrigger Your attack roll with the knight captain's lance is a critical success\nEffect You raise the lance, inspiring those around you. Allies within 30 feet that can see you receive a +1 status bonus to their attack rolls and damage rolls for 1 round.",
+      "bulk": 2,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:undead-compendium",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4yUa5JicrhnHUggC",
+      "slug": "undead-compendium",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a081c1fb00a0fc2ad25c4dea8945d35ba4cac4d365ff90385b0264d0581ea3b3",
+    "translatableHash": "sha256:ba817cb97ccc691a0a78aed48bcae6f9e3ebc14aa5cf43086aff551b4eed0e4c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Undead Compendium",
+      "itemType": "equipment",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "The best minds among the Magaambyan, Iomedaean, and Pharasmin Knights of Lastwall joined together to create these small, leather-bound journals. While you're holding an undead compendium, the information it contains slips into your mind, granting you a +2 item bonus to Recall Knowledge checks to obtain information about undead creatures.\nActivate 10 minutes (envision, Interact; auditory, linguistic)\nFrequency once per day\nEffect You study the journal, focusing on a specific type of undead creature, and as the information fills the pages, you recite it aloud to your allies. Select ghost, ghoul, graveknight, lich, mummy, vampire, wight, or zombie. You and up to four allies that hear you read the information aloud during the activation gain a +2 item bonus on attack rolls and saving throws against that type of undead for the next 10 minutes. To benefit from the bonus, your allies must listen attentively and can't perform any other activities during the activation time.",
+      "bulk": 0,
+      "price": {
+        "gp": 6300
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:whistle-of-calling",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MNaLwkkyKx86NKKq",
+      "slug": "whistle-of-calling",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/whistle-of-calling.webp"
+    },
+    "sourceHash": "sha256:4be42640f88e2417dd8a94eedae17295831fe00c961a33e33442ff5660540b1e",
+    "translatableHash": "sha256:50e17f6ddfb2d97fa9df56c5348a97717050198e7c57480d3aaee41eb89b9f30",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Whistle of Calling",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "A whistle of calling appears to be a simple brass whistle. It changes slightly in appearance depending on the type of creature to which it's attuned, depicting small carvings of hooves, feather patterns, claws, or other appropriate motifs.\nActivate 10 minutes (Interact)\nEffect You blow the whistle at different tones in the presence of a companion or another allied creature willing to be your mount. At the end of the 10 minutes, the whistle is attuned to that creature. The whistle can be attuned to only one creature at any time, but you can attune it to a new one with another 10-minute activation.\nActivate 2 Interact\nFrequency once per day\nEffect You blow the whistle and the creature to which it is attuned teleports instantly from as far as 1 mile away to an unoccupied space within 30 feet of you. The whistle has no effect if the attuned creature is dead, on another plane, or outside the range.",
+      "bulk": 0,
+      "price": {
+        "gp": 6300
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:busine-of-divine-reinforcements",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "z5u7z3zBHZcCxfyX",
+      "slug": "busine-of-divine-reinforcements",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:708a9f935b594b44a3d54646cd729d941ed6e158023c61d589f67c011af39372",
+    "translatableHash": "sha256:b8b486742601f3448cdd01e75ad46adcdefa6b591f5d2db12d011c840018c489",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Busine of Divine Reinforcements",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "divine",
+        "magical"
+      ],
+      "description": "This long, straight, trumpet-like instrument is made of well-polished brass and adorned with imagery of angels fighting demons or religious symbols. When played as an instrument, the busine generates powerful and harmonious notes and grants a +2 item bonus to Performance checks.\nActivate 2 Interact (auditory)\nFrequency once per minute\nEffect You play a few notes on the busine. Evil creatures within 60 feet who hear the notes must succeed at a check (will, dc:34, traits:auditory,incapacitation) save or be Stunned for 1 round, or 2 rounds on a critical failure; this is an incapacitation effect.\nActivate 3 command, envision, Interact\nFrequency once per day\nEffect You blow into the busine and conjure a celestial with the effects of a 6th-rank Summon Celestial spell, but there are no alignment restrictions to define which celestials you can call. The celestial will fight only evil creatures and leaves after all present evil creatures have been defeated or the spell's duration ends, whichever comes first. You can Sustain the Activation to extend the spell's duration, as normal. If you have a deity and the conjured celestial's alignment is one of your deity's preferred alignments, the effect functions as a normal 6th-rank summon celestial spell instead, meaning the celestial will fight any creature, not just evil creatures, and will perform other tasks as you command.",
+      "bulk": 0,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camp-shroud-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HgI87CKuhY8IbFWG",
+      "slug": "camp-shroud-major",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/camp-shroud.webp"
+    },
+    "sourceHash": "sha256:5c6105a1a8c770912c3e58d1d37a0cab0429bcd48bb74c8de26d5af4844c4afb",
+    "translatableHash": "sha256:4ab050ab7c5853102be4f915b26488a0758b68f231576ab38ff35673130f8887",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camp Shroud (Major)",
+      "itemType": "consumable",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "illusion",
+        "magical"
+      ],
+      "description": "Knights make use of this magically treated powder to help hide their camps while traveling through the Gravelands or other dangerous regions. When you toss the powder into a campfire or other sizable fire, the fire produces a thin mist that enshrouds everything in a 30-foot emanation from the fire. The mist creates protective illusions that remain for up to 12 hours and make it difficult to spot the area from afar. You can end the effect earlier by putting out the fire. Light and smoke produced in the area aren't visible from outside the area. The illusions don't prevent sound from traveling nor prevent the area or its inhabitants from being seen.\nA creature outside the area that uses the Seek action or Search activity to examine the area or look for smoke and light coming from that direction can attempt a check (perception, dc:35, traits:action:seek) check to disbelieve the illusion.",
+      "bulk": 0,
+      "price": {
+        "gp": 1500
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:armor-of-the-holy-warrior",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nLhb0w0DbtUC6weH",
+      "slug": "armor-of-the-holy-warrior",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/specific-magic-armor/armor-of-the-holy-warrior.webp"
+    },
+    "sourceHash": "sha256:0ea1029329e9167a5496f77958f8e0b200aa979cf017cb1a30b32314eebf2ffe",
+    "translatableHash": "sha256:6a592106291e76687d7c607609068684a314d452e718fb2c4ccd4770f4b26ab9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Armor of the Holy Warrior",
+      "itemType": "armor",
+      "level": 16,
+      "rarity": "rare",
+      "traits": [
+        "divine",
+        "good",
+        "invested",
+        "magical"
+      ],
+      "description": "Based on the armors used by the holy warriors who served under General Arnisant in the Shining Crusade, this well-polished +2 greater resilient half plate is decorated with religious motifs and carved with sacred scripture. While wearing armor of the holy warrior, your item bonus from the greater resilient rune increases from +2 to +3; if you upgrade to a major resilient rune, the item bonus instead increases from +3 to +4. An undead that critically fails an unarmed attack against you while you wear this armor takes 1d6 vitality damage.\nIf you are evil, you're Enfeebled 2 while wearing the armor. If you're undead, you also take 2d6 vitality damage each round that you wear the armor.\nActivate 3 command, envision, Interact\nFrequency once per day\nEffect The armor casts the three-action version of a 6th-rank Heal spell.",
+      "bulk": 2,
+      "price": {
+        "gp": 9000
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 5,
+        "dexterityCap": 1,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:lastwall-soup-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ed8gAxli6Of58kAM",
+      "slug": "lastwall-soup-greater",
+      "publicationTitle": "Pathfinder Lost Omens Knights of Lastwall",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/lastwall-soup.webp"
+    },
+    "sourceHash": "sha256:4e54f109c8f3b7a9fa9ae933b81aa430cc178b97e157cc5aeb070d364a0f4d6b",
+    "translatableHash": "sha256:3123f185afcd84c4024b9cd176310edd0f439758176e5532fe9aad30796fd50c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Lastwall Soup (Greater)",
+      "itemType": "consumable",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 minute (Interact)\nCrimson Reclaimers make this rich, hearty soup using herbs that baffle the senses of the undead. A bowl of Lastwall soup is as nourishing as a full meal. Gravelands Herbalists have spent time with the Knights of Lastwall, and have learned how to improve upon Lastwall soup.\nFor 1 hour after consuming a bowl of improved Lastwall soup, you gain a +3 item bonus to Stealth checks and DCs against undead. In addition, you gain 10 temporary hit points that last for 10 minutes.\nEffect: Lastwall Soup\nNote: Paizo did not provide a price for this item, so we set it as appropriate for a level 18 consumable.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3500
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:treat-unique",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3nDKWIydNEfhJ8XJ",
+      "slug": "treat-unique",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:5ee47ef8b17a8d3a7fb709a1fe39b77c8f7f1d62e9b5574091e27b781d3e7d1d",
+    "translatableHash": "sha256:4ad678a45d23a1dd0150ed614f3b86d373f4f901b31ff3f30e9978c5b31d873b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Treat (Unique)",
+      "itemType": "consumable",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "consumable"
+      ],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 1
+      },
+      "usage": "other",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cage",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EcLENuK2LXZdigTu",
+      "slug": "cage",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/waffle-iron.webp"
+    },
+    "sourceHash": "sha256:0b7bb665b2887e9b31a4e2c5c7494032eec41897e6abecc7a01de62cb85efa39",
+    "translatableHash": "sha256:1a8217ef99debbd7aee3371ef7c35ad3393cf1ea0725f5e062e26fc900960e74",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cage",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 5
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harness",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FphoSIj3t6iQj3ew",
+      "slug": "harness",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8e6d734fed18ed9655b493cfa503fba53a43b4e6a4ff8c0d4a5d0959edc87097",
+    "translatableHash": "sha256:16e72b8c9eb0902e05868ff2361c7a2a6a1bee7048b63fd6307912426a3c75f9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harness",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 8
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:feed-standard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "g190hQLpwU0jrSNa",
+      "slug": "feed-standard",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:3fd094253aa105041f1f639192793b7d0fa02fea6081b6a2aa908080d43efa7d",
+    "translatableHash": "sha256:cb88ea970d3757726be66baa2dabdbe6c191e220d2f81931134aaf9945a009e8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Feed (Standard)",
+      "itemType": "consumable",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "consumable"
+      ],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "cp": 1
+      },
+      "usage": "other",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:leash",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "h8XkyI4OUitdxjMF",
+      "slug": "leash",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:54ea31b566bdd3893b75e552dc6731623c4f22a9e5fdc39a34f382d79accf2c5",
+    "translatableHash": "sha256:aae75afbc79db053af8830157736dd6dcbff787feb0751a308065fe31a864fcd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Leash",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tank-stationary",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JU0fzXWJIdz9WOGF",
+      "slug": "tank-stationary",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/water-purifier.webp"
+    },
+    "sourceHash": "sha256:4805bae985ea983c75c6a919dc96c5d184b1ca70775b7ab5d1dd3e53f59de429",
+    "translatableHash": "sha256:d83afb73889cf2e1785101943a15f7435f47f0ce43cd95a3242ba2740f04f378",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tank (Stationary)",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "gp": 1
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:feed-unique",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nb83vPkRwm47cu3z",
+      "slug": "feed-unique",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d059b8fc03e6b2a5373e5358394f0ca1cb04645ed8c90d0f0f2e4f13c128cf59",
+    "translatableHash": "sha256:88c0a13f05670f3a6d2b7e1d4042a65895438568e90c75ad028d6059d1bbae54",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Feed (Unique)",
+      "itemType": "consumable",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "consumable"
+      ],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 1
+      },
+      "usage": "other",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:treat-standard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NF8dWgLTxj8QRrmg",
+      "slug": "treat-standard",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:bed9a3584f5a1f8f3b61b7f61bc0ef29231639b90e2e259b1eedd0c4dca9ecd5",
+    "translatableHash": "sha256:88c2ce332fce6b72c1ad790b97a79a2369376803c5c33a5c4365110baf39e177",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Treat (Standard)",
+      "itemType": "consumable",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "consumable"
+      ],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "cp": 1
+      },
+      "usage": "other",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:handling-gloves",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oDyRlkRos1abOGz0",
+      "slug": "handling-gloves",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8e738abed9848ea2df0e33a43a3d13665152eeaf1e1fcd15d0f0996fba6f397a",
+    "translatableHash": "sha256:21841eeba3f29da70f1fa6f3cbf92111625cc0457b67f7550388957392f9a818",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Handling Gloves",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 5
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tank-traveling",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "S0hmnalGCudgXaLG",
+      "slug": "tank-traveling",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/water-purifier.webp"
+    },
+    "sourceHash": "sha256:4ae61def6a87d0465c443ad9c1c2c73d3b24b35db92834b15f29d2bf55a7a45b",
+    "translatableHash": "sha256:bc2ca449802d4ddfe782d6080d5a6b0f05da816bfa46712df213ff47214ef8d0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tank (Traveling)",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "gp": 10
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:animal-bed",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TqqWFIiJYA5tXlSE",
+      "slug": "animal-bed",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1f57cb0afe4602a65d655a127052c2bd26e2e81628455f475ae246effd189a07",
+    "translatableHash": "sha256:0261a26efca2a24231ba50424d337e90dc45c1a82b8856afa50e8d66c8305c45",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Animal Bed",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 1
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:collar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vQiH5HYTsSRIsdK5",
+      "slug": "collar",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:faef6a076f4f72ad6316b11171a44f8bdea484a41b8e552cc79107d621824685",
+    "translatableHash": "sha256:a074bfe89669f3629071b8c89d9ea304d59863cf9d4df95f0dcaff58a319be90",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Collar",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "",
+      "bulk": 0,
+      "price": {
+        "sp": 1
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ladys-blessing-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qkPlUzyNLmLKVtBL",
+      "slug": "ladys-blessing-oil",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:2f50ab1bb5485c54a6e73b7b57a4cc7fb49586355b7b058202683f167a36af03",
+    "translatableHash": "sha256:0493975cef4b94bb3e1b70d0816e6a2d512fe1f00d2f3070142f0ed1e45e8fed",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Lady's Blessing Oil",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate Administer First Aid\nLady's blessing oil is favored by Pharasmin healers who ease the transitions of life. You can Activate the item as part of the same activity you use to Administer First Aid to stabilize a creature. If you use lady's blessing oil, the DC of the check to Administer First Aid is reduced to the creature's recovery roll DC, rather than 5 + the recovery roll DC. However, if you roll a failure on the check, you get a critical failure instead.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:drowsy-sun-eye-drops",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aUzX848Ygqicy2qs",
+      "slug": "drowsy-sun-eye-drops",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:5111e584b7e883fcdaa650d2156a6953257ef1aa28bffbaf7e24179c093ed9ff",
+    "translatableHash": "sha256:190dd8478a8a063bb410a965e151bebed355511f00c0d0b1b3ce60f89aee2cfe",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Drowsy Sun Eye Drops",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate Seek\nThese drops are made from luminescent mushrooms and refined into eye drops, which simulates a creature's natural night vision. When you attempt a Perception check to Seek, you can draw and apply a dose of drowsy sun to your eyes as part of the same action, which grants you darkvision to a range of 30 feet for 1 round. If you do, your Seek action gains the manipulate trait, due to drawing and applying the eye drops.\nEffect: Drowsy Sun Eye Drops",
+      "bulk": 0.1,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:toothwort-extract",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "k5A8zFQuDtGqNnk5",
+      "slug": "toothwort-extract",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:7f4ae6d7703837ef61bef008ec894fb61a4021319d3cca6ae34cd15719224abf",
+    "translatableHash": "sha256:f0d876abcdc2257327f9df8589d51accd14a829d9ffa3cededd54425a1f70935",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Toothwort Extract",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "additive1",
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate f\nTrigger You use Quick Alchemy to craft an alchemical poison that's at least 1 level lower than your advanced alchemy level.\nOriginally used in dental procedures, toothwort numbs the gums by deadening nerves. When the oils are extracted and distilled, toothwort has a secondary reputation among alchemists for enhancing the duration of poisons. When adding toothwort extract to an alchemical poison, you can extend the maximum duration of the poison by 1 round.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:artevil-suspension",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Y7VAygKtMnE6HaXJ",
+      "slug": "artevil-suspension",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:d4b4111a3277556d6176f0bd7fd830d1983a428da5aad20e79af22efd9fd3cb5",
+    "translatableHash": "sha256:fc7683b1e85d9c4299dd8170f8454749781763f512625a28bbd0f9e44faf00b8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Artevil Suspension",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate Treat Poison\nThis dried herb is known for its ability to draw toxins from the body, albeit violently. You can administer the suspension orally, Activating the item as part of the same activity you use to Treat Poison. If you succeed at your Medicine check to Treat Poison against an ingested poison, you can reduce the stage of the toxin by one stage, though this can't reduce the stage below stage 1 or cure the poison entirely. If you do, the creature becomes Sickened 2 as its body purges the toxin. An artevil suspension doesn't work unless the poison was administered through ingestion; for instance, if a poison can be administered through either ingestion or injury and was administered through injury, the suspension won't work.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 11
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:yarrow-root-bandage",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rBZSDgJeCknH7G2o",
+      "slug": "yarrow-root-bandage",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b4a3f15d0be59949b21fae2354af8d28dbc1db9600ae0d996552d90fc4894586",
+    "translatableHash": "sha256:8e5472089b3c7b6ab1529086f1cef47e8e4d6394ff7ef9c5e32bff0844dfe4d7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Yarrow-Root Bandage",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate Administer First Aid\nThis root is often infused into bandages for life-threatening bleeding. Activating the item is part of the same activity you use to Administer First Aid to stop bleeding on a creature who's also dying. When you do, you can Administer First Aid to stop bleeding and dying as part of the same activity with only one Medicine check. However, the DC for the Medicine check is equal to the 5 + the higher of the two DCs to Administer First Aid.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:curled-cure-gel",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "DPNuM3699xULCbmF",
+      "slug": "curled-cure-gel",
+      "publicationTitle": "Pathfinder Lost Omens Travel Guide",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:dc90f9e90e419e4c94199e1d0721b2b326981bc3cc6937fe9b450442776b2e55",
+    "translatableHash": "sha256:fad1fea8c375282bde33cce515a0ddd70e03666199e9b966232f0a0d8f93c9ae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Curled Cure Gel",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate Treat Wounds\nCurled cure secretes a gel that gently warms the skin and stimulates healing. You can Activate the item as part of the same activity you use to Treat Wounds. If you successfully Treat Wounds, you can also reduce the value of one of the targets' Clumsy, Enfeebled, or Stupefied conditions by 1. The target of your Treat Wounds is then temporarily immune to curled cure gel for 24 hours, whether or not your attempt to Treat Wounds was successful.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:chakri-lost-omens",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0GEXLXh8M5Ce6oYT",
+      "slug": "chakri-lost-omens",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/chakri.webp"
+    },
+    "sourceHash": "sha256:b176c040914c9a49030ef585a10419fc3fcdcc6d86fa8dafc4f9c8c807dea3b3",
+    "translatableHash": "sha256:b919e651ba8d77804d679fb77c3d05b963cad6b11c96ce04d31dca5ae3412b7e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Chakri (Lost Omens)",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "deadly-d8",
+        "thrown"
+      ],
+      "description": "A chakri is a small, circular throwing weapon with a sharp outer edge.",
+      "bulk": 0,
+      "price": {
+        "cp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "dart",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:thorn-whip",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2P9jItR1sV20OqmD",
+      "slug": "thorn-whip",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/thorn-whip.webp"
+    },
+    "sourceHash": "sha256:161cb5a2473069054cef04ab54657d71dce12eb69b90bc039bd4d75ba978ccb6",
+    "translatableHash": "sha256:ecb797343d1a29ee504fd8ec20b6e23399560045677eee822467a5449794892e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thorn Whip",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "disarm",
+        "finesse",
+        "ghoran",
+        "reach",
+        "trip"
+      ],
+      "description": "Carefully woven from plant fibers, the thorn whip sports small spikes that protrude from various locations.",
+      "bulk": 1,
+      "price": {
+        "sp": 6
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "brawling",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dandpatta",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5v2mhiBbYQDhlsw5",
+      "slug": "dandpatta",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/weapon.svg"
+    },
+    "sourceHash": "sha256:67df3dc37499aaa8f6f25d9ed1ebfa46ec442469d760fa5e11345f19e48b5c2e",
+    "translatableHash": "sha256:10961066a398ebef9611876f63e9afe495a1cdc15a3433d806b85e688951fce7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dandpatta",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "twin"
+      ],
+      "description": "This long, narrow blade is attached to a gauntlet that also acts as a handguard.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 8
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:kalis",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6v4aedCiIAoSJfiL",
+      "slug": "kalis",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/kalis.webp"
+    },
+    "sourceHash": "sha256:2e50839e8f20d2c74345e9aa0907a3d036df44325ae5dd379b0c5c45eb0819c4",
+    "translatableHash": "sha256:caa571f06128ebc89b4e23a3d6e160bca549c15f39838f178af0c6c086425450",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kalis",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d8",
+        "versatile-p"
+      ],
+      "description": "A larger version of the asymmetrical, wavy-bladed kris, this double-edged sword is effective at creating grievous injuries.",
+      "bulk": 1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:kris",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ADvVuMwIWDZZF9cv",
+      "slug": "kris",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ca8ea6f47f0d4c178a1bb25acdb5949132d3fa75eb637d2da2b1d96c0a51860b",
+    "translatableHash": "sha256:a78aeac8820c4cd174eefb8c642cde68ecb7d0b967825ba4c4302f647c9756eb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kris",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "deadly-d8",
+        "finesse"
+      ],
+      "description": "This blade features multiple curves in a serpentine pattern set on a wide, asymmetrical base, its hilt and sheath often intricately decorated.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 7
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:broadspear",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bzhJNnkIXdVRbjAA",
+      "slug": "broadspear",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f9d41a571d2bc9dccb8c718aba5ff09a5257b1898bf47ea154d6c08c9cba1b4b",
+    "translatableHash": "sha256:e2379edf29fe238df2939483a0355e87615fe8e5e35eadd0a22f012410038f3a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Broadspear",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "reach",
+        "sweep",
+        "versatile-s"
+      ],
+      "description": "The spearhead of this weapon is in the shape of a long leaf.",
+      "bulk": 2,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-two-hands",
+      "category": "advanced",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d10",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:talwar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GuWKXErLL5R43sIy",
+      "slug": "talwar",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ece9b09f036c9932f66b020f556b8eab834e15cd45af3698a04203e9f4086c11",
+    "translatableHash": "sha256:acf55cfef8202b2dc03ea98daa6828592c6f6b27543f6daecb79604a5719cf91",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Talwar",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "forceful",
+        "two-hand-d10",
+        "versatile-p"
+      ],
+      "description": "Longer, and with less curve than a scimitar, this blade is ubiquitous in guard and mercenary groups throughout Casmaron.",
+      "bulk": 1,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gada",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IoJ0WpfUPWGuaqBG",
+      "slug": "gada",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:cb3a6fe9c29422261608927fa37fc8df394a3f26bfe1c5e2aa8ac570fd4442c7",
+    "translatableHash": "sha256:17f471c64adde835abb531634604f85dff73b1edd86bdff2a273bb06931deba7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gada",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "backswing",
+        "two-hand-d12",
+        "vanara"
+      ],
+      "description": "A large spherical head with a spike on top sits mounted to a long shaft.",
+      "bulk": 1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:zulfikar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LdOXiIVgRWpnOtcd",
+      "slug": "zulfikar",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/zulfikar.webp"
+    },
+    "sourceHash": "sha256:73eaaaa521457bc0a9c5b071a6cbcb0c663d4eddee74dade1f458d35bc9a5462",
+    "translatableHash": "sha256:25f7bca8d072e73946f22aeb1e07ad17c6e656bbc83e6ceddb4c512fb6159886",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Zulfikar",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d8",
+        "disarm",
+        "sweep",
+        "versatile-p"
+      ],
+      "description": "This curved blade has a bifurcated tip, creating what looks like a second blade. It's a customary practice among zulfikar users to have religious or personal inscriptions upon the blade.",
+      "bulk": 1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:donchak",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Po1oeTDUaSUxeZxG",
+      "slug": "donchak",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/donchak.webp"
+    },
+    "sourceHash": "sha256:a2e481c4c3c0c14dcefd05b242032e7ee77c295a7716b8227d932b4b360f6b0d",
+    "translatableHash": "sha256:3f9fe3b0dc4407e453f32dd048afaa9be9a4e6ea2b105c5b156d3b644d53c178",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Donchak",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "hampering",
+        "reach",
+        "tethered",
+        "thrown-20"
+      ],
+      "description": "This long metal pole has a large chakram attached at the end. A mechanism within the handle allows the wielder to launch and retract the chakram, which is connected with wire to the inside of the weapon. The donchak is seldom seen used outside training scenarios.",
+      "bulk": 2,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-two-hands",
+      "category": "advanced",
+      "group": "polearm",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:triggerbrand",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RytXxlJJ7dib8seN",
+      "slug": "triggerbrand",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f890a74869858c522fde46f9a6024ae8f34246069b84d1a74740c544b0663f31",
+    "translatableHash": "sha256:2baf7fe01b833bd895fb250fbe5f9c6b230fec91d398f5c31510c3124028cb70",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Triggerbrand",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "combination",
+        "concussive",
+        "fatal-d8"
+      ],
+      "description": "This unusual combination weapon integrates features of a flintlock pistol and a shortsword. Like other combination weapons, a wielder can transform it between ranged and melee modes as an Interact action.",
+      "bulk": 1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:visap",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "sY3UJ34xJ4MA0FMK",
+      "slug": "visap",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a8b00194dbb9eb3f62e09795ec519c92f08667efd8dfc7fb035c8cb39b8e126b",
+    "translatableHash": "sha256:068038c3e13e9bbf1ca4a02f08e1b493fd3e4ed019f68b15aea273736870e548",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Visap",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "finesse",
+        "injection",
+        "versatile-p",
+        "vishkanya"
+      ],
+      "description": "Two small, curved blades extend from a single hilt. There's a hollow area inside that vishkanyas can use to store an unused dose of their blood, or other poison, for the future.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:plated-duster",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XxlCMccCPhl2pZMT",
+      "slug": "plated-duster",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:79399bbe004e3b2e4a33df49f09aa81723e3cbca4be8f77086a669fef117fceb",
+    "translatableHash": "sha256:004dddb0aa3e0e6bb7b92485ef77b2c07e3a7ab823f3d588f23c3c54cf698677",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Plated Duster",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "These loose-fitting long coats of canvas or leather are lined with metal plates, offering wearers respite from Alkenstar's dust storms and smog stains as well as modest protection against bullets and knives. While these dusters can't turn away gunfire entirely, their utility, affordability, and comfort ensure their popularity, especially among the city's shieldmarshals, who have adopted them as a sort of unofficial uniform.\nA plated duster can be donned with 2 Interact actions or as part of donning light armor. When worn with light armor from the cloth, leather, or chain groups, a plated duster increases the armor's item bonus to AC by 1, worsens the armor's check penalty by 1, reduces the armor's Dex cap by 1, increases the Strength score required to ignore the armor check penalty and Speed penalty by 2, adds the noisy trait, and changes the armor's group to composite. This also makes the armor one step heavier (from light to medium), and you use the proficiency bonus appropriate to this adjusted armor type. You can't use a plated duster alongside an armored skirt or any other item that adjusts an armor's statistics.",
+      "bulk": 1,
+      "price": {
+        "gp": 2
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tough-skin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7cy9gLlKX2vNja0a",
+      "slug": "tough-skin",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/armor.svg"
+    },
+    "sourceHash": "sha256:9f75a770c0909529cd0c8a4ed87e321bf5b6cbb123f19ddefb586b1de1d3dded",
+    "translatableHash": "sha256:b36b47deb83c4eebd61162a65a23989253742e1ad3520c72cd761357d8c55bf4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tough Skin",
+      "itemType": "armor",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "comfort"
+      ],
+      "description": "Note Tough Skin ancestry feat only\nYour skin is medium armor in the plate armor group that grants a +4 item bonus to AC, and has a Dex cap of +1, a check penalty of –2, a Speed penalty of –5 feet, a Strength value of +3, and the comfort trait. You can never wear other armor or remove your hide. You can etch armor runes onto your hide.",
+      "bulk": 0,
+      "price": {},
+      "usage": "",
+      "category": "medium",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 4,
+        "dexterityCap": 1,
+        "checkPenalty": -2,
+        "speedPenaltyFeet": -5
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:titan-nagaji-scales",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KA0Ku5qOQfXqw3BK",
+      "slug": "titan-nagaji-scales",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/armor.svg"
+    },
+    "sourceHash": "sha256:8930177a351cd8f23261d8ac8453ecdc7bf275d3faa1c8a47de3486fd7501ee3",
+    "translatableHash": "sha256:39020111cc5ab23d01c95f0e7e7dd3f5aaa4ea249c46e574529a73a88a17392b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Titan Nagaji Scales",
+      "itemType": "armor",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "comfort"
+      ],
+      "description": "Note Titan Nagaji heritage only\nYour scales are medium armor in the plate armor group that grant a +4 item bonus to AC, a Dex cap of +1, a check penalty of –2, a Speed penalty of –5 feet, a Strength value of +3, and have the comfort trait.",
+      "bulk": 0,
+      "price": {},
+      "usage": "",
+      "category": "medium",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 4,
+        "dexterityCap": 1,
+        "checkPenalty": -2,
+        "speedPenaltyFeet": -5
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:goo-grenade-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "t2A5PzInAqmErLzK",
+      "slug": "goo-grenade-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a6ded85105fd52d0b452ad2ed111c815fd256a4babf2f95e1f8b45d6d96866ae",
+    "translatableHash": "sha256:c1cce7899b9a27e7d9acd5a744697984eeefdba3ddbec0b351248368871bc51b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Goo Grenade (Lesser)",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nA goo grenade is a flask filled with a fast-growing, short-lived alchemical ooze. When you hit a creature with a goo grenade, that creature takes 1d4 acid damage, 1 persistent acid damage, and 1 acid splash damage, and a -5 circumstance penalty to its Speeds from the clinging goo. The target can end any penalties, conditions, and persistent damage caused by the bomb by Escape DC 15 or spending a total of 3 Interact actions to pry themselves free of the ooze. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.\nEffect: Goo Grenade",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "acid"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pocket-watch",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ONwLm7P7ICUtVN9V",
+      "slug": "pocket-watch",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/pocket-watch.webp"
+    },
+    "sourceHash": "sha256:1138a7af791e673e44a1b4948a7ac0037a92a62bf4872f28c60de5ff68fe35a4",
+    "translatableHash": "sha256:de87c9871e864e79c69991bddfa4c897852490292f1763d0b116acbec74e3c5f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pocket Watch",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This timepiece is a marvel of clockwork and miniaturization; its gears, arbor, and mainspring are immaculately crafted and tuned to maximize precision and reduce time loss. This pocket watch has the properties of a clockwork dial, except it has a maximum duration of 24 hours and is available to characters from Alkenstar.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wrenchgear",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mcKF8McrMlp01wUP",
+      "slug": "wrenchgear",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d527cbaac597a67f98419326e2515e03a7631d6c0e61ac31243924baf3cff77c",
+    "translatableHash": "sha256:b78651d79aebc10ca70ec8d56f8a36be837eb3275aa8affb53d3c3ffac6c0d5f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wrenchgear",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "The ubiquity of clockwork constructs in Alkenstar spurred the development of the wrenchgear (a shortened \"wrench in the gears\") by innovative criminals (\"wrenchers\") to create security exploits and larcenous opportunities. You gain a +2 item bonus to Disable a Device checks made against clockwork creatures (typically to wind them down).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:goo-grenade-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wi97vRj8IXx3wLmZ",
+      "slug": "goo-grenade-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:546ec7ce2c275f180c647d78cb0c8e1f3e4a78e71ef5eb348d00f8e682e7a7ba",
+    "translatableHash": "sha256:e2c6539faaf4ff7da002d394546807cc8f070106bc1a4526338822c66dbd056a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Goo Grenade (Moderate)",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nA goo grenade is a flask filled with a fast-growing, short-lived alchemical ooze. When you hit a creature with a goo grenade, that creature takes 2d4 acid damage, 2 persistent acid damage, and 2 acid splash damage, and a -5 circumstance penalty to its Speeds from the clinging goo. You gain a +1 item bonus to attack rolls. The target can end any penalties, conditions, and persistent damage caused by the bomb by Escape DC 17 or spending a total of 3 Interact actions to pry themselves free of the ooze. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.\nEffect: Goo Grenade",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 2,
+        "die": "d4",
+        "type": "acid"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vengeful-arm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GMcU4kX1ldrSQMh6",
+      "slug": "vengeful-arm",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:dc9beb16cb8fb8b1202083882666bd4a81784066f295c40be24951e10a99a877",
+    "translatableHash": "sha256:1e7e767de38419a6ef5eaa23b93366ed76555a00044d90ecf87d11cd0eefa5c2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vengeful Arm",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Abraxas teaches that an eye for an eye is the basis of law. This tattoo of a coiled viper provides a +1 item bonus to Society checks.\nActivate 1 envision\nEffect Abraxas transforms the tattoo into a weapon of your vengeance. The vengeful arm crawls into your hand and becomes a Retribution Axe. You can use this activation again while holding the axe to revert the vengeful arm to a tattoo. Like other retribution axes, you can etch fundamental runes into the vengeful arm's retribution axe to increase its potency or to add striking.",
+      "bulk": 0,
+      "price": {
+        "gp": 100
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oozepick",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hKed91BOXjyaNG3x",
+      "slug": "oozepick",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:b63b3488f4510b9b0943cfcc12f121ee21ef6a62416a32dc72733d913a54950f",
+    "translatableHash": "sha256:69a880f4c3850332f4e19417b58eff92cb8f37cda8b868d5627de3287740975b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oozepick",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nYou can pour this silver ooze into a lock or similar mechanism to create a set of malleable lockpicks and tools that conform to internal mechanisms. The ooze is treated as a set of thieves' tools that last for 1 hour and provide a +2 item bonus to Thievery checks to Pick a Lock or Disable a Device against the mechanism into which they were first poured.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oxygen-ooze",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JkQsRx2vwFqLLJmm",
+      "slug": "oxygen-ooze",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ff583a1952266abde203cbd1e27f66ef1305c9e893b498a4e4cebf7be5896e31",
+    "translatableHash": "sha256:2909e58c39987d466248264d34cbcfbf53c4ea7cac27ee11558741e4d7c64fa6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oxygen Ooze",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nYou can chew on this translucent green ooze to cause it to expand into a bubble of slime that envelops your mouth and nose. For the next hour, the ooze provides breathable oxygen, allowing you to breathe in environments where you couldn't normally breathe. It then harmlessly dries up and falls away.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grave-token",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "THfWJr1qr3jrncYZ",
+      "slug": "grave-token",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1c1adb1116c5dbeb5b46642849d1dd612a1f673a41984442a62c37e2ea865b57",
+    "translatableHash": "sha256:4533e931f6417650b1a1f1f691a3bfd41887fa4e69260134545c61e92ef89d5b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grave Token",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nThis simple charm is made from compacted grave dirt infused with bone dust. A Harm spell that's empowered by this catalyst can reach faraway targets. If the harm spell is cast with 1 action, its range is 30 feet; if it's cast with 2 actions, its range is 60 feet. This has no effect on the three-action area version of harm, though in most cases, you don't have enough actions to Activate the token and cast a three-action harm anyway.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 18
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unsullied-blood-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "605M9h4bMsNCQne6",
+      "slug": "unsullied-blood-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:73d5b3a9d8def894c84ad093d7784445b2cf27e5e52d9a7f35190c492708b7e8",
+    "translatableHash": "sha256:361bb89e2aa99dfebbae64fadc9607e3780865fbb19bded11214163b77bcf97e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unsullied Blood (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nBlood offered from a willing donor was taken directly from the vein and stored in an ornate vial that keeps it as pure and red as the day it was extracted. When this catalyst is added to a Vampiric Feast spell of up to 4th level, instead of gaining temporary Hit Points based on the damage dealt, you recover half of the damage dealt as Hit Points.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:alkenstar-ice-wine",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fz2OlQ9IYIcVASiv",
+      "slug": "alkenstar-ice-wine",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:99450ead59f4952ddc25dc6c3eca89e3e92b34f438efea6686eea1cb4685e49d",
+    "translatableHash": "sha256:52c91d834aca34ce751fc9f365dad8da88dcc51930fda4487a545c3a66f57535",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alkenstar Ice Wine",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "drug",
+        "ingested",
+        "poison",
+        "vitality"
+      ],
+      "description": "This bottle of delicately sweet ice wine has the properties of alcohol. Made exclusively from grapes frozen in the Mana Wastes' erratic surge storms, Alkenstar ice wine finds a ready market among Geb, though undead are still immune to the drug's listed effects.\nThe listed price is for a mediocre vintage, but finer vintages are higher level and commensurately more expensive.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:silent-heart",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "iFkgpzf67iapKfyD",
+      "slug": "silent-heart",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/tattoos/silent-heart.webp"
+    },
+    "sourceHash": "sha256:750131ff6c56c16d99f015e76b72048ad8cb4905515ee552f60c2fa3a446c606",
+    "translatableHash": "sha256:2f7c28a97c661b29468536b64742840c62c35ca436ea1ff8cf28e5cabe812c93",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Silent Heart",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Abraxas teaches that the true heart is impenetrable, dedicated only to knowledge. This tattoo of a venom-soaked heart provides a +1 item bonus to Occultism checks.\nActivate R envision\nFrequency once per hour\nTrigger You're about to attempt a saving throw against an emotion effect or an effect that would make you controlled\nEffect Abraxas envelops your heart in the shadow of his secret, granting you a +2 status bonus on your saving throw against the triggering effect.",
+      "bulk": 0,
+      "price": {
+        "gp": 130
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:venomed-tongue",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dChkPrLJfZDPBvWR",
+      "slug": "venomed-tongue",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e81a43204c0a4f5e17caa4272fc6648ee6d361d01bfcc382136f11b24b7ddd58",
+    "translatableHash": "sha256:632381fa85a97e6bc6fd70e6b95df1f02993ae1a56c596429306e1681bfc2bff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Venomed Tongue",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Secrets must be unraveled, no matter how painful. This tattoo of braided tongues provides a +1 item bonus to Deception checks.\nActivate 1 envision\nFrequency once per day\nEffect Abraxas fills your tongue with venom, causing your deceptions to poison your foes. You use Deception to Create a Diversion, Feint, or Lie. Choose one target against whom your Deception check succeeded; that target takes 2d6 persistent poison damage.",
+      "bulk": 0,
+      "price": {
+        "gp": 333
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:doctrine-of-blissful-eternity",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "OVyGHaHjYI2DBV0h",
+      "slug": "doctrine-of-blissful-eternity",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f6776790c3f14240ae4dba1bd5f3b5c1514f90e88ae2cf9e94c24b11ed7742f7",
+    "translatableHash": "sha256:f0528a0a17a52c1ca7a6c176096e0e49bbc0154c03db8fdb17f8668ef51a2e06",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Doctrine of Blissful Eternity",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "grimoire",
+        "magical"
+      ],
+      "description": "The bones of small animals decorate the cover of this tome, creating a pattern that resembles a gross perversion of Pharasma's holy symbol.\nActivate R command\nFrequency once per day\nTrigger An undead minion you summoned or created using a spell prepared from this grimoire takes damage that would bring it to 0 Hit Points\nEffect You call out and demand the undead to remain, reaching out with tendrils of void energy that preserves your minion so it might continue to serve you. Expend a spell slot in which you've prepared a Harm spell to restore 1d8 Hit Points to your undead minion per level of the expended spell slot, before applying the damage. If this prevents the minion from being reduced to 0 Hit Points, it isn't destroyed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 340
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:condensed-mana",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XfQSkbjxVHF82ael",
+      "slug": "condensed-mana",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/daylight-vapor.webp"
+    },
+    "sourceHash": "sha256:a7ebcf992a4c6c595b91bb55d713937447b7d860e6d7786a022915bcaee7e368",
+    "translatableHash": "sha256:1c4e9f0dcce60abfe46de0f3d8e042f0051e9de808fc87d18ddcb2640403093a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Condensed Mana",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 2 Strike\nCondensed mana is a crystal vial filled with concentrated miasma from the Mana Wastes. The colors shift abruptly and unpredictably within and the opening of the bottle is sealed tighter than any other potion or alchemical item, emphasizing its dangers. On a successful Strike, the creature takes 1 force damage. Then, roll on the Wellspring Surges table. The result affects all creatures within the emanation indiscriminately. For the purpose of determining the effects of the surge, use a spell rank of 4 and a DC of 23. The person Striking with this vial is considered to be the caster for the purposes of determining effects on the Mana Surge table. The emanation is centered on the target's space, and both the caster and the target of the wellspring surge are the target of the condensed mana. On a failed Strike, the surge only has an effect if it would normally affect an area; if you roll an effect that depends on a caster or a target, nothing happens. If the effect normally doesn't have a DC, creatures affected by the surge or within the surge's area must attempt a check (reflex, dc:23) save instead. On a critical failure on any saving throw against condensed mana, the creature is Stunned by the wild energies of the surge. Sometimes a wellspring surge's effects make it difficult to determine exactly who is affected. The GM makes the determination, basing it on creatures directly affected; for example, while many creatures can hear the music from the surge \"strike up the band,\" only the creature emanating the music is directly affected by it.\nCraft Requirements You must be in or adjacent to an area of Mana Wastes miasma.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 69
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:carrion-cask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8MclH3pggVkHGYnJ",
+      "slug": "carrion-cask",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8768088bd592257fbb1a462053bc2c3cd3b9e867f892f0c830e4e5f96b9c3071",
+    "translatableHash": "sha256:8d855da2472dbb345befc011d5bd3063986284491a7daf81fde3f34751700ff6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Carrion Cask",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This stylized, palm-sized box contains a black, ooze-like substance that can easily devour a corpse in moments, breaking the body down into a necromantic sludge.\nActivate Interact\nFrequency once per day\nEffect You feed a corpse of a Small-sized or larger creature to the cask, little by little. The activation requires a three-action activity for a Small or Medium creature, a 1-minute activity for a Larger creature, and a 10-minute activity for a Huge creature. A Gargantuan creature is too large for the cask to devour.\nActivate D command, envision\nFrequency once per day\nRequirements The carrion cask has consumed a corpse since the last time it was activated\nEffect You release the sludge from the carrion cask's last meal in a pulse of necromantic energy. Creatures in a 30-foot cone take 6d6 void damage, with a check (fortitude, dc:24, basic, options:area-effect).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unsullied-blood-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FClD2GoWpq3qdPQl",
+      "slug": "unsullied-blood-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:18682ad83275f3a8464f6a4d76edadf540a732cf418bedf587d3d57623fe608e",
+    "translatableHash": "sha256:15946e56cf83668498124a0a1d23745780d7c11adc5d4a927bfc26c5fd4ddf05",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unsullied Blood (Moderate)",
+      "itemType": "consumable",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nBlood offered from a willing donor was taken directly from the vein and stored in an ornate vial that keeps it as pure and red as the day it was extracted. When this catalyst is added to a Vampiric Feast spell of up to 5th level, instead of gaining temporary Hit Points based on the damage dealt, you recover half of the damage dealt as Hit Points. If the amount of Hit Points that would be restored by the spell exceeds your Hit Point maximum, you gain the excess as temporary Hit Points.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 85
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tyrants-writs",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "jfLMxToNvg2VzjSw",
+      "slug": "tyrants-writs",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:129294f468d4b331b966f434e610d411b60e77fb3934c591af75dc06f5fa8691",
+    "translatableHash": "sha256:4d169d9d92cf36ed2482b7257963906d03c7d55ad3551cfadc1b7bd260fb6ba0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tyrant's Writs",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "grimoire",
+        "magical"
+      ],
+      "description": "A spirited debate persists among scholars on whether the eponymous tyrant of this grimoire actually refers to Tar-Baphon, the necromancer Geb, or even the goddess Urgathoa herself. This grimoire appears at first to be a series of writs that makes arrogant demands of the reader, those around them, and the universe. Anyone who gives these writings more than a cursory look realizes the writs hold spells much like any other grimoire, with the animate dead spell being particularly prominent. Tyrant's writs grants you the ability to demand more from the undead you animate.\nActivate F envision (spellshape)\nFrequency once per day\nEffect If your next action is to Cast a Spell to cast an animate dead spell prepared with tyrant's writs, you can choose one of the following additional benefits to grant the summoned undead.\n• Bloody The undead gains fast healing equal to its level.\n• Explosive When it reaches 0 Hit Points, the undead explodes, dealing 4d6 fire damage to adjacent creatures, with a basic Reflex save using the animate dead spell's DC. As normal, since the final sacrifice spell doesn't reduce the target to 0 Hit Points, it doesn't cause this explosion.\n• Necrotic Speed The undead gains a +10-foot status bonus to all its Speeds.\n• Rotten Any living creature who starts its turn adjacent to the undead who isn't at full Hit Points takes 1d6 poison damage",
+      "bulk": 0.1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sunflower-censer",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZeXTbx8MhQQ6ylhU",
+      "slug": "sunflower-censer",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:98d297b6e5a6d36b3c8888d152cdf2d8d1ffb0fdb1cfc8227fa21817a65be74f",
+    "translatableHash": "sha256:dfe1bc2792fbb7cc2149ce01db9690bb4f73cdd09e95b4a746e78290e323c0f9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sunflower Censer",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "rare",
+      "traits": [
+        "illusion",
+        "magical"
+      ],
+      "description": "This gold-and-ivory incense burner always emits a pleasant, floral-scented smoke without any need to be refilled. It has a chain that can be easily affixed to a belt or bag, allowing it to be worn without a free hand. As long as the censer is burning, the bearer benefits from the Undetectable Alignment spell. They also don't appear undead to divination spells or abilities, or to senses such as lifesense, unless those abilities successfully counteract the censer. The censer can be lit or extinguished with an Interact action.\nActivate 2 interact\nFrequency once per hour\nEffect Smoke bellows from the censer with the effects of an Mist centered on you.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 480
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unsullied-blood-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3YnHsf98MAe3lcdH",
+      "slug": "unsullied-blood-greater",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b35f9ab8fff7a52ee8aefe8d02c5e3e23b5042dd8505d3e93c800cbb3c845fde",
+    "translatableHash": "sha256:c8977e02f0339f0f301ed022a79f0e15d5f7fd4c2ddb7eaa9f5e4f32c722312d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unsullied Blood (Greater)",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nBlood offered from a willing donor was taken directly from the vein and stored in an ornate vial that keeps it as pure and red as the day it was extracted. When this catalyst is added to a Vampiric Feast or Vampiric Maiden spell of up to 6th level, instead of gaining temporary Hit Points based on the damage dealt, you recover half of the damage dealt as Hit Points. If the amount of Hit Points that would be restored by the spell exceeds your Hit Point maximum, you gain the excess as temporary Hit Points.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vultures-wing",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "DDsCScnV4QfWlfeF",
+      "slug": "vultures-wing",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:9be2ff80d1d5bcbb83a8c4822022ad234203bd65790399be34a24f3ef75d1c5f",
+    "translatableHash": "sha256:86443c20442a6c0983cc008246b1ca620818a8db2db9ba2365c44d584349158a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vulture's Wing",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A Cast a Spell\nThis fan of vulture feathers scatters on an unnatural gust of wind. If this catalyst is used to cast a Enfeeble spell that has been heightened to at least 5th level, instead of targeting a single creature, you cast the spell in a 30-foot-area cone. You don't make a spell attack roll, instead affecting all creatures within the area with the effect the spell would normally have on a hit. This means creatures within the area must attempt a Fortitude save to determine whether they're enfeebled.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bottled-screams",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GIsGVMzTw7JfWweP",
+      "slug": "bottled-screams",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:2f0a589bf691c2aadaba7df42af9671f2bb59d8d64a333d34e28d9e763f3a49f",
+    "translatableHash": "sha256:a29fddd99df4f11f6be0287d740e62f5443853452b3546e2b7b03e479b5a4afb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bottled Screams",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nThe vengeful wails of a revenant, barely contained in this rattling jar, infuse your magic with all of their spite and malice. If a target fails its saving throw against your Seal Fate spell after you've added this catalyst, it takes 1d6 of the type chosen for the spell 2d6 if it critically fails).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oozepick-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HwWrR4CG3Fe7QZrO",
+      "slug": "oozepick-greater",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:605a41967865cad22ce69fa22befa3fdd798e3d09c1ebe89e863fac710eac042",
+    "translatableHash": "sha256:5128896f7760b52c91c998858dd15ef0f3ff7e1fad4067fc483870e0281fc5d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oozepick (Greater)",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 Interact\nYou can pour this silver ooze into a lock or similar mechanism to create a set of malleable lockpicks and tools that conform to internal mechanisms. The ooze is treated as a set of thieves' tools that last for 8 hours and provide a +3 item bonus to Thievery checks to Pick a Lock or Disable a Device against the mechanism into which they were first poured.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:palanquin-of-night",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uiTJWd8IJevpkjbq",
+      "slug": "palanquin-of-night",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e423dae7e4d7d2014d06f8ee439f71c50dec4505380259f4d017a3a4d3295388",
+    "translatableHash": "sha256:6d519bf2e3174115208b3f0b5bf5811383caab116a871d35214dc43c4aee65ca",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Palanquin of Night",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This small square of dark blue fabric appears to be painted with a depiction of the night sky, shifting each day to match the sky above Geb the previous night.\nActivate 3 Interact\nEffect The fabric unfolds into a dark palanquin large enough to comfortably hold two Medium creatures. Four spectral bearers appear at the corners of the palanquin, capable of carrying it effortlessly over most types of terrain as long as the terrain is relatively flat and devoid of hazards. Spectral bearers have the statistics of an Unseen Servant, except they're strong enough to carry the palanquin and its occupants. They move generally along a basic set of directions you indicate upon activation, which can include turns onto various streets, but they don't take other creatures' feelings into account and can be inconsiderate to passersby in an inhabited area as they relentlessly move you forward. The bearers move slowly but steadily along their simple directions. While the palanquin is perfectly suitable for overland travel, the bearers' imprecise movements and the requirement to reactivate the palanquin to change destinations make it unsuited for a combat encounter or other situation where seconds and precise movements count.\nThe palanquin's interior ceiling is painted with the same night sky pattern as the cloth, and dark curtains hang over the windows. The palanquin protects its occupants from sunlight and severe heat and cold (though not extreme or incredible heat or cold) as well as blocks most non-damaging forms of weather. The palanquin is only as sturdy as a standard wooden carriage—if it would be destroyed, it instantly reverts to a square of fabric and can't be Activated again for 1 month.\nYou can return the palanquin to its original shape by using an Interact action to command the spectral bearers to collapse it. They disappear the moment it returns to its fabric form.",
+      "bulk": 0,
+      "price": {
+        "gp": 825
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:open-mind",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VPjzEstF31PFSnyG",
+      "slug": "open-mind",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:0c51cf431e09d676ed69536f40605f607c8055db7f19eed590be47031a937eef",
+    "translatableHash": "sha256:5eb77dc91214cec690e691ee531e802442e1896c3ffb20ae7977e9751f86cf6b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Open Mind",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Abraxas teaches knowledge is the only power that matters. This tattoo of a stylized eye provides a +1 item bonus to Lore checks.\nActivate 1 envision\nFrequency once per hour\nEffect Abraxas opens your inner eye; you gain the effects of Hypercognition.",
+      "bulk": 0,
+      "price": {
+        "gp": 900
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:thoughtwhip-claw",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "c0tITjJAX5nc2xXx",
+      "slug": "thoughtwhip-claw",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8ffe893f3eae465ffb5ee4d110f1f77e4351cfde9bc3e55edeee152e2de260b8",
+    "translatableHash": "sha256:8b45256474b1bb077d1127fe56eb95a7894da356e5a373b2e16bb1d1f7bd63a9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thoughtwhip Claw",
+      "itemType": "equipment",
+      "level": 11,
+      "rarity": "rare",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Abraxas teaches that minds can be robbed as surely as pockets. This tattoo of a clenched fist provides a +2 item bonus to Thievery checks.\nActivate 2 command, envision\nFrequency once per day\nEffect Abraxas reaches through your hands and creates threads to yank thoughts from the mind of another. The thoughtwhip claw casts Mind Probe on a creature within range, with a DC of 28.",
+      "bulk": 0,
+      "price": {
+        "gp": 1350
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:goo-grenade-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SAtG9jrqey2y8EGb",
+      "slug": "goo-grenade-greater",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8a7949c80c3d963dca6a4b38d5a1b0609597e386e1d9e2b314776afbaf814f83",
+    "translatableHash": "sha256:bd9a2d97dfb22a64a23279f570cc72f9a478cf952f150a6524aed203bb0feac0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Goo Grenade (Greater)",
+      "itemType": "weapon",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nA goo grenade is a flask filled with a fast-growing, short-lived alchemical ooze. When you hit a creature with a goo grenade, that creature takes 3d4 acid damage, 3 persistent acid damage, and 3 acid splash damage, and a -10 circumstance penalty to its Speeds from the clinging goo. You gain a +2 item bonus to attack rolls. The target can end any penalties, conditions, and persistent damage caused by the bomb by Escape DC 26 or spending a total of 3 Interact actions to pry themselves free of the ooze. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.\nEffect: Goo Grenade",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 3,
+        "die": "d4",
+        "type": "acid"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cube-of-force",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TAHcYiBzvg8F1AwY",
+      "slug": "cube-of-force",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:6ab5982eb12cdf0aec3820246e201017cb5e3e3d380bf2429e00337567ddea48",
+    "translatableHash": "sha256:2a99618ffb6255fb03df34310b351ddd088d56ddfa45f2a656ceaac0de967bb2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cube of Force",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "A cube of force is an enchanted cube that measures an inch across. While made from any hard material, the sides of a cube of force are decorated so that they can be distinguished by touch.\nActivate 2 Interact\nFrequency once per day\nEffect You hold the cube aloft and depress one of its six faces for several seconds. The cube creates six walls around you, creating a cube 10 feet on each side centered on you (typically centered on the top of your space if you're a Medium creature). If a creature or object overlaps any of these walls, that face of the cube doesn't appear; this also means if you're Huge or larger, the activation has no effect, as your space is larger than the cube would be. The duration and effect of the six walls depends on which face of the cube you press when you Activate the cube, as seen on the Cube Effects table (below). Pressing the sixth cube face with a simple Interact action Dismisses the effect; doing so isn't an activation and thus doesn't count against the cube's frequency. The walls have the AC, Hit Points, and Hardness of a Wall of Force.\nCube Face |\nDuration |\nEffect |\n1 |\n30 minutes |\nThe walls keep out gas and wind, attempting to counteract such effects that cross the threshold with a 1d20+20 counteract modifier but allowing all other things through. |\n2 |\n10 minutes |\nThe walls block nonliving matter from crossing; a nonliving creature must succeed at a check (will, dc:30) save to cross the threshold, wasting their move action on a failure, and unattended objects can't cross. Non-magical ranged attacks can't cross either and instead attack the wall. A living creature can bring attended objects across the walls without needing to attempt a saving throw. |\n3 |\n10 minutes |\nThe walls block living matter from crossing; a living creature must succeed at a check (will, dc:30) save to cross the threshold, wasting their move action on a failure. |\n4 |\n5 minutes |\nThe walls keep out magical effects that cross the threshold, attempting to counteract magical effects with a 1d20+20 counteract modifier, though they don't prevent a creature with magical items or effects from entering. |\n5 |\n1 minute |\nThe walls block everything, with the effects of Wall of Force. |\n6 |\n- |\nThe cube is Dismissed (this takes only an Interact action and isn't an activation). |",
+      "bulk": 0,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unsullied-blood-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "62IVHZyHA6239PHe",
+      "slug": "unsullied-blood-major",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:2f06039be2e836c97422975c2493e2a7dc4660be5055b37c3f9c09aa87ac587d",
+    "translatableHash": "sha256:425de0cfbd534f458e8291f470e5469b82d34e5cf09eb731512cc474bea67153",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unsullied Blood (Major)",
+      "itemType": "consumable",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nBlood offered from a willing donor was taken directly from the vein and stored in an ornate vial that keeps it as pure and red as the day it was extracted. When this catalyst is added to a Vampiric Feast, Vampiric Maiden, or Vampiric Exsanguination spell of any level, instead of gaining temporary Hit Points based on the damage dealt, you recover half of the damage dealt as Hit Points. If the amount of Hit Points that would be restored by the spell exceeds your Hit Point maximum, you gain the excess as temporary Hit Points.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 900
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:defiled-costa",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Bgslo3kDz8bTiYie",
+      "slug": "defiled-costa",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:2532e646c6aa738c2a93f127f811d462b6e21e9f354ea14951c7214a1e5a3be1",
+    "translatableHash": "sha256:0024f19d1c4767db53770e48257ffb48341e6e2ea112916d9ea4a8acaca8f7a5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Defiled Costa",
+      "itemType": "consumable",
+      "level": 14,
+      "rarity": "rare",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nThis still-bloody rib was taken from a priest of Urgathoa at the moment they passed into undeath and has a constant stench of decay. The first time any creature critically fails its saving throw against a Mask of Terror spell cast using this catalyst, it also takes 6d10 mental damage, with a basic Fortitude save against the spell's DC, as it lives through the memory of having its rib torn from its body. Once any creature takes this damage, the defiled costa's effect ends, and no other creatures take the damage, even if they critically fail.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 900
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:defiled-costa-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oO0DqxI7EGkTYJzv",
+      "slug": "defiled-costa-greater",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:8432d1d435546988decee1d00ec5f5c394a0816980fb7075d18864e6572dde21",
+    "translatableHash": "sha256:fba37e405ffc5615ff03fcdd75b46d555334a5f4b74ccf0712cd3c96accc8317",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Defiled Costa (Greater)",
+      "itemType": "consumable",
+      "level": 17,
+      "rarity": "rare",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A envision\nThis still-bloody rib was taken from a priest of Urgathoa at the moment they passed into undeath and has a constant stench of decay. The first time any creature critically fails its saving throw against a Mask of Terror spell cast using this catalyst, it also takes 6d10 mental damage, with a basic Fortitude save against the spell's DC, as it lives through the memory of having its rib torn from its body. A creature who critically fails against this safe is killed instantly. This effect has the incapacitation trait.\nOnce any creature takes this damage, the defiled costa's effect ends, and no other creatures take the damage, even if they critically fail.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:goo-grenade-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "W0RWd2E0jkF2ZXhf",
+      "slug": "goo-grenade-major",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:18aad28cf795b4aa327ad157f85aae82db13cd861819140d99cd42757faa7b4f",
+    "translatableHash": "sha256:ebd967f911f3814486e8e039b81ef4747ba5ebf37a21c36aa216ef55f246e4e5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Goo Grenade (Major)",
+      "itemType": "weapon",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nA goo grenade is a flask filled with a fast-growing, short-lived alchemical ooze. When you hit a creature with a goo grenade, that creature takes 4d4 acid damage, 4 persistent acid damage, and 4 acid splash damage, and a -10 circumstance penalty to its Speeds from the clinging goo. You gain a +3 item bonus to attack rolls. The target can end any penalties, conditions, and persistent damage caused by the bomb by Escape DC 35 or spending a total of 3 Interact actions to pry themselves free of the ooze. These Interact actions don't have to be consecutive, and other creatures can provide the actions as well.\nEffect: Goo Grenade",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 4,
+        "die": "d4",
+        "type": "acid"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:lesser-cube-of-nex",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ckJkldBWN8n1Hq2a",
+      "slug": "lesser-cube-of-nex",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a83eb19f4913e04b871194e202d8837f3792d63eb7ad86dd77e7c8ebe358d0ab",
+    "translatableHash": "sha256:40a6650abbbf1760bc129404fa6d2f66aabb518bf2507281ff4b5da10e65a0b1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Lesser Cube of Nex",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "magical"
+      ],
+      "description": "A Lesser Cube of Nex is an enchanted cube that measures an inch across. The sides of a Lesser Cube of Nex are decorated so that they can be distinguished by touch. Each Lesser Cube of Nex is attuned to a single school of magic. Within 5 feet of the Lesser Cube, all magic from that school is suppressed or impossible to cast, with the effects of a 10th-rank Antimagic Field spell. While there are eight Lesser Cubes of Nex, each of the artifacts is unique, as there's only one Lesser Cube of Nex for each school of magic.\nActivate 2 Interact\nFrequency once per hour\nEffect You hold the cube aloft and depress one of its six faces for several seconds. The cube creates six walls around you, creating a cube 10 feet on each side centered on you (typically centered on the top of your space if you're a Medium creature). If a creature or object overlaps any of these walls, that face of the cube doesn't appear; this also means if you're Huge or larger, the activation has no effect, as your space is larger than the cube would be. The effect of the six walls depends on which face of the cube you press when you Activate the cube, as seen on the Cube Effects table (below). Pressing the sixth cube face with a simple Interact action Dismisses the effect; doing so isn't an activation and thus doesn't count against the cube's frequency. The walls have the AC, Hit Points, and Hardness of a Wall of Force.You must first Dismiss any previous activation before you use it again.\nCube Face |\nEffect |\n1 |\nThe walls keep out gas and wind, attempting to counteract such effects that cross the threshold with a 1d20+20 counteract modifier but allowing all other things through. |\n2 |\nThe walls block nonliving matter from crossing; a nonliving creature must succeed at a check (will, dc:30) save to cross the threshold, wasting their move action on a failure, and unattended objects can't cross. Non-magical ranged attacks can't cross either and instead attack the wall. A living creature can bring attended objects across the walls without needing to attempt a saving throw. |\n3 |\nThe walls block living matter from crossing; a living creature must succeed at a check (will, dc:30) save to cross the threshold, wasting their move action on a failure. |\n4 |\nThe walls keep out magical effects that cross the threshold, attempting to counteract magical effects with a 1d20+20 counteract modifier, though they don't prevent a creature with magical items or effects from entering. |\n5 |\nThe walls block everything, with the effects of Wall of Force. |\n6 |\nThe cube is Dismissed (this takes only an Interact action and isn't an activation). |",
+      "bulk": 0,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cube-of-nex",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1kLz3leyfccLcAMK",
+      "slug": "cube-of-nex",
+      "publicationTitle": "Pathfinder Lost Omens Impossible Lands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:cc22237ab8e431cb1eaa315a0c684cd3c0104c4151ccda40900dd944c9c967f3",
+    "translatableHash": "sha256:512bcfce0d2081fd6f2ae87d155350141608fd2b3ff9b2e83aafa7c538182a04",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cube of Nex",
+      "itemType": "equipment",
+      "level": 25,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "magical"
+      ],
+      "description": "The Cube of Nex is an enchanted cube that measures an inch across. The sides of the Cube of Nex are decorated so that they can be distinguished by touch.\nWithin 5 feet of the Cube of Nex, all magic is suppressed or impossible to cast, with the effects of a 10th-rank Antimagic Field spell. However, spells you cast and magic items you wield ignore the Antimagic Field from the Cube of Nex.\nActivate 2 Interact\nFrequency once per hour\nEffect You hold the cube aloft and depress one of its six faces for several seconds. The cube creates six walls around you, creating a cube 10 feet on each side centered on you (typically centered on the top of your space if you're a Medium creature). If a creature or object overlaps any of these walls, that face of the cube doesn't appear; this also means if you're Huge or larger, the activation has no effect, as your space is larger than the cube would be. The effect of the six walls depends on which face of the cube you press when you Activate the cube, as seen on the Cube Effects table (below). Pressing the sixth cube face with a simple Interact action Dismisses the effect; doing so isn't an activation and thus doesn't count against the cube's frequency. The walls have the AC, Hit Points, and Hardness of a Wall of Force.You must first Dismiss any previous activation before you use it again.\nActivate 2 Interact\nFrequency: once per minute\nEffect A cube of force or Lesser Cube of Nex within 60 feet of you becomes inert. It can't be Activated, any current activation ends, and any constant abilities it has cease to function.\nCube Face |\nEffect |\n1 |\nThe walls keep out gas and wind, attempting to counteract such effects that cross the threshold with a 1d20+20 counteract modifier but allowing all other things through. |\n2 |\nThe walls block nonliving matter from crossing; a nonliving creature must succeed at a check (will, dc:30) save to cross the threshold, wasting their move action on a failure, and unattended objects can't cross. Non-magical ranged attacks can't cross either and instead attack the wall. A living creature can bring attended objects across the walls without needing to attempt a saving throw. |\n3 |\nThe walls block living matter from crossing; a living creature must succeed at a check (will, dc:30) save to cross the threshold, wasting their move action on a failure. |\n4 |\nThe walls keep out magical effects that cross the threshold, attempting to counteract magical effects with a 1d20+20 counteract modifier, though they don't prevent a creature with magical items or effects from entering. |\n5 |\nThe walls block everything, with the effects of Wall of Force. |\n6 |\nThe cube is Dismissed (this takes only an Interact action and isn't an activation). |",
+      "bulk": 0,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:concealment-coin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "e0hrybnm5FBr28Su",
+      "slug": "concealment-coin",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b27bc2b1c5cd3d35ea055f89bb8b55a4996432ce0fabe862425de4a5c3f0086f",
+    "translatableHash": "sha256:9f02a0dd0fcff21087cdf83b44af8ba9045668413943b98e8a54a7facf344510",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Concealment Coin",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "This hollow piece resembles a typical coin and features enough space inside to hide brief messages written on small pieces of paper. You can unscrew or close the coin with an Interact action. You can determine an unattended concealment coin's true nature with a successful check (perception, dc:20) check. Determining the coin's nature while it's being handled is more difficult and typically requires a successful Perception check against the Thievery DC of the person holding the coin.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:armored-cloak",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GvAGrcl14Ywcgm2I",
+      "slug": "armored-cloak",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a796259818d17aad994812c9e45b722b4c6d8af229109e398a1b29fdcf9d3f8e",
+    "translatableHash": "sha256:d57bc77050ac636a6b7dd3834ff05d0fea9b7d1f49728de5b21f704e0820e508",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Armored Cloak",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "comfort",
+        "flexible"
+      ],
+      "description": "This large, thick cloak is fitted with thin strips of metal at key locations along its length. A pair of straps attaches the cloak to your arms, giving you greater control over the cloak's movements. Using these straps, you can constantly move the cloak or keep it wrapped around yourself to block and intercept attacks. Many Firebrands favor wearing armored cloaks over traditional armor for style reasons, such as matching the cloak to the rest of their outfit.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2
+      },
+      "usage": "",
+      "category": "light",
+      "group": "armored-cloak",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:shield-pistol",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HaquLIE0SFc85vWY",
+      "slug": "shield-pistol",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/immolation-clan-pistol.webp"
+    },
+    "sourceHash": "sha256:25aee2268a4ee2f1ba1472258017bb532d03cf18b5f2230216954d0067d8e9b2",
+    "translatableHash": "sha256:41a801787226f6d0862a954d04bae1e01d685df411a71f3c0b22ecc08960bf9d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shield Pistol",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "attached-to-shield",
+        "concussive",
+        "fatal-d8"
+      ],
+      "description": "These unique firearms are designed to attach to shields while still firing normally. Shield pistols are popular among Firebrands in the Shackles as they allow them to hold a blade and a firearm in each hand without giving up on defense. As is normal with firearms, a character doesn't have access to shield pistols unless they separately have access to firearms.",
+      "bulk": 1,
+      "price": {
+        "gp": 6
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wrist-launcher",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tsvqlHxWfLwLQorQ",
+      "slug": "wrist-launcher",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:35ef063efb62b3c63c56088b4426ccdd4dea546b4ad7b8caa876ff997afc0164",
+    "translatableHash": "sha256:0e734196636ee3df42d445dea344ef1d66dba8de826b6614136dac8ba3fb2aca",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wrist Launcher",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "concealable",
+        "free-hand"
+      ],
+      "description": "This slender tube is attached to a large strap worn on the forearm. You can fire a dart from the tube with a twist of the wrist. The wrist launcher uses Darts as ammunition.",
+      "bulk": 1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "dart",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rounds-shield-pistol",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xwHTZGzD8HQrVSal",
+      "slug": "rounds-shield-pistol",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ba73d48784cde57972cb79e57b4f334e7b67fa3ae577ae35a6ec97fe3469e384",
+    "translatableHash": "sha256:e2ef4a1ab29dadf3946a1c836b2e216c8d4020488c535bb45fdc9846d55bf188",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rounds (Shield Pistol)",
+      "itemType": "ammunition",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "",
+      "bulk": 0.1,
+      "price": {
+        "sp": 1
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "rounds-shield-pistol"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:subtle-armor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "j42OKMXPsp6Mg7nY",
+      "slug": "subtle-armor",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:02963f317f343eb7829a161cebcf5d8d9a277a49b3ca9f351f7d74a01f3dfd6f",
+    "translatableHash": "sha256:a81860a0c4b25bbd627528494bda0778ca48560a2fc1e07c15fd305f87be813c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Subtle Armor",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "adjustment"
+      ],
+      "description": "Using fabrics and fashion accessories, you disguise your armor to look like everyday clothing. After applying this adjustment, you can attempt a Stealth check to Conceal an Object to hide the nature of your armor. You gain a +1 item bonus to this check. The added weight and care make it more difficult to move around in the armor, increasing the armor's check penalty by 1, its Strength entry value by 2, and its Bulk by 1.",
+      "bulk": 0,
+      "price": {
+        "gp": 5
+      },
+      "usage": "applied-to-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:poison-ring",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SBQRbWKjGNkNJeG5",
+      "slug": "poison-ring",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ae28c874806bc9ce18188c46988a546e462ddbf613a33a39ca6f0d7f1f0c6b15",
+    "translatableHash": "sha256:bd896d87ca6f6061be5b5408ccab459689d47d75643ed7c4ff745cce480602fa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poison Ring",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [],
+      "description": "This ring contains a compartment beneath the bezel intended to hold a small amount of poison. You can determine the ring's true purpose with a successful check (perception, dc:20) check. Noticing the compartment while the ring is being worn is more difficult and typically requires a successful Perception check against the Stealth DC of the person wearing the ring. You place poison within the ring using the same method for applying poison to a weapon. You can release the ring's poison or consume it using an Interact action if you have a free hand. The ring's compartment is large enough to hold an effective amount of most poisons, but it's too small to hold a significant amount of other liquids, including potions and magical oils.",
+      "bulk": 0,
+      "price": {
+        "gp": 10
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eyecatcher",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tSAL09zFgPtlK4Dn",
+      "slug": "eyecatcher",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:6501411552c66870b87cfde84cf67beda7295fb93dfaf588e6f4a38591ac00d6",
+    "translatableHash": "sha256:45d864907967a00c7b4c7068ea0f76f8d1ae88ee4a53dc2257c380f1b6b618d3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eyecatcher",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "adjustment"
+      ],
+      "description": "An eyecatcher is a simple tassel, reflective basket hilt, or other accessory attached to a weapon to serve as a distraction. You gain a +1 item bonus to Deception checks to Feint while using a weapon with an eyecatcher attached. An eyecatcher affects the balancing of a weapon, making it slightly more unwieldy. This increases the weapon's Bulk by 1 and grants a –1 penalty to damage rolls with the weapon.",
+      "bulk": 0,
+      "price": {
+        "gp": 2
+      },
+      "usage": "applied-to-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:quick-change-outfit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5TX0wX3VtMqriZSu",
+      "slug": "quick-change-outfit",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:fcb49fa55ae2eea45ba0a7440b24d0233da75702c7d68318571584d6cfa0c3ca",
+    "translatableHash": "sha256:da9d98e86a8d69a8bbf50986bc53761d401bfc7b70d97a7bac43b9b6be0442ba",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Quick-Change Outfit",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [],
+      "description": "A quick-change outfit is in fact two separate outfits sewn together. The specialized sewing technique allows you to switch quickly between the two outfits. You can use 3 consecutive Interact actions to slip out of the outfit, swap to the other side, and slip it back on. The two outfits can be of any kind (such as ordinary clothing and fine clothing) and appear as one outfit on one side and the second outfit on the other. The outfit's appearance is purely superficial, so you don't receive any special benefits from an outfit (such as protection from environmental cold with winter clothing), though the GM might still apply specific benefits like the bonus to checks with high-fashion fine clothing. You can notice the odd features of a quick-change outfit (such as extra seams) with a successful check (perception, dc:20) check. The outfit's price is equal to double the price of the more expensive of the two outfits it mimics, and its Bulk is 1 higher than the highest Bulk values of the two outfits.",
+      "bulk": 0,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wrist-grappler",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fEc4v3EiddH2v0kd",
+      "slug": "wrist-grappler",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/wrist-grappler.webp"
+    },
+    "sourceHash": "sha256:0140f2ed047eb22ccefcd21647d06e371b1ad64a444034ba3cf9f33bcfdc7138",
+    "translatableHash": "sha256:5219534bee876090cdaa48a446c6b654bd9ee52b82c8695c3f55534776840d43",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wrist Grappler",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This specialized Grappling Gun, which attaches to your wrist, connects to a spool of 50 feet of thin metal cord attached to a pack on your back. The wrist grappler and pack are small enough that they can be concealed with a loose jacket or similar piece of clothing. You can deploy or stow the gun from the attached wrist device with an Interact action. Reloading a wrist grappler uses the same process as reloading a standard grappling gun and takes 1 minute.",
+      "bulk": 2,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stone-of-encouragement",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mmQT6AZjXO1ty3dv",
+      "slug": "stone-of-encouragement",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:af1e59a562943c2357b07d66e9ab60f23fec64ca8b2b41539703efeb05eba44e",
+    "translatableHash": "sha256:90285cb90d3e70c60c6323cb9d60a94a0220c8ef96c18db38b1ca560e808d024",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stone of Encouragement",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This smooth, round, gray stone fits neatly into the palm of your hand and feels comfortable to hold regardless of the size or shape of your hand. While you're holding the stone, it telepathically speaks to you at regular intervals in generic words of encouragement, such as \"You can do it!\" and \"Let's go!\" The encouraging words manifest in the voice of your internal monologue or take on the characteristics of the voice of someone you trust. Despite the similarity, you're aware that the stone is telepathically projecting its voice and can differentiate between the stone's voice and your internal monologue or the voice of the person you trust.\nActivate 1 Command\nFrequency once per day\nEffect You ask the stone for help with a task. It speaks a few motivating words related to the task at hand, which grants you a +1 item bonus to the first skill check you attempt within 1 minute. You become temporarily immune to the effects of all stones of encouragement, even ones other than the one you activated, for 1 day. You can still hear the encouraging words of different stones if you hold them, but they don't provide any benefits.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:clinging-bubbles-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5iNNOlIqvN1zb8v7",
+      "slug": "clinging-bubbles-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ee4a335781609abcd174270b0b71239c25873e37653579e43c2cce5d07389bc7",
+    "translatableHash": "sha256:aab364ab173c85450ad7e05606ab8f1dafa67784ce443eaa4c79dd093cf2fad4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Clinging Bubbles (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "This small vial of viscous, clear, soapy solution comes with a wand, attached to the inside of the vial's cap, with a little loop at its end. A vial has enough solution to be used 10 times.\nActivate 1 Interact\nEffect You dip the wand in the solution and blow on it. An improbably large cloud of bubbles emerges in a square adjacent to you. This cloud travels in a straight line, moving 10 feet at the end of your turns. The bubbles are thick and sticky, and any creature who enters the same space as the bubble cloud becomes shrouded in them, taking a –5-foot circumstance penalty to its Speed. A creature covered in bubbles can use an Interact action to pop the bubbles and remove the penalty. The cloud can be redirected with strong winds. The cloud of bubbles has AC 5, 20 Hit Points, and weakness 5 to piercing and slashing. The bubbles pop naturally and harmlessly after 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wrist-grappler-clockwork",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kRBYoE6j2QUXQJGS",
+      "slug": "wrist-grappler-clockwork",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/wrist-grappler.webp"
+    },
+    "sourceHash": "sha256:2da2e82d8dfec4c70fc25b0b751e71c86616fd5e9dbac089f9262d41a94c7a8a",
+    "translatableHash": "sha256:0e73e014fbd53cc3f726428fd0eede03d126111fda938c77e0c4c39372c05bec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wrist Grappler (Clockwork)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This specialized Grappling Gun (Clockwork), which attaches to your wrist, connects to a spool of 50 feet of thin metal cord attached to a pack on your back. The wrist grappler and pack are small enough that they can be concealed with a loose jacket or similar piece of clothing. You can deploy or stow the gun from the attached wrist device with an Interact action. Reloading a clockwork wrist grappler uses the same process as reloading a clockwork grappling gun and takes 3 actions.",
+      "bulk": 2,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:parchment-of-direct-message",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SECMe8QKVl45qUie",
+      "slug": "parchment-of-direct-message",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e5827d65dd0449cfc26c70a78664c141b0e94e7b1399a1ba0ef6f334e89538b1",
+    "translatableHash": "sha256:f37f4595c7b8e57de4b502b111e8eee2be31ba4e100577279b85beb8bab28daa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Parchment of Direct Message",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "These two sheets resemble ordinary parchment, save for a simple seal burned into the corner. The two sheets are magically linked, though if either of the sheets is burnt, cut in half or smaller, or otherwise destroyed, then the other sheet becomes an ordinary piece of parchment. When you write a message on one of the sheets, the text disappears over the span of 1 minute, leaving no ink, imprint, or any other trace of inscription behind. The message then appears on the linked piece of parchment. The magical link between the sheets only functions while both sheets are within 10 miles of each other. Outside of this range, any writing remains on the sheets as if they were mundane sheets of parchment, though this writing becomes erased if the parchment is activated.\nActivate 1 command\nEffect You utter a specific magical phrase while holding one of the sheets of parchment. All writing disappears from the parchment.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anylength-rope-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "V5oTXRa6Jk8KXyXl",
+      "slug": "anylength-rope-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:dc190d4d030848b81b3d453af482b6dadb13323bd51a5d8bb396e697ca0dd626",
+    "translatableHash": "sha256:5428e48129d1a6178759321d8c2d83f57d7a12ae71ffe46ff37340c584a03c97",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anylength Rope (Lesser)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This 50-foot length of silk rope is lightweight and appears to be inlaid with golden threads. The rope can hold up to 3,000 pounds and is particularly durable, with a Hardness of 5 and 24 Hit Points.\nActivate 1 command\nFrequency once per minute\nEffect You command the rope to split, declaring a specific length or amount, such as \"ten feet of rope,\" \"half of the rope,\" and so on. The rope splits itself into the requested piece, leaving the remaining length intact. If the rope isn't long enough to provide the requested amount, the activation fails.\nActivate 2 envision, Interact\nFrequency once per day\nRequirements The rope is split into two or more pieces\nEffect The rope attempts to reassemble itself. All pieces of the rope within 500 feet slither back toward you, moving 50 feet per round, over the span of 1 minute. Obstacles and other creatures can prevent a piece of rope from reaching you. Once all pieces reach you or the minute has passed, the pieces rejoin, becoming a single rope. The length of this reformed rope is equal to the total length of all the pieces together; if a piece is missing, the rope is now shorter than its original 50-foot length. Any pieces that didn't rejoin with the rest of the rope remain where they are after the minute passes.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scroll-belt",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vGQ7jbZvYpsEO28r",
+      "slug": "scroll-belt",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:696d121a4327d57b76d5277f718e2009928c22d26b784b300dbe238a75710b43",
+    "translatableHash": "sha256:47924bc9cdb83eeae25d70b1b64ea903d7cbb18a5c29215009b9704a74bd83bd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scroll Belt",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "These belts are specially designed to allow for writing along the inside surface. You can scribe a spell to a scroll belt, Crafting the scroll as normal. A scroll belt can only hold a single spell, and you must Cast the Spell before you can scribe another spell to the belt. You can't Cast a Spell from the belt while wearing it; you must remove the belt with an Interact action. A scroll belt acts as a mundane belt, but when a spell is scribed on it, any creature can immediately discern that an unattended belt holds magic. If you're wearing the belt, a creature can notice the belt holds a spell with a successful check (perception, against:stealth) check against your Stealth DC.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rappelling-kit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VLtEtfIggBKXuy7S",
+      "slug": "rappelling-kit",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:bdece9ff4ee09d2b3ddda63c1b5cebaa3a1e66dda785a57df672e45bce3a36e3",
+    "translatableHash": "sha256:3132e669e42796ecb2216b249fc3878bcb72bd27b0436825c259b9e9cbd0cac0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rappelling Kit",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [],
+      "description": "This satchel contains all the basic equipment found in a climbing kit plus the specialized equipment—including a harness, belay device, and locking clips—needed for descents. When Climbing down with a rappelling kit, you move twice as fast as usual based on your check result.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ring-of-observation-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WNlkRCPzc8YGQOAp",
+      "slug": "ring-of-observation-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:0d8ec8635cc449ad6b85549f1ce1b60eea7c1deb5270355b2912508ee45f9c2b",
+    "translatableHash": "sha256:40c6f3dc2548679e56b4871a8754c5ff3599ca282fe5e380553ec55e94dc311e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ring of Observation (Lesser)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This simple gold ring is engraved with eyes and is inlaid with a single amber-colored cat-eye gemstone. While the gemstone itself isn't magical, it gives off the eerie impression that it's watching you. A Firebrand makes use of this ring to determine if they've drawn the attention of locals and guards without the owner giving away the fact that they know others are watching. More powerful versions of the ring help Firebrands escape the sight of others when necessary.\nActivate 1 envision\nFrequency once per day\nEffect The watchful eye of the cat-eye gemstone remains unmoving but feels as if it's surveying your surroundings. The eye continues this uncanny surveying for 1 minute. During this time, you can use a single action, which has the concentrate trait, to focus on the ring. When you focus on the ring, it grows warm to the touch if you're being intentionally observed by creatures within 30 feet. The ring can only notice creatures that aren't Hidden from you and that are intentionally watching you. The ring ignores people who are part of a crowd but aren't actively paying attention to you, for example.",
+      "bulk": 0,
+      "price": {
+        "gp": 125
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:smugglers-sack-type-i",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6z7VUJanx7nPwhk6",
+      "slug": "smugglers-sack-type-i",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:3d4d7e4853b9f734b50331e00f0729be0dbb3cefa318e68e1af11f29f46eac8a",
+    "translatableHash": "sha256:5d89bb7ff583997496112a8c6938e6e55f06062cb5a130661ddc884c8ebe86fe",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Smuggler's Sack (Type I)",
+      "itemType": "container",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "extradimensional",
+        "magical"
+      ],
+      "description": "This specialized version of a bag of holding appears to be a plain, leather bag that opens at the top, with a thin leather cord attached to cinch the sack closed. The sack's magic allows you to access either its mundane space or an extradimensional pocket. The mundane space inside the sack always holds 5 Bulk. The pocket has a capacity of 1 bulk. Anyone searching the bag can notice a thin, magical seam indicating the existence of the extradimensional space with a successful check (perception, dc:18) check.\nActivate 1 command\nEffect You speak a secret command word. Depending on which word you use, the sack either opens up to the mundane sack or the extradimensional pocket. You can Interact to put items in or remove them as normal.",
+      "bulk": 0,
+      "price": {
+        "gp": 75
+      },
+      "usage": "worn",
+      "category": "backpack",
+      "group": "backpack"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:divers-gloves-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wRZGJohTF0FFJBrq",
+      "slug": "divers-gloves-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:0071b50f0e0f086461ee2a23d4177a82565bd98b79937a5d5cf959b3cfc6a834",
+    "translatableHash": "sha256:e5ede2cd7df2f0d373cbf7831cd3365fa3acab4b12a188de33acb1b4a058c224",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Diver's Gloves (Lesser)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These black leather gloves fit snuggly, running up the length of your arm to your elbow. Each glove has an angular fin running along the outside edge of your arms, which forms a narrow triangle when your hands meet in a diving position. While wearing the gloves, you gain a +1 item bonus to Athletics checks to Swim.\nActivate r envision\nTrigger You would take damage from falling into water\nEffect The gloves create a hydrodynamic barrier around you, dispersing the damage that would be done to you during a high dive. You take damage as if the fall were half the distance, to a minimum fall of 5 feet. You then Swim with the effects of a critical success for the check.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 85
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:boots-of-free-running-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0T7JuFupBTfDBiHv",
+      "slug": "boots-of-free-running-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:7077441f73b08788c912525bc6fea0e9b86e27a67f4528f70ad69f41a343415f",
+    "translatableHash": "sha256:1b74e594474e4c45be69c708d73854e462e4e2748503b7d0dc7c7380a6ab94a2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boots of Free Running (Lesser)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These comfortable and practical boots slip on easily and fill you with boundless energy. The treads of these boots provide exceptional traction, with improved grip on surfaces you would traditionally have difficulty traversing. While wearing the boots, you gain a +1 item bonus to Acrobatics checks to Balance and to Athletics checks to High Jump and Long Jump.\nActivate 1 envision\nFrequency once per day\nEffect The traction of your boots improves, allowing you to run along vertical surfaces for 1 minute. When you Stride, you can run up solid vertical surfaces, like walls, at your full Speed. You must start your movement on a horizontal surface. If you end a Stride off the ground, you must Stride along the surface again until you reach a horizontal surface or you begin to fall (though you can Grab an Edge, if applicable). If you have means of walking on water, such as with water walk or similar abilities, you can also run along flimsy vertical surfaces, as well as vertical liquids such as a waterfall.",
+      "bulk": 1,
+      "price": {
+        "gp": 135
+      },
+      "usage": "wornshoes",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cape-of-illumination-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HM0uhpM9t97MAABn",
+      "slug": "cape-of-illumination-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:15d5368c9e884c69366409cfdd5ff21136eb69bcb4e323a9339f33dd5634dda7",
+    "translatableHash": "sha256:fcb8dc5a5744a24941084f0ff9d004e5f7e7c2fdf02c2f5cdb84429c1fd24ec0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cape of Illumination (Lesser)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "light",
+        "magical"
+      ],
+      "description": "This golden cape, embroidered with vibrant red sun rays, sparkles like sunlight reflecting off the ocean.\nActivate 2 command, Interact\nEffect The cape glows with the effects of 1st-rank Light. You can Activate the cape again to Dismiss the effect.\nActivate 2 envision, Interact\nFrequency once per day\nEffect You draw the cape and unleash a blinding flash of light. All enemies within 30 feet that can see you must attempt a check (fortitude, dc:19) save.\nCritical Success The creature is unaffected.\nSuccess The creature is Dazzled for 1 round.\nFailure The creature is Blinded for 1 round and dazzled for 1 minute. The creature can spend an Interact action rubbing its eyes to end the blinded condition.\nCritical Failure The creature is blinded for 1 round and dazzled for 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 135
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anylength-rope-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "l4FxEma0PrvUPeMe",
+      "slug": "anylength-rope-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:896950dc834e544eac4716388e78d17f0f4c10a19d5bfc2dfc4e0805d6c553c2",
+    "translatableHash": "sha256:580b15e81162580cf968d3863faec11b1957c7085b179bda381b4dbb5d9eec87",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anylength Rope (Moderate)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This 75-foot length of silk rope is lightweight and appears to be inlaid with golden threads. The rope can hold up to 3,000 pounds and is particularly durable, with a Hardness of 5 and 24 Hit Points.\nActivate 1 command\nFrequency once per minute\nEffect You command the rope to split, declaring a specific length or amount, such as \"ten feet of rope,\" \"half of the rope,\" and so on. The rope splits itself into the requested piece, leaving the remaining length intact. If the rope isn't long enough to provide the requested amount, the activation fails.\nActivate 2 envision, Interact\nFrequency once per hour\nRequirements The rope is split into two or more pieces\nEffect The rope attempts to reassemble itself. All pieces of the rope within 500 feet slither back toward you, moving 50 feet per round, over the span of 1 minute. Obstacles and other creatures can prevent a piece of rope from reaching you. Once all pieces reach you or the minute has passed, the pieces rejoin, becoming a single rope. The length of this reformed rope is equal to the total length of all the pieces together; if a piece is missing, the rope is now shorter than its original 75-foot length. Any pieces that didn't rejoin with the rest of the rope remain where they are after the minute passes.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 125
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pipe-of-dancing-smoke",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "V3FxGX0Yy8c7ucjH",
+      "slug": "pipe-of-dancing-smoke",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:16d88edb8213d80ddf29ff47300bfb553e3d3daec601e3841a2a3234e7cda424",
+    "translatableHash": "sha256:6ab1ff1202e96448f90a2e86b61ba5698f2e558074fde21d3603092f0ce49495",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pipe of Dancing Smoke",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "fire",
+        "magical"
+      ],
+      "description": "This ornate pipe is chiseled from a single bloodstone piece with wooden accents. When in use, the pipe gives off a vibrant red smoke that floats lazily in the air. These pipes are popular among bards and braggarts who like the ostentatious smoke it gives off—and who often use it to create raucous diversions or send indiscreet signals.\nActivate 2 Interact\nFrequency once per day\nEffect The smoke forms a bird that flies up to 120 feet in a direction of your choice. When it collides with a solid object or travels the full range, whichever is shorter, it explodes in a 20-foot burst of smoke with the effects of Mist.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 125
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anylength-rope-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EVq8BRD0HO63S1GF",
+      "slug": "anylength-rope-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1cbcd64bb6dafc74f73b2e2f26b1cc4bf839cd73df089aa0f574fb7c3d549d87",
+    "translatableHash": "sha256:95f6cc7b2eb093a9b6f06084da598908ec35ff7fa312fa49101cbcf495bed432",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anylength Rope (Greater)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This 100-foot length of silk rope is lightweight and appears to be inlaid with golden threads. The rope can hold up to 3,000 pounds and is particularly durable, with a Hardness of 5 and 24 Hit Points.\nActivate 1 command\nEffect You command the rope to split, declaring a specific length or amount, such as \"ten feet of rope,\" \"half of the rope,\" and so on. The rope splits itself into the requested piece, leaving the remaining length intact. If the rope isn't long enough to provide the requested amount, the activation fails.\nActivate 2 envision, Interact\nRequirements The rope is split into two or more pieces\nEffect The rope attempts to reassemble itself. All pieces of the rope within 500 feet slither back toward you, moving 50 feet per round, over the span of 1 minute. Obstacles and other creatures can prevent a piece of rope from reaching you. Once all pieces reach you or the minute has passed, the pieces rejoin, becoming a single rope. The length of this reformed rope is equal to the total length of all the pieces together; if a piece is missing, the rope is now shorter than its original 100-foot length. Any pieces that didn't rejoin with the rest of the rope remain where they are after the minute passes.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 300
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:smugglers-sack-type-ii",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "eZ2kfpjboRrFWK9R",
+      "slug": "smugglers-sack-type-ii",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:466a88c24d924786c2bf450efb607ebe396a4dc1af2c5c70ae84a74814be53c5",
+    "translatableHash": "sha256:2941b6a7e14b3190b69c22bc6af6066def3bc874dddd8c960db93bb06106266f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Smuggler's Sack (Type II)",
+      "itemType": "container",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "extradimensional",
+        "magical"
+      ],
+      "description": "This specialized version of a bag of holding appears to be a plain, leather bag that opens at the top, with a thin leather cord attached to cinch the sack closed. The sack's magic allows you to access either its mundane space or an extradimensional pocket. The mundane space inside the sack always holds 5 Bulk. The pocket has a capacity of 5 bulk. Anyone searching the bag can notice a thin, magical seam indicating the existence of the extradimensional space with a successful check (perception, dc:23) check.\nActivate 1 command\nEffect You speak a secret command word. Depending on which word you use, the sack either opens up to the mundane sack or the extradimensional pocket. You can Interact to put items in or remove them as normal.",
+      "bulk": 0,
+      "price": {
+        "gp": 300
+      },
+      "usage": "worn",
+      "category": "backpack",
+      "group": "backpack"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ring-of-observation-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "geXmZMgU7kVbLHIj",
+      "slug": "ring-of-observation-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e65b2b90d6d59c960eb2a5f88874410054ac4909be09dd9622b693e1c36fbd61",
+    "translatableHash": "sha256:8583ab99c56f7e032a8feb9aa2d5843742841eff14e1b23b9c00e0e8a64a95fb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ring of Observation (Moderate)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This simple gold ring is engraved with eyes and is inlaid with a single amber-colored cat-eye gemstone. While the gemstone itself isn't magical, it gives off the eerie impression that it's watching you. A Firebrand makes use of this ring to determine if they've drawn the attention of locals and guards without the owner giving away the fact that they know others are watching. More powerful versions of the ring help Firebrands escape the sight of others when necessary. The ring can cast Invisibility on you once per day.\nActivate 1 envision\nFrequency once per day\nEffect The watchful eye of the cat-eye gemstone remains unmoving but feels as if it's surveying your surroundings. The eye continues this uncanny surveying for 10 minutes. During this time, you can use a single action, which has the concentrate trait, to focus on the ring. When you focus on the ring, it grows warm to the touch if you're being intentionally observed by creatures within 60 feet. The ring can only notice creatures that aren't Hidden from you and that are intentionally watching you. The ring ignores people who are part of a crowd but aren't actively paying attention to you, for example.",
+      "bulk": 0,
+      "price": {
+        "gp": 300
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:clinging-bubbles-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MLbE6FZGXKcoTB52",
+      "slug": "clinging-bubbles-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:3af8441cdee7a5e2bde98b50cf6d98cd1daff231c72d0e9c0bc8bf50e7fb5363",
+    "translatableHash": "sha256:405bfb2bc98c5b350214dc544b473f9f045aa9994c40737bad51517b399eaadb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Clinging Bubbles (Moderate)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "This small vial of viscous, clear, soapy solution comes with a wand, attached to the inside of the vial's cap, with a little loop at its end. A vial has enough solution to be used 10 times.\nActivate 1 Interact\nEffect You dip the wand in the solution and blow on it. An improbably large cloud of bubbles emerges in a 5-foot burst. This cloud travels in a straight line, moving 10 feet at the end of your turns. The bubbles are thick and sticky, and any creature who enters the same space as the bubble cloud becomes shrouded in them, taking a –10-foot circumstance penalty to its Speed. A creature covered in bubbles can use an Interact action to pop the bubbles and reduce the penalty by 5 feet. The cloud can be redirected with strong winds. The cloud of bubbles has AC 5, 30 Hit Points, and weakness 5 to piercing and slashing. The bubbles pop naturally and harmlessly after 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 70
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stone-of-encouragement-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JOswp4pSSevZFeNG",
+      "slug": "stone-of-encouragement-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:54c1a72179b5f5d91449ccafd04f189722705b1a38e288c95e536c70ab0fc16e",
+    "translatableHash": "sha256:aa70c3195f4f208c58e90885cc3132a3eae49f81b4da9f76726a2fda34c00d96",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stone of Encouragement (Greater)",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This smooth, round, gray stone fits neatly into the palm of your hand and feels comfortable to hold regardless of the size or shape of your hand. While you're holding the stone, it telepathically speaks to you at regular intervals in generic words of encouragement, such as \"You can do it!\" and \"Let's go!\" The encouraging words manifest in the voice of your internal monologue or take on the characteristics of the voice of someone you trust. Despite the similarity, you're aware that the stone is telepathically projecting its voice and can differentiate between the stone's voice and your internal monologue or the voice of the person you trust.\nActivate 1 Command\nFrequency once per day\nEffect You ask the stone for help with a task. It speaks a few motivating words related to the task at hand, which grants you a +2 item bonus to the first skill check you attempt within 1 minute. You become temporarily immune to the effects of all stones of encouragement, even ones other than the one you activated, for 1 day. You can still hear the encouraging words of different stones if you hold them, but they don't provide any benefits.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 475
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:charm-of-the-ordinary",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tB1NYErrB94dTFuh",
+      "slug": "charm-of-the-ordinary",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:2bec7ca47a1eb9b894f92078a639a014b3ee6973de5bcb806a630111b964188d",
+    "translatableHash": "sha256:b4f1fc005117612e10c58a5c7f447c3f2f81329372b852b3b38856ba01d77a98",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Charm of the Ordinary",
+      "itemType": "consumable",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate 2 envision, Interact\nCarved from a chunk of sturdy hardwood, this small charm is shaped like a broom, a wooden barrel, a lantern, or another ordinary item. When activated, the pendant becomes a full-size version of the item it represents, and you merge with the item with the effects of One with Stone, except the item doesn't need to be made of stone and doesn't require the volume to fit you and your worn or held possessions. While merged with the item, you can hear but can't see; unlike with one with stone, you can't cast spells. The effect ends after ten minutes or when you Dismiss the effect, at which point you are forcibly expelled and the item you occupied becomes a mundane item.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 75
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cape-of-grand-entrances",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6QS9p7IWfRoplIwk",
+      "slug": "cape-of-grand-entrances",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:4ad27ed565e3175cb08c5a0142978c5aba5b244fb6bc2710cb7733cc096d98bb",
+    "translatableHash": "sha256:2694e5d8abc9a022d44b0081321ce6b0a9c5dd315a22dedbe364c65e99be5aaa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cape of Grand Entrances",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This regal blue cape is crafted from a hefty yet elegant velvet embroidered with ornate silver stars and dragons. Falling in a cascade of fabric, the cape rustles and flows in all the right ways and hangs upon your shoulders in a way that flatters your form and figure. You draw the eyes of those around you and gain a +2 item bonus to your Performance checks.\nActivate 2 envision, Interact\nFrequency once per day\nEffect With a flourish of your cape, you make a grand entrance that draws the attention of those around you. You cast Enthrall with a DC of 25 (check (will, dc:25, traits:auditory,emotion,enchantment,spell, overrideTraits:true)). The spell gains the visual trait and loses the auditory trait. You Sustain the Spell by continuing to sweep the cape about.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 600
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:horned-lion-amulet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CfM2q0UgtG6gkPku",
+      "slug": "horned-lion-amulet",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:9b101b3d847fabece1a9c20c5b6a3297f94068542f01c9744dac88af5f2eccce",
+    "translatableHash": "sha256:700f518eaf2fec3b9ad1cb183451a88cb4c455e418b9b899f8a3212c1d1444ba",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Horned Lion Amulet",
+      "itemType": "consumable",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "talisman"
+      ],
+      "description": "Activate f envision\nTrigger You take fire damage\nThis small figurine of a horned lion sitting at attention is the size of a coin and carved from simple stone. The figurine can be fastened to a suit of armor as a charm or adornment.\nWhen you activate the amulet, the lion's eyes glow with flames, granting you fire resistance 10 against the triggering damage and a subsequent fire resistance 5 for 1 minute.\nEffect: Horned Lion Amulet\nIf the triggering damage was due to persistent fire damage, you immediately attempt a check (flat, showDC:all, dc:10) to recover from the persistent damage. The DC remains at 10 until the persistent fire damage ends.\nEffect: Horned Lion Amulet Recovery",
+      "bulk": 0,
+      "price": {
+        "gp": 120
+      },
+      "usage": "affixed-to-armor",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:divers-gloves-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MlrVt5CaZ85PvEm9",
+      "slug": "divers-gloves-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a5a88d884fe1f2ae5d2b76401431a2d14081a0f243acb50e53e09220fc555bf5",
+    "translatableHash": "sha256:47c6d8048181876bdeb266f7070d8b9762c224bb65cc907ae84899d64aa34060",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Diver's Gloves (Moderate)",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These black leather gloves fit snuggly, running up the length of your arm to your elbow. Each glove has an angular fin running along the outside edge of your arms, which forms a narrow triangle when your hands meet in a diving position. While wearing the gloves, you gain a +2 item bonus to Athletics checks to Swim. The gloves grant you a swim Speed equal to half of your land Speed\nActivate r envision\nTrigger You would take damage from falling into water\nEffect The gloves create a hydrodynamic barrier around you, dispersing the damage that would be done to you during a high dive. You take damage as if the fall were half the distance, to a minimum fall of 5 feet. You then Swim with the effects of a critical success for the check.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 650
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cape-of-illumination-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vsTtpwdYANxP4EPZ",
+      "slug": "cape-of-illumination-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8239f5bbcb3e5e92ee9693a6b82822fe91bd99818afe627bb6eb8580ebd9d5bb",
+    "translatableHash": "sha256:c3af0b63b7ad8952225c65662516f97320dc6901d99a6878381cce4a5fea4a57",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cape of Illumination (Moderate)",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "light",
+        "magical"
+      ],
+      "description": "This golden cape, embroidered with vibrant red sun rays, sparkles like sunlight reflecting off the ocean.\nActivate 2 command, Interact\nEffect The cape glows with the effects of 4th-rank Light. You can Activate the cape again to Dismiss the effect.\nActivate 2 envision, Interact\nFrequency once per day\nEffect You draw the cape and unleash a blinding flash of light. All enemies within 30 feet that can see you must attempt a check (fortitude, dc:25) save.\nCritical Success The creature is unaffected.\nSuccess The creature is Dazzled for 1 round.\nFailure The creature is Blinded for 1 round and dazzled for 1 minute. The creature can spend an Interact action rubbing its eyes to end the blinded condition.\nCritical Failure The creature is blinded for 1 round and dazzled for 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 600
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ring-of-observation-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wc1T0d1mGSwJallY",
+      "slug": "ring-of-observation-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:385c6e41421134f90a457642d6eec7f388caa281891d74c37d71d6c04f707b27",
+    "translatableHash": "sha256:67e92f3177d46940cf5a1f575405c73d0a157d0a9bb3de95a3d2419d24f72335",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ring of Observation (Greater)",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This simple gold ring is engraved with eyes and is inlaid with a single amber-colored cat-eye gemstone. While the gemstone itself isn't magical, it gives off the eerie impression that it's watching you. A Firebrand makes use of this ring to determine if they've drawn the attention of locals and guards without the owner giving away the fact that they know others are watching. More powerful versions of the ring help Firebrands escape the sight of others when necessary. The ring can cast either a 2nd- or 4th-rank Invisibility on you once per day.\nActivate 1 envision\nFrequency once per day\nEffect The watchful eye of the cat-eye gemstone remains unmoving but feels as if it's surveying your surroundings. The eye continues this uncanny surveying for 1 hour. During this time, you can use a single action, which has the concentrate trait, to focus on the ring. When you focus on the ring, it grows warm to the touch if you're being intentionally observed by creatures within 120 feet. The ring can only notice creatures that aren't Hidden from you and that are intentionally watching you. The ring ignores people who are part of a crowd but aren't actively paying attention to you, for example.",
+      "bulk": 0,
+      "price": {
+        "gp": 1160
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:smugglers-sack-type-iii",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fPOidyARnS0McvHx",
+      "slug": "smugglers-sack-type-iii",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:c1288c3f105d473c9f3b8e2f09232ee424cc8b7fd5b902993ccb83fed51bf572",
+    "translatableHash": "sha256:a0a83d72b7354fcd9fa24d845b09c5a0082d2cffb29847f37af06123e8cbea1d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Smuggler's Sack (Type III)",
+      "itemType": "container",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "extradimensional",
+        "magical"
+      ],
+      "description": "This specialized version of a bag of holding appears to be a plain, leather bag that opens at the top, with a thin leather cord attached to cinch the sack closed. The sack's magic allows you to access either its mundane space or an extradimensional pocket. The mundane space inside the sack always holds 5 Bulk. The pocket has a capacity of 10 bulk. Anyone searching the bag can notice a thin, magical seam indicating the existence of the extradimensional space with a successful check (perception, dc:28) check.\nActivate 1 command\nEffect You speak a secret command word. Depending on which word you use, the sack either opens up to the mundane sack or the extradimensional pocket. You can Interact to put items in or remove them as normal.",
+      "bulk": 0,
+      "price": {
+        "gp": 1200
+      },
+      "usage": "worn",
+      "category": "backpack",
+      "group": "backpack"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:clinging-bubbles-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "haDkOWAZClCQA6Yq",
+      "slug": "clinging-bubbles-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:52fb778168f118a662eee1b4c04df7e1ce0c264f8d611bda0f57379640e3c5dc",
+    "translatableHash": "sha256:4f8d7cc77ddda48a78f78fcff48fd7c9d8c93766127c8427f6a7ffe88717e056",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Clinging Bubbles (Greater)",
+      "itemType": "consumable",
+      "level": 11,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "This small vial of viscous, clear, soapy solution comes with a wand, attached to the inside of the vial's cap, with a little loop at its end. A vial has enough solution to be used 10 times.\nActivate 1 Interact\nEffect You dip the wand in the solution and blow on it. An improbably large cloud of bubbles emerges in a 10-foot burst. This cloud travels in a straight line, moving 10 feet at the end of your turns. The bubbles are thick and sticky, and any creature who enters the same space as the bubble cloud becomes shrouded in them, taking a –15-foot circumstance penalty to its Speed. A creature covered in bubbles can use an Interact action to pop the bubbles and reduce the penalty by 5 feet. The cloud can be redirected with strong winds. The cloud of bubbles has AC 5, 40 Hit Points, and weakness 5 to piercing and slashing. The bubbles pop naturally and harmlessly after 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:boots-of-free-running-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kcRQT67sLes1cC72",
+      "slug": "boots-of-free-running-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:7ad4cb2665ed5f12b78b48c8e7df954a22bd858e5e21afc08adcd7c8c406e07b",
+    "translatableHash": "sha256:1407c3b681acc84f54e3cce2ecfbf388c580372761e90e24a0fbeafd158d6798",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boots of Free Running (Moderate)",
+      "itemType": "equipment",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These comfortable and practical boots slip on easily and fill you with boundless energy. The treads of these boots provide exceptional traction, with improved grip on surfaces you would traditionally have difficulty traversing. While wearing the boots, you gain a +2 item bonus to Acrobatics checks to Balance and to Athletics checks to High Jump and Long Jump.\nActivate 1 envision\nFrequency once per hour\nEffect The traction of your boots improves, allowing you to run along vertical surfaces for 1 minute. When you Stride, you can run up solid vertical surfaces, like walls, at your full Speed. You must start your movement on a horizontal surface. If you end a Stride off the ground, you must Stride along the surface again until you reach a horizontal surface or you begin to fall (though you can Grab an Edge, if applicable). If you have means of walking on water, such as with water walk or similar abilities, you can also run along flimsy vertical surfaces, as well as vertical liquids such as a waterfall.",
+      "bulk": 1,
+      "price": {
+        "gp": 1350
+      },
+      "usage": "wornshoes",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blink-blade",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tWoW1BeFrWm35hmV",
+      "slug": "blink-blade",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/dagger.webp"
+    },
+    "sourceHash": "sha256:7cc56bc6f8036826e1f17514147a92e70f6a794fd9b092be7c23e6257eec83bd",
+    "translatableHash": "sha256:901e0dc92db126a01b88eeed24a1d50e2073c02fb6650413be5967e10ac935ed",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blink Blade",
+      "itemType": "weapon",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "finesse",
+        "magical",
+        "teleportation",
+        "thrown-10",
+        "versatile-s"
+      ],
+      "description": "The blade of this +2 striking dagger is etched with whirling portals, and a single blue sapphire adorns its hilt. It feels lightweight and is always slightly warm to the touch.\nActivate 2 Interact\nFrequency once per day\nEffect You cast Translocate. The space you leave and the one you appear in are filled with puffs of smoke that make anyone within Concealed until they leave the smoke or until the end of your next turn, at which point the smoke dissipates. When used in strong winds, the smoke disperses immediately.\nActivate r envision\nFrequency once per day\nTrigger Your melee attack roll with the blink blade is a critical success\nEffect You and your target teleport to a space within 10 feet. The target arrives in a safe, open space of your choosing adjacent to your arrival space. This teleportation also creates puffs of smoke, as noted with the activation above.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1750
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:smugglers-sack-type-iv",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "jEnDLdcuOgXDf0I6",
+      "slug": "smugglers-sack-type-iv",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:c7ffd69e2bb180eac3f08e85f175f89ec11849b4c9e6dad07f8920c09f9655c4",
+    "translatableHash": "sha256:0c3535e11e191a9a6a99397907615ed58b62ee5405e45705646e9a6cd9ea4202",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Smuggler's Sack (Type IV)",
+      "itemType": "container",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "extradimensional",
+        "magical"
+      ],
+      "description": "This specialized version of a bag of holding appears to be a plain, leather bag that opens at the top, with a thin leather cord attached to cinch the sack closed. The sack's magic allows you to access either its mundane space or an extradimensional pocket. The mundane space inside the sack always holds 5 Bulk. The pocket has a capacity of 25 bulk. Anyone searching the bag can notice a thin, magical seam indicating the existence of the extradimensional space with a successful check (perception, dc:30) check.\nActivate 1 command\nEffect You speak a secret command word. Depending on which word you use, the sack either opens up to the mundane sack or the extradimensional pocket. You can Interact to put items in or remove them as normal.",
+      "bulk": 0,
+      "price": {
+        "gp": 2400
+      },
+      "usage": "worn",
+      "category": "backpack",
+      "group": "backpack"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cape-of-illumination-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3Q8nG1JW4FMMJ4l7",
+      "slug": "cape-of-illumination-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:813516de5b37e4c21b51715840bf790896f7d66e81e0c69cafd576284dd3d703",
+    "translatableHash": "sha256:42f7085d5646a6f1f0985ac15a60b86491306bd9f928c76992efcbc97b0ab8cf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cape of Illumination (Greater)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "light",
+        "magical"
+      ],
+      "description": "This golden cape, embroidered with vibrant red sun rays, sparkles like sunlight reflecting off the ocean.\nActivate 2 command, Interact\nEffect The cape glows with the effects of 7th-rank Light. You can Activate the cape again to Dismiss the effect.\nActivate 2 envision, Interact\nFrequency once per hour\nEffect You draw the cape and unleash a blinding flash of light. All enemies within 30 feet that can see you must attempt a check (fortitude, dc:34) save.\nCritical Success The creature is unaffected.\nSuccess The creature is Dazzled for 1 round.\nFailure The creature is Blinded for 1 round and dazzled for 1 minute. The creature can spend an Interact action rubbing its eyes to end the blinded condition.\nCritical Failure The creature is blinded for 1 round and dazzled for 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5750
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:divers-gloves-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XXz3Gt5IUb8QdnBS",
+      "slug": "divers-gloves-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:df2c0b5a60244699dff055ad29a8f997455d07843d6e81710d6c244f6cc1088a",
+    "translatableHash": "sha256:c38b7f80f1c6b5a23b9d76db714620686beadcc1e37fe3864753d0da707b7ed8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Diver's Gloves (Greater)",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These black leather gloves fit snuggly, running up the length of your arm to your elbow. Each glove has an angular fin running along the outside edge of your arms, which forms a narrow triangle when your hands meet in a diving position. While wearing the gloves, you gain a +3 item bonus to Athletics checks to Swim. The item bonus is +3. The gloves grant you a swim Speed equal to your land Speed or 30 feet, whichever is higher.\nActivate r envision\nTrigger You would take damage from falling into water\nEffect The gloves create a hydrodynamic barrier around you, dispersing the damage that would be done to you during a high dive. You take damage as if the fall were half the distance, to a minimum fall of 5 feet. You then Swim with the effects of a critical success for the check.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:smugglers-sack-type-v",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JL0j0AtJZYEaKeOa",
+      "slug": "smugglers-sack-type-v",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:c34084e9ba93eb92006e609ef556acc2f58248ad48509df73248b0dc48d0f212",
+    "translatableHash": "sha256:7cc2eb349d86b90583775ed4426bb7099e092985f72d3c9cec376cd0379188d4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Smuggler's Sack (Type V)",
+      "itemType": "container",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "extradimensional",
+        "magical"
+      ],
+      "description": "This specialized version of a bag of holding appears to be a plain, leather bag that opens at the top, with a thin leather cord attached to cinch the sack closed. The sack's magic allows you to access either its mundane space or an extradimensional pocket. The mundane space inside the sack always holds 5 Bulk. The pocket has a capacity of 50 bulk. Anyone searching the bag can notice a thin, magical seam indicating the existence of the extradimensional space with a successful check (perception, dc:37) check.\nActivate 1 command\nEffect You speak a secret command word. Depending on which word you use, the sack either opens up to the mundane sack or the extradimensional pocket. You can Interact to put items in or remove them as normal.",
+      "bulk": 0,
+      "price": {
+        "gp": 12000
+      },
+      "usage": "worn",
+      "category": "backpack",
+      "group": "backpack"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:boots-of-free-running-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NQGVqxIWaa2fize3",
+      "slug": "boots-of-free-running-greater",
+      "publicationTitle": "Pathfinder Lost Omens Firebrands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:682e1bf7b35123e10652922ac0551c2cdbb1282986d91fe7880e33477da0a52a",
+    "translatableHash": "sha256:9ac73a07592d13a18eac75fada51aa4417fe5fb20dc3a6a0a4f12abac954b522",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boots of Free Running (Greater)",
+      "itemType": "equipment",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These comfortable and practical boots slip on easily and fill you with boundless energy. The treads of these boots provide exceptional traction, with improved grip on surfaces you would traditionally have difficulty traversing. While wearing the boots, you gain a +3 item bonus to Acrobatics checks to Balance and to Athletics checks to High Jump and Long Jump.\nActivate 1 envision\nEffect The traction of your boots improves, allowing you to run along vertical surfaces for 1 minute. When you Stride, you can run up solid vertical surfaces, like walls, at your full Speed. You must start your movement on a horizontal surface. If you end a Stride off the ground, you must Stride along the surface again until you reach a horizontal surface or you begin to fall (though you can Grab an Edge, if applicable). If you have means of walking on water, such as with water walk or similar abilities, you can also run along flimsy vertical surfaces, as well as vertical liquids such as a waterfall.",
+      "bulk": 1,
+      "price": {
+        "gp": 13500
+      },
+      "usage": "wornshoes",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:keep-stone-ingot",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "X5lWxe4ChgaFGYvh",
+      "slug": "keep-stone-ingot",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:97fdb6253727b2e5144d3ec18119da817a964a6e5691f483e0a04a4c31ab4405",
+    "translatableHash": "sha256:db9432a6740e1223beb21a79f6514e30e2bd3dc18da13acd5b1ead197bafe992",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Keep Stone Ingot",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "rare",
+      "traits": [
+        "precious"
+      ],
+      "description": "The crowning achievement of Highhelm's millennia of metallurgical advancements and engineering is the beautiful alloy called keep stone. Despite its name, no stone is used in the production of keep stone. Through the use of a highly guarded process that smelts together adamantine and lead, Highhelm's greatest crafters were able to develop a material with an appearance that more closely resembles marble than metal. Keep stone is only slightly weaker than adamantine alone, but with the incredible ability to disrupt magic. Any spell or magical effect targeting raw keep stone must succeed at a DC 5 flat check or the effect is lost.\nKeep stone's use in the construction of Torag's Shield is not only to stretch Highhelm's adamantine reserves further and protect the walls from magical assault, but also because of its protective effects on divination magic on both Highhelm itself and its immediate vicinity. If the target of a divination spell is in the presence of a large quantity of keep stone, including a structure, the caster must also succeed at a DC 5 flat check or the spell is lost.\nKeep Stone Items\nKeep Stone Items |\nHardness |\nHP |\nBT |\nThin Items |\n |\n |\n |\nHigh-grade |\n10 |\n46 |\n24 |\nItems |\n |\n |\n |\nHigh-grade |\n14 |\n60 |\n30 |\nStructure |\n |\n |\n |\nHigh-grade |\n30 |\n122 |\n61 |",
+      "bulk": 1,
+      "price": {
+        "gp": 7500
+      },
+      "usage": "carried",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:keep-stone-chunk",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Z1blVMXUeojHd9lE",
+      "slug": "keep-stone-chunk",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:452344d1bc6620e76af156f1fe2133d30b73e7785b15748d240df182feff2986",
+    "translatableHash": "sha256:cfca1125764540147462673255fbacc5c590b1ad9e94c10996a8471e59687254",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Keep Stone Chunk",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "rare",
+      "traits": [
+        "precious"
+      ],
+      "description": "The crowning achievement of Highhelm's millennia of metallurgical advancements and engineering is the beautiful alloy called keep stone. Despite its name, no stone is used in the production of keep stone. Through the use of a highly guarded process that smelts together adamantine and lead, Highhelm's greatest crafters were able to develop a material with an appearance that more closely resembles marble than metal. Keep stone is only slightly weaker than adamantine alone, but with the incredible ability to disrupt magic. Any spell or magical effect targeting raw keep stone must succeed at a DC 5 flat check or the effect is lost.\nKeep stone's use in the construction of Torag's Shield is not only to stretch Highhelm's adamantine reserves further and protect the walls from magical assault, but also because of its protective effects on divination magic on both Highhelm itself and its immediate vicinity. If the target of a divination spell is in the presence of a large quantity of keep stone, including a structure, the caster must also succeed at a DC 5 flat check or the spell is lost.\nKeep Stone Items\nKeep Stone Items |\nHardness |\nHP |\nBT |\nThin Items |\n |\n |\n |\nHigh-grade |\n10 |\n46 |\n24 |\nItems |\n |\n |\n |\nHigh-grade |\n14 |\n60 |\n30 |\nStructure |\n |\n |\n |\nHigh-grade |\n30 |\n122 |\n61 |",
+      "bulk": 0.1,
+      "price": {
+        "gp": 750
+      },
+      "usage": "carried",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:furnace-of-endings-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "AslqTIjbP81m7bzk",
+      "slug": "furnace-of-endings-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b36e9ad9ad407ed36c2430349137eff40a86e3c75a1f8f87df0cb5f48278eb6c",
+    "translatableHash": "sha256:e3a21504b59436075eb91ad5a8ac72ea1dd0aed1cd7e460fd99910db72b81ccd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Furnace of Endings (Lesser)",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "fire",
+        "invested",
+        "magical"
+      ],
+      "description": "Ash Cultists make use of these metal scroll cases to deliver secret messages or as ways to \"smuggle\" stolen documents since initial inspections find an elegant yet empty case. The cases are enchanted to instantly immolate any parchment or document placed inside of it. While invested, you can Interact with the scroll case to recreate the last message that was destroyed this way. For as long as the case is open, ashes will rise into the air, recreating the text of the message exactly as it was written. When you close the case or leave it unattended for 1 minute, the message scatters until the next time you Interact with it.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 35
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:everair-mask-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cw3onzGfq0Ori5Mn",
+      "slug": "everair-mask-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:b4eaf7edd0aeda6f9269d740d490291eb4f12a80f243c16016199cd9a0fb19cf",
+    "translatableHash": "sha256:ea40aa85476e3f913b9a0d0f48ab6d1c08c8e2393eb3d50069814eeec382aca8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Everair Mask (Lesser)",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "air",
+        "invested",
+        "magical"
+      ],
+      "description": "This simple, mass-produced gaiter mask is standard issue for miners working in deep, dangerous mines. While wearing the mask, you gain a +1 item bonus to Fortitude saving throws against inhaled poisons. An everair mask makes use of magical runes related to the Plane of Air to create breathable air.\nActivate 2 envision, Interact\nFrequency once per day\nEffect You activate the mask's rune, and the air surrounding air, as well as the air you exhale, becomes enriched with oxygen. This allows the everair mask to recycle air into breathable air for 1 hour. The rune's magic is unable to provide breathable air while underwater, in a vacuum, or in any other situation where air is normally unavailable.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dark-pepper-powder",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LniGjFmZyw90Rdcj",
+      "slug": "dark-pepper-powder",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:d29aeaf9f5e60d80320a96326f8ec689bebe388e9420fc5460d1b7e284fc405d",
+    "translatableHash": "sha256:b4f930562925501a62c6691b0561f80b98f2a428f99d7952e678208fbfddd08c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dark Pepper Powder",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "inhaled"
+      ],
+      "description": "Made from the smokebulbs that grow in Stonebreach, dark pepper is used as a common spice in dwarven cooking, but can also be an irritant in large quantities. Sacks of dark pepper are readily available in the Roundabout Market, but are less common in markets elsewhere in the city. You can toss a handful of dark pepper at an adjacent creature as an Interact action. The target must attempt a check (fortitude, dc:16) save to avoid coughing to the point of choking. On a failed save, the creature coughs uncontrollably, becoming Off-Guard for 1 round. On a critical failure, the creature is instead off-guard for 3 rounds.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unexceptional",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lasRdOMO1w9IMdwx",
+      "slug": "unexceptional",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:c677e13e517364837d080f258c2b7248d3fd6c58a867f557b0f2b2b6a2e292b3",
+    "translatableHash": "sha256:4fb85bf0fe913d4a2233895f83a8f70b7772b6dc680c9e188fa25a5fd95495ff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unexceptional",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "illusion",
+        "magical"
+      ],
+      "description": "Merchants traveling into Stonebreach sometimes apply this accessory rune to specific wares to avoid the notice of thieves. Conversely, many thieves in Highhelm apply these runes to stolen goods to help them smuggle items out of the city. The item gains the effects of Disguise Magic to appear as non-magical. The rune's effects also cause anyone who closely observes or holds the item to believe it is a mundane version of that type of item, such as believing a magical dagger to be an ordinary dagger, unless the creature succeeds at a check (will, dc:18) save. Creatures that succeed their save see that there is more to the item than meets the eye, but aren't immediately aware of the magic aura effect.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "applied-to-any-item-of-light-or-negligible-bulk",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:magnet-coin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Rup7OOQ8aQi3sdZr",
+      "slug": "magnet-coin",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:95c241269b1617f5d67236a122900e9037f38caf8cf1d2551f10caac9e9e2c7b",
+    "translatableHash": "sha256:7852d338e7671ab79009b280a4ca950da719a293515c8290bbe19dc50540c9d6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Magnet Coin",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "teleportation"
+      ],
+      "description": "Thera Heartslip commissioned these magical coins during her early thievery days and still has a number on hand to share with her confidants. This coin resembles an ordinary coin, but it's warm and seems to thrum slightly when touched. The coin's face features a very small fragment from the pressed portion that can be removed, such as a small star or one eye from the head on the face. Removing this fragment causes the coin to stop thrumming and feeling warm to the touch. Noticing the removed piece requires close inspection and a successful check (perception, dc:19) check.\nActivate 3 envision, Interact\nFrequency once per day;\nRequirements You are holding the coin fragment\nEffect You focus on the rest of the coin, imagining its complete form in your hand. The rest of the coin teleports into your hand, reforming the complete coin. If it was near any other coins, it also teleports up to 3d10 coins with it into your hand. The coin can only teleport up to 15 miles; if you are farther when recalling the coin, it teleports the maximum distance toward you and lands in an open space.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:words-of-wisdom-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5nqxkc2OlZAPpU4t",
+      "slug": "words-of-wisdom-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e10f71f5a3e7430915f40ca3cf9c73148e70ca493d454807c71d2c673f26bdda",
+    "translatableHash": "sha256:c8a9f6f7f3bc0eb833cac5930c8c77c36c5643a2589d2010160f391fc7ab5db1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Words of Wisdom (Lesser)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Yrisette developed these unique tattoos after months of tinkering and experimentation. This tattoo is always of a saying that has meaning to the person who wears it. While the words are Hidden within a larger pattern and are nearly impossible to discern at a glance, they lend gravitas and power to the wearer's words. When the tattoo is applied, choose whether the phrase is of threatening words (Intimidation), persuasive words (Deception), or dramatic words (Performance).\nActivate 1 Command\nFrequency once per day\nEffect You speak your meaningful phrase from your tattoo out loud, emboldening your words for 1 minute. During this time, you gain a +1 item bonus to Diplomacy checks and checks of the skill associated with your phrase. When you roll a critical failure on a Diplomacy check or the associated skill during this time, you get a failure instead.",
+      "bulk": 0,
+      "price": {
+        "gp": 100
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grindlegrub-steak",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ALfqpWLbLPSXxZVG",
+      "slug": "grindlegrub-steak",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e1b06ea88727a10847473c65b46cf6b3e8cd784bd600da4825e631e49feeb799",
+    "translatableHash": "sha256:573a885ef9c4bdc883ca1073ef6ff9931c6f22467e233142759aaa520fa2cf65",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grindlegrub Steak",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 minute (Interact)\nFried grindlegrub is a common street food in Highhelm, but Sanra has elevated the dish to something almost gourmet for such pedestrian fare, bringing out both the height of its flavor and its natural energy boosting properties. You do not need to eat for three days after consuming a grindlegrub steak, and for that duration you gain a +1 item bonus to Fortitude saving throws against Fatigue and the Drained condition.\nEffect: Grindlegrub Steak",
+      "bulk": 0.1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodhammer-reserve",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CrIolPhNv3W9lJns",
+      "slug": "bloodhammer-reserve",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:218f2629fc8a2c157af8a7f4352fd252f20d12df2ed066b1b8fa087fcf3a89d3",
+    "translatableHash": "sha256:a7c5c452e9243a3b76d8371f777e36be95a9a932e1b59b7b2bbda5183696243f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodhammer Reserve",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "polymorph",
+        "potion"
+      ],
+      "description": "This strong, rich red-brown home brew has no listed ingredients, but smells of earth and is both smoky and surprisingly bitter. Although Skogg Bloodhammer insists that the drink doesn't exist, it's somewhat of an open secret among his close friends. He prefers to share this drink at backroom gatherings with these trusted friends, and usually broaches the idea of sharing with a full mug and a question: \"You ever thought about being a frog?\"\nAfter drinking the brew, you transform into an animal, gaining the effects of Animal Form except you can't Dismiss the effect, and you transform into a random animal battle form. To determine the battle form, roll 1d10 (1 = ape, 2 = bear, 3 = bull, 4 = canine, 5 = cat, 6 = deer, 7 = frog, 8 = shark, 9 = snake, 10 = reroll). Your appearance while in the battle form resembles that of animals within Emperor's Peak or from the surrounding Five Kings Mountains, such as the Five Kings dart snake or the Coldforge singing frog. More unusual battle forms like apes and sharks instead resemble a typical member of that species.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:irondust-stew",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hSJWv6aOwlJyKSLs",
+      "slug": "irondust-stew",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f10ee2bd99538d63e1030d45e6ce35becc0f833df5a2f283feb2bf6fe6fed8b8",
+    "translatableHash": "sha256:b58eb47f5446e1a30ecdcfe16d9dfbd907c1b4158c6d1d237330f3d2a34ccbc6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Irondust Stew",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate 1 Interact\nThis hearty meat-and-potato stew has an unusual shine to it and seems to sparkle when it catches the right light. That's because it's been infused with a specially treated iron dust, which Sanra Copperstone promises will strengthen the bones and make for healthier skin. Eating this delicious, if metallic, stew adds that same sheen to your own skin, while also hardening it. You gain 3 resistance to physical damage for 1 minute, but take a –2 item penalty to Acrobatics and Athletics checks during that time.\nEffect: Irondust Stew",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-drill-mark-i",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "O0iTcOhlsEPGsxtD",
+      "slug": "highhelm-drill-mark-i",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:0b2566d83d09d80afee217bff2809871443834d64f94692fe32add1eaaf8ef24",
+    "translatableHash": "sha256:b4ca5728e2fa46d954f871e400cefe2d6d742366f85c4e8141ee66d388a9dfdc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm Drill Mark I",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "force",
+        "magical"
+      ],
+      "description": "Not to be outdone by their cousins in Dongun Hold, the artificers of Highhelm have developed a handheld magical equivalent to their clockwork drilling constructs and vehicles. The device is still in the testing phases, but early versions have been released to fund more development. Appearing as an unassuming yellow box with two handles normally, when the command word is spoken, a spiraling drill made of force emerges from its top. An active Highhelm drill can be used as an improvised weapon, dealing damage on a Strike as though it had been used on a surface for one round with no additional damage from other sources.\nActivate 2 Interact\nFrequency once per day\nEffect The force drill appears and begins turning, dealing 5 force damage per round to any material against which you hold the drill. The drill ignores the first 4 Hardness of any material it damages. The drill remains active for 1 minute.",
+      "bulk": 3,
+      "price": {
+        "gp": 85
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:furnace-of-endings",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7F6WGmvZ0r3PloXC",
+      "slug": "furnace-of-endings",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:0f59899ae5acef19a62d9262a4147b7345a4b90a57b259a85b8078c24549c8b6",
+    "translatableHash": "sha256:9576f0ce7fc52e91c76bbef3b79c9e703040ff6985ba14a5371a7104adb6c072",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Furnace of Endings",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "fire",
+        "invested",
+        "magical"
+      ],
+      "description": "Ash Cultists make use of these metal scroll cases to deliver secret messages or as ways to \"smuggle\" stolen documents since initial inspections find an elegant yet empty case. The cases are enchanted to instantly immolate any parchment or document placed inside of it. While invested, you can Interact with the scroll case to recreate the last message that was destroyed this way. For as long as the case is open, ashes will rise into the air, recreating the text of the message exactly as it was written. When you close the case or leave it unattended for 1 minute, the message scatters until the next time you Interact with it.\nIn addition to the ability to recreate immolated documents, you can immolate a scroll containing a 1st-rank spell with the fire or void trait that takes no more than three actions to cast. Doing so stores the scroll's magic inside of the scroll case in order to reuse it later. Only a single spell can be stored this way at a time, and immolating scrolls containing a higher-rank spell simply destroys the scroll without storing the magic. When you immolate a new spell scroll in the case, the previous one is lost. Enough of the scroll's magic is lost in this process that you can't use the case to recreate the scroll for the purposes of Learning a Spell.\nActivation 1 to 3 envision, Cast a Spell\nFrequency once per day\nRequirements The last object burned was a scroll containing an appropriate spell\nEffect You cast the stored spell as if you were activating the scroll.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:liars-board",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Ee9RgoMY3XczPidF",
+      "slug": "liars-board",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:c05f9644288d0e386238a381de1d87b1a16d065e8ff52d3f01d5bf8ba949fcd1",
+    "translatableHash": "sha256:fe10721eb33772184d5054775b08cca2ae52d84750c73fd0d338f3e9b2d252b4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Liar's Board",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This clockwork game board contains 6 hidden compartments that can be opened by moving the game pieces in specific, preset patterns. Each chamber has a unique combination, and only one chamber can be opened at a time. Once a chamber is opened, a new combination can be set as a 1-minute activity. You can identify a Liar's Board as a clockwork device with a successful check (perception, dc:25) check, and you can find an individual hidden compartment with a successful check (perception, dc:30) check. The GM rolls a 1d6 to determine which chamber is discovered, rolling again if the result is one you're already aware of. You can force open a compartment you've identified with a successful check (thievery, dc:30) check, but tampering will be obvious unless you critically succeed at the check. If you spend at least 1 hour examining the game board, you can instead attempt to deduce the correct combination to open a compartment with a successful check (society, dc:30) or check (games-lore, dc:30) check.",
+      "bulk": 2,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:everair-mask-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "DIBJnuEG85FYwqnM",
+      "slug": "everair-mask-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:934bbb257d8495970c95512f2a430b942a170f70f6846cd74de7ec9cb9cea60c",
+    "translatableHash": "sha256:9a99446fc8abf9d07d505742a0517da81e419dc05e4bd2fe7bd67b9b34c39e2a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Everair Mask (Moderate)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "air",
+        "invested",
+        "magical"
+      ],
+      "description": "This simple, mass-produced gaiter mask is standard issue for miners working in deep, dangerous mines. While wearing the mask, you gain a +1 item bonus to Fortitude saving throws against inhaled poisons. An everair mask makes use of magical runes related to the Plane of Air to create breathable air.\nActivate 2 envision, Interact\nFrequency once per day\nEffect You activate the mask's rune, and the air surrounding air, as well as the air you exhale, becomes enriched with oxygen. This allows the everair mask to recycle air into breathable air for 4 hours. The rune's magic is unable to provide breathable air while underwater, in a vacuum, or in any other situation where air is normally unavailable.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 35
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grub-gloves-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pDaFDSY1keNfbdTl",
+      "slug": "grub-gloves-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d3d79076c5b2d788203f26ee39dcd9e1ddedb3748d9ed2453400bf257ae56ac1",
+    "translatableHash": "sha256:f291febab593a08132987ed876002fee5d2fea0f40703e6446e78aec50dcb403",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grub Gloves (Lesser)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Danila Kenn and Depa Stepwell of Common Goods developed these gloves after complaints from an exhausted grindlegrub rancher. Since their development, the gloves have become popular not just among grindlegrub ranchers, but laborers of all kinds in Stonebreach. The thick gloves are designed to help ranchers hold on to the squirming, slimy bodies of grindlegrubs, and help soothe the wear and tear of the day while restoring energy for after-hours pursuits. While wearing the gloves, you gain a +1 item bonus to Athletics checks. The gripping power of the gloves provides you with a +2 circumstance bonus to Reflex saves to Grab an Edge. If you roll a success to Grab an Edge, you get a critical success instead, as the gripping gloves allow you to hold on even with just a few fingertips.\nActivate 2 envision, Interact\nFrequency once per day;\nEffect You rub your hands together and take a deep breath to prepare for the rest of your day. You regain 3d8+10 healing Hit Points and feel refreshed, losing the Fatigued condition. As normal for effects that remove fatigue, this doesn't remove any underlying source of fatigue, such as lack of sleep, causing the condition to return if the underlying source isn't addressed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 225
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodhammer-reserve-select",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "U6wnudbnHP2RMKpN",
+      "slug": "bloodhammer-reserve-select",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:a66562585216b8a3c5da62864722855d815937d26722fca7a3b0fe6720344518",
+    "translatableHash": "sha256:5218e92383161b87c4a6e7212c755b5b607c85158a3cab759c6f722f1b1433a2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodhammer Reserve Select",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "polymorph",
+        "potion"
+      ],
+      "description": "This strong, rich red-brown home brew has no listed ingredients, but smells of earth and is both smoky and surprisingly bitter. Although Skogg Bloodhammer insists that the drink doesn't exist, it's somewhat of an open secret among his close friends. He prefers to share this drink at backroom gatherings with these trusted friends, and usually broaches the idea of sharing with a full mug and a question: \"You ever thought about being a frog?\"\nAfter drinking the brew, you transform into an animal, gaining the effects of Animal Form except you can't Dismiss the effect. When you consume the brew, you can choose which battle form you take and the temporary Hit Points you gain from the battle form increase to 10. Your appearance while in the battle form resembles that of animals within Emperor's Peak or from the surrounding Five Kings Mountains, such as the Five Kings dart snake or the Coldforge singing frog. More unusual battle forms like apes and sharks instead resemble a typical member of that species.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 35
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodhammer-reserve-black-label",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3viqxerOKUlf7mV0",
+      "slug": "bloodhammer-reserve-black-label",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:c4b8d93358a13535dd17991fc1378cc25b92686c1fa29b4051088e2a61df45e7",
+    "translatableHash": "sha256:d8dfc41d3a2ed0994d6fbf039441e8b886c95dd278a11fd8321ca8dddcff2db0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodhammer Reserve Black Label",
+      "itemType": "consumable",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "polymorph",
+        "potion"
+      ],
+      "description": "This strong, rich red-brown home brew has no listed ingredients, but smells of earth and is both smoky and surprisingly bitter. Although Skogg Bloodhammer insists that the drink doesn't exist, it's somewhat of an open secret among his close friends. He prefers to share this drink at backroom gatherings with these trusted friends, and usually broaches the idea of sharing with a full mug and a question: \"You ever thought about being a frog?\"\nAfter drinking the brew, you transform into an animal, gaining the effects of Animal Form except you can't Dismiss the effect. When you consume the brew, you gain the effects of 4th-rank animal form, can choose which battle form you take, and the temporary Hit Points you gain from the battle form increase to 20. Your appearance while in the battle form resembles that of animals within Emperor's Peak or from the surrounding Five Kings Mountains, such as the Five Kings dart snake or the Coldforge singing frog. More unusual battle forms like apes and sharks instead resemble a typical member of that species.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gray-prince",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IePXTa0jDjDqXxYl",
+      "slug": "gray-prince",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/hand-cannon.webp"
+    },
+    "sourceHash": "sha256:38d6b2f753f273da9e632c9b2d5a6354e4f85a8b84523b502dd6cd3501bf3a87",
+    "translatableHash": "sha256:b5810c8b8b3383909137c1e3d83bd0051d4a8e7a6683ce5bc3e7fa08da5e8b93",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gray Prince",
+      "itemType": "weapon",
+      "level": 8,
+      "rarity": "rare",
+      "traits": [
+        "modular",
+        "void"
+      ],
+      "description": "While nothing created by the Ash Cult could be considered mass-produced, this +1 striking ruinous hand cannon is by far their most popular design. The sleek body and intricate carving work make it a favorite accessory of certain aristocrats. The carving isn't merely decorative, however. Rather than a traditional maker's mark, Ornmarr etches excerpts of unreadable text onto each creation, hoping that one day his weapons will sing to another as the silver crystal once sang to him.\nActivate 2 envision, Interact\nFrequency once per hour;\nEffect You fire a bolt of void energy, dealing 2d8 void damage to all creatures in a 60-foot line (check (reflex, basic, dc:24, options:area-effect) saving throw). Creatures who critically fail their saving throw also take 1 persistent void damage for 1 minute.",
+      "bulk": 1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:affinity-stones",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9BvimbwCCrQw3kyD",
+      "slug": "affinity-stones",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:042d23f253a14458e24a3e5f4773044ff0282f18d61dd0d9de1d12b999bc9696",
+    "translatableHash": "sha256:b9df63136cabe222fb4afeb655facebb71ca436382c5a70f14399c8978928663",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Affinity Stones",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "rare",
+      "traits": [
+        "artifact",
+        "invested",
+        "magical"
+      ],
+      "description": "Dwarven tales state that the first set of these stones was created by a dwarven lapidary for his elven sweetheart. The gem he chose was amber—to show his clan that a union between stone and leaf was possible. His family remained hesitant, despite the unmistakable love that the men shared. The tales then say that it was Folgrit who grew impatient and transformed the stones as a sign of her approval.\nSince then, more sets of these have been created, but doing so is an unsure process. Some of the stones are seemingly given their magical abilities at random, which most attribute as further blessings from Folgrit. Each set of affinity stones typically comes as a pair of gems set into worn items such as hilts, necklaces, or rings, though some sets of affinity stones feature additional gems. The full set of stones must be invested together across multiple creatures, or else their magic fails to function. To invest these items, one person must be a dwarf and everyone must perform a one-hour ceremony that includes divulging their innermost feelings. Their love need not be romantic, but it must be genuine and deep. If they pass this test, they receive the following benefits.\n• You are always aware of each other and permanently gain the effects of the Status spell.\n• Non-dwarves gain the benefits of a 1st- or 5th-level ancestry feat with the dwarf trait, and dwarves gain the benefits one 1st- or 5th-level ancestry feat with a trait corresponding to the ancestry of another person with which the affinity stones are invested. For example, if you share investment in the stones with a halfling, you can take halfling ancestry feats. You can't use these feats to meet prerequisites, but the benefits of the feats otherwise function as if you had taken the feat.\n• You gradually take on some of the physical characteristics of your counterparts. An elf may begin to grow a beard, while their dwarven counterpart may develop pointed ears. These changes have no mechanical effect.\nDestruction If one of the people who had invested in the affinity stones commits an act of true and regretless betrayal against someone else invested in the affinity stones, all of the stones shatter to dust.",
+      "bulk": 0,
+      "price": {},
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodknuckles",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "f9SdiktChZHHBj8k",
+      "slug": "bloodknuckles",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:1816b3bc052799e1ba83f441156e0be8f154fcb4a2da2a62cc2e2770f4e0168d",
+    "translatableHash": "sha256:f09209fce7805110f5c9de54c6abb8544b85f34b1dd52a44850be82153d7b444",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodknuckles",
+      "itemType": "weapon",
+      "level": 9,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "finesse",
+        "invested",
+        "magical",
+        "nonlethal",
+        "unarmed"
+      ],
+      "description": "These thin cloth wraps, which are illegal to use in Highhelm's organized brawls, blend into the skin and add an edge to your blows. The wraps are +1 striking Wounding handwraps of mighty blows. When you invest the wraps, they gain the effects of a 3rd-rank Disguise Magic spell to appear non-magical and resemble simple bandages. Casual observers are unlikely to notice anything amiss with the wraps, but a creature that succeeds at a check (perception, dc:25) check can notice something is off about them, though they would still need to find other means to discern the magical nature of the wraps.\nActivate R envision\nFrequency once per minute;\nTrigger You cause a creature within reach to take bleed damage\nEffect You use your foe's pain to reinvigorate you. You gain temporary Hit Points equal to the value of the triggering bleed damage, up to a maximum of 10 temporary HP. These temporary Hit Points remain for 1 minute.",
+      "bulk": 0,
+      "price": {
+        "gp": 600
+      },
+      "usage": "worngloves",
+      "category": "unarmed",
+      "group": "brawling",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-war-shield-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fQcPx1CmWwPpnkyI",
+      "slug": "highhelm-war-shield-lesser",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/shield.svg"
+    },
+    "sourceHash": "sha256:6efcdd6869b37b9342444cc62fe2af99f26ed54a6f95e20e879b9f62b398e76d",
+    "translatableHash": "sha256:e71b01238ce98d6507a92cd0c8562b982ba6bab77bcbed068cdd0b6ceb27502e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm War Shield (Lesser)",
+      "itemType": "shield",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "integrated-1d6-s",
+        "magical",
+        "shield-throw-20"
+      ],
+      "description": "This specialized Razor Disc was originally designed by the members of Clan Molgrade for use by Highhelm's soldiers. The integrated blades are etched with runes, making them a +1 striking weapon.\nActivate R envision\nTrigger You critically hit with the shield's integrated blades\nEffect The shield's blades grow and dig themselves into your foe. The creature becomes Grabbed as it becomes impaled on the shield spikes. While you have a creature grabbed in this way, you can't Raise the Shield, but the creature takes persistent bleed damage every round equal to the number of damage dice. This persistent bleed can't end as long as the creature is impaled on the shield. You can Release the shield to leave it embedded in the creature. This ends the grab but doesn't end the persistent bleed damage. The creature can remove the shield and end the grab by attempting a check to Escape. This normally uses your Athletics DC to Escape, but if you're no longer holding the shield, the Escape DC is 25.",
+      "bulk": 1,
+      "price": {
+        "gp": 700
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "razor-disc"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:furnace-of-endings-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JC7do7p0jkkI0crM",
+      "slug": "furnace-of-endings-greater",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:334db2c4e9326f50d031433aeee8da1b112056b31035d3224d9e008663c7113a",
+    "translatableHash": "sha256:ee77c307ee9dd726a252af6c0cba8300f04b844b809ff6f184464b22d4cfda0c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Furnace of Endings (Greater)",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "fire",
+        "invested",
+        "magical"
+      ],
+      "description": "Ash Cultists make use of these metal scroll cases to deliver secret messages or as ways to \"smuggle\" stolen documents since initial inspections find an elegant yet empty case. The cases are enchanted to instantly immolate any parchment or document placed inside of it. While invested, you can Interact with the scroll case to recreate the last message that was destroyed this way. For as long as the case is open, ashes will rise into the air, recreating the text of the message exactly as it was written. When you close the case or leave it unattended for 1 minute, the message scatters until the next time you Interact with it.\nIn addition to the ability to recreate immolated documents, you can immolate a scroll containing a 3rd-rank spell or lower with the fire or void trait that takes no more than three actions to cast. Doing so stores the scroll's magic inside of the scroll case in order to reuse it later. Only a single spell can be stored this way at a time, and immolating scrolls containing a higher-rank spell simply destroys the scroll without storing the magic. When you immolate a new spell scroll in the case, the previous one is lost. Enough of the scroll's magic is lost in this process that you can't use the case to recreate the scroll for the purposes of Learning a Spell.\nActivation 1 to 3 envision, Cast a Spell\nFrequency once per day\nRequirements The last object burned was a scroll containing an appropriate spell\nEffect You cast the stored spell as if you were activating the scroll.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 700
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ashen",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yMEDmJWDPv2i78WO",
+      "slug": "ashen",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:d4ddde4b4926646a79e7f313ae94ba5fd4a32b6206d0532830bb09d338395895",
+    "translatableHash": "sha256:8ff37a355f4c19fa5323f72a070c4e1e9ac4b9b0ddb46d8af2f3e3da75e4fa15",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ashen",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "In his attempts to recreate the initial feeling of the object he encountered ages ago, the Ash Engineer discovered a different effect, one that would confound his enemies. Ashen weapons are typically coated in a thin layer of ash that gradually returns over the span of a day, even after wiping away. A creature hit by an attack from an ashen weapon becomes surrounded by burning ash, which deals 1d4 persistent fire damage. This ash clouds the senses, causing the creature to become Confused for 1 round unless it succeeds at a check (will, dc:25) save.",
+      "bulk": 0,
+      "price": {
+        "gp": 700
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:everair-mask-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pVjtw5KSQF1YF4Jp",
+      "slug": "everair-mask-greater",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a226f8c4262e605c1a7acc77ab3b08b66b15f9be11b43d3a64278bd8f4e9094d",
+    "translatableHash": "sha256:910cab1c57ed0600847e421c486337a7033575e77533ee81aad26b143eb9ea88",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Everair Mask (Greater)",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "common",
+      "traits": [
+        "air",
+        "invested",
+        "magical"
+      ],
+      "description": "This simple, mass-produced gaiter mask is standard issue for miners working in deep, dangerous mines. While wearing the mask, you gain a +1 item bonus to Fortitude saving throws against inhaled poisons. An everair mask makes use of magical runes related to the Plane of Air to create breathable air.\nActivate 2 envision, Interact\nFrequency once per day\nEffect You activate the mask's rune, and the air surrounding air, as well as the air you exhale, becomes enriched with oxygen. This allows the everair mask to recycle air into breathable air for 8 hours. The rune's magic is unable to provide breathable air while underwater, in a vacuum, or in any other situation where air is normally unavailable.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:words-of-wisdom-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mXfoYKagvi8z4xkk",
+      "slug": "words-of-wisdom-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:3952cc215cedc584c171182bd04f50583bebba758bf2a6ecaf10f8a418d17b56",
+    "translatableHash": "sha256:34cc2d8b6f879ccbd65aefb23c48a9203315a7bc4f1c5dcff67261378ad58930",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Words of Wisdom (Moderate)",
+      "itemType": "equipment",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Yrisette developed these unique tattoos after months of tinkering and experimentation. This tattoo is always of a saying that has meaning to the person who wears it. While the words are Hidden within a larger pattern and are nearly impossible to discern at a glance, they lend gravitas and power to the wearer's words. When the tattoo is applied, choose whether the phrase is of threatening words (Intimidation), persuasive words (Deception), or dramatic words (Performance).\nActivate 1 Command\nFrequency once per day\nEffect You speak your meaningful phrase from your tattoo out loud, emboldening your words for 10 minutes. During this time, you gain a +2 item bonus to Diplomacy checks and checks of the skill associated with your phrase. When you roll a critical failure on a Diplomacy check or the associated skill during this time, you get a failure instead.",
+      "bulk": 0,
+      "price": {
+        "gp": 1400
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-drill-mark-ii",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BcYUzXVZIiQ2eVPF",
+      "slug": "highhelm-drill-mark-ii",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e69acee874698fce396ba55884f0a24aead5cec7ee31db68e006945a513c6dba",
+    "translatableHash": "sha256:4c2b0c46f88f79055f51a3ac464f43d91aa08ff0dcbfb85176143ba7f4ec4b04",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm Drill Mark II",
+      "itemType": "equipment",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "force",
+        "magical"
+      ],
+      "description": "Not to be outdone by their cousins in Dongun Hold, the artificers of Highhelm have developed a handheld magical equivalent to their clockwork drilling constructs and vehicles. The device is still in the testing phases, but early versions have been released to fund more development. Appearing as an unassuming yellow box with two handles normally, when the command word is spoken, a spiraling drill made of force emerges from its top. An active Highhelm drill can be used as an improvised weapon, dealing damage on a Strike as though it had been used on a surface for one round with no additional damage from other sources.\nActivate 2 Interact\nFrequency once per day\nEffect The force drill appears and begins turning, dealing 10 force damage per round to any material against which you hold the drill. The drill ignores the first 8 Hardness of any material it damages. The drill remains active for 5 minutes.",
+      "bulk": 3,
+      "price": {
+        "gp": 1800
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grub-gloves-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cxVbGSUjmc2yxVh5",
+      "slug": "grub-gloves-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:440973961314251becfb8808810e2caa0281e8f964f41fd6492aa18c5b650c50",
+    "translatableHash": "sha256:5356dc8e389eb51a79180fe46e58c3fa1d15e5d88be288496cb737d3f2294afe",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grub Gloves (Moderate)",
+      "itemType": "equipment",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Danila Kenn and Depa Stepwell of Common Goods developed these gloves after complaints from an exhausted grindlegrub rancher. Since their development, the gloves have become popular not just among grindlegrub ranchers, but laborers of all kinds in Stonebreach. The thick gloves are designed to help ranchers hold on to the squirming, slimy bodies of grindlegrubs, and help soothe the wear and tear of the day while restoring energy for after-hours pursuits. While wearing the gloves, you gain a +2 item bonus to Athletics checks. The gripping power of the gloves provides you with a +3 circumstance bonus to Reflex saves to Grab an Edge. If you roll a success to Grab an Edge, you get a critical success instead, as the gripping gloves allow you to hold on even with just a few fingertips.\nActivate 2 envision, Interact\nFrequency once per day;\nEffect You rub your hands together and take a deep breath to prepare for the rest of your day. You regain 6d8+20 healing Hit Points and feel refreshed, losing the Fatigued condition. As normal for effects that remove fatigue, this doesn't remove any underlying source of fatigue, such as lack of sleep, causing the condition to return if the underlying source isn't addressed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1750
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scarlet-queen",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VOYQpn4yISYo5Ttq",
+      "slug": "scarlet-queen",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/hammer-gun.webp"
+    },
+    "sourceHash": "sha256:54a8bff78413a8aec4f1d9ceedb4aa70fb2ba56cd661e380c3e8a68577af7aa5",
+    "translatableHash": "sha256:a48399c7067465f19f828576820aadbae276ee7d365a8ac31cbbdd76691874e4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scarlet Queen",
+      "itemType": "weapon",
+      "level": 12,
+      "rarity": "rare",
+      "traits": [
+        "combination",
+        "concussive",
+        "fatal-d10",
+        "fire"
+      ],
+      "description": "The scarlet queen is a +2 striking flaming hammer gun. Due to the awkward and complex nature of combination weapons, it's by far the least popular of Ornmarr's designs, but those who have mastered it consider it his finest creation to date. The glistening red steel always feels warm to the touch and sheds dim light in a 15-foot radius. Any non-magical object of light Bulk destroyed by the scarlet queen is reduced completely to ash.\nActivate 2 envision, Interact\nRequirements The scarlet queen is in its firearm form\nFrequency once per day\nEffect You fire a blast of magically disruptive energy at an unattended magical object. You cast 5th-rank Dispel Magic with a counteract bonus of 1d20+21 against the object.",
+      "bulk": 2,
+      "price": {
+        "gp": 2000
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:furnace-of-endings-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Z0VXKrTDur1rgiPE",
+      "slug": "furnace-of-endings-major",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d72ba56b82c56ebc92e00dd751177f08e0e8d0883875bcd1d046b9cc38f5aa9e",
+    "translatableHash": "sha256:ee4390699180bed2d35faea977c688e1d2ff44dce5c1b5a822c5ead12ae97797",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Furnace of Endings (Major)",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "fire",
+        "invested",
+        "magical"
+      ],
+      "description": "Ash Cultists make use of these metal scroll cases to deliver secret messages or as ways to \"smuggle\" stolen documents since initial inspections find an elegant yet empty case. The cases are enchanted to instantly immolate any parchment or document placed inside of it. While invested, you can Interact with the scroll case to recreate the last message that was destroyed this way. For as long as the case is open, ashes will rise into the air, recreating the text of the message exactly as it was written. When you close the case or leave it unattended for 1 minute, the message scatters until the next time you Interact with it.\nIn addition to the ability to recreate immolated documents, you can immolate a scroll containing a 5th-rank spell or lower with the fire or void trait that takes no more than three actions to cast. Doing so stores the scroll's magic inside of the scroll case in order to reuse it later. Only a single spell can be stored this way at a time, and immolating scrolls containing a higher-rank spell simply destroys the scroll without storing the magic. When you immolate a new spell scroll in the case, the previous one is lost. Enough of the scroll's magic is lost in this process that you can't use the case to recreate the scroll for the purposes of Learning a Spell.\nActivation 1 to 3 envision, Cast a Spell\nFrequency once per day\nRequirements The last object burned was a scroll containing an appropriate spell\nEffect You cast the stored spell as if you were activating the scroll.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-war-shield-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Lwso6G0uaVawoRMK",
+      "slug": "highhelm-war-shield-moderate",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/shield.svg"
+    },
+    "sourceHash": "sha256:a76ab4844e75581ab7f49993fac01b79fcc47de5f14fb83c559f63e8a06dabee",
+    "translatableHash": "sha256:1aa8e9bf1d1c58ed07839be8d2fbf1120108f332e41eba89ba90c335f0e7b887",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm War Shield (Moderate)",
+      "itemType": "shield",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "integrated-1d6-s",
+        "magical",
+        "shield-throw-20"
+      ],
+      "description": "This specialized Razor Disc was originally designed by the members of Clan Molgrade for use by Highhelm's soldiers. The integrated blades are etched with runes, making them a +2 greater striking weapon.\nActivate R envision\nTrigger You critically hit with the shield's integrated blades\nEffect The shield's blades grow and dig themselves into your foe. The creature becomes Grabbed as it becomes impaled on the shield spikes. While you have a creature grabbed in this way, you can't Raise the Shield, but the creature takes persistent bleed damage every round equal to the number of damage dice. This persistent bleed can't end as long as the creature is impaled on the shield. You can Release the shield to leave it embedded in the creature. This ends the grab but doesn't end the persistent bleed damage. The creature can remove the shield and end the grab by attempting a check to Escape. This normally uses your Athletics DC to Escape, but if you're no longer holding the shield, the Escape DC is 31.",
+      "bulk": 1,
+      "price": {
+        "gp": 4000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "razor-disc"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:everair-mask-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nZygpiYsx4AlQKle",
+      "slug": "everair-mask-major",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:2ffc28d45d30ea774e476588f83a0646bb1d64008d47617b035248cb17001ca9",
+    "translatableHash": "sha256:2821da4cb9c1f869239d25e78a7ef3ea985e022fc5bb6f620b7319fa11558d77",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Everair Mask (Major)",
+      "itemType": "equipment",
+      "level": 14,
+      "rarity": "common",
+      "traits": [
+        "air",
+        "invested",
+        "magical"
+      ],
+      "description": "This simple, mass-produced gaiter mask is standard issue for miners working in deep, dangerous mines. While wearing the mask, you gain a +1 item bonus to Fortitude saving throws against inhaled poisons. An everair mask makes use of magical runes related to the Plane of Air to create breathable air.\nActivate 2 envision, Interact\nFrequency once per day\nEffect You activate the mask's rune, and the air surrounding air, as well as the air you exhale, becomes enriched with oxygen. This allows the everair mask to recycle air into breathable air for 24 hours. The rune's magic is unable to provide breathable air while underwater, in a vacuum, or in any other situation where air is normally unavailable.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 625
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-stronghold-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SMruq5revpHcKDdt",
+      "slug": "highhelm-stronghold-plate",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/bastion-plate.webp"
+    },
+    "sourceHash": "sha256:01f2bc48f9c3f609f519e51fda8bb065ebf9f4f7b2a57b38ccb522673e77807e",
+    "translatableHash": "sha256:35bfe58bba0199512dde5680250f81be581c5a51529fd6f5aee27653f518038c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm Stronghold Plate",
+      "itemType": "armor",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "bulwark",
+        "entrench-melee",
+        "hindering",
+        "invested",
+        "magical"
+      ],
+      "description": "This +2 resilient fortification bastion plate is made almost entirely of stone plates. It looks almost unwearable and is in fact only wearable because of numerous minor enchantments for comfort and mobility. If you have armor specialization with heavy armor, your resistance while wearing Highhelm stronghold plate applies to both slashing and piercing damage.\nActivate 3 envision, Interact\nFrequency once per day\nEffect The plating on your armor explodes off of your body, expands, and reshapes, transforming into a stone structure with the effects of Wall of Stone. While the armor is transformed in this way, you don't gain the benefits of wearing the armor. The armor remains transformed for up to 10 minutes or until you Dismiss the effect, at which point the wall of stone disappears and the armor returns to you, donning itself immediately.\nCrafting Requirements Supply one casting of wall of stone.",
+      "bulk": 5,
+      "price": {
+        "gp": 3750
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 6,
+        "dexterityCap": 0,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:black-king",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NS2j5bYEoHeESlyN",
+      "slug": "black-king",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:2f9240416a6f042c5ea35789ce08eebaad25d09d25764bce0985fd438aa41c00",
+    "translatableHash": "sha256:6467ce617dc6ad20cc33d585e25135f338f99ae64d0f154e7a2d951444a43d4a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Black King",
+      "itemType": "weapon",
+      "level": 15,
+      "rarity": "rare",
+      "traits": [
+        "concussive",
+        "magical",
+        "scatter-20",
+        "void"
+      ],
+      "description": "The black king is a +2 greater striking ashen blunderbuss. While the dark metal frame is still pleasant to look at, this design prioritizes destructive power over aesthetic appeal. This specialized blunderbuss has a scatter radius of 20 feet instead of 10, and all splash damage it deals is void damage instead of physical. Due to the risk of collateral damage, this weapon is typically only used by the especially foolhardy or reckless.\nActivate 2 envision, Interact\nFrequency once per day;\nEffect You unleash a blast of draining flame, dealing 5d6 fire damage damage to all creatures in a 60 foot cone (check (reflex, dc:34, basic, options:area-effect) save). Creatures who fail their saving throw are knocked back 5 feet. Creatures who critically fail are knocked back 10 feet and fall Prone.",
+      "bulk": 2,
+      "price": {
+        "gp": 6250
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ashen-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lo5QOMA9VAUwUVl7",
+      "slug": "ashen-greater",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:e0f9666bcc768f69f0cfdb23d0ca5c6a56ab9c28269b288db1adc38dee234c23",
+    "translatableHash": "sha256:c2c654ee91cc2bfd56418868a0dd5e282900e48a8b0055d289bff57f1d10c821",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ashen (Greater)",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "In his attempts to recreate the initial feeling of the object he encountered ages ago, the Ash Engineer discovered a different effect, one that would confound his enemies. Ashen weapons are typically coated in a thin layer of ash that gradually returns over the span of a day, even after wiping away. A creature hit by an attack from an ashen weapon becomes surrounded by burning ash, which deals 1d8 persistent fire damage. This ash clouds the senses, causing the creature to become Confused for 1 round unless it succeeds at a check (will, dc:35) save. On a critical failure, the effect lasts for 1 minute.",
+      "bulk": 0,
+      "price": {
+        "gp": 9000
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-drill-mark-iii",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vkYWqXrHdUAggJIg",
+      "slug": "highhelm-drill-mark-iii",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:312dbc5a2a47b8f134f01750a5bd6ed0160ba53da64259480a84583b6ea50868",
+    "translatableHash": "sha256:42ea091ab3018cbd6c074214fc142d0b4f6a74512f9c21d1c509314ef625fafc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm Drill Mark III",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "force",
+        "magical"
+      ],
+      "description": "Not to be outdone by their cousins in Dongun Hold, the artificers of Highhelm have developed a handheld magical equivalent to their clockwork drilling constructs and vehicles. The device is still in the testing phases, but early versions have been released to fund more development. Appearing as an unassuming yellow box with two handles normally, when the command word is spoken, a spiraling drill made of force emerges from its top. An active Highhelm drill can be used as an improvised weapon, dealing damage on a Strike as though it had been used on a surface for one round with no additional damage from other sources.\nActivate 2 Interact\nFrequency once per day\nEffect The force drill appears and begins turning, dealing 15 force damage per round to any material against which you hold the drill. The drill ignores the first 12 Hardness of any material it damages. The drill remains active for 10 minutes.",
+      "bulk": 3,
+      "price": {
+        "gp": 8750
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grub-gloves-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oEfcbqK68enZLOoR",
+      "slug": "grub-gloves-greater",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:990dd5a3ccfc6cb3692c72429c9639a97734e5400d322ea1f65a6c9978dc3e9e",
+    "translatableHash": "sha256:425d151f3bc6ae86647e2197433756773f050274dca59d89692aecff71f24822",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grub Gloves (Greater)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Danila Kenn and Depa Stepwell of Common Goods developed these gloves after complaints from an exhausted grindlegrub rancher. Since their development, the gloves have become popular not just among grindlegrub ranchers, but laborers of all kinds in Stonebreach. The thick gloves are designed to help ranchers hold on to the squirming, slimy bodies of grindlegrubs, and help soothe the wear and tear of the day while restoring energy for after-hours pursuits. While wearing the gloves, you gain a +3 item bonus to Athletics checks. The gripping power of the gloves provides you with a +4 circumstance bonus to Reflex saves to Grab an Edge. If you roll a success to Grab an Edge, you get a critical success instead, as the gripping gloves allow you to hold on even with just a few fingertips.\nActivate 2 envision, Interact\nFrequency once per day;\nEffect You rub your hands together and take a deep breath to prepare for the rest of your day. You regain 8d8+30 healing Hit Points and feel refreshed, losing the Fatigued condition. As normal for effects that remove fatigue, this doesn't remove any underlying source of fatigue, such as lack of sleep, causing the condition to return if the underlying source isn't addressed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 22500
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:words-of-wisdom-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wOBIx55awoePSEIz",
+      "slug": "words-of-wisdom-greater",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:52e6c25cbc89a7e77b2960fd1fdce8f3f63ffc7c8319cc2d5076f41780605e3f",
+    "translatableHash": "sha256:712ce1a249120a7d5421147a33b31d3158cd0ad2366064ce2ac701f95431adbf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Words of Wisdom (Greater)",
+      "itemType": "equipment",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Yrisette developed these unique tattoos after months of tinkering and experimentation. This tattoo is always of a saying that has meaning to the person who wears it. While the words are Hidden within a larger pattern and are nearly impossible to discern at a glance, they lend gravitas and power to the wearer's words. When the tattoo is applied, choose whether the phrase is of threatening words (Intimidation), persuasive words (Deception), or dramatic words (Performance).\nActivate 1 Command\nFrequency once per day\nEffect You speak your meaningful phrase from your tattoo out loud, emboldening your words for 1 hour. During this time, you gain a +3 item bonus to Diplomacy checks and checks of the skill associated with your phrase. When you roll a critical failure on a Diplomacy check or the associated skill during this time, you get a failure instead.",
+      "bulk": 0,
+      "price": {
+        "gp": 22000
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:highhelm-war-shield-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ODpis1NRtTWohcqS",
+      "slug": "highhelm-war-shield-greater",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/shield.svg"
+    },
+    "sourceHash": "sha256:3bb907da020c099ff7614bc032e7e84a131bcfb996e32e4bbeca7d511a458239",
+    "translatableHash": "sha256:5856fe64c84407c41f433cd7d3469000d85e13549aeceaf64f05703367014729",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Highhelm War Shield (Greater)",
+      "itemType": "shield",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "integrated-1d6-s",
+        "magical",
+        "shield-throw-20"
+      ],
+      "description": "This specialized Razor Disc was originally designed by the members of Clan Molgrade for use by Highhelm's soldiers. The integrated blades are etched with runes, making them a +3 major striking weapon.\nActivate R envision\nTrigger You critically hit with the shield's integrated blades\nEffect The shield's blades grow and dig themselves into your foe. The creature becomes Grabbed as it becomes impaled on the shield spikes. While you have a creature grabbed in this way, you can't Raise the Shield, but the creature takes persistent bleed damage every round equal to the number of damage dice. This persistent bleed can't end as long as the creature is impaled on the shield. You can Release the shield to leave it embedded in the creature. This ends the grab but doesn't end the persistent bleed damage. The creature can remove the shield and end the grab by attempting a check to Escape. This normally uses your Athletics DC to Escape, but if you're no longer holding the shield, the Escape DC is 43.",
+      "bulk": 1,
+      "price": {
+        "gp": 55000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "razor-disc"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blade-of-fallen-stars",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6RkxhrJqBpFQlRBD",
+      "slug": "blade-of-fallen-stars",
+      "publicationTitle": "Pathfinder Lost Omens Highhelm",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/gun-sword.webp"
+    },
+    "sourceHash": "sha256:e06c9a72216765e43a611df65246a8e0792fa83e458a41789f2c0c41e8ba0c50",
+    "translatableHash": "sha256:8c9b8f274ee8677256a37bf109d7cb3bbadbb790a1c22998efd277b0c73f8ac7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blade of Fallen Stars",
+      "itemType": "weapon",
+      "level": 22,
+      "rarity": "uncommon",
+      "traits": [
+        "combination",
+        "concussive",
+        "kickback"
+      ],
+      "description": "This +4 major striking greater frost gun sword is made from high-grade cold siccatite. This gun sword's elegant, silvery blade is double-edged and etched with stars and constellations that move and mirror the night sky. The blade absorbs starlight, and prolonged exposure causes it to form a layer of glittering residue. Smiths in Dongun Hold forged this weapon by combining the cracked remains of a skymetal arquebus and the shards of an exceptional elven greatsword. Some tales of the forging report that the sword was Tear of Eventide, a great blade forged out of starlight for the battle between Desna and Aolar. Whether or not that was the case, dwarven curators who examined the shards simply noted that the blade's material was compatible with the cracked gun. After an extremely tense diplomatic brunch, the weapon is now regarded as a miracle of elven artistry and dwarven engineering, and a powerful symbol of allyship between their kingdoms.\nActivate 1 Interact\nEffect You unfold the parrying hooks extending from the blade to form a bipod, which has the same benefits as a typical Tripod. This negates the –2 penalty from kickback but must be reversed by a subsequent Interact action before the weapon can be repositioned or wielded in melee.\nActivate 2 command, Interact\nRequirements The blade of fallen stars was exposed to starlight for at least one hour since the last time this ability was used\nEffect The coating on the blade seeps into the engravings and is collected in the barrel. On your next ranged Strike, the weapon fires a glowing white projectile with a blazing blue tail that explodes on impact. In addition to the normal Strike damage, the projectile also deals 6d8 cold damage and creates a Faerie Fire effect in a 5-foot emanation centered on the target.\nDestruction Depriving the weapon of all light, natural or otherwise, for seven years, seven months, and seven days will cause it to crumble and erode irreparably.",
+      "bulk": 2,
+      "price": {
+        "gp": 46500
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gill-hook",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FbquJr6FuXL3K373",
+      "slug": "gill-hook",
+      "publicationTitle": "Pathfinder Lost Omens Absalom, City of Lost Omens",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/gill-hook.webp"
+    },
+    "sourceHash": "sha256:d9eb3df1a5a6a2608cde1c6826a21de3407e7fbae1a7bc699e8f77866eb9e546",
+    "translatableHash": "sha256:d8ea4099b776324d491dbae277a57e376c20be84cec3fc79b835f84082588263",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gill Hook",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "azarketi",
+        "grapple",
+        "reach"
+      ],
+      "description": "This spear has a specialized hook just before the tip that can catch on the gills of large fish. Azarketis primarily use this to hunt sharks, but it can also be used to hook flesh or armor.",
+      "bulk": 2,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d10",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:boarding-axe",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gTTJuNgwTcNmkDx2",
+      "slug": "boarding-axe",
+      "publicationTitle": "Pathfinder Lost Omens Absalom, City of Lost Omens",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:02690f669476c05e67578b14549d099922cc13c1a3edd1bbbd8c81a970402456",
+    "translatableHash": "sha256:cde7881a3f635ad7f46e86e4e0cba985c0989bbbd1d2babfc4a06efe48eeb941",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boarding Axe",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "azarketi",
+        "climbing",
+        "versatile-p"
+      ],
+      "description": "This small axe sports a spike opposite the blade that aids in climbing and is useful in clearing obstacles, such as fallen rigging.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "axe",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:qat",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JPGOrHeYxjdnUogT",
+      "slug": "qat",
+      "publicationTitle": "Pathfinder Lost Omens Absalom, City of Lost Omens",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/drugs/qat.webp"
+    },
+    "sourceHash": "sha256:9ba36bb990ecc5e8686950e8da234de25b6d1fc1778d10fe9fe3377271b78ec2",
+    "translatableHash": "sha256:5b9d8809d84926618792323110e82af7112c884dabdc82b8e0f16b8eb1bc0704",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Qat",
+      "itemType": "consumable",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "drug",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nThe save for addiction to qat is check (fortitude, dc:14, name:Qat Addiction, showDC:owner), but the maximum addiction stage of qat never progresses beyond stage 1.\nSaving Throw check (fortitude, dc:14, showDC:owner)\nOnset 10 minutes\nMaximum Duration 8 hours\nStage 1 +1 item bonus to Reflex saves (10 minutes)\nEffect: Qat (Stage 1)\nStage 2 Stupefied 1 (1 hour)",
+      "bulk": 0.1,
+      "price": {
+        "sp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "drug",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vl5dww56cbXo9QnP",
+      "slug": "grit",
+      "publicationTitle": "Pathfinder Lost Omens Absalom, City of Lost Omens",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/drugs/grit.webp"
+    },
+    "sourceHash": "sha256:e8c10f81df2a1b579dffca00739d343ee6d694dc6eb2b61cb5f21e8d779684ec",
+    "translatableHash": "sha256:bfc5245b33cf8f566b39bdf8de0b6e61db3a9e73a793b1afc2d7d2c97f36464d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grit",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "drug",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nThe save for addiction to grit is check (fortitude, dc:15, name:Grit Addiction, traits:virulent, showDC:owner), and the addiction has the virulent trait.\nSaving Throw check (fortitude, dc:15, showDC:owner)\nOnset 1 minute\nMaximum Duration 4 hours\nStage 1 +1 item bonus to Athletics, Crafting, and Performance checks (10 minutes)\nEffect: Grit (Stage 1)\nStage 2 +1 item bonus to Athletics, Crafting, and Performance checks, -2 item penalty to Perception checks (1 hour)\nEffect: Grit (Stage 2)\nStage 3 -4 item penalty to Perception checks (1 hour)\nEffect: Grit (Stage 3)\nStage 4 as stage 3 (1 hour)\nStage 5 Confusion (1 round)\nStage 6 Unconscious (remaining duration)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "drug",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:demon-dust",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZROIWl7TLxKbPDLr",
+      "slug": "demon-dust",
+      "publicationTitle": "Pathfinder Lost Omens Absalom, City of Lost Omens",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/drugs/demon-dust.webp"
+    },
+    "sourceHash": "sha256:3089dd1f23849954fb5c6a8533c433432abc8ee5d3ef3970e9357e36f53d822d",
+    "translatableHash": "sha256:5e68172feb0e737d95ea3ac35a3d2b7029f9e92b288ffcd8e9457d66784c2de9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Demon Dust",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "drug",
+        "inhaled",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nThe save for addiction to demon dust is check (fortitude, dc:24, name:Demon Dust Addiction, traits:virulent, showDC:owner), and the addiction has the virulent trait.\nSaving Throw check (fortitude, dc:20, showDC:owner)\nMaximum Duration 8 hours\nStage 1 +2 item bonus to Athletics checks and treat up to 4 Bulk as being negligible in weight (1 minute)\nEffect: Demon Dust (Stage 1)\nStage 2 +2 item bonus to Athletics checks, treat up to 4 Bulk as being negligible in weight, and Stupefied 1 (1 hour)\nEffect: Demon Dust (Stage 2)\nStage 3 stupefied 1 (1 hour)\nStage 4 Stupefied 2 (1 hour)\nStage 5 stupefied 2 and all memories made since you were first exposed to this dose of demon dust become hazy and vague (1 hour)\nStage 6 stupefied 2 and all memories made in the previous 24 hours become hazy and vague (1 hour)",
+      "bulk": 0,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-one-hand",
+      "category": "drug",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:succubus-kiss",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qwCefJjr7AJSqYay",
+      "slug": "succubus-kiss",
+      "publicationTitle": "Pathfinder Lost Omens Absalom, City of Lost Omens",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/drugs/succubus-kiss.webp"
+    },
+    "sourceHash": "sha256:08c993db97a84b03098213c4fe3a29fe15186945759b4fca9d18059102793da7",
+    "translatableHash": "sha256:4a020976ec5074a0210a7904b08aeab0968c448251c6eb940533b75f587f2928",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Succubus Kiss",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "drug",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nThe save for addiction to succubus kiss is check (fortitude, dc:28, name:Succubus Kiss Addiction, traits:virulent, showDC:owner), and the addiction has the virulent trait.\nSaving Throw check (fortitude, dc:24, showDC:owner)\nOnset 1 minute\nMaximum Duration 8 hours\nStage 1 +2 item bonus to initiative checks (10 minutes) and to all saving throws against emotion and mental effects\nEffect: Succubus Kiss (Stage 1)\nStage 2 as stage 1 plus Drained 1 (1 hour)\nEffect: Succubus Kiss (Stage 2)\nStage 3 as stage 2 plus Blindness or Deafness (1 hour)\nStage 4 blindness and deafness (1 hour)\nStage 5 Unconscious",
+      "bulk": 0,
+      "price": {
+        "gp": 70
+      },
+      "usage": "held-in-one-hand",
+      "category": "drug",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cinderclaw-gauntlet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Dti9PZZoty6We8OV",
+      "slug": "cinderclaw-gauntlet",
+      "publicationTitle": "Pathfinder #145: Hellknight Hill",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:aa6c51f32ea9f7bb5d25aab73a4df6947281a24dac520d17e445466e8179efc0",
+    "translatableHash": "sha256:4b8c1608bb7f86cbe56a0416d1db14747fdaee6e39f18ef2e39563a916aca675",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cinderclaw Gauntlet",
+      "itemType": "weapon",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "free-hand",
+        "magical",
+        "versatile-s"
+      ],
+      "description": "This sharp-taloned +1 striking spiked gauntlet appears to have been crafted from dragon scales, with claws built from iron. In addition to the typical weapon traits, a Cinderclaw gauntlet has the versatile S trait.\nOn a critical hit, the Cinderclaw gauntlet deals an additional 1d6 fire damage.\nActivate R command\nTrigger Your attack roll with the Cinderclaw gauntlet is a critical success.\nEffect The creature you hit must succeed at a check (fortitude, dc:19, showDC:owner) save or be Sickened 1 by the gauntlet's acrid smoke. Creatures that don't need to breathe are immune.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "brawling",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragons-eye-charm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "A4BhFOb4iQtJYYKq",
+      "slug": "dragons-eye-charm",
+      "publicationTitle": "Pathfinder #146: Cult of Cinders",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a6ea5f7371399d1d82def850b62de75f23cff3edf1095117dbb01e43a788a724",
+    "translatableHash": "sha256:679c178b7d2f3101c908bb2ecec0eaaeea7ee4dc61ff9474a41897180b4f3dec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragon's Eye Charm",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This charm, a dragon-shaped pendant worn like a necklace or set into armor or clothing as a decoration, is warm and smooth to the touch. It must be held in one hand to be used (pressing the palm of one's hand to the charm also works, provided that your hand is otherwise empty). It has four distinct powers.\nActivate A Interact\nFrequency once per day\nEffect The dragon's eye charm manifests fire for you to wield against your foe. You cast a 5th-rank Ignition spell with a spell attack roll of +13.\nActivate A Interact\nFrequency once per day\nEffect The charm's pupil becomes plainly visible. You can look through the charm to gain Darkvision for as long as you Sustain the Activation, to a maximum of 10 minutes.\nActivate A Interact\nFrequency once per day\nEffect The dragon's eye charm shrouds you in a faintly glowing layer of golden energy. You gain fire resistance 5 for 10 minutes.\nActivate A Interact\nFrequency once per day\nEffect You can speak and understand Draconic as long as you Sustain the Activation, to a maximum of 10 minutes.\nEffect: Dragon's Eye Charm",
+      "bulk": 0.1,
+      "price": {
+        "gp": 360
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eclipse",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FCA7CE4mK85SVLz3",
+      "slug": "eclipse",
+      "publicationTitle": "Pathfinder #146: Cult of Cinders",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/eclipse.webp"
+    },
+    "sourceHash": "sha256:e22faf088fc3576d9fb20b4acc01cea17922c5232984ac64f08899b69e8b36d7",
+    "translatableHash": "sha256:a22c39c2d45c0f4719a226e7dd3efdde9649d07adf38a243387bd6514bebd583",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eclipse",
+      "itemType": "weapon",
+      "level": 8,
+      "rarity": "unique",
+      "traits": [
+        "agile",
+        "deadly-d6",
+        "finesse",
+        "light",
+        "magical",
+        "thrown-20",
+        "versatile-s"
+      ],
+      "description": "This +1 Returning striking cold iron starknife has an ornate central grip that depicts a silver dragon, the neck, wings, and tail of which wrap over and around the handle in knots to support the weapon's four cold iron blades. While the handle is polished to a mirrorlike shine, the blades of Eclipse are a flat black and entirely unreflective. Eclipse is also the portal key required to activate Dreamgate at Alseta's Ring.\nWhenever you score a critical hit with Eclipse, the target creature's eyes are plunged into darkness; if that creature doesn't have darkvision, it is blinded for 1 round.\nActivate A command\nFrequency once per day\nEffect Eclipse's blades glow like starlit night sky, causing it to shed light as a torch until you deactivate it as a single action, which has the concentrate trait.\nActivate R envision\nFrequency three times per day\nTrigger You attempt a Stealth check to Hide or Sneak, but you haven't rolled yet\nEffect You absorb light, gaining a +2 status bonus to the Stealth check.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 450
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:addlebrain",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "d5aCuFS1dhKXhsZ0",
+      "slug": "addlebrain",
+      "publicationTitle": "Pathfinder #147: Tomorrow Must Burn",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:08f315108da16278ca839500c3444bc534423498abe45080878c1b969c0cd7bf",
+    "translatableHash": "sha256:e6e2c47b0aa172f68fe6c1914d95a8dc09b070af3704fe2909e3bc6da90a5b89",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Addlebrain",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "inhaled",
+        "poison"
+      ],
+      "description": "Certain Scarlet Triad poisoners use toxins like addlebrain to keep captured prisoners docile and compliant for short periods of time until they can be properly shackled and imprisoned. Addlebrain is distilled from a hallucinogenic lichen that can often be found growing in the sewers below particularly large cities like Katapesh.\nOnce soaked in special reagents and then dried, a dose of addlebrain must be either lit with flame or tossed into a fire to activate, whereupon it unleashes a cloud of toxin as normal for an inhaled poison.\nActivate A Interact (Inhaled)\nSaving Throw check (fortitude, dc:25)\nOnset 1 minute\nMaximum Duration 1 day\nStage 1 Enfeebled 1 and Stupefied 1 (10 minutes)\nStage 2 Enfeebled 2 and Stupefied 2 (1 hour)\nStage 3 Fatigued, Enfeebled 4, and Stupefied 4 (1 day)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 58
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gourd-home",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dJoYIbM6GF6wgX0b",
+      "slug": "gourd-home",
+      "publicationTitle": "Pathfinder #147: Tomorrow Must Burn",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/structures/gourd-home.webp"
+    },
+    "sourceHash": "sha256:d774a16e908a3f3c7ff08c628ac1c1ff047ae7a6da1b74a714e450cd31e61b49",
+    "translatableHash": "sha256:900a64632acc915178623a8c667660981175229b64023b41d87e00492ebbe8b9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gourd Home",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "rare",
+      "traits": [
+        "extradimensional",
+        "magical",
+        "structure"
+      ],
+      "description": "This dried gourd seems entirely nondescript, as it is hollow and has a sturdy cord wrapped around its neck for easy carrying. Closer inspection reveals the gourd has grown in the rough shape of a hut or similar small dwelling.\nActivate (1 minute) Interact\nEffect You place the gourd home on the ground (in an open area large enough to contain it) and cause it to expand in size to a 30-foot-square structure with one door. The interior of the gourd is a single large room that can hold 10 Small or Medium creatures with moderate comfort.\nActivate A Interact\nFrequency once per day\nRequirements The gourd home must be expanded into its house form atop earth or soil.\nEffect By rapping on the door from either outside or inside, you cause the gourd home to shrink back into its normal size and appear to be a non-magical gourd sitting on the ground. For the following 8 hours, the interior of the gourd home becomes an extradimensional space whose size appears unchanged to those within.\nIf anyone outside picks up or damages the gourd, or if anyone inside the gourd home attempts to exit, all creatures within the gourd home immediately reappear in the area surrounding the gourd, and the gourd home becomes inactive for 24 hours.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 650
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cursed-dreamstone",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "idw9HdfR4QvseXsc",
+      "slug": "cursed-dreamstone",
+      "publicationTitle": "Pathfinder #147: Tomorrow Must Burn",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/dreamstone.webp"
+    },
+    "sourceHash": "sha256:e030265bdce944be5517473a1503dcf7d53465df5c58d095708c722dd9e44277",
+    "translatableHash": "sha256:aaae8eaf426680761ebb87e8dfc2e533dbe3fe152281e9205eabd142e7670dd0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cursed Dreamstone",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "magical"
+      ],
+      "description": "A dreamstone can become cursed if left exposed to creatures that corrupt sleep, generate nightmares, or otherwise prey on sleeping or dreaming victims via supernatural methods. A cursed dreamstone seems to function as a normal dreamstone until the bearer falls asleep or is forced to attempt a saving throw against a sleep effect. At this point, the person carrying the cursed dreamstone must attempt a check (will, dc:26) save to resist the curse's effects.\nCritical Success The character resists the curse entirely and experiences a vivid dream while sleeping that warns them of the nature of the cursed dreamstone.\nSuccess The character resists the curse.\nFailure As long as the cursed character possesses the stone, they are fatigued whenever they wake from sleep, whether natural or magically induced, and they take a -2 item penalty to all saving throws against sleep effects instead of gaining the normal bonus from a dreamstone.\nCritical Failure As failure, and whenever the bearer attempts a saving throw against a sleep effect, they get the outcome that is one degree worse than the result of their saving throw.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dreamstone",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lRdrk7Dh9eVlXFHi",
+      "slug": "dreamstone",
+      "publicationTitle": "Pathfinder #147: Tomorrow Must Burn",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/dreamstone.webp"
+    },
+    "sourceHash": "sha256:b606546e7ec7070c31a4e447b0adc4f0e84ca3d7eb34e14458a8e112426f883b",
+    "translatableHash": "sha256:48764e7849840ad65edafa5b3f4d33aa5f92eaf4a2e1e686d89b8a11150c5b96",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dreamstone",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "A dreamstone is a disc-shaped object carved with imagery or words sacred to Desna-be it her religious symbol, a short prayer, or merely the shape of a single star. When you carry a dreamstone, you find it easier to fall asleep, and you gain improved effects from the resulting rest. You always fall asleep within 5 minutes of lying down with the intention of sleeping, and you require only 2 hours of sleep per day to gain the benefits of 8 hours of sleep, provided you have carried the dreamstone for at least 24 hours prior to resting. As long as you carry a dreamstone, you gain a +2 item bonus to saving throws against sleep effects.\nActivate A Interact (spellshape)\nFrequency once per day\nEffect If the next action you use is to Cast a Spell of 4th level or lower that has the sleep trait or is associated with dreams, the spell slot is not expended.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 700
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bountiful-cauldron",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MBF9bZCwkJp2RZoN",
+      "slug": "bountiful-cauldron",
+      "publicationTitle": "Pathfinder #147: Tomorrow Must Burn",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:c238b41d897273135d9451d7b5798b785e44323fcd95c4196864269e5ba57958",
+    "translatableHash": "sha256:3636cc728f370c9e26d612b3fe0e1d1d1fc32406349f0fd18fdaf596b2693801",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bountiful Cauldron",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This mid-sized, silver cauldron is a boon within areas where access to fresh food is limited, for it can be commanded to fill itself with hearty (and delicious) vegetable stew. It can also be put to a much greater use in the pursuit of crafting certain items. When used to Craft alchemical items, potions, or oils, a bountiful cauldron grants a +2 item bonus to the Crafting check.\nActivate 3 command, Interact\nFrequency once per day\nEffect You stir the cauldron, and it casts a 4th-rank Create Food spell, filling itself with enough delicious vegetable stew to feed 12 Medium creatures.",
+      "bulk": 2,
+      "price": {
+        "gp": 680
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eye-of-the-wise",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "eoQRjG2RjppnbYGL",
+      "slug": "eye-of-the-wise",
+      "publicationTitle": "Pathfinder #147: Tomorrow Must Burn",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/eye-of-the-wise.webp"
+    },
+    "sourceHash": "sha256:092a75972998d5599bd60148e1ea59570c40543077e3f30f2058fadb7bc36141",
+    "translatableHash": "sha256:0798c372224055a13969235d74383e36c3e21af8d467cc2353339313c34d1fcf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eye of the Wise",
+      "itemType": "equipment",
+      "level": 11,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "invested"
+      ],
+      "description": "This fist-sized, 12-rayed black star sapphire is sacred to Yueral, the elven goddess of magic and jewels, and most accounts of its creation attribute its crafting to a circle of her worshippers. In addition to the abilities listed below, the gem functions as a portal key for Jewelgate at Alseta's Ring.\nActivate A Interact\nEffect You touch the Eye of the Wise to a gem worth at least 10 gp, whereupon the Eye of the Wise assumes the appearance of the touched gemstone. While this connection is active, the carriers of the Eye of the Wise and of the other gemstone can communicate telepathically with one another over any distance, as long as both are on the same plane. This connection is broken if the other gemstone is damaged, if the Eye of the Wise becomes attuned to another gemstone, or if the bearer of the Eye of the Wise dismisses the activation.\nActivate A Interact\nEffect You hold the Eye of the Wise up to your own eye and peer through it. The Eye of the Wise grows transparent and grants you a +2 item bonus to attempts to Decipher Writing, Disable a Device, Identify Magic, Pick a Lock, Seek, or Sense Motive. You can Sustain this activation as long as you hold the gem in place.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:kin-warding",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7vwcuBIe4BNS5uuE",
+      "slug": "kin-warding",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:6b22506c375d85be45a1648e145ea9140f47fa0d25143decae8e6614933b2426",
+    "translatableHash": "sha256:3e9ec985cd0d22c52da3c16d10f41df2c2968b7f66cbd28975f81bf7f8f7c5d3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kin-Warding",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "dwarf",
+        "magical"
+      ],
+      "description": "A kin-warding clan dagger can deflect attacks aimed at your allies. When you use the weapon's parry trait, you can point the clan dagger at an adjacent ally instead of defending yourself, creating a shield of runes around them. The runic barrier grants your ally the weapon's circumstance bonus to AC, but you do not gain the bonus yourself.",
+      "bulk": 0,
+      "price": {
+        "gp": 52
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodbane",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "C9wOlvuVCjVbz1YQ",
+      "slug": "bloodbane",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:8a16e9465a659da60bedb4f25b8ae8a662f43394dc4fe7a98e3d2f2902a9c44a",
+    "translatableHash": "sha256:5355586fa46cbaf81a074efc8a51d9faeec9cac23357755fc763fc0d4506008a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodbane",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "dwarf",
+        "magical"
+      ],
+      "description": "A bloodbane clan dagger is especially vicious against the ancestral enemies of the clan. When you damage an appropriate type of creature with the weapon, that creature takes 1 persistent bleed damage. The type of creature depends on the clan that made the dagger, but is typically drow, duergar, giant, or orc.\nIn addition, whenever you inflict persistent bleed damage with a bloodbane weapon (whether from its innate ability or in some other way), the weapon leaves ragged wounds. The bleeding creature must succeed at a check (fortitude, dc:25) save or become sickened 1. The creature is then temporarily immune for 1 hour.",
+      "bulk": 0,
+      "price": {
+        "gp": 475
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "clan-dagger"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rock-braced",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1n22FbWdDNC7tLT6",
+      "slug": "rock-braced",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:9ffc833c4bfcbde829607bb0c42c7c9368144ca08a68ee0cc75cfa9a475e3212",
+    "translatableHash": "sha256:8ac1f048eaf30afd507142b090aeef91a1ae0b8d4bf78576ad53613ede40b9f5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rock-Braced",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "rare",
+      "traits": [
+        "dwarf",
+        "magical",
+        "saggorak"
+      ],
+      "description": "Rock-braced armor makes you as hard to move as a boulder. Whenever another creature attempts to forcibly move you from your space, you gain a +4 item bonus to your Fortitude DC against the check to move you. If the creature would not normally need to attempt a check to move you, then the creature must succeed at an Athletics check against your Fortitude DC (including the +4 item bonus) or you are unmoved.",
+      "bulk": 0,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodbane-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zEys8FeMMAwTqwgW",
+      "slug": "bloodbane-greater",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:940860b0ebb9d4983856ee129e9734f1f7088dfeaf859f66c34e084b95206fe3",
+    "translatableHash": "sha256:046383efecdfbfcbf0fb28dc3cbd746ff929fbbd60fb7f2787abfb8ed2b8b0e0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodbane (Greater)",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "dwarf",
+        "magical"
+      ],
+      "description": "A bloodbane clan dagger is especially vicious against the ancestral enemies of the clan. When you damage an appropriate type of creature with the weapon, that creature takes 1d4 persistent bleed damage. The type of creature depends on the clan that made the dagger, but is typically drow, duergar, giant, or orc.\nIn addition, whenever you inflict persistent bleed damage with a bloodbane weapon (whether from its innate ability or in some other way), the weapon leaves ragged wounds. The bleeding creature must succeed at a check (fortitude, dc:30, name:Greater Bloodbane) save or become sickened 1. The creature is then temporarily immune for 1 hour.",
+      "bulk": 0,
+      "price": {
+        "gp": 2800
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "clan-dagger"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:reforging-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aPD0z9dBsHqgiCW0",
+      "slug": "reforging-shield",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/reforging-shield.webp"
+    },
+    "sourceHash": "sha256:fd99bf1a0bfcf0ac0d3b09d1cf073011137939bd22777cc41479452b30393f32",
+    "translatableHash": "sha256:b672ea93a27853df86580ee1dc35b7c99f92df1285d209279a91373db9288aff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Reforging Shield",
+      "itemType": "shield",
+      "level": 15,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "This steel shield contains a smoldering core of magma that never cools. Whenever the reforging shield's current Hit Points are below its Break Threshold, the shield recovers 5 Hit Points at the start of its wielder's turn each round until it is no longer broken. Each time a character Repairs the shield, the shield recovers double the number of Hit Points. The shield has Hardness 15, HP 120, and BT 60.",
+      "bulk": 1,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "steel-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragonscale-amulet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bTLmJMATrrtq8NuT",
+      "slug": "dragonscale-amulet",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/dragonscale-amulet.webp"
+    },
+    "sourceHash": "sha256:eded01cfe6bae03d41c9cfb0af5d57b13ea4c64dae012576f1594ba6fddafac9",
+    "translatableHash": "sha256:4424e455d82b8edde13379f8a94517e987440a44f2f8640419e859dfe315b395",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragonscale Amulet",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "rare",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This amulet is made from the scales of five ancient dragons. You gain resistance 5 to acid, cold, electricity, fire, and poison. If you take damage of one of these types from a dragon's Breath Weapon, the amulet begins to glow brightly; for the next 10 minutes, your resistance against that type of damage increases to 20. If you are subjected to a dragon's frightful presence, you can roll your saving throw twice and use the higher result to determine the aura's effects. This is a fortune effect.\nEffect: Dragonscale Amulet\nActivate 2 command\nFrequency once per day\nEffect You exude an aura that terrifies all foes in a 60-foot radius, as the frightful presence ability with a check (will, dc:34) save.",
+      "bulk": 0,
+      "price": {
+        "gp": 5800
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ancestral-echoing",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oL8G6OqITPJ5Fd6A",
+      "slug": "ancestral-echoing",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:4740849f40c2a2344a04ef4a45448a928fcedd3263592b1907e9d0f3125d4733",
+    "translatableHash": "sha256:bc1141f0870665a131446e712421fd45a58e2d6038e43bc8032f543c7bba82f0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ancestral Echoing",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "rare",
+      "traits": [
+        "dwarf",
+        "magical",
+        "saggorak"
+      ],
+      "description": "The wisdom of this weapon's past owners flows into your mind, amplifying your own abilities with the weapon. Your proficiency rank with this weapon is one step higher than normal, to a maximum of the highest proficiency rank you have in any weapon. For instance, if you had master proficieny with martial weapons and expert proficiency with advanced weapons, you would have master proficiency with advanced weapon that had this rune.\nIn addition, while wielding the ancestral echoing weapon, you have expert proficiency in one Lore skill relevant to one or more of the weapon's previous owners. This is typically Dwarven Lore but is ultimately determined by the GM depending on the weapon's history.",
+      "bulk": 0,
+      "price": {
+        "gp": 9500
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:guiding-chisel",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TGCzwDIrAqo3HUhr",
+      "slug": "guiding-chisel",
+      "publicationTitle": "Pathfinder #148: Fires of the Haunted City",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:61e43bdb8f30023e830c3e41fd81ccdee771b14fb245b4c78a229abce2eddb1c",
+    "translatableHash": "sha256:f68cce4bd3a1d738eb91b1fe81f814af277b9b8652acc77232142b23ae50fe30",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Guiding Chisel",
+      "itemType": "equipment",
+      "level": 16,
+      "rarity": "unique",
+      "traits": [
+        "elf",
+        "magical"
+      ],
+      "description": "This magical chisel evokes the holy symbol of the elven goddess of art and architecture, Findeladlara. The Guiding Chisel's original function was as a portal key to Duskgate, but as Alseta's Ring faded from the collective memories of the elves, the chisel became known and used exclusively for its other abilities. Eventually, elven emissaries gave it to the dwarves of Saggorak as a gesture of friendship.\nYou gain a +3 item bonus to Crafting checks related to stonemasonry.\nIn addition, it takes you only 1 day to Craft items using the Guiding Chisel instead of 4 days, and you quadruple the discount you get for spending additional days Crafting items with the Guiding Chisel. If it's unclear whether you could use the Guiding Chisel to Craft an item, the GM decides.\nActivate 10 minutes (command, envision, Interact)\nFrequency once per day\nEffect You embed the Guiding Chisel in the ground and imagine a building. After 10 minutes, you remove the chisel and the building appears. The building can take any shape you wish, filling up to ten contiguous 10-foot cubes within 1,000 feet of the chisel. The building lasts until you use the chisel to create another building. This building has the structure trait.",
+      "bulk": 1,
+      "price": {
+        "gp": 10000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:peshpine-grenade-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "c124j3cpv8rl5MLp",
+      "slug": "peshpine-grenade-lesser",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:2a5fdb074fde7891fe2199613a40726d99149a56681469decea614d7925b41ec",
+    "translatableHash": "sha256:a08b5afc7a7564456f2120f89a9e581f843d695a2d0427f7ca5e7e03148aa5b1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Peshpine Grenade (Lesser)",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nPeshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.\nMany types of peshpine grenade grant an item bonus to attack rolls.\nThe bomb deals 1d6 piercing damage and 1 piercing splash damage, and the target is Stupefied 1.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:peshpine-grenade-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "AvGZqDfalwwbYFvA",
+      "slug": "peshpine-grenade-moderate",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:10d739a9da425e0e8fa5ac43ad48322d435331258e1ca05f43976fdbdb5ad308",
+    "translatableHash": "sha256:f485347f34bac789133a84d0d5efd71fdad55947cde469ae5150949254136b02",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Peshpine Grenade (Moderate)",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nPeshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.\nMany types of peshpine grenade grant an item bonus to attack rolls.\nYou gain a +1 item bonus to attack rolls. The bomb deals 2d6 piercing damage and 2 piercing splash damage, and the target is Stupefied 1.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 2,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:false-death",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "iUOcC9vFboSFI8fU",
+      "slug": "false-death",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/false-death.webp"
+    },
+    "sourceHash": "sha256:77aa01228487b54cd2227dd43894211c8407bb5e3e6b64704516bde581f3d867",
+    "translatableHash": "sha256:9c74dff25fc10546f6a50562bb8e2049ef66f920c2b55ed75a87f35cc30b9fa5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "False Death",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "ingested",
+        "poison"
+      ],
+      "description": "Typically used to fake one's death, this poison swiftly causes the imbiber to lose consciousness and suppresses vital signs. A creature examining the unconscious target must succeed at a Medicine check against the imbiber's Deception DC + 4 to determine that the target is alive, and a critical success allows the examiner to determine that a toxin is causing the effect. The false death toxin has an extremely bitter taste (check (perception, dc:10, traits:action:seek) to detect), making it difficult to trick a creature into consuming the poison against its wishes.\nActivate A Interact\nSaving Throw check (fortitude, dc:18)\nOnset 10 minutes\nMaximum Duration 5 days\nStage 1 Clumsy 2 (1 round)\nStage 2 Unconscious (1 hour)\nStage 3 unconscious (1 day)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:isolation-draught",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VwzIiWAtbJCgGOEz",
+      "slug": "isolation-draught",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/isolation-draught.webp"
+    },
+    "sourceHash": "sha256:912854e6b0eef25fea37f9b40ec73357d4e0b11dd16ece3674a5a64663d15dc9",
+    "translatableHash": "sha256:eeb03ac691d3fd273383a8d55d38c17a9dc0fc6b73ca67ca5d3ece521e224ccb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Isolation Draught",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "ingested",
+        "poison"
+      ],
+      "description": "Derived from steeping toxic highland plum pits in refined grain alcohols, this clear tonic slowly shuts down the imbiber's senses.\nActivate A Interact (Ingested)\nSaving Throw check (fortitude, dc:25)\nOnset 10 minutes\nMaximum Duration 30 minutes\nStage 1 Dazzled, -3 to all Perception checks (1 minute)\nStage 2 dazzled, Deafened, -5 to all Perception checks (1 minute)\nStage 3 Blinded, deafened, -5 to all Perception checks (5 minutes)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 55
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:aluum-charm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bU731I8njNmSAQhQ",
+      "slug": "aluum-charm",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/aluum-charm.webp"
+    },
+    "sourceHash": "sha256:60b3ac62616e03e5af8f45f4605487d747c44c7be974ab638314daae26dd0c60",
+    "translatableHash": "sha256:27135b3da51d825cb29b175e4244f7ca802e532ecda3afe293c97fc4259b3dc6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Aluum Charm",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This ornate pendant of brass is adorned with a vibrant blue gemstone. An aluum charm grants control over a particular aluum and lesser influence over other such constructs. As long as you wear an aluum's linked aluum charm, that aluum follows your verbal commands, including somewhat nuanced orders like \"subdue this target\" or \"strike anyone wearing a blue robe.\"\nActivate 2 command\nFrequency once per round\nEffect The charm grants you control over an aluum you can see within 60 feet, with a level equal to or lower than the charm. This has the effect of Dominate and allows a check (will, dc:28) save. If the aluum is currently under the control of someone wearing its linked charm, it gets a result on its saving throw one degree higher than what it rolled.\nYou can control only one aluum at a time using this activation, and controlling a new aluum ends the effect for one you had previously affected.",
+      "bulk": 0,
+      "price": {},
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:peshpine-grenade-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZVhSxudgfnSO4AMd",
+      "slug": "peshpine-grenade-greater",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f646fa3f928ed84af8eb2db01c0c694f76888c50db736550788e528fe24d92ae",
+    "translatableHash": "sha256:7a29c93e7206db2b8ad1a87b09a616e95021bd6c5644b78f0f9bcaa707a0b97f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Peshpine Grenade (Greater)",
+      "itemType": "weapon",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nPeshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.\nMany types of peshpine grenade grant an item bonus to attack rolls.\nYou gain a +2 item bonus to attack rolls. The bomb deals 3d6 piercing damage and 3 piercing splash damage, and the target is Stupefied 2.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 3,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mage-bane",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8uyRlAkWdEyfOziq",
+      "slug": "mage-bane",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/mage-bane.webp"
+    },
+    "sourceHash": "sha256:ab37341e26c126499d3d4a085f7b61206585cc56ae44a7fef12adecbe832e4f2",
+    "translatableHash": "sha256:df1bfc81779e5054ab3155e8727278f17b7aa0227951c3680f8b29c053b7211c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mage Bane",
+      "itemType": "consumable",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison"
+      ],
+      "description": "Upon being mixed and injected into the bloodstream, this powder of the crimson orchid quickly assaults the brain and nerves, disrupting the victim's ability to piece together coherent thoughts and spells.\nActivate 3 Interact (Injury)\nSaving Throw check (fortitude, dc:32)\nMaximum Duration 6 rounds\nStage 1 2d6 mental damage and Stupefied 2 (1 round)\nStage 2 3d6 mental damage and Stupefied 3 (1 round)\nStage 3 4d6 mental damage and Stupefied 4 (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 325
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:frenzy-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7p3C9xf3XgUbvKHL",
+      "slug": "frenzy-oil",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/frenzy-oil.webp"
+    },
+    "sourceHash": "sha256:44f8390c00df9fb50c148d557566cf16f57e804d0ed6c3fa653e4ad62de3db2d",
+    "translatableHash": "sha256:efb1f7fdf419a4f1ed10f027bef2fce058cd1445f97a904245d1a3124cfd96a1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Frenzy Oil",
+      "itemType": "consumable",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "contact",
+        "poison"
+      ],
+      "description": "This oil, which is pressed from vrock spores and mixed with a combination of acacia ash and thistle seeds, seeps into the skin of living creatures, initially inspiring irritability that unpredictably manifests as berserk rage.\nActivate A Interact (Contact)\nSaving Throw check (fortitude, dc:37)\nOnset 1d6 minutes\nMaximum Duration 6 rounds\nStage 1 4d6 mental damage, Quickened, attack nearby creatures as if Confused (1 round)\nStage 2 6d6 mental damage, attack nearby creatures as if confused (1 round)\nStage 3 8d6 mental damage, Fatigued, attack nearby creatures as if confused (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1500
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:nethysian-bulwark",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EKXRigmEZgqmFA62",
+      "slug": "nethysian-bulwark",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/nethysian-bulwark.webp"
+    },
+    "sourceHash": "sha256:c7a9640d7b1c60afa7875332bcfba093a7efea1af2103f25361057456951f8b9",
+    "translatableHash": "sha256:f2ac95ef629a4ccecb80f50c0c75dceaddbefefe45c8a28cc5689cf89b0a4b26",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Nethysian Bulwark",
+      "itemType": "shield",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This round shield is often fashioned to resemble the religious symbol of its dual-natured namesake. A Nethysian bulwark is a high-grade cold iron shield (Hardness 10, HP 40, BT 20) that defends the wielder and can explode with retributive force when struck.\nActivate F envision\nTrigger The shield becomes broken when performing a Shield Block\nEffect The shield explodes in a burst of bright light and shadowy tendrils, releasing a 15-foot cone of force that must include the attacker if possible. The cone deals 6d8 force damage to all creatures in the area (check (reflex, dc:34, basic, options:area-effect)).",
+      "bulk": 1,
+      "price": {
+        "gp": 8000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "steel-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:weeping-midnight",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mamIdMfPguGM8QV7",
+      "slug": "weeping-midnight",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:995122abfb52f02c09ff7ec64dd9112a10d650239cfeb8b22a01ec6e3d58ad04",
+    "translatableHash": "sha256:27d6311d1f85b665695736f8708fb8cf9cdba04a7bd9108e31145944c5fb497d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Weeping Midnight",
+      "itemType": "consumable",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison"
+      ],
+      "description": "Alchemists have refined the devastatingly allergenic pollen of the widow orchid to create this venom, which swiftly causes the victim's eyes to leak mucus and swell shut.\nActivate 3 Interact (Injury)\nSaving Throw check (fortitude, dc:36)\nMaximum Duration 6 rounds\nStage 1 6d6 poison damage and Dazzled (1 round)\nStage 2 7d6 poison damage, dazzled, and Sickened 1 (1 round)\nStage 3 8d6 poison damage and Blinded (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1400
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:peshpine-grenade-major",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "b1gx7ZhuFJAyJOo8",
+      "slug": "peshpine-grenade-major",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:50e6f54578a03ee823de7e25f28ca342c4b69183faf35277f3f85869ace031d7",
+    "translatableHash": "sha256:51f7eb9233e035845a292b991b9c3191bf1cd3cd80060bca329cd07861db4b67",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Peshpine Grenade (Major)",
+      "itemType": "weapon",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nPeshspine grenades are explosive bombs packed with alchemically treated needles from the pesh cactus. A peshspine grenade deals the listed piercing damage and splash damage. On a hit, the target gains the stupefied condition until the end of its next turn.\nMany types of peshpine grenade grant an item bonus to attack rolls.\nYou gain a +3 item bonus to attack rolls. The bomb deals 4d6 piercing damage and 4 piercing splash damage, and the target is Stupefied 3.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 4,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oblivion-essence",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5hGJ6CZi0A9OjMd4",
+      "slug": "oblivion-essence",
+      "publicationTitle": "Pathfinder #149: Against the Scarlet Triad",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/oblivion-essence.webp"
+    },
+    "sourceHash": "sha256:1f2fb94f338d25be99d7cc93a0b4a8c7fbe28a0a09e73f22b38ac147cb53f6d7",
+    "translatableHash": "sha256:cf3778428d25655d1b15d0f2055a1ec427aad45e63260ca3e22a6e4a1d7ff3cc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oblivion Essence",
+      "itemType": "consumable",
+      "level": 19,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison"
+      ],
+      "description": "Created from a daemon's powdered soul gems or refined from the waters of Abaddon's rivers, oblivion essence causes victims to rapidly age and decay.\nActivate A Interact (Injury)\nSaving Throw check (fortitude, dc:42)\nMaximum Duration 6 rounds\nStage 1 8d6 poison damage and Slowed 1 (1 round)\nStage 2 10d6 poison damage, Enfeebled 2, and slowed 1 (1 round)\nStage 3 12d6 poison damage, Enfeebled 3, slowed 1 (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6500
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:orb-shard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YjaXxg9uQ02IbwLi",
+      "slug": "orb-shard",
+      "publicationTitle": "Pathfinder #150: Broken Promises",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/orb-shard.webp"
+    },
+    "sourceHash": "sha256:b9024d05c9d2f5bab3eaa495a454f8bbdf607634750fed1e9a7dacdf538ce50e",
+    "translatableHash": "sha256:9b407a58e5f14e4b98cba60f60ef28afd95736b332713843613d640890ae4245",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Orb Shard",
+      "itemType": "weapon",
+      "level": 20,
+      "rarity": "rare",
+      "traits": [
+        "agile",
+        "artifact",
+        "finesse",
+        "magical",
+        "versatile-s"
+      ],
+      "description": "A shard of the Orb of Gold Dragonkind resembles a pointed length of crystal about the size and shape of a shortsword without a hilt. It functions as a +3 striking shortsword that deals 2d6 extra damage to dragons.\nEach orb shard within 60 feet of the flawed orb of Gold Dragonkind increases the save DC against the orb by 1; thus, if all 13 remaining orb shards are in this area, the save DC against the flawed orb increases from DC 30 to DC 43. A talented spellcaster or crafter can integrate an orb shard back into the flawed orb to make this DC increase permanent.\nDestruction An orb shard is extraordinarily resilient, but it can be damaged or even destroyed by mundane attacks (Hardness 40, HP 50, BT 25). It has weakness 30 to the Breath Weapons and Strikes of gold dragons.",
+      "bulk": 1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:flawed-orb-of-gold-dragonkind",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9Ptn7yy2QeM8taU8",
+      "slug": "flawed-orb-of-gold-dragonkind",
+      "publicationTitle": "Pathfinder #150: Broken Promises",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/flawed-orb-of-gold-dragonkind.webp"
+    },
+    "sourceHash": "sha256:63eceb997b8c7fd3cc4e9eb9f50eda6274dbcb2e02fc18f06d5b22fd8cc9a934",
+    "translatableHash": "sha256:1a0089f3007fdca29b41da2d9f779ffa6a63318d932781eaa9800d964f7fa10c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Flawed Orb of Gold Dragonkind",
+      "itemType": "equipment",
+      "level": 25,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "magical"
+      ],
+      "description": "Each of the legendary Orbs of Dragonkind contains the essence and personality of a powerful dragon. The Orb of Gold Dragonkind was the most powerful of them all, until it was shattered by Mengkare's draconic breath. Reconstructed at great expense by enslaved spellcasters toiling under the Scarlet Triad's watch, the Flawed Orb of Gold Dragonkind is a shadow of its prior self, yet it remains a potent weapon against dragons of all types.\nWhile carried, the Flawed Orb of Gold Dragonkind grants its owner resistance 30 to the Breath Weapons of gold dragons. The owner also can sense if there are any dragons within 10 miles, or any gold dragons within 100 miles. When within 1 mile of a dragon, they can determine the direction to the dragon and the dragon's age category (such as young, ancient, or wyrm).\nActivate 2 envision, Interact\nFrequency Three times per day\nEffect You attempt to overwhelm a dragon's mind-while you cannot control the dragon, you can render it immobile for a short time. Choose a dragon within 60 feet; the dragon can attempt to resist the orb with a check (will, dc:30) saving throw (or higher with orb shards). Gold dragons take a -4 circumstance penalty to this saving throw. Any stun from this activation ends if the dragon is attacked or otherwise subject to a hostile act other than that of the orb.\nCritical Success The dragon is unaffected.\nSuccess The dragon is Stunned 3.\nFailure The dragon is stunned for as long as the orb's wielder Sustains the Activation.\nCritical Failure As failure, but hostile actions don't end the dragon's stun.\nDestruction The Flawed Orb of Gold Dragonkind is resilient, but its imperfect nature leaves it vulnerable. It can be damaged or even destroyed by mundane attacks (Hardness 40, HP 200, BT 100). It has weakness 30 to the Breath Weapons and Strikes of gold dragons.",
+      "bulk": 1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:orb-of-dragonkind",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "L8OButuVM3PFxgrZ",
+      "slug": "orb-of-dragonkind",
+      "publicationTitle": "Pathfinder #150: Broken Promises",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/orb-of-gold-dragonkind.webp"
+    },
+    "sourceHash": "sha256:66d4b65f413aab6231958314a319c9411cb22e288f73d1b3e6c1f82de0ab1281",
+    "translatableHash": "sha256:994ff974b2984fa20f889316b2fc99e7fefc59b083d9b13d1ebd85c7ffc4834f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Orb of Dragonkind",
+      "itemType": "equipment",
+      "level": 25,
+      "rarity": "unique",
+      "traits": [
+        "arcane",
+        "artifact"
+      ],
+      "description": "Each of the legendary orbs of dragonkind contains the essence and personality of a powerful dragon, with each of the 10 most famous orbs preserving a different type of metallic or chromatic dragon's spirit. It is believed that orbs for other types of true dragons exist, though that theory is yet to be confirmed.\nWhile holding an orb of dragonkind, you are immune to the breath weapon of the dragon variety associated with the orb. An orb of dragonkind also grants a number of additional senses. You can communicate verbally and visually with the bearers of other orbs as if you were in the same room with them. You know if there are any dragons within 10 miles of you at all times; this extends to 100 miles for dragons of the type associated with the orb. If an associated dragon is within 1 mile, you know which direction the dragon is from you and the dragon's age, such as young, adult, or ancient. Each orb grants a 10th-rank arcane innate spell that you can cast at will, determined by the specific orb.\nThe Orb of Gold Dragonkind can convey the innate spells of any of the other orbs, as well as their activated abilities, but it can grant each individual power only once per day. In addition, the bearer of the gold orb can use its 3-action activation to attempt to cast dominate on the bearer of another orb if they are within 1 mile, as if that bearer were a dragon of the associated type within 500 feet. The last reports of the Orb of Gold Dragonkind on Golarion indicate the orb has been destroyed, however. GMs running campaigns in settings other than the Age of Lost Omens might decide the gold orb is still intact for their campaigns.\nBearing an orb of dragonkind earns you the enmity of all dragonkind forever because you profited from the enslavement of the dragon within the orb, even if you later lose the orb.\nSpell Granted (DC 40) black dragon (darkness), blue dragon (hallucinatory terrain), brass dragon (speak with animals), bronze dragon (control water), copper dragon (hideous laughter), green dragon (entangle), red dragon (wall of fire), silver dragon (detect alignment [spirit only]), white dragon (wall of ice)\nActivate 3 command\nFrequency once per round\nEffect You cast a 10th-rank dominate spell (DC 40) on a dragon of the type associated with the orb within 500 feet, except the effect lasts for 1 month rather than unlimited. The dragon does not receive its status bonus to saving throws against magic. The dragon is then temporarily immune to further domination via the orb for 24 hours.\nActivate 2 envision, Interact\nFrequency three times per day\nEffect You breathe an elemental blast that deals 25d6 damage (check (reflex, dc:40, basic) save) in either a 60-foot cone or a 100-foot line (your choice). The breath's damage type matches the Breath Weapon of the dragon type associated with the orb of dragonkind (acid for the black orb, electricity for the blue orb, and so on).\nDestruction An orb of dragonkind violently shatters and explodes when exposed to the Breath Weapon of a dragon who is a descendant of the dragon trapped within. The explosion deals damage as the 2-action activation above to all creatures within 90 feet.",
+      "bulk": 1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bladed-diabolo",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0lCXehyFlXdYxDfA",
+      "slug": "bladed-diabolo",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/bladed-diabolo.webp"
+    },
+    "sourceHash": "sha256:a941801e7ee04cf429b21a6ce8cb3a436669d582fc3c0b061ebf40abc27b66ee",
+    "translatableHash": "sha256:90d4117a9c72b0e5e1b530cf67f423bf38b468b6d0f56a6d874c9f405e46b311",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bladed Diabolo",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "backswing",
+        "disarm",
+        "finesse",
+        "thrown-40",
+        "trip"
+      ],
+      "description": "This weapon consists of two bladed discs joined by a central axel, and is spun on a rope whose ends are attached to wand-like sticks. The wielder can hurl the diabolo from the rope like a stone from a sling, or swing it on the rope in melee.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-two-hands",
+      "category": "advanced",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bladed-hoop",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IEA7M6GGv4rnGLdW",
+      "slug": "bladed-hoop",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/bladed-hoop.webp"
+    },
+    "sourceHash": "sha256:41d189c18b8f0918e924c3c28436bac717bd4c63e0cfde95684c61c8d13c8ac9",
+    "translatableHash": "sha256:a9045fa21908ec4dbbcbd358afe99aeb55233483dc080c425efa8eddcf8840bc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bladed Hoop",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "finesse",
+        "sweep",
+        "two-hand-d8"
+      ],
+      "description": "This circular hoop has blades along its outer edge. You can wield it in two hands (using the two-hand damage) or by spinning it around an arm. While you spin the hoop, it gains the free-hand trait. Setting the hoop spinning takes 1 Interact action. In addition to the normal restrictions of the free-hand trait, extended use of the arm for locomotion (such as to Climb) interferes with the hoop's spinning and forces you to Release the hoop. You can't spin a hoop underwater. Keeping the hoop spinning requires a free action each round, which has the concentrate and manipulate traits. You can keep a hoop spinning as an exploration activity, but doing so for more than 10 minutes makes you fatigued, similarly to Hustle.",
+      "bulk": 1,
+      "price": {
+        "sp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:poi",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "PnFfW5u24xZV6mOH",
+      "slug": "poi",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/poi.webp"
+    },
+    "sourceHash": "sha256:470402cb4e7943be5718c6c5b9f1b411dffb88067d48e0b50aef46821f428f76",
+    "translatableHash": "sha256:a9a368e569b90f0a82b87e296690b9fc01728b8d49d902620225912d3f585fe3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poi",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "backswing",
+        "finesse",
+        "nonlethal"
+      ],
+      "description": "Poi are light weights tethered to ropes or chains. Performers swing the weights, usually one in each hand, in rhythmic patterns.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fire-poi",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rfP9e1fnwjnIQSJK",
+      "slug": "fire-poi",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/fire-poi.webp"
+    },
+    "sourceHash": "sha256:2f768268935b0fde86879adc0d84c88ddef4edfa270a8fddd4a6b44ce370cbd1",
+    "translatableHash": "sha256:3075391661bc65e3252dd8057fc71bca36abbaee7d6975958ae123668a407d6d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fire Poi",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "backswing",
+        "finesse",
+        "twin"
+      ],
+      "description": "These special poi are made from a rare, light metal or from fire-retardant fibers and can be ignited before being wielded. Igniting a pair of fire poi is an Interact action and requires 1 pint of Oil for every 10 minutes the poi remain ignited.\nWhile lit, fire poi cast dim light in a 10-foot radius; in combat, they deal 1d4 bludgeoning plus 1d4 fire damage. On a critical hit with a lit fire poi, the target takes 1 persistent fire damage. The fire can be extinguished using the Interact action.\nWhen unlit, the poi deal only the listed bludgeoning damage. Regardless of whether it is lit, the poi's 1d4 bludgeoning damage is the weapon damage dice, so striking runes and other effects don't affect the fire damage.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:juggling-club",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RhfhVSfiH23v4U7k",
+      "slug": "juggling-club",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/juggling-club.webp"
+    },
+    "sourceHash": "sha256:eb69ee2f87134abb49f10c0314d7d35e68d1e7187e25c6b6e01de82df5a9f15d",
+    "translatableHash": "sha256:b77841ed4971f0ca535d4362e47d603ca2e3329abab60443cce57d01719a7754",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Juggling Club",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "nonlethal",
+        "thrown-20"
+      ],
+      "description": "A juggling club is lighter than a typical club and balanced to be easily caught and thrown again by a juggler. While a juggling club deals less damage, the extra throwing distance its light weight allows is important for juggling.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:throwing-knife-extinction-curse",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uM0OlCC1Sh6OLdNn",
+      "slug": "throwing-knife-extinction-curse",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:41a578efe488136a631184aff3602b9511feb9cab24d6084eed15281f01765ea",
+    "translatableHash": "sha256:65849ce555808b5210bf570da6e49b254ad480dcbebecbafb3b3f31cd368ed98",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Throwing Knife (Extinction Curse)",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "finesse",
+        "thrown-20",
+        "twin"
+      ],
+      "description": "This light knife is optimally balanced to be thrown accurately at a greater distance than a common dagger. While this comes at the cost of a significant cutting edge, the difference is worth it for characters focused on thrown weapons.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scorpion-whip",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "UXjKXqsfWYiayeMD",
+      "slug": "scorpion-whip",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/scorpion-whip.webp"
+    },
+    "sourceHash": "sha256:6580b526f12008201776391270f39a5e5ddb3e4096bf3f952859390d5e0cc890",
+    "translatableHash": "sha256:fcf43d7178cc82d8ddffbd3eb8e162020585024b8b5795c691b334337f9d4a2b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scorpion Whip",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "disarm",
+        "finesse",
+        "reach",
+        "trip"
+      ],
+      "description": "A scorpion whip has a series of razor-sharp blades set along its tip. Unlike ordinary whips, a scorpion whip doesn't have the nonlethal trait, making it deadlier in combat but less effective when the wielder seeks to bring in foes alive.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 5
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dust-pods",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "azFpL1NLBJB7xuli",
+      "slug": "dust-pods",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/snares/dust-pods.webp"
+    },
+    "sourceHash": "sha256:d3c20ccd2abe8d2773a00e00a71349b0fbf2256ac809aee1132105b6c2ce9e13",
+    "translatableHash": "sha256:e92911e59547cf84054fedd4ea3ab2f387e0017dea2e698dd45c6654861e2896",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dust Pods",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "You hide fragile pods of pollen or other clinging powder that get in the eyes of the first creature that enters the snare's square. The creature must attempt a check (reflex, dc:17) saving throw. A creature dazzled by the pollen can use an Interact action to attempt a check (flat, dc:5) to remove the condition.\nCritical Success The creature is unaffected.\nSuccess The creature is dazzled for 1 round.\nFailure The creature is dazzled for 10 minutes.\nCritical Failure The creature is blinded for 1 round and dazzled for 10 minutes after.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:thunder-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yUYr8j65fC7EN0NY",
+      "slug": "thunder-snare",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/snares/thunder-snare.webp"
+    },
+    "sourceHash": "sha256:5cb46564335ed2168226270763ea68e927c9be3f16719f200b31cf79b62950a1",
+    "translatableHash": "sha256:363e884c0161c365846109a418c1eae8ed7432a1763d31ef11e8235811b53890",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thunder Snare",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "auditory",
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "The snare makes a thunderous noise when a creature enters the snare's square, which can be heard up to 1,000 feet away. The creature must attempt a check (fortitude, dc:18) saving throw.\nCritical Success The target is unaffected.\nSuccess The target is deafened until the end of its next turn.\nFailure As success, and the target also takes 1 sonic damage.\nCritical Failure As success, and the target also takes 1d4 sonic damage.\nCraft Requirements 1 lesser thunderstone",
+      "bulk": 0,
+      "price": {
+        "gp": 6
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grasping-tree",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hxYxRz9nOECtLak5",
+      "slug": "grasping-tree",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/snares/grasping-tree.webp"
+    },
+    "sourceHash": "sha256:1762d95a9a275035407bf45ad983d9d138270d89811eb19d29a3fd3ab741e6e4",
+    "translatableHash": "sha256:1c780ad2958d6af3ac65d5e7250b773bdfc1d3187c4c5a9cec74d6662bda278d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grasping Tree",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "You rig tree branches, thin strands of bark, or other plant matter to close in on a creature that enters the snare's square. The first creature to enter the square must attempt a check (reflex, showDC:all, dc:19, options:damaging-effect,inflicts:off-guard,inflicts:immobilized) saving throw.\nCritical Success The target is unaffected.\nSuccess The target takes 1d4 slashing damage.\nFailure As success, plus the target is Off-Guard.\nCritical Failure The target takes 2d4 slashing damage and is Immobilized until it destroys the snare (AC 16, HP 25) or Escape DC 19.",
+      "bulk": 0,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:torrent-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nPWDuoe2PcgE0z2S",
+      "slug": "torrent-snare",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/snares/torrent-snare.webp"
+    },
+    "sourceHash": "sha256:1f3a1852caa6e7fb2d3e8701ba800288db15ef3e45d12d97a3132b3a8b25e79f",
+    "translatableHash": "sha256:6f0335c52ecf814502850be173114bbffcc4efd2b7a22864138ac2e5acea3a99",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Torrent Snare",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "snare",
+        "trap"
+      ],
+      "description": "You pile waterlogged plants or access a nearby source of water to rain down on a Medium or smaller creature that enters the snare's square. When a creature enters the square, the snare's square and all adjacent squares become slippery difficult terrain, and the triggering creature must attempt a check (reflex, dc:19) saving throw, with the following effects.\nSuccess The target is unaffected.\nFailure The target falls prone.\nCritical Failure The target falls prone and is forced into one of the other squares soaked by the snare.",
+      "bulk": 0,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fang-snare",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YYD82q2NfAbuDmgf",
+      "slug": "fang-snare",
+      "publicationTitle": "Pathfinder #151: The Show Must Go On",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/snares/fang-snare.webp"
+    },
+    "sourceHash": "sha256:0a9cacaea4f6f60568d8f4e333e63e07ca60cb58091e77647334601f330b9ccd",
+    "translatableHash": "sha256:969946b67fa6508e3ca182857c5cc30a145b2ce81fd2c11016cf34e8261dc4cb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fang Snare",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "mechanical",
+        "snare",
+        "trap"
+      ],
+      "description": "You set snake fangs, poison stingers, or other venomous animal parts in the ground where they can be touched or stepped on by a creature that enters the snare's square. The first creature to enter the square must attempt a check (reflex, dc:20) saving throw.\nSuccess The target is unaffected.\nFailure The target takes 1 piercing damage and 2d8 poison damage.\nCritical Failure The target takes 2 piercing damage and 4d8 poison damage.",
+      "bulk": 0,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "snare",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:st-alkitarems-eye",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "u4mB03FhvuJ7DcX8",
+      "slug": "st-alkitarems-eye",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:08250a7ce644da0221168a3c7f3ef0310cd2a9a7312d05e6e971da6f7de1a0fd",
+    "translatableHash": "sha256:755741b31a98896f3ab2658d71cd9c5d73193149a5e42705e6662abe62fad96e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "St. Alkitarem's Eye",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "unique",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "St. Alkitarem's Eye is a simple silver chain bearing a brass housing with tiny brass wings. At the center of the housing is a Clear Spindle Aeon Stone, positioned so it resembles an open eye. This is necklace is known as St. Alkitarem's Eye. The housing can bear a single aeon stone in the same manner as a wayfinder, allowing the necklace's wearer to benefit from the aeon stone just as though it were orbiting their head. The necklace can bear only a clear spindle aeon stone, not other types of aeon stones. It allows the bearer to use the aeon stone's resonant power and doesn't restrict the wearer from investing other aeon stones (even those slotted in a wayfinder). St. Alkitarem's Eye otherwise has the same statistics (including Price) as a wayfinder.",
+      "bulk": 0,
+      "price": {
+        "gp": 28
+      },
+      "usage": "wornnecklace",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bullhook",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2EOeljZiUdNVf8s2",
+      "slug": "bullhook",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/bullhook.webp"
+    },
+    "sourceHash": "sha256:644999399ac2853adb16a01cf3700b675635a0a3dddbc7919920781ec9c1303f",
+    "translatableHash": "sha256:8d578c2ef2d18e155f1d4372da39a36aac4085beb7e0d46d3765f1393d336199",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bullhook",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "A bullhook is a stout rod about 4 feet long with a blunt hook on the end. Too dull to be useful as a weapon, a bullhook is instead used to direct animals in training or in performing their tasks. A bullhook grants you a +2 item bonus to Nature checks to Command an Animal while you are holding it.\nActivate 2 command, Interact\nFrequency once per day\nEffect You wave the bullhook to produce the effects of a first level Command spell (DC 18). This spell loses the linguistic trait and can target only animals.\nCraft Requirements Supply a casting of command of the appropriate rank.",
+      "bulk": 1,
+      "price": {
+        "gp": 55
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:marvelous-calliope",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WKdmAhoji9Y9RC7D",
+      "slug": "marvelous-calliope",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/structures/marvelous-calliope.webp"
+    },
+    "sourceHash": "sha256:b273f681f0449dbbed7ae20f22a4a89639255059cb2ff7dbd80bfb97d7eb9cc0",
+    "translatableHash": "sha256:a1640b4e72d55688fa6069036ff8e6db1d8cec45d8f3f189b626f3a840e2e732",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Marvelous Calliope",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "structure"
+      ],
+      "description": "This large slide whistle appears to be made of fine brass, the sides of which are engraved with musical notes and dancing clowns.\nActivate 1 minute (command, envision, Interact)\nEffect You blow a tune upon the slide whistle, causing the whistle to expand. The whistle sprouts from one into several, and then creates a large wooden frame and keyboard. By the time the unfolding is complete, the whistle fully transforms into a calliope, a wagon-sized contraption consisting of several steam whistles played like an organ. The calliope is heavy and anchored in place.\nYou have a +1 item bonus to Performance checks to play the calliope. The calliope has a tendency to produce music for a few seconds after you cease playing it, adding a jaunty and overlong conclusion to your music.\nIf you use an Interact action to pull the small metal ring on the underside of the marvelous calliope, the calliope collapses back down into a slide whistle.\nActivate 2 Interact\nFrequency once per hour\nEffect You play the calliope, causing it to cast Charm on one of the listeners.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wondrous-figurine-candy-constrictor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6rhind8MDhtJHlwq",
+      "slug": "wondrous-figurine-candy-constrictor",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/wondrous-figurine-candy-constrictor.webp"
+    },
+    "sourceHash": "sha256:2254ec927609e01bfe35cff9a4c36668443603fe795b3d374fb2a20d1d861c76",
+    "translatableHash": "sha256:bb0f74f2861288e92634f29e25b51e724e46142047ca7a8325e7b983d0ce5799",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wondrous Figurine (Candy Constrictor)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Although appearing as a multicolored piece of stick candy, this figurine bears a narrow snake head at one end and is as durable as stone.\nWhen activated, it becomes a rainbow-striped Ball Python except it lacks the Stealth skill.\nThe snake can be used once per day, and it can remain in snake form for up to 20 minutes.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 140
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:beckoning-cat-amulet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HU9eYAAfZMYnFMd9",
+      "slug": "beckoning-cat-amulet",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/talismans/beckoning-cat-amulet.webp"
+    },
+    "sourceHash": "sha256:6f01706706b7a7e22d5e374ad8c7d9fedf45f8abb4049c1ce0c94bc086720569",
+    "translatableHash": "sha256:d362a2c0d2a852ac0f4a6232f36371e9e03d11736f960e6143c4c5f558b64f6d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Beckoning Cat Amulet",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "fortune",
+        "magical",
+        "talisman"
+      ],
+      "description": "Usage affixed to armor\nActivate F envision\nTrigger You use a feat or ability to reroll a failed or critically failed Reflex saving throw (such as Cat's Luck or Halfling Luck).\nThis clay figurine resembles a white cat with a paw outstretched. When it's activated, any allies within 10 feet who also just failed or critically failed a Reflex saving throw from the same source (such as a fireball spell) can also reroll their saving throw and use the better result.",
+      "bulk": 0,
+      "price": {
+        "gp": 26
+      },
+      "usage": "affixed-to-armor",
+      "category": "talisman",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:acrobats-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "17Oza88ts0ASngdw",
+      "slug": "acrobats-staff",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:f230d4839bf35718c766067044941ee4d882482a1a04189f0b7f4e03f5b2daa3",
+    "translatableHash": "sha256:2141a385c1ed758a45870e45786a6d44746bf239571228aef5f77bee4b87b8b9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Acrobat's Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "fortune",
+        "magical",
+        "monk",
+        "parry",
+        "reach",
+        "trip"
+      ],
+      "description": "This +1 striking bo staff is particularly long, making it useful as a balancing pole. While you wield it, the acrobat's staff releases chalk dust to make your grip more secure, granting you a +1 circumstance bonus to your Reflex DC against checks to Disarm you of it.\nActivate R command\nTrigger You fail or critically fail an Acrobatics check to Balance and would fall\nEffect Reroll the Acrobatics check and take the better result.",
+      "bulk": 2,
+      "price": {
+        "gp": 235
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ringmasters-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tpKD2TZEzAToow1O",
+      "slug": "ringmasters-staff",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/ringmasters-staff.webp"
+    },
+    "sourceHash": "sha256:354f3c4b00efa15be1cab85a937f96fb5a365c5a9f370e31f7feed29974efbc4",
+    "translatableHash": "sha256:88f2c19a19cf526bf7b62f554fa1942173f29903fced8fd36eed8a64dec4a574",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ringmaster's Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "illusion",
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This highly polished black wooden staff resembles an aristocrat's oversized walking cane, complete with a silver head shaped like a large circus animal such as a horse or elephant. Ringmasters or announcers use ringmaster's staves to draw attention from their audiences or to salvage acts that fall flat mid-performance.\nWhile wielding a ringmaster's staff, your normal voice can be clearly heard by all creatures within 300 feet regardless of intervening barriers or ambient noise, although your voice can't penetrate magical silence and you can't use this to extend an auditory or sonic effect through barriers that would otherwise block it.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\nCraft Requirements Supply one casting of all listed levels of all listed spells.\n• Cantrip s Light\n• 1st Gentle Landing, Floating Disk\n• 2nd Revealing Light, Illusory Creature, Mist",
+      "bulk": 1,
+      "price": {
+        "gp": 230
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:saints-balm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ktRGlgegUBZcr0aJ",
+      "slug": "saints-balm",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/oils/saints-balm.webp"
+    },
+    "sourceHash": "sha256:41c503401f23c60f8b8587258afd0c1cc3c187b2b7b70ee4d68a3f254ff3350d",
+    "translatableHash": "sha256:154b04ae671b70febfebee062d21672f7655a57bf2c0afe104d5552fc00bd0af",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Saints' Balm",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "healing",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate A Interact\nThis luminescent paste is made from the powdered bones of a long-forgotten saint, mixed with herbs and blessed by a priest. It typically comes in a tightly sealed, palm-sized dish etched with holy symbols. Applying saints' balm to yourself or a creature within reach restores 3d8+10 Hit Points to the creature to which it's applied.",
+      "bulk": 0,
+      "price": {
+        "gp": 70
+      },
+      "usage": "held-in-one-hand",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:invisible-net",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LBhzIWBH9TJ8A2K5",
+      "slug": "invisible-net",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/invisible-net.webp"
+    },
+    "sourceHash": "sha256:b42dd0ad58296f840fb2858f926b8a5cc45fda7a2ed13ca308c4575116adc326",
+    "translatableHash": "sha256:d4d36585af671be5ddd36714905578e3d0bed5d030a73b66149acda1cef9ec3a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Invisible Net",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate A Interact\nYou activate this folded lace handkerchief by spreading it out on the ground, where it grows to cover a 30-foot-by- 30-foot square area. Pale and diaphanous, the spread handkerchief is exceptionally difficult to see from more than 30 feet away and evaporates entirely after 1 minute. Any creature that falls on the net doesn't take falling damage.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wondrous-figurine-rubber-bear",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YO2X0EE3txascuuP",
+      "slug": "wondrous-figurine-rubber-bear",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/wondrous-figurine-rubber-bear.webp"
+    },
+    "sourceHash": "sha256:6fd82543f3f5223cf30d98c78363545c937acb3b45871b63c1c33644953f1c55",
+    "translatableHash": "sha256:7e7968033dd2f1581e4b14cf8aa007e4867893ac2b02534a937f42cc763624f5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wondrous Figurine (Rubber Bear)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Each one of these statuettes is 1 inch in height, carved from a specific material and taking the shape of a particular animal or animals.\nActivate 2 command, Interact\nEffect You activate the statue by placing it on solid ground and then speaking its name, causing the statuette to transform into a living creature or creatures. In creature form, the figurine has the minion trait. It can understand your language and it obeys you to the best of its ability when you use an action to command it. The specifics of each creature, as well as the activation's frequency (if any), appear in its entry below.\nIf the figurine is slain while in animal form, it reverts to its statue shape and cannot be activated again until 1 week has passed. If the figurine is destroyed in statue form, it is shattered and its magic is lost.\nThis small, stretchable statuette depicts a bear wearing a tutu and a fez and balancing on a ball slightly larger than its head.\nWhen activated, it becomes a Grizzly Bear with similar attire.\nThe bear remains balanced upon its rubber ball, and is therefore ungainly: it cannot Climb or Swim, has a -10- foot circumstance penalty to its Speed, and is always off-guard. If the bear leaves its ball, such as if it is repositioned with forced movement or knocked prone, it immediately reverts to statuette form.\nThe bear can be used once per day, and it can remain in bear form for up to 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 350
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:moonstone-diadem",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8x8zqH4pJKJRlyAj",
+      "slug": "moonstone-diadem",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8c3ddb5c77235e551a90f6259133c733fc8427a3668eedabd00d2cefd51756bc",
+    "translatableHash": "sha256:1dd6df9007994dcda264ef29d9d57b1c977455ccca6c3ac5ea2abdab7eff1c4f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Moonstone Diadem",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "rare",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This delicate and elegant diadem is woven of intricate silver wires set with three tear-shaped pearlescent moonstones. You gain a +1 item bonus to Religion checks.\nActivate 3 focus\nFrequency once per hour\nRequirements You are within 10 feet of a moonstone pool\nEffect You peer into the moonstone pool and gain access to all the visual history recorded within the receptacle by concentrating on the specific subject you wish to see. Conversely, you can choose to deposit your own memories into the pool by concentrating for 1 hour on the information you wish to impart.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "worncirclet",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spangled-riders-suit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Blp9Ha1YeIJOeFls",
+      "slug": "spangled-riders-suit",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/specific-magic-armor/spangled-riders-suit.webp"
+    },
+    "sourceHash": "sha256:c634dc63ad91d4013c65b3cc3405d3c7546cb3dd5963dbac1c7c00dc845b5318",
+    "translatableHash": "sha256:24ae9f055655013fa8c4f4a9c16b59b9c2a020d3c34190a243f3d5cde0ef13b0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spangled Rider's Suit",
+      "itemType": "armor",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This +1 resilient studded leather is adorned with colorful sequins that sparkle in even the faintest light.\nWhile wearing the spangled rider's suit, you gain a +2 item bonus to Command an Animal you are riding.\nAny animal you ride automatically knows the Drop Prone and Step basic actions, in addition to any other basic actions it knows (normally only Leap, Seek, Stand, Stride, and Strike).\nActivate R (move)\nTrigger You take damage while mounted or your mount Drops Prone\nEffect You dismount, moving off your mount into a space adjacent to it.",
+      "bulk": 1,
+      "price": {
+        "gp": 700
+      },
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stole-of-civility",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dRVDcmkaB2p8zPcs",
+      "slug": "stole-of-civility",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/stole-of-civility.webp"
+    },
+    "sourceHash": "sha256:6e12e2574dc1f7e09ed4f03e28a932941f58009406cbfed03faa246a6f88aa9d",
+    "translatableHash": "sha256:c94e07578c868da24e3603b0d39e4ed948f6d23d2eba39228b8024357ee680ab",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stole of Civility",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Woven from swaths of rich brocade silk and embroidered with ancient Azlanti script in golden thread, this stole imparts a noble appearance to even the homeliest of individuals when draped over the shoulders.\nWhile wearing a stole of civility, you receive a +2 item bonus to Diplomacy checks to Make an Impression with humans or Make a Request of humans, and a +2 item bonus to Intimidation checks against humans.\nThe stole also grants you full understanding of the Azlanti language.\nActivate A envision\nFrequency once per day\nRequirements you are a human\nEffect You gain 10 temporary Hit Points, which last for 10 minutes.\nEffect: Stole of Civility",
+      "bulk": 0.1,
+      "price": {
+        "gp": 700
+      },
+      "usage": "worncloak",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:whip-of-compliance",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "DXidUrzzkwWIMNMD",
+      "slug": "whip-of-compliance",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/whip-of-compliance.webp"
+    },
+    "sourceHash": "sha256:0bd094cec6a283e85c706235fc73283d3cbf52e641ff3f5a8a92ec37a6dffae7",
+    "translatableHash": "sha256:7a1029577cea9b283cdf890668d76ed01d9751cd7c5ffc70715e53a0cd7f6765",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Whip of Compliance",
+      "itemType": "weapon",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "disarm",
+        "finesse",
+        "magical",
+        "nonlethal",
+        "reach",
+        "trip"
+      ],
+      "description": "The handle of this braided leather +1 striking whip is made from the hairs of a variety of rare and mythical animals. When used against an animal, the whip of compliance can potentially force the target to follow your commands.\nActivate A command\nEffect Until the end of your current turn, any animals you Strike with the whip must attempt a check (will, dc:25). On a failed or critically failed saving throw, the whip casts a 4th-rank Suggestion spell on the animal with a base duration of 1 round, and the spell loses the linguistic trait. The course of action must still fulfill suggestion's requirements.\nIf you can cast spells, you can expend one of your spells of 4th level or higher as a part of activating the whip; if you do so, the suggestions this turn have their normal base duration.",
+      "bulk": 1,
+      "price": {
+        "gp": 3000
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:inspiring-spotlight",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "M1fRjN7E3P55zvmc",
+      "slug": "inspiring-spotlight",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d06717bddac9c9dc6a94c222e948bbbc8111a2d595174283c3bfc40597fac5b3",
+    "translatableHash": "sha256:84f8a9bec55c98e47546b20dd07691243db9b5e18343586a6952b3ffc7cd78d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Inspiring Spotlight",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "light",
+        "magical"
+      ],
+      "description": "An inspiring spotlight is a bulky contraption consisting of a drum-shaped metal housing around several reflective metal plates. Two handles on either side, each with a small button, allow you to aim the spotlight outward from your body.\nActivate A Interact\nFrequency Once per hour\nEffect When you push the left-hand button, the inspiring spotlight emits a beam of bright magical light in a 120-foot line that hangs in the air and remains in place even if you move the spotlight. If the line passes through an area of magical darkness or targets a creature affected by magical darkness, the inspiring spotlight attempts to counteract the darkness.\nCreatures within the line gain a +1 item bonus to saving throws and Charisma-based skill checks. In addition, creatures in the line who are frightened reduce the value of their frightened condition by 1 at the beginning of each turn they start in the area of the line.\nThe beam remains in place for 1 minute or until you push the right-hand button with another Interact action to extinguish the light.\nEffect: Inspiring Spotlight",
+      "bulk": 3,
+      "price": {
+        "gp": 650
+      },
+      "usage": "mounted-on-a-tripod-or-bracket",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grail-of-twisted-desires",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3nv4JcajPAxDgGMb",
+      "slug": "grail-of-twisted-desires",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/grail-of-twisted-desires.webp"
+    },
+    "sourceHash": "sha256:609d1125ed0e58f08d47d08e1669ac0112a5071bb6b78f3e36d363756de46db6",
+    "translatableHash": "sha256:6f21c25f202cb691f3f8acabd3e4c77113654f6ed75c8cef8da0ec9bb56ccd77",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grail of Twisted Desires",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "unique",
+      "traits": [
+        "illusion",
+        "magical"
+      ],
+      "description": "This timeworn chalice is constructed of dull tin. It has an unassuming appearance save for the gold, silver, and ebony rings that encircle its rim.\nActivate A envision\nFrequency three times per day\nEffect The chalice fills with one of three different wines of your choosing, as described below. The wine looks, tastes, and smells the same regardless of which type you choose, and Detect Magic has no effect on the liquid beyond indicating that it is magical.\n• Ordinary wine.\n• Wine that, when imbibed, casts a 2nd-rank Restoration spell on the drinker.\n• Wine that, when imbibed, casts a 4th-rank Nightmare spell on the drinker.\nIf you aren't chaotic, the first time each day you activate the chalice, there is a one-in-six chance that the liquid you conjure is a different type (the GM should roll 1d6 as a secret roll) instead. The second and third times you activate the chalice in the same day, the odds of this happening increase to two-in-six or three-in-six, respectively. If you are chaotic, the chalice always works as intended.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 850
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ringmasters-staff-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wWBi79jkzYGWD6uC",
+      "slug": "ringmasters-staff-greater",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/ringmasters-staff.webp"
+    },
+    "sourceHash": "sha256:9e0c7e4e5da1f84aea29c29ee8fb4cc425f8bb48c181af18199496fd3579bd3f",
+    "translatableHash": "sha256:418cf1bef33604ede82b13102be72aa4c5fbe8728b68f50ac3d5e48edfea6392",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ringmaster's Staff (Greater)",
+      "itemType": "weapon",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "illusion",
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This highly polished black wooden staff resembles an aristocrat's oversized walking cane, complete with a silver head shaped like a large circus animal such as a horse or elephant. Ringmasters or announcers use ringmaster's staves to draw attention from their audiences or to salvage acts that fall flat mid-performance.\nWhile wielding a ringmaster's staff, your normal voice can be clearly heard by all creatures within 300 feet regardless of intervening barriers or ambient noise, although your voice can't penetrate magical silence and you can't use this to extend an auditory or sonic effect through barriers that would otherwise block it.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\nCraft Requirements Supply one casting of all listed levels of all listed spells.\n• Cantrip s Light\n• 1st Gentle Landing, Floating Disk\n• 2nd Revealing Light, Illusory Creature, Mist\n• 3rd Enthrall, Pyrotechnics\n• 4th Unfettered Movement, Summon Animal\n• 5th Cloak of Colors, Command",
+      "bulk": 1,
+      "price": {
+        "gp": 1800
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bullhook-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Yguqipt5N29Bkz0d",
+      "slug": "bullhook-greater",
+      "publicationTitle": "Pathfinder #152: Legacy of the Lost God",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/bullhook.webp"
+    },
+    "sourceHash": "sha256:483a450c402dead97192bf9b917e761543abbb1aaf74e91c0bf39639e3c71968",
+    "translatableHash": "sha256:cae58f5b3f88987f6f6b5c353f90938b47bdec243c7b6f6d4f83cd07e4447353",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bullhook (Greater)",
+      "itemType": "equipment",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "A bullhook is a stout rod about 4 feet long with a blunt hook on the end. Too dull to be useful as a weapon, a bullhook is instead used to direct animals in training or in performing their tasks. A bullhook grants you a +2 item bonus to Nature checks to Command an Animal while you are holding it.\nActivate 2 command, Interact\nFrequency once per day\nEffect You wave the bullhook to produce the effects of a fifth level Command spell (DC 30). This spell loses the linguistic trait and can target only animals.\nCraft Requirements Supply a casting of command of the appropriate rank.",
+      "bulk": 1,
+      "price": {
+        "gp": 1900
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:shoony-shovel",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aR0tsZ3xi1iwr53u",
+      "slug": "shoony-shovel",
+      "publicationTitle": "Pathfinder #153: Life's Long Shadows",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/shoony-shovel.webp"
+    },
+    "sourceHash": "sha256:793dbe50873ccde009c315ed594c0b19caf278906aee5a36d0a5009a766c4509",
+    "translatableHash": "sha256:18f8a40bfbc2b9f3b5790ec50da72c9fc961047f45d1d8adbfa2f9c73f402c9c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shoony Shovel",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "rare",
+      "traits": [
+        "earth",
+        "magical"
+      ],
+      "description": "This ornate, compact shovel has a golden handle wrapped with beautiful crimson bulette leather. Its silver head never gets dirty or worn no matter how much you use it. Its true magic, however, is in its ability to dig on its own.\nActivate 2 command, envision\nFrequency once per day\nEffect You place the shovel in a starting position and specify the dimensions and direction to dig (such as \"Dig down 8 feet in a rectangle sized 30 feet by 40 feet\" or \"Dig straight ahead for 30 feet\"). The shovel then animates and digs on its own at a rate of one 5-foot cube per 10 minutes until the task is complete or it is picked up. It can dig through dirt, gravel, sand, snow, or similar loose material, but the shovel stops digging (or digs around, if commanded) if it strikes stone or another solid material. A shoony shovel can sense if its digging path will cause a building to collapse, harm a creature, or otherwise create significant problems, in which case it automatically stops digging.",
+      "bulk": 2,
+      "price": {
+        "gp": 600
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:golem-stylus",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "d8wTwHiA09HP45IM",
+      "slug": "golem-stylus",
+      "publicationTitle": "Pathfinder #153: Life's Long Shadows",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/golem-stylus.webp"
+    },
+    "sourceHash": "sha256:551a8074883fb308dcd0707c83cda54541a08d23d05d41628ca845a89449e607",
+    "translatableHash": "sha256:f561eaa67a5e2d9cc8d6f6309b12b621e094e95ee9f25fe6fd537308e4d5944a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Golem Stylus",
+      "itemType": "equipment",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This small, diamond-tipped stylus allows you to inscribe a magical symbol on a golem's body and possibly gain control over it.\nActivate 2 Interact\nFrequency one per hour\nEffect You make a quick inscription on an adjacent golem creature of 11th level or lower. The golem must succeed at a check (reflex, dc:27) saving throw or you immediately gain control over the golem for 1 minute. A controlled golem is helpful toward you and follows your orders to the best of its ability as long as it is under your control. If the golem's original controller is within 60 feet of the golem and can see the golem, that controller can attempt a counteract check (DC 27) as a reaction to counteract this effect; on a success, the inscription disappears and the golem reverts to its pre-inscription state. The inscription can also be counteracted with Dispel Magic.\nIf the golem you are targeting has already been inscribed with a golem stylus, you must attempt a counteract check against the previous inscription as part of activating the item, using your golem stylus's item level or your Arcana skill check modifier as your counteract check modifier. If successful, you modify the existing inscription so that the golem falls under your control.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 850
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ring-of-stoneshifting",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FSo4D0bnDeRAURip",
+      "slug": "ring-of-stoneshifting",
+      "publicationTitle": "Pathfinder #153: Life's Long Shadows",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:8bef6385b2660119d5ce25e75222552227703e658d558f52c2b50666395bef4f",
+    "translatableHash": "sha256:443527646b78044b3601e066fcf1825bf00a41debfeb760bb0bcca727328bf6c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ring of Stoneshifting",
+      "itemType": "equipment",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "earth",
+        "invested",
+        "magical",
+        "teleportation"
+      ],
+      "description": "This simple iron ring is faceted with a bulbous geode lined with bright purple crystals. A ring of stoneshifting grants you the ability to ignore difficult terrain caused by rubble or uneven ground made of stone and earth.\nActivate 1 minute\nFrequency three times per day\nRequirements You are standing on at least 5 feet of earthen material (such as stone, soil, clay, or sand)\nEffect You sink into the ground and emerge at another location within 100 miles. This location must have an earthen surface at least 5 feet deep and you must be able to identify the location precisely by both its position relative to your starting position and its appearance or other identifying features. You can't carry extradimensional spaces with you to the destination, and if you attempt to do so, the activation fails.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1800
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skarjas-heartstone",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Jp9K5Q9t9ZiDGSaI",
+      "slug": "skarjas-heartstone",
+      "publicationTitle": "Pathfinder #153: Life's Long Shadows",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:33c4c1624b3fc060ef2793dd07ee00479fb91d36d9abd8095f53c376bee6ba65",
+    "translatableHash": "sha256:d1e2cace35ac7e903391d29ac65559b2b8f6a0ed79e63e9be72055ada7234850",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skarja's Heartstone",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "occult"
+      ],
+      "description": "This pale gemstone grants its wearer a +2 item bonus to saving throws and the ability to discern a target's alignment (as detect alignment, but can detect chaotic, evil, good, and lawful auras simultaneously) at will by peering through the gemstone.\nLike all hag heartstones, this gemstone is powered by Skarja's spirit. Skarja does not need to wear her heartstone to benefit from its powers, but she cannot use them if she hasn't touched her heartstone in the past 7 days. If Skarja's heartstone is separated from her for more than 7 days (or if she's been dead for 7 days), it becomes a non-magical gemstone.\nNote: Item is worth 1000 gp when non-magical\nSkarja's heartstone allows her to use additional occult innate spells: Ethereal Jaunt (9th level) and Seize Soul at will, Shadow Blast (6th level) twice per day, and Spirit Blast once per day.\nActivate A command\nRequirements You must be touching the heartstone.\nEffect The heartstone attempts to counteract one disease affecting you (counteract rank 7, counteract modifier 1d20+23).\nCraft Requirements You must be a night hag.",
+      "bulk": 0,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spore-sap",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tE2IarA29mYsgrxj",
+      "slug": "spore-sap",
+      "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/spore-sap.webp"
+    },
+    "sourceHash": "sha256:98fe391189b8c0567c255f4a9a11ced9b8b6e41985349e114736d4937459f296",
+    "translatableHash": "sha256:4ff9203b1e2cb732c6bf054f29cd6fc70cca033fc2d503545578fe7789ae5265",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spore Sap",
+      "itemType": "weapon",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "fungus",
+        "magical",
+        "nonlethal"
+      ],
+      "description": "This flexible +2 striking sap is crafted from the stalks of cave fungi and bound around a mesh of spore-infused gills. Demon-worshipping xulgaths use spore saps to capture spellcasters alive for later sacrifice.\nActivate R Interact (poison)\nFrequency three times per day\nTrigger You successfully Strike a creature with the spore sap\nEffect The spore sap releases a puff of stupefying fungal spores. The target must succeed at a check (fortitude, dc:28) or become stupefied 1 for 1 minute (Stupefied 2 on a critical failure).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1250
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stoneraiser-javelin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ud3pqCquYA5UecaS",
+      "slug": "stoneraiser-javelin",
+      "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e0f7aaf1a8a415a0378ed71088eaf1b8e4ae0accb556fc8d46cd949f764b1d29",
+    "translatableHash": "sha256:785e17746144eb686214d372e4fd69660167ab9770b9704082ad09c636b34284",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stoneraiser Javelin",
+      "itemType": "weapon",
+      "level": 11,
+      "rarity": "uncommon",
+      "traits": [
+        "earth",
+        "magical",
+        "thrown"
+      ],
+      "description": "This stone-headed +2 striking returning javelin draws forth the power of the earth itself to strike at enemies.\nActivate A Interact\nFrequency once per day\nEffect You hurl the stoneraiser javelin at an unoccupied space within 30 feet.\nThe javelin's power flows into the ground, which erupts in a 5-foot-radius burst of razor-sharp stalagmites. The stalagmites are 10 feet tall.\nEverything on each side of the stalagmites has cover from creatures on the opposite side, and the stalagmites' spaces are difficult terrain. A creature takes 4d4 piercing damage for every move action it takes that enters at least one of the affected spaces.\nEach 5-foot-by-5-foot section has AC 10, Hardness 14, and 30 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely. The stalagmites crumble to dust after 1 minute.\nAny creature in the area when the stalagmites appear is pushed to the nearest unoccupied space of its choice; this movement is forced movement. Pushed creatures must attempt a DC 28 Reflex saving throw or take 4d4 piercing damage.\nCritical Success The creature is unaffected.\nSuccess The creature takes half damage.\nFailure The creature takes full damage.\nCritical Failure The creature takes double damage and is knocked prone.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1200
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "dart",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:jawbreaker-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QJNyQlmPNzIrnuLf",
+      "slug": "jawbreaker-shield",
+      "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/jawbreaker-shield.webp"
+    },
+    "sourceHash": "sha256:4e43ba33333d885e0ae652553397a6df0a51210883e98d1d9898ee0f09aeac9c",
+    "translatableHash": "sha256:f54b79afcea207317c1483e867039e4d240e28c289c92dc10d08df64a0a3720d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jawbreaker Shield",
+      "itemType": "shield",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This heavy bone shield is composed of a massive plate of dinosaur bone with jagged, tooth-like ridges ringing its edge. It has Hardness 12, HP 48, and BT 24. The ridges are unremovable +1 striking shield spikes that deal slashing damage instead of piercing damage.\nWhile holding the jawbreaker shield, you gain a +3 item bonus to your Reflex DC to resist Swallow Whole attacks.\nActivate R Interact\nTrigger A creature attacks you with a jaws or fangs Strike or similar Strike using its mouth\nEffect You make a shield bash Strike as a reaction against the attacker. If the shield bash hits, the target takes damage and must attempt a DC 31 Fortitude saving throw. The effects of the saving throw are determined after the effects of the triggering Strike are resolved.\nSuccess The target is unaffected.\nFailure You wound the target's mouth. It takes 1d6 persistent bleed damage and takes a -2 status penalty to attack and damage rolls with jaws, fangs, or similar Strikes for 24 hours.\nCritical Failure You break the target's jaw. As failure, and the creature can't make Strikes using its mouth for 1 minute. At the end of its turn, it can attempt a Fortitude save to regain the ability to make Strikes using its mouth.",
+      "bulk": 1,
+      "price": {
+        "gp": 1650
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:noxious-jerkin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GAu6v14pCSgLJh2D",
+      "slug": "noxious-jerkin",
+      "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/specific-magic-armor/noxious-jerkin.webp"
+    },
+    "sourceHash": "sha256:135cf2cc2fc49cb19b7c09299d6aa01ca1acabaf8bb649d838f35140d6843e86",
+    "translatableHash": "sha256:ae70bf39f29ebafbd1a99804f751dcd5499326a716ffe16b9caa784c4d1c9a29",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Noxious Jerkin",
+      "itemType": "armor",
+      "level": 13,
+      "rarity": "rare",
+      "traits": [
+        "comfort",
+        "magical"
+      ],
+      "description": "This +2 resilient padded armor is woven from many strands of gut cord strung with dried organs and preserved xulgath scent glands. When worn, it infuses your body with a ghastly and nauseating flavor.\nActivate F envision\nTrigger You are grabbed or are hit by an unarmed attack\nEffect Your attacker must attempt a check (fortitude, dc:28) saving throw. Creatures with a stench aura, such as otyughs and xulgaths, are immune to this effect.\nSuccess The creature is unaffected and is immune to the effects of the noxious jerkin for 1 minute.\nFailure The creature is Sickened 1.\nCritical Failure The creature is sickened 1 and is Slowed 1 for 1 round.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2800
+      },
+      "usage": "",
+      "category": "light",
+      "group": "padded-armor",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 3,
+        "checkPenalty": 0,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ankylostar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZuyzSxmg4QdnZqLy",
+      "slug": "ankylostar",
+      "publicationTitle": "Pathfinder #154: Siege of the Dinosaurs",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/ankylostar.webp"
+    },
+    "sourceHash": "sha256:4413b468a2c303cb112f03434e9337d17794988f43f760c0ffe6d73b1b34e10a",
+    "translatableHash": "sha256:d4512fad4ce306b2c6d54fb4a5f91ec183380ac875234ed926ad376aeeb0f6ab",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ankylostar",
+      "itemType": "weapon",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "versatile-p"
+      ],
+      "description": "This hefty spiked club is made from the fossilized tail-club of a young ankylosaurus. It can be wielded as a +2 greater striking morningstar.\nActivate A command\nEffect The ankylostar grows and transforms into a +2 greater striking greatclub, but it retains the versatile (piercing) trait of a morningstar. While in this form, the ankylostar has Bulk 2 and requires two hands to wield. It can be returned to its morningstar form with another 1-action command.\nActivate 2 command, Interact\nFrequency once per day\nRequirements The ankylostar is in its greatclub form\nEffect The ankylostar's length extends as you swing the club in a wide arc. You Strike up to three creatures in a 15-foot cone; this counts as one attack for the purpose of calculating your multiple attack penalty. Alternatively, you Shove up to three creatures in a 15-foot cone, rolling a separate Athletics check for each creature.",
+      "bulk": 1,
+      "price": {
+        "gp": 2800
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 3,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-the-black-desert",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ED3By5mICaJeiQYo",
+      "slug": "staff-of-the-black-desert",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/staff-of-the-black-desert.webp"
+    },
+    "sourceHash": "sha256:0bae88ccda9daa9d68d48d3e36e713af39b3fb0ee45a23a1d8cafd36791b3bbb",
+    "translatableHash": "sha256:a117d5662487daeb08c3473ecfcf43f2d48cbb8db034e417ce486f8f660b4345",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of the Black Desert",
+      "itemType": "weapon",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This rough metal staff is pitted and sandblasted, with thousands of nigh-imperceptible sand crystals embedded in its surface.\nWhile carrying the staff, you gain a +2 circumstance bonus to Occultism checks to identify aberrations and oozes native to the Darklands.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Know the Way\n• 1st Create Water Cleanse Cuisine Phantasmal Minion\n• 2nd Darkvision Environmental Endurance\n• 3rd Earthbind Cleanse Affliction Wanderer's Guide\n• 4th Air Walk Mirage Rope Trick\n• 5th Pillars of Sand Illusory Disguise\nCraft Requirements Supply one casting of all listed levels of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 1850
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blightburn-necklace",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2HCiVszUnIPJwvQV",
+      "slug": "blightburn-necklace",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/blightburn-necklace.webp"
+    },
+    "sourceHash": "sha256:8f6559ea51c69330a4d5a8c4a4f80475c43f4fadd8079e5c9253ca65ccc639c3",
+    "translatableHash": "sha256:c19ebf3495c7c69d79697aedcf771f12a6464949ebb1919d84ec25ec4f0c5db0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blightburn Necklace",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This heavy iron necklace is decorated with tiny gems that resemble the stars in the ceiling high above the Vault of the Black Desert. While you have invested this item, you cannot contract blightburn sickness. It doesn't cure blightburn sickness if you already have it, but the disease's stage can't progress while you wear it.",
+      "bulk": 0,
+      "price": {
+        "gp": 2300
+      },
+      "usage": "wornnecklace",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:purple-worm-repellent",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BxzwmwQ5O4fewa4w",
+      "slug": "purple-worm-repellent",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/purple-worm-repellent.webp"
+    },
+    "sourceHash": "sha256:76de8487dd81dfab8ef32e0d3420ec002e7af8eb5b098ac2119ac4279dfd8c7a",
+    "translatableHash": "sha256:522ac2c6c56c1ff6c325de43df8e7b700c0390053a9919b968995492ee4be94d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Purple Worm Repellent",
+      "itemType": "consumable",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Cave worm repellent is a highly noxious oil that can be applied to a creature or sprinkled in a circle around a 10-foot-radius area. In either case, after it is applied, it lasts for 24 hours or until it is scrubbed clean with 1 minute of work.\nWhen applied to a creature, the repellent causes cave worms of the indicated type to avoid attacking that creature in melee as long as they have something else nearby to attack. The repellent does not deter a cave worm from making ranged attacks against a coated target. If no creatures are within a cave worm's reach and it wants to approach and make a melee attack, it approaches and attacks a non-coated creature if it can without spending more actions to do so.\nIf the coated creature is swallowed by the designated type of cave worm, the cave worm must succeed at a Fortitude save or involuntarily regurgitate the swallowed creature on the next round (a single action).\nWhen sprinkled around an area, cave worm repellent negates any chance of a random encounter with the particular type of cave worm in that area, as the creatures purposefully avoid the affected area.\nOther types of repellent that function similarly to this one might exist at the GM's discretion. Uncommon or rare creatures are typically much harder to repel, and repellent against them might necessitate harvesting ingredients from the creatures themselves (such as the creature's liver or a certain gland).\nActivate 1 minute (Interact)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 550
+      },
+      "usage": "held-in-one-hand",
+      "category": "toolkit",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bombers-saddle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "k5y89wYu3NX1AhVI",
+      "slug": "bombers-saddle",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:ed15ba5b4f3646dbda8b07c00f5a7ae43a7aa6ce616dc832d42b192a5e46accd",
+    "translatableHash": "sha256:5548a39fabc6b0b2df7404d93afaec86811cf2b99f97cb20578c08e0a2c0b686",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bomber's Saddle",
+      "itemType": "container",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "companion",
+        "invested",
+        "magical"
+      ],
+      "description": "Developed by urdefhans for their skaveling mounts but quickly copied by other races' cavalry, this leather saddle is made from cave worm hide and is designed to fit a variety of flying steeds. In addition to a seat for the rider, the bomber's saddle has a bomb compartment situated underneath the mount.\nThe compartment can hold up to six alchemical bombs of light or negligible Bulk.\nActivate A Interact\nEffect You drop a single item from the saddle's compartment, which falls to the ground below. If the item is a bomb, make a ranged Strike with it.\nActivate 2 Interact\nRequirements The saddle's compartment is loaded with two to six bombs\nEffect You drop the saddle's entire payload, scattering the bombs below. Make a single ranged Strike against an AC of 10. The AC increases by 1 for every 5 feet above the target area you are.\nOn a failure, the bombs fly away wildly and deal no damage.\nOn a successful attack roll, the bombs fall and shatter, starting in the target area and moving in a line of 5-foot spaces up to 30 feet long for six bombs, one bomb per space. The bombs don't directly hit any creatures; instead, creatures take splash damage from the bombs as usual, but combine the splash damage from multiple overlapping bombs together before applying weaknesses or resistances. Apply any effects normally applied to splash damage when throwing a bomb (such as the effects of the Calculated Splash feat).",
+      "bulk": 0,
+      "price": {
+        "gp": 2800
+      },
+      "usage": "worn",
+      "category": "backpack",
+      "group": "backpack"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blightburn-ward",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "keFeNqSR7W35aCeT",
+      "slug": "blightburn-ward",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/blightburn-ward.webp"
+    },
+    "sourceHash": "sha256:518b8962b008b154147b145de46d18f9456a6b746901fa4048109ab37bca298b",
+    "translatableHash": "sha256:bbbd0ed488a2ade884a914eb053d15a5699fe28b9404ba23f0ab4aa36403b2ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blightburn Ward",
+      "itemType": "equipment",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This heavy iron necklace is decorated with tiny gems that resemble the stars in the ceiling high above the Vault of the Black Desert. While you have invested this item, you cannot contract blightburn sickness. It doesn't cure blightburn sickness if you already have it, but the disease's stage can't progress while you wear it.",
+      "bulk": 0,
+      "price": {
+        "gp": 2300
+      },
+      "usage": "wornnecklace",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anchor-spear",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kSLHMQjKL77CtvBx",
+      "slug": "anchor-spear",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:e976f048982f4182258cdfb9276ce146e9343edab99d2a0e2438c51a77a1e583",
+    "translatableHash": "sha256:5d533d7005d2c4ddb3a0d9ed8f8610a7d9af23fd4218718a59ca87f594693603",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anchor Spear",
+      "itemType": "weapon",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "monk",
+        "thrown-20"
+      ],
+      "description": "The tip of this +2 greater striking spear is large and wickedly barbed, and the haft is inlaid with fine silver lines that run the length of the weapon. Wielded by specially trained xulgath cavalry, anchor spears are used to prevent the escape of gogiteths or other monsters capable of climbing or burrowing.\nActivate A command\nEffect The anchor spear extends into a +2 greater striking longspear or back to its original form as a +2 greater striking spear.\nActivate R command\nFrequency once per 10 minutes\nTrigger You damage a creature using the anchor spear\nEffect The spear embeds itself into the creature, and the spear's haft splits along the silver lines to become a series of hooks attached to a thin but strong cable. As long as the anchor spear remains embedded in the creature, any time the creature burrows or climbs, it treats normal terrain as difficult terrain and difficult terrain as greater difficult terrain. The creature can spend an Interact action to attempt a check (athletics, dc:32, name:Remove Spearhead) check to remove the spearhead.\nCritical Success The anchor spear is removed, becomes broken, and falls to the ground in the creature's space.\nSuccess The anchor spear is removed, the creature takes 1d8 piercing damage, and the spear falls to the ground in a random space adjacent to the creature.\nFailure The anchor spear remains in place, and the creature takes 1d8 piercing damage.\nCritical Failure As failure, except the creature takes 2d8 piercing damage.",
+      "bulk": 1,
+      "price": {
+        "gp": 2800
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:heedless-spurs",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LfiGXU03Khb1o6fs",
+      "slug": "heedless-spurs",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:a73d54021136b20c075769bb79cad4693509ea0e388e51ca5e196b3eb922b128",
+    "translatableHash": "sha256:75ccebe049fb5fc409e91306dbcd732e91cf826a1850b7ddfda0801b0fa002b3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heedless Spurs",
+      "itemType": "equipment",
+      "level": 15,
+      "rarity": "rare",
+      "traits": [
+        "magical"
+      ],
+      "description": "These wicked-looking spiked metal wheels fit around the ankles and jingle when the wearer walks, imposing a -1 item penalty on Stealth checks. If used as a weapon, they are treated as a Spiked Gauntlet.\nActivate A Interact\nFrequency once per 10 minutes\nRequirements You are riding a mount\nEffect You kick both spurs into your mount's flank. Your mount takes 2d6 persistent bleed damage and gains the quickened condition for 1 minute or until the persistent bleed damage ends, whichever comes first. It can use the extra action only to Stride.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5200
+      },
+      "usage": "wornanklets",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:azure-worm-repellent",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "R4UPjbSDwDEmDJBA",
+      "slug": "azure-worm-repellent",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/azure-worm-repellent.webp"
+    },
+    "sourceHash": "sha256:31e7366c336e17c2056467fa0ade9dcaff754661faa708cc961fece32a2cf5df",
+    "translatableHash": "sha256:e40ac485e33a411d5dbed1df4f29dd335efb2abd12744e3e3830c837fdf7ae52",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Azure Worm Repellent",
+      "itemType": "consumable",
+      "level": 15,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Cave worm repellent is a highly noxious oil that can be applied to a creature or sprinkled in a circle around a 10-foot-radius area. In either case, after it is applied, it lasts for 24 hours or until it is scrubbed clean with 1 minute of work.\nWhen applied to a creature, the repellent causes cave worms of the indicated type to avoid attacking that creature in melee as long as they have something else nearby to attack. The repellent does not deter a cave worm from making ranged attacks against a coated target. If no creatures are within a cave worm's reach and it wants to approach and make a melee attack, it approaches and attacks a non-coated creature if it can without spending more actions to do so.\nIf the coated creature is swallowed by the designated type of cave worm, the cave worm must succeed at a Fortitude save or involuntarily regurgitate the swallowed creature on the next round (a single action).\nWhen sprinkled around an area, cave worm repellent negates any chance of a random encounter with the particular type of cave worm in that area, as the creatures purposefully avoid the affected area.\nOther types of repellent that function similarly to this one might exist at the GM's discretion. Uncommon or rare creatures are typically much harder to repel, and repellent against them might necessitate harvesting ingredients from the creatures themselves (such as the creature's liver or a certain gland).\nActivate 1 minute (Interact)\nCraft Requirements The initial raw ingredients must include an azure worm's scale.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1100
+      },
+      "usage": "held-in-one-hand",
+      "category": "toolkit",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-the-black-desert-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Ri09KBg9DG0aapLw",
+      "slug": "staff-of-the-black-desert-greater",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/staff-of-the-black-desert.webp"
+    },
+    "sourceHash": "sha256:613d3e39b37a6bb8bf6961668331ab0010a012ea38f6a340f8bb8736a46ed074",
+    "translatableHash": "sha256:64f12cafa4d56b4be64236a5505ddeb8b55740d748fde04e296c9d1a5c86bf21",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of the Black Desert (Greater)",
+      "itemType": "weapon",
+      "level": 16,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This rough metal staff is pitted and sandblasted, with thousands of nigh-imperceptible sand crystals embedded in its surface.\nWhile carrying the staff, you gain a +2 circumstance bonus to Occultism checks to identify aberrations and oozes native to the Darklands.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Know the Way\n• 1st Create Water Cleanse Cuisine Phantasmal Minion\n• 2nd Darkvision Environmental Endurance\n• 3rd Earthbind Cleanse Affliction Wanderer's Guide\n• 4th Air Walk Mirage Rope Trick\n• 5th Pillars of Sand Illusory Disguise\n• 6th Purple Worm Sting Summon Entity\n• 7th Blightburn Blast Control Sand Unfettered Pack\nCraft Requirements Supply one casting of all listed levels of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 9500
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:greengut",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qvAtAv211cVqktgU",
+      "slug": "greengut",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/green-gut.webp"
+    },
+    "sourceHash": "sha256:28be81f1ae9201513ec39ca9aba357804d655030fc6f31f328a15d41b53ddf9f",
+    "translatableHash": "sha256:f3b76f3c7335ddd56ae67c3cac92f7145938b6596d28bd5bbed0da2d9fd77ab7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Greengut",
+      "itemType": "consumable",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison"
+      ],
+      "description": "This watery, mint-green emetic of xulgath design is often carried in a delicate obsidian vial or other fragile container.\nIn the unfortunate circumstance that a creature has been Swallowed Whole by another creature, the swallowed creature can break open a vial of greengut to immediately induce vomiting.\nActivate A Interact\nThe swallower must succeed at a check (fortitude, dc:40) save or take 18d6 poison damage and possibly vomit the contents of its stomach.\nCritical Success The creature is unaffected.\nSuccess The creature takes half damage.\nFailure The creature takes full damage, is Sickened 1, and vomits up any and all creatures Swallowed Whole on its next turn (a single action, which also allows it a Fortitude save against the sickened condition), as well as any stones or other objects it swallowed.\nCritical Failure As failure, but the creature takes double damage and is Sickened 2.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2500
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:lifes-last-breath",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1gi4mdZYNgPrzWHc",
+      "slug": "lifes-last-breath",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/lifes-last-breath.webp"
+    },
+    "sourceHash": "sha256:b89100d2519158e05d9082b40a90c2f8855b6948a611cb044f4848ac1bcea23b",
+    "translatableHash": "sha256:6b912b8772485362bbfacfe026b8584f6fa54c40570ea00edbb987fefd306b52",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Life's Last Breath",
+      "itemType": "weapon",
+      "level": 18,
+      "rarity": "unique",
+      "traits": [
+        "deadly-d8",
+        "evil",
+        "holy",
+        "magical",
+        "two-hand-d10"
+      ],
+      "description": "The twin serrated blades of this legendary rhoka sword are dull black and constantly drip with blood. Life's Last Breath is said to have been forged centuries ago for an unknown urdefhan general and has since fallen into the hands of countless other powerful urdefhan warlords.\nLife's Last Breath is a +3 greater striking Unholy Wounding rhoka sword with the following special abilities.\nActivate R command\nFrequency once per day\nRequirements You successfully Strike a creature with Life's Last Breath\nEffect You cast a 9th-rank Paralyze spell on the target.\nActivate R envision\nFrequency once per 10 minutes\nTrigger You successfully Strike a creature with Life's Last Breath\nEffect The target must succeed at a check (fortitude, dc:38) or take 4d6 void damage; you gain an equal amount of temporary Hit Points that last 1 minute.",
+      "bulk": 2,
+      "price": {
+        "gp": 23500
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:crimson-worm-repellent",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nctubaNAmzvXYDkc",
+      "slug": "crimson-worm-repellent",
+      "publicationTitle": "Pathfinder #155: Lord of the Black Sands",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/crimson-worm-repellent.webp"
+    },
+    "sourceHash": "sha256:9b7a3b8bc2cbe042de3d86bfa085f8a6939438b4abfe9120653c89bab5de741d",
+    "translatableHash": "sha256:11f8b99efe43e49c1bc2e57929fc6b3c294e4597f17000a7b358ad25d16fe9de",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Crimson Worm Repellent",
+      "itemType": "consumable",
+      "level": 18,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 minute (Interact)\nCave worm repellent is a highly noxious oil that can be applied to a creature or sprinkled in a circle around a 10-foot-radius area. In either case, after it is applied, it lasts for 24 hours or until it is scrubbed clean with 1 minute of work.\nWhen applied to a creature, the repellent causes cave worms of the indicated type to avoid attacking that creature in melee as long as they have something else nearby to attack. The repellent does not deter a cave worm from making ranged attacks against a coated target. If no creatures are within a cave worm's reach and it wants to approach and make a melee attack, it approaches and attacks a non-coated creature if it can without spending more actions to do so.\nIf the coated creature is swallowed by the designated type of cave worm, the cave worm must succeed at a Fortitude save or involuntarily regurgitate the swallowed creature on the next round (a single action).\nWhen sprinkled around an area, cave worm repellent negates any chance of a random encounter with the particular type of cave worm in that area, as the creatures purposefully avoid the affected area.\nOther types of repellent that function similarly to this one might exist at the GM's discretion. Uncommon or rare creatures are typically much harder to repel, and repellent against them might necessitate harvesting ingredients from the creatures themselves (such as the creature's liver or a certain gland).\nCraft Requirements The initial raw ingredients must include a crimson worm's liver.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4500
+      },
+      "usage": "held-in-one-hand",
+      "category": "toolkit",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:jerkin-of-liberation",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "COsToVFlA36UmkB7",
+      "slug": "jerkin-of-liberation",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/specific-magic-armor/jerkin-of-liberation.webp"
+    },
+    "sourceHash": "sha256:620c95935919f05eaa8e0682c7136645b2d0632202f19bba499f23a6592041b3",
+    "translatableHash": "sha256:a5b1a28f69dd9ae90c4b47a6b002cd7663dd530b01757e3396ba4f9be81aeed7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jerkin of Liberation",
+      "itemType": "armor",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This +2 greater resilient studded leather is traditionally inscribed with a symbol of either Norgorber or Cayden Cailean. Its leather is light as silk, and its buttons and studs are gleaming crystal. While you wear it, you get a +15-foot item bonus to your Speed, and effects that attempt to impose penalties on your Speed must first counteract the jerkin of liberation or they have no effect on you.\nIn addition, you are hard to incapacitate. You use the jerkin's item level or your own level, whichever is higher, to determine effects of the incapacitation trait.",
+      "bulk": 1,
+      "price": {
+        "gp": 14000
+      },
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:locket-of-sealed-nightmares",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0NZuvpCVr21WcQtH",
+      "slug": "locket-of-sealed-nightmares",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/locket-of-sealed-nightmares.webp"
+    },
+    "sourceHash": "sha256:569a866b59ea6651e933c2d922d5c268ec6d5907c3146f6b9eb89e842b1967bd",
+    "translatableHash": "sha256:bd9b2c30cd0eb4d9b0b8a7714eb7fcc92cf29611c539046eb9128a0bc7c7627b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Locket of Sealed Nightmares",
+      "itemType": "equipment",
+      "level": 19,
+      "rarity": "rare",
+      "traits": [
+        "illusion",
+        "invested",
+        "magical"
+      ],
+      "description": "As long as this locket of horn and silver is closed, you don't need to sleep. However, you can still overexert your body with too much activity, so you still need to rest to avoid becoming fatigued or to remove the fatigued condition.\nYou also gain a +4 item bonus on saving throws against mental illusions, magical effects that would make you unconscious, and effects that would make you fatigued.\nEach time dawn occurs, you regain the ability to make your daily preparations as if you had rested for 8 hours. Daily preparations still take about an hour, as normal.\nActivate 2 Envision, interact\nRequirements You aren't fatigued\nEffect You open the locket to unleash the dreams it has kept at bay. You become fatigued and cast one of the following spells at 9th rank (DC 41): Hallucination, Sleep, or Weird.",
+      "bulk": 0,
+      "price": {
+        "gp": 36000
+      },
+      "usage": "wornnecklace",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:panacea-fruit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9WenEIQrBV8POQU1",
+      "slug": "panacea-fruit",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:485f4d16d79810f1afe0ee2788df942085ef0180d29206540013375da019d5fb",
+    "translatableHash": "sha256:0efc2c0d45251c95f460546bbd10c30a51825a578adaed42e5c033eb40a485b6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Panacea Fruit",
+      "itemType": "consumable",
+      "level": 19,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "healing",
+        "primal"
+      ],
+      "description": "This fruit is slowly, constantly changing shape, transforming from one fruit into another, but always appearing at the peak of ripeness.\nWhen you consume the fruit, it attempts to counteract all curses, diseases, and poisons affecting you, and you immediately regain 8d8+30 healing. The fruit has a counteract rank of 9 and a 1d20+30 modifier for the rolls against each condition.\nThe fruit's seed remains after consumption and can be planted later, becoming a seed-shaped Feather Token (Tree) that sprouts a tree bearing many kinds of mundane fruit.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8000
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ambrosia-of-undying-hope",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gn5ITN5GILHKxGA4",
+      "slug": "ambrosia-of-undying-hope",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/ambrosia-of-undying-hope.webp"
+    },
+    "sourceHash": "sha256:8a69812956e1b72ed7447a989eeb42efdaa86088fff88b3f186d7c3286d1d399",
+    "translatableHash": "sha256:a27f64ca72e03da1009f2d268224e833dbdd6f729dab602fe25977c84f499827",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ambrosia of Undying Hope",
+      "itemType": "consumable",
+      "level": 19,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "This elixir is usually stored in a small metal flask or miniature stein. The dark liquid sparkles as if it were full of stars and is considered sacred to Cayden Cailean and to the cults of the Failed in Absalom.\nThe next time you would die from damage within 8 hours after you drink the ambrosia, it prevents you from dying, you regain 20 healing, the elixir's benefits end, and you become temporarily immune to the ambrosia of undying hope for 24 hours.\nThe ambrosia can't protect you from death effects or disintegration, but it can protect against almost any other form of death via damage. You can only be under the effect of a single ambrosia of undying hope at a time.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6200
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-sieges",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dh4FEXlA0FxTfnpY",
+      "slug": "staff-of-sieges",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/staff-of-sieges.webp"
+    },
+    "sourceHash": "sha256:fe314d273393f4bb4b7f5b40da0e64e3d88d5dd38a55207e4c8896ba899cc7cb",
+    "translatableHash": "sha256:3ec063b79a8861a673d8c1a687df5616ecb1f9cb532108c0e06f6654180df345",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of Sieges",
+      "itemType": "weapon",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This adamantine staff is fitted with dawnsilver plates resembling battlements on a castle. Lesser cover, cover, and greater cover don't grant any bonus against your spell attacks or to saving throws against your spells that you cast from the staff.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Shield, Telekinetic Projectile\n• 1st Gust of Wind, Tailwind\n• 2nd Mist, Web\n• 3rd Fireball, Wall of Wind\n• 4th Mirage, Solid Fog, Wall of Fire\n• 5th Toxic Cloud, Wall of Stone\n• 6th Fireball, Wall of Force\n• 7th Planar Palace, Prismatic Spray\n• 8th Earthquake, Scintillating Pattern\n• 9th Falling Stars",
+      "bulk": 1,
+      "price": {
+        "gp": 65000
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:celestial-hair",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FB7qAHjiiHTGhRnn",
+      "slug": "celestial-hair",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/talismans/celestial-hair.webp"
+    },
+    "sourceHash": "sha256:5a5c1c212b629c5250f269767de4bea21b716f369458888b6a6e009feb1fa531",
+    "translatableHash": "sha256:a4dd0d5faf94175de6d90c71d5b3772c468e8fdb23d1737657db74c9252035d2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Celestial Hair",
+      "itemType": "consumable",
+      "level": 20,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "magical",
+        "talisman"
+      ],
+      "description": "Usage affixed to armor\nActivate F Interact\nTrigger You critically fail a saving throw or are critically hit by an attack\nThis strand of hair shimmers like the strands of fate. When you activate the string, it resonates with a single, perfect note.\nThe triggering saving throw becomes a failure or the triggering attack roll becomes a regular hit, not critical one. If the source of the attack or effect is an evil creature, that creature must succeed at a check (will, dc:41) saving throw or be Enfeebled 2 and Stupefied 2 until the end of its next turn.",
+      "bulk": 0,
+      "price": {
+        "gp": 12500
+      },
+      "usage": "affixed-to-armor",
+      "category": "talisman",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:planar-ribbon",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "h2aVryWbNP24gC05",
+      "slug": "planar-ribbon",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/planar-ribbon.webp"
+    },
+    "sourceHash": "sha256:4c3b1c4c1c8ced3af41d6bab686c38159496dcbab6a16a556ab0efb476678d08",
+    "translatableHash": "sha256:a0120038051b9b0cf9328004d4a653e44c01f7f17e38fa6633ffc98b9c439e9c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Planar Ribbon",
+      "itemType": "equipment",
+      "level": 20,
+      "rarity": "unique",
+      "traits": [
+        "occult"
+      ],
+      "description": "By twisting and twirling this ordinary-looking leather ribbon, you can temporarily bend a rift in space.\nActivate 1 minute (command, envision, Interact)\nEffect The ribbon spins and swirls, creating a circular loop in the air through which you can spy on a creature on another plane.\nThis has the effects of a Scrying spell (DC 40) against the creature but functions more as a mundane -albeit interplanar-window; a similar loop appears before the target, and for the duration, both sides can clearly see and hear each other through the created portal, but nothing can pass through.\nYou can Sustain the Activation to gain the effects of Sustaining the Spell. This activation has the scrying trait.\nActivate 1 Interact\nFrequency once per round\nEffect You extend the ribbon to brush against a foe up to 60 feet away. If that creature fails a check (reflex, dc:42) save, you exchange positions with the target and all of that creature's allies are off-guard to you until the end of your turn. This activation has the teleportation trait.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:piereta",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "O6he0J7l1uQgsama",
+      "slug": "piereta",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/intelligent-items/piereta.webp"
+    },
+    "sourceHash": "sha256:7ea3a80e863bfbbf14b14e54dff408af402fe9e3e6f7aa3c91d80ea7ecfe460d",
+    "translatableHash": "sha256:e5c4189e74a613508ac5db98a64fac0c8c05f46d782544aab09c530bf584c1d8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Piereta",
+      "itemType": "weapon",
+      "level": 20,
+      "rarity": "unique",
+      "traits": [
+        "deadly-d8",
+        "disarm",
+        "divine",
+        "finesse",
+        "intelligent"
+      ],
+      "description": "Perception +27; precise vision 30 feet, imprecise hearing 30 feet\nCommunication telepathy (Azlanti, Celestial, Common, Utopian)\nSkills Diplomacy +33, Religion +29, Warfare Lore +27\nInt +0, Wis +4, Cha +6\nWill +31\nPiereta was a Knight of Ozem during the Shining Crusade, sworn to the service of Aroden's herald, Arazni. After Arazni perished at the hands of the Whispering Tyrant, Piereta became the first paladin to swear her service to the newly ascended goddess, Iomedae. When she fell in battle, a fragment of her spirit clung to the sword through which she had wielded her faith in countless battles, granting the weapon a sentience of its own. The sword named herself after her fallen bearer and has been a faithful companion to many Iomedaean warriors since.\nPiereta is a +3 major striking Holy rapier devoted to the principles of Iomedae as an exemplar of valorous action and as a protector of the innocent.\nPiereta is very particular about who she permits to wield her. She agrees to work with you if you are a follower of Iomedae, or if you are lawful good or neutral good and worship a different good deity. Otherwise, you must convince Piereta of the rightness of your cause. If Piereta doesn't want you to wield her, once per minute she can attempt to force you to put her down (check (will, dc:42) to resist this command). Even if you succeed at this saving throw, Piereta refuses to apply any of her fundamental or property runes and gives you a -2 penalty on attack rolls with Piereta or any other weapon until you drop her.\nPiereta can use the following activations.\nActivate R command, Interact\nFrequency once per minute\nEffect Piereta makes a Retributive Strike, resolved as though you had used the ability, including any benefits from champion feats you have.\nActivate 2 command, Interact\nFrequency once per day\nEffect Piereta casts a 9th-rank Field of Life.",
+      "bulk": 1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:shield-of-the-unified-legion",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "PlYr5AhYwHIztMw2",
+      "slug": "shield-of-the-unified-legion",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/shields/specific-shields/shield-of-the-unified-legion.webp"
+    },
+    "sourceHash": "sha256:4db7a0ad2e088ecbb96acd6689eb5f6874b64daf2417ab87d5ca23335eddb778",
+    "translatableHash": "sha256:774ca9ee25066669966f3b48de0ce9aa46bb6cc345a3b3d4b213f588ba299043",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shield of the Unified Legion",
+      "itemType": "shield",
+      "level": 20,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This high-grade orichalcum shield (Hardness 16, HP 64, and BT 32) bears a +3 major striking shield boss that cannot be removed.\nIt gleams brightly in any light, drawing attention at all times.\nWhen you Raise this Shield, ephemeral reflections of it appear in front of each of your allies within 30 feet, granting them its +2 circumstance bonus to AC for as long as they are within 30 feet of you and your shield is raised. Effect: Shield of the Unified Legion\nActivate (2 actions) Interact (force)\nFrequency once per minute\nEffect You heft the shield and thrust it forward, causing ephemeral reflections of the shield to surround you and then rush outward in a 90-foot line or 60-foot cone (your choice).\nMake a shield bash Strike against each enemy within the area, except that the damage dealt is force damage. Each target you hit is moved 10 feet away from you (each target you critically hit is also knocked prone). This is forced movement. These shield bashes count against your multiple attack penalty, but the penalty doesn't increase until after you have made all these attacks.",
+      "bulk": 1,
+      "price": {
+        "gp": 70000
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:kortos-diamond",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Vz7nITDWjrXmyoJn",
+      "slug": "kortos-diamond",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/kortos-diamond.webp"
+    },
+    "sourceHash": "sha256:326b661529e927676a85b2a5ea5daf9791f494e250021b0c17dcb138be237717",
+    "translatableHash": "sha256:55cb8e7ef577be997ba966b0d4367bd8765d4b023a52e4d40b68b44c246c7182",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Kortos Diamond",
+      "itemType": "weapon",
+      "level": 22,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "divine",
+        "versatile-p"
+      ],
+      "description": "The hilt of this +3 major striking Spell-Storing longsword is simple and elegant. The blade itself is made of throneglass—a clear, jewellike crafting material with a razor-sharp edge, capable of absorbing psychic magic and redirecting it at the wielder's enemies. Whenever the Kortos Diamond is in an area of dim or brighter light, it glows faintly, as if reflecting the light of a setting sun.\nWhile wielding the Kortos Diamond, you gain a +2 item bonus on saving throws against mental effects. You can never harm yourself with the Kortos Diamond, even if Confused.\nIf you ever travel farther than 100 miles from the Isle of Kortos while in possession of the Kortos Diamond, the sword becomes impossibly heavy; you are encumbered as long as you carry the sword and remain outside of this area. If you relinquish the Kortos Diamond while away from Kortos, the sword gradually makes its way back to the isle over the course of a year.\nActivate 1 Interact\nEffect You attempt a melee Strike with the Kortos Diamond against a creature within reach. On a hit, you deal damage as normal and the target's mind is inflicted with a powerful disruptive energy. When the creature attempts to Cast a Spell, it must attempt a check (will, dc:44); on a failure, the spell fails and both the spell and the actions spent to cast it are lost. This effect lasts for up to 1 minute.\nActivate F envision\nFrequency once per round\nTrigger You damage an aberration with the Kortos Diamond\nEffect You deal an additional 2d8 force damage to the struck creature.\nActivate 2 command, Interact\nFrequency once per day\nEffect You hold the Kortos Diamond aloft and proclaim your might in a booming voice. You cast Overwhelming Presence (DC 42).\nDestruction A deity who ascended to divinity via the Test of the Starstone can damage and destroy the Kortos Diamond as if it were not an artifact.",
+      "bulk": 1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hunters-dawn",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2jtZPnHF1M8vKWry",
+      "slug": "hunters-dawn",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/hunters-dawn.webp"
+    },
+    "sourceHash": "sha256:61d7e9a93219fd111ed903c79fc60955b10933869672eba6b8ea2435605ee4da",
+    "translatableHash": "sha256:58503032fb88bd1531ca9a3aa0d9a842f5c4c4e27ea3e50d26cb1093dae74135",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hunter's Dawn",
+      "itemType": "weapon",
+      "level": 23,
+      "rarity": "unique",
+      "traits": [
+        "arcane",
+        "artifact",
+        "thrown-10"
+      ],
+      "description": "Hunter's Dawn is a +3 greater striking Speed Ghost Touch club.\nHowever, the notched head of the weapon marks it as an atlatl, an ancient tool used for throwing darts and javelins. You can use Hunter's Dawn with a mundane dart or javelin like you would use a bow with an arrow; when you do so, the range of the dart or javelin is doubled, and the dart or javelin uses Hunter's Dawn to determine its attack modifier and damage dice.\nActivate 1, 2, or 3 Interact\nEffect You swing Hunter's Dawn and launch a magically conjured javelin at a target within 60 feet, making a ranged Strike.\nThe javelin has the statistics of a javelin but gains the magical properties of Hunter's Dawn and disappears immediately after hitting or missing its target.\nOn a successful hit, you deal damage 3d6 piercing damage, due to the atlatl's greater striking rune, plus your Strength modifier); in addition, a gazelle leaps from the hit target to one or more targets within 20 feet of the first, dealing 2d6 piercing damage plus your Strength modifier. The number of additional targets hit in this way is equal to the number of actions you spend to activate this ability (one additional target if you used one action, two additional targets for two actions, and so forth).\nActivate R\nTrigger You hit a creature with a ranged Strike with Hunter's Dawn\nEffect The target is marked. Once per day, you can cast a 5th-rank Locate spell on the marked target, regardless of its distance from you or your ability to cast spells. This effect persists until it is dispelled (counterspell DC 46), the creature dies, or a new target is marked.\nActivate 1 Interact\nFrequency three times per day\nEffect You shave a curl of wood from Hunter's Dawn and create a roaring fire within 15 feet. You can choose one of the following shapes for the fire to take: a 10-foot square, a 20-foot line, or a 15-foot cone. Each creature in the affected squares take 6d6 fire damage (check (reflex, dc:46, basic)).\nDestruction Hunter's Dawn can be destroyed only by placing it on the funeral pyre of a dead god.",
+      "bulk": 1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:arodens-hearthstone",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1ZOTwnqA9ccfdrey",
+      "slug": "arodens-hearthstone",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:6413ad942d1a84f01ce75d263b2e7a1cf73d7d5cf034c0960a6affe0f3209fa0",
+    "translatableHash": "sha256:652ec2bcb7462a6f75960b237edb25f4463f35498344a78a52803c43a27037d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Aroden's Hearthstone",
+      "itemType": "equipment",
+      "level": 25,
+      "rarity": "unique",
+      "traits": [
+        "arcane",
+        "artifact"
+      ],
+      "description": "This coin-sized gemstone can be used on its own but must be included in the construction of a hearth in order to fully activate its magic.\nActivate 3 days (Interact)\nFrequency 4 times per year\nRequirements You have Legendary proficiency in Crafting\nEffect You craft a magical weapon or armor of up to 20th level. You must attempt a Crafting check as usual to create the item, but you need supply only raw materials worth a quarter of the item's Price, and you need not pay the remaining portion of the item's Price or spend additional downtime days working on it. While Aroden's Hearthstone is active, the stars in the sky, including Golarion's sun, appear to glow brighter within a 100-mile radius of the hearthstone.\nActivate 3 command, envision\nFrequency once per month\nEffect Aroden's Hearthstone draws in heat from the world itself, causing the ambient temperature within 100 miles to drop below 0°F. Within 1 mile of the Hearthstone, the temperature drops to -200°F, rivaling the frigid cold of outer space and dealing 4d6 cold damage each round to every creature in the area. This effect lasts 1 minute, during which time the nearest moon (probably Golarion's) appears an eerie blue color to any observers within 100 miles of the hearthstone. At the end of 1 minute, the hearthstone emits a blast of concentrated heat that deals 25d6 fire damage to creatures and objects within 150 feet.\nDestruction Using Aroden's Hearthstone to craft a cursed item results in a failed creation and causes the gemstone to split into five equal-sized but magically impotent pieces. Over the course of a year, four of theses pieces crumble to dust, while the fifth expands to the size of the original artifact and bears its powers anew. To destroy Aroden's Hearthstone, each of the separated pieces must be plunged into one of the five stars that compose the cosmic constellation known as the Follower.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tears-of-the-last-azlanti",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2VpuNz8EyXpvUf7P",
+      "slug": "tears-of-the-last-azlanti",
+      "publicationTitle": "Pathfinder #156: The Apocalypse Prophet",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/artifacts/tears-of-the-last-azlanti.webp"
+    },
+    "sourceHash": "sha256:0e265381b3c530908a21b0737fa776868dd4ec7c6af541c7afc492bbfa419e04",
+    "translatableHash": "sha256:ba87e7ab45b844e924181ff88863c0fd740342243f4a5219b130eefd6206e5f3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tears of the Last Azlanti",
+      "itemType": "equipment",
+      "level": 25,
+      "rarity": "unique",
+      "traits": [
+        "arcane",
+        "artifact",
+        "invested"
+      ],
+      "description": "This gold necklace sports six bails, each with a different aeon stone. The backside of each bail is engraved with a single ancient Azlanti rune: Patience, Remembrance, Resilience, Tenacity, Wisdom, Invention.\nWhile a bail is active, you recall pieces of childhood memories, brief stories and lessons spoken to you by Aroden. The knowledge imparted by each bail carries a specific power but also allows you to access the invested and resonant powers of the aeon stone in the active bail's slot as though the stone orbited your head. Each day at dawn, a new bail becomes active; roll 1d6 to determine which bail is active, determined by the table below. Only one bail can be active at any time.\nOnce per day, you can attempt to exchange the aeon stone in a given bail for another aeon stone with a successful check (arcana, dc:35, name:Exchange Aeon Stone) check.\n1D6 | Bail | Default Aeon Stone |\n1 | Patience | Gold nodule |\n | Active Power Telepathy with a range of 100 feet |\n2 | Rememberance | Tourmaline sphere |\n | Active Power Cast Hypercognition at will |\n3 | Resilience | Clear spindle |\n | Active Power Worn armor gains the Antimagic property rune |\n4 | Tenacity | Pink rhomboid |\n | Active Power Wielded weapons gain the Vorpal property rune |\n5 | Wisdom | Orange prism |\n | Active Power Skill checks for downtime activities or to Recall Knowledge are one degree of success higher |\n6 | Invention | Lavender and green ellipsoid |\n | Active Power You can craft items up to 5 levels higher than your actual level |\nDestruction The memories and lessons that echo through the Tears of the Last Azlanti give clues about steps needed to destroy the artifact. After you have gained the power of each of the six aeon stones at least once, you are granted visions of six locations across Golarion. At each of these locations, you must replace one of the necklace's aeon stones with a dull gray aeon stone. Once the final stone is replaced, the powers of the necklace are drawn into its new stones. These stones become pieces of throneglass, and the chain and bails disintegrate.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "wornnecklace",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:nightstick",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "80G0z7iFUCjHeYGf",
+      "slug": "nightstick",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/nightstick.webp"
+    },
+    "sourceHash": "sha256:6fcfb86c742c1f45163dc1f4cd2f9424d16d4e21d3b5e423b12c4aaaeaa5ce9b",
+    "translatableHash": "sha256:504f7281b57d7e78a533795b4286f17bedb809e34aa591cc6ebc29f442c5476b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Nightstick",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "finesse",
+        "nonlethal",
+        "parry"
+      ],
+      "description": "This collapsible baton consists of several nested, telescoping metal shafts that can be extended as a free action by flicking the wrist. Once extended to its full length (usually around 2 feet), the baton locks into shape until the wielder uses an Interact action to collapse it-a collapsed nightstick is 8 inches long, making it easily concealed. Lighter and more maneuverable than an ordinary club or truncheon, nightsticks are designed to subdue foes without causing permanent injury. A nightstick is an uncommon simple melee weapon.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:monkeys-fist",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cKbiv1dUMViikKOS",
+      "slug": "monkeys-fist",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/monkeys-fist.webp"
+    },
+    "sourceHash": "sha256:5bd28385b81dc2435654116181f77dbdf6eee315f463f69391dd9f46fc71df95",
+    "translatableHash": "sha256:a7a1e9b83f295e80c441a2030ba8036612350f32194f9e5da014b7d9952a0253",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Monkey's Fist",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "finesse",
+        "monk",
+        "nonlethal"
+      ],
+      "description": "Also called a \"slungshot\", the monkey's fist is a short length of rope ending in a thick knot wrapped around a metal weight. You can tie the loose end of a monkey's fist to your wrist; if you are Disarmed, the weapon remains secured to your wrist rather than falling to the ground, though you must use an Interact action to grip it before using it again. A monkey's fist is a martial melee weapon.",
+      "bulk": 0,
+      "price": {
+        "sp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:exquisite-sword-cane-sheath",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "R2mDnYVqewmx3dV0",
+      "slug": "exquisite-sword-cane-sheath",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/sword-cane.webp"
+    },
+    "sourceHash": "sha256:578775b02d0d7c24307950dbbdbd55bf51a108f0e821dfdf1dc9b9c3b09840c5",
+    "translatableHash": "sha256:2d09fa374bf2a1733229d016f200291a77b7ddeab5332e42dbc371d5dbd123d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Exquisite Sword Cane Sheath",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "finesse",
+        "parry",
+        "twin"
+      ],
+      "description": "An exquisite sword cane is a sword sheathed inside a hollow cane, which itself can be used as a clubbing weapon with or without the sword sheathed inside.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blindpepper-tube",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "81XVuTsF1zD6EXmN",
+      "slug": "blindpepper-tube",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/blindpepper-tube.webp"
+    },
+    "sourceHash": "sha256:6ac2b5fe79376dcde1b863328ebee1d8f9de98a601a72f0e80a1d2bf1a5690d0",
+    "translatableHash": "sha256:92f5fd5d7158c3fd3ae864d601a6aa8018d42bd310d9039e543b07625c86b0d5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blindpepper Tube",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "visual"
+      ],
+      "description": "This single-use pacification device consists of finely ground hot pepper loaded into a sealed, blowgun-style tube with a one-way valve and a range of 5 feet. To use it, the wielder must tear open the tube's seal as an Interact action, then spend another action to blow the hot pepper into an adjacent creature's face. These actions don't have to be taken in the same round. The target must attempt a check (reflex, dc:15) save to avoid inhaling the pepper or getting it in their eyes. On a failed save, the creature is blinded for 1 round and then dazzled for 1 round. On a critical failure, the creature is blinded for 1 round, sickened 1, and dazzled until it removes the sickened condition.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:grolna",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "I2ZbXsfm0c9Eep4I",
+      "slug": "grolna",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/drugs/grolna.webp"
+    },
+    "sourceHash": "sha256:65a58ab8d52e3aadafbb83e44082adfe83781f6d8ae61bced272b2ef376976d3",
+    "translatableHash": "sha256:300f25f93cb74c1be6b7d6e12b26b7bf66c583d83462906ba41efa8a3adb624f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Grolna",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "drug",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate A Interact\nThis caligni-made, murky-green drug supercharges a creature's olfactory senses at the expense of dulling their mind. Popular throughout the Darklands for its ability to transform normally dull scents and flavors into intense, euphoric experiences, grolna can also be a great aid to trackers who want to follow scent trails, turning ordinary humanoids into effective bloodhounds.\nTaking an additional dose of grolna while affected by the effects of stage 1 of a previous dose resets the duration of stage 1 and postpones the onset of stage 2 effects.\nSaving Throw check (fortitude, dc:13)\nOnset 1 minute\nMaximum Duration 8 hours\nStage 1 gain scent (imprecise) 30 feet, gain a +3 item bonus to Survival checks to follow tracks, and become Stupefied 1 (1 hour)\nStage 2 Stupefied 2 (6 hours)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "drug",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:recording-rod-basic",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1Nez8K5C4fwgFrTz",
+      "slug": "recording-rod-basic",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/recording-rod.webp"
+    },
+    "sourceHash": "sha256:ccc8a1efc1d8fa51c70020930a4e1ca0501ae5a323f2fed03bd5d1f098056893",
+    "translatableHash": "sha256:e0959c6c04423e05ce80ad064d767e9491e1e1603e2f69e9ef48f01a2c3c6989",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Recording Rod (Basic)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "scrying"
+      ],
+      "description": "This smooth metal bar is short enough to fit in one hand. It has several inset gemstone buttons on one end and a small lens on the other. Popular with law enforcement and blackmailers alike, recording rods allow users to capture and replay incriminating scenes and are often concealed and triggered covertly to avoid raising the subject's suspicion.\nActivate 1 Interact\nEffect When activated, the rod records anything it sees and hears for 1 minute. Its lens acts as both eye and ear with precise vision and imprecise hearing. This recorded sequence can then be played back as many times as desired, the sights and sounds communicated telepathically to the rod's holder. The rod's recording sequence can be triggered manually by a person holding it, or it can be programmed to begin recording automatically in response to a specified stimulus, such as nearby movement or a specific trigger word spoken in its vicinity.\nOnce activated, the rod records for 1 minute, after which it loses its recording ability but can replay that same scene over and over.",
+      "bulk": 1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:aurifying-salts",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pGnoCqFy0ESPbuGv",
+      "slug": "aurifying-salts",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/aurifying-salts.webp"
+    },
+    "sourceHash": "sha256:3e9304568887b0f8415972084934bcddaa0acf881dc2f1b734dc6acc5c08ba7a",
+    "translatableHash": "sha256:34c17c3f0eb49e84abbf5c619defe240f8060f720c73b8996b008082c6e69fcf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Aurifying Salts",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate A Interact\nYou can apply this pale eggshell powder to one outfit, one object of up to Medium size, or up to 10 smaller objects in the same space, such as jewelry, to make them appear gilded for 1 hour. If used as part of Making an Impression on an audience swayed by expensive clothing, it makes most clothing or jewelry seem to be worth 10 times as much as they really are. Only someone who closely inspects an affected item notices it's not real gold. If you apply the salts to an object made of metal, the metal softens like gold, reducing its Hardness by 4 (to a minimum of Hardness 10) for 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fingerprint-kit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QlFJyxBTYFSN2EA7",
+      "slug": "fingerprint-kit",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:7273e7f12968acec8b6c476086073a4d0aae7e874170be2c98c15f3c8185577d",
+    "translatableHash": "sha256:a6c84211046b9f051d76c8c475dec13d21f64c54dd1a8f656948e7ed3f493424",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fingerprint Kit",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Rarely found outside of major metropolises, fingerprinting kits are a state-of-the-art, non-magical means of linking suspects to the scene of a crime.\nThe kit consists of two parts. The first, a delicate brush and a jar of extremely fine dust, is used to reveal fingerprints left behind by most humanoid creatures. The dust sticks to the natural oils left behind on smooth surfaces. When you use the kit to determine whether or not creatures left behind a fingerprint at a crime scene, the GM rolls a secret Thievery check against the Thievery DC of every creature capable of leaving prints that has interacted with the scene. On a success, you locate a clear print from that creature and carefully transfer it to a special sheet of sticky paper. (Note that fingerprints can last for days, and prints collected in this manner often include those of victims, witnesses, and unrelated passersby.) At the GM's discretion, the print-leaving creature might get a bonus to its Thievery DC for taking special precautions. In other cases, finding a print might be impossible (such as if the creature was wearing gloves or if the location has been significantly compromised).\nThe second part of the kit is a small sheaf of paper and a pad soaked in ink. By forcing a humanoid creature with fingerprints to roll a finger across the pad and then press it to the paper, you can obtain an image of the unique whorls in that creature's fingerprints. These can then be compared to any prints found at a crime scene. Successfully determining whether or not two prints match requires a check (perception, dc:15, traits:action:seek) check-the GM should roll this check secretly as well, since a failed check may result in false information.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:handcuffs-average",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wBeljBAAFsvgkRMy",
+      "slug": "handcuffs-average",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/handcuffs.webp"
+    },
+    "sourceHash": "sha256:4b9b51d8808008bd4529a01c5d282ce2acd47a455c87847abf702655a9ed0f0e",
+    "translatableHash": "sha256:55e241cabff276ed6b55d13144532d595420fb2b54d404df69473219e64969f0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Handcuffs (Average)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Developed in Absalom and rarely used except by police forces in major cities due to their significant cost, handcuffs possess a ratcheting lock system in each cuff that allows them to be quickly cinched down on a captive's limbs, even if they're actively resisting.\nTo apply handcuffs, you must first grab or restrain your opponent, then attempt an check (athletics, defense:fortitude) check against the opponent's Fortitude DC. On a success, you lock one of the cuffs around your opponent's wrist. You can lock the other cuff to yourself or a stationary object within reach as an Interact action; to lock it to another creature (either the same opponent you just cuffed or a separate creature altogether), you must first grab or restrain that creature, as before, and then make an Athletics check against its Fortitude DC. The DC to make the Athletics check against your own wrist is 5, or 10 for an unattended object.\nIf you bind a creature to itself, it takes the same penalties as those imposed by manacles. If you bind a creature to another creature (including yourself), the two creatures are locked together and must remain in adjacent spaces, and both creatures gain the clumsy 1 condition as long as they are handcuffed. If you lock a creature to an immobile object, such as a bar or tree, the creature is immobilized. (For creatures with an unusual physiology such as more or fewer limbs, the GM determines what effects handcuffs have, if any.)\nHandcuffs are unlocked via a key and are easier to slip out of than ordinary manacles. The chain between handcuffs can be Broken Open with a single Athletics check.\nEscaping requires two successful check (thievery, dc:27, traits:action:pick-a-lock) checks, and the Athletics DC to Break Open the chain between handcuffs is 30.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:exquisite-sword-cane",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RN6rEc8eSkruNLPW",
+      "slug": "exquisite-sword-cane",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d82831869b2f7e4e35ce56ce4a2ff2dc902963657b301ee1c93bda3452394282",
+    "translatableHash": "sha256:e7e0496a5125775120f0c05fcd31645b936d644581031e859470a4148b805870",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Exquisite Sword Cane",
+      "itemType": "weapon",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "concealable",
+        "finesse",
+        "parry",
+        "twin"
+      ],
+      "description": "An exquisite sword cane is a sword sheathed inside a hollow cane, which itself can be used as a clubbing weapon with or without the sword sheathed inside.",
+      "bulk": 1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:reapers-lancet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6HOQwVUQNplJsrhq",
+      "slug": "reapers-lancet",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/specific-magic-weapons/reapers-lancet.webp"
+    },
+    "sourceHash": "sha256:80ba2e365cb202c59a20c866c515e5fc68b14ccda262621f07e48a049179a850",
+    "translatableHash": "sha256:660fbbf4fdb19a8f405b3eb77876a3bc2556b28ef2f5fe1d16a933443a5f4846",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Reaper's Lancet",
+      "itemType": "weapon",
+      "level": 5,
+      "rarity": "unique",
+      "traits": [
+        "agile",
+        "concealable",
+        "finesse",
+        "magical",
+        "parry",
+        "poison",
+        "twin"
+      ],
+      "description": "Hendrid Pratchett himself designed this custom skull-topped +1 striking exquisite sword cane and had it gilded in high-quality gold. Its first victim was the very smith whom Pratchett commissioned to craft the weapon, so the means of its construction are a secret known only to Pratchett. The magic of the Reaper's Lancet applies to both the blade and the sheath, making them each effectively a +1 striking weapon, but only if both are wielded by the same creature-if the two components are shared between creatures, only the blade retains the rune's magic.\nReaper's Lancet has a hidden reservoir inside the skull that automatically applies a new dose of poison to the blade after the previous dose was expended with a successful Strike. The reservoir must be filled manually (a process requiring 1 minute) and is large enough to hold only 3 doses at a time. Any sort of injury-delivered poison can be placed in it, though all doses must be of the same poison. The Price of the poison is not reflected in this weapon's listed Price.\nActivate R Interact\nTrigger You damage a creature with Reaper's Lancet\nEffect You poison the creature you hit with the poison currently in the reservoir.",
+      "bulk": 1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blindpepper-bomb",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "E7BcwZy8nTpTLYf1",
+      "slug": "blindpepper-bomb",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-bombs/blindpepper-bomb.webp"
+    },
+    "sourceHash": "sha256:9c361b1165cb505bfddb7f12ec5987bb04c6c5801f53c422acb7b8846452177e",
+    "translatableHash": "sha256:5ed3de3c2d280ceac9b4579f52a8e83843968f7afdbbf9ed3865d31940fa64d2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blindpepper Bomb",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "visual"
+      ],
+      "description": "Activate 1 Strike\nThough expensive, these single-use alchemical bombs are often used by police forces to disperse unruly crowds and quell riots without risking permanent physical injury to either officers or civilians.\nThe bomb can be thrown up to 30 feet, causing it to explode, spraying the aerosolized pepper dust in a 15-foot burst. All creatures in the area must succeed at a check (reflex, dc:18, showDC:all) save to avoid inhaling the dust or getting it in their eyes.\nOn a failed save, the creature is Blinded for 1 round and then Dazzled for 1 round.\nOn a critical failure, the creature is blinded for 1 round, Sickened 1, and dazzled until it removes the sickened condition.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "alchemical-bomb"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:recording-rod-reusable",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "jrLgEJxPvUKtSMMO",
+      "slug": "recording-rod-reusable",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/recording-rod.webp"
+    },
+    "sourceHash": "sha256:c1554de527ef626e72ee9753e9b593751ae18152f5618b5349887b1dce9484ba",
+    "translatableHash": "sha256:e9b9a2a6b0e989beefbc5f7b8d4b12ebc251ede27b416759ebcf65b0653b202d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Recording Rod (Reusable)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "scrying"
+      ],
+      "description": "This smooth metal bar is short enough to fit in one hand. It has several inset gemstone buttons on one end and a small lens on the other. Popular with law enforcement and blackmailers alike, recording rods allow users to capture and replay incriminating scenes and are often concealed and triggered covertly to avoid raising the subject's suspicion.\nActivate 1 Interact\nEffect When activated, the rod records anything it sees and hears for 1 minute. Its lens acts as both eye and ear with precise vision and imprecise hearing. This recorded sequence can then be played back as many times as desired, the sights and sounds communicated telepathically to the rod's holder. The rod's recording sequence can be triggered manually by a person holding it, or it can be programmed to begin recording automatically in response to a specified stimulus, such as nearby movement or a specific trigger word spoken in its vicinity.\nOnce activated, the rod records for 1 minute. The recording function can be enabled a second time by permanently erasing the memory currently stored on the rod.",
+      "bulk": 1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:knockout-dram",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0XSl2DU7JvKXOqTo",
+      "slug": "knockout-dram",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/knockout-dram.webp"
+    },
+    "sourceHash": "sha256:1ce28e7e0892264239db8879fac33986762b897a17d81dfedeaa28ae4f1e114e",
+    "translatableHash": "sha256:3b48ebb78bafa8ba6c69715d6b7f03c5edae77c8f7e0449aad872854d653fef2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Knockout Dram",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "ingested",
+        "poison"
+      ],
+      "description": "This soporific chemical comes in liquid form and is virtually undetectable by taste or scent. It's most commonly slipped into a victim's drink to quickly induce a deep unconsciousness.\nActivate 1 Interact (Ingested)\nSaving Throw check (fortitude, dc:23)\nOnset 1 minute\nMaximum Duration 10 hours\nStage 1 fall Unconscious and can't attempt Perception checks to wake up (1 minute)\nStage 2 sleep normally (1d4)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 70
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:handcuffs-good",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WR8GOQSx7B5AlzNu",
+      "slug": "handcuffs-good",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/handcuffs.webp"
+    },
+    "sourceHash": "sha256:990af21a56406d31a97ae7edb4af055234b6d95d730dede702a3037a1b00d7d6",
+    "translatableHash": "sha256:64709e51a9de45f86964ad637e2a4c2c05fd4230fc74f8138781f0645cfc3256",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Handcuffs (Good)",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Developed in Absalom and rarely used except by police forces in major cities due to their significant cost, handcuffs possess a ratcheting lock system in each cuff that allows them to be quickly cinched down on a captive's limbs, even if they're actively resisting.\nTo apply handcuffs, you must first grab or restrain your opponent, then attempt an check (athletics, defense:fortitude) check against the opponent's Fortitude DC. On a success, you lock one of the cuffs around your opponent's wrist. You can lock the other cuff to yourself or a stationary object within reach as an Interact action; to lock it to another creature (either the same opponent you just cuffed or a separate creature altogether), you must first grab or restrain that creature, as before, and then make an Athletics check against its Fortitude DC. The DC to make the Athletics check against your own wrist is 5, or 10 for an unattended object.\nIf you bind a creature to itself, it takes the same penalties as those imposed by manacles. If you bind a creature to another creature (including yourself), the two creatures are locked together and must remain in adjacent spaces, and both creatures gain the clumsy 1 condition as long as they are handcuffed. If you lock a creature to an immobile object, such as a bar or tree, the creature is immobilized. (For creatures with an unusual physiology such as more or fewer limbs, the GM determines what effects handcuffs have, if any.)\nHandcuffs are unlocked via a key and are easier to slip out of than ordinary manacles. The chain between handcuffs can be Broken Open with a single Athletics check.\nEscaping requires three successful check (thievery, dc:30, traits:action:pick-a-lock) checks, and the Athletics DC to Break Open the chain between handcuffs is 35.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 350
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:handcuffs-superior",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XXALNl2JjJket1vr",
+      "slug": "handcuffs-superior",
+      "publicationTitle": "Pathfinder #157: Devil at the Dreaming Palace",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/handcuffs.webp"
+    },
+    "sourceHash": "sha256:cdff0154e1bc1304dae422f7e9ff442a44ef7b7e06e81f74b13304c5239a8eaa",
+    "translatableHash": "sha256:05a0e5e9e647e18a4010a151c75f3aae603cd7c4dce7a70f9b96bdce2a447dc8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Handcuffs (Superior)",
+      "itemType": "equipment",
+      "level": 17,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Developed in Absalom and rarely used except by police forces in major cities due to their significant cost, handcuffs possess a ratcheting lock system in each cuff that allows them to be quickly cinched down on a captive's limbs, even if they're actively resisting.\nTo apply handcuffs, you must first grab or restrain your opponent, then attempt an check (athletics, defense:fortitude) check against the opponent's Fortitude DC. On a success, you lock one of the cuffs around your opponent's wrist. You can lock the other cuff to yourself or a stationary object within reach as an Interact action; to lock it to another creature (either the same opponent you just cuffed or a separate creature altogether), you must first grab or restrain that creature, as before, and then make an Athletics check against its Fortitude DC. The DC to make the Athletics check against your own wrist is 5, or 10 for an unattended object.\nIf you bind a creature to itself, it takes the same penalties as those imposed by manacles. If you bind a creature to another creature (including yourself), the two creatures are locked together and must remain in adjacent spaces, and both creatures gain the clumsy 1 condition as long as they are handcuffed. If you lock a creature to an immobile object, such as a bar or tree, the creature is immobilized. (For creatures with an unusual physiology such as more or fewer limbs, the GM determines what effects handcuffs have, if any.)\nHandcuffs are unlocked via a key and are easier to slip out of than ordinary manacles. The chain between handcuffs can be Broken Open with a single Athletics check.\nEscaping requires four successful check (thievery, dc:40, traits:action:pick-a-lock) checks, and the Athletics DC to Break Open the chain between handcuffs is 45.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6000
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:floorbell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "98JIeYGEuE6pPV05",
+      "slug": "floorbell",
+      "publicationTitle": "Pathfinder #158: Sixty Feet Under",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:c5b34b788ed005d2176bd1f8da8b0b8e4bd144c3719a38ce2d066006a494ee53",
+    "translatableHash": "sha256:1bba5a3c4aa65f7b2659f7abf2e659ab4ac751b0a16eaf4e8dba49ae84ba85b2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Floorbell",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This surprisingly sturdy 3-foot-by-3-foot clay tile resembles a thick pressure plate. It can support up to 500 pounds of weight atop it before it is destroyed. The floorbell's nature is obvious at a glance, but mundane or magical means can obscure or camouflage the tile (such as by covering it in scattered leaves or by casting an Illusory Object spell) to make it harder to detect.\nActivate 2 command, Interact\nEffect The floorbell must be activated on level ground. When you do, specify the amount of weight that triggers the floorbell's alarm system. When the amount of weight you specify (or more) is placed on the floorbell, it emits an ear-piercing wail clearly audible to a range of 150 feet. A floorbell can also ring an alarm if a weight you specify is removed from the floorbell, such as if you activated it while a heavy sack was on it.",
+      "bulk": 1,
+      "price": {
+        "gp": 120
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:deafening-music-box",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "k9BYXA4b7Z4Hy6lZ",
+      "slug": "deafening-music-box",
+      "publicationTitle": "Pathfinder #158: Sixty Feet Under",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/deafening-music-box.webp"
+    },
+    "sourceHash": "sha256:5cf39e56322355f740cf1b072f0a6f927290a95de2bfda0ca06d0414defdff7e",
+    "translatableHash": "sha256:335d2726d9ff1747f3e94a2b34761c50306bcd6d4f2b4742664d38a27e10a9e8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Deafening Music Box",
+      "itemType": "equipment",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "auditory",
+        "magical"
+      ],
+      "description": "Symbols of musical notes decorate this gold-framed wooden cube measuring just under 1 foot by 1 foot. A funnel-shaped trumpet protrudes from the box's top at an angle, though it feels surprisingly light. The box has a large button on its side, and it must be set down on a flat surface in order to activate it; while it's activated, the rumbling and churning gears inside the box make it impossible to carry without dropping it.\nActivate A Interact\nEffect You press the button on the side of the music box, causing it to erupt with a cacophonous and discordant melody for 1 minute while it plays its entire melody, and it can't be shut off prematurely. The music is so loud that any creature within 60-foot emanation must succeed at a check (fortitude, dc:24, options:area-effect,inflicts:deafened) save or become Deafened for as long as they remain within 60 feet of the music box, and for 1 minute thereafter. On a critical success, a creature need not make any more saves and is temporarily immune to the deafening music box for the next 24 hours; on a success, the creature must attempt a new save each round it remains within 60 feet of the music box.",
+      "bulk": 1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:chain-of-the-stilled-spirit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6MIBHKMJmD8uQVam",
+      "slug": "chain-of-the-stilled-spirit",
+      "publicationTitle": "Pathfinder #158: Sixty Feet Under",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/chain-of-the-stilled-spirit.webp"
+    },
+    "sourceHash": "sha256:ce686d0532b3b9203f36764ecd0c3e743eb4f0dfde86c4cb06182e85b57b0863",
+    "translatableHash": "sha256:0fbfa6d661c30cb50f2868e1967de140d14b6b29831dc663688ee1bc2217df55",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Chain of the Stilled Spirit",
+      "itemType": "equipment",
+      "level": 9,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This 3-foot length of chain is made of a mystical blue-white steel. You can wrap the chain around an item or creature; if a ghost of 9th level or lower is bound to the item or creature via its rejuvenation ability, it cannot rejuvenate if it is destroyed. This chain can't impede a ghost's rejuvenation that is tied to an area, only to an item or creature. At the GM's discretion, the chain of the stilled spirit might work on abilities similar to Rejuvenation that prevent a spirit from going being fully destroyed.",
+      "bulk": 2,
+      "price": {
+        "gp": 650
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mnemonic-acid",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YnhcVcTbXrVfiH83",
+      "slug": "mnemonic-acid",
+      "publicationTitle": "Pathfinder #159: All or Nothing",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/mnemonic-acid.webp"
+    },
+    "sourceHash": "sha256:fe3c5a1c0e306d6282d78f7d2abcb73e654fbca6a676673ccfc4e3db8c2c4dfb",
+    "translatableHash": "sha256:587a17ba6b97e0daf85f37d69a7f0e7cf7b38538ad1e230ef07edcce7f2563c0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mnemonic Acid",
+      "itemType": "consumable",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 Interact\nThis translucent yellow-green liquid has a sharp, tangy odor and an oily sheen. It's mildly acidic and can cause a minor rash after prolonged contact with skin. To unlock its true potential, you must submerge a piece of an intelligent creature's brain matter in the acid and allow the material to completely dissolve. This takes 2d10, during which time the mnemonic acid bubbles and steams eagerly.\nOnce the brain matter fully dissolves, you can consume the acid as an Interact action to experience a powerful vision and relive one of the memories of the creature whose brain matter was dissolved. You have no control over which memory you experience, although such visions are almost always of memories that were meaningful to the owner of the dissolved brain matter. The memory might be of a single event or a series of related and interconnected events; the memory lasts no longer than 10 minutes, and you're Blind to the world around you for the duration.\nEach dose of mnemonic acid requires roughly 10% of the brain matter of the creature whose visions are to be experienced, meaning that up to 10 different memories from the same creature can be experienced, each with a different dose of mnemonic acid, before the brain matter is exhausted.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 75
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:barbed-vest",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qZUo5SmGxp5BlqFN",
+      "slug": "barbed-vest",
+      "publicationTitle": "Pathfinder #159: All or Nothing",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/cursed-items/barbed-vest.webp"
+    },
+    "sourceHash": "sha256:4e989dc92005c762b4c1dc44e72bee8a89d7f649a90dc203c6d3323d61a3dfbf",
+    "translatableHash": "sha256:aa626ac8eefa21549cf7716fda1c535800c0409a633f821fa4ba3b1ff4c87ba9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Barbed Vest",
+      "itemType": "armor",
+      "level": 10,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "invested",
+        "magical"
+      ],
+      "description": "Viciously sharp spiked chains wrap around this Studded Leather Armor that can be used to magically harm the wearer and channel supernatural abilities without somehow tearing at the leather itself.\nThe barbed vest doesn't fuse to you in the usual way. It can be removed and discarded, but 1 day after doing so, you feel driven to recollect the vest at any cost until the curse is removed with a Cleanse Affliction spell.\nAnytime you activate the barbed vest, its chains tighten around you, dealing 1d6 persistent piercing damage. You can remove this persistent damage as normal, but only after deactivating the item's magic as a single action.\nActivate 2 Interact\nFrequency Once per day\nEffect The barbed vest casts Spiritual Weapon, summoning a Spiked Chain to fight for you.",
+      "bulk": 1,
+      "price": {},
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blackfinger-blight",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WvDbdESFJY6Be2u1",
+      "slug": "blackfinger-blight",
+      "publicationTitle": "Pathfinder #159: All or Nothing",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/blackfinger-blight.webp"
+    },
+    "sourceHash": "sha256:6b09e2add7b4fb989b9c6eb5bff1b40865b58a84003800203db762add6466ff2",
+    "translatableHash": "sha256:6d91af85f258fc9eff3f38a0afc58a1598366d0bdb4ff589e0e86503ba231bf0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blackfinger Blight",
+      "itemType": "consumable",
+      "level": 12,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "contact",
+        "poison",
+        "virulent"
+      ],
+      "description": "Activate 2 Interact\nThis oily, dark purple powder gives off the distinct odor of boiled leather. When delivered, the poison acts quickly to constrict the victim's blood flow to their extremities and turn their lungs into a soft jelly. A victim of blackfinger blight is recognizable by the pores of their fingertips weeping an inky oil that coats their hands and makes it difficult to hold things. Each round, at the beginning of their turn, a creature affected by blackfinger blight must succeed at a flat DC 5 check or drop one random item they're holding.\nSaving Throw check (fortitude, dc:32)\nOnset 1 round\nMaximum Duration 6 rounds\nStage 1 6d6 poison damage (1 round)\nStage 2 8d6 poison damage (1 round)\nStage 3 10d6 poison damage and Confused(1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 350
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harrow-deck-common",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "B3aJa0csNZOGXLXT",
+      "slug": "harrow-deck-common",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/harrow-deck.webp"
+    },
+    "sourceHash": "sha256:dcaed31d10fa3b0d5ccbb70dc906081b2fcfc0204b97e91c64bd5bedb88072bb",
+    "translatableHash": "sha256:7011e4caae443f7f19b7f29e6de8aeca024c83615e95c071a0e83af60857efd5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harrow Deck (Common)",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "Used by gamblers and seers alike, this deck of cards comes in several varieties.\nCommon harrow decks are made from higher-quality paper and feature illustrations-harrow readers typically use these decks.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harrow-deck-simple",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "C1j0Zs26TPVjplbs",
+      "slug": "harrow-deck-simple",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/harrow-deck-simple.webp"
+    },
+    "sourceHash": "sha256:9b5e5fbf28ab17ca4ae75462b9607250643ab3c0bbacc8837f1f54855a5964a0",
+    "translatableHash": "sha256:b55375d37769266b70aa0d678a2ab6f7e307ab119682dde860974a665e1985f7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harrow Deck (Simple)",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "Used by gamblers and seers alike, this deck of cards comes in several varieties.\nSimple harrow decks are made from low-quality paper and typically have only an icon and a number to signify the suit and alignment. These simple decks are mostly used for games of chance, as the actual image and significance of the cards are irrelevant for such games.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harrow-deck-fine",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "OP1TkZ9ugn86W4Br",
+      "slug": "harrow-deck-fine",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/harrow-deck.webp"
+    },
+    "sourceHash": "sha256:6598ddb9075b8611f8642549cb7d8e1ce3c737cdde555644f15324c9629f5798",
+    "translatableHash": "sha256:094d04531995ccf73015e8df5578e4a13e5bd6e7ef44af5c486bd0cff273d721",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harrow Deck (Fine)",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "Used by gamblers and seers alike, this deck of cards comes in several varieties.\nFine harrow decks are made from a variety of materials, such as high-quality paper, woods, bone, ivory, or metal.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 11
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harrow-carrying-case",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "P4hCmpeuBochkxsJ",
+      "slug": "harrow-carrying-case",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/harrow-carrying-case.webp"
+    },
+    "sourceHash": "sha256:3323237457e5787a5dfc6401f7926f6cb2052f71aa82894fcdfe1d09e0370a4f",
+    "translatableHash": "sha256:286c085854b1277ebb786c414781d30cc97417d8b413074e7655ff3cc3734b13",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harrow Carrying Case",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "This elegant wooden case contains a recessed section to hold a simple or common harrow deck and a harrow mat. The case features a watertight seal to protect its contents from the elements and everyday wear and tear.",
+      "bulk": 1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harrow-mat",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Ze64YjceQqnwRCsU",
+      "slug": "harrow-mat",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/harrow-mat.webp"
+    },
+    "sourceHash": "sha256:4371f3d56b081aec498579b74a00e300fa2db9e67be454cda7d3920a4e86462a",
+    "translatableHash": "sha256:e094d3632c79a73225e07bf6fb41d9d4397e101403b1ddbc5c55be213838e00c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harrow Mat",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "This leather mat bears intricate designs and symbols embossed into them to enhance the mystique of a harrow reading. The mat provides a +1 item bonus to Deception, Diplomacy, and relevant Lore checks (such as Fortune-Telling Lore or Harrow Lore) to convince a creature that a harrow reading was accurate.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:poisoners-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SeZfwtBYwmxKrphR",
+      "slug": "poisoners-staff",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/poisoners-staff.webp"
+    },
+    "sourceHash": "sha256:c91c1c67f184e7ee2ce0f2a15b8eda11a1c74a8690a8ae10b98eefcb2d82be1b",
+    "translatableHash": "sha256:41cdfa7efc13d2e93dd4885fe6dc0658829ad00d7ff6dc2d35b98814e06a8b26",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poisoner's Staff",
+      "itemType": "weapon",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This gnarled staff is covered with thorns and coated with a glistening lacquer that acts as a minor irritant. While holding the staff, you aren't affected by its coating or thorns, and you reduce the DC of your flat checks to overcome persistent poison damage from 15 to 13.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrips Guidance\n• 1st Detect Poison, Spider Sting\nCraft Requirements Supply one casting of all listed levels of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:whisper-briolette",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kzfRjSrq4JNZlc32",
+      "slug": "whisper-briolette",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/talismans/whisper-briolette.webp"
+    },
+    "sourceHash": "sha256:f10bf67c2ea778e6e754d5222415612afa0388372c5e33499815c1feac7876da",
+    "translatableHash": "sha256:29fa1b0934d87d811044e84644fba7549399a9379c437c7f6027bf81c761c032",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Whisper Briolette",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "mental",
+        "talisman"
+      ],
+      "description": "Usage affixed to armor or to an outfit if a character has no armor\nActivate 2 Envision\nRequirements You are an expert in Stealth\nThis teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures Hidden to you, but you can't do so to Undetected creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.",
+      "bulk": 0,
+      "price": {
+        "gp": 55
+      },
+      "usage": "affixed-to-armor",
+      "category": "talisman",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:poisoners-staff-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xr99pbmKLO2eDMk5",
+      "slug": "poisoners-staff-greater",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/staves/poisoners-staff.webp"
+    },
+    "sourceHash": "sha256:8a12ce3ec8658b430da5639747a8ce4911673743faac5680c78584b90d4f036b",
+    "translatableHash": "sha256:d58b8852b4d5cc4cd1674f7ae4ab343652fed9b533d0fe651c8802efaa04ace2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poisoner's Staff (Greater)",
+      "itemType": "weapon",
+      "level": 8,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "This gnarled staff is covered with thorns and coated with a glistening lacquer that acts as a minor irritant. While holding the staff, you aren't affected by its coating or thorns, and you reduce the DC of your flat checks to overcome persistent poison damage from 15 to 10.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrips Guidance\n• 1st Detect Poison, Spider Sting\n• 2nd Enhance Victuals, Imp Sting\n• 3rd Cleanse Affliction, Stinking Cloud\nCraft Requirements Supply one casting of all listed levels of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 450
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fearweed",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RH1fNsslZ1wdeqy2",
+      "slug": "fearweed",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/fearweed.webp"
+    },
+    "sourceHash": "sha256:3b64e4bc0fe9311811edf4d3dd0c48f2af7906a93a59ec2544ed33a05d7dbc82",
+    "translatableHash": "sha256:9f9eaf799d857b5bea9949181a5e90eaa6acc823c418669a1ed0329a47a1a7d8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fearweed",
+      "itemType": "consumable",
+      "level": 10,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "contact",
+        "divine",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nCultivated by mashing and fermenting toxic weeds found in lonely graveyards, fearweed is a greenish paste magically infused with psychic horror. The Frightened condition from fearweed can't be removed while the poison lasts.\nSaving Throw check (fortitude, dc:30)\nOnset 1 minute\nMaximum Duration 6 minutes\nStage 1 7d6 poison damage and frightened 1 (1 minute)\nStage 2 8d6 poison damage and Frightened 2 (1 minute)\nStage 3 9d6 poison damage and Frightened 3 (1 minute)\nCraft Requirements Supply one casting of 4th-rank Fear.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spell-eating-pitch",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YScPBPwB4t9sydp0",
+      "slug": "spell-eating-pitch",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/spell-eating-pitch.webp"
+    },
+    "sourceHash": "sha256:d8ee8af63e882026777a2e88e2f6449d26d164e9b0506d2e2e317d6c244810c0",
+    "translatableHash": "sha256:62c2b49b1b512f6f4cb6b50443b75789bb9aa00696c6acd101134d32dc5f4d21",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spell-Eating Pitch",
+      "itemType": "consumable",
+      "level": 12,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "divine",
+        "injury",
+        "poison"
+      ],
+      "description": "Activate 2 Interact\nThis gummy resin contains sparkling motes of magical energy that dramatically impair your cognitive functions and dispel spells as you cast them. Spell energy manifests but then sputters out, as though drained away by the sparkling motes. While you're Stupefied by this poison, the DC of flat checks to avoid disruption from the stupefied condition when you Cast a Spell is 5 + twice the stupefied value, rather than 5 + the stupefied value.\nSaving Throw check (fortitude, dc:31)\nMaximum Duration 6 rounds\nStage 1 5d6 poison damage and stupefied 1 (1 round)\nStage 2 6d6 poison damage and Stupefied 3 (1 round)\nStage 3 7d6 poison damage and Stupefied 4 (1 round)\nCraft Requirements Supply one casting of 6th-rank Dispel Magic.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 325
+      },
+      "usage": "held-in-two-hands",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:daylight-vapor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6vyr3drpizIrd5PS",
+      "slug": "daylight-vapor",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/daylight-vapor.webp"
+    },
+    "sourceHash": "sha256:995384c34980169b7a1e7f2b0a4031487a4a1562f9a9721b7e482e6b6d0b96d3",
+    "translatableHash": "sha256:b0fd28f52656d51b59ceeb076de8395dd5b395448aa2c1a923654b6fb710d063",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Daylight Vapor",
+      "itemType": "consumable",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "divine",
+        "inhaled",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nThis heavier-than-air mist emits a soft glow. While this poison lasts, it causes its victims to shine from within with agonizing, brilliant radiance. This effect has the light trait (although the poison itself doesn't, so only the light effect can be counteracted by darkness effects). The Sickened condition from daylight vapor can't be removed while the poison lasts, and when the victim enters an area of magical darkness, the poison attempts to counteract the darkness with a counteract modifier of +21. If the poison fails, it can't attempt to counteract the same darkness again.\nSaving Throw check (fortitude, dc:31)\nOnset 1 round\nMaximum Duration 6 rounds\nStage 1 4d6 poison damage and sickened 1 (1 round)\nStage 2 6d6 poison damage and Sickened 2 (1 round)\nStage 3 10d6 poison damage and Sickened 3 (1 round)\nCraft Requirements Supply one casting of Sunburst.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 500
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spectral-nightshade",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "C0Zhu7Vwy9Aipwoh",
+      "slug": "spectral-nightshade",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/spectral-nightshade.webp"
+    },
+    "sourceHash": "sha256:4076aca757cd5732936a4a3b5371ff7533503496993138699ac9dab3f89b8a93",
+    "translatableHash": "sha256:1390ddceb13d995a4f6ccb445ba8c6d6e7b219d8cf74a6a5bc55e024ad5e82d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spectral Nightshade",
+      "itemType": "consumable",
+      "level": 13,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "divine",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 Interact\nBelladonna cultivated in planes hazardous to living visitors, such as the Shadow Plane or the Boneyard, grow with a strange, skeletal look to their branches. The leaves and berries of these extraplanar plants are partly incorporeal and significantly more toxic than belladonna grown on the Material Plane. When imbued with spirit-twisting magic, spectral nightshade quickly drains away the victim's vitality and makes colors painfully bright and bewildering. Spectral nightshade doesn't affect creatures that have no spirit; if a possessing spirit inhabits a body that takes poison damage from spectral nightshade, the possessor takes an equal amount of force damage, even if the possessor can't be affected directly by poisons.\nSaving Throw check (fortitude, dc:33)\nOnset 1 minute\nMaximum Duration 6 minutes\nStage 1 10d6 poison damage and Dazzled(1 minute)\nStage 2 13d6 poison damage and Drained 1 (1 minute)\nStage 3 15d6 poison damage, Confused, and Drained 2 (1 minute)\nCraft Requirements Supply one casting of Spirit Blast.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 450
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:liars-demise",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ChIhgRwtnhTukICY",
+      "slug": "liars-demise",
+      "publicationTitle": "Pathfinder #160: Assault on Hunting Lodge Seven",
+      "license": "OGL",
+      "remaster": false
+    },
+    "sourceHash": "sha256:d8156d22e05b4acba02c57aa5718a1c6992e03ef524b1b009f5dddd5c443b618",
+    "translatableHash": "sha256:97bf881bba4540d48e9a127a45a4c36c231a17e3de885d6bf9c032d2917af6e6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Liar's Demise",
+      "itemType": "consumable",
+      "level": 14,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "contact",
+        "divine",
+        "poison"
+      ],
+      "description": "This thick orange cream quickly seeps into skin. In addition to causing painful swelling in the brain, liar's demise compels the victim to speak only the truth. While under the effect of liar's demise, you take the listed poison damage and mental damage for any time you voluntarily and knowingly tell a lie, due to the poison's increased blood pressure to your brain. You take this damage once per round, even if you lie several times in rapid succession. You're aware of this effect and can choose to not answer or give only evasive, technically truthful, answers; this is a mental effect.\nActivate 1 Interact\nSaving Throw check (fortitude, dc:34)\nOnset 1 minute\nMaximum Duration 6 minutes\nStage 1 Stupefied 1, 3d6 poison damage] for lying (1 minute)\nStage 2 Stupefied 2, 4d6 poison damage] for lying (1 minute)\nStage 3 Stupefied 3, 5d6 poison damage|traits:death] for lying, and the damage becomes a death effect. If it reduces you to 0 Hit Points, your head explodes and you die. (1 minute)\nCraft Requirements Supply one casting of zone of truth.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 650
+      },
+      "usage": "held-in-two-hands",
+      "category": "poison",
+      "group": "consumable"
+    }
+  }
+]

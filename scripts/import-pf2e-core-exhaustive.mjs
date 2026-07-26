@@ -10,19 +10,45 @@ const limits = {
   spells: Number(process.argv[5] ?? (batchIndex === 1 ? 20 : 40)),
   items: Number(process.argv[6] ?? (batchIndex === 1 ? 50 : 100)),
 }
+const itemPublications = (process.argv[7] ?? 'Pathfinder Player Core')
+  .split('|')
+  .map((publication) => publication.trim())
+const spellPublications = (process.argv[8] ?? 'Pathfinder Player Core')
+  .split('|')
+  .map((publication) => publication.trim())
 const bestiaryPublications = (process.argv[9] ?? 'Pathfinder Monster Core')
   .split('|')
   .map((publication) => publication.trim())
 const bestiarySourcePacks = (process.argv[10] ?? 'pathfinder-monster-core')
   .split('|')
   .map((pack) => pack.trim())
+const sourceMode = process.argv[11] ?? 'ANY'
+const spellSourcePack = process.argv[12] ?? 'spells'
+const requestedSourceModes = sourceMode.split('|').map((mode) => mode.trim())
+const sourceModes = requestedSourceModes.length === 1
+  ? {
+      items: requestedSourceModes[0],
+      spells: requestedSourceModes[0],
+      bestiary: requestedSourceModes[0],
+    }
+  : {
+      items: requestedSourceModes[0],
+      spells: requestedSourceModes[1],
+      bestiary: requestedSourceModes[2],
+    }
 const publications = {
-  items: process.argv[7] ?? 'Pathfinder Player Core',
-  spells: process.argv[8] ?? 'Pathfinder Player Core',
+  items: itemPublications,
+  spells: spellPublications,
   bestiary: bestiaryPublications,
 }
+const terminalBestiaryReconciliation = (
+  bestiaryPublications.length === 1
+  && bestiaryPublications[0] === 'ALL_REMAINING_LEGACY_BESTIARY'
+  && bestiarySourcePacks.length === 1
+  && bestiarySourcePacks[0] === 'all-remaining'
+)
 const expectedCommit = '01114da5851f31404078d8020809b13e4000bc4b'
-const importerVersion = 7
+const importerVersion = 14
 const outputRoot = resolve('apps/api/src/game_systems/pathfinder_2e/content_catalog')
 const localIconRoot = resolve('apps/api/src/game_systems/pathfinder_2e/icons')
 const batchSlug = `core-remaster-exhaustive-${batchNumber}`
@@ -32,17 +58,32 @@ if (!Number.isInteger(batchIndex) || batchIndex <= 0) {
   throw new Error(`Invalid exhaustive batch number: ${batchNumber}`)
 }
 
+const validSourceModes = new Set(['ANY', 'REMASTER_ONLY', 'LEGACY_ONLY'])
+if (
+  ![1, 3].includes(requestedSourceModes.length)
+  || Object.values(sourceModes).some((mode) => !validSourceModes.has(mode))
+) {
+  throw new Error(`Invalid source mode: ${sourceMode}`)
+}
+
+const validSpellSourcePacks = new Set(['spells', 'focus', 'rituals'])
+if (!validSpellSourcePacks.has(spellSourcePack)) {
+  throw new Error(`Invalid spell source pack: ${spellSourcePack}`)
+}
+
 for (const [domain, limit] of Object.entries(limits)) {
   if (!Number.isInteger(limit) || limit <= 0) {
     throw new Error(`Invalid ${domain} limit: ${limit}`)
   }
 }
 
-for (const [domain, publication] of Object.entries({
-  items: publications.items,
-  spells: publications.spells,
+for (const [domain, domainPublications] of Object.entries({
+  items: itemPublications,
+  spells: spellPublications,
 })) {
-  if (!publication.trim()) throw new Error(`Invalid ${domain} publication: ${publication}`)
+  if (domainPublications.length === 0 || domainPublications.some((publication) => !publication)) {
+    throw new Error(`Invalid ${domain} publication list`)
+  }
 }
 
 if (
@@ -52,8 +93,20 @@ if (
 ) {
   throw new Error('Bestiary publications and source packs must be valid positional lists')
 }
+if (
+  (
+    bestiaryPublications.includes('ALL_REMAINING_LEGACY_BESTIARY')
+    || bestiarySourcePacks.includes('all-remaining')
+  )
+  && !terminalBestiaryReconciliation
+) {
+  throw new Error('Terminal Bestiary selectors must be used together')
+}
+if (terminalBestiaryReconciliation && sourceModes.bestiary !== 'LEGACY_ONLY') {
+  throw new Error('Terminal Bestiary reconciliation requires LEGACY_ONLY')
+}
 
-const bestiarySources = bestiaryPublications.map((publication, index) => ({
+const bestiarySources = terminalBestiaryReconciliation ? [] : bestiaryPublications.map((publication, index) => ({
   publication,
   sourcePack: bestiarySourcePacks[index],
   order: index,
@@ -117,9 +170,20 @@ function walkJson(directory) {
 
 function readGeneratedArray(path) {
   const source = readFileSync(path, 'utf8')
-  const assignment = source.indexOf(' = [', source.indexOf('export const'))
-  const start = assignment < 0 ? -1 : assignment + 3
-  const end = source.lastIndexOf('\n]')
+  const generatedChunks = [...source.matchAll(
+    /\/\* PF2E_GENERATED_CHUNK_START \*\/([\s\S]*?)\/\* PF2E_GENERATED_CHUNK_END \*\//g,
+  )]
+  if (generatedChunks.length > 0) {
+    return generatedChunks.flatMap((match) => JSON.parse(match[1]))
+  }
+  if (/export const[\s\S]*?=\s*\[\s*\]\s*$/.test(source)) return []
+
+  const exportStart = source.indexOf('export const')
+  const assignment = source.indexOf(' = [', exportStart)
+  const wrappedAssignment = source.indexOf('([', exportStart)
+  const wrapped = assignment < 0 && wrappedAssignment >= 0
+  const start = assignment >= 0 ? assignment + 3 : wrappedAssignment + 1
+  const end = source.lastIndexOf(wrapped ? '\n])' : '\n]')
   if (start < 0 || end < 0) throw new Error(`Generated array not found in ${path}`)
   return JSON.parse(source.slice(start, end + 2))
 }
@@ -259,7 +323,7 @@ function normalizeInlineText(value, context = {}) {
       return distance ? `${distance}-foot ${type}` : type
     })
     .replace(
-      /(\b\d+(?:\.\d+)?(?:d\d+(?:[+-]\d+)?)?)\[([^\]\n]+)\](?:\{[^}\n]*\})?(?:\s+damage)?/gi,
+      /\(?(\b\d+(?:\.\d+)?(?:d\d+(?:[+-]\d+)?)?)\)?\[([^\]\n]+)\](?:\{[^}\n]*\})?(?:\s+damage)?/gi,
       (_, formula, annotation) => {
         const tags = annotation.split('|')[0].split(',').map((tag) => tag.trim().toLowerCase())
         const persistent = tags.includes('persistent')
@@ -271,8 +335,22 @@ function normalizeInlineText(value, context = {}) {
         return type ? `${formula} ${type} damage` : formula
       },
     )
+    .replace(/\|options:[^\]\n]+\]/gi, '')
     .replace(/\{[^}\n]*\}/g, '')
     .replace(/@[a-z][a-z0-9_.]*/gi, 'effect value')
+}
+
+function formatActionCommand(value) {
+  const [action = 'action', ...options] = value.trim().split(/\s+/)
+  const difficultyClass = options
+    .map((option) => option.match(/^(?:dc|cd)=(\d+)$/i)?.[1])
+    .find(Boolean)
+  const label = action
+    .split('-')
+    .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
+    .join(' ')
+
+  return `${label}${difficultyClass ? ` DC ${difficultyClass}` : ''}`
 }
 
 function plainText(value = '', context = {}) {
@@ -281,7 +359,23 @@ function plainText(value = '', context = {}) {
       label ?? uuid.split('.').at(-1) ?? ''
     ))
     .replace(/@Check\[([^\]]+)\]/g, (_, check) => `check (${check.replaceAll('|', ', ')})`)
+    .replace(
+      /@Damage\[(\d+(?:\.\d+)?(?:d\d+(?:[+-]\d+)?)?)\[([^\]]+)\](?:\|[^\]]*)?\](?:\{[^}\n]*\})?/g,
+      (_, formula, annotation) => `${formula}[${annotation}]`,
+    )
     .replace(/@Damage\[([^\]]+)\]/g, (_, damage) => damage)
+    .replace(
+      /\[\[\/(?:r|gmr|br)\s+([^\]#]+?)(?:\s+#[^\]]*)?\]\](?:\{[^}\n]*\})?/gi,
+      (_, formula) => formula.trim(),
+    )
+    .replace(
+      /\[\[\/act\s+([^\]]+)\]\](?:\{[^}\n]*\})?/gi,
+      (_, action) => formatActionCommand(action),
+    )
+    .replace(
+      /\[\[\/([a-z][a-z0-9-]*)(?:\s+[^\]]*)?\]\](?:\{[^}\n]*\})?/gi,
+      (_, command) => command.replaceAll('-', ' '),
+    )
     .replace(/@Localize\[[^\]]+\]/g, '')
     .replace(/<(?:br|hr)\s*\/?>/gi, '\n')
     .replace(/<\/(?:p|div|li|tr|h\d)>/gi, '\n')
@@ -296,12 +390,22 @@ function plainText(value = '', context = {}) {
   return normalizeInlineText(text, context)
 }
 
+function normalizedPublicationTitle(publication) {
+  return typeof publication?.title === 'string' ? publication.title.trim() : ''
+}
+
+function matchesSourceMode(publication, mode) {
+  if (mode === 'REMASTER_ONLY') return publication?.remaster === true
+  if (mode === 'LEGACY_ONLY') return publication?.remaster === false
+  return true
+}
+
 function sourceIdentity(sourcePack, sourceId, slug, publication) {
   return {
     sourcePack,
     sourceId,
     slug,
-    publicationTitle: publication.title,
+    publicationTitle: normalizedPublicationTitle(publication),
     license: publication.license,
     remaster: publication.remaster,
   }
@@ -484,7 +588,9 @@ function normalizeBestiary(row) {
       cha: system.abilities.cha.mod,
     },
     skills: Object.fromEntries(
-      Object.entries(system.skills ?? {}).map(([key, skill]) => [key, skill.base]),
+      Object.entries(system.skills ?? {})
+        .filter(([, skill]) => Number.isFinite(skill.base))
+        .map(([key, skill]) => [key, skill.base]),
     ),
     languages: system.details.languages?.value ?? [],
     defenses: {
@@ -567,7 +673,7 @@ function normalizeSpell(row) {
     duration: system.duration?.value || (system.duration?.sustained ? 'sustained' : ''),
     defense: spellDefense(system.defense),
     damage: Object.values(system.damage ?? {}).map((damage) => ({
-      formula: damage.formula,
+      formula: normalizeInlineText(String(damage.formula), inlineContext),
       type: damage.type,
       kind: damage.kinds?.includes('healing')
         ? damage.kinds.includes('damage') ? 'damage-or-healing' : 'healing'
@@ -616,7 +722,15 @@ function normalizeItem(row) {
     group: system.group ?? system.baseItem ?? source.type,
   }
 
-  if (source.type === 'weapon' && system.damage) {
+  if (
+    source.type === 'weapon'
+    && system.damage
+    && Number.isFinite(system.damage.dice)
+    && typeof system.damage.die === 'string'
+    && system.damage.die.length > 0
+    && typeof system.damage.damageType === 'string'
+    && system.damage.damageType.length > 0
+  ) {
     normalized.damage = {
       dice: system.damage.dice,
       die: system.damage.die,
@@ -656,12 +770,33 @@ function originalRecord({ domain, contentId, source, raw, data, image }) {
   }
 }
 
-function select({ directory, publication, covered, limit, value, eligible = () => true }) {
+function select({
+  directory,
+  publications: publicationList,
+  publication,
+  covered,
+  limit,
+  value,
+  eligible = () => true,
+}) {
+  const publicationOrder = new Map(
+    publicationList.map((publicationTitle, index) => [publicationTitle, index]),
+  )
+
   return walkJson(directory)
     .map((file) => ({ file, ...readJson(file) }))
-    .filter((row) => publication(row.value) && eligible(row.value) && !covered.has(row.value._id))
+    .map((row) => ({
+      ...row,
+      publicationOrder: publicationOrder.get(publication(row.value)),
+    }))
+    .filter((row) => (
+      row.publicationOrder !== undefined
+      && eligible(row.value)
+      && !covered.has(row.value._id)
+    ))
     .sort((left, right) => (
-      value(left.value) - value(right.value)
+      left.publicationOrder - right.publicationOrder
+      || value(left.value) - value(right.value)
       || left.value._id.localeCompare(right.value._id)
     ))
     .slice(0, limit)
@@ -672,7 +807,8 @@ function selectBestiary({ sources, covered, limit }) {
     .flatMap((source) => walkJson(join(sourceRoot, `packs/pf2e/${source.sourcePack}`))
       .map((file) => ({ file, ...readJson(file), ...source })))
     .filter((row) => (
-      row.value.system?.details?.publication?.title === row.publication
+      normalizedPublicationTitle(row.value.system?.details?.publication) === row.publication
+      && matchesSourceMode(row.value.system?.details?.publication, sourceModes.bestiary)
       && (row.value.type === 'npc' || row.value.type === 'hazard')
       && !covered.has(row.value._id)
     ))
@@ -683,6 +819,38 @@ function selectBestiary({ sources, covered, limit }) {
       || left.value._id.localeCompare(right.value._id)
     ))
     .slice(0, limit)
+}
+
+function selectAllRemainingBestiary({ covered, limit }) {
+  const packsRoot = join(sourceRoot, 'packs/pf2e')
+  const candidates = readdirSync(packsRoot, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .flatMap((entry) => walkJson(join(packsRoot, entry.name))
+      .map((file) => ({
+        file,
+        ...readJson(file),
+        sourcePack: entry.name,
+      })))
+    .filter((row) => (
+      matchesSourceMode(row.value.system?.details?.publication, sourceModes.bestiary)
+      && (row.value.type === 'npc' || row.value.type === 'hazard')
+      && !covered.has(row.value._id)
+    ))
+    .sort((left, right) => (
+      normalizedPublicationTitle(left.value.system?.details?.publication)
+        .localeCompare(normalizedPublicationTitle(right.value.system?.details?.publication))
+      || left.value.system.details.level.value - right.value.system.details.level.value
+      || left.sourcePack.localeCompare(right.sourcePack)
+      || left.value._id.localeCompare(right.value._id)
+    ))
+
+  if (candidates.length > limit) {
+    throw new Error(
+      `Terminal Bestiary limit ${limit} leaves ${candidates.length - limit} eligible entries pending`,
+    )
+  }
+
+  return candidates
 }
 
 function serialize(value) {
@@ -701,7 +869,30 @@ function countByValue(records, value) {
 }
 
 function writeOriginals(path, typeImport, typeName, exportName, records) {
-  writeFileSync(path, `${typeImport}\n\nexport const ${exportName}: readonly Pathfinder2eOriginalContentRecord<${typeName}>[] = ${serialize(records)}\n`)
+  if (records.length <= 400) {
+    writeFileSync(path, `${typeImport}\n\nexport const ${exportName}: readonly Pathfinder2eOriginalContentRecord<${typeName}>[] = ${serialize(records)}\n`)
+    return
+  }
+
+  const valueImport = typeImport.replace(
+    "import type { Pathfinder2eOriginalContentRecord } from '../../records'",
+    "import { definePathfinder2eOriginalContentRecords } from '../../records'",
+  )
+  const chunks = Array.from(
+    { length: Math.ceil(records.length / 400) },
+    (_, index) => records.slice(index * 400, (index + 1) * 400),
+  )
+  const chunkDefinitions = chunks.map((chunk) => (
+    `  definePathfinder2eOriginalContentRecords<${typeName}>(`
+      + `/* PF2E_GENERATED_CHUNK_START */${serialize(chunk)}`
+      + '/* PF2E_GENERATED_CHUNK_END */)'
+  )).join(',\n')
+  writeFileSync(
+    path,
+    `${valueImport}\n\nconst ${exportName}_CHUNKS = [\n${chunkDefinitions}\n] as const\n\n`
+      + `export const ${exportName} = definePathfinder2eOriginalContentRecords<${typeName}>(`
+      + `${exportName}_CHUNKS.flat())\n`,
+  )
 }
 
 function writeTranslations(path, importPath, exportName, originals) {
@@ -715,7 +906,26 @@ function writeTranslations(path, importPath, exportName, originals) {
     status: 'NOT_STARTED',
     fields: {},
   }))
-  writeFileSync(path, `import type { Pathfinder2eContentTranslation } from '${importPath}'\n\nexport const ${exportName}: readonly Pathfinder2eContentTranslation[] = ${serialize(translations)}\n`)
+  if (translations.length <= 400) {
+    writeFileSync(path, `import type { Pathfinder2eContentTranslation } from '${importPath}'\n\nexport const ${exportName}: readonly Pathfinder2eContentTranslation[] = ${serialize(translations)}\n`)
+    return
+  }
+
+  writeFileSync(
+    path,
+    `import { definePathfinder2eContentTranslations } from '${importPath}'\n\n`
+      + `const ${exportName}_CHUNKS = [\n`
+      + Array.from(
+        { length: Math.ceil(translations.length / 400) },
+        (_, index) => translations.slice(index * 400, (index + 1) * 400),
+      ).map((chunk) => (
+        `  definePathfinder2eContentTranslations(`
+          + `/* PF2E_GENERATED_CHUNK_START */${serialize(chunk)}`
+          + '/* PF2E_GENERATED_CHUNK_END */)'
+      )).join(',\n')
+      + `\n] as const\n\nexport const ${exportName} = definePathfinder2eContentTranslations(`
+      + `${exportName}_CHUNKS.flat())\n`,
+  )
 }
 
 if (!existsSync(sourceRoot)) throw new Error(`PF2e source checkout not found: ${sourceRoot}`)
@@ -731,15 +941,22 @@ for (const directory of [
   mkdirSync(directory, { recursive: true })
 }
 
-const bestiaryRows = selectBestiary({
-  sources: bestiarySources,
-  covered: coveredSourceIds.bestiary,
-  limit: limits.bestiary,
-})
+const bestiaryRows = terminalBestiaryReconciliation
+  ? selectAllRemainingBestiary({
+      covered: coveredSourceIds.bestiary,
+      limit: limits.bestiary,
+    })
+  : selectBestiary({
+      sources: bestiarySources,
+      covered: coveredSourceIds.bestiary,
+      limit: limits.bestiary,
+    })
 
 const spellRows = select({
-  directory: join(sourceRoot, 'packs/pf2e/spells/spells'),
-  publication: (source) => source.system?.publication?.title === publications.spells,
+  directory: join(sourceRoot, 'packs/pf2e/spells', spellSourcePack),
+  publications: spellPublications,
+  publication: (source) => normalizedPublicationTitle(source.system?.publication),
+  eligible: (source) => matchesSourceMode(source.system?.publication, sourceModes.spells),
   covered: coveredSourceIds.spells,
   limit: limits.spells,
   value: (source) => source.system.level.value,
@@ -747,8 +964,12 @@ const spellRows = select({
 
 const itemRows = select({
   directory: join(sourceRoot, 'packs/pf2e/equipment'),
-  publication: (source) => source.system?.publication?.title === publications.items,
-  eligible: (source) => supportedItemTypes.has(source.type),
+  publications: itemPublications,
+  publication: (source) => normalizedPublicationTitle(source.system?.publication),
+  eligible: (source) => (
+    matchesSourceMode(source.system?.publication, sourceModes.items)
+    && supportedItemTypes.has(source.type)
+  ),
   covered: coveredSourceIds.items,
   limit: limits.items,
   value: (source) => source.system.level?.value ?? 0,
@@ -805,14 +1026,63 @@ const frozenIds = {
   spells: spells.map((entry) => entry.contentId),
   items: items.map((entry) => entry.contentId),
 }
-const normalizationWarnings = Object.fromEntries(
-  itemRows
-    .filter((row) => row.value.type === 'kit' && row.value.system.level === undefined)
-    .map((row) => [
-      `pf2e:item:equipment-srd:${slugFromFile(row.file)}`,
-      ['missing-source-level-defaulted-to-zero'],
-    ]),
-)
+const normalizationWarningMap = new Map()
+
+function addNormalizationWarning(contentId, warning) {
+  const warnings = normalizationWarningMap.get(contentId) ?? []
+  normalizationWarningMap.set(contentId, [...warnings, warning])
+}
+
+for (const row of itemRows) {
+  const contentId = `pf2e:item:equipment-srd:${slugFromFile(row.file)}`
+  if (row.value.type === 'kit' && row.value.system.level === undefined) {
+    addNormalizationWarning(contentId, 'missing-source-level-defaulted-to-zero')
+  }
+  if (row.value.system?.publication?.title !== normalizedPublicationTitle(row.value.system?.publication)) {
+    addNormalizationWarning(contentId, 'source-publication-title-trimmed')
+  }
+  if (
+    row.value.type === 'weapon'
+    && row.value.system.damage
+    && (
+      !Number.isFinite(row.value.system.damage.dice)
+      || typeof row.value.system.damage.die !== 'string'
+      || row.value.system.damage.die.length === 0
+      || typeof row.value.system.damage.damageType !== 'string'
+      || row.value.system.damage.damageType.length === 0
+    )
+  ) {
+    addNormalizationWarning(contentId, 'incomplete-weapon-damage-omitted')
+  }
+}
+
+for (const row of spellRows) {
+  if (row.value.system?.publication?.title !== normalizedPublicationTitle(row.value.system?.publication)) {
+    addNormalizationWarning(
+      `pf2e:spell:spells-srd:${slugFromFile(row.file)}`,
+      'source-publication-title-trimmed',
+    )
+  }
+}
+
+for (const row of bestiaryRows) {
+  const publication = row.value.system?.details?.publication
+  const contentId = `pf2e:bestiary:${row.sourcePack}:${slugFromFile(row.file)}`
+  if (publication?.title !== normalizedPublicationTitle(publication)) {
+    addNormalizationWarning(
+      contentId,
+      'source-publication-title-trimmed',
+    )
+  }
+  if (
+    row.value.type === 'npc'
+    && Object.values(row.value.system?.skills ?? {}).some((skill) => !Number.isFinite(skill.base))
+  ) {
+    addNormalizationWarning(contentId, 'invalid-source-skill-omitted')
+  }
+}
+
+const normalizationWarnings = Object.fromEntries(normalizationWarningMap)
 writeFileSync(
   join(outputRoot, `deliveries/${batchSlug}-ids.ts`),
   `export const PATHFINDER_2E_CORE_REMASTER_${batchExportToken}_IDS = ${serialize(frozenIds)} as const\n\n`
@@ -828,8 +1098,21 @@ console.log(JSON.stringify({
   batch: batchNumber,
   sourceCommit: expectedCommit,
   importerVersion,
-  publications,
-  bestiarySourcePacks,
+  sourceMode,
+  sourceModes,
+  terminalBestiaryReconciliation,
+  publications: {
+    ...publications,
+    bestiary: terminalBestiaryReconciliation
+      ? [...new Set(bestiaryRows.map((row) => (
+          normalizedPublicationTitle(row.value.system?.details?.publication)
+        )))]
+      : publications.bestiary,
+  },
+  bestiarySourcePacks: terminalBestiaryReconciliation
+    ? [...new Set(bestiaryRows.map((row) => row.sourcePack))]
+    : bestiarySourcePacks,
+  spellSourcePack,
   inputChecksum: sha256(checksumInput).slice('sha256:'.length),
   counts: {
     bestiary: bestiary.length,

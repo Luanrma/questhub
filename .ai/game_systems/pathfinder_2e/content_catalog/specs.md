@@ -147,6 +147,38 @@ Regras:
 - traduções ainda pendentes geram `Tradução em revisão` em `editorialStatus`;
 - o filtro `ready` continua usando o status persistido, mesmo sem tag visual.
 
+Defesas estruturadas de magias seguem o contrato determinístico abaixo:
+
+| Original `en-US` | Campo `defense` em `pt-BR` |
+| --- | --- |
+| `will save` | `teste de Vontade` |
+| `fortitude save` | `teste de Fortitude` |
+| `reflex save` | `teste de Reflexos` |
+| `basic will save` | `teste básico de Vontade` |
+| `basic fortitude save` | `teste básico de Fortitude` |
+| `basic reflex save` | `teste básico de Reflexos` |
+| `fortitude-dc` | `CD de Fortitude` |
+| `ac` | `CA` |
+
+O importador não envia esses valores ao tradutor automático. Na apresentação,
+o adapter deriva novamente o texto a partir do original para proteger lotes
+anteriores contra traduções literais como `vai salvar`.
+
+Nomes de ações incorporadas que representam modificadores mecânicos também
+devem ser traduzidos deterministicamente a partir do original. Construções
+como `Saves vs.`, `Will Saves vs.` e `AC vs.` usam, respectivamente, `testes
+de resistência contra`, `testes de Vontade contra` e `CA contra`; tipos de
+bônus e alvos do modificador devem ser preservados. Esses nomes não podem ser
+publicados truncados em `vs.`, com `Will Saves` ou com `salvamentos`.
+
+Como `magia` é um substantivo feminino, os overlays `pt-BR` devem normalizar
+determinantes imediatamente associados ao termo. Isso inclui artigos,
+demonstrativos, numerais indefinidos e contrações: `o magia` → `a magia`,
+`este magia` → `esta magia`, `um magia` → `uma magia`, `do magia` → `da
+magia`, com as mesmas correções para plural e capitalização. A regra deve ser
+idempotente, atuar somente diante de `magia` ou `magias` e ser aplicada tanto
+às novas traduções quanto à sanitização dos lotes anteriores.
+
 ### 5.1. Texto apresentado
 
 O texto entregue ao contrato neutro do catálogo deve estar livre de comandos
@@ -165,14 +197,20 @@ type Pathfinder2eInlineTextContext = {
 O adapter Pathfinder deve:
 
 - resolver `@item.level` e `@item.rank` com o nível ou Rank do registro;
+- aplicar a mesma resolução às fórmulas estruturadas de dano ou cura de
+  Spells, tanto durante a normalização quanto na fronteira de apresentação;
 - calcular operações aritméticas suportadas de forma determinística e sem
   executar código arbitrário;
 - converter `@Template[type|distance:N]` em uma descrição textual da área;
 - converter anotações de dano como `[bleed]` e `[persistent,fire]` em texto
   legível;
+- reduzir comandos enriquecidos `[[/r ...]]`, `[[/gmr ...]]` e `[[/br ...]]`
+  à fórmula exibível;
+- converter `[[/act ... dc=N]]` em nome de ação legível com a CD preservada;
+- descartar opções de automação de `@Damage` depois de preservar fórmula e tipo;
 - remover rótulos auxiliares de rolagem delimitados por `{...}`;
 - garantir que `name`, `description`, campos da ficha e textos de ações não
-  exponham tokens iniciados por `@`.
+  exponham tokens iniciados por `@` ou comandos iniciados por `[[/`.
 
 Para `Grim Tendrils` no Rank 1, por exemplo:
 
@@ -314,10 +352,29 @@ type ContentRound = {
     spells: string[]
     items: string[]
   }
+  exhaustedDomains?: Pathfinder2eContentDomain[]
+  terminalReconciliation?: boolean
 }
 ```
 
-Antes de `SOURCE_LOCKED`, `frozenEntryIds` pode estar vazio. Depois disso, a seleção deve estar congelada e possuir ao menos uma entrada em cada domínio.
+Antes de `SOURCE_LOCKED`, `frozenEntryIds` pode estar vazio. Depois disso, a
+seleção deve estar congelada e possuir ao menos uma entrada em cada domínio
+que ainda tenha registros elegíveis. Um domínio pode ficar vazio somente se:
+
+1. a reconciliação integral com a fonte travada comprovar saldo zero;
+2. o domínio estiver explicitamente listado em `exhaustedDomains`;
+3. seu array em `frozenEntryIds` estiver vazio;
+4. nenhum registro duplicado ou placeholder for criado para preencher a
+   rodada.
+
+`terminalReconciliation = true` autoriza uma seleção acima do limite normal
+somente para o último domínio pendente. O contrato exige:
+
+1. ao menos um domínio com seleção acima do limite corrente;
+2. todos os demais domínios listados em `exhaustedDomains`;
+3. inventário e source lock determinísticos;
+4. seleção integral do saldo, sem corte parcial;
+5. zero registros elegíveis pendentes após a integração.
 
 `level` e `rank` são filtros de inventário, não declarações automáticas de
 cobertura. Uma faixa só é concluída quando todos os IDs elegíveis dentro dela
@@ -343,6 +400,22 @@ O programa `LEGACY_OGL` recebe registros com `remaster = false`. O valor
 editorialmente Remaster preservam a licença declarada pela fonte e permanecem
 no programa correspondente à publicação.
 
+O modo de elegibilidade da importação deve ser explícito:
+
+- `REMASTER_ONLY` aceita somente registros com `publication.remaster = true`;
+- `LEGACY_ONLY` aceita somente registros com `publication.remaster = false`;
+- `ANY` existe apenas para reproduzir lotes históricos anteriores.
+
+Esse filtro ocorre antes da precedência de publicação, nível/Rank e identidade
+da fonte. Registros de títulos mistos permanecem no cursor do programa
+correspondente ao próprio indicador editorial.
+
+O argumento pode declarar modos independentes na ordem
+`Items|Spells|Bestiário`. O importador deve validar as três posições e aplicar
+cada modo exclusivamente ao respectivo domínio. Um modo único equivale a
+repeti-lo nas três posições. Isso preserva o avanço independente quando um
+domínio já esgotou Remaster e avançou para Legacy/OGL antes dos demais.
+
 ## 8. Regra para publicação sem os três domínios
 
 Se uma publicação possuir apenas um ou dois domínios:
@@ -352,6 +425,14 @@ Se uma publicação possuir apenas um ou dois domínios:
 3. interromper o agrupamento assim que houver ao menos uma entrada nos três domínios;
 4. respeitar os limites máximos da rodada;
 5. se os limites forem excedidos, dividir por nível/rank mantendo todos os domínios em cada divisão.
+
+A divisão do item 5 não se aplica à reconciliação terminal explicitamente
+solicitada e marcada por `terminalReconciliation = true`.
+
+Essa regra deixa de exigir uma entrada apenas para domínios já comprovadamente
+esgotados no inventário global. As rodadas terminais continuam declarando os
+três seletores, mas `frozenEntryIds` permanece vazio nos domínios listados em
+`exhaustedDomains`.
 
 ## 9. Próxima rodada
 
@@ -392,7 +473,8 @@ Regras:
   identificados pela trait `cantrip` e pelo Rank normalizado da fonte;
 - ordenar primeiro pelo valor crescente e depois por `sourcePack + sourceId`;
 - excluir somente IDs publicados ou rejeitados com justificativa;
-- selecionar no máximo 100 criaturas, 40 magias e 100 itens por lote;
+- selecionar no máximo 400 entradas de Bestiário, 200 magias e 400 itens por
+  lote;
 - não selecionar valor superior enquanto houver entrada elegível pendente em
   qualquer valor inferior do mesmo domínio;
 - os três cursores avançam independentemente;
@@ -411,6 +493,13 @@ Regras:
   publicação quando ele não for `pathfinder-monster-core`;
 - o pack técnico informado compõe `sourcePack`, `contentId` e o diretório de
   leitura, sem inferência por nome aproximado;
+- a importação de Spells deve receber um seletor técnico exato
+  (`spells`, `focus` ou `rituals`) quando não usar o diretório ordinário;
+- o seletor de Spells altera somente o subdiretório de leitura em
+  `packs/pf2e/spells/` e o relatório de importação; `sourcePack` e `contentId`
+  continuam usando `spells-srd`;
+- uma execução seleciona um único diretório técnico de Spells, sem inferência
+  por publicação;
 - toda entrega continua contendo os três domínios.
 
 Quando uma cobertura de Bestiário combina packs, a ordem editorial dos packs
@@ -449,11 +538,27 @@ systems/pf2e/icons/<relativePath>
 
 A rota só é emitida se `<relativePath>` existir no repositório QuestHub.
 
-Da Cobertura exaustiva 02 em diante, cada lote seleciona até 100 entradas de
-Bestiário, 40 magias e 100 itens. Quando as publicações correntes possuem menos
-entradas elegíveis pendentes, o domínio encerra abaixo do limite sem criar
-registros artificiais. Os IDs dos pilotos e de todas as coberturas exaustivas
-anteriores devem ser descontados antes da ordenação e do corte do lote.
+Da Cobertura exaustiva 02 até a 15, cada lote seleciona até 100 entradas de
+Bestiário, 40 magias e 100 itens. A partir da Cobertura exaustiva 16, os limites
+passam a `200 / 100 / 200`; na Cobertura exaustiva 17, passam a
+`400 / 200 / 400`. Quando as publicações correntes possuem menos entradas
+elegíveis pendentes, o domínio encerra abaixo do limite sem criar registros
+artificiais. Os IDs dos pilotos e de todas as coberturas exaustivas anteriores
+devem ser descontados antes da ordenação e do corte do lote.
+
+Quando um domínio recebe mais de uma publicação, a seleção é ordenada por:
+
+1. posição da publicação na lista editorial explícita;
+2. nível ou Rank crescente dentro da publicação;
+3. identidade estável da fonte.
+
+Uma publicação posterior nunca pode intercalar registros com a publicação
+corrente, ainda que possua níveis ou Ranks menores.
+
+O título editorial normalizado usa `publication.title.trim()`. Quando a fonte
+contiver whitespace externo, o registro preserva o hash do documento bruto,
+persiste o título sem whitespace e recebe o aviso
+`source-publication-title-trimmed` no manifesto de importação.
 
 A normalização de criaturas preserva conjuração incorporada. Cada entrada de
 conjuração mantém ID, nome, tradição, categoria, CD, modificador de ataque e a
@@ -466,6 +571,12 @@ primeira velocidade alternativa finita na ordem original (por exemplo, voo de
 uma criatura incorpórea). Se a fonte não fornecer nenhuma velocidade numérica,
 o valor normalizado é `0`. Essa adaptação preserva a capacidade de exibição do
 contrato atual sem introduzir automação de movimento no VTT.
+
+`skills` contém somente modificadores numéricos finitos; entradas inválidas são
+omitidas com aviso, nunca convertidas em zero. O bloco opcional `damage` de
+Items só é emitido quando quantidade de dados, dado e tipo estão completos.
+Estruturas incompletas são omitidas com aviso, preservando integralmente a
+descrição textual da fonte.
 
 ## 10. Relatório de cobertura
 

@@ -8,6 +8,7 @@ import type {
 } from '../../catalog'
 import type { Pathfinder2eContentEntry } from './content-entry'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
+import { resolvePathfinder2eInlineText } from './inline-text'
 import { pathfinder2eContentCatalogProvider } from './provider'
 import {
   translatePathfinder2eRarity,
@@ -190,9 +191,17 @@ function localizeSpellEffects(
 ): readonly GameSystemCatalogSheetField[] {
   const data = asRecord(entry.original.data)
   const damages = Array.isArray(data.damage) ? data.damage.map(asRecord) : []
+  const rank = asNumber(data.rank) ?? asNumber(data.level) ?? undefined
 
   return damages.map((damage, index) => {
-    const formula = asText(damage.formula)
+    const formulaValue = asText(damage.formula)
+    const formula = formulaValue
+      ? resolvePathfinder2eInlineText(formulaValue, {
+          locale,
+          itemLevel: rank,
+          itemRank: rank,
+        })
+      : null
     const type = asText(damage.type)
     const kind = asText(damage.kind)
     const localizedType = type

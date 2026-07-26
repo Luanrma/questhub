@@ -9,7 +9,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção do Disfarce (Menor)",
-      "description": "Ativar 1 (manipular)\nAo absorver esta poção, você assume a aparência de um tipo específico de criatura por [[/br 2d12 #hours]]{2d12 horas}. O tipo de criatura é determinado quando a poção é criada. Por exemplo, você pode ter uma poção de disfarce de elfo ou uma poção de disfarce de sapo. Beber a poção não transmite o conhecimento de quanto tempo dura o efeito; o GM rola a duração em segredo.\nO disfarce não altera suas características ou estatísticas, nem lhe dá nenhuma das habilidades especiais da criatura que você está imitando. Isso pode afetar quais itens você pode segurar ou usar (por exemplo, sua nova forma pode não ter polegares oponíveis). A poção reduz você ao tamanho mínimo Pequeno, ou mantém seu tamanho se a criatura for do seu tamanho ou maior. Por exemplo, se você for Médio e beber uma poção de disfarce de gigante de fogo, você assumirá a aparência de um gigante de fogo, mas permanecerá Médio. A criatura deve ser de um tipo específico, como \"leopardo\" ou \"leão\" em vez de apenas \"gato\", ou \"gigante de fogo\" ou \"ogro\" em vez de apenas \"gigante\", mas a poção não pode fazer com que você imite uma criatura individual específica.\nOs efeitos desta poção usam as mesmas regras da atividade Personificação de Enganação. Os espectadores sempre presumem que você é o tipo de criatura escolhido, a menos que estejam ativamente em Busca. Você ganha um bônus de status de +4 em sua CD de Enganação contra tais testes de Percepção e adiciona seu nível mesmo se não for treinado.\nRequisitos de artesanato As matérias-primas iniciais devem incluir um pouco de sangue, cabelo ou carne da criatura que a poção permitirá ao bebedor imitar.",
+      "description": "Ativar 1 (manipular)\nAo absorver esta poção, você assume a aparência de um tipo específico de criatura por 2d12. O tipo de criatura é determinado quando a poção é criada. Por exemplo, você pode ter uma poção de disfarce de elfo ou uma poção de disfarce de sapo. Beber a poção não transmite o conhecimento de quanto tempo dura o efeito; o GM rola a duração em segredo.\nO disfarce não altera suas características ou estatísticas, nem lhe dá nenhuma das habilidades especiais da criatura que você está imitando. Isso pode afetar quais itens você pode segurar ou usar (por exemplo, sua nova forma pode não ter polegares oponíveis). A poção reduz você ao tamanho mínimo Pequeno, ou mantém seu tamanho se a criatura for do seu tamanho ou maior. Por exemplo, se você for Médio e beber uma poção de disfarce de gigante de fogo, você assumirá a aparência de um gigante de fogo, mas permanecerá Médio. A criatura deve ser de um tipo específico, como \"leopardo\" ou \"leão\" em vez de apenas \"gato\", ou \"gigante de fogo\" ou \"ogro\" em vez de apenas \"gigante\", mas a poção não pode fazer com que você imite uma criatura individual específica.\nOs efeitos desta poção usam as mesmas regras da atividade Personificação de Enganação. Os espectadores sempre presumem que você é o tipo de criatura escolhido, a menos que estejam ativamente em Busca. Você ganha um bônus de status de +4 em sua CD de Enganação contra tais testes de Percepção e adiciona seu nível mesmo se não for treinado.\nRequisitos de artesanato As matérias-primas iniciais devem incluir um pouco de sangue, cabelo ou carne da criatura que a poção permitirá ao bebedor imitar.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -24,7 +24,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Solvente Absoluto (Menor)",
-      "description": "Ativar 1 (manipular)\nOriginalmente formulado como um meio de dissolver o Adesivo Eterno, este poderoso solvente pode quebrar a aderência de quase qualquer adesivo. Como o solvente absoluto é particularmente eficaz contra o adesivo permanente, ele dissolve automaticamente o adesivo permanente. Ele tenta neutralizar qualquer outro adesivo, como Bombas de Cola, no 3º Rank e tem um modificador de neutralização de [[/r 1d20+9 #Counteract]]{+9}.",
+      "description": "Ativar 1 (manipular)\nOriginalmente formulado como um meio de dissolver o Adesivo Eterno, este poderoso solvente pode quebrar a aderência de quase qualquer adesivo. Como o solvente absoluto é particularmente eficaz contra o adesivo permanente, ele dissolve automaticamente o adesivo permanente. Ele tenta neutralizar qualquer outro adesivo, como Bombas de Cola, no 3º Rank e tem um modificador de neutralização de 1d20+9.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -84,7 +84,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Tempestade",
-      "description": "Um cajado da tempestade geralmente é feito da madeira de uma árvore atingida por um raio. Muitas vezes é retorcido e enegrecido com faíscas ocasionais de eletricidade brilhando em seu comprimento. Ao empunhar o cajado, sua visão fica menos inibida por tempestades. Enquanto você segura o cajado, você ignora a condição Oculto de névoa, precipitação e coisas do gênero.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Arco Elétrico Cantrip\n• 1º Empurrão Hidráulico, Thunderstrike\n• 2ª Névoa, Resistir Energia (somente eletricidade), Thunderstrike\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um cajado da tempestade geralmente é feito da madeira de uma árvore atingida por um raio. Muitas vezes é retorcido e enegrecido com faíscas ocasionais de eletricidade brilhando em seu comprimento. Ao empunhar o cajado, sua visão fica menos inibida por tempestades. Enquanto você segura o cajado, você ignora a condição Oculto de névoa, precipitação e coisas do gênero.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Arco Elétrico Cantrip\n• 1º Empurrão Hidráulico, Thunderstrike\n• 2ª Névoa, Resistir Energia (somente eletricidade), Thunderstrike\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -250,7 +250,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado das Visões Impossíveis",
-      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -266,7 +266,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Providência",
-      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -282,7 +282,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Noite Desesperada (2º magia Rank)",
-      "description": "Esta varinha é um pedaço de ferro preto forjado.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Escuridão no 2º Rank. Cada criatura que termina seu turno dentro da área da magia deve ser bem sucedida em um teste (vontade, dc:20) ou ficará Amedrontada 1 (Assustada 2 em caso de falha crítica).\nRequisitos de criação Forneça um lançamento de escuridão no 2º Rank.",
+      "description": "Esta varinha é um pedaço de ferro preto forjado.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Escuridão no 2º Rank. Cada criatura que termina seu turno dentro da área da magia deve ser bem sucedida em um teste (vontade, dc:20) ou ficará Amedrontada 1 (Assustada 2 em caso de falha crítica).\nRequisitos de criação Forneça um lançamento de escuridão no 2º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -357,7 +357,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pomada para Ponto de Pele",
-      "description": "Esta pomada pegajosa mantém teimosamente as feridas fechadas e estimula a rápida cura natural. Você pode ativar a pomada de uma das seguintes maneiras.\nAtivar—Administrar Ponto 1 (manipular)\nEfeito Você administra primeiros socorros sem precisar do kit de ferramentas do curandeiro. Você ganha um bônus de item de +2 no teste de Medicina ou pode usar o modificador de Medicina da pomada de ponto de pele de [[/r 1d20+13]] em vez do seu próprio.\nAtivar—Costurar Feridas f (manipular)\nAcione você para tratar feridas ou use remédio de batalha\nEfeito Você ganha +2 de bônus de item no teste de Medicina. Se você obtiver sucesso no teste de Medicina, em vez disso obterá um sucesso crítico.\nEfeito: pomada para pontos de pele",
+      "description": "Esta pomada pegajosa mantém teimosamente as feridas fechadas e estimula a rápida cura natural. Você pode ativar a pomada de uma das seguintes maneiras.\nAtivar—Administrar Ponto 1 (manipular)\nEfeito Você administra primeiros socorros sem precisar do kit de ferramentas do curandeiro. Você ganha um bônus de item de +2 no teste de Medicina ou pode usar o modificador de Medicina da pomada de ponto de pele de 1d20+13 em vez do seu próprio.\nAtivar—Costurar Feridas f (manipular)\nAcione você para tratar feridas ou use remédio de batalha\nEfeito Você ganha +2 de bônus de item no teste de Medicina. Se você obtiver sucesso no teste de Medicina, em vez disso obterá um sucesso crítico.\nEfeito: pomada para pontos de pele",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -387,7 +387,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Aranha (2º magia Rank)",
-      "description": "O comprimento desta varinha é um par de pernas de aranha gigante retorcidas.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você conjura Teia no 2º Rank, mas os fios da teia são tóxicos. Qualquer criatura que falhe no teste de Atletismo ou no teste de Reflexos para navegar na teia sofre 1d6[veneno] de dano.\nRequisitos de artesanato Forneça uma fundição de teia no 2º Rank.",
+      "description": "O comprimento desta varinha é um par de pernas de aranha gigante retorcidas.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você conjura Teia no 2º Rank, mas os fios da teia são tóxicos. Qualquer criatura que falhe no teste de Atletismo ou no teste de Reflexos para navegar na teia sofre 1d6[veneno] de dano.\nRequisitos de artesanato Forneça uma fundição de teia no 2º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -448,7 +448,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção do Disfarce (Moderado)",
-      "description": "Ativar 1 (manipular)\nAo absorver esta poção, você assume a aparência de um tipo específico de criatura por [[/br 2d12 #hours]]{2d12 horas}. O tipo de criatura é determinado quando a poção é criada. Por exemplo, você pode ter uma poção de disfarce de elfo ou uma poção de disfarce de sapo. Beber a poção não transmite o conhecimento de quanto tempo dura o efeito; o GM rola a duração em segredo.\nO disfarce não altera suas características ou estatísticas, nem lhe dá nenhuma das habilidades especiais da criatura que você está imitando. Isso pode afetar quais itens você pode segurar ou usar (por exemplo, sua nova forma pode não ter polegares oponíveis). A poção reduz você ao tamanho mínimo de Tiny, ou aumenta seu tamanho se a criatura for maior que você, até um máximo de Large. Isso não altera nenhuma de suas estatísticas, com exceção de reduzir seu alcance para 0 como uma criatura Minúscula. A criatura deve ser de um tipo específico, como \"leopardo\" ou \"leão\" em vez de apenas \"gato\", ou \"gigante de fogo\" ou \"ogro\" em vez de apenas \"gigante\", mas a poção não pode fazer com que você imite uma criatura individual específica.\nOs efeitos desta poção usam as mesmas regras da atividade Personificação de Enganação. Os espectadores sempre presumem que você é o tipo de criatura escolhido, a menos que estejam ativamente em Busca. Você ganha um bônus de status de +4 em sua CD de Enganação contra tais testes de Percepção e adiciona seu nível mesmo se não for treinado.\nRequisitos de artesanato As matérias-primas iniciais devem incluir um pouco de sangue, cabelo ou carne da criatura que a poção permitirá ao bebedor imitar.",
+      "description": "Ativar 1 (manipular)\nAo absorver esta poção, você assume a aparência de um tipo específico de criatura por 2d12. O tipo de criatura é determinado quando a poção é criada. Por exemplo, você pode ter uma poção de disfarce de elfo ou uma poção de disfarce de sapo. Beber a poção não transmite o conhecimento de quanto tempo dura o efeito; o GM rola a duração em segredo.\nO disfarce não altera suas características ou estatísticas, nem lhe dá nenhuma das habilidades especiais da criatura que você está imitando. Isso pode afetar quais itens você pode segurar ou usar (por exemplo, sua nova forma pode não ter polegares oponíveis). A poção reduz você ao tamanho mínimo de Tiny, ou aumenta seu tamanho se a criatura for maior que você, até um máximo de Large. Isso não altera nenhuma de suas estatísticas, com exceção de reduzir seu alcance para 0 como uma criatura Minúscula. A criatura deve ser de um tipo específico, como \"leopardo\" ou \"leão\" em vez de apenas \"gato\", ou \"gigante de fogo\" ou \"ogro\" em vez de apenas \"gigante\", mas a poção não pode fazer com que você imite uma criatura individual específica.\nOs efeitos desta poção usam as mesmas regras da atividade Personificação de Enganação. Os espectadores sempre presumem que você é o tipo de criatura escolhido, a menos que estejam ativamente em Busca. Você ganha um bônus de status de +4 em sua CD de Enganação contra tais testes de Percepção e adiciona seu nível mesmo se não for treinado.\nRequisitos de artesanato As matérias-primas iniciais devem incluir um pouco de sangue, cabelo ou carne da criatura que a poção permitirá ao bebedor imitar.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -524,7 +524,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Bolas de Fogo Fumegantes (3º magia Rank)",
-      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 3º Rank. Cada criatura que falhar no teste sofre 1d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 3º Rank.",
+      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 3º Rank. Cada criatura que falhar no teste sofre 1d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 3º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -569,7 +569,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha do Relâmpago Crepitante (magia de 3º Rank)",
-      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 3º Rank, mas a área do magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de raio no 3º Rank.",
+      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 3º Rank, mas a área da magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de raio no 3º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -584,7 +584,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha de agarramento",
-      "description": "Você prepara vinhas e cordas para manter uma criatura no lugar. A primeira criatura a entrar no quadrado deve tentar um teste de resistência (reflexo, showDC:all, dc:26) com os seguintes efeitos.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre uma penalidade de status de -1,5 metro em sua Velocidade por 1 minuto ou até [[/act escape show-dc=all dc=26]]{Escape}.\nFalha A criatura fica Imobilizada por 1 rodada e depois sofre uma penalidade de –1,5 metro em sua Velocidade por 1 minuto. Ambos os efeitos terminam mais cedo se escapar (CD 26).\nFalha Crítica A criatura fica imobilizada por 1 minuto ou até escapar (CD 26).\nEfeito: Armadilha de Agarrar",
+      "description": "Você prepara vinhas e cordas para manter uma criatura no lugar. A primeira criatura a entrar no quadrado deve tentar um teste de resistência (reflexo, showDC:all, dc:26) com os seguintes efeitos.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre uma penalidade de status de -1,5 metro em sua Velocidade por 1 minuto ou até Escapar CD 26.\nFalha A criatura fica Imobilizada por 1 rodada e depois sofre uma penalidade de –1,5 metro em sua Velocidade por 1 minuto. Ambos os efeitos terminam mais cedo se escapar (CD 26).\nFalha Crítica A criatura fica imobilizada por 1 minuto ou até escapar (CD 26).\nEfeito: Armadilha de Agarrar",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -599,7 +599,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Soro Surging (Moderado)",
-      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 4º Rank e um [[/r 1d20+14 #Counteract]]{+14 modificador de contra-ataque}.",
+      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 4º Rank e um 1d20+14.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -629,7 +629,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Catarse Engarrafada (Moderada)",
-      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar no 4º-Rank e tem um modificador de neutralização [[/r 1d20+14 #Counteract]]{+14} para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o Rank de neutralização listado e o modificador.",
+      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar no 4º-Rank e tem um modificador de neutralização 1d20+14 para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o Rank de neutralização listado e o modificador.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -644,7 +644,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Urna de Cinzas",
-      "description": "Esta urna de estanho selada contém as cinzas de um ancestral benevolente, com um resquício de espírito persistente que se esforça para protegê-lo.\nAtivar—Doom the Urn r (concentrado)\nGatilho Você ficaria Condenado ou seu valor condenado aumentaria\nRequisitos As cinzas não estão condenadas\nEfeito As cinzas na urna intervêm, assumindo a condição de condenado em seu lugar, e você não ganha nem aumenta o valor de sua condição de condenado. Cada noite, quando você descansa uma noite inteira, você pode reduzir sua própria condição condenada ou a da urna, mas não ambas.\nAtivar – Ira do Espírito 1 (atacar, concentrar, manipular)\nFrequência uma vez por rodada\nEfeito A urna dispara um raio de energia do vazio em um inimigo dentro de 30 pés (9 metros). Tente uma jogada de ataque mágico contra a CA do alvo, usando um modificador de [[/r 1d20+15 #Spell]]{+15} ou seu próprio modificador de ataque mágico, o que for maior. Em caso de sucesso, o raio causa 4d4[void] de dano (dobrado em caso de sucesso crítico).",
+      "description": "Esta urna de estanho selada contém as cinzas de um ancestral benevolente, com um resquício de espírito persistente que se esforça para protegê-lo.\nAtivar—Doom the Urn r (concentrado)\nGatilho Você ficaria Condenado ou seu valor condenado aumentaria\nRequisitos As cinzas não estão condenadas\nEfeito As cinzas na urna intervêm, assumindo a condição de condenado em seu lugar, e você não ganha nem aumenta o valor de sua condição de condenado. Cada noite, quando você descansa uma noite inteira, você pode reduzir sua própria condição condenada ou a da urna, mas não ambas.\nAtivar – Ira do Espírito 1 (atacar, concentrar, manipular)\nFrequência uma vez por rodada\nEfeito A urna dispara um raio de energia do vazio em um inimigo dentro de 30 pés (9 metros). Tente uma jogada de ataque mágico contra a CA do alvo, usando um modificador de 1d20+15 ou seu próprio modificador de ataque mágico, o que for maior. Em caso de sucesso, o raio causa 4d4[void] de dano (dobrado em caso de sucesso crítico).",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -719,7 +719,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Vida Transbordante (magia de 3º Rank)",
-      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 3º Rank.\nDepois de lançar o magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 3º Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 3º Rank.",
+      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 3º Rank.\nDepois de lançar a magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 3º Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 3º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -749,7 +749,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Disfarce do Diabo Sorridente",
-      "description": "Esta meia máscara azul-gelo é adornada com um sorriso prateado perverso que cobre a boca do usuário, deixando o resto do rosto descoberto. Você ganha +2 de bônus de item em testes de Intimidação.\nAtivar—Hideous Wail 2 (concentrar, manipular)\nFrequência uma vez por dia\nEfeito A máscara emite um grito de arrepiar a alma que causa 6d10[void|options:area-damage] de dano a cada criatura viva em um @Template[emanation|distance:20] (check (fortitude, dc:25, basic, options:area-effect) save).\nRequisitos de criação Forneça um elenco de Lamentos dos Amaldiçoados.",
+      "description": "Esta meia máscara azul-gelo é adornada com um sorriso prateado perverso que cobre a boca do usuário, deixando o resto do rosto descoberto. Você ganha +2 de bônus de item em testes de Intimidação.\nAtivar—Hideous Wail 2 (concentrar, manipular)\nFrequência uma vez por dia\nEfeito A máscara emite um grito de arrepiar a alma que causa 6d10[void de dano a cada criatura viva em um @Template[emanation|distance:20] (check (fortitude, dc:25, basic, options:area-effect) save).\nRequisitos de criação Forneça um elenco de Lamentos dos Amaldiçoados.",
       "itemType": "equipamento",
       "usage": "máscara usada",
       "category": "equipamento",
@@ -779,7 +779,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Véu Prognóstico",
-      "description": "Este véu roxo transparente é bordado com símbolos de significado divinatório. À medida que sua maldição piora, o véu ondula em um vento invisível cada vez maior. Você ganha +2 de bônus de item em testes de Religião.\nAtivar - Lembre-se do Futuro f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia de revelação. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Torcer as Meadas do Destino (concentrar)\nFrequência uma vez por dia\nAcionamento Um aliado dentro de 30 pés (9 metros) está prestes a tentar um teste de resistência\nRequisitos Você tem a condição Cursebound\nEfeito O aliado ganha um bônus de status no teste de resistência igual ao valor de sua condição amaldiçoada.\nEfeito: Torcer as Meadas do Destino\nRequisitos de artesanato Você é um oráculo.",
+      "description": "Este véu roxo transparente é bordado com símbolos de significado divinatório. À medida que sua maldição piora, o véu ondula em um vento invisível cada vez maior. Você ganha +2 de bônus de item em testes de Religião.\nAtivar - Lembre-se do Futuro f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia de revelação. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Torcer as Meadas do Destino (concentrar)\nFrequência uma vez por dia\nAcionamento Um aliado dentro de 30 pés (9 metros) está prestes a tentar um teste de resistência\nRequisitos Você tem a condição Cursebound\nEfeito O aliado ganha um bônus de status no teste de resistência igual ao valor de sua condição amaldiçoada.\nEfeito: Torcer as Meadas do Destino\nRequisitos de artesanato Você é um oráculo.",
       "itemType": "equipamento",
       "usage": "máscara usada",
       "category": "equipamento",
@@ -794,7 +794,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Tempestade (Maior)",
-      "description": "Um cajado da tempestade geralmente é feito da madeira de uma árvore atingida por um raio. Muitas vezes é retorcido e enegrecido com faíscas ocasionais de eletricidade brilhando em seu comprimento. Ao empunhar o cajado, sua visão fica menos inibida por tempestades. Enquanto você segura o cajado, você ignora a condição Oculto de névoa, precipitação e coisas do gênero.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Arco Elétrico Cantrip\n• 1º Empurrão Hidráulico, Thunderstrike\n• 2ª Névoa, Resistir Energia (somente eletricidade), Thunderstrike\n• 3º Relâmpago, Muralha de Vento\n• 4ª Torrente Hidráulica, Relâmpago\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um cajado da tempestade geralmente é feito da madeira de uma árvore atingida por um raio. Muitas vezes é retorcido e enegrecido com faíscas ocasionais de eletricidade brilhando em seu comprimento. Ao empunhar o cajado, sua visão fica menos inibida por tempestades. Enquanto você segura o cajado, você ignora a condição Oculto de névoa, precipitação e coisas do gênero.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Arco Elétrico Cantrip\n• 1º Empurrão Hidráulico, Thunderstrike\n• 2ª Névoa, Resistir Energia (somente eletricidade), Thunderstrike\n• 3º Relâmpago, Muralha de Vento\n• 4ª Torrente Hidráulica, Relâmpago\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -810,7 +810,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Noite Desesperada (magia 4º Rank)",
-      "description": "Esta varinha é um pedaço de ferro preto forjado.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Escuridão no 4º Rank. Cada criatura que termina seu turno dentro da área da magia deve ser bem sucedida em um teste (fará, dc:27) ou ficará Amedrontada 1 (Assustada 2 em uma falha crítica).\nRequisitos de criação Forneça um lançamento de escuridão no 4º Rank.",
+      "description": "Esta varinha é um pedaço de ferro preto forjado.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Escuridão no 4º Rank. Cada criatura que termina seu turno dentro da área da magia deve ser bem sucedida em um teste (fará, dc:27) ou ficará Amedrontada 1 (Assustada 2 em uma falha crítica).\nRequisitos de criação Forneça um lançamento de escuridão no 4º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -825,7 +825,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha de Pedra de Lama",
-      "description": "A argila queimada cobre um poço raso de lama fina intercalada com frascos frágeis de um agente de secagem rápida. A primeira criatura a pisar no quadrado rompe a argila e afunda na cova, fraturando os frascos e liberando os produtos químicos que endurecem a lama. Essa criatura deve tentar um teste (fortitude, showDC:all, dc:29) salvo enquanto a lama se solidifica sobre suas pernas.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre uma penalidade de circunstância de -1,5 metro em sua Velocidade por 1 minuto ou até [[/act escape show-dc=all dc=27]]{Escape}.\nFalha A criatura fica Atordoada 2 e sofre uma penalidade de circunstância de –3 metros em sua Velocidade por 1 minuto ou até escapar (CD 27).\nFalha Crítica A criatura fica Atordoada 3 e Imobilizada por 1 minuto ou até escapar (CD 27).\nEfeito: Armadilha de Mudrock",
+      "description": "A argila queimada cobre um poço raso de lama fina intercalada com frascos frágeis de um agente de secagem rápida. A primeira criatura a pisar no quadrado rompe a argila e afunda na cova, fraturando os frascos e liberando os produtos químicos que endurecem a lama. Essa criatura deve tentar um teste (fortitude, showDC:all, dc:29) salvo enquanto a lama se solidifica sobre suas pernas.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre uma penalidade de circunstância de -1,5 metro em sua Velocidade por 1 minuto ou até Escapar CD 27.\nFalha A criatura fica Atordoada 2 e sofre uma penalidade de circunstância de –3 metros em sua Velocidade por 1 minuto ou até escapar (CD 27).\nFalha Crítica A criatura fica Atordoada 3 e Imobilizada por 1 minuto ou até escapar (CD 27).\nEfeito: Armadilha de Mudrock",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -840,7 +840,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Snagging Hook Snare",
-      "description": "Esta armadilha prende uma criatura com seus perversos ganchos de metal. A primeira criatura a entrar no quadrado sofre 5d8[perfurante,5d8[cortando]]{5d8 de dano perfurante e 5d8 de dano cortante}, com um teste de resistência (reflexo, showDC:all, dc:29, básico).\nEm uma falha crítica, os ganchos perfurando sua carne deixam a criatura Imobilizada até [[/act escape show-dc=all dc=29]]{Escape} com sucesso.",
+      "description": "Esta armadilha prende uma criatura com seus perversos ganchos de metal. A primeira criatura a entrar no quadrado sofre 5d8[perfurante,5d8[cortando]]{5d8 de dano perfurante e 5d8 de dano cortante}, com um teste de resistência (reflexo, showDC:all, dc:29, básico).\nEm uma falha crítica, os ganchos perfurando sua carne deixam a criatura Imobilizada até Escapar CD 29 com sucesso.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -870,7 +870,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha do Relâmpago Crepitante (magia 4º Rank)",
-      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 4º-Rank, mas a área do magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de relâmpago no 4º-Rank.",
+      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 4º-Rank, mas a área da magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de relâmpago no 4º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -885,7 +885,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Faixa de Proeza",
-      "description": "Esta humilde faixa pode ser usada na cintura ou no peito. Uma faixa de destreza geralmente traz uma coloração ou padrão que representa o monastério em que você treinou, mas também pode ostentar simbologia religiosa, como a mão aberta de Irori. Você ganha +2 de bônus de item em testes de perícias de Acrobacia e Atletismo.\nAtivar — Maestria sem esforço f (concentrar)\nFrequência uma vez por dia\nGatilho Você obtém sucesso em um teste de perícia Acrobacia ou Atletismo\nEfeito Em vez disso, você obtém sucesso crítico.\nAtivar – Reservas de Força Interna f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia de qi. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nRequisitos de artesanato Você é um monge que pode lançar magias de qi.",
+      "description": "Esta humilde faixa pode ser usada na cintura ou no peito. Uma faixa de destreza geralmente traz uma coloração ou padrão que representa o monastério em que você treinou, mas também pode ostentar simbologia religiosa, como a mão aberta de Irori. Você ganha +2 de bônus de item em testes de perícias de Acrobacia e Atletismo.\nAtivar — Maestria sem esforço f (concentrar)\nFrequência uma vez por dia\nGatilho Você obtém sucesso em um teste de perícia Acrobacia ou Atletismo\nEfeito Em vez disso, você obtém sucesso crítico.\nAtivar – Reservas de Força Interna f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia de qi. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nRequisitos de artesanato Você é um monge que pode lançar magias de qi.",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -915,7 +915,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Providência (Maior)",
-      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\n• 3ª Passagem Segura, Guia do Viajante\n• 4ª Purificação de Aflição, Dissipação do Globo, Status\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\n• 3ª Passagem Segura, Guia do Viajante\n• 4ª Purificação de Aflição, Dissipação do Globo, Status\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -977,7 +977,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Vida Transbordante (magia 4º Rank)",
-      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 4º Rank.\nDepois de lançar o magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 4º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 4º Rank.",
+      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 4º Rank.\nDepois de lançar a magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 4º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 4º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1007,7 +1007,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Aranha (magia 4º Rank)",
-      "description": "O comprimento desta varinha é um par de pernas de aranha gigante retorcidas.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você conjura Teia no 4º Rank, mas os fios da teia são tóxicos. Qualquer criatura que falhar no teste de Atletismo ou no teste de Reflexos para navegar na teia sofre 2d6[veneno,1d6[persistente,veneno]]{2d6 de dano de veneno mais 1d6 de dano de veneno persistente}.\nRequisitos de artesanato Forneça uma fundição de teia em 4º-Rank.",
+      "description": "O comprimento desta varinha é um par de pernas de aranha gigante retorcidas.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você conjura Teia no 4º Rank, mas os fios da teia são tóxicos. Qualquer criatura que falhar no teste de Atletismo ou no teste de Reflexos para navegar na teia sofre 2d6[veneno,1d6[persistente,veneno]]{2d6 de dano de veneno mais 1d6 de dano de veneno persistente}.\nRequisitos de artesanato Forneça uma fundição de teia em 4º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1083,7 +1083,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Elmo do Zelo",
-      "description": "Este elaborado capacete é estampado com os símbolos divinos de uma divindade escolhida quando o capacete foi criado. Você ganha +2 de bônus de item na Habilidade Divina daquela divindade.\nAtivar - Unir-se à Causa f (concentrar-se)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia de devoção. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Fervor Divino f (concentrado)\nFrequência uma vez por dia\nGatilho Você acabou de usar a reação do seu campeão\nEfeito Você ganha uma reação adicional que pode ser usada apenas para a reação do seu campeão. Você perde esta reação se não usá-la no início do seu próximo turno.\nRequisitos de fabricação Você é um campeão da divindade representada pelo capacete.",
+      "description": "Este elaborado capacete é estampado com os símbolos divinos de uma divindade escolhida quando o capacete foi criado. Você ganha +2 de bônus de item na Habilidade Divina daquela divindade.\nAtivar - Unir-se à Causa f (concentrar-se)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia de devoção. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Fervor Divino f (concentrado)\nFrequência uma vez por dia\nGatilho Você acabou de usar a reação do seu campeão\nEfeito Você ganha uma reação adicional que pode ser usada apenas para a reação do seu campeão. Você perde esta reação se não usá-la no início do seu próximo turno.\nRequisitos de fabricação Você é um campeão da divindade representada pelo capacete.",
       "itemType": "equipamento",
       "usage": "chapéus usados",
       "category": "equipamento",
@@ -1161,7 +1161,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção do Disfarce (Maior)",
-      "description": "Ativar 1 (manipular)\nAo absorver esta poção, você assume a aparência de um tipo específico de criatura por [[/br 2d12 #hours]]{2d12 horas}. O tipo de criatura é determinado quando a poção é criada. Por exemplo, você pode ter uma poção de disfarce de elfo ou uma poção de disfarce de sapo. Beber a poção não transmite o conhecimento de quanto tempo dura o efeito; o GM rola a duração em segredo.\nO disfarce não altera suas características ou estatísticas, nem lhe dá nenhuma das habilidades especiais da criatura que você está imitando. Isso pode afetar quais itens você pode segurar ou usar (por exemplo, sua nova forma pode não ter polegares oponíveis). A poção reduz você ao tamanho mínimo de Tiny, ou aumenta seu tamanho se a criatura for maior que você, até um máximo de Large. Isso não altera nenhuma de suas estatísticas, com exceção de reduzir seu alcance para 0 como uma criatura Minúscula. A criatura deve ser de um tipo específico, como \"leopardo\" ou \"leão\" em vez de apenas \"gato\", ou \"gigante de fogo\" ou \"ogro\" em vez de apenas \"gigante\", mas a poção não pode fazer com que você imite uma criatura individual específica.\nOs efeitos desta poção usam as mesmas regras da atividade Personificação de Enganação. Os espectadores sempre presumem que você é o tipo de criatura escolhido, a menos que estejam ativamente em Busca. Você ganha um bônus de status de +4 em sua CD de Enganação contra tais testes de Percepção e adiciona seu nível mesmo se não for treinado.\nAo beber uma poção de disfarce maior, se você imaginar a forma específica na qual deseja se transformar, a poção o transformará nessa forma. Você pode tentar se passar por um indivíduo específico, mas ainda precisará fazer um teste de Enganação.",
+      "description": "Ativar 1 (manipular)\nAo absorver esta poção, você assume a aparência de um tipo específico de criatura por 2d12. O tipo de criatura é determinado quando a poção é criada. Por exemplo, você pode ter uma poção de disfarce de elfo ou uma poção de disfarce de sapo. Beber a poção não transmite o conhecimento de quanto tempo dura o efeito; o GM rola a duração em segredo.\nO disfarce não altera suas características ou estatísticas, nem lhe dá nenhuma das habilidades especiais da criatura que você está imitando. Isso pode afetar quais itens você pode segurar ou usar (por exemplo, sua nova forma pode não ter polegares oponíveis). A poção reduz você ao tamanho mínimo de Tiny, ou aumenta seu tamanho se a criatura for maior que você, até um máximo de Large. Isso não altera nenhuma de suas estatísticas, com exceção de reduzir seu alcance para 0 como uma criatura Minúscula. A criatura deve ser de um tipo específico, como \"leopardo\" ou \"leão\" em vez de apenas \"gato\", ou \"gigante de fogo\" ou \"ogro\" em vez de apenas \"gigante\", mas a poção não pode fazer com que você imite uma criatura individual específica.\nOs efeitos desta poção usam as mesmas regras da atividade Personificação de Enganação. Os espectadores sempre presumem que você é o tipo de criatura escolhido, a menos que estejam ativamente em Busca. Você ganha um bônus de status de +4 em sua CD de Enganação contra tais testes de Percepção e adiciona seu nível mesmo se não for treinado.\nAo beber uma poção de disfarce maior, se você imaginar a forma específica na qual deseja se transformar, a poção o transformará nessa forma. Você pode tentar se passar por um indivíduo específico, mas ainda precisará fazer um teste de Enganação.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -1297,7 +1297,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Soro Surging (Maior)",
-      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 6º Rank e um [[/r 1d20+19 #Counteract]]{+19 modificador de contra-ataque}.",
+      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 6º Rank e um 1d20+19.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -1463,7 +1463,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Visões Impossíveis (Maior)",
-      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\n• 3º Hipnotizar, Paralisar\n• 4º Olhos Incontáveis, Visão da Morte\n• 5ª Geometria Estranha\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\n• 3º Hipnotizar, Paralisar\n• 4º Olhos Incontáveis, Visão da Morte\n• 5ª Geometria Estranha\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1479,7 +1479,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Solvente Absoluto (Moderado)",
-      "description": "Ativar 1 (manipular)\nOriginalmente formulado como um meio de dissolver o Adesivo Eterno, este poderoso solvente pode quebrar a aderência de quase qualquer adesivo. Como o solvente absoluto é particularmente eficaz contra o adesivo permanente, ele dissolve automaticamente o adesivo permanente. Ele tenta neutralizar qualquer outro adesivo, como Bombas de Cola, em 6º-Rank e tem um modificador de neutralização de [[/r 1d20+19 #Counteract]]{+19}.",
+      "description": "Ativar 1 (manipular)\nOriginalmente formulado como um meio de dissolver o Adesivo Eterno, este poderoso solvente pode quebrar a aderência de quase qualquer adesivo. Como o solvente absoluto é particularmente eficaz contra o adesivo permanente, ele dissolve automaticamente o adesivo permanente. Ele tenta neutralizar qualquer outro adesivo, como Bombas de Cola, em 6º-Rank e tem um modificador de neutralização de 1d20+19.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",

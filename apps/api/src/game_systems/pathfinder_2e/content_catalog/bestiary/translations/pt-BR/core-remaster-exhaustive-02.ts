@@ -59,7 +59,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Eio9qRZi4Wxz6XXD": {
           "name": "Conhecimento Grave",
-          "description": "[[/r 1d20+7]]{+7} modificador de habilidade\nFrequência uma vez por hora\nEfeito O carniçal invoca o conhecimento que retém de uma criatura que consumiu nos últimos 7 dias. O carniçal tenta um teste de perícia usando uma perícia na qual a criatura consumida foi treinada (se não estiver claro se a criatura foi treinada, o Mestre decide). O carniçal é tratado como treinado e usa o modificador de habilidade alto para o nível do carniçal. Isso leva a mesma quantidade de ações ou tempo normal para a verificação.\nEm vez disso, o carniçal pode aprender automaticamente algo específico conhecido por uma criatura que consumiu nos últimos 7 dias, como a localização de um tesouro escondido ou o nome de um ente querido. O carniçal pode fazer isso apenas uma vez para uma determinada criatura, não importando quanto de sua carne o carniçal consumiu."
+          "description": "1d20+7 modificador de habilidade\nFrequência uma vez por hora\nEfeito O carniçal invoca o conhecimento que retém de uma criatura que consumiu nos últimos 7 dias. O carniçal tenta um teste de perícia usando uma perícia na qual a criatura consumida foi treinada (se não estiver claro se a criatura foi treinada, o Mestre decide). O carniçal é tratado como treinado e usa o modificador de habilidade alto para o nível do carniçal. Isso leva a mesma quantidade de ações ou tempo normal para a verificação.\nEm vez disso, o carniçal pode aprender automaticamente algo específico conhecido por uma criatura que consumiu nos últimos 7 dias, como a localização de um tesouro escondido ou o nome de um ente querido. O carniçal pode fazer isso apenas uma vez para uma determinada criatura, não importando quanto de sua carne o carniçal consumiu."
         },
         "rvraBop9oOSwcjkq": {
           "name": "Salto Rápido",
@@ -117,7 +117,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mB9tYATe35GSN6Tm": {
           "name": "Explosão de luz estelar",
-          "description": "O lyrakien libera uma explosão de luz estelar sagrada em um @Template[emanation|distance:5]. Inimigos na área sofrem 2d6[espírito|opções:dano de área] de dano com um teste de resistência (reflexo, dc:17, básico, opções:efeito de área). O lyrakien não pode usar Starlight Blast ou seu ataque de longo alcance com raio de luz estelar por [[/gmr 1d4 #Recharge Starlight Attacks]]{1d4 rodadas}."
+          "description": "O lyrakien libera uma explosão de luz estelar sagrada em um @Template[emanation|distance:5]. Inimigos na área sofrem 2d6[espírito de dano com um teste de resistência (reflexo, dc:17, básico, opções:efeito de área). O lyrakien não pode usar Starlight Blast ou seu ataque de longo alcance com raio de luz estelar por 1d4."
         }
       },
       "spellcasting": {
@@ -190,7 +190,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um bombardeiro hryngar carrega 6 granadas alquímicas que causam dano de ácido, frio ou fogo, mais 1 dano persistente e 1 dano de respingo do mesmo tipo (normalmente dois de cada). O bombardeiro reabastece essas granadas todos os dias usando materiais facilmente coletados."
         },
         "bWytg8B4wFHQLuzN": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "Q8ir96PaHjj9G372": {
@@ -454,7 +454,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "yC1vWH3Q9V6GoICd": {
           "name": "Respiração de Siroco",
-          "description": "O acampamento aéreo cria ventos cortantes em um @Template[cone|distance:15] que causa 2d6[slashing|options:area-damage] de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento). Uma criatura que falha no salvamento também é empurrada para trás 10 pés (3 metros).\nO acampamento aéreo não pode usar Sopro de Siroco novamente por [[/gmr 1d4 #Recharge Sopro de Siroco]]{1d4 rodadas}."
+          "description": "O acampamento aéreo cria ventos cortantes em um @Template[cone|distance:15] que causa 2d6[slashing de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento). Uma criatura que falha no salvamento também é empurrada para trás 10 pés (3 metros).\nO acampamento aéreo não pode usar Sopro de Siroco novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -508,7 +508,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "b8MhSEnrYG0hWLqw": {
-          "name": "+2 Status para todos os salvamentos vs. Magia Divina",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia divina",
           "description": ""
         },
         "1dXvJWfe5HkVq2S2": {
@@ -647,12 +647,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um árbitro sempre pode sentir a direção do aeon não-árbitro mais próximo no plano, mas não pode sentir o alcance do aeon."
         },
         "kayBhD4IXys5Ppt8": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "Qc7duDVeN4puhd9w": {
           "name": "Explosão Elétrica",
-          "description": "O árbitro libera uma explosão elétrica de seu corpo que causa 3d6[eletricidade|opções:dano de área] de dano a todas as criaturas em um @Template[emanation|distance:10], com um teste de resistência (reflexo, dc:17, básico, opções:efeito de área). O árbitro fica então atordoado por 24 horas."
+          "description": "O árbitro libera uma explosão elétrica de seu corpo que causa 3d6[eletricidade de dano a todas as criaturas em um @Template[emanation|distance:10], com um teste de resistência (reflexo, dc:17, básico, opções:efeito de área). O árbitro fica então atordoado por 24 horas."
         }
       },
       "spellcasting": {
@@ -1020,7 +1020,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tNVPutTbdl3sPaGf": {
           "name": "Dança Final",
-          "description": "Quando o dançarino morre, seu corpo se dissolve em uma massa rodopiante de escuridão e luz. Todas as criaturas em um @Template[emanation|distance:10] devem ter sucesso em um teste (will, dc:17, options:area-effect,inflicts:dazzled) save ou ficarão ofuscadas por [[/gmr 1d4 #rounds]]{1d4 rodadas}.\nOs pertences da dançarina são deixados em uma pilha onde morreram."
+          "description": "Quando o dançarino morre, seu corpo se dissolve em uma massa rodopiante de escuridão e luz. Todas as criaturas em um @Template[emanation|distance:10] devem ter sucesso em um teste (will, dc:17, options:area-effect,inflicts:dazzled) save ou ficarão ofuscadas por 1d4.\nOs pertences da dançarina são deixados em uma pilha onde morreram."
         },
         "BhAemzsQzTnyMQTs": {
           "name": "Cegueira leve",
@@ -1140,7 +1140,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "gMRZ46sjaLERrmao": {
           "name": "Sopro de Chama",
-          "description": "O campo de fogo cospe chamas em um @Template[cone|distance:15] que causa 2d4[fire|options:area-damage] de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento). Criaturas que falham no teste também sofrem 1d4[persistente,fogo] de dano.\nO acampamento do fogo não pode usar Sopro de Chamas novamente por [[/gmr 1d4 #Recharge Sopro de Chamas]]{1d4 rodadas}."
+          "description": "O campo de fogo cospe chamas em um @Template[cone|distance:15] que causa 2d4[fire de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento). Criaturas que falham no teste também sofrem 1d4[persistente,fogo] de dano.\nO acampamento do fogo não pode usar Sopro de Chamas novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -1399,7 +1399,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uh9FAiIuWjmsH9Sp": {
           "name": "Luz da Verdade",
-          "description": "O zoaem brilha uma luz intensa da verdade, como Luz Reveladora (check (reflex, dc:17) save), mas em um @Template[line|distance:60]. Contra criaturas afetadas por esta luz, o zoaem e seus aliados ganham +1 de bônus de status nas jogadas de dano e nos testes de Recordar Conhecimento. O zoaem não pode usar Luz da Verdade novamente por [[/gmr 1d4 #Recharge Light of Truth]]{1d4 rodadas}.\nEfeito: Luz da Verdade"
+          "description": "O zoaem brilha uma luz intensa da verdade, como Luz Reveladora (check (reflex, dc:17) save), mas em um @Template[line|distance:60]. Contra criaturas afetadas por esta luz, o zoaem e seus aliados ganham +1 de bônus de status nas jogadas de dano e nos testes de Recordar Conhecimento. O zoaem não pode usar Luz da Verdade novamente por 1d4.\nEfeito: Luz da Verdade"
         }
       },
       "spellcasting": {
@@ -1859,7 +1859,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "SWHeFZZnyyOl1BOv": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "I0PsDsrRfXytYKkG": {
@@ -2010,7 +2010,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rBKIlYFoV3vW1kEN": {
           "name": "Frenesi da Lua",
-          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por [[/br 2d4 #hours]]{2d4 horas}.\nEfeito: Frenesi Lunar"
+          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por 2d4.\nEfeito: Frenesi Lunar"
         },
         "KiBIFxCCOgpsuMvK": {
           "name": "Ataque furtivo",
@@ -2086,7 +2086,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "dbJMknRXkshhKBXb": {
           "name": "Conhecimento Grave",
-          "description": "[[/r 1d20+8]]{+8} modificador de habilidade\nFrequência uma vez por hora\nEfeito O carniçal invoca o conhecimento que retém de uma criatura que consumiu nos últimos 7 dias. O carniçal tenta um teste de perícia usando uma perícia na qual a criatura consumida foi treinada (se não estiver claro se a criatura foi treinada, o Mestre decide). O carniçal é tratado como treinado e usa o modificador de habilidade alto para o nível do carniçal. Isso leva a mesma quantidade de ações ou tempo normal para a verificação.\nEm vez disso, o carniçal pode aprender automaticamente algo específico conhecido por uma criatura que consumiu nos últimos 7 dias, como a localização de um tesouro escondido ou o nome de um ente querido. O carniçal pode fazer isso apenas uma vez para uma determinada criatura, não importando quanto de sua carne o carniçal consumiu."
+          "description": "1d20+8 modificador de habilidade\nFrequência uma vez por hora\nEfeito O carniçal invoca o conhecimento que retém de uma criatura que consumiu nos últimos 7 dias. O carniçal tenta um teste de perícia usando uma perícia na qual a criatura consumida foi treinada (se não estiver claro se a criatura foi treinada, o Mestre decide). O carniçal é tratado como treinado e usa o modificador de habilidade alto para o nível do carniçal. Isso leva a mesma quantidade de ações ou tempo normal para a verificação.\nEm vez disso, o carniçal pode aprender automaticamente algo específico conhecido por uma criatura que consumiu nos últimos 7 dias, como a localização de um tesouro escondido ou o nome de um ente querido. O carniçal pode fazer isso apenas uma vez para uma determinada criatura, não importando quanto de sua carne o carniçal consumiu."
         },
         "R9q9hezMY3S2b5ha": {
           "name": "Salto Rápido",
@@ -2196,11 +2196,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -2483,7 +2483,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hIxE6LMA92SPk1eC": {
           "name": "Noite Final",
-          "description": "Quando o caligni skulker morre, seus restos se dissolvem em uma @Template[emanation|distance:20] de escuridão antes de se dissiparem. A escuridão extingue fontes de luz não-mágicas e tenta neutralizar a luz mágica como um efeito de 1ª classe com um modificador de contra-ataque [[/r 1d20+10 #Counteract]]{+10}.\nOs pertences do espreitador são deixados em uma pilha onde eles morreram."
+          "description": "Quando o caligni skulker morre, seus restos se dissolvem em uma @Template[emanation|distance:20] de escuridão antes de se dissiparem. A escuridão extingue fontes de luz não-mágicas e tenta neutralizar a luz mágica como um efeito de 1ª classe com um modificador de contra-ataque 1d20+10.\nOs pertences do espreitador são deixados em uma pilha onde eles morreram."
         },
         "OVmDA2DweiDfmQwN": {
           "name": "Cegueira leve",
@@ -2583,7 +2583,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3tQ9IouJLzsp5YJG": {
           "name": "Erudição Rápida",
-          "description": "Requisitos O pipefox viu um cantrip lançado no último minuto;\nEfeito O pipefox pode lançar o truque que viu como um magia arcano inato por 1 minuto."
+          "description": "Requisitos O pipefox viu um cantrip lançado no último minuto;\nEfeito O pipefox pode lançar o truque que viu como uma magia arcano inato por 1 minuto."
         }
       },
       "spellcasting": {
@@ -2747,7 +2747,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LCFMKpxw0iDxWGXu": {
           "name": "Nuvem de esporos",
-          "description": "Um fungo leshy pode liberar uma nuvem de esporos que irrita os olhos e a garganta de criaturas não-fungos em um @Template[emanation|distance:15]. Cada criatura deve ser bem sucedida em um teste (fortitude, dc:16, opções:efeito de área,efeito de dano) de resistência ou sofrerá 1[persistente,veneno|opções:dano de área] de dano.\nUma criatura tem sua visão reduzida enquanto o dano persistente continuar e só poderá ver dentro de 20 pés (6 metros)."
+          "description": "Um fungo leshy pode liberar uma nuvem de esporos que irrita os olhos e a garganta de criaturas não-fungos em um @Template[emanation|distance:15]. Cada criatura deve ser bem sucedida em um teste (fortitude, dc:16, opções:efeito de área,efeito de dano) de resistência ou sofrerá 1[persistente,veneno de dano.\nUma criatura tem sua visão reduzida enquanto o dano persistente continuar e só poderá ver dentro de 20 pés (6 metros)."
         },
         "ARWbmjbxbCd0JMUv": {
           "name": "Esporos",
@@ -2809,7 +2809,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "4pcckxSu3lSKQKx9": {
-          "name": "+2 Circunstância para todos os salvamentos contra doenças",
+          "name": "+2 de bônus de circunstância em todos os testes de resistência contra doença",
           "description": ""
         },
         "J6pZtpCOYKA1AxsU": {
@@ -2965,7 +2965,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "8vghvmECBI3rKMmv": {
           "name": "Campo Elemental",
-          "description": "O elementalista libera poderosa eletricidade estática em @Template[emanation|distance:20] que dura 1 minuto. Todos os quadrados na área tornam-se terreno perigoso para outras criaturas. Uma criatura sofre 1[eletricidade|opções:dano de área] de dano cada vez que se move para um desses quadrados. Enquanto estiverem na área, as criaturas sofrem –1 de penalidade de status nos testes de resistência contra magias de eletricidade.\nEfeito: Campo Elemental"
+          "description": "O elementalista libera poderosa eletricidade estática em @Template[emanation|distance:20] que dura 1 minuto. Todos os quadrados na área tornam-se terreno perigoso para outras criaturas. Uma criatura sofre 1[eletricidade de dano cada vez que se move para um desses quadrados. Enquanto estiverem na área, as criaturas sofrem –1 de penalidade de status nos testes de resistência contra magias de eletricidade.\nEfeito: Campo Elemental"
         },
         "1wf9jTihNjCNB1TM": {
           "name": "Passo Elfo",
@@ -3055,11 +3055,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -3155,7 +3155,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mosP4GWMjmCsjixi": {
           "name": "Poeira de leque de penas",
-          "description": "Frequência uma vez a cada 10 minutos;\nEfeito O tengu balança seu leque de penas, invocando uma pequena brisa mágica que levanta poeira em um @Template[burst|distance:5] centrado em um canto de seu espaço, que dura por [[/gmr 1d4 #rounds]]{1d4 rounds}. Todas as criaturas dentro daquela área ficam Ocultas e todas as outras criaturas ficam escondidas para elas."
+          "description": "Frequência uma vez a cada 10 minutos;\nEfeito O tengu balança seu leque de penas, invocando uma pequena brisa mágica que levanta poeira em um @Template[burst|distance:5] centrado em um canto de seu espaço, que dura por 1d4. Todas as criaturas dentro daquela área ficam Ocultas e todas as outras criaturas ficam escondidas para elas."
         },
         "xgyBlDJ39BUcAINW": {
           "name": "Ataque furtivo",
@@ -3363,7 +3363,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "QVSO6xmJIGdqfP0G": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "NUE54wJoG2LAVMO1": {
@@ -3465,11 +3465,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -3771,11 +3771,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -3825,7 +3825,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "tQ1m9uzdwC96pkCY": {
           "name": "Asfixia Hidráulica",
-          "description": "Requisitos O alvo está totalmente submerso na água, dentro de 30 pés (9 metros) do tritão wavecaller, e prendendo a respiração\nEfeito O Invocador de Ondas dos Tritões comanda as marés para esmagar a garganta do inimigo, prendendo o alvo no lugar e forçando-o a sufocar o precioso ar. O alvo deve ter sucesso em um teste de resistência (fortitude, dc:18) ou ficará imobilizado por 1 rodada e perderá imediatamente [[/gmr 1d4 #rounds]]{1d4 rounds}' de ar (ou o dobro disso em uma falha crítica)."
+          "description": "Requisitos O alvo está totalmente submerso na água, dentro de 30 pés (9 metros) do tritão wavecaller, e prendendo a respiração\nEfeito O Invocador de Ondas dos Tritões comanda as marés para esmagar a garganta do inimigo, prendendo o alvo no lugar e forçando-o a sufocar o precioso ar. O alvo deve ter sucesso em um teste de resistência (fortitude, dc:18) ou ficará imobilizado por 1 rodada e perderá imediatamente 1d4' de ar (ou o dobro disso em uma falha crítica)."
         }
       },
       "spellcasting": {
@@ -3944,7 +3944,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "JojW4TyiF3cPdVBJ": {
           "name": "Exibição inspiradora",
-          "description": "Requisitos A ação anterior do mago da caverna foi lançar um magia\nEfeito O mago da caverna usa sua exibição mágica para inspirar outro kobold dentro de 30 pés (9 metros). Esse kobold ganha 4 Pontos de Vida temporários que duram até o início do próximo turno do mago da caverna.\nEfeito: Exibição Inspiradora"
+          "description": "Requisitos A ação anterior do mago da caverna foi lançar uma magia\nEfeito O mago da caverna usa sua exibição mágica para inspirar outro kobold dentro de 30 pés (9 metros). Esse kobold ganha 4 Pontos de Vida temporários que duram até o início do próximo turno do mago da caverna.\nEfeito: Exibição Inspiradora"
         },
         "lkJGworLlLUoPpox": {
           "name": "Corredor",
@@ -4034,11 +4034,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -4249,7 +4249,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "dpMfwwbltlZ55vSZ": {
           "name": "Blasfêmia Final",
-          "description": "Quando o herexen é destruído, ele explode em uma onda de energia do vazio com os efeitos de um magia Dano de 3 ações (teste (fortitude, dc:18)).\nO herexen é destruído, então ele não ganha nenhum Ponto de Vida com o uso do dano, e não precisa ter nenhum magia de dano restante para usar esta habilidade."
+          "description": "Quando o herexen é destruído, ele explode em uma onda de energia do vazio com os efeitos de uma magia Dano de 3 ações (teste (fortitude, dc:18)).\nO herexen é destruído, então ele não ganha nenhum Ponto de Vida com o uso do dano, e não precisa ter nenhuma magia de dano restante para usar esta habilidade."
         },
         "9kiCgRcrTLqrvzAj": {
           "name": "Cura do Vazio",
@@ -4323,7 +4323,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "p6uToNU7wgFDgDDH": {
           "name": "Preguiça",
-          "description": "Quando um pusk recupera suas ações, role [[/gmr 1d4 #Actions Regained]]{1d4}. O pusk recupera esse número de ações no turno (até um máximo de 3, ou 2 se o pusk for um lacaio).\nEfeitos como a condição de lentidão podem reduzir ainda mais o número de ações."
+          "description": "Quando um pusk recupera suas ações, role 1d4. O pusk recupera esse número de ações no turno (até um máximo de 3, ou 2 se o pusk for um lacaio).\nEfeitos como a condição de lentidão podem reduzir ainda mais o número de ações."
         },
         "Lb8baU3vfeAtn1Nw": {
           "name": "Encolher",
@@ -4447,11 +4447,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -4558,7 +4558,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2vBMTexIigEtaKt3": {
           "name": "Respiração Eufórica",
-          "description": "O dragãozinho respira gás eufórico em um @Template[cone|distance:15]. Cada criatura na área deve ser bem sucedida em um teste de resistência (fortitude, dc:18) ou ficará Estupefata 2 e Lentidão 1 por [[/gmr 1d4 #rounds]]{1d4 rodadas}; em caso de falha crítica, a duração é de 1 minuto.\nO dragão feérico não pode usar Respiração Eufórica novamente por [[/gmr 1d4 #Recharge Respiração Eufórica]]{1d4 rodadas}."
+          "description": "O dragãozinho respira gás eufórico em um @Template[cone|distance:15]. Cada criatura na área deve ser bem sucedida em um teste de resistência (fortitude, dc:18) ou ficará Estupefata 2 e Lentidão 1 por 1d4; em caso de falha crítica, a duração é de 1 minuto.\nO dragão feérico não pode usar Respiração Eufórica novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -4871,7 +4871,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pbydRoHQnSpw50iV": {
           "name": "Graxa de barriga",
-          "description": "O slurk expele uma graxa escorregadia de suas glândulas ventrais para cobrir o chão abaixo dele e em @Template[emanation|distance:5], transformando a área afetada em solo irregular por 10 minutos, após o qual seca até formar uma crosta pútrida. A CD para [[/act balance dc=18]] através do lodo é 18."
+          "description": "O slurk expele uma graxa escorregadia de suas glândulas ventrais para cobrir o chão abaixo dele e em @Template[emanation|distance:5], transformando a área afetada em solo irregular por 10 minutos, após o qual seca até formar uma crosta pútrida. A CD para balance CD 18 através do lodo é 18."
         },
         "Tf3oOPGPRrko1wvW": {
           "name": "Slime emaranhado",
@@ -5400,11 +5400,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um filho do pecado pode cheirar criaturas que refletem seu pecado como a habilidade de cheirar. O Mestre determina quais criaturas são apropriadamente pecaminosas."
         },
         "d8HKHc0xY8ipNaHu": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "nMOq1aUvaAjrygsK": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "KC0EDtBsU8uqFaKL": {
@@ -5502,7 +5502,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Crv6pRa77FWxBY6M": {
           "name": "Larva de Vespa",
-          "description": "Teste de salvamento (fortitude, dc:21)\nPortador de estágio 1 sem efeitos nocivos ([[/gmr 1d6 #days]]{1d6 dias})\nEstágio 2 Drenado 1 ([[/gmr 1d4 #days]]{1d4 dias})\nEstágio 3 5d6[untyped] dano, larva emerge (doença termina)"
+          "description": "Teste de salvamento (fortitude, dc:21)\nPortador de estágio 1 sem efeitos nocivos (1d6)\nEstágio 2 Drenado 1 (1d4)\nEstágio 3 5d6[untyped] dano, larva emerge (doença termina)"
         }
       },
       "spellcasting": {}
@@ -5701,7 +5701,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "dOcDYCNGkTD6GGcZ": {
           "name": "Spray de lascas",
-          "description": "O twigjack espalha uma saraivada de farpas e arbustos de seu corpo em um @Template[cone|distance:15], causando 4d6[piercing|options:area-damage] de dano (check (reflex, dc:20, basic, options:area-effect) save).\nEle não pode usar Splinter Spray novamente por [[/gmr 1d4 #Recharge Splinter Spray]]{1d4 rodadas}."
+          "description": "O twigjack espalha uma saraivada de farpas e arbustos de seu corpo em um @Template[cone|distance:15], causando 4d6[piercing de dano (check (reflex, dc:20, basic, options:area-effect) save).\nEle não pode usar Splinter Spray novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -5789,7 +5789,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "qjRGAO0ktmv3fxHQ": {
           "name": "Drenar item colado",
-          "description": "Frequência uma vez por dia\nRequisitos O adepto ainda não agiu neste turno\nEfeito O adepto gasta o poder armazenado em seu cajado. Isso dá ao adepto a habilidade de conjurar uma magia preparada que já havia sido conjurada hoje (escolhendo um nível de magia diferente a cada vez), sem gastar um espaço de magia. O adepto ainda deve lançar o magia e atender aos outros requisitos do magia."
+          "description": "Frequência uma vez por dia\nRequisitos O adepto ainda não agiu neste turno\nEfeito O adepto gasta o poder armazenado em seu cajado. Isso dá ao adepto a habilidade de conjurar uma magia preparada que já havia sido conjurada hoje (escolhendo um nível de magia diferente a cada vez), sem gastar um espaço de magia. O adepto ainda deve lançar a magia e atender aos outros requisitos da magia."
         }
       },
       "spellcasting": {

@@ -16,7 +16,10 @@ As rodadas são lotes técnicos de tamanho limitado. Elas não representam a
 conclusão de uma faixa de nível ou Rank enquanto ainda houver qualquer entrada
 elegível não importada nessa faixa.
 
-O objetivo final é alcançar a cobertura de conteúdo existente na `development`, sem tentar migrar tudo de uma vez.
+O objetivo final é alcançar a cobertura de conteúdo existente na `development`.
+O processamento normal permanece incremental; depois que dois domínios forem
+integralmente esgotados, uma reconciliação terminal explicitamente solicitada
+pode importar de uma vez todo o saldo do último domínio.
 
 ## 2. Problema resolvido
 
@@ -45,7 +48,22 @@ Toda rodada publicada contém os três conjuntos:
 Bestiário + Spells + Items
 ```
 
-Cada conjunto pode ter quantidade diferente, mas deve possuir ao menos uma entrada. Quando uma publicação não possuir conteúdo em um dos domínios, ela deve ser agrupada com a próxima publicação coerente do mesmo programa editorial até completar os três conjuntos.
+Cada conjunto pode ter quantidade diferente e, enquanto o domínio ainda
+possuir registros elegíveis na fonte travada, deve possuir ao menos uma
+entrada. Quando uma publicação não possuir conteúdo em um dos domínios, ela
+deve ser agrupada com a próxima publicação coerente do mesmo programa
+editorial até completar os três conjuntos.
+
+Depois que a reconciliação integral comprovar que um domínio não possui mais
+nenhum registro elegível, rodadas terminais podem declarar esse domínio em
+`exhaustedDomains` e congelar seu conjunto vazio. Essa exceção não autoriza
+duplicar registros anteriores, criar placeholders ou omitir um domínio que
+ainda possua pendências.
+
+Uma rodada com `terminalReconciliation = true` pode ultrapassar o limite
+operacional normal apenas para esgotar o último domínio pendente. Ela deve
+selecionar todo o saldo da fonte travada, falhar se o corte deixar registros
+para trás e declarar os outros domínios em `exhaustedDomains`.
 
 A rodada é somente um manifesto de entrega. Criaturas, magias e itens não pertencem a arquivos nomeados pela rodada.
 

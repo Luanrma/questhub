@@ -9,7 +9,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Invenção",
-      "description": "Você cria um simples som ou visão ilusória. Um som adiciona o traço auditivo ao magia e o som não pode incluir palavras inteligíveis ou música elaborada. Uma visão adiciona o traço visual, não pode ser maior que um cubo de 1,5 metro e é claramente grosseira e sem detalhes se vista de dentro de 15 pés (4,5 metros). Ao lançar ou sustentar o magia, você pode tentar criar uma distração com a ilusão, ganhando +2 de bônus de circunstância em seu teste de Enganação. Se a tentativa falhar contra uma criatura, essa criatura não acredita na invenção.\nEfeito do magia: Figment",
+      "description": "Você cria um simples som ou visão ilusória. Um som adiciona o traço auditivo à magia e o som não pode incluir palavras inteligíveis ou música elaborada. Uma visão adiciona o traço visual, não pode ser maior que um cubo de 1,5 metro e é claramente grosseira e sem detalhes se vista de dentro de 15 pés (4,5 metros). Ao lançar ou sustentar a magia, você pode tentar criar uma distração com a ilusão, ganhando +2 de bônus de circunstância em seu teste de Enganação. Se a tentativa falhar contra uma criatura, essa criatura não acredita na invenção.\nEfeito da magia: Figment",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "",
@@ -25,12 +25,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Infundir Vitalidade",
-      "description": "Você fortalece ataques com energia vital. O número de alvos é igual ao número de ações que você gastou para lançar este magia. Os ataques desarmados e com arma de cada alvo causam 1d4 de dano extra de vitalidade. (Esse dano normalmente causa dano apenas a mortos-vivos). Se você tiver o traço sagrado, poderá adicioná-lo a este magia e aos Golpes afetados pelo magia.\nAprimorada (3º) O dano aumenta para 2d4 de dano.\nAprimorada (5º) O dano aumenta para 3d4 de dano.\nEfeito do magia: Infundir Vitalidade",
+      "description": "Você fortalece ataques com energia vital. O número de alvos é igual ao número de ações que você gastou para lançar esta magia. Os ataques desarmados e com arma de cada alvo causam 1d4 de dano extra de vitalidade. (Esse dano normalmente causa dano apenas a mortos-vivos). Se você tiver o traço sagrado, poderá adicioná-lo a esta magia e aos Golpes afetados pela magia.\nAprimorada (3º) O dano aumenta para 2d4 de dano.\nAprimorada (5º) O dano aumenta para 3d4 de dano.\nEfeito da magia: Infundir Vitalidade",
       "castingTime": "1 a 3 ações",
       "range": "30 pés (9 metros)",
       "target": "1 a 3 criaturas dispostas",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (3º) O dano aumenta para 2d4 de dano.\nAprimorada (5º) O dano aumenta para 3d4 de dano.\nEfeito do magia: Infundir Vitalidade"
+      "heightening": "Aprimorada (3º) O dano aumenta para 2d4 de dano.\nAprimorada (5º) O dano aumenta para 3d4 de dano.\nEfeito da magia: Infundir Vitalidade"
     }
   },
   {
@@ -41,13 +41,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Objeto Ilusório",
-      "description": "Você cria uma imagem visual ilusória de um objeto estacionário. A imagem inteira deve caber na área da magia. O objeto parece animar-se naturalmente, mas não emite sons nem gera cheiros. Por exemplo, a água pareceria escorrer por uma cachoeira ilusória, mas seria silenciosa.\nQualquer criatura que toque a imagem ou use a ação Procurar para examiná-la pode tentar descrer da sua ilusão.\nAprimorada (2º) Sua imagem emite sons apropriados, gera cheiros normais e parece adequada ao toque. O magia ganha traços auditivos e olfativos. A duração aumenta para 1 hora.\nAprimorada (5º) Como a versão de 2º nível, mas a duração é ilimitada.",
+      "description": "Você cria uma imagem visual ilusória de um objeto estacionário. A imagem inteira deve caber na área da magia. O objeto parece animar-se naturalmente, mas não emite sons nem gera cheiros. Por exemplo, a água pareceria escorrer por uma cachoeira ilusória, mas seria silenciosa.\nQualquer criatura que toque a imagem ou use a ação Procurar para examiná-la pode tentar descrer da sua ilusão.\nAprimorada (2º) Sua imagem emite sons apropriados, gera cheiros normais e parece adequada ao toque. A magia ganha traços auditivos e olfativos. A duração aumenta para 1 hora.\nAprimorada (5º) Como a versão de 2º nível, mas a duração é ilimitada.",
       "castingTime": "2 ações",
       "range": "500 pés (150 metros)",
       "target": "",
       "area": "20 explosão",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (2º) Sua imagem emite sons apropriados, gera cheiros normais e parece adequada ao toque. O magia ganha traços auditivos e olfativos. A duração aumenta para 1 hora.\nAprimorada (5º) Como a versão de 2º nível, mas a duração é ilimitada."
+      "heightening": "Aprimorada (2º) Sua imagem emite sons apropriados, gera cheiros normais e parece adequada ao toque. A magia ganha traços auditivos e olfativos. A duração aumenta para 1 hora.\nAprimorada (5º) Como a versão de 2º nível, mas a duração é ilimitada."
     }
   },
   {
@@ -63,7 +63,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "60 pés (18 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "básico vai economizar",
+      "defense": "teste básico de Vontade",
       "heightening": "Aprimorada (+2) O dano aumenta em 1d6."
     }
   },
@@ -80,7 +80,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (3º) Você pode ter como alvo até cinco criaturas."
     }
   },
@@ -125,7 +125,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Fachada de itens",
-      "description": "Você faz com que o objeto alvo pareça estar em condições físicas muito melhores ou piores. Ao lançar este magia, decida se deseja fazer o objeto parecer decrépito ou perfeito. Um item feito para parecer decrépito parece quebrado e de má qualidade. Um item intacto feito para ter uma aparência melhor parece novo e altamente polido ou bem conservado. Um item quebrado parece estar intacto e funcional. Itens destruídos não podem ser afetados por este magia. Uma criatura que interaja com o item pode tentar descrer da ilusão.\nAprimorada (2º) A duração é de 24 horas.\nAprimorada (3º) A duração é ilimitada.",
+      "description": "Você faz com que o objeto alvo pareça estar em condições físicas muito melhores ou piores. Ao lançar esta magia, decida se deseja fazer o objeto parecer decrépito ou perfeito. Um item feito para parecer decrépito parece quebrado e de má qualidade. Um item intacto feito para ter uma aparência melhor parece novo e altamente polido ou bem conservado. Um item quebrado parece estar intacto e funcional. Itens destruídos não podem ser afetados por esta magia. Uma criatura que interaja com o item pode tentar descrer da ilusão.\nAprimorada (2º) A duração é de 24 horas.\nAprimorada (3º) A duração é ilimitada.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto não superior a 10 pés (3 metros) por 10 pés (3 metros) por 10 pés (3 metros)",
@@ -157,7 +157,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ignição",
-      "description": "Você estala os dedos e aponta para um alvo, que começa a arder. Faça uma jogada de ataque mágico contra a CA do alvo, causando 2d4 de dano de fogo ao acertar. Se o alvo estiver ao seu alcance corpo a corpo, você pode escolher fazer um ataque mágico corpo a corpo com a chama em vez de um ataque mágico à distância, o que aumenta todos os dados de dano do magia para d6s.\nSucesso Crítico O alvo sofre o dobro de dano e 1d4 de dano de fogo persistente.\nSucesso O alvo sofre dano total.\nAumentado (+1) O dano inicial aumenta em 1d4 e o dano de fogo persistente em um acerto crítico aumenta em 1d4.\n(@item.rank)d4[persistent,fire]{Escalando dano de fogo persistente}\n(@item.rank)d6[persistent,fire]{Escalando o dano de fogo persistente (corpo a corpo)}",
+      "description": "Você estala os dedos e aponta para um alvo, que começa a arder. Faça uma jogada de ataque mágico contra a CA do alvo, causando 2d4 de dano de fogo ao acertar. Se o alvo estiver ao seu alcance corpo a corpo, você pode escolher fazer um ataque mágico corpo a corpo com a chama em vez de um ataque mágico à distância, o que aumenta todos os dados de dano da magia para d6s.\nSucesso Crítico O alvo sofre o dobro de dano e 1d4 de dano de fogo persistente.\nSucesso O alvo sofre dano total.\nAumentado (+1) O dano inicial aumenta em 1d4 e o dano de fogo persistente em um acerto crítico aumenta em 1d4.\n(@item.rank)d4[persistent,fire]{Escalando dano de fogo persistente}\n(@item.rank)d6[persistent,fire]{Escalando o dano de fogo persistente (corpo a corpo)}",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
@@ -173,12 +173,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Mau presságio",
-      "description": "O alvo é atingido pelo infortúnio, o que o desequilibra. O alvo deve tentar um salvamento de Vontade.\nSucesso O alvo não é afetado.\nFalha Na primeira vez durante o período em que o alvo tenta uma jogada de ataque ou teste de perícia, ele deve rolar duas vezes e usar o pior resultado.\nFalha Crítica Toda vez que o alvo tentar uma jogada de ataque ou teste de habilidade, ele deve rolar duas vezes e usar o pior resultado.\nEfeito do magia: Mau Presságio",
+      "description": "O alvo é atingido pelo infortúnio, o que o desequilibra. O alvo deve tentar um salvamento de Vontade.\nSucesso O alvo não é afetado.\nFalha Na primeira vez durante o período em que o alvo tenta uma jogada de ataque ou teste de perícia, ele deve rolar duas vezes e usar o pior resultado.\nFalha Crítica Toda vez que o alvo tentar uma jogada de ataque ou teste de habilidade, ele deve rolar duas vezes e usar o pior resultado.\nEfeito da magia: Mau Presságio",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 rodada",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -190,13 +190,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Banimento",
-      "description": "Você enche as mentes dos seus inimigos com dúvidas. Os inimigos na área devem ter sucesso em um teste de Vontade ou sofrer uma penalidade de -1 nas jogadas de ataque enquanto estiverem na área. Uma vez por rodada nos turnos subsequentes, você pode Sustentar o magia para aumentar o raio da emanação em 10 pés (3 metros) e forçar os inimigos na área que ainda não foram afetados a tentar outro teste de resistência.\nBane pode neutralizar Bless.\nEfeito do magia: Banimento",
+      "description": "Você enche as mentes dos seus inimigos com dúvidas. Os inimigos na área devem ter sucesso em um teste de Vontade ou sofrer uma penalidade de -1 nas jogadas de ataque enquanto estiverem na área. Uma vez por rodada nos turnos subsequentes, você pode Sustentar a magia para aumentar o raio da emanação em 10 pés (3 metros) e forçar os inimigos na área que ainda não foram afetados a tentar outro teste de resistência.\nBane pode neutralizar Bless.\nEfeito da magia: Banimento",
       "castingTime": "2 ações",
       "range": "",
       "target": "inimigos na área",
       "area": "10 emanação",
       "duration": "1 minuto",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -240,7 +240,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadura Mística",
-      "description": "Você se protege com energia mágica cintilante, ganhando +1 de bônus de item na CA e um modificador máximo de Destreza de +5. Enquanto estiver usando armadura mística, você usa sua proficiência sem armadura para calcular sua CA.\nEfeito do magia: Armadura Mística\nAprimorada (4º) Você ganha +1 de bônus de item em testes de resistência.\nAprimorada (6º) O bônus de item na CA aumenta para +2, e você ganha +1 de bônus de item em testes de resistência.\nAprimorada (8º) O bônus de item na CA aumenta para +2, e você ganha +2 de bônus de item em testes de resistência.\nAprimorada (10º) O bônus de item na CA aumenta para +3, e você ganha +3 de bônus de item em testes de resistência.",
+      "description": "Você se protege com energia mágica cintilante, ganhando +1 de bônus de item na CA e um modificador máximo de Destreza de +5. Enquanto estiver usando armadura mística, você usa sua proficiência sem armadura para calcular sua CA.\nEfeito da magia: Armadura Mística\nAprimorada (4º) Você ganha +1 de bônus de item em testes de resistência.\nAprimorada (6º) O bônus de item na CA aumenta para +2, e você ganha +1 de bônus de item em testes de resistência.\nAprimorada (8º) O bônus de item na CA aumenta para +2, e você ganha +2 de bônus de item em testes de resistência.\nAprimorada (10º) O bônus de item na CA aumenta para +3, e você ganha +3 de bônus de item em testes de resistência.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -256,7 +256,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Etapa da Frota",
-      "description": "Você ganha um bônus de status de +9 metros em sua Velocidade.\nEfeito do magia: Passo Frota",
+      "description": "Você ganha um bônus de status de +9 metros em sua Velocidade.\nEfeito da magia: Passo Frota",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -277,7 +277,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "até o final do próximo turno do alvo",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (5º) Você pode escolher até 10 criaturas."
     }
   },
@@ -305,7 +305,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Trancar",
-      "description": "O mecanismo de trava do alvo se fecha, mantido firmemente por proteções mágicas invisíveis. Quando você bloqueia magicamente um alvo, você define uma CD de Atletismo e Ladro para abri-lo igual à sua CD de magia ou à CD de bloqueio base com um bônus de status de +4, o que for maior. Qualquer chave ou combinação que tenha aberto uma fechadura afetada por esta magia não o faz durante a duração da magia, embora a chave ou combinação conceda um bônus de circunstância de +4 em testes para abrir a porta. Se o alvo for aberto, o magia termina. Supondo que o alvo não esteja barrado ou bloqueado de alguma forma adicional, você pode destravá-lo e abri-lo com uma ação de Interagir durante a qual você toca o alvo. Isso não encerra o magia. Você pode Dispensar este magia a qualquer momento e de qualquer distância.\nAprimorada (2º) A duração é ilimitada, mas você deve gastar 6 PO em metais preciosos como um custo adicional.",
+      "description": "O mecanismo de trava do alvo se fecha, mantido firmemente por proteções mágicas invisíveis. Quando você bloqueia magicamente um alvo, você define uma CD de Atletismo e Ladro para abri-lo igual à sua CD de magia ou à CD de bloqueio base com um bônus de status de +4, o que for maior. Qualquer chave ou combinação que tenha aberto uma fechadura afetada por esta magia não o faz durante a duração da magia, embora a chave ou combinação conceda um bônus de circunstância de +4 em testes para abrir a porta. Se o alvo for aberto, a magia termina. Supondo que o alvo não esteja barrado ou bloqueado de alguma forma adicional, você pode destravá-lo e abri-lo com uma ação de Interagir durante a qual você toca o alvo. Isso não encerra a magia. Você pode Dispensar esta magia a qualquer momento e de qualquer distância.\nAprimorada (2º) A duração é ilimitada, mas você deve gastar 6 PO em metais preciosos como um custo adicional.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 fechadura ou uma porta ou contêiner com trava",

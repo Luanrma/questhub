@@ -25,7 +25,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Braço Blindado",
-      "description": "Veios reforçados de minério passam pelo braço do alvo, permitindo que ele evite golpes com a pele nua. Ele pode usar a ação Levantar um Escudo para levantar seu braço, ganhando um bônus de circunstância de +2 na CA. Ele também pode bloquear com escudo com o braço levantado; quando isso acontece, o alvo reduz o dano como se tivesse um escudo com Dureza 4 e 15 Pontos de Vida. Este escudo não tem Limiar Quebrado e o magia termina se os Pontos de Vida do escudo forem gastos.\nEste magia não modifica os ataques desarmados do alvo e não pode ser usado para realizar um golpe de escudo. Lançar ou ficar sob os efeitos deste magia também conta como usar um item metálico no que diz respeito ao anátema.\nAprimorada 2 A Dureza aumenta em 4 e os Pontos de Vida aumentam em 15.",
+      "description": "Veios reforçados de minério passam pelo braço do alvo, permitindo que ele evite golpes com a pele nua. Ele pode usar a ação Levantar um Escudo para levantar seu braço, ganhando um bônus de circunstância de +2 na CA. Ele também pode bloquear com escudo com o braço levantado; quando isso acontece, o alvo reduz o dano como se tivesse um escudo com Dureza 4 e 15 Pontos de Vida. Este escudo não tem Limiar Quebrado e a magia termina se os Pontos de Vida do escudo forem gastos.\nEsta magia não modifica os ataques desarmados do alvo e não pode ser usado para realizar um golpe de escudo. Lançar ou ficar sob os efeitos deste magia também conta como usar um item metálico no que diz respeito ao anátema.\nAprimorada 2 A Dureza aumenta em 4 e os Pontos de Vida aumentam em 15.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
@@ -47,7 +47,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "15 linhas",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada 1 O dano inicial aumenta em 1d4."
     }
   },
@@ -59,13 +59,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Flora florescente",
-      "description": "As plantas crescem rapidamente do solo. Todas as criaturas na área alvo sofrem 2d4 de dano. O tipo de dano depende do tipo de planta que você escolhe cultivar. Em caso de falha crítica, os alvos experimentam efeitos adicionais, dependendo também do que você escolhe cultivar. O tipo de planta e seus efeitos são escolhidos quando você lança o magia.\n• Danos perfurantes de cactos e 1 dano de sangramento persistente em caso de falha crítica.\n• Dano de Veneno de Flores e Deslumbrado por 2 rodadas em caso de falha crítica.\n• Frutas, dano de concussão e Desajeitado 1 por 2 rodadas em caso de falha crítica.\n• Roots causa dano de concussão e as criaturas afetadas ficam propensas em caso de falha crítica.\nAumentado 1 O dano aumenta em 1d4 e o dano de sangramento persistente dos cactos aumenta em 1.",
+      "description": "As plantas crescem rapidamente do solo. Todas as criaturas na área alvo sofrem 2d4 de dano. O tipo de dano depende do tipo de planta que você escolhe cultivar. Em caso de falha crítica, os alvos experimentam efeitos adicionais, dependendo também do que você escolhe cultivar. O tipo de planta e seus efeitos são escolhidos quando você lança a magia.\n• Danos perfurantes de cactos e 1 dano de sangramento persistente em caso de falha crítica.\n• Dano de Veneno de Flores e Deslumbrado por 2 rodadas em caso de falha crítica.\n• Frutas, dano de concussão e Desajeitado 1 por 2 rodadas em caso de falha crítica.\n• Roots causa dano de concussão e as criaturas afetadas ficam propensas em caso de falha crítica.\nAumentado 1 O dano aumenta em 1d4 e o dano de sangramento persistente dos cactos aumenta em 1.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "",
       "area": "5 explosão",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado 1 O dano aumenta em 1d4 e o dano de sangramento persistente dos cactos aumenta em 1."
     }
   },
@@ -94,7 +94,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Respiração Profunda",
-      "description": "Você respira incrivelmente fundo e pode prendê-lo durante a duração do magia. Você não perde o fôlego ao ser atingido, mas perde todo o ar que inalou se falar (inclusive para lançar um magia). Este magia não cria ar; se você não tiver ar para respirar ao lançá-lo, não obterá nenhum benefício.\nAprimorada (2º) A duração aumenta para 1 hora e você perde apenas 10 minutos de ar se falar.\nAprimorada (4º) A duração aumenta para 8 horas e você perde apenas 10 minutos de ar se falar.",
+      "description": "Você respira incrivelmente fundo e pode prendê-lo durante a duração da magia. Você não perde o fôlego ao ser atingido, mas perde todo o ar que inalou se falar (inclusive para lançar uma magia). Esta magia não cria ar; se você não tiver ar para respirar ao lançá-lo, não obterá nenhum benefício.\nAprimorada (2º) A duração aumenta para 1 hora e você perde apenas 10 minutos de ar se falar.\nAprimorada (4º) A duração aumenta para 8 horas e você perde apenas 10 minutos de ar se falar.",
       "castingTime": "1 ação",
       "range": "",
       "target": "",
@@ -110,12 +110,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Escudo de vidro",
-      "description": "Você invoca uma camada de vidro transparente para protegê-lo de qualquer perigo. Isso conta como usar a ação Levantar um Escudo, dando a você um bônus de circunstância de +1 na CA até o início do seu próximo turno, mas não requer uma mão para ser usado. Você pode bloquear o escudo com a proteção de vidro. Possui Dureza 2. Você pode usar a reação do magia para reduzir o dano de qualquer magia ou efeito mágico, mesmo que não cause dano físico. Quando você usa Shield Block, o escudo explode em uma chuva de vidro. Se a criatura que o quebrou estiver dentro de 5 pés (1,5 metros), os fragmentos causam 1d4 de dano perfurante àquela criatura com um teste básico de Reflexos. Depois de usar Shield Block, o magia termina e você não pode lançá-lo novamente por 10 minutos.\nEfeito do magia: Escudo de Vidro\nAprimorada (3º) O escudo tem Dureza 4 e o dano aumenta para 3d4.\nAprimorada (5º) O escudo tem Dureza 7 e o dano aumenta para 4d4.\nAprimorada (7º) O escudo tem Dureza 10 e o dano aumenta para 5d4.\nAprimorada (9º) O escudo tem Dureza 12 e o dano aumenta para 6d4.",
+      "description": "Você invoca uma camada de vidro transparente para protegê-lo de qualquer perigo. Isso conta como usar a ação Levantar um Escudo, dando a você um bônus de circunstância de +1 na CA até o início do seu próximo turno, mas não requer uma mão para ser usado. Você pode bloquear o escudo com a proteção de vidro. Possui Dureza 2. Você pode usar a reação da magia para reduzir o dano de qualquer magia ou efeito mágico, mesmo que não cause dano físico. Quando você usa Shield Block, o escudo explode em uma chuva de vidro. Se a criatura que o quebrou estiver dentro de 5 pés (1,5 metros), os fragmentos causam 1d4 de dano perfurante àquela criatura com um teste básico de Reflexos. Depois de usar Shield Block, a magia termina e você não pode lançá-lo novamente por 10 minutos.\nEfeito da magia: Escudo de Vidro\nAprimorada (3º) O escudo tem Dureza 4 e o dano aumenta para 3d4.\nAprimorada (5º) O escudo tem Dureza 7 e o dano aumenta para 4d4.\nAprimorada (7º) O escudo tem Dureza 10 e o dano aumenta para 5d4.\nAprimorada (9º) O escudo tem Dureza 12 e o dano aumenta para 6d4.",
       "castingTime": "1 ação",
       "range": "",
       "target": "",
       "duration": "até o início do seu próximo turno",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (3º) O escudo tem Dureza 4 e o dano aumenta para 3d4.\nAprimorada (5º) O escudo tem Dureza 7 e o dano aumenta para 4d4.\nAprimorada (7º) O escudo tem Dureza 10 e o dano aumenta para 5d4.\nAprimorada (9º) O escudo tem Dureza 12 e o dano aumenta para 6d4."
     }
   },
@@ -143,12 +143,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Enfraquecer a Terra",
-      "description": "Você enfraquece os laços que mantêm a terra e a pedra unidas. Se o seu alvo tiver Dureza, você pode afetar um objeto contíguo, até um cubo de 1,5 metro, ou uma criatura, diminuindo a Dureza em 5, até um mínimo de 0. Se o alvo não tiver Dureza, ele ganha fraqueza 3 ao dano físico. Um alvo com um modificador de Fortitude pode tentar um teste de resistência de Fortitude, negando o efeito em caso de sucesso.\nEfeito do magia: Enfraquecer a Terra\nAprimorada 2 A dureza diminui em 5, o tamanho de um objeto contíguo aumenta em um cubo de 1,5 metro e a fraqueza aumenta em 3.",
+      "description": "Você enfraquece os laços que mantêm a terra e a pedra unidas. Se o seu alvo tiver Dureza, você pode afetar um objeto contíguo, até um cubo de 1,5 metro, ou uma criatura, diminuindo a Dureza em 5, até um mínimo de 0. Se o alvo não tiver Dureza, ele ganha fraqueza 3 ao dano físico. Um alvo com um modificador de Fortitude pode tentar um teste de resistência de Fortitude, negando o efeito em caso de sucesso.\nEfeito da magia: Enfraquecer a Terra\nAprimorada 2 A dureza diminui em 5, o tamanho de um objeto contíguo aumenta em um cubo de 1,5 metro e a fraqueza aumenta em 3.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura, objeto abandonado, perigo ou estrutura feita de pedra ou terra",
       "duration": "1 minuto",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada 2 A dureza diminui em 5, o tamanho de um objeto contíguo aumenta em um cubo de 1,5 metro e a fraqueza aumenta em 3."
     }
   },
@@ -166,7 +166,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "5 explosão",
       "duration": "1 minuto",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aumentado 2 O alcance aumenta em 10 pés (3 metros), a explosão aumenta em 5 pés (1,5 metros) e o dano de fogo persistente aumenta em 3d6."
     }
   },
@@ -178,7 +178,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Contador Elemental",
-      "description": "Acionar Você ou uma criatura dentro de 60 pés (18 metros) realiza um teste de resistência contra uma magia com a característica terra, fogo, metal, planta, água ou madeira, ou é alvo de um ataque de magia com tal característica.\nRequisitos Você tem um espaço de magia a partir do qual você pode Conjurar uma Magia do elemento de combate da magia desencadeadora; veja texto.\nCada elemento no ciclo elemental neutraliza outro, e você pode usar seus magias elementais para se proteger contra os elementos que eles combatem. Você perde seu espaço de magia como se tivesse lançado a magia desencadeadora. Você então tenta neutralizar o magia desencadeador, usando o Rank do magia que você perdeu para neutralizar o Rank. Você pode perder um magia de planta ou madeira para combater a terra, um magia de terra para combater a água, um magia de água para combater o fogo, um magia de fogo para combater o metal ou um magia de metal para combater a planta ou a madeira.",
+      "description": "Acionar Você ou uma criatura dentro de 60 pés (18 metros) realiza um teste de resistência contra uma magia com a característica terra, fogo, metal, planta, água ou madeira, ou é alvo de um ataque de magia com tal característica.\nRequisitos Você tem um espaço de magia a partir do qual você pode Conjurar uma Magia do elemento de combate da magia desencadeadora; veja texto.\nCada elemento no ciclo elemental neutraliza outro, e você pode usar suas magias elementais para se proteger contra os elementos que eles combatem. Você perde seu espaço de magia como se tivesse lançado a magia desencadeadora. Você então tenta neutralizar a magia desencadeador, usando o Rank da magia que você perdeu para neutralizar o Rank. Você pode perder uma magia de planta ou madeira para combater a terra, uma magia de terra para combater a água, uma magia de água para combater o fogo, uma magia de fogo para combater o metal ou uma magia de metal para combater a planta ou a madeira.",
       "castingTime": "reação",
       "range": "",
       "target": "",
@@ -194,7 +194,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Arma Condutiva",
-      "description": "Você canaliza uma poderosa corrente elétrica através do metal de uma arma, eletrocutando qualquer um que o item atingir. O alvo se torna uma arma de choque +1. Se qualquer alvo de um ataque com a arma estiver usando uma armadura de metal ou for feito principalmente de metal, o dado de dano de eletricidade da runa de choque é 1d12.\nEfeito do magia: Arma Condutora",
+      "description": "Você canaliza uma poderosa corrente elétrica através do metal de uma arma, eletrocutando qualquer um que o item atingir. O alvo se torna uma arma de choque +1. Se qualquer alvo de um ataque com a arma estiver usando uma armadura de metal ou for feito principalmente de metal, o dado de dano de eletricidade da runa de choque é 1d12.\nEfeito da magia: Arma Condutora",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 arma de metal que está desacompanhada ou empunhada por você ou por um aliado disposto",
@@ -210,7 +210,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Coma fogo",
-      "description": "Gatilho Você sofreria dano de fogo.\nVocê consome e ingere fogo, tornando-o menos prejudicial para você. Você ganha resistência 5 a dano de fogo até o final do turno atual. Durante a duração restante do magia, você pode usar a ação Belch Smoke. O magia termina se você ficar inconsciente, inspirar ou expirar (isso inclui falar).\nEfeito do magia: Comer Fogo\nArrotar Fumaça 1 Você exala o que resta da fumaça, encerrando o magia e criando uma nuvem de fumaça em uma explosão de 1,5 metro dentro de 20 pés (6 metros). Todas as criaturas dentro da nuvem de fumaça estão Ocultas e todas as outras criaturas estão ocultas para elas. A fumaça dura 1 minuto ou até ser dispersada por um vento forte.\nAumentado 3 A resistência aumenta em 5.",
+      "description": "Gatilho Você sofreria dano de fogo.\nVocê consome e ingere fogo, tornando-o menos prejudicial para você. Você ganha resistência 5 a dano de fogo até o final do turno atual. Durante a duração restante da magia, você pode usar a ação Belch Smoke. A magia termina se você ficar inconsciente, inspirar ou expirar (isso inclui falar).\nEfeito da magia: Comer Fogo\nArrotar Fumaça 1 Você exala o que resta da fumaça, encerrando a magia e criando uma nuvem de fumaça em uma explosão de 1,5 metro dentro de 20 pés (6 metros). Todas as criaturas dentro da nuvem de fumaça estão Ocultas e todas as outras criaturas estão ocultas para elas. A fumaça dura 1 minuto ou até ser dispersada por um vento forte.\nAumentado 3 A resistência aumenta em 5.",
       "castingTime": "reação",
       "range": "",
       "target": "",
@@ -258,12 +258,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Punhos de madeira",
-      "description": "Seus braços e mãos incham com o novo crescimento, transformando-se em troncos de árvores duas vezes maiores que o tamanho atual. Seus punhos causam 1d6 de dano de concussão, perdem a característica não letal e têm alcance.\nAprimorada (3º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque, aumentando o dano que seus punhos causam para 2d6 de concussão.\nAprimorada (7º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque maior, aumentando o dano que seus punhos causam para 3d6 de concussão. A duração é de 10 minutos.\nAprimorada (9º) Seus punhos ganham o traço mágico e se tornam uma grande arma de ataque, aumentando o dano que seus punhos causam para 4d6 de concussão. A duração é de 1 hora.\nEfeito do magia: Punhos de Madeira",
+      "description": "Seus braços e mãos incham com o novo crescimento, transformando-se em troncos de árvores duas vezes maiores que o tamanho atual. Seus punhos causam 1d6 de dano de concussão, perdem a característica não letal e têm alcance.\nAprimorada (3º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque, aumentando o dano que seus punhos causam para 2d6 de concussão.\nAprimorada (7º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque maior, aumentando o dano que seus punhos causam para 3d6 de concussão. A duração é de 10 minutos.\nAprimorada (9º) Seus punhos ganham o traço mágico e se tornam uma grande arma de ataque, aumentando o dano que seus punhos causam para 4d6 de concussão. A duração é de 1 hora.\nEfeito da magia: Punhos de Madeira",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (3º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque, aumentando o dano que seus punhos causam para 2d6 de concussão.\nAprimorada (7º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque maior, aumentando o dano que seus punhos causam para 3d6 de concussão. A duração é de 10 minutos.\nAprimorada (9º) Seus punhos ganham o traço mágico e se tornam uma grande arma de ataque, aumentando o dano que seus punhos causam para 4d6 de concussão. A duração é de 1 hora.\nEfeito do magia: Punhos de Madeira"
+      "heightening": "Aprimorada (3º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque, aumentando o dano que seus punhos causam para 2d6 de concussão.\nAprimorada (7º) Seus punhos ganham o traço mágico e se tornam uma arma de ataque maior, aumentando o dano que seus punhos causam para 3d6 de concussão. A duração é de 10 minutos.\nAprimorada (9º) Seus punhos ganham o traço mágico e se tornam uma grande arma de ataque, aumentando o dano que seus punhos causam para 4d6 de concussão. A duração é de 1 hora.\nEfeito da magia: Punhos de Madeira"
     }
   },
   {
@@ -306,7 +306,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Desenhar umidade",
-      "description": "Você tira água de um objeto, possivelmente para limpar respingos ou secar rapidamente um livro ou camisa encharcado. Você extrai meio litro de água do objeto; isso seca objetos com menos de 1 volume. A água se acumula em um glóbulo flutuando em sua mão, que você pode direcionar para um recipiente próximo como parte do lançamento do magia; caso contrário, ele espirra no chão. Aplicações repetidas de umidade de extração podem ser usadas para secar objetos maiores, embora isso possa levar um tempo significativo. Você pode usar este magia em ambientes especialmente úmidos para condensar água potável do ar, embora normalmente você não possa extrair mais do que algumas xícaras antes de esgotar a umidade do ambiente.",
+      "description": "Você tira água de um objeto, possivelmente para limpar respingos ou secar rapidamente um livro ou camisa encharcado. Você extrai meio litro de água do objeto; isso seca objetos com menos de 1 volume. A água se acumula em um glóbulo flutuando em sua mão, que você pode direcionar para um recipiente próximo como parte do lançamento da magia; caso contrário, ele espirra no chão. Aplicações repetidas de umidade de extração podem ser usadas para secar objetos maiores, embora isso possa levar um tempo significativo. Você pode usar esta magia em ambientes especialmente úmidos para condensar água potável do ar, embora normalmente você não possa extrair mais do que algumas xícaras antes de esgotar a umidade do ambiente.",
       "castingTime": "2 ações",
       "range": "10 pés (3 metros)",
       "target": "1 objeto",
@@ -344,7 +344,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "30 emanação",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aprimorada 1 A área máxima aumenta em 10 pés (3 metros)."
     }
   },
@@ -356,12 +356,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sinais de tremor",
-      "description": "Você envia uma série de tremores, não mais do que uma frase curta, em direção ao seu alvo. Se o alvo estiver dentro do alcance e conectado ao mesmo corpo terrestre que você, as vibrações atingirão o alvo através do solo. Você não precisa de linha de visão nem de efeito, então um alvo em outro andar de um prédio é um alvo válido.\nO alvo pode dar uma breve resposta vibracional como reação ou como uma ação livre no próximo turno, mas ele deve estar dentro do alcance para fazer isso. Se eles responderem, a resposta deles será entregue a você por meio de tremores que você sente, como acontece com a mensagem original. Os tremores transmitem um significado claro somente se você e o alvo conhecerem esse significado, como três tremores para um aviso específico e dois para outro. Nenhum de vocês pode transmitir um significado novo ou matizado usando este magia.\nUma criatura que tenha sentido sísmico pode sentir as vibrações desta magia se a criatura estiver dentro do alcance das vibrações em qualquer ponto durante sua jornada até qualquer alvo.\nAprimorada (4º) O magia pode ter como alvo até 5 criaturas.",
+      "description": "Você envia uma série de tremores, não mais do que uma frase curta, em direção ao seu alvo. Se o alvo estiver dentro do alcance e conectado ao mesmo corpo terrestre que você, as vibrações atingirão o alvo através do solo. Você não precisa de linha de visão nem de efeito, então um alvo em outro andar de um prédio é um alvo válido.\nO alvo pode dar uma breve resposta vibracional como reação ou como uma ação livre no próximo turno, mas ele deve estar dentro do alcance para fazer isso. Se eles responderem, a resposta deles será entregue a você por meio de tremores que você sente, como acontece com a mensagem original. Os tremores transmitem um significado claro somente se você e o alvo conhecerem esse significado, como três tremores para um aviso específico e dois para outro. Nenhum de vocês pode transmitir um significado novo ou matizado usando esta magia.\nUma criatura que tenha sentido sísmico pode sentir as vibrações desta magia se a criatura estiver dentro do alcance das vibrações em qualquer ponto durante sua jornada até qualquer alvo.\nAprimorada (4º) A magia pode ter como alvo até 5 criaturas.",
       "castingTime": "1 ação",
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
       "duration": "",
-      "heightening": "Aprimorada (4º) O magia pode ter como alvo até 5 criaturas."
+      "heightening": "Aprimorada (4º) A magia pode ter como alvo até 5 criaturas."
     }
   },
   {
@@ -389,7 +389,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Crie raízes",
-      "description": "Raízes brotam da carne do alvo e se enrolam no chão ou ao redor de objetos, reforçando sua postura ou aderência. A criatura alvo ganha um bônus de circunstância de +1 em sua CD de Fortitude contra tentativas de empurrá-la e um bônus de circunstância de +1 em sua CD de Reflexos contra tentativas de desarmá-la ou tropeçá-la. Este bônus também se aplica a testes de resistência contra magias ou efeitos que tentariam remover um item de seu alcance.\nEfeito do magia: Criar Raiz",
+      "description": "Raízes brotam da carne do alvo e se enrolam no chão ou ao redor de objetos, reforçando sua postura ou aderência. A criatura alvo ganha um bônus de circunstância de +1 em sua CD de Fortitude contra tentativas de empurrá-la e um bônus de circunstância de +1 em sua CD de Reflexos contra tentativas de desarmá-la ou tropeçá-la. Este bônus também se aplica a testes de resistência contra magias ou efeitos que tentariam remover um item de seu alcance.\nEfeito da magia: Criar Raiz",
       "castingTime": "1 ação",
       "range": "30 pés (9 metros)",
       "target": "1 criatura voluntária",
@@ -405,12 +405,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dobrar metal",
-      "description": "Você dobra o objeto alvo em uma bola metálica lisa do tamanho de um ovo. O alvo volta à sua forma original somente quando você Dispensa o magia, a duração expira ou se a bola tocar água ou fogo, o que ocorrer primeiro.\nAs criaturas que virem o objeto remodelado podem tentar um teste de Percepção contra sua CD de magia para perceber que a bola pode não ser realmente o que parece. Se o objeto for mágico, ele retém suas auras mágicas, mas não pode ser usado, afixado ou ativado.\nAprimorada (3º) A duração do magia passa a ser de 1 hora.",
+      "description": "Você dobra o objeto alvo em uma bola metálica lisa do tamanho de um ovo. O alvo volta à sua forma original somente quando você Dispensa a magia, a duração expira ou se a bola tocar água ou fogo, o que ocorrer primeiro.\nAs criaturas que virem o objeto remodelado podem tentar um teste de Percepção contra sua CD de magia para perceber que a bola pode não ser realmente o que parece. Se o objeto for mágico, ele retém suas auras mágicas, mas não pode ser usado, afixado ou ativado.\nAprimorada (3º) A duração da magia passa a ser de 1 hora.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto metálico abandonado até 5 em massa",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (3º) A duração do magia passa a ser de 1 hora."
+      "heightening": "Aprimorada (3º) A duração da magia passa a ser de 1 hora."
     }
   },
   {
@@ -421,12 +421,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Respingo estimulante",
-      "description": "Você faz com que um jato de água fria desça sobre a cabeça de um aliado, concedendo algum vigor temporário. O alvo ganha 1d4 Pontos de Vida temporários, que duram 1 minuto. O alvo fica então temporariamente imune aos Pontos de Vida temporários do respingo estimulante por 10 minutos. O alvo também pode tentar um teste imediato para se recuperar de uma única fonte persistente de ácido ou dano de fogo, com a redução da CD da assistência apropriada.\nAprimorada 1 A quantidade de Pontos de Vida temporários concedidos aumenta em 1d4.\nEfeito do magia: Respingo Despertador",
+      "description": "Você faz com que um jato de água fria desça sobre a cabeça de um aliado, concedendo algum vigor temporário. O alvo ganha 1d4 Pontos de Vida temporários, que duram 1 minuto. O alvo fica então temporariamente imune aos Pontos de Vida temporários do respingo estimulante por 10 minutos. O alvo também pode tentar um teste imediato para se recuperar de uma única fonte persistente de ácido ou dano de fogo, com a redução da CD da assistência apropriada.\nAprimorada 1 A quantidade de Pontos de Vida temporários concedidos aumenta em 1d4.\nEfeito da magia: Respingo Despertador",
       "castingTime": "2 ações",
       "range": "60 pés (18 metros)",
       "target": "1 criatura",
       "duration": "",
-      "heightening": "Aprimorada 1 A quantidade de Pontos de Vida temporários concedidos aumenta em 1d4.\nEfeito do magia: Respingo Despertador"
+      "heightening": "Aprimorada 1 A quantidade de Pontos de Vida temporários concedidos aumenta em 1d4.\nEfeito da magia: Respingo Despertador"
     }
   },
   {
@@ -437,13 +437,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Foguete de sinal",
-      "description": "Com uma pitada de pólvora metálica e pólvora, você evoca uma energia vermelha escaldante que dispara direto para o ar e explode, desencadeando um estrondo crepitante. Com o tempo, você pode até personalizar seu próprio padrão e cor para o foguete à medida que refina o magia.\nVocê não pode mudar a direção ou a distância do foguete – ele deve subir em linha reta, continuando até o alcance máximo, se possível. Se o foguete explodir em sua altura máxima, a luz brilhante poderá ser vista a até 16 quilômetros de distância e o som da explosão poderá ser ouvido a até 1,6 km de distância em condições climáticas claras.\nSe o foguete explodir em um espaço fechado menor que o tamanho total da explosão, cada criatura na área sofre 1d10 de dano sônico dependendo do resultado de seu teste de Reflexos.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e fica Deslumbrada por 1 rodada.\nFalha Crítica A criatura sofre o dobro de dano e fica cega por 1 rodada.\nAprimorada 1 O dano sônico aumenta em 1d10.",
+      "description": "Com uma pitada de pólvora metálica e pólvora, você evoca uma energia vermelha escaldante que dispara direto para o ar e explode, desencadeando um estrondo crepitante. Com o tempo, você pode até personalizar seu próprio padrão e cor para o foguete à medida que refina a magia.\nVocê não pode mudar a direção ou a distância do foguete – ele deve subir em linha reta, continuando até o alcance máximo, se possível. Se o foguete explodir em sua altura máxima, a luz brilhante poderá ser vista a até 16 quilômetros de distância e o som da explosão poderá ser ouvido a até 1,6 km de distância em condições climáticas claras.\nSe o foguete explodir em um espaço fechado menor que o tamanho total da explosão, cada criatura na área sofre 1d10 de dano sônico dependendo do resultado de seu teste de Reflexos.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e fica Deslumbrada por 1 rodada.\nFalha Crítica A criatura sofre o dobro de dano e fica cega por 1 rodada.\nAprimorada 1 O dano sônico aumenta em 1d10.",
       "castingTime": "3 ações",
       "range": "1,0 pés (0 metros)",
       "target": "",
       "area": "30 explosão",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aprimorada 1 O dano sônico aumenta em 1d10."
     }
   },
@@ -455,7 +455,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Repulsão Magnética",
-      "description": "Você ajusta sua polaridade magnética, fazendo com que objetos de metal saltem e se afastem de você. Ataques feitos com objetos de metal contra você recebem uma penalidade de status de -1, e os quadrados adjacentes a você são terrenos difíceis para criaturas usando armaduras de metal. Para criaturas feitas inteiramente de metal, a penalidade em suas jogadas de ataque é -2 e os quadrados adjacentes a você são terrenos mais difíceis.\nEnquanto este magia estiver ativo, você precisará de uma ação adicional de Interação antes de usar um objeto de metal (inclusive para Golpear com uma arma de metal), e se estiver usando uma armadura de metal, você sofrerá Lentidão 1.\nAumentado 3 A penalidade de status nas jogadas de ataque aumenta em 1.",
+      "description": "Você ajusta sua polaridade magnética, fazendo com que objetos de metal saltem e se afastem de você. Ataques feitos com objetos de metal contra você recebem uma penalidade de status de -1, e os quadrados adjacentes a você são terrenos difíceis para criaturas usando armaduras de metal. Para criaturas feitas inteiramente de metal, a penalidade em suas jogadas de ataque é -2 e os quadrados adjacentes a você são terrenos mais difíceis.\nEnquanto esta magia estiver ativo, você precisará de uma ação adicional de Interação antes de usar um objeto de metal (inclusive para Golpear com uma arma de metal), e se estiver usando uma armadura de metal, você sofrerá Lentidão 1.\nAumentado 3 A penalidade de status nas jogadas de ataque aumenta em 1.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -471,7 +471,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Revestido de metal",
-      "description": "Você troca brevemente a superfície externa do metal de um objeto por uma quantidade adequada de um metal precioso comum do Plano do Metal. Em vez disso, você pode escolher um metal incomum ou raro se tiver acesso a ele ou se o Mestre tiver lhe dado acesso a ele.\nO objeto funciona como um item daquele metal, desde que seja de 2º nível ou inferior. Por exemplo, você poderia transformar uma adaga em uma adaga de ferro frio ou de prata (itens de 2º nível), mas não poderia transformar uma placa completa em uma armadura de ferro frio ou armadura de prata (itens de 5º nível). Isso confere quaisquer propriedades especiais do metal precioso – uma arma revestida de ferro frio ativa fraquezas ao ferro frio, por exemplo – e suprime quaisquer propriedades especiais do metal original do qual o item foi feito.\nO magia não altera a integridade estrutural do item nem o danifica. O objeto pode passar por uma inspeção superficial, mas o efeito mágico é óbvio para qualquer um que o estude de perto, portanto não altera o preço do item se você tentar vendê-lo.\nAprimorada 1 O nível máximo do metal precioso aumenta em 2.",
+      "description": "Você troca brevemente a superfície externa do metal de um objeto por uma quantidade adequada de um metal precioso comum do Plano do Metal. Em vez disso, você pode escolher um metal incomum ou raro se tiver acesso a ele ou se o Mestre tiver lhe dado acesso a ele.\nO objeto funciona como um item daquele metal, desde que seja de 2º nível ou inferior. Por exemplo, você poderia transformar uma adaga em uma adaga de ferro frio ou de prata (itens de 2º nível), mas não poderia transformar uma placa completa em uma armadura de ferro frio ou armadura de prata (itens de 5º nível). Isso confere quaisquer propriedades especiais do metal precioso – uma arma revestida de ferro frio ativa fraquezas ao ferro frio, por exemplo – e suprime quaisquer propriedades especiais do metal original do qual o item foi feito.\nA magia não altera a integridade estrutural do item nem o danifica. O objeto pode passar por uma inspeção superficial, mas o efeito mágico é óbvio para qualquer um que o estude de perto, portanto não altera o preço do item se você tentar vendê-lo.\nAprimorada 1 O nível máximo do metal precioso aumenta em 2.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto de metal de volume 5 ou menos que esteja desacompanhado ou assistido por uma criatura voluntária",
@@ -525,7 +525,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "15 emanação",
       "duration": "1 minuto",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada (5º) Você cria uma emanação de 9 metros."
     }
   },
@@ -537,7 +537,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Brisa Suave",
-      "description": "Uma brisa leve e suave flui pela área, facilitando o descanso e a recuperação. Testes de medicina que tentam beneficiar criaturas vivas na área recebem um bônus de status de +2. Qualquer criatura viva na área também recebe +2 de bônus de status em testes de resistência contra aflições e, se permanecer na área por toda a duração, recupera 10 Pontos de Vida. Além disso, a brisa fresca reduz os efeitos do calor na temperatura em um passo para qualquer criatura na área.\nEfeito do magia: Brisa Suave\nAprimorada 2 A cura aumenta em 10 Pontos de Vida.",
+      "description": "Uma brisa leve e suave flui pela área, facilitando o descanso e a recuperação. Testes de medicina que tentam beneficiar criaturas vivas na área recebem um bônus de status de +2. Qualquer criatura viva na área também recebe +2 de bônus de status em testes de resistência contra aflições e, se permanecer na área por toda a duração, recupera 10 Pontos de Vida. Além disso, a brisa fresca reduz os efeitos do calor na temperatura em um passo para qualquer criatura na área.\nEfeito da magia: Brisa Suave\nAprimorada 2 A cura aumenta em 10 Pontos de Vida.",
       "castingTime": "2 ações",
       "range": "60 pés (18 metros)",
       "target": "",
@@ -554,7 +554,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Voz na brisa",
-      "description": "Você sussurra uma mensagem secreta ou um som ao vento, que o leva até um local designado. A mensagem viaja para uma rajada específica de 3 metros dentro do alcance que você conhece, desde que haja um caminho para o vento seguir entre você e a área. A brisa suave passa quase despercebida até chegar ao seu destino, onde transmite sua mensagem silenciosamente. A mensagem é entregue independentemente de quem ou o que está presente para ouvi-la, mesmo que ninguém a receba. Assim que a mensagem for entregue, o magia termina.\nSua mensagem não pode conter mais de 25 palavras, 1 rodada de outros sons ou um simples farfalhar no ar no local de destino. Ele se move a uma velocidade de sua escolha entre 1 milha por hora e 1 milha a cada 10 minutos; quando chega, o vento gira pela área e sussurra a mensagem completa. Uma voz na brisa não pode ativar efeitos mágicos desencadeados por vozes.\nAprimorada (4º) O alcance aumenta para 1.600 quilômetros e a mensagem pode conter até 100 palavras.",
+      "description": "Você sussurra uma mensagem secreta ou um som ao vento, que o leva até um local designado. A mensagem viaja para uma rajada específica de 3 metros dentro do alcance que você conhece, desde que haja um caminho para o vento seguir entre você e a área. A brisa suave passa quase despercebida até chegar ao seu destino, onde transmite sua mensagem silenciosamente. A mensagem é entregue independentemente de quem ou o que está presente para ouvi-la, mesmo que ninguém a receba. Assim que a mensagem for entregue, a magia termina.\nSua mensagem não pode conter mais de 25 palavras, 1 rodada de outros sons ou um simples farfalhar no ar no local de destino. Ele se move a uma velocidade de sua escolha entre 1 milha por hora e 1 milha a cada 10 minutos; quando chega, o vento gira pela área e sussurra a mensagem completa. Uma voz na brisa não pode ativar efeitos mágicos desencadeados por vozes.\nAprimorada (4º) O alcance aumenta para 1.600 quilômetros e a mensagem pode conter até 100 palavras.",
       "castingTime": "2 ações",
       "range": "10 milhas",
       "target": "",
@@ -571,12 +571,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sentido Tremor",
-      "description": "Você se torna consciente das vibrações no solo ao seu redor. Você ganha sensação de tremor como uma sensação imprecisa com um alcance de 30 pés (9 metros). Como é normal para o sentido sísmico, você só pode detectar uma criatura se ela estiver na mesma superfície que você e somente se o alvo estiver se movendo (ou escavando) na superfície.\nEfeito do magia: Sentido Tremor\nAprimorada (3º) A duração do magia é de 1 hora.\nAprimorada (5º) A duração do magia é de 8 horas.",
+      "description": "Você se torna consciente das vibrações no solo ao seu redor. Você ganha sensação de tremor como uma sensação imprecisa com um alcance de 30 pés (9 metros). Como é normal para o sentido sísmico, você só pode detectar uma criatura se ela estiver na mesma superfície que você e somente se o alvo estiver se movendo (ou escavando) na superfície.\nEfeito da magia: Sentido Tremor\nAprimorada (3º) A duração da magia é de 1 hora.\nAprimorada (5º) A duração da magia é de 8 horas.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (3º) A duração do magia é de 1 hora.\nAprimorada (5º) A duração do magia é de 8 horas."
+      "heightening": "Aprimorada (3º) A duração da magia é de 1 hora.\nAprimorada (5º) A duração da magia é de 8 horas."
     }
   },
   {
@@ -603,7 +603,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Purificar o ar",
-      "description": "Você purifica o ar da área, tornando-o limpo e respirável. O magia remove imediatamente venenos inalados, poluição e contaminantes similares do ar. Pela duração restante, o magia evita que qualquer contaminação adicional altere o ar na área, incluindo impedir que o ar tóxico que faz fronteira com a área entre. (Isso não impede a entrada de contaminantes após o término do magia.) Este magia não cria ar, portanto, lançá-lo debaixo d'água não criaria ar respirável, nem afetaria quaisquer toxinas no ar suspensas na água.\nAprimorada (3º) A área aumenta para 60 pés (18 metros).\nAprimorada (4º) A área aumenta para 120 pés (36 metros).\nAprimorada (6º) A área aumenta para 500 pés (150 metros).\nAprimorada (9º) A área aumenta para 1 milha.",
+      "description": "Você purifica o ar da área, tornando-o limpo e respirável. A magia remove imediatamente venenos inalados, poluição e contaminantes similares do ar. Pela duração restante, a magia evita que qualquer contaminação adicional altere o ar na área, incluindo impedir que o ar tóxico que faz fronteira com a área entre. (Isso não impede a entrada de contaminantes após o término da magia.) Esta magia não cria ar, portanto, lançá-lo debaixo d'água não criaria ar respirável, nem afetaria quaisquer toxinas no ar suspensas na água.\nAprimorada (3º) A área aumenta para 60 pés (18 metros).\nAprimorada (4º) A área aumenta para 120 pés (36 metros).\nAprimorada (6º) A área aumenta para 500 pés (150 metros).\nAprimorada (9º) A área aumenta para 1 milha.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
@@ -620,12 +620,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Degrau de Escombros",
-      "description": "O alvo deixa para trás um rastro de entulho móvel que normalmente consiste em pedras, mas você pode escolher outro material terroso, como areia solta ou solo. Por 2 rodadas, quando o alvo se move voluntariamente para fora de um espaço, e se o alvo estiver em contato com o solo, o solo naquele espaço se torna um terreno difícil. O terreno difícil permanece enquanto durar a magia.\nAprimorada (4º) O alvo deixa terreno difícil para trás por 1 minuto em vez de duas rodadas, e a duração do magia é de 10 minutos.",
+      "description": "O alvo deixa para trás um rastro de entulho móvel que normalmente consiste em pedras, mas você pode escolher outro material terroso, como areia solta ou solo. Por 2 rodadas, quando o alvo se move voluntariamente para fora de um espaço, e se o alvo estiver em contato com o solo, o solo naquele espaço se torna um terreno difícil. O terreno difícil permanece enquanto durar a magia.\nAprimorada (4º) O alvo deixa terreno difícil para trás por 1 minuto em vez de duas rodadas, e a duração da magia é de 10 minutos.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (4º) O alvo deixa terreno difícil para trás por 1 minuto em vez de duas rodadas, e a duração do magia é de 10 minutos."
+      "heightening": "Aprimorada (4º) O alvo deixa terreno difícil para trás por 1 minuto em vez de duas rodadas, e a duração da magia é de 10 minutos."
     }
   },
   {
@@ -652,7 +652,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Espíritos de madeira úteis",
-      "description": "Ao lançar este magia, um grupo de pequenos espíritos da madeira cai na área. Eles realizam uma tarefa simples a cada rodada. Esses espíritos são um eco mágico dos verdadeiros espíritos que vivem no Plano da Madeira e não podem ser atacados, danificados ou de outra forma interferidos. Esses espíritos muitas vezes se parecem com kodama, mas podem aparecer em qualquer uma das inúmeras variedades de espíritos da madeira que habitam o Plano da Madeira.\nEscolha o tipo de ajuda que seus espíritos da madeira fornecem na lista abaixo quando você lança o magia. Na primeira vez em cada rodada que você sustenta o magia, você pode mover a área ocupada pelas aparições até 10 pés (3 metros) e pode escolher o tipo de ajuda que elas fornecem nesta rodada.\n• Tarefas Os espíritos da madeira realizam uma pequena tarefa manual de sua escolha, como limpar, abrir uma porta, pegar um objeto abandonado ou carregar um objeto de um local para outro. Os espíritos não podem pegar ou carregar um objeto com volume superior a 2.\n• Distrair Os espíritos da floresta distraem seus inimigos, escalando seus pés e corpos e sendo um incômodo. As criaturas na área ficam fora de guarda, a menos que tenham sucesso em um teste de Reflexos.\n• Obstáculo Os espíritos da madeira preenchem a área como uma massa caótica e saltitante. A área que ocupam é um terreno difícil.\n• Procurar Os espíritos da madeira procuram na área que ocupam, usando seu teste de Percepção como se fosse deles. Você aprende tudo o que eles fazem com a Busca dessa maneira.",
+      "description": "Ao lançar esta magia, um grupo de pequenos espíritos da madeira cai na área. Eles realizam uma tarefa simples a cada rodada. Esses espíritos são um eco mágico dos verdadeiros espíritos que vivem no Plano da Madeira e não podem ser atacados, danificados ou de outra forma interferidos. Esses espíritos muitas vezes se parecem com kodama, mas podem aparecer em qualquer uma das inúmeras variedades de espíritos da madeira que habitam o Plano da Madeira.\nEscolha o tipo de ajuda que seus espíritos da madeira fornecem na lista abaixo quando você lança a magia. Na primeira vez em cada rodada que você sustenta a magia, você pode mover a área ocupada pelas aparições até 10 pés (3 metros) e pode escolher o tipo de ajuda que elas fornecem nesta rodada.\n• Tarefas Os espíritos da madeira realizam uma pequena tarefa manual de sua escolha, como limpar, abrir uma porta, pegar um objeto abandonado ou carregar um objeto de um local para outro. Os espíritos não podem pegar ou carregar um objeto com volume superior a 2.\n• Distrair Os espíritos da floresta distraem seus inimigos, escalando seus pés e corpos e sendo um incômodo. As criaturas na área ficam fora de guarda, a menos que tenham sucesso em um teste de Reflexos.\n• Obstáculo Os espíritos da madeira preenchem a área como uma massa caótica e saltitante. A área que ocupam é um terreno difícil.\n• Procurar Os espíritos da madeira procuram na área que ocupam, usando seu teste de Percepção como se fosse deles. Você aprende tudo o que eles fazem com a Busca dessa maneira.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "",

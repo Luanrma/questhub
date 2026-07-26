@@ -154,7 +154,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rzwY2cdJOfsVqX2R": {
           "name": "Respire estilhaços",
-          "description": "O bandido de metal respira um cone de 4,5 metros de flocos de metal irregulares que causa (2d4)[cortante,(1d4)[sangramento]|opções:dano de área] de dano a cada criatura dentro da área (teste (reflexo, dc:17, básico, opções:efeito de área) salvamento).\nO bandido do metal não pode Respirar Estilhaços novamente por [[/gmr 1d4 #Recarregar Respirar Estilhaços]]."
+          "description": "O bandido de metal respira um cone de 4,5 metros de flocos de metal irregulares que causa (2d4)[cortante,(1d4)[sangramento] de dano a cada criatura dentro da área (teste (reflexo, dc:17, básico, opções:efeito de área) salvamento).\nO bandido do metal não pode Respirar Estilhaços novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -208,7 +208,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "Mg5YZd02GhKleviZ": {
           "name": "Recompensa da Natureza",
-          "description": "Todos os dias, um cordeiro vegetal cresce [[/r 1d4 #Flores Comestíveis]] flores comestíveis (como alcachofra, brócolis ou dente-de-leão) entre o algodão verde que cobre seu corpo. Esses vegetais podem ser colhidos sem machucar o cordeiro. Uma criatura viva pode comer o vegetal com uma ação de Interação para recuperar (1d6+4)[cura] Pontos de Vida."
+          "description": "Todos os dias, um cordeiro vegetal cresce 1d4 flores comestíveis (como alcachofra, brócolis ou dente-de-leão) entre o algodão verde que cobre seu corpo. Esses vegetais podem ser colhidos sem machucar o cordeiro. Uma criatura viva pode comer o vegetal com uma ação de Interação para recuperar (1d6+4)[cura] Pontos de Vida."
         },
         "Pzs0vIXAKc0xf9C3": {
           "name": "Explosão de semente de algodão",
@@ -253,7 +253,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "NPm9R0Ge5z57agoB": {
           "name": "Empatia com plantas",
-          "description": "O jardineiro ardande pode usar Diplomacia para [[/act causar uma impressão]] e fazer [[/act request]] de plantas muito simples."
+          "description": "O jardineiro ardande pode usar Diplomacia para causar uma impressão e fazer request de plantas muito simples."
         },
         "U5Vf0wWzTCkI8sGK": {
           "name": "Decompor",
@@ -390,7 +390,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "OkAkqlgDi1isALeF": {
           "name": "Respire pólen",
-          "description": "O bandido da floresta respira pólen sufocante em um cone de 4,5 metros que causa 2d6 de dano venenoso a cada criatura dentro da área (teste (reflexo, dc:17, básico, opções:efeito de área) salvamento; criaturas que não precisam respirar são imunes). O bandido da floresta não pode Respirar Pólen novamente por [[/gmr 1d4 #Recharge Breathe Pollen]]."
+          "description": "O bandido da floresta respira pólen sufocante em um cone de 4,5 metros que causa 2d6 de dano venenoso a cada criatura dentro da área (teste (reflexo, dc:17, básico, opções:efeito de área) salvamento; criaturas que não precisam respirar são imunes). O bandido da floresta não pode Respirar Pólen novamente por 1d4."
         },
         "cDhKXGyP6SctggAU": {
           "name": "Punção Espinhosa",
@@ -511,7 +511,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "iiNeC7jyAcDS6aGh": {
           "name": "Anexar",
-          "description": "O geodo salta até 15 pés (4,5 metros) e faz um ataque de dentes de cristal. Se atingir uma criatura maior que ele, ele poderá se anexar a essa criatura. Fazer isso é como agarrar a criatura ([[/act escape dc=17]]), mas o geodo se move com aquela criatura em vez de mantê-la no lugar. O geodo fica fora de guarda enquanto conectado. Se o geodo for morto ou empurrado enquanto estiver preso a uma criatura, aquela criatura sofre 1 dano de sangramento persistente. Escapar do geodo anexado ou removê-lo de outras maneiras não causa danos por sangramento."
+          "description": "O geodo salta até 15 pés (4,5 metros) e faz um ataque de dentes de cristal. Se atingir uma criatura maior que ele, ele poderá se anexar a essa criatura. Fazer isso é como agarrar a criatura (Escapar CD 17), mas o geodo se move com aquela criatura em vez de mantê-la no lugar. O geodo fica fora de guarda enquanto conectado. Se o geodo for morto ou empurrado enquanto estiver preso a uma criatura, aquela criatura sofre 1 dano de sangramento persistente. Escapar do geodo anexado ou removê-lo de outras maneiras não causa danos por sangramento."
         },
         "JQEFb9KA6XUO7dyb": {
           "name": "Roer",
@@ -562,7 +562,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OciBdDe3waMUrQbc": {
           "name": "Estouro",
-          "description": "A geleia de gota de orvalho achata seu sino e dispara para frente, voando ou nadando duas vezes em linha reta em direção ao alvo e tentando um golpe de tentáculo. Se obtiver sucesso, a gota de orvalho fixa-se no rosto do alvo, cobrindo sua boca com a água suspensa em seu corpo gelatinoso. Se o alvo não conseguir respirar água, ele começa a se afogar. O DC para [[/act escape dc=16]] é 16."
+          "description": "A geleia de gota de orvalho achata seu sino e dispara para frente, voando ou nadando duas vezes em linha reta em direção ao alvo e tentando um golpe de tentáculo. Se obtiver sucesso, a gota de orvalho fixa-se no rosto do alvo, cobrindo sua boca com a água suspensa em seu corpo gelatinoso. Se o alvo não conseguir respirar água, ele começa a se afogar. O DC para Escapar CD 16 é 16."
         }
       },
       "spellcasting": {}
@@ -897,7 +897,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "qcbZK2vKV0dCEysm": {
           "name": "Camuflar",
-          "description": "Um olobigonde pode [[/agir se esconder]] em ambientes aquáticos mesmo que não tenha cobertura. No entanto, deve haver plantas, detritos, fundo do mar ou outros objetos para que ele se camufle, e não apenas em águas abertas."
+          "description": "Um olobigonde pode Esconder-se em ambientes aquáticos mesmo que não tenha cobertura. No entanto, deve haver plantas, detritos, fundo do mar ou outros objetos para que ele se camufle, e não apenas em águas abertas."
         },
         "wSPsNR3klHTRAwTp": {
           "name": "Emboscada",
@@ -1007,7 +1007,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zdHbmBbUYAU1VVSI": {
           "name": "Afundar na pedra",
-          "description": "Os espinhos disparados da cauda de um cullitox em pedra, prendendo os inimigos no lugar. Inimigos que estão sobre ou adjacentes a uma superfície de pedra e que são atingidos por um golpe crítico em um golpe de cauda são imobilizados. O DC para [[/act escape dc=17]] é 17."
+          "description": "Os espinhos disparados da cauda de um cullitox em pedra, prendendo os inimigos no lugar. Inimigos que estão sobre ou adjacentes a uma superfície de pedra e que são atingidos por um golpe crítico em um golpe de cauda são imobilizados. O DC para Escapar CD 17 é 17."
         }
       },
       "spellcasting": {
@@ -1116,7 +1116,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "YR4ouZCnyiBeb5hO": {
           "name": "Crie raízes",
-          "description": "Requisitos O broto de lomori está no chão\nEfeito O broto de lomori se planta no solo. Raízes agarradoras irrompem do chão em uma explosão de 1,5 metro dentro de 60 pés (18 metros) do broto de lomori, causando 4d4 de dano de concussão (teste (reflexo, dc:20, básico, opções:efeito de área,inflige:imobilizado) salvamento) às criaturas na área; se falhar na resistência, uma criatura ganha a condição Imobilizada até [[/act escape dc=20]]. As raízes também tornam a área um terreno difícil por 1 minuto, após o qual se decompõem em cobertura morta fértil; a área não é mais um terreno difícil e quaisquer criaturas ainda imobilizadas pelas raízes escapam automaticamente."
+          "description": "Requisitos O broto de lomori está no chão\nEfeito O broto de lomori se planta no solo. Raízes agarradoras irrompem do chão em uma explosão de 1,5 metro dentro de 60 pés (18 metros) do broto de lomori, causando 4d4 de dano de concussão (teste (reflexo, dc:20, básico, opções:efeito de área,inflige:imobilizado) salvamento) às criaturas na área; se falhar na resistência, uma criatura ganha a condição Imobilizada até Escapar CD 20. As raízes também tornam a área um terreno difícil por 1 minuto, após o qual se decompõem em cobertura morta fértil; a área não é mais um terreno difícil e quaisquer criaturas ainda imobilizadas pelas raízes escapam automaticamente."
         },
         "vPIM6rHHXuiolkCw": {
           "name": "Derrubar",
@@ -1171,11 +1171,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jQbP3DAaDIkvFKsk": {
           "name": "Feedback Biomágico",
-          "description": "As propriedades condutoras do plasma de ferro rápido são perigosas para aqueles que estão em contato físico com ele. Quando uma criatura Agarrada por um plasma de ferro rápido Conjura um magia, aquela criatura sofre 5 de dano de força por Rank do magia."
+          "description": "As propriedades condutoras do plasma de ferro rápido são perigosas para aqueles que estão em contato físico com ele. Quando uma criatura Agarrada por um plasma de ferro rápido Conjura uma magia, aquela criatura sofre 5 de dano de força por Rank da magia."
         },
         "CAHGfrNJcJES04xD": {
           "name": "Consumir Magia",
-          "description": "Gatilho O plasma de ferro rápido é bem-sucedido em um teste de resistência contra um magia\nEfeito O plasma de ferro rápido consome energia do magia, recuperando 5 Pontos de Vida por Rank do magia."
+          "description": "Gatilho O plasma de ferro rápido é bem-sucedido em um teste de resistência contra uma magia\nEfeito O plasma de ferro rápido consome energia da magia, recuperando 5 Pontos de Vida por Rank da magia."
         },
         "YK5Qh5RzF4sOD0xt": {
           "name": "Contrair",
@@ -1236,7 +1236,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zUDsQayKIEHHh3Nz": {
           "name": "Corrida Ardente",
-          "description": "O gatecrasher avança para dobrar sua velocidade em linha reta. Eles podem passar por espaços inimigos e fazer um golpe de manopla de martelo contra cada criatura por onde se movem. Blazing Rush não pode ser usado novamente para [[/gmr 1d4 #Recharge Blazing Rush]]."
+          "description": "O gatecrasher avança para dobrar sua velocidade em linha reta. Eles podem passar por espaços inimigos e fazer um golpe de manopla de martelo contra cada criatura por onde se movem. Blazing Rush não pode ser usado novamente para 1d4."
         },
         "3eljJtZ3IPeQd7kL": {
           "name": "Toque ardente",
@@ -1399,7 +1399,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "hPZzRiHQXCiYgo2g": {
           "name": "Explodindo entranhas",
-          "description": "Quando o rakkatak é atingido criticamente ou falha criticamente em um teste de Fortitude, um de seus órgãos explode. Role [[/gmr 1d4]] para determinar que efeito isso tem.\n1 O gás nocivo retido é expelido. O rakkatak é empurrado 10 pés (3 metros) para longe da fonte do ataque ou efeito desencadeador.\n2 Pus toma banho nas pessoas próximas. Cada criatura em uma emanação de 1,5 metro fica Enjoada 1.\n3 O dano é grave. O rakkatak sofre 1d6 de dano de sangramento persistente.\n4 Ovos gelatinosos de rakkatak explodem e eclodem instantaneamente. Cada criatura em uma emanação de 1,5 metro sofre 1d6 de dano perfurante persistente das larvas vorazes."
+          "description": "Quando o rakkatak é atingido criticamente ou falha criticamente em um teste de Fortitude, um de seus órgãos explode. Role 1d4 para determinar que efeito isso tem.\n1 O gás nocivo retido é expelido. O rakkatak é empurrado 10 pés (3 metros) para longe da fonte do ataque ou efeito desencadeador.\n2 Pus toma banho nas pessoas próximas. Cada criatura em uma emanação de 1,5 metro fica Enjoada 1.\n3 O dano é grave. O rakkatak sofre 1d6 de dano de sangramento persistente.\n4 Ovos gelatinosos de rakkatak explodem e eclodem instantaneamente. Cada criatura em uma emanação de 1,5 metro sofre 1d6 de dano perfurante persistente das larvas vorazes."
         },
         "SDDRm9yPKg3NJ4SU": {
           "name": "Olhar do Predador",
@@ -1646,7 +1646,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "R3nQMIctYNinJLgl": {
           "name": "Engolir",
-          "description": "verificação (reflexo, dc:22, opções:efeito de dano,inflige:agarrado,inflige:lento), 5d8 de dano de concussão, [[/act escape dc=20]], Ruptura 10\nUma criatura Engolfada pelo bosque vivo também deve tentar um teste (fortitude, dc:22, básico, opções:inflige:atordoado) salvo enquanto é golpeada entre os troncos finos e bem compactados.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura fica atordoada 1.\nFalha A criatura fica atordoada 2.\nFalha Crítica A criatura fica Atordoada 4."
+          "description": "verificação (reflexo, dc:22, opções:efeito de dano,inflige:agarrado,inflige:lento), 5d8 de dano de concussão, Escapar CD 20, Ruptura 10\nUma criatura Engolfada pelo bosque vivo também deve tentar um teste (fortitude, dc:22, básico, opções:inflige:atordoado) salvo enquanto é golpeada entre os troncos finos e bem compactados.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura fica atordoada 1.\nFalha A criatura fica atordoada 2.\nFalha Crítica A criatura fica Atordoada 4."
         }
       },
       "spellcasting": {}
@@ -1770,7 +1770,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TB0vejgDO2mb7bbp": {
           "name": "Polaridade reversa",
-          "description": "A magnetita viva muda a polaridade do seu campo magnético de positiva para negativa, ou vice-versa. Cada criatura afetada pela aura da magnetita cai no chão, a menos que obtenha sucesso em um teste de resistência (reflexo, dc:21).\nA magnetita não pode reverter a polaridade novamente por [[/gmr 1d4 #Recharge Reverse Polarity]]."
+          "description": "A magnetita viva muda a polaridade do seu campo magnético de positiva para negativa, ou vice-versa. Cada criatura afetada pela aura da magnetita cai no chão, a menos que obtenha sucesso em um teste de resistência (reflexo, dc:21).\nA magnetita não pode reverter a polaridade novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -1818,7 +1818,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Eqg2SUT8CQFaYk5Q": {
           "name": "Aprofunde-se",
-          "description": "A fera esculpida crava suas raízes no solo para melhor proteção e aquisição. Enquanto estiver enterrada, a fera esculpida não pode andar nem usar suas raízes para atacar; no entanto, isso também anula os efeitos do ataque pesado, concede à besta um bônus de status de +2 em seus testes de CA e Fortitude e aumenta o dano de seu Golpe de estátua em [[/r 1d8]]. A fera esculpida pode gastar uma ação no seu turno para encerrar o efeito; alternativamente, o efeito termina quando a fera esculpida é movida à força, como por meio de um ataque de empurrão bem-sucedido."
+          "description": "A fera esculpida crava suas raízes no solo para melhor proteção e aquisição. Enquanto estiver enterrada, a fera esculpida não pode andar nem usar suas raízes para atacar; no entanto, isso também anula os efeitos do ataque pesado, concede à besta um bônus de status de +2 em seus testes de CA e Fortitude e aumenta o dano de seu Golpe de estátua em 1d8. A fera esculpida pode gastar uma ação no seu turno para encerrar o efeito; alternativamente, o efeito termina quando a fera esculpida é movida à força, como por meio de um ataque de empurrão bem-sucedido."
         },
         "hV0dl4qSqtuYNS07": {
           "name": "Derrubar",
@@ -2179,7 +2179,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "RrpDOSh8ukqc73TP": {
           "name": "Redirecionamento Condutivo",
-          "description": "Gatilho O zuhra é atingido por um ataque, magia ou efeito que causa dano de eletricidade\nEfeito O zuhra conduz a eletricidade através de seu corpo, sofrendo dano normalmente e redirecionando um raio para um alvo dentro de 30 pés (9 metros) que ele possa ver. O zuhra faz uma jogada de ataque à distância com um modificador [[/r 1d20+20 #Redirecionamento Condutivo]] contra a CA do alvo. Em um acerto ou acerto crítico, o alvo sofre dano de eletricidade igual ao dano total do efeito desencadeador."
+          "description": "Gatilho O zuhra é atingido por um ataque, magia ou efeito que causa dano de eletricidade\nEfeito O zuhra conduz a eletricidade através de seu corpo, sofrendo dano normalmente e redirecionando um raio para um alvo dentro de 30 pés (9 metros) que ele possa ver. O zuhra faz uma jogada de ataque à distância com um modificador 1d20+20 contra a CA do alvo. Em um acerto ou acerto crítico, o alvo sofre dano de eletricidade igual ao dano total do efeito desencadeador."
         },
         "aQkhEmcvx5x4BXZ8": {
           "name": "Reflexão Cegante",
@@ -2289,7 +2289,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "YsP0BTGgFbqhPJlq": {
           "name": "Pulverizar Pólen",
-          "description": "O snapdrake respira uma explosão de pólen em um cone de 12 metros. As criaturas capturadas pela explosão devem ter sucesso em um teste de resistência (reflexo, dc:25, básico) ou serão expostas ao pólen do snapdrake.\nO snapdrake não pode usar Spray Pollen novamente por [[/gmr 1d6 #Recharge Spray Pollen]]."
+          "description": "O snapdrake respira uma explosão de pólen em um cone de 12 metros. As criaturas capturadas pela explosão devem ter sucesso em um teste de resistência (reflexo, dc:25, básico) ou serão expostas ao pólen do snapdrake.\nO snapdrake não pode usar Spray Pollen novamente por 1d6."
         },
         "33PlFFmeIlVuU3MF": {
           "name": "Pegar",
@@ -2342,7 +2342,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "vgox9yqL4wLDef8c": {
           "name": "Envelope",
-          "description": "Requisitos A corrente velada começa seu turno com um alvo de seu tamanho ou menor.\nEfeito A corrente velada mantém o Agarrar e se aglutina ao redor da criatura, esticando-se em um véu semissólido que sufoca a criatura dentro dele. Posteriormente, isso tem o mesmo efeito como se a corrente velada tivesse Engolfado a criatura (CD 26, 1d8+8 concussão, [[/act escape dc=26]], Ruptura 17). Como engolir uma criatura é uma ação hostil, a corrente velada fica oculta em vez de não ser detectada a cada rodada em que uma criatura é engolida."
+          "description": "Requisitos A corrente velada começa seu turno com um alvo de seu tamanho ou menor.\nEfeito A corrente velada mantém o Agarrar e se aglutina ao redor da criatura, esticando-se em um véu semissólido que sufoca a criatura dentro dele. Posteriormente, isso tem o mesmo efeito como se a corrente velada tivesse Engolfado a criatura (CD 26, 1d8+8 concussão, Escapar CD 26, Ruptura 17). Como engolir uma criatura é uma ação hostil, a corrente velada fica oculta em vez de não ser detectada a cada rodada em que uma criatura é engolida."
         },
         "DeDS5VBuw7gFgoLs": {
           "name": "Pegar",
@@ -2398,7 +2398,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0uikf7fcqBI6U5xr": {
           "name": "Quebra de concha",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O regimento de colheita se envolve em um ataque corpo a corpo coordenado contra cada inimigo em uma emanação de 1,5 metro, com um salvamento de teste (reflexo, dc:23, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d8+3)[concussão|opções:dano em área] de dano\n2 (2d8+9)[concussão|opções:dano em área] de dano\n3 (2d8+12)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O regimento de colheita se envolve em um ataque corpo a corpo coordenado contra cada inimigo em uma emanação de 1,5 metro, com um salvamento de teste (reflexo, dc:23, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d8+3)[concussão de dano\n2 (2d8+9)[concussão de dano\n3 (2d8+12)[concussão de dano"
         },
         "ltiErOyUItklz21B": {
           "name": "Movimento de tropas",
@@ -2471,7 +2471,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5ekAlXpshxzOnliA": {
           "name": "Rugido da Floresta Noturna",
-          "description": "Frequência uma vez por hora;\nEfeito O guardião ruge, apagando as luzes em um cone de 9 metros. Chamas e luzes comuns são extintas e o guardião tenta neutralizar qualquer luz mágica com um modificador de contra-ataque [[/r 1d20+21 #Counteract]] e um Rank de contra-ataque de 5."
+          "description": "Frequência uma vez por hora;\nEfeito O guardião ruge, apagando as luzes em um cone de 9 metros. Chamas e luzes comuns são extintas e o guardião tenta neutralizar qualquer luz mágica com um modificador de contra-ataque 1d20+21 e um Rank de contra-ataque de 5."
         }
       },
       "spellcasting": {}
@@ -2594,7 +2594,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "nC6LYHJokLTFcpHk": {
           "name": "Engolfar (forma de enxame)",
-          "description": "verificação (reflexo, dc:27, opções:efeito de dano,inflige:agarrado,inflige:lento), (2d8+6)[concussão] dano, [[/act escape dc=27]], Ruptura 18"
+          "description": "verificação (reflexo, dc:27, opções:efeito de dano,inflige:agarrado,inflige:lento), (2d8+6)[concussão] dano, Escapar CD 27, Ruptura 18"
         },
         "VmxQQtJfIzinXz24": {
           "name": "Forma de Enxame",
@@ -2667,7 +2667,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Sp1wwUYNjUeg1sgS": {
           "name": "Tudo feito um",
-          "description": "O jann shuyookh invoca todos os elementos que constituem o seu ser e escolhe um. Eles ganham um magia arcano adicional que podem lançar à vontade e fortalecem seus ataques com o elemento, causando 1d6 de dano extra do tipo listado. Esses benefícios duram até que o shuyookh use essa habilidade novamente.\n• Ar: Relâmpago, 1d6 de eletricidade;\n• Terra: Um com Pedra, 1d6 concussão;\n• Fogo: Bola de fogo, 1d6 fogo;\n• Metal: Metais Nocivos, 1d6 eletricidade;\n• Água: Parede de Água, 1d6 concussão;\n• Madeira: Parede de Espinhos, 1d6 perfurante."
+          "description": "O jann shuyookh invoca todos os elementos que constituem o seu ser e escolhe um. Eles ganham uma magia arcano adicional que podem lançar à vontade e fortalecem seus ataques com o elemento, causando 1d6 de dano extra do tipo listado. Esses benefícios duram até que o shuyookh use essa habilidade novamente.\n• Ar: Relâmpago, 1d6 de eletricidade;\n• Terra: Um com Pedra, 1d6 concussão;\n• Fogo: Bola de fogo, 1d6 fogo;\n• Metal: Metais Nocivos, 1d6 eletricidade;\n• Água: Parede de Água, 1d6 concussão;\n• Madeira: Parede de Espinhos, 1d6 perfurante."
         },
         "yibXjLPFTeJxtcIx": {
           "name": "Alterar forma",
@@ -2704,7 +2704,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
           }
         },
         "FFExznIJB0kNkVF3": {
-          "name": "Todos Feitos Um magia",
+          "name": "Todos Feitos Uma magia",
           "category": "inato",
           "spells": {
             "E03m3fE5AteUrijW": {
@@ -2784,7 +2784,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cYdM7ZVGHjnB0zhG": {
           "name": "Liberar luz",
-          "description": "O strider emite a luz que refrata continuamente dentro dele para lançar o Raio Cromático como um magia primordial inato aumentado para o 5º Rank, com uma jogada de ataque de magia +21. O strider de cristal não pode Liberar Luz novamente por [[/gmr 1d4 #Recharge Liberar Luz]]."
+          "description": "O strider emite a luz que refrata continuamente dentro dele para lançar o Raio Cromático como uma magia primordial inato aumentado para o 5º Rank, com uma jogada de ataque de magia +21. O strider de cristal não pode Liberar Luz novamente por 1d4."
         },
         "FlWyIc9ZgwfrFCQf": {
           "name": "Atropelar",
@@ -2841,16 +2841,16 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Uma áspide da dor pode ver campos magnéticos, permitindo detectar grandes fontes de metal magnético (Grupo 1 ou superior) como um sentido preciso."
         },
         "q3sU40uk6Pxc25iI": {
-          "name": "+1 Status para todos os salvamentos versus emoção",
+          "name": "+1 de bônus de status em todos os testes de resistência contra emoção",
           "description": ""
         },
         "5En3GVeB81lMRDkk": {
           "name": "Cortina da Calma",
-          "description": "20 pés (6 metros). A áspide da dor consome as emoções das criaturas ao seu redor. Um inimigo que inicia seu turno na aura deve tentar um teste (vontade, dc:29) de salvamento. Se falhar, a áspide consumirá sua dor. A criatura sente falta de sentimentos e motivação, reduzindo seu valor de Assustado em 1 e ficando Estupefata 1 (ou Estupefata 2 em uma falha crítica) por [[/gmr 1d4 #rounds]]. Independentemente do resultado do teste de resistência, a criatura fica temporariamente imune à cortina de calma por 1 minuto. A áspide fica carregada de tristeza (veja dor de ferro) por 1 minuto sempre que uma criatura falha neste teste de resistência."
+          "description": "20 pés (6 metros). A áspide da dor consome as emoções das criaturas ao seu redor. Um inimigo que inicia seu turno na aura deve tentar um teste (vontade, dc:29) de salvamento. Se falhar, a áspide consumirá sua dor. A criatura sente falta de sentimentos e motivação, reduzindo seu valor de Assustado em 1 e ficando Estupefata 1 (ou Estupefata 2 em uma falha crítica) por 1d4. Independentemente do resultado do teste de resistência, a criatura fica temporariamente imune à cortina de calma por 1 minuto. A áspide fica carregada de tristeza (veja dor de ferro) por 1 minuto sempre que uma criatura falha neste teste de resistência."
         },
         "1hpT9mMYcOGYWMo4": {
           "name": "Dor de Ferro",
-          "description": "Se o áspide lançar Aceleração Magnética enquanto estiver carregado de pesar, ele pode aumentar o magia para o 5º Rank ou atingir até três criaturas em vez de uma, rolando separadamente contra cada uma. Depois de lançar o magia, a áspide não fica mais carregada de tristeza."
+          "description": "Se o áspide lançar Aceleração Magnética enquanto estiver carregado de pesar, ele pode aumentar a magia para o 5º Rank ou atingir até três criaturas em vez de uma, rolando separadamente contra cada uma. Depois de lançar a magia, a áspide não fica mais carregada de tristeza."
         },
         "bMKtNrEvbnkJNA9L": {
           "name": "Viajante Magnético",
@@ -2934,7 +2934,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "EOdKm66pzAoMcJfs": {
           "name": "Calor ofuscante",
-          "description": "O corvo solar expande suas asas e libera uma luz extremamente quente e ofuscante em uma emanação de 36 metros. Cada criatura na área sofre 9d6 de dano de fogo com um teste de resistência (reflexo, dc:29, opções: efeito de área, efeito de dano). O corvo não pode usar Blinding Heat novamente por [[/gmr 1d4 #Recharge Blinding Heat]], e sua aura brilhante é desativada durante esse tempo.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano e fica Deslumbrada por 1 rodada.\nFalha A criatura sofre dano total e fica cega por 1 rodada.\nFalha Crítica A criatura sofre o dobro de dano e fica cega por 1 minuto."
+          "description": "O corvo solar expande suas asas e libera uma luz extremamente quente e ofuscante em uma emanação de 36 metros. Cada criatura na área sofre 9d6 de dano de fogo com um teste de resistência (reflexo, dc:29, opções: efeito de área, efeito de dano). O corvo não pode usar Blinding Heat novamente por 1d4, e sua aura brilhante é desativada durante esse tempo.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano e fica Deslumbrada por 1 rodada.\nFalha A criatura sofre dano total e fica cega por 1 rodada.\nFalha Crítica A criatura sofre o dobro de dano e fica cega por 1 minuto."
         },
         "eQjPFKgxy8qnzjgs": {
           "name": "Garras Ardentes",
@@ -3285,7 +3285,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GXEYb7C00ZXmEiOV": {
           "name": "Tempestade de vento",
-          "description": "O vendaval forte exala como uma unidade, criando uma poderosa tempestade de vento. Esta tempestade de vento é uma explosão de 3 metros dentro de 100 pés (30 metros) que causa (3d8+10)[concussão|opções:dano de área] de dano (verificação (reflexo, dc:30, básico, opções:efeito de área,movimento forçado,inflige:prone) salvamento). As criaturas que falham no teste de resistência são empurradas 10 pés (3 metros) em qualquer direção (além de serem derrubadas em caso de falha crítica). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 5 pés e a distância percorrida diminui para 5 pés (1,5 metros)."
+          "description": "O vendaval forte exala como uma unidade, criando uma poderosa tempestade de vento. Esta tempestade de vento é uma explosão de 3 metros dentro de 100 pés (30 metros) que causa (3d8+10)[concussão de dano (verificação (reflexo, dc:30, básico, opções:efeito de área,movimento forçado,inflige:prone) salvamento). As criaturas que falham no teste de resistência são empurradas 10 pés (3 metros) em qualquer direção (além de serem derrubadas em caso de falha crítica). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 5 pés e a distância percorrida diminui para 5 pés (1,5 metros)."
         }
       },
       "spellcasting": {}
@@ -3345,7 +3345,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cGhPeUIuvKKzGoE1": {
           "name": "Vômito Abrasador",
-          "description": "O oregorger expele uma nuvem de detritos cáusticos e enferrujados de sua boca, enchendo um cubo adjacente a si mesmo com 3 metros cúbicos de cada lado. Qualquer criatura nesta área sofre 6d6 de dano ácido | opções: dano de área] de dano (verificação (reflexo, CC: 30, básico, opções: efeito de área)). O solo sob a nuvem é um terreno difícil por 1 hora, após a qual os estilhaços se transformam em pó.\nO oregorger não pode usar Searing Spew novamente para [[/gmr 1d4 #Recharge Searing Spew]], mas a habilidade recarrega se o oregorger danificar um item com devorar metal."
+          "description": "O oregorger expele uma nuvem de detritos cáusticos e enferrujados de sua boca, enchendo um cubo adjacente a si mesmo com 3 metros cúbicos de cada lado. Qualquer criatura nesta área sofre 6d6 de dano ácido | opções: dano de área] de dano (verificação (reflexo, CC: 30, básico, opções: efeito de área)). O solo sob a nuvem é um terreno difícil por 1 hora, após a qual os estilhaços se transformam em pó.\nO oregorger não pode usar Searing Spew novamente para 1d4, mas a habilidade recarrega se o oregorger danificar um item com devorar metal."
         }
       },
       "spellcasting": {}
@@ -3399,7 +3399,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rBBPu3L2sSvSJOCv": {
           "name": "Salva de fragmentos",
-          "description": "O cubo pelegox magnetiza fragmentos de metal à distância. Esta é uma explosão de 3 metros dentro de 30 pés (9 metros) que causa (2d6+10)[perfurante|opções:dano de área] de dano (teste (reflexo, dc:27, básico, opções:efeito de área) salvamento). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 1,5 metro."
+          "description": "O cubo pelegox magnetiza fragmentos de metal à distância. Esta é uma explosão de 3 metros dentro de 30 pés (9 metros) que causa (2d6+10)[perfurante de dano (teste (reflexo, dc:27, básico, opções:efeito de área) salvamento). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 1,5 metro."
         },
         "Vmi0wnI6ZrQvUcpb": {
           "name": "Movimento de tropas",
@@ -3560,7 +3560,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ogH30QUlyvXcZTO9": {
           "name": "Engolir",
-          "description": "verificação (reflexo, dc:30, opções:efeito de dano,inflige:agarrado,inflige:lento), (8d10)[concussão] dano, [[/act escape dc=27]], Ruptura 20"
+          "description": "verificação (reflexo, dc:30, opções:efeito de dano,inflige:agarrado,inflige:lento), (8d10)[concussão] dano, Escapar CD 27, Ruptura 20"
         },
         "QQiFKxKI0j0hb7PX": {
           "name": "Crescimento envolvente",
@@ -3624,11 +3624,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kRzkn90J5Ky2v7Io": {
           "name": "Esmurrando Pedregulhos",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A legião avalanche desfere uma investida de golpes contra cada inimigo em uma emanação de 1,5 metro (teste (reflexo, dc:28, básico, opções:efeito de área) salvamento). O dano depende do número de ações.\n1 2d8 de dano por concussão\n2 (3d8+8)[concussão|opções:dano em área] de dano\n3 (4d8+11)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A legião avalanche desfere uma investida de golpes contra cada inimigo em uma emanação de 1,5 metro (teste (reflexo, dc:28, básico, opções:efeito de área) salvamento). O dano depende do número de ações.\n1 2d8 de dano por concussão\n2 (3d8+8)[concussão de dano\n3 (4d8+11)[concussão de dano"
         },
         "2yFauo5guCRGqBMo": {
           "name": "Pedras giratórias",
-          "description": "A legião da avalanche gira no mesmo lugar, levantando uma barragem de pedras. Cada criatura em uma explosão de 3 metros dentro de 30 pés (9 metros) da tropa sofre (1d12+8)[concussão|opções:dano de área] de dano (teste (reflexo, dc:28, básico, opções:efeito de área) salvamento). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 1,5 metro."
+          "description": "A legião da avalanche gira no mesmo lugar, levantando uma barragem de pedras. Cada criatura em uma explosão de 3 metros dentro de 30 pés (9 metros) da tropa sofre (1d12+8)[concussão de dano (teste (reflexo, dc:28, básico, opções:efeito de área) salvamento). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 1,5 metro."
         },
         "umlBJNRh2jqhdPoK": {
           "name": "Pisar na Terra",
@@ -3694,7 +3694,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3mNhwXExIRqSlsI0": {
           "name": "Vácuo",
-          "description": "Requisitos O veldenar não possui uma criatura engolfada\nEfeito O veldenar se destrava com força e depois expande suas mandíbulas para inalar o ar em um cone de 4,5 metros à sua frente, puxando criaturas grandes ou menores para sua boca cavernosa. O veldenar engole as criaturas na área (verificação (reflexo, dc:27, opções:efeito de área,efeito de dano), (1d10+10)[frio|opções:dano de área], [[/act escape dc=27]], Ruptura 25)."
+          "description": "Requisitos O veldenar não possui uma criatura engolfada\nEfeito O veldenar se destrava com força e depois expande suas mandíbulas para inalar o ar em um cone de 4,5 metros à sua frente, puxando criaturas grandes ou menores para sua boca cavernosa. O veldenar engole as criaturas na área (verificação (reflexo, dc:27, opções:efeito de área,efeito de dano), (1d10+10)[frio, Escapar CD 27, Ruptura 25)."
         }
       },
       "spellcasting": {}
@@ -3769,7 +3769,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "bLjDue1B1wopn7W2": {
           "name": "Embreagem de pedra",
-          "description": "Quando o jabali empurra uma criatura contra uma barreira de pedra, a superfície a agarra com dedos de pedra. O alvo deve ter sucesso em um teste de resistência (reflexo, dc:30) ou será Agarrado pela superfície ([[/act escape dc=36]])."
+          "description": "Quando o jabali empurra uma criatura contra uma barreira de pedra, a superfície a agarra com dedos de pedra. O alvo deve ter sucesso em um teste de resistência (reflexo, dc:30) ou será Agarrado pela superfície (Escapar CD 36)."
         },
         "u3Uc9NoalPADbJdb": {
           "name": "Esmagamento de pedra",
@@ -3919,7 +3919,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "d7qYKasn3zaQQY0L": {
           "name": "Iluminar",
-          "description": "Efeito Os perseguidores nascidos do sal movem suas iscas luminescentes em um show de luzes fascinante, atraindo criaturas próximas para seu alcance. Cada criatura em uma emanação de 30 metros deve tentar um teste de resistência (vontade, dc:33); independentemente do resultado de seu salvamento, a criatura fica temporariamente imune a Lightlure por 24 horas.\nSucesso A criatura não é afetada.\nFalha A criatura fica fascinada pelas iscas e deve gastar todas as suas ações em seu próximo turno para se aproximar delas o mais rápido possível, evitando perigos óbvios ao longo de seu caminho.\nFalha Crítica Como falha, mas a criatura também fica Deslumbrada por [[/gmr 1d4 #rounds]]."
+          "description": "Efeito Os perseguidores nascidos do sal movem suas iscas luminescentes em um show de luzes fascinante, atraindo criaturas próximas para seu alcance. Cada criatura em uma emanação de 30 metros deve tentar um teste de resistência (vontade, dc:33); independentemente do resultado de seu salvamento, a criatura fica temporariamente imune a Lightlure por 24 horas.\nSucesso A criatura não é afetada.\nFalha A criatura fica fascinada pelas iscas e deve gastar todas as suas ações em seu próximo turno para se aproximar delas o mais rápido possível, evitando perigos óbvios ao longo de seu caminho.\nFalha Crítica Como falha, mas a criatura também fica Deslumbrada por 1d4."
         },
         "jOyBIiGozL2D8Sn4": {
           "name": "Crosta Salina",
@@ -3982,7 +3982,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rAKjsA5qLGEESIh5": {
           "name": "Redirecionamento Condutivo",
-          "description": "Gatilho O zuhra é atingido por um ataque, magia ou efeito que causa dano de eletricidade\nEfeito O zuhra conduz a eletricidade através de seu corpo, sofrendo dano normalmente e redirecionando um raio para um alvo dentro de 30 pés (9 metros) que ele possa ver. O zuhra faz uma jogada de ataque à distância com um modificador [[/r 1d20+27 #Redirecionamento Condutivo]] contra a CA do alvo. Em um acerto ou acerto crítico, o alvo sofre dano de eletricidade igual ao dano total do efeito desencadeador."
+          "description": "Gatilho O zuhra é atingido por um ataque, magia ou efeito que causa dano de eletricidade\nEfeito O zuhra conduz a eletricidade através de seu corpo, sofrendo dano normalmente e redirecionando um raio para um alvo dentro de 30 pés (9 metros) que ele possa ver. O zuhra faz uma jogada de ataque à distância com um modificador 1d20+27 contra a CA do alvo. Em um acerto ou acerto crítico, o alvo sofre dano de eletricidade igual ao dano total do efeito desencadeador."
         },
         "5y0mRxzlQBq0e2xn": {
           "name": "Campo magnético",
@@ -3998,7 +3998,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "B3GAgBc6Uumdpb3P": {
           "name": "Tempestade Magnética",
-          "description": "Requisitos O campo magnético do shuyookh está ativo\nEfeito O shuyookh arremessa eletromagneticamente pedaços de metal afiados como navalhas. Cada criatura em uma emanação de 9 metros sofre 8d6 de dano cortante | opções: dano de área] de dano, com um teste de resistência (fortitude, dc: 32, básico, opções: efeito de área).\nO campo magnético do shuyookh fica desativado por [[/gmr 1d4 #rodadas]]."
+          "description": "Requisitos O campo magnético do shuyookh está ativo\nEfeito O shuyookh arremessa eletromagneticamente pedaços de metal afiados como navalhas. Cada criatura em uma emanação de 9 metros sofre 8d6 de dano cortante | opções: dano de área] de dano, com um teste de resistência (fortitude, dc: 32, básico, opções: efeito de área).\nO campo magnético do shuyookh fica desativado por 1d4."
         },
         "o9k3vrbtMfMIkgsi": {
           "name": "Desejo mercurial",
@@ -4106,7 +4106,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xYrzF20l1k4U6sAz": {
           "name": "Respiração escaldante",
-          "description": "A fonte fervente exala uma nuvem de vapor em um cone de 9 metros que causa 14d6 de dano de fogo a cada criatura na área (teste (reflexo, dc:33, básico, opções:efeito de área) salvamento). A fonte fervente não pode usar Sopro Escaldante novamente por [[/gmr 1d4 #Recarregar Sopro Escaldante]]."
+          "description": "A fonte fervente exala uma nuvem de vapor em um cone de 9 metros que causa 14d6 de dano de fogo a cada criatura na área (teste (reflexo, dc:33, básico, opções:efeito de área) salvamento). A fonte fervente não pode usar Sopro Escaldante novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -4166,7 +4166,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uC3V9rhBFNvb1Y0L": {
           "name": "Chamado da Terra",
-          "description": "Uma criatura voadora atingida pelo golpe de longo alcance rochoso do afloramento ancião é afetada por um magia Ligação à Terra do 7º Rank (teste (fortitude, dc:33, características:transmutação))."
+          "description": "Uma criatura voadora atingida pelo golpe de longo alcance rochoso do afloramento ancião é afetada por uma magia Ligação à Terra do 7º Rank (teste (fortitude, dc:33, características:transmutação))."
         },
         "7yTc8hGVEy3asl4K": {
           "name": "Deslizamento da Terra",
@@ -4178,7 +4178,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "HGLgW2sTgGNS7Iat": {
           "name": "Aperto de Pedra",
-          "description": "Grandes dedos de pedra surgem para agarrar até duas criaturas Médias ou menores no chão, na aura do afloramento. Cada alvo deve ter sucesso em um teste de resistência (reflexo, dc:33) ou será Agarrado pela mão de pedra (ou Restringido em uma falha crítica; [[/act escape dc=33]]). Uma criatura agarrada ou contida por uma mão de pedra no final de seu turno fica Lentidão 1 ou aumenta sua condição de Lentidão existente em 1. Quando uma criatura é incapaz de agir devido à condição de Lentidão deste efeito, a criatura fica permanentemente Petrificada."
+          "description": "Grandes dedos de pedra surgem para agarrar até duas criaturas Médias ou menores no chão, na aura do afloramento. Cada alvo deve ter sucesso em um teste de resistência (reflexo, dc:33) ou será Agarrado pela mão de pedra (ou Restringido em uma falha crítica; Escapar CD 33). Uma criatura agarrada ou contida por uma mão de pedra no final de seu turno fica Lentidão 1 ou aumenta sua condição de Lentidão existente em 1. Quando uma criatura é incapaz de agir devido à condição de Lentidão deste efeito, a criatura fica permanentemente Petrificada."
         },
         "BmBLc6WbraqBchVd": {
           "name": "Jogue pedra",
@@ -4247,7 +4247,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "e2LjiAVfVfUif95F": {
           "name": "Farol da Guarda Rowan",
-          "description": "40 pés (12 metros).\nA lanterna carregada pelos gêmeos da sorveira contém pura energia vital elementar que ressoa e fortalece todos os elementais da madeira. Enquanto estiver dentro da emanação, uma criatura com o traço elemental e o traço planta ou madeira ganha cura rápida 10 e +2 de bônus de circunstância em todas as jogadas de ataque e dano. A aura pode ser neutralizada com um teste CD 30 para Dissipar Magia; fazer isso desativa a aura por [[/gmr 1d6 #Rounds Deactivated]] rodadas"
+          "description": "40 pés (12 metros).\nA lanterna carregada pelos gêmeos da sorveira contém pura energia vital elementar que ressoa e fortalece todos os elementais da madeira. Enquanto estiver dentro da emanação, uma criatura com o traço elemental e o traço planta ou madeira ganha cura rápida 10 e +2 de bônus de circunstância em todas as jogadas de ataque e dano. A aura pode ser neutralizada com um teste CD 30 para Dissipar Magia; fazer isso desativa a aura por 1d6 rodadas"
         },
         "JnqnY6RCeQsgMGJZ": {
           "name": "Combinação de Acompanhamento",
@@ -4311,7 +4311,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fYBcihXoyNMymu8K": {
           "name": "Engolir",
-          "description": "verificação (reflexo, dc:33, opções:efeito de dano,inflige:agarrado,inflige:lento), 2d10 dano de concussão] de dano, [[/act escape dc=33]], Ruptura 25"
+          "description": "verificação (reflexo, dc:33, opções:efeito de dano,inflige:agarrado,inflige:lento), 2d10 dano de concussão] de dano, Escapar CD 33, Ruptura 25"
         },
         "CC0E4IHGumPooXy8": {
           "name": "Lançar Lava",
@@ -4455,7 +4455,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "64G8CZ8e4CLIjV1E": {
           "name": "Gritar",
-          "description": "O melomach solta um lamento gutural e estridente. Todas as criaturas em um cone de 36 metros sofrem 7d12 de dano sônico com um teste de resistência (fortitude, cd:32, opções: efeito de área, efeito de dano, infligir: ensurdecido, infligir: atordoado).\nO melomach não pode Gritar novamente por [[/gmr 1d4 #Recharge Scream]].\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total, fica Atordoada 1 e Ensurdecida por 1 minuto.\nFalha Crítica A criatura sofre o dobro de dano, fica atordoada 3 e fica ensurdecida permanentemente."
+          "description": "O melomach solta um lamento gutural e estridente. Todas as criaturas em um cone de 36 metros sofrem 7d12 de dano sônico com um teste de resistência (fortitude, cd:32, opções: efeito de área, efeito de dano, infligir: ensurdecido, infligir: atordoado).\nO melomach não pode Gritar novamente por 1d4.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total, fica Atordoada 1 e Ensurdecida por 1 minuto.\nFalha Crítica A criatura sofre o dobro de dano, fica atordoada 3 e fica ensurdecida permanentemente."
         }
       },
       "spellcasting": {}
@@ -4508,7 +4508,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TV6db9rqgTwTJsAE": {
           "name": "Respire fumaça",
-          "description": "O bastião de latão exala fumaça superaquecida e cinzas em uma explosão de 3 metros centrada em um canto de seu espaço. A fumaça persiste por 1 rodada. Qualquer criatura na área (ou que mais tarde entre na área) sofre 15d6 de dano de fogo (teste (reflexo, dc:34, básico, opções:efeito de área) salvamento); em uma falha crítica, a criatura pega fogo, sofrendo também 2d6 de dano de fogo persistente. Todas as criaturas na fumaça ficam Ocultas, e todas as criaturas fora da fumaça ficam ocultas para as criaturas dentro dela. O bastião de latão não pode Respirar Fumaça novamente por [[/gmr 1d4 #Recarregar Respirar Fumaça]]."
+          "description": "O bastião de latão exala fumaça superaquecida e cinzas em uma explosão de 3 metros centrada em um canto de seu espaço. A fumaça persiste por 1 rodada. Qualquer criatura na área (ou que mais tarde entre na área) sofre 15d6 de dano de fogo (teste (reflexo, dc:34, básico, opções:efeito de área) salvamento); em uma falha crítica, a criatura pega fogo, sofrendo também 2d6 de dano de fogo persistente. Todas as criaturas na fumaça ficam Ocultas, e todas as criaturas fora da fumaça ficam ocultas para as criaturas dentro dela. O bastião de latão não pode Respirar Fumaça novamente por 1d4."
         },
         "VnwurG1G6XNE8Y7C": {
           "name": "Arma de Calor",
@@ -4705,7 +4705,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zy2ZIYdArMMQOueU": {
           "name": "Enterrar",
-          "description": "Qualquer criatura atingida pelo antigo Golpe de pedra do locus é parcialmente enterrada em uma maré de terra e rocha, tornando-se Imobilizada ([[/act escape dc=34]])."
+          "description": "Qualquer criatura atingida pelo antigo Golpe de pedra do locus é parcialmente enterrada em uma maré de terra e rocha, tornando-se Imobilizada (Escapar CD 34)."
         },
         "FmxW1iTgKYS6xHtw": {
           "name": "Ecoe o passado",
@@ -4804,7 +4804,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xLxAr9O3KpGR6Les": {
           "name": "Conjurador de itens",
-          "description": "O guardião do cofre pode lançar um magia de qualquer item (como um cajado ou uma varinha) como se estivesse em sua lista de magias."
+          "description": "O guardião do cofre pode lançar uma magia de qualquer item (como um cajado ou uma varinha) como se estivesse em sua lista de magias."
         },
         "3I2wnIEzRXgtx8Zb": {
           "name": "Ataque de oportunidade",
@@ -4816,7 +4816,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jLxHgJbqySWEesMi": {
           "name": "Explosão de Cristal",
-          "description": "Uma explosão de lascas afiadas causa 15d6 de dano perfurante em uma explosão de 9 metros dentro de 120 pés (36 metros), com um teste de resistência (reflexo, dc:35, básico, opções:efeito de área). O guardião do cofre não pode usar Crystal Burst novamente por [[/gmr 1d4 #Recharge Crystal Burst]]."
+          "description": "Uma explosão de lascas afiadas causa 15d6 de dano perfurante em uma explosão de 9 metros dentro de 120 pés (36 metros), com um teste de resistência (reflexo, dc:35, básico, opções:efeito de área). O guardião do cofre não pode usar Crystal Burst novamente por 1d4."
         },
         "2cB0ySa762HhhhQE": {
           "name": "Surto Cortante",
@@ -4907,7 +4907,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "QziuCiW6YG0yD2jV": {
           "name": "Explorar o arrependimento",
-          "description": "Gatilho Uma criatura falha em um ataque contra o shuyookh\nEfeito O shuyookh pergunta à criatura desencadeadora se ela gostaria de ter acertado. Se a criatura indicar sim, o shuyookh sofre dano como se o ataque tivesse acertado e a expressão de arrependimento faz com que o shuyookh seja Acelerado por [[/gmr 1d4 #Quickened Rounds]]; eles podem usar sua ação extra para voar, andar ou atacar."
+          "description": "Gatilho Uma criatura falha em um ataque contra o shuyookh\nEfeito O shuyookh pergunta à criatura desencadeadora se ela gostaria de ter acertado. Se a criatura indicar sim, o shuyookh sofre dano como se o ataque tivesse acertado e a expressão de arrependimento faz com que o shuyookh seja Acelerado por 1d4; eles podem usar sua ação extra para voar, andar ou atacar."
         },
         "AV1SDBG8bpRtadhP": {
           "name": "Calor das Asas Flamejantes",
@@ -5013,7 +5013,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "wWpF5Lb9DQx9kiHy": {
           "name": "Mudança de humor",
-          "description": "O capritellix gira os segmentos do rosto, mudando sua personalidade e comportamento. Até que eles mudem seu humor novamente, o capritellix ganha um bônus de status de +4 para uma determinada habilidade e para seu CD de Vontade contra essa habilidade, bem como um magia oculto inato específico que ele pode lançar à vontade (9º Rank, CD 38).\nIntimidação irritada, domínio\nPerformance gregária, dança incontrolável\nDiplomacia Serena, Sugestão\nDecepção astuta, mente distorcida"
+          "description": "O capritellix gira os segmentos do rosto, mudando sua personalidade e comportamento. Até que eles mudem seu humor novamente, o capritellix ganha um bônus de status de +4 para uma determinada habilidade e para seu CD de Vontade contra essa habilidade, bem como uma magia oculto inato específico que ele pode lançar à vontade (9º Rank, CD 38).\nIntimidação irritada, domínio\nPerformance gregária, dança incontrolável\nDiplomacia Serena, Sugestão\nDecepção astuta, mente distorcida"
         },
         "ZJccf3A4uQ87v6r4": {
           "name": "Feixes Duplos",
@@ -5103,7 +5103,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pMA5JgUS4hca6g4z": {
           "name": "Redirecionar clima",
-          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima do magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
+          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima da magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
         },
         "zpGAhdL6BnUacXYN": {
           "name": "Colete Trovão",
@@ -5227,7 +5227,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pMA5JgUS4hca6g4z": {
           "name": "Redirecionar clima",
-          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima do magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
+          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima da magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
         },
         "zpGAhdL6BnUacXYN": {
           "name": "Colete Trovão",
@@ -5348,7 +5348,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pMA5JgUS4hca6g4z": {
           "name": "Redirecionar clima",
-          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima do magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
+          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima da magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
         },
         "zpGAhdL6BnUacXYN": {
           "name": "Colete Trovão",
@@ -5469,7 +5469,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pMA5JgUS4hca6g4z": {
           "name": "Redirecionar clima",
-          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima do magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
+          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima da magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
         },
         "zpGAhdL6BnUacXYN": {
           "name": "Colete Trovão",
@@ -5590,7 +5590,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pMA5JgUS4hca6g4z": {
           "name": "Redirecionar clima",
-          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima do magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
+          "description": "Requisitos A aura do anemos está ativa\nGatilho Uma criatura dentro da aura do anemos usa uma magia de ar ou eletricidade, ou uma magia de ar ou eletricidade entra em vigor dentro da aura do anemos\nEfeito Os ventos e o clima da magia obedecem ao chamado dos anemos. O anemos faz todas as escolhas para determinar os alvos, destino ou outros efeitos da magia, como se fosse o conjurador."
         },
         "zpGAhdL6BnUacXYN": {
           "name": "Colete Trovão",
@@ -5705,10 +5705,10 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xLxAr9O3KpGR6Les": {
           "name": "Conjurador de itens",
-          "description": "O guardião do cofre pode lançar um magia de qualquer item (como um cajado ou uma varinha) como se estivesse em sua lista de magias."
+          "description": "O guardião do cofre pode lançar uma magia de qualquer item (como um cajado ou uma varinha) como se estivesse em sua lista de magias."
         },
         "s7kMlZqWDPuD7ny5": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "WZVPazxqWEJP9dno": {
@@ -5725,7 +5725,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_15_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jLxHgJbqySWEesMi": {
           "name": "Explosão de Cristal",
-          "description": "Uma explosão de lascas afiadas causa 24d6 de dano perfurante em uma explosão de 9 metros dentro de 120 pés (36 metros), com um teste de resistência (reflexo, dc:46, básico, opções:efeito de área). O guardião do cofre não pode usar Crystal Burst novamente por [[/gmr 1d4 #Recharge Crystal Burst]]."
+          "description": "Uma explosão de lascas afiadas causa 24d6 de dano perfurante em uma explosão de 9 metros dentro de 120 pés (36 metros), com um teste de resistência (reflexo, dc:46, básico, opções:efeito de área). O guardião do cofre não pode usar Crystal Burst novamente por 1d4."
         },
         "hQnlDt4YtrgYFpFP": {
           "name": "Deslizamento da Terra",

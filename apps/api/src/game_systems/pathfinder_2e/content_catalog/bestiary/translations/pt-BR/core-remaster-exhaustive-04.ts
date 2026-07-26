@@ -39,11 +39,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "66T3Q6Azf009sHhc": {
           "name": "Febre Bogwid",
-          "description": "Teste de salvamento (fortitude, dc:20)\nInício 1 dia\nEstágio 1 Enfraquecido 1 (1 dia)\nEstágio 2 Enfraquecido 2, e a CD para se recuperar de sangramento persistente é aumentada em 2 (1 dia)\nEstágio 3 Enfraquecido 3, e a CD para se recuperar de sangramento persistente é aumentada em 5 (1 dia)\nEstágio 4 Enfraquecido 4, a CD para se recuperar de sangramento persistente é aumentada em 5, e você sofre 1d8[bleed]{1d8 de dano de sangramento persistente} a cada [[/gmr 1d4 #hours]]{1d4 horas} (1 dia)\nEfeito: Febre Bogwid"
+          "description": "Teste de salvamento (fortitude, dc:20)\nInício 1 dia\nEstágio 1 Enfraquecido 1 (1 dia)\nEstágio 2 Enfraquecido 2, e a CD para se recuperar de sangramento persistente é aumentada em 2 (1 dia)\nEstágio 3 Enfraquecido 3, e a CD para se recuperar de sangramento persistente é aumentada em 5 (1 dia)\nEstágio 4 Enfraquecido 4, a CD para se recuperar de sangramento persistente é aumentada em 5, e você sofre 1d8[bleed]{1d8 de dano de sangramento persistente} a cada 1d4 (1 dia)\nEfeito: Febre Bogwid"
         },
         "1a3FizXwR28wkECc": {
           "name": "Voraz Jovem",
-          "description": "As larvas lançadas do bogwid fixam-se no alvo e começam a se alimentar. Depois que uma larva é anexada, o alvo fica Drenado 1. Enquanto a larva permanecer anexada, o alvo não poderá se recuperar do sangramento persistente. Para remover a larva, o alvo pode tentar [[/act escape dc=21]]. Além disso, qualquer dano de área causado ao alvo destrói todas as larvas anexadas.\nEfeito: Jovem Voraz"
+          "description": "As larvas lançadas do bogwid fixam-se no alvo e começam a se alimentar. Depois que uma larva é anexada, o alvo fica Drenado 1. Enquanto a larva permanecer anexada, o alvo não poderá se recuperar do sangramento persistente. Para remover a larva, o alvo pode tentar Escapar CD 21. Além disso, qualquer dano de área causado ao alvo destrói todas as larvas anexadas.\nEfeito: Jovem Voraz"
         }
       },
       "spellcasting": {}
@@ -187,11 +187,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "ITkyellSfoRYxVGk": {
           "name": "Recuperação Responsiva",
-          "description": "Acionar Um dos aliados do Legislador é reduzido a 0 Pontos de Vida\nRequisitos O legislador tem um magia de cura preparado\nEfeito Antes que o aliado fique inconsciente ou morra, o legislador caminha em direção a ele e lança um magia de cura de 2 ações visando o aliado. O aliado permanece de pé."
+          "description": "Acionar Um dos aliados do Legislador é reduzido a 0 Pontos de Vida\nRequisitos O legislador tem uma magia de cura preparado\nEfeito Antes que o aliado fique inconsciente ou morra, o legislador caminha em direção a ele e lança uma magia de cura de 2 ações visando o aliado. O aliado permanece de pé."
         },
         "eOj1lBtBYURSS36K": {
           "name": "Golpe do Canal",
-          "description": "Requisitos O Legislador tem um magia de Cura ou Dano preparado\nEfeito O Legislador realiza um Golpe corpo a corpo e gasta um magia de dano ou cura. Se acertarem, eles lançam a versão de 1 ação do magia para causar dano ao alvo. O alvo obtém automaticamente uma falha em seu salvamento (ou uma falha crítica se o Golpe do Legislador tiver sido um acerto crítico). A magia não possui o traço manipular quando lançada desta forma."
+          "description": "Requisitos O Legislador tem uma magia de Cura ou Dano preparado\nEfeito O Legislador realiza um Golpe corpo a corpo e gasta uma magia de dano ou cura. Se acertarem, eles lançam a versão de 1 ação da magia para causar dano ao alvo. O alvo obtém automaticamente uma falha em seu salvamento (ou uma falha crítica se o Golpe do Legislador tiver sido um acerto crítico). A magia não possui o traço manipular quando lançada desta forma."
         }
       },
       "spellcasting": {
@@ -294,7 +294,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pvdHMw62l3uanob8": {
           "name": "Rejuvenescimento",
-          "description": "Quando um poltergeist é destruído, ele se reforma, totalmente curado, onde foi destruído após [[/br 2d4 #Rejuvenation]]{2d4 dias}. Um poltergeist só pode ser destruído permanentemente se alguém determinar a razão de sua existência e corrigir tudo o que impede o espírito de descansar."
+          "description": "Quando um poltergeist é destruído, ele se reforma, totalmente curado, onde foi destruído após 2d4. Um poltergeist só pode ser destruído permanentemente se alguém determinar a razão de sua existência e corrigir tudo o que impede o espírito de descansar."
         },
         "KZ4sC23Z3r4PS4V6": {
           "name": "Defesa Telecinética",
@@ -636,7 +636,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "eFUBcFVqZ2zpFt8W": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "8cJQY3xEuodUaxz6": {
@@ -756,7 +756,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4tkIBY4fl80WZyr6": {
           "name": "Cuspir Veneno",
-          "description": "Um dragão da selva pode cuspir uma bola pegajosa de seu veneno a uma distância de 50 pés (15 metros) que explode em @Template[burst|distance:10]. Aqueles na explosão devem ter sucesso em um teste de resistência (reflexo, dc:24) ou serão expostos ao veneno do dragão da selva.\nO dragão da selva não pode usar Spit Venom novamente por [[/gmr 1d6 #Recharge Spit Venom]]{1d6 rodadas}."
+          "description": "Um dragão da selva pode cuspir uma bola pegajosa de seu veneno a uma distância de 50 pés (15 metros) que explode em @Template[burst|distance:10]. Aqueles na explosão devem ter sucesso em um teste de resistência (reflexo, dc:24) ou serão expostos ao veneno do dragão da selva.\nO dragão da selva não pode usar Spit Venom novamente por 1d6."
         }
       },
       "spellcasting": {}
@@ -921,7 +921,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "azVkPps7BUkHzups": {
           "name": "Grito Sinistro",
-          "description": "O revenant chora horrivelmente. Cada criatura dentro de um @Template[burst|distance:60] deve tentar um teste de salvamento (irá, dc:23). Independentemente do resultado do teste de resistência, as criaturas afetadas ficam imunes ao Grito Sinistro por 1 hora. O assassino do revenant nunca melhora seu grau de sucesso devido ao traço de incapacitação desta habilidade.\nO revenant não pode usar Baleful Shriek novamente por [[/gmr 1d4 #Recharge Baleful Shriek]]{1d4 rodadas}.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura está Assustada 2.\nFalha A criatura fica assustada 2 e paralisada por 1 rodada.\nFalha Crítica A criatura fica Assustada 3 e paralisada por [[/gmr 1d4 #rounds]]{1d4 rounds}."
+          "description": "O revenant chora horrivelmente. Cada criatura dentro de um @Template[burst|distance:60] deve tentar um teste de salvamento (irá, dc:23). Independentemente do resultado do teste de resistência, as criaturas afetadas ficam imunes ao Grito Sinistro por 1 hora. O assassino do revenant nunca melhora seu grau de sucesso devido ao traço de incapacitação desta habilidade.\nO revenant não pode usar Baleful Shriek novamente por 1d4.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura está Assustada 2.\nFalha A criatura fica assustada 2 e paralisada por 1 rodada.\nFalha Crítica A criatura fica Assustada 3 e paralisada por 1d4."
         },
         "uekYQ2OOlHBFFZEA": {
           "name": "Contrair",
@@ -1184,7 +1184,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3Eksrmh390T4SrP7": {
           "name": "Imunidade Mágica",
-          "description": "Um fogo-fátuo é imune a todos os magias, exceto Force Barrage, Quandary e Revealing Light."
+          "description": "Um fogo-fátuo é imune a todos as magias, exceto Force Barrage, Quandary e Revealing Light."
         },
         "F8xpT7h5a5ZviXU5": {
           "name": "Alimente-se do medo",
@@ -1236,15 +1236,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "51uNm4VZXCCKduJt": {
           "name": "Conventículo",
-          "description": "Uma bruxa de ferro adiciona Earthbind, Impaling Spike e Spellwrack aos magias de seu coven. A CD do magia deles ao liderar um coven é 24."
+          "description": "Uma bruxa de ferro adiciona Earthbind, Impaling Spike e Spellwrack às magias de seu coven. A CD da magia deles ao liderar um coven é 24."
         },
         "S4fkYk7Id7nDaDF3": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "MpWqSRwt012KZnGl": {
           "name": "Laços de Ferro",
-          "description": "Frequência uma vez por dia\nEfeito A bruxa faz com que uma gaiola construída com unhas de ferro frio brote do nada em torno de uma criatura dentro de 30 pés (9 metros), tentando um teste de Atletismo para [[/agir agarrar]] contra a CD de Fortitude do alvo; se o alvo tiver uma fraqueza por ferro frio, a bruxa de ferro ganha +2 de bônus de circunstância neste teste.\nEm caso de sucesso, a criatura é Agarrada pelas unhas mágicas (ou Restringida em caso de sucesso crítico). Se a criatura [[/act escape dc=24]]{Escapes} for bem-sucedida, a gaiola se desintegrará em ferrugem.\nQualquer criatura pode tentar destruir a jaula atacando-a. Possui CA de 19, Dureza 10 e 40 Pontos de Vida."
+          "description": "Frequência uma vez por dia\nEfeito A bruxa faz com que uma gaiola construída com unhas de ferro frio brote do nada em torno de uma criatura dentro de 30 pés (9 metros), tentando um teste de Atletismo para agarrar contra a CD de Fortitude do alvo; se o alvo tiver uma fraqueza por ferro frio, a bruxa de ferro ganha +2 de bônus de circunstância neste teste.\nEm caso de sucesso, a criatura é Agarrada pelas unhas mágicas (ou Restringida em caso de sucesso crítico). Se a criatura Escapar CD 24 for bem-sucedida, a gaiola se desintegrará em ferrugem.\nQualquer criatura pode tentar destruir a jaula atacando-a. Possui CA de 19, Dureza 10 e 40 Pontos de Vida."
         },
         "2xwKWCTraWTbO2QT": {
           "name": "Alterar forma",
@@ -1494,7 +1494,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ATKHBM0qbxjbsWcu": {
           "name": "Choro doloroso",
-          "description": "O sedativo grita em uma variedade de tons dolorosamente altos, causando 3d6[sônico,1d6[mental]|options:area-damage]{3d6 de dano sônico e 1d6 de dano mental} a todas as criaturas em um @Template[cone|distance:30], com um teste (fortitude, dc:23, básico, opções:efeito de área) de salvamento. Uma criatura que falhe no teste fica Enjoada 1."
+          "description": "O sedativo grita em uma variedade de tons dolorosamente altos, causando 3d6[sônico,1d6[mental]{3d6 de dano sônico e 1d6 de dano mental} a todas as criaturas em um @Template[cone|distance:30], com um teste (fortitude, dc:23, básico, opções:efeito de área) de salvamento. Uma criatura que falhe no teste fica Enjoada 1."
         },
         "hULMhVeHFZ1ioUV5": {
           "name": "Festa Compartilhada",
@@ -1565,7 +1565,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OgOkCo3ZpgcUbZr1": {
           "name": "Vulnerabilidades de Vampiros",
-          "description": "Todos os vampiros possuem as seguintes vulnerabilidades.\n• Compulsões Vampiros são criaturas com compulsões estranhas e incognoscíveis. Um vampiro típico não pode atravessar voluntariamente água corrente, a menos que seja transportado enquanto se esconde dentro de seu caixão, nem pode entrar em uma residência particular, a menos que seja convidado por alguém com autoridade para fazê-lo. A seu critério, os vampiros podem ter compulsões diferentes – um vampiro pirata pode não ser capaz de pisar em terra firme sem ser convidado, por exemplo. O vampiro ainda pode ser forçado a fazer essas coisas e pode ser capaz de superar sua compulsão, assim como supera sua repulsa.\n• Repulsa Um vampiro não pode voluntariamente chegar a 10 pés (3 metros) de um alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir um alho ou um símbolo religioso, uma criatura deve Interagir para fazê-lo, e ele permanece brandido por 1 rodada (semelhante a Levantar um Escudo). Se o vampiro involuntariamente chegar a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um vampiro pode tentar um teste (vontade, dc:25) de resistência como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por [[/gmr 1d6 #rounds]]{1d6 rodadas} (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca de madeira cravada no coração de um vampiro leva o vampiro a 0 HP e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um vampiro requer 3 ações e só funciona se o vampiro estiver inconsciente. Se a estaca for removida, o vampiro pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do vampiro for decepada e ungida com água benta enquanto a estaca estiver no lugar, o vampiro será destruído.\n• Luz Solar Se exposto à luz solar direta, um vampiro imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o vampiro termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o vampiro perder todas as suas ações desta forma, ele será destruído. Devido à sua aversão sobrenatural à luz, os vampiros não projetam sombras nem mostram reflexos em espelhos."
+          "description": "Todos os vampiros possuem as seguintes vulnerabilidades.\n• Compulsões Vampiros são criaturas com compulsões estranhas e incognoscíveis. Um vampiro típico não pode atravessar voluntariamente água corrente, a menos que seja transportado enquanto se esconde dentro de seu caixão, nem pode entrar em uma residência particular, a menos que seja convidado por alguém com autoridade para fazê-lo. A seu critério, os vampiros podem ter compulsões diferentes – um vampiro pirata pode não ser capaz de pisar em terra firme sem ser convidado, por exemplo. O vampiro ainda pode ser forçado a fazer essas coisas e pode ser capaz de superar sua compulsão, assim como supera sua repulsa.\n• Repulsa Um vampiro não pode voluntariamente chegar a 10 pés (3 metros) de um alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir um alho ou um símbolo religioso, uma criatura deve Interagir para fazê-lo, e ele permanece brandido por 1 rodada (semelhante a Levantar um Escudo). Se o vampiro involuntariamente chegar a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um vampiro pode tentar um teste (vontade, dc:25) de resistência como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por 1d6 (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca de madeira cravada no coração de um vampiro leva o vampiro a 0 HP e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um vampiro requer 3 ações e só funciona se o vampiro estiver inconsciente. Se a estaca for removida, o vampiro pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do vampiro for decepada e ungida com água benta enquanto a estaca estiver no lugar, o vampiro será destruído.\n• Luz Solar Se exposto à luz solar direta, um vampiro imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o vampiro termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o vampiro perder todas as suas ações desta forma, ele será destruído. Devido à sua aversão sobrenatural à luz, os vampiros não projetam sombras nem mostram reflexos em espelhos."
         },
         "0w3FhoNrrNel3ZcH": {
           "name": "Cura do Vazio",
@@ -1581,7 +1581,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "AWS8p85NHI3IGL2n": {
           "name": "Dominar",
-          "description": "O vampiro pode lançar Dominação à vontade como um magia divino inato. Lançá-lo requer olhar nos olhos do alvo, dando ao magia a característica visual (teste (vontade, dc:22)). A CD de resistência usa a CD de magia alta do nível do vampiro, e uma criatura bem-sucedida fica temporariamente imune à Dominação desse vampiro por 24 horas.\nDestruir totalmente o vampiro encerra a dominação, mas apenas reduzir o vampiro a 0 HP é insuficiente para quebrar o magia."
+          "description": "O vampiro pode lançar Dominação à vontade como uma magia divino inato. Lançá-lo requer olhar nos olhos do alvo, dando à magia a característica visual (teste (vontade, dc:22)). A CD de resistência usa a CD de magia alta do nível do vampiro, e uma criatura bem-sucedida fica temporariamente imune à Dominação desse vampiro por 24 horas.\nDestruir totalmente o vampiro encerra a dominação, mas apenas reduzir o vampiro a 0 HP é insuficiente para quebrar a magia."
         },
         "KESgZ7EFPclSlLY8": {
           "name": "Beber sangue",
@@ -1589,7 +1589,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "AVpXnwBBGoOo68pw": {
           "name": "Vire-se para a névoa",
-          "description": "O vampiro se transforma em uma nuvem de vapor, como no magia Forma de Vapor, ou volta à sua forma normal. O vampiro perde a cura rápida enquanto está na forma gasosa.\nO vampiro pode permanecer nesta forma indefinidamente."
+          "description": "O vampiro se transforma em uma nuvem de vapor, como na magia Forma de Vapor, ou volta à sua forma normal. O vampiro perde a cura rápida enquanto está na forma gasosa.\nO vampiro pode permanecer nesta forma indefinidamente."
         },
         "JUgPxjF2b7DYZwEu": {
           "name": "Pegar",
@@ -1705,7 +1705,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "grrOo0mi2kz2urJF": {
           "name": "Dispersão de Cinzas",
-          "description": "Frequência uma vez por dia\nGatilho O elananx sofre dano de uma fonte hostil\nEfeito O elananx se dispersa em uma nuvem de fumaça e cinzas, preenchendo seu espaço e um @Template[emanation|distance:20]. Enquanto estiver nesta forma, o elananx não pode ser atacado ou alvo e não ocupa espaço. Qualquer coisa dentro desta nuvem fica Oculta, e qualquer criatura que termine seu turno lá sofre 2d6[fogo|opções:dano em área] de dano. No início do seu turno, o elananx retorna à sua forma normal em qualquer quadrado coberto pela nuvem. Se o elananx Atingir uma criatura usando sua primeira ação após retornar à sua forma normal, o alvo fica Desprevenido e o Golpe causa 1d6 de dano de fogo extra."
+          "description": "Frequência uma vez por dia\nGatilho O elananx sofre dano de uma fonte hostil\nEfeito O elananx se dispersa em uma nuvem de fumaça e cinzas, preenchendo seu espaço e um @Template[emanation|distance:20]. Enquanto estiver nesta forma, o elananx não pode ser atacado ou alvo e não ocupa espaço. Qualquer coisa dentro desta nuvem fica Oculta, e qualquer criatura que termine seu turno lá sofre 2d6[fogo de dano. No início do seu turno, o elananx retorna à sua forma normal em qualquer quadrado coberto pela nuvem. Se o elananx Atingir uma criatura usando sua primeira ação após retornar à sua forma normal, o alvo fica Desprevenido e o Golpe causa 1d6 de dano de fogo extra."
         },
         "izty6IGZL6BowyUS": {
           "name": "Ataque de matilha",
@@ -1845,7 +1845,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "yLPvFv25zZNeeAXs": {
           "name": "Preservar a presa",
-          "description": "Acionamento Uma criatura viva dentro de 30 pés (9 metros) é reduzida a 0 Pontos de Vida\nEfeito O zecui canaliza vitalidade corrompida para a criatura acionadora, que ainda fica inconsciente, mas não ganha a condição de morte. Enquanto aquela criatura estiver inconsciente, a energia residual tenta neutralizar qualquer magia de vitalidade que cura aquela criatura com um modificador de contra-ataque [[/r 1d20+15 #Counteract]]{+15}."
+          "description": "Acionamento Uma criatura viva dentro de 30 pés (9 metros) é reduzida a 0 Pontos de Vida\nEfeito O zecui canaliza vitalidade corrompida para a criatura acionadora, que ainda fica inconsciente, mas não ganha a condição de morte. Enquanto aquela criatura estiver inconsciente, a energia residual tenta neutralizar qualquer magia de vitalidade que cura aquela criatura com um modificador de contra-ataque 1d20+15."
         },
         "xzwBcprcmbh0IRzY": {
           "name": "Facada Dupla",
@@ -1857,7 +1857,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "73HgI0QpWEVw0nDe": {
           "name": "Cuspir Muco",
-          "description": "Uma criatura atingida pelo ataque de cuspe do zecui é imobilizada pelo muco infestado de larvas e presa na superfície mais próxima até [[/act escape dc=25]]{Escape}. Enquanto aquela criatura estiver imobilizada, ela fica exposta a larvas de zecui no final de cada um de seus turnos."
+          "description": "Uma criatura atingida pelo ataque de cuspe do zecui é imobilizada pelo muco infestado de larvas e presa na superfície mais próxima até Escapar CD 25. Enquanto aquela criatura estiver imobilizada, ela fica exposta a larvas de zecui no final de cada um de seus turnos."
         },
         "BKL2zhQ7nn8sYC4b": {
           "name": "Larvas de Zecuí",
@@ -1902,7 +1902,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "fWTtIUDtbSfOzgqv": {
           "name": "O grito do general",
-          "description": "Quando um general hobgoblin rola iniciativa, desde que consiga perceber pelo menos um inimigo, ele pode gritar um poderoso grito de guerra. O general hobgoblin tenta um teste de Intimidar para [[/agir desmoralizar]] um único inimigo dentro de 60 pés (18 metros) como uma ação livre. Se tiver sucesso, qualquer aliado pode, como primeira ação no primeiro turno de combate, avançar para dobrar sua velocidade como uma única ação."
+          "description": "Quando um general hobgoblin rola iniciativa, desde que consiga perceber pelo menos um inimigo, ele pode gritar um poderoso grito de guerra. O general hobgoblin tenta um teste de Intimidar para Desmoralizar um único inimigo dentro de 60 pés (18 metros) como uma ação livre. Se tiver sucesso, qualquer aliado pode, como primeira ação no primeiro turno de combate, avançar para dobrar sua velocidade como uma única ação."
         },
         "1gKtaE366xqxGDdV": {
           "name": "Formação",
@@ -1968,7 +1968,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uvteCuJBp9CEBvPJ": {
           "name": "Dor sufocante",
-          "description": "Requisitos A última ação da múmia foi um golpe de punho bem-sucedido\nEfeito A múmia compartilha a dor de seus momentos finais com o alvo daquele Golpe. Essa criatura sofre 3d8[void] de dano com um teste de resistência (vontade, dc:24, básico). Se a criatura falhar criticamente no teste de resistência, ela não poderá falar por 1 rodada, inclusive para lançar um magia."
+          "description": "Requisitos A última ação da múmia foi um golpe de punho bem-sucedido\nEfeito A múmia compartilha a dor de seus momentos finais com o alvo daquele Golpe. Essa criatura sofre 3d8[void] de dano com um teste de resistência (vontade, dc:24, básico). Se a criatura falhar criticamente no teste de resistência, ela não poderá falar por 1 rodada, inclusive para lançar uma magia."
         }
       },
       "spellcasting": {}
@@ -2097,7 +2097,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "hHLGOCYOj0KZUdYI": {
           "name": "Voleio de espinhos",
-          "description": "A manticora lança até dois espinhos de sua cauda, ​​visando duas criaturas diferentes ou uma única criatura. Se a manticora tiver como alvo duas criaturas diferentes, essas criaturas devem estar a uma distância 20 pés (6 metros) uma da outra e a manticora realiza um Golpe separado contra cada uma; isso conta como apenas um golpe para a penalidade de ataque múltiplo da manticora, e a penalidade não aumenta até depois de ambos os ataques.\nSe a manticora arremessar ambos os espinhos na mesma criatura, ela realizará um único Golpe. Se o ataque acertar, ele causa o dano de um único espinho, mas o alvo fica preso no lugar, deixando-o imobilizado. Uma criatura pode se libertar se [[/act force-open dc=23]]{Force Open} o pico ou [[/act escape dc=23]]{Escapes}; qualquer uma das opções é DC 23.\nUma manticora não pode lançar mais do que 12 espinhos em 24 horas."
+          "description": "A manticora lança até dois espinhos de sua cauda, ​​visando duas criaturas diferentes ou uma única criatura. Se a manticora tiver como alvo duas criaturas diferentes, essas criaturas devem estar a uma distância 20 pés (6 metros) uma da outra e a manticora realiza um Golpe separado contra cada uma; isso conta como apenas um golpe para a penalidade de ataque múltiplo da manticora, e a penalidade não aumenta até depois de ambos os ataques.\nSe a manticora arremessar ambos os espinhos na mesma criatura, ela realizará um único Golpe. Se o ataque acertar, ele causa o dano de um único espinho, mas o alvo fica preso no lugar, deixando-o imobilizado. Uma criatura pode se libertar se force open CD 23 o pico ou Escapar CD 23; qualquer uma das opções é DC 23.\nUma manticora não pode lançar mais do que 12 espinhos em 24 horas."
         }
       },
       "spellcasting": {}
@@ -2281,7 +2281,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GcJJKFDfrv0jW0K3": {
           "name": "Respiração de Névoa Congelante",
-          "description": "O dragão gelado cospe uma bola de líquido até 60 pés (18 metros) que explode em uma nuvem @Template[burst|distance:20] de névoa congelante. Aqueles na explosão recebem 8d6[cold|options:area-damage] de dano (teste (reflexo, dc:25, básico, opções:efeito de área) salvamento).\nO dragão gelado não pode usar Respiração da Névoa Congelante novamente por [[/gmr 1d6 #Recharge Respiração da Névoa Congelante]]{1d6 rodadas}, durante as quais a névoa cobre todas as superfícies da área com uma camada de gelo escorregadio que transforma a área em terreno difícil."
+          "description": "O dragão gelado cospe uma bola de líquido até 60 pés (18 metros) que explode em uma nuvem @Template[burst|distance:20] de névoa congelante. Aqueles na explosão recebem 8d6[cold de dano (teste (reflexo, dc:25, básico, opções:efeito de área) salvamento).\nO dragão gelado não pode usar Respiração da Névoa Congelante novamente por 1d6, durante as quais a névoa cobre todas as superfícies da área com uma camada de gelo escorregadio que transforma a área em terreno difícil."
         },
         "dRF3nPzB91HYIbXx": {
           "name": "Escalada no gelo",
@@ -2335,7 +2335,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "kppTcx5TylWkpfF1": {
           "name": "Vulnerabilidade leve",
-          "description": "Ataques contra a sombra são tratados como mágicos se forem feitos por uma criatura que esteja sob luz mágica ou com um objeto que esteja sob luz mágica (como o magia Luz)."
+          "description": "Ataques contra a sombra são tratados como mágicos se forem feitos por uma criatura que esteja sob luz mágica ou com um objeto que esteja sob luz mágica (como a magia Luz)."
         },
         "rn6en1AHFB9ns8VB": {
           "name": "Cura do Vazio",
@@ -2414,7 +2414,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "3R3kclVNbu40dMpB": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "mzcBU4P7MDB5Kav4": {
@@ -2524,7 +2524,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I2kJG5snUvdVtlrm": {
           "name": "Respiração do Destino",
-          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 6d6[mental|options:area-damage] de dano em um salvamento de @Template[cone|distance:20] (check (will, dc:25, options:area-effect)). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por [[/gmr 1d4 #Recharge Destiny Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 6d6[mental de dano em um salvamento de @Template[cone|distance:20] (check (will, dc:25, options:area-effect)). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por 1d4."
         },
         "aJ5Jw0ozWjNooF13": {
           "name": "Frenesi Dracônico",
@@ -2536,7 +2536,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2phPU9xYaMSKFNol": {
           "name": "Asas Proféticas",
-          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança um magia de Augúrio de 4º Rank, exceto que as asas podem prever resultados até 1 dia no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por hora, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
+          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança uma magia de Augúrio de 4º Rank, exceto que as asas podem prever resultados até 1 dia no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por hora, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
         }
       },
       "spellcasting": {
@@ -2645,7 +2645,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uJF1TjO0gDfZr2NX": {
           "name": "Cuspir Veneno",
-          "description": "O con rit cospe uma explosão propulsiva de veneno que causa 2d10[veneno,2d10[concussão]|options:area-damage] de dano em um @Template[line|distance:30] (check (fortitude, dc:25, basic, options:area-effect) save). As criaturas que falham no salvamento também recebem o push 10 pés (3 metros).\nO con rit não pode usar Spit Venom novamente por [[/gmr 1d4 #Recharge Spit Venom]]{1d4 rodadas}."
+          "description": "O con rit cospe uma explosão propulsiva de veneno que causa 2d10[veneno,2d10[concussão] de dano em um @Template[line|distance:30] (check (fortitude, dc:25, basic, options:area-effect) save). As criaturas que falham no salvamento também recebem o push 10 pés (3 metros).\nO con rit não pode usar Spit Venom novamente por 1d4."
         },
         "1AR7cN1zlEwxiuGD": {
           "name": "Ondular",
@@ -2845,7 +2845,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fTxeknuoM1qldgQJ": {
           "name": "Engolir",
-          "description": "verificar (reflexo, dc:22, opções:efeito de dano,inflige:agarrado,inflige:lento), (4d6)dano [ácido], [[/act escape dc=22]], Ruptura 15"
+          "description": "verificar (reflexo, dc:22, opções:efeito de dano,inflige:agarrado,inflige:lento), (4d6)dano [ácido], Escapar CD 22, Ruptura 15"
         },
         "J49sVMgc7qSD5gu8": {
           "name": "Pegar",
@@ -3122,7 +3122,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ANyC8NZ6FUDU74w1": {
           "name": "Silêncio",
-          "description": "O phade acalma o ar em @Template[emanation|distance:30] até o início de seu próximo turno, reduzindo os sons nele a um sussurro que não pode ser ouvido fora da emanação.\nIsso não impede o lançamento de magias, mas um phade tenta neutralizar qualquer efeito auditivo ou sonoro originado na área com um modificador de contra-ataque [[/r 1d20+17 #Counteract]]{+17}. Se a tentativa de contra-ataque falhar, o Hush termina mais cedo."
+          "description": "O phade acalma o ar em @Template[emanation|distance:30] até o início de seu próximo turno, reduzindo os sons nele a um sussurro que não pode ser ouvido fora da emanação.\nIsso não impede o lançamento de magias, mas um phade tenta neutralizar qualquer efeito auditivo ou sonoro originado na área com um modificador de contra-ataque 1d20+17. Se a tentativa de contra-ataque falhar, o Hush termina mais cedo."
         },
         "hh5R2THIk2h54UOV": {
           "name": "Ataque furtivo",
@@ -3140,7 +3140,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Kanya",
-      "description": "Kanyas são portadores de bênçãos e fortuna, bem como arautos de sabedoria e crescimento espiritual. Geralmente são pacíficos, mas agem rapidamente se a comunidade em que residem for ameaçada. Eles se orgulham de inspirar tanta alegria nos mortais que a expressam através das artes, levando ao seu apelido comum de “musas”. Mais de um bardo considera um kanya sua inspiração pessoal, mas, assim como a inspiração, os kanyas vêm e vão quando bem entendem. Eles vagam pelo mundo como querem, oferecendo chuva, generosidade, sabedoria e apoio a quem lhes agrada.\nKanyas às vezes seguem secretamente as aventuras de heróis mortais para registrar suas histórias como poemas e canções épicas, que eles então cantam nos lotados salões de hidromel de Elysium. Ao perseguir tais objetivos, os kanyas se esforçam para usar seus magias inatos para permanecerem escondidos, pois preferem observar e registrar eventos sem \"poluí-los\" com sua própria intervenção. No entanto, um kanya que vê seu protegido enfrentando a morte certa muitas vezes não consegue resistir ao impulso de intervir e salvar o dia. Inevitavelmente, isso aproxima as crônicas dos kanya, já que seu relacionamento com o sujeito muda invariavelmente de observação imparcial para amizade ou mais. No entanto, os kanyas permanecem hesitantes em se envolverem por muito tempo na vida de um mortal, em parte porque temem que tipo de atenção diabólica sua presença possa atrair, mas principalmente por respeito ao próprio destino do mortal. Um kanya, sendo todas as coisas iguais, preferiria deixar os mortais escolherem seu próprio destino em vez de correr o risco de enviar alguém por um caminho que seu coração não está determinado.\nAzatas são manifestações de liberdade e alegria desenfreada – celestiais gentis com uma propensão para explorações curiosas, folia espontânea e missões extravagantes. Nascidos de bons sonhos e desejos sinceros por um mundo melhor, eles residem nas florestas indomáveis ​​de Elysium. Azatas são apaixonados e inconstantes, tão lindos e brilhantes quanto a fantasia de uma criança, mas também ferozmente leais àqueles que amam. Eles agem rápida e diretamente contra influências diabólicas e sujas, mas tendem a evitar orientar os assuntos mortais de outra forma, permitindo que as pessoas escolham seu próprio destino sem a intromissão de forças sobrenaturais.\nAzatas rejeitam as cadeias duplas do dever e da tirania, mas também as pesadas cadeias do desespero que a realidade tantas vezes inflige àqueles que vivem nela. Isso pode dar-lhes uma reputação duvidosa com outros celestiais, que consideram os azatas inconstantes e pouco confiáveis, mas os azatas sabem que o auto-sacrifício implacável pode ser tão destrutivo para a alma quanto o mal. Azatas se recusam a comprometer a beleza do mundo com tal banalidade, em vez disso vivem sem arrependimentos e saboreando cada triunfo e agonia que encontram no caminho.",
+      "description": "Kanyas são portadores de bênçãos e fortuna, bem como arautos de sabedoria e crescimento espiritual. Geralmente são pacíficos, mas agem rapidamente se a comunidade em que residem for ameaçada. Eles se orgulham de inspirar tanta alegria nos mortais que a expressam através das artes, levando ao seu apelido comum de “musas”. Mais de um bardo considera um kanya sua inspiração pessoal, mas, assim como a inspiração, os kanyas vêm e vão quando bem entendem. Eles vagam pelo mundo como querem, oferecendo chuva, generosidade, sabedoria e apoio a quem lhes agrada.\nKanyas às vezes seguem secretamente as aventuras de heróis mortais para registrar suas histórias como poemas e canções épicas, que eles então cantam nos lotados salões de hidromel de Elysium. Ao perseguir tais objetivos, os kanyas se esforçam para usar suas magias inatos para permanecerem escondidos, pois preferem observar e registrar eventos sem \"poluí-los\" com sua própria intervenção. No entanto, um kanya que vê seu protegido enfrentando a morte certa muitas vezes não consegue resistir ao impulso de intervir e salvar o dia. Inevitavelmente, isso aproxima as crônicas dos kanya, já que seu relacionamento com o sujeito muda invariavelmente de observação imparcial para amizade ou mais. No entanto, os kanyas permanecem hesitantes em se envolverem por muito tempo na vida de um mortal, em parte porque temem que tipo de atenção diabólica sua presença possa atrair, mas principalmente por respeito ao próprio destino do mortal. Um kanya, sendo todas as coisas iguais, preferiria deixar os mortais escolherem seu próprio destino em vez de correr o risco de enviar alguém por um caminho que seu coração não está determinado.\nAzatas são manifestações de liberdade e alegria desenfreada – celestiais gentis com uma propensão para explorações curiosas, folia espontânea e missões extravagantes. Nascidos de bons sonhos e desejos sinceros por um mundo melhor, eles residem nas florestas indomáveis ​​de Elysium. Azatas são apaixonados e inconstantes, tão lindos e brilhantes quanto a fantasia de uma criança, mas também ferozmente leais àqueles que amam. Eles agem rápida e diretamente contra influências diabólicas e sujas, mas tendem a evitar orientar os assuntos mortais de outra forma, permitindo que as pessoas escolham seu próprio destino sem a intromissão de forças sobrenaturais.\nAzatas rejeitam as cadeias duplas do dever e da tirania, mas também as pesadas cadeias do desespero que a realidade tantas vezes inflige àqueles que vivem nela. Isso pode dar-lhes uma reputação duvidosa com outros celestiais, que consideram os azatas inconstantes e pouco confiáveis, mas os azatas sabem que o auto-sacrifício implacável pode ser tão destrutivo para a alma quanto o mal. Azatas se recusam a comprometer a beleza do mundo com tal banalidade, em vez disso vivem sem arrependimentos e saboreando cada triunfo e agonia que encontram no caminho.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro"
@@ -3175,11 +3175,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "IXjaAxkgZsz5958E": {
           "name": "Expressão Livre",
-          "description": "Os efeitos auditivos e sonoros de um kanya tentam neutralizar qualquer efeito que possa controlar, manipular ou impedi-lo diretamente de se expressar livremente, como o Silêncio. Eles também podem gastar uma ação, que tenha característica concentração, para falar com força e neutralizar tais efeitos. O modificador de neutralização é [[/r 1d20+16 #Counteract]]{+16} em ambos os casos."
+          "description": "Os efeitos auditivos e sonoros de um kanya tentam neutralizar qualquer efeito que possa controlar, manipular ou impedi-lo diretamente de se expressar livremente, como o Silêncio. Eles também podem gastar uma ação, que tenha característica concentração, para falar com força e neutralizar tais efeitos. O modificador de neutralização é 1d20+16 em ambos os casos."
         },
         "4G2TniPxICsNjk3Y": {
           "name": "A coragem da musa",
-          "description": "Qualquer Hino Corajoso que o kanya lançar concede um bônus de status de +2 em vez de +1.\nEfeito do magia: Hino Corajoso (Kanya)"
+          "description": "Qualquer Hino Corajoso que o kanya lançar concede um bônus de status de +2 em vez de +1.\nEfeito da magia: Hino Corajoso (Kanya)"
         },
         "D71sSjwa6Oa7yHvw": {
           "name": "Pegar",
@@ -3352,11 +3352,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I2kJG5snUvdVtlrm": {
           "name": "Respiração do Destino",
-          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 6d6[mental|options:area-damage] de dano em um salvamento de @Template[cone|distance:20] (check (will, dc:25, options:area-effect)). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por [[/gmr 1d4 #Recharge Destiny Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 6d6[mental de dano em um salvamento de @Template[cone|distance:20] (check (will, dc:25, options:area-effect)). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por 1d4."
         },
         "2phPU9xYaMSKFNol": {
           "name": "Asas Proféticas",
-          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança um magia de Augúrio de 4º Rank, exceto que as asas podem prever resultados até 1 dia no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por hora, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
+          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança uma magia de Augúrio de 4º Rank, exceto que as asas podem prever resultados até 1 dia no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por hora, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
         }
       },
       "spellcasting": {
@@ -3520,7 +3520,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "FUgfYGhsCxf8KU54": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "dK5Meg25B2t4B34g": {
@@ -3529,7 +3529,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "b3OSC1hy3efFqhm7": {
           "name": "Presença Sedutora",
-          "description": "10 pés (3 metros).\nQualquer criatura na aura que possa ser sexualmente atraída por uma súcubo sofre -2 de penalidade de circunstância em testes e CDs para se opor aos magias mentais, Enganação e Diplomacia da súcubo."
+          "description": "10 pés (3 metros).\nQualquer criatura na aura que possa ser sexualmente atraída por uma súcubo sofre -2 de penalidade de circunstância em testes e CDs para se opor às magias mentais, Enganação e Diplomacia da súcubo."
         },
         "ghngQIhTKh6viVvP": {
           "name": "Alterar forma",
@@ -3537,7 +3537,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "vkMvsL1nrlHkiJQQ": {
           "name": "Abraçar",
-          "description": "A súcubo tenta [[/act agarrar habilidade = diplomacia]] uma criatura usando seu bônus de Diplomacia em vez de Atletismo. Se a criatura estiver disposta, a súcubo terá sucesso automaticamente."
+          "description": "A súcubo tenta agarrar habilidade = diplomacia uma criatura usando seu bônus de Diplomacia em vez de Atletismo. Se a criatura estiver disposta, a súcubo terá sucesso automaticamente."
         },
         "NFPV2IK6zYWCTJbC": {
           "name": "Beijo Apaixonado",
@@ -3785,7 +3785,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "iKlpYbQsSDmYjlml": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "0AAIPvx9DMLg0gXR": {
@@ -3798,7 +3798,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "IEjzsHREqESBS5Kc": {
           "name": "Corte Flamejante",
-          "description": "O aesra varre sua espada, criando um @Template[cone|distance:15] de chama sagrada que causa 5d6[fire|options:area-damage] de dano com um teste de resistência (reflexo, dc:23, básico, opções:efeito de área)."
+          "description": "O aesra varre sua espada, criando um @Template[cone|distance:15] de chama sagrada que causa 5d6[fire de dano com um teste de resistência (reflexo, dc:23, básico, opções:efeito de área)."
         },
         "yD3zTKzSmxnzONfs": {
           "name": "Manter a Formação",
@@ -3940,7 +3940,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "kpMzQN5S45cvA2gB": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "AqDp2RMfy7tCDCp9": {
@@ -3949,7 +3949,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "DGplrJSHJTuOChkx": {
           "name": "Grito desesperado",
-          "description": "O coarti solta um grito terrível, causando 4d6[sonic|options:area-damage] de dano a todas as criaturas em um @Template[emanation|distance:30] com um teste de resistência (vontade, dc:25, básico, opções:efeito de área). As criaturas sagradas que falharem neste teste também ficarão Amedrontadas 2; esse efeito adicional tem emoção, medo e traços mentais.\nO coarti não pode usar Grito Desesperado novamente por [[/gmr 1d4 #Recharge Grito Desesperado]]{1d4 rodadas}."
+          "description": "O coarti solta um grito terrível, causando 4d6[sonic de dano a todas as criaturas em um @Template[emanation|distance:30] com um teste de resistência (vontade, dc:25, básico, opções:efeito de área). As criaturas sagradas que falharem neste teste também ficarão Amedrontadas 2; esse efeito adicional tem emoção, medo e traços mentais.\nO coarti não pode usar Grito Desesperado novamente por 1d4."
         },
         "pMNYKooksBaxnGND": {
           "name": "Estalo de Asa",
@@ -4023,7 +4023,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "d8HnQHeqQlzrKyFt": {
           "name": "Embreagem de pedra",
-          "description": "Quando o jabali empurra uma criatura contra uma barreira de pedra, a superfície a agarra com dedos de pedra. O alvo deve ter sucesso em um teste de resistência (reflexo, dc:22) ou será Agarrado pela superfície ([[/act escape dc=28]])."
+          "description": "Quando o jabali empurra uma criatura contra uma barreira de pedra, a superfície a agarra com dedos de pedra. O alvo deve ter sucesso em um teste de resistência (reflexo, dc:22) ou será Agarrado pela superfície (Escapar CD 28)."
         },
         "pV2kE2wYrZjLyBiR": {
           "name": "Pressione 10 pés (3 metros)",
@@ -4090,7 +4090,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "aIqWT8KUlYwUY9x2": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "RHsGeVOoFFoGYyZ1": {
@@ -4263,7 +4263,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VPryni3E3RGw5MdV": {
           "name": "Hálito Venenoso",
-          "description": "O dragão respira uma nuvem tóxica que causa 9d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:25, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem tóxica que causa 9d6[veneno de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:25, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -4331,7 +4331,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "goSE2P0nlOvFsVEH": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "WYRi6VyNroGIrEk6": {
@@ -4432,7 +4432,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "9RDkmFyfywWSOj2V": {
           "name": "Sopro de Dragão",
-          "description": "A quimera respira um cone ou linha que causa 9d6 de dano a todas as criaturas na área (resistência básica CD 26 de um tipo indicado abaixo). A cabeça do dragão da quimera está ligada a uma das tradições da magia, que determina a área de seu Sopro do Dragão, o tipo de dano que causa e o tipo de defesa para evitá-lo. Esta habilidade ganha as características relacionadas.\nA quimera não pode usar Dragon Breath novamente por [[/gmr 1d4 #Recharge Dragon Breath]]{1d4 rodadas}.\n• Arcano @Template[line|distance:60] de 9d6[force|options:area-damage]{force} (verificar (reflexo, dc:26, básico, opções:efeito de área))\n• Divino @Template[line|distance:60] de 9d6[spirit|options:area-damage]{spirit} (check (reflex, dc:26, basic, options:area-effect)); esta habilidade também pode ter o traço sagrado ou profano\n• Oculto @Template[cone|distance:30] de 9d6[mental|options:area-damage]{mental} (verificar (vontade, dc:26, básico, opções:efeito de área))\n• Primal @Template[cone|distance:30] de 9d6[acid|options:area-damage]{acid}, 9d6[cold|options:area-damage]{cold}, 9d6[electricity|options:area-damage]{eletricidade}, 9d6[fogo|options:area-damage]{fogo}, ou 9d6[sônico|opções:dano de área]{sônico} (verificar (reflexo, dc:26, básico, opções:efeito de área)); ou 9d6[veneno|opções:dano de área]{veneno} (verificar (fortitude, dc:26, básico, opções:efeito de área))"
+          "description": "A quimera respira um cone ou linha que causa 9d6 de dano a todas as criaturas na área (resistência básica CD 26 de um tipo indicado abaixo). A cabeça do dragão da quimera está ligada a uma das tradições da magia, que determina a área de seu Sopro do Dragão, o tipo de dano que causa e o tipo de defesa para evitá-lo. Esta habilidade ganha as características relacionadas.\nA quimera não pode usar Dragon Breath novamente por 1d4.\n• Arcano @Template[line|distance:60] de 9d6[force{force} (verificar (reflexo, dc:26, básico, opções:efeito de área))\n• Divino @Template[line|distance:60] de 9d6[spirit{spirit} (check (reflex, dc:26, basic, options:area-effect)); esta habilidade também pode ter o traço sagrado ou profano\n• Oculto @Template[cone|distance:30] de 9d6[mental{mental} (verificar (vontade, dc:26, básico, opções:efeito de área))\n• Primal @Template[cone|distance:30] de 9d6[acid{acid}, 9d6[cold{cold}, 9d6[electricity{eletricidade}, 9d6[fogo{fogo}, ou 9d6[sônico{sônico} (verificar (reflexo, dc:26, básico, opções:efeito de área)); ou 9d6[veneno{veneno} (verificar (fortitude, dc:26, básico, opções:efeito de área))"
         },
         "pEpgPRttHusG3elF": {
           "name": "Ataque de três cabeças",
@@ -4511,7 +4511,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kK41S41L533fMggZ": {
           "name": "Detonar Disfarce",
-          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 9d6[concussão|opções:dano de área] de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:26, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
+          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 9d6[concussão de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:26, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
         },
         "IUwmirxfv4K0PcJf": {
           "name": "Frenesi Dracônico",
@@ -4527,7 +4527,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ab0Z4gMjfbVX1DVf": {
           "name": "Hálito de fumaça",
-          "description": "O dragão libera uma nuvem nociva de fumaça que causa 7d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:26, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por [[/gmr 1d4 #Recharge Smoke Breath]]{1d4 rodadas}."
+          "description": "O dragão libera uma nuvem nociva de fumaça que causa 7d6[veneno de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:26, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por 1d4."
         },
         "lhnqwfK5RkPmG7XJ": {
           "name": "Ataque furtivo",
@@ -4719,7 +4719,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "AzIejcCA4nY9zlmB": {
           "name": "Respiração de Tempestade de Areia",
-          "description": "O dragão do deserto cospe uma bola de areia abrasiva com um alcance de 60 pés (18 metros) que explode em uma nuvem com um @Template[burst|distance:15]. As criaturas na área sofrem 9d6[corte | opções: dano de área] de dano (teste (reflexo, dc: 27, básico, opções: efeito de área) salvamento).\nO dragão do deserto não pode usar Sopro da Tempestade de Areia novamente por [[/gmr 1d6 #Recharge Sopro da Tempestade de Areia]]{1d6 rodadas}, durante o qual a tempestade de areia permanece na área. Esta persistente tempestade de areia concede Ocultação a tudo dentro dela e esconde tudo fora deles."
+          "description": "O dragão do deserto cospe uma bola de areia abrasiva com um alcance de 60 pés (18 metros) que explode em uma nuvem com um @Template[burst|distance:15]. As criaturas na área sofrem 9d6[corte | opções: dano de área] de dano (teste (reflexo, dc: 27, básico, opções: efeito de área) salvamento).\nO dragão do deserto não pode usar Sopro da Tempestade de Areia novamente por 1d6, durante o qual a tempestade de areia permanece na área. Esta persistente tempestade de areia concede Ocultação a tudo dentro dela e esconde tudo fora deles."
         },
         "W1EiRfnWuUIq6KoC": {
           "name": "Surto de velocidade",
@@ -4783,7 +4783,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jsgHC6kdtZdnAJMT": {
           "name": "Nuvem de tinta",
-          "description": "O polvo emite uma nuvem de tinta preta em @Template[emanation|distance:30]. Esta nuvem não tem efeito fora da água. As criaturas dentro da nuvem não são detectadas e não podem usar o olfato. A nuvem se dissipa após 1 minuto.\nO polvo não pode usar o Ink Cloud novamente por [[/br 2d6 #rounds]]{2d6 rounds}."
+          "description": "O polvo emite uma nuvem de tinta preta em @Template[emanation|distance:30]. Esta nuvem não tem efeito fora da água. As criaturas dentro da nuvem não são detectadas e não podem usar o olfato. A nuvem se dissipa após 1 minuto.\nO polvo não pode usar o Ink Cloud novamente por 2d6."
         },
         "3H0tPL2AeonSy2gM": {
           "name": "Jato",
@@ -4853,7 +4853,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rve8KfBmapuJodhm": {
           "name": "Ladrão de corpos",
-          "description": "O xoarian se espreme na cabeça de uma criatura morta há não mais que um dia, consumindo e substituindo o cérebro daquela criatura. No início do próximo turno do xoarian, o corpo revive com seus Pontos de Vida máximos, controlados pelo xoarian. O xoarian está consciente e pode sentir tudo o que o corpo possuído pode sentir. Qualquer efeito que encerre a posse mata o corpo hospedeiro com os mesmos efeitos de Sair do Corpo. O xoarian não pode usar nenhum dos magias da criatura hospedeira com Body Thief, mas pode usar seus próprios magias inatos."
+          "description": "O xoarian se espreme na cabeça de uma criatura morta há não mais que um dia, consumindo e substituindo o cérebro daquela criatura. No início do próximo turno do xoarian, o corpo revive com seus Pontos de Vida máximos, controlados pelo xoarian. O xoarian está consciente e pode sentir tudo o que o corpo possuído pode sentir. Qualquer efeito que encerre a posse mata o corpo hospedeiro com os mesmos efeitos de Sair do Corpo. O xoarian não pode usar nenhum das magias da criatura hospedeira com Body Thief, mas pode usar seus próprias magias inatos."
         },
         "fvdMcDZ6SQwY04yW": {
           "name": "Corpo de saída",
@@ -4991,7 +4991,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "7CAtWwnu0VOFzaK9": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "E36GUJSTq2NvkRmA": {
@@ -5004,7 +5004,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "prLWsWvW54YcYyNa": {
           "name": "Anjo Guia",
-          "description": "Requisitos O balisse é invisível\nEfeito O balisse se liga espiritualmente a um mortal adjacente que não possui a característica profana. Eles se fundem com o corpo do mortal e são incapazes de usar qualquer um de seus magias e habilidades além de interagir com o mortal. Eles podem descartar o efeito para deixar o mortal. Enquanto fundidos, o balisse pode se comunicar usando uma voz incorpórea que somente o mortal pode ouvir ou pode assumir uma forma de sua escolha que apenas o mortal pode ver, como um pequeno anjo no ombro do mortal."
+          "description": "Requisitos O balisse é invisível\nEfeito O balisse se liga espiritualmente a um mortal adjacente que não possui a característica profana. Eles se fundem com o corpo do mortal e são incapazes de usar qualquer um de suas magias e habilidades além de interagir com o mortal. Eles podem descartar o efeito para deixar o mortal. Enquanto fundidos, o balisse pode se comunicar usando uma voz incorpórea que somente o mortal pode ouvir ou pode assumir uma forma de sua escolha que apenas o mortal pode ver, como um pequeno anjo no ombro do mortal."
         }
       },
       "spellcasting": {
@@ -5083,11 +5083,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2QnPX6haUy6RjKvT": {
           "name": "Feromônio Frenesi",
-          "description": "A mãe da colmeia libera um feromônio que faz com que todos os outros ankhravs dentro de um @Template[emanation|distance:100] se tornem Acelerados até o início do próximo turno da mãe da colmeia, e eles podem usar a ação extra apenas para ações de Toca, Passo ou Golpe.\nA mãe da colmeia não pode liberar o feromônio novamente por [[/gmr 1d4 #Recharge Frenzy Pheromone]]{1d4 rodadas}."
+          "description": "A mãe da colmeia libera um feromônio que faz com que todos os outros ankhravs dentro de um @Template[emanation|distance:100] se tornem Acelerados até o início do próximo turno da mãe da colmeia, e eles podem usar a ação extra apenas para ações de Toca, Passo ou Golpe.\nA mãe da colmeia não pode liberar o feromônio novamente por 1d4."
         },
         "waCZVvDN6vAn7yCi": {
           "name": "Spray ácido",
-          "description": "A mãe da colmeia vomita ácido em um @Template[cone|distance:60], causando 8d6[acid,1d6[persistent,acid]|options:area-damage]{8d6 de dano de ácido e 1d6 de dano de ácido persistente} (verificar (reflexo, dc:26, básico, opções:efeito de área) salvar).\nEle não pode vomitar ácido novamente por [[/gmr 1d4 #Recharge Spray Acid]]{1d4 rodadas}."
+          "description": "A mãe da colmeia vomita ácido em um @Template[cone|distance:60], causando 8d6[acid,1d6[persistent,acid]{8d6 de dano de ácido e 1d6 de dano de ácido persistente} (verificar (reflexo, dc:26, básico, opções:efeito de área) salvar).\nEle não pode vomitar ácido novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -5454,7 +5454,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "GoYV1mj4XKxDiBOM": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "tqSmdxFVDmY2CLns": {
@@ -5510,7 +5510,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão com Chifres (Jovem, Feiticeiro)",
-      "description": "A magia que flui através dos dragões primitivos pode manifestar características mais animalescas ou bestiais em um determinado tipo de dragão. Notavelmente entre eles estão os enormes chifres emparelhados do dragão com chifres. Embora sua estrutura volumosa, coloração natural e escamas estriadas proeminentes sejam notáveis ​​à sua maneira, são os chifres que são mais óbvios e impressionantes à primeira vista. Dragões com chifres usam seus chifres para empalar suas presas em uma demonstração rápida e brutal de seu poder. Geralmente são contemplativos e têm fixação no conhecimento e na autodisciplina, características desmentidas por sua aparência bestial. Como resultado, os dragões com chifres são geralmente mais abertos a falar com estranhos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "A magia que flui através dos dragões primitivos pode manifestar características mais animalescas ou bestiais em um determinado tipo de dragão. Notavelmente entre eles estão os enormes chifres emparelhados do dragão com chifres. Embora sua estrutura volumosa, coloração natural e escamas estriadas proeminentes sejam notáveis ​​à sua maneira, são os chifres que são mais óbvios e impressionantes à primeira vista. Dragões com chifres usam seus chifres para empalar suas presas em uma demonstração rápida e brutal de seu poder. Geralmente são contemplativos e têm fixação no conhecimento e na autodisciplina, características desmentidas por sua aparência bestial. Como resultado, os dragões com chifres são geralmente mais abertos a falar com estranhos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro",
@@ -5566,7 +5566,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VPryni3E3RGw5MdV": {
           "name": "Hálito Venenoso",
-          "description": "O dragão respira uma nuvem tóxica que causa 9d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:25, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem tóxica que causa 9d6[veneno de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:25, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -5786,7 +5786,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VMapQLoJPfFmzdaS": {
           "name": "Suscetível à morte",
-          "description": "Embora os fantasmas não estejam vivos, eles também não são mortos-vivos e são exclusivamente vulneráveis ​​aos efeitos da morte.\nUm fantasma cujos Pontos de Vida são reduzidos a 0 como resultado de um efeito de morte (como de um magia como Executar) é imediatamente levado para o Rio das Almas, onde sua alma retoma o caminho normal para a vida após a morte."
+          "description": "Embora os fantasmas não estejam vivos, eles também não são mortos-vivos e são exclusivamente vulneráveis ​​aos efeitos da morte.\nUm fantasma cujos Pontos de Vida são reduzidos a 0 como resultado de um efeito de morte (como de uma magia como Executar) é imediatamente levado para o Rio das Almas, onde sua alma retoma o caminho normal para a vida após a morte."
         },
         "KhpwMZRcLcLGEKlH": {
           "name": "Toque Fantasma",
@@ -5830,7 +5830,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Conspirador (Jovem, Feiticeiro)",
-      "description": "Escondidos entre as sombras e os altos escalões da sociedade estão os dragões conspiradores. Esses dragões são intrigantes, sempre procurando manipular e controlar os outros, seja para ganho pessoal ou simplesmente pela emoção de ver suas maquinações acontecerem. Dragões conspiradores se veem acima dos outros e normalmente falam em tons e palavras infantilizantes. No entanto, como a maioria dos dragões conspiradores encontram outros disfarçados, eles fazem o possível para manter o disfarce.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Escondidos entre as sombras e os altos escalões da sociedade estão os dragões conspiradores. Esses dragões são intrigantes, sempre procurando manipular e controlar os outros, seja para ganho pessoal ou simplesmente pela emoção de ver suas maquinações acontecerem. Dragões conspiradores se veem acima dos outros e normalmente falam em tons e palavras infantilizantes. No entanto, como a maioria dos dragões conspiradores encontram outros disfarçados, eles fazem o possível para manter o disfarce.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro",
@@ -5891,7 +5891,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kK41S41L533fMggZ": {
           "name": "Detonar Disfarce",
-          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 9d6[concussão|opções:dano de área] de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:26, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
+          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 9d6[concussão de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:26, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
         },
         "uyo6N99p8gLhdfCs": {
           "name": "Transformação Apressada",
@@ -5899,7 +5899,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ab0Z4gMjfbVX1DVf": {
           "name": "Hálito de fumaça",
-          "description": "O dragão libera uma nuvem nociva de fumaça que causa 7d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:26, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por [[/gmr 1d4 #Recharge Smoke Breath]]{1d4 rodadas}."
+          "description": "O dragão libera uma nuvem nociva de fumaça que causa 7d6[veneno de dano em um salvamento de @Template[cone|distance:40] (verificação (fortitude, dc:26, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por 1d4."
         },
         "lhnqwfK5RkPmG7XJ": {
           "name": "Ataque furtivo",
@@ -6024,7 +6024,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "O jah-tohl sente a essência mental de uma criatura como um sentido preciso com o alcance listado; ele não pode sentir criaturas estúpidas com sentido de pensamento."
         },
         "EMWzNZneWpK3nLER": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "9SCUupqh4itf7aTx": {
@@ -6330,7 +6330,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "dpMfwwbltlZ55vSZ": {
           "name": "Blasfêmia Final",
-          "description": "Quando o herexen é destruído, ele explode em uma onda de energia do vazio com os efeitos de um magia Dano de 3 ações (teste (fortitude, dc:18)).\nO herexen é destruído, então ele não ganha nenhum Ponto de Vida com o uso do dano, e não precisa ter nenhum magia de dano restante para usar esta habilidade."
+          "description": "Quando o herexen é destruído, ele explode em uma onda de energia do vazio com os efeitos de uma magia Dano de 3 ações (teste (fortitude, dc:18)).\nO herexen é destruído, então ele não ganha nenhum Ponto de Vida com o uso do dano, e não precisa ter nenhuma magia de dano restante para usar esta habilidade."
         },
         "9kiCgRcrTLqrvzAj": {
           "name": "Cura do Vazio",
@@ -6459,7 +6459,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "escewXwusyFQw1t9": {
           "name": "Sopro do Fogo do Inferno",
-          "description": "O cão infernal cospe chamas que causam 10d6[fogo|opções:dano de área] de dano a todas as criaturas em um salvamento de @Template[cone|distance:15] (verificação (reflexo, dc:28, básico, opções:efeito de área).)\nO cão infernal não pode usar Sopro do Fogo do Inferno novamente por [[/gmr 1d4 #Recharge Sopro do Fogo do Inferno]]{1d4 rodadas}. Se o cão infernal maior sofrer dano de fogo ou for alvo de um efeito de fogo, seu Sopro do Fogo do Inferno será recarregado."
+          "description": "O cão infernal cospe chamas que causam 10d6[fogo de dano a todas as criaturas em um salvamento de @Template[cone|distance:15] (verificação (reflexo, dc:28, básico, opções:efeito de área).)\nO cão infernal não pode usar Sopro do Fogo do Inferno novamente por 1d4. Se o cão infernal maior sofrer dano de fogo ou for alvo de um efeito de fogo, seu Sopro do Fogo do Inferno será recarregado."
         },
         "DXOTK3gZgiPc9AVG": {
           "name": "Ataque de matilha",
@@ -6516,7 +6516,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VBMoJbMPEmzIPu5X": {
           "name": "Respiração fria",
-          "description": "O gigante de gelo exala uma @Template[cone|distance:15] de umidade congelante que rapidamente se condensa em gelo, causando 4d6[cold|options:area-damage] de dano. Cada criatura no cone deve tentar um teste de resistência (reflexo, dc:28, básico, opções:efeito de área). Uma criatura que falha no teste também é imobilizada e sofre 2d6[frio] de dano no final de cada um de seus turnos até ser libertada ([[/act escape dc=28]]).\nO gigante não pode usar Respiração Gelada novamente por [[/gmr 1d4 #Recharge Respiração Gelada]]{1d4 rodadas}."
+          "description": "O gigante de gelo exala uma @Template[cone|distance:15] de umidade congelante que rapidamente se condensa em gelo, causando 4d6[cold de dano. Cada criatura no cone deve tentar um teste de resistência (reflexo, dc:28, básico, opções:efeito de área). Uma criatura que falha no teste também é imobilizada e sofre 2d6[frio] de dano no final de cada um de seus turnos até ser libertada (Escapar CD 28).\nO gigante não pode usar Respiração Gelada novamente por 1d4."
         },
         "UkuRoGDf37QBLm8k": {
           "name": "Passo de Gelo",
@@ -6574,7 +6574,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "N3VyfMfoQe5DSb63": {
           "name": "Camuflar",
-          "description": "O dragão pode [[/agir se esconder]] em ambientes naturais mesmo que não tenha cobertura."
+          "description": "O dragão pode Esconder-se em ambientes naturais mesmo que não tenha cobertura."
         },
         "o4iFaQcPDYy49SAA": {
           "name": "+2 Status para todos os salvamentos vs. Arcano",
@@ -6594,7 +6594,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cuSg2YxJeOWsi3XS": {
           "name": "Respiração Alucinatória",
-          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 7d6[mental|options:area-damage] de dano em um salvamento de @Template[cone|distance:30] (check (will, dc:27, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por [[/gmr 1d4 #Recharge Respiração Alucinatória]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 7d6[mental de dano em um salvamento de @Template[cone|distance:30] (check (will, dc:27, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por 1d4."
         },
         "YGFIBzztMdCKAOGu": {
           "name": "Mordida Pulmonante",
@@ -6802,7 +6802,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um leucodaemon sente qualquer criatura com uma doença e conhece o tipo e o estágio atual de todas as doenças transmitidas por qualquer criatura dentro do alcance."
         },
         "DG1zbZJXQydDgeBF": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "GoEK3KTZm6r0vhaU": {
@@ -7025,7 +7025,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "S1Ztj3jcXHNboSRl": {
           "name": "Respiração de Avalanche",
-          "description": "O dragão arrota uma massa de pedras que causa 8d8[concussão|opções:dano de área] de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:28, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por [[/gmr 1d4 #Recharge Sopro de Avalanche]]{1d4 rodadas}."
+          "description": "O dragão arrota uma massa de pedras que causa 8d8[concussão de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:28, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por 1d4."
         },
         "oIGArcTy5v4hSbt2": {
           "name": "Ataque Escavador",
@@ -7170,7 +7170,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "JCHWJ2nJ8ZmLOBs5": {
           "name": "Hálito de praga",
-          "description": "O nuckelavee respira um @Template[cone|distance:30] de sujeira, causando 8d6[void|options:area-damage] de dano a criaturas vivas na área com um teste (fortitude, dc:28, básico, opções:efeito de área) de salvamento. Uma criatura que falhar também sofre 2d6[bleed|options:area-damage] de dano.\nO nuckelavee não pode usar Sopro Blight novamente por [[/gmr 1d4 #Recharge Blight Breath]]{1d4 rodadas}."
+          "description": "O nuckelavee respira um @Template[cone|distance:30] de sujeira, causando 8d6[void de dano a criaturas vivas na área com um teste (fortitude, dc:28, básico, opções:efeito de área) de salvamento. Uma criatura que falhar também sofre 2d6[bleed de dano.\nO nuckelavee não pode usar Sopro Blight novamente por 1d4."
         },
         "1FR8UtVfDAC3RoWh": {
           "name": "Mortasheen",
@@ -7232,19 +7232,19 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "TpEz65tv1dwJ91cy": {
           "name": "Câmaras Alquímicas",
-          "description": "O corpo de um agulhador nocivo contém seis câmaras alquímicas cheias de diferentes substâncias. Quando a habilidade de um agulhador nocivo invoca um efeito alquímico determinado aleatoriamente, jogue 1d6 e consulte o seguinte (se você rolar o resultado de uma câmara que foi quebrada, não há efeito alquímico):\n[[/gmr 1d6 #CâmarasAlquímicas]] | Efeito Alquímico |\n1 | Danos Ácidos\n |\n2 | Danos de frio |\n3 | Danos de eletricidade |\n4 | Danos de Fogo |\n5 | Dano de Veneno |\n6 | Doença: teste (fortitude, dc:26, nome:Doença Alquímica, características:doença) salvar ou Adoecido 1 (Adoecido 2 em uma falha crítica) |"
+          "description": "O corpo de um agulhador nocivo contém seis câmaras alquímicas cheias de diferentes substâncias. Quando a habilidade de um agulhador nocivo invoca um efeito alquímico determinado aleatoriamente, jogue 1d6 e consulte o seguinte (se você rolar o resultado de uma câmara que foi quebrada, não há efeito alquímico):\n1d6 | Efeito Alquímico |\n1 | Danos Ácidos\n |\n2 | Danos de frio |\n3 | Danos de eletricidade |\n4 | Danos de Fogo |\n5 | Dano de Veneno |\n6 | Doença: teste (fortitude, dc:26, nome:Doença Alquímica, características:doença) salvar ou Adoecido 1 (Adoecido 2 em uma falha crítica) |"
         },
         "N0g5xdIF3LC3JDxP": {
           "name": "Ruptura Alquímica",
-          "description": "Quando um agulhador nocivo sofre dano físico de um acerto crítico ou é afetado por um magia de estilhaçar, uma câmara de vidro dentro de seu corpo se quebra, expelindo líquido alquímico em uma @Template[emanation|distance:5]. Role na lista de câmaras alquímicas para determinar qual delas se estilhaça – em um resultado de 1–5, as criaturas na área sofrem 10d6 de dano do tipo apropriado (Reflexos básicos CD 28). Em um resultado de 6, as criaturas devem, em vez disso, salvar contra o efeito da doença.\n[[/gmr 1d6 #Ruptura Alquímica]] | Efeito Alquímico |\n1 | 10d6 [ácido | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: ácido)\n |\n2 | 10d6 [frio | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: frio) |\n3 | 10d6[eletricidade | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: eletricidade) |\n4 | 10d6 [fogo | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: fogo) |\n5 | 10d6 [veneno | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: veneno) |\n6 | Doença: teste (fortitude, dc:26, nome:Doença Alquímica, opções:efeito de área, características:doença) salvar ou Enjoado 1 (Enjoado 2 em uma falha crítica) |"
+          "description": "Quando um agulhador nocivo sofre dano físico de um acerto crítico ou é afetado por uma magia de estilhaçar, uma câmara de vidro dentro de seu corpo se quebra, expelindo líquido alquímico em uma @Template[emanation|distance:5]. Role na lista de câmaras alquímicas para determinar qual delas se estilhaça – em um resultado de 1–5, as criaturas na área sofrem 10d6 de dano do tipo apropriado (Reflexos básicos CD 28). Em um resultado de 6, as criaturas devem, em vez disso, salvar contra o efeito da doença.\n1d6 | Efeito Alquímico |\n1 | 10d6 [ácido | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: ácido)\n |\n2 | 10d6 [frio | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: frio) |\n3 | 10d6[eletricidade | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: eletricidade) |\n4 | 10d6 [fogo | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: fogo) |\n5 | 10d6 [veneno | opções: dano de área] verificação de dano (reflexo, dc: 28, básico, opções: efeito de área, características: veneno) |\n6 | Doença: teste (fortitude, dc:26, nome:Doença Alquímica, opções:efeito de área, características:doença) salvar ou Enjoado 1 (Enjoado 2 em uma falha crítica) |"
         },
         "ahtVNJjKjna3LTc1": {
           "name": "Injeção Alquímica",
-          "description": "Quando uma agulha nociva atinge uma criatura com um golpe de seringa, role 1d6 na lista de câmaras alquímicas para determinar o efeito adicional do ataque. A seringa causa 2d6 de dano adicional do tipo apropriado (ou expõe o alvo ao efeito de doença, conforme apropriado).\n[[/gmr 1d6 #Injeção Alquímica]] | Efeito Alquímico |\n1 | 2d6[ácido] de dano\n |\n2 | 2d6 de dano [frio] |\n3 | 2d6 dano [eletricidade] |\n4 | 2d6[fogo] de dano |\n5 | 2d6[veneno] de dano |\n6 | Doença: teste (fortitude, dc:26, nome:Doença Alquímica, características:doença) salvar ou Adoecido 1 (Adoecido 2 em uma falha crítica) |"
+          "description": "Quando uma agulha nociva atinge uma criatura com um golpe de seringa, role 1d6 na lista de câmaras alquímicas para determinar o efeito adicional do ataque. A seringa causa 2d6 de dano adicional do tipo apropriado (ou expõe o alvo ao efeito de doença, conforme apropriado).\n1d6 | Efeito Alquímico |\n1 | 2d6[ácido] de dano\n |\n2 | 2d6 de dano [frio] |\n3 | 2d6 dano [eletricidade] |\n4 | 2d6[fogo] de dano |\n5 | 2d6[veneno] de dano |\n6 | Doença: teste (fortitude, dc:26, nome:Doença Alquímica, características:doença) salvar ou Adoecido 1 (Adoecido 2 em uma falha crítica) |"
         },
         "IUmBG7HtxvrIOHUR": {
           "name": "Gerar Bomba",
-          "description": "O agulhador enche um frasco vazio de uma de suas câmaras alquímicas para criar uma bomba e então faz um ataque de bomba. Role 1d6 na tabela abaixo. Em um resultado de 1–5, a bomba causa 3d10 de dano e 3 de dano espalhado, correspondendo ao tipo de dano da câmara; em vez disso, você pode escolher criar uma bomba alquímica de 11º nível ou inferior que cause o mesmo tipo de dano, como um frasco de ácido em um resultado de 1. Em um resultado de 6, ele cria uma bomba de doença, que expõe o alvo e todas as criaturas no raio de respingo ao efeito de doença; criaturas atingidas apenas pelo respingo recebem um bônus de circunstância de +2 em seus testes de Fortitude.\n[[/gmr 1d6 #Gerar Bomba]] |\nEfeito Alquímico |\n1 |\nDano Ácido: 3d10[ácido,(3[respingo])[ácido]] de dano\n |\n2 |\nDano de frio: 3d10[frio,(3[respingo])[frio]] de dano |\n3 |\nDano de eletricidade: 3d10[eletricidade,(3[respingo])[eletricidade]] de dano |\n4 |\nDano de Fogo: 3d10[fogo,(3[respingo])[fogo]] de dano |\n5 |\nDano de Veneno: 3d10[veneno,(3[respingo])[veneno]] de dano |\n6 |\nDoença: teste (fortitude, dc:26, nome:Doença Alquímica, características:doença) salvar ou Adoecido 1 (Adoecido 2 em uma falha crítica) |"
+          "description": "O agulhador enche um frasco vazio de uma de suas câmaras alquímicas para criar uma bomba e então faz um ataque de bomba. Role 1d6 na tabela abaixo. Em um resultado de 1–5, a bomba causa 3d10 de dano e 3 de dano espalhado, correspondendo ao tipo de dano da câmara; em vez disso, você pode escolher criar uma bomba alquímica de 11º nível ou inferior que cause o mesmo tipo de dano, como um frasco de ácido em um resultado de 1. Em um resultado de 6, ele cria uma bomba de doença, que expõe o alvo e todas as criaturas no raio de respingo ao efeito de doença; criaturas atingidas apenas pelo respingo recebem um bônus de circunstância de +2 em seus testes de Fortitude.\n1d6 |\nEfeito Alquímico |\n1 |\nDano Ácido: 3d10[ácido,(3[respingo])[ácido]] de dano\n |\n2 |\nDano de frio: 3d10[frio,(3[respingo])[frio]] de dano |\n3 |\nDano de eletricidade: 3d10[eletricidade,(3[respingo])[eletricidade]] de dano |\n4 |\nDano de Fogo: 3d10[fogo,(3[respingo])[fogo]] de dano |\n5 |\nDano de Veneno: 3d10[veneno,(3[respingo])[veneno]] de dano |\n6 |\nDoença: teste (fortitude, dc:26, nome:Doença Alquímica, características:doença) salvar ou Adoecido 1 (Adoecido 2 em uma falha crítica) |"
         }
       },
       "spellcasting": {}
@@ -7305,7 +7305,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "lW1fc32LlAwkAiq4": {
           "name": "Tsunami",
-          "description": "A tartaruga dragão libera sua habilidade destrutiva criando uma enorme onda crescente que causa 7d6[concussão|opções:dano de área] de dano em um @Template[cone|distância:60] (verificação (reflexo, dc:27, básico, opções:efeito de área,inflige:prone) salvamento). O dano da onda aumenta em 10 para criaturas que estão a mais de 30 pés (9 metros) de distância. Uma criatura que falhar no teste será derrubada.\nA tartaruga dragão não pode usar o Tsunami novamente por [[/gmr 1d4 #Recharge Tsunami]]{1d4 rodadas}."
+          "description": "A tartaruga dragão libera sua habilidade destrutiva criando uma enorme onda crescente que causa 7d6[concussão de dano em um @Template[cone|distância:60] (verificação (reflexo, dc:27, básico, opções:efeito de área,inflige:prone) salvamento). O dano da onda aumenta em 10 para criaturas que estão a mais de 30 pés (9 metros) de distância. Uma criatura que falhar no teste será derrubada.\nA tartaruga dragão não pode usar o Tsunami novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -7353,15 +7353,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "pNhF7GFjrQ8VQQ9Y": {
           "name": "Conventículo",
-          "description": "Uma bruxa cuco adiciona Dominação, Pesadelo, Maldição do Pária e Vidência aos magias de seu clã."
+          "description": "Uma bruxa cuco adiciona Dominação, Pesadelo, Maldição do Pária e Vidência às magias de seu clã."
         },
         "YfGqOsiIhx0TaiUj": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "E7jlxzaIihQdS5MA": {
           "name": "Imitação de Som",
-          "description": "Uma bruxa cuco que obtiver sucesso em um teste de Enganação para [[/act lie options=sound-imitation]] pode imitar o som de qualquer voz feminina que tenha ouvido (nos casos em que isso não esteja claro, o Mestre é o árbitro final) e tem um bônus de circunstância de +4 para este teste."
+          "description": "Uma bruxa cuco que obtiver sucesso em um teste de Enganação para lie options=sound imitation pode imitar o som de qualquer voz feminina que tenha ouvido (nos casos em que isso não esteja claro, o Mestre é o árbitro final) e tem um bônus de circunstância de +4 para este teste."
         },
         "1VEl4iJ7F2Ibvo7T": {
           "name": "Alterar forma",

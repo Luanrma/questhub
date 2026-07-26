@@ -105,7 +105,7 @@ Usar sempre o importador parametrizado:
 node scripts/import-pf2e-core-exhaustive.mjs `
   .tmp/pf2e-source <NN> <BESTIARY_LIMIT> <SPELL_LIMIT> <ITEM_LIMIT> `
   "<ITEM_PUBLICATION>" "<SPELL_PUBLICATION>" "<BESTIARY_PUBLICATION>" `
-  "<BESTIARY_SOURCE_PACK>"
+  "<BESTIARY_SOURCE_PACK>" "<SOURCE_MODE>" "<SPELL_SOURCE_PACK>"
 ```
 
 Exemplo para a rodada `04`, na qual somente Items avança para Player Core 2:
@@ -129,6 +129,25 @@ rodadas antigas; os padrões continuam sendo Player Core para Items e Spells e
 Monster Core para Bestiário. Em uma nova rodada, informar os três explicitamente
 evita avanço silencioso de fonte.
 
+A cobertura 16 usa `200 / 100 / 200`. A partir da cobertura 17, os limites
+correntes são `400 / 200 / 400`. Rodadas anteriores preservam os limites
+congelados em seus manifests e no roadmap.
+
+Quando uma rodada estiver marcada como `terminalReconciliation = true`, o
+último domínio pendente pode usar o saldo integral acima do limite. Para o
+Bestiário Legacy/OGL, usar os seletores reservados:
+
+```powershell
+node scripts/import-pf2e-core-exhaustive.mjs .tmp/pf2e-source <NN> <SALDO> 1 1 `
+  "Pathfinder Lost Omens High Seas" "Pathfinder Wake the Dead #2" `
+  "ALL_REMAINING_LEGACY_BESTIARY" "all-remaining" `
+  "LEGACY_ONLY|LEGACY_ONLY|LEGACY_ONLY" "rituals"
+```
+
+Esse modo deve falhar se `<SALDO>` for menor que o inventário restante. O
+relatório substitui o seletor reservado pelas publicações e packs efetivamente
+encontrados.
+
 O argumento do pack técnico de Bestiário é opcional somente para manter
 compatibilidade com as rodadas anteriores e usa `pathfinder-monster-core` como
 padrão. Toda nova publicação de Bestiário deve informar esse argumento
@@ -143,6 +162,36 @@ node scripts/import-pf2e-core-exhaustive.mjs .tmp/pf2e-source 11 100 40 100 `
   "Pathfinder Monster Core 2|Pathfinder GM Core" `
   "pathfinder-monster-core-2|hazards"
 ```
+
+Spells e Items aceitam a mesma lista de publicações separada por `|`. Items
+continuam no pack compartilhado `equipment-srd`. Spells preservam o compendium
+lógico `spells-srd`, mas o argumento técnico `SPELL_SOURCE_PACK` seleciona
+exatamente um subdiretório de `packs/pf2e/spells/`:
+
+```text
+spells | focus | rituals
+```
+
+O padrão `spells` existe somente para compatibilidade com coberturas
+históricas. `focus` e `rituals` devem ser informados explicitamente. O seletor
+altera apenas o diretório lido e o campo `spellSourcePack` do relatório:
+`sourcePack` e `contentId` continuam usando `spells-srd`. Não inferir esse
+valor pelo nome da publicação nem combinar mais de um diretório na mesma
+execução. A ordem das publicações define a precedência editorial e deve ser
+integralmente respeitada antes da ordenação por Rank ou nível.
+
+`SOURCE_MODE` deve ser `REMASTER_ONLY` nas novas coberturas Remaster e
+`LEGACY_ONLY` quando o roadmap chegar ao programa Legacy/OGL. `ANY` é o padrão
+somente para reprodução compatível das coberturas históricas. O modo filtra
+`publication.remaster` antes da seleção e impede que publicações com metadados
+mistos antecipem conteúdo do programa errado.
+
+Em uma rodada de transição, informar modos independentes na ordem
+`<ITEM_MODE>|<SPELL_MODE>|<BESTIARY_MODE>`. Um valor único continua valendo
+para os três domínios. Por exemplo,
+`REMASTER_ONLY|LEGACY_ONLY|REMASTER_ONLY` mantém Items e Bestiário no Remaster
+e permite que somente Spells avance para Legacy/OGL após esgotar seu cursor
+Remaster.
 
 Exemplo para a rodada de transição `12`, na qual somente o cursor de Bestiário
 já avançou para o programa NPC Core:
@@ -162,11 +211,23 @@ O importador deve:
 - congelar exatamente os IDs selecionados;
 - preservar source lock, hashes, publicação, licença e Remaster;
 - registrar no relatório as três publicações selecionadas;
+- remover somente whitespace externo acidental de `publication.title` e
+  registrar `source-publication-title-trimmed` no manifesto;
 - gerar os originais `en-US` separados das traduções;
 - preservar conjuração incorporada de criaturas;
 - preservar o discriminador e os campos próprios de hazards;
 - registrar avisos de normalização;
 - não sobrescrever um overlay de tradução já existente.
+
+Quando um domínio estiver integralmente reconciliado e não houver mais IDs
+elegíveis, executar o importador com limite positivo e uma publicação já
+auditada pode produzir zero entradas nesse domínio. Na integração:
+
+- declarar o domínio em `exhaustedDomains` no roadmap;
+- manter vazio o array congelado correspondente;
+- registrar o saldo zero na documentação e nos testes;
+- nunca reutilizar um ID, inventar placeholder ou mudar para `ANY` apenas para
+  preencher a rodada.
 
 Auditar o relatório do comando:
 
@@ -192,14 +253,25 @@ node scripts/translate-pf2e-core-exhaustive.mjs 03
 
 Regras:
 
+- aceitar arrays vazios nos arquivos de um domínio declarado em
+  `exhaustedDomains`, produzindo também um overlay vazio sem interromper os
+  outros domínios;
 - preencher nomes, descrições e campos textuais específicos de cada domínio;
 - em hazards, traduzir detecção, desarme, rotina, reset e ações por ID;
+- confirmar que comandos `@Check`, `@Damage`, `[[/r ...]]`, `[[/gmr ...]]`,
+  `[[/br ...]]` e `[[/act ...]]` não aparecem literalmente na apresentação;
 - manter original e tradução fisicamente separados;
 - usar `MACHINE_DRAFT` para tradução automática;
 - nunca marcar tradução automática como `REVIEWED`;
 - preservar `Rank`, `GP`, `SP` e `CP`;
 - apresentar distâncias em pés e metros no PT-BR;
 - usar o glossário central para termos mecânicos estruturados;
+- traduzir defesas estruturadas de magias deterministicamente como `teste de
+  Vontade`, `teste de Fortitude`, `teste de Reflexos` e respectivas variantes
+  `teste básico de ...`;
+- garantir concordância feminina de artigos, demonstrativos e contrações
+  imediatamente associados a `magia` ou `magias`, como `a magia`, `esta
+  magia`, `uma magia`, `da magia` e suas formas plurais;
 - endereçar ataques, ações e conjuração por ID, não por posição;
 - não considerar texto inglês copiado como tradução.
 
@@ -309,7 +381,9 @@ git diff --check
 
 A rodada só está concluída quando:
 
-- os três domínios atingem os limites solicitados ou a fonte se esgota;
+- os domínios ainda ativos atingem os limites solicitados ou a fonte se
+  esgota, e domínios anteriormente esgotados estão declarados em
+  `exhaustedDomains`;
 - nenhum conteúdo anterior é duplicado;
 - os originais estão normalizados;
 - todos os novos overlays PT-BR estão preenchidos;

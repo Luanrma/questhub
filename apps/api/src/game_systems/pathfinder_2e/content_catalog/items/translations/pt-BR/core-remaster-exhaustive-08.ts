@@ -1212,7 +1212,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pergaminho do primeiro magia Rank",
-      "description": "Lançar um magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar um magia usando o número normal de ações para aquele magia.\nO magia deve aparecer na sua lista de magias. Como é você quem está lançando o magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar o magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "description": "Lançar uma magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar uma magia usando o número normal de ações para aquela magia.\nA magia deve aparecer na sua lista de magias. Como é você quem está lançando a magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar a magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "rolar",
@@ -1227,7 +1227,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bomba de cola (menor)",
-      "description": "Ative 1 Golpe\nUma bomba de cola é um mecanismo explosivo inofensivo repleto de substâncias pegajosas. Quando você atinge uma criatura com uma bomba de cola, aquela criatura sofre uma penalidade de –3 metros em sua Velocidade por 1 minuto. O DC de escape é [[/act escape dc=17]]{17}.\nEm um acerto crítico, uma criatura em contato com uma superfície sólida fica presa à superfície e imobilizada por 1 rodada, e uma criatura voando através das asas tem suas asas emaranhadas, fazendo com que ela caia com segurança no chão e se torne incapaz de voar novamente por 1 rodada. Bombas de cola não são eficazes quando usadas em criaturas que estão na água.\nO alvo pode encerrar qualquer efeito escapando ou gastando um total de 3 ações de interação para remover cuidadosamente as substâncias pegajosas. Essas ações de Interação não precisam ser consecutivas e outras criaturas também podem realizar as ações.\nEfeito: Bomba de Cola",
+      "description": "Ative 1 Golpe\nUma bomba de cola é um mecanismo explosivo inofensivo repleto de substâncias pegajosas. Quando você atinge uma criatura com uma bomba de cola, aquela criatura sofre uma penalidade de –3 metros em sua Velocidade por 1 minuto. O DC de escape é Escapar CD 17.\nEm um acerto crítico, uma criatura em contato com uma superfície sólida fica presa à superfície e imobilizada por 1 rodada, e uma criatura voando através das asas tem suas asas emaranhadas, fazendo com que ela caia com segurança no chão e se torne incapaz de voar novamente por 1 rodada. Bombas de cola não são eficazes quando usadas em criaturas que estão na água.\nO alvo pode encerrar qualquer efeito escapando ou gastando um total de 3 ações de interação para remover cuidadosamente as substâncias pegajosas. Essas ações de Interação não precisam ser consecutivas e outras criaturas também podem realizar as ações.\nEfeito: Bomba de Cola",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "marcial",
@@ -1258,7 +1258,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Néctar da Purificação",
-      "description": "Ativar A (manipular)\nUm líquido cintilante, o néctar de purificação é frequentemente armazenado em garrafas semelhantes às usadas para o vinagre. Este óleo lança um magia Cleanse Cuisine de 1º Rank sobre qualquer comida ou bebida sobre a qual é derramado. O néctar evapora à medida que entra em vigor, deixando inalterados o sabor e a textura do alimento ou bebida.",
+      "description": "Ativar A (manipular)\nUm líquido cintilante, o néctar de purificação é frequentemente armazenado em garrafas semelhantes às usadas para o vinagre. Este óleo lança uma magia Cleanse Cuisine de 1º Rank sobre qualquer comida ou bebida sobre a qual é derramado. O néctar evapora à medida que entra em vigor, deixando inalterados o sabor e a textura do alimento ou bebida.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "óleo",

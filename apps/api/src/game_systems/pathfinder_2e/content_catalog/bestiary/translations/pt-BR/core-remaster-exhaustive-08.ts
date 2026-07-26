@@ -38,7 +38,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kkVojFishI8AxnVn": {
           "name": "Podridão de limo",
-          "description": "Teste de salvamento (fortitude, dc:18)\nInício [[/gmr 1d4 #days]]{1d4 dias}\nEstágio 1 Enfraquecido 1 e Enjoado 1 (1 dia)\nEstágio 2 como estágio 1 (1 dia)\nEstágio 3 Drenado 1, Debilitado 2 e Enjoado 2 (1 dia)\nEstágio 4 como estágio 3 (1 dia)\nEstágio 5 Drenado 2 mais Inconsciente (sem teste de Percepção para acordar) (1 dia)\nEstágio 6 morto e o corpo entra em erupção para liberar um novo bolor limoso"
+          "description": "Teste de salvamento (fortitude, dc:18)\nInício 1d4\nEstágio 1 Enfraquecido 1 e Enjoado 1 (1 dia)\nEstágio 2 como estágio 1 (1 dia)\nEstágio 3 Drenado 1, Debilitado 2 e Enjoado 2 (1 dia)\nEstágio 4 como estágio 3 (1 dia)\nEstágio 5 Drenado 2 mais Inconsciente (sem teste de Percepção para acordar) (1 dia)\nEstágio 6 morto e o corpo entra em erupção para liberar um novo bolor limoso"
         }
       },
       "spellcasting": {}
@@ -91,7 +91,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4QajQWtHxBUlKsgo": {
           "name": "Reconstituição",
-          "description": "Quando o filhote atinge 0 Pontos de Vida, seu espírito se dissipa. Se seu vaso ligado estiver intacto, o filhote se forma novamente neste vaso após [[/gmr 2d4 #Reconstituição]]{2d4 dias}, totalmente curado. Se o recipiente estiver quebrado, ele deverá primeiro ser Reparado, após o que o filhote se recuperará em [[/gmr 3d4 #Reconstituição]]{3d4 dias}."
+          "description": "Quando o filhote atinge 0 Pontos de Vida, seu espírito se dissipa. Se seu vaso ligado estiver intacto, o filhote se forma novamente neste vaso após 2d4, totalmente curado. Se o recipiente estiver quebrado, ele deverá primeiro ser Reparado, após o que o filhote se recuperará em 3d4."
         },
         "2bcr0iC80HhF1QZo": {
           "name": "Habitar Navio",
@@ -150,7 +150,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ixXRVHF3jg0IMuKw": {
           "name": "Magia do Duende",
-          "description": "Os duendes adoram usar sua magia para enganar os outros e, depois de gerações fazendo isso, desenvolveram uma forte conexão com esses truques. Quando um duende usa seus magias inatos para enganar, enganar ou humilhar uma criatura, a CD do magia aumenta para 20 e o modificador de ataque para +12."
+          "description": "Os duendes adoram usar sua magia para enganar os outros e, depois de gerações fazendo isso, desenvolveram uma forte conexão com esses truques. Quando um duende usa suas magias inatos para enganar, enganar ou humilhar uma criatura, a CD da magia aumenta para 20 e o modificador de ataque para +12."
         }
       },
       "spellcasting": {
@@ -716,7 +716,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jspQIwxqoVmeF37U": {
           "name": "Invocar o Assombrado das Trevas",
-          "description": "Frequência uma vez por dia\nEfeito O cultista grioth agita a mão em um padrão complexo para invocar poderes sombrios, causando 3d8[mental|options:area-damage] de dano. Cada criatura não-grioth dentro de @Template[emanation|distance:20]{20 pés (6 metros)} deve tentar um teste de salvamento (vontade, dc:20, opções:efeito de área,efeito de dano,inflige:estupefificado).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano\nFalha A criatura sofre dano total e fica Estupefata 1 por 1 rodada\nFalha Crítica A criatura sofre o dobro de dano e fica estupefata 1 por 1 minuto."
+          "description": "Frequência uma vez por dia\nEfeito O cultista grioth agita a mão em um padrão complexo para invocar poderes sombrios, causando 3d8[mental de dano. Cada criatura não-grioth dentro de @Template[emanation|distance:20]{20 pés (6 metros)} deve tentar um teste de salvamento (vontade, dc:20, opções:efeito de área,efeito de dano,inflige:estupefificado).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano\nFalha A criatura sofre dano total e fica Estupefata 1 por 1 rodada\nFalha Crítica A criatura sofre o dobro de dano e fica estupefata 1 por 1 minuto."
         },
         "vGTPPE8IbwvNQkbd": {
           "name": "Mente de choque",
@@ -958,7 +958,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "3R3gyr1g5LXQOY2n": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "qEksYPQ2gGBBTZL8": {
@@ -1168,7 +1168,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "IPog4z95kZnznJaz": {
           "name": "Habitar Corpo",
-          "description": "Requisitos O vermlek ainda não está habitando um corpo\nEfeito O vermlek rasteja para dentro do corpo de um humanóide Médio adjacente que esteja morto há não mais que 1 semana, consumindo a maior parte do esqueleto e dos órgãos internos da vítima enquanto o faz e se amontoando na cavidade. Enquanto habitar um corpo, o vermlek perde seu ataque de mordida, pode empunhar armas como um humanóide, ganha +3 de bônus de circunstância na CA e ganha +3 de bônus de circunstância em testes de Enganação para [[/act personate options=personate-inhabited-creature]] a criatura que eles estão habitando."
+          "description": "Requisitos O vermlek ainda não está habitando um corpo\nEfeito O vermlek rasteja para dentro do corpo de um humanóide Médio adjacente que esteja morto há não mais que 1 semana, consumindo a maior parte do esqueleto e dos órgãos internos da vítima enquanto o faz e se amontoando na cavidade. Enquanto habitar um corpo, o vermlek perde seu ataque de mordida, pode empunhar armas como um humanóide, ganha +3 de bônus de circunstância na CA e ganha +3 de bônus de circunstância em testes de Enganação para personate options=personate inhabited creature a criatura que eles estão habitando."
         },
         "J1IIdiHEce226caX": {
           "name": "Movimento inquietante",
@@ -1287,12 +1287,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "WJ9IzjB7hdrCqPVv": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "MhPq4EOlBLppwQeu": {
           "name": "Sujeira Cocitana",
-          "description": "Teste de salvamento (fortitude, dc:18)\nInício [[/gmr 1d4 #days]]{1d4 dias}\nEstágio 1 Enfraquecido 1 (1 dia)\nEstágio 2 Debilitado 2 (1 dia)\nEstágio 3 Debilitado 3 (1 dia)"
+          "description": "Teste de salvamento (fortitude, dc:18)\nInício 1d4\nEstágio 1 Enfraquecido 1 (1 dia)\nEstágio 2 Debilitado 2 (1 dia)\nEstágio 3 Debilitado 3 (1 dia)"
         },
         "LNbjPm5a6CTl4lko": {
           "name": "Olho Diabólico",
@@ -1473,7 +1473,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "NV4laxM07MRKvfBd": {
           "name": "Bicos Enxameantes",
-          "description": "As bicadas furiosas dos corvos causam 2d8[perfurantes] de dano a cada inimigo no espaço do enxame (teste de resistência (reflexo, dc:20, básico)). Uma criatura que falhar criticamente em seu salvamento fica cega por [[/gmr 1d4 #rounds]]{1d4 rounds} enquanto os corvos concentram seus ataques na face vulnerável do alvo."
+          "description": "As bicadas furiosas dos corvos causam 2d8[perfurantes] de dano a cada inimigo no espaço do enxame (teste de resistência (reflexo, dc:20, básico)). Uma criatura que falhar criticamente em seu salvamento fica cega por 1d4 enquanto os corvos concentram seus ataques na face vulnerável do alvo."
         }
       },
       "spellcasting": {}
@@ -1522,7 +1522,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "B7dEX7u4tsrp6t84": {
           "name": "magias de Ganzi",
-          "description": "Dois dos seguintes escolhidos aleatoriamente a cada dia usando [[/gmr 1d12 #Spell Selection]]{1d12}\n• Aderência Ácida\n• Desfoque\n• Forma Humanóide\n• Objeto Ilusório\n• Invisibilidade\n• Rir\n• Explosão de ruído\n• Paranóia\n• Resistir à Energia\n• Veja o Invisível\n• Quebrar\n• Manobra Telecinética"
+          "description": "Dois dos seguintes escolhidos aleatoriamente a cada dia usando 1d12\n• Aderência Ácida\n• Desfoque\n• Forma Humanóide\n• Objeto Ilusório\n• Invisibilidade\n• Rir\n• Explosão de ruído\n• Paranóia\n• Resistir à Energia\n• Veja o Invisível\n• Quebrar\n• Manobra Telecinética"
         },
         "m28qbb8336wXcWVN": {
           "name": "Rajada de chutes",
@@ -1855,7 +1855,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "qbn93YsujSFI6TMZ": {
           "name": "Camuflar",
-          "description": "O camaleão gigante pode mudar sua coloração para combinar com o ambiente. Ele não precisa de cobertura para tentar [[/act hide]] com um teste de Furtividade."
+          "description": "O camaleão gigante pode mudar sua coloração para combinar com o ambiente. Ele não precisa de cobertura para tentar Esconder-se com um teste de Furtividade."
         },
         "eDciSvI59Etta4Vh": {
           "name": "Visão Geral",
@@ -1919,7 +1919,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "L7T9T5DomnIiT6vI": {
           "name": "Decadência Necrótica",
-          "description": "Quando um urdefhan morre, sua carne translúcida apodrece rapidamente e se sublima em um gás fétido que preenche um @Template[type:emanation|distance:5] ao redor do corpo. Este gás causa 3d6[void|options:area-damage] de dano às criaturas nesta área enquanto sua carne coagula e apodrece (teste de resistência (fortitude, dc:17, básico))."
+          "description": "Quando um urdefhan morre, sua carne translúcida apodrece rapidamente e se sublima em um gás fétido que preenche um @Template[type:emanation|distance:5] ao redor do corpo. Este gás causa 3d6[void de dano às criaturas nesta área enquanto sua carne coagula e apodrece (teste de resistência (fortitude, dc:17, básico))."
         },
         "vsZsp4XZ5OI6ap3Z": {
           "name": "Ataque reativo",
@@ -2003,7 +2003,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "JbEXEx4FSvdSTXl1": {
           "name": "Aspecto Abençoado",
-          "description": "O rosto do kuribu se transforma e seu semblante sagrado desencadeia um ataque baseado no aspecto escolhido pelo kuribu. O kuribu não pode usar o Aspecto Abençoado novamente por [[/gmr 1d4 #Recharge Aspecto Abençoado]]{1d4 rodadas}. Eles podem voltar à sua aparência humanóide a qualquer momento, mas ainda precisam esperar antes de usar o Aspecto Abençoado novamente.\n• Águia O kuribu solta um grito desorientador em um @Template[type:cone|distance:15] que causa 2d10[sonic|options:area-damage] de dano com um teste de resistência (vontade, dc:19, básico). Uma criatura que falhe criticamente também fica atordoada 1.\n• Leão O kuribu desfere um golpe poderoso com suas mandíbulas contra uma criatura adjacente. O ataque tem um teste (kuribu-jaws-attack, contra:ac){+12} modificador de ataque e causa 4d6[piercing,1d4[bleed]]{4d6 de dano perfurante mais 1d4 de dano de sangramento persistente}.\n• Boi O kuribu ataca uma criatura. O kuribu voa ou avança. No final de seu movimento, o kuribu colide com uma criatura adjacente, causando 4d6[concussão|opções:dano de área] de dano a ela com um teste de resistência (fortitude, dc:17, básico). Se o alvo falhar criticamente, ele também será derrubado."
+          "description": "O rosto do kuribu se transforma e seu semblante sagrado desencadeia um ataque baseado no aspecto escolhido pelo kuribu. O kuribu não pode usar o Aspecto Abençoado novamente por 1d4. Eles podem voltar à sua aparência humanóide a qualquer momento, mas ainda precisam esperar antes de usar o Aspecto Abençoado novamente.\n• Águia O kuribu solta um grito desorientador em um @Template[type:cone|distance:15] que causa 2d10[sonic de dano com um teste de resistência (vontade, dc:19, básico). Uma criatura que falhe criticamente também fica atordoada 1.\n• Leão O kuribu desfere um golpe poderoso com suas mandíbulas contra uma criatura adjacente. O ataque tem um teste (kuribu-jaws-attack, contra:ac){+12} modificador de ataque e causa 4d6[piercing,1d4[bleed]]{4d6 de dano perfurante mais 1d4 de dano de sangramento persistente}.\n• Boi O kuribu ataca uma criatura. O kuribu voa ou avança. No final de seu movimento, o kuribu colide com uma criatura adjacente, causando 4d6[concussão de dano a ela com um teste de resistência (fortitude, dc:17, básico). Se o alvo falhar criticamente, ele também será derrubado."
         },
         "0ODGUTKtRjILh9wl": {
           "name": "Estátua",
@@ -2080,7 +2080,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "vTdAoBWge2NbeE6O": {
           "name": "Pensamentos distorcidos",
-          "description": "Uma criatura atingida pelo Golpe da mordida do akizendri deve tentar um teste de resistência (vontade, dc:20).\nSucesso A criatura não é afetada.\nFalha A criatura fica Estupefata 1 por [[/gmr 1d4 #rounds]]{1d4 rodadas}.\nFalha Crítica Como falha, mas a criatura também fica Confusa por 1 rodada."
+          "description": "Uma criatura atingida pelo Golpe da mordida do akizendri deve tentar um teste de resistência (vontade, dc:20).\nSucesso A criatura não é afetada.\nFalha A criatura fica Estupefata 1 por 1d4.\nFalha Crítica Como falha, mas a criatura também fica Confusa por 1 rodada."
         },
         "OocmvB33fksC5rm0": {
           "name": "Imersão em Texto",
@@ -2252,7 +2252,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "zaD6IUn59EF4mqzi": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "6SDloGsttpr7ZAJq": {
@@ -2265,7 +2265,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Fil9NBsfO3iADreb": {
           "name": "Tempestade de areia",
-          "description": "Frequência uma vez por dia\nEfeito O aghash cria uma tempestade de areia temporária em @Template[emanation|distance:30] que dura 1 minuto.\nAs criaturas dentro da emanação sofrem –4 de penalidade de circunstância em testes de Percepção e devem ter sucesso em um teste de resistência (fortitude, dc:18, opções:efeito de área). Em caso de falha, eles são forçados a prender a respiração ou começam a sufocar. Uma criatura dentro da tempestade de areia no final de seu turno sofre 1d6[cortando|opções:dano em área] de dano.\nDivs são imunes a todos os efeitos da tempestade de areia de um aghash.\nEfeito: Tempestade de Areia"
+          "description": "Frequência uma vez por dia\nEfeito O aghash cria uma tempestade de areia temporária em @Template[emanation|distance:30] que dura 1 minuto.\nAs criaturas dentro da emanação sofrem –4 de penalidade de circunstância em testes de Percepção e devem ter sucesso em um teste de resistência (fortitude, dc:18, opções:efeito de área). Em caso de falha, eles são forçados a prender a respiração ou começam a sufocar. Uma criatura dentro da tempestade de areia no final de seu turno sofre 1d6[cortando de dano.\nDivs são imunes a todos os efeitos da tempestade de areia de um aghash.\nEfeito: Tempestade de Areia"
         }
       },
       "spellcasting": {
@@ -2697,7 +2697,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "szMtFeHWIvnzvaDT": {
           "name": "Varredura brutal",
-          "description": "Requisitos O troll do gelo está empunhando uma machadinha\nEfeito O troll move sua machadinha em um grande arco, causando 3d6[slashing|options:area-damage] de dano a todas as criaturas em um @Template[type:emanation|distance:5] (check (reflex, dc:18, basic, options:area-effect) save)."
+          "description": "Requisitos O troll do gelo está empunhando uma machadinha\nEfeito O troll move sua machadinha em um grande arco, causando 3d6[slashing de dano a todas as criaturas em um @Template[type:emanation|distance:5] (check (reflex, dc:18, basic, options:area-effect) save)."
         },
         "qCpzPNIMm9QsJlk1": {
           "name": "Passagem de Gelo",
@@ -2763,7 +2763,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ZtiaPGYU12BviKY1": {
           "name": "Respiração Goblínica",
-          "description": "A cobra gobmob arrota uma nuvem de vapor nauseante em um @Template[type:cone|distance:15]. Criaturas que não sejam goblins dentro da nuvem devem ter sucesso em um teste (fortitude, dc:20, opções:efeito de área,inflige:enjoado,inflige:lentidão) ou ficam Enjoadas 1. Em uma falha crítica, uma criatura também fica Lentidão 1 enquanto estiver enjoada. As criaturas que salvam com sucesso ficam imunes por 24 horas. A cobra gobmob não pode usar Sopro Goblin novamente por [[/gmr 1d4 #Recharge Sopro Goblin]]{1d4 rodadas}."
+          "description": "A cobra gobmob arrota uma nuvem de vapor nauseante em um @Template[type:cone|distance:15]. Criaturas que não sejam goblins dentro da nuvem devem ter sucesso em um teste (fortitude, dc:20, opções:efeito de área,inflige:enjoado,inflige:lentidão) ou ficam Enjoadas 1. Em uma falha crítica, uma criatura também fica Lentidão 1 enquanto estiver enjoada. As criaturas que salvam com sucesso ficam imunes por 24 horas. A cobra gobmob não pode usar Sopro Goblin novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -2895,7 +2895,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "z2iLBR1l32mSdxZg": {
           "name": "Maldição do Cínico",
-          "description": "Uma criatura atingida pelas presas de um Apaixonado Golpe deve tentar um teste (vontade, dc:19) à medida que fica taciturna e apática. Se a criatura for afetada por um magia Calma, esse magia tenta neutralizar esta maldição em vez de ter seu efeito normal.\nSucesso Crítico O alvo não é afetado.\nSucesso Por 1 minuto, o alvo não pode se beneficiar de efeitos emocionais úteis, mas ainda pode ser afetado por efeitos emocionais prejudiciais.\nFalha Como sucesso, mais o alvo fica Fatigado pela mesma duração.\nFalha Crítica Como falha, mas os efeitos da maldição são permanentes."
+          "description": "Uma criatura atingida pelas presas de um Apaixonado Golpe deve tentar um teste (vontade, dc:19) à medida que fica taciturna e apática. Se a criatura for afetada por uma magia Calma, essa magia tenta neutralizar esta maldição em vez de ter seu efeito normal.\nSucesso Crítico O alvo não é afetado.\nSucesso Por 1 minuto, o alvo não pode se beneficiar de efeitos emocionais úteis, mas ainda pode ser afetado por efeitos emocionais prejudiciais.\nFalha Como sucesso, mais o alvo fica Fatigado pela mesma duração.\nFalha Crítica Como falha, mas os efeitos da maldição são permanentes."
         },
         "z8icQJywCFQjbD5v": {
           "name": "Pegar",
@@ -3300,7 +3300,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "wIaFyHxV6GMXoqFb": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "Z81UDtSvKzcjdvPR": {
@@ -3523,7 +3523,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "8I6n0t8znnPmN0cj": {
           "name": "Raio",
-          "description": "O trovão vivo emite um relâmpago que ressoa com um trovão ensurdecedor. O trovão vivo faz um golpe relâmpago que causa 1d12[eletricidade|opções:dano em área] de dano. Se acertar, o alvo e quaisquer criaturas dentro de um @Template[type:emanation|distance:15] ao redor do alvo sofrem 2d6[sonic|options:area-damage] de dano (teste (fortitude, dc:18, básico) de salvamento). Qualquer criatura que falhe no teste também fica Ensurdecida por [[/gmr 1d4 #rounds]]{1d4 rounds}."
+          "description": "O trovão vivo emite um relâmpago que ressoa com um trovão ensurdecedor. O trovão vivo faz um golpe relâmpago que causa 1d12[eletricidade de dano. Se acertar, o alvo e quaisquer criaturas dentro de um @Template[type:emanation|distance:15] ao redor do alvo sofrem 2d6[sonic de dano (teste (fortitude, dc:18, básico) de salvamento). Qualquer criatura que falhe no teste também fica Ensurdecida por 1d4."
         },
         "BSrd91anF0w2njt5": {
           "name": "Empurrar",
@@ -3645,7 +3645,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I1Su2avyR3JbgdtD": {
           "name": "Explosão Nociva",
-          "description": "Materiais tóxicos e lixo agitado dentro do corpo do fogo imundo explodem de três maneiras. O fogo imundo escolhe o efeito, mas não pode fazer a mesma escolha duas vezes seguidas.\n• Feixe de Fogo (fogo, primitivo) O fogo imundo expele um @Template[type:line|distance:30] de chama que causa 3d6[fogo|opções:dano de área] de dano com um teste de resistência (reflexo, dc:21, básico).\n• Explosão de Estilhaços (primitivo) O fogo imundo atira lixo irregular em um @Template[type:emanation|distance:5] que causa 2d12[piercing|options:area-damage] de dano com um teste de resistência (reflexo, dc:21, básico).\n• Fumos Tóxicos (veneno, primitivo) O fogo imundo arrota uma @Template[type:cone|distance:15] de fumaça tóxica que causa 2d6[poison|options:area-damage] de dano (teste (fortitude, dc:21, básico) de salvamento). Uma criatura que falhar também fica Enjoada 1 (Enjoada 2 em uma falha crítica)."
+          "description": "Materiais tóxicos e lixo agitado dentro do corpo do fogo imundo explodem de três maneiras. O fogo imundo escolhe o efeito, mas não pode fazer a mesma escolha duas vezes seguidas.\n• Feixe de Fogo (fogo, primitivo) O fogo imundo expele um @Template[type:line|distance:30] de chama que causa 3d6[fogo de dano com um teste de resistência (reflexo, dc:21, básico).\n• Explosão de Estilhaços (primitivo) O fogo imundo atira lixo irregular em um @Template[type:emanation|distance:5] que causa 2d12[piercing de dano com um teste de resistência (reflexo, dc:21, básico).\n• Fumos Tóxicos (veneno, primitivo) O fogo imundo arrota uma @Template[type:cone|distance:15] de fumaça tóxica que causa 2d6[poison de dano (teste (fortitude, dc:21, básico) de salvamento). Uma criatura que falhar também fica Enjoada 1 (Enjoada 2 em uma falha crítica)."
         }
       },
       "spellcasting": {}
@@ -3852,7 +3852,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "9h7H5cLoexL4ZlMm": {
           "name": "Ataque cambaleante",
-          "description": "1 a 2\nFrequência uma vez por rodada\nEfeito Os cambaleantes atacam qualquer inimigo em seus quadrados ou dentro de um salvamento de @Template[type:emanation|distance:5] (check (reflex, dc:18, basic)). O dano depende do número de ações.\n1 (2d6+5)[concussão|opções:dano em área] de dano\n2 (2d6+9)[concussão|opções:dano em área] de dano"
+          "description": "1 a 2\nFrequência uma vez por rodada\nEfeito Os cambaleantes atacam qualquer inimigo em seus quadrados ou dentro de um salvamento de @Template[type:emanation|distance:5] (check (reflex, dc:18, basic)). O dano depende do número de ações.\n1 (2d6+5)[concussão de dano\n2 (2d6+9)[concussão de dano"
         }
       },
       "spellcasting": {}
@@ -3983,7 +3983,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bisão",
-      "description": "Bison são bovinos grandes com rostos curtos e dois chifres; eles pesam mais de 2.000 libras e resistem a 6 pés (1,8 metros) na cernelha. Manadas de bisões trovejam pelas planícies gramadas de Golarion, sacudindo a terra. Eles são uma visão comum ao longo das Planícies Assobiantes, a leste de Taldor, e nas amplas pastagens da nação de Karazh, em Casmaron; eles também aparecem frequentemente nas regiões mais frias do nordeste de Avistan, nos Reinos Fluviais através de Numeria, e no Reino dos Senhores Mamutes e no oeste de Sarkoris.\nComunais por natureza, os bisões se reúnem em grande número durante a temporada de acasalamento no verão, antes que os touros se separem para vagar pelas gramíneas da pradaria. Os bisões se adaptaram bem aos invernos rigorosos das pradarias, pois seu pelo desgrenhado, que fica mais espesso no inverno, os isola; diante das nevascas, eles sobrevivem enfrentando firmemente os ventos uivantes e agachando-se para reduzir sua exposição.\nA maneira como os bisões chafurdam na terra ou se esfregam em pedras grandes pode tornar mais fácil confundir sua natureza dócil com passividade. No entanto, esta presunção tem sido a ruína de muitos grupos de caça. Sua carne abundante e peles grossas fazem dos bisões uma recompensa atraente, mas com o solo estrondoso abaixo deles, os bisões podem rapidamente dominar caçadores inexperientes e despreparados para um rebanho em debandada. Esses grupos de caça às vezes contratam aventureiros particularmente ousados, que podem adicionar seus magias, aço e perícia para garantir uma caçada bem-sucedida.\nEmbora os bisões das planícies sejam os mais conhecidos e numerosos, eles têm primos tanto nas densas florestas boreais quanto ao longo das estepes amplas e abertas. Essas variantes de bisões são mais altas, mas não conseguem igualar a velocidade e a agressividade de seus parentes menores das planícies.",
+      "description": "Bison são bovinos grandes com rostos curtos e dois chifres; eles pesam mais de 2.000 libras e resistem a 6 pés (1,8 metros) na cernelha. Manadas de bisões trovejam pelas planícies gramadas de Golarion, sacudindo a terra. Eles são uma visão comum ao longo das Planícies Assobiantes, a leste de Taldor, e nas amplas pastagens da nação de Karazh, em Casmaron; eles também aparecem frequentemente nas regiões mais frias do nordeste de Avistan, nos Reinos Fluviais através de Numeria, e no Reino dos Senhores Mamutes e no oeste de Sarkoris.\nComunais por natureza, os bisões se reúnem em grande número durante a temporada de acasalamento no verão, antes que os touros se separem para vagar pelas gramíneas da pradaria. Os bisões se adaptaram bem aos invernos rigorosos das pradarias, pois seu pelo desgrenhado, que fica mais espesso no inverno, os isola; diante das nevascas, eles sobrevivem enfrentando firmemente os ventos uivantes e agachando-se para reduzir sua exposição.\nA maneira como os bisões chafurdam na terra ou se esfregam em pedras grandes pode tornar mais fácil confundir sua natureza dócil com passividade. No entanto, esta presunção tem sido a ruína de muitos grupos de caça. Sua carne abundante e peles grossas fazem dos bisões uma recompensa atraente, mas com o solo estrondoso abaixo deles, os bisões podem rapidamente dominar caçadores inexperientes e despreparados para um rebanho em debandada. Esses grupos de caça às vezes contratam aventureiros particularmente ousados, que podem adicionar suas magias, aço e perícia para garantir uma caçada bem-sucedida.\nEmbora os bisões das planícies sejam os mais conhecidos e numerosos, eles têm primos tanto nas densas florestas boreais quanto ao longo das estepes amplas e abertas. Essas variantes de bisões são mais altas, mas não conseguem igualar a velocidade e a agressividade de seus parentes menores das planícies.",
       "size": "Grande",
       "senses": {
         "scent-imprecise-60": "faro impreciso 60 pés (18 metros)"
@@ -4015,7 +4015,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LaB8UoWpNQqZKM30": {
           "name": "Trovão Rolante",
-          "description": "O bisão levanta poeira e sacode o chão enquanto avança.\nO bisão em fuga avança até o dobro de sua velocidade em linha reta, causando (4d6+6)[concussão|opções:dano de área] de dano (teste (reflexo, CC:21, básico, opções:efeito de área) salvamento) a qualquer criatura Média ou menor em seu caminho.\nVários bisões podem participar do Rolling Thunder gastando as ações desta habilidade e esperando para atacar até que o rebanho esteja pronto. Antes do início do próximo turno, eles podem atacar como uma reação desencadeada por um bisão adjacente iniciando sua carga Rolling Thunder. Todos os bisões na carga combinada devem atacar em linhas paralelas, para que as áreas não possam se sobrepor. A carga combinada causa 3d6[concussão] de dano adicional às criaturas na área, e uma criatura que falhar no teste de resistência de Reflexos também será derrubada."
+          "description": "O bisão levanta poeira e sacode o chão enquanto avança.\nO bisão em fuga avança até o dobro de sua velocidade em linha reta, causando (4d6+6)[concussão de dano (teste (reflexo, CC:21, básico, opções:efeito de área) salvamento) a qualquer criatura Média ou menor em seu caminho.\nVários bisões podem participar do Rolling Thunder gastando as ações desta habilidade e esperando para atacar até que o rebanho esteja pronto. Antes do início do próximo turno, eles podem atacar como uma reação desencadeada por um bisão adjacente iniciando sua carga Rolling Thunder. Todos os bisões na carga combinada devem atacar em linhas paralelas, para que as áreas não possam se sobrepor. A carga combinada causa 3d6[concussão] de dano adicional às criaturas na área, e uma criatura que falhar no teste de resistência de Reflexos também será derrubada."
         },
         "z8BBIDN9nKLoG4FV": {
           "name": "Derrubar",
@@ -4143,11 +4143,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "C0NEkV1zwoV5vogY": {
           "name": "Reconstituição",
-          "description": "Quando o leão atinge 0 Pontos de Vida, seu espírito se dissipa. Se seu recipiente ligado estiver intacto, o leão se reformará neste recipiente após [[/gmr 2d4 #Reconstituição]]{2d4 dias}, totalmente curado. Se o recipiente estiver quebrado, ele deverá primeiro ser Reparado, após o que o leão se recuperará em [[/gmr 3d4 #Reconstituição]]{3d4 dias}."
+          "description": "Quando o leão atinge 0 Pontos de Vida, seu espírito se dissipa. Se seu recipiente ligado estiver intacto, o leão se reformará neste recipiente após 2d4, totalmente curado. Se o recipiente estiver quebrado, ele deverá primeiro ser Reparado, após o que o leão se recuperará em 3d4."
         },
         "SQvpxbj1u4t8orbJ": {
           "name": "Rugido Feroz",
-          "description": "O leão emite um rugido aterrorizante que causa 2d8[sônico|opções:dano de área] de dano (teste (fortitude, CC:23, básico, opções:efeito de área) salvamento) a cada criatura em um @Template[cone|distância:20]. As criaturas que falharem neste teste ficam Amedrontadas 1."
+          "description": "O leão emite um rugido aterrorizante que causa 2d8[sônico de dano (teste (fortitude, CC:23, básico, opções:efeito de área) salvamento) a cada criatura em um @Template[cone|distância:20]. As criaturas que falharem neste teste ficam Amedrontadas 1."
         },
         "oJXCaHxdH67r6d1I": {
           "name": "Habitar Navio",
@@ -4213,7 +4213,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "6wkMbalDgG8lNnyX": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "utit7xgb3ultcCbp": {
@@ -4310,7 +4310,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "iCM4V1WXNcTslhi7": {
           "name": "Conventículo",
-          "description": "Uma bruxa da tempestade adiciona Torrente Hidráulica, Tempestade de Raios e Maldição do Marinheiro aos magias de seu clã."
+          "description": "Uma bruxa da tempestade adiciona Torrente Hidráulica, Tempestade de Raios e Maldição do Marinheiro às magias de seu clã."
         },
         "K0pcy2s3gTJZZK7a": {
           "name": "Visão da Tempestade",
@@ -4330,7 +4330,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4QFJBrjb8mR8VE6I": {
           "name": "Chamada da Tempestade",
-          "description": "Uma bruxa da tempestade pode realizar um ritual especial de Controle do Clima, que não requer conjuradores secundários, para mudar o clima dentro de 8 quilômetros de sua localização por [[/r 4d12 #Duration Chamada da Tempestade]]{4d12 horas}. O teste primário é um teste de teste (ocultismo, dc:23), e ela não pode obter um resultado pior do que uma falha.\nA bruxa da tempestade só pode criar furacões, tempestades e tornados, mas pode fazê-lo independentemente da estação atual. Ela também pode reprimir eventos climáticos naturais, mas nunca o faz voluntariamente."
+          "description": "Uma bruxa da tempestade pode realizar um ritual especial de Controle do Clima, que não requer conjuradores secundários, para mudar o clima dentro de 8 quilômetros de sua localização por 4d12. O teste primário é um teste de teste (ocultismo, dc:23), e ela não pode obter um resultado pior do que uma falha.\nA bruxa da tempestade só pode criar furacões, tempestades e tornados, mas pode fazê-lo independentemente da estação atual. Ela também pode reprimir eventos climáticos naturais, mas nunca o faz voluntariamente."
         },
         "jXHs8IwojZHlZUSA": {
           "name": "Maestria do Vento",
@@ -4502,7 +4502,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "nYQgnHNVs60rcvUn": {
           "name": "Vulnerabilidade Mecânica",
-          "description": "Uma criatura com proficiência especializada em Ladrão pode tentar um teste de [[/act disable-device dc=22]] para danificar um widget de escavação. A CD é 22 e cada sucesso causa 20 de dano [não digitado]."
+          "description": "Uma criatura com proficiência especializada em Ladrão pode tentar um teste de disable device CD 22 para danificar um widget de escavação. A CD é 22 e cada sucesso causa 20 de dano [não digitado]."
         },
         "mGkbLuXtisEvFNNs": {
           "name": "Salto de fixação",
@@ -4561,7 +4561,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "sRU8pYLkFEMCRECp": {
           "name": "Chama da Morte",
-          "description": "Quando a vanguarda morre, seu corpo entra em combustão em uma explosão de fogo e estilhaços de armadura. Todas as criaturas dentro de um @Template[emanation|distance:10] sofrem 3d6[fire,3d6[piercing]|options:area-damage]{3d6 de dano de fogo e 3d6 de dano perfurante} (verificação (reflexo, dc:19, básico, opções:efeito de área) salvamento). A armadura da vanguarda é destruída no incêndio, mas seus outros equipamentos não são afetados e são deixados em uma pilha onde eles morrem."
+          "description": "Quando a vanguarda morre, seu corpo entra em combustão em uma explosão de fogo e estilhaços de armadura. Todas as criaturas dentro de um @Template[emanation|distance:10] sofrem 3d6[fire,3d6[piercing]{3d6 de dano de fogo e 3d6 de dano perfurante} (verificação (reflexo, dc:19, básico, opções:efeito de área) salvamento). A armadura da vanguarda é destruída no incêndio, mas seus outros equipamentos não são afetados e são deixados em uma pilha onde eles morrem."
         },
         "cgZmHdvUciQfXo8N": {
           "name": "Ataque reativo",
@@ -4689,7 +4689,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "x183YuDiYXsrOlKc": {
           "name": "Grito de arrepiar os ossos",
-          "description": "O movimento desencadeia um grito horrível que arrepia os ossos daqueles que estão perto o suficiente para senti-lo. O grito pode ser ouvido a quilômetros de distância, mas cada criatura em um @Template[emanation|distance:20] também deve tentar um teste (vontade, dc:22, opções: efeito de área, inflige: assustado, inflige: atordoado) salvar.\nO skaveling não pode usar o Grito Arrepiante de Ossos novamente por [[/gmr 1d4 #Recharge Grito Arrepiante de Ossos]]{1d4 rodadas}.\nSucesso Crítico A criatura não é afetada e fica temporariamente imune ao Guinchado de Arrepiar os Ossos por 24 horas.\nSucesso A criatura está Assustada 1.\nFalha A criatura está Assustada 2.\nFalha Crítica A criatura fica assustada 2 e atordoada 1 de medo."
+          "description": "O movimento desencadeia um grito horrível que arrepia os ossos daqueles que estão perto o suficiente para senti-lo. O grito pode ser ouvido a quilômetros de distância, mas cada criatura em um @Template[emanation|distance:20] também deve tentar um teste (vontade, dc:22, opções: efeito de área, inflige: assustado, inflige: atordoado) salvar.\nO skaveling não pode usar o Grito Arrepiante de Ossos novamente por 1d4.\nSucesso Crítico A criatura não é afetada e fica temporariamente imune ao Guinchado de Arrepiar os Ossos por 24 horas.\nSucesso A criatura está Assustada 1.\nFalha A criatura está Assustada 2.\nFalha Crítica A criatura fica assustada 2 e atordoada 1 de medo."
         },
         "WvbDVFf0oIn9hEQE": {
           "name": "Consumir Carne",
@@ -4755,7 +4755,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "O ostiarius sempre sabe a direção e distância do portal mais próximo entre o Submundo e o Universo. Este sentido funciona apenas nestes dois planos."
         },
         "KItS50Pw8TWZa266": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "PAxZwrgCgpnMXxQq": {
@@ -5050,7 +5050,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "Of63TPl7rHzoURow": {
           "name": "Decadência Necrótica",
-          "description": "Quando um urdefhan morre, sua carne translúcida apodrece rapidamente e se sublima em um gás fétido que preenche um @Template[type:emanation|distance:5] ao redor do corpo. Este gás causa 5d6[void|options:area-damage] de dano às criaturas nesta área enquanto sua carne coagula e apodrece (teste de resistência (fortitude, dc:21, básico))."
+          "description": "Quando um urdefhan morre, sua carne translúcida apodrece rapidamente e se sublima em um gás fétido que preenche um @Template[type:emanation|distance:5] ao redor do corpo. Este gás causa 5d6[void de dano às criaturas nesta área enquanto sua carne coagula e apodrece (teste de resistência (fortitude, dc:21, básico))."
         },
         "9DNlZzSEsQ1WR3TE": {
           "name": "Cura do Vazio",
@@ -5058,7 +5058,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "KsljQaf0Yl6fRMIV": {
           "name": "Acalme o Fervoroso",
-          "description": "Frequência uma vez por dia\nEfeito O urdefhan solta um grito de guerra, deixando a si mesmo e a seus aliados em um frenesi fanático. O algoz e cada aliado que ouvir o chamado ganham +1 de bônus de status nas jogadas de ataque, jogadas de dano e testes de resistência, e sofrem -1 de penalidade de status na CA. As criaturas afetadas devem usar pelo menos uma de suas ações para Golpear a cada rodada, se puderem (mesmo que isso signifique atacar um aliado, objeto ou ar rarefeito). Isso dura [[/gmr 2d4 #rounds]]{2d4 rodadas}."
+          "description": "Frequência uma vez por dia\nEfeito O urdefhan solta um grito de guerra, deixando a si mesmo e a seus aliados em um frenesi fanático. O algoz e cada aliado que ouvir o chamado ganham +1 de bônus de status nas jogadas de ataque, jogadas de dano e testes de resistência, e sofrem -1 de penalidade de status na CA. As criaturas afetadas devem usar pelo menos uma de suas ações para Golpear a cada rodada, se puderem (mesmo que isso signifique atacar um aliado, objeto ou ar rarefeito). Isso dura 2d4."
         },
         "h2NpqvLh1k4IP42K": {
           "name": "Mordida Perversa",
@@ -5245,7 +5245,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "P48WRIeVuuAB8JWK": {
           "name": "Inundação da Morte",
-          "description": "Quando um grodair morre, seu corpo explode em uma explosão de água pressurizada que causa 4d6[concussão|opções:dano de área] de dano a criaturas dentro de um salvamento de @Template[emanation|distance:15] (verificação (reflexo, dc:22, básico, opções:efeito de área)). Uma criatura que falha no salvamento recebe 5 pés (1,5 metros) (ou 10 pés (3 metros) em caso de falha crítica)."
+          "description": "Quando um grodair morre, seu corpo explode em uma explosão de água pressurizada que causa 4d6[concussão de dano a criaturas dentro de um salvamento de @Template[emanation|distance:15] (verificação (reflexo, dc:22, básico, opções:efeito de área)). Uma criatura que falha no salvamento recebe 5 pés (1,5 metros) (ou 10 pés (3 metros) em caso de falha crítica)."
         },
         "8J1VrbhC0fQxs0Xu": {
           "name": "Campo lamacento",
@@ -5363,7 +5363,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "Pue0nPCDgWNH12d2": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "jSD0W0opMgSGzE2G": {
@@ -5571,7 +5571,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VLy49ZHsnzxOFSfZ": {
           "name": "Roubar magia",
-          "description": "O yamah faz um ataque mágico corpo a corpo contra uma criatura sob os efeitos de um magia; um yamah obtém sucesso automaticamente neste ataque contra uma criatura voluntária. Em caso de sucesso, o toque divino do yamah tenta neutralizar o magia (neutralizar Rank 3, neutralizar modificador [[/r 1d20+16 #Counteract]]{+16}). Uma neutralização bem-sucedida drena a energia mágica para uma das joias de sua poderosa pulseira de quartzo, recarregando-a."
+          "description": "O yamah faz um ataque mágico corpo a corpo contra uma criatura sob os efeitos de uma magia; um yamah obtém sucesso automaticamente neste ataque contra uma criatura voluntária. Em caso de sucesso, o toque divino do yamah tenta neutralizar a magia (neutralizar Rank 3, neutralizar modificador 1d20+16). Uma neutralização bem-sucedida drena a energia mágica para uma das joias de sua poderosa pulseira de quartzo, recarregando-a."
         }
       },
       "spellcasting": {
@@ -5727,7 +5727,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "VqHY5IorfKc9TEmc": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "V8UhxFNrr8B2m7UP": {
@@ -5744,7 +5744,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "w9Owf4Jdub9WbuFx": {
           "name": "Vomita fragmentos enferrujados",
-          "description": "O vloriak vomita um @Template[cone|distance:15] de ácido e metal enferrujado. As criaturas na área sofrem 3d6[ácido,3d6[piercing]|options:area-damage]{3d6 ácido e 3d6 piercing} de dano (teste de salvamento (reflexo, dc:22, básico, opções:efeito de área)). Uma criatura que sofra qualquer dano perfurante fica exposta ao tétano. O vloriak não pode vomitar fragmentos enferrujados por [[/gmr 1d4 #Recharge vomitar fragmentos enferrujados]]{1d4 rodadas}."
+          "description": "O vloriak vomita um @Template[cone|distance:15] de ácido e metal enferrujado. As criaturas na área sofrem 3d6[ácido,3d6[piercing]{3d6 ácido e 3d6 piercing} de dano (teste de salvamento (reflexo, dc:22, básico, opções:efeito de área)). Uma criatura que sofra qualquer dano perfurante fica exposta ao tétano. O vloriak não pode vomitar fragmentos enferrujados por 1d4."
         },
         "Q0Sd9sqnUeL32Jw9": {
           "name": "Tétano",
@@ -5878,7 +5878,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3whr45ahot8zh9nf": {
           "name": "Cache de Abdômen",
-          "description": "O abdômen da carapaça do besouro pode ser equipado com uma dobradiça simples, permitindo que seja aberto e usado como armazenamento. O abdômen pode conter até uma criatura Média ou menor, um enxame Grande ou menor ou uma quantidade semelhante de carga. O besouro ou uma criatura armazenada nele pode interagir para abrir a escotilha. Se a carapaça do besouro for atingida criticamente por uma arma de concussão, faça um teste (plano, dc:10). Se a verificação falhar, o cache será violado e seu conteúdo vazará do besouro. A escotilha também pode ser [[/act force-open dc=22]]{Abertura Forçada} (DC 22 Atletismo)."
+          "description": "O abdômen da carapaça do besouro pode ser equipado com uma dobradiça simples, permitindo que seja aberto e usado como armazenamento. O abdômen pode conter até uma criatura Média ou menor, um enxame Grande ou menor ou uma quantidade semelhante de carga. O besouro ou uma criatura armazenada nele pode interagir para abrir a escotilha. Se a carapaça do besouro for atingida criticamente por uma arma de concussão, faça um teste (plano, dc:10). Se a verificação falhar, o cache será violado e seu conteúdo vazará do besouro. A escotilha também pode ser force open CD 22 (DC 22 Atletismo)."
         },
         "6MBpOAXA2v4U8Ojh": {
           "name": "Contrair",
@@ -5932,7 +5932,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um velstrac sabe automaticamente se uma criatura que vê tem alguma das condições Condenado, Morrendo e Ferido, bem como o valor dessas condições."
         },
         "dcR7pELG3WzcQ0LJ": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "hEXmoRKHC6BCYDAE": {
@@ -6050,7 +6050,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "BaTacjtQvnaLoVc5": {
           "name": "Conclusão",
-          "description": "24 horas, [[/act disable-device dc=22]]{DC 22 Thievery}, espera\nPara que um relógio funcione, ele deve ser acionado com uma chave única por outra criatura. Isso leva 1 minuto. Uma vez ferido, ele permanece operacional pelo período de tempo listado, geralmente 24 horas, após o qual ele se torna inconsciente do que está ao seu redor e não pode agir até que seja ferido novamente. As habilidades de alguns relógios exigem que eles gastem parte do tempo operacional restante. Eles não podem gastar mais do que têm e desligar imediatamente quando tiverem 0 tempo restante. Se não estiver claro quando um relógio deu corda pela última vez, a maioria dos guardiões do relógio dá corda em todos os seus relógios em um horário definido, normalmente às 8h.\nUm mecanismo de relógio que lista o modo de espera em sua entrada de encerramento pode entrar no modo de espera como uma atividade de 3 ações. Seu tempo operacional não diminui em espera, mas ele pode sentir o que está ao seu redor (com uma penalidade de -2 na Percepção). Ele não pode agir, com uma exceção: quando percebe uma criatura, ele pode sair do modo de espera como reação (jogando iniciativa se apropriado).\nUma criatura pode tentar Desabilitar um Dispositivo para desacelerar o relógio (com uma CD listada na entrada de finalização). Para cada sucesso, o mecanismo perde 1 hora de tempo operacional. Isso pode ser feito mesmo se o relógio estiver no modo de espera."
+          "description": "24 horas, disable device CD 22, espera\nPara que um relógio funcione, ele deve ser acionado com uma chave única por outra criatura. Isso leva 1 minuto. Uma vez ferido, ele permanece operacional pelo período de tempo listado, geralmente 24 horas, após o qual ele se torna inconsciente do que está ao seu redor e não pode agir até que seja ferido novamente. As habilidades de alguns relógios exigem que eles gastem parte do tempo operacional restante. Eles não podem gastar mais do que têm e desligar imediatamente quando tiverem 0 tempo restante. Se não estiver claro quando um relógio deu corda pela última vez, a maioria dos guardiões do relógio dá corda em todos os seus relógios em um horário definido, normalmente às 8h.\nUm mecanismo de relógio que lista o modo de espera em sua entrada de encerramento pode entrar no modo de espera como uma atividade de 3 ações. Seu tempo operacional não diminui em espera, mas ele pode sentir o que está ao seu redor (com uma penalidade de -2 na Percepção). Ele não pode agir, com uma exceção: quando percebe uma criatura, ele pode sair do modo de espera como reação (jogando iniciativa se apropriado).\nUma criatura pode tentar Desabilitar um Dispositivo para desacelerar o relógio (com uma CD listada na entrada de finalização). Para cada sucesso, o mecanismo perde 1 hora de tempo operacional. Isso pode ser feito mesmo se o relógio estiver no modo de espera."
         },
         "Xqn4vt6RyGIvUlCa": {
           "name": "Ataque reativo",
@@ -6247,7 +6247,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rPkkj7MZKXSV6Evz": {
           "name": "Rejuvenescimento",
-          "description": "Quando um cavaleiro da tumba é destruído, sua armadura reconstrói seu corpo ao longo de [[/gmr 1d10 #days]]{1d10 dias} dias — ou mais rapidamente se a armadura for usada por um hospedeiro vivo. Se o corpo for destruído antes disso, o processo é reiniciado. Um cavaleiro da sepultura só pode ser destruído permanentemente destruindo sua armadura (como com Desintegrar), transportando-a para a Forja da Criação ou jogando-a no coração de um vulcão."
+          "description": "Quando um cavaleiro da tumba é destruído, sua armadura reconstrói seu corpo ao longo de 1d10 dias — ou mais rapidamente se a armadura for usada por um hospedeiro vivo. Se o corpo for destruído antes disso, o processo é reiniciado. Um cavaleiro da sepultura só pode ser destruído permanentemente destruindo sua armadura (como com Desintegrar), transportando-a para a Forja da Criação ou jogando-a no coração de um vulcão."
         },
         "nZZVZvEvqpk45Dtf": {
           "name": "Cura do Vazio",
@@ -6255,7 +6255,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "IsVr2xyWvMuuKmhj": {
           "name": "Explosão Devastadora",
-          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. Criaturas na área sofrem 4d12[ácido|opções:dano de área] de dano (teste de salvamento (reflexo, dc:24, básico, opções:efeito de área)).\nO cavaleiro da sepultura pode usar essa habilidade uma vez a cada [[/gmr 1d4 #Recharge Devastating Blast]]{1d4 rodadas}."
+          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. Criaturas na área sofrem 4d12[ácido de dano (teste de salvamento (reflexo, dc:24, básico, opções:efeito de área)).\nO cavaleiro da sepultura pode usar essa habilidade uma vez a cada 1d4."
         },
         "6pFQqUIZorBLTqFh": {
           "name": "Maldição do Cavaleiro Túmulo",
@@ -6370,7 +6370,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Nfsh9yARMZIzTQTc": {
           "name": "Agonizantes da Morte",
-          "description": "Quando um zumbi de enxofre morre, seu corpo explode em um @Template[type:burst|distance:30] de fogo e detritos que causa 2d10[concussão,2d10[fogo]|options:area-damage]{2d10 de dano de concussão e 2d10 de dano de fogo} a cada criatura na área (teste (reflexo, dc:21, básico) de salvamento)."
+          "description": "Quando um zumbi de enxofre morre, seu corpo explode em um @Template[type:burst|distance:30] de fogo e detritos que causa 2d10[concussão,2d10[fogo]{2d10 de dano de concussão e 2d10 de dano de fogo} a cada criatura na área (teste (reflexo, dc:21, básico) de salvamento)."
         },
         "rZJFI4g5IW0cqR6z": {
           "name": "Cura do Vazio",

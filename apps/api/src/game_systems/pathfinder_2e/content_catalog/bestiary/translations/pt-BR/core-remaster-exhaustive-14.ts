@@ -39,7 +39,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mx8IoBuHgZJsJsT8": {
           "name": "Investido emocionalmente",
-          "description": "Quando o curador terapêutico lança um magia com o traço de cura em uma criatura que não seja ele, o curador recupera HP igual ao Rank do magia."
+          "description": "Quando o curador terapêutico lança uma magia com o traço de cura em uma criatura que não seja ele, o curador recupera HP igual ao Rank da magia."
         },
         "CKsVO2AgeMszAsso": {
           "name": "Cuidados Terapêuticos",
@@ -233,7 +233,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pHYcg0F8wUYXzyME": {
           "name": "Cura Paciente da Natureza",
-          "description": "Requisitos O druida dedicado está em um ambiente natural\nEfeito O druida dedicado se camufla para se misturar com a área circundante, brotando folhas ou cobrindo-se com pedras. Eles ganham Ocultação até o final do próximo turno, podem [[/act hide options=natures- patient-healing]] com um bônus de circunstância de +4 e recuperam 4d8 Pontos de Vida de cura. Se o druida se mover ou sair de seu espaço, esses benefícios terminam."
+          "description": "Requisitos O druida dedicado está em um ambiente natural\nEfeito O druida dedicado se camufla para se misturar com a área circundante, brotando folhas ou cobrindo-se com pedras. Eles ganham Ocultação até o final do próximo turno, podem hide options=natures  patient healing com um bônus de circunstância de +4 e recuperam 4d8 Pontos de Vida de cura. Se o druida se mover ou sair de seu espaço, esses benefícios terminam."
         }
       },
       "spellcasting": {
@@ -347,7 +347,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "NCdG3G7qFnNeSend": {
           "name": "Cobertura Profunda",
-          "description": "Na maioria das vezes, um mestre do disfarce se infiltrou em uma organização específica, ganhando +2 de bônus de circunstância para [[/agir coletar informações]], [[/agir personificar]], [[/agir mentir]] ou [[/agir solicitação]] ao lidar com seus membros."
+          "description": "Na maioria das vezes, um mestre do disfarce se infiltrou em uma organização específica, ganhando +2 de bônus de circunstância para coletar informações, personificar, mentir ou solicitação ao lidar com seus membros."
         },
         "58TSLLvaZvy32x0g": {
           "name": "Especialista em disfarces",
@@ -359,7 +359,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "442ka05ivDCRYfaP": {
           "name": "Disfarce impecável",
-          "description": "O mestre do disfarce cria um disfarce e se faz passar. Eles ganham um bônus de status de +5 em testes de Enganação para [[/act personate]] ou para contar uma [[/act lie]] que os ajude a manter seu disfarce. Quando um magia ou efeito mágico tenta ler sua mente, detectar se eles estão mentindo ou revelar sua identidade, eles podem tentar um teste de verificação (engano) contra a CD do magia ou efeito. Se tiverem sucesso, o efeito revela informações apropriadas à sua identidade falsa ou nada (o Mestre determina qual)."
+          "description": "O mestre do disfarce cria um disfarce e se faz passar. Eles ganham um bônus de status de +5 em testes de Enganação para personate ou para contar uma lie que os ajude a manter seu disfarce. Quando uma magia ou efeito mágico tenta ler sua mente, detectar se eles estão mentindo ou revelar sua identidade, eles podem tentar um teste de verificação (engano) contra a CD da magia ou efeito. Se tiverem sucesso, o efeito revela informações apropriadas à sua identidade falsa ou nada (o Mestre determina qual)."
         },
         "LXX5QheNXLqfUDVF": {
           "name": "Revelação chocante",
@@ -410,11 +410,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "naPxWIBQxbkOgD8M": {
           "name": "Quebre as Fendas Externas",
-          "description": "Requisitos A última ação do demonologista foi lançar um magia sem truque\nEfeito O demonologista suga a energia extraída das Fendas Exteriores para sua arma. Até o final do turno, a arma causa 2d6 de dano extra.\nRole 1d20 para determinar o tipo:\n• 1–7 ácido\n• 8–9 frio\n• 10–11 eletricidade\n• Fogo 12–18\n• 19–20 nulo."
+          "description": "Requisitos A última ação do demonologista foi lançar uma magia sem truque\nEfeito O demonologista suga a energia extraída das Fendas Exteriores para sua arma. Até o final do turno, a arma causa 2d6 de dano extra.\nRole 1d20 para determinar o tipo:\n• 1–7 ácido\n• 8–9 frio\n• 10–11 eletricidade\n• Fogo 12–18\n• 19–20 nulo."
         },
         "xS8f6u8VDcBepVGM": {
           "name": "Invocação de Demônio",
-          "description": "O demonologista pode lançar um magia arcano Invocar Demônio de 5º Rank para invocar um demônio. Para fazer isso, eles devem sacrificar dois magias preparados pelo 4º Rank e sofrer voluntariamente 4d12 de dano mental que não pode ser reduzido ou prevenido. Se o demonologista não conseguir sustentar o magia, inclusive se for nocauteado ou morto, o magia continua, mas o Mestre faz um teste (simples, dc:10) a cada rodada, encerrando o magia em caso de falha."
+          "description": "O demonologista pode lançar uma magia arcano Invocar Demônio de 5º Rank para invocar um demônio. Para fazer isso, eles devem sacrificar dois magias preparados pelo 4º Rank e sofrer voluntariamente 4d12 de dano mental que não pode ser reduzido ou prevenido. Se o demonologista não conseguir sustentar a magia, inclusive se for nocauteado ou morto, a magia continua, mas o Mestre faz um teste (simples, dc:10) a cada rodada, encerrando a magia em caso de falha."
         }
       },
       "spellcasting": {
@@ -522,11 +522,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TQUoJLbYF9uz3bG8": {
           "name": "Junte-se à briga",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O golpe da cavalaria pesada ataca cada inimigo em um tipo: emanação de 1,5 metro, com um salvamento de teste (reflexo, dc: 22, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d6+3)[concussão|opções:dano em área] de dano\n2 (2d6+7)[concussão|opções:dano em área] de dano\n3 (3d6+10)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O golpe da cavalaria pesada ataca cada inimigo em um tipo: emanação de 1,5 metro, com um salvamento de teste (reflexo, dc: 22, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d6+3)[concussão de dano\n2 (2d6+7)[concussão de dano\n3 (3d6+10)[concussão de dano"
         },
         "9ttQcVwRTUR44b34": {
           "name": "Trovão de cascos",
-          "description": "Frequência uma vez por rodada\nEfeito Os avanços da cavalaria pesada. No final de seu movimento, a cavalaria pode tentar um teste de Atletismo para [[/act trip]] cada inimigo adjacente ou um teste de Intimidação para [[/act moralize]] cada inimigo dentro de 30 pés (9 metros). Role apenas uma vez e compare o resultado com a CD de Reflexos (para Trip) ou CD de Vontade de cada inimigo (para Desmoralizar)."
+          "description": "Frequência uma vez por rodada\nEfeito Os avanços da cavalaria pesada. No final de seu movimento, a cavalaria pode tentar um teste de Atletismo para trip cada inimigo adjacente ou um teste de Intimidação para moralize cada inimigo dentro de 30 pés (9 metros). Role apenas uma vez e compare o resultado com a CD de Reflexos (para Trip) ou CD de Vontade de cada inimigo (para Desmoralizar)."
         },
         "apSv4DCaKeLf8RBp": {
           "name": "Atropelar",
@@ -783,7 +783,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4FE8RUZjkZ3hPKKk": {
           "name": "Empurrador de papel",
-          "description": "O chefe do departamento passou tanto tempo lidando com a burocracia recentemente que papéis e formulários foram incluídos no magia do presidente. Se a próxima ação do chefe do departamento for lançar um magia que cause dano de energia, o magia conjura uma explosão de papel com pontas afiadas. Mude o tipo de dano para cortante e o magia causa 1d6 de dano de sangramento persistente adicional."
+          "description": "O chefe do departamento passou tanto tempo lidando com a burocracia recentemente que papéis e formulários foram incluídos na magia do presidente. Se a próxima ação do chefe do departamento for lançar uma magia que cause dano de energia, a magia conjura uma explosão de papel com pontas afiadas. Mude o tipo de dano para cortante e a magia causa 1d6 de dano de sangramento persistente adicional."
         }
       },
       "spellcasting": {
@@ -867,7 +867,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "7McDPEFv5lCLd6gs": {
           "name": "Tiro enfeitiçado",
-          "description": "Requisitos O pistoleiro está empunhando sua arma de fogo familiar e tem uma bala hexagonal carregada (veja Bala Hexagonal)\nEfeito O pistoleiro lança um magia que requer 1 ou 2 ações para ser lançado em sua bala e, em seguida, ataca com sua arma de fogo familiar, disparando a bala mágica. Isso conta como dois ataques para a penalidade de ataque múltiplo do pistoleiro. Se acertar, o alvo também é afetado pela magia, embora o alvo receba todas as defesas normais permitidas pela magia.\nSe o magia for direcionado, ele terá como alvo a criatura que foi atingida e mais ninguém. Se a magia for uma área, o alvo deverá estar na área. Uma explosão é centrada em um canto do quadrado do alvo se o alvo for Médio ou menor ou no canto de um quadrado mais próximo do centro da criatura se for Grande ou maior. Um cone ou linha é emitido de um quadrado à escolha do pistoleiro adjacente ao alvo."
+          "description": "Requisitos O pistoleiro está empunhando sua arma de fogo familiar e tem uma bala hexagonal carregada (veja Bala Hexagonal)\nEfeito O pistoleiro lança uma magia que requer 1 ou 2 ações para ser lançado em sua bala e, em seguida, ataca com sua arma de fogo familiar, disparando a bala mágica. Isso conta como dois ataques para a penalidade de ataque múltiplo do pistoleiro. Se acertar, o alvo também é afetado pela magia, embora o alvo receba todas as defesas normais permitidas pela magia.\nSe a magia for direcionado, ele terá como alvo a criatura que foi atingida e mais ninguém. Se a magia for uma área, o alvo deverá estar na área. Uma explosão é centrada em um canto do quadrado do alvo se o alvo for Médio ou menor ou no canto de um quadrado mais próximo do centro da criatura se for Grande ou maior. Um cone ou linha é emitido de um quadrado à escolha do pistoleiro adjacente ao alvo."
         },
         "U3D8UB50MVdn9owB": {
           "name": "Tempestade de balas",
@@ -1058,7 +1058,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "DfON8v909jMLsLaL": {
           "name": "Corte-os!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os bandidos fazem um ataque coordenado com seus machados contra cada inimigo em uma emanação de 1,5 metro com teste de resistência (reflexo, dc:22, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d6+3)[corte|opções:dano em área] de dano\n2 (2d6+9)[corte|opções:dano em área] de dano\n3 (3d6+9)[corte|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os bandidos fazem um ataque coordenado com seus machados contra cada inimigo em uma emanação de 1,5 metro com teste de resistência (reflexo, dc:22, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d6+3)[corte de dano\n2 (2d6+9)[corte de dano\n3 (3d6+9)[corte de dano"
         },
         "tksvobKNKfovQxnZ": {
           "name": "Passagem Florestal",
@@ -1066,11 +1066,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GaNuN6hXeQKNOEPh": {
           "name": "Lançamento de estilingues!",
-          "description": "Os bandidos sacam ou recarregam suas fundas e depois lançam uma saraivada de balas. Esta é uma explosão de 3 metros dentro de 50 pés (15 metros) que causa (2d6+4)[concussão|opções:dano de área] de dano com um teste de resistência (reflexo, dc:22, básico, opções:efeito de área). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 1,5 metro."
+          "description": "Os bandidos sacam ou recarregam suas fundas e depois lançam uma saraivada de balas. Esta é uma explosão de 3 metros dentro de 50 pés (15 metros) que causa (2d6+4)[concussão de dano com um teste de resistência (reflexo, dc:22, básico, opções:efeito de área). Quando a tropa é reduzida a 2 ou menos segmentos, esta área diminui para uma explosão de 1,5 metro."
         },
         "jt6S0u8qw2Td8g3n": {
           "name": "Levante e entregue!",
-          "description": "A tropa tenta [[/act desmoralizar]] até 4 criaturas."
+          "description": "A tropa tenta Desmoralizar até 4 criaturas."
         },
         "ShNuWVLigReArh8g": {
           "name": "Movimento de tropas",
@@ -1181,7 +1181,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "tCB0OhxiJDPlXfQi": {
           "name": "Subsistência Especializada",
-          "description": "Ao usar Sobrevivência para [[/act subsist statistic=survival]], se o caçador obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer subsistência para si e para 16 criaturas adicionais, e com um sucesso crítico, eles podem cuidar do dobro de criaturas do que com um sucesso."
+          "description": "Ao usar Sobrevivência para subsist statistic=survival, se o caçador obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer subsistência para si e para 16 criaturas adicionais, e com um sucesso crítico, eles podem cuidar do dobro de criaturas do que com um sucesso."
         },
         "xeEI4dqDE4PmxOeA": {
           "name": "Caminhante da Floresta",
@@ -1189,7 +1189,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ws6ZIDinw21XxfKw": {
           "name": "Na caça",
-          "description": "O caçador designa uma criatura que está observando ou rastreando como presa.\nO caçador ganha um bônus de circunstância de +2 em testes de Percepção para [[/act seek]] a presa e em testes de Sobrevivência para [[/act track]] a presa.\nA primeira vez que o caçador atinge a presa designada em uma rodada, ele causa 1d8 de dano de precisão adicional. Esses efeitos duram até que o caçador use On the Hunt novamente."
+          "description": "O caçador designa uma criatura que está observando ou rastreando como presa.\nO caçador ganha um bônus de circunstância de +2 em testes de Percepção para seek a presa e em testes de Sobrevivência para track a presa.\nA primeira vez que o caçador atinge a presa designada em uma rodada, ele causa 1d8 de dano de precisão adicional. Esses efeitos duram até que o caçador use On the Hunt novamente."
         }
       },
       "spellcasting": {}
@@ -1241,11 +1241,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "89ujLImiUz00Zomc": {
           "name": "Carga de Lança",
-          "description": "A brigada Avança duas vezes com um bônus de circunstância de +3 metros em sua Velocidade. Se se mover pelo menos 10 pés (3 metros), a brigada causa (3d8+14)[perfuração|opções:dano de área] dano com um teste (reflexo, dc:26, básico, opções:efeito de área) salva a cada inimigo em um tipo de 10 pés:emanação no final de seu movimento."
+          "description": "A brigada Avança duas vezes com um bônus de circunstância de +3 metros em sua Velocidade. Se se mover pelo menos 10 pés (3 metros), a brigada causa (3d8+14)[perfuração dano com um teste (reflexo, dc:26, básico, opções:efeito de área) salva a cada inimigo em um tipo de 10 pés:emanação no final de seu movimento."
         },
         "iKR8M3h9wCtVtDTe": {
           "name": "Facada na sela",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A brigada se envolve em um ataque de lança coordenado contra cada inimigo em um tipo:emanação de 3 metros com um salvamento de teste (reflexo, dc:23, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d6+3)[perfuração|opções:dano em área] de dano\n2 (2d6+10)[perfuração|opções:dano em área] de dano\n3 (3d6+14)[perfuração|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A brigada se envolve em um ataque de lança coordenado contra cada inimigo em um tipo:emanação de 3 metros com um salvamento de teste (reflexo, dc:23, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d6+3)[perfuração de dano\n2 (2d6+10)[perfuração de dano\n3 (3d6+14)[perfuração de dano"
         },
         "cuBDxCCJtk4iMr0A": {
           "name": "Passo Pioneiro",
@@ -1343,7 +1343,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "7plqqmq49cE7a6PQ": {
           "name": "Aproveite-os!",
-          "description": "1 a 3\nOs prendedores atacam com saps e atacam os inimigos. Cada inimigo em um tipo: emanação de 1,5 metro deve tentar um teste de salvamento (reflexo, dc: 23, básico, opções: efeito de área, infligir: agarrado, infligir: contido). Os danos e efeitos adicionais dependem do número de ações. A CD para escapar de qualquer uma das condições a seguir é 26 ([[/act escape dc=26]]).\n1 (1d6+3)[concussão|opções:dano em área] de dano (mais Agarrado por 1 rodada em uma falha crítica)\n2 (3d6+6)[concussão|opções:dano em área] de dano (mais agarrado por 1 rodada em uma falha ou Restringido por 1 rodada em uma falha crítica)\n3 (4d6+9)[concussão|opções:dano em área] de dano (mais agarrado por 1 rodada em uma falha ou contido por 1 rodada em uma falha crítica)"
+          "description": "1 a 3\nOs prendedores atacam com saps e atacam os inimigos. Cada inimigo em um tipo: emanação de 1,5 metro deve tentar um teste de salvamento (reflexo, dc: 23, básico, opções: efeito de área, infligir: agarrado, infligir: contido). Os danos e efeitos adicionais dependem do número de ações. A CD para escapar de qualquer uma das condições a seguir é 26 (Escapar CD 26).\n1 (1d6+3)[concussão de dano (mais Agarrado por 1 rodada em uma falha crítica)\n2 (3d6+6)[concussão de dano (mais agarrado por 1 rodada em uma falha ou Restringido por 1 rodada em uma falha crítica)\n3 (4d6+9)[concussão de dano (mais agarrado por 1 rodada em uma falha ou contido por 1 rodada em uma falha crítica)"
         },
         "0UCymBNVsiBKsKbM": {
           "name": "Varrer a área",
@@ -1393,7 +1393,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "oSBA5fqk8GbSrpml": {
           "name": "Ataque reativo",
-          "description": "O gendarme pode [[/act disarm]] em vez de atacar."
+          "description": "O gendarme pode disarm em vez de atacar."
         },
         "FBHyEq1E9NTZfF0t": {
           "name": "Abater",
@@ -1401,7 +1401,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "DkUqfGI2MSXGtBn4": {
           "name": "Pare em Nome da Lei!",
-          "description": "O gendarme dá dois passos largos e depois [[/act desmoraliza]]. Se obtiver sucesso, o alvo fica Lento com um valor igual ao seu valor de Assustado até que não fique mais assustado."
+          "description": "O gendarme dá dois passos largos e depois desmoraliza. Se obtiver sucesso, o alvo fica Lento com um valor igual ao seu valor de Assustado até que não fique mais assustado."
         }
       },
       "spellcasting": {}
@@ -1501,7 +1501,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TsIMe0two808SLOk": {
           "name": "Execução punitiva",
-          "description": "O sargento exorta um camarada vacilante com uma palavra severa e tenta um teste (intimidação, contra: vontade) contra a CD de Vontade de um aliado dentro de 30 pés (9 metros). Se obtiver sucesso, a condição Amedrontado do alvo é reduzida em 2 e o sargento instrutor pode tentar neutralizar um efeito mental que o aliado esteja sofrendo com um modificador de contra-ataque [[/r 1d20+18 #Counteract]]. Em um sucesso crítico, o sargento também reduz a condição de medo de cada um dos outros aliados em uma emanação do tipo 3 metros ao redor do alvo em 1."
+          "description": "O sargento exorta um camarada vacilante com uma palavra severa e tenta um teste (intimidação, contra: vontade) contra a CD de Vontade de um aliado dentro de 30 pés (9 metros). Se obtiver sucesso, a condição Amedrontado do alvo é reduzida em 2 e o sargento instrutor pode tentar neutralizar um efeito mental que o aliado esteja sofrendo com um modificador de contra-ataque 1d20+18. Em um sucesso crítico, o sargento também reduz a condição de medo de cada um dos outros aliados em uma emanação do tipo 3 metros ao redor do alvo em 1."
         },
         "ikCCX8LvQEbJMvmB": {
           "name": "Acompanhe-me!",
@@ -1615,7 +1615,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0wPOLuDj3dkml5yT": {
           "name": "Golpe Calculado",
-          "description": "O rico vigilante faz um ataque corpo a corpo. Se o Strike acertar, o vigilante pode então [[/act shove]] o alvo. Este Empurrão usa a mesma penalidade de ataque múltiplo que o Golpe e não conta para a penalidade de ataque múltiplo do vigilante, mas o vigilante deve Andar atrás da criatura empurrada. Se o Golpe errar, o vigilante pode dar um passo até três vezes, cada uma das quais deve afastá-lo do alvo. O vigilante pode [[/act hide]] se, após os Passos, tiver cobertura ou ocultação do alvo."
+          "description": "O rico vigilante faz um ataque corpo a corpo. Se o Strike acertar, o vigilante pode então shove o alvo. Este Empurrão usa a mesma penalidade de ataque múltiplo que o Golpe e não conta para a penalidade de ataque múltiplo do vigilante, mas o vigilante deve Andar atrás da criatura empurrada. Se o Golpe errar, o vigilante pode dar um passo até três vezes, cada uma das quais deve afastá-lo do alvo. O vigilante pode Esconder-se se, após os Passos, tiver cobertura ou ocultação do alvo."
         }
       },
       "spellcasting": {}
@@ -1659,7 +1659,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pn1APRDP4F6A14Lg": {
           "name": "Entre as árvores",
-          "description": "Requisitos Cada quadrado que os batedores da floresta ocupam está em terreno florestal\nEfeito Os batedores da floresta se dispersam entre as árvores. Eles se protegem e então usam essa cobertura para [[/act hide]], tentando um teste de Furtividade."
+          "description": "Requisitos Cada quadrado que os batedores da floresta ocupam está em terreno florestal\nEfeito Os batedores da floresta se dispersam entre as árvores. Eles se protegem e então usam essa cobertura para Esconder-se, tentando um teste de Furtividade."
         },
         "Yo9WugJ7aGbjQgxb": {
           "name": "Passagem Florestal",
@@ -1675,7 +1675,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jonX9f4s8mMLfL5C": {
           "name": "Arvoredo de Lâminas",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os batedores se envolvem em um ataque corpo a corpo coordenado contra cada inimigo em um tipo de emanação de 1,5 metro, com um teste de resistência (reflexo, dc:24, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d8+3)[corte|opções:dano em área] de dano\n2 (2d8+6)[corte|opções:dano em área] de dano\n3 (3d8+9)[corte|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os batedores se envolvem em um ataque corpo a corpo coordenado contra cada inimigo em um tipo de emanação de 1,5 metro, com um teste de resistência (reflexo, dc:24, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d8+3)[corte de dano\n2 (2d8+6)[corte de dano\n3 (3d8+9)[corte de dano"
         }
       },
       "spellcasting": {}
@@ -1800,7 +1800,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "iYfkTPHFzh4dyPWH": {
           "name": "Caçador Elusivo",
-          "description": "O corredor sortudo pode [[/act hide]] e [[/act sneak]] em qualquer terreno natural e com menor cobertura de aliados."
+          "description": "O corredor sortudo pode Esconder-se e sneak em qualquer terreno natural e com menor cobertura de aliados."
         },
         "uYtkBu8ChulI53u8": {
           "name": "Escaramuça Felina",
@@ -1808,7 +1808,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "PUbu5ZJgSB92fU23": {
           "name": "Tiro na cabeça",
-          "description": "O corredor sortudo [[/act create-a-diversion]] e depois Strikes. O alvo fica Deslumbrado até o final do próximo turno do corredor sortudo em um Golpe bem-sucedido (ou Cego em um acerto crítico)."
+          "description": "O corredor sortudo create a diversion e depois Strikes. O alvo fica Deslumbrado até o final do próximo turno do corredor sortudo em um Golpe bem-sucedido (ou Cego em um acerto crítico)."
         }
       },
       "spellcasting": {}
@@ -1851,7 +1851,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3Hm6leMnzYN43EE9": {
           "name": "Presente dos Espíritos Selvagens",
-          "description": "Frequência uma vez por rodada\nEfeito O metamorfo de pele lança sua escolha entre um magia de Forma Aérea, Forma Animal, Forma de Dinossauro ou Forma de Peste de 4º Rank. Eles devem se transformar em um animal do tipo que viram nas últimas 24 horas. Eles não podem ganhar HP temporário novamente com um magia lançado com Gift of the Wild Spirits por 10 minutos. Seus ataques para formas diferentes da forma de praga alcançam 10 pés (3 metros), um modificador de ataque de +20 e um bônus de dano de +13 (ou um bônus de dano de +9 para a forma aérea). A maioria das outras alterações em suas estatísticas estão listadas acima.\nEmbora polimorfo, o metamorfo de pele ainda pode usar Gift of the Wild Spirits, embora ainda esteja impedido de lançar outros magias normalmente."
+          "description": "Frequência uma vez por rodada\nEfeito O metamorfo de pele lança sua escolha entre uma magia de Forma Aérea, Forma Animal, Forma de Dinossauro ou Forma de Peste de 4º Rank. Eles devem se transformar em um animal do tipo que viram nas últimas 24 horas. Eles não podem ganhar HP temporário novamente com uma magia lançado com Gift of the Wild Spirits por 10 minutos. Seus ataques para formas diferentes da forma de praga alcançam 10 pés (3 metros), um modificador de ataque de +20 e um bônus de dano de +13 (ou um bônus de dano de +9 para a forma aérea). A maioria das outras alterações em suas estatísticas estão listadas acima.\nEmbora polimorfo, o metamorfo de pele ainda pode usar Gift of the Wild Spirits, embora ainda esteja impedido de lançar outras magias normalmente."
         }
       },
       "spellcasting": {
@@ -1910,15 +1910,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "bUJXKW2vBb65avUR": {
           "name": "Esquiva de magia",
-          "description": "Gatilho O mago assassino é alvo de um magia\nEfeito O mago assassino ganha +2 de bônus de circunstância na CA e nos testes de resistência contra a magia desencadeadora."
+          "description": "Gatilho O mago assassino é alvo de uma magia\nEfeito O mago assassino ganha +2 de bônus de circunstância na CA e nos testes de resistência contra a magia desencadeadora."
         },
         "oxbzD6yvYaTTyXYx": {
           "name": "Interceptação de magia",
-          "description": "Aciona uma criatura dentro de 10 pés (3 metros) do mago assassino. Lança um magia\nEfeito O mago matador desfere um Golpe corpo a corpo ou um Golpe de adaga lançado contra a criatura desencadeadora. Se acertar, o magia é interrompido."
+          "description": "Aciona uma criatura dentro de 10 pés (3 metros) do mago assassino. Lança uma magia\nEfeito O mago matador desfere um Golpe corpo a corpo ou um Golpe de adaga lançado contra a criatura desencadeadora. Se acertar, a magia é interrompido."
         },
         "ucOr5uz1E0WM2Tut": {
           "name": "Estática Mágica",
-          "description": "Os Golpes do mago assassino causam 1d8 de dano mental adicional a uma criatura que lançou (ou tentou lançar) um magia na última rodada e, em um acerto crítico, a criatura fica Estupefata 1 por 1 minuto."
+          "description": "Os Golpes do mago assassino causam 1d8 de dano mental adicional a uma criatura que lançou (ou tentou lançar) uma magia na última rodada e, em um acerto crítico, a criatura fica Estupefata 1 por 1 minuto."
         },
         "jBgDRRCU9YrfN2Je": {
           "name": "Runas de Mudança de Energia",
@@ -1971,7 +1971,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "TFAhhwlmb0O93MES": {
           "name": "Choque e espanto",
-          "description": "Gatilho A vanguarda hobgoblin atinge criticamente uma criatura com um golpe de granada alquímica\nEfeito A vanguarda hobgoblin tenta [[/agir desmoralizar]] a criatura com um mero olhar. Se a criatura alvo foi reduzida a 0 Pontos de Vida pelo Golpe desencadeado, a vanguarda hobgoblin pode, em vez disso, tentar Desmoralizar todos os oponentes dentro de 30 pés (9 metros), rolando uma vez e comparando o resultado com a CD de Vontade de cada alvo."
+          "description": "Gatilho A vanguarda hobgoblin atinge criticamente uma criatura com um golpe de granada alquímica\nEfeito A vanguarda hobgoblin tenta Desmoralizar a criatura com um mero olhar. Se a criatura alvo foi reduzida a 0 Pontos de Vida pelo Golpe desencadeado, a vanguarda hobgoblin pode, em vez disso, tentar Desmoralizar todos os oponentes dentro de 30 pés (9 metros), rolando uma vez e comparando o resultado com a CD de Vontade de cada alvo."
         }
       },
       "spellcasting": {}
@@ -2058,7 +2058,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sacerdote Viajante de Desna",
-      "description": "As divindades e suas religiões são tão fortes quanto a crença de seus fiéis. Padres viajantes espalharam a notícia por todos os cantos de Golarion, aumentando o número de devotos à sua denominação através de suas viagens. Não importa para onde eles estejam indo ou sejam encontrados, é provável que um padre viajante esteja curando alguém com um magia, entregando uma mensagem ou simplesmente tentando garantir que sua fé seja espalhada.\nAs religiões inspiram indivíduos devotos a defender seus princípios.",
+      "description": "As divindades e suas religiões são tão fortes quanto a crença de seus fiéis. Padres viajantes espalharam a notícia por todos os cantos de Golarion, aumentando o número de devotos à sua denominação através de suas viagens. Não importa para onde eles estejam indo ou sejam encontrados, é provável que um padre viajante esteja curando alguém com uma magia, entregando uma mensagem ou simplesmente tentando garantir que sua fé seja espalhada.\nAs religiões inspiram indivíduos devotos a defender seus princípios.",
       "size": "Médio",
       "senses": {},
       "languages": {
@@ -2088,7 +2088,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "Wv12g7WLBxUzhH4D": {
           "name": "Caminho dos Fiéis",
-          "description": "O peregrino pode evangelizar seus ensinamentos religiosos para usar seu modificador de Religião em vez de Diplomacia para [[/agir habilidade de coletar informações=religião]] ou [[/agir habilidade de causar uma impressão=religião]]."
+          "description": "O peregrino pode evangelizar seus ensinamentos religiosos para usar seu modificador de Religião em vez de Diplomacia para habilidade de coletar informações=religião ou habilidade de causar uma impressão=religião."
         },
         "NwYXRTRz4u3c8CRl": {
           "name": "Lição do Viajante",
@@ -2096,7 +2096,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "sbODhq6ru4G0BMKx": {
           "name": "Anistia do Mensageiro",
-          "description": "Um sacerdote viajante com uma mensagem a entregar é continuamente protegido por um magia Santuário CD 25. Se o sacerdote viajante invadir o santuário, o efeito retorna se o sacerdote viajante cessar a hostilidade por 10 minutos."
+          "description": "Um sacerdote viajante com uma mensagem a entregar é continuamente protegido por uma magia Santuário CD 25. Se o sacerdote viajante invadir o santuário, o efeito retorna se o sacerdote viajante cessar a hostilidade por 10 minutos."
         },
         "kaQx4K3e8zNsbEu3": {
           "name": "Bênção da Viagem",
@@ -2104,7 +2104,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "bUHgJ0FaXbtGl6H4": {
           "name": "Corrida Zelosa",
-          "description": "Gatilho O sacerdote viajante lança um magia que requer 1 ou mais ações e afeta apenas elas\nEfeito O sacerdote viajante avança até 10 pés (3 metros), ou até sua velocidade total se o magia desencadeador exigiu 2 ações ou mais para ser lançado."
+          "description": "Gatilho O sacerdote viajante lança uma magia que requer 1 ou mais ações e afeta apenas elas\nEfeito O sacerdote viajante avança até 10 pés (3 metros), ou até sua velocidade total se a magia desencadeador exigiu 2 ações ou mais para ser lançado."
         }
       },
       "spellcasting": {
@@ -2232,7 +2232,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "oIXWkbczFkJ8KZlj": {
           "name": "Don Máscara",
-          "description": "Frequência uma vez a cada 10 minutos\nEfeito O pantomimeiro veste uma máscara de caveira cerimonial, convocando um espírito ancestral para ajudá-lo. O espírito responde com um magia que o ator pode lançar como um magia inato primordial (5º Rank, CD 27) como parte da atividade Don Mask. O mummer também ganha um benefício primordial que dura 1 minuto. Após o minuto terminar ou a máscara ser removida, o magia e a bênção terminam se algum deles ainda estiver ativo, e o mascarado fica Fatigado. Os espíritos lendários mais comuns que as máscaras podem invocar são:\n• Fiery Akkarok (máscara de tiranossauro)\n• magia Blazing Bolt (versão de 3 ações)\n• Benefício Os ataques corpo a corpo do saltimbanco causam 2d6 de dano de fogo adicional.\n• Hazi Zephyr-Borne (máscara de grifo ou iruxi)\n• magia Parede de Vento\n• Boon O mummer ganha uma velocidade de voo de 20 pés (6 metros).\n• Rei das Tempestades (máscara de roca ou dragão com chifres)\n• magia Nevasca Uivante\n• Boon O mummer ganha a reação Reactive Strike que só pode ser usada com a cauda.\n• Nessek, o Dançarino das Ondas (máscara de mosassauro)\n• Deslizar magia\n• Benefício Os golpes da garra do saltimbanco causam 2d4 de dano de sangramento persistente adicional.\n• Zalok, que foi chamado para Porto Negro (máscara de naga ou espinossauro)\n• magia Torrente Hidráulica\n• Benefício O mummer ganha um bônus de status de +3 metros em sua Velocidade terrestre e Velocidade de natação."
+          "description": "Frequência uma vez a cada 10 minutos\nEfeito O pantomimeiro veste uma máscara de caveira cerimonial, convocando um espírito ancestral para ajudá-lo. O espírito responde com uma magia que o ator pode lançar como uma magia inato primordial (5º Rank, CD 27) como parte da atividade Don Mask. O mummer também ganha um benefício primordial que dura 1 minuto. Após o minuto terminar ou a máscara ser removida, a magia e a bênção terminam se algum deles ainda estiver ativo, e o mascarado fica Fatigado. Os espíritos lendários mais comuns que as máscaras podem invocar são:\n• Fiery Akkarok (máscara de tiranossauro)\n• magia Blazing Bolt (versão de 3 ações)\n• Benefício Os ataques corpo a corpo do saltimbanco causam 2d6 de dano de fogo adicional.\n• Hazi Zephyr-Borne (máscara de grifo ou iruxi)\n• magia Parede de Vento\n• Boon O mummer ganha uma velocidade de voo de 20 pés (6 metros).\n• Rei das Tempestades (máscara de roca ou dragão com chifres)\n• magia Nevasca Uivante\n• Boon O mummer ganha a reação Reactive Strike que só pode ser usada com a cauda.\n• Nessek, o Dançarino das Ondas (máscara de mosassauro)\n• Deslizar magia\n• Benefício Os golpes da garra do saltimbanco causam 2d4 de dano de sangramento persistente adicional.\n• Zalok, que foi chamado para Porto Negro (máscara de naga ou espinossauro)\n• magia Torrente Hidráulica\n• Benefício O mummer ganha um bônus de status de +3 metros em sua Velocidade terrestre e Velocidade de natação."
         },
         "yejcLHz02aGTNOKx": {
           "name": "Presença Estrelada",
@@ -2365,7 +2365,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "gPPQ8LBSdpJuL575": {
           "name": "Canal Restaurador",
-          "description": "O sumo sacerdote pode sacrificar um magia de Cura preparado para lançar Cleanse Affliction, Clear Mind, Sound Body ou Sure Footing no mesmo magia Rank."
+          "description": "O sumo sacerdote pode sacrificar uma magia de Cura preparado para lançar Cleanse Affliction, Clear Mind, Sound Body ou Sure Footing no mesma magia Rank."
         }
       },
       "spellcasting": {
@@ -2612,11 +2612,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "MsrrFoKurdqAnnPb": {
           "name": "Deixe-os ficar com isso!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O bando mercenário se envolve em um ataque coordenado com sua ampla gama de armas corpo a corpo contra cada inimigo em um tipo: emanação de 1,5 metro com teste de resistência (reflexo, CC: 25, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d8+2)[concussão|opções:dano em área], (1d8+2)[perfuração|opções:dano em área], ou (1d8+2)[corte|opções:dano em área]\n2 (3d8+4)[concussão|opções:dano em área], (3d8+4)[perfuração|opções:dano em área], ou (3d8+4)[corte|opções:dano em área]\n3 (4d8+6)[concussão|opções:dano em área], (4d8+6)[perfuração|opções:dano em área], ou (4d8+6)[corte|opções:dano em área]"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O bando mercenário se envolve em um ataque coordenado com sua ampla gama de armas corpo a corpo contra cada inimigo em um tipo: emanação de 1,5 metro com teste de resistência (reflexo, CC: 25, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d8+2)[concussão, (1d8+2)[perfuração, ou (1d8+2)[corte\n2 (3d8+4)[concussão, (3d8+4)[perfuração, ou (3d8+4)[corte\n3 (4d8+6)[concussão, (4d8+6)[perfuração, ou (4d8+6)[corte"
         },
         "8BepGIHpY5yY5uZf": {
           "name": "Pronto... Fogo!",
-          "description": "O bando de mercenários saca ou recarrega seus arcos, bestas e fundas e, em seguida, lança um ataque à distância na forma de uma saraivada. Esta saraivada é do tipo: explosão de 3 metros dentro de 120 pés (36 metros) que causa (2d8+4)[perfuração|opções:dano de área] ou (2d8+4)[concussão|opções:dano de área] de dano com um teste (reflexo, dc:25, básico, opções:efeito de área) de salvamento. Quando o bando mercenário é reduzido a 2 ou menos segmentos, esta área diminui para um tipo de explosão de 1,5 metro."
+          "description": "O bando de mercenários saca ou recarrega seus arcos, bestas e fundas e, em seguida, lança um ataque à distância na forma de uma saraivada. Esta saraivada é do tipo: explosão de 3 metros dentro de 120 pés (36 metros) que causa (2d8+4)[perfuração ou (2d8+4)[concussão de dano com um teste (reflexo, dc:25, básico, opções:efeito de área) de salvamento. Quando o bando mercenário é reduzido a 2 ou menos segmentos, esta área diminui para um tipo de explosão de 1,5 metro."
         },
         "J5IIQDWJiT0KX2ed": {
           "name": "Despojos de Guerra",
@@ -2837,11 +2837,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ygH5iJPyrt0O1lEP": {
           "name": "Ataques encantados",
-          "description": "Frequência uma vez por turno\nRequisitos A ação mais recente do cavaleiro mago foi lançar um magia sem truque\nEfeito O cavaleiro mago suga energia para uma arma que está empunhando ou para um de seus ataques desarmados. Até o final do turno, a arma ou ataque desarmado causa 2d6 de dano de força extra e ganha o traço arcano, caso ainda não o tenha. Se o magia causou um tipo diferente de dano, o Golpe causa esse tipo de dano"
+          "description": "Frequência uma vez por turno\nRequisitos A ação mais recente do cavaleiro mago foi lançar uma magia sem truque\nEfeito O cavaleiro mago suga energia para uma arma que está empunhando ou para um de seus ataques desarmados. Até o final do turno, a arma ou ataque desarmado causa 2d6 de dano de força extra e ganha o traço arcano, caso ainda não o tenha. Se a magia causou um tipo diferente de dano, o Golpe causa esse tipo de dano"
         },
         "YTNwwfDQJx9hSWsb": {
           "name": "Drenar item colado",
-          "description": "Frequência uma vez por dia\nRequisitos O cavaleiro mago ainda não agiu neste turno\nEfeito O cavaleiro mago gasta o poder armazenado em seu item vinculado (normalmente seu escudo). Isso lhes dá a capacidade de lançar um magia preparado hoje e já lançado, sem gastar um espaço."
+          "description": "Frequência uma vez por dia\nRequisitos O cavaleiro mago ainda não agiu neste turno\nEfeito O cavaleiro mago gasta o poder armazenado em seu item vinculado (normalmente seu escudo). Isso lhes dá a capacidade de lançar uma magia preparado hoje e já lançado, sem gastar um espaço."
         }
       },
       "spellcasting": {
@@ -2971,11 +2971,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kq0HhnkVCZAPSlRb": {
           "name": "Arcos Curtos de Fogo!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os vigias disparam uma saraivada contra cada inimigo em um tipo de explosão de 3 metros dentro de 150 pés (45 metros), com um salvamento de teste (reflexo, dc:26, básico, opções:efeito de área). O dano depende do número de ações. Quando o esquadrão é reduzido a 2 ou menos segmentos, esta área diminui para um tipo de 5 pés: explosão.\n1 (1d6+3)[perfurante,1d6 dano de força |opções:dano de área] de dano\n2 (3d6+6)[perfurante,1d6 dano de força |opções:dano de área] de dano\n3 (4d6+6)[perfurante,1d6 dano de força |opções:dano de área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os vigias disparam uma saraivada contra cada inimigo em um tipo de explosão de 3 metros dentro de 150 pés (45 metros), com um salvamento de teste (reflexo, dc:26, básico, opções:efeito de área). O dano depende do número de ações. Quando o esquadrão é reduzido a 2 ou menos segmentos, esta área diminui para um tipo de 5 pés: explosão.\n1 (1d6+3)[perfurante,1d6 dano de força  de dano\n2 (3d6+6)[perfurante,1d6 dano de força  de dano\n3 (4d6+6)[perfurante,1d6 dano de força  de dano"
         },
         "LLbhMo87QsyrDt3v": {
           "name": "magia de Tropa",
-          "description": "Quando o esquadrão de vigias lança um magia, os membros individuais combinam seus esforços para lançar uma versão mais poderosa do que qualquer membro poderia conseguir sozinho. Ao lançar um magia que tenha uma área de explosão, cone ou linha e não tenha duração, aumente a área desse magia. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros) (uma explosão com um raio menor não é afetada). Adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor e adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior."
+          "description": "Quando o esquadrão de vigias lança uma magia, os membros individuais combinam seus esforços para lançar uma versão mais poderosa do que qualquer membro poderia conseguir sozinho. Ao lançar uma magia que tenha uma área de explosão, cone ou linha e não tenha duração, aumente a área desse magia. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros) (uma explosão com um raio menor não é afetada). Adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor e adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior."
         }
       },
       "spellcasting": {
@@ -3069,7 +3069,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "1L5lEKER1bUFpi8t": {
           "name": "Tecnicamente Correto",
-          "description": "O registrador infernal usa seu modificador de Conhecimento Legal em todos os testes de Enganação para [[/act lie statistic=legal-lore]]."
+          "description": "O registrador infernal usa seu modificador de Conhecimento Legal em todos os testes de Enganação para lie statistic=legal lore."
         },
         "hMogOB62TfK2FASF": {
           "name": "+2 Circunstância para todos os salvamentos contra medo",
@@ -3199,7 +3199,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Chamador de Deus",
-      "description": "Os invocadores chamados invocadores de deuses têm uma ligação mágica com os eidolons, reverenciados como deuses pelo povo de Sarkoris. Embora este NPC seja baseado em invocadores de deuses Sarkorianos, eles podem ser adaptados a diferentes tipos de invocadores, trocando o eidolon por outra criatura e fazendo ajustes temáticos em habilidades e magias.\nSegredos ocultos e poderes ocultos são uma atração irresistível para muitos. Como a maioria desses NPCs são conjuradores, considere usar listas de magias alternativas para ajustar seus temas.\nChamadores de Deus e o Divino\nAlguns espíritos chamados pelos invocadores de deuses de Sarkoris são seres divinos capazes de conceder magias. Considere conceder a um NPC chamador de deus uma magia de foco de clérigo apropriada para um dos domínios do deus se ele adorar tal divindade (usando a mesma CD e ataque de magia de suas magias primárias). Por exemplo, a Mãe Veado da Floresta das Pedras pode conceder ao sabor o magia domínio da picada do domínio da dor.",
+      "description": "Os invocadores chamados invocadores de deuses têm uma ligação mágica com os eidolons, reverenciados como deuses pelo povo de Sarkoris. Embora este NPC seja baseado em invocadores de deuses Sarkorianos, eles podem ser adaptados a diferentes tipos de invocadores, trocando o eidolon por outra criatura e fazendo ajustes temáticos em habilidades e magias.\nSegredos ocultos e poderes ocultos são uma atração irresistível para muitos. Como a maioria desses NPCs são conjuradores, considere usar listas de magias alternativas para ajustar seus temas.\nChamadores de Deus e o Divino\nAlguns espíritos chamados pelos invocadores de deuses de Sarkoris são seres divinos capazes de conceder magias. Considere conceder a um NPC chamador de deus uma magia de foco de clérigo apropriada para um dos domínios do deus se ele adorar tal divindade (usando a mesma CD e ataque de magia de suas magias primárias). Por exemplo, a Mãe Veado da Floresta das Pedras pode conceder ao sabor a magia domínio da picada do domínio da dor.",
       "size": "Médio",
       "senses": {},
       "languages": {
@@ -3390,7 +3390,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "D0c2NXGg7VrIYawc": {
           "name": "É... Você!",
-          "description": "Quando o revolucionário exilado vê ou ouve alguém que fez parte da sua queda pessoalmente, ele quebra o disfarce e ataca o seu traidor imediatamente, mesmo que as suas ações possam condenar a eles e aos seus aliados. O revolucionário deve ter sucesso em um teste (vontade, dc:35) de salvar ou ficará fascinado por seu traidor e incapaz de parar de atacá-lo exclusivamente até que o traidor seja derrotado.\nUm aliado pode convencer o revolucionário a renunciar à sua vingança com um teste de Diplomacia CD 30 para fazer um [[/act request dc=30]]. Isso dura 1 minuto, mas acalmar o revolucionário depois desse tempo requer um envolvimento mais profundo."
+          "description": "Quando o revolucionário exilado vê ou ouve alguém que fez parte da sua queda pessoalmente, ele quebra o disfarce e ataca o seu traidor imediatamente, mesmo que as suas ações possam condenar a eles e aos seus aliados. O revolucionário deve ter sucesso em um teste (vontade, dc:35) de salvar ou ficará fascinado por seu traidor e incapaz de parar de atacá-lo exclusivamente até que o traidor seja derrotado.\nUm aliado pode convencer o revolucionário a renunciar à sua vingança com um teste de Diplomacia CD 30 para fazer um request CD 30. Isso dura 1 minuto, mas acalmar o revolucionário depois desse tempo requer um envolvimento mais profundo."
         },
         "Ty1qmPyCRphWxFXy": {
           "name": "Ataque reativo",
@@ -3506,7 +3506,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "CGBQVNxptG5LnjTe": {
           "name": "Piada pontuda",
-          "description": "O bobo da corte pode usar Performance em vez de Intimidação para [[/act moralize statistic=performance]]."
+          "description": "O bobo da corte pode usar Performance em vez de Intimidação para moralize statistic=performance."
         },
         "2EbagWaQehCMBKx5": {
           "name": "Sem espiar!",
@@ -3572,7 +3572,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rM22PCRrjGIy1eru": {
           "name": "Armamento Ressonante",
-          "description": "O maestro canaliza a energia musical de suas composições para ataques, causando 1d6 de dano sônico adicional com seus golpes de arma em qualquer turno em que lançar um magia de composição."
+          "description": "O maestro canaliza a energia musical de suas composições para ataques, causando 1d6 de dano sônico adicional com seus golpes de arma em qualquer turno em que lançar uma magia de composição."
         }
       },
       "spellcasting": {
@@ -3683,11 +3683,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cMvlyjML7Y5cTbAa": {
           "name": "Vidência Espiritual",
-          "description": "Os magias de vidência do aprisionador de espíritos podem atingir ou detectar espíritos em outros planos como se os espíritos estivessem no Universo."
+          "description": "As magias de vidência do aprisionador de espíritos podem atingir ou detectar espíritos em outros planos como se os espíritos estivessem no Universo."
         },
         "K5sw8eofFy7IPhdx": {
           "name": "Sucumbir ao vazio",
-          "description": "O aprisionador de espíritos explora os espíritos mais nefastos do Vazio, tornando-se algo mórbido e cruel. Por [[/gmr 1d4 #rounds]], sua resistência, aura de espíritos, golpes e magias espirituais mudam seu tipo de dano de dano espiritual para dano vazio e substituem sua característica espiritual pela característica vazio."
+          "description": "O aprisionador de espíritos explora os espíritos mais nefastos do Vazio, tornando-se algo mórbido e cruel. Por 1d4, sua resistência, aura de espíritos, golpes e magias espirituais mudam seu tipo de dano de dano espiritual para dano vazio e substituem sua característica espiritual pela característica vazio."
         }
       },
       "spellcasting": {
@@ -3808,11 +3808,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "7cb3300PlOTebHcM": {
           "name": "magia de Tropa",
-          "description": "Quando o rancoroso sacerdócio lança um magia, seus membros constituintes combinam seus esforços para lançar uma versão mais poderosa do magia do que qualquer membro poderia conseguir sozinho. Ao lançar um magia que tenha uma área de explosão, cone ou linha e não tenha duração, aumente a área desse magia. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros) (uma explosão com um raio menor não é afetada). Adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor e adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior."
+          "description": "Quando o rancoroso sacerdócio lança uma magia, seus membros constituintes combinam seus esforços para lançar uma versão mais poderosa da magia do que qualquer membro poderia conseguir sozinho. Ao lançar uma magia que tenha uma área de explosão, cone ou linha e não tenha duração, aumente a área desse magia. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros) (uma explosão com um raio menor não é afetada). Adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor e adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior."
         },
         "ty02a1CedQJfgYkL": {
           "name": "Balanço Selvagem",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os membros da multidão balançam suas armas descontroladamente em um ataque caótico contra cada inimigo em um tipo de emanação de 1,5 metro com teste de salvamento (reflexo, dc:25, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d12+2)[corte|opções:dano em área] de dano\n2 (2d12+9)[corte|opções:dano em área] de dano\n3 (3d12+9)[corte|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os membros da multidão balançam suas armas descontroladamente em um ataque caótico contra cada inimigo em um tipo de emanação de 1,5 metro com teste de salvamento (reflexo, dc:25, básico, opções:efeito de área). O dano depende do número de ações.\n1 (1d12+2)[corte de dano\n2 (2d12+9)[corte de dano\n3 (3d12+9)[corte de dano"
         }
       },
       "spellcasting": {
@@ -4037,7 +4037,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "1k68ayfmeXOyucsU": {
           "name": "Briga de esgrima",
-          "description": "O chefão tenta um ataque de florete seguido por uma tentativa de [[/act disarm]] ou [[/act grapple]] contra o mesmo inimigo. Isso conta como um ataque para a penalidade de ataque múltiplo do chefão, e a penalidade não aumenta até depois de ambos os ataques."
+          "description": "O chefão tenta um ataque de florete seguido por uma tentativa de disarm ou grapple contra o mesmo inimigo. Isso conta como um ataque para a penalidade de ataque múltiplo do chefão, e a penalidade não aumenta até depois de ambos os ataques."
         },
         "RNDNl6HBPuL8wgMp": {
           "name": "Chute para longe",
@@ -4179,7 +4179,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Cgi6w2XRHGi6dEsV": {
           "name": "Rajada de Golpes",
-          "description": "Frequência uma vez por rodada\nEfeito O faixa-preta dá dois golpes com os punhos. Se ambos atingirem a mesma criatura, combine seus danos para fins de resistências e fraquezas.\nO faixa-preta pode substituir qualquer número de ataques por golpes de bastão ou tentativas de [[/act grapple]], [[/act reposition]], [[/act shove]] ou [[/act trip]]."
+          "description": "Frequência uma vez por rodada\nEfeito O faixa-preta dá dois golpes com os punhos. Se ambos atingirem a mesma criatura, combine seus danos para fins de resistências e fraquezas.\nO faixa-preta pode substituir qualquer número de ataques por golpes de bastão ou tentativas de grapple, reposition, shove ou trip."
         },
         "oWhjvWrXmDrkBEbU": {
           "name": "Punhos Poderosos",
@@ -4246,7 +4246,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "AaOOjjv7qWyZjSRx": {
           "name": "Vigilância",
-          "description": "Um guarda da corte ganha um bônus de circunstância de +1 em testes de Percepção para criaturas [[/act sentido-motivo]] e [[/act seek]] e, se tiverem sucesso, obtêm um sucesso crítico."
+          "description": "Um guarda da corte ganha um bônus de circunstância de +1 em testes de Percepção para criaturas sentido motivo e seek e, se tiverem sucesso, obtêm um sucesso crítico."
         },
         "HD8ng5ztntdkkxge": {
           "name": "+1 Status vs. efeitos mentais",
@@ -4589,11 +4589,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "40i1dSafzK9Okkiy": {
           "name": "Autodestruição",
-          "description": "Gatilho O rolo compressor é reduzido a 0 Pontos de Vida\nEfeito O rolo compressor entra em colapso e sua armadura emite um som constante. No início do que teria sido o próximo turno do rolo compressor, a fonte de energia da armadura explode, destruindo-a completamente e causando 10d6 de dano com valor de efeito em um tipo de 9 metros: emanação com um teste (reflexo, dc: 33, básico, opções: efeito de área) salvar. A explosão causa o tipo de dano da fonte de energia da armadura. Uma criatura adjacente pode cancelar a sequência de autodestruição ao obter sucesso em um teste de Ladroagem CD 33 para [[/act disable-device dc=33]]."
+          "description": "Gatilho O rolo compressor é reduzido a 0 Pontos de Vida\nEfeito O rolo compressor entra em colapso e sua armadura emite um som constante. No início do que teria sido o próximo turno do rolo compressor, a fonte de energia da armadura explode, destruindo-a completamente e causando 10d6 de dano com valor de efeito em um tipo de 9 metros: emanação com um teste (reflexo, dc: 33, básico, opções: efeito de área) salvar. A explosão causa o tipo de dano da fonte de energia da armadura. Uma criatura adjacente pode cancelar a sequência de autodestruição ao obter sucesso em um teste de Ladroagem CD 33 para disable device CD 33."
         },
         "8vRQFNB6ZuJQuPsr": {
           "name": "Projetor de Energia",
-          "description": "Um rolo compressor carrega uma poderosa arma de projétil semelhante a um canhão que requer duas mãos para ser manejada e causa 14d6 de dano com valor de efeito a todas as criaturas em sua área com um salvamento básico CD 31; o tipo de dano, área e salvamento são baseados na fonte de energia da armadura, conforme listado abaixo. Uma vez ativado, o Projetor de Energia não pode ser usado novamente para [[/gmr 1d4 #Recharge Energy Projector]].\n• Tipo frio de 9 metros: cone de frio (verificação (reflexo, básico, CC: 31, opções: efeito de área, características: frio))\n• Eletricidade tipo 60 pés:linha de eletricidade (verificar (reflexo, básico, dc:31, opções:efeito de área, traços:eletricidade))\n• Fogo tipo 9 metros: cone de fogo (teste (reflexo, básico, dc:31, opções:efeito de área, características:fogo))\n• Tipo venenoso de 9 metros: cone de gás venenoso (teste (fortitude, básico, CC: 31, opções: efeito de área, características: veneno))"
+          "description": "Um rolo compressor carrega uma poderosa arma de projétil semelhante a um canhão que requer duas mãos para ser manejada e causa 14d6 de dano com valor de efeito a todas as criaturas em sua área com um salvamento básico CD 31; o tipo de dano, área e salvamento são baseados na fonte de energia da armadura, conforme listado abaixo. Uma vez ativado, o Projetor de Energia não pode ser usado novamente para 1d4.\n• Tipo frio de 9 metros: cone de frio (verificação (reflexo, básico, CC: 31, opções: efeito de área, características: frio))\n• Eletricidade tipo 60 pés:linha de eletricidade (verificar (reflexo, básico, dc:31, opções:efeito de área, traços:eletricidade))\n• Fogo tipo 9 metros: cone de fogo (teste (reflexo, básico, dc:31, opções:efeito de área, características:fogo))\n• Tipo venenoso de 9 metros: cone de gás venenoso (teste (fortitude, básico, CC: 31, opções: efeito de área, características: veneno))"
         },
         "YQs9nKDc0BMAA6m1": {
           "name": "Saltar jatos",
@@ -4847,7 +4847,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "pPd7Ra9KB28EqOPx": {
           "name": "Eco de Cura",
-          "description": "Acionar O curandeiro incomparável restaura Pontos de Vida de um aliado usando Cura\nEfeito Uma criatura voluntária dentro de 30 pés (9 metros) que não se beneficiou do magia desencadeador recupera Pontos de Vida iguais a metade da cura concedida. O curandeiro incomparável não pode usar Healing Echo novamente para [[/gmr 1d4 #Recharge Healing Echo]]."
+          "description": "Acionar O curandeiro incomparável restaura Pontos de Vida de um aliado usando Cura\nEfeito Uma criatura voluntária dentro de 30 pés (9 metros) que não se beneficiou da magia desencadeador recupera Pontos de Vida iguais a metade da cura concedida. O curandeiro incomparável não pode usar Healing Echo novamente para 1d4."
         },
         "XrR1DIwISeYj4TFV": {
           "name": "Médico Especialista",
@@ -4859,7 +4859,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "nDMiwe2QDX7JBSYX": {
           "name": "Curandeiro Comunitário",
-          "description": "Ao Tratar Doenças ou Tratar Feridas, o curador humanitário pode tratar até oito alvos. Além disso, cada vez que o curandeiro incomparável trata ferimentos com sucesso, ele também pode reduzir o valor de uma condição Desajeitada, Enfraquecida, Drenada ou Estupefata que afeta um único paciente em 2 ou lançar um magia Mente Limpa, Corpo São ou Pé Seguro de 7º Rank em um paciente sem gastar um espaço de magia."
+          "description": "Ao Tratar Doenças ou Tratar Feridas, o curador humanitário pode tratar até oito alvos. Além disso, cada vez que o curandeiro incomparável trata ferimentos com sucesso, ele também pode reduzir o valor de uma condição Desajeitada, Enfraquecida, Drenada ou Estupefata que afeta um único paciente em 2 ou lançar uma magia Mente Limpa, Corpo São ou Pé Seguro de 7º Rank em um paciente sem gastar um espaço de magia."
         },
         "7os9NqqOuwo6EtBJ": {
           "name": "Mãos curativas",
@@ -5020,11 +5020,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "hCwfJTcBjN8WoLif": {
           "name": "Desempenho extravagante",
-          "description": "As tentativas de Roubar de um ladrão extravagante não falham automaticamente, mesmo se a criatura estiver em combate ou em guarda. Enquanto estiver sendo observado, o ladrão ganha um bônus de circunstância de +2 em testes de Enganação para Criar uma Distração ou [[/act fintar]] e em testes de Roubo para [[/act palm-an-object]] ou [[/act roubar]]. No entanto, são obrigados a deixar um sinal tangível da sua presença, como um cartão de visita ou um símbolo – muitas vezes no lugar de um item roubado."
+          "description": "As tentativas de Roubar de um ladrão extravagante não falham automaticamente, mesmo se a criatura estiver em combate ou em guarda. Enquanto estiver sendo observado, o ladrão ganha um bônus de circunstância de +2 em testes de Enganação para Criar uma Distração ou fintar e em testes de Roubo para palm an object ou roubar. No entanto, são obrigados a deixar um sinal tangível da sua presença, como um cartão de visita ou um símbolo – muitas vezes no lugar de um item roubado."
         },
         "y8OcBYjxfpIyrzVu": {
           "name": "Ato de Desaparecimento",
-          "description": "O ladrão extravagante pode [[/act hide]] e [[/act sneak]] mesmo sem ter cobertura ou estar Oculto."
+          "description": "O ladrão extravagante pode Esconder-se e sneak mesmo sem ter cobertura ou estar Oculto."
         },
         "G3GWsBGc2YCHf7oJ": {
           "name": "Entrada Dramática",
@@ -5044,7 +5044,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "HL4OnnB0LnV2IciP": {
           "name": "Saída Dramática",
-          "description": "O ladrão extravagante joga sua bola de fumaça, então [[/act hide]], então [[/act sneak]] até três vezes com um bônus de circunstância de +2 em seus testes de Furtividade."
+          "description": "O ladrão extravagante joga sua bola de fumaça, então Esconder-se, então sneak até três vezes com um bônus de circunstância de +2 em seus testes de Furtividade."
         },
         "U0Gh274bqBZw2hvV": {
           "name": "Ataque espetacular",
@@ -5114,7 +5114,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "KEFqC97T2DofBpen": {
           "name": "Condenar",
-          "description": "O grande inquisidor [[/act desmoralize]]. Se obtiver sucesso, o alvo fica Atordoado com um valor igual à sua condição Amedrontado."
+          "description": "O grande inquisidor desmoralize. Se obtiver sucesso, o alvo fica Atordoado com um valor igual à sua condição Amedrontado."
         },
         "78gWMcfr2uEc8zqO": {
           "name": "Eu sou a lei!",
@@ -5180,7 +5180,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "BtWL2jwtSXGzNE4t": {
           "name": "Vida útil limitada",
-          "description": "O navio deific sofre 25 de dano não tipificado no final de seu turno se conjurar um magia, usar Tempo de Empréstimo ou realizar um Golpe naquele turno. Este dano ignora a resistência."
+          "description": "O navio deific sofre 25 de dano não tipificado no final de seu turno se conjurar uma magia, usar Tempo de Empréstimo ou realizar um Golpe naquele turno. Este dano ignora a resistência."
         },
         "hNH13IdYBvGGYvmU": {
           "name": "Vaso Quebrado",
@@ -5285,15 +5285,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "YfdVhkUI8Z9iF1cf": {
           "name": "Propósito Inflexível",
-          "description": "Gatilho O ender do mundo seria reduzido para 0 HP\nRequisitos O Destruidor de Mundos tem um magia de Erupção Vulcânica restante\nEfeito O Destruidor de Mundos se recusa a deixar seu sonho destrutivo não realizado, estabilizando-se em 1 HP apenas o tempo suficiente para lançar uma erupção vulcânica, centrada em si mesmo. Eles morrem, imolados na erupção."
+          "description": "Gatilho O ender do mundo seria reduzido para 0 HP\nRequisitos O Destruidor de Mundos tem uma magia de Erupção Vulcânica restante\nEfeito O Destruidor de Mundos se recusa a deixar seu sonho destrutivo não realizado, estabilizando-se em 1 HP apenas o tempo suficiente para lançar uma erupção vulcânica, centrada em si mesmo. Eles morrem, imolados na erupção."
         },
         "HTpjIjMPo2FjgyON": {
           "name": "Monólogo",
-          "description": "Frequência uma vez por rodada\nEfeito Durante todo o combate, o fim do mundo expõe incessantemente as razões justas para seus objetivos destrutivos e a futilidade dos esforços de seus inimigos para detê-los. Eles ganham um bônus de status de +1 em testes de resistência de Vontade e um bônus de status de +2 em jogadas de dano com seus magias. Cada vez que eles realizam esta ação novamente, os bônus aumentam em 1 e 2, respectivamente. O monólogo termina (e os bônus são perdidos) se o finalizador de mundos se tornar incapaz de agir ou falar, ou se ele terminar seu turno sem ter realizado esta ação."
+          "description": "Frequência uma vez por rodada\nEfeito Durante todo o combate, o fim do mundo expõe incessantemente as razões justas para seus objetivos destrutivos e a futilidade dos esforços de seus inimigos para detê-los. Eles ganham um bônus de status de +1 em testes de resistência de Vontade e um bônus de status de +2 em jogadas de dano com suas magias. Cada vez que eles realizam esta ação novamente, os bônus aumentam em 1 e 2, respectivamente. O monólogo termina (e os bônus são perdidos) se o finalizador de mundos se tornar incapaz de agir ou falar, ou se ele terminar seu turno sem ter realizado esta ação."
         },
         "IdHAPQO7RpUsOTfF": {
           "name": "Energia esmagadora",
-          "description": "Se a próxima ação que o fim do mundo usar for lançar um magia, o magia ignora 20 de resistência a dano de energia. Isso se aplica a todos os danos causados ​​pelo magia, incluindo danos persistentes e danos causados ​​por um efeito contínuo do magia. As imunidades de uma criatura não são afetadas."
+          "description": "Se a próxima ação que o fim do mundo usar for lançar uma magia, a magia ignora 20 de resistência a dano de energia. Isso se aplica a todos os danos causados ​​pela magia, incluindo danos persistentes e danos causados ​​por um efeito contínuo da magia. As imunidades de uma criatura não são afetadas."
         }
       },
       "spellcasting": {
@@ -5438,7 +5438,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "DJFmV5evM4JqcBe8": {
           "name": "Rajada de Golpes",
-          "description": "Frequência uma vez por rodada\nEfeito O grande mestre dá dois golpes com os punhos. Se ambos atingirem a mesma criatura, combine seus danos para fins de resistências e fraquezas.\nO grande mestre pode substituir qualquer número de ataques por golpes de espada do templo ou tentativas de [[/act grapple]], [[/act reposition]], [[/act shove]] ou [[/act trip]]."
+          "description": "Frequência uma vez por rodada\nEfeito O grande mestre dá dois golpes com os punhos. Se ambos atingirem a mesma criatura, combine seus danos para fins de resistências e fraquezas.\nO grande mestre pode substituir qualquer número de ataques por golpes de espada do templo ou tentativas de grapple, reposition, shove ou trip."
         },
         "qkT4nVoSdcKb838L": {
           "name": "Palma Proibida",
@@ -5516,15 +5516,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fBxV4p1qSabmBC4c": {
           "name": "Contrafeitiço",
-          "description": "Gatilho Uma criatura lança uma mágica que o emérito sobrenatural preparou.\nEfeito O emérito gasta uma magia preparada para anular o lançamento da mesma magia pela criatura desencadeadora. O emérito perde seu espaço de magia como se tivesse lançado a magia desencadeadora. O emérito então tenta neutralizar o magia desencadeador."
+          "description": "Gatilho Uma criatura lança uma mágica que o emérito sobrenatural preparou.\nEfeito O emérito gasta uma magia preparada para anular o lançamento da mesma magia pela criatura desencadeadora. O emérito perde seu espaço de magia como se tivesse lançado a magia desencadeadora. O emérito então tenta neutralizar a magia desencadeador."
         },
         "PI9aHlpQqd8iKdjA": {
           "name": "Terceiro Sequenciador Contingente",
-          "description": "Frequência uma vez por dia\nGatilho Uma criatura ataca ou usa uma mágica ou habilidade que afetaria o emérito sobrenatural\nEfeito Uma obra-prima de magias complexos toma forma instantaneamente, lançando Escudo de Fogo, Enganar e Resiliência de Montanha no sobrenatural emérito, cada um como um magia arcano de 8º Rank."
+          "description": "Frequência uma vez por dia\nGatilho Uma criatura ataca ou usa uma mágica ou habilidade que afetaria o emérito sobrenatural\nEfeito Uma obra-prima de magias complexos toma forma instantaneamente, lançando Escudo de Fogo, Enganar e Resiliência de Montanha no sobrenatural emérito, cada um como uma magia arcano de 8º Rank."
         },
         "fXYdE4H2dFgwfhBi": {
           "name": "Arcanismo Didático",
-          "description": "1 a 3\nRequisitos O emérito sobrenatural viu uma criatura lançar um magia de 7º Rank ou inferior durante a rodada anterior, esse magia leva entre uma e três ações para ser lançado e esse magia está na lista de magias arcanos\nEfeito O emérito sobrenatural dominou esse magia há 30 anos e está feliz em mostrar como um verdadeiro mestre faz isso. O emérito lança o mesmo magia, mas aumentado para o 8º Rank. O Arcanismo Didático usa o mesmo número de ações que o magia original levou para ser lançado."
+          "description": "1 a 3\nRequisitos O emérito sobrenatural viu uma criatura lançar uma magia de 7º Rank ou inferior durante a rodada anterior, essa magia leva entre uma e três ações para ser lançado e essa magia está na lista de magias arcanos\nEfeito O emérito sobrenatural dominou essa magia há 30 anos e está feliz em mostrar como um verdadeiro mestre faz isso. O emérito lança o mesma magia, mas aumentado para o 8º Rank. O Arcanismo Didático usa o mesmo número de ações que a magia original levou para ser lançado."
         },
         "YnLObWaGlgd2Jikj": {
           "name": "Conjuração constante",
@@ -5681,7 +5681,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "McEglbw10Vv8fl9M": {
           "name": "Festa do tolo",
-          "description": "Os destinatários da generosidade do ritualista pagam caro se o ritualista decidir se voltar contra eles. O ritualista recebe +4 de bônus de circunstância nas jogadas de ataque contra qualquer criatura que tenha participado voluntariamente ou se beneficiado de um de seus magias ou rituais conduzidos nas últimas 12 horas. Uma criatura que não ajudou a conduzir um ritual ainda se qualifica se for beneficiada de outras maneiras, como beber uma porção de Cerveja Fortificante.\nQuando o ritualista encantador causa dano a tal criatura com um Golpe, o alvo é afetado por um magia Metamorfose Amaldiçoada do 9º Rank (CD 42). Se o Golpe for um acerto crítico, a criatura obtém um grau de sucesso um pior do que o obtido. Uma vez que uma criatura tenha sucesso em um teste de resistência contra esta magia, ela fica temporariamente imune por 24 horas."
+          "description": "Os destinatários da generosidade do ritualista pagam caro se o ritualista decidir se voltar contra eles. O ritualista recebe +4 de bônus de circunstância nas jogadas de ataque contra qualquer criatura que tenha participado voluntariamente ou se beneficiado de um de suas magias ou rituais conduzidos nas últimas 12 horas. Uma criatura que não ajudou a conduzir um ritual ainda se qualifica se for beneficiada de outras maneiras, como beber uma porção de Cerveja Fortificante.\nQuando o ritualista encantador causa dano a tal criatura com um Golpe, o alvo é afetado por uma magia Metamorfose Amaldiçoada do 9º Rank (CD 42). Se o Golpe for um acerto crítico, a criatura obtém um grau de sucesso um pior do que o obtido. Uma vez que uma criatura tenha sucesso em um teste de resistência contra esta magia, ela fica temporariamente imune por 24 horas."
         }
       },
       "spellcasting": {
@@ -5858,11 +5858,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "FQgyTPeSS1DpQsYQ": {
           "name": "Capa de Furacão",
-          "description": "10 pés (3 metros). Uma criatura que entra na área deve ser bem sucedida em um teste (atletismo, dc:38) (se estiver no chão) ou teste de Acrobacia para [[/act manobra-em-vôo dc=38]] (se estiver voando) ou encerrar seu movimento. Uma criatura que falha criticamente também é repelida 5 pés (1,5 metros) e cai propensa. Criaturas que façam ataques de projéteis e arremessos à distância que passem pela área devem ser bem sucedidas em um teste (flat, dc:5) ou o ataque falhará. Projéteis enormes, como pedras lançadas, não são afetados. Uma encarnação da tempestade pode ativar ou desativar esta habilidade com uma única ação que possua o traço concentração."
+          "description": "10 pés (3 metros). Uma criatura que entra na área deve ser bem sucedida em um teste (atletismo, dc:38) (se estiver no chão) ou teste de Acrobacia para manobra em vôo CD 38 (se estiver voando) ou encerrar seu movimento. Uma criatura que falha criticamente também é repelida 5 pés (1,5 metros) e cai propensa. Criaturas que façam ataques de projéteis e arremessos à distância que passem pela área devem ser bem sucedidas em um teste (flat, dc:5) ou o ataque falhará. Projéteis enormes, como pedras lançadas, não são afetados. Uma encarnação da tempestade pode ativar ou desativar esta habilidade com uma única ação que possua o traço concentração."
         },
         "atpJ2mtaJeJ9UzZC": {
           "name": "Tempestade intimidante",
-          "description": "Uma criatura que falhar em um teste de resistência contra um magia Cataclismo ou Tempestade Furiosa lançado pela encarnação da tempestade fica Amedrontada 2 (ou Amedrontada 3 em uma falha crítica). Uma criatura só pode ficar assustada uma vez por cada lançamento de tempestade furiosa."
+          "description": "Uma criatura que falhar em um teste de resistência contra uma magia Cataclismo ou Tempestade Furiosa lançado pela encarnação da tempestade fica Amedrontada 2 (ou Amedrontada 3 em uma falha crítica). Uma criatura só pode ficar assustada uma vez por cada lançamento de tempestade furiosa."
         },
         "4JRDvfNjP0gOVJf5": {
           "name": "Rapidez",

@@ -144,15 +144,20 @@ Dentro de cada programa:
 Limites atuais por lote:
 
 ```text
-Bestiário: até 100 entradas
-Spells: até 40 entradas
-Items: até 100 entradas
+Bestiário: até 400 entradas
+Spells: até 200 entradas
+Items: até 400 entradas
 ```
 
-A Cobertura exaustiva 02 inaugura esses limites, dobrando a capacidade da
-Cobertura exaustiva 01. O tamanho maior não altera o cursor editorial: o
-importador continua descontando todos os IDs já congelados e seleciona os
-próximos registros em ordem crescente de nível ou Rank e identidade da fonte.
+A Cobertura exaustiva 02 inaugurou os limites históricos `100 / 40 / 100`,
+dobrando a capacidade da Cobertura exaustiva 01. A Cobertura exaustiva 16
+amplia novamente a capacidade para `200 / 100 / 200`, após quinze lotes
+validarem o pipeline e a fonte travada oferecer uma seleção coerente de 307
+registros. A Cobertura exaustiva 17 amplia a capacidade para `400 / 200 / 400`
+e pode concluir publicações editoriais consecutivas no mesmo lote. O tamanho
+maior não altera o cursor editorial: o importador continua descontando todos
+os IDs já congelados e ordena primeiro pela precedência explícita da
+publicação, depois por nível ou Rank e identidade da fonte.
 
 Os limites são máximos, não metas obrigatórias. Enquanto o pipeline estiver sendo
 validado por amostragem, uma rodada pode congelar um conjunto representativo menor,
@@ -163,6 +168,27 @@ desde que:
 - declare o critério editorial usado para representar estruturas distintas;
 - congele os IDs antes da tradução;
 - não apresente a amostra como cobertura integral da faixa.
+
+Uma reconciliação terminal explicitamente marcada por
+`terminalReconciliation = true` pode exceder esses limites somente quando:
+
+- todos os demais domínios estiverem declarados em `exhaustedDomains`;
+- a fonte estiver travada e o inventário comprovar o saldo exato;
+- o seletor terminal consumir todos os registros elegíveis ainda não cobertos;
+- o importador recusar uma execução cujo limite deixe qualquer registro para
+  trás.
+
+Para esse caso, o Bestiário aceita o par auditável
+`ALL_REMAINING_LEGACY_BESTIARY|all-remaining`. O importador descobre os packs
+locais, filtra somente atores `npc` e `hazard` Legacy/OGL ainda não cobertos e
+ordena deterministicamente por publicação, nível, pack e ID da fonte.
+
+Após a reconciliação integral de um domínio com a fonte travada, rodadas de
+fechamento podem manter seu conjunto vazio somente quando o manifesto do
+roadmap declarar o domínio em `exhaustedDomains`. O domínio declarado deve ter
+zero IDs congelados. É proibido preencher a rodada terminal com duplicatas,
+placeholders ou registros fora do cursor apenas para manter uma contagem
+positiva.
 
 As Rodadas 1 e 2 do Core Remaster são pilotos históricos com três entradas por
 domínio. Elas não autorizam o cursor editorial a avançar de nível ou Rank.
@@ -205,6 +231,49 @@ limite. Publicações e packs são informados em listas posicionais separadas po
 `|`; a ordem dessas listas define a precedência editorial antes da ordenação
 por nível e identidade.
 
+Spells e Items também podem receber listas de publicações separadas por `|`.
+Em todos os domínios, a publicação anterior deve ser integralmente selecionada
+antes da seguinte; níveis e Ranks da publicação posterior não podem intercalar
+com os da publicação corrente.
+
+O diretório técnico de Spells é selecionado explicitamente entre:
+
+```text
+spells | focus | rituals
+```
+
+Esse seletor altera somente o subdiretório lido em `packs/pf2e/spells/` e o
+campo auditável do relatório. Os três diretórios continuam pertencendo ao
+compendium lógico `spells-srd`; portanto, `sourcePack` e `contentId` permanecem
+estáveis e não incorporam o nome do subdiretório. Uma cobertura consome apenas
+um desses diretórios por execução, e o padrão `spells` existe somente para
+reprodução das coberturas históricas. É proibido inferir o diretório pelo
+título da publicação.
+
+O importador aceita um modo editorial explícito depois das listas de
+publicações e packs:
+
+```text
+ANY | REMASTER_ONLY | LEGACY_ONLY
+```
+
+`ANY` preserva a compatibilidade das coberturas anteriores. Novas coberturas
+Remaster usam `REMASTER_ONLY`; a futura fase Legacy/OGL usa `LEGACY_ONLY`.
+O filtro é aplicado ao indicador `publication.remaster` antes da ordenação e
+do corte. Assim, um título editorial misto não antecipa registros Legacy/OGL.
+
+Quando os cursores dos três domínios estiverem em programas diferentes, o
+mesmo argumento aceita uma lista posicional:
+
+```text
+<ITEM_MODE>|<SPELL_MODE>|<BESTIARY_MODE>
+```
+
+Cada posição usa um dos três valores válidos. Um valor único continua sendo
+aplicado aos três domínios para compatibilidade. A forma posicional é
+obrigatória nas transições em que um domínio já alcançou Legacy/OGL enquanto
+os demais ainda concluem conteúdo Remaster.
+
 Hazards são normalizados com contrato próprio:
 
 - `entryType = "HAZARD"`;
@@ -227,6 +296,17 @@ Registros `kit` do Player Core que não possuem `system.level` explícito são
 normalizados como nível 0, coerente com o restante do equipamento inicial. O
 manifesto registra um aviso para tornar essa decisão auditável.
 
+Whitespace acidental no início ou no fim de `publication.title` é removido
+antes da seleção e da persistência de `publicationTitle`. O source hash
+continua calculado sobre o documento bruto e o manifesto registra um aviso por
+registro afetado.
+
+Valores de perícia de criatura que não sejam números finitos são omitidos, sem
+criar bônus artificial, e recebem `invalid-source-skill-omitted`. Armas cuja
+estrutura de dano não possua simultaneamente quantidade, dado e tipo válidos
+mantêm o dano no texto original, omitem o bloco estruturado incompleto e
+recebem `incomplete-weapon-damage-omitted`.
+
 ## 9. Tradução
 
 A tradução `pt-BR` deve usar:
@@ -248,6 +328,11 @@ sem tradução recebe `NOT_STARTED`; quando nomes e campos descritivos forem
 traduzidos automaticamente, recebe `MACHINE_DRAFT` e permanece pendente de
 revisão humana.
 
+Defesas estruturadas de magias não passam por tradução automática. O
+importador e o adapter de apresentação resolvem `will save`, `fortitude save`
+e `reflex save` deterministicamente como `teste de Vontade`, `teste de
+Fortitude` e `teste de Reflexos`. A variante `basic` usa `teste básico de ...`.
+
 O importador pode associar um ícone somente pelo caminho `img` exato da fonte.
 Ele não pode fazer busca aproximada por nome ou slug.
 
@@ -268,6 +353,11 @@ Regras:
 - expressões aritméticas suportadas são calculadas sem `eval`;
 - anotações de dano e área são convertidas em texto legível no locale
   solicitado;
+- comandos enriquecidos de rolagem e ação (`[[/r ...]]`, `[[/gmr ...]]`,
+  `[[/br ...]]` e `[[/act ...]]`) são reduzidos à fórmula ou à ação legível,
+  preservando a CD quando declarada;
+- anotações `@Damage` com tipo de dano aninhado e opções de automação descartam
+  as opções internas após preservar fórmula e tipo;
 - um comando desconhecido recebe fallback textual seguro e não pode vazar
   como uma expressão iniciada por `@`;
 - o VTT genérico não conhece nem interpreta markup do sistema de origem.

@@ -55,11 +55,127 @@ const damageTypeTranslations = {
   void: 'vazio',
 }
 
+const spellDefenseTranslations = {
+  'will save': 'teste de Vontade',
+  'fortitude save': 'teste de Fortitude',
+  'reflex save': 'teste de Reflexos',
+  'basic will save': 'teste básico de Vontade',
+  'basic fortitude save': 'teste básico de Fortitude',
+  'basic reflex save': 'teste básico de Reflexos',
+  'fortitude-dc': 'CD de Fortitude',
+  ac: 'CA',
+}
+
+const technicalActionTargetTranslations = {
+  'emotion effects': 'efeitos de emoção',
+  curses: 'maldições',
+  'disease, poison, and radiation': 'doença, veneno e radiação',
+  disease: 'doença',
+  magic: 'magia',
+  mental: 'efeitos mentais',
+  vitality: 'vitalidade',
+  'shove and trip': 'Empurrar e Derrubar',
+  'enchantment and illusion effects': 'efeitos de encantamento e ilusão',
+  'linguistic effects': 'efeitos linguísticos',
+  'disease and poison': 'doença e veneno',
+  emotion: 'emoção',
+  'divine magic': 'magia divina',
+  sonic: 'efeitos sônicos',
+  traps: 'armadilhas',
+  illusions: 'ilusões',
+  poison: 'veneno',
+  cold: 'frio',
+  'dream and sleep': 'sonho e sono',
+  fear: 'medo',
+  'fear effects': 'efeitos de medo',
+  'death effects, disease, and poison': 'efeitos de morte, doença e veneno',
+  'higher ranking cult members': 'membros do culto de Rank superior',
+  'higher-ranked cultists': 'cultistas de Rank superior',
+  'higher ranking iron ring members': 'membros do Anel de Ferro de Rank superior',
+  'petrifying gaze': 'olhar petrificante',
+  'xulgath stench': 'fedor de xulgath',
+  'fear and effects that render him clumsy, doomed, drained, enfeebled, or fatigued':
+    'medo e efeitos que o deixem desajeitado, condenado, drenado, enfraquecido ou fatigado',
+}
+
+function translateSpellDefense(value) {
+  if (typeof value !== 'string' || !value.trim()) return null
+  return spellDefenseTranslations[value.trim().toLowerCase()] ?? null
+}
+
+function translateTechnicalBestiaryActionName(value) {
+  if (typeof value !== 'string' || !value.trim()) return null
+
+  const armorClass = /^(\d+) AC vs\. Non-Magical$/i.exec(value.trim())
+  if (armorClass) return `${armorClass[1]} CA contra ataques não mágicos`
+
+  const savesAndArmorClass =
+    /^([+-]\d+) (?:(Status|Circumstance|Item|Untyped)(?: Bonus)? )?to All Saves and AC vs\. (.+)$/i
+      .exec(value.trim())
+  if (savesAndArmorClass) {
+    const target = technicalActionTargetTranslations[savesAndArmorClass[3].toLowerCase()]
+    if (!target) return null
+    const bonusType = savesAndArmorClass[2]?.toLowerCase()
+    const bonus = bonusType && bonusType !== 'untyped'
+      ? ` de bônus de ${bonusType === 'circumstance' ? 'circunstância' : bonusType === 'item' ? 'item' : 'status'}`
+      : ''
+    return `${savesAndArmorClass[1]}${bonus} em todos os testes de resistência e CA contra ${target}`
+  }
+
+  const specificSave =
+    /^([+-]\d+) (?:(Status|Circumstance|Item|Untyped)(?: Bonus)? )?to (Will|Fortitude|Reflex) Saves vs\. (.+)$/i
+    .exec(value.trim())
+  if (specificSave) {
+    const saveTranslations = {
+      will: 'Vontade',
+      fortitude: 'Fortitude',
+      reflex: 'Reflexos',
+    }
+    const target = technicalActionTargetTranslations[specificSave[4].toLowerCase()]
+    if (!target) return null
+    const bonusType = specificSave[2]?.toLowerCase()
+    const bonus = bonusType && bonusType !== 'untyped'
+      ? ` de bônus de ${bonusType === 'circumstance' ? 'circunstância' : bonusType === 'item' ? 'item' : 'status'}`
+      : ''
+    return `${specificSave[1]}${bonus} em testes de ${saveTranslations[specificSave[3].toLowerCase()]} contra ${target}`
+  }
+
+  const allSaves =
+    /^([+-]\d+) (?:(Status|Circumstance|Item|Untyped)(?: Bonus)? )?(?:to|on) (All )?Saves vs\. (.+)$/i
+    .exec(value.trim())
+  if (!allSaves) return null
+
+  const target = technicalActionTargetTranslations[allSaves[4].toLowerCase()]
+  if (!target) return null
+
+  const bonusType = allSaves[2]?.toLowerCase()
+  const bonus = bonusType === 'status'
+    ? ' de bônus de status'
+    : bonusType === 'circumstance'
+      ? ' de bônus de circunstância'
+      : bonusType === 'item'
+        ? ' de bônus de item'
+      : ''
+  const saves = allSaves[3] ? 'todos os testes de resistência' : 'testes de resistência'
+  return `${allSaves[1]}${bonus} em ${saves} contra ${target}`
+}
+
 function readGeneratedArray(path) {
   const source = readFileSync(path, 'utf8')
-  const assignment = source.indexOf(' = [', source.indexOf('export const'))
-  const start = assignment < 0 ? -1 : assignment + 3
-  const end = source.lastIndexOf('\n]')
+  const generatedChunks = [...source.matchAll(
+    /\/\* PF2E_GENERATED_CHUNK_START \*\/([\s\S]*?)\/\* PF2E_GENERATED_CHUNK_END \*\//g,
+  )]
+  if (generatedChunks.length > 0) {
+    return generatedChunks.flatMap((match) => JSON.parse(match[1]))
+  }
+  if (/export const[\s\S]*?=\s*\[\s*\]\s*$/.test(source)) return []
+
+  const exportStart = source.indexOf('export const')
+  const assignment = source.indexOf(' = [', exportStart)
+  const wrappedAssignment = source.indexOf('([', exportStart)
+  const wrapped = assignment < 0 && wrappedAssignment >= 0
+  const start = assignment >= 0 ? assignment + 3 : wrappedAssignment + 1
+  const end = source.lastIndexOf(wrapped ? '\n])' : '\n]')
   if (start < 0 || end < 0) throw new Error(`Generated array not found in ${path}`)
   return JSON.parse(source.slice(start, end + 2))
 }
@@ -75,8 +191,96 @@ function protectTerms(value) {
     .replace(/\bCP\b/gi, 'QHCP')
 }
 
+function normalizePortugueseMagicAgreement(value) {
+  const replacements = {
+    O: 'A',
+    o: 'a',
+    Os: 'As',
+    os: 'as',
+    Este: 'Esta',
+    este: 'esta',
+    Estes: 'Estas',
+    estes: 'estas',
+    Esse: 'Essa',
+    esse: 'essa',
+    Esses: 'Essas',
+    esses: 'essas',
+    Aquele: 'Aquela',
+    aquele: 'aquela',
+    Aqueles: 'Aquelas',
+    aqueles: 'aquelas',
+    Um: 'Uma',
+    um: 'uma',
+    Uns: 'Umas',
+    uns: 'umas',
+    Do: 'Da',
+    do: 'da',
+    Dos: 'Das',
+    dos: 'das',
+    No: 'Na',
+    no: 'na',
+    Nos: 'Nas',
+    nos: 'nas',
+    Ao: 'À',
+    ao: 'à',
+    Aos: 'Às',
+    aos: 'às',
+    Pelo: 'Pela',
+    pelo: 'pela',
+    Pelos: 'Pelas',
+    pelos: 'pelas',
+    Meu: 'Minha',
+    meu: 'minha',
+    Meus: 'Minhas',
+    meus: 'minhas',
+    Teu: 'Tua',
+    teu: 'tua',
+    Teus: 'Tuas',
+    teus: 'tuas',
+    Seu: 'Sua',
+    seu: 'sua',
+    Seus: 'Suas',
+    seus: 'suas',
+    Nosso: 'Nossa',
+    nosso: 'nossa',
+    Nossos: 'Nossas',
+    nossos: 'nossas',
+    Vosso: 'Vossa',
+    vosso: 'vossa',
+    Vossos: 'Vossas',
+    vossos: 'vossas',
+    Todo: 'Toda',
+    todo: 'toda',
+    Todos: 'Todas',
+    todos: 'todas',
+    Outro: 'Outra',
+    outro: 'outra',
+    Outros: 'Outras',
+    outros: 'outras',
+    Mesmo: 'Mesma',
+    mesmo: 'mesma',
+    Mesmos: 'Mesmas',
+    mesmos: 'mesmas',
+    Próprio: 'Própria',
+    próprio: 'própria',
+    Próprios: 'Próprias',
+    próprios: 'próprias',
+    Algum: 'Alguma',
+    algum: 'alguma',
+    Alguns: 'Algumas',
+    alguns: 'algumas',
+    Nenhum: 'Nenhuma',
+    nenhum: 'nenhuma',
+  }
+
+  return value.replace(
+    /\b(O|o|Os|os|Este|este|Estes|estes|Esse|esse|Esses|esses|Aquele|aquele|Aqueles|aqueles|Um|um|Uns|uns|Do|do|Dos|dos|No|no|Nos|nos|Ao|ao|Aos|aos|Pelo|pelo|Pelos|pelos|Meu|meu|Meus|meus|Teu|teu|Teus|teus|Seu|seu|Seus|seus|Nosso|nosso|Nossos|nossos|Vosso|vosso|Vossos|vossos|Todo|todo|Todos|todos|Outro|outro|Outros|outros|Mesmo|mesmo|Mesmos|mesmos|Próprio|próprio|Próprios|próprios|Algum|algum|Alguns|alguns|Nenhum|nenhum) (magia|magias)\b/g,
+    (_, determiner, magic) => `${replacements[determiner]} ${magic}`,
+  )
+}
+
 function restoreTerms(value) {
-  return value
+  return normalizePortugueseMagicAgreement(value
     .replace(/QHDISTANCE(\d+)(?:_(\d+))?END/gi, (_, whole, decimal) => {
       const feet = Number(`${whole}${decimal ? `.${decimal}` : ''}`)
       const meters = Math.round(feet * 0.3 * 10) / 10
@@ -90,7 +294,7 @@ function restoreTerms(value) {
     .replace(/\bfeitiços\b/gi, 'magias')
     .replace(/\bfeitiço\b/gi, 'magia')
     .replace(/\bElevado\b/g, 'Aprimorada')
-    .replace(/\bvalor em massa\b/gi, 'valor de Volume')
+    .replace(/\bvalor em massa\b/gi, 'valor de Volume'))
 }
 
 function responseTranslation(payload) {
@@ -118,9 +322,13 @@ async function requestTranslation(value, attempt = 1) {
 async function translate(value) {
   if (typeof value !== 'string' || !value.trim()) return ''
   const cacheKey = `${cacheVersion}:${value}`
-  if (cache[cacheKey]) return cache[cacheKey]
+  if (cache[cacheKey]) {
+    const normalized = normalizePortugueseMagicAgreement(cache[cacheKey])
+    cache[cacheKey] = normalized
+    return normalized
+  }
 
-  const translated = await requestTranslation(value)
+  const translated = normalizePortugueseMagicAgreement(await requestTranslation(value))
   cache[cacheKey] = translated
   return translated
 }
@@ -174,7 +382,7 @@ async function translateBestiaryActions(actions) {
     await mapConcurrent(actions, async (action) => [
       action.id,
       {
-        name: await translate(action.name),
+        name: translateTechnicalBestiaryActionName(action.name) ?? await translate(action.name),
         description: await translate(action.description),
       },
     ]),
@@ -247,6 +455,8 @@ async function translateBestiary(original) {
 
 async function translateSpell(original) {
   const data = original.data
+  const defense = translateSpellDefense(data.defense)
+
   return translationRecord(original, {
     name: await translate(data.name),
     description: await translate(data.description),
@@ -255,7 +465,7 @@ async function translateSpell(original) {
     target: await translate(data.target),
     ...(data.area ? { area: await translate(data.area) } : {}),
     duration: await translate(data.duration),
-    ...(data.defense ? { defense: await translate(data.defense) } : {}),
+    ...(data.defense ? { defense: defense ?? await translate(data.defense) } : {}),
     heightening: await translate(data.heightening),
   })
 }
@@ -287,12 +497,105 @@ function translationRecord(original, fields) {
 }
 
 function writeTranslations(path, importPath, exportName, translations) {
+  if (translations.length > 400) {
+    const chunks = Array.from(
+      { length: Math.ceil(translations.length / 400) },
+      (_, index) => translations.slice(index * 400, (index + 1) * 400),
+    )
+    const chunkDefinitions = chunks.map((chunk) => (
+      `  definePathfinder2eContentTranslations(`
+        + `/* PF2E_GENERATED_CHUNK_START */${JSON.stringify(chunk, null, 2)}`
+        + '/* PF2E_GENERATED_CHUNK_END */)'
+    )).join(',\n')
+    writeFileSync(
+      path,
+      `import { definePathfinder2eContentTranslations } from '${importPath}'\n\n`
+        + `const ${exportName}_CHUNKS = [\n${chunkDefinitions}\n] as const\n\n`
+        + `export const ${exportName} = definePathfinder2eContentTranslations(`
+        + `${exportName}_CHUNKS.flat())\n`,
+    )
+    return
+  }
+
   writeFileSync(
     path,
     `import type { Pathfinder2eContentTranslation } from '${importPath}'\n\n`
       + `export const ${exportName}: readonly Pathfinder2eContentTranslation[] = `
       + `${JSON.stringify(translations, null, 2)}\n`,
   )
+}
+
+function sanitizeExistingTranslatedText(value) {
+  return normalizePortugueseMagicAgreement(value
+    .replace(
+      /\[\[\/(?:r|gmr|br)\s+([^\]#]+?)(?:\s+#[^\]]*)?\]\](?:\{[^}\n]*\})?/gi,
+      (_, formula) => formula.trim(),
+    )
+    .replace(
+      /\[\[\/(?:act|agir)\s+([^\]]+)\]\](?:\{[^}\n]*\})?/gi,
+      (_, command) => {
+        const [action = 'ação', ...options] = command.trim().split(/\s+/)
+        const difficultyClass = options
+          .map((option) => option.match(/^(?:dc|cd)=(\d+)$/i)?.[1])
+          .find(Boolean)
+        const normalizedAction = [action, ...options.filter((option) => !/^(?:dc|cd|show-dc)=/i.test(option))]
+          .join(' ')
+          .toLowerCase()
+        const labels = {
+          escape: 'Escapar',
+          hide: 'Esconder-se',
+          'se esconder': 'Esconder-se',
+          demoralize: 'Desmoralizar',
+          desmoralizar: 'Desmoralizar',
+        }
+        return `${labels[normalizedAction] ?? normalizedAction.replaceAll('-', ' ')}${difficultyClass ? ` CD ${difficultyClass}` : ''}`
+      },
+    )
+    .replace(/\|(?:options|opções):[^\]\n]+\]/gi, ''))
+}
+
+function sanitizeExistingTranslationRecord(original, translation) {
+  function sanitizeValue(value) {
+    if (typeof value === 'string') return sanitizeExistingTranslatedText(value)
+    if (Array.isArray(value)) return value.map(sanitizeValue)
+    if (value && typeof value === 'object') {
+      return Object.fromEntries(
+        Object.entries(value).map(([key, nestedValue]) => [key, sanitizeValue(nestedValue)]),
+      )
+    }
+    return value
+  }
+
+  const fields = sanitizeValue(translation.fields)
+  const originalActions = Array.isArray(original.data?.actions)
+    ? new Map(original.data.actions.map((action) => [action.id, action]))
+    : null
+
+  if (originalActions && fields.actions && typeof fields.actions === 'object') {
+    fields.actions = Object.fromEntries(
+      Object.entries(fields.actions).map(([actionId, actionFields]) => {
+        const originalAction = originalActions.get(actionId)
+        const translatedName = originalAction
+          ? translateTechnicalBestiaryActionName(originalAction.name)
+          : null
+        if (
+          !translatedName
+          || !actionFields
+          || typeof actionFields !== 'object'
+          || Array.isArray(actionFields)
+        ) {
+          return [actionId, actionFields]
+        }
+        return [actionId, { ...actionFields, name: translatedName }]
+      }),
+    )
+  }
+
+  return {
+    ...translation,
+    sourceTranslatableHash: original.translatableHash,
+    fields,
+  }
 }
 
 const bestiary = readGeneratedArray(
@@ -304,6 +607,81 @@ const spells = readGeneratedArray(
 const items = readGeneratedArray(
   resolve(catalogRoot, `items/original/${batchSlug}.ts`),
 )
+
+if (process.argv.includes('--normalize-spell-defenses')) {
+  const translationPath = resolve(catalogRoot, `spells/translations/pt-BR/${batchSlug}.ts`)
+  const originalsById = new Map(spells.map((original) => [original.contentId, original]))
+  const translations = readGeneratedArray(translationPath).map((translation) => {
+    const original = originalsById.get(translation.contentId)
+    if (!original) throw new Error(`Missing original for translation ${translation.contentId}`)
+
+    const defense = translateSpellDefense(original.data.defense)
+    if (!defense) return translation
+
+    return {
+      ...translation,
+      fields: {
+        ...translation.fields,
+        defense,
+      },
+    }
+  })
+
+  writeTranslations(
+    translationPath,
+    '../../../records',
+    `PATHFINDER_2E_${batchExportToken}_SPELLS_PT_BR`,
+    translations,
+  )
+  console.log(JSON.stringify({
+    batch: batchNumber,
+    normalizedSpellDefenses: translations.filter((translation) => translation.fields.defense).length,
+  }, null, 2))
+  process.exit(0)
+}
+
+if (process.argv.includes('--sanitize-existing')) {
+  const domains = [
+    {
+      originals: bestiary,
+      translationPath: resolve(catalogRoot, `bestiary/translations/pt-BR/${batchSlug}.ts`),
+      importPath: '../../../records',
+      exportName: `PATHFINDER_2E_${batchExportToken}_BESTIARY_PT_BR`,
+    },
+    {
+      originals: spells,
+      translationPath: resolve(catalogRoot, `spells/translations/pt-BR/${batchSlug}.ts`),
+      importPath: '../../../records',
+      exportName: `PATHFINDER_2E_${batchExportToken}_SPELLS_PT_BR`,
+    },
+    {
+      originals: items,
+      translationPath: resolve(catalogRoot, `items/translations/pt-BR/${batchSlug}.ts`),
+      importPath: '../../../records',
+      exportName: `PATHFINDER_2E_${batchExportToken}_ITEMS_PT_BR`,
+    },
+  ]
+
+  for (const domain of domains) {
+    const originalsById = new Map(domain.originals.map((original) => [original.contentId, original]))
+    const translations = readGeneratedArray(domain.translationPath).map((translation) => {
+      const original = originalsById.get(translation.contentId)
+      if (!original) throw new Error(`Missing original for translation ${translation.contentId}`)
+      return sanitizeExistingTranslationRecord(original, translation)
+    })
+    writeTranslations(domain.translationPath, domain.importPath, domain.exportName, translations)
+  }
+
+  console.log(JSON.stringify({
+    batch: batchNumber,
+    sanitizedExistingTranslations: {
+      bestiary: bestiary.length,
+      spells: spells.length,
+      items: items.length,
+    },
+  }, null, 2))
+  process.exit(0)
+}
 
 const bestiaryTranslations = await mapConcurrent(bestiary, translateBestiary, 4)
 const spellTranslations = await mapConcurrent(spells, translateSpell, 4)

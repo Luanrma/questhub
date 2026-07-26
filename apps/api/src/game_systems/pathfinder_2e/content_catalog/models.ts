@@ -48,6 +48,8 @@ export type Pathfinder2eContentRound = {
     items: Pathfinder2eContentSelection
   }>
   frozenEntryIds: Readonly<Pathfinder2eFrozenEntryIds>
+  exhaustedDomains?: readonly Pathfinder2eContentDomain[]
+  terminalReconciliation?: boolean
 }
 
 export type Pathfinder2eContentProgramPlan = {

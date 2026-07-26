@@ -73,7 +73,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i7kuaOQCvKjQ623q": {
           "name": "Respiração Rúnica",
-          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 9d6[untyped|options:area-damage] de dano em um @Template[type:cone|distance:30] (check (reflex, dc:29, basic, options:area-effect) save). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por [[/gmr 1d4 #Recharge Sopro Rúnico]]{1d4 rodadas}."
+          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 9d6[untyped de dano em um @Template[type:cone|distance:30] (check (reflex, dc:29, basic, options:area-effect) save). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por 1d4."
         },
         "aXvfwxeI9u0AxsD4": {
           "name": "Runas Mutáveis",
@@ -258,11 +258,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "dX6FcyWbQOQCk2oe": {
           "name": "Explosão",
-          "description": "Quando a serpente de gelo morre, ela explode, causando 8d6[cold|options:area-damage] de dano a cada criatura em um @Template[type:emanation|distance:10] (check (reflex, dc:27, basic, options:area-effect) save)."
+          "description": "Quando a serpente de gelo morre, ela explode, causando 8d6[cold de dano a cada criatura em um @Template[type:emanation|distance:10] (check (reflex, dc:27, basic, options:area-effect) save)."
         },
         "MDEbv4aN0989Tv7d": {
           "name": "Respire fragmentos de gelo",
-          "description": "A serpente de gelo respira um @Template[type:line|distance:60] de fragmentos congelantes de gelo afiado como navalha, causando 3d12[cold,3d12[piercing]|options:area-damage] de dano a todas as criaturas na linha (verificação (reflexo, dc:29, básico, opções:efeito de área) salvamento). A Serpente do Gelo não pode usar Respirar Fragmentos de Gelo novamente por [[/gmr 1d4 #Recharge Respirar Fragmentos de Gelo]]{1d4 rodadas}."
+          "description": "A serpente de gelo respira um @Template[type:line|distance:60] de fragmentos congelantes de gelo afiado como navalha, causando 3d12[cold,3d12[piercing] de dano a todas as criaturas na linha (verificação (reflexo, dc:29, básico, opções:efeito de área) salvamento). A Serpente do Gelo não pode usar Respirar Fragmentos de Gelo novamente por 1d4."
         },
         "pS4qXZ47uGUH7efn": {
           "name": "Toca de Gelo",
@@ -342,7 +342,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WdFNthO0BdxIqruL": {
           "name": "Respiração de Cogitação",
-          "description": "O dragão libera um miasma desconcertante, causando 10d6[mental|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (will, dc:30, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por [[/gmr 1d4 #Recharge Sopro de Cogitação]]{1d4 rodadas}."
+          "description": "O dragão libera um miasma desconcertante, causando 10d6[mental de dano em um @Template[type:cone|distance:40] (check (will, dc:30, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por 1d4."
         },
         "foIbgbTavh92IEGM": {
           "name": "Frenesi Dracônico",
@@ -522,7 +522,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4gwjWKeZ1qsrbvjD": {
           "name": "Arremessar Lâmina",
-          "description": "O centurião espiral lança uma de suas lâminas com um giro em ângulo para garantir uma trajetória de voo descendente. A lâmina causa 6d6[slashing|options:area-damage] de dano a cada criatura em um salvamento de @Template[type:line|distance:40] (check (reflex, dc:30, basic)).\nNo início do próximo turno do centurião espiral, a lâmina se volta e retorna ao longo da mesma trajetória de vôo, causando novamente 6d6[cortando|opções:dano de área] de dano (teste (reflexo, dc:30, básico) de salvamento) a cada criatura ao longo da mesma linha."
+          "description": "O centurião espiral lança uma de suas lâminas com um giro em ângulo para garantir uma trajetória de voo descendente. A lâmina causa 6d6[slashing de dano a cada criatura em um salvamento de @Template[type:line|distance:40] (check (reflex, dc:30, basic)).\nNo início do próximo turno do centurião espiral, a lâmina se volta e retorna ao longo da mesma trajetória de vôo, causando novamente 6d6[cortando de dano (teste (reflexo, dc:30, básico) de salvamento) a cada criatura ao longo da mesma linha."
         },
         "w4QXU6YbX6hTA0ov": {
           "name": "Acelere",
@@ -548,7 +548,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ideia",
-      "description": "Um boato pode se tornar tão vívido e persistente que ganha vida, criando uma ideia – uma ilusão viva que nasce de uma crença intensa em um assassino implacável e implacável. Freqüentemente, esses rumores vêm de vítimas de um magia Visão da Morte. As capacidades de uma ideia aumentam quando perseguem um crente, mas diminuem diante dos céticos, tornando-os tão perigosos quanto se acredita que sejam. Um simples impulso de perseguir, aterrorizar e matar impulsiona uma ideia, mas a criatura também pode exibir outros comportamentos atribuídos a ela por meio de fofocas.",
+      "description": "Um boato pode se tornar tão vívido e persistente que ganha vida, criando uma ideia – uma ilusão viva que nasce de uma crença intensa em um assassino implacável e implacável. Freqüentemente, esses rumores vêm de vítimas de uma magia Visão da Morte. As capacidades de uma ideia aumentam quando perseguem um crente, mas diminuem diante dos céticos, tornando-os tão perigosos quanto se acredita que sejam. Um simples impulso de perseguir, aterrorizar e matar impulsiona uma ideia, mas a criatura também pode exibir outros comportamentos atribuídos a ela por meio de fofocas.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro"
@@ -587,11 +587,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "X8q0VOcCAdQbazmw": {
           "name": "Lenda Urbana",
-          "description": "Uma ideia é sustentada apenas pela reputação que a precede. Criaturas estúpidas são imunes a ideias e não podem percebê-las.\nO tamanho, as características e os itens da ideia, bem como a aparência de seus ataques, correspondem ao que os inimigos que os percebem esperam. Se os inimigos esperam ver coisas diferentes, a ideia escolhe qual manifestar. Se qualquer criatura que possa perceber a ideia acredita que a ideia tem uma das habilidades abaixo, a ideia tem essa habilidade.\nUma criatura pode Procurar ou Sentir Motivo (contra a CD de Enganação da criação) para tentar descrer de uma habilidade individual. Se em algum momento nenhuma criatura que perceba a ideia acreditar na habilidade, a ideia perde essa habilidade imediatamente. Se os inimigos esperam detalhes diferentes, como um acreditar que a ideia é imune ao fogo e outro acreditar que é imune a adivinhações, a ideia escolhe uma para ter.\n• Tremorsense (impreciso) 100 pés (30 metros)\n• Imunidade a um tipo de dano, escola de magia ou condição\n• Fraqueza 10 para um tipo de dano que não seja mental\n• Resistência 10 a danos físicos, com exceção de ferro frio ou prata\n• Presença Assustadora (aura, emoção, medo, mental) 100 pés (30 metros), DC 28\n• [[/r 1d6]]{1d6} Dano Extra em Golpes, de um tipo em que o inimigo acredita\n• magias adicionais Phantom Pain e Shadow Blast no 6º Rank"
+          "description": "Uma ideia é sustentada apenas pela reputação que a precede. Criaturas estúpidas são imunes a ideias e não podem percebê-las.\nO tamanho, as características e os itens da ideia, bem como a aparência de seus ataques, correspondem ao que os inimigos que os percebem esperam. Se os inimigos esperam ver coisas diferentes, a ideia escolhe qual manifestar. Se qualquer criatura que possa perceber a ideia acredita que a ideia tem uma das habilidades abaixo, a ideia tem essa habilidade.\nUma criatura pode Procurar ou Sentir Motivo (contra a CD de Enganação da criação) para tentar descrer de uma habilidade individual. Se em algum momento nenhuma criatura que perceba a ideia acreditar na habilidade, a ideia perde essa habilidade imediatamente. Se os inimigos esperam detalhes diferentes, como um acreditar que a ideia é imune ao fogo e outro acreditar que é imune a adivinhações, a ideia escolhe uma para ter.\n• Tremorsense (impreciso) 100 pés (30 metros)\n• Imunidade a um tipo de dano, escola de magia ou condição\n• Fraqueza 10 para um tipo de dano que não seja mental\n• Resistência 10 a danos físicos, com exceção de ferro frio ou prata\n• Presença Assustadora (aura, emoção, medo, mental) 100 pés (30 metros), DC 28\n• 1d6 Dano Extra em Golpes, de um tipo em que o inimigo acredita\n• magias adicionais Phantom Pain e Shadow Blast no 6º Rank"
         },
         "ia7nfgIs3ERJytZy": {
           "name": "Persistência de Memória",
-          "description": "Quando uma ideia é destruída, ela retorna se alguém ainda acreditar plenamente que ela existe, reformando-se dentro de 100 pés (30 metros) de qualquer crente após [[/br 2d4 #Persistance of Memory]]{2d4 dias}."
+          "description": "Quando uma ideia é destruída, ela retorna se alguém ainda acreditar plenamente que ela existe, reformando-se dentro de 100 pés (30 metros) de qualquer crente após 2d4."
         }
       },
       "spellcasting": {
@@ -655,7 +655,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "vEYdUpBww370sGIX": {
           "name": "Purga Elétrica",
-          "description": "A vigilia libera raios de seu corpo em um @Template[type:emanation|distance:30] causando 4d10[electricity|options:area-damage] de dano (teste (reflexo, dc:30, básico) de salvamento) a todas as criaturas que não são aeons ou construtos. A vigilia fica então desacelerada 1 por 1 rodada."
+          "description": "A vigilia libera raios de seu corpo em um @Template[type:emanation|distance:30] causando 4d10[electricity de dano (teste (reflexo, dc:30, básico) de salvamento) a todas as criaturas que não são aeons ou construtos. A vigilia fica então desacelerada 1 por 1 rodada."
         },
         "j1ejW1HNjLpzBrmh": {
           "name": "Corrente Relâmpago",
@@ -720,7 +720,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "t0On0v7gyVoScNyY": {
           "name": "Vela impressionante",
-          "description": "Requisitos O espinossauro nada na superfície da água\nEfeito Com uma estocada poderosa para o lado, o espinossauro usa sua vela para bater na superfície da água, criando uma onda esmagadora de água que causa 6d6[concussão|opções:dano de área] de dano em um @Template[cone|distance:30]. Cada criatura na água na área deve tentar um teste de resistência (reflexo, dc:30, opções:efeito de área,efeito de dano,inflige:lentidão,inflige:atordoado).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e fica desacelerada 1 até o final do próximo turno.\nFalha Crítica A criatura sofre o dobro de dano e fica Atordoada 3."
+          "description": "Requisitos O espinossauro nada na superfície da água\nEfeito Com uma estocada poderosa para o lado, o espinossauro usa sua vela para bater na superfície da água, criando uma onda esmagadora de água que causa 6d6[concussão de dano em um @Template[cone|distance:30]. Cada criatura na água na área deve tentar um teste de resistência (reflexo, dc:30, opções:efeito de área,efeito de dano,inflige:lentidão,inflige:atordoado).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e fica desacelerada 1 até o final do próximo turno.\nFalha Crítica A criatura sofre o dobro de dano e fica Atordoada 3."
         },
         "sW9lqWGbyXr7xeXh": {
           "name": "Engula inteiro",
@@ -786,11 +786,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "L4eZWrxPCscqkfv1": {
           "name": "Arremesse dardos!",
-          "description": "Os membros da tropa lançam uma saraivada de dardos. Cada criatura em um @Template[type:burst|distance:10] dentro de 30 pés (9 metros) da tropa sofre (2d6+10)[piercing|options:area-damage] dano (verificação (reflexo, dc:27, básico, opções:efeito de área) salvamento). Quando a tropa é reduzida a 2 segmentos, esta área diminui para @Template[type:burst|distance:5]."
+          "description": "Os membros da tropa lançam uma saraivada de dardos. Cada criatura em um @Template[type:burst|distance:10] dentro de 30 pés (9 metros) da tropa sofre (2d6+10)[piercing dano (verificação (reflexo, dc:27, básico, opções:efeito de área) salvamento). Quando a tropa é reduzida a 2 segmentos, esta área diminui para @Template[type:burst|distance:5]."
         },
         "2lp8axHkLWnfErrb": {
           "name": "Lanças inferiores!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os esqueletos se envolvem em um ataque coordenado de lança longa contra cada inimigo dentro de @Template[emanation|distance:10]{10 pés (3 metros)} (check (reflex, dc:27, basic, options:area-effect) save). O dano depende do número de ações.\n1 2d8[perfuração|opções:dano em área] de dano\n2 (3d8+7)[perfuração|opções:dano em área] de dano\n3 (4d8+7)[perfuração|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os esqueletos se envolvem em um ataque coordenado de lança longa contra cada inimigo dentro de @Template[emanation|distance:10]{10 pés (3 metros)} (check (reflex, dc:27, basic, options:area-effect) save). O dano depende do número de ações.\n1 2d8[perfuração de dano\n2 (3d8+7)[perfuração de dano\n3 (4d8+7)[perfuração de dano"
         },
         "n7LgURaW8hihxzYn": {
           "name": "Carga da Falange",
@@ -842,7 +842,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "O gigante das cinzas pode fazer perguntas, receber respostas e usar a habilidade Diplomacia com insetos, aracnídeos e criaturas semelhantes."
         },
         "WdWVS7B9f7eqMitv": {
-          "name": "+2 Status para todos os salvamentos contra doenças",
+          "name": "+2 de bônus de status em todos os testes de resistência contra doença",
           "description": ""
         },
         "5nUXyWhPLXUerMiA": {
@@ -855,7 +855,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "lIIwlGQD3NdnsK5t": {
           "name": "Fervura",
-          "description": "O gigante das cinzas estoura uma das pústulas enormes e inchadas em seu corpo. Cada criatura em um @Template[type:cone|distance:15] sofre 5d8[veneno|options:area-damage] de dano com um teste de resistência (reflexo, dc:29, básico, opções:efeito de área,inflige:enjoado). Uma criatura que falhe no teste também fica Enjoada 1 (ou Enjoada 2 em caso de falha crítica). Esta habilidade e estourar tumor não podem ser usados ​​novamente até que outro tumor aumente até um tamanho adequado em [[/gmr 1d4 #rounds]]{1d4 rodadas}."
+          "description": "O gigante das cinzas estoura uma das pústulas enormes e inchadas em seu corpo. Cada criatura em um @Template[type:cone|distance:15] sofre 5d8[veneno de dano com um teste de resistência (reflexo, dc:29, básico, opções:efeito de área,inflige:enjoado). Uma criatura que falhe no teste também fica Enjoada 1 (ou Enjoada 2 em caso de falha crítica). Esta habilidade e estourar tumor não podem ser usados ​​novamente até que outro tumor aumente até um tamanho adequado em 1d4."
         },
         "ycGzzDkl7WG1FIsA": {
           "name": "Moedor Sangrento",
@@ -863,7 +863,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hYa3M7gNghfbyoPE": {
           "name": "Emaranhado-Topple",
-          "description": "O gigante das cinzas faz um porquinho Strike. Se acertar, o alvo ficará emaranhado em pedaços irregulares. Está imobilizado, não consegue sair do chão e cai no chão se estiver voando. Isso termina se a criatura [[/act escape]]{Escapes} ou o metal for [[/act force-open dc=28]]{Forced Open}."
+          "description": "O gigante das cinzas faz um porquinho Strike. Se acertar, o alvo ficará emaranhado em pedaços irregulares. Está imobilizado, não consegue sair do chão e cai no chão se estiver voando. Isso termina se a criatura Escapar ou o metal for force open CD 28."
         }
       },
       "spellcasting": {}
@@ -916,12 +916,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "c3PzbXMSnqoOehvP": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "BmhdDSnmoRYLlefv": {
           "name": "Aura consumista",
-          "description": "20 pés (6 metros). Um meladaemon emana uma aura de fome intensa. Cada rodada que uma criatura inicia seu turno na aura, ela deve tentar um teste de resistência (fortitude, dc:27, opções: efeito de área, efeito de dano, infligir: fatigado). Em caso de falha, a criatura sofre 1d6[void|options:area-damage] de dano (2d6[void|options:area-damage] de dano em uma falha crítica) e fica Fatigada. Esse cansaço termina assim que a criatura ingere algum alimento."
+          "description": "20 pés (6 metros). Um meladaemon emana uma aura de fome intensa. Cada rodada que uma criatura inicia seu turno na aura, ela deve tentar um teste de resistência (fortitude, dc:27, opções: efeito de área, efeito de dano, infligir: fatigado). Em caso de falha, a criatura sofre 1d6[void de dano (2d6[void de dano em uma falha crítica) e fica Fatigada. Esse cansaço termina assim que a criatura ingere algum alimento."
         },
         "rx9aGcoGrLLVPzhV": {
           "name": "Oportunidade fulminante",
@@ -1019,7 +1019,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "HEcM1oG1748cqEWv": {
           "name": "Vôo Arco-Íris",
-          "description": "O larabay voa até sua velocidade de vôo, criando um arco-íris deslumbrante em seu rastro. Este movimento não provoca reações. Qualquer criatura adjacente ao larabay em qualquer ponto durante este movimento deve tentar um teste de resistência (vontade, dc:30) para resistir a olhar para o magnífico arco-íris. O larabay não pode usar o Rainbow Flight novamente por [[/gmr 1d4 #Recharge Rainbow Flight]]{1d4 rodadas}.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo fica Deslumbrado por 1 rodada.\nFalha O alvo fica ofuscado por 1 rodada e desacelerado 1.\nFalha Crítica O alvo fica ofuscado por 1 minuto e Lento 2."
+          "description": "O larabay voa até sua velocidade de vôo, criando um arco-íris deslumbrante em seu rastro. Este movimento não provoca reações. Qualquer criatura adjacente ao larabay em qualquer ponto durante este movimento deve tentar um teste de resistência (vontade, dc:30) para resistir a olhar para o magnífico arco-íris. O larabay não pode usar o Rainbow Flight novamente por 1d4.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo fica Deslumbrado por 1 rodada.\nFalha O alvo fica ofuscado por 1 rodada e desacelerado 1.\nFalha Crítica O alvo fica ofuscado por 1 minuto e Lento 2."
         }
       },
       "spellcasting": {
@@ -1103,7 +1103,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "nR8duCVvBdxwPkZG": {
           "name": "Libra terrestre",
-          "description": "O argorth ergue seu enorme volume e o joga para baixo com uma força incrível. Cada criatura em um @Template[type:emanation|distance:10] sofre 5d8[concussão|options:area-damage] de dano (verificação (reflexo, dc:27, básico, opções:efeito de área,inflige:prone) salvamento). Uma criatura que falhar criticamente neste teste também será derrubada."
+          "description": "O argorth ergue seu enorme volume e o joga para baixo com uma força incrível. Cada criatura em um @Template[type:emanation|distance:10] sofre 5d8[concussão de dano (verificação (reflexo, dc:27, básico, opções:efeito de área,inflige:prone) salvamento). Uma criatura que falhar criticamente neste teste também será derrubada."
         },
         "ADEKj7WtXpaMTJsI": {
           "name": "Engula inteiro",
@@ -1165,7 +1165,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um atrixyl pode cheirar criaturas que refletem ou geralmente se deleitam com qualquer um dos sete pecados definidos pelo antigo império de Thassilon (inveja, gula, ganância, luxúria, orgulho, preguiça e ira) dentro de 60 pés (18 metros) como um sentido preciso e também pode distinguir entre diferentes pecados e criaturas. Isso normalmente inclui crias do pecado e certos demônios, embora o Mestre em última instância determine quais criaturas são apropriadamente pecaminosas."
         },
         "5juOtu2EkXmkejEA": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "d37h3mTK9ciNE4N1": {
@@ -1174,7 +1174,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SBzvpsaXBalZcAkX": {
           "name": "Quebra de magia",
-          "description": "Gatilho O atrixyl tem sucesso crítico em um teste de resistência\nEfeito O atrixyl quebra a porção de magia que os afetaria e a utiliza para se fortalecer. O atrixyl ganha Pontos de Vida temporários iguais ao dobro do Rank do magia desencadeador e um bônus de status de +4 nas jogadas de dano por 1 rodada."
+          "description": "Gatilho O atrixyl tem sucesso crítico em um teste de resistência\nEfeito O atrixyl quebra a porção de magia que os afetaria e a utiliza para se fortalecer. O atrixyl ganha Pontos de Vida temporários iguais ao dobro do Rank da magia desencadeador e um bônus de status de +4 nas jogadas de dano por 1 rodada."
         },
         "MXDN7yyB77gPSzPT": {
           "name": "Absorver o Pecado",
@@ -1254,7 +1254,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "w7XvLv7sjGNlB7qE": {
           "name": "Vulnerabilidade de ressurreição",
-          "description": "Uma criatura com uma magia preparada ou espontânea que pode restaurar a vida dos mortos (como Sopro de Vida ou Ressuscitar Mortos) pode gastar um espaço de magia apropriado como uma atividade de 2 ações para destruir um não ressuscitado dentro de 30 pés (9 metros). A tentativa falha se o não ressuscitado tiver sucesso em um teste de Vontade contra a CD do magia da criatura."
+          "description": "Uma criatura com uma magia preparada ou espontânea que pode restaurar a vida dos mortos (como Sopro de Vida ou Ressuscitar Mortos) pode gastar um espaço de magia apropriado como uma atividade de 2 ações para destruir um não ressuscitado dentro de 30 pés (9 metros). A tentativa falha se o não ressuscitado tiver sucesso em um teste de Vontade contra a CD da magia da criatura."
         },
         "hoHZ8oLoT2n6BKAo": {
           "name": "Levante-se novamente",
@@ -1266,7 +1266,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "k7Sj3Od8RCFh7XNG": {
           "name": "Uivo Agonizante",
-          "description": "O não ressuscitado uiva de dor por sua existência amaldiçoada. Criaturas dentro de um @Template[type:emanation|distance:30] sofrem 9d8[mental|options:area-damage] de dano com um teste de resistência (vontade, dc:30, básico). Os que não ressuscitaram não podem usar Uivo Agonizado novamente por [[/gmr 1d4 #Recharge Uivo Agonizado]]{1d4 rodadas}."
+          "description": "O não ressuscitado uiva de dor por sua existência amaldiçoada. Criaturas dentro de um @Template[type:emanation|distance:30] sofrem 9d8[mental de dano com um teste de resistência (vontade, dc:30, básico). Os que não ressuscitaram não podem usar Uivo Agonizado novamente por 1d4."
         },
         "HEeo8Cny4nmBNF1e": {
           "name": "Abordagem horrível",
@@ -1421,7 +1421,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WdFNthO0BdxIqruL": {
           "name": "Respiração de Cogitação",
-          "description": "O dragão libera um miasma desconcertante, causando 10d6[mental|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (will, dc:30, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por [[/gmr 1d4 #Recharge Sopro de Cogitação]]{1d4 rodadas}."
+          "description": "O dragão libera um miasma desconcertante, causando 10d6[mental de dano em um @Template[type:cone|distance:40] (check (will, dc:30, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por 1d4."
         },
         "EZmRWrf1EQnbLdow": {
           "name": "Roubar Conhecimento",
@@ -1604,7 +1604,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O3ebBljtcItTfmVr": {
           "name": "Respiração Condenadora",
-          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 9d8[spirit|options:area-damage] de dano em um @Template[type:line|distance:60] (check (reflex, dc:30, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, CC:30, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por [[/gmr 1d4 #Recharge Dooming Breath]]{1d4 rodadas}."
+          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 9d8[spirit de dano em um @Template[type:line|distance:60] (check (reflex, dc:30, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, CC:30, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por 1d4."
         },
         "XmfhMGtLldAoQi0R": {
           "name": "Pegar",
@@ -1728,7 +1728,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TTBI8puLr7uK7ucG": {
           "name": "Pergaminho Sifão",
-          "description": "O raelis lança um magia de um pergaminho em 60 pés (18 metros) que leu com o Word Caller; este pergaminho deve ser divino. Se este magia tiver o traço sagrado ou vitalidade, eles o lançam como um magia Rank superior. Isso gasta o pergaminho normalmente."
+          "description": "O raelis lança uma magia de um pergaminho em 60 pés (18 metros) que leu com o Word Caller; este pergaminho deve ser divino. Se esta magia tiver o traço sagrado ou vitalidade, eles o lançam como uma magia Rank superior. Isso gasta o pergaminho normalmente."
         },
         "1CbLB8lE9SpQxMZ1": {
           "name": "Chamador de palavras",
@@ -1869,7 +1869,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O3ebBljtcItTfmVr": {
           "name": "Respiração Condenadora",
-          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 9d8[spirit|options:area-damage] de dano em um @Template[type:line|distance:60] (check (reflex, dc:30, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, CC:30, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por [[/gmr 1d4 #Recharge Dooming Breath]]{1d4 rodadas}."
+          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 9d8[spirit de dano em um @Template[type:line|distance:60] (check (reflex, dc:30, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, CC:30, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por 1d4."
         },
         "OPtrKq8gnuusiAqH": {
           "name": "Frenesi Dracônico",
@@ -1943,7 +1943,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um velstrac sabe automaticamente se uma criatura que vê tem alguma das condições Condenado, Morrendo e Ferido, bem como o valor dessas condições."
         },
         "6uTX0UPYfsHi0eUs": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "YJlp2iyShGnQpO13": {
@@ -1960,7 +1960,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "MW1iGpocWyHZDBvP": {
           "name": "Sifão das Sombras",
-          "description": "Gatilho O interlocutor sofreria dano de um magia ou efeito mágico\nEfeito Em vez disso, o interlocutor sofre metade do dano desencadeado."
+          "description": "Gatilho O interlocutor sofreria dano de uma magia ou efeito mágico\nEfeito Em vez disso, o interlocutor sofre metade do dano desencadeado."
         },
         "PrwUXoaZ6KDeiZiG": {
           "name": "Olhar Focado",
@@ -2057,7 +2057,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "27lO5hJcHjPjslLT": {
           "name": "Respiração Hidráulica",
-          "description": "O dragão exala um jato de água pressurizado que causa 13d6[concussão|opções:dano de área] de dano em um @Template[type:line|distance:100] (verificação (reflexo, dc:32, básico, opções:efeito de área,movimento forçado,inflige:prone) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por [[/gmr 1d4 #Recharge Sopro Hidráulico]]{1d4 rodadas}."
+          "description": "O dragão exala um jato de água pressurizado que causa 13d6[concussão de dano em um @Template[type:line|distance:100] (verificação (reflexo, dc:32, básico, opções:efeito de área,movimento forçado,inflige:prone) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por 1d4."
         },
         "DrGbBNaXvcBQvYSR": {
           "name": "Fusão de recifes",
@@ -2274,7 +2274,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "27lO5hJcHjPjslLT": {
           "name": "Respiração Hidráulica",
-          "description": "O dragão exala um jato de água pressurizado que causa 13d6[concussão|opções:dano de área] de dano em um @Template[type:line|distance:100] (verificação (reflexo, dc:32, básico, opções:efeito de área,movimento forçado,inflige:prone) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por [[/gmr 1d4 #Recharge Sopro Hidráulico]]{1d4 rodadas}."
+          "description": "O dragão exala um jato de água pressurizado que causa 13d6[concussão de dano em um @Template[type:line|distance:100] (verificação (reflexo, dc:32, básico, opções:efeito de área,movimento forçado,inflige:prone) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por 1d4."
         },
         "DrGbBNaXvcBQvYSR": {
           "name": "Fusão de recifes",
@@ -2343,7 +2343,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "TddtdjaipJEYqpwC": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "TTwj9RU4LXllk71q": {
@@ -2356,7 +2356,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "m5jrurRSdWLjkAPv": {
           "name": "Ferrugon Tétano",
-          "description": "Teste de salvamento (fortitude, dc:32)\nInício [[/gmr 1d4 #Days]]{1d4 dias}\nEstágio 1 Desajeitado 1 (1 semana)\nEstágio 2 Desajeitado 2 e não consigo falar (1 dia)\nEstágio 3 Paralisado (1 dia)\nMorte em estágio 4"
+          "description": "Teste de salvamento (fortitude, dc:32)\nInício 1d4\nEstágio 1 Desajeitado 1 (1 semana)\nEstágio 2 Desajeitado 2 e não consigo falar (1 dia)\nEstágio 3 Paralisado (1 dia)\nMorte em estágio 4"
         },
         "CS1UMHIWSSdKkDlD": {
           "name": "Separar objetos",
@@ -2449,7 +2449,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SHGSNKhRLCJ5x8DV": {
           "name": "Vida Sifão",
-          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para um magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 2d8 Pontos de Vida temporários que duram 1 rodada."
+          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para uma magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 2d8 Pontos de Vida temporários que duram 1 rodada."
         },
         "AVeCp0hrGkLxjYtI": {
           "name": "Surgir!",
@@ -2457,7 +2457,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xocggVl34iamkAuY": {
           "name": "Respiração que suga a alma",
-          "description": "O dragão libera uma torrente de energia divina, causando 11d6[void|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (fortitude, dc:32, basic, options:area-effect) save) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 10 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar Respiração Sifonadora de Almas novamente por [[/gmr 1d4 #Recharge Respiração Sifonadora de Almas]]{1d4 rodadas}."
+          "description": "O dragão libera uma torrente de energia divina, causando 11d6[void de dano em um @Template[type:cone|distance:40] (check (fortitude, dc:32, basic, options:area-effect) save) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 10 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar Respiração Sifonadora de Almas novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -2602,16 +2602,16 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "6d6cIadAucEYZpne": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "4k6Uvj17HBcW7ylM": {
           "name": "Conversão de Energia",
-          "description": "Sempre que o calikang é atingido por uma jogada de ataque de um magia de eletricidade ou consegue um teste bem-sucedido contra um magia que causa dano de eletricidade, ele absorve a energia.\nIsso cura o calikang em uma quantidade de HP igual ao quádruplo do Rank do magia e recarrega sua arma de sopro. Um calikang não pode absorver seus próprios magias desta forma."
+          "description": "Sempre que o calikang é atingido por uma jogada de ataque de uma magia de eletricidade ou consegue um teste bem-sucedido contra uma magia que causa dano de eletricidade, ele absorve a energia.\nIsso cura o calikang em uma quantidade de HP igual ao quádruplo do Rank da magia e recarrega sua arma de sopro. Um calikang não pode absorver seus próprias magias desta forma."
         },
         "JmeFujNsZiXeU7qA": {
           "name": "Respiração Energética",
-          "description": "Frequência uma vez por dia.\nEfeito O calikang respira uma explosão de energia que causa 13d6[@item.flags.system.rulesSelections.breathWeapon|options:area-damage] de dano a criaturas em um @Template[line|distance:60] (check (reflex, dc:28, basic, options:area-effect) save). O calikang pode escolher o tipo de dano a cada vez: ácido, frio, eletricidade, fogo ou sônico.\nAumente o tamanho do dado para d8 se o calikang escolher eletricidade."
+          "description": "Frequência uma vez por dia.\nEfeito O calikang respira uma explosão de energia que causa 13d6[@item.flags.system.rulesSelections.breathWeapon de dano a criaturas em um @Template[line|distance:60] (check (reflex, dc:28, basic, options:area-effect) save). O calikang pode escolher o tipo de dano a cada vez: ácido, frio, eletricidade, fogo ou sônico.\nAumente o tamanho do dado para d8 se o calikang escolher eletricidade."
         },
         "zFuVmNNi7HexpunZ": {
           "name": "Agitação sêxtupla",
@@ -2682,7 +2682,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "OC5iW5RWtphm9Mby": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "zLh5jRcxUaafQvod": {
@@ -2695,7 +2695,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zzRvWHp5hTbs93tu": {
           "name": "Sopro Relâmpago Vulcânico",
-          "description": "O xiuh coatl exala chamas e relâmpagos em um @Template[type:line|distance:80] que causa 5d8[eletricidade,5d8[fogo]|options:area-damage]{5d8 de dano elétrico e 5d8 dano de fogo} (verificação (reflexo, dc:32, básico, opções:efeito de área) salvamento). O xiuh coatl não pode usar Sopro de Relâmpago Vulcânico novamente por [[/gmr 1d4 #Recharge Sopro de Relâmpago Vulcânico]]{1d4 rodadas}."
+          "description": "O xiuh coatl exala chamas e relâmpagos em um @Template[type:line|distance:80] que causa 5d8[eletricidade,5d8[fogo]{5d8 de dano elétrico e 5d8 dano de fogo} (verificação (reflexo, dc:32, básico, opções:efeito de área) salvamento). O xiuh coatl não pode usar Sopro de Relâmpago Vulcânico novamente por 1d4."
         },
         "VzzWLmieSojZVoLh": {
           "name": "Enrole em bobinas",
@@ -3041,7 +3041,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "w8F8nbp4IWZUSgyW": {
           "name": "Mil bocas em oração",
-          "description": "As criaturas constituintes do profeta verme sussurram incontáveis ​​hinos aos seus deuses. O profeta verme tenta neutralizar (modificador de neutralização [[/gmr 1d20+24 #Counteract]]{+24}, neutralizar Rank 6) um efeito em uma criatura dentro de 30 pés (9 metros) que está impondo uma das seguintes condições: Cego, Desajeitado, Deslumbrado, Ensurdecido, Enfraquecido, Assustado, dano persistente, Enjoado, Lento ou Estupefato. Uma vez que o profeta verme neutraliza com sucesso um efeito desta forma, ele não poderá fazê-lo novamente por [[/gmr 1d4 #Recharge A Thousand Mouths In Prayer]]{1d4 rodadas}."
+          "description": "As criaturas constituintes do profeta verme sussurram incontáveis ​​hinos aos seus deuses. O profeta verme tenta neutralizar (modificador de neutralização 1d20+24, neutralizar Rank 6) um efeito em uma criatura dentro de 30 pés (9 metros) que está impondo uma das seguintes condições: Cego, Desajeitado, Deslumbrado, Ensurdecido, Enfraquecido, Assustado, dano persistente, Enjoado, Lento ou Estupefato. Uma vez que o profeta verme neutraliza com sucesso um efeito desta forma, ele não poderá fazê-lo novamente por 1d4."
         },
         "4FSeHozk0lfay7Lq": {
           "name": "Resquícios Aderidos",
@@ -3169,7 +3169,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Hl6TVTFqmE0SOKoE": {
           "name": "Tempestade de Batalha",
-          "description": "A valquíria lança sua lança no ar, criando uma enorme tempestade em @Template[burst|distance:100]. Lanças de relâmpagos caem sobre os inimigos na área, causando 4d12[eletricidade|opções:dano de área] de dano (teste (reflexo, dc:32, básico, opções:efeito de área) salvamento)."
+          "description": "A valquíria lança sua lança no ar, criando uma enorme tempestade em @Template[burst|distance:100]. Lanças de relâmpagos caem sobre os inimigos na área, causando 4d12[eletricidade de dano (teste (reflexo, dc:32, básico, opções:efeito de área) salvamento)."
         }
       },
       "spellcasting": {
@@ -3259,7 +3259,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VDW4W2k1N88INhBp": {
           "name": "Hálito Venenoso",
-          "description": "O catoblepas respira um @Template[cone|distance:60] de fumaça horrível, causando 13d6[veneno|opções:dano de área] de dano (teste (fortitude, dc:32, básico, opções:efeito de área) salvamento). A área deste cone é reduzida a @Template[cone|distance:30]{30 pés (9 metros)} debaixo d’água. Os alvos que falham no teste de resistência também ficam Enjoados 1 (Enjoados 2 em uma falha crítica).\nOs catoblepas não podem usar seu Sopro Venenoso novamente por [[/gmr 1d4 #Recharge Breath Weapon]]{1d4 rodadas}."
+          "description": "O catoblepas respira um @Template[cone|distance:60] de fumaça horrível, causando 13d6[veneno de dano (teste (fortitude, dc:32, básico, opções:efeito de área) salvamento). A área deste cone é reduzida a @Template[cone|distance:30]{30 pés (9 metros)} debaixo d’água. Os alvos que falham no teste de resistência também ficam Enjoados 1 (Enjoados 2 em uma falha crítica).\nOs catoblepas não podem usar seu Sopro Venenoso novamente por 1d4."
         },
         "lPlAVVeLD4qqvZ8q": {
           "name": "Atropelar",
@@ -3415,7 +3415,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SHGSNKhRLCJ5x8DV": {
           "name": "Vida Sifão",
-          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para um magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 2d8 Pontos de Vida temporários que duram 1 rodada."
+          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para uma magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 2d8 Pontos de Vida temporários que duram 1 rodada."
         },
         "AVeCp0hrGkLxjYtI": {
           "name": "Surgir!",
@@ -3431,7 +3431,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xocggVl34iamkAuY": {
           "name": "Respiração que suga a alma",
-          "description": "O dragão libera uma torrente de energia divina, causando 11d6[void|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (fortitude, dc:32, basic, options:area-effect) save) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 10 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar Respiração Sifonadora de Almas novamente por [[/gmr 1d4 #Recharge Respiração Sifonadora de Almas]]{1d4 rodadas}."
+          "description": "O dragão libera uma torrente de energia divina, causando 11d6[void de dano em um @Template[type:cone|distance:40] (check (fortitude, dc:32, basic, options:area-effect) save) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 10 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar Respiração Sifonadora de Almas novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -3523,7 +3523,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "wchhA2K9Ow4ppaJD": {
           "name": "Fonte da Morte",
-          "description": "O gigante da tumba vira a maré espiritual sobre uma criatura que acabou de morrer, transformando-a temporariamente em um recipiente volátil movido pelo Vazio. O gigante da tumba toca uma criatura que morreu nas últimas 24 horas, infundindo energia do vazio em sua carne e ossos. Uma vez durante a próxima hora, o gigante da tumba pode gastar uma única ação (de qualquer distância) para liberar esse vazio do cadáver em uma explosão que causa 10d8[void|options:area-damage] de dano em um @Template[type:burst|distance:15] (teste (fortitude, dc:32, básico) de salvamento); se não for liberada antes do final da hora, a energia se dissipará inofensivamente. O gigante da tumba não pode usar Fonte da Morte enquanto um cadáver anterior permanecer infundido."
+          "description": "O gigante da tumba vira a maré espiritual sobre uma criatura que acabou de morrer, transformando-a temporariamente em um recipiente volátil movido pelo Vazio. O gigante da tumba toca uma criatura que morreu nas últimas 24 horas, infundindo energia do vazio em sua carne e ossos. Uma vez durante a próxima hora, o gigante da tumba pode gastar uma única ação (de qualquer distância) para liberar esse vazio do cadáver em uma explosão que causa 10d8[void de dano em um @Template[type:burst|distance:15] (teste (fortitude, dc:32, básico) de salvamento); se não for liberada antes do final da hora, a energia se dissipará inofensivamente. O gigante da tumba não pode usar Fonte da Morte enquanto um cadáver anterior permanecer infundido."
         }
       },
       "spellcasting": {
@@ -3589,7 +3589,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "CChXCrOyQxz6h0X9": {
           "name": "Fenda de Suspensão",
-          "description": "Se um arquivo arbóreo morrer inesperadamente antes de transmitir seu conhecimento em um ritual de sucessão, o conhecimento acumulado em suas raízes e galhos explode em uma onda de choque que causa 8d10[mental|options:area-damage,inflicts:prone] de dano a criaturas dentro de @Template[emanation|distance:30]{30 pés (9 metros)} (check (will, dc:32, basic, options:area-effect) save) antes de se dissipar; aqueles que falham também ficam propensos."
+          "description": "Se um arquivo arbóreo morrer inesperadamente antes de transmitir seu conhecimento em um ritual de sucessão, o conhecimento acumulado em suas raízes e galhos explode em uma onda de choque que causa 8d10[mental de dano a criaturas dentro de @Template[emanation|distance:30]{30 pés (9 metros)} (check (will, dc:32, basic, options:area-effect) save) antes de se dissipar; aqueles que falham também ficam propensos."
         },
         "g4OWJGRw7uHmBmrk": {
           "name": "Vulnerabilidade do Machado",
@@ -3597,7 +3597,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ndQeCjr03ZZsI5o1": {
           "name": "Redemoinho de memória",
-          "description": "O arquivo arbóreo tenta dominar os inimigos com uma onda de informações que absorveu ao longo de sua longa vida. Esta onda causa 5d6[mental|options:area-damage] de dano a cada inimigo dentro de @Template[emanation|distance:40]{40 pés (12 metros)}, que deve tentar um teste (vontade, dc:32, opções:efeito de área,efeito de dano,inflige:atordoado,inflige:confuso) salvamento.\nSucesso Crítico A criatura mantém a compostura, não sofre dano e fica temporariamente imune ao Memory Maelstrom por 1 minuto.\nSucesso A criatura fica Atordoada 1 e sofre metade do dano.\nFalha A criatura sofre dano total e fica Atordoada 3.\nFalha Crítica A criatura sofre o dobro de dano, fica Confusa por [[/gmr 2d4 #Confusion Duration]]{2d4 rodadas} e fica atordoada 3."
+          "description": "O arquivo arbóreo tenta dominar os inimigos com uma onda de informações que absorveu ao longo de sua longa vida. Esta onda causa 5d6[mental de dano a cada inimigo dentro de @Template[emanation|distance:40]{40 pés (12 metros)}, que deve tentar um teste (vontade, dc:32, opções:efeito de área,efeito de dano,inflige:atordoado,inflige:confuso) salvamento.\nSucesso Crítico A criatura mantém a compostura, não sofre dano e fica temporariamente imune ao Memory Maelstrom por 1 minuto.\nSucesso A criatura fica Atordoada 1 e sofre metade do dano.\nFalha A criatura sofre dano total e fica Atordoada 3.\nFalha Crítica A criatura sofre o dobro de dano, fica Confusa por 2d4 e fica atordoada 3."
         },
         "6POqdcS7GEiqCyF1": {
           "name": "Nocaute aprimorado",
@@ -3676,12 +3676,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Quaisquer tomos que um ayngavhaul esteja lendo ou referenciando para seu trabalho atual podem ser armazenados na biblioteca pessoal do diabo, uma coleção flutuante de tomos que gira em torno do diabo que pode ser usado ofensivamente ou defensivamente. Recuperar ou devolver um tomo requer uma ação de Interagir."
         },
         "jUAtoBpUZQvKebon": {
-          "name": "Tomo do magia",
-          "description": "Gatilho O ayngavhaul é alvo de um magia\nEfeito O ayngavhaul arremessa um tomo de seu grimório pessoal contra a magia. O diabo deve tentar um xeque (flat, dc:5). Se obtiver sucesso, o tomo absorve completamente os efeitos do magia e se transforma em uma pilha inofensiva de cinzas. Independentemente do resultado, o diabo não pode usar essa habilidade novamente por [[/gmr 1d4 #Recharge Spellblock Tome]]{1d4 rodadas}."
+          "name": "Tomo da magia",
+          "description": "Gatilho O ayngavhaul é alvo de uma magia\nEfeito O ayngavhaul arremessa um tomo de seu grimório pessoal contra a magia. O diabo deve tentar um xeque (flat, dc:5). Se obtiver sucesso, o tomo absorve completamente os efeitos da magia e se transforma em uma pilha inofensiva de cinzas. Independentemente do resultado, o diabo não pode usar essa habilidade novamente por 1d4."
         },
         "rNubcNzojHn1anXP": {
           "name": "Herald Heresia",
-          "description": "O ayngavhaul transmite pensamentos blasfemos às mentes de todas as criaturas não-demônios dentro de um @Template[type:burst|distance:20] até 60 pés (18 metros) de distância. Uma criatura afetada sofre 2d10[mental|options:area-damage] de dano mais 2d10[spirit|options:area-damage] de dano e deve tentar um teste de resistência (vontade, dc:33, opções:efeito de área,efeito de dano,inflige:lentidão). As criaturas afetadas ganham um bônus de circunstância cumulativo de +1 (até um total de +4) em testes de resistência contra todas as tentativas futuras de Arauto da Heresia por 1 minuto, à medida que se acostumam às blasfêmias.\nSucesso Crítico A criatura não é afetada e fica temporariamente imune por 1 hora.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e fica Lentidão 1.\nFalha Crítica A criatura sofre o dobro de dano e fica Lentidão 2."
+          "description": "O ayngavhaul transmite pensamentos blasfemos às mentes de todas as criaturas não-demônios dentro de um @Template[type:burst|distance:20] até 60 pés (18 metros) de distância. Uma criatura afetada sofre 2d10[mental de dano mais 2d10[spirit de dano e deve tentar um teste de resistência (vontade, dc:33, opções:efeito de área,efeito de dano,inflige:lentidão). As criaturas afetadas ganham um bônus de circunstância cumulativo de +1 (até um total de +4) em testes de resistência contra todas as tentativas futuras de Arauto da Heresia por 1 minuto, à medida que se acostumam às blasfêmias.\nSucesso Crítico A criatura não é afetada e fica temporariamente imune por 1 hora.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e fica Lentidão 1.\nFalha Crítica A criatura sofre o dobro de dano e fica Lentidão 2."
         },
         "Igt88kb16Bk6ajJg": {
           "name": "Mentes Venenosas",
@@ -3789,7 +3789,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "F1BUx1q2oTY8sFpj": {
           "name": "Agarrando o frio",
-          "description": "Uma criatura atingida pelo golpe frio e ardente do profeta fica imobilizada em um aglomerado de cristais de gelo ([[/act escape dc=31]])."
+          "description": "Uma criatura atingida pelo golpe frio e ardente do profeta fica imobilizada em um aglomerado de cristais de gelo (Escapar CD 31)."
         },
         "Mnk4wTPNqIwrijFP": {
           "name": "Maldição das Trevas",
@@ -3962,7 +3962,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6GYPjwrrx9YCtARE": {
           "name": "Dente e Maré",
-          "description": "Uma onda explode do tridente do gigante em um @Template[type:cone|distance:15] ou um @Template[type:burst|distance:5] dentro de 100 pés (30 metros). Se o manto de maré alta do gigante estiver ativo, este é um @Template[type:cone|distance:30] ou um @Template[type:burst|distance:10]. Cada criatura na área sofre 9d8[concussão|opções:dano de área] de dano com um teste de resistência (reflexo, dc:33, básico, opções:efeito de área)."
+          "description": "Uma onda explode do tridente do gigante em um @Template[type:cone|distance:15] ou um @Template[type:burst|distance:5] dentro de 100 pés (30 metros). Se o manto de maré alta do gigante estiver ativo, este é um @Template[type:cone|distance:30] ou um @Template[type:burst|distance:10]. Cada criatura na área sofre 9d8[concussão de dano com um teste de resistência (reflexo, dc:33, básico, opções:efeito de área)."
         }
       },
       "spellcasting": {
@@ -4054,7 +4054,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XaV9EbmhjP3b8nYt": {
           "name": "Respiração Gritante",
-          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 12d6[sonic|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (will, dc:33, basic, options:area-effect) save). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por [[/gmr 1d4 #Recharge Sopro Gritante]]{1d4 rodadas}."
+          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 12d6[sonic de dano em um @Template[type:cone|distance:40] (check (will, dc:33, basic, options:area-effect) save). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por 1d4."
         },
         "IgQebS6T9lTVTa9g": {
           "name": "Chamariz de língua",
@@ -4134,7 +4134,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i8KkA2JGZTsQSxta": {
           "name": "Engolir",
-          "description": "verificação (reflexo, dc:33, opções:efeito de dano,inflige:agarrado,inflige:lento), 4d10[ácido] de dano, [[/act escape dc=33]], Ruptura 20"
+          "description": "verificação (reflexo, dc:33, opções:efeito de dano,inflige:agarrado,inflige:lento), 4d10[ácido] de dano, Escapar CD 33, Ruptura 20"
         },
         "3lzTOsFXXMpAEBPJ": {
           "name": "Pegar",
@@ -4202,7 +4202,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "ybRRLWDLtsP4WDa2": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "debIobAdwTNhKkux": {
@@ -4215,7 +4215,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WDFdvCXmXpXv57rO": {
           "name": "Voraz Terrestre Profano",
-          "description": "Com um único pensamento tortuoso, o urglid faz com que um monte de terra grave brote aos pés de uma criatura. Essa criatura deve ser bem sucedida em um teste (reflexo, dc:30) ou ficará Restringida ([[/act escape dc=30]]). A criatura contida então começa a afundar no solo em uma sepultura formada espontaneamente. Uma criatura restringida por esta habilidade por 3 rodadas é enterrada 6 pés (1,8 metros) profundamente no solo e começa a sufocar dentro de 1 minuto. Uma criatura enterrada deve ser desenterrada para ser libertada (veja Enterro na página 96 do GM Core). Uma criatura que é morta por Ravenous Earth ressuscita como um Ghoul na meia-noite seguinte."
+          "description": "Com um único pensamento tortuoso, o urglid faz com que um monte de terra grave brote aos pés de uma criatura. Essa criatura deve ser bem sucedida em um teste (reflexo, dc:30) ou ficará Restringida (Escapar CD 30). A criatura contida então começa a afundar no solo em uma sepultura formada espontaneamente. Uma criatura restringida por esta habilidade por 3 rodadas é enterrada 6 pés (1,8 metros) profundamente no solo e começa a sufocar dentro de 1 minuto. Uma criatura enterrada deve ser desenterrada para ser libertada (veja Enterro na página 96 do GM Core). Uma criatura que é morta por Ravenous Earth ressuscita como um Ghoul na meia-noite seguinte."
         }
       },
       "spellcasting": {
@@ -4413,7 +4413,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "iev8zZf1pmJl4hx1": {
           "name": "Regurgitar Gastrólito",
-          "description": "O irlgaunt regurgita violentamente um coágulo de pedra quebradiça do tamanho de um melão infundido sobrenaturalmente com enzimas digestivas. A pedra e o ácido explodem com o impacto dentro de um alcance de 30 pés (9 metros), causando 7d6[piercing|options:area-damage] de dano e 7d6[acid|options:area-damage] de dano a criaturas em um @Template[type:burst|distance:20] (check (reflex, dc:33, basic) save). O irlgaunt não pode Regurgitar Gastrólitos por [[/gmr 1d4 #rounds]]{1d4 rounds}."
+          "description": "O irlgaunt regurgita violentamente um coágulo de pedra quebradiça do tamanho de um melão infundido sobrenaturalmente com enzimas digestivas. A pedra e o ácido explodem com o impacto dentro de um alcance de 30 pés (9 metros), causando 7d6[piercing de dano e 7d6[acid de dano a criaturas em um @Template[type:burst|distance:20] (check (reflex, dc:33, basic) save). O irlgaunt não pode Regurgitar Gastrólitos por 1d4."
         },
         "UoNHneDDCOsDRksN": {
           "name": "Degrau de Pedra",
@@ -4489,7 +4489,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "B0icoSRf5FQSa64W": {
           "name": "Transmutação ociosa",
-          "description": "Uma liga de assalto tem total controle alquímico sobre as propriedades de seu metal. Cada vez que eles acertam uma agulha de metal ou lançam um magia com o traço metal, eles escolhem se o metal que usam é adamantino, ferro frio, prata amanhecida ou qualquer outro metal precioso sólido."
+          "description": "Uma liga de assalto tem total controle alquímico sobre as propriedades de seu metal. Cada vez que eles acertam uma agulha de metal ou lançam uma magia com o traço metal, eles escolhem se o metal que usam é adamantino, ferro frio, prata amanhecida ou qualquer outro metal precioso sólido."
         },
         "UJ9XgOqsBhBpJ4RE": {
           "name": "Metal piscante",
@@ -4570,11 +4570,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XxJKecC13F9ZMVC0": {
           "name": "Localização infalível",
-          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 7º, modificador de neutralização [[/r 1d20+25 #Counteract]]{+25}). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
+          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 7º, modificador de neutralização 1d20+25). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
         },
         "z6zrzAGUnQzvtxt2": {
           "name": "Respiração Deslocante",
-          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 12d6[force|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (reflex, dc:33, basic, options:area-effect) save). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 40 pés (12 metros) (ou duas vezes mais em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por [[/gmr 1d4 #Recharge Sopro Deslocante]]{1d4 rodadas}."
+          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 12d6[force de dano em um @Template[type:cone|distance:40] (check (reflex, dc:33, basic, options:area-effect) save). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 40 pés (12 metros) (ou duas vezes mais em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por 1d4."
         },
         "O6kyu3EStwpikOKy": {
           "name": "Frenesi Dracônico",
@@ -4582,7 +4582,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VlzllOaXXNnvU4jJ": {
           "name": "Momento Dracônico",
-          "description": "Sempre que acerta um golpe crítico com um Golpe, o dragão escolhe entre recarregar Dislocating Breath ou recuperar um magia de teletransporte gasto."
+          "description": "Sempre que acerta um golpe crítico com um Golpe, o dragão escolhe entre recarregar Dislocating Breath ou recuperar uma magia de teletransporte gasto."
         },
         "DR5DVel5zxSC5osK": {
           "name": "Salto de Fase",
@@ -4665,7 +4665,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5uV0FvOozf4uAu0Q": {
           "name": "Explosão Solar",
-          "description": "30 pés (9 metros). Quando uma criatura termina seu turno na aura, ela sofre 2d6[fogo|opções:dano de área] de dano (teste (fortitude, dc:33, básico, opções:efeito de área,inflige:deslumbrado) salvamento). Se falhar na resistência, ele também fica Deslumbrado até o final do próximo turno. A fama angustiada pode ativar ou desativar esta aura usando uma única ação com o traço concentração."
+          "description": "30 pés (9 metros). Quando uma criatura termina seu turno na aura, ela sofre 2d6[fogo de dano (teste (fortitude, dc:33, básico, opções:efeito de área,inflige:deslumbrado) salvamento). Se falhar na resistência, ele também fica Deslumbrado até o final do próximo turno. A fama angustiada pode ativar ou desativar esta aura usando uma única ação com o traço concentração."
         },
         "4khpMKWQq1dbbREx": {
           "name": "Vulnerável à blasfêmia",
@@ -4810,11 +4810,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XxJKecC13F9ZMVC0": {
           "name": "Localização infalível",
-          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 7º, modificador de neutralização [[/r 1d20+25 #Counteract]]{+25}). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
+          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 7º, modificador de neutralização 1d20+25). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
         },
         "z6zrzAGUnQzvtxt2": {
           "name": "Respiração Deslocante",
-          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 12d6[force|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (reflex, dc:33, basic, options:area-effect) save). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 40 pés (12 metros) (ou duas vezes mais em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por [[/gmr 1d4 #Recharge Sopro Deslocante]]{1d4 rodadas}."
+          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 12d6[force de dano em um @Template[type:cone|distance:40] (check (reflex, dc:33, basic, options:area-effect) save). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 40 pés (12 metros) (ou duas vezes mais em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por 1d4."
         },
         "DR5DVel5zxSC5osK": {
           "name": "Salto de Fase",
@@ -5152,7 +5152,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "k9C2Y7x0fyhiqrl2": {
           "name": "Concha Congelada",
-          "description": "O molusco iceberg cobre-se com uma concha congelada. Todas as criaturas no espaço do molusco iceberg não podem sair desses quadrados enquanto a concha congelada estiver no lugar. O projétil tem CA 10, Dureza 10 e 60 Pontos de Vida, e é imune a acertos críticos e danos de precisão. Se o molusco iceberg se mover, todas as criaturas presas em sua concha se moverão com o molusco. Embora um molusco iceberg tenha uma concha congelada, qualquer ataque originado de fora do espaço do molusco iceberg deve ter como alvo a concha. O molusco iceberg pode descartar sua casca. Se o molusco iceberg fizer isso ou a concha for reduzida a 0 Pontos de Vida, o molusco iceberg não poderá usar Ambush Freeze ou Frozen Shell novamente por [[/gmr 1d4 #Recharge Ambush Freeze ou Frozen Shell]]{1d4 rodadas}."
+          "description": "O molusco iceberg cobre-se com uma concha congelada. Todas as criaturas no espaço do molusco iceberg não podem sair desses quadrados enquanto a concha congelada estiver no lugar. O projétil tem CA 10, Dureza 10 e 60 Pontos de Vida, e é imune a acertos críticos e danos de precisão. Se o molusco iceberg se mover, todas as criaturas presas em sua concha se moverão com o molusco. Embora um molusco iceberg tenha uma concha congelada, qualquer ataque originado de fora do espaço do molusco iceberg deve ter como alvo a concha. O molusco iceberg pode descartar sua casca. Se o molusco iceberg fizer isso ou a concha for reduzida a 0 Pontos de Vida, o molusco iceberg não poderá usar Ambush Freeze ou Frozen Shell novamente por 1d4."
         },
         "N881BiYIIgymRJks": {
           "name": "Jato Aquecido",
@@ -5232,7 +5232,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6lGBPYTZUWLJZzDA": {
           "name": "Arco sobrecarregado",
-          "description": "O venator libera raios de seu corpo em @Template[type:line|distance:120], causando 4d10[electricity|options:area-damage] de dano (teste (reflexo, dc:33, básico) de salvamento). O raio também forma um arco, causando dano a qualquer criatura presa por um raio de Venator dentro de 120 pés (36 metros), mesmo que não esteja na linha. O venator fica então desacelerado 1 por 1 rodada."
+          "description": "O venator libera raios de seu corpo em @Template[type:line|distance:120], causando 4d10[electricity de dano (teste (reflexo, dc:33, básico) de salvamento). O raio também forma um arco, causando dano a qualquer criatura presa por um raio de Venator dentro de 120 pés (36 metros), mesmo que não esteja na linha. O venator fica então desacelerado 1 por 1 rodada."
         }
       },
       "spellcasting": {
@@ -5296,11 +5296,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6OlSYo00X1yt0HPu": {
           "name": "Vulnerabilidade ao frio",
-          "description": "Quando exposta a um efeito de frio, a videira víbora é dominada pela letargia, tornando-se desacelerada 1 por [[/gmr 1d4 #rounds]]{1d4 rounds}."
+          "description": "Quando exposta a um efeito de frio, a videira víbora é dominada pela letargia, tornando-se desacelerada 1 por 1d4."
         },
         "mlxDBk3SvOubNTSz": {
           "name": "Pólen Cativante",
-          "description": "A videira víbora libera um @Template[type:emanation|distance:60] de pólen invisível que permanece no ar por 5 rodadas, a menos que seja disperso por um vento moderado ou mais forte. Cada criatura que entra ou inicia seu turno na área deve ser bem sucedida em um teste (vontade, dc:33) de resistência ou será cativada. A videira víbora não pode usar Pólen Cativante por [[/gmr 1d4 #rounds]]{1d4 rodadas}.\nSucesso Crítico A criatura não é afetada e fica temporariamente imune ao Pólen Cativante por 24 horas.\nSucesso A criatura está Enjoada 1.\nFalha A criatura está Fascinada e deve gastar cada uma de suas ações para se aproximar da videira da víbora o mais rápido possível, evitando perigos óbvios. Se uma criatura cativada estiver adjacente à videira, ela permanecerá imóvel e não agirá. Ele deixa de ficar fascinado se não estiver mais na aura do pólen no final do turno.\nFalha Crítica Como falha, mais a criatura fica Estupefata 2 por 24 horas."
+          "description": "A videira víbora libera um @Template[type:emanation|distance:60] de pólen invisível que permanece no ar por 5 rodadas, a menos que seja disperso por um vento moderado ou mais forte. Cada criatura que entra ou inicia seu turno na área deve ser bem sucedida em um teste (vontade, dc:33) de resistência ou será cativada. A videira víbora não pode usar Pólen Cativante por 1d4.\nSucesso Crítico A criatura não é afetada e fica temporariamente imune ao Pólen Cativante por 24 horas.\nSucesso A criatura está Enjoada 1.\nFalha A criatura está Fascinada e deve gastar cada uma de suas ações para se aproximar da videira da víbora o mais rápido possível, evitando perigos óbvios. Se uma criatura cativada estiver adjacente à videira, ela permanecerá imóvel e não agirá. Ele deixa de ficar fascinado se não estiver mais na aura do pólen no final do turno.\nFalha Crítica Como falha, mais a criatura fica Estupefata 2 por 24 horas."
         },
         "r4hJAd9scHgaZzWU": {
           "name": "Contrair",
@@ -5382,7 +5382,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XaV9EbmhjP3b8nYt": {
           "name": "Respiração Gritante",
-          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 12d6[sonic|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (will, dc:33, basic, options:area-effect) save). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por [[/gmr 1d4 #Recharge Sopro Gritante]]{1d4 rodadas}."
+          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 12d6[sonic de dano em um @Template[type:cone|distance:40] (check (will, dc:33, basic, options:area-effect) save). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por 1d4."
         },
         "IgQebS6T9lTVTa9g": {
           "name": "Chamariz de língua",
@@ -5540,7 +5540,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uSrLj12M9nzjE5tG": {
           "name": "Tempere suas palavras",
-          "description": "O exscinder escolhe um texto escrito dentro de 120 pés (36 metros). Eles não precisam ser capazes de observar o texto, mas não podem mirar em um que esteja deliberadamente Oculto. O exscinder censura o texto, modificando-o a seu gosto. O texto não pode ser referenciado, tornando-o inútil para funções como lançar um magia de um pergaminho, preparar magias de um livro de magias ou consultar um diário acadêmico. Se o texto for atendido, a criatura que o possui pode tentar um teste (vontade, dc:33) de salvamento; um texto autônomo obtém automaticamente uma falha crítica."
+          "description": "O exscinder escolhe um texto escrito dentro de 120 pés (36 metros). Eles não precisam ser capazes de observar o texto, mas não podem mirar em um que esteja deliberadamente Oculto. O exscinder censura o texto, modificando-o a seu gosto. O texto não pode ser referenciado, tornando-o inútil para funções como lançar uma magia de um pergaminho, preparar magias de um livro de magias ou consultar um diário acadêmico. Se o texto for atendido, a criatura que o possui pode tentar um teste (vontade, dc:33) de salvamento; um texto autônomo obtém automaticamente uma falha crítica."
         }
       },
       "spellcasting": {
@@ -5625,7 +5625,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3MP8S4relPgvIRf2": {
           "name": "Lançamento de chapéu",
-          "description": "O milindemalion rapidamente cria um chapéu que altera a mente em combate e o joga em um alvo com um movimento do pulso. O milindemalion escolhe um dos efeitos abaixo e faz uma jogada de ataque à distância com um modificador de teste (milindemalion-hat-toss, against:ac){+27} e um incremento de alcance de 20 pés (6 metros).\nSe acertar, o alvo deve ser bem-sucedido em um teste de resistência (vontade, dc:33) ou experimentar o efeito listado por [[/gmr 1d4+1 #Duration Hat Toss]]{1d4+1 rodadas}. Se o milindemalion obtiver sucesso crítico no ataque à distância, o alvo sofre uma penalidade de circunstância de -4 no teste de resistência.\nUm alvo só pode usar um chapéu de milindemalião por vez; um novo chapéu substitui qualquer chapéu anterior. O chapéu não pode ser removido antes que a condição termine, mas quando a condição termina (ou em um salvamento bem-sucedido), o chapéu cai em pedaços.\n• Jogador Confuso O chapéu obscurece a mente do alvo; o alvo fica Estupefato 2.\n• Boina Encantadora O alvo fica apaixonado por seu novo chapéu e por seu criador, ficando fascinado pelo milindemalião e pela boina.\n• Espreitador de Veado Deslumbrante O alvo mal consegue enxergar com o chapéu caindo sobre seus olhos e ganha a condição Deslumbrado.\n• Fettering Fedora O alvo sente um peso pesado pressionando-o desde o chapéu e sofre uma penalidade de circunstância de -3 metros em sua Velocidade.\n• Tricorne Cansativo O alvo fica sonolento e fica Lento 1.\nEfeito: Fettering Fedora"
+          "description": "O milindemalion rapidamente cria um chapéu que altera a mente em combate e o joga em um alvo com um movimento do pulso. O milindemalion escolhe um dos efeitos abaixo e faz uma jogada de ataque à distância com um modificador de teste (milindemalion-hat-toss, against:ac){+27} e um incremento de alcance de 20 pés (6 metros).\nSe acertar, o alvo deve ser bem-sucedido em um teste de resistência (vontade, dc:33) ou experimentar o efeito listado por 1d4+1. Se o milindemalion obtiver sucesso crítico no ataque à distância, o alvo sofre uma penalidade de circunstância de -4 no teste de resistência.\nUm alvo só pode usar um chapéu de milindemalião por vez; um novo chapéu substitui qualquer chapéu anterior. O chapéu não pode ser removido antes que a condição termine, mas quando a condição termina (ou em um salvamento bem-sucedido), o chapéu cai em pedaços.\n• Jogador Confuso O chapéu obscurece a mente do alvo; o alvo fica Estupefato 2.\n• Boina Encantadora O alvo fica apaixonado por seu novo chapéu e por seu criador, ficando fascinado pelo milindemalião e pela boina.\n• Espreitador de Veado Deslumbrante O alvo mal consegue enxergar com o chapéu caindo sobre seus olhos e ganha a condição Deslumbrado.\n• Fettering Fedora O alvo sente um peso pesado pressionando-o desde o chapéu e sofre uma penalidade de circunstância de -3 metros em sua Velocidade.\n• Tricorne Cansativo O alvo fica sonolento e fica Lento 1.\nEfeito: Fettering Fedora"
         },
         "sIbPX7HRtLZsZC7R": {
           "name": "Ataque furtivo",
@@ -5690,7 +5690,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "jBlN3AcFIGu2v2jI": {
           "name": "Veneno de Jorogumo",
-          "description": "Teste de salvamento (fortitude, dc:32)\nDuração Máxima 4 horas\nEstágio 1 3d6[veneno] de dano e Estupefação 1 (1 rodada)\nEstágio 2 3d6[veneno] de dano e Estupefação 2 (1 rodada)\nEstágio 3 4d6[veneno] de dano e estupefação 2 (1 rodada)\nEstágio 4 paralisado por [[/gmr 1d4 #hours]]{1d4 horas}"
+          "description": "Teste de salvamento (fortitude, dc:32)\nDuração Máxima 4 horas\nEstágio 1 3d6[veneno] de dano e Estupefação 1 (1 rodada)\nEstágio 2 3d6[veneno] de dano e Estupefação 2 (1 rodada)\nEstágio 3 4d6[veneno] de dano e estupefação 2 (1 rodada)\nEstágio 4 paralisado por 1d4"
         },
         "jcppWoDI4Dl4BBUG": {
           "name": "Pernas de aranha",
@@ -5793,7 +5793,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "7hy3wqu9oefod2vm": {
           "name": "Batida na montanha",
-          "description": "O titã esquelético bate sua espada da montanha no chão. A onda de choque reverbera, causando (3d12+13)[concussão|opções:dano de área] dano a todas as criaturas em um salvamento de @Template[type:line|distance:20] (verificação (reflexo, dc:33, básico)). Uma criatura que falhar no teste também será derrubada."
+          "description": "O titã esquelético bate sua espada da montanha no chão. A onda de choque reverbera, causando (3d12+13)[concussão dano a todas as criaturas em um salvamento de @Template[type:line|distance:20] (verificação (reflexo, dc:33, básico)). Uma criatura que falhar no teste também será derrubada."
         },
         "wRVqT1QO1O1ru1SY": {
           "name": "Atropelar",
@@ -5860,7 +5860,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "FOqdcu8TMcTRnPHq": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "5fPhzfjVfDH0Ssgz": {
@@ -5873,7 +5873,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "e7rgKN11dqX1fsSq": {
           "name": "Olhar Focado",
-          "description": "O thanadaemon encara uma única criatura que pode ver dentro de 30 pés (9 metros). Se o alvo ainda não estiver Assustado, ele deve imediatamente tentar um teste (vontade, dc:33) de resistência contra o olhar aterrorizante do thanadaemon. Se o alvo já estava assustado, ele deve tentar um teste (vontade, dc:33) de resistência ou se tornar Fugindo por [[/gmr 1d4 #rounds]]{1d4 rodadas}; este segundo efeito tem o traço de incapacitação. Após tentar salvar, a criatura fica temporariamente imune a esta habilidade até o início do próximo turno do thanadaemon."
+          "description": "O thanadaemon encara uma única criatura que pode ver dentro de 30 pés (9 metros). Se o alvo ainda não estiver Assustado, ele deve imediatamente tentar um teste (vontade, dc:33) de resistência contra o olhar aterrorizante do thanadaemon. Se o alvo já estava assustado, ele deve tentar um teste (vontade, dc:33) de resistência ou se tornar Fugindo por 1d4; este segundo efeito tem o traço de incapacitação. Após tentar salvar, a criatura fica temporariamente imune a esta habilidade até o início do próximo turno do thanadaemon."
         },
         "mKh47XLxTvXG71TF": {
           "name": "Esmagamento de alma",
@@ -6084,7 +6084,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SI4dLQQdhQ6nWs5J": {
           "name": "Cancelando Runa",
-          "description": "Gatilho O dragão é alvo de um magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais do magia. Eles tentam neutralizar o magia (neutralizar Rank 7º, neutralizar modificador [[/r 1d20+26 #Counteract]]{+26}). Se tiver sucesso, o dragão não será afetado pelo magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente por [[/gmr 1d4 #Recharge Canceling Rune]]{1d4 rodadas}."
+          "description": "Gatilho O dragão é alvo de uma magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais da magia. Eles tentam neutralizar a magia (neutralizar Rank 7º, neutralizar modificador 1d20+26). Se tiver sucesso, o dragão não será afetado pela magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente por 1d4."
         },
         "L8w8yFgsSTRZPPKw": {
           "name": "Runa Retributiva",
@@ -6108,7 +6108,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i7kuaOQCvKjQ623q": {
           "name": "Respiração Rúnica",
-          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 12d6[untyped|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (reflex, dc:34, basic, options:area-effect) save). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por [[/gmr 1d4 #Recharge Sopro Rúnico]]{1d4 rodadas}."
+          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 12d6[untyped de dano em um @Template[type:cone|distance:40] (check (reflex, dc:34, basic, options:area-effect) save). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por 1d4."
         },
         "aXvfwxeI9u0AxsD4": {
           "name": "Runas Mutáveis",
@@ -6178,7 +6178,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SI4dLQQdhQ6nWs5J": {
           "name": "Cancelando Runa",
-          "description": "Gatilho O dragão é alvo de um magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais do magia. Eles tentam neutralizar o magia (neutralizar Rank 7º, neutralizar modificador [[/r 1d20+26 #Counteract]]{+26}). Se tiver sucesso, o dragão não será afetado pelo magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente por [[/gmr 1d4 #Recharge Canceling Rune]]{1d4 rodadas}."
+          "description": "Gatilho O dragão é alvo de uma magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais da magia. Eles tentam neutralizar a magia (neutralizar Rank 7º, neutralizar modificador 1d20+26). Se tiver sucesso, o dragão não será afetado pela magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente por 1d4."
         },
         "L8w8yFgsSTRZPPKw": {
           "name": "Runa Retributiva",
@@ -6194,7 +6194,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i7kuaOQCvKjQ623q": {
           "name": "Respiração Rúnica",
-          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 12d6[untyped|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (reflex, dc:34, basic, options:area-effect) save). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por [[/gmr 1d4 #Recharge Sopro Rúnico]]{1d4 rodadas}."
+          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 12d6[untyped de dano em um @Template[type:cone|distance:40] (check (reflex, dc:34, basic, options:area-effect) save). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por 1d4."
         },
         "aXvfwxeI9u0AxsD4": {
           "name": "Runas Mutáveis",
@@ -6346,7 +6346,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Ipe1qvzDL43R929K": {
           "name": "Vazio Aquoso",
-          "description": "O ancião das profundezas faz um vazio infinito de água aparecer em @Template[type:burst|distance:20] dentro de 60 pés (18 metros), arrastando criaturas para dentro de seu redemoinho. Se lançado debaixo d'água, o vazio aquoso preenche um cilindro de 18 metros de altura com um raio de 6 metros. As criaturas na área quando o vazio aparece e as criaturas que terminam seu turno na área sofrem 3d8[concussão|opções:dano de área] de dano e 3d8[void|opções:dano de área] de dano e devem tentar um teste (reflexo, dc:31) de salvamento. O vazio permanece até o final do próximo turno do ancião das profundezas. O ancião das profundezas pode sustentar o vazio para estender a duração em 1 rodada, até um total de 4 rodadas, e pode mover o vazio até 15 pés (4,5 metros). Assim que o efeito terminar, o ancião não poderá usar o Vazio Aquático novamente por [[/gmr 1d4 #Recharge Vazio Aquático]]{1d4 rodadas}.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano e uma penalidade de circunstância de -1,5 metro em suas Velocidades enquanto estiver no vazio.\nFalha A criatura sofre dano total e uma penalidade de circunstância de –3 metros em suas Velocidades enquanto estiver no vazio.\nSucesso Crítico A criatura sofre o dobro de dano, é derrubada e sofre uma penalidade de circunstância de –3 metros em suas Velocidades enquanto estiver no vazio."
+          "description": "O ancião das profundezas faz um vazio infinito de água aparecer em @Template[type:burst|distance:20] dentro de 60 pés (18 metros), arrastando criaturas para dentro de seu redemoinho. Se lançado debaixo d'água, o vazio aquoso preenche um cilindro de 18 metros de altura com um raio de 6 metros. As criaturas na área quando o vazio aparece e as criaturas que terminam seu turno na área sofrem 3d8[concussão de dano e 3d8[void de dano e devem tentar um teste (reflexo, dc:31) de salvamento. O vazio permanece até o final do próximo turno do ancião das profundezas. O ancião das profundezas pode sustentar o vazio para estender a duração em 1 rodada, até um total de 4 rodadas, e pode mover o vazio até 15 pés (4,5 metros). Assim que o efeito terminar, o ancião não poderá usar o Vazio Aquático novamente por 1d4.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano e uma penalidade de circunstância de -1,5 metro em suas Velocidades enquanto estiver no vazio.\nFalha A criatura sofre dano total e uma penalidade de circunstância de –3 metros em suas Velocidades enquanto estiver no vazio.\nSucesso Crítico A criatura sofre o dobro de dano, é derrubada e sofre uma penalidade de circunstância de –3 metros em suas Velocidades enquanto estiver no vazio."
         },
         "13AbcXHDRAQnf6nJ": {
           "name": "Nocaute aprimorado",
@@ -6499,11 +6499,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hBKKh0aXKDQ7s4LO": {
           "name": "Rejuvenescimento",
-          "description": "Quando um cavaleiro da tumba é destruído, sua armadura reconstrói seu corpo ao longo de [[/gmr 1d10 #days]]{1d10 dias} - ou mais rapidamente se a armadura for usada por um hospedeiro vivo. Se o corpo for destruído antes disso, o processo é reiniciado.\nUm cavaleiro da sepultura só pode ser destruído permanentemente destruindo sua armadura (como com Desintegrar), transportando-o para a Forja da Criação ou jogando-o no coração de um vulcão."
+          "description": "Quando um cavaleiro da tumba é destruído, sua armadura reconstrói seu corpo ao longo de 1d10 - ou mais rapidamente se a armadura for usada por um hospedeiro vivo. Se o corpo for destruído antes disso, o processo é reiniciado.\nUm cavaleiro da sepultura só pode ser destruído permanentemente destruindo sua armadura (como com Desintegrar), transportando-o para a Forja da Criação ou jogando-o no coração de um vulcão."
         },
         "b4ybXyF4hs8hpEyW": {
           "name": "Aura Sacrílega",
-          "description": "30 pés (9 metros). Quando uma criatura na aura usa uma mágica ou habilidade de vitalidade, o cavaleiro do túmulo tenta neutralizá-la automaticamente, com um [[/r 1d20+23 #Counteract]]{+23 counteract modifier}."
+          "description": "30 pés (9 metros). Quando uma criatura na aura usa uma mágica ou habilidade de vitalidade, o cavaleiro do túmulo tenta neutralizá-la automaticamente, com um 1d20+23."
         },
         "8bGiACtxTUu2ieCP": {
           "name": "Cura do Vazio",
@@ -6511,7 +6511,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0X6EFCetuVxcbAhd": {
           "name": "Explosão Devastadora",
-          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. Criaturas na área sofrem 8d12[eletricidade|opções:dano de área] de dano (teste de salvamento (reflexo, dc:34, básico, opções:efeito de área)).\nO cavaleiro da sepultura pode usar essa habilidade uma vez a cada [[/gmr 1d4 #Recharge Devastating Blast]]{1d4 rodadas}."
+          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. Criaturas na área sofrem 8d12[eletricidade de dano (teste de salvamento (reflexo, dc:34, básico, opções:efeito de área)).\nO cavaleiro da sepultura pode usar essa habilidade uma vez a cada 1d4."
         },
         "su6h0RMy6XM7g663": {
           "name": "Exemplo de violência",
@@ -6604,7 +6604,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "doEsjKt3NJoLAD51": {
           "name": "Calor do Dragão",
-          "description": "5 pés (1,5 metros). 3d6[fogo|opções:dano de área] de dano (verificação (reflexo, dc:30, básico, opções:efeito de área) salvamento)"
+          "description": "5 pés (1,5 metros). 3d6[fogo de dano (verificação (reflexo, dc:30, básico, opções:efeito de área) salvamento)"
         },
         "FvCzcBVRvmZ11mTe": {
           "name": "Presença assustadora",
@@ -6616,7 +6616,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "NEGCX9pCG8gyZcjL": {
           "name": "Respiração da Pira",
-          "description": "O dragão respira uma explosão de chamas que causa 13d6[fogo|opções:dano de área] de dano em um salvamento de @Template[type:cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)). Criaturas que falham criticamente em seu salvamento pegam fogo, sofrendo 2d6[persistente,fogo] de dano. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por [[/gmr 1d4 #Recharge Sopro da Pira]]{1d4 rodadas}."
+          "description": "O dragão respira uma explosão de chamas que causa 13d6[fogo de dano em um salvamento de @Template[type:cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)). Criaturas que falham criticamente em seu salvamento pegam fogo, sofrendo 2d6[persistente,fogo] de dano. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por 1d4."
         },
         "jmrC9phVteComdYb": {
           "name": "Acenda as chamas",
@@ -6751,7 +6751,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "gkiQGmXDkxDHGY7j": {
           "name": "Máscara do Poder",
-          "description": "A máscara de madeira única de um doprillu é a fonte de seu poder.\nUm doprillu privado de sua máscara perde sua regeneração e sua imunidade a Enfraquecido e Lento, e imediatamente se torna Enfraquecido 1. O valor Enfraquecido aumenta em 1 no início de cada um dos turnos do doprillu, até um máximo de Enfraquecido 4. Se a máscara for colocada novamente, o doprillu imediatamente recupera suas habilidades e perde a condição Enfraquecido.\nUma criatura pode tirar a máscara com um teste bem-sucedido de Atletismo para [[/act force-open dc=34]]."
+          "description": "A máscara de madeira única de um doprillu é a fonte de seu poder.\nUm doprillu privado de sua máscara perde sua regeneração e sua imunidade a Enfraquecido e Lento, e imediatamente se torna Enfraquecido 1. O valor Enfraquecido aumenta em 1 no início de cada um dos turnos do doprillu, até um máximo de Enfraquecido 4. Se a máscara for colocada novamente, o doprillu imediatamente recupera suas habilidades e perde a condição Enfraquecido.\nUma criatura pode tirar a máscara com um teste bem-sucedido de Atletismo para force open CD 34."
         },
         "BIIDNJTjlW3lJ1b2": {
           "name": "Veias Vulcânicas",
@@ -6787,7 +6787,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Casca Ravener",
-      "description": "Raveners exigem uma dieta constante de almas, e um Ravener que não consegue se alimentar por muito tempo eventualmente canibaliza sua própria alma. Se a proteção da alma de um corvo for reduzida a 0 Pontos de Vida pela fome enquanto o corvo tiver mais de 1 Ponto de Vida (veja Proteção da Alma), ele perderá todos os traços de sua identidade anterior (perdendo a maioria de suas características únicas, incluindo aquela que corresponde à sua tradição anterior) e cairá em um estado selvagem, quase estúpido. Mesmo que uma casca ravener consuma mais tarde a energia da alma, a transformação só pode ser revertida através do Ravenous Repast.\nEmbora sua expectativa de vida possa durar milênios, todos os dragões acabarão morrendo. Enquanto muitos fazem isso nas lâminas ou sob os magias dos matadores de dragões, alguns conseguem sobreviver aos seus inimigos e devem, com o tempo, enfrentar a verdade que aguarda todas as criaturas vivas no final de sua vida natural. Tal como acontece com muitas outras criaturas, alguns dragões respondem mal a esses lembretes iminentes de sua própria mortalidade, e os particularmente orgulhosos ou coléricos de sua espécie muitas vezes atacam com raiva quando confrontados por esta verdade sombria. Paz e aceitação são encontradas por alguns dragões, mas os mais teimosos de sua laia (e invariavelmente os mais perversos) podem buscar uma resposta diferente para o problema. Esses dragões procuram ritos sinistros que podem transformá-los em criaturas mortas-vivas conhecidas como raveners.\nA carne de um Ravener é arrancada como parte da transformação, deixando apenas ossos. O que eles perdem em carne, no entanto, o dragão ganha em poder destruidor de almas, pois sua energia espiritual forma uma barreira protetora ao redor de seu corpo, mantendo-o intacto e permitindo o voo com asas agora esqueléticas. Esta existência não é tão fácil de manter como outras formas de mortos-vivos, entretanto, e o ravener deve se alimentar regularmente de almas vivas para alimentar seu metabolismo profano. Sua fome é muito maior do que a de um dragão vivo, então os vorazes são forçados a se mudar regularmente, viajando para novos locais de caça cada vez que despojam suas presas atuais.",
+      "description": "Raveners exigem uma dieta constante de almas, e um Ravener que não consegue se alimentar por muito tempo eventualmente canibaliza sua própria alma. Se a proteção da alma de um corvo for reduzida a 0 Pontos de Vida pela fome enquanto o corvo tiver mais de 1 Ponto de Vida (veja Proteção da Alma), ele perderá todos os traços de sua identidade anterior (perdendo a maioria de suas características únicas, incluindo aquela que corresponde à sua tradição anterior) e cairá em um estado selvagem, quase estúpido. Mesmo que uma casca ravener consuma mais tarde a energia da alma, a transformação só pode ser revertida através do Ravenous Repast.\nEmbora sua expectativa de vida possa durar milênios, todos os dragões acabarão morrendo. Enquanto muitos fazem isso nas lâminas ou sob as magias dos matadores de dragões, alguns conseguem sobreviver aos seus inimigos e devem, com o tempo, enfrentar a verdade que aguarda todas as criaturas vivas no final de sua vida natural. Tal como acontece com muitas outras criaturas, alguns dragões respondem mal a esses lembretes iminentes de sua própria mortalidade, e os particularmente orgulhosos ou coléricos de sua espécie muitas vezes atacam com raiva quando confrontados por esta verdade sombria. Paz e aceitação são encontradas por alguns dragões, mas os mais teimosos de sua laia (e invariavelmente os mais perversos) podem buscar uma resposta diferente para o problema. Esses dragões procuram ritos sinistros que podem transformá-los em criaturas mortas-vivas conhecidas como raveners.\nA carne de um Ravener é arrancada como parte da transformação, deixando apenas ossos. O que eles perdem em carne, no entanto, o dragão ganha em poder destruidor de almas, pois sua energia espiritual forma uma barreira protetora ao redor de seu corpo, mantendo-o intacto e permitindo o voo com asas agora esqueléticas. Esta existência não é tão fácil de manter como outras formas de mortos-vivos, entretanto, e o ravener deve se alimentar regularmente de almas vivas para alimentar seu metabolismo profano. Sua fome é muito maior do que a de um dragão vivo, então os vorazes são forçados a se mudar regularmente, viajando para novos locais de caça cada vez que despojam suas presas atuais.",
       "size": "Imenso",
       "senses": {
         "darkvision": "visão no escuro"
@@ -6824,7 +6824,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kjHM3QE53i7n2ugL": {
           "name": "Quebra-ossos",
-          "description": "Gatilho A casca do corvo sofre qualquer quantidade de dano de concussão\nEfeito Os ossos frágeis do corvo se quebram, espalhando fragmentos de ossos por toda parte. Cada criatura dentro de um @Template[type:emanation|distance:10] da casca do corvo sofre 7d6[piercing|options:area-damage] de dano (teste (reflexo, dc:31, básico, opções:efeito de área) salvamento)."
+          "description": "Gatilho A casca do corvo sofre qualquer quantidade de dano de concussão\nEfeito Os ossos frágeis do corvo se quebram, espalhando fragmentos de ossos por toda parte. Cada criatura dentro de um @Template[type:emanation|distance:10] da casca do corvo sofre 7d6[piercing de dano (teste (reflexo, dc:31, básico, opções:efeito de área) salvamento)."
         },
         "IDZbfadO7y3spY2a": {
           "name": "Presença assustadora",
@@ -6840,7 +6840,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ORWYWlftRX4LQoyt": {
           "name": "Respiração Vazia",
-          "description": "A casca do corvo respira uma torrente de energia do vazio que causa 16d6[void|options:area-damage] de dano em um @Template[type:cone|distance:40] (check (reflex, dc:34, basic, options:area-effect) save). Eles não podem usar Void Breath novamente por [[/gmr 1d4 #Recharge Void Breath]]{1d4 rounds}."
+          "description": "A casca do corvo respira uma torrente de energia do vazio que causa 16d6[void de dano em um @Template[type:cone|distance:40] (check (reflex, dc:34, basic, options:area-effect) save). Eles não podem usar Void Breath novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -6913,7 +6913,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "doEsjKt3NJoLAD51": {
           "name": "Calor do Dragão",
-          "description": "5 pés (1,5 metros). 3d6[fogo|opções:dano de área] de dano (verificação (reflexo, dc:30, básico, opções:efeito de área) salvamento)"
+          "description": "5 pés (1,5 metros). 3d6[fogo de dano (verificação (reflexo, dc:30, básico, opções:efeito de área) salvamento)"
         },
         "FvCzcBVRvmZ11mTe": {
           "name": "Presença assustadora",
@@ -6933,7 +6933,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "NEGCX9pCG8gyZcjL": {
           "name": "Respiração da Pira",
-          "description": "O dragão respira uma explosão de chamas que causa 13d6[fogo|opções:dano de área] de dano em um salvamento de @Template[type:cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)). Criaturas que falham criticamente em seu salvamento pegam fogo, sofrendo 2d6[persistente,fogo] de dano. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por [[/gmr 1d4 #Recharge Sopro da Pira]]{1d4 rodadas}."
+          "description": "O dragão respira uma explosão de chamas que causa 13d6[fogo de dano em um salvamento de @Template[type:cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)). Criaturas que falham criticamente em seu salvamento pegam fogo, sofrendo 2d6[persistente,fogo] de dano. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por 1d4."
         },
         "jmrC9phVteComdYb": {
           "name": "Acenda as chamas",
@@ -7045,7 +7045,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "rYBfhejHUk9mGJyA": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "o9sNXlscXUyhKlOK": {
@@ -7062,7 +7062,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WYWDDEYazjVp60qA": {
           "name": "Chuva de detritos",
-          "description": "O sepid invoca uma chuva de pedra, madeira, metal e detritos semelhantes em um @Template[emanation|distance:40], causando 10d6[concussão,5d6[espírito]|options:area-damage]{10d6 de dano de concussão e 5d6 de dano espiritual}. Cada criatura na área que não seja o sepid deve tentar um teste de resistência (reflexo, dc:31, básico, opções:efeito de área).\nO sepid não pode usar Chuva de Detritos novamente por [[/gmr 1d4 #Recharge Chuva de Detritos]]{1d4 rodadas}."
+          "description": "O sepid invoca uma chuva de pedra, madeira, metal e detritos semelhantes em um @Template[emanation|distance:40], causando 10d6[concussão,5d6[espírito]{10d6 de dano de concussão e 5d6 de dano espiritual}. Cada criatura na área que não seja o sepid deve tentar um teste de resistência (reflexo, dc:31, básico, opções:efeito de área).\nO sepid não pode usar Chuva de Detritos novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -7143,7 +7143,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0AymbzLegfs9ibC8": {
           "name": "Amarrado à Terra",
-          "description": "Uma rainha lampad está intrinsecamente ligada a uma região subterrânea específica, geralmente um sistema de cavernas. Contanto que a rainha esteja saudável, o ambiente é excepcionalmente resiliente, permitindo que a rainha lampad tente automaticamente neutralizar magias e rituais como Blight que prejudicariam o ambiente, com um modificador de neutralização [[/r 1d20+30 #Counteract]]{+30} e um Rank de neutralização de 8.\nEntretanto, quando a rainha lampad se torna fisicamente ou psicologicamente insalubre, sua região protegida eventualmente se torna distorcida ou insalubre também. Nesse caso, restaurar a rainha lampad cura rapidamente toda a região."
+          "description": "Uma rainha lampad está intrinsecamente ligada a uma região subterrânea específica, geralmente um sistema de cavernas. Contanto que a rainha esteja saudável, o ambiente é excepcionalmente resiliente, permitindo que a rainha lampad tente automaticamente neutralizar magias e rituais como Blight que prejudicariam o ambiente, com um modificador de neutralização 1d20+30 e um Rank de neutralização de 8.\nEntretanto, quando a rainha lampad se torna fisicamente ou psicologicamente insalubre, sua região protegida eventualmente se torna distorcida ou insalubre também. Nesse caso, restaurar a rainha lampad cura rapidamente toda a região."
         },
         "3VJSS90TtdqUONTz": {
           "name": "magias Constantes",
@@ -7329,7 +7329,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "zKAviKDUdGihu01w": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "tnVnHfQjqXFn3YzS": {
@@ -7346,7 +7346,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "90Xboorkv7WSNSE9": {
           "name": "Visão Sublime",
-          "description": "Frequência uma vez por dia\nEfeito O okenevem lança o magia Presença Esmagadora, exceto que em vez de se engrandecer, o okenevem invoca uma visão do Céu dentro de 100 pés (30 metros), e o alvo deve humilhar-se em autorreflexão em vez de prestar tributo."
+          "description": "Frequência uma vez por dia\nEfeito O okenevem lança a magia Presença Esmagadora, exceto que em vez de se engrandecer, o okenevem invoca uma visão do Céu dentro de 100 pés (30 metros), e o alvo deve humilhar-se em autorreflexão em vez de prestar tributo."
         }
       },
       "spellcasting": {
@@ -7506,7 +7506,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "aqhyDgyM7LmIL9o2": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "8QnTTWcdqDNyOtIl": {
@@ -7519,7 +7519,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "wW8lBy7vi5CcDHTN": {
           "name": "Vômito de Sujidade",
-          "description": "O sordesdaemon exala um spray de esgoto que causa 8d6[acid,8d6[veneno]|options:area-damage]{8d6 de dano ácido e 8d6 de dano venenoso} em um @Template[cone|distance:30] (check (fortitude, dc:36, basic, options:area-effect) save).\nEle não pode usar Retch of Foulness novamente por [[/gmr 1d4 #Recharge Retch of Foulness]]{1d4 rodadas}."
+          "description": "O sordesdaemon exala um spray de esgoto que causa 8d6[acid,8d6[veneno]{8d6 de dano ácido e 8d6 de dano venenoso} em um @Template[cone|distance:30] (check (fortitude, dc:36, basic, options:area-effect) save).\nEle não pode usar Retch of Foulness novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -7930,7 +7930,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "8FV6HMADyqAFIFuU": {
           "name": "Engolir",
-          "description": "verificação (reflexo, dc:36, opções:efeito de dano,inflige:agarrado,inflige:lento), 4d8[concussão] de dano, [[/act escape dc=33]], Ruptura 36"
+          "description": "verificação (reflexo, dc:36, opções:efeito de dano,inflige:agarrado,inflige:lento), 4d8[concussão] de dano, Escapar CD 33, Ruptura 36"
         },
         "QTopjs7och0ybEpy": {
           "name": "Missa Espinhosa",
@@ -8009,7 +8009,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O3ebBljtcItTfmVr": {
           "name": "Respiração Condenadora",
-          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 12d8[spirit|options:area-damage] de dano em um @Template[type:line|distance:90] (check (reflex, dc:36, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:36, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por [[/gmr 1d4 #Recharge Dooming Breath]]{1d4 rodadas}."
+          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 12d8[spirit de dano em um @Template[type:line|distance:90] (check (reflex, dc:36, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:36, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por 1d4."
         },
         "OPtrKq8gnuusiAqH": {
           "name": "Frenesi Dracônico",
@@ -8209,7 +8209,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LgQMKlP8r3bZfKCj": {
           "name": "Alterar forma",
-          "description": "O nosferatu se transforma em um enxame de ratos cinza-claros. Eles ganham uma Velocidade terrestre de 30 pés (9 metros) e uma Velocidade de subida de 10 pés (3 metros), e se tornam Grandes. Nesta forma de enxame, o nosferatu pode realizar uma ação para causar 2d10[piercing|options:area-damage] de dano a cada inimigo no espaço do enxame com um teste de resistência (reflexo, básico, dc:36, opções:efeito de área). Uma criatura que falhe no teste também fica exposta à praga dos antigos."
+          "description": "O nosferatu se transforma em um enxame de ratos cinza-claros. Eles ganham uma Velocidade terrestre de 30 pés (9 metros) e uma Velocidade de subida de 10 pés (3 metros), e se tornam Grandes. Nesta forma de enxame, o nosferatu pode realizar uma ação para causar 2d10[piercing de dano a cada inimigo no espaço do enxame com um teste de resistência (reflexo, básico, dc:36, opções:efeito de área). Uma criatura que falhe no teste também fica exposta à praga dos antigos."
         },
         "D3EwX19he78NBEH3": {
           "name": "Comando Escravo",
@@ -8217,7 +8217,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "JsPkaolmnMCUojYB": {
           "name": "Dominar",
-          "description": "O nosferatu pode lançar Dominação à vontade como um magia divino inato. Lançá-lo requer olhar nos olhos do alvo, dando ao magia a característica visual. A CD de salvamento usa uma CD alta para o nível do nosferatu, e uma criatura bem-sucedida fica temporariamente imune à Dominação desse nosferatu por 24 horas. Destruir totalmente o nosferatu encerra a dominação, mas apenas reduzir o nosferatu a 0 HP é insuficiente para quebrar o magia."
+          "description": "O nosferatu pode lançar Dominação à vontade como uma magia divino inato. Lançá-lo requer olhar nos olhos do alvo, dando à magia a característica visual. A CD de salvamento usa uma CD alta para o nível do nosferatu, e uma criatura bem-sucedida fica temporariamente imune à Dominação desse nosferatu por 24 horas. Destruir totalmente o nosferatu encerra a dominação, mas apenas reduzir o nosferatu a 0 HP é insuficiente para quebrar a magia."
         },
         "H721NOrTIOeioelo": {
           "name": "Beber sangue",
@@ -8225,7 +8225,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "qdWbSsyOjSnNEpXE": {
           "name": "Vulnerabilidades dos Nosferatu",
-          "description": "• Repulsa Um nosferatu não pode voluntariamente chegar a 10 pés (3 metros) de alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir alho ou um símbolo religioso, uma criatura deve Interagir durante 1 rodada (semelhante a Levantar um Escudo). Se o nosferatu chegar involuntariamente a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um nosferatu pode tentar um teste (vontade, dc:25, características:concentração) salvo como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por [[/gmr 1d6 #rounds]]{1d6 rodadas} (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca mágica de madeira (como uma afetada por uma runa de potência de arma, Arma Rúnica ou magia similar) cravada no coração do nosferatu reduz o HP do nosferatu a 0 e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um nosferatu requer 3 ações e só funciona se o nosferatu estiver Inconsciente. Se a estaca for removida, o nosferatu pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do nosferatu for decepada e ungida com Água Benta enquanto a estaca estiver no lugar, o nosferatu será destruído.\n• Luz Solar Se exposto à luz solar direta, um nosferatu imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o nosferatu termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o nosferatu perder todas as suas ações desta forma, ele será destruído."
+          "description": "• Repulsa Um nosferatu não pode voluntariamente chegar a 10 pés (3 metros) de alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir alho ou um símbolo religioso, uma criatura deve Interagir durante 1 rodada (semelhante a Levantar um Escudo). Se o nosferatu chegar involuntariamente a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um nosferatu pode tentar um teste (vontade, dc:25, características:concentração) salvo como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por 1d6 (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca mágica de madeira (como uma afetada por uma runa de potência de arma, Arma Rúnica ou magia similar) cravada no coração do nosferatu reduz o HP do nosferatu a 0 e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um nosferatu requer 3 ações e só funciona se o nosferatu estiver Inconsciente. Se a estaca for removida, o nosferatu pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do nosferatu for decepada e ungida com Água Benta enquanto a estaca estiver no lugar, o nosferatu será destruído.\n• Luz Solar Se exposto à luz solar direta, um nosferatu imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o nosferatu termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o nosferatu perder todas as suas ações desta forma, ele será destruído."
         },
         "fXMpxHG2C32hSvaS": {
           "name": "Medo Paralítico",
@@ -8318,11 +8318,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kwYJk1o85f4qDBlh": {
           "name": "Magia do Canal",
-          "description": "O cavaleiro da sepultura redireciona energias mágicas através de sua armadura, permitindo-lhe lançar magia através de um ataque. O cavaleiro do túmulo lança um magia que requer 1 ou 2 ações para ser lançado e requer um modificador de ataque de magia. Os efeitos do magia não ocorrem imediatamente, mas são incorporados em um ataque. O cavaleiro da tumba então realiza um ataque corpo a corpo com uma arma ou ataque desarmado. O magia é acoplado ao ataque, usando o resultado da jogada de ataque para determinar os efeitos do Golpe e do magia. Isso conta como dois ataques para a penalidade de ataque múltiplo do cavaleiro do túmulo, mas não aplica a penalidade até que ele tenha completado Canalizar Magia. O cavaleiro da sepultura não pode usar Channel Magic novamente por [[/gmr 1d4 #Recharge Channel Magic]]{1d4 rodadas}."
+          "description": "O cavaleiro da sepultura redireciona energias mágicas através de sua armadura, permitindo-lhe lançar magia através de um ataque. O cavaleiro do túmulo lança uma magia que requer 1 ou 2 ações para ser lançado e requer um modificador de ataque de magia. Os efeitos da magia não ocorrem imediatamente, mas são incorporados em um ataque. O cavaleiro da tumba então realiza um ataque corpo a corpo com uma arma ou ataque desarmado. A magia é acoplado ao ataque, usando o resultado da jogada de ataque para determinar os efeitos do Golpe e da magia. Isso conta como dois ataques para a penalidade de ataque múltiplo do cavaleiro do túmulo, mas não aplica a penalidade até que ele tenha completado Canalizar Magia. O cavaleiro da sepultura não pode usar Channel Magic novamente por 1d4."
         },
         "AiCSiVf8Mu2cUUef": {
           "name": "Explosão Devastadora",
-          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. Criaturas na área sofrem 9d12[fogo|opções:dano de área] de dano (teste de salvamento (reflexo, dc:36, básico, opções:efeito de área)).\nO cavaleiro da sepultura pode usar essa habilidade uma vez a cada [[/gmr 1d4 #Recharge Devastating Blast]]{1d4 rodadas}."
+          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. Criaturas na área sofrem 9d12[fogo de dano (teste de salvamento (reflexo, dc:36, básico, opções:efeito de área)).\nO cavaleiro da sepultura pode usar essa habilidade uma vez a cada 1d4."
         },
         "IIWuQHOSJEPu5eUg": {
           "name": "Maldição do Cavaleiro Túmulo",
@@ -8428,15 +8428,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WDcV1XeZnUVVZkzi": {
           "name": "Voto de resgate de almas",
-          "description": "Um sramana pode usar o teletransporte interplanar para se teletransportar para perto de uma criatura verdadeiramente penitente, criatura vinculada à alma ou gema da alma da qual ele tenha conhecimento. Se o fizerem, eles não precisarão de uma chave planar e chegarão a [[/r 1d20]] milhas de distância do alvo. Eles também podem se teletransportar para o Nirvana ou The Boneyard sem uma chave planar."
+          "description": "Um sramana pode usar o teletransporte interplanar para se teletransportar para perto de uma criatura verdadeiramente penitente, criatura vinculada à alma ou gema da alma da qual ele tenha conhecimento. Se o fizerem, eles não precisarão de uma chave planar e chegarão a 1d20 milhas de distância do alvo. Eles também podem se teletransportar para o Nirvana ou The Boneyard sem uma chave planar."
         },
         "UTkJ0P5OYZTADiTI": {
           "name": "Aura de Renúncia",
-          "description": "100 pés (30 metros). Criaturas verdadeiramente penitentes na aura do sramana são afetadas por um magia Santuário CD 35. Se qualquer criatura dentro da aura realizar uma ação hostil, o santuário termina apenas para aquela criatura, e não para as outras criaturas na aura.\nAlém disso, as gemas da alma na aura não podem ser ingeridas, consumidas ou usadas de outra forma. Uma criatura que tentar fazer isso fica Enjoada 1, a menos que obtenha sucesso em um teste de resistência (fortitude, dc:37)."
+          "description": "100 pés (30 metros). Criaturas verdadeiramente penitentes na aura do sramana são afetadas por uma magia Santuário CD 35. Se qualquer criatura dentro da aura realizar uma ação hostil, o santuário termina apenas para aquela criatura, e não para as outras criaturas na aura.\nAlém disso, as gemas da alma na aura não podem ser ingeridas, consumidas ou usadas de outra forma. Uma criatura que tentar fazer isso fica Enjoada 1, a menos que obtenha sucesso em um teste de resistência (fortitude, dc:37)."
         },
         "9Sn7yLhuEZDvcoJ5": {
           "name": "Abrigar o sofrimento",
-          "description": "Frequência uma vez por dia\nEfeito O sramana joga o xale de suas vestes no ar, onde ele se expande para proteger o sofrimento. Cada criatura verdadeiramente penitente em um @Template[type:emanation|distance:100] é afetada por um magia de Invisibilidade, e a área é afetada pelo magia campo da vida, embora afete apenas criaturas penitentes e criaturas ligadas à alma. Esses efeitos duram 1 rodada, mas podem ser sustentados por até 1 hora."
+          "description": "Frequência uma vez por dia\nEfeito O sramana joga o xale de suas vestes no ar, onde ele se expande para proteger o sofrimento. Cada criatura verdadeiramente penitente em um @Template[type:emanation|distance:100] é afetada por uma magia de Invisibilidade, e a área é afetada pela magia campo da vida, embora afete apenas criaturas penitentes e criaturas ligadas à alma. Esses efeitos duram 1 rodada, mas podem ser sustentados por até 1 hora."
         }
       },
       "spellcasting": {
@@ -8566,7 +8566,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "weiKEUOM5w2SKK6a": {
           "name": "Erupção Elemental",
-          "description": "A fonte explode em uma cacofonia de cor e energia. Cada criatura em um @Template[type:emanation|distance:20] sofre 9d6[concussão|options:area-damage] de dano (teste (reflexo, dc:36, básico) de salvamento). A explosão causa dano de concussão, a menos que a fonte esteja sintonizada com ar (dano de eletricidade), fogo (dano de fogo), metal (dano cortante) ou madeira (dano perfurante). A Erupção Elemental ganha a característica correspondente ao elemento ao qual a fonte está sintonizada."
+          "description": "A fonte explode em uma cacofonia de cor e energia. Cada criatura em um @Template[type:emanation|distance:20] sofre 9d6[concussão de dano (teste (reflexo, dc:36, básico) de salvamento). A explosão causa dano de concussão, a menos que a fonte esteja sintonizada com ar (dano de eletricidade), fogo (dano de fogo), metal (dano cortante) ou madeira (dano perfurante). A Erupção Elemental ganha a característica correspondente ao elemento ao qual a fonte está sintonizada."
         },
         "v7e31VyI11uoKFuH": {
           "name": "Sepultamento",
@@ -8663,7 +8663,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O3ebBljtcItTfmVr": {
           "name": "Respiração Condenadora",
-          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 12d8[spirit|options:area-damage] de dano em um @Template[type:line|distance:90] (check (reflex, dc:36, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:36, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por [[/gmr 1d4 #Recharge Dooming Breath]]{1d4 rodadas}."
+          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 12d8[spirit de dano em um @Template[type:line|distance:90] (check (reflex, dc:36, basic, options:area-effect) save). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:36, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Sopro Dooming novamente por 1d4."
         },
         "pVA84K2nKuClLYVw": {
           "name": "Escudo da Alma",
@@ -8812,7 +8812,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "Lv4CaV9bwzOZ43lA": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "G2BywEyW2KKDmpDr": {
@@ -8917,7 +8917,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "iKbhKQt4aD8JDvDd": {
           "name": "Absorver Chama",
-          "description": "Gatilho A marrmora é alvo de um magia ou efeito de fogo, ou está na área de um efeito de fogo\nEfeito A marrmora é curada pelo dano de fogo, recuperando Pontos de Vida iguais à metade do dano que o efeito de fogo teria causado."
+          "description": "Gatilho A marrmora é alvo de uma magia ou efeito de fogo, ou está na área de um efeito de fogo\nEfeito A marrmora é curada pelo dano de fogo, recuperando Pontos de Vida iguais à metade do dano que o efeito de fogo teria causado."
         },
         "EYtHIPWgwGTdjCBp": {
           "name": "Fascínio da Chama",
@@ -9010,15 +9010,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "v2RqXgBeNgkZ0DtA": {
           "name": "Conclusão",
-          "description": "1 semana, [[/act disable-device dc=35]]{DC 35 Thievery}, espera\nPara que um relógio funcione, ele deve ser acionado com uma chave única por outra criatura. Isso leva 1 minuto. Uma vez ferido, ele permanece operacional pelo período de tempo listado, geralmente 24 horas, após o qual ele se torna inconsciente do que está ao seu redor e não pode agir até que seja ferido novamente. As habilidades de alguns relógios exigem que eles gastem parte do tempo operacional restante. Eles não podem gastar mais do que têm e desligar imediatamente quando tiverem 0 tempo restante. Se não estiver claro quando um relógio deu corda pela última vez, a maioria dos guardiões do relógio dá corda em todos os seus relógios em um horário definido, normalmente às 8h.\nUm mecanismo de relógio que lista o modo de espera em sua entrada de encerramento pode entrar no modo de espera como uma atividade de 3 ações. Seu tempo operacional não diminui em espera, mas ele pode sentir o que está ao seu redor (com uma penalidade de -2 na Percepção). Ele não pode agir, com uma exceção: quando percebe uma criatura, ele pode sair do modo de espera como reação (jogando iniciativa se apropriado).\nUma criatura pode tentar Desabilitar um Dispositivo para desacelerar o relógio (com uma CD listada na entrada de finalização). Para cada sucesso, o mecanismo perde 1 hora de tempo operacional. Isso pode ser feito mesmo se o relógio estiver no modo de espera."
+          "description": "1 semana, disable device CD 35, espera\nPara que um relógio funcione, ele deve ser acionado com uma chave única por outra criatura. Isso leva 1 minuto. Uma vez ferido, ele permanece operacional pelo período de tempo listado, geralmente 24 horas, após o qual ele se torna inconsciente do que está ao seu redor e não pode agir até que seja ferido novamente. As habilidades de alguns relógios exigem que eles gastem parte do tempo operacional restante. Eles não podem gastar mais do que têm e desligar imediatamente quando tiverem 0 tempo restante. Se não estiver claro quando um relógio deu corda pela última vez, a maioria dos guardiões do relógio dá corda em todos os seus relógios em um horário definido, normalmente às 8h.\nUm mecanismo de relógio que lista o modo de espera em sua entrada de encerramento pode entrar no modo de espera como uma atividade de 3 ações. Seu tempo operacional não diminui em espera, mas ele pode sentir o que está ao seu redor (com uma penalidade de -2 na Percepção). Ele não pode agir, com uma exceção: quando percebe uma criatura, ele pode sair do modo de espera como reação (jogando iniciativa se apropriado).\nUma criatura pode tentar Desabilitar um Dispositivo para desacelerar o relógio (com uma CD listada na entrada de finalização). Para cada sucesso, o mecanismo perde 1 hora de tempo operacional. Isso pode ser feito mesmo se o relógio estiver no modo de espera."
         },
         "Q9b50evzwuGvfkAB": {
           "name": "Autodestruição",
-          "description": "Um dragão mecânico deve usar esta reação, a menos que seja especificamente programado de outra forma por seu criador.\nGatilho O dragão mecânico é reduzido a 0 Pontos de Vida.\nEfeito O dragão para com um guincho e emite um som constante e alto. No início do que seria seu próximo turno, o dragão explode, causando 12d10[piercing|options:area-damage] de dano em um @Template[emanation|distance:40] (check (reflex, dc:37, basic, options:area-effect) save).\nUma criatura adjacente pode cancelar a sequência de autodestruição obtendo sucesso em um teste (roubo, dc:37, características:ação:desabilitar-um-dispositivo) para Desabilitar um Dispositivo."
+          "description": "Um dragão mecânico deve usar esta reação, a menos que seja especificamente programado de outra forma por seu criador.\nGatilho O dragão mecânico é reduzido a 0 Pontos de Vida.\nEfeito O dragão para com um guincho e emite um som constante e alto. No início do que seria seu próximo turno, o dragão explode, causando 12d10[piercing de dano em um @Template[emanation|distance:40] (check (reflex, dc:37, basic, options:area-effect) save).\nUma criatura adjacente pode cancelar a sequência de autodestruição obtendo sucesso em um teste (roubo, dc:37, características:ação:desabilitar-um-dispositivo) para Desabilitar um Dispositivo."
         },
         "2PoHFE6FWRaWarJD": {
           "name": "Respire óleo",
-          "description": "O dragão mecânico respira um spray de óleo flamejante que causa 16d6[fogo|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:37, básico, opções:efeito de área)). As criaturas que falham em seus testes ficam cobertas de óleo em chamas e recebem 2d6[persistente,fogo]. O dragão mecânico não pode usar Breathe Oil novamente por 2 rodadas."
+          "description": "O dragão mecânico respira um spray de óleo flamejante que causa 16d6[fogo de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:37, básico, opções:efeito de área)). As criaturas que falham em seus testes ficam cobertas de óleo em chamas e recebem 2d6[persistente,fogo]. O dragão mecânico não pode usar Breathe Oil novamente por 2 rodadas."
         },
         "Lt0Vd3S5Hji79WEW": {
           "name": "Frenesi Dracônico",
@@ -9252,7 +9252,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Quando um bythos transmite informações, ele o faz sem palavras, por meio de projeções psíquicas. Isto atua como telepatia com um alcance de 100 pés (30 metros), mas é compreensível para todas as criaturas, independentemente de terem ou não um idioma.\nO significado para não-aeons pode ser vago e muitas vezes misterioso. Um bythos pode usar essa habilidade para se comunicar perfeitamente com qualquer outro aeon no mesmo plano."
         },
         "duUBSQ13tI7iVahr": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "v1Nae4WDwZunhsHt": {
@@ -9261,7 +9261,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Ai8J0A4OuhkDr7Cx": {
           "name": "Olhar Confuso",
-          "description": "30 pés (9 metros). Uma criatura que termina seu turno na aura deve tentar um teste de resistência (vontade, dc:34, opções:efeito de área,infligir:confuso). Se falhar, ele ficará Confuso por 1 rodada (ou [[/gmr 1d4 #rounds]]{1d4 rodadas} em caso de falha crítica)."
+          "description": "30 pés (9 metros). Uma criatura que termina seu turno na aura deve tentar um teste de resistência (vontade, dc:34, opções:efeito de área,infligir:confuso). Se falhar, ele ficará Confuso por 1 rodada (ou 1d4 em caso de falha crítica)."
         },
         "x5lmNBtvBd1z0Azh": {
           "name": "Reversão Temporal",
@@ -9281,7 +9281,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "bBQMy1lr5xW6rBgj": {
           "name": "Golpe Temporal",
-          "description": "O bythos toca uma criatura ou objeto para deslocá-lo do tempo. O alvo tenta um teste de salvamento (fortitude, dc:37, opções:efeito de dano,inflige:lentidão).\nSucesso Crítico O alvo não é afetado.\nSucesso O tempo flui em torno do alvo; o alvo fica lento 1 por 1 rodada.\nFalha O alvo desaparece do momento presente e reaparece no mesmo local [[/gmr 1d4 #rounds]]{1d4 rounds} mais tarde, como se nenhum tempo tivesse passado para isso. Se uma criatura ou objeto ocupar esse espaço quando o alvo retornar, o alvo aparecerá no espaço disponível mais próximo de sua localização original.\nFalha Crítica Como falha, mas o alvo fica Lento 1 por [[/gmr 1d4 #rounds]]{1d4 rounds} extras após retornar."
+          "description": "O bythos toca uma criatura ou objeto para deslocá-lo do tempo. O alvo tenta um teste de salvamento (fortitude, dc:37, opções:efeito de dano,inflige:lentidão).\nSucesso Crítico O alvo não é afetado.\nSucesso O tempo flui em torno do alvo; o alvo fica lento 1 por 1 rodada.\nFalha O alvo desaparece do momento presente e reaparece no mesmo local 1d4 mais tarde, como se nenhum tempo tivesse passado para isso. Se uma criatura ou objeto ocupar esse espaço quando o alvo retornar, o alvo aparecerá no espaço disponível mais próximo de sua localização original.\nFalha Crítica Como falha, mas o alvo fica Lento 1 por 1d4 extras após retornar."
         }
       },
       "spellcasting": {
@@ -9392,7 +9392,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WdFNthO0BdxIqruL": {
           "name": "Respiração de Cogitação",
-          "description": "O dragão libera um miasma confuso, causando 15d6[mental|options:area-damage] de dano em um @Template[type:cone|distance:50] (check (will, dc:37, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por [[/gmr 1d4 #Recharge Sopro de Cogitação]]{1d4 rodadas}."
+          "description": "O dragão libera um miasma confuso, causando 15d6[mental de dano em um @Template[type:cone|distance:50] (check (will, dc:37, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por 1d4."
         },
         "foIbgbTavh92IEGM": {
           "name": "Frenesi Dracônico",
@@ -9535,7 +9535,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WdFNthO0BdxIqruL": {
           "name": "Respiração de Cogitação",
-          "description": "O dragão libera um miasma confuso, causando 15d6[mental|options:area-damage] de dano em um @Template[type:cone|distance:50] (check (will, dc:37, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por [[/gmr 1d4 #Recharge Sopro de Cogitação]]{1d4 rodadas}."
+          "description": "O dragão libera um miasma confuso, causando 15d6[mental de dano em um @Template[type:cone|distance:50] (check (will, dc:37, basic, options:area-effect,inflicts:stupefied) save). Uma criatura que falhe no teste fica Estupefata 1 (Estupefada 2 em caso de falha crítica) por 1 minuto. O dragão não pode usar Sopro de Cogitação novamente por 1d4."
         },
         "EZmRWrf1EQnbLdow": {
           "name": "Roubar Conhecimento",

@@ -9,12 +9,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Espigão Empalador",
-      "description": "Você conjura uma ponta que sai da terra abaixo de uma criatura alvo, potencialmente empalando-a. A ponta é feita de ferro frio e causa 8d6 de dano perfurante. O alvo deve tentar um salvamento de Reflexos.\nSucesso Crítico O alvo evita o pico e não é afetado.\nSucesso O alvo é atingido pelo espinho e sofre metade do dano.\nFalha O alvo é empalado através de uma perna ou outra parte não vital do corpo. A criatura sofre dano total e, se estiver em solo sólido, fica Imobilizada. Ele pode tentar escapar (a CD é a CD do seu magia). Enquanto permanecer empalado, ele sofre dano de qualquer fraqueza ao ferro frio que tiver no final de cada um de seus turnos.\nFalha Crítica Como falha, mas a criatura é empalada através de um órgão vital ou de seu centro de massa, sofrendo o dobro de dano, e fica fora de guarda enquanto estiver empalada.\nAprimorada (+1) O dano aumenta em 2d6.",
+      "description": "Você conjura uma ponta que sai da terra abaixo de uma criatura alvo, potencialmente empalando-a. A ponta é feita de ferro frio e causa 8d6 de dano perfurante. O alvo deve tentar um salvamento de Reflexos.\nSucesso Crítico O alvo evita o pico e não é afetado.\nSucesso O alvo é atingido pelo espinho e sofre metade do dano.\nFalha O alvo é empalado através de uma perna ou outra parte não vital do corpo. A criatura sofre dano total e, se estiver em solo sólido, fica Imobilizada. Ele pode tentar escapar (a CD é a CD do sua magia). Enquanto permanecer empalado, ele sofre dano de qualquer fraqueza ao ferro frio que tiver no final de cada um de seus turnos.\nFalha Crítica Como falha, mas a criatura é empalada através de um órgão vital ou de seu centro de massa, sofrendo o dobro de dano, e fica fora de guarda enquanto estiver empalada.\nAprimorada (+1) O dano aumenta em 2d6.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 minuto",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -58,7 +58,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Falsa Visão",
-      "description": "Você cria uma imagem falsa que engana qualquer tentativa de vidência em uma área. Qualquer magia de vidência vê, ouve, cheira e detecta tudo o que você deseja dentro da área, em vez do que realmente está na área. Você pode Sustentar o magia a cada rodada para mudar a ilusão como desejar, incluindo representar uma cena complexa. Se o magia de vidência tiver um Rank maior que a visão falsa, o vidente pode tentar um teste de Percepção para descrer da ilusão, embora mesmo se tiver sucesso, ele não poderá descobrir o que realmente está acontecendo na área.",
+      "description": "Você cria uma imagem falsa que engana qualquer tentativa de vidência em uma área. Qualquer magia de vidência vê, ouve, cheira e detecta tudo o que você deseja dentro da área, em vez do que realmente está na área. Você pode Sustentar a magia a cada rodada para mudar a ilusão como desejar, incluindo representar uma cena complexa. Se a magia de vidência tiver um Rank maior que a visão falsa, o vidente pode tentar um teste de Percepção para descrer da ilusão, embora mesmo se tiver sucesso, ele não poderá descobrir o que realmente está acontecendo na área.",
       "castingTime": "10 minutos",
       "range": "tocar",
       "target": "",
@@ -107,7 +107,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Transporte Telecinético",
-      "description": "Você move o alvo até 20 pés (6 metros), potencialmente suspendendo-o no ar. Ao Sustentar o magia, você pode fazê-lo novamente ou pode mudar seu foco telecinético para um alvo elegível diferente dentro do alcance, movendo-o em vez disso.",
+      "description": "Você move o alvo até 20 pés (6 metros), potencialmente suspendendo-o no ar. Ao Sustentar a magia, você pode fazê-lo novamente ou pode mudar seu foco telecinético para um alvo elegível diferente dentro do alcance, movendo-o em vez disso.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 objeto não supervisionado de até 80 Bulk sem dimensão maior que 20 pés (6 metros)",
@@ -123,13 +123,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Alucinação",
-      "description": "O alvo detecta consistentemente uma coisa como outra, não consegue detectar algo que está lá ou detecta algo que não está lá, embora isso não altere suas crenças. Você escolhe qual desses efeitos se aplica e determina as especificidades da alucinação. Por exemplo, você pode fazer com que o alvo veja todos os elfos como humanos, seja incapaz de detectar a presença de seu irmão, veja seu amado amuleto de boa sorte em sua pessoa mesmo quando não está, ou veja uma torre no centro da cidade.\nO alvo pode tentar um salvamento inicial de Vontade, com os efeitos abaixo. Eles também recebem um teste de Vontade para descrer da alucinação toda vez que Procurarem ou interagirem diretamente com a alucinação. Por exemplo, o alvo poderia tentar desacreditar da alucinação cada vez que interagisse com um elfo, esbarrasse acidentalmente em seu irmão, tentasse verificar seu encanto ou estudasse a torre. O alvo pode tentar descrer com um grande bônus de circunstância em situações determinadas pelo Mestre, como se o alvo tentasse escalar uma torre inexistente.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura percebe o que você escolheu até desacreditar, mas sabe o que é a alucinação.\nFalha A criatura percebe o que você escolheu até desacreditar.\nFalha Crítica A criatura percebe o que você escolheu até desacreditar, e confia em seus falsos sentidos, sofrendo uma penalidade de circunstância de -4 em testes de descrença.\nAprimorada (6º) Escolha atingir até 10 criaturas ou alterar a duração do magia para até seus próximos preparativos diários.\nAprimorada (8º) Escolha qualquer número de criaturas como alvo ou altere a duração do magia para ilimitada.",
+      "description": "O alvo detecta consistentemente uma coisa como outra, não consegue detectar algo que está lá ou detecta algo que não está lá, embora isso não altere suas crenças. Você escolhe qual desses efeitos se aplica e determina as especificidades da alucinação. Por exemplo, você pode fazer com que o alvo veja todos os elfos como humanos, seja incapaz de detectar a presença de seu irmão, veja seu amado amuleto de boa sorte em sua pessoa mesmo quando não está, ou veja uma torre no centro da cidade.\nO alvo pode tentar um salvamento inicial de Vontade, com os efeitos abaixo. Eles também recebem um teste de Vontade para descrer da alucinação toda vez que Procurarem ou interagirem diretamente com a alucinação. Por exemplo, o alvo poderia tentar desacreditar da alucinação cada vez que interagisse com um elfo, esbarrasse acidentalmente em seu irmão, tentasse verificar seu encanto ou estudasse a torre. O alvo pode tentar descrer com um grande bônus de circunstância em situações determinadas pelo Mestre, como se o alvo tentasse escalar uma torre inexistente.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura percebe o que você escolheu até desacreditar, mas sabe o que é a alucinação.\nFalha A criatura percebe o que você escolheu até desacreditar.\nFalha Crítica A criatura percebe o que você escolheu até desacreditar, e confia em seus falsos sentidos, sofrendo uma penalidade de circunstância de -4 em testes de descrença.\nAprimorada (6º) Escolha atingir até 10 criaturas ou alterar a duração da magia para até seus próximos preparativos diários.\nAprimorada (8º) Escolha qualquer número de criaturas como alvo ou altere a duração da magia para ilimitada.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 hora",
-      "defense": "vai salvar",
-      "heightening": "Aprimorada (6º) Escolha atingir até 10 criaturas ou alterar a duração do magia para até seus próximos preparativos diários.\nAprimorada (8º) Escolha qualquer número de criaturas como alvo ou altere a duração do magia para ilimitada."
+      "defense": "teste de Vontade",
+      "heightening": "Aprimorada (6º) Escolha atingir até 10 criaturas ou alterar a duração da magia para até seus próximos preparativos diários.\nAprimorada (8º) Escolha qualquer número de criaturas como alvo ou altere a duração da magia para ilimitada."
     }
   },
   {
@@ -140,13 +140,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cena Ilusória",
-      "description": "Você cria uma cena imaginária que inclui até 10 criaturas ou objetos distintos de vários tamanhos, todos os quais devem estar dentro da área da magia. Esses elementos geram sons e cheiros apropriados e são adequados ao toque. Elementos de uma cena ilusória são incapazes de falar. Ao contrário do magia Criatura Ilusória, as criaturas em sua cena não possuem habilidades de combate e estatísticas. Sua cena não inclui mudanças no ambiente ao seu redor, embora você possa colocá-la dentro do ambiente ilusório de uma magia Miragem.\nAo criar a cena, você pode optar por deixá-la estática ou seguir um programa. Embora uma cena estática seja estacionária, ela inclui movimento natural básico. Por exemplo, o vento soprando em um pedaço de papel ilusório o farfalharia. Um programa pode ter até 1 minuto de duração e é repetido quando concluído. Por exemplo, você poderia criar uma cena de dois orcs lutando entre si, e a luta seria da mesma forma a cada repetição. Se você criar um loop, os dois lutadores terminarão no mesmo lugar no início e no final da cena, mas você pode suavizar o programa para que seja difícil dizer quando o loop termina e começa. Qualquer pessoa que observe a cena por mais de alguns minutos quase sempre percebe que ela está em loop. Você não consegue alterar o programa depois de criar a ilusão.\nQualquer criatura que toque qualquer parte da imagem ou use a ação Procurar para examiná-la pode tentar descrer da sua ilusão. Se interagirem com uma parte da ilusão, eles descrerão apenas nessa parte. Eles desacreditam de toda a cena apenas com um sucesso crítico.\nAprimorada (6º) Criaturas ou objetos em sua cena podem falar. Você deve falar as falas específicas de cada ator ao criar seu programa. O magia disfarça sua voz para cada ator.\nAprimorada (8º) Como a versão 6º-Rank, e a duração é ilimitada.",
+      "description": "Você cria uma cena imaginária que inclui até 10 criaturas ou objetos distintos de vários tamanhos, todos os quais devem estar dentro da área da magia. Esses elementos geram sons e cheiros apropriados e são adequados ao toque. Elementos de uma cena ilusória são incapazes de falar. Ao contrário da magia Criatura Ilusória, as criaturas em sua cena não possuem habilidades de combate e estatísticas. Sua cena não inclui mudanças no ambiente ao seu redor, embora você possa colocá-la dentro do ambiente ilusório de uma magia Miragem.\nAo criar a cena, você pode optar por deixá-la estática ou seguir um programa. Embora uma cena estática seja estacionária, ela inclui movimento natural básico. Por exemplo, o vento soprando em um pedaço de papel ilusório o farfalharia. Um programa pode ter até 1 minuto de duração e é repetido quando concluído. Por exemplo, você poderia criar uma cena de dois orcs lutando entre si, e a luta seria da mesma forma a cada repetição. Se você criar um loop, os dois lutadores terminarão no mesmo lugar no início e no final da cena, mas você pode suavizar o programa para que seja difícil dizer quando o loop termina e começa. Qualquer pessoa que observe a cena por mais de alguns minutos quase sempre percebe que ela está em loop. Você não consegue alterar o programa depois de criar a ilusão.\nQualquer criatura que toque qualquer parte da imagem ou use a ação Procurar para examiná-la pode tentar descrer da sua ilusão. Se interagirem com uma parte da ilusão, eles descrerão apenas nessa parte. Eles desacreditam de toda a cena apenas com um sucesso crítico.\nAprimorada (6º) Criaturas ou objetos em sua cena podem falar. Você deve falar as falas específicas de cada ator ao criar seu programa. A magia disfarça sua voz para cada ator.\nAprimorada (8º) Como a versão 6º-Rank, e a duração é ilimitada.",
       "castingTime": "10 minutos",
       "range": "500 pés (150 metros)",
       "target": "",
       "area": "30 explosão",
       "duration": "1 hora",
-      "heightening": "Aprimorada (6º) Criaturas ou objetos em sua cena podem falar. Você deve falar as falas específicas de cada ator ao criar seu programa. O magia disfarça sua voz para cada ator.\nAprimorada (8º) Como a versão 6º-Rank, e a duração é ilimitada."
+      "heightening": "Aprimorada (6º) Criaturas ou objetos em sua cena podem falar. Você deve falar as falas específicas de cada ator ao criar seu programa. A magia disfarça sua voz para cada ator.\nAprimorada (8º) Como a versão 6º-Rank, e a duração é ilimitada."
     }
   },
   {
@@ -157,13 +157,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Deslizar",
-      "description": "Uma massa de cobras feitas de sombras surge para capturar as criaturas da área. Cada criatura na área quando você lança o magia sofre 3d6[perfurante] de dano e 1d6[persistente, venenoso] de dano de uma cobra mordedora, e é agarrada ou contida dependendo de seu teste de Reflexos. Uma criatura que termine seu turno na área também deve tentar este salvamento, mesmo que já tenha sido agarrada ou contida pelas cobras. Você pode descartar o magia.\nSucesso A criatura não é afetada.\nFalha A criatura sofre dano total e é agarrada por uma cobra. A CD de Fuga das cobras é igual à CD do seu magia. Uma criatura pode atacar uma cobra para libertá-la. A CA de uma cobra é igual à CD do seu magia e ela é destruída se sofrer 12 ou mais danos de uma vez. Novas cobras crescem continuamente enquanto o magia durar, então destruir cobras não impede que slither capture mais criaturas.\nFalha Crítica Como falha, mas a criatura sofre o dobro de dano e é contida por uma cobra.\nAumentado (+2) O dano persistente do veneno aumenta em 1d6 e o ​​HP da cobra aumenta em 6.",
+      "description": "Uma massa de cobras feitas de sombras surge para capturar as criaturas da área. Cada criatura na área quando você lança a magia sofre 3d6[perfurante] de dano e 1d6[persistente, venenoso] de dano de uma cobra mordedora, e é agarrada ou contida dependendo de seu teste de Reflexos. Uma criatura que termine seu turno na área também deve tentar este salvamento, mesmo que já tenha sido agarrada ou contida pelas cobras. Você pode descartar a magia.\nSucesso A criatura não é afetada.\nFalha A criatura sofre dano total e é agarrada por uma cobra. A CD de Fuga das cobras é igual à CD do sua magia. Uma criatura pode atacar uma cobra para libertá-la. A CA de uma cobra é igual à CD do sua magia e ela é destruída se sofrer 12 ou mais danos de uma vez. Novas cobras crescem continuamente enquanto a magia durar, então destruir cobras não impede que slither capture mais criaturas.\nFalha Crítica Como falha, mas a criatura sofre o dobro de dano e é contida por uma cobra.\nAumentado (+2) O dano persistente do veneno aumenta em 1d6 e o ​​HP da cobra aumenta em 6.",
       "castingTime": "3 ações",
       "range": "120 pés (36 metros)",
       "target": "",
       "area": "20 explosão",
       "duration": "1 minuto",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aumentado (+2) O dano persistente do veneno aumenta em 1d6 e o ​​HP da cobra aumenta em 6."
     }
   },
@@ -175,13 +175,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Nevasca uivante",
-      "description": "Ventos gelados se estendem de suas mãos, afastando-se de você com grande força. Se você lançar este magia com 2 ações, ele terá uma área de cone de 18 metros; se você lançar este magia com 3 ações, ele terá um alcance de 500 pés (150 metros) e uma área de explosão de 9 metros. Cada criatura na área sofre 10d6 de dano de frio com um teste básico de Reflexos. Nevascas e vendavais gelados enchem a área até o início do seu próximo turno, tornando a área um terreno difícil.\nAprimorada (+1) O dano aumenta em 2d6.",
+      "description": "Ventos gelados se estendem de suas mãos, afastando-se de você com grande força. Se você lançar esta magia com 2 ações, ele terá uma área de cone de 18 metros; se você lançar esta magia com 3 ações, ele terá um alcance de 500 pés (150 metros) e uma área de explosão de 9 metros. Cada criatura na área sofre 10d6 de dano de frio com um teste básico de Reflexos. Nevascas e vendavais gelados enchem a área até o início do seu próximo turno, tornando a área um terreno difícil.\nAprimorada (+1) O dano aumenta em 2d6.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "area": "cone 60",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -225,12 +225,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Frenesi da Lua",
-      "description": "Um aspecto feroz supera os alvos, enchendo-os de força e ferocidade. Os alvos ganham 5 pontos de vida temporários, um bônus de status de +3 metros em suas velocidades e fraqueza 5 em prata. Eles também desenvolvem presas e garras cruéis, que são ataques desarmados. As presas causam 2d8 de dano perfurante; as garras causam 2d6 de dano cortante e possuem traços de agilidade e sutileza. Os alvos usam sua maior proficiência em arma ou ataque desarmado com esses ataques e, se tiverem especialização em arma ou maior especialização em arma, eles também adicionam esse dano. Em um acerto crítico com um desses ataques desarmados, a criatura atingida sofre 1d4 de dano de sangramento persistente.\nOs alvos não podem usar ações de concentração, a menos que essas ações também tenham o traço raiva, com exceção de Procurar. Uma criatura pode tentar encerrar o efeito do magia sobre si mesma usando uma única ação, que tem o traço raiva, para tentar um salvamento de Vontade contra a CD do seu magia; em caso de sucesso, ele encerra o efeito da magia sobre si mesmo.\nSe um alvo estiver sob a luz da lua cheia, ele também aumentará um tamanho se for Médio ou menor. Isso aumenta o alcance de uma criatura Média ou Minúscula em 5 pés (1,5 metros).\nAprimorada (6º) Os Pontos de Vida temporários aumentam para 10, a fraqueza da prata para 10 e o dano causado pelos ataques para três dados.\nAprimorada (10º) Os Pontos de Vida temporários aumentam para 20, a fraqueza da prata para 20 e o dano causado pelos ataques para quatro dados.\nEfeito do magia: Frenesi Lunar",
+      "description": "Um aspecto feroz supera os alvos, enchendo-os de força e ferocidade. Os alvos ganham 5 pontos de vida temporários, um bônus de status de +3 metros em suas velocidades e fraqueza 5 em prata. Eles também desenvolvem presas e garras cruéis, que são ataques desarmados. As presas causam 2d8 de dano perfurante; as garras causam 2d6 de dano cortante e possuem traços de agilidade e sutileza. Os alvos usam sua maior proficiência em arma ou ataque desarmado com esses ataques e, se tiverem especialização em arma ou maior especialização em arma, eles também adicionam esse dano. Em um acerto crítico com um desses ataques desarmados, a criatura atingida sofre 1d4 de dano de sangramento persistente.\nOs alvos não podem usar ações de concentração, a menos que essas ações também tenham o traço raiva, com exceção de Procurar. Uma criatura pode tentar encerrar o efeito da magia sobre si mesma usando uma única ação, que tem o traço raiva, para tentar um salvamento de Vontade contra a CD do sua magia; em caso de sucesso, ele encerra o efeito da magia sobre si mesmo.\nSe um alvo estiver sob a luz da lua cheia, ele também aumentará um tamanho se for Médio ou menor. Isso aumenta o alcance de uma criatura Média ou Minúscula em 5 pés (1,5 metros).\nAprimorada (6º) Os Pontos de Vida temporários aumentam para 10, a fraqueza da prata para 10 e o dano causado pelos ataques para três dados.\nAprimorada (10º) Os Pontos de Vida temporários aumentam para 20, a fraqueza da prata para 20 e o dano causado pelos ataques para quatro dados.\nEfeito da magia: Frenesi Lunar",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "até 5 criaturas dispostas",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (6º) Os Pontos de Vida temporários aumentam para 10, a fraqueza da prata para 10 e o dano causado pelos ataques para três dados.\nAprimorada (10º) Os Pontos de Vida temporários aumentam para 20, a fraqueza da prata para 20 e o dano causado pelos ataques para quatro dados.\nEfeito do magia: Frenesi Lunar"
+      "heightening": "Aprimorada (6º) Os Pontos de Vida temporários aumentam para 10, a fraqueza da prata para 10 e o dano causado pelos ataques para três dados.\nAprimorada (10º) Os Pontos de Vida temporários aumentam para 20, a fraqueza da prata para 20 e o dano causado pelos ataques para quatro dados.\nEfeito da magia: Frenesi Lunar"
     }
   },
   {
@@ -246,7 +246,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "tocar",
       "target": "1 criatura",
       "duration": "",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -274,7 +274,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Forma de planta",
-      "description": "Inspirando-se em criaturas verdejantes, você se transforma em uma forma de batalha de plantas grandes. Ao lançar este magia, escolha uma forma de batalha listada. Você pode substituir uma planta específica semelhante para se transformar (como uma planta carnívora em vez de uma armadilha para moscas), mas isso não afeta o tamanho ou as estatísticas do formulário. Enquanto estiver nesta forma, você ganha o traço de planta. Você pode descartar o magia.\nVocê ganha as seguintes estatísticas e habilidades, independentemente da forma de batalha escolhida:\n• CA = 19 + seu nível. Ignore a penalidade de teste e a redução de velocidade da sua armadura.\n• 12 pontos de vida temporários.\n• Resistência 10 a veneno.\n• Visão na penumbra.\n• Um ou mais ataques corpo a corpo desarmados específicos da forma de batalha que você escolher, que são os únicos ataques com os quais você pode atacar. Você é treinado com eles. Seu modificador de ataque é +17 e seu bônus de dano é +11. Esses ataques são baseados na Força (para o propósito da condição Enfraquecido, por exemplo). Se o seu modificador de ataque desarmado for maior, você poderá usá-lo.\n• Modificador de Atletismo de +19, a menos que seu próprio modificador seja maior.\nVocê também ganha habilidades específicas com base no tipo de planta escolhida:\n• Arbóreo\n• Velocidade 30 pés (9 metros)\n• Ramo corpo a corpo 1 (alcance 15 pés (4,5 metros)), Dano 2d10 por concussão;\n• Corpo a Corpo 1 pés (0,3 metros), Dano 2d8 por concussão;\n• você pode falar desta forma\n• Armadilha para mosca\n• Velocidade 15 pés (4,5 metros); resistência 10 ao ácido;\n• Corpo a corpo 1 folha (alcance 10 pés (3 metros)), Dano 2d8 perfurante, e você pode gastar uma ação após um acerto para Agarrar o alvo.\nAprimorada (6º) Sua forma de batalha é Enorme e o alcance de seus ataques aumenta em 5 pés (1,5 metros). Em vez disso, você ganha CA = 22 + seu nível, 24 HP temporário, modificador de ataque +21, bônus de dano +16 e Atletismo +22.",
+      "description": "Inspirando-se em criaturas verdejantes, você se transforma em uma forma de batalha de plantas grandes. Ao lançar esta magia, escolha uma forma de batalha listada. Você pode substituir uma planta específica semelhante para se transformar (como uma planta carnívora em vez de uma armadilha para moscas), mas isso não afeta o tamanho ou as estatísticas do formulário. Enquanto estiver nesta forma, você ganha o traço de planta. Você pode descartar a magia.\nVocê ganha as seguintes estatísticas e habilidades, independentemente da forma de batalha escolhida:\n• CA = 19 + seu nível. Ignore a penalidade de teste e a redução de velocidade da sua armadura.\n• 12 pontos de vida temporários.\n• Resistência 10 a veneno.\n• Visão na penumbra.\n• Um ou mais ataques corpo a corpo desarmados específicos da forma de batalha que você escolher, que são os únicos ataques com os quais você pode atacar. Você é treinado com eles. Seu modificador de ataque é +17 e seu bônus de dano é +11. Esses ataques são baseados na Força (para o propósito da condição Enfraquecido, por exemplo). Se o seu modificador de ataque desarmado for maior, você poderá usá-lo.\n• Modificador de Atletismo de +19, a menos que seu próprio modificador seja maior.\nVocê também ganha habilidades específicas com base no tipo de planta escolhida:\n• Arbóreo\n• Velocidade 30 pés (9 metros)\n• Ramo corpo a corpo 1 (alcance 15 pés (4,5 metros)), Dano 2d10 por concussão;\n• Corpo a Corpo 1 pés (0,3 metros), Dano 2d8 por concussão;\n• você pode falar desta forma\n• Armadilha para mosca\n• Velocidade 15 pés (4,5 metros); resistência 10 ao ácido;\n• Corpo a corpo 1 folha (alcance 10 pés (3 metros)), Dano 2d8 perfurante, e você pode gastar uma ação após um acerto para Agarrar o alvo.\nAprimorada (6º) Sua forma de batalha é Enorme e o alcance de seus ataques aumenta em 5 pés (1,5 metros). Em vez disso, você ganha CA = 22 + seu nível, 24 HP temporário, modificador de ataque +21, bônus de dano +16 e Atletismo +22.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -290,12 +290,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Controle a água",
-      "description": "Área 50 pés (15 metros) de comprimento por 50 pés (15 metros) de largura\nAo impor a sua vontade à água, você pode aumentar ou diminuir o nível da água na área escolhida em 10 pés (3 metros). As criaturas que possuem a característica água e que estão na área quando você lança o magia devem tentar um salvamento de Fortitude, com os efeitos do magia Lento.",
+      "description": "Área 50 pés (15 metros) de comprimento por 50 pés (15 metros) de largura\nAo impor a sua vontade à água, você pode aumentar ou diminuir o nível da água na área escolhida em 10 pés (3 metros). As criaturas que possuem a característica água e que estão na área quando você lança a magia devem tentar um salvamento de Fortitude, com os efeitos da magia Lento.",
       "castingTime": "2 ações",
       "range": "500 pés (150 metros)",
       "target": "",
       "duration": "1 hora",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": ""
     }
   }

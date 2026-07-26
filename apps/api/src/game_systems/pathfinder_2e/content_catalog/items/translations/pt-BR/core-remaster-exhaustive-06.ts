@@ -24,7 +24,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Catarse Engarrafada (Maior)",
-      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar no 6º-Rank e tem um modificador de neutralização [[/r 1d20+19 #Counteract]]{+19} para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o modificador e Rank de neutralização listados.",
+      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar no 6º-Rank e tem um modificador de neutralização 1d20+19 para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o modificador e Rank de neutralização listados.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -54,7 +54,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Bolas de Fogo Fumegantes (magia 5º-Rank)",
-      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 5º Rank. Cada criatura que falhar no teste sofre 2d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 5º-Rank.",
+      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 5º Rank. Cada criatura que falhar no teste sofre 2d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 5º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -99,7 +99,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Vida Transbordante (magia do 5º Rank)",
-      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 5º Rank.\nDepois de lançar o magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 5º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 5º Rank.",
+      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 5º Rank.\nDepois de lançar a magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 5º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 5º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -129,7 +129,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "O Grito da Medusa",
-      "description": "O rosto medonho da cabeça de uma medusa morta aparece neste escudo de aço (Dureza 13, HP 52, BT 26). O escudo vem com uma capa de couro grossa para esconder a cabeça.\nAtivar — Olhar Petrificante 2 (manipular, visual)\nFrequência uma vez por dia\nEfeito Você revela o rosto da medusa, focando seu olhar em uma criatura dentro de 30 pés (9 metros). O escudo lança um magia Petrificar CD 30 com alcance de 30 pés (9 metros).\nRequisitos de artesanato As matérias-primas iniciais devem incluir a cabeça de uma medusa.\nDureza | HP | BT |\n13 | 52 | 26 |",
+      "description": "O rosto medonho da cabeça de uma medusa morta aparece neste escudo de aço (Dureza 13, HP 52, BT 26). O escudo vem com uma capa de couro grossa para esconder a cabeça.\nAtivar — Olhar Petrificante 2 (manipular, visual)\nFrequência uma vez por dia\nEfeito Você revela o rosto da medusa, focando seu olhar em uma criatura dentro de 30 pés (9 metros). O escudo lança uma magia Petrificar CD 30 com alcance de 30 pés (9 metros).\nRequisitos de artesanato As matérias-primas iniciais devem incluir a cabeça de uma medusa.\nDureza | HP | BT |\n13 | 52 | 26 |",
       "itemType": "escudo",
       "usage": "",
       "category": "escudo",
@@ -159,7 +159,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha do Relâmpago Crepitante (magia de 6º Rank)",
-      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 6º-Rank, mas a área do magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de raio no 6º-Rank.",
+      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 6º-Rank, mas a área da magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de raio no 6º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -189,7 +189,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha Envolvente",
-      "description": "Você organiza uma gaiola pontiaguda de ossos, vegetação particularmente resistente ou outro material para brotar quando perturbado. A armadilha causa 10d8[perfurante] de dano à primeira criatura a entrar neste quadrado; aquela criatura deve tentar um teste de salvamento (reflexo, showDC:all, dc:34).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura é derrubada pelo lançamento da armadilha, sofre metade do dano e fica fora de guarda até o final do próximo turno.\nFalha A criatura é capturada pela jaula, sofrendo dano total e caindo no chão. Ele fica imobilizado enquanto permanece dentro da jaula. Ele pode ser libertado [[/act escape show-dc=all dc=34]]{Escapando} ou destruindo a jaula (CA 30, Forte +18, Ref +24, Dureza 5, HP 30, imunidades a objetos).\nFalha Crítica Como falha, mas a criatura sofre o dobro do dano.",
+      "description": "Você organiza uma gaiola pontiaguda de ossos, vegetação particularmente resistente ou outro material para brotar quando perturbado. A armadilha causa 10d8[perfurante] de dano à primeira criatura a entrar neste quadrado; aquela criatura deve tentar um teste de salvamento (reflexo, showDC:all, dc:34).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura é derrubada pelo lançamento da armadilha, sofre metade do dano e fica fora de guarda até o final do próximo turno.\nFalha A criatura é capturada pela jaula, sofrendo dano total e caindo no chão. Ele fica imobilizado enquanto permanece dentro da jaula. Ele pode ser libertado Escapar CD 34 ou destruindo a jaula (CA 30, Forte +18, Ref +24, Dureza 5, HP 30, imunidades a objetos).\nFalha Crítica Como falha, mas a criatura sofre o dobro do dano.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -220,7 +220,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Tempestade (Major)",
-      "description": "Um cajado da tempestade geralmente é feito da madeira de uma árvore atingida por um raio. Muitas vezes é retorcido e enegrecido com faíscas ocasionais de eletricidade brilhando em seu comprimento. Ao empunhar o cajado, sua visão fica menos inibida por tempestades. Enquanto você segura o cajado, você ignora a condição Oculto de névoa, precipitação e coisas do gênero.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Arco Elétrico Cantrip\n• 1º Empurrão Hidráulico, Thunderstrike\n• 2ª Névoa, Resistir Energia (somente eletricidade), Thunderstrike\n• 3º Relâmpago, Muralha de Vento\n• 4ª Torrente Hidráulica, Relâmpago\n• 5ª Torrente Hidráulica, Tempestade de Raios\n• 6ª Cadeia de Raios, Torrente Hidráulica\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um cajado da tempestade geralmente é feito da madeira de uma árvore atingida por um raio. Muitas vezes é retorcido e enegrecido com faíscas ocasionais de eletricidade brilhando em seu comprimento. Ao empunhar o cajado, sua visão fica menos inibida por tempestades. Enquanto você segura o cajado, você ignora a condição Oculto de névoa, precipitação e coisas do gênero.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Arco Elétrico Cantrip\n• 1º Empurrão Hidráulico, Thunderstrike\n• 2ª Névoa, Resistir Energia (somente eletricidade), Thunderstrike\n• 3º Relâmpago, Muralha de Vento\n• 4ª Torrente Hidráulica, Relâmpago\n• 5ª Torrente Hidráulica, Tempestade de Raios\n• 6ª Cadeia de Raios, Torrente Hidráulica\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -236,7 +236,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Providência (Major)",
-      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\n• 3ª Passagem Segura, Guia do Viajante\n• 4ª Purificação de Aflição, Dissipação do Globo, Status\n• 5º Globo Dissipador, Olho Escoteiro, Ver o Invisível\n• 6º Globo Dissipador, Salvaguarda Cintilante, Visão Verdadeira\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\n• 3ª Passagem Segura, Guia do Viajante\n• 4ª Purificação de Aflição, Dissipação do Globo, Status\n• 5º Globo Dissipador, Olho Escoteiro, Ver o Invisível\n• 6º Globo Dissipador, Salvaguarda Cintilante, Visão Verdadeira\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -252,7 +252,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha dos Campos de Neve (magia 5º-Rank)",
-      "description": "Esta varinha é um pedaço fino de vidro azul-gelo.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Howling Blizzard no 5º Rank. A neve permanece na área do magia, permanecendo como terreno difícil por 1 minuto.\nRequisitos de criação Forneça um lançamento de nevasca uivante no 5º-Rank.",
+      "description": "Esta varinha é um pedaço fino de vidro azul-gelo.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Howling Blizzard no 5º Rank. A neve permanece na área da magia, permanecendo como terreno difícil por 1 minuto.\nRequisitos de criação Forneça um lançamento de nevasca uivante no 5º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -282,7 +282,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Parafuso de desintegração",
-      "description": "Ativar 1 (manipular)\nA haste deste parafuso está chamuscada e enegrecida, e manuseá-lo cobre seus dedos com um fino pó preto. Quando um raio de desintegração ativado atinge um alvo, ele está sujeito a um magia Desintegrar que requer um teste de resistência (fortitude, dc:34). Tal como acontece com o magia, um acerto crítico na jogada de ataque faz com que o resultado do teste de resistência do alvo seja um grau pior.\nRequisitos de artesanato Forneça um lançamento de desintegrar.",
+      "description": "Ativar 1 (manipular)\nA haste deste parafuso está chamuscada e enegrecida, e manuseá-lo cobre seus dedos com um fino pó preto. Quando um raio de desintegração ativado atinge um alvo, ele está sujeito a uma magia Desintegrar que requer um teste de resistência (fortitude, dc:34). Tal como acontece com a magia, um acerto crítico na jogada de ataque faz com que o resultado do teste de resistência do alvo seja um grau pior.\nRequisitos de artesanato Forneça um lançamento de desintegrar.",
       "itemType": "munição",
       "usage": "",
       "category": "munição",
@@ -312,7 +312,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Vida Transbordante (magia 6º Rank)",
-      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 6º Rank.\nDepois de lançar o magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 6º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 6º Rank.",
+      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 6º Rank.\nDepois de lançar a magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 6º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 6º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -327,7 +327,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Placa de Dragão",
-      "description": "Este traje de armadura completa de pele de dragão +2 maior faz você parecer um dragão temível. A armadura vem em muitas variedades diferentes, dependendo do tipo de dragão do qual é feita, embora geralmente estejam de acordo com as quatro tradições mágicas.\nAtivar—Dragon Breath 2 (manipular)\nFrequência uma vez por dia\nEfeito Você libera um @Template[cone|distance:15] de energia com um tipo de dano e teste de resistência correspondente à tradição do dragão usado para fazer a armadura (mostrada na tabela abaixo). O cone causa 14d6 de dano; cada criatura na área deve tentar um teste de resistência básico CD 36.\nRequisitos de artesanato As matérias-primas iniciais devem incluir 1.250 GP de couro de dragão.\nTradição do Dragão | Danos |\nArcano | 14d6[força|opções:dano de área]{Força} (verificar (reflexo, dc:36, básico, opções:efeito de área){Reflexo}) |\nDivino | 14d6[espírito|opções:dano de área]{Espírito} (verificar (reflexo, dc:36, básico, opções:efeito de área){Reflexo}) |\nOculto | 14d6[mental|opções:dano de área]{Mental} (verificar (vontade, dc:36, básico, opções:efeito de área){Vontade}) |\nPrimordial | 14d6[veneno|opções:dano de área]{Veneno} (verificar (fortitude, dc:36, básico, opções:efeito de área){Fortitude}) |",
+      "description": "Este traje de armadura completa de pele de dragão +2 maior faz você parecer um dragão temível. A armadura vem em muitas variedades diferentes, dependendo do tipo de dragão do qual é feita, embora geralmente estejam de acordo com as quatro tradições mágicas.\nAtivar—Dragon Breath 2 (manipular)\nFrequência uma vez por dia\nEfeito Você libera um @Template[cone|distance:15] de energia com um tipo de dano e teste de resistência correspondente à tradição do dragão usado para fazer a armadura (mostrada na tabela abaixo). O cone causa 14d6 de dano; cada criatura na área deve tentar um teste de resistência básico CD 36.\nRequisitos de artesanato As matérias-primas iniciais devem incluir 1.250 GP de couro de dragão.\nTradição do Dragão | Danos |\nArcano | 14d6[força{Força} (verificar (reflexo, dc:36, básico, opções:efeito de área){Reflexo}) |\nDivino | 14d6[espírito{Espírito} (verificar (reflexo, dc:36, básico, opções:efeito de área){Reflexo}) |\nOculto | 14d6[mental{Mental} (verificar (vontade, dc:36, básico, opções:efeito de área){Vontade}) |\nPrimordial | 14d6[veneno{Veneno} (verificar (fortitude, dc:36, básico, opções:efeito de área){Fortitude}) |",
       "itemType": "armadura",
       "usage": "",
       "category": "pesado",
@@ -342,7 +342,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Naveta Flamejante",
-      "description": "Uso afixado na armadura\nAtivar A (concentrado)\nEste pedaço de bronzita tem formato oval com pontas em ambas as extremidades. Tem uma chama esculpida no centro e é tradicionalmente usada sobre o coração. Você pode ativar apenas uma nave de chama por dia. Ao ativar a navette, você ganha o benefício do talento de classe Determinação do lutador, com um Rank de contra-ataque de 8 e um modificador de contra-ataque de [[/r 1d20+22 #Counteract]]{+22}.\nSe você tiver o talento Determinação, poderá usar seu próprio modificador, se for melhor.",
+      "description": "Uso afixado na armadura\nAtivar A (concentrado)\nEste pedaço de bronzita tem formato oval com pontas em ambas as extremidades. Tem uma chama esculpida no centro e é tradicionalmente usada sobre o coração. Você pode ativar apenas uma nave de chama por dia. Ao ativar a navette, você ganha o benefício do talento de classe Determinação do lutador, com um Rank de contra-ataque de 8 e um modificador de contra-ataque de 1d20+22.\nSe você tiver o talento Determinação, poderá usar seu próprio modificador, se for melhor.",
       "itemType": "consumível",
       "usage": "afixado na armadura",
       "category": "talismã",
@@ -402,7 +402,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Matança (magia 7º-Rank)",
-      "description": "Esta varinha preta polida tem uma gema verde na ponta, e qualquer um que olhar para ela verá o reflexo de uma caveira sorridente.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Executar no 7º Rank. Se o magia matar um alvo vivo, o cadáver libera energia sombria em @Template[emanation|distance:20], causando 14[void] de dano.\nRequisitos de artesanato Forneça um lançamento de execução no 7º-Rank.",
+      "description": "Esta varinha preta polida tem uma gema verde na ponta, e qualquer um que olhar para ela verá o reflexo de uma caveira sorridente.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Executar no 7º Rank. Se a magia matar um alvo vivo, o cadáver libera energia sombria em @Template[emanation|distance:20], causando 14[void] de dano.\nRequisitos de artesanato Forneça um lançamento de execução no 7º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -447,7 +447,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha da Granizo de Flechas",
-      "description": "Quando uma criatura entra no quadrado da armadilha, ela libera centenas e centenas de flechas cuidadosamente preparadas, cobrindo um @Template[emanation|distance:20]{raio de 20 pés} ao redor do quadrado da armadilha com flechas massivas que causam 18d6[piercing|options:area-damage] de dano. As criaturas na área devem tentar um teste de salvamento (reflexo, showDC:all, dc:37, básico, opções:efeito de área).",
+      "description": "Quando uma criatura entra no quadrado da armadilha, ela libera centenas e centenas de flechas cuidadosamente preparadas, cobrindo um @Template[emanation|distance:20]{raio de 20 pés} ao redor do quadrado da armadilha com flechas massivas que causam 18d6[piercing de dano. As criaturas na área devem tentar um teste de salvamento (reflexo, showDC:all, dc:37, básico, opções:efeito de área).",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -462,7 +462,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Visões Impossíveis (Major)",
-      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\n• 3º Hipnotizar, Paralisar\n• 4º Olhos Incontáveis, Visão da Morte\n• 5ª Geometria Estranha\n• 6ª Fúria Cegante, Calamidade Fantasmagórica\n• 7ª Visões de Perigo, Warp Mind\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\n• 3º Hipnotizar, Paralisar\n• 4º Olhos Incontáveis, Visão da Morte\n• 5ª Geometria Estranha\n• 6ª Fúria Cegante, Calamidade Fantasmagórica\n• 7ª Visões de Perigo, Warp Mind\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -493,7 +493,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "O Grito da Medusa (Maior)",
-      "description": "O rosto medonho da cabeça de uma medusa morta aparece neste escudo de aço (Dureza 15, HP 60, BT 30). O escudo vem com uma capa de couro grossa para esconder a cabeça.\nAtivar — Olhar Petrificante 2 (manipular, visual)\nFrequência uma vez por dia\nEfeito Você revela o rosto da medusa, focando seu olhar em uma criatura dentro de 30 pés (9 metros). O escudo lança um magia Petrificar CD 35 com alcance de 30 pés (9 metros).\nRequisitos de artesanato As matérias-primas iniciais devem incluir a cabeça de uma medusa.\nDureza | HP | BT |\n15 | 60 | 30 |",
+      "description": "O rosto medonho da cabeça de uma medusa morta aparece neste escudo de aço (Dureza 15, HP 60, BT 30). O escudo vem com uma capa de couro grossa para esconder a cabeça.\nAtivar — Olhar Petrificante 2 (manipular, visual)\nFrequência uma vez por dia\nEfeito Você revela o rosto da medusa, focando seu olhar em uma criatura dentro de 30 pés (9 metros). O escudo lança uma magia Petrificar CD 35 com alcance de 30 pés (9 metros).\nRequisitos de artesanato As matérias-primas iniciais devem incluir a cabeça de uma medusa.\nDureza | HP | BT |\n15 | 60 | 30 |",
       "itemType": "escudo",
       "usage": "",
       "category": "escudo",
@@ -538,7 +538,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Bolas de Fogo Fumegantes (magia 7º-Rank)",
-      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 7º Rank. Cada criatura que falhar no teste sofre 3d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 7º-Rank.",
+      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 7º Rank. Cada criatura que falhar no teste sofre 3d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 7º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -644,7 +644,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Vida Transbordante (magia do 7º Rank)",
-      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 7º Rank.\nDepois de lançar o magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 7º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 7º-Rank.",
+      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 7º Rank.\nDepois de lançar a magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 7º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 7º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -783,7 +783,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Faixa da Proeza (Maior)",
-      "description": "Esta humilde faixa pode ser usada na cintura ou no peito. Uma faixa de destreza geralmente traz uma coloração ou padrão que representa o monastério em que você treinou, mas também pode ostentar simbologia religiosa, como a mão aberta de Irori. Você ganha +3 de bônus de item em testes de perícias de Acrobacia e Atletismo.\nAtivar — Maestria sem esforço f (concentrar)\nFrequência uma vez por dia\nGatilho Você obtém sucesso em um teste de perícia Acrobacia ou Atletismo\nEfeito Em vez disso, você obtém sucesso crítico.\nAtivar – Reservas de Força Interna f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia de qi. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nRequisitos de artesanato Você é um monge que pode lançar magias de qi.",
+      "description": "Esta humilde faixa pode ser usada na cintura ou no peito. Uma faixa de destreza geralmente traz uma coloração ou padrão que representa o monastério em que você treinou, mas também pode ostentar simbologia religiosa, como a mão aberta de Irori. Você ganha +3 de bônus de item em testes de perícias de Acrobacia e Atletismo.\nAtivar — Maestria sem esforço f (concentrar)\nFrequência uma vez por dia\nGatilho Você obtém sucesso em um teste de perícia Acrobacia ou Atletismo\nEfeito Em vez disso, você obtém sucesso crítico.\nAtivar – Reservas de Força Interna f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia de qi. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nRequisitos de artesanato Você é um monge que pode lançar magias de qi.",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -813,7 +813,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Véu Prognóstico (Maior)",
-      "description": "Este véu roxo transparente é bordado com símbolos de significado divinatório. À medida que sua maldição piora, o véu ondula em um vento invisível cada vez maior. Você ganha +3 de bônus de item em testes de Religião.\nAtivar - Lembre-se do Futuro f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia de revelação. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Torcer as Meadas do Destino (concentrar)\nFrequência uma vez por dia\nGatilho Um aliado dentro de 30 pés (9 metros) está prestes a tentar um teste de resistência ou uma jogada de ataque\nRequisitos Você tem a condição Cursebound\nEfeito O aliado ganha um bônus de status no teste de resistência ou na jogada de ataque igual ao valor de sua condição amaldiçoada.\nEfeito: Torcer as Meadas do Destino\nRequisitos de artesanato Você é um oráculo.",
+      "description": "Este véu roxo transparente é bordado com símbolos de significado divinatório. À medida que sua maldição piora, o véu ondula em um vento invisível cada vez maior. Você ganha +3 de bônus de item em testes de Religião.\nAtivar - Lembre-se do Futuro f (concentrar)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia de revelação. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Torcer as Meadas do Destino (concentrar)\nFrequência uma vez por dia\nGatilho Um aliado dentro de 30 pés (9 metros) está prestes a tentar um teste de resistência ou uma jogada de ataque\nRequisitos Você tem a condição Cursebound\nEfeito O aliado ganha um bônus de status no teste de resistência ou na jogada de ataque igual ao valor de sua condição amaldiçoada.\nEfeito: Torcer as Meadas do Destino\nRequisitos de artesanato Você é um oráculo.",
       "itemType": "equipamento",
       "usage": "máscara usada",
       "category": "equipamento",
@@ -873,7 +873,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Elmo do Zelo (Maior)",
-      "description": "Este elaborado capacete é estampado com os símbolos divinos de uma divindade escolhida quando o capacete foi criado. Você ganha +3 de bônus de item na Habilidade Divina daquela divindade.\nAtivar - Unir-se à Causa f (concentrar-se)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia de devoção. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Fervor Divino f (concentrado)\nFrequência uma vez por hora\nGatilho Você acabou de usar a reação do seu campeão\nEfeito Você ganha uma reação adicional que pode ser usada apenas para a reação do seu campeão. Você perde esta reação se não usá-la no início do seu próximo turno.\nRequisitos de fabricação Você é um campeão da divindade representada pelo capacete.",
+      "description": "Este elaborado capacete é estampado com os símbolos divinos de uma divindade escolhida quando o capacete foi criado. Você ganha +3 de bônus de item na Habilidade Divina daquela divindade.\nAtivar - Unir-se à Causa f (concentrar-se)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia de devoção. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nAtivar – Fervor Divino f (concentrado)\nFrequência uma vez por hora\nGatilho Você acabou de usar a reação do seu campeão\nEfeito Você ganha uma reação adicional que pode ser usada apenas para a reação do seu campeão. Você perde esta reação se não usá-la no início do seu próximo turno.\nRequisitos de fabricação Você é um campeão da divindade representada pelo capacete.",
       "itemType": "equipamento",
       "usage": "chapéus usados",
       "category": "equipamento",
@@ -888,7 +888,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Solvente Absoluto (Maior)",
-      "description": "Ativar 1 (manipular)\nOriginalmente formulado como um meio de dissolver o Adesivo Eterno, este poderoso solvente pode quebrar a aderência de quase qualquer adesivo. Como o solvente absoluto é particularmente eficaz contra o adesivo permanente, ele dissolve automaticamente o adesivo permanente. Ele tenta neutralizar qualquer outro adesivo, como Bombas de Cola, em 9º-Rank e tem um modificador de neutralização de [[/r 1d20+28 #Counteract]]{+28}.",
+      "description": "Ativar 1 (manipular)\nOriginalmente formulado como um meio de dissolver o Adesivo Eterno, este poderoso solvente pode quebrar a aderência de quase qualquer adesivo. Como o solvente absoluto é particularmente eficaz contra o adesivo permanente, ele dissolve automaticamente o adesivo permanente. Ele tenta neutralizar qualquer outro adesivo, como Bombas de Cola, em 9º-Rank e tem um modificador de neutralização de 1d20+28.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -903,7 +903,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Matança (magia do 8º Rank)",
-      "description": "Esta varinha preta polida tem uma gema verde na ponta, e qualquer um que olhar para ela verá o reflexo de uma caveira sorridente.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Executar no 8º Rank. Se o magia matar um alvo vivo, o cadáver libera energia sombria em @Template[emanation|distance:20], causando 16[void] de dano.\nRequisitos de artesanato Forneça um lançamento de execução no 8º-Rank.",
+      "description": "Esta varinha preta polida tem uma gema verde na ponta, e qualquer um que olhar para ela verá o reflexo de uma caveira sorridente.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Executar no 8º Rank. Se a magia matar um alvo vivo, o cadáver libera energia sombria em @Template[emanation|distance:20], causando 16[void] de dano.\nRequisitos de artesanato Forneça um lançamento de execução no 8º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -918,7 +918,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Catarse Engarrafada (Maior)",
-      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar em 9º-Rank e tem um modificador de neutralização [[/r 1d20+28 #Counteract]]{+28} para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o modificador e Rank de neutralização listados.",
+      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar em 9º-Rank e tem um modificador de neutralização 1d20+28 para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o modificador e Rank de neutralização listados.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -933,7 +933,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha dos Campos de Neve (magia 7º-Rank)",
-      "description": "Esta varinha é um pedaço fino de vidro azul-gelo.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Howling Blizzard no 7º-Rank. A neve permanece na área do magia, permanecendo como terreno difícil por 1 minuto.\nRequisitos de criação Forneça um lançamento de nevasca uivante no 7º-Rank.",
+      "description": "Esta varinha é um pedaço fino de vidro azul-gelo.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Howling Blizzard no 7º-Rank. A neve permanece na área da magia, permanecendo como terreno difícil por 1 minuto.\nRequisitos de criação Forneça um lançamento de nevasca uivante no 7º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -978,7 +978,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha do Relâmpago Crepitante (magia do 8º Rank)",
-      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 8º-Rank, mas a área do magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de raio no 8º-Rank.",
+      "description": "Esta varinha é feita de duas placas de cobre e um centro de cerâmica.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Lightning Bolt no 8º-Rank, mas a área da magia é duas vezes maior (duas adjacentes e paralelas @Template[line|distance:120|width:10]{120-foot lines}) e as criaturas que falham no salvamento ficam fora de guarda por 1 rodada.\nRequisitos de fabricação Forneça um lançamento de raio no 8º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1039,7 +1039,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Soro Surging (Principal)",
-      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 9º Rank e um [[/r 1d20+28 #Counteract]]{+28 modificador de contra-ataque}.",
+      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 9º Rank e um 1d20+28.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -1054,7 +1054,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Disfarce do Diabo Sorridente (Maior)",
-      "description": "Esta meia máscara azul-gelo é adornada com um sorriso prateado perverso que cobre a boca do usuário, deixando o resto do rosto descoberto. Você ganha +3 de bônus de item em testes de Intimidação.\nAtivar—Hideous Wail 2 (concentrar, manipular)\nFrequência uma vez por dia\nEfeito A máscara lança um 9º Rank Lamentos dos Amaldiçoados\nCada criatura viva em um @Template[emanation|distance:40] sofre 8d10[void|options:area-damage] de dano e deve tentar um teste (fortitude, dc:41, opções:efeito de área,efeito de dano) salvamento.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre dano total.\nFalha A criatura sofre dano total e é Drenada [[/r 1d4]].\nFalha Crítica A criatura sofre o dobro de dano e é Drenada 4.",
+      "description": "Esta meia máscara azul-gelo é adornada com um sorriso prateado perverso que cobre a boca do usuário, deixando o resto do rosto descoberto. Você ganha +3 de bônus de item em testes de Intimidação.\nAtivar—Hideous Wail 2 (concentrar, manipular)\nFrequência uma vez por dia\nEfeito A máscara lança um 9º Rank Lamentos dos Amaldiçoados\nCada criatura viva em um @Template[emanation|distance:40] sofre 8d10[void de dano e deve tentar um teste (fortitude, dc:41, opções:efeito de área,efeito de dano) salvamento.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre dano total.\nFalha A criatura sofre dano total e é Drenada 1d4.\nFalha Crítica A criatura sofre o dobro de dano e é Drenada 4.",
       "itemType": "equipamento",
       "usage": "máscara usada",
       "category": "equipamento",
@@ -1099,7 +1099,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Vida Transbordante (magia do 8º Rank)",
-      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 8º Rank.\nDepois de lançar o magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 8º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 8º Rank.",
+      "description": "Esta varinha de alabastro tem um cristal transparente na ponta.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Cura no 8º Rank.\nDepois de lançar a magia, no início do seu próximo turno, o excesso de magia de cura brota da varinha e cura você, como se você lançasse a versão de cura de 1 ação em si mesmo no 8º-Rank. Você ganha esse benefício apenas uma vez por turno, mesmo se você lançar vários magias de cura de varinhas de vida transbordante no mesmo turno.\nRequisitos de criação Forneça um lançamento de cura no 8º Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1114,7 +1114,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Visões Impossíveis (Verdadeiro)",
-      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\n• 3º Hipnotizar, Paralisar\n• 4º Olhos Incontáveis, Visão da Morte\n• 5ª Geometria Estranha\n• 6ª Fúria Cegante, Calamidade Fantasmagórica\n• 7ª Visões de Perigo, Warp Mind\n• 8ª Canção Espiritual, Dança Incontrolável\n• 9ª Canção Insondável, Phantasmagoria\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado bizarro é feito de carvalho, encimado por um aglomerado de pedras preciosas em forma de olho que parecem se mover e ondular no canto da sua visão. Enquanto empunha o cajado, você pode espiar através dos olhos do cajado em vez dos seus, usando seus sentidos visuais normais (incluindo quaisquer benefícios de magias como Ver o Invisível). Você pode manobrar o bastão para ver coisas nos cantos, em altitudes mais altas ou em locais onde o bastão cabe, mas sua cabeça não. Isso não fornece linha de efeito suficiente para atingir criaturas nos cantos. Os olhos são tão vulneráveis ​​quanto os seus olhos e podem ser afetados por qualquer coisa que altere a sua visão, como um clarão de luz ofuscante.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º Medo, Dor Fantasma\n• 2º Augúrio, Paranóia\n• 3º Hipnotizar, Paralisar\n• 4º Olhos Incontáveis, Visão da Morte\n• 5ª Geometria Estranha\n• 6ª Fúria Cegante, Calamidade Fantasmagórica\n• 7ª Visões de Perigo, Warp Mind\n• 8ª Canção Espiritual, Dança Incontrolável\n• 9ª Canção Insondável, Phantasmagoria\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1160,7 +1160,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Matança (magia 9º-Rank)",
-      "description": "Esta varinha preta polida tem uma gema verde na ponta, e qualquer um que olhar para ela verá o reflexo de uma caveira sorridente.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Executar no 9º Rank. Se o magia matar um alvo vivo, o cadáver libera energia sombria em uma @Template[emanation|distance:20], causando 18[void] de dano.\nRequisitos de artesanato Forneça um lançamento de execução no 9º-Rank.",
+      "description": "Esta varinha preta polida tem uma gema verde na ponta, e qualquer um que olhar para ela verá o reflexo de uma caveira sorridente.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Executar no 9º Rank. Se a magia matar um alvo vivo, o cadáver libera energia sombria em uma @Template[emanation|distance:20], causando 18[void] de dano.\nRequisitos de artesanato Forneça um lançamento de execução no 9º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1175,7 +1175,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado da Providência (Verdadeiro)",
-      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\n• 3ª Passagem Segura, Guia do Viajante\n• 4ª Purificação de Aflição, Dissipação do Globo, Status\n• 5º Globo Dissipador, Olho Escoteiro, Ver o Invisível\n• 6º Globo Dissipador, Salvaguarda Cintilante, Visão Verdadeira\n• 7º Globo Dissipador, Égide Energética\n• 8º Globo Dissipador, Inspiração Divina\n• 9º Globo Dissipador, Previsão, Presença Avassaladora\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Um grande símbolo estilizado de um olho adorna o topo deste bastão de madeira, representando o olhar atento dos poderes divinos. O portador do cajado pode orientar e proteger, vendo recompensas e tragédias que podem acontecer com ele no futuro. Ao empunhar este cajado, você ganha um bônus de item de +1 em testes de Sobrevivência para Sentir Direção ou Subsistência e em testes de Religião para Recordar Conhecimento.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Orientação Cantrip\n• 1ª Abençoar, Criar Água\n• 2º Augúrio, Crie Comida, Veja o Invisível, Status\n• 3ª Passagem Segura, Guia do Viajante\n• 4ª Purificação de Aflição, Dissipação do Globo, Status\n• 5º Globo Dissipador, Olho Escoteiro, Ver o Invisível\n• 6º Globo Dissipador, Salvaguarda Cintilante, Visão Verdadeira\n• 7º Globo Dissipador, Égide Energética\n• 8º Globo Dissipador, Inspiração Divina\n• 9º Globo Dissipador, Previsão, Presença Avassaladora\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1191,7 +1191,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Caixa de roda de lâmina voadora",
-      "description": "Quando uma criatura entra no quadrado, uma roda voadora mortal de lâminas giratórias é lançada contra ela, causando um [[/r 1d20+35]]{Strike} com um modificador de ataque de +35 e causando 8d8[cortando] de dano. Uma vez em cada um de seus turnos, você pode usar uma ação de Interagir dentro de 120 pés (36 metros) da roda para fazê-la voar até 60 pés (18 metros) em direção à criatura que está perseguindo e realizar outro Golpe se ela estiver dentro de 5 pés (1,5 metros) de seu alvo após se mover. Após 1 minuto, a rotação para e a roda cai no chão. As criaturas podem destruir a roda para pará-la (CA 37, Forte +29, Ref +20, HP 200, Dureza 10, imunidade a objetos).",
+      "description": "Quando uma criatura entra no quadrado, uma roda voadora mortal de lâminas giratórias é lançada contra ela, causando um 1d20+35 com um modificador de ataque de +35 e causando 8d8[cortando] de dano. Uma vez em cada um de seus turnos, você pode usar uma ação de Interagir dentro de 120 pés (36 metros) da roda para fazê-la voar até 60 pés (18 metros) em direção à criatura que está perseguindo e realizar outro Golpe se ela estiver dentro de 5 pés (1,5 metros) de seu alvo após se mover. Após 1 minuto, a rotação para e a roda cai no chão. As criaturas podem destruir a roda para pará-la (CA 37, Forte +29, Ref +20, HP 200, Dureza 10, imunidade a objetos).",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -1206,7 +1206,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Bolas de Fogo Fumegantes (magia 9º-Rank)",
-      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 9º Rank. Cada criatura que falhar no teste sofre 4d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 9º-Rank.",
+      "description": "Este graveto enegrecido e muito queimado tem um leve cheiro de salitre.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança Bola de Fogo no 9º Rank. Cada criatura que falhar no teste sofre 4d6[persistente,fogo] de dano.\nRequisitos de fabricação Forneça um lançamento de bola de fogo no 9º-Rank.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1236,7 +1236,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pano de Anulação",
-      "description": "Este pequeno pedaço de pano bordado é inimigo de toda magia.\nAtivar—Nulificar Magia 2 (manipular)\nEfeito Você cobre um item mágico com o pano ou agita o pano perto de um efeito mágico e tenta neutralizar o efeito ou item. O modificador de verificação de contra-ataque do pano é [[/r 1d20+32 #Counteract]]{+32}, e seu Rank de contra-ataque é 10. Independentemente do resultado, o pano de anulação não pode ser ativado novamente por [[/br 2d6 #hours]]{2d6 horas}. Caso obtenha sucesso, o efeito ou item é desativado pelo mesmo período de tempo e sua duração, se houver, continua a expirar durante esse período. Com um teste de neutralização bem-sucedido, você pode optar por absorver completamente a magia do efeito ou item na roupa da anulação. Se você fizer isso, ambos se tornarão completamente não-mágicos e sua magia não poderá ser recuperada, mesmo pelo magia de remake.\nO tecido da anulação falha automaticamente em neutralizar a maioria dos artefatos e itens igualmente poderosos",
+      "description": "Este pequeno pedaço de pano bordado é inimigo de toda magia.\nAtivar—Nulificar Magia 2 (manipular)\nEfeito Você cobre um item mágico com o pano ou agita o pano perto de um efeito mágico e tenta neutralizar o efeito ou item. O modificador de verificação de contra-ataque do pano é 1d20+32, e seu Rank de contra-ataque é 10. Independentemente do resultado, o pano de anulação não pode ser ativado novamente por 2d6. Caso obtenha sucesso, o efeito ou item é desativado pelo mesmo período de tempo e sua duração, se houver, continua a expirar durante esse período. Com um teste de neutralização bem-sucedido, você pode optar por absorver completamente a magia do efeito ou item na roupa da anulação. Se você fizer isso, ambos se tornarão completamente não-mágicos e sua magia não poderá ser recuperada, mesmo pela magia de remake.\nO tecido da anulação falha automaticamente em neutralizar a maioria dos artefatos e itens igualmente poderosos",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",

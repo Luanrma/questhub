@@ -117,7 +117,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hQNxvkHklgW9fvpf": {
           "name": "Explosão",
-          "description": "Quando o dragão morre, ele explode, causando 6d6[fogo|opções:dano de área] de dano a cada criatura em um salvamento de @Template[emanation|distance:10] (verificação (reflexo, dc:28, básico, opções:efeito de área))."
+          "description": "Quando o dragão morre, ele explode, causando 6d6[fogo de dano a cada criatura em um salvamento de @Template[emanation|distance:10] (verificação (reflexo, dc:28, básico, opções:efeito de área))."
         },
         "RDAI0FQdtpHFrFa5": {
           "name": "Calor intenso",
@@ -125,7 +125,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5k5qe7LZeapjusIM": {
           "name": "Respiração Fogo",
-          "description": "O dragão de fogo respira um @Template[cone|distance:30] de fogo, causando 7d6[fire,2d8[persistent,fire]|options:area-damage] de dano a todas as criaturas dentro do cone (check (reflex, dc:28, basic, options:area-effect) save).\nO Dragão de Fogo não pode Soprar Fogo novamente por [[/gmr 1d4 #Recharge Breathe Fire]]{1d4 rodadas}."
+          "description": "O dragão de fogo respira um @Template[cone|distance:30] de fogo, causando 7d6[fire,2d8[persistent,fire] de dano a todas as criaturas dentro do cone (check (reflex, dc:28, basic, options:area-effect) save).\nO Dragão de Fogo não pode Soprar Fogo novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -261,7 +261,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "rYzzaXPAJ15uHtmD": {
-          "name": "+1 Status para todos os salvamentos vs. Vitalidade",
+          "name": "+1 de bônus de status em todos os testes de resistência contra vitalidade",
           "description": ""
         },
         "SDpHg4rYHnhIG6QP": {
@@ -270,7 +270,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "h4fFfvaiDiqgTpTz": {
           "name": "Rejuvenescimento",
-          "description": "Quando uma múmia faraó é destruída, energias necromânticas reconstroem seu corpo em sua tumba durante [[/gmr 1d10 #Dias para Rejuvenescer]]{1d10 dias}. Se o corpo for destruído durante esse período, o processo recomeça. Um faraó múmia reformador é destruído permanentemente se seu túmulo for consagrado."
+          "description": "Quando uma múmia faraó é destruída, energias necromânticas reconstroem seu corpo em sua tumba durante 1d10. Se o corpo for destruído durante esse período, o processo recomeça. Um faraó múmia reformador é destruído permanentemente se seu túmulo for consagrado."
         },
         "vrMnLtRbLyTqsiGV": {
           "name": "Invólucros Sagrados",
@@ -282,11 +282,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TRcRCZ4v7cyZtfSF": {
           "name": "Ira da Tempestade de Areia",
-          "description": "A múmia faraó exala um @Template[cone|distance:60] de areia superaquecida que causa 5d6[fogo,5d6[corte]|opções:dano de área]{5d6 de dano de fogo e 5d6 de dano cortante} (verificação (reflexo, dc:28, básico, opções:efeito de área) salvamento).\nA múmia faraó não pode usar Ira da Tempestade de Areia novamente por [[/gmr 1d4 #Recharge Ira da Tempestade de Areia]]{1d4 rodadas}."
+          "description": "A múmia faraó exala um @Template[cone|distance:60] de areia superaquecida que causa 5d6[fogo,5d6[corte]{5d6 de dano de fogo e 5d6 de dano cortante} (verificação (reflexo, dc:28, básico, opções:efeito de área) salvamento).\nA múmia faraó não pode usar Ira da Tempestade de Areia novamente por 1d4."
         },
         "yNq5SCnaVxj740qf": {
           "name": "Véu de Areia",
-          "description": "A areia gira ao redor da múmia faraó em uma emanação de 1,5 metro até o início do próximo turno. Criaturas dentro da areia ficam escondidas para aqueles que estão fora dela e qualquer criatura viva que termine seu turno dentro da areia sofre 4d6[corte|opções:dano em área] de dano com um teste de resistência (fortitude, dc:28, básico, opções:efeito de área)\nO Véu de Areia termina se a múmia sofrer dano devido à fraqueza da água."
+          "description": "A areia gira ao redor da múmia faraó em uma emanação de 1,5 metro até o início do próximo turno. Criaturas dentro da areia ficam escondidas para aqueles que estão fora dela e qualquer criatura viva que termine seu turno dentro da areia sofre 4d6[corte de dano com um teste de resistência (fortitude, dc:28, básico, opções:efeito de área)\nO Véu de Areia termina se a múmia sofrer dano devido à fraqueza da água."
         }
       },
       "spellcasting": {}
@@ -398,7 +398,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "N3VyfMfoQe5DSb63": {
           "name": "Camuflar",
-          "description": "O dragão pode [[/agir se esconder]] em ambientes naturais mesmo que não tenha cobertura."
+          "description": "O dragão pode Esconder-se em ambientes naturais mesmo que não tenha cobertura."
         },
         "o4iFaQcPDYy49SAA": {
           "name": "+2 Status para todos os salvamentos vs. Arcano",
@@ -410,7 +410,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cuSg2YxJeOWsi3XS": {
           "name": "Respiração Alucinatória",
-          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 7d6[mental|options:area-damage] de dano em um salvamento de @Template[cone|distance:30] (check (will, dc:27, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por [[/gmr 1d4 #Recharge Respiração Alucinatória]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 7d6[mental de dano em um salvamento de @Template[cone|distance:30] (check (will, dc:27, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por 1d4."
         },
         "YGFIBzztMdCKAOGu": {
           "name": "Mordida Pulmonante",
@@ -554,7 +554,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "BER1sjugNCn7ml14": {
           "name": "Desmoronar",
-          "description": "Gatilho O destruidor de pedra sofre dano de uma fonte hostil enquanto está no topo de uma rocha ou terra\nEfeito O destruidor de pedra desmorona no chão, escavando 15 pés (4,5 metros). Esta Escavação não desencadeia reações.\nO destruidor de pedras não pode Crumble novamente por [[/gmr 1d4 #Recharge Crumble]]{1d4 rodadas}."
+          "description": "Gatilho O destruidor de pedra sofre dano de uma fonte hostil enquanto está no topo de uma rocha ou terra\nEfeito O destruidor de pedra desmorona no chão, escavando 15 pés (4,5 metros). Esta Escavação não desencadeia reações.\nO destruidor de pedras não pode Crumble novamente por 1d4."
         },
         "cKztX9AO2dzSFhZu": {
           "name": "Pedras Espigadas",
@@ -625,7 +625,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GXr4u9s0uuvI5J6d": {
           "name": "Vulnerabilidades de Vampiros",
-          "description": "Todos os vampiros possuem as seguintes vulnerabilidades.\n• Compulsões Vampiros são criaturas com compulsões estranhas e incognoscíveis. Um vampiro típico não pode atravessar voluntariamente água corrente, a menos que seja transportado enquanto se esconde dentro de seu caixão, nem pode entrar em uma residência particular, a menos que seja convidado por alguém com autoridade para fazê-lo. A seu critério, os vampiros podem ter compulsões diferentes – um vampiro pirata pode não ser capaz de pisar em terra firme sem ser convidado, por exemplo. O vampiro ainda pode ser forçado a fazer essas coisas e pode ser capaz de superar sua compulsão, assim como supera sua repulsa.\n• Repulsa Um vampiro não pode voluntariamente chegar a 10 pés (3 metros) de um alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir um alho ou um símbolo religioso, uma criatura deve Interagir para fazê-lo, e ele permanece brandido por 1 rodada (semelhante a Levantar um Escudo). Se o vampiro involuntariamente chegar a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um vampiro pode tentar um teste (vontade, dc:25) de resistência como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por [[/gmr 1d6 #rounds]]{1d6 rodadas} (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca de madeira cravada no coração de um vampiro leva o vampiro a 0 HP e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um vampiro requer 3 ações e só funciona se o vampiro estiver inconsciente. Se a estaca for removida, o vampiro pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do vampiro for decepada e ungida com água benta enquanto a estaca estiver no lugar, o vampiro será destruído.\n• Luz Solar Se exposto à luz solar direta, um vampiro imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o vampiro termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o vampiro perder todas as suas ações desta forma, ele será destruído. Devido à sua aversão sobrenatural à luz, os vampiros não projetam sombras nem mostram reflexos em espelhos."
+          "description": "Todos os vampiros possuem as seguintes vulnerabilidades.\n• Compulsões Vampiros são criaturas com compulsões estranhas e incognoscíveis. Um vampiro típico não pode atravessar voluntariamente água corrente, a menos que seja transportado enquanto se esconde dentro de seu caixão, nem pode entrar em uma residência particular, a menos que seja convidado por alguém com autoridade para fazê-lo. A seu critério, os vampiros podem ter compulsões diferentes – um vampiro pirata pode não ser capaz de pisar em terra firme sem ser convidado, por exemplo. O vampiro ainda pode ser forçado a fazer essas coisas e pode ser capaz de superar sua compulsão, assim como supera sua repulsa.\n• Repulsa Um vampiro não pode voluntariamente chegar a 10 pés (3 metros) de um alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir um alho ou um símbolo religioso, uma criatura deve Interagir para fazê-lo, e ele permanece brandido por 1 rodada (semelhante a Levantar um Escudo). Se o vampiro involuntariamente chegar a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um vampiro pode tentar um teste (vontade, dc:25) de resistência como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por 1d6 (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca de madeira cravada no coração de um vampiro leva o vampiro a 0 HP e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um vampiro requer 3 ações e só funciona se o vampiro estiver inconsciente. Se a estaca for removida, o vampiro pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do vampiro for decepada e ungida com água benta enquanto a estaca estiver no lugar, o vampiro será destruído.\n• Luz Solar Se exposto à luz solar direta, um vampiro imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o vampiro termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o vampiro perder todas as suas ações desta forma, ele será destruído. Devido à sua aversão sobrenatural à luz, os vampiros não projetam sombras nem mostram reflexos em espelhos."
         },
         "VXAdFMEIJiPWyhRq": {
           "name": "Cura do Vazio",
@@ -641,11 +641,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3ZSVEZBMKleuEd84": {
           "name": "Dominar",
-          "description": "O vampiro pode lançar Dominação à vontade como um magia divino inato. Lançá-lo requer olhar nos olhos do alvo, dando ao magia a característica visual (teste (vontade, dc:26)). Uma criatura bem-sucedida fica temporariamente imune à Dominação daquele vampiro por 24 horas.\nDestruir totalmente o vampiro encerra a dominação, mas apenas reduzir o vampiro a 0 HP é insuficiente para quebrar o magia."
+          "description": "O vampiro pode lançar Dominação à vontade como uma magia divino inato. Lançá-lo requer olhar nos olhos do alvo, dando à magia a característica visual (teste (vontade, dc:26)). Uma criatura bem-sucedida fica temporariamente imune à Dominação daquele vampiro por 24 horas.\nDestruir totalmente o vampiro encerra a dominação, mas apenas reduzir o vampiro a 0 HP é insuficiente para quebrar a magia."
         },
         "9ewh7tMyC0NRIpZx": {
           "name": "Drenar item colado",
-          "description": "Frequência uma vez por dia\nRequisitos O cérebro do vampiro ainda não agiu neste turno\nEfeito O vampiro gasta o poder armazenado em seu anel de sinete. Isso dá ao vampiro a habilidade de lançar um magia preparado que ele já havia lançado hoje sem gastar um espaço de magia. O vampiro ainda deve lançar o magia e atender aos outros requisitos do magia."
+          "description": "Frequência uma vez por dia\nRequisitos O cérebro do vampiro ainda não agiu neste turno\nEfeito O vampiro gasta o poder armazenado em seu anel de sinete. Isso dá ao vampiro a habilidade de lançar uma magia preparado que ele já havia lançado hoje sem gastar um espaço de magia. O vampiro ainda deve lançar a magia e atender aos outros requisitos da magia."
         },
         "HhkalK1aMfqDSiWQ": {
           "name": "Beber sangue",
@@ -657,7 +657,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zl24K9E3qEAfVXrR": {
           "name": "Vire-se para a névoa",
-          "description": "O vampiro se transforma em uma nuvem de vapor, como no magia Forma de Vapor, ou volta à sua forma normal. O vampiro perde a cura rápida enquanto está na forma gasosa.\nO vampiro pode permanecer nesta forma indefinidamente."
+          "description": "O vampiro se transforma em uma nuvem de vapor, como na magia Forma de Vapor, ou volta à sua forma normal. O vampiro perde a cura rápida enquanto está na forma gasosa.\nO vampiro pode permanecer nesta forma indefinidamente."
         },
         "m3iQuuvCSejqA1Ue": {
           "name": "Pegar",
@@ -801,7 +801,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Adamantino (Jovem, Feiticeiro)",
-      "description": "Os poderosos dragões adamantinos são um dos vários dragões conhecidos como dragões skymetal. A magia inata que flui através desses dragões faz com que eles atraiam metais específicos para seus corpos como ímãs ou, em alguns casos, façam crescer naturalmente esses metais celestes em seus corpos. Os dragões Adamantinos começam suas vidas com escamas resistentes que são naturalmente substituídas por um revestimento adamantino mais espesso e ainda mais resistente à medida que envelhecem. Os dragões Adamantinos são tipicamente firmes e leais. Depois que eles se comprometem com um determinado propósito, mudar de ideia é quase impossível.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Os poderosos dragões adamantinos são um dos vários dragões conhecidos como dragões skymetal. A magia inata que flui através desses dragões faz com que eles atraiam metais específicos para seus corpos como ímãs ou, em alguns casos, façam crescer naturalmente esses metais celestes em seus corpos. Os dragões Adamantinos começam suas vidas com escamas resistentes que são naturalmente substituídas por um revestimento adamantino mais espesso e ainda mais resistente à medida que envelhecem. Os dragões Adamantinos são tipicamente firmes e leais. Depois que eles se comprometem com um determinado propósito, mudar de ideia é quase impossível.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro",
@@ -867,7 +867,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "S1Ztj3jcXHNboSRl": {
           "name": "Respiração de Avalanche",
-          "description": "O dragão arrota uma massa de pedras que causa 8d8[concussão|opções:dano de área] de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:28, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por [[/gmr 1d4 #Recharge Sopro de Avalanche]]{1d4 rodadas}."
+          "description": "O dragão arrota uma massa de pedras que causa 8d8[concussão de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:28, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por 1d4."
         },
         "oIGArcTy5v4hSbt2": {
           "name": "Ataque Escavador",
@@ -1065,7 +1065,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "gSQGpCpvE3YRtvLr": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "SdvOPdD36kKFhSXc": {
@@ -1152,7 +1152,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Empíreo (Jovem, Feiticeiro)",
-      "description": "Os três principais planos celestiais – Céu, Nirvana e Elysium – têm cada um seus respectivos dragões. Dragões Empíreos têm uma conexão direta com o Céu. Usando as bênçãos do Céu, os dragões empíreos protegem os outros e intercedem contra a maldade. Os dragões empíreos são sábios, atenciosos e compassivos. Ao falar com outras pessoas, os dragões empíreos são pacientes e compreensivos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Os três principais planos celestiais – Céu, Nirvana e Elysium – têm cada um seus respectivos dragões. Dragões Empíreos têm uma conexão direta com o Céu. Usando as bênçãos do Céu, os dragões empíreos protegem os outros e intercedem contra a maldade. Os dragões empíreos são sábios, atenciosos e compassivos. Ao falar com outras pessoas, os dragões empíreos são pacientes e compreensivos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro",
@@ -1220,11 +1220,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OjT0pleNnNeCjfub": {
           "name": "Pulso Halo",
-          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por [[/gmr 1d4 #Recharge Halo Pulse]]{1d4 rodadas}.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:29) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 5d8[cura]{5d8 Pontos de Vida}."
+          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por 1d4.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:29) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 5d8[cura]{5d8 Pontos de Vida}."
         },
         "kvqqiXW7WeNRoofl": {
           "name": "Respiração Espiritual",
-          "description": "O dragão libera uma explosão de fogo sagrado que causa 9d8[espírito|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:29, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por [[/gmr 1d4 #Recharge Respiração Espiritual]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo sagrado que causa 9d8[espírito de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:29, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -1387,11 +1387,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OjT0pleNnNeCjfub": {
           "name": "Pulso Halo",
-          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por [[/gmr 1d4 #Recharge Halo Pulse]]{1d4 rodadas}.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:29) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 5d8[cura]{5d8 Pontos de Vida}."
+          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por 1d4.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:29) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 5d8[cura]{5d8 Pontos de Vida}."
         },
         "kvqqiXW7WeNRoofl": {
           "name": "Respiração Espiritual",
-          "description": "O dragão libera uma explosão de fogo sagrado que causa 9d8[espírito|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:29, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por [[/gmr 1d4 #Recharge Respiração Espiritual]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo sagrado que causa 9d8[espírito de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:29, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -1421,7 +1421,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão da Fortuna (Jovem, Feiticeiro)",
-      "description": "Os dragões da fortuna têm a habilidade inata de aproveitar as energias mágicas brutas que os cercam. Eles usam constantemente essas energias mágicas para fortalecer suas habilidades mágicas e até mesmo seus corpos, pois a energia pode curar feridas. Um dragão da fortuna tem uma constituição típica de um dragão arcano, mas seus corpos apresentam uma característica marcante: seu tesouro. A natureza do dragão de recorrer à magia faz com que moedas, pedras preciosas e, mais notavelmente, itens mágicos se agarrem ao seu corpo como ferro atraído por ímãs. Um dragão extrai constantemente energias mágicas dos itens presos ao seu corpo e utiliza essas energias para lançar magias. As energias mágicas que fluem através de um dragão da fortuna também fluem constantemente através dos itens do dragão e, em muitos casos, os itens derretem com o calor produzido neste processo. Os dragões da fortuna buscam novas experiências. Esse desejo por originalidade leva os dragões da fortuna a abordar visitantes de outras ancestrais com curiosidade, embora esse interesse inicial diminua rapidamente se o visitante não tiver qualidades interessantes.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Os dragões da fortuna têm a habilidade inata de aproveitar as energias mágicas brutas que os cercam. Eles usam constantemente essas energias mágicas para fortalecer suas habilidades mágicas e até mesmo seus corpos, pois a energia pode curar feridas. Um dragão da fortuna tem uma constituição típica de um dragão arcano, mas seus corpos apresentam uma característica marcante: seu tesouro. A natureza do dragão de recorrer à magia faz com que moedas, pedras preciosas e, mais notavelmente, itens mágicos se agarrem ao seu corpo como ferro atraído por ímãs. Um dragão extrai constantemente energias mágicas dos itens presos ao seu corpo e utiliza essas energias para lançar magias. As energias mágicas que fluem através de um dragão da fortuna também fluem constantemente através dos itens do dragão e, em muitos casos, os itens derretem com o calor produzido neste processo. Os dragões da fortuna buscam novas experiências. Esse desejo por originalidade leva os dragões da fortuna a abordar visitantes de outras ancestrais com curiosidade, embora esse interesse inicial diminua rapidamente se o visitante não tiver qualidades interessantes.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro",
@@ -1461,15 +1461,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fLPSxVkoQyjEcOhg": {
           "name": "magia de Captura",
-          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia do magia para se alimentar. Eles tentam neutralizar o magia (neutralizar Rank 5, modificador de neutralização [[/r 1d20+20 #Counteract]]{+20}). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
+          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia da magia para se alimentar. Eles tentam neutralizar a magia (neutralizar Rank 5, modificador de neutralização 1d20+20). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
         },
         "Fd9jpCrOyon1zkTb": {
           "name": "Respiração perturbadora",
-          "description": "O dragão libera um spray de energias perturbadoras da magia que causa 9d6[força|opções:dano de área] de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:30, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por [[/gmr 1d4 #Recharge Respiração Disruptiva]]{1d4 rodadas}."
+          "description": "O dragão libera um spray de energias perturbadoras da magia que causa 9d6[força de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:30, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por 1d4."
         },
         "HrKiO0jPCr68aaT0": {
           "name": "Compartilhe a riqueza",
-          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 6d10[concussão|opções:dano de área] de dano com um teste (reflexo, dc:29, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:30]. O corpo do dragão não estará mais coberto de riquezas."
+          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 6d10[concussão de dano com um teste (reflexo, dc:29, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:30]. O corpo do dragão não estará mais coberto de riquezas."
         },
         "ZSBangxptZQWQrmm": {
           "name": "Mergulho no Tesouro",
@@ -1703,7 +1703,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "P8fKstyUiCmwOgjZ": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "mG6S0RxJVgI0DQFD": {
@@ -1712,11 +1712,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "3mk2mmiGAcN1iC6u": {
           "name": "A Perseguição do Arconte",
-          "description": "Frequência uma vez por dia\nRequisitos O rekhep viu outra criatura se teletransportar na última rodada e tem pelo menos um magia de Translocar restante\nEfeito O rekhep lança um de seus magias de translocação, que é aumentado para o 5º Rank e faz com que o qarna chegue em um espaço desocupado que ele escolher dentro de 30 pés (9 metros) da criatura que está perseguindo. Se a criatura estiver muito longe, o rekhep chega o mais próximo possível."
+          "description": "Frequência uma vez por dia\nRequisitos O rekhep viu outra criatura se teletransportar na última rodada e tem pelo menos uma magia de Translocar restante\nEfeito O rekhep lança um de suas magias de translocação, que é aumentado para o 5º Rank e faz com que o qarna chegue em um espaço desocupado que ele escolher dentro de 30 pés (9 metros) da criatura que está perseguindo. Se a criatura estiver muito longe, o rekhep chega o mais próximo possível."
         },
         "lvfCMbF5qS54CzyJ": {
           "name": "Mudança Corajosa",
-          "description": "Quando um rekhep usa seu magia inato Translocar, ele pode escolher se mover para o espaço de um aliado voluntário que possa ver dentro do alcance. Se o fizerem, o aliado troca de lugar com o arconte, aparecendo no espaço que o arconte acabou de desocupar, como se ele também tivesse lançado translocar."
+          "description": "Quando um rekhep usa sua magia inato Translocar, ele pode escolher se mover para o espaço de um aliado voluntário que possa ver dentro do alcance. Se o fizerem, o aliado troca de lugar com o arconte, aparecendo no espaço que o arconte acabou de desocupar, como se ele também tivesse lançado translocar."
         },
         "RjH3TFMNlP3aAE23": {
           "name": "Armamento Sagrado",
@@ -1798,7 +1798,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "m2Lkbdk2rZWG8ZPl": {
           "name": "Expulsar",
-          "description": "Uma @Template[emanation|distance:20] de energia espiritual empurra os intrusos, como se tentasse afastar suas almas. Cada criatura na área sofre 8d6[espírito | opções: dano de área] de dano dependendo de um teste (vontade, dc: 29, opções: efeito de área, efeito de dano) salvamento.\nA efígie de argila não pode ser expulsa novamente por [[/gmr 1d4 #Recharge Cast Out]]{1d4 rodadas}.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e 3d6[persistente,espiritual] de dano. O dano persistente termina se a criatura se mover além de 60 pés (18 metros) da efígie de argila ou se a efígie for destruída.\nFalha Crítica Como falha, exceto que o dano persistente é aumentado para 6d6[persistente,espírito]."
+          "description": "Uma @Template[emanation|distance:20] de energia espiritual empurra os intrusos, como se tentasse afastar suas almas. Cada criatura na área sofre 8d6[espírito | opções: dano de área] de dano dependendo de um teste (vontade, dc: 29, opções: efeito de área, efeito de dano) salvamento.\nA efígie de argila não pode ser expulsa novamente por 1d4.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e 3d6[persistente,espiritual] de dano. O dano persistente termina se a criatura se mover além de 60 pés (18 metros) da efígie de argila ou se a efígie for destruída.\nFalha Crítica Como falha, exceto que o dano persistente é aumentado para 6d6[persistente,espírito]."
         },
         "wW484fFKCzlYxNJv": {
           "name": "Passo Pesado",
@@ -2030,7 +2030,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "huAbJHogJo4HKgXV": {
           "name": "Rejuvenescimento",
-          "description": "Concluir o projeto do mago fantasma permite que ele siga para a vida após a morte.\nQuando um fantasma é destruído, ele se forma novamente após [[/br 2d4 #days]]{2d4 dias} dentro do local ao qual está vinculado, totalmente curado. Um fantasma só pode ser destruído permanentemente se alguém determinar a razão de sua existência e corrigir tudo o que impede o espírito de descansar."
+          "description": "Concluir o projeto do mago fantasma permite que ele siga para a vida após a morte.\nQuando um fantasma é destruído, ele se forma novamente após 2d4 dentro do local ao qual está vinculado, totalmente curado. Um fantasma só pode ser destruído permanentemente se alguém determinar a razão de sua existência e corrigir tudo o que impede o espírito de descansar."
         },
         "juKKPoneZ4x5mqlo": {
           "name": "Cura do Vazio",
@@ -2042,7 +2042,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "M7mGcRgzVr9C3wsW": {
           "name": "Ataque Telecinético",
-          "description": "O fantasma grita de dor e angústia enquanto pequenos objetos e detritos voam em um @Template[emanation|distance:30]. As criaturas nesta área sofrem 6d6[concussão|opções:dano de área] de dano, sujeito a um teste de resistência (reflexo, dc:29, básico, opções:efeito de área)."
+          "description": "O fantasma grita de dor e angústia enquanto pequenos objetos e detritos voam em um @Template[emanation|distance:30]. As criaturas nesta área sofrem 6d6[concussão de dano, sujeito a um teste de resistência (reflexo, dc:29, básico, opções:efeito de área)."
         }
       },
       "spellcasting": {
@@ -2278,11 +2278,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "oKuYToU9Nv9ALIIv": {
           "name": "Rejuvenescimento",
-          "description": "Quando um cavaleiro da tumba é destruído, sua armadura reconstrói seu corpo ao longo de [[/gmr 1d10]] dias — ou mais rapidamente se a armadura for usada por um hospedeiro vivo. Se o corpo for destruído antes disso, o processo é reiniciado.\nUm cavaleiro da sepultura só pode ser destruído permanentemente destruindo sua armadura (como com Desintegrar), transportando-a para a Forja da Criação ou jogando-a no coração de um vulcão."
+          "description": "Quando um cavaleiro da tumba é destruído, sua armadura reconstrói seu corpo ao longo de 1d10 dias — ou mais rapidamente se a armadura for usada por um hospedeiro vivo. Se o corpo for destruído antes disso, o processo é reiniciado.\nUm cavaleiro da sepultura só pode ser destruído permanentemente destruindo sua armadura (como com Desintegrar), transportando-a para a Forja da Criação ou jogando-a no coração de um vulcão."
         },
         "xH6NrBw4bYEHU7e3": {
           "name": "Aura Sacrílega",
-          "description": "30 pés (9 metros).\nQuando uma criatura na aura usa uma mágica ou habilidade de vitalidade, o cavaleiro do túmulo tenta neutralizá-la automaticamente, com um modificador de contra-ataque de [[/r 1d20+17 #Counteract]]{+17}."
+          "description": "30 pés (9 metros).\nQuando uma criatura na aura usa uma mágica ou habilidade de vitalidade, o cavaleiro do túmulo tenta neutralizá-la automaticamente, com um modificador de contra-ataque de 1d20+17."
         },
         "8R3jmOcyIfgNNdKr": {
           "name": "Cura do Vazio",
@@ -2290,7 +2290,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "1UmNfowZ4HWxS9rx": {
           "name": "Explosão Devastadora",
-          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. As criaturas na área recebem 11d6[frio|opções:dano de área] com um teste (reflexo, dc:29, básico, opções:efeito de área).\nO cavaleiro da tumba pode usar essa habilidade uma vez a cada [[/gmr 1d4 #Recharge Devastating Blast]] rodadas."
+          "description": "O cavaleiro da tumba libera um @Template[cone|distance:30] de energia. As criaturas na área recebem 11d6[frio com um teste (reflexo, dc:29, básico, opções:efeito de área).\nO cavaleiro da tumba pode usar essa habilidade uma vez a cada 1d4 rodadas."
         },
         "snOrUVs5f8v8gtuP": {
           "name": "Maldição do Cavaleiro Túmulo",
@@ -2355,7 +2355,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "uZdepeycCi1DBYTW": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "xkMFLEt2UXTB3bFw": {
@@ -2490,11 +2490,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fLPSxVkoQyjEcOhg": {
           "name": "magia de Captura",
-          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia do magia para se alimentar. Eles tentam neutralizar o magia (neutralizar Rank 5, modificador de neutralização [[/r 1d20+20 #Counteract]]{+20}). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
+          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia da magia para se alimentar. Eles tentam neutralizar a magia (neutralizar Rank 5, modificador de neutralização 1d20+20). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
         },
         "Fd9jpCrOyon1zkTb": {
           "name": "Respiração perturbadora",
-          "description": "O dragão libera um spray de energias perturbadoras da magia que causa 9d6[força|opções:dano de área] de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:30, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por [[/gmr 1d4 #Recharge Respiração Disruptiva]]{1d4 rodadas}."
+          "description": "O dragão libera um spray de energias perturbadoras da magia que causa 9d6[força de dano em um salvamento de @Template[cone|distance:30] (verificação (reflexo, dc:30, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por 1d4."
         },
         "wlFjZPNirGsmZHEX": {
           "name": "Frenesi Dracônico",
@@ -2506,7 +2506,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "HrKiO0jPCr68aaT0": {
           "name": "Compartilhe a riqueza",
-          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 6d10[concussão|opções:dano de área] de dano com um teste (reflexo, dc:29, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:30]. O corpo do dragão não estará mais coberto de riquezas."
+          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 6d10[concussão de dano com um teste (reflexo, dc:29, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:30]. O corpo do dragão não estará mais coberto de riquezas."
         },
         "ZSBangxptZQWQrmm": {
           "name": "Mergulho no Tesouro",
@@ -2907,7 +2907,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "AQkAJLS7IVqr7GLQ": {
           "name": "Pedra de Ligação",
-          "description": "Qualquer criatura atingida pelo punho do baluarte de pedra ou Golpe de rocha é afetada por um magia de teste (fortitude, dc:30) Aprisionamento à Terra."
+          "description": "Qualquer criatura atingida pelo punho do baluarte de pedra ou Golpe de rocha é afetada por uma magia de teste (fortitude, dc:30) Aprisionamento à Terra."
         },
         "bKmTRJI4PjS70sWZ": {
           "name": "Março Inexorável",
@@ -3001,7 +3001,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2SfnAmO0wAMNDsit": {
           "name": "Sopro do Fogo do Inferno",
-          "description": "O dragão libera uma explosão de fogo infernal que causa 12d6[fogo|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:30, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por [[/gmr 1d4 #Recharge Sopro do Fogo do Inferno]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo infernal que causa 12d6[fogo de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:30, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por 1d4."
         },
         "il0F3PjYujbcJGRq": {
           "name": "Pegar",
@@ -3094,7 +3094,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I2kJG5snUvdVtlrm": {
           "name": "Respiração do Destino",
-          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 10d6[mental|options:area-damage] de dano em um teste de @Template[cone|distance:30] (check (will, dc:30, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por [[/gmr 1d4 #Recharge Destiny Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 10d6[mental de dano em um teste de @Template[cone|distance:30] (check (will, dc:30, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por 1d4."
         },
         "aJ5Jw0ozWjNooF13": {
           "name": "Frenesi Dracônico",
@@ -3106,7 +3106,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2phPU9xYaMSKFNol": {
           "name": "Asas Proféticas",
-          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança um magia de Augúrio de 6º Rank, exceto que as asas podem prever resultados até 1 mês no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
+          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança uma magia de Augúrio de 6º Rank, exceto que as asas podem prever resultados até 1 mês no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
         },
         "IqwLfEmNC9TAiyzF": {
           "name": "Siga os cronogramas",
@@ -3179,7 +3179,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Be8ZCKKmNDNPgCM0": {
           "name": "Veneno da Aranha Golias",
-          "description": "Teste de salvamento (fortitude, dc:30)\nDuração Máxima 6 rodadas\nEstágio 1 3d6[veneno] de dano e Lentidão 1 (1 rodada)\nEstágio 2 3d8[veneno] de dano e Lentidão 2 (1 rodada)\nEstágio 3 3d10[veneno] de dano e paralisado por [[/br 2d4 #hours]]{2d4 horas}"
+          "description": "Teste de salvamento (fortitude, dc:30)\nDuração Máxima 6 rodadas\nEstágio 1 3d6[veneno] de dano e Lentidão 1 (1 rodada)\nEstágio 2 3d8[veneno] de dano e Lentidão 2 (1 rodada)\nEstágio 3 3d10[veneno] de dano e paralisado por 2d4"
         },
         "Eu72dpTXiYJQD7Hm": {
           "name": "Tether",
@@ -3240,7 +3240,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "sgKONsx24qNmQXvo": {
           "name": "Respiração Vendaval",
-          "description": "O elemental exala um @Template[cone|distance:30] de ar. As criaturas no cone devem ter sucesso em um teste de resistência (fortitude, dc:29, opções: efeito de área, efeito de dano) ou serão derrubadas pelo elemental.\nUma criatura atingida por um objeto sólido para de se mover e sofre 10d6[concussão|opções:dano em área] de dano (role o dano uma vez para todas as criaturas).\nO furacão elemental não pode usar Gale Breath novamente por [[/gmr 1d4 #Recharge Gale Breath]]{1d4 rodadas}.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura é empurrada 20 pés (6 metros).\nFalha A criatura é empurrada para 40 pés (12 metros).\nFalha Crítica A criatura é empurrada 40 pés (12 metros) e derrubada."
+          "description": "O elemental exala um @Template[cone|distance:30] de ar. As criaturas no cone devem ter sucesso em um teste de resistência (fortitude, dc:29, opções: efeito de área, efeito de dano) ou serão derrubadas pelo elemental.\nUma criatura atingida por um objeto sólido para de se mover e sofre 10d6[concussão de dano (role o dano uma vez para todas as criaturas).\nO furacão elemental não pode usar Gale Breath novamente por 1d4.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura é empurrada 20 pés (6 metros).\nFalha A criatura é empurrada para 40 pés (12 metros).\nFalha Crítica A criatura é empurrada 40 pés (12 metros) e derrubada."
         },
         "m0piXEdTBGvW1oIY": {
           "name": "Pressione 10 pés (3 metros)",
@@ -3298,7 +3298,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "krB0fRntUZ4twRdd": {
           "name": "Desmoronar",
-          "description": "Gatilho A avalanche elemental sofre dano de uma fonte hostil enquanto está no topo de uma rocha ou terra\nEfeito A avalanche elemental desmorona no chão, escavando 20 pés (6 metros). Esta Escavação não desencadeia reações.\nA avalanche elemental não pode desmoronar novamente por [[/gmr 1d4 #Recharge Crumble]]{1d4 rodadas}."
+          "description": "Gatilho A avalanche elemental sofre dano de uma fonte hostil enquanto está no topo de uma rocha ou terra\nEfeito A avalanche elemental desmorona no chão, escavando 20 pés (6 metros). Esta Escavação não desencadeia reações.\nA avalanche elemental não pode desmoronar novamente por 1d4."
         },
         "EIOiFljIAD1Zzdzr": {
           "name": "Pedras Espigadas",
@@ -3369,11 +3369,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tEPc3Xc3Pufff6D5": {
           "name": "Encharcar",
-          "description": "O elemental apaga todos os incêndios em @Template[emanation|distance:20].\nEle extingue todos os fogos não-mágicos automaticamente e tenta neutralizar os fogos mágicos ([[/r 1d20+20 #Drench]]{+20} modificador de neutralização)."
+          "description": "O elemental apaga todos os incêndios em @Template[emanation|distance:20].\nEle extingue todos os fogos não-mágicos automaticamente e tenta neutralizar os fogos mágicos (1d20+20 modificador de neutralização)."
         },
         "AiKIcXFJx9lEEfnt": {
           "name": "Surto",
-          "description": "O tsunami elementar se expande momentaneamente para preencher a área de seu vórtice. Criaturas dentro da aura sofrem (5d12+6)[concussão|opções:dano em área] de dano com um teste de resistência (fortitude, dc:31, básico, opções:efeito de área,movimento forçado). Uma criatura que falha neste salvamento é empurrada para 20 pés (6 metros).\nO tsunami elemental então encolhe para seu espaço normal e não pode Surge novamente por [[/gmr 1d4 #Recharge Surge]]{1d4 rodadas}."
+          "description": "O tsunami elementar se expande momentaneamente para preencher a área de seu vórtice. Criaturas dentro da aura sofrem (5d12+6)[concussão de dano com um teste de resistência (fortitude, dc:31, básico, opções:efeito de área,movimento forçado). Uma criatura que falha neste salvamento é empurrada para 20 pés (6 metros).\nO tsunami elemental então encolhe para seu espaço normal e não pode Surge novamente por 1d4."
         },
         "MGX1U8Kv59BVYAOI": {
           "name": "Empurrar ou Puxar 10 pés (3 metros)",
@@ -3391,7 +3391,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Diabólico (Jovem, Feiticeiro)",
-      "description": "O inferno, segundo alguns teólogos, é uma entidade viva em si. Dragões diabólicos, argumentam esses estudiosos, são apenas extensões do plano, criaturas vivas que se separam do Inferno para cumprir sua vontade. Quer isso seja verdade ou se os dragões diabólicos são simplesmente almas renascidas de dragões enviados para o Inferno, o fato é que esses dragões são poderosos, astutos e tirânicos. O objetivo de todo dragão diabólico é promover a vontade do Inferno, embora a forma como isso acontece possa variar. Independentemente de seus objetivos, esses dragões sempre abordam os recém-chegados com uma calma perturbadora.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "O inferno, segundo alguns teólogos, é uma entidade viva em si. Dragões diabólicos, argumentam esses estudiosos, são apenas extensões do plano, criaturas vivas que se separam do Inferno para cumprir sua vontade. Quer isso seja verdade ou se os dragões diabólicos são simplesmente almas renascidas de dragões enviados para o Inferno, o fato é que esses dragões são poderosos, astutos e tirânicos. O objetivo de todo dragão diabólico é promover a vontade do Inferno, embora a forma como isso acontece possa variar. Independentemente de seus objetivos, esses dragões sempre abordam os recém-chegados com uma calma perturbadora.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "greater-darkvision": "visão no escuro maior",
@@ -3455,7 +3455,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2SfnAmO0wAMNDsit": {
           "name": "Sopro do Fogo do Inferno",
-          "description": "O dragão libera uma explosão de fogo infernal que causa 12d6[fogo|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:30, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por [[/gmr 1d4 #Recharge Sopro do Fogo do Inferno]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo infernal que causa 12d6[fogo de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:30, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por 1d4."
         },
         "il0F3PjYujbcJGRq": {
           "name": "Pegar",
@@ -3590,7 +3590,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "O gosreg sente a essência mental de uma criatura como um sentido preciso com o alcance listado; ele não pode sentir criaturas estúpidas com sentido de pensamento."
         },
         "ZXmHvK97G48b1T6I": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "UIgdlwmkkFjjq6Kl": {
@@ -3872,11 +3872,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I2kJG5snUvdVtlrm": {
           "name": "Respiração do Destino",
-          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 10d6[mental|options:area-damage] de dano em um teste de @Template[cone|distance:30] (check (will, dc:30, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por [[/gmr 1d4 #Recharge Destiny Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 10d6[mental de dano em um teste de @Template[cone|distance:30] (check (will, dc:30, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por 1d4."
         },
         "2phPU9xYaMSKFNol": {
           "name": "Asas Proféticas",
-          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança um magia de Augúrio de 6º Rank, exceto que as asas podem prever resultados até 1 mês no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
+          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança uma magia de Augúrio de 6º Rank, exceto que as asas podem prever resultados até 1 mês no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
         },
         "IqwLfEmNC9TAiyzF": {
           "name": "Siga os cronogramas",
@@ -4012,7 +4012,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "oncBOpovIROpa0vf": {
           "name": "Explosão",
-          "description": "Quando o inferno elemental morre, ele explode, causando 7d6[fogo|opções:dano de área] de dano a cada criatura em um @Template[emanation|distance:10|traits:fogo,efeito de dano] (verificação (reflexo, dc:30, básico, opções:efeito de área) salvamento)."
+          "description": "Quando o inferno elemental morre, ele explode, causando 7d6[fogo de dano a cada criatura em um @Template[emanation|distance:10|traits:fogo,efeito de dano] (verificação (reflexo, dc:30, básico, opções:efeito de área) salvamento)."
         },
         "cIAptRydc370Xjbd": {
           "name": "Calor intenso",
@@ -4024,7 +4024,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "9Gpl3fy3X5489jJF": {
           "name": "Salto Infernal",
-          "description": "O inferno elemental salta horizontal e verticalmente com altura e distância máximas, cada uma igual à sua Velocidade. Seu calor intenso é suprimido até o final do salto. Em vez disso, a qualquer momento durante o salto, chamas explodem do elemental em um @Template[emanation|distance:30], causando 12d6[fire|options:area-damage] de dano a cada criatura dentro da área (check (reflex, dc:30, basic, options:area-effect) save).\nO inferno elemental não pode fazer o Salto Inferno novamente por [[/gmr 1d4 #Recharge Inferno Leap]]{1d4 rodadas}."
+          "description": "O inferno elemental salta horizontal e verticalmente com altura e distância máximas, cada uma igual à sua Velocidade. Seu calor intenso é suprimido até o final do salto. Em vez disso, a qualquer momento durante o salto, chamas explodem do elemental em um @Template[emanation|distance:30], causando 12d6[fire de dano a cada criatura dentro da área (check (reflex, dc:30, basic, options:area-effect) save).\nO inferno elemental não pode fazer o Salto Inferno novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -4079,7 +4079,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6iyj26yHFPai9vr3": {
           "name": "Greve do Vento",
-          "description": "O gigante das nuvens ataca uma criatura com seu ranseur, cercado por um rugido de ar impetuoso. Se acertar, o alvo sofre 4d8 de dano de concussão adicional e fica surdo por 1 minuto. Quer o Golpe acerte ou não, cada gigante que não seja das nuvens dentro de uma @Template[emanation|distance:20], incluindo o alvo do Golpe, é atingido por ventos fortes e deve tentar um teste de resistência (fortitude, dc:30, opções:efeito de área,efeito de dano,inflige:ensurdecido,inflige:prone).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre 2d8[sonic|options:area-damage] de dano.\nFalha A criatura sofre 4d8[sonic|options:area-damage] de dano e fica surda até o final do seu próximo turno.\nFalha Crítica Como falha, mas com dano duplo e também derrubado."
+          "description": "O gigante das nuvens ataca uma criatura com seu ranseur, cercado por um rugido de ar impetuoso. Se acertar, o alvo sofre 4d8 de dano de concussão adicional e fica surdo por 1 minuto. Quer o Golpe acerte ou não, cada gigante que não seja das nuvens dentro de uma @Template[emanation|distance:20], incluindo o alvo do Golpe, é atingido por ventos fortes e deve tentar um teste de resistência (fortitude, dc:30, opções:efeito de área,efeito de dano,inflige:ensurdecido,inflige:prone).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre 2d8[sonic de dano.\nFalha A criatura sofre 4d8[sonic de dano e fica surda até o final do seu próximo turno.\nFalha Crítica Como falha, mas com dano duplo e também derrubado."
         }
       },
       "spellcasting": {
@@ -4204,7 +4204,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "movrjEz8STKX1Zpl": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "wMOUKLz0vwIN8mhi": {
@@ -4221,7 +4221,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LqAAXNmz0VgzPf62": {
           "name": "Brotar Vida",
-          "description": "Um @Template[burst|distance:5] dentro de 100 pés (30 metros) é preenchido com uma vida simples e apropriada ao ambiente. Os animais recém-forjados mordem aqueles na área causando 7d6[perfuração|opções:dano de área] de dano com um teste de resistência (reflexo, dc:32, básico, opções:efeito de área). O akhana também pode ter fungos ou plantas sufocando a área, mesmo as flutuantes no céu, criando terreno difícil. A vida criada vive ou morre normalmente após a sua criação."
+          "description": "Um @Template[burst|distance:5] dentro de 100 pés (30 metros) é preenchido com uma vida simples e apropriada ao ambiente. Os animais recém-forjados mordem aqueles na área causando 7d6[perfuração de dano com um teste de resistência (reflexo, dc:32, básico, opções:efeito de área). O akhana também pode ter fungos ou plantas sufocando a área, mesmo as flutuantes no céu, criando terreno difícil. A vida criada vive ou morre normalmente após a sua criação."
         },
         "EgeykabOEe1xJ06A": {
           "name": "Pegar",
@@ -4416,7 +4416,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "E3MhiIzWlFAP4xx5": {
           "name": "Liberte a Terra",
-          "description": "A aeolaeka evoca pedras agitadas, criando um @Template[line|distance:60] de pedras rolantes. As criaturas na linha sofrem 10d6[concussão|opções:dano em área] de dano com um teste de resistência (reflexo, dc:35, opções:efeito de área,efeito de dano). A área é um terreno difícil por 24 horas antes que a pedra que sobrou se transforme em pó. O aeolaeka não pode Libertar a Terra por [[/gmr 1d4 #Recharge Liberate the Earth]]{1d4 rodadas}.\nSucesso Crítico A criatura não sofre dano.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e cai no chão.\nFalha Crítica A criatura sofre o dobro de dano, é derrubada e imobilizada pelos escombros ([[/act escape dc=32]])."
+          "description": "A aeolaeka evoca pedras agitadas, criando um @Template[line|distance:60] de pedras rolantes. As criaturas na linha sofrem 10d6[concussão de dano com um teste de resistência (reflexo, dc:35, opções:efeito de área,efeito de dano). A área é um terreno difícil por 24 horas antes que a pedra que sobrou se transforme em pó. O aeolaeka não pode Libertar a Terra por 1d4.\nSucesso Crítico A criatura não sofre dano.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e cai no chão.\nFalha Crítica A criatura sofre o dobro de dano, é derrubada e imobilizada pelos escombros (Escapar CD 32)."
         },
         "fiQG42UQUM5WRobZ": {
           "name": "Estátua",
@@ -4468,7 +4468,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão com Chifres (Adulto, Feiticeiro)",
-      "description": "A magia que flui através dos dragões primitivos pode manifestar características mais animalescas ou bestiais em um determinado tipo de dragão. Notavelmente entre eles estão os enormes chifres emparelhados do dragão com chifres. Embora sua estrutura volumosa, coloração natural e escamas estriadas proeminentes sejam notáveis ​​à sua maneira, são os chifres que são mais óbvios e impressionantes à primeira vista. Dragões com chifres usam seus chifres para empalar suas presas em uma demonstração rápida e brutal de seu poder. Geralmente são contemplativos e têm fixação no conhecimento e na autodisciplina, características desmentidas por sua aparência bestial. Como resultado, os dragões com chifres são geralmente mais abertos a falar com estranhos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "A magia que flui através dos dragões primitivos pode manifestar características mais animalescas ou bestiais em um determinado tipo de dragão. Notavelmente entre eles estão os enormes chifres emparelhados do dragão com chifres. Embora sua estrutura volumosa, coloração natural e escamas estriadas proeminentes sejam notáveis ​​à sua maneira, são os chifres que são mais óbvios e impressionantes à primeira vista. Dragões com chifres usam seus chifres para empalar suas presas em uma demonstração rápida e brutal de seu poder. Geralmente são contemplativos e têm fixação no conhecimento e na autodisciplina, características desmentidas por sua aparência bestial. Como resultado, os dragões com chifres são geralmente mais abertos a falar com estranhos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Enorme",
       "senses": {
         "darkvision": "visão no escuro",
@@ -4530,7 +4530,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VPryni3E3RGw5MdV": {
           "name": "Hálito Venenoso",
-          "description": "O dragão respira uma nuvem tóxica que causa 13d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:31, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem tóxica que causa 13d6[veneno de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:31, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por 1d4."
         },
         "O3Pp2Vb15TQKafR0": {
           "name": "Jornada sem trilhas",
@@ -4669,7 +4669,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "98fcfAaERbR2T29q": {
           "name": "Luz esmagadora",
-          "description": "Gatilho A criança brilhante entra em uma área de escuridão mágica ou começa seu turno em uma área de escuridão mágica\nEfeito A criança brilhante tenta neutralizar a escuridão mágica (neutralizar Rank 7, modificador de neutralização [[/r 1d20+23 #Counteract]]{+23})."
+          "description": "Gatilho A criança brilhante entra em uma área de escuridão mágica ou começa seu turno em uma área de escuridão mágica\nEfeito A criança brilhante tenta neutralizar a escuridão mágica (neutralizar Rank 7, modificador de neutralização 1d20+23)."
         }
       },
       "spellcasting": {
@@ -4764,12 +4764,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um omox incorpora sujeira e eles consideram o conceito de limpeza abominável. Um omox sujeito a um efeito que os limpa, como o comando limpo de Prestidigitação, sofre 2d6[mental] de dano. Eles também sofrem esse dano na primeira vez em cada rodada que uma criatura atingida por um dos ataques do omox gasta ações limpando a sujeira."
         },
         "gSa5hFK8PxghU9Ej": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "dyWftDFNWQBORQLX": {
           "name": "Absorver Arma",
-          "description": "Gatilho Uma criatura atinge o omox com uma arma corpo a corpo\nEfeito O omox tenta [[/act desarmar]] a criatura. Com um sucesso crítico, a arma fica incorporada ao corpo do omox em vez de cair no chão. Recuperar a arma requer desarmar o omox dela."
+          "description": "Gatilho Uma criatura atinge o omox com uma arma corpo a corpo\nEfeito O omox tenta desarmar a criatura. Com um sucesso crítico, a arma fica incorporada ao corpo do omox em vez de cair no chão. Recuperar a arma requer desarmar o omox dela."
         },
         "AEz7KLpjP8KnKGjx": {
           "name": "Salto Líquido",
@@ -4777,7 +4777,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "oeXGUL3qzPHQgzrW": {
           "name": "Armadilha de limo",
-          "description": "Uma criatura atingida por uma bola de limo de omox deve ter sucesso em um teste (reflexo, dc:32) de resistência ou sofrer uma penalidade de circunstância de -3 metros em suas Velocidades por 1 minuto ou até [[/act escape dc=35]]{Escape}. Em caso de falha crítica, a criatura também fica Desajeitada 1 pela mesma duração.\nEfeito: Armadilha de Slime"
+          "description": "Uma criatura atingida por uma bola de limo de omox deve ter sucesso em um teste (reflexo, dc:32) de resistência ou sofrer uma penalidade de circunstância de -3 metros em suas Velocidades por 1 minuto ou até Escapar CD 35. Em caso de falha crítica, a criatura também fica Desajeitada 1 pela mesma duração.\nEfeito: Armadilha de Slime"
         },
         "p4F4jzZzQp6LGCex": {
           "name": "Sufocar",
@@ -4891,7 +4891,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VPryni3E3RGw5MdV": {
           "name": "Hálito Venenoso",
-          "description": "O dragão respira uma nuvem tóxica que causa 13d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:31, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por [[/gmr 1d4 #Recharge Poison Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem tóxica que causa 13d6[veneno de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:31, básico, opções:efeito de área)).\nEles não podem usar Poison Breath novamente por 1d4."
         },
         "O3Pp2Vb15TQKafR0": {
           "name": "Jornada sem trilhas",
@@ -5037,7 +5037,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "qtXj0TB36n30L7my": {
           "name": "Desarmar astuto",
-          "description": "Requisitos A última ação do gimmerling foi um golpe de garra bem-sucedido\nEfeito O gimmerling tenta [[/act disarm options=sly-disarm]] a criatura que atingiu. Eles ganham um bônus de status de +4 no teste de Atletismo. Esta tentativa não se aplica nem conta para a penalidade de ataque múltiplo do gimmerling."
+          "description": "Requisitos A última ação do gimmerling foi um golpe de garra bem-sucedido\nEfeito O gimmerling tenta disarm options=sly disarm a criatura que atingiu. Eles ganham um bônus de status de +4 no teste de Atletismo. Esta tentativa não se aplica nem conta para a penalidade de ataque múltiplo do gimmerling."
         },
         "FdQL1f8wOuuy69Tz": {
           "name": "Ataque furtivo",
@@ -5162,12 +5162,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "gakDYFEsPKyFUdIg": {
-          "name": "+1 Status para todos os salvamentos vs. Vitalidade",
+          "name": "+1 de bônus de status em todos os testes de resistência contra vitalidade",
           "description": ""
         },
         "gSG1OZxFHX2zLrNP": {
           "name": "Contrafeitiço",
-          "description": "Gatilho Uma criatura lança um magia que o lich preparou.\nEfeito O lich gasta uma magia preparada para anular o lançamento da mesma magia pela criatura desencadeadora. O lich perde seu espaço de magia como se tivesse lançado a magia desencadeadora. O lich então tenta neutralizar o magia desencadeador."
+          "description": "Gatilho Uma criatura lança uma magia que o lich preparou.\nEfeito O lich gasta uma magia preparada para anular o lançamento da mesma magia pela criatura desencadeadora. O lich perde seu espaço de magia como se tivesse lançado a magia desencadeadora. O lich então tenta neutralizar a magia desencadeador."
         },
         "lTAUfkDQ3VVnBakO": {
           "name": "Presença assustadora",
@@ -5183,7 +5183,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "m6CbK52GoU471gez": {
           "name": "Drenar Jaula da Alma",
-          "description": "6º Rank\nFrequência uma vez por dia\nEfeito O lich aproveita o poder de sua Soul Cage para lançar qualquer magia arcano até o Rank mais alto que o lich pode lançar, mesmo que o magia que está sendo lançado não seja um dos magias preparados pelo lich. A jaula da alma do lich não precisa estar presente para que o lich use essa habilidade."
+          "description": "6º Rank\nFrequência uma vez por dia\nEfeito O lich aproveita o poder de sua Soul Cage para lançar qualquer magia arcano até o Rank mais alto que o lich pode lançar, mesmo que a magia que está sendo lançado não seja um das magias preparados pelo lich. A jaula da alma do lich não precisa estar presente para que o lich use essa habilidade."
         },
         "IBX7Tix58PNMLskp": {
           "name": "Vida Sifão",
@@ -5290,7 +5290,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Conspirador (Adulto, Feiticeiro)",
-      "description": "Escondidos entre as sombras e os altos escalões da sociedade estão os dragões conspiradores. Esses dragões são intrigantes, sempre procurando manipular e controlar os outros, seja para ganho pessoal ou simplesmente pela emoção de ver suas maquinações acontecerem. Dragões conspiradores se veem acima dos outros e normalmente falam em tons e palavras infantilizantes. No entanto, como a maioria dos dragões conspiradores encontram outros disfarçados, eles fazem o possível para manter o disfarce.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Escondidos entre as sombras e os altos escalões da sociedade estão os dragões conspiradores. Esses dragões são intrigantes, sempre procurando manipular e controlar os outros, seja para ganho pessoal ou simplesmente pela emoção de ver suas maquinações acontecerem. Dragões conspiradores se veem acima dos outros e normalmente falam em tons e palavras infantilizantes. No entanto, como a maioria dos dragões conspiradores encontram outros disfarçados, eles fazem o possível para manter o disfarce.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Grande",
       "senses": {
         "darkvision": "visão no escuro",
@@ -5352,7 +5352,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kK41S41L533fMggZ": {
           "name": "Detonar Disfarce",
-          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 13d6[concussão|opções:dano de área] de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:31, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
+          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 13d6[concussão de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:31, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
         },
         "uyo6N99p8gLhdfCs": {
           "name": "Transformação Apressada",
@@ -5360,7 +5360,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ab0Z4gMjfbVX1DVf": {
           "name": "Hálito de fumaça",
-          "description": "O dragão libera uma nuvem nociva de fumaça que causa 10d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:33, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por [[/gmr 1d4 #Recharge Smoke Breath]]{1d4 rodadas}."
+          "description": "O dragão libera uma nuvem nociva de fumaça que causa 10d6[veneno de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:33, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por 1d4."
         },
         "lhnqwfK5RkPmG7XJ": {
           "name": "Ataque furtivo",
@@ -5528,7 +5528,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kK41S41L533fMggZ": {
           "name": "Detonar Disfarce",
-          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 13d6[concussão|opções:dano de área] de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:31, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
+          "description": "Requisitos O dragão está usando seu disfarce conjurado\nEfeito O dragão irrompe do disfarce, destruindo-o. A revelação explosiva causa 13d6[concussão de dano a criaturas em um @Template[emanation|distance:5] com um teste de resistência (reflexo, dc:31, básico, opções:efeito de área). Uma criatura que falhe no teste fica Deslumbrada por 1 rodada enquanto fica coberta de restos do disfarce.\nQualquer criatura que compartilhe um espaço com o dragão após sua erupção é empurrada para o espaço vazio mais próximo."
         },
         "IUwmirxfv4K0PcJf": {
           "name": "Frenesi Dracônico",
@@ -5544,7 +5544,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ab0Z4gMjfbVX1DVf": {
           "name": "Hálito de fumaça",
-          "description": "O dragão libera uma nuvem nociva de fumaça que causa 10d6[veneno|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:33, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por [[/gmr 1d4 #Recharge Smoke Breath]]{1d4 rodadas}."
+          "description": "O dragão libera uma nuvem nociva de fumaça que causa 10d6[veneno de dano em um salvamento de @Template[cone|distance:50] (verificação (fortitude, dc:33, básico, opções:efeito de área)). A fumaça permanece por 1 minuto. Isto tem os efeitos da Névoa, exceto que preenche a área do cone.\nO dragão não pode usar Smoke Breath novamente por 1d4."
         },
         "lhnqwfK5RkPmG7XJ": {
           "name": "Ataque furtivo",
@@ -5665,7 +5665,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2V1LMw2K5gNCyFjF": {
           "name": "Shuln Saliva",
-          "description": "Teste de salvamento (fortitude, dc:32)\nDuração Máxima 6 rodadas\nEstágio 1 2d6[veneno] de dano e Lentidão 1 (1 rodada)\nEstágio 2 3d6[veneno] de dano e lentidão 1 (1 rodada)\nEstágio 3 4d6[veneno] de dano e paralisado por [[/br 2d6 #Paralysis Duration]]{2d6 horas}. A saliva de Shuln supera a habilidade inexorável."
+          "description": "Teste de salvamento (fortitude, dc:32)\nDuração Máxima 6 rodadas\nEstágio 1 2d6[veneno] de dano e Lentidão 1 (1 rodada)\nEstágio 2 3d6[veneno] de dano e lentidão 1 (1 rodada)\nEstágio 3 4d6[veneno] de dano e paralisado por 2d6. A saliva de Shuln supera a habilidade inexorável."
         },
         "gzVcZTMtslepZxcC": {
           "name": "Toca Imparável",
@@ -5725,7 +5725,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "h56Pa6wrSDYgJknl": {
           "name": "Escalas reflexivas",
-          "description": "Gatilho Uma criatura dentro de 30 pés (9 metros) lança um magia com o traço luz ou usa uma habilidade com o traço luz\nEfeito O quai dau ajusta sua posição para refletir a luz de suas escalas em uma exibição ofuscante. Todas as criaturas em um @Template[emanation|distance:30] devem ser bem sucedidas em um teste de resistência (fortitude, dc:33) ou ficarão cegas por 1 rodada."
+          "description": "Gatilho Uma criatura dentro de 30 pés (9 metros) lança uma magia com o traço luz ou usa uma habilidade com o traço luz\nEfeito O quai dau ajusta sua posição para refletir a luz de suas escalas em uma exibição ofuscante. Todas as criaturas em um @Template[emanation|distance:30] devem ser bem sucedidas em um teste de resistência (fortitude, dc:33) ou ficarão cegas por 1 rodada."
         },
         "8MJ5zGSkQJtOe99H": {
           "name": "Drenar água",
@@ -5741,7 +5741,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tcExN4D0Zo7I74NW": {
           "name": "Bico de água",
-          "description": "Requisitos O saco de água do quai dau to está cheio\nEfeito O quai dau esvazia seu saco de água para soprar água de seu tronco, causando 9d10[concussão|opções:dano de área] de dano a todas as criaturas em um @Template[linha|distância:90], com um teste de salvamento (reflexo, dc:33, básico, opções:efeito de área,movimento forçado). Uma criatura que falha recebe o push de 10 pés (3 metros) (ou 20 pés (6 metros) em caso de falha crítica)."
+          "description": "Requisitos O saco de água do quai dau to está cheio\nEfeito O quai dau esvazia seu saco de água para soprar água de seu tronco, causando 9d10[concussão de dano a todas as criaturas em um @Template[linha|distância:90], com um teste de salvamento (reflexo, dc:33, básico, opções:efeito de área,movimento forçado). Uma criatura que falha recebe o push de 10 pés (3 metros) (ou 20 pés (6 metros) em caso de falha crítica)."
         }
       },
       "spellcasting": {}
@@ -5755,7 +5755,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Adamantino (Adulto, Feiticeiro)",
-      "description": "Os poderosos dragões adamantinos são um dos vários dragões conhecidos como dragões skymetal. A magia inata que flui através desses dragões faz com que eles atraiam metais específicos para seus corpos como ímãs ou, em alguns casos, façam crescer naturalmente esses metais celestes em seus corpos. Os dragões Adamantinos começam suas vidas com escamas resistentes que são naturalmente substituídas por um revestimento adamantino mais espesso e ainda mais resistente à medida que envelhecem. Os dragões Adamantinos são tipicamente firmes e leais. Depois que eles se comprometem com um determinado propósito, mudar de ideia é quase impossível.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Os poderosos dragões adamantinos são um dos vários dragões conhecidos como dragões skymetal. A magia inata que flui através desses dragões faz com que eles atraiam metais específicos para seus corpos como ímãs ou, em alguns casos, façam crescer naturalmente esses metais celestes em seus corpos. Os dragões Adamantinos começam suas vidas com escamas resistentes que são naturalmente substituídas por um revestimento adamantino mais espesso e ainda mais resistente à medida que envelhecem. Os dragões Adamantinos são tipicamente firmes e leais. Depois que eles se comprometem com um determinado propósito, mudar de ideia é quase impossível.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Enorme",
       "senses": {
         "darkvision": "visão no escuro",
@@ -5823,7 +5823,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "S1Ztj3jcXHNboSRl": {
           "name": "Respiração de Avalanche",
-          "description": "O dragão arrota uma massa de pedras que causa 11d8[concussão|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:33, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por [[/gmr 1d4 #Recharge Sopro de Avalanche]]{1d4 rodadas}."
+          "description": "O dragão arrota uma massa de pedras que causa 11d8[concussão de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:33, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por 1d4."
         },
         "oIGArcTy5v4hSbt2": {
           "name": "Ataque Escavador",
@@ -5996,7 +5996,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "P2GEVOd1ZhUm32jc": {
           "name": "Caindo Relâmpago Congelado",
-          "description": "O oni da neve lança um raio gelado, branco como neve caída. O raio atinge um local dentro de 60 pés (18 metros), congelando o ar em uma nuvem de neve que preenche um @Template[burst|distance:20] e dura 1 minuto.\nTodas as criaturas dentro da neve ficam Ocultas, e todas as criaturas fora da neve ficam escondidas para as criaturas dentro dela. Uma criatura que entra na neve ou começa seu turno lá sofre 15[frio|opções:dano de área] de dano, com um teste de resistência (fortitude, dc:33, básico, opções:efeito de área)."
+          "description": "O oni da neve lança um raio gelado, branco como neve caída. O raio atinge um local dentro de 60 pés (18 metros), congelando o ar em uma nuvem de neve que preenche um @Template[burst|distance:20] e dura 1 minuto.\nTodas as criaturas dentro da neve ficam Ocultas, e todas as criaturas fora da neve ficam escondidas para as criaturas dentro dela. Uma criatura que entra na neve ou começa seu turno lá sofre 15[frio de dano, com um teste de resistência (fortitude, dc:33, básico, opções:efeito de área)."
         }
       },
       "spellcasting": {
@@ -6057,7 +6057,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "N3VyfMfoQe5DSb63": {
           "name": "Camuflar",
-          "description": "O dragão pode [[/agir se esconder]] em ambientes naturais mesmo que não tenha cobertura."
+          "description": "O dragão pode Esconder-se em ambientes naturais mesmo que não tenha cobertura."
         },
         "rLaISXF1UEzlgNVu": {
           "name": "Sentido de Ilusão",
@@ -6085,7 +6085,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cuSg2YxJeOWsi3XS": {
           "name": "Respiração Alucinatória",
-          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 12d6[mental|options:area-damage] de dano em um salvamento de @Template[cone|distance:40] (check (will, dc:33, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por [[/gmr 1d4 #Recharge Respiração Alucinatória]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 12d6[mental de dano em um salvamento de @Template[cone|distance:40] (check (will, dc:33, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por 1d4."
         },
         "YGFIBzztMdCKAOGu": {
           "name": "Mordida Pulmonante",
@@ -6201,7 +6201,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "7IWkM6MOEOAu4DTP": {
           "name": "Fusão de Árvore",
-          "description": "Um magia One with Plants lançado por uma dríade tem duração ilimitada.\nAlém disso, se a dríade se fundir com qualquer árvore em seu domínio, ela pode optar por entrar em um espaço extradimensional dentro da árvore e pode trazer consigo até oito criaturas adjacentes e dispostas; a magia ganha o traço extradimensional. A dríade ainda pode ser expulsa deste espaço."
+          "description": "Uma magia One with Plants lançado por uma dríade tem duração ilimitada.\nAlém disso, se a dríade se fundir com qualquer árvore em seu domínio, ela pode optar por entrar em um espaço extradimensional dentro da árvore e pode trazer consigo até oito criaturas adjacentes e dispostas; a magia ganha o traço extradimensional. A dríade ainda pode ser expulsa deste espaço."
         }
       },
       "spellcasting": {
@@ -6395,7 +6395,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "S1Ztj3jcXHNboSRl": {
           "name": "Respiração de Avalanche",
-          "description": "O dragão arrota uma massa de pedras que causa 11d8[concussão|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:33, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por [[/gmr 1d4 #Recharge Sopro de Avalanche]]{1d4 rodadas}."
+          "description": "O dragão arrota uma massa de pedras que causa 11d8[concussão de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:33, básico, opções:efeito de área)).\nEles não podem usar Sopro de Avalanche novamente por 1d4."
         },
         "oIGArcTy5v4hSbt2": {
           "name": "Ataque Escavador",
@@ -6481,7 +6481,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "PDPYyeFFpfksUoXK": {
           "name": "Manto das Sombras",
-          "description": "O gigante das sombras ganha o efeito do magia Desfoque por 1 minuto ou até ser exposto à luz solar direta, o que ocorrer primeiro."
+          "description": "O gigante das sombras ganha o efeito da magia Desfoque por 1 minuto ou até ser exposto à luz solar direta, o que ocorrer primeiro."
         }
       },
       "spellcasting": {}
@@ -6527,7 +6527,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ncg1Kg7qrX9KGyjS": {
           "name": "Veneno Respiratório",
-          "description": "O diretor de ferro exala gás venenoso em um @Template[burst|distance:10] centrado no canto de um dos quadrados do diretor de ferro. O gás persiste até o início do próximo turno do diretor. Qualquer criatura na área (ou que mais tarde entre na área) fica exposta ao veneno do Guardião de Ferro.\nO diretor não pode Respirar Veneno novamente por [[/gmr 1d4 #Recharge Breath Poison]]{1d4 rodadas}."
+          "description": "O diretor de ferro exala gás venenoso em um @Template[burst|distance:10] centrado no canto de um dos quadrados do diretor de ferro. O gás persiste até o início do próximo turno do diretor. Qualquer criatura na área (ou que mais tarde entre na área) fica exposta ao veneno do Guardião de Ferro.\nO diretor não pode Respirar Veneno novamente por 1d4."
         },
         "7sOSn6x9XtFWAy5t": {
           "name": "Março Inexorável",
@@ -6586,7 +6586,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "N3VyfMfoQe5DSb63": {
           "name": "Camuflar",
-          "description": "O dragão pode [[/agir se esconder]] em ambientes naturais mesmo que não tenha cobertura."
+          "description": "O dragão pode Esconder-se em ambientes naturais mesmo que não tenha cobertura."
         },
         "rLaISXF1UEzlgNVu": {
           "name": "Sentido de Ilusão",
@@ -6606,7 +6606,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cuSg2YxJeOWsi3XS": {
           "name": "Respiração Alucinatória",
-          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 12d6[mental|options:area-damage] de dano em um salvamento de @Template[cone|distance:40] (check (will, dc:33, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por [[/gmr 1d4 #Recharge Respiração Alucinatória]]{1d4 rodadas}."
+          "description": "O dragão respira uma nuvem que ataca os sentidos e causa 12d6[mental de dano em um salvamento de @Template[cone|distance:40] (check (will, dc:33, options:area-effect)). Uma criatura que falhe no teste também fica Confusa por 1 rodada (1 minuto em caso de falha crítica) e fica temporariamente imune a ser confundida por Respiração Alucinatória por 1 hora.\nO dragão não pode usar Respiração Alucinatória novamente por 1d4."
         },
         "YGFIBzztMdCKAOGu": {
           "name": "Mordida Pulmonante",
@@ -6858,7 +6858,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "bDkXVdgOwJv0PBRc": {
           "name": "Boca Farpada",
-          "description": "Gatilho O grikkitog atinge uma criatura com um golpe de mandíbula\nEfeito O grikkitog crava seus dentes farpados no alvo, que deve ter sucesso em um teste (reflexo, dc:34, opções:inflige:imobilizado) ou ficará Imobilizado. Enquanto imobilizada, a vítima sofre 3d8[persistente,sangramento] de dano e o grikkitog se alimenta de sua carne. A criatura fica imobilizada até que o grikkitog termine o efeito como uma ação livre ou o alvo obtenha sucesso em um teste CD 38 para [[/act escape dc=38]].\nO grikkitog pode imobilizar qualquer número de criaturas com essas mandíbulas."
+          "description": "Gatilho O grikkitog atinge uma criatura com um golpe de mandíbula\nEfeito O grikkitog crava seus dentes farpados no alvo, que deve ter sucesso em um teste (reflexo, dc:34, opções:inflige:imobilizado) ou ficará Imobilizado. Enquanto imobilizada, a vítima sofre 3d8[persistente,sangramento] de dano e o grikkitog se alimenta de sua carne. A criatura fica imobilizada até que o grikkitog termine o efeito como uma ação livre ou o alvo obtenha sucesso em um teste CD 38 para Escapar CD 38.\nO grikkitog pode imobilizar qualquer número de criaturas com essas mandíbulas."
         },
         "ADJpet8hkChh9ljl": {
           "name": "Deslizamento da Terra",
@@ -6876,7 +6876,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Empíreo (Adulto, Feiticeiro)",
-      "description": "Os três principais planos celestiais – Céu, Nirvana e Elysium – têm cada um seus respectivos dragões. Dragões Empíreos têm uma conexão direta com o Céu. Usando as bênçãos do Céu, os dragões empíreos protegem os outros e intercedem contra a maldade. Os dragões empíreos são sábios, atenciosos e compassivos. Ao falar com outras pessoas, os dragões empíreos são pacientes e compreensivos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Os três principais planos celestiais – Céu, Nirvana e Elysium – têm cada um seus respectivos dragões. Dragões Empíreos têm uma conexão direta com o Céu. Usando as bênçãos do Céu, os dragões empíreos protegem os outros e intercedem contra a maldade. Os dragões empíreos são sábios, atenciosos e compassivos. Ao falar com outras pessoas, os dragões empíreos são pacientes e compreensivos.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Enorme",
       "senses": {
         "darkvision": "visão no escuro",
@@ -6946,11 +6946,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OjT0pleNnNeCjfub": {
           "name": "Pulso Halo",
-          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por [[/gmr 1d4 #Recharge Halo Pulse]]{1d4 rodadas}.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:34) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 7d8[cura]{7d8 Pontos de Vida}."
+          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por 1d4.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:34) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 7d8[cura]{7d8 Pontos de Vida}."
         },
         "kvqqiXW7WeNRoofl": {
           "name": "Respiração Espiritual",
-          "description": "O dragão libera uma explosão de fogo sagrado que causa 12d8[espírito|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por [[/gmr 1d4 #Recharge Respiração Espiritual]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo sagrado que causa 12d8[espírito de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -7052,7 +7052,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão da Fortuna (Adulto, Feiticeiro)",
-      "description": "Os dragões da fortuna têm a habilidade inata de aproveitar as energias mágicas brutas que os cercam. Eles usam constantemente essas energias mágicas para fortalecer suas habilidades mágicas e até mesmo seus corpos, pois a energia pode curar feridas. Um dragão da fortuna tem uma constituição típica de um dragão arcano, mas seus corpos apresentam uma característica marcante: seu tesouro. A natureza do dragão de recorrer à magia faz com que moedas, pedras preciosas e, mais notavelmente, itens mágicos se agarrem ao seu corpo como ferro atraído por ímãs. Um dragão extrai constantemente energias mágicas dos itens presos ao seu corpo e utiliza essas energias para lançar magias. As energias mágicas que fluem através de um dragão da fortuna também fluem constantemente através dos itens do dragão e, em muitos casos, os itens derretem com o calor produzido neste processo. Os dragões da fortuna buscam novas experiências. Esse desejo por originalidade leva os dragões da fortuna a abordar visitantes de outras ancestrais com curiosidade, embora esse interesse inicial diminua rapidamente se o visitante não tiver qualidades interessantes.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "Os dragões da fortuna têm a habilidade inata de aproveitar as energias mágicas brutas que os cercam. Eles usam constantemente essas energias mágicas para fortalecer suas habilidades mágicas e até mesmo seus corpos, pois a energia pode curar feridas. Um dragão da fortuna tem uma constituição típica de um dragão arcano, mas seus corpos apresentam uma característica marcante: seu tesouro. A natureza do dragão de recorrer à magia faz com que moedas, pedras preciosas e, mais notavelmente, itens mágicos se agarrem ao seu corpo como ferro atraído por ímãs. Um dragão extrai constantemente energias mágicas dos itens presos ao seu corpo e utiliza essas energias para lançar magias. As energias mágicas que fluem através de um dragão da fortuna também fluem constantemente através dos itens do dragão e, em muitos casos, os itens derretem com o calor produzido neste processo. Os dragões da fortuna buscam novas experiências. Esse desejo por originalidade leva os dragões da fortuna a abordar visitantes de outras ancestrais com curiosidade, embora esse interesse inicial diminua rapidamente se o visitante não tiver qualidades interessantes.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Enorme",
       "senses": {
         "darkvision": "visão no escuro",
@@ -7093,19 +7093,19 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TeMGPTAgB6CQgUrI": {
           "name": "Aura de Disrupção",
-          "description": "120 pés (36 metros).\nO dragão irradia energias perturbadoras que lhes permitem se alimentar de magia. Quando um magia é neutralizado ou interrompido dentro da aura, o dragão recupera um espaço de magia espontâneo gasto e ganha 25 Pontos de Vida temporários que duram 1 minuto."
+          "description": "120 pés (36 metros).\nO dragão irradia energias perturbadoras que lhes permitem se alimentar de magia. Quando uma magia é neutralizado ou interrompido dentro da aura, o dragão recupera um espaço de magia espontâneo gasto e ganha 25 Pontos de Vida temporários que duram 1 minuto."
         },
         "fLPSxVkoQyjEcOhg": {
           "name": "magia de Captura",
-          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia do magia para se alimentar. Eles tentam neutralizar o magia (neutralizar Rank 7, modificador de neutralização [[/r 1d20+28 #Counteract]]{+28}). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
+          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia da magia para se alimentar. Eles tentam neutralizar a magia (neutralizar Rank 7, modificador de neutralização 1d20+28). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
         },
         "Fd9jpCrOyon1zkTb": {
           "name": "Respiração perturbadora",
-          "description": "O dragão libera um jato de energias perturbadoras da magia que causa 13d6[força|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:36, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por [[/gmr 1d4 #Recharge Respiração Disruptiva]]{1d4 rodadas}."
+          "description": "O dragão libera um jato de energias perturbadoras da magia que causa 13d6[força de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:36, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por 1d4."
         },
         "HrKiO0jPCr68aaT0": {
           "name": "Compartilhe a riqueza",
-          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 9d10[concussão|opções:dano de área] de dano com um teste (reflexo, dc:35, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:40]. O corpo do dragão não estará mais coberto de riquezas."
+          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 9d10[concussão de dano com um teste (reflexo, dc:35, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:40]. O corpo do dragão não estará mais coberto de riquezas."
         },
         "ZSBangxptZQWQrmm": {
           "name": "Mergulho no Tesouro",
@@ -7258,7 +7258,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "7ECMLvSVWJWwwgKi": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "pPuHLDfAI4W6qEr6": {
@@ -7400,11 +7400,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OjT0pleNnNeCjfub": {
           "name": "Pulso Halo",
-          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por [[/gmr 1d4 #Recharge Halo Pulse]]{1d4 rodadas}.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:34) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 7d8[cura]{7d8 Pontos de Vida}."
+          "description": "O dragão escolhe um efeito para impor às criaturas em sua aura de presença inspiradora.\nO dragão não pode usar Halo Pulse novamente por 1d4.\n• Repulsão Cada criatura deve ser bem sucedida em um teste de resistência (fortitude, dc:34) ou será empurrada até que não esteja mais na aura.\n• Restauração (cura, vitalidade) Cada criatura recupera 7d8[cura]{7d8 Pontos de Vida}."
         },
         "kvqqiXW7WeNRoofl": {
           "name": "Respiração Espiritual",
-          "description": "O dragão libera uma explosão de fogo sagrado que causa 12d8[espírito|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por [[/gmr 1d4 #Recharge Respiração Espiritual]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo sagrado que causa 12d8[espírito de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:34, básico, opções:efeito de área)).\nO dragão não pode usar Respiração Espiritual novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -7481,7 +7481,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "V0DnCsH65jBlStiD": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "ErNsSmjjx1k38FuX": {
@@ -7506,7 +7506,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "C35zZH9Tm4QXYQ4y": {
           "name": "Respiração de Magma",
-          "description": "O penhasco linnorm exala um fluxo de magma em um @Template[line|distance:120] que causa 12d6[fire|options:area-damage] de dano a criaturas dentro da área (check (reflex, dc:34, basic, options:area-effect) save). Qualquer criatura que falhe no teste também sofre 4d6[persistente,fogo] de dano.\nO linnorm não pode usar Sopro de Magma novamente por [[/gmr 1d4 #Recharge Magma Breath]]{1d4 rodadas}.\nO magma permanece até o início do próximo turno do Linnorm. Se o Linnorm estiver no solo, o magma permanecerá como uma linha ardente no solo, diretamente abaixo da linha da Respiração do Magma; se o linnorm estava no ar, o magma choveu em uma camada de altura 60 pés (18 metros). Qualquer criatura que se mova através do magma sofre 6d6[fogo] de dano (teste de resistência (reflexo, dc:34, básico)).\nNo início do próximo turno do Linnorm, o magma esfria até se tornar uma fina camada de pedra quebradiça, ou a chuva de magma termina de cair e se transforma em seixos inofensivos. O magma resfriado degrada-se rapidamente em pó e areia ao longo de várias horas."
+          "description": "O penhasco linnorm exala um fluxo de magma em um @Template[line|distance:120] que causa 12d6[fire de dano a criaturas dentro da área (check (reflex, dc:34, basic, options:area-effect) save). Qualquer criatura que falhe no teste também sofre 4d6[persistente,fogo] de dano.\nO linnorm não pode usar Sopro de Magma novamente por 1d4.\nO magma permanece até o início do próximo turno do Linnorm. Se o Linnorm estiver no solo, o magma permanecerá como uma linha ardente no solo, diretamente abaixo da linha da Respiração do Magma; se o linnorm estava no ar, o magma choveu em uma camada de altura 60 pés (18 metros). Qualquer criatura que se mova através do magma sofre 6d6[fogo] de dano (teste de resistência (reflexo, dc:34, básico)).\nNo início do próximo turno do Linnorm, o magma esfria até se tornar uma fina camada de pedra quebradiça, ou a chuva de magma termina de cair e se transforma em seixos inofensivos. O magma resfriado degrada-se rapidamente em pó e areia ao longo de várias horas."
         },
         "OFEj9wltNrZpJ77C": {
           "name": "Agarrar Melhorado",
@@ -7585,7 +7585,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "AgyAcss0yoN59u3Z": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "oqYW7IkKIsygycAY": {
@@ -7695,15 +7695,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TeMGPTAgB6CQgUrI": {
           "name": "Aura de Disrupção",
-          "description": "120 pés (36 metros).\nO dragão irradia energias perturbadoras que lhes permitem se alimentar de magia. Quando um magia é neutralizado ou interrompido dentro da aura, o dragão recupera um espaço de magia espontâneo gasto e ganha 25 Pontos de Vida temporários que duram 1 minuto."
+          "description": "120 pés (36 metros).\nO dragão irradia energias perturbadoras que lhes permitem se alimentar de magia. Quando uma magia é neutralizado ou interrompido dentro da aura, o dragão recupera um espaço de magia espontâneo gasto e ganha 25 Pontos de Vida temporários que duram 1 minuto."
         },
         "fLPSxVkoQyjEcOhg": {
           "name": "magia de Captura",
-          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia do magia para se alimentar. Eles tentam neutralizar o magia (neutralizar Rank 7, modificador de neutralização [[/r 1d20+28 #Counteract]]{+28}). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
+          "description": "Acionamento O dragão obtém sucesso ou sucesso crítico em um teste de resistência contra uma magia\nEfeito O dragão tenta capturar uma parte da magia da magia para se alimentar. Eles tentam neutralizar a magia (neutralizar Rank 7, modificador de neutralização 1d20+28). Se tiver sucesso, o dragão não é afetado pela magia e recupera um espaço de magia espontânea gasto; outros assuntos são afetados pela magia normalmente."
         },
         "Fd9jpCrOyon1zkTb": {
           "name": "Respiração perturbadora",
-          "description": "O dragão libera um jato de energias perturbadoras da magia que causa 13d6[força|opções:dano de área] de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:36, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por [[/gmr 1d4 #Recharge Respiração Disruptiva]]{1d4 rodadas}."
+          "description": "O dragão libera um jato de energias perturbadoras da magia que causa 13d6[força de dano em um salvamento de @Template[cone|distance:40] (verificação (reflexo, dc:36, básico, opções:efeito de área)). As criaturas que falharem ficam Estupefatas 1 (Estupefadas 2 em uma falha crítica) por 1 minuto.\nO dragão não pode usar Respiração Disruptiva novamente por 1d4."
         },
         "wlFjZPNirGsmZHEX": {
           "name": "Frenesi Dracônico",
@@ -7715,7 +7715,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "HrKiO0jPCr68aaT0": {
           "name": "Compartilhe a riqueza",
-          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 9d10[concussão|opções:dano de área] de dano com um teste (reflexo, dc:35, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:40]. O corpo do dragão não estará mais coberto de riquezas."
+          "description": "Requisitos O corpo do dragão está coberto de riquezas (este é normalmente o caso quando o dragão é encontrado pela primeira vez)\nEfeito O dragão balança seu corpo agressivamente, enviando moedas e outras riquezas voando em todas as direções, causando 9d10[concussão de dano com um teste (reflexo, dc:35, básico, opções:efeito de área) de salvamento a todas as criaturas em um @Template[emanation|distance:40]. O corpo do dragão não estará mais coberto de riquezas."
         },
         "ZSBangxptZQWQrmm": {
           "name": "Mergulho no Tesouro",
@@ -7811,7 +7811,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "d574MMQ1MIrxdW3F": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "m4OYTMe2y8AC2h0q": {
@@ -7945,7 +7945,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "lJ7R0wPVIxspGA72": {
           "name": "Forma de Cinza",
-          "description": "Frequência uma vez por minuto\nEfeito A caldeira oni se transforma em uma nuvem de cinzas vulcânicas cintilantes e depois voa. Este movimento não desencadeia reações, e o caldeira oni pode se mover através de pequenas lacunas e espaços ocupados por outras criaturas.\nO oni da caldeira então retorna à sua forma física, afetado por um magia Ampliar de 4º Rank com duração de [[/gmr 1d4 #Ash Form Duration]]{1d4 rodadas}."
+          "description": "Frequência uma vez por minuto\nEfeito A caldeira oni se transforma em uma nuvem de cinzas vulcânicas cintilantes e depois voa. Este movimento não desencadeia reações, e o caldeira oni pode se mover através de pequenas lacunas e espaços ocupados por outras criaturas.\nO oni da caldeira então retorna à sua forma física, afetado por uma magia Ampliar de 4º Rank com duração de 1d4."
         },
         "J0ri0JZTtI3g3kxN": {
           "name": "Alterar forma",
@@ -8023,7 +8023,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kuW4IJohw5LunECQ": {
           "name": "Inspire Vitalidade",
-          "description": "Frequência uma vez por dia\nEfeito O Augnagar inspira profundamente, extraindo força vital das criaturas em um @Template[cone|distance:50]. As criaturas na área sofrem 14d6[void|options:area-damage] de dano com um teste de resistência (fortitude, dc:34, básico, opções:efeito de área). Uma criatura que falhe no teste também fica Fatigada.\nSe alguma criatura sofrer dano desta atividade, o augnagar fica Acelerado por 1 rodada e pode usar a ação extra apenas para Andar ou Golpear."
+          "description": "Frequência uma vez por dia\nEfeito O Augnagar inspira profundamente, extraindo força vital das criaturas em um @Template[cone|distance:50]. As criaturas na área sofrem 14d6[void de dano com um teste de resistência (fortitude, dc:34, básico, opções:efeito de área). Uma criatura que falhe no teste também fica Fatigada.\nSe alguma criatura sofrer dano desta atividade, o augnagar fica Acelerado por 1 rodada e pode usar a ação extra apenas para Andar ou Golpear."
         },
         "UatC9BxVJopPgwJd": {
           "name": "Maldição Apodrecida",
@@ -8128,7 +8128,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2SfnAmO0wAMNDsit": {
           "name": "Sopro do Fogo do Inferno",
-          "description": "O dragão libera uma explosão de fogo infernal que causa 16d6[fogo|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:36, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por [[/gmr 1d4 #Recharge Sopro do Fogo do Inferno]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo infernal que causa 16d6[fogo de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:36, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por 1d4."
         },
         "il0F3PjYujbcJGRq": {
           "name": "Pegar",
@@ -8204,7 +8204,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "UQ7yTknJYCFghTF4": {
-          "name": "+2 para Will Saves vs.",
+          "name": "+2 em testes de Vontade contra emoção",
           "description": ""
         },
         "TuTut6BPwHgd3Xp7": {
@@ -8273,7 +8273,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Dragão Diabólico (Adulto, Feiticeiro)",
-      "description": "O inferno, segundo alguns teólogos, é uma entidade viva em si. Dragões diabólicos, argumentam esses estudiosos, são apenas extensões do plano, criaturas vivas que se separam do Inferno para cumprir sua vontade. Quer isso seja verdade ou se os dragões diabólicos são simplesmente almas renascidas de dragões enviados para o Inferno, o fato é que esses dragões são poderosos, astutos e tirânicos. O objetivo de todo dragão diabólico é promover a vontade do Inferno, embora a forma como isso acontece possa variar. Independentemente de seus objetivos, esses dragões sempre abordam os recém-chegados com uma calma perturbadora.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles os magias descritos na barra lateral. Você pode trocar qualquer número deles por outros magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
+      "description": "O inferno, segundo alguns teólogos, é uma entidade viva em si. Dragões diabólicos, argumentam esses estudiosos, são apenas extensões do plano, criaturas vivas que se separam do Inferno para cumprir sua vontade. Quer isso seja verdade ou se os dragões diabólicos são simplesmente almas renascidas de dragões enviados para o Inferno, o fato é que esses dragões são poderosos, astutos e tirânicos. O objetivo de todo dragão diabólico é promover a vontade do Inferno, embora a forma como isso acontece possa variar. Independentemente de seus objetivos, esses dragões sempre abordam os recém-chegados com uma calma perturbadora.\nOs dragões vêm em inúmeras formas, muitos deles com habilidades mágicas ou conexões com a magia. Alguns dragões extraem maior poder da magia do que outros, permitindo-lhes manifestar habilidades ou alterar seus físicos com exposição prolongada à magia. Esses dragões se tornam mais poderosos à medida que envelhecem e fortalecem suas conexões com suas origens mágicas. Os estudiosos debatem a classificação desses dragões, com alguns preferindo o nome de dragões mágicos e outros usando dragões tradicionais devido à sua conexão com tradições mágicas específicas. Independentemente de seus nomes, esses dragões compartilham uma série de características: sua capacidade de explorar energias mágicas, poder e astúcia intensificados à medida que envelhecem e uma inclinação para acumular grandes quantidades de tesouros e riquezas.\nConjuradores Dracônicos\nCada dragão apresenta uma barra lateral sobre dragões conjuradores desse tipo. Para criar um conjurador de dragão, remova as habilidades Draconic Frenzy e Draconic Momentum do dragão e dê a eles as magias descritos na barra lateral. Você pode trocar qualquer número deles por outras magias, desde que mantenha o mesmo número de magias para cada Rank. Você também pode querer aumentar o modificador de Inteligência, Sabedoria ou Carisma do dragão em 1 ou 2 para refletir seu domínio da magia.",
       "size": "Enorme",
       "senses": {
         "greater-darkvision": "visão no escuro maior",
@@ -8339,7 +8339,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2SfnAmO0wAMNDsit": {
           "name": "Sopro do Fogo do Inferno",
-          "description": "O dragão libera uma explosão de fogo infernal que causa 16d6[fogo|opções:dano de área] de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:36, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por [[/gmr 1d4 #Recharge Sopro do Fogo do Inferno]]{1d4 rodadas}."
+          "description": "O dragão libera uma explosão de fogo infernal que causa 16d6[fogo de dano em um salvamento de @Template[cone|distance:50] (verificação (reflexo, dc:36, básico, opções:efeito de área)).\nO dragão não pode usar Sopro do Fogo do Inferno novamente por 1d4."
         },
         "il0F3PjYujbcJGRq": {
           "name": "Pegar",
@@ -8509,7 +8509,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TwSJCzLZ4KcJKaWT": {
           "name": "Respire Energia",
-          "description": "O mukradi exala uma explosão de energia de uma de suas três cabeças; cada criatura na área deve tentar um teste de resistência (reflexo, dc:36, básico, opções:efeito de área).\nO mukradi não pode Respirar Energia novamente por [[/gmr 1d4 #Recharge Breathe Energy]]{1d4 rodadas}.\n• Gorja Ácida (ácido) com 3 metros de largura, @Template[line|distance:60|width:10] de ácido causando 16d6[acid|options:area-damage] de dano.\n• Flame Maw (fogo) @Template[cone|distance:60] de fogo causando 16d6[fire|options:area-damage] de dano.\n• Shock Maw (eletricidade) @Template[line|distance:120] de eletricidade causando 16d6[electricity|options:area-damage] de dano."
+          "description": "O mukradi exala uma explosão de energia de uma de suas três cabeças; cada criatura na área deve tentar um teste de resistência (reflexo, dc:36, básico, opções:efeito de área).\nO mukradi não pode Respirar Energia novamente por 1d4.\n• Gorja Ácida (ácido) com 3 metros de largura, @Template[line|distance:60|width:10] de ácido causando 16d6[acid de dano.\n• Flame Maw (fogo) @Template[cone|distance:60] de fogo causando 16d6[fire de dano.\n• Shock Maw (eletricidade) @Template[line|distance:120] de eletricidade causando 16d6[electricity de dano."
         },
         "MCe44ome2cf0lQ8W": {
           "name": "Separar",
@@ -8589,7 +8589,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "BdXp9P5NkeEh9Jbb": {
           "name": "Possessão Malévola",
-          "description": "O dybbuk tenta possuir uma criatura corpórea adjacente. Isso tem o mesmo efeito do magia Possessão (teste (vontade, dc:34)) com duração ilimitada, exceto que o dybbuk não tem um corpo físico, ele não está Inconsciente e não fica Paralisado quando o efeito termina, embora ele sofra 5d6[espírito] de dano se o corpo for nocauteado ou morto.\nSe o dybbuk assumiu o controle do alvo com Possessão Malévola, quando o dybbuk partir, o alvo terá apenas memórias incoerentes do intervalo em que esteve possuído."
+          "description": "O dybbuk tenta possuir uma criatura corpórea adjacente. Isso tem o mesmo efeito da magia Possessão (teste (vontade, dc:34)) com duração ilimitada, exceto que o dybbuk não tem um corpo físico, ele não está Inconsciente e não fica Paralisado quando o efeito termina, embora ele sofra 5d6[espírito] de dano se o corpo for nocauteado ou morto.\nSe o dybbuk assumiu o controle do alvo com Possessão Malévola, quando o dybbuk partir, o alvo terá apenas memórias incoerentes do intervalo em que esteve possuído."
         }
       },
       "spellcasting": {
@@ -8675,7 +8675,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "egrcinyTFaF0OUfA": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "64oqzNrwPutYdBRh": {
@@ -8684,11 +8684,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "qssb4IVNo6C2zIwe": {
           "name": "Auto-ressurreição",
-          "description": "Quando uma fênix morre, ela desmorona em uma pilha de cinzas fumegantes antes de retornar à vida totalmente curada [[/gmr 1d4 #Tempo de Auto-Ressurreição]]{1d4 rodadas} mais tarde, como se estivesse sujeita a um ritual de Ressurreição 7º-Rank. A auto-ressurreição só acontece se houver alguns restos para ressuscitar; por exemplo, uma fênix morta por um magia Desintegrar não pode usar esta habilidade.\nUma fênix cujos restos mortais repousam dentro de uma área dedicada a uma divindade profana por Consagração não pode se auto-ressuscitar até que seus restos mortais não estejam mais naquela área. Uma fênix pode ressuscitar apenas uma vez por ano."
+          "description": "Quando uma fênix morre, ela desmorona em uma pilha de cinzas fumegantes antes de retornar à vida totalmente curada 1d4 mais tarde, como se estivesse sujeita a um ritual de Ressurreição 7º-Rank. A auto-ressurreição só acontece se houver alguns restos para ressuscitar; por exemplo, uma fênix morta por uma magia Desintegrar não pode usar esta habilidade.\nUma fênix cujos restos mortais repousam dentro de uma área dedicada a uma divindade profana por Consagração não pode se auto-ressuscitar até que seus restos mortais não estejam mais naquela área. Uma fênix pode ressuscitar apenas uma vez por ano."
         },
         "reoPbPNpXyLy56Ny": {
           "name": "Mortalha de Chama",
-          "description": "20 pés (6 metros). 4d6[fogo|opções:dano de área], verificação (reflexo, dc:37, básico, opções:efeito de área) salvar.\nEnquanto esta aura estiver ativa, qualquer criatura adjacente que atingir a fênix com um ataque corpo a corpo ou de outra forma a tocar sofre 2d6[fogo] de dano. A fênix pode ativar ou desativar a aura com uma única ação, que possui o traço concentração."
+          "description": "20 pés (6 metros). 4d6[fogo, verificação (reflexo, dc:37, básico, opções:efeito de área) salvar.\nEnquanto esta aura estiver ativa, qualquer criatura adjacente que atingir a fênix com um ataque corpo a corpo ou de outra forma a tocar sofre 2d6[fogo] de dano. A fênix pode ativar ou desativar a aura com uma única ação, que possui o traço concentração."
         },
         "eBfnitbq2Wb56ZRG": {
           "name": "Metralha Flamejante",
@@ -8785,7 +8785,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "bgKMFHH5p2elItP3": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "k5nmsODwCgBvWnby": {
@@ -8974,7 +8974,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "vZVJQzztFpSjzbNW": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "oDkPJwQC7jVjhBRN": {
@@ -8991,7 +8991,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4pbTTxqHWnbnAW7T": {
           "name": "Asseclas Aranha",
-          "description": "A morrigna invoca uma Tarântula Gigante ou Enxame de Aranhas. Essas aranhas possuem a característica invocada e permanecem por 10 minutos ou até serem reduzidas a 0 Pontos de Vida, o que ocorrer primeiro. A morrigna não precisa Sustentar o magia para direcionar essas criaturas invocadas, e a morrigna pode ter qualquer número de aranhas invocadas ao mesmo tempo. A morrigna pode ver através dos olhos de qualquer uma de suas aranhas invocadas a qualquer momento."
+          "description": "A morrigna invoca uma Tarântula Gigante ou Enxame de Aranhas. Essas aranhas possuem a característica invocada e permanecem por 10 minutos ou até serem reduzidas a 0 Pontos de Vida, o que ocorrer primeiro. A morrigna não precisa Sustentar a magia para direcionar essas criaturas invocadas, e a morrigna pode ter qualquer número de aranhas invocadas ao mesmo tempo. A morrigna pode ver através dos olhos de qualquer uma de suas aranhas invocadas a qualquer momento."
         },
         "qDypnfBHeFgNsDjH": {
           "name": "Chicote de embrulho",
@@ -9160,7 +9160,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I2kJG5snUvdVtlrm": {
           "name": "Respiração do Destino",
-          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 15d6[mental|options:area-damage] de dano em um teste de @Template[cone|distance:40] (check (will, dc:39, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por [[/gmr 1d4 #Recharge Destiny Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 15d6[mental de dano em um teste de @Template[cone|distance:40] (check (will, dc:39, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por 1d4."
         },
         "SLo46H8ZVBnhnumf": {
           "name": "Destino iminente",
@@ -9168,7 +9168,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2phPU9xYaMSKFNol": {
           "name": "Asas Proféticas",
-          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança um magia de Augúrio de 8º Rank, exceto que as asas podem prever resultados até 1 ano no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
+          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança uma magia de Augúrio de 8º Rank, exceto que as asas podem prever resultados até 1 ano no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
         },
         "IqwLfEmNC9TAiyzF": {
           "name": "Siga os cronogramas",
@@ -9337,7 +9337,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "7lto9FCIXzooWeAW": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "EbuMoQ5idyQJDEXD": {
@@ -9350,7 +9350,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "4TtLSpRhmqV1Dvp1": {
           "name": "Chicote de cauda",
-          "description": "Gatilho Uma criatura ao alcance da cauda do shemhazian sai de um quadrado durante uma ação de movimento que está usando\nEfeito O shemhazian tenta [[/act trip]] a criatura desencadeadora. Se obtiver sucesso, a criatura também sofre dano como se o shemhazian tivesse atingido com um golpe de cauda e, se a criatura estivesse voando, ela cai 30 pés (9 metros)."
+          "description": "Gatilho Uma criatura ao alcance da cauda do shemhazian sai de um quadrado durante uma ação de movimento que está usando\nEfeito O shemhazian tenta trip a criatura desencadeadora. Se obtiver sucesso, a criatura também sofre dano como se o shemhazian tivesse atingido com um golpe de cauda e, se a criatura estivesse voando, ela cai 30 pés (9 metros)."
         },
         "AsXbDxRSKFmiQ6jb": {
           "name": "Mordida Enfraquecedora",
@@ -9445,7 +9445,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "NHG6AmeokuReiYz8": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "3Jr5BOjlfU2WxVuj": {
@@ -9458,11 +9458,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "L4Fc4BOiIian9jw1": {
           "name": "Raios de Fogo",
-          "description": "A giylea gira furiosamente, emitindo uma chuva de fogo divino. Todas as criaturas em um @Template[emanation|distance:60] recebem (12d6)[fire,(5d6)[spirit]|options:area-damage]{12d6 de dano de fogo e 5d6 de dano espiritual} com um teste (reflexo, dc:37, básico, opções:efeito de área) salvar. A giylea não pode usar Raios de Fogo por [[/gmr 1d4 #Recharge Raios de Fogo]]{1d4 rodadas}."
+          "description": "A giylea gira furiosamente, emitindo uma chuva de fogo divino. Todas as criaturas em um @Template[emanation|distance:60] recebem (12d6)[fire,(5d6)[spirit]{12d6 de dano de fogo e 5d6 de dano espiritual} com um teste (reflexo, dc:37, básico, opções:efeito de área) salvar. A giylea não pode usar Raios de Fogo por 1d4."
         },
         "1vPMh16Kx98sAgCw": {
           "name": "Olhar Focado",
-          "description": "Os giylea fixam seu olhar em uma criatura que podem ver em 30 pés (9 metros). O alvo deve imediatamente tentar um teste de resistência (vontade, dc:37, características: aura, divino, mental, visual) contra os olhos oniscientes do giylea. Se a criatura estiver sob qualquer efeito mágico que a disfarce ou tenha alterado sua forma, o giylea tenta neutralizar esse efeito de disfarce mágico (neutralizar [[/r 1d20+29 #Counteract]]{+29}, 8º Rank). Depois de tentar salvar, a criatura fica temporariamente imune até o início do próximo turno do giylea."
+          "description": "Os giylea fixam seu olhar em uma criatura que podem ver em 30 pés (9 metros). O alvo deve imediatamente tentar um teste de resistência (vontade, dc:37, características: aura, divino, mental, visual) contra os olhos oniscientes do giylea. Se a criatura estiver sob qualquer efeito mágico que a disfarce ou tenha alterado sua forma, o giylea tenta neutralizar esse efeito de disfarce mágico (neutralizar 1d20+29, 8º Rank). Depois de tentar salvar, a criatura fica temporariamente imune até o início do próximo turno do giylea."
         }
       },
       "spellcasting": {
@@ -9562,7 +9562,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "jdNRBv6RogEW3DdF": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "GJh2y3nd5dKEWe8I": {
@@ -9658,7 +9658,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "vhMuwHfxhvT3a6e2": {
-          "name": "+1 Status para todos os salvamentos vs. Vitalidade",
+          "name": "+1 de bônus de status em todos os testes de resistência contra vitalidade",
           "description": ""
         },
         "I98w77MsvsKISF0z": {
@@ -9687,7 +9687,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Dzxj1t6HVexa7Wyz": {
           "name": "Prumo",
-          "description": "Uma criatura atingida pela bola de sucata de um warsworn Strike deve tentar um teste de resistência (reflexo, dc:37). Em caso de falha, o alvo cai no chão; se o alvo estiver no ar, ele cai até 120 pés (36 metros), sofrendo danos da queda e caindo caído se a descida o levar ao solo. Em uma falha crítica, o alvo também é mantido sob uma pilha de sucata ([[/act escape dc=37]])."
+          "description": "Uma criatura atingida pela bola de sucata de um warsworn Strike deve tentar um teste de resistência (reflexo, dc:37). Em caso de falha, o alvo cai no chão; se o alvo estiver no ar, ele cai até 120 pés (36 metros), sofrendo danos da queda e caindo caído se a descida o levar ao solo. Em uma falha crítica, o alvo também é mantido sob uma pilha de sucata (Escapar CD 37)."
         },
         "S2UbYSN0YRKJbMS0": {
           "name": "Atropelar",
@@ -9770,7 +9770,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5YGPeCSsTq71DxAb": {
           "name": "Devorador de Almas",
-          "description": "Se o vilderavn matar um humanóide com um golpe crítico usando seu golpe de mandíbula, ele arrancará e devorará o coração e a alma do alvo como parte do ataque.\nEnquanto o alvo estiver morto, o vilderavn pode Mudar de Forma para a forma do alvo, ganhando +4 de bônus de status em testes de Enganação para personificar o alvo.\nSe a magia ressuscitasse a criatura, o conjurador deve ter sucesso em um teste de neutralização CD 34 para extrair a alma do alvo do vilderavn; caso contrário, o magia falha."
+          "description": "Se o vilderavn matar um humanóide com um golpe crítico usando seu golpe de mandíbula, ele arrancará e devorará o coração e a alma do alvo como parte do ataque.\nEnquanto o alvo estiver morto, o vilderavn pode Mudar de Forma para a forma do alvo, ganhando +4 de bônus de status em testes de Enganação para personificar o alvo.\nSe a magia ressuscitasse a criatura, o conjurador deve ter sucesso em um teste de neutralização CD 34 para extrair a alma do alvo do vilderavn; caso contrário, a magia falha."
         }
       },
       "spellcasting": {
@@ -9871,7 +9871,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "I2kJG5snUvdVtlrm": {
           "name": "Respiração do Destino",
-          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 15d6[mental|options:area-damage] de dano em um teste de @Template[cone|distance:40] (check (will, dc:39, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por [[/gmr 1d4 #Recharge Destiny Breath]]{1d4 rodadas}."
+          "description": "O dragão respira uma névoa translúcida de potencialidades que sobrecarrega as criaturas com visões de características possíveis, causando 15d6[mental de dano em um teste de @Template[cone|distance:40] (check (will, dc:39, options:area-effect) save). Uma criatura que falhe no teste sofre Lentidão 1 por 1 rodada (ou Lentidão 2 em caso de falha crítica) enquanto luta com as visões.\nO dragão não pode usar Destiny Breath novamente por 1d4."
         },
         "aJ5Jw0ozWjNooF13": {
           "name": "Frenesi Dracônico",
@@ -9887,7 +9887,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2phPU9xYaMSKFNol": {
           "name": "Asas Proféticas",
-          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança um magia de Augúrio de 8º Rank, exceto que as asas podem prever resultados até 1 ano no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
+          "description": "O dragão ou qualquer aliado pode vislumbrar o futuro através das asas do dragão em um processo que requer 10 minutos de concentração. Isso lança uma magia de Augúrio de 8º Rank, exceto que as asas podem prever resultados até 1 ano no futuro e o dragão sempre fala algumas palavras enigmáticas relacionadas ao resultado da previsão.\nO dragão pode usar suas asas desta forma apenas uma vez por dia, e uma determinada criatura pode buscar um futuro nas asas apenas uma vez por semana."
         },
         "IqwLfEmNC9TAiyzF": {
           "name": "Siga os cronogramas",
@@ -9969,7 +9969,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_05_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "an6fdel1IBQ8fJmP": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "Ohby2hZPzWDoCkLo": {

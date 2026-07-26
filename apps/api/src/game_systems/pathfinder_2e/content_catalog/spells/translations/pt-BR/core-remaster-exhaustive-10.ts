@@ -9,13 +9,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Vapores nocivos",
-      "description": "Você emite uma nuvem de fumaça tóxica que obscurece temporariamente sua visão. Cada criatura, exceto você, na área quando você Conjura o magia sofre 1d6 de dano venenoso (teste básico de Fortitude). Uma criatura que falhar criticamente no teste de resistência também fica Enjoada 1. Todas as criaturas na área ficam Ocultas e todas as criaturas fora da fumaça ficam escondidas para as criaturas dentro dela. Essa fumaça pode ser dispersada por ventos fortes.\nAumentado (+1) O dano aumenta em 1d6",
+      "description": "Você emite uma nuvem de fumaça tóxica que obscurece temporariamente sua visão. Cada criatura, exceto você, na área quando você Conjura a magia sofre 1d6 de dano venenoso (teste básico de Fortitude). Uma criatura que falhar criticamente no teste de resistência também fica Enjoada 1. Todas as criaturas na área ficam Ocultas e todas as criaturas fora da fumaça ficam escondidas para as criaturas dentro dela. Essa fumaça pode ser dispersada por ventos fortes.\nAumentado (+1) O dano aumenta em 1d6",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "area": "10 emanação",
       "duration": "1 rodada",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aumentado (+1) O dano aumenta em 1d6"
     }
   },
@@ -27,12 +27,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Passos de chumbo",
-      "description": "Você transforma parcialmente os pés de um inimigo em pesadas placas de metal, retardando seus passos. O alvo tenta um teste de resistência de Fortitude.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo está sobrecarregado e tem fraqueza 2 à eletricidade até o final do seu próximo turno. O magia não pode ser sustentado.\nFalha O alvo está sobrecarregado e tem fraqueza 2 em relação à eletricidade.\nFalha Crítica O alvo está sobrecarregado e tem fraqueza 3 para eletricidade.\nEfeito do magia: Passos de Chumbo\nAumentado (+1) A fraqueza aumenta em 1.",
+      "description": "Você transforma parcialmente os pés de um inimigo em pesadas placas de metal, retardando seus passos. O alvo tenta um teste de resistência de Fortitude.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo está sobrecarregado e tem fraqueza 2 à eletricidade até o final do seu próximo turno. A magia não pode ser sustentado.\nFalha O alvo está sobrecarregado e tem fraqueza 2 em relação à eletricidade.\nFalha Crítica O alvo está sobrecarregado e tem fraqueza 3 para eletricidade.\nEfeito da magia: Passos de Chumbo\nAumentado (+1) A fraqueza aumenta em 1.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 minuto",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aumentado (+1) A fraqueza aumenta em 1."
     }
   },
@@ -60,12 +60,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Schadenfreude",
-      "description": "Gatilho Você falha criticamente em um teste de resistência contra o efeito de um inimigo.\nVocê distrai seu inimigo com sua sensação de prazer presunçoso quando falha catastroficamente. Eles devem tentar um salvamento de Vontade.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura é distraída por sua diversão e sofre -1 de penalidade de status em testes de Percepção e salvamentos de Vontade por 1 rodada. Efeito do magia: Schadenfreude (Sucesso)\nFalha A criatura é dominada por sua diversão e fica Estupefata 1 por 1 rodada.\nFalha Crítica A criatura está perdida em sua diversão e fica Estupefata 2 por 1 rodada e Atordoada 1.",
+      "description": "Gatilho Você falha criticamente em um teste de resistência contra o efeito de um inimigo.\nVocê distrai seu inimigo com sua sensação de prazer presunçoso quando falha catastroficamente. Eles devem tentar um salvamento de Vontade.\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura é distraída por sua diversão e sofre -1 de penalidade de status em testes de Percepção e salvamentos de Vontade por 1 rodada. Efeito da magia: Schadenfreude (Sucesso)\nFalha A criatura é dominada por sua diversão e fica Estupefata 1 por 1 rodada.\nFalha Crítica A criatura está perdida em sua diversão e fica Estupefata 2 por 1 rodada e Atordoada 1.",
       "castingTime": "reação",
       "range": "30 pés (9 metros)",
       "target": "o inimigo desencadeador",
       "duration": "",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -83,7 +83,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "15 cones",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aumentado (+1) O dano aumenta em 2d4."
     }
   },
@@ -95,7 +95,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Convocar Servidor Menor",
-      "description": "Embora as divindades protejam zelosamente seus servos mais poderosos dos magias de invocação daqueles que não estão imersos na fé, este magia permite que você conjure um habitante da Esfera Externa com ou sem a permissão da divindade. Você invoca um celestial, demônio ou monitor comum de nível –1. Você pode escolher invocar um animal comum de nível –1 que venha da Esfera Externa; você pode escolher que este animal ganhe as características celestiais e sagradas, as características diabólicas e profanas ou a característica monitor. É um anátema convocar um servo se ele tiver uma característica sagrada ou profana que não seja permitida para a santificação de sua divindade. Por exemplo, a santificação de Sarenrae é “pode escolher o sagrado”, então você não pode invocar uma criatura profana, e a de Pharasma é “nenhuma”, então você não pode invocar uma criatura sagrada ou profana. O Mestre pode determinar que sua divindade restringe ainda mais tipos específicos de criaturas, tornando anátema invocá-las também.\nAprimorada (2º) A criatura pode ser de nível 1 ou inferior.\nAprimorada (3º) A criatura pode ser de nível 2 ou inferior.\nAprimorada (4º) A criatura pode ser de nível 3 ou inferior.",
+      "description": "Embora as divindades protejam zelosamente seus servos mais poderosos das magias de invocação daqueles que não estão imersos na fé, esta magia permite que você conjure um habitante da Esfera Externa com ou sem a permissão da divindade. Você invoca um celestial, demônio ou monitor comum de nível –1. Você pode escolher invocar um animal comum de nível –1 que venha da Esfera Externa; você pode escolher que este animal ganhe as características celestiais e sagradas, as características diabólicas e profanas ou a característica monitor. É um anátema convocar um servo se ele tiver uma característica sagrada ou profana que não seja permitida para a santificação de sua divindade. Por exemplo, a santificação de Sarenrae é “pode escolher o sagrado”, então você não pode invocar uma criatura profana, e a de Pharasma é “nenhuma”, então você não pode invocar uma criatura sagrada ou profana. O Mestre pode determinar que sua divindade restringe ainda mais tipos específicos de criaturas, tornando anátema invocá-las também.\nAprimorada (2º) A criatura pode ser de nível 1 ou inferior.\nAprimorada (3º) A criatura pode ser de nível 2 ou inferior.\nAprimorada (4º) A criatura pode ser de nível 3 ou inferior.",
       "castingTime": "3 ações",
       "range": "30 pés (9 metros)",
       "target": "",
@@ -117,7 +117,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "15 cones",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aprimorada (+2) O dano aumenta em 1d8."
     }
   },
@@ -134,7 +134,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "10 pés (3 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aumentado (+2) O dano inicial do veneno aumenta em 1d4, e o dano persistente do veneno aumenta em 1d4."
     }
   },
@@ -152,7 +152,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "5 emanação",
       "duration": "",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d6."
     }
   },
@@ -170,7 +170,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "5 cubos",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d4."
     }
   },
@@ -198,7 +198,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Mala de transporte",
-      "description": "Uma pequena plataforma de força mágica se materializa ao seu lado para transportar carga. É invisível ou tem uma aparência fantasmagórica, tem diâmetro 2 pés (0,6 metros) e segue 5 pés (1,5 metros) atrás de você, flutuando logo acima do solo. Ele comporta até 5 objetos em massa (se eles couberem nele). Quaisquer objetos no topo da plataforma caem no chão quando a magia termina. Você pode Sustentar o magia para mover a plataforma até 30 pés (9 metros) ao longo do solo, para fazê-la permanecer no lugar ou para que ela retorne para você e volte a segui-lo. A magia termina se uma criatura tentar subir na plataforma, se a plataforma estiver sobrecarregada, se alguém tentar levantar ou forçar a plataforma mais acima do solo ou se você se afastar mais de 60 pés (18 metros) da plataforma.\nAprimorada (4º) A plataforma pode carregar 10 volumes, criaturas podem andar sobre ela e ela pode pairar no ar, não apenas no chão",
+      "description": "Uma pequena plataforma de força mágica se materializa ao seu lado para transportar carga. É invisível ou tem uma aparência fantasmagórica, tem diâmetro 2 pés (0,6 metros) e segue 5 pés (1,5 metros) atrás de você, flutuando logo acima do solo. Ele comporta até 5 objetos em massa (se eles couberem nele). Quaisquer objetos no topo da plataforma caem no chão quando a magia termina. Você pode Sustentar a magia para mover a plataforma até 30 pés (9 metros) ao longo do solo, para fazê-la permanecer no lugar ou para que ela retorne para você e volte a segui-lo. A magia termina se uma criatura tentar subir na plataforma, se a plataforma estiver sobrecarregada, se alguém tentar levantar ou forçar a plataforma mais acima do solo ou se você se afastar mais de 60 pés (18 metros) da plataforma.\nAprimorada (4º) A plataforma pode carregar 10 volumes, criaturas podem andar sobre ela e ela pode pairar no ar, não apenas no chão",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -230,12 +230,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Presente atencioso",
-      "description": "Você teletransporta um objeto leve ou de volume insignificante em sua mão para o alvo. O objeto aparece instantaneamente na mão do alvo, se ele tiver a mão livre, ou nos pés, se não tiver. O alvo sabe qual objeto você está tentando enviar. Se o alvo estiver Inconsciente ou se recusar a aceitar seu presente, ou se a magia teletransportar uma criatura (mesmo que a criatura esteja dentro de um recipiente extradimensional), a magia falha.\nAprimorada (3º) O alcance do magia aumenta para 500 pés (150 metros).\nAprimorada (5º) Como o 3º Rank, e o Volume máximo do objeto aumenta para 1. Você pode Conjurar o magia com 3 ações em vez de 1; fazer isso aumenta o alcance para 1 milha e você não precisa de linha de visão para o alvo, mas deve estar extremamente familiarizado com o alvo.",
+      "description": "Você teletransporta um objeto leve ou de volume insignificante em sua mão para o alvo. O objeto aparece instantaneamente na mão do alvo, se ele tiver a mão livre, ou nos pés, se não tiver. O alvo sabe qual objeto você está tentando enviar. Se o alvo estiver Inconsciente ou se recusar a aceitar seu presente, ou se a magia teletransportar uma criatura (mesmo que a criatura esteja dentro de um recipiente extradimensional), a magia falha.\nAprimorada (3º) O alcance da magia aumenta para 500 pés (150 metros).\nAprimorada (5º) Como o 3º Rank, e o Volume máximo do objeto aumenta para 1. Você pode Conjurar a magia com 3 ações em vez de 1; fazer isso aumenta o alcance para 1 milha e você não precisa de linha de visão para o alvo, mas deve estar extremamente familiarizado com o alvo.",
       "castingTime": "1 ação",
       "range": "120 pés (36 metros)",
       "target": "1 criatura voluntária",
       "duration": "",
-      "heightening": "Aprimorada (3º) O alcance do magia aumenta para 500 pés (150 metros).\nAprimorada (5º) Como o 3º Rank, e o Volume máximo do objeto aumenta para 1. Você pode Conjurar o magia com 3 ações em vez de 1; fazer isso aumenta o alcance para 1 milha e você não precisa de linha de visão para o alvo, mas deve estar extremamente familiarizado com o alvo."
+      "heightening": "Aprimorada (3º) O alcance da magia aumenta para 500 pés (150 metros).\nAprimorada (5º) Como o 3º Rank, e o Volume máximo do objeto aumenta para 1. Você pode Conjurar a magia com 3 ações em vez de 1; fazer isso aumenta o alcance para 1 milha e você não precisa de linha de visão para o alvo, mas deve estar extremamente familiarizado com o alvo."
     }
   },
   {
@@ -246,12 +246,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Déjà Vu",
-      "description": "Você coloca um processo de pensamento na mente do alvo, forçando-o a repetir ações de um momento. O alvo deve tentar um salvamento de Vontade. Se o alvo falhar, quaisquer ações que o alvo usar no próximo turno, ele deverá repetir no turno seguinte. As ações devem ser repetidas na mesma ordem e o mais próximo possível das mesmas especificidades. Por exemplo, se o alvo fizer um ataque, ele deverá repetir o ataque contra a mesma criatura, se possível, e se o alvo se mover, ele deverá se mover na mesma distância e direção, se possível, no seu próximo turno.\nSe o alvo não puder repetir uma ação, como Conjurar um magia que foi esgotado ou precisar atingir uma criatura que morreu, ele pode agir como quiser para essa ação, mas fica Estupefato 1 até o final do seu turno.",
+      "description": "Você coloca um processo de pensamento na mente do alvo, forçando-o a repetir ações de um momento. O alvo deve tentar um salvamento de Vontade. Se o alvo falhar, quaisquer ações que o alvo usar no próximo turno, ele deverá repetir no turno seguinte. As ações devem ser repetidas na mesma ordem e o mais próximo possível das mesmas especificidades. Por exemplo, se o alvo fizer um ataque, ele deverá repetir o ataque contra a mesma criatura, se possível, e se o alvo se mover, ele deverá se mover na mesma distância e direção, se possível, no seu próximo turno.\nSe o alvo não puder repetir uma ação, como Conjurar uma magia que foi esgotado ou precisar atingir uma criatura que morreu, ele pode agir como quiser para essa ação, mas fica Estupefato 1 até o final do seu turno.",
       "castingTime": "2 ações",
       "range": "100 pés (30 metros)",
       "target": "1 criatura",
       "duration": "2 rodadas",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -263,12 +263,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Coro Concordante",
-      "description": "Você libera uma consonância perigosa de som reverberante, concentrando-se em um único alvo ou espalhando-se para causar danos a muitos inimigos. O número de ações que você gasta lançando este magia determina seus alvos, alcance, área e outros parâmetros.\n1 O magia causa 1d4 de dano sônico a um único inimigo, com um teste básico de Fortitude.\n2 (manipular) O magia causa 2d4 de dano sônico a todas as criaturas em um @Template[burst|distance:10], com um salvamento básico de Fortitude.\n3 (manipular) O magia causa 2d4 de dano sônico a todas as criaturas em uma @Template[emanation|distance:30], com um salvamento básico de Fortitude.\nAumentado (+1) O dano aumenta em 1d4 para a versão de 1 ação, ou 2d4 para as outras versões.",
+      "description": "Você libera uma consonância perigosa de som reverberante, concentrando-se em um único alvo ou espalhando-se para causar danos a muitos inimigos. O número de ações que você gasta lançando esta magia determina seus alvos, alcance, área e outros parâmetros.\n1 A magia causa 1d4 de dano sônico a um único inimigo, com um teste básico de Fortitude.\n2 (manipular) A magia causa 2d4 de dano sônico a todas as criaturas em um @Template[burst|distance:10], com um salvamento básico de Fortitude.\n3 (manipular) A magia causa 2d4 de dano sônico a todas as criaturas em uma @Template[emanation|distance:30], com um salvamento básico de Fortitude.\nAumentado (+1) O dano aumenta em 1d4 para a versão de 1 ação, ou 2d4 para as outras versões.",
       "castingTime": "1 a 3 ações",
       "range": "30 pés (9 metros)",
       "target": "varia",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aumentado (+1) O dano aumenta em 1d4 para a versão de 1 ação, ou 2d4 para as outras versões."
     }
   },
@@ -296,7 +296,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Megafone",
-      "description": "Você amplifica sua voz, alta o suficiente para ser ouvida facilmente a uma grande distância. Durante esse período, sua voz poderá ser ouvida em alto e bom som por todos os ouvintes no 500 pés (150 metros), mesmo que outro ruído ambiente bloqueie o som. Apesar do volume, isso não torna sua voz estridente ou perturbadora. Isso não aumenta o alcance ou a área de outros efeitos auditivos ou linguísticos, e barreiras físicas, como paredes e portas, ainda bloqueiam ou abafam sua voz normalmente.\nSua voz alta torna mais fácil coagir os outros, e a acústica auxilia na apresentação em um local grande. Você ganha um bônus de status de +1 em testes de Coerção e testes de Desempenho auditivo para Atuar em um local grande. Você pode descartar o magia.\nEfeito do magia: Megafone\nAprimorada (5º) Sua voz pode ser ouvida claramente a até 1,200 pés (60 metros) de distância.\nAprimorada (7º) Sua voz pode ser ouvida claramente a até 1,6 km de distância.",
+      "description": "Você amplifica sua voz, alta o suficiente para ser ouvida facilmente a uma grande distância. Durante esse período, sua voz poderá ser ouvida em alto e bom som por todos os ouvintes no 500 pés (150 metros), mesmo que outro ruído ambiente bloqueie o som. Apesar do volume, isso não torna sua voz estridente ou perturbadora. Isso não aumenta o alcance ou a área de outros efeitos auditivos ou linguísticos, e barreiras físicas, como paredes e portas, ainda bloqueiam ou abafam sua voz normalmente.\nSua voz alta torna mais fácil coagir os outros, e a acústica auxilia na apresentação em um local grande. Você ganha um bônus de status de +1 em testes de Coerção e testes de Desempenho auditivo para Atuar em um local grande. Você pode descartar a magia.\nEfeito da magia: Megafone\nAprimorada (5º) Sua voz pode ser ouvida claramente a até 1,200 pés (60 metros) de distância.\nAprimorada (7º) Sua voz pode ser ouvida claramente a até 1,6 km de distância.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -312,7 +312,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Mensagem de impressão",
-      "description": "Você projeta vibrações psíquicas no objeto alvo, imprimindo nele uma mensagem curta ou tema emocional de seu projeto. Esta sensação impressa é revelada a uma criatura que lança Leitura de Objeto no objeto alvo, substituindo quaisquer eventos emocionais para os quais o item estava presente. Se o objeto estiver na área de um magia Retrocognição, as mensagens impressas aparecerão como eventos importantes na linha do tempo, mas não interferirão em nenhuma outra visão.\nSe o objeto for alvo de Ler Aura de um magia Rank superior ao da mensagem de impressão, o lançador descobre que o objeto foi modificado magicamente. Quando você lança este magia, quaisquer vibrações anteriores colocadas em um objeto por lançamentos anteriores de mensagens impressas desaparecem.",
+      "description": "Você projeta vibrações psíquicas no objeto alvo, imprimindo nele uma mensagem curta ou tema emocional de seu projeto. Esta sensação impressa é revelada a uma criatura que lança Leitura de Objeto no objeto alvo, substituindo quaisquer eventos emocionais para os quais o item estava presente. Se o objeto estiver na área de uma magia Retrocognição, as mensagens impressas aparecerão como eventos importantes na linha do tempo, mas não interferirão em nenhuma outra visão.\nSe o objeto for alvo de Ler Aura de uma magia Rank superior ao da mensagem de impressão, o lançador descobre que o objeto foi modificado magicamente. Quando você lança esta magia, quaisquer vibrações anteriores colocadas em um objeto por lançamentos anteriores de mensagens impressas desaparecem.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto",
@@ -345,13 +345,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Tela de dispersão",
-      "description": "Um amontoado de pedras cai em cascata na área. As pedras espalhadas causam 2d4 de dano de concussão (resistência básica de Reflexos). O terreno na área torna-se terreno difícil durante a duração da magia. Uma criatura pode interagir para limpar um quadrado deste terreno.\nSe você lançar este magia novamente, qualquer dispersão anterior que você lançou termina.\nAprimorada (+1) O dano aumenta em 1d4.",
+      "description": "Um amontoado de pedras cai em cascata na área. As pedras espalhadas causam 2d4 de dano de concussão (resistência básica de Reflexos). O terreno na área torna-se terreno difícil durante a duração da magia. Uma criatura pode interagir para limpar um quadrado deste terreno.\nSe você lançar esta magia novamente, qualquer dispersão anterior que você lançou termina.\nAprimorada (+1) O dano aumenta em 1d4.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "",
       "area": "10 linhas",
       "duration": "1 minuto",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d4."
     }
   },
@@ -363,13 +363,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sentido Espiritual",
-      "description": "Você abre sua mente para o metafísico, permitindo sentir espíritos próximos. Mesmo se você não estiver Procurando, você receberá um cheque para encontrar assombrações e espíritos na área. Você ganha um bônus de status de +1 para os seguintes testes relativos a assombrações ou espíritos: testes de Percepção para Procurar, tentativas de Recordar Conhecimento, testes de perícia para determinar a razão de sua existência e testes de perícia para desativar uma assombração. Você também ganha um bônus de status de +1 na CA e testes de resistência contra assombrações e espíritos.\nAprimorada (6º) A duração do magia dura até a próxima vez que você fizer seus preparativos diários.\nEfeito do magia: Sentido Espiritual",
+      "description": "Você abre sua mente para o metafísico, permitindo sentir espíritos próximos. Mesmo se você não estiver Procurando, você receberá um cheque para encontrar assombrações e espíritos na área. Você ganha um bônus de status de +1 para os seguintes testes relativos a assombrações ou espíritos: testes de Percepção para Procurar, tentativas de Recordar Conhecimento, testes de perícia para determinar a razão de sua existência e testes de perícia para desativar uma assombração. Você também ganha um bônus de status de +1 na CA e testes de resistência contra assombrações e espíritos.\nAprimorada (6º) A duração da magia dura até a próxima vez que você fizer seus preparativos diários.\nEfeito da magia: Sentido Espiritual",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "area": "30 emanação",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (6º) A duração do magia dura até a próxima vez que você fizer seus preparativos diários.\nEfeito do magia: Sentido Espiritual"
+      "heightening": "Aprimorada (6º) A duração da magia dura até a próxima vez que você fizer seus preparativos diários.\nEfeito da magia: Sentido Espiritual"
     }
   },
   {
@@ -380,13 +380,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Infestação fúngica",
-      "description": "Esporos tóxicos enxameiam sobre as criaturas da área, fazendo-as explodir em grotescos crescimentos de fungos. Esses crescimentos nocivos causam 2d6 de dano venenoso persistente e cada criatura deve tentar um teste de Fortitude.\nSucesso Crítico A criatura não é afetada.\nSucesso O alvo sofre metade do dano venenoso persistente.\nFalha O alvo sofre todo o dano persistente de veneno. Enquanto sofre esse dano persistente de veneno, ele tem fraqueza 1 para atirar e fraqueza 1 para cortar.\nFalha Crítica Como falha, mas o dobro do dano venenoso persistente. Enquanto sofre esse dano persistente de veneno, ele tem fraqueza 2 para atirar e fraqueza 2 para cortar.\nEfeito do magia: Infestação por Fungos\nAumentado (+2) O dano persistente aumenta em 2d6 e a fraqueza aumenta em 1, ou em 2 em caso de falha crítica.",
+      "description": "Esporos tóxicos enxameiam sobre as criaturas da área, fazendo-as explodir em grotescos crescimentos de fungos. Esses crescimentos nocivos causam 2d6 de dano venenoso persistente e cada criatura deve tentar um teste de Fortitude.\nSucesso Crítico A criatura não é afetada.\nSucesso O alvo sofre metade do dano venenoso persistente.\nFalha O alvo sofre todo o dano persistente de veneno. Enquanto sofre esse dano persistente de veneno, ele tem fraqueza 1 para atirar e fraqueza 1 para cortar.\nFalha Crítica Como falha, mas o dobro do dano venenoso persistente. Enquanto sofre esse dano persistente de veneno, ele tem fraqueza 2 para atirar e fraqueza 2 para cortar.\nEfeito da magia: Infestação por Fungos\nAumentado (+2) O dano persistente aumenta em 2d6 e a fraqueza aumenta em 1, ou em 2 em caso de falha crítica.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "",
       "area": "15 cones",
       "duration": "",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aumentado (+2) O dano persistente aumenta em 2d6 e a fraqueza aumenta em 1, ou em 2 em caso de falha crítica."
     }
   },
@@ -398,14 +398,14 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Rede",
-      "description": "Você cria uma teia pegajosa na área que impede o movimento das criaturas. Quadrados preenchidos com teia são terrenos difíceis. Cada vez que uma criatura na teia começa a usar uma ação de movimento ou entra na teia durante uma ação de movimento que está usando, ela deve tentar um teste (atletismo) ou um salvamento de Reflexos contra sua CD de magia para evitar sofrer uma penalidade de circunstância em suas Velocidades ou ficar Imobilizada. Uma criatura que sai da teia deixa de sofrer uma penalidade de circunstância em sua Velocidade da teia. Cada quadrado pode ser removido da teia por um único ataque ou efeito que cause pelo menos 5 de dano cortante ou 1 de dano de fogo. Um quadrado tem CA 5 e falha automaticamente em seus testes de resistência.\nSucesso Crítico A criatura não é afetada e não precisa fazer mais testes de Atletismo ou testes de resistência contra a teia neste turno. Se ele usou um teste de Atletismo, ele limpa a teia de cada quadrado que sai durante seu movimento.\nSucesso A criatura não é afetada durante sua ação. Se ele usou um teste de Atletismo, ele limpa a teia de cada quadrado que sai durante seu movimento.\nFalha A criatura sofre uma penalidade de circunstância de –3 metros em seus Deslocamentos até o início de seu próximo turno.\nFalha Crítica A criatura fica imobilizada até o início de seu próximo turno, após o qual ela sofre uma penalidade de circunstância de –3 metros em suas Velocidades por 1 rodada. Ele pode tentar escapar para remover sua condição imobilizada.\nAprimorada (4º) A área do magia aumenta para @Template[burst|distance:20], e seu alcance aumenta para 60 pés (18 metros).",
+      "description": "Você cria uma teia pegajosa na área que impede o movimento das criaturas. Quadrados preenchidos com teia são terrenos difíceis. Cada vez que uma criatura na teia começa a usar uma ação de movimento ou entra na teia durante uma ação de movimento que está usando, ela deve tentar um teste (atletismo) ou um salvamento de Reflexos contra sua CD de magia para evitar sofrer uma penalidade de circunstância em suas Velocidades ou ficar Imobilizada. Uma criatura que sai da teia deixa de sofrer uma penalidade de circunstância em sua Velocidade da teia. Cada quadrado pode ser removido da teia por um único ataque ou efeito que cause pelo menos 5 de dano cortante ou 1 de dano de fogo. Um quadrado tem CA 5 e falha automaticamente em seus testes de resistência.\nSucesso Crítico A criatura não é afetada e não precisa fazer mais testes de Atletismo ou testes de resistência contra a teia neste turno. Se ele usou um teste de Atletismo, ele limpa a teia de cada quadrado que sai durante seu movimento.\nSucesso A criatura não é afetada durante sua ação. Se ele usou um teste de Atletismo, ele limpa a teia de cada quadrado que sai durante seu movimento.\nFalha A criatura sofre uma penalidade de circunstância de –3 metros em seus Deslocamentos até o início de seu próximo turno.\nFalha Crítica A criatura fica imobilizada até o início de seu próximo turno, após o qual ela sofre uma penalidade de circunstância de –3 metros em suas Velocidades por 1 rodada. Ele pode tentar escapar para remover sua condição imobilizada.\nAprimorada (4º) A área da magia aumenta para @Template[burst|distance:20], e seu alcance aumenta para 60 pés (18 metros).",
       "castingTime": "3 ações",
       "range": "30 pés (9 metros)",
       "target": "",
       "area": "10 explosão",
       "duration": "1 minuto",
-      "defense": "salvamento reflexo",
-      "heightening": "Aprimorada (4º) A área do magia aumenta para @Template[burst|distance:20], e seu alcance aumenta para 60 pés (18 metros)."
+      "defense": "teste de Reflexos",
+      "heightening": "Aprimorada (4º) A área da magia aumenta para @Template[burst|distance:20], e seu alcance aumenta para 60 pés (18 metros)."
     }
   },
   {
@@ -422,7 +422,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "30 cones",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado (+1) O dano aumenta em 1d8."
     }
   },
@@ -434,13 +434,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Lanterna do Ceifador",
-      "description": "Você invoca uma lanterna fantasmagórica que guia os vivos para a morte e os mortos-vivos para a morte verdadeira. Ele emite luz brilhante na área do magia e penumbra no dobro dessa área. A lanterna é insubstancial e flutua perto de você, suspensa por uma mão efêmera e esquelética. Criaturas vivas e mortos-vivos na área quando você lança o magia, ou que entram na área posteriormente, devem tentar testes de Fortitude. Criaturas vivas que falham em seus testes de Fortitude ganham apenas metade do benefício normal dos efeitos de cura enquanto estiverem na área. Alvos mortos-vivos que falham em seus testes de Fortitude ficam Enfraquecidos 1 enquanto estiverem dentro da área. Uma vez que uma criatura tente um teste de resistência contra a lanterna do ceifador, ela usará o mesmo resultado se deixar a área e entrar nela novamente.\nUma vez por turno, começando na rodada seguinte ao lançamento de lanterna do ceifador, você pode Sustentar o magia para aumentar o raio da emanação em 5 pés (1,5 metros). Ao fazer isso, você força as criaturas na área que ainda não tentaram um teste de resistência contra a lanterna do ceifador a tentar um.",
+      "description": "Você invoca uma lanterna fantasmagórica que guia os vivos para a morte e os mortos-vivos para a morte verdadeira. Ele emite luz brilhante na área da magia e penumbra no dobro dessa área. A lanterna é insubstancial e flutua perto de você, suspensa por uma mão efêmera e esquelética. Criaturas vivas e mortos-vivos na área quando você lança a magia, ou que entram na área posteriormente, devem tentar testes de Fortitude. Criaturas vivas que falham em seus testes de Fortitude ganham apenas metade do benefício normal dos efeitos de cura enquanto estiverem na área. Alvos mortos-vivos que falham em seus testes de Fortitude ficam Enfraquecidos 1 enquanto estiverem dentro da área. Uma vez que uma criatura tente um teste de resistência contra a lanterna do ceifador, ela usará o mesmo resultado se deixar a área e entrar nela novamente.\nUma vez por turno, começando na rodada seguinte ao lançamento de lanterna do ceifador, você pode Sustentar a magia para aumentar o raio da emanação em 5 pés (1,5 metros). Ao fazer isso, você força as criaturas na área que ainda não tentaram um teste de resistência contra a lanterna do ceifador a tentar um.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "area": "5 emanação",
       "duration": "1 minuto",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": ""
     }
   },
@@ -457,7 +457,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (+2) Você pode ter como alvo duas criaturas adicionais e o dano persistente aumenta em 2d6."
     }
   },
@@ -474,7 +474,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "tocar",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -486,12 +486,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Desmantelar",
-      "description": "Você toca um objeto e ele imediatamente se desmonta em suas peças componentes. A magia falha se o alvo não tiver peças componentes (como uma estátua esculpida em um bloco de pedra), e usá-la em um objeto perigoso como uma armadilha ou armadilha normalmente a ativa. O objeto ganha a condição Quebrado e as peças componentes tornam-se pequenas o suficiente para serem escondidas sob roupas e armaduras normais. Você pode descartar o magia.\nQuando a magia termina, o objeto se recompõe em sua forma original, aparecendo em sua mão ou mãos, se você as tiver livres, ou no chão à sua frente, caso contrário. Uma vez remontado, o objeto perde a condição Quebrado e seus Pontos de Vida retornam ao valor que o objeto tinha quando você Conjurou o magia.\nAprimorada (4º) O magia dura 10 minutos.\nAprimorada (6º) O magia dura até seus próximos preparativos diários.",
+      "description": "Você toca um objeto e ele imediatamente se desmonta em suas peças componentes. A magia falha se o alvo não tiver peças componentes (como uma estátua esculpida em um bloco de pedra), e usá-la em um objeto perigoso como uma armadilha ou armadilha normalmente a ativa. O objeto ganha a condição Quebrado e as peças componentes tornam-se pequenas o suficiente para serem escondidas sob roupas e armaduras normais. Você pode descartar a magia.\nQuando a magia termina, o objeto se recompõe em sua forma original, aparecendo em sua mão ou mãos, se você as tiver livres, ou no chão à sua frente, caso contrário. Uma vez remontado, o objeto perde a condição Quebrado e seus Pontos de Vida retornam ao valor que o objeto tinha quando você Conjurou a magia.\nAprimorada (4º) A magia dura 10 minutos.\nAprimorada (6º) A magia dura até seus próximos preparativos diários.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto não mágico em sua posse de 1 volume ou menos",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (4º) O magia dura 10 minutos.\nAprimorada (6º) O magia dura até seus próximos preparativos diários."
+      "heightening": "Aprimorada (4º) A magia dura 10 minutos.\nAprimorada (6º) A magia dura até seus próximos preparativos diários."
     }
   },
   {
@@ -507,7 +507,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "60 pés (18 metros)",
       "target": "1 criatura viva",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -519,12 +519,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Desejo de caridade",
-      "description": "Você fala sobre a virtude da caridade, obrigando o alvo a doar seus bens. O alvo deve tentar um salvamento de Vontade. Se o alvo não tiver nenhum item consigo, o magia falha.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo fica Atordoado 1 enquanto luta contra o impulso.\nFalha No seu próximo turno, antes de fazer qualquer outra coisa, o alvo deve apresentar à criatura mais próxima um item em sua posse; o alvo escolhe qual item dar, e se o único item que ele possui for aquele que ele está usando atualmente para se defender, como uma arma durante um encontro de combate, ele pode escolher ficar atordoado por 1 rodada em vez de desistir do item. Isso pode exigir que o alvo Interaja para recuperar um item ou se mova para alcançar a criatura mais próxima, e passar o item requer uma ação de Interagir normalmente.\nFalha Crítica Como falha, exceto que a duração é de 4 rodadas e o alvo deve repetir os efeitos de uma falha em cada um de seus turnos. No final de cada um de seus turnos, o alvo pode tentar um novo salvamento de Vontade para reduzir a duração restante em 1 rodada, encerrando os efeitos inteiramente com um sucesso crítico.",
+      "description": "Você fala sobre a virtude da caridade, obrigando o alvo a doar seus bens. O alvo deve tentar um salvamento de Vontade. Se o alvo não tiver nenhum item consigo, a magia falha.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo fica Atordoado 1 enquanto luta contra o impulso.\nFalha No seu próximo turno, antes de fazer qualquer outra coisa, o alvo deve apresentar à criatura mais próxima um item em sua posse; o alvo escolhe qual item dar, e se o único item que ele possui for aquele que ele está usando atualmente para se defender, como uma arma durante um encontro de combate, ele pode escolher ficar atordoado por 1 rodada em vez de desistir do item. Isso pode exigir que o alvo Interaja para recuperar um item ou se mova para alcançar a criatura mais próxima, e passar o item requer uma ação de Interagir normalmente.\nFalha Crítica Como falha, exceto que a duração é de 4 rodadas e o alvo deve repetir os efeitos de uma falha em cada um de seus turnos. No final de cada um de seus turnos, o alvo pode tentar um novo salvamento de Vontade para reduzir a duração restante em 1 rodada, encerrando os efeitos inteiramente com um sucesso crítico.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -536,13 +536,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ataque Animado",
-      "description": "Você usa sua mente para manipular objetos desacompanhados na área, animando-os temporariamente para atacar. Os objetos pairam no ar e depois se lançam contra criaturas próximas em uma confusão caótica de destroços. Este ataque causa 2d10 de dano de concussão (resistência básica de Reflexos) a cada criatura na área. Nas rodadas subsequentes, na primeira vez em cada rodada que você Sustentar este magia, ele causa (chão(@item.level/2))d10[concussão] de dano (resistência de Reflexos básico) a cada criatura na área.\nAumentado (+2) O dano inicial aumenta em 2d10 e o dano subsequente aumenta em 1d10.",
+      "description": "Você usa sua mente para manipular objetos desacompanhados na área, animando-os temporariamente para atacar. Os objetos pairam no ar e depois se lançam contra criaturas próximas em uma confusão caótica de destroços. Este ataque causa 2d10 de dano de concussão (resistência básica de Reflexos) a cada criatura na área. Nas rodadas subsequentes, na primeira vez em cada rodada que você Sustentar esta magia, ele causa (chão(@item.level/2))d10[concussão] de dano (resistência de Reflexos básico) a cada criatura na área.\nAumentado (+2) O dano inicial aumenta em 2d10 e o dano subsequente aumenta em 1d10.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
       "area": "10 explosão",
       "duration": "1 minuto",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado (+2) O dano inicial aumenta em 2d10 e o dano subsequente aumenta em 1d10."
     }
   },
@@ -554,13 +554,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sacrifício Final",
-      "description": "Você canaliza energias perturbadoras através do vínculo entre você e seu lacaio, fazendo-o explodir violentamente. O alvo é morto imediatamente e a explosão causa 6d6 de dano de fogo às criaturas dentro de 20 pés (6 metros) dele com um teste de resistência básico de Reflexos. Se o alvo tiver o traço frio ou água, o magia causa dano de frio e terá o traço frio em vez do traço fogo. Tentar lançar esta magia tendo como alvo uma criatura da qual você assumiu temporariamente o controle, como um morto-vivo comandado por vincular mortos-vivos, falha automaticamente e quebra o efeito de controle.\nAprimorada (+1) O dano aumenta em 2d6.",
+      "description": "Você canaliza energias perturbadoras através do vínculo entre você e seu lacaio, fazendo-o explodir violentamente. O alvo é morto imediatamente e a explosão causa 6d6 de dano de fogo às criaturas dentro de 20 pés (6 metros) dele com um teste de resistência básico de Reflexos. Se o alvo tiver o traço frio ou água, a magia causa dano de frio e terá o traço frio em vez do traço fogo. Tentar lançar esta magia tendo como alvo uma criatura da qual você assumiu temporariamente o controle, como um morto-vivo comandado por vincular mortos-vivos, falha automaticamente e quebra o efeito de controle.\nAprimorada (+1) O dano aumenta em 2d6.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 criatura com a característica lacaio que você convocou ou controla permanentemente",
       "area": "20 emanação",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -578,7 +578,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "20 explosão",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d10."
     }
   },
@@ -596,7 +596,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "30 explosão",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": ""
     }
   },
@@ -608,13 +608,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Esqueletos de Despertar",
-      "description": "Formas esqueléticas disformes irrompem de uma superfície sólida, como um chão de pedra, e preenchem a explosão. A área que ocupam é um terreno difícil. Suas garras agarradoras causam 2d6 de dano cortante às criaturas no chão na área quando os esqueletos aparecem pela primeira vez com um teste básico de Reflexos.\nNas rodadas subsequentes, na primeira vez que você Sustentar o magia em cada rodada, você pode mover a área de esqueletos até 20 pés (6 metros) dentro do alcance do magia e causar 2d6 de dano cortante com um salvamento de Reflexos básico para cada criatura na nova área.\nDanificar ou destruir os esqueletos é irrelevante, pois novos ossos surgem do solo para reparar e substituir os que foram destruídos.\nAprimorada (+2) O dano aumenta em 1d6.",
+      "description": "Formas esqueléticas disformes irrompem de uma superfície sólida, como um chão de pedra, e preenchem a explosão. A área que ocupam é um terreno difícil. Suas garras agarradoras causam 2d6 de dano cortante às criaturas no chão na área quando os esqueletos aparecem pela primeira vez com um teste básico de Reflexos.\nNas rodadas subsequentes, na primeira vez que você Sustentar a magia em cada rodada, você pode mover a área de esqueletos até 20 pés (6 metros) dentro do alcance da magia e causar 2d6 de dano cortante com um salvamento de Reflexos básico para cada criatura na nova área.\nDanificar ou destruir os esqueletos é irrelevante, pois novos ossos surgem do solo para reparar e substituir os que foram destruídos.\nAprimorada (+2) O dano aumenta em 1d6.",
       "castingTime": "2 ações",
       "range": "60 pés (18 metros)",
       "target": "",
       "area": "10 explosão",
       "duration": "1 minuto",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+2) O dano aumenta em 1d6."
     }
   },
@@ -626,12 +626,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Visão Animal",
-      "description": "Você explora os sentidos do alvo, permitindo-lhe sentir tudo o que ele sente durante a duração do magia. Se o alvo desejar impedi-lo de fazer isso, ele pode tentar um salvamento de Vontade, anulando o magia em caso de sucesso, mas a maioria dos animais não se preocupa em fazê-lo. Ao explorar os sentidos do alvo, você não pode usar os sentidos do seu próprio corpo, mas pode mudar dos sentidos do seu corpo para os sentidos do alvo usando uma ação de Sustentar.",
+      "description": "Você explora os sentidos do alvo, permitindo-lhe sentir tudo o que ele sente durante a duração da magia. Se o alvo desejar impedi-lo de fazer isso, ele pode tentar um salvamento de Vontade, anulando a magia em caso de sucesso, mas a maioria dos animais não se preocupa em fazê-lo. Ao explorar os sentidos do alvo, você não pode usar os sentidos do seu próprio corpo, mas pode mudar dos sentidos do seu corpo para os sentidos do alvo usando uma ação de Sustentar.",
       "castingTime": "1 minuto",
       "range": "120 pés (36 metros)",
       "target": "1 animal",
       "duration": "1 hora",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -643,7 +643,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Rosto de familiar",
-      "description": "O alvo se torna um sensor de vidência, permitindo que você veja através de seus olhos, cheire o que ele cheira e use seus outros sentidos da mesma forma. Se você lançar um magia com o traço de revelação que afeta seus sentidos, como Ver o Invisível, enquanto este magia estiver ativo, você ganha o benefício do magia através dos sentidos do alvo em vez dos seus próprios. Você também pode falar através do alvo com uma voz muito parecida com a sua, embora ela assuma um pouco do timbre e do caráter dos rosnados ou gritos do alvo. Você pode usar Comandar um Animal no alvo como parte da Sustentação deste magia. Você não precisa de linha de visão ou linha de efeito para seu alvo ao lançar este magia.",
+      "description": "O alvo se torna um sensor de vidência, permitindo que você veja através de seus olhos, cheire o que ele cheira e use seus outros sentidos da mesma forma. Se você lançar uma magia com o traço de revelação que afeta seus sentidos, como Ver o Invisível, enquanto esta magia estiver ativo, você ganha o benefício da magia através dos sentidos do alvo em vez dos seus próprios. Você também pode falar através do alvo com uma voz muito parecida com a sua, embora ela assuma um pouco do timbre e do caráter dos rosnados ou gritos do alvo. Você pode usar Comandar um Animal no alvo como parte da Sustentação deste magia. Você não precisa de linha de visão ou linha de efeito para seu alvo ao lançar esta magia.",
       "castingTime": "2 ações",
       "range": "1 milha",
       "target": "1 criatura voluntária que seja seu companheiro animal ou familiar",
@@ -659,12 +659,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Maldição do Tempo Perdido",
-      "description": "Você amaldiçoa o alvo com envelhecimento rápido ou erosão. O efeito depende se o alvo é um objeto, um construto ou uma criatura viva. Artefatos, juntamente com objetos e construções feitas de materiais preciosos (conforme determinado pelo Mestre), são imunes.\n• Objeto Se o objeto for atendido, seu portador pode tentar um salvamento de Fortitude. Se o portador falhar ou o objeto for abandonado, o objeto sofre imediatamente 4d6 de dano (aplicando Dureza normalmente) e o item é amaldiçoado por uma duração ilimitada. Até que a maldição termine, o item se torna de má qualidade e não pode ser reparado, e a maldição tenta neutralizar qualquer magia que restauraria os Pontos de Vida do objeto. Cleanse Affliction pode ter como alvo um item afetado por este magia.\n• Construir O construto sofre 4d6 de dano (teste básico de Fortitude). Em caso de falha, por 1 hora o construto fica Desajeitado 1, Enfraquecido 1 e não pode ser Reparado, e a maldição tenta neutralizar qualquer magia que restauraria os Pontos de Vida do construto. Em caso de falha crítica, esses efeitos têm duração ilimitada.\n• Criatura Viva A criatura viva deve tentar um teste de Fortitude. Criaturas eternas são imunes.\n• Sucesso Crítico A criatura viva não é afetada.\n• Sucesso A criatura viva envelhece brevemente, tornando-se desajeitada 1 e debilitada 1 por 1 rodada.\n• Fracasso Como sucesso, com duração de 1 hora.\n• Falha Crítica Como sucesso, com duração ilimitada.\nAprimorada (+1) O dano aumenta em 1d6.",
+      "description": "Você amaldiçoa o alvo com envelhecimento rápido ou erosão. O efeito depende se o alvo é um objeto, um construto ou uma criatura viva. Artefatos, juntamente com objetos e construções feitas de materiais preciosos (conforme determinado pelo Mestre), são imunes.\n• Objeto Se o objeto for atendido, seu portador pode tentar um salvamento de Fortitude. Se o portador falhar ou o objeto for abandonado, o objeto sofre imediatamente 4d6 de dano (aplicando Dureza normalmente) e o item é amaldiçoado por uma duração ilimitada. Até que a maldição termine, o item se torna de má qualidade e não pode ser reparado, e a maldição tenta neutralizar qualquer magia que restauraria os Pontos de Vida do objeto. Cleanse Affliction pode ter como alvo um item afetado por esta magia.\n• Construir O construto sofre 4d6 de dano (teste básico de Fortitude). Em caso de falha, por 1 hora o construto fica Desajeitado 1, Enfraquecido 1 e não pode ser Reparado, e a maldição tenta neutralizar qualquer magia que restauraria os Pontos de Vida do construto. Em caso de falha crítica, esses efeitos têm duração ilimitada.\n• Criatura Viva A criatura viva deve tentar um teste de Fortitude. Criaturas eternas são imunes.\n• Sucesso Crítico A criatura viva não é afetada.\n• Sucesso A criatura viva envelhece brevemente, tornando-se desajeitada 1 e debilitada 1 por 1 rodada.\n• Fracasso Como sucesso, com duração de 1 hora.\n• Falha Crítica Como sucesso, com duração ilimitada.\nAprimorada (+1) O dano aumenta em 1d6.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 Objeto, construto ou criatura viva grande ou menor",
       "duration": "varia",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d6."
     }
   },

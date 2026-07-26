@@ -53,7 +53,15 @@ const globalSheetPage = path.join(
   'Pathfinder2eCharacterSheetPage.tsx',
 )
 const characterRoutesFile = path.join(root, 'apps', 'api', 'src', 'modules', 'characters', 'routes.ts')
-const gameSystemRoutesFile = path.join(root, 'apps', 'api', 'src', 'game_systems', 'routes.ts')
+const gameSystemRoutesFile = path.join(
+  root,
+  'apps',
+  'api',
+  'src',
+  'game_systems',
+  'registry',
+  'register.ts',
+)
 
 function extractCreateSheetSchema(source: string) {
   const start = source.indexOf('const createCharacterSheetSchema')

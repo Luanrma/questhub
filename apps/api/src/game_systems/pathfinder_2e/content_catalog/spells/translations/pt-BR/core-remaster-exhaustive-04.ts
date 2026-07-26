@@ -9,7 +9,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Mente Clara",
-      "description": "Você expulsa a contaminação mental da mente do alvo. Tente neutralizar um efeito de sua escolha impondo uma destas condições ao alvo: Fugindo, Assustado e Estupefato. Se você não conseguiu neutralizar o efeito, mas o faria se seu Rank de neutralização fosse 2 menor, em vez disso, suprima o efeito até o início do seu próximo turno. A duração do efeito não termina enquanto ele estiver suprimido. Este magia não pode neutralizar ou suprimir condições que fazem parte de maldições, doenças ou estado natural do alvo.\nAprimorada (4º) Adicione Confuso, Controlado e Lento à lista de condições.\nAprimorada (6º) Como 4º Rank, além de adicionar Doomed.\nAprimorada (8º) Como 4º Rank, além de adicionar Condenado e Atordoado.",
+      "description": "Você expulsa a contaminação mental da mente do alvo. Tente neutralizar um efeito de sua escolha impondo uma destas condições ao alvo: Fugindo, Assustado e Estupefato. Se você não conseguiu neutralizar o efeito, mas o faria se seu Rank de neutralização fosse 2 menor, em vez disso, suprima o efeito até o início do seu próximo turno. A duração do efeito não termina enquanto ele estiver suprimido. Esta magia não pode neutralizar ou suprimir condições que fazem parte de maldições, doenças ou estado natural do alvo.\nAprimorada (4º) Adicione Confuso, Controlado e Lento à lista de condições.\nAprimorada (6º) Como 4º Rank, além de adicionar Doomed.\nAprimorada (8º) Como 4º Rank, além de adicionar Condenado e Atordoado.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
@@ -25,12 +25,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Incorporar mensagem",
-      "description": "Você especifica um gatilho e uma mensagem com até 25 palavras. Quando o gatilho especificado ocorre dentro de 30 pés (9 metros) do alvo, o texto ilusório da sua mensagem circula o alvo acompanhado por uma voz desencarnada. Você pode escolher um idioma que conhece para o texto e a fala e como a voz soa. Assim que a mensagem for concluída, o magia termina.\nAprimorada (4º) Você pode adicionar um componente sensorial simples para enfatizar a mensagem, como um odor, efeito visual ou sensação física. Esta adição é obviamente ilusória e faz parte da mensagem, durando apenas enquanto a mensagem está sendo lida.\nAprimorada (6º) Como o 4º Rank, mas você pode escolher quantas vezes o magia repete a mensagem antes de terminar; não há limite para o número de repetições.",
+      "description": "Você especifica um gatilho e uma mensagem com até 25 palavras. Quando o gatilho especificado ocorre dentro de 30 pés (9 metros) do alvo, o texto ilusório da sua mensagem circula o alvo acompanhado por uma voz desencarnada. Você pode escolher um idioma que conhece para o texto e a fala e como a voz soa. Assim que a mensagem for concluída, a magia termina.\nAprimorada (4º) Você pode adicionar um componente sensorial simples para enfatizar a mensagem, como um odor, efeito visual ou sensação física. Esta adição é obviamente ilusória e faz parte da mensagem, durando apenas enquanto a mensagem está sendo lida.\nAprimorada (6º) Como o 4º Rank, mas você pode escolher quantas vezes a magia repete a mensagem antes de terminar; não há limite para o número de repetições.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto ou criatura voluntária",
       "duration": "ilimitado",
-      "heightening": "Aprimorada (4º) Você pode adicionar um componente sensorial simples para enfatizar a mensagem, como um odor, efeito visual ou sensação física. Esta adição é obviamente ilusória e faz parte da mensagem, durando apenas enquanto a mensagem está sendo lida.\nAprimorada (6º) Como o 4º Rank, mas você pode escolher quantas vezes o magia repete a mensagem antes de terminar; não há limite para o número de repetições."
+      "heightening": "Aprimorada (4º) Você pode adicionar um componente sensorial simples para enfatizar a mensagem, como um odor, efeito visual ou sensação física. Esta adição é obviamente ilusória e faz parte da mensagem, durando apenas enquanto a mensagem está sendo lida.\nAprimorada (6º) Como o 4º Rank, mas você pode escolher quantas vezes a magia repete a mensagem antes de terminar; não há limite para o número de repetições."
     }
   },
   {
@@ -41,7 +41,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Corpo Som",
-      "description": "Você envia uma onda de energia curativa para restaurar o corpo do alvo. Tente neutralizar um efeito de sua escolha impondo uma destas condições ao alvo: Cego, Deslumbrado, Ensurdecido, Enfraquecido ou Enjoado. Se você não neutralizou o efeito, mas o faria se seu Rank de neutralização fosse 2 menor, em vez disso, suprima o efeito até o início do seu próximo turno. A duração do efeito não termina enquanto ele estiver suprimido.\nEste magia não pode neutralizar ou suprimir maldições, doenças ou condições que façam parte do estado normal do alvo.\nAprimorada (4º) Adicione Drenado e Lento à lista de condições.\nAprimorada (6º) Como 4º Rank, além de adicionar Petrificado.\nAprimorada (8º) Como 4º Rank, além de adicionar petrificado e Atordoado.",
+      "description": "Você envia uma onda de energia curativa para restaurar o corpo do alvo. Tente neutralizar um efeito de sua escolha impondo uma destas condições ao alvo: Cego, Deslumbrado, Ensurdecido, Enfraquecido ou Enjoado. Se você não neutralizou o efeito, mas o faria se seu Rank de neutralização fosse 2 menor, em vez disso, suprima o efeito até o início do seu próximo turno. A duração do efeito não termina enquanto ele estiver suprimido.\nEsta magia não pode neutralizar ou suprimir maldições, doenças ou condições que façam parte do estado normal do alvo.\nAprimorada (4º) Adicione Drenado e Lento à lista de condições.\nAprimorada (6º) Como 4º Rank, além de adicionar Petrificado.\nAprimorada (8º) Como 4º Rank, além de adicionar petrificado e Atordoado.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
@@ -57,7 +57,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Criatura Ilusória",
-      "description": "Você cria uma imagem ilusória de uma criatura Grande ou menor. Ele gera sons e cheiros apropriados e é confiável ao toque. Se você e a imagem estiverem a uma distância maior que 500 pés (150 metros), o magia termina.\nA imagem não pode falar, mas você pode usar suas ações para falar através da criatura, com a magia disfarçando sua voz conforme apropriado. Você pode precisar tentar um teste de Enganação ou Desempenho para imitar a criatura, conforme determinado pelo Mestre. Isso é especialmente provável se você estiver tentando imitar uma pessoa específica e interagir com alguém que essa pessoa conhece.\nEm combate, a ilusão pode usar 2 ações por turno, que ela usa quando você sustenta o magia. Ele usa seu modificador de ataque de magia para jogadas de ataque e sua CD de magia para sua CA. Seus modificadores de teste de resistência são iguais à CD do seu magia – 10. É substancial o suficiente para poder flanquear outras criaturas. Se a imagem for atingida por um ataque ou falhar no salvamento, o magia termina.\nA ilusão pode causar danos ao fazer o alvo acreditar que os ataques da ilusão são reais, mas de outra forma não pode afetar diretamente o mundo físico. Se a criatura ilusória acertar um Golpe, o alvo sofre 3d4[mental] de dano. Os ataques da ilusão não são letais. Se o dano não corresponder à imagem do monstro – por exemplo, se um dragão Grande ilusório causar apenas 5 pontos de dano – o Mestre pode permitir que o alvo tente um teste imediato de Percepção para descrer do magia. Quaisquer resistências e fraquezas relevantes se aplicam se o alvo achar que sim, conforme julgado pelo Mestre. Por exemplo, se a ilusão empunhar um martelo de guerra e atacar uma criatura resistente a dano de concussão, a criatura sofrerá menos dano mental. No entanto, o dano ilusório não desativa a regeneração nem desencadeia outros efeitos que exijam um determinado tipo de dano. O Mestre deve registrar o dano ilusório causado pela ilusão.\nQualquer criatura que toque a imagem ou use a ação Procurar para examiná-la pode tentar descrer da sua ilusão. Quando uma criatura não acredita na ilusão, ela se recupera de metade do dano que recebeu dela (se houver) e não sofre mais nenhum dano dela.\nAprimorada (+1) O dano dos Golpes da imagem aumenta em 1d4, e o tamanho máximo da criatura que você pode criar aumenta em um (até um máximo de Imenso).",
+      "description": "Você cria uma imagem ilusória de uma criatura Grande ou menor. Ele gera sons e cheiros apropriados e é confiável ao toque. Se você e a imagem estiverem a uma distância maior que 500 pés (150 metros), a magia termina.\nA imagem não pode falar, mas você pode usar suas ações para falar através da criatura, com a magia disfarçando sua voz conforme apropriado. Você pode precisar tentar um teste de Enganação ou Desempenho para imitar a criatura, conforme determinado pelo Mestre. Isso é especialmente provável se você estiver tentando imitar uma pessoa específica e interagir com alguém que essa pessoa conhece.\nEm combate, a ilusão pode usar 2 ações por turno, que ela usa quando você sustenta a magia. Ele usa seu modificador de ataque de magia para jogadas de ataque e sua CD de magia para sua CA. Seus modificadores de teste de resistência são iguais à CD do sua magia – 10. É substancial o suficiente para poder flanquear outras criaturas. Se a imagem for atingida por um ataque ou falhar no salvamento, a magia termina.\nA ilusão pode causar danos ao fazer o alvo acreditar que os ataques da ilusão são reais, mas de outra forma não pode afetar diretamente o mundo físico. Se a criatura ilusória acertar um Golpe, o alvo sofre 3d4[mental] de dano. Os ataques da ilusão não são letais. Se o dano não corresponder à imagem do monstro – por exemplo, se um dragão Grande ilusório causar apenas 5 pontos de dano – o Mestre pode permitir que o alvo tente um teste imediato de Percepção para descrer da magia. Quaisquer resistências e fraquezas relevantes se aplicam se o alvo achar que sim, conforme julgado pelo Mestre. Por exemplo, se a ilusão empunhar um martelo de guerra e atacar uma criatura resistente a dano de concussão, a criatura sofrerá menos dano mental. No entanto, o dano ilusório não desativa a regeneração nem desencadeia outros efeitos que exijam um determinado tipo de dano. O Mestre deve registrar o dano ilusório causado pela ilusão.\nQualquer criatura que toque a imagem ou use a ação Procurar para examiná-la pode tentar descrer da sua ilusão. Quando uma criatura não acredita na ilusão, ela se recupera de metade do dano que recebeu dela (se houver) e não sofre mais nenhum dano dela.\nAprimorada (+1) O dano dos Golpes da imagem aumenta em 1d4, e o tamanho máximo da criatura que você pode criar aumenta em um (até um máximo de Imenso).",
       "castingTime": "2 ações",
       "range": "500 pés (150 metros)",
       "target": "",
@@ -73,7 +73,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Resistir à Energia",
-      "description": "Um escudo de energia elementar protege uma criatura contra um tipo de dano energético. Escolha ácido, frio, eletricidade, fogo ou dano sônico. O alvo e seu equipamento ganham resistência 5 contra o tipo de dano que você escolheu.\nEfeito do magia: Resistir à Energia\nAprimorada (4º) A resistência aumenta para 10 e você pode mirar em até duas criaturas.\nAprimorada (7º) A resistência aumenta para 15 e você pode mirar em até cinco criaturas.",
+      "description": "Um escudo de energia elementar protege uma criatura contra um tipo de dano energético. Escolha ácido, frio, eletricidade, fogo ou dano sônico. O alvo e seu equipamento ganham resistência 5 contra o tipo de dano que você escolheu.\nEfeito da magia: Resistir à Energia\nAprimorada (4º) A resistência aumenta para 10 e você pode mirar em até duas criaturas.\nAprimorada (7º) A resistência aumenta para 15 e você pode mirar em até cinco criaturas.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura",
@@ -94,7 +94,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": ""
     }
   },
@@ -106,7 +106,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Silêncio",
-      "description": "O alvo não emite nenhum som, evitando que as criaturas o percebam apenas com a audição. O alvo não pode usar ataques sônicos, nem pode usar ações com característica auditiva. Isso o impede de lançar magias devido às palavras mágicas envolvidas no lançamento, com exceção de magias sutis.\nEfeito do magia: Silêncio\nAprimorada (4º) A magia cria uma aura em uma emanação de 3 metros ao redor da criatura tocada, silenciando todos os sons que entram ou passam por ela. Enquanto estiverem dentro da aura, as criaturas estão sujeitas aos mesmos efeitos que o alvo. Dependendo da posição do efeito, uma criatura pode notar a falta de som chegando até ela (bloqueando o barulho vindo de uma festa, por exemplo).",
+      "description": "O alvo não emite nenhum som, evitando que as criaturas o percebam apenas com a audição. O alvo não pode usar ataques sônicos, nem pode usar ações com característica auditiva. Isso o impede de lançar magias devido às palavras mágicas envolvidas no lançamento, com exceção de magias sutis.\nEfeito da magia: Silêncio\nAprimorada (4º) A magia cria uma aura em uma emanação de 3 metros ao redor da criatura tocada, silenciando todos os sons que entram ou passam por ela. Enquanto estiverem dentro da aura, as criaturas estão sujeitas aos mesmos efeitos que o alvo. Dependendo da posição do efeito, uma criatura pode notar a falta de som chegando até ela (bloqueando o barulho vindo de uma festa, por exemplo).",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
@@ -122,12 +122,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Status",
-      "description": "Enquanto você e o alvo estiverem no mesmo plano de existência e ambos vivos, você permanecerá consciente do seu estado atual. Você sabe a direção do alvo, a distância de você e quaisquer condições que o afetem.\nAprimorada (4º) O alcance do magia aumenta para 30 pés (9 metros) e você pode atingir até 10 criaturas.",
+      "description": "Enquanto você e o alvo estiverem no mesmo plano de existência e ambos vivos, você permanecerá consciente do seu estado atual. Você sabe a direção do alvo, a distância de você e quaisquer condições que o afetem.\nAprimorada (4º) O alcance da magia aumenta para 30 pés (9 metros) e você pode atingir até 10 criaturas.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura viva voluntária",
       "duration": "até a próxima vez que você fizer seus preparativos diários",
-      "heightening": "Aprimorada (4º) O alcance do magia aumenta para 30 pés (9 metros) e você pode atingir até 10 criaturas."
+      "heightening": "Aprimorada (4º) O alcance da magia aumenta para 30 pés (9 metros) e você pode atingir até 10 criaturas."
     }
   },
   {
@@ -138,13 +138,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Flora emaranhada",
-      "description": "Plantas e fungos explodem ou crescem rapidamente, enredando criaturas. Todas as superfícies da área são terrenos difíceis. Cada rodada em que uma criatura inicia seu turno na área, ela deve tentar um teste de Reflexos. Em caso de falha, ele sofre uma penalidade de circunstância de –3 metros em sua Velocidade até sair da área e, em caso de falha crítica, também fica Imobilizado por 1 rodada. As criaturas podem tentar escapar para remover esses efeitos.\nEfeito do magia: Flora Enredadora",
+      "description": "Plantas e fungos explodem ou crescem rapidamente, enredando criaturas. Todas as superfícies da área são terrenos difíceis. Cada rodada em que uma criatura inicia seu turno na área, ela deve tentar um teste de Reflexos. Em caso de falha, ele sofre uma penalidade de circunstância de –3 metros em sua Velocidade até sair da área e, em caso de falha crítica, também fica Imobilizado por 1 rodada. As criaturas podem tentar escapar para remover esses efeitos.\nEfeito da magia: Flora Enredadora",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
       "area": "20 explosão",
       "duration": "1 minuto",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": ""
     }
   },
@@ -156,12 +156,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Veja o invisível",
-      "description": "Seu olhar atravessa ilusões e encontra criaturas e espíritos invisíveis. Você pode ver criaturas invisíveis como se não fossem invisíveis, embora suas características estejam borradas, tornando-as ocultas e difíceis de identificar. Você também pode ver criaturas incorpóreas, como fantasmas, passando por um objeto a partir de 10 pés (3 metros) da superfície de um objeto como formas borradas vistas através desses objetos. Pistas mais sutis também concedem a você um bônus de status de +2 em testes para descrer de ilusões.\nAprimorada (5º) Este magia tem duração de 8 horas.\nEfeito do magia: Ver o Invisível",
+      "description": "Seu olhar atravessa ilusões e encontra criaturas e espíritos invisíveis. Você pode ver criaturas invisíveis como se não fossem invisíveis, embora suas características estejam borradas, tornando-as ocultas e difíceis de identificar. Você também pode ver criaturas incorpóreas, como fantasmas, passando por um objeto a partir de 10 pés (3 metros) da superfície de um objeto como formas borradas vistas através desses objetos. Pistas mais sutis também concedem a você um bônus de status de +2 em testes para descrer de ilusões.\nAprimorada (5º) Esta magia tem duração de 8 horas.\nEfeito da magia: Ver o Invisível",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (5º) Este magia tem duração de 8 horas.\nEfeito do magia: Ver o Invisível"
+      "heightening": "Aprimorada (5º) Esta magia tem duração de 8 horas.\nEfeito da magia: Ver o Invisível"
     }
   },
   {
@@ -188,12 +188,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Paranóia",
-      "description": "Você faz com que o alvo veja todas as outras criaturas como ameaças terríveis. O alvo é atingido por intensa paranóia em relação a todas as criaturas ao seu redor e deve tentar um teste de Vontade.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo acredita que todos que vê são uma ameaça potencial. Torna-se hostil a todas as criaturas às quais ainda não era hostil, mesmo aquelas que eram anteriormente aliadas. Não trata ninguém como aliado. O magia termina após 1 rodada.\nFalha Como sucesso, mas o efeito dura 1 minuto.\nFalha Crítica Como falha, exceto que o alvo acredita que todos que vê são inimigos mortais. Ele utiliza suas reações e ações livres contra todos, independentemente de terem sido anteriormente seus aliados, conforme determinado pelo GM. Caso contrário, ele age tão racionalmente como normalmente faz e provavelmente prefere atacar criaturas que o estão atacando ativamente ou atrapalhando aquelas que o deixam em paz.\nAprimorada (6º) Você pode escolher até 5 criaturas.",
+      "description": "Você faz com que o alvo veja todas as outras criaturas como ameaças terríveis. O alvo é atingido por intensa paranóia em relação a todas as criaturas ao seu redor e deve tentar um teste de Vontade.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo acredita que todos que vê são uma ameaça potencial. Torna-se hostil a todas as criaturas às quais ainda não era hostil, mesmo aquelas que eram anteriormente aliadas. Não trata ninguém como aliado. A magia termina após 1 rodada.\nFalha Como sucesso, mas o efeito dura 1 minuto.\nFalha Crítica Como falha, exceto que o alvo acredita que todos que vê são inimigos mortais. Ele utiliza suas reações e ações livres contra todos, independentemente de terem sido anteriormente seus aliados, conforme determinado pelo GM. Caso contrário, ele age tão racionalmente como normalmente faz e provavelmente prefere atacar criaturas que o estão atacando ativamente ou atrapalhando aquelas que o deixam em paz.\nAprimorada (6º) Você pode escolher até 5 criaturas.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 minuto",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (6º) Você pode escolher até 5 criaturas."
     }
   },
@@ -253,12 +253,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Encolher",
-      "description": "Você distorce o espaço para tornar uma criatura menor. O alvo encolhe para ficar em tamanho Minúsculo. Seu equipamento encolhe com ele, mas retorna ao tamanho original se for removido. O alcance da criatura muda para 0 pés (0 metros). Este magia não tem efeito em uma criatura Minúscula.\nEfeito do magia: Encolher\nAprimorada (6º) O magia pode ter como alvo até 10 criaturas.",
+      "description": "Você distorce o espaço para tornar uma criatura menor. O alvo encolhe para ficar em tamanho Minúsculo. Seu equipamento encolhe com ele, mas retorna ao tamanho original se for removido. O alcance da criatura muda para 0 pés (0 metros). Esta magia não tem efeito em uma criatura Minúscula.\nEfeito da magia: Encolher\nAprimorada (6º) A magia pode ter como alvo até 10 criaturas.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura voluntária",
       "duration": "5 minutos",
-      "heightening": "Aprimorada (6º) O magia pode ter como alvo até 10 criaturas."
+      "heightening": "Aprimorada (6º) A magia pode ter como alvo até 10 criaturas."
     }
   },
   {
@@ -269,7 +269,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Visão no escuro",
-      "description": "Você concede a si mesmo visão sobrenatural em áreas de escuridão. Você ganha Visão no Escuro.\nEfeito do magia: Visão no Escuro\nEfeito do magia: Visão no Escuro (24 horas)\nAprimorada (3º) O alcance da magia é de toque e tem como alvo 1 criatura voluntária.\nAprimorada (5º) O alcance da magia é de toque e tem como alvo 1 criatura voluntária. A duração é até a próxima vez que você fizer seus preparativos diários.",
+      "description": "Você concede a si mesmo visão sobrenatural em áreas de escuridão. Você ganha Visão no Escuro.\nEfeito da magia: Visão no Escuro\nEfeito da magia: Visão no Escuro (24 horas)\nAprimorada (3º) O alcance da magia é de toque e tem como alvo 1 criatura voluntária.\nAprimorada (5º) O alcance da magia é de toque e tem como alvo 1 criatura voluntária. A duração é até a próxima vez que você fizer seus preparativos diários.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -285,7 +285,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Transportador Fantasmagórico",
-      "description": "Você cria uma figura minúscula e semicorpórea com a forma que você escolher. Ele paira perto de você durante todo o período. Quando você lança um magia que tem alcance de toque, você pode fazer com que o portador se mova dentro do alcance, entregue o magia a uma criatura ali e retorne para você. Se o portador precisar tentar uma jogada de ataque mágico, ele usará seus bônus normais. O transportador tem seu AC e salva, mas é destruído por qualquer dano.",
+      "description": "Você cria uma figura minúscula e semicorpórea com a forma que você escolher. Ele paira perto de você durante todo o período. Quando você lança uma magia que tem alcance de toque, você pode fazer com que o portador se mova dentro do alcance, entregue a magia a uma criatura ali e retorne para você. Se o portador precisar tentar uma jogada de ataque mágico, ele usará seus bônus normais. O transportador tem seu AC e salva, mas é destruído por qualquer dano.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
@@ -301,12 +301,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Caminhada Aquática",
-      "description": "O alvo pode andar na superfície da água e de outros líquidos sem cair. Ele pode mergulhar se quiser, mas nesse caso deverá nadar normalmente. Este magia não concede a habilidade de respirar debaixo d'água.\nAprimorada (4º) O alcance do magia aumenta para 30 pés (9 metros), a duração aumenta para 1 hora e você pode atingir até 10 criaturas.",
+      "description": "O alvo pode andar na superfície da água e de outros líquidos sem cair. Ele pode mergulhar se quiser, mas nesse caso deverá nadar normalmente. Esta magia não concede a habilidade de respirar debaixo d'água.\nAprimorada (4º) O alcance da magia aumenta para 30 pés (9 metros), a duração aumenta para 1 hora e você pode atingir até 10 criaturas.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (4º) O alcance do magia aumenta para 30 pés (9 metros), a duração aumenta para 1 hora e você pode atingir até 10 criaturas."
+      "heightening": "Aprimorada (4º) O alcance da magia aumenta para 30 pés (9 metros), a duração aumenta para 1 hora e você pode atingir até 10 criaturas."
     }
   },
   {
@@ -333,12 +333,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Vingança de Sangue",
-      "description": "Requisitos Você pode sangrar.\nGatilho Uma criatura causa dano perfurante, cortante ou de sangramento persistente a você.\nVocê amaldiçoa o alvo, punindo-o por ter a audácia de derramar seu sangue. O alvo sofre 2d6 de dano de sangramento persistente e deve tentar um salvamento de Vontade.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo sofre metade do dano de sangramento persistente.\nFalha O alvo sofre todo o dano de sangramento persistente. Até que o sangramento pare, o alvo tem fraqueza 1 para danos cortantes e perfurantes. Efeito do magia: Vingança de Sangue (Falha)\nFalha Crítica Como falha, mas o alvo sofre o dobro do dano de sangramento persistente.\nAumentado (+2) O dano de sangramento persistente aumenta em 2d6.",
+      "description": "Requisitos Você pode sangrar.\nGatilho Uma criatura causa dano perfurante, cortante ou de sangramento persistente a você.\nVocê amaldiçoa o alvo, punindo-o por ter a audácia de derramar seu sangue. O alvo sofre 2d6 de dano de sangramento persistente e deve tentar um salvamento de Vontade.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo sofre metade do dano de sangramento persistente.\nFalha O alvo sofre todo o dano de sangramento persistente. Até que o sangramento pare, o alvo tem fraqueza 1 para danos cortantes e perfurantes. Efeito da magia: Vingança de Sangue (Falha)\nFalha Crítica Como falha, mas o alvo sofre o dobro do dano de sangramento persistente.\nAumentado (+2) O dano de sangramento persistente aumenta em 2d6.",
       "castingTime": "reação",
       "range": "30 pés (9 metros)",
       "target": "A criatura desencadeadora",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aumentado (+2) O dano de sangramento persistente aumenta em 2d6."
     }
   },
@@ -355,7 +355,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura viva",
       "duration": "sustentado",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -383,12 +383,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Forma Animal",
-      "description": "Você invoca a energia primordial para se transformar em uma forma de batalha animal Média. Ao lançar este magia, escolha uma forma de batalha listada. Você pode decidir o tipo específico de animal (como leão ou leopardo da neve para gato), mas isso não afeta o tamanho ou as estatísticas do formulário. Enquanto estiver nesta forma, você ganha a característica animal. Você pode descartar o magia.\nVocê ganha as seguintes estatísticas e habilidades, independentemente do animal escolhido:\n• CA = 16 + seu nível. Ignore a penalidade de teste e a redução de velocidade da sua armadura.\n• 5 Pontos de Vida temporários.\n• Visão na penumbra e aroma impreciso 30 pés (9 metros).\n• Um ou mais ataques corpo a corpo desarmados específicos para sua forma de batalha, que são os únicos ataques com os quais você pode atacar. Você é treinado com eles. Seu modificador de ataque é +9 e seu bônus de dano é +1. Esses ataques são baseados na Força (para o propósito da condição Enfraquecido, por exemplo). Se o seu bônus de ataque desarmado for maior, você poderá usá-lo.\n• Modificador de Atletismo de +9, a menos que seu próprio modificador seja maior.\nVocê também ganha habilidades específicas com base no tipo de animal escolhido:\n• Macaco\n• Velocidade 25 pés (7,5 metros), velocidade de subida 20 pés (6 metros);\n• Corpo a corpo, Dano 2d6 por concussão.\n• Urso\n• Velocidade 30 pés (9 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• Corpo a corpo com uma garra (ágil), Dano 1d8 cortante.\n• Touro\n• Velocidade 30 pés (9 metros);\n• Corpo a corpo com chifre, Dano 2d8 perfurante.\n• Canino\n• Velocidade 40 pés (12 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante.\n• Gato\n• Velocidade 40 pés (12 metros);\n• Corpo a corpo com mandíbulas, Dano 2d6 perfurante;\n• Corpo a corpo com uma garra (ágil), Dano 1d10 cortante.\n• Caranguejo\n• Velocidade 25 pés (7,5 metros), velocidade de natação 15 pés (4,5 metros);\n• Corpo a corpo com uma garra grande, Dano 2d8 perfurante;\n• Corpo a corpo com uma pequena garra (ágil), Dano 2d4 perfurante.\n• Crocodilo\n• Velocidade 25 pés (7,5 metros), velocidade de natação 30 pés (9 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• Corpo a corpo com cauda (ágil), Dano 1d8 por concussão.\n• consegue prender a respiração durante a transformação.\n• Veado\n• Velocidade 50 pés (15 metros);\n• Corpo a corpo com um chifre, Dano 2d6 perfurante.\n• Sapo\n• Velocidade 25 pés (7,5 metros), velocidade de natação 25 pés (7,5 metros);\n• Corpo a corpo com mandíbulas, Dano 2d6 por concussão;\n• Combate corpo a corpo com a língua (alcance 15 pés (4,5 metros)), Dano 2d4 por concussão.\n•Orca\n• velocidade de natação 35 pés (10,5 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• consegue prender a respiração durante a transformação.\n• Selo\n• Velocidade 20 pés (6 metros), velocidade de natação 30 pés (9 metros);\n• Corpo a corpo com mandíbulas (agarrar), Dano 2d6 perfurante;\n• consegue prender a respiração durante a transformação.\n• Tubarão\n• velocidade de natação 35 pés (10,5 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• respire debaixo d'água, mas não no ar.\n• Cobra\n• Velocidade 20 pés (6 metros), velocidade de subida 20 pés (6 metros), velocidade de natação 20 pés (6 metros);\n• Corpo a corpo com presas, Dano 2d4 perfurante mais 1d6 venenoso.\nAprimorada (3º) Em vez disso, você ganha 10 HP temporários, CA = 17 + seu nível, modificador de ataque +14, bônus de dano +5 e Atletismo +14.\nAprimorada (4º) Sua forma de batalha é Grande e seus ataques têm alcance de 3 metros. Você deve ter espaço suficiente para expandir ou o magia será perdido. Em vez disso, você ganha 15 HP temporários, CA = 18 + seu nível, modificador de ataque +16, bônus de dano +9 e Atletismo +16.\nAprimorada (5º) Sua forma de batalha é Enorme e seus ataques têm alcance de 4,5 metros. Você deve ter espaço suficiente para expandir ou o magia será perdido. Em vez disso, você ganha 20 HP temporários, CA = 18 + seu nível, modificador de ataque +18, bônus de dano +7 e o dobro do número de dados de dano, e Atletismo +20.",
+      "description": "Você invoca a energia primordial para se transformar em uma forma de batalha animal Média. Ao lançar esta magia, escolha uma forma de batalha listada. Você pode decidir o tipo específico de animal (como leão ou leopardo da neve para gato), mas isso não afeta o tamanho ou as estatísticas do formulário. Enquanto estiver nesta forma, você ganha a característica animal. Você pode descartar a magia.\nVocê ganha as seguintes estatísticas e habilidades, independentemente do animal escolhido:\n• CA = 16 + seu nível. Ignore a penalidade de teste e a redução de velocidade da sua armadura.\n• 5 Pontos de Vida temporários.\n• Visão na penumbra e aroma impreciso 30 pés (9 metros).\n• Um ou mais ataques corpo a corpo desarmados específicos para sua forma de batalha, que são os únicos ataques com os quais você pode atacar. Você é treinado com eles. Seu modificador de ataque é +9 e seu bônus de dano é +1. Esses ataques são baseados na Força (para o propósito da condição Enfraquecido, por exemplo). Se o seu bônus de ataque desarmado for maior, você poderá usá-lo.\n• Modificador de Atletismo de +9, a menos que seu próprio modificador seja maior.\nVocê também ganha habilidades específicas com base no tipo de animal escolhido:\n• Macaco\n• Velocidade 25 pés (7,5 metros), velocidade de subida 20 pés (6 metros);\n• Corpo a corpo, Dano 2d6 por concussão.\n• Urso\n• Velocidade 30 pés (9 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• Corpo a corpo com uma garra (ágil), Dano 1d8 cortante.\n• Touro\n• Velocidade 30 pés (9 metros);\n• Corpo a corpo com chifre, Dano 2d8 perfurante.\n• Canino\n• Velocidade 40 pés (12 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante.\n• Gato\n• Velocidade 40 pés (12 metros);\n• Corpo a corpo com mandíbulas, Dano 2d6 perfurante;\n• Corpo a corpo com uma garra (ágil), Dano 1d10 cortante.\n• Caranguejo\n• Velocidade 25 pés (7,5 metros), velocidade de natação 15 pés (4,5 metros);\n• Corpo a corpo com uma garra grande, Dano 2d8 perfurante;\n• Corpo a corpo com uma pequena garra (ágil), Dano 2d4 perfurante.\n• Crocodilo\n• Velocidade 25 pés (7,5 metros), velocidade de natação 30 pés (9 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• Corpo a corpo com cauda (ágil), Dano 1d8 por concussão.\n• consegue prender a respiração durante a transformação.\n• Veado\n• Velocidade 50 pés (15 metros);\n• Corpo a corpo com um chifre, Dano 2d6 perfurante.\n• Sapo\n• Velocidade 25 pés (7,5 metros), velocidade de natação 25 pés (7,5 metros);\n• Corpo a corpo com mandíbulas, Dano 2d6 por concussão;\n• Combate corpo a corpo com a língua (alcance 15 pés (4,5 metros)), Dano 2d4 por concussão.\n•Orca\n• velocidade de natação 35 pés (10,5 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• consegue prender a respiração durante a transformação.\n• Selo\n• Velocidade 20 pés (6 metros), velocidade de natação 30 pés (9 metros);\n• Corpo a corpo com mandíbulas (agarrar), Dano 2d6 perfurante;\n• consegue prender a respiração durante a transformação.\n• Tubarão\n• velocidade de natação 35 pés (10,5 metros);\n• Corpo a corpo com mandíbulas, Dano 2d8 perfurante;\n• respire debaixo d'água, mas não no ar.\n• Cobra\n• Velocidade 20 pés (6 metros), velocidade de subida 20 pés (6 metros), velocidade de natação 20 pés (6 metros);\n• Corpo a corpo com presas, Dano 2d4 perfurante mais 1d6 venenoso.\nAprimorada (3º) Em vez disso, você ganha 10 HP temporários, CA = 17 + seu nível, modificador de ataque +14, bônus de dano +5 e Atletismo +14.\nAprimorada (4º) Sua forma de batalha é Grande e seus ataques têm alcance de 3 metros. Você deve ter espaço suficiente para expandir ou a magia será perdido. Em vez disso, você ganha 15 HP temporários, CA = 18 + seu nível, modificador de ataque +16, bônus de dano +9 e Atletismo +16.\nAprimorada (5º) Sua forma de batalha é Enorme e seus ataques têm alcance de 4,5 metros. Você deve ter espaço suficiente para expandir ou a magia será perdido. Em vez disso, você ganha 20 HP temporários, CA = 18 + seu nível, modificador de ataque +18, bônus de dano +7 e o dobro do número de dados de dano, e Atletismo +20.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (3º) Em vez disso, você ganha 10 HP temporários, CA = 17 + seu nível, modificador de ataque +14, bônus de dano +5 e Atletismo +14.\nAprimorada (4º) Sua forma de batalha é Grande e seus ataques têm alcance de 3 metros. Você deve ter espaço suficiente para expandir ou o magia será perdido. Em vez disso, você ganha 15 HP temporários, CA = 18 + seu nível, modificador de ataque +16, bônus de dano +9 e Atletismo +16.\nAprimorada (5º) Sua forma de batalha é Enorme e seus ataques têm alcance de 4,5 metros. Você deve ter espaço suficiente para expandir ou o magia será perdido. Em vez disso, você ganha 20 HP temporários, CA = 18 + seu nível, modificador de ataque +18, bônus de dano +7 e o dobro do número de dados de dano, e Atletismo +20."
+      "heightening": "Aprimorada (3º) Em vez disso, você ganha 10 HP temporários, CA = 17 + seu nível, modificador de ataque +14, bônus de dano +5 e Atletismo +14.\nAprimorada (4º) Sua forma de batalha é Grande e seus ataques têm alcance de 3 metros. Você deve ter espaço suficiente para expandir ou a magia será perdido. Em vez disso, você ganha 15 HP temporários, CA = 18 + seu nível, modificador de ataque +16, bônus de dano +9 e Atletismo +16.\nAprimorada (5º) Sua forma de batalha é Enorme e seus ataques têm alcance de 4,5 metros. Você deve ter espaço suficiente para expandir ou a magia será perdido. Em vez disso, você ganha 20 HP temporários, CA = 18 + seu nível, modificador de ataque +18, bônus de dano +7 e o dobro do número de dados de dano, e Atletismo +20."
     }
   },
   {
@@ -399,7 +399,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Monte Maravilhoso",
-      "description": "Você conjura uma criatura Grande e fantástica para servir de montaria para o alvo. A montaria é o lacaio do alvo, tem velocidade de 40 pés (12 metros) e pode carregar o alvo com qualquer objeto carregado. Não pode carregar nenhuma outra criatura. A montaria usa a CA do alvo e salva, mas é destruída se sofrer mais de 10 pontos de dano de uma vez, encerrando o magia.\nAprimorada (3º) A montaria pode andar sobre a água, mas deve terminar seu turno em terra firme ou afundar.\nAprimorada (4º) A montaria tem velocidade 60 pés (18 metros) e pode andar sobre a água.\nAprimorada (5º) A montaria tem velocidade 60 pés (18 metros) e pode andar sobre a água. Ele também tem uma velocidade de voo de 60 pés (18 metros), mas deve terminar seu turno em uma superfície ou cair.\nAprimorada (6º) A montaria tem uma velocidade e velocidade de voo de 80 pés (24 metros).",
+      "description": "Você conjura uma criatura Grande e fantástica para servir de montaria para o alvo. A montaria é o lacaio do alvo, tem velocidade de 40 pés (12 metros) e pode carregar o alvo com qualquer objeto carregado. Não pode carregar nenhuma outra criatura. A montaria usa a CA do alvo e salva, mas é destruída se sofrer mais de 10 pontos de dano de uma vez, encerrando a magia.\nAprimorada (3º) A montaria pode andar sobre a água, mas deve terminar seu turno em terra firme ou afundar.\nAprimorada (4º) A montaria tem velocidade 60 pés (18 metros) e pode andar sobre a água.\nAprimorada (5º) A montaria tem velocidade 60 pés (18 metros) e pode andar sobre a água. Ele também tem uma velocidade de voo de 60 pés (18 metros), mas deve terminar seu turno em uma superfície ou cair.\nAprimorada (6º) A montaria tem uma velocidade e velocidade de voo de 80 pés (24 metros).",
       "castingTime": "10 minutos",
       "range": "30 pés (9 metros)",
       "target": "uma criatura",
@@ -415,7 +415,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armamento Espiritual",
-      "description": "Você cria um eco mágico e fantasmagórico de uma arma que está empunhando ou usando e a arremessa. Tenta uma jogada de ataque mágico contra a CA do alvo, causando 2d8 de dano em um acerto (ou o dobro do dano em um acerto crítico). O tipo de dano é o mesmo da arma escolhida (ou qualquer um de seus tipos para uma arma versátil). Em vez disso, o ataque causa dano espiritual se isso for mais prejudicial à criatura (conforme determinado pelo Mestre). Este ataque usa e contribui para sua penalidade de ataque múltiplo. Após o ataque, a arma volta para o seu lado. Se você santificar a magia, os ataques também serão santificados. Cada vez que você sustenta o magia, você pode repetir o ataque contra qualquer criatura dentro de 120 pés (36 metros).\nAprimorada (+2) O dano aumenta em 1d8.",
+      "description": "Você cria um eco mágico e fantasmagórico de uma arma que está empunhando ou usando e a arremessa. Tenta uma jogada de ataque mágico contra a CA do alvo, causando 2d8 de dano em um acerto (ou o dobro do dano em um acerto crítico). O tipo de dano é o mesmo da arma escolhida (ou qualquer um de seus tipos para uma arma versátil). Em vez disso, o ataque causa dano espiritual se isso for mais prejudicial à criatura (conforme determinado pelo Mestre). Este ataque usa e contribui para sua penalidade de ataque múltiplo. Após o ataque, a arma volta para o seu lado. Se você santificar a magia, os ataques também serão santificados. Cada vez que você sustenta a magia, você pode repetir o ataque contra qualquer criatura dentro de 120 pés (36 metros).\nAprimorada (+2) O dano aumenta em 1d8.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
@@ -431,12 +431,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ampliar",
-      "description": "Reforçado pelo poder mágico, o alvo cresce até o tamanho Grande. Seu equipamento cresce com ele, mas retorna ao tamanho natural se for removido. A criatura é Desajeitada 1. Seu alcance aumenta em 5 pés (1,5 metros) (ou em 10 pés (3 metros) se ela começou como Tiny) e ela ganha +2 de bônus de status nas jogadas de dano em Golpes corpo a corpo. Este magia não tem efeito em criaturas Grandes ou maiores.\nEfeito do magia: Ampliar\nAprimorada (4º) A criatura cresce até o tamanho Enorme. O bônus de status para dano corpo a corpo é +4 e o alcance da criatura aumenta em 10 pés (3 metros) (ou 15 pés (4,5 metros) se a criatura começou como Tiny). O magia não tem efeito em criaturas Enormes ou maiores.\nAprimorada (6º) Escolha a versão 2º-Rank ou 4º-Rank desta magia e aplique seus efeitos a até 10 criaturas voluntárias.",
+      "description": "Reforçado pelo poder mágico, o alvo cresce até o tamanho Grande. Seu equipamento cresce com ele, mas retorna ao tamanho natural se for removido. A criatura é Desajeitada 1. Seu alcance aumenta em 5 pés (1,5 metros) (ou em 10 pés (3 metros) se ela começou como Tiny) e ela ganha +2 de bônus de status nas jogadas de dano em Golpes corpo a corpo. Esta magia não tem efeito em criaturas Grandes ou maiores.\nEfeito da magia: Ampliar\nAprimorada (4º) A criatura cresce até o tamanho Enorme. O bônus de status para dano corpo a corpo é +4 e o alcance da criatura aumenta em 10 pés (3 metros) (ou 15 pés (4,5 metros) se a criatura começou como Tiny). A magia não tem efeito em criaturas Enormes ou maiores.\nAprimorada (6º) Escolha a versão 2º-Rank ou 4º-Rank desta magia e aplique seus efeitos a até 10 criaturas voluntárias.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura voluntária",
       "duration": "5 minutos",
-      "heightening": "Aprimorada (4º) A criatura cresce até o tamanho Enorme. O bônus de status para dano corpo a corpo é +4 e o alcance da criatura aumenta em 10 pés (3 metros) (ou 15 pés (4,5 metros) se a criatura começou como Tiny). O magia não tem efeito em criaturas Enormes ou maiores.\nAprimorada (6º) Escolha a versão 2º-Rank ou 4º-Rank desta magia e aplique seus efeitos a até 10 criaturas voluntárias."
+      "heightening": "Aprimorada (4º) A criatura cresce até o tamanho Enorme. O bônus de status para dano corpo a corpo é +4 e o alcance da criatura aumenta em 10 pés (3 metros) (ou 15 pés (4,5 metros) se a criatura começou como Tiny). A magia não tem efeito em criaturas Enormes ou maiores.\nAprimorada (6º) Escolha a versão 2º-Rank ou 4º-Rank desta magia e aplique seus efeitos a até 10 criaturas voluntárias."
     }
   },
   {
@@ -453,7 +453,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "10 explosão",
       "duration": "",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d10."
     }
   },
@@ -465,12 +465,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Descanso tranquilo",
-      "description": "O cadáver alvo não se decompõe nem pode ser transformado em morto-vivo. Se o cadáver estiver sujeito a um magia que exija que o cadáver tenha morrido dentro de um determinado período de tempo (por exemplo, Ressuscitar Mortos), não conte a duração do descanso pacífico nesse tempo. Este magia também evita que insetos e pragas comuns (como vermes) consumam o corpo.\nAprimorada (5º) A duração do magia é ilimitada, mas o magia requer mais uma ação para ser lançado e requer um custo (fluido de embalsamamento no valor de 6 GP).",
+      "description": "O cadáver alvo não se decompõe nem pode ser transformado em morto-vivo. Se o cadáver estiver sujeito a uma magia que exija que o cadáver tenha morrido dentro de um determinado período de tempo (por exemplo, Ressuscitar Mortos), não conte a duração do descanso pacífico nesse tempo. Esta magia também evita que insetos e pragas comuns (como vermes) consumam o corpo.\nAprimorada (5º) A duração da magia é ilimitada, mas a magia requer mais uma ação para ser lançado e requer um custo (fluido de embalsamamento no valor de 6 GP).",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 cadáver",
       "duration": "até a próxima vez que você fizer seus preparativos diários",
-      "heightening": "Aprimorada (5º) A duração do magia é ilimitada, mas o magia requer mais uma ação para ser lançado e requer um custo (fluido de embalsamamento no valor de 6 GP)."
+      "heightening": "Aprimorada (5º) A duração da magia é ilimitada, mas a magia requer mais uma ação para ser lançado e requer um custo (fluido de embalsamamento no valor de 6 GP)."
     }
   },
   {
@@ -481,7 +481,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Mensageiro Animal",
-      "description": "Você oferece comida, e um pequeno animal comum dentro do alcance se aproxima para comê-la. Você imprime a imagem, a direção e a distância de um lugar ou ponto de referência óbvio e bem conhecido dentro do animal. Você também pode anexar um objeto pequeno ou uma nota em massa a ele. O animal faz o possível para chegar ao destino; se chegar lá, ele espera por perto e permite que criaturas não hostis se aproximem e removam o objeto anexado. O magia termina após a mensagem ser entregue ou após 24 horas, o que ocorrer primeiro.\nSe não houver nenhum Animal Selvagem Minúsculo ao alcance, o magia será perdido.",
+      "description": "Você oferece comida, e um pequeno animal comum dentro do alcance se aproxima para comê-la. Você imprime a imagem, a direção e a distância de um lugar ou ponto de referência óbvio e bem conhecido dentro do animal. Você também pode anexar um objeto pequeno ou uma nota em massa a ele. O animal faz o possível para chegar ao destino; se chegar lá, ele espera por perto e permite que criaturas não hostis se aproximem e removam o objeto anexado. A magia termina após a mensagem ser entregue ou após 24 horas, o que ocorrer primeiro.\nSe não houver nenhum Animal Selvagem Minúsculo ao alcance, a magia será perdido.",
       "castingTime": "1 minuto",
       "range": "120 pés (36 metros)",
       "target": "",
@@ -497,7 +497,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Everlight",
-      "description": "A pedra preciosa que você toca brilha, espalhando luz brilhante com uma cor de sua escolha em um raio de 6 metros (e luz fraca para o próximo 20 pés (6 metros)). O magia termina imediatamente se a pedra preciosa for quebrada.\nEfeito do magia: Everlight",
+      "description": "A pedra preciosa que você toca brilha, espalhando luz brilhante com uma cor de sua escolha em um raio de 6 metros (e luz fraca para o próximo 20 pés (6 metros)). A magia termina imediatamente se a pedra preciosa for quebrada.\nEfeito da magia: Everlight",
       "castingTime": "3 ações",
       "range": "tocar",
       "target": "uma pedra preciosa que vale 6 GP ou mais",
@@ -513,7 +513,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Resiliência de Carvalho",
-      "description": "A pele do alvo fica dura, com consistência de casca de árvore ou madeira. O alvo ganha resistência 2 a dano contundente e perfurante e fraqueza 3 ao fogo. Após o alvo sofrer dano de fogo, ele pode Dispensar a magia como uma ação livre desencadeada ao receber o dano; fazer isso não reduz o dano de fogo causado ao alvo.\nEfeito do magia: Resiliência Oaken\nAumentado (+2) As resistências aumentam em 2 e a fraqueza aumenta em 3.",
+      "description": "A pele do alvo fica dura, com consistência de casca de árvore ou madeira. O alvo ganha resistência 2 a dano contundente e perfurante e fraqueza 3 ao fogo. Após o alvo sofrer dano de fogo, ele pode Dispensar a magia como uma ação livre desencadeada ao receber o dano; fazer isso não reduz o dano de fogo causado ao alvo.\nEfeito da magia: Resiliência Oaken\nAumentado (+2) As resistências aumentam em 2 e a fraqueza aumenta em 3.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
@@ -529,12 +529,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Crise de Fé",
-      "description": "Você ataca a fé do alvo, enchendo a criatura de dúvidas e turbulência mental que causam 6d6 de dano mental, ou 6d8 de dano mental se ela puder lançar magias divinas. Os efeitos são determinados pelo seu salvamento de Vontade.\nPara muitas divindades, lançar este magia em um seguidor de sua própria divindade sem uma causa significativa é um anátema.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo sofre metade do dano.\nFalha O alvo sofre dano total; se o alvo puder lançar magias divinos, ele ficará Estupefato 1 por 1 rodada.\nFalha Crítica O alvo sofre o dobro de dano, fica Estupefato 1 por 1 rodada e não pode lançar magias divinos por 1 rodada.\nAprimorada (+1) O dano aumenta em 2d6 (ou em 2d8 se o alvo for um conjurador divino).",
+      "description": "Você ataca a fé do alvo, enchendo a criatura de dúvidas e turbulência mental que causam 6d6 de dano mental, ou 6d8 de dano mental se ela puder lançar magias divinas. Os efeitos são determinados pelo seu salvamento de Vontade.\nPara muitas divindades, lançar esta magia em um seguidor de sua própria divindade sem uma causa significativa é um anátema.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo sofre metade do dano.\nFalha O alvo sofre dano total; se o alvo puder lançar magias divinos, ele ficará Estupefato 1 por 1 rodada.\nFalha Crítica O alvo sofre o dobro de dano, fica Estupefato 1 por 1 rodada e não pode lançar magias divinos por 1 rodada.\nAprimorada (+1) O dano aumenta em 2d6 (ou em 2d8 se o alvo for um conjurador divino).",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6 (ou em 2d8 se o alvo for um conjurador divino)."
     }
   },
@@ -552,7 +552,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "linha 120",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d12."
     }
   },
@@ -570,7 +570,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "20 explosão",
       "duration": "10 minutos",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -582,7 +582,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Arma Fantasmagórica",
-      "description": "A arma alvo torna-se translúcida e fantasmagórica e pode afetar criaturas e objetos materiais e incorpóreos. Ele ganha os efeitos da runa da propriedade Ghost Touch, o que significa que é mágico se ainda não o era, é especialmente eficaz contra criaturas incorpóreas e pode ser empunhado por uma criatura corpórea ou incorpórea.\nEfeito do magia: Arma Fantasmagórica",
+      "description": "A arma alvo torna-se translúcida e fantasmagórica e pode afetar criaturas e objetos materiais e incorpóreos. Ele ganha os efeitos da runa da propriedade Ghost Touch, o que significa que é mágico se ainda não o era, é especialmente eficaz contra criaturas incorpóreas e pode ser empunhado por uma criatura corpórea ou incorpórea.\nEfeito da magia: Arma Fantasmagórica",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 arma que está desacompanhada ou empunhada por você ou por um aliado disposto",
@@ -603,7 +603,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (7º) Você pode escolher até 10 criaturas."
     }
   },
@@ -615,7 +615,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Luz Sagrada",
-      "description": "Você brilha um raio de luz resplandecente tingido de energia sagrada. Faça um ataque mágico à distância. O raio causa 5d6 de dano de fogo. Se o alvo tiver a característica profana, você causa 5d6 de dano espiritual extra.\nSucesso Crítico O alvo sofre o dobro de dano.\nSucesso O alvo sofre dano total.\nSe a luz passar por uma área de escuridão mágica ou atingir uma criatura afetada pela escuridão mágica, a luz sagrada tenta neutralizar a escuridão. Se você precisar determinar se a luz passa por uma área escura, desenhe uma linha entre você e o alvo do magia.\nAprimorada (+1) O dano de fogo aumenta em 2d6, e o dano espiritual contra criaturas profanas aumenta em 2d6.",
+      "description": "Você brilha um raio de luz resplandecente tingido de energia sagrada. Faça um ataque mágico à distância. O raio causa 5d6 de dano de fogo. Se o alvo tiver a característica profana, você causa 5d6 de dano espiritual extra.\nSucesso Crítico O alvo sofre o dobro de dano.\nSucesso O alvo sofre dano total.\nSe a luz passar por uma área de escuridão mágica ou atingir uma criatura afetada pela escuridão mágica, a luz sagrada tenta neutralizar a escuridão. Se você precisar determinar se a luz passa por uma área escura, desenhe uma linha entre você e o alvo da magia.\nAprimorada (+1) O dano de fogo aumenta em 2d6, e o dano espiritual contra criaturas profanas aumenta em 2d6.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
@@ -631,7 +631,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Véu de Privacidade",
-      "description": "Você ergue barreiras protetoras que tornam o alvo difícil de ser detectado por meio de magia. Véu de privacidade tenta neutralizar todos os efeitos de detecção, revelação e vidência usados ​​contra o alvo ou o equipamento do alvo durante toda a duração, contando truques como magias de 1º Rank para esse propósito. Neutralizar com sucesso um magia que atinge uma área ou vários alvos nega os efeitos apenas do alvo do véu de privacidade.",
+      "description": "Você ergue barreiras protetoras que tornam o alvo difícil de ser detectado por meio de magia. Véu de privacidade tenta neutralizar todos os efeitos de detecção, revelação e vidência usados ​​contra o alvo ou o equipamento do alvo durante toda a duração, contando truques como magias de 1º Rank para esse propósito. Neutralizar com sucesso uma magia que atinge uma área ou vários alvos nega os efeitos apenas do alvo do véu de privacidade.",
       "castingTime": "10 minutos",
       "range": "tocar",
       "target": "1 criatura ou objeto",
@@ -647,7 +647,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Levitar",
-      "description": "Você desafia a gravidade e levita o alvo 5 pés (1,5 metros) do chão. Você pode Sustentar o magia para mover o alvo para cima ou para baixo 10 pés (3 metros). Uma criatura flutuando no ar por levitar sofre –2 de penalidade de circunstância nas jogadas de ataque. Uma criatura flutuante pode gastar uma ação de Interagir para se estabilizar e negar esta penalidade pelo resto do seu turno. Se o alvo estiver adjacente a um objeto fixo ou terreno com estabilidade adequada, ele poderá se mover pela superfície escalando (se a superfície for vertical, como uma parede) ou rastejando (se a superfície for horizontal, como um teto). O Mestre determina quais superfícies podem ser escaladas ou rastejadas.\nEfeito do magia: Levitar",
+      "description": "Você desafia a gravidade e levita o alvo 5 pés (1,5 metros) do chão. Você pode Sustentar a magia para mover o alvo para cima ou para baixo 10 pés (3 metros). Uma criatura flutuando no ar por levitar sofre –2 de penalidade de circunstância nas jogadas de ataque. Uma criatura flutuante pode gastar uma ação de Interagir para se estabilizar e negar esta penalidade pelo resto do seu turno. Se o alvo estiver adjacente a um objeto fixo ou terreno com estabilidade adequada, ele poderá se mover pela superfície escalando (se a superfície for vertical, como uma parede) ou rastejando (se a superfície for horizontal, como um teto). O Mestre determina quais superfícies podem ser escaladas ou rastejadas.\nEfeito da magia: Levitar",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 objeto abandonado ou criatura voluntária",

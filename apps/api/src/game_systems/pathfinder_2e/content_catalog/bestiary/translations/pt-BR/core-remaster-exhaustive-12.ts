@@ -41,7 +41,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "lC7KFntiTwd1FRo7": {
           "name": "Batedor de carteira",
-          "description": "Para um moleque, a CD para [[/act roubar]] ou [[/act palm-an-object]] não é aumentada em 5 para um item que está bem guardado. Eles podem roubar objetos que seriam extremamente visíveis ou demorados para serem removidos (como sapatos usados, armaduras ou objetos empunhados ativamente)."
+          "description": "Para um moleque, a CD para roubar ou palm an object não é aumentada em 5 para um item que está bem guardado. Eles podem roubar objetos que seriam extremamente visíveis ou demorados para serem removidos (como sapatos usados, armaduras ou objetos empunhados ativamente)."
         }
       },
       "spellcasting": {}
@@ -83,7 +83,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "T3ZpHsIT64RGyhT0": {
           "name": "Poder da multidão",
-          "description": "Quando três ou mais plebeus estão adjacentes um ao outro, cada plebeu recebe +1 de bônus de circunstância em testes de Atletismo para [[/act shove]], jogadas de ataque e jogadas de dano."
+          "description": "Quando três ou mais plebeus estão adjacentes um ao outro, cada plebeu recebe +1 de bônus de circunstância em testes de Atletismo para shove, jogadas de ataque e jogadas de dano."
         }
       },
       "spellcasting": {}
@@ -307,7 +307,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "qOhRxpDdOg4c6aNs": {
           "name": "Modo de cabeceira",
-          "description": "Um médico tem um bônus de circunstância de +4 em testes de Diplomacia para [[/act make-an-impression options=comportamento ao lado da cama]] ou fazer um [[/act request options=comportamento ao lado do leito]] de uma criatura doente, envenenada ou ferida."
+          "description": "Um médico tem um bônus de circunstância de +4 em testes de Diplomacia para make an impression options=comportamento ao lado da cama ou fazer um request options=comportamento ao lado do leito de uma criatura doente, envenenada ou ferida."
         },
         "9xXxlNwXM90sw8zk": {
           "name": "Mão do médico",
@@ -647,7 +647,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "OY73CGnCsiXU29Oz": {
           "name": "Leia a grade",
-          "description": "O leitor da grade pode realizar uma leitura ao longo de 10 minutos para duplicar os efeitos do magia Augúrio. O leitor de grade pode realizar até cinco leituras por dia, mas a CD de verificação plana aumenta em 2. Isso é cumulativo, até um máximo de CD 14 para a quinta."
+          "description": "O leitor da grade pode realizar uma leitura ao longo de 10 minutos para duplicar os efeitos da magia Augúrio. O leitor de grade pode realizar até cinco leituras por dia, mas a CD de verificação plana aumenta em 2. Isso é cumulativo, até um máximo de CD 14 para a quinta."
         }
       },
       "spellcasting": {}
@@ -697,7 +697,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "vUmKN1vl61ZzzSJC": {
           "name": "Importa-se se eu pegar isso emprestado?",
-          "description": "O gnomo filomata designa um único item à sua vista como um item de interesse para seus estudos. Eles então ganham um bônus de circunstância de +2 para [[/act disarm options=mind-if-i-borrow-that]] ou [[/act steal options=mind-if-i-borrow-that]] aquele item. Dessa forma, eles só podem designar um item por vez. Se eles usarem Mind if I Borrow That? ao designar um novo item de interesse, perde o bônus do item anterior."
+          "description": "O gnomo filomata designa um único item à sua vista como um item de interesse para seus estudos. Eles então ganham um bônus de circunstância de +2 para disarm options=mind if i borrow that ou steal options=mind if i borrow that aquele item. Dessa forma, eles só podem designar um item por vez. Se eles usarem Mind if I Borrow That? ao designar um novo item de interesse, perde o bônus do item anterior."
         }
       },
       "spellcasting": {
@@ -968,7 +968,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "c9RyMIISUEbGlI0s": {
           "name": "Caminho dos Fiéis",
-          "description": "O peregrino pode usar seu modificador de Religião em vez de seu modificador de Diplomacia para [[/agir habilidade de coletar informações=religião]] ou [[/agir habilidade de causar impressão=religião]] desde que o peregrino inclua seus ensinamentos religiosos."
+          "description": "O peregrino pode usar seu modificador de Religião em vez de seu modificador de Diplomacia para habilidade de coletar informações=religião ou habilidade de causar impressão=religião desde que o peregrino inclua seus ensinamentos religiosos."
         }
       },
       "spellcasting": {}
@@ -1162,7 +1162,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "laHxBLb0WL18Aryb": {
           "name": "Assobio",
-          "description": "Os tropeiros podem assobiar em vez de falar ao comunicar mensagens simples (como \"vá para a esquerda\", \"dividir o rebanho\" e \"perigo à frente\") para outros tropeiros ou ao usar a ação [[/act command-an-animal]] em seus cães pastores."
+          "description": "Os tropeiros podem assobiar em vez de falar ao comunicar mensagens simples (como \"vá para a esquerda\", \"dividir o rebanho\" e \"perigo à frente\") para outros tropeiros ou ao usar a ação command an animal em seus cães pastores."
         },
         "X7MiwGQZ8H6HZrvQ": {
           "name": "Gravata",
@@ -1170,7 +1170,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "KZA9FGpOR8xg53mX": {
           "name": "Laço",
-          "description": "O tropeiro usa seu laço para [[/act agarrar]] uma criatura grande ou menor até 20 pés (6 metros) de distância. They can continue to Grapple to keep their hold on the target so long as the target remains within 20 pés (6 metros) and they continue to hold the end of the lasso. In addition to the Grabbed creature being able to Escape, a successful DC 16 Athletics check to [[/act force-open dc=16]] can remove the lasso entirely."
+          "description": "O tropeiro usa seu laço para agarrar uma criatura grande ou menor até 20 pés (6 metros) de distância. They can continue to Grapple to keep their hold on the target so long as the target remains within 20 pés (6 metros) and they continue to hold the end of the lasso. In addition to the Grabbed creature being able to Escape, a successful DC 16 Athletics check to force open CD 16 can remove the lasso entirely."
         }
       },
       "spellcasting": {}
@@ -1222,7 +1222,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "UL26wLiEC5bMFJ9j": {
           "name": "Correr",
-          "description": "O bajulador Strides, então pode [[/act hide]]. Eles podem tentar se Esconder de criaturas sem cobertura ou escondidos, mas com uma penalidade de circunstância de -2."
+          "description": "O bajulador Strides, então pode Esconder-se. Eles podem tentar se Esconder de criaturas sem cobertura ou escondidos, mas com uma penalidade de circunstância de -2."
         },
         "R6tTnGeB0AtI33Ow": {
           "name": "Jogue carga",
@@ -1674,7 +1674,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "reetfW3NkzlM0yGk": {
           "name": "Mentiroso Compulsivo",
-          "description": "O conspirador pode usar Enganação em vez de Diplomacia para [[/act make-an-impression habilidade=decepção]] ou [[/act request habilidade=decepção]]. Qualquer criatura que tentar um teste de Percepção para Sentir Motivação contra o conspirador obtém um resultado um grau de sucesso pior do que o obtido."
+          "description": "O conspirador pode usar Enganação em vez de Diplomacia para make an impression habilidade=decepção ou request habilidade=decepção. Qualquer criatura que tentar um teste de Percepção para Sentir Motivação contra o conspirador obtém um resultado um grau de sucesso pior do que o obtido."
         },
         "PxRO8P1nIf344mAM": {
           "name": "Especialista Social",
@@ -2598,7 +2598,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "c1mFMiLxJNswSZe0": {
           "name": "Subsistência Especializada",
-          "description": "Ao usar Sobrevivência para [[/act subsist statistic=survival]], se o forrageador obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer meios de subsistência para si e para quatro criaturas adicionais, e com um sucesso crítico, eles podem cuidar de duas vezes mais criaturas do que com um sucesso."
+          "description": "Ao usar Sobrevivência para subsist statistic=survival, se o forrageador obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer meios de subsistência para si e para quatro criaturas adicionais, e com um sucesso crítico, eles podem cuidar de duas vezes mais criaturas do que com um sucesso."
         },
         "kDcLgVbxSo8kLjUZ": {
           "name": "Especialista Natural",
@@ -2708,7 +2708,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "7C5XmGhBV3HXbug9": {
           "name": "Proteção Divina",
-          "description": "Frequência uma vez por dia\nEfeito O abade implora à sua divindade para proteger alguém sob seu comando, tentando um teste de teste (religião, dc:25). Se tiver sucesso, um magia Santuário divino afetará um dos aliados do abade dentro de 60 pés (18 metros). O DC da Vontade tem 17 anos."
+          "description": "Frequência uma vez por dia\nEfeito O abade implora à sua divindade para proteger alguém sob seu comando, tentando um teste de teste (religião, dc:25). Se tiver sucesso, uma magia Santuário divino afetará um dos aliados do abade dentro de 60 pés (18 metros). O DC da Vontade tem 17 anos."
         }
       },
       "spellcasting": {}
@@ -2754,7 +2754,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "qfzrHQkkZcEFrhFT": {
           "name": "Você é o próximo",
-          "description": "Gatilho O prisioneiro reduz uma criatura a 0 pontos de vida.\nEfeito O prisioneiro tenta um teste de Intimidação com +2 de bônus de circunstância para [[/act moralize options=você é o próximo]] uma única criatura que ele possa ver e que possa vê-lo."
+          "description": "Gatilho O prisioneiro reduz uma criatura a 0 pontos de vida.\nEfeito O prisioneiro tenta um teste de Intimidação com +2 de bônus de circunstância para moralize options=você é o próximo uma única criatura que ele possa ver e que possa vê-lo."
         }
       },
       "spellcasting": {}
@@ -2945,7 +2945,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ZrAQkE7N4BH2nY8v": {
           "name": "Arremessar rede",
-          "description": "Requisitos O olheiro está empunhando uma rede com as duas mãos\nEfeito O batedor realiza um Golpe de longo alcance (com um modificador de teste (arremessar-rede, contra:ac)) contra uma criatura Média ou menor dentro de 20 pés (6 metros). Se acertar, o alvo fica Desprevenido e sofre uma penalidade de circunstância de –3 metros em sua Velocidade. Em um acerto crítico, a criatura fica Restringida. A CD para [[/act escape dc=16]] a rede é 16. Uma criatura adjacente ao alvo pode interagir com a rede para removê-la.\nEfeito: Arremessar Rede"
+          "description": "Requisitos O olheiro está empunhando uma rede com as duas mãos\nEfeito O batedor realiza um Golpe de longo alcance (com um modificador de teste (arremessar-rede, contra:ac)) contra uma criatura Média ou menor dentro de 20 pés (6 metros). Se acertar, o alvo fica Desprevenido e sofre uma penalidade de circunstância de –3 metros em sua Velocidade. Em um acerto crítico, a criatura fica Restringida. A CD para Escapar CD 16 a rede é 16. Uma criatura adjacente ao alvo pode interagir com a rede para removê-la.\nEfeito: Arremessar Rede"
         }
       },
       "spellcasting": {}
@@ -2999,7 +2999,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "No7D9FTwDJVHqhho": {
           "name": "Corredor de estrada",
-          "description": "Mensageiros podem usar Sociedade em vez de Sobrevivência para [[/agir habilidade de sentido de direção=sociedade]] quando estiverem em uma estrada."
+          "description": "Mensageiros podem usar Sociedade em vez de Sobrevivência para habilidade de sentido de direção=sociedade quando estiverem em uma estrada."
         },
         "axUYB41Gy8pqpyOC": {
           "name": "Entrega Especial",
@@ -3161,7 +3161,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "3J9zF5LrBXqEj7Um": {
           "name": "Subsistência Especializada",
-          "description": "Ao usar Sobrevivência para [[/act subsist statistic=survival]], se o caçador furtivo obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer meios de subsistência para si e para quatro criaturas adicionais, e com um sucesso crítico, eles podem cuidar de duas vezes mais criaturas do que com um sucesso."
+          "description": "Ao usar Sobrevivência para subsist statistic=survival, se o caçador furtivo obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer meios de subsistência para si e para quatro criaturas adicionais, e com um sucesso crítico, eles podem cuidar de duas vezes mais criaturas do que com um sucesso."
         },
         "SjfWr7t0YSZQdt8c": {
           "name": "Criação de armadilha",
@@ -3169,7 +3169,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "rTeH6wIQdfQpy5CH": {
           "name": "Na caça",
-          "description": "O caçador furtivo designa uma criatura que está observando ou rastreando como sua presa. O caçador furtivo ganha um bônus de circunstância de +2 em testes de Percepção para [[/act seek]] a presa e em testes de Sobrevivência para [[/act track]] a presa. A primeira vez que o caçador furtivo atinge a presa designada em uma rodada, ele causa 1d4 de dano de precisão adicional. Esses efeitos duram até que o caçador furtivo use On the Hunt novamente."
+          "description": "O caçador furtivo designa uma criatura que está observando ou rastreando como sua presa. O caçador furtivo ganha um bônus de circunstância de +2 em testes de Percepção para seek a presa e em testes de Sobrevivência para track a presa. A primeira vez que o caçador furtivo atinge a presa designada em uma rodada, ele causa 1d4 de dano de precisão adicional. Esses efeitos duram até que o caçador furtivo use On the Hunt novamente."
         }
       },
       "spellcasting": {}
@@ -3273,7 +3273,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Mr0ZRyRyKsJWxEp8": {
           "name": "Observações de corte",
-          "description": "A cortesã lança insultos ou elogios indiretos, tentando [[/act desmoralizar habilidade = desempenho]] uma criatura usando seu modificador de Desempenho em vez de Intimidação."
+          "description": "A cortesã lança insultos ou elogios indiretos, tentando desmoralizar habilidade = desempenho uma criatura usando seu modificador de Desempenho em vez de Intimidação."
         },
         "sDfYRm7EzyjZxKhr": {
           "name": "Palavras de encorajamento",
@@ -3418,7 +3418,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "IEibCXh97z4dVqH9": {
           "name": "Emboscada do bandido",
-          "description": "Quando o bandido rola iniciativa usando Enganação ou Furtividade, ele pode tentar [[/agir desmoralizar]] uma criatura como uma ação livre."
+          "description": "Quando o bandido rola iniciativa usando Enganação ou Furtividade, ele pode tentar Desmoralizar uma criatura como uma ação livre."
         },
         "VKwW4ylsv5KU7Nhr": {
           "name": "Atacante do Terror",
@@ -3997,7 +3997,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Lx0mXTZ6Vv5rAJGs": {
           "name": "Falsa Bênção",
-          "description": "O blasfemador tenta um teste de teste (religião, dc:15) para tentar lançar o magia de 1º Rank que sua divindade concede aos clérigos (Dor Fantasma para Zon-Kuthon). O magia deve exigir 1, 2 ou 3 ações para ser lançado. O blasfemador pode usar a fé distorcida para fazer um teste (engano, dc:15) se tiver uma testemunha, como de costume.\nSucesso Crítico O blasfemador Conjura o magia com sucesso e fica Atordoado com um valor igual ao número de ações que o magia realiza – 1.\nSucesso Como sucesso crítico, mais o blasfemador sofre 1d6 de dano mental.\nFalha O blasfemador falha em lançar o magia e sofre 1d6 de dano mental.\nFalha Crítica O blasfemador falha em lançar o magia, sofre 2d6 de dano mental e fica atordoado 1."
+          "description": "O blasfemador tenta um teste de teste (religião, dc:15) para tentar lançar a magia de 1º Rank que sua divindade concede aos clérigos (Dor Fantasma para Zon-Kuthon). A magia deve exigir 1, 2 ou 3 ações para ser lançado. O blasfemador pode usar a fé distorcida para fazer um teste (engano, dc:15) se tiver uma testemunha, como de costume.\nSucesso Crítico O blasfemador Conjura a magia com sucesso e fica Atordoado com um valor igual ao número de ações que a magia realiza – 1.\nSucesso Como sucesso crítico, mais o blasfemador sofre 1d6 de dano mental.\nFalha O blasfemador falha em lançar a magia e sofre 1d6 de dano mental.\nFalha Crítica O blasfemador falha em lançar a magia, sofre 2d6 de dano mental e fica atordoado 1."
         }
       },
       "spellcasting": {}
@@ -4333,7 +4333,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tfK72gDLl1pjUfru": {
           "name": "Nunca fora do gancho",
-          "description": "60 pés (18 metros).\nCriaturas na aura que devem dinheiro ao agiota recebem uma penalidade de -3 em sua CD de Vontade contra as tentativas do agiota de [[/act desmoralizar]] ou [[/act coagir]] e não podem reduzir seu valor de Assustado abaixo de 1 enquanto estiverem na aura.\nEfeito: Devo dinheiro"
+          "description": "60 pés (18 metros).\nCriaturas na aura que devem dinheiro ao agiota recebem uma penalidade de -3 em sua CD de Vontade contra as tentativas do agiota de Desmoralizar ou coagir e não podem reduzir seu valor de Assustado abaixo de 1 enquanto estiverem na aura.\nEfeito: Devo dinheiro"
         },
         "qfr40H0AoV22bvUd": {
           "name": "Os juros são devidos!",
@@ -4497,11 +4497,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "pMx5SDJGEVNxou0W": {
           "name": "Nunca perdido",
-          "description": "O cientista natural sempre pode dizer o norte verdadeiro e ganha +4 de bônus de circunstância em testes de Sobrevivência para [[/agir sentido-direção]]. Eles não sofrem –2 de penalidade de item no teste se não tiverem uma bússola."
+          "description": "O cientista natural sempre pode dizer o norte verdadeiro e ganha +4 de bônus de circunstância em testes de Sobrevivência para sentido direção. Eles não sofrem –2 de penalidade de item no teste se não tiverem uma bússola."
         },
         "EM9WrQDpMNyR0Orl": {
           "name": "Observador Treinado",
-          "description": "O cientista natural está acostumado a se misturar ao ambiente e fazer anotações, dando-lhes um bônus de circunstância de +2 para [[/agir coletar informações]]."
+          "description": "O cientista natural está acostumado a se misturar ao ambiente e fazer anotações, dando-lhes um bônus de circunstância de +2 para coletar informações."
         }
       },
       "spellcasting": {}
@@ -4643,11 +4643,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "rxhsNPSPQ1q9Zs6z": {
           "name": "Sextante Vivo",
-          "description": "Se o astrônomo for capaz de ver o céu noturno, ele poderá [[/act sense-direction skill=astronomy-lore]] usando Astronomy Lore."
+          "description": "Se o astrônomo for capaz de ver o céu noturno, ele poderá sense direction skill=astronomy lore usando Astronomy Lore."
         },
         "igVLowndFt66q36p": {
           "name": "Rejeitar o mito",
-          "description": "Ativar Uma criatura dentro de 30 pés (9 metros) Lança um magia ou usa uma habilidade com a característica fortuna ou infortúnio\nEfeito A rejeição do astrônomo a tal fantasia torna-se manifesta. O astrônomo tenta neutralizar o efeito desencadeador com um modificador de neutralização de [[/r 1d20+9 #Counteract]] e um Rank de neutralização de 1."
+          "description": "Ativar Uma criatura dentro de 30 pés (9 metros) Lança uma magia ou usa uma habilidade com a característica fortuna ou infortúnio\nEfeito A rejeição do astrônomo a tal fantasia torna-se manifesta. O astrônomo tenta neutralizar o efeito desencadeador com um modificador de neutralização de 1d20+9 e um Rank de neutralização de 1."
         }
       },
       "spellcasting": {
@@ -5074,7 +5074,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O0QloD5rVQ3q3Ij3": {
           "name": "Desempenho versátil",
-          "description": "O ator viajante pode usar Desempenho em vez de Diplomacia para [[/act causar uma impressão estatística=desempenho]] e em vez de Intimidação para [[/act desmoralizar estatística=desempenho]]."
+          "description": "O ator viajante pode usar Desempenho em vez de Diplomacia para causar uma impressão estatística=desempenho e em vez de Intimidação para desmoralizar estatística=desempenho."
         },
         "rnHh5tgPOQAnpPh8": {
           "name": "Ataque exagerado",
@@ -5120,7 +5120,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "t8D9jbYaoXXUxjCe": {
           "name": "Desempenho versátil",
-          "description": "O charlatão pode usar sua habilidade de Performance para [[/act causar uma impressão habilidade=desempenho]], para [[/act desmoralizar habilidade=desempenho]], e pode usar uma Performance de atuação para [[/act personate habilidade=desempenho]]."
+          "description": "O charlatão pode usar sua habilidade de Performance para causar uma impressão habilidade=desempenho, para desmoralizar habilidade=desempenho, e pode usar uma Performance de atuação para personate habilidade=desempenho."
         },
         "zmdPdUEf9SjhHnTL": {
           "name": "Ataque furtivo",
@@ -5222,7 +5222,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zXbCkpa08kEfp40w": {
           "name": "Almofada furtiva",
-          "description": "Frequência uma vez por rodada\nEfeito O ladrão saltitante dá um passo, então [[/act hide]] ou [[/act sneak]], ignorando terreno difícil para este movimento."
+          "description": "Frequência uma vez por rodada\nEfeito O ladrão saltitante dá um passo, então Esconder-se ou sneak, ignorando terreno difícil para este movimento."
         },
         "MaNOI4qe9oqUzhpp": {
           "name": "Ângulo Inesperado",
@@ -5318,7 +5318,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "cm9trrNHFwRyFicr": {
           "name": "Subsistência Especializada",
-          "description": "Ao usar Sobrevivência para [[/act subsist statistic=survival]], se o rastreador obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer subsistência para si e para 8 criaturas adicionais, e com um sucesso crítico, eles podem cuidar de duas vezes mais criaturas do que com um sucesso."
+          "description": "Ao usar Sobrevivência para subsist statistic=survival, se o rastreador obtiver qualquer resultado pior que um sucesso, ele obtém um sucesso. Com um sucesso, eles podem fornecer subsistência para si e para 8 criaturas adicionais, e com um sucesso crítico, eles podem cuidar de duas vezes mais criaturas do que com um sucesso."
         },
         "tWDvrIy7tMRedOAa": {
           "name": "Rastreador Mestre",
@@ -5326,7 +5326,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "y8eExcPkGMuRGljn": {
           "name": "Na caça",
-          "description": "O rastreador designa uma criatura que está observando ou rastreando como sua presa.\nO rastreador ganha um bônus de circunstância de +2 em testes de Percepção para [[/act seek]] a presa e em testes de Sobrevivência para [[/act track]] a presa.\nNa primeira vez que o rastreador atinge a presa designada em uma rodada, ele causa 1d4 de dano de precisão adicional. Esses efeitos duram até que o rastreador use On the Hunt novamente."
+          "description": "O rastreador designa uma criatura que está observando ou rastreando como sua presa.\nO rastreador ganha um bônus de circunstância de +2 em testes de Percepção para seek a presa e em testes de Sobrevivência para track a presa.\nNa primeira vez que o rastreador atinge a presa designada em uma rodada, ele causa 1d4 de dano de precisão adicional. Esses efeitos duram até que o rastreador use On the Hunt novamente."
         }
       },
       "spellcasting": {}

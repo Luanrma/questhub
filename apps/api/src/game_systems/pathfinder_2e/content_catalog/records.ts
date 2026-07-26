@@ -88,6 +88,18 @@ export type Pathfinder2eRoundCoverage = {
   ready: boolean
 }
 
+export function definePathfinder2eOriginalContentRecords<TData>(
+  records: readonly unknown[],
+): readonly Pathfinder2eOriginalContentRecord<TData>[] {
+  return records as readonly Pathfinder2eOriginalContentRecord<TData>[]
+}
+
+export function definePathfinder2eContentTranslations(
+  translations: readonly unknown[],
+): readonly Pathfinder2eContentTranslation[] {
+  return translations as readonly Pathfinder2eContentTranslation[]
+}
+
 export function pathfinder2eSourceKey(source: Pathfinder2eSourceIdentity): string {
   return `${source.sourcePack}:${source.sourceId}`
 }

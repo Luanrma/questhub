@@ -54,7 +54,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pedra do Aeon (Previsão)",
-      "description": "Ao longo de milênios, essas pedras preciosas misteriosas e intrincadamente lapidadas foram acumuladas por místicos e fanáticos na esperança de descobrir seus segredos. Apesar de suas inúmeras formas e funções, essas pedras são supostamente fragmentos de ferramentas de cristal usadas por entidades de outro mundo para construir o universo em tempos primitivos.\nQuando você investe um desses cristais de formato preciso, a pedra orbita sua cabeça em vez de ser usada em seu corpo. Você pode guardar uma pedra do aeon com uma ação de Interagir, e uma pedra em órbita pode ser arrebatada do ar com uma ação bem-sucedida de Desarmar contra você. Uma pedra guardada ou removida permanece investida, mas seus efeitos são suprimidos até que você a retorne para orbitar sua cabeça novamente.\nExistem vários tipos de pedras aeon, cada uma com uma aparência e efeito mágico diferentes. Cada pedra do aeon também ganha um poder ressonante quando inserida em um item mágico especial chamado wayfinder.\nEste cubo transparente permite que você se comunique com uma forma limitada de telepatia até um alcance de 100 pés (30 metros). As mensagens são transmitidas como uma imagem simples a cada rodada. Essas imagens têm a qualidade de um esboço apressado ou infantil, mas podem ser compreendidas de maneira grosseira por criaturas, independentemente do idioma. Isso não fornece nenhuma capacidade especial de responder às suas imagens.\nO poder ressonante permite que você lance Traduzir como um magia oculto inato uma vez por dia.",
+      "description": "Ao longo de milênios, essas pedras preciosas misteriosas e intrincadamente lapidadas foram acumuladas por místicos e fanáticos na esperança de descobrir seus segredos. Apesar de suas inúmeras formas e funções, essas pedras são supostamente fragmentos de ferramentas de cristal usadas por entidades de outro mundo para construir o universo em tempos primitivos.\nQuando você investe um desses cristais de formato preciso, a pedra orbita sua cabeça em vez de ser usada em seu corpo. Você pode guardar uma pedra do aeon com uma ação de Interagir, e uma pedra em órbita pode ser arrebatada do ar com uma ação bem-sucedida de Desarmar contra você. Uma pedra guardada ou removida permanece investida, mas seus efeitos são suprimidos até que você a retorne para orbitar sua cabeça novamente.\nExistem vários tipos de pedras aeon, cada uma com uma aparência e efeito mágico diferentes. Cada pedra do aeon também ganha um poder ressonante quando inserida em um item mágico especial chamado wayfinder.\nEste cubo transparente permite que você se comunique com uma forma limitada de telepatia até um alcance de 100 pés (30 metros). As mensagens são transmitidas como uma imagem simples a cada rodada. Essas imagens têm a qualidade de um esboço apressado ou infantil, mas podem ser compreendidas de maneira grosseira por criaturas, independentemente do idioma. Isso não fornece nenhuma capacidade especial de responder às suas imagens.\nO poder ressonante permite que você lance Traduzir como uma magia oculto inato uma vez por dia.",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -100,7 +100,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Alargamento (magia de 3º Rank)",
-      "description": "A ponta desta varinha é bifurcada com uma configuração de peridoto.\nAtive Lançar um magia; A ativação leva 2 se o magia normalmente leva 1 para ser lançado, ou 3 se o magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia e aumenta sua área. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros); adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor; ou adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. O magia deve ter um tempo de lançamento de 1 ou 2, não pode ter duração e deve ter uma área de explosão (10 pés (3 metros) ou mais), cone ou linha.",
+      "description": "A ponta desta varinha é bifurcada com uma configuração de peridoto.\nAtive Lançar uma magia; A ativação leva 2 se a magia normalmente leva 1 para ser lançado, ou 3 se a magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia e aumenta sua área. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros); adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor; ou adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. A magia deve ter um tempo de lançamento de 1 ou 2, não pode ter duração e deve ter uma área de explosão (10 pés (3 metros) ou mais), cone ou linha.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -130,7 +130,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Invisibilidade",
-      "description": "A luz parece penetrar parcialmente nesta armadura.\nAtivar — Ficar Invisível 1 (concentrar)\nFrequência uma vez por dia\nEfeito Com um pensamento, você fica invisível por 1 minuto, ganhando os efeitos de um magia de Invisibilidade de 2º Rank.\nRequisitos de Artesanato Forneça uma conjuração de invisibilidade.",
+      "description": "A luz parece penetrar parcialmente nesta armadura.\nAtivar — Ficar Invisível 1 (concentrar)\nFrequência uma vez por dia\nEfeito Com um pensamento, você fica invisível por 1 minuto, ganhando os efeitos de uma magia de Invisibilidade de 2º Rank.\nRequisitos de Artesanato Forneça uma conjuração de invisibilidade.",
       "itemType": "equipamento",
       "usage": "gravado em armadura leve",
       "category": "equipamento",
@@ -175,7 +175,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Cura (Maior)",
-      "description": "Este bastão de madeira branca é encimado em cada extremidade por uma cruz dourada adornada com cabochões de rubi. Um cajado de cura concede um bônus de item de +2 aos Pontos de Vida que você restaura sempre que você lança o magia de cura usando seus próprios espaços de magia ou cargas do cajado.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Estabilização de Truque\n• 1ª cura\n• 2º Limpar Mente, Curar Corpo Som\n• 3ª Limpeza, Cura da Aflição\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de madeira branca é encimado em cada extremidade por uma cruz dourada adornada com cabochões de rubi. Um cajado de cura concede um bônus de item de +2 aos Pontos de Vida que você restaura sempre que você lança a magia de cura usando seus próprios espaços de magia ou cargas do cajado.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Estabilização de Truque\n• 1ª cura\n• 2º Limpar Mente, Curar Corpo Som\n• 3ª Limpeza, Cura da Aflição\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -236,7 +236,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pingente do Oculto (Maior)",
-      "description": "Este amuleto é oco e tem a forma de um olho que não pisca. Sua cavidade normalmente contém algum fragmento de texto oculto. Enquanto estiver usando o pingente, você ganha +2 de bônus de item em testes de Ocultismo e pode lançar o truque Orientação como uma magia oculta inata.\nO pingente pode ser ativado.\nAtivar – Mensagem dos Sonhos 10 minutos (concentrar, manipular)\nFrequência uma vez por dia\nEfeito Você lança um magia Mensagem Onírica de 4º Rank.",
+      "description": "Este amuleto é oco e tem a forma de um olho que não pisca. Sua cavidade normalmente contém algum fragmento de texto oculto. Enquanto estiver usando o pingente, você ganha +2 de bônus de item em testes de Ocultismo e pode lançar o truque Orientação como uma magia oculta inata.\nO pingente pode ser ativado.\nAtivar – Mensagem dos Sonhos 10 minutos (concentrar, manipular)\nFrequência uma vez por dia\nEfeito Você lança uma magia Mensagem Onírica de 4º Rank.",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -266,7 +266,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Tempestade de Fragmentos (magia de 3º Rank)",
-      "description": "Esta varinha apresenta uma cabeça de dragão esculpida no topo e uma esfera de metal polido colocada no meio.\nAtivar lançar um magia\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança Force Barrage no 3º Rank.\nDepois de lançar o magia, um ou mais fragmentos adicionais são liberados da varinha no início de cada um de seus turnos, como se você lançasse a versão de 1 ação da barragem de força. Escolha alvos de cada vez. Isso dura 1 minuto, até que você não esteja mais empunhando a varinha ou até tentar ativá-la novamente.\nRequisitos de embarcação Forneça um lançamento de barragem de força do Rank apropriado.",
+      "description": "Esta varinha apresenta uma cabeça de dragão esculpida no topo e uma esfera de metal polido colocada no meio.\nAtivar lançar uma magia\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança Force Barrage no 3º Rank.\nDepois de lançar a magia, um ou mais fragmentos adicionais são liberados da varinha no início de cada um de seus turnos, como se você lançasse a versão de 1 ação da barragem de força. Escolha alvos de cada vez. Isso dura 1 minuto, até que você não esteja mais empunhando a varinha ou até tentar ativá-la novamente.\nRequisitos de embarcação Forneça um lançamento de barragem de força do Rank apropriado.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -401,7 +401,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Anel do Ventríloquo (Maior)",
-      "description": "Este elegante anel de cobre tem imagens em miniatura de pássaros canoros gravadas em sua circunferência. Você ganha +2 de bônus de item em testes de Enganação.\nAtivar — Lançar Voz 2 (manipular)\nFrequência qualquer número de vezes por dia\nEfeito Torcer o anel em torno de seu dedo permite que você lance sua voz magicamente, com os efeitos de um magia Ventriloquismo de 2º Rank (teste (percepção, dc:27)).",
+      "description": "Este elegante anel de cobre tem imagens em miniatura de pássaros canoros gravadas em sua circunferência. Você ganha +2 de bônus de item em testes de Enganação.\nAtivar — Lançar Voz 2 (manipular)\nFrequência qualquer número de vezes por dia\nEfeito Torcer o anel em torno de seu dedo permite que você lance sua voz magicamente, com os efeitos de uma magia Ventriloquismo de 2º Rank (teste (percepção, dc:27)).",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -416,7 +416,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Erupção Eterna da Montanha Pálida",
-      "description": "Assemelhando-se à lava congelada, uma erupção eterna é feita com o mesmo tipo de magia do tempo, mas é construída para percorrer o tempo, reformando-se após ser usada. Determinar a diferença entre os dois requer um exame minucioso para ver um padrão fraco e repetitivo de runas vermelhas.\nAtivar—Lava Bomb 2 (concentrar, manipular)\nEfeito Você lança a erupção eterna, com o efeito de Lava Congelada da Montanha Pálida. Após [[/br 2d4 #horas]], a erupção eterna se reforma em um recipiente que você possui, normalmente aquele em que você a armazenou recentemente.\nErupção Eterna da Montanha Pálida causa 9d6 de dano de fogo em um teste (reflexo, dc:27, básico, opções:efeito de área).",
+      "description": "Assemelhando-se à lava congelada, uma erupção eterna é feita com o mesmo tipo de magia do tempo, mas é construída para percorrer o tempo, reformando-se após ser usada. Determinar a diferença entre os dois requer um exame minucioso para ver um padrão fraco e repetitivo de runas vermelhas.\nAtivar—Lava Bomb 2 (concentrar, manipular)\nEfeito Você lança a erupção eterna, com o efeito de Lava Congelada da Montanha Pálida. Após 2d4, a erupção eterna se reforma em um recipiente que você possui, normalmente aquele em que você a armazenou recentemente.\nErupção Eterna da Montanha Pálida causa 9d6 de dano de fogo em um teste (reflexo, dc:27, básico, opções:efeito de área).",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -461,7 +461,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Chapéu do Mago (Maior)",
-      "description": "Este chapéu vem em vários formatos, como um turbante colorido ou um chapéu pontudo com aba, e é adornado com símbolos ou runas. Ele concede a você um bônus de item de +2 em testes de Arcano e permite que você lance o truque Prestidigitação como um truque arcano inato.\nEste chapéu maior e mais sofisticado pode ser ativado. O chapéu de cada mago maior tem um magia de invocação específico de 4º Rank da lista arcana entrelaçado em seu tecido, normalmente Convocar Animal ou Convocar Elemental. Se você preparar magias arcanas, você pode mudar a magia para uma magia de invocação arcana de 4º Rank diferente que você conhece quando a investe.\nAtivar — magia do Chapéu Lançar um magia\nFrequência uma vez por dia\nEfeito Você tira o chapéu, fazendo com que energia mágica seja derramada dele. Você lançou o magia armazenado no chapéu.",
+      "description": "Este chapéu vem em vários formatos, como um turbante colorido ou um chapéu pontudo com aba, e é adornado com símbolos ou runas. Ele concede a você um bônus de item de +2 em testes de Arcano e permite que você lance o truque Prestidigitação como um truque arcano inato.\nEste chapéu maior e mais sofisticado pode ser ativado. O chapéu de cada mago maior tem uma magia de invocação específico de 4º Rank da lista arcana entrelaçado em seu tecido, normalmente Convocar Animal ou Convocar Elemental. Se você preparar magias arcanas, você pode mudar a magia para uma magia de invocação arcana de 4º Rank diferente que você conhece quando a investe.\nAtivar — magia do Chapéu Lançar uma magia\nFrequência uma vez por dia\nEfeito Você tira o chapéu, fazendo com que energia mágica seja derramada dele. Você lançou a magia armazenado no chapéu.",
       "itemType": "equipamento",
       "usage": "chapéus usados",
       "category": "equipamento",
@@ -581,7 +581,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Continuação (magia de 3º Rank)",
-      "description": "Esta varinha aumenta a duração de um magia. Brasas amarelas espiralam sobre sua superfície até o fim do magia.\nAtive Lançar um magia; A ativação leva 2 se o magia normalmente leva 1 para ser lançado, ou 3 se o magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia e sua duração é aumentada pela metade.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. O magia deve ter um tempo de lançamento de 1 ou 2 e uma duração não inferior a 10 minutos e não superior a 1 hora.",
+      "description": "Esta varinha aumenta a duração de uma magia. Brasas amarelas espiralam sobre sua superfície até o fim da magia.\nAtive Lançar uma magia; A ativação leva 2 se a magia normalmente leva 1 para ser lançado, ou 3 se a magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia e sua duração é aumentada pela metade.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. A magia deve ter um tempo de lançamento de 1 ou 2 e uma duração não inferior a 10 minutos e não superior a 1 hora.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -641,7 +641,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha Mágica (magia 4º Rank)",
-      "description": "Este bastão tem cerca de trinta centímetros de comprimento e contém um único magia. A aparência normalmente está relacionada ao magia interno.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia no Rank indicado.\nRequisitos de Criação Forneça um lançamento do magia no Rank listado.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "description": "Este bastão tem cerca de trinta centímetros de comprimento e contém um único magia. A aparência normalmente está relacionada à magia interno.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia no Rank indicado.\nRequisitos de Criação Forneça um lançamento da magia no Rank listado.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -671,7 +671,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Luvas do Charlatão (Maior)",
-      "description": "Pequenos ganchos prateados decoram estas finas luvas de seda. Eles concedem um bônus de item de +2 para Roubo e permitem que você lance Mão Telecinética como um magia ocultista inato.\nSe você também estiver usando uma capa de charlatão, sempre que mover um objeto usando a mão telecinética, você poderá fazê-lo desaparecer em uma nuvem de fumaça e reaparecer pairando em um espaço adjacente ao seu. Este é um efeito de teletransporte. O item paira até o final do seu turno ou até ser recuperado com uma ação de Interagir.",
+      "description": "Pequenos ganchos prateados decoram estas finas luvas de seda. Eles concedem um bônus de item de +2 para Roubo e permitem que você lance Mão Telecinética como uma magia ocultista inato.\nSe você também estiver usando uma capa de charlatão, sempre que mover um objeto usando a mão telecinética, você poderá fazê-lo desaparecer em uma nuvem de fumaça e reaparecer pairando em um espaço adjacente ao seu. Este é um efeito de teletransporte. O item paira até o final do seu turno ou até ser recuperado com uma ação de Interagir.",
       "itemType": "equipamento",
       "usage": "luvas usadas",
       "category": "equipamento",
@@ -685,8 +685,8 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "version": 1,
     "status": "MACHINE_DRAFT",
     "fields": {
-      "name": "Pergaminho do magia do 5º Rank",
-      "description": "Lançar um magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar um magia usando o número normal de ações para aquele magia.\nO magia deve aparecer na sua lista de magias. Como é você quem está lançando o magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar o magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "name": "Pergaminho da magia do 5º Rank",
+      "description": "Lançar uma magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar uma magia usando o número normal de ações para aquela magia.\nA magia deve aparecer na sua lista de magias. Como é você quem está lançando a magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar a magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "rolar",
@@ -731,7 +731,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Lâmina da escuridão",
-      "description": "Negra como carvão, esta lâmina fica mais potente na escuridão. Enquanto sob luz brilhante, ela funciona como uma espada curta +1 e não parece irradiar uma aura mágica para Detectar Magia ou magias similares, a menos que os magias sejam de 4º Rank ou superior.\nNa penumbra ou na escuridão, a lâmina sombria se torna uma espada curta +2. Sempre que você usar a lâmina sombria para atacar uma criatura que você não detectou, você causa 1d6 de dano de precisão adicional.\nPara atualizar as runas fundamentais da lâmina sombria, comece com a espada curta base +1, mas se você melhorá-la além de uma espada curta impressionante +2, as runas se aplicam na penumbra ou na escuridão também.",
+      "description": "Negra como carvão, esta lâmina fica mais potente na escuridão. Enquanto sob luz brilhante, ela funciona como uma espada curta +1 e não parece irradiar uma aura mágica para Detectar Magia ou magias similares, a menos que as magias sejam de 4º Rank ou superior.\nNa penumbra ou na escuridão, a lâmina sombria se torna uma espada curta +2. Sempre que você usar a lâmina sombria para atacar uma criatura que você não detectou, você causa 1d6 de dano de precisão adicional.\nPara atualizar as runas fundamentais da lâmina sombria, comece com a espada curta base +1, mas se você melhorá-la além de uma espada curta impressionante +2, as runas se aplicam na penumbra ou na escuridão também.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "marcial",
@@ -777,7 +777,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Munição Spellstrike (Tipo IV)",
-      "description": "Munição qualquer\nAtivar 2 Lançar um magia\nPadrões místicos criam um reservatório mágico dentro desta munição. Você ativa a munição de ataque mágico lançando um magia na munição. A magia deve ser uma magia Rank que a munição possa conter, e a magia deve ser capaz de atingir uma criatura que não seja o lançador. Uma criatura atingida por munição de ataque mágico ativada é alvo do magia. Se a criatura não for um alvo válido para a magia, a magia será perdida.\nA munição afeta apenas o alvo atingido, mesmo que a magia normalmente afete mais de um alvo. Se a magia exigir uma jogada de ataque mágico, use o resultado de sua jogada de ataque à distância com a munição para determinar o grau de sucesso da magia. Se o magia exigir um teste de resistência, o alvo tenta o teste de resistência contra a CD do seu magia. Combine o ataque e o dano do magia para fins de resistências e fraquezas.\nO Rank máximo do magia que a munição pode conter determina seu nível de item e preço.\nmagia Máximo Rank 4º",
+      "description": "Munição qualquer\nAtivar 2 Lançar uma magia\nPadrões místicos criam um reservatório mágico dentro desta munição. Você ativa a munição de ataque mágico lançando uma magia na munição. A magia deve ser uma magia Rank que a munição possa conter, e a magia deve ser capaz de atingir uma criatura que não seja o lançador. Uma criatura atingida por munição de ataque mágico ativada é alvo da magia. Se a criatura não for um alvo válido para a magia, a magia será perdida.\nA munição afeta apenas o alvo atingido, mesmo que a magia normalmente afete mais de um alvo. Se a magia exigir uma jogada de ataque mágico, use o resultado de sua jogada de ataque à distância com a munição para determinar o grau de sucesso da magia. Se a magia exigir um teste de resistência, o alvo tenta o teste de resistência contra a CD do sua magia. Combine o ataque e o dano da magia para fins de resistências e fraquezas.\nO Rank máximo da magia que a munição pode conter determina seu nível de item e preço.\nmagia Máximo Rank 4º",
       "itemType": "munição",
       "usage": "",
       "category": "munição",
@@ -792,7 +792,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado do Capelão",
-      "description": "Esta maça simples de madeira +1 se transforma nas mãos de um usuário com grande fé em uma divindade.\nAtivar — Curvar-se diante de um Poder Superior 1 (concentrar)\nRequisitos Você adora uma divindade\nEfeito Você suplica à sua divindade, e o porrete do capelão se torna um canal para seu poder. Ela se transforma na arma favorita de sua divindade, como a runa de Mudança, exceto que funciona mesmo se a arma favorita for uma arma de longo alcance, uma arma que exija duas mãos ou ambas. Gravuras do símbolo religioso de sua divindade e outras representações divinas espalhadas pela arma de ponta a ponta. Isso dura até que esta ativação seja usada novamente. Enquanto a arma estiver sintonizada com você dessa forma, você obterá os seguintes benefícios.\n• Se você tiver a característica sagrada ou profana, poderá adicioná-la aos Golpes que fizer com a arma.\n• Sempre que você conjurar uma magia divina que requer 2 ações ou mais para ser conjurada, o próximo Golpe que você fizer com esta arma antes do final do seu próximo turno receberá um bônus de status em sua jogada de dano igual ao número de dados de dano da arma. Conjurar um magia que corresponda às opções da fonte divina de sua divindade concede esse benefício, não importa quantas ações você gastou para conjurá-lo.",
+      "description": "Esta maça simples de madeira +1 se transforma nas mãos de um usuário com grande fé em uma divindade.\nAtivar — Curvar-se diante de um Poder Superior 1 (concentrar)\nRequisitos Você adora uma divindade\nEfeito Você suplica à sua divindade, e o porrete do capelão se torna um canal para seu poder. Ela se transforma na arma favorita de sua divindade, como a runa de Mudança, exceto que funciona mesmo se a arma favorita for uma arma de longo alcance, uma arma que exija duas mãos ou ambas. Gravuras do símbolo religioso de sua divindade e outras representações divinas espalhadas pela arma de ponta a ponta. Isso dura até que esta ativação seja usada novamente. Enquanto a arma estiver sintonizada com você dessa forma, você obterá os seguintes benefícios.\n• Se você tiver a característica sagrada ou profana, poderá adicioná-la aos Golpes que fizer com a arma.\n• Sempre que você conjurar uma magia divina que requer 2 ações ou mais para ser conjurada, o próximo Golpe que você fizer com esta arma antes do final do seu próximo turno receberá um bônus de status em sua jogada de dano igual ao número de dados de dano da arma. Conjurar uma magia que corresponda às opções da fonte divina de sua divindade concede esse benefício, não importa quantas ações você gastou para conjurá-lo.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -823,7 +823,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sinete das Sombras",
-      "description": "Este anel de obsidiana permite que você deforme parcialmente seus magias através do Netherworld, permitindo que atinjam diretamente o corpo do alvo.\nAtive f (concentrar, soletrar)\nEfeito Se sua próxima ação for Conjurar um magia que exija uma jogada de ataque de magia contra a Classe de Armadura, escolha Fortitude DC ou Reflex DC. Você faz sua jogada de ataque mágico contra essa defesa em vez da CA. Se a magia tiver múltiplos alvos, a escolha da CD se aplica a todos eles.",
+      "description": "Este anel de obsidiana permite que você deforme parcialmente suas magias através do Netherworld, permitindo que atinjam diretamente o corpo do alvo.\nAtive f (concentrar, soletrar)\nEfeito Se sua próxima ação for Conjurar uma magia que exija uma jogada de ataque de magia contra a Classe de Armadura, escolha Fortitude DC ou Reflex DC. Você faz sua jogada de ataque mágico contra essa defesa em vez da CA. Se a magia tiver múltiplos alvos, a escolha da CD se aplica a todos eles.",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -838,7 +838,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Instrumento do Maestro (Moderado)",
-      "description": "O instrumento de um maestro pode ser fabricado na forma de qualquer variedade de instrumentos musicais portáteis. O instrumento de um maestro concede a você um bônus de +2 em testes de Desempenho enquanto toca música com o instrumento.\nAtivar – Performance Encantadora 2 (manipular)\nFrequência uma vez por dia\nEfeito Você toca o instrumento, fazendo com que ele lance um magia Charme de 4º Rank com CD 27.\nRequisitos de Fabricação Você deve fornecer um magia do Rank apropriado.",
+      "description": "O instrumento de um maestro pode ser fabricado na forma de qualquer variedade de instrumentos musicais portáteis. O instrumento de um maestro concede a você um bônus de +2 em testes de Desempenho enquanto toca música com o instrumento.\nAtivar – Performance Encantadora 2 (manipular)\nFrequência uma vez por dia\nEfeito Você toca o instrumento, fazendo com que ele lance uma magia Charme de 4º Rank com CD 27.\nRequisitos de Fabricação Você deve fornecer uma magia do Rank apropriado.",
       "itemType": "equipamento",
       "usage": "segurado com as duas mãos",
       "category": "equipamento",
@@ -853,7 +853,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Coroa de Bruxaria",
-      "description": "Um apetrecho elegante para uma bruxa que chegou aos escalões mais altos do poder, uma coroa de bruxaria normalmente se parece com uma guirlanda de galhos floridos, uma tiara de joias ou um chapéu alto de tecido fino. Você ganha +1 de bônus de item em testes de Intimidação e, se for um bruxo, ganha +2 de bônus de item em sua habilidade de patrono.\nSe você tiver um familiar, poderá anexar uma pequena porção do material da coroa ao seu familiar, como uma tira de tecido de um chapéu amarrada na cauda ou um raminho de material natural preso à gola; o familiar não precisa investir no item em si. Se você fizer isso, seu familiar ganhará a habilidade de animal de estimação resistente, desde que a coroa seja investida por você.\nAtivar—Defiant Hex F (concentrado)\nFrequência uma vez por dia\nEfeito Ganhe 1 Ponto de Foco, que você só pode gastar para lançar um magia de bruxaria. Se você não gastar este ponto até o final deste turno, ele será perdido.\nRequisitos de artesanato Você é uma bruxa.",
+      "description": "Um apetrecho elegante para uma bruxa que chegou aos escalões mais altos do poder, uma coroa de bruxaria normalmente se parece com uma guirlanda de galhos floridos, uma tiara de joias ou um chapéu alto de tecido fino. Você ganha +1 de bônus de item em testes de Intimidação e, se for um bruxo, ganha +2 de bônus de item em sua habilidade de patrono.\nSe você tiver um familiar, poderá anexar uma pequena porção do material da coroa ao seu familiar, como uma tira de tecido de um chapéu amarrada na cauda ou um raminho de material natural preso à gola; o familiar não precisa investir no item em si. Se você fizer isso, seu familiar ganhará a habilidade de animal de estimação resistente, desde que a coroa seja investida por você.\nAtivar—Defiant Hex F (concentrado)\nFrequência uma vez por dia\nEfeito Ganhe 1 Ponto de Foco, que você só pode gastar para lançar uma magia de bruxaria. Se você não gastar este ponto até o final deste turno, ele será perdido.\nRequisitos de artesanato Você é uma bruxa.",
       "itemType": "equipamento",
       "usage": "chapéus usados",
       "category": "equipamento",
@@ -928,7 +928,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado dos Mortos (Maior)",
-      "description": "Este cajado retorcido e de aparência sombria é adornado com horríveis motivos de caveiras e ossos. As criaturas invocadas usando este cajado ganham um número de Pontos de Vida temporários igual ao Rank do magia usado para invocá-las.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Void Warp\n• 1º Gavinhas Sinistras, Convocar Mortos-vivos\n• 2º Descanso Pacífico, Convocar Mortos-Vivos\n• 3ª Invocação de Mortos-Vivos, Banquete Vampírico\n• 4ª Invocação de Mortos-vivos, Visão da Morte\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado retorcido e de aparência sombria é adornado com horríveis motivos de caveiras e ossos. As criaturas invocadas usando este cajado ganham um número de Pontos de Vida temporários igual ao Rank da magia usado para invocá-las.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Void Warp\n• 1º Gavinhas Sinistras, Convocar Mortos-vivos\n• 2º Descanso Pacífico, Convocar Mortos-Vivos\n• 3ª Invocação de Mortos-Vivos, Banquete Vampírico\n• 4ª Invocação de Mortos-vivos, Visão da Morte\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -944,7 +944,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bulbo Espiritual",
-      "description": "Ativar 2 (concentrar, manipular)\nEste bulbo mágico é colhido em um antigo bosque rico em magia de plantas primitivas. Quando você ativa o bulbo, você o come para que ele lance um magia Forma de Planta de 5º Rank afetando você, ou o planta no chão próximo a você para que ele lance um magia Invocar Planta ou Fungo de 5º Rank. Se você escolher a opção de invocação, a planta ou fungo aparecerá onde você plantou o bulbo, e você poderá sustentar a ativação para manter o controle da criatura.",
+      "description": "Ativar 2 (concentrar, manipular)\nEste bulbo mágico é colhido em um antigo bosque rico em magia de plantas primitivas. Quando você ativa o bulbo, você o come para que ele lance uma magia Forma de Planta de 5º Rank afetando você, ou o planta no chão próximo a você para que ele lance uma magia Invocar Planta ou Fungo de 5º Rank. Se você escolher a opção de invocação, a planta ou fungo aparecerá onde você plantou o bulbo, e você poderá sustentar a ativação para manter o controle da criatura.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "outro",
@@ -974,7 +974,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Forma Fluida (Maior)",
-      "description": "Uma esfera de vidro no topo deste bastão de metal contém areia fina. Enquanto empunha o cajado, você ganha +2 de bônus de circunstância em testes de Percepção para identificar magia de metamorfose e polimorfia.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• 1º Formulário de Pragas\n• 2ª Forma Animal, Ampliar, Encolher\n• Do terceiro pé às nadadeiras, forma de inseto\n• 4ª Forma Aérea, Forma Animal, Forma Dinossauro\nRequisitos de Criação Forneça uma conjuração de todos os níveis listados de todas as magias listadas.",
+      "description": "Uma esfera de vidro no topo deste bastão de metal contém areia fina. Enquanto empunha o cajado, você ganha +2 de bônus de circunstância em testes de Percepção para identificar magia de metamorfose e polimorfia.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• 1º Formulário de Pragas\n• 2ª Forma Animal, Ampliar, Encolher\n• Do terceiro pé às nadadeiras, forma de inseto\n• 4ª Forma Aérea, Forma Animal, Forma Dinossauro\nRequisitos de Criação Forneça uma conjuração de todos os níveis listados de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1020,7 +1020,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Invisibilidade (Maior)",
-      "description": "A luz parece penetrar parcialmente nesta armadura.\nAtivar — Ficar Invisível 1 (concentrar)\nFrequência três vezes ao dia\nEfeito Com um pensamento, você fica invisível por 1 minuto, ganhando os efeitos de um magia de Invisibilidade de 2º Rank.\nRequisitos de Artesanato Forneça uma conjuração de invisibilidade.",
+      "description": "A luz parece penetrar parcialmente nesta armadura.\nAtivar — Ficar Invisível 1 (concentrar)\nFrequência três vezes ao dia\nEfeito Com um pensamento, você fica invisível por 1 minuto, ganhando os efeitos de uma magia de Invisibilidade de 2º Rank.\nRequisitos de Artesanato Forneça uma conjuração de invisibilidade.",
       "itemType": "equipamento",
       "usage": "gravado em armadura leve",
       "category": "equipamento",
@@ -1035,7 +1035,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Equipe de Controle (Maior)",
-      "description": "Uma série de pedras preciosas deslumbrantes alinha-se na cabeça retorcida do bastão dourado. Enquanto empunhar o cajado, você ganha +1 de bônus de status em testes de Diplomacia para fazer um Pedido.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º magia, Comando\n• 2º ataque de risada, estupefação\n• 3º Encantamento\n• 4º Charme, Confusão, Sugestão\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Uma série de pedras preciosas deslumbrantes alinha-se na cabeça retorcida do bastão dourado. Enquanto empunhar o cajado, você ganha +1 de bônus de status em testes de Diplomacia para fazer um Pedido.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1º magia, Comando\n• 2º ataque de risada, estupefação\n• 3º Encantamento\n• 4º Charme, Confusão, Sugestão\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1051,7 +1051,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Robe de elogio",
-      "description": "Embora nem todos os magos tenham passado por treinamento formal, tornou-se tradição encantar vestes que representam o árduo treinamento necessário e enfeitá-las com honras conquistadas. Normalmente, um manto de elogio é estilizado de acordo com uma única escola de bruxos, com cores e símbolos apropriados. Usar essas vestes concede um bônus de item de +2 em testes de Arcanos.\nOs bolsos do manto se prendem a um espaço extradimensional que pode conter 1 volume de itens, nenhum dos quais pode ter volume superior ao volume leve. Os itens devem estar relacionados a conjuração e assuntos acadêmicos – livros de magias, pergaminhos, varinhas, diários acadêmicos e outros materiais acadêmicos permitidos pelo Mestre. Esses itens não contam para o seu limite em massa. Você pode interagir para recuperar ou guardar itens normalmente.\nAtivar – Revisão 1 (concentrar, manipular)\nEfeito Você recupera um item de sua escolha do armazenamento do manto e, em seguida, Recupera Conhecimento.\nAtivar—Crédito Extra F (concentrado)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar um magia escolar. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nRequisitos de Artesanato Você é um mago da escola associada.",
+      "description": "Embora nem todos os magos tenham passado por treinamento formal, tornou-se tradição encantar vestes que representam o árduo treinamento necessário e enfeitá-las com honras conquistadas. Normalmente, um manto de elogio é estilizado de acordo com uma única escola de bruxos, com cores e símbolos apropriados. Usar essas vestes concede um bônus de item de +2 em testes de Arcanos.\nOs bolsos do manto se prendem a um espaço extradimensional que pode conter 1 volume de itens, nenhum dos quais pode ter volume superior ao volume leve. Os itens devem estar relacionados a conjuração e assuntos acadêmicos – livros de magias, pergaminhos, varinhas, diários acadêmicos e outros materiais acadêmicos permitidos pelo Mestre. Esses itens não contam para o seu limite em massa. Você pode interagir para recuperar ou guardar itens normalmente.\nAtivar – Revisão 1 (concentrar, manipular)\nEfeito Você recupera um item de sua escolha do armazenamento do manto e, em seguida, Recupera Conhecimento.\nAtivar—Crédito Extra F (concentrado)\nFrequência uma vez por dia\nEfeito Você ganha 1 Ponto de Foco, que só pode ser gasto para lançar uma magia escolar. Se você não gastar este Ponto de Foco até o final deste turno, ele será perdido.\nRequisitos de Artesanato Você é um mago da escola associada.",
       "itemType": "equipamento",
       "usage": "roupa usada",
       "category": "equipamento",
@@ -1066,7 +1066,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Moeda Desaparecida",
-      "description": "Ativar F (concentrado)\nGatilho Você tenta um teste de Furtividade para iniciativa, mas ainda não rolou\nRequisitos Você é treinado em Stealth\nEsta moeda de cobre está pendurada em uma tira de couro amarrada em um furo no centro. Até ser ativada, a moeda fica invisível por alguns segundos em intervalos aleatórios a cada poucos minutos.\nQuando você ativa a moeda, ela lança um magia de Invisibilidade de 2º Rank em você, que dura até o final do seu próximo turno.",
+      "description": "Ativar F (concentrado)\nGatilho Você tenta um teste de Furtividade para iniciativa, mas ainda não rolou\nRequisitos Você é treinado em Stealth\nEsta moeda de cobre está pendurada em uma tira de couro amarrada em um furo no centro. Até ser ativada, a moeda fica invisível por alguns segundos em intervalos aleatórios a cada poucos minutos.\nQuando você ativa a moeda, ela lança uma magia de Invisibilidade de 2º Rank em você, que dura até o final do seu próximo turno.",
       "itemType": "consumível",
       "usage": "afixado na armadura",
       "category": "talismã",
@@ -1141,7 +1141,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Invocação (Maior)",
-      "description": "Este bastão de cinzas é decorado com animais, elementais e dragões. As criaturas invocadas usando este cajado ganham um número de Pontos de Vida temporários igual ao Rank do magia usado para invocá-las.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Vinha Emaranhada\n• 1ª Invocação de Animal\n• 2ª Montaria Maravilhosa, Névoa, Convocar Animal, Convocar Elemental\n• 3ª Invocação de Animal, Invocação de Elemental\n• 4ª Montaria Maravilhosa, Convocar Animal, Convocar Elemental\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de cinzas é decorado com animais, elementais e dragões. As criaturas invocadas usando este cajado ganham um número de Pontos de Vida temporários igual ao Rank da magia usado para invocá-las.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Vinha Emaranhada\n• 1ª Invocação de Animal\n• 2ª Montaria Maravilhosa, Névoa, Convocar Animal, Convocar Elemental\n• 3ª Invocação de Animal, Invocação de Elemental\n• 4ª Montaria Maravilhosa, Convocar Animal, Convocar Elemental\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1187,7 +1187,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado do Olho Que Não Pisca (Maior)",
-      "description": "A cabeça de pedra deste bastão de madeira lisa é esculpida para parecer um olho sem pálpebra. Enquanto empunhando-o, você ganha +1 de bônus de status em testes de Percepção feitos para iniciativa.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Truque Detectar Magia\n• 1º Golpe Certo\n• 2º Visão no Escuro, Ver o Invisível, Traduzir\n• 3ª Visão no Escuro, Leitura de Mente\n• 4ª Clarividência, Detectar Vidência, Telepatia\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "A cabeça de pedra deste bastão de madeira lisa é esculpida para parecer um olho sem pálpebra. Enquanto empunhando-o, você ganha +1 de bônus de status em testes de Percepção feitos para iniciativa.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Truque Detectar Magia\n• 1º Golpe Certo\n• 2º Visão no Escuro, Ver o Invisível, Traduzir\n• 3ª Visão no Escuro, Leitura de Mente\n• 4ª Clarividência, Detectar Vidência, Telepatia\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1233,7 +1233,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Botas do Demolidor",
-      "description": "Estas botas de cores vivas e sola macia motivam você a realizar acrobacias arriscadas e garantem agilidade para ter sucesso. As botas concedem a você um bônus de item de +2 em testes de Acrobacia e um bônus de circunstância de +1 em testes para [[/atuar]] no espaço de um inimigo.\nAs botas podem agarrar superfícies sólidas e ajudar a evitar quedas, permitindo que você use a reação [[/agir agarrar a borda]] mesmo que suas mãos não estejam livres. Você trata as quedas como 10 pés (3 metros) mais curtas ou, se você tiver o talento Queda de Gato, trata sua proficiência Rank em Acrobacia como um grau melhor para determinar os benefícios desse talento. Se você tem Cat Fall e já é lendário em Acrobacia, pode escolher a velocidade de sua queda, desde 60 pés (18 metros) por rodada até a velocidade normal de queda.",
+      "description": "Estas botas de cores vivas e sola macia motivam você a realizar acrobacias arriscadas e garantem agilidade para ter sucesso. As botas concedem a você um bônus de item de +2 em testes de Acrobacia e um bônus de circunstância de +1 em testes para [[/atuar]] no espaço de um inimigo.\nAs botas podem agarrar superfícies sólidas e ajudar a evitar quedas, permitindo que você use a reação agarrar a borda mesmo que suas mãos não estejam livres. Você trata as quedas como 10 pés (3 metros) mais curtas ou, se você tiver o talento Queda de Gato, trata sua proficiência Rank em Acrobacia como um grau melhor para determinar os benefícios desse talento. Se você tem Cat Fall e já é lendário em Acrobacia, pode escolher a velocidade de sua queda, desde 60 pés (18 metros) por rodada até a velocidade normal de queda.",
       "itemType": "equipamento",
       "usage": "sapatos usados",
       "category": "equipamento",
@@ -1263,7 +1263,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado do Poder Elemental (Maior)",
-      "description": "Este cajado é cônico na base e esculpido em uma torção cravejada de pedras preciosas na parte superior. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes para identificar criaturas elementais.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Congelamento Cantrip\n• 1º Sopro de Fogo, Esmurrar Escombros, Golpe do Trovão\n• 2º Raio Flamejante, Resiste à Energia\n• 3ª Bola de Fogo, Relâmpago\n• 4ª Energia de Resistência, Muralha de Fogo\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado é cônico na base e esculpido em uma torção cravejada de pedras preciosas na parte superior. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes para identificar criaturas elementais.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Congelamento Cantrip\n• 1º Sopro de Fogo, Esmurrar Escombros, Golpe do Trovão\n• 2º Raio Flamejante, Resiste à Energia\n• 3ª Bola de Fogo, Relâmpago\n• 4ª Energia de Resistência, Muralha de Fogo\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1309,7 +1309,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Anel de Mentiras",
-      "description": "Este anel de prata simples tem um brilho quase oleoso. Enquanto estiver usando o anel, você ganha +2 de bônus de item em testes de Enganação.\nAtivar—Adoçar Mentiras 2 (manipular)\nFrequência uma vez por dia\nEfeito Estalar os dedos na mão que usa o anel faz com que o anel lance Palavras de Mel em você, sem nenhuma manifestação visual de um magia sendo lançado.",
+      "description": "Este anel de prata simples tem um brilho quase oleoso. Enquanto estiver usando o anel, você ganha +2 de bônus de item em testes de Enganação.\nAtivar—Adoçar Mentiras 2 (manipular)\nFrequência uma vez por dia\nEfeito Estalar os dedos na mão que usa o anel faz com que o anel lance Palavras de Mel em você, sem nenhuma manifestação visual de uma magia sendo lançado.",
       "itemType": "equipamento",
       "usage": "desgastado",
       "category": "equipamento",
@@ -1369,7 +1369,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Máscara Demoníaca (Maior)",
-      "description": "Esta máscara aterrorizante é criada com o rosto de um demônio malicioso e concede +2 de bônus de item em testes de Intimidação.\nAtivar – Máscara Leering 2 (manipular)\nFrequência uma vez por dia\nEfeito A máscara lança um magia Medo de 3º Rank com CD 29.",
+      "description": "Esta máscara aterrorizante é criada com o rosto de um demônio malicioso e concede +2 de bônus de item em testes de Intimidação.\nAtivar – Máscara Leering 2 (manipular)\nFrequência uma vez por dia\nEfeito A máscara lança uma magia Medo de 3º Rank com CD 29.",
       "itemType": "equipamento",
       "usage": "máscara usada",
       "category": "equipamento",
@@ -1384,7 +1384,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado dos Fantasmas (Maior)",
-      "description": "Este bastão de metal ornamentado brilha com preciosas incrustações de ouro. Quando você lança um magia do cajado, a imagem ilusória de algo que você deseja brilha em sua superfície. Enquanto empunhar o cajado, você ganha +2 de bônus de status em testes para descrer de uma ilusão.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Fantasia de Cantrip\n• 1º Disfarce Ilusório, Objeto Ilusório\n• 2ª Criatura Ilusória, Objeto Ilusório, Fachada de Item\n• 3º Disfarce Ilusório, Fachada de Item\n• 4ª Criatura Ilusória, Cena Ilusória, Disfarce Ilusório\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de metal ornamentado brilha com preciosas incrustações de ouro. Quando você lança uma magia do cajado, a imagem ilusória de algo que você deseja brilha em sua superfície. Enquanto empunhar o cajado, você ganha +2 de bônus de status em testes para descrer de uma ilusão.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Fantasia de Cantrip\n• 1º Disfarce Ilusório, Objeto Ilusório\n• 2ª Criatura Ilusória, Objeto Ilusório, Fachada de Item\n• 3º Disfarce Ilusório, Fachada de Item\n• 4ª Criatura Ilusória, Cena Ilusória, Disfarce Ilusório\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1460,7 +1460,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Proteção (Maior)",
-      "description": "Este cajado de madeira é notavelmente resistente e inflexível. Enquanto empunha o cajado, você ganha +1 de bônus de circunstância em sua CD para evitar ser empurrado ou tropeçado.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Escudo Truque\n• 1º Alarme, Armadura Mística\n• 2º Dissipar Magia, Resistência Ambiental, Resistir Energia\n• 3º Alarme, Passagem Segura\n• 4º Dissipar Magia, Armadura Mística, Resistir Energia\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado de madeira é notavelmente resistente e inflexível. Enquanto empunha o cajado, você ganha +1 de bônus de circunstância em sua CD para evitar ser empurrado ou tropeçado.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Escudo Truque\n• 1º Alarme, Armadura Mística\n• 2º Dissipar Magia, Resistência Ambiental, Resistir Energia\n• 3º Alarme, Passagem Segura\n• 4º Dissipar Magia, Armadura Mística, Resistir Energia\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",

@@ -87,7 +87,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SHGSNKhRLCJ5x8DV": {
           "name": "Vida Sifão",
-          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para um magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 3d8 Pontos de Vida temporários que duram 1 rodada."
+          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para uma magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 3d8 Pontos de Vida temporários que duram 1 rodada."
         },
         "AVeCp0hrGkLxjYtI": {
           "name": "Surgir!",
@@ -107,7 +107,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xocggVl34iamkAuY": {
           "name": "Respiração que suga a alma",
-          "description": "O dragão libera uma torrente de energia divina, causando 16d6 de dano de vazio em um tipo:cone de 15 metros (teste (fortitude, dc:38, básico, opções:efeito de área) salvamento) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 15 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar a Respiração Sifonadora de Almas novamente por [[/gmr 1d4 #Recarregar Respiração Sifonadora de Almas]]."
+          "description": "O dragão libera uma torrente de energia divina, causando 16d6 de dano de vazio em um tipo:cone de 15 metros (teste (fortitude, dc:38, básico, opções:efeito de área) salvamento) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 15 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar a Respiração Sifonadora de Almas novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -199,7 +199,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SHGSNKhRLCJ5x8DV": {
           "name": "Vida Sifão",
-          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para um magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 3d8 Pontos de Vida temporários que duram 1 rodada."
+          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) usa um efeito de cura que restaura pontos de vida\nEfeito O dragão da ressurreição redireciona as energias vitais para longe do efeito, minimizando seu impacto. O efeito desencadeador resulta na quantidade mínima em qualquer jogada de dados para restaurar Pontos de Vida, e quaisquer valores fixos para restaurar Pontos de Vida (como os Pontos de Vida adicionais para uma magia de Cura de duas ações) são cortados pela metade. O dragão então ganha 3d8 Pontos de Vida temporários que duram 1 rodada."
         },
         "AVeCp0hrGkLxjYtI": {
           "name": "Surgir!",
@@ -211,7 +211,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xocggVl34iamkAuY": {
           "name": "Respiração que suga a alma",
-          "description": "O dragão libera uma torrente de energia divina, causando 16d6 de dano de vazio em um tipo:cone de 15 metros (teste (fortitude, dc:38, básico, opções:efeito de área) salvamento) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 15 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar a Respiração Sifonadora de Almas novamente por [[/gmr 1d4 #Recarregar Respiração Sifonadora de Almas]]."
+          "description": "O dragão libera uma torrente de energia divina, causando 16d6 de dano de vazio em um tipo:cone de 15 metros (teste (fortitude, dc:38, básico, opções:efeito de área) salvamento) que extrai a força vital das criaturas dentro dele. O dragão ganha cura rápida 15 até que seu Sopro Sugador de Almas seja recarregado. O dragão da ressurreição não pode usar a Respiração Sifonadora de Almas novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -387,7 +387,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "27lO5hJcHjPjslLT": {
           "name": "Respiração Hidráulica",
-          "description": "O dragão exala um jato pressurizado de água que causa 18d6 de dano de concussão em um tipo: linha de 36 metros (teste (reflexo, CC: 38, básico, opções: efeito de área, movimento forçado, inflige: prostrado) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por [[/gmr 1d4 #Recarregar Sopro Hidráulico]]."
+          "description": "O dragão exala um jato pressurizado de água que causa 18d6 de dano de concussão em um tipo: linha de 36 metros (teste (reflexo, CC: 38, básico, opções: efeito de área, movimento forçado, inflige: prostrado) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por 1d4."
         },
         "Foxebihcova9nAO9": {
           "name": "Armadura de Recife",
@@ -636,7 +636,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "gLpBcRyze5jaQR3x": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "TkUzxf9ya6Oqy96g": {
@@ -657,7 +657,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GBMBMc3ptaAPJPqr": {
           "name": "Glifo Guardião",
-          "description": "Frequência uma vez por dia\nEfeito O kadamel altera as inscrições em seu corpo para armazenar um magia do 8º Rank, escolhendo entre Decreto Divino, Imolação Divina, Ira Divina ou Selo Planar. Ao armazenar o magia, o kadamel escolhe uma área que está guardando, normalmente uma sala contendo um portal planar. Quando um intruso entra na área, o magia é lançado automaticamente e gasto. Se a mágica for direcionada, ela terá como alvo a criatura desencadeadora e, se tiver uma área, a área será centralizada na criatura desencadeadora. Perceber o glifo requer um teste bem-sucedido (percepção, dc:38). O glifo tem duração ilimitada e termina se o kadamel usar essa habilidade novamente ou dispensar o glifo."
+          "description": "Frequência uma vez por dia\nEfeito O kadamel altera as inscrições em seu corpo para armazenar uma magia do 8º Rank, escolhendo entre Decreto Divino, Imolação Divina, Ira Divina ou Selo Planar. Ao armazenar a magia, o kadamel escolhe uma área que está guardando, normalmente uma sala contendo um portal planar. Quando um intruso entra na área, a magia é lançado automaticamente e gasto. Se a mágica for direcionada, ela terá como alvo a criatura desencadeadora e, se tiver uma área, a área será centralizada na criatura desencadeadora. Perceber o glifo requer um teste bem-sucedido (percepção, dc:38). O glifo tem duração ilimitada e termina se o kadamel usar essa habilidade novamente ou dispensar o glifo."
         },
         "anx0Mh6T878Ca0zi": {
           "name": "Rearmar",
@@ -753,7 +753,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "fABPf8ocjTyx8gpJ": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "osNdvwv5r9amDfjr": {
@@ -897,7 +897,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "27lO5hJcHjPjslLT": {
           "name": "Respiração Hidráulica",
-          "description": "O dragão exala um jato pressurizado de água que causa 18d6 de dano de concussão em um tipo: linha de 36 metros (teste (reflexo, CC: 38, básico, opções: efeito de área, movimento forçado, inflige: prostrado) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por [[/gmr 1d4 #Recarregar Sopro Hidráulico]]."
+          "description": "O dragão exala um jato pressurizado de água que causa 18d6 de dano de concussão em um tipo: linha de 36 metros (teste (reflexo, CC: 38, básico, opções: efeito de área, movimento forçado, inflige: prostrado) salvamento). Criaturas que falham criticamente no teste de Reflexos contra a Respiração Hidráulica são empurradas para trás 10 pés (3 metros) e derrubadas. O dragão não pode usar Sopro Hidráulico novamente por 1d4."
         },
         "fI9l9alXTyrPjxOo": {
           "name": "Armadura de Recife",
@@ -961,11 +961,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "f8pZew4jc9KVpmrS": {
           "name": "magia de Refleto",
-          "description": "Gatilho O ninkonda é alvo de um ataque mágico à distância\nEfeito O ninkonda tenta refletir o magia com o espelho em sua armadura. Eles ganham um bônus de circunstância de +4 na CA contra o ataque desencadeador. Se o ataque falhar, o magia é refletido de volta ao lançador, que deve lançar um segundo ataque de magia à distância contra sua própria CA para determinar se o magia o atinge."
+          "description": "Gatilho O ninkonda é alvo de um ataque mágico à distância\nEfeito O ninkonda tenta refletir a magia com o espelho em sua armadura. Eles ganham um bônus de circunstância de +4 na CA contra o ataque desencadeador. Se o ataque falhar, a magia é refletido de volta ao lançador, que deve lançar um segundo ataque de magia à distância contra sua própria CA para determinar se a magia o atinge."
         },
         "15m85YW5E3xihSjQ": {
           "name": "Barragem de Pregos",
-          "description": "O ninkonda lança uma massa de pregos que causam 14d8 de dano perfurante em um tipo:emanação de 6 metros com um teste de resistência (reflexo, dc:38, básico, opções:efeito de área). Eles não podem usar Nail Barrage novamente para [[/gmr 1d4 #Recharge Nail Barrage]]."
+          "description": "O ninkonda lança uma massa de pregos que causam 14d8 de dano perfurante em um tipo:emanação de 6 metros com um teste de resistência (reflexo, dc:38, básico, opções:efeito de área). Eles não podem usar Nail Barrage novamente para 1d4."
         },
         "RC9Ywa7wvr7GzLsT": {
           "name": "Reflexão da Alma",
@@ -1049,12 +1049,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "auspxEF3QavdLLBP": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "Fd8Zr9WjpFqLtgVz": {
           "name": "Aura de Deformação Mágica",
-          "description": "30 pés (9 metros). A concha de um vaspercham distorce a magia próxima. Qualquer criatura na aura que Conjurar um magia deve tentar um teste (fará, dc:37) de salvamento.\nSucesso Crítico O magia não é afetado e o lançador fica temporariamente imune à aura de distorção mágica por 1 minuto.\nSucesso A magia não é afetada, mas se a magia permitir um teste de resistência, o vaspercham ganha um bônus de circunstância de +1 para resistência contra ela.\nFalha Se o magia tiver um alvo e houver um ou mais alvos viáveis ​​dentro do seu alcance, o alvo do magia muda, determinado aleatoriamente pelo Mestre. Se não houver outro alvo possível dentro do alcance ou se a magia não tiver alvo, a magia será interrompida.\nFalha Crítica Em vez disso, o lançador Conjura outro magia, escolhendo aleatoriamente de seu repertório de magias, magias preparados ou magias de foco disponíveis (conforme apropriado) e selecionando quaisquer alvos aleatoriamente."
+          "description": "30 pés (9 metros). A concha de um vaspercham distorce a magia próxima. Qualquer criatura na aura que Conjurar uma magia deve tentar um teste (fará, dc:37) de salvamento.\nSucesso Crítico A magia não é afetado e o lançador fica temporariamente imune à aura de distorção mágica por 1 minuto.\nSucesso A magia não é afetada, mas se a magia permitir um teste de resistência, o vaspercham ganha um bônus de circunstância de +1 para resistência contra ela.\nFalha Se a magia tiver um alvo e houver um ou mais alvos viáveis ​​dentro do seu alcance, o alvo da magia muda, determinado aleatoriamente pelo Mestre. Se não houver outro alvo possível dentro do alcance ou se a magia não tiver alvo, a magia será interrompida.\nFalha Crítica Em vez disso, o lançador Conjura outra magia, escolhendo aleatoriamente de seu repertório de magias, magias preparados ou magias de foco disponíveis (conforme apropriado) e selecionando quaisquer alvos aleatoriamente."
         },
         "UatiISk7rst9v1bD": {
           "name": "Salmoura Alucinatória",
@@ -1143,7 +1143,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "8Nk4QrVg754PVlCV": {
           "name": "Explosão Radiante",
-          "description": "O diretor radiante libera um tipo: cone de energia brilhante de 15 metros que causa 10d12 de dano de força (teste (reflexo, CC: 38, básico, opções: efeito de área)). O diretor radiante não pode usar Radiant Blast para [[/gmr 1d4 #Recharge Radiant Blast]]."
+          "description": "O diretor radiante libera um tipo: cone de energia brilhante de 15 metros que causa 10d12 de dano de força (teste (reflexo, CC: 38, básico, opções: efeito de área)). O diretor radiante não pode usar Radiant Blast para 1d4."
         },
         "I2rtFgA7ashRozwk": {
           "name": "Golpe Radiante",
@@ -1186,7 +1186,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Deimavigga",
-      "description": "Como mestres da lógica fria e calculada e do proselitismo perfeitamente cronometrado, os repugnantes deimaviggas procuram colocar amigo contra amigo e desviar os fiéis de suas crenças em todas as oportunidades. Suas ferramentas mais comuns são o ego mortal e o desespero. Aqueles que ocupam posições elevadas ou são ambiciosos na sua fé são atraídos para o auto-engrandecimento até que vejam a si próprios em primeiro lugar e a sua divindade e clero em segundo. Aqueles propensos à dúvida ou à dor de cabeça ficam isolados, pois o deimavigga interrompe seus magias divinos e enfraquece sua fé.\nExistem inúmeras legiões de demônios legais nas nove camadas do Inferno, guerreando contra os planos celestiais e vasculhando o Plano Material em busca de almas para corromper.",
+      "description": "Como mestres da lógica fria e calculada e do proselitismo perfeitamente cronometrado, os repugnantes deimaviggas procuram colocar amigo contra amigo e desviar os fiéis de suas crenças em todas as oportunidades. Suas ferramentas mais comuns são o ego mortal e o desespero. Aqueles que ocupam posições elevadas ou são ambiciosos na sua fé são atraídos para o auto-engrandecimento até que vejam a si próprios em primeiro lugar e a sua divindade e clero em segundo. Aqueles propensos à dúvida ou à dor de cabeça ficam isolados, pois o deimavigga interrompe suas magias divinos e enfraquece sua fé.\nExistem inúmeras legiões de demônios legais nas nove camadas do Inferno, guerreando contra os planos celestiais e vasculhando o Plano Material em busca de almas para corromper.",
       "size": "Médio",
       "senses": {
         "greater-darkvision": "visão no escuro maior"
@@ -1233,12 +1233,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Qualquer criatura capaz de compreender a fala entende o deimavigga, como se falasse constantemente em todas as línguas ao mesmo tempo."
         },
         "vGPorxL6swyKt73y": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "cyqkRqwp35f8CtAJ": {
           "name": "Sussurros de discórdia",
-          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) é alvo de um magia que restauraria Pontos de Vida ou forneceria um bônus de status (o deimavigga reconhece automaticamente tais efeitos)\nEfeito O deimavigga sussurra mentiras perturbadoras, audíveis apenas para o alvo, para abalar a fé do alvo no lançador do magia. O alvo deve tentar um teste de resistência (vontade, dc:38).\nSucesso Crítico O alvo não acredita nas mentiras e recebe o benefício pretendido da magia; o alvo fica temporariamente imune a Sussurros da Discórdia por 24 horas.\nSucesso Como sucesso crítico, mas o alvo não está temporariamente imune.\nFalha A magia não consegue afetar o alvo. O alvo recusa toda ajuda daquele conjurador por 1 rodada e não conta como aliado do conjurador.\nFalha Crítica Como falha, mas a duração é de 1 minuto."
+          "description": "Gatilho Uma criatura dentro de 60 pés (18 metros) é alvo de uma magia que restauraria Pontos de Vida ou forneceria um bônus de status (o deimavigga reconhece automaticamente tais efeitos)\nEfeito O deimavigga sussurra mentiras perturbadoras, audíveis apenas para o alvo, para abalar a fé do alvo no lançador da magia. O alvo deve tentar um teste de resistência (vontade, dc:38).\nSucesso Crítico O alvo não acredita nas mentiras e recebe o benefício pretendido da magia; o alvo fica temporariamente imune a Sussurros da Discórdia por 24 horas.\nSucesso Como sucesso crítico, mas o alvo não está temporariamente imune.\nFalha A magia não consegue afetar o alvo. O alvo recusa toda ajuda daquele conjurador por 1 rodada e não conta como aliado do conjurador.\nFalha Crítica Como falha, mas a duração é de 1 minuto."
         },
         "Fk0okw5jh318HfC0": {
           "name": "Alcance ilimitado",
@@ -1250,7 +1250,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LrGPFAVrLLeOkRJj": {
           "name": "Verme de ouvido sussurrante",
-          "description": "O deimavigga sussurra uma terrível verdade multiversal para uma criatura adjacente, abalando sua fé na realidade e na divindade. O alvo deve tentar um teste de resistência (vontade, dc:38). Celestiais e demônios ganham +2 de bônus de status neste teste.\nSucesso Crítico O alvo não é afetado e fica temporariamente imune ao Whisper Earworm por 24 horas.\nSucesso O alvo não é afetado.\nFalha Na próxima vez que o alvo descansar, ele ruminará sobre as palavras do deimavigga em vez de dormir ou descansar e acordará Fatigado. O alvo também fica Drenado 1 e Estupefato 1 até não estar mais cansado.\nFalha Crítica Como falha, mas Drenado 2. Após esse descanso, o alvo deve tentar outro teste de salvamento (vontade, dc:38). Em caso de falha, o alvo fica Estupefato 2 e sofre –4 de penalidade de status nos testes de Vontade contra efeitos de criaturas profanas. Esses efeitos duram até que o alvo desaprende a verdade dita pelo deimavigga, exigindo um magia Reescrever Memória, outros meios de modificar sua memória ou magia poderosa, como um ritual de Desejo.\nEfeito: Whisper Earworm (Falha Crítica)"
+          "description": "O deimavigga sussurra uma terrível verdade multiversal para uma criatura adjacente, abalando sua fé na realidade e na divindade. O alvo deve tentar um teste de resistência (vontade, dc:38). Celestiais e demônios ganham +2 de bônus de status neste teste.\nSucesso Crítico O alvo não é afetado e fica temporariamente imune ao Whisper Earworm por 24 horas.\nSucesso O alvo não é afetado.\nFalha Na próxima vez que o alvo descansar, ele ruminará sobre as palavras do deimavigga em vez de dormir ou descansar e acordará Fatigado. O alvo também fica Drenado 1 e Estupefato 1 até não estar mais cansado.\nFalha Crítica Como falha, mas Drenado 2. Após esse descanso, o alvo deve tentar outro teste de salvamento (vontade, dc:38). Em caso de falha, o alvo fica Estupefato 2 e sofre –4 de penalidade de status nos testes de Vontade contra efeitos de criaturas profanas. Esses efeitos duram até que o alvo desaprende a verdade dita pelo deimavigga, exigindo uma magia Reescrever Memória, outros meios de modificar sua memória ou magia poderosa, como um ritual de Desejo.\nEfeito: Whisper Earworm (Falha Crítica)"
         }
       },
       "spellcasting": {
@@ -1470,7 +1470,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XaV9EbmhjP3b8nYt": {
           "name": "Respiração Gritante",
-          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 17d6 de dano sônico em um salvamento de tipo:cone de 15 metros (teste (vontade, dc:40, básico, opções:efeito de área)). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por [[/gmr 1d4 #Recarregar Sopro Gritante]]."
+          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 17d6 de dano sônico em um salvamento de tipo:cone de 15 metros (teste (vontade, dc:40, básico, opções:efeito de área)). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por 1d4."
         },
         "IgQebS6T9lTVTa9g": {
           "name": "Chamariz de língua",
@@ -1680,7 +1680,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XxJKecC13F9ZMVC0": {
           "name": "Localização infalível",
-          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 9º, neutralizar modificador [[/r 1d20+32 #Counteract]]). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
+          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 9º, neutralizar modificador 1d20+32). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
         },
         "xvkd6bkDrndweeuM": {
           "name": "Barragem Piscando",
@@ -1688,7 +1688,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "z6zrzAGUnQzvtxt2": {
           "name": "Respiração Deslocante",
-          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 17d6 de dano de força em um salvamento do tipo:cone de 15 metros (teste (reflexo, dc:40, básico, opções:efeito de área)). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 50 pés (15 metros) (ou o dobro em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por [[/gmr 1d4 #Recharge Dislocating Breath]]."
+          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 17d6 de dano de força em um salvamento do tipo:cone de 15 metros (teste (reflexo, dc:40, básico, opções:efeito de área)). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 50 pés (15 metros) (ou o dobro em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por 1d4."
         },
         "O6kyu3EStwpikOKy": {
           "name": "Frenesi Dracônico",
@@ -1696,7 +1696,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VlzllOaXXNnvU4jJ": {
           "name": "Momento Dracônico",
-          "description": "Sempre que acerta um golpe crítico com um Golpe, o dragão escolhe entre recarregar Dislocating Breath ou recuperar um magia de teletransporte gasto."
+          "description": "Sempre que acerta um golpe crítico com um Golpe, o dragão escolhe entre recarregar Dislocating Breath ou recuperar uma magia de teletransporte gasto."
         },
         "DR5DVel5zxSC5osK": {
           "name": "Salto de Fase",
@@ -1802,7 +1802,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XxJKecC13F9ZMVC0": {
           "name": "Localização infalível",
-          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 9º, neutralizar modificador [[/r 1d20+32 #Counteract]]). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
+          "description": "O dragão tenta automaticamente neutralizar qualquer efeito de teletransporte que o atinja (neutralizar Rank 9º, neutralizar modificador 1d20+32). O dragão pode escolher ser afetado normalmente. Outras criaturas alvo do mesmo efeito permanecem afetadas normalmente."
         },
         "xvkd6bkDrndweeuM": {
           "name": "Barragem Piscando",
@@ -1810,7 +1810,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "z6zrzAGUnQzvtxt2": {
           "name": "Respiração Deslocante",
-          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 17d6 de dano de força em um salvamento do tipo:cone de 15 metros (teste (reflexo, dc:40, básico, opções:efeito de área)). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 50 pés (15 metros) (ou o dobro em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por [[/gmr 1d4 #Recharge Dislocating Breath]]."
+          "description": "O dragão exala um redemoinho de energia que separa as criaturas, causando 17d6 de dano de força em um salvamento do tipo:cone de 15 metros (teste (reflexo, dc:40, básico, opções:efeito de área)). O dragão pode teletransportar qualquer criatura que falhe no teste de resistência, teletransportando-a até 50 pés (15 metros) (ou o dobro em caso de falha crítica) em qualquer direção. O destino deve ser no solo e em um espaço sem perigos. O dragão não pode usar Sopro Dislocante novamente por 1d4."
         },
         "DR5DVel5zxSC5osK": {
           "name": "Salto de Fase",
@@ -2001,7 +2001,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "HO9oEygHulZKXSSM": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "Dy5EMIJUvL46ibmR": {
@@ -2010,7 +2010,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6Y0H1qKcOuLLE2PK": {
           "name": "Cacofonia enlouquecedora",
-          "description": "60 pés (18 metros). Um shoggoth constantemente emite sílabas e murmúrios que os mortais não deveriam ouvir. Uma criatura que entra na aura ou inicia seu turno na aura deve ter sucesso em um teste (vontade, dc:38, opções:efeito de área,infligir:confuso) ou ficará Confusa por 1 rodada ([[/gmr 2d4 #rounds]] em uma falha crítica). Uma criatura que consegue salvar com sucesso fica temporariamente imune por 24 horas."
+          "description": "60 pés (18 metros). Um shoggoth constantemente emite sílabas e murmúrios que os mortais não deveriam ouvir. Uma criatura que entra na aura ou inicia seu turno na aura deve ter sucesso em um teste (vontade, dc:38, opções:efeito de área,infligir:confuso) ou ficará Confusa por 1 rodada (2d4 em uma falha crítica). Uma criatura que consegue salvar com sucesso fica temporariamente imune por 24 horas."
         },
         "HknPH5MLDixmpO4o": {
           "name": "Contrair",
@@ -2022,7 +2022,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GSyhdPMQNpUa9LQJ": {
           "name": "Engolir",
-          "description": "verificação (reflexo, dc:40, opções:efeito de dano,inflige:agarrado,inflige:lento), 6d6 de dano ácido, [[/act escape dc=40]], Ruptura 40"
+          "description": "verificação (reflexo, dc:40, opções:efeito de dano,inflige:agarrado,inflige:lento), 6d6 de dano ácido, Escapar CD 40, Ruptura 40"
         },
         "COj5z6LGtivQPuf0": {
           "name": "Pegar",
@@ -2083,16 +2083,16 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "07YDS12fytfqO5il": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "zJMxnCoMxMuUOhQ4": {
           "name": "Violação de Sentinelas Planares",
-          "description": "Gatilho Um efeito tenta impedir que o katpaskir use um efeito de teletransporte ou conjure Invocar Demônio\nEfeito O katpaskir tenta neutralizar o efeito desencadeador (modificador de neutralização de [[/r 1d20+29 #Counteract]]). O katpaskir falha automaticamente contra o efeito de um artefato."
+          "description": "Gatilho Um efeito tenta impedir que o katpaskir use um efeito de teletransporte ou conjure Invocar Demônio\nEfeito O katpaskir tenta neutralizar o efeito desencadeador (modificador de neutralização de 1d20+29). O katpaskir falha automaticamente contra o efeito de um artefato."
         },
         "wv2jreZ6OKD7iboM": {
           "name": "Campo de Distorção",
-          "description": "30 pés (9 metros). A realidade se curva e distorce no nível de todos os sentidos sem deslocar a localização real do katpaskir. As criaturas à escolha do katpaskir que iniciam seu turno na aura devem ter sucesso em um teste (irá, dc:37) salvar ou tratar a área como um terreno mais difícil e irregular ([[/act balance dc=20]]). Uma criatura bem-sucedida ainda trata a área como um terreno difícil. Para tais criaturas, a distância através da aura é duplicada para determinar a penalidade de alcance."
+          "description": "30 pés (9 metros). A realidade se curva e distorce no nível de todos os sentidos sem deslocar a localização real do katpaskir. As criaturas à escolha do katpaskir que iniciam seu turno na aura devem ter sucesso em um teste (irá, dc:37) salvar ou tratar a área como um terreno mais difícil e irregular (balance CD 20). Uma criatura bem-sucedida ainda trata a área como um terreno difícil. Para tais criaturas, a distância através da aura é duplicada para determinar a penalidade de alcance."
         },
         "KyMj8mEHMYtcr0nn": {
           "name": "Invocações Espelhadas",
@@ -2197,7 +2197,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LcTLFm6mVOfK9AEb": {
           "name": "Ventilação",
-          "description": "A sentinela libera um cone de vapor superaquecido de 9 metros de sua forja interna. Isso causa 15d6 de dano de fogo a todas as criaturas no cone (verificação (reflexo, dc:40, básico, opções:efeito de área)). O sentinela não pode usar Vent novamente por [[/gmr 1d6 #Recharge Vent]]."
+          "description": "A sentinela libera um cone de vapor superaquecido de 9 metros de sua forja interna. Isso causa 15d6 de dano de fogo a todas as criaturas no cone (verificação (reflexo, dc:40, básico, opções:efeito de área)). O sentinela não pode usar Vent novamente por 1d6."
         }
       },
       "spellcasting": {}
@@ -2275,7 +2275,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XaV9EbmhjP3b8nYt": {
           "name": "Respiração Gritante",
-          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 17d6 de dano sônico em um salvamento de tipo:cone de 15 metros (teste (vontade, dc:40, básico, opções:efeito de área)). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por [[/gmr 1d4 #Recarregar Sopro Gritante]]."
+          "description": "O dragão solta um som cacofônico feito de cada grito que o dragão extraiu de um inimigo aterrorizado, causando 17d6 de dano sônico em um salvamento de tipo:cone de 15 metros (teste (vontade, dc:40, básico, opções:efeito de área)). As criaturas que falharem no teste de Vontade devem passar a primeira ação do próximo turno sem fazer nada além de gritar. O dragão não pode usar Sopro Gritante novamente por 1d4."
         },
         "IgQebS6T9lTVTa9g": {
           "name": "Chamariz de língua",
@@ -2442,7 +2442,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "LtvcUFUOeqJ7S8zl": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "0qFN4QwW7PNkz1OJ": {
@@ -2543,7 +2543,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "1Skzxnout1K9TVNP": {
           "name": "Amarrado à Terra",
-          "description": "Uma rainha hespérida está intrinsecamente ligada a uma região isolada, geralmente uma ilha ou cadeia de ilhas, uma costa remota ou um vale isolado. Contanto que a rainha esteja saudável, o ambiente é excepcionalmente resiliente, permitindo que a rainha hespérida tente automaticamente neutralizar magias e rituais como Praga que prejudicariam o ambiente, com um modificador de neutralização [[/r 1d20+37 #Counteract]] e um Rank de neutralização de 10.\nEntretanto, quando a rainha hespérida se torna fisicamente ou psicologicamente insalubre, sua região protegida eventualmente se torna distorcida ou insalubre também. Nesse caso, restaurar a rainha hespérida cura rapidamente toda a região."
+          "description": "Uma rainha hespérida está intrinsecamente ligada a uma região isolada, geralmente uma ilha ou cadeia de ilhas, uma costa remota ou um vale isolado. Contanto que a rainha esteja saudável, o ambiente é excepcionalmente resiliente, permitindo que a rainha hespérida tente automaticamente neutralizar magias e rituais como Praga que prejudicariam o ambiente, com um modificador de neutralização 1d20+37 e um Rank de neutralização de 10.\nEntretanto, quando a rainha hespérida se torna fisicamente ou psicologicamente insalubre, sua região protegida eventualmente se torna distorcida ou insalubre também. Nesse caso, restaurar a rainha hespérida cura rapidamente toda a região."
         },
         "ajC29c9gmHsNUgs1": {
           "name": "A beleza da ninfa",
@@ -2787,7 +2787,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "NEGCX9pCG8gyZcjL": {
           "name": "Respiração da Pira",
-          "description": "O dragão cospe uma explosão de chamas que causa 18d6 de dano de fogo em um tipo de 18 metros:cone (teste (reflexo, dc:41, básico, opções:efeito de área) salvamento). Criaturas que falham criticamente em seu teste pegam fogo, sofrendo 2d6 de dano de fogo persistente. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por [[/gmr 1d4 #Recarrega Sopro da Pira]]."
+          "description": "O dragão cospe uma explosão de chamas que causa 18d6 de dano de fogo em um tipo de 18 metros:cone (teste (reflexo, dc:41, básico, opções:efeito de área) salvamento). Criaturas que falham criticamente em seu teste pegam fogo, sofrendo 2d6 de dano de fogo persistente. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por 1d4."
         },
         "jmrC9phVteComdYb": {
           "name": "Acenda as chamas",
@@ -2853,7 +2853,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SI4dLQQdhQ6nWs5J": {
           "name": "Cancelando Runa",
-          "description": "Gatilho O dragão é alvo de um magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais do magia. Eles tentam neutralizar o magia (neutralizar Rank 10, modificador de neutralização [[/r 1d20+33 #Counteract]]). Se tiver sucesso, o dragão não será afetado pelo magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente para [[/gmr 1d4 #Recharge Canceling Rune]]."
+          "description": "Gatilho O dragão é alvo de uma magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais da magia. Eles tentam neutralizar a magia (neutralizar Rank 10, modificador de neutralização 1d20+33). Se tiver sucesso, o dragão não será afetado pela magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente para 1d4."
         },
         "L8w8yFgsSTRZPPKw": {
           "name": "Runa Retributiva",
@@ -2869,7 +2869,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i7kuaOQCvKjQ623q": {
           "name": "Respiração Rúnica",
-          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 17d6 de dano não digitado em um salvamento de tipo:cone de 15 metros (verificação (reflexo, dc:41, básico, opções:efeito de área)). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por [[/gmr 1d4 #Recarregar Sopro Rúnico]]."
+          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 17d6 de dano não digitado em um salvamento de tipo:cone de 15 metros (verificação (reflexo, dc:41, básico, opções:efeito de área)). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por 1d4."
         },
         "aXvfwxeI9u0AxsD4": {
           "name": "Runas Mutáveis",
@@ -3040,7 +3040,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "SI4dLQQdhQ6nWs5J": {
           "name": "Cancelando Runa",
-          "description": "Gatilho O dragão é alvo de um magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais do magia. Eles tentam neutralizar o magia (neutralizar Rank 10, modificador de neutralização [[/r 1d20+33 #Counteract]]). Se tiver sucesso, o dragão não será afetado pelo magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente para [[/gmr 1d4 #Recharge Canceling Rune]]."
+          "description": "Gatilho O dragão é alvo de uma magia que requer um teste de resistência\nEfeito O dragão tenta desfazer as runas fundamentais da magia. Eles tentam neutralizar a magia (neutralizar Rank 10, modificador de neutralização 1d20+33). Se tiver sucesso, o dragão não será afetado pela magia; outros assuntos são afetados pela magia normalmente. O dragão não pode usar a Runa de Cancelamento novamente para 1d4."
         },
         "L8w8yFgsSTRZPPKw": {
           "name": "Runa Retributiva",
@@ -3064,7 +3064,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i7kuaOQCvKjQ623q": {
           "name": "Respiração Rúnica",
-          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 17d6 de dano não digitado em um salvamento de tipo:cone de 15 metros (verificação (reflexo, dc:41, básico, opções:efeito de área)). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por [[/gmr 1d4 #Recarregar Sopro Rúnico]]."
+          "description": "O dragão lança centenas de runas explosivas que detonam com o impacto, causando 17d6 de dano não digitado em um salvamento de tipo:cone de 15 metros (verificação (reflexo, dc:41, básico, opções:efeito de área)). O tipo de dano desta habilidade é determinado pela Shifting Rune. Criaturas que falham no salvamento também são afetadas pela runa detonante. O dragão não pode usar Sopro Rúnico novamente por 1d4."
         },
         "aXvfwxeI9u0AxsD4": {
           "name": "Runas Mutáveis",
@@ -3276,7 +3276,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "NEGCX9pCG8gyZcjL": {
           "name": "Respiração da Pira",
-          "description": "O dragão cospe uma explosão de chamas que causa 18d6 de dano de fogo em um tipo de 18 metros:cone (teste (reflexo, dc:41, básico, opções:efeito de área) salvamento). Criaturas que falham criticamente em seu teste pegam fogo, sofrendo 2d6 de dano de fogo persistente. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por [[/gmr 1d4 #Recarrega Sopro da Pira]]."
+          "description": "O dragão cospe uma explosão de chamas que causa 18d6 de dano de fogo em um tipo de 18 metros:cone (teste (reflexo, dc:41, básico, opções:efeito de área) salvamento). Criaturas que falham criticamente em seu teste pegam fogo, sofrendo 2d6 de dano de fogo persistente. A área então se enche de fumaça preta por 1 minuto. Isto tem efeitos de névoa, exceto que preenche a área do cone. O dragão não pode usar Sopro da Pira novamente por 1d4."
         },
         "jmrC9phVteComdYb": {
           "name": "Acenda as chamas",
@@ -3411,7 +3411,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "h8RD2dr2488hXgPv": {
           "name": "Sopro de Sabedoria",
-          "description": "O dragonal respira uma explosão de energia que causa 21d6 de dano espiritual às criaturas que ele escolher causar dano em um tipo de 18 metros: cone (teste (reflexo, dc:44, básico, opções:efeito de área) salvamento). Eles podem tornar esse efeito não letal para criaturas selecionadas na área ou optar por não causar dano a certas criaturas. Eles não podem usar Breath of Wisdom novamente por [[/gmr 1d4 #Recharge Breath of Wisdom]]."
+          "description": "O dragonal respira uma explosão de energia que causa 21d6 de dano espiritual às criaturas que ele escolher causar dano em um tipo de 18 metros: cone (teste (reflexo, dc:44, básico, opções:efeito de área) salvamento). Eles podem tornar esse efeito não letal para criaturas selecionadas na área ou optar por não causar dano a certas criaturas. Eles não podem usar Breath of Wisdom novamente por 1d4."
         },
         "ESaeFbsRtq9zNe1L": {
           "name": "Sabedoria do Dragão",
@@ -3535,7 +3535,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O3ebBljtcItTfmVr": {
           "name": "Respiração Condenadora",
-          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 16d8 de dano espiritual em um salvamento de tipo: linha de 36 metros (verificação (reflexo, dc: 42, básico, opções: efeito de área)). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:42, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Dooming Breath novamente por [[/gmr 1d4 #Recharge Dooming Breath]]."
+          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 16d8 de dano espiritual em um salvamento de tipo: linha de 36 metros (verificação (reflexo, dc: 42, básico, opções: efeito de área)). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:42, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Dooming Breath novamente por 1d4."
         },
         "OPtrKq8gnuusiAqH": {
           "name": "Frenesi Dracônico",
@@ -3631,7 +3631,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "pjKgG3BlSBcGOvHy": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "NLbEftfTzEEe0lJa": {
@@ -3814,7 +3814,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "BHNm9PtnZ9Hrj6fQ": {
           "name": "Mente Inquieta",
-          "description": "Qualquer criatura afetada por qualquer uma das magias ou habilidades mentais de um kimenhul fica Estupefata 3 enquanto durar esse efeito e por [[/gmr 1d4 #Duration Estupefata]] depois disso."
+          "description": "Qualquer criatura afetada por qualquer uma das magias ou habilidades mentais de um kimenhul fica Estupefata 3 enquanto durar esse efeito e por 1d4 depois disso."
         },
         "1D6LEQGzk95aGl48": {
           "name": "Agarrar Melhorado",
@@ -3925,7 +3925,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "y6bETzshaXTYx4Wq": {
           "name": "Ancinho de Concha",
-          "description": "O baomal nada ou caminha ao lado de uma criatura ou do casco de uma embarcação, causando dano com os fortes espinhos em seu casco. Cada criatura ou navio ao qual o baomal está adjacente em qualquer ponto durante seu movimento sofre (6d6+10)[cortar,(6d6+10)[perfurar]] (teste (reflexo, dc:42, básico) salvamento). Contra embarcações, Shell Rake ignora as primeiras 5 Durezas e cria uma explosão de lascas que causa (3d6+5)[untyped|options:area-damage] dano a todas as criaturas dentro de uma explosão de 3 metros da borda do deck (check (reflex, dc:42, basic, options:area-effect) save)."
+          "description": "O baomal nada ou caminha ao lado de uma criatura ou do casco de uma embarcação, causando dano com os fortes espinhos em seu casco. Cada criatura ou navio ao qual o baomal está adjacente em qualquer ponto durante seu movimento sofre (6d6+10)[cortar,(6d6+10)[perfurar]] (teste (reflexo, dc:42, básico) salvamento). Contra embarcações, Shell Rake ignora as primeiras 5 Durezas e cria uma explosão de lascas que causa (3d6+5)[untyped dano a todas as criaturas dentro de uma explosão de 3 metros da borda do deck (check (reflex, dc:42, basic, options:area-effect) save)."
         },
         "2MJUBT30Vn8bziTk": {
           "name": "Golpe de Duas Cabeças",
@@ -4008,7 +4008,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O3ebBljtcItTfmVr": {
           "name": "Respiração Condenadora",
-          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 16d8 de dano espiritual em um salvamento de tipo: linha de 36 metros (verificação (reflexo, dc: 42, básico, opções: efeito de área)). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:42, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Dooming Breath novamente por [[/gmr 1d4 #Recharge Dooming Breath]]."
+          "description": "A energia da Forja da Criação irrompe da boca do dragão, causando 16d8 de dano espiritual em um salvamento de tipo: linha de 36 metros (verificação (reflexo, dc: 42, básico, opções: efeito de área)). Criaturas mortas-vivas que falharem no salvamento também devem ter sucesso em um teste (vontade, dc:42, opções:efeito de área,infligir:condenado) no salvamento ou se tornarão Condenado 1. Se o alvo já estiver condenado, o valor de Condenado aumenta em 1 (até um máximo de Condenado 4). O dragão não pode usar Dooming Breath novamente por 1d4."
         },
         "DEBBR8MAQkVMQvCH": {
           "name": "Redirecionar Rio",
@@ -4320,7 +4320,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tvvsxwr3fxjxf5ho": {
           "name": "Farpa Quebrada",
-          "description": "Requisitos Uma criatura é agarrada ou contida nas mandíbulas do nasurgeth\nEfeito O nasurgeth quebra um dente do alvo, que sofre 3d10 de dano de sangramento persistente e não é mais agarrado ou contido. Se o alvo estiver adjacente a uma superfície, o dente também o fixa no lugar, tornando-o imobilizado ([[/act escape dc=45]])."
+          "description": "Requisitos Uma criatura é agarrada ou contida nas mandíbulas do nasurgeth\nEfeito O nasurgeth quebra um dente do alvo, que sofre 3d10 de dano de sangramento persistente e não é mais agarrado ou contido. Se o alvo estiver adjacente a uma superfície, o dente também o fixa no lugar, tornando-o imobilizado (Escapar CD 45)."
         },
         "7avv9wov0dsg3srf": {
           "name": "Vazio Voraz",
@@ -4415,7 +4415,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "54WOsqAo6qC3BpxR": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "ChRMEkPy5PRSWPqu": {
@@ -4424,11 +4424,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zcXmXYiey1ALgBc2": {
           "name": "Beijo dos palestrantes",
-          "description": "O izfiitar continuamente mexe com as inúmeras possibilidades em que pode mover ou manipular magia. O izfiitar é sempre Acelerado e pode usar a ação extra apenas para Step, Stride ou como parte de lançar um magia."
+          "description": "O izfiitar continuamente mexe com as inúmeras possibilidades em que pode mover ou manipular magia. O izfiitar é sempre Acelerado e pode usar a ação extra apenas para Step, Stride ou como parte de lançar uma magia."
         },
         "K1G5PkDyd9v0F4cW": {
           "name": "Revisão Presciente",
-          "description": "Gatilho O izfiitar falha em uma verificação\nEfeito O izfiitar rola novamente o teste de ativação e obtém o melhor resultado. Por [[/gmr 1d4 #rounds]], ele perde os efeitos do Beijo dos Oradores e não pode usar Remodelar Realidade."
+          "description": "Gatilho O izfiitar falha em uma verificação\nEfeito O izfiitar rola novamente o teste de ativação e obtém o melhor resultado. Por 1d4, ele perde os efeitos do Beijo dos Oradores e não pode usar Remodelar Realidade."
         },
         "zsVt4kFtUsLstrgv": {
           "name": "Anatomia Protéica 25",
@@ -4658,7 +4658,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ravener",
-      "description": "O corvo apresentado aqui já foi um antigo dragão de cinzas.\nEmbora sua expectativa de vida possa durar milênios, todos os dragões acabarão morrendo. Enquanto muitos fazem isso nas lâminas ou sob os magias dos matadores de dragões, alguns conseguem sobreviver aos seus inimigos e devem, com o tempo, enfrentar a verdade que aguarda todas as criaturas vivas no final de sua vida natural. Tal como acontece com muitas outras criaturas, alguns dragões respondem mal a esses lembretes iminentes de sua própria mortalidade, e os particularmente orgulhosos ou coléricos de sua espécie muitas vezes atacam com raiva quando confrontados por esta verdade sombria. Paz e aceitação são encontradas por alguns dragões, mas os mais teimosos de sua laia (e invariavelmente os mais perversos) podem buscar uma resposta diferente para o problema. Esses dragões procuram ritos sinistros que podem transformá-los em criaturas mortas-vivas conhecidas como raveners.\nA carne de um Ravener é arrancada como parte da transformação, deixando apenas ossos. O que eles perdem em carne, no entanto, o dragão ganha em poder destruidor de almas, pois sua energia espiritual forma uma barreira protetora ao redor de seu corpo, mantendo-o intacto e permitindo o voo com asas agora esqueléticas. Esta existência não é tão fácil de manter como outras formas de mortos-vivos, entretanto, e o ravener deve se alimentar regularmente de almas vivas para alimentar seu metabolismo profano. Sua fome é muito maior do que a de um dragão vivo, então os vorazes são forçados a se mudar regularmente, viajando para novos locais de caça cada vez que despojam suas presas atuais.",
+      "description": "O corvo apresentado aqui já foi um antigo dragão de cinzas.\nEmbora sua expectativa de vida possa durar milênios, todos os dragões acabarão morrendo. Enquanto muitos fazem isso nas lâminas ou sob as magias dos matadores de dragões, alguns conseguem sobreviver aos seus inimigos e devem, com o tempo, enfrentar a verdade que aguarda todas as criaturas vivas no final de sua vida natural. Tal como acontece com muitas outras criaturas, alguns dragões respondem mal a esses lembretes iminentes de sua própria mortalidade, e os particularmente orgulhosos ou coléricos de sua espécie muitas vezes atacam com raiva quando confrontados por esta verdade sombria. Paz e aceitação são encontradas por alguns dragões, mas os mais teimosos de sua laia (e invariavelmente os mais perversos) podem buscar uma resposta diferente para o problema. Esses dragões procuram ritos sinistros que podem transformá-los em criaturas mortas-vivas conhecidas como raveners.\nA carne de um Ravener é arrancada como parte da transformação, deixando apenas ossos. O que eles perdem em carne, no entanto, o dragão ganha em poder destruidor de almas, pois sua energia espiritual forma uma barreira protetora ao redor de seu corpo, mantendo-o intacto e permitindo o voo com asas agora esqueléticas. Esta existência não é tão fácil de manter como outras formas de mortos-vivos, entretanto, e o ravener deve se alimentar regularmente de almas vivas para alimentar seu metabolismo profano. Sua fome é muito maior do que a de um dragão vivo, então os vorazes são forçados a se mudar regularmente, viajando para novos locais de caça cada vez que despojam suas presas atuais.",
       "size": "Imenso",
       "senses": {
         "darkvision": "visão no escuro",
@@ -4727,7 +4727,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "gXGuh7J7RRLkbzSe": {
           "name": "Desincorporar",
-          "description": "Gatilho O ravener sofre dano excessivo em sua proteção de alma, mas ainda tem pelo menos 51 pontos de vida em sua proteção de alma\nEfeito O ravener se aprofunda profundamente em sua proteção de alma, desincorporando seu corpo em energia de alma para escapar. Eles sofrem 50 de dano não tipificado em sua proteção de alma e seu corpo físico desaparece, reaparecendo [[/gmr 1d4 #hours]] mais tarde em um local aleatório dentro de 1,6 km do local onde usaram Descorporar."
+          "description": "Gatilho O ravener sofre dano excessivo em sua proteção de alma, mas ainda tem pelo menos 51 pontos de vida em sua proteção de alma\nEfeito O ravener se aprofunda profundamente em sua proteção de alma, desincorporando seu corpo em energia de alma para escapar. Eles sofrem 50 de dano não tipificado em sua proteção de alma e seu corpo físico desaparece, reaparecendo 1d4 mais tarde em um local aleatório dentro de 1,6 km do local onde usaram Descorporar."
         },
         "a85DzEynRWXcWgON": {
           "name": "Ataque reativo (somente mandíbulas)",
@@ -4743,7 +4743,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "f3zHkq2zmnlBI36y": {
           "name": "Tudo vira chama",
-          "description": "O Ravener amaldiçoa uma criatura dentro de 60 pés (18 metros) para que sua magia seja substituída por chamas primordiais. A criatura deve tentar um teste de resistência (vontade, dc:42). Independentemente do resultado, o alvo fica temporariamente imune por 1 dia. Sucesso Crítico A criatura não é afetada.\nSucesso A criatura fica amaldiçoada por 1 rodada. Enquanto amaldiçoado, quaisquer magias que a criatura conjura ganham o traço de fogo e têm seu tipo de dano alterado para dano de fogo, independentemente do tipo de dano original ou tipos do magia. Além disso, quaisquer itens mágicos que o alvo amaldiçoado possua ou empunhe são afetados da mesma maneira, como alterar o dano de frio de uma runa de gelo para dano de fogo. A criatura amaldiçoada pode tentar suprimir temporariamente a maldição como uma ação, que possui a característica concentração. Se a criatura obtiver sucesso em um teste de resistência (vontade, dc:42), a maldição será suprimida até o final do turno dela.\nFalha Como sucesso, mas a duração da maldição é de 1 hora.\nFalha Crítica Como sucesso, mas a duração da maldição é de 1 dia e a CD para suprimir a maldição aumenta para CD 44."
+          "description": "O Ravener amaldiçoa uma criatura dentro de 60 pés (18 metros) para que sua magia seja substituída por chamas primordiais. A criatura deve tentar um teste de resistência (vontade, dc:42). Independentemente do resultado, o alvo fica temporariamente imune por 1 dia. Sucesso Crítico A criatura não é afetada.\nSucesso A criatura fica amaldiçoada por 1 rodada. Enquanto amaldiçoado, quaisquer magias que a criatura conjura ganham o traço de fogo e têm seu tipo de dano alterado para dano de fogo, independentemente do tipo de dano original ou tipos da magia. Além disso, quaisquer itens mágicos que o alvo amaldiçoado possua ou empunhe são afetados da mesma maneira, como alterar o dano de frio de uma runa de gelo para dano de fogo. A criatura amaldiçoada pode tentar suprimir temporariamente a maldição como uma ação, que possui a característica concentração. Se a criatura obtiver sucesso em um teste de resistência (vontade, dc:42), a maldição será suprimida até o final do turno dela.\nFalha Como sucesso, mas a duração da maldição é de 1 hora.\nFalha Crítica Como sucesso, mas a duração da maldição é de 1 dia e a CD para suprimir a maldição aumenta para CD 44."
         },
         "xxO9fB5wdVjIMq5m": {
           "name": "Consumir Alma",
@@ -4759,7 +4759,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XvT3rzgSxpBmdzd1": {
           "name": "Respiração Vazia",
-          "description": "O corvo exala uma explosão de chama necrótica que causa 20d6 de dano de fogo | opções: dano de área] de dano (teste (reflexo, dc: 44, básico, opções: efeito de área, inflige: drenado) salvamento). Uma criatura que falhar no teste também será Drenada 1 (ou Drenada 2 em caso de falha crítica). Se uma criatura for drenada pelo Void Breath do Ravener, a proteção de alma do Ravener ganha 5 HP. O corvo não pode usar Respiração do Vazio novamente por [[/gmr 1d4 #Recarregar Respiração do Vazio]]."
+          "description": "O corvo exala uma explosão de chama necrótica que causa 20d6 de dano de fogo | opções: dano de área] de dano (teste (reflexo, dc: 44, básico, opções: efeito de área, inflige: drenado) salvamento). Uma criatura que falhar no teste também será Drenada 1 (ou Drenada 2 em caso de falha crítica). Se uma criatura for drenada pelo Void Breath do Ravener, a proteção de alma do Ravener ganha 5 HP. O corvo não pode usar Respiração do Vazio novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -4812,7 +4812,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "H7zBL2zGojuMZHs8": {
-          "name": "+4 Status para todos os salvamentos vs.",
+          "name": "+4 de bônus de status em todos os testes de resistência contra efeitos mentais",
           "description": ""
         },
         "IuheuN8Mn3uMbRb7": {
@@ -5036,7 +5036,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "11CRC34uLvzuS1BU": {
           "name": "Harmônicos Alienígenas",
-          "description": "60 pés (18 metros).\nVolnagur emite constantemente uma cacofonia que abafa o som e o pensamento enquanto reforça a música de Volnagur. As criaturas que entram na aura devem tentar um teste (fortitude, dc:43, opções:efeito de área,infligir:ensurdecido) para salvar ou a canção de Volnagur se torna tudo o que podem ouvir enquanto permanecerem dentro da aura, tornando as criaturas ensurdecidas contra todas as fontes, exceto Volnagur.\nEm caso de falha crítica, o efeito é permanente e a cacofonia ressoa nos ouvidos do alvo, independentemente do alcance. A aura também tenta neutralizar qualquer efeito auditivo, qualquer efeito que forneça resistência ou imunidade a efeitos auditivos ou sonoros, ou qualquer efeito que crie silêncio (neutralizar Rank 10, neutralizar modificador [[/r 1d20+33 #Counteract]])."
+          "description": "60 pés (18 metros).\nVolnagur emite constantemente uma cacofonia que abafa o som e o pensamento enquanto reforça a música de Volnagur. As criaturas que entram na aura devem tentar um teste (fortitude, dc:43, opções:efeito de área,infligir:ensurdecido) para salvar ou a canção de Volnagur se torna tudo o que podem ouvir enquanto permanecerem dentro da aura, tornando as criaturas ensurdecidas contra todas as fontes, exceto Volnagur.\nEm caso de falha crítica, o efeito é permanente e a cacofonia ressoa nos ouvidos do alvo, independentemente do alcance. A aura também tenta neutralizar qualquer efeito auditivo, qualquer efeito que forneça resistência ou imunidade a efeitos auditivos ou sonoros, ou qualquer efeito que crie silêncio (neutralizar Rank 10, neutralizar modificador 1d20+33)."
         },
         "78iUNBR6nybyHlsn": {
           "name": "Presença assustadora",
@@ -5056,11 +5056,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0BNDWrvoySpF4N3s": {
           "name": "Fim da música",
-          "description": "Vibrações sutis associadas aos ataques de Volnagur confundem seus alvos e enchem suas mentes com o desejo de destruir. Uma criatura danificada por um dos Golpes de Volnagur deve tentar um teste de resistência (vontade, dc:45).\nSucesso Crítico O alvo não é afetado e fica temporariamente imune por 24 horas ou até receber dano de Grito do Fim.\nSucesso O alvo não é afetado.\nFalha O alvo fica Confuso por [[/gmr 1d4 #rounds]]. Ele nunca tenta atacar Volnagur ou outra criatura afetada pelo fim da canção.\nFalha Crítica Como falha, mas o alvo fica confuso por 1 hora. Embora confuso, seus golpes ressoam com a música de Volnagur, causando 1d6 de dano sônico adicional e forçando o alvo a salvar contra o final da canção."
+          "description": "Vibrações sutis associadas aos ataques de Volnagur confundem seus alvos e enchem suas mentes com o desejo de destruir. Uma criatura danificada por um dos Golpes de Volnagur deve tentar um teste de resistência (vontade, dc:45).\nSucesso Crítico O alvo não é afetado e fica temporariamente imune por 24 horas ou até receber dano de Grito do Fim.\nSucesso O alvo não é afetado.\nFalha O alvo fica Confuso por 1d4. Ele nunca tenta atacar Volnagur ou outra criatura afetada pelo fim da canção.\nFalha Crítica Como falha, mas o alvo fica confuso por 1 hora. Embora confuso, seus golpes ressoam com a música de Volnagur, causando 1d6 de dano sônico adicional e forçando o alvo a salvar contra o final da canção."
         },
         "9ngplMQctzFP1NHv": {
           "name": "Contemplar",
-          "description": "Volnagur faz um ataque de raio ocular contra todas as criaturas em um tipo de cone de 36 metros. Esses ataques contam para a penalidade de ataque múltiplo de Volnagur, mas a penalidade de ataque múltiplo não aumenta até que Volnagur faça todos os seus ataques. Ele não pode usar Gaze Upon novamente para [[/gmr 1d4 #Recharge Gaze Upon]], mas até o início do próximo turno de Volnagur, ele pode usar Intercepting Eyes como uma ação livre."
+          "description": "Volnagur faz um ataque de raio ocular contra todas as criaturas em um tipo de cone de 36 metros. Esses ataques contam para a penalidade de ataque múltiplo de Volnagur, mas a penalidade de ataque múltiplo não aumenta até que Volnagur faça todos os seus ataques. Ele não pode usar Gaze Upon novamente para 1d4, mas até o início do próximo turno de Volnagur, ele pode usar Intercepting Eyes como uma ação livre."
         },
         "OB3ZWGUreeenpfwH": {
           "name": "Grito do Fim",
@@ -5136,7 +5136,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uifzZ1VIYzUs1rIn": {
           "name": "Implacável",
-          "description": "O titã está em constante movimento como as ondas do oceano. Eles são permanentemente acelerados e a ação extra pode ser usada apenas para avançar, atacar ou sustentar um magia, ou como uma das ações necessárias para lançar dissipar magia."
+          "description": "O titã está em constante movimento como as ondas do oceano. Eles são permanentemente acelerados e a ação extra pode ser usada apenas para avançar, atacar ou sustentar uma magia, ou como uma das ações necessárias para lançar dissipar magia."
         },
         "kMk5ApEZUJgW23lq": {
           "name": "Repreensão turbulenta",
@@ -5261,7 +5261,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6KvIkhBbUU6e1rTa": {
           "name": "Enviar além",
-          "description": "Requisitos O titã tem uma criatura agarrada ou contida\nEfeito O titã empurra a criatura para um reino de pesadelo cheio de mãos e olhos sem luz. Isso tem os efeitos do Dilema (CD 48). O titã não pode usar Send Beyond para [[/gmr 1d4 #Recharge Send Beyond]]."
+          "description": "Requisitos O titã tem uma criatura agarrada ou contida\nEfeito O titã empurra a criatura para um reino de pesadelo cheio de mãos e olhos sem luz. Isso tem os efeitos do Dilema (CD 48). O titã não pode usar Send Beyond para 1d4."
         },
         "cICaV0tZHykBk7xk": {
           "name": "Vazio de forma",
@@ -5354,7 +5354,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "iFhR8LsLMNJ2v6O0": {
           "name": "Absorver Magia",
-          "description": "As vinhas do homem verde lixiviam a magia e a transformam em essência de vida para o homem verde. Em um ataque de videira bem-sucedido, o homem verde tenta neutralizar um magia ativo no alvo (normalmente um que irrita o homem verde, ou determinado aleatoriamente se ele não estiver ciente dos efeitos específicos), com um Rank de neutralização de 10 e um modificador de [[/r 1d20+38 #Contratar]].\nSe o efeito for neutralizado, o homem verde ganha [[/r 30 #Temporary Hit Points]] que duram 10 minutos."
+          "description": "As vinhas do homem verde lixiviam a magia e a transformam em essência de vida para o homem verde. Em um ataque de videira bem-sucedido, o homem verde tenta neutralizar uma magia ativo no alvo (normalmente um que irrita o homem verde, ou determinado aleatoriamente se ele não estiver ciente dos efeitos específicos), com um Rank de neutralização de 10 e um modificador de 1d20+38.\nSe o efeito for neutralizado, o homem verde ganha 30 que duram 10 minutos."
         },
         "bDZ6kq6HqfFLK2PU": {
           "name": "Incorporar",
@@ -5495,7 +5495,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VbINFr4N3zDmmk8h": {
           "name": "Ataques de âmbar",
-          "description": "Requisitos A ação anterior de Sorvuth-ka foi um ataque bem-sucedido contra o alvo\nEfeito Depois de acertar um Golpe, Sorvuth-ka comanda o sangue para continuar o ataque, escolhendo uma das três opções a seguir: Cristalizar, Injetar ou Respingar. Se o ataque anterior foi um acerto crítico, Amber Strikes é uma ação livre.\n• Cristalizar o sangue de Sorvuth-ka flui ao redor dos membros do alvo antes de endurecer. A criatura deve ser bem sucedida em um teste de resistência (reflexo, dc:48) ou ficará imobilizada e fora de guarda até escapar. Se a criatura estava voando, ela cai.\n• Injetar o sangue de Sorvuth-ka invade o alvo através de seus ferimentos. O alvo deve ter sucesso em um teste de resistência (fortitude, dc:48) ou ficará Enjoado 2 (Enjoado 3 em uma falha crítica). Enquanto o alvo estiver doente, o sangue de Sorvuth-ka tentará neutralizar qualquer efeito que possa restaurar Pontos de Vida ao alvo (neutralizar Rank 10, neutralizar modificador [[/r 1d20+38 #Counteract]]).\n• Splash O sangue de Sorvuth-ka espirra violentamente, ofuscando o alvo até o final do próximo turno e criando uma poça de sangue em um quadrado adjacente ao alvo."
+          "description": "Requisitos A ação anterior de Sorvuth-ka foi um ataque bem-sucedido contra o alvo\nEfeito Depois de acertar um Golpe, Sorvuth-ka comanda o sangue para continuar o ataque, escolhendo uma das três opções a seguir: Cristalizar, Injetar ou Respingar. Se o ataque anterior foi um acerto crítico, Amber Strikes é uma ação livre.\n• Cristalizar o sangue de Sorvuth-ka flui ao redor dos membros do alvo antes de endurecer. A criatura deve ser bem sucedida em um teste de resistência (reflexo, dc:48) ou ficará imobilizada e fora de guarda até escapar. Se a criatura estava voando, ela cai.\n• Injetar o sangue de Sorvuth-ka invade o alvo através de seus ferimentos. O alvo deve ter sucesso em um teste de resistência (fortitude, dc:48) ou ficará Enjoado 2 (Enjoado 3 em uma falha crítica). Enquanto o alvo estiver doente, o sangue de Sorvuth-ka tentará neutralizar qualquer efeito que possa restaurar Pontos de Vida ao alvo (neutralizar Rank 10, neutralizar modificador 1d20+38).\n• Splash O sangue de Sorvuth-ka espirra violentamente, ofuscando o alvo até o final do próximo turno e criando uma poça de sangue em um quadrado adjacente ao alvo."
         },
         "Mmdee5NRIxNVJtld": {
           "name": "Detonar Sangue",
@@ -5655,7 +5655,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "1M9OasbKWAPME9IC": {
           "name": "Invocar Monstro",
-          "description": "Gatilho Uma criatura entra na nuvem de sensores mágicos\nEfeito Esta armadilha invoca uma criatura específica de 1º nível, determinada quando a armadilha é criada. A criatura rola a iniciativa e permanece por [[/br 2d6 #rounds]], após o qual a magia termina e a criatura desaparece. A criatura também desaparece se alguém desabilitar a armadilha antes que a duração expire. A criatura invocada pode usar 3 ações em cada rodada e pode usar reações, diferentemente da maioria das criaturas invocadas."
+          "description": "Gatilho Uma criatura entra na nuvem de sensores mágicos\nEfeito Esta armadilha invoca uma criatura específica de 1º nível, determinada quando a armadilha é criada. A criatura rola a iniciativa e permanece por 2d6, após o qual a magia termina e a criatura desaparece. A criatura também desaparece se alguém desabilitar a armadilha antes que a duração expire. A criatura invocada pode usar 3 ações em cada rodada e pode usar reações, diferentemente da maioria das criaturas invocadas."
         }
       }
     }
@@ -5879,7 +5879,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "eauYGISAGprcOwH4": {
           "name": "Devorar",
-          "description": "O alvo fica preso pelas mandíbulas da flytrap, ganhando a condição Agarrado até [[/act escape dc=21]]. Além disso, ele é exposto à toxina titânica da armadilha da mosca, proveniente das centenas de minúsculos pelos que revestem o interior de suas folhas. Se o Golpe nas Mandíbulas da Flytrap for um sucesso crítico, o alvo sofre -2 de penalidade de circunstância em seus testes de resistência contra este veneno. No final de cada turno do alvo em que ele permanecer agarrado, o alvo sofre 3d6 de dano ácido."
+          "description": "O alvo fica preso pelas mandíbulas da flytrap, ganhando a condição Agarrado até Escapar CD 21. Além disso, ele é exposto à toxina titânica da armadilha da mosca, proveniente das centenas de minúsculos pelos que revestem o interior de suas folhas. Se o Golpe nas Mandíbulas da Flytrap for um sucesso crítico, o alvo sofre -2 de penalidade de circunstância em seus testes de resistência contra este veneno. No final de cada turno do alvo em que ele permanecer agarrado, o alvo sofre 3d6 de dano ácido."
         },
         "qBQpsAk64L9c0sJ2": {
           "name": "Toxina Flytrap Titânica",
@@ -5930,7 +5930,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "size": "Médio",
       "stealthDetails": "(treinado) ou teste (percepção, dc:26, características:ação:busca) (especialista) para observar o painel de controle",
       "disable": "verificar (roubo, dc:21, nome:Desabilitar Pilar, traços:ação:desabilitar-um-dispositivo) (treinado) duas vezes no pilar, ou verificar (roubo, dc:19, nome:Desabilitar Armadilha (Painel de Controle), traços:ação:desabilitar-um-dispositivo) (especialista) uma vez no painel de controle desativa toda a armadilha. Quebrar o painel de controle evita que alguém desative o purgador usando o painel de controle e evita que o purgador seja desativado automaticamente.",
-      "routine": "(3 ações) A ​​armadilha usa sua primeira ação para fazer um Golpe de lâmina giratória contra cada criatura adjacente, sua segunda ação para se mover em linha reta em uma direção aleatória (role [[/gmr 1d4 #Direção]] para determinar a direção), e sua terceira ação para fazer um Golpe de lâmina giratória contra cada criatura adjacente. Esta armadilha não sofre penalidade de ataque múltiplo.",
+      "routine": "(3 ações) A ​​armadilha usa sua primeira ação para fazer um Golpe de lâmina giratória contra cada criatura adjacente, sua segunda ação para se mover em linha reta em uma direção aleatória (role 1d4 para determinar a direção), e sua terceira ação para fazer um Golpe de lâmina giratória contra cada criatura adjacente. Esta armadilha não sofre penalidade de ataque múltiplo.",
       "reset": "A armadilha é desativada e reiniciada após 1 minuto.",
       "defenses": {
         "immunities": [
@@ -5974,7 +5974,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "uJpg7vUJ1qag7R3t": {
           "name": "Bola de fogo",
-          "description": "Gatilho Uma criatura viva entra na área do sensor\nEfeito A runa detona uma Bola de Fogo centrada no quadrado da criatura acionadora. Este é um magia de bola de fogo de 3º Rank que causa 6d6 de dano de fogo (teste de resistência (reflexo, dc:22, básico))."
+          "description": "Gatilho Uma criatura viva entra na área do sensor\nEfeito A runa detona uma Bola de Fogo centrada no quadrado da criatura acionadora. Este é uma magia de bola de fogo de 3º Rank que causa 6d6 de dano de fogo (teste de resistência (reflexo, dc:22, básico))."
         }
       }
     }
@@ -6056,7 +6056,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "size": "Médio",
       "stealthDetails": "(especialista) para detectar o sensor mágico; percebendo que a roda tem um DC de 0",
       "disable": "verifique (roubo, dc: 26, nome: Impedir que a roda gire, características: ação: desativar um dispositivo) (especialista) na roda para impedi-la de girar, verifique (roubo, dc: 22, nome: Apagar Runa, características: ação: desativar um dispositivo) (mestre) para apagar cada runa, ou Dissipar Magia (4º Rank; neutralizar CD 22) para neutralizar cada runa",
-      "routine": "(2 ações) Por sua iniciativa, a armadilha usa sua primeira ação para girar e então para. Role 1d6 para determinar qual segmento estará no topo quando a roda parar de girar. A roda usa sua segunda ação para replicar a magia listada para aquele segmento (3º Rank, CD 24, modificador de ataque de magia +14). O alvo desta magia está centrado ou inclui a criatura mais próxima na área. Isso aumenta o alcance do magia para 100 pés (30 metros), se necessário. Qualquer magia lançada por esta armadilha é misteriosa.\n1 dormir\n2 Paralisar\n3 Relâmpago (linha de 100 pés)\n4 Cegueira\n5Explosão Cáustica\n6 Enfraquecido",
+      "routine": "(2 ações) Por sua iniciativa, a armadilha usa sua primeira ação para girar e então para. Role 1d6 para determinar qual segmento estará no topo quando a roda parar de girar. A roda usa sua segunda ação para replicar a magia listada para aquele segmento (3º Rank, CD 24, modificador de ataque de magia +14). O alvo desta magia está centrado ou inclui a criatura mais próxima na área. Isso aumenta o alcance da magia para 100 pés (30 metros), se necessário. Qualquer magia lançada por esta armadilha é misteriosa.\n1 dormir\n2 Paralisar\n3 Relâmpago (linha de 100 pés)\n4 Cegueira\n5Explosão Cáustica\n6 Enfraquecido",
       "reset": "A armadilha é desativada e reiniciada se passar 1 minuto sem que nenhuma criatura se mova dentro do alcance de seu sensor.",
       "defenses": {
         "immunities": [

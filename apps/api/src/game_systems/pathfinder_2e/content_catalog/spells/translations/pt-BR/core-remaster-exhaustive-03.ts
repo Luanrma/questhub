@@ -31,7 +31,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "15 cones",
       "duration": "1 ou mais rodadas (veja abaixo)",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -43,7 +43,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Videira Emaranhada",
-      "description": "Uma videira aparece do nada, saltando de sua mão e atacando o alvo. Tente uma jogada de ataque mágico contra o alvo.\nEfeito do magia: Videira Emaranhada\nSucesso Crítico O alvo ganha a condição Imobilizado e sofre uma penalidade de circunstância de -3 metros em sua Velocidade por 1 rodada. Ele pode tentar escapar contra a CD do seu magia para remover a penalidade e a condição de imobilização.\nSucesso O alvo sofre uma penalidade de circunstância de –3 metros em sua Velocidade por 1 rodada. Ele pode tentar escapar contra a CD do seu magia para remover a penalidade.\nFalha O alvo não é afetado.\nAprimorada (2º) Os efeitos duram 2 rodadas.\nAprimorada (4º) Os efeitos duram 1 minuto.",
+      "description": "Uma videira aparece do nada, saltando de sua mão e atacando o alvo. Tente uma jogada de ataque mágico contra o alvo.\nEfeito da magia: Videira Emaranhada\nSucesso Crítico O alvo ganha a condição Imobilizado e sofre uma penalidade de circunstância de -3 metros em sua Velocidade por 1 rodada. Ele pode tentar escapar contra a CD do sua magia para remover a penalidade e a condição de imobilização.\nSucesso O alvo sofre uma penalidade de circunstância de –3 metros em sua Velocidade por 1 rodada. Ele pode tentar escapar contra a CD do sua magia para remover a penalidade.\nFalha O alvo não é afetado.\nAprimorada (2º) Os efeitos duram 2 rodadas.\nAprimorada (4º) Os efeitos duram 1 minuto.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
@@ -59,12 +59,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Charme",
-      "description": "Para o alvo, suas palavras são mel e seu rosto parece banhado por uma névoa sonhadora. Ele deve tentar um teste de Vontade, com +4 de bônus de circunstância se você ou seus aliados o ameaçaram recentemente ou usaram ações hostis contra ele.\nVocê pode descartar o magia. Se você usar ações hostis contra o alvo, a magia termina. Quando a magia termina, o alvo não necessariamente percebe que foi encantado, a menos que sua amizade com você ou as ações que você o convenceu a tomar entrem em conflito com suas expectativas, o que significa que você poderia potencialmente convencer o alvo a continuar sendo seu amigo por meios mundanos.\nSucesso Crítico O alvo não é afetado e sabe que você tentou encantá-lo.\nSucesso O alvo não é afetado, mas pensa que seu magia foi algo inofensivo em vez de encantamento, a menos que identifique o magia.\nFalha A atitude do alvo se torna Amigável com você. Se fosse Amigável, torna-se Útil. Não pode usar ações hostis contra você.\nFalha Crítica A atitude do alvo se torna Útil em relação a você e ele não pode usar ações hostis contra você.\nAprimorada (4º) A duração dura até a próxima vez que você fizer seus preparativos diários.\nAprimorada (8º) A duração dura até a próxima vez que você fizer seus preparativos diários e você pode ter como alvo até 10 criaturas.",
+      "description": "Para o alvo, suas palavras são mel e seu rosto parece banhado por uma névoa sonhadora. Ele deve tentar um teste de Vontade, com +4 de bônus de circunstância se você ou seus aliados o ameaçaram recentemente ou usaram ações hostis contra ele.\nVocê pode descartar a magia. Se você usar ações hostis contra o alvo, a magia termina. Quando a magia termina, o alvo não necessariamente percebe que foi encantado, a menos que sua amizade com você ou as ações que você o convenceu a tomar entrem em conflito com suas expectativas, o que significa que você poderia potencialmente convencer o alvo a continuar sendo seu amigo por meios mundanos.\nSucesso Crítico O alvo não é afetado e sabe que você tentou encantá-lo.\nSucesso O alvo não é afetado, mas pensa que sua magia foi algo inofensivo em vez de encantamento, a menos que identifique a magia.\nFalha A atitude do alvo se torna Amigável com você. Se fosse Amigável, torna-se Útil. Não pode usar ações hostis contra você.\nFalha Crítica A atitude do alvo se torna Útil em relação a você e ele não pode usar ações hostis contra você.\nAprimorada (4º) A duração dura até a próxima vez que você fizer seus preparativos diários.\nAprimorada (8º) A duração dura até a próxima vez que você fizer seus preparativos diários e você pode ter como alvo até 10 criaturas.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 hora",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (4º) A duração dura até a próxima vez que você fizer seus preparativos diários.\nAprimorada (8º) A duração dura até a próxima vez que você fizer seus preparativos diários e você pode ter como alvo até 10 criaturas."
     }
   },
@@ -76,12 +76,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Mensagem",
-      "description": "Você pronuncia as palavras silenciosamente, mas em vez de saírem da boca, elas são transferidas diretamente para os ouvidos do alvo. Enquanto outros não conseguem ouvir suas palavras melhor do que se você as pronunciasse normalmente, o alvo pode ouvir suas palavras como se estivesse ao seu lado. O alvo pode dar uma resposta breve como reação ou como uma ação livre no próximo turno, se desejar, mas ele deve ser capaz de ver você e estar dentro do alcance para fazê-lo. Se eles responderem, a resposta será entregue diretamente ao seu ouvido, assim como a mensagem original.\nAprimorada (3º) O alcance do magia aumenta para 500 pés (150 metros).",
+      "description": "Você pronuncia as palavras silenciosamente, mas em vez de saírem da boca, elas são transferidas diretamente para os ouvidos do alvo. Enquanto outros não conseguem ouvir suas palavras melhor do que se você as pronunciasse normalmente, o alvo pode ouvir suas palavras como se estivesse ao seu lado. O alvo pode dar uma resposta breve como reação ou como uma ação livre no próximo turno, se desejar, mas ele deve ser capaz de ver você e estar dentro do alcance para fazê-lo. Se eles responderem, a resposta será entregue diretamente ao seu ouvido, assim como a mensagem original.\nAprimorada (3º) O alcance da magia aumenta para 500 pés (150 metros).",
       "castingTime": "1 ação",
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
       "duration": "Veja abaixo",
-      "heightening": "Aprimorada (3º) O alcance do magia aumenta para 500 pés (150 metros)."
+      "heightening": "Aprimorada (3º) O alcance da magia aumenta para 500 pés (150 metros)."
     }
   },
   {
@@ -108,7 +108,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Luz",
-      "description": "Você cria um orbe de luz que emite luz brilhante em um raio de 6 metros (e luz fraca para o próximo 20 pés (6 metros)) na cor que você escolher. Se você criar a luz no mesmo espaço que uma criatura voluntária, você pode anexar a luz à criatura, fazendo com que ela flutue perto daquela criatura enquanto ela se move. Você pode sustentar o magia para mover a luz até 60 pés (18 metros); você pode anexá-lo ou desacoplá-lo de uma criatura como parte deste movimento.\nVocê pode descartar o magia. Se você lançar o magia enquanto já tiver quatro magias de luz ativos, você deverá escolher um dos magias existentes para encerrar.\nEfeito do magia: Luz\nAprimorada (4º) O orbe emite luz em um raio de 18 metros (e luz fraca para o próximo 60 pés (18 metros)).",
+      "description": "Você cria um orbe de luz que emite luz brilhante em um raio de 6 metros (e luz fraca para o próximo 20 pés (6 metros)) na cor que você escolher. Se você criar a luz no mesmo espaço que uma criatura voluntária, você pode anexar a luz à criatura, fazendo com que ela flutue perto daquela criatura enquanto ela se move. Você pode sustentar a magia para mover a luz até 60 pés (18 metros); você pode anexá-lo ou desacoplá-lo de uma criatura como parte deste movimento.\nVocê pode descartar a magia. Se você lançar a magia enquanto já tiver quatro magias de luz ativos, você deverá escolher um das magias existentes para encerrar.\nEfeito da magia: Luz\nAprimorada (4º) O orbe emite luz em um raio de 18 metros (e luz fraca para o próximo 60 pés (18 metros)).",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
@@ -124,12 +124,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ferir",
-      "description": "Você canaliza a energia do vazio para prejudicar os vivos ou curar os mortos-vivos. Se o alvo for uma criatura viva, você causa 1d8 de dano de vazio a ele e ele recebe um teste básico de Fortitude. Se o alvo for uma criatura morta-viva voluntária, você restaura aquela quantidade de Pontos de Vida. O número de ações que você gasta ao lançar este magia determina seus alvos, alcance, área e outros parâmetros.\n1 A magia tem um alcance de toque.\n2 (concentrado) O magia tem alcance de 30 pés (9 metros). Se você estiver curando uma criatura morta-viva, aumente os Pontos de Vida restaurados em 8.\n3 (concentrar) Você dispersa a energia do vazio em um @Template[emanation|distance:30]. Isto tem como alvo todas as criaturas vivas e mortas-vivas na área.\nAumentado (+1) A quantidade de cura ou dano aumenta em 1d8, e a cura extra para a versão de 2 ações aumenta em 8.",
+      "description": "Você canaliza a energia do vazio para prejudicar os vivos ou curar os mortos-vivos. Se o alvo for uma criatura viva, você causa 1d8 de dano de vazio a ele e ele recebe um teste básico de Fortitude. Se o alvo for uma criatura morta-viva voluntária, você restaura aquela quantidade de Pontos de Vida. O número de ações que você gasta ao lançar esta magia determina seus alvos, alcance, área e outros parâmetros.\n1 A magia tem um alcance de toque.\n2 (concentrado) A magia tem alcance de 30 pés (9 metros). Se você estiver curando uma criatura morta-viva, aumente os Pontos de Vida restaurados em 8.\n3 (concentrar) Você dispersa a energia do vazio em um @Template[emanation|distance:30]. Isto tem como alvo todas as criaturas vivas e mortas-vivas na área.\nAumentado (+1) A quantidade de cura ou dano aumenta em 1d8, e a cura extra para a versão de 2 ações aumenta em 8.",
       "castingTime": "1 a 3 ações",
       "range": "varia",
       "target": "1 criatura viva ou 1 criatura morta-viva voluntária",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aumentado (+1) A quantidade de cura ou dano aumenta em 1d8, e a cura extra para a versão de 2 ações aumenta em 8."
     }
   },
@@ -141,12 +141,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Graxa",
-      "description": "Você conjura graxa, escolhendo uma área ou alvo.\n• Área [4 quadrados contíguos de 5 pés] Todo o solo sólido na área é coberto com graxa. Cada criatura que estiver na superfície gordurosa deve ser bem sucedida em um teste de Reflexos ou em um teste de Acrobacia contra sua CD de magia ou cairá no chão. Criaturas usando uma ação para se mover para a superfície gordurosa durante a duração da magia devem tentar um salvamento de Reflexos ou um teste de Acrobacia para Equilibrar-se. Uma criatura que Anda ou Rasteja não precisa tentar um teste ou um teste de resistência.\n• Alvo [1 objeto de Volume 1 ou menos] Se você Conjurar o magia em um objeto abandonado, qualquer um que tentar pegar o objeto deve ter sucesso em um teste de Acrobacia ou salvamento de Reflexos contra sua CD de magia para fazê-lo. Se você mirar em um objeto assistido, a criatura que possui o objeto deve tentar um teste de Acrobacia ou um salvamento de Reflexos. Em caso de falha, o portador ou portador sofre –2 de penalidade de circunstância em todos os testes que envolvam o uso do objeto; em caso de falha crítica, o portador ou portador libera o item. O objeto cai em um quadrado adjacente à escolha do Mestre. Se você lançar este magia em um objeto desgastado, o usuário ganha +2 de bônus de circunstância em testes de Fortitude contra tentativas de agarrá-lo.",
+      "description": "Você conjura graxa, escolhendo uma área ou alvo.\n• Área [4 quadrados contíguos de 5 pés] Todo o solo sólido na área é coberto com graxa. Cada criatura que estiver na superfície gordurosa deve ser bem sucedida em um teste de Reflexos ou em um teste de Acrobacia contra sua CD de magia ou cairá no chão. Criaturas usando uma ação para se mover para a superfície gordurosa durante a duração da magia devem tentar um salvamento de Reflexos ou um teste de Acrobacia para Equilibrar-se. Uma criatura que Anda ou Rasteja não precisa tentar um teste ou um teste de resistência.\n• Alvo [1 objeto de Volume 1 ou menos] Se você Conjurar a magia em um objeto abandonado, qualquer um que tentar pegar o objeto deve ter sucesso em um teste de Acrobacia ou salvamento de Reflexos contra sua CD de magia para fazê-lo. Se você mirar em um objeto assistido, a criatura que possui o objeto deve tentar um teste de Acrobacia ou um salvamento de Reflexos. Em caso de falha, o portador ou portador sofre –2 de penalidade de circunstância em todos os testes que envolvam o uso do objeto; em caso de falha crítica, o portador ou portador libera o item. O objeto cai em um quadrado adjacente à escolha do Mestre. Se você lançar esta magia em um objeto desgastado, o usuário ganha +2 de bônus de circunstância em testes de Fortitude contra tentativas de agarrá-lo.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 objeto de Volume 1 ou menos",
       "duration": "1 minuto",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": ""
     }
   },
@@ -174,7 +174,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Transporte de formigas",
-      "description": "Você reforça o sistema músculo-esquelético do alvo para suportar mais peso. O alvo pode carregar 3 Bulk a mais do que o normal antes de ficar Sobrecarregado e até um máximo de 6 Bulk a mais.\nEfeito do magia: Transporte de Formigas",
+      "description": "Você reforça o sistema músculo-esquelético do alvo para suportar mais peso. O alvo pode carregar 3 Bulk a mais do que o normal antes de ficar Sobrecarregado e até um máximo de 6 Bulk a mais.\nEfeito da magia: Transporte de Formigas",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura",
@@ -206,7 +206,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Abençoar",
-      "description": "Bênçãos do além ajudam seus companheiros a se tornarem verdadeiros. Você e seus aliados ganham +1 de bônus de status nas jogadas de ataque enquanto estiverem dentro da emanação. Uma vez por rodada nos turnos subsequentes, você pode Sustentar o magia para aumentar o raio da emanação em 10 pés (3 metros).\nBless pode neutralizar Bane.\nEfeito do magia: Abençoar",
+      "description": "Bênçãos do além ajudam seus companheiros a se tornarem verdadeiros. Você e seus aliados ganham +1 de bônus de status nas jogadas de ataque enquanto estiverem dentro da emanação. Uma vez por rodada nos turnos subsequentes, você pode Sustentar a magia para aumentar o raio da emanação em 10 pés (3 metros).\nBless pode neutralizar Bane.\nEfeito da magia: Abençoar",
       "castingTime": "2 ações",
       "range": "",
       "target": "você e aliados na área",
@@ -229,7 +229,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "15 cones",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -241,7 +241,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Elo Espiritual",
-      "description": "Você forma um vínculo espiritual com outra criatura, absorvendo sua dor. Quando você lança este magia e no início de cada um de seus turnos, se o alvo estiver abaixo do máximo de Pontos de Vida, ele recupera 2 Pontos de Vida (ou a diferença entre seus Pontos de Vida atuais e máximos, se for menor). Você perde tantos Pontos de Vida quanto o alvo recuperou.\nEsta é uma transferência espiritual, portanto, nenhum efeito se aplica que possa aumentar os Pontos de Vida que o alvo recupera ou diminuir os Pontos de Vida que você perde. Esta transferência também ignora quaisquer Pontos de Vida temporários que você ou o alvo possuam. Como este efeito não envolve vitalidade ou energia do vazio, a ligação espiritual funciona mesmo se você ou o alvo forem mortos-vivos. Enquanto a duração persistir, você não ganha nenhum benefício de regeneração ou cura rápida. Você pode dispensar este magia e, se chegar a 0 pontos de vida, o vínculo espiritual termina automaticamente.\nAumentado (+1) O número de Pontos de Vida transferidos a cada vez aumenta em 2.",
+      "description": "Você forma um vínculo espiritual com outra criatura, absorvendo sua dor. Quando você lança esta magia e no início de cada um de seus turnos, se o alvo estiver abaixo do máximo de Pontos de Vida, ele recupera 2 Pontos de Vida (ou a diferença entre seus Pontos de Vida atuais e máximos, se for menor). Você perde tantos Pontos de Vida quanto o alvo recuperou.\nEsta é uma transferência espiritual, portanto, nenhum efeito se aplica que possa aumentar os Pontos de Vida que o alvo recupera ou diminuir os Pontos de Vida que você perde. Esta transferência também ignora quaisquer Pontos de Vida temporários que você ou o alvo possuam. Como este efeito não envolve vitalidade ou energia do vazio, a ligação espiritual funciona mesmo se você ou o alvo forem mortos-vivos. Enquanto a duração persistir, você não ganha nenhum benefício de regeneração ou cura rápida. Você pode dispensar esta magia e, se chegar a 0 pontos de vida, o vínculo espiritual termina automaticamente.\nAumentado (+1) O número de Pontos de Vida transferidos a cada vez aumenta em 2.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura voluntária",
@@ -257,12 +257,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ventriloquismo",
-      "description": "Sempre que você fala ou emite qualquer outro som vocalmente, você pode fazer com que sua vocalização pareça se originar de algum outro lugar dentro do 60 pés (18 metros) e pode alterar esse local aparente livremente enquanto vocaliza. Qualquer criatura que ouvir o som pode tentar descrer da sua ilusão.\nAprimorada (2º) A duração do magia aumenta para 1 hora, e você também pode alterar o tom, a qualidade e outros aspectos da sua voz. Antes que uma criatura possa tentar descrer de sua ilusão, ela deve tentar ativamente um teste de Percepção ou usar ações para interagir com o som.",
+      "description": "Sempre que você fala ou emite qualquer outro som vocalmente, você pode fazer com que sua vocalização pareça se originar de algum outro lugar dentro do 60 pés (18 metros) e pode alterar esse local aparente livremente enquanto vocaliza. Qualquer criatura que ouvir o som pode tentar descrer da sua ilusão.\nAprimorada (2º) A duração da magia aumenta para 1 hora, e você também pode alterar o tom, a qualidade e outros aspectos da sua voz. Antes que uma criatura possa tentar descrer de sua ilusão, ela deve tentar ativamente um teste de Percepção ou usar ações para interagir com o som.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "10 minutos",
-      "heightening": "Aprimorada (2º) A duração do magia aumenta para 1 hora, e você também pode alterar o tom, a qualidade e outros aspectos da sua voz. Antes que uma criatura possa tentar descrer de sua ilusão, ela deve tentar ativamente um teste de Percepção ou usar ações para interagir com o som."
+      "heightening": "Aprimorada (2º) A duração da magia aumenta para 1 hora, e você também pode alterar o tom, a qualidade e outros aspectos da sua voz. Antes que uma criatura possa tentar descrer de sua ilusão, ela deve tentar ativamente um teste de Percepção ou usar ações para interagir com o som."
     }
   },
   {
@@ -273,7 +273,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Invocar Instrumento",
-      "description": "Você materializa um Instrumento Musical (Portátil) ao seu alcance. O instrumento é típico do seu tipo, mas toca apenas para você. Ele desaparece quando o magia termina. Se você conjurar instrumento de invocação novamente, qualquer instrumento que você convocou anteriormente desaparecerá.\nAprimorada (5º) O instrumento é, em vez disso, um Instrumento Musical (portátil Virtuoso).",
+      "description": "Você materializa um Instrumento Musical (Portátil) ao seu alcance. O instrumento é típico do seu tipo, mas toca apenas para você. Ele desaparece quando a magia termina. Se você conjurar instrumento de invocação novamente, qualquer instrumento que você convocou anteriormente desaparecerá.\nAprimorada (5º) O instrumento é, em vez disso, um Instrumento Musical (portátil Virtuoso).",
       "castingTime": "3 ações",
       "range": "",
       "target": "",
@@ -289,12 +289,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Trovão",
-      "description": "Você invoca uma gavinha de relâmpago que estala com trovões, causando 1d12 de dano elétrico e 1d4 de dano sônico ao alvo com um teste básico de Reflexos. Um alvo vestindo uma armadura de metal ou feita de metal recebe um bônus de circunstância de –1 em seu teste de resistência e, se for danificado pelo magia, será Desajeitado 1 por 1 rodada.\nAumentado (+1) O dano aumenta em 1d12 elétrico e 1d4 sônico.",
+      "description": "Você invoca uma gavinha de relâmpago que estala com trovões, causando 1d12 de dano elétrico e 1d4 de dano sônico ao alvo com um teste básico de Reflexos. Um alvo vestindo uma armadura de metal ou feita de metal recebe um bônus de circunstância de –1 em seu teste de resistência e, se for danificado pela magia, será Desajeitado 1 por 1 rodada.\nAumentado (+1) O dano aumenta em 1d12 elétrico e 1d4 sônico.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado (+1) O dano aumenta em 1d12 elétrico e 1d4 sônico."
     }
   },
@@ -311,7 +311,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "tocar",
       "target": "1 criatura",
       "duration": "",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": ""
     }
   },
@@ -323,12 +323,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Trilhas desaparecendo",
-      "description": "Você obscurece os rastros que deixa para trás. A CD dos testes para Rastrear você ganha +4 de bônus de status ou é igual à CD do seu magia, o que resultar em uma CD maior.\nAprimorada (2º) A duração aumenta para 8 horas.\nAprimorada (4º) A duração aumenta para 8 horas. O magia tem alcance de 20 pés (6 metros) e tem como alvo até 10 criaturas.",
+      "description": "Você obscurece os rastros que deixa para trás. A CD dos testes para Rastrear você ganha +4 de bônus de status ou é igual à CD do sua magia, o que resultar em uma CD maior.\nAprimorada (2º) A duração aumenta para 8 horas.\nAprimorada (4º) A duração aumenta para 8 horas. A magia tem alcance de 20 pés (6 metros) e tem como alvo até 10 criaturas.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "1 hora",
-      "heightening": "Aprimorada (2º) A duração aumenta para 8 horas.\nAprimorada (4º) A duração aumenta para 8 horas. O magia tem alcance de 20 pés (6 metros) e tem como alvo até 10 criaturas."
+      "heightening": "Aprimorada (2º) A duração aumenta para 8 horas.\nAprimorada (4º) A duração aumenta para 8 horas. A magia tem alcance de 20 pés (6 metros) e tem como alvo até 10 criaturas."
     }
   },
   {
@@ -345,7 +345,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "10 explosão",
       "duration": "varia",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": ""
     }
   },
@@ -357,12 +357,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Quebrar",
-      "description": "Um ataque sônico de alta frequência estilhaça um objeto próximo. Você causa 2d10 de dano sônico ao objeto, ignorando a Dureza do objeto se for 4 ou inferior.\nAprimorada (+1) O dano aumenta em 1d10 e a Dureza que o magia ignora aumenta em 2.",
+      "description": "Um ataque sônico de alta frequência estilhaça um objeto próximo. Você causa 2d10 de dano sônico ao objeto, ignorando a Dureza do objeto se for 4 ou inferior.\nAprimorada (+1) O dano aumenta em 1d10 e a Dureza que a magia ignora aumenta em 2.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 objeto abandonado",
       "duration": "",
-      "heightening": "Aprimorada (+1) O dano aumenta em 1d10 e a Dureza que o magia ignora aumenta em 2."
+      "heightening": "Aprimorada (+1) O dano aumenta em 1d10 e a Dureza que a magia ignora aumenta em 2."
     }
   },
   {
@@ -373,12 +373,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Forma humanóide",
-      "description": "Você transforma sua aparência na de um humanóide Pequeno ou Médio, como um anão, elfo, goblin, halfling, humano ou orc. Você ganha a característica humanóide além de suas outras características enquanto estiver nesta forma, bem como qualquer característica relacionada à espécie da criatura (como goblin ou humano). Se essa transformação reduzir seu tamanho, ela reduzirá seu alcance de acordo (normalmente para 5 pés (1,5 metros)). Esta transformação não altera suas estatísticas de forma alguma e você não ganha nenhuma habilidade especial da forma humanóide que assume. Você ainda pode usar seu equipamento, que muda de tamanho (se necessário) para combinar com seu novo formato. Se os itens saírem de você, eles retornarão ao tamanho normal.\nA forma humanóide concede a você um bônus de status de +4 em testes de Enganação para passar como um membro genérico da ancestralidade escolhida, e você adiciona seu nível mesmo se não for treinado, mas não pode parecer uma pessoa específica. Se você quiser se passar por um indivíduo, você ainda precisará criar um disfarce, embora o Mestre não leve em consideração a diferença de ancestralidade ao determinar a CD do seu teste de Enganação. Você pode dispensar este magia.\nEfeito do magia: Forma Humanóide\nAguçado (3º) Você ganha visão no escuro ou visão na penumbra se a forma que você assume tiver essa habilidade.\nAprimorada (5º) Você pode assumir a aparência de um humanóide Grande. Se isso aumentar seu tamanho, você ganha os efeitos do magia ampliar.",
+      "description": "Você transforma sua aparência na de um humanóide Pequeno ou Médio, como um anão, elfo, goblin, halfling, humano ou orc. Você ganha a característica humanóide além de suas outras características enquanto estiver nesta forma, bem como qualquer característica relacionada à espécie da criatura (como goblin ou humano). Se essa transformação reduzir seu tamanho, ela reduzirá seu alcance de acordo (normalmente para 5 pés (1,5 metros)). Esta transformação não altera suas estatísticas de forma alguma e você não ganha nenhuma habilidade especial da forma humanóide que assume. Você ainda pode usar seu equipamento, que muda de tamanho (se necessário) para combinar com seu novo formato. Se os itens saírem de você, eles retornarão ao tamanho normal.\nA forma humanóide concede a você um bônus de status de +4 em testes de Enganação para passar como um membro genérico da ancestralidade escolhida, e você adiciona seu nível mesmo se não for treinado, mas não pode parecer uma pessoa específica. Se você quiser se passar por um indivíduo, você ainda precisará criar um disfarce, embora o Mestre não leve em consideração a diferença de ancestralidade ao determinar a CD do seu teste de Enganação. Você pode dispensar esta magia.\nEfeito da magia: Forma Humanóide\nAguçado (3º) Você ganha visão no escuro ou visão na penumbra se a forma que você assume tiver essa habilidade.\nAprimorada (5º) Você pode assumir a aparência de um humanóide Grande. Se isso aumentar seu tamanho, você ganha os efeitos da magia ampliar.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "10 minutos",
-      "heightening": "Aguçado (3º) Você ganha visão no escuro ou visão na penumbra se a forma que você assume tiver essa habilidade.\nAprimorada (5º) Você pode assumir a aparência de um humanóide Grande. Se isso aumentar seu tamanho, você ganha os efeitos do magia ampliar."
+      "heightening": "Aguçado (3º) Você ganha visão no escuro ou visão na penumbra se a forma que você assume tiver essa habilidade.\nAprimorada (5º) Você pode assumir a aparência de um humanóide Grande. Se isso aumentar seu tamanho, você ganha os efeitos da magia ampliar."
     }
   },
   {
@@ -389,13 +389,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Chama Flutuante",
-      "description": "Você cria um fogo que queima sem combustível e se move de acordo com seus comandos. A chama causa 3d6 de dano de fogo a cada criatura no quadrado em que aparece, com um teste básico de Reflexos. Ao sustentar este magia, você pode levitar a chama até 10 pés (3 metros). Em seguida, ele causa dano a cada criatura cujo espaço compartilhou em qualquer ponto durante seu voo. Isso usa o mesmo dano e salvamento, e você rola o dano uma vez cada vez que sustenta. Uma determinada criatura pode sofrer dano de chama flutuante apenas uma vez por rodada.\nAprimorada (+1) O dano aumenta em 1d6.",
+      "description": "Você cria um fogo que queima sem combustível e se move de acordo com seus comandos. A chama causa 3d6 de dano de fogo a cada criatura no quadrado em que aparece, com um teste básico de Reflexos. Ao sustentar esta magia, você pode levitar a chama até 10 pés (3 metros). Em seguida, ele causa dano a cada criatura cujo espaço compartilhou em qualquer ponto durante seu voo. Isso usa o mesmo dano e salvamento, e você rola o dano uma vez cada vez que sustenta. Uma determinada criatura pode sofrer dano de chama flutuante apenas uma vez por rodada.\nAprimorada (+1) O dano aumenta em 1d6.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "",
       "area": "5 quadrados",
       "duration": "1 minuto",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d6."
     }
   },
@@ -423,7 +423,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Augúrio",
-      "description": "Você ganha um vago vislumbre do futuro. Durante o lançamento deste magia, pergunte sobre os resultados de um determinado curso de ação. O magia pode prever resultados até 30 minutos no futuro e revelar o melhor palpite do Mestre entre os seguintes resultados: bom, ruim, misto (os resultados serão uma mistura de bom e ruim) e nada (não haverá resultados particularmente bons ou ruins).\nO Mestre faz um teste de segredo (flat, dc:6, showDC:all, traits:secret). Em caso de falha, o resultado é sempre “nada”. Isto torna impossível dizer se um resultado “nada” é preciso. Se alguém perguntar sobre o mesmo tópico da primeira conjuração de augúrio durante uma conjuração adicional, o Mestre usa o resultado do teste secreto da primeira conjuração. Porém, se as circunstâncias mudarem, é possível obter um resultado diferente.",
+      "description": "Você ganha um vago vislumbre do futuro. Durante o lançamento deste magia, pergunte sobre os resultados de um determinado curso de ação. A magia pode prever resultados até 30 minutos no futuro e revelar o melhor palpite do Mestre entre os seguintes resultados: bom, ruim, misto (os resultados serão uma mistura de bom e ruim) e nada (não haverá resultados particularmente bons ou ruins).\nO Mestre faz um teste de segredo (flat, dc:6, showDC:all, traits:secret). Em caso de falha, o resultado é sempre “nada”. Isto torna impossível dizer se um resultado “nada” é preciso. Se alguém perguntar sobre o mesmo tópico da primeira conjuração de augúrio durante uma conjuração adicional, o Mestre usa o resultado do teste secreto da primeira conjuração. Porém, se as circunstâncias mudarem, é possível obter um resultado diferente.",
       "castingTime": "10 minutos",
       "range": "",
       "target": "",
@@ -488,7 +488,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bater",
-      "description": "Você torna o alvo mais fácil de abrir. Bater concede um bônus de status de +4 a qualquer criatura que tente abrir a porta, fechadura ou contêiner alvo com um teste de Atletismo ou Ladroagem. Você pode tentar um teste de Ladrão para abrir o alvo como parte do golpe e adicionar seu nível mesmo se não estiver treinado.\nKnock neutraliza Lock.\nEfeito do magia: Bater",
+      "description": "Você torna o alvo mais fácil de abrir. Bater concede um bônus de status de +4 a qualquer criatura que tente abrir a porta, fechadura ou contêiner alvo com um teste de Atletismo ou Ladroagem. Você pode tentar um teste de Ladrão para abrir o alvo como parte do golpe e adicionar seu nível mesmo se não estiver treinado.\nKnock neutraliza Lock.\nEfeito da magia: Bater",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 porta, fechadura ou contêiner",
@@ -504,12 +504,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Falsa Vitalidade",
-      "description": "Você aumenta sua carne com as energias normalmente usadas para manipular os mortos-vivos. Você ganha 10 Pontos de Vida temporários.\nAumentado (+1) Os Pontos de Vida temporários aumentam em 3.\nEfeito do magia: Falsa Vitalidade",
+      "description": "Você aumenta sua carne com as energias normalmente usadas para manipular os mortos-vivos. Você ganha 10 Pontos de Vida temporários.\nAumentado (+1) Os Pontos de Vida temporários aumentam em 3.\nEfeito da magia: Falsa Vitalidade",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
       "duration": "8 horas",
-      "heightening": "Aumentado (+1) Os Pontos de Vida temporários aumentam em 3.\nEfeito do magia: Falsa Vitalidade"
+      "heightening": "Aumentado (+1) Os Pontos de Vida temporários aumentam em 3.\nEfeito da magia: Falsa Vitalidade"
     }
   },
   {
@@ -520,12 +520,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Aperto Ácido",
-      "description": "Uma mão efêmera com garras agarra o alvo, queimando-o com ácido mágico. O alvo sofre 2d8 de dano ácido mais dano ao chão(@item.level/2)d6[persistente,ácido] dependendo de seu salvamento de Reflexos. Uma criatura que sofra dano persistente deste magia sofre uma penalidade de status de –3 metros em suas Velocidades. Efeito do magia: Aperto Ácido\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano e nenhum dano persistente, e a garra a move até 5 pés (1,5 metros) na direção de sua escolha.\nFalha A criatura sofre dano total e dano persistente, e a garra a move até 10 pés (3 metros) na direção de sua escolha.\nFalha Crítica A criatura sofre dano duplo e dano persistente total, e a garra a move até 20 pés (6 metros) na direção de sua escolha.\nAumentado (+2) O dano inicial aumenta em 2d8, e o dano ácido persistente aumenta em 1d6.",
+      "description": "Uma mão efêmera com garras agarra o alvo, queimando-o com ácido mágico. O alvo sofre 2d8 de dano ácido mais dano ao chão(@item.level/2)d6[persistente,ácido] dependendo de seu salvamento de Reflexos. Uma criatura que sofra dano persistente deste magia sofre uma penalidade de status de –3 metros em suas Velocidades. Efeito da magia: Aperto Ácido\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano e nenhum dano persistente, e a garra a move até 5 pés (1,5 metros) na direção de sua escolha.\nFalha A criatura sofre dano total e dano persistente, e a garra a move até 10 pés (3 metros) na direção de sua escolha.\nFalha Crítica A criatura sofre dano duplo e dano persistente total, e a garra a move até 20 pés (6 metros) na direção de sua escolha.\nAumentado (+2) O dano inicial aumenta em 2d8, e o dano ácido persistente aumenta em 1d6.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado (+2) O dano inicial aumenta em 2d8, e o dano ácido persistente aumenta em 1d6."
     }
   },
@@ -554,13 +554,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Calma",
-      "description": "Você acalma à força as criaturas na área, acalmando-as até um estado não violento; cada criatura deve tentar um salvamento de Vontade.\nSucesso Crítico A criatura não é afetada.\nSucesso Os impulsos calmantes impõem uma penalidade de status de -1 nas jogadas de ataque da criatura.\nFalha Quaisquer efeitos emocionais que afetariam a criatura são suprimidos e a criatura não pode usar ações hostis. Se o alvo estiver sujeito à hostilidade de qualquer outra criatura, ele deixa de ser afetado pela calma.\nFalha Crítica Como falha, mas a hostilidade não encerra o efeito.\nEfeito do magia: Calma",
+      "description": "Você acalma à força as criaturas na área, acalmando-as até um estado não violento; cada criatura deve tentar um salvamento de Vontade.\nSucesso Crítico A criatura não é afetada.\nSucesso Os impulsos calmantes impõem uma penalidade de status de -1 nas jogadas de ataque da criatura.\nFalha Quaisquer efeitos emocionais que afetariam a criatura são suprimidos e a criatura não pode usar ações hostis. Se o alvo estiver sujeito à hostilidade de qualquer outra criatura, ele deixa de ser afetado pela calma.\nFalha Crítica Como falha, mas a hostilidade não encerra o efeito.\nEfeito da magia: Calma",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
       "area": "10 explosão",
       "duration": "1 minuto",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -572,7 +572,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Fale com animais",
-      "description": "Você pode fazer perguntas, receber respostas e usar a habilidade Diplomacia com animais. O magia não os torna mais amigáveis ​​do que o normal. Animais astutos tendem a ser concisos e evasivos, enquanto os menos inteligentes costumam fazer comentários fúteis.",
+      "description": "Você pode fazer perguntas, receber respostas e usar a habilidade Diplomacia com animais. A magia não os torna mais amigáveis ​​do que o normal. Animais astutos tendem a ser concisos e evasivos, enquanto os menos inteligentes costumam fazer comentários fúteis.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -588,7 +588,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Base segura",
-      "description": "Você liberta os membros do alvo de doenças que impedem a mobilidade. Tente neutralizar um efeito de sua escolha impondo uma destas condições ao alvo: Desajeitado, Agarrado ou Paralisado. Se você não neutralizou o efeito, mas o faria se sua graduação de neutralização fosse 2 vezes menor, em vez disso, suprima o efeito até o início do seu próximo turno. A duração do efeito não termina enquanto ele estiver suprimido.\nEste magia não pode neutralizar ou suprimir maldições, doenças ou condições que façam parte do estado normal do alvo.\nAprimorada (4º) Adicione Imobilizado, Lento e Restringido à lista de condições.\nAprimorada (6º) Como 4º posto, mais adicionar Petrificado\nAprimorada (8º) Como 4º posto, além de adicionar petrificado e Atordoado.",
+      "description": "Você liberta os membros do alvo de doenças que impedem a mobilidade. Tente neutralizar um efeito de sua escolha impondo uma destas condições ao alvo: Desajeitado, Agarrado ou Paralisado. Se você não neutralizou o efeito, mas o faria se sua graduação de neutralização fosse 2 vezes menor, em vez disso, suprima o efeito até o início do seu próximo turno. A duração do efeito não termina enquanto ele estiver suprimido.\nEsta magia não pode neutralizar ou suprimir maldições, doenças ou condições que façam parte do estado normal do alvo.\nAprimorada (4º) Adicione Imobilizado, Lento e Restringido à lista de condições.\nAprimorada (6º) Como 4º posto, mais adicionar Petrificado\nAprimorada (8º) Como 4º posto, além de adicionar petrificado e Atordoado.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura voluntária",
@@ -609,7 +609,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -621,7 +621,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Forma Madeira",
-      "description": "Você molda a madeira em um formato áspero de sua escolha. O poder de modelagem é muito bruto para ser produzido com peças complexas, detalhes finos, peças móveis ou similares. Você não pode usar este magia para aumentar o valor do objeto de madeira que está moldando.",
+      "description": "Você molda a madeira em um formato áspero de sua escolha. O poder de modelagem é muito bruto para ser produzido com peças complexas, detalhes finos, peças móveis ou similares. Você não pode usar esta magia para aumentar o valor do objeto de madeira que está moldando.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "um pedaço de madeira não trabalhado de até 20 pés cúbicos de volume",
@@ -637,7 +637,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Compartilhe a vida",
-      "description": "Você cria um vínculo temporário entre a essência vital do alvo e a sua. O alvo sofre metade do dano de todos os efeitos que causam dano de Pontos de Vida e você sofre o restante do dano. Quando você sofre dano por meio deste link, você não aplica nenhuma resistência, fraqueza ou outras habilidades a esse dano; você simplesmente sofre essa quantidade de dano. A magia termina se o alvo estiver a mais de 30 pés (9 metros) de você. Se você ou o alvo forem reduzidos a 0 Pontos de Vida, qualquer dano deste magia será resolvido e então o magia termina.",
+      "description": "Você cria um vínculo temporário entre a essência vital do alvo e a sua. O alvo sofre metade do dano de todos os efeitos que causam dano de Pontos de Vida e você sofre o restante do dano. Quando você sofre dano por meio deste link, você não aplica nenhuma resistência, fraqueza ou outras habilidades a esse dano; você simplesmente sofre essa quantidade de dano. A magia termina se o alvo estiver a mais de 30 pés (9 metros) de você. Se você ou o alvo forem reduzidos a 0 Pontos de Vida, qualquer dano deste magia será resolvido e então a magia termina.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
@@ -653,7 +653,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Um com plantas",
-      "description": "Você pode se transformar em uma planta ou se fundir com a matéria vegetal. Enquanto transformado, você não pode mover ou afetar nada fora da planta, mas pode lançar magias desde que não exijam uma linha de efeito além da planta. Você pode dispensar este magia.\n• Fundir com Plantas A duração do magia é de 10 minutos. Ao lançar o magia, você deve tocar uma planta com volume suficiente para caber você e seus pertences ou o magia será interrompido. Durante a fusão, você pode ouvir, mas não ver, o que está acontecendo fora da planta. Se a planta sofrer dano enquanto você estiver dentro dela, você será expulso da planta e sofrerá 10d6 de dano. A passagem mágica expulsa você sem causar dano. O magia termina se você estiver fora da planta.\n• Transformar-se em Planta A duração do magia é de 8 horas. Você se torna uma planta grande – normalmente uma árvore. Testes de Percepção não revelam sua verdadeira natureza, mas um teste bem-sucedido de Natureza ou Sobrevivência contra sua CD de magia revela que você parece ser uma planta estranhamente nova na área. Enquanto estiver nesta forma, você pode observar tudo ao seu redor, usando seus sentidos normais. Como planta, sua CA é 20, e apenas bônus de status, penalidades de status, bônus de circunstância e penalidades de circunstância afetam você. Quaisquer sucessos e sucessos críticos que você obtiver nos testes de Reflexos são falhas",
+      "description": "Você pode se transformar em uma planta ou se fundir com a matéria vegetal. Enquanto transformado, você não pode mover ou afetar nada fora da planta, mas pode lançar magias desde que não exijam uma linha de efeito além da planta. Você pode dispensar esta magia.\n• Fundir com Plantas A duração da magia é de 10 minutos. Ao lançar a magia, você deve tocar uma planta com volume suficiente para caber você e seus pertences ou a magia será interrompido. Durante a fusão, você pode ouvir, mas não ver, o que está acontecendo fora da planta. Se a planta sofrer dano enquanto você estiver dentro dela, você será expulso da planta e sofrerá 10d6 de dano. A passagem mágica expulsa você sem causar dano. A magia termina se você estiver fora da planta.\n• Transformar-se em Planta A duração da magia é de 8 horas. Você se torna uma planta grande – normalmente uma árvore. Testes de Percepção não revelam sua verdadeira natureza, mas um teste bem-sucedido de Natureza ou Sobrevivência contra sua CD de magia revela que você parece ser uma planta estranhamente nova na área. Enquanto estiver nesta forma, você pode observar tudo ao seu redor, usando seus sentidos normais. Como planta, sua CA é 20, e apenas bônus de status, penalidades de status, bônus de circunstância e penalidades de circunstância afetam você. Quaisquer sucessos e sucessos críticos que você obtiver nos testes de Reflexos são falhas",
       "castingTime": "2 ações",
       "range": "",
       "target": "",

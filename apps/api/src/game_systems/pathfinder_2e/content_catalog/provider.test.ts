@@ -12,7 +12,7 @@ test('provider exposes pilots and exhaustive bestiary deliveries in pt-BR', asyn
     limit: 100,
   })
 
-  assert.equal(result.pagination.total, 1_322)
+  assert.equal(result.pagination.total, 7_517)
   assert.equal(result.entries.length, 100)
   assert.equal(result.entries.every((entry) => entry.stats?.length), true)
 })
@@ -89,10 +89,10 @@ test('provider preserves en-US and supports localized search', async () => {
     locale: 'en-US',
     search: 'Heal',
     page: 1,
-    limit: 24,
+    limit: 100,
   })
 
-  assert.equal(english.pagination.total, 453)
+  assert.equal(english.pagination.total, 1_802)
   assert.equal(englishHeal.entries.some((entry) => entry.name === 'Heal'), true)
   assert.equal(portugueseSearch.pagination.total >= 1, true)
   assert.equal(portugueseSearch.entries.some((entry) => entry.name === 'Guarda Esqueleto'), true)
@@ -108,8 +108,8 @@ test('provider paginates items independently from delivery naming', async () => 
   })
 
   assert.equal(result.entries.length, 2)
-  assert.equal(result.pagination.total, 1_272)
-  assert.equal(result.pagination.totalPages, 636)
+  assert.equal(result.pagination.total, 5_698)
+  assert.equal(result.pagination.totalPages, 2_849)
 })
 
 test('twelfth delivery exposes translated NPC Core and final Player Core 2 spell content', async () => {

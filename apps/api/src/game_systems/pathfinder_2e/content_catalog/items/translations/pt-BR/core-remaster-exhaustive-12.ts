@@ -9,7 +9,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Alargamento (magia 4º Rank)",
-      "description": "A ponta desta varinha é bifurcada com uma configuração de peridoto.\nAtive Lançar um magia; A ativação leva 2 se o magia normalmente leva 1 para ser lançado, ou 3 se o magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia e aumenta sua área. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros); adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor; ou adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. O magia deve ter um tempo de lançamento de 1 ou 2, não pode ter duração e deve ter uma área de explosão (10 pés (3 metros) ou mais), cone ou linha.",
+      "description": "A ponta desta varinha é bifurcada com uma configuração de peridoto.\nAtive Lançar uma magia; A ativação leva 2 se a magia normalmente leva 1 para ser lançado, ou 3 se a magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia e aumenta sua área. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros); adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor; ou adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. A magia deve ter um tempo de lançamento de 1 ou 2, não pode ter duração e deve ter uma área de explosão (10 pés (3 metros) ou mais), cone ou linha.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -69,8 +69,8 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "version": 1,
     "status": "MACHINE_DRAFT",
     "fields": {
-      "name": "Pergaminho do magia 6º-Rank",
-      "description": "Lançar um magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar um magia usando o número normal de ações para aquele magia.\nO magia deve aparecer na sua lista de magias. Como é você quem está lançando o magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar o magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "name": "Pergaminho da magia 6º-Rank",
+      "description": "Lançar uma magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar uma magia usando o número normal de ações para aquela magia.\nA magia deve aparecer na sua lista de magias. Como é você quem está lançando a magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar a magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "rolar",
@@ -85,7 +85,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha Mágica (magia 5º Rank)",
-      "description": "Este bastão tem cerca de trinta centímetros de comprimento e contém um único magia. A aparência normalmente está relacionada ao magia interno.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia no Rank indicado.\nRequisitos de Criação Forneça um lançamento do magia no Rank listado.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "description": "Este bastão tem cerca de trinta centímetros de comprimento e contém um único magia. A aparência normalmente está relacionada à magia interno.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia no Rank indicado.\nRequisitos de Criação Forneça um lançamento da magia no Rank listado.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -100,7 +100,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bomba de cola (maior)",
-      "description": "Ative 1 Golpe\nUma bomba de cola é um mecanismo explosivo inofensivo repleto de substâncias pegajosas. Quando você atinge uma criatura com uma bomba de cola, aquela criatura sofre uma penalidade de status de –15 pés em sua Velocidade por 1 minuto. Você ganha um bônus de item de +2 nas jogadas de ataque, e a CD de Fuga é [[/act escape dc=28]].\nEm um acerto crítico, uma criatura em contato com uma superfície sólida fica presa à superfície e imobilizada por 1 rodada, e uma criatura voando através das asas tem suas asas emaranhadas, fazendo com que ela caia com segurança no chão e se torne incapaz de voar novamente por 1 rodada. Bombas de cola não são eficazes quando usadas em criaturas que estão na água.\nO alvo pode encerrar qualquer efeito escapando ou gastando um total de 3 ações de interação para remover cuidadosamente as substâncias pegajosas. Essas ações de Interação não precisam ser consecutivas e outras criaturas também podem realizar as ações.\nEfeito: Bomba de Cola",
+      "description": "Ative 1 Golpe\nUma bomba de cola é um mecanismo explosivo inofensivo repleto de substâncias pegajosas. Quando você atinge uma criatura com uma bomba de cola, aquela criatura sofre uma penalidade de status de –15 pés em sua Velocidade por 1 minuto. Você ganha um bônus de item de +2 nas jogadas de ataque, e a CD de Fuga é Escapar CD 28.\nEm um acerto crítico, uma criatura em contato com uma superfície sólida fica presa à superfície e imobilizada por 1 rodada, e uma criatura voando através das asas tem suas asas emaranhadas, fazendo com que ela caia com segurança no chão e se torne incapaz de voar novamente por 1 rodada. Bombas de cola não são eficazes quando usadas em criaturas que estão na água.\nO alvo pode encerrar qualquer efeito escapando ou gastando um total de 3 ações de interação para remover cuidadosamente as substâncias pegajosas. Essas ações de Interação não precisam ser consecutivas e outras criaturas também podem realizar as ações.\nEfeito: Bomba de Cola",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "marcial",
@@ -146,7 +146,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Continuação (magia 4º Rank)",
-      "description": "Esta varinha aumenta a duração de um magia. Brasas amarelas espiralam sobre sua superfície até o fim do magia.\nAtive Lançar um magia; A ativação leva 2 se o magia normalmente leva 1 para ser lançado, ou 3 se o magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia e sua duração é aumentada pela metade.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. O magia deve ter um tempo de lançamento de 1 ou 2 e uma duração não inferior a 10 minutos e não superior a 1 hora.",
+      "description": "Esta varinha aumenta a duração de uma magia. Brasas amarelas espiralam sobre sua superfície até o fim da magia.\nAtive Lançar uma magia; A ativação leva 2 se a magia normalmente leva 1 para ser lançado, ou 3 se a magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia e sua duração é aumentada pela metade.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. A magia deve ter um tempo de lançamento de 1 ou 2 e uma duração não inferior a 10 minutos e não superior a 1 hora.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -176,7 +176,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "magia de Combate",
-      "description": "Este pingente brilhante é feito de uma pedra preciosa com defeitos e uma inclusão de chumbo. Os conjuradores podem lançar magias em magias de contra-ataque que eles investiram ou que foram investidos por uma criatura voluntária. O efeito do magia não ocorre; o poder do magia é armazenado dentro do magia, substituindo qualquer magia anteriormente existente. O encanto pode conter apenas magias lançadas em espaços de magia, não truques ou magias de foco. Enquanto o encanto é investido, a criatura que o investiu sabe qual magia está armazenada nele e identifica automaticamente aquela magia quando ela é conjurada.\nAtivar—Contador R (manipular)\nGatilho Você é alvo ou está dentro da área do magia armazenado no magia\nRequisitos Você tem mão livre\nEfeito Você apresenta o magia e tenta neutralizar o magia desencadeador, usando o Rank do magia armazenado no magia e um modificador de contra-ataque de [[/r 1d20+20 #Counteract]]. Isso gasta o magia contido no magia.",
+      "description": "Este pingente brilhante é feito de uma pedra preciosa com defeitos e uma inclusão de chumbo. Os conjuradores podem lançar magias em magias de contra-ataque que eles investiram ou que foram investidos por uma criatura voluntária. O efeito da magia não ocorre; o poder da magia é armazenado dentro da magia, substituindo qualquer magia anteriormente existente. O encanto pode conter apenas magias lançadas em espaços de magia, não truques ou magias de foco. Enquanto o encanto é investido, a criatura que o investiu sabe qual magia está armazenada nele e identifica automaticamente aquela magia quando ela é conjurada.\nAtivar—Contador R (manipular)\nGatilho Você é alvo ou está dentro da área da magia armazenado na magia\nRequisitos Você tem mão livre\nEfeito Você apresenta a magia e tenta neutralizar a magia desencadeador, usando o Rank da magia armazenado na magia e um modificador de contra-ataque de 1d20+20. Isso gasta a magia contido na magia.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -282,7 +282,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Ocular do Crafter (Maior)",
-      "description": "Esta ocular de metal resistente gravada com padrões quadrados foi projetada para ser usada sobre um único olho. Torcer a lente revela um leve contorno tridimensional de um item que você planeja construir ou reparar, com etiquetas úteis nas peças componentes.\nVocê ganha +2 de bônus de item em testes de Fabricação. Ao reparar um item, aumente os Pontos de Vida restaurados para 10 + 10 por proficiência Rank em caso de sucesso ou 15 + 15 por proficiência Rank em caso de sucesso crítico.\nAtivar – Protótipo 1 minuto (manipular)\nFrequência uma vez por dia\nEfeito Você calibra a ocular para que ela lance um magia de Criação do 5º Rank ao longo de 1 minuto para construir um item temporário.",
+      "description": "Esta ocular de metal resistente gravada com padrões quadrados foi projetada para ser usada sobre um único olho. Torcer a lente revela um leve contorno tridimensional de um item que você planeja construir ou reparar, com etiquetas úteis nas peças componentes.\nVocê ganha +2 de bônus de item em testes de Fabricação. Ao reparar um item, aumente os Pontos de Vida restaurados para 10 + 10 por proficiência Rank em caso de sucesso ou 15 + 15 por proficiência Rank em caso de sucesso crítico.\nAtivar – Protótipo 1 minuto (manipular)\nFrequência uma vez por dia\nEfeito Você calibra a ocular para que ela lance uma magia de Criação do 5º Rank ao longo de 1 minuto para construir um item temporário.",
       "itemType": "equipamento",
       "usage": "ocular desgastada",
       "category": "equipamento",
@@ -434,7 +434,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Munição Spellstrike (Tipo V)",
-      "description": "Munição qualquer\nAtivar 2 Lançar um magia\nPadrões místicos criam um reservatório mágico dentro desta munição. Você ativa a munição de ataque mágico lançando um magia na munição. A magia deve ser uma magia Rank que a munição possa conter, e a magia deve ser capaz de atingir uma criatura que não seja o lançador. Uma criatura atingida por munição de ataque mágico ativada é alvo do magia. Se a criatura não for um alvo válido para a magia, a magia será perdida.\nA munição afeta apenas o alvo atingido, mesmo que a magia normalmente afete mais de um alvo. Se a magia exigir uma jogada de ataque mágico, use o resultado de sua jogada de ataque à distância com a munição para determinar o grau de sucesso da magia. Se o magia exigir um teste de resistência, o alvo tenta o teste de resistência contra a CD do seu magia. Combine o ataque e o dano do magia para fins de resistências e fraquezas.\nO Rank máximo do magia que a munição pode conter determina seu nível de item e preço.\nmagia Máximo Rank 5º",
+      "description": "Munição qualquer\nAtivar 2 Lançar uma magia\nPadrões místicos criam um reservatório mágico dentro desta munição. Você ativa a munição de ataque mágico lançando uma magia na munição. A magia deve ser uma magia Rank que a munição possa conter, e a magia deve ser capaz de atingir uma criatura que não seja o lançador. Uma criatura atingida por munição de ataque mágico ativada é alvo da magia. Se a criatura não for um alvo válido para a magia, a magia será perdida.\nA munição afeta apenas o alvo atingido, mesmo que a magia normalmente afete mais de um alvo. Se a magia exigir uma jogada de ataque mágico, use o resultado de sua jogada de ataque à distância com a munição para determinar o grau de sucesso da magia. Se a magia exigir um teste de resistência, o alvo tenta o teste de resistência contra a CD do sua magia. Combine o ataque e o dano da magia para fins de resistências e fraquezas.\nO Rank máximo da magia que a munição pode conter determina seu nível de item e preço.\nmagia Máximo Rank 5º",
       "itemType": "munição",
       "usage": "",
       "category": "munição",
@@ -464,7 +464,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Erupção Eterna do Maciço Mhar",
-      "description": "Assemelhando-se à lava congelada, uma erupção eterna é feita com o mesmo tipo de magia do tempo, mas é construída para percorrer o tempo, reformando-se após ser usada. Determinar a diferença entre os dois requer um exame minucioso para ver um padrão fraco e repetitivo de runas vermelhas.\nAtivar—Lava Bomb 2 (concentrar, manipular)\nEfeito Você lança a erupção eterna, com o efeito de Lava Congelada do Maciço Mhar. Após [[/br 2d4 #horas]], a erupção eterna se reforma em um recipiente que você possui, normalmente aquele em que você a armazenou recentemente.\nErupção Eterna do Maciço Mhar causa 11d6 de dano de fogo em um teste (reflexo, dc:30, básico, opções:efeito de área).",
+      "description": "Assemelhando-se à lava congelada, uma erupção eterna é feita com o mesmo tipo de magia do tempo, mas é construída para percorrer o tempo, reformando-se após ser usada. Determinar a diferença entre os dois requer um exame minucioso para ver um padrão fraco e repetitivo de runas vermelhas.\nAtivar—Lava Bomb 2 (concentrar, manipular)\nEfeito Você lança a erupção eterna, com o efeito de Lava Congelada do Maciço Mhar. Após 2d4, a erupção eterna se reforma em um recipiente que você possui, normalmente aquele em que você a armazenou recentemente.\nErupção Eterna do Maciço Mhar causa 11d6 de dano de fogo em um teste (reflexo, dc:30, básico, opções:efeito de área).",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -479,7 +479,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado do Poder Arcano",
-      "description": "Este bastão de madeira magicamente endurecida é encimado por uma escultura de prata representando símbolos rúnicos mágicos. Um cajado de poder arcano é um cajado de ataque +1.\nAtivar—Sunder 2 (morte, forçar, manipular)\nEfeito Você destrói o cajado, liberando uma rajada de poder arcano em um cone de 9 metros, causando 2d6 de dano de força por carga restante no cajado com um teste de resistência (reflexo, cd:30, características: morte, força, básico).\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Truque Detectar Magia\n• 1º Lacaio Fantasma\n• 2º Everlight\n• Barragem da 3ª Força, Paralisar\n• 4º Globo Dissipador, Armadura Mística, Translocar\n• 5ª Bola de Fogo, Barragem de Força, Relâmpago\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de madeira magicamente endurecida é encimado por uma escultura de prata representando símbolos rúnicos mágicos. Um cajado de poder arcano é um cajado de ataque +1.\nAtivar—Sunder 2 (morte, forçar, manipular)\nEfeito Você destrói o cajado, liberando uma rajada de poder arcano em um cone de 9 metros, causando 2d6 de dano de força por carga restante no cajado com um teste de resistência (reflexo, cd:30, características: morte, força, básico).\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Truque Detectar Magia\n• 1º Lacaio Fantasma\n• 2º Everlight\n• Barragem da 3ª Força, Paralisar\n• 4º Globo Dissipador, Armadura Mística, Translocar\n• 5ª Bola de Fogo, Barragem de Força, Relâmpago\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -525,7 +525,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção de Respiração Energética (Ácida, Moderada)",
-      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria uma linha de ácido de 9 metros que causa 6d6 de dano de ácido. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por [[/gmr 1d4 #Recarregar Respiração Energética]].",
+      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria uma linha de ácido de 9 metros que causa 6d6 de dano de ácido. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por 1d4.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -570,7 +570,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Medicamentos Maravilhosos",
-      "description": "O kit de ferramentas deste curandeiro contém um suprimento aparentemente infinito de bandagens, ervas e itens de cura de qualidade impecável, garantindo a você um bônus de +2 em testes de Medicina.\nSe você usar os medicamentos maravilhosos ao Tratar Veneno ou Tratar Doença, antes de fazer seu teste, os medicamentos tentam neutralizar o veneno ou doença que você está tratando, com um Rank de neutralização de 5 e um modificador de neutralização de [[/r 1d20+21 #Contratar]]. Este é um efeito curativo.\nOs medicamentos não podem ser usados ​​para tratar a mesma doença daquele paciente novamente",
+      "description": "O kit de ferramentas deste curandeiro contém um suprimento aparentemente infinito de bandagens, ervas e itens de cura de qualidade impecável, garantindo a você um bônus de +2 em testes de Medicina.\nSe você usar os medicamentos maravilhosos ao Tratar Veneno ou Tratar Doença, antes de fazer seu teste, os medicamentos tentam neutralizar o veneno ou doença que você está tratando, com um Rank de neutralização de 5 e um modificador de neutralização de 1d20+21. Este é um efeito curativo.\nOs medicamentos não podem ser usados ​​para tratar a mesma doença daquele paciente novamente",
       "itemType": "equipamento",
       "usage": "segurado com as duas mãos",
       "category": "equipamento",
@@ -615,7 +615,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado do Mentalista (Major)",
-      "description": "Este bastão de madeira polida apresenta um motivo giratório que lembra as dobras de um cérebro. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes para identificar magia mental.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1ª Dor Fantasma Mindlink\n• 2ª Paranóia\n• 3ª Dor Fantasma de Hipercognição\n• 4ª Telepatia de Memória Reescrita\n• Pulso Sináptico de Dor Fantasma da 5ª Alucinação\nRequisitos de Criação Forneça uma conjuração de todos os níveis listados de todas as magias listadas.",
+      "description": "Este bastão de madeira polida apresenta um motivo giratório que lembra as dobras de um cérebro. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes para identificar magia mental.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Daze\n• 1ª Dor Fantasma Mindlink\n• 2ª Paranóia\n• 3ª Dor Fantasma de Hipercognição\n• 4ª Telepatia de Memória Reescrita\n• Pulso Sináptico de Dor Fantasma da 5ª Alucinação\nRequisitos de Criação Forneça uma conjuração de todos os níveis listados de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -661,7 +661,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Banda desbotada",
-      "description": "Ative R (concentrado)\nGatilho Um ataque sente sua falta\nRequisitos Você é treinado em Stealth\nEste fio fino e prateado envolve sua armadura. Quando você ativa a banda, ela lança um magia de Invisibilidade de 2º Rank em você.",
+      "description": "Ative R (concentrado)\nGatilho Um ataque sente sua falta\nRequisitos Você é treinado em Stealth\nEste fio fino e prateado envolve sua armadura. Quando você ativa a banda, ela lança uma magia de Invisibilidade de 2º Rank em você.",
       "itemType": "consumível",
       "usage": "afixado na armadura",
       "category": "talismã",
@@ -676,7 +676,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Cura (Maior)",
-      "description": "Este bastão de madeira branca é encimado em cada extremidade por uma cruz dourada adornada com cabochões de rubi. Um cajado de cura concede +3 de bônus de item aos Pontos de Vida que você restaura sempre que você lança o magia de cura usando seus próprios espaços de magia ou cargas do cajado.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Estabilização de Truque\n• 1ª cura\n• 2º Limpar Mente, Curar Corpo Som\n• 3ª Limpeza, Cura da Aflição\n• 4ª Limpeza de Aflições Mente Limpa Corpo São\n• Cura do 5º Sopro de Vida\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de madeira branca é encimado em cada extremidade por uma cruz dourada adornada com cabochões de rubi. Um cajado de cura concede +3 de bônus de item aos Pontos de Vida que você restaura sempre que você lança a magia de cura usando seus próprios espaços de magia ou cargas do cajado.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Estabilização de Truque\n• 1ª cura\n• 2º Limpar Mente, Curar Corpo Som\n• 3ª Limpeza, Cura da Aflição\n• 4ª Limpeza de Aflições Mente Limpa Corpo São\n• Cura do 5º Sopro de Vida\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -722,7 +722,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção de Respiração Energética (Sônica, Moderada)",
-      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria um cone sonoro de 4,5 metros que causa 6d6 de dano sônico. Todas as criaturas na área devem tentar um teste de resistência (fortitude, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por [[/gmr 1d4 #Recarregar Respiração Energética]].",
+      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria um cone sonoro de 4,5 metros que causa 6d6 de dano sônico. Todas as criaturas na área devem tentar um teste de resistência (fortitude, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por 1d4.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -767,7 +767,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Brilhante",
-      "description": "Esta runa faz com que uma arma se transforme em energia pura e brilhante. A arma causa 1d4 de dano de fogo adicional em um ataque bem-sucedido, bem como 1d4 de dano espiritual a demônios e 1d4 de dano de vitalidade a mortos-vivos.\nEm um acerto crítico, o alvo deve ter sucesso em um teste (Fortitude, DC:29) ou ficará Cego por 1 rodada.\nAtive – Brilhe! 1 (concentrado, leve)\nEfeito Você mergulha sua arma na escuridão para devolver a luz. Tente um teste de contra-ataque com um Rank de contra-ataque de 5 e um modificador de contra-ataque [[/r 1d20+19 #Counteract]] para encerrar um efeito mágico de escuridão cuja área esteja ao alcance da arma.",
+      "description": "Esta runa faz com que uma arma se transforme em energia pura e brilhante. A arma causa 1d4 de dano de fogo adicional em um ataque bem-sucedido, bem como 1d4 de dano espiritual a demônios e 1d4 de dano de vitalidade a mortos-vivos.\nEm um acerto crítico, o alvo deve ter sucesso em um teste (Fortitude, DC:29) ou ficará Cego por 1 rodada.\nAtive – Brilhe! 1 (concentrado, leve)\nEfeito Você mergulha sua arma na escuridão para devolver a luz. Tente um teste de contra-ataque com um Rank de contra-ataque de 5 e um modificador de contra-ataque 1d20+19 para encerrar um efeito mágico de escuridão cuja área esteja ao alcance da arma.",
       "itemType": "equipamento",
       "usage": "gravado em uma arma",
       "category": "equipamento",
@@ -782,7 +782,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção de Respiração Energética (Fogo, Moderado)",
-      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria um cone de fogo de 4,5 metros que causa 6d6 de dano de fogo. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por [[/gmr 1d4 #Recarregar Respiração Energética]].",
+      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria um cone de fogo de 4,5 metros que causa 6d6 de dano de fogo. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por 1d4.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -797,7 +797,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado Animal (Maior)",
-      "description": "Este cajado é coberto com cabeças esculpidas de animais e monstros. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes de Natureza para identificar animais.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Conheça o Caminho\n• 1º Animal de Invocação de Corpo Rúnico\n• 2º Mensageiro Animal Fala com Animais Convoca Animal\n• 3º Animal Invocado em Forma Animal\n• 4º Animal Invocado\n• 5º Animal Invocado pelo Frenesi Lunar em Forma Animal\nRequisitos de Criação Forneça uma conjuração de todos os níveis listados de todas as magias listadas.",
+      "description": "Este cajado é coberto com cabeças esculpidas de animais e monstros. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes de Natureza para identificar animais.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Conheça o Caminho\n• 1º Animal de Invocação de Corpo Rúnico\n• 2º Mensageiro Animal Fala com Animais Convoca Animal\n• 3º Animal Invocado em Forma Animal\n• 4º Animal Invocado\n• 5º Animal Invocado pelo Frenesi Lunar em Forma Animal\nRequisitos de Criação Forneça uma conjuração de todos os níveis listados de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -828,7 +828,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Fogo (Major)",
-      "description": "Este cajado se assemelha a um pedaço de madeira cinzenta enegrecida e queimada. Você pode interagir para tocar a ponta deste cajado em uma tocha, isca ou substância inflamável para acender uma chama.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Ignição Cantrip\n• 1ª Respiração de Fogo\n• 2º Sopro de Fogo, Chama Flutuante\n• 3ª Chama Flutuante, Bola de Fogo\n• 4º Escudo de Fogo, Parede de Fogo Bola de Fogo\n• 5ª Muralha de Fogo da Bola de Fogo\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado se assemelha a um pedaço de madeira cinzenta enegrecida e queimada. Você pode interagir para tocar a ponta deste cajado em uma tocha, isca ou substância inflamável para acender uma chama.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Ignição Cantrip\n• 1ª Respiração de Fogo\n• 2º Sopro de Fogo, Chama Flutuante\n• 3ª Chama Flutuante, Bola de Fogo\n• 4º Escudo de Fogo, Parede de Fogo Bola de Fogo\n• 5ª Muralha de Fogo da Bola de Fogo\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -859,7 +859,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha de Alargamento (magia de 5º Rank)",
-      "description": "A ponta desta varinha é bifurcada com uma configuração de peridoto.\nAtive Lançar um magia; A ativação leva 2 se o magia normalmente leva 1 para ser lançado, ou 3 se o magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia e aumenta sua área. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros); adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor; ou adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. O magia deve ter um tempo de lançamento de 1 ou 2, não pode ter duração e deve ter uma área de explosão (10 pés (3 metros) ou mais), cone ou linha.",
+      "description": "A ponta desta varinha é bifurcada com uma configuração de peridoto.\nAtive Lançar uma magia; A ativação leva 2 se a magia normalmente leva 1 para ser lançado, ou 3 se a magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia e aumenta sua área. Adicione 5 pés (1,5 metros) ao raio de uma explosão que normalmente tem um raio de pelo menos 10 pés (3 metros); adicione 5 pés (1,5 metros) ao comprimento de um cone ou linha que normalmente é 15 pés (4,5 metros) longo ou menor; ou adicione 10 pés (3 metros) ao comprimento de um cone ou linha maior.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. A magia deve ter um tempo de lançamento de 1 ou 2, não pode ter duração e deve ter uma área de explosão (10 pés (3 metros) ou mais), cone ou linha.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -934,7 +934,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bulbo Espiritual (Maior)",
-      "description": "Ativar 2 (concentrar, manipular)\nEste bulbo mágico é colhido em um antigo bosque rico em magia de plantas primitivas. Quando você ativa o bulbo, você o come para que ele lance um magia Forma de Planta de 6º Rank afetando você, ou o planta no chão próximo a você para que ele lance um magia de Invocação de Planta ou Fungo de 6º Rank. Se você escolher a opção de invocação, a planta ou fungo aparecerá onde você plantou o bulbo, e você poderá sustentar a ativação para manter o controle da criatura.",
+      "description": "Ativar 2 (concentrar, manipular)\nEste bulbo mágico é colhido em um antigo bosque rico em magia de plantas primitivas. Quando você ativa o bulbo, você o come para que ele lance uma magia Forma de Planta de 6º Rank afetando você, ou o planta no chão próximo a você para que ele lance uma magia de Invocação de Planta ou Fungo de 6º Rank. Se você escolher a opção de invocação, a planta ou fungo aparecerá onde você plantou o bulbo, e você poderá sustentar a ativação para manter o controle da criatura.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "outro",
@@ -949,7 +949,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção de Respiração Energética (Frio, Moderado)",
-      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria um cone de frio de 4,5 metros que causa 6d6 de dano de frio. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por [[/gmr 1d4 #Recarregar Respiração Energética]].",
+      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria um cone de frio de 4,5 metros que causa 6d6 de dano de frio. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por 1d4.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -964,7 +964,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pomada Antiparalisia (Maior)",
-      "description": "Ativar 1 (manipular)\nAplicar esta pomada transparente em uma criatura ajuda-a a superar a paralisia mágica. Se a criatura estiver petrificada, ela retorna ao normal e, para remover a paralisia, o modificador de contra-ataque da pomada é [[/r 1d20+31 #Counteract]] e seu Rank de contra-ataque é 6º.",
+      "description": "Ativar 1 (manipular)\nAplicar esta pomada transparente em uma criatura ajuda-a a superar a paralisia mágica. Se a criatura estiver petrificada, ela retorna ao normal e, para remover a paralisia, o modificador de contra-ataque da pomada é 1d20+31 e seu Rank de contra-ataque é 6º.",
       "itemType": "consumível",
       "usage": "segurado com as duas mãos",
       "category": "óleo",
@@ -979,7 +979,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado Verdejante (Maior)",
-      "description": "Este ramo de carvalho produz folhas na primavera que mudam de cor no outono e caem no inverno. Enquanto empunha-lo, você ganha +2 de bônus de circunstância em testes para identificar plantas e fungos.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrips Vinha Emaranhada\n• 1º Corpo Rúnico, Arma Rúnica\n• 2ª Flora Enredada, Resiliência de Carvalho, Una com Plantas, Madeira Moldada\n• 3ª Muralha de Espinhos, Fale com as Plantas\n• 4ª Resiliência Oaken, Fale com as Plantas\n• 5ª Forma de Planta, Parede de Espinhos\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este ramo de carvalho produz folhas na primavera que mudam de cor no outono e caem no inverno. Enquanto empunha-lo, você ganha +2 de bônus de circunstância em testes para identificar plantas e fungos.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrips Vinha Emaranhada\n• 1º Corpo Rúnico, Arma Rúnica\n• 2ª Flora Enredada, Resiliência de Carvalho, Una com Plantas, Madeira Moldada\n• 3ª Muralha de Espinhos, Fale com as Plantas\n• 4ª Resiliência Oaken, Fale com as Plantas\n• 5ª Forma de Planta, Parede de Espinhos\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -995,7 +995,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção de Respiração Energética (Eletricidade, Moderada)",
-      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria uma linha de eletricidade de 9 metros que causa 6d6 de dano elétrico. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por [[/gmr 1d4 #Recarregar Respiração Energética]].",
+      "description": "Ativar 1 (manipular)\nDestilada da energia de magias perigosos, uma poção de sopro energético concede a ação Respiração Energética por 1 hora após você beber a mistura.\nSopro de Energia 1 Você cria uma linha de eletricidade de 9 metros que causa 6d6 de dano elétrico. Todas as criaturas na área devem tentar um teste de resistência (reflexo, dc:29, básico, opções:efeito de área).\nDepois de usar a Respiração Energética, você não poderá fazê-lo novamente por 1d4.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -1025,7 +1025,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Poção Escudo do Tempo",
-      "description": "Ativar A (manipular)\nEsta poção roxa tem um sabor amargo e parece se confundir com o movimento. Quando você bebe uma poção de escudo temporal, você fica congelado no tempo por [[/br 2d4 #rounds]]. Você não pode agir ou ser alvo, você se torna imune a todos os efeitos e desaparece do seu espaço; no que diz respeito ao universo, você simplesmente não existe enquanto a poção durar. A duração de quaisquer efeitos direcionados a você quando você bebe a poção é suspensa até que o efeito passe.\nAssim que a duração da poção expirar, você retornará ao fluxo normal do tempo e ao seu antigo espaço; se esse espaço estiver ocupado, você será desviado para o espaço desocupado mais próximo. Os efeitos com duração voltam a afetar você imediatamente, transcorrendo como se o tempo não tivesse passado. Se você estiver dentro da área de um efeito criado enquanto estava fora do tempo, você recebe esses efeitos imediatamente ao retornar. O Mestre pode determinar que outras mudanças que ocorreram enquanto você estava fora do tempo (como o desmoronamento do chão abaixo de você) também afetarão você após seu retorno.",
+      "description": "Ativar A (manipular)\nEsta poção roxa tem um sabor amargo e parece se confundir com o movimento. Quando você bebe uma poção de escudo temporal, você fica congelado no tempo por 2d4. Você não pode agir ou ser alvo, você se torna imune a todos os efeitos e desaparece do seu espaço; no que diz respeito ao universo, você simplesmente não existe enquanto a poção durar. A duração de quaisquer efeitos direcionados a você quando você bebe a poção é suspensa até que o efeito passe.\nAssim que a duração da poção expirar, você retornará ao fluxo normal do tempo e ao seu antigo espaço; se esse espaço estiver ocupado, você será desviado para o espaço desocupado mais próximo. Os efeitos com duração voltam a afetar você imediatamente, transcorrendo como se o tempo não tivesse passado. Se você estiver dentro da área de um efeito criado enquanto estava fora do tempo, você recebe esses efeitos imediatamente ao retornar. O Mestre pode determinar que outras mudanças que ocorreram enquanto você estava fora do tempo (como o desmoronamento do chão abaixo de você) também afetarão você após seu retorno.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -1070,7 +1070,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Animado",
-      "description": "Uma arma animada voa de forma autônoma e atinge seus inimigos.\nAtivar—Set Free 2 (concentrar, manipular)\nEfeito Você libera a arma e ela flutua no ar, lutando sozinha contra o último inimigo que você atacou, ou o inimigo mais próximo dele se seu alvo tiver sido derrotado. No final do seu turno de cada rodada, a arma pode voar até sua velocidade de voo 40 pés (12 metros) e então pode voar novamente ou atingir uma criatura ao seu alcance.\nA arma tem um espaço de 5 pés (1,5 metros), mas não bloqueia ou impede os inimigos que tentam se mover através desse espaço, nem se beneficia ou fornece flanqueamento. A arma não pode se mover pelo espaço do inimigo. A arma não pode usar reações e suas ações de voar não desencadeiam reações.\nEnquanto estiver ativada, uma arma animada realiza Golpes com um modificador de ataque de [[/r 1d20+24]] mais seu bônus de item nas jogadas de ataque. Ele usa o dano normal da arma, mas tem um modificador de Força +0. As habilidades da arma que são ativadas automaticamente em um acerto ou acerto crítico ainda funcionam, mas a arma não pode ser ativada ou se beneficiar de nenhuma de suas habilidades enquanto estiver animada.\nA cada rodada, quando a arma terminar de usar suas ações, tente um teste (flat, dc:6). Em caso de falha, a ativação termina. A arma cai no chão e não pode ser libertada novamente por 10 minutos.",
+      "description": "Uma arma animada voa de forma autônoma e atinge seus inimigos.\nAtivar—Set Free 2 (concentrar, manipular)\nEfeito Você libera a arma e ela flutua no ar, lutando sozinha contra o último inimigo que você atacou, ou o inimigo mais próximo dele se seu alvo tiver sido derrotado. No final do seu turno de cada rodada, a arma pode voar até sua velocidade de voo 40 pés (12 metros) e então pode voar novamente ou atingir uma criatura ao seu alcance.\nA arma tem um espaço de 5 pés (1,5 metros), mas não bloqueia ou impede os inimigos que tentam se mover através desse espaço, nem se beneficia ou fornece flanqueamento. A arma não pode se mover pelo espaço do inimigo. A arma não pode usar reações e suas ações de voar não desencadeiam reações.\nEnquanto estiver ativada, uma arma animada realiza Golpes com um modificador de ataque de 1d20+24 mais seu bônus de item nas jogadas de ataque. Ele usa o dano normal da arma, mas tem um modificador de Força +0. As habilidades da arma que são ativadas automaticamente em um acerto ou acerto crítico ainda funcionam, mas a arma não pode ser ativada ou se beneficiar de nenhuma de suas habilidades enquanto estiver animada.\nA cada rodada, quando a arma terminar de usar suas ações, tente um teste (flat, dc:6). Em caso de falha, a ativação termina. A arma cai no chão e não pode ser libertada novamente por 10 minutos.",
       "itemType": "equipamento",
       "usage": "gravado em arma corpo a corpo",
       "category": "equipamento",
@@ -1099,8 +1099,8 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "version": 1,
     "status": "MACHINE_DRAFT",
     "fields": {
-      "name": "Pergaminho do magia 7º-Rank",
-      "description": "Lançar um magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar um magia usando o número normal de ações para aquele magia.\nO magia deve aparecer na sua lista de magias. Como é você quem está lançando o magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar o magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "name": "Pergaminho da magia 7º-Rank",
+      "description": "Lançar uma magia a partir de um pergaminho requer segurar o pergaminho com uma mão e ativá-lo com uma atividade Lançar uma magia usando o número normal de ações para aquela magia.\nA magia deve aparecer na sua lista de magias. Como é você quem está lançando a magia, use seu modificador de ataque de magia e CD de magia. A magia também ganha o traço apropriado para sua tradição (arcano, divino, oculto ou primitivo).\nQuaisquer custos físicos são fornecidos quando um pergaminho é criado, então você não precisa fornecê-los ao lançar um pergaminho. Se a magia exigir um locus, você deverá ter esse locus para lançar a magia a partir de um pergaminho.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "rolar",
@@ -1176,7 +1176,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Erupção Eterna do Penhasco de Droskar",
-      "description": "Assemelhando-se à lava congelada, uma erupção eterna é feita com o mesmo tipo de magia do tempo, mas é construída para percorrer o tempo, reformando-se após ser usada. Determinar a diferença entre os dois requer um exame minucioso para ver um padrão fraco e repetitivo de runas vermelhas.\nAtivar—Lava Bomb 2 (concentrar, manipular)\nEfeito Você lança a erupção eterna, com o efeito da Lava Congelada do Penhasco de Droskar. Após [[/br 2d4 #horas]], a erupção eterna se reforma em um recipiente que você possui, normalmente aquele em que você a armazenou recentemente.\nErupção Eterna do Penhasco de Droskar causa 13d6 de dano de fogo em um teste (reflexo, dc:32, básico, opções:efeito de área).",
+      "description": "Assemelhando-se à lava congelada, uma erupção eterna é feita com o mesmo tipo de magia do tempo, mas é construída para percorrer o tempo, reformando-se após ser usada. Determinar a diferença entre os dois requer um exame minucioso para ver um padrão fraco e repetitivo de runas vermelhas.\nAtivar—Lava Bomb 2 (concentrar, manipular)\nEfeito Você lança a erupção eterna, com o efeito da Lava Congelada do Penhasco de Droskar. Após 2d4, a erupção eterna se reforma em um recipiente que você possui, normalmente aquele em que você a armazenou recentemente.\nErupção Eterna do Penhasco de Droskar causa 13d6 de dano de fogo em um teste (reflexo, dc:32, básico, opções:efeito de área).",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -1191,7 +1191,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha Mágica (magia 6º Rank)",
-      "description": "Este bastão tem cerca de trinta centímetros de comprimento e contém um único magia. A aparência normalmente está relacionada ao magia interno.\nAtivar lançar um magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia no Rank indicado.\nRequisitos de Criação Forneça um lançamento do magia no Rank listado.\nNota: Para criar um pergaminho ou varinha de um magia específico, arraste o magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
+      "description": "Este bastão tem cerca de trinta centímetros de comprimento e contém um único magia. A aparência normalmente está relacionada à magia interno.\nAtivar lançar uma magia\nFrequência uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia no Rank indicado.\nRequisitos de Criação Forneça um lançamento da magia no Rank listado.\nNota: Para criar um pergaminho ou varinha de uma magia específico, arraste a magia do compêndio ou navegador do compêndio para o inventário de um PC, NPC ou ator de saque.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1221,7 +1221,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Panaceia",
-      "description": "Ativar A (manipular)\nEsta poção parece mudar de cor e não há dois observadores que a descrevam da mesma maneira. Quando consumido, ele tenta neutralizar todas as maldições e doenças que afetam você, bem como as condições de cegueira e surdez dos magias que afetam você. A poção tem um Rank de neutralização de 7 e um modificador [[/r 1d20+20]] para o teste.",
+      "description": "Ativar A (manipular)\nEsta poção parece mudar de cor e não há dois observadores que a descrevam da mesma maneira. Quando consumido, ele tenta neutralizar todas as maldições e doenças que afetam você, bem como as condições de cegueira e surdez das magias que afetam você. A poção tem um Rank de neutralização de 7 e um modificador 1d20+20 para o teste.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "poção",
@@ -1251,7 +1251,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Munição Spellstrike (Tipo VI)",
-      "description": "Munição qualquer\nAtivar 2 Lançar um magia\nPadrões místicos criam um reservatório mágico dentro desta munição. Você ativa a munição de ataque mágico lançando um magia na munição. A magia deve ser uma magia Rank que a munição possa conter, e a magia deve ser capaz de atingir uma criatura que não seja o lançador. Uma criatura atingida por munição de ataque mágico ativada é alvo do magia. Se a criatura não for um alvo válido para a magia, a magia será perdida.\nA munição afeta apenas o alvo atingido, mesmo que a magia normalmente afete mais de um alvo. Se a magia exigir uma jogada de ataque mágico, use o resultado de sua jogada de ataque à distância com a munição para determinar o grau de sucesso da magia. Se o magia exigir um teste de resistência, o alvo tenta o teste de resistência contra a CD do seu magia. Combine o ataque e o dano do magia para fins de resistências e fraquezas.\nO Rank máximo do magia que a munição pode conter determina seu nível de item e preço.\nmagia Máximo Rank 6º",
+      "description": "Munição qualquer\nAtivar 2 Lançar uma magia\nPadrões místicos criam um reservatório mágico dentro desta munição. Você ativa a munição de ataque mágico lançando uma magia na munição. A magia deve ser uma magia Rank que a munição possa conter, e a magia deve ser capaz de atingir uma criatura que não seja o lançador. Uma criatura atingida por munição de ataque mágico ativada é alvo da magia. Se a criatura não for um alvo válido para a magia, a magia será perdida.\nA munição afeta apenas o alvo atingido, mesmo que a magia normalmente afete mais de um alvo. Se a magia exigir uma jogada de ataque mágico, use o resultado de sua jogada de ataque à distância com a munição para determinar o grau de sucesso da magia. Se a magia exigir um teste de resistência, o alvo tenta o teste de resistência contra a CD do sua magia. Combine o ataque e o dano da magia para fins de resistências e fraquezas.\nO Rank máximo da magia que a munição pode conter determina seu nível de item e preço.\nmagia Máximo Rank 6º",
       "itemType": "munição",
       "usage": "",
       "category": "munição",
@@ -1266,7 +1266,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Reservatório de magias",
-      "description": "Uma runa de reservatório de magia cria uma poça de energia sobrenatural dentro da arma gravada. Um conjurador pode gastar 1 minuto para lançar um magia de 3º Rank ou inferior na arma. O magia deve exigir 2 ações ou menos para ser lançado e deve ter como alvo uma criatura que não seja o lançador. O magia não tem efeito imediato – em vez disso, é armazenado para uso posterior.\nQuando você empunha uma arma com reservatório de magia, você sabe imediatamente o nome e o Rank do magia armazenado. Uma arma com reservatório de magia encontrada como tesouro tem 50% de chance de ter uma magia à escolha do Mestre armazenada nela.\nAtivar – Liberação Canalizada 2 (concentrado)\nRequisitos Um magia é armazenado na arma\nEfeito Faça um Golpe com a arma. Você gasta o magia armazenado como parte deste Golpe; isso esvazia o magia da arma e permite que um magia seja lançado nela novamente. Se o Golpe acertar, o magia terá como alvo o alvo do ataque. Se a magia exigir uma jogada de ataque com magia, o resultado de sua jogada de ataque com a arma determinará o grau de sucesso da magia, e se a magia exigir um teste de resistência, a CD será 30.\nAtivar—Safe Release A (concentrado)\nEfeito Gaste inofensivamente o magia armazenado. Isso libera a arma para que um novo magia seja lançado nela.",
+      "description": "Uma runa de reservatório de magia cria uma poça de energia sobrenatural dentro da arma gravada. Um conjurador pode gastar 1 minuto para lançar uma magia de 3º Rank ou inferior na arma. A magia deve exigir 2 ações ou menos para ser lançado e deve ter como alvo uma criatura que não seja o lançador. A magia não tem efeito imediato – em vez disso, é armazenado para uso posterior.\nQuando você empunha uma arma com reservatório de magia, você sabe imediatamente o nome e o Rank da magia armazenado. Uma arma com reservatório de magia encontrada como tesouro tem 50% de chance de ter uma magia à escolha do Mestre armazenada nela.\nAtivar – Liberação Canalizada 2 (concentrado)\nRequisitos Uma magia é armazenado na arma\nEfeito Faça um Golpe com a arma. Você gasta a magia armazenado como parte deste Golpe; isso esvazia a magia da arma e permite que uma magia seja lançado nela novamente. Se o Golpe acertar, a magia terá como alvo o alvo do ataque. Se a magia exigir uma jogada de ataque com magia, o resultado de sua jogada de ataque com a arma determinará o grau de sucesso da magia, e se a magia exigir um teste de resistência, a CD será 30.\nAtivar—Safe Release A (concentrado)\nEfeito Gaste inofensivamente a magia armazenado. Isso libera a arma para que um novo magia seja lançado nela.",
       "itemType": "equipamento",
       "usage": "gravado em arma corpo a corpo",
       "category": "equipamento",
@@ -1326,7 +1326,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Continuação (magia 5º-Rank)",
-      "description": "Esta varinha aumenta a duração de um magia. Brasas amarelas espiralam sobre sua superfície até o fim do magia.\nAtive Lançar um magia; A ativação leva 2 se o magia normalmente leva 1 para ser lançado, ou 3 se o magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança o magia e sua duração é aumentada pela metade.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. O magia deve ter um tempo de lançamento de 1 ou 2 e uma duração não inferior a 10 minutos e não superior a 1 hora.",
+      "description": "Esta varinha aumenta a duração de uma magia. Brasas amarelas espiralam sobre sua superfície até o fim da magia.\nAtive Lançar uma magia; A ativação leva 2 se a magia normalmente leva 1 para ser lançado, ou 3 se a magia normalmente leva 2\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança a magia e sua duração é aumentada pela metade.\nRequisitos de Criação Forneça o lançamento de uma magia do Rank apropriado. A magia deve ter um tempo de lançamento de 1 ou 2 e uma duração não inferior a 10 minutos e não superior a 1 hora.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",
@@ -1401,7 +1401,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Varinha da Tempestade de Fragmentos (magia de 5º Rank)",
-      "description": "Esta varinha apresenta uma cabeça de dragão esculpida no topo e uma esfera de metal polido colocada no meio.\nAtivar lançar um magia\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança Force Barrage no 5º Rank.\nDepois de lançar o magia, um ou mais fragmentos adicionais são liberados da varinha no início de cada um de seus turnos, como se você lançasse a versão de 1 ação da barragem de força. Escolha alvos de cada vez. Isso dura 1 minuto, até que você não esteja mais empunhando a varinha ou até tentar ativá-la novamente.\nRequisitos de embarcação Forneça um lançamento de barragem de força do Rank apropriado.",
+      "description": "Esta varinha apresenta uma cabeça de dragão esculpida no topo e uma esfera de metal polido colocada no meio.\nAtivar lançar uma magia\nFrequência Uma vez por dia, mais cobrança adicional\nEfeito Você lança Force Barrage no 5º Rank.\nDepois de lançar a magia, um ou mais fragmentos adicionais são liberados da varinha no início de cada um de seus turnos, como se você lançasse a versão de 1 ação da barragem de força. Escolha alvos de cada vez. Isso dura 1 minuto, até que você não esteja mais empunhando a varinha ou até tentar ativá-la novamente.\nRequisitos de embarcação Forneça um lançamento de barragem de força do Rank apropriado.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "varinha",
@@ -1431,7 +1431,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Invocação (Maior)",
-      "description": "Este bastão de cinzas é decorado com animais, elementais e dragões. As criaturas invocadas usando este cajado ganham um número de Pontos de Vida temporários igual ao Rank do magia usado para invocá-las.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Vinha Emaranhada\n• 1ª Invocação de Animal\n• 2ª Montaria Maravilhosa, Névoa, Convocar Animal, Convocar Elemental\n• 3ª Invocação de Animal, Invocação de Elemental\n• 4ª Montaria Maravilhosa, Convocar Animal, Convocar Elemental\n• 5ª Invocação de Animal, Invocação de Dragão, Invocação de Elemental\n• 6ª Montaria Maravilhosa, Invocar Animal, Invocar Dragão, Invocar Elemental\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de cinzas é decorado com animais, elementais e dragões. As criaturas invocadas usando este cajado ganham um número de Pontos de Vida temporários igual ao Rank da magia usado para invocá-las.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Cantrip Vinha Emaranhada\n• 1ª Invocação de Animal\n• 2ª Montaria Maravilhosa, Névoa, Convocar Animal, Convocar Elemental\n• 3ª Invocação de Animal, Invocação de Elemental\n• 4ª Montaria Maravilhosa, Convocar Animal, Convocar Elemental\n• 5ª Invocação de Animal, Invocação de Dragão, Invocação de Elemental\n• 6ª Montaria Maravilhosa, Invocar Animal, Invocar Dragão, Invocar Elemental\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1477,7 +1477,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado de Fantasmas (Major)",
-      "description": "Este bastão de metal ornamentado brilha com preciosas incrustações de ouro. Quando você lança um magia do cajado, a imagem ilusória de algo que você deseja brilha em sua superfície. Enquanto empunhar o cajado, você ganha +2 de bônus de status em testes para descrer de uma ilusão.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Fantasia de Cantrip\n• 1º Disfarce Ilusório, Objeto Ilusório\n• 2ª Criatura Ilusória, Objeto Ilusório, Fachada de Item\n• 3º Disfarce Ilusório, Fachada de Item\n• 4ª Criatura Ilusória, Cena Ilusória, Disfarce Ilusório\n• 5ª Criatura Ilusória, Cena Ilusória\n• 6ª Alucinação, Enganar\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este bastão de metal ornamentado brilha com preciosas incrustações de ouro. Quando você lança uma magia do cajado, a imagem ilusória de algo que você deseja brilha em sua superfície. Enquanto empunhar o cajado, você ganha +2 de bônus de status em testes para descrer de uma ilusão.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Fantasia de Cantrip\n• 1º Disfarce Ilusório, Objeto Ilusório\n• 2ª Criatura Ilusória, Objeto Ilusório, Fachada de Item\n• 3º Disfarce Ilusório, Fachada de Item\n• 4ª Criatura Ilusória, Cena Ilusória, Disfarce Ilusório\n• 5ª Criatura Ilusória, Cena Ilusória\n• 6ª Alucinação, Enganar\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",
@@ -1493,7 +1493,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Bandas de Força (Maior)",
-      "description": "Decoradas com pedras preciosas transparentes, essas grossas faixas de metal espalham uma camada inflexível de força sobre seu corpo. A força concede a você um bônus de item de +2 para CA e testes de resistência, e um modificador máximo de Destreza de +5 como armadura. Você pode fixar talismãs nas faixas como se fossem armaduras leves.\nAtivar—Retornar Força R (forçar, manipular)\nGatilho Uma criatura erra criticamente você com um golpe corpo a corpo\nEfeito Você [[/act shove options=bands-of-force-greater]] a criatura usando o modificador de Atletismo das bandas de +21.",
+      "description": "Decoradas com pedras preciosas transparentes, essas grossas faixas de metal espalham uma camada inflexível de força sobre seu corpo. A força concede a você um bônus de item de +2 para CA e testes de resistência, e um modificador máximo de Destreza de +5 como armadura. Você pode fixar talismãs nas faixas como se fossem armaduras leves.\nAtivar—Retornar Força R (forçar, manipular)\nGatilho Uma criatura erra criticamente você com um golpe corpo a corpo\nEfeito Você shove options=bands of force greater a criatura usando o modificador de Atletismo das bandas de +21.",
       "itemType": "equipamento",
       "usage": "braçadeiras usadas",
       "category": "equipamento",
@@ -1508,7 +1508,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Cajado do Poder Elemental (Maior)",
-      "description": "Este cajado é cônico na base e esculpido em uma torção cravejada de pedras preciosas na parte superior. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes para identificar criaturas elementais.\nAtivar lançar um magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Congelamento Cantrip\n• 1º Sopro de Fogo, Esmurrar Escombros, Golpe do Trovão\n• 2º Raio Flamejante, Resiste à Energia\n• 3ª Bola de Fogo, Relâmpago\n• 4ª Energia de Resistência, Muralha de Fogo\n• 5ª Nevasca Uivante, Muralha de Gelo\n• 6ª Cadeia de Raios, Bola de Fogo\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
+      "description": "Este cajado é cônico na base e esculpido em uma torção cravejada de pedras preciosas na parte superior. Enquanto empunhar o cajado, você ganha +2 de bônus de circunstância em testes para identificar criaturas elementais.\nAtivar lançar uma magia\nEfeito Você gasta um número de cargas do cajado para conjurar uma magia de sua lista.\n• Congelamento Cantrip\n• 1º Sopro de Fogo, Esmurrar Escombros, Golpe do Trovão\n• 2º Raio Flamejante, Resiste à Energia\n• 3ª Bola de Fogo, Relâmpago\n• 4ª Energia de Resistência, Muralha de Fogo\n• 5ª Nevasca Uivante, Muralha de Gelo\n• 6ª Cadeia de Raios, Bola de Fogo\nRequisitos de Criação Forneça uma conjuração de todas as graduações listadas de todas as magias listadas.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "simples",

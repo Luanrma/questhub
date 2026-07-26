@@ -113,7 +113,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Chamador Demônio",
-      "description": "Chamadores de demônios atuam como intermediários para ajudar os mortais a vender suas almas ou fazer outros negócios com demônios. Você pode ajustar um chamador de demônio para ser acompanhado por um demônio vinculado. O demônio ganha a característica de lacaio, e você pode substituir o magia Armamento Espiritual do invocador do demônio por Sacrifício Final.\nOs vilões perseguem objetivos egoístas e cruéis, atropelando qualquer um que esteja em seu caminho.",
+      "description": "Chamadores de demônios atuam como intermediários para ajudar os mortais a vender suas almas ou fazer outros negócios com demônios. Você pode ajustar um chamador de demônio para ser acompanhado por um demônio vinculado. O demônio ganha a característica de lacaio, e você pode substituir a magia Armamento Espiritual do invocador do demônio por Sacrifício Final.\nOs vilões perseguem objetivos egoístas e cruéis, atropelando qualquer um que esteja em seu caminho.",
       "size": "Médio",
       "senses": {},
       "languages": {
@@ -149,7 +149,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "s0t39CToxCO0bv1k": {
           "name": "Contrato Diabólico",
-          "description": "O invocador do demônio passa 1 dia de inatividade estabelecendo uma barganha entre uma criatura mortal e um demônio que o invocador do demônio conhece bem. O invocador do demônio tenta um teste de Conhecimento Legal contra o maior teste do demônio (conhecimento jurídico, contra:vontade) ou teste (conhecimento jurídico, contra:diplomacia).\nSucesso O grupo mortal recebe um favor do demônio, ou o demônio se torna servo do mortal por [[/gmr 1d4 #dias]] se eles estiverem no mesmo plano. Alternativamente, se o Mestre permitir a opção, o mortal pode receber um contrato negociado do nível do demônio ou inferior.\nFalha O invocador do demônio falha em cumprir o acordo.\nFalha Crítica O processo falha e a reação mágica faz com que o demônio chamador seja Drenado 2."
+          "description": "O invocador do demônio passa 1 dia de inatividade estabelecendo uma barganha entre uma criatura mortal e um demônio que o invocador do demônio conhece bem. O invocador do demônio tenta um teste de Conhecimento Legal contra o maior teste do demônio (conhecimento jurídico, contra:vontade) ou teste (conhecimento jurídico, contra:diplomacia).\nSucesso O grupo mortal recebe um favor do demônio, ou o demônio se torna servo do mortal por 1d4 se eles estiverem no mesmo plano. Alternativamente, se o Mestre permitir a opção, o mortal pode receber um contrato negociado do nível do demônio ou inferior.\nFalha O invocador do demônio falha em cumprir o acordo.\nFalha Crítica O processo falha e a reação mágica faz com que o demônio chamador seja Drenado 2."
         },
         "hbvWnnuQXeSYbh5d": {
           "name": "Ritualista Demoníaco",
@@ -157,7 +157,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fQc2VOadDzyNn25L": {
           "name": "Comunicado Planar",
-          "description": "Um invocador de demônio pode lançar Enviar à vontade como um magia oculto inato, mas apenas para atingir um demônio que ele conheça bem. O demônio pode estar em qualquer plano."
+          "description": "Um invocador de demônio pode lançar Enviar à vontade como uma magia oculto inato, mas apenas para atingir um demônio que ele conheça bem. O demônio pode estar em qualquer plano."
         }
       },
       "spellcasting": {
@@ -253,15 +253,15 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "ykoQZJpT2fydsLY4": {
           "name": "Induzir admiração",
-          "description": "A sibila pode usar Religião em vez de Intimidação para [[/act coagir habilidade=religião]] ou [[/act desmoralizar habilidade=religião]]."
+          "description": "A sibila pode usar Religião em vez de Intimidação para coagir habilidade=religião ou desmoralizar habilidade=religião."
         },
         "E0NCiPy7YnRwRSKb": {
           "name": "Previsão",
-          "description": "Gatilho A sibila se torna alvo de uma magia com o traço de detecção, predição, revelação ou vidência\nEfeito A consciência oracular da sibila alerta-a para o perigo. Eles ganham um bônus de circunstância de +2 em seu teste de resistência ou CA contra o magia."
+          "description": "Gatilho A sibila se torna alvo de uma magia com o traço de detecção, predição, revelação ou vidência\nEfeito A consciência oracular da sibila alerta-a para o perigo. Eles ganham um bônus de circunstância de +2 em seu teste de resistência ou CA contra a magia."
         },
         "4oPCy2fCIKMYlypf": {
           "name": "Frenesi Divino",
-          "description": "Requisitos A sibila não está cansada ou em frenesi\nEfeito A sibila entra em um frenesi divino que dura 1 minuto. A sibila não consegue parar voluntariamente de frenesi. Enquanto estiver em um frenesi divino, a sibila sofre -2 de penalidade em testes de Percepção e salvamentos de Vontade e ganha +2 de bônus de status em sua CD de magia e modificador de ataque de magia. Durante um frenesi divino, a sibila não pode usar ações com a característica concentração, a menos que esteja Conjurando um magia ou Procurando. O frenesi dura 1 minuto, até que a sibila fique inconsciente ou o encontro termine, o que ocorrer primeiro. A sibila não pode acabar voluntariamente com o frenesi."
+          "description": "Requisitos A sibila não está cansada ou em frenesi\nEfeito A sibila entra em um frenesi divino que dura 1 minuto. A sibila não consegue parar voluntariamente de frenesi. Enquanto estiver em um frenesi divino, a sibila sofre -2 de penalidade em testes de Percepção e salvamentos de Vontade e ganha +2 de bônus de status em sua CD de magia e modificador de ataque de magia. Durante um frenesi divino, a sibila não pode usar ações com a característica concentração, a menos que esteja Conjurando uma magia ou Procurando. O frenesi dura 1 minuto, até que a sibila fique inconsciente ou o encontro termine, o que ocorrer primeiro. A sibila não pode acabar voluntariamente com o frenesi."
         }
       },
       "spellcasting": {
@@ -485,7 +485,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "FX2hWDNJKU3geumm": {
           "name": "Pergunta inevitável",
-          "description": "Frequência uma vez por turno\nEfeito O inspetor [[/act desmoraliza]] uma criatura e faz uma pergunta. Se obtiver sucesso, o próximo Golpe que o inspetor tentar contra o alvo causa 1d6 de dano de precisão adicional. Se o alvo gastar uma ação em seu próximo turno para responder à pergunta, seja com sinceridade ou obtendo sucesso em um teste (engano, dc:25), ele ficará temporariamente imune à Pergunta Inevitável do inspetor por 1 minuto."
+          "description": "Frequência uma vez por turno\nEfeito O inspetor desmoraliza uma criatura e faz uma pergunta. Se obtiver sucesso, o próximo Golpe que o inspetor tentar contra o alvo causa 1d6 de dano de precisão adicional. Se o alvo gastar uma ação em seu próximo turno para responder à pergunta, seja com sinceridade ou obtendo sucesso em um teste (engano, dc:25), ele ficará temporariamente imune à Pergunta Inevitável do inspetor por 1 minuto."
         }
       },
       "spellcasting": {}
@@ -527,7 +527,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "UQoNtmlZuh2NnKd0": {
           "name": "Astúcia do Nobre",
-          "description": "Frequência Uma vez por rodada\nEfeito O nobre [[/act fint]]. Com sucesso, o nobre Atinge o alvo."
+          "description": "Frequência Uma vez por rodada\nEfeito O nobre fint. Com sucesso, o nobre Atinge o alvo."
         },
         "EHw3qV7vYGDQdfPB": {
           "name": "Ataque furtivo",
@@ -633,11 +633,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ri6d10aEeezcDbDg": {
           "name": "magia de Quebra",
-          "description": "O quebra-magia hobgoblin tenta um Golpe corpo a corpo contra uma criatura sob os efeitos de um magia arcano benéfico. Se o Golpe atingir e causar dano, o quebra-magia hobgoblin pode tentar neutralizar um único magia arcano ou efeito mágico arcano no alvo (neutralizar Rank 2, [[/r 1d20+10 #Counteract]]). Se falhar, o quebra-magia hobgoblin não poderá tentar neutralizar o mesmo efeito por 1 hora."
+          "description": "O quebra-magia hobgoblin tenta um Golpe corpo a corpo contra uma criatura sob os efeitos de uma magia arcano benéfico. Se o Golpe atingir e causar dano, o quebra-magia hobgoblin pode tentar neutralizar um único magia arcano ou efeito mágico arcano no alvo (neutralizar Rank 2, 1d20+10). Se falhar, o quebra-magia hobgoblin não poderá tentar neutralizar o mesmo efeito por 1 hora."
         },
         "w4sRIFwc8okhDdKG": {
           "name": "Golpe Reativo Enfeitiçado",
-          "description": "Como Golpe Reativo, mas se foi desencadeado por uma criatura lançando uma magia arcana, o alvo deve ser bem sucedido em um teste (simples, dc:11) ou a magia será interrompida. Se o Golpe tiver sido um acerto crítico, o magia será interrompido automaticamente."
+          "description": "Como Golpe Reativo, mas se foi desencadeado por uma criatura lançando uma magia arcana, o alvo deve ser bem sucedido em um teste (simples, dc:11) ou a magia será interrompida. Se o Golpe tiver sido um acerto crítico, a magia será interrompido automaticamente."
         }
       },
       "spellcasting": {}
@@ -687,7 +687,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "ll3LaxvkACnszsxH": {
           "name": "Viva para contar a história",
-          "description": "Frequência uma vez por dia\nGatilho O cronista ganharia a condição de Morrer\nEfeito O cronista fica inconsciente por [[/gmr 1d4 #hours]] ou até recuperar 1 Ponto de Vida."
+          "description": "Frequência uma vez por dia\nGatilho O cronista ganharia a condição de Morrer\nEfeito O cronista fica inconsciente por 1d4 ou até recuperar 1 Ponto de Vida."
         },
         "OqsCqhHLnN6naAWU": {
           "name": "Maestria de rolagem",
@@ -772,7 +772,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "esZ7IFO1aPcIn4T5": {
           "name": "Desempenho versátil",
-          "description": "O mímico pode usar Desempenho em vez de Diplomacia para [[/act fazer uma impressão estatística=desempenho]], em vez de Intimidação para [[/act desmoralizar estatística=desempenho]], e em vez de Enganação para [[/act personate statistic=desempenho]]."
+          "description": "O mímico pode usar Desempenho em vez de Diplomacia para fazer uma impressão estatística=desempenho, em vez de Intimidação para desmoralizar estatística=desempenho, e em vez de Enganação para personate statistic=desempenho."
         },
         "I6oggW1yXL9bI8Iz": {
           "name": "Imitar Ataque",
@@ -876,7 +876,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2PrqruymHWvMXHjI": {
           "name": "Ar de Autoridade",
-          "description": "10 pés (3 metros). Criaturas na aura que sejam de nível igual ou inferior ao do oficial de vigia recebem uma penalidade de status de -2 em sua CD de Vontade contra as tentativas do oficial de vigia de [[/act coagir]] ou [[/act desmoralizá-las]]."
+          "description": "10 pés (3 metros). Criaturas na aura que sejam de nível igual ou inferior ao do oficial de vigia recebem uma penalidade de status de -2 em sua CD de Vontade contra as tentativas do oficial de vigia de coagir ou desmoralizá las."
         },
         "hjekwptdXb14cWSj": {
           "name": "Bravura",
@@ -940,7 +940,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "gxRiahFByUpo6ApY": {
           "name": "Ataque indiscriminado",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O esquadrão de recrutas ataca cada uma das outras criaturas em um tipo de 1,5 metro: emanação, amigo e inimigo, com um teste de resistência (reflexo, dc:17, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d8 de dano perfurante\n2 (1d8+4)[perfuração|opções:dano em área] de dano\n3 (2d8+4)[perfuração|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O esquadrão de recrutas ataca cada uma das outras criaturas em um tipo de 1,5 metro: emanação, amigo e inimigo, com um teste de resistência (reflexo, dc:17, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d8 de dano perfurante\n2 (1d8+4)[perfuração de dano\n3 (2d8+4)[perfuração de dano"
         }
       },
       "spellcasting": {}
@@ -990,7 +990,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "TqHrm04cviH8w0wW": {
           "name": "Rotação diferenciada",
-          "description": "O propagandista formula tudo de forma vaga e vaga o suficiente para que, embora seja sempre enganoso, nada disso seja falso. O propagandista pode usar Diplomacia em vez de Enganação para Criar uma Distração ou [[/act feint statistic=diplomacy]], e em vez de Intimidação para [[/act coerce statistic=diplomacy]]. Uma criatura que tente Sentir Motivo contra o propagandista obtém um resultado um grau de sucesso pior do que o obtido."
+          "description": "O propagandista formula tudo de forma vaga e vaga o suficiente para que, embora seja sempre enganoso, nada disso seja falso. O propagandista pode usar Diplomacia em vez de Enganação para Criar uma Distração ou feint statistic=diplomacy, e em vez de Intimidação para coerce statistic=diplomacy. Uma criatura que tente Sentir Motivo contra o propagandista obtém um resultado um grau de sucesso pior do que o obtido."
         },
         "P789gN78vbI3JWRR": {
           "name": "Sem ressentimentos",
@@ -1091,7 +1091,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "vgPpoUOgBxWLd4Ne": {
           "name": "Equilíbrio constante",
-          "description": "Sempre que o capitão do porto obtiver sucesso em um teste de [[/act balance]], ele obtém um sucesso crítico. Eles não ficam desprotegidos enquanto se equilibram em superfícies estreitas e terrenos irregulares."
+          "description": "Sempre que o capitão do porto obtiver sucesso em um teste de balance, ele obtém um sucesso crítico. Eles não ficam desprotegidos enquanto se equilibram em superfícies estreitas e terrenos irregulares."
         },
         "NKmPaEo138UaRnmO": {
           "name": "Mão Experiente",
@@ -1403,11 +1403,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0fWZn3xodpxwco8r": {
           "name": "Juro vingança",
-          "description": "Gatilho Uma criatura que o fanático pode ver causa dano a um seguidor de Asmodeus que não seja o fanático\nEfeito O fanático é afetado por um magia Golpe Certo. Se o fanático fizer uma jogada de ataque contra qualquer pessoa que não seja a criatura desencadeadora, o ataque certeiro termina sem efeito."
+          "description": "Gatilho Uma criatura que o fanático pode ver causa dano a um seguidor de Asmodeus que não seja o fanático\nEfeito O fanático é afetado por uma magia Golpe Certo. Se o fanático fizer uma jogada de ataque contra qualquer pessoa que não seja a criatura desencadeadora, o ataque certeiro termina sem efeito."
         },
         "db0QJhDLMLOerNa6": {
           "name": "Golpe do Canal",
-          "description": "Custo que o fanático gasta um magia de Dano\nEfeito O fanático realiza um ataque corpo a corpo. Se acertar, eles causam dano ao alvo com um magia de dano de 1 ação. O alvo obtém automaticamente uma falha (ou uma falha crítica se o Golpe tiver sido um acerto crítico). A magia não possui o traço manipular quando lançada desta forma."
+          "description": "Custo que o fanático gasta uma magia de Dano\nEfeito O fanático realiza um ataque corpo a corpo. Se acertar, eles causam dano ao alvo com uma magia de dano de 1 ação. O alvo obtém automaticamente uma falha (ou uma falha crítica se o Golpe tiver sido um acerto crítico). A magia não possui o traço manipular quando lançada desta forma."
         },
         "BHcpl6Nlf6nVff26": {
           "name": "Simplicidade mortal",
@@ -1505,7 +1505,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hPm8yFM9mgIGHYL6": {
           "name": "Orelhas de boxe",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A multidão de milho ataca com espigas de milho endurecidas para atacar cada inimigo em seu espaço e em um tipo:emanação de 1,5 metro, com um teste de resistência (reflexo, dc:18, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d6 de dano por concussão\n2 (2d6+4)[concussão|opções:dano em área] de dano\n3 (2d6+8)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A multidão de milho ataca com espigas de milho endurecidas para atacar cada inimigo em seu espaço e em um tipo:emanação de 1,5 metro, com um teste de resistência (reflexo, dc:18, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d6 de dano por concussão\n2 (2d6+4)[concussão de dano\n3 (2d6+8)[concussão de dano"
         },
         "56TBiiZbleUC5RaS": {
           "name": "Barragem de Kernel",
@@ -1656,7 +1656,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "ZqsTx9SmEIjQ6xNa": {
           "name": "magia excessivamente ambicioso",
-          "description": "Frequência uma vez por dia\nEfeito O exuberante professor do aprendiz disse a eles que eles não estão prontos para este magia, mas tempos desesperadores exigem medidas desesperadas. O aprendiz exuberante tenta lançar Bola de Fogo como uma magia arcana de 3º Rank, mas primeiro deve tentar um teste (simples, dc:11).\nSucesso Crítico O magia é lançado perfeitamente e aumentado para o 4º Rank. O aprendiz fica atordoado 2 por puro choque.\nSucesso Nada dá errado e o magia é lançado normalmente.\nFalha O magia fracassa e cria apenas uma nuvem de fumaça inofensiva.\nFracasso Crítico Acadêmico em chamas! O aprendiz sofre 6d6 de dano de fogo quando o tiro sai pela culatra"
+          "description": "Frequência uma vez por dia\nEfeito O exuberante professor do aprendiz disse a eles que eles não estão prontos para esta magia, mas tempos desesperadores exigem medidas desesperadas. O aprendiz exuberante tenta lançar Bola de Fogo como uma magia arcana de 3º Rank, mas primeiro deve tentar um teste (simples, dc:11).\nSucesso Crítico A magia é lançado perfeitamente e aumentado para o 4º Rank. O aprendiz fica atordoado 2 por puro choque.\nSucesso Nada dá errado e a magia é lançado normalmente.\nFalha A magia fracassa e cria apenas uma nuvem de fumaça inofensiva.\nFracasso Crítico Acadêmico em chamas! O aprendiz sofre 6d6 de dano de fogo quando o tiro sai pela culatra"
         }
       },
       "spellcasting": {
@@ -1856,7 +1856,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "cVkvmZHTd8VjFwYT": {
           "name": "Agite desesperadamente",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A multidão iludida usa seus punhos, pranchas de madeira e qualquer outra coisa que possa pegar para atacar cada inimigo em um tipo de 1,5 metro: emanação com fervor, se não coordenação (verificação (reflexo, dc:18, básico, opções:efeito de área) salvamento). O dano depende do número de ações.\n1 1d8 de dano não digitado\n2 (1d8+6)[untyped|options:area-damage,action:custo:2] dano\n3 (2d8+6)[untyped|options:area-damage,action:custo:3] dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A multidão iludida usa seus punhos, pranchas de madeira e qualquer outra coisa que possa pegar para atacar cada inimigo em um tipo de 1,5 metro: emanação com fervor, se não coordenação (verificação (reflexo, dc:18, básico, opções:efeito de área) salvamento). O dano depende do número de ações.\n1 1d8 de dano não digitado\n2 (1d8+6)[untyped dano\n3 (2d8+6)[untyped dano"
         },
         "93wHXWZVtAn5Jm53": {
           "name": "Cercado",
@@ -1953,7 +1953,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "4baqnRP77X4lxpxU": {
           "name": "Empatia Selvagem",
-          "description": "O domador de feras pode usar Diplomacia para [[/act causar uma impressão]] em animais e fazer [[/act request]] muito simples deles."
+          "description": "O domador de feras pode usar Diplomacia para causar uma impressão em animais e fazer request muito simples deles."
         },
         "p0JJ5Z6nze1w1CXi": {
           "name": "Truque Animal",
@@ -2056,11 +2056,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "dSa8OQfOz63lYKQ2": {
           "name": "Desempenho versátil",
-          "description": "O mentor pode usar Desempenho em vez de Diplomacia para [[/act causar uma impressão habilidade=desempenho]] e em vez de Enganação para [[/act personate habilidade=desempenho]]."
+          "description": "O mentor pode usar Desempenho em vez de Diplomacia para causar uma impressão habilidade=desempenho e em vez de Enganação para personate habilidade=desempenho."
         },
         "v3VQfpzwMQ3vAQCU": {
           "name": "Finta do Canalha",
-          "description": "Quando o mentor [[/act fint]] for bem-sucedido, o alvo ficará fora de guarda contra os ataques corpo a corpo do mentor até o final do próximo turno do mentor. Com um sucesso crítico, o alvo fica desprevenido contra todos os ataques corpo a corpo naquele momento, não apenas contra o mentor."
+          "description": "Quando o mentor fint for bem-sucedido, o alvo ficará fora de guarda contra os ataques corpo a corpo do mentor até o final do próximo turno do mentor. Com um sucesso crítico, o alvo fica desprevenido contra todos os ataques corpo a corpo naquele momento, não apenas contra o mentor."
         },
         "86tScORfgOX4zuix": {
           "name": "Ataque furtivo",
@@ -2164,11 +2164,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "Vyjc348MEF8eDk6S": {
           "name": "Comando insistente",
-          "description": "Quando o guarda-caça obtém um sucesso para [[/act command-an-animal]], ele obtém um sucesso crítico; se eles obtiverem uma falha crítica, eles falharão."
+          "description": "Quando o guarda-caça obtém um sucesso para command an animal, ele obtém um sucesso crítico; se eles obtiverem uma falha crítica, eles falharão."
         },
         "z14fU7mise4W1BMI": {
           "name": "Brincar de frango",
-          "description": "Acionar Um inimigo adjacente erra o guarda-caça com um ataque corpo a corpo\nEfeito O guarda-caça tenta capturar o agressor. Eles tentam um teste de Atletismo para [[/agir agarrar]] o atacante."
+          "description": "Acionar Um inimigo adjacente erra o guarda-caça com um ataque corpo a corpo\nEfeito O guarda-caça tenta capturar o agressor. Eles tentam um teste de Atletismo para agarrar o atacante."
         },
         "K8GiCfuGTZ5WMvO2": {
           "name": "Tandem Animal",
@@ -2467,7 +2467,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "4CAhJHuQyee19QJx": {
           "name": "Sumidouro",
-          "description": "Requisitos O mergulhador terrestre está enterrado sob uma criatura média ou menor acima do solo\nEfeito O mergulhador terrestre cria um pequeno buraco sob a criatura, que deve tentar um teste de resistência (reflexo, dc:20). Independentemente do resultado, o espaço do alvo torna-se um terreno difícil.\nFalha A criatura cai no buraco e fica Restringida até [[/act escape dc=18]].\nFalha Crítica Como falha, a criatura sofre 2d8 de dano de concussão."
+          "description": "Requisitos O mergulhador terrestre está enterrado sob uma criatura média ou menor acima do solo\nEfeito O mergulhador terrestre cria um pequeno buraco sob a criatura, que deve tentar um teste de resistência (reflexo, dc:20). Independentemente do resultado, o espaço do alvo torna-se um terreno difícil.\nFalha A criatura cai no buraco e fica Restringida até Escapar CD 18.\nFalha Crítica Como falha, a criatura sofre 2d8 de dano de concussão."
         },
         "yuynsVSsUSCdk5SC": {
           "name": "Escolha Smash",
@@ -2563,11 +2563,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "UAxdD8Lz8ceCdbQT": {
           "name": "Manobra Oportuna",
-          "description": "Gatilho Uma criatura dentro de 10 pés (3 metros) usa uma ação com a característica de movimento ou deixa um espaço ao alcance do policial durante sua ação de movimento\nEfeito O policial tenta [[/act trip]] a criatura desencadeadora. Caso obtenha sucesso, a ação desencadeadora é interrompida."
+          "description": "Gatilho Uma criatura dentro de 10 pés (3 metros) usa uma ação com a característica de movimento ou deixa um espaço ao alcance do policial durante sua ação de movimento\nEfeito O policial tenta trip a criatura desencadeadora. Caso obtenha sucesso, a ação desencadeadora é interrompida."
         },
         "jxquO6ViuCAkhUt4": {
           "name": "Vantagem Vigilante",
-          "description": "O policial equestre [[/act seek]] ou aponta um alvo. Eles podem interagir para sacar um item ou comandar um animal para se aproximar ou atacar o alvo."
+          "description": "O policial equestre seek ou aponta um alvo. Eles podem interagir para sacar um item ou comandar um animal para se aproximar ou atacar o alvo."
         }
       },
       "spellcasting": {}
@@ -2960,7 +2960,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "2WU0nTlGKvhnVyEl": {
           "name": "Até o nosso nível",
-          "description": "Frequência uma vez por rodada\nEfeito O bill-band deliberadamente fica sob os pés de seus oponentes, provando que eles são maiores que a soma de suas partes. O bill-band tenta [[/act trip]] todas as criaturas dentro ou adjacentes ao seu espaço. Eles fazem um teste de Atletismo e comparam o resultado com a CD de Reflexos de cada alvo."
+          "description": "Frequência uma vez por rodada\nEfeito O bill-band deliberadamente fica sob os pés de seus oponentes, provando que eles são maiores que a soma de suas partes. O bill-band tenta trip todas as criaturas dentro ou adjacentes ao seu espaço. Eles fazem um teste de Atletismo e comparam o resultado com a CD de Reflexos de cada alvo."
         },
         "zCAnyZMXYvnXxyYI": {
           "name": "Salva de fogos de artifício",
@@ -2972,7 +2972,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mZkWPJLkxc4o0vyq": {
           "name": "Cole-os!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O bill-band balança punhos e pés mal coordenados em cada inimigo em seu espaço e em um tipo: emanação de 1,5 metro, com um salvamento de teste (reflexo, dc: 19, básico, opções: efeito de área). O dano depende do número de ações.\n1 1d6 de dano por concussão\n2 (2d6+4)[concussão|opções:dano em área] de dano\n3 (3d6+6)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O bill-band balança punhos e pés mal coordenados em cada inimigo em seu espaço e em um tipo: emanação de 1,5 metro, com um salvamento de teste (reflexo, dc: 19, básico, opções: efeito de área). O dano depende do número de ações.\n1 1d6 de dano por concussão\n2 (2d6+4)[concussão de dano\n3 (3d6+6)[concussão de dano"
         }
       },
       "spellcasting": {}
@@ -3019,7 +3019,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "97BKY16vMkTbaNcV": {
           "name": "Mortos-vivos, Ataque!",
-          "description": "Requisitos O necromante tem pelo menos uma entidade morta-viva ativa\nEfeito O necromante comanda todas as suas entidades mortas-vivas para atacar. Cada entidade pode caminhar até 20 pés (6 metros) em um quadrado vazio e fazer um Golpe. O Golpe tem um modificador de ataque [[/r 1d20+15 #Ataque]] e causa 2d12 de dano de concussão (ou 2d12 de dano espiritual se a entidade for um espírito). O Golpe tem o traço mágico e nenhuma penalidade de ataque múltiplo se aplica a ele."
+          "description": "Requisitos O necromante tem pelo menos uma entidade morta-viva ativa\nEfeito O necromante comanda todas as suas entidades mortas-vivas para atacar. Cada entidade pode caminhar até 20 pés (6 metros) em um quadrado vazio e fazer um Golpe. O Golpe tem um modificador de ataque 1d20+15 e causa 2d12 de dano de concussão (ou 2d12 de dano espiritual se a entidade for um espírito). O Golpe tem o traço mágico e nenhuma penalidade de ataque múltiplo se aplica a ele."
         },
         "vUdceUlCZdmoJ5ZC": {
           "name": "Onda da Morte",
@@ -3191,7 +3191,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0WoLHxcEDfHig6LB": {
           "name": "Finta de Cerca",
-          "description": "A cerca [[/act fint]], então pode pisar. Se a finta for bem-sucedida, o alvo fica desprevenido contra os ataques corpo a corpo da cerca até o final do próximo turno da cerca (ou contra todos os ataques corpo a corpo em caso de sucesso crítico)."
+          "description": "A cerca fint, então pode pisar. Se a finta for bem-sucedida, o alvo fica desprevenido contra os ataques corpo a corpo da cerca até o final do próximo turno da cerca (ou contra todos os ataques corpo a corpo em caso de sucesso crítico)."
         },
         "cMz56RGF3H0a0ZQi": {
           "name": "Vasculha rápida",
@@ -3338,7 +3338,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5c8aHhTBn3er6vtq": {
           "name": "Carga de profundidade",
-          "description": "O saqueador puxa uma válvula de liberação em seu traje, expelindo uma onda de pressão que causa 3d6 de dano sônico | opções: dano de área] de dano (teste (fortitude, dc: 22, básico, opções: efeito de área) salva) a todas as criaturas em um tipo de 3 metros: emanação. As criaturas que falharem no salvamento recebem uma penalidade de -2 em testes de Acrobacia para Equilíbrio e Atletismo para Nadar por 1 minuto, pois seu ouvido interno fica prejudicado. Criaturas que falham criticamente no salvamento também ficam Ensurdecidas por 1 minuto. O saqueador não pode usar Carga de Profundidade novamente para [[/gmr 1d4 #Recharge Carga de Profundidade]].\nEfeito: Carga de Profundidade"
+          "description": "O saqueador puxa uma válvula de liberação em seu traje, expelindo uma onda de pressão que causa 3d6 de dano sônico | opções: dano de área] de dano (teste (fortitude, dc: 22, básico, opções: efeito de área) salva) a todas as criaturas em um tipo de 3 metros: emanação. As criaturas que falharem no salvamento recebem uma penalidade de -2 em testes de Acrobacia para Equilíbrio e Atletismo para Nadar por 1 minuto, pois seu ouvido interno fica prejudicado. Criaturas que falham criticamente no salvamento também ficam Ensurdecidas por 1 minuto. O saqueador não pode usar Carga de Profundidade novamente para 1d4.\nEfeito: Carga de Profundidade"
         },
         "XBt9rKjZc8zqJsL8": {
           "name": "Retrair",
@@ -3390,7 +3390,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "BCsGqHil1Dziu3FX": {
           "name": "Alabardas inferiores!",
-          "description": "1 a 3\nFrequência uma vez por rodada.\nEfeito Os guardas da cidade se envolvem em um ataque corpo a corpo coordenado contra cada inimigo dentro de uma emanação de 3 metros, com um teste de resistência (reflexo, dc:19, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d10 de dano não digitado\n2 (1d10+7)[untyped|options:area-damage] de dano\n3 (1d10+10)[untyped|options:area-damage] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada.\nEfeito Os guardas da cidade se envolvem em um ataque corpo a corpo coordenado contra cada inimigo dentro de uma emanação de 3 metros, com um teste de resistência (reflexo, dc:19, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d10 de dano não digitado\n2 (1d10+7)[untyped de dano\n3 (1d10+10)[untyped de dano"
         },
         "cLFteTTZ1b4O3AoI": {
           "name": "Atire bestas!",
@@ -3682,7 +3682,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "9PPJKcSTyWJ1Csi6": {
           "name": "Goblins Slash e Goblins Scar!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A gangue goblin get usa doglicers, horsechoppers e tochas acesas para atacar cada inimigo em um tipo:emanação de 1,5 metro, com um teste de resistência (reflexo, dc:20, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d6 de dano cortante | opções: dano de área] de dano\n2 (1d6+6)[cortante,1d6 dano de fogo |opções:dano em área] dano\n3 (1d6+9)[cortante,1d6 dano de fogo |opções:dano em área] dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A gangue goblin get usa doglicers, horsechoppers e tochas acesas para atacar cada inimigo em um tipo:emanação de 1,5 metro, com um teste de resistência (reflexo, dc:20, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d6 de dano cortante | opções: dano de área] de dano\n2 (1d6+6)[cortante,1d6 dano de fogo  dano\n3 (1d6+9)[cortante,1d6 dano de fogo  dano"
         }
       },
       "spellcasting": {}
@@ -3778,7 +3778,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "6sz1UfpfaZl4UW3Z": {
           "name": "Contra-fuga",
-          "description": "Acionar Uma criatura lança um magia com a característica de teletransporte ou como reação\nEfeito O mago vigia gasta um espaço de magia do mesmo Rank ou superior que a magia da criatura desencadeada e tenta neutralizar a magia desencadeadora (modificador de neutralização [[/r 1d20+11 #Counteract]])."
+          "description": "Acionar Uma criatura lança uma magia com a característica de teletransporte ou como reação\nEfeito O mago vigia gasta um espaço de magia do mesmo Rank ou superior que a magia da criatura desencadeada e tenta neutralizar a magia desencadeadora (modificador de neutralização 1d20+11)."
         },
         "7mleAGFfBWpFQl7d": {
           "name": "Armas Sobrenaturais",
@@ -3786,7 +3786,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hTuNAi9LMU6sxtte": {
           "name": "Golpe Encantado",
-          "description": "Requisitos O vigia está empunhando a arma escolhida com Eldritch Arms\nEfeito O mago-vigia lança um magia que requer 1 ou 2 ações para ser lançado, imbuindo esse magia na arma. O vigia ataca com a arma necessária. Isso conta como dois ataques para a penalidade de ataque múltiplo do mago vigia. Se acertar, o alvo também é afetado pela magia, embora o alvo receba todas as defesas normais permitidas pela magia.\nSe o magia for direcionado, ele terá como alvo a criatura que foi atingida e mais ninguém. Se a magia for uma área, o alvo deverá estar na área. Uma explosão é centrada em um canto do quadrado do alvo se o alvo for Médio ou menor, ou no canto de um quadrado mais próximo do centro da criatura se for Grande ou maior. Um cone ou linha é emitido de um quadrado, à escolha do mago, adjacente ao alvo."
+          "description": "Requisitos O vigia está empunhando a arma escolhida com Eldritch Arms\nEfeito O mago-vigia lança uma magia que requer 1 ou 2 ações para ser lançado, imbuindo essa magia na arma. O vigia ataca com a arma necessária. Isso conta como dois ataques para a penalidade de ataque múltiplo do mago vigia. Se acertar, o alvo também é afetado pela magia, embora o alvo receba todas as defesas normais permitidas pela magia.\nSe a magia for direcionado, ele terá como alvo a criatura que foi atingida e mais ninguém. Se a magia for uma área, o alvo deverá estar na área. Uma explosão é centrada em um canto do quadrado do alvo se o alvo for Médio ou menor, ou no canto de um quadrado mais próximo do centro da criatura se for Grande ou maior. Um cone ou linha é emitido de um quadrado, à escolha do mago, adjacente ao alvo."
         }
       },
       "spellcasting": {
@@ -3944,7 +3944,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "16GapaocUFBhDvDr": {
           "name": "Carisma assustador",
-          "description": "Acionar o razzle dazzler rola iniciativa usando Enganação ou Desempenho\nEfeito O razzle dazzler pode tentar [[/act desmoralizar]] uma criatura que ele possa ver."
+          "description": "Acionar o razzle dazzler rola iniciativa usando Enganação ou Desempenho\nEfeito O razzle dazzler pode tentar Desmoralizar uma criatura que ele possa ver."
         },
         "qJml3cgdrzvlNocV": {
           "name": "Duplicado deslumbrante",
@@ -4044,7 +4044,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "wsQHQNWgznslk6yH": {
-          "name": "+2 de bônus de circunstância em salvamentos contra doenças",
+          "name": "+2 de bônus de circunstância em testes de resistência contra doença",
           "description": ""
         },
         "ZtFKTs16yHUY48WF": {
@@ -4053,7 +4053,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "DzrwPVv4yZGfqMNf": {
           "name": "Cura Comunal Melhorada",
-          "description": "Quando o médico da peste lança Curar tendo como alvo uma única criatura, o médico da peste também restaura Pontos de Vida iguais ao Rank do magia para si mesmo ou para qualquer outra criatura dentro do alcance do magia."
+          "description": "Quando o médico da peste lança Curar tendo como alvo uma única criatura, o médico da peste também restaura Pontos de Vida iguais ao Rank da magia para si mesmo ou para qualquer outra criatura dentro do alcance da magia."
         }
       },
       "spellcasting": {
@@ -4141,7 +4141,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "XU2BqSl9PcE8og5Q": {
           "name": "Potência Feiticeira",
-          "description": "Quando o déspota lança um magia de um espaço de magia que causa dano, ele ganha um bônus de status no dano inicial do magia igual ao Rank do magia."
+          "description": "Quando o déspota lança uma magia de um espaço de magia que causa dano, ele ganha um bônus de status no dano inicial da magia igual ao Rank da magia."
         },
         "XnRBTxbwE4cyslE3": {
           "name": "Língua de Chama",
@@ -4254,11 +4254,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "hRgSJclrdYkLuHrx": {
           "name": "Interferência do Espírito",
-          "description": "O sacerdote espiritual clama por um espírito local para atacar os inimigos do sacerdote. O espírito libera uma explosão de pedras, ataca com um conjunto de vinhas ou usa alguma outra parte apropriada do ambiente para atacar todas as criaturas em um tipo de 3 metros:explosão dentro de 30 pés (9 metros) do sacerdote. O ataque causa 6d6 de dano de concussão com um teste de resistência (reflexo, dc:18, básico, opções:efeito de área). O sacerdote espiritual não pode usar a Interferência do Espírito por [[/gmr 1d4 #rounds]]. O Mestre pode fazer com que essa habilidade cause um tipo de dano diferente com base nos espíritos locais, como dano de fogo ao invocar um espírito de fogo."
+          "description": "O sacerdote espiritual clama por um espírito local para atacar os inimigos do sacerdote. O espírito libera uma explosão de pedras, ataca com um conjunto de vinhas ou usa alguma outra parte apropriada do ambiente para atacar todas as criaturas em um tipo de 3 metros:explosão dentro de 30 pés (9 metros) do sacerdote. O ataque causa 6d6 de dano de concussão com um teste de resistência (reflexo, dc:18, básico, opções:efeito de área). O sacerdote espiritual não pode usar a Interferência do Espírito por 1d4. O Mestre pode fazer com que essa habilidade cause um tipo de dano diferente com base nos espíritos locais, como dano de fogo ao invocar um espírito de fogo."
         },
         "KZRrUi16iTJeV3Cz": {
           "name": "Limite Espiritual",
-          "description": "O sacerdote espiritual alinha seu espírito com seus efeitos mágicos, aumentando o poder de seus magias. Se a próxima ação for lançar um magia que cause dano e não tenha duração, o magia causa dano espiritual adicional igual ao Rank do magia."
+          "description": "O sacerdote espiritual alinha seu espírito com seus efeitos mágicos, aumentando o poder de suas magias. Se a próxima ação for lançar uma magia que cause dano e não tenha duração, a magia causa dano espiritual adicional igual ao Rank da magia."
         }
       },
       "spellcasting": {
@@ -4402,7 +4402,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "vjhC9fHFdm7SJzRk": {
           "name": "Na briga",
-          "description": "O cavalo de guerra veterano Strides então [[/act desmoraliza]] uma criatura adjacente Média ou menor. Quando isso acontece, Desmoralizar perde o traço auditivo e ganha o traço visual, e não sofre penalidade se o cavalo de guerra veterano não falar um idioma."
+          "description": "O cavalo de guerra veterano Strides então desmoraliza uma criatura adjacente Média ou menor. Quando isso acontece, Desmoralizar perde o traço auditivo e ganha o traço visual, e não sofre penalidade se o cavalo de guerra veterano não falar um idioma."
         }
       },
       "spellcasting": {}
@@ -4840,7 +4840,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5iTqDt4fDSnYuJIg": {
           "name": "Desarme duplo",
-          "description": "O capitão dá dois golpes, um com o florete e outro com a gauche principal (em qualquer ordem). Se ambos os ataques acertarem, o capitão do navio pode tentar [[/act desarmar]] o alvo.\nSua penalidade de ataque múltiplo aumenta somente depois que todos os ataques são feitos."
+          "description": "O capitão dá dois golpes, um com o florete e outro com a gauche principal (em qualquer ordem). Se ambos os ataques acertarem, o capitão do navio pode tentar desarmar o alvo.\nSua penalidade de ataque múltiplo aumenta somente depois que todos os ataques são feitos."
         },
         "OjePIuXOLgAEb4RG": {
           "name": "Sem trimestre!",
@@ -4905,7 +4905,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "yLrhpgFiKuvDYdnJ": {
           "name": "magia de varredura",
-          "description": "Requisitos A bruxa leshy cabaça está empunhando sua vassoura\nEfeito Se a próxima ação que a bruxa cabaça leshy usar for lançar um magia não-cantrip que causa dano a um único alvo, a vassoura da bruxa voa e tenta [[/act shove options=sweeping-spell]] aquela criatura com um modificador de Atletismo de +16. Com um sucesso crítico, o alvo também fica caído. A vassoura retorna imediatamente para a mão da bruxa leshy da cabaça."
+          "description": "Requisitos A bruxa leshy cabaça está empunhando sua vassoura\nEfeito Se a próxima ação que a bruxa cabaça leshy usar for lançar uma magia não-cantrip que causa dano a um único alvo, a vassoura da bruxa voa e tenta shove options=sweeping spell aquela criatura com um modificador de Atletismo de +16. Com um sucesso crítico, o alvo também fica caído. A vassoura retorna imediatamente para a mão da bruxa leshy da cabaça."
         }
       },
       "spellcasting": {
@@ -5175,7 +5175,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "REDittofWMSRrU98": {
           "name": "Fuga Distrativa",
-          "description": "Frequência uma vez por rodada\nEfeito Os contrabandistas conseguem fazer um movimento somente depois de desviarem a atenção dos outros. O contrabandista [[/act create-a-diversion]]. Se o contrabandista ficou Oculto para pelo menos uma criatura, o contrabandista pode então Esgueirar-se."
+          "description": "Frequência uma vez por rodada\nEfeito Os contrabandistas conseguem fazer um movimento somente depois de desviarem a atenção dos outros. O contrabandista create a diversion. Se o contrabandista ficou Oculto para pelo menos uma criatura, o contrabandista pode então Esgueirar-se."
         },
         "RxJnF7MlKwqVD1zj": {
           "name": "Bolsos Escondidos",
@@ -5230,7 +5230,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "A3iRCw1rjvafnZxN": {
           "name": "Ataques Coordenados",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O batalhão lança suas lanças em cada inimigo em um tipo: emanação de 1,5 metro com teste de resistência (reflexo, dc: 21, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d6+2)[corte|opções:dano em área] de dano\n2 (2d6+5)[corte|opções:dano em área] de dano\n3 (3d12+7)[corte|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O batalhão lança suas lanças em cada inimigo em um tipo: emanação de 1,5 metro com teste de resistência (reflexo, dc: 21, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d6+2)[corte de dano\n2 (2d6+5)[corte de dano\n3 (3d12+7)[corte de dano"
         },
         "cEC3FjTPb84L7Any": {
           "name": "Voleio Focado",
@@ -5286,7 +5286,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "dT41anVs1Byhwbok": {
           "name": "Choque de Aço",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A infantaria de linha ataca cada inimigo em um tipo: emanação de 1,5 metro, com um salvamento de teste (reflexo, dc: 21, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d6+2)[corte|opções:dano em área] de dano\n2 (2d6+7)[corte|opções:dano em área] de dano\n3 (3d6+10)[corte|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A infantaria de linha ataca cada inimigo em um tipo: emanação de 1,5 metro, com um salvamento de teste (reflexo, dc: 21, básico, opções: efeito de área). O dano depende do número de ações.\n1 (1d6+2)[corte de dano\n2 (2d6+7)[corte de dano\n3 (3d6+10)[corte de dano"
         },
         "hX2JzZ4j0RfmZTNb": {
           "name": "Perfurado em Formações",
@@ -5500,7 +5500,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "WHOLkEuYaCAMaFl1": {
           "name": "Aliado do Nobre",
-          "description": "O espião se posicionou para parecer um aliado confiável, ganhando um bônus de circunstância de +2 para [[/act reunir-informações opções=nobres-aliado]] ou para [[/act causar uma impressão opções=nobres-aliado]] entre os nobres daquela corte."
+          "description": "O espião se posicionou para parecer um aliado confiável, ganhando um bônus de circunstância de +2 para reunir informações opções=nobres aliado ou para causar uma impressão opções=nobres aliado entre os nobres daquela corte."
         },
         "uE9nqIQImKOG8Vr0": {
           "name": "Lâmina Oculta",
@@ -5612,7 +5612,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "vRAaJhxbnqU4B6ba": {
           "name": "Colisão no ar",
-          "description": "O foguete voa duas vezes e então tenta [[/act trip options=mid-air-collision]] ou [[/act shove options=mid-air-collision]] outra criatura voadora. Se obtiverem sucesso no teste de Atletismo, eles obtêm um sucesso crítico."
+          "description": "O foguete voa duas vezes e então tenta trip options=mid air collision ou shove options=mid air collision outra criatura voadora. Se obtiverem sucesso no teste de Atletismo, eles obtêm um sucesso crítico."
         },
         "dckyXWp7Kf2iQEKe": {
           "name": "Metralha de foguete",
@@ -5709,7 +5709,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "fRHQeFHktoqB5nDG": {
           "name": "Nadador Praticado",
-          "description": "Quando o nômade do oceano obtém sucesso em um teste de Atletismo para [[/agir nadar]], ele obtém um sucesso crítico."
+          "description": "Quando o nômade do oceano obtém sucesso em um teste de Atletismo para nadar, ele obtém um sucesso crítico."
         },
         "RAdehvlJ7VN9XCvD": {
           "name": "Pulmões Fortes",
@@ -5887,7 +5887,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "drNAUPLqWo7QSh3l": {
           "name": "Avanço Blindado",
-          "description": "Requisitos O capitão da guarda está com o escudo levantado\nEfeito O capitão da guarda avança, usando seu escudo para repelir os inimigos. O capitão Strides e [[/act shove]], em qualquer ordem. A penalidade de ataque múltiplo não se aplica a este Empurrão, embora o Empurrão conte para a penalidade de ataque múltiplo do capitão."
+          "description": "Requisitos O capitão da guarda está com o escudo levantado\nEfeito O capitão da guarda avança, usando seu escudo para repelir os inimigos. O capitão Strides e shove, em qualquer ordem. A penalidade de ataque múltiplo não se aplica a este Empurrão, embora o Empurrão conte para a penalidade de ataque múltiplo do capitão."
         }
       },
       "spellcasting": {}
@@ -5935,7 +5935,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "8hhbtRmUrKfrln1a": {
           "name": "Lanças fora!",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A formação da falange lança suas lanças longas em todas as direções, atingindo todos os infelizes o suficiente para estarem perto deles. Cada inimigo em um tipo:emanação de 3 metros deve tentar um teste de salvamento (reflexo, dc:21, básico, opções:efeito de área).\nO dano depende do número de ações.\n1 (1d8+2)[perfuração|opções:dano em área] de dano\n2 (2d8+5)[perfuração|opções:dano em área] de dano\n3 (3d8+5)[perfuração|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito A formação da falange lança suas lanças longas em todas as direções, atingindo todos os infelizes o suficiente para estarem perto deles. Cada inimigo em um tipo:emanação de 3 metros deve tentar um teste de salvamento (reflexo, dc:21, básico, opções:efeito de área).\nO dano depende do número de ações.\n1 (1d8+2)[perfuração de dano\n2 (2d8+5)[perfuração de dano\n3 (3d8+5)[perfuração de dano"
         }
       },
       "spellcasting": {}
@@ -5985,7 +5985,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "0gE6l2oSZZRPjEyT": {
           "name": "Empurrão debandada",
-          "description": "O legbreaker [[/act shove options=stampeding-shove]] uma criatura, ganhando +2 de bônus de circunstância em seu teste de Atletismo se o alvo estiver caído. Se o Empurrão tiver sucesso, o alvo sofre 2d10 de dano de concussão (o dobro do dano em caso de sucesso crítico)."
+          "description": "O legbreaker shove options=stampeding shove uma criatura, ganhando +2 de bônus de circunstância em seu teste de Atletismo se o alvo estiver caído. Se o Empurrão tiver sucesso, o alvo sofre 2d10 de dano de concussão (o dobro do dano em caso de sucesso crítico)."
         }
       },
       "spellcasting": {}
@@ -6044,7 +6044,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ajOvxZZwNfyldDXc": {
           "name": "Pummel Coordenado",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O batalhão anão desfere uma tempestade de golpes de martelo de guerra contra cada inimigo em um tipo de emanação de 1,5 metro (teste (reflexo, dc:21, básico, opções:efeito de área)). O dano depende do número de ações.\n1 1d8 de dano por concussão\n2 (2d8+5)[concussão|opções:dano em área] de dano\n3 (3d8+5)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito O batalhão anão desfere uma tempestade de golpes de martelo de guerra contra cada inimigo em um tipo de emanação de 1,5 metro (teste (reflexo, dc:21, básico, opções:efeito de área)). O dano depende do número de ações.\n1 1d8 de dano por concussão\n2 (2d8+5)[concussão de dano\n3 (3d8+5)[concussão de dano"
         },
         "9eLEaLdSVPXS10q4": {
           "name": "Canção de Guerra dos Anões",
@@ -6260,7 +6260,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "wOQjx80hxdIebHPz": {
           "name": "Mudança de postura",
-          "description": "O lutador de artes marciais mistas assume uma postura de sua escolha, ganhando o bônus de circunstância listado e o Golpe, mas perdendo a capacidade de realizar outros Golpes.\n• Postura de nocaute do cotovelo +2 em testes de Atletismo para [[/act shove]] ou [[/act trip]]; Corpo a corpo 1 cotovelo cruzado +16 (não letal, tropeçar, desarmado) Dano 2d6+8 concussão\n• Garante Postura de Agarrar +2 em testes de Atletismo para [[/act agarrar]]; Corpo a corpo 1 membro de agarrar +16 (agarrar, não letal, desarmado) Dano 2d4+8 de concussão\n• Postura de Barragem Destruidora +2 para dano contra oponentes desprotegidos; Corpo a corpo 1 punho violento +16 (forte, não letal, desarmado) Dano 2d8+8 concussão"
+          "description": "O lutador de artes marciais mistas assume uma postura de sua escolha, ganhando o bônus de circunstância listado e o Golpe, mas perdendo a capacidade de realizar outros Golpes.\n• Postura de nocaute do cotovelo +2 em testes de Atletismo para shove ou trip; Corpo a corpo 1 cotovelo cruzado +16 (não letal, tropeçar, desarmado) Dano 2d6+8 concussão\n• Garante Postura de Agarrar +2 em testes de Atletismo para agarrar; Corpo a corpo 1 membro de agarrar +16 (agarrar, não letal, desarmado) Dano 2d4+8 de concussão\n• Postura de Barragem Destruidora +2 para dano contra oponentes desprotegidos; Corpo a corpo 1 punho violento +16 (forte, não letal, desarmado) Dano 2d8+8 concussão"
         },
         "sc9JhTai8KCOcOWy": {
           "name": "Fluidez de queda",
@@ -6323,7 +6323,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "uZGRPTmda1grN4Gf": {
           "name": "Armas Ressonantes",
-          "description": "Se a aura Conto Hipnotizante do fiandeiro estiver ativa ou ele tiver lançado um magia na última rodada, seus Golpes com armas mágicas causam 2d10 de dano sônico adicional."
+          "description": "Se a aura Conto Hipnotizante do fiandeiro estiver ativa ou ele tiver lançado uma magia na última rodada, seus Golpes com armas mágicas causam 2d10 de dano sônico adicional."
         }
       },
       "spellcasting": {
@@ -6568,7 +6568,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "01ootqljUXSiF6Ff": {
           "name": "Esmagar Crânios",
-          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os trituradores de crânios esmagam seus martelos e porretes contra cada inimigo em um tipo de emanação de 1,5 metro, com um teste de resistência (reflexo, dc:22, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d12 de dano por concussão\n2 (1d12+8)[concussão|opções:dano em área] de dano\n3 (2d12+8)[concussão|opções:dano em área] de dano"
+          "description": "1 a 3\nFrequência uma vez por rodada\nEfeito Os trituradores de crânios esmagam seus martelos e porretes contra cada inimigo em um tipo de emanação de 1,5 metro, com um teste de resistência (reflexo, dc:22, básico, opções:efeito de área). O dano depende do número de ações.\n1 1d12 de dano por concussão\n2 (1d12+8)[concussão de dano\n3 (2d12+8)[concussão de dano"
         },
         "o7RippHQ22wnFDkR": {
           "name": "Salva Sagrada",

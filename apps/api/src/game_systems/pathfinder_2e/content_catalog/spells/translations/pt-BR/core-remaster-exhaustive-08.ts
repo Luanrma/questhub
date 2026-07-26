@@ -15,7 +15,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "30 explosão",
       "duration": "",
-      "defense": "básico vai economizar",
+      "defense": "teste básico de Vontade",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -32,7 +32,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -44,7 +44,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Forma de Dragão",
-      "description": "Invocando magia poderosa, você ganha uma forma de batalha de dragão grande. Ao lançar este magia, escolha um tipo de dragão comum ou outro tipo ao qual seu mestre permita acesso. Enquanto estiver nesta forma, você ganha a característica dragão. Você tem mãos nesta forma de batalha e pode realizar ações de manipulação. Você pode descartar o magia.\nVocê ganha as seguintes estatísticas e habilidades, independentemente da forma de batalha escolhida:\n• CA = 18 + seu nível. Ignore a penalidade de teste e a redução de velocidade da sua armadura.\n• 10 pontos de vida temporários.\n• Velocidade 40 pés (12 metros), voo 100 pés (30 metros). Você ganha qualquer uma das seguintes Velocidades que o dragão escolhido possui, mas com a quantidade listada: escavar 20 pés (6 metros), escalar 40 pés (12 metros), nadar 60 pés (18 metros).\n• Resistência 10 contra o tipo de dano do seu Sopro do Dragão (veja abaixo).\n• Visão no escuro e aroma impreciso 60 pés (18 metros).\n• Os seguintes ataques corpo a corpo desarmados, que são os únicos ataques com os quais você pode atacar. Você é treinado com eles. Seu modificador de ataque é +22 e seu bônus de dano é +6. Esses ataques são baseados na Força (para o propósito da condição debilitada, por exemplo). Se o seu modificador de ataque desarmado for maior, você poderá usá-lo. Veja abaixo mais sobre esses ataques.\n• Corpo a corpo 1 mandíbula, Dano 2d12 perfurante mais 2d6 de dano do mesmo tipo de dano do seu Sopro do Dragão (veja abaixo);\n• Corpo a corpo 1 garra (ágil), Dano 3d10 cortante;\n• Corpo a corpo 1 cauda (alcance 10 pés (3 metros)), Dano 3d10 por concussão.\n• Modificador de Atletismo de +23, a menos que o seu seja maior.\n• Sopro do Dragão 2 Você exala energia mágica mortal em uma área, causando 10d6 de dano a cada criatura na área com um teste de resistência básico contra a CD do seu magia. A forma, o tipo de dano e o tipo de salvamento correspondem ao sopro do dragão escolhido. Se o sopro do dragão escolhido puder causar mais de um tipo de dano, escolha um ao conjurar a forma de dragão. A forma é um cone de 30 pés ou uma linha de 100 pés. Uma vez ativado, Dragon Breath não pode ser usado novamente por 1d4 rodadas. Dragon Breath tem a característica de tradição correspondente ao tipo de dragão e a característica de dano correspondente ao tipo de dano que ele causa, se aplicável.\n• Resistência à Tradição Se a tradição mágica do dragão corresponder à sua magia forma de dragão, você ganha a habilidade listada. Resistência arcana 5 contra magia; resistência divina 10 ao espírito, vitalidade e vazio; resistência oculta 10 a mental; resistência primária 5 a danos físicos.\nEfeito do magia: Forma de Dragão\nDragão | Tradição | Velocidades | Respiração do Dragão | Salvando lance |\nAdamantino | Primordial | Toca | Cone de espancamento | Reflexo |\nBarragem | Arcano | — | Cone de força | Reflexo |\nPântano | Primordial | Nadar | Cone de ácido | Reflexo |\nSalmoura | Primordial | Nadar | Linha de espancamento | Reflexo |\nCinza | Primordial | — | Cone de fogo | Reflexo |\nNuvem | Primordial | — | Cone de eletricidade | Reflexo |\nConspirador | Oculto | Subir | Cone de veneno | Fortaleza |\nCoral | Primordial | Nadar | Linha de espancamento | Reflexo |\nCristal | Primordial | — | Cone de piercing | Reflexo |\nDelícia | Divino | — | Cone de espírito | Reflexo |\nDesespero | Oculto | — | Cone de som | Vontade |\nDiabólico | Divino | — | Cone de fogo | Reflexo |\nEmpíreo | Divino | — | Cone de espírito | Reflexo |\nExecutor | Divino | — | Cone de som | Reflexo |\nFloresta | Primordial | — | Cone de piercing | Reflexo |\nFortuna | Arcano | — | Cone de força | Reflexo |\nChifrudo | Primordial | Nadar | Cone de veneno | Fortaleza |\nMagma | Primordial | Toca | Cone de fogo | Reflexo |\nMiragem | Arcano | Subir | Cone mental | Vontade |\nZombando | Oculto | — | Cone de espancamento | Reflexo |\nJuramento | Divino | — | Cone de espírito | Vontade |\nPresságio | Oculto | — | Cone mental | Vontade |\nFase | Arcano | — | Cone de força | Reflexo |\nRéquiem | Divino | Nadar | Linha de espírito | Vontade |\nRessurreição | Divino | — | Cone do vazio | Fortaleza |\nRima | Primordial | Nadar | Cone de frio | Reflexo |\nRuna | Arcano | — | Cone de fogo | Reflexo |\nSábio | Oculto | — | Cone mental | Vontade |\nMar | Arcano | Nadar | Cone de espancamento | Reflexo |\nCéu | Divino | — | Cone de eletricidade | Reflexo |\nSoberano | Oculto | — | Cone mental | Vontade |\nCoroa da Tempestade | Primordial | — | Linha de eletricidade | Reflexo |\nTempo | Arcano | — | Cone de força | Vontade |\nUmbral | Oculto | — | Cone do vazio | Reflexo |\nSubmundo | Arcano | Toca | Cone de fogo | Reflexo |\nVizir | Oculto | Nadar | Cone de fogo | Reflexo |\nVorpal | Arcano | — | Cone do vazio | Vontade |\nLamentando | Arcano | — | Cone de Sonic | Fortaleza |\nSussurro | Oculto | — | Cone mental | Vontade |\nDesejo | Arcano | Subir | Cone mental | Vontade |\nAprimorada (8º) Sua forma de batalha é Enorme, você ganha um bônus de status de +6 metros em sua Velocidade de voo e seus ataques têm alcance de 3 metros (ou alcance de 4,5 metros se anteriormente tinham alcance de 3 metros). Em vez disso, você ganha CA = 21 + seu nível, 15 HP temporários, um modificador de ataque de +28, um bônus de dano de +12 e Atletismo +28. Seu Sopro do Dragão causa 4d6 de dano adicional.",
+      "description": "Invocando magia poderosa, você ganha uma forma de batalha de dragão grande. Ao lançar esta magia, escolha um tipo de dragão comum ou outro tipo ao qual seu mestre permita acesso. Enquanto estiver nesta forma, você ganha a característica dragão. Você tem mãos nesta forma de batalha e pode realizar ações de manipulação. Você pode descartar a magia.\nVocê ganha as seguintes estatísticas e habilidades, independentemente da forma de batalha escolhida:\n• CA = 18 + seu nível. Ignore a penalidade de teste e a redução de velocidade da sua armadura.\n• 10 pontos de vida temporários.\n• Velocidade 40 pés (12 metros), voo 100 pés (30 metros). Você ganha qualquer uma das seguintes Velocidades que o dragão escolhido possui, mas com a quantidade listada: escavar 20 pés (6 metros), escalar 40 pés (12 metros), nadar 60 pés (18 metros).\n• Resistência 10 contra o tipo de dano do seu Sopro do Dragão (veja abaixo).\n• Visão no escuro e aroma impreciso 60 pés (18 metros).\n• Os seguintes ataques corpo a corpo desarmados, que são os únicos ataques com os quais você pode atacar. Você é treinado com eles. Seu modificador de ataque é +22 e seu bônus de dano é +6. Esses ataques são baseados na Força (para o propósito da condição debilitada, por exemplo). Se o seu modificador de ataque desarmado for maior, você poderá usá-lo. Veja abaixo mais sobre esses ataques.\n• Corpo a corpo 1 mandíbula, Dano 2d12 perfurante mais 2d6 de dano do mesmo tipo de dano do seu Sopro do Dragão (veja abaixo);\n• Corpo a corpo 1 garra (ágil), Dano 3d10 cortante;\n• Corpo a corpo 1 cauda (alcance 10 pés (3 metros)), Dano 3d10 por concussão.\n• Modificador de Atletismo de +23, a menos que o seu seja maior.\n• Sopro do Dragão 2 Você exala energia mágica mortal em uma área, causando 10d6 de dano a cada criatura na área com um teste de resistência básico contra a CD do sua magia. A forma, o tipo de dano e o tipo de salvamento correspondem ao sopro do dragão escolhido. Se o sopro do dragão escolhido puder causar mais de um tipo de dano, escolha um ao conjurar a forma de dragão. A forma é um cone de 30 pés ou uma linha de 100 pés. Uma vez ativado, Dragon Breath não pode ser usado novamente por 1d4 rodadas. Dragon Breath tem a característica de tradição correspondente ao tipo de dragão e a característica de dano correspondente ao tipo de dano que ele causa, se aplicável.\n• Resistência à Tradição Se a tradição mágica do dragão corresponder à sua magia forma de dragão, você ganha a habilidade listada. Resistência arcana 5 contra magia; resistência divina 10 ao espírito, vitalidade e vazio; resistência oculta 10 a mental; resistência primária 5 a danos físicos.\nEfeito da magia: Forma de Dragão\nDragão | Tradição | Velocidades | Respiração do Dragão | Salvando lance |\nAdamantino | Primordial | Toca | Cone de espancamento | Reflexo |\nBarragem | Arcano | — | Cone de força | Reflexo |\nPântano | Primordial | Nadar | Cone de ácido | Reflexo |\nSalmoura | Primordial | Nadar | Linha de espancamento | Reflexo |\nCinza | Primordial | — | Cone de fogo | Reflexo |\nNuvem | Primordial | — | Cone de eletricidade | Reflexo |\nConspirador | Oculto | Subir | Cone de veneno | Fortaleza |\nCoral | Primordial | Nadar | Linha de espancamento | Reflexo |\nCristal | Primordial | — | Cone de piercing | Reflexo |\nDelícia | Divino | — | Cone de espírito | Reflexo |\nDesespero | Oculto | — | Cone de som | Vontade |\nDiabólico | Divino | — | Cone de fogo | Reflexo |\nEmpíreo | Divino | — | Cone de espírito | Reflexo |\nExecutor | Divino | — | Cone de som | Reflexo |\nFloresta | Primordial | — | Cone de piercing | Reflexo |\nFortuna | Arcano | — | Cone de força | Reflexo |\nChifrudo | Primordial | Nadar | Cone de veneno | Fortaleza |\nMagma | Primordial | Toca | Cone de fogo | Reflexo |\nMiragem | Arcano | Subir | Cone mental | Vontade |\nZombando | Oculto | — | Cone de espancamento | Reflexo |\nJuramento | Divino | — | Cone de espírito | Vontade |\nPresságio | Oculto | — | Cone mental | Vontade |\nFase | Arcano | — | Cone de força | Reflexo |\nRéquiem | Divino | Nadar | Linha de espírito | Vontade |\nRessurreição | Divino | — | Cone do vazio | Fortaleza |\nRima | Primordial | Nadar | Cone de frio | Reflexo |\nRuna | Arcano | — | Cone de fogo | Reflexo |\nSábio | Oculto | — | Cone mental | Vontade |\nMar | Arcano | Nadar | Cone de espancamento | Reflexo |\nCéu | Divino | — | Cone de eletricidade | Reflexo |\nSoberano | Oculto | — | Cone mental | Vontade |\nCoroa da Tempestade | Primordial | — | Linha de eletricidade | Reflexo |\nTempo | Arcano | — | Cone de força | Vontade |\nUmbral | Oculto | — | Cone do vazio | Reflexo |\nSubmundo | Arcano | Toca | Cone de fogo | Reflexo |\nVizir | Oculto | Nadar | Cone de fogo | Reflexo |\nVorpal | Arcano | — | Cone do vazio | Vontade |\nLamentando | Arcano | — | Cone de Sonic | Fortaleza |\nSussurro | Oculto | — | Cone mental | Vontade |\nDesejo | Arcano | Subir | Cone mental | Vontade |\nAprimorada (8º) Sua forma de batalha é Enorme, você ganha um bônus de status de +6 metros em sua Velocidade de voo e seus ataques têm alcance de 3 metros (ou alcance de 4,5 metros se anteriormente tinham alcance de 3 metros). Em vez disso, você ganha CA = 21 + seu nível, 15 HP temporários, um modificador de ataque de +28, um bônus de dano de +12 e Atletismo +28. Seu Sopro do Dragão causa 4d6 de dano adicional.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -60,7 +60,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Teleporte",
-      "description": "Você e os alvos são instantaneamente transportados para qualquer local dentro do alcance, desde que você possa identificar o local com precisão tanto pela sua posição relativa à sua posição inicial quanto pela sua aparência (ou outras características de identificação). O conhecimento incorreto da aparência do local geralmente faz com que o magia falhe, mas em vez disso pode levar ao teletransporte para um local indesejado ou algum outro acidente incomum determinado pelo Mestre. O teletransporte não é preciso em grandes distâncias. Os alvos aparecem a uma distância do destino pretendido igual a aproximadamente 1% da distância total percorrida, em uma direção determinada pelo Mestre. Para viagens curtas, esta falta de precisão é irrelevante, mas para longas distâncias pode chegar a 1 milha.\nAprimorada (7º) Você e os outros alvos podem viajar para qualquer local num raio de 1.600 quilômetros.\nAprimorada (8º) Você e os outros alvos podem viajar para qualquer local no mesmo planeta. Se você viajar mais de 1.600 quilômetros, chegará a apenas 16 quilômetros do alvo.\nAprimorada (9º) Você e os outros alvos podem viajar para qualquer local em outro planeta dentro do mesmo sistema solar. Supondo que você tenha um conhecimento preciso da posição e aparência do local, você chegará ao novo planeta a 160 quilômetros do alvo.\nAprimorada (10º) Como a versão 9º-Rank, mas você e os outros alvos podem viajar para qualquer planeta dentro da mesma galáxia.",
+      "description": "Você e os alvos são instantaneamente transportados para qualquer local dentro do alcance, desde que você possa identificar o local com precisão tanto pela sua posição relativa à sua posição inicial quanto pela sua aparência (ou outras características de identificação). O conhecimento incorreto da aparência do local geralmente faz com que a magia falhe, mas em vez disso pode levar ao teletransporte para um local indesejado ou algum outro acidente incomum determinado pelo Mestre. O teletransporte não é preciso em grandes distâncias. Os alvos aparecem a uma distância do destino pretendido igual a aproximadamente 1% da distância total percorrida, em uma direção determinada pelo Mestre. Para viagens curtas, esta falta de precisão é irrelevante, mas para longas distâncias pode chegar a 1 milha.\nAprimorada (7º) Você e os outros alvos podem viajar para qualquer local num raio de 1.600 quilômetros.\nAprimorada (8º) Você e os outros alvos podem viajar para qualquer local no mesmo planeta. Se você viajar mais de 1.600 quilômetros, chegará a apenas 16 quilômetros do alvo.\nAprimorada (9º) Você e os outros alvos podem viajar para qualquer local em outro planeta dentro do mesmo sistema solar. Supondo que você tenha um conhecimento preciso da posição e aparência do local, você chegará ao novo planeta a 160 quilômetros do alvo.\nAprimorada (10º) Como a versão 9º-Rank, mas você e os outros alvos podem viajar para qualquer planeta dentro da mesma galáxia.",
       "castingTime": "10 minutos",
       "range": "100 milhas",
       "target": "você e até 4 alvos tocados, sejam criaturas voluntárias ou objetos aproximadamente do tamanho de uma criatura.",
@@ -76,7 +76,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Muralha da Força",
-      "description": "Você forma uma parede invisível de pura força mágica de até 50 pés (15 metros) de comprimento e até 20 pés (6 metros) de altura. A parede não tem espessura discernível. Você deve criar a parede em um espaço aberto e contínuo para que suas bordas não passem por nenhuma criatura ou objeto, ou a magia será perdida. A parede tem AC 10, Dureza 30 e 60 Pontos de Vida, e é imune a acertos críticos e danos de precisão. A parede impede que efeitos físicos passem por ela e, por ser feita de força, bloqueia também criaturas incorpóreas e etéreas. Os efeitos de teletransporte podem passar pela barreira, assim como os efeitos visuais (já que a parede é invisível). Muralha de força é imune a efeitos neutralizantes de seu nível ou inferior, mas a muralha é automaticamente destruída por um magia Desintegrar de qualquer Rank.\nAumentado (+2) Os Pontos de Vida da parede aumentam em 20.",
+      "description": "Você forma uma parede invisível de pura força mágica de até 50 pés (15 metros) de comprimento e até 20 pés (6 metros) de altura. A parede não tem espessura discernível. Você deve criar a parede em um espaço aberto e contínuo para que suas bordas não passem por nenhuma criatura ou objeto, ou a magia será perdida. A parede tem AC 10, Dureza 30 e 60 Pontos de Vida, e é imune a acertos críticos e danos de precisão. A parede impede que efeitos físicos passem por ela e, por ser feita de força, bloqueia também criaturas incorpóreas e etéreas. Os efeitos de teletransporte podem passar pela barreira, assim como os efeitos visuais (já que a parede é invisível). Muralha de força é imune a efeitos neutralizantes de seu nível ou inferior, mas a muralha é automaticamente destruída por uma magia Desintegrar de qualquer Rank.\nAumentado (+2) Os Pontos de Vida da parede aumentam em 20.",
       "castingTime": "3 ações",
       "range": "30 pés (9 metros)",
       "target": "",
@@ -92,12 +92,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "magia",
-      "description": "Você faz com que qualquer magia lançado no alvo derrame sua energia em ondas prejudiciais. O alvo deve tentar um salvamento de Vontade.\nSucesso Crítico O alvo não é afetado.\nSucesso Sempre que o alvo for afetado por um magia com duração, o alvo sofre 2d12[persistente,força] de dano. Cada vez que sofre dano de força persistente da destruição de magias, ele reduz a duração restante dos magias que o afetam em 1 rodada. Somente um teste bem-sucedido (arcano) contra sua CD de magia pode ajudar o alvo a se recuperar do dano persistente; a maldição e o dano persistente terminam após 1 minuto.\nFracasso Como sucesso, mas a maldição e o dano persistente não terminam sozinhos.\nFalha Crítica Como falha, mas o dano de força persistente é 4d12[persistente,força].",
+      "description": "Você faz com que qualquer magia lançado no alvo derrame sua energia em ondas prejudiciais. O alvo deve tentar um salvamento de Vontade.\nSucesso Crítico O alvo não é afetado.\nSucesso Sempre que o alvo for afetado por uma magia com duração, o alvo sofre 2d12[persistente,força] de dano. Cada vez que sofre dano de força persistente da destruição de magias, ele reduz a duração restante das magias que o afetam em 1 rodada. Somente um teste bem-sucedido (arcano) contra sua CD de magia pode ajudar o alvo a se recuperar do dano persistente; a maldição e o dano persistente terminam após 1 minuto.\nFracasso Como sucesso, mas a maldição e o dano persistente não terminam sozinhos.\nFalha Crítica Como falha, mas o dano de força persistente é 4d12[persistente,força].",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -114,7 +114,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "varia",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": ""
     }
   },
@@ -132,7 +132,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "30 cones",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -144,7 +144,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Convicção Zelosa",
-      "description": "Você ignora as mentes racionais de seus alvos, incutindo-lhes convicção e zelo inabaláveis. Cada alvo ganha 12 Pontos de Vida temporários e +2 de bônus de status em testes de resistência de Vontade contra efeitos mentais, já que sua fé substitui os sinais de seus próprios corpos e mentes. Se você disser a um alvo para fazer algo, ele deverá atender ao seu pedido, embora se normalmente achar a tarefa repugnante, ele poderá tentar um salvamento de Vontade no final de seu turno a cada rodada devido à dissonância cognitiva. Se obtiver sucesso, ele encerra completamente os efeitos da magia sobre si mesmo.\nEfeito do magia: Convicção Zelosa\nAprimorada (9º) Os Pontos de Vida temporários aumentam para 18, e o bônus de status para testes de Vontade aumenta para +3.",
+      "description": "Você ignora as mentes racionais de seus alvos, incutindo-lhes convicção e zelo inabaláveis. Cada alvo ganha 12 Pontos de Vida temporários e +2 de bônus de status em testes de resistência de Vontade contra efeitos mentais, já que sua fé substitui os sinais de seus próprios corpos e mentes. Se você disser a um alvo para fazer algo, ele deverá atender ao seu pedido, embora se normalmente achar a tarefa repugnante, ele poderá tentar um salvamento de Vontade no final de seu turno a cada rodada devido à dissonância cognitiva. Se obtiver sucesso, ele encerra completamente os efeitos da magia sobre si mesmo.\nEfeito da magia: Convicção Zelosa\nAprimorada (9º) Os Pontos de Vida temporários aumentam para 18, e o bônus de status para testes de Vontade aumenta para +3.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "até 10 criaturas dispostas",
@@ -176,7 +176,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Trepadeiras emaranhadas",
-      "description": "Trepadeiras densas e contorcidas brotam de todas as superfícies e enchem qualquer corpo de água na área. Qualquer criatura se movendo no terreno, ou escalando ou nadando dentro das trepadeiras, sofre uma penalidade de circunstância de –3 metros em suas Velocidades enquanto estiver na área. Uma vez por rodada, você pode Sustentar o magia para fazer uma videira atacar de qualquer quadrado dentro da extensão de trepadeiras. Esta videira tem um alcance de 15 pés. Faça uma jogada de ataque mágico corpo a corpo contra o alvo; se obtiver sucesso, a videira puxa o alvo para as trepadeiras e o deixa imobilizado por 1 rodada ou até a criatura escapar (contra a CD do seu magia), o que ocorrer primeiro.\nEfeito do magia: Trepadeiras Emaranhadas",
+      "description": "Trepadeiras densas e contorcidas brotam de todas as superfícies e enchem qualquer corpo de água na área. Qualquer criatura se movendo no terreno, ou escalando ou nadando dentro das trepadeiras, sofre uma penalidade de circunstância de –3 metros em suas Velocidades enquanto estiver na área. Uma vez por rodada, você pode Sustentar a magia para fazer uma videira atacar de qualquer quadrado dentro da extensão de trepadeiras. Esta videira tem um alcance de 15 pés. Faça uma jogada de ataque mágico corpo a corpo contra o alvo; se obtiver sucesso, a videira puxa o alvo para as trepadeiras e o deixa imobilizado por 1 rodada ou até a criatura escapar (contra a CD do sua magia), o que ocorrer primeiro.\nEfeito da magia: Trepadeiras Emaranhadas",
       "castingTime": "3 ações",
       "range": "500 pés (150 metros)",
       "target": "",
@@ -199,7 +199,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "60 explosão",
       "duration": "1 minuto",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado (+1) O dano aumenta em 1d8."
     }
   },
@@ -216,7 +216,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "até a próxima vez que você fizer seus preparativos diários",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (10º) A duração é ilimitada."
     }
   },
@@ -233,7 +233,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d6."
     }
   },
@@ -245,12 +245,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Vidência",
-      "description": "Você espiona magicamente uma criatura de sua escolha. A vidência funciona como a Clarividência, exceto que a imagem que você recebe é menos precisa, insuficiente para teletransporte e magias semelhantes. Em vez de criar um olho em um local definido em 500 pés (150 metros), você cria um olho que se manifesta logo acima do alvo. Você pode escolher um alvo pelo nome ou tocando em um de seus pertences ou em um pedaço de seu corpo. Se você não encontrou o alvo pessoalmente, a CD da vidência é 2 a menos, e se você não tem conhecimento da identidade do alvo (talvez porque encontrou a presa de uma criatura desconhecida na cena do crime), a CD é 10 a menos.\nO efeito da vidência depende do teste de Vontade do alvo.\nSucesso Crítico O magia falha e o alvo fica temporariamente imune por 1 semana. O alvo também obtém um vislumbre de você e aprende a distância aproximada e a direção de você.\nSucesso O magia falha e o alvo fica temporariamente imune por 1 dia.\nFalha A magia foi bem-sucedida.\nFalha Crítica A magia é bem-sucedida e o olho segue o alvo se ele se mover, viajando até 60 pés (18 metros) por rodada.",
+      "description": "Você espiona magicamente uma criatura de sua escolha. A vidência funciona como a Clarividência, exceto que a imagem que você recebe é menos precisa, insuficiente para teletransporte e magias semelhantes. Em vez de criar um olho em um local definido em 500 pés (150 metros), você cria um olho que se manifesta logo acima do alvo. Você pode escolher um alvo pelo nome ou tocando em um de seus pertences ou em um pedaço de seu corpo. Se você não encontrou o alvo pessoalmente, a CD da vidência é 2 a menos, e se você não tem conhecimento da identidade do alvo (talvez porque encontrou a presa de uma criatura desconhecida na cena do crime), a CD é 10 a menos.\nO efeito da vidência depende do teste de Vontade do alvo.\nSucesso Crítico A magia falha e o alvo fica temporariamente imune por 1 semana. O alvo também obtém um vislumbre de você e aprende a distância aproximada e a direção de você.\nSucesso A magia falha e o alvo fica temporariamente imune por 1 dia.\nFalha A magia foi bem-sucedida.\nFalha Crítica A magia é bem-sucedida e o olho segue o alvo se ele se mover, viajando até 60 pés (18 metros) por rodada.",
       "castingTime": "10 minutos",
       "range": "planetário",
       "target": "1 criatura",
       "duration": "10 minutos",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -267,7 +267,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "120 pés (36 metros)",
       "target": "1 criatura, objeto autônomo ou construção de força",
       "duration": "",
-      "defense": "salvamento básico de fortaleza",
+      "defense": "teste básico de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 2d10."
     }
   },
@@ -285,7 +285,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "10 explosão",
       "duration": "1 minuto",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -302,7 +302,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "500 pés (150 metros)",
       "target": "1 criatura, mais qualquer número de criaturas adicionais",
       "duration": "",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d12."
     }
   },
@@ -314,12 +314,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Árvore das Estações",
-      "description": "Você faz com que uma pequena árvore brote instantaneamente em um espaço desocupado no chão. Quatro vagens crescem da árvore, cada uma cheia da magia de uma estação diferente. Uma criatura pode Interagir para colher um dos frutos e pode então lançá-lo até 30 pés (9 metros) como parte da mesma ação ou fazê-lo com uma ação de Interagir separada posteriormente. Quando lançado, um pod explode em @Template[burst|distance:5], causando 6d6 de dano com um teste de Reflexos básico contra sua CD de magia. O tipo de dano depende da estação do fruto: eletricidade na primavera, fogo no verão, veneno no outono ou frio no inverno. Quando o magia termina, a árvore murcha e todos os frutos restantes apodrecem, deixando para trás sementes não-mágicas.\n(@item.level)d6[frio]\n(@item.level)d6[eletricidade]\n(@item.level)d6[fogo]\n(@item.level)d6[veneno]\nAumentado (+1) O dano da explosão aumenta em 1d6.",
+      "description": "Você faz com que uma pequena árvore brote instantaneamente em um espaço desocupado no chão. Quatro vagens crescem da árvore, cada uma cheia da magia de uma estação diferente. Uma criatura pode Interagir para colher um dos frutos e pode então lançá-lo até 30 pés (9 metros) como parte da mesma ação ou fazê-lo com uma ação de Interagir separada posteriormente. Quando lançado, um pod explode em @Template[burst|distance:5], causando 6d6 de dano com um teste de Reflexos básico contra sua CD de magia. O tipo de dano depende da estação do fruto: eletricidade na primavera, fogo no verão, veneno no outono ou frio no inverno. Quando a magia termina, a árvore murcha e todos os frutos restantes apodrecem, deixando para trás sementes não-mágicas.\n(@item.level)d6[frio]\n(@item.level)d6[eletricidade]\n(@item.level)d6[fogo]\n(@item.level)d6[veneno]\nAumentado (+1) O dano da explosão aumenta em 1d6.",
       "castingTime": "2 ações",
       "range": "60 pés (18 metros)",
       "target": "",
       "duration": "1 minuto",
-      "defense": "salvamento de reflexo básico",
+      "defense": "teste básico de Reflexos",
       "heightening": "Aumentado (+1) O dano da explosão aumenta em 1d6."
     }
   },
@@ -347,7 +347,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Enganar",
-      "description": "Você se torna invisível e cria uma duplicata ilusória de si mesmo. Quando você sustenta o magia, você pode ditar mentalmente um curso de ação para sua duplicata seguir naquela rodada. Sua duplicata age como se tivesse o número total de ações, embora na verdade não possa afetar nada no ambiente. Tanto a duplicata quanto sua invisibilidade persistem durante a duração do magia. Realizar uma ação hostil não acaba com a invisibilidade de enganar, assim como um magia de Invisibilidade de 4º Rank. Uma criatura que determina que a duplicata é uma ilusão não necessariamente sabe que você é invisível, e aquela que pode ver sua forma invisível não necessariamente sabe que sua duplicata é uma ilusão.\nSe você lançar um magia, atacar ou interagir de outra forma com outra criatura, como parte dessa ação, você pode tentar um teste de Enganação contra as CDs de Percepção dos observadores para convencê-los de que sua duplicata usou aquela ação. Isso não engana ninguém que sabe que sua duplicata é uma ilusão, nem funciona se o ataque obviamente não puder ter vindo da duplicata. Por exemplo, se você disparasse um raio, você poderia fazer com que parecesse que ele veio da duplicata, desde que a duplicata estivesse posicionada apropriadamente, mas se você atacasse com uma espada e sua duplicata estivesse do outro lado da sala em relação ao alvo, seu teste de Enganação falharia automaticamente.",
+      "description": "Você se torna invisível e cria uma duplicata ilusória de si mesmo. Quando você sustenta a magia, você pode ditar mentalmente um curso de ação para sua duplicata seguir naquela rodada. Sua duplicata age como se tivesse o número total de ações, embora na verdade não possa afetar nada no ambiente. Tanto a duplicata quanto sua invisibilidade persistem durante a duração da magia. Realizar uma ação hostil não acaba com a invisibilidade de enganar, assim como uma magia de Invisibilidade de 4º Rank. Uma criatura que determina que a duplicata é uma ilusão não necessariamente sabe que você é invisível, e aquela que pode ver sua forma invisível não necessariamente sabe que sua duplicata é uma ilusão.\nSe você lançar uma magia, atacar ou interagir de outra forma com outra criatura, como parte dessa ação, você pode tentar um teste de Enganação contra as CDs de Percepção dos observadores para convencê-los de que sua duplicata usou aquela ação. Isso não engana ninguém que sabe que sua duplicata é uma ilusão, nem funciona se o ataque obviamente não puder ter vindo da duplicata. Por exemplo, se você disparasse um raio, você poderia fazer com que parecesse que ele veio da duplicata, desde que a duplicata estivesse posicionada apropriadamente, mas se você atacasse com uma espada e sua duplicata estivesse do outro lado da sala em relação ao alvo, seu teste de Enganação falharia automaticamente.",
       "castingTime": "2 ações",
       "range": "",
       "target": "",
@@ -380,12 +380,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Repulsão",
-      "description": "Você manifesta uma aura que impede as criaturas de se aproximarem de você. Ao lançar o magia, você pode fazer com que a área tenha qualquer raio que você escolher, até 40 pés (12 metros). Uma criatura deve tentar um teste de Vontade se estiver dentro da área quando você lançar o magia ou assim que entrar na área enquanto o magia estiver em vigor. Uma vez que uma criatura tenha tentado salvar, ela usa o mesmo resultado para aquela conjuração de repulsão. Quaisquer restrições ao movimento de uma criatura se aplicam somente se ela se mover voluntariamente em sua direção. Por exemplo, se você se aproximar de uma criatura, ela não precisará se afastar.\nSucesso Crítico O movimento da criatura não é restrito.\nSucesso A criatura trata cada quadrado na área como terreno difícil quando se aproxima de você.\nFalha A criatura não pode se aproximar de você dentro da área.",
+      "description": "Você manifesta uma aura que impede as criaturas de se aproximarem de você. Ao lançar a magia, você pode fazer com que a área tenha qualquer raio que você escolher, até 40 pés (12 metros). Uma criatura deve tentar um teste de Vontade se estiver dentro da área quando você lançar a magia ou assim que entrar na área enquanto a magia estiver em vigor. Uma vez que uma criatura tenha tentado salvar, ela usa o mesmo resultado para aquela conjuração de repulsão. Quaisquer restrições ao movimento de uma criatura se aplicam somente se ela se mover voluntariamente em sua direção. Por exemplo, se você se aproximar de uma criatura, ela não precisará se afastar.\nSucesso Crítico O movimento da criatura não é restrito.\nSucesso A criatura trata cada quadrado na área como terreno difícil quando se aproxima de você.\nFalha A criatura não pode se aproximar de você dentro da área.",
       "castingTime": "2 ações",
       "range": "emanação de até 40 pés",
       "target": "",
       "duration": "1 minuto",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -397,12 +397,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Petrificar",
-      "description": "O corpo do alvo lentamente se transforma em uma estátua de pedra. O alvo deve tentar um salvamento de Fortitude.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo fica lento 1 por 1 rodada enquanto pedras começam a se formar em seu corpo.\nFalha O alvo fica lento 1 e deve tentar um salvamento de Fortitude no final de cada um de seus turnos; este salvamento contínuo tem o traço de incapacitação. Se falhar, a condição de lentidão aumenta em 1 (ou 2 em caso de falha crítica) à medida que pedras se espalham por seu corpo. Um teste bem-sucedido reduz a condição de lentidão em 1. Quando uma criatura se torna totalmente incapaz de agir devido à condição de lentidão de petrificar, o magia termina em um flash de luz cinza, deixando o alvo petrificado permanentemente enquanto se transforma em uma estátua. O magia também termina se a condição de lentidão for removida, o que faz com que a pedra se quebre inofensivamente.\nFalha Crítica Como falha, mas o alvo inicialmente fica Lento 2.",
+      "description": "O corpo do alvo lentamente se transforma em uma estátua de pedra. O alvo deve tentar um salvamento de Fortitude.\nSucesso Crítico O alvo não é afetado.\nSucesso O alvo fica lento 1 por 1 rodada enquanto pedras começam a se formar em seu corpo.\nFalha O alvo fica lento 1 e deve tentar um salvamento de Fortitude no final de cada um de seus turnos; este salvamento contínuo tem o traço de incapacitação. Se falhar, a condição de lentidão aumenta em 1 (ou 2 em caso de falha crítica) à medida que pedras se espalham por seu corpo. Um teste bem-sucedido reduz a condição de lentidão em 1. Quando uma criatura se torna totalmente incapaz de agir devido à condição de lentidão de petrificar, a magia termina em um flash de luz cinza, deixando o alvo petrificado permanentemente enquanto se transforma em uma estátua. A magia também termina se a condição de lentidão for removida, o que faz com que a pedra se quebre inofensivamente.\nFalha Crítica Como falha, mas o alvo inicialmente fica Lento 2.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "1 criatura feita de material orgânico",
       "duration": "varia",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": ""
     }
   },
@@ -414,12 +414,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Imagem do projeto",
-      "description": "Você projeta uma imagem ilusória de si mesmo. Você deve permanecer dentro do alcance da imagem e, se em algum momento não conseguir ver a imagem, o magia termina. Sempre que você conjurar um magia que não seja aquele cuja área seja uma emanação, você pode fazer com que o efeito do magia se origine de você mesmo ou da imagem. Como a imagem é uma ilusão, ela não pode se beneficiar de magias, embora apareçam manifestações visuais do magia. A imagem tem o mesmo AC e salva como você. Se for atingido por um ataque ou falhar no salvamento, o magia termina.\nAprimorada (+2) A duração máxima que você pode sustentar o magia aumenta para 10 minutos.",
+      "description": "Você projeta uma imagem ilusória de si mesmo. Você deve permanecer dentro do alcance da imagem e, se em algum momento não conseguir ver a imagem, a magia termina. Sempre que você conjurar uma magia que não seja aquele cuja área seja uma emanação, você pode fazer com que o efeito da magia se origine de você mesmo ou da imagem. Como a imagem é uma ilusão, ela não pode se beneficiar de magias, embora apareçam manifestações visuais da magia. A imagem tem o mesmo AC e salva como você. Se for atingido por um ataque ou falhar no salvamento, a magia termina.\nAprimorada (+2) A duração máxima que você pode sustentar a magia aumenta para 10 minutos.",
       "castingTime": "2 ações",
       "range": "30 pés (9 metros)",
       "target": "",
       "duration": "1 minuto",
-      "heightening": "Aprimorada (+2) A duração máxima que você pode sustentar o magia aumenta para 10 minutos."
+      "heightening": "Aprimorada (+2) A duração máxima que você pode sustentar a magia aumenta para 10 minutos."
     }
   },
   {
@@ -436,7 +436,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "60 explosão",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aprimorada (+1) O dano de frio aumenta em 1d10 e o dano de vazio contra os vivos aumenta em 1d4."
     }
   },
@@ -448,7 +448,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Regenerado",
-      "description": "Uma infusão de energia vital concede cura contínua à criatura. O alvo ganha temporariamente regeneração 15, o que restaura 15 Pontos de Vida no início de cada um de seus turnos. Enquanto tiver regeneração, o alvo não pode morrer por receber dano de Pontos de Vida e sua condição de Morrer não pode aumentar para um valor que o mataria (isso interrompe a condição de morte da maioria das criaturas ao morrer 3), embora se seu valor de Ferido se tornar 4 ou superior, ele permanecerá Inconsciente até que seus ferimentos sejam tratados. Se o alvo sofrer dano de ácido ou fogo, sua regeneração será desativada até o final do próximo turno.\nCada vez que a criatura recupera Pontos de Vida da regeneração, ela também regenera um órgão danificado ou arruinado (se houver). Durante a duração da magia, a criatura também pode recolocar partes do corpo cortadas gastando uma ação de Interagir para segurar a parte do corpo na área de onde foi cortada.\nEfeito do magia: Regenerar\nAprimorada (9º) A regeneração aumenta para 20.",
+      "description": "Uma infusão de energia vital concede cura contínua à criatura. O alvo ganha temporariamente regeneração 15, o que restaura 15 Pontos de Vida no início de cada um de seus turnos. Enquanto tiver regeneração, o alvo não pode morrer por receber dano de Pontos de Vida e sua condição de Morrer não pode aumentar para um valor que o mataria (isso interrompe a condição de morte da maioria das criaturas ao morrer 3), embora se seu valor de Ferido se tornar 4 ou superior, ele permanecerá Inconsciente até que seus ferimentos sejam tratados. Se o alvo sofrer dano de ácido ou fogo, sua regeneração será desativada até o final do próximo turno.\nCada vez que a criatura recupera Pontos de Vida da regeneração, ela também regenera um órgão danificado ou arruinado (se houver). Durante a duração da magia, a criatura também pode recolocar partes do corpo cortadas gastando uma ação de Interagir para segurar a parte do corpo na área de onde foi cortada.\nEfeito da magia: Regenerar\nAprimorada (9º) A regeneração aumenta para 20.",
       "castingTime": "2 ações",
       "range": "tocar",
       "target": "1 criatura viva voluntária",
@@ -464,7 +464,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Teletransporte Interplanar",
-      "description": "Requisitos Você tem uma chave planar para o plano de destino, usada como lugar geométrico\nVocê e seus aliados atravessam as barreiras entre os planos de existência. Os alvos se movem para outro plano, como o Plano do Fogo, o Submundo ou as Fendas Exteriores. Você deve saber que o plano de destino existe e usar uma chave planar mágica criada a partir de material daquele plano como local para a magia. Embora as chaves planares para os planos mais proeminentes sejam incomuns, assim como o magia teletransporte interplanar, planos e semiplanos mais obscuros geralmente têm chaves planares raras ou possivelmente únicas.\nA magia é altamente imprecisa e você aparece a 1d20×40 quilômetros do último lugar onde um dos alvos (de sua escolha) foi localizado na última vez que o alvo viajou até o avião. Se for a primeira vez que todos os alvos viajam para um avião específico, você aparecerá em um local aleatório no avião. O teletransporte interplanar não fornece um meio de viagem de retorno, embora lançar o teletransporte interplanar novamente permita que você retorne ao seu plano anterior, a menos que haja circunstâncias atenuantes.",
+      "description": "Requisitos Você tem uma chave planar para o plano de destino, usada como lugar geométrico\nVocê e seus aliados atravessam as barreiras entre os planos de existência. Os alvos se movem para outro plano, como o Plano do Fogo, o Submundo ou as Fendas Exteriores. Você deve saber que o plano de destino existe e usar uma chave planar mágica criada a partir de material daquele plano como local para a magia. Embora as chaves planares para os planos mais proeminentes sejam incomuns, assim como a magia teletransporte interplanar, planos e semiplanos mais obscuros geralmente têm chaves planares raras ou possivelmente únicas.\nA magia é altamente imprecisa e você aparece a 1d20×40 quilômetros do último lugar onde um dos alvos (de sua escolha) foi localizado na última vez que o alvo viajou até o avião. Se for a primeira vez que todos os alvos viajam para um avião específico, você aparecerá em um local aleatório no avião. O teletransporte interplanar não fornece um meio de viagem de retorno, embora lançar o teletransporte interplanar novamente permita que você retorne ao seu plano anterior, a menos que haja circunstâncias atenuantes.",
       "castingTime": "10 minutos",
       "range": "5 pés (1,5 metros)",
       "target": "até 8 criaturas dispostas",
@@ -480,12 +480,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Inimigo duplicado",
-      "description": "Você cria uma duplicata temporária de um inimigo para lutar em seu nome. O alvo pode tentar um teste de Fortitude para interromper o magia. A duplicata aparece em um espaço desocupado adjacente ao alvo e possui o modificador de ataque, CA, modificadores de testes de resistência, Percepção e modificadores de habilidade do alvo, mas possui apenas 70 Pontos de Vida e não possui as habilidades especiais do alvo, incluindo imunidades, resistências e fraquezas. Não possui itens mágicos, exceto runas de potência de arma.\nA duplicata ganha a característica de lacaio e só pode andar e atacar. Seus Golpes causam o dano normal do alvo, mas não aplicam efeitos adicionais, já que não possuem habilidades especiais. O magia termina automaticamente se os Pontos de Vida da duplicata caírem para 0.\nA duplicata ataca seus inimigos com o melhor de suas habilidades. Você também pode tentar fornecer instruções adicionais; quando você sustenta o magia, você também pode comandar um lacaio como parte de sua ação, mas o mestre determina se a duplicata segue seu comando.\nA duplicata é instável, então a cada turno após realizar suas ações, ela perde 4d6 Pontos de Vida. Não é uma criatura viva e nunca poderá recuperar seus Pontos de Vida perdidos de forma alguma.\nSucesso Crítico Você não consegue criar uma duplicata.\nSucesso A duplicata causa metade do dano com seus Golpes e a duração é reduzida para no máximo 2 rodadas.\nFalha A duplicata funciona conforme descrito.\nAprimorada (+1) O nível da criatura que você pode atingir aumenta em 2. A duplicata tem 10 HP a mais.",
+      "description": "Você cria uma duplicata temporária de um inimigo para lutar em seu nome. O alvo pode tentar um teste de Fortitude para interromper a magia. A duplicata aparece em um espaço desocupado adjacente ao alvo e possui o modificador de ataque, CA, modificadores de testes de resistência, Percepção e modificadores de habilidade do alvo, mas possui apenas 70 Pontos de Vida e não possui as habilidades especiais do alvo, incluindo imunidades, resistências e fraquezas. Não possui itens mágicos, exceto runas de potência de arma.\nA duplicata ganha a característica de lacaio e só pode andar e atacar. Seus Golpes causam o dano normal do alvo, mas não aplicam efeitos adicionais, já que não possuem habilidades especiais. A magia termina automaticamente se os Pontos de Vida da duplicata caírem para 0.\nA duplicata ataca seus inimigos com o melhor de suas habilidades. Você também pode tentar fornecer instruções adicionais; quando você sustenta a magia, você também pode comandar um lacaio como parte de sua ação, mas o mestre determina se a duplicata segue seu comando.\nA duplicata é instável, então a cada turno após realizar suas ações, ela perde 4d6 Pontos de Vida. Não é uma criatura viva e nunca poderá recuperar seus Pontos de Vida perdidos de forma alguma.\nSucesso Crítico Você não consegue criar uma duplicata.\nSucesso A duplicata causa metade do dano com seus Golpes e a duração é reduzida para no máximo 2 rodadas.\nFalha A duplicata funciona conforme descrito.\nAprimorada (+1) O nível da criatura que você pode atingir aumenta em 2. A duplicata tem 10 HP a mais.",
       "castingTime": "3 ações",
       "range": "30 pés (9 metros)",
       "target": "1 inimigo de nível 15 ou inferior",
       "duration": "1 minuto",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada (+1) O nível da criatura que você pode atingir aumenta em 2. A duplicata tem 10 HP a mais."
     }
   },
@@ -502,7 +502,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "120 pés (36 metros)",
       "target": "1 criatura",
       "duration": "",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": ""
     }
   },
@@ -520,7 +520,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "60 explosão",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aumentado (+1) O dano de fogo aumenta em 1d10, e o dano de vitalidade contra mortos-vivos aumenta em 1d10."
     }
   },
@@ -532,7 +532,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Alvo Verdadeiro",
-      "description": "Você investiga os possíveis futuros dos próximos segundos para entender todas as maneiras pelas quais seu inimigo pode evitar danos e, em seguida, lança uma visão desse futuro para aqueles ao seu redor. Designe uma criatura. A primeira vez que cada alvo faz uma jogada de ataque contra aquela criatura durante a duração do alvo verdadeiro, o atacante rola duas vezes e usa o melhor resultado. O atacante também ignora penalidades de circunstância na jogada de ataque e qualquer teste simples necessário devido à criatura designada estar Oculta ou Oculta.\nEfeito do magia: Alvo Verdadeiro",
+      "description": "Você investiga os possíveis futuros dos próximos segundos para entender todas as maneiras pelas quais seu inimigo pode evitar danos e, em seguida, lança uma visão desse futuro para aqueles ao seu redor. Designe uma criatura. A primeira vez que cada alvo faz uma jogada de ataque contra aquela criatura durante a duração do alvo verdadeiro, o atacante rola duas vezes e usa o melhor resultado. O atacante também ignora penalidades de circunstância na jogada de ataque e qualquer teste simples necessário devido à criatura designada estar Oculta ou Oculta.\nEfeito da magia: Alvo Verdadeiro",
       "castingTime": "1 ação",
       "range": "60 pés (18 metros)",
       "target": "4 criaturas",
@@ -564,7 +564,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Égide Energética",
-      "description": "Você protege o alvo com uma barreira de energia poderosa e duradoura. O alvo ganha resistência 5 a danos de ácido, frio, eletricidade, fogo, força, sônico, vitalidade e vazio.\nEfeito do magia: Égide Energética\nAprimorada (9º) As resistências aumentam para 10.",
+      "description": "Você protege o alvo com uma barreira de energia poderosa e duradoura. O alvo ganha resistência 5 a danos de ácido, frio, eletricidade, fogo, força, sônico, vitalidade e vazio.\nEfeito da magia: Égide Energética\nAprimorada (9º) As resistências aumentam para 10.",
       "castingTime": "1 minuto",
       "range": "tocar",
       "target": "1 criatura",
@@ -585,7 +585,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "range": "30 pés (9 metros)",
       "target": "1 criatura",
       "duration": "1 minuto",
-      "defense": "vai salvar",
+      "defense": "teste de Vontade",
       "heightening": "Aprimorada (8º) Você pode escolher até 5 criaturas. Se uma criatura usar uma ação ou reação hostil que afete múltiplos alvos simultaneamente, ela precisará tentar apenas um teste de resistência contra máscara de terror."
     }
   },
@@ -597,13 +597,13 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Erupção Vulcânica",
-      "description": "Área com raio de 1,5 m, cilindro com 80 pés de altura\nO solo se abre, espalhando uma coluna de lava no ar em um cilindro vertical, causando 14d6 de dano de fogo às criaturas na área. A lava esfria rapidamente e envolve as criaturas na área. Uma criatura envolta em rocha é Desajeitada 1 e sofre uma penalidade de –3 metros em suas Velocidades. Todo terreno normal é terreno difícil para uma criatura voadora, e tais criaturas descem imediatamente 20 pés (6 metros) no momento em que são encapsuladas, mas não sofrem dano desta queda. Uma criatura envolta em rocha pode tentar escapar contra a CD do seu magia para encerrar o efeito. Caso contrário, a criatura permanece enclausurada até sofrer um total de 50 de dano, libertando-a da rocha. Além disso, as criaturas na área e aquelas dentro de 5 pés (1,5 metros) da coluna de lava recebem automaticamente (@item.Rank -4)d6[fogo] de dano do calor intenso, independentemente dos resultados de seus testes de resistência.\nEfeito do magia: Erupção Vulcânica\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e é envolta.\nFalha Crítica A criatura sofre o dobro do dano e é envolta.\nAumentado (+1) O dano na área aumenta em 2d6, e o dano do calor intenso aumenta em 1d6.",
+      "description": "Área com raio de 1,5 m, cilindro com 80 pés de altura\nO solo se abre, espalhando uma coluna de lava no ar em um cilindro vertical, causando 14d6 de dano de fogo às criaturas na área. A lava esfria rapidamente e envolve as criaturas na área. Uma criatura envolta em rocha é Desajeitada 1 e sofre uma penalidade de –3 metros em suas Velocidades. Todo terreno normal é terreno difícil para uma criatura voadora, e tais criaturas descem imediatamente 20 pés (6 metros) no momento em que são encapsuladas, mas não sofrem dano desta queda. Uma criatura envolta em rocha pode tentar escapar contra a CD do sua magia para encerrar o efeito. Caso contrário, a criatura permanece enclausurada até sofrer um total de 50 de dano, libertando-a da rocha. Além disso, as criaturas na área e aquelas dentro de 5 pés (1,5 metros) da coluna de lava recebem automaticamente (@item.Rank -4)d6[fogo] de dano do calor intenso, independentemente dos resultados de seus testes de resistência.\nEfeito da magia: Erupção Vulcânica\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre metade do dano.\nFalha A criatura sofre dano total e é envolta.\nFalha Crítica A criatura sofre o dobro do dano e é envolta.\nAumentado (+1) O dano na área aumenta em 2d6, e o dano do calor intenso aumenta em 1d6.",
       "castingTime": "2 ações",
       "range": "120 pés (36 metros)",
       "target": "",
       "area": "5 cilindros",
       "duration": "",
-      "defense": "salvamento reflexo",
+      "defense": "teste de Reflexos",
       "heightening": "Aumentado (+1) O dano na área aumenta em 2d6, e o dano do calor intenso aumenta em 1d6."
     }
   },
@@ -637,7 +637,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
       "target": "",
       "area": "40 emanação",
       "duration": "varia",
-      "defense": "fortaleza salvar",
+      "defense": "teste de Fortitude",
       "heightening": "Aprimorada (+1) O dano aumenta em 1d10, e o nível das criaturas que devem tentar um segundo teste de resistência em caso de falha crítica aumenta em 2."
     }
   },
@@ -649,7 +649,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Palácio Planar",
-      "description": "Você desenvolve um semiplano extradimensional que consiste em uma habitação espaçosa com uma única entrada. A entrada se conecta ao plano onde você lança o magia, aparecendo em qualquer lugar dentro do alcance do magia como um retângulo vertical tênue e brilhante com 5 pés (1,5 metros) de largura e 10 pés (3 metros) de altura. Você designa quem pode entrar quando você lança o magia. Uma vez lá dentro, você pode fechar a entrada, tornando-a invisível. Você e as criaturas designadas podem reabrir a porta à vontade.\nNo interior, o semiplano parece ser uma mansão com um hall de entrada magnífico e numerosas câmaras opulentas. A mansão pode ter qualquer planta baixa que você imaginar ao lançar o magia, desde que caiba em um espaço 40 pés (12 metros) de largura, 40 pés (12 metros) de profundidade e 30 pés (9 metros) de altura. Enquanto a entrada da mansão estiver fechada, os efeitos de fora da mansão não conseguem penetrá-la, e vice-versa, exceto o Teleporte Interplanar, que pode ser usado para entrar na mansão. Você pode usar magia de vidência e efeitos similares para observar o exterior somente se eles forem capazes de cruzar planos.\nUma equipe de até 24 empregados atende qualquer pessoa dentro da mansão. Eles são como o servo criado pelo magia Phantasmal Minion, embora sejam visíveis, com uma aparência que você determina durante o lançamento. A mansão está abastecida com comida suficiente para servir um banquete de nove pratos para 150 pessoas.",
+      "description": "Você desenvolve um semiplano extradimensional que consiste em uma habitação espaçosa com uma única entrada. A entrada se conecta ao plano onde você lança a magia, aparecendo em qualquer lugar dentro do alcance da magia como um retângulo vertical tênue e brilhante com 5 pés (1,5 metros) de largura e 10 pés (3 metros) de altura. Você designa quem pode entrar quando você lança a magia. Uma vez lá dentro, você pode fechar a entrada, tornando-a invisível. Você e as criaturas designadas podem reabrir a porta à vontade.\nNo interior, o semiplano parece ser uma mansão com um hall de entrada magnífico e numerosas câmaras opulentas. A mansão pode ter qualquer planta baixa que você imaginar ao lançar a magia, desde que caiba em um espaço 40 pés (12 metros) de largura, 40 pés (12 metros) de profundidade e 30 pés (9 metros) de altura. Enquanto a entrada da mansão estiver fechada, os efeitos de fora da mansão não conseguem penetrá-la, e vice-versa, exceto o Teleporte Interplanar, que pode ser usado para entrar na mansão. Você pode usar magia de vidência e efeitos similares para observar o exterior somente se eles forem capazes de cruzar planos.\nUma equipe de até 24 empregados atende qualquer pessoa dentro da mansão. Eles são como o servo criado pela magia Phantasmal Minion, embora sejam visíveis, com uma aparência que você determina durante o lançamento. A mansão está abastecida com comida suficiente para servir um banquete de nove pratos para 150 pessoas.",
       "castingTime": "1 minuto",
       "range": "30 pés (9 metros)",
       "target": "",
@@ -665,7 +665,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_SPELLS_PT_BR: readonly Pathfinder2eCont
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Contingência",
-      "description": "Você prepara um magia que será ativado mais tarde. Ao lançar contingência, você também lança outro magia de 4º Rank ou inferior com um tempo de lançamento de no máximo 3 ações. Este magia companheiro deve ser aquele que pode afetar você. Você deve tomar qualquer decisão sobre a magia ao lançar contingência, como escolher um tipo de dano para resistir à energia. Durante o lançamento, escolha um gatilho sob o qual o magia será lançado, usando as mesmas restrições do gatilho de uma ação Preparar. Uma vez conjurada a contingência, você pode fazer com que a magia companheira entre em vigor como uma reação com aquele gatilho. Afeta apenas você, mesmo que afete mais criaturas. Se você definir condições complicadas, conforme determinado pelo Mestre, o gatilho poderá falhar. Se você conjurar contingência novamente, a conjuração mais recente substituirá a mais antiga.\nAprimorada (8º) Você pode escolher uma magia de 5º Rank ou inferior.\nAprimorada (9º) Você pode escolher uma magia de 6º Rank ou inferior.\nAprimorada (10º) Você pode escolher uma magia de 7º Rank ou inferior.",
+      "description": "Você prepara uma magia que será ativado mais tarde. Ao lançar contingência, você também lança outra magia de 4º Rank ou inferior com um tempo de lançamento de no máximo 3 ações. Esta magia companheiro deve ser aquele que pode afetar você. Você deve tomar qualquer decisão sobre a magia ao lançar contingência, como escolher um tipo de dano para resistir à energia. Durante o lançamento, escolha um gatilho sob o qual a magia será lançado, usando as mesmas restrições do gatilho de uma ação Preparar. Uma vez conjurada a contingência, você pode fazer com que a magia companheira entre em vigor como uma reação com aquele gatilho. Afeta apenas você, mesmo que afete mais criaturas. Se você definir condições complicadas, conforme determinado pelo Mestre, o gatilho poderá falhar. Se você conjurar contingência novamente, a conjuração mais recente substituirá a mais antiga.\nAprimorada (8º) Você pode escolher uma magia de 5º Rank ou inferior.\nAprimorada (9º) Você pode escolher uma magia de 6º Rank ou inferior.\nAprimorada (10º) Você pode escolher uma magia de 7º Rank ou inferior.",
       "castingTime": "10 minutos",
       "range": "",
       "target": "",

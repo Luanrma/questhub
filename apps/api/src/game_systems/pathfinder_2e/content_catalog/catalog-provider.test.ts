@@ -24,7 +24,7 @@ test('reviewed filter works without rendering a positive editorial tag', async (
   assert.equal(ready.entries.length, 2)
   assert.equal(ready.pagination.totalPages, 2)
   assert.equal(ready.entries.every((entry) => entry.editorialStatus === null), true)
-  assert.equal(review.pagination.total, 1_319)
+  assert.equal(review.pagination.total, 7_514)
   assert.equal(review.entries.length, 100)
   assert.equal(
     review.entries.every((entry) => entry.editorialStatus?.label === 'Tradução em revisão'),

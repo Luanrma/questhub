@@ -63,7 +63,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "a4zniVDr4KnimCxI": {
           "name": "Despeito Corrompido",
-          "description": "Os ataques desarmados e as armas amarradas do wight infligem uma maldição que faz a criatura ficar fraca e rancorosa. Se uma criatura inflige rancor corruptor a uma criatura já afetada por ela, a vítima tenta um novo teste de resistência, ignorando o resultado se for melhor que um fracasso.\nUm humanóide vivo que morre sob a maldição ressuscita como uma criatura após [[/gmr 1d4 #Wight Spawn Timer]]{1d4 rodadas}, controlado pela criatura que o matou. A criação do wight não pode infligir rancor corruptor e é Desajeitado 2. Se seu criador morrer ou após aproximadamente um mês de existência, o novo wight se tornará autônomo e se transformará em um wight normal\nTeste de Salvamento (fortitude, dc:17);\nEstágio 1 Drenado 1 (1 rodada)\nEstágio 2 Drenado 2 e não trata nenhuma criatura como aliada (1 rodada)\nEstágio 3 Como estágio 2, exceto Drenado 3 (1 rodada)\nEstágio 4 Como estágio 2, exceto Drenado 4 (1 rodada)."
+          "description": "Os ataques desarmados e as armas amarradas do wight infligem uma maldição que faz a criatura ficar fraca e rancorosa. Se uma criatura inflige rancor corruptor a uma criatura já afetada por ela, a vítima tenta um novo teste de resistência, ignorando o resultado se for melhor que um fracasso.\nUm humanóide vivo que morre sob a maldição ressuscita como uma criatura após 1d4, controlado pela criatura que o matou. A criação do wight não pode infligir rancor corruptor e é Desajeitado 2. Se seu criador morrer ou após aproximadamente um mês de existência, o novo wight se tornará autônomo e se transformará em um wight normal\nTeste de Salvamento (fortitude, dc:17);\nEstágio 1 Drenado 1 (1 rodada)\nEstágio 2 Drenado 2 e não trata nenhuma criatura como aliada (1 rodada)\nEstágio 3 Como estágio 2, exceto Drenado 3 (1 rodada)\nEstágio 4 Como estágio 2, exceto Drenado 4 (1 rodada)."
         }
       },
       "spellcasting": {}
@@ -146,14 +146,14 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "DXn63TBMmkKeN9Wu": {
           "name": "Conventículo",
-          "description": "Uma bruxa do mar adiciona Forma Humanóide, Maldição do Marinheiro e Caminhada na Água aos magias de seu clã. A CD do magia deles ao liderar um coven é 20."
+          "description": "Uma bruxa do mar adiciona Forma Humanóide, Maldição do Marinheiro e Caminhada na Água às magias de seu clã. A CD da magia deles ao liderar um coven é 20."
         },
         "ydbvsWl1BoVazVZj": {
           "name": "Barganha da Bruxa do Mar",
           "description": "A bruxa do mar pode fazer um acordo com uma criatura disposta que deve estar em seu juízo perfeito. A criatura revela uma qualidade especial ou apreciada – como sua coragem, sua beleza ou sua voz. Em troca, a bruxa do mar gasta 1 minuto polimorfando a criatura na forma que o alvo desejar.\nIsso funciona como Alterar forma. Pode ser uma transformação total ou apenas alterar um ou mais aspectos do corpo do alvo, e não pode tornar a criatura mais do que um tamanho menor ou maior. A criatura altera suas Velocidades conforme apropriado para a nova forma. Ele não altera os bônus de ataque e dano de seus Golpes, mas pode alterar o tipo de dano que os Golpes causam. Isso tem uma duração ilimitada e, enquanto for transformada, a criatura ficará Enjoada 2 e não poderá reduzir sua condição de doente abaixo de 2. A criatura pode comer e beber lenta e cuidadosamente, apesar de estar doente. A única maneira de restaurar a qualidade perdida usada como pagamento é derrotar a bruxa do mar ou fazer outra barganha para devolvê-la. Terminar a barganha dessa forma também elimina a transformação."
         },
         "R3u6nnIK33qXVJNK": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "icuRBAbmsZKQdilF": {
@@ -246,7 +246,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "9SboqcQona3PXQIx": {
           "name": "Coaxar Destrutivo",
-          "description": "O Swampseer emite um poderoso coaxar que causa 4d6[sonic|options:area-damage] de dano a qualquer não-boggard dentro de um @Template[emanation|distance:15] (check (fortitude, dc:19, basic, options:area-effect) save); qualquer criatura com a condição Assustada sofre dano sônico adicional igual ao dobro do valor de sua condição Amedrontada.\nO bicho-papão não pode usar o Croak Destrutivo novamente por [[/gmr 1d4 #Recharge Destructive Croak]]{1d4 rodadas}."
+          "description": "O Swampseer emite um poderoso coaxar que causa 4d6[sonic de dano a qualquer não-boggard dentro de um @Template[emanation|distance:15] (check (fortitude, dc:19, basic, options:area-effect) save); qualquer criatura com a condição Assustada sofre dano sônico adicional igual ao dobro do valor de sua condição Amedrontada.\nO bicho-papão não pode usar o Croak Destrutivo novamente por 1d4."
         },
         "80CuEcGtDQ6fUIyY": {
           "name": "Drone afogado",
@@ -397,7 +397,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "y22Jw3B6gV1YXd2p": {
           "name": "Frenesi da Lua",
-          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por [[/br 2d4 #hours]]{2d4 horas}.\nEfeito: Frenesi Lunar"
+          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por 2d4.\nEfeito: Frenesi Lunar"
         },
         "I5zNTSZyjvhCKz3D": {
           "name": "Ataque de matilha",
@@ -693,7 +693,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "O unicórnio tem uma ligação com as criaturas do mundo natural que lhes permite comunicar com os animais. Eles podem fazer perguntas, receber respostas e usar a habilidade Diplomacia com animais."
         },
         "Av5F60Xe1vXr81pb": {
-          "name": "+2 para defesas de vontade vs.",
+          "name": "+2 em testes de Vontade contra efeitos mentais",
           "description": ""
         },
         "vNaUr8lkk7o1zXWJ": {
@@ -807,7 +807,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "xheziaVMnj1iAjP5": {
           "name": "Muco Cáustico",
-          "description": "O dragão do rio cospe uma bola de muco cáustico até uma distância de 50 pés (15 metros) que explode em um @Template[burst|distance:10]. As criaturas dentro da explosão sofrem 4d6[ácido | opções: dano de área] de dano (teste de resistência (reflexo, dc: 19, básico, opções: efeito de área)). Aqueles que falham neste teste também sofrem 1d6[persistente,ácido] de dano e sofrem uma penalidade de status de -1,5 metro em sua Velocidade. Esta redução de velocidade termina com o dano ácido persistente.\nO dragão do rio não pode usar Muco Cáustico novamente por [[/gmr 1d6 #Recharge Muco Cáustico]]{1d6 rodadas}.\nEfeito: Muco Cáustico"
+          "description": "O dragão do rio cospe uma bola de muco cáustico até uma distância de 50 pés (15 metros) que explode em um @Template[burst|distance:10]. As criaturas dentro da explosão sofrem 4d6[ácido | opções: dano de área] de dano (teste de resistência (reflexo, dc: 19, básico, opções: efeito de área)). Aqueles que falham neste teste também sofrem 1d6[persistente,ácido] de dano e sofrem uma penalidade de status de -1,5 metro em sua Velocidade. Esta redução de velocidade termina com o dano ácido persistente.\nO dragão do rio não pode usar Muco Cáustico novamente por 1d6.\nEfeito: Muco Cáustico"
         },
         "GsSxwd5EPNBqxdWC": {
           "name": "Frenesi Dracônico",
@@ -1195,7 +1195,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "GsQeeSV97T6FPvoY": {
           "name": "Sopro do Fogo do Inferno",
-          "description": "O cão infernal cospe chamas que causam 4d6[fogo|opções:dano de área] de dano a todas as criaturas em um salvamento de @Template[cone|distance:15] (verificação (reflexo, dc:19, básico, opções:efeito de área)).\nO cão infernal não pode usar Sopro do Fogo do Inferno novamente por [[/gmr 1d4 #Recharge Sopro do Fogo do Inferno]]{1d4 rodadas}. Se o cão infernal sofrer dano de fogo ou for alvo de um efeito de fogo, seu Sopro do Fogo do Inferno será recarregado."
+          "description": "O cão infernal cospe chamas que causam 4d6[fogo de dano a todas as criaturas em um salvamento de @Template[cone|distance:15] (verificação (reflexo, dc:19, básico, opções:efeito de área)).\nO cão infernal não pode usar Sopro do Fogo do Inferno novamente por 1d4. Se o cão infernal sofrer dano de fogo ou for alvo de um efeito de fogo, seu Sopro do Fogo do Inferno será recarregado."
         },
         "frHG44PbB1HwdeMl": {
           "name": "Ataque de matilha",
@@ -1297,7 +1297,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "emPcqeSFXdyr6CgV": {
           "name": "Carga Terrível",
-          "description": "O gigante avança e dá um golpe de chifre com +4 de bônus de circunstância para dano.\nSe o ataque acertar, o gigante tenta [[/act desmoralizar]] o alvo."
+          "description": "O gigante avança e dá um golpe de chifre com +4 de bônus de circunstância para dano.\nSe o ataque acertar, o gigante tenta Desmoralizar o alvo."
         }
       },
       "spellcasting": {}
@@ -1439,7 +1439,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "ZDJkjnIor7qxsiSU": {
           "name": "Estrangular",
-          "description": "Requisitos O dero deve ter duas mãos livres ou empunhar uma corrente com espinhos\nEfeito O dero tenta um teste de Atletismo para Agarrar com +2 de bônus de circunstância. Em caso de sucesso, o alvo também sofre (1d6+6)[concussão] de dano e não pode falar (inclusive para lançar um magia) enquanto estiver Agarrado ou Restringido."
+          "description": "Requisitos O dero deve ter duas mãos livres ou empunhar uma corrente com espinhos\nEfeito O dero tenta um teste de Atletismo para Agarrar com +2 de bônus de circunstância. Em caso de sucesso, o alvo também sofre (1d6+6)[concussão] de dano e não pode falar (inclusive para lançar uma magia) enquanto estiver Agarrado ou Restringido."
         }
       },
       "spellcasting": {
@@ -1508,7 +1508,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5eqtzIqWpDscyCIh": {
           "name": "Poeira Draxie",
-          "description": "A Draxie respira poeira mágica em um @Template[cone|distance:15]. Role [[/r 1d4]] para determinar o efeito. Cada criatura na área deve ser bem sucedida em um teste de resistência (vontade, dc:17) ou será afetada.\nO draxie não pode usar Draxie Dust novamente por [[/gmr 1d4 #Recharge Draxie Dust]]{1d4 rodadas}.\n• O alvo sofre os efeitos do magia Encantar.\n• O alvo perde os últimos 5 minutos de memória.\n• O alvo sofre os efeitos de um magia Sono.\n• Por 1 minuto, o alvo fica em um estado de euforia que o deixa Estupefato 2 e Desacelerado 1."
+          "description": "A Draxie respira poeira mágica em um @Template[cone|distance:15]. Role 1d4 para determinar o efeito. Cada criatura na área deve ser bem sucedida em um teste de resistência (vontade, dc:17) ou será afetada.\nO draxie não pode usar Draxie Dust novamente por 1d4.\n• O alvo sofre os efeitos da magia Encantar.\n• O alvo perde os últimos 5 minutos de memória.\n• O alvo sofre os efeitos de uma magia Sono.\n• Por 1 minuto, o alvo fica em um estado de euforia que o deixa Estupefato 2 e Desacelerado 1."
         }
       },
       "spellcasting": {
@@ -1580,7 +1580,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tz3Jv4IQgO8ygZjo": {
           "name": "Spray ácido",
-          "description": "Frequência uma vez por hora\nEfeito O ankhrav vomita ácido em um @Template[cone|distance:30], causando 3d6[acid,1d6[persistent,acid]|options:area-damage]{3d6 de dano de ácido e 1d6 de dano de ácido persistente} (verificação (reflexo, dc:20, básico, opções:efeito de área) salvamento)."
+          "description": "Frequência uma vez por hora\nEfeito O ankhrav vomita ácido em um @Template[cone|distance:30], causando 3d6[acid,1d6[persistent,acid]{3d6 de dano de ácido e 1d6 de dano de ácido persistente} (verificação (reflexo, dc:20, básico, opções:efeito de área) salvamento)."
         }
       },
       "spellcasting": {}
@@ -1620,7 +1620,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "NKOHZ7Ua7fqQNsAy": {
           "name": "Morte nojenta",
-          "description": "Quando o grothlut é reduzido a 0 Pontos de Vida, seus órgãos digestivos se rompem, liberando ácido alquímico e veneno sobre todas as criaturas em uma @Template[emanation|distance:30]. Cada criatura na área deve ser bem sucedida em um teste (fortitude, dc:19, opções: efeito de área, efeito de dano) para salvar ou sofrerá 2d6[ácido|opções:dano de área] de dano e ficará Enjoado 1 (dano dobrado e Enjoado 2 em uma falha crítica)."
+          "description": "Quando o grothlut é reduzido a 0 Pontos de Vida, seus órgãos digestivos se rompem, liberando ácido alquímico e veneno sobre todas as criaturas em uma @Template[emanation|distance:30]. Cada criatura na área deve ser bem sucedida em um teste (fortitude, dc:19, opções: efeito de área, efeito de dano) para salvar ou sofrerá 2d6[ácido de dano e ficará Enjoado 1 (dano dobrado e Enjoado 2 em uma falha crítica)."
         },
         "3XJEBmHGHfUj7TbN": {
           "name": "Gemido lamentável",
@@ -2410,7 +2410,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "AwRCPMRzo9dIymmM": {
           "name": "Suscetível à morte",
-          "description": "Embora os fantasmas não estejam vivos, eles também não são mortos-vivos e são exclusivamente vulneráveis ​​aos efeitos da morte.\nUm fantasma cujos Pontos de Vida são reduzidos a 0 como resultado de um efeito de morte (como de um magia como Executar) é imediatamente levado para o Rio das Almas, onde sua alma retoma o caminho normal para a vida após a morte."
+          "description": "Embora os fantasmas não estejam vivos, eles também não são mortos-vivos e são exclusivamente vulneráveis ​​aos efeitos da morte.\nUm fantasma cujos Pontos de Vida são reduzidos a 0 como resultado de um efeito de morte (como de uma magia como Executar) é imediatamente levado para o Rio das Almas, onde sua alma retoma o caminho normal para a vida após a morte."
         },
         "XvOTWzFd6aOalVNt": {
           "name": "Toque Fantasma",
@@ -2459,7 +2459,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "KFObwL3fuLfRhdtm": {
           "name": "Destino final",
-          "description": "Quando o caçador morre, sua alma deixa seu corpo em uma explosão de energia espiritual. Todas as criaturas em um @Template[burst|distance:20] sofrem 5d6[spirit|options:area-damage] de dano (teste (vontade, dc:19, básico, opções:efeito de área) salvamento).\nOs pertences do caçador são deixados em uma pilha onde morreram."
+          "description": "Quando o caçador morre, sua alma deixa seu corpo em uma explosão de energia espiritual. Todas as criaturas em um @Template[burst|distance:20] sofrem 5d6[spirit de dano (teste (vontade, dc:19, básico, opções:efeito de área) salvamento).\nOs pertences do caçador são deixados em uma pilha onde morreram."
         },
         "BmQOyLxye6DAZpWI": {
           "name": "Cegueira leve",
@@ -2505,7 +2505,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Sátiro",
-      "description": "Para um sátiro, a vida é uma festa e todos estão convidados. Notórios por seu hedonismo, essas fadas acreditam que não há beleza maior do que a encontrada na música, na bebida, nas refeições indulgentes e nos prazeres carnais. Os sátiros usam suas canções encantadoras e seu charme natural para encorajar todos os tipos de pessoas a seguirem seus verdadeiros desejos e se libertarem das regras da sociedade. Isso geralmente envolve atrair mortais para participar de festas barulhentas ou se envolver em encontros amorosos em clareiras enluaradas. Se um companheiro em potencial rejeita os avanços de um sátiro, entretanto, o sátiro tem pouco interesse em continuar a conversa e sai em busca de foliões mais receptivos.\nO estilo de vida de um sátiro não deixa espaço para assuntos contínuos ou amigos de longa data. Assim que sua festa termina ou sua luxúria é saciada, o sátiro desaparece de volta na floresta. Os descendentes que os sátiros deixam para trás são eles próprios sátiros e geralmente acabam sendo tirados de seus berços por outras fadas, em vez de serem deixados aos cuidados dos mortais. Os sátiros são sempre homens.\nA beleza intocada da floresta é sagrada e preciosa para um sátiro. Intrusos brutais que derrubam árvores ou massacram animais sem comê-los correm o risco de atrair a ira de um sátiro. Um sátiro assim provocado usa seus magias para minar os inimigos e tenta despachá-los com emboscadas brutais ou liderando uma investida de animais da floresta para atacar.\nOutras fadas, particularmente as mais benevolentes, consideram os sátiros primos rudes e embaraçosos. Eles raramente são hostis aos sátiros, mas a maioria os considera insuportáveis ​​e aconselham qualquer mortal que eles gostem a ficar longe das clareiras dos sátiros.",
+      "description": "Para um sátiro, a vida é uma festa e todos estão convidados. Notórios por seu hedonismo, essas fadas acreditam que não há beleza maior do que a encontrada na música, na bebida, nas refeições indulgentes e nos prazeres carnais. Os sátiros usam suas canções encantadoras e seu charme natural para encorajar todos os tipos de pessoas a seguirem seus verdadeiros desejos e se libertarem das regras da sociedade. Isso geralmente envolve atrair mortais para participar de festas barulhentas ou se envolver em encontros amorosos em clareiras enluaradas. Se um companheiro em potencial rejeita os avanços de um sátiro, entretanto, o sátiro tem pouco interesse em continuar a conversa e sai em busca de foliões mais receptivos.\nO estilo de vida de um sátiro não deixa espaço para assuntos contínuos ou amigos de longa data. Assim que sua festa termina ou sua luxúria é saciada, o sátiro desaparece de volta na floresta. Os descendentes que os sátiros deixam para trás são eles próprios sátiros e geralmente acabam sendo tirados de seus berços por outras fadas, em vez de serem deixados aos cuidados dos mortais. Os sátiros são sempre homens.\nA beleza intocada da floresta é sagrada e preciosa para um sátiro. Intrusos brutais que derrubam árvores ou massacram animais sem comê-los correm o risco de atrair a ira de um sátiro. Um sátiro assim provocado usa suas magias para minar os inimigos e tenta despachá-los com emboscadas brutais ou liderando uma investida de animais da floresta para atacar.\nOutras fadas, particularmente as mais benevolentes, consideram os sátiros primos rudes e embaraçosos. Eles raramente são hostis aos sátiros, mas a maioria os considera insuportáveis ​​e aconselham qualquer mortal que eles gostem a ficar longe das clareiras dos sátiros.",
       "size": "Médio",
       "senses": {
         "low-light-vision": "visão na penumbra"
@@ -2542,11 +2542,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hbBhekpAkC55ljY1": {
           "name": "Artista de Frota",
-          "description": "Quando o sátiro Toca a Flauta para lançar um magia, ele pode Pisar ou Caminhar como parte da atividade."
+          "description": "Quando o sátiro Toca a Flauta para lançar uma magia, ele pode Pisar ou Caminhar como parte da atividade."
         },
         "vius8NahqzVZYRSE": {
           "name": "Toque as flautas",
-          "description": "Requisitos O sátiro está segurando um instrumento musical.\nEfeito O sátiro toca uma melodia em seu instrumento para lançar magia, Medo, Sono ou Sugestão sem gastar o espaço de magia.\nO magia ganha o traço auditivo e tem como alvo todas as criaturas em um @Template[emanation|distance:60] em vez de seus alvos habituais. Uma criatura que obtiver sucesso em seu teste de Vontade contra qualquer magia fica temporariamente imune a magias lançadas pelas flautas daquele sátiro por 1 minuto. Os sátiros são imunes a esta música."
+          "description": "Requisitos O sátiro está segurando um instrumento musical.\nEfeito O sátiro toca uma melodia em seu instrumento para lançar magia, Medo, Sono ou Sugestão sem gastar o espaço de magia.\nA magia ganha o traço auditivo e tem como alvo todas as criaturas em um @Template[emanation|distance:60] em vez de seus alvos habituais. Uma criatura que obtiver sucesso em seu teste de Vontade contra qualquer magia fica temporariamente imune a magias lançadas pelas flautas daquele sátiro por 1 minuto. Os sátiros são imunes a esta música."
         }
       },
       "spellcasting": {
@@ -2712,7 +2712,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "f4EInJedLsDIMWKj": {
           "name": "Tudo feito um",
-          "description": "O jann invoca todos os elementos que compõem seu ser para ganhar um magia arcano adicional que eles podem lançar à vontade e fortalecer seus ataques com o elemento, causando 1d4 de dano extra do tipo listado. Esses benefícios duram até que o jann use essa habilidade novamente.\n• Vento de cauda aéreo, 1d4 eletricidade;\n• Escombros de Esmurrar a Terra, 1d4 concussão;\n• Fogo Sopra Fogo, 1d4 fogo;\n• Golpe do Trovão Metálico, 1d4 eletricidade;\n• Impulso Hidráulico de Água, 1d4 concussão;\n• Planta ou fungo por invocação de madeira, 1d4 perfurante."
+          "description": "O jann invoca todos os elementos que compõem seu ser para ganhar uma magia arcano adicional que eles podem lançar à vontade e fortalecer seus ataques com o elemento, causando 1d4 de dano extra do tipo listado. Esses benefícios duram até que o jann use essa habilidade novamente.\n• Vento de cauda aéreo, 1d4 eletricidade;\n• Escombros de Esmurrar a Terra, 1d4 concussão;\n• Fogo Sopra Fogo, 1d4 fogo;\n• Golpe do Trovão Metálico, 1d4 eletricidade;\n• Impulso Hidráulico de Água, 1d4 concussão;\n• Planta ou fungo por invocação de madeira, 1d4 perfurante."
         },
         "5OZLVp7EXwCyL3ck": {
           "name": "Alterar forma",
@@ -2791,7 +2791,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "ACHlnYzXVxizzqPw": {
           "name": "Vulnerabilidade leve",
-          "description": "Ataques contra a sombra são tratados como mágicos se forem feitos por uma criatura que esteja sob luz mágica ou com um objeto que esteja sob luz mágica (como o magia Luz)."
+          "description": "Ataques contra a sombra são tratados como mágicos se forem feitos por uma criatura que esteja sob luz mágica ou com um objeto que esteja sob luz mágica (como a magia Luz)."
         },
         "YzglqmBZyUccF3kd": {
           "name": "Cura do Vazio",
@@ -2900,7 +2900,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mK3REH0Jcz0NP7Bh": {
           "name": "Vulnerabilidades de Vampiros",
-          "description": "Todos os vampiros possuem as seguintes vulnerabilidades.\n• Compulsões Vampiros são criaturas com compulsões estranhas e incognoscíveis. Um vampiro típico não pode atravessar voluntariamente água corrente, a menos que seja transportado enquanto se esconde dentro de seu caixão, nem pode entrar em uma residência particular, a menos que seja convidado por alguém com autoridade para fazê-lo. A seu critério, os vampiros podem ter compulsões diferentes – um vampiro pirata pode não ser capaz de pisar em terra firme sem ser convidado, por exemplo. O vampiro ainda pode ser forçado a fazer essas coisas e pode ser capaz de superar sua compulsão, assim como supera sua repulsa.\n• Repulsa Um vampiro não pode voluntariamente chegar a 10 pés (3 metros) de um alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir um alho ou um símbolo religioso, uma criatura deve Interagir para fazê-lo, e ele permanece brandido por 1 rodada (semelhante a Levantar um Escudo). Se o vampiro involuntariamente chegar a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um vampiro pode tentar um teste (vontade, dc:25) de resistência como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por [[/gmr 1d6 #rounds]]{1d6 rodadas} (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca de madeira cravada no coração de um vampiro leva o vampiro a 0 HP e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um vampiro requer 3 ações e só funciona se o vampiro estiver inconsciente. Se a estaca for removida, o vampiro pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do vampiro for decepada e ungida com água benta enquanto a estaca estiver no lugar, o vampiro será destruído.\n• Luz Solar Se exposto à luz solar direta, um vampiro imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o vampiro termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o vampiro perder todas as suas ações desta forma, ele será destruído. Devido à sua aversão sobrenatural à luz, os vampiros não projetam sombras nem mostram reflexos em espelhos."
+          "description": "Todos os vampiros possuem as seguintes vulnerabilidades.\n• Compulsões Vampiros são criaturas com compulsões estranhas e incognoscíveis. Um vampiro típico não pode atravessar voluntariamente água corrente, a menos que seja transportado enquanto se esconde dentro de seu caixão, nem pode entrar em uma residência particular, a menos que seja convidado por alguém com autoridade para fazê-lo. A seu critério, os vampiros podem ter compulsões diferentes – um vampiro pirata pode não ser capaz de pisar em terra firme sem ser convidado, por exemplo. O vampiro ainda pode ser forçado a fazer essas coisas e pode ser capaz de superar sua compulsão, assim como supera sua repulsa.\n• Repulsa Um vampiro não pode voluntariamente chegar a 10 pés (3 metros) de um alho brandido ou de um símbolo religioso brandido de uma divindade com uma opção de santificação sagrada. Para brandir um alho ou um símbolo religioso, uma criatura deve Interagir para fazê-lo, e ele permanece brandido por 1 rodada (semelhante a Levantar um Escudo). Se o vampiro involuntariamente chegar a 10 pés (3 metros) de um objeto de sua repulsa, ele ganha a condição de Fuga, correndo do objeto de sua repulsa até terminar uma ação além de 10 pés (3 metros). Após 1 rodada sendo exposto ao alvo de sua repulsa, um vampiro pode tentar um teste (vontade, dc:25) de resistência como uma única ação, que possui a característica concentração. Em caso de sucesso, eles superam suas repulsas por 1d6 (ou 1 hora em caso de sucesso crítico).\n• Estaca Uma estaca de madeira cravada no coração de um vampiro leva o vampiro a 0 HP e impede que ele cure acima de 0 HP, mesmo em seu caixão. Estaquear um vampiro requer 3 ações e só funciona se o vampiro estiver inconsciente. Se a estaca for removida, o vampiro pode curar acima de 0 HP novamente e, se estiver em seu caixão, o período de descanso de 1 hora começa assim que a estaca for removida. Se a cabeça do vampiro for decepada e ungida com água benta enquanto a estaca estiver no lugar, o vampiro será destruído.\n• Luz Solar Se exposto à luz solar direta, um vampiro imediatamente fica Lento 1. O valor de Lentidão aumenta em 1 cada vez que o vampiro termina seu turno sob a luz solar, e a condição termina quando ele não estiver mais sob a luz solar. Se o vampiro perder todas as suas ações desta forma, ele será destruído. Devido à sua aversão sobrenatural à luz, os vampiros não projetam sombras nem mostram reflexos em espelhos."
         },
         "yYXID6QLMJVxA2xM": {
           "name": "Cura do Vazio",
@@ -2958,12 +2958,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "0mf0RfMRzuYHP7t3": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "giE56Vm25ZKR3ZJm": {
           "name": "Polvilhe Pó de Pixie",
-          "description": "A duende espalha pó de fada em uma de suas flechas. Se a duende atingir uma criatura com aquela flecha antes do próximo turno da duende, a flecha inflige um dos seguintes efeitos especiais à escolha da duende em vez de causar dano. Cada efeito depende do teste de resistência do alvo (vontade, dc:21). Em um acerto crítico, o alvo obtém um resultado um grau pior do que o obtido.\n• Encanto (emoção, incapacitação, mental) A flecha tem o efeito de um magia Encantar, exceto que o alvo não ganha um bônus em seu teste de resistência se o único ato hostil for a duende disparando seu arco, e a duende pode escolher direcionar a adoração do alvo para outra criatura em vez de si mesma.\n• Perda de memória (mental) Em caso de falha no salvamento de Vontade, o alvo perde os últimos 5 minutos de sua memória.\n• Sono (incapacitação, mental, sono) O alvo sofre os efeitos de um magia Sono de 3ª categoria.\n• Subjugar (mental, não letal) O alvo sofre 4d6[mental] de dano, dependendo de seu salvamento básico de Vontade."
+          "description": "A duende espalha pó de fada em uma de suas flechas. Se a duende atingir uma criatura com aquela flecha antes do próximo turno da duende, a flecha inflige um dos seguintes efeitos especiais à escolha da duende em vez de causar dano. Cada efeito depende do teste de resistência do alvo (vontade, dc:21). Em um acerto crítico, o alvo obtém um resultado um grau pior do que o obtido.\n• Encanto (emoção, incapacitação, mental) A flecha tem o efeito de uma magia Encantar, exceto que o alvo não ganha um bônus em seu teste de resistência se o único ato hostil for a duende disparando seu arco, e a duende pode escolher direcionar a adoração do alvo para outra criatura em vez de si mesma.\n• Perda de memória (mental) Em caso de falha no salvamento de Vontade, o alvo perde os últimos 5 minutos de sua memória.\n• Sono (incapacitação, mental, sono) O alvo sofre os efeitos de uma magia Sono de 3ª categoria.\n• Subjugar (mental, não letal) O alvo sofre 4d6[mental] de dano, dependendo de seu salvamento básico de Vontade."
         }
       },
       "spellcasting": {
@@ -3146,7 +3146,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "m53HcXgUGgipalh0": {
           "name": "Frenesi da Lua",
-          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por [[/br 2d4 #hours]]{2d4 horas}.\nEfeito: Frenesi Lunar"
+          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por 2d4.\nEfeito: Frenesi Lunar"
         }
       },
       "spellcasting": {}
@@ -3564,7 +3564,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "HvOzFzF3j47WTzIv": {
           "name": "Rejuvenescimento",
-          "description": "Corrigir a injustiça que levou à morte do plebeu permite que ele siga para a vida após a morte.\nQuando um fantasma é destruído, ele se forma novamente após [[/br 2d4 #days]]{2d4 dias} dentro do local ao qual está vinculado, totalmente curado. Um fantasma só pode ser destruído permanentemente se alguém determinar a razão de sua existência e corrigir tudo o que impede o espírito de descansar."
+          "description": "Corrigir a injustiça que levou à morte do plebeu permite que ele siga para a vida após a morte.\nQuando um fantasma é destruído, ele se forma novamente após 2d4 dentro do local ao qual está vinculado, totalmente curado. Um fantasma só pode ser destruído permanentemente se alguém determinar a razão de sua existência e corrigir tudo o que impede o espírito de descansar."
         },
         "gdGHPerbX8DzQ8D5": {
           "name": "Cura do Vazio",
@@ -3619,7 +3619,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "lqcINWo9rs1fUl8W": {
           "name": "Rolo de pedra",
-          "description": "O lançador de pedras conjura uma pedra rolante que causa 5d6[concussão|opções:dano de área] de dano a cada criatura em um @Template[linha|distância:60] com um teste de resistência (reflexo, dc:21, básico, opções:efeito de área).\nO lançador de pedras não pode usar Boulder Roll novamente por [[/gmr 1d4 #Recharge Boulder Roll]]{1d4 rodadas}."
+          "description": "O lançador de pedras conjura uma pedra rolante que causa 5d6[concussão de dano a cada criatura em um @Template[linha|distância:60] com um teste de resistência (reflexo, dc:21, básico, opções:efeito de área).\nO lançador de pedras não pode usar Boulder Roll novamente por 1d4."
         },
         "Y9uwye09GZjxaP9T": {
           "name": "Coragem Anão",
@@ -3627,7 +3627,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "VBOE9uRcSpXxBDKF": {
           "name": "Tremor",
-          "description": "O lançador de pedras faz a terra tremer. Cada criatura no chão em um @Template[emanation|distance:10] sofre 2d8[concussão|options:area-damage] de dano com um teste de resistência (fortitude, dc:21, básico, opções:efeito de área,inflige:prone). Uma criatura que falhar criticamente será derrubada."
+          "description": "O lançador de pedras faz a terra tremer. Cada criatura no chão em um @Template[emanation|distance:10] sofre 2d8[concussão de dano com um teste de resistência (fortitude, dc:21, básico, opções:efeito de área,inflige:prone). Uma criatura que falhar criticamente será derrubada."
         }
       },
       "spellcasting": {}
@@ -3724,7 +3724,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "9EtiQCjTxZjo7qUc": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "fHJ8nd0W2SbII4o1": {
@@ -3733,7 +3733,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "MwMQRd6zWTqreigg": {
           "name": "A Perseguição do Arconte",
-          "description": "Frequência uma vez por dia\nRequisitos O qarna viu outra criatura se teletransportar na última rodada e tem pelo menos um magia de Translocar restante\nEfeito O qarna lança um de seus magias de translocação, que é aumentado para o 5º nível e faz com que o qarna chegue em um espaço desocupado que ele escolher dentro de 30 pés (9 metros) da criatura que está perseguindo. Se a criatura estiver muito longe, o qarna chega o mais próximo possível."
+          "description": "Frequência uma vez por dia\nRequisitos O qarna viu outra criatura se teletransportar na última rodada e tem pelo menos uma magia de Translocar restante\nEfeito O qarna lança um de suas magias de translocação, que é aumentado para o 5º nível e faz com que o qarna chegue em um espaço desocupado que ele escolher dentro de 30 pés (9 metros) da criatura que está perseguindo. Se a criatura estiver muito longe, o qarna chega o mais próximo possível."
         },
         "hEBQNhGdU6rR3bG8": {
           "name": "Flecha Distraidora",
@@ -4011,7 +4011,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "ACHlnYzXVxizzqPw": {
           "name": "Vulnerabilidade leve",
-          "description": "Ataques contra a sombra são tratados como mágicos se forem feitos por uma criatura que esteja sob luz mágica ou com um objeto que esteja sob luz mágica (como o magia Luz)."
+          "description": "Ataques contra a sombra são tratados como mágicos se forem feitos por uma criatura que esteja sob luz mágica ou com um objeto que esteja sob luz mágica (como a magia Luz)."
         },
         "YzglqmBZyUccF3kd": {
           "name": "Cura do Vazio",
@@ -4140,7 +4140,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "zYGuLe2x3OTlMc06": {
           "name": "Passeio",
-          "description": "A poracha se teletransporta até 40 pés (12 metros) para um local que possa ver.\nEle não pode usar Jaunt novamente por [[/gmr 1d4 #Recharge Jaunt]]{1d4 rodadas}."
+          "description": "A poracha se teletransporta até 40 pés (12 metros) para um local que possa ver.\nEle não pode usar Jaunt novamente por 1d4."
         },
         "GzpsUYZPjfrvA0Yh": {
           "name": "Combinação de objetos",
@@ -4250,7 +4250,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "dSwI8FF7cQX1dTCw": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "xSbOcJARBuvqJu4y": {
@@ -4267,7 +4267,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "q2KJwlgmVEKQMJPb": {
           "name": "Mantenha o disfarce",
-          "description": "Um espião da Bobina pode manter um Disfarce Ilusório contínuo enquanto estiver consciente, sem ter que lançar novamente o magia; eles precisam apenas lançar o magia novamente para reassumir seu disfarce ilusório se desejarem mudar sua aparência ou se o magia ativo for dissipado.\nOs espiões da bobina normalmente buscam privacidade quando precisam dormir, já que um disfarce ilusório contínuo termina uma hora depois de ficarem inconscientes."
+          "description": "Um espião da Bobina pode manter um Disfarce Ilusório contínuo enquanto estiver consciente, sem ter que lançar novamente a magia; eles precisam apenas lançar a magia novamente para reassumir seu disfarce ilusório se desejarem mudar sua aparência ou se a magia ativo for dissipado.\nOs espiões da bobina normalmente buscam privacidade quando precisam dormir, já que um disfarce ilusório contínuo termina uma hora depois de ficarem inconscientes."
         },
         "WLcykyc9hp2QiTO4": {
           "name": "Veneno do Povo Serpente",
@@ -4344,7 +4344,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "AKOKPl5zfFti3EZh": {
           "name": "Frenesi da Lua",
-          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por [[/br 2d4 #hours]]{2d4 horas}.\nEfeito: Frenesi Lunar"
+          "description": "Quando a lua cheia aparece no céu noturno, a criatura humana deve entrar na forma híbrida, não pode mudar de forma depois disso, torna-se um tamanho maior, aumenta seu alcance em 5 pés (1,5 metros) e aumenta o dano de suas mandíbulas em 2.\nQuando a lua se põe ou o sol nasce, a criatura retorna à forma humanoide e fica Fatigada por 2d4.\nEfeito: Frenesi Lunar"
         },
         "3t8p1OnCR5iUrhxt": {
           "name": "Atacar",
@@ -4397,14 +4397,14 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "4B53NxcnufuOkGSF": {
           "name": "Conventículo",
-          "description": "Uma bruxa doce adiciona Charme, Palavras de Mel e Maldição do Pária aos magias de seu clã."
+          "description": "Uma bruxa doce adiciona Charme, Palavras de Mel e Maldição do Pária às magias de seu clã."
         },
         "SkfchuI2ZEZgnl6U": {
           "name": "magias Constantes",
           "description": ""
         },
         "pfqWq7ND3LIBUGTa": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "WuotNn100zUQUxvj": {
@@ -4417,7 +4417,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "kf8hPtLO45Y8n026": {
           "name": "Doces Envenenados",
-          "description": "A bruxa doce lança um magia inato que normalmente pode atingir 1 criatura em um pedaço de comida, normalmente um doce. O magia está armazenado na comida. A primeira criatura que comer qualquer alimento é afetada pela magia e sofre -4 de penalidade de circunstância em seu teste de resistência contra esse efeito."
+          "description": "A bruxa doce lança uma magia inato que normalmente pode atingir 1 criatura em um pedaço de comida, normalmente um doce. A magia está armazenado na comida. A primeira criatura que comer qualquer alimento é afetada pela magia e sofre -4 de penalidade de circunstância em seu teste de resistência contra esse efeito."
         },
         "BBK6VRtgLyiTZvrD": {
           "name": "Toque Soporífero",
@@ -4557,7 +4557,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Ita7hOSbzKOHxexv": {
           "name": "Encharcar",
-          "description": "O elemental apaga todos os incêndios em @Template[emanation|distance:5].\nEle extingue todos os fogos não-mágicos automaticamente e tenta neutralizar os fogos mágicos ([[/r 1d20+14 #Drench]]{+14} modificador de neutralização)."
+          "description": "O elemental apaga todos os incêndios em @Template[emanation|distance:5].\nEle extingue todos os fogos não-mágicos automaticamente e tenta neutralizar os fogos mágicos (1d20+14 modificador de neutralização)."
         },
         "kZqLmEhJGdtImTFg": {
           "name": "Empurrar ou Puxar 5 pés (1,5 metros)",
@@ -4611,7 +4611,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "LLFFYMBrnhFoDMRh": {
           "name": "Desmoronar",
-          "description": "Gatilho O deslizamento de terra vivo sofre dano de uma fonte hostil enquanto está no topo de uma rocha ou terra\nEfeito O deslizamento de terra vivo desmorona no chão, escavando 10 pés (3 metros). Esta Escavação não desencadeia reações.\nO deslizamento de terra vivo não pode desmoronar novamente por [[/gmr 1d4 #Recharge Crumble]]{1d4 rodadas}."
+          "description": "Gatilho O deslizamento de terra vivo sofre dano de uma fonte hostil enquanto está no topo de uma rocha ou terra\nEfeito O deslizamento de terra vivo desmorona no chão, escavando 10 pés (3 metros). Esta Escavação não desencadeia reações.\nO deslizamento de terra vivo não pode desmoronar novamente por 1d4."
         },
         "pkJjWhKaHykBdCEO": {
           "name": "Deslizamento da Terra",
@@ -4687,7 +4687,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Bh4tXIFDTCdh3Vzs": {
           "name": "Vomitar espuma",
-          "description": "O brimorak cospe seu sangue fervente em um @Template[line|distance:20] que causa 6d6[fire|options:area-damage] de dano (check (reflex, dc:21, basic, options:area-effect)). As criaturas que falham no teste também ficam propensas ao escorregar no sangue gorduroso.\nO brimorak não pode usar Vomite Espumante novamente por [[/gmr 1d4 #Recharge Vomite Espumante]]{1d4 rodadas}."
+          "description": "O brimorak cospe seu sangue fervente em um @Template[line|distance:20] que causa 6d6[fire de dano (check (reflex, dc:21, basic, options:area-effect)). As criaturas que falham no teste também ficam propensas ao escorregar no sangue gorduroso.\nO brimorak não pode usar Vomite Espumante novamente por 1d4."
         },
         "GdnX1i87yKmvFsjB": {
           "name": "Fumaça",
@@ -4916,12 +4916,12 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": "Um venedaemon conhece itens mágicos e magias ativas como um sentido impreciso. As sutis diferenças entre esses aromas revelam a tradição e os traços da magia."
         },
         "aiPVg2reoHjToHXv": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "EXFfGINJSbHmcAki": {
           "name": "Força Residual",
-          "description": "Requisitos A ação mais recente do venedaemon foi lançar um magia\nEfeito Runas desbotadas agarram-se aos tentáculos do venedaemon. O venedaemon desfere um golpe de tentáculo que tem alcance de 20 pés (6 metros) e causa 2d4 de dano de força adicional."
+          "description": "Requisitos A ação mais recente do venedaemon foi lançar uma magia\nEfeito Runas desbotadas agarram-se aos tentáculos do venedaemon. O venedaemon desfere um golpe de tentáculo que tem alcance de 20 pés (6 metros) e causa 2d4 de dano de força adicional."
         },
         "1E0sdxKyksdPrnuZ": {
           "name": "magia da Alma",
@@ -5104,7 +5104,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "k0aZXtcO9BWwc4Hz": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "Uus1jecX7kww8spI": {
@@ -5129,7 +5129,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "voMMMHUogUu7LSeF": {
           "name": "Toque zombeteiro",
-          "description": "Requisitos O azuretzi não está usando Mocking Touch em um magia\nEfeito O azuretzi zomba da habilidade mágica de uma criatura com um toque. O azuretzi tenta um teste (roubo, defesa: vontade) contra a CD de Vontade do alvo.\nSucesso Crítico O azuretzi aprende todas as magias de classificação 3 ou inferior que o alvo tem disponíveis para lançar e escolhe uma. O azuretzi ganha essa magia como uma magia inata divina simulada e pode lançá-la uma vez como uma magia divina inata usando sua própria CD e modificador de ataque de magia. O magia é perdido se não for utilizado após 24 horas. A criatura não pode lançar a magia simulada até que o azuretzi a lance primeiro ou o período de 24 horas passe, o que ocorrer primeiro.\nSucesso Como sucesso crítico, mas a magia simulada é perdida após 1 hora e a criatura tocada pode conjurar a magia normalmente.\nFalha Como sucesso crítico, mas a magia simulada é perdida no final do próximo turno do azuretzi, e a criatura tocada pode conjurar a magia normalmente.\nO Toque Simulador de Falha Crítica não tem efeito."
+          "description": "Requisitos O azuretzi não está usando Mocking Touch em uma magia\nEfeito O azuretzi zomba da habilidade mágica de uma criatura com um toque. O azuretzi tenta um teste (roubo, defesa: vontade) contra a CD de Vontade do alvo.\nSucesso Crítico O azuretzi aprende todas as magias de classificação 3 ou inferior que o alvo tem disponíveis para lançar e escolhe uma. O azuretzi ganha essa magia como uma magia inata divina simulada e pode lançá-la uma vez como uma magia divina inata usando sua própria CD e modificador de ataque de magia. A magia é perdido se não for utilizado após 24 horas. A criatura não pode lançar a magia simulada até que o azuretzi a lance primeiro ou o período de 24 horas passe, o que ocorrer primeiro.\nSucesso Como sucesso crítico, mas a magia simulada é perdida após 1 hora e a criatura tocada pode conjurar a magia normalmente.\nFalha Como sucesso crítico, mas a magia simulada é perdida no final do próximo turno do azuretzi, e a criatura tocada pode conjurar a magia normalmente.\nO Toque Simulador de Falha Crítica não tem efeito."
         },
         "MDX9dw99EkjeyPM0": {
           "name": "Pegar",
@@ -5212,7 +5212,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "dPsbBLbGfNPn6v9L": {
           "name": "Respiração de inverno",
-          "description": "O witchwarg respira uma nuvem de gelo em um @Template[cone|distance:15] que causa 5d8[cold|options:area-damage] de dano (check (reflex, dc:23, basic, options:area-effect) save).\nO bruxo não pode usar Sopro Invernal novamente por [[/gmr 1d4 #Recharge Sopro Invernal]]{1d4 rodadas}."
+          "description": "O witchwarg respira uma nuvem de gelo em um @Template[cone|distance:15] que causa 5d8[cold de dano (check (reflex, dc:23, basic, options:area-effect) save).\nO bruxo não pode usar Sopro Invernal novamente por 1d4."
         },
         "SlsCmJyWx3dgIo2X": {
           "name": "Derrubar",
@@ -5574,7 +5574,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tOCS9mkYR5K1LuOZ": {
           "name": "Olhar Petrificante",
-          "description": "O basilisco encara uma criatura que pode ver dentro de 30 pés (9 metros). Essa criatura deve tentar um teste de resistência (fortitude, dc:22, opções:inflige:lentidão,inflige:petrificado). Se falhar e ainda não tiver sido retardada por Olhar Petrificante ou por esta habilidade, ela se torna Lentidão 1. Se a criatura já foi retardada por esta habilidade ou por Olhar Petrificante, uma falha na resistência faz com que a criatura fique Petrificada permanentemente.\nUma criatura petrificada dessa maneira que esteja coberta (e não apenas salpicada) com sangue fresco de basilisco com não mais de 1 hora de idade é instantaneamente restaurada à carne. Um único basilisco contém sangue suficiente para revestir [[/gmr 1d4 #Medium Creatures]] criaturas médias desta maneira."
+          "description": "O basilisco encara uma criatura que pode ver dentro de 30 pés (9 metros). Essa criatura deve tentar um teste de resistência (fortitude, dc:22, opções:inflige:lentidão,inflige:petrificado). Se falhar e ainda não tiver sido retardada por Olhar Petrificante ou por esta habilidade, ela se torna Lentidão 1. Se a criatura já foi retardada por esta habilidade ou por Olhar Petrificante, uma falha na resistência faz com que a criatura fique Petrificada permanentemente.\nUma criatura petrificada dessa maneira que esteja coberta (e não apenas salpicada) com sangue fresco de basilisco com não mais de 1 hora de idade é instantaneamente restaurada à carne. Um único basilisco contém sangue suficiente para revestir 1d4 criaturas médias desta maneira."
         }
       },
       "spellcasting": {}
@@ -5773,7 +5773,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mbDpJL0NCrFdM2bb": {
           "name": "Explosão",
-          "description": "Quando o fogo vivo morre, ele explode, causando 3d6[fogo|opções:dano de área] de dano a cada criatura em um salvamento de @Template[emanation|distance:10|traits:fogo,dano-efeito] (verificação (reflexo, dc:19, básico, opções:efeito de área))."
+          "description": "Quando o fogo vivo morre, ele explode, causando 3d6[fogo de dano a cada criatura em um salvamento de @Template[emanation|distance:10|traits:fogo,dano-efeito] (verificação (reflexo, dc:19, básico, opções:efeito de área))."
         },
         "tZ5Jxc70Z1fyXCqr": {
           "name": "Espalhando chamas",
@@ -5836,7 +5836,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "KhgTIBtP3uB7Ls0w": {
           "name": "Respiração de bola de fogo",
-          "description": "O dragão das chamas expele uma bola de fogo a uma distância de 180 pés (54 metros) que explode em @Template[burst|distance:20]. As criaturas na explosão sofrem 6d6[fogo | opções: dano de área] de dano (teste (reflexo, dc: 22, básico, opções: efeito de área) salvamento).\nO dragão das chamas não pode usar Sopro de Bola de Fogo novamente por [[/gmr 1d6 #Recharge Sopro de Bola de Fogo]]{1d6 rodadas}."
+          "description": "O dragão das chamas expele uma bola de fogo a uma distância de 180 pés (54 metros) que explode em @Template[burst|distance:20]. As criaturas na explosão sofrem 6d6[fogo | opções: dano de área] de dano (teste (reflexo, dc: 22, básico, opções: efeito de área) salvamento).\nO dragão das chamas não pode usar Sopro de Bola de Fogo novamente por 1d6."
         },
         "YXiHAcR16OtpzApO": {
           "name": "Surto de velocidade",
@@ -5903,7 +5903,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "pPlbZeWmu7cXNcGS": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "ylgFkKkXbfdCqI1F": {

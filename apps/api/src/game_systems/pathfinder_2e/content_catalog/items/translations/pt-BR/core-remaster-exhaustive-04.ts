@@ -401,7 +401,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Pomada Protetora",
-      "description": "Ative 1 interação\nEsta pasta cintilante tem muitas propriedades de um magia Escudo. Quando você o espalha em uma criatura ou objeto, o alvo ganha +1 de bônus de circunstância na CA por 1 rodada. A primeira vez que um ataque físico ou barragem de força atingir o alvo durante aquela rodada, o óleo previne 5 de dano daquele ataque ou magia e então o efeito do óleo termina.\nEfeito: Pomada Protetora",
+      "description": "Ative 1 interação\nEsta pasta cintilante tem muitas propriedades de uma magia Escudo. Quando você o espalha em uma criatura ou objeto, o alvo ganha +1 de bônus de circunstância na CA por 1 rodada. A primeira vez que um ataque físico ou barragem de força atingir o alvo durante aquela rodada, o óleo previne 5 de dano daquele ataque ou magia e então o efeito do óleo termina.\nEfeito: Pomada Protetora",
       "itemType": "consumível",
       "usage": "segurado com as duas mãos",
       "category": "óleo",
@@ -492,7 +492,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha dificultadora",
-      "description": "Você organiza arbustos, fios, gosma pegajosa ou outros materiais para interferir no movimento de uma criatura. O quadrado com esta armadilha, bem como três quadrados adjacentes (para formar uma @Template[square|distance:10]{área de 10 pés por 10 pés}), tornam-se terreno difícil quando a primeira criatura entra no quadrado da armadilha. O terreno difícil afeta o movimento da criatura imediatamente, incluindo seu movimento para o quadrado de acionamento, e dura [[/gmr 1d4 #rounds]]{1d4 rounds} após a armadilha ser acionada. Uma criatura pode usar uma ação de Interagir para limpar o terreno difícil de um único quadrado antecipadamente.",
+      "description": "Você organiza arbustos, fios, gosma pegajosa ou outros materiais para interferir no movimento de uma criatura. O quadrado com esta armadilha, bem como três quadrados adjacentes (para formar uma @Template[square|distance:10]{área de 10 pés por 10 pés}), tornam-se terreno difícil quando a primeira criatura entra no quadrado da armadilha. O terreno difícil afeta o movimento da criatura imediatamente, incluindo seu movimento para o quadrado de acionamento, e dura 1d4 após a armadilha ser acionada. Uma criatura pode usar uma ação de Interagir para limpar o terreno difícil de um único quadrado antecipadamente.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -766,7 +766,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha de Peso Morto",
-      "description": "Esta caixa é feita de pesos magnetizados e cordas pesadas amarradas a um fio ou placa de pressão. Quando uma criatura entra no quadrado, os ímãs e as cordas são acionados, pesando nas armas e nos membros da criatura. A criatura deve tentar um teste de salvamento (reflexo, showDC:all, dc:18).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre -1 de penalidade de status nas jogadas de ataque por 1 rodada ou até [[/act escape show-dc=all dc=18]]{Escape}.\nEfeito: Armadilha de Peso Morto (Sucesso)\nFalha A criatura sofre -2 de penalidade de status nas jogadas de ataque por 1 minuto ou até escapar (CD 18).\nFalha Crítica Como falha, mas a criatura deixa cair quaisquer itens metálicos que esteja segurando.\nEfeito: Armadilha de Peso Morto (Falha/Falha Crítica)",
+      "description": "Esta caixa é feita de pesos magnetizados e cordas pesadas amarradas a um fio ou placa de pressão. Quando uma criatura entra no quadrado, os ímãs e as cordas são acionados, pesando nas armas e nos membros da criatura. A criatura deve tentar um teste de salvamento (reflexo, showDC:all, dc:18).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre -1 de penalidade de status nas jogadas de ataque por 1 rodada ou até Escapar CD 18.\nEfeito: Armadilha de Peso Morto (Sucesso)\nFalha A criatura sofre -2 de penalidade de status nas jogadas de ataque por 1 minuto ou até escapar (CD 18).\nFalha Crítica Como falha, mas a criatura deixa cair quaisquer itens metálicos que esteja segurando.\nEfeito: Armadilha de Peso Morto (Falha/Falha Crítica)",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -781,7 +781,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Catarse Engarrafada (Menor)",
-      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar em 1º-Rank e tem um modificador de neutralização [[/r 1d20+6 #Counteract]]{+6} para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o Rank e o modificador de neutralização listados.",
+      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar em 1º-Rank e tem um modificador de neutralização 1d20+6 para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o Rank e o modificador de neutralização listados.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "outro",
@@ -871,7 +871,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Soro Surging (Menor)",
-      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 1º Rank e um [[/r 1d20+6 #Counteract]]{+6 modificador de contra-ataque}.",
+      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 1º Rank e um 1d20+6.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "outro",
@@ -901,7 +901,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Veneno letargico",
-      "description": "O veneno de letargia é comumente usado em táticas de ataque e fuga por atacantes que querem suas vítimas vivas; o emboscador recua até que o veneno faça efeito e a vítima caia inconsciente. A exposição adicional ao veneno letargico não exige que o alvo tente testes de resistência adicionais; somente falhar em um teste de resistência contra uma exposição contínua pode progredir em seu estágio.\nAtivar 2 (manipular)\nTeste de salvamento (fortitude, dc:18, showDC:all)\nDuração Máxima 4 horas\nEstágio 1 Desacelerado 1 (1 rodada)\nEstágio 2 desacelerou 1 (1 minuto)\nEstágio 3 Inconsciente sem teste de Percepção para acordar (1 rodada)\nEstágio 4 inconsciente sem teste de Percepção para acordar ([[/gmr 1d4 #Lethargy Poison Duration]]{1d4 horas}).",
+      "description": "O veneno de letargia é comumente usado em táticas de ataque e fuga por atacantes que querem suas vítimas vivas; o emboscador recua até que o veneno faça efeito e a vítima caia inconsciente. A exposição adicional ao veneno letargico não exige que o alvo tente testes de resistência adicionais; somente falhar em um teste de resistência contra uma exposição contínua pode progredir em seu estágio.\nAtivar 2 (manipular)\nTeste de salvamento (fortitude, dc:18, showDC:all)\nDuração Máxima 4 horas\nEstágio 1 Desacelerado 1 (1 rodada)\nEstágio 2 desacelerou 1 (1 minuto)\nEstágio 3 Inconsciente sem teste de Percepção para acordar (1 rodada)\nEstágio 4 inconsciente sem teste de Percepção para acordar (1d4).",
       "itemType": "consumível",
       "usage": "segurado com as duas mãos",
       "category": "tóxico",
@@ -1236,7 +1236,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Armadilha Mancando",
-      "description": "Você prepara trepadeiras, cordas ou fios para apertar firmemente uma criatura que aciona esta armadilha. A primeira criatura a entrar no quadrado deve tentar um teste de salvamento (reflexo, showDC:all, dc:20).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre uma penalidade de status de -1,5 metro em sua Velocidade por 1 minuto ou até [[/act escape show-dc=all dc=18]]{Escape}.\nFalha Como sucesso, mas a penalidade é -10 pés (3 metros).\nFalha Crítica Como sucesso, mas a penalidade é -20 pés (6 metros).\nEfeito: Armadilha Mancadora",
+      "description": "Você prepara trepadeiras, cordas ou fios para apertar firmemente uma criatura que aciona esta armadilha. A primeira criatura a entrar no quadrado deve tentar um teste de salvamento (reflexo, showDC:all, dc:20).\nSucesso Crítico A criatura não é afetada.\nSucesso A criatura sofre uma penalidade de status de -1,5 metro em sua Velocidade por 1 minuto ou até Escapar CD 18.\nFalha Como sucesso, mas a penalidade é -10 pés (3 metros).\nFalha Crítica Como sucesso, mas a penalidade é -20 pés (6 metros).\nEfeito: Armadilha Mancadora",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "laço",
@@ -1251,7 +1251,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Soro Surging (Menor)",
-      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 2º Rank e um [[/r 1d20+8 #Counteract]]{+8 modificador de contra-ataque}.",
+      "description": "Ativar 1 (manipular)\nSacudimentos involuntários e surtos de energia percorrem o corpo do bebedor à medida que restaura o controle muscular normal. Quando você bebe este elixir, ele tenta neutralizar cada efeito que está infligindo a condição Desajeitado ou Enfraquecido em você, usando um contra-ataque de 2º Rank e um 1d20+8.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -1281,7 +1281,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Catarse Engarrafada (Menor)",
-      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar no 2º Rank e tem um modificador de neutralização [[/r 1d20+8 #Counteract]]{+8} para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o Rank e o modificador de neutralização listados.",
+      "description": "Ativar 1 (manipular)\nEsta bebida libera uma enxurrada de emoções que ajuda a redefinir seu estado mental. Quando você bebe este elixir, o elixir tenta neutralizar no 2º Rank e tem um modificador de neutralização 1d20+8 para cada efeito em você que tenha o traço de emoção ou esteja infligindo a condição Estupefato em você, usando o Rank e o modificador de neutralização listados.",
       "itemType": "consumível",
       "usage": "segurado com uma mão",
       "category": "elixir",
@@ -1356,7 +1356,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Flecha de Víbora",
-      "description": "Ativar A (manipular)\nA haste desta flecha é coberta por finas escamas verdes, e sua ponta de ferro tem um par de pontas quase como presas.\nDepois que uma flecha de víbora ativada atinge um alvo, a flecha se transforma em uma víbora. O alvo é afetado pelo veneno da víbora, como se tivesse sido mordido. A víbora então pousa em um espaço aberto adjacente ao alvo.\nA víbora tem a característica invocada e age no final do seu turno, mesmo que você não tenha usado a ação Sustentar um magia. Está sob o controle do Mestre, mas geralmente ataca a criatura atingida pela flecha. A víbora desaparece após 1 minuto ou quando morta.\nRequisitos de artesanato Forneça um lançamento de Convocar Animal",
+      "description": "Ativar A (manipular)\nA haste desta flecha é coberta por finas escamas verdes, e sua ponta de ferro tem um par de pontas quase como presas.\nDepois que uma flecha de víbora ativada atinge um alvo, a flecha se transforma em uma víbora. O alvo é afetado pelo veneno da víbora, como se tivesse sido mordido. A víbora então pousa em um espaço aberto adjacente ao alvo.\nA víbora tem a característica invocada e age no final do seu turno, mesmo que você não tenha usado a ação Sustentar uma magia. Está sob o controle do Mestre, mas geralmente ataca a criatura atingida pela flecha. A víbora desaparece após 1 minuto ou quando morta.\nRequisitos de artesanato Forneça um lançamento de Convocar Animal",
       "itemType": "munição",
       "usage": "",
       "category": "munição",
@@ -1477,7 +1477,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Acessório do Infiltrador",
-      "description": "Esta elegante bengala de espada +1 serve igualmente bem como um acessório moderno e uma arma oculta adequada para eventos da alta sociedade onde armas normalmente não são permitidas.\nAtivar-Ocultar Magia A (manipular)\nEfeito Você torce o punho da bengala da espada, fundindo magicamente a lâmina com a bengala. Enquanto a lâmina estiver fundida, ela não poderá ser sacada e ganhará os benefícios de um magia de Magia de Disfarce de 3º Rank para parecer não-mágica. Observadores passivos não podem tentar verificar se a bengala é algo mais do que um acessório de moda mundano, embora excelente. Aqueles que a examinam cuidadosamente podem discernir que a bengala é maior do que parece, mas fazer isso é extremamente difícil (verifique (percepção, dc:30, características:ação:busca)). Ativar a bengala da espada novamente libera a lâmina, permitindo que ela seja desembainhada normalmente.",
+      "description": "Esta elegante bengala de espada +1 serve igualmente bem como um acessório moderno e uma arma oculta adequada para eventos da alta sociedade onde armas normalmente não são permitidas.\nAtivar-Ocultar Magia A (manipular)\nEfeito Você torce o punho da bengala da espada, fundindo magicamente a lâmina com a bengala. Enquanto a lâmina estiver fundida, ela não poderá ser sacada e ganhará os benefícios de uma magia de Magia de Disfarce de 3º Rank para parecer não-mágica. Observadores passivos não podem tentar verificar se a bengala é algo mais do que um acessório de moda mundano, embora excelente. Aqueles que a examinam cuidadosamente podem discernir que a bengala é maior do que parece, mas fazer isso é extremamente difícil (verifique (percepção, dc:30, características:ação:busca)). Ativar a bengala da espada novamente libera a lâmina, permitindo que ela seja desembainhada normalmente.",
       "itemType": "arma",
       "usage": "segurado com uma mão",
       "category": "marcial",
@@ -1493,7 +1493,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_04_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Leque de Penas Tengu",
-      "description": "Ativar—Wave Fan (manipular)\nFrequência uma vez por dia\nEfeito Você conjura uma magia à sua escolha contida em seu leque de penas de tengu. Em vez disso, você pode lançar um truque que ganhou de um talento de herança ou ancestralidade; isso não esgota uma das ativações diárias do ventilador. Esta ativação leva o número normal de ações do magia.\nA CD da magia é a CD da sua classe ou CD da magia, o que for maior.",
+      "description": "Ativar—Wave Fan (manipular)\nFrequência uma vez por dia\nEfeito Você conjura uma magia à sua escolha contida em seu leque de penas de tengu. Em vez disso, você pode lançar um truque que ganhou de um talento de herança ou ancestralidade; isso não esgota uma das ativações diárias do ventilador. Esta ativação leva o número normal de ações da magia.\nA CD da magia é a CD da sua classe ou CD da magia, o que for maior.",
       "itemType": "equipamento",
       "usage": "segurado com uma mão",
       "category": "equipamento",

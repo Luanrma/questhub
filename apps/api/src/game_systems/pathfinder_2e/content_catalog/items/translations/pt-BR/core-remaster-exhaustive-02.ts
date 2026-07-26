@@ -877,7 +877,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Símbolo Religioso (Madeira)",
-      "description": "Este pedaço de madeira ou prata é estampado com uma imagem representando uma divindade. Alguns conjuradores divinos, como clérigos, podem usar um símbolo religioso de sua divindade para usar certas habilidades e lançar alguns magias. Um símbolo religioso pode ser usado no corpo em uma corrente ou alfinete, ou pode ser segurado.",
+      "description": "Este pedaço de madeira ou prata é estampado com uma imagem representando uma divindade. Alguns conjuradores divinos, como clérigos, podem usar um símbolo religioso de sua divindade para usar certas habilidades e lançar algumas magias. Um símbolo religioso pode ser usado no corpo em uma corrente ou alfinete, ou pode ser segurado.",
       "itemType": "equipamento",
       "usage": "outro",
       "category": "equipamento",
@@ -1137,7 +1137,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Líquido",
-      "description": "Você pode usar uma rede sozinha ou presa a uma corda. Quando preso a uma corda, você pode usar a rede para Agarrar uma criatura Média ou menor a até 10 pés (3 metros) de distância (em vez de apenas criaturas adjacentes). Você pode continuar a agarrar para manter o controle sobre o alvo, desde que o alvo permaneça dentro de 10 pés (3 metros) e você continue segurando a rede. A criatura agarrada ganha um bônus de circunstância de +2 para Fugir, a menos que você esteja adjacente a ela, e ela pode tentar um teste (atletismo, dc:16, características:ação:abertura forçada) para forçar a abertura total da rede. Uma vez que o alvo não esteja mais agarrado, a rede fica difícil de manejar até ser redobrada com uma ação de Interagir com a característica concentração que requer as duas mãos; se usado sem ser redobrado, os testes de Agarrar feitos com a rede sofrem uma penalidade de -2.\nQuando a rede estiver solta, você pode tentar uma jogada de ataque à distância usando sua proficiência com arma simples contra uma criatura Média ou menor dentro de 20 pés (6 metros). Se acertar, o alvo fica desprevenido e sofre uma penalidade de circunstância de -3 metros em sua Velocidade até escapar, e em um acerto crítico, ele também fica imobilizado até escapar. O Escape DC é 16 ([[/act escape dc=16]]). Uma criatura adjacente ao alvo pode Interagir para remover a rede.",
+      "description": "Você pode usar uma rede sozinha ou presa a uma corda. Quando preso a uma corda, você pode usar a rede para Agarrar uma criatura Média ou menor a até 10 pés (3 metros) de distância (em vez de apenas criaturas adjacentes). Você pode continuar a agarrar para manter o controle sobre o alvo, desde que o alvo permaneça dentro de 10 pés (3 metros) e você continue segurando a rede. A criatura agarrada ganha um bônus de circunstância de +2 para Fugir, a menos que você esteja adjacente a ela, e ela pode tentar um teste (atletismo, dc:16, características:ação:abertura forçada) para forçar a abertura total da rede. Uma vez que o alvo não esteja mais agarrado, a rede fica difícil de manejar até ser redobrada com uma ação de Interagir com a característica concentração que requer as duas mãos; se usado sem ser redobrado, os testes de Agarrar feitos com a rede sofrem uma penalidade de -2.\nQuando a rede estiver solta, você pode tentar uma jogada de ataque à distância usando sua proficiência com arma simples contra uma criatura Média ou menor dentro de 20 pés (6 metros). Se acertar, o alvo fica desprevenido e sofre uma penalidade de circunstância de -3 metros em sua Velocidade até escapar, e em um acerto crítico, ele também fica imobilizado até escapar. O Escape DC é 16 (Escapar CD 16). Uma criatura adjacente ao alvo pode Interagir para remover a rede.",
       "itemType": "equipamento",
       "usage": "segurado com as duas mãos",
       "category": "equipamento",
@@ -1326,7 +1326,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEMS_PT_BR: readonly Pathfinder2eConte
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Símbolo Religioso (Prata)",
-      "description": "Este pedaço de madeira ou prata é estampado com uma imagem representando uma divindade. Alguns conjuradores divinos, como clérigos, podem usar um símbolo religioso de sua divindade para usar certas habilidades e lançar alguns magias. Um símbolo religioso pode ser usado no corpo em uma corrente ou alfinete, ou pode ser segurado.",
+      "description": "Este pedaço de madeira ou prata é estampado com uma imagem representando uma divindade. Alguns conjuradores divinos, como clérigos, podem usar um símbolo religioso de sua divindade para usar certas habilidades e lançar algumas magias. Um símbolo religioso pode ser usado no corpo em uma corrente ou alfinete, ou pode ser segurado.",
       "itemType": "equipamento",
       "usage": "outro",
       "category": "equipamento",

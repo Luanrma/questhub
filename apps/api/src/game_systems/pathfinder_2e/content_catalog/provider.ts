@@ -15,6 +15,7 @@ import {
   resolvePathfinder2eInlineText,
   type Pathfinder2eInlineTextContext,
 } from './inline-text'
+import { localizePathfinder2eSpellDefense } from './spell-defense'
 import {
   translatePathfinder2eRarity,
   translatePathfinder2eTerm,
@@ -510,7 +511,15 @@ function spellSheet(
           field(locale === 'pt-BR' ? 'Alvo' : 'Target', localizedString(data, translated, 'target'), true),
           field(locale === 'pt-BR' ? 'Área' : 'Area', localizedString(data, translated, 'area'), true),
           field(locale === 'pt-BR' ? 'Duração' : 'Duration', localizedString(data, translated, 'duration')),
-          field(locale === 'pt-BR' ? 'Defesa' : 'Defense', localizedString(data, translated, 'defense'), true),
+          field(
+            locale === 'pt-BR' ? 'Defesa' : 'Defense',
+            localizePathfinder2eSpellDefense(
+              asText(data.defense),
+              asText(translated.defense),
+              locale,
+            ),
+            true,
+          ),
           field(
             locale === 'pt-BR' ? 'Tradições' : 'Traditions',
             asTextList(data.traditions).map((value) => translatePathfinder2eTradition(value, locale)).join(', '),
@@ -521,7 +530,7 @@ function spellSheet(
       {
         title: locale === 'pt-BR' ? 'Dano ou cura' : 'Damage or healing',
         fields: fields(damages.map((damage, index) => {
-          const formula = asText(damage.formula)
+          const formula = presentedText(asText(damage.formula), entry, locale)
           const type = asText(damage.type)
           const kind = asText(damage.kind)
           const value = [formula, type ? translatePathfinder2eTerm(type, locale) : null, kind]

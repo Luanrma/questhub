@@ -47,7 +47,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i1iMhIb5S59s5d9a": {
           "name": "Anexar Alma",
-          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte ([[/act escape dc=15]]). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
+          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte (Escapar CD 15). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
         },
         "Dep7iLzGTiny7LgO": {
           "name": "Golpe de Cauda",
@@ -88,7 +88,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "lL49wJa4ig4V0ag1": {
           "name": "Gravar áudio",
-          "description": "O espião mecânico grava todos os sons dentro de @Template[emanation|distance:25]{25 pés (7,5 metros)} em uma pequena pedra preciosa no valor de 1 GP embutida em seu corpo. O espião mecânico pode gravar até 1 hora de som em uma única pedra preciosa. Uma vez iniciada a gravação, ele não poderá interromper a gravação antecipadamente, nem poderá gravar em uma pedra preciosa que já contenha uma gravação. Alguns espiões mecânicos contêm múltiplas pedras preciosas para permitir uma série de gravações. Como os espiões mecânicos não são inteligentes, eles devem receber comandos simples sobre quando começar a gravar sons. Um espião mecânico pode diferenciar diferentes tipos de criaturas, mas não entre indivíduos específicos.\nO espião pode iniciar ou parar a reprodução do som gravado gastando uma única ação. Remover ou instalar uma pedra preciosa em um espião mecânico requer um teste bem-sucedido de [[/act disable-device dc=14]]{Ladrão DC 14} para Desabilitar um Dispositivo; em caso de falha, a gema não é danificada, mas todos os sons gravados são apagados e a gema ainda não pode ser usada para fazer outra gravação."
+          "description": "O espião mecânico grava todos os sons dentro de @Template[emanation|distance:25]{25 pés (7,5 metros)} em uma pequena pedra preciosa no valor de 1 GP embutida em seu corpo. O espião mecânico pode gravar até 1 hora de som em uma única pedra preciosa. Uma vez iniciada a gravação, ele não poderá interromper a gravação antecipadamente, nem poderá gravar em uma pedra preciosa que já contenha uma gravação. Alguns espiões mecânicos contêm múltiplas pedras preciosas para permitir uma série de gravações. Como os espiões mecânicos não são inteligentes, eles devem receber comandos simples sobre quando começar a gravar sons. Um espião mecânico pode diferenciar diferentes tipos de criaturas, mas não entre indivíduos específicos.\nO espião pode iniciar ou parar a reprodução do som gravado gastando uma única ação. Remover ou instalar uma pedra preciosa em um espião mecânico requer um teste bem-sucedido de disable device CD 14 para Desabilitar um Dispositivo; em caso de falha, a gema não é danificada, mas todos os sons gravados são apagados e a gema ainda não pode ser usada para fazer outra gravação."
         },
         "zdb8RR0jcIIol6on": {
           "name": "Conclusão",
@@ -96,7 +96,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "UK9gsjbHYgmKZze9": {
           "name": "Autodestruição",
-          "description": "Um espião mecânico deve usar esta reação, a menos que seja especificamente programado de outra forma por seu criador.\nGatilho O espião mecânico é reduzido a 0 Pontos de Vida.\nEfeito O espião se debate e emite um grito metálico seguido por um tique-taque constante. No início do que teria sido seu próximo turno, o espião mecânico explode, causando 1d10[piercing|options:area-damage] de dano em um @Template[emanation|distance:5]{5-foot radius} (check (reflex, dc:16, basic, options:area-effect) save). Sua pedra preciosa é destruída, junto com qualquer informação contida nela.\nUma criatura adjacente pode cancelar a sequência de autodestruição obtendo sucesso em um teste (roubo, dc:16, características:ação:desabilitar-um-dispositivo) para Desabilitar um Dispositivo."
+          "description": "Um espião mecânico deve usar esta reação, a menos que seja especificamente programado de outra forma por seu criador.\nGatilho O espião mecânico é reduzido a 0 Pontos de Vida.\nEfeito O espião se debate e emite um grito metálico seguido por um tique-taque constante. No início do que teria sido seu próximo turno, o espião mecânico explode, causando 1d10[piercing de dano em um @Template[emanation|distance:5]{5-foot radius} (check (reflex, dc:16, basic, options:area-effect) save). Sua pedra preciosa é destruída, junto com qualquer informação contida nela.\nUma criatura adjacente pode cancelar a sequência de autodestruição obtendo sucesso em um teste (roubo, dc:16, características:ação:desabilitar-um-dispositivo) para Desabilitar um Dispositivo."
         }
       },
       "spellcasting": {}
@@ -195,7 +195,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i1iMhIb5S59s5d9a": {
           "name": "Anexar Alma",
-          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte ([[/act escape dc=15]]). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
+          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte (Escapar CD 15). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
         },
         "Dep7iLzGTiny7LgO": {
           "name": "Golpe de Cauda",
@@ -241,11 +241,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "SzriRFiHHVYO1GYI": {
           "name": "Piolhos Gremlin",
-          "description": "Sempre que uma criatura viva toca ou é tocada por um grimple (inclusive através de um ataque corpo a corpo desarmado bem-sucedido), ela deve ser bem sucedida em um teste (reflexo, dc:13) de resistência ou será infestada por piolhos gremlin.\nEnquanto infestada, a criatura alvo é distraída pela sensação de coceira e fica Estupefata 1, embora possa usar uma ação de Interagir para coçar os piolhos que coçam e suprimir a condição de estupefação dos piolhos por [[/gmr 1d4 #rounds]]{1d4 rodadas}.\nA infestação termina após 24 horas ou até que a criatura seja submersa em água ou exposta a um ambiente extremamente frio, o que ocorrer primeiro."
+          "description": "Sempre que uma criatura viva toca ou é tocada por um grimple (inclusive através de um ataque corpo a corpo desarmado bem-sucedido), ela deve ser bem sucedida em um teste (reflexo, dc:13) de resistência ou será infestada por piolhos gremlin.\nEnquanto infestada, a criatura alvo é distraída pela sensação de coceira e fica Estupefata 1, embora possa usar uma ação de Interagir para coçar os piolhos que coçam e suprimir a condição de estupefação dos piolhos por 1d4.\nA infestação termina após 24 horas ou até que a criatura seja submersa em água ou exposta a um ambiente extremamente frio, o que ocorrer primeiro."
         },
         "Gh301Rw6jmBr5P8s": {
           "name": "Vômito Pútrido",
-          "description": "A careta vomita um @Template[type:line|distance:30] de vômito. Cada criatura na linha deve ser bem sucedida em um teste de resistência (fortitude, dc:16) ou ficará Enjoado 1 (Enjoado 2 em uma falha crítica). O grimple não pode usar Vômito Pútrido novamente por [[/gmr 1d4 #Recharge Vômito Pútrido]]{1d4 rodadas}."
+          "description": "A careta vomita um @Template[type:line|distance:30] de vômito. Cada criatura na linha deve ser bem sucedida em um teste de resistência (fortitude, dc:16) ou ficará Enjoado 1 (Enjoado 2 em uma falha crítica). O grimple não pode usar Vômito Pútrido novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -313,7 +313,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i1iMhIb5S59s5d9a": {
           "name": "Anexar Alma",
-          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte ([[/act escape dc=15]]). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
+          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte (Escapar CD 15). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
         },
         "Dep7iLzGTiny7LgO": {
           "name": "Golpe de Cauda",
@@ -652,7 +652,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "TocxAKQvubZJrUfA": {
           "name": "Boneca Simples",
-          "description": "O atendente boneco parece uma boneca comum, enganando os outros e fazendo-os deixá-los sozinhos. Quando estão em seu local de trabalho, o atendente pode [[/act hide]] sem cobertura ou ocultação. Uma vez que uma criatura perceba que o atendente boneco está vivo, o atendente não poderá se esconder deles desta forma novamente."
+          "description": "O atendente boneco parece uma boneca comum, enganando os outros e fazendo-os deixá-los sozinhos. Quando estão em seu local de trabalho, o atendente pode Esconder-se sem cobertura ou ocultação. Uma vez que uma criatura perceba que o atendente boneco está vivo, o atendente não poderá se esconder deles desta forma novamente."
         },
         "QC80LtjmgNE0SOPm": {
           "name": "Almofada de alfinetes",
@@ -952,7 +952,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "tXhIMgrgTG8GG2Wm": {
           "name": "Encharcar",
-          "description": "O fogo-fátuo apaga todos os incêndios em um único quadrado de 1,5 metro. Eles extinguem fogo não-mágico desse tamanho ou menor automaticamente e tentam neutralizar fogos mágicos (modificador de neutralização [[/r 1d20+6 #Counteract]]{+6})."
+          "description": "O fogo-fátuo apaga todos os incêndios em um único quadrado de 1,5 metro. Eles extinguem fogo não-mágico desse tamanho ou menor automaticamente e tentam neutralizar fogos mágicos (modificador de neutralização 1d20+6)."
         },
         "xSwpXF8p6DICALE3": {
           "name": "Em concerto",
@@ -1171,7 +1171,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "aQDe7We9BV7qqiIm": {
           "name": "Envelope",
-          "description": "Requisitos A ameba gigante começa seu turno com um alvo do seu tamanho ou menor Agarrado\nEfeito A ameba gigante mantém o Agarrar e estende os pseudópodes para cercar a criatura e puxá-la para dentro do corpo da ameba. Posteriormente, isso tem o mesmo efeito como se a ameba tivesse engolido a criatura (CD 17, 1d6[ácido] de dano, [[/act escape dc=17]], Ruptura 3)."
+          "description": "Requisitos A ameba gigante começa seu turno com um alvo do seu tamanho ou menor Agarrado\nEfeito A ameba gigante mantém o Agarrar e estende os pseudópodes para cercar a criatura e puxá-la para dentro do corpo da ameba. Posteriormente, isso tem o mesmo efeito como se a ameba tivesse engolido a criatura (CD 17, 1d6[ácido] de dano, Escapar CD 17, Ruptura 3)."
         },
         "eQGUATVlHv8iZ97x": {
           "name": "Ácido Fraco",
@@ -1217,11 +1217,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "GpYSF4Qy9tOtd9Z4": {
           "name": "Fatiar e dados",
-          "description": "Cada inimigo no espaço do enxame de talheres animado sofre 1d6[piercing|options:area-damage] de dano ou 1d6[slashing|options:area-damage] de dano (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento)"
+          "description": "Cada inimigo no espaço do enxame de talheres animado sofre 1d6[piercing de dano ou 1d6[slashing de dano (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento)"
         },
         "3BpK7a2mX5UCDLmB": {
           "name": "Enfie um garfo nele",
-          "description": "O enxame de talheres animado tenta imobilizar uma única criatura.\nO alvo deve tentar um teste de salvamento (reflexo, dc:17, opções:efeito de área,infligir:imobilizado).\nSucesso Crítico O alvo não é afetado.\nOs talheres de sucesso fixam partes das roupas e equipamentos do alvo. O alvo sofre uma penalidade de circunstância de –3 metros em sua Velocidade enquanto permanecer no espaço do enxame.\nFalha É um sucesso, e o alvo também não pode Pisar até deixar o espaço do enxame.\nEfeito: enfie um garfo nele\nFalha Crítica O alvo é completamente imobilizado pelos talheres, ficando Imobilizado até [[/act escape dc=17]]{Escape} ou usa 2 ações de Interação para remover todos os talheres que o prendem."
+          "description": "O enxame de talheres animado tenta imobilizar uma única criatura.\nO alvo deve tentar um teste de salvamento (reflexo, dc:17, opções:efeito de área,infligir:imobilizado).\nSucesso Crítico O alvo não é afetado.\nOs talheres de sucesso fixam partes das roupas e equipamentos do alvo. O alvo sofre uma penalidade de circunstância de –3 metros em sua Velocidade enquanto permanecer no espaço do enxame.\nFalha É um sucesso, e o alvo também não pode Pisar até deixar o espaço do enxame.\nEfeito: enfie um garfo nele\nFalha Crítica O alvo é completamente imobilizado pelos talheres, ficando Imobilizado até Escapar CD 17 ou usa 2 ações de Interação para remover todos os talheres que o prendem."
         }
       },
       "spellcasting": {}
@@ -1393,7 +1393,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i1iMhIb5S59s5d9a": {
           "name": "Anexar Alma",
-          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte ([[/act escape dc=16]]). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
+          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte (Escapar CD 16). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
         },
         "Dep7iLzGTiny7LgO": {
           "name": "Golpe de Cauda",
@@ -1437,7 +1437,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "K8HY6MgNzIvDLuDT": {
           "name": "Carruagem de Ossos",
-          "description": "Os ostovitas constroem e habitam conchas ósseas móveis. As estatísticas básicas do ostovita, particularmente suas imunidades, pressupõem que o ostovita está em segurança dentro de sua carruagem de ossos. A carruagem de osso é destruída quando o ostovita é reduzido a menos da metade de seus Pontos de Vida ou imediatamente após sofrer dano de um acerto crítico. O dano que pode afetar especificamente o ostovita que controla a carruagem mesmo enquanto ela está dentro (como o magia explosão de espírito) não destrói a carruagem de osso e ignora as imunidades do ostovita.\nSem a carruagem de osso, o ostovite perde suas imunidades e o ataque de espinhos ósseos, e é reduzido ao tamanho minúsculo. Ele também ganha fraqueza 5 a danos físicos e mentais, bem como a danos com a característica sagrada. Construir uma nova carruagem de osso requer o esqueleto de uma criatura pequena ou maior e 10 minutos. Um ostovite em uma carruagem de osso é normalmente pequeno, embora sejam possíveis carruagens de osso maiores, especialmente quando os ostovites trabalham juntos."
+          "description": "Os ostovitas constroem e habitam conchas ósseas móveis. As estatísticas básicas do ostovita, particularmente suas imunidades, pressupõem que o ostovita está em segurança dentro de sua carruagem de ossos. A carruagem de osso é destruída quando o ostovita é reduzido a menos da metade de seus Pontos de Vida ou imediatamente após sofrer dano de um acerto crítico. O dano que pode afetar especificamente o ostovita que controla a carruagem mesmo enquanto ela está dentro (como a magia explosão de espírito) não destrói a carruagem de osso e ignora as imunidades do ostovita.\nSem a carruagem de osso, o ostovite perde suas imunidades e o ataque de espinhos ósseos, e é reduzido ao tamanho minúsculo. Ele também ganha fraqueza 5 a danos físicos e mentais, bem como a danos com a característica sagrada. Construir uma nova carruagem de osso requer o esqueleto de uma criatura pequena ou maior e 10 minutos. Um ostovite em uma carruagem de osso é normalmente pequeno, embora sejam possíveis carruagens de osso maiores, especialmente quando os ostovites trabalham juntos."
         },
         "uMNXrK8Is6PAzNEB": {
           "name": "Fugir",
@@ -1848,7 +1848,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "cweOekE0APM0WBbH": {
           "name": "Arremessar rede",
-          "description": "Requisitos O tripkee está empunhando uma rede com as duas mãos\nEfeito O tripkee realiza um Golpe de longo alcance (com um teste (hurl-net, contra:ac){+9} modificador de ataque) contra uma criatura Média ou menor dentro de 20 pés (6 metros). Se acertar, o alvo fica Desprevenido e sofre uma penalidade de circunstância de –3 metros em sua Velocidade. Em um acerto crítico, a criatura fica Restringida. A CD para [[/act escape dc=16]] a rede é 16. Uma criatura adjacente ao alvo pode interagir com a rede para removê-la.\nEfeito: Arremessar Rede"
+          "description": "Requisitos O tripkee está empunhando uma rede com as duas mãos\nEfeito O tripkee realiza um Golpe de longo alcance (com um teste (hurl-net, contra:ac){+9} modificador de ataque) contra uma criatura Média ou menor dentro de 20 pés (6 metros). Se acertar, o alvo fica Desprevenido e sofre uma penalidade de circunstância de –3 metros em sua Velocidade. Em um acerto crítico, a criatura fica Restringida. A CD para Escapar CD 16 a rede é 16. Uma criatura adjacente ao alvo pode interagir com a rede para removê-la.\nEfeito: Arremessar Rede"
         },
         "dIAw6mcF0Pc3tSrM": {
           "name": "Passagem na Selva",
@@ -2929,7 +2929,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "D89GcjloR9CLNbq8": {
           "name": "Baluarte Elemental",
-          "description": "Acionar Um inimigo está prestes a causar dano ao dançarino das dunas com frio, eletricidade ou fogo, ou com um magia que tenha a característica ar, terra, fogo ou água\nEfeito O dançarino das dunas ganha resistência 2 contra o dano desencadeador"
+          "description": "Acionar Um inimigo está prestes a causar dano ao dançarino das dunas com frio, eletricidade ou fogo, ou com uma magia que tenha a característica ar, terra, fogo ou água\nEfeito O dançarino das dunas ganha resistência 2 contra o dano desencadeador"
         },
         "7gF0VRYAU4eYVJty": {
           "name": "Dança Distrativa",
@@ -3028,7 +3028,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i1iMhIb5S59s5d9a": {
           "name": "Anexar Alma",
-          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte ([[/act escape dc=16]]). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
+          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte (Escapar CD 16). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
         },
         "Dep7iLzGTiny7LgO": {
           "name": "Golpe de Cauda",
@@ -3307,7 +3307,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "RObOURRF9qeY15jG": {
           "name": "Respiração Goblínica",
-          "description": "A cobra goblin arrota uma nuvem de vapor nauseante em um @Template[type:cone|distance:15]. Criaturas que não sejam goblins dentro da nuvem devem ter sucesso em um teste (fortitude, dc:16, opções:efeito de área,inflige:enjoado,inflige:lentidão) ou ficam Enjoadas 1. Em uma falha crítica, uma criatura também fica Lentidão 1 enquanto estiver enjoada. As criaturas que salvam com sucesso ficam imunes por 24 horas. A cobra goblin não pode usar Sopro Goblin novamente por [[/gmr 1d4 #Recharge Sopro Goblin]]{1d4 rodadas}."
+          "description": "A cobra goblin arrota uma nuvem de vapor nauseante em um @Template[type:cone|distance:15]. Criaturas que não sejam goblins dentro da nuvem devem ter sucesso em um teste (fortitude, dc:16, opções:efeito de área,inflige:enjoado,inflige:lentidão) ou ficam Enjoadas 1. Em uma falha crítica, uma criatura também fica Lentidão 1 enquanto estiver enjoada. As criaturas que salvam com sucesso ficam imunes por 24 horas. A cobra goblin não pode usar Sopro Goblin novamente por 1d4."
         }
       },
       "spellcasting": {}
@@ -3632,7 +3632,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "5hGIIhdbBibMGMJ3": {
           "name": "Postura de gato",
-          "description": "Quando um silvanshee usa seu magia Forma de Vapor, a forma de névoa permanece aproximadamente do tamanho e formato de um gato, e o silvanshee mantém sua velocidade de voo nesta forma."
+          "description": "Quando um silvanshee usa sua magia Forma de Vapor, a forma de névoa permanece aproximadamente do tamanho e formato de um gato, e o silvanshee mantém sua velocidade de voo nesta forma."
         }
       },
       "spellcasting": {
@@ -3882,10 +3882,10 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "4tddCK0S1FejzHcG": {
           "name": "Empatia Selvagem",
-          "description": "O nixie pode usar Diplomacia para [[/act causar uma impressão]] e fazer [[/act request]]{Solicitações} muito simples de animais aquáticos ou anfíbios."
+          "description": "O nixie pode usar Diplomacia para causar uma impressão e fazer request muito simples de animais aquáticos ou anfíbios."
         },
         "W6stKtycIqoXJIfr": {
-          "name": "+1 Status para todos os salvamentos vs.",
+          "name": "+1 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "kbzgtxi6mitCaLGP": {
@@ -4224,7 +4224,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "hcf7RGBrhHKjGcG4": {
           "name": "Cuspe de camelo",
-          "description": "Para afastar os inimigos, o camelo cospe o conteúdo parcialmente digerido de seu estômago em uma criatura dentro de 10 pés (3 metros).\nSe acertar, o alvo fica Deslumbrado por 1 rodada e deve ser bem sucedido em um teste (fortitude, dc:17) ou ficará Enjoado 1.\nO camelo não pode usar seu cuspe de camelo Golpear novamente por [[/gmr 1d4 #Recharge Camel Spit]]{1d4 rodadas}."
+          "description": "Para afastar os inimigos, o camelo cospe o conteúdo parcialmente digerido de seu estômago em uma criatura dentro de 10 pés (3 metros).\nSe acertar, o alvo fica Deslumbrado por 1 rodada e deve ser bem sucedido em um teste (fortitude, dc:17) ou ficará Enjoado 1.\nO camelo não pode usar seu cuspe de camelo Golpear novamente por 1d4."
         },
         "1RYNKTCRimaI46EV": {
           "name": "Passo de areia",
@@ -4276,7 +4276,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "O4iNJ257JLJqRJwN": {
           "name": "Sopro Prateado",
-          "description": "O dragão da casa respira uma @Template[type:cone|distance:10] de névoa prateada. Cada criatura dentro da névoa deve ter sucesso em um teste (vontade, dc:16) de resistência ou ficará Estupefato 2 por 1 rodada. O dragão da casa não pode usar Sopro Prateado novamente por [[/gmr 1d4 #Recharge Sopro Prateado]]{1d4 rodadas}."
+          "description": "O dragão da casa respira uma @Template[type:cone|distance:10] de névoa prateada. Cada criatura dentro da névoa deve ter sucesso em um teste (vontade, dc:16) de resistência ou ficará Estupefato 2 por 1 rodada. O dragão da casa não pode usar Sopro Prateado novamente por 1d4."
         },
         "8vyRXD8spS1ZT642": {
           "name": "Golpe Prateado",
@@ -4359,7 +4359,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "i1iMhIb5S59s5d9a": {
           "name": "Anexar Alma",
-          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte ([[/act escape dc=16]]). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
+          "description": "Quando um soulrider consegue um golpe sugador contra um alvo com uma alma capaz de enfrentar o julgamento, seu sugador o prende àquela alma. Enquanto anexados, tanto o soulrider quanto a criatura hospedeira ficam fora de guarda, e o soulrider se move com seu hospedeiro até que o soulrider morra ou o hospedeiro o solte (Escapar CD 16). Se o hospedeiro morrer enquanto o soulrider estiver anexado, o soulrider desaparecerá imediatamente para seguir a alma deixando o corpo. Uma criatura que voltou à vida antes de chegar ao seu destino final geralmente retorna com qualquer soulrider anexado."
         },
         "Dep7iLzGTiny7LgO": {
           "name": "Golpe de Cauda",
@@ -4462,7 +4462,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "N7bXlw2VkUQPBHUy": {
           "name": "Queimar",
-          "description": "Requisitos O munsahir está empunhando um martelo leve\nEfeito O munsahir envolve o martelo leve em chamas e o arremessa para frente, causando 2d6[fogo|opções:dano de área] de dano a cada criatura em um teste @Template[type:line|distance:20] (verificação (reflexo, dc:16, básico))."
+          "description": "Requisitos O munsahir está empunhando um martelo leve\nEfeito O munsahir envolve o martelo leve em chamas e o arremessa para frente, causando 2d6[fogo de dano a cada criatura em um teste @Template[type:line|distance:20] (verificação (reflexo, dc:16, básico))."
         }
       },
       "spellcasting": {}
@@ -4527,7 +4527,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "8ZafagyMIKwX7Xhy": {
           "name": "Guardião da Casa",
-          "description": "Ao comandar sua casa para atacar, o domovoi pode [[/act disarm habilidade=conhecimento doméstico]], [[/act grapple habilidade=conhecimento doméstico]], [[/act reposition habilidade=conhecimento doméstico]], [[/act shove habilidade=conhecimento doméstico]], ou [[/act trip habilidade=conhecimento doméstico]] com seu ataque doméstico enfurecido. O domovoi usa seu Conhecimento Familiar em vez da perícia Atletismo para esses testes."
+          "description": "Ao comandar sua casa para atacar, o domovoi pode disarm habilidade=conhecimento doméstico, grapple habilidade=conhecimento doméstico, reposition habilidade=conhecimento doméstico, shove habilidade=conhecimento doméstico, ou trip habilidade=conhecimento doméstico com seu ataque doméstico enfurecido. O domovoi usa seu Conhecimento Familiar em vez da perícia Atletismo para esses testes."
         }
       },
       "spellcasting": {
@@ -4755,7 +4755,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "UV7kZXo4HzANJZvK": {
           "name": "Golpe Adicional",
-          "description": "Frequência uma vez por turno\nRequisitos A ação mais recente do munavri foi lançar um magia\nEfeito Os ataques munavri. Este Golpe ganha o traço oculto e causa 1d4 de dano mental adicional."
+          "description": "Frequência uma vez por turno\nRequisitos A ação mais recente do munavri foi lançar uma magia\nEfeito Os ataques munavri. Este Golpe ganha o traço oculto e causa 1d4 de dano mental adicional."
         },
         "SF8eX3XCiOBA6wh4": {
           "name": "Objeto intuitivo",
@@ -4967,7 +4967,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "yAefBUKkRRgVkuCu": {
           "name": "Vingança Strix",
-          "description": "Frequência uma vez a cada 10 minutos\nGatilho O parente ou um aliado strix que eles podem ver é danificado pelo acerto crítico de um inimigo\nEfeito Até o final do próximo turno, o parente ganha um bônus de status de +[[/r {1d6}]] nas jogadas de dano em Golpes que ele fizer contra o inimigo desencadeador."
+          "description": "Frequência uma vez a cada 10 minutos\nGatilho O parente ou um aliado strix que eles podem ver é danificado pelo acerto crítico de um inimigo\nEfeito Até o final do próximo turno, o parente ganha um bônus de status de +{1d6} nas jogadas de dano em Golpes que ele fizer contra o inimigo desencadeador."
         }
       },
       "spellcasting": {}
@@ -5011,7 +5011,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "TBMl5Ts5TOwuhfd4": {
-          "name": "+2 Circunstância para todos os salvamentos contra doenças",
+          "name": "+2 de bônus de circunstância em todos os testes de resistência contra doença",
           "description": ""
         },
         "64fFy6rN4KqZRePB": {
@@ -5090,7 +5090,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
     "status": "MACHINE_DRAFT",
     "fields": {
       "name": "Draugr",
-      "description": "Os cadáveres ressuscitados de marinheiros que morreram no mar, conhecidos como draugrs, cheiram a podridão e decomposição das profundezas salgadas. Seus olhos brilham com uma luz verde medonha, e algas podres, cracas e criaturas marinhas mortas agarram-se a seus corpos. Draugrs não conseguem falar, mas expressam suas emoções maliciosas com gorgolejos, como se estivessem eternamente se afogando com os pulmões cheios de água. Eles desejam pouco mais do que atacar criaturas vivas, especialmente aquelas que navegam no mar. Mesmo quando chegam à terra, os draugrs muitas vezes arrastam os cadáveres daqueles que atacam de volta para a água, povoando as profundezas com ainda mais mortos.\nDraugrs surgem nos lugares assombrados do mar, onde espíritos inquietos, ondas de energia vazia ou tempestades sobrenaturais causam a morte. Um cadáver pode descansar no fundo do mar por algum tempo antes de despertar como draugr. Coletando detritos e organismos, o corpo torna-se cada vez mais nojento antes de finalmente subir. A proximidade com a vida inteligente pode acelerar esse processo, e um explorador subaquático que se depara com um naufrágio pode fazer com que um corpo retorne repentinamente à não-vida como um draugr. Esses mortos-vivos não aceitam intrusões levianamente, especialmente no local da morte.\nEmbora odiem os vivos, os draugrs são suscetíveis a lembranças de suas vidas como marinheiros. Em particular, uma cantiga marítima ou uma canção de trabalho de chamada e resposta bem executada pode fazer com que um draugr se perca em devaneios por um momento. As criaturas foram até testemunhadas gemendo, incapazes de cantar as palavras, mas fornecendo um acompanhamento assustador. A calmaria raramente dura muito, pois a beleza da música rapidamente se torna um lembrete da tragédia que se abateu sobre os draugr, reafirmando seu desejo por sangue e morte.\nDraugrs mais poderosos com olhos vermelhos ardentes são chamados de capitães draugr. Eles são criaturas de 3º nível com ajuste de elite que podem lançar névoa como um magia divino inato 3 vezes por dia.",
+      "description": "Os cadáveres ressuscitados de marinheiros que morreram no mar, conhecidos como draugrs, cheiram a podridão e decomposição das profundezas salgadas. Seus olhos brilham com uma luz verde medonha, e algas podres, cracas e criaturas marinhas mortas agarram-se a seus corpos. Draugrs não conseguem falar, mas expressam suas emoções maliciosas com gorgolejos, como se estivessem eternamente se afogando com os pulmões cheios de água. Eles desejam pouco mais do que atacar criaturas vivas, especialmente aquelas que navegam no mar. Mesmo quando chegam à terra, os draugrs muitas vezes arrastam os cadáveres daqueles que atacam de volta para a água, povoando as profundezas com ainda mais mortos.\nDraugrs surgem nos lugares assombrados do mar, onde espíritos inquietos, ondas de energia vazia ou tempestades sobrenaturais causam a morte. Um cadáver pode descansar no fundo do mar por algum tempo antes de despertar como draugr. Coletando detritos e organismos, o corpo torna-se cada vez mais nojento antes de finalmente subir. A proximidade com a vida inteligente pode acelerar esse processo, e um explorador subaquático que se depara com um naufrágio pode fazer com que um corpo retorne repentinamente à não-vida como um draugr. Esses mortos-vivos não aceitam intrusões levianamente, especialmente no local da morte.\nEmbora odiem os vivos, os draugrs são suscetíveis a lembranças de suas vidas como marinheiros. Em particular, uma cantiga marítima ou uma canção de trabalho de chamada e resposta bem executada pode fazer com que um draugr se perca em devaneios por um momento. As criaturas foram até testemunhadas gemendo, incapazes de cantar as palavras, mas fornecendo um acompanhamento assustador. A calmaria raramente dura muito, pois a beleza da música rapidamente se torna um lembrete da tragédia que se abateu sobre os draugr, reafirmando seu desejo por sangue e morte.\nDraugrs mais poderosos com olhos vermelhos ardentes são chamados de capitães draugr. Eles são criaturas de 3º nível com ajuste de elite que podem lançar névoa como uma magia divino inato 3 vezes por dia.",
       "size": "Médio",
       "senses": {
         "darkvision": "visão no escuro"
@@ -5127,7 +5127,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "RqPJlOAd3fcNqh2r": {
           "name": "A vingança do mar",
-          "description": "Uma criatura que mata um draugr é submetida a um magia Maldição do Marinheiro com um teste de resistência (vontade, dc:17, características:magia). A maldição termina se o draugr for enterrado em um mar calmo ou após 1 semana."
+          "description": "Uma criatura que mata um draugr é submetida a uma magia Maldição do Marinheiro com um teste de resistência (vontade, dc:17, características:magia). A maldição termina se o draugr for enterrado em um mar calmo ou após 1 semana."
         },
         "oxosDKkcqFePOaOl": {
           "name": "Cura do Vazio",
@@ -5232,7 +5232,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
           "description": ""
         },
         "G412UtVloe7PIpa4": {
-          "name": "+2 Status para todos os salvamentos contra doenças e venenos",
+          "name": "+2 de bônus de status em todos os testes de resistência contra doença e veneno",
           "description": ""
         },
         "3vycv9ThXOQbgNBf": {
@@ -5339,7 +5339,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_07_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "c1oKujTo06SNvznu": {
           "name": "Camuflagem Natural",
-          "description": "As escamas verdes, cinzentas e marrons do tatzlwyrm proporcionam uma camuflagem natural. Em áreas de vegetação rasteira densa, um tatzlwyrm pode se mover em sua velocidade máxima quando [[/act sneak]]{Sneaking} e ganha +4 de bônus de circunstância para [[/act hide options=natural-camouflage]]."
+          "description": "As escamas verdes, cinzentas e marrons do tatzlwyrm proporcionam uma camuflagem natural. Em áreas de vegetação rasteira densa, um tatzlwyrm pode se mover em sua velocidade máxima quando sneak e ganha +4 de bônus de circunstância para hide options=natural camouflage."
         },
         "XjNYxa8zYgN2Eeqq": {
           "name": "Suspiro Venenoso",

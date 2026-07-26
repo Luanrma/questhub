@@ -195,7 +195,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
       "actions": {
         "Mjlek9OZ25Tga7Cg": {
           "name": "Peste Pútrida",
-          "description": "As condições de doença e inconsciência causadas pela peste pútrida não melhoram por si mesmas até que a doença seja curada.\nTeste de salvamento (fortitude, dc:14)\nPortador de estágio 1 sem efeitos nocivos ([[/gmr 1d4 #hours]]{1d4 horas})\nEstágio 2 Adoecido 1 (1 dia)\nEstágio 3 Adoecido 1 e Lento 1 (1 dia)\nEstágio 4 Inconsciente (1 dia)\nEstágio 5 morto"
+          "description": "As condições de doença e inconsciência causadas pela peste pútrida não melhoram por si mesmas até que a doença seja curada.\nTeste de salvamento (fortitude, dc:14)\nPortador de estágio 1 sem efeitos nocivos (1d4)\nEstágio 2 Adoecido 1 (1 dia)\nEstágio 3 Adoecido 1 e Lento 1 (1 dia)\nEstágio 4 Inconsciente (1 dia)\nEstágio 5 morto"
         }
       },
       "spellcasting": {}
@@ -1202,7 +1202,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
       },
       "actions": {
         "atH4c29XMbIXGwpG": {
-          "name": "+2 Status para todos os salvamentos vs.",
+          "name": "+2 de bônus de status em todos os testes de resistência contra magia",
           "description": ""
         },
         "D7nCoDXcwdCyO16R": {
@@ -1211,7 +1211,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "gooqrR0z9rN4mnlN": {
           "name": "Bola Bolt",
-          "description": "Este tiro não causa dano, mas se acertar, o alvo deve ter sucesso em um teste (reflexo, dc:16) de resistência ou será derrubado e imobilizado até ser libertado com um teste bem-sucedido de CD 15 para [[/act escape dc=15]]. Este teste pode ser tentado pelo alvo ou por uma criatura adjacente ao alvo."
+          "description": "Este tiro não causa dano, mas se acertar, o alvo deve ter sucesso em um teste (reflexo, dc:16) de resistência ou será derrubado e imobilizado até ser libertado com um teste bem-sucedido de CD 15 para Escapar CD 15. Este teste pode ser tentado pelo alvo ou por uma criatura adjacente ao alvo."
         }
       },
       "spellcasting": {
@@ -1415,7 +1415,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "WbHqriBplta0UJw3": {
           "name": "Respiração de cascalho",
-          "description": "O bandido da terra respira pedras em um @Template[cone|distance:15] que causa 2d6[concussão|options:area-damage] de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento).\nO bandido da terra não pode usar Scree Breath novamente por [[/gmr 1d4 #Recharge Scree Breath]]{1d4 rodadas}."
+          "description": "O bandido da terra respira pedras em um @Template[cone|distance:15] que causa 2d6[concussão de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento).\nO bandido da terra não pode usar Scree Breath novamente por 1d4."
         }
       },
       "spellcasting": {
@@ -1651,11 +1651,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "DiGgJNOY5Na3eYp8": {
           "name": "Peste Pútrida",
-          "description": "As condições de doença e inconsciência causadas pela peste pútrida não melhoram por si mesmas até que a doença seja curada.\nTeste de salvamento (fortitude, dc:14)\nPortador de estágio 1 sem efeitos nocivos ([[/gmr 1d4 #hours]]{1d4 horas})\nEstágio 2 Adoecido 1 (1 dia)\nEstágio 3 Adoecido 1 e Lento 1 (1 dia)\nEstágio 4 Inconsciente (1 dia)\nEstágio 5 morto"
+          "description": "As condições de doença e inconsciência causadas pela peste pútrida não melhoram por si mesmas até que a doença seja curada.\nTeste de salvamento (fortitude, dc:14)\nPortador de estágio 1 sem efeitos nocivos (1d4)\nEstágio 2 Adoecido 1 (1 dia)\nEstágio 3 Adoecido 1 e Lento 1 (1 dia)\nEstágio 4 Inconsciente (1 dia)\nEstágio 5 morto"
         },
         "LTwSnVSVWZeWrLAC": {
           "name": "Mordidas enxameadas",
-          "description": "Cada inimigo no espaço do enxame sofre 1d6[piercing|options:area-damage] de dano e deve tentar um teste de salvamento (reflexo, dc:17, básico, opções:efeito de área). Uma criatura que falhe no teste fica exposta a uma praga pútrida."
+          "description": "Cada inimigo no espaço do enxame sofre 1d6[piercing de dano e deve tentar um teste de salvamento (reflexo, dc:17, básico, opções:efeito de área). Uma criatura que falhe no teste fica exposta a uma praga pútrida."
         }
       },
       "spellcasting": {}
@@ -1775,7 +1775,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "mdqK7RuSjtezVyS8": {
           "name": "Onda de Sujeira",
-          "description": "Frequência uma vez por minuto\nEfeito O lodo do esgoto libera uma onda de sujeira, cobrindo todas as criaturas em uma @Template[emanation|distance:20]. Cada criatura na área deve ser bem sucedida em um teste de resistência (reflexo, cd:17, opções: efeito de área, efeito de dano) ou sofrerá 1d4[ácido|opções:dano de área] de dano e sofrerá uma penalidade de -3 metros em suas Velocidades por 1 minuto (em uma falha crítica, a criatura também cai propensa).\nUma criatura pode gastar uma ação de Interagir para limpar alguém, diminuindo a penalidade de Velocidade em 5 pés (1,5 metros) com cada ação.\nEfeito: Onda de Sujeira"
+          "description": "Frequência uma vez por minuto\nEfeito O lodo do esgoto libera uma onda de sujeira, cobrindo todas as criaturas em uma @Template[emanation|distance:20]. Cada criatura na área deve ser bem sucedida em um teste de resistência (reflexo, cd:17, opções: efeito de área, efeito de dano) ou sofrerá 1d4[ácido de dano e sofrerá uma penalidade de -3 metros em suas Velocidades por 1 minuto (em uma falha crítica, a criatura também cai propensa).\nUma criatura pode gastar uma ação de Interagir para limpar alguém, diminuindo a penalidade de Velocidade em 5 pés (1,5 metros) com cada ação.\nEfeito: Onda de Sujeira"
         }
       },
       "spellcasting": {}
@@ -1831,11 +1831,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "E0mO28h15c34tr9P": {
           "name": "Alterar forma",
-          "description": "Um cassisiano pode assumir a aparência de uma pomba, um humanóide alado, um cachorro ou um peixe. Normalmente, isso não altera sua velocidade ou os bônus de ataque e dano de seus ataques, mas pode alterar o tipo de dano que os ataques causam (normalmente para concussão). Quaisquer alterações adicionais para formulários específicos são indicadas abaixo.\n• Cachorro\n• Tamanho Pequeno;\n• Aroma (impreciso) 30 pés (9 metros),\n• Velocidade 40 pés (12 metros);\n• Habilidades Atletismo [[/r 1d20+6]]{+6};\n• Corpo a corpo 1 mandíbula +7, Dano 1d6+2 perfurante mais Nocaute\n• Peixe\n• Natação rápida 30 pés (9 metros)"
+          "description": "Um cassisiano pode assumir a aparência de uma pomba, um humanóide alado, um cachorro ou um peixe. Normalmente, isso não altera sua velocidade ou os bônus de ataque e dano de seus ataques, mas pode alterar o tipo de dano que os ataques causam (normalmente para concussão). Quaisquer alterações adicionais para formulários específicos são indicadas abaixo.\n• Cachorro\n• Tamanho Pequeno;\n• Aroma (impreciso) 30 pés (9 metros),\n• Velocidade 40 pés (12 metros);\n• Habilidades Atletismo 1d20+6;\n• Corpo a corpo 1 mandíbula +7, Dano 1d6+2 perfurante mais Nocaute\n• Peixe\n• Natação rápida 30 pés (9 metros)"
         },
         "nlXD4kgKurvpC2DF": {
           "name": "Raios oculares",
-          "description": "O cassisiano libera raios de calor ou frio de seus olhos, causando 2d6 2d6[cold|options:area-damage]{cold} ou 2d6[fire|options:area-damage]{fire} de dano (check (reflex, dc:17, basic, options:area-effect) save) a todas as criaturas em um @Template[line|distance:15]. Eles não podem usar Eye Beams novamente por [[/gmr 1d4 #Recharge Eye Beams]]{1d4 rodadas}."
+          "description": "O cassisiano libera raios de calor ou frio de seus olhos, causando 2d6 2d6[cold{cold} ou 2d6[fire{fire} de dano (check (reflex, dc:17, basic, options:area-effect) save) a todas as criaturas em um @Template[line|distance:15]. Eles não podem usar Eye Beams novamente por 1d4."
         },
         "jXbtX8mGANK1K6FL": {
           "name": "Repositório de Lore",
@@ -1984,7 +1984,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "Qy7s2ZDFTvr7xR1m": {
           "name": "Armadilha da teia",
-          "description": "Uma criatura atingida pelo ataque da teia de aranha caçadora é imobilizada e presa na superfície mais próxima até [[/act escape dc=17]]{Escape}."
+          "description": "Uma criatura atingida pelo ataque da teia de aranha caçadora é imobilizada e presa na superfície mais próxima até Escapar CD 17."
         }
       },
       "spellcasting": {}
@@ -2485,11 +2485,11 @@ export const PATHFINDER_2E_EXHAUSTIVE_01_BESTIARY_PT_BR: readonly Pathfinder2eCo
         },
         "YggaLtfjaqLwr2Qd": {
           "name": "Respiração Ácida",
-          "description": "O bandido aquático respira ácido em um @Template[cone|distance:15] que causa 2d6[acid|options:area-damage] de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento).\nO bandido aquático não pode usar Sopro Ácido novamente por [[/gmr 1d4 #Recharge Sopro Ácido]]{1d4 rodadas}."
+          "description": "O bandido aquático respira ácido em um @Template[cone|distance:15] que causa 2d6[acid de dano a cada criatura dentro da área (verificação (reflexo, dc:17, básico, opções:efeito de área) salvamento).\nO bandido aquático não pode usar Sopro Ácido novamente por 1d4."
         },
         "MgYNmBiC9vvffD1M": {
           "name": "Encharcar",
-          "description": "O bandido da água sacode um suprimento aparentemente infinito de água de seu pelo para apagar todos os incêndios em uma @Template[emanation|distance:5]. O bandido extingue todos os fogos não-mágicos automaticamente e tenta neutralizar os fogos mágicos ([[/r 1d20+7 #Counteract]]{+7} modificador de neutralização)."
+          "description": "O bandido da água sacode um suprimento aparentemente infinito de água de seu pelo para apagar todos os incêndios em uma @Template[emanation|distance:5]. O bandido extingue todos os fogos não-mágicos automaticamente e tenta neutralizar os fogos mágicos (1d20+7 modificador de neutralização)."
         }
       },
       "spellcasting": {
