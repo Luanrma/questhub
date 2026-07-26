@@ -10,7 +10,7 @@ import {
 } from './character-sheet-window-events'
 
 type SheetWindowState = {
-  characterId: string
+  sheetId: string
   title: string
   activePage: string
   minimized: boolean
@@ -53,7 +53,7 @@ function CharacterSheetWindow({
   index: number
   hidden: boolean
   pages: readonly { id: string; label: string }[]
-  Renderer: ComponentType<{ campaignId: string; characterId: string; activePage: string }>
+  Renderer: ComponentType<{ campaignId: string; sheetId: string; activePage: string }>
   onFocus: () => void
   onPageChange: (pageId: string) => void
   onMinimize: () => void
@@ -174,7 +174,7 @@ function CharacterSheetWindow({
       <div className="min-h-0 flex-1 overflow-y-auto p-4">
         <Renderer
           campaignId={campaignId}
-          characterId={state.characterId}
+          sheetId={state.sheetId}
           activePage={state.activePage}
         />
       </div>
@@ -205,9 +205,9 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
 
       zIndexRef.current += 1
       setWindows((current) => {
-        const existing = current.find((item) => item.characterId === request.characterId)
+        const existing = current.find((item) => item.sheetId === request.sheetId)
         if (existing) {
-          return current.map((item) => item.characterId === request.characterId
+          return current.map((item) => item.sheetId === request.sheetId
             ? {
                 ...item,
                 title: request.title?.trim() || item.title,
@@ -220,7 +220,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
         return [
           ...current,
           {
-            characterId: request.characterId,
+            sheetId: request.sheetId,
             title: request.title?.trim() || 'Ficha',
             activePage: registration?.pages[0]?.id ?? 'main',
             minimized: false,
@@ -234,13 +234,13 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
     return () => window.removeEventListener(campaignCharacterSheetOpenEvent, onOpen)
   }, [campaignId, registration])
 
-  function updateWindow(characterId: string, changes: Partial<SheetWindowState>) {
-    setWindows((current) => current.map((item) => item.characterId === characterId ? { ...item, ...changes } : item))
+  function updateWindow(sheetId: string, changes: Partial<SheetWindowState>) {
+    setWindows((current) => current.map((item) => item.sheetId === sheetId ? { ...item, ...changes } : item))
   }
 
-  function focusWindow(characterId: string) {
+  function focusWindow(sheetId: string) {
     zIndexRef.current += 1
-    updateWindow(characterId, { zIndex: zIndexRef.current })
+    updateWindow(sheetId, { zIndex: zIndexRef.current })
   }
 
   const minimized = windows.filter((item) => item.minimized)
@@ -249,17 +249,17 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
     <>
       {registration ? windows.map((state, index) => (
         <CharacterSheetWindow
-          key={state.characterId}
+          key={state.sheetId}
           campaignId={campaignId}
           state={state}
           index={index}
           hidden={state.minimized}
           pages={registration.pages}
           Renderer={registration.Renderer}
-          onFocus={() => focusWindow(state.characterId)}
-          onPageChange={(activePage) => updateWindow(state.characterId, { activePage })}
-          onMinimize={() => updateWindow(state.characterId, { minimized: true })}
-          onClose={() => setWindows((current) => current.filter((item) => item.characterId !== state.characterId))}
+          onFocus={() => focusWindow(state.sheetId)}
+          onPageChange={(activePage) => updateWindow(state.sheetId, { activePage })}
+          onMinimize={() => updateWindow(state.sheetId, { minimized: true })}
+          onClose={() => setWindows((current) => current.filter((item) => item.sheetId !== state.sheetId))}
         />
       )) : null}
 
@@ -273,12 +273,12 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
         <div className="fixed bottom-4 left-4 z-[190] flex max-w-[calc(100vw-2rem)] flex-wrap gap-2">
           {minimized.map((state) => (
             <button
-              key={state.characterId}
+              key={state.sheetId}
               type="button"
               title={`Restaurar ficha de ${state.title}`}
               onClick={() => {
                 zIndexRef.current += 1
-                updateWindow(state.characterId, { minimized: false, zIndex: zIndexRef.current })
+                updateWindow(state.sheetId, { minimized: false, zIndex: zIndexRef.current })
               }}
               className="flex max-w-56 items-center gap-2 rounded-lg border border-indigo-300/25 bg-[#111218]/98 px-3 py-2 text-left text-xs font-semibold text-indigo-100 shadow-xl transition hover:bg-indigo-500/20"
             >
