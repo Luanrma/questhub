@@ -17,6 +17,7 @@ import {
 import { api } from '../lib/api'
 import { CampaignCatalogModal } from '../game-systems/CampaignCatalogModal'
 import { CampaignCharacterSheetsModal } from '../game-systems/CampaignCharacterSheetsModal'
+import { CampaignCharacterSheetWorkspace } from '../game-systems/CampaignCharacterSheetWorkspace'
 import {
   catalogDomainLabels,
   type GameSystemCatalogDomain,
@@ -101,126 +102,124 @@ export function Aside({
     [campaignId],
   )
 
-  if (collapsed) {
-    return (
-      <aside className="campaign-sidebar campaign-sidebar-collapsed z-40 text-white">
-        <button
-          type="button"
-          title="Expandir menu da campanha"
-          className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/75 text-[#8b5cf6] shadow-2xl backdrop-blur transition hover:bg-zinc-900 hover:text-[#a78bfa]"
-          onClick={() => setCollapsed(false)}
-          aria-label="Expandir menu da campanha"
-        >
-          <ChevronDown className="h-5 w-5 drop-shadow-[0_0_10px_rgba(139,92,246,0.75)]" strokeWidth={3} />
-        </button>
-      </aside>
-    )
-  }
-
   const catalogDomains = system?.descriptor.catalogDomains ?? []
 
   return (
     <>
-      <aside className="campaign-sidebar campaign-sidebar-expanded z-40 text-white">
-        <div
-          className={[
-            'campaign-sidebar-panel w-60 rounded-r-2xl bg-zinc-800/90 shadow-2xl backdrop-blur',
-            'transition-[width,transform] duration-300 ease-out',
-          ].join(' ')}
-        >
-          <div className="flex items-center justify-start">
-            <button
-              type="button"
-              title="Recolher menu da campanha"
-              className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/30 text-[#a78bfa] transition hover:bg-white/10 hover:text-white"
-              onClick={() => setCollapsed(true)}
-              aria-label="Recolher menu"
-            >
-              <ChevronUp className="h-5 w-5" strokeWidth={3} />
-            </button>
-          </div>
+      {collapsed ? (
+        <aside className="campaign-sidebar campaign-sidebar-collapsed z-40 text-white">
+          <button
+            type="button"
+            title="Expandir menu da campanha"
+            className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/75 text-[#8b5cf6] shadow-2xl backdrop-blur transition hover:bg-zinc-900 hover:text-[#a78bfa]"
+            onClick={() => setCollapsed(false)}
+            aria-label="Expandir menu da campanha"
+          >
+            <ChevronDown className="h-5 w-5 drop-shadow-[0_0_10px_rgba(139,92,246,0.75)]" strokeWidth={3} />
+          </button>
+        </aside>
+      ) : (
+        <aside className="campaign-sidebar campaign-sidebar-expanded z-40 text-white">
+          <div
+            className={[
+              'campaign-sidebar-panel w-60 rounded-r-2xl bg-zinc-800/90 shadow-2xl backdrop-blur',
+              'transition-[width,transform] duration-300 ease-out',
+            ].join(' ')}
+          >
+            <div className="flex items-center justify-start">
+              <button
+                type="button"
+                title="Recolher menu da campanha"
+                className="campaign-sidebar-toggle flex items-center justify-center rounded-br-xl border-b border-r border-white/10 bg-black/30 text-[#a78bfa] transition hover:bg-white/10 hover:text-white"
+                onClick={() => setCollapsed(true)}
+                aria-label="Recolher menu"
+              >
+                <ChevronUp className="h-5 w-5" strokeWidth={3} />
+              </button>
+            </div>
 
-          <nav className="px-2 pb-3">
-            <ul className="flex flex-col gap-1">
-              {items.slice(0, 3).filter((it) => role !== 'PLAYER' || !it.to.endsWith('/characters')).map((it) => (
-                <li key={it.to}>
-                  <NavLink
-                    to={it.to}
-                    onClick={(event) => {
-                      if (it.to.endsWith('/overview')) return
-                      event.preventDefault()
-                      onOpenCampaignPanel?.(it.to)
-                    }}
-                    className={({ isActive }) => [
-                      'flex items-center gap-3 rounded-lg px-3 py-2 transition',
-                      'text-zinc-300 hover:text-white hover:bg-white/10',
-                      isActive ? 'text-white' : '',
-                    ].join(' ')}
-                  >
-                    <span className="text-[#6e3fae]">{it.icon}</span>
-                    <span>{it.label}</span>
-                  </NavLink>
-                </li>
-              ))}
+            <nav className="px-2 pb-3">
+              <ul className="flex flex-col gap-1">
+                {items.slice(0, 3).filter((it) => role !== 'PLAYER' || !it.to.endsWith('/characters')).map((it) => (
+                  <li key={it.to}>
+                    <NavLink
+                      to={it.to}
+                      onClick={(event) => {
+                        if (it.to.endsWith('/overview')) return
+                        event.preventDefault()
+                        onOpenCampaignPanel?.(it.to)
+                      }}
+                      className={({ isActive }) => [
+                        'flex items-center gap-3 rounded-lg px-3 py-2 transition',
+                        'text-zinc-300 hover:text-white hover:bg-white/10',
+                        isActive ? 'text-white' : '',
+                      ].join(' ')}
+                    >
+                      <span className="text-[#6e3fae]">{it.icon}</span>
+                      <span>{it.label}</span>
+                    </NavLink>
+                  </li>
+                ))}
 
-              {role === 'MASTER' && system?.characterSheetsAvailable ? (
-                <li>
-                  <button
-                    type="button"
-                    onClick={() => setCharacterSheetsOpen(true)}
-                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
-                  >
-                    <span className="text-[#6e3fae]"><BookUser size={18} /></span>
-                    <span>Fichas</span>
-                  </button>
-                </li>
-              ) : null}
-
-              {catalogDomains.map((domain) => {
-                const Icon = catalogIcons[domain]
-                return (
-                  <li key={domain}>
+                {role === 'MASTER' && system?.characterSheetsAvailable ? (
+                  <li>
                     <button
                       type="button"
-                      onClick={() => setCatalogDomain(domain)}
+                      onClick={() => setCharacterSheetsOpen(true)}
                       className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
                     >
-                      <span className="text-[#6e3fae]"><Icon size={18} /></span>
-                      <span>{catalogDomainLabels[domain]}</span>
+                      <span className="text-[#6e3fae]"><BookUser size={18} /></span>
+                      <span>Fichas</span>
                     </button>
                   </li>
-                )
-              })}
+                ) : null}
 
-              {items.slice(3).map((it) => (
-                <li key={it.to}>
-                  <NavLink
-                    to={it.to}
-                    onClick={(event) => {
-                      if (it.to === '/campaigns') {
+                {catalogDomains.map((domain) => {
+                  const Icon = catalogIcons[domain]
+                  return (
+                    <li key={domain}>
+                      <button
+                        type="button"
+                        onClick={() => setCatalogDomain(domain)}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                      >
+                        <span className="text-[#6e3fae]"><Icon size={18} /></span>
+                        <span>{catalogDomainLabels[domain]}</span>
+                      </button>
+                    </li>
+                  )
+                })}
+
+                {items.slice(3).map((it) => (
+                  <li key={it.to}>
+                    <NavLink
+                      to={it.to}
+                      onClick={(event) => {
+                        if (it.to === '/campaigns') {
+                          event.preventDefault()
+                          const confirmed = window.confirm('Deseja sair da mesa e trocar de campanha?')
+                          if (confirmed) void onSwitchCampaign?.()
+                          return
+                        }
                         event.preventDefault()
-                        const confirmed = window.confirm('Deseja sair da mesa e trocar de campanha?')
-                        if (confirmed) void onSwitchCampaign?.()
-                        return
-                      }
-                      event.preventDefault()
-                      onOpenCampaignPanel?.(it.to)
-                    }}
-                    className={({ isActive }) => [
-                      'flex items-center gap-3 rounded-lg px-3 py-2 transition',
-                      'text-zinc-300 hover:text-white hover:bg-white/10',
-                      isActive ? 'text-white' : '',
-                    ].join(' ')}
-                  >
-                    <span className="text-[#6e3fae]">{it.icon}</span>
-                    <span>{it.label}</span>
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-      </aside>
+                        onOpenCampaignPanel?.(it.to)
+                      }}
+                      className={({ isActive }) => [
+                        'flex items-center gap-3 rounded-lg px-3 py-2 transition',
+                        'text-zinc-300 hover:text-white hover:bg-white/10',
+                        isActive ? 'text-white' : '',
+                      ].join(' ')}
+                    >
+                      <span className="text-[#6e3fae]">{it.icon}</span>
+                      <span>{it.label}</span>
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        </aside>
+      )}
 
       {catalogDomain ? (
         <CampaignCatalogModal
@@ -236,6 +235,11 @@ export function Aside({
           onClose={() => setCharacterSheetsOpen(false)}
         />
       ) : null}
+
+      <CampaignCharacterSheetWorkspace
+        campaignId={campaignId}
+        gameSystem={system?.gameSystem ?? null}
+      />
     </>
   )
 }
