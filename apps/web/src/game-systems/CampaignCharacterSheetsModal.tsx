@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   BookUser,
   FilePlus2,
+  Link2,
   RefreshCw,
   Search,
   UserRound,
@@ -12,14 +13,11 @@ import { requestCampaignCharacterSheetOpen } from './character-sheet-window-even
 import type { GameSystemKey } from './registry'
 
 type CharacterSheetManagerEntry = {
-  characterId: string
+  sheetId: string
   name: string
   avatarUrl: string | null
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
-  ownerLabel: string
-  hasSheet: boolean
-  updatedAt: string | null
+  assignedUser: { id: string; label: string } | null
+  updatedAt: string
   token: { id: string; name: string } | null
   subtitle: string | null
   badges: string[]
@@ -27,13 +25,16 @@ type CharacterSheetManagerEntry = {
   warnings: string[]
 }
 
-type AssignmentTarget = {
+type UserAssignmentTarget = {
   userId: string
   role: 'MASTER' | 'PLAYER'
   email: string
-  identityCharacterId: string
-  identityName: string
-  hasSheet: boolean
+}
+
+type TokenAssignmentTarget = {
+  tokenId: string
+  name: string
+  assignedSheetId: string | null
 }
 
 type CharacterSheetManagerResponse = {
@@ -43,28 +44,15 @@ type CharacterSheetManagerResponse = {
     label: string
   }
   entries: CharacterSheetManagerEntry[]
-  assignmentTargets: AssignmentTarget[]
+  assignmentTargets: {
+    users: UserAssignmentTarget[]
+    tokens: TokenAssignmentTarget[]
+  }
 }
 
 type Props = {
   campaignId: string
   onClose: () => void
-}
-
-type CreateRole = 'MASTER' | 'PLAYER' | 'NPC'
-
-const roleLabels: Record<CharacterSheetManagerEntry['role'], string> = {
-  MASTER: 'Mestre',
-  PLAYER: 'Player',
-  NPC: 'NPC',
-}
-
-const statusLabels: Record<CharacterSheetManagerEntry['status'], string> = {
-  PENDING: 'Pendente',
-  ACTIVE: 'Ativo',
-  REJECTED: 'Rejeitado',
-  LEFT: 'Saiu',
-  DEAD: 'Morto',
 }
 
 function CharacterAvatar({ entry }: { entry: CharacterSheetManagerEntry }) {
@@ -93,9 +81,8 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
   const [refreshVersion, setRefreshVersion] = useState(0)
   const [creating, setCreating] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
-  const [createRole, setCreateRole] = useState<CreateRole>('PLAYER')
   const [name, setName] = useState('')
-  const [assignedUserId, setAssignedUserId] = useState('')
+  const [updatingSheetId, setUpdatingSheetId] = useState<string | null>(null)
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -112,12 +99,7 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
 
     api<CharacterSheetManagerResponse>(`/api/campaigns/${campaignId}/character-sheets`)
       .then((response) => {
-        if (cancelled) return
-        setData(response)
-        const firstAvailablePlayer = response.assignmentTargets.find(
-          (target) => target.role === 'PLAYER' && !target.hasSheet,
-        )
-        setAssignedUserId((current) => current || firstAvailablePlayer?.userId || '')
+        if (!cancelled) setData(response)
       })
       .catch((cause) => {
         if (cancelled) return
@@ -132,33 +114,23 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
     }
   }, [campaignId, refreshVersion])
 
-  const availablePlayers = useMemo(
-    () => (data?.assignmentTargets ?? []).filter((target) => target.role === 'PLAYER' && !target.hasSheet),
-    [data?.assignmentTargets],
-  )
-  const masterTarget = useMemo(
-    () => (data?.assignmentTargets ?? []).find((target) => target.role === 'MASTER'),
-    [data?.assignmentTargets],
-  )
   const visibleEntries = useMemo(() => {
     const normalized = search.trim().toLocaleLowerCase('pt-BR')
     if (!normalized) return data?.entries ?? []
 
     return (data?.entries ?? []).filter((entry) => [
       entry.name,
-      entry.ownerLabel,
+      entry.assignedUser?.label,
       entry.subtitle,
       entry.token?.name,
-      roleLabels[entry.role],
-      statusLabels[entry.status],
       ...entry.badges,
     ].some((value) => value?.toLocaleLowerCase('pt-BR').includes(normalized)))
   }, [data?.entries, search])
 
-  function openSheet(entry: Pick<CharacterSheetManagerEntry, 'characterId' | 'name'>) {
+  function openSheet(entry: Pick<CharacterSheetManagerEntry, 'sheetId' | 'name'>) {
     requestCampaignCharacterSheetOpen({
       campaignId,
-      characterId: entry.characterId,
+      sheetId: entry.sheetId,
       title: entry.name,
     })
     onClose()
@@ -166,40 +138,77 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
 
   async function createSheet() {
     if (!name.trim() || creating) return
-    if (createRole === 'PLAYER' && !assignedUserId) {
-      setError('Selecione o Player que receberá a ficha.')
-      return
-    }
-    if (createRole === 'MASTER' && masterTarget?.hasSheet) {
-      setError('O Mestre já possui uma ficha nesta campanha.')
-      return
-    }
 
     setCreating(true)
     setError(null)
     try {
-      const created = await api<{ characterId: string; entry: CharacterSheetManagerEntry | null }>(
+      const created = await api<{ sheetId: string; entry: CharacterSheetManagerEntry | null }>(
         `/api/campaigns/${campaignId}/character-sheets`,
         {
           method: 'POST',
-          body: JSON.stringify({
-            name: name.trim(),
-            role: createRole,
-            assignedUserId: createRole === 'PLAYER' ? assignedUserId : undefined,
-          }),
+          body: JSON.stringify({ name: name.trim() }),
         },
       )
 
       requestCampaignCharacterSheetOpen({
         campaignId,
-        characterId: created.characterId,
+        sheetId: created.sheetId,
         title: created.entry?.name ?? name.trim(),
       })
+      setName('')
       onClose()
     } catch (cause) {
       setError(cause instanceof ApiError ? cause.message : 'Não foi possível criar a ficha.')
     } finally {
       setCreating(false)
+    }
+  }
+
+  async function updateAssignments(
+    sheetId: string,
+    changes: { assignedUserId?: string | null; tokenId?: string | null },
+  ) {
+    if (updatingSheetId) return
+    setUpdatingSheetId(sheetId)
+    setError(null)
+    try {
+      const updated = await api<{
+        sheetId: string
+        assignedUser: { id: string; label: string } | null
+        token: { id: string; name: string } | null
+      }>(`/api/campaigns/${campaignId}/character-sheets/${sheetId}/assignments`, {
+        method: 'PATCH',
+        body: JSON.stringify(changes),
+      })
+
+      setData((current) => current
+        ? {
+            ...current,
+            entries: current.entries.map((entry) => entry.sheetId === sheetId
+              ? {
+                  ...entry,
+                  assignedUser: updated.assignedUser,
+                  token: updated.token,
+                }
+              : entry),
+            assignmentTargets: {
+              ...current.assignmentTargets,
+              tokens: current.assignmentTargets.tokens.map((token) => {
+                if (token.assignedSheetId === sheetId) {
+                  return { ...token, assignedSheetId: null }
+                }
+                if (updated.token?.id === token.tokenId) {
+                  return { ...token, assignedSheetId: sheetId }
+                }
+                return token
+              }),
+            },
+          }
+        : current)
+    } catch (cause) {
+      setError(cause instanceof ApiError ? cause.message : 'Não foi possível alterar a atribuição.')
+    } finally {
+      setUpdatingSheetId(null)
     }
   }
 
@@ -222,7 +231,7 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
             <div className="min-w-0">
               <h1 className="truncate text-lg font-semibold">Fichas</h1>
               <p className="truncate text-xs text-zinc-400">
-                {data?.system.label ?? 'Sistema da campanha'} · criadas somente pelo Mestre
+                {data?.system.label ?? 'Sistema da campanha'} · independentes de Player, NPC e Token
               </p>
             </div>
           </div>
@@ -257,53 +266,25 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
         </header>
 
         {createOpen ? (
-          <section className="grid gap-4 border-b border-white/10 bg-indigo-500/[0.06] px-5 py-4 md:grid-cols-[1fr_180px_1fr_auto] md:items-end">
+          <section className="grid gap-4 border-b border-white/10 bg-indigo-500/[0.06] px-5 py-4 md:grid-cols-[1fr_auto] md:items-end">
             <label className="grid gap-2">
               <span className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Nome da ficha</span>
               <input
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder="Nome do personagem ou NPC"
+                placeholder="Nome da ficha"
                 maxLength={80}
                 className="h-10 rounded-lg border border-white/10 bg-black/35 px-3 text-sm text-white outline-none focus:border-indigo-300/50"
               />
-            </label>
-            <label className="grid gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Tipo</span>
-              <select
-                value={createRole}
-                onChange={(event) => setCreateRole(event.target.value as CreateRole)}
-                className="h-10 rounded-lg border border-white/10 bg-black/35 px-3 text-sm text-white outline-none focus:border-indigo-300/50"
-              >
-                <option value="PLAYER">Player</option>
-                <option value="NPC">NPC</option>
-                <option value="MASTER">Mestre</option>
-              </select>
-            </label>
-            <label className="grid gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wide text-zinc-400">Atribuição</span>
-              {createRole === 'PLAYER' ? (
-                <select
-                  value={assignedUserId}
-                  onChange={(event) => setAssignedUserId(event.target.value)}
-                  className="h-10 rounded-lg border border-white/10 bg-black/35 px-3 text-sm text-white outline-none focus:border-indigo-300/50"
-                >
-                  <option value="">Selecione um Player</option>
-                  {availablePlayers.map((target) => (
-                    <option key={target.userId} value={target.userId}>{target.email}</option>
-                  ))}
-                </select>
-              ) : (
-                <div className="flex h-10 items-center rounded-lg border border-white/10 bg-black/20 px-3 text-sm text-zinc-400">
-                  {createRole === 'MASTER' ? masterTarget?.email ?? 'Mestre atual' : 'Não atribuída a Player'}
-                </div>
-              )}
+              <span className="text-xs text-zinc-500">
+                A ficha será criada sem proprietário e sem Token. Essas relações podem ser definidas depois.
+              </span>
             </label>
             <button
               type="button"
-              disabled={creating || !name.trim() || (createRole === 'PLAYER' && !assignedUserId)}
+              disabled={creating || !name.trim()}
               onClick={() => void createSheet()}
-              className="h-10 rounded-lg bg-indigo-600 px-4 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
+              className="h-10 rounded-lg bg-indigo-600 px-5 text-sm font-semibold text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-40"
             >
               {creating ? 'Criando...' : 'Criar'}
             </button>
@@ -316,7 +297,7 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
-              placeholder="Buscar por personagem, classe, ancestralidade, proprietário ou Token"
+              placeholder="Buscar por ficha, classe, ancestralidade, usuário ou Token"
               className="h-11 w-full rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-300/50"
             />
           </div>
@@ -339,17 +320,12 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
           {data?.available ? (
             <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {visibleEntries.map((entry) => (
-                <article key={entry.characterId} className="min-w-0 rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]">
+                <article key={entry.sheetId} className="min-w-0 rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]">
                   <div className="flex min-w-0 items-start gap-4">
                     <CharacterAvatar entry={entry} />
                     <div className="min-w-0 flex-1">
-                      <div className="flex min-w-0 items-start justify-between gap-2">
-                        <div className="min-w-0">
-                          <h2 className="truncate text-sm font-semibold text-white">{entry.name}</h2>
-                          <p className="mt-1 truncate text-xs text-zinc-400">{entry.subtitle}</p>
-                        </div>
-                        <span className="shrink-0 rounded border border-white/10 bg-black/25 px-2 py-1 text-[10px] uppercase text-zinc-300">{roleLabels[entry.role]}</span>
-                      </div>
+                      <h2 className="truncate text-sm font-semibold text-white">{entry.name}</h2>
+                      <p className="mt-1 truncate text-xs text-zinc-400">{entry.subtitle}</p>
                       <div className="mt-3 flex flex-wrap gap-1.5">
                         {entry.stats.map((stat) => (
                           <span key={`${stat.label}:${stat.value}`} className="rounded-md border border-white/10 bg-black/25 px-2 py-1 text-[11px] text-zinc-200">{stat.label} {stat.value}</span>
@@ -358,20 +334,64 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
                     </div>
                   </div>
 
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    <span className="rounded border border-indigo-300/15 bg-indigo-500/10 px-2 py-0.5 text-[10px] uppercase text-indigo-100/80">{statusLabels[entry.status]}</span>
-                    {entry.badges.map((badge) => (
-                      <span key={badge} className="max-w-full truncate rounded border border-white/10 bg-black/20 px-2 py-0.5 text-[10px] text-zinc-400">{badge}</span>
-                    ))}
-                  </div>
+                  <div className="mt-3 grid gap-3 border-t border-white/10 pt-3">
+                    <label className="grid gap-1.5">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Atribuir a usuário</span>
+                      <select
+                        value={entry.assignedUser?.id ?? ''}
+                        disabled={updatingSheetId === entry.sheetId}
+                        onChange={(event) => void updateAssignments(entry.sheetId, {
+                          assignedUserId: event.target.value || null,
+                        })}
+                        className="h-9 rounded-lg border border-white/10 bg-black/35 px-3 text-xs text-white outline-none focus:border-indigo-300/50 disabled:opacity-50"
+                      >
+                        <option value="">Não atribuída</option>
+                        {data.assignmentTargets.users.map((target) => (
+                          <option key={target.userId} value={target.userId}>
+                            {target.email} · {target.role === 'MASTER' ? 'Mestre' : 'Player'}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
 
-                  <div className="mt-3 border-t border-white/10 pt-3">
-                    <div className="truncate text-[11px] text-zinc-500">Atribuída a: {entry.ownerLabel}</div>
-                    {entry.warnings.length > 0 ? <div className="mt-2 line-clamp-2 text-[11px] text-amber-200/80">{entry.warnings.join(' ')}</div> : null}
+                    <label className="grid gap-1.5">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Vincular a Token</span>
+                      <select
+                        value={entry.token?.id ?? ''}
+                        disabled={updatingSheetId === entry.sheetId}
+                        onChange={(event) => void updateAssignments(entry.sheetId, {
+                          tokenId: event.target.value || null,
+                        })}
+                        className="h-9 rounded-lg border border-white/10 bg-black/35 px-3 text-xs text-white outline-none focus:border-indigo-300/50 disabled:opacity-50"
+                      >
+                        <option value="">Sem Token</option>
+                        {data.assignmentTargets.tokens.map((token) => (
+                          <option
+                            key={token.tokenId}
+                            value={token.tokenId}
+                            disabled={Boolean(token.assignedSheetId && token.assignedSheetId !== entry.sheetId)}
+                          >
+                            {token.name}{token.assignedSheetId && token.assignedSheetId !== entry.sheetId ? ' · já vinculado' : ''}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="inline-flex items-center gap-1 rounded border border-white/10 bg-black/20 px-2 py-1 text-[10px] text-zinc-400">
+                        <Link2 className="h-3 w-3" />
+                        {entry.assignedUser?.label ?? 'Sem usuário'}
+                      </span>
+                      {entry.badges.map((badge) => (
+                        <span key={badge} className="max-w-full truncate rounded border border-white/10 bg-black/20 px-2 py-1 text-[10px] text-zinc-400">{badge}</span>
+                      ))}
+                    </div>
+
+                    {entry.warnings.length > 0 ? <div className="line-clamp-2 text-[11px] text-amber-200/80">{entry.warnings.join(' ')}</div> : null}
                     <button
                       type="button"
                       onClick={() => openSheet(entry)}
-                      className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg border border-indigo-300/25 bg-indigo-500/15 px-3 py-2 text-xs font-semibold text-indigo-100 transition hover:bg-indigo-500/25"
+                      className="flex w-full items-center justify-center gap-2 rounded-lg border border-indigo-300/25 bg-indigo-500/15 px-3 py-2 text-xs font-semibold text-indigo-100 transition hover:bg-indigo-500/25"
                     >
                       <BookUser className="h-4 w-4" />
                       Abrir ficha na mesa
