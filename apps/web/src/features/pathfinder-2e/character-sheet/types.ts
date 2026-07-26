@@ -2,11 +2,11 @@ export type Pathfinder2eProficiencyRank = 0 | 2 | 4 | 6 | 8
 
 export type Pathfinder2eProficiencyValue = {
   rank: Pathfinder2eProficiencyRank
-  value: number
+  bonus: number
 }
 
-export type Pathfinder2eManualCharacterSheet = {
-  schemaVersion: 1
+export type Pathfinder2eCharacterSheetData = {
+  schemaVersion: 2
   general: {
     experience: {
       current: number
@@ -31,7 +31,6 @@ export type Pathfinder2eManualCharacterSheet = {
     charisma: number
   }
   hitPoints: {
-    maximum: number
     current: number
     temporary: number
     wounded: number
@@ -39,8 +38,12 @@ export type Pathfinder2eManualCharacterSheet = {
     doomed: number
     bonus: number
   }
-  armorClass: number
-  initiative: number
+  armorClass: {
+    bonus: number
+  }
+  initiative: {
+    bonus: number
+  }
   perception: Pathfinder2eProficiencyValue
   savingThrows: {
     fortitude: Pathfinder2eProficiencyValue
@@ -74,12 +77,63 @@ export type Pathfinder2eManualCharacterSheet = {
   notes: string
 }
 
+export type Pathfinder2eManualCharacterSheet = Pathfinder2eCharacterSheetData
+
+export type Pathfinder2eDerivedStatistic = {
+  value: number
+  attributeModifier: number
+  proficiencyBonus: number
+  bonus: number
+}
+
+export type Pathfinder2eDerivedCharacterSheet = {
+  mechanics: {
+    ancestryHitPoints: number
+    classHitPointsPerLevel: number
+  }
+  hitPoints: {
+    maximum: number
+  }
+  armorClass: {
+    value: number
+    dexterityModifier: number
+    proficiencyBonus: number
+    bonus: number
+    armorCategory: 'unarmored'
+  }
+  initiative: {
+    value: number
+    source: 'perception'
+    sourceValue: number
+    bonus: number
+  }
+  perception: Pathfinder2eDerivedStatistic
+  savingThrows: {
+    fortitude: Pathfinder2eDerivedStatistic
+    reflex: Pathfinder2eDerivedStatistic
+    will: Pathfinder2eDerivedStatistic
+  }
+  skills: {
+    [Key in keyof Pathfinder2eCharacterSheetData['skills']]: Pathfinder2eDerivedStatistic
+  }
+}
+
 export type Pathfinder2eCharacterSheetOptions = {
   ancestries: string[]
   heritages: string[]
   backgrounds: string[]
   classes: string[]
   deities: string[]
+}
+
+export type Pathfinder2eResolvedCharacterSheet = {
+  systemKey: 'pathfinder-2e'
+  schemaVersion: 2
+  data: Pathfinder2eCharacterSheetData
+  derived: Pathfinder2eDerivedCharacterSheet
+  warnings: string[]
+  persisted?: boolean
+  updatedAt?: string | null
 }
 
 export type Pathfinder2eCharacterSheetResponse = {
@@ -89,11 +143,8 @@ export type Pathfinder2eCharacterSheetResponse = {
     avatarUrl: string | null
     bio: string | null
   }
-  sheet: {
-    systemKey: 'pathfinder-2e'
-    schemaVersion: 1
+  sheet: Pathfinder2eResolvedCharacterSheet & {
     persisted: boolean
     updatedAt: string | null
-    data: Pathfinder2eManualCharacterSheet
   }
 }
