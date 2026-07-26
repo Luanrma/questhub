@@ -46,16 +46,18 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
 
-  characters       Character[]
-  createdCampaigns Campaign[]             @relation("CreatedCampaigns")
-  campaignLinks    CampaignCharacter[]
-  campaignMembers  CampaignMember[]
-  chatMessages     ChatMessage[]
-  assets           Asset[]
-  campaignDiaries  CampaignDiary[]
-  campaignSettings CampaignUserSettings[]
-  createdAreaTemplates CampaignAreaTemplate[] @relation("AreaTemplateCreator")
-  createdAreaEffects   SceneAreaEffect[]      @relation("AreaEffectCreator")
+  characters                      Character[]
+  createdCampaigns                Campaign[]              @relation("CreatedCampaigns")
+  campaignLinks                   CampaignCharacter[]
+  campaignMembers                 CampaignMember[]
+  chatMessages                    ChatMessage[]
+  assets                          Asset[]
+  campaignDiaries                 CampaignDiary[]
+  campaignSettings                CampaignUserSettings[]
+  createdAreaTemplates            CampaignAreaTemplate[]  @relation("AreaTemplateCreator")
+  createdAreaEffects              SceneAreaEffect[]       @relation("AreaEffectCreator")
+  createdCampaignCharacterSheets  CampaignCharacterSheet[] @relation("CampaignCharacterSheetCreator")
+  assignedCampaignCharacterSheets CampaignCharacterSheet[] @relation("CampaignCharacterSheetAssignee")
 }
 
 model Campaign {
@@ -72,17 +74,18 @@ model Campaign {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  characters     CampaignCharacter[]
-  members        CampaignMember[]
-  tokens         CampaignToken[]
-  chatMessages   ChatMessage[]
-  assets         CampaignAsset[]
-  scenes         CampaignScene[]
-  sceneViewState CampaignSceneViewState?
-  diaries        CampaignDiary[]
-  userSettings   CampaignUserSettings[]
-  areaTemplates  CampaignAreaTemplate[]
-  areaEffects    SceneAreaEffect[]
+  characters      CampaignCharacter[]
+  members         CampaignMember[]
+  tokens          CampaignToken[]
+  characterSheets CampaignCharacterSheet[]
+  chatMessages    ChatMessage[]
+  assets          CampaignAsset[]
+  scenes          CampaignScene[]
+  sceneViewState  CampaignSceneViewState?
+  diaries         CampaignDiary[]
+  userSettings    CampaignUserSettings[]
+  areaTemplates   CampaignAreaTemplate[]
+  areaEffects     SceneAreaEffect[]
 }
 
 model Character {
@@ -107,6 +110,7 @@ model Character {
   @@index([deletedAt])
 }
 
+// Modelo legado mantido temporariamente para registros anteriores à ficha exclusiva da campanha.
 model CharacterSheet {
   id            String   @id @default(cuid())
   characterId   String   @unique
@@ -118,6 +122,31 @@ model CharacterSheet {
 
   character Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
 
+  @@index([systemKey])
+}
+
+model CampaignCharacterSheet {
+  id              String   @id @default(cuid())
+  campaignId      String
+  createdByUserId String
+  assignedUserId  String?
+  tokenId         String?  @unique
+  name            String
+  avatarUrl       String?
+  bio             String?
+  systemKey       String
+  schemaVersion   Int      @default(1)
+  data            Json
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  campaign      Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  createdByUser User          @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
+  assignedUser  User?         @relation("CampaignCharacterSheetAssignee", fields: [assignedUserId], references: [id], onDelete: SetNull)
+  token         CampaignToken? @relation(fields: [tokenId], references: [id], onDelete: SetNull)
+
+  @@index([campaignId, createdAt])
+  @@index([assignedUserId])
   @@index([systemKey])
 }
 
@@ -186,9 +215,9 @@ model Asset {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  user           User            @relation(fields: [userId], references: [id])
-  campaignAssets CampaignAsset[]
-  campaignScenes CampaignScene[]
+  user            User            @relation(fields: [userId], references: [id])
+  campaignAssets  CampaignAsset[]
+  campaignScenes  CampaignScene[]
 
   @@index([userId])
 }
@@ -325,11 +354,12 @@ model CampaignToken {
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
 
-  campaign         Campaign                @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  character        Character?              @relation(fields: [characterId], references: [id], onDelete: SetNull)
-  controllerMember CampaignMember?         @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
-  placement        CampaignTokenPlacement?
-  fogExplorations  CampaignFogExploration[]
+  campaign       Campaign                @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  character      Character?              @relation(fields: [characterId], references: [id], onDelete: SetNull)
+  controllerMember CampaignMember?       @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
+  characterSheet CampaignCharacterSheet?
+  placement      CampaignTokenPlacement?
+  fogExplorations CampaignFogExploration[]
 
   @@index([campaignId])
   @@index([controllerMemberId])
