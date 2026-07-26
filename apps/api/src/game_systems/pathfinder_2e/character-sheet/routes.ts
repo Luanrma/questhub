@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
@@ -24,9 +24,8 @@ async function findAccessibleCharacter(
     where: {
       campaignId,
       characterId,
-      status: 'ACTIVE',
       OR: [
-        { userId },
+        { userId, status: 'ACTIVE' },
         {
           campaign: {
             characters: {
@@ -45,11 +44,9 @@ async function findAccessibleCharacter(
       character: {
         select: {
           id: true,
-          userId: true,
           name: true,
           avatarUrl: true,
           bio: true,
-          gameSystem: true,
           sheet: {
             select: {
               systemKey: true,
