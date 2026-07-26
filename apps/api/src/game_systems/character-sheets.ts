@@ -24,8 +24,15 @@ export type GameSystemCharacterSheetManagerEntry = {
   warnings: readonly string[]
 }
 
+export type GameSystemDefaultCharacterSheet = {
+  systemKey: string
+  schemaVersion: number
+  data: unknown
+}
+
 export type GameSystemCharacterSheetManagerProvider = {
   list(params: { campaignId: string }): Promise<readonly GameSystemCharacterSheetManagerEntry[]>
+  createDefault(): GameSystemDefaultCharacterSheet
 }
 
 const characterSheetManagerProviders = new Map<GameSystemKey, GameSystemCharacterSheetManagerProvider>()
