@@ -14,6 +14,7 @@ import { CharacterCreatePage } from './pages/CharacterCreatePage'
 import { CharactersHomePage } from './pages/CharactersHomePage'
 import { HomePage } from './features/home-navigation/pages/HomePage'
 import { Pathfinder2eCharacterSheetPage } from './features/pathfinder-2e/character-sheet/Pathfinder2eCharacterSheetPage'
+import { CampaignCharacterSheetRedirectPage } from './game-systems/CampaignCharacterSheetRedirectPage'
 
 export default function App() {
   // Rotas ficam no componente principal para manter simples (Vite + React Router).
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/campaigns" element={<CampaignsDashboardPage />} />
         <Route path="/campaigns/new" element={<CampaignCreatePage />} />
         <Route path="/campaigns/join" element={<CampaignJoinPage />} />
+        <Route path="/campaigns/:campaignId/characters/:characterId/sheet" element={<CampaignCharacterSheetRedirectPage />} />
         <Route path="/characters" element={<CharactersHomePage />} />
         <Route path="/characters/new" element={<CharacterCreatePage />} />
         <Route path="/characters/:characterId/edit" element={<CharacterCreatePage />} />
