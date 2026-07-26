@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
+import { requestCampaignCharacterSheetOpen } from '../../../game-systems/character-sheet-window-events'
 import type {
   CampaignPlayer,
   VttPlayerToken,
@@ -95,12 +96,11 @@ export function TokenContextMenu({
 
   function openCharacterSheet() {
     if (!campaignId || !token.characterId) return
-    const popup = window.open(
-      `/campaigns/${campaignId}/characters/${token.characterId}/sheet`,
-      '_blank',
-      'noopener,noreferrer',
-    )
-    if (popup) popup.opener = null
+    requestCampaignCharacterSheetOpen({
+      campaignId,
+      characterId: token.characterId,
+      title: token.name,
+    })
   }
 
   async function saveFogSettings() {
