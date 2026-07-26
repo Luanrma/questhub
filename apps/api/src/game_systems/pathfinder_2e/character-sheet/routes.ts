@@ -45,28 +45,25 @@ async function findAccessibleCharacter(
   const character = await findCharacter(characterId)
   if (!character) return null
   if (character.userId === userId) return character
-  if (!campaignId) return null
 
-  const [master, characterLink] = await Promise.all([
-    prisma.campaignCharacter.findFirst({
-      where: {
-        campaignId,
-        userId,
-        role: 'MASTER',
-        status: 'ACTIVE',
+  const characterLink = await prisma.campaignCharacter.findFirst({
+    where: {
+      characterId,
+      ...(campaignId ? { campaignId } : {}),
+      campaign: {
+        characters: {
+          some: {
+            userId,
+            role: 'MASTER',
+            status: 'ACTIVE',
+          },
+        },
       },
-      select: { id: true },
-    }),
-    prisma.campaignCharacter.findFirst({
-      where: {
-        campaignId,
-        characterId,
-      },
-      select: { id: true },
-    }),
-  ])
+    },
+    select: { id: true },
+  })
 
-  return master && characterLink ? character : null
+  return characterLink ? character : null
 }
 
 function ensurePathfinderCharacter(
