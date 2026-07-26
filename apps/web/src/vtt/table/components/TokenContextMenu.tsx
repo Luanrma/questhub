@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { ChevronRight, Eye, EyeOff, Settings, Trash2 } from 'lucide-react'
+import { useParams } from 'react-router-dom'
+import { ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
 import type {
   CampaignPlayer,
   VttPlayerToken,
@@ -65,6 +66,7 @@ export function TokenContextMenu({
   onRemoveFromScene,
   onDelete,
 }: TokenContextMenuProps) {
+  const { campaignId } = useParams()
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [imagePickerOpen, setImagePickerOpen] = useState(false)
   const initialVision = normalizeTokenVisionConfig(menu.token.visionConfig)
@@ -77,12 +79,28 @@ export function TokenContextMenu({
   const [fogSaved, setFogSaved] = useState(false)
   const positions = getMenuPositions(menu)
   const token = menu.token
+  const canOpenCharacterSheet = Boolean(
+    token.characterId && (
+      isMaster ||
+      (isCurrentController && token.ownerUserId === token.controllerUserId)
+    ),
+  )
 
   if (!isMaster && !isCurrentController) return null
 
   function updateName() {
     const name = window.prompt('Nome do Token:', token.name)?.trim()
     if (name) onUpdateToken(token.id, { name })
+  }
+
+  function openCharacterSheet() {
+    if (!campaignId || !token.characterId) return
+    const popup = window.open(
+      `/campaigns/${campaignId}/characters/${token.characterId}/sheet`,
+      '_blank',
+      'noopener,noreferrer',
+    )
+    if (popup) popup.opener = null
   }
 
   async function saveFogSettings() {
@@ -123,6 +141,19 @@ export function TokenContextMenu({
             {isMaster ? `Controle: ${token.ownerName ?? 'somente Mestre'}` : 'Token controlado por voce'}
           </div>
         </div>
+
+        {canOpenCharacterSheet ? (
+          <button
+            type="button"
+            role="menuitem"
+            className="mt-2 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+            onClick={openCharacterSheet}
+          >
+            <FileText className="h-4 w-4" />
+            <span>Abrir ficha</span>
+          </button>
+        ) : null}
+
         <button
           type="button"
           role="menuitem"
