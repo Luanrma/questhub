@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import type { ComponentType, PointerEvent as ReactPointerEvent } from 'react'
 import { FileText, Grip, Maximize2, Minimize2, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import type { GameSystemKey } from './registry'
@@ -39,6 +40,7 @@ function CharacterSheetWindow({
   campaignId,
   state,
   index,
+  hidden,
   pages,
   Renderer,
   onFocus,
@@ -49,8 +51,9 @@ function CharacterSheetWindow({
   campaignId: string
   state: SheetWindowState
   index: number
+  hidden: boolean
   pages: readonly { id: string; label: string }[]
-  Renderer: React.ComponentType<{ campaignId: string; characterId: string; activePage: string }>
+  Renderer: ComponentType<{ campaignId: string; characterId: string; activePage: string }>
   onFocus: () => void
   onPageChange: (pageId: string) => void
   onMinimize: () => void
@@ -82,7 +85,7 @@ function CharacterSheetWindow({
     }
   }, [dragging])
 
-  function startDrag(event: React.PointerEvent<HTMLDivElement>) {
+  function startDrag(event: ReactPointerEvent<HTMLDivElement>) {
     if ((event.target as HTMLElement).closest('button')) return
     onFocus()
     dragStartRef.current = {
@@ -96,7 +99,10 @@ function CharacterSheetWindow({
 
   return (
     <section
-      className="fixed flex flex-col overflow-hidden rounded-xl border border-white/15 bg-[#0e0f14]/98 text-white shadow-2xl backdrop-blur"
+      className={[
+        'fixed flex flex-col overflow-hidden rounded-xl border border-white/15 bg-[#0e0f14]/98 text-white shadow-2xl backdrop-blur',
+        hidden ? 'hidden' : '',
+      ].join(' ')}
       style={{
         left: box.x,
         top: box.y,
@@ -182,6 +188,17 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
   const zIndexRef = useRef(130)
 
   useEffect(() => {
+    const firstPage = registration?.pages[0]?.id
+    if (!firstPage) return
+
+    setWindows((current) => current.map((item) => (
+      registration.pages.some((page) => page.id === item.activePage)
+        ? item
+        : { ...item, activePage: firstPage }
+    )))
+  }, [registration])
+
+  useEffect(() => {
     function onOpen(event: Event) {
       const request = (event as CustomEvent<CampaignCharacterSheetOpenRequest>).detail
       if (!request || request.campaignId !== campaignId) return
@@ -215,7 +232,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
 
     window.addEventListener(campaignCharacterSheetOpenEvent, onOpen)
     return () => window.removeEventListener(campaignCharacterSheetOpenEvent, onOpen)
-  }, [campaignId, registration?.pages])
+  }, [campaignId, registration])
 
   function updateWindow(characterId: string, changes: Partial<SheetWindowState>) {
     setWindows((current) => current.map((item) => item.characterId === characterId ? { ...item, ...changes } : item))
@@ -230,12 +247,13 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
 
   return (
     <>
-      {registration ? windows.filter((item) => !item.minimized).map((state, index) => (
+      {registration ? windows.map((state, index) => (
         <CharacterSheetWindow
           key={state.characterId}
           campaignId={campaignId}
           state={state}
           index={index}
+          hidden={state.minimized}
           pages={registration.pages}
           Renderer={registration.Renderer}
           onFocus={() => focusWindow(state.characterId)}
