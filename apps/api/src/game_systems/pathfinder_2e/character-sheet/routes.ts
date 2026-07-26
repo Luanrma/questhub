@@ -12,13 +12,15 @@ const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.system
 const PATHFINDER_2E_SHEET_VERSION = pathfinder2eCharacterSheetRuntimeAdapter.schemaVersion
 
 const paramsSchema = z.object({ characterId: z.string().trim().min(1) })
+const accessQuerySchema = z.object({ campaignId: z.string().trim().min(1).optional() })
 const sheetBodySchema = z.object({ data: z.unknown() }).strict()
 
-async function findOwnedCharacter(characterId: string, userId: string) {
+async function findCharacter(characterId: string) {
   return prisma.character.findFirst({
-    where: { id: characterId, userId, deletedAt: null },
+    where: { id: characterId, deletedAt: null },
     select: {
       id: true,
+      userId: true,
       name: true,
       avatarUrl: true,
       bio: true,
@@ -35,8 +37,40 @@ async function findOwnedCharacter(characterId: string, userId: string) {
   })
 }
 
+async function findAccessibleCharacter(
+  characterId: string,
+  userId: string,
+  campaignId?: string,
+) {
+  const character = await findCharacter(characterId)
+  if (!character) return null
+  if (character.userId === userId) return character
+  if (!campaignId) return null
+
+  const [master, characterLink] = await Promise.all([
+    prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId,
+        userId,
+        role: 'MASTER',
+        status: 'ACTIVE',
+      },
+      select: { id: true },
+    }),
+    prisma.campaignCharacter.findFirst({
+      where: {
+        campaignId,
+        characterId,
+      },
+      select: { id: true },
+    }),
+  ])
+
+  return master && characterLink ? character : null
+}
+
 function ensurePathfinderCharacter(
-  character: NonNullable<Awaited<ReturnType<typeof findOwnedCharacter>>>,
+  character: NonNullable<Awaited<ReturnType<typeof findCharacter>>>,
   reply: FastifyReply,
 ) {
   if (character.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
@@ -69,10 +103,15 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     if (!auth) return
 
     const params = paramsSchema.safeParse(req.params)
-    if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+    const query = accessQuerySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
-    const character = await findOwnedCharacter(params.data.characterId, auth.id)
-    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+    const character = await findAccessibleCharacter(
+      params.data.characterId,
+      auth.id,
+      query.data.campaignId,
+    )
+    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado ou sem acesso' })
     if (!ensurePathfinderCharacter(character, reply)) return
 
     if (character.sheet && character.sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
@@ -108,13 +147,18 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     if (!auth) return
 
     const params = paramsSchema.safeParse(req.params)
-    if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+    const query = accessQuerySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
     const body = sheetBodySchema.safeParse(req.body ?? {})
     if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
 
-    const character = await findOwnedCharacter(params.data.characterId, auth.id)
-    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+    const character = await findAccessibleCharacter(
+      params.data.characterId,
+      auth.id,
+      query.data.campaignId,
+    )
+    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado ou sem acesso' })
     if (!ensurePathfinderCharacter(character, reply)) return
 
     try {
@@ -129,13 +173,18 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     if (!auth) return
 
     const params = paramsSchema.safeParse(req.params)
-    if (!params.success) return reply.status(400).send({ error: 'Personagem invalido' })
+    const query = accessQuerySchema.safeParse(req.query ?? {})
+    if (!params.success || !query.success) return reply.status(400).send({ error: 'Personagem invalido' })
 
     const body = sheetBodySchema.safeParse(req.body ?? {})
     if (!body.success) return reply.status(400).send({ error: body.error.flatten() })
 
-    const character = await findOwnedCharacter(params.data.characterId, auth.id)
-    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado' })
+    const character = await findAccessibleCharacter(
+      params.data.characterId,
+      auth.id,
+      query.data.campaignId,
+    )
+    if (!character) return reply.status(404).send({ error: 'Personagem nao encontrado ou sem acesso' })
     if (!ensurePathfinderCharacter(character, reply)) return
 
     if (character.sheet && character.sheet.systemKey !== PATHFINDER_2E_SYSTEM_KEY) {
