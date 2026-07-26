@@ -5,6 +5,7 @@ import test from 'node:test'
 
 const apiSourceRoot = path.join(process.cwd(), 'apps', 'api', 'src')
 const gameSystemsRoot = path.join(apiSourceRoot, 'game_systems')
+const gameSystemRuntimeRoot = path.join(gameSystemsRoot, 'runtime')
 const vttModulesRoot = path.join(apiSourceRoot, 'modules')
 const legacyGameSystemsRoot = path.join(vttModulesRoot, 'game_systems')
 const vttServerFile = path.join(apiSourceRoot, 'server.ts')
@@ -24,7 +25,7 @@ function collectTypeScriptFiles(directory: string): string[] {
 
 function findRelativeImportsInto(sourceRoot: string, forbiddenRoot: string): string[] {
   const violations: string[] = []
-  const importSpecifierPattern = /(?:from\s+|import\s*(?:\(\s*)?)['"]([^'"]+)['"]/g
+  const importSpecifierPattern = /(?:from\s+|import\s*(?:\(\s*)?)["']([^"']+)["']/g
 
   for (const sourceFile of collectTypeScriptFiles(sourceRoot)) {
     const source = readFileSync(sourceFile, 'utf8')
@@ -51,7 +52,7 @@ function findRelativeImportsInto(sourceRoot: string, forbiddenRoot: string): str
 function findRelativeImportsFromFileInto(sourceFile: string, forbiddenRoot: string): string[] {
   const source = readFileSync(sourceFile, 'utf8')
   const violations: string[] = []
-  const importSpecifierPattern = /(?:from\s+|import\s*(?:\(\s*)?)['"]([^'"]+)['"]/g
+  const importSpecifierPattern = /(?:from\s+|import\s*(?:\(\s*)?)["']([^"']+)["']/g
 
   for (const match of source.matchAll(importSpecifierPattern)) {
     const specifier = match[1]
@@ -69,6 +70,13 @@ function findRelativeImportsFromFileInto(sourceFile: string, forbiddenRoot: stri
   }
 
   return violations
+}
+
+function getConcreteGameSystemRoots() {
+  return readdirSync(gameSystemsRoot)
+    .map((entry) => path.join(gameSystemsRoot, entry))
+    .filter((entryPath) => statSync(entryPath).isDirectory())
+    .filter((entryPath) => existsSync(path.join(entryPath, 'register.ts')))
 }
 
 test('game systems stay outside the VTT modules directory', () => {
@@ -119,7 +127,7 @@ test('the executable bootstrap knows only the aggregated game-systems entrypoint
 
 test('the game-systems aggregator imports only system-level registrars', () => {
   const source = readFileSync(gameSystemsRegisterFile, 'utf8')
-  const relativeImports = [...source.matchAll(/from\s+['"]([^'"]+)['"]/g)]
+  const relativeImports = [...source.matchAll(/from\s+["']([^"']+)["']/g)]
     .map((match) => match[1])
     .filter((specifier): specifier is string => Boolean(specifier?.startsWith('.')))
 
@@ -134,11 +142,8 @@ test('the game-systems aggregator imports only system-level registrars', () => {
   }
 })
 
-test('each game system is isolated from sibling systems', () => {
-  const systemRoots = readdirSync(gameSystemsRoot)
-    .map((entry) => path.join(gameSystemsRoot, entry))
-    .filter((entryPath) => statSync(entryPath).isDirectory())
-
+test('each registered game system is isolated from sibling systems', () => {
+  const systemRoots = getConcreteGameSystemRoots()
   const violations = systemRoots.flatMap((sourceRoot) =>
     systemRoots
       .filter((forbiddenRoot) => forbiddenRoot !== sourceRoot)
@@ -149,5 +154,19 @@ test('each game system is isolated from sibling systems', () => {
     violations,
     [],
     `A game system cannot import a sibling system:\n${violations.join('\n')}`,
+  )
+})
+
+test('the shared runtime never imports a concrete game system', () => {
+  assert.equal(existsSync(gameSystemRuntimeRoot), true)
+
+  const violations = getConcreteGameSystemRoots().flatMap((systemRoot) =>
+    findRelativeImportsInto(gameSystemRuntimeRoot, systemRoot),
+  )
+
+  assert.deepEqual(
+    violations,
+    [],
+    `The shared runtime cannot depend on a concrete system:\n${violations.join('\n')}`,
   )
 })
