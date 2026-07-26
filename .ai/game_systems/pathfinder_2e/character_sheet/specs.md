@@ -1,19 +1,18 @@
-# Pathfinder 2e - Especificacao da ficha manual V1
+# Pathfinder 2e - Especificacao da ficha automatizada V2
 
 ## 0. Localizacao e dependencia
 
-O codigo backend desta ficha reside em:
-
 ```text
+apps/api/src/game_systems/runtime/
 apps/api/src/game_systems/pathfinder_2e/character-sheet/
+apps/web/src/features/pathfinder-2e/character-sheet/
 ```
 
-Ele nao pode importar `apps/api/src/modules/**`. Modulos do VTT tambem nao podem
-importar regras desta ficha. Seu registrador e consumido somente por
-`apps/api/src/game_systems/pathfinder_2e/register.ts`; `server.ts`, `main.ts` e o
-agregador global nao conhecem a ficha diretamente.
+O Runtime nao conhece Pathfinder. O adaptador Pathfinder conhece somente contratos do Runtime e seus proprios dados. Nenhum dos dois importa implementacoes do VTT.
 
 ## 1. Persistencia
+
+O model generico permanece:
 
 ```prisma
 model CharacterSheet {
@@ -25,11 +24,11 @@ model CharacterSheet {
 }
 ```
 
-`Character` continua contendo somente identidade generica. Campos Pathfinder nao sao adicionados diretamente ao model.
+`Character` continua contendo somente identidade generica. A coluna `data` armazena somente a ficha fundamental V2.
 
-## 2. Identidade mecanica
+## 2. Schema persistido V2
 
-Campos editaveis:
+### Identidade
 
 ```text
 nivel
@@ -40,16 +39,7 @@ classe
 divindade
 ```
 
-Os cinco ultimos campos usam `select`.
-
-Regras:
-
-- valor vazio e permitido;
-- valor preenchido deve existir no arquivo correspondente;
-- a opcao salva e somente o nome;
-- selecionar uma opcao nao modifica atributos, PV, movimento, proficiencias ou qualquer outro campo.
-
-## 3. Campos manuais
+Valor vazio e permitido. Valores preenchidos devem existir nos catalogos locais.
 
 ### Progressao
 
@@ -59,7 +49,7 @@ EXP para o proximo nivel
 movimento em metros
 ```
 
-### Atributos
+### Modificadores de atributo
 
 ```text
 Forca
@@ -70,118 +60,209 @@ Sabedoria
 Carisma
 ```
 
+Os campos armazenam modificadores.
+
 ### Vida e sobrevivencia
 
+Persistidos:
+
 ```text
-Vida maxima
 Vida atual
 Vida temporaria
 Ferido
 Morrendo
 Condenado
-Bonus
+Bonus de PV
 ```
 
-### Defesa
+`Vida maxima` e derivada.
+
+### Defesa e iniciativa
+
+Persistidos:
 
 ```text
-Classe de Armadura
-Iniciativa
-Percepcao: grau e total
+Bonus de CA
+Bonus de iniciativa
+Grau e bonus de Percepcao
+Graus de armadura
 ```
 
-### Testes de resistencia
+`CA` e `Iniciativa` sao derivadas.
+
+### Saves e pericias
+
+Cada entrada persiste:
+
+```ts
+{ rank: 0 | 2 | 4 | 6 | 8; bonus: number }
+```
+
+O total nao e persistido.
+
+## 3. Formulas
+
+### Proficiencia
 
 ```text
-Fortitude: grau e total
-Reflexos: grau e total
-Vontade: grau e total
+rank 0: 0
+rank 2: nivel + 2
+rank 4: nivel + 4
+rank 6: nivel + 6
+rank 8: nivel + 8
 ```
 
-### Pericias
-
-Cada pericia possui grau e total editaveis:
+### PV maximo
 
 ```text
-Acrobacia
-Arcanismo
-Atletismo
-Manufatura
-Enganacao
-Diplomacia
-Intimidacao
-Medicina
-Natureza
-Ocultismo
-Performance
-Religiao
-Sociedade
-Furtividade
-Sobrevivencia
-Ladroagem
+PV = PV ancestral
+   + nivel x (PV da classe + Constituicao)
+   + bonus de PV
 ```
 
-### Armaduras
+O resultado minimo e zero.
 
-Graus editaveis:
+### CA nesta fase
 
 ```text
-Sem armadura
-Armadura leve
-Armadura media
-Armadura pesada
+CA = 10
+   + Destreza
+   + proficiencia sem armadura
+   + bonus de CA
 ```
 
-### Texto livre
+Equipamentos nao participam do calculo.
+
+### Estatisticas
 
 ```text
-Anotacoes
+Total = atributo + proficiencia + bonus
 ```
 
-## 4. Graus de proficiencia
+Mapeamento de atributo:
 
-O select armazena os valores usados pelo Pathfinder:
+- Percepcao e Vontade: Sabedoria;
+- Fortitude: Constituicao;
+- Reflexos: Destreza;
+- Acrobacia, Furtividade e Ladroagem: Destreza;
+- Arcanismo, Manufatura, Ocultismo e Sociedade: Inteligencia;
+- Atletismo: Forca;
+- Enganacao, Diplomacia, Intimidacao e Performance: Carisma;
+- Medicina, Natureza, Religiao e Sobrevivencia: Sabedoria.
+
+### Iniciativa
 
 ```text
-0 Nao treinado
-2 Treinado
-4 Especialista
-6 Mestre
-8 Lendario
+Iniciativa = Percepcao total + bonus de iniciativa
 ```
 
-O valor total ao lado do grau continua manual e nao e recalculado.
+## 4. Resultado derivado
+
+```ts
+type Pathfinder2eDerivedCharacterSheet = {
+  mechanics: {
+    ancestryHitPoints: number
+    classHitPointsPerLevel: number
+  }
+  hitPoints: { maximum: number }
+  armorClass: {
+    value: number
+    dexterityModifier: number
+    proficiencyBonus: number
+    bonus: number
+    armorCategory: 'unarmored'
+  }
+  initiative: {
+    value: number
+    source: 'perception'
+    sourceValue: number
+    bonus: number
+  }
+  perception: DerivedStatistic
+  savingThrows: Record<string, DerivedStatistic>
+  skills: Record<string, DerivedStatistic>
+}
+```
 
 ## 5. API
 
 ```text
-GET /api/game-systems/pathfinder-2e/character-sheet/options
-GET /api/characters/:characterId/pathfinder-2e-sheet
-PUT /api/characters/:characterId/pathfinder-2e-sheet
+GET  /api/game-systems/pathfinder-2e/character-sheet/options
+GET  /api/characters/:characterId/pathfinder-2e-sheet
+POST /api/characters/:characterId/pathfinder-2e-sheet/derive
+PUT  /api/characters/:characterId/pathfinder-2e-sheet
 ```
 
-Somente o proprietario do `Character` acessa e altera sua ficha nesta fase.
+### GET
 
-## 6. Frontend
-
-Rota:
+Retorna personagem e envelope completo da ficha:
 
 ```text
-/characters/:characterId/pathfinder-2e-sheet
+systemKey
+schemaVersion
+data
+derived
+warnings
+persisted
+updatedAt
 ```
 
-A pagina `/characters` possui o botao `Ficha PF2e`.
+Se a ficha armazenada for V1, ela e migrada em memoria antes da resposta. A persistencia V2 ocorre no proximo PUT.
 
-Fluxo de aceite:
+### POST derive
 
-1. abrir a ficha;
-2. selecionar os cinco campos de identidade;
-3. editar qualquer campo numerico;
-4. salvar;
-5. recarregar a pagina;
-6. confirmar que os valores permaneceram iguais;
-7. confirmar que nenhuma selecao alterou outro campo.
+- exige autenticacao e ownership;
+- recebe `{ data }`;
+- nao persiste;
+- retorna `data`, `derived` e `warnings`;
+- rejeita valores derivados no payload porque o schema e estrito.
 
-## 7. Exclusoes desta fase
+### PUT
 
-Nenhum arquivo desta fase deve importar ou alterar codigo de Token, grid, tamanho, combate, inventario, spells, bestiario, hazards ou areas de efeito.
+- exige autenticacao e ownership;
+- executa migracao, validacao e derivacao;
+- persiste somente `data` normalizado;
+- grava `schemaVersion: 2`;
+- retorna o envelope recalculado.
+
+## 6. Migracao V1
+
+Preservar:
+
+- identidade;
+- progressao e movimento;
+- atributos;
+- PV atual, temporario, estados e bonus;
+- graus de proficiencia;
+- graus de armadura;
+- anotacoes.
+
+Descartar como totais antigos:
+
+- PV maximo;
+- CA;
+- iniciativa;
+- `value` de Percepcao, saves e pericias.
+
+Os novos bonus desses totais iniciam em zero.
+
+## 7. Frontend
+
+- totais derivados sao somente leitura;
+- grau e bonus permanecem editaveis;
+- alteracoes disparam previa com debounce de 180 ms;
+- warnings sao exibidos sem impedir edicao;
+- salvar usa o resultado autoritativo devolvido pelo backend;
+- a tela informa explicitamente que CA ainda usa defesa sem armadura.
+
+## 8. Criterios de aceite
+
+1. mudar nivel recalcula todas as proficiencias treinadas ou superiores;
+2. mudar Constituicao recalcula PV e Fortitude;
+3. mudar Destreza recalcula CA, Reflexos e pericias de Destreza;
+4. selecionar ancestralidade altera a parcela ancestral de PV;
+5. selecionar classe altera os PV por nivel;
+6. rank zero nao adiciona nivel;
+7. o cliente nao consegue salvar um total derivado;
+8. ficha V1 abre sem perder identidade ou estado atual;
+9. nenhum codigo de Token, Canvas, grid, campanha, inventario ou Area Effect e importado.
