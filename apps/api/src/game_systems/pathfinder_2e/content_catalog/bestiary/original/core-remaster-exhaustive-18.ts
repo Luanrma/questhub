@@ -1613,7 +1613,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_18_BESTIARY_ORIGINALS: readonly Pathfinder
         "mechanical",
         "trap"
       ],
-      "description": "A magic mirror replaces characters with malicious mirror duplicates from another dimension.",
+      "description": "A magic mirror replaces members with malicious mirror duplicates from another dimension.",
       "armorClass": 34,
       "hitPoints": 4,
       "hardness": 1,

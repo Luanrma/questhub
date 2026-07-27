@@ -1,4 +1,4 @@
-// Static names extracted once from branch development:packages/game-system-pathfinder-2e/src/server/character-options/data/classes.generated.ts.
+// Static names extracted once from branch development:packages/game-system-pathfinder-2e/src/server/actor-options/data/classes.generated.ts.
 // This file is intentionally independent from the other PF2e select catalogs.
 export const PATHFINDER_2E_CLASSES = [
   "Alchemist",

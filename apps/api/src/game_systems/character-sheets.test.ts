@@ -4,7 +4,7 @@ import {
   getGameSystemCharacterSheetManagerProvider,
   registerGameSystemCharacterSheetManagerProvider,
   type GameSystemCharacterSheetManagerProvider,
-} from './character-sheets'
+} from './actor-sheets'
 
 const provider: GameSystemCharacterSheetManagerProvider = {
   list: async () => [],
@@ -15,7 +15,7 @@ const provider: GameSystemCharacterSheetManagerProvider = {
   }),
 }
 
-test('character sheet manager provider is registered by game system', () => {
+test('actor sheet manager provider is registered by game system', () => {
   const current = getGameSystemCharacterSheetManagerProvider('PATHFINDER_2E')
   if (!current) {
     registerGameSystemCharacterSheetManagerProvider('PATHFINDER_2E', provider)
@@ -24,7 +24,7 @@ test('character sheet manager provider is registered by game system', () => {
   assert.ok(getGameSystemCharacterSheetManagerProvider('PATHFINDER_2E'))
 })
 
-test('character sheet manager provider cannot be replaced silently', () => {
+test('actor sheet manager provider cannot be replaced silently', () => {
   const current = getGameSystemCharacterSheetManagerProvider('PATHFINDER_2E')
   if (!current) {
     registerGameSystemCharacterSheetManagerProvider('PATHFINDER_2E', provider)

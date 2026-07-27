@@ -131,7 +131,7 @@ const ADVENTURE_PATH_21_SPELL_PUBLICATIONS = [
 ] as const
 const RULEBOOK_21_ITEM_PUBLICATIONS = [
   'Pathfinder Treasure Vault (Remastered)',
-  'Pathfinder Lost Omens Tian Xia Character Guide',
+  'Pathfinder Lost Omens Tian Xia Actor Guide',
   'Pathfinder Lost Omens Divine Mysteries',
   'Pathfinder Lost Omens Rival Academies',
   'Pathfinder Lost Omens Shining Kingdoms',
@@ -323,7 +323,7 @@ const LEGACY_24_ITEM_PUBLICATIONS = [
   'Pathfinder Treasure Vault',
   'Pathfinder Treasure Vault (Remastered)',
   'Pathfinder Lost Omens World Guide',
-  'Pathfinder Lost Omens Character Guide',
+  'Pathfinder Lost Omens Actor Guide',
 ] as const
 const LEGACY_25_BESTIARY_PUBLICATIONS = [
   'Pathfinder Bestiary',
@@ -337,7 +337,7 @@ const REMASTER_FOCUS_25_SPELL_PUBLICATIONS = [
   'Pathfinder War of Immortals',
   'Pathfinder Battlecry!',
   'Pathfinder Dark Archive (Remastered)',
-  'Pathfinder Lost Omens Tian Xia Character Guide',
+  'Pathfinder Lost Omens Tian Xia Actor Guide',
   'Pathfinder Lost Omens Divine Mysteries',
   'Pathfinder Lost Omens Rival Academies',
   'Pathfinder Lost Omens Shining Kingdoms',
@@ -346,7 +346,7 @@ const REMASTER_FOCUS_25_SPELL_PUBLICATIONS = [
   'Pathfinder #215: To Blot Out the Sun',
 ] as const
 const LEGACY_25_ITEM_PUBLICATIONS = [
-  'Pathfinder Lost Omens Character Guide',
+  'Pathfinder Lost Omens Actor Guide',
   'Pathfinder Lost Omens Gods & Magic',
   'Pathfinder Lost Omens Legends',
   'Pathfinder Lost Omens Pathfinder Society Guide',
@@ -362,7 +362,7 @@ const LEGACY_26_BESTIARY_PUBLICATIONS = [
   'Pathfinder Bestiary 3',
   'Pathfinder Book of the Dead',
   'Pathfinder Dark Archive',
-  'Pathfinder Lost Omens Character Guide',
+  'Pathfinder Lost Omens Actor Guide',
   'Pathfinder Lost Omens The Mwangi Expanse',
   'Pathfinder Lost Omens The Grand Bazaar',
   'Pathfinder Lost Omens Monsters of Myth',
@@ -428,7 +428,7 @@ const LEGACY_FOCUS_27_SPELL_PUBLICATIONS = [
   'Pathfinder Secrets of Magic',
   'Pathfinder Book of the Dead',
   'Pathfinder Lost Omens World Guide',
-  'Pathfinder Lost Omens Character Guide',
+  'Pathfinder Lost Omens Actor Guide',
   'Pathfinder Lost Omens Gods & Magic',
   'Pathfinder Lost Omens Legends',
   'Pathfinder Lost Omens Pathfinder Society Guide',
@@ -509,7 +509,7 @@ const REMASTER_RITUAL_28_SPELL_PUBLICATIONS = [
   'Pathfinder Battlecry!',
   'Pathfinder Dark Archive (Remastered)',
   'Pathfinder Lost Omens Tian Xia World Guide',
-  'Pathfinder Lost Omens Tian Xia Character Guide',
+  'Pathfinder Lost Omens Tian Xia Actor Guide',
   'Pathfinder Lost Omens Rival Academies',
   'Pathfinder Adventure Path: Gatewalkers',
   'Pathfinder Season of Ghosts Hardcover Compilation',

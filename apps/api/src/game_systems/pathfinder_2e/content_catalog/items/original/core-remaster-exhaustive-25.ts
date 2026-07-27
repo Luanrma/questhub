@@ -10,7 +10,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "z6eQdPTgSxTLR1Qr",
       "slug": "shining-wayfinder",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -47,7 +47,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "SCkQb4QdFWkATiby",
       "slug": "vanishing-wayfinder",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -85,7 +85,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "0c7zLY9c88K2n0GC",
       "slug": "pathfinders-pouch",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -120,7 +120,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "I95zlGUDCply1Ydm",
       "slug": "insistent-door-knocker",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -156,7 +156,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "LDVqBvMNNcRBucW1",
       "slug": "bi-resonant-wayfinder",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -194,7 +194,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "Oudcra1CGDmUq0BH",
       "slug": "unmemorable-mantle",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -211,7 +211,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +1 item bonus to Deception checks to Impersonate an individual and to Lie while in character as that individual.\nActivate 1 minute (envision, Interact)\nFrequency once per day\nRequirements You are Impersonating someone else\nEffect While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a check (will, dc:25) save.\nCritical Success The creature recalls the interaction clearly and realizes you were trying to alter their memory.\nSuccess The creature recalls the interaction clearly.\nFailure You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.\nCritical Failure You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.",
+      "description": "This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +1 item bonus to Deception checks to Impersonate an individual and to Lie while in actor as that individual.\nActivate 1 minute (envision, Interact)\nFrequency once per day\nRequirements You are Impersonating someone else\nEffect While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a check (will, dc:25) save.\nCritical Success The creature recalls the interaction clearly and realizes you were trying to alter their memory.\nSuccess The creature recalls the interaction clearly.\nFailure You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.\nCritical Failure You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.",
       "bulk": 1,
       "price": {
         "gp": 300
@@ -229,7 +229,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "QDYPr19De3TBIysx",
       "slug": "sinister-knight",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -266,7 +266,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "e4lHxftAOoTmGXuG",
       "slug": "unmemorable-mantle-greater",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -283,7 +283,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +2 item bonus to Deception checks to Impersonate an individual and to Lie while in character as that individual.\nActivate 1 minute (envision, Interact)\nFrequency once per day\nRequirements You are Impersonating someone else\nEffect While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a check (will, dc:28, name:Greater Unmemorable Mantle) save.\nCritical Success The creature recalls the interaction clearly and realizes you were trying to alter their memory.\nSuccess The creature recalls the interaction clearly.\nFailure You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.\nCritical Failure You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.",
+      "description": "This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +2 item bonus to Deception checks to Impersonate an individual and to Lie while in actor as that individual.\nActivate 1 minute (envision, Interact)\nFrequency once per day\nRequirements You are Impersonating someone else\nEffect While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a check (will, dc:28, name:Greater Unmemorable Mantle) save.\nCritical Success The creature recalls the interaction clearly and realizes you were trying to alter their memory.\nSuccess The creature recalls the interaction clearly.\nFailure You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.\nCritical Failure You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.",
       "bulk": 1,
       "price": {
         "gp": 1300
@@ -301,7 +301,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "k5P9YZO4ARlE4By3",
       "slug": "crimson-brand",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -343,7 +343,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "nza9skYTNtJe2Wd3",
       "slug": "lucky-keepsake",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -377,7 +377,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "xzN8mFG2Z70SaXLa",
       "slug": "cloak-of-repute-greater",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -411,7 +411,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "SV7W0lC2d8mfYuhy",
       "slug": "serrating",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -447,7 +447,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "a5dEzZPuxsmTvlWS",
       "slug": "insistent-door-knocker-greater",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -483,7 +483,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "tLNsmY90aN668PMG",
       "slug": "glorious-plate",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -528,7 +528,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "fLqRH3XpvDZEMxOO",
       "slug": "radiant-lance",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -576,7 +576,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "3BTIKYHck3JIAPiH",
       "slug": "insistent-door-knocker-major",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -612,7 +612,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "HcjEb07UjWchysx5",
       "slug": "unmemorable-mantle-major",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -629,7 +629,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +3 item bonus to Deception checks to Impersonate an individual and to Lie while in character as that individual.\nActivate 1 minute (envision, Interact)\nFrequency once every 10 minutes\nRequirements You are Impersonating someone else\nEffect While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a check (will, dc:38, name:Major Unmemorable Mantle) save.\nCritical Success The creature recalls the interaction clearly and realizes you were trying to alter their memory.\nSuccess The creature recalls the interaction clearly.\nFailure You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.\nCritical Failure You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.",
+      "description": "This long, shoddy cloak bears a hood and a simple brass clasp. While wearing the cloak, you gain a +3 item bonus to Deception checks to Impersonate an individual and to Lie while in actor as that individual.\nActivate 1 minute (envision, Interact)\nFrequency once every 10 minutes\nRequirements You are Impersonating someone else\nEffect While conversing or otherwise casually interacting with other creatures, you can adjust the mantle's clasp to modify those creatures' recollections of the last 5 minutes of their interaction with you. Each creature must attempt a check (will, dc:38, name:Major Unmemorable Mantle) save.\nCritical Success The creature recalls the interaction clearly and realizes you were trying to alter their memory.\nSuccess The creature recalls the interaction clearly.\nFailure You decide whether or not the creature recalls the interaction. You can also alter minor details the creature recalls about the interaction, such as the time, place, and whether the interaction was favorable, as determined by the GM.\nCritical Failure You decide whether or not the creature recalls the interaction. You can also alter major details the creature recalls about the interaction, such as believing you to be another individual or that the creature agreed to a favor, as determined by the GM.",
       "bulk": 1,
       "price": {
         "gp": 21750
@@ -647,7 +647,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "NFFgDfLBkCjkj0dc",
       "slug": "cloak-of-repute-major",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -1306,7 +1306,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "precious"
       ],
-      "description": "Created by Black Sovereign Kevoth-Kul, this unique alloy of cold iron and the skymetal noqual can provide protection from magical assault. The process of cold-forging the two materials together is quite complicated and precise. Characters in search of sovereign steel weapons and armor will almost assuredly have to travel to Starfall to procure gear made from this rare alloy. While some believe it possible to craft shields of sovereign steel as well, in one of his fits, Kevoth-Kul yelled that he had no use for them and banned anyone from making such a thing. So far, his smiths have been too afraid to confirm whether or not it was a joke. All sovereign steel items (including weapon and armor below) have a +4 circumstance bonus on saves against magic that the item makes, and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).\nSovereign Steel Items\nSovereign Steel Items |\nHardness |\nHP |\nBT |\nThin Items |\n |\n |\n |\nStandard-grade |\n7 |\n28 |\n14 |\nHigh-grade |\n10 |\n40 |\n20 |\nItems |\n |\n |\n |\nStandard-grade |\n11 |\n44 |\n22 |\nHigh-grade |\n14 |\n56 |\n28 |\nStructure |\n |\n |\n |\nStandard-grade |\n22 |\n88 |\n44 |\nHigh-grade |\n28 |\n112 |\n56 |",
+      "description": "Created by Black Sovereign Kevoth-Kul, this unique alloy of cold iron and the skymetal noqual can provide protection from magical assault. The process of cold-forging the two materials together is quite complicated and precise. Actors in search of sovereign steel weapons and armor will almost assuredly have to travel to Starfall to procure gear made from this rare alloy. While some believe it possible to craft shields of sovereign steel as well, in one of his fits, Kevoth-Kul yelled that he had no use for them and banned anyone from making such a thing. So far, his smiths have been too afraid to confirm whether or not it was a joke. All sovereign steel items (including weapon and armor below) have a +4 circumstance bonus on saves against magic that the item makes, and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).\nSovereign Steel Items\nSovereign Steel Items |\nHardness |\nHP |\nBT |\nThin Items |\n |\n |\n |\nStandard-grade |\n7 |\n28 |\n14 |\nHigh-grade |\n10 |\n40 |\n20 |\nItems |\n |\n |\n |\nStandard-grade |\n11 |\n44 |\n22 |\nHigh-grade |\n14 |\n56 |\n28 |\nStructure |\n |\n |\n |\nStandard-grade |\n22 |\n88 |\n44 |\nHigh-grade |\n28 |\n112 |\n56 |",
       "bulk": 0.1,
       "price": {
         "gp": 700
@@ -1342,7 +1342,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "precious"
       ],
-      "description": "Created by Black Sovereign Kevoth-Kul, this unique alloy of cold iron and the skymetal noqual can provide protection from magical assault. The process of cold-forging the two materials together is quite complicated and precise. Characters in search of sovereign steel weapons and armor will almost assuredly have to travel to Starfall to procure gear made from this rare alloy. While some believe it possible to craft shields of sovereign steel as well, in one of his fits, Kevoth-Kul yelled that he had no use for them and banned anyone from making such a thing. So far, his smiths have been too afraid to confirm whether or not it was a joke. All sovereign steel items (including weapon and armor below) have a +4 circumstance bonus on saves against magic that the item makes, and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).\nSovereign Steel Items\nSovereign Steel Items |\nHardness |\nHP |\nBT |\nThin Items |\n |\n |\n |\nStandard-grade |\n7 |\n28 |\n14 |\nHigh-grade |\n10 |\n40 |\n20 |\nItems |\n |\n |\n |\nStandard-grade |\n11 |\n44 |\n22 |\nHigh-grade |\n14 |\n56 |\n28 |\nStructure |\n |\n |\n |\nStandard-grade |\n22 |\n88 |\n44 |\nHigh-grade |\n28 |\n112 |\n56 |",
+      "description": "Created by Black Sovereign Kevoth-Kul, this unique alloy of cold iron and the skymetal noqual can provide protection from magical assault. The process of cold-forging the two materials together is quite complicated and precise. Actors in search of sovereign steel weapons and armor will almost assuredly have to travel to Starfall to procure gear made from this rare alloy. While some believe it possible to craft shields of sovereign steel as well, in one of his fits, Kevoth-Kul yelled that he had no use for them and banned anyone from making such a thing. So far, his smiths have been too afraid to confirm whether or not it was a joke. All sovereign steel items (including weapon and armor below) have a +4 circumstance bonus on saves against magic that the item makes, and grant their bonus to saves the owner makes specifically to protect the item from magic (such as against the rusting grasp spell).\nSovereign Steel Items\nSovereign Steel Items |\nHardness |\nHP |\nBT |\nThin Items |\n |\n |\n |\nStandard-grade |\n7 |\n28 |\n14 |\nHigh-grade |\n10 |\n40 |\n20 |\nItems |\n |\n |\n |\nStandard-grade |\n11 |\n44 |\n22 |\nHigh-grade |\n14 |\n56 |\n28 |\nStructure |\n |\n |\n |\nStandard-grade |\n22 |\n88 |\n44 |\nHigh-grade |\n28 |\n112 |\n56 |",
       "bulk": 0.1,
       "price": {
         "gp": 7000
@@ -4156,7 +4156,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "magical"
       ],
-      "description": "These magically enhanced snowshoes are practically a necessity when traversing the gelid tundra and snow-drenched taiga of the Saga Lands.\nThe snowshoes of the long trek allow their wearer to walk across ice and snow with the same surety as dry earth, ignoring the uneven ground and difficult terrain caused by ice and the difficult terrain caused by snow (reducing greater difficult terrain from ice or snow to ordinary difficult terrain).\nIn addition, a character wearing snowshoes of the long trek gains a +5-foot status bonus to their Speed while moving across snow or ice and is never at risk of breaking through naturally-occurring loose or soft snow.",
+      "description": "These magically enhanced snowshoes are practically a necessity when traversing the gelid tundra and snow-drenched taiga of the Saga Lands.\nThe snowshoes of the long trek allow their wearer to walk across ice and snow with the same surety as dry earth, ignoring the uneven ground and difficult terrain caused by ice and the difficult terrain caused by snow (reducing greater difficult terrain from ice or snow to ordinary difficult terrain).\nIn addition, a actor wearing snowshoes of the long trek gains a +5-foot status bonus to their Speed while moving across snow or ice and is never at risk of breaking through naturally-occurring loose or soft snow.",
       "bulk": 0,
       "price": {
         "gp": 550
@@ -6120,7 +6120,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "deadly-d6",
         "propulsive"
       ],
-      "description": "These immense bows are traditionally made from the horns of great beasts, though modern residents of Hongal, the northernmost nation in Tian Xia, often use composite materials or even small trees as the weapon's base. While Hongali hornbows have a shorter range than other bows, they make up for it by focusing the power of the longbow at a short distance and can be used from horseback-perfect for the skirmishing fighting style of mounted Hongali troops. While it's difficult for those in Avistan to get their hands on these Hongali weapons, a small warband of beast-riding orcs from the Hold of Belkzen managed to arm themselves with Hongali hornbows and cut a bloody swathe through adventurers and neighboring militaries alike for several years before they were finally defeated via a desperate ambush. The stories of that warband spread, causing Avistani adventurers with little knowledge of Tian Xia to associate the bows with orcs. Hongali characters have access to the Hongali hornbow.",
+      "description": "These immense bows are traditionally made from the horns of great beasts, though modern residents of Hongal, the northernmost nation in Tian Xia, often use composite materials or even small trees as the weapon's base. While Hongali hornbows have a shorter range than other bows, they make up for it by focusing the power of the longbow at a short distance and can be used from horseback-perfect for the skirmishing fighting style of mounted Hongali troops. While it's difficult for those in Avistan to get their hands on these Hongali weapons, a small warband of beast-riding orcs from the Hold of Belkzen managed to arm themselves with Hongali hornbows and cut a bloody swathe through adventurers and neighboring militaries alike for several years before they were finally defeated via a desperate ambush. The stories of that warband spread, causing Avistani adventurers with little knowledge of Tian Xia to associate the bows with orcs. Hongali members have access to the Hongali hornbow.",
       "bulk": 2,
       "price": {
         "gp": 11
@@ -7308,7 +7308,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "finesse",
         "parry"
       ],
-      "description": "An old Taldan dueling weapon from the empire's height, this rapier has a thicker blade than normal, which is shaped into a corkscrew-like spiral well suited to catching enemy weapons. Characters from Taldor have access to the spiral rapier.",
+      "description": "An old Taldan dueling weapon from the empire's height, this rapier has a thicker blade than normal, which is shaped into a corkscrew-like spiral well suited to catching enemy weapons. Actors from Taldor have access to the spiral rapier.",
       "bulk": 1,
       "price": {
         "gp": 5
@@ -7603,7 +7603,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "backswing",
         "forceful"
       ],
-      "description": "A classical weapon of Irrisenis who lacked magical talent, the sickle-saber has seen a resurgence since the coronation of Queen Anastasia. The queen was fascinated with the sickle-sabers in the palace treasury, and now the unusual blades are carried by her honor guard and Irriseni diplomats alike. The sickle-saber's blade curves multiple times along its 4-foot length, and its hilt is similarly curved. A small, secondary grip on the blade lets the wielder rapidly and unpredictably twist the cutting edges. Characters from Irrisen have access to the sickle-saber.",
+      "description": "A classical weapon of Irrisenis who lacked magical talent, the sickle-saber has seen a resurgence since the coronation of Queen Anastasia. The queen was fascinated with the sickle-sabers in the palace treasury, and now the unusual blades are carried by her honor guard and Irriseni diplomats alike. The sickle-saber's blade curves multiple times along its 4-foot length, and its hilt is similarly curved. A small, secondary grip on the blade lets the wielder rapidly and unpredictably twist the cutting edges. Actors from Irrisen have access to the sickle-saber.",
       "bulk": 1,
       "price": {
         "gp": 5
@@ -10068,7 +10068,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "teleportation"
       ],
-      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different characters, and are within 100 feet of each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
+      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different members, and are within 100 feet of each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
       "bulk": 0,
       "price": {
         "gp": 150
@@ -11960,7 +11960,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "extradimensional",
         "magical"
       ],
-      "description": "This lockpick houses a small compartment containing many smaller picks and other miniature tools. The lockpick itself is surprisingly malleable, belying the components within. An almost-impossible number of other tools are hidden in the compartment, including an entire set of Infiltrator Thieves' Tools and any Replacement Picks (Infiltrator Picks), an Elite Disguise Kit and any Replacement Cosmetics (Elite), and an Extreme Climber's Kit, all while still somehow remaining only light Bulk. This makes the encompassing lockpick a favorite discreet option for rogues infiltrating high society events, as formal wear generally has few pockets and only allows a character to wear a single tool kit of light Bulk.",
+      "description": "This lockpick houses a small compartment containing many smaller picks and other miniature tools. The lockpick itself is surprisingly malleable, belying the components within. An almost-impossible number of other tools are hidden in the compartment, including an entire set of Infiltrator Thieves' Tools and any Replacement Picks (Infiltrator Picks), an Elite Disguise Kit and any Replacement Cosmetics (Elite), and an Extreme Climber's Kit, all while still somehow remaining only light Bulk. This makes the encompassing lockpick a favorite discreet option for rogues infiltrating high society events, as formal wear generally has few pockets and only allows a actor to wear a single tool kit of light Bulk.",
       "bulk": 0.1,
       "price": {
         "gp": 450
@@ -12690,7 +12690,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "teleportation"
       ],
-      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different characters, and are within 1 mile of each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
+      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different members, and are within 1 mile of each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
       "bulk": 0,
       "price": {
         "gp": 650

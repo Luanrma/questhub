@@ -13463,7 +13463,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_BESTIARY_ORIGINALS: readonly Pathfinder
         "modifier": 0,
         "details": "or detect magic"
       },
-      "disable": "check (thievery, dc:48, name:Imbue Thieves' Tools, traits:action:disable-a-device) (legendary) to imbue a thieves' toolkit with aspects representing Asmodeus and Sarenrae and use them to drain away the orb's power over 10 minutes; the character attempting this check takes 5 fire damage each round until the orb is depleted",
+      "disable": "check (thievery, dc:48, name:Imbue Thieves' Tools, traits:action:disable-a-device) (legendary) to imbue a thieves' toolkit with aspects representing Asmodeus and Sarenrae and use them to drain away the orb's power over 10 minutes; the actor attempting this check takes 5 fire damage each round until the orb is depleted",
       "isComplex": false,
       "routine": "",
       "reset": "",

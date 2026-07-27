@@ -523,7 +523,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "fatal-d8",
         "halfling"
       ],
-      "description": "The cast-iron frying pan is an essential tool for adventuring halflings, gold panners, and remote tavern owners. Characters with the Halfling Weapon Familiarity ancestry feat are trained in the frying pan.",
+      "description": "The cast-iron frying pan is an essential tool for adventuring halflings, gold panners, and remote tavern owners. Actors with the Halfling Weapon Familiarity ancestry feat are trained in the frying pan.",
       "bulk": 0.1,
       "price": {
         "sp": 1
@@ -600,7 +600,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "illusion",
         "magical"
       ],
-      "description": "This box contains small, magical amplifiers that allow a non-verbal character to translate thought into speech, which emits from the necklace. The speech produced matches any language you understand.",
+      "description": "This box contains small, magical amplifiers that allow a non-verbal actor to translate thought into speech, which emits from the necklace. The speech produced matches any language you understand.",
       "bulk": 0,
       "price": {
         "sp": 5
@@ -1513,7 +1513,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "adjusted"
       ],
-      "description": "Construction of mantis shell armor originates with the Red Mantis assassins. Authentic mantis shell can be found in some dark markets, but wearing such armor can attract deadly attention from the armor's originators. Mantis shell comes with the weapon harness adjustment, though these special vambraces are meant to hold sawtooth sabers, and attaching anything else is an insult to the Red Mantis. A character who is a member of the Red Mantis assassins has access to this uncommon armor.",
+      "description": "Construction of mantis shell armor originates with the Red Mantis assassins. Authentic mantis shell can be found in some dark markets, but wearing such armor can attract deadly attention from the armor's originators. Mantis shell comes with the weapon harness adjustment, though these special vambraces are meant to hold sawtooth sabers, and attaching anything else is an insult to the Red Mantis. A actor who is a member of the Red Mantis assassins has access to this uncommon armor.",
       "bulk": 1,
       "price": {
         "gp": 10
@@ -2169,7 +2169,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "level": 1,
       "rarity": "uncommon",
       "traits": [],
-      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight breastplate serves those in the order who lack the training to wear heavy armor.\nA character who is a member of the Hellknights has access to these uncommon armors.",
+      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight breastplate serves those in the order who lack the training to wear heavy armor.\nA actor who is a member of the Hellknights has access to these uncommon armors.",
       "bulk": 2,
       "price": {
         "gp": 10
@@ -2494,7 +2494,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "level": 1,
       "rarity": "uncommon",
       "traits": [],
-      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifers.\nA character who is a member of the Hellknights has access to these uncommon armors.",
+      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifers.\nA actor who is a member of the Hellknights has access to these uncommon armors.",
       "bulk": 3,
       "price": {
         "gp": 20
@@ -3405,7 +3405,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "bulwark"
       ],
-      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifiers, and Hellknight breastplate serves those in the order who lack the training to wear heavy armor.\nA character who is a member of the Hellknights has access to these uncommon armors.",
+      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifiers, and Hellknight breastplate serves those in the order who lack the training to wear heavy armor.\nA actor who is a member of the Hellknights has access to these uncommon armors.",
       "bulk": 4,
       "price": {
         "gp": 35
@@ -4956,7 +4956,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "illusion",
         "magical"
       ],
-      "description": "This device attaches to any non-percussive musical instrument, allowing a non-verbal character to shape the sounds of the instrument into speech. The speech can be any language the character understands, and the sound of the speech resembles the instrument the device is attached to. You also gain a +1 item bonus to Performance checks made with the instrument.",
+      "description": "This device attaches to any non-percussive musical instrument, allowing a non-verbal actor to shape the sounds of the instrument into speech. The speech can be any language the actor understands, and the sound of the speech resembles the instrument the device is attached to. You also gain a +1 item bonus to Performance checks made with the instrument.",
       "bulk": 0,
       "price": {
         "gp": 55
@@ -12048,7 +12048,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "grimoire",
         "magical"
       ],
-      "description": "Typically created by wizards who are hobbyists or professional architects, an architect's pattern book allows the caster to customize certain spells that create magical structures or domiciles, adding recreational areas such as an indoor bathhouse, gaming room, swimming pool, or similar luxury.\nActivate F (concentrate, spellshape)\nFrequency once per week\nEffect If your next action is to cast a Cozy Cabin, Planar Palace, or Resplendent Mansion spell, you add a room to the structure that is up to 10 feet per side per rank of the spell. This room is outfitted with all the accoutrements for a particular type of recreation, determined by you when you cast the spell. Any character who spends at least 1 hour using this recreational facility and then sleeps a full 8 hours inside the location created by the spell is exceptionally well-rested. They regain double the amount of Hit Points they would normally receive for an 8-hour rest, and when they make the next day's preparations, they gain a +1 circumstance bonus to Athletics checks and Will saves for the next 12 hours.\nEffect: Architect's Pattern Book",
+      "description": "Typically created by wizards who are hobbyists or professional architects, an architect's pattern book allows the caster to customize certain spells that create magical structures or domiciles, adding recreational areas such as an indoor bathhouse, gaming room, swimming pool, or similar luxury.\nActivate F (concentrate, spellshape)\nFrequency once per week\nEffect If your next action is to cast a Cozy Cabin, Planar Palace, or Resplendent Mansion spell, you add a room to the structure that is up to 10 feet per side per rank of the spell. This room is outfitted with all the accoutrements for a particular type of recreation, determined by you when you cast the spell. Any actor who spends at least 1 hour using this recreational facility and then sleeps a full 8 hours inside the location created by the spell is exceptionally well-rested. They regain double the amount of Hit Points they would normally receive for an 8-hour rest, and when they make the next day's preparations, they gain a +1 circumstance bonus to Athletics checks and Will saves for the next 12 hours.\nEffect: Architect's Pattern Book",
       "bulk": 0.1,
       "price": {
         "gp": 240

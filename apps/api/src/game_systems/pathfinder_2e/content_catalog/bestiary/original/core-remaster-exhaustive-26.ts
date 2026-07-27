@@ -14972,7 +14972,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "b2yf3FTVhb4cL3mI",
           "name": "Pose a Riddle",
           "kind": "action",
-          "description": "Frequency once per 10 minutes\nThe sphinx recites a riddle and compels up to 10 creatures within 30-foot emanation to answer (check (will, dc:37) save). The GM either runs the riddle out of character by timing the players' attempts, or picks an appropriate associated skill for the riddle, such as Religion for a riddle involving divine mysteries.\nThe sphinx gains a +2 circumstance bonus to attack rolls and damage rolls against any creature that answers incorrectly even once. This bonus lasts for 1 day.\nCritical Success The creature is unaffected, but it can choose to try to help solve the riddle.\nSuccess The creature attempts to answer the riddle, each round spending at least one action attempting a Recall Knowledge check with the chosen skill (or working on the answer, if using an out of game riddle). This lasts for 1 minute, until the creature successfully answers the riddle, or until an enemy takes a hostile action against the creature, whichever comes first.\nFailure As success but the creature must spend at least two actions each round attempting to answer.\nCritical Failure As failure, but up to 1 hour.",
+          "description": "Frequency once per 10 minutes\nThe sphinx recites a riddle and compels up to 10 creatures within 30-foot emanation to answer (check (will, dc:37) save). The GM either runs the riddle out of actor by timing the players' attempts, or picks an appropriate associated skill for the riddle, such as Religion for a riddle involving divine mysteries.\nThe sphinx gains a +2 circumstance bonus to attack rolls and damage rolls against any creature that answers incorrectly even once. This bonus lasts for 1 day.\nCritical Success The creature is unaffected, but it can choose to try to help solve the riddle.\nSuccess The creature attempts to answer the riddle, each round spending at least one action attempting a Recall Knowledge check with the chosen skill (or working on the answer, if using an out of game riddle). This lasts for 1 minute, until the creature successfully answers the riddle, or until an enemy takes a hostile action against the creature, whichever comes first.\nFailure As success but the creature must spend at least two actions each round attempting to answer.\nCritical Failure As failure, but up to 1 hour.",
           "traits": [
             "incapacitation",
             "linguistic",
@@ -31874,7 +31874,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "2SBKFCog4JY3WrOW",
       "slug": "rain-scribe",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32069,7 +32069,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "95IcOUvxABvj5lvo",
       "slug": "changeling-hellknight",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32244,7 +32244,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "bc1jeTvmzKeYGVw9",
       "slug": "virtuous-defender",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32385,7 +32385,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "EMl8hARVJk8SNVyW",
       "slug": "charming-scoundrel",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32516,7 +32516,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "UuPPceVcGk1RwSbB",
       "slug": "hellknight-armiger",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32635,7 +32635,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "VkG5yl9xcmziwpQD",
       "slug": "pathfinder-field-agent",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32774,7 +32774,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "401MnHX5aO21P2Y8",
       "slug": "stone-giant-monk",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -32910,7 +32910,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "48bZvtRcd7T6FmA7",
       "slug": "privateer-captain",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -33167,7 +33167,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "hxyImo4ts3O0BrAY",
       "slug": "veteran-reclaimer",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -33325,7 +33325,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "M2Vi2mkwMZv1ZRka",
       "slug": "tempest-sun-mage",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -33607,7 +33607,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "mJxgYD8TQg1W2oXC",
       "slug": "hellknight-paravicar",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -33912,7 +33912,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
       "sourcePack": "lost-omens-bestiary",
       "sourceId": "o4XTf77fEEoFVTdA",
       "slug": "pathfinder-venture-captain",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -42433,9 +42433,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -42458,7 +42458,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         },
         {
@@ -42587,9 +42587,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -42605,7 +42605,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         }
       ],
@@ -42745,9 +42745,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -42770,7 +42770,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         },
         {
@@ -42944,9 +42944,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -42976,7 +42976,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         }
       ],
@@ -43098,9 +43098,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -43130,7 +43130,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         }
       ],
@@ -43326,9 +43326,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -43344,7 +43344,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         }
       ],
@@ -43551,9 +43551,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -43576,7 +43576,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         }
       ],
@@ -43705,9 +43705,9 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         },
         {
           "id": "3imov8thprdt3vz4",
-          "name": "Change Characters",
+          "name": "Change Actors",
           "kind": "action",
-          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Characters back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Characters, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
+          "description": "Frequency once per round\nEffect Taljjae removes its current mask and dons a new one. The change refreshes Taljjae, restoring 25 healing Hit Points. Once Taljjae has removed a mask, it can't Change Actors back to that mask until it has worn all of its unbroken masks at least once, after which the cycle starts again. Taljjae can't don a broken mask.\nWhen Taljjae Changes Actors, it gains access to the listed abilities. Any items (such as weapons) associated with its previous mask immediately disappear and are replaced by fresh ones for its new mask, but the effects of any mask abilities it has active persist. Removing a mask and later reapplying it doesn't restore any limited-use abilities.",
           "traits": [
             "stance"
           ]
@@ -43723,7 +43723,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "88km45ata0is6ltu",
           "name": "Second Act",
           "kind": "passive",
-          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Characters.",
+          "description": "Trigger Taljjae's turn begins\nRequirements Taljjae has 200 or fewer Hit Points\nEffect Taljjae's dance reaches a frantic climax, allowing it to change personas rapidly. Taljjae Changes Actors.",
           "traits": []
         }
       ],
@@ -52436,7 +52436,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "HSs8knjTJuMzsAQr",
           "name": "Recognize Ally",
           "kind": "passive",
-          "description": "A dragon pillar can see through its empty eye sockets, and it can recognize Cinderclaws and their allies. A character disguised as a Cinderclaw can trick a dragon pillar into perceiving it as a Cinderclaw ally by using Deception to Impersonate. A dragon pillar always uses Perception for initiative.",
+          "description": "A dragon pillar can see through its empty eye sockets, and it can recognize Cinderclaws and their allies. A actor disguised as a Cinderclaw can trick a dragon pillar into perceiving it as a Cinderclaw ally by using Deception to Impersonate. A dragon pillar always uses Perception for initiative.",
           "traits": []
         },
         {
@@ -53371,7 +53371,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_BESTIARY_ORIGINALS: readonly Pathfinder
         "modifier": 16,
         "details": "(expert)"
       },
-      "disable": "check (religion, dc:26, name:Counteract Dahak With Prayers, traits:complex,fire,magical,trap,hazard) (expert) to utter prayers to a non-evil deity to counteract Dahak's presence (prayers to Apsu allow this check to be made if the character is merely trained in Religion), check (thievery, dc:30, name:Divert the Hazard's Energy Back, traits:complex,fire,magical,trap,hazard) (expert) to divert the hazard's energies back upon themselves, or a successful Dispel Magic (4th rank; counteract DC 26).",
+      "disable": "check (religion, dc:26, name:Counteract Dahak With Prayers, traits:complex,fire,magical,trap,hazard) (expert) to utter prayers to a non-evil deity to counteract Dahak's presence (prayers to Apsu allow this check to be made if the actor is merely trained in Religion), check (thievery, dc:30, name:Divert the Hazard's Energy Back, traits:complex,fire,magical,trap,hazard) (expert) to divert the hazard's energies back upon themselves, or a successful Dispel Magic (4th rank; counteract DC 26).",
       "isComplex": true,
       "routine": "(2 actions) The vision of Dahak manifests next to the creature that is closest to the center of the way station, then uses its Breath Weapon in a direction that catches the most possible targets in its area.",
       "reset": "The vision of Dahak deactivates and resets automatically once no creatures remain within the Huntergate way station.",

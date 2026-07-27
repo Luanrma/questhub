@@ -57,7 +57,7 @@ test('area template validation accepts covered cells as token intersection rule'
   }).success, true)
 })
 
-test('area template validation limits names to 60 characters', () => {
+test('area template validation limits names to 60 members', () => {
   assert.equal(createAreaTemplateSchema.safeParse({ ...validTemplate, name: 'A'.repeat(60) }).success, true)
   assert.equal(createAreaTemplateSchema.safeParse({ ...validTemplate, name: 'A'.repeat(61) }).success, false)
 })

@@ -2183,7 +2183,7 @@ test('PF2e twenty-first delivery advances Remaster Adventure Paths and excludes 
   })
   assert.deepEqual(publicationCounts(items), {
     'Pathfinder Treasure Vault (Remastered)': 253,
-    'Pathfinder Lost Omens Tian Xia Character Guide': 50,
+    'Pathfinder Lost Omens Tian Xia Actor Guide': 50,
     'Pathfinder Lost Omens Divine Mysteries': 4,
     'Pathfinder Lost Omens Rival Academies': 67,
     'Pathfinder Lost Omens Shining Kingdoms': 26,

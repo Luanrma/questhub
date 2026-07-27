@@ -1,6 +1,6 @@
 type ControlledToken = {
   id: string
-  characterId: string | null
+  actorId: string | null
   controllerUserId: string | null
 }
 
@@ -8,13 +8,13 @@ export function selectPlayerVisibleSceneId(
   tokens: Iterable<ControlledToken>,
   tokenSceneIds: ReadonlyMap<string, string>,
   userId: string,
-  mainCharacterId: string | null,
+  mainActorId: string | null,
 ) {
   const placedControlledTokens = [...tokens].filter((token) => (
     token.controllerUserId === userId && tokenSceneIds.has(token.id)
   ))
-  const preferredToken = mainCharacterId
-    ? placedControlledTokens.find((token) => token.characterId === mainCharacterId)
+  const preferredToken = mainActorId
+    ? placedControlledTokens.find((token) => token.actorId === mainActorId)
     : null
   const selectedToken = preferredToken ?? placedControlledTokens[0]
 

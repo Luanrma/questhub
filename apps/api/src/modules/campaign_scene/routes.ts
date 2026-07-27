@@ -14,9 +14,9 @@ import { presentCampaignSceneWithSignedBackground } from './signed-background'
 import { z } from 'zod'
 
 type CampaignAccess = {
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
-  characterId: string
+  role: 'MASTER' | 'PLAYER'
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
+  actorId: string
 }
 
 type CampaignSceneRoutesDeps = {
@@ -43,7 +43,7 @@ const sceneInclude = {
     include: {
       token: {
         include: {
-          character: {
+          actor: {
             select: {
               id: true,
               userId: true,
@@ -63,7 +63,7 @@ const sceneInclude = {
 }
 
 async function getCampaignAccess(campaignId: string, userId: string): Promise<CampaignAccess | null> {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,
@@ -73,7 +73,7 @@ async function getCampaignAccess(campaignId: string, userId: string): Promise<Ca
     select: {
       role: true,
       status: true,
-      characterId: true,
+      actorId: true,
     },
   })
 }
@@ -150,7 +150,7 @@ async function getVisibleSceneIdForAccess(campaignId: string, access: CampaignAc
 
   const token = await prisma.campaignToken.findUnique({
     where: {
-      characterId: access.characterId,
+      actorId: access.actorId,
     },
     select: { campaignId: true, placement: { select: { sceneId: true } } },
   })

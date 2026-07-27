@@ -11,7 +11,7 @@ import {
   type GameSystemContentLocale,
   type GameSystemKey,
 } from '../catalog'
-import { getGameSystemCharacterSheetManagerProvider } from '../character-sheets'
+import { getGameSystemCharacterSheetManagerProvider } from '../actor-sheets'
 
 const campaignParamsSchema = z.object({ campaignId: z.string().trim().min(1) })
 const sheetParamsSchema = campaignParamsSchema.extend({ sheetId: z.string().trim().min(1) })
@@ -60,7 +60,7 @@ async function findAccessibleCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
     where: {
       id: campaignId,
-      characters: {
+      members: {
         some: {
           userId,
           status: 'ACTIVE',
@@ -78,7 +78,7 @@ async function findMasterCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
     where: {
       id: campaignId,
-      characters: {
+      members: {
         some: {
           userId,
           role: 'MASTER',
@@ -95,7 +95,7 @@ async function findMasterCampaign(campaignId: string, userId: string) {
 }
 
 async function findActiveCampaignRole(campaignId: string, userId: string) {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: { campaignId, userId, status: 'ACTIVE' },
     select: { role: true },
   })
@@ -103,7 +103,7 @@ async function findActiveCampaignRole(campaignId: string, userId: string) {
 
 async function listAssignmentTargets(campaignId: string) {
   const [participants, tokens] = await Promise.all([
-    prisma.campaignCharacter.findMany({
+    prisma.campaignMember.findMany({
       where: {
         campaignId,
         role: { in: ['MASTER', 'PLAYER'] },
@@ -112,7 +112,7 @@ async function listAssignmentTargets(campaignId: string) {
       select: {
         userId: true,
         role: true,
-        character: {
+        actor: {
           select: {
             user: { select: { email: true } },
           },
@@ -135,7 +135,7 @@ async function listAssignmentTargets(campaignId: string) {
     users: participants.map((entry) => ({
       userId: entry.userId,
       role: entry.role,
-      email: entry.character.user.email,
+      email: entry.actor.user.email,
     })),
     tokens: tokens.map((token) => ({
       tokenId: token.id,
@@ -215,7 +215,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const descriptor = getGameSystemDescriptor(body.data.gameSystem)
     if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
 
-    const sheetCount = await prisma.campaignCharacterSheet.count({
+    const sheetCount = await prisma.campaignMemberSheet.count({
       where: { campaignId: campaign.id },
     })
     if (sheetCount > 0 && campaign.gameSystem !== body.data.gameSystem) {
@@ -229,7 +229,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
         select: { id: true, gameSystem: true },
       })
 
-      await tx.character.updateMany({
+      await tx.actor.updateMany({
         where: {
           campaigns: {
             some: { campaignId: campaign.id },
@@ -248,7 +248,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     })
   })
 
-  app.get('/api/campaigns/:campaignId/character-sheets', async (req, reply) => {
+  app.get('/api/campaigns/:campaignId/actor-sheets', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -281,7 +281,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     })
   })
 
-  app.post('/api/campaigns/:campaignId/character-sheets', async (req, reply) => {
+  app.post('/api/campaigns/:campaignId/actor-sheets', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -298,7 +298,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     if (!provider) return reply.status(409).send({ error: 'O sistema da campanha nao fornece fichas' })
 
     const defaultSheet = provider.createDefault()
-    const created = await prisma.campaignCharacterSheet.create({
+    const created = await prisma.campaignMemberSheet.create({
       data: {
         campaignId: campaign.id,
         createdByUserId: auth.id,
@@ -317,7 +317,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     return reply.status(201).send({ sheetId: created.id, entry: entry ?? null })
   })
 
-  app.patch('/api/campaigns/:campaignId/character-sheets/:sheetId/assignments', async (req, reply) => {
+  app.patch('/api/campaigns/:campaignId/actor-sheets/:sheetId/assignments', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -330,14 +330,14 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
     if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode atribuir fichas' })
 
-    const sheet = await prisma.campaignCharacterSheet.findFirst({
+    const sheet = await prisma.campaignMemberSheet.findFirst({
       where: { id: params.data.sheetId, campaignId: campaign.id },
       select: { id: true },
     })
     if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada' })
 
     if (body.data.assignedUserId) {
-      const participant = await prisma.campaignCharacter.findFirst({
+      const participant = await prisma.campaignMember.findFirst({
         where: {
           campaignId: campaign.id,
           userId: body.data.assignedUserId,
@@ -358,7 +358,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     }
 
     try {
-      const updated = await prisma.campaignCharacterSheet.update({
+      const updated = await prisma.campaignMemberSheet.update({
         where: { id: sheet.id },
         data: {
           ...(body.data.assignedUserId !== undefined ? { assignedUserId: body.data.assignedUserId } : {}),
@@ -387,7 +387,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     }
   })
 
-  app.get('/api/campaigns/:campaignId/tokens/:tokenId/character-sheet', async (req, reply) => {
+  app.get('/api/campaigns/:campaignId/tokens/:tokenId/actor-sheet', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 

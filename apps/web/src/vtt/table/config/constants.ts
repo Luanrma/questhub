@@ -7,5 +7,5 @@ export const sceneImageMaxBytes = Number(import.meta.env?.VITE_ASSET_MAX_UPLOAD_
 export const sceneImageMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/avif'] as const
 export const sceneImageMimeTypeLabels = 'JPG, PNG, WEBP ou AVIF'
 
-export const questhubCharacterDragType = 'application/x-questhub-character-id'
+export const questhubCharacterDragType = 'application/x-questhub-actor-id'
 export const questhubTokenDragType = 'application/x-questhub-token-id'

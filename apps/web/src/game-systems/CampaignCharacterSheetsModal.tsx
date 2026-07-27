@@ -9,7 +9,7 @@ import {
   X,
 } from 'lucide-react'
 import { api, ApiError } from '../lib/api'
-import { requestCampaignCharacterSheetOpen } from './character-sheet-window-events'
+import { requestCampaignCharacterSheetOpen } from './actor-sheet-window-events'
 import type { GameSystemKey } from './registry'
 
 type CharacterSheetManagerEntry = {
@@ -97,7 +97,7 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
     setLoading(true)
     setError(null)
 
-    api<CharacterSheetManagerResponse>(`/api/campaigns/${campaignId}/character-sheets`)
+    api<CharacterSheetManagerResponse>(`/api/campaigns/${campaignId}/actor-sheets`)
       .then((response) => {
         if (!cancelled) setData(response)
       })
@@ -143,7 +143,7 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
     setError(null)
     try {
       const created = await api<{ sheetId: string; entry: CharacterSheetManagerEntry | null }>(
-        `/api/campaigns/${campaignId}/character-sheets`,
+        `/api/campaigns/${campaignId}/actor-sheets`,
         {
           method: 'POST',
           body: JSON.stringify({ name: name.trim() }),
@@ -176,7 +176,7 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
         sheetId: string
         assignedUser: { id: string; label: string } | null
         token: { id: string; name: string } | null
-      }>(`/api/campaigns/${campaignId}/character-sheets/${sheetId}/assignments`, {
+      }>(`/api/campaigns/${campaignId}/actor-sheets/${sheetId}/assignments`, {
         method: 'PATCH',
         body: JSON.stringify(changes),
       })

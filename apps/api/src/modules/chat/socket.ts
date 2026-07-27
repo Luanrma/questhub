@@ -22,26 +22,26 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
           return
         }
 
-        const campaignCharacter = await prisma.campaignCharacter.findFirst({
+        const campaignMember = await prisma.campaignMember.findFirst({
           where: {
             campaignId: parsed.data.campaignId,
-            characterId: parsed.data.characterId,
+            actorId: parsed.data.actorId,
             userId: user.id,
             status: 'ACTIVE',
           },
           select: {
             role: true,
-            characterId: true,
-            character: { select: { name: true } },
+            actorId: true,
+            actor: { select: { name: true } },
           },
         })
 
-        if (!campaignCharacter) {
+        if (!campaignMember) {
           ack?.({ ok: false, error: 'Acesso ao chat nao liberado' })
           return
         }
 
-        if (campaignCharacter.role === 'NPC') {
+        if (campaignMember.role === 'NPC') {
           ack?.({ ok: false, error: 'NPC nao envia mensagem no chat' })
           return
         }
@@ -49,14 +49,14 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
         const message = await prisma.chatMessage.create({
           data: {
             campaign: { connect: { id: parsed.data.campaignId } },
-            character: { connect: { id: campaignCharacter.characterId } },
+            actor: { connect: { id: campaignMember.actorId } },
             user: { connect: { id: user.id } },
             content: parsed.data.content.trim(),
           },
           select: {
             id: true,
             campaignId: true,
-            characterId: true,
+            actorId: true,
             content: true,
             createdAt: true,
           },
@@ -64,10 +64,10 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
 
         const messageForPresentation = {
           ...message,
-          characterName: campaignCharacter.character.name,
-          role: campaignCharacter.role,
+          actorName: campaignMember.actor.name,
+          role: campaignMember.role,
         }
-        const presentedForSender = presentChatMessage(messageForPresentation, campaignCharacter.characterId)
+        const presentedForSender = presentChatMessage(messageForPresentation, campaignMember.actorId)
         const presentedForBroadcast = presentChatMessage(messageForPresentation)
 
         socket.to(`campaign:${parsed.data.campaignId}`).emit('chat:message:created', presentedForBroadcast)

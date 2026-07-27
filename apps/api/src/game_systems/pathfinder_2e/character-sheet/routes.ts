@@ -18,7 +18,7 @@ const paramsSchema = z.object({
 const sheetBodySchema = z.object({ data: z.unknown() }).strict()
 
 async function findAccessibleSheet(campaignId: string, sheetId: string, userId: string) {
-  const access = await prisma.campaignCharacter.findFirst({
+  const access = await prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,
@@ -29,7 +29,7 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
   })
   if (!access) return null
 
-  const sheet = await prisma.campaignCharacterSheet.findFirst({
+  const sheet = await prisma.campaignMemberSheet.findFirst({
     where: { id: sheetId, campaignId },
     select: {
       id: true,
@@ -78,13 +78,13 @@ function sendInvalidSheet(reply: FastifyReply, error: unknown) {
 }
 
 export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
-  app.get('/api/game-systems/pathfinder-2e/character-sheet/options', async (req, reply) => {
+  app.get('/api/game-systems/pathfinder-2e/actor-sheet/options', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
     return reply.send(pathfinder2eCharacterSheetOptions)
   })
 
-  app.get('/api/campaigns/:campaignId/character-sheets/:sheetId/pathfinder-2e', async (req, reply) => {
+  app.get('/api/campaigns/:campaignId/actor-sheets/:sheetId/pathfinder-2e', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -99,7 +99,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     try {
       resolved = resolveCharacterSheet(sheet.data)
     } catch (error) {
-      req.log.error({ sheetId: sheet.id, error }, 'Stored PF2e campaign character sheet is invalid')
+      req.log.error({ sheetId: sheet.id, error }, 'Stored PF2e campaign actor sheet is invalid')
       return reply.status(500).send({ error: 'A ficha armazenada esta invalida' })
     }
 
@@ -118,7 +118,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     })
   })
 
-  app.post('/api/campaigns/:campaignId/character-sheets/:sheetId/pathfinder-2e/derive', async (req, reply) => {
+  app.post('/api/campaigns/:campaignId/actor-sheets/:sheetId/pathfinder-2e/derive', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -139,7 +139,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     }
   })
 
-  app.put('/api/campaigns/:campaignId/character-sheets/:sheetId/pathfinder-2e', async (req, reply) => {
+  app.put('/api/campaigns/:campaignId/actor-sheets/:sheetId/pathfinder-2e', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
 
@@ -160,7 +160,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
       return sendInvalidSheet(reply, error)
     }
 
-    const stored = await prisma.campaignCharacterSheet.update({
+    const stored = await prisma.campaignMemberSheet.update({
       where: { id: sheet.id },
       data: {
         systemKey: PATHFINDER_2E_SYSTEM_KEY,

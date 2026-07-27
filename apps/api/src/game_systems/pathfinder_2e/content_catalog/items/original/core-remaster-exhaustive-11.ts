@@ -549,7 +549,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "Despite covering the entire face, this alabaster mask does not hinder vision or other senses. Wearing the mask grants a +2 item bonus to Performance checks while acting, orating, performing comedy, or singing.\nActivate—Assume Role A (concentrate)\nEffect You change the mask's appearance into an artistic rendition of a dramatic character of your choice.\nActivate—Sacrifice Role R (concentrate, fortune)\nFrequency once per day\nTrigger You fail a Performance check that benefits from the mask's bonus\nEffect You change the mask's character and reroll the Performance check, using the second result.",
+      "description": "Despite covering the entire face, this alabaster mask does not hinder vision or other senses. Wearing the mask grants a +2 item bonus to Performance checks while acting, orating, performing comedy, or singing.\nActivate—Assume Role A (concentrate)\nEffect You change the mask's appearance into an artistic rendition of a dramatic actor of your choice.\nActivate—Sacrifice Role R (concentrate, fortune)\nFrequency once per day\nTrigger You fail a Performance check that benefits from the mask's bonus\nEffect You change the mask's actor and reroll the Performance check, using the second result.",
       "bulk": 0,
       "price": {
         "gp": 650
@@ -2122,7 +2122,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "When you pull up the hood of this nondescript gray cloak (an Interact action), you become drab and uninteresting, gaining a +2 item bonus to Stealth checks and to Deception checks to Impersonate a forgettable background character, such as a servant, but also taking a -1 item penalty to Diplomacy and Intimidation checks.\nActivate—Cloak Identity 2 (concentrate, manipulate)\nFrequency once per day\nEffect You pull the cloak's hood up and gain the benefits of a 5th-rank Veil of Privacy for 8 hours or until you pull the hood back down, whichever comes first.",
+      "description": "When you pull up the hood of this nondescript gray cloak (an Interact action), you become drab and uninteresting, gaining a +2 item bonus to Stealth checks and to Deception checks to Impersonate a forgettable background actor, such as a servant, but also taking a -1 item penalty to Diplomacy and Intimidation checks.\nActivate—Cloak Identity 2 (concentrate, manipulate)\nFrequency once per day\nEffect You pull the cloak's hood up and gain the benefits of a 5th-rank Veil of Privacy for 8 hours or until you pull the hood back down, whichever comes first.",
       "bulk": 0.1,
       "price": {
         "gp": 900
@@ -2429,7 +2429,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_11_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "This platinum choker bears characters from three language's alphabet, and it gives knowledge of those languages and the associated culture's customs.\nYou gain a +2 item bonus to Society checks and the ability to understand, speak, and write the chosen languages.\nYour excellent elocution reduces the DC of the flat check to perform an auditory action while deafened from 5 to 3.\nCraft Requirements You know the languages the choker grants.",
+      "description": "This platinum choker bears members from three language's alphabet, and it gives knowledge of those languages and the associated culture's customs.\nYou gain a +2 item bonus to Society checks and the ability to understand, speak, and write the chosen languages.\nYour excellent elocution reduces the DC of the flat check to perform an auditory action while deafened from 5 to 3.\nCraft Requirements You know the languages the choker grants.",
       "bulk": 0.1,
       "price": {
         "gp": 850

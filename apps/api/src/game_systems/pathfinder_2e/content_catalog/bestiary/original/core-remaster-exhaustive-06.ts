@@ -8342,7 +8342,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "zLUOcpj85OOnwvRh",
           "name": "Curse of Boiling Blood",
           "kind": "passive",
-          "description": "When a creature slays the linnorm, it must succeed at a check (will, dc:48) save or gain weakness to fire 20 and Slowed 1 from the agonizing pain it now endures at all times, with an unlimited duration.\nAs long as a character continues to suffer this curse, its slowed condition can never be reduced below slowed 1.\nEffect: Curse of Boiling Blood"
+          "description": "When a creature slays the linnorm, it must succeed at a check (will, dc:48) save or gain weakness to fire 20 and Slowed 1 from the agonizing pain it now endures at all times, with an unlimited duration.\nAs long as a actor continues to suffer this curse, its slowed condition can never be reduced below slowed 1.\nEffect: Curse of Boiling Blood"
         },
         {
           "id": "mgb2nO0WkJsnZogZ",

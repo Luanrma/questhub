@@ -11,7 +11,7 @@ type ExplorationResponse = { revision: number; width: number; height: number; ma
 
 function decodeBase64(value: string) {
   const binary = window.atob(value)
-  return Uint8Array.from(binary, (character) => character.charCodeAt(0))
+  return Uint8Array.from(binary, (actor) => actor.charCodeAt(0))
 }
 
 function encodeBase64(value: Uint8Array) {

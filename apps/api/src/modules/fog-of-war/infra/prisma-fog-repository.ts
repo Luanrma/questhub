@@ -10,8 +10,8 @@ function json(value: unknown): Prisma.InputJsonValue {
 
 export class PrismaFogRepository implements FogRepository {
   async findAccess(campaignId: string, userId: string) {
-    const [character, member] = await Promise.all([
-      prisma.campaignCharacter.findFirst({
+    const [actor, member] = await Promise.all([
+      prisma.campaignMember.findFirst({
         where: { campaignId, userId, status: 'ACTIVE', role: { in: ['MASTER', 'PLAYER'] } },
         select: { role: true },
       }),
@@ -20,8 +20,8 @@ export class PrismaFogRepository implements FogRepository {
         select: { id: true },
       }),
     ])
-    if (!character || (character.role !== 'MASTER' && character.role !== 'PLAYER')) return null
-    return { role: character.role, memberId: member?.id ?? null }
+    if (!actor || (actor.role !== 'MASTER' && actor.role !== 'PLAYER')) return null
+    return { role: actor.role, memberId: member?.id ?? null }
   }
 
   async sceneExists(campaignId: string, sceneId: string) {

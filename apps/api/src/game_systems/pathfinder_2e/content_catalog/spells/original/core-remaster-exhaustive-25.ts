@@ -2620,7 +2620,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_SPELL_ORIGINALS: readonly Pathfinder2eO
         "sorcerer"
       ],
       "traditions": [],
-      "description": "You exhort your fallen comrades to return to the battle. Each allied creature within the emanation whose Dying value is 2 or less regains 4d10 Hit Points and can Stand as a free action, which doesn't provoke reactions.\nHeightened 1 The amount of healing increases by 1d10.\nPFS Note: This spell affects unconscious allies with a dying value of 2 or less, in addition conscious allies with the dying 1 or 2 condition. Conscious characters are not considered to have the dying 0 condition and are unaffected.",
+      "description": "You exhort your fallen comrades to return to the battle. Each allied creature within the emanation whose Dying value is 2 or less regains 4d10 Hit Points and can Stand as a free action, which doesn't provoke reactions.\nHeightened 1 The amount of healing increases by 1d10.\nPFS Note: This spell affects unconscious allies with a dying value of 2 or less, in addition conscious allies with the dying 1 or 2 condition. Conscious members are not considered to have the dying 0 condition and are unaffected.",
       "castingTime": "3 actions",
       "range": "",
       "target": "",
@@ -2634,7 +2634,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_SPELL_ORIGINALS: readonly Pathfinder2eO
           "kind": "healing"
         }
       ],
-      "heightening": "Heightened 1 The amount of healing increases by 1d10.\nPFS Note: This spell affects unconscious allies with a dying value of 2 or less, in addition conscious allies with the dying 1 or 2 condition. Conscious characters are not considered to have the dying 0 condition and are unaffected."
+      "heightening": "Heightened 1 The amount of healing increases by 1d10.\nPFS Note: This spell affects unconscious allies with a dying value of 2 or less, in addition conscious allies with the dying 1 or 2 condition. Conscious members are not considered to have the dying 0 condition and are unaffected."
     }
   },
   {
@@ -4209,7 +4209,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "2C0ftvzTwYgzb3Qt",
       "slug": "sky-laughs-at-waves",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -4245,7 +4245,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "JIphJbkWHndtFk72",
       "slug": "home-among-mulberry-leaves",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -4281,7 +4281,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "1H3T9UwxW44Y0YaS",
       "slug": "luminous-stardust-healing",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -4325,7 +4325,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_25_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "yuhhRjqBzFgkKYrq",
       "slug": "shining-starlight-attack",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },

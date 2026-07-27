@@ -114,7 +114,7 @@ test('the VTT server does not compose game systems', () => {
   const serverSource = readFileSync(vttServerFile, 'utf8')
   assert.doesNotMatch(
     serverSource,
-    /pathfinder|character-sheet|bestiary|bestiario|items?|spells?/i,
+    /pathfinder|actor-sheet|bestiary|bestiario|items?|spells?/i,
     'apps/api/src/server.ts must not know concrete game systems or their capabilities',
   )
 })

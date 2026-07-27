@@ -2,12 +2,12 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { canOpenCampaignTable, presentCampaignDashboardEntry } from './presenter'
 
-function dashboardEntry(role: 'MASTER' | 'PLAYER' | 'NPC') {
+function dashboardEntry(role: 'MASTER' | 'PLAYER') {
   return {
     role,
     status: 'ACTIVE' as const,
-    character: {
-      id: role === 'MASTER' ? 'master-character' : 'player-character',
+    actor: {
+      id: role === 'MASTER' ? 'master-actor' : 'player-actor',
       name: role === 'MASTER' ? 'Arion' : 'Lia',
     },
     campaign: {
@@ -17,10 +17,10 @@ function dashboardEntry(role: 'MASTER' | 'PLAYER' | 'NPC') {
       inviteCode: 'ABC12345',
       joinPolicy: 'PRIVATE',
       createdAt: new Date('2026-06-29T10:00:00.000Z'),
-      characters: [
+      members: [
         {
-          character: {
-            id: 'master-character',
+          actor: {
+            id: 'master-actor',
             userId: 'master-user',
             name: 'Arion',
           },
@@ -44,7 +44,7 @@ test('presentCampaignDashboardEntry exposes inviteCode only for master', () => {
   assert.equal(player.inviteCode, null)
 })
 
-test('presentCampaignDashboardEntry derives gm and current character fields from CampaignCharacter', () => {
+test('presentCampaignDashboardEntry derives gm and current actor fields from CampaignCharacter', () => {
   const result = presentCampaignDashboardEntry(dashboardEntry('PLAYER'), {
     isOnline: true,
     sessionState: 'PAUSED',
@@ -54,8 +54,8 @@ test('presentCampaignDashboardEntry derives gm and current character fields from
   assert.equal(result.gmUserId, 'master-user')
   assert.equal(result.myRole, 'PLAYER')
   assert.equal(result.myStatus, 'ACTIVE')
-  assert.equal(result.myCharacterId, 'player-character')
-  assert.equal(result.myCharacterName, 'Lia')
+  assert.equal(result.myActorId, 'player-actor')
+  assert.equal(result.myActorName, 'Lia')
   assert.equal(result.isOnline, true)
   assert.equal(result.sessionState, 'PAUSED')
 })

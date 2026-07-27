@@ -8252,7 +8252,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_08_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "4cx1d9efogHuWe26",
           "name": "Wreck",
           "kind": "action",
-          "description": "The abrikandilu makes two claw Strikes against an unattended object or held mirror. Held mirrors use the holding character's AC.\nIf both Strikes hit, combine their damage for the purpose of overcoming any Hardness or resistance.\nThese Strikes don't count toward the abrikandilu's multiple attack penalty, nor does that penalty apply to these Strikes."
+          "description": "The abrikandilu makes two claw Strikes against an unattended object or held mirror. Held mirrors use the holding actor's AC.\nIf both Strikes hit, combine their damage for the purpose of overcoming any Hardness or resistance.\nThese Strikes don't count toward the abrikandilu's multiple attack penalty, nor does that penalty apply to these Strikes."
         }
       ],
       "spellcasting": [

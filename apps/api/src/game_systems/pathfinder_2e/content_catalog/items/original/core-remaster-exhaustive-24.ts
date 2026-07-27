@@ -2955,7 +2955,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "comfort"
       ],
-      "description": "Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are gold, neutral robes are light blue, and evil robes are red. An evil or good robe gains the appropriate trait. The robes benefit only characters who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead Stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until you remove the robe.\nThe robes are +2 greater resilient explorer's clothing, and they grant a +1 circumstance bonus to saving throws against arcane spells and resistance 5 to damage from arcane spells.\nActivate R command\nFrequency once per day\nTrigger You attempt a saving throw against an arcane spell, but you haven't rolled yet\nEffect You automatically succeed at your save against the triggering arcane spell.\nCraft Requirements You are an arcane spellcaster.",
+      "description": "Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are gold, neutral robes are light blue, and evil robes are red. An evil or good robe gains the appropriate trait. The robes benefit only members who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead Stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until you remove the robe.\nThe robes are +2 greater resilient explorer's clothing, and they grant a +1 circumstance bonus to saving throws against arcane spells and resistance 5 to damage from arcane spells.\nActivate R command\nFrequency once per day\nTrigger You attempt a saving throw against an arcane spell, but you haven't rolled yet\nEffect You automatically succeed at your save against the triggering arcane spell.\nCraft Requirements You are an arcane spellcaster.",
       "bulk": 1,
       "price": {
         "gp": 6500
@@ -3790,7 +3790,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "comfort"
       ],
-      "description": "Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are gold, neutral robes are light blue, and evil robes are red. An evil or good robe gains the appropriate trait. The robes benefit only characters who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead Stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until you remove the robe.\nThe robes are +2 greater resilient explorer's clothing, and they grant a +1 circumstance bonus to saving throws against arcane spells and resistance 10 to damage from arcane spells.\nActivate R command\nFrequency once per day\nTrigger You or an ally within 30 feet attempts a saving throw against an arcane spell, but you haven't rolled yet\nEffect You or the ally automatically succeed at your save against the triggering arcane spell.\nCraft Requirements You are an arcane spellcaster.",
+      "description": "Embroidered with fine silver thread in ornate arcane patterns, these robes come in one of three colors depending on their attuned alignment. Good robes are gold, neutral robes are light blue, and evil robes are red. An evil or good robe gains the appropriate trait. The robes benefit only members who can cast arcane spells and whose alignment on the good-evil axis matches that of the robe. If your alignment does not match that of the robe, or you are not an arcane spellcaster, you are instead Stupefied 2 while wearing a robe of the archmagi. This condition can't be removed in any way until you remove the robe.\nThe robes are +2 greater resilient explorer's clothing, and they grant a +1 circumstance bonus to saving throws against arcane spells and resistance 10 to damage from arcane spells.\nActivate R command\nFrequency once per day\nTrigger You or an ally within 30 feet attempts a saving throw against an arcane spell, but you haven't rolled yet\nEffect You or the ally automatically succeed at your save against the triggering arcane spell.\nCraft Requirements You are an arcane spellcaster.",
       "bulk": 1,
       "price": {
         "gp": 32000
@@ -4521,7 +4521,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "consumable",
         "divine"
       ],
-      "description": "Activate 1 Interact\nThis golden candle bears the symbol of a specific deity emblazoned on its surface, surrounded by the iconography of that deity's faith. Once lit, this candle burns for 1 hour, and it can't be extinguished.\nCharacters who cast divine spells and worship the deity emblazoned on the candle can perform their daily preparations within 10 feet of the lit candle to gain two additional spell slots for the day, each at half the highest spell slot they possess (for example, 4th rank slots if the caster can cast 8th-rank spells). Prepared casters must prepare spells in these spell slots as they do for all their other spell slots.\nA caster's additional spell slots from the candle are lost the next time that caster performs their daily preparations. No one can benefit from more than one candle of invocation in a day, but multiple characters can benefit from a single candle's effects.",
+      "description": "Activate 1 Interact\nThis golden candle bears the symbol of a specific deity emblazoned on its surface, surrounded by the iconography of that deity's faith. Once lit, this candle burns for 1 hour, and it can't be extinguished.\nCharacters who cast divine spells and worship the deity emblazoned on the candle can perform their daily preparations within 10 feet of the lit candle to gain two additional spell slots for the day, each at half the highest spell slot they possess (for example, 4th rank slots if the caster can cast 8th-rank spells). Prepared casters must prepare spells in these spell slots as they do for all their other spell slots.\nA caster's additional spell slots from the candle are lost the next time that caster performs their daily preparations. No one can benefit from more than one candle of invocation in a day, but multiple members can benefit from a single candle's effects.",
       "bulk": 0,
       "price": {
         "gp": 2000
@@ -14425,7 +14425,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "AqslI71DReZOzgAW",
       "slug": "formulated-sunlight",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14461,7 +14461,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "bkbL0YitEh46Ne0f",
       "slug": "armored-skirt",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14492,7 +14492,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "VeCNWhvEr82ZNoSV",
       "slug": "lastwall-soup",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14530,7 +14530,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "WS78LUHzlpeONMRo",
       "slug": "scrollstaff",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14569,7 +14569,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "sZxPKnLtspXPRDNb",
       "slug": "pathfinders-coin",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14606,7 +14606,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "5KYn9J1Hj4IG3Z0X",
       "slug": "snapleaf",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14645,7 +14645,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "bbSc1VU1LiQqReKd",
       "slug": "pathfinder-chronicle",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14679,7 +14679,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "9zdm3EyEQXgMox8b",
       "slug": "divine-scroll-case-of-simplicity",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14713,7 +14713,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "aQ4Q8Rq6ntWaHcIv",
       "slug": "fortifying-pebble",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14751,7 +14751,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "EGYcFO9eYfajGKEf",
       "slug": "occult-scroll-case-of-simplicity",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14785,7 +14785,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "mqOjTuUHv4cRdt2N",
       "slug": "primal-scroll-case-of-simplicity",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14819,7 +14819,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "oC4ZMEdBJ3ia4ALm",
       "slug": "cloak-of-repute",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -14853,7 +14853,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "vxBcsWCjWd6DZ0Jz",
       "slug": "arcane-scroll-case-of-simplicity",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },

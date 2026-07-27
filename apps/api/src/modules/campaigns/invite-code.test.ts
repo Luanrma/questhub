@@ -13,7 +13,7 @@ function createDb(existingCodes: Set<string>, calls: string[]) {
   }
 }
 
-test('generateInviteCode returns an uppercase 8 character code when available', async () => {
+test('generateInviteCode returns an uppercase 8 actor code when available', async () => {
   const calls: string[] = []
   const code = await generateInviteCode(createDb(new Set(), calls))
 

@@ -64,7 +64,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "teleportation"
       ],
-      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different characters, and are on the same plane as each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
+      "description": "These runes always come in pairs and can be applied to a garment's pockets to be activated.\nActivate 1 command\nFrequency once per day\nRequirements The paired items are both invested, typically by two different members, and are on the same plane as each other\nEffect Items in the pockets (up to 10 negligible Bulk items or 1 light Bulk item per pocket) trade places via teleportation.",
       "bulk": 0,
       "price": {
         "gp": 2750
@@ -5439,7 +5439,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "level": 2,
       "rarity": "uncommon",
       "traits": [],
-      "description": "This timepiece is a marvel of clockwork and miniaturization; its gears, arbor, and mainspring are immaculately crafted and tuned to maximize precision and reduce time loss. This pocket watch has the properties of a clockwork dial, except it has a maximum duration of 24 hours and is available to characters from Alkenstar.",
+      "description": "This timepiece is a marvel of clockwork and miniaturization; its gears, arbor, and mainspring are immaculately crafted and tuned to maximize precision and reduce time loss. This pocket watch has the properties of a clockwork dial, except it has a maximum duration of 24 hours and is available to members from Alkenstar.",
       "bulk": 0.1,
       "price": {
         "gp": 25
@@ -6655,7 +6655,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "concussive",
         "fatal-d8"
       ],
-      "description": "These unique firearms are designed to attach to shields while still firing normally. Shield pistols are popular among Firebrands in the Shackles as they allow them to hold a blade and a firearm in each hand without giving up on defense. As is normal with firearms, a character doesn't have access to shield pistols unless they separately have access to firearms.",
+      "description": "These unique firearms are designed to attach to shields while still firing normally. Shield pistols are popular among Firebrands in the Shackles as they allow them to hold a blade and a firearm in each hand without giving up on defense. As is normal with firearms, a actor doesn't have access to shield pistols unless they separately have access to firearms.",
       "bulk": 1,
       "price": {
         "gp": 6
@@ -9989,7 +9989,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "cursed",
         "magical"
       ],
-      "description": "A dreamstone can become cursed if left exposed to creatures that corrupt sleep, generate nightmares, or otherwise prey on sleeping or dreaming victims via supernatural methods. A cursed dreamstone seems to function as a normal dreamstone until the bearer falls asleep or is forced to attempt a saving throw against a sleep effect. At this point, the person carrying the cursed dreamstone must attempt a check (will, dc:26) save to resist the curse's effects.\nCritical Success The character resists the curse entirely and experiences a vivid dream while sleeping that warns them of the nature of the cursed dreamstone.\nSuccess The character resists the curse.\nFailure As long as the cursed character possesses the stone, they are fatigued whenever they wake from sleep, whether natural or magically induced, and they take a -2 item penalty to all saving throws against sleep effects instead of gaining the normal bonus from a dreamstone.\nCritical Failure As failure, and whenever the bearer attempts a saving throw against a sleep effect, they get the outcome that is one degree worse than the result of their saving throw.",
+      "description": "A dreamstone can become cursed if left exposed to creatures that corrupt sleep, generate nightmares, or otherwise prey on sleeping or dreaming victims via supernatural methods. A cursed dreamstone seems to function as a normal dreamstone until the bearer falls asleep or is forced to attempt a saving throw against a sleep effect. At this point, the person carrying the cursed dreamstone must attempt a check (will, dc:26) save to resist the curse's effects.\nCritical Success The actor resists the curse entirely and experiences a vivid dream while sleeping that warns them of the nature of the cursed dreamstone.\nSuccess The actor resists the curse.\nFailure As long as the cursed actor possesses the stone, they are fatigued whenever they wake from sleep, whether natural or magically induced, and they take a -2 item penalty to all saving throws against sleep effects instead of gaining the normal bonus from a dreamstone.\nCritical Failure As failure, and whenever the bearer attempts a saving throw against a sleep effect, they get the outcome that is one degree worse than the result of their saving throw.",
       "bulk": 0.1,
       "price": {},
       "usage": "held-in-one-hand",
@@ -10276,7 +10276,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "traits": [
         "magical"
       ],
-      "description": "This steel shield contains a smoldering core of magma that never cools. Whenever the reforging shield's current Hit Points are below its Break Threshold, the shield recovers 5 Hit Points at the start of its wielder's turn each round until it is no longer broken. Each time a character Repairs the shield, the shield recovers double the number of Hit Points. The shield has Hardness 15, HP 120, and BT 60.",
+      "description": "This steel shield contains a smoldering core of magma that never cools. Whenever the reforging shield's current Hit Points are below its Break Threshold, the shield recovers 5 Hit Points at the start of its wielder's turn each round until it is no longer broken. Each time a actor Repairs the shield, the shield recovers double the number of Hit Points. The shield has Hardness 15, HP 120, and BT 60.",
       "bulk": 1,
       "price": {
         "gp": 6000
@@ -11219,7 +11219,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "thrown-20",
         "twin"
       ],
-      "description": "This light knife is optimally balanced to be thrown accurately at a greater distance than a common dagger. While this comes at the cost of a significant cutting edge, the difference is worth it for characters focused on thrown weapons.",
+      "description": "This light knife is optimally balanced to be thrown accurately at a greater distance than a common dagger. While this comes at the cost of a significant cutting edge, the difference is worth it for members focused on thrown weapons.",
       "bulk": 0.1,
       "price": {
         "sp": 3
@@ -14566,7 +14566,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "mental",
         "talisman"
       ],
-      "description": "Usage affixed to armor or to an outfit if a character has no armor\nActivate 2 Envision\nRequirements You are an expert in Stealth\nThis teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures Hidden to you, but you can't do so to Undetected creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.",
+      "description": "Usage affixed to armor or to an outfit if a actor has no armor\nActivate 2 Envision\nRequirements You are an expert in Stealth\nThis teardrop-shaped gemstone has triangular facets and looks suitable for fancy attire, although close inspection shows that it's hollow. When it's activated, you can instantly impart up to 1 minute of speech (roughly 150 words) telepathically to any creatures you choose within 100 feet. You can impart this instantaneous telepathic message to creatures that you perceive and creatures Hidden to you, but you can't do so to Undetected creatures. Once used, the whisper briolette becomes unusable and subtly vanishes within the next few minutes, rather than crumbling to dust.",
       "bulk": 0,
       "price": {
         "gp": 55

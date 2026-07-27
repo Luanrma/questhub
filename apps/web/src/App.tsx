@@ -26,7 +26,7 @@ export default function App() {
         <Route path="/campaigns" element={<CampaignsDashboardPage />} />
         <Route path="/campaigns/new" element={<CampaignCreatePage />} />
         <Route path="/campaigns/join" element={<CampaignJoinPage />} />
-        <Route path="/characters/*" element={<Navigate to="/campaigns" replace />} />
+        <Route path="/members/*" element={<Navigate to="/campaigns" replace />} />
       </Route>
 
       <Route element={<CampaignLayout />}>

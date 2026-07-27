@@ -3,11 +3,11 @@ import type { ComponentType, PointerEvent as ReactPointerEvent } from 'react'
 import { FileText, Grip, Maximize2, Minimize2, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import type { GameSystemKey } from './registry'
-import { getCharacterSheetRenderer } from './character-sheet-renderers'
+import { getCharacterSheetRenderer } from './actor-sheet-renderers'
 import {
-  campaignCharacterSheetOpenEvent,
+  campaignMemberSheetOpenEvent,
   type CampaignCharacterSheetOpenRequest,
-} from './character-sheet-window-events'
+} from './actor-sheet-window-events'
 
 type SheetWindowState = {
   sheetId: string
@@ -230,8 +230,8 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
       })
     }
 
-    window.addEventListener(campaignCharacterSheetOpenEvent, onOpen)
-    return () => window.removeEventListener(campaignCharacterSheetOpenEvent, onOpen)
+    window.addEventListener(campaignMemberSheetOpenEvent, onOpen)
+    return () => window.removeEventListener(campaignMemberSheetOpenEvent, onOpen)
   }, [campaignId, registration])
 
   function updateWindow(sheetId: string, changes: Partial<SheetWindowState>) {

@@ -83,7 +83,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
   const [savedMessage, setSavedMessage] = useState<string | null>(null)
 
   const sheetEndpoint = useMemo(
-    () => `/api/campaigns/${campaignId}/character-sheets/${sheetId}/pathfinder-2e`,
+    () => `/api/campaigns/${campaignId}/actor-sheets/${sheetId}/pathfinder-2e`,
     [campaignId, sheetId],
   )
   const dirty = useMemo(
@@ -100,7 +100,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
       try {
         const [sheetResponse, sheetOptions] = await Promise.all([
           api<Pathfinder2eCharacterSheetResponse>(sheetEndpoint),
-          api<Pathfinder2eCharacterSheetOptions>('/api/game-systems/pathfinder-2e/character-sheet/options'),
+          api<Pathfinder2eCharacterSheetOptions>('/api/game-systems/pathfinder-2e/actor-sheet/options'),
         ])
         if (cancelled) return
         setResponse(sheetResponse)

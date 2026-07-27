@@ -1639,7 +1639,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_SPELL_ORIGINALS: readonly Pathfinder2eO
         "occult",
         "primal"
       ],
-      "description": "The target becomes a scrying sensor, allowing you to see through its eyes, smell what it smells, and similarly use its other senses. If you Cast a Spell with the revelation trait that affects your senses, such as See the Unseen, while this spell is active, you gain the benefit of the spell through the target's senses instead of your own. You can also speak through the target with a voice much like yours, though it takes on some of the timbre and character of the target's growls or squawks. You can use Command an Animal on the target as part of Sustaining this spell. You don't need line of sight or line of effect to your target when you Cast this Spell.",
+      "description": "The target becomes a scrying sensor, allowing you to see through its eyes, smell what it smells, and similarly use its other senses. If you Cast a Spell with the revelation trait that affects your senses, such as See the Unseen, while this spell is active, you gain the benefit of the spell through the target's senses instead of your own. You can also speak through the target with a voice much like yours, though it takes on some of the timbre and actor of the target's growls or squawks. You can use Command an Animal on the target as part of Sustaining this spell. You don't need line of sight or line of effect to your target when you Cast this Spell.",
       "castingTime": "2 actions",
       "range": "1 mile",
       "target": "1 willing creature that's your animal companion or familiar",

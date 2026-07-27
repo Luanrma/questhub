@@ -109,7 +109,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_06_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "poison",
         "sleep"
       ],
-      "description": "Slumber wine sees its greatest use in matters of social intrigue, where an absence can be more devastating than injury. Characters unconscious from slumber wine can't wake up by any means while the poison lasts, don't need to eat or drink while unconscious in this way, and appear to be recently dead unless an examiner succeeds at a check (medicine, dc:40, showDC:all, name:Identify Slumber Wine) check.\nActivate A (manipulate)\nSaving Throw check (fortitude, dc:32, showDC:all)\nOnset 1 hour\nMaximum Duration 7 days\nStage 1 Unconscious (1 day)\nStage 2 unconscious (2 days)\nStage 3 unconscious (3 days)",
+      "description": "Slumber wine sees its greatest use in matters of social intrigue, where an absence can be more devastating than injury. Actors unconscious from slumber wine can't wake up by any means while the poison lasts, don't need to eat or drink while unconscious in this way, and appear to be recently dead unless an examiner succeeds at a check (medicine, dc:40, showDC:all, name:Identify Slumber Wine) check.\nActivate A (manipulate)\nSaving Throw check (fortitude, dc:32, showDC:all)\nOnset 1 hour\nMaximum Duration 7 days\nStage 1 Unconscious (1 day)\nStage 2 unconscious (2 days)\nStage 3 unconscious (3 days)",
       "bulk": 0.1,
       "price": {
         "gp": 325

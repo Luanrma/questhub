@@ -5119,7 +5119,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "divine",
         "mythic"
       ],
-      "description": "This object, made of silver light, takes the form of a small musical instrument, prop, or other tool associated with a specific art form. The holder of the immaculate instrument never suffers from creative blocks of any kind and their work is always insightful and skilled. A character who uses the immaculate instrument to Perform or Craft can attempt the check at mythic proficiency once per month, and as long as they possess their immaculate instrument, they treat any critical failures with these skills as failures.\nDestruction If the holder uses the immaculate instrument to intentionally produce a work that is not just mediocre or crass, but one that devalues the public opinion of the art form itself in a showing of at least 100 spectators, the instrument fades away in shame.",
+      "description": "This object, made of silver light, takes the form of a small musical instrument, prop, or other tool associated with a specific art form. The holder of the immaculate instrument never suffers from creative blocks of any kind and their work is always insightful and skilled. A actor who uses the immaculate instrument to Perform or Craft can attempt the check at mythic proficiency once per month, and as long as they possess their immaculate instrument, they treat any critical failures with these skills as failures.\nDestruction If the holder uses the immaculate instrument to intentionally produce a work that is not just mediocre or crass, but one that devalues the public opinion of the art form itself in a showing of at least 100 spectators, the instrument fades away in shame.",
       "bulk": 0.1,
       "price": {},
       "usage": "held-in-one-hand",
@@ -5154,7 +5154,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "mythic"
       ],
-      "description": "Mythic resilient runes imbue armor with unrivaled protection from a wide array of effects. The armor grants a +4 item bonus to saving throws to the wearer.\nActivate—Defy Obliteration r (concentration)\nTrigger You critically fail a saving throw\nEffect Spend a Mythic Point; if the triggering save was made due to an effect created by a mythic monster, hazard, or other effect, it's a normal failure instead. If the save was made due to an effect that wasn't mythic, it becomes a success.\nCraft Requirements Mythic resilient runes can only be crafted, etched, or transferred by a mythic character capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
+      "description": "Mythic resilient runes imbue armor with unrivaled protection from a wide array of effects. The armor grants a +4 item bonus to saving throws to the wearer.\nActivate—Defy Obliteration r (concentration)\nTrigger You critically fail a saving throw\nEffect Spend a Mythic Point; if the triggering save was made due to an effect created by a mythic monster, hazard, or other effect, it's a normal failure instead. If the save was made due to an effect that wasn't mythic, it becomes a success.\nCraft Requirements Mythic resilient runes can only be crafted, etched, or transferred by a mythic actor capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
       "bulk": 0,
       "price": {
         "gp": 70000
@@ -5225,7 +5225,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "mythic"
       ],
-      "description": "This armor is etched with a mythical ward providing unparalleled defense. Increase the armor's item bonus to AC by 4, and the armor can be etched with four property runes.\nActivate—Survive Devastation r (concentration)\nTrigger An enemy critically succeeds against you with a weapon or unarmed Strike\nEffect Spend a Mythic Point; if the triggering Strike was made by a mythic creature, it's a normal success instead. If it was made by a non-mythic creature, it's a failure.\nCraft Requirements Mythic armor potency runes can only be crafted, etched, or transferred by a mythic character capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
+      "description": "This armor is etched with a mythical ward providing unparalleled defense. Increase the armor's item bonus to AC by 4, and the armor can be etched with four property runes.\nActivate—Survive Devastation r (concentration)\nTrigger An enemy critically succeeds against you with a weapon or unarmed Strike\nEffect Spend a Mythic Point; if the triggering Strike was made by a mythic creature, it's a normal success instead. If it was made by a non-mythic creature, it's a failure.\nCraft Requirements Mythic armor potency runes can only be crafted, etched, or transferred by a mythic actor capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
       "bulk": 0,
       "price": {
         "gp": 70000
@@ -5262,7 +5262,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "mythic"
       ],
-      "description": "This weapon is filled with unmatched destructive power. The weapon deals five weapon damage dice.\nActivate—Unstoppable Devastation r (concentration)\nTrigger You roll the weapon damage dice for a Strike with this weapon and do not like the result\nEffect Spend a Mythic Point and reroll your weapon damage dice, taking the higher of the two results.\nCraft Requirements Mythic striking runes can only be crafted, etched, or transferred by a mythic character capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
+      "description": "This weapon is filled with unmatched destructive power. The weapon deals five weapon damage dice.\nActivate—Unstoppable Devastation r (concentration)\nTrigger You roll the weapon damage dice for a Strike with this weapon and do not like the result\nEffect Spend a Mythic Point and reroll your weapon damage dice, taking the higher of the two results.\nCraft Requirements Mythic striking runes can only be crafted, etched, or transferred by a mythic actor capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
       "bulk": 0,
       "price": {
         "gp": 70000
@@ -5299,7 +5299,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "mythic"
       ],
-      "description": "This weapon strikes with peerless accuracy to pierce the defenses of the mightiest monstrosities. Attack rolls with this weapon gain a +4 item bonus, and the weapon can be etched with four property runes.\nActivate—Unerring Blow r (concentration)\nTrigger You roll an attack roll to Strike with this weapon and receive a critical failure\nEffect Spend a Mythic Point and reroll your attack roll with mythic proficiency, taking the higher of the two results.\nCraft Requirements Mythic weapon potency runes can only be crafted, etched, or transferred by a mythic character capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
+      "description": "This weapon strikes with peerless accuracy to pierce the defenses of the mightiest monstrosities. Attack rolls with this weapon gain a +4 item bonus, and the weapon can be etched with four property runes.\nActivate—Unerring Blow r (concentration)\nTrigger You roll an attack roll to Strike with this weapon and receive a critical failure\nEffect Spend a Mythic Point and reroll your attack roll with mythic proficiency, taking the higher of the two results.\nCraft Requirements Mythic weapon potency runes can only be crafted, etched, or transferred by a mythic actor capable of making a Crafting check at mythic proficiency (such as by having the Artisan's Calling).",
       "bulk": 0,
       "price": {
         "gp": 70000
@@ -8931,7 +8931,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "thrown-10",
         "versatile-s"
       ],
-      "description": "Access A character who is a member of the Knights of Lastwall has access to this weapon.\nAn undead scourge is a +1 striking vitalizing dagger with a bluish-white metal blade that emits a faint glow. These used to be weapons of Pharasmin undead slayers only, but the slayers have since shared the secrets of their creation with the Knights of Lastwall.\nActivate—Sever from the Void f (concentrate, divine, vitality)\nFrequency once per hour\nTrigger You hit and damage an undead creature with an undead scourge\nEffect You disrupt the undead's connection to void energy. For 1 minute, the undead damaged with the dagger can't be healed by void energy unless the effect attempting to heal the undead first counteracts the undead scourge's effect, which has a counteract rank of 4th and a DC of 25. Vitality energy still has the usual effects on the undead.",
+      "description": "Access A actor who is a member of the Knights of Lastwall has access to this weapon.\nAn undead scourge is a +1 striking vitalizing dagger with a bluish-white metal blade that emits a faint glow. These used to be weapons of Pharasmin undead slayers only, but the slayers have since shared the secrets of their creation with the Knights of Lastwall.\nActivate—Sever from the Void f (concentrate, divine, vitality)\nFrequency once per hour\nTrigger You hit and damage an undead creature with an undead scourge\nEffect You disrupt the undead's connection to void energy. For 1 minute, the undead damaged with the dagger can't be healed by void energy unless the effect attempting to heal the undead first counteracts the undead scourge's effect, which has a counteract rank of 4th and a DC of 25. Vitality energy still has the usual effects on the undead.",
       "bulk": 0.1,
       "price": {
         "gp": 350
@@ -11132,7 +11132,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "two-hand-d12"
       ],
-      "description": "Access A character who is a member of the Eagle Knights has access to this weapon.\nThis large +2 striking standard-grade silver bastard sword is the signature weapon of many veteran Eagle Knights. It's easily recognized by its distinctively notched blade and the stylized wings adorning its cross guard. These blades are sometimes passed down from generation to generation.\nActivate—Defense of Liberty r\nFrequency once per hour\nTrigger You or your mount are targeted by a physical melee or ranged attack\nRequirements You are aware of the attack and are not Off-Guard against it\nEffect You or your mount gain a +2 circumstance bonus to AC against the triggering attack.\nEffect: Defense of Liberty",
+      "description": "Access A actor who is a member of the Eagle Knights has access to this weapon.\nThis large +2 striking standard-grade silver bastard sword is the signature weapon of many veteran Eagle Knights. It's easily recognized by its distinctively notched blade and the stylized wings adorning its cross guard. These blades are sometimes passed down from generation to generation.\nActivate—Defense of Liberty r\nFrequency once per hour\nTrigger You or your mount are targeted by a physical melee or ranged attack\nRequirements You are aware of the attack and are not Off-Guard against it\nEffect You or your mount gain a +2 circumstance bonus to AC against the triggering attack.\nEffect: Defense of Liberty",
       "bulk": 1,
       "price": {
         "gp": 2000
@@ -12260,7 +12260,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "two-hand-d12"
       ],
-      "description": "Access A character who is a member of the Eagle Knights has access to this weapon.\nEagle Knights charged with protecting Andoran's western border against Chelaxian incursion often carry these +2 greater striking standard-grade silver bastard swords, enchanted to offer greater utility when battling fiends. A greater talonstrike blade gains the Grasping Talons activation.\nActivate—Defense of Liberty r\nFrequency once per hour\nTrigger You or your mount are targeted by a physical melee or ranged attack\nRequirements You are aware of the attack and are not Off-Guard against it\nEffect You or your mount gain a +2 circumstance bonus to AC against the triggering attack.\nEffect: Defense of Liberty\nActivate—Grasping Talons r (arcane)\nFrequency once per day\nTrigger You hit with a melee Strike using the greater talonstrike blade and deal damage\nEffect You cast a 5th-rank Planar Tether on the creature you just dealt damage to, with a DC of 34.\nCraft Requirements For a greater talonstrike blade, supply one casting of planar tether.",
+      "description": "Access A actor who is a member of the Eagle Knights has access to this weapon.\nEagle Knights charged with protecting Andoran's western border against Chelaxian incursion often carry these +2 greater striking standard-grade silver bastard swords, enchanted to offer greater utility when battling fiends. A greater talonstrike blade gains the Grasping Talons activation.\nActivate—Defense of Liberty r\nFrequency once per hour\nTrigger You or your mount are targeted by a physical melee or ranged attack\nRequirements You are aware of the attack and are not Off-Guard against it\nEffect You or your mount gain a +2 circumstance bonus to AC against the triggering attack.\nEffect: Defense of Liberty\nActivate—Grasping Talons r (arcane)\nFrequency once per day\nTrigger You hit with a melee Strike using the greater talonstrike blade and deal damage\nEffect You cast a 5th-rank Planar Tether on the creature you just dealt damage to, with a DC of 34.\nCraft Requirements For a greater talonstrike blade, supply one casting of planar tether.",
       "bulk": 1,
       "price": {
         "gp": 4500
@@ -12817,7 +12817,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "reach",
         "trip"
       ],
-      "description": "Access A character who is a member of the Hellknights has access to this weapon.\nThese massive +2 flaming greater striking guisarmes are bestowed only upon the most loyal and renowned Hellknight paravicars, especially those who have distinguished themselves in the service of the strict laws of the organization.\nActivate—Flames of Phlegethon 2 (concentrate, divine, manipulate, unholy)\nFrequency once per day\nEffect You strike the ground with your axe, tearing open a one-way rift to the fourth layer of Hell in a 30-foot type:line that spews a curtain of hellfire. All creatures in the area take 6d6 fire damage (check (reflex, dc:37, basic) save) before the rift vanishes.",
+      "description": "Access A actor who is a member of the Hellknights has access to this weapon.\nThese massive +2 flaming greater striking guisarmes are bestowed only upon the most loyal and renowned Hellknight paravicars, especially those who have distinguished themselves in the service of the strict laws of the organization.\nActivate—Flames of Phlegethon 2 (concentrate, divine, manipulate, unholy)\nFrequency once per day\nEffect You strike the ground with your axe, tearing open a one-way rift to the fourth layer of Hell in a 30-foot type:line that spews a curtain of hellfire. All creatures in the area take 6d6 fire damage (check (reflex, dc:37, basic) save) before the rift vanishes.",
       "bulk": 2,
       "price": {
         "gp": 10000
@@ -12999,7 +12999,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "magical",
         "versatile-p"
       ],
-      "description": "Access A character who is a member of the Knights of Lastwall has access to this weapon.\nThese +2 greater striking vitalizing longswords are granted as special commendations to Knights of Lastwall who perform acts of exceptional heroism or strike decisive blows against the forces of the Whispering Tyrant.\nActivate—Comes the Dawn r (concentrate, divine, healing, vitality)\nFrequency once per day\nTrigger You regain Hit Points from a magical effect\nEffect You release a wave of vital energy in a 30-foot type:emanation. For every 10 Hit Points you are healed, you restore 1d10 Hit Points to all other living creatures and deal that amount of vitality damage to all undead creatures in the area, with a check (fortitude, dc:37, basic) save.",
+      "description": "Access A actor who is a member of the Knights of Lastwall has access to this weapon.\nThese +2 greater striking vitalizing longswords are granted as special commendations to Knights of Lastwall who perform acts of exceptional heroism or strike decisive blows against the forces of the Whispering Tyrant.\nActivate—Comes the Dawn r (concentrate, divine, healing, vitality)\nFrequency once per day\nTrigger You regain Hit Points from a magical effect\nEffect You release a wave of vital energy in a 30-foot type:emanation. For every 10 Hit Points you are healed, you restore 1d10 Hit Points to all other living creatures and deal that amount of vitality damage to all undead creatures in the area, with a check (fortitude, dc:37, basic) save.",
       "bulk": 1,
       "price": {
         "gp": 10000

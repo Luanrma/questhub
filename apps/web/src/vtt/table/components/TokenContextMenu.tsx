@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
-import { requestCampaignCharacterSheetOpen } from '../../../game-systems/character-sheet-window-events'
+import { requestCampaignCharacterSheetOpen } from '../../../game-systems/actor-sheet-window-events'
 import { api, ApiError } from '../../../lib/api'
 import type {
   CampaignPlayer,
@@ -94,7 +94,7 @@ export function TokenContextMenu({
     setSheetLoading(true)
     setLinkedSheet(null)
 
-    api<ResolvedTokenSheet>(`/api/campaigns/${campaignId}/tokens/${token.id}/character-sheet`)
+    api<ResolvedTokenSheet>(`/api/campaigns/${campaignId}/tokens/${token.id}/actor-sheet`)
       .then((result) => {
         if (!cancelled) setLinkedSheet(result)
       })
@@ -230,7 +230,7 @@ export function TokenContextMenu({
                 >
                   <option value="">Somente Mestre</option>
                   {campaignPlayers.map((player) => (
-                    <option key={player.userId} value={player.userId}>{player.characterName} — {player.email}</option>
+                    <option key={player.userId} value={player.userId}>{player.actorName} — {player.email}</option>
                   ))}
                 </select>
               </label>

@@ -2285,7 +2285,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "traditions": [
         "primal"
       ],
-      "description": "You request a direct intercession from the natural world. Nature always refuses unnatural requests and might grant a different request (potentially more powerful or better fitting its character) than the one you asked for. A primal phenomenon spell can do any of the following things.\n• Duplicate any spell from the primal spell list of 9th rank or lower to which you have access.\n• Duplicate any spell from another spell list of 7th rank or lower. It must be common or you must have access.\n• Produce any effect whose power level is in line with the above effects.\n• Reverse certain effects that refer to the Wish spell.\nAt the GM's discretion, you can try to use primal phenomenon to produce greater effects than these, but doing so may be dangerous, or the spell may have only a partial effect.",
+      "description": "You request a direct intercession from the natural world. Nature always refuses unnatural requests and might grant a different request (potentially more powerful or better fitting its actor) than the one you asked for. A primal phenomenon spell can do any of the following things.\n• Duplicate any spell from the primal spell list of 9th rank or lower to which you have access.\n• Duplicate any spell from another spell list of 7th rank or lower. It must be common or you must have access.\n• Produce any effect whose power level is in line with the above effects.\n• Reverse certain effects that refer to the Wish spell.\nAt the GM's discretion, you can try to use primal phenomenon to produce greater effects than these, but doing so may be dangerous, or the spell may have only a partial effect.",
       "castingTime": "3 actions",
       "range": "",
       "target": "",
@@ -6893,7 +6893,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         "divine",
         "primal"
       ],
-      "description": "You call forth a well of healing that you and your allies can draw from later. The well appears as a disc of shimmering light on the ground in a square within range. At any time during the duration, if you or an ally are adjacent to the well, that character can Interact to tap into the well's power, recovering 4d8 Hit Points. When the well has been tapped five times, the spell ends. The well is made of insubstantial energy, allowing creatures to move through it and even end their turn in its space.\nIf you use an ability that increases the amount of healing this spell grants, that increase applies only to the first time someone taps the well.\nHeightened 1 The healing increases by 3.",
+      "description": "You call forth a well of healing that you and your allies can draw from later. The well appears as a disc of shimmering light on the ground in a square within range. At any time during the duration, if you or an ally are adjacent to the well, that actor can Interact to tap into the well's power, recovering 4d8 Hit Points. When the well has been tapped five times, the spell ends. The well is made of insubstantial energy, allowing creatures to move through it and even end their turn in its space.\nIf you use an ability that increases the amount of healing this spell grants, that increase applies only to the first time someone taps the well.\nHeightened 1 The healing increases by 3.",
       "castingTime": "3 actions",
       "range": "30 feet",
       "target": "",

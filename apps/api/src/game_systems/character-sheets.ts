@@ -42,7 +42,7 @@ export function registerGameSystemCharacterSheetManagerProvider(
   provider: GameSystemCharacterSheetManagerProvider,
 ) {
   if (characterSheetManagerProviders.has(system)) {
-    throw new Error(`Character sheet manager provider already registered for ${system}`)
+    throw new Error(`Actor sheet manager provider already registered for ${system}`)
   }
   characterSheetManagerProviders.set(system, provider)
 }

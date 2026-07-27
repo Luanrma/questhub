@@ -7303,7 +7303,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "Clarity goggles feature faceted lenses that filter your surroundings from several slightly different angles at once, giving you a sharper picture of them. While wearing the goggles, you gain a +3 item bonus to visual Perception checks.\nActivate 2 (concentrate)\nFrequency once per day\nEffect You focus on your environment and the creatures around you to see them as they really are. The GM rolls a secret counteract check using your Perception bonus against any illusion effect created by a 9th-rank or lower spell or a creature of 19th level or lower. You must be able to see the illusion, and it must be within 60 feet. If the check succeeds, you see through the illusion for 10 minutes.\nPFS Note: The Item Level determines the counteract rank, not the character level.",
+      "description": "Clarity goggles feature faceted lenses that filter your surroundings from several slightly different angles at once, giving you a sharper picture of them. While wearing the goggles, you gain a +3 item bonus to visual Perception checks.\nActivate 2 (concentrate)\nFrequency once per day\nEffect You focus on your environment and the creatures around you to see them as they really are. The GM rolls a secret counteract check using your Perception bonus against any illusion effect created by a 9th-rank or lower spell or a creature of 19th level or lower. You must be able to see the illusion, and it must be within 60 feet. If the check succeeds, you see through the illusion for 10 minutes.\nPFS Note: The Item Level determines the counteract rank, not the actor level.",
       "bulk": 0,
       "price": {
         "gp": 32500
@@ -9391,7 +9391,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "0E9ADJkQUVsz7A4G",
       "slug": "gakgung",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9434,7 +9434,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "0yiz254UI7DUFXWN",
       "slug": "shuan-ji",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9478,7 +9478,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "7XJQmpYWRZRRutc4",
       "slug": "peachwood-branch",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9514,7 +9514,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "b4hSaH0ITd5fbR08",
       "slug": "peachwood-lumber",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9550,7 +9550,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "EZho49nI8ZMXD3oD",
       "slug": "zhuazhi-bang",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9594,7 +9594,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "FA1mAc7rEyC9vzZa",
       "slug": "head-gem",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9623,7 +9623,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "FjeKuljhpaIiDTI7",
       "slug": "tetsubo",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9666,7 +9666,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "kFZpTT1jI6UMfV9I",
       "slug": "liuyedao",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9711,7 +9711,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "Oiq3QgLrM4i3W5Hg",
       "slug": "ogre-hook",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9753,7 +9753,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "WuzK2R5ra5SZdbij",
       "slug": "tri-bladed-katar",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9793,7 +9793,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "DOJxQLwkDvebbLWJ",
       "slug": "iron-wine",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9828,7 +9828,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "lXQ9ATsfuBo1MRko",
       "slug": "chilled-fire-noodles",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9865,7 +9865,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "mrgtvEbYTjGpOi7F",
       "slug": "bakuwa-lizardfolk-bony-plates",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9906,7 +9906,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "YEB49me6ZI2Sahuv",
       "slug": "kotodama-whistle",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9937,7 +9937,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "LY4HQe0WfYy95d6M",
       "slug": "chilled-fire-noodles-greater",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -9974,7 +9974,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "NVssWHKyKlaRmHog",
       "slug": "rainbow-vinegar-moderate",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10009,7 +10009,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "NZDZzVgW2Pu8blar",
       "slug": "cloud-buns",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10046,7 +10046,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "UMJjOsukQATkXW3R",
       "slug": "kotodama-bells",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10077,7 +10077,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "7L10GdJdL1hYcJZm",
       "slug": "worldringer",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10120,7 +10120,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "iS8v3jXGPV8yGdcE",
       "slug": "gamtu-hat",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10151,7 +10151,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "GiiBkaa5JaJ5msPS",
       "slug": "peachwood-talisman",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10189,7 +10189,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "QKhVKfaum7DyF53w",
       "slug": "flashblade",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10233,7 +10233,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "TIP4RFdWohqqpiBV",
       "slug": "wand-of-purification-2nd-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10267,7 +10267,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "ebpO5kKJBEvbZQrQ",
       "slug": "preserved-moonflower",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10301,7 +10301,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "OvGfkoGfqFMEhknO",
       "slug": "wand-of-purification-3rd-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10335,7 +10335,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "VYmdcWj6VmUrTxJI",
       "slug": "deathseeker",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10376,7 +10376,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "TioBntQv3VAnS7Wb",
       "slug": "cloud-buns-greater",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10413,7 +10413,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "Vemy5QGbLRdPedcP",
       "slug": "ghost-fowl-porridge",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10447,7 +10447,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "g6agII64qc6wuSiP",
       "slug": "dragon-pearl",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10482,7 +10482,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "IaUKTq5fnWafnwO8",
       "slug": "wand-of-purification-4th-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10516,7 +10516,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "9QstkAexbb6QOwht",
       "slug": "wand-of-purification-5th-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10550,7 +10550,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "iq7hL6HDsPCPU4pt",
       "slug": "rainbow-vinegar-greater",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10585,7 +10585,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "uPtU3QGn9UdskxFh",
       "slug": "flashblade-greater",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10629,7 +10629,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "9s4wIWjq9z9VGxmz",
       "slug": "navaratna-of-the-solar-ruby",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10664,7 +10664,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "KzvbL114c72EhWhd",
       "slug": "jian-of-lifes-duality",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10703,7 +10703,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "2iKqXkRAq8qwlFlT",
       "slug": "twisting-gale",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10748,7 +10748,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "8YijFaakOFWjddJO",
       "slug": "frost-fair-yanyuedao",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10788,7 +10788,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "NvukdOaemuC6kMLL",
       "slug": "worldringer-greater",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10831,7 +10831,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "srCxiFF44RcuRMHD",
       "slug": "heavenly-rolling-flames",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10876,7 +10876,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "tULEDu1O4fzhyBeB",
       "slug": "sun-heralds-stylus",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10912,7 +10912,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "ZFx0WqzlNnIxeIII",
       "slug": "wand-of-purification-6th-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10946,7 +10946,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "4UsokByXD6h54H0F",
       "slug": "wand-of-purification-7th-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -10980,7 +10980,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "GWwbrnWBymUQn4JI",
       "slug": "flashblade-major",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11024,7 +11024,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "TKvAPv3jgv4l143r",
       "slug": "celestial-peachwood-sword",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11067,7 +11067,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "FlZUF29msGVibG5k",
       "slug": "caress-of-the-great-serpent",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11110,7 +11110,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "LC7a0ur3o2CJDVPq",
       "slug": "wand-of-purification-8th-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11144,7 +11144,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "qVmOQFcsVQkOn4zM",
       "slug": "cloak-of-waves-clouds",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11178,7 +11178,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "fqOcjvpOdIIAx0k5",
       "slug": "bow-of-sun-slaying",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11218,7 +11218,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "insH5VazP8WTkQgu",
       "slug": "staff-of-sun-wukong",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -11259,7 +11259,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "sourcePack": "equipment-srd",
       "sourceId": "TBoEmxOSYSrRweBC",
       "slug": "wand-of-purification-9th-rank-spell",
-      "publicationTitle": "Pathfinder Lost Omens Tian Xia Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Tian Xia Actor Guide",
       "license": "ORC",
       "remaster": true
     },
@@ -12891,7 +12891,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "light",
         "magical"
       ],
-      "description": "An inspiring spotlight consists of a drum-shaped metal housing around several reflective plates. It has the capacity to cast a powerful, narrow beam of light to illuminate important moments or characters on stage. The portable version consists of an 18-inch-diameter lamp on a tripod that can be set up or broken down over the course of 10 minutes. The mounted version is typically 3 feet in diameter and affixed to a bracket above and behind the audience for indoor performances.\nActivate—Light It Up 1 (light, manipulate)\nFrequency once per hour\nEffect The inspiring spotlight emits a 5-foot type:burst of bright magical light within 120 feet. If the burst intersects with an area of magical darkness, the inspiring spotlight attempts to counteract the darkness with a 1d20+17 modifier. Creatures within the burst gain a +1 item bonus to saving throws and Charisma-based skill checks. The spotlight remains lit for 1 minute or until you Interact to turn it off. During this time any creature adjacent to the spotlight can move the burst up to 20 feet from the burst's original position with an Interact action.",
+      "description": "An inspiring spotlight consists of a drum-shaped metal housing around several reflective plates. It has the capacity to cast a powerful, narrow beam of light to illuminate important moments or members on stage. The portable version consists of an 18-inch-diameter lamp on a tripod that can be set up or broken down over the course of 10 minutes. The mounted version is typically 3 feet in diameter and affixed to a bracket above and behind the audience for indoor performances.\nActivate—Light It Up 1 (light, manipulate)\nFrequency once per hour\nEffect The inspiring spotlight emits a 5-foot type:burst of bright magical light within 120 feet. If the burst intersects with an area of magical darkness, the inspiring spotlight attempts to counteract the darkness with a 1d20+17 modifier. Creatures within the burst gain a +1 item bonus to saving throws and Charisma-based skill checks. The spotlight remains lit for 1 minute or until you Interact to turn it off. During this time any creature adjacent to the spotlight can move the burst up to 20 feet from the burst's original position with an Interact action.",
       "bulk": 3,
       "price": {
         "gp": 650
@@ -13379,7 +13379,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_21_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "light",
         "magical"
       ],
-      "description": "An inspiring spotlight consists of a drum-shaped metal housing around several reflective plates. It has the capacity to cast a powerful, narrow beam of light to illuminate important moments or characters on stage. The portable version consists of an 18-inch-diameter lamp on a tripod that can be set up or broken down over the course of 10 minutes. The mounted version is typically 3 feet in diameter and affixed to a bracket above and behind the audience for indoor performances.\nActivate—Light It Up 1 (light, manipulate)\nFrequency once per hour\nEffect The inspiring spotlight emits a 5-foot type:burst of bright magical light within 240 feet. If the burst intersects with an area of magical darkness, the inspiring spotlight attempts to counteract the darkness with a 1d20+25 modifier. Creatures within the burst gain a +2 item bonus to saving throws and Charisma-based skill checks. The spotlight remains lit for 1 minute or until you Interact to turn it off. During this time any creature adjacent to the spotlight can move the burst up to 20 feet from the burst's original position with an Interact action.",
+      "description": "An inspiring spotlight consists of a drum-shaped metal housing around several reflective plates. It has the capacity to cast a powerful, narrow beam of light to illuminate important moments or members on stage. The portable version consists of an 18-inch-diameter lamp on a tripod that can be set up or broken down over the course of 10 minutes. The mounted version is typically 3 feet in diameter and affixed to a bracket above and behind the audience for indoor performances.\nActivate—Light It Up 1 (light, manipulate)\nFrequency once per hour\nEffect The inspiring spotlight emits a 5-foot type:burst of bright magical light within 240 feet. If the burst intersects with an area of magical darkness, the inspiring spotlight attempts to counteract the darkness with a 1d20+25 modifier. Creatures within the burst gain a +2 item bonus to saving throws and Charisma-based skill checks. The spotlight remains lit for 1 minute or until you Interact to turn it off. During this time any creature adjacent to the spotlight can move the burst up to 20 feet from the burst's original position with an Interact action.",
       "bulk": 8,
       "price": {
         "gp": 650

@@ -213,7 +213,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "mvL1ARPDkTinsFt4",
           "name": "Wild Surge",
           "kind": "reaction",
-          "description": "Trigger A character casts a primal spell within the hazard's area\nEffect Each living creature in the area gains 2d4 temporary Hit Points that last for 1 minute as life energy wells up around them, and the hazard rolls initiative.",
+          "description": "Trigger A actor casts a primal spell within the hazard's area\nEffect Each living creature in the area gains 2d4 temporary Hit Points that last for 1 minute as life energy wells up around them, and the hazard rolls initiative.",
           "traits": [
             "primal",
             "vitality"
@@ -675,7 +675,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "q9e86796VNlfO0AO",
           "name": "Static Shock",
           "kind": "reaction",
-          "description": "Trigger A creature approaches within 10 feet of the hazard's center\nEffect Electricity wells up from the ground and nearby material. Each creature in the hazard's area must attempt a check (fortitude, dc:33) save, and the hazard then rolls initiative. A character wearing metal armor or wielding a metal shield or weapon of at least 1 Bulk treats the result of their saving throw as one step worse.\nCritical Success The creature is unaffected.\nSuccess The creature is Clumsy 1 for 1 round.\nFailure The creature is Clumsy 2 for 2 rounds.\nCritical Failure The creature is clumsy 2 for 4 rounds and Stunned 1 for 1 round.",
+          "description": "Trigger A creature approaches within 10 feet of the hazard's center\nEffect Electricity wells up from the ground and nearby material. Each creature in the hazard's area must attempt a check (fortitude, dc:33) save, and the hazard then rolls initiative. A actor wearing metal armor or wielding a metal shield or weapon of at least 1 Bulk treats the result of their saving throw as one step worse.\nCritical Success The creature is unaffected.\nSuccess The creature is Clumsy 1 for 1 round.\nFailure The creature is Clumsy 2 for 2 rounds.\nCritical Failure The creature is clumsy 2 for 4 rounds and Stunned 1 for 1 round.",
           "traits": [
             "electricity"
           ]
@@ -1150,7 +1150,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "13cgAF6tdEDdUGZg",
           "name": "Bone-Shattering Rhythms",
           "kind": "reaction",
-          "description": "Trigger Three or more characters enter the area of planar instability\nEffect Pent-up magical energy from another world begins to release in waves of overwhelming sound. The hazard rolls initiative.",
+          "description": "Trigger Three or more members enter the area of planar instability\nEffect Pent-up magical energy from another world begins to release in waves of overwhelming sound. The hazard rolls initiative.",
           "traits": []
         }
       ]
@@ -1743,7 +1743,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "yFGi8rZPWBQ9mQjm",
           "name": "Spilled Secrets",
           "kind": "passive",
-          "description": "Any creature that speaks within this aura must succeed at a check (will, dc:34) save or divulge some kind of secret instead of whatever speech they intended. Linguistic spells and effects gain the concentrate trait if they didn't have it already and are wasted if the creature fails this save.\nOn a critical failure, the character betrays a secret they least want to reveal to the Weaver or those present.",
+          "description": "Any creature that speaks within this aura must succeed at a check (will, dc:34) save or divulge some kind of secret instead of whatever speech they intended. Linguistic spells and effects gain the concentrate trait if they didn't have it already and are wasted if the creature fails this save.\nOn a critical failure, the actor betrays a secret they least want to reveal to the Weaver or those present.",
           "traits": [
             "aura",
             "mental"
@@ -2024,7 +2024,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "yVuwDzx4JtpqtgpW",
           "name": "Mythic Immunity",
           "kind": "passive",
-          "description": "Vulot is immune to harmful spells cast by non-mythic creatures, Strikes made with non-mythic weapons, and unarmed Strikes from non-mythic characters.",
+          "description": "Vulot is immune to harmful spells cast by non-mythic creatures, Strikes made with non-mythic weapons, and unarmed Strikes from non-mythic members.",
           "traits": []
         },
         {
@@ -2298,14 +2298,14 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "Umcrow6uqGwmnu8G",
           "name": "Mythic Immunity",
           "kind": "passive",
-          "description": "Strikes\nThe creature is immune to either harmful spells cast by non-mythic creatures, or Strikes made with non-mythic weapons and unarmed Strikes from non-mythic characters. Only the most powerful creatures (typically level 25) should be immune to both.",
+          "description": "Strikes\nThe creature is immune to either harmful spells cast by non-mythic creatures, or Strikes made with non-mythic weapons and unarmed Strikes from non-mythic members. Only the most powerful creatures (typically level 25) should be immune to both.",
           "traits": []
         },
         {
           "id": "tyORXsrZpDl68qjz",
           "name": "Mythic Resilience",
           "kind": "passive",
-          "description": "Agyra treats her saving throws with Fortitude and Reflex saves as one step better than they actually are (so a critical failure is a failure, a failure is a success, and a success is a critical success). Whenever a character rolls a critical hit against Agyra, they must reroll the attack roll and take the new result.",
+          "description": "Agyra treats her saving throws with Fortitude and Reflex saves as one step better than they actually are (so a critical failure is a failure, a failure is a success, and a success is a critical success). Whenever a actor rolls a critical hit against Agyra, they must reroll the attack roll and take the new result.",
           "traits": []
         },
         {
@@ -2335,7 +2335,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "oOuC0cWK8o9RXqgS",
           "name": "Lightning Breath",
           "kind": "action",
-          "description": "Agyra exhales a line of electricity from each of her two heads. Each line is 120-foot line, and the two lines may be pointed in different directions. A creature in a line takes 22d6 electricity damage (check (reflex, dc:44, basic, options:area-effect) save). On a failed save, the target is also Slowed 1 for 1d4. A creature can be affected only once by a line, even if they are in an overlapping area. A character slain by Agyra's Lightning Breath remains electrified for 2d4 after death. A creature touching such a corpse takes 3d6 electricity damage (no save). Agyra can't use Lightning Breath for 1d4.",
+          "description": "Agyra exhales a line of electricity from each of her two heads. Each line is 120-foot line, and the two lines may be pointed in different directions. A creature in a line takes 22d6 electricity damage (check (reflex, dc:44, basic, options:area-effect) save). On a failed save, the target is also Slowed 1 for 1d4. A creature can be affected only once by a line, even if they are in an overlapping area. A actor slain by Agyra's Lightning Breath remains electrified for 2d4 after death. A creature touching such a corpse takes 3d6 electricity damage (no save). Agyra can't use Lightning Breath for 1d4.",
           "traits": [
             "electricity",
             "primal"
@@ -2527,7 +2527,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "RGQybNAvFA3SDkjw",
           "name": "Mythic Immunity",
           "kind": "passive",
-          "description": "Verex-That-Was is immune to harmful spells cast by non-mythic creatures, Strikes made with non-mythic weapons, and unarmed Strikes from non-mythic characters.",
+          "description": "Verex-That-Was is immune to harmful spells cast by non-mythic creatures, Strikes made with non-mythic weapons, and unarmed Strikes from non-mythic members.",
           "traits": []
         },
         {
@@ -2763,14 +2763,14 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "09zr2mkHYoa2dlrA",
           "name": "Mythic Immunity",
           "kind": "passive",
-          "description": "The Oliphaunt of Jandelay is immune to harmful spells cast by non-mythic creatures, Strikes made with non-mythic weapons, and unarmed Strikes from nonmythic characters.",
+          "description": "The Oliphaunt of Jandelay is immune to harmful spells cast by non-mythic creatures, Strikes made with non-mythic weapons, and unarmed Strikes from nonmythic members.",
           "traits": []
         },
         {
           "id": "N0tzcyXMdu07ek1R",
           "name": "Mythic Resilience",
           "kind": "passive",
-          "description": "The Oliphaunt treats its saving throws with the associated save as one step better than they actually are (so a critical failure is a failure, a failure is a success, and a success is a critical success). The first time each round that a character rolls a critical hit against the Oliphaunt, they must reroll the attack roll and take the new result.",
+          "description": "The Oliphaunt treats its saving throws with the associated save as one step better than they actually are (so a critical failure is a failure, a failure is a success, and a success is a critical success). The first time each round that a actor rolls a critical hit against the Oliphaunt, they must reroll the attack roll and take the new result.",
           "traits": []
         },
         {

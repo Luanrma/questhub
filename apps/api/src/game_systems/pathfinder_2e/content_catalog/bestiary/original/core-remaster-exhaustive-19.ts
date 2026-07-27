@@ -29,7 +29,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_19_BESTIARY_ORIGINALS: readonly Pathfinder
         "construct",
         "mindless"
       ],
-      "description": "Not all handcrafts are intended for war. The inkdrop is an infiltrator used by spellcasters to learn secrets or alter documents. Embodied in a single fist-sized drop of ink, the inkdrop can glide across a page, changing characters or removing them altogether, with devastating consequences for statecraft.",
+      "description": "Not all handcrafts are intended for war. The inkdrop is an infiltrator used by spellcasters to learn secrets or alter documents. Embodied in a single fist-sized drop of ink, the inkdrop can glide across a page, changing members or removing them altogether, with devastating consequences for statecraft.",
       "armorClass": 7,
       "hitPoints": 15,
       "speedFeet": 10,

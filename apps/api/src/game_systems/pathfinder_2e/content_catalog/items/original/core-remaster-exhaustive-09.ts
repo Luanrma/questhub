@@ -1086,7 +1086,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_09_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "Despite covering the entire face, this alabaster mask does not hinder vision or other senses. Wearing the mask grants a +1 item bonus to Performance checks while acting, orating, performing comedy, or singing.\nActivate—Assume Role A (concentrate)\nEffect You change the mask's appearance into an artistic rendition of a dramatic character of your choice.",
+      "description": "Despite covering the entire face, this alabaster mask does not hinder vision or other senses. Wearing the mask grants a +1 item bonus to Performance checks while acting, orating, performing comedy, or singing.\nActivate—Assume Role A (concentrate)\nEffect You change the mask's appearance into an artistic rendition of a dramatic actor of your choice.",
       "bulk": 0,
       "price": {
         "gp": 50

@@ -2,7 +2,7 @@ import { prisma } from '../../../db/prisma'
 import type {
   GameSystemCharacterSheetManagerEntry,
   GameSystemCharacterSheetManagerProvider,
-} from '../../character-sheets'
+} from '../../actor-sheets'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
 
@@ -30,7 +30,7 @@ function invalidEntry(entry: StoredCampaignSheet): GameSystemCharacterSheetManag
 }
 
 async function loadCampaignSheets(campaignId: string) {
-  return prisma.campaignCharacterSheet.findMany({
+  return prisma.campaignMemberSheet.findMany({
     where: {
       campaignId,
       systemKey: pathfinder2eCharacterSheetRuntimeAdapter.systemKey,

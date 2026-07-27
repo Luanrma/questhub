@@ -39,14 +39,14 @@ test('presentCampaignScene maps square grid and tokens', () => {
         updatedAt: now,
         token: {
           id: 'token-1',
-          characterId: 'character-1',
+          actorId: 'actor-1',
           name: 'Aria',
           avatarUrl: null,
           color: '#4f46e5',
           size: 1,
           canCustomizeAppearance: false,
-          character: {
-            id: 'character-1',
+          actor: {
+            id: 'actor-1',
             userId: 'user-1',
             campaigns: [{ role: 'PLAYER' }],
           },
@@ -78,7 +78,7 @@ test('presentCampaignSceneViewState defaults missing state', () => {
   })
 })
 
-test('presentCampaignScene keeps a generic token without Character', () => {
+test('presentCampaignScene keeps a generic token without Actor', () => {
   const result = presentCampaignScene({
     id: 'scene-1',
     campaignId: 'campaign-1',
@@ -112,19 +112,19 @@ test('presentCampaignScene keeps a generic token without Character', () => {
       updatedAt: now,
       token: {
         id: 'token-1',
-        characterId: null,
+        actorId: null,
         name: 'Cavalo',
         avatarUrl: null,
         color: '#78350f',
         size: 2,
         canCustomizeAppearance: false,
-        character: null,
+        actor: null,
         controllerMember: null,
       },
     }],
   })
 
-  assert.equal(result.tokens[0]?.characterId, null)
+  assert.equal(result.tokens[0]?.actorId, null)
   assert.equal(result.tokens[0]?.role, 'GENERIC')
   assert.equal(result.tokens[0]?.name, 'Cavalo')
 })

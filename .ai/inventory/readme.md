@@ -14,7 +14,7 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 
 ## Regras de negócio
 
-Cada `CampaignActor` possui no máximo um `Inventory`.
+Cada `CampaignActor` possui no máximo um `Inventory`. `Character`, `CharacterSheet` e `CampaignCharacter` não fazem parte do modelo: participação pertence a `CampaignMember`, enquanto entidades do mundo pertencem a `CampaignActor`.
 
 - Um `CampaignActor` deve possuir exatamente um `Inventory` no domínio.
 - O inventário representa todo o armazenamento do ator, não uma mochila física específica.

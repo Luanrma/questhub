@@ -49,10 +49,10 @@ const globalSheetPage = path.join(
   'src',
   'features',
   'pathfinder-2e',
-  'character-sheet',
+  'actor-sheet',
   'Pathfinder2eCharacterSheetPage.tsx',
 )
-const characterRoutesFile = path.join(root, 'apps', 'api', 'src', 'modules', 'characters', 'routes.ts')
+const characterRoutesFile = path.join(root, 'apps', 'api', 'src', 'modules', 'members', 'routes.ts')
 const gameSystemRoutesFile = path.join(
   root,
   'apps',
@@ -69,15 +69,15 @@ function extractCreateSheetSchema(source: string) {
   return source.slice(start, end)
 }
 
-test('global character and sheet screens no longer exist', () => {
+test('global actor and sheet screens no longer exist', () => {
   assert.equal(existsSync(globalCreatePage), false)
   assert.equal(existsSync(globalLibraryPage), false)
   assert.equal(existsSync(externalRedirectPage), false)
   assert.equal(existsSync(globalSheetPage), false)
 
   const appSource = readFileSync(appFile, 'utf8')
-  assert.doesNotMatch(appSource, /characters\/:characterId\/pathfinder-2e-sheet/)
-  assert.doesNotMatch(appSource, /campaigns\/:campaignId\/characters\/:characterId\/sheet/)
+  assert.doesNotMatch(appSource, /members\/:actorId\/pathfinder-2e-sheet/)
+  assert.doesNotMatch(appSource, /campaigns\/:campaignId\/members\/:actorId\/sheet/)
 })
 
 test('sheet entry points open the in-session workspace without browser navigation', () => {
@@ -93,7 +93,7 @@ test('sheet entry points open the in-session workspace without browser navigatio
   assert.match(workspaceSource, /minimized/)
   assert.match(workspaceSource, /activePage/)
   assert.match(workspaceSource, /sheetId/)
-  assert.doesNotMatch(workspaceSource, /characterId/)
+  assert.doesNotMatch(workspaceSource, /actorId/)
 })
 
 test('only the campaign-scoped API creates mechanical sheets', () => {
@@ -103,7 +103,7 @@ test('only the campaign-scoped API creates mechanical sheets', () => {
   assert.match(characterRoutesSource, /Fichas sao criadas somente pelo Mestre dentro de uma campanha/)
   assert.match(
     gameSystemRoutesSource,
-    /app\.post\('\/api\/campaigns\/:campaignId\/character-sheets'/,
+    /app\.post\('\/api\/campaigns\/:campaignId\/actor-sheets'/,
   )
   assert.match(gameSystemRoutesSource, /Apenas o Mestre pode criar fichas/)
   assert.match(gameSystemRoutesSource, /campaign\.gameSystem/)
@@ -117,7 +117,7 @@ test('creating a sheet does not require a player, NPC, Token or role', () => {
   assert.doesNotMatch(createSchema, /role:/)
   assert.doesNotMatch(createSchema, /assignedUserId:/)
   assert.doesNotMatch(createSchema, /tokenId:/)
-  assert.match(gameSystemRoutesSource, /prisma\.campaignCharacterSheet\.create/)
+  assert.match(gameSystemRoutesSource, /prisma\.campaignMemberSheet\.create/)
   assert.doesNotMatch(gameSystemRoutesSource, /ASSIGNMENT_REQUIRED/)
 })
 
@@ -128,7 +128,7 @@ test('campaign sheets own optional and reversible assignments', () => {
   assert.match(prismaSource, /model CampaignCharacterSheet/)
   assert.match(prismaSource, /assignedUserId\s+String\?/)
   assert.match(prismaSource, /tokenId\s+String\?\s+@unique/)
-  assert.match(gameSystemRoutesSource, /character-sheets\/:sheetId\/assignments/)
+  assert.match(gameSystemRoutesSource, /actor-sheets\/:sheetId\/assignments/)
   assert.match(gameSystemRoutesSource, /assignedUserId: body\.data\.assignedUserId/)
   assert.match(gameSystemRoutesSource, /tokenId: body\.data\.tokenId/)
 })

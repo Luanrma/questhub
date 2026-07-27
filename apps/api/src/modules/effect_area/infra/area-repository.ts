@@ -4,9 +4,9 @@ import type { AreaRepository } from '../application/ports/area-repository'
 
 export class PrismaAreaRepository implements AreaRepository {
   getCampaignAccess(campaignId: string, userId: string) {
-    return prisma.campaignCharacter.findFirst({
+    return prisma.campaignMember.findFirst({
       where: { campaignId, userId, status: 'ACTIVE', role: { in: ['MASTER', 'PLAYER'] } },
-      select: { role: true, status: true, characterId: true },
+      select: { role: true, status: true, actorId: true },
     })
   }
 
@@ -34,7 +34,7 @@ export class PrismaAreaRepository implements AreaRepository {
     return prisma.campaignScene.findFirst({ where: { id: sceneId, campaignId }, select: { id: true } })
   }
 
-  async visibleSceneId(campaignId: string, role: 'MASTER' | 'PLAYER' | 'NPC', userId: string, characterId: string) {
+  async visibleSceneId(campaignId: string, role: 'MASTER' | 'PLAYER', userId: string, actorId: string) {
     if (role === 'MASTER') return null
     const viewState = await prisma.campaignSceneViewState.findUnique({ where: { campaignId }, select: { forcedSceneId: true } })
     if (viewState?.forcedSceneId) return viewState.forcedSceneId
@@ -44,7 +44,7 @@ export class PrismaAreaRepository implements AreaRepository {
       placement: { isNot: null },
     } as const
     const mainToken = await prisma.campaignToken.findFirst({
-      where: { ...controlledTokenWhere, characterId },
+      where: { ...controlledTokenWhere, actorId },
       select: { placement: { select: { sceneId: true } } },
     })
     const token = mainToken ?? await prisma.campaignToken.findFirst({

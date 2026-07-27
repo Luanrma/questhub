@@ -648,7 +648,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "level": 0,
       "rarity": "common",
       "traits": [],
-      "description": "A traveler's chair is tailored for frequent adventures and travels. The design is sleek and fashionable to provide excellent comfort and support. A traveler's chair has small mechanisms, either made from interlocking wood pieces, clockwork, or other devices, that allow the chair to traverse up or down stairs without any additional difficulty (moving up stairs is still difficult terrain, just like for other characters), and move through other common adventuring terrain without any additional difficulty, such as ladders and uneven ground.",
+      "description": "A traveler's chair is tailored for frequent adventures and travels. The design is sleek and fashionable to provide excellent comfort and support. A traveler's chair has small mechanisms, either made from interlocking wood pieces, clockwork, or other devices, that allow the chair to traverse up or down stairs without any additional difficulty (moving up stairs is still difficult terrain, just like for other members), and move through other common adventuring terrain without any additional difficulty, such as ladders and uneven ground.",
       "bulk": 3,
       "price": {
         "gp": 5
@@ -2151,7 +2151,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_02_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "level": 0,
       "rarity": "common",
       "traits": [],
-      "description": "A formula book holds the formulas necessary to make items other than the common equipment from Pathfinder Player Core; characters of the alchemist class typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.",
+      "description": "A formula book holds the formulas necessary to make items other than the common equipment from Pathfinder Player Core; members of the alchemist class typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.",
       "bulk": 0.1,
       "price": {
         "gp": 1

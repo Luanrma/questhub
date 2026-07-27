@@ -535,7 +535,7 @@ test('twenty-first PF2e coverage advances only the frozen Remaster publication q
   assert.deepEqual(round.selection.items, {
     publications: [
       'Pathfinder Treasure Vault (Remastered)',
-      'Pathfinder Lost Omens Tian Xia Character Guide',
+      'Pathfinder Lost Omens Tian Xia Actor Guide',
       'Pathfinder Lost Omens Divine Mysteries',
       'Pathfinder Lost Omens Rival Academies',
       'Pathfinder Lost Omens Shining Kingdoms',
@@ -638,7 +638,7 @@ test('twenty-fourth PF2e coverage expands spells to focus without changing logic
   assert.equal(round.selection.items.publications.at(0), 'Pathfinder Core Rulebook')
   assert.equal(
     round.selection.items.publications.at(-1),
-    'Pathfinder Lost Omens Character Guide',
+    'Pathfinder Lost Omens Actor Guide',
   )
 })
 
@@ -670,7 +670,7 @@ test('twenty-fifth PF2e coverage advances Legacy cursors while focus remains Rem
   )
   assert.equal(
     round.selection.items.publications.at(0),
-    'Pathfinder Lost Omens Character Guide',
+    'Pathfinder Lost Omens Actor Guide',
   )
   assert.equal(
     round.selection.items.publications.at(-1),

@@ -2,7 +2,7 @@ import type { ComponentType } from 'react'
 import {
   Pathfinder2eCharacterSheetRenderer,
   type Pathfinder2eCharacterSheetPage,
-} from '../features/pathfinder-2e/character-sheet/Pathfinder2eCharacterSheetRenderer'
+} from '../features/pathfinder-2e/actor-sheet/Pathfinder2eCharacterSheetRenderer'
 import type { GameSystemKey } from './registry'
 
 export type CharacterSheetRendererProps = {

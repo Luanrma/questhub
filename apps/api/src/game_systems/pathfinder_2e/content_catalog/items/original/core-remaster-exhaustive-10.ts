@@ -868,7 +868,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "When you pull up the hood of this nondescript gray cloak (an Interact action), you become drab and uninteresting, gaining a +1 item bonus to Stealth checks and to Deception checks to Impersonate a forgettable background character, such as a servant, but also taking a -1 item penalty to Diplomacy and Intimidation checks.\nActivate—Cloak Identity 2 (concentrate, manipulate)\nFrequency once per day\nEffect You pull the cloak's hood up and gain the benefits of Veil of Privacy for 1 hour or until you pull the hood back down, whichever comes first.",
+      "description": "When you pull up the hood of this nondescript gray cloak (an Interact action), you become drab and uninteresting, gaining a +1 item bonus to Stealth checks and to Deception checks to Impersonate a forgettable background actor, such as a servant, but also taking a -1 item penalty to Diplomacy and Intimidation checks.\nActivate—Cloak Identity 2 (concentrate, manipulate)\nFrequency once per day\nEffect You pull the cloak's hood up and gain the benefits of Veil of Privacy for 1 hour or until you pull the hood back down, whichever comes first.",
       "bulk": 0.1,
       "price": {
         "gp": 230
@@ -1394,7 +1394,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_10_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "invested",
         "magical"
       ],
-      "description": "This platinum choker bears characters from a language's alphabet, and it gives knowledge of that language and the associated culture's customs.\nYou gain a +1 item bonus to Society checks and the ability to understand, speak, and write the chosen language.\nYour excellent elocution reduces the DC of the flat check to perform an auditory action while deafened from 5 to 3.\nCraft Requirements You know the language the choker grants.",
+      "description": "This platinum choker bears members from a language's alphabet, and it gives knowledge of that language and the associated culture's customs.\nYou gain a +1 item bonus to Society checks and the ability to understand, speak, and write the chosen language.\nYour excellent elocution reduces the DC of the flat check to perform an auditory action while deafened from 5 to 3.\nCraft Requirements You know the language the choker grants.",
       "bulk": 0.1,
       "price": {
         "gp": 200

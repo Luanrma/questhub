@@ -2,16 +2,16 @@ import { z } from 'zod'
 
 export const tradeRequestSchema = z.object({
   campaignId: z.string().trim().min(1, 'campaignId obrigatorio'),
-  fromCharacterId: z.string().trim().min(1, 'fromCharacterId obrigatorio'),
-  toCharacterId: z.string().trim().min(1, 'toCharacterId obrigatorio'),
+  fromActorId: z.string().trim().min(1, 'fromActorId obrigatorio'),
+  toActorId: z.string().trim().min(1, 'toActorId obrigatorio'),
   item: z.unknown().optional(),
 })
 
 export type TradeCampaignCharacterLink = {
   campaignId: string
-  characterId: string
+  actorId: string
   userId: string
-  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
+  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
 }
 
 export type TradeEligibilityInput = {
@@ -40,7 +40,7 @@ export function validateTradeEligibility(input: TradeEligibilityInput): TradeEli
 
   if (!from) return { ok: false, reason: 'FROM_CHARACTER_NOT_FOUND' }
   if (!to) return { ok: false, reason: 'TO_CHARACTER_NOT_FOUND' }
-  if (from.characterId === to.characterId) return { ok: false, reason: 'SAME_CHARACTER' }
+  if (from.actorId === to.actorId) return { ok: false, reason: 'SAME_CHARACTER' }
   if (from.userId !== authenticatedUserId) return { ok: false, reason: 'FROM_CHARACTER_FORBIDDEN' }
   if (from.campaignId !== campaignId || to.campaignId !== campaignId) return { ok: false, reason: 'DIFFERENT_CAMPAIGN' }
   if (from.status !== 'ACTIVE') return { ok: false, reason: 'FROM_CHARACTER_NOT_ACTIVE' }

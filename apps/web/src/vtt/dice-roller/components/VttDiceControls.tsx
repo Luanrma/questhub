@@ -10,7 +10,7 @@ type VttDiceCharacter = {
 
 type VttDiceControlsProps = {
   campaignId: string
-  character: VttDiceCharacter | null
+  actor: VttDiceCharacter | null
   socket: Socket | null
   enabled: boolean
   open?: boolean
@@ -32,7 +32,7 @@ const diceRollZoneStyle: CSSProperties = {
 
 export const VttDiceControls = memo(function VttDiceControls({
   campaignId,
-  character,
+  actor,
   socket,
   enabled,
   open = true,
@@ -45,7 +45,7 @@ export const VttDiceControls = memo(function VttDiceControls({
   const containerRef = useRef<HTMLDivElement | null>(null)
   const diceRoller = useVttDiceRoller({
     campaignId,
-    character,
+    actor,
     socket,
     enabled,
     clearSignal,

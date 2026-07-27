@@ -7881,7 +7881,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_09_BESTIARY_ORIGINALS: readonly Pathfinder
           "id": "fgDDQdQN0mgFgxVm",
           "name": "Raccoon's Whimsy",
           "kind": "passive",
-          "description": "Procyals' core value is whimsy, though unlike for chaotic tricksters, procyals' playful actions have a pattern and their pranks always come with a valuable lesson, even if it takes a long time to decipher the meaning. Receiving and growing from such a lesson requires at least 10 minutes of interaction with the Procyal but can take much longer. A character who learns from the procyal's lesson gains the benefits of the Aid reaction from the procyal once during the next month. Afterwards, they become immune to this effect from all procyals."
+          "description": "Procyals' core value is whimsy, though unlike for chaotic tricksters, procyals' playful actions have a pattern and their pranks always come with a valuable lesson, even if it takes a long time to decipher the meaning. Receiving and growing from such a lesson requires at least 10 minutes of interaction with the Procyal but can take much longer. A actor who learns from the procyal's lesson gains the benefits of the Aid reaction from the procyal once during the next month. Afterwards, they become immune to this effect from all procyals."
         }
       ],
       "spellcasting": [

@@ -1043,7 +1043,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_SPELL_ORIGINALS: readonly Pathfinder2eO
         "divine",
         "primal"
       ],
-      "description": "You call forth a flock of geese that drop restorative fruits and breads from the sky as they fly overhead. You or an ally in the area can Interact to collect one of these gifts, and can then either consume it as part of the same action or do so with a separate Interact action later in the spell's duration. Enemies who attempt to pick up one of these gifts find that it turns to ash in their hands. Each time a character consumes one of these gifts, they can select one of the following benefits.\n• The character regains 4d6 Hit Points.\n• The character reduces the stage of one poison or disease they suffer from by one stage. This can't reduce the stage below 1 or cure the affliction.\n• The character reduces the value of their Clumsy, Drained, Enfeebled, or Stupefied condition by 2, or reduces two of the listed conditions by 1 each.\nHeightened 2 The amount of Hit Points a character regains from consuming a gift increases by 2d6.",
+      "description": "You call forth a flock of geese that drop restorative fruits and breads from the sky as they fly overhead. You or an ally in the area can Interact to collect one of these gifts, and can then either consume it as part of the same action or do so with a separate Interact action later in the spell's duration. Enemies who attempt to pick up one of these gifts find that it turns to ash in their hands. Each time a actor consumes one of these gifts, they can select one of the following benefits.\n• The actor regains 4d6 Hit Points.\n• The actor reduces the stage of one poison or disease they suffer from by one stage. This can't reduce the stage below 1 or cure the affliction.\n• The actor reduces the value of their Clumsy, Drained, Enfeebled, or Stupefied condition by 2, or reduces two of the listed conditions by 1 each.\nHeightened 2 The amount of Hit Points a actor regains from consuming a gift increases by 2d6.",
       "castingTime": "2 actions",
       "range": "",
       "target": "",
@@ -1057,7 +1057,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_17_SPELL_ORIGINALS: readonly Pathfinder2eO
           "kind": "healing"
         }
       ],
-      "heightening": "Heightened 2 The amount of Hit Points a character regains from consuming a gift increases by 2d6."
+      "heightening": "Heightened 2 The amount of Hit Points a actor regains from consuming a gift increases by 2d6."
     }
   },
   {

@@ -1330,7 +1330,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
       "hardness": 0,
       "stealth": {
         "modifier": 5,
-        "details": "(trained) Characters automatically detect this hazard when they open the door to the Grand Hall."
+        "details": "(trained) Actors automatically detect this hazard when they open the door to the Grand Hall."
       },
       "disable": "Succeed at two of the following checks in any combination: check (athletics, dc:20) (trained) to confiscate dangerous debris, check (diplomacy, dc:20) (trained) to calm the crowd, check (intimidation, dc:18) (untrained) to scare the crowd away, check (will, dc:22) (trained) to maintain a brave and confident demeanor; an effect such as Calm that can target an area counts as one automatic success.",
       "isComplex": true,
@@ -1411,7 +1411,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
       "hardness": 0,
       "stealth": {
         "modifier": 7,
-        "details": "(trained) Characters automatically detect this hazard when they open the door to the Grand Hall."
+        "details": "(trained) Actors automatically detect this hazard when they open the door to the Grand Hall."
       },
       "disable": "Succeed at two of the following checks in any combination: check (athletics, dc:22) (trained) to confiscate dangerous debris, check (diplomacy, dc:22) (trained) to calm the crowd, check (intimidation, dc:20) (untrained) to scare the crowd away, check (will, dc:24) (trained) to maintain a brave and confident demeanor; an effect such as Calm that can target an area counts as one automatic success.",
       "isComplex": true,
@@ -1622,7 +1622,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
       "hardness": 0,
       "stealth": {
         "modifier": 12,
-        "details": "(trained) Characters automatically detect this hazard when they open the door to the Grand Hall."
+        "details": "(trained) Actors automatically detect this hazard when they open the door to the Grand Hall."
       },
       "disable": "Succeed at two of the following checks in any combination: check (athletics, dc:25) (trained) to confiscate dangerous debris, check (diplomacy, dc:25) (trained) to calm the crowd, check (intimidation, dc:23) (untrained) to scare the crowd away, check (will, dc:28) (trained) to maintain a brave and confident demeanor; an effect such as Calm that can target an area counts as one automatic success.",
       "isComplex": true,
@@ -1703,7 +1703,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_24_BESTIARY_ORIGINALS: readonly Pathfinder
       "hardness": 0,
       "stealth": {
         "modifier": 12,
-        "details": "(trained) Characters automatically detect this hazard when they open the door to the Grand Hall."
+        "details": "(trained) Actors automatically detect this hazard when they open the door to the Grand Hall."
       },
       "disable": "Succeed at two of the following checks in any combination: check (athletics, dc:27) (trained) to confiscate dangerous debris, check (diplomacy, dc:27) (trained) to calm the crowd, check (intimidation, dc:25) (untrained) to scare the crowd away, check (will, dc:30) (trained) to maintain a brave and confident demeanor; an effect such as Calm that can target an area counts as one automatic success.",
       "isComplex": true,

@@ -2455,7 +2455,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_27_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "AsKLseOo8hwv5Jha",
       "slug": "invoke-the-crimson-oath",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -2494,7 +2494,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_27_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "ou56ShiFH7GWF8hX",
       "slug": "light-of-revelation",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
@@ -2532,7 +2532,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_27_SPELL_ORIGINALS: readonly Pathfinder2eO
       "sourcePack": "spells-srd",
       "sourceId": "pMTltbI3S3UIuFaR",
       "slug": "sun-blade",
-      "publicationTitle": "Pathfinder Lost Omens Character Guide",
+      "publicationTitle": "Pathfinder Lost Omens Actor Guide",
       "license": "OGL",
       "remaster": false
     },
