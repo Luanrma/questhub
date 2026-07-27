@@ -76,6 +76,7 @@ model Campaign {
 
   characters      CampaignCharacter[]
   members         CampaignMember[]
+  actors          CampaignActor[]
   tokens          CampaignToken[]
   characterSheets CampaignCharacterSheet[]
   chatMessages    ChatMessage[]
@@ -86,6 +87,44 @@ model Campaign {
   userSettings    CampaignUserSettings[]
   areaTemplates   CampaignAreaTemplate[]
   areaEffects     SceneAreaEffect[]
+}
+
+model CampaignActor {
+  id         String   @id @default(cuid())
+  campaignId String
+  name       String
+  avatarUrl  String?
+  bio        String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  campaign  Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  inventory Inventory?
+
+  @@index([campaignId, createdAt])
+}
+
+model Inventory {
+  id        String   @id @default(cuid())
+  actorId   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  actor   CampaignActor    @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  entries InventoryEntry[]
+}
+
+model InventoryEntry {
+  id          String   @id @default(cuid())
+  inventoryId String
+  quantity    Int      @default(1)
+  data        Json
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  inventory Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
+
+  @@index([inventoryId, createdAt])
 }
 
 model Character {
@@ -354,12 +393,12 @@ model CampaignToken {
   createdAt              DateTime @default(now())
   updatedAt              DateTime @updatedAt
 
-  campaign       Campaign                @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  character      Character?              @relation(fields: [characterId], references: [id], onDelete: SetNull)
-  controllerMember CampaignMember?       @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
-  characterSheet CampaignCharacterSheet?
-  placement      CampaignTokenPlacement?
-  fogExplorations CampaignFogExploration[]
+  campaign         Campaign                 @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  character        Character?               @relation(fields: [characterId], references: [id], onDelete: SetNull)
+  controllerMember CampaignMember?          @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
+  characterSheet   CampaignCharacterSheet?
+  placement        CampaignTokenPlacement?
+  fogExplorations  CampaignFogExploration[]
 
   @@index([campaignId])
   @@index([controllerMemberId])
