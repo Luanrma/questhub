@@ -1,0 +1,24 @@
+name: Campaign actor source snapshot
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/campaign-actor-inventory
+      - name: Package relevant source
+        run: |
+          tar -czf campaign-actor-source.tgz \
+            AGENTS.md package.json package-lock.json \
+            apps/api/prisma apps/api/src apps/api/tsconfig.test.json \
+            apps/web/src .ai
+      - uses: actions/upload-artifact@v4
+        with:
+          name: campaign-actor-source
+          path: campaign-actor-source.tgz
