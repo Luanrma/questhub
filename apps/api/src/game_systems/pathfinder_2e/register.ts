@@ -1,13 +1,16 @@
 import type { FastifyInstance } from 'fastify'
 import { registerGameSystemCharacterSheetManagerProvider } from '../character-sheets'
 import { registerGameSystemCatalogProvider } from '../catalog'
+import { registerGameSystemInventoryPolicy } from '../inventory'
 import { pathfinder2eCharacterSheetManagerProvider } from './character-sheet/manager-provider'
 import { registerPathfinder2eCharacterSheetRoutes } from './character-sheet/routes'
 import { pathfinder2eCatalogProvider } from './content_catalog/catalog-provider'
 import { registerPathfinder2eContentCatalogRoutes } from './content_catalog/routes'
 import { registerPathfinder2eIconAssetRoutes } from './icon-assets'
+import { pathfinder2eInventoryPolicy } from './inventory/policy'
 
 let characterSheetManagerRegistered = false
+let inventoryPolicyRegistered = false
 
 export function registerPathfinder2e(app: FastifyInstance) {
   if (!characterSheetManagerRegistered) {
@@ -16,6 +19,11 @@ export function registerPathfinder2e(app: FastifyInstance) {
       pathfinder2eCharacterSheetManagerProvider,
     )
     characterSheetManagerRegistered = true
+  }
+
+  if (!inventoryPolicyRegistered) {
+    registerGameSystemInventoryPolicy('PATHFINDER_2E', pathfinder2eInventoryPolicy)
+    inventoryPolicyRegistered = true
   }
 
   registerGameSystemCatalogProvider('PATHFINDER_2E', pathfinder2eCatalogProvider)
