@@ -14,6 +14,8 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 
 ## Regras de negócio
 
+Cada `CampaignActor` possui no máximo um `Inventory`.
+
 - Um `CampaignActor` deve possuir exatamente um `Inventory` no domínio.
 - O inventário representa todo o armazenamento do ator, não uma mochila física específica.
 - Mochilas, pochetes e outros containers serão espaços internos do inventário em uma evolução posterior.
@@ -29,4 +31,3 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 - Equipamento e efeitos mecânicos na ficha.
 - Moedas e conversão monetária.
 - Rotas HTTP e interface visual.
-- Migração automática de fichas ou tokens existentes para `CampaignActor`.
