@@ -7,6 +7,9 @@ on:
     paths:
       - scripts/apply-campaign-actor-refactor.py
       - .github/workflows/campaign-actor-refactor.yml
+  pull_request:
+    branches:
+      - main
 
 permissions:
   contents: write
