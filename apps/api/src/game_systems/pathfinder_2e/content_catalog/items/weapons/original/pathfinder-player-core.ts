@@ -1,0 +1,52 @@
+import type { Pathfinder2eOriginalContentRecord } from '../../../records'
+import type { Pathfinder2eItemData } from '../../types'
+
+export const PATHFINDER_PLAYER_CORE_WEAPON_ORIGINALS: readonly Pathfinder2eOriginalContentRecord<Pathfinder2eItemData>[] = [
+  {
+    contentId: 'pf2e:item:equipment-srd:dogslicer',
+    domain: 'ITEM',
+    locale: 'en-US',
+    sourceHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
+    translatableHash: 'git-blob:f59c0086e1fdf5774dc6015ee4c8e65dd98831f8',
+    source: { sourcePack: 'equipment-srd', sourceId: 'olwngGXM3hpgoLEP', slug: 'dogslicer', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
+    image: { path: '/api/game-systems/pathfinder-2e/icons/equipment/weapons/dogslicer.webp' },
+    data: {
+      schemaVersion: 1,
+      name: 'Dogslicer',
+      itemType: 'weapon',
+      level: 0,
+      rarity: 'uncommon',
+      traits: ['agile', 'backstabber', 'finesse', 'goblin'],
+      description: 'A short, curved, crude makeshift blade with holes drilled into it to reduce weight. It is favored by goblins.',
+      bulk: 0.1,
+      price: { sp: 1 },
+      usage: 'held-in-one-hand',
+      category: 'martial',
+      group: 'sword',
+      damage: { dice: 1, die: 'd6', type: 'slashing' },
+    },
+  },
+  {
+    contentId: 'pf2e:item:equipment-srd:shortbow',
+    domain: 'ITEM',
+    locale: 'en-US',
+    sourceHash: 'git-blob:85e9cff7de9660efbd81a485713e39e1dc2fc8d8',
+    translatableHash: 'git-blob:85e9cff7de9660efbd81a485713e39e1dc2fc8d8',
+    source: { sourcePack: 'equipment-srd', sourceId: 'hIgqLgH3YcLZBeoT', slug: 'shortbow', publicationTitle: 'Pathfinder Player Core', license: 'ORC', remaster: true },
+    data: {
+      schemaVersion: 1,
+      name: 'Shortbow',
+      itemType: 'weapon',
+      level: 0,
+      rarity: 'common',
+      traits: ['deadly-d10'],
+      description: 'A smaller bow made from a single piece of wood and favored by skirmishers and cavalry.',
+      bulk: 1,
+      price: { gp: 3 },
+      usage: 'held-in-one-plus-hands',
+      category: 'martial',
+      group: 'bow',
+      damage: { dice: 1, die: 'd6', type: 'piercing' },
+    },
+  },
+]

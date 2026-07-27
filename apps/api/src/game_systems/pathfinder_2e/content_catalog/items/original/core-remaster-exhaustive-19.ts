@@ -1,0 +1,14737 @@
+import type { Pathfinder2eOriginalContentRecord } from '../../records'
+import type { Pathfinder2eItemData } from '../types'
+
+export const PATHFINDER_2E_EXHAUSTIVE_19_ITEM_ORIGINALS: readonly Pathfinder2eOriginalContentRecord<Pathfinder2eItemData>[] = [
+  {
+    "contentId": "pf2e:item:equipment-srd:corset-knife",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mSOYAQb8iq1N1S1I",
+      "slug": "corset-knife",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:28452d576955b90b253187e9dab7898afe961c7d4b72b094efc01236f2bf832a",
+    "translatableHash": "sha256:36d3337ffa5e189fc43083659514f65da72f2549760e27e23e85e9bc6e942d28",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Corset Knife",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "concealable",
+        "finesse",
+        "thrown-10"
+      ],
+      "description": "A favored self-defense weapon among bar and tavern workers, the corset knife has a weighted hilt and a cylindrical, needlelike blade designed to be easily hidden in clothing, but quickly retrieved in a pinch.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:long-hammer",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mXBOqphNfUCK7L8c",
+      "slug": "long-hammer",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:463c5a109c435e1a2b532a6ee7e383879a5c1e38fbfa6cd0d6c44f2c7339233d",
+    "translatableHash": "sha256:d51b0ffb62c8ee3fe7903387a4714fd93cf850be0d59c200a2346ff739c297ca",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Long Hammer",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "brace",
+        "dwarf",
+        "reach",
+        "trip",
+        "versatile-p"
+      ],
+      "description": "The long hammer features a pronged hammer head designed for damaging knees and ankles, counterbalanced by a stout spike and affixed to a reinforced shaft between 5 and 7 feet long.",
+      "bulk": 2,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "hammer",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:war-razor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nOFcCidD5AwVZWTv",
+      "slug": "war-razor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/war-razor.webp"
+    },
+    "sourceHash": "sha256:589be2cc860ef4cfded1762119403040eeefbfb5ca7420e3d32541d1bb5cc5fe",
+    "translatableHash": "sha256:68ff95378bc2999c6dfacbf87f471f98ecce449037c389d38c0c49d84a06c254",
+    "data": {
+      "schemaVersion": 1,
+      "name": "War Razor",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "backstabber",
+        "deadly-d8",
+        "finesse"
+      ],
+      "description": "A war razor is an exaggerated version of the barbers' tool. It's a brittle but extremely sharp weapon that is very easy to slip into a pocket or sleeve.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:naginata",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NufKswitJjxDCX8f",
+      "slug": "naginata",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/naginata.webp"
+    },
+    "sourceHash": "sha256:8257699449fafcdd728f490d8e3448a44027453900116e2b6d22086459a9f740",
+    "translatableHash": "sha256:f01951c4ac1a0fc21b0319cc03f4b4dd061e1c7dda632c5a03620dd86a7a3583",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Naginata",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d8",
+        "reach",
+        "versatile-p"
+      ],
+      "description": "This 6-foot staff has a 2-foot-long, slightly curved, swordlike blade attached at one end. The long pole helps keep the wielder out of reach of swords and shorter weapons.",
+      "bulk": 2,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "polearm",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hook-sword",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "O3XAH3VkOx9a0FyD",
+      "slug": "hook-sword",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/hook-sword.webp"
+    },
+    "sourceHash": "sha256:db206e6dd3191913f19ed28901eaf3bef51857f0a5ea1654a61eee89893c863b",
+    "translatableHash": "sha256:3f2d2f57eda528574343416f72ab330a79733f9ad81522c4bf334e50f4a1d87d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hook Sword",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "disarm",
+        "monk",
+        "parry",
+        "trip",
+        "twin"
+      ],
+      "description": "This long sword has a hook near the tip, making it easy to snag an opponent or their weapons.",
+      "bulk": 1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:machete",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "O7IZBvVoe7W2XnBa",
+      "slug": "machete",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/machete.webp"
+    },
+    "sourceHash": "sha256:2c269947b3512b85483b42ed57175fe98cfee3e1eb9055b00d686b7b3654c866",
+    "translatableHash": "sha256:9474740d02c8a5d2890f4281392a6654a57caa0af60972c7544f51961fe297e3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Machete",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "deadly-d8",
+        "sweep"
+      ],
+      "description": "This medium-length sword has a wide, gently curved blade and long grip. Though it's typically used to hack through heavy foliage, the machete can also be used as a deadly weapon.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 7
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:harpoon",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oTQKyZ8Vd2RPzaWK",
+      "slug": "harpoon",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:bb5cd0582850142905625f618870708bd9600ece86762474009e24234584d695",
+    "translatableHash": "sha256:87e9999d9ecdcfd60d111aa892a35408671c0ed0317791acc3ec6189ff117410",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Harpoon",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "tethered",
+        "thrown"
+      ],
+      "description": "Often used for hunting exceptionally large aquatic creatures, the harpoon is similar to a javelin but features a barbed head and rope tether so it (or the corpse it's attached to) can be easily retrieved.",
+      "bulk": 1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "dart",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mikazuki",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oW9neeVcpHjEvjcN",
+      "slug": "mikazuki",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/weapon.svg"
+    },
+    "sourceHash": "sha256:0ec33306fe9de6d48714d8c4017b5f40be467cb1144f4a92322380bc9e1a8c57",
+    "translatableHash": "sha256:ff54af7edf693857089b506c892a89fbcf85c741772d5dcde93bbf77839e0691",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mikazuki",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "combination",
+        "monk",
+        "propulsive"
+      ],
+      "description": "The mikazuki combines a sansetsukon with a thin length of metal string and several locking mechanisms built into the joints, allowing it to be quickly locked into configuration as a bow.",
+      "bulk": 2,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-one-plus-hands",
+      "category": "martial",
+      "group": "bow",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spray-pellets",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qaAQnuLVia6vS1LU",
+      "slug": "spray-pellets",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:37e1bf93f544fa35acbf0f00a7a1cf05fd4ccaae5b60f243f91f92e460a4ce0a",
+    "translatableHash": "sha256:a162b4a010aae87aecfd2ed5b73ac9f118b673b8f0f88edecb58259905c75f64",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spray Pellets",
+      "itemType": "consumable",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "A specially prepared packet of spray pellets.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wooden-breastplate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QPgkjNm2uIV5tsRd",
+      "slug": "wooden-breastplate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:64e5cd0fcbf80a38ddbc206fc027916ad5a0a8a45ddfa05d8fc6d131e3e5f059",
+    "translatableHash": "sha256:e427cb6d3b8731bd881455dbf7292b0f4c48f4cfbcb1d5e0230864d7c2f08020",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wooden Breastplate",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "common",
+      "traits": [],
+      "description": "A suit of carved and tempered wood, a wooden breastplate resembles a metal breastplate in shape and function. Such suits can be carved from large pieces of wood, but they most often come from wood coaxed magically from special trees, whether by druids, elves, fey, or plant creatures such as arboreals or leshies.",
+      "bulk": 2,
+      "price": {
+        "gp": 6
+      },
+      "usage": "",
+      "category": "medium",
+      "group": "wood",
+      "armor": {
+        "armorClassBonus": 3,
+        "dexterityCap": 2,
+        "checkPenalty": -2,
+        "speedPenaltyFeet": -5
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:chakri",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rhHGULVS5tumszGP",
+      "slug": "chakri",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/chakri.webp"
+    },
+    "sourceHash": "sha256:b726bd3ebbb6883c76c1c93ecc933e0f37f1bbee303fc6ce36ec647ffe18df17",
+    "translatableHash": "sha256:f7f7dc74f027aaee784c3ebe1bddb62734563fc3f8ca04464f1c69464182b02b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Chakri",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "recovery",
+        "thrown"
+      ],
+      "description": "Similar to a chakram, chakri are too light to be wielded in melee but allow the user significantly more control over their throws. A chakri is small and light enough that up to two can be worn on each wrist; a chakri worn on the wrist is reload 0 instead of reload—.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "dart",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:urumi",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Sarxo8kSrJs2qJEw",
+      "slug": "urumi",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/urumi.webp"
+    },
+    "sourceHash": "sha256:090c90e748db7935d684254943586273e018bd6e8e18b8b3cabe71015e20a3d4",
+    "translatableHash": "sha256:d1087424f8ea3ed744cf07e4069c7c0f6299630e2704a05432220c2c2ea3e904",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Urumi",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d10",
+        "sweep"
+      ],
+      "description": "A bouquet of whiplike blades extends from the hilt of this sword, enabling deadly, sweeping attacks.",
+      "bulk": 2,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:frying-pan",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ssDxSpQTYORoeCFA",
+      "slug": "frying-pan",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/frying-pan.webp"
+    },
+    "sourceHash": "sha256:52f420458b380b8cb7c78899e871943ce6264822cfda7c2f0a13660a8782ab35",
+    "translatableHash": "sha256:a8dc3ce21011df52fe44eeb72c14fe6b2a71b331dfd87d82cbee16e2e8a7cf19",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Frying Pan",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "fatal-d8",
+        "halfling"
+      ],
+      "description": "The cast-iron frying pan is an essential tool for adventuring halflings, gold panners, and remote tavern owners. Characters with the Halfling Weapon Familiarity ancestry feat are trained in the frying pan.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rotary-bow",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "T5ojw0tuXiAajhZx",
+      "slug": "rotary-bow",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1d1f8dbecf27c3fc6264238ebac02508d22f4e9fdf9bc959dde7a116afe06842",
+    "translatableHash": "sha256:8d7fb785c1a0d1f73d9799a916b61894c562f6d7cd9ba4adc3f0b40804859637",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rotary Bow",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "capacity-4"
+      ],
+      "description": "This one-handed crossbow has four arms instead of two, and four rotating chambers that can be pre-loaded with bolts for more efficient firing. The chamber can be swapped and the arms redrawn with a simple crank device built into the crossbow.",
+      "bulk": 1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "crossbow",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:voicebox",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uWe8GXBjAdA0q4ad",
+      "slug": "voicebox",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fc8228b572193748234d3b04520ab0dcd2c05a7459902ad650bd59ffb97ed43e",
+    "translatableHash": "sha256:86bfaba0a61962960e57578e99b192b956333b140184bc2158c82f3221f75d9c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Voicebox",
+      "itemType": "equipment",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "illusion",
+        "magical"
+      ],
+      "description": "This box contains small, magical amplifiers that allow a non-verbal character to translate thought into speech, which emits from the necklace. The speech produced matches any language you understand.",
+      "bulk": 0,
+      "price": {
+        "sp": 5
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scroll-robes",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VJ4s6ABlkimSyjjZ",
+      "slug": "scroll-robes",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/scroll-robes.webp"
+    },
+    "sourceHash": "sha256:473a87e09e62730c01a8c72f2c8bff2a5eaf4ce5f1f81a286f91a5c5f7ce8d0d",
+    "translatableHash": "sha256:5938b6434bc2c6f9e71fae25bb21dda4dde6414ea479b979ab4c50053fba588e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scroll Robes",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "inscribed"
+      ],
+      "description": "Scroll robes are composed of paper alchemically treated for strength and flexibility. A layered structure prevents cutting and tearing, and for the purpose of calculating damage, the robes are considered to be cloth. The paper accepts all sorts of decoration, including magical writing, as detailed in the inscribed trait.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 15
+      },
+      "usage": "",
+      "category": "unarmored",
+      "group": "cloth",
+      "armor": {
+        "armorClassBonus": 0,
+        "dexterityCap": 5,
+        "checkPenalty": 0,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:whipstaff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vnT33Z3V101FOUuV",
+      "slug": "whipstaff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a3989fa2c828e84ce2d0b8cff3db21db2052669e60de8222e5081b4cbdabd25f",
+    "translatableHash": "sha256:43eddc905f1887411d246c7b87a44a2637c481bdc1d2b17b60b0b9f863db4dd4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Whipstaff",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "finesse",
+        "monk",
+        "parry",
+        "sweep"
+      ],
+      "description": "The whipstaff is a 5-foot-long staff carved from alchemically treated wood. Exceptionally light and well-balanced, whipstaffs are favored by travelers and martial artists who prioritize speed over power.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tekko-kagi",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vsJ0zvYZzduP7rtD",
+      "slug": "tekko-kagi",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:573b3e901ae3ef9b0d429e02568b6446b103de5c1b92332fc660acda75c97480",
+    "translatableHash": "sha256:8ed4442b764d974a1b3ccaf6429da9b765f8f046e2fdd55e7eaafc11ab378425",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tekko-Kagi",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "disarm",
+        "finesse",
+        "free-hand",
+        "monk",
+        "parry"
+      ],
+      "description": "Four curved blades attached to a sturdy handlebar give the wielder of this close-combat weapon the illusion of having claws that extend from their fist. Adherents of Bastet favor the tekko-kagi for catching their foes off guard.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "brawling",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bec-de-corbin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VTFTlP8xmPKKV4S6",
+      "slug": "bec-de-corbin",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/bec-de-corbin.webp"
+    },
+    "sourceHash": "sha256:fc994780f8c481d1be67a6f20988cd8dddce5b681e1c737af1d6fd4b1bd95960",
+    "translatableHash": "sha256:afb000fc59c661e7837333368f3a134b0bc0d33d9a29138a7ddc0a888f43d414",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bec de Corbin",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "razing",
+        "reach",
+        "shove",
+        "versatile-b"
+      ],
+      "description": "A bec de corbin is a spiked polearm that uses a hammer head to help balance the spike. The hammer portion can be used as a secondary striking surface, while the spike or fluke is specially designed to punch through armor and shields.",
+      "bulk": 2,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "polearm",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:taw-launcher",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wbJPWXKzQBKYZ74s",
+      "slug": "taw-launcher",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "OGL",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/taw-launcher.webp"
+    },
+    "sourceHash": "sha256:06a56d07375f29848cd6f3cf181710469dadec68ae09db30d132896c5ba0721f",
+    "translatableHash": "sha256:d61cae2266fbbde347626f66513a2f878d771525e9fc7fc4125d62cf8f349efa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taw Launcher",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "conrasu",
+        "deadly-d10",
+        "modular"
+      ],
+      "description": "This complex device is a crossbow and fires small wooden bullets known as taws. A system of blades within the launcher can rapidly reshape a taw as it's loaded, allowing the launcher to fire taws of different shapes, such as fléchettes.",
+      "bulk": 1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-two-hands",
+      "category": "advanced",
+      "group": "crossbow",
+      "damage": {
+        "dice": 1,
+        "die": "d10",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:leather-lamellar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wx7WY6YGvgMphDL1",
+      "slug": "leather-lamellar",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:959ff0c25dbe190018895f9accb595df1a5a4244bd56ee46137e4c85f6e5d797",
+    "translatableHash": "sha256:6a0fd2d5c405754ab495e33624bf359862ee1501b06605479051932433f3b325",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Leather Lamellar",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "laminar"
+      ],
+      "description": "Leather lamellar is a composite armor made of small rectangular pieces of lacquered leather laced together with high-quality cord. It's typically worn with an undershirt.",
+      "bulk": 1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "light",
+      "group": "composite",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 4,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:jiu-huan-dao",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WxczDmQ5qOaD5IxB",
+      "slug": "jiu-huan-dao",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:90a0277cb0bee277bb186522e3b9b390b0d0e5c03d89ff959e677b10459446c9",
+    "translatableHash": "sha256:041a70620f559613d409f1ef41f0d985758198ea2607c9068aaba30583d0af7e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jiu Huan Dao",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "sweep"
+      ],
+      "description": "This sword has a broad blade, along which are threaded nine heavy metal rings, leading some to call it the nine-ring sword. The rings add weight to the weapon for broad swings and clash together to make noise.",
+      "bulk": 1,
+      "price": {
+        "sp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spraysling",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XguFCTUBh1yqJXd1",
+      "slug": "spraysling",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "OGL",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/spraysling.webp"
+    },
+    "sourceHash": "sha256:44b2d9cfc503f4870eae9f6ccbc34050f70db5abef192f3cd3cb867562336c23",
+    "translatableHash": "sha256:736388354d70511f479558ba07bc84eb4577c6319eade55ec9ea10ffe991c63b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spraysling",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "halfling",
+        "propulsive",
+        "scatter-5"
+      ],
+      "description": "A spraysling is similar to a standard sling but with a wider cup fitted with a thin blade affixed to the cup's edges. When used to make an attack with a specially prepared packet of spray pellets, the razor slices open the packet and the weapon launches a cluster of stinging pellets.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 1
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sling",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:falcata",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xHdbwPOUgLPUtqLj",
+      "slug": "falcata",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/falcata.webp"
+    },
+    "sourceHash": "sha256:485729567e2c1b0fbbbd527e26b9910f161fd8157d1d94af4c6efb3de2b8e718",
+    "translatableHash": "sha256:acc7a9721481685ab8de7e848abe1520f5ad177e46cdba102fd794ddddbcbbbb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Falcata",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "fatal-d12"
+      ],
+      "description": "The falcata is a heavy, one-handed sword with a single cutting edge, usually flaring to be wider toward the point of the weapon and narrower toward the hilt.",
+      "bulk": 1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:meteor-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XnD9zqlwRFFK1ltc",
+      "slug": "meteor-shield",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:06e59dc072e5d44cd64ae0665004b63c008a090056e6c23e5a333e29227591b3",
+    "translatableHash": "sha256:d67b979ff1f4ada5e186ed7dcefe362cc34caaa910fb076b24540cfb87aa0d36",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Meteor Shield",
+      "itemType": "shield",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "shield-throw-30"
+      ],
+      "description": "Meteor shields are specifically designed with throwing in mind. A meteor shield is made from thin steel and has quick-release straps, allowing for easy, long-distance throws.",
+      "bulk": 1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "meteor-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:meteor-hammer",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xu3azdMCIa53Oe1f",
+      "slug": "meteor-hammer",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:feabb9b88d94d22b01edebabdaf6a619d3f60bd3a63582c869f98678d19fbe83",
+    "translatableHash": "sha256:dae7790d7ddd135c3e5d2acb3d026111c7ff8f0b70808b59daa7b8f66278c32b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Meteor Hammer",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "backswing",
+        "disarm",
+        "reach",
+        "trip"
+      ],
+      "description": "This weapon consists of a long chain connected to a heavy weight at each end. When a wielder swings the weights by the chain, they build momentum and can serve as deadly bludgeons with incredible reach.",
+      "bulk": 2,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "flail",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:boomerang",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "y5bkwzClxfs6gpDn",
+      "slug": "boomerang",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/boomerang.webp"
+    },
+    "sourceHash": "sha256:a5c8fed7f465d63d8f8169ca9636bc7c164c91c2601fd28b155bd802b8e496bf",
+    "translatableHash": "sha256:0008437aef1758f307d2302cf274607f48a8247aeb1bf995c4b29ed05792f365",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boomerang",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "recovery",
+        "thrown"
+      ],
+      "description": "The boomerang is a carved piece of wood designed to curve as it flies through the air, returning to the wielder after a successful throw.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gi",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yiU4osCo6ql28r6M",
+      "slug": "gi",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:6d4b0303b3ee43e3a52727323f97b20e50fb329d84c9ca955bab065946ed123c",
+    "translatableHash": "sha256:6abe20e286ed49043b0cd19350c3ce8f854e70183033804e98aaeebb6cd88e02",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gi",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "comfort"
+      ],
+      "description": "Also called martial arts suits or practice clothes, gi are outfits of tough cloth built for comfort and unrestricted movement—ideal for practicing martial arts. They have reinforced stitching resistant to strenuous use.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 2
+      },
+      "usage": "",
+      "category": "unarmored",
+      "group": "cloth",
+      "armor": {
+        "armorClassBonus": 0,
+        "dexterityCap": 5,
+        "checkPenalty": 0,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scizore",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yIY0voZkwMoff5b3",
+      "slug": "scizore",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/scizore.webp"
+    },
+    "sourceHash": "sha256:08a3a5d7ff49bf9a3752c4ca22ac8f2b40daa82ad44ae4b383baaa12ec5d813d",
+    "translatableHash": "sha256:193c5099c85c893e08109af1b733150029c92f05c0724031a279424d6e362a77",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scizore",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "disarm",
+        "parry"
+      ],
+      "description": "A scizore is a gauntlet or protective leather tube worn over the forearm and featuring a half-moon blade mounted to the end of the cap on a short pole.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:feng-huo-lun",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yUgOLSyb4pGGxfCR",
+      "slug": "feng-huo-lun",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/weapon.svg"
+    },
+    "sourceHash": "sha256:2554c8e0d503c1b420a5403b3f97954cfa581f25ed940b7de1fba57cabef02e2",
+    "translatableHash": "sha256:b28d41f4b241bd71dc36cda2572bb27ffa9198b8d7936b33420fac23a2f752f4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Feng Huo Lun",
+      "itemType": "weapon",
+      "level": 0,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "disarm",
+        "finesse",
+        "monk",
+        "parry",
+        "twin",
+        "versatile-p"
+      ],
+      "description": "Also known as wind and fire wheels, these large, flat steel rings feature several protruding blades typically stylized to resemble flames.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 2
+      },
+      "usage": "held-in-one-hand",
+      "category": "advanced",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:leaf-weave",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zVSBjb6o5RudKA9c",
+      "slug": "leaf-weave",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c35c127df6856d7bd9f3b15901460301df9b2608c9a82d9784ed55d09ae717e8",
+    "translatableHash": "sha256:f4f15fe65561f1d25e9d37a7da5948a4a75ea1b4017133acd7ea61081b206e09",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Leaf Weave",
+      "itemType": "armor",
+      "level": 0,
+      "rarity": "common",
+      "traits": [
+        "laminar"
+      ],
+      "description": "Specialized crafters, often elves, create leaf weave out of sturdy leaves from ancient or magically enriched trees. Such leaves, when treated properly, have the strength of leather, and other tough plant materials hold the leaves together to form the armor. Such suits are popular among those who wish to avoid materials taken from slain beasts. As a material, leaf weave has the same statistics as thin wood.",
+      "bulk": 1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "",
+      "category": "light",
+      "group": "wood",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 4,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:olfactory-stimulators",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "00gDg8WcPv3TKC9N",
+      "slug": "olfactory-stimulators",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:0df0109def634f4b68755568cb1052b0424ce1dd46cfe450fecc9513a0e48981",
+    "translatableHash": "sha256:9eb0cfd6b0b18515bb370c620d3feef5f1cd2122fbeff41de5429b4f53ab5749",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Olfactory Stimulators",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This cluster of sensitive wire whiskers fits over the nose or snout to provide sensory information as it reacts to nearby odors and other scents. A creature wearing olfactory stimulators gains a sense of smell, which is as precise as an average member of its species, as well as the scent special ability if members of its species typically have that ability. Olfactory stimulators can be fitted to animal companions as well as sapient creatures; stimulators produced for companion use have the companion trait.",
+      "bulk": 0,
+      "price": {
+        "gp": 5
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:magical-prosthetic-eye",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "20LwBpDPRaLv0dGt",
+      "slug": "magical-prosthetic-eye",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:65a2b6e4379e03588e922e5bc12ce2a3fc140204c5b998ed6f93018f93ad0d6a",
+    "translatableHash": "sha256:17f4f9947e0af2be19a91b22bd6a65e4fe2498b687675967c477b5728ef1c179",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Magical Prosthetic Eye",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This prosthetic eye converts visible light into a telepathic signal that is relayed to the wearer's mind using magic. As the wearer's mind must process the telepathic signal in the same way as it would a nerve impulse, the acuity and other abilities related to the vision provided by the magical prosthetic eye matches that of other members of your ancestry (for instance, a goblin with a magical prosthetic eye would be able to see in darkvision, while a human wearing the same prosthetic would need illumination). You can remove or replace a magical prosthetic eye using an Interact action.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:affliction-suppressant-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2Vd9v0TvEXdVyMTP",
+      "slug": "affliction-suppressant-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:429df7f3c5c729afa3874711ddd8e74c8f855c32e40e6d852cb09987fb1cbcdc",
+    "translatableHash": "sha256:64f9b685297a4a9e0e255c95ab2e72257c04c4f43216b25d5660220526588b90",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Affliction Suppressant (Lesser)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nFirst created using the same principles as the antiplague and antivenom elixirs, an affliction suppressant is a broadly useful medicine, but sacrifices potency. It applies to a wide variety of afflictions, but lasts a much shorter time. Upon drinking an affliction suppressant, you gain a +1 item bonus to all saves against afflictions for 10 minutes.\nUnlike with an antiplague, this suppressant isn't long-lasting enough to apply to a daily save against the progression of a disease, curse, or other long-lasting affliction. It can still help protect you from catching such an affliction when you're initially exposed to it, as well as on saves that occur after stages that last 10 minutes or less.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skunk-bomb-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3Sij5RwC6Z1ZVuFp",
+      "slug": "skunk-bomb-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:368ee3d40aa74be33f256c68d74c0f0c0eb1a42acf8f55ac7956581eb1b2772b",
+    "translatableHash": "sha256:c084ad3071f4bfdbc631195285ca80c74b524fb3137b2d401fdcc9527b53e531",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skunk Bomb (Lesser)",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "olfactory",
+        "poison",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nSkunk bombs are made from the concentrated odors of xulgaths, hezrous, and other creatures with natural or supernatural stench. The bomb deals 1d4 poison damage and 1 poison splash damage. Any creature hit by the bomb or in its splash area must attempt a check (fortitude, dc:15) saving throw. Creatures in the splash area treat the results of their saving throw as one step better.\nCritical Success The target is unaffected.\nSuccess The target is Sickened 1.\nFailure The target is sickened 1 and Slowed 1 while sickened.\nCritical Failure The target is Blinded for 1 round, Sickened 2, and slowed 1 while sickened.\nCreatures sickened by the bomb emit an odor that lasts 10 minutes after the sickened condition ends (or 1 hour if they were also blinded). The odor can be removed or neutralized by using prestidigitation or similar magic or by spending 10 minutes scrubbing with ample soap and water. While the odor lasts, creatures within 30 feet can smell the target, enabling even those with a weak sense of smell to detect its presence, and all creatures gain a +1 item bonus to Track the affected creature for as long as it has the odor. A creature that has imprecise or precise scent doubles the range at which it can detect the target using this scent.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "poison"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:weapon-harness",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4mW1K9vZ0VIIEazS",
+      "slug": "weapon-harness",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a207a737fe4340b995e0cf99b82a0b70bdad944e4e5e576bc448ab2b22fd4c03",
+    "translatableHash": "sha256:a0d2e3d4d3055487d0aa266cce93ad3d98f74c31530b47a84dd53f6e098a68ba",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Weapon Harness",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "adjustment"
+      ],
+      "description": "A suit of armor with this adjustment incorporates short, flexible harnesses meant to connect weapons to each of its vambraces. These harnesses can each be connected to a melee weapon of light Bulk or less. Attaching or removing a weapon takes an Interact action. Someone else can attach or remove a weapon if you're willing to let them or you're unable to act. You must remove a weapon from its mount before you can completely Release or otherwise stow it.\nYou gain a +1 circumstance bonus to your Reflex DC against attempts to Disarm you of a weapon connected to the armor. If the weapon would be knocked from your grasp or you would drop it, the weapon dangles from the bracer by its harness rather than falling to the ground. You can regain control of the weapon in the normal time it takes you to draw it. Attaching a weapon to a weapon harness prevents you from throwing it or using other abilities that would require it to leave your person.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6
+      },
+      "usage": "applied-to-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:animal-repellent-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7V5fKnnvW7DUgbAd",
+      "slug": "animal-repellent-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:0212465da50427de0d49ad5dab80d33b95fe00a062b78e8045c2b3f4a8a051b8",
+    "translatableHash": "sha256:311b289d7faed3ef1a6a6e59761ff93f0392d70d7ea8393e19e1705b4898adf3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Animal Repellent (Minor)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "olfactory"
+      ],
+      "description": "Activate 1 (manipulate)\nAnimal repellent is a noxious alchemical substance that makes you repulsive to a certain kind of animal. You can, for example, make ape repellent, bear repellent, or snake repellent, but not a repellent that affects all animals. The repellent doesn't work on creatures that are similar to the kind of animal, but not actually animals—for example, bear repellent wouldn't work on werebears. Animal repellent is ineffective against animals with an Intelligence modifier of –3 or higher, such as awakened animals. When you initially learn the formula for animal repellent, you learn the formulas for all common animals. If no animals of a kind are common, such as sea serpents, you must learn the formula for that kind separately, and it has the same rarity as the least-rare creature of that kind.\nYou Activate animal repellent by sprinkling it on yourself or a creature within reach, or by spreading it on a surface in an area up to 10 feet square. The repellent lasts for 24 hours or until scrubbed clean with 1 minute of work (consisting of multiple Interact actions). The designated kind of animal can smell the repellent from three times as far away as normal.\nThe designated kind of creature typically avoids the coated creature or area, which smells foul and feels unnerving to it. If in combat or otherwise distressed, the creature can approach within 20 feet of the affected creature or area only if it succeeds at a Will save with a DC determined by the type of animal repellent. Once it succeeds at this save, the animal is temporarily immune for 1 minute. If the animal attacks in a way that causes it to taste or ingest the repellent, it must succeed at a check (fortitude, dc:15) save or become Sickened 1 (or Sickened 2 on a critical failure).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mantis-shell",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8WVYOughRWLb7kGF",
+      "slug": "mantis-shell",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/mantis-shell.webp"
+    },
+    "sourceHash": "sha256:a2740be4a6d548928f502d2c3897f21d2ef943ec1ad47f0b8d70620558d9f7ca",
+    "translatableHash": "sha256:07041b32808a6ce0c492f1726c8c4acf2b06ed550bcb11ed67994fb5d20bdb4a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mantis Shell",
+      "itemType": "armor",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "adjusted"
+      ],
+      "description": "Construction of mantis shell armor originates with the Red Mantis assassins. Authentic mantis shell can be found in some dark markets, but wearing such armor can attract deadly attention from the armor's originators. Mantis shell comes with the weapon harness adjustment, though these special vambraces are meant to hold sawtooth sabers, and attaching anything else is an insult to the Red Mantis. A character who is a member of the Red Mantis assassins has access to this uncommon armor.",
+      "bulk": 1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "",
+      "category": "light",
+      "group": "skeletal",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bendy-arm-mutagen-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9F3d43xMDCJNIkDo",
+      "slug": "bendy-arm-mutagen-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3b1423e7fe6bb80270a847550912af7a2c04e87d4ff44a180fde0b8b765d9399",
+    "translatableHash": "sha256:10f2b8b53b8b012a23547f28331d46685fd17d9f07e3c2b982b95d7d59c72968",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bendy-Arm Mutagen (Lesser)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nFor 1 minute your limbs become extremely limber, letting you stretch and twist to extreme degrees at the cost of fine motor skills.\nBenefit You gain a +1 item bonus to Acrobatics checks to Escape, Squeeze, and Tumble Through, and you increase your reach by 5 feet.\nDrawback You take a –1 penalty to Athletics checks, Stealth checks, Thievery checks, and attack rolls, and a –1 penalty per damage die to all weapon and unarmed attack damage.\nEffect: Choker-Arm Mutagen (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bane-ammunition-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "arNOPU7h8nNbnZ1N",
+      "slug": "bane-ammunition-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:57092293f133ce3e13708cde3847ae6a4108a37c011ce90b9af0ab063dca2d3b",
+    "translatableHash": "sha256:24416a739c5f99d70de09a322292ab3e7764aa539d3cfb1e21d27ed44410e61d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bane Ammunition (Lesser)",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nMonster hunters favor bane ammunition that contains a capsule of reagents tailored to a particular type of creature—aberration, animal, beast, dragon, fey, giant, ooze, or both fungus and plant. Each type requires a different formula. When activated bane ammunition hits a target that has a trait matching the selected type, it takes 1d4 persistent poison damage in addition to the damage the attack normally deals.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:traveling-companions-chair",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "C5vVNVAHO5Kfaveo",
+      "slug": "traveling-companions-chair",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:7175a9f52d65b21733bb4191b1d0bb316abe4beca1248cc9534bbcbad68287ba",
+    "translatableHash": "sha256:c9a2e0ec4731b2c74928c6f14ac89c842beb44cc7e960b4e4d0f9757a84d925d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Traveling Companion's Chair",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "barding",
+        "companion"
+      ],
+      "description": "This more robust assembly is well suited for longer travel and all manner of adventuring. As with the traveler's chair, small mechanisms built into the wheels and support struts allow the user to traverse up and down stairs without any additional difficulty (though moving up stairs is still difficult terrain, just like for other adventurers) and move without additional difficulty through ladders, uneven ground, and other common adventuring terrain.",
+      "bulk": 1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spear-frog-poison",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CeKPffF0FaEyhLMp",
+      "slug": "spear-frog-poison",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/spear-frog-poison.webp"
+    },
+    "sourceHash": "sha256:9492def894da3c9299e02dae0877ce52535a9caf4f9add0b64c73b16757df3d8",
+    "translatableHash": "sha256:79362dc522a5512f1d6660841b4d74943ab414a40aca955953d8ab7f2a57ba7c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spear Frog Poison",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison"
+      ],
+      "description": "Activate 2 (manipulate)\nCarefully harvested from the skin of the poisonous spear frog, this toxin causes a burning rash and weakness in the limbs. Each frog yields enough toxin to Craft one dose of spear frog poison.\nSaving Throw check (fortitude, dc:15)\nMaximum Duration 6 rounds\nStage 1 1d4 poison damage (1 round)\nStage 2 1d6 poison damage and Enfeebled 1 (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-two-hands",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-lesser-fire",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CGmJzsdRb5aJ4eFn",
+      "slug": "elemental-ammunition-lesser-fire",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a854b4239a75d3488e0c1345cf50fe0131ed16bbb2ad0ef0fe9292fb6433bada",
+    "translatableHash": "sha256:0c8a33db6428da6b3d71da18079314fec4dcb39cf9467acd86547a543ec48f34",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Lesser, Fire)",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "fire",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 1 persistent fire damage to the target and 1 splash fire damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-lesser-poison",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EVaMsTsWhdPkCtrg",
+      "slug": "elemental-ammunition-lesser-poison",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3daf75321ef774eb3bf0f47984bc78242f870d7978fea278aa8f6e73d9624a71",
+    "translatableHash": "sha256:e847e99062a3f652090dfafb203130668855a98d751fe16bf9f8dabc52a20a84",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Lesser, Poison)",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 1 persistent poison damage to the target and 1 splash poison damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:phalanx-piercer",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EvBQcbkiYUusdFKY",
+      "slug": "phalanx-piercer",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:81006d864f8fd11921e7b422778fed1292de4be70146dbf24fd163bffb150cf1",
+    "translatableHash": "sha256:3e2ef0adac8c4b7525c648c4eaff8b64fe5c115919c3dbbac0a8c7df7ff30bf1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phalanx Piercer",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "concussive",
+        "hobgoblin",
+        "propulsive",
+        "razing",
+        "volley-30"
+      ],
+      "description": "This massive bow is made from bone or wood reinforced with flexible metal strips and strung with reinforced cord. Designed by hobgoblin engineers to take down shielded opponents, the phalanx piercer fires heavy, iron-shod bolts.",
+      "bulk": 2,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-plus-hands",
+      "category": "advanced",
+      "group": "bow",
+      "damage": {
+        "dice": 1,
+        "die": "d10",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ring-of-discretion",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FABVnBeYtGXshlwm",
+      "slug": "ring-of-discretion",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:706f00b28479a6f272d6b1d3549646ec48a882ee5ee51296f975e323ae1a277b",
+    "translatableHash": "sha256:82f5988541fa561f6c6f87ca6a0bee018a47fc9d95e02c400d789fb3fcfc73bf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ring of Discretion",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "visual"
+      ],
+      "description": "A ring of discretion magically conceals any armor and sheathed weapons you're wearing by either turning them invisible or creating the illusion of ordinary clothes. The ring doesn't change your appearance beyond concealing weapons and armor. As soon as you wield a weapon affected by the ring, the weapon becomes obvious to onlookers and is no longer affected until you sheathe the weapon for at least 1 minute. A creature can use the Seek action to examine you and disbelieve this illusion (Seek DC 15), and it can attempt to do so without using an action each time it hits you with an attack.",
+      "bulk": 0,
+      "price": {
+        "gp": 15
+      },
+      "usage": "wornring",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eye-slash",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FYv6k2zkd0MJ93la",
+      "slug": "eye-slash",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:88b6c52c689397bedc84c98f8cbe10fee85782c97f3bf5f95684465f4ede75be",
+    "translatableHash": "sha256:a461cd1243334cbca54dd253627fc833cc2737e1cebd98c36188c1becea960cd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eye Slash",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Small scars or marks around your eye improve your distant vision. These scars are especially common among orc scouts, who favor scars shaped like eagle talons. You can see four times farther than normal. If you have darkvision, you can see blood in color. Higher-level versions of an eye slash are larger and more elaborate scars or marks, radiating out around the eye.",
+      "bulk": 0,
+      "price": {
+        "gp": 20
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mortal-chronicle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gxfIiPebrvjXeALk",
+      "slug": "mortal-chronicle",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fa1fc59c0ffa381618f9594c8f1e2beeb2559836f3c5c8dd0f7d33949d06834d",
+    "translatableHash": "sha256:e5e7a3c7a2b1f368d02ebc6619a823984edcdf00f328791b2d6acc6410b5a404",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mortal Chronicle",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Common among fatalists and adventurers with access to resurrection magic, mortal chronicles look like tombstones, funeral plaques, or simple scrolls bearing the wearer's name or nickname. If you die, the date and cause of your death appear on the tattoo. The cause is literal and inexact, failing to identify specifics; it could read \"beheaded\" or \"immolated\" but not \"beheaded by Amiri\" or \"murdered with fire.\" If you're raised from the dead, a mark on the tattoo indicates the date you reversed your death. The tattoo then expands enough to list your next death when it comes.",
+      "bulk": 0,
+      "price": {
+        "gp": 10
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sparkler",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hd8D1Dm6aVhMYpEL",
+      "slug": "sparkler",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:46b1832e2ad23a0c9cc821cc4aec933e10e35f04904b34273ef4efb90b2de7ac",
+    "translatableHash": "sha256:8e61386ea19f334786808306a1f0535fcdac84038fdcd970b44823f0b0e55808",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sparkler",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "fire"
+      ],
+      "description": "Access Sparklers are common in Tian Xia and Vudra and can be Crafted by those who can specifically Craft fireworks.\nActivate 1 (manipulate)\nA sparkler gives off colorful sparks, burning for 1 minute. It provides bright light in a 10-foot radius (and dim light for the next 10 feet). While the sparkler burns, you can use it as an improvised weapon, dealing 1 fire damage on a hit. On a critical hit, you cause the target to become Dazzled for 1 round.\nYou can touch a sparkler to a flammable object as part of the action you spend Activating it or as a separate Interact action while the sparkler is already activated. If you do so, the sparkler can ignite flammable objects the way a Matchstick does.\nEffect: Sparkler",
+      "bulk": 0,
+      "price": {
+        "sp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:injection-reservoir",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hD95fU3S507iTHcb",
+      "slug": "injection-reservoir",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a0f0c721119250092ccad22831a9bc31d64fd0913c8d89bc26b9bc93c5edf238",
+    "translatableHash": "sha256:002423115ceb8c4cbb24cb9195e7f74cd6f5b19075c3e67aa60e6f88dd2b85bc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Injection Reservoir",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "adjustment",
+        "alchemical"
+      ],
+      "description": "This reservoir and spring-loaded needle can be attached to a weapon to let it inject deadly poisons. Additionally, the reservoir can be filled with an injury poison. Immediately after a successful attack with the adjusted weapon, you can inject the target with the loaded poison by activating the reservoir with an Interact action. Refilling the reservoir with a new poison requires 3 Interact actions and uses both hands.\nAdding an injection reservoir to a weapon throws off its balance, causing the multiple attack penalty with the weapon to be one greater than usual (usually –6 on a second attack and –11 on a third; or –5 and –10 with an agile weapon).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "applied-to-a-non-injection-melee-weapon-piercing-damage",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:armor-latches",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HuC6uonXt6YXePjb",
+      "slug": "armor-latches",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4aa81841d5528cdae39515ef182d6ddd62bfb9ce271ee826d38e962cb4799133",
+    "translatableHash": "sha256:6ac9de1a816040bff94edfb2b7507b738da9a55331241eb6193cc7ee9e7c3825",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Armor Latches",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "adjustment"
+      ],
+      "description": "This armor is easily doffed. A set of armor with armor latches gains the noisy trait; you can't add latches to armor that already possesses the noisy trait. You can remove a set of armor with armor latches with a 3-action activity, which has the manipulate trait. This doesn't affect the time it takes to don the armor.",
+      "bulk": 0,
+      "price": {
+        "gp": 4
+      },
+      "usage": "applied-to-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-lesser-electricity",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IhRPEmA2JlYNiCPK",
+      "slug": "elemental-ammunition-lesser-electricity",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f9235d52c7e6805f49422c65ee0980085bddd11124c98e65b98a47d1325494e4",
+    "translatableHash": "sha256:d25213a9d32a25c0bd1989ba45a9040f3a9612b2f8ef87deb0c3d7cc1852ce46",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Lesser, Electricity)",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "electricity",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 1 persistent electricity damage to the target and 1 splash electricity damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:alchemical-gauntlet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JAOzIeqKr5hULumB",
+      "slug": "alchemical-gauntlet",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:626a47d2706a43f872ee405410c8a89fa3874a0dc41eca0baadfc37c4aa2d39a",
+    "translatableHash": "sha256:2c463e2b8c0e9d6e06f2965bc6d681865806f3f424f9bdce1d27dac7475727b3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alchemical Gauntlet",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "alchemical",
+        "free-hand"
+      ],
+      "description": "An alchemical gauntlet emits small alchemical detonations when it makes contact with a foe. As an Interact action, you can place a bomb into a metal bracket near the wrist of the gauntlet. The bomb must be one that deals energy damage, such as an acid flask, alchemist's fire, blasting stone, bottled lightning, or frost vial. The next three attacks made with the gauntlet deal 1d4 damage of the bomb's damage type in addition to the gauntlet's normal damage. If the second and third attacks aren't all made within 1 minute of the first attack, the bomb's energy is wasted. These attacks never deal splash damage or other special effects of the bomb and aren't modified by any abilities that add to or modify a bomb's effect.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "brawling",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:deadweight-mutagen-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JPALWW3w4z8STAYV",
+      "slug": "deadweight-mutagen-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:896739f7a3a79329e623cf41c113dc3e53e50680104a88fa8ec6c7950f88beb0",
+    "translatableHash": "sha256:af4048fa9c6f8f70fd58ddbe78f3edd46bfccc845e49fa7608229df884586be9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Deadweight Mutagen (Lesser)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nFor 1 minute your joints loosen and bones thicken, making your body incredibly weighty and difficult to maneuver around.\nBenefit You gain a +1 item bonus to Athletics checks to Shove and Trip, to your Fortitude and Reflex DCs against attempts to Shove or Trip you, and to saving throws against effects that attempt to force you to move or knock you Prone.\nDrawback You gain the Encumbered condition and can't remove it while under the effects of the mutagen.\nEffect: Deadweight Mutagen (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:theatrical-mutagen-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kScHu3XS3XPvN9Db",
+      "slug": "theatrical-mutagen-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:70621497b9f1dfe26a7252995ab04844adc768deb5e04e9c3ecf4f2b47a497e9",
+    "translatableHash": "sha256:0913fd17e4e15aebd038b10b7be820271300922b6a010b67a4d01f9b094c1515",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Theatrical Mutagen (Lesser)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nDeveloped and widely used by students at the Kitharodian Academy in Oppara, the theatrical mutagen stimulates the creative centers of your brain. This causes your movements to become exaggerated and your voice to become clear. However, the erratic surges of inspiration overload your senses, making it difficult to focus on mundane tasks. This lasts for 1 minute.\nBenefit You gain a +1 item bonus to Acrobatics checks, Crafting checks, and Performance checks. If you're untrained in any of these skills, your proficiency bonus is equal to your level instead of +0. You also gain a +5 feet status bonus to your Speed.\nDrawback You take a –1 penalty to Perception checks and Will saves. After any round where you don't spend at least 1 action to Interact with an object, Perform, Step, or Stride, you're Off-Guard until the start of your next turn.\nEffect: Theatrical Mutagen (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hellknight-breastplate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LF7HSNnlGxLJyDZS",
+      "slug": "hellknight-breastplate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4ba2af7bd8d6f8fca86669dfb4ca154842393f341b45a742630379cd845205fe",
+    "translatableHash": "sha256:a763ee1ea6aacd0f6d835fc87623b621508ecc6981dc48487ba05ed4bde7431a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hellknight Breastplate",
+      "itemType": "armor",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight breastplate serves those in the order who lack the training to wear heavy armor.\nA character who is a member of the Hellknights has access to these uncommon armors.",
+      "bulk": 2,
+      "price": {
+        "gp": 10
+      },
+      "usage": "",
+      "category": "medium",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 4,
+        "dexterityCap": 1,
+        "checkPenalty": -2,
+        "speedPenaltyFeet": -5
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:energy-mutagen-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mbrwudO35tItsldq",
+      "slug": "energy-mutagen-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/energy-mutagen.webp"
+    },
+    "sourceHash": "sha256:add75f611a1be88b68633f6badbb211f7b6d71914fde7e4c852e564efdd4a92b",
+    "translatableHash": "sha256:787a4c5afe6d3035caaca1f91304a02555bedc31d340fcad4de2f7f0c674f173",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Energy Mutagen (Lesser)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate A (manipulate)\nWhen created, this mutagen is attuned to one of four energy types: acid, cold, electricity, or fire. When consumed, the mutagen suffuses your body with energy that spills out whenever you attack. At higher levels, it can even grant you the ability to unleash the energy in controlled bursts.\nBenefit You gain resistance 5 to the attuned energy type. Whenever you score a hit with a melee weapon, add 1 damage of the attuned energy type.\nDrawback You gain weakness 5 to the other three energy types.\nDuration 1 minute.\nEffect: Energy Mutagen (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:navigators-star",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MpgoMNvnvy3Ysskq",
+      "slug": "navigators-star",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3b257a8f979507aa837624e9d3ac74f1118a1d204ede7cd44f2dae7d94b10f7c",
+    "translatableHash": "sha256:3c1a139f3b16ca03e481c424ba3848d30e18021a46276cb619b4ccfc7e14882f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Navigator's Star",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "A star inked on the back of the hand, usually between the thumb and forefinger, keeps you on the right path.\nActivate 2 (concentrate, manipulate)\nEffect As you hold up your hand and align the star in view, you learn which direction you're facing.",
+      "bulk": 0,
+      "price": {
+        "gp": 18
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:missive-mint",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mYfK7M3BhB57LmAl",
+      "slug": "missive-mint",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fdc245bd8e532de2b3985f292c0333aae05782b4701b22630d33da8eab3eb28c",
+    "translatableHash": "sha256:1d6746c17efe15b92d6cdb701f16c7e1c1daf338cfe37b6c9c66077e51884f4d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Missive Mint",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "auditory",
+        "consumable",
+        "linguistic"
+      ],
+      "description": "Activate 1 Interact\nThis white mint with a chalky coating appears to be a normal candy unless someone examining it succeeds at a check (crafting, dc:15) check to Identify Alchemy. If the crafter has the powerful alchemy class feature, this DC is their class DC instead, if it's higher. The mint's crafter can imbue a missive mint with a message containing up to 25 words while creating it. Someone who consumes the missive mint hears the message in a fizzing voice as the mint's coating bubbles away, which takes the same amount of time as it would to speak the message. The mint's eater has no way of knowing who the original sender was, what they sound like, or who the message was intended for.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:journeybread",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pBq1cHXnic8dGxx8",
+      "slug": "journeybread",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:cac98a7f6543c99bc7fffa143f33b731156c021bb470b1e40cd4cadc8b01d428",
+    "translatableHash": "sha256:98e7da3953b6fe6d08514efb0a3b20d50179a0593defc9d0f974195b9e453940",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Journeybread",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nJourneybread contains a mix of fruits, nuts, and grains with an alchemical boost. Eating one journeybread provides all the food and water you need for a day. If you subsist on nothing else for a week, you become temporarily immune to journeybread until you eat real food and drink water normally for 24 hours.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:memoir-map",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Q2MhPIDRXgD0K6C4",
+      "slug": "memoir-map",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/tattoos/memoir-map.webp"
+    },
+    "sourceHash": "sha256:05e237fc3136a63aa43401bd0daadd4638ef1b7df166316ace1d64daccc22f5a",
+    "translatableHash": "sha256:69ff998b507989eb2a073270d9fc7de386613a5ae57fd7ddd883694372d968b4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Memoir Map",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Your journeys and the major events in your life that occur after you obtain this tattoo appear on it, your life story traced upon your skin. Each time you journey somewhere new or accomplish something noteworthy to you, a design or symbol appears, representing the event. The positions of these images are relative in location, but measurements aren't exact. A memoir map starts with an icon representing your location when you receive the tattoo, usually over the heart, and grows from there. Traveling to another plane causes a new portion to appear on a different part of your body to represent that plane. If you want a record of your life before you receive your memoir map, you can have the tattoo artist embellish the map to represent past events.",
+      "bulk": 0,
+      "price": {
+        "gp": 13
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:weapon-siphon",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "touk9g0Lc2REwowo",
+      "slug": "weapon-siphon",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:64a6718e068b4e53f5969a18491f60cd6f92c584a57e9c99864fe3bba5bca4de",
+    "translatableHash": "sha256:be25d561cc66ffb96bd84b48ca55437a4178ff67edd539ccdb0eadcc2d1443b1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Weapon Siphon",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "adjustment",
+        "alchemical"
+      ],
+      "description": "Activate 1 (manipulate)\nThis set of tubing snakes down the striking surface of a weapon to deliver alchemical explosives. A single lesser alchemical bomb can be fitted to the weapon siphon as an Interact action. The bomb must be one that deals energy damage, such as an Acid Flask, Alchemist's Fire, Blasting Stone, Bottled Lightning, or Frost Vial. The next three attacks made with the weapon deal 1d4 damage of the bomb's damage type in addition to the weapon's normal damage. If the second and third attacks aren't all made within 1 minute of the first attack, the bomb's energy is wasted. These attacks never deal splash damage or other special effects of the bomb and aren't modified by any abilities that add to or modify a bomb's effect.\nAdding a weapon siphon to a weapon throws off its balance, causing the multiple attack penalty with the weapon to be one greater than usual (usually –6 on a second attack and –11 on a third; or –5 and –10 with an agile weapon).\nEffect: Weapon Siphon\nEffect: Weapon Siphon Bomb Fitted",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "attached-to-melee-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:merciful-balm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tspcGx4OrZEv2gQX",
+      "slug": "merciful-balm",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:41402a315ac64e10d7b40db37b0092d852de4d4e95bfe40876fbbf7373809bb4",
+    "translatableHash": "sha256:403fd439c72ea137e3a5e90102f7111180d697819af37a67ef4ea976f2db05bf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Merciful Balm",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nSmelling strongly of herbs and pine resin, merciful balm is a thick, sticky paste that can be used to anoint a weapon, granting the weapon the nonlethal trait for 1 hour.\nEffect: Merciful Balm",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fortress-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tugYMolpupNz05cE",
+      "slug": "fortress-shield",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:88956be70334b36b04de725ca4810fbb9604673d63838a46a7875c6d4ce83326",
+    "translatableHash": "sha256:3d1a937adea014ce2aead98560a80fe06ad3d39e479476722715a3bd368a5f4c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fortress Shield",
+      "itemType": "shield",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "hefty-2"
+      ],
+      "description": "Also known as portable walls, these thick and heavy shields are slightly larger than tower shields. Like tower shields, they're typically made from wood reinforced with metal, but many are made from larger amounts of metal or even stone.\nGetting the higher bonus for this shield requires using the Take Cover action while the shield is raised.",
+      "bulk": 5,
+      "price": {
+        "gp": 20
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "fortress-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hellknight-half-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "U6XqhSFUUowHnnkk",
+      "slug": "hellknight-half-plate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/hellknight-plate.webp"
+    },
+    "sourceHash": "sha256:db41d41bcfd7355c1925724793f8878176dc98d7108c6be3d89d7358d1ce6649",
+    "translatableHash": "sha256:322421166a2629e88830426fd7add8acfbde3388801a378816a924a0aef4dff6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hellknight Half Plate",
+      "itemType": "armor",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifers.\nA character who is a member of the Hellknights has access to these uncommon armors.",
+      "bulk": 3,
+      "price": {
+        "gp": 20
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 5,
+        "dexterityCap": 1,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sukgung",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "udm5X6TXm5vdIo4h",
+      "slug": "sukgung",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:08d686cfc68173a23b5161938311c7de4cfbc5d774e0fa85348992f27051ede1",
+    "translatableHash": "sha256:edce7400916ee12c01dab3ba320ccbdef0e540d5cdddb5fbf7fe02a2f337aecd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sukgung",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "fatal-aim-d12"
+      ],
+      "description": "The sukgung is an extremely efficient crossbow most common in the nation of Hwanggot. Capable of lethal shots at remarkable distances, the sukgung is well-balanced enough to be fired with one hand.",
+      "bulk": 1,
+      "price": {
+        "gp": 7
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "crossbow",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:barricade-buster",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "UogGzQfXDc32E1p7",
+      "slug": "barricade-buster",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4ed0dd09de4ae4e2d5c847981f27a558c422f6985a7b1cf2384b0b90b46c10f7",
+    "translatableHash": "sha256:2027d15767fb2f356f68ef3a284ac85d57ab74921c07e78f051f866e99ce388b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Barricade Buster",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "kickback",
+        "orc",
+        "razing",
+        "repeating",
+        "volley-20"
+      ],
+      "description": "Developed by a dromaar inventor from Alkenstar who brought the technology north to battle the Whispering Tyrant alongside the orc hordes of Belkzen, the barricade buster features eight barrels fixed around a central pivot attached to a handle and firing mechanism. A barricade buster fires spheres of metal with extreme velocity and very little accuracy.",
+      "bulk": 3,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-two-hands",
+      "category": "advanced",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d10",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:candlecap",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "UwGcNJS5jjjUssPb",
+      "slug": "candlecap",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2ef4e1db2961b5802ba357340363cac3ef724c1d699eaea89e8de3ccf4b2781d",
+    "translatableHash": "sha256:8aa6957f099f99ceb656f68813ce28e40ec1d9c7a9b5e9e62b1f5322a5b4de37",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Candlecap",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "light",
+        "magical"
+      ],
+      "description": "The crown of a candlecap is stitched leather sewn in the shape of a small bowl. Fixed inside the bowl is a melted nub of wax with a small black wick.\nActivate 1 (manipulate)\nEffect You shake your head, and the candle wick ignites. The candlecap sheds dim light in a 20-foot radius. The candle doesn't require oxygen and can't be smothered or quenched. Activating the candlecap again douses the light.",
+      "bulk": 0,
+      "price": {
+        "gp": 12
+      },
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:numbing-tonic-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "V35j3JEJMUbuJZNX",
+      "slug": "numbing-tonic-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/addiction-suppressant.webp"
+    },
+    "sourceHash": "sha256:07f0138bf4d735a279189096255b3aca3e0796d70ae76172e4df805a59311fd0",
+    "translatableHash": "sha256:259b37e06c13b083ecb682d06ea5784aead46a2abdb5b2cb4616ecf5855e359b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Numbing Tonic (Minor)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 (manipulate)\nNumbing tonic makes it easier to push through the pain of battle and shrug off otherwise debilitating blows. You gain 2 temporary Hit Points when you drink the elixir, and again at the start of each of your turns for 1 minute.\nEffect: Numbing Tonic",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:8-round-magazine",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vExfAIHZ2WaJPfMp",
+      "slug": "8-round-magazine",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b8fe3d7a8d849508742c9cd10de4bc3cc553943a9274ec7b33fab02c032b4443",
+    "translatableHash": "sha256:9090138ab69f1440e994bc7cd5d642248c35624367d2e35a0af1bd3ee549b3a9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "8-Round Magazine",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable"
+      ],
+      "description": "A barricade buster fires spheres of metal with extreme velocity and very little accuracy.",
+      "bulk": 0.1,
+      "price": {
+        "sp": 2
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "8-round-magazine"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sanguine-mutagen-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VIHsu1q3078gdQut",
+      "slug": "sanguine-mutagen-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4f1d22da8aca775ad318c1a361ff5022c9cf836748f64f5120ba05a0d3716d32",
+    "translatableHash": "sha256:6d90483e81346918f93255580c7ccb433bcecdc33fcfb66827693b06234efd28",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sanguine Mutagen (Lesser)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nFor 1 minute you gain greatly increased blood production, filtering out contagions and boosting your endurance but causing your body to bloat with blood.\nBenefit You gain a +1 item bonus to Fortitude and Reflex saves. This bonus improves to +2 when you attempt a save against an effect that has the disease trait, poison trait, or would give you the Fatigued condition.\nDrawback Whenever you take piercing or slashing damage, you take 1d6 persistent bleed damage.\nEffect: Sanguine Mutagen (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 3
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:polytool",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vRCH0cQJMllWvpfU",
+      "slug": "polytool",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/polytool.webp"
+    },
+    "sourceHash": "sha256:f07f0cfdb95c00319f25ff9e4fc65e7071622ff0d91327e3e6d3a9f1f40c9601",
+    "translatableHash": "sha256:2f7934eb4d90597f4af1c7ee2c0056a891b2904272b0b363a9da9cc5cbf9b32f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Polytool",
+      "itemType": "weapon",
+      "level": 1,
+      "rarity": "uncommon",
+      "traits": [
+        "agile",
+        "modular"
+      ],
+      "description": "The polytool is a small metal rod with a number of simple tools folded inside. The user can extend a long ceramic blade, as well as an awl, chisel, file, flint and steel, hook, inkpen, magnifying glass, pliers, scissors, and a small saw. The flint and steel can be used up to 10 times before needing to be replaced. Though inspired by advanced Numerian technology, the polytool is a simple enough feat of metalworking that any blacksmith could produce it—perfect for the goddess Casandalee to spread innovation farther than actual Numerian tech could reach.",
+      "bulk": 1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sword",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:guide-harness",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WKT5mW2EccS22989",
+      "slug": "guide-harness",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f1a8f6b3e6cc7804f9643c6138283fc7215f226c471d8306fbc63608bbb7b070",
+    "translatableHash": "sha256:410b75e6007cc7e840085f75c413c20d2f4d707569f4eef9b3d11cadc297eba4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Guide Harness",
+      "itemType": "equipment",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "companion"
+      ],
+      "description": "The grip of this guide harness fits comfortably in the hand. Guide harnesses are purpose-built for low-sight or blind adventurers who have guide animals. Usually fastened with side straps placed through a martingale, guide harnesses can be easily reconfigured to allow them to be worn by any animal companion.",
+      "bulk": 1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-lesser-cold",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WnNvHEYObRivN1wI",
+      "slug": "elemental-ammunition-lesser-cold",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:65a274d2f399f365e4fe7f39da3d006da364a07a71c70b6b1af62db4b8c88344",
+    "translatableHash": "sha256:1a9e2208650010b36d947ed60dd43a09cd6ef2ad4f60f4acce5c45d00165a067",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Lesser, Cold)",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "cold",
+        "consumable",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 1 persistent cold damage to the target and 1 splash cold damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vaccine-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yi1iL9dbLDSr4NZd",
+      "slug": "vaccine-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/vaccine.webp"
+    },
+    "sourceHash": "sha256:d4656b276625bfe12fefda45c4fc6e2c201dc191884a788db6f28f129a1613b9",
+    "translatableHash": "sha256:bfe7a0fd5cab38a2c25ec39d4cc14905e571e734f468e26491e27ac569e643b3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vaccine (Minor)",
+      "itemType": "consumable",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nA vaccine grants a creature immunity to a specific strain of disease of a level equal to or less than the vaccine's level, and a +2 item bonus on all saving throws against other strains of the same disease. For example, a vaccine could grant immunity to putrid plague inflicted by harpies, but would only grant a +2 saving throw bonus against putrid plague inflicted by a giant rat.\nCraft Requirements Creating a vaccine requires a sample of the disease in question.\nDuration 1 hour.\nSpecial A vaccine is the same rarity as the disease it's designed to prevent, or as the creature who inflicts the disease if the disease itself doesn't list a rarity.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 4
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-lesser-acid",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zHzAZRDVtl2NFqyh",
+      "slug": "elemental-ammunition-lesser-acid",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a412795c5bf284c07a50b90a8fb8786821d29ea6e8ef76b947554ec65076d609",
+    "translatableHash": "sha256:02923d9e754100fd9f9f3fc9d22022ec990fe5aaf9e0c456de81298389a7a702",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Lesser, Acid)",
+      "itemType": "ammunition",
+      "level": 1,
+      "rarity": "common",
+      "traits": [
+        "acid",
+        "alchemical",
+        "consumable",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 1 persistent acid damage to the target and 1 splash acid damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 3
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:legerdemain-handkerchief",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4kKFzTy2Rlwg2xJG",
+      "slug": "legerdemain-handkerchief",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:e2fb3294aca6a0c2cf70b654b6fdbe588b89cf7ce768be652baf65940fffc055",
+    "translatableHash": "sha256:137a6757d531725436e8943174ddf5f9a33a1d7675fa0c194e8800cb31aab7e5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Legerdemain Handkerchief",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "extradimensional",
+        "magical"
+      ],
+      "description": "This frilled, silvery-gray handkerchief is a stylish tool for personal hygiene by all appearances, but it can be used to covertly make very small items vanish.\nActivate 1 (manipulate)\nRequirements The handkerchief is entirely covering an item of negligible Bulk\nEffect The handkerchief transports the item it covers into its extradimensional space. The handkerchief can hold only one item within its extradimensional space at a time, so any item taken is replaced by any item already within the space. You can also use this action to expel an item already within the extradimensional space without replacing it. This activation can't be used on an attended item unless the creature with that item allows it. Placing the handkerchief over an item typically takes an Interact action.",
+      "bulk": 0,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skittering-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "599vQVSFAKMzvVEt",
+      "slug": "skittering-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/skittering-mask.webp"
+    },
+    "sourceHash": "sha256:db897464d72004e4ee8971e98b00dbe484874842b8b9137d022d9fa9c18c2fd8",
+    "translatableHash": "sha256:e569fd77c0304e46718e5eb7fa13f394fd82e1daf5721f017f8ac465ef4ac088",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skittering Mask",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A skittering mask is a hand-carved, wooden, full-head mask that sports several holes along each side of the face. The first time each day that you begin your turn unconscious and within 25 feet of an enemy, skittering metallic insect legs emerge from the holes in the mask and Step 5 feet away from the nearest enemy, dragging your body along with the mask. If more than one enemy is equidistant, the mask Steps away from one of them at random. The mask possesses no special senses and does not react to Hidden or Undetected enemies, nor can it distinguish that a creature not acting openly hostile is an enemy.",
+      "bulk": 1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:empathy-charm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9dKzjpAQiE48AIWD",
+      "slug": "empathy-charm",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1218ba0ea817f7195a409c006c9c7d3d3c665d4546cb6bd240faf0a84c8d9821",
+    "translatableHash": "sha256:9f69d7303c45c6e746c17f1a5d39ee4df72b749b7c4dabd38483f64aa4bdd842",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Empathy Charm",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "companion",
+        "magical"
+      ],
+      "description": "This charm, usually placed on an animal companion's collar, contains a single strand of your hair, as well as one of your animal companion's, creating a link that better transmits emotional cues to a trained psychological assistance animal.\nActivate R (concentrate)\nFrequency once per day\nTrigger You attempt a saving throw against an emotion effect\nRequirements Your animal companion wearing the empathy charm is within 10 feet\nEffect Your animal companion senses the effect and attempts to calm you. You gain a +1 circumstance bonus against the triggering save.",
+      "bulk": 0,
+      "price": {
+        "gp": 35
+      },
+      "usage": "affixed-to-harness",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:handkerchief-of-disagreeable-disguise",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aGkmq9k4QIEpLFs7",
+      "slug": "handkerchief-of-disagreeable-disguise",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1c63afb80114e77bfca604b4c42d77619e9a11f5d2a9922401f4c0d8193a5c83",
+    "translatableHash": "sha256:243b5c54a16023342b1459eba9124de45ed5cb163159d74943190b36268e8fa5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Handkerchief of Disagreeable Disguise",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "invested",
+        "magical"
+      ],
+      "description": "This elegant scarf appears to be and functions as a Masquerade Scarf. When you invest the scarf, it fuses to you.\nActivate 1 minute (manipulate)\nFrequency once per day\nEffect Like a masquerade scarf, the scarf casts a 1st-rank Illusory Disguise spell on you. However, the illusion disadvantages you based on your intent, making you, for example, appear to be a suspicious ruffian if you're trying to sneak past guards or lending you the seeming of a pauper if you're trying to impress a shallow aristocrat. You and those you consider to be allies must succeed at a check (will, dc:16) save or you perceive the illusion as you intended it, though others won't. Evidence to the contrary allows you to attempt to disbelieve the false version of the illusion. You can't Dismiss the spell.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bewitching-bloom-lilac",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CF2BYEQnAmSwmPPE",
+      "slug": "bewitching-bloom-lilac",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4150f4776c618f61e7d64916567ddeceae98a7d17ca2e649cd6405170807aad0",
+    "translatableHash": "sha256:db2bead2376661270d7113ddb18799b7b966fdcdb214de606faa37cac19771af",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bewitching Bloom (Lilac)",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "While dormant, this tattoo appears to be a simple flower bud, but when activated the flower swiftly blossoms, remaining that way until the next time you make your daily preparations. These blooms are colorful, elegant representations of lilac flowers.\nActivate 2 envision\nFrequency once per day\nEffect Choose a willing ally you can see within 30 feet. Memories bubble to the surface of your ally's mind. The ally attempts to Recall Knowledge with a +2 status bonus to the check from these vibrant memories.",
+      "bulk": 0,
+      "price": {
+        "gp": 25
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:emetic-paste-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cHKqK8g9dS3GJ58F",
+      "slug": "emetic-paste-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2ae8067b8665329fefff466a17e3f78ddacc2a1e75262578423260baf00bb994",
+    "translatableHash": "sha256:c728ef8aa31564c46dcd28023e0e0135715a20286290ff48ccc4c4b022f492c7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Emetic Paste (Lesser)",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nSickened creatures have difficulty swallowing, so you can Activate emetic paste by applying it to your skin or that of a sickened creature within reach, typically on the throat. The paste makes it easy for the sickened creature to purge, granting it an immediate Fortitude save to reduce its sickened condition. The paste grants the target a +2 item bonus to that save and to all saving throws to reduce the sickened condition for 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gelid-shard",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "e6lhw1SPdq3koAqG",
+      "slug": "gelid-shard",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fe7a2f077af17d542a52b75e365c4723f0d7c857abd5549313f08c1e0973c0a7",
+    "translatableHash": "sha256:0d0dd8f444c22fda2b3576f70a7db6edf6ad9a2a4417124f9a72233bdb5613b7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gelid Shard",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "rare",
+      "traits": [
+        "arcane",
+        "artifact",
+        "cold",
+        "invested"
+      ],
+      "description": "This crystal shard shimmers with its own light even as it seems to draw the heat out of its surroundings. Plunging it into your heart grants you the tranquil lethality of deepest winter, but the more you draw upon its power, the colder your heart grows. Your frozen heart dulls your emotions. When you gain a bonus from an emotion effect, that bonus is reduced by 1, to a minimum of 0. At 10th level, the bonus is reduced by 2. Your dulled emotions make it hard to relate to others; the DC of checks to Make an Impression or Request a favor of other creatures, or to Aid in such attempts, is increased by +2. You gain resistance to cold equal to your level and a +2 status bonus to all saves against emotion effects.\nDestruction The gelid shard must be left exposed in the Plane of Fire for a week and a day, then smashed with an adamantine hammer by someone who felt true love for the shard's creator.\nGelid Shard",
+      "bulk": 0,
+      "price": {},
+      "usage": "other",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:apparition-gloves",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "eYemXoYEObmaeOAE",
+      "slug": "apparition-gloves",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4d09f07ffe6ff721a0e263752ac16d87cb5ea03b9cfeebcd9214e8f17994fb8d",
+    "translatableHash": "sha256:b87404e4d095b79e442897dd81ec5a997a8abe49f45af2a124d551b528f3ddae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Apparition Gloves",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "illusion",
+        "magical"
+      ],
+      "description": "This set of gloves translates whatever the wearer says into the signed version of that language by projecting a ghostly, translucent version of the wearer's hands in front of them. The apparition is a purely visual illusion used for communication, so it can't move on its own, nor can it hold or manipulate objects, or attack.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "worngloves",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fortress-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FSDEuHDr1I4JVIJg",
+      "slug": "fortress-plate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7b4f1c38687974a2c3b9240ca0170505eaf37c69d5eb6d3ef4c58fc1e4f64b7b",
+    "translatableHash": "sha256:3a195ec4c28ba8b3cb2082831c8d6311fff45e74ef0560b6c8496281b9536790",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fortress Plate",
+      "itemType": "armor",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "bulwark",
+        "entrench-ranged",
+        "ponderous"
+      ],
+      "description": "Dwarves of Dongun Hold developed fortress plate, which is still popular in Alkenstar and Dongun Hold. A trained wearer can adjust the articulated armor's overlapping layers of plates and panels to provide protection from missiles.",
+      "bulk": 5,
+      "price": {
+        "gp": 32
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 6,
+        "dexterityCap": 0,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ooze-ammunition-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fSO6mFltCGuSapsi",
+      "slug": "ooze-ammunition-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d36138642b5dc9eebfd24814af65a6282cdab15b92771abb0061c4271645a9d5",
+    "translatableHash": "sha256:8fd25aaf6d16c6f0cfabae81f4cc07c7f0e5b99d9557936bb0f25011c9771960",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ooze Ammunition (Lesser)",
+      "itemType": "ammunition",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "acid",
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nOoze ammunition is a capsule containing a sticky substance. If you hit a creature with activated ooze ammunition, it deals acid damage instead of its normal damage type, and the creature then takes a –5-foot penalty to Speed and 1d4 persistent acid damage until it ends the effects. On a critical hit, the creature is Immobilized for 1 round in addition to the other effects. The target can end the effects by Escaping (DC 16) the sticky foam. Other creatures can provide the action, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn.\nEffect: Ooze Ammunition",
+      "bulk": 0,
+      "price": {
+        "gp": 7
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:alchemists-flamethrower",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gdaLHiWRhB1l2Xr3",
+      "slug": "alchemists-flamethrower",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:5f17f062a1a90a538997155a0fdf9e7e667532a6c142f7ad4370f1e6d251c546",
+    "translatableHash": "sha256:42adb6b5009f142e9d80cbc5f88cc858949c2e555463a69fca1286bd9ae6f886",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alchemist's Flamethrower",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "fire"
+      ],
+      "description": "This long cylinder is topped by a pair of brass sockets and a collection of polished pipes and tubes. A total of two vials of alchemist's fire must be loaded into the sockets at the base of the weapon and the tubes cleaned and primed. Properly loading the flamethrower in this way takes 1 minute. When the trigger on a loaded flamethrower is pulled, the alchemist's fire is siphoned into the rifle and shot out of the muzzle in a line of fire. The damage dealt by a flamethrower is determined by the strength of the weakest alchemist's fire loaded into the flamethrower.\nActivate 2 (fire, manipulate)\nRequirements The flamethrower is loaded\nEffect You pull the trigger, expending both loaded alchemist's fires to shoot a line of fire. Creatures in the area take fire damage based on the weakest alchemist's fire loaded into the flamethrower, as noted below. Creatures that critically fail the basic Reflex save additionally take the listed persistent fire damage.\n• Lesser Alchemist's Fire: The flamethrower deals 1d8 fire damage (check (reflex, dc:15, basic, options:area-effect)) in a 30-foot line. 1 persistent fire damage.\n• Moderate Alchemist's Fire: The flamethrower deals 2d8 fire damage (check (reflex, dc:17, basic, options:area-effect)) in a 60-foot line. 2 persistent fire damage.\n• Greater Alchemist's Fire: The flamethrower deals 6d8 fire damage (check (reflex, dc:28, basic, options:area-effect)) in a 90-foot line. 3 persistent fire damage.\n• Major Alchemist's Fire: The flamethrower deals 10d8 fire damage (check (reflex, dc:37, basic, options:area-effect)) in a 120-foot line. 4 persistent fire damage.",
+      "bulk": 1,
+      "price": {
+        "gp": 35
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:goz-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GLr0U1yY4hSHBApa",
+      "slug": "goz-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:e0655e3da6eda2b7df1f9ea0fd8ea0bc001de069988b63ec22359059cd8d4234",
+    "translatableHash": "sha256:9dc265634e7e4bee5afd85e965fb9cac8d9b95fe57841ef5944df9fdd66be011",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Goz Mask",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Originally designed by a fanatical sect of Gozren priests, goz masks were designed to help navigate the area around the Eye of Abendego. The masks couldn't contend with the might of the storm, but people all around the Mwangi Expanse still use them. These masks are typically made of wood and sport round, exaggerated features.\nActivate 1 (manipulate)\nFrequency once per day\nEffect You ignore Concealment caused by fog, smoke, and other obscuring vapors for 1 minute.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:anticorrosion-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ICDQcwf2U7bSoieB",
+      "slug": "anticorrosion-oil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:0d6a1a61f0d4c876b7b66dadf56935e409a7eef98249aac0c78e1ab4ae652040",
+    "translatableHash": "sha256:53f363192e6f253af64c45f8aa074f07be9ba7c05348192a19a5ef86c03a0c44",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Anticorrosion Oil",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nYou can coat objects of 6 Bulk or less with anticorrosion oil. For 24 hours, the object takes half damage from acid and from all effects that specifically cause it to rust or corrode, such as contact with an ore louse's saliva.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hellknight-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lCgXeV52eYYl5cUX",
+      "slug": "hellknight-plate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/hellknight-plate.webp"
+    },
+    "sourceHash": "sha256:931a47268d7b08bc30fef9451cbeacf57f438ede2067151fa6378daf4495b841",
+    "translatableHash": "sha256:9b0d1846de2c0477d200eacc25977d0168b5e4c59363767fad35a7a658429bfe",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hellknight Plate",
+      "itemType": "armor",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "bulwark"
+      ],
+      "description": "Hellknights wear a variety of armors decorated with designs specific to the order. Hellknight half plate is the armor of choice for Hellknight signifiers, and Hellknight breastplate serves those in the order who lack the training to wear heavy armor.\nA character who is a member of the Hellknights has access to these uncommon armors.",
+      "bulk": 4,
+      "price": {
+        "gp": 35
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 6,
+        "dexterityCap": 0,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bastion-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oGVtymwknrJS8gWW",
+      "slug": "bastion-plate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/bastion-plate.webp"
+    },
+    "sourceHash": "sha256:b7aeff31550ab1b5b9819cfbfcdaac7622e334725c8017e2a0c7c4a8ee2659ca",
+    "translatableHash": "sha256:f0c86d498fe0603b1736e5c400e2f76d367afb617cb56ab667e99599f7caf3af",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bastion Plate",
+      "itemType": "armor",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "bulwark",
+        "entrench-melee",
+        "hindering"
+      ],
+      "description": "This cumbersome and sturdy plate armor has fluting and additional protection built into the cuirass, helm, pauldrons, and vambraces. Bastion plate was invented for protection in combat tournaments meant to be sporting rather than lethal.",
+      "bulk": 5,
+      "price": {
+        "gp": 33
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 6,
+        "dexterityCap": 0,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:life-shot-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Oo0KZTmFsu9iCAR9",
+      "slug": "life-shot-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/ammunition/life-shot.webp"
+    },
+    "sourceHash": "sha256:3ffd28f0aa16743f9715f898da4d55e1e25457fae9e3a96dd064cff7fd003490",
+    "translatableHash": "sha256:c7d3e2766ef28689ba26608a91061b6fe5e43306ad068a84837e2181f2e54689",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Life Shot (Minor)",
+      "itemType": "ammunition",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "healing"
+      ],
+      "description": "Ammunition round\nActivate 1 (manipulate)\nLife shot is a special cartridge that carries a small dose of elixir of life. A creature hit by activated life shot takes no damage from the successful attack, instead receiving 1d4 healing healing and gaining a +1 item bonus to saving throws against diseases and poisons for 1 minute. On a critical hit, roll the healing received twice and take the better result (this is a fortune effect). A target willing to be hit by this attack is Off-Guard against it.\nEffect: Life Shot",
+      "bulk": 0,
+      "price": {
+        "gp": 5
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:menders-soup",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oZBafUU1tk4tgwye",
+      "slug": "menders-soup",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:e81d3002ae1d41b827c2f9e686d27fbb0ffa1b639e5c99aed879ebad4cb580e7",
+    "translatableHash": "sha256:4c210cc15917bdbdcddd52046b32a1751bc41a9bb8fe2e69a7332a7114d197da",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mender's Soup",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "processed"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nThis hot, broth-based soup typically contains tubers, leeks, zesty spices, reagents, and if desired, the meat of livestock. Civic authorities commission batches of mender's soup for workers if a tricky job is on the agenda. After you eat the soup, its effects last 24 hours or until you make your next daily preparations, whichever comes first. You gain a +1 item bonus to Crafting checks to Repair and restore an additional 5 Hit Points to items you successfully Repair during this time.\nIf you eat mender's soup over the entire period required to attempt a Crafting check to Craft (typically a minimum of eating the soup each day for 4 days), the +1 bonus from the soup can be applied to that check, too.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:looters-lethargy",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "p3RduziOxQxtREg9",
+      "slug": "looters-lethargy",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/looters-lethargy.webp"
+    },
+    "sourceHash": "sha256:dd6842b397d3404839666b005a4e6ffa4a3b822bfd08aa6cb62023268e60ef37",
+    "translatableHash": "sha256:eb6d1b12ba9b14a67e0f051877e9989f4df0dc008cc11a0c24bbfc5f42748363",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Looter's Lethargy",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "contact",
+        "poison"
+      ],
+      "description": "Activate 3 (manipulate)\nThe poison known as looter's lethargy ensures no thieves are strong enough to walk off with pilfered treasures. Commonly smeared on locks, chests, and even valuable items themselves, the poison slowly saps the strength of those who touch it. Nearby guardians can then simply follow the resulting trail of discarded valuables to find the weakened trespasser.\nSaving Throw check (fortitude, dc:19)\nOnset 1 minute\nMaximum Duration 1 hour\nStage 1 reduce Bulk limit by 3 (1 minute)\nStage 2 Off-Guard, reduce Bulk limit by 4 (10 minutes)\nStage 3 off-guard, reduce Bulk limit by 5 (10 minutes)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 6
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ancestral-geometry",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "PSKFnWMq5daOJa1R",
+      "slug": "ancestral-geometry",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/tattoos/ancestral-geometry.webp"
+    },
+    "sourceHash": "sha256:6f6cfb50de38ef3ab013b01e87621f5c25cc633d37ebc22d762fade14c30922a",
+    "translatableHash": "sha256:c98720836e963fc5e8cd0c713cec24c29ef7f00161fa455fe97554ca1dd6df99",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ancestral Geometry",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Geometric precision and perfect angles signify that an artist with exemplary knowledge of dwarven tattooing traditions created this body art. Your family's ancestral stories, recited throughout the tattooing process, bind your blood even tighter to theirs. During your daily preparations, you manifest a visitation by an ancestor—possibly via a dream, a vision, or a magical trinket left by your bedroll. Roll 2d20 and record the highest result. Then roll 1d6 and note a type of saving throw: 1–2 Fortitude, 3–4 Reflex, and 5–6 Will.\nEffect: Ancestral Geometry\nIn addition, until the next visitation, you gain a +1 item bonus to one Lore skill related to the ancestor, as determined by the GM. Usually, the ancestor provides a kind of knowledge they believe you'll need. For dwarven ancestors, the Lore skill is usually Architecture Lore, Engineering Lore, Genealogy Lore, Labor Lore, Mining Lore, Warfare Lore, or Lore about a dwarven deity.\nActivate R (concentrate, fortune)\nFrequency once per day\nTrigger You rolled a saving throw of the noted type\nEffect Replace the roll with the d20 roll from your ancestor's visitation.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ursine-avenger-hood",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QgSPvZupjCsWhqAp",
+      "slug": "ursine-avenger-hood",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4ef8664a0eb8b4497c2891d2301da546e50eb5a005c2d6c7c8b776bc44c9e121",
+    "translatableHash": "sha256:de8537fc4d562dbe1576f566011e942ae389c77bfbede1eebac000df845137d2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ursine Avenger Hood",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "unique",
+      "traits": [
+        "artifact",
+        "invested",
+        "primal"
+      ],
+      "description": "A gift passed from warrior to warrior, this cowl is made from a cave bear's skull and fur. Once invested, the wearer gains a +1 item bonus to Nature checks to Command an Animal, which increases to +2 if the animal is a bear. The wearer of the hood feels a constant longing for the wilderness and wild places and takes a –1 item penalty to all Diplomacy checks to Gather Information or Make an Impression if they go more than 5 days inside a large town or city without spending at least 4 hours in the wilderness.\nDestruction Soak the Ursine Avenger Hood in the blood of a linnorm that is at least 16th level and then burn it in a fire that uses only oak and chrysanthemum as fuel.\nUrsine Avenger Hood",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cooperative-waffles",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "T28lI7becoK1ZGqr",
+      "slug": "cooperative-waffles",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:37f071e31bab316fe51bf5399bf2e75f909cb30550010c2838d2ae4fcfe5c525",
+    "translatableHash": "sha256:ec7ba11adc0324388724725ec9296a3875db7551875a9d1e739c883f0cc03729",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cooperative Waffles",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "processed"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nFlash-cooked on a waffle iron and drizzled with alchemical syrups and compound butter, cooperative waffles bolster the supportive spirit of those who share the batch. You can split the waffles with one other creature. After you both eat half of the waffles to Activate them, when one of you uses Follow the Expert to follow the other, the circumstance bonus granted is 1 higher. The waffles' bonus lasts 24 hours or until you next make your daily preparations, whichever comes first. You can only be linked to one creature in this way at a time; if either of you eats cooperative waffles again, the effect of your previous waffles ends.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:frostwalker-pattern",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tlPwOqfjJxQQsgoc",
+      "slug": "frostwalker-pattern",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:dfb9e9fdae8983fc968f9ae350e3545c53fff34161fd07f5317cac12ddf1d73a",
+    "translatableHash": "sha256:9feec3dbecc0e0f3b0af44249cd5d19a4c751c0edae8fd174865b6cecff39aae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Frostwalker Pattern",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Northern peoples design these tattoos to protect against cold weather, typically in geometric patterns with a combination of straight lines and whorls. This tattoo negates any damage you take from severe environmental cold and reduces damage you take from extreme cold to equal that of severe cold.\nActivate 1 (concentrate)\nFrequency once per day\nEffect Until the end of your next turn, you ignore difficult terrain and greater difficult terrain from ice and snow and don't risk falling when crossing ice.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:o-yoroi",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "U2liOd8kJasy0Ghd",
+      "slug": "o-yoroi",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b39932f68722086d92d9cb0cc36c63cd6eeb40244f3d919d361eb17a25773f47",
+    "translatableHash": "sha256:396de0a5cc8c807b49796cd1b2d416f762df38bd0b05c0fd8ba0c142dc07ee65",
+    "data": {
+      "schemaVersion": 1,
+      "name": "O-Yoroi",
+      "itemType": "armor",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "bulwark",
+        "laminar"
+      ],
+      "description": "Larger plates coupled with lamellar pieces to make up a suit of heavy lamellar. The custom-fitted and often highly decorative suit covers most of the body. Rounding out the suit are a tiered helmet and fearsome mask, often depicting a fiendish or monstrous creature.",
+      "bulk": 5,
+      "price": {
+        "gp": 35
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "composite",
+      "armor": {
+        "armorClassBonus": 6,
+        "dexterityCap": 0,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:moonlit-spellgun-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wU8HH03cNxe6Pkfi",
+      "slug": "moonlit-spellgun-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:1ae8614b84a5558a1d9d072fd2be8f4c683c45e0887b47c0442e9d3eccfcdd14",
+    "translatableHash": "sha256:1525da63b9e733048f26f826a3c583d92c50d6e81247c18b03acdb4542c21a2b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Moonlit Spellgun (Minor)",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "attack",
+        "consumable",
+        "fire",
+        "light",
+        "magical",
+        "spellgun"
+      ],
+      "description": "Activate 2 Strike\nElegant silver filigree contains the body of this ephemeral item, which is made of solid light. Its shape resembles a pistol, and it's often carried by hunters of werecreatures and vampires. You Activate the spellgun by aiming it at one creature and making your choice of a spell attack roll or a firearm attack roll against the target's AC. This spellgun has a range increment of 30 feet. The spellgun emits a silvery ray of pure moonlight that deals fire damage depending on its type. The spellgun's damage is treated as silver for the purposes of weaknesses, resistances, and the like.\nCritical Success The target takes double damage and is Dazzled until the start of your next turn. If it has a weakness to silver or a resistance that can be bypassed by silver, it's also Enfeebled 1 for 1 minute.\nSuccess The target takes full damage and is dazzled until the start of your next turn.\nThe damage is 1d8 fire damage at night, or 1d6 fire damage at other times.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 7
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:luckless-dice",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xRQpaV9fCM7ptmVB",
+      "slug": "luckless-dice",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/games.webp"
+    },
+    "sourceHash": "sha256:ac48d04a3ad8f2f2f535dd0896e721ffa5e3cd2f6342f1cc3f86261d5a33c4f6",
+    "translatableHash": "sha256:710b89a6dcda79c817df5acf6175b7182e913a85ff31cd6493a24a01be8a81b0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Luckless Dice",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "magical",
+        "misfortune"
+      ],
+      "description": "Carved of bone, luckless dice appear to be a set of loaded dice. If unsuccessfully identified as cursed, luckless dice seem to hold a minor enchantment that improves your luck. However, they fuse to you when you use them, cursing you with ill fortune. Luckless dice don't grant a bonus on Games Lore checks. Instead, when you use them to gamble, the GM rolls secretly, granting you the lower result. Once you realize the dice are cursed, the GM can instead allow you to roll twice and take the lower result.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oil-of-skating",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yUPRtHCpAPx3EBUq",
+      "slug": "oil-of-skating",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:545e1cacafaaafeedaba6da2a6d4c5d2f0c277fcfbcdb9da46222be06f9ebad1",
+    "translatableHash": "sha256:0b9bde16703e01796c223afff55f4b7d539dd8369816eea79c021e4bfa988b0a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oil of Skating",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nThis thin, slippery oil shimmers with a golden hue. Coating your shoes or feet with oil of skating enables you to skate quickly along flat surfaces for 1 hour. You gain a +10-foot status bonus to your Speed, which doubles if you move on a downhill surface. You lose this bonus if moving on difficult terrain, greater difficult terrain, or uneven ground. Also, you treat any uphill movement as moving on difficult terrain while your feet are oiled and treat the results of any Acrobatics checks made to Balance as one degree worse.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 5
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:soothing-tonic-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zA2UPGE9RYwlLPZJ",
+      "slug": "soothing-tonic-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/mnemonic-acid.webp"
+    },
+    "sourceHash": "sha256:5bf15a0aceef74ef3d0b7a554c9656fd44ecf7de51f14fd6fa163defcff52021",
+    "translatableHash": "sha256:9bb5503b0b0c95252075f46aabd4abfa2f796946ba13e57ae6b0587182d674e2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Soothing Tonic (Lesser)",
+      "itemType": "consumable",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nSoothing tonic is a pleasantly savory concoction that speeds your natural healing, so your wounds recover faster over time. You gain fast healing 1 for 1 minute.\nEffect: Soothing Tonic",
+      "bulk": 0.1,
+      "price": {
+        "gp": 7
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:triangular-teeth",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZIs2lAIDasxshMCf",
+      "slug": "triangular-teeth",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ab1fe10e2698cc72609cc21da5eeeffa0c7c48a76a0e3cd96e7d9cb1792902f0",
+    "translatableHash": "sha256:fadfb1ad5f79dc456c1a878c722b09218f7bbcca78fc916817d1a304ad3daa16",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Triangular Teeth",
+      "itemType": "equipment",
+      "level": 2,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Rows of triangles symbolizing shark teeth protect you from danger and enable you to take fierce retaliation against those who try to harm you. Seafarers, especially those on the seas of Minata, wear these tattoos in patterns, with multiple rows of regular triangles. You gain a +1 item bonus to Survival checks to navigate bodies of water.\nActivate R (concentrate)\nFrequency once per day\nTrigger You would be hit by an attack against your AC\nEffect You gain a +1 circumstance bonus to AC against the attack, or a +2 circumstance bonus if the attacker is in water or has the amphibious, aquatic, or water trait. Whether the attack hits or misses, you gain a +2 status bonus to damage with the next Strike you make against the attacker before the end of your next turn.\nEffect: Triangular Teeth",
+      "bulk": 0,
+      "price": {
+        "gp": 33
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:jolt-coil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0gxqSZhYdOeJhPrp",
+      "slug": "jolt-coil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:12d2a6bf439101025d5849455ce0e72cc082a7884366290af03842d1f8d29067",
+    "translatableHash": "sha256:cc8a29964b9aded96280d04423f87b6ffdf11be18449fd78903eb515e36436a2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jolt Coil",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "electricity",
+        "magical",
+        "spellheart"
+      ],
+      "description": "Contained within this small glass tube is a twisted wire filament crackling with electricity, sending static prickling through the hair of anyone holding it. The spell DC of any spell cast by activating this item is 17.\n• Armor You gain resistance 2 to electricity.\n• Weapon After you cast an electricity spell by activating the coil, your Strikes with the weapon deal an additional 1d4 electricity damage until the end of your next turn.\nEffect: Jolt Coil - Armor\nEffect: Jolt Coil - Weapon\ncheck (reflex, dc:17, basic, name:Jolt Coil Spell, traits:spell, showDC:all)\nActivate Cast a Spell\nEffect You cast Electric Arc.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:torrent-spellgun-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0rxTsnAGYWYaQaMl",
+      "slug": "torrent-spellgun-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:7d9450986264febba7a2034c98b0dbd26f3eb8ff7bd11f21c4b19c11eb5359a6",
+    "translatableHash": "sha256:08389547bcae87366c844e835845b7933404e4b8a1991de0a88f1bf2246737ec",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Torrent Spellgun (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "spellgun",
+        "water"
+      ],
+      "description": "Activate 2 Strike\nCarved of seashell, a torrent spellgun is damp to the touch, and seaweed wraps around its grip. You Activate the spellgun by aiming it at one creature and making your choice of a spell attack roll or a firearm attack roll against the target's AC. This spellgun has a range increment of 30 feet. The spellgun blasts a powerful jet of water that deals 2d6 bludgeoning damage, then disintegrates into sand.\nCritical Success The target takes double damage and is knocked back 10 feet.\nSuccess The target takes full damage and is knocked back 5 feet.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-red",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1AFWnVcoYvLcKtL9",
+      "slug": "colorful-coating-red",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/red.webp"
+    },
+    "sourceHash": "sha256:7c34f9cdc14d3099c66bd9640f056a6feeac545d0ba7e30882d4db72593a5713",
+    "translatableHash": "sha256:e20220aecd0c0a4c35b178febc42c9672c9b6894469eab62bf51dd30540d4afa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Red)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nRed colorful coating contains rubbery compounds, turning any surface it covers into a trampoline. A creature or object that falls onto a square coated with red colorful coating takes no falling damage and bounces half again as high as the original fall. If the creature fell straight down, then with several bounces, it comes safely to a stop. If it was moving horizontally, its bounce continues in the same direction, with a distance determined by the GM. If the coating is on a wall, a creature pushed or Shoved into the wall bounces back half again as far and avoids taking any damage from being pushed into the wall. On a ceiling, red colorful coating is useful only in unusual circumstances, such as in an area where gravity is reversed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:splatrope-extruder",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2KnSYPFGKz4MDeiW",
+      "slug": "splatrope-extruder",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:014b1ea6cd0723da12b142e3ec6dc4fa072f4b192b78caaacbb623e24d5ca5d0",
+    "translatableHash": "sha256:c68362d248294af8569b67fbdbdf041e09e63133e719f60b94ad668a869171a3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Splatrope Extruder",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This portable nozzle-and-trigger assembly based on spider spinnerets can extrude and weave alchemical adhesives into temporary constructions. As an Interact action, you can attach a Glue Bomb to the extruder.\nActivate 1 (manipulate)\nRequirements A glue bomb is installed in the extruder\nEffect The extruder converts the glue bomb into a 30-foot rope, whip, or net, depending on the nozzle die you choose when activating the device. The created object lasts for 1 hour. The DC to Escape a created rope (if used to bind a creature) or net is equal to the consumed glue bomb's DC and Escaping destroys the created object.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:diplomats-charcuterie",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3tCtnomxBkdyG43X",
+      "slug": "diplomats-charcuterie",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c954837f85caeff0e0a51c6c65854c9300cc106ed193ff883026f95042f5d739",
+    "translatableHash": "sha256:2b3ef36b9d1906f00f98aae9bb635d90d66b8ed6f37fb159327b0183291604ff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Diplomat's Charcuterie",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nA common sight at political gatherings, a diplomat's charcuterie has fine meats, cheeses, nuts, fruits, and other finger foods mixed with reagents to engender friendly feelings between those consuming them. Contents of the plate vary by chef and the intended palates, from the hearty sausages and hard cheese of charcuterie from the Lands of the Linnorm Kings to the hot-pepper cheese curds and smoked almonds of Thuvian platters. After Activating the charcuterie by eating it, you gain a +1 item bonus to Diplomacy checks to Make an Impression and Perception checks to Sense Motive. These bonuses last 24 hours or until you make your next daily preparations, whichever comes first.\nEffect: Diplomat's Charcuterie",
+      "bulk": 0.1,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bendy-arm-mutagen-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6VCaHBbUBk4eBlPC",
+      "slug": "bendy-arm-mutagen-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:0876fffa51684da2e07e451952511d21dfa02d552274b4ac0a3682c371576d76",
+    "translatableHash": "sha256:8c5978c5d6c733fd07e00dc65f1c6240e386fc8426c5d4018a368937d252fb2c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bendy-Arm Mutagen (Moderate)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nFor 10 minutes your limbs become extremely limber, letting you stretch and twist to extreme degrees at the cost of fine motor skills.\nBenefit You gain a +2 item bonus to Acrobatics checks to Escape, Squeeze, and Tumble Through, and you increase your reach by 5 feet.\nDrawback You take a –1 penalty to Athletics checks, Stealth checks, Thievery checks, and attack rolls, and a –1 penalty per damage die to all weapon and unarmed attack damage.\nEffect: Bendy-Arm Mutagen (Moderate)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oil-of-ownership-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6XMuLT5QKkoznKz9",
+      "slug": "oil-of-ownership-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:7ac3b852dc5302695430f355a4db6538f4ea7e8b5dac9ac976565aeb96c9698c",
+    "translatableHash": "sha256:08be773ced24cf767edeba3872796f5791082ccb66b4941a909601b6513faf0e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oil of Ownership (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nYou can coat objects of 6 Bulk or less with oil of ownership, or \"red-handed oil\" as some call it. Once applied, this clear oil remains active for 24 hours. Anyone who touches an object coated with this oil comes away with a red stain that won't wash off for 24 hours.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:demolition-fulu-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7WuJbX5c3SCB04Uw",
+      "slug": "demolition-fulu-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-fancy.webp"
+    },
+    "sourceHash": "sha256:7594b14a4145d000bab8c89bf0ce0b006d504a07c9d5f2bfc3fcbb6ba0c3a0c1",
+    "translatableHash": "sha256:139c973eb816f068254179dff80aac35b28b612675f3a4a676827d7924990646",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Demolition Fulu (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical"
+      ],
+      "description": "A demolition fulu allows a saboteur or excavator to be far away from the scene when demolition happens. The fulu crumbles to ash over 5 minutes to 8 hours, as you determine when you place the fulu. Once the duration ends, the fulu lowers the Hardness of the object it's affixed to by an amount equal to the fulu's level and then deals 3d6 bludgeoning damage to the object. A demolition fulu serves as a hazard with a check (perception, dc:17) check to detect it and check (thievery, dc:17) check to disable it according to its type.",
+      "bulk": 0,
+      "price": {
+        "gp": 12
+      },
+      "usage": "affixed-to-a-ranged-weapon",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blood-booster-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8g2U2PMC0lkPZEvq",
+      "slug": "blood-booster-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:afeeed3aa4b09af2b27dd6f33686edea0232fc735e558da81b9fa25acda7dc4f",
+    "translatableHash": "sha256:e7c694294b7715c6baad4571afbed3113ced6b19f351bc58240200e642e302eb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blood Booster (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nThis elixir bolsters your body's natural defenses and ability to resist maladies that travel through or affect blood. For 10 minutes you receive resistance 5 to persistent bleed and persistent poison damage, and you lower the DC for any flat checks to end persistent bleed or persistent poison damage as if you received particularly appropriate aid.\nAt the GM's discretion, blood booster elixirs can also automatically counteract non-magical effects that specifically rely on thinning the drinker's blood, such as a skull peeler's anticoagulant.\nEffect: Blood Booster",
+      "bulk": 0.1,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:battle-medics-baton",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8kv4fmpE1geu4bFx",
+      "slug": "battle-medics-baton",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:6560f15f796251c8c6590c5802fff6ea69bc94d09cb382a10507c71446f1b276",
+    "translatableHash": "sha256:a8b11e61e32553762716835d5a5e3d286a752a7b449ede1efaeafe392ac38090",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Battle Medic's Baton",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This short bronze rod has the form of a serpent coiled around it. While you hold it, you gain a +1 item bonus to Medicine checks.\nActivate 2 (concentrate, manipulate)\nFrequency once per hour\nRequirements You have the Battle Medicine action\nEffect You use Battle Medicine. The target is temporarily immune to your Battle Medicine for 1 hour instead of 1 day.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:theatrical-mutagen-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8rQ7HkUtSa8so0Et",
+      "slug": "theatrical-mutagen-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:e0709f93feb5ac84d0f9dcccbdec8969d63fccd0df46c3a91a786465961129ae",
+    "translatableHash": "sha256:9646810236e8ee7688795d756d38aba831790a33e80526f81a3c076ad2680bae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Theatrical Mutagen (Moderate)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nDeveloped and widely used by students at the Kitharodian Academy in Oppara, the theatrical mutagen stimulates the creative centers of your brain. This causes your movements to become exaggerated and your voice to become clear. However, the erratic surges of inspiration overload your senses, making it difficult to focus on mundane tasks. This lasts for 1 minute.\nBenefit You gain a +2 item bonus to Acrobatics checks, Crafting checks, and Performance checks. If you're untrained in any of these skills, your proficiency bonus is equal to your level instead of +0. You also gain a +5 feet status bonus to your Speed.\nDrawback You take a –1 penalty to Perception checks and Will saves. After any round where you don't spend at least 1 action to Interact with an object, Perform, Step, or Stride, you're Off-Guard until the start of your next turn.\nEffect: Theatrical Mutagen (Moderate)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-air",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8TEundYBdonchDj1",
+      "slug": "staff-of-air",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ce537da5fcd85a9ca9bc035b02332ba0df5dda91c6798e6fa95634f9451ce031",
+    "translatableHash": "sha256:a3ce8daf814b3e9402641fb4a102ce8b31e551384486e38416cc61d2075ba6d1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of Air",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "Carved from white ash wood, a staff of air crackles with electrical sparks, and a breeze always follows the wielder. While wielding a staff of air, you feel lighter on your feet, and you can Step into difficult terrain once per round.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Gale Blast\n• 1st Air Bubble, Gust of Wind\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-orange",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "A4mt1d9CK9lpLiqa",
+      "slug": "colorful-coating-orange",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/orange.webp"
+    },
+    "sourceHash": "sha256:8fce5c490338fd99ff769766f189af86beb83ee09ea3ac291ab7005c2a66e857",
+    "translatableHash": "sha256:fc401494352d1b9093c5ac057fd5c903c7e3d984ea8f33b079dcb80d6651d5b5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Orange)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nOrange colorful coating contains a mixture of acidic substances. As it dries, caustic ingredients rise to the coating's surface. The square becomes hazardous terrain, dealing 1d4 acid damage to any creature that moves through it. A creature can take this acid damage only once per round.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:life-boosting-oil-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "AFFaFaAW3IbbYqkL",
+      "slug": "life-boosting-oil-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:62391f1b4f7943eb30322618eeb93493ce6332b27b5ae9c98c1c808593c4cf4a",
+    "translatableHash": "sha256:4ab03cb75e152eebe63f71fb04d29245cfade838ab1ea591620dbc1198b169a3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Life-Boosting Oil (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "healing",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nWhen you apply sticky, stinging life-boosting oil, you gain fast healing 3 that starts the first time you take damage while the oil lasts. Once the fast healing starts, the oil remains effective for 4 rounds. However, the oil lasts only 8 hours, whether it provides fast healing or not.\nEffect: Life-Boosting Oil",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-blue",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aJrMyopbSzvXn5Zl",
+      "slug": "colorful-coating-blue",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/blue.webp"
+    },
+    "sourceHash": "sha256:eb8624dc3e6ce8f8f9c6a28759296aff23c2fa4bed6d8602e372c85ba2e697ee",
+    "translatableHash": "sha256:2a2a20397646374de44d5c980e77c854ceffd57b5eb1d3a2d5c8c388704a3965",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Blue)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nBlue colorful coating contains bonding compounds that firm up a surface, making it more stable and more supportive of weight. When applied to material that's loose or unstable, the square can hold twice as much weight before giving way. The coating also slows any collapse, making it easier to avoid and granting a +1 circumstance bonus to Reflex saving throws in reaction to the coated surface's collapse.\nThis coating can shore up a wall, ceiling, door, or similar opening, granting a +2 circumstance bonus to the DC for Athletics checks to Force Open the coated surface.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-skoan-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BhSQej6dIZh6wkWC",
+      "slug": "unifying-emblem-skoan-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a6219d2bfbe04aac52d350990799f71623e098ab6f993a060c2691888e8831e4",
+    "translatableHash": "sha256:1017c9281774fb23b69ec7308fd525816edfd7c64cd902e407e3d0528e8a2075",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Skoan-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "illusion",
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Skull clan depicts a broken maxilla and mandible.\nActivate 2\nFrequency once per day\nEffect The tattoo casts Ventriloquism.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-sklar-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bw2RNhvtX1vvHi0y",
+      "slug": "unifying-emblem-sklar-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4d4e5f0a353c96e5160a24e6fbb743b11becaf1f7e2bcbd275fee78d67d8decc",
+    "translatableHash": "sha256:97a9a495c129114fec788cacf43ef34fa4f17b048c585e6aa2c2ed289808a809",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Sklar-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Sun clan depicts a songbird with flame emitting from its beak.\nActivate 1 – 3\nFrequency once per day\nEffect The tattoo casts Concordant Choir.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:witchs-finger",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "C1mX0irc7zvLqDEs",
+      "slug": "witchs-finger",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2c3b51302ed704e949088451a96ada04a4a5f97ccbdad52123cf4fc1de9d5b24",
+    "translatableHash": "sha256:ffffb044ed40e76f66f12cd65591e47fea52eab95759a18d563d95777a6ecc00",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Witch's Finger",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nShaped like a pointed, gnarled finger on a stick, witch's finger is a frozen treat imbued with berries that lend it a blood-red hue. A popular tale claims Irriseni winter witches created this dessert, but the story is apocryphal; an enterprising ice cream shop owner in New Stetven invented the treat and, as a marketing ploy, the myth surrounding it. Taking a bite makes you feel warm. For 1 hour, you have cold resistance 3, and for 8 hours, the treat negates the damage you would take from severe environmental cold and reduces the damage you take from extreme cold to that of severe cold.\nEffect: Witch's Finger",
+      "bulk": 0.1,
+      "price": {
+        "gp": 11
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rime-crystal",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dmsdzOxdykeWXUHr",
+      "slug": "rime-crystal",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9232734930fc94b648379b311a360f02a692a6d878078d71deb7c83ca9c75c5e",
+    "translatableHash": "sha256:286f6063d6d39faee7270d305a669183c8cb3fa74bc9e054ce1e93710fe1e727",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rime Crystal",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "cold",
+        "magical",
+        "spellheart"
+      ],
+      "description": "Slowly spinning at the center of this crystalline orb is a single snowflake, and its surface remains lightly covered in frost no matter how hot the weather is outside. The spell attack modifier of any spell cast by activating this item is +7, and the spell DC is 17.\n• Armor You gain resistance 2 to cold.\n• Weapon After you cast a cold spell by activating the crystal, your Strikes with the weapon deal an additional 1d4 cold damage until the end of your next turn.\nEffect: Rime Crystal - Armor\nEffect: Rime Crystal - Weapon\nActivate Cast a Spell\nEffect You cast Frostbite.",
+      "bulk": 0,
+      "price": {
+        "gp": 55
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bewitching-bloom-cherry-blossom",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "duiTS3Y9JJUsJByq",
+      "slug": "bewitching-bloom-cherry-blossom",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:39ec3f8aee516e475014960c23b200279da8a8466d2df882a899e6d1d4efea87",
+    "translatableHash": "sha256:5212843c76bb3c281026a25040f06886dcc20132b85cf1d211ae438093193ae5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bewitching Bloom (Cherry Blossom)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "While dormant, this tattoo appears to be a simple flower bud, but when activated the flower swiftly blossoms, remaining that way until the next time you make your daily preparations. These blooms are colorful, elegant representations of cherry blossoms.\nActivate 2 envision\nFrequency once per day\nEffect Choose a willing ally you can see within 30 feet. The ally understands the fleeting nature of life and accepts fate. For 1 minute, any recovery checks the ally attempts have a DC of 10 instead of 10 + the ally's dying value. The cherry blossom's activation can target an Unconscious or dying ally.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-green",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EbqQbozqVGEVxEG9",
+      "slug": "colorful-coating-green",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/green.webp"
+    },
+    "sourceHash": "sha256:4941fc95332aa7832e0403897dc07b3e5214b2d361069e46f1f03a932716bb4e",
+    "translatableHash": "sha256:dc2afd2c02ea1482d8b0b68cdfc061844bcd3c1f645dffff3ace0929b157c540",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Green)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nGreen colorful coating dries into a low-friction surface. It makes the square slippery, making it both difficult terrain and uneven ground with a DC to Balance of 20. A creature that Steps or Crawls doesn't have to attempt to Balance.\nThe coating also makes a coated wall or ceiling harder to climb. It imposes a –2 circumstance penalty to checks to Climb the coated surface.\nYellow colorful coating and green colorful coating have opposite effects. If they're both applied to the same surface, they negate one another.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:revealing-mist-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "F5LJiS0wcwSqRrQ9",
+      "slug": "revealing-mist-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:df59b580a0ed70f11be6a436e621be1981a875f5c3b19fcb0ba46ac6a6e768d3",
+    "translatableHash": "sha256:d8210592428241d06e8d1076a63a76368fea3b1e1b73f21d33372e4d3941472f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Revealing Mist (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nKept in an airtight spray bottle, revealing mist is an alchemical concoction that creates a sticky and clinging mist of chemicals in a 15-foot cone when sprayed. It doesn't affect visibility but causes Invisible creatures in the area to be Concealed rather than undetected. Revealing mist is ineffective in water or in areas with other factors affecting the spread of the mist, as determined by the GM. It remains in the area for 1 minute or until any significant wind disperses it, whichever comes first.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 9
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bane-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "F8jLnpBuvzM0nBp4",
+      "slug": "bane-oil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:560c5e7e2780c5d4b35dfdcd10917eea8a4d70cfdde430a99f73af89f9570b42",
+    "translatableHash": "sha256:07c736197daeaae652e19d7d98f00594c2721294596006733c6c72036fe4285a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bane Oil",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nBane oil comes in as many forms as the bane weapon property rune. Coating a weapon with the oil gives the weapon the benefit of one type of Bane rune for 1 minute. A weapon can be coated in only one type of bane oil at a time. Any new application of this oil supersedes any previous one. If a weapon has the bane rune, this oil has no effect if it's of the same type as the rune.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unbreakable-heart",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fr2K2wJnSLD0ERpo",
+      "slug": "unbreakable-heart",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/tattoos/unbreakable-heart.webp"
+    },
+    "sourceHash": "sha256:3b1938eaa9ff4defeeb9f680f487a25250f8ae6755b2b242fb07438758a241b9",
+    "translatableHash": "sha256:a2b4c1758ed08ed6384bdfd5768cbc32996fb4285e1465c3caa1f3c779936454",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unbreakable Heart",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "The name of your beloved adorns this stylized image of a heart. An unbreakable heart tattoo can be received only at the end of a successful Heartbond ritual, serving as your token. The other participant can have a token other than a tattoo if they wish. If you have more than one heartbond, each unbreakable heart you have serves as a token for only one of them. The love exuding from you grants you a +1 item bonus to Diplomacy checks. When you use heartbond's activity to learn your beloved's present state, you can also grant them a small gift, choosing from the following options each time. Make your choice after learning their state.\n• Your beloved gains 5 temporary Hit Points that last for 10 minutes.\n• The tattoo casts Guidance on your beloved.\n• The tattoo casts Stabilize on your beloved.\n• The tattoo casts Light on your beloved's token from heartbond",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-water",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "frCSW1zLFYiYpjdR",
+      "slug": "staff-of-water",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:df0f7e0539a2f0741f2178939837e71f3e4e7db1178feb4b9d20931218678326",
+    "translatableHash": "sha256:4abbe3634142f8bfa7444c3114c7d0177c8a607614d596322a8a15ca4800c22e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of Water",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A staff of water is most often made of driftwood, sometimes lacquered blue. Carved versions often have a wave pattern. The staff smells of rain or brine. While wielding a staff of water, you have resistance 2 to fire.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Spout\n• 1st Create Water, Hydraulic Push\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:preserving",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Gh1FVqiP7uaSwCYz",
+      "slug": "preserving",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:7b8e40f31ec04595559ec11571476b3b48beb4cd62a3142c622104cdf07c8296",
+    "translatableHash": "sha256:b4da60b97f6a0911cf00c0665b40a718c69b31278992b1f7e346518810270482",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Preserving",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Preserving runes are common among merchants and other travelers who are on the road for weeks or months at a time. Any non-magical food and drink inside a container with a preserving rune remains fresher for longer, taking ten times as long to spoil. This feature doesn't prolong the duration of alchemical items.",
+      "bulk": 0,
+      "price": {
+        "gp": 45
+      },
+      "usage": "applied-to-a-basket-bag-or-other-container",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:trackers-stew",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GNM1LvqENq8WqT9C",
+      "slug": "trackers-stew",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:52f4778223f6a970569a465a5b5c1f522cf6a455dd8af38654443a18bd410bb5",
+    "translatableHash": "sha256:2f6a322038c54f68aaa12d57dfd8d279a520c6b430dd355b417db11952ffd188",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tracker's Stew",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "processed"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nAlchemical reagents add punch to tracker's stew: a rich, fiery mixture of tomatoes, ground nuts, onions, and tubers, often with poultry added. It's usually served with or over rice or noodles. Once you've eaten the stew, it improves your ability to sense and follow tracks for 24 hours or until you make your next daily preparations, whichever comes first. You gain a +1 item bonus to Survival checks to Cover Tracks and Track. You can do either while moving at full speed or both while moving at half speed.\nEffect: Tracker's Stew",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:confabulator",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "gSf5aYA9D8MSolc9",
+      "slug": "confabulator",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f96a562ad594172050d8976d592de64902ac84dfb6a780668e413defb1ef62de",
+    "translatableHash": "sha256:ac075f0bd51d345ec4fbce97719df66b349e9ca987280406fdda4aa4885ec4e0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Confabulator",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "illusion",
+        "magical"
+      ],
+      "description": "This device attaches to any non-percussive musical instrument, allowing a non-verbal character to shape the sounds of the instrument into speech. The speech can be any language the character understands, and the sound of the speech resembles the instrument the device is attached to. You also gain a +1 item bonus to Performance checks made with the instrument.",
+      "bulk": 0,
+      "price": {
+        "gp": 55
+      },
+      "usage": "affixed-to-instrument",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spiderfoot-brew-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HuyWiPnkDZoAVhW9",
+      "slug": "spiderfoot-brew-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b0e84f1f0bc7a7d12e95ef4058fe640bd683a20ec7c52359ab890f200d2b1180",
+    "translatableHash": "sha256:680437686a84f78429a8216a8462fac949a33567e6d09af27545ab620dc4be8b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spiderfoot Brew (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nThis gelatinous, sticky fluid is made from the silk glands of giant spiders. When you drink a spiderfoot brew, tiny clinging hairs grow on your hands and feet, granting you a climb Speed of 15 feet and a +1 item bonus to athletics checks made to climb for 1 minute.\nEffect: Spiderfoot Brew (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-shriikirri-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JhSCwXhC3tLhI347",
+      "slug": "unifying-emblem-shriikirri-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7d2e5b4e47275fa7e5f528fea2d7768a0a9bc04332cb9b78d0128779d78435a5",
+    "translatableHash": "sha256:935e89609e446dcdbcc9cc69b05261b5ba631b68ff9abd215753965687625934",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Shriikirri-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Hawk clan depicts a broken collar.\nActivate 1\nFrequency once per day\nEffect The tattoo casts Liberating Command.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:serpent-oil-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "K6D2Ld8Md6PVsAaV",
+      "slug": "serpent-oil-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:2de8b10ec2c9a3f10bc075c25fe049420d537a2ac0bbba165d20122d69151906",
+    "translatableHash": "sha256:73205ca595debd088bc5ec84ad146b14f2898b4928ab8c2bd815924bb9fda1b1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Serpent Oil (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nThis glistening oil has a green hue and tiny snake scales floating within. If you slather serpent oil on a Tiny object that is snakelike in shape, from a stick to a scarf, the object transforms into a Viper, keeping some of the same colors and patterns of the original item. If placed on other objects, the oil fails and is wasted. This false snake has the minion trait. It remains in snake form for 1 minute before returning to its object state. If slain, the item returns to its original form, unharmed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-yellow",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KPKmM9qSdQ5X587J",
+      "slug": "colorful-coating-yellow",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/yellow.webp"
+    },
+    "sourceHash": "sha256:04a36692833109434f107b9d40bd978a5180b98d26d8ba3a592734c37adf3b7c",
+    "translatableHash": "sha256:bd5026bfc9675c88c8b24f892c283a671815a97125775c569fc5e4eea1f045ae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Yellow)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nYellow colorful coating contains a variety of compounds that fill small gaps and harden into a flat surface that increases friction, making it much easier to move on the square's surface. On the affected surface, the coating reduces difficult terrain caused by slipperiness, such as from ice or grease; this eliminates difficult terrain, reduces greater difficult terrain to difficult terrain, and reduces uneven ground to greater difficult terrain. The coating can't affect difficult terrain caused by features or effects not part of the surface, such as crowds, underbrush, wind, magic, and so on. The GM determines if yellow colorful coating can affect a surface's terrain.\nThe coating also makes a coated wall or ceiling easier to climb. It provides a +2 circumstance bonus to checks to Climb the coated surface.\nYellow colorful coating and green colorful coating have opposite effects. If they're both applied to the same surface, they negate one another.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gaffe-glasses",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KSkIKaKM3n75BpUL",
+      "slug": "gaffe-glasses",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d2c6c676d507da9377c9606a8a2b05ea810ad0842d73f0778e46474495255b58",
+    "translatableHash": "sha256:c621b3e19cbe7da3b7c38c4b1b4145fc8f54c1a60cc0ca516a985b3bf70abe20",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gaffe Glasses",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "invested",
+        "magical"
+      ],
+      "description": "These wire-rim glasses appear to be Glasses of Sociability, making you think they grant a +1 item bonus to Diplomacy when they grant none. The GM secretly adjusts your Diplomacy checks to ignore the bonus, and if you have multiple +1 item bonuses to Diplomacy, the glasses take precedence, negating those bonuses.\nActivate 1 (concentrate)\nEffect Like glasses of sociability, with the same limitations, you stare at another creature. If you've met and exchanged names, you expect to instantly remember the target's name. However, you recall the worst possible incorrect name, such as mistaking a famous artist for their hated rival. This blunder doesn't prevent you from realizing the creature's real name after you've been corrected. Once you use this activation, the glasses fuse to you.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "worneyepiece",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:deadlock-mint",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KuTwNrDpuYVAPu7c",
+      "slug": "deadlock-mint",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7f844ad92cfb4958da797b8299f27c6b6bc1b317da407418a6a2e804bccf4a88",
+    "translatableHash": "sha256:ea9d24af7e8589bb19a32e927b464e568b0a4e45aa7cdc5faa37a53fba5621ff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Deadlock Mint",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell (add 1 action)\nDeadlock mint is a species of mint with small, green flowers, said to grow on battlefields where the opposing sides were equally matched. Sprigs of the flowers blow gently in a breeze of their own creation. If you cast Mystic Armor using deadlock mint, you release a small blast of concussive air in an emanation of a size that depends on the catalyst's type. Unattended objects up to a certain Bulk limit are pushed away from you. Large or smaller creatures must succeed at a Fortitude save equal to your spell save DC or be pushed the same distance away from you.\nObjects of 1 Bulk or less and creatures that fail the save are pushed 5 feet.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 11
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sprite-apple-golden",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Lbe9L9ZDBJgjDIhT",
+      "slug": "sprite-apple-golden",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:17679a6df3ca1d7fe3ca0e4225f426cc31f703b32fc6bcf132187c06bdf61c8a",
+    "translatableHash": "sha256:66b856b3932cbfee73a1185bb303e8a6a756b92e21311c536e4c2793fda93bbb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sprite Apple (Golden)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "light"
+      ],
+      "description": "Activate 1 minute (manipulate)\nA sparkling candy coating covers a sprite apple. For 10 minutes after consuming a sprite apple, you shed bright light in a 20-foot emanation (and dim light for the next 20 feet). While shedding this light, you can't be Concealed if you're visible, and if you're Invisible, you're concealed instead rather than being undetected. The light matches the vibrant color of the apple's candy coating. Creatures in the bright light are subject to another effect, depending on the type of apple.\nCreatures in the bright light feel kind and inviting, taking a –1 item penalty to their Will DC against Diplomacy checks.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:menacing",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "liGtU10aUlVeI6IC",
+      "slug": "menacing",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:a818d947dc0951dd05affd34da1353fa424806b866b63174d1e08131331a6d91",
+    "translatableHash": "sha256:d61f35d0e55977c92d31895a476b93531b9c501fa652190d98919bb2abf4cd93",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Menacing",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Common among brutes who use the magic to scare others into compliance, menacing runes lend you a formidable appearance, granting you a +1 item bonus to Intimidation checks to Coerce others.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "applied-to-any-visible-article-of-clothing",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skunk-bomb-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "m091zbWD9EoH6kWC",
+      "slug": "skunk-bomb-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4a98d26914f2877028210ea0281a1cd3ab160bb8f0addb6685044cd24401033a",
+    "translatableHash": "sha256:ebd0b7ddc36ef6bf9250f2d4783b5caefc25ac6a94f5bafef42740058ecc64ef",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skunk Bomb (Moderate)",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "bomb",
+        "consumable",
+        "olfactory",
+        "poison",
+        "splash"
+      ],
+      "description": "Activate 1 Strike\nSkunk bombs are made from the concentrated odors of xulgaths, hezrous, and other creatures with natural or supernatural stench. The bomb grants a +1 item bonus to attack rolls and deals 2d4 poison damage and 2 poison splash damage. Any creature hit by the bomb or in its splash area must attempt a check (fortitude, dc:17) saving throw. Creatures in the splash area treat the results of their saving throw as one step better.\nCritical Success The target is unaffected.\nSuccess The target is Sickened 1.\nFailure The target is sickened 1 and Slowed 1 while sickened.\nCritical Failure The target is Blinded for 1 round, Sickened 2, and slowed 1 while sickened.\nCreatures sickened by the bomb emit an odor that lasts 10 minutes after the sickened condition ends (or 1 hour if they were also blinded). The odor can be removed or neutralized by using prestidigitation or similar magic or by spending 10 minutes scrubbing with ample soap and water. While the odor lasts, creatures within 30 feet can smell the target, enabling even those with a weak sense of smell to detect its presence, and all creatures gain a +1 item bonus to Track the affected creature for as long as it has the odor. A creature that has imprecise or precise scent doubles the range at which it can detect the target using this scent.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "bomb",
+      "damage": {
+        "dice": 2,
+        "die": "d4",
+        "type": "poison"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:burial-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "M1rX9EahXV9pa0Ui",
+      "slug": "burial-oil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:03633a7a4b613dba09fa0f44144841229a7bc689c88bc7abe076b780a131e7ec",
+    "translatableHash": "sha256:d9156f5055d0eebd89af33da0b18029d76f3e915852530b7aba47a6dfc8888ac",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Burial Oil",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nA pearlescent fluid, burial oil applied to a weapon grants the benefits of a Vitalizing rune for 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-indigo",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MMloq9cUKNJYCDLW",
+      "slug": "colorful-coating-indigo",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/indigo.webp"
+    },
+    "sourceHash": "sha256:728d495f8b5699b74d82390a580ffe57a98b9e2912ee139ad43cab4f48277646",
+    "translatableHash": "sha256:a476e361336ed5a9555bac6b4a6fd0a4b68cf11e0a93f6a26abfb1811fb96c4e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Indigo)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nIndigo colorful coating contains agents that destroy weaker objects. When applied to a surface or object, the coating treats the object's Hardness as 2 lower and deals 1d4 acid damage to the object each round. The damage this coating deals remains after the coating becomes inert.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-shadde-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NJRACLvg6ULRMtZB",
+      "slug": "unifying-emblem-shadde-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9e5350e4fd9c81899f6aa9eb3e7d04588a949a2548d1174fb9f5f9c6136159e3",
+    "translatableHash": "sha256:8102bd361b6f240ebeb8d4d91fd8714aec7060edbe8547a3e409728ad3606bc2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Shadde-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Axe clan depicts a raw fish cut into portions.\nActivate 2\nFrequency once per day\nEffect The tattoo casts Cleanse Cuisine.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vaccine-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nzeTcOyQmZNrurVF",
+      "slug": "vaccine-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/vaccine.webp"
+    },
+    "sourceHash": "sha256:667477fa297640fbde8c37f0cf1f4b7cf50286ce5fe5b73890e853cb8aed26a0",
+    "translatableHash": "sha256:fcad91b3f2d66c93ab00a71f48979b7dab2fbdb634ae062d92b574798dc97574",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vaccine (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nA vaccine grants a creature immunity to a specific strain of disease of a level equal to or less than the vaccine's level, and a +2 item bonus on all saving throws against other strains of the same disease. For example, a vaccine could grant immunity to putrid plague inflicted by harpies, but would only grant a +2 saving throw bonus against putrid plague inflicted by a giant rat.\nCraft Requirements Creating a vaccine requires a sample of the disease in question.\nDuration 24 hours.\nSpecial A vaccine is the same rarity as the disease it's designed to prevent, or as the creature who inflicts the disease if the disease itself doesn't list a rarity.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:violet-venom",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Oip645RjC5y57wFa",
+      "slug": "violet-venom",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/violet-venom.webp"
+    },
+    "sourceHash": "sha256:064b81810711cabfd855129331962ba539d536007b13d45fb667d9290513d6eb",
+    "translatableHash": "sha256:fcd14c7d54b8d4d731022503fb692d6cfda9c36535871eec729837864ca034e0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Violet Venom",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "contact",
+        "poison"
+      ],
+      "description": "Activate 2 (manipulate)\nThe delicate process of extracting violet venom from a violet fungus leaves it diluted at the best of times. Alchemists are still on the hunt for a truly pure, unadulterated version of this highly toxic poison.\nSaving Throw check (fortitude, dc:17)\nOnset 1 minute\nMaximum Duration 6 rounds\nStage 1 1d6 poison plus Enfeebled 1 (1 round)\nStage 2 1d6 poison plus Drained 1 (1 round)\nStage 3 2d6 poison plus enfeebled 1 (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:everyneed-pack",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "P8xfjaEsrcKxl7k0",
+      "slug": "everyneed-pack",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/everyneed-pack.webp"
+    },
+    "sourceHash": "sha256:02a43e866a4ac8b2f9d0093a2afefe40a0582dcddac2fbbed9ba797646d61836",
+    "translatableHash": "sha256:65210e109b86944946898f20a950453cf98ab43145c60343ae1c88ec203b5450",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Everyneed Pack",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Constructed of green material and decorated with a white Glyph of the Open Road, an everyneed pack has a dozen or more small pockets lining the inside. The pack is enchanted so that each pocket contains common, mundane gear, each item worth no more than 1 gp, such as chalk, flint and steel, and string. It doesn't contain any armor, shields, weapons, or items made of precious material. Keep track of the exact value of the gear you retrieve from the pack. The pack becomes a mundane backpack after items of your choice with a combined value of 8 gp have been removed from it.\nActivate 1 minute (manipulate)\nFrequency once per hour\nEffect You draw any number of pieces of mundane gear from the pack with a combined value of 1 gp or less.",
+      "bulk": 0,
+      "price": {
+        "gp": 20
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sanguine-mutagen-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pP7RqEkNYg5ayWqx",
+      "slug": "sanguine-mutagen-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2a8510a266bd1bd32e058cdd88c332a345d3a398bbcf9235a3cbf4f27541eb4c",
+    "translatableHash": "sha256:84d153486f77a881c0938beef91bb02755756e0d47dd11060825bfbb992ef0ea",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sanguine Mutagen (Moderate)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nFor 10 minutes you gain greatly increased blood production, filtering out contagions and boosting your endurance but causing your body to bloat with blood.\nBenefit You gain a +2 item bonus to Fortitude and Reflex saves. This bonus improves to +3 when you attempt a save against an effect that has the disease trait, poison trait, or would give you the Fatigued condition.\nDrawback Whenever you take piercing or slashing damage, you take 1d6 persistent bleed damage.\nEffect: Sanguine Mutagen (Moderate)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:staff-of-earth",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pX3rpVDBLqClcL9M",
+      "slug": "staff-of-earth",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1e55a5756e36a1bf181dd33587ea8b0dcdb1fca6a010687419a32ea59fa170d8",
+    "translatableHash": "sha256:075b5000277cb279ae5be752bfa99c40a7abeac45c454b031d92bdf469ae6cce",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Staff of Earth",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "Geometric patterns are etched into the smooth brown-and-gray surface of a staff of earth, which makes a solid, resonant thud whenever tapped against the ground. While wielding a staff of earth, you gain a +1 circumstance bonus to your Fortitude saves and DC against effects that Shove you or knock you Prone.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Scatter Scree\n• 1st Pummeling Rubble\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:deadweight-mutagen-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qLwwxk1j04rgXSF9",
+      "slug": "deadweight-mutagen-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:020ad9b22f014602bfda61417f6eaefc1c0fdd0467a9260703cde77e417ce30f",
+    "translatableHash": "sha256:71c7ada78f12c88a693a334bef162585e1e141f90cc0a6b51e027327198ad853",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Deadweight Mutagen (Moderate)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nFor 10 minutes your joints loosen and bones thicken, making your body incredibly weighty and difficult to maneuver around.\nBenefit You gain a +2 item bonus to Athletics checks to Shove and Trip, to your Fortitude and Reflex DCs against attempts to Shove or Trip you, and to saving throws against effects that attempt to force you to move or knock you Prone.\nDrawback You gain the Encumbered condition and can't remove it while under the effects of the mutagen.\nEffect: Deadweight Mutagen (Moderate)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-shundar-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qNMOpzpeQz51vMhf",
+      "slug": "unifying-emblem-shundar-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3011ecbd2019e9c70e549c00768d0398862421254ca4ee529f6aa1e2c5538a63",
+    "translatableHash": "sha256:e381e112315f1cdce3bb4e190876a7389546893a01f3ffc634fd4fbbc9bceecb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Shundar-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Spire clan depicts a cracked stone with a metal vein inside.\nActivate 1\nFrequency once per day\nEffect The tattoo casts Thoughtful Gift.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:auric-noodles",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qQ9Rros3GdPDRLBg",
+      "slug": "auric-noodles",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/food/auric-noodles.webp"
+    },
+    "sourceHash": "sha256:70f0dd514daddb9852ad4ddaf3792b440c0b0915e2cf2ef971c4997734ad333f",
+    "translatableHash": "sha256:681f667e2475fdd59ef7a9283e3202030bd27ae31dc81b0ea80127e766605482",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Auric Noodles",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "processed"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nAuric noodles are boiled, then pan-fried and tossed with sliced vegetables and a sticky, savory sauce incorporating alchemical reagents. After you eat the noodles, they boost your ability to sense magic for 24 hours or until you make your next daily preparations, whichever comes first. You gain a +1 item bonus to checks to Identify Magic, and you can move at full speed while using the Detect Magic exploration activity.\nEffect: Auric Noodles",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:extendable-tail",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QuPnoGmlgYVNXeTz",
+      "slug": "extendable-tail",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:82f7a16e45d25a4e4f02011c01067e33455c48254708894c6825184b2a19666a",
+    "translatableHash": "sha256:98901c7f79c0ad276311ee284da9fdc0ce13ea8a2c6cc857f2b29b491affba7a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Extendable Tail",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "mechanical"
+      ],
+      "description": "Built with collapsible poles and expanding hoops, this tail can extend to a length of 20 feet. While it's no more prehensile than a tail of a typical member of your ancestry, it ends with an anchor that you can secure around a sturdy object with an Interact action. While the tail is anchored, you can't move more than 20 feet from that spot, but you can use the tail to lower yourself up to 20 feet, as if it were a length of rope. You can use another Interact action to disengage the anchor and retract your tail.",
+      "bulk": 1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camouflage-dye-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RBYn6syZKENT0UiZ",
+      "slug": "camouflage-dye-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9dd881f2e01068aa340d4e0deb555526f83c7931c371a0e30f7c08da7b0c22e7",
+    "translatableHash": "sha256:79fde8c3c39145cb18a9c5097d8acc14baa034901f8833ae44aa1c09f8df9126",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camouflage Dye (Lesser)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nCamouflage dye uses a variety of alchemically treated paints and crushed crystals to make the user particularly hard to distinguish from their surroundings. When you Activate the dye by sprinkling it on yourself or a creature within reach, the target and its clothing change colors, blending into their surroundings until the target makes a sudden movement. The target can Hide or Sneak without cover or concealment for 10 minutes. If the target uses a hostile action or moves at more than half its Speed, after that action is completed, the effects of camouflage powder end and the creature ceases to be Hidden or undetected.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blue-dragonfly-poison",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rfyWXgrVD2lm91CC",
+      "slug": "blue-dragonfly-poison",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/blue-dragonfly-poison.webp"
+    },
+    "sourceHash": "sha256:ab830d73b3c2bd16562c3fb084793504699f7509aa93847b19dac5536ff2f1da",
+    "translatableHash": "sha256:831457f319c3f4222ad92f0e70c82fe6c2d6237bd636d70727389e9be76bb075",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blue Dragonfly Poison",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 (manipulate)\nBoggards brew a potent toxin made from blue dragonflies. Swampseers consume this mixture to awaken their divine powers, but the poison causes debilitating hallucinations in most other creatures.\nSaving Throw check (fortitude, dc:17)\nOnset 10 minutes\nMaximum Duration 30 minutes\nStage 1 Dazzled (10 minutes)\nStage 2 dazzled and Frightened 1 (10 minutes)\nStage 3 frightened 1 and Confused 1 (1 minute)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 7
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stumbling-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "s0btfYXKuufJhbyx",
+      "slug": "stumbling-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:30deee22fa81dc697d1ddd4f069d50bb2df8a09c10975799ac4caa47803389fa",
+    "translatableHash": "sha256:ed82ce1a10342ecf39add09d966e8a3312a8044561409ce163f59a1dd57005f1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stumbling Fulu",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical"
+      ],
+      "description": "Duration 1 hour\nThe kitsune who first created a stumbling fulu advised the user to tuck the fulu under the target's belt for maximum effect. When the creature to which the fulu is affixed completes a Stride action, the creature must attempt a check (reflex, dc:17) save. On a failure, some element of the armor the fulu is affixed to comes undone, making the wearer Clumsy 1. On a critical failure, the target falls Prone and is Clumsy 2. The clumsy condition remains until the target takes a total of 1 Interact action, plus 1 additional Interact action per value of the clumsy condition above 1, to properly reclothe itself. Once the fulu activates, it burns up, its magic lasting only as long as the conditions it has imposed.",
+      "bulk": 0,
+      "price": {
+        "gp": 10
+      },
+      "usage": "affixed-to-armor",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:skinsaw-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "sgH9U2fKqWCedKNO",
+      "slug": "skinsaw-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/skinsaw-mask.webp"
+    },
+    "sourceHash": "sha256:cd2b72ff4e58513a85eed81488ccbc6b92515219dad515465e2e92377285b754",
+    "translatableHash": "sha256:a843d5917cfc8f7ada7360803aa0b5961f0b873fd27ff5ea1b8f6aed8ba0048f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Skinsaw Mask",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "uncommon",
+      "traits": [
+        "divine",
+        "invested",
+        "unholy"
+      ],
+      "description": "A patchwork of humanoid flesh makes up a skinsaw mask, which is stitched together with black silk or wire. It is distinctive for its bulbous orange eye—crafted from a magical glass bauble—and wide row of teeth. When worn, the mask amplifies your ability to sense fear in other creatures. You know the value of the frightened condition of any observed creature, and you gain a +1 item bonus to Perception checks to Seek frightened creatures. Whenever you deal precision damage to a frightened creature, you deal 1 additional precision damage. If you aren't unholy, you are Drained 2 while wearing a skinsaw mask.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:energy-mutagen-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SLJTJwyIRjuWjfuK",
+      "slug": "energy-mutagen-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/energy-mutagen.webp"
+    },
+    "sourceHash": "sha256:759133df027bb3d72fa1b1b6d940850a1c1e241cbb99fdc9f859aef3dd640b03",
+    "translatableHash": "sha256:9a217579c4d0b60e99d38241aa45f95df10982f29c8ee94fb24e02fe47ff4d9b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Energy Mutagen (Moderate)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate A (manipulate)\nWhen created, this mutagen is attuned to one of four energy types: acid, cold, electricity, or fire. When consumed, the mutagen suffuses your body with energy that spills out whenever you attack. At higher levels, it can even grant you the ability to unleash the energy in controlled bursts.\nBenefit You gain resistance 10 to the attuned energy type. Whenever you score a hit with a melee weapon, add 1d4 damage of the attuned energy type.\nDrawback You gain weakness 5 to the other three energy types.\nDuration 10 minutes.\nEffect: Energy Mutagen (Moderate)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 12
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sluggish-bracelet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "td9LuqG8jhQQloG7",
+      "slug": "sluggish-bracelet",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/bracelet-of-dashing.webp"
+    },
+    "sourceHash": "sha256:02c9530a0e307c43a8bcc07a1086f0f078696525a2a00a48c1eee1135818ce83",
+    "translatableHash": "sha256:715291796bc9778e5a61b05d7e77d3cbbf2207bd3108c8e64650867623397d18",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sluggish Bracelet",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "invested",
+        "magical"
+      ],
+      "description": "A silver charm bracelet, a sluggish bracelet appears to be a Bracelet of Dashing, granting you a +1 item bonus to Acrobatics checks. If the curse goes unrecognized, you think you can Activate it to gain a +10-foot status bonus to your Speed for 1 minute. Instead, its activation is as follows.\nActivate 1 (concentrate)\nEffect You take a –10-foot penalty to your Speed for 1 minute, and the bracelet fuses to you. Thereafter, it grants you no bonus to Acrobatics checks, and it imposes a –5-foot status penalty to your Speed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 58
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:authorized",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tEXUCp02ylyoJoyP",
+      "slug": "authorized",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "OGL",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:710661c7d4de3c7c0873e38c9a55be8b55d4ea867c7b8a4b90659986deb4bcf5",
+    "translatableHash": "sha256:467f3d8234f2ee4821f1a6f7ffcf9d20057d57d6872756b88401399aa1cece0b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Authorized",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Sharp needles impale anyone who attempts to wield this weapon other than its rightful owner. Each authorized rune is etched with the blood of a specific creature. If any other creature wields the weapon, needles immediately erupt from the weapon's hilt or shaft, dealing 1d8 piercing damage plus 1d4 persistent bleed damage to the wielder. If the weapon has a striking rune, this damage increases to 1d8 piercing damage per damage die and 1d4 persistent bleed damage per damage die; this counts only the weapon's base die and dice from the striking rune. The persistent bleed damage can't end while the creature still holds the weapon. The spikes retract once the creature lets go.\nWhen the rune is crafted, the crafter can choose to broaden the criteria for who can safely wield the item, expanding the users to creatures with a particular alignment, bloodline, or patron deity, as the crafter chooses. This criterion must be shared by the creature who contributed the blood for the rune.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:armory-bracelet-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "u6BZFzBYUnCmfnRr",
+      "slug": "armory-bracelet-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:db66c39335825705f784fac4a36fce69314d836fec0da03b60a38e9e581cd752",
+    "translatableHash": "sha256:2bb5f4972e003146fcfecdcbffc816cf4c596bad2e3502fba3ba562061ea3728",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Armory Bracelet (Minor)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Several small charms shaped like weapons hang from an armory bracelet, which is often brass. The bracelet has one charm each for the groups axe, bow, brawling, club, crossbow, dart, flail, hammer, knife, pick, polearm, shield, sling, spear, and sword. Uncommon and rare versions of the bracelet might include charms for firearms or create uncommon weapons.\nActivate 2 (concentrate, manipulate)\nFrequency once per day\nEffect You pull one charm from the bracelet. The charm transforms into a common weapon of your choice from the charm's weapon group. If the weapon requires ammunition, it appears with a quiver or pouch with 20 pieces of ammunition for the weapon. The weapon is a +1 striking weapon of the type you chose. After 1 minute, the weapon transforms into a non-magical version and remains until your next daily preparations. At that point, the weapon and any remaining ammunition crumble to dust and all the charms reappear on the bracelet. The weapon and ammunition created with the charm are noticeably different from others and can't be sold.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-lyrune-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uU8bqDR4oWITWZNX",
+      "slug": "unifying-emblem-lyrune-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:8bfb3c3fdda7c2c5696fc1ab5a2cae17ca2da3ba307af7a7b270bc9e941394b2",
+    "translatableHash": "sha256:2bc2660feccee12618219075cc4ed58098434c61b793448393763eb8cae6620d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Lyrune-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Moon clan depicts the outline of a moon, devoid of any detail.\nActivate 2\nFrequency once per day\nEffect The tattoo casts Vanishing Tracks.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ghoul-stiletto",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VOmOhm3Rc3VUkIu0",
+      "slug": "ghoul-stiletto",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:baa1e8024c49b98bebdf6ad2314bc5382d35d499bb51b2f29581292c6af3942d",
+    "translatableHash": "sha256:90f5ae28d153b19c779939fab5092ebfe8773216c149f19fe0641846e7d10618",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ghoul Stiletto",
+      "itemType": "weapon",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "agile",
+        "finesse",
+        "thrown-10",
+        "versatile-s"
+      ],
+      "description": "A ghoul stiletto is a +1 dagger wrapped in the still-undead skin of a ghoul. While you wield the dagger, you gain a +1 status bonus to all saves against curses and olfactory effects.\nActivate 1 (concentrate, divine, manipulate, olfactory)\nFrequency once per hour\nEffect The ghoul stiletto afflicts the next living target struck by the dagger with a terrible wound that emits the foul stench of the grave. The creature emits a stench aura in a 10-foot type:emanation for 1 minute. During that time, the affected creature, as well as any creature that starts or ends its turn in the aura, must succeed at a check (fortitude, dc:17, showDC:all, options:area-effect,inflicts:sickened,inflicts:slowed, traits:divine,olfactory) save or become Sickened 1 (plus Slowed 1 as long as it's sickened on a critical failure). A creature that succeeds at its save is temporarily immune to all stench auras for 1 minute.\nCraft Requirements The initial raw materials must include skin from a ghoul.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:throwers-bandolier",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VUxPhU966hQaIq2C",
+      "slug": "throwers-bandolier",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/adventuring-gear/bandolier.webp"
+    },
+    "sourceHash": "sha256:df0e085e2b9b0757082a7b3a37c9f6d96faf1c591d33a51a0cde0010b0dfd943",
+    "translatableHash": "sha256:4537256bf0d4c3cebcabad379ec09c14d6b7e1776d9d5c58dae7824235215179",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thrower's Bandolier",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This bandolier is covered in straps and pouches capable of holding up to 2 Bulk of one-handed thrown weapons. A thrower's bandolier has a +1 weapon potency rune etched into it, and it can be etched with runes as though it were a one-handed thrown weapon. When you invest the thrower's bandolier, you can attune it to all the weapons sheathed in it (this ends any previous attunements made with the bandolier). Whenever you draw a weapon from the bandolier, the bandolier's runes are replicated onto that weapon. Any runes already on the weapon are suppressed, and any runes previously replicated to a different weapon in this way are removed, returning it to normal.\nActivate 2 (concentrate, manipulate)\nEffect All weapons attuned to the bandolier, not including any weapons you're currently wielding, return to the bandolier.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sapling-shield-minor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "w0SXrrYSH1EL088n",
+      "slug": "sapling-shield-minor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f7666d4051cb59420a076e86c5bf11e8ccc4c279397cef3175591f4c31fc59b7",
+    "translatableHash": "sha256:2b26bc8beba3f6da0392d4aa5449aba59ad34341171085b04d641c7cac3ab837",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sapling Shield (Minor)",
+      "itemType": "shield",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 3, HP 24, and BT 12) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage.\nActivate 1 (concentrate)\nEffect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to Take Cover. It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
+      "bulk": 2,
+      "price": {
+        "gp": 57
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "buckler"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:neophytes-fipple",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WETEtFdpuXa1c7Zc",
+      "slug": "neophytes-fipple",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:a731b5383ecc9331fe7062b6194946110665fc405ee0ed44045a06c5a491513f",
+    "translatableHash": "sha256:4a2502a9c1b1454e450e8d99079f70f850036929b545ac3f4efd50b22f1b14d5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Neophyte's Fipple",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate 1 Perform\nRequirements You are untrained in Performance.\nMade of polished wood, a neophyte's fipple is a block flute enchanted to guarantee melodic sound. When you Perform a song on the fipple to Activate it, your attribute modifier, proficiency bonus, and item bonus for the Performance check total +7, regardless of what they would normally be. Add other bonuses and penalties to the check normally. Once the magic is used, the fipple remains as a mundane instrument.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 8
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:heckling-tools",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WgXPnTogb3MCueKP",
+      "slug": "heckling-tools",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:24eb26e7d8d8052659e24883153b64b32b39572ca987c3447a1b060be1c3ccfe",
+    "translatableHash": "sha256:14f6183fda4e937047a5201b7143758339b110dc609957a011697fceac391c40",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heckling Tools",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "intelligent",
+        "magical"
+      ],
+      "description": "Perception 1d20+9; precise vision 30 feet, imprecise hearing 30 feet\nCommunication telepathy (two common languages)\nSkills Intimidation 1d20+9, one skill associated with their use 1d20+9\nInt +2, Wis +2, Cha +2\nWill 1d20+7\nTools that are severely misused or left in malevolent circumstances can develop malicious sapience, dedicated to critiquing those who use them. Such heckling tools are often born from implements useful to adventurers because such people are the likely to misuse tools or leave them in a corrupting situation. When you first set to using the tools, they fuse to you. Used for their intended purpose, the tools telepathically badger and disparage you, mocking your abilities and giving you ill-founded advice. You must succeed at a check (will, dc:19) save to realize this badgering comes from the tools and not your own negative thoughts. Instead of the tool's usual bonus, you take a –2 circumstance penalty to checks made using heckling tools. Once you realize the tools are cursed, you can suppress their negative effects, gaining their typical bonus for 24 hours if you succeed at a check (deception, dc:17) or check (diplomacy, dc:17) check to placate them, often by offering obsequious, public admiration.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ranging-shot",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WKp751kO2ba4qPeN",
+      "slug": "ranging-shot",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:76e1af2beefdb115cecb1687107b3fda618e3d5898c10c4835a05aab38cc9822",
+    "translatableHash": "sha256:5676805f430580b049f5b7c3140f0cfe3ed62082006fbb274b20e6290ffcd7f3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ranging Shot",
+      "itemType": "ammunition",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nActivate 1 (concentrate)\nStrange striations and pits mark the head of a ranging shot. When the activated ammunition is fired, it sends out whistling pings along its path until it hits something or reaches its maximum range. As long as you can perceive the sounds the ammunition makes, you can tell exactly how far it has flown. The sounds are audible to creatures who didn't Activate the ammunition, but they receive no special information from the ranging shot's whistling.",
+      "bulk": 0,
+      "price": {
+        "gp": 9
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:one-hundred-victories",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XFUsIDb6RjVFz9Ce",
+      "slug": "one-hundred-victories",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/tattoos/one-hundred-victories.webp"
+    },
+    "sourceHash": "sha256:2bddcde2596542fb3ff9674e8802c53b48cf3cf2e14225a149db6f4917d0f618",
+    "translatableHash": "sha256:cf6fadf9803bebbdb1052de43aaeb0e0756d854057afcc81cd7a59c51652f398",
+    "data": {
+      "schemaVersion": 1,
+      "name": "One Hundred Victories",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "One hundred cuts, healed into diamond-shaped scars, represent the ability to withstand the attacks of your enemies. Orc warriors covet these scar patterns and cluster them around what they consider to be their strongest assets—a pattern around the heart signifies a warrior with great endurance, while one along the arms indicates great upper body strength.\nYou gain a +1 item bonus to Intimidation checks. If you have Ferocity (such as from the Orc Ferocity feat or a similar ability), the first time each day you use it, instead of remaining at 1 Hit Point, your Hit Points are set to an amount equal to your ancestry Hit Points, even if this amount is more than you had before using Ferocity.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:seventh-prism-triangular",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zAfSy6fshSGUtYF6",
+      "slug": "seventh-prism-triangular",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4228dec53c476a8ae84233b3f0bf618a07597bd640bde3e924456d6bfbf86355",
+    "translatableHash": "sha256:d16475245c7d04602dc40b943aca76d84637e5e6c4f8e58e99030e167928e19b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Seventh Prism (Triangular)",
+      "itemType": "consumable",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell\nBeloved by the church of the Seventh Veil, a seventh prism is a crystal that disperses its internal light, casting an aurora of color. If you use a seventh prism to cast Dizzying Colors, targets are Dazzled for twice as long as their saving throw indicates. On a critical failure, the target is dazzled for 1 minute after its Blinded condition ends. Motes of shifting rainbow hues cloud the eyes, making it difficult to see details.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 10
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:unifying-emblem-tamiir-quah",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zTR7xbJGFm3oppFA",
+      "slug": "unifying-emblem-tamiir-quah",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2a519fc51792e88ee7810adc8f6ea4ce3e18ddb101790896ad9ee0a4027afeac",
+    "translatableHash": "sha256:8112260e7075c1e465d9703d8da565c3db37bf5e218e0f5a122598af55aa8efc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Unifying Emblem (Tamiir-Quah)",
+      "itemType": "equipment",
+      "level": 3,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos were first created using designs and techniques from the seven Shoanti clans. Each clan is known for one tattoo in particular. The clans would seal alliances in ancient days by tattooing their emblems on members of other clans to symbolically share their gifts. Though these tattoos are respected, the clans reserve their most prestigious symbols for true members of the clan. The tattoo allows you to understand and speak Shoanti. If you already know that language, you instead gain a +1 item bonus on Diplomacy checks you make when speaking Shoanti to someone who understands it.\nThe tattoo of the Wind clan depicts a pegasus riding a gust of wind.\nActivate 2\nFrequency once per day\nEffect The tattoo casts Tailwind.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sprite-apple-pink",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3AjyXlvLUx4c2RCi",
+      "slug": "sprite-apple-pink",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:507f9a57f466bd78a516c9496bd6edd2ab88d33950d915d22d9a771e2762ef7a",
+    "translatableHash": "sha256:14063eeb5187f6d7ba01d0785ad7af8e21a20949aa619e6e5d8165baad43b4b5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sprite Apple (Pink)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "light"
+      ],
+      "description": "Activate 1 minute (manipulate)\nA sparkling candy coating covers a sprite apple. For 10 minutes after consuming a sprite apple, you shed bright light in a 20-foot emanation (and dim light for the next 20 feet). While shedding this light, you can't be Concealed if you're visible, and if you're Invisible, you're concealed instead rather than being undetected. The light matches the vibrant color of the apple's candy coating. Creatures in the bright light are subject to another effect, depending on the type of apple.\nCreatures in the bright light feel a burst of creativity, gaining a +1 item bonus to Performance checks.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 16
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ghost-ampoule",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "553H2rzgaHeY1VB4",
+      "slug": "ghost-ampoule",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/ghost-ampoule.webp"
+    },
+    "sourceHash": "sha256:6dfa05f498dc9c978130e9f27aad7e1ca91c786bc6fadaf3ebaf9b00bc994aa1",
+    "translatableHash": "sha256:96351356da3dc243ecae0b20bdef6e8a40b092a0d3492efcdef3034c98f02ef4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ghost Ampoule",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "auditory",
+        "consumable",
+        "emotion",
+        "expandable",
+        "fear",
+        "mental"
+      ],
+      "description": "Activate 2 (manipulate)\nA daub of ectoplasm twitches within this glass container, faintly glowing with ghostly light. When opened, it forms the echo of a departed spirit, which looks like a Medium ghost. You can throw the ampoule up to 30 feet when you Activate it. The ghost utters a final lament, forcing each living creature in a 15-foot emanation except you to attempt a check (will, dc:18) save. On a failure, a creature becomes Frightened 2 (or Frightened 3 on a critical failure).\nCraft Requirements Supply ectoplasmic residue from a destroyed ghost.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:draxies-recipe-book",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5tyQQUdb2GtspEvy",
+      "slug": "draxies-recipe-book",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:589ac40f1dd1e04a8d9001638766637f6c7f96426d74e21333ee0b8318b05236",
+    "translatableHash": "sha256:b28b86e6a7658c2e49a87892406fcf334ba41768a722cac30b32f4512c104719",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Draxie's Recipe Book",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "grimoire",
+        "magical"
+      ],
+      "description": "This tiny recipe book was created by a famous draxie chef, but it instantly resizes to fit the hand and eyes of the reader. While most of the pages are blank and ready to receive spells, the first four pages are taken up by a complex seasoning recipe that requires a casting of Revealing Light.\nActivate F (concentrate)\nFrequency once per day\nEffect If your next action is to cast a revealing light spell, all creatures within the spell's area who don't critically succeed at their save are covered with a spicy red powder. Any attempt to grab or grapple a creature affected in this way, or to swallow such a creature whole, gains a +1 circumstance bonus to the attempt, or a +2 circumstance bonus if the attempt is made using a jaws or similar mouth-based attack, due to the target's extra deliciousness and savory smell. An affected creature can remove the powder by thoroughly cleaning themselves (a process that typically takes about 10 minutes) or by completely immersing themselves in water. This ability can also be used to properly season up to 100 pounds of prepared food within the area of the revealing light spell instantaneously.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:healing-vapor-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6G088rA3TjiuQ5NA",
+      "slug": "healing-vapor-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:f36521385e18a5478452b0bf9c9c7b482adace8c75745576d43883b96be85a88",
+    "translatableHash": "sha256:473892f2909fe676c2e5b48614737ff853624fdeb124504332872038c50f2bd9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Healing Vapor (Lesser)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "healing"
+      ],
+      "description": "Activate 3 (manipulate)\nHealing vapor is a substance that accelerates natural recovery processes by dispersing a mist infused with a variety of reagents typically used for healing and recovery. When deployed from a sealed container, the vapors fill a 5-foot burst, last for 10 minutes, and can affect up to four living creatures at one time. Any creatures beyond the first four gain no benefit, though if a creature leaves before the duration is over, a new creature that enters can benefit from the mist. A creature benefiting from the vapors regains 1 Hit Point every 2 minutes. While affected, a creature also gains a +1 item bonus to saving throws against diseases and poisons. If the areas of more than one healing vapor overlap, only the strongest applies to creatures inside overlapping areas. Strong wind disperses the mist, rendering it ineffective while the wind blows.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:composer-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6TC4FywUTzVAK97v",
+      "slug": "composer-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c904f347f94350e1f1b31147e7b80751a54ccd5934063b8691a5c7b622bd4b08",
+    "translatableHash": "sha256:40fd72acf3ce55f1fbbf7cd55a1c09df0f06a2279bee099b04d78006841f9816",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Composer Staff",
+      "itemType": "weapon",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A composer staff is short and shaped like an elegant black conductor's baton with a silver tip. When waved through the air, it hums melodically. In this way, you can play it as though it were an instrument, and it grants a +1 item bonus to Performance checks made with it.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Haunting Hymn, Summon Instrument\n• 1st Concordant Choir\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 80
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:journeybread-power",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7Sm8NhvQcwi84Nsh",
+      "slug": "journeybread-power",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d4d60aaf277d4778915ebd424f875bb34ed7fe23f2334e3fd4d40d5ed727e453",
+    "translatableHash": "sha256:d9b856104789fb3ca5c5d4f434e33225223e252c69593811dc9d7b10f8f6e05e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Journeybread (Power)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nJourneybread contains a mix of fruits, nuts, and grains with an alchemical boost. Eating one journeybread provides all the food and water you need for a day. If you subsist on nothing else for a week, you become temporarily immune to journeybread until you eat real food and drink water normally for 24 hours.\nIn addition to the benefits of journeybread, power journeybread grants you a +1 item bonus to Athletics checks to Climb, Force Open, and Swim, and to Fortitude saving throws against being sickened. The number of minutes you can Hustle changes to your Constitution modifier × 20. These benefits last for 4 hours.\nEffect: Journeybread (Power)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-cane",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "AL46eDfKdAnXKQPV",
+      "slug": "wand-cane",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d6f589d9262b7d48b86d2602ca89e866872a91467fd9c40a174c664318847c10",
+    "translatableHash": "sha256:e9c1fdf7a0f226964b63116685604884163b081fbb6ebf381cd770a3472aee0d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand Cane",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "Though it appears to be a basic cane, the inner workings of the wand cane are an intricate network of lenses and magical circuits, with a slot at the top to insert a wand. The wand cane then spends 1 minute attuning to the wand, after which the wand can be used through the cane.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:phantom-roll",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "awavOTGutIrLRQyq",
+      "slug": "phantom-roll",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/food/phantom-roll.webp"
+    },
+    "sourceHash": "sha256:881cf44841351aad99bb73b656c21718893f78c505e91200c9f3fd680c0e4d96",
+    "translatableHash": "sha256:eba47d80f6b20f17748170746c511c34bf75c1cc0e88e66828433afc10d4b1be",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phantom Roll",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nA phantom roll contains vegetables, greens, and fine, clear noodles, all wrapped in transparent, edible starch paper and alchemically treated and laced with a tangy sauce. Upon eating the roll, you gain a +1 item bonus to Stealth checks you attempt during the Avoid Notice exploration activity. You can also Avoid Notice at full Speed or combine it with Investigate or Scout while moving at half Speed. These effects expire 24 hours after you eat the roll or when you make your next daily preparations, whichever comes first.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 13
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mortalis-coin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bc3orvzCjY28HeQi",
+      "slug": "mortalis-coin",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:8b08954637b7d9a7d3baf897e8e7e2a16e744f338cb7e492fdbe88c3615c8a27",
+    "translatableHash": "sha256:c82520d3719670f1440c6d132ce3d564ad4ff413c2164681ae25cc25a97e3144",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mortalis Coin",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "talisman"
+      ],
+      "description": "Activate f (concentrate)\nTrigger You are reduced to 0 Hit Points by damage but not immediately killed\nRequirements You are an expert in Fortitude saves.\nThis small golden coin is usually stamped with the image of a boar or other resilient creature. If the triggering damage would cause you to become dying 2 (typically due to a critical hit or your critical failure), you become dying 1 instead. In addition, for 10 minutes, you die from the dying condition at dying 5, rather than dying 4.\nEffect: Mortalis Coin",
+      "bulk": 0,
+      "price": {
+        "gp": 20
+      },
+      "usage": "affixed-to-armor",
+      "category": "talisman",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fury-cocktail-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BeX3ForBrKTQD4T5",
+      "slug": "fury-cocktail-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/fury-cocktail.webp"
+    },
+    "sourceHash": "sha256:c517b85910f0d6b5720b931efca792cdf0d61b4d08b3de22dcefe591e454dc33",
+    "translatableHash": "sha256:c95e8d256af6d80b5a80b7ae126e820a37503d7784f966ca343ce88bd091050a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fury Cocktail (Lesser)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate 1 (manipulate)\nA fury cocktail is a fortifying ginger beer spiked with rum and a mixer. It's rumored to have originated from a barbarian-themed festival in a popular mead hall specializing in alchemical beverages.\nBenefit You gain a +2 item bonus to melee attack rolls and an additional effect depending on the additive chosen when the brew is created. The effects lasts 10 minutes.\n• Animalistic Lemon juice and powdered claws or talons are added to the cocktail. You gain an unarmed attack in the brawling group of your choice between a jaws attack that deals 1d6 piercing damage or a claw attack that has the agile trait and deals 1d4 slashing damage.\n• Double This cocktail is just stronger, with more ginger and more rum. You gain resistance 1 to physical damage.\n• Mournful A few flower petals add a powerful aroma to the drink. You gain resistance 1 to void damage, or resistance 1 to vitality damage if you have the void healing ability.\n• Skeptical A splash of bitters gives the drink a more complex flavor. You gain a +1 item bonus to saves against magic.\n• Titanic Yuzu juice and powdered giant hair are added to this cocktail. If you're Medium or smaller, you gain the following effects: you become Large, are Clumsy 1, and increase your reach by 5 feet (or by 10 feet if you started out Tiny).\n• Wyrmhide Pomegranate juice and elemental reagents are added to the cocktail. You gain resistance 1 to acid, cold, electricity, fire, and poison damage.\nDrawback You take a –1 penalty to AC and a –2 penalty to Reflex saves.\nEffect: Fury Cocktail (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bewitching-bloom-red-rose",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BZImrMVyqeZ0RfF8",
+      "slug": "bewitching-bloom-red-rose",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2d5771fbcd484f8416e7fe3407318cb0fa9ac2970eab27a4ecc5d12a2a3e8fde",
+    "translatableHash": "sha256:8c27ab89a43be80a4efc3c12cd29ea8cc0408edf998a25369b11dedeeb719850",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bewitching Bloom (Red Rose)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "While dormant, this tattoo appears to be a simple flower bud, but when activated the flower swiftly blossoms, remaining that way until the next time you make your daily preparations. These blooms are colorful, elegant representations of red rose flowers.\nActivate 2 envision\nFrequency once per day\nEffect Choose a willing ally you can see within 30 feet. The ally fills with feelings of love. They choose a creature that the ally has strong positive emotions toward as beloved. While the ally is within 10 feet of this beloved, the ally gains a +1 status bonus to saving throws. If the ally starts their turn within 10 feet of the beloved, the ally gains 5 temporary Hit Points. These benefits last for 1 minute, and temporary HP remaining from this effect at the end of that time disappear. This effect has the emotion and mental traits.",
+      "bulk": 0,
+      "price": {
+        "gp": 90
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:alchemical-chart-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cKYWot4ifTOa6ans",
+      "slug": "alchemical-chart-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f5d1a5ae4c22d9cd0a06a559efee46128a27dd5ad41b729fb05fc6cbea8f6b60",
+    "translatableHash": "sha256:fdb52a341082a1fa4785c1e7c69c421983f14cba7aed4fcb39ff3a3109e0ccc4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alchemical Chart (Lesser)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This sturdy, rigid alchemical chart contains shorthand references on quickly mixing reagents for maximum effect. If you hold this chart while using Quick Alchemy, the items you create of 4th level or lower remain potent for 1 additional round.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-reaching-1st-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "cyw2OgL4XJ9HOu0b",
+      "slug": "wand-of-reaching-1st-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:bdcbfee37eba7b8c69d04040cbfd6d3ac5af8d53b7d4d196f6d4b5963d88264f",
+    "translatableHash": "sha256:6176b1e07125b38d351e3f639c77200cff3956ead0bc48adc447cc10358c437f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Reaching (1st-Rank)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "This long, slender wand is constructed of silver, polished to a mirror shine.\nActivate Cast a Spell; This activation takes 2 if the spell normally takes 1 to cast, or 3 if the spell normally takes 2\nFrequency once per day, plus overcharge\nEffect You Cast the Spell. Its range increases by 30 feet. As normal for increasing ranges, if the spell normally has a range of touch, its range extends to 30 feet.\nCraft Requirements Supply a casting of a spell of the appropriate rank. The spell must have a casting time of 1 or 2, and must have a range.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:shapespeak-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Dntj7zwUTmj4fboD",
+      "slug": "shapespeak-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9a6be591a7025f2fca1be892fbf1f9952f4a3e265daa62b72f053b2c304f4a5f",
+    "translatableHash": "sha256:f7b339afa8632e698859bfe0f9a22282f844dbe914cb54d9cd83680c908ab429",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shapespeak Mask",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A shapespeak mask is carved into the shape of an animal, usually tailored to a species of beast that the user favors. While wearing this mask, you can speak even when polymorphed into an animal. The shapespeak mask removes no other limitations, such as the inability to cast spells when transformed.",
+      "bulk": 0,
+      "price": {
+        "gp": 80
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:drums-of-war",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dsxATkJ2RwvYF3vm",
+      "slug": "drums-of-war",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:80750f61308f3d7cd623b216230d709b37f84bfa28b0a3acd61d81db45ff13e6",
+    "translatableHash": "sha256:865e20e6791d6ea0d25220aeacb3358a291561b0f5184ac13634b25f1bd5c235",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Drums of War",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "coda",
+        "occult",
+        "staff"
+      ],
+      "description": "This handheld snare drum is adorned with garish scenes of battle and triumph. When played, no matter what rhythm, it always gives the impression of a marching beat, invoking armies on the move. While playing the drums, you gain a +1 item bonus to Performance checks and a +5-foot status bonus to your Speed.\nActivate Cast a Spell\nEffect You expend a number of charges from this instrument to cast a spell from its list.\n• Cantrip Shield\n• 1st Force Barrage, Mystic Armor, Sure Strike\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:seers-flute",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "eLsmwHVW5qiwcd7c",
+      "slug": "seers-flute",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a134cd57404652847ff6364d50c32131d43ef87ba79e5ec9d9f04c9422f3bc99",
+    "translatableHash": "sha256:c1cc43ac607fdd85dc1bc8f9aeb01e1214c32144fbbfa332b4219a82c66d1868",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Seer's Flute",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "coda",
+        "occult",
+        "staff"
+      ],
+      "description": "This ivory flute is adorned with many carvings of eyes. Each has jade pupils and a semiprecious stone as its iris. The eyes flutter open and closed when the flute is played, as if it held the eyes of many independent beings. While playing the flute, you gain a +1 item bonus to Perception checks and Performance checks.\nActivate Cast a Spell\nEffect You expend a number of charges from this instrument to cast a spell from its list.\n• Cantrip Guidance, Read Aura\n• 1st Object Reading\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:colorful-coating-violet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "eyWT7VKdba72hKMw",
+      "slug": "colorful-coating-violet",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-tools/colorful-coating/violet.webp"
+    },
+    "sourceHash": "sha256:c0f22ae63eb7e80abdaa6aafdf4b373d67ffc4e92cbbe002d16261001eba5933",
+    "translatableHash": "sha256:8f002b9469d5860acdf979123a22e0089e20d88ce496b213beb101939c97f911",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Colorful Coating (Violet)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 3 (manipulate)\nThese coatings come in different colors, each with a different special effect. A bottle of colorful coating contains enough to slather over one 5-foot square within your reach or space and is made with a special dispenser that enables you to coat the surface using only one hand. It's possible to use the coating on any surface that can be painted (subject to the GM's discretion). Colorful coating dries instantly, and its effect in the square you coated lasts for 1 minute. After that time, the coating turns to fine, inert powder, returning the square to its original condition unless otherwise noted.\nViolet colorful coating contains compounds that become goopy and sticky. A square of this coating is difficult terrain. Any creature that enters the square must succeed at a check (reflex, dc:20) save or take a –15-foot penalty to its Speeds until the end of its next turn. On a critical failure, the creature is Immobilized in the square until the end of its next turn. The target can end these effects by Escaping (DC 20) or spending 2 Interact actions to remove the sticky substances. These Interact actions don't have to be consecutive, and other creatures can help by providing the actions.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cinnamon-seers",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Hm0dZYfXHMNcTCo3",
+      "slug": "cinnamon-seers",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a9924d678a6637b6c1aab9cbb36b6c615bb755819768a95b4e3a87181350c5ed",
+    "translatableHash": "sha256:32ad22f40a76c3e271a01f7a57d977ef5df6e49aa321a273da5e29143a9604ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cinnamon Seers",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "lozenge"
+      ],
+      "description": "Activate 1 (manipulate)\nZippy, alchemically treated cinnamon suffuses cinnamon seers, a rock candy with a lively taste that provides a mental boost. A cinnamon seer remains in your mouth for 1 hour, its stimulating flavor granting you a +1 item bonus to checks to Recall Knowledge.\nEffect: Cinnamon Seers\nSecondary Effect r (fortune)\nTrigger You gain no information from a Recall Knowledge check\nEffect Reroll the triggering check. If this was a secret check, the GM rerolls rather than you; the candy doesn't give you any insight into what the GM rolled, so in that case, you're rerolling based only on guesswork. The seer becomes inert. You become temporarily immune to cinnamon seers until the next time you make your daily preparations.",
+      "bulk": 0,
+      "price": {
+        "gp": 14
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eye-slash-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IAJcB9cGEKl6HyGE",
+      "slug": "eye-slash-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f86d6d06ffb02ee13f57d305c7b9d76a9b265931008beb0a478004b785367394",
+    "translatableHash": "sha256:19709b7288de2bdc4a7cb6c02eee496f2c763636878f61b9dad36c6b96ce8f57",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eye Slash (Greater)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "Small scars or marks around your eye improve your distant vision. These scars are especially common among orc scouts, who favor scars shaped like eagle talons. You can see four times farther than normal. If you have darkvision, you can see blood in color. Higher-level versions of an eye slash are larger and more elaborate scars or marks, radiating out around the eye.\nThe tattoo also grants you a +1 item bonus to Perception checks that involve sight.",
+      "bulk": 0,
+      "price": {
+        "gp": 100
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hunters-arrowhead",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JCGsj7iY88o9uTP5",
+      "slug": "hunters-arrowhead",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/hunters-arrowhead.webp"
+    },
+    "sourceHash": "sha256:06ed70e6e978569a8acf085a4b6b96e17487ee62273f262295c7b8f752b2adb4",
+    "translatableHash": "sha256:78e02d92f9e69471c00e8774c22ff56dddf3f8152447d8b1b7fc309fec22b8f8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hunter's Arrowhead",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "rare",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A hunter's arrowhead is meant to be worn as a charm, such as a pendant, or carried in a pocket or quiver. The arrowhead is etched with images sacred to the elven god Ketephys. While you wear or carry the arrowhead, it infuses you with great skill at hunting, and you gain a +1 item bonus to Survival checks and attack rolls against any creature you've currently designated as your prey with Hunt Prey. A hunter's arrowhead is also a religious symbol of Ketephys.\nActivate R (concentrate)\nFrequency once per day\nTrigger You would miss with an attack made with a bow\nEffect You gain a +2 circumstance bonus to your attack roll, possibly turning a miss into a hit.",
+      "bulk": 0,
+      "price": {
+        "gp": 80
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-the-pampered-pet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JlI0oubjxL9WOt4p",
+      "slug": "wand-of-the-pampered-pet",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4dafe65d0b4ce6771eb3112d2bd5f099642af171f65e98e16751633bb20aca23",
+    "translatableHash": "sha256:0dc8c5179ce7a48bf208eb29515d0b8d33dc4d76fb39e386b68fe0fa103ba7b2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of the Pampered Pet",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "extradimensional",
+        "magical",
+        "wand"
+      ],
+      "description": "This extravagant wand is made of gold and capped with a large, sparkling gemstone. Its handle is wrapped in plush, padded fabric.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Pet Cache but the accommodations inside the extradimensional space are luxurious and spacious. The food is delicious gourmet cuisine tailored to the pet's palate, the habitat is the perfect temperature and environment for the pet, complete with comfortable bed or lounging area. A pair of phantom hands pamper the pet, patting, grooming, or playing with it at the creature's whim.\nCraft Requirements Supply a casting of Pet Cache.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 75
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:jug-of-fond-remembrance",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "jOulX8kWlCF5Dveg",
+      "slug": "jug-of-fond-remembrance",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:471e66c72862f2a4da26e470646d7a092a7e9c2cd59209e598fd9989cef8e5e7",
+    "translatableHash": "sha256:6a39b4ddc2b5f669c913630fa21e71cf3cc4ff774fb4bc24ad1ba799400314f7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Jug of Fond Remembrance",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This large jug always seems to contain just enough of the holder's favorite alcohol to share with a friend. As long as you're holding the jug, you gain a +1 circumstance bonus to Diplomacy checks. If you share a sip of the liquor from the jug with a creature, you gain a +2 circumstance bonus to your next Diplomacy check to Make an Impression or Request something from that creature any time within the next month.\nActivate 1 (manipulate)\nFrequency once per hour\nEffect You take a long swig on the jug and then Recall Knowledge about a creature you can see, with a +2 circumstance bonus to the check. If you fail but don't critically fail this check, you get a success instead. You're then Stupefied 1 for 3 rounds.",
+      "bulk": 0,
+      "price": {
+        "gp": 75
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:entertainers-lute",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Jpgl3HlEd8u20fUY",
+      "slug": "entertainers-lute",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/entertainers-lute.webp"
+    },
+    "sourceHash": "sha256:2e9a71d0d0b1e62750d06313ac39d68b068c07f558ce154bde2a9bf88a36e0b3",
+    "translatableHash": "sha256:e9409364402d932388c4bd74de57d7d1cd1ff478f05a7ab9b529c2fac6c6f0e3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Entertainer's Lute",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "coda",
+        "occult",
+        "staff"
+      ],
+      "description": "This lustrous lute has a polished body and frets inlaid with mother of pearl. The decorations on the lute transform to show whatever decorations or carvings you find most appealing, and they change further to reinforce the story of the song you're currently playing. Its frets are inlaid with mother of pearl. With its mix of compelling illusions and mental tricks, it's favored by many traveling minstrels. While playing the lute, you gain a +1 item bonus to Diplomacy and Performance checks.\nActivate Cast a Spell\nEffect You expend a number of charges from this instrument to cast a spell from its list.\n• Cantrip Infectious Enthusiasm\n• 1st Bless, Ventriloquism\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-pernicious-poison-1st-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kBCdBFb9IWlwy81B",
+      "slug": "wand-of-pernicious-poison-1st-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1d8104145ec75f3f5856d908bdcda2c53bed88c8a880879e471d1a0b3f4411d3",
+    "translatableHash": "sha256:403e94fc2939551044e1d2558129e23f9bd78d0110d57367cf575c24de62be61",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Pernicious Poison (1st-Rank)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "poison",
+        "wand"
+      ],
+      "description": "This wand is made of chitin, topped with a hooked barb that weeps droplets of foul-smelling, green fluid when you Activate the wand.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Spider Sting, but it gains the virulent trait.\nCraft Requirements Supply a casting of spider sting.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tricksters-mandolin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kILYXCczAc6ZfArJ",
+      "slug": "tricksters-mandolin",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:75de6bc4a1400c8b1efde6fae2aca58566ceb966186940fc40d0e5db70e654e6",
+    "translatableHash": "sha256:9aab05d2a66b047f49558cd3b7b27c698602b9b881e2a21a1f680573fcef2bc2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Trickster's Mandolin",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "coda",
+        "occult",
+        "staff"
+      ],
+      "description": "Sought after by many unscrupulous bards, this instrument is surprisingly light and easy to carry, but also empowered with a number of spells carefully selected to help with fooling others or making a hasty retreat. While playing the mandolin, you gain a +1 item bonus to Deception and Performance checks.\nActivate 1 (concentrate)\nEffect You change the instrument's color and shape to one you prefer, and you can turn it into a different handheld string instrument that takes two hands to play.\nActivate Cast a Spell\nEffect You expend a number of charges from this instrument to cast a spell from its list.\n• Cantrip Prestidigitation\n• 1st Illusory Disguise, Item Facade, Ventriloquism\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bewitching-bloom-white-poppy",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LhpRuLfxuR3t819V",
+      "slug": "bewitching-bloom-white-poppy",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:92176632a24e10f2d15951086435dad862f15f6c3142e22df5fba4487e11fbab",
+    "translatableHash": "sha256:10c79459708425eb8e510d26d948c5826d5168560ca0fc263d705f44168d33eb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bewitching Bloom (White Poppy)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "While dormant, this tattoo appears to be a simple flower bud, but when activated the flower swiftly blossoms, remaining that way until the next time you make your daily preparations. These blooms are colorful, elegant representations of white poppy flowers.\nActivate 2 envision\nFrequency once per day\nEffect Choose a willing ally you can see within 30 feet. A sense of peace overwhelms the ally. The tattoo casts Calm or Sanctuary (your choice) on the ally. The spell affects only the ally and lasts only until the end of your next turn. Your ally need not be willing if under the control of another creature. However, the controlling creature can attempt a check (will, dc:20) save, disrupting your activation on a success.",
+      "bulk": 0,
+      "price": {
+        "gp": 80
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dread-helm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LSbv4rdvKfm4bPrR",
+      "slug": "dread-helm",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:e42a789f71ee46e87eb8d1cadef5078ac03774e73d951a1bb29e29e53274d1ad",
+    "translatableHash": "sha256:27d21a8fb98d95b875fcedbf774f9355125e928a709a2b29f1c8c1e1892d3299",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dread Helm",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "aura",
+        "emotion",
+        "fear",
+        "mental"
+      ],
+      "description": "The faceplate of a dread helm has a fierce visage that magnifies the effects of fear. Concealed within is a reservoir that can hold a single Dread Ampoule, which takes 3 Interact actions to install.\nActivate 1 (manipulate)\nRequirements A dread ampoule is installed in the helm\nEffect The dread ampoule atomizes, creating a fear-inducing mist that hangs around your face for 3 rounds. The mist grants an item bonus to Intimidation checks equal to the dread ampoule's item bonus. The mist also deals mental damage equal to the dread ampoule's splash damage to all creatures within a 5-foot type:emanation other than you. The activation uses up the dread ampoule, and the helm can't be activated again until a new one is installed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:brightshade",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NAkbCs6NqqPWnp5H",
+      "slug": "brightshade",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:2af0f4ba936bbbd19f0de916e7e12b8b46ddcc1bb15395e4d2b5de1fce931b2a",
+    "translatableHash": "sha256:0b1b65c9afe6ff696d22baeed0d561967156cfd2f2efe509dd240139fd24fdb6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Brightshade",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison",
+        "vitality"
+      ],
+      "description": "Activate 2 (manipulate)\nBrewed from a plant native to the First World, brightshade destroys tissue, living or dead. Victims of this poison take poison damage if they're alive and vitality damage if they're undead.\nSaving Throw check (fortitude, dc:21)\nMaximum Duration 6 rounds\nStage 1 1d6 poison damage or 1d6 vitality damage (1 round)\nStage 2 2d6 poison damage or 2d6 vitality damage (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 18
+      },
+      "usage": "held-in-two-hands",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:messenger-missive",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NK0wjH9m32sjaeQe",
+      "slug": "messenger-missive",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:da1925110bc7ae7aa46feab4a4f38957f478dbbfcc9bcd7c35eec4338075e070",
+    "translatableHash": "sha256:32219957b7471fff1c659d6a96535e3adf9314e6ebac517055e9bfe41612266d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Messenger Missive",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nA messenger missive sends itself. When composing the missive, you write a location upon it. You can also include an individual creature you expect to be in that location as a recipient; if you don't, the first creature in the location to touch the missive is treated as the recipient. Once you finish composing the missive, it folds itself into the shape of a bird and Flies at a Speed of 45 feet (15 miles per hour) toward the location for up to 24 hours. It alights near its recipient or in their hand. When activated, the missive becomes non-magical but retains its contents. If it fails to reach its recipient in 24 hours, the missive burns to ash.",
+      "bulk": 0,
+      "price": {
+        "gp": 18
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mask-of-mercy",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "NUEwFlFb7RJnLD4w",
+      "slug": "mask-of-mercy",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b653de06a09cbacc5bc201a0b77b2941640db3806ca279189f366202547ad4fb",
+    "translatableHash": "sha256:3aa35bcf8ca79cc3eab1906585554dc71602e603428c5a3df702c41ea93cdb97",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mask of Mercy",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "This porcelain or alabaster mask portrays an angelic visage of kindness and mercy. The mask grants a +1 item bonus to Medicine checks.\nActivate 1 (concentrate, fortune)\nFrequency once per day\nTrigger You are about to roll a variable number of Hit Points you restore from an action with the healing trait\nEffect Roll twice to determine the number of Hit Points you restore and take the higher result.",
+      "bulk": 0,
+      "price": {
+        "gp": 100
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:inquisitive-quill",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oJLQaiCSmFJx0bxe",
+      "slug": "inquisitive-quill",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:46206027974aa750249baa15a5f8f4beed114a086b55749ad1d6aa24b3bb7858",
+    "translatableHash": "sha256:7568ee899537c3d8e07c185c9c85349e47bce92793d2d6aeedabe4ca75bd78a6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Inquisitive Quill",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "rare",
+      "traits": [
+        "intelligent",
+        "magical"
+      ],
+      "description": "Perception 1d20+11; precise vision 30 feet, imprecise hearing 30 feet\nCommunication speech (five languages)\nSkills Arcana 1d20+12, Nature 1d20+9, Occultism 1d20+10, Religion 1d20+9, Scribing Lore 1d20+12, Society 1d20+10\nInt +4, Wis +3, Cha +1\nWill 1d20+11\nA colorful feather adorns an inquisitive quill, which never runs out of ink. Essentially a Tiny construct, an inquisitive quill can stand on its own when given a surface, balancing as it writes or stands. (Drawing a line gives it an effective Speed of 5 feet.) It has strong curiosity, eagerly writing any information offered to it, often acting as a scribe for its partner. The quill copies text and drawings it can see or transcribes dictation it hears. It writes at a rate that rivals that of an expert scribe.",
+      "bulk": 0,
+      "price": {},
+      "usage": "held-in-one-hand-or-free-standing",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:glimmering-missive",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "omZLCSIxiF9oXyH2",
+      "slug": "glimmering-missive",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:28c0e4aad5cd589dde988adef8befa0d054d708016fd1c34a2c56838a390c958",
+    "translatableHash": "sha256:02a424ebabd28728e3893a08b485b0b03c47488309a13d284c1389246e2dcc89",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Glimmering Missive",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "light",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nA glimmering missive sparkles as you compose it. When activated, it explodes, disintegrating into a shower of multicolored motes in a 10-foot burst from a corner of the missive's space. Creatures in the area are covered in sparkling dust that remains luminous for 1 hour. Visible creatures can't be Concealed while covered by the luminous dust; any Invisible creatures are concealed while covered in the luminous dust, rather than being undetected.",
+      "bulk": 0,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:potion-patch-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pSAnfP76xGS9aVec",
+      "slug": "potion-patch-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/potion-patch.webp"
+    },
+    "sourceHash": "sha256:6289a627ccef78d5c90a3f29496e6a55df94c4937cf937933ff66548eb3503da",
+    "translatableHash": "sha256:9ec9e66d0aefc7f58e4749489720b25e8ef517c306cb1f04288fe68d863249cb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Potion Patch (Lesser)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate 1 (concentrate)\nRequirements You must have the potion patch affixed to your skin.\nA potion patch is a sticky, bandage-like pad that can be filled with one potion and affixed to the skin. Filling the patch and affixing it is a 1-minute activity that takes two hands and has the manipulate trait. A patch has a maximum level of potion it can absorb, depending on the patch's type. When you Activate the patch, the potion affects you without you needing to have the potion in your hand. The patch's magic is negated after it's used, the next time you make your daily preparations, or when another potion patch is affixed to you, whichever comes first.\nThe potion must be 10th level or lower.",
+      "bulk": 0,
+      "price": {
+        "gp": 20
+      },
+      "usage": "worn",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sure-step-potion",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pufVrJqj63H7kvAZ",
+      "slug": "sure-step-potion",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:9abbe4203ecf67b3661ecc264cc24605addd41d3aada4623cc6fa2165c762335",
+    "translatableHash": "sha256:369c4cc45b2350e75dc3b7958e81b068ffd5afc6501d1d720c0f04ff01ee1da1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sure-Step Potion",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "potion"
+      ],
+      "description": "Activate 1 (manipulate)\nThe light-brown liquid of a sure-step potion helps you find your footing. After drinking it, you gain a +1 item bonus to Acrobatics checks to Balance for 1 hour. In addition, you can Step into difficult terrain, and you aren't Off-Guard on uneven ground.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 17
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tasters-folly",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pvsJXFfbwGWhoG5N",
+      "slug": "tasters-folly",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:6f54ccde1378017dc3b77d2bc137065daaa266e4e4be0093813c8ae32a49f6fe",
+    "translatableHash": "sha256:80a38b2a3d099d7a0a02fd2aeb1526598f652a1f94dce3ba0267efc5cf6b5954",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Taster's Folly",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 (manipulate)\nDevised to bypass detection, a dose of taster's folly consists of two compounds that aren't mixed but placed in the contents of one meal. Each compound is harmless on its own. The DC to Recall Knowledge about this poison from one of its components is 23 and attempts to use magic to detect the unmixed components require a successful DC 23 counteract check. The onset period begins only if a victim consumes both compounds during the same hour. If the two compounds mix prior to consumption, they become toxic and are detectable as such. The sickened condition can't be ended until the poison's effects end.\nSaving Throw check (fortitude, dc:21)\nOnset 10 minutes\nMaximum Duration 6 minutes\nStage 1 2d4 poison damage (1 minute)\nStage 2 3d4 poison damage and Sickened 1 (1 minute)\nStage 3 4d4 poison damage and sickened 1 (1 minute)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 20
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:reading-glyphs",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qdXwiDaPdsFtlXGH",
+      "slug": "reading-glyphs",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:338f978ca991311d86a128397cd436398fbf6b75853212c272777f9c5d67d49e",
+    "translatableHash": "sha256:bd664b9e48c165e8336bba56628d59e332224ca3883fc757a25e82619767b04a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Reading Glyphs",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "These tattoos on your knuckles look like strange glyphs in an unknown language. If you press your fingertips to text in any language, these glyphs cycle in appearance through those of various extant languages. Encrypted text causes your glyphs to turn to a recognizable \"null\" symbol.\nActivate 1 (concentrate)\nFrequency once per day\nEffect You sync the tattoos with the text your fingertips are touching. By running your fingers across the text, you translate it, with glyphs on your knuckles showing the translation in a language you can read. Your tattooed glyphs can't translate encrypted or encoded text, language couched in metaphor, and the like, subject to GM discretion.",
+      "bulk": 0,
+      "price": {
+        "gp": 90
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sentry-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qJMcnWmzColtya0Z",
+      "slug": "sentry-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:f520a588b044de63d9dfb83549575ba23451128d8f121c64837ab262c5509652",
+    "translatableHash": "sha256:b9240cea9160d636a7f7f9eda43d3e4956bb4fe9c2fc91a273078ba7bf35c8b2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sentry Fulu",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical"
+      ],
+      "description": "Activate 3 (concentrate, manipulate)\nA sentry fulu depicts an armed guard. When you activate the fulu, it takes the shape of a Tiny humanoid guard made of paper and keeps watch over an area in a 20-foot burst. The guard has a Perception DC of 20, along with precise visual senses and imprecise hearing and vibrational sense to detect creatures moving in its area, including through the air. You dictate whether the guard remains still in its area or patrols it; if the latter, you also determine the path the guard takes, at a Speed of 25 feet. You also determine a password others must give the guard to bypass it. If a creature enters the area without giving the password, the sentry creates either an audible or mental alarm. An audible alarm has the sound and volume of a human shouting, as well as the auditory trait, allowing each creature that can hear it to attempt a check (perception, dc:15) check to wake up if they're asleep. The mental alert reaches you if you're within 60 feet of the active guard (see below). The guard remains active for 8 hours, and then the fulu is consumed.\nIf you have more than one sentry fulu, you can set up several that function as a unit, provided their areas touch or overlap. When one sounds its alarm, the alarm passes through all of them, so you must be within range of only one to hear it or receive the mental alert. Creatures that give the correct password to one sentry fulu in a unit need not give that password again to the others. The destruction of one fulu-created guard in a unit sets off the alarm in others in connected areas.",
+      "bulk": 0,
+      "price": {
+        "gp": 15
+      },
+      "usage": "affixed-to-the-ground",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-shrouded-step",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QRzpVYuATBjyBojJ",
+      "slug": "wand-of-shrouded-step",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:57794a0643f4b164ae358cdf9bb8be19ca14564d6170b0ce13472b1a4bab78d6",
+    "translatableHash": "sha256:946e02c1b7c91085a1e7180c1e8a8f7eb7bd88b8208c6934fdb93541ddb25fe8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Shrouded Step",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "When you move this delicately carved poplar wand, it looks indistinct, leaving a trail of afterimages in its wake.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Fleet Step. For the duration of the spell, you're also Concealed while you Stride.\nCraft Requirements Supply a casting of fleet step.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 80
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:merciful",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "r28DjJEjF6jvCcfb",
+      "slug": "merciful",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:970c9c7d4b5d8b58ade5c35b5db1bbcb1a5d5d8e81ea6bd319b78be8d2854c57",
+    "translatableHash": "sha256:d7fd09f03f0dd54b392fbb083c9d01a1eec3ac9bbcb2f2314cd96b8b9f92b6e7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Merciful",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "mental"
+      ],
+      "description": "Merciful weapons are sheathed in an unmistakable wispy green aura recognized by both gladiators and guards around the world. A merciful weapon has the nonlethal trait and can't be used to make a lethal attack. Any persistent damage the weapon would deal is negated.\nOn a critical hit, a merciful weapon causes the target to become Fascinated with the weapon's wielder for 1 minute, as the target is bombarded with feelings of guilt and remorse. This is a mental effect. If you have access to the weapon's critical specialization effect, you choose whether to use it or the merciful effect.",
+      "bulk": 0,
+      "price": {
+        "gp": 70
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:faith-tattoo",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rT93xVoebhCm9uVA",
+      "slug": "faith-tattoo",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:8ca0701cbe34d6605fd9e0aee69a85efbfe62ee48c50d3545c05671d3ee5be0b",
+    "translatableHash": "sha256:a5fe93aabb9f0f1d07ce0139d0369aaa0b31ed7b60c452b8de76c10fb838e991",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Faith Tattoo",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "divine",
+        "invested",
+        "tattoo"
+      ],
+      "description": "Prerequisites worshipper of a deity\nYou have marked your body to show your devotion to a deity. This tattoo could be the deity's religious symbol, another image that evokes that deity, or another mark you gained through your devotion. The tattoo serves as a silver religious symbol of the deity. Provided you keep the tattoo uncovered, you need not wield it to gain that benefit.\nWhen you get the tattoo and aren't sanctified, you can choose to sanctify yourself to your deity.\nIf you cease meeting the prerequisites, the tattoo fades, and you lose its benefits until you perform an Atone ritual and meet the prerequisites thereafter.\nActivate Cast a Spell\nFrequency once per day\nEffect The tattoo casts Harm, Heal, or the 1st-rank spell from your deity's cleric spells. You can choose harm or heal only in accord with the deity's divine font. If the deity allows either spell, choose one the tattoo can cast when you receive the tattoo. The DC for any of these spells is 18.",
+      "bulk": 0,
+      "price": {
+        "gp": 80
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tremorsensors",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "teMhnTeAyWnvbo2C",
+      "slug": "tremorsensors",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d47a73592ecf5592879befa5fc1f36c09813607fb653135671fac3c05e495cb1",
+    "translatableHash": "sha256:fe6ab345093fb86fdbf05781a0eeaf2c698f64352abdc673113046fb40efe938",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tremorsensors",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "adjustment",
+        "mechanical"
+      ],
+      "description": "These small, metallic devices resemble squashed spheres. They each contain a tiny gyroscope that's incredibly sensitive to vibrations in the earth. While typically worn on one's footwear, the device can be affixed to any part of your armor.\nActivate F (manipulate)\nFrequency once per day\nEffect You stomp a foot, clap your hands, or create some other source of sound, gaining tremorsense as an imprecise sense with a range of 20 feet for the next 10 minutes.\nEffect: Tremorsensors",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "affixed-to-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pipes-of-compulsion",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TTvfgU2G5n3tpTby",
+      "slug": "pipes-of-compulsion",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7a557c1adb6f78b193dcd4b5035ceb361b40a75032d8bbadb2c463b32a7f8873",
+    "translatableHash": "sha256:8f89fc0cd606717dbbc988cacbb926e32beaf618f73db6c2187e79116e4d4acd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pipes of Compulsion",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "coda",
+        "occult",
+        "staff"
+      ],
+      "description": "These panpipes are made of what seems to be beat-up tin bound by frayed leather and look like they shouldn't function at all, but in skilled hands they emit a beautiful sound that beguiles the senses. While playing the pipes, you gain a +1 item bonus to Diplomacy and Performance checks.\nActivate Cast a Spell\nEffect You expend a number of charges from this instrument to cast a spell from its list.\n• Cantrip Daze\n• 1st Charm, Command, Fear\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:rhinoceros-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "UNOHV2dnRphyNJFw",
+      "slug": "rhinoceros-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7b417d9847df162a27169b6bfe3ec8f46fe974c014a2fe509a4aa08bc6cd3bab",
+    "translatableHash": "sha256:f4c023ae9b08a8bed62d18f3575f3d8843e3102d6ddefcb1888c3aae46948509",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Rhinoceros Mask",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Covered with thick armor and bearing a thicker horn, this face mask grants you increased momentum. If you Stride at least 10 feet, your next melee Strike before the end of your turn ignores the Hardness of objects with a Hardness of 5 or less. If the object has more than Hardness 5, the mask grants no benefit.",
+      "bulk": 0,
+      "price": {
+        "gp": 90
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wildwood-ink",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uOaFBqnCYWCgyCl6",
+      "slug": "wildwood-ink",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d1ed07a8b181599a054de242409c4552eccc8f15d4cccc6ed96ff714aca6b28c",
+    "translatableHash": "sha256:e164847678cc502a0c7d0fb856ead14ef12b3ccfb3210d5a54ef4210c1c23720",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wildwood Ink",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "primal",
+        "tattoo"
+      ],
+      "description": "These curving, delicate designs resemble leaves, vines, or creepers, most often wrapped around a limb, ear, or throat, or curled around specific muscles. They help you blend in among plants. You gain a +1 item bonus to Stealth checks, which increases to +2 in forests.\nActivate R (concentrate)\nFrequency once per day\nTrigger A creature would detect you by Seeking\nRequirements You're in a forest or similar natural area\nEffect The tattoo casts One with Plants to turn you into a plant before you can be noticed. The duration of this spell is 10 minutes.\nIf you've already Activated the tattoo, you can supply a separate casting of one with plants to recharge the tattoo instead of having the spell's normal effect. This allows you to Activate the tattoo again in the same day. You can do so multiple times each day, but only as many times as you continue to cast one with plants to recharge the tattoo after each use.",
+      "bulk": 0,
+      "price": {
+        "gp": 80
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:saboteurs-friend",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "V7UcnQ0cXh1QSwo6",
+      "slug": "saboteurs-friend",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:74b4ac479e7c6b070f4e8c8e9be443b41fe897bae46fbc614573c5f4e6f384d8",
+    "translatableHash": "sha256:333a1dcc0ce0d53534227bb59501eb8390deeea2da4077c7235d3541a116ccdb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Saboteur's Friend",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "ingested",
+        "poison"
+      ],
+      "description": "Activate 1 (manipulate)\nThe euphemistically named saboteur's friend looks, smells, and tastes like an appetizing chocolate square. You lace the chocolate with reagents that induce a strong laxative effect. Saboteur's friend is useful for incapacitating rather than dealing lasting harm. Unlike some poisons, saboteur's friend can have its sickened condition reduced (but changing to a higher or lower stage after a save applies any sickened condition listed for that stage, as normal).\nSaving Throw check (fortitude, dc:20)\nOnset 10 minutes\nMaximum Duration 1 hour\nStage 1 Sickened 1 (10 minutes)\nStage 2 Enfeebled 1 and Sickened 2 (10 minutes)\nStage 3 enfeebled 1, Fatigued, and Sickened 3 (10 minutes)",
+      "bulk": 0,
+      "price": {
+        "gp": 14
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-mercy-1st-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vSiePW2xIEOmXB0H",
+      "slug": "wand-of-mercy-1st-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:0fe176ed2d28be9c54edb59b940be93c5578cfd0d5e6d8ce16aedf3b9a2f6582",
+    "translatableHash": "sha256:e70fd1856cb818ad38ad8f5459a964a0ec30622cf4bb445668b796f7f6ddbe92",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Mercy (1st-rank)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "The pommel of this rose quartz wand resembles the stylized wings of an angel. When you cast its spell and choose not to make it nonlethal, the crystal deepens to blood red. The color reverts to rose when you cast the spell from the wand nonlethally.\nActivate Cast a Spell; the activation takes 2 if the spell normally takes 1 to cast, or 3 if the spell normally takes 2\nFrequency once per day, plus overcharge\nEffect You Cast the Spell, and can choose to give it the nonlethal trait.\nCraft Requirements Supply a casting of a spell of the appropriate rank. The spell must have a casting time of 1 or 2, it must deal damage, and it can't have the death, void, or nonlethal traits.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 75
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-crushing-leaps",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WAYGyAaH7rtpX1y4",
+      "slug": "wand-of-crushing-leaps",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d7ed1c79adcf30f97f0d42339c0e6b52754bab87076adcc72abec076ca3ec319",
+    "translatableHash": "sha256:f08777895e2f3a04b50578040b1c21db24959dcc1268528a8c4c8441e765a760",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Crushing Leaps",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "This supple, light wooden wand drifts to the ground like a feather or leaf when dropped, landing unharmed. A thin coil of metal wraps around the wand's handle.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Jump, but can jump up to 60 feet. When you land you shatter the ground, making each creature in a 5-foot emanation Off-Guard until the start of its next turn. In addition, the space you land in and all squares in the emanation become difficult terrain for 1 minute.\nCraft Requirements Supply a casting of 1st-rank Jump.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 80
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-mental-purification-1st-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xTcQPSZlZ231gPWk",
+      "slug": "wand-of-mental-purification-1st-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/wand-of-mental-purification.webp"
+    },
+    "sourceHash": "sha256:63de98e841adcd9b78b5238dfd03d34511a1273bc8ee682bb3fd0397ebee54ac",
+    "translatableHash": "sha256:22fcf86373d3419db162454093fcfc3e57048d87e005b6881e9000c91a6aa4d4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Mental Purification (1st-rank)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "emotion",
+        "healing",
+        "magical",
+        "mental",
+        "wand"
+      ],
+      "description": "Red feathers hang from the handle of this ivory wand. Holding it brings a sense of gentle calm.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast 1st-rank Soothe, and can attempt to counteract one mental effect on the same target. Treat the Soothe spell's rank as 1 higher for this counteract check.\nCraft Requirements Supply a casting of soothe of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 110
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sextant-of-the-night",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XtYQFNEDlEVOr831",
+      "slug": "sextant-of-the-night",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ba43a5b5f46ddba973a11b8656bd034d53f363410e8aea927c6cad5ff5e9eb88",
+    "translatableHash": "sha256:85bfd2d628842086111650c97635248e7d629f2039443ce72399114f90000c9c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sextant of the Night",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This finely wrought sextant is made from silver with several onyx mirrors and shades made from thin sets of crystal glass. A fine spyglass made of silver is affixed to the frame; removing the spyglass destroys the sextant. By all appearances, the sextant shouldn't function, as the shades and mirrors are swapped, but when you look through the spyglass, you see a night sky during the day and the sun during the night, as if day and night were inverted. When you use the sextant, you gain a +1 item bonus to Survival checks, which increases to a +2 item bonus when you Sense Direction.",
+      "bulk": 1,
+      "price": {
+        "gp": 95
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bagpipes-of-turmoil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "y8nPmHXIdt4KhMQU",
+      "slug": "bagpipes-of-turmoil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3842b844886fa505f95f8395c3c5b725bce8f5b0f410323131e52268dd628863",
+    "translatableHash": "sha256:1c8c24d7d5c58a5efbd40c7b781ca95f19d7e185a76a53f4bb60d8964e29a5ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bagpipes of Turmoil",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "coda",
+        "occult",
+        "staff"
+      ],
+      "description": "While those who appreciate bagpipes may like the sound of this gray reed and black leather instrument, its real purpose is to sow turmoil against a performer's enemies, spreading discord with each note. While playing the bagpipes, you gain a +1 item bonus to Performance checks and to Intimidation checks made to Demoralize.\nActivate Cast a Spell\nEffect You expend a number of charges from this instrument to cast a spell from its list.\n• Cantrip Daze\n• 1st Bane\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 90
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:animal-repellent-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YVLwV9IGzNqIzbmV",
+      "slug": "animal-repellent-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:f493ec3a61950b4c9bf794e6d3c6f76507570da9dd0ad7a9903891dea07d53b9",
+    "translatableHash": "sha256:691bfd37051ce26f2042d2abb2a4d3985fd2235fd247ac32a679dc2c53c8ef0d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Animal Repellent (Lesser)",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "olfactory"
+      ],
+      "description": "Activate 1 (manipulate)\nAnimal repellent is a noxious alchemical substance that makes you repulsive to a certain kind of animal. You can, for example, make ape repellent, bear repellent, or snake repellent, but not a repellent that affects all animals. The repellent doesn't work on creatures that are similar to the kind of animal, but not actually animals—for example, bear repellent wouldn't work on werebears. Animal repellent is ineffective against animals with an Intelligence modifier of –3 or higher, such as awakened animals. When you initially learn the formula for animal repellent, you learn the formulas for all common animals. If no animals of a kind are common, such as sea serpents, you must learn the formula for that kind separately, and it has the same rarity as the least-rare creature of that kind.\nYou Activate animal repellent by sprinkling it on yourself or a creature within reach, or by spreading it on a surface in an area up to 10 feet square. The repellent lasts for 24 hours or until scrubbed clean with 1 minute of work (consisting of multiple Interact actions). The designated kind of animal can smell the repellent from three times as far away as normal.\nThe designated kind of creature typically avoids the coated creature or area, which smells foul and feels unnerving to it. If in combat or otherwise distressed, the creature can approach within 20 feet of the affected creature or area only if it succeeds at a Will save with a DC determined by the type of animal repellent. Once it succeeds at this save, the animal is temporarily immune for 1 minute. If the animal attacks in a way that causes it to taste or ingest the repellent, it must succeed at a check (fortitude, dc:18) save or become Sickened 1 (or Sickened 2 on a critical failure).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 15
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-legerdemain-1st-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "z2QXO8vl0VsXaI1E",
+      "slug": "wand-of-legerdemain-1st-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:5bf3a7d79ae40956bf4a33773d050bc07f8d5fc37587a26d5686e5aa43ba5cc0",
+    "translatableHash": "sha256:27af64c9a2730dd24d1bf608f5baf6b4521a6ea9ab9b08a834839883ec3f5d07",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Legerdemain (1st-rank)",
+      "itemType": "equipment",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "This wand of lacquered black wood has a handle wrapped in interwoven colorful ribbons. A silver bell caps the wand's tasseled pommel.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You Cast the Spell.\nActivate 1 (emotion, illusion, light, manipulate. mental, visual)\nRequirements The last action you took this turn was to Cast a Spell from the wand\nEffect You make yourself the center of attention. An illusory spotlight shines bright light upon your space as you pull inane objects from the wand's tip, such as confetti, silk flowers, streamers, or a long string of colorful kerchiefs knotted end to end. Each enemy within 30 feet must attempt a Will save against your spell DC, receiving a +4 circumstance bonus to the save if you or any of your allies recently threatened it or used hostile actions against it. On a failure, the creature becomes Fascinated with you until the end of your next turn. The fascination ends if the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it.\nThe spotlight follows you wherever you move. You can't be Concealed while in the spotlight. The effect ends if you become Invisible, attempt a Stealth check, or Dismiss the activation.\nYou can Sustain this Activation for up to 1 minute. Since you need to keep performing tricks, Sustain an Activation has the manipulate trait. Sustaining extends the spotlight, and keeps fascinated creatures fascinated, but doesn't cause creatures not already fascinated to become fascinated.\nCraft Requirements Supply a casting of a spell of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 100
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:explosive-missive",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZtfkPBCvHTmHCTix",
+      "slug": "explosive-missive",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:7a648d771c6f62fe01cfcf584bec55564545149e93cbed71a2d24ecdac56481d",
+    "translatableHash": "sha256:a8aac5cee7c84e96027cb170b8f960b9f74da0bbca4521ec57a6d4122bc5ced0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Explosive Missive",
+      "itemType": "consumable",
+      "level": 4,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nAn explosive missive is slightly warm to the touch, regardless of the surrounding environment. When composed and then activated, the missive explodes. The tenor of what you write or the theme of your illustration determines the damage type and adds the corresponding trait to the missive: 4d6 acid damage for a caustic inscription, 4d6 cold damage for an aloof one, 4d6 electricity damage for an energetic one, 4d6 fire damage for an angry one, or 4d6 sonic damage for an overly emphatic one. The missive deals 4d6 damage to each creature in a 5-foot burst from a corner of the missive's space (check (reflex, dc:18, basic, options:area-effect)). A creature who rolls a critical failure also takes 1d4 persistent damage of the same type. The missive burns to ash while releasing its magic.\n1d4 persistent acid damage 1d4 persistent cold damage 1d4 persistent electricity damage 1d4 persistent fire damage 1d4 persistent sonic damage",
+      "bulk": 0,
+      "price": {
+        "gp": 13
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tlil-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0LfgYMONUws8lzOv",
+      "slug": "tlil-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f381c63ee51d26535be9b0dc3e7e97e58db1fbf1cda64ffc5b18cd3c53b19b37",
+    "translatableHash": "sha256:ebe25ef50e3b65f3bf120efaf1ea89390bdfb653b6b24e07a2fabc3a00c68e85",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tlil Mask",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Colorful, beaded tlil masks are commonly found on the distant continent of Arcadia, but trade between the two regions means that they can also be found in the Mwangi Expanse as curiosities. These masks usually bear floral patterns and attune your senses to plants of all varieties.\nActivate 1 (concentrate)\nFrequency once per day\nEffect Your vision up to 60 feet sees through small amounts of living plant matter as though it were transparent. While this effect is active, creatures can't be Concealed from you due to living plants, such as small trees, vines, and grass. This also prevents them from Hiding or Sneaking past you using only living plants for concealment or cover. Other than the inability to use the cover to Hide or Sneak, this ability doesn't prevent plants from providing cover to creatures or blocking line of effect. It also doesn't allow you to see through dead plant matter, such as the wooden walls of a building, or thick plant matter, such as the walls of a dungeon built entirely inside an enormous living tree. The effect lasts for 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 130
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:crackling-bubble-gum-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "0Y0fmvvKSgFvUtA2",
+      "slug": "crackling-bubble-gum-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/other-consumables/crackling-bubblegum.webp"
+    },
+    "sourceHash": "sha256:3d994406e54df7cf940c3c85d452aabbecbaa26b5360236e03078f2b227c745b",
+    "translatableHash": "sha256:1fe3423a6f36a33253559a3920160cd632462613a71385b0753acaa82384d3f4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Crackling Bubble Gum (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "lozenge"
+      ],
+      "description": "Activate1 (manipulate)\nThis tangy gum cracks and pops in your mouth as you chew it. While you're chewing crackling bubble gum, for up to 10 minutes, you have a +1 item bonus to saving throws against auditory and sonic effects.\nEffect: Crackling Bubble Gum\nSecondary Effect 2 (sonic)\nEffect You blow a bubble with the gum until it pops, after which it becomes inert. The pop deals 4d4 sonic damage to all creatures in a 15-foot cone with a check (fortitude, dc:19, basic) save. A creature that fails its save is also bound with sticky gum, taking a –10-foot item penalty to its Speed for 1 minute. The creature can remove the gum with a total of 3 Interact actions. These actions don't have to be consecutive, and other creatures can provide the actions as well.\nEffect: Crackling Bubble Gum (Failure)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scizore-of-the-crab",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1eiaTQo9SKiybP8G",
+      "slug": "scizore-of-the-crab",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/scizore.webp"
+    },
+    "sourceHash": "sha256:18ae55b6220ce6efc2f78c92ed8a2ceb46a4580096c239d18f941d618b1467e9",
+    "translatableHash": "sha256:dc40e98c5cf6b8a67344e0aa82aa1a398cb34e81f5889723382cb091fef010e2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scizore of the Crab",
+      "itemType": "weapon",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "disarm",
+        "grapple",
+        "parry"
+      ],
+      "description": "A scizore of the crab is a +1 scizore that has the grapple trait in addition to its normal weapon traits.\nActivate 1 (manipulate)\nRequirements Your last action was a successful Strike with this weapon, or you have a creature Grabbed with this weapon\nEffect The target is grabbed until the end of your next turn. A grabbed creature can use the Escape action to get out of the Grab, and the Grab ends for a grabbed creature if you move away from it. This functions as the Grab creature ability.\nActivate 1 (manipulate)\nFrequency once per round\nRequirements You have a creature grabbed with this weapon\nEffect The crab claw animates and pinches open and shut, dealing slashing damage equal to the scizore of the crab's number of damage dice.\nCraft Requirements The initial raw materials must include a claw from a giant crab or similar creature.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "knife",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "slashing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-moderate-acid",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2pB7AsbE0c7HvoZZ",
+      "slug": "elemental-ammunition-moderate-acid",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:366db6bdbd6a25920765d3ee6dd9b4c1d2fd64b904511cc7d50ec834b999c0dc",
+    "translatableHash": "sha256:090361e86a974bfe7ad51df8ef534039ca05a1d2b615196557a17bb8770d956d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Moderate, Acid)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "acid",
+        "alchemical",
+        "consumable",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 2d4 persistent acid damage to the target and 2 splash acid damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 21
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-moderate-electricity",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "39kmT1vcfywtQtg9",
+      "slug": "elemental-ammunition-moderate-electricity",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:44440c6cb6d5b0a5c1f4df3fdaea4c6727fcabf271879d942ddf587fb07b9779",
+    "translatableHash": "sha256:dc7fb77f06c57316df28b1a74abd2e4c1f45192a1f784457ab55827428242960",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Moderate, Electricity)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "electricity",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 2d4 persistent electricity damage to the target and 2 splash electricity damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 21
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ooze-skin",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3ZBFkXQC7jgZ8kx9",
+      "slug": "ooze-skin",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a2653649051b01e50633c12b05c6a5a41fdf0186c7804c23c1c65e34ce3b1415",
+    "translatableHash": "sha256:0cd4107ae8bf77ad59e4464105631073a2044f2f7a9bc3bbaabbae9569ad33a7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ooze Skin",
+      "itemType": "armor",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This leather armor has been treated with extract from oozes, which can be reactivated in the presence of a strong acid. A receptacle in the armor can hold an Acid Flask, which takes 3 Interact actions to install.\nActivate 1 (manipulate)\nRequirements An acid flask is installed in the armor\nEffect The leather weeps slippery protoplasm, granting an item bonus to Escape and Squeeze checks equal to the acid flask's item bonus. The protoplasm also irritates the skin on prolonged contact, causing any creature that grapples or swallows you to take acid damage equal to the acid flask's splash damage. Ooze skin remains activated for a number of rounds equal to the level of the acid flask installed. The activation uses up the acid flask, and the armor can't be activated again until a new one is installed.",
+      "bulk": 1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 4,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:egg-cream-fizz",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5a6pudUj6WG8RITy",
+      "slug": "egg-cream-fizz",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/egg-cream-fizz.webp"
+    },
+    "sourceHash": "sha256:0da8a81b7a7a5208ea6f896049d8cbfcf4f66b984572bd24ab5cf8cad93c3275",
+    "translatableHash": "sha256:2c7a7a2ec0f3f544ec3845a3bb7aba9a9d4540d208312b4726f838e3b324a66f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Egg Cream Fizz",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 (manipulate)\nContaining neither eggs nor cream, an egg cream fizz contains milk or nut milk, sparkling water, and flavored syrup, frothed and chilled. Upon drinking, you feel lighter and more buoyant, gaining a +5-foot item bonus to your Speed for 10 minutes. During this time, you also gain another effect determined by the drink's syrup, which is chosen when the drink is created.\n• Chocolate You gain a +1 item bonus to Acrobatics checks to Balance, Maneuver in Flight, and Squeeze.\n• Strawberry You gain a +1 item bonus to Athletics checks to Climb, Leap, and Swim.\n• Vanilla You can Step into difficult terrain.\nEffect: Egg Cream Fizz",
+      "bulk": 0.1,
+      "price": {
+        "gp": 27
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stone-body-mutagen-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5ftFTiKY0BMvhzL9",
+      "slug": "stone-body-mutagen-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ed147f077fb453c999da02b0d71ca4a0073a555f8c2f3cda323fa562d2f6fdda",
+    "translatableHash": "sha256:5ff3a1c1e9d33ae0fb4ed8df11bcd3b9c618f1b502b249158e2af5d7d5faef22",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stone Body Mutagen (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "mutagen",
+        "polymorph"
+      ],
+      "description": "Activate A (manipulate)\nThis mutagen calcifies your body making it as hard as stone.\nBenefit You gain resistance 5 to physical damage (except bludgeoning).\nDrawback Your speeds are reduced by 10 feet (minimum 5 feet) and you take a -2 penalty to Reflex saves.\nDuration 10 minute.\nEffect: Stone Body Mutagen (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 22
+      },
+      "usage": "held-in-one-hand",
+      "category": "mutagen",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:numbing-tonic-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7D6ENmL3mRfUOMwf",
+      "slug": "numbing-tonic-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/addiction-suppressant.webp"
+    },
+    "sourceHash": "sha256:8534ebf2598d4ad3cad0d8a6958e94d28296e86e931904527ccfc3b9a34f6da0",
+    "translatableHash": "sha256:05434ea74f5ca839153f31f721e8ab49089193b5d111ab9f711eeb06ec051302",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Numbing Tonic (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 (manipulate)\nNumbing tonic makes it easier to push through the pain of battle and shrug off otherwise debilitating blows. You gain 5 temporary Hit Points when you drink the elixir, and again at the start of each of your turns for 1 minute.\nEffect: Numbing Tonic",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:freeze-ammunition",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7fS4k3K3p6SFLxKe",
+      "slug": "freeze-ammunition",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:dcbfff7393d48f71d9c9d7a2674b161ea88c761199094335ccd4342bef2462dd",
+    "translatableHash": "sha256:65b737fa75110438ef9ee317f42def6857d8baa4478ee5022dce8f75671bdbb9",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Freeze Ammunition",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nFreeze ammunition carries chilling reagents that activate on contact with the target. A creature hit by activated freeze ammunition takes cold damage instead of the weapon's normal damage type, plus 2 cold splash damage. Hitting a 5-foot-square surface successfully with freeze ammunition deals 2 cold splash damage and covers the space in a layer of ice. Each creature standing on the icy surface must succeed at a check (reflex, dc:20) save or check (acrobatics, dc:20) check or else fall Prone. Creatures using an action to move onto the icy surface must attempt either a Reflex save or an Acrobatics check to Balance. Creatures that Step or Crawl don't need to attempt a check or save. The ice melts after 1 minute, although unusually hot or cold temperatures can change this duration at the GM's discretion. Dealing at least 1 point of fire damage to the ice removes it instantly",
+      "bulk": 0,
+      "price": {
+        "gp": 28
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:moonlit-spellgun-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7VjM9vjBMxhukiTf",
+      "slug": "moonlit-spellgun-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:f93de8a4d460d4812d600400105c05e365a7b67aa583d51b3f50a6a2feb7e577",
+    "translatableHash": "sha256:d9fda4e8e879eb5b4eb99cc5a7cc2f03d0e7f80a8740d2dd0505042129abcfdf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Moonlit Spellgun (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "attack",
+        "consumable",
+        "fire",
+        "light",
+        "magical",
+        "spellgun"
+      ],
+      "description": "Activate 2 Strike\nElegant silver filigree contains the body of this ephemeral item, which is made of solid light. Its shape resembles a pistol, and it's often carried by hunters of werecreatures and vampires. You Activate the spellgun by aiming it at one creature and making your choice of a spell attack roll or a firearm attack roll against the target's AC. This spellgun has a range increment of 30 feet. The spellgun emits a silvery ray of pure moonlight that deals fire damage depending on its type. The spellgun's damage is treated as silver for the purposes of weaknesses, resistances, and the like.\nCritical Success The target takes double damage and is Dazzled until the start of your next turn. If it has a weakness to silver or a resistance that can be bypassed by silver, it's also Enfeebled 1 for 1 minute.\nSuccess The target takes full damage and is dazzled until the start of your next turn.\nThe damage is 3d8 fire damage at night, or 3d6 fire damage at other times.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spyglass-eye",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8WtXK4cyYcls72Yf",
+      "slug": "spyglass-eye",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a6793168bab75b55560515674dd5ccdea19cb926fa84eeefdc34508ef5d3307d",
+    "translatableHash": "sha256:d88da0ab6ced9d425a8bdaefcdc4b5f33d1d5ab59a44d4ab011a00b6f5d7180e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spyglass Eye",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Polished to a perfect surface and incredibly clear, this special Magical Prosthetic Eye allows you to clearly see small details as well as things a great distance away.\nActivate 2 envision\nFrequency once per hour\nEffect A magical lens of hardened air comes into being in front of the eye, allowing you to see as though you were looking through a Fine Spyglass for 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:corpseward-pendant",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "8YnlhfZSQ89FjDZ2",
+      "slug": "corpseward-pendant",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/corpseward-pendant.webp"
+    },
+    "sourceHash": "sha256:f26e403311ab2daf35a6a1cb5202136e2fb6a630ec6518f37448fa2db379e239",
+    "translatableHash": "sha256:2e5245eee9600c162968e4c59ad8f053269c28be010c5255b4abe67ce682e16a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Corpseward Pendant",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A corpseward pendant is usually shaped like the skull of a humanoid or small animal.\nActivate 1 (manipulate)\nFrequency once per hour\nEffect You become undetectable to undead creatures for 10 minutes. Undead can't see, hear, or smell you, or detect you with sensory capabilities such as tremorsense. A creature can attempt a check (will, dc:18) saving throw to ignore this effect. If an undead has reason to believe that Undetected opponents are present, it can still attempt to Seek or Strike you. If you attempt to use a vitality spell to damage undead, touch or damage an undead creature, or attack any creature while warded in this manner, the pendant's effects immediately end. An undead creature who observes you in this manner or one who succeeds at the Will save is immune to the corpseward pendant for 24 hours.",
+      "bulk": 0,
+      "price": {
+        "gp": 150
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spiritual-warhorn-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9MpwTXDxblLFgx2J",
+      "slug": "spiritual-warhorn-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:8f77827278321434ef076ca6c0d9de6e11875aef58d514f304ea028d21baf97a",
+    "translatableHash": "sha256:bba7ad9525d8f2e118993f39d7301a29a9e0c4555c8e161477972bbe1c54fafa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spiritual Warhorn (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "force",
+        "magical"
+      ],
+      "description": "Activate 2 (manipulate)\nA spiritual warhorn is a trumpet made of horn, leather, and metal. When you play a single, long note from the warhorn, it calls forth a number of Medium spiritual manifestations of warriors to aid you, according to the horn's type. Each warrior appears in an open square adjacent to an enemy within 60 feet of you, makes a Strike for 2d6 force damage (with an attack bonus determined by the warhorn's type), and then disappears. The warriors can flank with one another and with you and your allies. Once the magic is used, the warhorn remains as a non-magical musical instrument.\nTwo warriors manifest with a +11 attack modifier.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:thousand-pains-fulu-stone",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aH5MLDdkZ7aJA7hP",
+      "slug": "thousand-pains-fulu-stone",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-fancy.webp"
+    },
+    "sourceHash": "sha256:b5920fb39673ba14d60d66b149e663a5fd07c5820f92360a2428a00702edf545",
+    "translatableHash": "sha256:77be8485c466968e42fb5cfec153ac588b2926d0b7728321dd5fcf5df0f2b602",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thousand-Pains Fulu (Stone)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical"
+      ],
+      "description": "Duration 1 minute\nCreated by a chirurgeon who threw away morality in search of endless life, a thousand-pains fulu blocks the natural flow of elements in the body. A creature to which the fulu is affixed must attempt a check (fortitude, dc:19, basic). Failure or critical failure primes the target for persistent damage triggered by a specific condition that must be met within the fulu's duration.\nThis fulu's yellow parchment feels dusty and stiff. The fulu deals 3d6 bludgeoning damage as muscles swell to crush joints and bones. On a failure or critical failure, if the target takes electricity damage, it takes 1d6 persistent bludgeoning damage as well.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "affixed-to-a-creature",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:discord-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aKrslrjq22S9uRgF",
+      "slug": "discord-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:dee6c39c1d1f3245c225f1822dd6274631a42e4c3bbe42147ae2c191ecedc976",
+    "translatableHash": "sha256:7e7efa1e13fe06965e9f1bf14f579832f3f3b67907daec0b83fd4bfbee679f89",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Discord Fulu",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical",
+        "misfortune"
+      ],
+      "description": "Duration 1 hour\nIncorporating green in its writing, a discord fulu is a popular but unethical tool often deployed on romantic rivals to foil their advances. While the fulu is affixed to it, a creature treats its attitude toward other creatures as one step worse than it is. The creature also takes a –1 status penalty to Diplomacy checks. The first failure the creature rolls on a Diplomacy check becomes a critical failure instead, and the fulu turns to ash, ending its effect.\nEffect: Discord Fulu",
+      "bulk": 0,
+      "price": {
+        "gp": 22
+      },
+      "usage": "affixed-to-a-ranged-weapon",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:toolkit-of-bronze-whispers",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "aUohYRQ8lHzgblxi",
+      "slug": "toolkit-of-bronze-whispers",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:81a362143d8b4489466e84587d5b823ffc138fa4fa83c758a8ef2da385e040ad",
+    "translatableHash": "sha256:c843a1bafe506a3165a9aada38a13b87aafbbf384bc538470453893a94840291",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Toolkit of Bronze Whispers",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "rare",
+      "traits": [
+        "divine",
+        "intelligent"
+      ],
+      "description": "Perception 1d20+12; precise vision 30 feet, imprecise hearing 30 feet\nCommunication telepathy (Common and two other common languages)\nSkills Clockwork Lore 1d20+15, Crafting 1d20+13, Religion 1d20+11\nInt +4, Wis +3, Cha +0\nWill 1d20+12\nSacred to the faith of Brigh, a toolkit of bronze whispers has been used with such devotion it has developed a consciousness and personality that can be a blessing to a partnered crafter. A toolkit of bronze whispers functions as a set of Artisan's Tools (Sterling). Such toolkits focus on new creations and enthusiastically suggest crafting techniques to wielders. A toolkit of bronze whispers knows common item formulas of its level or lower and any other formulas the GM chooses. It can teach these formulas. You must still spend the time to copy a formula before you can use it.",
+      "bulk": 2,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cooperative-waffles-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "awPkC6AWcHS3T4oz",
+      "slug": "cooperative-waffles-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3da46e19c7070bb2a4776927a0243e2803a2ba7a3c6ce16b6456ee804cb59e86",
+    "translatableHash": "sha256:2e3a2886d783299f1c41af4a15689cfd34c772a3c14be0dbb2948b41385e6ea5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cooperative Waffles (Greater)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "processed"
+      ],
+      "description": "Activate 10 minutes (manipulate)\nFlash-cooked on a waffle iron and drizzled with alchemical syrups and compound butter, cooperative waffles bolster the supportive spirit of those who share the batch. You can split the waffles with one other creature. After you both eat half of the waffles to Activate them, when one of you uses Follow the Expert to follow the other, the circumstance bonus granted is 1 higher. The benefit of the waffles also applies when one of you successfully Aids a skill check the other attempts. The waffles' bonus lasts 24 hours or until you next make your daily preparations, whichever comes first. You can only be linked to one creature in this way at a time; if either of you eats cooperative waffles again, the effect of your previous waffles ends.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bomb-coagulant-alembic",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "B4wxZ7mvBDJPWPvZ",
+      "slug": "bomb-coagulant-alembic",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ccf45a57378ecec5e002dd052f97630668e809881f07d31086cc9518c4cb6095",
+    "translatableHash": "sha256:4fda4d51e17a05cac2b1db4a7374f0b8b28634aa8a39e5c32af10dad3097789c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bomb Coagulant Alembic",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This apparatus increases the viscosity of the reagents in alchemical bombs, to deadly effect. As a 10-minute activity that has the manipulate trait, you can use a bomb coagulant alembic to distill the contents of one infused alchemical bomb that deals splash damage into a stickier substance. After distilling, the bomb deals no splash damage but instead deals persistent damage equal to and of the same type as its original splash damage. If the bomb already deals persistent damage, distilling increases that damage by the bomb's original splash damage.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:magnetic-shield",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BPZPA9Y8kPewVYoW",
+      "slug": "magnetic-shield",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:faf8bf51b596f7a0e5998a66e156bf11cb64e67607a6220c44a86782515c05f6",
+    "translatableHash": "sha256:47d00745a2c66f32d43b52f5d156c5b6e0897e9e66b89841f4101ce5fcd76013",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Magnetic Shield",
+      "itemType": "shield",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "aura"
+      ],
+      "description": "Copper rings spiral around this Steel Shield. Twin electrical probes near the grip can socket into a jar of moderate (or higher leveled) Bottled Lightning, which takes 3 Interact actions to install.\nActivate 1 (manipulate)\nRequirements A bottled lightning is installed in the shield\nEffect The shield becomes an electromagnet for 3 rounds. When an activated magnetic shield is raised, the circumstance bonus increases by 1 against attacks made with weapons primarily made of metal. If you use a Shield Block against a creature attacking you with such a weapon, you also gain a +1 item bonus to Disarm attempts against that weapon until the end of your next turn. The activation uses up the bottled lightning, and the shield can't be activated again until a new one is installed.",
+      "bulk": 1,
+      "price": {
+        "gp": 130
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "steel-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:armory-bracelet-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "DmzkzKB4EBleK0DA",
+      "slug": "armory-bracelet-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:8971941f4ef0949b6e574d68b0c19b999be04988ef9a3433ebb57464aff538f5",
+    "translatableHash": "sha256:33aafa5cc60d79b0dea9da56e40119dfc73f7206f876b981036fd62dc696cc44",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Armory Bracelet (Lesser)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Several small charms shaped like weapons hang from an armory bracelet, which is often brass. The bracelet has one charm each for the groups axe, bow, brawling, club, crossbow, dart, flail, hammer, knife, pick, polearm, shield, sling, spear, and sword. Uncommon and rare versions of the bracelet might include charms for firearms or create uncommon weapons.\nActivate 2 (concentrate, manipulate)\nFrequency once per day\nEffect You pull one charm from the bracelet. The charm transforms into a common weapon of your choice from the charm's weapon group. If the weapon requires ammunition, it appears with a quiver or pouch with 20 pieces of ammunition for the weapon. The weapon is a +1 striking weapon of the type you chose. After 1 minute, the weapon transforms into a +1 weapon and remains until your next daily preparations. At that point, the weapon and any remaining ammunition crumble to dust and all the charms reappear on the bracelet. The weapon and ammunition created with the charm are noticeably different from others and can't be sold.",
+      "bulk": 0,
+      "price": {
+        "gp": 150
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:euphoric-loop",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "DqgkcKJL6ASqwuio",
+      "slug": "euphoric-loop",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:585d0baa71129253604618e18393c9f6f2e427cee5e3dd26a6800c3a6da3433b",
+    "translatableHash": "sha256:3325aa0affc955383c9499836f7891ecbd4f3201d2d054fc6d6c9e1b3f02318b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Euphoric Loop",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell\nThis catalyst is made from twisted sapling bark harvested under a full moon. When used to cast a Charm spell, the spell creates a blissful experience for one target of your choice. When the spell ends, even if you Dismiss it, the sudden mental dissonance between the charmed state and reality forces the target to attempt a Will save against your spell DC.\nCritical Success The target is unaffected.\nSuccess The target is Stunned 1 or, if the spell ended because of a hostile action, Confused for 1 round.\nFailure The target is Stunned 2 or, if the spell ended because of a hostile action, confused for 1 round.\nCritical Failure The target is Stunned 3 or, if the spell ended because of a hostile action, confused for 2 rounds.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:contagion-metabolizer-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EKhROfCklhZ7Je7h",
+      "slug": "contagion-metabolizer-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:db18f162e982b18e4ebe3a019a1ce00eaa3cc3a5c82541b7525b6e1ebce6e117",
+    "translatableHash": "sha256:f88158c25c20bf98e1c26ccab0b565ac5f22c103a82eeebbf4bdfbc27353f07b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Contagion Metabolizer (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nContagion metabolizers seek out toxins in the bloodstream and attempt to purify them into humors the body processes naturally. When you drink this elixir, it attempts a counteract check with a 1d20+11 modifier to remove the highest-level poison or disease afflicting you. The elixir has a counteract rank of 3. This takes longer for a disease—the counteract check doesn't happen until 10 minutes after you drink the elixir. After drinking, you become temporarily immune to contagion metabolizers for 1 hour.\nIf you're a chirurgeon alchemist and have powerful alchemy, you can substitute your statistics when you create a contagion metabolizer using Quick Alchemy, if your stats are higher. This replaces the counteract rank with half your level rounded up and the counteract modifier with your class DC – 10.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:thundercrasher",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "enBDzoapUkvk4WVu",
+      "slug": "thundercrasher",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:dfd8ae38edfdd76894a11b6ace2c7b4a88d41471124481c02976161b06bdb8f7",
+    "translatableHash": "sha256:c2dbf72d447d9a6dcbc2e4a01d9b02b0779999de7bf72314c0501eddc06bbe5e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Thundercrasher",
+      "itemType": "weapon",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "concussive",
+        "scatter-10"
+      ],
+      "description": "While looking straight down the barrel of this +1 striking blunderbuss, the spark gun's magical core is visible amid several reflectors. All damage dealt by a thundercrasher is sonic damage. On a critical hit, the target must succeed at a Fortitude save against your class DC or be Deafened for 1 minute.\nActivate 2 (manipulate)\nFrequency once per hour\nEffect You overload the thundercrasher to emit chaotic sonic frequencies that soften earth and stone. When you next fire the thundercrasher it also partially liquefies any natural earth or stone surfaces within range of its scatter trait, making the area difficult terrain.",
+      "bulk": 2,
+      "price": {
+        "gp": 155
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "sonic"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:alicorn-lance",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "FSIDKg5gYiXlr39j",
+      "slug": "alicorn-lance",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/lance.webp"
+    },
+    "sourceHash": "sha256:790d576750b889b02f61163acc090778017a931c3cff4c3132f85fccb2a59efd",
+    "translatableHash": "sha256:0cb08f9c8ddad3fe236f2a5ceb909cb86524c58c96dc2934859cf17f6ffc0f24",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Alicorn Lance",
+      "itemType": "weapon",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "deadly-d8",
+        "holy",
+        "jousting-d6",
+        "reach"
+      ],
+      "description": "This white +1 striking lance is made from the horn of a unicorn, willingly granted at the end of its lifetime. Strikes made with this lance gain the holy trait and deal an additional 1 spirit damage. You can make the lance glow like a torch or suppress its light by using an action, which has the concentrate trait.\nActivate 2 (magical, manipulate)\nFrequency once per hour\nEffect You evoke the spirit of the unicorn that donated the alicorn lance's horn, which you ride in a shining charge. Move up to twice your Speed and make a Strike with the alicorn lance; you gain the effects of the lance's jousting trait on this Strike. If you were already mounted when you Activate the horn, the unicorn spirit takes shape around your steed, granting it a +10–foot status bonus to its Speed for the charge.\nCraft Requirements The initial raw materials must include a horn willingly gifted by a unicorn. In rare instances, an alicorn lance can be made with a forcibly taken horn. However, this heinous act pollutes the horn's magic, causing it to glow with a sickly red light; remove the holy trait, add the unholy trait to Strikes instead of the holy trait, and make the unicorn spirit evoked in the charge whinny visibly in pain.",
+      "bulk": 2,
+      "price": {
+        "gp": 150
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "spear",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "piercing"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:aether-appendage",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GkyZl0UeUAS5YaHA",
+      "slug": "aether-appendage",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:6fbd5879149ca2844abba63653652457103873e145e86cc0f2cca046ccb834f5",
+    "translatableHash": "sha256:61c80918d463a6d043e52f27308d9c2f265974ede58a9b6d8910602830d7fa4a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Aether Appendage",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "incorporeal",
+        "magical"
+      ],
+      "description": "This otherworldly prosthetic arm is the product of psychopomp magic. An aether appendage is incorporeal so long as no item is being held in the hand or worn on the arm.\nActivate 1 (concentrate)\nYou cause the arm to become corporeal until the end of your turn, allowing you to use it to make Strikes or grasp objects. It remains corporeal if you're holding an item or it's wearing an item at the end of your turn. Your unarmed attack Strikes made with the aether appendage are magical. If they're already magical, they instead gain the effect of the ghost touch property rune.\nActivate 1 (concentrate, manipulate)\nFrequency once per day\nRequirements You're holding a non-magical item of light or negligible Bulk\nEffect The item becomes incorporeal for 1 minute. Your aether appendage can use the incorporeal item normally.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:nightpitch",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hH63OWEVoMEr4ypr",
+      "slug": "nightpitch",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:be64dcfa6828767b9bb9568606a19c18e6d44cd2b6b21e512df069bfeeae6df3",
+    "translatableHash": "sha256:d205540fd904ae3243e72ed0c7751ddec1bb2eea77c38ed716d1e52f4ed91876",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Nightpitch",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell\nA pellet of tar mixed with the fur of a nocturnal creature, such as a bat, nightpitch used to cast a Darkness spell makes the area of the darkness difficult terrain.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spurned-lute",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HSAj9FBx2yAyjfzf",
+      "slug": "spurned-lute",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:389d30d08517e52f0687476e478e60846afd85507cb5c8d29f5d93c7a8d3d65a",
+    "translatableHash": "sha256:ffd6f2127962dd410a8dabf7f684075ab661e7a45428a83805e563cafc3f8b14",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spurned Lute",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "magical"
+      ],
+      "description": "Made of a deep-brown rosewood, a spurned lute is adorned with carved flowers. The lute appears to be and functions as a virtuoso instrument. (Other spurned instruments exist, but the lute is the least rare.) This lute has a jealous streak, demanding total loyalty from its \"partner\" musician. After you play the lute for the first time, it fuses to you. If you go a day without using it to Perform, you become Stupefied 1 until you next do so. After that, when you attempt a Performance check using an instrument other than the lute, you take a –4 circumstance penalty to do so, and you must succeed at a check (will, dc:20) save or become stupefied 1 for 1 minute.",
+      "bulk": 1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:crushing-coils",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HsfoHX1B6ocflitz",
+      "slug": "crushing-coils",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:aaf97552825c8bcb5121fb0a5b7dcdd47ee755fdced971b3d0f8c55f515adf9a",
+    "translatableHash": "sha256:ba9d1601d29a811153c518fcd9cbfe123d8d19af3541ac2339ff9eff36d94b1b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Crushing Coils",
+      "itemType": "armor",
+      "level": 5,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "invested",
+        "magical"
+      ],
+      "description": "Made from constrictor snakeskin, the strips of this +1 leather armor wrap around you like an anaconda might wrap around its victim. The first time you roll a 1 on any attack roll or check after donning the armor, it fuses with you and constricts. It constricts anytime you roll a 1 on any attack roll or check thereafter. When the armor constricts, you're Restrained for 1 round.\nActivate 1 (concentrate, manipulate)\nEffect The armor wraps around you, allowing you to don it by the time the activation finishes.",
+      "bulk": 1,
+      "price": {},
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 4,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:poracha-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "igqlI1SbRPrXMtLT",
+      "slug": "poracha-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:747ab4ca5600d3cf6a0738c30f813fb5c92ceeb8317c988da41df90f136cd54d",
+    "translatableHash": "sha256:2c9f0cca4dbdd96dd6edf18c1e235a8f6d875be44930d4f9a3d203227930823f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poracha Fulu",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical",
+        "talisman"
+      ],
+      "description": "Folklore from near the Forest of Spirits tells of the origin of the poracha fulu. Once, a traveler saved an eight-legged feline who turned out to be a poracha prince. In return, the prince gave the traveler a fulu that later prevented a fast-acting poison from slaying them. Traditionally, one wears a string of up to nine poracha fulus, which counts as one talisman. Each time you take persistent damage, one poracha fulu affixed to you negates the damage and crumbles to dust. This response is automatic, but you can use a free action (envision) to prevent your fulus from responding. If you do, any poracha fulus affixed to you never respond to that persistent damage.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "affixed-to-armor",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sprite-apple-chartreuse",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IOurUQgkm7oKnyrt",
+      "slug": "sprite-apple-chartreuse",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2720d541174aac5a888b34ed57ce218200192e2bab147302d0f1ca66a49618d3",
+    "translatableHash": "sha256:a67a6d1880e87973e3bb114816f145a4e7410606bca272d117fe8e53fffc57d0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sprite Apple (Chartreuse)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "light"
+      ],
+      "description": "Activate 1 minute (manipulate)\nA sparkling candy coating covers a sprite apple. For 10 minutes after consuming a sprite apple, you shed bright light in a 20-foot emanation (and dim light for the next 20 feet). While shedding this light, you can't be Concealed if you're visible, and if you're Invisible, you're concealed instead rather than being undetected. The light matches the vibrant color of the apple's candy coating. Creatures in the bright light are subject to another effect, depending on the type of apple.\nCreatures in the bright light feel more in tune with nature, gaining a +1 item bonus to Nature checks and to Diplomacy checks attempted against animals or plants (if they have the Animal Empathy feat, Plant Empathy feat, or some other ability to make such checks).",
+      "bulk": 0.1,
+      "price": {
+        "gp": 26
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spring-heel",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IVaQrUnLCzTZIfP6",
+      "slug": "spring-heel",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:cfb1a842bd7d8f6271df8db51067b045b11fe4ad8205421425c3595103de97e8",
+    "translatableHash": "sha256:fa6402cd10d7e4102564d49ea01150eee894312b7d8c821baf5288416fc7196f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spring Heel",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "clockwork",
+        "mechanical"
+      ],
+      "description": "Fitted into each of these prosthetic legs is a large spring, tightly bound around a collapsible shaft. When released, the spring unspools rapidly and the shaft telescopes out and back, returning to its compressed form and catapulting you forward.\nActivate 1 (concentrate, manipulate)\nFrequency once per hour\nEffect You Stride up to twice your speed or Leap up to 20 feet horizontally and 5 feet vertically.",
+      "bulk": 1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sparking-spellgun-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Jc0OJe0fRDdHXXWu",
+      "slug": "sparking-spellgun-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:898efa2493503b8ffae1322dc1ad47e7591f3ab264a967a7cd5d8612f23d54f2",
+    "translatableHash": "sha256:10e4e703b9058662629e742422fcdff38e37df12b087a1867ca084f0139264d4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sparking Spellgun (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "attack",
+        "consumable",
+        "fire",
+        "magical",
+        "spellgun"
+      ],
+      "description": "Activate 2 Strike\nA broad wooden tube with a handle, a sparking spellgun radiates warmth. You Activate the spellgun by aiming it at one creature and making your choice of a spell attack roll or a firearm attack roll against the target's AC. This spellgun has a range increment of 30 feet. The spellgun fires a small ball of sparks and fire, then crumbles to ash. The ball explodes in a flash when it hits, dealing 4d6 fire damage and 1d4 persistent fire damage.\nCritical Success The target takes double damage, takes double persistent damage, is Blinded for 1 round, and is Dazzled while the persistent damage lasts.\nSuccess The target takes full damage, full persistent damage, and is dazzled while the persistent damage lasts.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:beastmasters-sigil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JWFR4O5V06UUvx6W",
+      "slug": "beastmasters-sigil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:14fcfe3a599e4726840703571bde9909a0068a42ba06f2bc3e5436c1d2a9e9c1",
+    "translatableHash": "sha256:d1eed6a0a4975ac1c69f3d7b254ce31bc7ae13983012924433c9a1072b124884",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Beastmaster's Sigil",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "spellheart"
+      ],
+      "description": "This silver disc displays an ever-changing etching of an animal. When you affix the beastmaster's sigil, the animal settles into a single form based on where you affix it, showing the animal the item can summon when affixed that way. The spell DC of any spell cast by activating this item is 19. A weapon can benefit from only the melee weapon benefit or ranged weapon benefit. A thrown melee weapon gets the melee weapon benefit, and a combination weapon gets only one benefit, which you choose when you affix the spellheart. If it's unclear which one should apply, the GM decides.\n• Armor The sigil grants you a +1 item bonus to saving throws against poison.\n• Melee Weapon The sigil grants you a +1 item bonus to Athletics checks to Trip.\n• Ranged Weapon If you critically hit with the affixed weapon, and the target is adjacent to a creature summoned with the sigil, the target takes 1d6 persistent bleed damage.\nEffect: Beastmaster's Sigil - Armor\nEffect: Beastmaster's Sigil - Melee Weapon\nEffect: Beastmaster's Sigil - Ranged Weapon\nActivate Cast a Spell\nEffect You cast Tame.\nActivate Cast a Spell\nFrequency once per day\nEffect You cast 2nd-rank Summon Animal to summon a Hunting Spider (armor), Wolf (melee weapon), or Vampire Bat Swarm (ranged weapon).",
+      "bulk": 0,
+      "price": {
+        "gp": 160
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tome-of-restorative-cleansing-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "KqzTdCwrfoqfSR5b",
+      "slug": "tome-of-restorative-cleansing-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fe81e72fd5c49838fa2b3cc19194cd5c81d7391a238db0f7ca10901e4867a757",
+    "translatableHash": "sha256:b746fc3bb3ef8b9b22cef4c298d67c5a484e4eb14b69577afad616dbb9c628e8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tome of Restorative Cleansing (Lesser)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "grimoire",
+        "magical"
+      ],
+      "description": "This book is dark blue on the night of the new moon, gradually shifting to bright red as the moon waxes.\nActivate F (concentrate, healing, vitality)\nFrequency once per day\nRequirements Your last action was to cast a spell prepared from this grimoire, and the spell removed a harmful condition or affliction from yourself or an ally\nEffect Choose one creature whose condition was removed by the required spell. Depending on the version, that creature gains 1d8 temporary Hit Points that last for 1 hour.\nEffect: Tome of Restorative Cleansing",
+      "bulk": 0.1,
+      "price": {
+        "gp": 130
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:weapon-shot-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "kR53wN4yZ30PxysG",
+      "slug": "weapon-shot-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ad5b6b389e8fb362541b51cddf11259cc0bcecfc6b0ee3b8cdbe6779f23f4031",
+    "translatableHash": "sha256:fb1e7fa4875ce77c37caf229c90ba80528d4d764b61011e3f4ea4e878bb4565a",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Weapon Shot (Lesser)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nThe body of a weapon shot is translucent and filled with quicksilver. It imparts its magic to the weapon used to fire it or it summons a translucent weapon, made of force, to fire it. It's a favorite of killers and sharpshooters who need just one shot in a situation where carrying ammunition is easier than carrying a weapon.\nActivate 1 (concentrate)\nEffect For the Strike with which you consume the ammunition, the weapon is a +1 striking weapon, instead of those of the weapon firing it.\nActivate 2 (concentrate, manipulate)\nEffect A ghostly weapon made of force appears, wielded by you and loaded with the weapon shot you activated. The conjured weapon sublimates into motes of briefly luminous dust if the weapon shot deactivates without you using it or just after you use the activated shot. For the Strike with which it functions, the weapon is a +1 striking weapon.",
+      "bulk": 0,
+      "price": {
+        "gp": 20
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:serpent-oil-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "l2M9P6kI3z3xPBOa",
+      "slug": "serpent-oil-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:ce09ec3fc81d2e697c8f3ff4a6be097f0348de9f9c5170312355b3d9fdfda171",
+    "translatableHash": "sha256:c2817fe657bb1ed5967d7cd9c687b11f9aeeb7f72fcd6ba14ccc8568752e0bca",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Serpent Oil (Moderate)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nThis glistening oil has a green hue and tiny snake scales floating within. If you slather serpent oil on an object, the object transforms. The oil can be applied to a Small object, producing a Sea Snake, or a Medium object, producing a Python, keeping some of the same colors and patterns of the original item. If placed on other objects, the oil fails and is wasted. This false snake has the minion trait. It remains in snake form for 1 minute before returning to its object state. If slain, the item returns to its original form, unharmed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 24
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:boozy-bottle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Lj6diNjoD5ilz7jd",
+      "slug": "boozy-bottle",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:8efaf60cdcc84fb4078575e9bd32d1067a48a6d8e1447931b50f83c88085744d",
+    "translatableHash": "sha256:f90d5b0e7043f8d1bf8a8fb75c5726de4c4c54a4f24bf607495ffc15c29712af",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Boozy Bottle",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "This tattoo depicts a container of alcohol, traditionally a small, uncorked brown bottle. You gain a +1 item bonus to saving throws against poison.\nActivate R (concentrate)\nFrequency once per day\nTrigger You fail (but don't critically fail) an initial saving throw against a poison, or you gain persistent poison damage\nEffect You pick your poison. Calling out the name of a drink as though ordering at a bar, you negate the triggering poison. Instead, you become slightly drunk. For 10 minutes you're Off-Guard and gain a +1 item bonus to saving throws against fear.\nEffect: Boozy Bottle",
+      "bulk": 0,
+      "price": {
+        "gp": 140
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:familiar-morsel",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lkbmxnhvWKhO0cFt",
+      "slug": "familiar-morsel",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:ab844f1a4f79bafc721958ce62fe71e040933ed43f6226148a4dfab86625e0de",
+    "translatableHash": "sha256:7b3f6bce795524ac98f4639e847b5b6c5673efdd701f822e824d4706a7b91bf3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Familiar Morsel",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate 1 (manipulate)\nFamiliar morsels are little treats that come in a wide variety of flavors that appeal to numerous creatures. Each morsel is keyed to one familiar ability at its creation. When you feed the morsel to your familiar, it gains that familiar ability for 1 hour. If your familiar doesn't meet the requirements, or if it already has an ability from a familiar morsel, the morsel is nothing more than a pleasing snack, its magic wasted.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wounding-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lvGSfPbpAd9lHeX5",
+      "slug": "wounding-oil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:640db7790a10f4578063d91247b510425df385f103b237b2f5cb1354189d7012",
+    "translatableHash": "sha256:d8274a06681895626200cc244b68661eda435e0d17752cd2437a4cd9f2462808",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wounding Oil",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nSmearing wounding oil, a crimson fluid, on a weapon causes it to smell strongly of blood and gives it the benefits of the Wounding rune for 1 minute.\nEffect: Wounding Oil",
+      "bulk": 0.1,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mustard-powder",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "lzjx7KiuoaQuh025",
+      "slug": "mustard-powder",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-poisons/mustard-powder.webp"
+    },
+    "sourceHash": "sha256:9597f731438084156823369c562d1282f5acde9135ce5df6ea4d2f787820a050",
+    "translatableHash": "sha256:c8e966e559b5b35e3e23ab0bf6600314e13a2b12d3b74dcb202032f5d108295b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mustard Powder",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "inhaled",
+        "poison"
+      ],
+      "description": "Activate 1 (manipulate)\nConcocted from the formulas provided by otherworldly refugees to Irrisen, mustard powder is rumored to be devastating to entire armies with proper dispersal. Recipes have quickly spread across Golarion. Mustard powder's sickened condition ends when the poison's other effects do.\nSaving Throw check (fortitude, dc:22)\nMaximum Duration 6 rounds\nStage 1 1d6 poison damage and Dazzled (1 round)\nStage 2 2d4 poison damage, dazzled, Sickened 1, and unable to smell (1 round)\nStage 3 2d6 poison damage, dazzled, Sickened 2, and unable to smell (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:solar-shellflower",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mf5eeIdKjfSZ0K3p",
+      "slug": "solar-shellflower",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/weapons/flintlock-musket.webp"
+    },
+    "sourceHash": "sha256:ba7babdb514c719d76d3e486d9d6a7be86d5e1c07e6ae6940baf8690d2216247",
+    "translatableHash": "sha256:564a170d7b2f502cf0f9675799044ee774c2bd029e98ea551d578543660631c5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Solar Shellflower",
+      "itemType": "weapon",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "concussive",
+        "fatal-d10"
+      ],
+      "description": "This +1 striking flintlock musket features multiple triangular panels that can be folded out of the stock, like the petals of a tigridia flower, that collect sunlight and feed it into the spark gun's core. All damage dealt by a solar shellflower is fire damage.\nActivate 1 (manipulate)\nFrequency once per day (but see below)\nEffect One of the panels from the solar shellflower detaches and unfurls into a tigridia-shaped construct of flame. For the next 1 minute, whenever you Strike an enemy with the solar shellflower, the construct fires a smaller jet of fire that automatically hits the target, dealing 3d4 persistent fire damage or twice that on a critical hit. The solar shellflower usually requires a full day to replenish enough solar energy to recharge this Activation, but if used in an environment with especially strong sunlight, such as in a desert, cliff above the clouds, or near the summer solstice, it can recharge in 1 hour instead.",
+      "bulk": 1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "held-in-two-hands",
+      "category": "simple",
+      "group": "firearm",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "fire"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bola-shot",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mzk9ekUydT8zpy4A",
+      "slug": "bola-shot",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/ammunition/bola-shot.webp"
+    },
+    "sourceHash": "sha256:b5eba908f11ff68a5f00bb760ce781c163b926260b2dfc67159285650586ce14",
+    "translatableHash": "sha256:66bc67515457a853778f2d08544adbd2da31f91c7398dc37d55b5f4436480892",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bola Shot",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nActivate 1 (concentrate)\nThis ammunition bears a rune with three lines radiating out, each ending in a circle. When an activated bola shot hits a target, it deals nonlethal bludgeoning damage. Compare the attack roll to the target's Reflex DC to determine the shot's other effects.\nCritical Success The target falls Prone and is Stunned 1.\nSuccess The target falls prone.\nFailure No additional effect.",
+      "bulk": 0,
+      "price": {
+        "gp": 25
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:earthbinding",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "OClYfRHzoynib6wX",
+      "slug": "earthbinding",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:582a36f7b5a1b92ec53e32dd1f588bfb65fa84b71916d1561da6d9fffbb92b18",
+    "translatableHash": "sha256:f0faa0d3016fd64a8a5f5b28f2cb857edaa40cf658b4217b6091b2e9ae29b0c6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Earthbinding",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "A weapon with this rune hums when touched to the ground.\nActivate R (concentrate)\nFrequency once per hour\nRequirements You critically hit a flying creature with the etched weapon\nEffect The rune casts a DC 20 Earthbind spell on the flying creature.",
+      "bulk": 0,
+      "price": {
+        "gp": 125
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-contagious-frailty",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "oOtrCBGLqNLdiOuF",
+      "slug": "wand-of-contagious-frailty",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:40d650adf09b6271409991a21dc9daa32af05e3115c84efbdf99cc35938f77ae",
+    "translatableHash": "sha256:f57fb83dfe745f6c64d0d8ee2c934fe06c402ac7c0e27f0689929e1d73a04151",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Contagious Frailty",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "Cracks and healed fractures spiderweb the shaft of this bone wand, worsening each time the wand is used. The bone's worn epiphysis forms the wand's pommel, and black leather wraps around the handle.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Enfeeble. After you cast the spell, if the target is Enfeebled, it releases a 10-foot emanation that doesn't include itself. Each creature in that area must attempt a Fortitude save as if struck by the enfeeble but gets an outcome one degree of success better than it rolled.\nCraft Requirements Supply a casting of Enfeeble.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:soothing-powder-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "OymrUAv6RGFaI1nm",
+      "slug": "soothing-powder-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fbd5ac69768720b533d4df93deb3d72300e2a6de49b5e78c67168c2f7a0291a8",
+    "translatableHash": "sha256:43cb4a800fb4ff7acec6a1ff4cced9097e7abb8ea5f09946800f35acea9a44ca",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Soothing Powder (Lesser)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nSoothing powders are remedies made to stop a particular type of persistent damage. Each damage type requires a different formula, with the most popular being bleed soothing powder, poison soothing powder, fire soothing powder, and acid soothing powder. You Activate soothing powder by sprinkling it on yourself or another creature within reach. The target can immediately attempt a new flat check to remove persistent damage the powder works against. This powder lowers the DC to 10, as normal for a particularly appropriate type of help.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bloodhound-olfactory-stimulators",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "P1hk0BO89ihEAw8g",
+      "slug": "bloodhound-olfactory-stimulators",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d8ef4c9938e95edfa26286ef173741a37c5cb946172f306fa4392f79a5d79731",
+    "translatableHash": "sha256:5a05f0c3366830033dba73cd941cb4625f5185eeeba69d23033bd2f1a175932c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bloodhound Olfactory Stimulators",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "These olfactory stimulators can be enhanced to better localize scents.\nActivate F (concentrate)\nFrequency once per day\nEffect Your olfactory stimulators twitch as they gather even more information. You gain imprecise scent with a range of 30 feet for 1 minute.\nEffect: Bloodhound Olfactory Stimulators",
+      "bulk": 0.1,
+      "price": {
+        "gp": 136
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bravery-baldric-fleet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "PQ74afm5YWessacn",
+      "slug": "bravery-baldric-fleet",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:aa3e62797f2b6a76016313997f6a9a3dd041cbb7be09cb737aa13c21935158b5",
+    "translatableHash": "sha256:300caa37629e4a6e1ae3fb4f2696fa2d4604f8adfae5f5c3e2633fdb9d573f91",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bravery Baldric (Fleet)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A bravery baldric is a belt that wraps around the shoulder and draws on your well of courage. When you critically succeed on a save against a fear effect or reduce your frightened condition to 0, the baldric gains 1 charge, which slightly alters the color, turning it grass green. A bravery baldric can hold up to 2 charges, and its charges reset to 0 when you invest it. You can have only one bravery baldric invested at a time.\nActivate 2 (concentrate)\nFrequency once per hour\nCost 1 charge from the baldric\nEffect The baldric is grass green when charged, and it casts Fleet Step on you.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tacticians-helm",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "q6Wdgi5fE1zovsYh",
+      "slug": "tacticians-helm",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1f56b4c7cb6094c3ef93e014658203f95b91035c3ca79d649eba907e36512134",
+    "translatableHash": "sha256:ae33b28713f36ccdba9757e4615df68f3509b35969e50381564d997158e31f56",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tactician's Helm",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Repurposing and enchanting a helmet worn by a battlefield commander can create a tactician's helm, imparting knowledge of battlefield tactics that feeds off your minor victories. The helm grants you a +1 item bonus to Warfare Lore checks. Also, a jewel adorns the brow of the helmet. This jewel becomes charged each time you hit a creature with a Reactive Strike. A tactician's helm can hold up to 2 charges, and its charges reset to 0 when you invest it.\nActivate 1 (concentrate)\nRequirements The helm's jewel is charged\nFrequency once per hour\nEffect One charge in the helm's jewel expires, and you choose one of the following effects.\n• Charge! Stride twice.\n• Move It! You gain a +2 status bonus to Acrobatics and Athletics checks until the end of this turn. Effect: Tactician's Helm (Move It!)\n• Protect! If you're wielding a shield, Stride to a space adjacent to an ally, then Raise your Shield.\n• Re-Arm! Interact up to three times. Each of these actions must be used to do something listed under Interact.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:collar-of-the-shifting-spider",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QiYXHgbAv29OuaWS",
+      "slug": "collar-of-the-shifting-spider",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:57f881b2a47b25c6cf8dce2969609f3c4dd5704f3ea0bacc11755662e8f1c474",
+    "translatableHash": "sha256:ae4ad22cd0b428833c92dbbd17188eaa406502a966a553628bb25b3c31b3ae49",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Collar of the Shifting Spider",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This intimidating collar contains a hollow central tube and ends in twin metal points shaped like spider fangs. The collar can be loaded with an alchemical mutagen as an Interact action.\nActivate F (manipulate)\nTrigger You roll initiative\nRequirements A mutagen is loaded in the collar\nEffect The metal points dig into your neck, inflicting 1 piercing damage and injecting the mutagen directly into your bloodstream. This has the same effect as if you drank the mutagen conventionally, except the duration of the mutagen is halved due to the more direct administration.",
+      "bulk": 1,
+      "price": {
+        "gp": 133
+      },
+      "usage": "worncollar",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pacifying",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "R8I13CDRzvpVXOVe",
+      "slug": "pacifying",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:2e13b1c417fbd6218c17a8299c62a574a3962d549521da311843708fdc5e67d7",
+    "translatableHash": "sha256:cfab87a5b62edc93880a73fdcde8b3ef3b1a64fc2ba51693688c9c9d6123746e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pacifying",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune turns weapons into instruments of peacemaking.\nActivate R (concentrate, mental)\nTrigger You damage a creature with the etched weapon\nEffect The damaged creature must succeed at a check (will, dc:20) save or be pacified. A pacified creature takes a –2 penalty to attack rolls on any attacks that aren't nonlethal for 1 minute, and the creature also experiences a clear psychic warning that they should stop making attacks that could kill.",
+      "bulk": 0,
+      "price": {
+        "gp": 150
+      },
+      "usage": "etched-onto-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:shrieking-key",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rcJwqJ88ubcRDFJH",
+      "slug": "shrieking-key",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/skeleton-key.webp"
+    },
+    "sourceHash": "sha256:ea99620683de848935026cfd1c468a9b6fea0d880943066fc3363aefd113dec2",
+    "translatableHash": "sha256:5ef7f01080165616d216eae0ead783f802274a52bb6dc86274aef5c14f5ab4e7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Shrieking Key",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "rare",
+      "traits": [
+        "cursed",
+        "magical"
+      ],
+      "description": "A skull-topped metal shrieking key appears to be a Skeleton Key, useful in place of Thieves' Tools when attempting to Pick a Lock. A shrieking key has no activation, however. When you use it to Pick a Lock, the key emits a loud shriek audible for 500 feet despite ambient noise. Physical barriers still block or muffle the shriek as normal. You also take a –2 circumstance penalty to the Thievery check rather than enjoying a bonus. After you attempt such a check with the key the first time, it fuses to you, returning to your possession if discarded. To use another device to Pick a Lock, you must first succeed at a check (will, dc:20) save.",
+      "bulk": 0,
+      "price": {
+        "gp": 125
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bane-ammunition-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RL2VI9IGuOtXsEX6",
+      "slug": "bane-ammunition-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:8c2a49f23c92d3d938a31459625f695c90a32173a51d0430e41ed27b132675b6",
+    "translatableHash": "sha256:671546ae9b71bb2dd16e70ffd63631ad8f68d2823acfbe6395e370bdbb6716ae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bane Ammunition (Moderate)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nMonster hunters favor bane ammunition that contains a capsule of reagents tailored to a particular type of creature—aberration, animal, beast, dragon, fey, giant, ooze, or both fungus and plant. Each type requires a different formula. When activated bane ammunition hits a target that has a trait matching the selected type, it takes 2d6 persistent poison damage in addition to the damage the attack normally deals.",
+      "bulk": 0,
+      "price": {
+        "gp": 25
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:stage-fright-missive",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RLkHxGBbVRAT6AOL",
+      "slug": "stage-fright-missive",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:cf51b95a3d5ae63a2f06350ae877e99767645239bd592acc8f2633fcc0f0f7a0",
+    "translatableHash": "sha256:98ca80daaa062d094b21b881d17fbd1b8d0989a82d332b870728ab1f8a110069",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Stage Fright Missive",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "curse",
+        "magical",
+        "mental",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nComposing a stage fright missive usually involves creating a scathing review, insulting letter, or embarrassing image that ridicules the recipient. The activating creature must succeed at a check (will, dc:20) save or be overcome with embarrassment for 1 hour, taking a –1 status penalty to Deception, Diplomacy, Intimidation, and Performance checks. During this time, if the creature attempts to speak or perform in front of an audience, they become Sickened 1. When they recover from this sickened condition, the missive's effects end. You choose when composing the missive whether it remains as a non-magical document or burns to ash after imparting its magic.",
+      "bulk": 0,
+      "price": {
+        "gp": 22
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:assisting",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Rm2cojERpLEWB9B3",
+      "slug": "assisting",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:324243f538fb397d25cebf48b1e34a59f1b1d18f8eb16288b1ecf9cd54f351e2",
+    "translatableHash": "sha256:e08b91de947a88b07384b7516614a91c88e4cf17354928c31399e1bc680f2db7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Assisting",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Your armor provides support for your joints or advanced prostheses for missing limbs, holding your body in place and easing physical symptoms. This replicates the benefits of any number of splints, supports, and prostheses. When you invest the armor, you determine how many such supports you want, and where on your body they assist you.\nIn addition, the extra support and structure provided by the armor allows you to transport more than you would otherwise normally be able to. You can carry Bulk equal to 6 + your Strength modifier before becoming encumbered, and you can hold and carry a total Bulk of up to 11 + your Strength modifier.",
+      "bulk": 0,
+      "price": {
+        "gp": 125
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:soothing-tonic-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "RM7WoJYfd2edlNZ8",
+      "slug": "soothing-tonic-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/mnemonic-acid.webp"
+    },
+    "sourceHash": "sha256:4e67033127b1838b851abe50cb746a69a691bd09311908217ec1f8bd9cc3043c",
+    "translatableHash": "sha256:3299219a6e47a7567e1ef11de7a5d619abb117cf19d45e4e915cb0ccf6aee398",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Soothing Tonic (Moderate)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nSoothing tonic is a pleasantly savory concoction that speeds your natural healing, so your wounds recover faster over time. You gain fast healing 3 for 1 minute.\nEffect: Soothing Tonic",
+      "bulk": 0.1,
+      "price": {
+        "gp": 28
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:clown-monarch",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Tccy21bO1sDb6hQM",
+      "slug": "clown-monarch",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:d909dcc77feb7b5e2174a462c71bbb3345b5d57927205b7a7ddf4451158f582f",
+    "translatableHash": "sha256:0fecda4d329073a72edb17b63738436646f7cf66f3ff13ace9eac31941d6f0e5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Clown Monarch",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison"
+      ],
+      "description": "Activate 2 (manipulate)\nA victim of clown monarch is amusing to behold as they repeatedly suffer slapstick pratfalls. This poison disrupts the victim's sense of balance.\nSaving Throw check (fortitude, dc:22)\nMaximum Duration 6 rounds\nStage 1 falls Prone and must succeed at a check (flat, dc:5) when attempting a Stand action or the action fails and is lost (1 round)\nStage 2 as stage 1 but the DC is 10 (check (flat, dc:10)) (1 round)\nStage 3 as stage 1 but the DC is 15 (check (flat, dc:15)) (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 21
+      },
+      "usage": "held-in-two-hands",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:resonating-fork",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TVpEf9gMFUuwfGoU",
+      "slug": "resonating-fork",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/ammunition/resonating-ammunition.webp"
+    },
+    "sourceHash": "sha256:27f452173bf1beb1e0b8209febe11bdf08f6dcc5e14693ce0de28040e080c68d",
+    "translatableHash": "sha256:79a5a28742d56c7b7bc8f14b5e81a8f93894d736d167fa1e3fff472ea4ad3d21",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Resonating Fork",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "sonic",
+        "spellheart"
+      ],
+      "description": "This two-pronged fork of metal emits a constant low hum, vibrating slightly when touched. The spell attack modifier of any spell cast by activating this item is +9, and the spell DC is 19.\n• Armor You gain resistance 2 to sonic damage and a +1 item bonus to saving throws against effects with the auditory or sonic trait.\n• Weapon After you cast a sonic spell by activating the fork, the weapon reverberates with trapped sound waves. Your next Strike causes the target to be Deafened for 1 round if it hits (or for 3 rounds on a critical hit). If you don't make a Strike by the end of your next turn, the sound waves dissipate with no effect.\nEffect: Resonating Fork - Armor\nActivate Cast a Spell\nEffect You cast Bullhorn.\nActivate Cast a Spell\nFrequency once per day\nEffect You cast Biting Words.",
+      "bulk": 0,
+      "price": {
+        "gp": 140
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:heartening-missive-butterfly",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "U9LhV1IBLbRug7uz",
+      "slug": "heartening-missive-butterfly",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:dcb9b68ef28740648a75f616d8baea8605f67cbeafb146d3b1ce4a24be064a0e",
+    "translatableHash": "sha256:5929fe7df8766634c3c199b4bc9c44fc897507b9f328100c3b6f64a58bd131e2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heartening Missive (Butterfly)",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nYou compose a heartening missive by creating a short message or image intended to grant the recipient moral support. You must dedicate the missive to an individual creature you know and address it to their location (typically the settlement where you think they are). Once you finish composing the missive, it folds itself into the shape of an animal and Flies at a speed of 45 feet (about 15 miles per hour) toward the location for up to 24 hours. It alights near the recipient or in their hand. After Activating the missive, the recipient gets its benefit and becomes temporarily immune to all heartening missives for 24 hours\nIf the missive fails to reach its recipient in 24 hours, it returns to its sender at the same pace, becoming non-magical when it arrives. After imparting or losing its magic, the missive remains as a normal document.\nFolded into a delicate butterfly, this missive grants the recipient a sense of grace and poise. Once during the next 24 hours, when the recipient fails a Diplomacy or Performance check, they can improve the result from a failure to a success or from a critical failure to a failure. This is a fortune effect.",
+      "bulk": 0,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blister-ammunition-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uoWWFCt1B0lKtjwZ",
+      "slug": "blister-ammunition-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3edd2087ff0e5e599729756a25db1fad1ef47756eb0297115fd9e23963726370",
+    "translatableHash": "sha256:3098ac3f9755ffb97c34285556da5920de27bcd5972674a4838552c5a5042816",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blister Ammunition (Lesser)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nBlister ammunition is loaded with alchemically processed irritants, such as pollen, pepper, and formic acid. A creature hit by activated blister ammunition must attempt a check (fortitude, dc:19) save or begin to itch uncontrollably for 3 rounds in addition to damage the attack normally deals. On a critical hit, increase the Fortitude DC by 2 (check (fortitude, dc:21)), and the target is Dazzled for 1 round. For the duration, each time the target attempts a concentrate action, it must attempt a check (flat, dc:8), losing the action on a failure. An affected creature can use a single Interact action to scratch and sneeze, allowing it to automatically pass the flat check. The effect ends early once an affected creature spends 3 Interact actions scratching and sneezing. These Interact actions don't need to be consecutive.",
+      "bulk": 0,
+      "price": {
+        "gp": 21
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ginger-chew",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uPP678KODkgDy8UO",
+      "slug": "ginger-chew",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:45da752c7c48a5f93a4457889005049b1dae683b391ca9aca62e624e6ba61c7b",
+    "translatableHash": "sha256:d49e47249522b398ca47f316f4c0b08b2c42d202d657567d87109eaf24e3f358",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ginger Chew",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "lozenge"
+      ],
+      "description": "This chewy ginger candy aids digestion and soothes unsettled stomachs. A ginger chew lasts for 1 hour and grants you a +1 item bonus to Fortitude saves against being sickened.\nEffect: Ginger Chew\nSecondary Effect 1\nEffect Reduce your sickened value by 1, if any. The chew becomes inert.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 28
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:living-leaf-weave",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "uPy4iagJMWRi1vNd",
+      "slug": "living-leaf-weave",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:5995ca2c69e267063834c40a7cca0e6dd032b4ee3a5d092b5aa4f7dfabd210bb",
+    "translatableHash": "sha256:f9369da41fdc32ecbeb16c25b8c75ef636df6717cd635b058054a8dd989eb2a5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Living Leaf Weave",
+      "itemType": "armor",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "healing",
+        "laminar",
+        "plant"
+      ],
+      "description": "This suit of leaf weave armor is specially modified to metabolize the alchemical accelerants in medicinal compounds. A special receptacle in the armor can hold an Elixir of Life, which takes 3 Interact actions to install.\nActivate 1 (manipulate)\nRequirements An elixir of life is installed in the armor\nEffect Slithering vines grow from the armor, granting an item bonus to Athletics checks to Grapple, to your Fortitude DC to resist Grapple, Disarm, or Shove attempts, and to your Reflex DC to resist Trip attempts. The bonus is equal to the elixir's item bonus, and lasts for 3 rounds. The activation uses up the elixir, and the armor can't be activated again until a new one is installed.",
+      "bulk": 1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "",
+      "category": "light",
+      "group": "wood",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 4,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:poison-concentrator-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "vCf4otZtC4RHtXdI",
+      "slug": "poison-concentrator-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:b2b3b0b0031cd9db4d0e5db070e7adfc546c6ac6151d1687d57587f1ece25fb5",
+    "translatableHash": "sha256:fa16f8be09de001c609fd7f798a2d03bf7542d393834d507619204954827ab5c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Poison Concentrator (Lesser)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This compression apparatus can reduce two poisons into a more concentrated dose. As a 10-minute activity that has the manipulate trait, you can use a poison concentrator to combine two doses of the same infused alchemical poison of level 4 or lower. The concentrated poison has a +1 item bonus to its DC, and its level is increased by 1.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 160
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pucker-pickle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VnUXcWG4xWGcb7sc",
+      "slug": "pucker-pickle",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1a6235ebc5e234c3a236af552a90a18265ea6cb8d0933e924c40a9fd1bb0abca",
+    "translatableHash": "sha256:67e95769ed596eec750e370c3c27fa92a3f44ecaf4b9c230e08bd3e3ae6061cb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pucker Pickle",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison"
+      ],
+      "description": "Activate 1 (manipulate)\nSharp and pungent, but tasty, pucker pickles were created by goblin alchemists working to avoid being eaten by larger creatures. For 1 hour after eating a pucker pickle, you smell slightly of pickle, but you have a horrendous taste. Once a creature hits you with a Strike using an attack that allows it to taste you, such as a jaws Strike, it takes a –2 circumstance penalty to further attacks against you that allow it to taste you, including attacks like Grappling or Tripping you using its jaws or Swallowing you Whole. Creatures, especially animals, often choose other targets after tasting you. Any creature that Engulfs you or Swallows you Whole is Sickened 1. If it spends an action retching to reduce the sickened condition, you can attempt to Escape as a reaction.\nEffect: Pucker Pickle",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ghostcracker",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "VrZiS4hVpzWk2p2z",
+      "slug": "ghostcracker",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7261d2264146e4d1c1d0888a14274bc2c53be6878d090f902ee79df47e21ff4a",
+    "translatableHash": "sha256:814c69719ee0ff315af2224c38a92c29bac0ae29ac9f2ec1b7f9e292d60d2ca6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ghostcracker",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell\nA ghostcracker pops and smokes when consumed. When you throw the ghostcracker down in your space as part of casting an Illusory Creature spell, the appearance of the creature twists nightmarishly. When an enemy's attack or spell ends the illusory creature spell, the creature \"dies\" in a disturbing fashion, rendering the enemy Frightened 1. From this effect, the ghostcracker adds the emotion, fear, and mental traits to the spell.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:homeward-swallow",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "w0iN9Q6UpqNp2xQs",
+      "slug": "homeward-swallow",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d575414542dfe36f9f660c29f25b61b1b79273c2147a86674d070543f0170f75",
+    "translatableHash": "sha256:797a4c1c57ad034124ee337ddb196078f66c2c5491564b561e74a638d4f8c7a3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Homeward Swallow",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "This small tattoo of a swallow always points toward your home. The tattooing must take place at a location you consider to be your home, or the magic fails to bind with the ink. When you travel to your home using teleportation that can be off target, such as Teleport or Interplanar Teleport, you arrive exactly at your home. If your home is destroyed or you come to believe a new place is your home, this tattoo fades from your skin.\nActivate 1 (concentrate)\nEffect You sense the direction toward your home.",
+      "bulk": 0,
+      "price": {
+        "gp": 150
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:helmsmans-recourse",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WDmuP3H7jNqobraf",
+      "slug": "helmsmans-recourse",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/shield.svg"
+    },
+    "sourceHash": "sha256:c67f4ef53c59f694431ce84fbcd77f2644b5e2311ed25723718ebd19294cb79f",
+    "translatableHash": "sha256:38b97c095e75671c6bc265a49e2724f5284e2bc1b1d5fee5d93f018d94547e47",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Helmsman's Recourse",
+      "itemType": "shield",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "shield-throw-30"
+      ],
+      "description": "This standard-grade duskwood meteor shield (Hardness 7, HP 28, BT 14) is a wheel from a ship. While wielding the shield, you gain a +1 item bonus to Sailing Lore and to Athletics checks to Swim.\nActivate 2 (concentrate)\nFrequency once per day\nRequirements You're in a body of water\nEffect For 10 minutes, you don't sink if you haven't succeeded at a Swim action on a turn, and if you're submerged, you automatically ascend 10 feet at the end of your turn.",
+      "bulk": 1,
+      "price": {
+        "gp": 150
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "meteor-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gravemist-taper",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Wn0H58sAkUtIaPPd",
+      "slug": "gravemist-taper",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:13586f9865473c7b46c57b242b79819a35da754926527df6653d1a2a1325a69c",
+    "translatableHash": "sha256:ed2d10f0ba7b10820ba05f0c65584d5411874265e55932e7f9fe733c4bf9ae7e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gravemist Taper",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell\nA gravemist taper is a conical candle with symbols of terror and death carved into the wax. The taper can be used as a catalyst when casting a Mist spell, burning the taper away, coloring the mist gray, and filling the mist with ghastly, shadowy shapes. The flat check to overcome the Concealed state from the mist rises to 7, and a creature who fails such a check becomes Frightened 1. This aspect of the spell has the emotion, fear, and mental traits.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 25
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:imp-shot",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "XaHXxSpSCgLGYhbs",
+      "slug": "imp-shot",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:faaf12160a9d382eff90a7a0121d71337d6c7f001f26389a7b595c64642efda9",
+    "translatableHash": "sha256:8ab33de3f2f7f1cfdfbc040a056bad22502ca82953a2d075a3f44dc58233f255",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Imp Shot",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nActivate 1 (concentrate)\nThis black-and-red ammunition contains an egg-shaped capsule. When an activated imp shot hits, the capsule cracks open and releases a manifestation that resembles a Tiny imp that can't act in any way or provide benefits outside those described here. If the Strike misses the target, the imp appears, makes a rude gesture at you, and vanishes in a puff of sulfuric smoke. On a hit, though, the imp harries the target for up to 1 minute, remaining in the target's space, slapping, nipping, hurling insults, and moving with the target as it moves. A creature harried by the imp is Off-Guard and takes a –2 circumstance penalty to attack rolls and skill checks. At the start of your turn on each round while the imp is active, you must attempt a check (flat, dc:11, showDC:all). On a failure, the imp makes a final vulgar gesture at the target and vanishes in a cloud of brimstone.\nEffect: Imp Shot",
+      "bulk": 0,
+      "price": {
+        "gp": 24
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-moderate-fire",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xUMgX1vrP4EfLlw2",
+      "slug": "elemental-ammunition-moderate-fire",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:caa090a316666b3fc70124a8f41de8e9985ba724b10afa2b31a992f55ecf11d4",
+    "translatableHash": "sha256:2158a45a55b9c73184d54c589e99e5256e877f012cc548f840405b3e25152533",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Moderate, Fire)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "fire",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 2d4 persistent fire damage to the target and 2 splash fire damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 21
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-moderate-poison",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xZ9fSlTKVpKOCOQm",
+      "slug": "elemental-ammunition-moderate-poison",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c1c4d674f5575e9dd4951370e641b71b86ff6a20edbd53a4280e29cc07be72ac",
+    "translatableHash": "sha256:907a189cea56a04ff87a153c7dcd9a8cbd201b31997c3c46e27804a94f53c11d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Moderate, Poison)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "poison",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 2d4 persistent poison damage to the target and 2 splash poison damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 21
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:remote-trigger",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "y8M3fBQEtddg9Lbj",
+      "slug": "remote-trigger",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:911ca08585b4db8ac5678f663ccb6024620721ffc49bc5b99166e79fb1535d9c",
+    "translatableHash": "sha256:be45250a31f4ae93275c24fc46e3ced30dbe684d457d3c9077300242e60d5480",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Remote Trigger",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical"
+      ],
+      "description": "This trigger array uses percussive alchemical caps and crystals to remotely detonate alchemical bombs through harmonic vibrations. You can Interact to flip up a switch on the trigger, causing it to emit infrasonic pulses that attune it to one alchemical bomb over the course of 10 minutes. The trigger can be attuned to up to three bombs at a time.\nActivate 1 (manipulate)\nThe trigger detonates any number of attuned bombs within 60 feet of it. You choose which ones to detonate. A bomb detonated by remote trigger deals its splash damage to any creature in its square.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 125
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:mirror-goggles-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YafmTpwzMsKiAg5b",
+      "slug": "mirror-goggles-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:0b13412aa0463197ce35b34526b9464e959cb25b2d41bd0e4455567574123ecd",
+    "translatableHash": "sha256:24eccbb466e34c6b0bf82ebe9f98ab5b677703d104993213f23ec045ad3f1bcf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Mirror Goggles (Lesser)",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "These goggles feature highly reflective lenses. While wearing the goggles, you gain a +1 item bonus to visual Perception checks and to saving throws against visual effects.\nActivate R (manipulate)\nTrigger A creature within 60 feet targets you with a visual effect\nEffect You turn your head to reflect aspects of the triggering effect back at its creator. The creature must attempt a check (fortitude, dc:20) save as it becomes disoriented by this reflection. On a failure, the creature is Sickened 1 (Sickened 2 on a critical failure). The creature is temporarily immune for 1 hour.",
+      "bulk": 0,
+      "price": {
+        "gp": 135
+      },
+      "usage": "worneyepiece",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:corrosive-engravings",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yAG9XjecF5xpOEvg",
+      "slug": "corrosive-engravings",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a223470f48230749ab4b103f5d7a84565b5ae0308cbf18abb4a01356d1913f09",
+    "translatableHash": "sha256:c5a221b7485764b198fb5674b400b12ed41c54cf4c3b7bfa15147603d963f005",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Corrosive Engravings",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "acid",
+        "grimoire",
+        "magical"
+      ],
+      "description": "These tin sheets are bound in brass and show significant signs of erosion. The grimoire's title is acid-etched, and flipping between the sheets leaves your fingers covered in flecks of rust and powdery metal.\nActivate F (concentrate)\nFrequency once per day\nEffect If your next action is to cast an acid or poison spell that deals persistent damage, any creature who takes persistent damage from the spell is also Sickened 2 until the persistent damage ends. Using an action to retch can reduce the sickened value as normal, but it can't reduce the sickened value below 1 until the persistent damage ends.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 140
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:hippogriff-in-a-jar",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YeQjs2DarMVIPVjq",
+      "slug": "hippogriff-in-a-jar",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:83761be8cdece2c6812fc11775675f1c37c9e83cba891e274c315652194713bf",
+    "translatableHash": "sha256:f1e90723abe8dcd34564b47c8e04be13e6fdfdd9838b3b5735b99ef629027617",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Hippogriff in a Jar",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "expandable"
+      ],
+      "description": "Activate 2 (manipulate)\nThis bottle contains a shrunken hippogriff. When opened, the contents reconstitute into a Large effigy of a hippogriff. The hippogriff waits up to 1 round and allows two creatures to mount it, then Flies up to 65 feet and waits 1 more round to give the mounted creatures time to dismount. Creatures who are still mounted on the hippogriff when it dissolves fall Prone in the space where the hippogriff corpse ends its movement.\nCraft Requirements Supply the corpse of a hippogriff.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 30
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:depth-charge-i",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Yp1eRc7NmzSa5KYZ",
+      "slug": "depth-charge-i",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ff9c8c2fc25af968c9c0d84465e541df2910471bc499953ee0589ae485da3d4d",
+    "translatableHash": "sha256:76bb4bf3d73a0babe384c6e11bbd8f81ad0a9e5b6e270cb7ebd701259e244ef5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Depth Charge I",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nCarved with stylized images of water or aquatic life, depth charges that are fired underwater or at a submerged target function with their normal range increments and can hit no matter their normal damage type. This ammunition explodes if it hits a target underwater, dealing 3d6 bludgeoning damage in a 20-foot burst check (fortitude, dc:20, basic, showDC:all, options:area-effect) according to its type. This burst doesn't extend out of the water.",
+      "bulk": 0,
+      "price": {
+        "gp": 25
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:copper-penny",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yqbW1T3Eu9KHRs1U",
+      "slug": "copper-penny",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3736dd82994118b2bb5d111fdde18adae22b18f56658ea7b3a208db540f13936",
+    "translatableHash": "sha256:6c7275c963ffdccdfafbc03e1ba2f261ab24d1c8dbb4a4ef471e642bcc9f22ef",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Copper Penny",
+      "itemType": "consumable",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "talisman"
+      ],
+      "description": "Activate f (concentrate)\nTrigger You are knocked Prone\nRequirements You're an expert in Acrobatics, and you are unarmored.\nThis plain copper coin is typically affixed near the feet, on a pant leg or hem. When you Activate it, you Stand and can't be knocked prone again on the current turn.",
+      "bulk": 0,
+      "price": {
+        "gp": 30
+      },
+      "usage": "affixed-to-unarmored-defense-item",
+      "category": "talisman",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:elemental-ammunition-moderate-cold",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zG5ErG09BZiVIGcP",
+      "slug": "elemental-ammunition-moderate-cold",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9cb8a309d3f5375afa61f511b442412fc9df1cc46e07b372a23e8307d20b4729",
+    "translatableHash": "sha256:95e13e1c6523ca8d2d94d813b00de266dc0ec0891ad39f0e76a2ef631329f46d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Elemental Ammunition (Moderate, Cold)",
+      "itemType": "ammunition",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "cold",
+        "consumable",
+        "splash"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nWhen activated, the reservoir of alchemical reagents in elemental ammunition atomizes on impact, dealing 2d4 persistent cold damage to the target and 2 splash cold damage in addition to the damage the attack normally deals. Each damage type requires a different formula, and the ammunition gains a trait matching the damage type.",
+      "bulk": 0,
+      "price": {
+        "gp": 21
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wind-at-your-back",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zVY6VVKrrf3K5TSC",
+      "slug": "wind-at-your-back",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:34fc5be4955c7f81e7a1bf4b4b4c32ab3969def1a8fb97bf8af82c76ce5b6907",
+    "translatableHash": "sha256:f2fee1ffb2011cb19fc1dd0a1c8cdb0e1766f8e0bf71966963f94988c6db9edc",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wind At Your Back",
+      "itemType": "equipment",
+      "level": 5,
+      "rarity": "common",
+      "traits": [
+        "air",
+        "magical"
+      ],
+      "description": "This object can only be described as a gray, solidified, miniature cloud that feels spongy to the touch. The cloud is incredibly soft and can be easily lifted with little effort, though its ephemeral nature requires using two hands to ensure it doesn't slip from your grasp.\nActivate 1 (manipulate)\nFrequency once per day\nEffect You blow across the surface of the cloud, and it floats free of you and calls up a strong breeze. For the next 8 hours, it floats behind you and your companions, increasing the amount of time the group can Hustle during exploration to the lowest Constitution modifier in the group × 20 instead of × 10. You must all remain within 100 feet to get the benefit. If you activate the item aboard a vehicle, you instead grant the vehicle a +10-foot circumstance bonus to its Speeds for 8 hours. If the vehicle is powered by wind, such as a sailing ship, the bonus increases to +20 feet. When the 8 hours are up, the cloud stops blowing and floats back into your hands.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 130
+      },
+      "usage": "held-in-two-hands",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:crown-of-the-companion",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3jd8wUCHH5WhCTEJ",
+      "slug": "crown-of-the-companion",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:36e672017da5105c78fd64d630b972237fe0541590813a9fcb73a30c52345c76",
+    "translatableHash": "sha256:d4dce4063c9d6ce81076df7db4734a2bf2d81d17480736999be3ad258185c7e3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Crown of the Companion",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "healing",
+        "invested",
+        "magical",
+        "vitality"
+      ],
+      "description": "Stories tell of a forgotten king who once loved his subjects so much he was willing to give his own life energy for them, using an object like the crown of the companion. Whether true or not, this majestic wooden crown bears elaborate carvings depicting that tale with images of a regal figure giving more and more of themself to a throng of needy subjects. While wearing this crown, you gain a +1 item bonus to Diplomacy checks.\nActivate 2 (concentrate, manipulate)\nFrequency once per day\nEffect You bow to an ally within 30 feet, creating a magical bond between the two of you as if you cast Share Life targeting the ally. The link remains even if you move more than 30 feet away from them. At the end of the spell's duration, your ally recovers 4d8 healing Hit Points and you recover half of what they recover.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:majordomo-torc",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4dSzBQPb68ik7ul8",
+      "slug": "majordomo-torc",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/choker-of-elocution.webp"
+    },
+    "sourceHash": "sha256:ed395ff74a0f0777390ac351f056090805c8248fe5b03fa5cca791fcce4bfaf3",
+    "translatableHash": "sha256:753065e8a7da187cb14e298dbbd7eb28eeaee176c9f8892a6797b59f0b14f4c0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Majordomo Torc",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "rare",
+      "traits": [
+        "intelligent",
+        "invested",
+        "magical"
+      ],
+      "description": "Perception 1d20+13; precise vision 30 feet, imprecise hearing 30 feet\nCommunication speech (Common and 1 imparted language)\nSkills Diplomacy 1d20+13, Nobility Lore 1d20+13, Society 1d20+13\nInt +3 Wis +3, Cha +3\nWill 1d20+14\nForged in platinum, a majordomo torc is engraved with heraldic insignias along with one language's alphabet, much like a Choker of Elocution. You gain a +1 item bonus to Society checks and the ability to understand, speak, and write the torc's language. Your excellent elocution reduces the DC of the flat check to perform an auditory action while Deafened from 5 to 3.\nUpon being invested, the torc appoints itself your majordomo and, given the chance, takes over coordinating your social calendar, engagements, and wardrobe. A majordomo torc has a prim, fussy disposition, and although it defers to you, it can grow sardonic if you frequently ignore its advice. The torc has the following activation.\nActivate 2 (concentrate)\nFrequency once per day\nEffect The majordomo torc casts Befitting Attire on you, usually to your specifications. However the torc can also choose the appearance of the illusion for you.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:heartening-missive-bull",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6iqRv3TGKt6DyIBs",
+      "slug": "heartening-missive-bull",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:8e60a2d8c5d508cecf2363872dc82108389ad6ecf31b1783dac20e589c8a8530",
+    "translatableHash": "sha256:c571467b0361ae1023d09059084d9cbb9fec6bffd9999b254b8c4bb50f18458f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heartening Missive (Bull)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nYou compose a heartening missive by creating a short message or image intended to grant the recipient moral support. You must dedicate the missive to an individual creature you know and address it to their location (typically the settlement where you think they are). Once you finish composing the missive, it folds itself into the shape of an animal and Flies at a speed of 45 feet (about 15 miles per hour) toward the location for up to 24 hours. It alights near the recipient or in their hand. After Activating the missive, the recipient gets its benefit and becomes temporarily immune to all heartening missives for 24 hours\nIf the missive fails to reach its recipient in 24 hours, it returns to its sender at the same pace, becoming non-magical when it arrives. After imparting or losing its magic, the missive remains as a normal document.\nFolded into a bull, this missive grants the recipient a sense of solidity. The recipient gains a +1 item bonus to Fortitude saves for the next 24 hours.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-mercy-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "6irTMXWYnysLljb6",
+      "slug": "wand-of-mercy-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b128863729185baac3a0e6a0b61de200643dda97db90e267faf0f902db90fa04",
+    "translatableHash": "sha256:71d7be949afa9eee52ca994e00763100ff9eb556a5c2bbc3fbafca38dc8026b0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Mercy (2nd-rank)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "The pommel of this rose quartz wand resembles the stylized wings of an angel. When you cast its spell and choose not to make it nonlethal, the crystal deepens to blood red. The color reverts to rose when you cast the spell from the wand nonlethally.\nActivate Cast a Spell; the activation takes 2 if the spell normally takes 1 to cast, or 3 if the spell normally takes 2\nFrequency once per day, plus overcharge\nEffect You Cast the Spell, and can choose to give it the nonlethal trait.\nCraft Requirements Supply a casting of a spell of the appropriate rank. The spell must have a casting time of 1 or 2, it must deal damage, and it can't have the death, void, or nonlethal traits.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:eidetic-potion",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7b6jSbZ7Xu88wyi8",
+      "slug": "eidetic-potion",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:007458bb3aeeaa40617eee1aa6d1ac676711fca94a75b584d22c8a5ba331907f",
+    "translatableHash": "sha256:807f45435a9d2ffc733c7c38a9217580c9377e4738b5a1e1fd85bf2a05295b5b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Eidetic Potion",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "potion"
+      ],
+      "description": "Activate 1 (manipulate)\nBright pink, pale lavender, and vibrant orange colors swirl through this purplish liquid, making the eidetic potion resemble an unforgettable sunset. When you drink this potion, for 1 round, anything you observe becomes locked into your memory. You can recall the memory perfectly and gain a +2 status bonus to create representations of that memory, whether using Crafting to create an artistic rendition or Society to create a Forgery. The memory remains locked for 1 week or until you benefit from the bonus it imparts for the first time, whichever comes first; afterward, it becomes a normal, fallible memory. You can only have a single memory locked in your mind at a time. Using this potion while you have a locked memory from a previous use makes the previously locked memory fallible but allows you to lock a new memory.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:antipode-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "7iZCCqXDGiTv0ar3",
+      "slug": "antipode-oil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:41a7d7cb768e3bca48fd5855d964bedfe0976082431d8ad4bd124650853ef57c",
+    "translatableHash": "sha256:1f872f36ce36d3dc933088b60b0aa9f7a02660752ef73ca6e0ead5b241fb4c6f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Antipode Oil",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "injury",
+        "poison",
+        "virulent"
+      ],
+      "description": "Activate 2 (manipulate)\nPrepared from brown mold, this liquid oscillates between rapidly absorbing and releasing heat from its victim. Each round the type of damage dealt by this poison changes, starting with cold, then fire, then cold, and so on. If the victim of this poison takes cold damage from a source other than the oil, reduce the save DC to 22 for 1 round. If the victim takes fire damage from a source other than the oil, increase the save DC to 25 for 1 round.\nSaving Throw check (fortitude, dc:24)\nMaximum Duration 6 rounds\nStage 1 2d6 cold or fire damage (1 round)\nStage 2 3d6 cold or fire damage (1 round)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-two-hands",
+      "category": "poison",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:druids-crown",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "b0kltGQGBUBHN8Ap",
+      "slug": "druids-crown",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:ba8138069deacec107fc8e5fafffb3733ea6f5e9d2d09ddf6c3a01f150a4182b",
+    "translatableHash": "sha256:0a8ccb3e40dcbb1b6ef9e3b3559a7ce474168cf927682bd9a6207ef814ea90d2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Druid's Crown",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "primal"
+      ],
+      "description": "Made of materials scavenged from wild places, a druid's crown can be rebuilt for a variety of benefits. The crown grants you a +1 item bonus to a skill, and can be activated to cast a spell, both depending on the material used to build the crown, as listed on the table below. If you invest and wear living mantle along with the crown, the crown's item bonus increases by 1 and its spell's DC rises to 27.\nYou can invest this item only if you're a druid. When you do, as a 10-minute activity that has the manipulate trait, you can disassemble and rebuild the crown with different materials, changing its item bonus and spell accordingly.\nActivate 2 (concentrate)\nFrequency once per day\nEffect The crown casts its spell at 2nd rank (DC 20).\nCraft Requirements You are a druid.\nMaterial | Item Bonus | Spell |\nAntlers | Intimidation | Enlarge |\nFlowers | Diplomacy | Animal Allies |\nLeaves | Stealth | One with Plants |",
+      "bulk": 0.1,
+      "price": {
+        "gp": 220
+      },
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:inventors-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "B3QOvE43Qn1H8t8n",
+      "slug": "inventors-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:4b40268e47398888dc7ff72e94978226ab960aecdadae83b53ea6e94d0d85104",
+    "translatableHash": "sha256:6ef351c096ef8a78dee21d9dfcfe2da86d44b2a3d590c99d0f95d26d7f568817",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Inventor's Fulu",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical",
+        "talisman"
+      ],
+      "description": "Activate f (concentrate)\nTrigger You critically fail an action with the unstable trait.\nSome inventors in Tian Xia put fried snacks near their innovations, a charm to make devices behave as intended. The practice rubbed off on other inventors, who replaced the food with a drawing on an inventor's fulu. When you Activate the fulu, your critical failure becomes a failure, and you can spend just 1 minute to return your innovation to full functionality. The fulu then burns up, and its effects end.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "affixed-to-an-innovation",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:librarian-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "bh1Jr4YqfXQe7r9I",
+      "slug": "librarian-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:01f779021bce7f1cb23036e8f471f79b819c4e5a1bd93e525fe540e5c8361ffc",
+    "translatableHash": "sha256:dd2fb1092f61f8181b487f636f76847ff13ea7a211e45c6a5e0b01de9f7bb669",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Librarian Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "extradimensional",
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A librarian staff is a slender pole composed of thousands of coiled and compressed book pages swirling into one another, with a mishmash of letters tumbling across its surface. The sound of rustling pages can be heard when the staff moves.\nActivate 3 (concentrate, manipulate)\nEffect You store one portable text of 1 Bulk or less—typically a book or scroll—in an extradimensional space in the staff. You can also use this activation to retrieve one text stored in the staff. The staff can store up to 50 texts.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Approximate, Read Aura\n• 1st Pocket Library, Quick Sort, Share Lore\n• 2nd Timely Tutor, Translate\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 225
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:swallow-spike",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BKjwg0TEGioiYpz1",
+      "slug": "swallow-spike",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:2fd3e782da6cd8a3cf724044a25bd93cfd6a78a9d9eb4b17ef74e82f5776d3e5",
+    "translatableHash": "sha256:36532a5f0538a5fb552d674ca937a2331ddbe588e7aaf39e83322b9e34c3180b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Swallow-Spike",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Your armor responds to your desire to break free of a creature grabbing you by growing spikes.\nActivate R (attack, concentrate)\nTrigger You become Grabbed, Restrained, or otherwise held Immobilized in a creature's grasp, such as by being engulfed or swallowed\nEffect Your armor suddenly grows spikes, attacking the triggering creature. The armor makes a melee attack with an attack modifier of 1d20+14 that deals 2d6 piercing damage. If the creature is swallowing or engulfing you, the attack deals an additional 1d6 untyped damage, and damage from this attack can cut you free if it equals or exceeds the Rupture value of the immobilizing ability. This attack gets an item bonus to the attack roll equal to the armor's item bonus to your AC and an item bonus to damage equal to double that amount.\nActivate 1 (attack, concentrate)\nRequirements You're being held Immobilized as described in the rune's other activation\nEffect Your armor attacks the creature immobilizing you. The armor makes a melee attack against the creature, as described in the rune's other activation.",
+      "bulk": 0,
+      "price": {
+        "gp": 200
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-hawthorn-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CKmIgVzlcN7g1YT4",
+      "slug": "wand-of-hawthorn-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:264114b1627de4bf32601b5a2f93690d4f4aa88c7741535aa5e728a7465ec65b",
+    "translatableHash": "sha256:1d3e79e2d8ec2159a8bdc29398b82a031b1c1db9d9a4a9df555f9d0fe13cef43",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Hawthorn (2nd-rank)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "plant",
+        "wand"
+      ],
+      "description": "Carved from a hawthorn branch, this wand has a smooth handle, but the shaft remains covered in bark and long thorns. Polished red stones, arranged like a cluster of berries, decorate the pommel.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast 2nd-rank Oaken Resilience, and the target sprouts long thorns like those of a hawthorn tree. While Oaken Resilience lasts, any creature that hits the target with an unarmed Strike or otherwise touches it takes 1d4 piercing damage from the thorns. A creature that has engulfed or swallowed the target takes this damage as well at the start of each of the target's turns.\nCraft Requirements Supply a casting of oaken resilience of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:affliction-suppressant-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "CrOj1a997n9tku6x",
+      "slug": "affliction-suppressant-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:fbe4e230fed3e9e94448e06f2f2e930dbf401b9b47eb2a069faaca798155ac38",
+    "translatableHash": "sha256:26cafa393959b9332902b0e985e0072eabcabc7e025eebd94dc2b093df462be5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Affliction Suppressant (Moderate)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nFirst created using the same principles as the antiplague and antivenom elixirs, an affliction suppressant is a broadly useful medicine, but sacrifices potency. It applies to a wide variety of afflictions, but lasts a much shorter time. Upon drinking an affliction suppressant, you gain a +2 item bonus to all saves against afflictions for 10 minutes.\nUnlike with an antiplague, this suppressant isn't long-lasting enough to apply to a daily save against the progression of a disease, curse, or other long-lasting affliction. It can still help protect you from catching such an affliction when you're initially exposed to it, as well as on saves that occur after stages that last 10 minutes or less.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 35
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sprite-apple-teal",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "EeqvTTUpqHobTs6u",
+      "slug": "sprite-apple-teal",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7ffdb5b7886fac2f88c80b3eec84fd99045202a201f3ab2659e958c3c6509fa2",
+    "translatableHash": "sha256:8d558e8410dd2b7f064c3ca917bce50a7f9c9bc225181341d98bbc4b6b1d14aa",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sprite Apple (Teal)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "light"
+      ],
+      "description": "Activate 1 minute (manipulate)\nA sparkling candy coating covers a sprite apple. For 10 minutes after consuming a sprite apple, you shed bright light in a 20-foot emanation (and dim light for the next 20 feet). While shedding this light, you can't be Concealed if you're visible, and if you're Invisible, you're concealed instead rather than being undetected. The light matches the vibrant color of the apple's candy coating. Creatures in the bright light are subject to another effect, depending on the type of apple.\nCreatures in the bright light feel a sense of calm, gaining a +1 item bonus to saving throws against fear effects.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 41
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:lyrakien-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fcRTJBvy1RqXr3ow",
+      "slug": "lyrakien-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3bb3a424e28749ea361dfd2ee93565ef77aa7f7050e3ff5864d07138594fbe5b",
+    "translatableHash": "sha256:e7b9e86167720cd93b87f70a229e458a3f58cf950d1a142e050801f0555358e7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Lyrakien Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A crystalline sphere, swirling with constantly shifting constellations, sits atop a lyrakien staff, a silver shaft that sparkles with the gentle glow of starlight. Desnans first created the staves, inspired by the music- and freedom-loving lyrakien azatas, but these staves are popular with spellcasters of all faiths who like travel, art, or the stars. While wielding a lyrakien staff, you gain a +1 circumstance bonus on saving throws against incapacitation effects.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Guidance, Summon Instrument\n• 1st Concordant Choir\n• 2nd Guiding Star, Sure Footing\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 255
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spiritsight-ring",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hAPCk1A2a4kJDzhV",
+      "slug": "spiritsight-ring",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:de4eaa3d708e36ab34328c300425baff983e86c2ebf2e1e378da103614758b38",
+    "translatableHash": "sha256:f68e588804eae562fde36c114d91c5e2b6c5b69259ffc1bd6af19594fce50bcb",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spiritsight Ring",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "The opal set in this intricately carved ivory ring eventually becomes translucent and tickles your finger whenever an incorporeal creature is nearby. When in the presence of a nearby incorporeal creature, even if it's within a solid object, you eventually detect the creature, though you might not do so instantly, and you can't pinpoint the location. This acts as a vague sense, similar to humans' sense of smell. An incorporeal creature trying to hide its presence from this sense attempts a Stealth check against your Perception DC to hide from your vague sense, as normal for attempting to foil special senses. You gain a +2 item bonus when using the Seek action to find Hidden or Undetected incorporeal creatures within 30 feet of you.",
+      "bulk": 0,
+      "price": {
+        "gp": 225
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:life-shot-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hguIfHmI3LjhvlWO",
+      "slug": "life-shot-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/ammunition/life-shot.webp"
+    },
+    "sourceHash": "sha256:d76393a910dcbf8922866a2ff0fa5217b1de161fd44886d3da58597234310e1e",
+    "translatableHash": "sha256:bad34380685f730268404bf59ce3e6a871ebe97f658e72264499479e0d8b8b54",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Life Shot (Lesser)",
+      "itemType": "ammunition",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "healing"
+      ],
+      "description": "Ammunition round\nActivate 1 (manipulate)\nLife shot is a special cartridge that carries a small dose of elixir of life. A creature hit by activated life shot takes no damage from the successful attack, instead receiving 3d4+3 healing healing and gaining a +1 item bonus to saving throws against diseases and poisons for 1 minute. On a critical hit, roll the healing received twice and take the better result (this is a fortune effect). A target willing to be hit by this attack is Off-Guard against it.\nEffect: Life Shot",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vaccine-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HilBL7oeSSXqDor7",
+      "slug": "vaccine-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/alchemical-items/alchemical-elixirs/vaccine.webp"
+    },
+    "sourceHash": "sha256:c8822b0aa8d26f256fc984a33353851ea83481f161804d34209560b623a79a9d",
+    "translatableHash": "sha256:b0d10e9edd3d4868be22ad4600185441860d88df21fbd15e5f93cf108b3006a7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vaccine (Moderate)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir",
+        "healing"
+      ],
+      "description": "Activate 1 (manipulate)\nA vaccine grants a creature immunity to a specific strain of disease of a level equal to or less than the vaccine's level, and a +2 item bonus on all saving throws against other strains of the same disease. For example, a vaccine could grant immunity to putrid plague inflicted by harpies, but would only grant a +2 saving throw bonus against putrid plague inflicted by a giant rat.\nCraft Requirements Creating a vaccine requires a sample of the disease in question.\nDuration 1 week.\nSpecial A vaccine is the same rarity as the disease it's designed to prevent, or as the creature who inflicts the disease if the disease itself doesn't list a rarity.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:windlass-bola",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "hvMIJKY1mKXDmg1V",
+      "slug": "windlass-bola",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:4747f356fd8579070b0ede06acf911f70b9c06867a0b9349cee59ec9ce10a316",
+    "translatableHash": "sha256:f17da31e5c21eb7164f2db7440868b1be2d1452cc3bddc43a46b49bce23ccb38",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Windlass Bola",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "clockwork",
+        "nonlethal",
+        "ranged-trip",
+        "thrown"
+      ],
+      "description": "Clockwork mechanisms tick away inside the weights of these +1 striking returning bolas, spooling out more cord in midair.\nActivate 1 (manipulate)\nFrequency once per day\nEffect The cord of the bola snakes out as you throw it, allowing the weapon to wrap around a group of enemies. You use the bolas to attempt a ranged Trip against all creatures in a 5-foot burst within the weapon's first range increment. Roll a separate Athletics check for each target. Each attempt counts toward your multiple attack penalty, but don't increase your penalty until you have made all the attempts.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "martial",
+      "group": "sling",
+      "damage": {
+        "dice": 1,
+        "die": "d6",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bellflower-toolbelt",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ifsBwfIhd6UcoUCI",
+      "slug": "bellflower-toolbelt",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:196dd258984c82b9f38c6c5c7fcc0edb50d25e19f9a57f3fb6b0b504bc6fa272",
+    "translatableHash": "sha256:d9df06ac07363f399370410f74ea262ff60b4d435ca41162fe8d5b439db620ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bellflower Toolbelt",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "rare",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Different versions of the bellflower toolbelt are customized to appear to suit specific trades, so a belt used for carpentry would look different from a belt for baking.\nActivate 2 (concentrate, manipulate)\nEffect You place an object of up to 1 Bulk into the belt, transforming that object into a tool befitting the trade for which the belt was created. Each object remains transformed until it has been removed from the belt for 24 hours or someone uses a single Interact action to return it to its normal form. If enough transformed items are in it, the belt can be used as an Artisan's Toolkit for that trade.",
+      "bulk": 1,
+      "price": {
+        "gp": 220
+      },
+      "usage": "wornbelt",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:phantasmal-doorknob",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IISieImYvSQ8AqmC",
+      "slug": "phantasmal-doorknob",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/other/spellhearts/phantasmal-doorknob.webp"
+    },
+    "sourceHash": "sha256:d8a6c4cd601f6aa360f008d1cd0951e5494d6822a42129908d47bcf45d6e9d46",
+    "translatableHash": "sha256:ccb99c1c18c7b29718498600bca754a8c81fde612074bd0996ebbff2c611d555",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Phantasmal Doorknob",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "emotion",
+        "magical",
+        "mental",
+        "spellheart"
+      ],
+      "description": "This ornate doorknob can open doors both material and metaphysical, revealing dreams and nightmares. The spell DC of any spell cast by activating this item is 20.\n• Armor You gain a +1 item bonus to Thievery checks to Pick a Lock.\n• Weapon If you critically succeed at a Strike with the weapon, the target is Dazzled until the end of its next turn.\nEffect: Phantasmal Doorknob - Armor\nEffect: Phantasmal Doorknob - Weapon\nActivate Cast a Spell\nEffect You cast Figment.\nActivate Cast a Spell\nFrequency once per day\nEffect You cast Phantasmal Treasure.",
+      "bulk": 0,
+      "price": {
+        "gp": 215
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-shocking-haze",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "iZSGA67xqjk68PHm",
+      "slug": "wand-of-shocking-haze",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2175a1e69121788ec12aaebf9e19d2d2ac1a5a009b3c1c39876a553b10bc3e9e",
+    "translatableHash": "sha256:6c4ad95f5e3f300650bfca4c46cbe82593cc60d60f9dc8febfc1178d044d6da4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Shocking Haze",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "visual",
+        "wand"
+      ],
+      "description": "Thin, shiny wires crisscross the surface of this smooth, black wand. The pommel is capped with a polished metal sphere, which sometimes emits small electric sparks.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Blur, and the wand creates faint orbs of electricity Concealed in the haze around you. Each time a creature that's adjacent to you fails a flat check against the concealment from blur, they explode one of the orbs, causing them to take 5 electricity damage.\nCraft Requirements Supply a casting of blur.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:soothing-toddy",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Jgv2PAJic7LPoGQx",
+      "slug": "soothing-toddy",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c743fe5d6be84bae5ed043eed60a2d68a48d9fbfb3e89767739dbd3f5be49389",
+    "translatableHash": "sha256:3015425b0fe33b1127b7958dc28249ab17dcbb4baa14e8e0a1616483468325a6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Soothing Toddy",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 (manipulate)\nHot tea with a comforting, flowery aroma, a soothing toddy grants you a +1 item bonus to saving throws against emotion effects and against effects with a trait determined by the liquor mixed into the tea when it's created. These benefits last for 1 hour.\n• Amaretto Auditory\n• Limoncello Olfactory\n• Whiskey Visual\nEffect: Soothing Toddy",
+      "bulk": 0.1,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-noisome-acid-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JN2wkB9JG4nklVKP",
+      "slug": "wand-of-noisome-acid-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-noisome-acid.webp"
+    },
+    "sourceHash": "sha256:791a5096c014b962e5fa06d0921e6162bcf05e998cbda68c5d823dcf1d82c4c1",
+    "translatableHash": "sha256:1fa22d48d55efc302f72b49a18f16a791e5ef1ad428ab4b8adb5d902b1ab30c5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Noisome Acid (2nd-Rank)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "acid",
+        "magical",
+        "wand"
+      ],
+      "description": "This greasy stick emits a stomach-churning scent when held in a hand.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Acid Grip at 2nd rank. A creature that takes initial acid damage from this spell become Sickened 1. Use your spell DC if the creature attempts to recover from this sickness. This is an olfactory effect.\nCraft Requirements Supply a casting of acid grip at 2nd rank",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:architects-pattern-book",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Kx1Se9u0LU1ZS5R1",
+      "slug": "architects-pattern-book",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:dc05489cee9117fc22c03426cca260c3c988843032289745dd32e1d8054cc386",
+    "translatableHash": "sha256:a2808785ce0a8a90db535a0cebfa2b5579c069d3955270258d7519ddf4ac2944",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Architect's Pattern Book",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "grimoire",
+        "magical"
+      ],
+      "description": "Typically created by wizards who are hobbyists or professional architects, an architect's pattern book allows the caster to customize certain spells that create magical structures or domiciles, adding recreational areas such as an indoor bathhouse, gaming room, swimming pool, or similar luxury.\nActivate F (concentrate, spellshape)\nFrequency once per week\nEffect If your next action is to cast a Cozy Cabin, Planar Palace, or Resplendent Mansion spell, you add a room to the structure that is up to 10 feet per side per rank of the spell. This room is outfitted with all the accoutrements for a particular type of recreation, determined by you when you cast the spell. Any character who spends at least 1 hour using this recreational facility and then sleeps a full 8 hours inside the location created by the spell is exceptionally well-rested. They regain double the amount of Hit Points they would normally receive for an 8-hour rest, and when they make the next day's preparations, they gain a +1 circumstance bonus to Athletics checks and Will saves for the next 12 hours.\nEffect: Architect's Pattern Book",
+      "bulk": 0.1,
+      "price": {
+        "gp": 240
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:courtiers-pillow-book",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LBoSycoKAXrp76zA",
+      "slug": "courtiers-pillow-book",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:887060d55a6fe7ffc240822e74d4f31dd22fdc569613a9de9e6b03259f461c29",
+    "translatableHash": "sha256:849e8f42a00bf212e88602383d42fa66fe88512098b3cd19f5b1de44d436fc2e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Courtier's Pillow Book",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "grimoire",
+        "magical"
+      ],
+      "description": "This elegant journal has a detailed social dossier on the owner's acquaintances. When you make your daily preparations, you can inscribe a secret or embarrassing foible about a specific individual that you know to be true or have on good authority.\nActivate F (concentrate)\nFrequency once per day\nEffect If your next action is to cast a mental spell on a target about whom you've written an entry in the book, you can state that secret or foible before Casting the Spell to give the target a –1 circumstance penalty to their saving throw against the spell. The inscription then disappears from the grimoire.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bewitching-bloom-magnolia",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LDtIZ822rqBD88U2",
+      "slug": "bewitching-bloom-magnolia",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:56d645402474d413397352b14782d6447c9fb05c7a78ed5276d337b991c07ad1",
+    "translatableHash": "sha256:7e628a827a038127b3750790854d69b418f061faff0960fe3d03f65db13e03ed",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bewitching Bloom (Magnolia)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "While dormant, this tattoo appears to be a simple flower bud, but when activated the flower swiftly blossoms, remaining that way until the next time you make your daily preparations. These blooms are colorful, elegant representations of magnolia flowers.\nActivate 2 envision\nFrequency once per day\nEffect Choose a willing ally you can see within 30 feet. Your ally seems more charming, though no one can pinpoint why. They gain a +1 status bonus to Diplomacy checks for 10 minutes. Once on their next turn, the ally can attempt to draw a creature's attention. To do so, the ally must spend 1 action (which has the emotion, mental, and visual traits) to select a creature the ally can see and make eye contact in a way the target can see. The target must succeed at a check (will, dc:20) save or be Fascinated with your ally until the end of that ally's next turn. If the save succeeds or the effect ends, the target is temporarily immune to being fascinated by any magnolia bewitching bloom for 24 hours.\nEffect: Bewitching Bloom (Magnolia)",
+      "bulk": 0,
+      "price": {
+        "gp": 220
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:implosion-dust-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LKTbRpaw8bH3WHv1",
+      "slug": "implosion-dust-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:2c6f1d823eb5adc5dacab8c26e11ab974b17713fc2e6980b4b9352720cada8f4",
+    "translatableHash": "sha256:f27120d6b35e422b096b47d17de50f361d1df2509c3446a3b0c429520a4c9155",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Implosion Dust (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nSealed in a packet so it can be released in a pressurized puff, implosion dust causes amorphous creatures to compress and shrink by hardening and even evaporating the liquid components of their physical forms. It's effective at weakening water elementals, air elementals, oozes, and other creatures the GM determines are similarly amorphous, which can even include particularly gelatinous aberrations. You release the dust toward one creature within 5 feet of you, which must attempt a check (fortitude, dc:20) saving throw. The target must repeat the saving throw at the end of each of its turns. Implosion dust functions for up to 6 rounds. It then becomes inert, and the creature returns to its normal size.\nCritical Success The dust becomes inert, and the creature returns to its normal size.\nSuccess The target increases in size one step, up to its normal size. If it's at its normal size after the increase, the effect ends.\nFailure The target decreases in size one step, to a minimum of Tiny. The reach of each of its Strikes decreases by 5 feet, to a minimum of 5 feet if the creature is Small or larger, or a minimum of 0 feet if the creature is Tiny. Shrinking also imposes a status penalty to the creature's physical melee damage. This penalty is –2 for every step lower than its normal size the creature is.\nCritical Failure As failure, but the target decreases in size by two steps.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tooth-and-claw-tattoo",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LM5zag6Ogv1fF5zz",
+      "slug": "tooth-and-claw-tattoo",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:d9753a8c2060d117c8f6cf1ef8adc7108d89bb2c29c8c0ca5f9944308141e196",
+    "translatableHash": "sha256:d96f68572481024b0c8cffafa786eb6b74473611fcf5c12676dae0ebffb451f4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tooth and Claw Tattoo",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "This tattoo resembles an animal's fangs, claws, or similar natural weapons, letting you wield such weapons and turn into the same beast. When you receive the tattoo, choose the animal from among the following: ape, bear, bull, canine, cat, deer, frog, shark, or snake. You can ask questions of, receive answers from, and use the Diplomacy skill with animals of that kind. This tattoo is usually located on the body part or parts it's meant to transform—on the back of the hands for claws, around the mouth for jaws, on the forehead for horns, and so on.\nActivate 1 (concentrate, morph)\nEffect You gain an unarmed attack matching the tattoo for 1 minute. It has the same damage as your best unarmed attack and has the same traits. Its damage type is bludgeoning for a fist or frog's jaws; piercing for an antler, fangs, horns, or most jaws; or slashing for claws.\nActivate 2 (concentrate, polymorph)\nEffect The tattoo casts 3rd-rank Animal Form to transform you into the animal that matches your tattoo.",
+      "bulk": 0,
+      "price": {
+        "gp": 250
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:vaultbreakers-harness",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "LmveO9fSuEnkMKAH",
+      "slug": "vaultbreakers-harness",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/vaultbreakers-harness.webp"
+    },
+    "sourceHash": "sha256:c7e43202a51cb4b62e3fc560699edba5a888d98765381966ed0a54df49f7faa1",
+    "translatableHash": "sha256:786c6fcd99d8cb065230ab30803b58bd5d8b263466f7978cdd286d81afacc21b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Vaultbreaker's Harness",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A vaultbreaker's harness has four pockets across the chest. The pockets contain a set of Thieves' Toolkit (Infiltrator), Thieves' Toolkit (Infiltrator Picks), a Crowbar (Levered), and a Glass Cutter. These items are magically bound to the harness; if they are more than 1 foot away from you, they disappear, then reappear in the harness at the next sunset. Broken or destroyed items similarly reappear, restored, in their proper pockets at sunset.\nActivate 1 (manipulate)\nEffect You cinch the harness to prepare for mischief. You gain a +1 item bonus to Stealth checks and a +10-foot item bonus to your Speed for 1 minute.\nEffect: Vaultbreaker's Harness",
+      "bulk": 1,
+      "price": {
+        "gp": 230
+      },
+      "usage": "wornbackpack",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:falconsight-eye",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MhbeSE3RyBPyFQpq",
+      "slug": "falconsight-eye",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:5331ff731051b15d933eac0665be7c5bb53509cc88ff02f0ce8b1f6c73d846d4",
+    "translatableHash": "sha256:055e136bc5021885c513fd6dd9969c671b9b0272e966b8c8d9fc669c2738d06c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Falconsight Eye",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "magical"
+      ],
+      "description": "This prosthetic eye resembles that of a bird of prey. Along with the abilities of the Magical Prosthetic Eye, it allows you to strike foes at greater range and with impressive accuracy.\nActivate 1 (concentrate)\nFrequency once per hour\nEffect You become keenly aware of your foes, even those seemingly out of reach. For 1 minute, you can close your eyes as a free action to see through a ranged weapon you're wielding, which reduces the penalty for firing into your weapon's second range increment from –2 to 0. This effect doesn't negate the Blinded condition.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:aim-aiding",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "mKlUg7SWC5LcOqaj",
+      "slug": "aim-aiding",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:10eebf4912148546ca00559c5312a403a0f7e4fedb7dce1d89ba792f33a609d5",
+    "translatableHash": "sha256:3a68ed8136e29a25fac5e9aaa6970d393f946db80a32bd13de3df91a6afd29e5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Aim-Aiding",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Armor etched with this rune aids in routing ranged attacks aimed at an enemy around you. You don't provide enemies cover against your allies' ranged attacks.",
+      "bulk": 0,
+      "price": {
+        "gp": 225
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:heartening-missive-rabbit",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "MMInXBlOscwZVXsm",
+      "slug": "heartening-missive-rabbit",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:da04e91714c04519627fa3187a93546b2f6d67a987e540aee42852dc8b3b93e9",
+    "translatableHash": "sha256:f0d44751203e1bab1b2f7ce82834c3f9bce688971e09dc5966c324a025542975",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heartening Missive (Rabbit)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nYou compose a heartening missive by creating a short message or image intended to grant the recipient moral support. You must dedicate the missive to an individual creature you know and address it to their location (typically the settlement where you think they are). Once you finish composing the missive, it folds itself into the shape of an animal and Flies at a speed of 45 feet (about 15 miles per hour) toward the location for up to 24 hours. It alights near the recipient or in their hand. After Activating the missive, the recipient gets its benefit and becomes temporarily immune to all heartening missives for 24 hours\nIf the missive fails to reach its recipient in 24 hours, it returns to its sender at the same pace, becoming non-magical when it arrives. After imparting or losing its magic, the missive remains as a normal document.\nFolded into a rabbit sitting on its haunches, this missive grants the recipient a sense of mischief and agility. The recipient gains a +1 item bonus to Reflex saves for the next 24 hours.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sapling-shield-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "nS4ev4BZn9OUPYgt",
+      "slug": "sapling-shield-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b7e09e8f1c1818fa4e1083f273aeab190a3c378389fd2d60b22e1605504c2c96",
+    "translatableHash": "sha256:9d6c0f81a0825254e9fa31721b7209e4f746ffe830fe151da160e7ab25a4e088",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sapling Shield (Lesser)",
+      "itemType": "shield",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This surprisingly weighty, though well-balanced, wooden buckler (Hardness 6, HP 48, and BT 24) is emblazoned with the image of a sapling. The sapling withers as the shield takes damage.\nActivate 1 (concentrate)\nEffect The buckler expands, with the sapling image growing into a mighty oak tree. The buckler becomes a tower shield, gaining the corresponding AC bonus, Speed penalty, and ability to Take Cover. It keeps the same Hit Points and Broken Threshold, but its Hardness and Bulk increase by 2 in this form. The shield remains in this form until you Activate it again to revert it to a buckler.",
+      "bulk": 2,
+      "price": {
+        "gp": 240
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "buckler"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:herd-mask",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "o7Tr4KbPcmd3zzd1",
+      "slug": "herd-mask",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f63210d8297ea7e9f42990ec609094586767c3c0aeb252ddca174a7f69ae31d1",
+    "translatableHash": "sha256:91e8ed48b4d952dfe6b83f586482dd38a84ae777a48145f0e08febfc5f7465e1",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Herd Mask",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical",
+        "teleportation"
+      ],
+      "description": "All herd masks are linked to at least one other herd mask and are usually sold in sets of multiple masks. Linked herd masks look like one another, with only slight differences to tell them apart.\nActivate 1 (concentrate)\nFrequency once per day\nEffect You swap locations with another creature wearing a linked herd mask within 100 feet. If you and the creature you swapped with are disguised as each other, other creatures gain an immediate Perception check against the lower of your or the other wearer's Deception DCs to Impersonate each other. On a failure, they don't realize the swap occurred.\nCraft Requirements Supply a casting of Translocate. You can link a herd mask you create to another herd mask in your possession when you finish crafting it, which causes it to be linked to the chosen mask as well as all other herd masks that are also linked to the chosen mask.",
+      "bulk": 0,
+      "price": {
+        "gp": 210
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wind-ocarina",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "PaHw4xIxBujlCaqN",
+      "slug": "wind-ocarina",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:31cfef6d60fdb91a742cea4df696cc830c6ee34626c5a8bf91de40a995b4a244",
+    "translatableHash": "sha256:55d15b4ccdf602b72449200bb8491f00387635f1f6e760427a9691b3085dec28",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wind Ocarina",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "air",
+        "aura",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate 1 (manipulate)\nA blue finish decorates the ceramic body of a wind ocarina. When you play a note on this ocarina, for 1 minute, winds sweep into strong gusts in a 5-foot emanation around you. The winds have the following effects.\n• Ammunition from physical ranged attacks—such as arrows, bolts, sling bullets, and other objects of comparable size—can't pass through the area. Passing through the area causes attacks with bigger ranged weapons, such as thrown weapons, to take a –2 circumstance penalty to their attack rolls if their paths pass through the emanation. Massive ranged weapons and spell effects that don't create physical objects can pass through the emanation with no penalty.\n• The area is difficult terrain to creatures attempting to move through it.\n• Gases, including creatures in the form of a vapor, can't pass through the emanation. When the emanation arises, such gases are removed from the area, including your space.\n• The area, including your space, has breathable air.\nOnce the magic is used, the ocarina remains a non-magical virtuoso musical instrument.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:silver-crescent-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Pjxotvrj7uXe92Qc",
+      "slug": "silver-crescent-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f1a56bc275fce567d579c4a1b987b947c87929ad4538d59948b0ef2ac68a3fa9",
+    "translatableHash": "sha256:29c65bf2b7aea06b23222cfd89ddd6042204665868abfd2de27540310b10bf12",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Silver Crescent (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "light",
+        "lozenge"
+      ],
+      "description": "Activate 1 (manipulate)\nA piquant tamarind and chili-lime flavor infuses a silver crescent, which was first created to aid those battling the undead. For 1 hour, you shed cool, white light like a torch, and you gain a +1 item bonus to saving throws against olfactory effects. While shedding this light, you can't be Concealed if you're visible, and if you're Invisible, you're concealed instead rather than being undetected.\nEffect: Silver Crescent\nSecondary Effect 2\nEffect A ray of light descends on a 5-foot square of your choice within 120 feet. Any creature in that space takes 4d6 vitality damage with a check (reflex, dc:20, basic, options:area-effect) and is Dazzled until the end of its next turn on a failed save. This is treated as silver for the purposes of weaknesses, resistances, and the like. The silver crescent becomes inert.",
+      "bulk": 0,
+      "price": {
+        "gp": 35
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:tentacle-potion-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "pzUHY3C7JfmUgjuO",
+      "slug": "tentacle-potion-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:051f71fd8df06b8ac8c4b5537c26ab3b372f7a973b4a2911cf5fe4dce940d58f",
+    "translatableHash": "sha256:2580c926e27a8020ec7d76e5c73ff6a9ab620c450c9f504b088bd6a0305758c4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Tentacle Potion (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "potion"
+      ],
+      "description": "Activate 1 (manipulate)\nUpon consuming this mottled, foul-tasting liquid, the tentacle potion causes you to extrude a long, flexible limb of ectoplasm. Your clothing doesn't need to accommodate this limb of ghostly matter, which can extrude through your clothing and armor. The limb lasts 1 hour, and you can Dismiss the activation. You can't hide or disguise the tentacle. You can use the limb to perform simple Interact actions, such as opening an unlocked door. Your limb can't perform actions that require significant manual dexterity, including any action that would require a check to accomplish. You can't use it to hold items. At one time, you can have only one extra limb from any version of this potion. Stronger tentacle potions replace the effects of weaker ones.\nIf you have the Flexible Tail or Skillful Tail feats, the Tailed Goblin heritage, or a similar feature the GM believes would benefit, this potion can instead fortify your tail. A fortified tail benefits from any tentacle potion as if the potion were the next better type.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 33
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:snarling-badger-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "qnR646Oph1q88RNo",
+      "slug": "snarling-badger-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7819ae17183310482b292f18da5a4b9cbe3706fc13e87509dae1a346972adfbc",
+    "translatableHash": "sha256:40912b256b2db107c1c6a7c73bdec1660a833f09ed8b39899a5ee472387136f7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Snarling Badger (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "mental",
+        "talisman"
+      ],
+      "description": "Activate f (concentrate)\nTrigger You lose the Dying condition\nRequirements You have a Wounded value of 1 or more.\nThis tarnished steel pendant is inlaid with the face of an enraged badger. When you Activate the talisman, it casts Heroism on you. If you lose the wounded condition, the heroism ends immediately.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "affixed-to-armor",
+      "category": "talisman",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:trackless",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "QPz923dZeG1TajQE",
+      "slug": "trackless",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:8307df6a28714d20dc623fd194258d12b859934f9c5509d17caee409166361b7",
+    "translatableHash": "sha256:fa7cece1e08940b379f8f42aebc3faf424dac90b86a5209e135f0271ca441792",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Trackless",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "Trackless runes are common among hunters and trappers, as well as thieves and anyone fleeing pursuit. While wearing trackless footwear, you have a +4 item bonus to the DC to track you. However, this bonus doesn't stack with the status bonus from Vanishing Tracks.",
+      "bulk": 0,
+      "price": {
+        "gp": 225
+      },
+      "usage": "applied-to-footwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-choking-mist-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Rhr6rkOwjFwCJV0T",
+      "slug": "wand-of-choking-mist-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:92e4f509199aff9e5190c2c364cf44d17f1c216d4d017ea1655ca61aed26a406",
+    "translatableHash": "sha256:1a37f90263c2afb7d91977d39a58cac6adbaa399204f0d4e3cda6ee15ec65e31",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Choking Mist (2nd-Rank)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand",
+        "water"
+      ],
+      "description": "This blackened wood wand has a smoldering tip, emitting a slight trail of steam.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast Mist, but the mist prevents creatures from being able to breathe in its area. They must hold their breath or start suffocating.\nEffect: Remaining Air\nCraft Requirements Supply a casting of Mist.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-reaching-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "rmbvBjcDMDAZLJ7v",
+      "slug": "wand-of-reaching-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:98a13e3d4fb43d14ff31e4400ffe7da8e003968d288ea8accf5eb1a38ca742e4",
+    "translatableHash": "sha256:5c41b5cf38c87cbc1a5a6c7f3277296366e9649fdd9deb8080d4568bf08ce896",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Reaching (2nd-Rank)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "This long, slender wand is constructed of silver, polished to a mirror shine.\nActivate Cast a Spell; This activation takes 2 if the spell normally takes 1 to cast, or 3 if the spell normally takes 2\nFrequency once per day, plus overcharge\nEffect You Cast the Spell. Its range increases by 30 feet. As normal for increasing ranges, if the spell normally has a range of touch, its range extends to 30 feet.\nCraft Requirements Supply a casting of a spell of the appropriate rank. The spell must have a casting time of 1 or 2, and must have a range.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:ooze-ammunition-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SfqfTak3o0cuSqhL",
+      "slug": "ooze-ammunition-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:66478673198618a782d4ac9791e0714db710b87abfc4164d43630564f2305160",
+    "translatableHash": "sha256:8cdf6ec47587398ce9d6ea6a5dc683046f2e42e2970568ccd677d22f76317b3b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Ooze Ammunition (Moderate)",
+      "itemType": "ammunition",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "acid",
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Ammunition any\nActivate 1 (manipulate)\nOoze ammunition is a capsule containing a sticky substance. If you hit a creature with activated ooze ammunition, it deals acid damage instead of its normal damage type, and the creature then takes a –10-foot penalty to Speed and 2d4 persistent acid damage until it ends the effects. On a critical hit, the creature is Immobilized for 1 round in addition to the other effects. The target can end the effects by Escaping (DC 20) the sticky foam. Other creatures can provide the action, although doing so deals half the ammunition's persistent acid damage to the assisting creature. A creature that ends the effect still takes the persistent damage that turn.\nEffect: Ooze Ammunition",
+      "bulk": 0,
+      "price": {
+        "gp": 42
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:scholars-drop",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SlQ6KsMUnmG6FhtW",
+      "slug": "scholars-drop",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:73f34005ef6a50b48d8290a932291491fc9a3e75f8cb93a1bbc9ad6a54018858",
+    "translatableHash": "sha256:4772951cc59f05dc100417e8225635e9d26ef2370b525315d548678e7d19709f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Scholar's Drop",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "lozenge"
+      ],
+      "description": "Activate 1 (manipulate)\nStudents in Katapesh first used scholar's drop to gain an academic edge, but this hard, sugar-soated candy has since spread across Golarion. Its lemon and green tea flavor adds to its refreshing qualities. For 1 hour, you gain a +1 item bonus to saving throws against effects that could render you Fatigued.\nSecondary Effect 1\nRequirements You're fatigued\nEffect Ignore the effects of the fatigued condition for 10 minutes. The drop's other effects end for you, and when the 10 minutes are up, you're temporarily immune to scholar's drops for 1 hour. If you use this effect three times in a single day, you become temporarily immune to scholar's drops entirely until you get a full night's rest.",
+      "bulk": 0,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:insight-coffee-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "sPceDzKeOA8PpK2v",
+      "slug": "insight-coffee-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:1b270c31df053e9f7ca32d230bbc8e6ba5c5738c5c46f3f092f4b6e5cb1dba68",
+    "translatableHash": "sha256:1574053abd86b1f60a0de225329b002a4c152b247aa89d837cbad74c9171170e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Insight Coffee (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 (manipulate)\nA popular choice for investigators studying alchemy, insight coffee is infused with alchemical flavoring during percolation. For 1 hour after you drink an insight coffee, you use d8s instead of d6s for your extra damage from the strategic strike class feature, if you have it. You also gain a +2 item bonus to checks to Recall Knowledge with a skill determined by the blend chosen when the item is crafted.\n• Double Coffee Religion\n• Hazelnut Nature\n• Mocha Arcana\n• Vanilla Society\n• Pumpkin Spice Occultism\n• Toffee Medicine\nEffect: Insight Coffee",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:heartening-missive-turtle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "SRaVakPZeb81ZLfL",
+      "slug": "heartening-missive-turtle",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:6e1c7c4e945253a955a24069223837112859701d05ce4d238b3f7be754bd9ab0",
+    "translatableHash": "sha256:9d8ca761c805b107132665460bf5dd3bb49113300173b5f12b50d7051d4d1acd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Heartening Missive (Turtle)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nYou compose a heartening missive by creating a short message or image intended to grant the recipient moral support. You must dedicate the missive to an individual creature you know and address it to their location (typically the settlement where you think they are). Once you finish composing the missive, it folds itself into the shape of an animal and Flies at a speed of 45 feet (about 15 miles per hour) toward the location for up to 24 hours. It alights near the recipient or in their hand. After Activating the missive, the recipient gets its benefit and becomes temporarily immune to all heartening missives for 24 hours\nIf the missive fails to reach its recipient in 24 hours, it returns to its sender at the same pace, becoming non-magical when it arrives. After imparting or losing its magic, the missive remains as a normal document.\nFolded into a square-shelled turtle, this missive grants the recipient a firm sense of self and serenity. The recipient gains a +1 item bonus to Will saves for the next 24 hours.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:pathfinders-mentor",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tNoQ2moQzt0BaHm4",
+      "slug": "pathfinders-mentor",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/bi-resonant-wayfinder.webp"
+    },
+    "sourceHash": "sha256:f54edd314a2dd2e3a42f22a99de6ce346acf8c30db6a54fb0a9dfd226f825fab",
+    "translatableHash": "sha256:da718b0dd84959ddae9be2c6c0d3e2649d559a44c0e08cc423474dc2e1d24f0c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Pathfinder's Mentor",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "rare",
+      "traits": [
+        "illusion",
+        "intelligent",
+        "invested",
+        "magical"
+      ],
+      "description": "Perception 1d20+15; precise vision 30 feet, imprecise hearing 30 feet\nCommunication telepathy (Common and two other common languages)\nSkills Pathfinder Lore 1d20+15, Society 1d20+13, Survival 1d20+13\nInt +3, Wis +3, Cha +1\nWill 1d20+14\nA Pathfinder's mentor is a wayfinder that has developed sapience. It has two aeon stone slots, and both stones grant their resonant powers without interfering with each other. If both slots are filled, the wayfinder and two stones count as two items toward your investiture limit. Most Pathfinder's mentors are eager explorers that object to staying in one location for long, urging their bearers toward ancient ruins to explore, relics to study, and discoveries to make. To this end, the wayfinder acts as a guide, making Survival checks on your behalf during your travels. A Pathfinder's mentor also has the following activations.\nActivate 1 (concentrate)\nEffect The wayfinder casts Know the Way on you.\nActivate 1 minute (concentrate, manipulate)\nFrequency once per day\nEffect The wayfinder casts Wanderer's Guide on you.",
+      "bulk": 0,
+      "price": {
+        "gp": 200
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:conduit-shot-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tO6nucXnHAhCpD6n",
+      "slug": "conduit-shot-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b15ef080eeca124981cbe350dfbbccbb374bdc2b0f0147fdee9f8461cd3918c5",
+    "translatableHash": "sha256:fa9b28eb90da8a02a9d1f0fd8d91bba1247d337aebfc7c88e7aaf2f8bb6cd861",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Conduit Shot (Lesser)",
+      "itemType": "ammunition",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nActivate 1 (concentrate)\nFine lines of djezet sparkle in conduit shot. When you Activate it, you name up to four creatures, in addition to you, that the ammunition's magic works for. When a conduit shot hits a target, which can be a square, it remains intact. It moves with a creature it struck, unless the GM determines otherwise, until that creature regains any Hit Points. If it doesn't stick to the target, the active ammunition instead falls into the target's space, remaining active.\nIf you or one of the four selected creatures include the ammunition in the area of a spell that is 3rd rank or lower; has an area of a burst, cone, or line; and does not have a duration, the djezet in the ammunition flares in striations of red light, increasing the area of that spell. Add 5 feet to the radius of a burst that has a radius of at least 10 feet or to the length of a cone or line normally 15 feet long or smaller. For a larger cone or line, add 10 feet to the length. These increases are based on the spell's original area, ignoring any increases due to other effects, such as the Widen Spell feat. Increasing a spell's area destroys the ammunition, which otherwise remains active for 1 minute.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sure-step-crampons",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "toest6lPgkXHI3cy",
+      "slug": "sure-step-crampons",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c71e0bb1c7f142fa7a494c82313fbb65734d04bca705d3df139d311d78f0382a",
+    "translatableHash": "sha256:f65900cdef650157e6b3f7d8ced79aab2d833d511195d69ea7b25d4580469c00",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sure-Step Crampons",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Sure-step crampons are sturdy leather boots with warm fur lining and magically augmented steel crampons that offer the wearer purchase on even the slipperiest ice slicks. They allow you to walk across ice without difficulty, ignoring the uneven ground and difficult terrain caused by ice, and reducing greater difficult terrain caused by ice to difficult terrain.\nActivate 1 (manipulate)\nRequirements You're standing on an earthen, icy, or wooden surface\nEffect You dig the crampons into the spot where you're standing, offering additional support until the next time you move. You gain a +2 circumstance bonus to your Fortitude and Reflex DCs against attempts to Shove or Trip you. This bonus also applies to saving throws against spells or effects that attempt to move you or knock you Prone. The bonus lasts until you move from your current spot.",
+      "bulk": 1,
+      "price": {
+        "gp": 210
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:quenching",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tpkkAtlMIOL8TnW6",
+      "slug": "quenching",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/armor-property-runes/armor-property-runes.webp"
+    },
+    "sourceHash": "sha256:26d041af19bf0a211cae44e89fbd7c03f1b4b79433a95cc6a2c46bc455128fa1",
+    "translatableHash": "sha256:1523d0e4e636a091ab19cf005c396f585bb3ac0989d12d49fae97339f9e8d2a6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Quenching",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "This rune counters burning and corrosive agents. Armor with this rune reduces the DC of the flat check to end persistent acid or fire damage affecting you from 15 to 12 (7 with particularly effective assistance).",
+      "bulk": 0,
+      "price": {
+        "gp": 250
+      },
+      "usage": "etched-onto-armor",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:accursed-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tRmoj42jniQOdjYS",
+      "slug": "accursed-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:424a9dfa72bbd2d80dce053f337b7adb318c65d2e9339a2bf2394731a79cc30b",
+    "translatableHash": "sha256:dbf4de00b697cf9f7250224a2fe6f6b8b13a7a713cc52668519c102a610b87dd",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Accursed Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "Iron strips line the body of an accursed staff, capping the bottom and folding into an intricate knot at the top. While wielding an accursed staff, you're empowered by the curses you inflict. If an enemy fails a saving throw against a spell you cast that has the curse trait, you gain temporary Hit Points equal to double that spell's rank. These temporary Hit Points last 10 minutes. The enemy must be a significant threat and can't have been a willing subject of the curse.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Daze\n• 1st Bane, Ill Omen\n• 2nd Blood Vendetta, Warrior's Regret\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:trollhound-vest",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "tzFMetc4VK6goDm2",
+      "slug": "trollhound-vest",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a1d8b2ff4ad3bfb2bc84d8eddeab990847373e428a50772f276333d16cc465e0",
+    "translatableHash": "sha256:3793bb0dddf5a0253f98f2b7bffe88af76657042252a704c9e411143d0021d65",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Trollhound Vest",
+      "itemType": "armor",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [],
+      "description": "This suit of +1 hide armor is sickly green and covered in thick warts and nodules, fashioned from the hide of a trollhound and imbued with some of the beast's vitality. Wearing this armor gives you a –1 circumstance penalty to all checks made using Diplomacy to interact with trolls and a +1 circumstance bonus to Diplomacy checks used to Make an Impression in communities traditionally plagued by troll attacks.\nActivate r (manipulate)\nTrigger You take damage from a melee attack while you have half or fewer of your normal maximum Hit Points\nEffect Your body knits itself back together, healing you for 3d8 healing Hit Points.\nCraft Requirements The initial raw materials must include the hides of at least two trollhounds.",
+      "bulk": 2,
+      "price": {
+        "gp": 230
+      },
+      "usage": "",
+      "category": "medium",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 3,
+        "dexterityCap": 2,
+        "checkPenalty": -2,
+        "speedPenaltyFeet": -5
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oil-of-swiftness",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "TZJKwkvJD4NGXCG8",
+      "slug": "oil-of-swiftness",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:edcd8d8aacfa98914bf897a2746d0bd516e4e4d214b6b3466e9113f1965638a5",
+    "translatableHash": "sha256:e6dac6be9d60d0f78197f16ea9b6ad0a9be9b06862ab7363495d0302ac814598",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oil of Swiftness",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nAnoint a weapon with oil of swiftness, which hisses upon application, to give it the benefits of the Quickstrike rune for 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 50
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-rolling-flames-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "U4FSOEH2Z6NDpN39",
+      "slug": "wand-of-rolling-flames-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:cec5d2aa0d5f353ecd5d34e657e0916a1abdb3293ca01b378b0b915490cc09ad",
+    "translatableHash": "sha256:1cea4ec0e9223c508ff2f5a8d249d0a527dfff0e2c7070687c80a01400f3e4d0",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Rolling Flames (2nd-Rank)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "fire",
+        "magical",
+        "wand"
+      ],
+      "description": "The luminous design of red-orange cracks on this black obsidian wand suggests cooling lava.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast 2nd-rank Floating Flame. If you create the flame on the ground, the ground in the sphere's square and all adjacent squares are coated in rolling flames until the start of your next turn. These are difficult terrain and hazardous terrain. A creature that moves on the ground takes 1 fire damage for every square of rolling flames it moves into. If a creature in the flames doesn't move on its turn, it takes the damage for each of the squares it's in at the end of its turn. The first time you Sustain the Spell each round, the sphere creates rolling flames again in its new location (or the same location if you chose not to move it), provided it's on the ground.\nCraft Requirements Supply a casting of floating flame of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:guardian-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "UQ0h9IVtHla8gWT7",
+      "slug": "guardian-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:6c50d59e4cdf1f3333572ff991261397f618296a9158c1f626f195ffaa740fac",
+    "translatableHash": "sha256:aff7f31ef851557dfbfa143847eecbc582acbd8892aa99b6648f702d71f029f4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Guardian Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A guardian staff is formed from ivory strands woven in a diamond pattern and capped with a glowing ruby. Those charged with protecting others value this staff's spells.\nActivate 1 (concentrate)\nEffect You raise the staff and choose an ally within 10 feet. A ruby-colored plane of force appears like a shield near the ally, granting them a +1 circumstance bonus to AC until the start of your next turn. If you use this action again, any creature you previously granted this bonus to loses it.\nEffect: Guardian Staff\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Forbidding Ward\n• 1st Sanctuary, Spirit Link\n• 2nd Share Life, Spirit Link\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:devils-bargain",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "WOwVBsiwLQxnIJRV",
+      "slug": "devils-bargain",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9c6a77edd3b18b2a2a9e1a957c10967472a81004b0bb6c6d5c5729f2bae9f7ab",
+    "translatableHash": "sha256:aea1986d5c0bf9bcea3a22698cf27513e25cad8afbaf01a8f4800d88507658e5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Devil's Bargain",
+      "itemType": "armor",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "evil"
+      ],
+      "description": "Those favored by Asmodeus can be found wearing this +1 studded leather, which is lacquered in red and black.\nActivate r (concentrate, fortune)\nFrequency once per day\nTrigger You critically fail an attack roll, check, or saving throw\nEffect You offer a prayer to Asmodeus, who accepts under a reciprocal condition. Reroll the triggering roll with a +2 circumstance bonus and use the higher result.\nIf this reroll improves your degree of success, the GM can later reroll one Strike against you, one saving throw against your abilities, or one secret check or saving throw you make. This is a fortune effect if used on a Strike or save against you, or a misfortune effect if used on your secret check or saving throw. The GM must use this reroll before the end of the last day you activated the armor.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:gearbinder-oil-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "wyD9xIa4TAxoHnuQ",
+      "slug": "gearbinder-oil-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:4d71c308fd0a2beb687bfff63746cbb24f4844536eeda56882bbc81e1c768a66",
+    "translatableHash": "sha256:e08b009bdfd2a6323ff6fe2490cd3fe744e6297ae1490b8bcedb8bab8a338c74",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Gearbinder Oil (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "incapacitation"
+      ],
+      "description": "Activate 1 (manipulate)\nGearbinder oil comes in a sealed pump that can squirt the oil a short distance. The oil is designed to flow through complex mechanisms and, agitated through mechanical action, foam up and form a paste that binds the works. The oil is effective against articulated constructs and machinery, including many constructs, clockworks, and mechanical hazards. You apply the oil to the target you want to bind, which must be within 10 feet of you. After the oil is applied, at the end of any round during which the target took an action with the attack, manipulate, or move trait, it must attempt a check (fortitude, dc:20) save. A mechanism that's Slowed 2 or more by gearbinder oil also can't use reactions. Gearbinder oil functions for up to 6 rounds before becoming an inert, oily residue.\nCritical Success The oil becomes inert, and the effect ends.\nSuccess The target reduces its slowed condition by 1. If the slowed condition's value is 0, the effect ends.\nFailure The target increases its slowed condition by 1, to a maximum of Slowed 3.\nCritical Failure The target increases its slowed condition by 2, to a maximum of slowed 3.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 45
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:goz-mask-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xH51QHrc9073UzH7",
+      "slug": "goz-mask-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:cecedc27926bfe236a55b175c04fff370b98773ae14174fb79d39c3ae4b66d2b",
+    "translatableHash": "sha256:0dbef806d1e2780ffc611778ce7a68cfe62fd8a7790993f23aaf522606099a71",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Goz Mask (Greater)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Originally designed by a fanatical sect of Gozren priests, goz masks were designed to help navigate the area around the Eye of Abendego. The masks couldn't contend with the might of the storm, but people all around the Mwangi Expanse still use them. These masks are typically made of wood and sport round, exaggerated features.\nActivate 1 (manipulate)\nFrequency once per day\nEffect You ignore Concealment caused by fog, smoke, and other obscuring vapors for 10 minutes.",
+      "bulk": 0,
+      "price": {
+        "gp": 240
+      },
+      "usage": "wornmask",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fate-shot",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "xX9mq2iACVOas26l",
+      "slug": "fate-shot",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:39afcb038dda321abc444f4c153d6cef700c79834e57c7044762584d8bfec013",
+    "translatableHash": "sha256:6a8d45c3309b7b3f3981af43a8bea7242faed058a687b43b68abf48cf8cbd2f2",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fate Shot",
+      "itemType": "ammunition",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nActivate 1 (concentrate)\nFate shot is made of a nickel-steel alloy carved with the smiling face of a comedic player on one side, while the other side holds the frown of a tragic dramatist. When you hit a target with this ammunition, roll a check (flat, dc:11). On a success, treat all the damage dice for your attack as though they rolled the average damage +1, rounded up (for example, a fate shot arrow fired from a shortbow would normally deal 1d6, which has an average of 3.5, so you deal 5 damage). This doesn't affect additional damage dice that only happen on a critical hit, such as those added by the deadly trait. On a failure, roll the damage, but your target takes half damage, and you take the remaining amount as mental damage.",
+      "bulk": 0,
+      "price": {
+        "gp": 50
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:cassisian-helmet",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YBKhjWqFuvgkArba",
+      "slug": "cassisian-helmet",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f2afe9159d1787935611d0af1bca4e0d6ada7287fdaaa06cdfb4bd8faa2cfefa",
+    "translatableHash": "sha256:575e269d8e1f20035065efa3a20634b645556e3d154355fd63e539515ef3232d",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Cassisian Helmet",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "holy",
+        "invested",
+        "magical"
+      ],
+      "description": "A small, feathered wing is attached to either side of this ornate brass helmet. A visor on the front lowers to cover your face. While wearing the cassisian helmet, you gain a +1 status bonus to AC and saves against unholy creatures and effects.\nActivate 2 (concentrate, holy, manipulate)\nFrequency once per hour\nEffect Lowering the visor, you send out eye beams that deal your choice of 2d6 cold damage or 2d6 fire damage (check (reflex, dc:20, basic, options:area-effect) save) to all creatures in a 15-foot type:line.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 225
+      },
+      "usage": "wornheadwear",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:undertakers-manifest",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yK5maWEcZ0pNnFwq",
+      "slug": "undertakers-manifest",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/equipment.svg"
+    },
+    "sourceHash": "sha256:8631d56ff53e61f0cd43642bbfe599aeed9906b5e4486725202ae901a45abc8e",
+    "translatableHash": "sha256:be0ea1224c0bdb73b2b6a88fcb8eb9867f9492acf8b7d0ec78b0cc1c950d2969",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Undertaker's Manifest",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "darkness",
+        "grimoire",
+        "magical",
+        "shadow"
+      ],
+      "description": "This grim collection of spreadsheets is used both by undertakers who occasionally need to avoid the notice of their more restless clients, and by industrious necromancers looking to avoid catching the notice of cemetery guards and vigilant undertakers.\nActivate F (concentrate)\nFrequency once per day\nEffect If your next action is to cast a shadow or void spell, the spell's casting is accompanied by a roiling cloud of shadow that spills out around you, creating dim light in a 30-foot type:emanation centered on you for the next 3 rounds. This has no effect on areas where the lighting level is already darker than dim light.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:sense-dulling-hood-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "YoYqtOXWo5reE2ql",
+      "slug": "sense-dulling-hood-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7dfefb733813d491750bfe5e46fbcb90c6d009c937dbe334c4efa87b0dbdcc6f",
+    "translatableHash": "sha256:3601e70a2008fae537a1f656d850b78906e72fcd1e1dc1b4e3c7ac576cd21e73",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Sense-Dulling Hood (Lesser)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nSometimes, an enemy's dangerous special ability makes relatively standard sensory capabilities a liability. From an ofalth emitting its stench to a banshee wailing, plenty of creatures use their prey's senses against them. A sense-dulling hood is a wide, single-use mask designed to be pulled from an airtight package and slipped over the head. The mask grants you a +2 item bonus to saving throws against auditory, olfactory, and visual effects for 10 minutes. Since it dulls your senses without depriving you of them, the mask also imposes a –1 penalty to rolls and checks using Perception for the same duration.\nEffect: Sense-Dulling Hood (Lesser)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 40
+      },
+      "usage": "held-in-two-hands",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-mental-purification-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Yq3l3eB70BsbQFj6",
+      "slug": "wand-of-mental-purification-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/held-items/wand-of-mental-purification.webp"
+    },
+    "sourceHash": "sha256:2e71de52a6a1682182f950db30e9f73df554e626836ca7ac6c26457495d73a1f",
+    "translatableHash": "sha256:ffbf88b4862639ffddfc07cfb8464df8a15ddee567813b1df5d0591268f0f137",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Mental Purification (2nd-rank)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "emotion",
+        "healing",
+        "magical",
+        "mental",
+        "wand"
+      ],
+      "description": "Red feathers hang from the handle of this ivory wand. Holding it brings a sense of gentle calm.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast 2nd-rank Soothe, and can attempt to counteract one mental effect on the same target. Treat the Soothe spell's rank as 1 higher for this counteract check.\nCraft Requirements Supply a casting of soothe of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-teeming-ghosts-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "yWlQQOs0A3ApEc1J",
+      "slug": "wand-of-teeming-ghosts-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/wands/specialty-wands/wand-of-teeming-ghosts.webp"
+    },
+    "sourceHash": "sha256:98763fcb4393c4a553a5b3c3732512e6620fcdcc8a71ee7fabe5af0fa255d15d",
+    "translatableHash": "sha256:f70b941b78a6a3e169b0a3d8f6e781cad2323e9598a01806dc8070fc7a6b7dbf",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Teeming Ghosts (2nd-Rank)",
+      "itemType": "consumable",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "This pale wooden wand is carved to resemble a thigh bone with metal caps at each end. Ghostly tendrils seem to swirl around it every so often.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You cast False Vitality at 2nd-rank. During the duration of the spell, wisps that resemble spirits flit around you as long as you have any temporary Hit Points from false vitality, and you can use the following action.\nActivation F (concentrate)\nTrigger You successfully impart the Frightened 1 condition to a creature\nRequirements You have at least 1 temporary Hit Point from false vitality\nEffect You end false vitality and increase the creature's frightened condition value to 2.\nCraft Requirements Supply a casting of false vitality at 2nd-rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "wand",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-legerdemain-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zaJ4HSNa6kMozYvM",
+      "slug": "wand-of-legerdemain-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:7a6b25c42a31327d6707ff10ae376521340af6e2c96638953b2a6f5b3b159b1f",
+    "translatableHash": "sha256:141260d659cf879ed5eb6f028007b6a95255a6343d5e0ebfe928a1ff221dd7e8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Legerdemain (2nd-rank)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "wand"
+      ],
+      "description": "This wand of lacquered black wood has a handle wrapped in interwoven colorful ribbons. A silver bell caps the wand's tasseled pommel.\nActivate Cast a Spell\nFrequency once per day, plus overcharge\nEffect You Cast the Spell.\nActivate 1 (emotion, illusion, light, manipulate. mental, visual)\nRequirements The last action you took this turn was to Cast a Spell from the wand\nEffect You make yourself the center of attention. An illusory spotlight shines bright light upon your space as you pull inane objects from the wand's tip, such as confetti, silk flowers, streamers, or a long string of colorful kerchiefs knotted end to end. Each enemy within 30 feet must attempt a Will save against your spell DC, receiving a +4 circumstance bonus to the save if you or any of your allies recently threatened it or used hostile actions against it. On a failure, the creature becomes Fascinated with you until the end of your next turn. The fascination ends if the target is subject to a hostile act, or if another creature succeeds at a Diplomacy or Intimidation check against it.\nThe spotlight follows you wherever you move. You can't be Concealed while in the spotlight. The effect ends if you become Invisible, attempt a Stealth check, or Dismiss the activation.\nYou can Sustain this Activation for up to 1 minute. Since you need to keep performing tricks, Sustain an Activation has the manipulate trait. Sustaining extends the spotlight, and keeps fascinated creatures fascinated, but doesn't cause creatures not already fascinated to become fascinated.\nCraft Requirements Supply a casting of a spell of the appropriate rank.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 250
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:wand-of-hybrid-form-2nd-rank",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "zNtC1DsiAUYeHfDN",
+      "slug": "wand-of-hybrid-form-2nd-rank",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9d269a417932ed1788b3f2029981ee1c6a9d17524b94eb544bb0f32d000325eb",
+    "translatableHash": "sha256:0a88cdef9d0fdf51dd875add0c58f8cd2ca7b086d24440c116b1e881a53e2e39",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Wand of Hybrid Form (2nd-rank)",
+      "itemType": "equipment",
+      "level": 6,
+      "rarity": "uncommon",
+      "traits": [
+        "magical",
+        "polymorph",
+        "wand"
+      ],
+      "description": "The grain of this simple wooden wand forms shifting images of sharp claws, snapping jaws, and countless creatures.\nActivate Cast a Spell; This activation takes 2 if the spell normally takes 1 to cast, or 3 if the spell normally takes 2\nFrequency once per day, plus overcharge\nEffect You Cast the Spell, selecting two forms from among those you can normally choose. You gain the benefits of both forms. For example, if one form can breathe air and the other can breathe underwater, you can breathe in both situations. If there's overlap in abilities, you gain the better one. For instance, if both have a fly Speed, you get the higher one, and if both forms have claws, you gain only the claw Strike you prefer. The GM determines which abilities overlap and which are cumulative.\nCraft Requirements Supply a casting of a spell of the appropriate rank. The spell must have a casting time of 1 or 2, must have the polymorph trait, and must allow more than one choice of battle form.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 200
+      },
+      "usage": "held-in-one-hand",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragonscale-bo-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ZsmASTxnrtZX9JDH",
+      "slug": "dragonscale-bo-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:9199f38c7f30e7628a4af8c17be53b0ee9da684101af062ab381f458a41b0744",
+    "translatableHash": "sha256:e266842ef7f179a3b552664e357eeb65c87214af3dffa7da9c6b079769c6778b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragonscale Bo Staff",
+      "itemType": "weapon",
+      "level": 6,
+      "rarity": "common",
+      "traits": [
+        "monk",
+        "parry",
+        "reach",
+        "trip"
+      ],
+      "description": "This +1 striking bo staff is covered in scales shed by or harvested from a dragon. When benefiting from the circumstance bonus to AC granted by the bo staff's parry trait, you also gain a +1 circumstance bonus to saving throws against magical effects of the tradition matching the dragon who provided the scales, plus resistance 5 to a damage type determined by that tradition: force for arcane, spirit for divine, mental for occult, or fire for primal. For instance, a dragonscale bo staff made with scales taken from an omen dragon would provide a +1 circumstance bonus to saves against occult effects and resistance 5 to mental damage.\nCraft Requirements The initial raw materials must include scales from one type of dragon.",
+      "bulk": 2,
+      "price": {
+        "gp": 240
+      },
+      "usage": "held-in-two-hands",
+      "category": "martial",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d8",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:helmsmans-recourse-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "19T3MHwhB6Wk4AjV",
+      "slug": "helmsmans-recourse-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/shield.svg"
+    },
+    "sourceHash": "sha256:799a344e2d677f5476cccb4a234df198ef227ea08dbe293d3ce74b9ed7345588",
+    "translatableHash": "sha256:005cbe27c1d20a2558d7a167955fb1ff8d44bbeb47813e2bbf5aa0411716583e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Helmsman's Recourse (Greater)",
+      "itemType": "shield",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "shield-throw-30"
+      ],
+      "description": "Shield throw 30 ft.\nThis standard-grade duskwood meteor shield (Hardness 8, HP 60, BT 30) is a wheel from a ship. While wielding the shield, you gain a +1 item bonus to Sailing Lore and to Athletics checks to Swim.\nActivate 2 (concentrate)\nFrequency once per day\nRequirements You're in a body of water\nEffect For 10 minutes, you don't sink if you haven't succeeded at a Swim action on a turn, and if you're submerged, you automatically ascend 10 feet at the end of your turn. When you Activate the shield, it casts Water Walk on you.",
+      "bulk": 1,
+      "price": {
+        "gp": 625
+      },
+      "usage": "",
+      "category": "shield",
+      "group": "meteor-shield"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:depth-charge-ii",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "1VZpMEBamUpWADNZ",
+      "slug": "depth-charge-ii",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b5b362630bf86ebe627025e0657843a7da7af1f8dc012c7d056d5577ddbff628",
+    "translatableHash": "sha256:b95a18e7a1046c7576ee0ae2edf7147eea0eaf65c943f354c06d35c16c0cc19f",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Depth Charge II",
+      "itemType": "ammunition",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nCarved with stylized images of water or aquatic life, depth charges that are fired underwater or at a submerged target function with their normal range increments and can hit no matter their normal damage type. This ammunition explodes if it hits a target underwater, dealing 5d6 bludgeoning damage in a 20-foot burst check (fortitude, dc:24, basic, showDC:all, options:area-effect) according to its type. This burst doesn't extend out of the water.",
+      "bulk": 0,
+      "price": {
+        "gp": 55
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:dragonfly-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "2UQANe2ca1c8MO6Z",
+      "slug": "dragonfly-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:d25467419cf17e3d9cf96676c9ed1a6ce9c62d4a174f7e10231290da5fa5e72d",
+    "translatableHash": "sha256:fd3a26a59563b840f0daf837bc59acc2a4dfaa030a4cf649393cb27a081ee222",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Dragonfly Fulu",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical",
+        "talisman"
+      ],
+      "description": "Activate F (concentrate)\nTrigger You take the Leap action.\nTradition says the dragonfly fulu should be affixed to the upper back, like the wings of an insect. When you Activate this fulu, you gain a +2 status bonus to Athletics checks to High Jump or Long Jump for 1 minute. During this time, you can attempt an Athletics check to High Jump or Long Jump as a single action without the Stride requirement. You can also High Jump or Long Jump from a nonsolid substance, such as air or water, but if you use this power of the fulu, its effects ends after you jump.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "affixed-to-armor",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:everyneed-pack-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "31tSOy1iHCjNNd4N",
+      "slug": "everyneed-pack-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/worn-items/other-worn-items/everyneed-pack.webp"
+    },
+    "sourceHash": "sha256:a9a9817e3eefba2f647cd8eb9d009fd903eff97a53f1d0c937c4f3fcd4703bbc",
+    "translatableHash": "sha256:32f8620f9b92f31cfc64d4845c035a0047b2d23ed0966d7570c37758b5e661b7",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Everyneed Pack (Greater)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "Constructed of green material and decorated with a white Glyph of the Open Road, an everyneed pack has a dozen or more small pockets lining the inside. The pack is enchanted so that each pocket contains common, mundane gear, each item worth no more than 5 gp, such as chalk, flint and steel, and string. It doesn't contain any armor, shields, weapons, or items made of precious material. Keep track of the exact value of the gear you retrieve from the pack. The pack becomes a mundane backpack after items of your choice with a combined value of 45 gp have been removed from it.\nActivate 1 minute (manipulate)\nFrequency once per hour\nEffect You draw any number of pieces of mundane gear from the pack with a combined value of 5 gp or less.",
+      "bulk": 0,
+      "price": {
+        "gp": 100
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:fearless-sash",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3cV1kzaP1ofw3xtU",
+      "slug": "fearless-sash",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c7a1b1b5d021f22029ce884f4c24245c47b86a61b0735f4d67a8852584f067c5",
+    "translatableHash": "sha256:c79afc15655394f875c229bf1c25d37b8c81fc18730e5c8a79e8c050f8ea8cb4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Fearless Sash",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A feeling of security radiates out from this sash made of fine yellow fabric. You gain a +1 status bonus to saves against fear.\nActivate 1 (concentrate)\nFrequency once per day\nEffect You and each ally in a 5-foot emanation reduce your Frightened values by 1.",
+      "bulk": 0,
+      "price": {
+        "gp": 325
+      },
+      "usage": "wornbelt",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:powered-full-plate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "3mmS3Y291h6Ckgin",
+      "slug": "powered-full-plate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:a6cd2491d3996638c2fd760596c934a8d14d5985fd19a143eb59950755d4e9e1",
+    "translatableHash": "sha256:4a86f5e7f0e9d61611c590ef2b1ad80e407ad83d32a1ce9bac542e6ca281ae80",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Powered Full Plate",
+      "itemType": "armor",
+      "level": 7,
+      "rarity": "rare",
+      "traits": [
+        "alchemical",
+        "bulwark"
+      ],
+      "description": "Stasian actuators help the limbs of this full plate move of their own accord, as long as they're supplied with power. A chamber in the chest plate can hold a single Bottled Lightning, which takes 3 Interact actions to install.\nActivate 1 (manipulate)\nRequirements A bottled lightning is installed in the armor\nEffect The armor powers up for 10 minutes. While it's powered up, add the bottled lightning's item bonus to your Athletics checks to Force Open, High Jump, Long Jump, and Shove. The armor's Strength requirement is lowered by 1, or by 2 if the loaded bottled lightning's item bonus to attack rolls is +3 or higher. The armor's normal penalties still apply, based on this altered Strength. The activation uses up the bottled lightning, and the armor can't be activated again until a new one is installed.",
+      "bulk": 4,
+      "price": {
+        "gp": 360
+      },
+      "usage": "",
+      "category": "heavy",
+      "group": "plate",
+      "armor": {
+        "armorClassBonus": 6,
+        "dexterityCap": 0,
+        "checkPenalty": -3,
+        "speedPenaltyFeet": -10
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:camouflage-dye-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "4TzKhSM0gD9czMdC",
+      "slug": "camouflage-dye-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:53a9838adcf4f7ded46a05967390f399d287e3d5a7cd03a2e49259080c7e5f1c",
+    "translatableHash": "sha256:3384d35b7bd56fd45be1772519b7e43ba64853345b18f5722b98887e6310faff",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Camouflage Dye (Greater)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nCamouflage dye uses a variety of alchemically treated paints and crushed crystals to make the user particularly hard to distinguish from their surroundings. When you Activate the dye by sprinkling it on yourself or a creature within reach, the target and its clothing change colors, blending into their surroundings until the target makes a sudden movement. The target can Hide or Sneak without cover or concealment for 1 minute.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:escape-fulu",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "53mPIEbUw5RzQ6pc",
+      "slug": "escape-fulu",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/consumables/fulus/fulu-modest.webp"
+    },
+    "sourceHash": "sha256:4c7fa1416bf3202cb347da988ddb69cd5bdd7e17c422f067515df3397bde0e44",
+    "translatableHash": "sha256:c3782a3fcab0bc3979ebb861094bbd3a868368475474c793b93e99c4f3188bd4",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Escape Fulu",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "fulu",
+        "magical",
+        "talisman"
+      ],
+      "description": "Activate f (concentrate)\nTrigger You attempt to Escape.\nThe escape fulu is a charm common among wealthy people, who wear the talisman in case of kidnapping. When you Activate this fulu, for 1 minute, you gain a +2 status bonus to your attempts to Escape as well as to Stealth checks to Hide and Sneak.\nEffect: Escape Fulu",
+      "bulk": 0,
+      "price": {
+        "gp": 70
+      },
+      "usage": "affixed-to-armor",
+      "category": "fulu",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:revealing-mist-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "5OiGlKiNFKlcP4k1",
+      "slug": "revealing-mist-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:dc1495ed066ab6e4203b4dad3401a86a4bb1874b1f5e2078f16bd6b19eefa9c4",
+    "translatableHash": "sha256:489676c5488c2e445487d8dae25bc18dca22835942fbf0d986e019bf2c629801",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Revealing Mist (Greater)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable"
+      ],
+      "description": "Activate 1 (manipulate)\nKept in an airtight spray bottle, revealing mist is an alchemical concoction that creates a sticky and clinging mist of chemicals in a 30-foot cone when sprayed. It doesn't affect visibility but causes Invisible creatures in the area to be Concealed rather than undetected. Revealing mist is ineffective in water or in areas with other factors affecting the spread of the mist, as determined by the GM. It remains in the area for 1 minute or until any significant wind disperses it, whichever comes first.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:life-boosting-oil-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "9zyrMZF76hMxwizY",
+      "slug": "life-boosting-oil-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:37234a418251f087e5d2ea04c92eff97eb38448aef7eac4fd9f53cc6cca597f4",
+    "translatableHash": "sha256:42a2d9db4734e08abb5aae2fc32e755dfc0ebec37321bb8a23e7e67baa6dd0b5",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Life-Boosting Oil (Moderate)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "consumable",
+        "healing",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nWhen you apply sticky, stinging life-boosting oil, you gain fast healing 6 that starts the first time you take damage while the oil lasts. Once the fast healing starts, the oil remains effective for 4 rounds. However, the oil lasts only 8 hours, whether it provides fast healing or not.\nEffect: Life-Boosting Oil",
+      "bulk": 0.1,
+      "price": {
+        "gp": 70
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:magnetic-shot-lesser",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "A8Rv4EWEiQEaNSEX",
+      "slug": "magnetic-shot-lesser",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:5178dca15bf829660624ef79afbc32604d80611a4722992724cab77940abd394",
+    "translatableHash": "sha256:b847d1ae7556002e03a972255795b0b3660263f5267d83b5915cf9d079adb6a6",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Magnetic Shot (Lesser)",
+      "itemType": "ammunition",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical"
+      ],
+      "description": "Ammunition any\nActivate 1 (concentrate)\nShiny gray metal that slightly thrums when touched makes up the metal parts of a magnetic shot. When activated, the shot is more effective against a target wearing metal armor or made of metal. The activated ammunition grants a +1 circumstance bonus to attack rolls against such targets. Due to magnetic acceleration, the ammunition deals two additional weapon damage dice and is deadly d8.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "",
+      "category": "ammo",
+      "group": "ammo"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:seventh-prism-pentagonal",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "B3zoAu9NpUEHGe22",
+      "slug": "seventh-prism-pentagonal",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:c78d2c02d0ec1c82ae53bee8183989a9a43f0fb5a537b93b5f27df879b97d4f9",
+    "translatableHash": "sha256:d203b5c98200b39b69b625454edfed2498f2cffe8bf2fca0dd24049ae250394e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Seventh Prism (Pentagonal)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "catalyst",
+        "consumable",
+        "magical"
+      ],
+      "description": "Activate Cast a Spell\nBeloved by the church of the Seventh Veil, a seventh prism is a crystal that disperses its internal light, casting an aurora of color. If you use a seventh prism to cast Dizzying Colors, targets are Dazzled for twice as long as their saving throw indicates. On a critical failure, the target is dazzled for 1 minute after its Blinded condition ends. Motes of shifting rainbow hues cloud the eyes, making it difficult to see details.\nThe area increases to a 20-foot cone, and the DC for the flat check against the target being Concealed increases to check (flat, dc:7).\nEffect: Seventh Prism (Pentagonal)",
+      "bulk": 0.1,
+      "price": {
+        "gp": 52
+      },
+      "usage": "held-in-one-hand",
+      "category": "catalyst",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:serpent-oil-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BnYABzPAgdU89nLk",
+      "slug": "serpent-oil-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:1b2d24dc1fd026f06e3a2423c553dbdac75f9d1e211ed13e2379f82bb7f7b69c",
+    "translatableHash": "sha256:5867f1b3ddb99a7efae5a72acae907befe1831d8fc69862c97fe90c3e3376a83",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Serpent Oil (Greater)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nThis glistening oil has a green hue and tiny snake scales floating within. If you slather serpent oil on a Medium object that is snakelike in shape, from a stick to a scarf, the object transforms into a Giant Viper, keeping some of the same colors and patterns of the original item. If placed on other objects, the oil fails and is wasted. This false snake has the minion trait. It remains in snake form for 1 minute before returning to its object state. If slain, the item returns to its original form, unharmed.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 56
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:weapon-weird-oil",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "BzGI4g44y6LiHEPp",
+      "slug": "weapon-weird-oil",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:ae23ebda7c7d3350e24b5c20deaf4c1f41d09b4b688f70d652a1cb07584a252f",
+    "translatableHash": "sha256:bbb8298f65265abbe88a95ac196cb137cada504ded142d3916512d8ffc158973",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Weapon-Weird Oil",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nEach dose of weapon-weird oil is keyed to a particular melee weapon group, selected from among axe, brawling, club, flail, hammer, knife, pick, polearm, shield, spear, and sword. The oil creates a synergy between skill and weapon, enabling you to wield the weapon in unexpected ways. You must have proficiency with the original weapon to benefit from the oil; however, you use your proficiency rank with the oil's keyed group instead of the weapon's original group. Also, you apply the critical specialization effect from the oil's keyed group instead of the weapon's normal critical specialization effect. While the oil remains effective, the Grievous rune and similar magic react as if the weapon belongs to the oil's group. A weapon can be coated in only one type of weapon-weird oil at a time. Any new application of this oil supersedes any previous one. These effects last for 1 hour.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 55
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:empaths-cordial",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "C5RNvjvyq655pphC",
+      "slug": "empaths-cordial",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:deeb547ffdc580c0a0cd9b661dcdc8c018a8977cb7e32e568cc8a1a092f1ba89",
+    "translatableHash": "sha256:fe0f7e7773d3df2a025b3c42c0a2a2325308cb55f1a7a6690fbcebe5cee38a52",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Empath's Cordial",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "mental",
+        "potion"
+      ],
+      "description": "Activate 1 (manipulate)\nThe pale liquid of empath's cordial changes color to reflect the mood of the creature nearest to it—turning blue for calm, red for anger, and green for envious, among other hues. For 1 hour after you drink this potion, you can sense the presence of general emotions, such as hostility toward you or the presence of an emotion effect impacting a creature's emotions, within 30 feet. A creature that failed a saving throw against Calm can't be detected. This potion doesn't allow you to automatically tell what emotions a specific creature is experiencing, but you can attempt a Perception check with a +2 item bonus (DC set by the GM) to discern that information. The potion also grants you a +1 item bonus to Perception checks to Sense Motive against creatures whose emotions you can sense.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 65
+      },
+      "usage": "held-in-one-hand",
+      "category": "potion",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spellstriker-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Cb0h1Y2OSrbYXJQ2",
+      "slug": "spellstriker-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:066658ce5b4a4044e6ec38fc58a9287df74ed4fd0db6d6475135f2aca209ecd3",
+    "translatableHash": "sha256:6e835ca5118f9520444138980a14edfd38b27b069af1c766e9e903c6a0f9a502",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spellstriker Staff",
+      "itemType": "weapon",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A spellstriker staff is wrought iron with gleaming arcane sigils etched into its surface and a sharp point at the bottom. Used as a weapon, the staff is a +1 striking shifting staff.\nActivate F (concentrate)\nFrequency once per hour\nTrigger You use Spellstrike with a non-cantrip spell and miss with the Strike\nEffect An explosion of magical energy—stored up for the Spellstrike—explodes out. All creatures in a 5-foot emanation take 1d6 damage per rank of the spell, with a check (reflex, against:spell, basic, options:area-effect) save against your spell DC. This damage is the same type the spell would have dealt, and the activation gains that trait; if the spell would have dealt multiple types of damage, choose one of them. If the damage of the explosion is mental, the save is check (will, against:spell, basic, options:area-effect) instead of Reflex.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Ignition\n• 1st Echoing Weapon, Sure Strike\n• 2nd Acid Grip, Telekinetic Maneuver\nCraft Requirements You have the magus's Spellstrike activity. Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 360
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:warding-element-draught",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ChPOYRnhwpkEJExQ",
+      "slug": "warding-element-draught",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:fde1024511c0b8a62b1b57a84034dd18ff51cf54a5cbcb0f6d9de04a7b1c4a31",
+    "translatableHash": "sha256:765a3131d47943067a4595fc0144ca194096d6ae61f1622376516bfb4688447c",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Warding Element Draught",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "alchemical",
+        "consumable",
+        "elixir"
+      ],
+      "description": "Activate 1 (manipulate)\nUsing ingredients collected from pure elemental sources, a warding element draught instills enough of the essence of the element in the imbiber to partially protect them against it. Each draught includes one of the following ingredients, chosen when the elixir is distilled, and grants a +1 item bonus to AC and saving throws against alchemical effects, spells, and magic effects with the listed elemental trait for 10 minutes.\n• Blood Metal\n• Effervescent Gas Air\n• Grains Earth\n• Hot Peppers Fire\n• Spring Water Water\n• Wormwood Wood",
+      "bulk": 0.1,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "elixir",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:oil-of-ownership-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "dUREATQUwEOGiV13",
+      "slug": "oil-of-ownership-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:04f114ad4863048d254449a37665dfc95b6b91508ae9a9c205505fe6bdc23b81",
+    "translatableHash": "sha256:86010290578f251c1c3e82881bc11d54727b9db67656f5c41c10aa1f941169b3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Oil of Ownership (Moderate)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "oil"
+      ],
+      "description": "Activate 1 (manipulate)\nYou can coat objects of 6 Bulk or less with oil of ownership, or \"red-handed oil\" as some call it. Once applied, this clear oil remains active for 24 hours. Anyone who touches an object coated with this oil comes away with a red stain that won't wash off for 1 week.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 55
+      },
+      "usage": "held-in-two-hands",
+      "category": "oil",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:spy-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "eoSl6Rbop1EX5DwP",
+      "slug": "spy-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:13f1b5360cfba67238e603137d7c8b78d4f7a419a8a6cef3e1107c125d97ecb9",
+    "translatableHash": "sha256:d1ebc8b1d26d789c437ed27353dfc56d4132dd6e24f52298d00b945025afd385",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Spy Staff",
+      "itemType": "weapon",
+      "level": 7,
+      "rarity": "uncommon",
+      "traits": [
+        "illusion",
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "In its normal form, a spy staff is a slim rod of burnished wood with subtle etchings of eyes upon its sides. The first to develop the spy staff were agents of Andoran's Twilight Talons, but such staves have spread to other espionage agencies.\nActivate 1 (concentrate)\nEffect You change the shape and appearance of this staff to that of an ordinary handheld accessory of your choosing of the same Bulk. The staff's statistics don't change. Only a creature benefiting from truesight or a similar effect can attempt to disbelieve this illusion, with a DC of 27.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Message\n• 1st Illusory Disguise, Invisible Item, Message Rune\n• 2nd Disguise Magic, Humanoid Form, Illusory Disguise\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 340
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bewitching-bloom-bellflower",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "ErqxXatIYbv2WcsE",
+      "slug": "bewitching-bloom-bellflower",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b29bc00e46b5a5b394ea31333af986450b36253a6fb67ea42fa35dfc7ab1c8db",
+    "translatableHash": "sha256:7c43e7cfe1c2f4b069a0ecb46d723da8d51278cea0bfdd30f4ad47dee2c38fe3",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bewitching Bloom (Bellflower)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical",
+        "tattoo"
+      ],
+      "description": "While dormant, this tattoo appears to be a simple flower bud, but when activated the flower swiftly blossoms, remaining that way until the next time you make your daily preparations. These blooms are colorful, elegant representations of bellflowers.\nActivate 2 envision\nFrequency once per day\nEffect Choose a willing ally you can see within 30 feet. A need for freedom trills through your ally's blood. Until the end of that ally's next turn, they gain a +2 status bonus to rolls to recover from the Confused, frightened, Grabbed, Paralyzed, and Restrained conditions. When you Activate the bloom, the target can attempt a new save against a condition the bonus applies to, or they can use a reaction to attempt to Escape being grabbed, Immobilized, or restrained, provided such an attempt is allowed.",
+      "bulk": 0,
+      "price": {
+        "gp": 350
+      },
+      "usage": "tattooed-on-the-body",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:red-handed-missive",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fpqYMeX0GXvTSlVQ",
+      "slug": "red-handed-missive",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:4d22b811950ec6b754b146e137141bf1711efadf4f71aefb2d55c6b16e1c2cd7",
+    "translatableHash": "sha256:2852458ba646684ce635f947af793f5f090e9bebe702a50de5032dbcd1ea9215",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Red-Handed Missive",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "curse",
+        "magical",
+        "missive"
+      ],
+      "description": "Activate 2 (concentrate, manipulate)\nComposed to look like an important document, a red-handed missive is a trap used by those who suspect someone has been going through their correspondence. If activated, the missive dissolves into red dye that coats anything touching the missive. Magic in the dye prevents it from washing off for 1 week.",
+      "bulk": 0,
+      "price": {
+        "gp": 60
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:energy-toxin-bottle",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fVKiVp6yG85ADrR6",
+      "slug": "energy-toxin-bottle",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b684c6bbc76c3ad50b5d1d2fb8fb470777366cb65a496011c12105dbb719cfa9",
+    "translatableHash": "sha256:51cfe63bd875ffd2843e5a9fb2235d2794160f9652eac8412c8a94964758b5ee",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Energy Toxin Bottle",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "rare",
+      "traits": [
+        "consumable",
+        "cursed",
+        "magical",
+        "potion"
+      ],
+      "description": "This glass bottle embellished with brass decorations appears to be a lesser energy breath potion of a specific type, but has been polluted, making it toxic to use.\nActivate 1 (manipulate)\nEffect You drink from the bottle and must succeed at a check (fortitude, dc:25) saving throw or become Sickened 1 (Sickened 2 on a critical failure) and immediately vomit the potion directly onto yourself, taking 5d6 untyped damage of the same damage type the potion deals and expending the item. If you succeed at your Fortitude save, you become sickened 1 but otherwise are able to unleash Energy Breath as normal for a lesser energy breath potion of the appropriate type.",
+      "bulk": 0.1,
+      "price": {},
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:beastmasters-sigil-greater",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "fWgH0JxNCOpI7SVr",
+      "slug": "beastmasters-sigil-greater",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:f24c4ce97dfc264943a275815e7dd908354ff37486dc1677c3229815716ff664",
+    "translatableHash": "sha256:d033d81666dc85bef664af241da97009fcddef10a923066528c25cd30ab34aae",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Beastmaster's Sigil (Greater)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "spellheart"
+      ],
+      "description": "This silver disc displays an ever-changing etching of an animal. When you affix the beastmaster's sigil, the animal settles into a single form based on where you affix it, showing the animal the item can summon when affixed that way. The spell DC of any spell cast by activating this item is 23. A weapon can benefit from only the melee weapon benefit or ranged weapon benefit. A thrown melee weapon gets the melee weapon benefit, and a combination weapon gets only one benefit, which you choose when you affix the spellheart. If it's unclear which one should apply, the GM decides.\n• Armor The sigil grants you a +1 item bonus to saving throws against poison.\n• Melee Weapon The sigil grants you a +1 item bonus to Athletics checks to Trip.\n• Ranged Weapon If you critically hit with the affixed weapon, and the target is adjacent to a creature summoned with the sigil, the target takes 2d6 persistent bleed damage.\nEffect: Beastmaster's Sigil - Armor\nEffect: Beastmaster's Sigil - Melee Weapon\nEffect: Beastmaster's Sigil - Ranged Weapon\nActivate Cast a Spell\nEffect You cast Tame.\nActivate Cast a Spell\nFrequency once per day\nEffect You cast 3rd-rank Summon Animal to summon a Giant Monitor Lizard (armor), Boar (melee), or Giant Bat (ranged).",
+      "bulk": 0,
+      "price": {
+        "gp": 360
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:torrent-spellgun-moderate",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "G1YeBTz26wnL2Meo",
+      "slug": "torrent-spellgun-moderate",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/default-icons/consumable.svg"
+    },
+    "sourceHash": "sha256:6041a28191f725622ec02a91a9a81d26e96a6b40560126af6cb2b0974bf886f0",
+    "translatableHash": "sha256:8814d2c7bec57032928d32f03ee70322c93fc318f7801e012d3fb806dd07f452",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Torrent Spellgun (Moderate)",
+      "itemType": "consumable",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "consumable",
+        "magical",
+        "spellgun",
+        "water"
+      ],
+      "description": "Activate 2 Strike\nCarved of seashell, a torrent spellgun is damp to the touch, and seaweed wraps around its grip. You Activate the spellgun by aiming it at one creature and making your choice of a spell attack roll or a firearm attack roll against the target's AC. This spellgun has a range increment of 30 feet. The spellgun blasts a powerful jet of water that deals 7d6 bludgeoning damage, then disintegrates into sand.\nCritical Success The target takes double damage and is knocked back 10 feet.\nSuccess The target takes full damage and is knocked back 5 feet.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 70
+      },
+      "usage": "held-in-one-hand",
+      "category": "other",
+      "group": "consumable"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:flurrying",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "GNX0BNOoCSOYPedi",
+      "slug": "flurrying",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/runes/weapon-property-runes/weapon-property-runes.webp"
+    },
+    "sourceHash": "sha256:1435a87f209a8eb96118b6cc1d91ecad247bfd3a3582a542f4cb237c2a7df991",
+    "translatableHash": "sha256:38e4a6af30a6c963d50e65002d8b38b18a4ffa7e191fdd5c8110d1b82b279823",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Flurrying",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical"
+      ],
+      "description": "When you make a Flurry of Blows using the etched weapon and your first Strike reduces a creature to 0 Hit Points, you can make your second Strike with an echo of the weapon, increasing the reach to 30 feet.\nActivate 2 (concentrate, force)\nFrequency once per day\nEffect The weapon casts a Spiritual Armament spell. The ghostly weapon looks like the etched weapon. Use your normal attack bonus and damage for the weapon instead of the damage listed in the spell, but use your Wisdom modifier instead of Strength when determining damage. You can choose to make a Flurry of Blows instead of a Strike when the spiritual armament attacks; this still counts as your flourish for the turn. You can Sustain this activation in the same manner as the spell.",
+      "bulk": 0,
+      "price": {
+        "gp": 360
+      },
+      "usage": "etched-onto-melee-weapon-monk",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:beast-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "HoxkzrS7jhqmWpla",
+      "slug": "beast-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:3df15316857ec9595583b8b5589187e588edacb9b7e99597d2c2623c11590b11",
+    "translatableHash": "sha256:cb4df750110b5bce9dad52b9d6c46f81d563e618010199a4c88fa9ed907cf296",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Beast Staff",
+      "itemType": "weapon",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "The visages of beasts are carved into the painted wood of a beast staff, with a large head on top. When used as a weapon, the staff is a +1 striking staff. While wielding the staff while you have it prepared, you're affected by Speak with Animals. If you have Animal Empathy, you gain a +1 circumstance bonus on checks using it.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list.\n• Cantrip Gouging Claw\n• 1st Pest Form, Runic Body\n• 2nd Animal Form, Enlarge\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 340
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:bravery-baldric-healthful",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "IUZT7A6QZteLyHZI",
+      "slug": "bravery-baldric-healthful",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:2905ed4271039d4ba077e7a5808970fe68a0580f2ee08cfa153ab6c0c4caf948",
+    "translatableHash": "sha256:4c3a9dcd32aeb7b4f138559e4b9509213c3ab33dcda57060608df26c787a1397",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Bravery Baldric (Healthful)",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "invested",
+        "magical"
+      ],
+      "description": "A bravery baldric is a belt that wraps around the shoulder and draws on your well of courage. When you critically succeed on a save against a fear effect or reduce your frightened condition to 0, the baldric gains 1 charge, which slightly alters the color. A bravery baldric can hold up to 2 charges, and its charges reset to 0 when you invest it. You can have only one bravery baldric invested at a time.\nActivate 2 (concentrate)\nFrequency once per hour\nCost 1 charge from the baldric\nEffect The baldric is golden when charged, and it casts a 2nd-rank Sound Body on you.",
+      "bulk": 0.1,
+      "price": {
+        "gp": 350
+      },
+      "usage": "worn",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:blade-byrnie",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JDgFHv334yCrBY38",
+      "slug": "blade-byrnie",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "image": {
+      "path": "/api/game-systems/pathfinder-2e/icons/equipment/armor/chainshirt.webp"
+    },
+    "sourceHash": "sha256:0a3669cabc1a49417609db4ef0773a55403e3f5f9f8641fc19da7091209dd2ea",
+    "translatableHash": "sha256:0064dfa9948ec56ec71bce79b528250104c1b34f652ee6fb730716ce4184cc87",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Blade Byrnie",
+      "itemType": "armor",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "flexible",
+        "noisy"
+      ],
+      "description": "Instead of chain links, this +1 chain shirt is assembled from metal \"leaves\" that each resemble a small blade.\nActivate 1 (manipulate)\nEffect You pull a link from the armor, which transforms into a +1 striking Dagger. The dagger disappears and reappears as a link in the armor after you Strike with it, or at the end of this turn if you don't make a Strike. You can Activate the blade byrnie in place of an Interact action to draw a weapon for abilities such as the Quick Draw feat.\nUpgrading the runes on the blade byrnie makes the daggers pulled from it more powerful. The daggers have a +2 weapon potency rune if the armor has a +2 armor potency rune, or a +3 weapon potency rune if the armor has a +3 armor potency rune.",
+      "bulk": 1,
+      "price": {
+        "gp": 360
+      },
+      "usage": "",
+      "category": "light",
+      "group": "chain",
+      "armor": {
+        "armorClassBonus": 2,
+        "dexterityCap": 3,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:arachnid-harness",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JG7p7yI12cAPuJ8X",
+      "slug": "arachnid-harness",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:379bd0a3e07de9f7a329ecf61256ea67c93c79f0331c9afff5ca9736558337ab",
+    "translatableHash": "sha256:653f95804fbcb50259f4ed504d196cb488378655c5e61222132b756c702857a8",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Arachnid Harness",
+      "itemType": "armor",
+      "level": 7,
+      "rarity": "common",
+      "traits": [],
+      "description": "This +1 leather armor has four knobbed ribs that wrap around the torso. The armor grants you resistance 2 to poison damage.\nActivate 1 (concentrate)\nFrequency once per day\nEffect The ribs from the armor spread into functional spider limbs. For 1 minute, you gain a climb Speed equal to half your land Speed and have your limbs free as you climb. If you use all your free limbs to help you Climb, your climb Speed equals your land Speed.\nEffect: Arachnid Harness\nRequirements The initial raw materials must include four intact legs from a giant tarantula.",
+      "bulk": 1,
+      "price": {
+        "gp": 360
+      },
+      "usage": "",
+      "category": "light",
+      "group": "leather",
+      "armor": {
+        "armorClassBonus": 1,
+        "dexterityCap": 4,
+        "checkPenalty": -1,
+        "speedPenaltyFeet": 0
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:zombie-staff",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "JtCO2nielwAg1x9m",
+      "slug": "zombie-staff",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:dfdd0f2cbbcb2633a3d055f9bf1d3ac9f3c8e32de790eaae82bf855df7161fe2",
+    "translatableHash": "sha256:f29fbce74c18f7b2495c472145d9de1a1d6606801ead96194404f07a3797ec7e",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Zombie Staff",
+      "itemType": "weapon",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "staff",
+        "two-hand-d8"
+      ],
+      "description": "A zombie staff is etched with the rotting visage of an undead humanoid grimacing in terror and dismay carved atop it. The staff's summon undead spells can summon only undead that have flesh and an Intelligence modifier of –4 or lower.\nActivate Cast a Spell\nEffect You expend a number of charges from the staff to cast a spell from its list. If you cast summon undead, you can also cast protect companion on the resulting minion as a free action.\n• Cantrip Protect Companion\n• 1st Necromancer's Generosity, Summon Undead\n• 2nd Final Sacrifice, Summon Undead\nCraft Requirements Supply one casting of all listed ranks of all listed spells.",
+      "bulk": 1,
+      "price": {
+        "gp": 330
+      },
+      "usage": "held-in-one-hand",
+      "category": "simple",
+      "group": "club",
+      "damage": {
+        "dice": 1,
+        "die": "d4",
+        "type": "bludgeoning"
+      }
+    }
+  },
+  {
+    "contentId": "pf2e:item:equipment-srd:enigma-mirror",
+    "domain": "ITEM",
+    "locale": "en-US",
+    "source": {
+      "sourcePack": "equipment-srd",
+      "sourceId": "Jx7cxxTqOENzlGaj",
+      "slug": "enigma-mirror",
+      "publicationTitle": "Pathfinder Treasure Vault (Remastered)",
+      "license": "ORC",
+      "remaster": true
+    },
+    "sourceHash": "sha256:b86691d85d7b0dec79bd8db6934574632394be8c4ad6edb01353f9e7dd085ac5",
+    "translatableHash": "sha256:cc50538f7a3c270785acbe198b802ec2beb798554a57923d3dd5ffa534e16f0b",
+    "data": {
+      "schemaVersion": 1,
+      "name": "Enigma Mirror",
+      "itemType": "equipment",
+      "level": 7,
+      "rarity": "common",
+      "traits": [
+        "magical",
+        "spellheart"
+      ],
+      "description": "Mist fills the glass of this small circular hand mirror, creating strange patterns in the shifting gray wisps. The back of the mirror bears a flowing script engraving in an unknown language. The spell DC of any spell cast by activating this item is 23.\n• Armor After you cast an illusion spell by activating the mirror, choose one ally within 30 feet. That ally is Concealed as if seen in a misty mirror, until the end of your next turn.\n• Weapon After you cast an illusion spell by activating the mirror, illusory copies of the weapon swirl in the air around it. You're affected by the Thicket of Knives spell until the end of your next turn. The spell ends if you stop wielding the affixed weapon.\nActivate Cast a Spell\nEffect You cast Forbidding Ward.\nActivate Cast a Spell\nFrequency once per day\nEffect You cast Blur",
+      "bulk": 0,
+      "price": {
+        "gp": 325
+      },
+      "usage": "affixed-to-armor-or-a-weapon",
+      "category": "equipment",
+      "group": "equipment"
+    }
+  }
+]

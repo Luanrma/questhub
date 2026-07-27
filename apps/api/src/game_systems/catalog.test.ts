@@ -33,6 +33,18 @@ test('a game system can register a neutral catalog provider', async () => {
         pagination: { page: 1, limit: 24, total: 1, totalPages: 1 },
       }
     },
+    get(query) {
+      return {
+        id: query.contentId,
+        name: query.locale === 'pt-BR' ? 'Lobo' : 'Wolf',
+        sections: [
+          {
+            title: query.locale === 'pt-BR' ? 'Defesas' : 'Defenses',
+            fields: [{ label: 'CA', value: '15' }],
+          },
+        ],
+      }
+    },
   })
 
   const provider = getGameSystemCatalogProvider('PATHFINDER_2E')
@@ -45,7 +57,14 @@ test('a game system can register a neutral catalog provider', async () => {
     page: 1,
     limit: 24,
   })
+  const sheet = await provider.get({
+    campaignId: 'campaign-1',
+    domain: 'BESTIARY',
+    locale: 'pt-BR',
+    contentId: 'creature-1',
+  })
 
   assert.equal(result.entries[0]?.name, 'Lobo')
   assert.equal(result.pagination.total, 1)
+  assert.equal(sheet?.sections[0]?.title, 'Defesas')
 })

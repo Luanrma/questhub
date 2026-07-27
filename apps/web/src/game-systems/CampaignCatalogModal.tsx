@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
+  BookOpen,
   ChevronLeft,
   ChevronRight,
+  ListFilter,
   Package,
   PawPrint,
   Search,
@@ -9,6 +11,7 @@ import {
   X,
 } from 'lucide-react'
 import { api } from '../lib/api'
+import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
 import {
   catalogDomainLabels,
   catalogDomainPaths,
@@ -17,13 +20,22 @@ import {
   type GameSystemKey,
 } from './registry'
 
+type EditorialStatus = {
+  label: string
+  tone: 'review' | 'ready' | 'warning' | 'info'
+}
+
+type EditorialFilter = 'all' | 'review' | 'ready'
+type BestiaryFilter = 'all' | 'creatures' | 'hazards'
+
 type CatalogCard = {
   id: string
   name: string
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
-  badges?: readonly string[]
+  traits?: readonly string[]
+  editorialStatus?: EditorialStatus | null
   stats?: ReadonlyArray<{ label: string; value: string }>
 }
 
@@ -35,6 +47,8 @@ type CatalogResponse = {
   }
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
+  editorialStatus?: EditorialFilter
+  bestiaryType?: BestiaryFilter
   entries: CatalogCard[]
   pagination: {
     page: number
@@ -56,15 +70,24 @@ const domainIcons = {
   ITEMS: Package,
 } satisfies Record<GameSystemCatalogDomain, typeof PawPrint>
 
+const statusClasses: Record<EditorialStatus['tone'], string> = {
+  review: 'border-amber-300/35 bg-amber-500/15 text-amber-100',
+  ready: 'border-emerald-300/35 bg-emerald-500/15 text-emerald-100',
+  warning: 'border-red-300/35 bg-red-500/15 text-red-100',
+  info: 'border-sky-300/35 bg-sky-500/15 text-sky-100',
+}
+
 function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSystemCatalogDomain }) {
+  const [failed, setFailed] = useState(false)
   const Icon = domainIcons[domain]
 
-  if (entry.imageUrl) {
+  if (entry.imageUrl && !failed) {
     return (
       <img
         src={entry.imageUrl}
         alt=""
         draggable={false}
+        onError={() => setFailed(true)}
         className="h-16 w-16 shrink-0 rounded-xl border border-indigo-300/25 bg-black/30 object-cover shadow-lg"
       />
     )
@@ -80,31 +103,41 @@ function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSyste
 export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
   const [locale, setLocale] = useState<GameSystemContentLocale>('pt-BR')
   const [search, setSearch] = useState('')
+  const [editorialFilter, setEditorialFilter] = useState<EditorialFilter>('all')
+  const [bestiaryFilter, setBestiaryFilter] = useState<BestiaryFilter>('all')
   const [page, setPage] = useState(1)
   const [data, setData] = useState<CatalogResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null)
   const Icon = domainIcons[domain]
   const title = catalogDomainLabels[domain]
   const normalizedSearch = useMemo(() => search.trim(), [search])
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') onClose()
+      if (event.key !== 'Escape') return
+      if (selectedEntryId) {
+        setSelectedEntryId(null)
+        return
+      }
+      onClose()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [onClose])
+  }, [onClose, selectedEntryId])
 
   useEffect(() => {
     const controller = new AbortController()
     const timeout = window.setTimeout(() => {
       const params = new URLSearchParams({
         locale,
+        editorialStatus: locale === 'pt-BR' ? editorialFilter : 'all',
         page: String(page),
         limit: '24',
       })
       if (normalizedSearch) params.set('q', normalizedSearch)
+      if (domain === 'BESTIARY') params.set('bestiaryType', bestiaryFilter)
 
       setLoading(true)
       setError(null)
@@ -126,7 +159,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
       window.clearTimeout(timeout)
       controller.abort()
     }
-  }, [campaignId, domain, locale, normalizedSearch, page, title])
+  }, [bestiaryFilter, campaignId, domain, editorialFilter, locale, normalizedSearch, page, title])
 
   return (
     <div
@@ -135,7 +168,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
       aria-modal="true"
       aria-label={title}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose()
+        if (event.target === event.currentTarget && !selectedEntryId) onClose()
       }}
     >
       <section className="flex max-h-[90vh] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]">
@@ -171,6 +204,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
                 type="button"
                 onClick={() => {
                   setLocale('en-US')
+                  setEditorialFilter('all')
                   setPage(1)
                 }}
                 className={[
@@ -193,17 +227,57 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
         </header>
 
         <div className="border-b border-white/10 px-5 py-4">
-          <div className="relative">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-            <input
-              value={search}
-              onChange={(event) => {
-                setSearch(event.target.value)
-                setPage(1)
-              }}
-              placeholder={`Buscar em ${title.toLowerCase()}`}
-              className="h-11 w-full rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-300/50"
-            />
+          <div className="flex flex-col gap-3 md:flex-row">
+            <div className="relative min-w-0 flex-1">
+              <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+              <input
+                value={search}
+                onChange={(event) => {
+                  setSearch(event.target.value)
+                  setPage(1)
+                }}
+                placeholder={`Buscar em ${title.toLowerCase()}`}
+                className="h-11 w-full rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-white outline-none transition placeholder:text-zinc-500 focus:border-indigo-300/50"
+              />
+            </div>
+
+            {domain === 'BESTIARY' ? (
+              <label className="relative md:w-44">
+                <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+                <select
+                  value={bestiaryFilter}
+                  onChange={(event) => {
+                    setBestiaryFilter(event.target.value as BestiaryFilter)
+                    setPage(1)
+                  }}
+                  aria-label="Filtrar por tipo do Bestiário"
+                  className="h-11 w-full appearance-none rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-zinc-200 outline-none transition focus:border-indigo-300/50"
+                >
+                  <option value="all">Todos</option>
+                  <option value="creatures">Criaturas</option>
+                  <option value="hazards">Hazards</option>
+                </select>
+              </label>
+            ) : null}
+
+            {locale === 'pt-BR' ? (
+              <label className="relative md:w-60">
+                <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+                <select
+                  value={editorialFilter}
+                  onChange={(event) => {
+                    setEditorialFilter(event.target.value as EditorialFilter)
+                    setPage(1)
+                  }}
+                  aria-label="Filtrar por status da tradução"
+                  className="h-11 w-full appearance-none rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-zinc-200 outline-none transition focus:border-indigo-300/50"
+                >
+                  <option value="all">Todas as traduções</option>
+                  <option value="review">Tradução em revisão</option>
+                  <option value="ready">Tradução revisada</option>
+                </select>
+              </label>
+            ) : null}
           </div>
         </div>
 
@@ -219,14 +293,13 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
               <div className="font-semibold text-amber-100">Catálogo ainda não instalado</div>
               <p className="mt-2 text-sm leading-6 text-amber-100/75">
                 A campanha já está vinculada ao sistema, mas o pacote de conteúdo ainda não registrou este catálogo.
-                Após o rebase da branch de conteúdo, os cards aparecerão aqui sem alterar o VTT.
               </p>
             </div>
           ) : null}
 
           {data?.available && data.entries.length === 0 ? (
             <div className="rounded-xl border border-white/10 bg-white/[0.04] px-5 py-8 text-center text-sm text-zinc-400">
-              Nenhum conteúdo encontrado.
+              Nenhum conteúdo encontrado para os filtros selecionados.
             </div>
           ) : null}
 
@@ -235,10 +308,14 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
               {data.entries.map((entry) => (
                 <article
                   key={entry.id}
-                  className="min-w-0 rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]"
+                  className="flex min-w-0 flex-col rounded-xl border border-white/10 bg-white/[0.04] p-4 transition hover:border-indigo-300/40 hover:bg-white/[0.07]"
                 >
                   <div className="flex min-w-0 items-start gap-4">
-                    <CatalogImage entry={entry} domain={domain} />
+                    <CatalogImage
+                      key={`${entry.id}:${entry.imageUrl ?? 'fallback'}`}
+                      entry={entry}
+                      domain={domain}
+                    />
                     <div className="min-w-0 flex-1">
                       <h2 className="truncate text-sm font-semibold text-white">{entry.name}</h2>
                       {entry.subtitle ? <p className="mt-1 truncate text-xs text-zinc-400">{entry.subtitle}</p> : null}
@@ -258,15 +335,29 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
                     <p className="mt-3 line-clamp-3 text-xs leading-5 text-zinc-400">{entry.description}</p>
                   ) : null}
 
-                  {entry.badges?.length ? (
-                    <div className="mt-3 flex flex-wrap gap-1.5">
-                      {entry.badges.map((badge) => (
-                        <span key={badge} className="max-w-full truncate rounded border border-indigo-300/15 bg-indigo-500/10 px-2 py-0.5 text-[10px] uppercase text-indigo-100/80">
-                          {badge}
-                        </span>
-                      ))}
-                    </div>
-                  ) : null}
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                    {entry.traits?.map((trait) => (
+                      <span key={trait} className="max-w-full truncate rounded border border-indigo-300/15 bg-indigo-500/10 px-2 py-0.5 text-[10px] uppercase text-indigo-100/80">
+                        {trait}
+                      </span>
+                    ))}
+                    {entry.editorialStatus ? (
+                      <span className={`max-w-full truncate rounded border px-2 py-0.5 text-[10px] font-semibold uppercase ${statusClasses[entry.editorialStatus.tone]}`}>
+                        {entry.editorialStatus.label}
+                      </span>
+                    ) : null}
+                  </div>
+
+                  <div className="mt-auto flex justify-end pt-4">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedEntryId(entry.id)}
+                      className="inline-flex items-center gap-2 rounded-lg border border-indigo-300/25 bg-indigo-500/10 px-3 py-2 text-xs font-semibold text-indigo-100 transition hover:border-indigo-300/50 hover:bg-indigo-500/20"
+                    >
+                      <BookOpen className="h-4 w-4" />
+                      Ficha
+                    </button>
+                  </div>
                 </article>
               ))}
             </div>
@@ -298,6 +389,16 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
           </footer>
         ) : null}
       </section>
+
+      {selectedEntryId ? (
+        <CatalogEntitySheetModal
+          campaignId={campaignId}
+          contentId={selectedEntryId}
+          domain={domain}
+          locale={locale}
+          onClose={() => setSelectedEntryId(null)}
+        />
+      ) : null}
     </div>
   )
 }
