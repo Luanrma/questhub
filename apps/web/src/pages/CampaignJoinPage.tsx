@@ -72,7 +72,7 @@ export function CampaignJoinPage() {
         method: 'POST',
         body: JSON.stringify({
           inviteCode: campaign.inviteCode,
-          characterName: identityName,
+          actorName: identityName,
         }),
       })
 

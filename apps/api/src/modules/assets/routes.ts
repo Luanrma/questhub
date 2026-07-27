@@ -25,7 +25,7 @@ const assetExistsQuerySchema = z.object({
 const sceneImageMimeTypes = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/avif'])
 
 async function ensureCampaignMaster(campaignId: string, userId: string) {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,

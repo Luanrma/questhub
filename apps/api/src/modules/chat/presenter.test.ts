@@ -9,8 +9,8 @@ test('presentChatMessage marks messages sent by current character', () => {
     {
       id: 'message-1',
       campaignId: 'campaign-1',
-      characterId: 'character-1',
-      characterName: 'Pedro',
+      actorId: 'character-1',
+      actorName: 'Pedro',
       role: 'PLAYER',
       content: 'Ola mesa',
       createdAt,
@@ -19,7 +19,7 @@ test('presentChatMessage marks messages sent by current character', () => {
   )
 
   assert.equal(result.mine, true)
-  assert.equal(result.characterName, 'Pedro')
+  assert.equal(result.actorName, 'Pedro')
   assert.equal(result.role, 'PLAYER')
   assert.equal(result.createdAt, createdAt)
 })

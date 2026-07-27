@@ -2,7 +2,7 @@ import { prisma } from '../../../db/prisma'
 import type { CampaignDiaryAccess } from '../domain/types'
 
 export function getCampaignDiaryAccess(campaignId: string, userId: string): Promise<CampaignDiaryAccess | null> {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,

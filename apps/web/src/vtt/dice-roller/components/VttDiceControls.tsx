@@ -10,7 +10,7 @@ type VttDiceCharacter = {
 
 type VttDiceControlsProps = {
   campaignId: string
-  character: VttDiceCharacter | null
+  actor: VttDiceCharacter | null
   socket: Socket | null
   enabled: boolean
   open?: boolean

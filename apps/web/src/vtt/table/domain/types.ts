@@ -15,7 +15,7 @@ export type VttPanOffset = {
 
 export type VttPlayerToken = {
   id: string
-  characterId: string | null
+  actorId: string | null
   name: string
   avatarUrl: string | null
   color: string | null
@@ -55,7 +55,7 @@ export type VttTokenRemovedPayload = {
   campaignId: string
   sceneId?: string | null
   tokenId: string
-  characterId: string | null
+  actorId: string | null
 }
 
 export type VttTokenState = {
@@ -127,7 +127,7 @@ export type VttMeasurementChangedPayload = {
 }
 
 export type VttTokenCandidate = {
-  characterId: string
+  actorId: string
   name: string
   avatarUrl: string | null
   role: 'PLAYER' | 'NPC'
@@ -138,7 +138,7 @@ export type VttTokenCandidate = {
 export type CampaignToken = {
   id: string
   campaignId: string
-  characterId: string | null
+  actorId: string | null
   name: string
   avatarUrl: string | null
   color: string | null
@@ -149,7 +149,7 @@ export type CampaignToken = {
   controllerMemberId: string | null
   controllerUserId: string | null
   controllerName: string | null
-  characterOwnerUserId: string | null
+  actorOwnerUserId: string | null
   category: 'MAIN' | 'SECONDARY' | 'MASTER_ONLY'
   placement: {
     sceneId: string
@@ -164,10 +164,10 @@ export type CampaignToken = {
 export type CampaignPlayer = {
   userId: string
   email: string
-  role: 'MASTER' | 'PLAYER' | 'NPC'
+  role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
-  characterId: string
-  characterName: string
+  actorId: string
+  actorName: string
 }
 
 export type VttTokenContextMenu = {
@@ -178,7 +178,7 @@ export type VttTokenContextMenu = {
 
 export type VttCombatParticipant = {
   tokenId: string
-  characterId: string | null
+  actorId: string | null
   name: string
   avatarUrl: string | null
   color: string | null

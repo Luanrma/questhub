@@ -10,7 +10,7 @@ type ChatAck = {
 type PublishDiceRollChatMessageInput = {
   socket: Socket
   campaignId: string
-  characterId: string
+  actorId: string
   content: string
 }
 
@@ -26,12 +26,12 @@ type PublishDiceRollChatMessageResult =
 export async function publishDiceRollChatMessage({
   socket,
   campaignId,
-  characterId,
+  actorId,
   content,
 }: PublishDiceRollChatMessageInput): Promise<PublishDiceRollChatMessageResult> {
   try {
     const ack = await new Promise<ChatAck>((resolve, reject) => {
-      socket.timeout(5000).emit('chat:message:create', { campaignId, characterId, content }, (err: Error | null, response?: ChatAck) => {
+      socket.timeout(5000).emit('chat:message:create', { campaignId, actorId, content }, (err: Error | null, response?: ChatAck) => {
         if (err) {
           reject(new Error('Tempo esgotado ao publicar rolagem.'))
           return

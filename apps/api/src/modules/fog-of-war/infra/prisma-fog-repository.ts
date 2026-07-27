@@ -11,7 +11,7 @@ function json(value: unknown): Prisma.InputJsonValue {
 export class PrismaFogRepository implements FogRepository {
   async findAccess(campaignId: string, userId: string) {
     const [character, member] = await Promise.all([
-      prisma.campaignCharacter.findFirst({
+      prisma.campaignMember.findFirst({
         where: { campaignId, userId, status: 'ACTIVE', role: { in: ['MASTER', 'PLAYER'] } },
         select: { role: true },
       }),

@@ -82,13 +82,13 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   async function notifyCampaignStatus(campaignId: string, online: boolean) {
-    const members = await prisma.campaignCharacter.findMany({
+    const members = await prisma.campaignMember.findMany({
       where: { campaignId, status: 'ACTIVE' },
-      select: { character: { select: { userId: true } } },
+      select: { actor: { select: { userId: true } } },
     })
 
     for (const member of members) {
-      io.to(userRoom(member.character.userId)).emit('campaign:status', { campaignId, online })
+      io.to(userRoom(member.actor.userId)).emit('campaign:status', { campaignId, online })
     }
   }
 
@@ -99,9 +99,9 @@ export function setupCampaignPresence(server: HttpServer) {
 
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     for (const campaignSocket of sockets) {
-      const role = campaignSocket.data.characterRole as string | undefined
+      const role = campaignSocket.data.actorRole as string | undefined
       const socketUser = campaignSocket.data.user as { id: string } | undefined
-      const characterId = campaignSocket.data.characterId as string | undefined
+      const actorId = campaignSocket.data.actorId as string | undefined
 
       if (role === 'PLAYER') {
         campaignSocket.emit('campaign:kicked', { campaignId, message })
@@ -111,14 +111,14 @@ export function setupCampaignPresence(server: HttpServer) {
         state.deleteUserPresence(socketUser.id)
       }
 
-      if (characterId) {
-        io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, characterId, online: false })
+      if (actorId) {
+        io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, actorId, online: false })
       }
 
       campaignSocket.leave(campaignRoom(campaignId))
       campaignSocket.data.campaignId = undefined
-      campaignSocket.data.characterId = undefined
-      campaignSocket.data.characterRole = undefined
+      campaignSocket.data.actorId = undefined
+      campaignSocket.data.actorRole = undefined
     }
   }
 
@@ -159,7 +159,7 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   async function isActiveCampaignMaster(campaignId: string, userId: string) {
-    const master = await prisma.campaignCharacter.findFirst({
+    const master = await prisma.campaignMember.findFirst({
       where: { campaignId, userId, role: 'MASTER', status: 'ACTIVE' },
       select: { id: true },
     })
@@ -232,7 +232,7 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   async function getVisibleSceneIdForSocket(campaignId: string, socket: { data: any }) {
-    const role = socket.data.characterRole as string | undefined
+    const role = socket.data.actorRole as string | undefined
     if (role === 'MASTER') return getMasterActiveSceneId(campaignId)
 
     const online = state.getCampaignOnline(campaignId)
@@ -247,7 +247,7 @@ export function setupCampaignPresence(server: HttpServer) {
     })
     if (viewState?.forcedSceneId) return viewState.forcedSceneId
 
-    const characterId = socket.data.characterId as string | undefined
+    const actorId = socket.data.actorId as string | undefined
     if (!socketUser?.id) return null
 
     const liveTokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
@@ -257,7 +257,7 @@ export function setupCampaignPresence(server: HttpServer) {
         liveTokenMap.values(),
         liveTokenSceneMap,
         socketUser.id,
-        characterId ?? null,
+        actorId ?? null,
       )
     }
 
@@ -266,8 +266,8 @@ export function setupCampaignPresence(server: HttpServer) {
       controllerMember: { userId: socketUser.id },
       placement: { isNot: null },
     } as const
-    const mainToken = characterId ? await prisma.campaignToken.findFirst({
-      where: { ...controlledTokenWhere, characterId },
+    const mainToken = actorId ? await prisma.campaignToken.findFirst({
+      where: { ...controlledTokenWhere, actorId },
       select: { placement: { select: { sceneId: true } } },
     }) : null
     const token = mainToken ?? await prisma.campaignToken.findFirst({
@@ -284,7 +284,7 @@ export function setupCampaignPresence(server: HttpServer) {
     if (!online) return null
     if (online.state === 'PAUSED') return 'PAUSED' as const
 
-    const role = socket.data.characterRole as string | undefined
+    const role = socket.data.actorRole as string | undefined
     if (role === 'MASTER') return 'ACTIVE' as const
 
     const masterSceneId = await getMasterActiveSceneId(campaignId)
@@ -310,7 +310,7 @@ export function setupCampaignPresence(server: HttpServer) {
             controllerMember: {
               select: { id: true, userId: true, user: { select: { email: true } } },
             },
-            character: {
+            actor: {
               select: {
                 userId: true,
                 campaigns: {
@@ -333,7 +333,7 @@ export function setupCampaignPresence(server: HttpServer) {
         controllerMember: {
           select: { id: true, userId: true, user: { select: { email: true } } },
         },
-        character: {
+        actor: {
           select: {
             userId: true,
             campaigns: { where: { campaignId }, select: { role: true } },
@@ -342,15 +342,15 @@ export function setupCampaignPresence(server: HttpServer) {
       },
     })
     if (!identity) return null
-    const role = identity.character?.campaigns[0]?.role
+    const role = identity.actor?.campaigns[0]?.role
     return {
       ...token,
-      characterId: identity.characterId,
+      actorId: identity.actorId,
       name: identity.name,
       avatarUrl: identity.avatarUrl,
       color: identity.color,
       size: identity.size,
-      ownerUserId: identity.character?.userId ?? null,
+      ownerUserId: identity.actor?.userId ?? null,
       ownerName: identity.controllerMember?.user.email ?? null,
       controllerMemberId: identity.controllerMember?.id ?? null,
       controllerUserId: identity.controllerMember?.userId ?? null,
@@ -386,7 +386,7 @@ export function setupCampaignPresence(server: HttpServer) {
     await Promise.all(
       sockets.map(async (campaignSocket) => {
         const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
-        const isTokenOwner = Boolean(token.characterId && campaignSocket.data.characterId === token.characterId)
+        const isTokenOwner = Boolean(token.actorId && campaignSocket.data.actorId === token.actorId)
         if (visibleSceneId !== sceneId) {
           if (isTokenOwner && options?.refreshOwnerVisibleScene) await emitVisibleTableSnapshot(campaignId, campaignSocket)
           return
@@ -396,7 +396,7 @@ export function setupCampaignPresence(server: HttpServer) {
           sceneId,
           token,
         })
-        if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.characterRole !== 'MASTER') {
+        if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.actorRole !== 'MASTER') {
           await emitVisibleTableSnapshot(campaignId, campaignSocket)
         }
       }),
@@ -418,14 +418,14 @@ export function setupCampaignPresence(server: HttpServer) {
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     await Promise.all(
       sockets.map(async (campaignSocket) => {
-        const isRemovedTokenOwner = Boolean(token.characterId && campaignSocket.data.characterId === token.characterId)
+        const isRemovedTokenOwner = Boolean(token.actorId && campaignSocket.data.actorId === token.actorId)
         const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
         if (visibleSceneId !== sceneId && !isRemovedTokenOwner) return
         campaignSocket.emit('vtt:token:removed', {
           campaignId,
           sceneId,
           tokenId: token.id,
-          characterId: token.characterId,
+          actorId: token.actorId,
         })
         if (isRemovedTokenOwner) await emitVisibleTableSnapshot(campaignId, campaignSocket)
       }),
@@ -485,7 +485,7 @@ export function setupCampaignPresence(server: HttpServer) {
             controllerMember: {
               select: { id: true, userId: true, user: { select: { email: true } } },
             },
-            character: {
+            actor: {
               select: {
                 userId: true,
                 campaigns: {
@@ -966,7 +966,7 @@ export function setupCampaignPresence(server: HttpServer) {
           controllerMember: {
             select: { id: true, userId: true, user: { select: { email: true } } },
           },
-          character: {
+          actor: {
             select: {
               userId: true,
               campaigns: { where: { campaignId }, select: { role: true } },
@@ -979,20 +979,20 @@ export function setupCampaignPresence(server: HttpServer) {
       const tokenMap = getCampaignTokenMap(campaignId)
       if (getCampaignTokenSceneMap(campaignId).has(tokenId) || (!online && campaignToken.placement)) return
 
-      const characterRole = campaignToken.character?.campaigns[0]?.role
+      const actorRole = campaignToken.actor?.campaigns[0]?.role
 
       const token: VttPlayerToken = {
         id: campaignToken.id,
-        characterId: campaignToken.characterId,
+        actorId: campaignToken.actorId,
         name: campaignToken.name,
         avatarUrl: campaignToken.avatarUrl,
         color: campaignToken.color,
         size: campaignToken.size,
-        ownerUserId: campaignToken.character?.userId ?? null,
+        ownerUserId: campaignToken.actor?.userId ?? null,
         ownerName: campaignToken.controllerMember?.user.email ?? null,
         controllerMemberId: campaignToken.controllerMember?.id ?? null,
         controllerUserId: campaignToken.controllerMember?.userId ?? null,
-        role: characterRole === 'PLAYER' ? 'PLAYER' : characterRole === 'NPC' ? 'NPC' : 'GENERIC',
+        role: actorRole === 'PLAYER' ? 'PLAYER' : actorRole === 'NPC' ? 'NPC' : 'GENERIC',
         canCustomizeAppearance: campaignToken.canCustomizeAppearance,
         visionConfig: campaignToken.visionConfig,
         lightConfig: campaignToken.lightConfig,
@@ -1025,7 +1025,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const isPlayerMove = Boolean(
         online?.state === 'ACTIVE' &&
         socket.data.campaignId === campaignId &&
-        socket.data.characterRole === 'PLAYER',
+        socket.data.actorRole === 'PLAYER',
       )
       if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao permitido')
 
@@ -1070,7 +1070,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const isPlayerMove = Boolean(
         online?.state === 'ACTIVE' &&
         socket.data.campaignId === campaignId &&
-        socket.data.characterRole === 'PLAYER',
+        socket.data.actorRole === 'PLAYER',
       )
       if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao autorizado.')
       if (state.isTokenMovementActive(campaignId, tokenId)) return reject('TOKEN_MOVING', 'O Token ja esta em movimento.')
@@ -1147,7 +1147,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const isPlayerRotation = Boolean(
         online?.state === 'ACTIVE' &&
         socket.data.campaignId === campaignId &&
-        socket.data.characterRole === 'PLAYER',
+        socket.data.actorRole === 'PLAYER',
       )
       if (!isMasterRotation && !isPlayerRotation) return
 
@@ -1264,7 +1264,7 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const participants = tokens.map((token) => ({
         tokenId: token.id,
-        characterId: token.characterId,
+        actorId: token.actorId,
         name: token.name,
         avatarUrl: token.avatarUrl,
         color: token.color,
@@ -1374,14 +1374,14 @@ export function setupCampaignPresence(server: HttpServer) {
       const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
-      if (online.state === 'PAUSED' && socket.data.characterRole !== 'MASTER') return
+      if (online.state === 'PAUSED' && socket.data.actorRole !== 'MASTER') return
 
       if (measurement) {
         const token = state.getCampaignTokens(campaignId)?.get(measurement.tokenId)
         const tokenSceneId = state.getCampaignTokenSceneIds(campaignId)?.get(measurement.tokenId)
         if (!token || tokenSceneId !== measurement.sceneId) return
-        const isMasterMeasurement = socket.data.characterRole === 'MASTER'
-        const isPlayerMeasurement = socket.data.characterRole === 'PLAYER' && token.controllerUserId === user.id
+        const isMasterMeasurement = socket.data.actorRole === 'MASTER'
+        const isPlayerMeasurement = socket.data.actorRole === 'PLAYER' && token.controllerUserId === user.id
         if (!isMasterMeasurement && !isPlayerMeasurement) return
         if (!areMovementPointsEqual(measurement.points[0], token.position)) return
         const combat = state.getCampaignCombat(campaignId)
@@ -1392,8 +1392,8 @@ export function setupCampaignPresence(server: HttpServer) {
         const currentMeasurement = state.getCampaignMeasurement(campaignId)
         if (currentMeasurement) {
           const token = state.getCampaignTokens(campaignId)?.get(currentMeasurement.tokenId)
-          const canClear = socket.data.characterRole === 'MASTER' || (
-            socket.data.characterRole === 'PLAYER' && token?.controllerUserId === user.id
+          const canClear = socket.data.actorRole === 'MASTER' || (
+            socket.data.actorRole === 'PLAYER' && token?.controllerUserId === user.id
           )
           if (!canClear) return
         }
@@ -1480,19 +1480,19 @@ export function setupCampaignPresence(server: HttpServer) {
       const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
-      if (online.state === 'PAUSED' && socket.data.characterRole !== 'MASTER') return
+      if (online.state === 'PAUSED' && socket.data.actorRole !== 'MASTER') return
 
-      const characterId = socket.data.characterId as string | undefined
-      const characterName = socket.data.characterName as string | undefined
-      if (!characterId || !characterName) return
+      const actorId = socket.data.actorId as string | undefined
+      const actorName = socket.data.actorName as string | undefined
+      if (!actorId || !actorName) return
 
       const rolledAt = Date.now()
       const rolls: VttDiceRoll[] = diceRolls.map((diceRoll, index) => ({
         id: rolledAt + index,
         sides: diceRoll.sides,
         value: diceRoll.value,
-        characterId,
-        characterName,
+        actorId,
+        actorName,
         rolledAt,
       }))
 

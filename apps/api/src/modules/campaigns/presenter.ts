@@ -1,7 +1,7 @@
 type CampaignDashboardEntry = {
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
-  character: {
+  role: 'MASTER' | 'PLAYER'
+  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
+  actor: {
     id: string
     name: string
   }
@@ -12,8 +12,8 @@ type CampaignDashboardEntry = {
     inviteCode: string
     joinPolicy: string
     createdAt: Date
-    characters: Array<{
-      character: {
+    members: Array<{
+      actor: {
         id: string
         userId: string
         name: string
@@ -29,7 +29,7 @@ export function presentCampaignDashboardEntry(
     sessionState: 'ACTIVE' | 'PAUSED' | null
   },
 ) {
-  const master = entry.campaign.characters[0]?.character ?? null
+  const master = entry.campaign.actors[0]?.actor ?? null
 
   return {
     id: entry.campaign.id,
@@ -42,16 +42,16 @@ export function presentCampaignDashboardEntry(
     gmUserId: master?.userId ?? '',
     myRole: entry.role,
     myStatus: entry.status,
-    myCharacterId: entry.character.id,
-    myCharacterName: entry.character.name,
+    myActorId: entry.actor.id,
+    myActorName: entry.actor.name,
     isOnline: options.isOnline,
     sessionState: options.sessionState,
   }
 }
 
 export function canOpenCampaignTable(input: {
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
+  role: 'MASTER' | 'PLAYER'
+  status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
   isOnline: boolean
 }) {
   if (input.status !== 'ACTIVE') return false

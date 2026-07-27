@@ -1,56 +1,50 @@
-CREATE TABLE "CampaignActor" (
-    "id" TEXT NOT NULL,
-    "campaignId" TEXT NOT NULL,
-    "name" TEXT NOT NULL,
-    "avatarUrl" TEXT,
-    "bio" TEXT,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "CampaignActor_pkey" PRIMARY KEY ("id")
-);
-
-CREATE TABLE "Inventory" (
-    "id" TEXT NOT NULL,
-    "actorId" TEXT NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Inventory_pkey" PRIMARY KEY ("id")
-);
-
-CREATE TABLE "InventoryEntry" (
-    "id" TEXT NOT NULL,
-    "inventoryId" TEXT NOT NULL,
-    "quantity" INTEGER NOT NULL DEFAULT 1,
-    "data" JSONB NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "InventoryEntry_pkey" PRIMARY KEY ("id"),
-    CONSTRAINT "InventoryEntry_quantity_check" CHECK ("quantity" > 0)
-);
-
-CREATE INDEX "CampaignActor_campaignId_createdAt_idx"
-    ON "CampaignActor"("campaignId", "createdAt");
-
-CREATE UNIQUE INDEX "Inventory_actorId_key"
-    ON "Inventory"("actorId");
-
-CREATE INDEX "InventoryEntry_inventoryId_createdAt_idx"
-    ON "InventoryEntry"("inventoryId", "createdAt");
-
-ALTER TABLE "CampaignActor"
-    ADD CONSTRAINT "CampaignActor_campaignId_fkey"
-    FOREIGN KEY ("campaignId") REFERENCES "Campaign"("id")
-    ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "Inventory"
-    ADD CONSTRAINT "Inventory_actorId_fkey"
-    FOREIGN KEY ("actorId") REFERENCES "CampaignActor"("id")
-    ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE "InventoryEntry"
-    ADD CONSTRAINT "InventoryEntry_inventoryId_fkey"
-    FOREIGN KEY ("inventoryId") REFERENCES "Inventory"("id")
-    ON DELETE CASCADE ON UPDATE CASCADE;
+-- Development-only reset: replace the pre-release Character model with campaign-scoped actors.
+DROP TABLE IF EXISTS "ChatMessage" CASCADE;
+DROP TABLE IF EXISTS "CampaignCharacterSheet" CASCADE;
+DROP TABLE IF EXISTS "CharacterSheet" CASCADE;
+DROP TABLE IF EXISTS "CampaignCharacter" CASCADE;
+DROP TABLE IF EXISTS "CampaignMember" CASCADE;
+DROP TABLE IF EXISTS "Character" CASCADE;
+ALTER TABLE "CampaignToken" DROP COLUMN IF EXISTS "characterId";
+ALTER TABLE "CampaignToken" ADD COLUMN IF NOT EXISTS "actorId" TEXT;
+DROP TYPE IF EXISTS "CampaignCharacterStatus";
+DROP TYPE IF EXISTS "CampaignCharacterRole";
+CREATE TYPE "CampaignMemberStatus" AS ENUM ('PENDING', 'ACTIVE', 'REJECTED', 'LEFT');
+CREATE TYPE "CampaignMemberRole" AS ENUM ('MASTER', 'PLAYER');
+CREATE TABLE "CampaignMember" ("id" TEXT NOT NULL, "campaignId" TEXT NOT NULL, "userId" TEXT NOT NULL, "actorId" TEXT, "role" "CampaignMemberRole" NOT NULL, "status" "CampaignMemberStatus" NOT NULL DEFAULT 'PENDING', "joinedAt" TIMESTAMP(3), "leftAt" TIMESTAMP(3), "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, "updatedAt" TIMESTAMP(3) NOT NULL, CONSTRAINT "CampaignMember_pkey" PRIMARY KEY ("id"));
+CREATE TABLE "CampaignActor" ("id" TEXT NOT NULL, "campaignId" TEXT NOT NULL, "controllerMemberId" TEXT, "name" TEXT NOT NULL, "avatarUrl" TEXT, "bio" TEXT, "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, "updatedAt" TIMESTAMP(3) NOT NULL, CONSTRAINT "CampaignActor_pkey" PRIMARY KEY ("id"));
+CREATE TABLE "Inventory" ("id" TEXT NOT NULL, "actorId" TEXT NOT NULL, "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, "updatedAt" TIMESTAMP(3) NOT NULL, CONSTRAINT "Inventory_pkey" PRIMARY KEY ("id"));
+CREATE TABLE "InventoryEntry" ("id" TEXT NOT NULL, "inventoryId" TEXT NOT NULL, "quantity" INTEGER NOT NULL DEFAULT 1, "data" JSONB NOT NULL, "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, "updatedAt" TIMESTAMP(3) NOT NULL, CONSTRAINT "InventoryEntry_pkey" PRIMARY KEY ("id"), CONSTRAINT "InventoryEntry_quantity_positive" CHECK ("quantity" > 0));
+CREATE TABLE "CampaignCharacterSheet" ("id" TEXT NOT NULL, "actorId" TEXT NOT NULL, "createdByUserId" TEXT NOT NULL, "systemKey" TEXT NOT NULL, "schemaVersion" INTEGER NOT NULL DEFAULT 1, "data" JSONB NOT NULL, "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, "updatedAt" TIMESTAMP(3) NOT NULL, CONSTRAINT "CampaignCharacterSheet_pkey" PRIMARY KEY ("id"));
+CREATE TABLE "ChatMessage" ("id" TEXT NOT NULL, "campaignId" TEXT NOT NULL, "actorId" TEXT NOT NULL, "userId" TEXT NOT NULL, "content" TEXT NOT NULL, "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "ChatMessage_pkey" PRIMARY KEY ("id"));
+CREATE UNIQUE INDEX "CampaignMember_campaignId_userId_key" ON "CampaignMember"("campaignId", "userId");
+CREATE UNIQUE INDEX "CampaignMember_actorId_key" ON "CampaignMember"("actorId");
+CREATE INDEX "CampaignMember_campaignId_idx" ON "CampaignMember"("campaignId");
+CREATE INDEX "CampaignMember_userId_idx" ON "CampaignMember"("userId");
+CREATE INDEX "CampaignMember_status_idx" ON "CampaignMember"("status");
+CREATE INDEX "CampaignMember_role_idx" ON "CampaignMember"("role");
+CREATE INDEX "CampaignActor_campaignId_createdAt_idx" ON "CampaignActor"("campaignId", "createdAt");
+CREATE INDEX "CampaignActor_controllerMemberId_idx" ON "CampaignActor"("controllerMemberId");
+CREATE UNIQUE INDEX "Inventory_actorId_key" ON "Inventory"("actorId");
+CREATE INDEX "InventoryEntry_inventoryId_createdAt_idx" ON "InventoryEntry"("inventoryId", "createdAt");
+CREATE UNIQUE INDEX "CampaignCharacterSheet_actorId_key" ON "CampaignCharacterSheet"("actorId");
+CREATE INDEX "CampaignCharacterSheet_systemKey_idx" ON "CampaignCharacterSheet"("systemKey");
+CREATE INDEX "CampaignCharacterSheet_createdByUserId_idx" ON "CampaignCharacterSheet"("createdByUserId");
+CREATE INDEX "ChatMessage_campaignId_createdAt_idx" ON "ChatMessage"("campaignId", "createdAt");
+CREATE INDEX "ChatMessage_actorId_idx" ON "ChatMessage"("actorId");
+CREATE INDEX "ChatMessage_userId_idx" ON "ChatMessage"("userId");
+CREATE UNIQUE INDEX "CampaignToken_actorId_key" ON "CampaignToken"("actorId");
+ALTER TABLE "CampaignMember" ADD CONSTRAINT "CampaignMember_campaignId_fkey" FOREIGN KEY ("campaignId") REFERENCES "Campaign"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "CampaignMember" ADD CONSTRAINT "CampaignMember_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "CampaignActor" ADD CONSTRAINT "CampaignActor_campaignId_fkey" FOREIGN KEY ("campaignId") REFERENCES "Campaign"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "CampaignActor" ADD CONSTRAINT "CampaignActor_controllerMemberId_fkey" FOREIGN KEY ("controllerMemberId") REFERENCES "CampaignMember"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "CampaignMember" ADD CONSTRAINT "CampaignMember_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "CampaignActor"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "CampaignActor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "InventoryEntry" ADD CONSTRAINT "InventoryEntry_inventoryId_fkey" FOREIGN KEY ("inventoryId") REFERENCES "Inventory"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "CampaignCharacterSheet" ADD CONSTRAINT "CampaignCharacterSheet_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "CampaignActor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "CampaignCharacterSheet" ADD CONSTRAINT "CampaignCharacterSheet_createdByUserId_fkey" FOREIGN KEY ("createdByUserId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_campaignId_fkey" FOREIGN KEY ("campaignId") REFERENCES "Campaign"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "CampaignActor"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "ChatMessage" ADD CONSTRAINT "ChatMessage_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "CampaignToken" ADD CONSTRAINT "CampaignToken_actorId_fkey" FOREIGN KEY ("actorId") REFERENCES "CampaignActor"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "CampaignToken" ADD CONSTRAINT "CampaignToken_controllerMemberId_fkey" FOREIGN KEY ("controllerMemberId") REFERENCES "CampaignMember"("id") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -1,7 +1,5 @@
 import './http/auth.test'
 import './modules/assets/token-library.test'
-import './modules/characters/presenter.test'
-import './modules/characters/validation.test'
 import './modules/chat/presenter.test'
 import './modules/chat/validation.test'
 import './modules/campaigns/presenter.test'

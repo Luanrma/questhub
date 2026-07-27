@@ -30,7 +30,7 @@ function invalidEntry(entry: StoredCampaignSheet): GameSystemCharacterSheetManag
 }
 
 async function loadCampaignSheets(campaignId: string) {
-  return prisma.campaignCharacterSheet.findMany({
+  return prisma.campaignMemberSheet.findMany({
     where: {
       campaignId,
       systemKey: pathfinder2eCharacterSheetRuntimeAdapter.systemKey,

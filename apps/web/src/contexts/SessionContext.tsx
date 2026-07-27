@@ -14,9 +14,9 @@ export type Campaign = {
   joinPolicy: 'PUBLIC' | 'PRIVATE'
   createdAt: string
   myRole: 'MASTER' | 'PLAYER'
-  myStatus?: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
-  myCharacterId?: string | null
-  myCharacterName?: string | null
+  myStatus?: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
+  myActorId?: string | null
+  myActorName?: string | null
   isOnline: boolean
   sessionState?: 'ACTIVE' | 'PAUSED' | null
 }
@@ -31,8 +31,8 @@ type SessionContextValue = {
   refreshMe: () => Promise<void>
   loadCampaigns: (options?: { force?: boolean }) => Promise<void>
   setActiveCampaignId: (campaignId: string | null) => void
-  enterPresence: (params: { campaignId: string; characterId: string }) => Promise<void>
-  startCampaignSession: (params: { campaignId: string; characterId: string }) => Promise<void>
+  enterPresence: (params: { campaignId: string; actorId: string }) => Promise<void>
+  startCampaignSession: (params: { campaignId: string; actorId: string }) => Promise<void>
   endCampaignSession: (params: { campaignId: string }) => Promise<void>
   pauseCampaignSession: (params: { campaignId: string }) => Promise<void>
   resumeCampaignSession: (params: { campaignId: string }) => Promise<void>
@@ -56,7 +56,7 @@ type SocketNotificationPayload = {
   online?: boolean
   message?: string
   email?: string
-  characterName?: string
+  actorName?: string
 }
 
 type SessionStatePayload = {
@@ -175,7 +175,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     })
 
     socketConnection.on('campaign:player-joined', async (payload: SocketNotificationPayload) => {
-      alert(`${payload?.characterName ?? 'Novo personagem'} entrou na campanha.`)
+      alert(`${payload?.actorName ?? 'Novo personagem'} entrou na campanha.`)
       await loadCampaigns({ force: true }).catch(() => {})
     })
 
@@ -249,11 +249,11 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
     })
   }
 
-  async function enterPresence(params: { campaignId: string; characterId: string }) {
+  async function enterPresence(params: { campaignId: string; actorId: string }) {
     ensureSocket().emit('presence:enter', params)
   }
 
-  async function startCampaignSession(params: { campaignId: string; characterId: string }) {
+  async function startCampaignSession(params: { campaignId: string; actorId: string }) {
     await emitPresenceAck('presence:session:start', params)
     setCampaigns((current) =>
       current.map((campaign) =>

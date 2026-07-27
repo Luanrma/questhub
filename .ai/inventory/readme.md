@@ -30,3 +30,5 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 - Moedas e conversão monetária.
 - Rotas HTTP e interface visual.
 - Migração automática de fichas ou tokens existentes para `CampaignActor`.
+
+`Character`, `CharacterSheet` e `CampaignCharacter` não existem no modelo. Participação é `CampaignMember`; entidade do mundo é `CampaignActor`.

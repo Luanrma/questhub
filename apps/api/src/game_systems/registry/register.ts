@@ -60,7 +60,7 @@ async function findAccessibleCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
     where: {
       id: campaignId,
-      characters: {
+      members: {
         some: {
           userId,
           status: 'ACTIVE',
@@ -78,7 +78,7 @@ async function findMasterCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
     where: {
       id: campaignId,
-      characters: {
+      members: {
         some: {
           userId,
           role: 'MASTER',
@@ -95,7 +95,7 @@ async function findMasterCampaign(campaignId: string, userId: string) {
 }
 
 async function findActiveCampaignRole(campaignId: string, userId: string) {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: { campaignId, userId, status: 'ACTIVE' },
     select: { role: true },
   })
@@ -103,7 +103,7 @@ async function findActiveCampaignRole(campaignId: string, userId: string) {
 
 async function listAssignmentTargets(campaignId: string) {
   const [participants, tokens] = await Promise.all([
-    prisma.campaignCharacter.findMany({
+    prisma.campaignMember.findMany({
       where: {
         campaignId,
         role: { in: ['MASTER', 'PLAYER'] },
@@ -112,7 +112,7 @@ async function listAssignmentTargets(campaignId: string) {
       select: {
         userId: true,
         role: true,
-        character: {
+        actor: {
           select: {
             user: { select: { email: true } },
           },
@@ -135,12 +135,12 @@ async function listAssignmentTargets(campaignId: string) {
     users: participants.map((entry) => ({
       userId: entry.userId,
       role: entry.role,
-      email: entry.character.user.email,
+      email: entry.actor.user.email,
     })),
     tokens: tokens.map((token) => ({
       tokenId: token.id,
       name: token.name,
-      assignedSheetId: token.characterSheet?.id ?? null,
+      assignedSheetId: token.actorSheet?.id ?? null,
     })),
   }
 }
@@ -215,7 +215,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const descriptor = getGameSystemDescriptor(body.data.gameSystem)
     if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
 
-    const sheetCount = await prisma.campaignCharacterSheet.count({
+    const sheetCount = await prisma.campaignMemberSheet.count({
       where: { campaignId: campaign.id },
     })
     if (sheetCount > 0 && campaign.gameSystem !== body.data.gameSystem) {
@@ -229,7 +229,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
         select: { id: true, gameSystem: true },
       })
 
-      await tx.character.updateMany({
+      await tx.campaignActor.updateMany({
         where: {
           campaigns: {
             some: { campaignId: campaign.id },
@@ -298,7 +298,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     if (!provider) return reply.status(409).send({ error: 'O sistema da campanha nao fornece fichas' })
 
     const defaultSheet = provider.createDefault()
-    const created = await prisma.campaignCharacterSheet.create({
+    const created = await prisma.campaignMemberSheet.create({
       data: {
         campaignId: campaign.id,
         createdByUserId: auth.id,
@@ -330,14 +330,14 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
     if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode atribuir fichas' })
 
-    const sheet = await prisma.campaignCharacterSheet.findFirst({
+    const sheet = await prisma.campaignMemberSheet.findFirst({
       where: { id: params.data.sheetId, campaignId: campaign.id },
       select: { id: true },
     })
     if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada' })
 
     if (body.data.assignedUserId) {
-      const participant = await prisma.campaignCharacter.findFirst({
+      const participant = await prisma.campaignMember.findFirst({
         where: {
           campaignId: campaign.id,
           userId: body.data.assignedUserId,
@@ -358,7 +358,7 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     }
 
     try {
-      const updated = await prisma.campaignCharacterSheet.update({
+      const updated = await prisma.campaignMemberSheet.update({
         where: { id: sheet.id },
         data: {
           ...(body.data.assignedUserId !== undefined ? { assignedUserId: body.data.assignedUserId } : {}),
@@ -410,16 +410,16 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
         },
       },
     })
-    if (!token?.characterSheet) return reply.status(404).send({ error: 'Token sem ficha vinculada' })
+    if (!token?.actorSheet) return reply.status(404).send({ error: 'Token sem ficha vinculada' })
 
     const canOpen = role.role === 'MASTER'
       || token.controllerMember?.userId === auth.id
-      || token.characterSheet.assignedUserId === auth.id
+      || token.actorSheet.assignedUserId === auth.id
     if (!canOpen) return reply.status(403).send({ error: 'Sem permissao para abrir esta ficha' })
 
     return reply.send({
-      sheetId: token.characterSheet.id,
-      title: token.characterSheet.name,
+      sheetId: token.actorSheet.id,
+      title: token.actorSheet.name,
     })
   })
 

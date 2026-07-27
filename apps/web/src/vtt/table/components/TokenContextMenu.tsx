@@ -230,7 +230,7 @@ export function TokenContextMenu({
                 >
                   <option value="">Somente Mestre</option>
                   {campaignPlayers.map((player) => (
-                    <option key={player.userId} value={player.userId}>{player.characterName} — {player.email}</option>
+                    <option key={player.userId} value={player.userId}>{player.actorName} — {player.email}</option>
                   ))}
                 </select>
               </label>

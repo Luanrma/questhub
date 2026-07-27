@@ -18,7 +18,7 @@ const paramsSchema = z.object({
 const sheetBodySchema = z.object({ data: z.unknown() }).strict()
 
 async function findAccessibleSheet(campaignId: string, sheetId: string, userId: string) {
-  const access = await prisma.campaignCharacter.findFirst({
+  const access = await prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,
@@ -29,7 +29,7 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
   })
   if (!access) return null
 
-  const sheet = await prisma.campaignCharacterSheet.findFirst({
+  const sheet = await prisma.campaignMemberSheet.findFirst({
     where: { id: sheetId, campaignId },
     select: {
       id: true,
@@ -160,7 +160,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
       return sendInvalidSheet(reply, error)
     }
 
-    const stored = await prisma.campaignCharacterSheet.update({
+    const stored = await prisma.campaignMemberSheet.update({
       where: { id: sheet.id },
       data: {
         systemKey: PATHFINDER_2E_SYSTEM_KEY,

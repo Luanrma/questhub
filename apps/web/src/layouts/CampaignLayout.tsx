@@ -36,7 +36,7 @@ type CampaignPanelId = 'sessions' | 'characters' | 'players' | 'journal' | 'sett
 
 const panelTitles: Record<CampaignPanelId, string> = {
   sessions: 'Sessões',
-  characters: 'Personagens',
+  members: 'Personagens',
   players: 'Jogadores',
   journal: 'Diário',
   settings: 'Configurações',
@@ -160,7 +160,7 @@ export function CampaignLayout() {
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
-  const [myCharacter, setMyCharacter] = useState<MyCampaignCharacter | null>(null)
+  const [myActor, setMyActor] = useState<MyCampaignCharacter | null>(null)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [openPanels, setOpenPanels] = useState<CampaignPanelId[]>([])
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
@@ -171,7 +171,7 @@ export function CampaignLayout() {
   const isMaster = campaign?.myRole === 'MASTER'
   const sessionState = campaign?.sessionState ?? (campaign?.isOnline ? 'ACTIVE' : null)
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
-  const navigationState = location.state as { characterId?: string | null } | null
+  const navigationState = location.state as { actorId?: string | null } | null
 
   function openCampaignPanel(panelId: CampaignPanelId) {
     setOpenPanels((current) => [...current.filter((item) => item !== panelId), panelId])
@@ -273,15 +273,15 @@ export function CampaignLayout() {
       }
 
       try {
-        const selectedCharacterId = navigationState?.characterId ?? campaign.myCharacterId
-        const selectedCharacterQuery = selectedCharacterId ? `?characterId=${encodeURIComponent(selectedCharacterId)}` : ''
+        const selectedActorId = navigationState?.actorId ?? campaign.myActorId
+        const selectedCharacterQuery = selectedActorId ? `?actorId=${encodeURIComponent(selectedActorId)}` : ''
         const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character${selectedCharacterQuery}`)
-        setMyCharacter(ch)
+        setMyActor(ch)
         if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`
           if (presenceKeyRef.current === key) return
           presenceKeyRef.current = key
-          enterPresence({ campaignId, characterId: ch.id })
+          enterPresence({ campaignId, actorId: ch.id })
         }
       } catch {
         alert('Campanha offline (mestre não está online) ou acesso não liberado.')
@@ -292,11 +292,11 @@ export function CampaignLayout() {
   }, [campaignId, loading, me, campaignsLoading, campaign])
 
   async function onStartSession() {
-    if (!campaignId || !myCharacter?.id) return
+    if (!campaignId || !myActor?.id) return
 
     setSessionActionLoading(true)
     try {
-      await startCampaignSession({ campaignId, characterId: myCharacter.id })
+      await startCampaignSession({ campaignId, actorId: myActor.id })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível iniciar a sessão.'
       alert(message)
@@ -423,7 +423,7 @@ export function CampaignLayout() {
                       <Button
                         className="gap-2"
                         variant="ghost"
-                        disabled={sessionActionLoading || !myCharacter?.id}
+                        disabled={sessionActionLoading || !myActor?.id}
                         onClick={onTogglePauseSession}
                       >
                         {sessionState === 'PAUSED'
@@ -436,7 +436,7 @@ export function CampaignLayout() {
                     <Button
                       className="gap-2"
                       variant={campaign.isOnline ? 'danger' : 'primary'}
-                      disabled={sessionActionLoading || !myCharacter?.id}
+                      disabled={sessionActionLoading || !myActor?.id}
                       onClick={campaign.isOnline ? onEndSession : onStartSession}
                     >
                       {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
@@ -454,7 +454,7 @@ export function CampaignLayout() {
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
               canConfigureGrid={Boolean(isMaster)}
               sessionState={sessionState}
-              myCharacter={myCharacter}
+              myActor={myActor}
               onGridSettingsChange={applyGridSettings}
               onGridSettingsOpenChange={setGridSettingsOpen}
             />

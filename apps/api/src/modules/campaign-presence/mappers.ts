@@ -25,7 +25,7 @@ export type PersistedSceneToken = {
   blocksVisionAndLight: boolean
   token: {
     id: string
-    characterId: string | null
+    actorId: string | null
     name: string
     avatarUrl: string | null
     color: string | null
@@ -33,7 +33,7 @@ export type PersistedSceneToken = {
     canCustomizeAppearance: boolean
     visionConfig: unknown
     lightConfig: unknown
-    character: {
+    actor: {
       userId: string
       campaigns: Array<{ role: 'PLAYER' | 'NPC' | 'MASTER' }>
     } | null
@@ -76,17 +76,17 @@ export function vttGridSettingsToSceneData(settings: VttGridSettings) {
 }
 
 export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPlayerToken {
-  const campaignCharacter = token.token.character?.campaigns[0]
-  const role = campaignCharacter?.role === 'NPC' ? 'NPC' : campaignCharacter?.role === 'PLAYER' ? 'PLAYER' : 'GENERIC'
+  const campaignMember = token.token.actor?.campaigns[0]
+  const role = campaignMember?.role === 'NPC' ? 'NPC' : campaignMember?.role === 'PLAYER' ? 'PLAYER' : 'GENERIC'
 
   return {
     id: token.token.id,
-    characterId: token.token.characterId,
+    actorId: token.token.actorId,
     name: token.token.name,
     avatarUrl: token.token.avatarUrl,
     color: token.token.color,
     size: token.token.size,
-    ownerUserId: token.token.character?.userId ?? null,
+    ownerUserId: token.token.actor?.userId ?? null,
     ownerName: token.token.controllerMember?.user.email ?? null,
     controllerMemberId: token.token.controllerMember?.id ?? null,
     controllerUserId: token.token.controllerMember?.userId ?? null,

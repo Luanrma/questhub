@@ -15,18 +15,16 @@ enum GameSystem {
   PATHFINDER_2E
 }
 
-enum CampaignCharacterStatus {
+enum CampaignMemberStatus {
   PENDING
   ACTIVE
   REJECTED
   LEFT
-  DEAD
 }
 
-enum CampaignCharacterRole {
+enum CampaignMemberRole {
   MASTER
   PLAYER
-  NPC
 }
 
 enum CampaignSceneGridShape {
@@ -46,9 +44,7 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
 
-  characters                      Character[]
   createdCampaigns                Campaign[]              @relation("CreatedCampaigns")
-  campaignLinks                   CampaignCharacter[]
   campaignMembers                 CampaignMember[]
   chatMessages                    ChatMessage[]
   assets                          Asset[]
@@ -56,8 +52,7 @@ model User {
   campaignSettings                CampaignUserSettings[]
   createdAreaTemplates            CampaignAreaTemplate[]  @relation("AreaTemplateCreator")
   createdAreaEffects              SceneAreaEffect[]       @relation("AreaEffectCreator")
-  createdCampaignCharacterSheets  CampaignCharacterSheet[] @relation("CampaignCharacterSheetCreator")
-  assignedCampaignCharacterSheets CampaignCharacterSheet[] @relation("CampaignCharacterSheetAssignee")
+  createdCampaignCharacterSheets CampaignCharacterSheet[] @relation("CampaignCharacterSheetCreator")
 }
 
 model Campaign {
@@ -74,11 +69,9 @@ model Campaign {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  characters      CampaignCharacter[]
   members         CampaignMember[]
   actors          CampaignActor[]
   tokens          CampaignToken[]
-  characterSheets CampaignCharacterSheet[]
   chatMessages    ChatMessage[]
   assets          CampaignAsset[]
   scenes          CampaignScene[]
@@ -90,18 +83,24 @@ model Campaign {
 }
 
 model CampaignActor {
-  id         String   @id @default(cuid())
-  campaignId String
-  name       String
-  avatarUrl  String?
-  bio        String?
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                 String   @id @default(cuid())
+  campaignId         String
+  controllerMemberId String?
+  name               String
+  avatarUrl          String?
+  bio                String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
 
-  campaign  Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  inventory Inventory?
+  campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  controllerMember CampaignMember? @relation("CampaignActorController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
+  mainForMember    CampaignMember? @relation("CampaignMemberMainActor")
+  inventory        Inventory?
+  token            CampaignToken?
+  chatMessages     ChatMessage[]
 
   @@index([campaignId, createdAt])
+  @@index([controllerMemberId])
 }
 
 model Inventory {
@@ -127,120 +126,62 @@ model InventoryEntry {
   @@index([inventoryId, createdAt])
 }
 
-model Character {
-  id         String     @id @default(cuid())
-  userId     String
-  name       String
-  avatarUrl  String?
-  bio        String?
-  gameSystem GameSystem @default(PATHFINDER_2E)
-  deletedAt  DateTime?
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-
-  user           User                @relation(fields: [userId], references: [id])
-  campaigns      CampaignCharacter[]
-  chatMessages   ChatMessage[]
-  campaignTokens CampaignToken[]
-  sheet          CharacterSheet?
-
-  @@index([userId])
-  @@index([gameSystem])
-  @@index([deletedAt])
-}
-
-// Modelo legado mantido temporariamente para registros anteriores à ficha exclusiva da campanha.
-model CharacterSheet {
-  id            String   @id @default(cuid())
-  characterId   String   @unique
-  systemKey     String
-  schemaVersion Int      @default(1)
-  data          Json
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  character Character @relation(fields: [characterId], references: [id], onDelete: Cascade)
-
-  @@index([systemKey])
-}
-
 model CampaignCharacterSheet {
   id              String   @id @default(cuid())
-  campaignId      String
+  actorId         String   @unique
   createdByUserId String
-  assignedUserId  String?
-  tokenId         String?  @unique
-  name            String
-  avatarUrl       String?
-  bio             String?
   systemKey       String
   schemaVersion   Int      @default(1)
   data            Json
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  campaign      Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  actor         CampaignActor @relation(fields: [actorId], references: [id], onDelete: Cascade)
   createdByUser User          @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
-  assignedUser  User?         @relation("CampaignCharacterSheetAssignee", fields: [assignedUserId], references: [id], onDelete: SetNull)
-  token         CampaignToken? @relation(fields: [tokenId], references: [id], onDelete: SetNull)
 
-  @@index([campaignId, createdAt])
-  @@index([assignedUserId])
   @@index([systemKey])
+  @@index([createdByUserId])
 }
 
-model CampaignCharacter {
-  id          String                  @id @default(cuid())
-  campaignId  String
-  characterId String                  @unique
-  userId      String
-  role        CampaignCharacterRole
-  status      CampaignCharacterStatus @default(PENDING)
-  joinedAt    DateTime?
-  leftAt      DateTime?
-  createdAt   DateTime                @default(now())
-  updatedAt   DateTime                @updatedAt
+model CampaignMember {
+  id         String               @id @default(cuid())
+  campaignId String
+  userId     String
+  actorId    String?              @unique
+  role       CampaignMemberRole
+  status     CampaignMemberStatus @default(PENDING)
+  joinedAt   DateTime?
+  leftAt     DateTime?
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
 
-  campaign  Campaign  @relation(fields: [campaignId], references: [id])
-  character Character @relation(fields: [characterId], references: [id])
-  user      User      @relation(fields: [userId], references: [id])
+  campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  actor            CampaignActor?  @relation("CampaignMemberMainActor", fields: [actorId], references: [id], onDelete: SetNull)
+  controlledActors CampaignActor[] @relation("CampaignActorController")
+  controlledTokens CampaignToken[] @relation("CampaignTokenController")
 
+  @@unique([campaignId, userId])
   @@index([campaignId])
   @@index([userId])
   @@index([status])
   @@index([role])
 }
 
-model CampaignMember {
+model ChatMessage {
   id         String   @id @default(cuid())
   campaignId String
+  actorId    String
   userId     String
+  content    String
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
-  campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  controlledTokens CampaignToken[] @relation("CampaignTokenController")
-
-  @@unique([campaignId, userId])
-  @@index([campaignId])
-  @@index([userId])
-}
-
-model ChatMessage {
-  id          String   @id @default(cuid())
-  campaignId  String
-  characterId String
-  userId      String
-  content     String
-  createdAt   DateTime @default(now())
-
-  campaign  Campaign  @relation(fields: [campaignId], references: [id])
-  character Character @relation(fields: [characterId], references: [id])
-  user      User      @relation(fields: [userId], references: [id])
+  campaign Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  actor    CampaignActor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([campaignId, createdAt])
-  @@index([characterId])
+  @@index([actorId])
   @@index([userId])
 }
 
@@ -381,7 +322,7 @@ model SceneAreaEffect {
 model CampaignToken {
   id                     String   @id @default(cuid())
   campaignId             String
-  characterId            String?  @unique
+  actorId                String?  @unique
   controllerMemberId     String?
   name                   String
   avatarUrl              String?
@@ -394,9 +335,8 @@ model CampaignToken {
   updatedAt              DateTime @updatedAt
 
   campaign         Campaign                 @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  character        Character?               @relation(fields: [characterId], references: [id], onDelete: SetNull)
+  actor            CampaignActor?           @relation(fields: [actorId], references: [id], onDelete: SetNull)
   controllerMember CampaignMember?          @relation("CampaignTokenController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
-  characterSheet   CampaignCharacterSheet?
   placement        CampaignTokenPlacement?
   fogExplorations  CampaignFogExploration[]
 

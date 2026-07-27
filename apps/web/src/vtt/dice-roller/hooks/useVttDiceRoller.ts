@@ -42,7 +42,7 @@ type VttDiceCharacter = {
 
 type UseVttDiceRollerOptions = {
   campaignId: string
-  character: VttDiceCharacter | null
+  actor: VttDiceCharacter | null
   socket: Socket | null
   enabled: boolean
   clearSignal: number
@@ -97,7 +97,7 @@ export function useVttDiceRoller({
     async (content: string) => {
       if (!socket || !character?.id) return
 
-      const result = await publishDiceRollChatMessage({ socket, campaignId, characterId: character.id, content })
+      const result = await publishDiceRollChatMessage({ socket, campaignId, actorId: character.id, content })
       if (!result.ok) setWarning(result.error)
     },
     [campaignId, character, socket],
