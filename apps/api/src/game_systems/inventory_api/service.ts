@@ -3,13 +3,14 @@ import { prisma } from '../../db/prisma'
 import type { GameSystemKey } from '../catalog'
 import { getGameSystemInventoryPolicy } from '../inventory'
 import { findStackableInventoryEntry } from './stacking'
-import { INVENTORY_QUANTITY_MAX, INVENTORY_SLOT_COUNT } from './validation'
+import { INVENTORY_QUANTITY_MAX } from './validation'
 
 export type InventoryEntryRecord = {
   id: string
   inventoryId: string
   quantity: number
   slotIndex: number
+  catalogNamespace: string | null
   catalogContentId: string | null
   data: Prisma.JsonValue
   createdAt: Date
@@ -24,6 +25,7 @@ export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: G
     inventoryId: entry.inventoryId,
     quantity: entry.quantity,
     slotIndex: entry.slotIndex,
+    catalogNamespace: entry.catalogNamespace,
     catalogContentId: entry.catalogContentId,
     data: entry.data,
     presentation: policy?.present?.(entry.data) ?? null,
@@ -38,17 +40,17 @@ export async function addInventoryItem(input: {
   quantity: number
   data: Record<string, unknown>
   stack: boolean
+  catalogNamespace?: string | null
   catalogContentId?: string | null
 }) {
   const policy = getGameSystemInventoryPolicy(input.gameSystem)
 
   return prisma.$transaction(async (tx) => {
-    const inventory = await tx.inventory.upsert({
+    const inventory = await tx.inventory.findUnique({
       where: { actorId: input.actorId },
-      update: {},
-      create: { actorId: input.actorId },
       select: { id: true },
     })
+    if (!inventory) throw new Error('ACTOR_INVENTORY_MISSING')
 
     const existingEntries = await tx.inventoryEntry.findMany({
       where: { inventoryId: inventory.id },
@@ -56,6 +58,7 @@ export async function addInventoryItem(input: {
         id: true,
         quantity: true,
         slotIndex: true,
+        catalogNamespace: true,
         catalogContentId: true,
         data: true,
       },
@@ -75,13 +78,18 @@ export async function addInventoryItem(input: {
         return { ok: false, reason: 'QUANTITY_EXCEEDED' } as const
       }
 
+      const hasCatalogReference = Boolean(current?.catalogNamespace && current.catalogContentId)
+      const incomingCatalogReference = Boolean(input.catalogNamespace && input.catalogContentId)
       const entry = await tx.inventoryEntry.update({
         where: { id: stackable.id },
         data: {
           quantity: { increment: input.quantity },
-          ...(current?.catalogContentId || !input.catalogContentId
-            ? {}
-            : { catalogContentId: input.catalogContentId }),
+          ...(!hasCatalogReference && incomingCatalogReference
+            ? {
+                catalogNamespace: input.catalogNamespace,
+                catalogContentId: input.catalogContentId,
+              }
+            : {}),
         },
       })
 
@@ -89,17 +97,15 @@ export async function addInventoryItem(input: {
     }
 
     const occupiedSlots = new Set(existingEntries.map((entry) => entry.slotIndex))
-    const slotIndex = Array.from(
-      { length: INVENTORY_SLOT_COUNT },
-      (_, index) => index,
-    ).find((candidate) => !occupiedSlots.has(candidate))
-    if (slotIndex === undefined) return { ok: false, reason: 'INVENTORY_FULL' } as const
+    let slotIndex = 0
+    while (occupiedSlots.has(slotIndex)) slotIndex += 1
 
     const entry = await tx.inventoryEntry.create({
       data: {
         inventoryId: inventory.id,
         quantity: input.quantity,
         slotIndex,
+        catalogNamespace: input.catalogNamespace ?? null,
         catalogContentId: input.catalogContentId ?? null,
         data: input.data as Prisma.InputJsonObject,
       },
