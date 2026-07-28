@@ -9,6 +9,19 @@ if (!databaseUrl) {
 
 const adapter = new PrismaPg(databaseUrl)
 
+function withActiveActor(
+  where: Prisma.CampaignCharacterSheetWhereInput | undefined,
+): Prisma.CampaignCharacterSheetWhereInput {
+  const current = where ?? {}
+  const actor = current.actor
+
+  if (!actor) return { ...current, actor: { archivedAt: null } }
+  if (typeof actor === 'object' && !('archivedAt' in actor)) {
+    return { ...current, actor: { ...actor, archivedAt: null } }
+  }
+  return current
+}
+
 function createPrismaClient() {
   const client = new PrismaClient({
     adapter,
@@ -36,6 +49,16 @@ function createPrismaClient() {
           if (args.where?.archivedAt === undefined) {
             args.where = { ...args.where, archivedAt: null }
           }
+          return query(args)
+        },
+      },
+      campaignCharacterSheet: {
+        async findFirst({ args, query }) {
+          args.where = withActiveActor(args.where)
+          return query(args)
+        },
+        async findMany({ args, query }) {
+          args.where = withActiveActor(args.where)
           return query(args)
         },
       },
