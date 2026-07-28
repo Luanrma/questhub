@@ -32,7 +32,7 @@ function invalidEntry(entry: StoredCampaignSheet): GameSystemCharacterSheetManag
 async function loadCampaignSheets(campaignId: string) {
   return prisma.campaignCharacterSheet.findMany({
     where: {
-      actor: { campaignId },
+      actor: { campaignId, archivedAt: null },
       systemKey: pathfinder2eCharacterSheetRuntimeAdapter.systemKey,
     },
     select: {
