@@ -2,8 +2,8 @@ import type { CampaignAreaTemplate, Prisma, SceneAreaEffect } from '@prisma/clie
 
 export type AreaCampaignAccess = {
   role: 'MASTER' | 'PLAYER'
-  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
-  actorId: string
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
+  actorId: string | null
 }
 
 export interface AreaRepository {

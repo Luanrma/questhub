@@ -1,5 +1,8 @@
 ﻿# Campaign Scene Skills & Tech
 
+> **Arquitetura atual:** referências antigas a `Character`, `CampaignCharacter` ou `characterId` neste documento devem ser lidas como `CampaignActor`, `CampaignMember` e `actorId`. A fonte normativa é `.ai/vtt/token-architecture.md`.
+
+
 ## Stack Tecnologica
 * React e React Router para manter a mesa montada no `CampaignLayout`.
 * Socket.IO para snapshots e eventos realtime de cena, grid, tokens e pausa.
@@ -31,7 +34,7 @@
 * Asset-backed Backgrounds: quando houver imagem de cena, ela deve referenciar `assetId`, mantendo `backgroundUrl` como copia renovavel para renderizacao.
 * Client Image Cache: clientes tentam carregar imagem por `backgroundCacheKey` antes de requisitar URL nova.
 * Generic VTT Boundary: contratos de cena nao carregam regra mecanica de ruleset.
-* Generic Token Model: Token da campanha e entidade visual/operacional independente; `Character` e apenas uma associacao opcional e exclusiva.
+* Generic Token Model: Token da campanha e entidade visual/operacional independente; `CampaignActor` e apenas uma associacao opcional e exclusiva.
 * DDD Backend Boundary: rotas chamam services/casos de uso, e todo acesso ao banco passa por repositories do modulo.
 
 ## Restricoes
@@ -47,10 +50,10 @@
 * Nao persistir porta isolada, ligada a paredes diferentes ou sobreposta a um trecho de parede que continue bloqueando movimento.
 * Nao permitir que jogador edite grid, cena ou distribuicao de tokens.
 * Nao revelar cena diferente da cena do token do jogador quando nao houver `forcedSceneId`.
-* Nao exigir `characterId`, ficha, bestiario, inventario, combate ou ruleset para criar token de teste.
+* Nao exigir `actorId`, ficha, bestiario, inventario, combate ou ruleset para criar token de teste.
 * Nao adicionar campos mecanicos como PV, CA, spell slots, item state, source pack ou creature id ao contrato base de token.
-* Nao apagar Token ao excluir cena ou Character.
-* Nao apagar Character ao excluir Token.
+* Nao apagar Token ao excluir cena ou CampaignActor.
+* Nao apagar CampaignActor ao excluir Token.
 * Nao permitir transferencia direta entre cenas; remover o posicionamento atual e criar outro sao duas acoes explicitas.
 * Nao implementar diarios dentro deste modulo; diarios pertencem a `campaign_diary`.
 * Nao apagar `Asset` automaticamente ao deletar cena sem seguir as regras do modulo `assets`.

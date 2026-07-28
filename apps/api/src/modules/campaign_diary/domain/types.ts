@@ -1,6 +1,6 @@
 export type CampaignDiaryAccess = {
   role: 'MASTER' | 'PLAYER'
-  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
 }
 
 export type CampaignDiaryRecord = {

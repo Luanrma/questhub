@@ -24,7 +24,7 @@ import {
   type CampaignUserSettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 
-type MyCampaignCharacter = {
+type MyCampaignActor = {
   id: string
   name: string
   avatarUrl: string | null
@@ -160,7 +160,7 @@ export function CampaignLayout() {
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
-  const [myActor, setMyActor] = useState<MyCampaignCharacter | null>(null)
+  const [myActor, setMyActor] = useState<MyCampaignActor | null>(null)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [openPanels, setOpenPanels] = useState<CampaignPanelId[]>([])
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
@@ -274,8 +274,8 @@ export function CampaignLayout() {
 
       try {
         const selectedActorId = navigationState?.actorId ?? campaign.myActorId
-        const selectedCharacterQuery = selectedActorId ? `?actorId=${encodeURIComponent(selectedActorId)}` : ''
-        const ch = await api<MyCampaignCharacter>(`/api/campaigns/${campaignId}/my-character${selectedCharacterQuery}`)
+        const selectedActorQuery = selectedActorId ? `?actorId=${encodeURIComponent(selectedActorId)}` : ''
+        const ch = await api<MyCampaignActor>(`/api/campaigns/${campaignId}/my-actor${selectedActorQuery}`)
         setMyActor(ch)
         if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
           const key = `${campaignId}:${ch.id}`

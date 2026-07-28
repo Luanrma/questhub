@@ -1,10 +1,16 @@
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
+import path from 'node:path'
 import test from 'node:test'
 import {
   getGameSystemInventoryPolicy,
   registerGameSystemInventoryPolicy,
 } from './inventory'
 import { pathfinder2eInventoryPolicy } from './pathfinder_2e/inventory/policy'
+
+function prismaModel(schema: string, modelName: string) {
+  return schema.match(new RegExp(`model ${modelName} \\{([\\s\\S]*?)\\n\\}`))?.[1] ?? ''
+}
 
 test('a game system can register an inventory policy', () => {
   assert.equal(getGameSystemInventoryPolicy('PATHFINDER_2E'), null)
@@ -36,4 +42,38 @@ test('Pathfinder 2e initially stacks items with deeply equivalent JSON data', ()
 
   assert.equal(pathfinder2eInventoryPolicy.canStack(first, equivalent), true)
   assert.equal(pathfinder2eInventoryPolicy.canStack(first, different), false)
+})
+
+test('campaign actor persistence replaces the global Character model', () => {
+  const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
+  const actorModel = prismaModel(schema, 'CampaignActor')
+  const memberModel = prismaModel(schema, 'CampaignMember')
+  const sheetModel = prismaModel(schema, 'CampaignCharacterSheet')
+
+  assert.doesNotMatch(schema, /model Character \{/)
+  assert.doesNotMatch(schema, /model CharacterSheet \{/)
+  assert.doesNotMatch(schema, /model CampaignCharacter \{/)
+  assert.match(actorModel, /campaignId\s+String/)
+  assert.doesNotMatch(actorModel, /\buserId\b/)
+  assert.match(memberModel, /userId\s+String/)
+  assert.match(memberModel, /actorId\s+String\?/)
+  assert.match(memberModel, /role\s+CampaignMemberRole/)
+  assert.match(memberModel, /status\s+CampaignMemberStatus/)
+  assert.match(sheetModel, /actorId\s+String\s+@unique/)
+})
+
+test('every CampaignActor creation also creates its inventory aggregate', () => {
+  const sourceFiles = [
+    path.join(process.cwd(), 'apps', 'api', 'src', 'modules', 'campaigns', 'routes.ts'),
+    path.join(process.cwd(), 'apps', 'api', 'src', 'game_systems', 'registry', 'register.ts'),
+  ]
+
+  for (const sourceFile of sourceFiles) {
+    const source = readFileSync(sourceFile, 'utf8')
+    const creations = [...source.matchAll(/campaignActor\.create\(\{([\s\S]*?)\n\s*\}\)/g)]
+    assert.equal(creations.length > 0, true, `Expected CampaignActor creation in ${sourceFile}`)
+    for (const creation of creations) {
+      assert.match(creation[1] ?? '', /inventory:\s*\{\s*create:\s*\{\}\s*\}/)
+    }
+  }
 })

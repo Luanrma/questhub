@@ -7,7 +7,7 @@ function dashboardEntry(role: 'MASTER' | 'PLAYER') {
     role,
     status: 'ACTIVE' as const,
     actor: {
-      id: role === 'MASTER' ? 'master-character' : 'player-character',
+      id: role === 'MASTER' ? 'master-actor' : 'player-actor',
       name: role === 'MASTER' ? 'Arion' : 'Lia',
     },
     campaign: {
@@ -19,9 +19,9 @@ function dashboardEntry(role: 'MASTER' | 'PLAYER') {
       createdAt: new Date('2026-06-29T10:00:00.000Z'),
       members: [
         {
+          userId: 'master-user',
           actor: {
-            id: 'master-character',
-            userId: 'master-user',
+            id: 'master-actor',
             name: 'Arion',
           },
         },
@@ -44,7 +44,7 @@ test('presentCampaignDashboardEntry exposes inviteCode only for master', () => {
   assert.equal(player.inviteCode, null)
 })
 
-test('presentCampaignDashboardEntry derives gm and current character fields from CampaignCharacter', () => {
+test('presentCampaignDashboardEntry derives gm and current actor fields from CampaignMember', () => {
   const result = presentCampaignDashboardEntry(dashboardEntry('PLAYER'), {
     isOnline: true,
     sessionState: 'PAUSED',
@@ -54,7 +54,7 @@ test('presentCampaignDashboardEntry derives gm and current character fields from
   assert.equal(result.gmUserId, 'master-user')
   assert.equal(result.myRole, 'PLAYER')
   assert.equal(result.myStatus, 'ACTIVE')
-  assert.equal(result.myActorId, 'player-character')
+  assert.equal(result.myActorId, 'player-actor')
   assert.equal(result.myActorName, 'Lia')
   assert.equal(result.isOnline, true)
   assert.equal(result.sessionState, 'PAUSED')
@@ -69,8 +69,7 @@ test('canOpenCampaignTable allows active player only when campaign is online', (
   assert.equal(canOpenCampaignTable({ role: 'PLAYER', status: 'ACTIVE', isOnline: true }), true)
 })
 
-test('canOpenCampaignTable blocks inactive or non-player table roles', () => {
+test('canOpenCampaignTable blocks inactive members', () => {
   assert.equal(canOpenCampaignTable({ role: 'MASTER', status: 'PENDING', isOnline: true }), false)
   assert.equal(canOpenCampaignTable({ role: 'PLAYER', status: 'REJECTED', isOnline: true }), false)
-  assert.equal(canOpenCampaignTable({ role: 'NPC', status: 'ACTIVE', isOnline: true }), false)
 })

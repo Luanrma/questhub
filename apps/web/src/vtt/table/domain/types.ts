@@ -131,7 +131,7 @@ export type VttTokenCandidate = {
   name: string
   avatarUrl: string | null
   role: 'PLAYER' | 'NPC'
-  ownerUserId: string
+  ownerUserId: string | null
   ownerName: string
 }
 
@@ -165,8 +165,8 @@ export type CampaignPlayer = {
   userId: string
   email: string
   role: 'MASTER' | 'PLAYER'
-  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
-  actorId: string
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
+  actorId: string | null
   actorName: string
 }
 
