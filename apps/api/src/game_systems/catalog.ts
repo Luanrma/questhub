@@ -83,6 +83,9 @@ export type GameSystemCatalogResult = {
 export type GameSystemCatalogProvider = {
   list(query: GameSystemCatalogQuery): Promise<GameSystemCatalogResult> | GameSystemCatalogResult
   get(query: GameSystemCatalogEntryQuery): Promise<GameSystemCatalogSheet | null> | GameSystemCatalogSheet | null
+  getInventoryItemData?(
+    query: GameSystemCatalogEntryQuery,
+  ): Promise<Record<string, unknown> | null> | Record<string, unknown> | null
 }
 
 export const GAME_SYSTEM_DESCRIPTORS: readonly GameSystemDescriptor[] = [
