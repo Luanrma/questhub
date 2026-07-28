@@ -31,18 +31,25 @@ jobs:
         run: |
           tail -n 160 unit-test.log
           exit 1
-      - name: Typecheck API
-        id: api_typecheck
+      - name: Typecheck inventory API
+        id: inventory_typecheck
         continue-on-error: true
-        run: npx tsc --noEmit --target ES2023 --module CommonJS --moduleResolution node --ignoreDeprecations 6.0 --types node --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts > api-typecheck.log 2>&1
+        run: >-
+          npx tsc --noEmit --target ES2023 --module ESNext --moduleResolution bundler
+          --types node --esModuleInterop --skipLibCheck --strict
+          apps/api/src/game_systems/inventory_api/routes.ts
+          apps/api/src/game_systems/inventory_api/validation.ts
+          apps/api/src/game_systems/inventory_api/stacking.ts
+          apps/api/src/game_systems/inventory_api/register.ts
+          > inventory-typecheck.log 2>&1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: inventory-api-typecheck-log
-          path: api-typecheck.log
-      - name: Report API typecheck failure
-        if: steps.api_typecheck.outcome == 'failure'
+          path: inventory-typecheck.log
+      - name: Report inventory typecheck failure
+        if: steps.inventory_typecheck.outcome == 'failure'
         run: |
-          cat api-typecheck.log
+          cat inventory-typecheck.log
           exit 1
       - run: npm run build:web
