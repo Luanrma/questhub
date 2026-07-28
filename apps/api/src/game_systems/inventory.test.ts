@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import path from 'node:path'
 import test from 'node:test'
 import {
@@ -71,9 +71,9 @@ test('campaign actor persistence replaces the global Character model', () => {
   const memberModel = prismaModel(schema, 'CampaignMember')
   const sheetModel = prismaModel(schema, 'CampaignCharacterSheet')
 
-  assert.doesNotMatch(schema, /model Character \{/)
-  assert.doesNotMatch(schema, /model CharacterSheet \{/)
-  assert.doesNotMatch(schema, /model CampaignCharacter \{/)
+  assert.doesNotMatch(schema, /model Character \\{/)
+  assert.doesNotMatch(schema, /model CharacterSheet \\{/)
+  assert.doesNotMatch(schema, /model CampaignCharacter \\{/)
   assert.match(actorModel, /campaignId\s+String/)
   assert.doesNotMatch(actorModel, /\buserId\b/)
   assert.match(actorModel, /controllerMemberId\s+String\?/)
@@ -97,4 +97,14 @@ test('every CampaignActor creation also creates its inventory aggregate', () => 
       assert.match(creation[1] ?? '', /inventory:\s*\{\s*create:\s*\{\}\s*\}/)
     }
   }
+})
+
+test('Prisma history contains only the current initial migration', () => {
+  const migrationsPath = path.join(process.cwd(), 'apps', 'api', 'prisma', 'migrations')
+  const migrationDirectories = readdirSync(migrationsPath, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort()
+
+  assert.deepEqual(migrationDirectories, ['20260729000000_initial'])
 })
