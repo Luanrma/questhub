@@ -135,8 +135,11 @@ CREATE TRIGGER "CampaignActor_same_campaign_controller" BEFORE INSERT OR UPDATE 
 
 CREATE FUNCTION assert_campaign_token_scope() RETURNS TRIGGER LANGUAGE plpgsql AS $$
 BEGIN
-  IF NEW."actorId" IS NOT NULL AND NOT EXISTS (SELECT 1 FROM "CampaignActor" WHERE "id" = NEW."actorId" AND "campaignId" = NEW."campaignId" AND "archivedAt" IS NULL) THEN
-    RAISE EXCEPTION 'CampaignToken actor must be active and belong to the same campaign' USING ERRCODE = '23514';
+  IF NEW."actorId" IS NOT NULL THEN
+    NEW."controllerMemberId" := NULL;
+    IF NOT EXISTS (SELECT 1 FROM "CampaignActor" WHERE "id" = NEW."actorId" AND "campaignId" = NEW."campaignId" AND "archivedAt" IS NULL) THEN
+      RAISE EXCEPTION 'CampaignToken actor must be active and belong to the same campaign' USING ERRCODE = '23514';
+    END IF;
   END IF;
   IF NEW."controllerMemberId" IS NOT NULL AND NOT EXISTS (SELECT 1 FROM "CampaignMember" WHERE "id" = NEW."controllerMemberId" AND "campaignId" = NEW."campaignId") THEN
     RAISE EXCEPTION 'CampaignToken controller must belong to the same campaign' USING ERRCODE = '23514';
@@ -165,3 +168,13 @@ BEGIN
 END;
 $$;
 CREATE CONSTRAINT TRIGGER "CampaignActor_inventory_required" AFTER INSERT ON "CampaignActor" DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION assert_campaign_actor_inventory();
+
+CREATE FUNCTION prevent_orphaned_campaign_actor_inventory() RETURNS TRIGGER LANGUAGE plpgsql AS $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM "CampaignActor" WHERE "id" = OLD."actorId") AND NOT EXISTS (SELECT 1 FROM "Inventory" WHERE "actorId" = OLD."actorId") THEN
+    RAISE EXCEPTION 'CampaignActor cannot remain without an Inventory' USING ERRCODE = '23514';
+  END IF;
+  RETURN OLD;
+END;
+$$;
+CREATE CONSTRAINT TRIGGER "Inventory_actor_required" AFTER DELETE OR UPDATE ON "Inventory" DEFERRABLE INITIALLY DEFERRED FOR EACH ROW EXECUTE FUNCTION prevent_orphaned_campaign_actor_inventory();
