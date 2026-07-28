@@ -4,8 +4,9 @@ export type ChatMessageForPresentation = {
   id: string
   campaignId: string
   actorId: string | null
-  userId: string
+  userId: string | null
   actorName: string
+  actorAvatarUrl: string | null
   role: CampaignMemberRole
   content: string
   createdAt: Date
@@ -17,9 +18,10 @@ export function presentChatMessage(message: ChatMessageForPresentation, currentU
     campaignId: message.campaignId,
     actorId: message.actorId,
     actorName: message.actorName,
+    actorAvatarUrl: message.actorAvatarUrl,
     role: message.role,
     content: message.content,
     createdAt: message.createdAt,
-    mine: currentUserId === message.userId,
+    mine: Boolean(message.userId && currentUserId === message.userId),
   }
 }
