@@ -26,19 +26,12 @@ jobs:
                   ("  members: 'Personagens',", "  characters: 'Personagens',", 1),
               ],
               'apps/web/src/vtt/dice-roller/components/VttDiceControls.tsx': [
-                  ('type VttDiceCharacter = {', 'type VttDiceActor = {', 1),
-                  ('actor: VttDiceCharacter | null', 'actor: VttDiceActor | null', 1),
-                  ('  character,\n', '  actor,\n', 1),
-                  ('    character,\n', '    actor,\n', 1),
+                  ('VttDiceCharacter', 'VttDiceActor', 2),
+                  ('character', 'actor', 2),
               ],
               'apps/web/src/vtt/dice-roller/hooks/useVttDiceRoller.ts': [
-                  ('type VttDiceCharacter = {', 'type VttDiceActor = {', 1),
-                  ('actor: VttDiceCharacter | null', 'actor: VttDiceActor | null', 1),
-                  ('  character,\n', '  actor,\n', 1),
-                  ('enabled && character?.id', 'enabled && actor?.id', 1),
-                  ('!socket || !character?.id', '!socket || !actor?.id', 1),
-                  ('actorId: character.id', 'actorId: actor.id', 1),
-                  ('[campaignId, character, socket]', '[campaignId, actor, socket]', 1),
+                  ('VttDiceCharacter', 'VttDiceActor', 2),
+                  ('character', 'actor', 5),
               ],
               'apps/web/src/vtt/table/CampaignOverviewPage.tsx': [
                   ('                character={myActor}', '                actor={myActor}', 1),
