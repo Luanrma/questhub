@@ -83,14 +83,15 @@ model Campaign {
 }
 
 model CampaignActor {
-  id                 String   @id @default(cuid())
+  id                 String    @id @default(cuid())
   campaignId         String
   controllerMemberId String?
   name               String
   avatarUrl          String?
   bio                String?
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
+  archivedAt         DateTime?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
 
   campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   controllerMember CampaignMember? @relation("CampaignActorController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
@@ -99,7 +100,7 @@ model CampaignActor {
   token            CampaignToken?
   chatMessages     ChatMessage[]
 
-  @@index([campaignId, createdAt])
+  @@index([campaignId, archivedAt, createdAt])
   @@index([controllerMemberId])
 }
 
@@ -118,6 +119,7 @@ model InventoryEntry {
   inventoryId      String
   quantity         Int      @default(1)
   slotIndex        Int
+  catalogNamespace String?
   catalogContentId String?
   data             Json
   createdAt        DateTime @default(now())
@@ -127,7 +129,7 @@ model InventoryEntry {
 
   @@unique([inventoryId, slotIndex])
   @@index([inventoryId, createdAt])
-  @@index([catalogContentId])
+  @@index([catalogNamespace, catalogContentId])
 }
 
 model CampaignCharacterSheet {
@@ -171,16 +173,20 @@ model CampaignMember {
 }
 
 model ChatMessage {
-  id         String   @id @default(cuid())
-  campaignId String
-  actorId    String?
-  userId     String
-  content    String
-  createdAt  DateTime @default(now())
+  id                     String             @id @default(cuid())
+  campaignId             String
+  actorId                String?
+  userId                 String?
+  authorName             String
+  authorRole             CampaignMemberRole
+  actorNameSnapshot      String?
+  actorAvatarUrlSnapshot String?
+  content                String
+  createdAt              DateTime           @default(now())
 
   campaign Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   actor    CampaignActor? @relation(fields: [actorId], references: [id], onDelete: SetNull)
-  user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@index([campaignId, createdAt])
   @@index([actorId])
