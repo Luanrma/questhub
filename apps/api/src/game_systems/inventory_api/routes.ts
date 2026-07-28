@@ -4,6 +4,7 @@ import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import {
   getGameSystemCatalogProvider,
+  getInventoryCatalogNamespace,
   type GameSystemKey,
 } from '../catalog'
 import {
@@ -77,11 +78,9 @@ async function findAuthorizedActor(campaignId: string, actorId: string, userId: 
     : { actor: null, forbidden: true, role: member.role } as const
 }
 
-async function ensureInventory(actorId: string) {
-  return prisma.inventory.upsert({
+async function findActorInventory(actorId: string) {
+  return prisma.inventory.findUnique({
     where: { actorId },
-    update: {},
-    create: { actorId },
     select: { id: true, actorId: true, createdAt: true, updatedAt: true },
   })
 }
@@ -90,19 +89,23 @@ async function presentResolvedInventoryEntry(
   entry: Parameters<typeof presentInventoryEntry>[0],
   gameSystem: GameSystemKey,
 ) {
-  if (entry.catalogContentId) return presentInventoryEntry(entry, gameSystem)
+  if (entry.catalogNamespace && entry.catalogContentId) {
+    return presentInventoryEntry(entry, gameSystem)
+  }
 
   const provider = getGameSystemCatalogProvider(gameSystem)
   const resolvedContentId = await provider?.resolveInventoryItemContentId?.(entry.data) ?? null
   if (!resolvedContentId) return presentInventoryEntry(entry, gameSystem)
 
+  const catalogNamespace = getInventoryCatalogNamespace(gameSystem, provider)
   await prisma.inventoryEntry.update({
     where: { id: entry.id },
-    data: { catalogContentId: resolvedContentId },
-  }).catch(() => undefined)
+    data: { catalogNamespace, catalogContentId: resolvedContentId },
+  })
 
   return presentInventoryEntry({
     ...entry,
+    catalogNamespace,
     catalogContentId: resolvedContentId,
   }, gameSystem)
 }
@@ -244,11 +247,17 @@ export function registerInventoryRoutes(app: FastifyInstance) {
         .status(access.forbidden ? 403 : 404)
         .send({ error: access.forbidden ? 'Sem permissao para acessar este inventario' : 'Ator nao encontrado' })
     }
+
+    const inventory = await findActorInventory(access.actor.id)
+    if (!inventory) {
+      req.log.error({ actorId: access.actor.id }, 'CampaignActor has no Inventory aggregate')
+      return reply.status(500).send({ error: 'Inventario do ator esta inconsistente' })
+    }
+
     const gameSystem = access.actor.campaign.gameSystem as GameSystemKey
-    const inventory = await ensureInventory(access.actor.id)
     const entries = await prisma.inventoryEntry.findMany({
       where: { inventoryId: inventory.id },
-      orderBy: { createdAt: 'asc' },
+      orderBy: { slotIndex: 'asc' },
     })
 
     return reply.send({
@@ -292,10 +301,9 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     })
 
     if (!result.ok) {
-      const message = result.reason === 'INVENTORY_FULL'
-        ? 'O inventario nao possui slots livres'
-        : `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`
-      return reply.status(409).send({ error: message })
+      return reply.status(409).send({
+        error: `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`,
+      })
     }
 
     return reply.status(201).send({
@@ -506,13 +514,13 @@ export function registerInventoryRoutes(app: FastifyInstance) {
       quantity: body.data.quantity,
       data: itemData,
       stack: true,
+      catalogNamespace: getInventoryCatalogNamespace(gameSystem, provider),
       catalogContentId: params.data.contentId,
     })
     if (!result.ok) {
-      const message = result.reason === 'INVENTORY_FULL'
-        ? 'O inventario do ator nao possui slots livres'
-        : `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`
-      return reply.status(409).send({ error: message })
+      return reply.status(409).send({
+        error: `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`,
+      })
     }
 
     return reply.status(201).send({
