@@ -275,10 +275,10 @@ Regras:
 * `forcedSceneId` define a cena mostrada para todos enquanto o modo "mostrar para todos" estiver ativo.
 * Se `forcedSceneId` existir, jogadores veem essa cena mesmo sem token ou com token em outra cena.
 * Ao definir `forcedSceneId`, o Mestre informa `fogMode = 'PRESERVE_FOG' | 'REVEAL_ALL'`.
-* `PRESERVE_FOG` seleciona a cena sem conceder uma fonte de visao; jogador sem Main Character posicionado nela ve cobertura total.
+* `PRESERVE_FOG` seleciona a cena sem conceder uma fonte de visão; jogador sem Token controlado posicionado nela vê cobertura total.
 * `REVEAL_ALL` revela temporariamente o mapa inteiro, nao altera a memoria de exploracao e continua respeitando Tokens marcados como invisiveis.
 * Se `forcedSceneId` nao existir, cada jogador ve a cena onde esta um Token cujo `controllerMemberId` referencia sua participacao ativa, mesmo quando o Token nao possui `characterId`.
-* Quando o jogador controla varios Tokens posicionados, o Token vinculado ao seu Main Character tem prioridade para definir a cena; na ausencia dele, o primeiro Token controlado e posicionado define a cena.
+* Quando o jogador controla vários Tokens posicionados, a cena forçada tem prioridade; sem cena forçada, o primeiro Token controlado e posicionado define a cena.
 * Se o jogador nao tiver token posicionado e nao houver `forcedSceneId`, ele deve ver uma tela preta/neutra aguardando posicionamento ou cena compartilhada.
 * Um snapshot sem cena visivel deve conter `scene = null` e lista de Tokens vazia; a cena ativa do Mestre nunca pode ser usada como fallback para Tokens do jogador.
 * Quando o Mestre remove o token de um jogador durante a sessao, se nao houver `forcedSceneId`, esse jogador deve perder imediatamente a visao da cena e voltar para tela preta/neutra ate o token ser reposicionado.
@@ -411,6 +411,7 @@ Eventos:
 
 Regras:
 * Eventos de cena devem validar autenticacao, `campaignId` e role operacional via `CampaignCharacter`.
+* O comando legado `vtt:token:place`, enquanto ainda consumido pelo frontend, deve transportar `campaignId`, `sceneId`, `tokenId` e `position`, validar que a cena pertence a campanha e responder com ACK padrao. O servidor nao deve inferir a cena do drop apenas de `masterActiveSceneId`, pois a selecao visual e a sincronizacao realtime podem ocorrer em frames diferentes.
 * Jogadores nao podem emitir alteracoes de grid ou distribuicao de cena.
 * Jogadores recebem apenas eventos da cena que devem visualizar.
 * Drop/criacao de token durante sessao online deve emitir delta de token, nao `campaign-scene:snapshot` ou `vtt:tokens:snapshot`.
@@ -435,7 +436,7 @@ Regras:
 * A camada de tokens deve ser atualizada independentemente do frame da cena; mudancas exclusivas de tokens nao devem recalcular background, dimensoes naturais da imagem, grid, zoom ou pan.
 * A troca de cena nao deve desmontar `CampaignLayout`.
 * A sidebar lateral direita deve ter um menu de gerenciamento/distribuicao de cenas.
-* O painel de Tokens deve listar primeiro Main Characters, depois secundarios controlados por Players e por ultimo Tokens exclusivos do Mestre.
+* O painel de Tokens deve listar primeiro Tokens controlados por jogadores e depois Tokens exclusivos do Mestre.
 * O seletor `Player controlador` do menu contextual deve carregar todos os Players ativos da campanha independentemente de o painel da ferramenta `Tokens` ter sido aberto.
 * Atribuir, transferir ou revogar o controlador deve recalcular imediatamente a cena visivel dos jogadores afetados que estiverem conectados.
 * O Mestre remove primeiro o posicionamento atual; o Token sem cena fica disponivel no painel para novo posicionamento.
@@ -456,6 +457,7 @@ Regras:
 * Jogadores veem atraves de janela fechada e so conseguem atravessa-la quando estiver aberta.
 * Mestre consegue preparar cenas com tokens posicionados antes de iniciar sessao.
 * Mestre consegue criar e testar token generico sem personagem, ficha, bestiario ou sistema de jogo.
+* Mestre consegue arrastar um Token sem posicionamento para a cena ativa mesmo se a conexao realtime ainda nao estiver refletida no estado React; o comando conecta sob demanda, identifica a cena explicitamente e nao falha silenciosamente.
 * Mestre consegue preparar cenas diretamente na mesa com campanha offline.
 * Mestre consegue preparar cenas pelo modal `Preparar cena`.
 * Dropar token durante sessao online nao exibe loading global para o Mestre nem para Players conectados.

@@ -4,9 +4,11 @@ import type { GameSystemInventoryPolicy } from '../inventory'
 import { findStackableInventoryEntry } from './stacking'
 import {
   addInventoryEntrySchema,
+  INVENTORY_SLOT_COUNT,
   INVENTORY_QUANTITY_MAX,
   sendCatalogItemSchema,
   updateInventoryEntryQuantitySchema,
+  updateInventoryEntrySlotSchema,
 } from './validation'
 
 const deepNamePolicy: GameSystemInventoryPolicy = {
@@ -36,15 +38,24 @@ test('inventory quantity must be a positive bounded integer', () => {
   assert.equal(updateInventoryEntryQuantitySchema.safeParse({ quantity: 3 }).success, true)
 })
 
+test('inventory slot accepts exactly the 10 by 10 grid bounds', () => {
+  assert.equal(INVENTORY_SLOT_COUNT, 100)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 0 }).success, true)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 99 }).success, true)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: -1 }).success, false)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 100 }).success, false)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 1.5 }).success, false)
+})
+
 test('catalog item delivery requires a recipient and applies quantity default', () => {
-  const result = sendCatalogItemSchema.safeParse({ recipientMemberId: 'member-1' })
+  const result = sendCatalogItemSchema.safeParse({ recipientActorId: 'actor-1' })
 
   assert.equal(result.success, true)
   if (!result.success) return
-  assert.equal(result.data.recipientMemberId, 'member-1')
+  assert.equal(result.data.recipientActorId, 'actor-1')
   assert.equal(result.data.quantity, 1)
-  assert.equal(sendCatalogItemSchema.safeParse({ recipientMemberId: '', quantity: 1 }).success, false)
-  assert.equal(sendCatalogItemSchema.safeParse({ recipientMemberId: 'member-1', quantity: 0 }).success, false)
+  assert.equal(sendCatalogItemSchema.safeParse({ recipientActorId: '', quantity: 1 }).success, false)
+  assert.equal(sendCatalogItemSchema.safeParse({ recipientActorId: 'actor-1', quantity: 0 }).success, false)
 })
 
 test('findStackableInventoryEntry delegates compatibility to game system policy', () => {

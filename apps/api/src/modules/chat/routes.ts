@@ -18,12 +18,10 @@ export function registerChatRoutes(app: FastifyInstance) {
         userId: payload.id,
         status: 'ACTIVE',
       },
-      select: {
-        actorId: true,
-      },
+      select: { id: true },
     })
 
-    if (!currentCampaignMember?.actorId) return reply.status(403).send({ error: 'Acesso ao chat nao liberado' })
+    if (!currentCampaignMember) return reply.status(403).send({ error: 'Acesso ao chat nao liberado' })
 
     const messages = await prisma.chatMessage.findMany({
       where: {
@@ -33,12 +31,18 @@ export function registerChatRoutes(app: FastifyInstance) {
         id: true,
         campaignId: true,
         actorId: true,
+        userId: true,
         content: true,
         createdAt: true,
-        actor: {
+        actor: { select: { name: true } },
+        user: {
           select: {
-            name: true,
-            mainForMember: { select: { role: true } },
+            email: true,
+            campaignMembers: {
+              where: { campaignId: params.data.campaignId },
+              select: { role: true },
+              take: 1,
+            },
           },
         },
       },
@@ -55,12 +59,14 @@ export function registerChatRoutes(app: FastifyInstance) {
               id: message.id,
               campaignId: message.campaignId,
               actorId: message.actorId,
-              actorName: message.actor.name,
-              role: message.actor.mainForMember?.role ?? 'PLAYER',
+              userId: message.userId,
+              actorName: message.actor?.name
+                ?? (message.user.campaignMembers[0]?.role === 'MASTER' ? 'Mestre' : message.user.email),
+              role: message.user.campaignMembers[0]?.role ?? 'PLAYER',
               content: message.content,
               createdAt: message.createdAt,
             },
-            currentCampaignMember.actorId,
+            payload.id,
           ),
         ),
     )

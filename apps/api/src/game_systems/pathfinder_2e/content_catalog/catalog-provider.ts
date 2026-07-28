@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from 'node:util'
 import type {
   GameSystemCatalogCard,
   GameSystemCatalogDomain,
@@ -185,5 +186,13 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
     )
 
     return entry ? asRecord(entry.original.data) : null
+  },
+
+  resolveInventoryItemContentId(data) {
+    const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
+      (candidate) => candidate.original.domain === 'ITEM'
+        && isDeepStrictEqual(candidate.original.data, data),
+    )
+    return entry?.original.contentId ?? null
   },
 }

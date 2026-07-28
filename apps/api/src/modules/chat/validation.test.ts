@@ -5,7 +5,6 @@ import { CHAT_MESSAGE_MAX_LENGTH, chatMessageCreateSchema } from './validation'
 test('chatMessageCreateSchema trims content and rejects empty messages', () => {
   const valid = chatMessageCreateSchema.safeParse({
     campaignId: 'campaign-1',
-    actorId: 'character-1',
     content: '  Ola  ',
   })
 
@@ -14,7 +13,6 @@ test('chatMessageCreateSchema trims content and rejects empty messages', () => {
 
   const invalid = chatMessageCreateSchema.safeParse({
     campaignId: 'campaign-1',
-    actorId: 'character-1',
     content: '   ',
   })
 
@@ -24,7 +22,6 @@ test('chatMessageCreateSchema trims content and rejects empty messages', () => {
 test('chatMessageCreateSchema limits message length', () => {
   const result = chatMessageCreateSchema.safeParse({
     campaignId: 'campaign-1',
-    actorId: 'character-1',
     content: 'x'.repeat(CHAT_MESSAGE_MAX_LENGTH + 1),
   })
 

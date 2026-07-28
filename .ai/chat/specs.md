@@ -6,7 +6,7 @@
 model ChatMessage {
   id         String
   campaignId String
-  actorId    String
+  actorId    String?
   userId     String
   content    String
   createdAt  DateTime
@@ -26,9 +26,8 @@ Evento: `chat:message:create`
 ```json
 {
   "campaignId": "campaign-id",
-  "actorId": "actor-id",
   "content": "Mensagem"
 }
 ```
 
-O backend valida que `actorId` é o ator principal do membro autenticado e ativo naquela campanha. Tokens ou atores sem membro principal não enviam mensagens no MVP.
+O backend valida apenas o membro autenticado e ativo para o chat geral. Mensagens contextuais futuras poderão informar um `actorId` derivado de Token controlado, sem criar estado global.

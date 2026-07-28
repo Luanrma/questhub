@@ -21,7 +21,20 @@
 - `Inventory` referencia `CampaignActor` com relação única.
 - A exclusão do ator remove inventário e entradas em cascata.
 - `InventoryEntry.quantity` fica fora do JSON.
+- `InventoryEntry.slotIndex` persiste uma posição entre `0` e `99` e é único dentro do inventário.
+- `InventoryEntry.catalogContentId` é opcional e permite reabrir a ficha localizada do item enviado pelo catálogo.
 - O banco deve rejeitar quantidades menores ou iguais a zero.
+
+## Frontend
+
+- A grade é renderizada por slots explícitos e não por cards de conteúdo.
+- A grade usa trilhas CSS responsivas de `10 x 10`; o slot não possui largura ou altura fixa.
+- A janela é renderizada em portal no `document.body` para não herdar bloqueios de ponteiro da camada de HUD da mesa.
+- O contêiner de posicionamento não captura eventos; somente o painel e a mochila minimizada usam `pointer-events: auto`.
+- Drag-and-drop usa `DataTransfer` tipado pelo ID da entrada e confirma a troca no backend.
+- A UI aplica atualização otimista e restaura o estado anterior se a persistência falhar.
+- A janela e a mochila flutuante são componentes visuais; regras de posição e troca ficam em funções puras.
+- A ficha detalhada reutiliza o contrato neutro do catálogo do game system.
 
 ## Evolução
 

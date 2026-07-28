@@ -11,7 +11,7 @@ export const CHAT_LOCAL_MESSAGE_EVENT = 'questhub:chat-message-created'
 export type ChatMessage = {
   id: string
   campaignId: string
-  actorId: string
+  actorId: string | null
   actorName: string
   role: ChatRole
   content: string
@@ -29,7 +29,6 @@ type LocalChatMessageEvent = CustomEvent<ChatMessage>
 
 type Props = {
   campaignId: string
-  actorId?: string | null
   enabled: boolean
   className?: string
   headerAction?: ReactNode
@@ -42,7 +41,7 @@ function isChatMessage(input: unknown): input is ChatMessage {
   return (
     typeof value.id === 'string' &&
     typeof value.campaignId === 'string' &&
-    typeof value.actorId === 'string' &&
+    (typeof value.actorId === 'string' || value.actorId === null) &&
     typeof value.actorName === 'string' &&
     typeof value.content === 'string' &&
     typeof value.createdAt === 'string' &&
@@ -62,7 +61,13 @@ function formatMessageTime(value: string) {
   }).format(new Date(value))
 }
 
-export function CampaignChat({ campaignId, actorId, enabled, className = '', headerAction, hideHeader = false }: Props) {
+export function CampaignChat({
+  campaignId,
+  enabled,
+  className = '',
+  headerAction,
+  hideHeader = false,
+}: Props) {
   const { socket } = useSession()
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -74,11 +79,10 @@ export function CampaignChat({ campaignId, actorId, enabled, className = '', hea
   const canSend = useMemo(() => {
     if (!enabled) return false
     if (!socket) return false
-    if (!actorId) return false
     if (!content.trim()) return false
     if (content.trim().length > 500) return false
     return !sending
-  }, [actorId, content, enabled, sending, socket])
+  }, [content, enabled, sending, socket])
 
   useEffect(() => {
     let cancelled = false
@@ -151,7 +155,7 @@ export function CampaignChat({ campaignId, actorId, enabled, className = '', hea
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault()
-    if (!canSend || !socket || !actorId) return
+    if (!canSend || !socket) return
 
     const text = content.trim()
     setSending(true)
@@ -161,7 +165,7 @@ export function CampaignChat({ campaignId, actorId, enabled, className = '', hea
       const ack = await new Promise<ChatAck>((resolve, reject) => {
         socket.timeout(5000).emit(
           'chat:message:create',
-          { campaignId, actorId, content: text },
+          { campaignId, content: text },
           (err: Error | null, response?: ChatAck) => {
             if (err) {
               reject(new Error('Tempo esgotado ao enviar mensagem.'))
@@ -242,7 +246,7 @@ export function CampaignChat({ campaignId, actorId, enabled, className = '', hea
           <textarea
             value={content}
             onChange={(event) => setContent(event.target.value)}
-            disabled={!enabled || !socket || !actorId}
+            disabled={!enabled || !socket}
             maxLength={500}
             rows={2}
             placeholder={enabled ? 'Mensagem para a mesa...' : 'Chat disponivel com a mesa online.'}

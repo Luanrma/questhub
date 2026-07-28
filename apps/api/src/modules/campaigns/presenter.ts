@@ -1,10 +1,6 @@
 type CampaignDashboardEntry = {
   role: 'MASTER' | 'PLAYER'
   status: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
-  actor: {
-    id: string
-    name: string
-  } | null
   campaign: {
     id: string
     title: string
@@ -14,10 +10,7 @@ type CampaignDashboardEntry = {
     createdAt: Date
     members: Array<{
       userId: string
-      actor: {
-        id: string
-        name: string
-      } | null
+      user: { email: string }
     }>
   }
 }
@@ -30,7 +23,6 @@ export function presentCampaignDashboardEntry(
   },
 ) {
   const masterMember = entry.campaign.members[0] ?? null
-  const master = masterMember?.actor ?? null
 
   return {
     id: entry.campaign.id,
@@ -39,12 +31,10 @@ export function presentCampaignDashboardEntry(
     inviteCode: entry.role === 'MASTER' ? entry.campaign.inviteCode : null,
     joinPolicy: entry.campaign.joinPolicy,
     createdAt: entry.campaign.createdAt,
-    gmName: master?.name ?? 'Mestre',
+    gmName: masterMember?.user.email ?? 'Mestre',
     gmUserId: masterMember?.userId ?? '',
     myRole: entry.role,
     myStatus: entry.status,
-    myActorId: entry.actor?.id ?? null,
-    myActorName: entry.actor?.name ?? 'Sem personagem',
     isOnline: options.isOnline,
     sessionState: options.sessionState,
   }

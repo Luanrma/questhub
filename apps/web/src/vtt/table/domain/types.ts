@@ -150,7 +150,7 @@ export type CampaignToken = {
   controllerUserId: string | null
   controllerName: string | null
   actorOwnerUserId: string | null
-  category: 'MAIN' | 'SECONDARY' | 'MASTER_ONLY'
+  category: 'PLAYER_CONTROLLED' | 'MASTER_ONLY'
   placement: {
     sceneId: string
     hidden: boolean
@@ -166,7 +166,7 @@ export type CampaignPlayer = {
   email: string
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
-  actorId: string | null
+  actors: Array<{ id: string; name: string }>
   actorName: string
 }
 

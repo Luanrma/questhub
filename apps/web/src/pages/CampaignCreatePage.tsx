@@ -43,7 +43,6 @@ export function CampaignCreatePage() {
           title: title.trim(),
           description: description.trim() || undefined,
           joinPolicy,
-          masterActorName: 'Mestre',
         }),
       })
 

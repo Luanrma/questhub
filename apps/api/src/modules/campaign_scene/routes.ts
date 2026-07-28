@@ -14,9 +14,10 @@ import { presentCampaignSceneWithSignedBackground } from './signed-background'
 import { z } from 'zod'
 
 type CampaignAccess = {
+  id: string
+  userId: string
   role: 'MASTER' | 'PLAYER'
   status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
-  actorId: string | null
 }
 
 type CampaignSceneRoutesDeps = {
@@ -45,12 +46,13 @@ const sceneInclude = {
         include: {
           actor: {
             select: {
-              mainForMember: { select: { userId: true, role: true } },
-              controllerMember: { select: { userId: true } },
+              controllerMember: {
+                select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+              },
             },
           },
           controllerMember: {
-            select: { id: true, userId: true, user: { select: { email: true } } },
+            select: { id: true, userId: true, role: true, user: { select: { email: true } } },
           },
         },
       },
@@ -68,9 +70,10 @@ async function getCampaignAccess(campaignId: string, userId: string): Promise<Ca
       role: { in: ['MASTER', 'PLAYER'] },
     },
     select: {
+      id: true,
+      userId: true,
       role: true,
       status: true,
-      actorId: true,
     },
   })
 }
@@ -145,10 +148,15 @@ async function getVisibleSceneIdForAccess(campaignId: string, access: CampaignAc
 
   if (viewState?.forcedSceneId) return viewState.forcedSceneId
 
-  const token = await prisma.campaignToken.findUnique({
+  const token = await prisma.campaignToken.findFirst({
     where: {
-      actorId: access.actorId,
+      campaignId,
+      OR: [
+        { actor: { controllerMemberId: access.id } },
+        { actorId: null, controllerMemberId: access.id },
+      ],
     },
+    orderBy: { createdAt: 'asc' },
     select: { campaignId: true, placement: { select: { sceneId: true } } },
   })
 

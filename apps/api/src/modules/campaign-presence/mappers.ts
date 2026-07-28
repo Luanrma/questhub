@@ -34,12 +34,17 @@ export type PersistedSceneToken = {
     visionConfig: unknown
     lightConfig: unknown
     actor: {
-      mainForMember: { userId: string; role: 'PLAYER' | 'MASTER' } | null
-      controllerMember: { userId: string } | null
+      controllerMember: {
+        id: string
+        userId: string
+        role: 'PLAYER' | 'MASTER'
+        user: { email: string }
+      } | null
     } | null
     controllerMember: {
       id: string
       userId: string
+      role: 'PLAYER' | 'MASTER'
       user: { email: string }
     } | null
   }
@@ -76,8 +81,8 @@ export function vttGridSettingsToSceneData(settings: VttGridSettings) {
 }
 
 export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPlayerToken {
-  const mainMember = token.token.actor?.mainForMember ?? null
-  const role = mainMember?.role === 'PLAYER' ? 'PLAYER' : token.token.actor ? 'NPC' : 'GENERIC'
+  const effectiveController = token.token.actor?.controllerMember ?? token.token.controllerMember
+  const role = effectiveController?.role === 'PLAYER' ? 'PLAYER' : token.token.actor ? 'NPC' : 'GENERIC'
 
   return {
     id: token.token.id,
@@ -86,10 +91,10 @@ export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPla
     avatarUrl: token.token.avatarUrl,
     color: token.token.color,
     size: token.token.size,
-    ownerUserId: mainMember?.userId ?? token.token.actor?.controllerMember?.userId ?? null,
-    ownerName: token.token.controllerMember?.user.email ?? null,
-    controllerMemberId: token.token.controllerMember?.id ?? null,
-    controllerUserId: token.token.controllerMember?.userId ?? null,
+    ownerUserId: effectiveController?.userId ?? null,
+    ownerName: effectiveController?.user.email ?? null,
+    controllerMemberId: effectiveController?.id ?? null,
+    controllerUserId: effectiveController?.userId ?? null,
     role,
     canCustomizeAppearance: token.token.canCustomizeAppearance,
     visionConfig: token.token.visionConfig,

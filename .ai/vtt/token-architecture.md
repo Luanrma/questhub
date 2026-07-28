@@ -19,8 +19,7 @@ Responsabilidades:
 * `userId`;
 * papel `MASTER` ou `PLAYER`;
 * status `PENDING`, `ACTIVE`, `REJECTED` ou `LEFT`;
-* referência opcional ao ator principal (`actorId`);
-* controle persistente de atores e Tokens.
+* controle persistente de zero ou vários atores por meio de `CampaignActor.controllerMemberId`.
 
 ### CampaignActor
 
@@ -64,14 +63,15 @@ CampaignToken 0..1 <-> 0..1 CampaignActor
 * Excluir o Token preserva ator, ficha e inventário.
 * Somente o Mestre altera esse vínculo.
 
-## Ator principal e atores secundários
+## Atores controlados
 
-`CampaignMember.actorId` identifica o ator principal daquele membro na campanha.
+Não existe ator principal persistido. Um `CampaignMember` pode controlar zero ou vários atores.
+
+Não existe ator ativo global. O Token clicado é o contexto explícito para abrir ficha ou inventário.
 
 Classificações visuais do Token são derivadas:
 
-* `MAIN`: Token vinculado ao ator principal de um `PLAYER`.
-* `SECONDARY`: outro Token controlado por um `PLAYER`.
+* `PLAYER_CONTROLLED`: Token cujo ator vinculado é controlado por um `PLAYER`, ou Token genérico com controlador jogador direto.
 * `MASTER_ONLY`: Token sem controlador jogador.
 
 Essas classificações não são persistidas como papel de membro ou tipo de ator.
@@ -79,10 +79,10 @@ Essas classificações não são persistidas como papel de membro ou tipo de ato
 ## Controle
 
 * Controle pertence a `CampaignMember`, nunca ao `User` diretamente.
-* `CampaignActor.controllerMemberId` define quem controla ou acessa o ator quando ele não depende apenas do vínculo principal.
-* `CampaignToken.controllerMemberId` define quem pode operar o Token.
-* Controlar um Token não transfere propriedade do ator e não altera o ator principal do membro.
-* Acesso à ficha e controle do Token são permissões relacionadas, mas não obrigatoriamente idênticas.
+* `CampaignActor.controllerMemberId` define quem controla e acessa o ator, sua ficha, inventário e o Token que o representa.
+* Em Token vinculado a ator, o controle efetivo é derivado do ator.
+* `CampaignToken.controllerMemberId` é usado somente para controle direto de Tokens genéricos sem ator.
+* Alterar o controlador de um Token vinculado altera o controlador do ator.
 * O Mestre controla todas as entidades da campanha.
 
 ## Posicionamento
@@ -104,11 +104,11 @@ O VTT conhece apenas o ator e o Token. Ficha, atributos, condições, itens, moe
 
 1. Nada pode atravessar a fronteira da campanha.
 2. Um ator não possui `userId`.
-3. Um membro possui no máximo um ator principal.
+3. Um membro pode controlar zero ou vários atores.
 4. Um ator aparece em no máximo um Token.
 5. Um Token pode existir sem ator.
 6. Um ator pode existir sem Token ou ficha.
 7. Excluir ator e excluir Token são operações independentes.
-8. `SECONDARY` é derivado e não persistido.
+8. Não existe classificação ou vínculo de ator principal.
 9. O VTT não consulta JSON de ficha ou inventário para mover ou renderizar Tokens.
 10. Toda permissão é validada no backend.

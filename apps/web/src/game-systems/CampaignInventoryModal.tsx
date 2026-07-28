@@ -1,15 +1,19 @@
 import { useEffect, useMemo, useState } from 'react'
-import {
-  Backpack,
-  Loader2,
-  Minus,
-  Package,
-  Plus,
-  Trash2,
-  UserRound,
-  X,
-} from 'lucide-react'
+import { createPortal } from 'react-dom'
+import { Backpack, Loader2, Minus, UserRound, X } from 'lucide-react'
 import { api } from '../lib/api'
+import {
+  INVENTORY_DISPLAY_SETTINGS_CHANGED_EVENT,
+  readStoredInventoryDisplaySettings,
+  type InventoryDisplaySettings,
+} from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
+import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
+import {
+  InventoryGrid,
+  type InventoryGridEntry,
+} from './inventory/components/InventoryGrid'
+import { FloatingInventoryBackpack } from './inventory/components/FloatingInventoryBackpack'
+import { moveEntryOptimistically } from './inventory/domain/inventoryGrid'
 
 type InventoryActor = {
   id: string
@@ -38,10 +42,8 @@ type InventoryPresentation = {
   details?: ReadonlyArray<{ label: string; value: string }>
 }
 
-type InventoryEntry = {
-  id: string
+type InventoryEntry = InventoryGridEntry & {
   inventoryId: string
-  quantity: number
   data: unknown
   presentation: InventoryPresentation | null
   createdAt: string
@@ -56,8 +58,14 @@ type InventoryResponse = {
   updatedAt: string
 }
 
+type SlotUpdateResponse = {
+  entries: InventoryEntry[]
+}
+
 type Props = {
   campaignId: string
+  actorId?: string
+  readOnly?: boolean
   onClose: () => void
 }
 
@@ -83,15 +91,37 @@ function ActorAvatar({ actor }: { actor: InventoryActor }) {
   )
 }
 
-export function CampaignInventoryModal({ campaignId, onClose }: Props) {
+function mergeUpdatedEntries(
+  current: readonly InventoryEntry[],
+  updated: readonly InventoryEntry[],
+) {
+  const updatedById = new Map(updated.map((entry) => [entry.id, entry]))
+  return current.map((entry) => updatedById.get(entry.id) ?? entry)
+}
+
+export function CampaignInventoryModal({
+  campaignId,
+  actorId,
+  readOnly = false,
+  onClose,
+}: Props) {
   const [actorsData, setActorsData] = useState<InventoryActorsResponse | null>(null)
-  const [selectedActorId, setSelectedActorId] = useState<string | null>(null)
+  const [selectedActorId, setSelectedActorId] = useState<string | null>(actorId ?? null)
   const [inventory, setInventory] = useState<InventoryResponse | null>(null)
-  const [quantityDrafts, setQuantityDrafts] = useState<Record<string, string>>({})
   const [loadingActors, setLoadingActors] = useState(true)
-  const [loadingInventory, setLoadingInventory] = useState(false)
+  const [loadedInventoryActorId, setLoadedInventoryActorId] = useState<string | null>(null)
+  const [movingEntryId, setMovingEntryId] = useState<string | null>(null)
   const [updatingEntryId, setUpdatingEntryId] = useState<string | null>(null)
+  const [sheetEntry, setSheetEntry] = useState<InventoryEntry | null>(null)
+  const [minimized, setMinimized] = useState(false)
+  const [itemSheetLocale, setItemSheetLocale] = useState<InventoryDisplaySettings['itemSheetLocale']>(
+    () => readStoredInventoryDisplaySettings(campaignId).itemSheetLocale,
+  )
   const [error, setError] = useState<string | null>(null)
+  const directActorMode = Boolean(actorId)
+  const loadingInventory = Boolean(
+    selectedActorId && loadedInventoryActorId !== selectedActorId,
+  )
 
   const selectedActor = useMemo(
     () => actorsData?.actors.find((actor) => actor.id === selectedActorId) ?? null,
@@ -100,24 +130,55 @@ export function CampaignInventoryModal({ campaignId, onClose }: Props) {
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') onClose()
+      if (event.key !== 'Escape') return
+      if (sheetEntry) {
+        setSheetEntry(null)
+        return
+      }
+      onClose()
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [onClose])
+  }, [onClose, sheetEntry])
+
+  useEffect(() => {
+    function onInventorySettingsChanged(event: Event) {
+      const detail = (event as CustomEvent<{
+        campaignId: string
+        settings: InventoryDisplaySettings
+      }>).detail
+      if (!detail || detail.campaignId !== campaignId) return
+      setItemSheetLocale(detail.settings.itemSheetLocale)
+    }
+
+    window.addEventListener(
+      INVENTORY_DISPLAY_SETTINGS_CHANGED_EVENT,
+      onInventorySettingsChanged,
+    )
+    return () => {
+      window.removeEventListener(
+        INVENTORY_DISPLAY_SETTINGS_CHANGED_EVENT,
+        onInventorySettingsChanged,
+      )
+    }
+  }, [campaignId])
 
   useEffect(() => {
     const controller = new AbortController()
-    setLoadingActors(true)
-    setError(null)
 
     api<InventoryActorsResponse>(`/api/campaigns/${campaignId}/inventory/actors`, {
       signal: controller.signal,
     })
       .then((response) => {
-        setActorsData(response)
-        setSelectedActorId((current) => current ?? response.actors[0]?.id ?? null)
+        const visibleActors = actorId
+          ? response.actors.filter((actor) => actor.id === actorId)
+          : response.actors
+        setActorsData({ ...response, actors: visibleActors })
+        setSelectedActorId(actorId ?? visibleActors[0]?.id ?? null)
+        if (actorId && visibleActors.length === 0) {
+          setError('Este Token não possui um ator sob seu controle.')
+        }
       })
       .catch((cause) => {
         if (controller.signal.aborted) return
@@ -128,18 +189,11 @@ export function CampaignInventoryModal({ campaignId, onClose }: Props) {
       })
 
     return () => controller.abort()
-  }, [campaignId])
+  }, [actorId, campaignId])
 
   useEffect(() => {
-    if (!selectedActorId) {
-      setInventory(null)
-      setQuantityDrafts({})
-      return
-    }
-
+    if (!selectedActorId) return
     const controller = new AbortController()
-    setLoadingInventory(true)
-    setError(null)
 
     api<InventoryResponse>(
       `/api/campaigns/${campaignId}/actors/${selectedActorId}/inventory`,
@@ -147,49 +201,69 @@ export function CampaignInventoryModal({ campaignId, onClose }: Props) {
     )
       .then((response) => {
         setInventory(response)
-        setQuantityDrafts(Object.fromEntries(
-          response.entries.map((entry) => [entry.id, String(entry.quantity)]),
-        ))
+        setLoadedInventoryActorId(selectedActorId)
       })
       .catch((cause) => {
         if (controller.signal.aborted) return
         setInventory(null)
+        setLoadedInventoryActorId(selectedActorId)
         setError(cause instanceof Error ? cause.message : 'Não foi possível carregar o inventário.')
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setLoadingInventory(false)
       })
 
     return () => controller.abort()
   }, [campaignId, selectedActorId])
 
-  async function updateQuantity(entry: InventoryEntry, nextQuantity: number) {
-    if (!selectedActorId || nextQuantity < 1 || nextQuantity > 1_000_000) {
-      setQuantityDrafts((current) => ({ ...current, [entry.id]: String(entry.quantity) }))
-      return
-    }
+  async function moveEntry(entryId: string, slotIndex: number) {
+    if (!selectedActorId || !inventory || movingEntryId) return
+    const source = inventory.entries.find((entry) => entry.id === entryId)
+    if (!source || source.slotIndex === slotIndex) return
 
+    const previousEntries = inventory.entries
+    setMovingEntryId(entryId)
+    setError(null)
+    setInventory({
+      ...inventory,
+      entries: moveEntryOptimistically(previousEntries, entryId, slotIndex),
+    })
+
+    try {
+      const response = await api<SlotUpdateResponse>(
+        `/api/campaigns/${campaignId}/actors/${selectedActorId}/inventory/entries/${entryId}/slot`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify({ slotIndex }),
+        },
+      )
+      setInventory((current) => current
+        ? { ...current, entries: mergeUpdatedEntries(current.entries, response.entries) }
+        : current)
+    } catch (cause) {
+      setInventory((current) => current ? { ...current, entries: previousEntries } : current)
+      setError(cause instanceof Error ? cause.message : 'Não foi possível mover o item.')
+    } finally {
+      setMovingEntryId(null)
+    }
+  }
+
+  async function updateQuantity(entry: InventoryEntry, quantity: number) {
+    if (!selectedActorId || readOnly) return
     setUpdatingEntryId(entry.id)
     setError(null)
-
     try {
       const updated = await api<InventoryEntry>(
         `/api/campaigns/${campaignId}/actors/${selectedActorId}/inventory/entries/${entry.id}`,
         {
           method: 'PATCH',
-          body: JSON.stringify({ quantity: nextQuantity }),
+          body: JSON.stringify({ quantity }),
         },
       )
-
       setInventory((current) => current
         ? {
             ...current,
             entries: current.entries.map((candidate) => candidate.id === updated.id ? updated : candidate),
           }
         : current)
-      setQuantityDrafts((current) => ({ ...current, [entry.id]: String(updated.quantity) }))
     } catch (cause) {
-      setQuantityDrafts((current) => ({ ...current, [entry.id]: String(entry.quantity) }))
       setError(cause instanceof Error ? cause.message : 'Não foi possível alterar a quantidade.')
     } finally {
       setUpdatingEntryId(null)
@@ -197,13 +271,9 @@ export function CampaignInventoryModal({ campaignId, onClose }: Props) {
   }
 
   async function removeEntry(entry: InventoryEntry) {
-    if (!selectedActorId) return
-    const itemName = entry.presentation?.name ?? 'este item'
-    if (!window.confirm(`Remover ${itemName} do inventário?`)) return
-
+    if (!selectedActorId || readOnly) return
     setUpdatingEntryId(entry.id)
     setError(null)
-
     try {
       await api<void>(
         `/api/campaigns/${campaignId}/actors/${selectedActorId}/inventory/entries/${entry.id}`,
@@ -212,11 +282,6 @@ export function CampaignInventoryModal({ campaignId, onClose }: Props) {
       setInventory((current) => current
         ? { ...current, entries: current.entries.filter((candidate) => candidate.id !== entry.id) }
         : current)
-      setQuantityDrafts((current) => {
-        const next = { ...current }
-        delete next[entry.id]
-        return next
-      })
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Não foi possível remover o item.')
     } finally {
@@ -224,228 +289,190 @@ export function CampaignInventoryModal({ campaignId, onClose }: Props) {
     }
   }
 
-  return (
-    <div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Inventários da campanha"
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose()
-      }}
-    >
-      <section className="flex h-[min(820px,92vh)] w-full max-w-6xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]">
-        <header className="flex items-center justify-between gap-4 border-b border-white/10 bg-black/30 px-5 py-4">
+  function manageEntry(entry: InventoryEntry) {
+    if (readOnly || updatingEntryId) return
+    const itemName = entry.presentation?.name ?? 'Item do sistema'
+    const rawQuantity = window.prompt(
+      `Quantidade de ${itemName}. Digite 0 para remover:`,
+      String(entry.quantity),
+    )
+    if (rawQuantity === null) return
+    const quantity = Number(rawQuantity)
+    if (!Number.isInteger(quantity) || quantity < 0 || quantity > 1_000_000) {
+      setError('Informe uma quantidade inteira entre 0 e 1.000.000.')
+      return
+    }
+    if (quantity === 0) {
+      if (window.confirm(`Remover ${itemName} do inventário?`)) void removeEntry(entry)
+      return
+    }
+    if (quantity !== entry.quantity) void updateQuantity(entry, quantity)
+  }
+
+  function openEntrySheet(entry: InventoryEntry) {
+    if (!entry.catalogContentId) {
+      setError('Este item não possui uma ficha de catálogo vinculada.')
+      return
+    }
+    setSheetEntry(entry)
+  }
+
+  const portalTarget = typeof document === 'undefined' ? null : document.body
+  if (!portalTarget) return null
+
+  if (minimized && selectedActorId) {
+    return createPortal(
+      <FloatingInventoryBackpack
+        campaignId={campaignId}
+        actorId={selectedActorId}
+        actorName={selectedActor?.name ?? 'Token'}
+        onRestore={() => setMinimized(false)}
+      />,
+      portalTarget,
+    )
+  }
+
+  return createPortal(
+    <>
+      <div
+        className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4"
+        role="presentation"
+      >
+        <section
+          className="pointer-events-auto flex h-[min(680px,calc(100vh-6rem))] w-[min(1024px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]"
+          role="dialog"
+          aria-modal="false"
+          aria-label="Inventário da campanha"
+          onPointerDown={(event) => event.stopPropagation()}
+          onWheel={(event) => event.stopPropagation()}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <header className="flex items-center justify-between gap-4 border-b border-white/10 bg-black/30 px-5 py-4">
           <div className="flex min-w-0 items-center gap-3">
             <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
               <Backpack className="h-5 w-5" />
             </div>
             <div className="min-w-0">
-              <h1 className="truncate text-lg font-semibold">Inventários</h1>
+              <h1 className="truncate text-lg font-semibold">{directActorMode ? 'Inventário' : 'Inventários'}</h1>
               <p className="truncate text-xs text-zinc-400">
-                {actorsData?.role === 'MASTER'
-                  ? 'Gerencie os itens de todos os atores da campanha'
-                  : 'Gerencie os itens dos atores sob seu controle'}
+                {directActorMode && readOnly
+                  ? 'Itens do Token controlado — arraste para reorganizar'
+                  : actorsData?.role === 'MASTER'
+                    ? 'Gerencie e organize os inventários da campanha'
+                    : 'Organize os itens dos Tokens sob seu controle'}
               </p>
             </div>
           </div>
 
-          <button
-            type="button"
-            title="Fechar inventários"
-            onClick={onClose}
-            className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
-          >
-            <X className="h-5 w-5" />
-          </button>
-        </header>
-
-        {error ? (
-          <div className="border-b border-red-300/20 bg-red-500/10 px-5 py-3 text-sm text-red-100">
-            {error}
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              title="Minimizar inventário"
+              onClick={() => setMinimized(true)}
+              className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            >
+              <Minus className="h-5 w-5" />
+            </button>
+            <button
+              type="button"
+              title="Fechar inventário"
+              onClick={onClose}
+              className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            >
+              <X className="h-5 w-5" />
+            </button>
           </div>
-        ) : null}
+          </header>
 
-        <div className="grid min-h-0 flex-1 md:grid-cols-[280px_minmax(0,1fr)]">
-          <aside className="min-h-0 overflow-y-auto border-b border-white/10 bg-black/20 p-3 md:border-b-0 md:border-r">
-            {loadingActors ? (
-              <div className="flex items-center gap-2 px-3 py-4 text-sm text-zinc-400">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Carregando atores...
-              </div>
-            ) : null}
-
-            {!loadingActors && actorsData?.actors.length === 0 ? (
-              <div className="rounded-xl border border-white/10 bg-white/[0.035] p-4 text-sm text-zinc-400">
-                Nenhum ator disponível para este usuário.
-              </div>
-            ) : null}
-
-            <div className="space-y-1.5">
-              {actorsData?.actors.map((actor) => (
-                <button
-                  key={actor.id}
-                  type="button"
-                  onClick={() => setSelectedActorId(actor.id)}
-                  className={[
-                    'flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition',
-                    actor.id === selectedActorId
-                      ? 'border-indigo-300/40 bg-indigo-500/15 text-white'
-                      : 'border-transparent text-zinc-300 hover:border-white/10 hover:bg-white/[0.05] hover:text-white',
-                  ].join(' ')}
-                >
-                  <ActorAvatar actor={actor} />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-semibold">{actor.name}</span>
-                    <span className="mt-0.5 block truncate text-[11px] text-zinc-500">
-                      {actor.owner?.email ?? 'Sem jogador atribuído'}
-                    </span>
-                  </span>
-                </button>
-              ))}
+          {error ? (
+            <div className="border-b border-red-300/20 bg-red-500/10 px-5 py-3 text-sm text-red-100">
+              {error}
             </div>
-          </aside>
+          ) : null}
 
-          <main className="min-h-0 overflow-y-auto p-5">
-            {selectedActor ? (
-              <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
-                <div>
-                  <h2 className="text-xl font-semibold">{selectedActor.name}</h2>
-                  <p className="mt-1 text-xs text-zinc-500">
-                    {selectedActor.owner?.email ?? 'Ator sem jogador atribuído'}
-                  </p>
+          <div className={['grid min-h-0 flex-1', directActorMode ? 'grid-cols-1' : 'md:grid-cols-[240px_minmax(0,1fr)]'].join(' ')}>
+          {!directActorMode ? (
+            <aside className="min-h-0 overflow-y-auto border-b border-white/10 bg-black/20 p-3 md:border-b-0 md:border-r">
+              {loadingActors ? (
+                <div className="flex items-center gap-2 px-3 py-4 text-sm text-zinc-400">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Carregando atores...
                 </div>
-                <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
-                  {inventory?.entries.length ?? 0} entradas
-                </span>
+              ) : null}
+              <div className="space-y-1.5">
+                {actorsData?.actors.map((actor) => (
+                  <button
+                    key={actor.id}
+                    type="button"
+                    onClick={() => setSelectedActorId(actor.id)}
+                    className={[
+                      'flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition',
+                      actor.id === selectedActorId
+                        ? 'border-indigo-300/40 bg-indigo-500/15 text-white'
+                        : 'border-transparent text-zinc-300 hover:border-white/10 hover:bg-white/[0.05] hover:text-white',
+                    ].join(' ')}
+                  >
+                    <ActorAvatar actor={actor} />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate text-sm font-semibold">{actor.name}</span>
+                      <span className="mt-0.5 block truncate text-[11px] text-zinc-500">
+                        {actor.owner?.email ?? 'Sem jogador atribuído'}
+                      </span>
+                    </span>
+                  </button>
+                ))}
               </div>
-            ) : null}
+            </aside>
+          ) : null}
+
+          <main className="flex min-h-0 flex-col p-4">
+            <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+              <div>
+                <h2 className="text-xl font-semibold">{selectedActor?.name ?? 'Inventário'}</h2>
+                <p className="mt-1 text-xs text-zinc-500">
+                  Clique para abrir a ficha. Arraste os ícones para trocar os slots.
+                </p>
+              </div>
+              <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
+                {inventory?.entries.length ?? 0}/100 slots ocupados
+              </span>
+            </div>
 
             {loadingInventory ? (
               <div className="flex items-center gap-2 text-sm text-zinc-400">
                 <Loader2 className="h-4 w-4 animate-spin" />
                 Carregando inventário...
               </div>
+            ) : (
+              <InventoryGrid
+                entries={inventory?.entries ?? []}
+                movingEntryId={movingEntryId}
+                onMove={(entryId, slotIndex) => void moveEntry(entryId, slotIndex)}
+                onOpen={(entry) => openEntrySheet(entry as InventoryEntry)}
+                onManage={readOnly ? undefined : (entry) => manageEntry(entry as InventoryEntry)}
+              />
+            )}
+
+            {!readOnly ? (
+              <p className="mt-3 text-[11px] text-zinc-500">
+                Clique com o botão direito em um item para alterar sua quantidade ou removê-lo.
+              </p>
             ) : null}
-
-            {!loadingInventory && selectedActor && inventory?.entries.length === 0 ? (
-              <div className="grid min-h-72 place-items-center rounded-2xl border border-dashed border-white/10 bg-white/[0.025] p-8 text-center">
-                <div>
-                  <Package className="mx-auto h-10 w-10 text-zinc-600" />
-                  <h3 className="mt-4 font-semibold text-zinc-200">Inventário vazio</h3>
-                  <p className="mt-2 max-w-sm text-sm leading-6 text-zinc-500">
-                    O Mestre pode enviar itens diretamente pelo catálogo de itens da campanha.
-                  </p>
-                </div>
-              </div>
-            ) : null}
-
-            <div className="grid gap-3 xl:grid-cols-2">
-              {inventory?.entries.map((entry) => {
-                const presentation = entry.presentation
-                const busy = updatingEntryId === entry.id
-                const draft = quantityDrafts[entry.id] ?? String(entry.quantity)
-
-                return (
-                  <article key={entry.id} className="flex min-w-0 flex-col rounded-xl border border-white/10 bg-white/[0.04] p-4">
-                    <div className="flex min-w-0 items-start gap-3">
-                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
-                        <Package className="h-5 w-5" />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="truncate text-sm font-semibold text-white">
-                          {presentation?.name ?? 'Item do sistema'}
-                        </h3>
-                        {presentation?.subtitle ? (
-                          <p className="mt-1 truncate text-xs text-zinc-500">{presentation.subtitle}</p>
-                        ) : null}
-                      </div>
-                    </div>
-
-                    {presentation?.description ? (
-                      <p className="mt-3 line-clamp-3 text-xs leading-5 text-zinc-400">
-                        {presentation.description}
-                      </p>
-                    ) : null}
-
-                    {presentation?.traits?.length ? (
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {presentation.traits.map((trait) => (
-                          <span key={trait} className="rounded border border-indigo-300/15 bg-indigo-500/10 px-2 py-0.5 text-[10px] uppercase text-indigo-100/80">
-                            {trait}
-                          </span>
-                        ))}
-                      </div>
-                    ) : null}
-
-                    {presentation?.details?.length ? (
-                      <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
-                        {presentation.details.slice(0, 6).map((detail) => (
-                          <div key={`${detail.label}:${detail.value}`} className="rounded-lg border border-white/10 bg-black/20 px-3 py-2">
-                            <div className="text-[10px] uppercase text-zinc-600">{detail.label}</div>
-                            <div className="mt-0.5 truncate text-zinc-300">{detail.value}</div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : null}
-
-                    <div className="mt-auto flex items-center justify-between gap-3 border-t border-white/10 pt-4">
-                      <div className="inline-flex items-center rounded-lg border border-white/10 bg-black/25">
-                        <button
-                          type="button"
-                          disabled={busy || entry.quantity <= 1}
-                          onClick={() => void updateQuantity(entry, entry.quantity - 1)}
-                          className="p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
-                          title="Diminuir quantidade"
-                        >
-                          <Minus className="h-4 w-4" />
-                        </button>
-                        <input
-                          value={draft}
-                          inputMode="numeric"
-                          aria-label={`Quantidade de ${presentation?.name ?? 'item'}`}
-                          onChange={(event) => setQuantityDrafts((current) => ({
-                            ...current,
-                            [entry.id]: event.target.value.replace(/\D/g, '').slice(0, 7),
-                          }))}
-                          onBlur={() => {
-                            const parsed = Number(draft)
-                            if (parsed !== entry.quantity) void updateQuantity(entry, parsed)
-                          }}
-                          onKeyDown={(event) => {
-                            if (event.key === 'Enter') event.currentTarget.blur()
-                          }}
-                          disabled={busy}
-                          className="h-8 w-16 border-x border-white/10 bg-transparent text-center text-sm font-semibold text-white outline-none disabled:opacity-50"
-                        />
-                        <button
-                          type="button"
-                          disabled={busy || entry.quantity >= 1_000_000}
-                          onClick={() => void updateQuantity(entry, entry.quantity + 1)}
-                          className="p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-35"
-                          title="Aumentar quantidade"
-                        >
-                          <Plus className="h-4 w-4" />
-                        </button>
-                      </div>
-
-                      <button
-                        type="button"
-                        disabled={busy}
-                        onClick={() => void removeEntry(entry)}
-                        className="inline-flex items-center gap-2 rounded-lg border border-red-300/15 bg-red-500/5 px-3 py-2 text-xs font-semibold text-red-200 transition hover:border-red-300/35 hover:bg-red-500/15 disabled:opacity-50"
-                      >
-                        {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
-                        Remover
-                      </button>
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
           </main>
-        </div>
-      </section>
-    </div>
+          </div>
+        </section>
+      </div>
+
+      {sheetEntry?.catalogContentId ? (
+        <CatalogEntitySheetModal
+          campaignId={campaignId}
+          contentId={sheetEntry.catalogContentId}
+          domain="ITEMS"
+          locale={itemSheetLocale}
+          onClose={() => setSheetEntry(null)}
+        />
+      ) : null}
+    </>,
+    portalTarget,
   )
 }

@@ -9,8 +9,8 @@ type PlayerRow = {
   email: string
   role: 'MASTER' | 'PLAYER' | null
   status: 'PENDING' | 'ACTIVE' | 'REJECTED'
-  actorId?: string | null
-  actorName?: string | null
+  actors: Array<{ id: string; name: string }>
+  actorName: string
   createdAt: string
   decidedAt?: string | null
 }
@@ -41,13 +41,15 @@ export function CampaignPlayersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campaignId])
 
-  // Presença em tempo real (por actorId)
+  // Presença em tempo real pertence ao membro/usuário conectado.
   useEffect(() => {
     if (!socket) return
-    function onUpdate(payload: any) {
-      if (!payload?.actorId) return
-      if (payload?.campaignId && campaignId && payload.campaignId !== campaignId) return
-      setOnlineIds((prev) => ({ ...prev, [payload.actorId]: !!payload.online }))
+    function onUpdate(payload: unknown) {
+      if (!payload || typeof payload !== 'object') return
+      const update = payload as { campaignId?: string; userId?: string; online?: boolean }
+      if (!update.userId) return
+      if (update.campaignId && campaignId && update.campaignId !== campaignId) return
+      setOnlineIds((prev) => ({ ...prev, [update.userId as string]: Boolean(update.online) }))
     }
     socket.on('presence:update', onUpdate)
     return () => {
@@ -94,22 +96,22 @@ export function CampaignPlayersPage() {
     <div className="rounded-lg border border-white/10 bg-black/20 p-4 flex items-start justify-between gap-4">
       <div>
         <div className="text-white font-semibold flex items-center gap-2">
-          {(p.actorName || p.email) ?? '—'} <Badge status={p.status} />
-          {p.actorId ? (
+          {p.email} <Badge status={p.status} />
+          {p.status === 'ACTIVE' ? (
             <span
               className={[
                 'text-[10px] px-2 py-0.5 rounded-full border',
-                onlineIds[p.actorId]
+                onlineIds[p.userId]
                   ? 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20'
                   : 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
               ].join(' ')}
             >
-              {onlineIds[p.actorId] ? 'Online' : 'Offline'}
+              {onlineIds[p.userId] ? 'Online' : 'Offline'}
             </span>
           ) : null}
         </div>
         <div className="text-xs text-zinc-300 mt-1">
-          {p.role === 'MASTER' ? 'Mestre' : 'Jogador'} • {p.email}
+          {p.role === 'MASTER' ? 'Mestre' : 'Jogador'} • Atores: {p.actors.map((actor) => actor.name).join(', ') || 'nenhum'}
         </div>
       </div>
 

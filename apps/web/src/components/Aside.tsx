@@ -197,7 +197,7 @@ export function Aside({
                   </li>
                 ) : null}
 
-                <li>
+                {role === 'MASTER' ? <li>
                   <button
                     type="button"
                     onClick={() => setInventoryOpen(true)}
@@ -206,7 +206,7 @@ export function Aside({
                     <span className="text-[#6e3fae]"><Backpack size={18} /></span>
                     <span>Inventários</span>
                   </button>
-                </li>
+                </li> : null}
 
                 {catalogDomains.map((domain) => {
                   const Icon = catalogIcons[domain]
@@ -246,7 +246,7 @@ export function Aside({
         />
       ) : null}
 
-      {inventoryOpen ? (
+      {role === 'MASTER' && inventoryOpen ? (
         <CampaignInventoryModal
           campaignId={campaignId}
           onClose={() => setInventoryOpen(false)}

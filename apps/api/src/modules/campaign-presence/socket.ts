@@ -99,9 +99,8 @@ export function setupCampaignPresence(server: HttpServer) {
 
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     for (const campaignSocket of sockets) {
-      const role = campaignSocket.data.actorRole as string | undefined
+      const role = campaignSocket.data.memberRole as string | undefined
       const socketUser = campaignSocket.data.user as { id: string } | undefined
-      const actorId = campaignSocket.data.actorId as string | undefined
 
       if (role === 'PLAYER') {
         campaignSocket.emit('campaign:kicked', { campaignId, message })
@@ -111,14 +110,17 @@ export function setupCampaignPresence(server: HttpServer) {
         state.deleteUserPresence(socketUser.id)
       }
 
-      if (actorId) {
-        io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, actorId, online: false })
+      if (socketUser?.id) {
+        io.to(campaignRoom(campaignId)).emit('presence:update', {
+          campaignId,
+          userId: socketUser.id,
+          online: false,
+        })
       }
 
       campaignSocket.leave(campaignRoom(campaignId))
       campaignSocket.data.campaignId = undefined
-      campaignSocket.data.actorId = undefined
-      campaignSocket.data.actorRole = undefined
+      campaignSocket.data.memberRole = undefined
     }
   }
 
@@ -232,7 +234,7 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   async function getVisibleSceneIdForSocket(campaignId: string, socket: { data: any }) {
-    const role = socket.data.actorRole as string | undefined
+    const role = socket.data.memberRole as string | undefined
     if (role === 'MASTER') return getMasterActiveSceneId(campaignId)
 
     const online = state.getCampaignOnline(campaignId)
@@ -247,9 +249,7 @@ export function setupCampaignPresence(server: HttpServer) {
     })
     if (viewState?.forcedSceneId) return viewState.forcedSceneId
 
-    const actorId = socket.data.actorId as string | undefined
     if (!socketUser?.id) return null
-
     const liveTokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
     const liveTokenMap = state.getCampaignTokens(campaignId)
     if (liveTokenSceneMap && liveTokenMap) {
@@ -257,20 +257,18 @@ export function setupCampaignPresence(server: HttpServer) {
         liveTokenMap.values(),
         liveTokenSceneMap,
         socketUser.id,
-        actorId ?? null,
       )
     }
 
     const controlledTokenWhere = {
       campaignId,
-      controllerMember: { userId: socketUser.id },
+      OR: [
+        { actor: { controllerMember: { userId: socketUser.id } } },
+        { actorId: null, controllerMember: { userId: socketUser.id } },
+      ],
       placement: { isNot: null },
     } as const
-    const mainToken = actorId ? await prisma.campaignToken.findFirst({
-      where: { ...controlledTokenWhere, actorId },
-      select: { placement: { select: { sceneId: true } } },
-    }) : null
-    const token = mainToken ?? await prisma.campaignToken.findFirst({
+    const token = await prisma.campaignToken.findFirst({
       where: controlledTokenWhere,
       orderBy: { createdAt: 'asc' },
       select: { placement: { select: { sceneId: true } } },
@@ -284,7 +282,7 @@ export function setupCampaignPresence(server: HttpServer) {
     if (!online) return null
     if (online.state === 'PAUSED') return 'PAUSED' as const
 
-    const role = socket.data.actorRole as string | undefined
+    const role = socket.data.memberRole as string | undefined
     if (role === 'MASTER') return 'ACTIVE' as const
 
     const masterSceneId = await getMasterActiveSceneId(campaignId)
@@ -308,12 +306,13 @@ export function setupCampaignPresence(server: HttpServer) {
         token: {
           include: {
             controllerMember: {
-              select: { id: true, userId: true, user: { select: { email: true } } },
+              select: { id: true, userId: true, role: true, user: { select: { email: true } } },
             },
             actor: {
               select: {
-                mainForMember: { select: { userId: true, role: true } },
-                controllerMember: { select: { userId: true } },
+                controllerMember: {
+                  select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+                },
               },
             },
           },
@@ -328,18 +327,19 @@ export function setupCampaignPresence(server: HttpServer) {
       where: { id: token.id, campaignId },
       include: {
         controllerMember: {
-          select: { id: true, userId: true, user: { select: { email: true } } },
+          select: { id: true, userId: true, role: true, user: { select: { email: true } } },
         },
         actor: {
           select: {
-            mainForMember: { select: { userId: true, role: true } },
-            controllerMember: { select: { userId: true } },
+            controllerMember: {
+              select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+            },
           },
         },
       },
     })
     if (!identity) return null
-    const role = identity.actor?.mainForMember?.role
+    const effectiveController = identity.actor?.controllerMember ?? identity.controllerMember
     return {
       ...token,
       actorId: identity.actorId,
@@ -347,11 +347,11 @@ export function setupCampaignPresence(server: HttpServer) {
       avatarUrl: identity.avatarUrl,
       color: identity.color,
       size: identity.size,
-      ownerUserId: identity.actor?.mainForMember?.userId ?? identity.actor?.controllerMember?.userId ?? null,
-      ownerName: identity.controllerMember?.user.email ?? null,
-      controllerMemberId: identity.controllerMember?.id ?? null,
-      controllerUserId: identity.controllerMember?.userId ?? null,
-      role: role === 'PLAYER' ? 'PLAYER' as const : identity.actor ? 'NPC' as const : 'GENERIC' as const,
+      ownerUserId: effectiveController?.userId ?? null,
+      ownerName: effectiveController?.user.email ?? null,
+      controllerMemberId: effectiveController?.id ?? null,
+      controllerUserId: effectiveController?.userId ?? null,
+      role: effectiveController?.role === 'PLAYER' ? 'PLAYER' as const : identity.actor ? 'NPC' as const : 'GENERIC' as const,
       canCustomizeAppearance: identity.canCustomizeAppearance,
       visionConfig: identity.visionConfig,
       lightConfig: identity.lightConfig,
@@ -383,7 +383,8 @@ export function setupCampaignPresence(server: HttpServer) {
     await Promise.all(
       sockets.map(async (campaignSocket) => {
         const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
-        const isTokenOwner = Boolean(token.actorId && campaignSocket.data.actorId === token.actorId)
+        const socketUser = campaignSocket.data.user as { id: string } | undefined
+        const isTokenOwner = Boolean(socketUser?.id && token.controllerUserId === socketUser.id)
         if (visibleSceneId !== sceneId) {
           if (isTokenOwner && options?.refreshOwnerVisibleScene) await emitVisibleTableSnapshot(campaignId, campaignSocket)
           return
@@ -393,7 +394,7 @@ export function setupCampaignPresence(server: HttpServer) {
           sceneId,
           token,
         })
-        if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.actorRole !== 'MASTER') {
+        if (isTokenOwner && options?.refreshOwnerVisibleScene && campaignSocket.data.memberRole !== 'MASTER') {
           await emitVisibleTableSnapshot(campaignId, campaignSocket)
         }
       }),
@@ -415,7 +416,8 @@ export function setupCampaignPresence(server: HttpServer) {
     const sockets = await io.in(campaignRoom(campaignId)).fetchSockets()
     await Promise.all(
       sockets.map(async (campaignSocket) => {
-        const isRemovedTokenOwner = Boolean(token.actorId && campaignSocket.data.actorId === token.actorId)
+        const socketUser = campaignSocket.data.user as { id: string } | undefined
+        const isRemovedTokenOwner = Boolean(socketUser?.id && token.controllerUserId === socketUser.id)
         const visibleSceneId = await getVisibleSceneIdForSocket(campaignId, campaignSocket)
         if (visibleSceneId !== sceneId && !isRemovedTokenOwner) return
         campaignSocket.emit('vtt:token:removed', {
@@ -480,12 +482,13 @@ export function setupCampaignPresence(server: HttpServer) {
         token: {
           include: {
             controllerMember: {
-              select: { id: true, userId: true, user: { select: { email: true } } },
+              select: { id: true, userId: true, role: true, user: { select: { email: true } } },
             },
             actor: {
               select: {
-                mainForMember: { select: { userId: true, role: true } },
-                controllerMember: { select: { userId: true } },
+                controllerMember: {
+                  select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+                },
               },
             },
           },
@@ -942,66 +945,80 @@ export function setupCampaignPresence(server: HttpServer) {
       }
     })
 
-    socket.on('vtt:token:place', async (input: unknown) => {
-      const parsed = vttTokenPlaceSchema.safeParse(input)
-      if (!parsed.success) return
+    socket.on('vtt:token:place', async (
+      input: unknown,
+      ack?: (response: { ok: true } | { ok: false; error: { code: string; message: string } }) => void,
+    ) => {
+      const reject = (code: string, message: string) => ack?.({ ok: false, error: { code, message } })
 
-      const { campaignId, tokenId, position } = parsed.data
-      const online = state.getCampaignOnline(campaignId)
-      if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      try {
+        const parsed = vttTokenPlaceSchema.safeParse(input)
+        if (!parsed.success) return reject('INVALID_PAYLOAD', 'Posicionamento invalido')
 
-      const sceneId = await getMasterActiveSceneId(campaignId)
-      if (!sceneId) return
+        const { campaignId, sceneId, tokenId, position } = parsed.data
+        const online = state.getCampaignOnline(campaignId)
+        if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) {
+          return reject('FORBIDDEN', 'Posicionamento nao permitido')
+        }
+        if (!(await sceneBelongsToCampaign(campaignId, sceneId))) {
+          return reject('SCENE_NOT_FOUND', 'Cena nao encontrada')
+        }
 
-      const campaignToken = await prisma.campaignToken.findFirst({
-        where: { id: tokenId, campaignId },
-        include: {
-          placement: { select: { sceneId: true } },
-          controllerMember: {
-            select: { id: true, userId: true, user: { select: { email: true } } },
-          },
-          actor: {
-            select: {
-              mainForMember: { select: { userId: true, role: true } },
-              controllerMember: { select: { userId: true } },
+        const campaignToken = await prisma.campaignToken.findFirst({
+          where: { id: tokenId, campaignId },
+          include: {
+            placement: { select: { sceneId: true } },
+            controllerMember: {
+              select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+            },
+            actor: {
+              select: {
+                controllerMember: {
+                  select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+                },
+              },
             },
           },
-        },
-      })
-      if (!campaignToken) return
+        })
+        if (!campaignToken) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado')
 
-      const tokenMap = getCampaignTokenMap(campaignId)
-      if (getCampaignTokenSceneMap(campaignId).has(tokenId) || (!online && campaignToken.placement)) return
+        if (getCampaignTokenSceneMap(campaignId).has(tokenId) || (!online && campaignToken.placement)) {
+          return reject('TOKEN_ALREADY_PLACED', 'O Token ja esta posicionado em uma cena')
+        }
 
-      const actorRole = campaignToken.actor?.mainForMember?.role
+        const effectiveController = campaignToken.actor?.controllerMember ?? campaignToken.controllerMember
 
-      const token: VttPlayerToken = {
-        id: campaignToken.id,
-        actorId: campaignToken.actorId,
-        name: campaignToken.name,
-        avatarUrl: campaignToken.avatarUrl,
-        color: campaignToken.color,
-        size: campaignToken.size,
-        ownerUserId: campaignToken.actor?.mainForMember?.userId ?? campaignToken.actor?.controllerMember?.userId ?? null,
-        ownerName: campaignToken.controllerMember?.user.email ?? null,
-        controllerMemberId: campaignToken.controllerMember?.id ?? null,
-        controllerUserId: campaignToken.controllerMember?.userId ?? null,
-        role: actorRole === 'PLAYER' ? 'PLAYER' : campaignToken.actor ? 'NPC' : 'GENERIC',
-        canCustomizeAppearance: campaignToken.canCustomizeAppearance,
-        visionConfig: campaignToken.visionConfig,
-        lightConfig: campaignToken.lightConfig,
-        hidden: false,
-        rotation: 0,
-        layer: 'TOKEN',
-        blocksVisionAndLight: false,
-        position,
-      }
+        const token: VttPlayerToken = {
+          id: campaignToken.id,
+          actorId: campaignToken.actorId,
+          name: campaignToken.name,
+          avatarUrl: campaignToken.avatarUrl,
+          color: campaignToken.color,
+          size: campaignToken.size,
+          ownerUserId: effectiveController?.userId ?? null,
+          ownerName: effectiveController?.user.email ?? null,
+          controllerMemberId: effectiveController?.id ?? null,
+          controllerUserId: effectiveController?.userId ?? null,
+          role: effectiveController?.role === 'PLAYER' ? 'PLAYER' : campaignToken.actor ? 'NPC' : 'GENERIC',
+          canCustomizeAppearance: campaignToken.canCustomizeAppearance,
+          visionConfig: campaignToken.visionConfig,
+          lightConfig: campaignToken.lightConfig,
+          hidden: false,
+          rotation: 0,
+          layer: 'TOKEN',
+          blocksVisionAndLight: false,
+          position,
+        }
 
-      setLiveSceneToken(campaignId, sceneId, token)
-      if (online) await emitSceneTokenChanged(campaignId, sceneId, token, { refreshOwnerVisibleScene: true })
-      else {
-        await persistSceneToken(campaignId, sceneId, token)
-        socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+        setLiveSceneToken(campaignId, sceneId, token)
+        if (online) await emitSceneTokenChanged(campaignId, sceneId, token, { refreshOwnerVisibleScene: true })
+        else {
+          await persistSceneToken(campaignId, sceneId, token)
+          socket.emit('vtt:token:changed', { campaignId, sceneId, token })
+        }
+        ack?.({ ok: true })
+      } catch {
+        reject('INTERNAL_ERROR', 'Nao foi possivel posicionar o Token')
       }
     })
 
@@ -1019,7 +1036,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const isPlayerMove = Boolean(
         online?.state === 'ACTIVE' &&
         socket.data.campaignId === campaignId &&
-        socket.data.actorRole === 'PLAYER',
+        socket.data.memberRole === 'PLAYER',
       )
       if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao permitido')
 
@@ -1064,7 +1081,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const isPlayerMove = Boolean(
         online?.state === 'ACTIVE' &&
         socket.data.campaignId === campaignId &&
-        socket.data.actorRole === 'PLAYER',
+        socket.data.memberRole === 'PLAYER',
       )
       if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao autorizado.')
       if (state.isTokenMovementActive(campaignId, tokenId)) return reject('TOKEN_MOVING', 'O Token ja esta em movimento.')
@@ -1141,7 +1158,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const isPlayerRotation = Boolean(
         online?.state === 'ACTIVE' &&
         socket.data.campaignId === campaignId &&
-        socket.data.actorRole === 'PLAYER',
+        socket.data.memberRole === 'PLAYER',
       )
       if (!isMasterRotation && !isPlayerRotation) return
 
@@ -1368,14 +1385,14 @@ export function setupCampaignPresence(server: HttpServer) {
       const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
-      if (online.state === 'PAUSED' && socket.data.actorRole !== 'MASTER') return
+      if (online.state === 'PAUSED' && socket.data.memberRole !== 'MASTER') return
 
       if (measurement) {
         const token = state.getCampaignTokens(campaignId)?.get(measurement.tokenId)
         const tokenSceneId = state.getCampaignTokenSceneIds(campaignId)?.get(measurement.tokenId)
         if (!token || tokenSceneId !== measurement.sceneId) return
-        const isMasterMeasurement = socket.data.actorRole === 'MASTER'
-        const isPlayerMeasurement = socket.data.actorRole === 'PLAYER' && token.controllerUserId === user.id
+        const isMasterMeasurement = socket.data.memberRole === 'MASTER'
+        const isPlayerMeasurement = socket.data.memberRole === 'PLAYER' && token.controllerUserId === user.id
         if (!isMasterMeasurement && !isPlayerMeasurement) return
         if (!areMovementPointsEqual(measurement.points[0], token.position)) return
         const combat = state.getCampaignCombat(campaignId)
@@ -1386,8 +1403,8 @@ export function setupCampaignPresence(server: HttpServer) {
         const currentMeasurement = state.getCampaignMeasurement(campaignId)
         if (currentMeasurement) {
           const token = state.getCampaignTokens(campaignId)?.get(currentMeasurement.tokenId)
-          const canClear = socket.data.actorRole === 'MASTER' || (
-            socket.data.actorRole === 'PLAYER' && token?.controllerUserId === user.id
+          const canClear = socket.data.memberRole === 'MASTER' || (
+            socket.data.memberRole === 'PLAYER' && token?.controllerUserId === user.id
           )
           if (!canClear) return
         }
@@ -1466,7 +1483,7 @@ export function setupCampaignPresence(server: HttpServer) {
       await emitSceneWallsChanged(campaignId, sceneId, walls)
     })
 
-    socket.on('vtt:dice:roll', (input: unknown) => {
+    socket.on('vtt:dice:roll', async (input: unknown) => {
       const parsed = vttDiceRollSchema.safeParse(input)
       if (!parsed.success) return
 
@@ -1474,19 +1491,21 @@ export function setupCampaignPresence(server: HttpServer) {
       const online = state.getCampaignOnline(campaignId)
       if (!online) return
       if (socket.data.campaignId !== campaignId) return
-      if (online.state === 'PAUSED' && socket.data.actorRole !== 'MASTER') return
+      if (online.state === 'PAUSED' && socket.data.memberRole !== 'MASTER') return
 
-      const actorId = socket.data.actorId as string | undefined
-      const actorName = socket.data.actorName as string | undefined
-      if (!actorId || !actorName) return
+      const member = await prisma.campaignMember.findFirst({
+        where: { campaignId, userId: user.id, status: 'ACTIVE' },
+        select: { role: true, user: { select: { email: true } } },
+      })
+      if (!member) return
 
       const rolledAt = Date.now()
       const rolls: VttDiceRoll[] = diceRolls.map((diceRoll, index) => ({
         id: rolledAt + index,
         sides: diceRoll.sides,
         value: diceRoll.value,
-        actorId,
-        actorName,
+        actorId: null,
+        actorName: member.role === 'MASTER' ? 'Mestre' : member.user.email,
         rolledAt,
       }))
 

@@ -146,7 +146,7 @@ export const vttDiceRolledSchema = z.object({
   id: z.number().int().positive(),
   sides: vttDiceSidesSchema,
   value: z.number().int().min(1),
-  actorId: z.string().min(1),
+  actorId: z.null(),
   actorName: z.string().min(1),
   rolledAt: z.number().int().positive(),
 })
@@ -170,6 +170,7 @@ export const vttTokenMovePathSchema = z.object({
 
 export const vttTokenPlaceSchema = z.object({
   campaignId: z.string().min(1),
+  sceneId: z.string().min(1),
   tokenId: z.string().min(1),
   position: vttTokenPositionSchema,
 })
@@ -215,12 +216,11 @@ export const vttCombatUpdateInitiativeSchema = z.object({
   initiative: z.number().int().min(-1000).max(1000).nullable(),
 })
 
-export type UserPresence = { socketId: string; campaignId: string; actorId: string }
+export type UserPresence = { socketId: string; campaignId: string }
 export type CampaignSessionState = 'ACTIVE' | 'PAUSED'
 export type OnlineCampaign = {
   masterSocketId: string
   masterUserId: string
-  masterActorId: string
   state: CampaignSessionState
 }
 export type PresenceAck = (response: { ok: boolean; error?: string }) => void

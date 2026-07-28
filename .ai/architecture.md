@@ -3,7 +3,7 @@
 ## Limites principais
 
 * `Campaign` é o mundo da campanha e a fronteira máxima de isolamento dos dados.
-* `CampaignMember` representa a participação de um `User` na campanha, incluindo papel, status e personagem principal opcional.
+* `CampaignMember` representa exclusivamente a participação de um `User` na campanha, incluindo papel e status.
 * `CampaignActor` representa qualquer entidade existente dentro da campanha: personagem de jogador, NPC, criatura, familiar, montaria ou entidade equivalente.
 * `CampaignToken` representa somente a presença visual e operacional no VTT e pode existir sem `CampaignActor` vinculado.
 * `CampaignCharacterSheet` guarda a ficha mecânica de um `CampaignActor`; seu JSON é interpretado exclusivamente pelo `game_system` da campanha.
@@ -15,6 +15,8 @@
 * Não existem as entidades globais `Character`, `CharacterSheet` ou `CampaignCharacter`.
 * `CampaignActor` nunca possui `userId`, papel de membro ou status de participação.
 * Usuário, papel e status pertencem somente a `CampaignMember`.
+* O controle de personagens é uma relação `CampaignMember 1 -> N CampaignActor`, expressa por `CampaignActor.controllerMemberId`.
+* Não existe personagem principal nem ator ativo global. Ações sobre ficha e inventário partem explicitamente do Token/ator alvo e o backend valida o controle.
 * Nada pertencente a um ator, ficha, inventário, Token ou cena pode atravessar a fronteira da campanha.
 * Criar, mover, ocultar ou remover Tokens não exige ficha, inventário ou sistema de jogo.
 * O vínculo entre `CampaignToken` e `CampaignActor` é opcional e não determina a existência de nenhuma das duas entidades.

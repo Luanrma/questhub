@@ -149,8 +149,6 @@ export function CampaignsDashboardPage() {
                     </div>
                     <div className="text-xs text-zinc-300 mt-1">Mestre: {c.gmName}</div>
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-300">
-                      <span>Personagem: {c.myActorName ?? '-'}</span>
-                      <span className="text-zinc-500">•</span>
                       <span>Funcao: {roleLabel[c.myRole]}</span>
                       {c.myStatus ? (
                         <span
@@ -193,7 +191,7 @@ export function CampaignsDashboardPage() {
                           return
                         }
                         setActiveCampaignId(c.id)
-                        navigate(`/campaign/${c.id}/overview`, { state: { actorId: c.myActorId ?? null } })
+                        navigate(`/campaign/${c.id}/overview`)
                       }}
                     >
                       {getEnterButtonLabel({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}

@@ -12,11 +12,17 @@ export type DiceDisplaySettings = {
   showResultPopup: boolean
 }
 
+export type InventoryDisplaySettings = {
+  itemSheetLocale: 'pt-BR' | 'en-US'
+}
+
 export type CampaignUserSettings = {
   dice: DiceDisplaySettings
+  inventory: InventoryDisplaySettings
 }
 
 export const DICE_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:vtt:dice-display-settings-changed'
+export const INVENTORY_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:inventory-display-settings-changed'
 
 function diceColorStorageKey(campaignId: string) {
   return `questhub:vtt:dice-theme-color:${campaignId}`
@@ -55,13 +61,19 @@ export function normalizeDiceDisplaySettings(value: unknown): DiceDisplaySetting
 
 export function normalizeCampaignUserSettings(value: unknown): CampaignUserSettings {
   if (!value || typeof value !== 'object') {
-    return { dice: normalizeDiceDisplaySettings(null) }
+    return {
+      dice: normalizeDiceDisplaySettings(null),
+      inventory: { itemSheetLocale: 'pt-BR' },
+    }
   }
 
   const settings = value as Partial<CampaignUserSettings>
   return {
     ...settings,
     dice: normalizeDiceDisplaySettings(settings.dice),
+    inventory: {
+      itemSheetLocale: settings.inventory?.itemSheetLocale === 'en-US' ? 'en-US' : 'pt-BR',
+    },
   }
 }
 
@@ -116,6 +128,11 @@ export function storeCampaignUserSettings(campaignId: string, settings: Campaign
         detail: { campaignId, settings: normalizedSettings.dice },
       }),
     )
+    window.dispatchEvent(
+      new CustomEvent(INVENTORY_DISPLAY_SETTINGS_CHANGED_EVENT, {
+        detail: { campaignId, settings: normalizedSettings.inventory },
+      }),
+    )
   } catch {
     // Preferencia local: falha de storage nao deve bloquear a mesa.
   }
@@ -126,5 +143,22 @@ export function storeDiceDisplaySettings(campaignId: string, settings: DiceDispl
   storeCampaignUserSettings(campaignId, {
     ...currentSettings,
     dice: normalizeDiceDisplaySettings(settings),
+  })
+}
+
+export function readStoredInventoryDisplaySettings(campaignId: string) {
+  return readStoredCampaignUserSettings(campaignId).inventory
+}
+
+export function storeInventoryDisplaySettings(
+  campaignId: string,
+  settings: InventoryDisplaySettings,
+) {
+  const currentSettings = readStoredCampaignUserSettings(campaignId)
+  storeCampaignUserSettings(campaignId, {
+    ...currentSettings,
+    inventory: {
+      itemSheetLocale: settings.itemSheetLocale === 'en-US' ? 'en-US' : 'pt-BR',
+    },
   })
 }

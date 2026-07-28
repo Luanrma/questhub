@@ -1,6 +1,9 @@
 import { z } from 'zod'
 
 export const INVENTORY_QUANTITY_MAX = 1_000_000
+export const INVENTORY_GRID_COLUMNS = 10
+export const INVENTORY_GRID_ROWS = 10
+export const INVENTORY_SLOT_COUNT = INVENTORY_GRID_COLUMNS * INVENTORY_GRID_ROWS
 
 const inventoryQuantitySchema = z
   .number()
@@ -18,7 +21,11 @@ export const updateInventoryEntryQuantitySchema = z.object({
   quantity: inventoryQuantitySchema,
 })
 
+export const updateInventoryEntrySlotSchema = z.object({
+  slotIndex: z.number().int().min(0).max(INVENTORY_SLOT_COUNT - 1),
+})
+
 export const sendCatalogItemSchema = z.object({
-  recipientMemberId: z.string().trim().min(1),
+  recipientActorId: z.string().trim().min(1),
   quantity: inventoryQuantitySchema.default(1),
 })

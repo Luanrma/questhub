@@ -46,12 +46,17 @@ test('presentCampaignScene maps square grid and tokens', () => {
           size: 1,
           canCustomizeAppearance: false,
           actor: {
-            mainForMember: { userId: 'user-1', role: 'PLAYER' },
-            controllerMember: { userId: 'user-1' },
+            controllerMember: {
+              id: 'member-1',
+              userId: 'user-1',
+              role: 'PLAYER',
+              user: { email: 'player@example.com' },
+            },
           },
           controllerMember: {
             id: 'member-1',
             userId: 'user-1',
+            role: 'PLAYER',
             user: { email: 'player@example.com' },
           },
         },

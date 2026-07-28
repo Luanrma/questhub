@@ -15,7 +15,12 @@ import {
   INVENTORY_QUANTITY_MAX,
   sendCatalogItemSchema,
   updateInventoryEntryQuantitySchema,
+  updateInventoryEntrySlotSchema,
 } from './validation'
+import {
+  canMutateActorInventory,
+  canReadActorInventory,
+} from './authorization'
 
 const campaignParamsSchema = z.object({
   campaignId: z.string().trim().min(1),
@@ -39,7 +44,6 @@ async function findActiveMember(campaignId: string, userId: string) {
     select: {
       id: true,
       role: true,
-      actorId: true,
       campaign: { select: { gameSystem: true } },
     },
   })
@@ -47,7 +51,7 @@ async function findActiveMember(campaignId: string, userId: string) {
 
 async function findAuthorizedActor(campaignId: string, actorId: string, userId: string) {
   const member = await findActiveMember(campaignId, userId)
-  if (!member) return { actor: null, forbidden: true } as const
+  if (!member) return { actor: null, forbidden: true, role: null } as const
 
   const actor = await prisma.campaignActor.findFirst({
     where: { id: actorId, campaignId },
@@ -55,19 +59,22 @@ async function findAuthorizedActor(campaignId: string, actorId: string, userId: 
       id: true,
       campaignId: true,
       controllerMemberId: true,
+      token: { select: { id: true } },
       campaign: { select: { gameSystem: true } },
     },
   })
-  if (!actor) return { actor: null, forbidden: false } as const
+  if (!actor) return { actor: null, forbidden: false, role: member.role } as const
 
-  const canManage =
-    member.role === 'MASTER' ||
-    actor.controllerMemberId === member.id ||
-    member.actorId === actor.id
+  const canAccess = canReadActorInventory({
+    role: member.role,
+    memberId: member.id,
+    controllerMemberId: actor.controllerMemberId,
+    hasLinkedToken: actor.token !== null,
+  })
 
-  return canManage
-    ? { actor, forbidden: false } as const
-    : { actor: null, forbidden: true } as const
+  return canAccess
+    ? { actor, forbidden: false, role: member.role } as const
+    : { actor: null, forbidden: true, role: member.role } as const
 }
 
 async function ensureInventory(actorId: string) {
@@ -77,6 +84,27 @@ async function ensureInventory(actorId: string) {
     create: { actorId },
     select: { id: true, actorId: true, createdAt: true, updatedAt: true },
   })
+}
+
+async function presentResolvedInventoryEntry(
+  entry: Parameters<typeof presentInventoryEntry>[0],
+  gameSystem: GameSystemKey,
+) {
+  if (entry.catalogContentId) return presentInventoryEntry(entry, gameSystem)
+
+  const provider = getGameSystemCatalogProvider(gameSystem)
+  const resolvedContentId = await provider?.resolveInventoryItemContentId?.(entry.data) ?? null
+  if (!resolvedContentId) return presentInventoryEntry(entry, gameSystem)
+
+  await prisma.inventoryEntry.update({
+    where: { id: entry.id },
+    data: { catalogContentId: resolvedContentId },
+  }).catch(() => undefined)
+
+  return presentInventoryEntry({
+    ...entry,
+    catalogContentId: resolvedContentId,
+  }, gameSystem)
 }
 
 export function registerInventoryRoutes(app: FastifyInstance) {
@@ -103,15 +131,6 @@ export function registerInventoryRoutes(app: FastifyInstance) {
           user: { select: { email: true } },
         },
       },
-      mainForMember: {
-        select: {
-          id: true,
-          userId: true,
-          role: true,
-          status: true,
-          user: { select: { email: true } },
-        },
-      },
     } as const
 
     const actors = member.role === 'MASTER'
@@ -123,10 +142,8 @@ export function registerInventoryRoutes(app: FastifyInstance) {
       : await prisma.campaignActor.findMany({
           where: {
             campaignId: params.data.campaignId,
-            OR: [
-              { controllerMemberId: member.id },
-              ...(member.actorId ? [{ id: member.actorId }] : []),
-            ],
+            controllerMemberId: member.id,
+            token: { isNot: null },
           },
           select: actorSelect,
           orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
@@ -135,7 +152,7 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     return reply.send({
       role: member.role,
       actors: actors.map((actor) => {
-        const owner = actor.mainForMember ?? actor.controllerMember
+        const owner = actor.controllerMember
         return {
           id: actor.id,
           name: actor.name,
@@ -172,29 +189,43 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     })
     if (!master) return reply.status(403).send({ error: 'Apenas o Mestre pode enviar itens' })
 
-    const recipients = await prisma.campaignMember.findMany({
+    const recipientActors = await prisma.campaignActor.findMany({
       where: {
         campaignId: params.data.campaignId,
-        role: 'PLAYER',
-        status: 'ACTIVE',
-        actorId: { not: null },
+        controllerMember: {
+          is: {
+            role: 'PLAYER',
+            status: 'ACTIVE',
+          },
+        },
       },
       select: {
         id: true,
-        userId: true,
-        user: { select: { email: true } },
-        actor: { select: { id: true, name: true, avatarUrl: true } },
+        name: true,
+        avatarUrl: true,
+        controllerMember: {
+          select: {
+            id: true,
+            userId: true,
+            user: { select: { email: true } },
+          },
+        },
       },
-      orderBy: { joinedAt: 'asc' },
+      orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
     })
 
     return reply.send({
-      recipients: recipients.flatMap((recipient) => recipient.actor
+      recipients: recipientActors.flatMap((actor) => actor.controllerMember
         ? [{
-            memberId: recipient.id,
-            userId: recipient.userId,
-            email: recipient.user.email,
-            actor: recipient.actor,
+            recipientActorId: actor.id,
+            memberId: actor.controllerMember.id,
+            userId: actor.controllerMember.userId,
+            email: actor.controllerMember.user.email,
+            actor: {
+              id: actor.id,
+              name: actor.name,
+              avatarUrl: actor.avatarUrl,
+            },
           }]
         : []),
     })
@@ -213,7 +244,6 @@ export function registerInventoryRoutes(app: FastifyInstance) {
         .status(access.forbidden ? 403 : 404)
         .send({ error: access.forbidden ? 'Sem permissao para acessar este inventario' : 'Ator nao encontrado' })
     }
-
     const gameSystem = access.actor.campaign.gameSystem as GameSystemKey
     const inventory = await ensureInventory(access.actor.id)
     const entries = await prisma.inventoryEntry.findMany({
@@ -224,7 +254,9 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     return reply.send({
       id: inventory.id,
       actorId: inventory.actorId,
-      entries: entries.map((entry) => presentInventoryEntry(entry, gameSystem)),
+      entries: await Promise.all(
+        entries.map((entry) => presentResolvedInventoryEntry(entry, gameSystem)),
+      ),
       createdAt: inventory.createdAt,
       updatedAt: inventory.updatedAt,
     })
@@ -246,6 +278,9 @@ export function registerInventoryRoutes(app: FastifyInstance) {
         .status(access.forbidden ? 403 : 404)
         .send({ error: access.forbidden ? 'Sem permissao para alterar este inventario' : 'Ator nao encontrado' })
     }
+    if (!canMutateActorInventory(access.role)) {
+      return reply.status(403).send({ error: 'Apenas o Mestre pode alterar inventarios' })
+    }
 
     const gameSystem = access.actor.campaign.gameSystem as GameSystemKey
     const result = await addInventoryItem({
@@ -256,8 +291,11 @@ export function registerInventoryRoutes(app: FastifyInstance) {
       stack: body.data.stack,
     })
 
-    if (!result) {
-      return reply.status(409).send({ error: `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}` })
+    if (!result.ok) {
+      const message = result.reason === 'INVENTORY_FULL'
+        ? 'O inventario nao possui slots livres'
+        : `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`
+      return reply.status(409).send({ error: message })
     }
 
     return reply.status(201).send({
@@ -282,6 +320,9 @@ export function registerInventoryRoutes(app: FastifyInstance) {
         .status(access.forbidden ? 403 : 404)
         .send({ error: access.forbidden ? 'Sem permissao para alterar este inventario' : 'Ator nao encontrado' })
     }
+    if (!canMutateActorInventory(access.role)) {
+      return reply.status(403).send({ error: 'Apenas o Mestre pode alterar inventarios' })
+    }
 
     const existing = await prisma.inventoryEntry.findFirst({
       where: {
@@ -303,6 +344,66 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     ))
   })
 
+  app.patch('/api/campaigns/:campaignId/actors/:actorId/inventory/entries/:entryId/slot', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = inventoryEntryParamsSchema.safeParse(req.params)
+    const body = updateInventoryEntrySlotSchema.safeParse(req.body ?? {})
+    if (!params.success || !body.success) {
+      return reply.status(400).send({ error: body.success ? 'Entrada de inventario invalida' : body.error.flatten() })
+    }
+
+    const access = await findAuthorizedActor(params.data.campaignId, params.data.actorId, auth.id)
+    if (!access.actor) {
+      return reply
+        .status(access.forbidden ? 403 : 404)
+        .send({ error: access.forbidden ? 'Sem permissao para reorganizar este inventario' : 'Ator nao encontrado' })
+    }
+
+    const result = await prisma.$transaction(async (tx) => {
+      const source = await tx.inventoryEntry.findFirst({
+        where: {
+          id: params.data.entryId,
+          inventory: { actorId: access.actor.id },
+        },
+      })
+      if (!source) return null
+      if (source.slotIndex === body.data.slotIndex) return [source]
+
+      const target = await tx.inventoryEntry.findFirst({
+        where: {
+          inventoryId: source.inventoryId,
+          slotIndex: body.data.slotIndex,
+        },
+      })
+
+      await tx.$executeRawUnsafe(
+        'SET CONSTRAINTS "InventoryEntry_inventoryId_slotIndex_key" DEFERRED',
+      )
+      const movedSource = await tx.inventoryEntry.update({
+        where: { id: source.id },
+        data: { slotIndex: body.data.slotIndex },
+      })
+      if (!target) return [movedSource]
+
+      const movedTarget = await tx.inventoryEntry.update({
+        where: { id: target.id },
+        data: { slotIndex: source.slotIndex },
+      })
+      return [movedSource, movedTarget]
+    })
+
+    if (!result) return reply.status(404).send({ error: 'Entrada de inventario nao encontrada' })
+
+    const gameSystem = access.actor.campaign.gameSystem as GameSystemKey
+    return reply.send({
+      entries: await Promise.all(
+        result.map((entry) => presentResolvedInventoryEntry(entry, gameSystem)),
+      ),
+    })
+  })
+
   app.delete('/api/campaigns/:campaignId/actors/:actorId/inventory/entries/:entryId', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
@@ -315,6 +416,9 @@ export function registerInventoryRoutes(app: FastifyInstance) {
       return reply
         .status(access.forbidden ? 403 : 404)
         .send({ error: access.forbidden ? 'Sem permissao para alterar este inventario' : 'Ator nao encontrado' })
+    }
+    if (!canMutateActorInventory(access.role)) {
+      return reply.status(403).send({ error: 'Apenas o Mestre pode alterar inventarios' })
     }
 
     const existing = await prisma.inventoryEntry.findFirst({
@@ -354,22 +458,33 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     })
     if (!master) return reply.status(403).send({ error: 'Apenas o Mestre pode enviar itens' })
 
-    const recipient = await prisma.campaignMember.findFirst({
+    const recipientActor = await prisma.campaignActor.findFirst({
       where: {
-        id: body.data.recipientMemberId,
+        id: body.data.recipientActorId,
         campaignId: params.data.campaignId,
-        role: 'PLAYER',
-        status: 'ACTIVE',
+        controllerMember: {
+          is: {
+            role: 'PLAYER',
+            status: 'ACTIVE',
+          },
+        },
       },
       select: {
         id: true,
-        userId: true,
-        user: { select: { email: true } },
-        actor: { select: { id: true, name: true, avatarUrl: true } },
+        name: true,
+        avatarUrl: true,
+        controllerMember: {
+          select: {
+            id: true,
+            userId: true,
+            user: { select: { email: true } },
+          },
+        },
       },
     })
-    if (!recipient) return reply.status(404).send({ error: 'Jogador nao encontrado na campanha' })
-    if (!recipient.actor) return reply.status(409).send({ error: 'O jogador ainda nao possui um ator principal' })
+    if (!recipientActor?.controllerMember) {
+      return reply.status(404).send({ error: 'Ator destinatario nao encontrado na campanha' })
+    }
 
     const gameSystem = master.campaign.gameSystem as GameSystemKey
     const provider = getGameSystemCatalogProvider(gameSystem)
@@ -386,22 +501,31 @@ export function registerInventoryRoutes(app: FastifyInstance) {
     if (!itemData) return reply.status(404).send({ error: 'Item nao encontrado no catalogo' })
 
     const result = await addInventoryItem({
-      actorId: recipient.actor.id,
+      actorId: recipientActor.id,
       gameSystem,
       quantity: body.data.quantity,
       data: itemData,
       stack: true,
+      catalogContentId: params.data.contentId,
     })
-    if (!result) {
-      return reply.status(409).send({ error: `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}` })
+    if (!result.ok) {
+      const message = result.reason === 'INVENTORY_FULL'
+        ? 'O inventario do ator nao possui slots livres'
+        : `A quantidade agrupada excederia ${INVENTORY_QUANTITY_MAX}`
+      return reply.status(409).send({ error: message })
     }
 
     return reply.status(201).send({
       recipient: {
-        memberId: recipient.id,
-        userId: recipient.userId,
-        email: recipient.user.email,
-        actor: recipient.actor,
+        recipientActorId: recipientActor.id,
+        memberId: recipientActor.controllerMember.id,
+        userId: recipientActor.controllerMember.userId,
+        email: recipientActor.controllerMember.user.email,
+        actor: {
+          id: recipientActor.id,
+          name: recipientActor.name,
+          avatarUrl: recipientActor.avatarUrl,
+        },
       },
       entry: presentInventoryEntry(result.entry, gameSystem),
       stacked: result.stacked,

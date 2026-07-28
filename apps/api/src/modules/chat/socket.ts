@@ -25,27 +25,24 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
         const campaignMember = await prisma.campaignMember.findFirst({
           where: {
             campaignId: parsed.data.campaignId,
-            actorId: parsed.data.actorId,
             userId: user.id,
             status: 'ACTIVE',
           },
           select: {
+            id: true,
             role: true,
-            actorId: true,
-            actor: { select: { name: true } },
+            user: { select: { email: true } },
           },
         })
 
-        if (!campaignMember?.actor || !campaignMember.actorId) {
+        if (!campaignMember) {
           ack?.({ ok: false, error: 'Acesso ao chat nao liberado' })
           return
         }
 
-
         const message = await prisma.chatMessage.create({
           data: {
             campaign: { connect: { id: parsed.data.campaignId } },
-            actor: { connect: { id: campaignMember.actorId } },
             user: { connect: { id: user.id } },
             content: parsed.data.content.trim(),
           },
@@ -53,6 +50,7 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
             id: true,
             campaignId: true,
             actorId: true,
+            userId: true,
             content: true,
             createdAt: true,
           },
@@ -60,10 +58,10 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
 
         const messageForPresentation = {
           ...message,
-          actorName: campaignMember.actor.name,
+          actorName: campaignMember.role === 'MASTER' ? 'Mestre' : campaignMember.user.email,
           role: campaignMember.role,
         }
-        const presentedForSender = presentChatMessage(messageForPresentation, campaignMember.actorId)
+        const presentedForSender = presentChatMessage(messageForPresentation, user.id)
         const presentedForBroadcast = presentChatMessage(messageForPresentation)
 
         socket.to(`campaign:${parsed.data.campaignId}`).emit('chat:message:created', presentedForBroadcast)

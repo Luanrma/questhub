@@ -4,6 +4,9 @@
 * Jogador ativo acessa a mesa enquanto o mestre esta online.
 * Token armazena posicao, tamanho, visibilidade, rotacao, camada, nome visual e imagem/cor opcional.
 * Criar um Token generico deve ser uma acao imediata de um clique, persistindo `Novo Token` sem imagem e sem abrir formulario intermediario.
+* Um Token sem posicionamento deve expor uma superficie de arraste dedicada no painel de Tokens. Botoes de editar nome, imagem ou excluir ficam fora dessa superficie e nao podem interceptar o inicio do drag.
+* O drop de Token exige uma cena ativa e envia explicitamente seu `sceneId`; o cliente nao pode depender de uma selecao de cena anterior ja ter sido sincronizada no servidor.
+* Ao dropar como Mestre, o cliente deve obter a conexao realtime sob demanda, enviar `vtt:token:place` com ACK e apresentar a rejeicao sem descartar o gesto silenciosamente.
 * Depois da criacao, o Mestre ou controlador com permissao de personalizacao pode editar o nome e escolher uma imagem do catalogo gerado recursivamente a partir de `apps/web/public/tokens/`; o cliente persiste a escolha como URL publica relativa sob `/tokens/`.
 * O contrato HTTP de criacao e atualizacao de Token aceita tanto URLs absolutas validas quanto assets locais sob `/tokens/`, rejeitando caminhos relativos externos a esse prefixo e segmentos de traversal.
 * Criar um Token generico persiste `avatarUrl = null`; a biblioteca de imagens default nunca e persistida no banco.
@@ -74,8 +77,16 @@ type VttTokenMovementStartedEvent = VttTokenMovePathCommand & {
   startedAt: number
   durationMs: number
 }
+
+type VttTokenPlaceCommand = {
+  campaignId: string
+  sceneId: string
+  tokenId: string
+  position: { x: number; y: number }
+}
 ```
 
+* Comando do cliente: `vtt:token:place`, com `sceneId` da cena exibida e ACK padrao de sucesso ou erro.
 * Comando do cliente: `vtt:token:move-path`, com ACK padrao de sucesso ou erro.
 * Comando do cliente: `vtt:token:move`, com ACK padrao; rejeicao restaura posicao e exploracao provisoria no cliente.
 * Fato do servidor: `vtt:token:movement-started` para os sockets que visualizam a cena.
@@ -89,8 +100,8 @@ type VttTokenMovementStartedEvent = VttTokenMovePathCommand & {
 ## Fog of War
 
 * O FOG fica desativado por padrao e e configurado por cena.
-* A visao do jogador e relativa a um unico Token selecionado, com fallback para o Token do ator principal.
-* Sem ator principal posicionado na cena exibida, o jogador ve a cena coberta quando o FOG deve ser preservado.
+* A visão do jogador usa os Tokens controlados presentes na cena, sem depender de ator ativo global.
+* Sem Token controlado posicionado na cena exibida, o jogador vê a cena coberta quando o FOG deve ser preservado.
 * A memoria de exploracao pertence ao Token e nao e compartilhada automaticamente.
 * O Mestre configura visao, iluminacao, bloqueadores e capacidades noturnas.
 * Ao forcar uma cena para todos, o Mestre escolhe entre preservar o FOG ou revelar temporariamente o mapa inteiro.
@@ -100,11 +111,12 @@ type VttTokenMovementStartedEvent = VttTokenMovePathCommand & {
 
 * `CampaignToken` é uma entidade visual independente e pode existir sem ator vinculado.
 * `CampaignActor` é uma entidade da campanha e não possui `userId`, papel ou status de membro.
-* `CampaignMember` concentra participação, papel, status e ator principal opcional.
+* `CampaignMember` concentra somente participação, papel e status.
 * O vínculo `CampaignToken.actorId` é opcional e exclusivo nos dois sentidos.
 * Token, ator, membro controlador e cena devem pertencer à mesma campanha.
 * Excluir um ator preserva o Token; excluir um Token preserva ator, ficha e inventário.
-* `MAIN`, `SECONDARY` e `MASTER_ONLY` são classificações derivadas.
+* `PLAYER_CONTROLLED` e `MASTER_ONLY` são classificações derivadas.
+* Tokens vinculados herdam controle de `CampaignActor.controllerMemberId`; controle direto em `CampaignToken.controllerMemberId` só se aplica a Tokens genéricos.
 * O controle do Token pertence a `CampaignMember` e não concede automaticamente edição da ficha.
 * O Mestre pode criar Tokens sem ator, vinculá-los depois e transferir seu controle.
 * Posicionamento continua separado de `CampaignToken` por `CampaignTokenPlacement`.

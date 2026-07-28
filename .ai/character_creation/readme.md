@@ -2,4 +2,4 @@
 
 Este módulo foi substituído por `campaign_actor`.
 
-Não existe personagem global. A identidade é criada como `CampaignActor` dentro de uma campanha, normalmente pelos fluxos de criação/entrada da campanha ou pelo gerenciador de fichas.
+Não existe personagem global. A identidade é criada explicitamente como `CampaignActor` dentro de uma campanha pelo gerenciador de fichas/atores.

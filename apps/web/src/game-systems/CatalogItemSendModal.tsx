@@ -3,6 +3,7 @@ import { Loader2, Package, Send, UserRound, X } from 'lucide-react'
 import { api } from '../lib/api'
 
 type Recipient = {
+  recipientActorId: string
   memberId: string
   userId: string
   email: string
@@ -36,7 +37,7 @@ type Props = {
 
 export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose }: Props) {
   const [recipients, setRecipients] = useState<Recipient[]>([])
-  const [recipientMemberId, setRecipientMemberId] = useState('')
+  const [recipientActorId, setRecipientActorId] = useState('')
   const [quantity, setQuantity] = useState('1')
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)
@@ -53,7 +54,7 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
     })
       .then((response) => {
         setRecipients(response.recipients)
-        setRecipientMemberId(response.recipients[0]?.memberId ?? '')
+        setRecipientActorId(response.recipients[0]?.recipientActorId ?? '')
       })
       .catch((cause) => {
         if (controller.signal.aborted) return
@@ -68,8 +69,8 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
 
   async function sendItem() {
     const parsedQuantity = Number(quantity)
-    if (!recipientMemberId || !Number.isInteger(parsedQuantity) || parsedQuantity < 1 || parsedQuantity > 1_000_000) {
-      setError('Selecione um jogador e informe uma quantidade válida.')
+    if (!recipientActorId || !Number.isInteger(parsedQuantity) || parsedQuantity < 1 || parsedQuantity > 1_000_000) {
+      setError('Selecione um ator e informe uma quantidade válida.')
       return
     }
 
@@ -82,7 +83,7 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
         {
           method: 'POST',
           body: JSON.stringify({
-            recipientMemberId,
+            recipientActorId,
             quantity: parsedQuantity,
           }),
         },
@@ -170,7 +171,7 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
 
               {!loading && recipients.length === 0 ? (
                 <div className="rounded-xl border border-amber-300/20 bg-amber-500/10 p-4 text-sm leading-6 text-amber-100/80">
-                  Não há jogadores ativos com um ator principal vinculado nesta campanha.
+                  Não há atores controlados por jogadores ativos nesta campanha.
                 </div>
               ) : null}
 
@@ -179,15 +180,15 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
                   <label className="block">
                     <span className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
                       <UserRound className="h-4 w-4" />
-                      Jogador e ator
+                      Ator destinatário
                     </span>
                     <select
-                      value={recipientMemberId}
-                      onChange={(event) => setRecipientMemberId(event.target.value)}
+                      value={recipientActorId}
+                      onChange={(event) => setRecipientActorId(event.target.value)}
                       className="h-11 w-full rounded-lg border border-white/10 bg-black/35 px-3 text-sm text-zinc-200 outline-none transition focus:border-indigo-300/50"
                     >
                       {recipients.map((recipient) => (
-                        <option key={recipient.memberId} value={recipient.memberId}>
+                        <option key={recipient.recipientActorId} value={recipient.recipientActorId}>
                           {recipient.actor.name} — {recipient.email}
                         </option>
                       ))}
@@ -208,7 +209,7 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
 
                   <button
                     type="button"
-                    disabled={sending || !recipientMemberId}
+                    disabled={sending || !recipientActorId}
                     onClick={() => void sendItem()}
                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-indigo-300/25 bg-indigo-500/15 px-4 py-3 text-sm font-semibold text-indigo-100 transition hover:border-indigo-300/50 hover:bg-indigo-500/25 disabled:cursor-not-allowed disabled:opacity-50"
                   >

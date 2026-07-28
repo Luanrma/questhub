@@ -24,14 +24,6 @@ import {
   type CampaignUserSettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 
-type MyCampaignActor = {
-  id: string
-  name: string
-  avatarUrl: string | null
-  role: 'MASTER' | 'PLAYER'
-  status: 'ACTIVE' | 'PENDING'
-}
-
 type CampaignPanelId = 'sessions' | 'characters' | 'players' | 'journal' | 'settings'
 
 const panelTitles: Record<CampaignPanelId, string> = {
@@ -160,7 +152,6 @@ export function CampaignLayout() {
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
-  const [myActor, setMyActor] = useState<MyCampaignActor | null>(null)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [openPanels, setOpenPanels] = useState<CampaignPanelId[]>([])
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
@@ -171,8 +162,6 @@ export function CampaignLayout() {
   const isMaster = campaign?.myRole === 'MASTER'
   const sessionState = campaign?.sessionState ?? (campaign?.isOnline ? 'ACTIVE' : null)
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
-  const navigationState = location.state as { actorId?: string | null } | null
-
   function openCampaignPanel(panelId: CampaignPanelId) {
     setOpenPanels((current) => [...current.filter((item) => item !== panelId), panelId])
   }
@@ -261,6 +250,8 @@ export function CampaignLayout() {
 
   // Hooks precisam ser chamados sempre: a lógica fica DENTRO do efeito.
   useEffect(() => {
+    let cancelled = false
+
     ;(async () => {
       if (!campaignId) return
       if (loading) return
@@ -272,31 +263,37 @@ export function CampaignLayout() {
         return
       }
 
-      try {
-        const selectedActorId = navigationState?.actorId ?? campaign.myActorId
-        const selectedActorQuery = selectedActorId ? `?actorId=${encodeURIComponent(selectedActorId)}` : ''
-        const ch = await api<MyCampaignActor>(`/api/campaigns/${campaignId}/my-actor${selectedActorQuery}`)
-        setMyActor(ch)
-        if (ch?.id && ch.role === 'PLAYER' && campaign.isOnline) {
-          const key = `${campaignId}:${ch.id}`
-          if (presenceKeyRef.current === key) return
-          presenceKeyRef.current = key
-          enterPresence({ campaignId, actorId: ch.id })
+      if (campaign.myRole === 'PLAYER' && campaign.isOnline) {
+        const key = `${campaignId}:${me.id}`
+        if (presenceKeyRef.current === key) return
+        for (const retryDelay of [0, 300, 800]) {
+          if (retryDelay > 0) {
+            await new Promise((resolve) => window.setTimeout(resolve, retryDelay))
+          }
+          if (cancelled) return
+          try {
+            await enterPresence({ campaignId })
+            if (!cancelled) presenceKeyRef.current = key
+            return
+          } catch {
+            presenceKeyRef.current = null
+          }
         }
-      } catch {
-        alert('Campanha offline (mestre não está online) ou acesso não liberado.')
-        navigate('/campaigns', { replace: true })
       }
     })()
+
+    return () => {
+      cancelled = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [campaignId, loading, me, campaignsLoading, campaign])
 
   async function onStartSession() {
-    if (!campaignId || !myActor?.id) return
+    if (!campaignId) return
 
     setSessionActionLoading(true)
     try {
-      await startCampaignSession({ campaignId, actorId: myActor.id })
+      await startCampaignSession({ campaignId })
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Não foi possível iniciar a sessão.'
       alert(message)
@@ -423,7 +420,7 @@ export function CampaignLayout() {
                       <Button
                         className="gap-2"
                         variant="ghost"
-                        disabled={sessionActionLoading || !myActor?.id}
+                        disabled={sessionActionLoading}
                         onClick={onTogglePauseSession}
                       >
                         {sessionState === 'PAUSED'
@@ -436,7 +433,7 @@ export function CampaignLayout() {
                     <Button
                       className="gap-2"
                       variant={campaign.isOnline ? 'danger' : 'primary'}
-                      disabled={sessionActionLoading || !myActor?.id}
+                      disabled={sessionActionLoading}
                       onClick={campaign.isOnline ? onEndSession : onStartSession}
                     >
                       {campaign.isOnline ? <Power className="h-4 w-4" /> : <Play className="h-4 w-4" />}
@@ -454,7 +451,6 @@ export function CampaignLayout() {
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
               canConfigureGrid={Boolean(isMaster)}
               sessionState={sessionState}
-              myActor={myActor}
               onGridSettingsChange={applyGridSettings}
               onGridSettingsOpenChange={setGridSettingsOpen}
             />

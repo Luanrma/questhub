@@ -423,7 +423,6 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
           select: {
             name: true,
             controllerMember: { select: { userId: true } },
-            mainForMember: { select: { userId: true } },
             characterSheet: { select: { id: true } },
           },
         },
@@ -435,7 +434,6 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     const canOpen = role.role === 'MASTER'
       || token.controllerMember?.userId === auth.id
       || token.actor?.controllerMember?.userId === auth.id
-      || token.actor?.mainForMember?.userId === auth.id
     if (!canOpen) return reply.status(403).send({ error: 'Sem permissao para abrir esta ficha' })
 
     return reply.send({

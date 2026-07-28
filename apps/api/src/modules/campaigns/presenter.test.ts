@@ -6,10 +6,6 @@ function dashboardEntry(role: 'MASTER' | 'PLAYER') {
   return {
     role,
     status: 'ACTIVE' as const,
-    actor: {
-      id: role === 'MASTER' ? 'master-actor' : 'player-actor',
-      name: role === 'MASTER' ? 'Arion' : 'Lia',
-    },
     campaign: {
       id: 'campaign-1',
       title: 'Sombras de Absalom',
@@ -20,10 +16,7 @@ function dashboardEntry(role: 'MASTER' | 'PLAYER') {
       members: [
         {
           userId: 'master-user',
-          actor: {
-            id: 'master-actor',
-            name: 'Arion',
-          },
+          user: { email: 'master@example.com' },
         },
       ],
     },
@@ -44,18 +37,18 @@ test('presentCampaignDashboardEntry exposes inviteCode only for master', () => {
   assert.equal(player.inviteCode, null)
 })
 
-test('presentCampaignDashboardEntry derives gm and current actor fields from CampaignMember', () => {
+test('presentCampaignDashboardEntry derives gm and membership fields without a main actor', () => {
   const result = presentCampaignDashboardEntry(dashboardEntry('PLAYER'), {
     isOnline: true,
     sessionState: 'PAUSED',
   })
 
-  assert.equal(result.gmName, 'Arion')
+  assert.equal(result.gmName, 'master@example.com')
   assert.equal(result.gmUserId, 'master-user')
   assert.equal(result.myRole, 'PLAYER')
   assert.equal(result.myStatus, 'ACTIVE')
-  assert.equal(result.myActorId, 'player-actor')
-  assert.equal(result.myActorName, 'Lia')
+  assert.equal('myActorId' in result, false)
+  assert.equal('myActorName' in result, false)
   assert.equal(result.isOnline, true)
   assert.equal(result.sessionState, 'PAUSED')
 })

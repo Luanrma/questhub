@@ -21,6 +21,9 @@ const defaultCampaignUserSettings = {
     autoClear: 3 as number | 'manual',
     showResultPopup: true,
   },
+  inventory: {
+    itemSheetLocale: 'pt-BR' as 'pt-BR' | 'en-US',
+  },
 }
 
 const campaignUserSettingsSchema = z
@@ -29,6 +32,11 @@ const campaignUserSettingsSchema = z
       .object({
         autoClear: z.union([z.literal('manual'), z.number().int().min(3).max(10)]).optional(),
         showResultPopup: z.boolean().optional(),
+      })
+      .optional(),
+    inventory: z
+      .object({
+        itemSheetLocale: z.enum(['pt-BR', 'en-US']).optional(),
       })
       .optional(),
   })
@@ -44,12 +52,17 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
   const parsed = campaignUserSettingsSchema.safeParse(value)
   const settings = parsed.success ? parsed.data : {}
   const dice = settings.dice ?? {}
+  const inventory = settings.inventory ?? {}
 
   return {
     ...settings,
     dice: {
       autoClear: dice.autoClear ?? defaultCampaignUserSettings.dice.autoClear,
       showResultPopup: dice.showResultPopup ?? defaultCampaignUserSettings.dice.showResultPopup,
+    },
+    inventory: {
+      itemSheetLocale: inventory.itemSheetLocale
+        ?? defaultCampaignUserSettings.inventory.itemSheetLocale,
     },
   }
 }
@@ -58,12 +71,17 @@ function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUse
   const currentSettings = normalizeCampaignUserSettings(current)
   const nextRecord = isRecord(next) ? next : {}
   const nextDice = isRecord(nextRecord.dice) ? nextRecord.dice : {}
+  const nextInventory = isRecord(nextRecord.inventory) ? nextRecord.inventory : {}
   const merged = {
     ...currentSettings,
     ...nextRecord,
     dice: {
       ...currentSettings.dice,
       ...nextDice,
+    },
+    inventory: {
+      ...currentSettings.inventory,
+      ...nextInventory,
     },
   }
 
@@ -125,8 +143,12 @@ function presentCampaignToken(token: {
   createdAt: Date
   updatedAt: Date
   actor: {
-    mainForMember: { userId: string; role: 'MASTER' | 'PLAYER' } | null
-    controllerMember: { userId: string } | null
+    controllerMember: {
+      id: string
+      userId: string
+      role: 'MASTER' | 'PLAYER'
+      user: { email: string }
+    } | null
   } | null
   controllerMember: { id: string; userId: string; user: { email: string } } | null
   placement: {
@@ -139,9 +161,9 @@ function presentCampaignToken(token: {
     blocksVisionAndLight: boolean
   } | null
 }) {
-  const mainMember = token.actor?.mainForMember ?? null
-  const category: 'MAIN' | 'SECONDARY' | 'MASTER_ONLY' =
-    mainMember?.role === 'PLAYER' ? 'MAIN' : token.controllerMember ? 'SECONDARY' : 'MASTER_ONLY'
+  const effectiveController = token.actor?.controllerMember ?? token.controllerMember
+  const category: 'PLAYER_CONTROLLED' | 'MASTER_ONLY' =
+    effectiveController?.role === 'PLAYER' ? 'PLAYER_CONTROLLED' : 'MASTER_ONLY'
 
   return {
     id: token.id,
@@ -154,11 +176,10 @@ function presentCampaignToken(token: {
     canCustomizeAppearance: token.canCustomizeAppearance,
     visionConfig: token.visionConfig,
     lightConfig: token.lightConfig,
-    controllerMemberId: token.controllerMember?.id ?? null,
-    controllerUserId: token.controllerMember?.userId ?? null,
-    controllerName: token.controllerMember?.user.email ?? null,
-    actorOwnerUserId:
-      mainMember?.userId ?? token.actor?.controllerMember?.userId ?? token.controllerMember?.userId ?? null,
+    controllerMemberId: effectiveController?.id ?? null,
+    controllerUserId: effectiveController?.userId ?? null,
+    controllerName: effectiveController?.user.email ?? null,
+    actorOwnerUserId: effectiveController?.userId ?? null,
     category,
     placement: token.placement
       ? {
@@ -178,12 +199,13 @@ function presentCampaignToken(token: {
 const campaignTokenInclude = {
   actor: {
     select: {
-      mainForMember: { select: { userId: true, role: true } },
-      controllerMember: { select: { userId: true } },
+      controllerMember: {
+        select: { id: true, userId: true, role: true, user: { select: { email: true } } },
+      },
     },
   },
   controllerMember: {
-    select: { id: true, userId: true, user: { select: { email: true } } },
+    select: { id: true, userId: true, role: true, user: { select: { email: true } } },
   },
   placement: {
     select: {
@@ -216,7 +238,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       select: {
         role: true,
         status: true,
-        actor: { select: { id: true, name: true } },
         campaign: {
           select: {
             id: true,
@@ -229,7 +250,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
               where: { role: 'MASTER', status: 'ACTIVE' },
               select: {
                 userId: true,
-                actor: { select: { id: true, name: true } },
+                user: { select: { email: true } },
               },
               take: 1,
             },
@@ -268,7 +289,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         createdAt: true,
         members: {
           where: { role: 'MASTER', status: 'ACTIVE' },
-          select: { userId: true, actor: { select: { name: true } } },
+          select: { userId: true, user: { select: { email: true } } },
           take: 1,
         },
       },
@@ -284,7 +305,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       inviteCode: campaign.inviteCode,
       joinPolicy: campaign.joinPolicy,
       createdAt: campaign.createdAt,
-      gmName: master?.actor?.name ?? 'Mestre',
+      gmName: master?.user.email ?? 'Mestre',
       gmUserId: master?.userId ?? '',
       isOnline: isCampaignOnline(campaign.id),
     })
@@ -298,7 +319,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: z.string().trim().min(1, 'Titulo e obrigatorio'),
       description: z.string().optional(),
       joinPolicy: z.enum(['PUBLIC', 'PRIVATE']).default('PUBLIC'),
-      masterActorName: z.string().trim().min(1).max(80),
     })
 
     const parsed = schema.safeParse(req.body ?? {})
@@ -324,7 +344,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         },
       })
 
-      const member = await tx.campaignMember.create({
+      await tx.campaignMember.create({
         data: {
           campaignId: campaign.id,
           userId: payload.id,
@@ -332,34 +352,16 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           status: 'ACTIVE',
           joinedAt: new Date(),
         },
-        select: { id: true },
       })
 
-      const actor = await tx.campaignActor.create({
-        data: {
-          campaignId: campaign.id,
-          controllerMemberId: member.id,
-          name: parsed.data.masterActorName,
-          inventory: { create: {} },
-        },
-        select: { id: true, name: true },
-      })
-
-      await tx.campaignMember.update({
-        where: { id: member.id },
-        data: { actorId: actor.id },
-      })
-
-      return { campaign, actor }
+      return campaign
     })
 
     return reply.status(201).send({
-      ...result.campaign,
-      gmName: result.actor.name,
+      ...result,
+      gmName: payload.email,
       gmUserId: payload.id,
       myRole: 'MASTER',
-      myActorId: result.actor.id,
-      myActorName: result.actor.name,
       isOnline: false,
     })
   })
@@ -370,7 +372,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
     const schema = z.object({
       inviteCode: z.string().trim().min(1),
-      actorName: z.string().trim().min(1).max(80),
     })
     const parsed = schema.safeParse(req.body ?? {})
     if (!parsed.success) return reply.status(400).send({ error: parsed.error.flatten() })
@@ -390,7 +391,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             createdAt: true,
             members: {
               where: { role: 'MASTER', status: 'ACTIVE' },
-              select: { userId: true, actor: { select: { name: true } } },
+              select: { userId: true, user: { select: { email: true } } },
               take: 1,
             },
           },
@@ -399,21 +400,14 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
         const existingMember = await tx.campaignMember.findUnique({
           where: { campaignId_userId: { campaignId: campaign.id, userId: payload.id } },
-          select: { id: true, status: true, actorId: true },
+          select: { id: true, status: true },
         })
         if (existingMember && ['ACTIVE', 'PENDING'].includes(existingMember.status)) {
           throw Object.assign(new Error('USER_ALREADY_IN_CAMPAIGN'), { statusCode: 409 })
         }
 
         const status = campaign.joinPolicy === 'PUBLIC' ? 'ACTIVE' : 'PENDING'
-        if (existingMember?.actorId) {
-          await tx.campaignActor.update({
-            where: { id: existingMember.actorId },
-            data: { controllerMemberId: null },
-          })
-        }
-
-        const member = existingMember
+        existingMember
           ? await tx.campaignMember.update({
               where: { id: existingMember.id },
               data: {
@@ -421,7 +415,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
                 status,
                 joinedAt: status === 'ACTIVE' ? new Date() : null,
                 leftAt: null,
-                actorId: null,
               },
               select: { id: true },
             })
@@ -436,22 +429,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
               select: { id: true },
             })
 
-        const actor = await tx.campaignActor.create({
-          data: {
-            campaignId: campaign.id,
-            controllerMemberId: member.id,
-            name: parsed.data.actorName,
-            inventory: { create: {} },
-          },
-          select: { id: true, name: true },
-        })
-
-        await tx.campaignMember.update({
-          where: { id: member.id },
-          data: { actorId: actor.id },
-        })
-
-        return { campaign, status, actor }
+        return { campaign, status }
       })
 
       const master = result.campaign.members[0] ?? null
@@ -462,7 +440,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             campaignId: result.campaign.id,
             userId: payload.id,
             email: payload.email,
-            actorName: result.actor.name,
+            memberName: payload.email,
             createdAt: new Date().toISOString(),
           },
         )
@@ -475,13 +453,11 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         inviteCode: null,
         joinPolicy: result.campaign.joinPolicy,
         createdAt: result.campaign.createdAt,
-        gmName: master?.actor?.name ?? 'Mestre',
+        gmName: master?.user.email ?? 'Mestre',
         gmUserId: master?.userId ?? '',
         myRole: 'PLAYER',
         myStatus: result.status,
         status: result.status,
-        actorId: result.actor.id,
-        missingActorName: false,
       })
     } catch (err: unknown) {
       const error = err as { statusCode?: number; message?: string }
@@ -493,52 +469,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       req.log.error({ err }, 'Erro ao entrar na campanha')
       return reply.status(500).send({ error: 'Erro ao entrar na campanha' })
     }
-  })
-
-  app.get('/api/campaigns/:campaignId/my-actor', async (req, reply) => {
-    const payload = requireAuth(req, reply)
-    if (!payload) return
-    const params = req.params as { campaignId: string }
-    const query = z.object({ actorId: z.string().optional() }).safeParse(req.query ?? {})
-    if (!query.success) return reply.status(400).send({ error: 'Personagem invalido' })
-
-    const campaignMember = await prisma.campaignMember.findFirst({
-      where: {
-        campaignId: params.campaignId,
-        ...(query.data.actorId ? { actorId: query.data.actorId } : {}),
-        status: 'ACTIVE',
-        role: { in: ['MASTER', 'PLAYER'] },
-        userId: payload.id,
-      },
-      orderBy: { createdAt: 'asc' },
-      select: {
-        role: true,
-        status: true,
-        actor: {
-          select: {
-            id: true,
-            name: true,
-            avatarUrl: true,
-          },
-        },
-      },
-    })
-
-    if (!campaignMember?.actor) {
-      return reply.status(403).send({ error: 'Acesso nao liberado' })
-    }
-
-    if (campaignMember.role === 'PLAYER' && !isCampaignOnline(params.campaignId)) {
-      return reply.status(409).send({ error: 'Mestre offline' })
-    }
-
-    return reply.send({
-      id: campaignMember.actor.id,
-      name: campaignMember.actor.name,
-      avatarUrl: campaignMember.actor.avatarUrl,
-      role: campaignMember.role,
-      status: campaignMember.status,
-    })
   })
 
   app.get('/api/campaigns/:campaignId/my-settings', async (req, reply) => {
@@ -677,11 +607,10 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         userId: true,
         role: true,
         status: true,
-        actorId: true,
         createdAt: true,
         updatedAt: true,
         user: { select: { email: true } },
-        actor: { select: { name: true } },
+        controlledActors: { select: { id: true, name: true }, orderBy: { name: 'asc' } },
       },
       orderBy: { createdAt: 'asc' },
     })
@@ -692,8 +621,8 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         email: entry.user.email,
         role: entry.role,
         status: entry.status,
-        actorId: entry.actorId,
-        actorName: entry.actor?.name ?? 'Sem personagem',
+        actors: entry.controlledActors,
+        actorName: entry.controlledActors.map((actor) => actor.name).join(', ') || 'Sem atores',
         createdAt: entry.createdAt,
         decidedAt: entry.status === 'PENDING' ? null : entry.updatedAt,
       })),
@@ -713,17 +642,13 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       where: {
         campaignId: params.campaignId,
         token: null,
-        mainForMember: { isNot: { role: 'MASTER' } },
       },
       select: {
         id: true,
         name: true,
         avatarUrl: true,
-        mainForMember: {
-          select: { role: true, userId: true, user: { select: { email: true } } },
-        },
         controllerMember: {
-          select: { userId: true, user: { select: { email: true } } },
+          select: { role: true, userId: true, user: { select: { email: true } } },
         },
       },
       orderBy: { createdAt: 'asc' },
@@ -731,12 +656,12 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
     return reply.send(
       actors.map((actor) => {
-        const owner = actor.mainForMember ?? actor.controllerMember
+        const owner = actor.controllerMember
         return {
           actorId: actor.id,
           name: actor.name,
           avatarUrl: actor.avatarUrl,
-          role: actor.mainForMember?.role ?? 'NPC',
+          role: actor.controllerMember?.role ?? 'NPC',
           ownerUserId: owner?.userId ?? null,
           ownerName: owner?.user.email ?? actor.name,
         }
@@ -759,7 +684,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       orderBy: { createdAt: 'asc' },
     })
 
-    const categoryOrder = { MAIN: 0, SECONDARY: 1, MASTER_ONLY: 2 } as const
+    const categoryOrder = { PLAYER_CONTROLLED: 0, MASTER_ONLY: 1 } as const
     return reply.send(
       tokens
         .map(presentCampaignToken)
@@ -785,8 +710,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
             id: true,
             name: true,
             avatarUrl: true,
-            mainForMember: { select: { role: true, userId: true } },
-            controllerMember: { select: { userId: true } },
+            controllerMember: { select: { id: true, userId: true } },
           },
         })
       : null
@@ -794,10 +718,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       return reply.status(400).send({ error: 'Actor nao pertence a esta campanha' })
     }
 
-    const automaticControllerUserId =
-      actor?.mainForMember?.role === 'PLAYER'
-        ? actor.mainForMember.userId
-        : actor?.controllerMember?.userId ?? null
+    const automaticControllerUserId = actor?.controllerMember?.userId ?? null
     const controllerUserId = parsed.data.controllerUserId ?? automaticControllerUserId
     const controller = controllerUserId
       ? await findActivePlayerMember(params.campaignId, controllerUserId)
@@ -808,21 +729,30 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
 
     try {
       const avatarUrl = parsed.data.avatarUrl !== undefined ? parsed.data.avatarUrl : actor?.avatarUrl ?? null
-      const token = await prisma.campaignToken.create({
-        data: {
-          campaignId: params.campaignId,
-          actorId: actor?.id ?? null,
-          controllerMemberId: controller?.id ?? null,
-          name: parsed.data.name ?? actor?.name ?? 'Novo Token',
-          avatarUrl,
-          color: normalizeTokenColor({
-            nextAvatarUrl: avatarUrl,
-            requestedColor: parsed.data.color,
-          }),
-          size: parsed.data.size ?? 1,
-          canCustomizeAppearance: parsed.data.canCustomizeAppearance ?? false,
-        },
-        include: campaignTokenInclude,
+      const token = await prisma.$transaction(async (tx) => {
+        if (actor && parsed.data.controllerUserId !== undefined) {
+          await tx.campaignActor.update({
+            where: { id: actor.id },
+            data: { controllerMemberId: controller?.id ?? null },
+          })
+        }
+
+        return tx.campaignToken.create({
+          data: {
+            campaignId: params.campaignId,
+            actorId: actor?.id ?? null,
+            controllerMemberId: actor ? null : controller?.id ?? null,
+            name: parsed.data.name ?? actor?.name ?? 'Novo Token',
+            avatarUrl,
+            color: normalizeTokenColor({
+              nextAvatarUrl: avatarUrl,
+              requestedColor: parsed.data.color,
+            }),
+            size: parsed.data.size ?? 1,
+            canCustomizeAppearance: parsed.data.canCustomizeAppearance ?? false,
+          },
+          include: campaignTokenInclude,
+        })
       })
       return reply.status(201).send(presentCampaignToken(token))
     } catch (err: unknown) {
@@ -853,43 +783,42 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     const canPlayerCustomize =
       appearanceOnly &&
       current.canCustomizeAppearance &&
-      current.controllerMember?.userId === payload.id
+      (current.actor?.controllerMember?.userId ?? current.controllerMember?.userId) === payload.id
     if (!isMaster && !canPlayerCustomize) {
       return reply.status(403).send({ error: 'Sem permissao para alterar este Token' })
     }
 
     let actor: {
       id: string
-      mainForMember: { role: 'MASTER' | 'PLAYER'; userId: string } | null
-      controllerMember: { userId: string } | null
+      controllerMember: { id: string; userId: string } | null
     } | null = null
     if (isMaster && parsed.data.actorId) {
       actor = await prisma.campaignActor.findFirst({
         where: { id: parsed.data.actorId, campaignId: params.campaignId },
         select: {
           id: true,
-          mainForMember: { select: { role: true, userId: true } },
-          controllerMember: { select: { userId: true } },
+          controllerMember: { select: { id: true, userId: true } },
         },
       })
       if (!actor) return reply.status(400).send({ error: 'Actor nao pertence a esta campanha' })
     }
 
-    let controllerMemberId: string | null | undefined
+    const nextActor = parsed.data.actorId === undefined
+      ? current.actor
+      : actor
+    let requestedControllerMemberId: string | null | undefined
     const automaticControllerUserId =
       isMaster && parsed.data.actorId !== undefined
-        ? actor?.mainForMember?.role === 'PLAYER'
-          ? actor.mainForMember.userId
-          : actor?.controllerMember?.userId
+        ? actor?.controllerMember?.userId
         : undefined
     const requestedControllerUserId =
       parsed.data.controllerUserId !== undefined ? parsed.data.controllerUserId : automaticControllerUserId
     if (isMaster && requestedControllerUserId !== undefined) {
-      if (requestedControllerUserId === null) controllerMemberId = null
+      if (requestedControllerUserId === null) requestedControllerMemberId = null
       else {
         const member = await findActivePlayerMember(params.campaignId, requestedControllerUserId)
         if (!member) return reply.status(400).send({ error: 'Controlador nao participa desta campanha' })
-        controllerMemberId = member.id
+        requestedControllerMemberId = member.id
       }
     }
 
@@ -901,31 +830,50 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
         currentColor: current.color,
         avatarChanged: parsed.data.avatarUrl !== undefined,
       })
-      const token = await prisma.campaignToken.update({
-        where: { id: current.id },
-        data: {
-          ...(isMaster && parsed.data.actorId !== undefined ? { actorId: parsed.data.actorId } : {}),
-          ...(controllerMemberId !== undefined ? { controllerMemberId } : {}),
-          ...(parsed.data.name !== undefined ? { name: parsed.data.name } : {}),
-          ...(parsed.data.avatarUrl !== undefined ? { avatarUrl: parsed.data.avatarUrl } : {}),
-          ...((parsed.data.avatarUrl !== undefined || parsed.data.color !== undefined) ? { color: nextColor } : {}),
-          ...(isMaster && parsed.data.size !== undefined ? { size: parsed.data.size } : {}),
-          ...(isMaster && parsed.data.canCustomizeAppearance !== undefined
-            ? { canCustomizeAppearance: parsed.data.canCustomizeAppearance }
-            : {}),
-        },
-        include: campaignTokenInclude,
+      const token = await prisma.$transaction(async (tx) => {
+        if (nextActor && requestedControllerMemberId !== undefined) {
+          await tx.campaignActor.update({
+            where: { id: nextActor.id },
+            data: { controllerMemberId: requestedControllerMemberId },
+          })
+        }
+
+        const directControllerMemberId = nextActor
+          ? null
+          : requestedControllerMemberId !== undefined
+            ? requestedControllerMemberId
+            : current.actor?.controllerMember?.id ?? current.controllerMember?.id ?? null
+
+        return tx.campaignToken.update({
+          where: { id: current.id },
+          data: {
+            ...(isMaster && parsed.data.actorId !== undefined ? { actorId: parsed.data.actorId } : {}),
+            ...(isMaster && (parsed.data.actorId !== undefined || requestedControllerMemberId !== undefined)
+              ? { controllerMemberId: directControllerMemberId }
+              : {}),
+            ...(parsed.data.name !== undefined ? { name: parsed.data.name } : {}),
+            ...(parsed.data.avatarUrl !== undefined ? { avatarUrl: parsed.data.avatarUrl } : {}),
+            ...((parsed.data.avatarUrl !== undefined || parsed.data.color !== undefined) ? { color: nextColor } : {}),
+            ...(isMaster && parsed.data.size !== undefined ? { size: parsed.data.size } : {}),
+            ...(isMaster && parsed.data.canCustomizeAppearance !== undefined
+              ? { canCustomizeAppearance: parsed.data.canCustomizeAppearance }
+              : {}),
+          },
+          include: campaignTokenInclude,
+        })
       })
       const presented = presentCampaignToken(token)
       await refreshCampaignTokenInLiveState(params.campaignId, token.id)
       io.to(`campaign:${params.campaignId}`).emit('vtt:token:metadata-changed', {
         campaignId: params.campaignId,
         token: presented,
-        previousControllerUserId: current.controllerMember?.userId ?? null,
+        previousControllerUserId:
+          current.actor?.controllerMember?.userId ?? current.controllerMember?.userId ?? null,
       })
       return reply.send(presented)
-    } catch (err: any) {
-      if (err?.code === 'P2002') return reply.status(409).send({ error: 'Actor ja esta vinculado a outro Token' })
+    } catch (err: unknown) {
+      const error = err as { code?: string }
+      if (error.code === 'P2002') return reply.status(409).send({ error: 'Actor ja esta vinculado a outro Token' })
       throw err
     }
   })
@@ -991,7 +939,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       select: { id: true },
     })
     if (existingActive) {
-      return reply.status(409).send({ error: 'Usuario ja possui personagem ativo nesta campanha' })
+      return reply.status(409).send({ error: 'Usuario ja possui participacao ativa nesta campanha' })
     }
 
     const updated = await prisma.campaignMember.update({
@@ -1034,20 +982,10 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     })
     if (!target) return reply.status(404).send({ error: 'Solicitacao nao encontrada' })
 
-    const updated = await prisma.$transaction(async (tx) => {
-      const current = await tx.campaignMember.findUnique({
-        where: { id: target.id },
-        select: { actorId: true },
-      })
-      const campaignMember = await tx.campaignMember.update({
-        where: { id: target.id },
-        data: { status: 'REJECTED', actorId: null },
-        select: { campaignId: true, userId: true },
-      })
-      if (current?.actorId) {
-        await tx.campaignActor.delete({ where: { id: current.actorId } })
-      }
-      return campaignMember
+    const updated = await prisma.campaignMember.update({
+      where: { id: target.id },
+      data: { status: 'REJECTED' },
+      select: { campaignId: true, userId: true },
     })
 
     io.to(`user:${updated.userId}`).emit('campaign:join-rejected', {

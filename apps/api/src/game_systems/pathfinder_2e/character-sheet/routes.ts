@@ -44,7 +44,6 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
           bio: true,
           campaign: { select: { gameSystem: true } },
           controllerMember: { select: { userId: true } },
-          mainForMember: { select: { userId: true } },
         },
       },
     },
@@ -53,7 +52,6 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
 
   const canAccess = access.role === 'MASTER'
     || sheet.actor.controllerMember?.userId === userId
-    || sheet.actor.mainForMember?.userId === userId
   return canAccess ? sheet : null
 }
 

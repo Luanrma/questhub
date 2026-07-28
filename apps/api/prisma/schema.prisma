@@ -94,7 +94,6 @@ model CampaignActor {
 
   campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   controllerMember CampaignMember? @relation("CampaignActorController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
-  mainForMember    CampaignMember? @relation("CampaignMemberMainActor")
   inventory        Inventory?
   characterSheet   CampaignCharacterSheet?
   token            CampaignToken?
@@ -115,16 +114,20 @@ model Inventory {
 }
 
 model InventoryEntry {
-  id          String   @id @default(cuid())
-  inventoryId String
-  quantity    Int      @default(1)
-  data        Json
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(cuid())
+  inventoryId      String
+  quantity         Int      @default(1)
+  slotIndex        Int
+  catalogContentId String?
+  data             Json
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 
   inventory Inventory @relation(fields: [inventoryId], references: [id], onDelete: Cascade)
 
+  @@unique([inventoryId, slotIndex])
   @@index([inventoryId, createdAt])
+  @@index([catalogContentId])
 }
 
 model CampaignCharacterSheet {
@@ -148,7 +151,6 @@ model CampaignMember {
   id         String               @id @default(cuid())
   campaignId String
   userId     String
-  actorId    String?              @unique
   role       CampaignMemberRole
   status     CampaignMemberStatus @default(PENDING)
   joinedAt   DateTime?
@@ -158,7 +160,6 @@ model CampaignMember {
 
   campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
   user             User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-  actor            CampaignActor?  @relation("CampaignMemberMainActor", fields: [actorId], references: [id], onDelete: SetNull)
   controlledActors CampaignActor[] @relation("CampaignActorController")
   controlledTokens CampaignToken[] @relation("CampaignTokenController")
 
@@ -172,13 +173,13 @@ model CampaignMember {
 model ChatMessage {
   id         String   @id @default(cuid())
   campaignId String
-  actorId    String
+  actorId    String?
   userId     String
   content    String
   createdAt  DateTime @default(now())
 
   campaign Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  actor    CampaignActor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  actor    CampaignActor? @relation(fields: [actorId], references: [id], onDelete: SetNull)
   user     User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([campaignId, createdAt])

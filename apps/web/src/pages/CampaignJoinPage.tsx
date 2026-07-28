@@ -30,7 +30,7 @@ type CampaignSystemLookup = {
 
 export function CampaignJoinPage() {
   const navigate = useNavigate()
-  const { me, loadCampaigns, setActiveCampaignId } = useSession()
+  const { loadCampaigns, setActiveCampaignId } = useSession()
   const [inviteCode, setInviteCode] = useState('')
   const [foundCampaign, setFoundCampaign] = useState<FoundCampaign | null>(null)
   const [loadingSearch, setLoadingSearch] = useState(false)
@@ -67,19 +67,17 @@ export function CampaignJoinPage() {
     setError(null)
 
     try {
-      const identityName = me?.email?.split('@')[0]?.trim() || 'Jogador'
       const joined = await api<JoinedCampaign>('/api/campaigns/join', {
         method: 'POST',
         body: JSON.stringify({
           inviteCode: campaign.inviteCode,
-          actorName: identityName,
         }),
       })
 
       await loadCampaigns({ force: true })
 
       if (joined.status === 'PENDING') {
-        alert('Solicitação enviada! Aguarde o Mestre aprovar. A ficha será criada pelo Mestre dentro da campanha.')
+        alert('Solicitação enviada! Aguarde o Mestre aprovar. Os atores e fichas serão atribuídos dentro da campanha.')
         navigate('/campaigns', { replace: true })
         return
       }

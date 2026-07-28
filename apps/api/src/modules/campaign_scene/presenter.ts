@@ -49,12 +49,17 @@ type CampaignTokenPlacementRecord = {
     visionConfig?: unknown
     lightConfig?: unknown
     actor?: {
-      mainForMember: { userId: string; role: 'MASTER' | 'PLAYER' } | null
-      controllerMember: { userId: string } | null
+      controllerMember: {
+        id: string
+        userId: string
+        role: 'MASTER' | 'PLAYER'
+        user: { email: string }
+      } | null
     } | null
     controllerMember?: {
       id: string
       userId: string
+      role: 'MASTER' | 'PLAYER'
       user: { email: string }
     } | null
   }
@@ -96,7 +101,7 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
 
 export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecord) {
   const token = placement.token
-  const mainMember = token.actor?.mainForMember ?? null
+  const effectiveController = token.actor?.controllerMember ?? token.controllerMember
 
   return {
     id: token.id,
@@ -106,12 +111,12 @@ export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecor
     avatarUrl: token.avatarUrl,
     color: token.color,
     size: token.size,
-    controllerMemberId: token.controllerMember?.id ?? null,
-    controllerUserId: token.controllerMember?.userId ?? null,
-    controllerName: token.controllerMember?.user.email ?? null,
-    ownerUserId: mainMember?.userId ?? token.actor?.controllerMember?.userId ?? null,
-    ownerName: token.controllerMember?.user.email ?? null,
-    role: mainMember?.role === 'PLAYER' ? 'PLAYER' : token.actor ? 'NPC' : 'GENERIC',
+    controllerMemberId: effectiveController?.id ?? null,
+    controllerUserId: effectiveController?.userId ?? null,
+    controllerName: effectiveController?.user.email ?? null,
+    ownerUserId: effectiveController?.userId ?? null,
+    ownerName: effectiveController?.user.email ?? null,
+    role: effectiveController?.role === 'PLAYER' ? 'PLAYER' : token.actor ? 'NPC' : 'GENERIC',
     canCustomizeAppearance: token.canCustomizeAppearance,
     visionConfig: token.visionConfig ?? {},
     lightConfig: token.lightConfig ?? {},

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
+import { Backpack, ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
 import { requestCampaignCharacterSheetOpen } from '../../../game-systems/character-sheet-window-events'
 import { api, ApiError } from '../../../lib/api'
 import type {
@@ -31,6 +31,7 @@ type TokenContextMenuProps = {
   onToggleVisibility: (token: VttPlayerToken) => void
   onRemoveFromScene: (token: VttPlayerToken) => void
   onDelete: (token: VttPlayerToken) => void
+  onOpenInventory: (token: VttPlayerToken) => void
 }
 
 type ResolvedTokenSheet = {
@@ -71,6 +72,7 @@ export function TokenContextMenu({
   onToggleVisibility,
   onRemoveFromScene,
   onDelete,
+  onOpenInventory,
 }: TokenContextMenuProps) {
   const { campaignId } = useParams()
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -180,6 +182,18 @@ export function TokenContextMenu({
           </button>
         ) : sheetLoading ? (
           <div className="mt-2 px-2 py-2 text-xs text-zinc-500">Verificando ficha...</div>
+        ) : null}
+
+        {token.actorId ? (
+          <button
+            type="button"
+            role="menuitem"
+            className="mt-1 flex w-full items-center gap-2 rounded-md px-2 py-2 text-left text-sm text-zinc-200 transition hover:bg-white/10 hover:text-white"
+            onClick={() => onOpenInventory(token)}
+          >
+            <Backpack className="h-4 w-4" />
+            <span>Abrir inventário</span>
+          </button>
         ) : null}
 
         <button

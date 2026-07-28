@@ -7,7 +7,6 @@ test('player without a controlled placed token has no visible scene', () => {
     [{ id: 'master-token', actorId: null, controllerUserId: null }],
     new Map([['master-token', 'master-scene']]),
     'player-1',
-    'character-1',
   )
   assert.equal(sceneId, null)
 })
@@ -17,20 +16,18 @@ test('generic controlled token grants access to its scene', () => {
     [{ id: 'generic-token', actorId: null, controllerUserId: 'player-1' }],
     new Map([['generic-token', 'scene-1']]),
     'player-1',
-    'character-1',
   )
   assert.equal(sceneId, 'scene-1')
 })
 
-test('main character token takes precedence over other controlled tokens', () => {
+test('first controlled placed token defines the visible scene', () => {
   const sceneId = selectPlayerVisibleSceneId(
     [
-      { id: 'secondary-token', actorId: null, controllerUserId: 'player-1' },
-      { id: 'main-token', actorId: 'character-1', controllerUserId: 'player-1' },
+      { id: 'generic-token', actorId: null, controllerUserId: 'player-1' },
+      { id: 'active-token', actorId: 'character-1', controllerUserId: 'player-1' },
     ],
-    new Map([['secondary-token', 'scene-2'], ['main-token', 'scene-1']]),
+    new Map([['generic-token', 'scene-2'], ['active-token', 'scene-1']]),
     'player-1',
-    'character-1',
   )
-  assert.equal(sceneId, 'scene-1')
+  assert.equal(sceneId, 'scene-2')
 })
