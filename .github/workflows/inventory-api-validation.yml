@@ -1,0 +1,29 @@
+name: Inventory API validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate --schema apps/api/prisma/schema.prisma
+      - run: npx prisma validate --schema apps/api/prisma/schema.prisma
+      - run: npm run test:unit
+      - name: Typecheck inventory API
+        run: >-
+          npx tsc --noEmit --target ES2023 --module ESNext --moduleResolution bundler
+          --types node --esModuleInterop --skipLibCheck --strict
+          apps/api/src/game_systems/inventory_api/routes.ts
+          apps/api/src/game_systems/inventory_api/validation.ts
+          apps/api/src/game_systems/inventory_api/stacking.ts
+          apps/api/src/game_systems/inventory_api/register.ts
+      - run: npm run build:web
