@@ -21,7 +21,7 @@ CREATE TABLE "Campaign" (
   "description" TEXT,
   "inviteCode" TEXT NOT NULL,
   "joinPolicy" "CampaignJoinPolicy" NOT NULL DEFAULT 'PUBLIC',
-  "gameSystem" "GameSystem" NOT NULL DEFAULT 'PATHFINDER_2E',
+  "gameSystem" "GameSystem" NOT NULL,
   "createdByUserId" TEXT NOT NULL,
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP(3) NOT NULL,

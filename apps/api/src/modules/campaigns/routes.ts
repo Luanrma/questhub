@@ -319,6 +319,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
       title: z.string().trim().min(1, 'Titulo e obrigatorio'),
       description: z.string().optional(),
       joinPolicy: z.enum(['PUBLIC', 'PRIVATE']).default('PUBLIC'),
+      gameSystem: z.enum(['PATHFINDER_2E']),
     })
 
     const parsed = schema.safeParse(req.body ?? {})
@@ -332,6 +333,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           description: parsed.data.description?.trim() || null,
           inviteCode,
           joinPolicy: parsed.data.joinPolicy,
+          gameSystem: parsed.data.gameSystem,
           createdByUserId: payload.id,
         },
         select: {
@@ -340,6 +342,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           description: true,
           inviteCode: true,
           joinPolicy: true,
+          gameSystem: true,
           createdAt: true,
         },
       })

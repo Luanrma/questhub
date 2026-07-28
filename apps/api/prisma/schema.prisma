@@ -61,7 +61,7 @@ model Campaign {
   description String?
   inviteCode  String             @unique
   joinPolicy  CampaignJoinPolicy @default(PUBLIC)
-  gameSystem  GameSystem         @default(PATHFINDER_2E)
+  gameSystem  GameSystem
 
   createdByUserId String
   createdByUser   User   @relation("CreatedCampaigns", fields: [createdByUserId], references: [id])

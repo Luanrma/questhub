@@ -5,9 +5,9 @@ INSERT INTO "User" ("id", "email", "passwordHash") VALUES
   ('user-2', 'user2@test.local', 'hash'),
   ('user-3', 'user3@test.local', 'hash');
 
-INSERT INTO "Campaign" ("id", "title", "inviteCode", "createdByUserId", "updatedAt") VALUES
-  ('campaign-1', 'Campaign 1', 'TESTC001', 'user-1', CURRENT_TIMESTAMP),
-  ('campaign-2', 'Campaign 2', 'TESTC002', 'user-2', CURRENT_TIMESTAMP);
+INSERT INTO "Campaign" ("id", "title", "inviteCode", "gameSystem", "createdByUserId", "updatedAt") VALUES
+  ('campaign-1', 'Campaign 1', 'TESTC001', 'PATHFINDER_2E', 'user-1', CURRENT_TIMESTAMP),
+  ('campaign-2', 'Campaign 2', 'TESTC002', 'PATHFINDER_2E', 'user-2', CURRENT_TIMESTAMP);
 
 INSERT INTO "CampaignMember" ("id", "campaignId", "userId", "role", "status", "joinedAt", "updatedAt") VALUES
   ('member-1', 'campaign-1', 'user-1', 'MASTER', 'ACTIVE', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

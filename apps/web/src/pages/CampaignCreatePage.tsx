@@ -43,13 +43,10 @@ export function CampaignCreatePage() {
           title: title.trim(),
           description: description.trim() || undefined,
           joinPolicy,
+          gameSystem,
         }),
       })
 
-      await api(`/api/campaigns/${created.id}/game-system`, {
-        method: 'PATCH',
-        body: JSON.stringify({ gameSystem }),
-      })
 
       await loadCampaigns({ force: true })
       setActiveCampaignId(created.id)
