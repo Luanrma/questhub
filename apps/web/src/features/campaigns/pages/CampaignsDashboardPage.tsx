@@ -16,7 +16,6 @@ const statusLabel: Record<CampaignMemberStatus, string> = {
   PENDING: 'Pendente',
   REJECTED: 'Recusado',
   LEFT: 'Saiu',
-  DEAD: 'Morto',
 }
 
 const statusClassName: Record<CampaignMemberStatus, string> = {
@@ -24,7 +23,6 @@ const statusClassName: Record<CampaignMemberStatus, string> = {
   PENDING: 'bg-amber-400/10 text-amber-200 border-amber-300/20',
   REJECTED: 'bg-red-400/10 text-red-200 border-red-300/20',
   LEFT: 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
-  DEAD: 'bg-rose-400/10 text-rose-200 border-rose-300/20',
 }
 
 function canEnterCampaign(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignMemberStatus; isOnline: boolean }) {
@@ -36,7 +34,6 @@ function canEnterCampaign(params: { role: 'MASTER' | 'PLAYER'; status?: Campaign
 function getEnterButtonLabel(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignMemberStatus; isOnline: boolean }) {
   if (params.status === 'PENDING') return 'Aguardando'
   if (params.status === 'LEFT') return 'Saiu'
-  if (params.status === 'DEAD') return 'Morto'
   if (params.status === 'REJECTED') return 'Recusado'
   if (params.status === 'ACTIVE' && params.role === 'PLAYER' && !params.isOnline) return 'Offline'
   return 'Entrar'

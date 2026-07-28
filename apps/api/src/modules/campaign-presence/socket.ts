@@ -84,11 +84,11 @@ export function setupCampaignPresence(server: HttpServer) {
   async function notifyCampaignStatus(campaignId: string, online: boolean) {
     const members = await prisma.campaignMember.findMany({
       where: { campaignId, status: 'ACTIVE' },
-      select: { actor: { select: { userId: true } } },
+      select: { userId: true },
     })
 
     for (const member of members) {
-      io.to(userRoom(member.actor.userId)).emit('campaign:status', { campaignId, online })
+      io.to(userRoom(member.userId)).emit('campaign:status', { campaignId, online })
     }
   }
 
@@ -312,11 +312,8 @@ export function setupCampaignPresence(server: HttpServer) {
             },
             actor: {
               select: {
-                userId: true,
-                campaigns: {
-                  where: { campaignId },
-                  select: { role: true },
-                },
+                mainForMember: { select: { userId: true, role: true } },
+                controllerMember: { select: { userId: true } },
               },
             },
           },
@@ -335,14 +332,14 @@ export function setupCampaignPresence(server: HttpServer) {
         },
         actor: {
           select: {
-            userId: true,
-            campaigns: { where: { campaignId }, select: { role: true } },
+            mainForMember: { select: { userId: true, role: true } },
+            controllerMember: { select: { userId: true } },
           },
         },
       },
     })
     if (!identity) return null
-    const role = identity.actor?.campaigns[0]?.role
+    const role = identity.actor?.mainForMember?.role
     return {
       ...token,
       actorId: identity.actorId,
@@ -350,11 +347,11 @@ export function setupCampaignPresence(server: HttpServer) {
       avatarUrl: identity.avatarUrl,
       color: identity.color,
       size: identity.size,
-      ownerUserId: identity.actor?.userId ?? null,
+      ownerUserId: identity.actor?.mainForMember?.userId ?? identity.actor?.controllerMember?.userId ?? null,
       ownerName: identity.controllerMember?.user.email ?? null,
       controllerMemberId: identity.controllerMember?.id ?? null,
       controllerUserId: identity.controllerMember?.userId ?? null,
-      role: role === 'PLAYER' ? 'PLAYER' as const : role === 'NPC' ? 'NPC' as const : 'GENERIC' as const,
+      role: role === 'PLAYER' ? 'PLAYER' as const : identity.actor ? 'NPC' as const : 'GENERIC' as const,
       canCustomizeAppearance: identity.canCustomizeAppearance,
       visionConfig: identity.visionConfig,
       lightConfig: identity.lightConfig,
@@ -487,11 +484,8 @@ export function setupCampaignPresence(server: HttpServer) {
             },
             actor: {
               select: {
-                userId: true,
-                campaigns: {
-                  where: { campaignId },
-                  select: { role: true },
-                },
+                mainForMember: { select: { userId: true, role: true } },
+                controllerMember: { select: { userId: true } },
               },
             },
           },
@@ -968,8 +962,8 @@ export function setupCampaignPresence(server: HttpServer) {
           },
           actor: {
             select: {
-              userId: true,
-              campaigns: { where: { campaignId }, select: { role: true } },
+              mainForMember: { select: { userId: true, role: true } },
+              controllerMember: { select: { userId: true } },
             },
           },
         },
@@ -979,7 +973,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const tokenMap = getCampaignTokenMap(campaignId)
       if (getCampaignTokenSceneMap(campaignId).has(tokenId) || (!online && campaignToken.placement)) return
 
-      const actorRole = campaignToken.actor?.campaigns[0]?.role
+      const actorRole = campaignToken.actor?.mainForMember?.role
 
       const token: VttPlayerToken = {
         id: campaignToken.id,
@@ -988,11 +982,11 @@ export function setupCampaignPresence(server: HttpServer) {
         avatarUrl: campaignToken.avatarUrl,
         color: campaignToken.color,
         size: campaignToken.size,
-        ownerUserId: campaignToken.actor?.userId ?? null,
+        ownerUserId: campaignToken.actor?.mainForMember?.userId ?? campaignToken.actor?.controllerMember?.userId ?? null,
         ownerName: campaignToken.controllerMember?.user.email ?? null,
         controllerMemberId: campaignToken.controllerMember?.id ?? null,
         controllerUserId: campaignToken.controllerMember?.userId ?? null,
-        role: actorRole === 'PLAYER' ? 'PLAYER' : actorRole === 'NPC' ? 'NPC' : 'GENERIC',
+        role: actorRole === 'PLAYER' ? 'PLAYER' : campaignToken.actor ? 'NPC' : 'GENERIC',
         canCustomizeAppearance: campaignToken.canCustomizeAppearance,
         visionConfig: campaignToken.visionConfig,
         lightConfig: campaignToken.lightConfig,

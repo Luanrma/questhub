@@ -15,8 +15,8 @@ import { z } from 'zod'
 
 type CampaignAccess = {
   role: 'MASTER' | 'PLAYER'
-  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
-  actorId: string
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
+  actorId: string | null
 }
 
 type CampaignSceneRoutesDeps = {
@@ -45,11 +45,8 @@ const sceneInclude = {
         include: {
           actor: {
             select: {
-              id: true,
-              userId: true,
-              campaigns: {
-                select: { role: true },
-              },
+              mainForMember: { select: { userId: true, role: true } },
+              controllerMember: { select: { userId: true } },
             },
           },
           controllerMember: {

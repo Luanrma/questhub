@@ -48,10 +48,9 @@ type CampaignTokenPlacementRecord = {
     canCustomizeAppearance: boolean
     visionConfig?: unknown
     lightConfig?: unknown
-    character?: {
-      id: string
-      userId: string
-      campaigns?: Array<{ role: 'MASTER' | 'PLAYER' }>
+    actor?: {
+      mainForMember: { userId: string; role: 'MASTER' | 'PLAYER' } | null
+      controllerMember: { userId: string } | null
     } | null
     controllerMember?: {
       id: string
@@ -97,7 +96,7 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
 
 export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecord) {
   const token = placement.token
-  const campaignMember = token.actor?.campaigns?.[0] ?? null
+  const mainMember = token.actor?.mainForMember ?? null
 
   return {
     id: token.id,
@@ -110,9 +109,9 @@ export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecor
     controllerMemberId: token.controllerMember?.id ?? null,
     controllerUserId: token.controllerMember?.userId ?? null,
     controllerName: token.controllerMember?.user.email ?? null,
-    ownerUserId: token.actor?.userId ?? null,
+    ownerUserId: mainMember?.userId ?? token.actor?.controllerMember?.userId ?? null,
     ownerName: token.controllerMember?.user.email ?? null,
-    role: campaignMember?.role === 'PLAYER' ? 'PLAYER' : campaignMember?.role === 'NPC' ? 'NPC' : 'GENERIC',
+    role: mainMember?.role === 'PLAYER' ? 'PLAYER' : token.actor ? 'NPC' : 'GENERIC',
     canCustomizeAppearance: token.canCustomizeAppearance,
     visionConfig: token.visionConfig ?? {},
     lightConfig: token.lightConfig ?? {},

@@ -1,5 +1,8 @@
 ﻿# Modulo: Campaign Scene (Specs & Contracts)
 
+> **Arquitetura atual:** referências antigas a `Character`, `CampaignCharacter` ou `characterId` neste documento devem ser lidas como `CampaignActor`, `CampaignMember` e `actorId`. A fonte normativa é `.ai/vtt/token-architecture.md`.
+
+
 ## 1. Fronteira do Modulo
 `campaign_scene` define a cena persistida de uma campanha. Uma cena nao e apenas uma imagem de fundo: ela e o snapshot persistido de mapa, grid, posicionamentos de Tokens genericos, geometria, configuracao de FOG, fontes de luz fixas e regras de exibicao usadas pelo VTT. A identidade do Token pertence a campanha.
 

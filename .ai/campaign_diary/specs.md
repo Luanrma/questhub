@@ -52,7 +52,7 @@ DELETE /api/campaigns/:campaignId/diaries/:diaryId
 
 Regras:
 * Todas as rotas exigem usuario autenticado.
-* Todas as rotas exigem `CampaignCharacter` ativo com role `MASTER`.
+* Todas as rotas exigem `CampaignMember` ativo com role `MASTER`.
 * Rotas devem delegar fluxo para services/casos de uso.
 * Acesso a Prisma deve acontecer apenas por repositories do modulo.
 * Respostas publicas devem passar por presenter/serializer do modulo.

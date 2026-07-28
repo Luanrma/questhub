@@ -78,7 +78,7 @@ test('presentCampaignSceneViewState defaults missing state', () => {
   })
 })
 
-test('presentCampaignScene keeps a generic token without Character', () => {
+test('presentCampaignScene keeps a generic token without CampaignActor', () => {
   const result = presentCampaignScene({
     id: 'scene-1',
     campaignId: 'campaign-1',

@@ -27,7 +27,7 @@
 * Nao mover tokens no grid durante o arraste de pre-selecao para Encounter Mode.
 * Nao criar tela ou rota separada para combate.
 * Nao acoplar o tracker a qualquer modulo de ruleset, ficha, bestiario, inventario ou economia.
-* Nao exigir `characterId` para participante; token generico deve poder entrar no Encounter Mode.
+* Nao exigir `actorId` para participante; token generico deve poder entrar no Encounter Mode.
 
 ## Cuidados de seguranca
 * Todo evento de comando deve validar autenticacao e campanha atual do socket.

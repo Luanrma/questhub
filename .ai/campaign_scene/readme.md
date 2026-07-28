@@ -1,5 +1,8 @@
 ﻿# Campaign Scene
 
+> **Arquitetura atual:** referências antigas a `Character`, `CampaignCharacter` ou `characterId` neste documento devem ser lidas como `CampaignActor`, `CampaignMember` e `actorId`. A fonte normativa é `.ai/vtt/token-architecture.md`.
+
+
 ## O que e por que
 `campaign_scene` transforma cenas em containers persistidos de estado do VTT. Uma cena guarda imagem, grid, posicionamentos de Tokens, paredes, portas, janelas, configuracao de FOG, fontes de luz fixas e regras de exibicao independentes. A identidade persistente do Token pertence a campanha e continua existindo mesmo quando nao esta em uma cena.
 
@@ -36,9 +39,9 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * O grid possui deslocamento fino persistente nos eixos X e Y para alinhar suas linhas ao background sem alterar o tamanho das celulas.
 * Tokens permanecem relativos ao grid e acompanham alteracoes de tamanho e deslocamento. Paredes e portas usam coordenadas absolutas da cena e nao se movem quando o grid e recalibrado.
 * Posicionamentos so sao removidos por acoes explicitas do Mestre ou pela exclusao da cena; o Token da campanha e preservado.
-* Tokens podem ser avulsos ou associados opcionalmente a uma identidade (`Character`) para controle de jogador.
-* Excluir um `Character` apenas desfaz seu vinculo opcional; o Token permanece.
-* Excluir um Token nao exclui o `Character` vinculado.
+* Tokens podem ser avulsos ou associados opcionalmente a uma identidade (`CampaignActor`) para controle de jogador.
+* Excluir um `CampaignActor` apenas desfaz seu vinculo opcional; o Token permanece.
+* Excluir um Token nao exclui o `CampaignActor` vinculado.
 * Associar token a ficha, bestiario, inventario, PV, magia, hazard mecanico ou ruleset pertence a extensoes opcionais e nao ao `campaign_scene`.
 * Paredes e portas persistem como segmentos em pixels absolutos da cena e sao sincronizadas em tempo real.
 * Janelas usam a mesma base geometrica e de estados das portas, mas possuem contratos proprios de visao, luz e movimento.

@@ -1,5 +1,12 @@
-# Criacao de Campanha
+# Criação de campanha
 
-Cria uma mesa sem escolher regras. O usuario informa titulo, descricao opcional, politica de entrada e seleciona ou cria uma identidade para atuar como mestre.
+O usuário informa título, descrição opcional, política de entrada e o nome de seu ator principal como Mestre.
 
-O fluxo cria `Campaign` e um `CampaignCharacter` ativo com papel `MASTER`. Ele nao cria ficha nem dados mecanicos.
+O fluxo cria, em uma única transação:
+
+1. `Campaign`;
+2. `CampaignMember` ativo com papel `MASTER`;
+3. `CampaignActor` principal do Mestre;
+4. `Inventory` do ator.
+
+A criação não exige ficha mecânica nem interpretação do `game_system`.

@@ -37,7 +37,7 @@ Endpoint de resolução:
 GET /api/campaigns/:campaignId/tokens/:tokenId/character-sheet
 ```
 
-A ficha é vinculada ao Token pelo gerenciador de fichas. O Token não gerencia esse vínculo e não precisa possuir `Character` ou `NPC` associado.
+A ficha é vinculada ao Token pelo gerenciador de fichas. O Token não gerencia esse vínculo e pode não possuir `CampaignActor` vinculado.
 
 ## Exibição da ação
 

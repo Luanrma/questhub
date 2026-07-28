@@ -59,10 +59,10 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         }
 
         const campaignMember = await prisma.campaignMember.findFirst({
-          where: { campaignId, actorId, status: 'ACTIVE', role: 'MASTER' },
-          select: { role: true, actor: { select: { userId: true, name: true } } },
+          where: { campaignId, actorId, userId: user.id, status: 'ACTIVE', role: 'MASTER' },
+          select: { role: true, actor: { select: { name: true } } },
         })
-        if (!campaignMember || campaignMember.actor.userId !== user.id) {
+        if (!campaignMember || !campaignMember.actor) {
           ack?.({ ok: false, error: 'Apenas o mestre pode iniciar a sessao' })
           return
         }
@@ -175,14 +175,13 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
       if (!campaignId || !actorId) return
 
       const campaignMember = await prisma.campaignMember.findFirst({
-        where: { campaignId, actorId, status: 'ACTIVE' },
-        select: { role: true, actor: { select: { userId: true, name: true, avatarUrl: true } } },
+        where: { campaignId, actorId, userId: user.id, status: 'ACTIVE' },
+        select: { role: true, actor: { select: { name: true, avatarUrl: true } } },
       })
-      if (!campaignMember || campaignMember.actor.userId !== user.id) {
+      if (!campaignMember || !campaignMember.actor) {
         socket.emit('presence:error', { message: 'Acesso nao liberado' })
         return
       }
-      if (campaignMember.role === 'NPC') return
       if (campaignMember.role !== 'PLAYER') return
       if (!isCampaignOnline(campaignId)) {
         socket.emit('presence:error', { message: 'Mestre offline' })

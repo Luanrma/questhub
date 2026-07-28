@@ -36,15 +36,11 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
           },
         })
 
-        if (!campaignMember) {
+        if (!campaignMember?.actor || !campaignMember.actorId) {
           ack?.({ ok: false, error: 'Acesso ao chat nao liberado' })
           return
         }
 
-        if (campaignMember.role === 'NPC') {
-          ack?.({ ok: false, error: 'NPC nao envia mensagem no chat' })
-          return
-        }
 
         const message = await prisma.chatMessage.create({
           data: {

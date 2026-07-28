@@ -38,7 +38,7 @@ type VttCombatState = {
 Regras:
 * `sceneId` identifica a cena usada para iniciar o combate.
 * `participants` vem apenas dos tokens selecionados explicitamente pelo Mestre na caixa de Encounter Mode.
-* Participantes referenciam tokens de cena; nao exigem `Character`, ficha, bestiario ou sistema de jogo.
+* Participantes referenciam tokens de cena; nao exigem `CampaignActor`, ficha, bestiario ou sistema de jogo.
 * `initiative` pode ser `null` ate o Mestre preencher.
 * Participantes com iniciativa numerica aparecem antes de participantes sem iniciativa.
 * Ordenacao padrao: iniciativa descendente, mantendo ordem anterior quando houver empate.
@@ -100,7 +100,7 @@ Regras de permissao:
 * O servidor aceita somente `tokenIds` como intencao de selecao e monta participantes a partir dos tokens da cena informada.
 * `tokenIds` deve conter de 1 a 100 ids unicos.
 * Tokens ocultos, inexistentes ou fora da cena informada devem ser filtrados/recusados antes de criar o tracker.
-* Tokens genericos sem `characterId` sao participantes validos.
+* Tokens genericos sem `actorId` sao participantes validos.
 
 ## 4. UI/UX
 * O tracker aparece no painel lateral direito do VTT.
