@@ -30,7 +30,7 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
   if (!access) return null
 
   const sheet = await prisma.campaignCharacterSheet.findFirst({
-    where: { id: sheetId, actor: { campaignId } },
+    where: { id: sheetId, actor: { campaignId, archivedAt: null } },
     select: {
       id: true,
       systemKey: true,
