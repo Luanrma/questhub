@@ -37,13 +37,14 @@ test('inventory quantity must be a positive bounded integer', () => {
   assert.equal(updateInventoryEntryQuantitySchema.safeParse({ quantity: 3 }).success, true)
 })
 
-test('inventory slot accepts every non-negative integer', () => {
+test('inventory slot accepts every non-negative safe integer', () => {
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 0 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 99 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 100 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 10_000 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: -1 }).success, false)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 1.5 }).success, false)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: Number.MAX_VALUE }).success, false)
 })
 
 test('catalog item delivery requires a recipient and applies quantity default', () => {
