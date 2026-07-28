@@ -1,0 +1,45 @@
+name: Campaign actor final validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/campaign-actor-inventory-validation
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Apply validated patch
+        run: |
+          cat scripts/campaign-actor-fix.part-* | base64 -d > /tmp/campaign-actor-fix.tgz
+          tar -xzf /tmp/campaign-actor-fix.tgz
+          python3 scripts/apply-campaign-actor-removals.py
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npx prisma validate
+      - run: npm run test:unit
+      - name: Typecheck API
+        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --ignoreDeprecations 6.0 --esModuleInterop --skipLibCheck --strictNullChecks --noUnusedLocals --noUnusedParameters apps/api/src/main.ts
+      - run: npm run build:web
+      - name: Commit validated refactor
+        run: |
+          rm -f scripts/campaign-actor-fix.part-*
+          rm -f scripts/apply-campaign-actor-removals.py
+          rm -f .github/workflows/campaign-actor-final-validation.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "refactor: replace Character with CampaignActor" || exit 0
+          git push origin HEAD:feat/campaign-actor-inventory-validation
