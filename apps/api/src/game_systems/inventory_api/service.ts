@@ -21,7 +21,7 @@ export type InventoryEntryRecord = {
   updatedAt: Date
 }
 
-type AddInventoryItemFailureReason = 'QUANTITY_EXCEEDED' | 'INVENTORY_FULL'
+type AddInventoryItemFailureReason = 'QUANTITY_EXCEEDED'
 
 export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: GameSystemKey) {
   const policy = getGameSystemInventoryPolicy(gameSystem)
@@ -56,10 +56,13 @@ export async function addInventoryItem(input: {
     : null
 
   return prisma.$transaction(async (tx) => {
-    const inventory = await tx.inventory.findUnique({
-      where: { actorId: input.actorId },
-      select: { id: true },
-    })
+    const inventories = await tx.$queryRaw<Array<{ id: string }>>`
+      SELECT "id"
+      FROM "Inventory"
+      WHERE "actorId" = ${input.actorId}
+      FOR UPDATE
+    `
+    const inventory = inventories[0]
     if (!inventory) throw new Error('ACTOR_INVENTORY_MISSING')
 
     const existingEntries = await tx.inventoryEntry.findMany({
