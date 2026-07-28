@@ -71,9 +71,9 @@ test('campaign actor persistence replaces the global Character model', () => {
   const memberModel = prismaModel(schema, 'CampaignMember')
   const sheetModel = prismaModel(schema, 'CampaignCharacterSheet')
 
-  assert.doesNotMatch(schema, /model Character \\{/)
-  assert.doesNotMatch(schema, /model CharacterSheet \\{/)
-  assert.doesNotMatch(schema, /model CampaignCharacter \\{/)
+  assert.doesNotMatch(schema, /model Character \{/)
+  assert.doesNotMatch(schema, /model CharacterSheet \{/)
+  assert.doesNotMatch(schema, /model CampaignCharacter \{/)
   assert.match(actorModel, /campaignId\s+String/)
   assert.doesNotMatch(actorModel, /\buserId\b/)
   assert.match(actorModel, /controllerMemberId\s+String\?/)
