@@ -17,3 +17,8 @@ export const addInventoryEntrySchema = z.object({
 export const updateInventoryEntryQuantitySchema = z.object({
   quantity: inventoryQuantitySchema,
 })
+
+export const sendCatalogItemSchema = z.object({
+  recipientMemberId: z.string().trim().min(1),
+  quantity: inventoryQuantitySchema.default(1),
+})
