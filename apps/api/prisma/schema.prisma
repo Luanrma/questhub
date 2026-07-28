@@ -96,6 +96,7 @@ model CampaignActor {
   controllerMember CampaignMember? @relation("CampaignActorController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
   mainForMember    CampaignMember? @relation("CampaignMemberMainActor")
   inventory        Inventory?
+  characterSheet   CampaignCharacterSheet?
   token            CampaignToken?
   chatMessages     ChatMessage[]
 
