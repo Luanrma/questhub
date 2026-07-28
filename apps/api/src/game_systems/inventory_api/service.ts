@@ -21,6 +21,8 @@ export type InventoryEntryRecord = {
   updatedAt: Date
 }
 
+type AddInventoryItemFailureReason = 'QUANTITY_EXCEEDED' | 'INVENTORY_FULL'
+
 export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: GameSystemKey) {
   const policy = getGameSystemInventoryPolicy(gameSystem)
 
@@ -83,7 +85,10 @@ export async function addInventoryItem(input: {
     if (stackable) {
       const current = existingEntries.find((candidate) => candidate.id === stackable.id)
       if (current && current.quantity + input.quantity > INVENTORY_QUANTITY_MAX) {
-        return { ok: false, reason: 'QUANTITY_EXCEEDED' } as const
+        return {
+          ok: false,
+          reason: 'QUANTITY_EXCEEDED' as AddInventoryItemFailureReason,
+        } as const
       }
 
       const hasCatalogReference = Boolean(current?.catalogNamespace && current.catalogContentId)
