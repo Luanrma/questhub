@@ -69,6 +69,25 @@ jobs:
 
           tar -xzf /tmp/campaign-actor-final.tgz -C .
 
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('apps/api/src/modules/campaign_scene/presenter.test.ts')
+          source = path.read_text()
+          old = """          actor: {
+                      id: 'character-1',
+                      userId: 'user-1',
+                      campaigns: [{ role: 'PLAYER' }],
+                    },"""
+          new = """          actor: {
+                      mainForMember: { userId: 'user-1', role: 'PLAYER' },
+                      controllerMember: { userId: 'user-1' },
+                    },"""
+          if source.count(old) != 1:
+              raise SystemExit('Expected exactly one legacy scene actor fixture')
+          path.write_text(source.replace(old, new))
+          PY
+
           rm -f \
             scripts/campaign-actor-payload-* \
             scripts/campaign-actor-final.part-01 \
