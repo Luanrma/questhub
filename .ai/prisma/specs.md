@@ -2,13 +2,17 @@
 
 * `Campaign` é a fronteira de isolamento do mundo.
 * `CampaignMember` possui `campaignId`, `userId`, papel e status; não referencia personagem principal.
-* `CampaignActor` pertence obrigatoriamente a uma campanha e não possui `userId`.
+* `CampaignActor` pertence obrigatoriamente a uma campanha, não possui `userId` e pode ser arquivado por `archivedAt`.
 * `CampaignActor.controllerMemberId` é opcional e representa o único vínculo persistido de controle do ator.
-* `CampaignToken.actorId` é opcional e exclusivo; excluir o ator apenas desfaz o vínculo com o Token.
+* O banco rejeita controlador, ator, Token ou mensagem vinculados a outra campanha.
+* `CampaignToken.actorId` é opcional e exclusivo; excluir ou arquivar o ator apenas desfaz o vínculo com o Token.
+* Token com `actorId` não pode manter `controllerMemberId`; o controle é derivado do ator.
 * `CampaignCharacterSheet.actorId` é obrigatório e exclusivo.
 * `Inventory.actorId` é obrigatório e exclusivo.
-* `InventoryEntry` mantém `quantity`, `slotIndex` único por inventário, `catalogContentId` opcional e o item copiado em `data` JSON.
-* `InventoryEntry.slotIndex` aceita de `0` a `99`, representando a grade persistente de `10 x 10`.
+* Toda criação de `CampaignActor` deve incluir `Inventory` na mesma transação.
+* `InventoryEntry` mantém `quantity`, `slotIndex` único por inventário, referência de catálogo com namespace e o item copiado em `data` JSON.
+* `InventoryEntry.slotIndex` aceita qualquer inteiro não negativo; o core não define capacidade máxima.
+* `ChatMessage` preserva snapshots do nome, papel e ator; excluir usuário ou ator não apaga o histórico.
 * Não devem existir modelos Prisma chamados `Character`, `CharacterSheet` ou `CampaignCharacter`.
-* Migrações desta fase podem redefinir estruturas pré-release, pois o produto ainda não possui dados de produção.
-* A migração que remove o personagem principal converte atores legados relevantes em atores controlados e remove somente perfis automáticos vazios, sem ficha, Token, chat ou item de inventário.
+* As migrations intermediárias foram consolidadas em uma migration final de pré-release.
+* Bancos de desenvolvimento que aplicaram as migrations removidas devem ser resetados.
