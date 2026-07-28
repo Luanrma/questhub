@@ -34,7 +34,7 @@ jobs:
       - name: Typecheck API
         id: api_typecheck
         continue-on-error: true
-        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts > api-typecheck.log 2>&1
+        run: npx tsc --noEmit --target ES2023 --module CommonJS --moduleResolution node --types node --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts > api-typecheck.log 2>&1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
