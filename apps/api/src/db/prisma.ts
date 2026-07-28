@@ -26,6 +26,18 @@ function createPrismaClient() {
         async createMany() {
           throw new Error('CampaignActor must be created individually with its Inventory aggregate')
         },
+        async findFirst({ args, query }) {
+          if (args.where?.archivedAt === undefined) {
+            args.where = { ...args.where, archivedAt: null }
+          }
+          return query(args)
+        },
+        async findMany({ args, query }) {
+          if (args.where?.archivedAt === undefined) {
+            args.where = { ...args.where, archivedAt: null }
+          }
+          return query(args)
+        },
       },
     },
   })
