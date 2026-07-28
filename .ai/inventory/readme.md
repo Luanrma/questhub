@@ -15,22 +15,25 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 ## Regras de negócio
 
 - Um `CampaignActor` deve possuir exatamente um `Inventory` no domínio.
+- O inventário pertence ao ator, nunca ao usuário, e-mail, membro, ficha ou Token.
+- Entrar na campanha, atribuir um controlador ou vincular um Token não cria inventário.
 - O inventário representa todo o armazenamento do ator, não uma mochila física específica.
 - Mochilas, pochetes e outros containers serão espaços internos do inventário em uma evolução posterior.
 - `InventoryEntry.data` não possui schema imposto pelo core.
-- Não existem campos obrigatórios de origem, sourcepack, versão ou identificador externo.
 - `quantity` deve ser um inteiro maior que zero.
 - Na primeira versão do Pathfinder 2e, itens com JSON equivalente podem ser agrupados.
-- O inventário visual possui 10 colunas por 10 linhas, totalizando 100 slots.
-- Cada `InventoryEntry` ocupa exatamente um slot; slots vazios continuam visíveis.
+- Cada `InventoryEntry` ocupa um índice não negativo exclusivo dentro do inventário.
+- Não existe quantidade máxima de índices ou entradas no core.
+- A interface organiza os índices em páginas visuais de 10 colunas por 10 linhas.
 - A posição dos itens pertence ao inventário e é compartilhada entre Mestre e controlador do ator.
 - O jogador pode reorganizar os itens do inventário de um Token controlado, mas não pode alterar quantidade nem remover entradas.
 - A ficha do item respeita a preferência individual entre tradução `pt-BR` e conteúdo original `en-US`.
+- Referências ao catálogo usam `catalogNamespace` e `catalogContentId`; o snapshot JSON mantém o item utilizável sem o catálogo.
 
 ## Fora do escopo inicial
 
 - Containers internos e capacidade.
-- Peso, Bulk, slots ou limites.
+- Peso, Bulk e limites.
 - Equipamento e efeitos mecânicos na ficha.
 - Moedas e conversão monetária.
 - Containers internos e automações mecânicas.
@@ -39,7 +42,6 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 
 ## Acesso
 
-- O inventário pertence ao ator, nunca diretamente ao usuário ou ao membro.
 - O painel lateral de inventários existe somente para o Mestre.
 - O jogador abre o inventário pelo menu de contexto de um Token controlado e apenas em modo de visualização.
 - O Mestre acessa todos os inventários da campanha e envia itens escolhendo o ator destinatário.
@@ -49,7 +51,7 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 
 - O inventário é uma janela não bloqueante: não escurece nem desfoca a mesa e não impede interação com o fundo.
 - Somente a superfície da janela captura eventos de ponteiro.
-- A grade se ajusta ao espaço útil da janela e distribui as 10 colunas e 10 linhas sem dimensões fixas por slot.
+- Cada página visual possui 10 colunas por 10 linhas; novas páginas aparecem conforme necessário.
 - O inventário pode ser minimizado sem ser fechado.
 - Quando minimizado, torna-se uma mochila flutuante e arrastável sobre a mesa.
 - Clicar na mochila restaura a janela do mesmo inventário.
