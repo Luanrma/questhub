@@ -26,13 +26,19 @@ jobs:
           cat scripts/campaign-actor-fix.part-* | base64 -d > /tmp/campaign-actor-fix.tgz
           tar -xzf /tmp/campaign-actor-fix.tgz
           python3 scripts/apply-campaign-actor-removals.py
-      - run: npm ci
-      - run: npx prisma generate
-      - run: npx prisma validate
-      - run: npm run test:unit
+      - run: npm ci 2>&1 | tee validation.log
+      - run: npx prisma generate 2>&1 | tee -a validation.log
+      - run: npx prisma validate 2>&1 | tee -a validation.log
+      - run: npm run test:unit 2>&1 | tee -a validation.log
       - name: Typecheck API
-        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --ignoreDeprecations 6.0 --esModuleInterop --skipLibCheck --strictNullChecks --noUnusedLocals --noUnusedParameters apps/api/src/main.ts
-      - run: npm run build:web
+        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --ignoreDeprecations 6.0 --esModuleInterop --skipLibCheck --strictNullChecks --noUnusedLocals --noUnusedParameters apps/api/src/main.ts 2>&1 | tee -a validation.log
+      - run: npm run build:web 2>&1 | tee -a validation.log
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: campaign-actor-validation-log
+          path: validation.log
       - name: Commit validated refactor
         run: |
           rm -f scripts/campaign-actor-fix.part-*
