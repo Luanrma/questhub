@@ -72,20 +72,28 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
 
-          path = Path('apps/api/src/modules/campaign_scene/presenter.test.ts')
-          source = path.read_text()
-          old = """          actor: {
+          scene_test = Path('apps/api/src/modules/campaign_scene/presenter.test.ts')
+          scene_source = scene_test.read_text()
+          old_scene = """          actor: {
                       id: 'character-1',
                       userId: 'user-1',
                       campaigns: [{ role: 'PLAYER' }],
                     },"""
-          new = """          actor: {
+          new_scene = """          actor: {
                       mainForMember: { userId: 'user-1', role: 'PLAYER' },
                       controllerMember: { userId: 'user-1' },
                     },"""
-          if source.count(old) != 1:
+          if scene_source.count(old_scene) != 1:
               raise SystemExit('Expected exactly one legacy scene actor fixture')
-          path.write_text(source.replace(old, new))
+          scene_test.write_text(scene_source.replace(old_scene, new_scene))
+
+          sheet_test = Path('apps/api/src/game_systems/campaign-character-sheets.test.ts')
+          sheet_source = sheet_test.read_text()
+          old_sheet = "assert.match(gameSystemRoutesSource, /prisma\\.campaignCharacterSheet\\.create/)"
+          new_sheet = "assert.match(gameSystemRoutesSource, /tx\\.campaignCharacterSheet\\.create/)"
+          if sheet_source.count(old_sheet) != 1:
+              raise SystemExit('Expected exactly one non-transactional sheet create assertion')
+          sheet_test.write_text(sheet_source.replace(old_sheet, new_sheet))
           PY
 
           rm -f \
