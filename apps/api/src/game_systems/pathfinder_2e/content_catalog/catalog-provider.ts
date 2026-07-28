@@ -175,4 +175,15 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
     const sheet = await pathfinder2eContextualCatalogProvider.get(query)
     return sheet ? sheetWithImage(entry, sheet) : null
   },
+
+  getInventoryItemData(query) {
+    if (query.domain !== 'ITEMS') return null
+
+    const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
+      (candidate) => candidate.original.contentId === query.contentId
+        && candidate.original.domain === 'ITEM',
+    )
+
+    return entry ? asRecord(entry.original.data) : null
+  },
 }
