@@ -1,6 +1,10 @@
 import type { Prisma } from '@prisma/client'
 import { prisma } from '../../db/prisma'
-import type { GameSystemKey } from '../catalog'
+import {
+  getGameSystemCatalogProvider,
+  getInventoryCatalogNamespace,
+  type GameSystemKey,
+} from '../catalog'
 import { getGameSystemInventoryPolicy } from '../inventory'
 import { findStackableInventoryEntry } from './stacking'
 import { INVENTORY_QUANTITY_MAX } from './validation'
@@ -44,6 +48,10 @@ export async function addInventoryItem(input: {
   catalogContentId?: string | null
 }) {
   const policy = getGameSystemInventoryPolicy(input.gameSystem)
+  const provider = getGameSystemCatalogProvider(input.gameSystem)
+  const catalogNamespace = input.catalogContentId
+    ? input.catalogNamespace ?? getInventoryCatalogNamespace(input.gameSystem, provider)
+    : null
 
   return prisma.$transaction(async (tx) => {
     const inventory = await tx.inventory.findUnique({
@@ -79,14 +87,14 @@ export async function addInventoryItem(input: {
       }
 
       const hasCatalogReference = Boolean(current?.catalogNamespace && current.catalogContentId)
-      const incomingCatalogReference = Boolean(input.catalogNamespace && input.catalogContentId)
+      const incomingCatalogReference = Boolean(catalogNamespace && input.catalogContentId)
       const entry = await tx.inventoryEntry.update({
         where: { id: stackable.id },
         data: {
           quantity: { increment: input.quantity },
           ...(!hasCatalogReference && incomingCatalogReference
             ? {
-                catalogNamespace: input.catalogNamespace,
+                catalogNamespace,
                 catalogContentId: input.catalogContentId,
               }
             : {}),
@@ -105,7 +113,7 @@ export async function addInventoryItem(input: {
         inventoryId: inventory.id,
         quantity: input.quantity,
         slotIndex,
-        catalogNamespace: input.catalogNamespace ?? null,
+        catalogNamespace,
         catalogContentId: input.catalogContentId ?? null,
         data: input.data as Prisma.InputJsonObject,
       },
