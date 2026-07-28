@@ -141,7 +141,23 @@ jobs:
         run: npx tsc --noEmit -p apps/api/tsconfig.test.json
 
       - name: Build web
-        run: npm run build:web
+        id: build-web
+        continue-on-error: true
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run build:web 2>&1 | tee build-web.log
+
+      - name: Upload web-build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: campaign-actor-web-build
+          path: build-web.log
+
+      - name: Stop on web-build failure
+        if: steps.build-web.outcome == 'failure'
+        run: exit 1
 
       - name: Commit validated correction
         shell: bash
