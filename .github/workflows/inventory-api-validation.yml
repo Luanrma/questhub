@@ -32,5 +32,17 @@ jobs:
           tail -n 160 unit-test.log
           exit 1
       - name: Typecheck API
-        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts
+        id: api_typecheck
+        continue-on-error: true
+        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts > api-typecheck.log 2>&1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inventory-api-typecheck-log
+          path: api-typecheck.log
+      - name: Report API typecheck failure
+        if: steps.api_typecheck.outcome == 'failure'
+        run: |
+          cat api-typecheck.log
+          exit 1
       - run: npm run build:web
