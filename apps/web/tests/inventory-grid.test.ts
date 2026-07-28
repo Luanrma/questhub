@@ -1,12 +1,14 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {
+  availableInventoryPageCount,
   entriesBySlot,
   inventoryGridColumns,
   inventoryGridPageRows,
   inventoryGridPageSlotCount,
+  inventoryPageSlotIndexes,
   moveEntryOptimistically,
-  visibleInventorySlotCount,
+  occupiedInventoryPageCount,
 } from '../src/game-systems/inventory/domain/inventoryGrid'
 
 const entries = [
@@ -14,12 +16,15 @@ const entries = [
   { id: 'entry-b', slotIndex: 9 },
 ]
 
-test('inventory grid keeps 10 by 10 visual pages and expands when needed', () => {
+test('inventory grid renders fixed 10 by 10 pages without limiting total capacity', () => {
   assert.equal(inventoryGridColumns, 10)
   assert.equal(inventoryGridPageRows, 10)
   assert.equal(inventoryGridPageSlotCount, 100)
-  assert.equal(visibleInventorySlotCount(entries), 100)
-  assert.equal(visibleInventorySlotCount([{ id: 'entry-c', slotIndex: 100 }]), 200)
+  assert.equal(occupiedInventoryPageCount(entries), 1)
+  assert.equal(availableInventoryPageCount(entries), 2)
+  assert.equal(occupiedInventoryPageCount([{ id: 'entry-c', slotIndex: 100_000_000 }]), 1_000_001)
+  assert.equal(inventoryPageSlotIndexes(1)[0], 100)
+  assert.equal(inventoryPageSlotIndexes(1).at(-1), 199)
   assert.equal(entriesBySlot(entries).get(9)?.id, 'entry-b')
 })
 
@@ -35,4 +40,8 @@ test('dropping an entry over another swaps their slots', () => {
     { id: 'entry-a', slotIndex: 9 },
     { id: 'entry-b', slotIndex: 2 },
   ])
+})
+
+test('unsafe slot indexes are ignored by optimistic movement', () => {
+  assert.deepEqual(moveEntryOptimistically(entries, 'entry-a', Number.MAX_VALUE), entries)
 })
