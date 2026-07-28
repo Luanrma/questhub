@@ -1,7 +1,22 @@
 import type { GameSystemKey } from './catalog'
 
+export type GameSystemInventoryPresentationDetail = {
+  label: string
+  value: string
+}
+
+export type GameSystemInventoryItemPresentation = {
+  name: string
+  subtitle?: string | null
+  description?: string | null
+  imageUrl?: string | null
+  traits?: readonly string[]
+  details?: readonly GameSystemInventoryPresentationDetail[]
+}
+
 export type GameSystemInventoryPolicy = {
   canStack(existingData: unknown, incomingData: unknown): boolean
+  present?(data: unknown): GameSystemInventoryItemPresentation | null
 }
 
 const inventoryPolicies = new Map<GameSystemKey, GameSystemInventoryPolicy>()
