@@ -31,7 +31,7 @@ jobs:
           cat scripts/campaign-actor-payload-{00..16} \
             | base64 --decode > /tmp/campaign-actor-final.tgz
 
-          echo "bb0cc02beef3f4a1c7635c32d67c96f9ae3f378a38aed09887e6e50ed96ef96c  /tmp/campaign-actor-final.tgz" \
+          echo "39501a1f3a612c28a69db673b0784342acc90b3a1be33c85e2e0f800e5badce8  /tmp/campaign-actor-final.tgz" \
             | sha256sum -c -
 
           cat > /tmp/expected-files.txt <<'EOF'
