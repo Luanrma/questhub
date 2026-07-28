@@ -40,7 +40,7 @@ type CampaignTokenPlacementRecord = {
   updatedAt: Date
   token: {
     id: string
-    characterId: string | null
+    actorId: string | null
     name: string
     avatarUrl: string | null
     color: string | null
@@ -48,14 +48,18 @@ type CampaignTokenPlacementRecord = {
     canCustomizeAppearance: boolean
     visionConfig?: unknown
     lightConfig?: unknown
-    character?: {
-      id: string
-      userId: string
-      campaigns?: Array<{ role: 'MASTER' | 'PLAYER' | 'NPC' }>
+    actor?: {
+      controllerMember: {
+        id: string
+        userId: string
+        role: 'MASTER' | 'PLAYER'
+        user: { email: string }
+      } | null
     } | null
     controllerMember?: {
       id: string
       userId: string
+      role: 'MASTER' | 'PLAYER'
       user: { email: string }
     } | null
   }
@@ -97,22 +101,22 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
 
 export function presentCampaignSceneToken(placement: CampaignTokenPlacementRecord) {
   const token = placement.token
-  const campaignCharacter = token.character?.campaigns?.[0] ?? null
+  const effectiveController = token.actor?.controllerMember ?? token.controllerMember
 
   return {
     id: token.id,
     sceneId: placement.sceneId,
-    characterId: token.characterId,
+    actorId: token.actorId,
     name: token.name,
     avatarUrl: token.avatarUrl,
     color: token.color,
     size: token.size,
-    controllerMemberId: token.controllerMember?.id ?? null,
-    controllerUserId: token.controllerMember?.userId ?? null,
-    controllerName: token.controllerMember?.user.email ?? null,
-    ownerUserId: token.character?.userId ?? null,
-    ownerName: token.controllerMember?.user.email ?? null,
-    role: campaignCharacter?.role === 'PLAYER' ? 'PLAYER' : campaignCharacter?.role === 'NPC' ? 'NPC' : 'GENERIC',
+    controllerMemberId: effectiveController?.id ?? null,
+    controllerUserId: effectiveController?.userId ?? null,
+    controllerName: effectiveController?.user.email ?? null,
+    ownerUserId: effectiveController?.userId ?? null,
+    ownerName: effectiveController?.user.email ?? null,
+    role: effectiveController?.role === 'PLAYER' ? 'PLAYER' : token.actor ? 'NPC' : 'GENERIC',
     canCustomizeAppearance: token.canCustomizeAppearance,
     visionConfig: token.visionConfig ?? {},
     lightConfig: token.lightConfig ?? {},

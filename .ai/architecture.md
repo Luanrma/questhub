@@ -1,25 +1,26 @@
 # Arquitetura
 
-## Limites
+## Limites principais
 
-* `Campaign`: mesa independente de regras, convite e politica de entrada.
-* `Character`: identidade narrativa/operacional opcional, com nome, avatar, bio e ciclo de vida.
-* `CampaignCharacter`: vinculo, papel e status da identidade na campanha.
-* `campaign_scene`: cena, mapa, grid, token generico, paredes, portas e camera.
-* `chat`, `campaign_presence`, `campaign_session`, `campaign_diary` e `assets`: capacidades operacionais do VTT.
+* `Campaign` é o mundo da campanha e a fronteira máxima de isolamento dos dados.
+* `CampaignMember` representa exclusivamente a participação de um `User` na campanha, incluindo papel e status.
+* `CampaignActor` representa qualquer entidade existente dentro da campanha: personagem de jogador, NPC, criatura, familiar, montaria ou entidade equivalente.
+* `CampaignToken` representa somente a presença visual e operacional no VTT e pode existir sem `CampaignActor` vinculado.
+* `CampaignCharacterSheet` guarda a ficha mecânica de um `CampaignActor`; seu JSON é interpretado exclusivamente pelo `game_system` da campanha.
+* `Inventory` é o agregado genérico de armazenamento de um `CampaignActor`; regras de itens pertencem ao `game_system`.
+* `campaign_scene`, `chat`, `campaign_presence`, `campaign_session`, `campaign_diary` e `assets` são capacidades operacionais do VTT.
 
 ## Regras
 
-* O VTT nao persiste fichas ou identificadores de regras no dominio principal.
-* Criar campanha ou personagem nunca exige escolher um conjunto de regras.
-* Criar, mover, ocultar, remover e testar tokens nunca exige ficha, bestiario, inventario, combate ou sistema de jogo.
-* Tokens podem referenciar identidades, mas a referencia e opcional e nao carrega estatisticas mecanicas.
-* Qualquer campo como ruleset, origem de bestiario, PV, CA, magia, item, economia ou efeito ativo pertence a uma extensao opcional fora do contrato base do VTT.
-* Extensoes futuras devem ser opcionais e nao alterar a disponibilidade do VTT base.
-* `apps/api/src/server.ts` compoe exclusivamente o VTT; sistemas de jogo sao
-  ativados por um bootstrap externo e por registradores hierarquicos proprios.
-* Cada `game_system` e isolado dos demais e nao pode importar regras de outro
-  sistema.
-* O VTT pode conhecer, no maximo, descritores neutros com nomes/chaves dos
-  sistemas suportados, nunca suas regras, rotas ou capacidades internas.
-* Backend valida autenticacao, ownership e papeis; frontend nao e fronteira de seguranca.
+* Não existem as entidades globais `Character`, `CharacterSheet` ou `CampaignCharacter`.
+* `CampaignActor` nunca possui `userId`, papel de membro ou status de participação.
+* Usuário, papel e status pertencem somente a `CampaignMember`.
+* O controle de personagens é uma relação `CampaignMember 1 -> N CampaignActor`, expressa por `CampaignActor.controllerMemberId`.
+* Não existe personagem principal nem ator ativo global. Ações sobre ficha e inventário partem explicitamente do Token/ator alvo e o backend valida o controle.
+* Nada pertencente a um ator, ficha, inventário, Token ou cena pode atravessar a fronteira da campanha.
+* Criar, mover, ocultar ou remover Tokens não exige ficha, inventário ou sistema de jogo.
+* O vínculo entre `CampaignToken` e `CampaignActor` é opcional e não determina a existência de nenhuma das duas entidades.
+* O VTT não interpreta atributos, PV, CA, magias, itens, moedas ou efeitos específicos de sistema.
+* `apps/api/src/server.ts` compõe exclusivamente o VTT; sistemas de jogo são ativados por um bootstrap externo e registradores próprios.
+* Cada `game_system` é isolado dos demais e não pode importar regras de outro sistema.
+* Backend valida autenticação, pertencimento à campanha e permissões; frontend não é fronteira de segurança.

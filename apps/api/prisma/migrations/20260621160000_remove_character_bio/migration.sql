@@ -1,1 +1,0 @@
-ALTER TABLE "Character" DROP COLUMN IF EXISTS "bio";

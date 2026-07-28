@@ -30,6 +30,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { CampaignChat } from '../../components/CampaignChat'
 import { LoadingScreen } from '../../components/LoadingScreen'
+import { CampaignInventoryModal } from '../../game-systems/CampaignInventoryModal'
 import { useSession } from '../../contexts/SessionContext'
 import { api, apiForm } from '../../lib/api'
 import { VttDiceControls } from '../dice-roller'
@@ -57,7 +58,7 @@ import { FogOverlay, FogVisibleLayer } from '../fog-of-war/components/FogOverlay
 import { normalizeFixedLightSources, normalizeSceneFogConfig } from '../fog-of-war/domain/config'
 import type { FogLightSourceConfig, TokenVisionConfig } from '../fog-of-war/domain/types'
 import { useFogOfWar } from '../fog-of-war/hooks/useFogOfWar'
-import { questhubTokenDragType, zoomLimits } from './config/constants'
+import { zoomLimits } from './config/constants'
 import {
   clampMeasurementPoint,
   clampNumber,
@@ -89,6 +90,7 @@ import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
 import { CombatTrackerPanel } from './components/CombatTrackerPanel'
+import { hasTokenDragData, readTokenDragData, writeTokenDragData } from './infrastructure/tokenDragAndDrop'
 import { TokenContextMenu } from './components/TokenContextMenu'
 import { TokenImagePickerDialog } from './components/TokenImagePickerDialog'
 import { TokenAvatar } from './components/TokenAvatar'
@@ -151,13 +153,6 @@ type CampaignOverviewPageProps = {
   gridSettingsOpen: boolean
   canConfigureGrid: boolean
   sessionState: 'ACTIVE' | 'PAUSED' | null
-  myCharacter: {
-    id: string
-    name: string
-    avatarUrl: string | null
-    role: 'MASTER' | 'PLAYER'
-    status: 'ACTIVE' | 'PENDING'
-  } | null
   onGridSettingsChange: (settings: VttGridSettings, options?: { realtime?: boolean; sceneId?: string }) => void
   onGridSettingsOpenChange: (open: boolean) => void
 }
@@ -183,7 +178,6 @@ export function CampaignOverviewPage({
   gridSettingsOpen,
   canConfigureGrid,
   sessionState,
-  myCharacter,
   onGridSettingsChange,
   onGridSettingsOpenChange,
 }: CampaignOverviewPageProps) {
@@ -216,8 +210,10 @@ export function CampaignOverviewPage({
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [campaignPlayers, setCampaignPlayers] = useState<CampaignPlayer[]>([])
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
+  const [inventoryToken, setInventoryToken] = useState<VttPlayerToken | null>(null)
   const [selectedTokenId, setSelectedTokenId] = useState<string | null>(null)
   const [tokenImageEditTarget, setTokenImageEditTarget] = useState<CampaignToken | null>(null)
+  const [tokenDropError, setTokenDropError] = useState<string | null>(null)
   const [gridBounds, setGridBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [viewportBounds, setViewportBounds] = useState<VttGridBounds>({ width: 0, height: 0 })
   const [panOffset, setPanOffset] = useState<VttPanOffset>({ x: 0, y: 0 })
@@ -289,7 +285,6 @@ export function CampaignOverviewPage({
   const canRollDice = Boolean(
     campaignId &&
       campaign?.myStatus === 'ACTIVE' &&
-      myCharacter?.id &&
       socket &&
       (campaign.myRole === 'MASTER' || playerCanUseVtt),
   )
@@ -329,7 +324,7 @@ export function CampaignOverviewPage({
   const controlledVisionTokens = fogPreviewTokens.filter((token) => token.controllerUserId === me?.id)
   const fogVisionToken = isMaster
     ? fogPreviewTokens.find((token) => token.id === selectedTokenId) ?? null
-    : controlledVisionTokens.find((token) => token.characterId === myCharacter?.id) ?? controlledVisionTokens[0] ?? null
+    : controlledVisionTokens[0] ?? null
   const scaledSceneWalls = useMemo(() => scaleWallsForZoom(activeScene?.walls ?? [], activeZoomPercent), [activeScene?.walls, activeZoomPercent])
   const fog = useFogOfWar({
     campaignId,
@@ -720,7 +715,7 @@ export function CampaignOverviewPage({
         token.id === payload.token.id
           ? {
               ...token,
-              characterId: payload.token.characterId,
+              actorId: payload.token.actorId,
               name: payload.token.name,
               avatarUrl: payload.token.avatarUrl,
               controllerMemberId: payload.token.controllerMemberId,
@@ -763,7 +758,7 @@ export function CampaignOverviewPage({
           scene.id === payload.sceneId ? { ...scene, tokens: scene.tokens.filter((token) => token.id !== payload.tokenId) } : scene,
         ),
       )
-      const isOwnRemovedToken = !isMaster && payload.characterId === myCharacter?.id
+      const isOwnRemovedToken = !isMaster && payload.tokenId === fogVisionToken?.id
       if (isOwnRemovedToken) {
         setActiveScene(null)
         setTokenState({ campaignId, tokens: [] })
@@ -930,7 +925,7 @@ export function CampaignOverviewPage({
       socket.off('fog:exploration:reset', onFogExplorationReset)
       socket.off('fog:exploration:flush-request', onFogExplorationFlushRequest)
     }
-  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, me?.id, myCharacter?.id, startSmoothTokenMovement, resetLocalFogExploration, flushFogExploration])
+  }, [socket, campaignId, gridSettings.shape, isMaster, activeScene?.id, me?.id, fogVisionToken?.id, startSmoothTokenMovement, resetLocalFogExploration, flushFogExploration])
 
   useEffect(() => {
     if (measurementGridKeyRef.current === measurementGridKey) return
@@ -1106,7 +1101,7 @@ export function CampaignOverviewPage({
 
   function movePlayerToken(token: VttPlayerToken, position: VttPlayerToken['position']) {
     if (!campaignId || !socket) return
-    const isOwnerMove = sessionActive && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER'
+    const isOwnerMove = sessionActive && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER'
     const isMasterMove = Boolean(isMaster)
     if (!isOwnerMove && !isMasterMove) return
 
@@ -1208,7 +1203,7 @@ export function CampaignOverviewPage({
 
   function beginMeasuredMovement(event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) {
     if (event.button !== 0 || !event.ctrlKey || !realtimeVttEnabled || !activeScene || movingTokenIds.has(token.id)) return
-    const canMoveToken = Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER')
+    const canMoveToken = Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER')
     if (!canMoveToken) return
     if (!isMaster && activeCombatTokenId && activeCombatTokenId !== token.id) return
     event.preventDefault()
@@ -1837,8 +1832,8 @@ export function CampaignOverviewPage({
   })
 
   function dragCampaignToken(event: React.DragEvent<HTMLElement>, token: CampaignToken) {
-    event.dataTransfer.setData(questhubTokenDragType, token.id)
-    event.dataTransfer.effectAllowed = 'move'
+    writeTokenDragData(event.dataTransfer, token.id)
+    setTokenDropError(null)
   }
 
   function tokenDropPosition(event: React.DragEvent<HTMLElement>) {
@@ -1857,16 +1852,44 @@ export function CampaignOverviewPage({
   }
 
   function dropCampaignToken(event: React.DragEvent<HTMLElement>) {
-    if (!campaignId || !socket || !isMaster || !masterCanUseVtt) return
+    event.preventDefault()
+    if (!campaignId || !isMaster || !masterCanUseVtt) return
+    if (!activeScene) {
+      setTokenDropError('Selecione ou prepare uma cena antes de posicionar o Token.')
+      return
+    }
 
-    const tokenId = event.dataTransfer.getData(questhubTokenDragType)
-    if (!tokenId) return
+    const tokenId = readTokenDragData(event.dataTransfer)
+    if (!tokenId) {
+      setTokenDropError('O Token arrastado nao pode ser identificado.')
+      return
+    }
 
     const position = tokenDropPosition(event)
-    if (!position) return
+    if (!position) {
+      setTokenDropError('Nao foi possivel calcular a posicao do Token no grid.')
+      return
+    }
 
-    event.preventDefault()
-    socket.emit('vtt:token:place', { campaignId, tokenId, position })
+    const realtimeSocket = socket ?? connectRealtime()
+    realtimeSocket.timeout(5000).emit(
+      'vtt:token:place',
+      { campaignId, sceneId: activeScene.id, tokenId, position },
+      (
+        timeoutError: Error | null,
+        response?: { ok: true } | { ok: false; error: { code: string; message: string } },
+      ) => {
+        if (timeoutError) {
+          setTokenDropError('A conexao com a mesa demorou para responder. Tente novamente.')
+          return
+        }
+        if (!response?.ok) {
+          setTokenDropError(response?.error.message ?? 'Nao foi possivel posicionar o Token.')
+          return
+        }
+        setTokenDropError(null)
+      },
+    )
   }
 
   function removeToken(token: VttPlayerToken) {
@@ -2005,25 +2028,25 @@ export function CampaignOverviewPage({
     if (!campaignId || !isMaster) return
     const token = await api<CampaignToken>(`/api/campaigns/${campaignId}/tokens`, {
       method: 'POST',
-      body: JSON.stringify({ characterId: candidate.characterId }),
+      body: JSON.stringify({ actorId: candidate.actorId }),
     })
     setCampaignTokens((current) => [...current, token].sort((left, right) => {
-      const order = { MAIN: 0, SECONDARY: 1, MASTER_ONLY: 2 } as const
+      const order = { PLAYER_CONTROLLED: 0, MASTER_ONLY: 1 } as const
       return order[left.category] - order[right.category]
     }))
-    setTokenCandidates((current) => current.filter((item) => item.characterId !== candidate.characterId))
+    setTokenCandidates((current) => current.filter((item) => item.actorId !== candidate.actorId))
   }
 
   function applyCampaignTokenUpdate(token: CampaignToken) {
     setCampaignTokens((current) => current.map((item) => item.id === token.id ? token : item).sort((left, right) => {
-      const order = { MAIN: 0, SECONDARY: 1, MASTER_ONLY: 2 } as const
+      const order = { PLAYER_CONTROLLED: 0, MASTER_ONLY: 1 } as const
       return order[left.category] - order[right.category]
     }))
     setTokenState((current) => ({
       ...current,
       tokens: current.tokens.map((item) => item.id === token.id ? {
         ...item,
-        characterId: token.characterId,
+        actorId: token.actorId,
         name: token.name,
         avatarUrl: token.avatarUrl,
         color: token.color,
@@ -2040,7 +2063,7 @@ export function CampaignOverviewPage({
       ...current,
       token: {
         ...current.token,
-        characterId: token.characterId,
+        actorId: token.actorId,
         name: token.name,
         avatarUrl: token.avatarUrl,
         color: token.color,
@@ -2062,7 +2085,7 @@ export function CampaignOverviewPage({
       body: JSON.stringify(changes),
     })
     applyCampaignTokenUpdate(token)
-    if ('characterId' in changes) {
+    if ('actorId' in changes) {
       const candidates = await api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
       setTokenCandidates(candidates)
     }
@@ -2457,8 +2480,8 @@ export function CampaignOverviewPage({
               transform: `translate(${clampedPanOffset.x}px, ${clampedPanOffset.y}px)`,
             }}
             onDragOver={(event) => {
-              if (!isMaster || !masterCanUseVtt) return
-              if (!event.dataTransfer.types.includes(questhubTokenDragType)) return
+              if (!isMaster || !masterCanUseVtt || !activeScene) return
+              if (!hasTokenDragData(event.dataTransfer)) return
               event.preventDefault()
               event.dataTransfer.dropEffect = 'move'
             }}
@@ -2580,7 +2603,7 @@ export function CampaignOverviewPage({
                 gridAreaRef={gridAreaRef}
                 canDrag={
                   !movingTokenIds.has(token.id) && (
-                    (sessionActive && !activeCombat && token.controllerUserId === me?.id && myCharacter?.role === 'PLAYER') ||
+                    (sessionActive && !activeCombat && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER') ||
                     Boolean(isMaster)
                   )
                 }
@@ -2715,7 +2738,6 @@ export function CampaignOverviewPage({
             {campaignId ? (
               <VttDiceControls
                 campaignId={campaignId}
-                character={myCharacter}
                 socket={socket}
                 enabled={canRollDice}
                 open={activeTool === 'dice'}
@@ -2859,6 +2881,17 @@ export function CampaignOverviewPage({
                   + Criar Token generico
                 </button>
 
+                {!activeScene ? (
+                  <div className="mb-3 rounded-md border border-amber-300/20 bg-amber-500/10 px-3 py-2 text-xs text-amber-100">
+                    Selecione ou prepare uma cena para posicionar Tokens no grid.
+                  </div>
+                ) : null}
+                {tokenDropError ? (
+                  <div role="alert" className="mb-3 rounded-md border border-red-300/20 bg-red-500/10 px-3 py-2 text-xs text-red-100">
+                    {tokenDropError}
+                  </div>
+                ) : null}
+
                 <div className="grid max-h-[360px] gap-2 overflow-auto pr-1">
                   {!availableCampaignTokens.length ? (
                     <div className="rounded-md border border-dashed border-white/10 px-3 py-6 text-center text-sm text-zinc-500">
@@ -2868,20 +2901,28 @@ export function CampaignOverviewPage({
                   {availableCampaignTokens.map((token) => (
                     <div
                       key={token.id}
-                      draggable={masterCanUseVtt}
-                      onDragStart={(event) => dragCampaignToken(event, token)}
-                      className={`flex items-center gap-3 rounded-md border border-white/10 bg-white/[0.04] px-3 py-2 text-left transition hover:bg-white/10 ${masterCanUseVtt ? 'cursor-grab' : 'opacity-50'}`}
+                      className="flex items-center rounded-md border border-white/10 bg-white/[0.04] transition hover:bg-white/10"
                     >
-                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full text-sm font-bold text-white">
-                        <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold text-white">{token.name}</span>
-                        <span className="block truncate text-[11px] uppercase text-zinc-500">
-                          {token.category === 'MAIN' ? 'Main Character' : token.category === 'SECONDARY' ? 'Secondary' : 'Somente Mestre'}
+                      <button
+                        type="button"
+                        title={activeScene ? 'Arraste o Token para o grid' : 'Selecione uma cena antes de posicionar o Token'}
+                        aria-label={`Arrastar ${token.name} para o grid`}
+                        draggable={Boolean(masterCanUseVtt && activeScene)}
+                        disabled={!masterCanUseVtt || !activeScene}
+                        onDragStart={(event) => dragCampaignToken(event, token)}
+                        className="flex min-w-0 flex-1 items-center gap-3 px-3 py-2 text-left enabled:cursor-grab disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full text-sm font-bold text-white">
+                          <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
                         </span>
-                      </span>
-                      <span className="ml-auto flex shrink-0 gap-1">
+                        <span className="min-w-0">
+                          <span className="block truncate text-sm font-semibold text-white">{token.name}</span>
+                          <span className="block truncate text-[11px] uppercase text-zinc-500">
+                            {token.category === 'PLAYER_CONTROLLED' ? 'Controlado por jogador' : 'Somente Mestre'}
+                          </span>
+                        </span>
+                      </button>
+                      <span className="flex shrink-0 gap-1 pr-3">
                         <button
                           type="button"
                           title="Alterar nome"
@@ -2923,7 +2964,7 @@ export function CampaignOverviewPage({
                   ) : null}
                   {tokenCandidates.map((candidate) => (
                     <button
-                      key={candidate.characterId}
+                      key={candidate.actorId}
                       type="button"
                       disabled={!masterCanUseVtt}
                       onClick={() => void createTokenFromCandidate(candidate)}
@@ -2956,6 +2997,19 @@ export function CampaignOverviewPage({
                 onToggleVisibility={toggleTokenVisibility}
                 onRemoveFromScene={removeToken}
                 onDelete={(token) => void deleteCampaignToken(token)}
+                onOpenInventory={(token) => {
+                  setInventoryToken(token)
+                  setTokenContextMenu(null)
+                }}
+              />
+            ) : null}
+
+            {inventoryToken?.actorId && campaignId ? (
+              <CampaignInventoryModal
+                campaignId={campaignId}
+                actorId={inventoryToken.actorId}
+                readOnly={!isMaster}
+                onClose={() => setInventoryToken(null)}
               />
             ) : null}
             {tokenImageEditTarget ? (
@@ -3129,10 +3183,10 @@ export function CampaignOverviewPage({
           <div className="min-h-0 flex-1 overflow-hidden">
             {rightPanelTab === 'combat' && !combatTrackerDetached ? <CombatTrackerPanel combat={activeCombat} isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} onStart={startCombat} onEnd={endCombat} onNextTurn={nextCombatTurn} onPreviousTurn={previousCombatTurn} onInitiativeChange={updateCombatInitiative} onDetach={() => setCombatTrackerDetached(true)} /> : null}
             {rightPanelTab === 'combat' && combatTrackerDetached ? <div className="grid h-full place-items-center rounded-lg border border-dashed border-white/10 px-4 text-center text-xs text-zinc-500">Combate destacado em uma janela.</div> : null}
-            {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{myCharacter ? `${myCharacter.name} conectado como ${myCharacter.role === 'MASTER' ? 'Mestre' : 'Jogador'}.` : 'Carregando participante atual.'}</div></section> : null}
+            {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{campaign?.myRole === 'MASTER' ? 'Mestre conectado à mesa.' : 'Jogador conectado à mesa.'}</div></section> : null}
             {rightPanelTab === 'session' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3">{campaign?.isOnline ? <Eye className="h-4 w-4 text-emerald-300" /> : <EyeOff className="h-4 w-4 text-zinc-400" />}<div><div className="text-sm font-semibold">Sessao</div><div className="text-[11px] uppercase text-zinc-500">{rightPanelSessionStatus.title}</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs leading-relaxed text-zinc-400">{sessionState === 'PAUSED' ? 'Jogadores estao bloqueados na mesa, exceto no chat. O Mestre ainda pode preparar cenas.' : campaign?.isOnline ? 'A mesa esta disponivel para participantes ativos.' : 'A mesa esta em modo de preparacao offline.'}</div></section> : null}
             {rightPanelTab === 'scenes' && isMaster ? <SceneSidebarScenes scenes={preparedScenes} activeSceneId={activeScene?.id ?? null} onSelectScene={selectPreparedScene} onPrepareScene={() => setScenePreparationOpen(true)} /> : null}
-            {rightPanelTab === 'chat' && campaignId ? <CampaignChat campaignId={campaignId} characterId={campaign?.myCharacterId} enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')} className="h-full min-h-0" /> : null}
+            {rightPanelTab === 'chat' && campaignId ? <CampaignChat campaignId={campaignId} enabled={Boolean(campaign?.isOnline && campaign?.myStatus === 'ACTIVE')} className="h-full min-h-0" /> : null}
           </div>
         </div>
       </aside>

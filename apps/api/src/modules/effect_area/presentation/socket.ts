@@ -43,7 +43,7 @@ export function registerEffectAreaSocketHandlers(io: Server, deps: AreaPreviewRe
       if (!parsed.success) return ack?.({ ok: false, error: { code: 'INVALID_PAYLOAD', message: 'Preview de area invalido.' } })
 
       const { campaignId, sceneId, preview } = parsed.data
-      if (socket.data.campaignId !== campaignId || (socket.data.characterRole !== 'MASTER' && socket.data.characterRole !== 'PLAYER')) {
+      if (socket.data.campaignId !== campaignId || (socket.data.memberRole !== 'MASTER' && socket.data.memberRole !== 'PLAYER')) {
         return ack?.({ ok: false, error: { code: 'FORBIDDEN', message: 'Participante sem acesso a previews.' } })
       }
 

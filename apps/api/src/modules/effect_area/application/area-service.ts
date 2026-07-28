@@ -125,7 +125,7 @@ export class AreaService {
     const scene = await this.repository.findScene(campaignId, sceneId)
     if (!scene) throw new AreaServiceError(404, 'Cena nao encontrada')
     if (access.role !== 'MASTER') {
-      const visibleSceneId = await this.repository.visibleSceneId(campaignId, access.role, userId, access.characterId)
+      const visibleSceneId = await this.repository.visibleSceneId(campaignId, access.role, access.memberId)
       if (visibleSceneId !== sceneId) throw new AreaServiceError(403, 'Cena nao disponivel para este usuario')
     }
     const effects = await this.repository.listEffects(campaignId, sceneId)

@@ -74,7 +74,7 @@ Resposta:
 
 Regras:
 * Requer usuario autenticado.
-* Requer `CampaignCharacter` do usuario na campanha com status `ACTIVE`.
+* Requer `CampaignMember` do usuario na campanha com status `ACTIVE`.
 * Se ainda nao existir linha no banco, retorna defaults sem criar registro.
 
 ### Salvar minhas configuracoes da campanha
@@ -111,7 +111,7 @@ Resposta:
 
 Regras:
 * Requer usuario autenticado.
-* Requer `CampaignCharacter` do usuario na campanha com status `ACTIVE`.
+* Requer `CampaignMember` do usuario na campanha com status `ACTIVE`.
 * Deve fazer upsert por `(campaignId, userId)`.
 * Deve normalizar o namespace `dice` antes de persistir.
 * Deve preservar namespaces existentes fora de `dice`.

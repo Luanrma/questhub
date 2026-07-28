@@ -36,13 +36,8 @@ function areDiceDisplaySettingsEqual(left: DiceDisplaySettings, right: DiceDispl
   return left.autoClear === right.autoClear && left.showResultPopup === right.showResultPopup
 }
 
-type VttDiceCharacter = {
-  id: string
-}
-
 type UseVttDiceRollerOptions = {
   campaignId: string
-  character: VttDiceCharacter | null
   socket: Socket | null
   enabled: boolean
   clearSignal: number
@@ -58,7 +53,6 @@ export type DiceResultPopupData = {
 
 export function useVttDiceRoller({
   campaignId,
-  character,
   socket,
   enabled,
   clearSignal,
@@ -84,7 +78,7 @@ export function useVttDiceRoller({
   const [diceFading, setDiceFading] = useState(false)
   const [resultPopup, setResultPopup] = useState<DiceResultPopupData | null>(null)
   const [warning, setWarning] = useState<string | null>(null)
-  const canRollDice = Boolean(enabled && character?.id && socket)
+  const canRollDice = Boolean(enabled && socket)
   const selectedGroups = useMemo(
     () => normalizeGroups(diceOptions.map((sides) => ({ sides, count: quantities[sides] ?? 0 }))),
     [quantities],
@@ -95,12 +89,12 @@ export function useVttDiceRoller({
 
   const publishChatMessage = useCallback(
     async (content: string) => {
-      if (!socket || !character?.id) return
+      if (!socket) return
 
-      const result = await publishDiceRollChatMessage({ socket, campaignId, characterId: character.id, content })
+      const result = await publishDiceRollChatMessage({ socket, campaignId, content })
       if (!result.ok) setWarning(result.error)
     },
-    [campaignId, character, socket],
+    [campaignId, socket],
   )
 
   const cancelAutoClear = useCallback(() => {

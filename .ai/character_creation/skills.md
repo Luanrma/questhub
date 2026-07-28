@@ -1,8 +1,6 @@
-# Identidades de Personagem: Skills
+# Criação de atores — Diretrizes
 
-* Zod valida nome, URL de avatar e bio.
-* Nome tem ate 80 caracteres; bio tem ate 2.000.
-* Personagem livre pode ter sua identidade editada pelo dono.
-* Nome de personagem vinculado nao pode ser alterado pelo jogador.
-* Disponibilidade e derivada da ausencia de vinculos.
-* Nao acoplar identidade a token generico; associacao entre token e `Character` e opcional e pertence ao contrato de cena.
+* Usar `CampaignActor`, nunca uma identidade global.
+* Criar ator e inventário na mesma transação.
+* Resolver usuário, papel e status por `CampaignMember`.
+* Não exigir ficha para criar o ator.

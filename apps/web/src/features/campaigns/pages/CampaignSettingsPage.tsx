@@ -8,11 +8,14 @@ import { maxDiceAutoClearSeconds, minDiceAutoClearSeconds } from '../../../vtt/d
 import {
   normalizeDiceAutoClearPreference,
   readStoredDiceDisplaySettings,
+  readStoredInventoryDisplaySettings,
   storeCampaignUserSettings,
   storeDiceDisplaySettings,
+  storeInventoryDisplaySettings,
   type CampaignUserSettings,
   type DiceAutoClearPreference,
   type DiceDisplaySettings,
+  type InventoryDisplaySettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 
 type DiceDisplaySettingsCardProps = {
@@ -151,11 +154,18 @@ export function CampaignSettingsPage() {
   const isMaster = campaign?.myRole === 'MASTER'
   const [joinPolicyDraft, setJoinPolicyDraft] = useState<{ campaignId?: string; value: 'PUBLIC' | 'PRIVATE' } | null>(null)
   const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{ campaignId?: string; settings: DiceDisplaySettings } | null>(null)
+  const [inventoryDisplaySettingsDraft, setInventoryDisplaySettingsDraft] = useState<{ campaignId?: string; settings: InventoryDisplaySettings } | null>(null)
   const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
   const storedDiceDisplaySettings = useMemo(
     () => (campaignId ? readStoredDiceDisplaySettings(campaignId) : readStoredDiceDisplaySettings('global')),
+    [campaignId],
+  )
+  const storedInventoryDisplaySettings = useMemo(
+    () => (campaignId
+      ? readStoredInventoryDisplaySettings(campaignId)
+      : readStoredInventoryDisplaySettings('global')),
     [campaignId],
   )
   const joinPolicy =
@@ -164,6 +174,10 @@ export function CampaignSettingsPage() {
     diceDisplaySettingsDraft && diceDisplaySettingsDraft.campaignId === campaignId
       ? diceDisplaySettingsDraft.settings
       : storedDiceDisplaySettings
+  const inventoryDisplaySettings =
+    inventoryDisplaySettingsDraft && inventoryDisplaySettingsDraft.campaignId === campaignId
+      ? inventoryDisplaySettingsDraft.settings
+      : storedInventoryDisplaySettings
   const changed = useMemo(() => (campaign ? joinPolicy !== campaign.joinPolicy : false), [campaign, joinPolicy])
   const autoClearOptions = useMemo(
     () => Array.from({ length: maxDiceAutoClearSeconds - minDiceAutoClearSeconds + 1 }, (_, index) => minDiceAutoClearSeconds + index),
@@ -202,6 +216,30 @@ export function CampaignSettingsPage() {
       ...diceDisplaySettings,
       showResultPopup: value,
     })
+  }
+
+  function updateInventoryLocale(itemSheetLocale: InventoryDisplaySettings['itemSheetLocale']) {
+    if (!campaignId) return
+
+    const nextSettings = { itemSheetLocale }
+    setInventoryDisplaySettingsDraft({ campaignId, settings: nextSettings })
+    storeInventoryDisplaySettings(campaignId, nextSettings)
+    setSettingsSyncWarning(null)
+
+    void api<{ settings: CampaignUserSettings }>(`/api/campaigns/${campaignId}/my-settings`, {
+      method: 'PATCH',
+      body: JSON.stringify({ settings: { inventory: nextSettings } }),
+    })
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setInventoryDisplaySettingsDraft({
+          campaignId,
+          settings: response.settings.inventory,
+        })
+      })
+      .catch(() => {
+        setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
+      })
   }
 
   async function onCopyInviteCode() {
@@ -261,6 +299,28 @@ export function CampaignSettingsPage() {
         onAutoClearChange={updateDiceAutoClear}
         onShowResultPopupChange={updateShowResultPopup}
       />
+
+      <CollapsibleSettingsSection
+        title="Inventário"
+        description="Escolha o idioma padrão usado ao abrir a ficha de um item."
+      >
+        <label className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-black/20 p-4">
+          <span>
+            <span className="block text-sm font-semibold text-white">Idioma das fichas</span>
+            <span className="mt-1 block text-xs text-zinc-400">
+              A tradução e o conteúdo original continuam disponíveis no catálogo.
+            </span>
+          </span>
+          <select
+            value={inventoryDisplaySettings.itemSheetLocale}
+            className="h-9 min-w-44 rounded-md border border-white/10 bg-black/45 px-3 text-sm font-semibold text-white outline-none transition focus:border-indigo-300/40"
+            onChange={(event) => updateInventoryLocale(event.target.value === 'en-US' ? 'en-US' : 'pt-BR')}
+          >
+            <option value="pt-BR">Português (traduzido)</option>
+            <option value="en-US">English (original)</option>
+          </select>
+        </label>
+      </CollapsibleSettingsSection>
 
       {isMaster ? (
         <>

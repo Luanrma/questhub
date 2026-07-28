@@ -1,32 +1,6 @@
-# Modulo: Chat em Tempo Real (Skills & Tech)
+# Chat — Diretrizes técnicas
 
-## 1. Stack
-* Backend: Fastify, Prisma e Socket.IO.
-* Frontend: React, Socket.IO client e Tailwind CSS.
-* Validacao: Zod para contratos HTTP e Socket.IO.
-
-## 2. Padroes
-* Bounded Context: regras de chat vivem em `apps/api/src/modules/chat`.
-* Authorization Guard: leitura e escrita exigem `CampaignCharacter` ativo.
-* Presenter: resposta HTTP e evento realtime usam o mesmo formato.
-* Realtime Room: eventos sao emitidos para `campaign:{campaignId}`.
-
-## 3. Restricoes Tecnicas
-* Chat nao deve depender de regras mecanicas.
-* Chat nao deve inferir participacao por `createdByUserId`.
-* Chat deve usar `CampaignCharacter`, nao usuario direto, como identidade operacional da mesa.
-* A API deve limitar historico e tamanho da mensagem.
-* Eventos Socket.IO devem ter ack com `{ ok, error? }`.
-
-## 4. Eventos
-* Cliente envia `chat:message:create`.
-* Servidor emite `chat:message:created`.
-* Rolagens rapidas usam o mesmo evento `chat:message:create` para persistir e transmitir o resultado.
-
-## 5. UI
-* O painel de chat fica como ultima opcao do sidebar direito da mesa e pode ser destacado como modal flutuante pelo VTT.
-* Deve ter historico rolavel, campo de texto e botao de envio.
-* O input fica desabilitado quando o personagem ativo ainda nao foi carregado.
-* O controle "Dados" fica na barra superior da mesa e abre um menu compacto de selecao de dado.
-* O botao com o dado selecionado fica a esquerda do menu "Dados" e executa a rolagem.
-* A mensagem confirmada por ack deve aparecer tambem para o remetente no chat aberto.
+* Autorizar por `CampaignMember`, nunca por relação direta `CampaignActor.userId`.
+* Persistir `actorId` e `userId` para identidade narrativa e auditoria.
+* Validar que mensagem, ator e membro pertencem à mesma campanha.
+* Não consultar ficha ou inventário.

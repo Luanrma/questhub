@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import {
+  Backpack,
   BookUser,
   ChevronDown,
   ChevronUp,
@@ -17,6 +18,7 @@ import { api } from '../lib/api'
 import { CampaignCatalogModal } from '../game-systems/CampaignCatalogModal'
 import { CampaignCharacterSheetsModal } from '../game-systems/CampaignCharacterSheetsModal'
 import { CampaignCharacterSheetWorkspace } from '../game-systems/CampaignCharacterSheetWorkspace'
+import { CampaignInventoryModal } from '../game-systems/CampaignInventoryModal'
 import {
   catalogDomainLabels,
   type GameSystemCatalogDomain,
@@ -61,17 +63,25 @@ export function Aside({
   const [system, setSystem] = useState<CampaignSystemResponse | null>(null)
   const [catalogDomain, setCatalogDomain] = useState<GameSystemCatalogDomain | null>(null)
   const [characterSheetsOpen, setCharacterSheetsOpen] = useState(false)
+  const [inventoryOpen, setInventoryOpen] = useState(false)
 
   useEffect(() => {
     if (collapsed) return
 
     function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape' && !catalogDomain && !characterSheetsOpen) setCollapsed(true)
+      if (
+        event.key === 'Escape'
+        && !catalogDomain
+        && !characterSheetsOpen
+        && !inventoryOpen
+      ) {
+        setCollapsed(true)
+      }
     }
 
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [catalogDomain, characterSheetsOpen, collapsed])
+  }, [catalogDomain, characterSheetsOpen, collapsed, inventoryOpen])
 
   useEffect(() => {
     let cancelled = false
@@ -187,6 +197,17 @@ export function Aside({
                   </li>
                 ) : null}
 
+                {role === 'MASTER' ? <li>
+                  <button
+                    type="button"
+                    onClick={() => setInventoryOpen(true)}
+                    className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-zinc-300 transition hover:bg-white/10 hover:text-white"
+                  >
+                    <span className="text-[#6e3fae]"><Backpack size={18} /></span>
+                    <span>Inventários</span>
+                  </button>
+                </li> : null}
+
                 {catalogDomains.map((domain) => {
                   const Icon = catalogIcons[domain]
                   return (
@@ -222,6 +243,13 @@ export function Aside({
         <CampaignCharacterSheetsModal
           campaignId={campaignId}
           onClose={() => setCharacterSheetsOpen(false)}
+        />
+      ) : null}
+
+      {role === 'MASTER' && inventoryOpen ? (
+        <CampaignInventoryModal
+          campaignId={campaignId}
+          onClose={() => setInventoryOpen(false)}
         />
       ) : null}
 

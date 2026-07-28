@@ -4,15 +4,15 @@ import { MessageCircle, Send } from 'lucide-react'
 import { api, ApiError } from '../lib/api'
 import { useSession } from '../contexts/SessionContext'
 
-type ChatRole = 'MASTER' | 'PLAYER' | 'NPC'
+type ChatRole = 'MASTER' | 'PLAYER'
 
 export const CHAT_LOCAL_MESSAGE_EVENT = 'questhub:chat-message-created'
 
 export type ChatMessage = {
   id: string
   campaignId: string
-  characterId: string
-  characterName: string
+  actorId: string | null
+  actorName: string
   role: ChatRole
   content: string
   createdAt: string
@@ -29,7 +29,6 @@ type LocalChatMessageEvent = CustomEvent<ChatMessage>
 
 type Props = {
   campaignId: string
-  characterId?: string | null
   enabled: boolean
   className?: string
   headerAction?: ReactNode
@@ -42,8 +41,8 @@ function isChatMessage(input: unknown): input is ChatMessage {
   return (
     typeof value.id === 'string' &&
     typeof value.campaignId === 'string' &&
-    typeof value.characterId === 'string' &&
-    typeof value.characterName === 'string' &&
+    (typeof value.actorId === 'string' || value.actorId === null) &&
+    typeof value.actorName === 'string' &&
     typeof value.content === 'string' &&
     typeof value.createdAt === 'string' &&
     typeof value.mine === 'boolean'
@@ -62,7 +61,13 @@ function formatMessageTime(value: string) {
   }).format(new Date(value))
 }
 
-export function CampaignChat({ campaignId, characterId, enabled, className = '', headerAction, hideHeader = false }: Props) {
+export function CampaignChat({
+  campaignId,
+  enabled,
+  className = '',
+  headerAction,
+  hideHeader = false,
+}: Props) {
   const { socket } = useSession()
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
@@ -74,11 +79,10 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '',
   const canSend = useMemo(() => {
     if (!enabled) return false
     if (!socket) return false
-    if (!characterId) return false
     if (!content.trim()) return false
     if (content.trim().length > 500) return false
     return !sending
-  }, [characterId, content, enabled, sending, socket])
+  }, [content, enabled, sending, socket])
 
   useEffect(() => {
     let cancelled = false
@@ -151,7 +155,7 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '',
 
   async function onSubmit(event: FormEvent) {
     event.preventDefault()
-    if (!canSend || !socket || !characterId) return
+    if (!canSend || !socket) return
 
     const text = content.trim()
     setSending(true)
@@ -161,7 +165,7 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '',
       const ack = await new Promise<ChatAck>((resolve, reject) => {
         socket.timeout(5000).emit(
           'chat:message:create',
-          { campaignId, characterId, content: text },
+          { campaignId, content: text },
           (err: Error | null, response?: ChatAck) => {
             if (err) {
               reject(new Error('Tempo esgotado ao enviar mensagem.'))
@@ -218,7 +222,7 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '',
         {messages.map((message) => (
           <article key={message.id} className={message.mine ? 'text-right' : 'text-left'}>
             <div className="mb-1 flex items-center gap-2 text-[10px] uppercase text-zinc-500">
-              <span className={message.mine ? 'ml-auto' : ''}>{message.characterName}</span>
+              <span className={message.mine ? 'ml-auto' : ''}>{message.actorName}</span>
               <span>{formatMessageTime(message.createdAt)}</span>
             </div>
             <div
@@ -242,7 +246,7 @@ export function CampaignChat({ campaignId, characterId, enabled, className = '',
           <textarea
             value={content}
             onChange={(event) => setContent(event.target.value)}
-            disabled={!enabled || !socket || !characterId}
+            disabled={!enabled || !socket}
             maxLength={500}
             rows={2}
             placeholder={enabled ? 'Mensagem para a mesa...' : 'Chat disponivel com a mesa online.'}

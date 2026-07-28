@@ -29,8 +29,8 @@ Os botoes `Pausar Sessao` e `Retomar Sessao` existem quando a sessao esta online
 * `IN_PROGRESS`: sessao online, Players conectados tem acesso normal conforme suas permissoes.
 
 ## 6. Regras de negocio
-* Apenas `CampaignCharacter` com `role = MASTER` e `status = ACTIVE` pode iniciar ou encerrar a sessao WebSocket.
-* Apenas `CampaignCharacter` com `role = MASTER` e `status = ACTIVE` pode pausar ou retomar a campanha dentro de uma sessao online.
+* Apenas `CampaignMember` com `role = MASTER` e `status = ACTIVE` pode iniciar ou encerrar a sessao WebSocket.
+* Apenas `CampaignMember` com `role = MASTER` e `status = ACTIVE` pode pausar ou retomar a campanha dentro de uma sessao online.
 * `PAUSED` nunca significa WebSocket offline.
 * `IN_PROGRESS` so existe quando a sessao esta online.
 * Para o Mestre, nao deve existir alteracao visual da mesa entre `OFFLINE`, `ONLINE + PAUSED` e `ONLINE + IN_PROGRESS`.

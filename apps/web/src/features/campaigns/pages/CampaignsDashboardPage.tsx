@@ -4,39 +4,36 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { useSession } from '../../../contexts/SessionContext'
 
-type CampaignCharacterStatus = 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT' | 'DEAD'
+type CampaignMemberStatus = 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
 
 const roleLabel = {
   MASTER: 'Mestre',
   PLAYER: 'Jogador',
 } as const
 
-const statusLabel: Record<CampaignCharacterStatus, string> = {
+const statusLabel: Record<CampaignMemberStatus, string> = {
   ACTIVE: 'Ativo',
   PENDING: 'Pendente',
   REJECTED: 'Recusado',
   LEFT: 'Saiu',
-  DEAD: 'Morto',
 }
 
-const statusClassName: Record<CampaignCharacterStatus, string> = {
+const statusClassName: Record<CampaignMemberStatus, string> = {
   ACTIVE: 'bg-emerald-400/10 text-emerald-200 border-emerald-300/20',
   PENDING: 'bg-amber-400/10 text-amber-200 border-amber-300/20',
   REJECTED: 'bg-red-400/10 text-red-200 border-red-300/20',
   LEFT: 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
-  DEAD: 'bg-rose-400/10 text-rose-200 border-rose-300/20',
 }
 
-function canEnterCampaign(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignCharacterStatus; isOnline: boolean }) {
+function canEnterCampaign(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignMemberStatus; isOnline: boolean }) {
   if (params.status !== 'ACTIVE') return false
   if (params.role === 'MASTER') return true
   return params.isOnline
 }
 
-function getEnterButtonLabel(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignCharacterStatus; isOnline: boolean }) {
+function getEnterButtonLabel(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignMemberStatus; isOnline: boolean }) {
   if (params.status === 'PENDING') return 'Aguardando'
   if (params.status === 'LEFT') return 'Saiu'
-  if (params.status === 'DEAD') return 'Morto'
   if (params.status === 'REJECTED') return 'Recusado'
   if (params.status === 'ACTIVE' && params.role === 'PLAYER' && !params.isOnline) return 'Offline'
   return 'Entrar'
@@ -152,8 +149,6 @@ export function CampaignsDashboardPage() {
                     </div>
                     <div className="text-xs text-zinc-300 mt-1">Mestre: {c.gmName}</div>
                     <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-300">
-                      <span>Personagem: {c.myCharacterName ?? '-'}</span>
-                      <span className="text-zinc-500">•</span>
                       <span>Funcao: {roleLabel[c.myRole]}</span>
                       {c.myStatus ? (
                         <span
@@ -196,7 +191,7 @@ export function CampaignsDashboardPage() {
                           return
                         }
                         setActiveCampaignId(c.id)
-                        navigate(`/campaign/${c.id}/overview`, { state: { characterId: c.myCharacterId ?? null } })
+                        navigate(`/campaign/${c.id}/overview`)
                       }}
                     >
                       {getEnterButtonLabel({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}

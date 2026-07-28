@@ -15,12 +15,12 @@ type StoredCampaignSheet = Awaited<ReturnType<typeof loadCampaignSheets>>[number
 function invalidEntry(entry: StoredCampaignSheet): GameSystemCharacterSheetManagerEntry {
   return {
     sheetId: entry.id,
-    name: entry.name,
-    avatarUrl: entry.avatarUrl,
-    assignedUser: entry.assignedUser
-      ? { id: entry.assignedUser.id, label: entry.assignedUser.email }
+    name: entry.actor.name,
+    avatarUrl: entry.actor.avatarUrl,
+    assignedUser: entry.actor.controllerMember
+      ? { id: entry.actor.controllerMember.userId, label: entry.actor.controllerMember.user.email }
       : null,
-    token: entry.token,
+    token: entry.actor.token,
     updatedAt: entry.updatedAt,
     subtitle: 'Ficha Pathfinder 2e inválida',
     badges: [],
@@ -32,17 +32,23 @@ function invalidEntry(entry: StoredCampaignSheet): GameSystemCharacterSheetManag
 async function loadCampaignSheets(campaignId: string) {
   return prisma.campaignCharacterSheet.findMany({
     where: {
-      campaignId,
+      actor: { campaignId, archivedAt: null },
       systemKey: pathfinder2eCharacterSheetRuntimeAdapter.systemKey,
     },
     select: {
       id: true,
-      name: true,
-      avatarUrl: true,
       data: true,
       updatedAt: true,
-      assignedUser: { select: { id: true, email: true } },
-      token: { select: { id: true, name: true } },
+      actor: {
+        select: {
+          name: true,
+          avatarUrl: true,
+          controllerMember: {
+            select: { userId: true, user: { select: { email: true } } },
+          },
+          token: { select: { id: true, name: true } },
+        },
+      },
     },
     orderBy: { createdAt: 'asc' },
   })
@@ -75,12 +81,12 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
 
         return {
           sheetId: entry.id,
-          name: entry.name,
-          avatarUrl: entry.avatarUrl,
-          assignedUser: entry.assignedUser
-            ? { id: entry.assignedUser.id, label: entry.assignedUser.email }
+          name: entry.actor.name,
+          avatarUrl: entry.actor.avatarUrl,
+          assignedUser: entry.actor.controllerMember
+            ? { id: entry.actor.controllerMember.userId, label: entry.actor.controllerMember.user.email }
             : null,
-          token: entry.token,
+          token: entry.actor.token,
           updatedAt: entry.updatedAt,
           subtitle: compact([
             identity.class,

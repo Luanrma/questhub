@@ -14,9 +14,10 @@ import { presentCampaignSceneWithSignedBackground } from './signed-background'
 import { z } from 'zod'
 
 type CampaignAccess = {
-  role: 'MASTER' | 'PLAYER' | 'NPC'
-  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT' | 'DEAD'
-  characterId: string
+  id: string
+  userId: string
+  role: 'MASTER' | 'PLAYER'
+  status: 'ACTIVE' | 'PENDING' | 'REJECTED' | 'LEFT'
 }
 
 type CampaignSceneRoutesDeps = {
@@ -43,17 +44,15 @@ const sceneInclude = {
     include: {
       token: {
         include: {
-          character: {
+          actor: {
             select: {
-              id: true,
-              userId: true,
-              campaigns: {
-                select: { role: true },
+              controllerMember: {
+                select: { id: true, userId: true, role: true, user: { select: { email: true } } },
               },
             },
           },
           controllerMember: {
-            select: { id: true, userId: true, user: { select: { email: true } } },
+            select: { id: true, userId: true, role: true, user: { select: { email: true } } },
           },
         },
       },
@@ -63,7 +62,7 @@ const sceneInclude = {
 }
 
 async function getCampaignAccess(campaignId: string, userId: string): Promise<CampaignAccess | null> {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,
@@ -71,9 +70,10 @@ async function getCampaignAccess(campaignId: string, userId: string): Promise<Ca
       role: { in: ['MASTER', 'PLAYER'] },
     },
     select: {
+      id: true,
+      userId: true,
       role: true,
       status: true,
-      characterId: true,
     },
   })
 }
@@ -148,10 +148,15 @@ async function getVisibleSceneIdForAccess(campaignId: string, access: CampaignAc
 
   if (viewState?.forcedSceneId) return viewState.forcedSceneId
 
-  const token = await prisma.campaignToken.findUnique({
+  const token = await prisma.campaignToken.findFirst({
     where: {
-      characterId: access.characterId,
+      campaignId,
+      OR: [
+        { actor: { controllerMemberId: access.id } },
+        { actorId: null, controllerMemberId: access.id },
+      ],
     },
+    orderBy: { createdAt: 'asc' },
     select: { campaignId: true, placement: { select: { sceneId: true } } },
   })
 

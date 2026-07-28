@@ -1,24 +1,27 @@
-import type { CampaignCharacterRole } from '@prisma/client'
+import type { CampaignMemberRole } from '@prisma/client'
 
 export type ChatMessageForPresentation = {
   id: string
   campaignId: string
-  characterId: string
-  characterName: string
-  role: CampaignCharacterRole
+  actorId: string | null
+  userId: string | null
+  actorName: string
+  actorAvatarUrl: string | null
+  role: CampaignMemberRole
   content: string
   createdAt: Date
 }
 
-export function presentChatMessage(message: ChatMessageForPresentation, currentUserCharacterId?: string | null) {
+export function presentChatMessage(message: ChatMessageForPresentation, currentUserId?: string | null) {
   return {
     id: message.id,
     campaignId: message.campaignId,
-    characterId: message.characterId,
-    characterName: message.characterName,
+    actorId: message.actorId,
+    actorName: message.actorName,
+    actorAvatarUrl: message.actorAvatarUrl,
     role: message.role,
     content: message.content,
     createdAt: message.createdAt,
-    mine: currentUserCharacterId === message.characterId,
+    mine: Boolean(message.userId && currentUserId === message.userId),
   }
 }

@@ -12,18 +12,16 @@ export function registerChatRoutes(app: FastifyInstance) {
     const params = chatCampaignParamsSchema.safeParse(req.params)
     if (!params.success) return reply.status(400).send({ error: 'Campanha invalida' })
 
-    const currentCampaignCharacter = await prisma.campaignCharacter.findFirst({
+    const currentCampaignMember = await prisma.campaignMember.findFirst({
       where: {
         campaignId: params.data.campaignId,
         userId: payload.id,
         status: 'ACTIVE',
       },
-      select: {
-        characterId: true,
-      },
+      select: { id: true },
     })
 
-    if (!currentCampaignCharacter) return reply.status(403).send({ error: 'Acesso ao chat nao liberado' })
+    if (!currentCampaignMember) return reply.status(403).send({ error: 'Acesso ao chat nao liberado' })
 
     const messages = await prisma.chatMessage.findMany({
       where: {
@@ -32,19 +30,14 @@ export function registerChatRoutes(app: FastifyInstance) {
       select: {
         id: true,
         campaignId: true,
-        characterId: true,
+        actorId: true,
+        userId: true,
+        authorName: true,
+        authorRole: true,
+        actorNameSnapshot: true,
+        actorAvatarUrlSnapshot: true,
         content: true,
         createdAt: true,
-        character: {
-          select: {
-            name: true,
-            campaigns: {
-              where: { campaignId: params.data.campaignId },
-              select: { role: true },
-              take: 1,
-            },
-          },
-        },
       },
       orderBy: { createdAt: 'desc' },
       take: CHAT_HISTORY_LIMIT,
@@ -58,13 +51,15 @@ export function registerChatRoutes(app: FastifyInstance) {
             {
               id: message.id,
               campaignId: message.campaignId,
-              characterId: message.characterId,
-              characterName: message.character.name,
-              role: message.character.campaigns[0]?.role ?? 'PLAYER',
+              actorId: message.actorId,
+              userId: message.userId,
+              actorName: message.actorNameSnapshot ?? message.authorName,
+              actorAvatarUrl: message.actorAvatarUrlSnapshot,
+              role: message.authorRole,
               content: message.content,
               createdAt: message.createdAt,
             },
-            currentCampaignCharacter.characterId,
+            payload.id,
           ),
         ),
     )

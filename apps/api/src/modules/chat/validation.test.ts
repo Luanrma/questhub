@@ -2,19 +2,21 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { CHAT_MESSAGE_MAX_LENGTH, chatMessageCreateSchema } from './validation'
 
-test('chatMessageCreateSchema trims content and rejects empty messages', () => {
+test('chatMessageCreateSchema trims content and accepts an optional actor', () => {
   const valid = chatMessageCreateSchema.safeParse({
     campaignId: 'campaign-1',
-    characterId: 'character-1',
+    actorId: 'actor-1',
     content: '  Ola  ',
   })
 
   assert.equal(valid.success, true)
-  if (valid.success) assert.equal(valid.data.content, 'Ola')
+  if (valid.success) {
+    assert.equal(valid.data.content, 'Ola')
+    assert.equal(valid.data.actorId, 'actor-1')
+  }
 
   const invalid = chatMessageCreateSchema.safeParse({
     campaignId: 'campaign-1',
-    characterId: 'character-1',
     content: '   ',
   })
 
@@ -24,7 +26,6 @@ test('chatMessageCreateSchema trims content and rejects empty messages', () => {
 test('chatMessageCreateSchema limits message length', () => {
   const result = chatMessageCreateSchema.safeParse({
     campaignId: 'campaign-1',
-    characterId: 'character-1',
     content: 'x'.repeat(CHAT_MESSAGE_MAX_LENGTH + 1),
   })
 

@@ -52,7 +52,6 @@ const globalSheetPage = path.join(
   'character-sheet',
   'Pathfinder2eCharacterSheetPage.tsx',
 )
-const characterRoutesFile = path.join(root, 'apps', 'api', 'src', 'modules', 'characters', 'routes.ts')
 const gameSystemRoutesFile = path.join(
   root,
   'apps',
@@ -97,10 +96,8 @@ test('sheet entry points open the in-session workspace without browser navigatio
 })
 
 test('only the campaign-scoped API creates mechanical sheets', () => {
-  const characterRoutesSource = readFileSync(characterRoutesFile, 'utf8')
   const gameSystemRoutesSource = readFileSync(gameSystemRoutesFile, 'utf8')
 
-  assert.match(characterRoutesSource, /Fichas sao criadas somente pelo Mestre dentro de uma campanha/)
   assert.match(
     gameSystemRoutesSource,
     /app\.post\('\/api\/campaigns\/:campaignId\/character-sheets'/,
@@ -117,18 +114,18 @@ test('creating a sheet does not require a player, NPC, Token or role', () => {
   assert.doesNotMatch(createSchema, /role:/)
   assert.doesNotMatch(createSchema, /assignedUserId:/)
   assert.doesNotMatch(createSchema, /tokenId:/)
-  assert.match(gameSystemRoutesSource, /prisma\.campaignCharacterSheet\.create/)
+  assert.match(gameSystemRoutesSource, /tx\.campaignCharacterSheet\.create/)
   assert.doesNotMatch(gameSystemRoutesSource, /ASSIGNMENT_REQUIRED/)
 })
 
-test('campaign sheets own optional and reversible assignments', () => {
+test('campaign sheets belong to actors and expose reversible controller and token assignments', () => {
   const prismaSource = readFileSync(prismaSchemaFile, 'utf8')
   const gameSystemRoutesSource = readFileSync(gameSystemRoutesFile, 'utf8')
 
   assert.match(prismaSource, /model CampaignCharacterSheet/)
-  assert.match(prismaSource, /assignedUserId\s+String\?/)
-  assert.match(prismaSource, /tokenId\s+String\?\s+@unique/)
+  assert.match(prismaSource, /actorId\s+String\s+@unique/)
+  assert.match(prismaSource, /characterSheet\s+CampaignCharacterSheet\?/)
   assert.match(gameSystemRoutesSource, /character-sheets\/:sheetId\/assignments/)
-  assert.match(gameSystemRoutesSource, /assignedUserId: body\.data\.assignedUserId/)
-  assert.match(gameSystemRoutesSource, /tokenId: body\.data\.tokenId/)
+  assert.match(gameSystemRoutesSource, /controllerMemberId/)
+  assert.match(gameSystemRoutesSource, /actorId: sheet\.actorId/)
 })

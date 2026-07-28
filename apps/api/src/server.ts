@@ -4,6 +4,7 @@ import cookiePlugin from '@fastify/cookie'
 import { registerAuthRoutes } from './modules/auth/routes'
 import { registerAssetRoutes } from './modules/assets/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
+import { registerCampaignActorRoutes } from './modules/campaign_actor/routes'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
 import { registerCampaignDiaryRoutes } from './modules/campaign_diary/routes'
 import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
@@ -13,7 +14,6 @@ import { registerFogRoutes } from './modules/fog-of-war/presentation/routes'
 import { registerFogSocketHandlers } from './modules/fog-of-war/presentation/socket'
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
-import { registerCharacterRoutes } from './modules/characters/routes'
 import { registerTradeRoutes } from './modules/trade/routes'
 import { registerEffectAreaRoutes } from './modules/effect_area/presentation/routes'
 import { registerEffectAreaSocketHandlers } from './modules/effect_area/presentation/socket'
@@ -62,8 +62,8 @@ export async function createVttServer() {
   app.get('/api/health', async () => ({ ok: true }))
 
   registerAuthRoutes(app)
-  registerCharacterRoutes(app)
   registerCampaignRoutes(app, presence)
+  registerCampaignActorRoutes(app)
   registerCampaignDiaryRoutes(app)
   registerCampaignSceneRoutes(app, presence)
   registerFogRoutes(app, fogService, presence.io)

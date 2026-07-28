@@ -60,7 +60,7 @@ async function findAccessibleCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
     where: {
       id: campaignId,
-      characters: {
+      members: {
         some: {
           userId,
           status: 'ACTIVE',
@@ -78,7 +78,7 @@ async function findMasterCampaign(campaignId: string, userId: string) {
   return prisma.campaign.findFirst({
     where: {
       id: campaignId,
-      characters: {
+      members: {
         some: {
           userId,
           role: 'MASTER',
@@ -95,7 +95,7 @@ async function findMasterCampaign(campaignId: string, userId: string) {
 }
 
 async function findActiveCampaignRole(campaignId: string, userId: string) {
-  return prisma.campaignCharacter.findFirst({
+  return prisma.campaignMember.findFirst({
     where: { campaignId, userId, status: 'ACTIVE' },
     select: { role: true },
   })
@@ -103,7 +103,7 @@ async function findActiveCampaignRole(campaignId: string, userId: string) {
 
 async function listAssignmentTargets(campaignId: string) {
   const [participants, tokens] = await Promise.all([
-    prisma.campaignCharacter.findMany({
+    prisma.campaignMember.findMany({
       where: {
         campaignId,
         role: { in: ['MASTER', 'PLAYER'] },
@@ -112,11 +112,7 @@ async function listAssignmentTargets(campaignId: string) {
       select: {
         userId: true,
         role: true,
-        character: {
-          select: {
-            user: { select: { email: true } },
-          },
-        },
+        user: { select: { email: true } },
       },
       orderBy: [{ role: 'asc' }, { createdAt: 'asc' }],
     }),
@@ -125,7 +121,11 @@ async function listAssignmentTargets(campaignId: string) {
       select: {
         id: true,
         name: true,
-        characterSheet: { select: { id: true } },
+        actor: {
+          select: {
+            characterSheet: { select: { id: true } },
+          },
+        },
       },
       orderBy: { createdAt: 'asc' },
     }),
@@ -135,12 +135,12 @@ async function listAssignmentTargets(campaignId: string) {
     users: participants.map((entry) => ({
       userId: entry.userId,
       role: entry.role,
-      email: entry.character.user.email,
+      email: entry.user.email,
     })),
     tokens: tokens.map((token) => ({
       tokenId: token.id,
       name: token.name,
-      assignedSheetId: token.characterSheet?.id ?? null,
+      assignedSheetId: token.actor?.characterSheet?.id ?? null,
     })),
   }
 }
@@ -216,29 +216,16 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     if (!descriptor) return reply.status(409).send({ error: 'Sistema de jogo nao suportado' })
 
     const sheetCount = await prisma.campaignCharacterSheet.count({
-      where: { campaignId: campaign.id },
+      where: { actor: { campaignId: campaign.id } },
     })
     if (sheetCount > 0 && campaign.gameSystem !== body.data.gameSystem) {
       return reply.status(409).send({ error: 'O sistema nao pode ser alterado depois da criacao de fichas' })
     }
 
-    const updated = await prisma.$transaction(async (tx) => {
-      const result = await tx.campaign.update({
-        where: { id: campaign.id },
-        data: { gameSystem: body.data.gameSystem },
-        select: { id: true, gameSystem: true },
-      })
-
-      await tx.character.updateMany({
-        where: {
-          campaigns: {
-            some: { campaignId: campaign.id },
-          },
-        },
-        data: { gameSystem: body.data.gameSystem },
-      })
-
-      return result
+    const updated = await prisma.campaign.update({
+      where: { id: campaign.id },
+      data: { gameSystem: body.data.gameSystem },
+      select: { id: true, gameSystem: true },
     })
 
     return reply.send({
@@ -298,18 +285,28 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     if (!provider) return reply.status(409).send({ error: 'O sistema da campanha nao fornece fichas' })
 
     const defaultSheet = provider.createDefault()
-    const created = await prisma.campaignCharacterSheet.create({
-      data: {
-        campaignId: campaign.id,
-        createdByUserId: auth.id,
-        name: body.data.name,
-        avatarUrl: body.data.avatarUrl?.trim() || null,
-        bio: body.data.bio?.trim() || null,
-        systemKey: defaultSheet.systemKey,
-        schemaVersion: defaultSheet.schemaVersion,
-        data: defaultSheet.data as Prisma.InputJsonValue,
-      },
-      select: { id: true },
+    const created = await prisma.$transaction(async (tx) => {
+      const actor = await tx.campaignActor.create({
+        data: {
+          campaignId: campaign.id,
+          name: body.data.name,
+          avatarUrl: body.data.avatarUrl?.trim() || null,
+          bio: body.data.bio?.trim() || null,
+          inventory: { create: {} },
+        },
+        select: { id: true },
+      })
+
+      return tx.campaignCharacterSheet.create({
+        data: {
+          actorId: actor.id,
+          createdByUserId: auth.id,
+          systemKey: defaultSheet.systemKey,
+          schemaVersion: defaultSheet.schemaVersion,
+          data: defaultSheet.data as Prisma.InputJsonValue,
+        },
+        select: { id: true },
+      })
     })
 
     const entries = await provider.list({ campaignId: campaign.id })
@@ -331,60 +328,81 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
     if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode atribuir fichas' })
 
     const sheet = await prisma.campaignCharacterSheet.findFirst({
-      where: { id: params.data.sheetId, campaignId: campaign.id },
-      select: { id: true },
+      where: { id: params.data.sheetId, actor: { campaignId: campaign.id } },
+      select: { id: true, actorId: true },
     })
     if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada' })
 
-    if (body.data.assignedUserId) {
-      const participant = await prisma.campaignCharacter.findFirst({
-        where: {
-          campaignId: campaign.id,
-          userId: body.data.assignedUserId,
-          role: { in: ['MASTER', 'PLAYER'] },
-          status: 'ACTIVE',
-        },
-        select: { id: true },
-      })
-      if (!participant) return reply.status(400).send({ error: 'Usuario nao participa ativamente da campanha' })
+    let controllerMemberId: string | null | undefined
+    if (body.data.assignedUserId !== undefined) {
+      if (body.data.assignedUserId === null) {
+        controllerMemberId = null
+      } else {
+        const participant = await prisma.campaignMember.findFirst({
+          where: {
+            campaignId: campaign.id,
+            userId: body.data.assignedUserId,
+            role: { in: ['MASTER', 'PLAYER'] },
+            status: 'ACTIVE',
+          },
+          select: { id: true },
+        })
+        if (!participant) return reply.status(400).send({ error: 'Usuario nao participa ativamente da campanha' })
+        controllerMemberId = participant.id
+      }
     }
 
-    if (body.data.tokenId) {
-      const token = await prisma.campaignToken.findFirst({
-        where: { id: body.data.tokenId, campaignId: campaign.id },
-        select: { id: true },
-      })
-      if (!token) return reply.status(400).send({ error: 'Token nao pertence a esta campanha' })
+    let selectedTokenId: string | null | undefined
+    if (body.data.tokenId !== undefined) {
+      if (body.data.tokenId === null) {
+        selectedTokenId = null
+      } else {
+        const token = await prisma.campaignToken.findFirst({
+          where: { id: body.data.tokenId, campaignId: campaign.id },
+          select: { id: true },
+        })
+        if (!token) return reply.status(400).send({ error: 'Token nao pertence a esta campanha' })
+        selectedTokenId = token.id
+      }
     }
 
-    try {
-      const updated = await prisma.campaignCharacterSheet.update({
-        where: { id: sheet.id },
-        data: {
-          ...(body.data.assignedUserId !== undefined ? { assignedUserId: body.data.assignedUserId } : {}),
-          ...(body.data.tokenId !== undefined ? { tokenId: body.data.tokenId } : {}),
-        },
+    const updated = await prisma.$transaction(async (tx) => {
+      if (controllerMemberId !== undefined) {
+        await tx.campaignActor.update({
+          where: { id: sheet.actorId },
+          data: { controllerMemberId },
+        })
+      }
+
+      if (selectedTokenId !== undefined) {
+        await tx.campaignToken.updateMany({
+          where: { campaignId: campaign.id, actorId: sheet.actorId },
+          data: { actorId: null },
+        })
+        if (selectedTokenId) {
+          await tx.campaignToken.update({
+            where: { id: selectedTokenId },
+            data: { actorId: sheet.actorId },
+          })
+        }
+      }
+
+      return tx.campaignActor.findUnique({
+        where: { id: sheet.actorId },
         select: {
-          id: true,
-          assignedUser: { select: { id: true, email: true } },
+          controllerMember: { select: { userId: true, user: { select: { email: true } } } },
           token: { select: { id: true, name: true } },
         },
       })
+    })
 
-      return reply.send({
-        sheetId: updated.id,
-        assignedUser: updated.assignedUser
-          ? { id: updated.assignedUser.id, label: updated.assignedUser.email }
-          : null,
-        token: updated.token,
-      })
-    } catch (error: unknown) {
-      const prismaError = error as { code?: string }
-      if (prismaError.code === 'P2002') {
-        return reply.status(409).send({ error: 'Este Token ja esta vinculado a outra ficha' })
-      }
-      throw error
-    }
+    return reply.send({
+      sheetId: sheet.id,
+      assignedUser: updated?.controllerMember
+        ? { id: updated.controllerMember.userId, label: updated.controllerMember.user.email }
+        : null,
+      token: updated?.token ?? null,
+    })
   })
 
   app.get('/api/campaigns/:campaignId/tokens/:tokenId/character-sheet', async (req, reply) => {
@@ -401,25 +419,26 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
       where: { id: params.data.tokenId, campaignId: params.data.campaignId },
       select: {
         controllerMember: { select: { userId: true } },
-        characterSheet: {
+        actor: {
           select: {
-            id: true,
             name: true,
-            assignedUserId: true,
+            controllerMember: { select: { userId: true } },
+            characterSheet: { select: { id: true } },
           },
         },
       },
     })
-    if (!token?.characterSheet) return reply.status(404).send({ error: 'Token sem ficha vinculada' })
+    const sheet = token?.actor?.characterSheet
+    if (!sheet) return reply.status(404).send({ error: 'Token sem ficha vinculada' })
 
     const canOpen = role.role === 'MASTER'
       || token.controllerMember?.userId === auth.id
-      || token.characterSheet.assignedUserId === auth.id
+      || token.actor?.controllerMember?.userId === auth.id
     if (!canOpen) return reply.status(403).send({ error: 'Sem permissao para abrir esta ficha' })
 
     return reply.send({
-      sheetId: token.characterSheet.id,
-      title: token.characterSheet.name,
+      sheetId: sheet.id,
+      title: token.actor?.name ?? 'Ficha',
     })
   })
 

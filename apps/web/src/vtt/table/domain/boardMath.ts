@@ -170,7 +170,7 @@ export function normalizeTokenPosition(
 export function normalizeTableToken(token: VttPlayerToken, gridShape: VttGridShape) {
   return {
     ...token,
-    characterId: token.characterId ?? null,
+    actorId: token.actorId ?? null,
     color: token.color ?? null,
     size: token.size ?? 1,
     ownerUserId: token.ownerUserId ?? null,

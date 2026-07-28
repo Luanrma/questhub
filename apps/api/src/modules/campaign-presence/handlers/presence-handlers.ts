@@ -51,28 +51,26 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
 
   socket.on(
     'presence:session:start',
-    async ({ campaignId, characterId }: { campaignId: string; characterId: string }, ack?: PresenceAck) => {
+    async ({ campaignId }: { campaignId: string }, ack?: PresenceAck) => {
       try {
-        if (!campaignId || !characterId) {
+        if (!campaignId) {
           ack?.({ ok: false, error: 'Dados invalidos' })
           return
         }
 
-        const campaignCharacter = await prisma.campaignCharacter.findFirst({
-          where: { campaignId, characterId, status: 'ACTIVE', role: 'MASTER' },
-          select: { role: true, character: { select: { userId: true, name: true } } },
+        const campaignMember = await prisma.campaignMember.findFirst({
+          where: { campaignId, userId: user.id, status: 'ACTIVE', role: 'MASTER' },
+          select: { role: true },
         })
-        if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
+        if (!campaignMember) {
           ack?.({ ok: false, error: 'Apenas o mestre pode iniciar a sessao' })
           return
         }
 
         socket.data.campaignId = campaignId
-        socket.data.characterId = characterId
-        socket.data.characterRole = campaignCharacter.role
-        socket.data.characterName = campaignCharacter.character.name
+        socket.data.memberRole = campaignMember.role
         socket.join(campaignRoom(campaignId))
-        state.setUserPresence(user.id, { socketId: socket.id, campaignId, characterId })
+        state.setUserPresence(user.id, { socketId: socket.id, campaignId })
         await hydrateCampaignLiveState(campaignId)
         await persistCampaignLiveState(campaignId)
         state.clearTransientVttState(campaignId)
@@ -80,12 +78,11 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         state.setCampaignOnline(campaignId, {
           masterSocketId: socket.id,
           masterUserId: user.id,
-          masterCharacterId: characterId,
           state: 'PAUSED',
         })
 
         await notifyCampaignStatus(campaignId, true)
-        io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, characterId, online: true })
+        io.to(campaignRoom(campaignId)).emit('presence:update', { campaignId, userId: user.id, online: true })
         await emitCampaignSessionState(campaignId)
         emitCampaignMeasurementSnapshot(campaignId, socket.id)
         await emitVisibleTableSnapshot(campaignId, socket)
@@ -170,32 +167,39 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
     }
   })
 
-  socket.on('presence:enter', async ({ campaignId, characterId }: { campaignId: string; characterId: string }) => {
+  socket.on('presence:enter', async ({ campaignId }: { campaignId: string }, ack?: PresenceAck) => {
+    let entered = false
     try {
-      if (!campaignId || !characterId) return
-
-      const campaignCharacter = await prisma.campaignCharacter.findFirst({
-        where: { campaignId, characterId, status: 'ACTIVE' },
-        select: { role: true, character: { select: { userId: true, name: true, avatarUrl: true } } },
-      })
-      if (!campaignCharacter || campaignCharacter.character.userId !== user.id) {
-        socket.emit('presence:error', { message: 'Acesso nao liberado' })
+      if (!campaignId) {
+        ack?.({ ok: false, error: 'Dados invalidos' })
         return
       }
-      if (campaignCharacter.role === 'NPC') return
-      if (campaignCharacter.role !== 'PLAYER') return
+
+      const campaignMember = await prisma.campaignMember.findFirst({
+        where: { campaignId, userId: user.id, status: 'ACTIVE' },
+        select: { role: true },
+      })
+      if (!campaignMember) {
+        socket.emit('presence:error', { message: 'Acesso nao liberado' })
+        ack?.({ ok: false, error: 'Acesso nao liberado' })
+        return
+      }
+      if (campaignMember.role !== 'PLAYER') {
+        ack?.({ ok: false, error: 'Apenas jogadores entram por este fluxo' })
+        return
+      }
       if (!isCampaignOnline(campaignId)) {
         socket.emit('presence:error', { message: 'Mestre offline' })
+        ack?.({ ok: false, error: 'Mestre offline' })
         return
       }
 
       socket.data.campaignId = campaignId
-      socket.data.characterId = characterId
-      socket.data.characterRole = campaignCharacter.role
-      socket.data.characterName = campaignCharacter.character.name
-      socket.data.characterAvatarUrl = campaignCharacter.character.avatarUrl
+      socket.data.memberRole = campaignMember.role
       socket.join(campaignRoom(campaignId))
-      state.setUserPresence(user.id, { socketId: socket.id, campaignId, characterId })
+      state.setUserPresence(user.id, { socketId: socket.id, campaignId })
+      entered = true
+      ack?.({ ok: true })
       socket.emit('presence:session:state', {
         campaignId,
         state: await getVisibleCampaignSessionState(campaignId, socket),
@@ -205,11 +209,12 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
 
       io.to(campaignRoom(campaignId)).emit('presence:update', {
         campaignId,
-        characterId,
+        userId: user.id,
         online: true,
       })
     } catch {
       socket.emit('presence:error', { message: 'Erro de presenca' })
+      if (!entered) ack?.({ ok: false, error: 'Erro de presenca' })
     }
   })
 
@@ -217,7 +222,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
     const prev = state.getUserPresence(user.id)
     if (prev?.socketId !== socket.id) return
 
-    const role = socket.data.characterRole as string | undefined
+    const role = socket.data.memberRole as string | undefined
 
     if (role === 'MASTER') {
       const online = state.getCampaignOnline(prev.campaignId)
@@ -229,7 +234,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
 
     io.to(campaignRoom(prev.campaignId)).emit('presence:update', {
       campaignId: prev.campaignId,
-      characterId: prev.characterId,
+      userId: user.id,
       online: false,
     })
     state.deleteUserPresence(user.id)

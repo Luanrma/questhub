@@ -18,7 +18,7 @@ const paramsSchema = z.object({
 const sheetBodySchema = z.object({ data: z.unknown() }).strict()
 
 async function findAccessibleSheet(campaignId: string, sheetId: string, userId: string) {
-  const access = await prisma.campaignCharacter.findFirst({
+  const access = await prisma.campaignMember.findFirst({
     where: {
       campaignId,
       userId,
@@ -30,32 +30,36 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
   if (!access) return null
 
   const sheet = await prisma.campaignCharacterSheet.findFirst({
-    where: { id: sheetId, campaignId },
+    where: { id: sheetId, actor: { campaignId, archivedAt: null } },
     select: {
       id: true,
-      campaignId: true,
-      assignedUserId: true,
-      name: true,
-      avatarUrl: true,
-      bio: true,
       systemKey: true,
       schemaVersion: true,
       data: true,
       updatedAt: true,
-      campaign: { select: { gameSystem: true } },
+      actor: {
+        select: {
+          name: true,
+          avatarUrl: true,
+          bio: true,
+          campaign: { select: { gameSystem: true } },
+          controllerMember: { select: { userId: true } },
+        },
+      },
     },
   })
   if (!sheet) return null
-  if (access.role !== 'MASTER' && sheet.assignedUserId !== userId) return null
 
-  return sheet
+  const canAccess = access.role === 'MASTER'
+    || sheet.actor.controllerMember?.userId === userId
+  return canAccess ? sheet : null
 }
 
 function ensurePathfinderSheet(
   sheet: NonNullable<Awaited<ReturnType<typeof findAccessibleSheet>>>,
   reply: FastifyReply,
 ) {
-  if (sheet.campaign.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
+  if (sheet.actor.campaign.gameSystem !== PATHFINDER_2E_GAME_SYSTEM) {
     reply.status(409).send({ error: 'A campanha utiliza outro sistema de jogo' })
     return false
   }
@@ -106,9 +110,9 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     return reply.send({
       metadata: {
         id: sheet.id,
-        name: sheet.name,
-        avatarUrl: sheet.avatarUrl,
-        bio: sheet.bio,
+        name: sheet.actor.name,
+        avatarUrl: sheet.actor.avatarUrl,
+        bio: sheet.actor.bio,
       },
       sheet: {
         ...resolved,

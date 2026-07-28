@@ -3,11 +3,12 @@ import { prisma } from '../../../db/prisma'
 import type { AreaRepository } from '../application/ports/area-repository'
 
 export class PrismaAreaRepository implements AreaRepository {
-  getCampaignAccess(campaignId: string, userId: string) {
-    return prisma.campaignCharacter.findFirst({
+  async getCampaignAccess(campaignId: string, userId: string) {
+    const member = await prisma.campaignMember.findFirst({
       where: { campaignId, userId, status: 'ACTIVE', role: { in: ['MASTER', 'PLAYER'] } },
-      select: { role: true, status: true, characterId: true },
+      select: { id: true, role: true, status: true },
     })
+    return member ? { memberId: member.id, role: member.role, status: member.status } : null
   }
 
   listTemplates(campaignId: string) {
@@ -34,20 +35,19 @@ export class PrismaAreaRepository implements AreaRepository {
     return prisma.campaignScene.findFirst({ where: { id: sceneId, campaignId }, select: { id: true } })
   }
 
-  async visibleSceneId(campaignId: string, role: 'MASTER' | 'PLAYER' | 'NPC', userId: string, characterId: string) {
+  async visibleSceneId(campaignId: string, role: 'MASTER' | 'PLAYER', memberId: string) {
     if (role === 'MASTER') return null
     const viewState = await prisma.campaignSceneViewState.findUnique({ where: { campaignId }, select: { forcedSceneId: true } })
     if (viewState?.forcedSceneId) return viewState.forcedSceneId
     const controlledTokenWhere = {
       campaignId,
-      controllerMember: { userId },
+      OR: [
+        { actor: { controllerMemberId: memberId } },
+        { actorId: null, controllerMemberId: memberId },
+      ],
       placement: { isNot: null },
     } as const
-    const mainToken = await prisma.campaignToken.findFirst({
-      where: { ...controlledTokenWhere, characterId },
-      select: { placement: { select: { sceneId: true } } },
-    })
-    const token = mainToken ?? await prisma.campaignToken.findFirst({
+    const token = await prisma.campaignToken.findFirst({
       where: controlledTokenWhere,
       orderBy: { createdAt: 'asc' },
       select: { placement: { select: { sceneId: true } } },

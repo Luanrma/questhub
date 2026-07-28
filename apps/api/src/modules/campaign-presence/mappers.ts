@@ -25,7 +25,7 @@ export type PersistedSceneToken = {
   blocksVisionAndLight: boolean
   token: {
     id: string
-    characterId: string | null
+    actorId: string | null
     name: string
     avatarUrl: string | null
     color: string | null
@@ -33,13 +33,18 @@ export type PersistedSceneToken = {
     canCustomizeAppearance: boolean
     visionConfig: unknown
     lightConfig: unknown
-    character: {
-      userId: string
-      campaigns: Array<{ role: 'PLAYER' | 'NPC' | 'MASTER' }>
+    actor: {
+      controllerMember: {
+        id: string
+        userId: string
+        role: 'PLAYER' | 'MASTER'
+        user: { email: string }
+      } | null
     } | null
     controllerMember: {
       id: string
       userId: string
+      role: 'PLAYER' | 'MASTER'
       user: { email: string }
     } | null
   }
@@ -76,20 +81,20 @@ export function vttGridSettingsToSceneData(settings: VttGridSettings) {
 }
 
 export function tableTokenFromPersistedToken(token: PersistedSceneToken): VttPlayerToken {
-  const campaignCharacter = token.token.character?.campaigns[0]
-  const role = campaignCharacter?.role === 'NPC' ? 'NPC' : campaignCharacter?.role === 'PLAYER' ? 'PLAYER' : 'GENERIC'
+  const effectiveController = token.token.actor?.controllerMember ?? token.token.controllerMember
+  const role = effectiveController?.role === 'PLAYER' ? 'PLAYER' : token.token.actor ? 'NPC' : 'GENERIC'
 
   return {
     id: token.token.id,
-    characterId: token.token.characterId,
+    actorId: token.token.actorId,
     name: token.token.name,
     avatarUrl: token.token.avatarUrl,
     color: token.token.color,
     size: token.token.size,
-    ownerUserId: token.token.character?.userId ?? null,
-    ownerName: token.token.controllerMember?.user.email ?? null,
-    controllerMemberId: token.token.controllerMember?.id ?? null,
-    controllerUserId: token.token.controllerMember?.userId ?? null,
+    ownerUserId: effectiveController?.userId ?? null,
+    ownerName: effectiveController?.user.email ?? null,
+    controllerMemberId: effectiveController?.id ?? null,
+    controllerUserId: effectiveController?.userId ?? null,
     role,
     canCustomizeAppearance: token.token.canCustomizeAppearance,
     visionConfig: token.token.visionConfig,
