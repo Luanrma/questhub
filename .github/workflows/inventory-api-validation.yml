@@ -1,0 +1,23 @@
+name: Inventory API validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate --schema apps/api/prisma/schema.prisma
+      - run: npx prisma validate --schema apps/api/prisma/schema.prisma
+      - run: npm run test:unit
+      - name: Typecheck API
+        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts
+      - run: npm run build:web
