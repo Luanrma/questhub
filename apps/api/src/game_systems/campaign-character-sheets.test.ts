@@ -114,7 +114,7 @@ test('creating a sheet does not require a player, NPC, Token or role', () => {
   assert.doesNotMatch(createSchema, /role:/)
   assert.doesNotMatch(createSchema, /assignedUserId:/)
   assert.doesNotMatch(createSchema, /tokenId:/)
-  assert.match(gameSystemRoutesSource, /prisma\.campaignCharacterSheet\.create/)
+  assert.match(gameSystemRoutesSource, /tx\.campaignCharacterSheet\.create/)
   assert.doesNotMatch(gameSystemRoutesSource, /ASSIGNMENT_REQUIRED/)
 })
 
