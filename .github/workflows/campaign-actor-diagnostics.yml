@@ -1,0 +1,32 @@
+name: Campaign actor diagnostics
+
+on:
+  pull_request:
+    branches:
+      - feat/campaign-actor-inventory
+
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/campaign-actor-inventory-fix
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: python3 scripts/apply-campaign-actor-fix.py
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npx prisma validate
+      - name: Unit tests
+        run: |
+          set -o pipefail
+          npm run test:unit 2>&1 | tee ci.log
+      - name: Upload diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: campaign-actor-fix-log
+          path: ci.log
