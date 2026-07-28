@@ -40,10 +40,42 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
           return
         }
 
+        const actor = parsed.data.actorId
+          ? await prisma.campaignActor.findFirst({
+              where: {
+                id: parsed.data.actorId,
+                campaignId: parsed.data.campaignId,
+                archivedAt: null,
+              },
+              select: {
+                id: true,
+                name: true,
+                avatarUrl: true,
+                controllerMemberId: true,
+              },
+            })
+          : null
+
+        if (parsed.data.actorId && !actor) {
+          ack?.({ ok: false, error: 'Ator nao pertence a esta campanha' })
+          return
+        }
+        if (actor && campaignMember.role !== 'MASTER' && actor.controllerMemberId !== campaignMember.id) {
+          ack?.({ ok: false, error: 'Sem permissao para falar por este ator' })
+          return
+        }
+
+        const authorName = actor?.name
+          ?? (campaignMember.role === 'MASTER' ? 'Mestre' : campaignMember.user.email)
         const message = await prisma.chatMessage.create({
           data: {
-            campaign: { connect: { id: parsed.data.campaignId } },
-            user: { connect: { id: user.id } },
+            campaignId: parsed.data.campaignId,
+            actorId: actor?.id ?? null,
+            userId: user.id,
+            authorName,
+            authorRole: campaignMember.role,
+            actorNameSnapshot: actor?.name ?? null,
+            actorAvatarUrlSnapshot: actor?.avatarUrl ?? null,
             content: parsed.data.content.trim(),
           },
           select: {
@@ -51,15 +83,25 @@ export function registerChatSocketHandlers(io: SocketIOServer) {
             campaignId: true,
             actorId: true,
             userId: true,
+            authorName: true,
+            authorRole: true,
+            actorNameSnapshot: true,
+            actorAvatarUrlSnapshot: true,
             content: true,
             createdAt: true,
           },
         })
 
         const messageForPresentation = {
-          ...message,
-          actorName: campaignMember.role === 'MASTER' ? 'Mestre' : campaignMember.user.email,
-          role: campaignMember.role,
+          id: message.id,
+          campaignId: message.campaignId,
+          actorId: message.actorId,
+          userId: message.userId,
+          actorName: message.actorNameSnapshot ?? message.authorName,
+          actorAvatarUrl: message.actorAvatarUrlSnapshot,
+          role: message.authorRole,
+          content: message.content,
+          createdAt: message.createdAt,
         }
         const presentedForSender = presentChatMessage(messageForPresentation, user.id)
         const presentedForBroadcast = presentChatMessage(messageForPresentation)
