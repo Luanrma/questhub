@@ -2,8 +2,7 @@ import { Package } from 'lucide-react'
 import {
   entriesBySlot,
   inventoryGridColumns,
-  inventoryGridRows,
-  inventorySlotCount,
+  visibleInventorySlotCount,
 } from '../domain/inventoryGrid'
 
 export type InventoryGridEntry = {
@@ -35,19 +34,21 @@ export function InventoryGrid({
   onManage,
 }: Props) {
   const slotMap = entriesBySlot(entries)
+  const slotCount = visibleInventorySlotCount(entries)
+  const rowCount = slotCount / inventoryGridColumns
 
   return (
-    <div className="grid min-h-0 flex-1 place-items-stretch overflow-hidden rounded-xl border border-white/10 bg-black/25 p-2">
+    <div className="grid min-h-0 flex-1 place-items-stretch overflow-auto rounded-xl border border-white/10 bg-black/25 p-2">
       <div
-        className="grid min-h-0 min-w-0 gap-1"
+        className="grid min-w-0 gap-1"
         style={{
           gridTemplateColumns: `repeat(${inventoryGridColumns}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${inventoryGridRows}, minmax(0, 1fr))`,
+          gridTemplateRows: `repeat(${rowCount}, minmax(3rem, 1fr))`,
         }}
         role="grid"
-        aria-label="Grade do inventário, 10 por 10 slots"
+        aria-label="Grade expansível do inventário"
       >
-        {Array.from({ length: inventorySlotCount }, (_, slotIndex) => {
+        {Array.from({ length: slotCount }, (_, slotIndex) => {
           const entry = slotMap.get(slotIndex)
           if (!entry) {
             return (
