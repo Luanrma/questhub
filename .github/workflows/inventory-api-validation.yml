@@ -1,0 +1,36 @@
+name: Inventory API validation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx prisma generate --schema apps/api/prisma/schema.prisma
+      - run: npx prisma validate --schema apps/api/prisma/schema.prisma
+      - name: Unit tests
+        id: unit_tests
+        continue-on-error: true
+        run: npm run test:unit > unit-test.log 2>&1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inventory-unit-test-log
+          path: unit-test.log
+      - name: Report unit test failure
+        if: steps.unit_tests.outcome == 'failure'
+        run: |
+          tail -n 160 unit-test.log
+          exit 1
+      - name: Typecheck API
+        run: npx tsc --noEmit --target ES2023 --module NodeNext --moduleResolution NodeNext --esModuleInterop --skipLibCheck --strict apps/api/src/main.ts
+      - run: npm run build:web
