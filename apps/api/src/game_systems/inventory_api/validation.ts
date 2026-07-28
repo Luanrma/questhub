@@ -19,7 +19,7 @@ export const updateInventoryEntryQuantitySchema = z.object({
 })
 
 export const updateInventoryEntrySlotSchema = z.object({
-  slotIndex: z.number().int().min(0),
+  slotIndex: z.number().int().min(0).max(Number.MAX_SAFE_INTEGER),
 })
 
 export const sendCatalogItemSchema = z.object({
