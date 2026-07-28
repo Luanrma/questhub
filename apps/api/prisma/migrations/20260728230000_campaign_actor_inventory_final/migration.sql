@@ -97,7 +97,7 @@ CREATE INDEX "CampaignMember_role_idx" ON "CampaignMember"("role");
 CREATE INDEX "CampaignActor_campaignId_archivedAt_createdAt_idx" ON "CampaignActor"("campaignId", "archivedAt", "createdAt");
 CREATE INDEX "CampaignActor_controllerMemberId_idx" ON "CampaignActor"("controllerMemberId");
 CREATE UNIQUE INDEX "Inventory_actorId_key" ON "Inventory"("actorId");
-CREATE UNIQUE INDEX "InventoryEntry_inventoryId_slotIndex_key" ON "InventoryEntry"("inventoryId", "slotIndex") DEFERRABLE INITIALLY DEFERRED;
+ALTER TABLE "InventoryEntry" ADD CONSTRAINT "InventoryEntry_inventoryId_slotIndex_key" UNIQUE ("inventoryId", "slotIndex") DEFERRABLE INITIALLY DEFERRED;
 CREATE INDEX "InventoryEntry_inventoryId_createdAt_idx" ON "InventoryEntry"("inventoryId", "createdAt");
 CREATE INDEX "InventoryEntry_catalogNamespace_catalogContentId_idx" ON "InventoryEntry"("catalogNamespace", "catalogContentId");
 CREATE UNIQUE INDEX "CampaignCharacterSheet_actorId_key" ON "CampaignCharacterSheet"("actorId");
