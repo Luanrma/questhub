@@ -47,7 +47,6 @@ export function CampaignCreatePage() {
         }),
       })
 
-
       await loadCampaigns({ force: true })
       setActiveCampaignId(created.id)
       navigate(`/campaign/${created.id}/overview`, { replace: true })
