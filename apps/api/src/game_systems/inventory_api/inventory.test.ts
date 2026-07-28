@@ -5,6 +5,7 @@ import { findStackableInventoryEntry } from './stacking'
 import {
   addInventoryEntrySchema,
   INVENTORY_QUANTITY_MAX,
+  sendCatalogItemSchema,
   updateInventoryEntryQuantitySchema,
 } from './validation'
 
@@ -33,6 +34,17 @@ test('inventory quantity must be a positive bounded integer', () => {
     false,
   )
   assert.equal(updateInventoryEntryQuantitySchema.safeParse({ quantity: 3 }).success, true)
+})
+
+test('catalog item delivery requires a recipient and applies quantity default', () => {
+  const result = sendCatalogItemSchema.safeParse({ recipientMemberId: 'member-1' })
+
+  assert.equal(result.success, true)
+  if (!result.success) return
+  assert.equal(result.data.recipientMemberId, 'member-1')
+  assert.equal(result.data.quantity, 1)
+  assert.equal(sendCatalogItemSchema.safeParse({ recipientMemberId: '', quantity: 1 }).success, false)
+  assert.equal(sendCatalogItemSchema.safeParse({ recipientMemberId: 'member-1', quantity: 0 }).success, false)
 })
 
 test('findStackableInventoryEntry delegates compatibility to game system policy', () => {
