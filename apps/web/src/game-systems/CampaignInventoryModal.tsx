@@ -434,7 +434,7 @@ export function CampaignInventoryModal({
                 </p>
               </div>
               <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
-                {inventory?.entries.length ?? 0}/100 slots ocupados
+                {inventory?.entries.length ?? 0} slots ocupados
               </span>
             </div>
 
