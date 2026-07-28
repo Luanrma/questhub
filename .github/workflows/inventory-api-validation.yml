@@ -52,4 +52,17 @@ jobs:
         run: |
           cat inventory-typecheck.log
           exit 1
-      - run: npm run build:web
+      - name: Build web
+        id: web_build
+        continue-on-error: true
+        run: npm run build:web > web-build.log 2>&1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: inventory-web-build-log
+          path: web-build.log
+      - name: Report web build failure
+        if: steps.web_build.outcome == 'failure'
+        run: |
+          tail -n 200 web-build.log
+          exit 1
