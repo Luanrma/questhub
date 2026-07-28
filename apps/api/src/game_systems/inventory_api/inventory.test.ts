@@ -5,6 +5,8 @@ import { findStackableInventoryEntry } from './stacking'
 import {
   addInventoryEntrySchema,
   INVENTORY_QUANTITY_MAX,
+  maximumAllowedInventorySlotIndex,
+  POSTGRES_INTEGER_MAX,
   sendCatalogItemSchema,
   updateInventoryEntryQuantitySchema,
   updateInventoryEntrySlotSchema,
@@ -37,14 +39,24 @@ test('inventory quantity must be a positive bounded integer', () => {
   assert.equal(updateInventoryEntryQuantitySchema.safeParse({ quantity: 3 }).success, true)
 })
 
-test('inventory slot accepts every non-negative safe integer', () => {
+test('inventory slot must fit the PostgreSQL integer type', () => {
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 0 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 99 }).success, true)
-  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 100 }).success, true)
-  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 10_000 }).success, true)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: POSTGRES_INTEGER_MAX }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: -1 }).success, false)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 1.5 }).success, false)
-  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: Number.MAX_VALUE }).success, false)
+  assert.equal(
+    updateInventoryEntrySlotSchema.safeParse({ slotIndex: POSTGRES_INTEGER_MAX + 1 }).success,
+    false,
+  )
+})
+
+test('inventory exposes only existing pages plus the next page', () => {
+  assert.equal(maximumAllowedInventorySlotIndex([]), 99)
+  assert.equal(maximumAllowedInventorySlotIndex([0]), 199)
+  assert.equal(maximumAllowedInventorySlotIndex([99]), 199)
+  assert.equal(maximumAllowedInventorySlotIndex([100]), 299)
+  assert.equal(maximumAllowedInventorySlotIndex([299]), 399)
 })
 
 test('catalog item delivery requires a recipient and applies quantity default', () => {
