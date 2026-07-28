@@ -2715,7 +2715,7 @@ export function CampaignOverviewPage({
             {campaignId ? (
               <VttDiceControls
                 campaignId={campaignId}
-                character={myActor}
+                actor={myActor}
                 socket={socket}
                 enabled={canRollDice}
                 open={activeTool === 'dice'}

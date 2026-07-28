@@ -36,7 +36,7 @@ type CampaignPanelId = 'sessions' | 'characters' | 'players' | 'journal' | 'sett
 
 const panelTitles: Record<CampaignPanelId, string> = {
   sessions: 'Sessões',
-  members: 'Personagens',
+  characters: 'Personagens',
   players: 'Jogadores',
   journal: 'Diário',
   settings: 'Configurações',
