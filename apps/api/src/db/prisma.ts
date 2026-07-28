@@ -12,14 +12,12 @@ const adapter = new PrismaPg(databaseUrl)
 function withActiveActor(
   where: Prisma.CampaignCharacterSheetWhereInput | undefined,
 ): Prisma.CampaignCharacterSheetWhereInput {
-  const current = where ?? {}
-  const actor = current.actor
-
-  if (!actor) return { ...current, actor: { archivedAt: null } }
-  if (typeof actor === 'object' && !('archivedAt' in actor)) {
-    return { ...current, actor: { ...actor, archivedAt: null } }
+  return {
+    AND: [
+      where ?? {},
+      { actor: { archivedAt: null } },
+    ],
   }
-  return current
 }
 
 function createPrismaClient() {
