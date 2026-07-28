@@ -28,11 +28,11 @@ jobs:
         run: |
           set -euo pipefail
 
-          cat scripts/campaign-actor-final.part-01 \
-              scripts/campaign-actor-final.part-02 \
-              scripts/campaign-actor-final.part-03 \
-              scripts/campaign-actor-final.part-04 \
+          cat scripts/campaign-actor-payload-{00..16} \
             | base64 --decode > /tmp/campaign-actor-final.tgz
+
+          echo "bb0cc02beef3f4a1c7635c32d67c96f9ae3f378a38aed09887e6e50ed96ef96c  /tmp/campaign-actor-final.tgz" \
+            | sha256sum -c -
 
           cat > /tmp/expected-files.txt <<'EOF'
           apps/api/src/game_systems/campaign-character-sheets.test.ts
@@ -70,6 +70,7 @@ jobs:
           tar -xzf /tmp/campaign-actor-final.tgz -C .
 
           rm -f \
+            scripts/campaign-actor-payload-* \
             scripts/campaign-actor-final.part-01 \
             scripts/campaign-actor-final.part-02 \
             scripts/campaign-actor-final.part-03 \
