@@ -14,7 +14,6 @@ import { registerFogSocketHandlers } from './modules/fog-of-war/presentation/soc
 import { registerChatRoutes } from './modules/chat/routes'
 import { registerChatSocketHandlers } from './modules/chat/socket'
 import { registerTradeRoutes } from './modules/trade/routes'
-import { registerInventoryRoutes } from './modules/inventory/routes'
 import { registerEffectAreaRoutes } from './modules/effect_area/presentation/routes'
 import { registerEffectAreaSocketHandlers } from './modules/effect_area/presentation/socket'
 
@@ -71,7 +70,6 @@ export async function createVttServer() {
   registerEffectAreaSocketHandlers(presence.io, presence)
   registerChatRoutes(app)
   registerChatSocketHandlers(presence.io)
-  registerInventoryRoutes(app)
   registerTradeRoutes(app, presence.io)
 
   return app
