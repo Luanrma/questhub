@@ -1,0 +1,68 @@
+name: Fix CampaignActor web names
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/campaign-actor-inventory
+          fetch-depth: 0
+      - name: Apply exact replacements
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+              'apps/web/src/layouts/CampaignLayout.tsx': [
+                  ("  members: 'Personagens',", "  characters: 'Personagens',", 1),
+              ],
+              'apps/web/src/vtt/dice-roller/components/VttDiceControls.tsx': [
+                  ('type VttDiceCharacter = {', 'type VttDiceActor = {', 1),
+                  ('actor: VttDiceCharacter | null', 'actor: VttDiceActor | null', 1),
+                  ('  character,\n', '  actor,\n', 1),
+                  ('    character,\n', '    actor,\n', 1),
+              ],
+              'apps/web/src/vtt/dice-roller/hooks/useVttDiceRoller.ts': [
+                  ('type VttDiceCharacter = {', 'type VttDiceActor = {', 1),
+                  ('actor: VttDiceCharacter | null', 'actor: VttDiceActor | null', 1),
+                  ('  character,\n', '  actor,\n', 1),
+                  ('enabled && character?.id', 'enabled && actor?.id', 1),
+                  ('!socket || !character?.id', '!socket || !actor?.id', 1),
+                  ('actorId: character.id', 'actorId: actor.id', 1),
+                  ('[campaignId, character, socket]', '[campaignId, actor, socket]', 1),
+              ],
+              'apps/web/src/vtt/table/CampaignOverviewPage.tsx': [
+                  ('                character={myActor}', '                actor={myActor}', 1),
+              ],
+          }
+
+          for filename, file_replacements in replacements.items():
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              for old, new, expected_count in file_replacements:
+                  actual_count = text.count(old)
+                  if actual_count != expected_count:
+                      raise SystemExit(f'{filename}: expected {expected_count} occurrence(s) of {old!r}, found {actual_count}')
+                  text = text.replace(old, new)
+              path.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit scoped fix
+        run: |
+          git config user.name "QuestHub CI"
+          git config user.email "actions@users.noreply.github.com"
+          git add \
+            apps/web/src/layouts/CampaignLayout.tsx \
+            apps/web/src/vtt/dice-roller/components/VttDiceControls.tsx \
+            apps/web/src/vtt/dice-roller/hooks/useVttDiceRoller.ts \
+            apps/web/src/vtt/table/CampaignOverviewPage.tsx
+          git commit -m "fix(web): alinhar controles ao CampaignActor"
+          git push origin HEAD:feat/campaign-actor-inventory
