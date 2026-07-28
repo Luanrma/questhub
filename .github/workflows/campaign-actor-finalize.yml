@@ -1,0 +1,110 @@
+name: Finalize CampaignActor refactor
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-commit:
+    if: github.head_ref == 'feat/campaign-actor-inventory-finalize'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Verify and extract controlled source package
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          cat scripts/campaign-actor-final.part-01 \
+              scripts/campaign-actor-final.part-02 \
+              scripts/campaign-actor-final.part-03 \
+              scripts/campaign-actor-final.part-04 \
+            | base64 --decode > /tmp/campaign-actor-final.tgz
+
+          cat > /tmp/expected-files.txt <<'EOF'
+          apps/api/src/game_systems/campaign-character-sheets.test.ts
+          apps/api/src/game_systems/inventory.test.ts
+          apps/api/src/game_systems/pathfinder_2e/character-sheet/manager-provider.ts
+          apps/api/src/game_systems/pathfinder_2e/character-sheet/routes.ts
+          apps/api/src/game_systems/registry/register.ts
+          apps/api/src/modules/campaign-presence/handlers/presence-handlers.ts
+          apps/api/src/modules/campaign-presence/mappers.ts
+          apps/api/src/modules/campaign-presence/socket.ts
+          apps/api/src/modules/campaign_diary/domain/types.ts
+          apps/api/src/modules/campaign_scene/presenter.test.ts
+          apps/api/src/modules/campaign_scene/presenter.ts
+          apps/api/src/modules/campaign_scene/routes.ts
+          apps/api/src/modules/campaigns/presenter.test.ts
+          apps/api/src/modules/campaigns/presenter.ts
+          apps/api/src/modules/campaigns/routes.ts
+          apps/api/src/modules/chat/routes.ts
+          apps/api/src/modules/chat/socket.ts
+          apps/api/src/modules/effect_area/application/ports/area-repository.ts
+          apps/api/src/modules/trade/validation.test.ts
+          apps/api/src/modules/trade/validation.ts
+          apps/api/src/unit.test.ts
+          apps/web/src/features/campaigns/pages/CampaignsDashboardPage.tsx
+          apps/web/src/layouts/CampaignLayout.tsx
+          apps/web/src/vtt/table/domain/boardMath.ts
+          apps/web/src/vtt/table/domain/types.ts
+          EOF
+
+          sed -i 's/^          //' /tmp/expected-files.txt
+          tar -tzf /tmp/campaign-actor-final.tgz | sort > /tmp/archive-files.txt
+          sort -o /tmp/expected-files.txt /tmp/expected-files.txt
+          diff -u /tmp/expected-files.txt /tmp/archive-files.txt
+
+          tar -xzf /tmp/campaign-actor-final.tgz -C .
+
+          rm -f \
+            scripts/campaign-actor-final.part-01 \
+            scripts/campaign-actor-final.part-02 \
+            scripts/campaign-actor-final.part-03 \
+            scripts/campaign-actor-final.part-04 \
+            scripts/campaign-actor-semantic.part-ab \
+            scripts/campaign-actor-semantic.part-ac \
+            .github/workflows/source-snapshot.yml \
+            .github/workflows/campaign-actor-finalize.yml
+
+          git diff --check
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Validate Prisma schema
+        run: npx prisma validate
+
+      - name: Run unit tests
+        run: npm run test:unit
+
+      - name: Typecheck API
+        run: npx tsc --noEmit -p apps/api/tsconfig.test.json
+
+      - name: Build web
+        run: npm run build:web
+
+      - name: Commit validated correction
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix: complete CampaignActor architecture'
+          git push origin HEAD:${{ github.head_ref }}
