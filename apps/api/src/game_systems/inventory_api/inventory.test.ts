@@ -4,7 +4,6 @@ import type { GameSystemInventoryPolicy } from '../inventory'
 import { findStackableInventoryEntry } from './stacking'
 import {
   addInventoryEntrySchema,
-  INVENTORY_SLOT_COUNT,
   INVENTORY_QUANTITY_MAX,
   sendCatalogItemSchema,
   updateInventoryEntryQuantitySchema,
@@ -38,12 +37,12 @@ test('inventory quantity must be a positive bounded integer', () => {
   assert.equal(updateInventoryEntryQuantitySchema.safeParse({ quantity: 3 }).success, true)
 })
 
-test('inventory slot accepts exactly the 10 by 10 grid bounds', () => {
-  assert.equal(INVENTORY_SLOT_COUNT, 100)
+test('inventory slot accepts every non-negative integer', () => {
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 0 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 99 }).success, true)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 100 }).success, true)
+  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 10_000 }).success, true)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: -1 }).success, false)
-  assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 100 }).success, false)
   assert.equal(updateInventoryEntrySlotSchema.safeParse({ slotIndex: 1.5 }).success, false)
 })
 
