@@ -81,6 +81,7 @@ export type GameSystemCatalogResult = {
 }
 
 export type GameSystemCatalogProvider = {
+  inventoryNamespace?: string
   list(query: GameSystemCatalogQuery): Promise<GameSystemCatalogResult> | GameSystemCatalogResult
   get(query: GameSystemCatalogEntryQuery): Promise<GameSystemCatalogSheet | null> | GameSystemCatalogSheet | null
   getInventoryItemData?(
@@ -104,6 +105,17 @@ const catalogProviders = new Map<GameSystemKey, GameSystemCatalogProvider>()
 
 export function getGameSystemDescriptor(key: string): GameSystemDescriptor | null {
   return GAME_SYSTEM_DESCRIPTORS.find((descriptor) => descriptor.key === key) ?? null
+}
+
+export function defaultInventoryCatalogNamespace(system: GameSystemKey) {
+  return `questhub:${system.toLocaleLowerCase()}:items:v1`
+}
+
+export function getInventoryCatalogNamespace(
+  system: GameSystemKey,
+  provider: GameSystemCatalogProvider | null | undefined,
+) {
+  return provider?.inventoryNamespace ?? defaultInventoryCatalogNamespace(system)
 }
 
 export function registerGameSystemCatalogProvider(
