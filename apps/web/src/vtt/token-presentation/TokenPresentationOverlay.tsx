@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useSession } from '../../contexts/SessionContext'
 import { api } from '../../lib/api'
 import type {
   TokenIndicatorPresentation,
   TokenPresentation,
+  TokenPresentationChangedPayload,
   TokenPresentationResponse,
   TokenResourcePresentation,
 } from './types'
-
-const refreshIntervalMs = 5_000
 
 function resourceFillClass(resource: TokenResourcePresentation) {
   if (resource.tone === 'critical') return 'bg-rose-500'
@@ -69,6 +69,7 @@ export function TokenPresentationOverlay({
   size: number
 }) {
   const { campaignId } = useParams()
+  const { socket } = useSession()
   const [presentation, setPresentation] = useState<TokenPresentation | null>(null)
 
   useEffect(() => {
@@ -79,27 +80,42 @@ export function TokenPresentationOverlay({
     const activeCampaignId = campaignId
 
     let active = true
+    let requestSequence = 0
+
     async function load() {
+      const currentRequest = ++requestSequence
       try {
         const response = await api<TokenPresentationResponse>(
           `/api/campaigns/${encodeURIComponent(activeCampaignId)}/tokens/${encodeURIComponent(tokenId)}/presentation`,
         )
-        if (active) setPresentation(response.available ? response.presentation : null)
+        if (active && currentRequest === requestSequence) {
+          setPresentation(response.available ? response.presentation : null)
+        }
       } catch {
         // A projection is an enhancement of the board. Keep the last valid value on transient failures.
       }
     }
 
+    function onPresentationChanged(payload: TokenPresentationChangedPayload) {
+      if (payload.campaignId !== activeCampaignId || payload.tokenId !== tokenId) return
+      void load()
+    }
+
+    function onReconnect() {
+      void load()
+    }
+
     void load()
-    const timer = window.setInterval(() => {
-      if (document.visibilityState === 'visible') void load()
-    }, refreshIntervalMs)
+    socket?.on('vtt:token-presentation:changed', onPresentationChanged)
+    socket?.on('connect', onReconnect)
 
     return () => {
       active = false
-      window.clearInterval(timer)
+      requestSequence += 1
+      socket?.off('vtt:token-presentation:changed', onPresentationChanged)
+      socket?.off('connect', onReconnect)
     }
-  }, [campaignId, tokenId])
+  }, [campaignId, socket, tokenId])
 
   const resources = useMemo(
     () => presentation?.resources.filter((resource) => resource.presentation === 'bar') ?? [],
