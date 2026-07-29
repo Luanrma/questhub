@@ -1,18 +1,19 @@
 import type {
   GameSystemTokenPresentationProvider,
   TokenIndicatorPresentation,
+  TokenPresentation,
 } from '../../automation/contracts'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from '../character-sheet/adapter'
 
-function emptyPresentation(tokenId: string, revision = 'unlinked') {
+function emptyPresentation(tokenId: string, revision = 'unlinked'): TokenPresentation {
   return {
     tokenId,
     revision,
     resources: [],
     indicators: [],
     actions: [],
-  } as const
+  }
 }
 
 export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationProvider = {
@@ -36,35 +37,35 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
         sheet.data,
       )
       const hitPoints = resolved.data.hitPoints
-      const indicators: TokenIndicatorPresentation[] = [
-        hitPoints.wounded > 0
-          ? {
-              id: 'wounded',
-              label: 'Ferido',
-              value: hitPoints.wounded,
-              visibility: 'PUBLIC',
-              severity: 'warning',
-            }
-          : null,
-        hitPoints.dying > 0
-          ? {
-              id: 'dying',
-              label: 'Morrendo',
-              value: hitPoints.dying,
-              visibility: 'PUBLIC',
-              severity: 'critical',
-            }
-          : null,
-        hitPoints.doomed > 0
-          ? {
-              id: 'doomed',
-              label: 'Condenado',
-              value: hitPoints.doomed,
-              visibility: 'PUBLIC',
-              severity: 'critical',
-            }
-          : null,
-      ].filter((entry): entry is TokenIndicatorPresentation => entry !== null)
+      const indicators: TokenIndicatorPresentation[] = []
+
+      if (hitPoints.wounded > 0) {
+        indicators.push({
+          id: 'wounded',
+          label: 'Ferido',
+          value: hitPoints.wounded,
+          visibility: 'PUBLIC',
+          severity: 'warning',
+        })
+      }
+      if (hitPoints.dying > 0) {
+        indicators.push({
+          id: 'dying',
+          label: 'Morrendo',
+          value: hitPoints.dying,
+          visibility: 'PUBLIC',
+          severity: 'critical',
+        })
+      }
+      if (hitPoints.doomed > 0) {
+        indicators.push({
+          id: 'doomed',
+          label: 'Condenado',
+          value: hitPoints.doomed,
+          visibility: 'PUBLIC',
+          severity: 'critical',
+        })
+      }
 
       return {
         tokenId: context.tokenId,
