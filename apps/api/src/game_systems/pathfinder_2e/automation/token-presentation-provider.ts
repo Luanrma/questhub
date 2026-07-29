@@ -26,7 +26,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
 
   buildTokenPresentation(context) {
     const sheet = context.characterSheet
-    if (!sheet || sheet.systemKey !== this.systemKey) {
+    if (!sheet || sheet.systemKey !== pathfinder2eCharacterSheetRuntimeAdapter.systemKey) {
       return emptyPresentation(context.tokenId)
     }
 
