@@ -41,3 +41,10 @@ export type TokenPresentationChangedPayload = {
   campaignId: string
   tokenId: string
 }
+
+export type TokenIdentityChangedPayload = {
+  campaignId: string
+  token: {
+    id: string
+  }
+}
