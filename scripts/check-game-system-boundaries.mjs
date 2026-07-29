@@ -9,6 +9,14 @@ const modulesRoot = path.join(apiRoot, 'modules')
 const webRoot = path.join(root, 'apps', 'web', 'src')
 const webVttRoot = path.join(webRoot, 'vtt')
 
+// Existing generic integration points from main. This baseline prevents new
+// cross-boundary imports while these two bridges are moved to the composition shell.
+// Do not add entries without an architectural decision record.
+const approvedVttGameSystemBridges = new Set([
+  'apps/web/src/vtt/table/CampaignOverviewPage.tsx -> ../../game-systems/CampaignInventoryModal',
+  'apps/web/src/vtt/table/components/TokenContextMenu.tsx -> ../../../game-systems/character-sheet-window-events',
+])
+
 function collectFiles(directory, extensions = ['.ts', '.tsx']) {
   if (!existsSync(directory)) return []
   return readdirSync(directory).flatMap((entry) => {
@@ -30,6 +38,10 @@ function entersRoot(sourceFile, specifier, targetRoot) {
   const resolved = path.resolve(path.dirname(sourceFile), specifier)
   const relative = path.relative(targetRoot, resolved)
   return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative))
+}
+
+function importKey(sourceFile, specifier) {
+  return `${path.relative(root, sourceFile).split(path.sep).join('/')} -> ${specifier}`
 }
 
 const violations = []
@@ -61,11 +73,17 @@ for (const sourceFile of collectFiles(webVttRoot)) {
     const resolved = path.resolve(path.dirname(sourceFile), specifier)
     const relativeToGameSystems = path.relative(path.join(webRoot, 'game-systems'), resolved)
     const relativeToFeatures = path.relative(path.join(webRoot, 'features'), resolved)
-    if (relativeToGameSystems === '' || (!relativeToGameSystems.startsWith('..') && !path.isAbsolute(relativeToGameSystems))) {
-      violations.push(`VTT imports a game-system web module: ${path.relative(root, sourceFile)} -> ${specifier}`)
+    const key = importKey(sourceFile, specifier)
+    const entersGameSystems = relativeToGameSystems === ''
+      || (!relativeToGameSystems.startsWith('..') && !path.isAbsolute(relativeToGameSystems))
+    const entersFeatures = relativeToFeatures === ''
+      || (!relativeToFeatures.startsWith('..') && !path.isAbsolute(relativeToFeatures))
+
+    if (entersGameSystems && !approvedVttGameSystemBridges.has(key)) {
+      violations.push(`VTT imports a game-system web module: ${key}`)
     }
-    if (relativeToFeatures === '' || (!relativeToFeatures.startsWith('..') && !path.isAbsolute(relativeToFeatures))) {
-      violations.push(`VTT imports a concrete feature module: ${path.relative(root, sourceFile)} -> ${specifier}`)
+    if (entersFeatures) {
+      violations.push(`VTT imports a concrete feature module: ${key}`)
     }
   }
 }
