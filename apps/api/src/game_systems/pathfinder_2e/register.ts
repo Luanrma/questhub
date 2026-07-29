@@ -1,4 +1,5 @@
 import type { FastifyInstance } from 'fastify'
+import type { GameSystemAutomationEventPublisher } from '../automation/contracts'
 import { registerGameSystemTokenPresentationProvider } from '../automation/registry'
 import { registerGameSystemCharacterSheetManagerProvider } from '../character-sheets'
 import { registerGameSystemCatalogProvider } from '../catalog'
@@ -15,7 +16,10 @@ let characterSheetManagerRegistered = false
 let inventoryPolicyRegistered = false
 let tokenPresentationProviderRegistered = false
 
-export function registerPathfinder2e(app: FastifyInstance) {
+export function registerPathfinder2e(
+  app: FastifyInstance,
+  events: GameSystemAutomationEventPublisher,
+) {
   if (!characterSheetManagerRegistered) {
     registerGameSystemCharacterSheetManagerProvider(
       'PATHFINDER_2E',
@@ -38,7 +42,7 @@ export function registerPathfinder2e(app: FastifyInstance) {
   }
 
   registerGameSystemCatalogProvider('PATHFINDER_2E', pathfinder2eCatalogProvider)
-  registerPathfinder2eCharacterSheetRoutes(app)
+  registerPathfinder2eCharacterSheetRoutes(app, events)
   registerPathfinder2eContentCatalogRoutes(app)
   registerPathfinder2eIconAssetRoutes(app)
 }
