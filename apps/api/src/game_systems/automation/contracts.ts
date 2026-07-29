@@ -48,6 +48,18 @@ export type TokenPresentation = {
   actions: readonly TokenActionPresentation[]
 }
 
+export type TokenPresentationChangedEvent = {
+  campaignId: string
+  tokenId: string
+  sourceUserId?: string
+}
+
+export type GameSystemAutomationEventPublisher = {
+  publishTokenPresentationChanged(
+    event: TokenPresentationChangedEvent,
+  ): Promise<void> | void
+}
+
 export type GameSystemCharacterSheetSnapshot = {
   systemKey: string
   schemaVersion: number
