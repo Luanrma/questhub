@@ -3,6 +3,10 @@ import { Save, UserRound } from 'lucide-react'
 import { Button } from '../../../components/Button'
 import { api, ApiError } from '../../../lib/api'
 import {
+  readStoredPathfinder2eDisplaySettings,
+  subscribeToPathfinder2eDisplaySettings,
+} from './infrastructure/pathfinder2eDisplaySettingsStorage'
+import {
   ArmorProficiencyField,
   DerivedNumberField,
   ManualCatalogSelect,
@@ -81,6 +85,9 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
   const [deriving, setDeriving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [savedMessage, setSavedMessage] = useState<string | null>(null)
+  const [contentLocale, setContentLocale] = useState<'pt-BR' | 'en-US'>(
+    () => readStoredPathfinder2eDisplaySettings(campaignId).contentLocale,
+  )
 
   const sheetEndpoint = useMemo(
     () => `/api/campaigns/${campaignId}/character-sheets/${sheetId}/pathfinder-2e`,
@@ -90,6 +97,19 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
     () => Boolean(sheet && JSON.stringify(sheet) !== savedSnapshot),
     [savedSnapshot, sheet],
   )
+  const compatibleHeritages = options && sheet?.identity.ancestry
+    ? options.heritages.filter((heritage) => (
+      heritage.compatibility.versatile
+      || heritage.compatibility.ancestry === sheet.identity.ancestry
+    ))
+    : []
+
+  useEffect(() => {
+    return subscribeToPathfinder2eDisplaySettings(
+      campaignId,
+      (settings) => setContentLocale(settings.contentLocale),
+    )
+  }, [campaignId])
 
   useEffect(() => {
     let cancelled = false
@@ -153,6 +173,29 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
       window.clearTimeout(timeout)
     }
   }, [loading, sheet, sheetEndpoint])
+
+  function updateAncestry(ancestry: string) {
+    setSheet((current) => {
+      if (!current) return current
+      const selectedHeritage = options?.heritages.find(
+        (heritage) => heritage.value === current.identity.heritage,
+      )
+      const heritageRemainsCompatible = Boolean(ancestry) && (
+        !selectedHeritage
+        || selectedHeritage.compatibility.versatile
+        || selectedHeritage.compatibility.ancestry === ancestry
+      )
+
+      return {
+        ...current,
+        identity: {
+          ...current.identity,
+          ancestry,
+          heritage: heritageRemainsCompatible ? current.identity.heritage : '',
+        },
+      }
+    })
+  }
 
   async function save() {
     if (!sheet || saving) return
@@ -252,18 +295,25 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
           <SheetSection title="Identidade" description="A campanha determina o sistema; a ficha pode existir sem Player, NPC ou Token atribuído.">
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               <ManualNumberField label="Nível" value={sheet.identity.level} min={1} max={20} onChange={(level) => setSheet({ ...sheet, identity: { ...sheet.identity, level } })} />
-              <ManualCatalogSelect label="Ancestralidade" value={sheet.identity.ancestry} options={options.ancestries} onChange={(ancestry) => setSheet({ ...sheet, identity: { ...sheet.identity, ancestry } })} />
-              <ManualCatalogSelect label="Herança" value={sheet.identity.heritage} options={options.heritages} onChange={(heritage) => setSheet({ ...sheet, identity: { ...sheet.identity, heritage } })} />
-              <ManualCatalogSelect label="Background" value={sheet.identity.background} options={options.backgrounds} onChange={(background) => setSheet({ ...sheet, identity: { ...sheet.identity, background } })} />
-              <ManualCatalogSelect label="Classe" value={sheet.identity.class} options={options.classes} onChange={(className) => setSheet({ ...sheet, identity: { ...sheet.identity, class: className } })} />
-              <ManualCatalogSelect label="Divindade" value={sheet.identity.deity} options={options.deities} onChange={(deity) => setSheet({ ...sheet, identity: { ...sheet.identity, deity } })} />
+              <ManualCatalogSelect label="Ancestralidade" value={sheet.identity.ancestry} options={options.ancestries} locale={contentLocale} onChange={updateAncestry} />
+              <ManualCatalogSelect label="Herança" value={sheet.identity.heritage} options={compatibleHeritages} locale={contentLocale} onChange={(heritage) => setSheet({ ...sheet, identity: { ...sheet.identity, heritage } })} />
+              <ManualCatalogSelect label="Background" value={sheet.identity.background} options={options.backgrounds} locale={contentLocale} onChange={(background) => setSheet({ ...sheet, identity: { ...sheet.identity, background } })} />
+              <ManualCatalogSelect label="Classe" value={sheet.identity.class} options={options.classes} locale={contentLocale} onChange={(className) => setSheet({ ...sheet, identity: { ...sheet.identity, class: className } })} />
+              <ManualCatalogSelect label="Divindade" value={sheet.identity.deity} options={options.deities} locale={contentLocale} onChange={(deity) => setSheet({ ...sheet, identity: { ...sheet.identity, deity } })} />
             </div>
           </SheetSection>
           <SheetSection title="Progressão e movimento">
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               <ManualNumberField label="EXP atual" value={sheet.general.experience.current} min={0} onChange={(current) => setSheet({ ...sheet, general: { ...sheet.general, experience: { ...sheet.general.experience, current } } })} />
               <ManualNumberField label="EXP para o próximo nível" value={sheet.general.experience.nextLevel} min={0} onChange={(nextLevel) => setSheet({ ...sheet, general: { ...sheet.general, experience: { ...sheet.general.experience, nextLevel } } })} />
-              <ManualNumberField label="Movimento em metros" value={sheet.general.movementMeters} min={0} step={0.5} onChange={(movementMeters) => setSheet({ ...sheet, general: { ...sheet.general, movementMeters } })} />
+              <ManualNumberField label="Movimento manual (0 = ancestralidade)" value={sheet.general.movementMeters} min={0} step={0.5} onChange={(movementMeters) => setSheet({ ...sheet, general: { ...sheet.general, movementMeters } })} />
+              <DerivedNumberField
+                label="Movimento efetivo (m)"
+                value={derived.movement.valueMeters}
+                detail={derived.movement.manualOverride
+                  ? 'Valor manual'
+                  : `${derived.movement.ancestryBaseFeet} pés da Ancestralidade`}
+              />
             </div>
           </SheetSection>
         </>
@@ -298,14 +348,29 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
                 <ManualNumberField label="Bônus de iniciativa" value={sheet.initiative.bonus} onChange={(bonus) => setSheet({ ...sheet, initiative: { bonus } })} />
               </div>
               <div className="mt-4">
-                <ProficiencyEditor label="Percepção" value={sheet.perception} total={derived.perception.value} onChange={(value) => updateProficiency('perception', 'perception', value)} />
+                <ProficiencyEditor
+                  label="Percepção"
+                  value={sheet.perception}
+                  total={derived.perception.value}
+                  effectiveRank={derived.perception.effectiveRank}
+                  grantSources={derived.perception.grantSources}
+                  onChange={(value) => updateProficiency('perception', 'perception', value)}
+                />
               </div>
             </SheetSection>
           </div>
           <SheetSection title="Testes de resistência">
             <div className="grid gap-3">
               {savingThrowLabels.map(({ key, label }) => (
-                <ProficiencyEditor key={key} label={label} value={sheet.savingThrows[key]} total={derived.savingThrows[key].value} onChange={(value) => updateProficiency('savingThrows', key, value)} />
+                <ProficiencyEditor
+                  key={key}
+                  label={label}
+                  value={sheet.savingThrows[key]}
+                  total={derived.savingThrows[key].value}
+                  effectiveRank={derived.savingThrows[key].effectiveRank}
+                  grantSources={derived.savingThrows[key].grantSources}
+                  onChange={(value) => updateProficiency('savingThrows', key, value)}
+                />
               ))}
             </div>
           </SheetSection>
@@ -317,14 +382,28 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
           <SheetSection title="Perícias" description="O atributo correto é aplicado automaticamente a cada perícia.">
             <div className="grid gap-3 xl:grid-cols-2">
               {skillLabels.map(({ key, label }) => (
-                <ProficiencyEditor key={key} label={label} value={sheet.skills[key]} total={derived.skills[key].value} onChange={(value) => updateProficiency('skills', key, value)} />
+                <ProficiencyEditor
+                  key={key}
+                  label={label}
+                  value={sheet.skills[key]}
+                  total={derived.skills[key].value}
+                  effectiveRank={derived.skills[key].effectiveRank}
+                  grantSources={derived.skills[key].grantSources}
+                  onChange={(value) => updateProficiency('skills', key, value)}
+                />
               ))}
             </div>
           </SheetSection>
           <SheetSection title="Proficiência com armaduras" description="Somente Sem armadura participa da CA neste recorte.">
             <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
               {armorLabels.map(({ key, label }) => (
-                <ArmorProficiencyField key={key} label={label} value={sheet.armorProficiencies[key]} onChange={(value) => setSheet({ ...sheet, armorProficiencies: { ...sheet.armorProficiencies, [key]: value } })} />
+                <ArmorProficiencyField
+                  key={key}
+                  label={label}
+                  value={sheet.armorProficiencies[key]}
+                  effectiveRank={derived.armorProficiencies[key].effectiveRank}
+                  onChange={(value) => setSheet({ ...sheet, armorProficiencies: { ...sheet.armorProficiencies, [key]: value } })}
+                />
               ))}
             </div>
           </SheetSection>

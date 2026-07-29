@@ -20,51 +20,6 @@ test('a game system can register an inventory policy', () => {
   assert.equal(getGameSystemInventoryPolicy('PATHFINDER_2E'), pathfinder2eInventoryPolicy)
 })
 
-test('Pathfinder 2e initially stacks items with deeply equivalent JSON data', () => {
-  const first = {
-    schemaVersion: 1,
-    name: 'Arrows',
-    itemType: 'ammunition',
-    traits: ['consumable'],
-    price: { sp: 1 },
-  }
-  const equivalent = {
-    price: { sp: 1 },
-    traits: ['consumable'],
-    itemType: 'ammunition',
-    name: 'Arrows',
-    schemaVersion: 1,
-  }
-  const different = {
-    ...first,
-    name: 'Wooden Arrows',
-  }
-
-  assert.equal(pathfinder2eInventoryPolicy.canStack(first, equivalent), true)
-  assert.equal(pathfinder2eInventoryPolicy.canStack(first, different), false)
-})
-
-test('Pathfinder 2e presents opaque item JSON for the generic inventory UI', () => {
-  const presentation = pathfinder2eInventoryPolicy.present?.({
-    schemaVersion: 1,
-    name: 'Longsword',
-    itemType: 'weapon',
-    level: 0,
-    rarity: 'common',
-    traits: ['versatile-p'],
-    description: 'A martial sword.',
-    bulk: 1,
-    price: { gp: 1 },
-    usage: 'held-in-one-hand',
-    category: 'martial',
-    group: 'sword',
-  })
-
-  assert.equal(presentation?.name, 'Longsword')
-  assert.equal(presentation?.subtitle, 'Arma · Nível 0')
-  assert.equal(presentation?.details?.some((detail) => detail.label === 'Preço' && detail.value === '1 po'), true)
-})
-
 test('campaign actor persistence replaces the global Character model', () => {
   const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
   const actorModel = prismaModel(schema, 'CampaignActor')

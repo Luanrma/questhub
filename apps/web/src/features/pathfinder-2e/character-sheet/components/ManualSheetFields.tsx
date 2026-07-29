@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react'
-import type { Pathfinder2eProficiencyRank, Pathfinder2eProficiencyValue } from '../types'
+import type {
+  Pathfinder2eCharacterOption,
+  Pathfinder2eProficiencyGrantSource,
+  Pathfinder2eProficiencyRank,
+  Pathfinder2eProficiencyValue,
+} from '../types'
 
 const inputClass =
   'w-full rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-sm text-white outline-none transition focus:border-indigo-300/50 focus:ring-2 focus:ring-indigo-500/20'
@@ -63,10 +68,11 @@ export function DerivedNumberField({ label, value, detail }: {
   )
 }
 
-export function ManualCatalogSelect({ label, value, options, onChange }: {
+export function ManualCatalogSelect({ label, value, options, locale, onChange }: {
   label: string
   value: string
-  options: readonly string[]
+  options: readonly Pathfinder2eCharacterOption[]
+  locale: 'pt-BR' | 'en-US'
   onChange: (value: string) => void
 }) {
   return (
@@ -74,9 +80,10 @@ export function ManualCatalogSelect({ label, value, options, onChange }: {
       <span className="text-xs font-semibold uppercase tracking-wide text-zinc-400">{label}</span>
       <select className={inputClass} value={value} onChange={(event) => onChange(event.target.value)}>
         <option value="">Nao selecionado</option>
-        {options.map((option) => (
-          <option key={option} value={option}>{option}</option>
-        ))}
+        {options.map((option) => {
+          const displayLabel = option.labels[locale] ?? option.labels['en-US']
+          return <option key={option.value} value={option.value}>{displayLabel}</option>
+        })}
       </select>
     </label>
   )
@@ -90,12 +97,24 @@ const proficiencyOptions: Array<{ value: Pathfinder2eProficiencyRank; label: str
   { value: 8, label: 'Lendario' },
 ]
 
-export function ProficiencyEditor({ label, value, total, onChange }: {
+export function ProficiencyEditor({
+  label,
+  value,
+  total,
+  effectiveRank = value.rank,
+  grantSources = [],
+  onChange,
+}: {
   label: string
   value: Pathfinder2eProficiencyValue
   total: number
+  effectiveRank?: Pathfinder2eProficiencyRank
+  grantSources?: Pathfinder2eProficiencyGrantSource[]
   onChange: (value: Pathfinder2eProficiencyValue) => void
 }) {
+  const sourceLabel = grantSources
+    .map((source) => source === 'class' ? 'Classe' : 'Background')
+    .join(' + ')
   return (
     <div className="grid gap-2 rounded-lg border border-white/10 bg-black/15 p-3 sm:grid-cols-[minmax(0,1fr)_150px_110px_90px] sm:items-end">
       <div className="text-sm font-medium text-zinc-200">{label}</div>
@@ -110,6 +129,12 @@ export function ProficiencyEditor({ label, value, total, onChange }: {
             <option key={option.value} value={option.value}>{option.label}</option>
           ))}
         </select>
+        {effectiveRank > value.rank ? (
+          <span className="text-[10px] text-emerald-300">
+            Efetivo: {proficiencyOptions.find((option) => option.value === effectiveRank)?.label}
+            {sourceLabel ? ` (${sourceLabel})` : ''}
+          </span>
+        ) : null}
       </label>
       <label className="grid gap-1">
         <span className="text-[10px] font-semibold uppercase tracking-wide text-zinc-500">Bonus</span>
@@ -133,9 +158,10 @@ export function ProficiencyEditor({ label, value, total, onChange }: {
   )
 }
 
-export function ArmorProficiencyField({ label, value, onChange }: {
+export function ArmorProficiencyField({ label, value, effectiveRank = value, onChange }: {
   label: string
   value: Pathfinder2eProficiencyRank
+  effectiveRank?: Pathfinder2eProficiencyRank
   onChange: (value: Pathfinder2eProficiencyRank) => void
 }) {
   return (
@@ -150,6 +176,11 @@ export function ArmorProficiencyField({ label, value, onChange }: {
           <option key={option.value} value={option.value}>{option.label}</option>
         ))}
       </select>
+      {effectiveRank > value ? (
+        <span className="text-[10px] text-emerald-300">
+          Efetivo pela Classe: {proficiencyOptions.find((option) => option.value === effectiveRank)?.label}
+        </span>
+      ) : null}
     </label>
   )
 }

@@ -130,6 +130,7 @@ import type {
   VttWallSegment,
   VttWallsChangedPayload,
 } from './domain/types'
+import { mergeCampaignTokenMetadata } from './domain/campaignTokenMetadata'
 
 const toolButtons = [
   { id: 'select', label: 'Selecionar', icon: MousePointer2 },
@@ -2109,7 +2110,9 @@ export function CampaignOverviewPage({
   }
 
   function applyCampaignTokenUpdate(token: CampaignToken) {
-    setCampaignTokens((current) => current.map((item) => item.id === token.id ? token : item).sort((left, right) => {
+    setCampaignTokens((current) => current.map((item) =>
+      item.id === token.id ? mergeCampaignTokenMetadata(item, token) : item,
+    ).sort((left, right) => {
       const order = { PLAYER_CONTROLLED: 0, MASTER_ONLY: 1 } as const
       return order[left.category] - order[right.category]
     }))
@@ -3063,7 +3066,9 @@ export function CampaignOverviewPage({
                 masterCanUseVtt={masterCanUseVtt}
                 tokenCandidates={tokenCandidates}
                 campaignPlayers={campaignPlayers}
-                onUpdateToken={(tokenId, changes) => void updateCampaignToken(tokenId, changes)}
+                onUpdateToken={async (tokenId, changes) => {
+                  await updateCampaignToken(tokenId, changes)
+                }}
                 onConfigureFog={configureTokenFog}
                 onToggleVisibility={toggleTokenVisibility}
                 canSendToEncounter={Boolean(isMaster && masterCanUseVtt && activeScene && !tokenContextMenu.token.hidden)}
@@ -3095,7 +3100,9 @@ export function CampaignOverviewPage({
                 currentColor={tokenImageEditTarget.color}
                 tokenId={tokenImageEditTarget.id}
                 onCancel={() => setTokenImageEditTarget(null)}
-                onSave={(changes) => void updateCampaignToken(tokenImageEditTarget.id, changes)}
+                onSave={async (changes) => {
+                  await updateCampaignToken(tokenImageEditTarget.id, changes)
+                }}
               />
             ) : null}
             {wallContextMenu && isMaster ? (

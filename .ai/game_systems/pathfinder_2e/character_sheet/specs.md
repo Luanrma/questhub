@@ -357,3 +357,25 @@ Os novos bônus desses totais iniciam em zero.
 12. controlar Token de terceiro não concede acesso à ficha;
 13. Token genérico não oferece ação de ficha;
 14. nenhum código do adaptador PF2e importa Canvas, grid, cena ou componentes de Token.
+
+## 11. Localização, compatibilidade e concessões mecânicas
+
+O catálogo de identidade segue os contratos de:
+
+```text
+.ai/game_systems/pathfinder_2e/character_options/
+```
+
+Regras adicionais:
+
+- a ficha persiste os valores canônicos `en-US`; labels `pt-BR` são apenas
+  apresentação;
+- Herança específica deve pertencer à Ancestralidade selecionada;
+- Herança versátil pode ser combinada com qualquer Ancestralidade suportada;
+- Classe não altera Ancestralidade;
+- ranks iniciais de Classe e treinos fixos de Background funcionam como piso
+  para o rank efetivo;
+- ranks manuais não são sobrescritos;
+- Cleric e Champion sem Divindade geram warning de construção incompleta;
+- movimento manual zero usa o deslocamento base da Ancestralidade convertido
+  de pés para metros.

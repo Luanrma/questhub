@@ -383,17 +383,17 @@ independentes e ambos devem permanecer auditáveis.
 
 O catálogo não pode depender de canvas, combate, tokens, inventário de campanha, personagens, efeitos ativos, WebSocket ou módulos em `apps/api/src/modules`.
 
-## 12. Testes mínimos
+## 12. Estratégia de testes
 
-Devem existir testes para garantir:
+Testes automatizados específicos de Pathfinder 2e ficam restritos à estrutura
+do módulo e às fronteiras entre `game_systems`, Runtime e VTT. Eles não devem
+carregar o catálogo completo nem validar regras, conteúdo ou apresentação
+específica de Pathfinder.
 
-- IDs e ordens únicos;
-- presença dos três domínios em cada entrega;
-- presença de `en-US` e `pt-BR`;
-- originais e traduções separados;
-- source lock válido;
-- próxima entrega calculada deterministicamente;
-- nenhuma publicação com pendência obrigatória;
-- nenhuma URL externa em `imageUrl`;
-- fallback quando o arquivo local não existe;
-- ausência de tag visual em traduções revisadas.
+A validação de entregas, roadmap, cobertura, traduções, glossário, gramática,
+status editorial, assets e conteúdo das fichas é responsabilidade do fluxo
+editorial humano e não pertence à suíte unitária ou ao pre-push.
+
+Quando uma fronteira puder ser verificada por inspeção estática, o teste deve
+ler apenas o arquivo de composição relevante, sem importar `deliveries` nem os
+arquivos gerados do catálogo.

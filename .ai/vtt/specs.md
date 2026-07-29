@@ -8,6 +8,9 @@
 * O drop de Token exige uma cena ativa e envia explicitamente seu `sceneId`; o cliente nao pode depender de uma selecao de cena anterior ja ter sido sincronizada no servidor.
 * Ao dropar como Mestre, o cliente deve obter a conexao realtime sob demanda, enviar `vtt:token:place` com ACK e apresentar a rejeicao sem descartar o gesto silenciosamente.
 * Depois da criacao, o Mestre ou controlador com permissao de personalizacao pode editar o nome e escolher uma imagem do catalogo gerado recursivamente a partir de `apps/web/public/tokens/`; o cliente persiste a escolha como URL publica relativa sob `/tokens/`.
+* O editor de imagem deve permanecer aberto enquanto a atualizacao estiver pendente, fechar somente depois da confirmacao HTTP e exibir a rejeicao da API sem descartar a escolha do usuario.
+* Quando aberto pelo menu contextual do Token no Board, o portal do editor de imagem deve isolar eventos de clique da arvore React da mesa; selecionar uma imagem, editar a URL ou salvar nao pode acionar o fechamento global do menu contextual antes da confirmacao.
+* Atualizacoes de nome, imagem, cor, controle ou configuracao visual sao metadados da identidade do Token. Ao aplica-las no cliente ou publica-las por realtime, o posicionamento vivo atual deve ser preservado; um `placement` persistido defasado nunca pode recolocar na cena um Token removido durante a sessao.
 * O contrato HTTP de criacao e atualizacao de Token aceita tanto URLs absolutas validas quanto assets locais sob `/tokens/`, rejeitando caminhos relativos externos a esse prefixo e segmentos de traversal.
 * Criar um Token generico persiste `avatarUrl = null`; a biblioteca de imagens default nunca e persistida no banco.
 * Ao escolher uma imagem, `CampaignToken.avatarUrl` persiste somente a referencia: path publico local, URL externa ou, quando integrado ao storage, a referencia canonica resolvida pelo modulo `assets`; conteudo binario, catalogo e URL assinada temporaria nao pertencem ao Token.

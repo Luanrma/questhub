@@ -3,6 +3,10 @@ import { createPortal } from 'react-dom'
 import { Image, X } from 'lucide-react'
 import { useTokenImageLibrary } from '../hooks/useTokenImageLibrary'
 import { TokenAvatar } from './TokenAvatar'
+import {
+  handleTokenImagePickerBackdropMouseDown,
+  stopTokenImagePickerClickPropagation,
+} from './tokenImagePickerEvents'
 import { getLastTokenColor, saveLastTokenColor } from '../infrastructure/tokenAppearancePreferences'
 
 export type TokenAppearanceChanges = {
@@ -16,7 +20,7 @@ type TokenImagePickerDialogProps = {
   currentAvatarUrl: string | null
   currentColor: string | null
   onCancel: () => void
-  onSave: (changes: TokenAppearanceChanges) => void
+  onSave: (changes: TokenAppearanceChanges) => Promise<void> | void
 }
 
 export function TokenImagePickerDialog({
@@ -33,6 +37,8 @@ export function TokenImagePickerDialog({
   const [customUrl, setCustomUrl] = useState(currentLocalPath ? '' : currentAvatarUrl ?? '')
   const [selectedColor, setSelectedColor] = useState(currentColor ?? getLastTokenColor)
   const [backgroundEnabled, setBackgroundEnabled] = useState(Boolean(currentAvatarUrl && currentColor))
+  const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
   const selectedAvatarUrl = customUrl.trim() || selectedAssetPath
   const hasImage = Boolean(selectedAvatarUrl)
 
@@ -42,15 +48,27 @@ export function TokenImagePickerDialog({
     setBackgroundEnabled(false)
   }
 
-  function save() {
+  async function save() {
     const color = hasImage && !backgroundEnabled ? null : selectedColor
-    if (color) saveLastTokenColor(color)
-    onSave({ avatarUrl: selectedAvatarUrl, color })
-    onCancel()
+    setSaving(true)
+    setSaveError(null)
+    try {
+      await onSave({ avatarUrl: selectedAvatarUrl, color })
+      if (color) saveLastTokenColor(color)
+      onCancel()
+    } catch (error) {
+      setSaveError(error instanceof Error ? error.message : 'Nao foi possivel salvar a imagem do Token.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   return createPortal(
-    <div className="fixed inset-0 z-[80] grid place-items-center bg-black/70 p-4 backdrop-blur-sm" onMouseDown={onCancel}>
+    <div
+      className="fixed inset-0 z-[80] grid place-items-center bg-black/70 p-4 backdrop-blur-sm"
+      onMouseDown={(event) => handleTokenImagePickerBackdropMouseDown(event, saving, onCancel)}
+      onClick={stopTokenImagePickerClickPropagation}
+    >
       <div
         role="dialog"
         aria-modal="true"
@@ -66,7 +84,7 @@ export function TokenImagePickerDialog({
               <p className="text-xs text-zinc-500">{tokenName}</p>
             </div>
           </div>
-          <button type="button" aria-label="Fechar" className="rounded-md p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white" onClick={onCancel}>
+          <button type="button" aria-label="Fechar" disabled={saving} className="rounded-md p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white disabled:opacity-50" onClick={onCancel}>
             <X className="h-4 w-4" />
           </button>
         </div>
@@ -144,8 +162,9 @@ export function TokenImagePickerDialog({
         </div>
 
         <div className="flex justify-end gap-2 border-t border-white/10 px-5 py-4">
-          <button type="button" className="rounded-md px-4 py-2 text-xs font-semibold text-zinc-300 hover:bg-white/10" onClick={onCancel}>Cancelar</button>
-          <button type="button" className="rounded-md bg-indigo-500 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-400" onClick={save}>Salvar imagem</button>
+          {saveError ? <p role="alert" className="mr-auto text-xs text-red-300">{saveError}</p> : null}
+          <button type="button" disabled={saving} className="rounded-md px-4 py-2 text-xs font-semibold text-zinc-300 hover:bg-white/10 disabled:opacity-50" onClick={onCancel}>Cancelar</button>
+          <button type="button" disabled={saving} className="rounded-md bg-indigo-500 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-400 disabled:opacity-50" onClick={() => void save()}>{saving ? 'Salvando...' : 'Salvar imagem'}</button>
         </div>
       </div>
     </div>,

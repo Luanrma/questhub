@@ -7,7 +7,10 @@ import type { GameSystemAutomationEventPublisher } from '../../automation/contra
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
 import { initializePathfinder2eCurrentHitPoints } from './initialization'
-import { pathfinder2eCharacterSheetOptions } from './options'
+import {
+  isPathfinder2eHeritageCompatible,
+  pathfinder2eCharacterSheetOptions,
+} from './options'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
 const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.systemKey
@@ -181,6 +184,21 @@ export function registerPathfinder2eCharacterSheetRoutes(
       resolved = resolveCharacterSheetUpdate(sheet.data, body.data.data)
     } catch (error) {
       return sendInvalidSheet(reply, error)
+    }
+    if (
+      resolved.data.identity.ancestry
+      && resolved.data.identity.heritage
+      && !isPathfinder2eHeritageCompatible(
+        resolved.data.identity.ancestry,
+        resolved.data.identity.heritage,
+      )
+    ) {
+      return reply.status(400).send({
+        error: {
+          code: 'INCOMPATIBLE_HERITAGE',
+          message: 'A heranca selecionada nao e compativel com a ancestralidade.',
+        },
+      })
     }
 
     const stored = await prisma.campaignCharacterSheet.update({

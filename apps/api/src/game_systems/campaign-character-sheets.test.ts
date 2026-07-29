@@ -129,3 +129,11 @@ test('campaign sheets belong to actors and expose reversible controller and toke
   assert.match(gameSystemRoutesSource, /controllerMemberId/)
   assert.match(gameSystemRoutesSource, /actorId: sheet\.actorId/)
 })
+
+test('changing sheet assignments invalidates affected Token presentations through realtime events', () => {
+  const gameSystemRoutesSource = readFileSync(gameSystemRoutesFile, 'utf8')
+
+  assert.match(gameSystemRoutesSource, /sheet\.actor\.token\?\.id/)
+  assert.match(gameSystemRoutesSource, /updated\?\.token\?\.id/)
+  assert.match(gameSystemRoutesSource, /publishTokenPresentationChanged/)
+})

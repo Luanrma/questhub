@@ -21,13 +21,13 @@ test('a game system can register a neutral catalog provider', async () => {
   assert.equal(getGameSystemCatalogProvider('PATHFINDER_2E'), null)
 
   registerGameSystemCatalogProvider('PATHFINDER_2E', {
-    list(query) {
+    list() {
       return {
         entries: [
           {
             id: 'creature-1',
-            name: query.locale === 'pt-BR' ? 'Lobo' : 'Wolf',
-            stats: [{ label: 'Nível', value: '1' }],
+            name: 'Catalog entry',
+            stats: [{ label: 'Level', value: '1' }],
           },
         ],
         pagination: { page: 1, limit: 24, total: 1, totalPages: 1 },
@@ -36,11 +36,11 @@ test('a game system can register a neutral catalog provider', async () => {
     get(query) {
       return {
         id: query.contentId,
-        name: query.locale === 'pt-BR' ? 'Lobo' : 'Wolf',
+        name: 'Catalog entry',
         sections: [
           {
-            title: query.locale === 'pt-BR' ? 'Defesas' : 'Defenses',
-            fields: [{ label: 'CA', value: '15' }],
+            title: 'Details',
+            fields: [{ label: 'Value', value: '15' }],
           },
         ],
       }
@@ -64,7 +64,7 @@ test('a game system can register a neutral catalog provider', async () => {
     contentId: 'creature-1',
   })
 
-  assert.equal(result.entries[0]?.name, 'Lobo')
+  assert.equal(result.entries[0]?.name, 'Catalog entry')
   assert.equal(result.pagination.total, 1)
-  assert.equal(sheet?.sections[0]?.title, 'Defesas')
+  assert.equal(sheet?.sections[0]?.title, 'Details')
 })
