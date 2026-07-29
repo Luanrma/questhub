@@ -11,7 +11,7 @@ export function registerGameSystems(
   app: FastifyInstance,
   events: GameSystemAutomationEventPublisher,
 ) {
-  registerGameSystemRoutes(app)
+  registerGameSystemRoutes(app, events)
   registerGameSystemAutomationApi(app)
   registerInventoryApi(app)
   registerPathfinder2e(app, events)
