@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { VttGridShape } from '../../grid'
+import { TokenPresentationOverlay } from '../../token-presentation/TokenPresentationOverlay'
 import {
   measurementLabel,
   measurementLabelPoint,
@@ -424,6 +425,12 @@ export function PlayerToken({
         <TokenAvatar avatarUrl={token.avatarUrl} name={token.name} fallbackSeed={token.id} color={token.color} />
       </span>
     </button>
+    <TokenPresentationOverlay
+      tokenId={token.id}
+      left={position.x}
+      top={position.y + displaySize + 4}
+      size={displaySize}
+    />
     {selected && canSelect ? <div
       aria-label={`Controles de transformacao do Token ${token.name}`}
       className="pointer-events-none absolute z-[10] border border-dashed border-violet-200/80"
