@@ -8,6 +8,7 @@ const systemsRoot = path.join(apiRoot, 'game_systems')
 const modulesRoot = path.join(apiRoot, 'modules')
 const webRoot = path.join(root, 'apps', 'web', 'src')
 const webVttRoot = path.join(webRoot, 'vtt')
+const tokenPresentationRoot = path.join(webVttRoot, 'token-presentation')
 
 // Existing generic integration points from main. This baseline prevents new
 // cross-boundary imports while these two bridges are moved to the composition shell.
@@ -85,6 +86,13 @@ for (const sourceFile of collectFiles(webVttRoot)) {
     if (entersFeatures) {
       violations.push(`VTT imports a concrete feature module: ${key}`)
     }
+  }
+}
+
+for (const sourceFile of collectFiles(tokenPresentationRoot)) {
+  const source = readFileSync(sourceFile, 'utf8')
+  if (/\bsetInterval\s*\(/.test(source)) {
+    violations.push(`Token presentation must update through realtime events, not polling: ${path.relative(root, sourceFile)}`)
   }
 }
 
