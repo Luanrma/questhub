@@ -1,6 +1,10 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { vttTokenPlaceSchema } from './contracts'
+import {
+  vttCombatAdjustInitiativeSchema,
+  vttCombatParticipantsSchema,
+  vttTokenPlaceSchema,
+} from './contracts'
 
 const validTokenPlacement = {
   campaignId: 'campaign-1',
@@ -24,4 +28,28 @@ test('token placement without a scene is rejected', () => {
   }
 
   assert.equal(vttTokenPlaceSchema.safeParse(placementWithoutScene).success, false)
+})
+
+test('initiative adjustment accepts only a bounded manual delta', () => {
+  assert.equal(vttCombatAdjustInitiativeSchema.safeParse({
+    campaignId: 'campaign-1',
+    tokenId: 'token-1',
+    initiativeAdjustment: -3,
+  }).success, true)
+  assert.equal(vttCombatAdjustInitiativeSchema.safeParse({
+    campaignId: 'campaign-1',
+    tokenId: 'token-1',
+    initiative: 17,
+  }).success, false)
+})
+
+test('active encounter participant commands require unique bounded token ids', () => {
+  assert.equal(vttCombatParticipantsSchema.safeParse({
+    campaignId: 'campaign-1',
+    tokenIds: ['token-1', 'token-2'],
+  }).success, true)
+  assert.equal(vttCombatParticipantsSchema.safeParse({
+    campaignId: 'campaign-1',
+    tokenIds: ['token-1', 'token-1'],
+  }).success, false)
 })

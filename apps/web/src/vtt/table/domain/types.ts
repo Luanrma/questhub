@@ -182,7 +182,7 @@ export type VttCombatParticipant = {
   name: string
   avatarUrl: string | null
   color: string | null
-  initiative: number | null
+  initiative: number
 }
 
 export type VttTokenMovementStartedPayload = {
@@ -198,6 +198,7 @@ export type VttCombatState = {
   campaignId: string
   sceneId: string
   round: number
+  turnCount: number
   activeTurnIndex: number
   status: 'ACTIVE'
   participants: VttCombatParticipant[]

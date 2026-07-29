@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, PanelRightOpen, Pin, Swords, X } from 'lucid
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import type { VttCombatParticipant, VttCombatState, VttPlayerToken } from '../domain/types'
 import { TokenAvatar } from './TokenAvatar'
+import { CombatInitiativeControl } from './CombatInitiativeControl'
 
 type CombatTrackerDisplayMode = 'sidebar' | 'detached'
 type DetachedCombatTurn = {
@@ -69,7 +70,8 @@ export function CombatTrackerPanel({
   onRemoveSelectedToken = () => {},
   onNextTurn,
   onPreviousTurn,
-  onInitiativeChange,
+  onInitiativeAdjustment,
+  onRemoveParticipant,
   onDetach,
   onAttach,
 }: {
@@ -84,7 +86,8 @@ export function CombatTrackerPanel({
   onRemoveSelectedToken?: (tokenId: string) => void
   onNextTurn: () => void
   onPreviousTurn: () => void
-  onInitiativeChange: (tokenId: string, initiative: number | null) => void
+  onInitiativeAdjustment: (tokenId: string, initiativeAdjustment: number) => void
+  onRemoveParticipant: (tokenId: string) => void
   onDetach?: () => void
   onAttach?: () => void
 }) {
@@ -92,7 +95,7 @@ export function CombatTrackerPanel({
   const detached = displayMode === 'detached'
 
   const title = combat && activeParticipant ? `Encontro - ${activeParticipant.name}` : 'Encounter Mode'
-  const subtitle = combat ? `Rodada ${combat.round}${activeParticipant ? ' - turno atual' : ''}` : `${selectedTokens.length}/${tokenCount} token${tokenCount === 1 ? '' : 's'} selecionados`
+  const subtitle = combat ? `Rodada ${combat.round} - Turno ${combat.turnCount}` : `${selectedTokens.length}/${tokenCount} token${tokenCount === 1 ? '' : 's'} selecionados`
   const selectedTokenBox = (
     <div
       data-encounter-dropzone="true"
@@ -165,7 +168,7 @@ export function CombatTrackerPanel({
         )
       ) : (
         <div className="grid place-items-center text-center text-xs leading-relaxed text-zinc-500">
-          Arraste tokens visiveis da cena para iniciar um encontro.
+          Clique com o botao direito em um token visivel e escolha Enviar para o encontro.
         </div>
       )}
     </div>
@@ -228,7 +231,7 @@ export function CombatTrackerPanel({
         {!combat ? (
           <div className="grid gap-3 p-4" style={{ minHeight: detachedBox.height - 57 }}>
             <div className="text-xs leading-relaxed text-zinc-400">
-              Selecione tokens da cena para o Encounter Mode.
+              Envie tokens da cena para o Encounter Mode pelo menu de contexto.
             </div>
             {isMaster ? selectedTokenBox : null}
             {isMaster ? (
@@ -272,13 +275,24 @@ export function CombatTrackerPanel({
                       className={[
                         'relative grid shrink-0 place-items-center rounded-md border text-center transition',
                         active
-                          ? 'min-h-[112px] w-[136px] gap-1.5 border-red-200/80 bg-red-500/18 px-4 py-3 shadow-[0_0_28px_rgba(248,113,113,0.22)]'
-                          : 'min-h-[88px] w-[112px] gap-1 border-white/10 bg-white/[0.045] px-3 py-2',
+                          ? 'min-h-[128px] w-[136px] gap-1.5 border-red-200/80 bg-red-500/18 px-3 py-3 shadow-[0_0_28px_rgba(248,113,113,0.22)]'
+                          : 'min-h-[108px] w-[112px] gap-1 border-white/10 bg-white/[0.045] px-2 py-2',
                       ].join(' ')}
                     >
                       <span className="absolute left-2 top-2 grid h-4 w-4 place-items-center rounded-full border border-white/10 bg-black/40 text-[10px] text-zinc-500">
                         {index + 1}
                       </span>
+                      {isMaster ? (
+                        <button
+                          type="button"
+                          title={`Remover ${participant.name} do encontro`}
+                          aria-label={`Remover ${participant.name} do encontro`}
+                          className="absolute right-1.5 top-1.5 grid h-6 w-6 place-items-center rounded-md text-zinc-400 transition hover:bg-red-500/10 hover:text-red-100"
+                          onClick={() => onRemoveParticipant(participant.tokenId)}
+                        >
+                          <X className="h-3.5 w-3.5" />
+                        </button>
+                      ) : null}
                       <span
                         className={[
                           'grid place-items-center overflow-hidden rounded-full font-bold text-white transition',
@@ -293,21 +307,12 @@ export function CombatTrackerPanel({
                           {active ? 'Agindo agora' : 'Aguardando'}
                         </span>
                       </span>
-                      {isMaster ? (
-                        <input
-                          type="number"
-                          inputMode="numeric"
-                          title="Iniciativa"
-                          value={participant.initiative ?? ''}
-                          className={['rounded-md border border-white/10 bg-black/30 px-2 text-center font-semibold text-white outline-none transition focus:border-red-300/60', active ? 'h-8 w-16 text-sm' : 'h-7 w-14 text-xs'].join(' ')}
-                          placeholder="-"
-                          onChange={(event) => {
-                            const value = event.currentTarget.value.trim()
-                            const initiative = Number(value)
-                            onInitiativeChange(participant.tokenId, value && Number.isFinite(initiative) ? initiative : null)
-                          }}
-                        />
-                      ) : null}
+                      <CombatInitiativeControl
+                        participant={participant}
+                        isMaster={isMaster}
+                        compact={!active}
+                        onAdjustment={(initiativeAdjustment) => onInitiativeAdjustment(participant.tokenId, initiativeAdjustment)}
+                      />
                     </div>
                   )
                 })}
@@ -370,7 +375,7 @@ export function CombatTrackerPanel({
       {!combat ? (
         <div className="grid gap-2 p-3">
           <div className="text-xs leading-relaxed text-zinc-400">
-            Selecione tokens da cena para o Encounter Mode.
+            Envie tokens da cena para o Encounter Mode pelo menu de contexto.
           </div>
           {isMaster ? selectedTokenBox : null}
           {isMaster ? (
@@ -420,7 +425,7 @@ export function CombatTrackerPanel({
                 <div
                   key={participant.tokenId}
                   className={[
-                    'grid grid-cols-[auto_minmax(0,1fr)_72px] items-center gap-2 rounded-md border px-2 py-1.5',
+                    'grid grid-cols-[auto_minmax(0,1fr)_108px_auto] items-center gap-2 rounded-md border px-2 py-1.5',
                     active ? 'border-red-300/50 bg-red-500/15' : 'border-white/10 bg-black/15',
                   ].join(' ')}
                 >
@@ -431,23 +436,22 @@ export function CombatTrackerPanel({
                     <span className="block truncate text-sm font-semibold text-white">{participant.name}</span>
                     <span className="block text-[11px] text-zinc-500">{active ? 'Agindo agora' : 'Aguardando'}</span>
                   </span>
+                  <CombatInitiativeControl
+                    participant={participant}
+                    isMaster={isMaster}
+                    onAdjustment={(initiativeAdjustment) => onInitiativeAdjustment(participant.tokenId, initiativeAdjustment)}
+                  />
                   {isMaster ? (
-                    <input
-                      type="number"
-                      inputMode="numeric"
-                      title="Iniciativa"
-                      value={participant.initiative ?? ''}
-                      className="h-8 min-w-0 rounded-md border border-white/10 bg-black/30 px-2 text-center text-sm font-semibold text-white outline-none transition focus:border-red-300/60"
-                      placeholder="-"
-                      onChange={(event) => {
-                        const value = event.currentTarget.value.trim()
-                        const initiative = Number(value)
-                        onInitiativeChange(participant.tokenId, value && Number.isFinite(initiative) ? initiative : null)
-                      }}
-                    />
-                  ) : (
-                    <span className="text-center text-sm font-semibold text-zinc-200">{participant.initiative ?? '-'}</span>
-                  )}
+                    <button
+                      type="button"
+                      title={`Remover ${participant.name} do encontro`}
+                      aria-label={`Remover ${participant.name} do encontro`}
+                      className="grid h-8 w-8 place-items-center rounded-md text-zinc-400 transition hover:bg-red-500/10 hover:text-red-100"
+                      onClick={() => onRemoveParticipant(participant.tokenId)}
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  ) : <span />}
                 </div>
               )
             })}

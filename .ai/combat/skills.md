@@ -10,15 +10,19 @@
 ## Padroes
 * Table-mounted Encounter: o tracker aparece sobre a mesa persistente, sem rota dedicada e sem desmontar o VTT.
 * Master-owned Encounter Control: apenas o Mestre controla o estado do encontro.
-* Explicit Participant Selection: participantes entram no encontro somente quando o Mestre pre-seleciona tokens com `Shift` e os envia para a caixa de Encounter Mode.
+* Explicit Participant Selection: participantes iniciais vem da caixa de Encounter Mode; durante encontro ativo, o Mestre adiciona ou remove Tokens explicitamente pelo menu contextual ou tracker.
 * Realtime Encounter Broadcast: mudancas de encontro sao emitidas para a room da campanha.
-* Manual Initiative MVP: iniciativa e editada manualmente pelo Mestre.
+* Server-rolled Initiative: o servidor gera um `1d20` instantaneo por participante e preserva somente o total, que pode receber ajustes manuais do Mestre.
+* Live Participant Management: o Mestre pode adicionar e remover participantes durante o encontro sem reiniciar o tracker.
 * Ruleset Boundary: formulas e automacoes mecanicas ficam fora do contrato base.
 * Ephemeral Encounter State: encontro ativo e estado de sessao, descartado ao encerrar a campanha online.
 * Token-only Participants: participantes referenciam tokens, nao fichas, criaturas de bestiario ou entidades mecanicas.
 
 ## Restricoes
 * Nao adicionar campos especificos de sistema ao participante de encontro.
+* O cliente nao envia o resultado inicial do d20; somente ajustes inteiros entre `-1000` e `1000`.
+* O total de iniciativa deve permanecer entre `-10000` e `10000`.
+* Adicao e remocao durante encontro devem preservar o Token ativo quando ele continuar participante.
 * Nao persistir encontro no banco neste MVP.
 * Nao permitir que jogadores alterem ordem, iniciativa ou turno.
 * Nao incluir tokens ocultos no tracker publico.
@@ -37,5 +41,5 @@
 
 ## Limitacoes conhecidas
 * Sem persistencia, recarregar servidor ou encerrar sessao perde o encontro ativo.
-* Sem rolagem automatica, o Mestre precisa digitar iniciativas.
+* Sem integracao com ruleset, o Mestre ainda precisa informar manualmente qualquer ajuste de iniciativa.
 * Sem controle de turno mecanico, o sistema informa o turno mas nao impede acoes fora dele.
