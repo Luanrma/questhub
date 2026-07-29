@@ -52,11 +52,16 @@ Fornece os PV recebidos por nivel.
 
 ### Heranca, background e divindade
 
-Sao persistidos como identidade mecanica, mas ainda nao adicionam modificadores automaticos. Isso evita inventar regras antes da implementacao de Rule Elements e escolhas internas.
+Heranca valida compatibilidade com a Ancestralidade. Background concede
+treinamento nas pericias fixas estruturadas no catalogo. Divindade permanece
+identidade mecanica e e obrigatoria para uma construcao completa de Cleric ou
+Champion; os demais efeitos aguardam dados estruturados de Rule Elements.
 
 ### Classe e proficiencias
 
-A classe ainda nao seleciona automaticamente os graus iniciais de Percepcao, saves, pericias ou armaduras. Os graus continuam editaveis e seus totais sao calculados corretamente pelo nivel.
+A classe fornece pisos para os graus iniciais de Percepcao, saves, pericias
+fixas e armaduras. Graus manuais continuam editaveis e um grau manual maior
+prevalece.
 
 ## Dados fundamentais e derivados
 

@@ -30,6 +30,9 @@ type CampaignUserSettings = {
     autoClear: number | 'manual'
     showResultPopup: boolean
   }
+  pathfinder2e: {
+    contentLocale: 'pt-BR' | 'en-US'
+  }
 }
 ```
 
@@ -40,6 +43,9 @@ Defaults:
   "dice": {
     "autoClear": 3,
     "showResultPopup": true
+  },
+  "pathfinder2e": {
+    "contentLocale": "pt-BR"
   }
 }
 ```
@@ -48,6 +54,7 @@ Regras:
 * `dice.autoClear` aceita numeros inteiros de 3 a 10 ou `"manual"`.
 * `"manual"` representa modo `Permanente`.
 * `dice.showResultPopup` usa `true` por padrao.
+* `pathfinder2e.contentLocale` aceita `"pt-BR"` ou `"en-US"` e usa `"pt-BR"` por padrao.
 * Campos ou namespaces desconhecidos devem ser preservados quando possivel.
 * Campos conhecidos invalidos devem voltar ao default.
 

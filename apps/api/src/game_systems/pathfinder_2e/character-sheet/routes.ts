@@ -3,9 +3,14 @@ import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
+import type { GameSystemAutomationEventPublisher } from '../../automation/contracts'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
-import { pathfinder2eCharacterSheetOptions } from './options'
+import { initializePathfinder2eCurrentHitPoints } from './initialization'
+import {
+  isPathfinder2eHeritageCompatible,
+  pathfinder2eCharacterSheetOptions,
+} from './options'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
 const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.systemKey
@@ -44,6 +49,7 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
           bio: true,
           campaign: { select: { gameSystem: true } },
           controllerMember: { select: { userId: true } },
+          token: { select: { id: true } },
         },
       },
     },
@@ -74,6 +80,19 @@ function resolveCharacterSheet(input: unknown) {
   return gameSystemRuntime.resolveCharacterSheet(pathfinder2eCharacterSheetRuntimeAdapter, input)
 }
 
+function resolveCharacterSheetUpdate(previousInput: unknown, nextInput: unknown) {
+  const next = resolveCharacterSheet(nextInput)
+
+  try {
+    const previous = resolveCharacterSheet(previousInput)
+    const initialized = initializePathfinder2eCurrentHitPoints(previous.data, next.data)
+    return resolveCharacterSheet(initialized)
+  } catch {
+    // An invalid stored sheet must still be repairable with a valid submitted payload.
+    return next
+  }
+}
+
 function sendInvalidSheet(reply: FastifyReply, error: unknown) {
   if (error instanceof z.ZodError) {
     return reply.status(400).send({ error: error.flatten() })
@@ -81,7 +100,10 @@ function sendInvalidSheet(reply: FastifyReply, error: unknown) {
   throw error
 }
 
-export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
+export function registerPathfinder2eCharacterSheetRoutes(
+  app: FastifyInstance,
+  events: GameSystemAutomationEventPublisher,
+) {
   app.get('/api/game-systems/pathfinder-2e/character-sheet/options', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
@@ -137,7 +159,7 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
     if (!ensurePathfinderSheet(sheet, reply)) return
 
     try {
-      return reply.send(resolveCharacterSheet(body.data.data))
+      return reply.send(resolveCharacterSheetUpdate(sheet.data, body.data.data))
     } catch (error) {
       return sendInvalidSheet(reply, error)
     }
@@ -159,9 +181,24 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
 
     let resolved
     try {
-      resolved = resolveCharacterSheet(body.data.data)
+      resolved = resolveCharacterSheetUpdate(sheet.data, body.data.data)
     } catch (error) {
       return sendInvalidSheet(reply, error)
+    }
+    if (
+      resolved.data.identity.ancestry
+      && resolved.data.identity.heritage
+      && !isPathfinder2eHeritageCompatible(
+        resolved.data.identity.ancestry,
+        resolved.data.identity.heritage,
+      )
+    ) {
+      return reply.status(400).send({
+        error: {
+          code: 'INCOMPATIBLE_HERITAGE',
+          message: 'A heranca selecionada nao e compativel com a ancestralidade.',
+        },
+      })
     }
 
     const stored = await prisma.campaignCharacterSheet.update({
@@ -173,6 +210,21 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
       },
       select: { updatedAt: true },
     })
+
+    if (sheet.actor.token?.id) {
+      try {
+        await events.publishTokenPresentationChanged({
+          campaignId: params.data.campaignId,
+          tokenId: sheet.actor.token.id,
+          sourceUserId: auth.id,
+        })
+      } catch (error) {
+        req.log.error(
+          { campaignId: params.data.campaignId, tokenId: sheet.actor.token.id, error },
+          'Failed to publish token presentation change',
+        )
+      }
+    }
 
     return reply.send({
       ...resolved,

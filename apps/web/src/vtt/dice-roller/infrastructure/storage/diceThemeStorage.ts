@@ -23,6 +23,7 @@ export type CampaignUserSettings = {
 
 export const DICE_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:vtt:dice-display-settings-changed'
 export const INVENTORY_DISPLAY_SETTINGS_CHANGED_EVENT = 'questhub:inventory-display-settings-changed'
+export const CAMPAIGN_USER_SETTINGS_CHANGED_EVENT = 'questhub:campaign-user-settings-changed'
 
 function diceColorStorageKey(campaignId: string) {
   return `questhub:vtt:dice-theme-color:${campaignId}`
@@ -133,6 +134,9 @@ export function storeCampaignUserSettings(campaignId: string, settings: Campaign
         detail: { campaignId, settings: normalizedSettings.inventory },
       }),
     )
+    window.dispatchEvent(new CustomEvent(CAMPAIGN_USER_SETTINGS_CHANGED_EVENT, {
+      detail: { campaignId, settings: normalizedSettings },
+    }))
   } catch {
     // Preferencia local: falha de storage nao deve bloquear a mesa.
   }

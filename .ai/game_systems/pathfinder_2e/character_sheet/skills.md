@@ -43,7 +43,9 @@ A ficha possui um catalogo compacto e local contendo somente:
 - PV base por ancestralidade;
 - PV por nivel de cada classe.
 
-O catalogo nao faz download em runtime e deve permanecer coerente com os nomes dos selects.
+O catalogo nao faz download em runtime e deve permanecer coerente com os nomes
+dos selects. Relacoes de Heranca e concessoes mecanicas ficam no modulo
+`character_options`; valores persistidos continuam usando o original `en-US`.
 
 ## Backend autoritativo
 

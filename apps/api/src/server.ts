@@ -74,5 +74,5 @@ export async function createVttServer() {
   registerChatSocketHandlers(presence.io)
   registerTradeRoutes(app, presence.io)
 
-  return app
+  return { app, presence }
 }

@@ -5,6 +5,10 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import { generateInviteCode } from './invite-code'
+import {
+  reconcileLiveTokenPlacement,
+  type LiveTokenPlacement,
+} from './live-token-placement'
 import { presentCampaignDashboardEntry } from './presenter'
 import { normalizeTokenColor } from './token-appearance'
 
@@ -14,6 +18,10 @@ type CampaignRoutesDeps = {
   getCampaignSessionState: (campaignId: string) => 'ACTIVE' | 'PAUSED' | null
   removeCampaignTokenFromLiveState: (campaignId: string, tokenId: string) => void
   refreshCampaignTokenInLiveState: (campaignId: string, tokenId: string) => Promise<void>
+  getCampaignTokenLivePlacement: (
+    campaignId: string,
+    tokenId: string,
+  ) => LiveTokenPlacement | null | undefined
 }
 
 const defaultCampaignUserSettings = {
@@ -23,6 +31,9 @@ const defaultCampaignUserSettings = {
   },
   inventory: {
     itemSheetLocale: 'pt-BR' as 'pt-BR' | 'en-US',
+  },
+  pathfinder2e: {
+    contentLocale: 'pt-BR' as 'pt-BR' | 'en-US',
   },
 }
 
@@ -39,6 +50,11 @@ const campaignUserSettingsSchema = z
         itemSheetLocale: z.enum(['pt-BR', 'en-US']).optional(),
       })
       .optional(),
+    pathfinder2e: z
+      .object({
+        contentLocale: z.enum(['pt-BR', 'en-US']).optional(),
+      })
+      .optional(),
   })
   .passthrough()
 
@@ -53,6 +69,7 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
   const settings = parsed.success ? parsed.data : {}
   const dice = settings.dice ?? {}
   const inventory = settings.inventory ?? {}
+  const pathfinder2e = settings.pathfinder2e ?? {}
 
   return {
     ...settings,
@@ -64,6 +81,10 @@ function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayl
       itemSheetLocale: inventory.itemSheetLocale
         ?? defaultCampaignUserSettings.inventory.itemSheetLocale,
     },
+    pathfinder2e: {
+      contentLocale: pathfinder2e.contentLocale
+        ?? defaultCampaignUserSettings.pathfinder2e.contentLocale,
+    },
   }
 }
 
@@ -72,6 +93,7 @@ function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUse
   const nextRecord = isRecord(next) ? next : {}
   const nextDice = isRecord(nextRecord.dice) ? nextRecord.dice : {}
   const nextInventory = isRecord(nextRecord.inventory) ? nextRecord.inventory : {}
+  const nextPathfinder2e = isRecord(nextRecord.pathfinder2e) ? nextRecord.pathfinder2e : {}
   const merged = {
     ...currentSettings,
     ...nextRecord,
@@ -82,6 +104,10 @@ function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUse
     inventory: {
       ...currentSettings.inventory,
       ...nextInventory,
+    },
+    pathfinder2e: {
+      ...currentSettings.pathfinder2e,
+      ...nextPathfinder2e,
     },
   }
 
@@ -227,6 +253,7 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     getCampaignSessionState,
     removeCampaignTokenFromLiveState,
     refreshCampaignTokenInLiveState,
+    getCampaignTokenLivePlacement,
   } = deps
 
   app.get('/api/campaigns', async (req, reply) => {
@@ -690,7 +717,13 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     const categoryOrder = { PLAYER_CONTROLLED: 0, MASTER_ONLY: 1 } as const
     return reply.send(
       tokens
-        .map(presentCampaignToken)
+        .map((token) => {
+          const presented = presentCampaignToken(token)
+          return reconcileLiveTokenPlacement(
+            presented,
+            getCampaignTokenLivePlacement(params.campaignId, token.id),
+          )
+        })
         .sort((left, right) => categoryOrder[left.category] - categoryOrder[right.category]),
     )
   })
@@ -865,8 +898,11 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
           include: campaignTokenInclude,
         })
       })
-      const presented = presentCampaignToken(token)
       await refreshCampaignTokenInLiveState(params.campaignId, token.id)
+      const presented = reconcileLiveTokenPlacement(
+        presentCampaignToken(token),
+        getCampaignTokenLivePlacement(params.campaignId, token.id),
+      )
       io.to(`campaign:${params.campaignId}`).emit('vtt:token:metadata-changed', {
         campaignId: params.campaignId,
         token: presented,

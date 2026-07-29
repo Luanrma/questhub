@@ -830,6 +830,27 @@ export function setupCampaignPresence(server: HttpServer) {
     if (refreshedToken) tokenMap.set(tokenId, refreshedToken)
   }
 
+  function getCampaignTokenLivePlacement(campaignId: string, tokenId: string) {
+    const tokenMap = state.getCampaignTokens(campaignId)
+    const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
+    if (!tokenMap || !tokenSceneMap) return undefined
+
+    const sceneId = tokenSceneMap.get(tokenId)
+    if (!sceneId) return null
+
+    const token = tokenMap.get(tokenId)
+    if (!token) return undefined
+
+    return {
+      sceneId,
+      hidden: token.hidden,
+      position: token.position,
+      rotation: token.rotation,
+      layer: token.layer,
+      blocksVisionAndLight: token.blocksVisionAndLight,
+    }
+  }
+
   async function removeScenePlacementsFromLiveState(campaignId: string, sceneId: string) {
     const tokenMap = state.getCampaignTokens(campaignId)
     const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
@@ -1517,6 +1538,7 @@ export function setupCampaignPresence(server: HttpServer) {
     },
     removeCampaignTokenFromLiveState,
     refreshCampaignTokenInLiveState,
+    getCampaignTokenLivePlacement,
     removeScenePlacementsFromLiveState,
   }
 }

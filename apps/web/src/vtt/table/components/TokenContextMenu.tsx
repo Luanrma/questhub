@@ -27,7 +27,7 @@ type TokenContextMenuProps = {
   masterCanUseVtt: boolean
   tokenCandidates: VttTokenCandidate[]
   campaignPlayers: CampaignPlayer[]
-  onUpdateToken: (tokenId: string, changes: Record<string, unknown>) => void
+  onUpdateToken: (tokenId: string, changes: Record<string, unknown>) => Promise<void>
   onConfigureFog: (tokenId: string, visionConfig: TokenVisionConfig, lightConfig: FogLightSourceConfig) => Promise<void>
   onToggleVisibility: (token: VttPlayerToken) => void
   canSendToEncounter: boolean

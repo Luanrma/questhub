@@ -8,7 +8,7 @@
 
 ## 2. Padroes
 * Campaign/User Scoped Settings: toda configuracao e enderecada por `campaignId + userId`.
-* JSON Namespaces: o campo `settings` deve usar namespaces por area, como `dice`.
+* JSON Namespaces: o campo `settings` deve usar namespaces por area, como `dice`, `inventory` e `pathfinder2e`.
 * Local Cache First: o frontend pode aplicar cache local imediatamente e sincronizar com o backend em seguida.
 * Server Normalization: o backend deve normalizar valores conhecidos antes de persistir.
 * Access Guard: leitura e escrita exigem participacao do usuario na campanha.

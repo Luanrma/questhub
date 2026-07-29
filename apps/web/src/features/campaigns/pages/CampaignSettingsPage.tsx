@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { ChevronDown, Copy } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
@@ -17,6 +17,15 @@ import {
   type DiceDisplaySettings,
   type InventoryDisplaySettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
+import {
+  readStoredPathfinder2eDisplaySettings,
+  storePathfinder2eDisplaySettings,
+  type Pathfinder2eDisplaySettings,
+} from '../../pathfinder-2e/character-sheet/infrastructure/pathfinder2eDisplaySettingsStorage'
+
+type CampaignUserSettingsResponse = CampaignUserSettings & {
+  pathfinder2e: Pathfinder2eDisplaySettings
+}
 
 type DiceDisplaySettingsCardProps = {
   autoClearOptions: number[]
@@ -155,6 +164,8 @@ export function CampaignSettingsPage() {
   const [joinPolicyDraft, setJoinPolicyDraft] = useState<{ campaignId?: string; value: 'PUBLIC' | 'PRIVATE' } | null>(null)
   const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{ campaignId?: string; settings: DiceDisplaySettings } | null>(null)
   const [inventoryDisplaySettingsDraft, setInventoryDisplaySettingsDraft] = useState<{ campaignId?: string; settings: InventoryDisplaySettings } | null>(null)
+  const [pathfinder2eDisplaySettingsDraft, setPathfinder2eDisplaySettingsDraft] = useState<{ campaignId?: string; settings: Pathfinder2eDisplaySettings } | null>(null)
+  const [campaignGameSystem, setCampaignGameSystem] = useState<string | null>(null)
   const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
@@ -168,6 +179,12 @@ export function CampaignSettingsPage() {
       : readStoredInventoryDisplaySettings('global')),
     [campaignId],
   )
+  const storedPathfinder2eDisplaySettings = useMemo(
+    () => (campaignId
+      ? readStoredPathfinder2eDisplaySettings(campaignId)
+      : readStoredPathfinder2eDisplaySettings('global')),
+    [campaignId],
+  )
   const joinPolicy =
     joinPolicyDraft && joinPolicyDraft.campaignId === campaignId ? joinPolicyDraft.value : campaign?.joinPolicy ?? 'PUBLIC'
   const diceDisplaySettings =
@@ -178,11 +195,32 @@ export function CampaignSettingsPage() {
     inventoryDisplaySettingsDraft && inventoryDisplaySettingsDraft.campaignId === campaignId
       ? inventoryDisplaySettingsDraft.settings
       : storedInventoryDisplaySettings
+  const pathfinder2eDisplaySettings =
+    pathfinder2eDisplaySettingsDraft && pathfinder2eDisplaySettingsDraft.campaignId === campaignId
+      ? pathfinder2eDisplaySettingsDraft.settings
+      : storedPathfinder2eDisplaySettings
   const changed = useMemo(() => (campaign ? joinPolicy !== campaign.joinPolicy : false), [campaign, joinPolicy])
   const autoClearOptions = useMemo(
     () => Array.from({ length: maxDiceAutoClearSeconds - minDiceAutoClearSeconds + 1 }, (_, index) => minDiceAutoClearSeconds + index),
     [],
   )
+
+  useEffect(() => {
+    if (!campaignId) return
+    let cancelled = false
+
+    void api<{ gameSystem: string }>(`/api/campaigns/${campaignId}/game-system`)
+      .then((response) => {
+        if (!cancelled) setCampaignGameSystem(response.gameSystem)
+      })
+      .catch(() => {
+        if (!cancelled) setCampaignGameSystem(null)
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [campaignId])
 
   function updateDiceDisplaySettings(nextSettings: DiceDisplaySettings) {
     if (!campaignId) return
@@ -235,6 +273,35 @@ export function CampaignSettingsPage() {
         setInventoryDisplaySettingsDraft({
           campaignId,
           settings: response.settings.inventory,
+        })
+      })
+      .catch(() => {
+        setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
+      })
+  }
+
+  function updatePathfinder2eLocale(
+    contentLocale: Pathfinder2eDisplaySettings['contentLocale'],
+  ) {
+    if (!campaignId) return
+
+    const nextSettings = { contentLocale }
+    setPathfinder2eDisplaySettingsDraft({ campaignId, settings: nextSettings })
+    storePathfinder2eDisplaySettings(campaignId, nextSettings)
+    setSettingsSyncWarning(null)
+
+    void api<{ settings: CampaignUserSettingsResponse }>(
+      `/api/campaigns/${campaignId}/my-settings`,
+      {
+        method: 'PATCH',
+        body: JSON.stringify({ settings: { pathfinder2e: nextSettings } }),
+      },
+    )
+      .then((response) => {
+        storeCampaignUserSettings(campaignId, response.settings)
+        setPathfinder2eDisplaySettingsDraft({
+          campaignId,
+          settings: response.settings.pathfinder2e,
         })
       })
       .catch(() => {
@@ -321,6 +388,33 @@ export function CampaignSettingsPage() {
           </select>
         </label>
       </CollapsibleSettingsSection>
+
+      {campaignGameSystem === 'PATHFINDER_2E' ? (
+        <CollapsibleSettingsSection
+          title="Pathfinder 2e"
+          description="Escolha o idioma dos catálogos exibidos na ficha de personagem."
+          defaultOpen
+        >
+          <label className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-black/20 p-4">
+            <span>
+              <span className="block text-sm font-semibold text-white">Idioma do conteúdo</span>
+              <span className="mt-1 block text-xs text-zinc-400">
+                O original em inglês é preservado e usado como fallback quando uma tradução ainda não existe.
+              </span>
+            </span>
+            <select
+              value={pathfinder2eDisplaySettings.contentLocale}
+              className="h-9 min-w-44 rounded-md border border-white/10 bg-black/45 px-3 text-sm font-semibold text-white outline-none transition focus:border-indigo-300/40"
+              onChange={(event) => updatePathfinder2eLocale(
+                event.target.value === 'en-US' ? 'en-US' : 'pt-BR',
+              )}
+            >
+              <option value="pt-BR">Português (traduzido)</option>
+              <option value="en-US">English (original)</option>
+            </select>
+          </label>
+        </CollapsibleSettingsSection>
+      ) : null}
 
       {isMaster ? (
         <>

@@ -291,6 +291,7 @@ Regras:
 Regras:
 * Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
 * Durante uma sessao online, alteracoes de grid e tokens ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
+* Consultas administrativas de Tokens e respostas de atualizacao de metadados devem reconciliar `CampaignTokenPlacement` persistido com o posicionamento vivo quando a sessao estiver hidratada. A ausencia do Token no mapa vivo de posicionamentos significa `placement = null`, mesmo que o snapshot persistido ainda o posicione.
 * Alteracoes de grid e tokens durante a sessao online nao devem disparar escrita no banco a cada evento, para evitar loops de snapshot e inconsistencias visuais.
 * Criar o posicionamento de um Token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignTokenPlacement` antes de atualizar os clients.
 * Drop, movimento, visibilidade e remocao de token durante sessao online devem marcar a cena como dirty para persistencia posterior.
@@ -440,6 +441,7 @@ Regras:
 * O seletor `Player controlador` do menu contextual deve carregar todos os Players ativos da campanha independentemente de o painel da ferramenta `Tokens` ter sido aberto.
 * Atribuir, transferir ou revogar o controlador deve recalcular imediatamente a cena visivel dos jogadores afetados que estiverem conectados.
 * O Mestre remove primeiro o posicionamento atual; o Token sem cena fica disponivel no painel para novo posicionamento.
+* Remover um Token da cena deve faze-lo aparecer imediatamente na lista de Tokens fora de cena, inclusive quando o painel for aberto ou recarregado enquanto a sessao online ainda nao persistiu o snapshot vivo.
 * Ao ativar o FOG, o Mestre deve escolher dia, entardecer, noite ou escuridao antes da confirmacao.
 * Ao forcar uma cena com FOG ativo, a UI exige a escolha entre preservar FOG e revelar tudo.
 

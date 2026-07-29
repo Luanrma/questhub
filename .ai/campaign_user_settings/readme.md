@@ -15,6 +15,7 @@ Incluido:
 * Carregar configuracoes do usuario autenticado para a campanha atual.
 * Atualizar configuracoes do usuario autenticado para a campanha atual.
 * Usar namespace `dice` para preferencias de dados 3D.
+* Usar namespace `pathfinder2e` para o idioma pessoal do conteudo da ficha PF2e.
 * Manter `localStorage` como cache local e fonte rapida no frontend.
 
 Fora de escopo:

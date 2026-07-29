@@ -84,12 +84,34 @@ export type Pathfinder2eDerivedStatistic = {
   attributeModifier: number
   proficiencyBonus: number
   bonus: number
+  manualRank: Pathfinder2eProficiencyRank
+  grantedRank: Pathfinder2eProficiencyRank
+  effectiveRank: Pathfinder2eProficiencyRank
+  grantSources: Pathfinder2eProficiencyGrantSource[]
+}
+
+export type Pathfinder2eProficiencyGrantSource = 'background' | 'class'
+
+export type Pathfinder2eDerivedProficiency = {
+  manualRank: Pathfinder2eProficiencyRank
+  grantedRank: Pathfinder2eProficiencyRank
+  effectiveRank: Pathfinder2eProficiencyRank
+  grantSources: Pathfinder2eProficiencyGrantSource[]
 }
 
 export type Pathfinder2eDerivedCharacterSheet = {
   mechanics: {
     ancestryHitPoints: number
+    ancestrySpeedFeet: number
     classHitPointsPerLevel: number
+    classAdditionalTrainedSkills: number
+    backgroundTrainedSkills: string[]
+    backgroundLoreSkills: string[]
+  }
+  movement: {
+    valueMeters: number
+    ancestryBaseFeet: number
+    manualOverride: boolean
   }
   hitPoints: {
     maximum: number
@@ -100,6 +122,7 @@ export type Pathfinder2eDerivedCharacterSheet = {
     proficiencyBonus: number
     bonus: number
     armorCategory: 'unarmored'
+    proficiency: Pathfinder2eDerivedProficiency
   }
   initiative: {
     value: number
@@ -116,14 +139,35 @@ export type Pathfinder2eDerivedCharacterSheet = {
   skills: {
     [Key in keyof Pathfinder2eCharacterSheetData['skills']]: Pathfinder2eDerivedStatistic
   }
+  armorProficiencies: {
+    [Key in keyof Pathfinder2eCharacterSheetData['armorProficiencies']]: Pathfinder2eDerivedProficiency
+  }
+}
+
+export type Pathfinder2eCharacterOption = {
+  value: string
+  labels: {
+    'en-US': string
+    'pt-BR'?: string
+  }
+  translationStatus: {
+    'pt-BR': 'MACHINE_DRAFT' | 'NOT_STARTED'
+  }
+}
+
+export type Pathfinder2eHeritageOption = Pathfinder2eCharacterOption & {
+  compatibility: {
+    ancestry: string | null
+    versatile: boolean
+  }
 }
 
 export type Pathfinder2eCharacterSheetOptions = {
-  ancestries: string[]
-  heritages: string[]
-  backgrounds: string[]
-  classes: string[]
-  deities: string[]
+  ancestries: Pathfinder2eCharacterOption[]
+  heritages: Pathfinder2eHeritageOption[]
+  backgrounds: Pathfinder2eCharacterOption[]
+  classes: Pathfinder2eCharacterOption[]
+  deities: Pathfinder2eCharacterOption[]
 }
 
 export type Pathfinder2eResolvedCharacterSheet = {
