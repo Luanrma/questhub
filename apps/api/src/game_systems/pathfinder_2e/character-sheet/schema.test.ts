@@ -7,6 +7,7 @@ import {
 } from './adapter'
 import { createDefaultPathfinder2eCharacterSheet } from './defaults'
 import { calculatePathfinder2eProficiencyBonus } from './derivation'
+import { initializePathfinder2eCurrentHitPoints } from './initialization'
 import {
   PATHFINDER_2E_ANCESTRIES,
   PATHFINDER_2E_BACKGROUNDS,
@@ -56,6 +57,46 @@ test('Human Fighter derives HP, unarmored AC, saves and skills from level', () =
   assert.equal(resolved.derived.initiative.value, 9)
   assert.equal(resolved.derived.savingThrows.fortitude.value, 11)
   assert.equal(resolved.derived.skills.athletics.value, 13)
+})
+
+test('a newly configured PF2e sheet starts at maximum HP', () => {
+  const previous = createDefaultPathfinder2eCharacterSheet()
+  const next = createDefaultPathfinder2eCharacterSheet()
+  next.identity.ancestry = 'Human'
+  next.identity.class = 'Fighter'
+  next.attributes.constitution = 2
+
+  const initialized = initializePathfinder2eCurrentHitPoints(previous, next)
+  const resolved = gameSystemRuntime.resolveCharacterSheet(pathfinder2eCharacterSheetRuntimeAdapter, initialized)
+
+  assert.equal(resolved.derived.hitPoints.maximum, 20)
+  assert.equal(initialized.hitPoints.current, 20)
+})
+
+test('initial HP setup preserves an explicitly entered current value', () => {
+  const previous = createDefaultPathfinder2eCharacterSheet()
+  const next = createDefaultPathfinder2eCharacterSheet()
+  next.identity.ancestry = 'Human'
+  next.identity.class = 'Fighter'
+  next.hitPoints.current = 5
+
+  const initialized = initializePathfinder2eCurrentHitPoints(previous, next)
+
+  assert.equal(initialized.hitPoints.current, 5)
+})
+
+test('a configured character at zero HP is never healed by initialization', () => {
+  const previous = createDefaultPathfinder2eCharacterSheet()
+  previous.identity.ancestry = 'Human'
+  previous.identity.class = 'Fighter'
+  previous.hitPoints.current = 0
+
+  const next = structuredClone(previous)
+  next.attributes.constitution = 2
+
+  const initialized = initializePathfinder2eCurrentHitPoints(previous, next)
+
+  assert.equal(initialized.hitPoints.current, 0)
 })
 
 test('V1 manual totals migrate without inventing hidden bonuses', () => {
