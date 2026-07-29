@@ -10,6 +10,7 @@ test('Pathfinder projects sheet state through the generic token contract', async
   data.hitPoints.current = 7
   data.hitPoints.temporary = 3
   data.hitPoints.wounded = 1
+  data.hitPoints.bonus = 10
 
   const presentation = await pathfinder2eTokenPresentationProvider.buildTokenPresentation({
     campaignId: 'campaign-1',
@@ -32,7 +33,7 @@ test('Pathfinder projects sheet state through the generic token contract', async
   assert.equal(presentation.resources[0]?.slot, 'primary')
   assert.equal(presentation.resources[0]?.value, 7)
   assert.equal(presentation.resources[0]?.temporary, 3)
-  assert.equal((presentation.resources[0]?.maximum ?? 0) > 0, true)
+  assert.equal(presentation.resources[0]?.maximum, 10)
   assert.deepEqual(
     presentation.indicators.map((indicator) => indicator.id),
     ['wounded'],
