@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useSession } from '../../contexts/SessionContext'
 import { api } from '../../lib/api'
 import type {
+  TokenIdentityChangedPayload,
   TokenIndicatorPresentation,
   TokenPresentation,
   TokenPresentationChangedPayload,
@@ -101,18 +102,25 @@ export function TokenPresentationOverlay({
       void load()
     }
 
+    function onTokenChanged(payload: TokenIdentityChangedPayload) {
+      if (payload.campaignId !== activeCampaignId || payload.token.id !== tokenId) return
+      void load()
+    }
+
     function onReconnect() {
       void load()
     }
 
     void load()
     socket?.on('vtt:token-presentation:changed', onPresentationChanged)
+    socket?.on('vtt:token:changed', onTokenChanged)
     socket?.on('connect', onReconnect)
 
     return () => {
       active = false
       requestSequence += 1
       socket?.off('vtt:token-presentation:changed', onPresentationChanged)
+      socket?.off('vtt:token:changed', onTokenChanged)
       socket?.off('connect', onReconnect)
     }
   }, [campaignId, socket, tokenId])
