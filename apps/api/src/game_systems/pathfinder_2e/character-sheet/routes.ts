@@ -6,6 +6,7 @@ import { requireAuth } from '../../../http/auth'
 import type { GameSystemAutomationEventPublisher } from '../../automation/contracts'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
+import { initializePathfinder2eCurrentHitPoints } from './initialization'
 import { pathfinder2eCharacterSheetOptions } from './options'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
@@ -76,6 +77,19 @@ function resolveCharacterSheet(input: unknown) {
   return gameSystemRuntime.resolveCharacterSheet(pathfinder2eCharacterSheetRuntimeAdapter, input)
 }
 
+function resolveCharacterSheetUpdate(previousInput: unknown, nextInput: unknown) {
+  const next = resolveCharacterSheet(nextInput)
+
+  try {
+    const previous = resolveCharacterSheet(previousInput)
+    const initialized = initializePathfinder2eCurrentHitPoints(previous.data, next.data)
+    return resolveCharacterSheet(initialized)
+  } catch {
+    // An invalid stored sheet must still be repairable with a valid submitted payload.
+    return next
+  }
+}
+
 function sendInvalidSheet(reply: FastifyReply, error: unknown) {
   if (error instanceof z.ZodError) {
     return reply.status(400).send({ error: error.flatten() })
@@ -142,7 +156,7 @@ export function registerPathfinder2eCharacterSheetRoutes(
     if (!ensurePathfinderSheet(sheet, reply)) return
 
     try {
-      return reply.send(resolveCharacterSheet(body.data.data))
+      return reply.send(resolveCharacterSheetUpdate(sheet.data, body.data.data))
     } catch (error) {
       return sendInvalidSheet(reply, error)
     }
@@ -164,7 +178,7 @@ export function registerPathfinder2eCharacterSheetRoutes(
 
     let resolved
     try {
-      resolved = resolveCharacterSheet(body.data.data)
+      resolved = resolveCharacterSheetUpdate(sheet.data, body.data.data)
     } catch (error) {
       return sendInvalidSheet(reply, error)
     }
