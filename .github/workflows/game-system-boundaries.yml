@@ -1,0 +1,35 @@
+name: Game System Boundaries
+
+on:
+  pull_request:
+    paths:
+      - 'apps/api/src/game_systems/**'
+      - 'apps/api/src/modules/**'
+      - 'apps/web/src/vtt/**'
+      - 'apps/web/src/game-systems/**'
+      - 'apps/web/src/features/**'
+      - 'scripts/check-game-system-boundaries.mjs'
+      - '.github/workflows/game-system-boundaries.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/api/src/game_systems/**'
+      - 'apps/api/src/modules/**'
+      - 'apps/web/src/vtt/**'
+      - 'apps/web/src/game-systems/**'
+      - 'apps/web/src/features/**'
+      - 'scripts/check-game-system-boundaries.mjs'
+
+jobs:
+  architecture-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Configure Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate boundaries
+        run: node scripts/check-game-system-boundaries.mjs
