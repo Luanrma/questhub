@@ -3,6 +3,7 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
+import type { GameSystemAutomationEventPublisher } from '../automation/contracts'
 import {
   GAME_SYSTEM_DESCRIPTORS,
   getGameSystemCatalogProvider,
@@ -145,7 +146,10 @@ async function listAssignmentTargets(campaignId: string) {
   }
 }
 
-export function registerGameSystemRoutes(app: FastifyInstance) {
+export function registerGameSystemRoutes(
+  app: FastifyInstance,
+  events: GameSystemAutomationEventPublisher,
+) {
   app.get('/api/game-systems', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
@@ -329,7 +333,11 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
 
     const sheet = await prisma.campaignCharacterSheet.findFirst({
       where: { id: params.data.sheetId, actor: { campaignId: campaign.id } },
-      select: { id: true, actorId: true },
+      select: {
+        id: true,
+        actorId: true,
+        actor: { select: { token: { select: { id: true } } } },
+      },
     })
     if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada' })
 
@@ -395,6 +403,24 @@ export function registerGameSystemRoutes(app: FastifyInstance) {
         },
       })
     })
+
+    const changedTokenIds = new Set(
+      [sheet.actor.token?.id, updated?.token?.id].filter((tokenId): tokenId is string => Boolean(tokenId)),
+    )
+    for (const tokenId of changedTokenIds) {
+      try {
+        await events.publishTokenPresentationChanged({
+          campaignId: campaign.id,
+          tokenId,
+          sourceUserId: auth.id,
+        })
+      } catch (error) {
+        req.log.error(
+          { campaignId: campaign.id, tokenId, error },
+          'Failed to publish token presentation assignment change',
+        )
+      }
+    }
 
     return reply.send({
       sheetId: sheet.id,
