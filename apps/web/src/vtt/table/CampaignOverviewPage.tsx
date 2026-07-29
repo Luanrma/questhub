@@ -74,6 +74,12 @@ import {
 import { appendMovementPoint, areMovementPointsEqual, movementPathDistance, truncatePathAtPoint } from './domain/tokenMovement'
 import { normalizeTokenRotation } from './domain/tokenTransform'
 import {
+  addEncounterTokenId,
+  reconcileEncounterTokenIds,
+  removeEncounterTokenId,
+  resolveEncounterTokens,
+} from './domain/encounterSelection'
+import {
   filenameEquals,
   getDefaultSceneDimensions,
   isDraftPreparedScene,
@@ -246,6 +252,10 @@ export function CampaignOverviewPage({
   const [sceneAssetsLoadedCampaignId, setSceneAssetsLoadedCampaignId] = useState<string | null>(null)
   const [sceneRenderTarget, setSceneRenderTarget] = useState<SceneRenderTarget | null>(null)
   const [combatState, setCombatState] = useState<VttCombatState | null>(null)
+  const [encounterSelection, setEncounterSelection] = useState<{
+    sceneId: string | null
+    tokenIds: string[]
+  }>({ sceneId: null, tokenIds: [] })
   const [activeAreaTemplate, setActiveAreaTemplate] = useState<CampaignAreaTemplate | null>(null)
   const [selectedAreaTargetIds, setSelectedAreaTargetIds] = useState<string[]>([])
   const [appliedAreaEffect, setAppliedAreaEffect] = useState<{ tokenIds: string[]; color: string } | null>(null)
@@ -308,6 +318,8 @@ export function CampaignOverviewPage({
   const playersCanSeeSceneWalls = Boolean(activeScene?.walls.length && activeScene.walls.every((wall) => wall.playerVisible))
   const playerTokens = tokenState.campaignId === campaignId ? tokenState.tokens : []
   const visibleTokens = isMaster ? playerTokens : playerTokens.filter((token) => !token.hidden)
+  const encounterTokenIds = encounterSelection.sceneId === activeScene?.id ? encounterSelection.tokenIds : []
+  const encounterTokens = resolveEncounterTokens(encounterTokenIds, playerTokens)
   const selectedToken = visibleTokens.find((token) => token.id === selectedTokenId) ?? null
   const fogPreviewTokens = fogSetupPreview?.token
     ? visibleTokens.map((token) => token.id === fogSetupPreview.token?.id ? {
@@ -463,7 +475,7 @@ export function CampaignOverviewPage({
   const RightPanelSessionStatusIcon = rightPanelSessionStatus.icon
   const activeCombatTokenId = activeCombat?.participants[activeCombat.activeTurnIndex]?.tokenId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
-  const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && combatTokenCount > 0 && !activeCombat)
+  const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && encounterTokens.length > 0 && !activeCombat)
 
   useEffect(() => {
     const element = gridAreaRef.current
@@ -656,6 +668,9 @@ export function CampaignOverviewPage({
 
     function applySceneSnapshot(scene: VttTableScene | null) {
       startSceneLoading(scene)
+      setEncounterSelection((current) => (
+        current.sceneId === scene?.id ? current : { sceneId: scene?.id ?? null, tokenIds: [] }
+      ))
 
       if (!scene) {
         setActiveScene(null)
@@ -692,6 +707,12 @@ export function CampaignOverviewPage({
     function onTokenChanged(payload: VttTokenChangedPayload) {
       if (payload.campaignId !== campaignId) return
       if (payload.sceneId && payload.sceneId !== activeScene?.id) return
+      if (payload.token.hidden) {
+        setEncounterSelection((current) => {
+          const tokenIds = removeEncounterTokenId(current.tokenIds, payload.token.id)
+          return tokenIds === current.tokenIds ? current : { ...current, tokenIds }
+        })
+      }
 
       setTokenState((current) => {
         const token = normalizeTableToken(payload.token, gridSettings.shape)
@@ -750,6 +771,10 @@ export function CampaignOverviewPage({
 
     function onTokenRemoved(payload: VttTokenRemovedPayload) {
       if (payload.campaignId !== campaignId) return
+      setEncounterSelection((current) => {
+        const tokenIds = removeEncounterTokenId(current.tokenIds, payload.tokenId)
+        return tokenIds === current.tokenIds ? current : { ...current, tokenIds }
+      })
       setCampaignTokens((current) => current.map((token) =>
         token.id === payload.tokenId ? { ...token, placement: null } : token,
       ))
@@ -792,6 +817,10 @@ export function CampaignOverviewPage({
 
     function onTokenDeleted(payload: { campaignId: string; tokenId: string }) {
       if (payload.campaignId !== campaignId) return
+      setEncounterSelection((current) => {
+        const tokenIds = removeEncounterTokenId(current.tokenIds, payload.tokenId)
+        return tokenIds === current.tokenIds ? current : { ...current, tokenIds }
+      })
       setCampaignTokens((current) => current.filter((token) => token.id !== payload.tokenId))
       setTokenState((current) => ({
         ...current,
@@ -835,6 +864,7 @@ export function CampaignOverviewPage({
     function onCombatChanged(payload: VttCombatChangedPayload) {
       if (payload.campaignId !== campaignId) return
       setCombatState(payload.combat)
+      if (payload.combat) setEncounterSelection({ sceneId: null, tokenIds: [] })
     }
 
     function onWallsChanged(payload: VttWallsChangedPayload) {
@@ -1058,6 +1088,7 @@ export function CampaignOverviewPage({
       sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
       startSceneLoading(nextScene)
 
+      setEncounterSelection({ sceneId: nextScene.id, tokenIds: [] })
       setActiveScene(nextScene)
       setTokenState({ campaignId: campaignId ?? null, tokens: scene.tokens.map((token) => normalizeTableToken(token, scene.grid.shape)) })
       onGridSettingsChange(scene.grid, { realtime: false, sceneId: scene.id })
@@ -1083,6 +1114,7 @@ export function CampaignOverviewPage({
           sceneImageDimensionsRef.current.set(sceneImageDimensionKey(nextScene), dimensions)
           startSceneLoading(nextScene)
 
+          setEncounterSelection({ sceneId: nextScene.id, tokenIds: [] })
           setPreparedScenes((current) => current.map((item) => (item.id === scene.id ? refreshedScene : item)))
           setActiveScene(nextScene)
           setTokenState({ campaignId, tokens: refreshedScene.tokens.map((token) => normalizeTableToken(token, refreshedScene.grid.shape)) })
@@ -1991,8 +2023,47 @@ export function CampaignOverviewPage({
     socket.emit('vtt:combat:start', {
       campaignId,
       sceneId: activeScene.id,
-      tokenIds: visibleTokens.filter((token) => !token.hidden).map((token) => token.id),
+      tokenIds: encounterTokens.map((token) => token.id),
     })
+  }
+
+  function sendTokenToEncounter(token: VttPlayerToken) {
+    if (!campaignId || !isMaster || !masterCanUseVtt || !activeScene || token.hidden) return
+    if (activeCombat) {
+      if (!socket || activeCombat.sceneId !== activeScene.id) return
+      socket.emit('vtt:combat:add-participants', { campaignId, tokenIds: [token.id] })
+      setRightPanelTab('combat')
+      setRightPanelCollapsed(false)
+      setTokenContextMenu(null)
+      return
+    }
+
+    const sceneId = activeScene.id
+    setEncounterSelection((current) => {
+      const currentTokenIds = current.sceneId === sceneId
+        ? reconcileEncounterTokenIds(current.tokenIds, playerTokens)
+        : []
+      const tokenIds = addEncounterTokenId(currentTokenIds, token.id)
+      if (current.sceneId === sceneId && tokenIds === current.tokenIds) return current
+      return { sceneId, tokenIds }
+    })
+    setRightPanelTab('combat')
+    setRightPanelCollapsed(false)
+    setTokenContextMenu(null)
+  }
+
+  function removeTokenFromEncounter(tokenId: string) {
+    setEncounterSelection((current) => {
+      if (current.sceneId !== activeScene?.id) return current
+      const tokenIds = removeEncounterTokenId(current.tokenIds, tokenId)
+      return tokenIds === current.tokenIds ? current : { ...current, tokenIds }
+    })
+  }
+
+  function removeActiveCombatParticipant(tokenId: string) {
+    if (!campaignId || !socket || !isMaster || !activeCombat) return
+    socket.emit('vtt:combat:remove-participants', { campaignId, tokenIds: [tokenId] })
+    setTokenContextMenu(null)
   }
 
   function endCombat() {
@@ -2010,9 +2081,9 @@ export function CampaignOverviewPage({
     socket.emit('vtt:combat:previous-turn', { campaignId })
   }
 
-  function updateCombatInitiative(tokenId: string, initiative: number | null) {
+  function adjustCombatInitiative(tokenId: string, initiativeAdjustment: number) {
     if (!campaignId || !socket || !isMaster) return
-    socket.emit('vtt:combat:update-initiative', { campaignId, tokenId, initiative })
+    socket.emit('vtt:combat:adjust-initiative', { campaignId, tokenId, initiativeAdjustment })
   }
 
   async function createGenericToken() {
@@ -2995,6 +3066,11 @@ export function CampaignOverviewPage({
                 onUpdateToken={(tokenId, changes) => void updateCampaignToken(tokenId, changes)}
                 onConfigureFog={configureTokenFog}
                 onToggleVisibility={toggleTokenVisibility}
+                canSendToEncounter={Boolean(isMaster && masterCanUseVtt && activeScene && !tokenContextMenu.token.hidden)}
+                isSelectedForEncounter={encounterTokenIds.includes(tokenContextMenu.token.id)}
+                isActiveEncounterParticipant={Boolean(activeCombat?.participants.some((participant) => participant.tokenId === tokenContextMenu.token.id))}
+                onSendToEncounter={sendTokenToEncounter}
+                onRemoveFromEncounter={(token) => removeActiveCombatParticipant(token.id)}
                 onRemoveFromScene={removeToken}
                 onDelete={(token) => void deleteCampaignToken(token)}
                 onOpenInventory={(token) => {
@@ -3181,7 +3257,7 @@ export function CampaignOverviewPage({
           </div>
 
           <div className="min-h-0 flex-1 overflow-hidden">
-            {rightPanelTab === 'combat' && !combatTrackerDetached ? <CombatTrackerPanel combat={activeCombat} isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} onStart={startCombat} onEnd={endCombat} onNextTurn={nextCombatTurn} onPreviousTurn={previousCombatTurn} onInitiativeChange={updateCombatInitiative} onDetach={() => setCombatTrackerDetached(true)} /> : null}
+            {rightPanelTab === 'combat' && !combatTrackerDetached ? <CombatTrackerPanel combat={activeCombat} isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} selectedTokens={encounterTokens} onStart={startCombat} onEnd={endCombat} onRemoveSelectedToken={removeTokenFromEncounter} onRemoveParticipant={removeActiveCombatParticipant} onNextTurn={nextCombatTurn} onPreviousTurn={previousCombatTurn} onInitiativeAdjustment={adjustCombatInitiative} onDetach={() => setCombatTrackerDetached(true)} /> : null}
             {rightPanelTab === 'combat' && combatTrackerDetached ? <div className="grid h-full place-items-center rounded-lg border border-dashed border-white/10 px-4 text-center text-xs text-zinc-500">Combate destacado em uma janela.</div> : null}
             {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{campaign?.myRole === 'MASTER' ? 'Mestre conectado à mesa.' : 'Jogador conectado à mesa.'}</div></section> : null}
             {rightPanelTab === 'session' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3">{campaign?.isOnline ? <Eye className="h-4 w-4 text-emerald-300" /> : <EyeOff className="h-4 w-4 text-zinc-400" />}<div><div className="text-sm font-semibold">Sessao</div><div className="text-[11px] uppercase text-zinc-500">{rightPanelSessionStatus.title}</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs leading-relaxed text-zinc-400">{sessionState === 'PAUSED' ? 'Jogadores estao bloqueados na mesa, exceto no chat. O Mestre ainda pode preparar cenas.' : campaign?.isOnline ? 'A mesa esta disponivel para participantes ativos.' : 'A mesa esta em modo de preparacao offline.'}</div></section> : null}
@@ -3198,12 +3274,15 @@ export function CampaignOverviewPage({
               isMaster={Boolean(isMaster)}
               canStart={canStartCombat}
               tokenCount={combatTokenCount}
+              selectedTokens={encounterTokens}
               displayMode="detached"
               onStart={startCombat}
               onEnd={endCombat}
+              onRemoveSelectedToken={removeTokenFromEncounter}
+              onRemoveParticipant={removeActiveCombatParticipant}
               onNextTurn={nextCombatTurn}
               onPreviousTurn={previousCombatTurn}
-              onInitiativeChange={updateCombatInitiative}
+              onInitiativeAdjustment={adjustCombatInitiative}
               onAttach={() => {
                 setCombatTrackerDetached(false)
                 setRightPanelCollapsed(false)

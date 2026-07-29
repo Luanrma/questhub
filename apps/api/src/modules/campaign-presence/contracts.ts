@@ -210,10 +210,15 @@ export const vttCombatCommandSchema = z.object({
   campaignId: z.string().min(1),
 })
 
-export const vttCombatUpdateInitiativeSchema = z.object({
+export const vttCombatParticipantsSchema = z.object({
+  campaignId: z.string().min(1),
+  tokenIds: z.array(z.string().min(1)).min(1).max(100),
+}).refine((input) => new Set(input.tokenIds).size === input.tokenIds.length)
+
+export const vttCombatAdjustInitiativeSchema = z.object({
   campaignId: z.string().min(1),
   tokenId: z.string().min(1),
-  initiative: z.number().int().min(-1000).max(1000).nullable(),
+  initiativeAdjustment: z.number().int().min(-1000).max(1000),
 })
 
 export type UserPresence = { socketId: string; campaignId: string }
@@ -260,23 +265,7 @@ export type VttPlayerToken = {
   position: VttTokenPosition
 }
 
-export type VttCombatParticipant = {
-  tokenId: string
-  actorId: string | null
-  name: string
-  avatarUrl: string | null
-  color: string | null
-  initiative: number | null
-}
-
-export type VttCombatState = {
-  campaignId: string
-  sceneId: string
-  round: number
-  activeTurnIndex: number
-  status: 'ACTIVE'
-  participants: VttCombatParticipant[]
-}
+export type { VttCombatParticipant, VttCombatState } from './domain/encounter'
 
 export const defaultVttGridSettings: VttGridSettings = {
   visible: false,

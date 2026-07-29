@@ -1,14 +1,15 @@
 # Modulo: Combat / Encounter Mode
 
 ## O que e por que
-`combat` modela o Encounter Mode generico e opcional sobre a mesa VTT. Ele permite que o Mestre inicie um encontro a partir de tokens escolhidos explicitamente na cena atual, defina iniciativa manualmente e avance turnos sem desmontar a mesa.
+`combat` modela o Encounter Mode generico e opcional sobre a mesa VTT. Ele permite que o Mestre inicie um encontro a partir de tokens escolhidos explicitamente na cena atual, altere participantes durante o encontro, use iniciativa instantanea ajustavel e avance turnos sem desmontar a mesa.
 
 O objetivo do MVP e dar uma ordenacao operacional de turnos para qualquer situacao de mesa, sem implementar regras mecanicas de sistemas. Este modulo nao e pre-requisito para criar, testar ou mover tokens no VTT core.
 
 ## Personas e casos de uso
 * Mestre seleciona tokens da cena atual para participar do encontro.
 * Mestre inicia um encontro simples com os tokens selecionados.
-* Mestre ajusta iniciativas manualmente.
+* Mestre adiciona ou remove Tokens enquanto o encontro esta ativo.
+* Mestre informa ajustes manuais que sao somados ao total atual de iniciativa.
 * Mestre avanca ou volta o turno.
 * Mestre encerra o encontro.
 * Jogadores visualizam a ordem de turno e o participante ativo.
@@ -24,9 +25,13 @@ O objetivo do MVP e dar uma ordenacao operacional de turnos para qualquer situac
 * Tokens ocultos nao podem ser adicionados ao encontro publico para evitar revelar informacao privada.
 * Tokens da cena nao entram automaticamente no encontro; o Mestre deve pre-seleciona-los com `Shift` e envia-los para a caixa de Encounter Mode antes de iniciar.
 * A pre-selecao para encontro nao move tokens no grid e nao altera a cena.
-* Iniciativa e manual no MVP.
+* Ao iniciar o encontro, o servidor rola instantaneamente `1d20` para cada Token participante.
+* Token adicionado durante o encontro tambem recebe uma rolagem instantanea de `1d20`.
+* O tracker preserva somente o total atual de iniciativa; o valor isolado do d20 nao precisa permanecer depois de um ajuste.
+* O Mestre pode informar um ajuste manual, positivo ou negativo, que e somado ao total atual.
+* O tracker exibe rodada e contagem total de turnos decorridos no encontro.
 * Durante um encontro ativo, o PLAYER nao pode arrastar Tokens diretamente. Seu unico movimento e o trajeto iniciado no Token ativo com `Ctrl` + botao esquerdo e confirmado com `Espaco`.
-* Regras como modificadores de iniciativa, desempate, surpresa, acoes, reacoes, PV e condicoes pertencem a extensoes opcionais futuras, nunca ao contrato base do VTT.
+* Regras como calculo automatico de modificadores por ruleset, desempate mecanico, surpresa, acoes, reacoes, PV e condicoes pertencem a extensoes opcionais futuras, nunca ao contrato base do VTT.
 
 ## Relacoes com outros modulos
 * `vtt`: renderiza o painel de Encounter Mode, a caixa de participantes e destaca o token ativo na mesa.
@@ -38,8 +43,8 @@ O objetivo do MVP e dar uma ordenacao operacional de turnos para qualquer situac
 ## Fora de escopo no MVP
 * Persistencia de encontros.
 * Criacao de encontro offline.
-* Rolagem automatica de iniciativa.
-* Calculo de modificadores por ruleset.
+* Animacao visual da rolagem de iniciativa.
+* Calculo automatico de bonus ou modificadores por ruleset.
 * PV, CA, condicoes, efeitos, acoes ou economia de turno.
 * Tokens ocultos em iniciativa publica.
 * Encontro com participantes que nao estejam como tokens na cena atual.

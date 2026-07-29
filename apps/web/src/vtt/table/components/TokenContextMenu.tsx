@@ -12,6 +12,7 @@ import type {
 import { TokenImagePickerDialog } from './TokenImagePickerDialog'
 import { normalizeFogLightSource, normalizeTokenVisionConfig } from '../../fog-of-war/domain/config'
 import type { FogLightSourceConfig, TokenVisionConfig } from '../../fog-of-war/domain/types'
+import { EncounterTokenMenuAction } from './EncounterTokenMenuAction'
 
 const viewportPadding = 12
 const rootMenuWidth = 208
@@ -29,6 +30,11 @@ type TokenContextMenuProps = {
   onUpdateToken: (tokenId: string, changes: Record<string, unknown>) => void
   onConfigureFog: (tokenId: string, visionConfig: TokenVisionConfig, lightConfig: FogLightSourceConfig) => Promise<void>
   onToggleVisibility: (token: VttPlayerToken) => void
+  canSendToEncounter: boolean
+  isSelectedForEncounter: boolean
+  isActiveEncounterParticipant: boolean
+  onSendToEncounter: (token: VttPlayerToken) => void
+  onRemoveFromEncounter: (token: VttPlayerToken) => void
   onRemoveFromScene: (token: VttPlayerToken) => void
   onDelete: (token: VttPlayerToken) => void
   onOpenInventory: (token: VttPlayerToken) => void
@@ -70,6 +76,11 @@ export function TokenContextMenu({
   onUpdateToken,
   onConfigureFog,
   onToggleVisibility,
+  canSendToEncounter,
+  isSelectedForEncounter,
+  isActiveEncounterParticipant,
+  onSendToEncounter,
+  onRemoveFromEncounter,
   onRemoveFromScene,
   onDelete,
   onOpenInventory,
@@ -195,6 +206,15 @@ export function TokenContextMenu({
             <span>Abrir inventário</span>
           </button>
         ) : null}
+
+        <EncounterTokenMenuAction
+          isMaster={isMaster}
+          canSend={canSendToEncounter}
+          selected={isSelectedForEncounter}
+          activeParticipant={isActiveEncounterParticipant}
+          onSend={() => onSendToEncounter(token)}
+          onRemove={() => onRemoveFromEncounter(token)}
+        />
 
         <button
           type="button"
