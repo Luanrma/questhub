@@ -3,6 +3,7 @@ import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
+import type { GameSystemAutomationEventPublisher } from '../../automation/contracts'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
 import { pathfinder2eCharacterSheetOptions } from './options'
@@ -44,6 +45,7 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
           bio: true,
           campaign: { select: { gameSystem: true } },
           controllerMember: { select: { userId: true } },
+          token: { select: { id: true } },
         },
       },
     },
@@ -81,7 +83,10 @@ function sendInvalidSheet(reply: FastifyReply, error: unknown) {
   throw error
 }
 
-export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
+export function registerPathfinder2eCharacterSheetRoutes(
+  app: FastifyInstance,
+  events: GameSystemAutomationEventPublisher,
+) {
   app.get('/api/game-systems/pathfinder-2e/character-sheet/options', async (req, reply) => {
     const auth = requireAuth(req, reply)
     if (!auth) return
@@ -173,6 +178,21 @@ export function registerPathfinder2eCharacterSheetRoutes(app: FastifyInstance) {
       },
       select: { updatedAt: true },
     })
+
+    if (sheet.actor.token?.id) {
+      try {
+        await events.publishTokenPresentationChanged({
+          campaignId: params.data.campaignId,
+          tokenId: sheet.actor.token.id,
+          sourceUserId: auth.id,
+        })
+      } catch (error) {
+        req.log.error(
+          { campaignId: params.data.campaignId, tokenId: sheet.actor.token.id, error },
+          'Failed to publish token presentation change',
+        )
+      }
+    }
 
     return reply.send({
       ...resolved,
