@@ -76,12 +76,13 @@ export function TokenPresentationOverlay({
       setPresentation(null)
       return
     }
+    const activeCampaignId = campaignId
 
     let active = true
     async function load() {
       try {
         const response = await api<TokenPresentationResponse>(
-          `/api/campaigns/${encodeURIComponent(campaignId)}/tokens/${encodeURIComponent(tokenId)}/presentation`,
+          `/api/campaigns/${encodeURIComponent(activeCampaignId)}/tokens/${encodeURIComponent(tokenId)}/presentation`,
         )
         if (active) setPresentation(response.available ? response.presentation : null)
       } catch {
