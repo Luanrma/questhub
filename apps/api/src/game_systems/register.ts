@@ -1,12 +1,12 @@
 import type { FastifyInstance } from 'fastify'
-import { registerGameSystemAutomationRoutes } from './automation/routes'
+import { registerGameSystemAutomationApi } from './automation_api/register'
 import { registerInventoryApi } from './inventory_api/register'
 import { registerPathfinder2e } from './pathfinder_2e/register'
 import { registerGameSystemRoutes } from './registry/register'
 
 export function registerGameSystems(app: FastifyInstance) {
   registerGameSystemRoutes(app)
-  registerGameSystemAutomationRoutes(app)
+  registerGameSystemAutomationApi(app)
   registerInventoryApi(app)
   registerPathfinder2e(app)
 }
