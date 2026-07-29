@@ -36,3 +36,8 @@ export type TokenPresentationResponse = {
   capabilities: readonly string[]
   presentation: TokenPresentation | null
 }
+
+export type TokenPresentationChangedPayload = {
+  campaignId: string
+  tokenId: string
+}
