@@ -20,7 +20,7 @@ Paredes, portas e janelas pertencem a cena. O Mestre pode desenhar segmentos e r
 
 O FOG e uma capacidade opcional da cena e permanece agnostico de ruleset. Quando ativo, combina visao individual por Token, geometria bloqueadora, iluminacao e memoria de exploracao persistente. Os contratos canonicos pertencem ao modulo [`fog_of_war`](../fog_of_war/readme.md).
 
-A medicao de deslocamento pertence ao Token controlavel, sem ferramenta de regua na toolbar. `Ctrl` + botao esquerdo no Token ativa o modo de movimentacao; depois disso, cada clique simples no grid fixa uma nova secao, sem manter `Ctrl`, segurar ou arrastar o mouse. `Espaco` confirma um movimento suave e sincronizado, e a linha permanece visivel ate o Token concluir o trajeto. A configuracao de grid troca entre quadrado e hexagonal no primeiro clique, sem exigir uma segunda interacao.
+A medicao de deslocamento pertence ao Token controlavel, sem ferramenta de regua na toolbar. `Ctrl` + botao esquerdo no Token ativa o modo de movimentacao; depois disso, cada clique simples no grid fixa uma nova secao, sem manter `Ctrl`, segurar ou arrastar o mouse. Antes da confirmacao, `Escape` ou um novo `Ctrl` + botao esquerdo no mesmo Token cancelam o trajeto e encerram o modo. `Espaco` confirma um movimento suave e sincronizado, e a linha permanece visivel ate o Token concluir o trajeto. A configuracao de grid troca entre quadrado e hexagonal no primeiro clique, sem exigir uma segunda interacao.
 
 A configuracao do grid separa o tamanho visual em pixels da escala fisica de cada celula. O Mestre ajusta a distancia por quadrado/hexagono em uma escala discreta de metros coerente com VTTs: `0,5m`, inteiros ate `10m`, dezenas ate `100m` e centenas ate `1000m`. Metros continuam sendo a unidade canonica usada por medicao, visao, luz e areas de efeito, enquanto pes aparecem apenas na equivalencia informativa.
 
@@ -30,7 +30,7 @@ Cada usuario tambem pode manter alvos locais independentes da selecao e das area
 
 A selecao operacional multipla tambem define o escopo de acoes coletivas: arrastar qualquer Token selecionado move o grupo pelo mesmo delta; `Enviar para encontro` e `Remover da cena`, quando acionados pelo menu contextual de um membro selecionado, aplicam-se a todo o grupo.
 
-A camera aceita `Ctrl` + roda do mouse e `Numpad +`/`Numpad -` para zoom. `Numpad 0` restaura 100% e recentraliza a cena. A tecla `Escape` funciona como fechamento global da interface: deseleciona todos os Tokens, remove todos os alvos manuais, fecha menus e janelas abertas e recolhe os paineis expansivos da mesa. Ela nunca abre um novo menu nem altera a ferramenta ativa ou o estado do toolbar.
+A camera aceita `Ctrl` + roda do mouse e `Numpad +`/`Numpad -` para zoom. `Numpad 0` restaura 100% e recentraliza a cena. A tecla `Escape` funciona como fechamento global da interface: cancela um trajeto de movimentacao ainda nao confirmado, deseleciona todos os Tokens, remove todos os alvos manuais, fecha menus e janelas abertas e recolhe os paineis expansivos da mesa. Ela nunca abre um novo menu nem altera a ferramenta ativa ou o estado do toolbar.
 
 O menu contextual de configuracoes do Token concentra identidade, controle e configuracoes individuais de FOG. O Mestre define ali o alcance maximo de visao e a fonte de luz propria do Token. Tamanho e rotacao permanecem nos controles diretos do tabuleiro; camada nao e exposta nesse menu.
 

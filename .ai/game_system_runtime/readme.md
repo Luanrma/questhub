@@ -18,6 +18,7 @@ O Runtime resolve esse problema oferecendo contratos estáveis para:
 - solicitar interações genéricas ao VTT;
 - receber resultados genéricos do VTT;
 - produzir planos de resolução sem alterar Canvas ou banco diretamente.
+- projetar recursos, indicadores e ações de um Token em DTOs visuais neutros.
 
 ## Fronteiras
 
@@ -71,6 +72,7 @@ A primeira entrega usa a ficha Pathfinder 2e para validar a arquitetura:
 
 - **Jogador:** preenche as escolhas e modificadores fundamentais e visualiza os totais calculados.
 - **Mestre:** consulta uma ficha coerente com o nível e, futuramente, executa ações automatizadas.
+- **Mestre:** durante um encontro, consulta as ações autorizadas do Token ativo sem expor o JSON mecânico ao VTT.
 - **Desenvolvedor de sistema:** implementa um adaptador sem alterar o VTT Core.
 
 ## Fora do módulo

@@ -2,6 +2,7 @@ export type GameSystemCapability =
   | 'TOKEN_PRESENTATION'
   | 'TOKEN_RESOURCES'
   | 'TOKEN_INDICATORS'
+  | 'TOKEN_ACTIONS'
   | 'AUTOMATED_ACTIONS'
   | 'AREA_EFFECTS'
   | 'INITIATIVE'
@@ -36,8 +37,12 @@ export type TokenIndicatorPresentation = {
 export type TokenActionPresentation = {
   id: string
   label: string
+  group: string
+  detail?: string
+  imageUrl?: string
   visibility: TokenPresentationVisibility
   interaction?: 'instant' | 'target' | 'area' | 'roll'
+  contexts: readonly ('ENCOUNTER' | 'REFERENCE')[]
 }
 
 export type TokenPresentation = {

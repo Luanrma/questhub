@@ -30,6 +30,7 @@
 * O fechamento por `Escape` deve preservar o estado do toolbar e ser independente da rotina que limpa ou troca ferramentas.
 * O estado compartilhado do layout de alvo deve ser orquestrado pelo layout da campanha, pois e configurado em um painel irmao da mesa e consumido pelo renderer de Tokens.
 * Movimento medido usa um comando WebSocket autoritativo com trajeto completo, instante de inicio e duracao calculada no servidor; os clientes interpolam a mesma timeline sem publicar cada frame.
+* O cancelamento local de um trajeto medido ainda nao confirmado deve limpar o Token associado e publicar `measurement: null` pelo contrato realtime ja existente. `Escape` e `Ctrl` + botao esquerdo sobre o mesmo Token convergem para essa unica rotina; uma linha de movimento ja confirmada permanece vinculada a timeline autoritativa ate a conclusao.
 * A duracao Smooth e adaptativa: trajetos curtos permanecem legiveis e trajetos longos aceleram progressivamente, com limite superior para evitar animacoes excessivamente demoradas.
 * Colisao de paredes para movimento medido deve validar cada segmento do trajeto no backend.
 * O cliente tambem valida o novo segmento antes de criar um waypoint, oferecendo resposta imediata; essa verificacao nunca substitui a validacao autoritativa do backend.

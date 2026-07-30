@@ -31,7 +31,22 @@ test('the runtime filters projections without exposing sheet data to the VTT', (
       },
     ],
     indicators: [],
-    actions: [],
+    actions: [
+      {
+        id: 'owner-action',
+        label: 'Owner action',
+        group: 'Actions',
+        visibility: 'OWNER_AND_MASTER',
+        contexts: ['ENCOUNTER'],
+      },
+      {
+        id: 'master-action',
+        label: 'Master action',
+        group: 'Actions',
+        visibility: 'MASTER_ONLY',
+        contexts: ['REFERENCE'],
+      },
+    ],
   }
 
   const observerView = filterTokenPresentationForViewer(presentation, {
@@ -39,16 +54,19 @@ test('the runtime filters projections without exposing sheet data to the VTT', (
     controlsToken: false,
   })
   assert.deepEqual(observerView.resources.map((resource) => resource.id), ['public'])
+  assert.deepEqual(observerView.actions, [])
 
   const ownerView = filterTokenPresentationForViewer(presentation, {
     role: 'PLAYER',
     controlsToken: true,
   })
   assert.deepEqual(ownerView.resources.map((resource) => resource.id), ['public', 'owner'])
+  assert.deepEqual(ownerView.actions.map((action) => action.id), ['owner-action'])
 
   const masterView = filterTokenPresentationForViewer(presentation, {
     role: 'MASTER',
     controlsToken: false,
   })
   assert.deepEqual(masterView.resources.map((resource) => resource.id), ['public', 'owner', 'master'])
+  assert.deepEqual(masterView.actions.map((action) => action.id), ['owner-action', 'master-action'])
 })

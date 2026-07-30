@@ -196,6 +196,24 @@ export function tokenPixelPosition(token: VttPlayerToken, gridSize: number, grid
   }
 }
 
+export function isPointInsideRenderedToken(
+  point: VttMeasurementPoint,
+  token: VttPlayerToken,
+  gridSize: number,
+  gridOffset = { x: 0, y: 0 },
+) {
+  const basePosition = tokenPixelPosition(token, gridSize, gridOffset)
+  const displaySize = gridSize * token.size
+  const left = basePosition.x - (displaySize - gridSize) / 2
+  const top = basePosition.y - (displaySize - gridSize) / 2
+  const radius = displaySize / 2
+  if (radius <= 0) return false
+
+  const normalizedX = (point.x - left - radius) / radius
+  const normalizedY = (point.y - top - radius) / radius
+  return normalizedX ** 2 + normalizedY ** 2 <= 1
+}
+
 export function tokenGridPositionFromPixelCenter(
   position: VttPlayerToken['position'],
   bounds: VttGridBounds,

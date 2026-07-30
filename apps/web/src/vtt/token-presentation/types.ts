@@ -18,17 +18,23 @@ export type TokenIndicatorPresentation = {
   severity?: 'neutral' | 'positive' | 'warning' | 'critical'
 }
 
+export type TokenActionPresentation = {
+  id: string
+  label: string
+  group: string
+  detail?: string
+  imageUrl?: string
+  visibility: 'PUBLIC' | 'OWNER_AND_MASTER' | 'MASTER_ONLY'
+  interaction?: 'instant' | 'target' | 'area' | 'roll'
+  contexts: readonly ('ENCOUNTER' | 'REFERENCE')[]
+}
+
 export type TokenPresentation = {
   tokenId: string
   revision: string
   resources: readonly TokenResourcePresentation[]
   indicators: readonly TokenIndicatorPresentation[]
-  actions: readonly {
-    id: string
-    label: string
-    visibility: 'PUBLIC' | 'OWNER_AND_MASTER' | 'MASTER_ONLY'
-    interaction?: 'instant' | 'target' | 'area' | 'roll'
-  }[]
+  actions: readonly TokenActionPresentation[]
 }
 
 export type TokenPresentationResponse = {

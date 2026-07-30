@@ -1,8 +1,9 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
+import { isPointInsideRenderedToken } from '../src/vtt/table/domain/boardMath'
 import { appendMovementPoint, positionAlongMovementPath, truncatePathAtPoint } from '../src/vtt/table/domain/tokenMovement'
 import { applyDoorToWalls, isMovementBlockedBySceneWalls, visibleWallSegmentsForRole } from '../src/vtt/table/domain/wallGeometry'
-import type { VttWallSegment } from '../src/vtt/table/domain/types'
+import type { VttPlayerToken, VttWallSegment } from '../src/vtt/table/domain/types'
 
 test('smooth movement follows breakpoints proportionally to segment length', () => {
   const path = [{ x: 0, y: 0 }, { x: 2, y: 0 }, { x: 2, y: 2 }]
@@ -19,6 +20,17 @@ test('simple click appends a waypoint without requiring a modifier or drag', () 
   const path = [{ x: 0.5, y: 0.5 }, { x: 2.5, y: 0.5 }]
   assert.deepEqual(appendMovementPoint(path, { x: 4.5, y: 2.5 }), [...path, { x: 4.5, y: 2.5 }])
   assert.equal(appendMovementPoint(path, path[1]), path)
+})
+
+test('measured movement recognizes a Ctrl click on the rendered Token at its current size and offset', () => {
+  const token = {
+    id: 'token-1',
+    position: { x: 4.5, y: 3.5 },
+    size: 2,
+  } as VttPlayerToken
+
+  assert.equal(isPointInsideRenderedToken({ x: 250, y: 200 }, token, 50, { x: 25, y: 25 }), true)
+  assert.equal(isPointInsideRenderedToken({ x: 199, y: 149 }, token, 50, { x: 25, y: 25 }), false)
 })
 
 test('a waypoint segment is rejected when it crosses a closed wall', () => {

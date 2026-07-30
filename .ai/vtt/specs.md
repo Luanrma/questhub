@@ -95,6 +95,9 @@
 * `Ctrl` + botao esquerdo em um Token controlavel inicia medicao de deslocamento a partir da posicao atual do Token, em grid quadrado ou hexagonal.
 * O `Ctrl` e exigido somente no clique inicial sobre o Token. Depois que o modo de movimentacao estiver ativo, cada clique simples no grid fixa imediatamente a proxima secao, formando os pontos `A`, `B`, `C` e seguintes.
 * Nao e necessario manter `Ctrl`, segurar o botao esquerdo ou arrastar o mouse para demarcar o trajeto.
+* Enquanto o trajeto ainda nao foi confirmado, `Escape` cancela a medicao, encerra o modo de movimentacao e publica `measurement: null`, preservando a ferramenta ativa conforme o contrato global da tecla.
+* Enquanto o trajeto ainda nao foi confirmado, `Ctrl` + botao esquerdo na area renderizada do mesmo Token alterna o modo para desligado e executa o mesmo cancelamento. O acerto considera tamanho, zoom e deslocamento visual do grid.
+* O cancelamento de um rascunho nao envia comando de movimento nem altera a posicao do Token. Uma linha ja confirmada nao e interrompida e permanece visivel ate o fim da timeline autoritativa.
 * Clicar em uma interseccao ja fixada preserva esse ponto e remove todas as interseccoes seguintes.
 * Antes de inserir um ponto, o cliente valida o segmento entre o ultimo ponto fixado e o ponto clicado. Se o segmento cruzar uma parede ou porta fechada, o novo ponto nao e criado.
 * Durante o arraste direto de um Token controlado por Player, o cliente valida cada deslocamento contra paredes, portas fechadas e janelas fechadas antes do preview e da emissao; o backend repete a validacao autoritativa.

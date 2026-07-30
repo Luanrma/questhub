@@ -50,6 +50,16 @@ Interações futuras devem usar DTOs genéricos. Exemplos:
 
 Os DTOs não podem conter tipos de Pathfinder como `Reflex`, `basic save`, `fire damage` ou `off-guard` no contrato do VTT. Esses conceitos permanecem dentro do payload opaco do sistema ou são interpretados pelo adaptador antes de solicitar uma capacidade genérica.
 
+`TokenPresentation.actions` é uma projeção somente de leitura. Seus campos
+visuais (`label`, `group`, `detail`, `imageUrl`) podem conter texto produzido
+pelo sistema, mas o contrato compartilhado não enumera perícias, magias,
+ataques ou saves. A presença da ação não autoriza sua execução.
+
+`TokenActionPresentation.contexts` declara superfícies genéricas de apresentação.
+O valor `ENCOUNTER` permite ao painel de Encontro selecionar ações sem interpretar
+vocabulário mecânico; `REFERENCE` preserva informações consultivas para outras
+superfícies sem poluir o fluxo de turno.
+
 ## Segurança
 
 - autenticação e ownership são verificados antes da execução;

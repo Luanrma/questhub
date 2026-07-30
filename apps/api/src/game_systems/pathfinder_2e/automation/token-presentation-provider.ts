@@ -13,6 +13,11 @@ import {
   parsePathfinder2eCatalogTokenSheetData,
   resolvePathfinder2eCatalogTokenSheetData,
 } from './catalog-token-sheet'
+import {
+  buildPathfinder2eCatalogTokenActions,
+  buildPathfinder2ePlayerSkillActions,
+  findPathfinder2eCatalogTokenEntry,
+} from './encounter-action-presentation'
 
 function emptyPresentation(tokenId: string, revision = 'unlinked'): TokenPresentation {
   return {
@@ -52,6 +57,9 @@ function buildCatalogTokenPresentation(
       ?? resolvePathfinder2eCatalogTokenSheetData(envelope.source.contentId)
     : null
   if (!data) return invalidSheetPresentation(tokenId, revision)
+  const entry = envelope
+    ? findPathfinder2eCatalogTokenEntry(envelope.source.contentId)
+    : null
 
   return {
     tokenId,
@@ -68,7 +76,9 @@ function buildCatalogTokenPresentation(
       },
     ],
     indicators: [],
-    actions: [],
+    actions: entry
+      ? buildPathfinder2eCatalogTokenActions(entry, envelope?.source.locale ?? 'pt-BR')
+      : [],
   }
 }
 
@@ -78,6 +88,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
     'TOKEN_PRESENTATION',
     'TOKEN_RESOURCES',
     'TOKEN_INDICATORS',
+    'TOKEN_ACTIONS',
     'CHARACTER_SHEET',
   ],
 
@@ -147,7 +158,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
           },
         ],
         indicators,
-        actions: [],
+        actions: buildPathfinder2ePlayerSkillActions(resolved.derived),
       }
     } catch {
       return {

@@ -118,14 +118,31 @@ Regras de permissao:
 * `remove-participants` ignora ids ausentes e encerra o encontro quando nao restar participante.
 
 ## 4. UI/UX
-* O tracker aparece no painel lateral direito do VTT.
-* O tracker pode ser destacado pelo usuario para um painel flutuante horizontal no topo da mesa, mantendo os mesmos contratos e permissoes.
-* O painel destacado deve sobrepor a faixa superior da mesa sem desmontar o VTT.
-* O painel destacado deve exibir os participantes como cards de ordem de turno centralizados, com destaque mais forte e dimensao maior para o participante ativo.
-* No painel destacado, o participante ativo deve permanecer centralizado; ao avancar ou voltar turno, a lista se comporta como um carrossel circular.
-* O painel destacado nao deve exibir barra de rolagem horizontal nem cards cortados pela metade.
-* O painel destacado deve permitir redimensionamento por qualquer borda, respeitando dimensoes minimas para os controles.
-* O painel destacado deve oferecer acao para pregar o tracker novamente no painel lateral direito.
+* Antes do início, a caixa de preparação permanece na aba de Encontro do painel lateral direito.
+* Durante um encontro ativo, a ordem de turnos deixa o painel lateral e aparece automaticamente como cards suspensos na região central do header da mesa.
+* O carrossel não possui moldura ou fundo de modal, aparece rebaixado sobre o tabuleiro, pode sobrepor verticalmente a transição entre header e tabuleiro e não desmonta o VTT. O topo do maior card deve preservar folga visual em relação ao topo da viewport, sem ser cortado pela borda do browser.
+* O header da mesa usa altura compacta durante a navegação no VTT para preservar área útil do tabuleiro.
+* Participantes são cards com a imagem do Token como elemento dominante e dimensões suficientes para leitura confortável.
+* O participante ativo permanece no centro, recebe dimensão, contraste e brilho maiores e é identificado como `Agindo agora`.
+* Ao avançar ou voltar turno, os mesmos cards mudam de posição com transição e ordem circular, formando um carrossel sem barra de rolagem.
+* O carrossel renderiza no máximo dez participantes por vez, incluindo o ativo. Participantes adicionais aparecem sob demanda quando a ordem circular avança ou volta.
+* O limite visível é adaptativo: o cálculo reserva a largura dos cards, das setas e das margens laterais; em viewport menor, menos de dez cards são exibidos para não sobrepor identidade da campanha, controles de sessão, sidebar ou toolbar.
+* A opacidade diminui com curva progressiva conforme a distância ao card central: os vizinhos imediatos recebem fade sutil e a perda de destaque acelera gradualmente em direção às extremidades esquerda e direita.
+* Cards fora da capacidade visual ficam ocultos; cards visíveis nunca são cortados por um viewport do carrossel.
+* Os controles de voltar e avançar ficam imediatamente antes do primeiro e depois do último card visível.
+* O controle de encerrar permanece visível apenas para o Mestre e ocupa o header da sidebar de Encontro, ao lado do contador de rodada e turno.
+* A iniciativa permanece ajustável pelo Mestre em cada card visível.
+* Ao iniciar ou receber um encontro ativo, a aba de Encontro da sidebar compartilhada é aberta.
+* A sidebar expandida usa largura de até `440px`, limitada pela viewport, durante toda a mesa para acomodar com folga conteúdo de Encontro, chat, participantes, sessão e cenas.
+* A aba de Encontro renderiza o retrato do Token ativo, acesso agnóstico à ficha vinculada e seus cards de ações, substituindo o estado informativo vazio.
+* O retrato do Token ativo possui área vertical ampliada e usa contenção proporcional, sem recortar a imagem para preencher o quadro.
+* O header da aba de Encontro contém o contador de rodada e turno e, para o Mestre, o controle de encerrar.
+* O painel consulta a projeção neutra `TokenPresentation.actions`, respeita a visibilidade já filtrada pelo backend e renderiza somente ações cujo `contexts` contenha `ENCOUNTER`.
+* O VTT não interpreta `group`, `label`, `id` ou `interaction` para decidir se uma ação pertence ao encontro.
+* Títulos de grupos e detalhes usam no mínimo `12px`; nomes de ações usam no mínimo `14px` e podem quebrar linha quando necessário.
+* Cards de ação ampliam ícone, padding e espaçamento para manter leitura confortável na sidebar mais larga.
+* O estado vazio diferencia ausência de ficha/capacidade, ausência de ações e falha transitória.
+* Trocar o turno cancela a leitura anterior e consulta somente o novo Token ativo.
 * O painel mostra rodada, contagem de turnos, participante ativo, lista de participantes e iniciativa total.
 * Quando nao ha encontro ativo, o painel mostra uma caixa de Encounter Mode acima do botao de inicio.
 * Mestre usa `Shift` + clique em tokens visiveis da cena atual para pre-selecionar participantes.
@@ -171,4 +188,14 @@ Regras de permissao:
 * Encerrar sessao limpa encontro ativo.
 * Trocar de cena encerra o encontro ativo do MVP.
 * Nenhum campo mecanico especifico de ruleset entra no contrato base.
+* O carrossel ativo aparece automaticamente suspenso no centro do header e substitui a antiga lista de turnos da sidebar.
+* A sidebar ativa exibe o retrato e os cards de ações do participante atual.
+* Nome e detalhe de cada ação permanecem legíveis sem depender do atributo `title`.
+* O retrato exibe a imagem completa com `object-contain` dentro de uma área mínima de `256px` de altura em viewport desktop.
+* A sidebar não exibe ações marcadas apenas como `REFERENCE`; se nenhuma ação `ENCOUNTER` existir, preserva o retrato, o acesso à ficha quando autorizado e um estado vazio.
+* Ações adicionais só entram na sidebar quando o provider do sistema as marca explicitamente com `contexts: ['ENCOUNTER']`.
+* O botão `Abrir ficha` usa somente `campaignId`, `tokenId` e o resolvedor genérico, podendo ficar ausente quando não houver ficha autorizada.
+* O card central sempre corresponde a `participants[activeTurnIndex]`, inclusive ao circular entre o último e o primeiro.
+* O painel de ações não contém branches para Pathfinder, perícias, magias, ataques, saves ou atributos.
+* Um Token genérico sem provider ou ficha continua participando do encontro e exibe estado vazio no painel de ações.
 * Encounter Mode nao e dependencia para testar token, grid, cena, movimento ou paredes do VTT core.

@@ -1,15 +1,10 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSession } from '../../contexts/session-context'
-import { api } from '../../lib/api'
 import type {
-  TokenIdentityChangedPayload,
   TokenIndicatorPresentation,
-  TokenPresentation,
-  TokenPresentationChangedPayload,
-  TokenPresentationResponse,
   TokenResourcePresentation,
 } from './types'
+import { useTokenPresentation } from './useTokenPresentation'
 
 function resourceFillClass(resource: TokenResourcePresentation) {
   if (resource.tone === 'critical') return 'bg-rose-500'
@@ -70,59 +65,7 @@ export function TokenPresentationOverlay({
   size: number
 }) {
   const { campaignId } = useParams()
-  const { socket } = useSession()
-  const [presentation, setPresentation] = useState<TokenPresentation | null>(null)
-
-  useEffect(() => {
-    if (!campaignId) return
-    const activeCampaignId = campaignId
-
-    let active = true
-    let requestSequence = 0
-
-    async function load() {
-      const currentRequest = ++requestSequence
-      try {
-        const response = await api<TokenPresentationResponse>(
-          `/api/campaigns/${encodeURIComponent(activeCampaignId)}/tokens/${encodeURIComponent(tokenId)}/presentation`,
-        )
-        if (active && currentRequest === requestSequence) {
-          setPresentation(response.available ? response.presentation : null)
-        }
-      } catch {
-        // A projection is an enhancement of the board. Keep the last valid value on transient failures.
-      }
-    }
-
-    function onPresentationChanged(payload: TokenPresentationChangedPayload) {
-      if (payload.campaignId !== activeCampaignId || payload.tokenId !== tokenId) return
-      void load()
-    }
-
-    function onTokenChanged(payload: TokenIdentityChangedPayload) {
-      if (payload.campaignId !== activeCampaignId || payload.token.id !== tokenId) return
-      void load()
-    }
-
-    function onReconnect() {
-      void load()
-    }
-
-    void load()
-    socket?.on('vtt:token-presentation:changed', onPresentationChanged)
-    socket?.on('vtt:token:changed', onTokenChanged)
-    socket?.on('connect', onReconnect)
-
-    return () => {
-      active = false
-      requestSequence += 1
-      socket?.off('vtt:token-presentation:changed', onPresentationChanged)
-      socket?.off('vtt:token:changed', onTokenChanged)
-      socket?.off('connect', onReconnect)
-    }
-  }, [campaignId, socket, tokenId])
-
-  const currentPresentation = campaignId ? presentation : null
+  const { presentation: currentPresentation } = useTokenPresentation(campaignId, tokenId)
   const resources = useMemo(
     () => currentPresentation?.resources.filter((resource) => resource.presentation === 'bar') ?? [],
     [currentPresentation],

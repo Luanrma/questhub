@@ -325,3 +325,36 @@ As rotas permitem acesso ao proprietário ou ao Mestre ativo da campanha do Char
 10. o Token abre uma rota genérica usando apenas `characterId`;
 11. controlar Token de terceiro não concede acesso à ficha;
 12. remover o pacote Pathfinder preserva compiláveis os contratos genéricos do Runtime e do VTT.
+
+## 13. Projeção neutra de ações do Token
+
+```ts
+type TokenActionPresentation = {
+  id: string
+  label: string
+  group: string
+  detail?: string
+  imageUrl?: string
+  visibility: 'PUBLIC' | 'OWNER_AND_MASTER' | 'MASTER_ONLY'
+  interaction?: 'instant' | 'target' | 'area' | 'roll'
+  contexts: readonly ('ENCOUNTER' | 'REFERENCE')[]
+}
+```
+
+Regras:
+
+1. `group` e `detail` são conteúdo de apresentação produzido pelo game system;
+2. o VTT agrupa e renderiza sem interpretar os valores;
+3. a rota de apresentação filtra cada ação pela visibilidade antes de responder;
+4. `TOKEN_ACTIONS` declara suporte à projeção visual, enquanto
+   `AUTOMATED_ACTIONS` permanece reservado para execução;
+5. a ação apresentada não transporta fórmula, Spell DC, tipo de save, grau de
+   sucesso nem mutação mecânica no contrato compartilhado;
+6. execução futura usa uma intenção neutra endereçada por `action.id`; somente o
+   provider pode transformar essa intenção em rolagem, seleção de alvo ou chat
+   card;
+7. Tokens sem ficha ou provider retornam `actions: []`.
+8. `contexts` é obrigatório, não contém nomes de ruleset e pode combinar mais de
+   uma superfície genérica;
+9. o VTT seleciona ações de encontro exclusivamente pela presença de
+   `ENCOUNTER`, sem branches por sistema, grupo, label ou prefixo de `id`.

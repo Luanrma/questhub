@@ -78,6 +78,7 @@ import {
   getBoardPixelSize,
   getCenteredPanOffset,
   getTokenSize,
+  isPointInsideRenderedToken,
   normalizeTableToken,
   normalizeTokenPosition,
   scaleGridSettings,
@@ -107,7 +108,9 @@ import { applyDoorToWalls, createRectangleWallSegments, doorSnapToleranceInRende
 import { VttGridOverlay, VttGridSettingsModal } from './components/GridControls'
 import { ScenePreparationModal, SceneSidebarScenes } from './components/SceneControls'
 import { PlayerToken, VttMeasurementOverlay, VttWallsOverlay } from './components/BoardOverlays'
-import { CombatTrackerPanel } from './components/CombatTrackerPanel'
+import { EncounterSetupPanel } from './components/EncounterSetupPanel'
+import { EncounterOverlay } from './components/EncounterOverlay'
+import { EncounterActionPanel } from './components/EncounterActionPanel'
 import { hasTokenDragData, readTokenDragData, writeTokenDragData } from './infrastructure/tokenDragAndDrop'
 import { TokenContextMenu } from './components/TokenContextMenu'
 import { TokenImagePickerDialog } from './components/TokenImagePickerDialog'
@@ -225,6 +228,7 @@ export function CampaignOverviewPage({
   const wallUndoStackRef = useRef<VttWallSegment[][]>([])
   const measurementRef = useRef<VttMeasurement | null>(null)
   const measuredMovementTokenIdRef = useRef<string | null>(null)
+  const confirmedMeasuredMovementTokenIdRef = useRef<string | null>(null)
   const fogVisionTokenIdRef = useRef<string | null>(null)
   const panningRef = useRef<{ pointerId: number; x: number; y: number } | null>(null)
   const tokenSelectionRef = useRef<{ pointerId: number; rectangle: TokenSelectionRectangle } | null>(null)
@@ -279,7 +283,6 @@ export function CampaignOverviewPage({
   const [zoomPercent, setZoomPercent] = useState(100)
   const [rightPanelCollapsed, setRightPanelCollapsed] = useState(true)
   const [rightPanelTab, setRightPanelTab] = useState<RightPanelTab>('combat')
-  const [combatTrackerDetached, setCombatTrackerDetached] = useState(false)
   const [scenePreparationOpen, setScenePreparationOpen] = useState(false)
   const [preparedScenes, setPreparedScenes] = useState<PreparedScene[]>([])
   const [activeScene, setActiveScene] = useState<VttTableScene | null>(null)
@@ -532,7 +535,8 @@ export function CampaignOverviewPage({
       ? { title: 'Sessao online', label: 'ON', icon: null, className: 'border-emerald-300/45 bg-emerald-500/20 text-emerald-100' }
       : { title: 'Sessao offline', label: 'OFF', icon: null, className: 'border-red-300/45 bg-red-500/20 text-red-100' }
   const RightPanelSessionStatusIcon = rightPanelSessionStatus.icon
-  const activeCombatTokenId = activeCombat?.participants[activeCombat.activeTurnIndex]?.tokenId ?? null
+  const activeCombatParticipant = activeCombat?.participants[activeCombat.activeTurnIndex] ?? null
+  const activeCombatTokenId = activeCombatParticipant?.tokenId ?? null
   const combatTokenCount = visibleTokens.filter((token) => !token.hidden).length
   const canStartCombat = Boolean(isMaster && masterCanUseVtt && activeScene && encounterTokens.length > 0 && !activeCombat)
 
@@ -976,6 +980,9 @@ export function CampaignOverviewPage({
 
     function onTokenMovementStarted(payload: VttTokenMovementStartedPayload) {
       if (payload.campaignId !== campaignId || payload.sceneId !== activeScene?.id) return
+      if (confirmedMeasuredMovementTokenIdRef.current === payload.tokenId) {
+        confirmedMeasuredMovementTokenIdRef.current = null
+      }
       if (measuredMovementTokenIdRef.current === payload.tokenId) {
         measuredMovementTokenIdRef.current = null
         setMeasuredMovementTokenId(null)
@@ -991,7 +998,11 @@ export function CampaignOverviewPage({
     function onCombatChanged(payload: VttCombatChangedPayload) {
       if (payload.campaignId !== campaignId) return
       setCombatState(payload.combat)
-      if (payload.combat) setEncounterSelection({ sceneId: null, tokenIds: [] })
+      if (payload.combat) {
+        setEncounterSelection({ sceneId: null, tokenIds: [] })
+        setRightPanelTab('combat')
+        setRightPanelCollapsed(false)
+      }
     }
 
     function onWallsChanged(payload: VttWallsChangedPayload) {
@@ -1327,6 +1338,16 @@ export function CampaignOverviewPage({
     socket.emit('vtt:measurement:update', { campaignId, measurement: nextMeasurement })
   }
 
+  function cancelMeasuredMovement() {
+    const tokenId = measuredMovementTokenIdRef.current
+    if (!tokenId || confirmedMeasuredMovementTokenIdRef.current === tokenId) return false
+
+    measuredMovementTokenIdRef.current = null
+    setMeasuredMovementTokenId(null)
+    publishMeasurement(null)
+    return true
+  }
+
   function getMeasurementPoint(event: { clientX: number; clientY: number }) {
     const bounds = gridAreaRef.current?.getBoundingClientRect()
     if (!bounds) return null
@@ -1357,7 +1378,25 @@ export function CampaignOverviewPage({
   }
 
   function startNextMeasuredSegment(event: React.PointerEvent<HTMLDivElement>) {
-    if (!measuredMovementTokenIdRef.current || event.button !== 0) return
+    const measuredTokenId = measuredMovementTokenIdRef.current
+    if (!measuredTokenId || event.button !== 0) return
+
+    if (event.ctrlKey) {
+      const measuredToken = visibleTokens.find((token) => token.id === measuredTokenId)
+      const bounds = gridAreaRef.current?.getBoundingClientRect()
+      if (measuredToken && bounds && isPointInsideRenderedToken(
+        { x: event.clientX - bounds.left, y: event.clientY - bounds.top },
+        measuredToken,
+        tokenSize,
+        { x: zoomedGridSettings.offsetX, y: zoomedGridSettings.offsetY },
+      )) {
+        event.preventDefault()
+        event.stopPropagation()
+        cancelMeasuredMovement()
+        return
+      }
+    }
+
     const point = getMeasurementPoint(event)
     const current = measurementRef.current
     if (!point || !current) return
@@ -1387,7 +1426,14 @@ export function CampaignOverviewPage({
   }
 
   function beginMeasuredMovement(event: React.PointerEvent<HTMLButtonElement>, token: VttPlayerToken) {
-    if (event.button !== 0 || !event.ctrlKey || !realtimeVttEnabled || !activeScene || movingTokenIds.has(token.id)) return
+    if (event.button !== 0 || !event.ctrlKey) return
+    if (measuredMovementTokenIdRef.current === token.id) {
+      event.preventDefault()
+      event.stopPropagation()
+      cancelMeasuredMovement()
+      return
+    }
+    if (!realtimeVttEnabled || !activeScene || movingTokenIds.has(token.id)) return
     const canMoveToken = Boolean(isMaster) || (sessionActive && token.controllerUserId === me?.id && campaign?.myRole === 'PLAYER')
     if (!canMoveToken) return
     if (!isMaster && activeCombatTokenId && activeCombatTokenId !== token.id) return
@@ -1408,13 +1454,17 @@ export function CampaignOverviewPage({
     const currentMeasurement = measurementRef.current
     if (!tokenId || !currentMeasurement || currentMeasurement.points.length < 2 || !socket || !campaignId) return false
     if (movementPathDistance(currentMeasurement.points) <= 0.001) return false
+    confirmedMeasuredMovementTokenIdRef.current = tokenId
     socket.emit('vtt:token:move-path', {
       campaignId,
       tokenId,
       sceneId: currentMeasurement.sceneId,
       path: currentMeasurement.points,
     }, (response: { ok: true } | { ok: false; error: { code: string; message: string } }) => {
-      if (!response.ok) setSceneSaveError(response.error.message)
+      if (!response.ok) {
+        confirmedMeasuredMovementTokenIdRef.current = null
+        setSceneSaveError(response.error.message)
+      }
     })
     return true
   }
@@ -2004,7 +2054,10 @@ export function CampaignOverviewPage({
 
   function clearTransientTools() {
     const preserveMovementLine = Boolean(
-      measurementRef.current && movingTokenIds.has(measurementRef.current.tokenId),
+      measurementRef.current && (
+        movingTokenIds.has(measurementRef.current.tokenId) ||
+        confirmedMeasuredMovementTokenIdRef.current === measurementRef.current.tokenId
+      ),
     )
     wallDraftStartRef.current = null
     measuredMovementTokenIdRef.current = null
@@ -2055,7 +2108,6 @@ export function CampaignOverviewPage({
     clearTokenSelection()
     setTargetedTokenIds([])
     setRightPanelCollapsed(true)
-    setCombatTrackerDetached(false)
     setAreaTemplatesDetached(false)
     setScenePreparationOpen(false)
     setTokenImageEditTarget(null)
@@ -2148,6 +2200,7 @@ export function CampaignOverviewPage({
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === 'Escape') {
+        cancelMeasuredMovement()
         closeAllOpenVttInterface()
         event.preventDefault()
         return
@@ -2902,6 +2955,16 @@ export function CampaignOverviewPage({
 
   return (
     <div className="relative h-full min-h-0 overflow-hidden bg-[#08090c] text-white">
+      {activeCombat ? (
+        <EncounterOverlay
+          combat={activeCombat}
+          isMaster={Boolean(isMaster)}
+          onNextTurn={nextCombatTurn}
+          onPreviousTurn={previousCombatTurn}
+          onInitiativeAdjustment={adjustCombatInitiative}
+          onRemoveParticipant={removeActiveCombatParticipant}
+        />
+      ) : null}
       {activeTool === 'area-templates' && activeAreaTemplate && !pendingAreaPlacement && areaCursorPosition
         ? createPortal(
             <div
@@ -3622,7 +3685,11 @@ export function CampaignOverviewPage({
 
             <div
               className="pointer-events-auto absolute top-5 z-40 flex rounded-lg border border-white/10 bg-black/45 p-1 shadow-2xl backdrop-blur"
-              style={{ right: rightPanelCollapsed ? 80 : 344 }}
+              style={{
+                right: rightPanelCollapsed
+                  ? 80
+                  : 'min(464px, calc(100vw - 48px))',
+              }}
             >
               <button
                 type="button"
@@ -3669,7 +3736,7 @@ export function CampaignOverviewPage({
           'absolute inset-y-0 right-0 z-40 min-h-0 overflow-hidden border-l border-white/10 bg-[#101116]/95 shadow-2xl backdrop-blur transition-[width] max-xl:border-l',
           rightPanelCollapsed
             ? 'w-[56px] p-2'
-            : 'w-[320px] p-3',
+            : 'w-[min(440px,calc(100vw-72px))] p-3',
         ].join(' ')}
       >
         <div className={rightPanelCollapsed ? 'flex h-full min-h-0 flex-col items-center gap-3' : 'hidden'}>
@@ -3718,8 +3785,17 @@ export function CampaignOverviewPage({
           </div>
 
           <div className="min-h-0 flex-1 overflow-hidden">
-            {rightPanelTab === 'combat' && !combatTrackerDetached ? <CombatTrackerPanel combat={activeCombat} isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} selectedTokens={encounterTokens} onStart={startCombat} onEnd={endCombat} onRemoveSelectedToken={removeTokenFromEncounter} onRemoveParticipant={removeActiveCombatParticipant} onNextTurn={nextCombatTurn} onPreviousTurn={previousCombatTurn} onInitiativeAdjustment={adjustCombatInitiative} onDetach={() => setCombatTrackerDetached(true)} /> : null}
-            {rightPanelTab === 'combat' && combatTrackerDetached ? <div className="grid h-full place-items-center rounded-lg border border-dashed border-white/10 px-4 text-center text-xs text-zinc-500">Combate destacado em uma janela.</div> : null}
+            {rightPanelTab === 'combat' && !activeCombat ? <EncounterSetupPanel isMaster={Boolean(isMaster)} canStart={canStartCombat} tokenCount={combatTokenCount} selectedTokens={encounterTokens} onStart={startCombat} onRemoveSelectedToken={removeTokenFromEncounter} /> : null}
+            {rightPanelTab === 'combat' && activeCombat && activeCombatParticipant ? (
+              <EncounterActionPanel
+                campaignId={activeCombat.campaignId}
+                participant={activeCombatParticipant}
+                round={activeCombat.round}
+                turnCount={activeCombat.turnCount}
+                isMaster={Boolean(isMaster)}
+                onEnd={endCombat}
+              />
+            ) : null}
             {rightPanelTab === 'players' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3"><Users className="h-4 w-4 text-indigo-300" /><div><div className="text-sm font-semibold">Participantes</div><div className="text-[11px] uppercase text-zinc-500">{visibleTokens.length} token{visibleTokens.length === 1 ? '' : 's'} na cena</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs text-zinc-400">{campaign?.myRole === 'MASTER' ? 'Mestre conectado à mesa.' : 'Jogador conectado à mesa.'}</div></section> : null}
             {rightPanelTab === 'session' ? <section className="grid h-full content-start gap-3 rounded-lg border border-white/10 bg-white/[0.035] p-3"><div className="flex items-center gap-2 border-b border-white/10 pb-3">{campaign?.isOnline ? <Eye className="h-4 w-4 text-emerald-300" /> : <EyeOff className="h-4 w-4 text-zinc-400" />}<div><div className="text-sm font-semibold">Sessao</div><div className="text-[11px] uppercase text-zinc-500">{rightPanelSessionStatus.title}</div></div></div><div className="rounded-md border border-white/10 bg-black/20 px-3 py-3 text-xs leading-relaxed text-zinc-400">{sessionState === 'PAUSED' ? 'Jogadores estao bloqueados na mesa, exceto no chat. O Mestre ainda pode preparar cenas.' : campaign?.isOnline ? 'A mesa esta disponivel para participantes ativos.' : 'A mesa esta em modo de preparacao offline.'}</div></section> : null}
             {rightPanelTab === 'scenes' && isMaster ? <SceneSidebarScenes scenes={preparedScenes} activeSceneId={activeScene?.id ?? null} onSelectScene={selectPreparedScene} onPrepareScene={() => setScenePreparationOpen(true)} /> : null}
@@ -3728,30 +3804,6 @@ export function CampaignOverviewPage({
         </div>
       </aside>
 
-      {combatTrackerDetached && typeof document !== 'undefined'
-        ? createPortal(
-            <CombatTrackerPanel
-              combat={activeCombat}
-              isMaster={Boolean(isMaster)}
-              canStart={canStartCombat}
-              tokenCount={combatTokenCount}
-              selectedTokens={encounterTokens}
-              displayMode="detached"
-              onStart={startCombat}
-              onEnd={endCombat}
-              onRemoveSelectedToken={removeTokenFromEncounter}
-              onRemoveParticipant={removeActiveCombatParticipant}
-              onNextTurn={nextCombatTurn}
-              onPreviousTurn={previousCombatTurn}
-              onInitiativeAdjustment={adjustCombatInitiative}
-              onAttach={() => {
-                setCombatTrackerDetached(false)
-                setRightPanelCollapsed(false)
-              }}
-            />,
-            document.body,
-          )
-        : null}
     </div>
   )
 }
