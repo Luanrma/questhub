@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import { LoadingScreen } from '../components/LoadingScreen'
-import { useSession } from '../contexts/SessionContext'
+import { useSession } from '../contexts/session-context'
 
 export function AuthedLayout() {
   const { me, loading } = useSession()

@@ -73,15 +73,23 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [imageFailed, setImageFailed] = useState(false)
-  const [canSendToPlayer, setCanSendToPlayer] = useState(false)
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null)
+  const [sendPermission, setSendPermission] = useState({ key: '', allowed: false })
   const [sendOpen, setSendOpen] = useState(false)
   const Icon = domainIcons[domain]
+  const sendPermissionKey = `${campaignId}:${domain}`
+  const canSendToPlayer =
+    domain === 'ITEMS' &&
+    sendPermission.key === sendPermissionKey &&
+    sendPermission.allowed
 
   useEffect(() => {
     const controller = new AbortController()
-    setLoading(true)
-    setError(null)
+    queueMicrotask(() => {
+      if (controller.signal.aborted) return
+      setLoading(true)
+      setError(null)
+    })
 
     api<CatalogSheetResponse>(
       `/api/campaigns/${campaignId}/catalog/${catalogDomainPaths[domain]}/${encodeURIComponent(contentId)}?locale=${locale}`,
@@ -100,24 +108,24 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
   }, [campaignId, contentId, domain, locale])
 
   useEffect(() => {
-    if (domain !== 'ITEMS') {
-      setCanSendToPlayer(false)
-      return
-    }
+    if (domain !== 'ITEMS') return
 
     const controller = new AbortController()
     api<{ recipients: unknown[] }>(`/api/campaigns/${campaignId}/inventory/recipients`, {
       signal: controller.signal,
     })
-      .then(() => setCanSendToPlayer(true))
-      .catch(() => setCanSendToPlayer(false))
+      .then(() => setSendPermission({ key: sendPermissionKey, allowed: true }))
+      .catch(() => {
+        if (!controller.signal.aborted) {
+          setSendPermission({ key: sendPermissionKey, allowed: false })
+        }
+      })
 
     return () => controller.abort()
-  }, [campaignId, domain])
+  }, [campaignId, domain, sendPermissionKey])
 
   const entry = data?.entry
-
-  useEffect(() => setImageFailed(false), [entry?.imageUrl])
+  const imageFailed = Boolean(entry?.imageUrl && failedImageUrl === entry.imageUrl)
 
   return (
     <div
@@ -137,7 +145,7 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
                 src={entry.imageUrl}
                 alt=""
                 draggable={false}
-                onError={() => setImageFailed(true)}
+                onError={() => setFailedImageUrl(entry.imageUrl ?? null)}
                 className="h-14 w-14 shrink-0 rounded-xl border border-indigo-300/25 bg-black/30 object-cover shadow-lg"
               />
             ) : (

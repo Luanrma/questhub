@@ -1,7 +1,7 @@
 import { ScrollText } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
-import { useSession } from '../../../contexts/SessionContext'
+import { useSession } from '../../../contexts/session-context'
 
 export function HomePage() {
   const navigate = useNavigate()

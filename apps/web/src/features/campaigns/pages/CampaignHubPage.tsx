@@ -1,12 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '../../../components/Button'
-import { useSession } from '../../../contexts/SessionContext'
+import { useSession, type Campaign } from '../../../contexts/session-context'
 import { api } from '../../../lib/api'
 
 export function CampaignHubPage() {
   const { me, logout } = useSession()
 
-  const [campaigns, setCampaigns] = useState<any[]>([])
+  const [campaigns, setCampaigns] = useState<Campaign[]>([])
   const [loading, setLoading] = useState(false)
   const [inviteCode, setInviteCode] = useState('')
 
@@ -16,10 +16,10 @@ export function CampaignHubPage() {
 
   const canCreate = useMemo(() => gmName.trim() && title.trim(), [gmName, title])
 
-  async function loadCampaigns() {
-    const list = await api<any[]>('/api/campaigns')
+  const loadCampaigns = useCallback(async () => {
+    const list = await api<Campaign[]>('/api/campaigns')
     setCampaigns(list)
-  }
+  }, [])
 
   useEffect(() => {
     ;(async () => {
@@ -29,8 +29,7 @@ export function CampaignHubPage() {
         // ignore
       }
     })()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [loadCampaigns])
 
   async function onCreateCampaign() {
     if (!canCreate) return
@@ -156,7 +155,7 @@ export function CampaignHubPage() {
                     <div className="text-white font-semibold">{c.title}</div>
                     {c.description ? <div className="text-sm text-zinc-300 mt-1">{c.description}</div> : null}
                     <div className="text-xs text-zinc-400 mt-2">
-                      Mestre: {c.gmName} • Role: {c.myRole ?? c.role}
+                      Mestre: {c.gmName} • Role: {c.myRole}
                     </div>
                   </div>
                   <div className="text-right">

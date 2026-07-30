@@ -104,8 +104,11 @@ export function TokenContextMenu({
   useEffect(() => {
     if (!campaignId || (!isMaster && !isCurrentController)) return
     let cancelled = false
-    setSheetLoading(true)
-    setLinkedSheet(null)
+    queueMicrotask(() => {
+      if (cancelled) return
+      setSheetLoading(true)
+      setLinkedSheet(null)
+    })
 
     api<ResolvedTokenSheet>(`/api/campaigns/${campaignId}/tokens/${token.id}/character-sheet`)
       .then((result) => {

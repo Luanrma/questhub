@@ -46,8 +46,11 @@ export function CatalogItemSendModal({ campaignId, contentId, itemName, onClose 
 
   useEffect(() => {
     const controller = new AbortController()
-    setLoading(true)
-    setError(null)
+    queueMicrotask(() => {
+      if (controller.signal.aborted) return
+      setLoading(true)
+      setError(null)
+    })
 
     api<RecipientsResponse>(`/api/campaigns/${campaignId}/inventory/recipients`, {
       signal: controller.signal,

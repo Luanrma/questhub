@@ -1,4 +1,3 @@
-export const gridSizeLimits = { min: 24, max: 96 }
 export const gridLineWidthLimits = { min: 1, max: 4 }
 export const zoomLimits = { min: 50, max: 150, step: 10 }
 export const boardGridLimits = { columns: 50, rows: 34 }

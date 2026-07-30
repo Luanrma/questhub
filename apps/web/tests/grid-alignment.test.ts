@@ -40,24 +40,28 @@ test('wall scene coordinates ignore grid size and fine adjustment', () => {
 
 test('grid physical scale uses only coherent discrete meter values', () => {
   assert.deepEqual(metersPerCellAllowedValues, [
-    0.5,
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    20, 30, 40, 50, 60, 70, 80, 90, 100,
-    200, 300, 400, 500, 600, 700, 800, 900, 1000,
+    0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5,
+    5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10,
   ])
 
   for (const shape of ['square', 'hex'] as const) {
     const settings = normalizeGridSettings({ ...defaultGridSettings, shape, metersPerCell: 1.524 })
-    assert.equal(settings.metersPerCell, 2)
+    assert.equal(settings.metersPerCell, 1.5)
   }
 })
 
 test('legacy grid scales normalize to the nearest allowed value and prefer the lower value on ties', () => {
   assert.equal(normalizeMetersPerCell(0.01), 0.5)
-  assert.equal(normalizeMetersPerCell(1.5), 1)
-  assert.equal(normalizeMetersPerCell(16), 20)
-  assert.equal(normalizeMetersPerCell(150), 100)
-  assert.equal(normalizeMetersPerCell(5000), 1000)
+  assert.equal(normalizeMetersPerCell(1.75), 1.5)
+  assert.equal(normalizeMetersPerCell(6.26), 6.5)
+  assert.equal(normalizeMetersPerCell(150), 10)
+})
+
+test('grid visual size is clamped to 50-200px and new settings use canonical defaults', () => {
+  assert.equal(defaultGridSettings.size, 100)
+  assert.equal(defaultGridSettings.metersPerCell, 1.5)
+  assert.equal(normalizeGridSettings({ ...defaultGridSettings, size: 24 }).size, 50)
+  assert.equal(normalizeGridSettings({ ...defaultGridSettings, size: 250 }).size, 200)
 })
 
 test('grid and effect areas share the same meters and feet conversion', () => {

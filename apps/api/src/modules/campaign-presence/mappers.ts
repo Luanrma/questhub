@@ -1,4 +1,5 @@
 import type { VttGridSettings, VttPlayerToken } from './contracts'
+import { normalizeGridSize, normalizeMetersPerCell } from '../campaign_scene/domain/grid-settings'
 
 export type PersistedSceneGrid = {
   gridVisible: boolean
@@ -54,10 +55,10 @@ export function sceneGridToVttSettings(scene: PersistedSceneGrid): VttGridSettin
   return {
     visible: scene.gridVisible,
     shape: scene.gridShape === 'HEX' ? 'hex' : 'square',
-    size: scene.gridSize,
+    size: normalizeGridSize(scene.gridSize),
     offsetX: scene.gridOffsetX,
     offsetY: scene.gridOffsetY,
-    metersPerCell: scene.metersPerCell,
+    metersPerCell: normalizeMetersPerCell(scene.metersPerCell),
     squareMeasurementColor: scene.squareMeasurementColor,
     hexMeasurementColor: scene.hexMeasurementColor,
     lineWidth: scene.gridLineWidth,

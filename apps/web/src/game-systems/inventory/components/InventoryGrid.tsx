@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, Package } from 'lucide-react'
 import {
   availableInventoryPageCount,
@@ -40,29 +40,26 @@ export function InventoryGrid({
   const [pageIndex, setPageIndex] = useState(0)
   const slotMap = useMemo(() => entriesBySlot(entries), [entries])
   const pageCount = availableInventoryPageCount(entries)
-  const slotIndexes = useMemo(() => inventoryPageSlotIndexes(pageIndex), [pageIndex])
-
-  useEffect(() => {
-    setPageIndex((current) => Math.min(current, pageCount - 1))
-  }, [pageCount])
+  const visiblePageIndex = Math.min(pageIndex, pageCount - 1)
+  const slotIndexes = useMemo(() => inventoryPageSlotIndexes(visiblePageIndex), [visiblePageIndex])
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-white/10 bg-black/25">
       <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 text-xs text-zinc-400">
         <button
           type="button"
-          disabled={pageIndex === 0}
-          onClick={() => setPageIndex((current) => Math.max(0, current - 1))}
+          disabled={visiblePageIndex === 0}
+          onClick={() => setPageIndex(Math.max(0, visiblePageIndex - 1))}
           className="rounded-md border border-white/10 p-1.5 text-zinc-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
           aria-label="Página anterior do inventário"
         >
           <ChevronLeft className="h-4 w-4" />
         </button>
-        <span>Página {pageIndex + 1} de {pageCount}</span>
+        <span>Página {visiblePageIndex + 1} de {pageCount}</span>
         <button
           type="button"
-          disabled={pageIndex >= pageCount - 1}
-          onClick={() => setPageIndex((current) => Math.min(pageCount - 1, current + 1))}
+          disabled={visiblePageIndex >= pageCount - 1}
+          onClick={() => setPageIndex(Math.min(pageCount - 1, visiblePageIndex + 1))}
           className="rounded-md border border-white/10 p-1.5 text-zinc-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
           aria-label="Próxima página do inventário"
         >
@@ -78,7 +75,7 @@ export function InventoryGrid({
             gridTemplateRows: `repeat(${inventoryGridPageRows}, minmax(3rem, 1fr))`,
           }}
           role="grid"
-          aria-label={`Página ${pageIndex + 1} da grade do inventário`}
+          aria-label={`Página ${visiblePageIndex + 1} da grade do inventário`}
         >
           {slotIndexes.map((slotIndex) => {
             const entry = slotMap.get(slotIndex)

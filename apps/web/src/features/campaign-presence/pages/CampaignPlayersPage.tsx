@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
-import { useSession } from '../../../contexts/SessionContext'
+import { useSession } from '../../../contexts/session-context'
 import { api } from '../../../lib/api'
 
 type PlayerRow = {
@@ -25,21 +25,24 @@ export function CampaignPlayersPage() {
   const [loading, setLoading] = useState(false)
   const [onlineIds, setOnlineIds] = useState<Record<string, boolean>>({})
 
-  async function load() {
+  const load = useCallback(async (signal?: AbortSignal) => {
     if (!campaignId) return
     setLoading(true)
     try {
-      const list = await api<PlayerRow[]>(`/api/campaigns/${campaignId}/players`)
-      setPlayers(list)
+      const list = await api<PlayerRow[]>(`/api/campaigns/${campaignId}/players`, { signal })
+      if (!signal?.aborted) setPlayers(list)
     } finally {
-      setLoading(false)
+      if (!signal?.aborted) setLoading(false)
     }
-  }
+  }, [campaignId])
 
   useEffect(() => {
-    load().catch(() => {})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [campaignId])
+    const controller = new AbortController()
+    queueMicrotask(() => {
+      if (!controller.signal.aborted) load(controller.signal).catch(() => {})
+    })
+    return () => controller.abort()
+  }, [load])
 
   // Presença em tempo real pertence ao membro/usuário conectado.
   useEffect(() => {
@@ -139,7 +142,14 @@ export function CampaignPlayersPage() {
           <h1 className="text-2xl font-semibold text-white">Jogadores</h1>
           <p className="text-sm text-zinc-300">Gerencie os participantes da campanha.</p>
         </div>
-        <button type="button" className="text-sm text-zinc-300 hover:text-white" onClick={load} disabled={loading}>
+        <button
+          type="button"
+          className="text-sm text-zinc-300 hover:text-white"
+          onClick={() => {
+            load().catch(() => {})
+          }}
+          disabled={loading}
+        >
           {loading ? 'Atualizando…' : 'Atualizar'}
         </button>
       </div>

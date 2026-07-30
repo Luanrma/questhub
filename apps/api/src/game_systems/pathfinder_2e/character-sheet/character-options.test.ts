@@ -21,16 +21,15 @@ test('localized PF2e options preserve en-US values and fall back explicitly', ()
   const fighter = pathfinder2eCharacterSheetOptions.classes.find(
     (option) => option.value === 'Fighter',
   )
-  const untranslated = pathfinder2eCharacterSheetOptions.backgrounds.find(
-    (option) => option.value === 'Able Carter',
-  )
 
   assert.ok(fighter)
   assert.equal(fighter.labels['en-US'], 'Fighter')
   assert.equal(resolvePathfinder2eOptionLabel(fighter, 'pt-BR'), 'Guerreiro')
-  assert.ok(untranslated)
-  assert.equal(resolvePathfinder2eOptionLabel(untranslated, 'pt-BR'), 'Able Carter')
-  assert.equal(untranslated.translationStatus['pt-BR'], 'NOT_STARTED')
+  assert.equal(resolvePathfinder2eOptionLabel({
+    value: 'Untranslated Option',
+    labels: { 'en-US': 'Untranslated Option' },
+    translationStatus: { 'pt-BR': 'NOT_STARTED' },
+  }, 'pt-BR'), 'Untranslated Option')
 })
 
 test('heritage compatibility follows ancestry and keeps versatile heritages available', () => {
@@ -57,6 +56,23 @@ test('every selectable heritage has an explicit pt-BR label', () => {
   assert.equal(
     options.find((option) => option.value === 'Ghost Bull Minotaur')?.labels['pt-BR'],
     'Minotauro Touro Fantasma',
+  )
+})
+
+test('every selectable background has an explicit pt-BR label', () => {
+  const options = pathfinder2eCharacterSheetOptions.backgrounds
+  const untranslated = options
+    .filter((option) => !option.labels['pt-BR'])
+    .map((option) => option.value)
+
+  assert.deepEqual(untranslated, [])
+  assert.equal(
+    options.find((option) => option.value === 'Able Carter')?.labels['pt-BR'],
+    'Carroceiro Habilidoso',
+  )
+  assert.equal(
+    options.find((option) => option.value === "Abadar's Avenger")?.labels['pt-BR'],
+    'Vingador de Abadar',
   )
 })
 

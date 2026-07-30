@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { ChevronDown, Copy } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
-import { useSession } from '../../../contexts/SessionContext'
+import { useSession } from '../../../contexts/session-context'
 import { api } from '../../../lib/api'
 import { maxDiceAutoClearSeconds, minDiceAutoClearSeconds } from '../../../vtt/dice-roller/config/constants'
 import {

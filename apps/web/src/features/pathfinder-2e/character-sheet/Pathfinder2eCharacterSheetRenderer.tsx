@@ -297,7 +297,7 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
               <ManualNumberField label="Nível" value={sheet.identity.level} min={1} max={20} onChange={(level) => setSheet({ ...sheet, identity: { ...sheet.identity, level } })} />
               <ManualCatalogSelect label="Ancestralidade" value={sheet.identity.ancestry} options={options.ancestries} locale={contentLocale} onChange={updateAncestry} />
               <ManualCatalogSelect label="Herança" value={sheet.identity.heritage} options={compatibleHeritages} locale={contentLocale} onChange={(heritage) => setSheet({ ...sheet, identity: { ...sheet.identity, heritage } })} />
-              <ManualCatalogSelect label="Background" value={sheet.identity.background} options={options.backgrounds} locale={contentLocale} onChange={(background) => setSheet({ ...sheet, identity: { ...sheet.identity, background } })} />
+              <ManualCatalogSelect label="Antecedente" value={sheet.identity.background} options={options.backgrounds} locale={contentLocale} onChange={(background) => setSheet({ ...sheet, identity: { ...sheet.identity, background } })} />
               <ManualCatalogSelect label="Classe" value={sheet.identity.class} options={options.classes} locale={contentLocale} onChange={(className) => setSheet({ ...sheet, identity: { ...sheet.identity, class: className } })} />
               <ManualCatalogSelect label="Divindade" value={sheet.identity.deity} options={options.deities} locale={contentLocale} onChange={(deity) => setSheet({ ...sheet, identity: { ...sheet.identity, deity } })} />
             </div>

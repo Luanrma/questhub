@@ -3,7 +3,7 @@ import { ArrowLeft, Crown } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
 import { api, ApiError } from '../lib/api'
-import { useSession } from '../contexts/SessionContext'
+import { useSession } from '../contexts/session-context'
 import { GAME_SYSTEM_OPTIONS, type GameSystemKey } from '../game-systems/registry'
 
 type JoinPolicy = 'PUBLIC' | 'PRIVATE'

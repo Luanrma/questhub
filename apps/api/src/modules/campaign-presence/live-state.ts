@@ -12,6 +12,8 @@ export class CampaignPresenceState {
   private readonly campaignPendingScenes = new Map<string, VttTableScene | null>()
   private readonly campaignCombats = new Map<string, VttCombatState>()
   private readonly campaignTokenMovementDeadlines = new Map<string, Map<string, number>>()
+  private readonly hydratedCampaignVttStates = new Set<string>()
+  private readonly dirtyCampaignVttStates = new Set<string>()
 
   getUserPresence(userId: string) {
     return this.userPresence.get(userId)
@@ -51,6 +53,8 @@ export class CampaignPresenceState {
     this.campaignPendingScenes.delete(campaignId)
     this.campaignCombats.delete(campaignId)
     this.campaignTokenMovementDeadlines.delete(campaignId)
+    this.hydratedCampaignVttStates.delete(campaignId)
+    this.dirtyCampaignVttStates.delete(campaignId)
   }
 
   getCampaignGridSettings(campaignId: string) {
@@ -184,5 +188,25 @@ export class CampaignPresenceState {
     const movements = this.campaignTokenMovementDeadlines.get(campaignId) ?? new Map<string, number>()
     movements.set(tokenId, deadline)
     this.campaignTokenMovementDeadlines.set(campaignId, movements)
+  }
+
+  markCampaignVttStateHydrated(campaignId: string) {
+    this.hydratedCampaignVttStates.add(campaignId)
+  }
+
+  isCampaignVttStateHydrated(campaignId: string) {
+    return this.hydratedCampaignVttStates.has(campaignId)
+  }
+
+  markCampaignVttStateDirty(campaignId: string) {
+    this.dirtyCampaignVttStates.add(campaignId)
+  }
+
+  hasDirtyCampaignVttState(campaignId: string) {
+    return this.dirtyCampaignVttStates.has(campaignId)
+  }
+
+  clearCampaignVttStateDirty(campaignId: string) {
+    this.dirtyCampaignVttStates.delete(campaignId)
   }
 }

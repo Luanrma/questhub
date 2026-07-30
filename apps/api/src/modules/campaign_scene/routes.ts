@@ -7,6 +7,7 @@ import {
   campaignSceneIdParamsSchema,
   campaignSceneParamsSchema,
   createCampaignSceneSchema,
+  defaultCampaignSceneGrid,
   updateCampaignSceneSchema,
 } from './validation'
 import { presentCampaignSceneViewState } from './presenter'
@@ -292,7 +293,7 @@ export function registerCampaignSceneRoutes(app: FastifyInstance, deps: Campaign
           backgroundUrl: parsed.data.backgroundUrl ?? null,
           backgroundCacheKey: parsed.data.backgroundCacheKey ?? null,
           walls: parsed.data.walls ?? [],
-          ...(parsed.data.grid ? gridToSceneData(parsed.data.grid) : {}),
+          ...gridToSceneData(parsed.data.grid ?? defaultCampaignSceneGrid),
         },
         include: sceneInclude,
       })

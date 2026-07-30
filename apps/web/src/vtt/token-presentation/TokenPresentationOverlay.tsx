@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useSession } from '../../contexts/SessionContext'
+import { useSession } from '../../contexts/session-context'
 import { api } from '../../lib/api'
 import type {
   TokenIdentityChangedPayload,
@@ -74,10 +74,7 @@ export function TokenPresentationOverlay({
   const [presentation, setPresentation] = useState<TokenPresentation | null>(null)
 
   useEffect(() => {
-    if (!campaignId) {
-      setPresentation(null)
-      return
-    }
+    if (!campaignId) return
     const activeCampaignId = campaignId
 
     let active = true
@@ -125,11 +122,12 @@ export function TokenPresentationOverlay({
     }
   }, [campaignId, socket, tokenId])
 
+  const currentPresentation = campaignId ? presentation : null
   const resources = useMemo(
-    () => presentation?.resources.filter((resource) => resource.presentation === 'bar') ?? [],
-    [presentation],
+    () => currentPresentation?.resources.filter((resource) => resource.presentation === 'bar') ?? [],
+    [currentPresentation],
   )
-  const indicators = presentation?.indicators ?? []
+  const indicators = currentPresentation?.indicators ?? []
   if (!resources.length && !indicators.length) return null
 
   const overlayWidth = Math.max(48, size)

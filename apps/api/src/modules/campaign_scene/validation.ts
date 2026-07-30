@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { GRID_SIZE_LIMITS, METERS_PER_CELL_LIMITS } from './domain/grid-settings'
 
 export const CAMPAIGN_SCENE_NAME_MAX_LENGTH = 80
 
@@ -16,10 +17,13 @@ export const campaignSceneGridSchema = z.discriminatedUnion('shape', [
   z.object({
     visible: z.boolean().default(true),
     shape: z.literal('square'),
-    size: z.number().int().min(24).max(96),
+    size: z.number().int().min(GRID_SIZE_LIMITS.min).max(GRID_SIZE_LIMITS.max),
     offsetX: z.number().int().min(-96).max(96).default(0),
     offsetY: z.number().int().min(-96).max(96).default(0),
-    metersPerCell: z.number().positive().max(10000),
+    metersPerCell: z.number()
+      .min(METERS_PER_CELL_LIMITS.min)
+      .max(METERS_PER_CELL_LIMITS.max)
+      .multipleOf(METERS_PER_CELL_LIMITS.step),
     squareMeasurementColor: colorHexSchema,
     lineWidth: z.number().int().min(1).max(4),
     color: colorHexSchema,
@@ -27,10 +31,13 @@ export const campaignSceneGridSchema = z.discriminatedUnion('shape', [
   z.object({
     visible: z.boolean().default(true),
     shape: z.literal('hex'),
-    size: z.number().int().min(24).max(96),
+    size: z.number().int().min(GRID_SIZE_LIMITS.min).max(GRID_SIZE_LIMITS.max),
     offsetX: z.number().int().min(-96).max(96).default(0),
     offsetY: z.number().int().min(-96).max(96).default(0),
-    metersPerCell: z.number().positive().max(10000),
+    metersPerCell: z.number()
+      .min(METERS_PER_CELL_LIMITS.min)
+      .max(METERS_PER_CELL_LIMITS.max)
+      .multipleOf(METERS_PER_CELL_LIMITS.step),
     hexMeasurementColor: colorHexSchema,
     lineWidth: z.number().int().min(1).max(4),
     color: colorHexSchema,
@@ -40,10 +47,10 @@ export const campaignSceneGridSchema = z.discriminatedUnion('shape', [
 export const defaultCampaignSceneGrid = {
   visible: true,
   shape: 'square',
-  size: 32,
+  size: GRID_SIZE_LIMITS.default,
   offsetX: 0,
   offsetY: 0,
-  metersPerCell: 1,
+  metersPerCell: METERS_PER_CELL_LIMITS.default,
   squareMeasurementColor: '#facc15',
   lineWidth: 1,
   color: '#ffffff',

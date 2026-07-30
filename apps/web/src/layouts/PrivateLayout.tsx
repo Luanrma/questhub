@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useSession } from '../contexts/SessionContext'
+import { useSession } from '../contexts/session-context'
 import { LoadingScreen } from '../components/LoadingScreen'
 
 export function PrivateLayout() {

@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { ApiError, api } from '../../../lib/api'
-import { useSession } from '../../../contexts/SessionContext'
+import { useSession } from '../../../contexts/session-context'
 
 function isValidEmail(email: string) {
   return /\S+@\S+\.\S+/.test(email)

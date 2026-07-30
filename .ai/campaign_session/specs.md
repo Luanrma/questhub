@@ -147,6 +147,10 @@ Regras:
 * Badge `Online/Offline` deve refletir conectividade.
 * Badge `Pausada/Em andamento` deve refletir andamento, somente quando online.
 * Player so pode entrar quando `connectionState = ONLINE`.
+* Aceitar um convite cria ou reativa o vinculo de `CampaignMember`, mas nao equivale a entrar no VTT.
+* Depois de aceitar um convite para uma campanha offline, o Player deve permanecer na lista `/campaigns`.
+* O redirecionamento para `/campaign/:campaignId/overview` depois do convite so pode ocorrer quando o membro esta `ACTIVE` e a campanha esta online.
+* A rota da mesa deve aplicar a mesma regra de acesso, inclusive em acesso direto ou quando o estado online muda durante a navegacao.
 
 ## 8. Integracao com campaign_scene
 
@@ -155,6 +159,10 @@ Regras:
 * Trocar cena ativa pode pausar a campanha se essa for a regra de produto do fluxo de cena.
 * Retomar sessao nao altera `masterActiveSceneId`, `forcedSceneId` nem a cena visivel dos Players por si so.
 * Cena, token e grid devem consultar `runState` para permissoes de interacao dos Players.
+* `Iniciar Sessao`, `Pausar Sessao`, `Retomar Sessao` e `Encerrar Sessao` devem persistir o estado vivo pendente da mesa antes de confirmar a transicao.
+* `Trocar de Cena` deve persistir o estado vivo pendente antes de alterar `masterActiveSceneId`.
+* Esses cinco eventos formam o conjunto canonico de persistencia do estado VTT. Outros fluxos so podem solicitar flush por uma acao de persistencia forcada explicitamente nomeada.
+* Movimento de Token, inclusive o termino de um trajeto animado, atualiza apenas o estado vivo e o realtime; nao constitui evento canonico nem persistencia forcada.
 
 ## 9. Criterios de aceitacao
 * Mestre acessa o VTT com sessao offline.
@@ -168,6 +176,8 @@ Regras:
 * `Retomar Sessao` nao muda visualmente a mesa do Mestre.
 * Codigo novo nao deve usar `PAUSED` como sinonimo de offline.
 * Codigo novo nao deve decidir permissao de Player apenas por `isOnline` quando a regra depende de `PAUSED` versus `IN_PROGRESS`.
+* Player que aceita convite de campanha offline retorna para `/campaigns` e ve a campanha com estado `Offline`.
+* Player nao consegue abrir diretamente a rota da mesa de uma campanha offline.
 
 ## 10. Decisao Atual - Movimento do Mestre
 `PAUSED`, `presence:session:pause` e `presence:session:resume` continuam fazendo parte do fluxo de produto. A permissao especial e apenas para o Mestre mover tokens em qualquer fase.

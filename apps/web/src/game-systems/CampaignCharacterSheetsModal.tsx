@@ -94,8 +94,11 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    setError(null)
+    queueMicrotask(() => {
+      if (cancelled) return
+      setLoading(true)
+      setError(null)
+    })
 
     api<CharacterSheetManagerResponse>(`/api/campaigns/${campaignId}/character-sheets`)
       .then((response) => {

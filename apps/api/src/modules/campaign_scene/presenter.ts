@@ -1,3 +1,5 @@
+import { normalizeGridSize, normalizeMetersPerCell } from './domain/grid-settings'
+
 type DbCampaignSceneGridShape = 'SQUARE' | 'HEX'
 
 type CampaignSceneRecord = {
@@ -76,10 +78,10 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
     return {
       visible: scene.gridVisible,
       shape: 'hex' as const,
-      size: scene.gridSize,
+      size: normalizeGridSize(scene.gridSize),
       offsetX: scene.gridOffsetX,
       offsetY: scene.gridOffsetY,
-      metersPerCell: scene.metersPerCell,
+      metersPerCell: normalizeMetersPerCell(scene.metersPerCell),
       hexMeasurementColor: scene.hexMeasurementColor,
       lineWidth: scene.gridLineWidth,
       color: scene.gridColor,
@@ -89,10 +91,10 @@ export function presentCampaignSceneGrid(scene: CampaignSceneRecord) {
   return {
     visible: scene.gridVisible,
     shape: 'square' as const,
-    size: scene.gridSize,
+    size: normalizeGridSize(scene.gridSize),
     offsetX: scene.gridOffsetX,
     offsetY: scene.gridOffsetY,
-    metersPerCell: scene.metersPerCell,
+    metersPerCell: normalizeMetersPerCell(scene.metersPerCell),
     squareMeasurementColor: scene.squareMeasurementColor,
     lineWidth: scene.gridLineWidth,
     color: scene.gridColor,

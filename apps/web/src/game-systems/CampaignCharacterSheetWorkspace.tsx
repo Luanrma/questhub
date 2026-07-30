@@ -186,17 +186,15 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
   const registration = useMemo(() => getCharacterSheetRenderer(gameSystem), [gameSystem])
   const [windows, setWindows] = useState<SheetWindowState[]>([])
   const zIndexRef = useRef(130)
-
-  useEffect(() => {
+  const renderedWindows = useMemo(() => {
     const firstPage = registration?.pages[0]?.id
-    if (!firstPage) return
-
-    setWindows((current) => current.map((item) => (
+    if (!firstPage) return windows
+    return windows.map((item) => (
       registration.pages.some((page) => page.id === item.activePage)
         ? item
         : { ...item, activePage: firstPage }
-    )))
-  }, [registration])
+    ))
+  }, [registration, windows])
 
   useEffect(() => {
     function onOpen(event: Event) {
@@ -243,11 +241,11 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
     updateWindow(sheetId, { zIndex: zIndexRef.current })
   }
 
-  const minimized = windows.filter((item) => item.minimized)
+  const minimized = renderedWindows.filter((item) => item.minimized)
 
   return (
     <>
-      {registration ? windows.map((state, index) => (
+      {registration ? renderedWindows.map((state, index) => (
         <CharacterSheetWindow
           key={state.sheetId}
           campaignId={campaignId}
@@ -263,7 +261,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
         />
       )) : null}
 
-      {!registration && windows.some((item) => !item.minimized) ? (
+      {!registration && renderedWindows.some((item) => !item.minimized) ? (
         <div className="fixed left-1/2 top-24 z-[150] -translate-x-1/2 rounded-xl border border-amber-300/20 bg-[#111218] px-5 py-4 text-sm text-amber-100 shadow-2xl">
           O sistema da campanha não registrou um renderer de ficha.
         </div>

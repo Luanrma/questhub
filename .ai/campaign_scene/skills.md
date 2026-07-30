@@ -23,9 +23,10 @@
 * Pause-on-scene-switch: troca de cena pelo Mestre pausa automaticamente a sessao quando ela esta online.
 * Session Live State: grid, tokens e cena ativa podem ser alterados em memoria/cache durante a sessao online, com propagacao por Socket.IO.
 * Token Delta Broadcast: drop, criacao, movimento, remocao e invisibilidade de tokens durante sessao online devem emitir deltas leves para sockets autorizados, sem reenviar snapshot completo da cena.
-* Stable Scene Frame: background, dimensoes do board, grid, zoom e pan nao devem ser recalculados por mudancas exclusivas da camada de tokens.
+* Stable Scene Frame: background, dimensoes do board, grid, zoom e pan nao devem ser recalculados por mudancas exclusivas da camada de tokens; selecionar um Token para transformacao nao deve reinicializar a assinatura realtime nem solicitar snapshot da cena.
 * Independent Wall Coordinates: paredes usam pixels da cena antes do zoom; nunca unidades logicas do grid.
-* Lifecycle Persistence: o estado vivo da mesa e gravado no banco em pontos de ciclo de vida controlados, como autosave eventual, iniciar e encerrar sessao.
+* Lifecycle Persistence: o estado vivo da mesa e gravado no banco somente ao iniciar, pausar, retomar ou encerrar a sessao e ao trocar de cena.
+* Explicit Forced Persistence: qualquer flush fora do ciclo canonico deve passar pela mesma fronteira de aplicacao com uma razao explicita, serializada por campanha e testavel.
 * Optional Scene Background: cena e um container de mesa mesmo sem `assetId`; imagem e um recurso opcional vinculado depois.
 * Scene Wall Editing: segmentos, retangulos e portas sao editados como estado visual generico da cena e preservados no mesmo snapshot.
 * Door-to-Wall Snap: a criacao de porta usa tolerancia visual convertida para pixels absolutos da cena e projeta as duas extremidades sobre um unico segmento de parede.
@@ -40,12 +41,15 @@
 ## Restricoes
 * Nao voltar a tratar cena como simples troca de background.
 * Nao tratar o estado em memoria como fonte definitiva apos encerramento da sessao; ele deve ser persistido no ciclo de vida da sessao.
-* Nao executar insert/update de token no Prisma no caminho quente de drop, movimento ou visibilidade durante sessao online.
+* Nao executar insert/update de posicionamento de Token no Prisma no caminho quente de drop, movimento, rotacao, camada ou visibilidade, independentemente de a campanha estar online ou offline.
 * Nao emitir snapshot completo de cena como resposta normal a drop ou movimento de token durante sessao online.
 * Nao usar `LoadingScreen` global para esconder deformacao causada por drop, movimento, remocao ou invisibilidade de token.
+* Nao usar `LoadingScreen` global nem `vtt:scene:request` ao apenas selecionar um Token ou ativar seus controles de redimensionamento/rotacao.
 * Nao usar `squareMeters` como escala canonica nova; grid quadrado deve usar `metersPerCell`.
 * Nao remover `metersPerCell` do grid hexagonal; movimento pode continuar contando passos, mas alcance de visao e luz usa a escala metrica da cena.
 * Nao inferir distancia fisica apenas de `grid.size`: pixels calibram o desenho sobre o mapa e `metersPerCell` define a distancia do mundo.
+* Nao executar `INSERT`/`UPDATE` de grid no caminho quente de alteracao dos controles; o Socket.IO atualiza o estado vivo e os eventos canonicos executam o flush.
+* Nao chamar o flush do estado VTT como efeito colateral implicito de movimento; persistencia forcada exige um trigger nomeado.
 * Nao multiplicar coordenadas persistidas de paredes por `grid.size` nem somar o deslocamento fino do grid.
 * Nao persistir porta isolada, ligada a paredes diferentes ou sobreposta a um trecho de parede que continue bloqueando movimento.
 * Nao permitir que jogador edite grid, cena ou distribuicao de tokens.

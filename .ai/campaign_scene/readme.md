@@ -23,10 +23,12 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 
 ## Regras de produto
 * Cenas persistem estado independente.
-* Durante uma sessao online, alteracoes de grid e tokens sao estado vivo da sessao: ficam em memoria/cache realtime e sao transmitidas por websocket.
-* Drop, criacao, movimento, remocao e invisibilidade de tokens durante sessao online nao devem depender de insert/update imediato no banco; o servidor atualiza o estado vivo, transmite deltas por websocket e marca o snapshot como pendente de persistencia.
-* O estado vivo da sessao e persistido no banco em pontos controlados como autosave eventual, encerramento da sessao e novamente ao iniciar a sessao, para preservar preparacoes feitas pelo Mestre antes de colocar a campanha online.
+* Alteracoes de grid sao estado vivo da mesa tanto na preparacao offline quanto durante a sessao online: ficam em memoria/cache realtime e sao transmitidas por websocket sem escrita imediata no banco.
+* Drop, criacao, movimento, remocao e invisibilidade de tokens, com a campanha online ou offline, nao devem depender de insert/update imediato no banco; o servidor atualiza o estado vivo, transmite deltas por websocket e marca o snapshot como pendente de persistencia.
+* Os eventos canonicos de persistencia do estado VTT sao `Iniciar Sessao`, `Pausar Sessao`, `Retomar Sessao`, `Encerrar Sessao` e `Trocar de Cena`.
+* Uma acao fora dos eventos canonicos so pode persistir estado VTT quando declarar explicitamente uma razao de persistencia forcada; movimento comum de Token nunca e uma dessas razoes.
 * Drop ou movimento de token durante sessao online nao deve disparar loading global nem reaplicar snapshot completo da cena para os sockets conectados.
+* Selecionar um Token por duplo clique e entrar no modo local de redimensionamento/rotacao nao deve solicitar novamente o snapshot da cena nem disparar loading global.
 * A troca de cena pelo Mestre pausa automaticamente a sessao quando ela esta online.
 * A cena nova nao e revelada automaticamente para todos; a visao dos jogadores continua seguindo `forcedSceneId` ou a cena do proprio token.
 * Sem cena forcada, a visao do jogador e derivada da cena do proprio token.
@@ -36,6 +38,8 @@ Antes deste modulo, a cena funcionava como troca de imagem de background. A part
 * O fluxo `Preparar cena` cria cenas vazias sem obrigar upload.
 * Vincular imagem a uma cena e uma acao separada, acionada por menu proprio da cena.
 * Redimensionar ou alterar o formato do grid nao remove tokens e nao deve exibir aviso de remocao.
+* A distancia fisica de cada celula varia de `0.5m` a `10m` em passos de `0.5m`, com default de `1.5m`.
+* O tamanho visual de cada celula varia de `50px` a `200px`, com default de `100px`.
 * O grid possui deslocamento fino persistente nos eixos X e Y para alinhar suas linhas ao background sem alterar o tamanho das celulas.
 * Tokens permanecem relativos ao grid e acompanham alteracoes de tamanho e deslocamento. Paredes e portas usam coordenadas absolutas da cena e nao se movem quando o grid e recalibrado.
 * Posicionamentos so sao removidos por acoes explicitas do Mestre ou pela exclusao da cena; o Token da campanha e preservado.

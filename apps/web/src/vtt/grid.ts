@@ -22,24 +22,22 @@ export type VttGridChangedPayload = {
 export const defaultGridSettings: VttGridSettings = {
   visible: false,
   shape: 'square',
-  size: 32,
+  size: 100,
   offsetX: 0,
   offsetY: 0,
-  metersPerCell: 1,
+  metersPerCell: 1.5,
   squareMeasurementColor: '#f97316',
   hexMeasurementColor: '#f97316',
   lineWidth: 1,
   color: '#94a3b8',
 }
 
-const gridSizeLimits = { min: 24, max: 96 }
+export const gridSizeLimits = { min: 50, max: 200 }
 const gridLineWidthLimits = { min: 1, max: 4 }
-export const metersPerCellAllowedValues = [
-  0.5,
-  ...Array.from({ length: 10 }, (_, index) => index + 1),
-  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 10),
-  ...Array.from({ length: 9 }, (_, index) => (index + 2) * 100),
-] as const
+export const metersPerCellAllowedValues = Array.from(
+  { length: 20 },
+  (_, index) => (index + 1) * 0.5,
+)
 
 function isGridShape(value: unknown): value is VttGridShape {
   return value === 'square' || value === 'hex'

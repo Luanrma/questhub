@@ -1,48 +1,9 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { io, Socket } from 'socket.io-client'
 import { api } from '../lib/api'
 import type { Me } from '../lib/api'
 import type { VttGridSettings } from '../vtt/grid'
-
-export type Campaign = {
-  id: string
-  title: string
-  description?: string | null
-  inviteCode: string | null
-  gmName: string
-  gmUserId: string
-  joinPolicy: 'PUBLIC' | 'PRIVATE'
-  createdAt: string
-  myRole: 'MASTER' | 'PLAYER'
-  myStatus?: 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
-  isOnline: boolean
-  sessionState?: 'ACTIVE' | 'PAUSED' | null
-}
-
-type SessionContextValue = {
-  me: Me | null
-  loading: boolean
-  campaigns: Campaign[]
-  campaignsLoading: boolean
-  activeCampaignId: string | null
-  socket: Socket | null
-  refreshMe: () => Promise<void>
-  loadCampaigns: (options?: { force?: boolean }) => Promise<void>
-  setActiveCampaignId: (campaignId: string | null) => void
-  enterPresence: (params: { campaignId: string }) => Promise<void>
-  startCampaignSession: (params: { campaignId: string }) => Promise<void>
-  endCampaignSession: (params: { campaignId: string }) => Promise<void>
-  pauseCampaignSession: (params: { campaignId: string }) => Promise<void>
-  resumeCampaignSession: (params: { campaignId: string }) => Promise<void>
-  updateVttGridSettings: (params: {
-    campaignId: string
-    sceneId?: string
-    settings: VttGridSettings
-  }) => Promise<void>
-  connectRealtime: () => Socket
-  signIn: (params: { email: string; password: string }) => Promise<void>
-  logout: () => Promise<void>
-}
+import { SessionContext, type Campaign } from './session-context'
 
 type PresenceAck = {
   ok: boolean
@@ -61,8 +22,6 @@ type SessionStatePayload = {
   campaignId?: string
   state?: 'ACTIVE' | 'PAUSED' | null
 }
-
-const SessionContext = createContext<SessionContextValue | null>(null)
 
 const ACTIVE_CAMPAIGN_STORAGE_KEY = 'questhub.activeCampaignId'
 
@@ -103,7 +62,7 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
 
   async function loadCampaigns(options?: { force?: boolean }) {
     const now = Date.now()
-    if (!options?.force && now - lastCampaignsRefreshRef.current < 800) return
+    if (!options?.force && now - lastCampaignsRefreshRef.current < 800) return campaigns
     lastCampaignsRefreshRef.current = now
 
     setCampaignsLoading(true)
@@ -114,6 +73,8 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
       if (activeCampaignId && !list.some((campaign) => campaign.id === activeCampaignId)) {
         setActiveCampaignId(null)
       }
+
+      return list
     } finally {
       setCampaignsLoading(false)
     }
@@ -333,10 +294,4 @@ export function SessionProvider({ children }: { children: React.ReactNode }) {
   }
 
   return <SessionContext.Provider value={value}>{children}</SessionContext.Provider>
-}
-
-export function useSession() {
-  const ctx = useContext(SessionContext)
-  if (!ctx) throw new Error('useSession deve ser usado dentro de <SessionProvider>')
-  return ctx
 }

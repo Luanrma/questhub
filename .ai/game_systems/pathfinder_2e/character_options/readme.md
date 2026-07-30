@@ -30,6 +30,8 @@ determinísticos que podem ser aplicados sem executar Rule Elements genéricos.
   badges ou outros marcadores na opção.
 - todas as Heranças atualmente selecionáveis possuem label `pt-BR`; novas
   Heranças não podem entrar no catálogo sem cobertura explícita.
+- todos os Backgrounds atualmente selecionáveis possuem label `pt-BR`; novas
+  opções não podem entrar no catálogo sem cobertura explícita.
 - trocar a Ancestralidade limpa uma Herança específica incompatível.
 - Classe não altera nem restringe Ancestralidade nas regras básicas de PF2e.
 - a relação estrutural obrigatória deste recorte é
@@ -42,7 +44,8 @@ determinísticos que podem ser aplicados sem executar Rule Elements genéricos.
 
 - Ancestralidade: PV ancestrais e deslocamento terrestre base;
 - Herança: compatibilidade com Ancestralidade;
-- Background: treinamento nas perícias fixas declaradas pelo catálogo;
+- Background (exibido como `Antecedente` em pt-BR): treinamento nas perícias
+  fixas declaradas pelo catálogo;
 - Classe: PV por nível, Percepção, saves, perícias fixas e proficiências de
   armadura iniciais;
 - Divindade: requisito de completude para Cleric e Champion.

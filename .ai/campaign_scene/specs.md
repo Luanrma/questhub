@@ -167,10 +167,12 @@ Regras:
 * `size` representa o tamanho visual da celula em pixels antes do zoom local.
 * `size` nao representa distancia do mundo: ele alinha o grid ao mapa, enquanto `metersPerCell` define a escala fisica de cada quadrado ou hexagono.
 * `offsetX` e `offsetY` representam o ajuste fino da origem do grid em pixels da cena, entre `-96` e `96`, antes do zoom local.
-* `size` deve respeitar minimo de `24px` e maximo de `96px`.
+* `size` deve respeitar minimo de `50px` e maximo de `200px`, em passos inteiros de `1px`.
+* O default de `size` para novas cenas e `100px`.
 * `lineWidth` deve respeitar minimo de `1px` e maximo de `4px`.
-* Em grids quadrados e hexagonais, `metersPerCell` representa quantos metros lineares cada celula representa e aceita valores decimais entre `0.01` e `10000` sem ajuste para uma lista predefinida.
-* A UI deve oferecer inputs numericos vinculados de metros e pes para ambos os formatos, usando `feet = meters / 0.3048` e `meters = feet * 0.3048`.
+* Em grids quadrados e hexagonais, `metersPerCell` representa quantos metros lineares cada celula representa e aceita somente valores entre `0.5m` e `10m`, em passos de `0.5m`.
+* O default de `metersPerCell` para novas cenas e `1.5m`.
+* A UI deve oferecer um controle discreto de metros para ambos os formatos. A apresentacao equivalente em pes usa `feet = meters / 0.3048`.
 * Pes sao apenas uma unidade de entrada/apresentacao; somente `metersPerCell` integra o snapshot persistido.
 * A UI deve informar `1 celula = Xm = Yft` e que os `size` pixels configurados representam essa mesma distancia fisica.
 * A regra antiga baseada em area (`squareMeters` e `sqrt(squareMeters)`) deve ser substituida por `metersPerCell`.
@@ -290,22 +292,25 @@ Regras:
 
 Regras:
 * Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
-* Durante uma sessao online, alteracoes de grid e tokens ficam em estado vivo da sessao, mantido em memoria/cache e transmitido por websocket.
+* Alteracoes de grid durante a preparacao offline ou a sessao online ficam em estado vivo, mantido em memoria/cache e transmitido por websocket.
 * Consultas administrativas de Tokens e respostas de atualizacao de metadados devem reconciliar `CampaignTokenPlacement` persistido com o posicionamento vivo quando a sessao estiver hidratada. A ausencia do Token no mapa vivo de posicionamentos significa `placement = null`, mesmo que o snapshot persistido ainda o posicione.
-* Alteracoes de grid e tokens durante a sessao online nao devem disparar escrita no banco a cada evento, para evitar loops de snapshot e inconsistencias visuais.
+* Alteracoes de grid nao devem disparar escrita no banco a cada evento, independentemente de a campanha estar offline, pausada ou em andamento.
 * Criar o posicionamento de um Token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignTokenPlacement` antes de atualizar os clients.
-* Drop, movimento, visibilidade e remocao de token durante sessao online devem marcar a cena como dirty para persistencia posterior.
-* Autosave eventual pode persistir cenas dirty em intervalos controlados, coalescendo varias alteracoes em um unico snapshot por cena.
-* Ao iniciar sessao, o servidor deve persistir o estado atual preparado pelo Mestre antes de colocar a campanha online.
-* Ao iniciar sessao, o servidor deve hidratar o estado vivo a partir do snapshot persistido mais recente, incluindo remocoes e reposicionamentos feitos pelo Mestre durante a manutencao offline.
-* Ao encerrar sessao, o servidor deve persistir o ultimo estado vivo da mesa para que a proxima sessao comece como a anterior terminou.
-* Eventos que podem persistir estado fora da sessao online:
-  * preparo de cena com campanha offline;
-  * autosave eventual de cenas dirty durante sessao online;
-  * iniciar sessao;
-  * encerrar sessao;
-  * fechamento do modal `Preparar cena`, quando houver alteracoes pendentes.
-* O frontend pode atualizar estado de forma otimista, mas a fonte da verdade persistida deve ser atualizada pelos eventos acima.
+* Drop, movimento, rotacao, camada, visibilidade e remocao de token, online ou offline, devem marcar a campanha como dirty para persistencia posterior.
+* Ao iniciar sessao, o servidor deve primeiro persistir o estado vivo preparado pelo Mestre e depois hidratar o estado da sessao a partir desse snapshot.
+* Ao pausar sessao, o servidor deve persistir o estado vivo antes de confirmar `PAUSED`.
+* Ao retomar sessao, o servidor deve persistir o estado vivo antes de confirmar `IN_PROGRESS`.
+* Ao encerrar sessao, o servidor deve persistir o ultimo estado vivo antes de limpar a sessao.
+* Ao trocar de cena, o servidor deve persistir o estado vivo da cena anterior antes de alterar `masterActiveSceneId`, tanto offline quanto online.
+* Os eventos canonicos de persistencia de todo o estado VTT pendente, incluindo grid e posicionamentos de Tokens, sao:
+  * `presence:session:start` (`Iniciar Sessao`);
+  * `presence:session:pause` (`Pausar Sessao`);
+  * `presence:session:resume` (`Retomar Sessao`);
+  * `presence:session:end` (`Encerrar Sessao`);
+  * `vtt:scene:select` (`Trocar de Cena`).
+* Uma acao fora dessa lista pode forcar persistencia quando sua regra exigir durabilidade imediata, mas deve fornecer um trigger explicito `FORCED` com uma razao nomeada e passar pela fila serializada da campanha.
+* Persistencia forcada nunca pode ser inferida de `vtt:token:move`, `vtt:token:move-path` ou de qualquer atualizacao intermediaria de arraste.
+* O frontend pode atualizar estado de forma otimista, mas a fonte da verdade persistida deve ser atualizada pelos eventos canonicos ou por uma acao explicitamente forcada.
 * Ao entrar na campanha, o cliente deve receber snapshot da cena que deve visualizar e metadados suficientes para cachear imagens.
 * Configuracao de FOG e fontes fixas fazem parte do snapshot da cena.
 * Memoria de exploracao e persistida separadamente por `sceneId + tokenId` e segue revisoes e checkpoints definidos em `.ai/fog_of_war/specs.md`.
@@ -449,7 +454,9 @@ Regras:
 * Cenas persistem imagem, grid e tokens de forma independente.
 * Alterar grid em uma cena nao altera outra cena.
 * Alterar `metersPerCell` muda a medicao em metros do grid quadrado daquela cena.
-* Informar `5ft` na escala do grid resulta em `1.524m` por celula e permanece equivalente ao reabrir a configuracao.
+* A escala do grid oferece todos os valores de `0.5m` a `10m` em passos de `0.5m` e inicia em `1.5m` para novas cenas.
+* O tamanho visual oferece valores de `50px` a `200px` e inicia em `100px` para novas cenas.
+* Valores legados fora dos novos intervalos sao normalizados na borda da aplicacao para o valor permitido mais proximo, preferindo o menor em caso de empate.
 * Grid hexagonal expoe `metersPerCell` para calculos metricos de visao e luz sem alterar sua medicao de movimento por passos.
 * Tokens mantem posicao logica ao alterar tamanho visual do grid.
 * Tokens acompanham o ajuste fino X/Y do grid, enquanto paredes permanecem ancoradas ao background.
@@ -465,7 +472,9 @@ Regras:
 * Dropar token durante sessao online nao exibe loading global para o Mestre nem para Players conectados.
 * Dropar token durante sessao online nao deforma grid, background, dimensoes do board, zoom ou pan.
 * Dropar token durante sessao online emite delta de token para sockets autorizados, sem reenviar snapshot completo da cena.
+* Dar duplo clique em um Token ativa seus controles locais de transformacao sem exibir loading global, solicitar `vtt:scene:request` ou reaplicar snapshot da cena.
 * Trocar cena pelo Mestre pausa automaticamente a sessao online.
+* Alterar repetidamente os controles do grid nao executa escrita no banco antes de um evento canonico.
 * Trocar cena, receber snapshot de cena ou carregar background nao deve expor ao usuario o reajuste visual intermediario de imagem, grid e tokens.
 * Retomar sessao nao revela automaticamente a nova cena para todos.
 * Player ve a cena onde seu token esta quando nao ha cena forcada.

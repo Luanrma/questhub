@@ -2,8 +2,8 @@ import { useState, type CSSProperties } from 'react'
 import { Palette, SlidersHorizontal, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { metersToFeet } from '../../area-templates/domain/measurement'
-import { metersPerCellAllowedValues, normalizeMetersPerCell, type VttGridSettings, type VttGridShape } from '../../grid'
-import { gridLineWidthLimits, gridSizeLimits } from '../config/constants'
+import { gridSizeLimits, metersPerCellAllowedValues, normalizeMetersPerCell, type VttGridSettings, type VttGridShape } from '../../grid'
+import { gridLineWidthLimits } from '../config/constants'
 
 const distanceFormatter = new Intl.NumberFormat('pt-BR', { maximumFractionDigits: 4 })
 
@@ -149,7 +149,7 @@ export function VttGridSettingsModal({
               <span className="text-zinc-200">Tamanho visual da celula</span>
               <span className="text-zinc-400">{settings.size}px</span>
             </div>
-            <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} value={settings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
+            <input type="range" min={gridSizeLimits.min} max={gridSizeLimits.max} step={1} value={settings.size} className="accent-indigo-500" onChange={(event) => updateSetting('size', Number(event.target.value))} />
           </label>
 
           <label className="grid gap-2 text-sm">

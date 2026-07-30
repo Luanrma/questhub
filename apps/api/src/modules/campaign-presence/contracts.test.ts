@@ -3,6 +3,7 @@ import test from 'node:test'
 import {
   vttCombatAdjustInitiativeSchema,
   vttCombatParticipantsSchema,
+  vttGridSettingsSchema,
   vttTokenPlaceSchema,
 } from './contracts'
 
@@ -52,4 +53,24 @@ test('active encounter participant commands require unique bounded token ids', (
     campaignId: 'campaign-1',
     tokenIds: ['token-1', 'token-1'],
   }).success, false)
+})
+
+test('realtime grid contract accepts only canonical cell size and distance values', () => {
+  const settings = {
+    visible: true,
+    shape: 'square',
+    size: 100,
+    offsetX: 0,
+    offsetY: 0,
+    metersPerCell: 1.5,
+    squareMeasurementColor: '#f97316',
+    hexMeasurementColor: '#f97316',
+    lineWidth: 1,
+    color: '#94a3b8',
+  }
+
+  assert.equal(vttGridSettingsSchema.safeParse(settings).success, true)
+  assert.equal(vttGridSettingsSchema.safeParse({ ...settings, size: 49 }).success, false)
+  assert.equal(vttGridSettingsSchema.safeParse({ ...settings, size: 201 }).success, false)
+  assert.equal(vttGridSettingsSchema.safeParse({ ...settings, metersPerCell: 1.25 }).success, false)
 })

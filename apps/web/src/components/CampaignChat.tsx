@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { FormEvent, ReactNode } from 'react'
 import { MessageCircle, Send } from 'lucide-react'
 import { api, ApiError } from '../lib/api'
-import { useSession } from '../contexts/SessionContext'
+import { useSession } from '../contexts/session-context'
 
 type ChatRole = 'MASTER' | 'PLAYER'
 

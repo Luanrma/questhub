@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../components/Button'
-import { useSession } from '../contexts/SessionContext'
+import { useSession } from '../contexts/session-context'
 import { api, ApiError } from '../lib/api'
 import { getGameSystemOption, type GameSystemKey } from '../game-systems/registry'
+import { canOpenCampaignTable } from '../features/campaigns/domain/campaignAccess'
 
 type FoundCampaign = {
   id: string
@@ -74,10 +75,21 @@ export function CampaignJoinPage() {
         }),
       })
 
-      await loadCampaigns({ force: true })
+      const campaigns = await loadCampaigns({ force: true })
 
       if (joined.status === 'PENDING') {
         alert('Solicitação enviada! Aguarde o Mestre aprovar. Os atores e fichas serão atribuídos dentro da campanha.')
+        navigate('/campaigns', { replace: true })
+        return
+      }
+
+      const joinedCampaign = campaigns.find((item) => item.id === joined.id)
+      if (!joinedCampaign || !canOpenCampaignTable({
+        role: joinedCampaign.myRole,
+        status: joinedCampaign.myStatus,
+        isOnline: joinedCampaign.isOnline,
+      })) {
+        setActiveCampaignId(null)
         navigate('/campaigns', { replace: true })
         return
       }

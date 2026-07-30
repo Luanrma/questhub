@@ -65,6 +65,7 @@ test('presentCampaignScene maps square grid and tokens', () => {
   })
 
   assert.equal(result.grid.shape, 'square')
+  assert.equal(result.grid.size, 50)
   assert.equal(result.grid.metersPerCell, 1.5)
   assert.equal(result.grid.offsetX, 3)
   assert.equal(result.grid.offsetY, -2)
@@ -131,4 +132,6 @@ test('presentCampaignScene keeps a generic token without CampaignActor', () => {
   assert.equal(result.tokens[0]?.actorId, null)
   assert.equal(result.tokens[0]?.role, 'GENERIC')
   assert.equal(result.tokens[0]?.name, 'Cavalo')
+  assert.equal(result.grid.size, 50)
+  assert.equal(result.grid.metersPerCell, 1)
 })

@@ -1,8 +1,5 @@
 import type { ComponentType } from 'react'
-import {
-  Pathfinder2eCharacterSheetRenderer,
-  type Pathfinder2eCharacterSheetPage,
-} from '../features/pathfinder-2e/character-sheet/Pathfinder2eCharacterSheetRenderer'
+import { PathfinderCharacterSheetAdapter } from './PathfinderCharacterSheetAdapter'
 import type { GameSystemKey } from './registry'
 
 export type CharacterSheetRendererProps = {
@@ -28,20 +25,10 @@ const pathfinderPages: readonly CharacterSheetPageDescriptor[] = [
   { id: 'notes', label: 'Anotações' },
 ]
 
-function PathfinderRenderer(props: CharacterSheetRendererProps) {
-  return (
-    <Pathfinder2eCharacterSheetRenderer
-      campaignId={props.campaignId}
-      sheetId={props.sheetId}
-      activePage={props.activePage as Pathfinder2eCharacterSheetPage}
-    />
-  )
-}
-
 const registrations: Partial<Record<GameSystemKey, CharacterSheetRendererRegistration>> = {
   PATHFINDER_2E: {
     pages: pathfinderPages,
-    Renderer: PathfinderRenderer,
+    Renderer: PathfinderCharacterSheetAdapter,
   },
 }
 

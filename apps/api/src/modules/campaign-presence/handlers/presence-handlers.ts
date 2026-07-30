@@ -3,8 +3,13 @@ import { prisma } from '../../../db/prisma'
 import type { PresenceAck, VttTableScene } from '../contracts'
 import type { CampaignPresenceState } from '../live-state'
 import { campaignRoom, userRoom } from '../rooms'
+import {
+  canonicalVttPersistenceTrigger,
+  type VttPersistenceTrigger,
+} from '../application/vtt-persistence-policy'
 
 type AuthenticatedSocketUser = { id: string }
+type RunCampaignMutation = <Result>(campaignId: string, mutation: () => Promise<Result>) => Promise<Result>
 
 type PresenceHandlersDependencies = {
   io: SocketIOServer
@@ -18,8 +23,9 @@ type PresenceHandlersDependencies = {
   emitVisibleTableSnapshot: (campaignId: string, socket: { id: string; data: unknown }) => Promise<void>
   notifyCampaignStatus: (campaignId: string, online: boolean) => Promise<void>
   hydrateCampaignLiveState: (campaignId: string) => Promise<void>
-  persistCampaignLiveState: (campaignId: string) => Promise<void>
-  endCampaignSession: (campaignId: string, message: string) => Promise<void>
+  persistCampaignLiveState: (campaignId: string, trigger: VttPersistenceTrigger) => Promise<void>
+  endCampaignSession: (campaignId: string, message: string, trigger: VttPersistenceTrigger) => Promise<void>
+  runCampaignMutation: RunCampaignMutation
 }
 
 export function registerPresenceHandlers(socket: Socket, dependencies: PresenceHandlersDependencies) {
@@ -37,6 +43,7 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
     hydrateCampaignLiveState,
     persistCampaignLiveState,
     endCampaignSession,
+    runCampaignMutation,
   } = dependencies
 
   const user = socket.data.user as AuthenticatedSocketUser
@@ -71,8 +78,9 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         socket.data.memberRole = campaignMember.role
         socket.join(campaignRoom(campaignId))
         state.setUserPresence(user.id, { socketId: socket.id, campaignId })
-        await hydrateCampaignLiveState(campaignId)
-        await persistCampaignLiveState(campaignId)
+        await runCampaignMutation(campaignId, () =>
+          persistCampaignLiveState(campaignId, canonicalVttPersistenceTrigger('presence:session:start')),
+        )
         state.clearTransientVttState(campaignId)
         await hydrateCampaignLiveState(campaignId)
         state.setCampaignOnline(campaignId, {
@@ -107,7 +115,13 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
       }
 
       await requestFogExplorationFlush(campaignId, 'END')
-      await endCampaignSession(campaignId, 'O mestre encerrou a sessao.')
+      await runCampaignMutation(campaignId, () =>
+        endCampaignSession(
+          campaignId,
+          'O mestre encerrou a sessao.',
+          canonicalVttPersistenceTrigger('presence:session:end'),
+        ),
+      )
       ack?.({ ok: true })
     } catch {
       ack?.({ ok: false, error: 'Erro ao encerrar sessao' })
@@ -128,6 +142,9 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
       }
 
       await requestFogExplorationFlush(campaignId, 'PAUSE')
+      await runCampaignMutation(campaignId, () =>
+        persistCampaignLiveState(campaignId, canonicalVttPersistenceTrigger('presence:session:pause')),
+      )
       state.setCampaignOnline(campaignId, { ...online, state: 'PAUSED' })
       await emitCampaignSessionState(campaignId)
       ack?.({ ok: true })
@@ -149,6 +166,9 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
         return
       }
 
+      await runCampaignMutation(campaignId, () =>
+        persistCampaignLiveState(campaignId, canonicalVttPersistenceTrigger('presence:session:resume')),
+      )
       state.setCampaignOnline(campaignId, { ...online, state: 'ACTIVE' })
       await emitCampaignSessionState(campaignId)
       if (state.hasPendingCampaignScene(campaignId)) {
@@ -227,7 +247,11 @@ export function registerPresenceHandlers(socket: Socket, dependencies: PresenceH
     if (role === 'MASTER') {
       const online = state.getCampaignOnline(prev.campaignId)
       if (online?.masterSocketId === socket.id) {
-        endCampaignSession(prev.campaignId, 'O mestre foi desconectado da sessao.')
+        endCampaignSession(
+          prev.campaignId,
+          'O mestre foi desconectado da sessao.',
+          canonicalVttPersistenceTrigger('presence:session:end'),
+        )
           .catch(() => {})
       }
     }

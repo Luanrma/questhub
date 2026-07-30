@@ -2,9 +2,11 @@ import { useMemo } from 'react'
 import { Plus, ScrollText } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '../../../components/Button'
-import { useSession } from '../../../contexts/SessionContext'
-
-type CampaignMemberStatus = 'PENDING' | 'ACTIVE' | 'REJECTED' | 'LEFT'
+import { useSession } from '../../../contexts/session-context'
+import {
+  canOpenCampaignTable,
+  type CampaignMemberStatus,
+} from '../domain/campaignAccess'
 
 const roleLabel = {
   MASTER: 'Mestre',
@@ -23,12 +25,6 @@ const statusClassName: Record<CampaignMemberStatus, string> = {
   PENDING: 'bg-amber-400/10 text-amber-200 border-amber-300/20',
   REJECTED: 'bg-red-400/10 text-red-200 border-red-300/20',
   LEFT: 'bg-zinc-400/10 text-zinc-200 border-zinc-300/20',
-}
-
-function canEnterCampaign(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignMemberStatus; isOnline: boolean }) {
-  if (params.status !== 'ACTIVE') return false
-  if (params.role === 'MASTER') return true
-  return params.isOnline
 }
 
 function getEnterButtonLabel(params: { role: 'MASTER' | 'PLAYER'; status?: CampaignMemberStatus; isOnline: boolean }) {
@@ -184,7 +180,7 @@ export function CampaignsDashboardPage() {
 
                     <Button
                       className="px-3 py-1.5 text-xs"
-                      disabled={!canEnterCampaign({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}
+                      disabled={!canOpenCampaignTable({ role: c.myRole, status: c.myStatus, isOnline: c.isOnline })}
                       onClick={() => {
                         if (c.myRole === 'PLAYER' && !c.isOnline) {
                           alert('Sessão offline. Aguarde o mestre iniciar a sessão.')

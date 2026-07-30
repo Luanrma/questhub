@@ -128,3 +128,5 @@ senão: usar speedFeet da Ancestralidade × 0,3
 12. nenhuma alteração de schema Prisma é necessária.
 13. toda Herança selecionável possui `labels['pt-BR']`, mesmo quando o nome
     próprio permanece igual ao original.
+14. todo Background selecionável possui `labels['pt-BR']` e a interface da
+    ficha o identifica como `Antecedente`.

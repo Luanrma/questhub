@@ -4,7 +4,7 @@ import { Grip, MapPinned, Maximize2, Minimize2, Pause, Play, Power, X } from 'lu
 import { Aside } from '../components/Aside'
 import { LoadingScreen } from '../components/LoadingScreen'
 import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
-import { useSession } from '../contexts/SessionContext'
+import { useSession } from '../contexts/session-context'
 import { Button } from '../components/Button'
 import { api } from '../lib/api'
 import { CampaignOverviewPage } from '../vtt/table/CampaignOverviewPage'
@@ -23,6 +23,7 @@ import {
   storeCampaignUserSettings,
   type CampaignUserSettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
+import { canOpenCampaignTable } from '../features/campaigns/domain/campaignAccess'
 
 type CampaignPanelId = 'sessions' | 'characters' | 'players' | 'journal' | 'settings'
 
@@ -191,10 +192,12 @@ export function CampaignLayout() {
     if (!campaignId || isTableRoute) return
     const panelId = panelIdFromPath(location.pathname)
     if (!panelId) return
-    openCampaignPanel(panelId)
-    navigate(`/campaign/${campaignId}/overview`, { replace: true })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [campaignId, isTableRoute, location.pathname])
+    const timeoutId = window.setTimeout(() => {
+      setOpenPanels((current) => [...current.filter((item) => item !== panelId), panelId])
+      navigate(`/campaign/${campaignId}/overview`, { replace: true })
+    }, 0)
+    return () => window.clearTimeout(timeoutId)
+  }, [campaignId, isTableRoute, location.pathname, navigate])
 
   useEffect(() => {
     if (!campaignId || !campaign) return
@@ -240,7 +243,7 @@ export function CampaignLayout() {
     storeGridSettings(campaignId, nextSettings)
 
     if (options?.realtime === false) return
-    if (!isMaster || !campaign?.isOnline) return
+    if (!isMaster) return
     updateVttGridSettings({
       campaignId,
       sceneId: options?.sceneId,
@@ -362,6 +365,14 @@ export function CampaignLayout() {
 
   if (!campaign) {
     // não tem acesso / não existe na lista do usuário
+    return <Navigate to="/campaigns" replace />
+  }
+
+  if (!canOpenCampaignTable({
+    role: campaign.myRole,
+    status: campaign.myStatus,
+    isOnline: campaign.isOnline,
+  })) {
     return <Navigate to="/campaigns" replace />
   }
 

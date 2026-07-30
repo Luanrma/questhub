@@ -44,6 +44,11 @@ import {
   type VttCombatParticipant,
 } from './domain/encounter'
 import { selectPlayerVisibleSceneId } from './domain/scene-visibility'
+import { CampaignMutationQueue } from './application/campaign-mutation-queue'
+import {
+  canonicalVttPersistenceTrigger,
+  type VttPersistenceTrigger,
+} from './application/vtt-persistence-policy'
 import { registerPresenceHandlers } from './handlers/presence-handlers'
 import { CampaignPresenceState } from './live-state'
 import { sceneGridToVttSettings, tableTokenFromPersistedToken, vttGridSettingsToSceneData } from './mappers'
@@ -61,6 +66,9 @@ export function setupCampaignPresence(server: HttpServer) {
   })
 
   const state = new CampaignPresenceState()
+  const campaignMutationQueue = new CampaignMutationQueue()
+  const runCampaignMutation = campaignMutationQueue.run.bind(campaignMutationQueue)
+  const campaignVttHydrationPromises = new Map<string, Promise<void>>()
 
   function isCampaignOnline(campaignId: string) {
     return state.isCampaignOnline(campaignId)
@@ -101,8 +109,8 @@ export function setupCampaignPresence(server: HttpServer) {
     }
   }
 
-  async function endCampaignSession(campaignId: string, message: string) {
-    await persistCampaignLiveState(campaignId)
+  async function endCampaignSession(campaignId: string, message: string, trigger: VttPersistenceTrigger) {
+    await persistCampaignLiveState(campaignId, trigger)
     state.clearCampaignSession(campaignId)
     await notifyCampaignStatus(campaignId, false)
 
@@ -210,6 +218,7 @@ export function setupCampaignPresence(server: HttpServer) {
     }
 
     removeCombatParticipants(campaignId, tokensToRemove.map((token) => token.id))
+    if (tokensToRemove.length) state.markCampaignVttStateDirty(campaignId)
 
     if (!options.sceneId) {
       tokenSceneMap.clear()
@@ -515,9 +524,27 @@ export function setupCampaignPresence(server: HttpServer) {
     state.setCampaignSceneGridSettings(campaignId, sceneGridMap)
     state.setCampaignTokens(campaignId, tokenMap)
     state.setCampaignTokenSceneIds(campaignId, tokenSceneMap)
+    state.markCampaignVttStateHydrated(campaignId)
+    state.clearCampaignVttStateDirty(campaignId)
   }
 
-  async function persistCampaignLiveState(campaignId: string) {
+  async function ensureCampaignLiveStateHydrated(campaignId: string) {
+    if (state.isCampaignVttStateHydrated(campaignId)) return
+
+    const currentHydration = campaignVttHydrationPromises.get(campaignId)
+    if (currentHydration) return currentHydration
+
+    const hydration = hydrateCampaignLiveState(campaignId)
+      .finally(() => campaignVttHydrationPromises.delete(campaignId))
+    campaignVttHydrationPromises.set(campaignId, hydration)
+    return hydration
+  }
+
+  async function persistCampaignLiveState(campaignId: string, trigger: VttPersistenceTrigger) {
+    await ensureCampaignLiveStateHydrated(campaignId)
+    if (!state.hasDirtyCampaignVttState(campaignId)) return
+    void trigger
+
     const sceneGridMap = state.getCampaignSceneGridSettings(campaignId)
     const tokenMap = state.getCampaignTokens(campaignId)
     const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
@@ -533,7 +560,10 @@ export function setupCampaignPresence(server: HttpServer) {
       )
     }
 
-    if (!tokenMap || !tokenSceneMap) return
+    if (!tokenMap || !tokenSceneMap) {
+      state.clearCampaignVttStateDirty(campaignId)
+      return
+    }
 
     await prisma.$transaction(async (tx) => {
       await tx.campaignTokenPlacement.deleteMany({ where: { token: { campaignId } } })
@@ -569,47 +599,19 @@ export function setupCampaignPresence(server: HttpServer) {
         })
       }
     })
+    state.clearCampaignVttStateDirty(campaignId)
   }
 
   function setLiveSceneGrid(campaignId: string, sceneId: string, settings: VttGridSettings) {
     getCampaignSceneGridMap(campaignId).set(sceneId, settings)
     state.setCampaignGridSettings(campaignId, settings)
+    state.markCampaignVttStateDirty(campaignId)
   }
 
   function setLiveSceneToken(campaignId: string, sceneId: string, token: VttPlayerToken) {
     getCampaignTokenMap(campaignId).set(token.id, token)
     getCampaignTokenSceneMap(campaignId).set(token.id, sceneId)
-  }
-
-  async function persistSceneToken(campaignId: string, sceneId: string, token: VttPlayerToken) {
-    const scene = await prisma.campaignScene.findFirst({
-      where: { id: sceneId, campaignId },
-      select: { id: true },
-    })
-    if (!scene) return
-
-    await prisma.campaignTokenPlacement.upsert({
-      where: { tokenId: token.id },
-      create: {
-        tokenId: token.id,
-        sceneId,
-        hidden: token.hidden,
-        positionX: token.position.x,
-        positionY: token.position.y,
-        rotation: token.rotation,
-        layer: token.layer,
-        blocksVisionAndLight: token.blocksVisionAndLight,
-      },
-      update: {
-        sceneId,
-        hidden: token.hidden,
-        positionX: token.position.x,
-        positionY: token.position.y,
-        rotation: token.rotation,
-        layer: token.layer,
-        blocksVisionAndLight: token.blocksVisionAndLight,
-      },
-    })
+    state.markCampaignVttStateDirty(campaignId)
   }
 
   function getDefaultSceneDimensions(grid: VttGridSettings) {
@@ -743,6 +745,7 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   async function emitVisibleTableSnapshot(campaignId: string, socket: { id: string; data: any }) {
+    await ensureCampaignLiveStateHydrated(campaignId)
     const sceneId = await getVisibleSceneIdForSocket(campaignId, socket)
     const scene = await findTableScene(campaignId, sceneId)
 
@@ -817,8 +820,9 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   function removeCampaignTokenFromLiveState(campaignId: string, tokenId: string) {
-    state.getCampaignTokens(campaignId)?.delete(tokenId)
-    state.getCampaignTokenSceneIds(campaignId)?.delete(tokenId)
+    const tokenRemoved = state.getCampaignTokens(campaignId)?.delete(tokenId) ?? false
+    const placementRemoved = state.getCampaignTokenSceneIds(campaignId)?.delete(tokenId) ?? false
+    if (tokenRemoved || placementRemoved) state.markCampaignVttStateDirty(campaignId)
     removeCombatParticipants(campaignId, [tokenId])
   }
 
@@ -852,6 +856,7 @@ export function setupCampaignPresence(server: HttpServer) {
   }
 
   async function removeScenePlacementsFromLiveState(campaignId: string, sceneId: string) {
+    await ensureCampaignLiveStateHydrated(campaignId)
     const tokenMap = state.getCampaignTokens(campaignId)
     const tokenSceneMap = state.getCampaignTokenSceneIds(campaignId)
     if (!tokenMap || !tokenSceneMap) return
@@ -864,10 +869,11 @@ export function setupCampaignPresence(server: HttpServer) {
       const token = tokenMap.get(tokenId)
       if (token) await emitSceneTokenRemoved(campaignId, sceneId, token)
     }
+    if (removedTokenIds.length) state.markCampaignVttStateDirty(campaignId)
     removeCombatParticipants(campaignId, removedTokenIds)
   }
 
-  async function removeCampaignToken(campaignId: string, tokenId: string, persistImmediately: boolean) {
+  async function removeCampaignToken(campaignId: string, tokenId: string) {
     const tokenMap = state.getCampaignTokens(campaignId)
     const token = tokenMap?.get(tokenId) ?? await findPersistedSceneToken(campaignId, tokenId)
     if (!token) return
@@ -882,7 +888,7 @@ export function setupCampaignPresence(server: HttpServer) {
     if (!sceneId) return
 
     state.getCampaignTokenSceneIds(campaignId)?.delete(tokenId)
-    if (persistImmediately) await prisma.campaignTokenPlacement.deleteMany({ where: { tokenId, token: { campaignId } } })
+    state.markCampaignVttStateDirty(campaignId)
     await emitSceneTokenRemoved(campaignId, sceneId, token)
     removeCombatParticipants(campaignId, [tokenId])
   }
@@ -918,6 +924,7 @@ export function setupCampaignPresence(server: HttpServer) {
       hydrateCampaignLiveState,
       persistCampaignLiveState,
       endCampaignSession,
+      runCampaignMutation,
     })
     socket.on('vtt:grid:update', async (input: unknown) => {
       try {
@@ -925,20 +932,19 @@ export function setupCampaignPresence(server: HttpServer) {
         if (!parsed.success) return
 
         const { campaignId, sceneId: requestedSceneId, settings } = parsed.data
-        const online = state.getCampaignOnline(campaignId)
-        if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+        await runCampaignMutation(campaignId, async () => {
+          const online = state.getCampaignOnline(campaignId)
+          if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+          await ensureCampaignLiveStateHydrated(campaignId)
 
-        const sceneId = requestedSceneId ?? (await getMasterActiveSceneId(campaignId))
-        if (!sceneId) return
-        if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
+          const sceneId = requestedSceneId ?? (await getMasterActiveSceneId(campaignId))
+          if (!sceneId) return
+          if (!(await sceneBelongsToCampaign(campaignId, sceneId))) return
 
-        setLiveSceneGrid(campaignId, sceneId, settings)
-        await prisma.campaignScene.update({
-          where: { id: sceneId },
-          data: vttGridSettingsToSceneData(settings),
+          setLiveSceneGrid(campaignId, sceneId, settings)
+          if (online) await emitSceneGridSettings(campaignId, sceneId, settings)
+          else socket.emit('vtt:grid:changed', { campaignId, sceneId, settings })
         })
-        if (online) await emitSceneGridSettings(campaignId, sceneId, settings)
-        else socket.emit('vtt:grid:changed', { campaignId, sceneId, settings })
       } catch {
         socket.emit('presence:error', { message: 'Nao foi possivel atualizar o grid da cena.' })
       }
@@ -962,6 +968,7 @@ export function setupCampaignPresence(server: HttpServer) {
         if (!(await sceneBelongsToCampaign(campaignId, sceneId))) {
           return reject('SCENE_NOT_FOUND', 'Cena nao encontrada')
         }
+        await ensureCampaignLiveStateHydrated(campaignId)
 
         const campaignToken = await prisma.campaignToken.findFirst({
           where: { id: tokenId, campaignId },
@@ -1012,7 +1019,6 @@ export function setupCampaignPresence(server: HttpServer) {
         setLiveSceneToken(campaignId, sceneId, token)
         if (online) await emitSceneTokenChanged(campaignId, sceneId, token, { refreshOwnerVisibleScene: true })
         else {
-          await persistSceneToken(campaignId, sceneId, token)
           socket.emit('vtt:token:changed', { campaignId, sceneId, token })
         }
         ack?.({ ok: true })
@@ -1038,6 +1044,7 @@ export function setupCampaignPresence(server: HttpServer) {
         socket.data.memberRole === 'PLAYER',
       )
       if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao permitido')
+      await ensureCampaignLiveStateHydrated(campaignId)
 
       const tokenMap = state.getCampaignTokens(campaignId)
       const cachedToken = tokenMap ? tokenMap.get(tokenId) : await findPersistedSceneToken(campaignId, tokenId)
@@ -1061,8 +1068,8 @@ export function setupCampaignPresence(server: HttpServer) {
         if (isMovementBlockedBySceneWalls({ from: toScenePixels(token.position), to: toScenePixels(position), walls: collision.walls })) return reject('INVALID_MOVE', 'Movimento bloqueado por uma barreira')
       }
       setLiveSceneToken(campaignId, sceneId, nextToken)
-      await emitSceneTokenChanged(campaignId, sceneId, nextToken)
-      if (!online) await persistSceneToken(campaignId, sceneId, nextToken)
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
+      else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
       ack?.({ ok: true })
     })
 
@@ -1083,6 +1090,7 @@ export function setupCampaignPresence(server: HttpServer) {
         socket.data.memberRole === 'PLAYER',
       )
       if (!isMasterMove && !isPlayerMove) return reject('FORBIDDEN', 'Movimento nao autorizado.')
+      await ensureCampaignLiveStateHydrated(campaignId)
       if (state.isTokenMovementActive(campaignId, tokenId)) return reject('TOKEN_MOVING', 'O Token ja esta em movimento.')
 
       const tokenMap = state.getCampaignTokens(campaignId)
@@ -1125,7 +1133,6 @@ export function setupCampaignPresence(server: HttpServer) {
         await emitSceneTokenMovementStarted(movement)
       } else {
         socket.emit('vtt:token:movement-started', movement)
-        await persistSceneToken(campaignId, sceneId, nextToken)
       }
       setTimeout(() => {
         const currentMeasurement = state.getCampaignMeasurement(campaignId)
@@ -1141,10 +1148,10 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!parsed.success) return
 
       const { campaignId, tokenId } = parsed.data
-      const online = state.getCampaignOnline(campaignId)
       if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      await ensureCampaignLiveStateHydrated(campaignId)
 
-      await removeCampaignToken(campaignId, tokenId, !online)
+      await removeCampaignToken(campaignId, tokenId)
     })
 
     socket.on('vtt:token:rotate', async (input: unknown) => {
@@ -1160,6 +1167,7 @@ export function setupCampaignPresence(server: HttpServer) {
         socket.data.memberRole === 'PLAYER',
       )
       if (!isMasterRotation && !isPlayerRotation) return
+      await ensureCampaignLiveStateHydrated(campaignId)
 
       const cachedToken = state.getCampaignTokens(campaignId)?.get(tokenId) ?? await findPersistedSceneToken(campaignId, tokenId)
       if (!cachedToken) return
@@ -1172,8 +1180,8 @@ export function setupCampaignPresence(server: HttpServer) {
       const normalizedRotation = ((rotation % 360) + 360) % 360
       const nextToken = { ...token, rotation: normalizedRotation }
       setLiveSceneToken(campaignId, sceneId, nextToken)
-      await emitSceneTokenChanged(campaignId, sceneId, nextToken)
-      if (!online) await persistSceneToken(campaignId, sceneId, nextToken)
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
+      else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
     })
 
     socket.on('vtt:token:layer', async (input: unknown) => {
@@ -1183,6 +1191,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const { campaignId, tokenId, layer } = parsed.data
       const online = state.getCampaignOnline(campaignId)
       if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      await ensureCampaignLiveStateHydrated(campaignId)
 
       const cachedToken = state.getCampaignTokens(campaignId)?.get(tokenId) ?? await findPersistedSceneToken(campaignId, tokenId)
       if (!cachedToken) return
@@ -1193,8 +1202,8 @@ export function setupCampaignPresence(server: HttpServer) {
 
       const nextToken = { ...token, layer }
       setLiveSceneToken(campaignId, sceneId, nextToken)
-      await emitSceneTokenChanged(campaignId, sceneId, nextToken)
-      if (!online) await persistSceneToken(campaignId, sceneId, nextToken)
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
+      else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
     })
 
     socket.on('vtt:tokens:remove-bulk', async (input: unknown) => {
@@ -1202,24 +1211,16 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!parsed.success) return
 
       const { campaignId } = parsed.data
-      const online = state.getCampaignOnline(campaignId)
       if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      await ensureCampaignLiveStateHydrated(campaignId)
 
       if (parsed.data.scope === 'scene') {
         if (!(await sceneBelongsToCampaign(campaignId, parsed.data.sceneId))) return
         await removeCampaignTokens(campaignId, { sceneId: parsed.data.sceneId })
-        if (!online) {
-          await prisma.campaignTokenPlacement.deleteMany({ where: { sceneId: parsed.data.sceneId } })
-        }
-        if (!online) await emitVisibleTableSnapshot(campaignId, socket)
         return
       }
 
       await removeCampaignTokens(campaignId, { sceneId: null })
-      if (!online) {
-        await prisma.campaignTokenPlacement.deleteMany({ where: { token: { campaignId } } })
-      }
-      if (!online) await emitVisibleTableSnapshot(campaignId, socket)
     })
 
     socket.on('vtt:token:visibility', async (input: unknown) => {
@@ -1229,6 +1230,7 @@ export function setupCampaignPresence(server: HttpServer) {
       const { campaignId, tokenId } = parsed.data
       const online = state.getCampaignOnline(campaignId)
       if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
+      await ensureCampaignLiveStateHydrated(campaignId)
 
       const tokenMap = state.getCampaignTokens(campaignId)
       const cachedToken = tokenMap ? tokenMap.get(tokenId) : await findPersistedSceneToken(campaignId, tokenId)
@@ -1240,8 +1242,8 @@ export function setupCampaignPresence(server: HttpServer) {
       const sceneId = getCampaignTokenSceneMap(campaignId).get(tokenId)
       if (!sceneId) return
       setLiveSceneToken(campaignId, sceneId, nextToken)
-      await emitSceneTokenChanged(campaignId, sceneId, nextToken)
-      if (!online) await persistSceneToken(campaignId, sceneId, nextToken)
+      if (online) await emitSceneTokenChanged(campaignId, sceneId, nextToken)
+      else socket.emit('vtt:token:changed', { campaignId, sceneId, token: nextToken })
       if (nextToken.hidden) removeCombatParticipants(campaignId, [tokenId])
     })
 
@@ -1447,6 +1449,9 @@ export function setupCampaignPresence(server: HttpServer) {
       if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) return
 
       if (online) await requestFogExplorationFlush(campaignId)
+      await runCampaignMutation(campaignId, () =>
+        persistCampaignLiveState(campaignId, canonicalVttPersistenceTrigger('vtt:scene:select')),
+      )
       const sceneUpdated = await updateMasterActiveScene(campaignId, scene?.id ?? null)
       if (!sceneUpdated) return
       const combat = state.getCampaignCombat(campaignId)

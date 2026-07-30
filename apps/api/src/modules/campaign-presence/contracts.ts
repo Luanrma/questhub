@@ -1,12 +1,16 @@
 import { z } from 'zod'
+import { GRID_SIZE_LIMITS, METERS_PER_CELL_LIMITS } from '../campaign_scene/domain/grid-settings'
 
 export const vttGridSettingsSchema = z.object({
   visible: z.boolean(),
   shape: z.enum(['square', 'hex']),
-  size: z.number().int().min(24).max(96),
+  size: z.number().int().min(GRID_SIZE_LIMITS.min).max(GRID_SIZE_LIMITS.max),
   offsetX: z.number().int().min(-96).max(96),
   offsetY: z.number().int().min(-96).max(96),
-  metersPerCell: z.number().positive().max(10000),
+  metersPerCell: z.number()
+    .min(METERS_PER_CELL_LIMITS.min)
+    .max(METERS_PER_CELL_LIMITS.max)
+    .multipleOf(METERS_PER_CELL_LIMITS.step),
   squareMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   hexMeasurementColor: z.string().regex(/^#[0-9a-fA-F]{6}$/),
   lineWidth: z.number().int().min(1).max(4),
@@ -270,10 +274,10 @@ export type { VttCombatParticipant, VttCombatState } from './domain/encounter'
 export const defaultVttGridSettings: VttGridSettings = {
   visible: false,
   shape: 'square',
-  size: 32,
+  size: GRID_SIZE_LIMITS.default,
   offsetX: 0,
   offsetY: 0,
-  metersPerCell: 1,
+  metersPerCell: METERS_PER_CELL_LIMITS.default,
   squareMeasurementColor: '#f97316',
   hexMeasurementColor: '#f97316',
   lineWidth: 1,
