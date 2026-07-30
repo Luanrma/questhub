@@ -1,13 +1,16 @@
 import type { Prisma } from '@prisma/client'
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '../../db/prisma'
+import { prisma, withoutCampaignActorInventory } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import type { GameSystemAutomationEventPublisher } from '../automation/contracts'
 import {
+  catalogTokenSheetSystemKey,
+  createCatalogTokenSheetEnvelope,
   GAME_SYSTEM_DESCRIPTORS,
   getGameSystemCatalogProvider,
   getGameSystemDescriptor,
+  parseCatalogTokenSheetEnvelope,
   type GameSystemCatalogDomain,
   type GameSystemContentLocale,
   type GameSystemKey,
@@ -24,16 +27,38 @@ const catalogParamsSchema = campaignParamsSchema.extend({
 const catalogEntryParamsSchema = catalogParamsSchema.extend({
   contentId: z.string().trim().min(1),
 })
+const catalogFilterSchema = z.string()
+  .trim()
+  .min(3)
+  .max(160)
+  .refine((value) => {
+    const separatorIndex = value.indexOf(':')
+    return separatorIndex > 0
+      && separatorIndex <= 40
+      && separatorIndex < value.length - 1
+  })
 const catalogQuerySchema = z.object({
   locale: z.enum(['en-US', 'pt-BR']).default('pt-BR'),
   q: z.string().trim().max(120).optional(),
   editorialStatus: z.enum(['all', 'review', 'ready']).default('all'),
-  bestiaryType: z.enum(['all', 'creatures', 'hazards']).default('all'),
+  filter: z.preprocess(
+    (value) => value === undefined ? [] : Array.isArray(value) ? value : [value],
+    z.array(catalogFilterSchema).max(24),
+  ),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(60).default(24),
 })
 const catalogEntryQuerySchema = z.object({
   locale: z.enum(['en-US', 'pt-BR']).default('pt-BR'),
+})
+const catalogTokenCreateSchema = z.object({
+  locale: z.enum(['en-US', 'pt-BR']).default('pt-BR'),
+})
+const gameSystemTokenParamsSchema = campaignParamsSchema.extend({
+  tokenId: z.string().trim().min(1),
+})
+const simplifiedSheetParamsSchema = campaignParamsSchema.extend({
+  sheetId: z.string().trim().min(1),
 })
 const createCharacterSheetSchema = z.object({
   name: z.string().trim().min(1).max(80),
@@ -55,6 +80,18 @@ const domainByPath: Record<'bestiary' | 'spells' | 'items', GameSystemCatalogDom
   bestiary: 'BESTIARY',
   spells: 'SPELLS',
   items: 'ITEMS',
+}
+
+function groupCatalogFilters(filters: readonly string[]) {
+  return filters.reduce<Record<string, string[]>>((selection, filter) => {
+    const separatorIndex = filter.indexOf(':')
+    const id = filter.slice(0, separatorIndex)
+    const value = filter.slice(separatorIndex + 1)
+    const values = selection[id] ?? []
+    if (!values.includes(value)) values.push(value)
+    selection[id] = values
+    return selection
+  }, {})
 }
 
 async function findAccessibleCampaign(campaignId: string, userId: string) {
@@ -100,6 +137,10 @@ async function findActiveCampaignRole(campaignId: string, userId: string) {
     where: { campaignId, userId, status: 'ACTIVE' },
     select: { role: true },
   })
+}
+
+function asPrismaJson(value: unknown): Prisma.InputJsonValue {
+  return JSON.parse(JSON.stringify(value)) as Prisma.InputJsonValue
 }
 
 async function listAssignmentTargets(campaignId: string) {
@@ -445,11 +486,13 @@ export function registerGameSystemRoutes(
       where: { id: params.data.tokenId, campaignId: params.data.campaignId },
       select: {
         controllerMember: { select: { userId: true } },
+        campaign: { select: { gameSystem: true } },
         actor: {
           select: {
             name: true,
+            inventory: { select: { id: true } },
             controllerMember: { select: { userId: true } },
-            characterSheet: { select: { id: true } },
+            characterSheet: { select: { id: true, systemKey: true, data: true } },
           },
         },
       },
@@ -461,10 +504,15 @@ export function registerGameSystemRoutes(
       || token.controllerMember?.userId === auth.id
       || token.actor?.controllerMember?.userId === auth.id
     if (!canOpen) return reply.status(403).send({ error: 'Sem permissao para abrir esta ficha' })
+    const hasSimplifiedPresentation =
+      sheet.systemKey === catalogTokenSheetSystemKey(token.campaign.gameSystem as GameSystemKey)
+      && Boolean(parseCatalogTokenSheetEnvelope(sheet.data))
 
     return reply.send({
       sheetId: sheet.id,
       title: token.actor?.name ?? 'Ficha',
+      inventoryAvailable: !hasSimplifiedPresentation && Boolean(token.actor?.inventory),
+      presentation: hasSimplifiedPresentation ? 'SIMPLIFIED' : 'FULL',
     })
   })
 
@@ -512,7 +560,7 @@ export function registerGameSystemRoutes(
       locale: query.data.locale as GameSystemContentLocale,
       search: query.data.q,
       editorialStatus: query.data.editorialStatus,
-      bestiaryType: query.data.bestiaryType,
+      filters: groupCatalogFilters(query.data.filter),
       page: query.data.page,
       limit: query.data.limit,
     })
@@ -523,7 +571,6 @@ export function registerGameSystemRoutes(
       domain,
       locale: query.data.locale,
       editorialStatus: query.data.editorialStatus,
-      bestiaryType: query.data.bestiaryType,
       ...result,
     })
   })
@@ -566,6 +613,250 @@ export function registerGameSystemRoutes(
       domain,
       locale: query.data.locale,
       entry,
+    })
+  })
+
+  app.post('/api/campaigns/:campaignId/catalog/:domain/:contentId/tokens', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = catalogEntryParamsSchema.safeParse(req.params)
+    const body = catalogTokenCreateSchema.safeParse(req.body ?? {})
+    if (!params.success || !body.success) {
+      return reply.status(400).send({ error: 'Criacao de Token invalida' })
+    }
+
+    const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode criar Tokens' })
+
+    const domain = domainByPath[params.data.domain]
+    const provider = getGameSystemCatalogProvider(campaign.gameSystem as GameSystemKey)
+    if (!provider?.getTokenizableSheet) {
+      return reply.status(409).send({ error: 'O sistema da campanha nao permite criar Tokens deste catalogo' })
+    }
+
+    const query = {
+      campaignId: campaign.id,
+      domain,
+      locale: body.data.locale as GameSystemContentLocale,
+      contentId: params.data.contentId,
+    }
+    const tokenSheet = await provider.getTokenizableSheet(query)
+    if (!tokenSheet) {
+      return reply.status(422).send({ error: 'Esta entrada do catalogo nao pode originar um Token' })
+    }
+
+    const envelope = createCatalogTokenSheetEnvelope({
+      domain,
+      contentId: params.data.contentId,
+      locale: body.data.locale as GameSystemContentLocale,
+    }, tokenSheet)
+    const catalogSheet = tokenSheet.sheet
+    const created = await prisma.$transaction(async (tx) => {
+      const actor = await tx.campaignActor.create({
+        data: withoutCampaignActorInventory({
+          campaignId: campaign.id,
+          name: catalogSheet.name,
+          avatarUrl: catalogSheet.imageUrl ?? null,
+          bio: null,
+        }),
+        select: { id: true },
+      })
+      const sheet = await tx.campaignCharacterSheet.create({
+        data: {
+          actorId: actor.id,
+          createdByUserId: auth.id,
+          systemKey: catalogTokenSheetSystemKey(campaign.gameSystem as GameSystemKey),
+          schemaVersion: 1,
+          data: asPrismaJson(envelope),
+        },
+        select: { id: true },
+      })
+      const token = await tx.campaignToken.create({
+        data: {
+          campaignId: campaign.id,
+          actorId: actor.id,
+          name: catalogSheet.name,
+          avatarUrl: catalogSheet.imageUrl ?? null,
+          color: catalogSheet.imageUrl ? null : '#4f46e5',
+          size: 1,
+          canCustomizeAppearance: false,
+        },
+        select: { id: true },
+      })
+
+      return { actorId: actor.id, sheetId: sheet.id, tokenId: token.id }
+    })
+
+    return reply.status(201).send(created)
+  })
+
+  app.get('/api/campaigns/:campaignId/game-system/token-capabilities', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = campaignParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Campanha invalida' })
+
+    const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode consultar capacidades de Tokens' })
+
+    const tokens = await prisma.campaignToken.findMany({
+      where: {
+        campaignId: campaign.id,
+        actor: {
+          characterSheet: {
+            systemKey: catalogTokenSheetSystemKey(campaign.gameSystem as GameSystemKey),
+          },
+        },
+      },
+      select: {
+        id: true,
+        actor: { select: { characterSheet: { select: { data: true } } } },
+      },
+    })
+
+    return reply.send({
+      tokens: tokens
+        .filter((token) => parseCatalogTokenSheetEnvelope(token.actor?.characterSheet?.data))
+        .map((token) => ({ tokenId: token.id, actions: ['duplicate'] as const })),
+    })
+  })
+
+  app.post('/api/campaigns/:campaignId/game-system/tokens/:tokenId/duplicate', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = gameSystemTokenParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Token invalido' })
+
+    const campaign = await findMasterCampaign(params.data.campaignId, auth.id)
+    if (!campaign) return reply.status(403).send({ error: 'Apenas o Mestre pode duplicar Tokens' })
+
+    const source = await prisma.campaignToken.findFirst({
+      where: { id: params.data.tokenId, campaignId: campaign.id },
+      select: {
+        name: true,
+        avatarUrl: true,
+        color: true,
+        size: true,
+        canCustomizeAppearance: true,
+        visionConfig: true,
+        lightConfig: true,
+        actor: {
+          select: {
+            name: true,
+            avatarUrl: true,
+            bio: true,
+            characterSheet: {
+              select: { systemKey: true, schemaVersion: true, data: true },
+            },
+          },
+        },
+      },
+    })
+    const sourceSheet = source?.actor?.characterSheet
+    if (
+      !source
+      || !source.actor
+      || !sourceSheet
+      || sourceSheet.systemKey !== catalogTokenSheetSystemKey(campaign.gameSystem as GameSystemKey)
+      || !parseCatalogTokenSheetEnvelope(sourceSheet.data)
+    ) {
+      return reply.status(409).send({ error: 'Este Token nao oferece duplicacao pelo sistema de jogo' })
+    }
+
+    const actorName = `${source.actor.name} (Copia)`
+    const tokenName = `${source.name} (Copia)`
+    const created = await prisma.$transaction(async (tx) => {
+      const actor = await tx.campaignActor.create({
+        data: withoutCampaignActorInventory({
+          campaignId: campaign.id,
+          name: actorName,
+          avatarUrl: source.actor?.avatarUrl ?? null,
+          bio: null,
+        }),
+        select: { id: true },
+      })
+      const sheet = await tx.campaignCharacterSheet.create({
+        data: {
+          actorId: actor.id,
+          createdByUserId: auth.id,
+          systemKey: sourceSheet.systemKey,
+          schemaVersion: sourceSheet.schemaVersion,
+          data: asPrismaJson(sourceSheet.data),
+        },
+        select: { id: true },
+      })
+      const token = await tx.campaignToken.create({
+        data: {
+          campaignId: campaign.id,
+          actorId: actor.id,
+          name: tokenName,
+          avatarUrl: source.avatarUrl,
+          color: source.color,
+          size: source.size,
+          canCustomizeAppearance: source.canCustomizeAppearance,
+          visionConfig: asPrismaJson(source.visionConfig),
+          lightConfig: asPrismaJson(source.lightConfig),
+        },
+        select: { id: true },
+      })
+
+      return { actorId: actor.id, sheetId: sheet.id, tokenId: token.id }
+    })
+
+    return reply.status(201).send(created)
+  })
+
+  app.get('/api/campaigns/:campaignId/character-sheets/:sheetId/simplified', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = simplifiedSheetParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Ficha invalida' })
+
+    const role = await findActiveCampaignRole(params.data.campaignId, auth.id)
+    if (!role) return reply.status(403).send({ error: 'Acesso nao liberado' })
+
+    const sheet = await prisma.campaignCharacterSheet.findFirst({
+      where: {
+        id: params.data.sheetId,
+        actor: { campaignId: params.data.campaignId },
+      },
+      select: {
+        systemKey: true,
+        data: true,
+        actor: {
+          select: {
+            name: true,
+            controllerMember: { select: { userId: true } },
+            token: {
+              select: {
+                controllerMember: { select: { userId: true } },
+              },
+            },
+            campaign: { select: { gameSystem: true } },
+          },
+        },
+      },
+    })
+    if (!sheet) return reply.status(404).send({ error: 'Ficha nao encontrada' })
+
+    const canOpen = role.role === 'MASTER'
+      || sheet.actor.controllerMember?.userId === auth.id
+      || sheet.actor.token?.controllerMember?.userId === auth.id
+    if (!canOpen) return reply.status(403).send({ error: 'Sem permissao para abrir esta ficha' })
+
+    const envelope = sheet.systemKey === catalogTokenSheetSystemKey(sheet.actor.campaign.gameSystem as GameSystemKey)
+      ? parseCatalogTokenSheetEnvelope(sheet.data)
+      : null
+    if (!envelope) return reply.status(409).send({ error: 'A ficha nao possui apresentacao simplificada' })
+
+    return reply.send({
+      metadata: { name: sheet.actor.name },
+      source: envelope.source,
+      entry: envelope.sheet,
     })
   })
 }

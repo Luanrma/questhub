@@ -145,6 +145,7 @@ export function TokenContextMenu({
       campaignId,
       sheetId: linkedSheet.sheetId,
       title: linkedSheet.title,
+      presentation: linkedSheet.presentation,
     })
   }
 
@@ -201,7 +202,7 @@ export function TokenContextMenu({
           <div className="mt-2 px-2 py-2 text-xs text-zinc-500">Verificando ficha...</div>
         ) : null}
 
-        {token.actorId ? (
+        {token.actorId && (linkedSheet ? linkedSheet.inventoryAvailable : !sheetLoading) ? (
           <button
             type="button"
             role="menuitem"

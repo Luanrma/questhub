@@ -306,23 +306,62 @@ O overlay `pt-BR` de um hazard contém `name`, `description`, `size`,
 `stealthDetails`, `disable`, `routine`, `reset`, `defenses` e `actions`. Ações
 são endereçadas pelo ID original, da mesma forma que ações de criaturas.
 
-### 5.4. Filtro do Bestiário
+### 5.4. Filtros do Bestiário
 
-A listagem neutra do catálogo aceita:
+A fronteira compartilhada do catálogo transporta filtros sem conhecer conceitos
+de Pathfinder:
 
 ```ts
-type GameSystemCatalogBestiaryFilter = 'all' | 'creatures' | 'hazards'
+type GameSystemCatalogFilterSelection = Readonly<Record<string, readonly string[]>>
+
+type GameSystemCatalogFilterDefinition = {
+  id: string
+  label: string
+  kind: 'single' | 'multiple'
+  options: ReadonlyArray<{ value: string; label: string }>
+}
 
 type GameSystemCatalogQuery = {
   // demais campos
-  bestiaryType?: GameSystemCatalogBestiaryFilter
+  filters?: GameSystemCatalogFilterSelection
 }
 ```
 
-O filtro só restringe resultados quando `domain = 'BESTIARY'` e é aplicado
-antes da busca, ordenação e paginação. Entradas históricas sem `entryType` são
-tratadas como criaturas. Para os demais domínios, o provider ignora
-`bestiaryType`.
+Na query HTTP, cada seleção usa um parâmetro repetível e opaco:
+
+```text
+filter=<filterId>:<value>
+```
+
+O registry valida somente tamanho e quantidade, agrupa os valores por
+`filterId` e delega a interpretação ao provider do sistema da campanha. Ele não
+declara IDs nem opções específicas.
+
+Quando `domain = 'BESTIARY'`, o provider Pathfinder 2e publica quatro
+descritores:
+
+| ID | Tipo | Fonte |
+|---|---|---|
+| `type` | `single` | `entryType`, tratando a ausência histórica como criatura |
+| `level` | `single` | `data.level` |
+| `rarity` | `single` | `data.rarity` |
+| `traits` | `multiple` | `data.traits` |
+
+Regras:
+
+- nível, raridade e tipo aceitam um valor efetivo por vez;
+- traits aceitam múltiplos valores e usam semântica `AND`;
+- labels de raridade e traits são localizados pelo glossário, mas os values
+  permanecem mecânicos e estáveis;
+- opções são derivadas do conjunto completo do Bestiário e ordenadas
+  deterministicamente;
+- filtros podem ser combinados entre si, com busca e status editorial;
+- todos são aplicados antes da ordenação e da paginação;
+- valores desconhecidos e filtros de Bestiário enviados a outros domínios são
+  ignorados;
+- entradas históricas sem `entryType` são tratadas como criaturas;
+- o resultado devolve `filterDefinitions`, permitindo que a UI compartilhada
+  renderize os controles sem conhecer Pathfinder 2e.
 
 ## 6. Contrato de rodada
 

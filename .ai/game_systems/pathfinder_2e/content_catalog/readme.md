@@ -144,7 +144,7 @@ Esses temas são independentes do processo de aquisição, tradução e publica�
 - **Responsável pelo conteúdo:** acompanha importação, tradução, revisão e cobertura.
 - **Tradutor/revisor:** trabalha somente nos campos traduzíveis e preserva o original.
 - **Desenvolvedor do sistema Pathfinder 2e:** mantém normalizadores e contratos dentro da fronteira do sistema.
-- **Usuário do QuestHub:** alterna entre `en-US` e `pt-BR` sem alterar o conteúdo original.
+- **Usuário do QuestHub:** alterna entre `en-US` e `pt-BR` sem alterar o conteúdo original e explora o Bestiário por nível, raridade e traits.
 
 ## 9. Valor entregue
 
@@ -153,4 +153,5 @@ Esses temas são independentes do processo de aquisição, tradução e publica�
 - rastreabilidade de origem e tradução;
 - próxima etapa sempre conhecida;
 - evolução até a cobertura completa da `development`;
+- descoberta rápida de criaturas e hazards pelos metadados mecânicos publicados pelo próprio Pathfinder 2e;
 - preservação total da independência do VTT.

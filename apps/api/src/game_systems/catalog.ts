@@ -3,7 +3,17 @@ export type GameSystemKey = 'PATHFINDER_2E'
 export type GameSystemCatalogDomain = 'BESTIARY' | 'SPELLS' | 'ITEMS'
 export type GameSystemContentLocale = 'en-US' | 'pt-BR'
 export type GameSystemCatalogEditorialFilter = 'all' | 'review' | 'ready'
-export type GameSystemCatalogBestiaryFilter = 'all' | 'creatures' | 'hazards'
+export type GameSystemCatalogFilterSelection = Readonly<Record<string, readonly string[]>>
+
+export type GameSystemCatalogFilterDefinition = {
+  id: string
+  label: string
+  kind: 'single' | 'multiple'
+  options: ReadonlyArray<{
+    value: string
+    label: string
+  }>
+}
 
 export type GameSystemDescriptor = {
   key: GameSystemKey
@@ -31,6 +41,7 @@ export type GameSystemCatalogCard = {
   traits?: readonly string[]
   editorialStatus?: GameSystemCatalogEditorialStatus | null
   stats?: readonly GameSystemCatalogCardStat[]
+  canCreateToken?: boolean
 }
 
 export type GameSystemCatalogSheetField = {
@@ -52,13 +63,18 @@ export type GameSystemCatalogSheet = GameSystemCatalogCard & {
   }
 }
 
+export type GameSystemCatalogTokenSheet = {
+  sheet: GameSystemCatalogSheet
+  data: unknown
+}
+
 export type GameSystemCatalogQuery = {
   campaignId: string
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
   search?: string
   editorialStatus?: GameSystemCatalogEditorialFilter
-  bestiaryType?: GameSystemCatalogBestiaryFilter
+  filters?: GameSystemCatalogFilterSelection
   page: number
   limit: number
 }
@@ -72,6 +88,7 @@ export type GameSystemCatalogEntryQuery = {
 
 export type GameSystemCatalogResult = {
   entries: readonly GameSystemCatalogCard[]
+  filterDefinitions?: readonly GameSystemCatalogFilterDefinition[]
   pagination: {
     page: number
     limit: number
@@ -84,12 +101,60 @@ export type GameSystemCatalogProvider = {
   inventoryNamespace?: string
   list(query: GameSystemCatalogQuery): Promise<GameSystemCatalogResult> | GameSystemCatalogResult
   get(query: GameSystemCatalogEntryQuery): Promise<GameSystemCatalogSheet | null> | GameSystemCatalogSheet | null
+  getTokenizableSheet?(
+    query: GameSystemCatalogEntryQuery,
+  ): Promise<GameSystemCatalogTokenSheet | null> | GameSystemCatalogTokenSheet | null
   getInventoryItemData?(
     query: GameSystemCatalogEntryQuery,
   ): Promise<Record<string, unknown> | null> | Record<string, unknown> | null
   resolveInventoryItemContentId?(
     data: unknown,
   ): Promise<string | null> | string | null
+}
+
+export type CatalogTokenSheetEnvelope = {
+  kind: 'CATALOG_TOKEN_SHEET'
+  version: 1
+  source: {
+    domain: GameSystemCatalogDomain
+    contentId: string
+    locale: GameSystemContentLocale
+  }
+  sheet: GameSystemCatalogSheet
+  data?: unknown
+}
+
+export function catalogTokenSheetSystemKey(system: GameSystemKey) {
+  return `catalog-token:${system}`
+}
+
+export function createCatalogTokenSheetEnvelope(
+  source: CatalogTokenSheetEnvelope['source'],
+  tokenSheet: GameSystemCatalogTokenSheet,
+): CatalogTokenSheetEnvelope {
+  return {
+    kind: 'CATALOG_TOKEN_SHEET',
+    version: 1,
+    source,
+    sheet: tokenSheet.sheet,
+    data: tokenSheet.data,
+  }
+}
+
+export function parseCatalogTokenSheetEnvelope(input: unknown): CatalogTokenSheetEnvelope | null {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return null
+  const envelope = input as Partial<CatalogTokenSheetEnvelope>
+  const source = envelope.source
+  const sheet = envelope.sheet
+
+  if (envelope.kind !== 'CATALOG_TOKEN_SHEET' || envelope.version !== 1) return null
+  if (!source || typeof source !== 'object') return null
+  if (!['BESTIARY', 'SPELLS', 'ITEMS'].includes(source.domain)) return null
+  if (!['en-US', 'pt-BR'].includes(source.locale)) return null
+  if (typeof source.contentId !== 'string' || !source.contentId.trim()) return null
+  if (!sheet || typeof sheet !== 'object') return null
+  if (typeof sheet.id !== 'string' || typeof sheet.name !== 'string' || !Array.isArray(sheet.sections)) return null
+  return envelope as CatalogTokenSheetEnvelope
 }
 
 export const GAME_SYSTEM_DESCRIPTORS: readonly GameSystemDescriptor[] = [

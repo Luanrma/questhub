@@ -8,6 +8,22 @@ if (!databaseUrl) {
 }
 
 const adapter = new PrismaPg(databaseUrl)
+const omitCampaignActorInventory = Symbol('omitCampaignActorInventory')
+
+type CampaignActorCreateInputWithInventoryPolicy = Prisma.CampaignActorCreateInput & {
+  [omitCampaignActorInventory]?: true
+}
+
+export function withoutCampaignActorInventory(
+  data: Prisma.CampaignActorCreateInput,
+): Prisma.CampaignActorCreateInput {
+  Object.defineProperty(data, omitCampaignActorInventory, {
+    configurable: true,
+    enumerable: false,
+    value: true,
+  })
+  return data
+}
 
 function withActiveActor(
   where: Prisma.CampaignCharacterSheetWhereInput | undefined,
@@ -30,8 +46,10 @@ function createPrismaClient() {
     query: {
       campaignActor: {
         async create({ args, query }) {
-          const data = args.data as Prisma.CampaignActorCreateInput
-          if (data.inventory === undefined) data.inventory = { create: {} }
+          const data = args.data as CampaignActorCreateInputWithInventoryPolicy
+          const inventoryOmitted = data[omitCampaignActorInventory] === true
+          delete data[omitCampaignActorInventory]
+          if (!inventoryOmitted && data.inventory === undefined) data.inventory = { create: {} }
           return query(args)
         },
         async createMany() {

@@ -39,19 +39,24 @@ test('campaign actor persistence replaces the global Character model', () => {
   assert.match(sheetModel, /actorId\s+String\s+@unique/)
 })
 
-test('every CampaignActor creation also creates its inventory aggregate', () => {
-  const sourceFiles = [
-    path.join(process.cwd(), 'apps', 'api', 'src', 'game_systems', 'registry', 'register.ts'),
-  ]
+test('CampaignActor creation makes the inventory capability explicit', () => {
+  const sourceFile = path.join(
+    process.cwd(),
+    'apps',
+    'api',
+    'src',
+    'game_systems',
+    'registry',
+    'register.ts',
+  )
+  const source = readFileSync(sourceFile, 'utf8')
 
-  for (const sourceFile of sourceFiles) {
-    const source = readFileSync(sourceFile, 'utf8')
-    const creations = [...source.matchAll(/campaignActor\.create\(\{([\s\S]*?)\n\s*\}\)/g)]
-    assert.equal(creations.length > 0, true, `Expected CampaignActor creation in ${sourceFile}`)
-    for (const creation of creations) {
-      assert.match(creation[1] ?? '', /inventory:\s*\{\s*create:\s*\{\}\s*\}/)
-    }
-  }
+  assert.match(source, /inventory:\s*\{\s*create:\s*\{\}\s*\}/)
+  assert.equal(
+    [...source.matchAll(/data:\s*withoutCampaignActorInventory\(\{/g)].length,
+    2,
+    'Catalog NPC creation and duplication must omit Inventory explicitly',
+  )
 })
 
 test('Prisma history contains only the current initial migration', () => {

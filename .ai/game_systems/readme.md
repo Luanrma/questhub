@@ -42,6 +42,15 @@ e demais capacidades.
   suportados, sem conhecer seus recursos ou registradores;
 - capacidades compartilhadas devem ser expostas por contratos neutros;
 - integracoes devem transportar dados sem incorporar mecanicas especificas no VTT.
+- uma criatura do catalogo pode ser materializada como ator, ficha simplificada e
+  Token da campanha pelo registry neutro, desde que o provider do sistema declare
+  explicitamente a entrada como tokenizavel;
+- a ficha simplificada preserva um snapshot de apresentacao do catalogo e nao
+  transforma o Token generico em proprietario de regras mecanicas;
+- a ficha simplificada de NPC omite a descricao editorial e o inventario, mas
+  preserva em payload opaco do sistema o estado necessario para suas projecoes;
+- duplicar um Token materializado cria outro ator, outra ficha simplificada e
+  outro Token, sem compartilhar estado mutavel entre as copias.
 
 ## Personas e casos de uso
 
@@ -61,3 +70,7 @@ e demais capacidades.
 - chat, trade e gerenciamento generico de personagens;
 - autenticacao, transporte HTTP/WebSocket e persistencia compartilhada;
 - qualquer regra que seja propria do VTT e independente de um sistema de RPG.
+
+O posicionamento do Token criado, sua toolbar, drag-and-drop, cena e sincronizacao
+continuam fora deste contexto. O `game_system` apenas materializa a origem
+mecanica e publica o resultado por contratos de composicao neutros.

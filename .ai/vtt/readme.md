@@ -11,6 +11,11 @@ dos sistemas suportados.
 
 Personagens podem funcionar como identidades e controladores de tokens, mas essa associacao e opcional. Um token generico com nome, imagem/cor e posicao e valido por si so. O menu da campanha expoe apenas capacidades do VTT, sem atalho ou dependencia de ficha mecanica.
 
+A biblioteca de Tokens aceita entradas materializadas por extensoes da
+aplicacao. O VTT apenas recebe a identidade visual, a disponibilidade do Token e
+acoes neutras como duplicar; a origem em catalogo e a ficha simplificada
+permanecem fora do VTT.
+
 Paredes, portas e janelas pertencem a cena. O Mestre pode desenhar segmentos e retangulos, definir sua visibilidade e configurar passagens abertas, trancadas, obstruidas ou encostadas em tempo real. Segmentos fechados bloqueiam o deslocamento de jogadores; o Mestre preserva controle total durante a preparacao.
 
 O FOG e uma capacidade opcional da cena e permanece agnostico de ruleset. Quando ativo, combina visao individual por Token, geometria bloqueadora, iluminacao e memoria de exploracao persistente. Os contratos canonicos pertencem ao modulo [`fog_of_war`](../fog_of_war/readme.md).

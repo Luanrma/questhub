@@ -17,9 +17,13 @@ Entidade agnóstica pertencente exclusivamente a uma campanha.
 
 - Relação 1:1 com `CampaignActor`.
 - Nunca pertence a `User`, e-mail, `CampaignMember`, Token ou ficha.
-- É criado junto do ator pela operação central de persistência.
+- É criado junto do ator quando a extensão que o materializa oferece a
+  capacidade de inventário.
+- A ausência é válida para atores de NPC materializados pelo bestiário, que não
+  expõem inventário.
 - Entrar na campanha, atribuir controlador ou vincular Token não cria inventário.
-- A API não cria inventários ausentes por `upsert`; ausência indica violação da invariante.
+- A API não cria inventários ausentes por `upsert`; em atores com a capacidade,
+  ausência indica violação da invariante.
 
 ### InventoryEntry
 
@@ -95,7 +99,8 @@ interface GameSystemInventoryPolicy {
 
 - Existem tabelas para `CampaignActor`, `Inventory` e `InventoryEntry`.
 - Um inventário pertence exclusivamente a um ator.
-- Todo ator nasce com exatamente um inventário.
+- Todo ator com capacidade de inventário nasce com exatamente um inventário.
+- NPC materializado pelo bestiário nasce sem inventário.
 - Criar ou entrar em campanha não cria inventário.
 - Excluir definitivamente o ator exclui seu inventário e entradas; arquivar preserva tudo.
 - O banco rejeita `quantity <= 0` e `slotIndex < 0`.

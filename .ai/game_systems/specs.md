@@ -97,4 +97,109 @@ ou capacidades internas e nao e necessario para montar o servidor base.
 
 ## 7. Persistencia
 
-Esta mudanca nao altera schema, migration, tabela, coluna, indice ou dados.
+Esta mudanca nao altera schema, migration, tabela, coluna ou indice. Ela reutiliza
+os modelos existentes para persistir novas instancias solicitadas pelo Mestre.
+
+## 8. Token de criatura originado no catalogo
+
+O provider neutro de catalogo pode implementar:
+
+```ts
+type GameSystemCatalogProvider = {
+  // contratos existentes omitidos
+  getTokenizableSheet?(
+    query: GameSystemCatalogEntryQuery,
+  ): Promise<GameSystemCatalogSheet | null> | GameSystemCatalogSheet | null
+}
+```
+
+Regras:
+
+1. `null` significa que a entrada existe, mas nao pode originar Token;
+2. somente criaturas sao tokenizaveis no recorte inicial; hazards, itens e
+   spells nao sao;
+3. o registry consulta o provider do sistema configurado na campanha e nunca
+   recebe uma chave de sistema escolhida pelo cliente;
+4. somente o Mestre ativo pode criar ou duplicar;
+5. a criacao ocorre em uma unica transacao:
+   `CampaignActor + CampaignCharacterSheet + CampaignToken`, sem `Inventory`;
+6. o Token nasce sem `CampaignTokenPlacement` e, portanto, aparece na toolbar;
+7. nome e avatar iniciais derivam da apresentacao devolvida pelo provider;
+8. a ficha usa um envelope neutro e versionado:
+
+```ts
+type CatalogTokenSheetEnvelope = {
+  kind: 'CATALOG_TOKEN_SHEET'
+  version: 1
+  source: {
+    domain: GameSystemCatalogDomain
+    contentId: string
+    locale: GameSystemContentLocale
+  }
+  sheet: GameSystemCatalogSheet
+  data: unknown
+}
+```
+
+O envelope e um snapshot somente leitura. `sheet` contem a apresentacao resumida
+e nao inclui a descricao editorial. `data` e opaco, pertence ao sistema que o
+produziu e armazena apenas o estado mecanico necessario para o Token. No
+Pathfinder 2e inicial ele contem PV atual e maximo.
+
+O provider de `TokenPresentation` do sistema reconhece tanto a ficha completa de
+PLAYER quanto seu proprio envelope de NPC. Ele converte ambos em
+`TokenPresentation.resources`; o endpoint e o renderer do VTT nao distinguem
+Pathfinder, PLAYER, NPC ou o formato persistido da ficha.
+
+Snapshots legados `version: 1` sem `data` continuam abrindo como ficha resumida.
+O provider Pathfinder recompoe somente a vitalidade inicial a partir do
+`source.contentId`; novos snapshots sempre persistem o payload opaco.
+
+### HTTP
+
+```text
+POST /api/campaigns/:campaignId/catalog/:domain/:contentId/tokens
+GET  /api/campaigns/:campaignId/game-system/token-capabilities
+POST /api/campaigns/:campaignId/game-system/tokens/:tokenId/duplicate
+GET  /api/campaigns/:campaignId/character-sheets/:sheetId/simplified
+```
+
+O `POST` de criacao recebe apenas `{ locale }`. O endpoint de capacidades retorna
+IDs de Tokens e acoes neutras disponiveis. A duplicacao aceita somente Tokens
+cuja ficha possua um envelope valido e pertencente ao sistema da campanha.
+
+Duplicar cria novos IDs para ator, ficha e Token, copia o snapshot e os metadados
+visuais, nao cria inventario, nao copia posicionamento e acrescenta `Copia` ao
+nome.
+
+### Composicao frontend
+
+`game-systems` publica em `apps/web/src/lib`:
+
+- mudanca na biblioteca de Tokens;
+- capacidades neutras por Token;
+- resultado de uma solicitacao neutra de duplicacao.
+
+O VTT:
+
+- recarrega sua biblioteca ao receber a mudanca;
+- renderiza `Duplicar` somente quando a capacidade for publicada;
+- solicita a acao sem conhecer catalogo ou sistema concreto;
+- abre fichas com apresentacao `FULL` ou `SIMPLIFIED`, sem interpretar o
+  conteudo mecanico.
+
+## 9. Criterios de aceitacao da materializacao
+
+1. criatura tokenizavel cria Token fora de cena e ele aparece na toolbar;
+2. hazard nao oferece nem aceita criacao de Token;
+3. abrir a ficha do Token mostra o snapshot simplificado da criatura;
+4. a ficha simplificada nao exibe descricao nem inventario;
+5. a barra de vida usa a mesma projecao neutra para PLAYER e NPC, embora cada
+   adaptador leia seu proprio formato de ficha;
+6. duplicar pela toolbar cria outra ficha e outro ator independentes;
+7. recarregar a pagina restaura a capacidade de duplicacao;
+8. jogador e Mestre de outra campanha recebem rejeicao;
+9. `apps/web/src/vtt` nao importa nem nomeia sistema, bestiario ou regra;
+10. `apps/api/src/modules` e `apps/api/src/game_systems` continuam sem imports
+   cruzados;
+11. nenhum schema ou migration e alterado.

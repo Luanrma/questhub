@@ -6,7 +6,8 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 
 ## Responsabilidades
 
-- Manter um único agregado `Inventory` para cada `CampaignActor`.
+- Manter um único agregado `Inventory` para cada `CampaignActor` que ofereça a
+  capacidade de inventário.
 - Persistir várias `InventoryEntry` dentro do inventário.
 - Manter `quantity` como dado genérico do inventário.
 - Armazenar em `InventoryEntry.data` uma cópia JSON completa do item fornecido pelo game system.
@@ -14,7 +15,10 @@ O módulo `inventory` persiste os itens pertencentes a um `CampaignActor` sem co
 
 ## Regras de negócio
 
-- Um `CampaignActor` deve possuir exatamente um `Inventory` no domínio.
+- Um `CampaignActor` com capacidade de inventário deve possuir exatamente um
+  `Inventory` no domínio.
+- Atores de NPC materializados pelo bestiário podem não oferecer inventário e,
+  nesse caso, não possuem registro `Inventory`.
 - O inventário pertence ao ator, nunca ao usuário, e-mail, membro, ficha ou Token.
 - Entrar na campanha, atribuir um controlador ou vincular um Token não cria inventário.
 - O inventário representa todo o armazenamento do ator, não uma mochila física específica.

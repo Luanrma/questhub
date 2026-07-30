@@ -1,9 +1,11 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {
+  createCatalogTokenSheetEnvelope,
   GAME_SYSTEM_DESCRIPTORS,
   getGameSystemCatalogProvider,
   getGameSystemDescriptor,
+  parseCatalogTokenSheetEnvelope,
   registerGameSystemCatalogProvider,
 } from './catalog'
 
@@ -67,4 +69,30 @@ test('a game system can register a neutral catalog provider', async () => {
   assert.equal(result.entries[0]?.name, 'Catalog entry')
   assert.equal(result.pagination.total, 1)
   assert.equal(sheet?.sections[0]?.title, 'Details')
+})
+
+test('catalog Token sheet envelope preserves a neutral immutable presentation snapshot', () => {
+  const sheet = {
+    id: 'creature-1',
+    name: 'Catalog creature',
+    stats: [{ label: 'Level', value: '1' }],
+    sections: [{ title: 'Details', fields: [{ label: 'Value', value: '15' }] }],
+  }
+  const envelope = createCatalogTokenSheetEnvelope({
+    domain: 'BESTIARY',
+    contentId: sheet.id,
+    locale: 'pt-BR',
+  }, {
+    sheet,
+    data: {
+      schemaVersion: 1,
+      hitPoints: { current: 15, maximum: 15 },
+    },
+  })
+
+  assert.deepEqual(parseCatalogTokenSheetEnvelope(envelope), envelope)
+  assert.equal(parseCatalogTokenSheetEnvelope({ ...envelope, version: 2 }), null)
+  assert.equal(parseCatalogTokenSheetEnvelope({ ...envelope, sheet: { name: 'Missing id' } }), null)
+  const { data: _data, ...withoutData } = envelope
+  assert.deepEqual(parseCatalogTokenSheetEnvelope(withoutData), withoutData)
 })

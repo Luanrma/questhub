@@ -4,6 +4,7 @@ export type CampaignCharacterSheetOpenRequest = {
   campaignId: string
   sheetId: string
   title?: string
+  presentation?: 'FULL' | 'SIMPLIFIED'
 }
 
 export function requestCampaignCharacterSheetOpen(request: CampaignCharacterSheetOpenRequest) {

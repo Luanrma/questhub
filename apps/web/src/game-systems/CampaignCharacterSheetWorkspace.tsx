@@ -4,6 +4,7 @@ import { FileText, Grip, Maximize2, Minimize2, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
 import type { GameSystemKey } from './registry'
 import { getCharacterSheetRenderer } from './character-sheet-renderers'
+import type { CharacterSheetRendererProps } from './character-sheet-renderers'
 import {
   campaignCharacterSheetOpenEvent,
   type CampaignCharacterSheetOpenRequest,
@@ -16,6 +17,7 @@ type SheetWindowState = {
   activePage: string
   minimized: boolean
   zIndex: number
+  presentation: 'FULL' | 'SIMPLIFIED'
 }
 
 type Props = {
@@ -54,7 +56,7 @@ function CharacterSheetWindow({
   index: number
   hidden: boolean
   pages: readonly { id: string; label: string }[]
-  Renderer: ComponentType<{ campaignId: string; sheetId: string; activePage: string }>
+  Renderer: ComponentType<CharacterSheetRendererProps>
   onFocus: () => void
   onPageChange: (pageId: string) => void
   onMinimize: () => void
@@ -161,7 +163,7 @@ function CharacterSheetWindow({
         </div>
       </header>
 
-      <nav className="flex shrink-0 gap-1 overflow-x-auto border-b border-white/10 bg-black/20 px-3 py-2">
+      {pages.length ? <nav className="flex shrink-0 gap-1 overflow-x-auto border-b border-white/10 bg-black/20 px-3 py-2">
         {pages.map((page) => (
           <button
             key={page.id}
@@ -177,13 +179,14 @@ function CharacterSheetWindow({
             {page.label}
           </button>
         ))}
-      </nav>
+      </nav> : null}
 
       <div className="min-h-0 flex-1 overflow-y-auto p-4">
         <Renderer
           campaignId={campaignId}
           sheetId={state.sheetId}
           activePage={state.activePage}
+          presentation={state.presentation}
         />
       </div>
     </section>
@@ -198,7 +201,9 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
     const firstPage = registration?.pages[0]?.id
     if (!firstPage) return windows
     return windows.map((item) => (
-      registration.pages.some((page) => page.id === item.activePage)
+      item.presentation === 'SIMPLIFIED'
+        ? { ...item, activePage: 'main' }
+        : registration.pages.some((page) => page.id === item.activePage)
         ? item
         : { ...item, activePage: firstPage }
     ))
@@ -217,6 +222,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
             ? {
                 ...item,
                 title: request.title?.trim() || item.title,
+                presentation: request.presentation ?? item.presentation,
                 minimized: false,
                 zIndex: zIndexRef.current,
               }
@@ -231,6 +237,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
             activePage: registration?.pages[0]?.id ?? 'main',
             minimized: false,
             zIndex: zIndexRef.current,
+            presentation: request.presentation ?? 'FULL',
           },
         ]
       })
@@ -260,7 +267,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
           state={state}
           index={index}
           hidden={state.minimized}
-          pages={registration.pages}
+          pages={state.presentation === 'SIMPLIFIED' ? [] : registration.pages}
           Renderer={registration.Renderer}
           onFocus={() => focusWindow(state.sheetId)}
           onPageChange={(activePage) => updateWindow(state.sheetId, { activePage })}
