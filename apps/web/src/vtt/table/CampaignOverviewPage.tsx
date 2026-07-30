@@ -5,6 +5,7 @@ import {
   CloudFog,
   CircleMinus,
   CircleUserRound,
+  Copy,
   Dice5,
   Eye,
   EyeOff,
@@ -32,6 +33,16 @@ import { CampaignChat } from '../../components/CampaignChat'
 import { LoadingScreen } from '../../components/LoadingScreen'
 import { CampaignInventoryModal } from '../../game-systems/CampaignInventoryModal'
 import { requestCampaignCharacterSheetOpen } from '../../lib/campaign-character-sheet-window-events'
+import {
+  campaignTokenActionCompletedEvent,
+  campaignTokenCapabilitiesChangedEvent,
+  campaignTokenLibraryChangedEvent,
+  requestCampaignTokenAction,
+  requestCampaignTokenCapabilities,
+  type CampaignTokenActionResult,
+  type CampaignTokenCapabilitiesChanged,
+  type CampaignTokenLibraryChanged,
+} from '../../lib/campaign-token-library-events'
 import { useSession } from '../../contexts/session-context'
 import { api, ApiError, apiForm } from '../../lib/api'
 import { VttDiceControls } from '../dice-roller'
@@ -235,6 +246,8 @@ export function CampaignOverviewPage({
     },
   )
   const [campaignTokens, setCampaignTokens] = useState<CampaignToken[]>([])
+  const [duplicableTokenIds, setDuplicableTokenIds] = useState<string[]>([])
+  const [duplicatingTokenId, setDuplicatingTokenId] = useState<string | null>(null)
   const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [campaignPlayers, setCampaignPlayers] = useState<CampaignPlayer[]>([])
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
@@ -713,6 +726,49 @@ export function CampaignOverviewPage({
 
     return () => {
       cancelled = true
+    }
+  }, [campaignId, shouldLoadTokenManagement])
+
+  useEffect(() => {
+    if (!campaignId || !shouldLoadTokenManagement) return
+
+    let cancelled = false
+    function onLibraryChanged(event: Event) {
+      const detail = (event as CustomEvent<CampaignTokenLibraryChanged>).detail
+      if (detail?.campaignId !== campaignId) return
+
+      void api<CampaignToken[]>(`/api/campaigns/${campaignId}/tokens`)
+        .then((tokens) => { if (!cancelled) setCampaignTokens(tokens) })
+        .catch(() => { if (!cancelled) setTokenDropError('Nao foi possivel atualizar a biblioteca de Tokens.') })
+      void api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
+        .then((candidates) => { if (!cancelled) setTokenCandidates(candidates) })
+        .catch(() => undefined)
+    }
+
+    function onCapabilitiesChanged(event: Event) {
+      const detail = (event as CustomEvent<CampaignTokenCapabilitiesChanged>).detail
+      if (detail?.campaignId !== campaignId) return
+      setDuplicableTokenIds(detail.tokens
+        .filter((token) => token.actions.includes('duplicate'))
+        .map((token) => token.tokenId))
+    }
+
+    function onActionCompleted(event: Event) {
+      const detail = (event as CustomEvent<CampaignTokenActionResult>).detail
+      if (!detail || detail.campaignId !== campaignId || detail.action !== 'duplicate') return
+      setDuplicatingTokenId((current) => current === detail.tokenId ? null : current)
+      if (!detail.ok) setTokenDropError(detail.error ?? 'Nao foi possivel duplicar o Token.')
+    }
+
+    window.addEventListener(campaignTokenLibraryChangedEvent, onLibraryChanged)
+    window.addEventListener(campaignTokenCapabilitiesChangedEvent, onCapabilitiesChanged)
+    window.addEventListener(campaignTokenActionCompletedEvent, onActionCompleted)
+    requestCampaignTokenCapabilities(campaignId)
+    return () => {
+      cancelled = true
+      window.removeEventListener(campaignTokenLibraryChangedEvent, onLibraryChanged)
+      window.removeEventListener(campaignTokenCapabilitiesChangedEvent, onCapabilitiesChanged)
+      window.removeEventListener(campaignTokenActionCompletedEvent, onActionCompleted)
     }
   }, [campaignId, shouldLoadTokenManagement])
 
@@ -2040,6 +2096,7 @@ export function CampaignOverviewPage({
         campaignId,
         sheetId: sheet.sheetId,
         title: sheet.title,
+        presentation: sheet.presentation,
       })
     } catch (cause) {
       setInteractionMessage(
@@ -2442,6 +2499,17 @@ export function CampaignOverviewPage({
       return order[left.category] - order[right.category]
     }))
     setTokenCandidates((current) => current.filter((item) => item.actorId !== candidate.actorId))
+  }
+
+  function duplicateCampaignToken(tokenId: string) {
+    if (!campaignId || duplicatingTokenId) return
+    setTokenDropError(null)
+    setDuplicatingTokenId(tokenId)
+    requestCampaignTokenAction({
+      campaignId,
+      tokenId,
+      action: 'duplicate',
+    })
   }
 
   function applyCampaignTokenUpdate(token: CampaignToken) {
@@ -3360,6 +3428,18 @@ export function CampaignOverviewPage({
                         </span>
                       </button>
                       <span className="flex shrink-0 gap-1 pr-3">
+                        {duplicableTokenIds.includes(token.id) ? (
+                          <button
+                            type="button"
+                            title="Duplicar Token"
+                            disabled={!masterCanUseVtt || Boolean(duplicatingTokenId)}
+                            draggable={false}
+                            className="rounded-md p-1.5 text-zinc-400 hover:bg-emerald-500/15 hover:text-emerald-200 disabled:opacity-40"
+                            onClick={() => duplicateCampaignToken(token.id)}
+                          >
+                            <Copy className="h-3.5 w-3.5" />
+                          </button>
+                        ) : null}
                         <button
                           type="button"
                           title="Alterar nome"

@@ -55,23 +55,30 @@ O filtro `ready` continua funcionando mesmo que os registros revisados não exib
 
 O filtro não é exibido na visualização EN-US.
 
-## Filtro por tipo do Bestiário
+## Filtros fornecidos pelo game system
 
-Quando o domínio aberto é `BESTIARY`, a listagem exibe três opções:
-
-- Todos;
-- Criaturas;
-- Hazards.
-
-A consulta usa:
+A interface compartilhada não declara filtros próprios de Pathfinder. Ela
+renderiza os descritores neutros recebidos em `filterDefinitions` e devolve as
+seleções como parâmetros repetíveis:
 
 ```text
-bestiaryType=all|creatures|hazards
+filter=<filterId>:<value>
 ```
 
-Esse filtro é independente do idioma e do status editorial, pode ser combinado
-com a busca e é aplicado antes da paginação. Ao trocar de domínio ou opção, a
-interface retorna à primeira página.
+No Bestiário de Pathfinder 2e, o provider publica:
+
+- Tipo: Todos, Criaturas ou Hazards;
+- Nível: seleção única entre os níveis existentes;
+- Raridade: seleção única, com label localizado;
+- Traits: seleção múltipla, com labels localizados.
+
+Selecionar várias traits exige que a entrada possua todas elas. Os filtros são
+independentes do idioma e do status editorial, podem ser combinados com a busca
+e são aplicados antes da paginação. Qualquer alteração de seleção retorna à
+primeira página.
+
+Ao trocar de domínio, as seleções anteriores são limpas. O VTT e os componentes
+compartilhados não contêm branches, enums ou labels específicos de PF2e.
 
 ## Ficha
 

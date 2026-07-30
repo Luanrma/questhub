@@ -3,14 +3,70 @@ import type {
   TokenIndicatorPresentation,
   TokenPresentation,
 } from '../../automation/contracts'
+import {
+  catalogTokenSheetSystemKey,
+  parseCatalogTokenSheetEnvelope,
+} from '../../catalog'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from '../character-sheet/adapter'
+import {
+  parsePathfinder2eCatalogTokenSheetData,
+  resolvePathfinder2eCatalogTokenSheetData,
+} from './catalog-token-sheet'
 
 function emptyPresentation(tokenId: string, revision = 'unlinked'): TokenPresentation {
   return {
     tokenId,
     revision,
     resources: [],
+    indicators: [],
+    actions: [],
+  }
+}
+
+function invalidSheetPresentation(tokenId: string, revision: string): TokenPresentation {
+  return {
+    tokenId,
+    revision,
+    resources: [],
+    indicators: [
+      {
+        id: 'invalid-character-sheet',
+        label: 'Ficha inválida',
+        visibility: 'MASTER_ONLY',
+        severity: 'critical',
+      },
+    ],
+    actions: [],
+  }
+}
+
+function buildCatalogTokenPresentation(
+  tokenId: string,
+  revision: string,
+  sheetData: unknown,
+): TokenPresentation {
+  const envelope = parseCatalogTokenSheetEnvelope(sheetData)
+  const data = envelope
+    ? parsePathfinder2eCatalogTokenSheetData(envelope.data)
+      ?? resolvePathfinder2eCatalogTokenSheetData(envelope.source.contentId)
+    : null
+  if (!data) return invalidSheetPresentation(tokenId, revision)
+
+  return {
+    tokenId,
+    revision,
+    resources: [
+      {
+        id: 'primary-vitality',
+        slot: 'primary',
+        label: 'PV',
+        value: data.hitPoints.current,
+        maximum: data.hitPoints.maximum,
+        presentation: 'bar',
+        visibility: 'PUBLIC',
+      },
+    ],
     indicators: [],
     actions: [],
   }
@@ -27,8 +83,16 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
 
   buildTokenPresentation(context) {
     const sheet = context.characterSheet
-    if (!sheet || sheet.systemKey !== pathfinder2eCharacterSheetRuntimeAdapter.systemKey) {
+    if (!sheet) {
       return emptyPresentation(context.tokenId)
+    }
+
+    const revision = sheet.updatedAt.toISOString()
+    if (sheet.systemKey === catalogTokenSheetSystemKey('PATHFINDER_2E')) {
+      return buildCatalogTokenPresentation(context.tokenId, revision, sheet.data)
+    }
+    if (sheet.systemKey !== pathfinder2eCharacterSheetRuntimeAdapter.systemKey) {
+      return emptyPresentation(context.tokenId, revision)
     }
 
     try {
@@ -69,7 +133,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
 
       return {
         tokenId: context.tokenId,
-        revision: sheet.updatedAt.toISOString(),
+        revision,
         resources: [
           {
             id: 'primary-vitality',
@@ -88,7 +152,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
     } catch {
       return {
         tokenId: context.tokenId,
-        revision: sheet.updatedAt.toISOString(),
+        revision,
         resources: [],
         indicators: [
           {

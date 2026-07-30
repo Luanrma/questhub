@@ -8,6 +8,11 @@
 * Coordenadas, grid, zoom e movimentacao permanecem genericos.
 * Nenhum componente do VTT importa implementacoes de regras, fichas, bestiarios, inventario, economia, combate mecanico ou rulesets.
 * Intencoes neutras de composicao, como solicitar a abertura de uma ficha vinculada, devem usar contratos de evento em `apps/web/src/lib`; o VTT e os sistemas de jogo podem depender do contrato, mas nunca um do outro.
+* Atualizacoes da biblioteca, capacidades e solicitacoes de duplicacao de Tokens
+  fornecidos por extensoes usam contratos neutros em `apps/web/src/lib`; o VTT
+  nao consulta endpoints de catalogo nem importa componentes de `game-systems`.
+* A toolbar renderiza somente capacidades recebidas. Ela nao infere a origem do
+  Token por nome, ficha, `systemKey` ou payload mecanico.
 * `apps/api/src/server.ts` e o composition root exclusivo do VTT e nao importa
   registradores de `game_systems`; a composicao executavel externa pertence a
   `apps/api/src/main.ts`.

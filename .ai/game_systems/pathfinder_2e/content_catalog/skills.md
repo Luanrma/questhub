@@ -127,6 +127,19 @@ Obrigatório:
 - relatórios gerados a partir dos manifests;
 - nenhuma escolha aleatória.
 
+## 7.1. Filtros de apresentação
+
+- Nível, raridade, traits e tipo de entrada são conceitos interpretados somente
+  pelo provider de Pathfinder 2e.
+- A fronteira compartilhada recebe seleções opacas e descritores visuais
+  neutros; ela não declara IDs, opções nem semântica de filtros do sistema.
+- Opções de raridade e traits usam o glossário do catálogo para apresentar o
+  label localizado sem traduzir o valor mecânico usado na seleção.
+- Todos os filtros são aplicados antes da ordenação e da paginação.
+- Traits múltiplas usam interseção: uma entrada precisa conter todas as traits
+  selecionadas.
+- Valores desconhecidos ou incompatíveis com o domínio não alteram a listagem.
+
 ## 8. Planejamento de entregas
 
 Dentro de cada programa:

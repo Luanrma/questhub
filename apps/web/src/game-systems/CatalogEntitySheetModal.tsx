@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { BookOpen, Package, PawPrint, Send, Sparkles, X } from 'lucide-react'
+import { BookOpen, CopyPlus, Package, PawPrint, Send, Sparkles, X } from 'lucide-react'
 import { api } from '../lib/api'
 import { CatalogItemSendModal } from './CatalogItemSendModal'
 import {
@@ -8,6 +8,8 @@ import {
   type GameSystemContentLocale,
   type GameSystemKey,
 } from './registry'
+import { notifyCampaignTokenLibraryChanged } from '../lib/campaign-token-library-events'
+import { createCatalogToken } from './catalogTokenApi'
 
 type EditorialStatus = {
   label: string
@@ -23,6 +25,7 @@ type CatalogSheet = {
   traits?: readonly string[]
   editorialStatus?: EditorialStatus | null
   stats?: ReadonlyArray<{ label: string; value: string }>
+  canCreateToken?: boolean
   sections: ReadonlyArray<{
     title: string
     fields: ReadonlyArray<{
@@ -53,6 +56,7 @@ type Props = {
   contentId: string
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
+  canManageTokens?: boolean
   onClose: () => void
 }
 
@@ -69,13 +73,21 @@ const statusClasses: Record<EditorialStatus['tone'], string> = {
   info: 'border-sky-300/35 bg-sky-500/15 text-sky-100',
 }
 
-export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale, onClose }: Props) {
+export function CatalogEntitySheetModal({
+  campaignId,
+  contentId,
+  domain,
+  locale,
+  canManageTokens = false,
+  onClose,
+}: Props) {
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null)
   const [sendPermission, setSendPermission] = useState({ key: '', allowed: false })
   const [sendOpen, setSendOpen] = useState(false)
+  const [creatingToken, setCreatingToken] = useState(false)
   const Icon = domainIcons[domain]
   const sendPermissionKey = `${campaignId}:${domain}`
   const canSendToPlayer =
@@ -127,6 +139,20 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
   const entry = data?.entry
   const imageFailed = Boolean(entry?.imageUrl && failedImageUrl === entry.imageUrl)
 
+  async function handleCreateToken() {
+    if (!entry || creatingToken) return
+    setCreatingToken(true)
+    setError(null)
+    try {
+      await createCatalogToken({ campaignId, contentId, domain, locale })
+      notifyCampaignTokenLibraryChanged(campaignId)
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Nao foi possivel criar o Token.')
+    } finally {
+      setCreatingToken(false)
+    }
+  }
+
   return (
     <div
       className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
@@ -166,6 +192,17 @@ export function CatalogEntitySheetModal({ campaignId, contentId, domain, locale,
           </div>
 
           <div className="flex items-center gap-2">
+            {canManageTokens && entry?.canCreateToken ? (
+              <button
+                type="button"
+                disabled={creatingToken}
+                onClick={() => void handleCreateToken()}
+                className="inline-flex items-center gap-2 rounded-lg border border-emerald-300/25 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 disabled:opacity-45"
+              >
+                <CopyPlus className="h-4 w-4" />
+                {creatingToken ? 'Criando...' : 'Criar Token'}
+              </button>
+            ) : null}
             {canSendToPlayer && entry ? (
               <button
                 type="button"

@@ -6,6 +6,7 @@ export type CharacterSheetRendererProps = {
   campaignId: string
   sheetId: string
   activePage: string
+  presentation: 'FULL' | 'SIMPLIFIED'
 }
 
 export type CharacterSheetPageDescriptor = {

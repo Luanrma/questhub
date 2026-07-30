@@ -9,7 +9,12 @@ import type {
 } from '../../catalog'
 import { resolvePathfinder2eContentEntry } from './catalog'
 import type { Pathfinder2eContentEntry } from './content-entry'
-import { matchesPathfinder2eBestiaryFilter } from './bestiary-filter'
+import {
+  createPathfinder2eBestiaryFilterDefinitions,
+  isPathfinder2eHazard,
+  matchesPathfinder2eBestiaryFilters,
+  normalizePathfinder2eBestiaryFilters,
+} from './bestiary-filter'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
 import { pathfinder2eContextualCatalogProvider } from './contextual-provider'
 import {
@@ -17,6 +22,7 @@ import {
   translatePathfinder2eTradition,
   translatePathfinder2eTraits,
 } from './translations/pt-BR/glossary'
+import { createPathfinder2eCatalogTokenSheetData } from '../automation/catalog-token-sheet'
 
 const DOMAIN_MAP: Record<Pathfinder2eContentEntry['original']['domain'], GameSystemCatalogDomain> = {
   BESTIARY: 'BESTIARY',
@@ -104,6 +110,7 @@ function cardWithImage(
     ...card,
     imageUrl: resolveImageUrl(entry),
     editorialStatus: visibleEditorialStatus(entry, card.editorialStatus),
+    canCreateToken: entry.original.domain === 'BESTIARY' && !isPathfinder2eHazard(entry),
   }
 }
 
@@ -115,6 +122,7 @@ function sheetWithImage(
     ...sheet,
     imageUrl: resolveImageUrl(entry),
     editorialStatus: visibleEditorialStatus(entry, sheet.editorialStatus),
+    canCreateToken: entry.original.domain === 'BESTIARY' && !isPathfinder2eHazard(entry),
   }
 }
 
@@ -134,9 +142,15 @@ function sheetToCard(sheet: GameSystemCatalogSheet): GameSystemCatalogCard {
 export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
   async list(query) {
     const normalizedSearch = query.search?.trim().toLocaleLowerCase(query.locale) ?? ''
+    const filterDefinitions = createPathfinder2eBestiaryFilterDefinitions(
+      PATHFINDER_2E_CONTENT_ENTRIES,
+      query.domain,
+      query.locale,
+    )
+    const filters = normalizePathfinder2eBestiaryFilters(query.filters, filterDefinitions)
     const matching = PATHFINDER_2E_CONTENT_ENTRIES
       .filter((entry) => DOMAIN_MAP[entry.original.domain] === query.domain)
-      .filter((entry) => matchesPathfinder2eBestiaryFilter(entry, query.domain, query.bestiaryType))
+      .filter((entry) => matchesPathfinder2eBestiaryFilters(entry, query.domain, filters))
       .filter((entry) => matchesEditorialFilter(entry, query.editorialStatus))
       .filter((entry) => !normalizedSearch || localizedSearchText(entry, query.domain, query.locale).includes(normalizedSearch))
       .sort((left, right) => localizedName(left, query.locale).localeCompare(localizedName(right, query.locale), query.locale))
@@ -157,6 +171,7 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
 
     return {
       entries: cards.filter((entry): entry is GameSystemCatalogCard => Boolean(entry)),
+      filterDefinitions,
       pagination: {
         page: query.page,
         limit: query.limit,
@@ -175,6 +190,29 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
 
     const sheet = await pathfinder2eContextualCatalogProvider.get(query)
     return sheet ? sheetWithImage(entry, sheet) : null
+  },
+
+  async getTokenizableSheet(query) {
+    if (query.domain !== 'BESTIARY') return null
+    const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
+      (candidate) => candidate.original.contentId === query.contentId
+        && candidate.original.domain === 'BESTIARY',
+    )
+    if (!entry || isPathfinder2eHazard(entry)) return null
+
+    const [sheet, data] = await Promise.all([
+      pathfinder2eCatalogProvider.get(query),
+      createPathfinder2eCatalogTokenSheetData(entry.original.data),
+    ])
+    if (!sheet || !data) return null
+
+    return {
+      sheet: {
+        ...sheet,
+        description: null,
+      },
+      data,
+    }
   },
 
   getInventoryItemData(query) {

@@ -8,7 +8,11 @@ import type {
   GameSystemContentLocale,
 } from '../../catalog'
 import { resolvePathfinder2eContentEntry } from './catalog'
-import { matchesPathfinder2eBestiaryFilter } from './bestiary-filter'
+import {
+  createPathfinder2eBestiaryFilterDefinitions,
+  matchesPathfinder2eBestiaryFilters,
+  normalizePathfinder2eBestiaryFilters,
+} from './bestiary-filter'
 import type { Pathfinder2eContentEntry } from './content-entry'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
 import {
@@ -640,9 +644,15 @@ function searchableText(entry: Pathfinder2eContentEntry, locale: GameSystemConte
 export const pathfinder2eContentCatalogProvider: GameSystemCatalogProvider = {
   list(query) {
     const normalizedSearch = query.search?.trim().toLocaleLowerCase(query.locale) ?? ''
+    const filterDefinitions = createPathfinder2eBestiaryFilterDefinitions(
+      PATHFINDER_2E_CONTENT_ENTRIES,
+      query.domain,
+      query.locale,
+    )
+    const filters = normalizePathfinder2eBestiaryFilters(query.filters, filterDefinitions)
     const matching = PATHFINDER_2E_CONTENT_ENTRIES
       .filter((entry) => DOMAIN_MAP[entry.original.domain] === query.domain)
-      .filter((entry) => matchesPathfinder2eBestiaryFilter(entry, query.domain, query.bestiaryType))
+      .filter((entry) => matchesPathfinder2eBestiaryFilters(entry, query.domain, filters))
       .filter((entry) => !normalizedSearch || searchableText(entry, query.locale).includes(normalizedSearch))
       .map((entry) => buildCard(entry, query.locale))
       .sort((left, right) => left.name.localeCompare(right.name, query.locale))
@@ -653,6 +663,7 @@ export const pathfinder2eContentCatalogProvider: GameSystemCatalogProvider = {
 
     return {
       entries: matching.slice(start, start + query.limit),
+      filterDefinitions,
       pagination: {
         page: query.page,
         limit: query.limit,

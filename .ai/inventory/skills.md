@@ -19,7 +19,8 @@
 ## Persistência
 
 - `Inventory` referencia `CampaignActor` com relação única.
-- `CampaignActor` sempre nasce com seu inventário na mesma operação.
+- `CampaignActor` com capacidade de inventário nasce com seu inventário na mesma
+  operação; uma extensão que não oferece essa capacidade não cria o agregado.
 - Entrar na campanha ou atribuir controle nunca cria inventário.
 - A exclusão definitiva do ator remove inventário e entradas em cascata; arquivamento preserva tudo.
 - `InventoryEntry.quantity` fica fora do JSON.

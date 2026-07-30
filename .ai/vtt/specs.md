@@ -74,6 +74,16 @@
 * Ao abrir o menu contextual em um membro da selecao operacional, `Enviar para encontro` inclui todos os membros selecionados elegiveis e `Remover da cena` remove todos os membros selecionados. Em Token fora da selecao, ambas as acoes permanecem individuais.
 * `C` abre a ficha vinculada ao Token primario selecionado quando o usuario possui acesso. Token sem ficha vinculada produz feedback local e nao abre janela.
 * A abertura da ficha e publicada por um contrato neutro de composicao da aplicacao; o VTT nao pode importar componentes, eventos ou infraestrutura internos de `game-systems`.
+* O resolvedor de ficha vinculada pode informar a apresentacao neutra `FULL` ou
+  `SIMPLIFIED`; o VTT apenas encaminha essa preferencia ao composition shell.
+* Tokens materializados por uma extensao entram na biblioteca sem posicionamento
+  e usam exatamente o mesmo drag-and-drop e comando `vtt:token:place` dos Tokens
+  genericos.
+* A toolbar pode renderizar a acao neutra `duplicate` quando ela for publicada
+  pelo composition shell. A toolbar nao conhece a origem da capacidade.
+* Solicitar duplicacao publica uma intencao neutra; a extensao autorizada cria a
+  copia e publica uma mudanca da biblioteca. O VTT nao copia ficha, ator,
+  inventario ou dados opacos.
 * `Ctrl` + roda do mouse sobre a mesa altera o zoom em passos discretos e bloqueia o zoom nativo do navegador.
 * `Numpad +` e `Numpad -` aumentam e diminuem o zoom; `Numpad 0` restaura 100% e recentraliza a cena.
 * Um unico `Escape` limpa integralmente a selecao operacional e de transformacao de Tokens, remove todas as marcacoes locais de alvo manual, fecha menus contextuais, minimiza paineis flutuantes redimensionaveis, fecha dialogos visiveis e recolhe os paineis expansivos da mesa e o menu lateral.

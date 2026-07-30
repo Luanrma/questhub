@@ -3,6 +3,7 @@ import {
   BookOpen,
   ChevronLeft,
   ChevronRight,
+  CopyPlus,
   ListFilter,
   Package,
   PawPrint,
@@ -20,6 +21,13 @@ import {
   type GameSystemKey,
 } from './registry'
 import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
+import { notifyCampaignTokenLibraryChanged } from '../lib/campaign-token-library-events'
+import { createCatalogToken } from './catalogTokenApi'
+import {
+  CatalogFilters,
+  type CatalogFilterDefinition,
+  type CatalogFilterSelection,
+} from './catalog-filters/CatalogFilters'
 
 type EditorialStatus = {
   label: string
@@ -27,7 +35,6 @@ type EditorialStatus = {
 }
 
 type EditorialFilter = 'all' | 'review' | 'ready'
-type BestiaryFilter = 'all' | 'creatures' | 'hazards'
 
 type CatalogCard = {
   id: string
@@ -38,6 +45,7 @@ type CatalogCard = {
   traits?: readonly string[]
   editorialStatus?: EditorialStatus | null
   stats?: ReadonlyArray<{ label: string; value: string }>
+  canCreateToken?: boolean
 }
 
 type CatalogResponse = {
@@ -49,7 +57,7 @@ type CatalogResponse = {
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
   editorialStatus?: EditorialFilter
-  bestiaryType?: BestiaryFilter
+  filterDefinitions?: readonly CatalogFilterDefinition[]
   entries: CatalogCard[]
   pagination: {
     page: number
@@ -62,6 +70,7 @@ type CatalogResponse = {
 type Props = {
   campaignId: string
   domain: GameSystemCatalogDomain
+  canManageTokens?: boolean
   onClose: () => void
 }
 
@@ -77,6 +86,8 @@ const statusClasses: Record<EditorialStatus['tone'], string> = {
   warning: 'border-red-300/35 bg-red-500/15 text-red-100',
   info: 'border-sky-300/35 bg-sky-500/15 text-sky-100',
 }
+
+const EMPTY_FILTER_SELECTION: CatalogFilterSelection = {}
 
 function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSystemCatalogDomain }) {
   const [failed, setFailed] = useState(false)
@@ -101,19 +112,52 @@ function CatalogImage({ entry, domain }: { entry: CatalogCard; domain: GameSyste
   )
 }
 
-export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
+export function CampaignCatalogModal({ campaignId, domain, canManageTokens = false, onClose }: Props) {
   const [locale, setLocale] = useState<GameSystemContentLocale>('pt-BR')
   const [search, setSearch] = useState('')
   const [editorialFilter, setEditorialFilter] = useState<EditorialFilter>('all')
-  const [bestiaryFilter, setBestiaryFilter] = useState<BestiaryFilter>('all')
+  const [filterState, setFilterState] = useState<{
+    domain: GameSystemCatalogDomain
+    selection: CatalogFilterSelection
+  }>({ domain, selection: {} })
   const [page, setPage] = useState(1)
   const [data, setData] = useState<CatalogResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null)
+  const [creatingTokenId, setCreatingTokenId] = useState<string | null>(null)
   const Icon = domainIcons[domain]
   const title = catalogDomainLabels[domain]
   const normalizedSearch = useMemo(() => search.trim(), [search])
+  const filterSelection = filterState.domain === domain
+    ? filterState.selection
+    : EMPTY_FILTER_SELECTION
+  const filterDefinitions = data?.domain === domain ? data.filterDefinitions ?? [] : []
+  const serializedFilters = useMemo(
+    () => Object.entries(filterSelection)
+      .flatMap(([filterId, values]) => values.map((value) => `${filterId}:${value}`))
+      .sort(),
+    [filterSelection],
+  )
+
+  async function createToken(entry: CatalogCard) {
+    if (creatingTokenId) return
+    setCreatingTokenId(entry.id)
+    setError(null)
+    try {
+      await createCatalogToken({
+        campaignId,
+        contentId: entry.id,
+        domain,
+        locale,
+      })
+      notifyCampaignTokenLibraryChanged(campaignId)
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : 'Nao foi possivel criar o Token.')
+    } finally {
+      setCreatingTokenId(null)
+    }
+  }
 
   useEffect(() => registerVttWindow({
     id: `campaign-catalog:${campaignId}:${domain}`,
@@ -132,7 +176,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
         limit: '24',
       })
       if (normalizedSearch) params.set('q', normalizedSearch)
-      if (domain === 'BESTIARY') params.set('bestiaryType', bestiaryFilter)
+      serializedFilters.forEach((filter) => params.append('filter', filter))
 
       setLoading(true)
       setError(null)
@@ -154,7 +198,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
       window.clearTimeout(timeout)
       controller.abort()
     }
-  }, [bestiaryFilter, campaignId, domain, editorialFilter, locale, normalizedSearch, page, title])
+  }, [campaignId, domain, editorialFilter, locale, normalizedSearch, page, serializedFilters, title])
 
   return (
     <div
@@ -222,7 +266,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
         </header>
 
         <div className="border-b border-white/10 px-5 py-4">
-          <div className="flex flex-col gap-3 md:flex-row">
+          <div className="flex flex-col gap-3 md:flex-row md:flex-wrap">
             <div className="relative min-w-0 flex-1">
               <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
               <input
@@ -236,27 +280,18 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
               />
             </div>
 
-            {domain === 'BESTIARY' ? (
-              <label className="relative md:w-44">
-                <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
-                <select
-                  value={bestiaryFilter}
-                  onChange={(event) => {
-                    setBestiaryFilter(event.target.value as BestiaryFilter)
-                    setPage(1)
-                  }}
-                  aria-label="Filtrar por tipo do Bestiário"
-                  className="h-11 w-full appearance-none rounded-lg border border-white/10 bg-black/35 pl-10 pr-4 text-sm text-zinc-200 outline-none transition focus:border-indigo-300/50"
-                >
-                  <option value="all">Todos</option>
-                  <option value="creatures">Criaturas</option>
-                  <option value="hazards">Hazards</option>
-                </select>
-              </label>
-            ) : null}
+            <CatalogFilters
+              definitions={filterDefinitions}
+              locale={locale}
+              selection={filterSelection}
+              onChange={(selection) => {
+                setFilterState({ domain, selection })
+                setPage(1)
+              }}
+            />
 
             {locale === 'pt-BR' ? (
-              <label className="relative md:w-60">
+              <label className="relative min-w-56 flex-1 md:max-w-60">
                 <ListFilter className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
                 <select
                   value={editorialFilter}
@@ -343,7 +378,18 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
                     ) : null}
                   </div>
 
-                  <div className="mt-auto flex justify-end pt-4">
+                  <div className="mt-auto flex justify-end gap-2 pt-4">
+                    {canManageTokens && entry.canCreateToken ? (
+                      <button
+                        type="button"
+                        disabled={Boolean(creatingTokenId)}
+                        onClick={() => void createToken(entry)}
+                        className="inline-flex items-center gap-2 rounded-lg border border-emerald-300/25 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100 transition hover:border-emerald-300/50 hover:bg-emerald-500/20 disabled:opacity-45"
+                      >
+                        <CopyPlus className="h-4 w-4" />
+                        {creatingTokenId === entry.id ? 'Criando...' : 'Criar Token'}
+                      </button>
+                    ) : null}
                     <button
                       type="button"
                       onClick={() => setSelectedEntryId(entry.id)}
@@ -391,6 +437,7 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
           contentId={selectedEntryId}
           domain={domain}
           locale={locale}
+          canManageTokens={canManageTokens}
           onClose={() => setSelectedEntryId(null)}
         />
       ) : null}

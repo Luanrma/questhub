@@ -50,6 +50,19 @@ apps/api/src/
 - handlers de entrada apenas validam, autorizam e delegam;
 - dados genericos do VTT nao recebem campos ou invariantes de um sistema;
 - novos sistemas usam uma subpasta propria e nao importam regras de outro sistema.
+- providers de catalogo declaram se uma entrada pode originar Token; o registry
+  nao infere tipos de criatura por campos mecanicos.
+- a materializacao de criatura usa `CampaignActor`, `CampaignCharacterSheet` e
+  `CampaignToken` existentes na mesma transacao e nao cria `Inventory`, sem
+  adicionar regra de sistema aos modelos do VTT.
+- o frontend de `game-systems` publica atualizacoes da biblioteca e capacidades
+  de Token por eventos compartilhados em `apps/web/src/lib`; componentes sob
+  `apps/web/src/vtt` consomem apenas esses contratos neutros.
+- fichas simplificadas persistem um envelope versionado de apresentacao do
+  catalogo e sao somente leitura neste recorte.
+- dados mecanicos necessarios a projecoes de Token ficam em payload opaco
+  produzido e interpretado pelo mesmo game system; o VTT recebe somente
+  `TokenPresentation.resources`.
 
 ## Qualidade
 
@@ -65,3 +78,6 @@ apps/api/src/
 - autenticacao e autorizacao continuam obrigatorias nas entradas;
 - catalogos estaticos nao fazem download em runtime;
 - regras de alta frequencia nao devem ser acopladas aos eventos internos do VTT.
+- criar ou duplicar Token de catalogo exige Mestre ativo e campanha compativel;
+  o `contentId` sempre e resolvido pelo provider registrado para o sistema da
+  campanha.

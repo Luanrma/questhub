@@ -18,6 +18,7 @@ import { api } from '../lib/api'
 import { CampaignCatalogModal } from '../game-systems/CampaignCatalogModal'
 import { CampaignCharacterSheetsModal } from '../game-systems/CampaignCharacterSheetsModal'
 import { CampaignCharacterSheetWorkspace } from '../game-systems/CampaignCharacterSheetWorkspace'
+import { CampaignGameSystemTokenIntegration } from '../game-systems/CampaignGameSystemTokenIntegration'
 import { CampaignInventoryModal } from '../game-systems/CampaignInventoryModal'
 import {
   catalogDomainLabels,
@@ -225,6 +226,7 @@ export function Aside({
         <CampaignCatalogModal
           campaignId={campaignId}
           domain={catalogDomain}
+          canManageTokens={role === 'MASTER'}
           onClose={() => setCatalogDomain(null)}
         />
       ) : null}
@@ -246,6 +248,10 @@ export function Aside({
       <CampaignCharacterSheetWorkspace
         campaignId={campaignId}
         gameSystem={system?.gameSystem ?? null}
+      />
+      <CampaignGameSystemTokenIntegration
+        campaignId={campaignId}
+        enabled={Boolean(role === 'MASTER' && system)}
       />
     </>
   )

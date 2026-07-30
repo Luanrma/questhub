@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import {
+  catalogTokenSheetSystemKey,
   getGameSystemCatalogProvider,
   getInventoryCatalogNamespace,
   type GameSystemKey,
@@ -61,10 +62,17 @@ async function findAuthorizedActor(campaignId: string, actorId: string, userId: 
       campaignId: true,
       controllerMemberId: true,
       token: { select: { id: true } },
+      characterSheet: { select: { systemKey: true } },
       campaign: { select: { gameSystem: true } },
     },
   })
   if (!actor) return { actor: null, forbidden: false, role: member.role } as const
+  if (
+    actor.characterSheet?.systemKey
+    === catalogTokenSheetSystemKey(actor.campaign.gameSystem as GameSystemKey)
+  ) {
+    return { actor: null, forbidden: false, role: member.role } as const
+  }
 
   const canAccess = canReadActorInventory({
     role: member.role,
@@ -135,10 +143,23 @@ export function registerInventoryRoutes(app: FastifyInstance) {
         },
       },
     } as const
+    const catalogSheetSystemKey = catalogTokenSheetSystemKey(
+      member.campaign.gameSystem as GameSystemKey,
+    )
+    const hasInventoryCapability = {
+      inventory: { isNot: null },
+      OR: [
+        { characterSheet: { is: null } },
+        { characterSheet: { is: { systemKey: { not: catalogSheetSystemKey } } } },
+      ],
+    } as const
 
     const actors = member.role === 'MASTER'
       ? await prisma.campaignActor.findMany({
-          where: { campaignId: params.data.campaignId },
+          where: {
+            campaignId: params.data.campaignId,
+            ...hasInventoryCapability,
+          },
           select: actorSelect,
           orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
         })
@@ -147,6 +168,7 @@ export function registerInventoryRoutes(app: FastifyInstance) {
             campaignId: params.data.campaignId,
             controllerMemberId: member.id,
             token: { isNot: null },
+            ...hasInventoryCapability,
           },
           select: actorSelect,
           orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
@@ -191,6 +213,14 @@ export function registerInventoryRoutes(app: FastifyInstance) {
       select: { id: true },
     })
     if (!master) return reply.status(403).send({ error: 'Apenas o Mestre pode enviar itens' })
+    const campaign = await prisma.campaign.findUnique({
+      where: { id: params.data.campaignId },
+      select: { gameSystem: true },
+    })
+    if (!campaign) return reply.status(404).send({ error: 'Campanha nao encontrada' })
+    const catalogSheetSystemKey = catalogTokenSheetSystemKey(
+      campaign.gameSystem as GameSystemKey,
+    )
 
     const recipientActors = await prisma.campaignActor.findMany({
       where: {
@@ -201,6 +231,11 @@ export function registerInventoryRoutes(app: FastifyInstance) {
             status: 'ACTIVE',
           },
         },
+        inventory: { isNot: null },
+        OR: [
+          { characterSheet: { is: null } },
+          { characterSheet: { is: { systemKey: { not: catalogSheetSystemKey } } } },
+        ],
       },
       select: {
         id: true,
@@ -250,8 +285,7 @@ export function registerInventoryRoutes(app: FastifyInstance) {
 
     const inventory = await findActorInventory(access.actor.id)
     if (!inventory) {
-      req.log.error({ actorId: access.actor.id }, 'CampaignActor has no Inventory aggregate')
-      return reply.status(500).send({ error: 'Inventario do ator esta inconsistente' })
+      return reply.status(404).send({ error: 'Este ator nao possui inventario' })
     }
 
     const gameSystem = access.actor.campaign.gameSystem as GameSystemKey
