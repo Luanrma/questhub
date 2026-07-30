@@ -9,8 +9,9 @@ import {
   X,
 } from 'lucide-react'
 import { api, ApiError } from '../lib/api'
-import { requestCampaignCharacterSheetOpen } from './character-sheet-window-events'
+import { requestCampaignCharacterSheetOpen } from '../lib/campaign-character-sheet-window-events'
 import type { GameSystemKey } from './registry'
+import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 
 type CharacterSheetManagerEntry = {
   sheetId: string
@@ -84,13 +85,12 @@ export function CampaignCharacterSheetsModal({ campaignId, onClose }: Props) {
   const [name, setName] = useState('')
   const [updatingSheetId, setUpdatingSheetId] = useState<string | null>(null)
 
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') onClose()
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [onClose])
+  useEffect(() => registerVttWindow({
+    id: `campaign-character-sheets:${campaignId}`,
+    getZIndex: () => 100,
+    close: onClose,
+    isVisible: () => true,
+  }), [campaignId, onClose])
 
   useEffect(() => {
     let cancelled = false

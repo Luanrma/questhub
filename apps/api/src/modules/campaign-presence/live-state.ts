@@ -1,9 +1,10 @@
-import { defaultVttGridSettings, type OnlineCampaign, type UserPresence, type VttCombatState, type VttGridSettings, type VttMeasurement, type VttPlayerToken, type VttTableScene } from './contracts'
+import { defaultVttGridSettings, type OnlineCampaign, type UserPresence, type VttCombatState, type VttGridSettings, type VttMeasurement, type VttPlayerToken, type VttTableScene, type VttTargetMarkerStyle } from './contracts'
 
 export class CampaignPresenceState {
   private readonly userPresence = new Map<string, UserPresence>()
   private readonly campaignOnline = new Map<string, OnlineCampaign>()
   private readonly campaignGridSettings = new Map<string, VttGridSettings>()
+  private readonly campaignTargetMarkerStyles = new Map<string, VttTargetMarkerStyle>()
   private readonly campaignTokens = new Map<string, Map<string, VttPlayerToken>>()
   private readonly campaignTokenSceneIds = new Map<string, Map<string, string>>()
   private readonly campaignSceneGridSettings = new Map<string, Map<string, VttGridSettings>>()
@@ -53,6 +54,7 @@ export class CampaignPresenceState {
     this.campaignPendingScenes.delete(campaignId)
     this.campaignCombats.delete(campaignId)
     this.campaignTokenMovementDeadlines.delete(campaignId)
+    this.campaignTargetMarkerStyles.delete(campaignId)
     this.hydratedCampaignVttStates.delete(campaignId)
     this.dirtyCampaignVttStates.delete(campaignId)
   }
@@ -63,6 +65,14 @@ export class CampaignPresenceState {
 
   setCampaignGridSettings(campaignId: string, settings: VttGridSettings) {
     this.campaignGridSettings.set(campaignId, settings)
+  }
+
+  getCampaignTargetMarkerStyle(campaignId: string): VttTargetMarkerStyle {
+    return this.campaignTargetMarkerStyles.get(campaignId) ?? 'ARROWS'
+  }
+
+  setCampaignTargetMarkerStyle(campaignId: string, style: VttTargetMarkerStyle) {
+    this.campaignTargetMarkerStyles.set(campaignId, style)
   }
 
   getCampaignTokens(campaignId: string) {

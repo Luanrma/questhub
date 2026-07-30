@@ -24,6 +24,7 @@ import {
   vttGridUpdateSchema,
   vttMeasurementUpdateSchema,
   vttSceneSelectSchema,
+  vttTargetMarkerStyleUpdateSchema,
   vttTokenActionSchema,
   vttTokenLayerSchema,
   vttTokenMovePathSchema,
@@ -760,6 +761,11 @@ export function setupCampaignPresence(server: HttpServer) {
       settings: scene?.grid ?? defaultVttGridSettings,
     })
 
+    io.to(socket.id).emit('vtt:target-marker-style:changed', {
+      campaignId,
+      style: state.getCampaignTargetMarkerStyle(campaignId),
+    })
+
     await emitCampaignTokenSnapshot(campaignId, socket.id, scene?.id ?? null)
   }
 
@@ -948,6 +954,52 @@ export function setupCampaignPresence(server: HttpServer) {
       } catch {
         socket.emit('presence:error', { message: 'Nao foi possivel atualizar o grid da cena.' })
       }
+    })
+
+    socket.on('vtt:target-marker-style:update', async (
+      input: unknown,
+      ack?: (
+        response:
+          | { ok: true; data: { style: 'ARROWS' | 'RETICLE' } }
+          | { ok: false; error: { code: string; message: string } }
+      ) => void,
+    ) => {
+      const reject = (code: string, message: string) => ack?.({ ok: false, error: { code, message } })
+
+      try {
+        const parsed = vttTargetMarkerStyleUpdateSchema.safeParse(input)
+        if (!parsed.success) return reject('INVALID_PAYLOAD', 'Layout do marcador de alvo invalido.')
+
+        const { campaignId, style } = parsed.data
+        if (!(await canControlCampaignAsMaster(campaignId, socket.id, user.id))) {
+          return reject('FORBIDDEN', 'Somente o Mestre pode alterar o marcador de alvo.')
+        }
+
+        state.setCampaignTargetMarkerStyle(campaignId, style)
+        io.to(campaignRoom(campaignId)).emit('vtt:target-marker-style:changed', {
+          campaignId,
+          style,
+        })
+        ack?.({ ok: true, data: { style } })
+      } catch {
+        socket.emit('presence:error', { message: 'Nao foi possivel alterar o marcador de alvo.' })
+        reject('INTERNAL_ERROR', 'Nao foi possivel alterar o marcador de alvo.')
+      }
+    })
+
+    socket.on('vtt:target-marker-style:request', async (input: unknown) => {
+      const parsed = z.object({ campaignId: z.string().min(1) }).safeParse(input)
+      if (!parsed.success) return
+
+      const { campaignId } = parsed.data
+      const online = state.getCampaignOnline(campaignId)
+      if (online && socket.data.campaignId !== campaignId) return
+      if (!online && !(await isActiveCampaignMaster(campaignId, user.id))) return
+
+      socket.emit('vtt:target-marker-style:changed', {
+        campaignId,
+        style: state.getCampaignTargetMarkerStyle(campaignId),
+      })
     })
 
     socket.on('vtt:token:place', async (

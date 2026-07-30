@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Backpack, ChevronRight, Eye, EyeOff, FileText, Settings, Trash2 } from 'lucide-react'
-import { requestCampaignCharacterSheetOpen } from '../../../game-systems/character-sheet-window-events'
-import { api, ApiError } from '../../../lib/api'
+import { requestCampaignCharacterSheetOpen } from '../../../lib/campaign-character-sheet-window-events'
+import { ApiError } from '../../../lib/api'
 import type {
   CampaignPlayer,
   VttPlayerToken,
@@ -13,6 +13,10 @@ import { TokenImagePickerDialog } from './TokenImagePickerDialog'
 import { normalizeFogLightSource, normalizeTokenVisionConfig } from '../../fog-of-war/domain/config'
 import type { FogLightSourceConfig, TokenVisionConfig } from '../../fog-of-war/domain/types'
 import { EncounterTokenMenuAction } from './EncounterTokenMenuAction'
+import {
+  resolveTokenCharacterSheet,
+  type ResolvedTokenSheet,
+} from '../infrastructure/tokenCharacterSheetApi'
 
 const viewportPadding = 12
 const rootMenuWidth = 208
@@ -33,16 +37,13 @@ type TokenContextMenuProps = {
   canSendToEncounter: boolean
   isSelectedForEncounter: boolean
   isActiveEncounterParticipant: boolean
+  actionTokenCount: number
+  encounterActionTokenCount: number
   onSendToEncounter: (token: VttPlayerToken) => void
   onRemoveFromEncounter: (token: VttPlayerToken) => void
   onRemoveFromScene: (token: VttPlayerToken) => void
   onDelete: (token: VttPlayerToken) => void
   onOpenInventory: (token: VttPlayerToken) => void
-}
-
-type ResolvedTokenSheet = {
-  sheetId: string
-  title: string
 }
 
 function clamp(value: number, minimum: number, maximum: number) {
@@ -79,6 +80,8 @@ export function TokenContextMenu({
   canSendToEncounter,
   isSelectedForEncounter,
   isActiveEncounterParticipant,
+  actionTokenCount,
+  encounterActionTokenCount,
   onSendToEncounter,
   onRemoveFromEncounter,
   onRemoveFromScene,
@@ -110,7 +113,7 @@ export function TokenContextMenu({
       setLinkedSheet(null)
     })
 
-    api<ResolvedTokenSheet>(`/api/campaigns/${campaignId}/tokens/${token.id}/character-sheet`)
+    resolveTokenCharacterSheet(campaignId, token.id)
       .then((result) => {
         if (!cancelled) setLinkedSheet(result)
       })
@@ -215,6 +218,7 @@ export function TokenContextMenu({
           canSend={canSendToEncounter}
           selected={isSelectedForEncounter}
           activeParticipant={isActiveEncounterParticipant}
+          tokenCount={encounterActionTokenCount}
           onSend={() => onSendToEncounter(token)}
           onRemove={() => onRemoveFromEncounter(token)}
         />
@@ -359,7 +363,7 @@ export function TokenContextMenu({
                 onClick={() => onRemoveFromScene(token)}
               >
                 <Trash2 className="h-4 w-4" />
-                Remover da cena
+                {actionTokenCount > 1 ? `Remover ${actionTokenCount} da cena` : 'Remover da cena'}
               </button>
               <button
                 type="button"

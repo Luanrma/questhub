@@ -24,6 +24,11 @@ import {
   type CampaignUserSettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { canOpenCampaignTable } from '../features/campaigns/domain/campaignAccess'
+import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
+import {
+  normalizeTargetMarkerStyle,
+  type TargetMarkerStyle,
+} from '../vtt/table/domain/tokenSelection'
 
 type CampaignPanelId = 'sessions' | 'characters' | 'players' | 'journal' | 'settings'
 
@@ -44,7 +49,8 @@ function panelIdFromPath(pathname: string): CampaignPanelId | null {
   return null
 }
 
-function FloatingCampaignPanel({ title, defaultPosition, defaultSize, zIndex, onClose, onFocus, children }: {
+function FloatingCampaignPanel({ windowId, title, defaultPosition, defaultSize, zIndex, onClose, onFocus, children }: {
+  windowId: string
   title: string
   defaultPosition: { x: number; y: number }
   defaultSize: { width: number; height: number }
@@ -62,6 +68,13 @@ function FloatingCampaignPanel({ title, defaultPosition, defaultSize, zIndex, on
   const [collapsed, setCollapsed] = useState(false)
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
   const [dragging, setDragging] = useState(false)
+
+  useEffect(() => registerVttWindow({
+    id: windowId,
+    getZIndex: () => zIndex,
+    close: () => setCollapsed(true),
+    isVisible: () => !collapsed,
+  }), [collapsed, windowId, zIndex])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
@@ -149,12 +162,14 @@ export function CampaignLayout() {
     pauseCampaignSession,
     resumeCampaignSession,
     updateVttGridSettings,
+    connectRealtime,
     socket,
   } = useSession()
 
   const presenceKeyRef = useRef<string | null>(null)
   const [sessionActionLoading, setSessionActionLoading] = useState(false)
   const [openPanels, setOpenPanels] = useState<CampaignPanelId[]>([])
+  const [targetMarkerStyle, setTargetMarkerStyle] = useState<TargetMarkerStyle>('ARROWS')
   const [gridSettings, setGridSettings] = useState<VttGridSettings>(() =>
     campaignId ? readStoredGridSettings(campaignId) : defaultGridSettings,
   )
@@ -163,6 +178,7 @@ export function CampaignLayout() {
   const isMaster = campaign?.myRole === 'MASTER'
   const sessionState = campaign?.sessionState ?? (campaign?.isOnline ? 'ACTIVE' : null)
   const isTableRoute = Boolean(campaignId && location.pathname === `/campaign/${campaignId}/overview`)
+
   function openCampaignPanel(panelId: CampaignPanelId) {
     setOpenPanels((current) => [...current.filter((item) => item !== panelId), panelId])
   }
@@ -181,7 +197,12 @@ export function CampaignLayout() {
     if (panelId === 'characters') return <PlaceholderPage title="Personagens" />
     if (panelId === 'players') return <CampaignPlayersPage />
     if (panelId === 'journal') return <PlaceholderPage title="Diário" />
-    return <CampaignSettingsPage />
+    return (
+      <CampaignSettingsPage
+        targetMarkerStyle={targetMarkerStyle}
+        onTargetMarkerStyleChange={updateTargetMarkerStyle}
+      />
+    )
   }
 
   useEffect(() => {
@@ -228,10 +249,18 @@ export function CampaignLayout() {
       storeGridSettings(campaignId, nextSettings)
     }
 
+    function onTargetMarkerStyleChanged(payload: { campaignId: string; style: unknown }) {
+      if (payload.campaignId !== campaignId) return
+      setTargetMarkerStyle(normalizeTargetMarkerStyle(payload.style))
+    }
+
     socket.on('vtt:grid:changed', onGridChanged)
+    socket.on('vtt:target-marker-style:changed', onTargetMarkerStyleChanged)
+    socket.emit('vtt:target-marker-style:request', { campaignId })
 
     return () => {
       socket.off('vtt:grid:changed', onGridChanged)
+      socket.off('vtt:target-marker-style:changed', onTargetMarkerStyleChanged)
     }
   }, [socket, campaignId, isMaster])
 
@@ -249,6 +278,43 @@ export function CampaignLayout() {
       sceneId: options?.sceneId,
       settings: nextSettings,
     }).catch(() => {})
+  }
+
+  function updateTargetMarkerStyle(style: TargetMarkerStyle) {
+    if (!campaignId || !isMaster) {
+      return Promise.reject(new Error('Somente o Mestre pode alterar o marcador de alvo.'))
+    }
+
+    const previousStyle = targetMarkerStyle
+    setTargetMarkerStyle(style)
+    const realtimeSocket = socket ?? connectRealtime()
+
+    return new Promise<void>((resolve, reject) => {
+      realtimeSocket.timeout(5000).emit(
+        'vtt:target-marker-style:update',
+        { campaignId, style },
+        (
+          timeoutError: Error | null,
+          response?: (
+            | { ok: true; data: { style: TargetMarkerStyle } }
+            | { ok: false; error: { code: string; message: string } }
+          ),
+        ) => {
+          if (!timeoutError && response?.ok) {
+            resolve()
+            return
+          }
+
+          const responseMessage = response && !response.ok ? response.error.message : null
+          setTargetMarkerStyle((current) => current === style ? previousStyle : current)
+          reject(new Error(
+            timeoutError
+              ? 'A alteracao do marcador de alvo demorou para responder.'
+              : responseMessage ?? 'Nao foi possivel alterar o marcador de alvo.',
+          ))
+        },
+      )
+    })
   }
 
   // Hooks precisam ser chamados sempre: a lógica fica DENTRO do efeito.
@@ -462,6 +528,7 @@ export function CampaignLayout() {
               gridSettingsOpen={Boolean(isMaster && gridSettingsOpen)}
               canConfigureGrid={Boolean(isMaster)}
               sessionState={sessionState}
+              targetMarkerStyle={targetMarkerStyle}
               onGridSettingsChange={applyGridSettings}
               onGridSettingsOpenChange={setGridSettingsOpen}
             />
@@ -469,6 +536,7 @@ export function CampaignLayout() {
             {openPanels.map((panelId, index) => (
               <FloatingCampaignPanel
                 key={panelId}
+                windowId={`campaign-panel:${campaignId}:${panelId}`}
                 title={panelTitles[panelId]}
                 defaultPosition={{ x: 96 + index * 28, y: 88 + index * 28 }}
                 defaultSize={panelId === 'players' || panelId === 'settings' ? { width: 920, height: 680 } : { width: 620, height: 420 }}

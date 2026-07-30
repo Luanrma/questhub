@@ -14,6 +14,7 @@ import {
 } from './inventory/components/InventoryGrid'
 import { FloatingInventoryBackpack } from './inventory/components/FloatingInventoryBackpack'
 import { moveEntryOptimistically } from './inventory/domain/inventoryGrid'
+import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 
 type InventoryActor = {
   id: string
@@ -128,19 +129,12 @@ export function CampaignInventoryModal({
     [actorsData, selectedActorId],
   )
 
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key !== 'Escape') return
-      if (sheetEntry) {
-        setSheetEntry(null)
-        return
-      }
-      onClose()
-    }
-
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [onClose, sheetEntry])
+  useEffect(() => registerVttWindow({
+    id: `campaign-inventory:${campaignId}:${actorId ?? 'manager'}`,
+    getZIndex: () => sheetEntry ? 160 : 100,
+    close: () => sheetEntry ? setSheetEntry(null) : onClose(),
+    isVisible: () => !minimized,
+  }), [actorId, campaignId, minimized, onClose, sheetEntry])
 
   useEffect(() => {
     function onInventorySettingsChanged(event: Event) {

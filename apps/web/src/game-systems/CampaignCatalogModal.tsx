@@ -19,6 +19,7 @@ import {
   type GameSystemContentLocale,
   type GameSystemKey,
 } from './registry'
+import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 
 type EditorialStatus = {
   label: string
@@ -114,18 +115,12 @@ export function CampaignCatalogModal({ campaignId, domain, onClose }: Props) {
   const title = catalogDomainLabels[domain]
   const normalizedSearch = useMemo(() => search.trim(), [search])
 
-  useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
-      if (event.key !== 'Escape') return
-      if (selectedEntryId) {
-        setSelectedEntryId(null)
-        return
-      }
-      onClose()
-    }
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [onClose, selectedEntryId])
+  useEffect(() => registerVttWindow({
+    id: `campaign-catalog:${campaignId}:${domain}`,
+    getZIndex: () => selectedEntryId ? 160 : 100,
+    close: () => selectedEntryId ? setSelectedEntryId(null) : onClose(),
+    isVisible: () => true,
+  }), [campaignId, domain, onClose, selectedEntryId])
 
   useEffect(() => {
     const controller = new AbortController()

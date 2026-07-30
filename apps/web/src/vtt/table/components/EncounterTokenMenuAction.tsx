@@ -5,6 +5,7 @@ export function EncounterTokenMenuAction({
   canSend,
   selected,
   activeParticipant,
+  tokenCount = 1,
   onSend,
   onRemove,
 }: {
@@ -12,6 +13,7 @@ export function EncounterTokenMenuAction({
   canSend: boolean
   selected: boolean
   activeParticipant: boolean
+  tokenCount?: number
   onSend: () => void
   onRemove: () => void
 }) {
@@ -26,7 +28,7 @@ export function EncounterTokenMenuAction({
         onClick={onRemove}
       >
         <CircleMinus className="h-4 w-4" />
-        <span>Remover do encontro</span>
+        <span>{tokenCount > 1 ? `Remover ${tokenCount} do encontro` : 'Remover do encontro'}</span>
       </button>
     )
   }
@@ -40,7 +42,7 @@ export function EncounterTokenMenuAction({
       onClick={onSend}
     >
       <Swords className="h-4 w-4" />
-      <span>{selected ? 'Token ja selecionado' : 'Enviar para o encontro'}</span>
+      <span>{selected ? (tokenCount > 1 ? 'Tokens ja selecionados' : 'Token ja selecionado') : tokenCount > 1 ? `Enviar ${tokenCount} para o encontro` : 'Enviar para o encontro'}</span>
     </button>
   )
 }

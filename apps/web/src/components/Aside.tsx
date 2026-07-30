@@ -24,6 +24,7 @@ import {
   type GameSystemCatalogDomain,
   type GameSystemKey,
 } from '../game-systems/registry'
+import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 
 type CampaignRole = 'MASTER' | 'PLAYER'
 type NavItem = { to: string; label: string; icon: React.ReactNode }
@@ -66,24 +67,6 @@ export function Aside({
   const [inventoryOpen, setInventoryOpen] = useState(false)
 
   useEffect(() => {
-    if (collapsed) return
-
-    function onKeyDown(event: KeyboardEvent) {
-      if (
-        event.key === 'Escape'
-        && !catalogDomain
-        && !characterSheetsOpen
-        && !inventoryOpen
-      ) {
-        setCollapsed(true)
-      }
-    }
-
-    window.addEventListener('keydown', onKeyDown)
-    return () => window.removeEventListener('keydown', onKeyDown)
-  }, [catalogDomain, characterSheetsOpen, collapsed, inventoryOpen])
-
-  useEffect(() => {
     let cancelled = false
     api<CampaignSystemResponse>(`/api/campaigns/${campaignId}/game-system`)
       .then((response) => {
@@ -97,6 +80,13 @@ export function Aside({
       cancelled = true
     }
   }, [campaignId])
+
+  useEffect(() => registerVttWindow({
+    id: `campaign-sidebar:${campaignId}`,
+    getZIndex: () => 40,
+    close: () => setCollapsed(true),
+    isVisible: () => !collapsed,
+  }), [campaignId, collapsed])
 
   const primaryItems = useMemo<NavItem[]>(
     () => [

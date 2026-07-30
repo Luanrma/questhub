@@ -7,7 +7,8 @@ import { getCharacterSheetRenderer } from './character-sheet-renderers'
 import {
   campaignCharacterSheetOpenEvent,
   type CampaignCharacterSheetOpenRequest,
-} from './character-sheet-window-events'
+} from '../lib/campaign-character-sheet-window-events'
+import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
 
 type SheetWindowState = {
   sheetId: string
@@ -62,6 +63,13 @@ function CharacterSheetWindow({
   const [box, setBox] = useState<ResizableBox>(() => initialBox(index * 24))
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
   const [dragging, setDragging] = useState(false)
+
+  useEffect(() => registerVttWindow({
+    id: `character-sheet:${campaignId}:${state.sheetId}`,
+    getZIndex: () => state.zIndex,
+    close: onClose,
+    isVisible: () => !hidden,
+  }), [campaignId, hidden, onClose, state.sheetId, state.zIndex])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {

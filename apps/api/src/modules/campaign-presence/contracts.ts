@@ -23,6 +23,13 @@ export const vttGridUpdateSchema = z.object({
   settings: vttGridSettingsSchema,
 })
 
+export const vttTargetMarkerStyleSchema = z.enum(['ARROWS', 'RETICLE'])
+
+export const vttTargetMarkerStyleUpdateSchema = z.object({
+  campaignId: z.string().min(1),
+  style: vttTargetMarkerStyleSchema,
+})
+
 export const vttTokenPositionSchema = z.object({
   x: z.number().min(0).max(100000),
   y: z.number().min(0).max(100000),
@@ -234,6 +241,7 @@ export type OnlineCampaign = {
 }
 export type PresenceAck = (response: { ok: boolean; error?: string }) => void
 export type VttGridSettings = z.infer<typeof vttGridSettingsSchema>
+export type VttTargetMarkerStyle = z.infer<typeof vttTargetMarkerStyleSchema>
 export type VttTokenPosition = z.infer<typeof vttTokenPositionSchema>
 export type VttMeasurement = z.infer<typeof vttMeasurementSchema>
 export type VttTokenMovePath = z.infer<typeof vttTokenMovePathSchema>

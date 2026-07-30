@@ -19,7 +19,13 @@ A medicao de deslocamento pertence ao Token controlavel, sem ferramenta de regua
 
 A configuracao do grid separa o tamanho visual em pixels da escala fisica de cada celula. O Mestre ajusta a distancia por quadrado/hexagono em uma escala discreta de metros coerente com VTTs: `0,5m`, inteiros ate `10m`, dezenas ate `100m` e centenas ate `1000m`. Metros continuam sendo a unidade canonica usada por medicao, visao, luz e areas de efeito, enquanto pes aparecem apenas na equivalencia informativa.
 
-Tokens controlaveis podem ser selecionados com duplo clique esquerdo independentemente da ultima ferramenta ou painel acionado. A selecao apresenta controles diretos sobre o tabuleiro para redimensionamento proporcional pelo Mestre e rotacao pelo Mestre ou jogador controlador.
+Tokens controlaveis possuem tres estados locais distintos. O clique esquerdo simples cria a selecao operacional, indicada por um anel sutil. Ao arrastar o botao esquerdo a partir de uma area vazia do mapa com a ferramenta de selecao ativa, o usuario cria uma caixa que aplica esse anel a um ou mais Tokens visiveis. O duplo clique esquerdo ativa separadamente os controles de redimensionamento e giro somente no Token acionado.
+
+Cada usuario tambem pode manter alvos locais independentes da selecao e das areas de efeito. `T` alterna como alvo todos os Tokens da selecao operacional. No painel `Configuracoes` da campanha, o Mestre escolhe o layout compartilhado do indicador de alvo durante a sessao: quatro setas vermelhas apontadas para o centro, que e o padrao, ou uma mira circular. O duplo clique direito preserva o atalho individual de alvo, sem publicar quais Tokens cada usuario marcou.
+
+A selecao operacional multipla tambem define o escopo de acoes coletivas: arrastar qualquer Token selecionado move o grupo pelo mesmo delta; `Enviar para encontro` e `Remover da cena`, quando acionados pelo menu contextual de um membro selecionado, aplicam-se a todo o grupo.
+
+A camera aceita `Ctrl` + roda do mouse e `Numpad +`/`Numpad -` para zoom. `Numpad 0` restaura 100% e recentraliza a cena. A tecla `Escape` funciona como fechamento global da interface: deseleciona todos os Tokens, remove todos os alvos manuais, fecha menus e janelas abertas e recolhe os paineis expansivos da mesa. Ela nunca abre um novo menu nem altera a ferramenta ativa ou o estado do toolbar.
 
 O menu contextual de configuracoes do Token concentra identidade, controle e configuracoes individuais de FOG. O Mestre define ali o alcance maximo de visao e a fonte de luz propria do Token. Tamanho e rotacao permanecem nos controles diretos do tabuleiro; camada nao e exposta nesse menu.
 

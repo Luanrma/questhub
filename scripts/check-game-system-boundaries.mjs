@@ -15,7 +15,6 @@ const tokenPresentationRoot = path.join(webVttRoot, 'token-presentation')
 // Do not add entries without an architectural decision record.
 const approvedVttGameSystemBridges = new Set([
   'apps/web/src/vtt/table/CampaignOverviewPage.tsx -> ../../game-systems/CampaignInventoryModal',
-  'apps/web/src/vtt/table/components/TokenContextMenu.tsx -> ../../../game-systems/character-sheet-window-events',
 ])
 
 function collectFiles(directory, extensions = ['.ts', '.tsx']) {

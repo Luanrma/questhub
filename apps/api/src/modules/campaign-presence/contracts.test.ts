@@ -4,6 +4,7 @@ import {
   vttCombatAdjustInitiativeSchema,
   vttCombatParticipantsSchema,
   vttGridSettingsSchema,
+  vttTargetMarkerStyleUpdateSchema,
   vttTokenPlaceSchema,
 } from './contracts'
 
@@ -73,4 +74,19 @@ test('realtime grid contract accepts only canonical cell size and distance value
   assert.equal(vttGridSettingsSchema.safeParse({ ...settings, size: 49 }).success, false)
   assert.equal(vttGridSettingsSchema.safeParse({ ...settings, size: 201 }).success, false)
   assert.equal(vttGridSettingsSchema.safeParse({ ...settings, metersPerCell: 1.25 }).success, false)
+})
+
+test('target marker layout accepts only the supported campaign session styles', () => {
+  assert.equal(vttTargetMarkerStyleUpdateSchema.safeParse({
+    campaignId: 'campaign-1',
+    style: 'ARROWS',
+  }).success, true)
+  assert.equal(vttTargetMarkerStyleUpdateSchema.safeParse({
+    campaignId: 'campaign-1',
+    style: 'RETICLE',
+  }).success, true)
+  assert.equal(vttTargetMarkerStyleUpdateSchema.safeParse({
+    campaignId: 'campaign-1',
+    style: 'CIRCLE',
+  }).success, false)
 })

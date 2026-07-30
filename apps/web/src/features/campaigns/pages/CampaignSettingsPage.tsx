@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
-import { ChevronDown, Copy } from 'lucide-react'
+import { ChevronDown, Copy, Crosshair, Move } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { useSession } from '../../../contexts/session-context'
@@ -22,9 +22,15 @@ import {
   storePathfinder2eDisplaySettings,
   type Pathfinder2eDisplaySettings,
 } from '../../pathfinder-2e/character-sheet/infrastructure/pathfinder2eDisplaySettingsStorage'
+import type { TargetMarkerStyle } from '../../../vtt/table/domain/tokenSelection'
 
 type CampaignUserSettingsResponse = CampaignUserSettings & {
   pathfinder2e: Pathfinder2eDisplaySettings
+}
+
+type CampaignSettingsPageProps = {
+  targetMarkerStyle?: TargetMarkerStyle
+  onTargetMarkerStyleChange?: (style: TargetMarkerStyle) => Promise<void>
 }
 
 type DiceDisplaySettingsCardProps = {
@@ -155,7 +161,10 @@ function DiceDisplaySettingsCard({
   )
 }
 
-export function CampaignSettingsPage() {
+export function CampaignSettingsPage({
+  targetMarkerStyle = 'ARROWS',
+  onTargetMarkerStyleChange,
+}: CampaignSettingsPageProps = {}) {
   const { campaignId } = useParams()
   const { campaigns, loadCampaigns } = useSession()
   const campaign = campaigns.find((c) => c.id === campaignId)
@@ -167,6 +176,8 @@ export function CampaignSettingsPage() {
   const [pathfinder2eDisplaySettingsDraft, setPathfinder2eDisplaySettingsDraft] = useState<{ campaignId?: string; settings: Pathfinder2eDisplaySettings } | null>(null)
   const [campaignGameSystem, setCampaignGameSystem] = useState<string | null>(null)
   const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
+  const [targetMarkerSaving, setTargetMarkerSaving] = useState(false)
+  const [targetMarkerError, setTargetMarkerError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
   const storedDiceDisplaySettings = useMemo(
@@ -309,6 +320,22 @@ export function CampaignSettingsPage() {
       })
   }
 
+  async function updateTargetMarker(style: TargetMarkerStyle) {
+    if (!onTargetMarkerStyleChange || style === targetMarkerStyle || targetMarkerSaving) return
+
+    setTargetMarkerSaving(true)
+    setTargetMarkerError(null)
+    try {
+      await onTargetMarkerStyleChange(style)
+    } catch (cause) {
+      setTargetMarkerError(
+        cause instanceof Error ? cause.message : 'Nao foi possivel alterar o marcador de alvo.',
+      )
+    } finally {
+      setTargetMarkerSaving(false)
+    }
+  }
+
   async function onCopyInviteCode() {
     if (!campaign?.inviteCode) return
 
@@ -366,6 +393,60 @@ export function CampaignSettingsPage() {
         onAutoClearChange={updateDiceAutoClear}
         onShowResultPopupChange={updateShowResultPopup}
       />
+
+      {isMaster && onTargetMarkerStyleChange ? (
+        <CollapsibleSettingsSection
+          title="Mesa virtual"
+          description="Configure os indicadores compartilhados exibidos no tabuleiro."
+          defaultOpen
+        >
+          <div className="rounded-lg border border-white/10 bg-black/20 p-4">
+            <div>
+              <div className="text-sm font-semibold text-white">Padrao visual do alvo</div>
+              <div className="mt-1 text-xs text-zinc-400">
+                Define como os Tokens marcados com T aparecem para os participantes durante esta sessao.
+              </div>
+            </div>
+            <div className="mt-4 grid grid-cols-2 gap-2" role="group" aria-label="Padrao visual do alvo">
+              <button
+                type="button"
+                disabled={targetMarkerSaving}
+                aria-pressed={targetMarkerStyle === 'ARROWS'}
+                className={[
+                  'flex min-h-12 items-center justify-center gap-2 rounded-lg border px-4 text-sm font-semibold transition disabled:cursor-wait disabled:opacity-60',
+                  targetMarkerStyle === 'ARROWS'
+                    ? 'border-red-300/40 bg-red-500/20 text-red-100'
+                    : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:bg-white/10 hover:text-white',
+                ].join(' ')}
+                onClick={() => void updateTargetMarker('ARROWS')}
+              >
+                <Move className="h-4 w-4" />
+                Flechas
+              </button>
+              <button
+                type="button"
+                disabled={targetMarkerSaving}
+                aria-pressed={targetMarkerStyle === 'RETICLE'}
+                className={[
+                  'flex min-h-12 items-center justify-center gap-2 rounded-lg border px-4 text-sm font-semibold transition disabled:cursor-wait disabled:opacity-60',
+                  targetMarkerStyle === 'RETICLE'
+                    ? 'border-red-300/40 bg-red-500/20 text-red-100'
+                    : 'border-white/10 bg-white/[0.03] text-zinc-300 hover:bg-white/10 hover:text-white',
+                ].join(' ')}
+                onClick={() => void updateTargetMarker('RETICLE')}
+              >
+                <Crosshair className="h-4 w-4" />
+                Mira
+              </button>
+            </div>
+            {targetMarkerError ? (
+              <p className="mt-3 rounded-lg border border-red-300/20 bg-red-500/10 px-3 py-2 text-xs text-red-100">
+                {targetMarkerError}
+              </p>
+            ) : null}
+          </div>
+        </CollapsibleSettingsSection>
+      ) : null}
 
       <CollapsibleSettingsSection
         title="Inventário"

@@ -49,7 +49,37 @@
   limita a descritores neutros de nome/chave, sem schemas, handlers ou regras.
 * O menu esquerdo abre mais de um painel flutuante sem navegar para fora nem desmontar a mesa.
 * Cada painel flutuante pode receber foco, ser movido, redimensionado, minimizado e fechado de forma independente.
-* `Escape` fecha o menu esquerdo quando ele estiver aberto e limpa a selecao/ferramenta ativa da mesa quando o foco nao estiver em campo editavel.
+* Atalhos globais de mesa nao executam quando o foco estiver em `input`, `textarea`, `select` ou conteudo editavel.
+* Selecao operacional, transformacao e alvo sao tres estados independentes.
+* Clique esquerdo simples em um Token selecionavel substitui a selecao operacional atual e o torna o Token primario. Se o Token clicado ja fizer parte de uma selecao multipla, a selecao do grupo e preservada.
+* Todo Token da selecao operacional exibe somente um anel sutil; esse estado nao exibe controles de transformacao.
+* Duplo clique esquerdo ativa os controles de redimensionamento e giro somente no Token acionado, sem converter os demais membros da selecao operacional em Tokens transformaveis.
+* Pressionar e arrastar o botao esquerdo a partir de uma area vazia do mapa, com a ferramenta de selecao ativa, desenha uma caixa de selecao. Ao soltar, todos os Tokens visiveis e selecionaveis cujos limites renderizados intersectam a caixa passam a compor a selecao.
+* Um arraste inferior ao limiar de caixa continua sendo tratado como clique em area vazia e apenas limpa a selecao.
+* Em selecao multipla, o ultimo Token encontrado pela caixa e o Token primario usado por acoes que exigem uma unica origem, como abrir ficha ou pre-visualizar a visao do Mestre.
+* A selecao por caixa e local, nao persistida e nao sincronizada por WebSocket.
+* `T`, sem modificadores, alterna como alvo todos os Tokens da selecao operacional. Se todos ja forem alvos, remove o alvo de todos; caso contrario, inclui todos.
+* O layout do alvo manual admite `ARROWS` e `RETICLE`. `ARROWS` exibe quatro setas vermelhas, acima, a direita, abaixo e a esquerda, apontadas para o centro do Token; `RETICLE` exibe uma mira circular com eixos horizontal e vertical.
+* `ARROWS` e o layout padrao. Somente o Mestre pode alterar o layout dentro do painel `Configuracoes` da campanha, e a escolha e publicada para todos os participantes conectados.
+* O seletor de layout de alvo nao deve ocupar o overlay, a barra de zoom nem outra area permanente do tabuleiro.
+* O comando do cliente `vtt:target-marker-style:update` recebe `{ campaignId, style: "ARROWS" | "RETICLE" }`. O servidor valida a identidade do Mestre, responde pelo contrato padrao de ACK e publica o fato confirmado `vtt:target-marker-style:changed` com o mesmo contrato.
+* O evento `vtt:target-marker-style:changed` tambem integra o snapshot visivel entregue a participantes que entram depois da alteracao.
+* O cliente pode solicitar o valor vigente com `vtt:target-marker-style:request` e `{ campaignId }`; o servidor responde apenas ao socket autorizado com `vtt:target-marker-style:changed`.
+* A escolha do layout permanece no estado em memoria da sessao e retorna a `ARROWS` quando a sessao e encerrada ou o processo e reiniciado. Persistencia entre sessoes exige uma decisao futura de banco explicitamente aprovada.
+* Duplo clique com o botao direito alterna individualmente o mesmo estado de alvo e nao abre o menu contextual do Token.
+* A lista de alvos manuais e local por usuario, independente da selecao comum e da selecao temporaria de alvos de uma area de efeito; quais Tokens foram marcados nao sao persistidos nem sincronizados. Apenas o layout visual escolhido pelo Mestre e compartilhado.
+* Arrastar qualquer membro de uma selecao operacional multipla aplica o mesmo delta a todos os Tokens selecionados que o usuario pode mover.
+* Antes do preview de um arraste coletivo, o cliente valida limites e colisao de todos os membros. Se qualquer destino for invalido, nenhum Token do grupo se move naquele delta.
+* O arraste coletivo reutiliza `vtt:token:move` por Token; uma rejeicao autoritativa restaura o membro rejeitado sem criar um novo contrato de persistencia.
+* Ao abrir o menu contextual em um membro da selecao operacional, `Enviar para encontro` inclui todos os membros selecionados elegiveis e `Remover da cena` remove todos os membros selecionados. Em Token fora da selecao, ambas as acoes permanecem individuais.
+* `C` abre a ficha vinculada ao Token primario selecionado quando o usuario possui acesso. Token sem ficha vinculada produz feedback local e nao abre janela.
+* A abertura da ficha e publicada por um contrato neutro de composicao da aplicacao; o VTT nao pode importar componentes, eventos ou infraestrutura internos de `game-systems`.
+* `Ctrl` + roda do mouse sobre a mesa altera o zoom em passos discretos e bloqueia o zoom nativo do navegador.
+* `Numpad +` e `Numpad -` aumentam e diminuem o zoom; `Numpad 0` restaura 100% e recentraliza a cena.
+* Um unico `Escape` limpa integralmente a selecao operacional e de transformacao de Tokens, remove todas as marcacoes locais de alvo manual, fecha menus contextuais, minimiza paineis flutuantes redimensionaveis, fecha dialogos visiveis e recolhe os paineis expansivos da mesa e o menu lateral.
+* `Escape` preserva a ferramenta ativa, configuracoes e rascunhos da ferramenta, alem do estado expandido ou recolhido do toolbar de ferramentas.
+* Janelas que ja estejam minimizadas nao sao reabertas nem removidas por `Escape`.
+* `Escape` nunca abre menu, dialogo, painel ou rota.
 * Segurar `Alt` ativa navegacao temporaria do mapa; soltar `Alt` restaura a ferramenta anterior.
 * `Ctrl+Z` ou `Cmd+Z` desfaz a ultima criacao de parede enquanto a ferramenta de paredes estiver ativa.
 * `Ctrl` + botao esquerdo em um Token controlavel inicia medicao de deslocamento a partir da posicao atual do Token, em grid quadrado ou hexagonal.

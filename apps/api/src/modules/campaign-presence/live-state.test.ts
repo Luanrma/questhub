@@ -30,3 +30,15 @@ test('ending a campaign clears VTT hydration and pending persistence markers', (
   assert.equal(state.isCampaignVttStateHydrated('campaign-1'), false)
   assert.equal(state.hasDirtyCampaignVttState('campaign-1'), false)
 })
+
+test('target marker layout defaults to arrows and is cleared with the campaign session', () => {
+  const state = new CampaignPresenceState()
+
+  assert.equal(state.getCampaignTargetMarkerStyle('campaign-1'), 'ARROWS')
+
+  state.setCampaignTargetMarkerStyle('campaign-1', 'RETICLE')
+  assert.equal(state.getCampaignTargetMarkerStyle('campaign-1'), 'RETICLE')
+
+  state.clearCampaignSession('campaign-1')
+  assert.equal(state.getCampaignTargetMarkerStyle('campaign-1'), 'ARROWS')
+})
