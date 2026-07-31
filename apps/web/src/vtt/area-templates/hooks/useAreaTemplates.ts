@@ -1,25 +1,18 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import type { Socket } from 'socket.io-client'
-import type { AreaTemplateInput, CampaignAreaTemplate, SceneAreaEffect } from '../domain/types'
 import {
-  runtimeAreaTemplateRequestedEvent,
-  type RuntimeAreaTemplateRequested,
-} from '../infrastructure/runtimeAreaTemplateEvents'
+  clearRuntimeSpatialTemplate,
+  hasActiveRuntimeSpatialTemplate,
+} from '../domain/runtimeSpatialActivation'
+import type { AreaTemplateInput, CampaignAreaTemplate, SceneAreaEffect } from '../domain/types'
 import { areaTemplatesApi } from '../infrastructure/areaTemplatesApi'
 
 export function useAreaTemplates(campaignId: string | undefined, sceneId: string | undefined, enabled: boolean, socket: Socket | null) {
   const [templates, setTemplates] = useState<CampaignAreaTemplate[]>([])
-  const [runtimeTemplate, setRuntimeTemplate] = useState<CampaignAreaTemplate | null>(null)
   const [effects, setEffects] = useState<SceneAreaEffect[]>([])
   const [loading, setLoading] = useState(false)
   const [templateError, setTemplateError] = useState<string | null>(null)
   const [effectsError, setEffectsError] = useState<string | null>(null)
-
-  const presentedTemplates = useMemo(() => (
-    runtimeTemplate && runtimeTemplate.campaignId === campaignId
-      ? [runtimeTemplate, ...templates.filter((template) => template.id !== runtimeTemplate.id)]
-      : templates
-  ), [campaignId, runtimeTemplate, templates])
 
   const loadTemplates = useCallback(async () => {
     if (!campaignId || !enabled) return
@@ -50,19 +43,22 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
   }, [campaignId, enabled, sceneId])
 
   useEffect(() => {
-    setRuntimeTemplate(null)
+    clearRuntimeSpatialTemplate()
   }, [campaignId])
 
   useEffect(() => {
-    function onRuntimeTemplateRequested(event: Event) {
-      const detail = (event as CustomEvent<RuntimeAreaTemplateRequested>).detail
-      if (!detail?.template || detail.template.campaignId !== campaignId) return
-      setRuntimeTemplate(detail.template)
+    function onEscape(event: KeyboardEvent) {
+      if (event.key !== 'Escape' || !hasActiveRuntimeSpatialTemplate()) return
+      clearRuntimeSpatialTemplate()
+      const tool = document.querySelector<HTMLButtonElement>('[data-vtt-tool="area-templates"]')
+      window.queueMicrotask(() => {
+        if (tool?.classList.contains('bg-indigo-600')) tool.click()
+      })
     }
 
-    window.addEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
-    return () => window.removeEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
-  }, [campaignId])
+    window.addEventListener('keydown', onEscape, { capture: true })
+    return () => window.removeEventListener('keydown', onEscape, { capture: true })
+  }, [])
 
   useEffect(() => {
     const task = window.setTimeout(() => void loadTemplates(), 0)
@@ -182,5 +178,5 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
     }
   }
 
-  return { templates: presentedTemplates, effects, loading, error: templateError, effectsError, setError: setTemplateError, saveTemplate, duplicateTemplate, deleteTemplate, createEffect, updateEffect, deleteEffect, reloadEffects: loadEffects }
+  return { templates, effects, loading, error: templateError, effectsError, setError: setTemplateError, saveTemplate, duplicateTemplate, deleteTemplate, createEffect, updateEffect, deleteEffect, reloadEffects: loadEffects }
 }
