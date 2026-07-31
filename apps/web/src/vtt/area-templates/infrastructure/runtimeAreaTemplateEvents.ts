@@ -7,8 +7,12 @@ export type RuntimeAreaTemplateRequested = {
 }
 
 export function requestRuntimeAreaTemplate(template: CampaignAreaTemplate) {
-  window.dispatchEvent(new CustomEvent<RuntimeAreaTemplateRequested>(
-    runtimeAreaTemplateRequestedEvent,
-    { detail: { template } },
-  ))
+  window.requestAnimationFrame(() => {
+    window.setTimeout(() => {
+      window.dispatchEvent(new CustomEvent<RuntimeAreaTemplateRequested>(
+        runtimeAreaTemplateRequestedEvent,
+        { detail: { template } },
+      ))
+    }, 0)
+  })
 }
