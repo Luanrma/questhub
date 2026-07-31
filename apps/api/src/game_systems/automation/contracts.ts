@@ -65,11 +65,26 @@ export type GameSystemAutomationEventPublisher = {
   ): Promise<void> | void
 }
 
+export type GameSystemCharacterSheetEntrySnapshot = {
+  id: string
+  namespace: string
+  typeKey: string
+  catalogNamespace: string | null
+  catalogContentId: string | null
+  schemaVersion: number
+  data: unknown
+  state: unknown | null
+  sortOrder: number
+  createdAt: Date
+  updatedAt: Date
+}
+
 export type GameSystemCharacterSheetSnapshot = {
   systemKey: string
   schemaVersion: number
   data: unknown
   updatedAt: Date
+  entries?: readonly GameSystemCharacterSheetEntrySnapshot[]
 }
 
 export type GameSystemTokenPresentationContext = {
