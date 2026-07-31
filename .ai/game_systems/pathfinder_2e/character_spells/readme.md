@@ -11,30 +11,36 @@ persistência, organização por Rank e uma base estável para futuras automaç�
 
 ## Decisão
 
-Uma magia é uma extensão mecânica de `CampaignCharacterSheet`.
+Uma magia é uma extensão mecânica da `CampaignCharacterSheet`, materializada
+pela persistência compartilhada de entradas da ficha.
 
 ```text
 CampaignActor
 └── CampaignCharacterSheet
-    └── CampaignCharacterSpell[]
+    └── CampaignCharacterSheetEntry[]
+        └── namespace = questhub:pathfinder_2e
+            typeKey = spell
 ```
 
 A magia não pertence diretamente a `CampaignActor` e nunca pertence a
 `CampaignToken`.
 
-O vínculo é persistido em registros próprios e não dentro do JSON versionado da
-ficha. Dessa forma, adicionar ou remover uma magia não substitui o documento
-completo da ficha e não exige uma nova versão do schema mecânico.
+O vínculo não fica dentro do JSON versionado da ficha. Adicionar ou remover uma
+magia não substitui o documento principal da ficha.
+
+A tabela compartilhada também não conhece o conceito de magia. O provider PF2e
+seleciona e interpreta somente entradas com seu namespace e seu `typeKey`.
 
 ## Rank
 
-`CampaignCharacterSpell.baseRank` registra o Rank original da definição da
-magia no catálogo.
+O Rank original é armazenado somente no snapshot PF2e em `data.rank`.
 
-- O catálogo Remaster utilizado pelo QuestHub trabalha com Ranks `1` a `10`.
-- Truques possuem Rank `1` e são distinguidos pela trait mecânica `cantrip`.
-- O Rank é sempre obtido do catálogo; o cliente não pode escolhê-lo.
-- `baseRank` não representa o Rank usado em uma conjuração elevada.
+- o catálogo Remaster usa Ranks `1` a `10`;
+- truques possuem Rank `1` e são identificados pela trait `cantrip`;
+- o Rank é sempre obtido do catálogo; o cliente não pode escolhê-lo;
+- nenhuma coluna relacional compartilhada representa Rank;
+- `data.rank` não representa o Rank usado em uma conjuração elevada.
 
-Uma futura fonte de conjuração poderá registrar preparação, Rank de lançamento,
-slots, repertório ou heightening sem alterar o significado deste vínculo inicial.
+Uma futura fonte de conjuração poderá usar `state` ou outras entradas PF2e para
+registrar preparação, Rank de lançamento, slots, repertório ou heightening sem
+alterar o contrato genérico do QuestHub.
