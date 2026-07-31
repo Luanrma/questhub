@@ -10,7 +10,7 @@ export const PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE =
 const pathfinder2eSpellDataSchema = z.object({
   schemaVersion: z.literal(1),
   name: z.string().trim().min(1),
-  rank: z.number().int().min(0).max(10),
+  rank: z.number().int().min(1).max(10),
   rarity: z.string(),
   traits: z.array(z.string()),
   traditions: z.array(z.string()),
