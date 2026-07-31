@@ -4,6 +4,8 @@ import { resolvePathfinder2eContentEntry } from '../content_catalog/catalog'
 import type { Pathfinder2eContentEntry } from '../content_catalog/content-entry'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from '../content_catalog/deliveries'
 
+export const PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE = 'questhub:pathfinder_2e'
+export const PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY = 'spell'
 export const PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE =
   'questhub:pathfinder_2e:spells:v1'
 
@@ -32,9 +34,11 @@ const pathfinder2eSpellDataSchema = z.object({
 export type Pathfinder2eCharacterSpellData = z.infer<typeof pathfinder2eSpellDataSchema>
 
 export type Pathfinder2eCharacterSpellSnapshot = {
+  namespace: typeof PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE
+  typeKey: typeof PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY
   catalogNamespace: typeof PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE
   catalogContentId: string
-  baseRank: number
+  schemaVersion: 1
   data: Pathfinder2eCharacterSpellData
 }
 
@@ -79,9 +83,11 @@ export function createPathfinder2eCharacterSpellSnapshot(
   if (!parsed.success) return null
 
   return {
+    namespace: PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
+    typeKey: PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
     catalogNamespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
     catalogContentId: entry.original.contentId,
-    baseRank: parsed.data.rank,
+    schemaVersion: 1,
     data: parsed.data,
   }
 }
@@ -89,13 +95,14 @@ export function createPathfinder2eCharacterSpellSnapshot(
 export function presentPathfinder2eCharacterSpell(
   stored: {
     id: string
-    catalogContentId: string
-    baseRank: number
+    catalogContentId: string | null
     data: unknown
     createdAt: Date
   },
   locale: GameSystemContentLocale,
 ): Pathfinder2eCharacterSpellPresentation | null {
+  if (!stored.catalogContentId) return null
+
   const snapshot = pathfinder2eSpellDataSchema.safeParse(stored.data)
   if (!snapshot.success) return null
 
@@ -105,7 +112,7 @@ export function presentPathfinder2eCharacterSpell(
   return {
     id: stored.id,
     contentId: stored.catalogContentId,
-    baseRank: stored.baseRank,
+    baseRank: snapshot.data.rank,
     name: resolved?.display.name ?? snapshot.data.name,
     description: resolved?.display.description ?? snapshot.data.description,
     rarity: snapshot.data.rarity,
