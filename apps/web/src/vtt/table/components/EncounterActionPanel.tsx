@@ -1,16 +1,21 @@
 import {
   BookOpenText,
+  ChevronDown,
   CircleDotDashed,
   Crosshair,
   Dices,
   MousePointer2,
+  Play,
   Sparkles,
   X,
 } from 'lucide-react'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { tokenActionsForContext } from '../../token-presentation/actionContexts'
 import { useTokenPresentation } from '../../token-presentation/useTokenPresentation'
-import type { TokenActionPresentation } from '../../token-presentation/types'
+import type {
+  TokenActionPresentation,
+  TokenActionSpatialActivation,
+} from '../../token-presentation/types'
 import type { VttCombatParticipant } from '../domain/types'
 import { useTokenCharacterSheetAccess } from '../hooks/useTokenCharacterSheetAccess'
 import { TokenAvatar } from './TokenAvatar'
@@ -29,6 +34,7 @@ export function EncounterActionPanel({
   turnCount,
   isMaster,
   onEnd,
+  onActivateAction,
 }: {
   campaignId: string
   participant: VttCombatParticipant
@@ -36,7 +42,12 @@ export function EncounterActionPanel({
   turnCount: number
   isMaster: boolean
   onEnd: () => void
+  onActivateAction?: (
+    action: TokenActionPresentation,
+    activation: TokenActionSpatialActivation,
+  ) => void
 }) {
+  const [expandedActionId, setExpandedActionId] = useState<string | null>(null)
   const { presentation, available, loading, error } = useTokenPresentation(
     campaignId,
     participant.tokenId,
@@ -60,6 +71,25 @@ export function EncounterActionPanel({
     }
     return [...grouped.entries()]
   }, [presentation])
+
+  function activateAction(action: TokenActionPresentation) {
+    const activation = action.activation
+    if (!activation || !onActivateAction) return
+    if (activation.kind === 'VARIANTS') {
+      setExpandedActionId((current) => current === action.id ? null : action.id)
+      return
+    }
+    onActivateAction(action, activation)
+  }
+
+  function activateVariant(
+    action: TokenActionPresentation,
+    activation: TokenActionSpatialActivation,
+  ) {
+    if (!onActivateAction) return
+    setExpandedActionId(null)
+    onActivateAction(action, activation)
+  }
 
   return (
     <aside className="flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-violet-300/20 bg-[#0c0d13]/94 shadow-[0_18px_50px_rgba(0,0,0,0.45)] backdrop-blur-xl">
@@ -156,30 +186,67 @@ export function EncounterActionPanel({
                 <div className="grid grid-cols-1 gap-2">
                   {actions.map((action) => {
                     const Icon = actionIcon(action.interaction)
+                    const activation = action.activation
+                    const variants = activation?.kind === 'VARIANTS' ? activation.variants : []
+                    const actionable = Boolean(activation && onActivateAction)
+                    const expanded = expandedActionId === action.id
                     return (
-                      <article
+                      <div
                         key={action.id}
-                        title={action.detail ? `${action.label} — ${action.detail}` : action.label}
-                        className="flex min-w-0 items-center gap-3 rounded-xl border border-white/10 bg-white/[0.045] px-3 py-2.5"
+                        className="overflow-hidden rounded-xl border border-white/10 bg-white/[0.045]"
                       >
-                        <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg border border-violet-300/15 bg-violet-500/10 text-violet-200">
-                          {action.imageUrl ? (
-                            <img src={action.imageUrl} alt="" className="h-full w-full object-cover" />
-                          ) : (
-                            <Icon className="h-4 w-4" />
-                          )}
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block break-words text-sm font-semibold leading-5 text-zinc-100">
-                            {action.label}
+                        <button
+                          type="button"
+                          disabled={!actionable}
+                          title={action.detail ? `${action.label} — ${action.detail}` : action.label}
+                          className="flex w-full min-w-0 items-center gap-3 px-3 py-2.5 text-left transition enabled:hover:bg-violet-500/10 disabled:cursor-default"
+                          onClick={() => activateAction(action)}
+                        >
+                          <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-lg border border-violet-300/15 bg-violet-500/10 text-violet-200">
+                            {action.imageUrl ? (
+                              <img src={action.imageUrl} alt="" className="h-full w-full object-cover" />
+                            ) : (
+                              <Icon className="h-4 w-4" />
+                            )}
                           </span>
-                          {action.detail ? (
-                            <span className="block break-words text-xs leading-4 text-zinc-400">
-                              {action.detail}
+                          <span className="min-w-0 flex-1">
+                            <span className="block break-words text-sm font-semibold leading-5 text-zinc-100">
+                              {action.label}
                             </span>
+                            {action.detail ? (
+                              <span className="block break-words text-xs leading-4 text-zinc-400">
+                                {action.detail}
+                              </span>
+                            ) : null}
+                          </span>
+                          {actionable ? (
+                            variants.length ? (
+                              <ChevronDown className={[
+                                'h-4 w-4 shrink-0 text-violet-200 transition-transform',
+                                expanded ? 'rotate-180' : '',
+                              ].join(' ')} />
+                            ) : (
+                              <Play className="h-4 w-4 shrink-0 text-violet-200" />
+                            )
                           ) : null}
-                        </span>
-                      </article>
+                        </button>
+
+                        {expanded && variants.length ? (
+                          <div className="grid gap-1.5 border-t border-white/10 p-2">
+                            {variants.map((variant) => (
+                              <button
+                                key={variant.id}
+                                type="button"
+                                className="flex items-center justify-between gap-3 rounded-lg border border-violet-300/15 bg-violet-500/[0.08] px-3 py-2 text-left text-xs font-semibold text-violet-100 transition hover:bg-violet-500/20"
+                                onClick={() => activateVariant(action, variant.activation)}
+                              >
+                                <span>{variant.label}</span>
+                                <Play className="h-3.5 w-3.5 shrink-0" />
+                              </button>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
                     )
                   })}
                 </div>
