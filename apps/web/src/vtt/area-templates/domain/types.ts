@@ -76,12 +76,22 @@ export type AreaTemplateInput = {
   visibility: AreaVisibility
 }
 
+export type RuntimeAreaTemplateSource = {
+  kind: 'TOKEN_ACTION'
+  sourceTokenId: string
+  actionId: string
+  minimumTargets?: number
+  maximumDistance?: number
+  maximumOriginDistance?: number
+}
+
 export type CampaignAreaTemplate = AreaTemplateInput & {
   id: string
   campaignId: string
   createdByUserId: string
   createdAt: string
   updatedAt: string
+  runtimeSource?: RuntimeAreaTemplateSource
 }
 
 export function areaTemplateToInput(template: AreaTemplateInput): AreaTemplateInput {

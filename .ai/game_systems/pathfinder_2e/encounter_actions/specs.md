@@ -37,8 +37,11 @@ construídas com segurança.
 - Todas as ações mecânicas PF2e usam `OWNER_AND_MASTER`.
 - A rota neutra aplica o filtro de visibilidade.
 - O frontend nunca recebe os objetos mecânicos originais.
-- Clicar/executar a ação fica fora deste recorte.
-- Nenhum endpoint, evento WebSocket, schema ou migration é adicionado.
+- Uma ação com `activation` pode iniciar seleção de alvos ou posicionamento de
+  área efêmera no VTT.
+- A confirmação espacial não executa dano, cura, save ou consumo de recurso.
+- Tool bindings usam endpoints HTTP neutros e invalidam a apresentação por
+  evento existente; nenhum schema ou migration é adicionado.
 
 ## Critérios de aceitação
 
@@ -51,3 +54,6 @@ construídas com segurança.
 7. a sidebar do Encontro não recebe perícias de PLAYER ou NPC;
 8. enquanto não houver ataques, habilidades ou magias na ficha PLAYER, seu
    painel de Encontro preserva apenas retrato, acesso à ficha e estado vazio.
+9. quando houver magia vinculada, a ação resolve sobrescrita individual antes do
+   padrão do catálogo;
+10. o VTT recebe apenas contratos espaciais neutros e não interpreta PF2e.

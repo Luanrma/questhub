@@ -9,6 +9,8 @@
 - Traduções de NPC usam o overlay `pt-BR` já pareado ao registro do catálogo.
 - Ações mecânicas usam `OWNER_AND_MASTER`; informações privadas não são
   publicadas para observadores.
+- Magias podem anexar `activation` e `toolBinding` neutros. O adaptador PF2e
+  resolve sobrescrita da ficha/ação antes do padrão do catálogo.
 - Perícias gerais usam somente o contexto neutro `REFERENCE`.
 - Ataques, habilidades e magias de NPC usam o contexto neutro `ENCOUNTER`.
 - O módulo não importa React, Canvas, Socket.io ou `apps/api/src/modules/**`.

@@ -39,6 +39,24 @@ test('campaign actor persistence replaces the global Character model', () => {
   assert.match(sheetModel, /actorId\s+String\s+@unique/)
 })
 
+test('CampaignCharacterSheetEntry stays neutral across game systems', () => {
+  const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
+  const sheetModel = prismaModel(schema, 'CampaignCharacterSheet')
+  const entryModel = prismaModel(schema, 'CampaignCharacterSheetEntry')
+
+  assert.doesNotMatch(schema, /model CampaignCharacterSpell \{/)
+  assert.match(sheetModel, /entries\s+CampaignCharacterSheetEntry\[\]/)
+  assert.match(entryModel, /namespace\s+String/)
+  assert.match(entryModel, /typeKey\s+String/)
+  assert.match(entryModel, /catalogNamespace\s+String\?/)
+  assert.match(entryModel, /catalogContentId\s+String\?/)
+  assert.match(entryModel, /schemaVersion\s+Int/)
+  assert.match(entryModel, /data\s+Json/)
+  assert.match(entryModel, /state\s+Json\?/)
+  assert.doesNotMatch(entryModel, /baseRank/)
+  assert.doesNotMatch(entryModel, /\bspell\b/i)
+})
+
 test('CampaignActor creation makes the inventory capability explicit', () => {
   const sourceFile = path.join(
     process.cwd(),
@@ -59,12 +77,15 @@ test('CampaignActor creation makes the inventory capability explicit', () => {
   )
 })
 
-test('Prisma history contains only the current initial migration', () => {
+test('Prisma history contains the current baseline and additive feature migrations', () => {
   const migrationsPath = path.join(process.cwd(), 'apps', 'api', 'prisma', 'migrations')
   const migrationDirectories = readdirSync(migrationsPath, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort()
 
-  assert.deepEqual(migrationDirectories, ['20260729000000_initial'])
+  assert.deepEqual(migrationDirectories, [
+    '20260729000000_initial',
+    '20260731024500_add_campaign_character_sheet_entries',
+  ])
 })

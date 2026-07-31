@@ -18,6 +18,7 @@ O Mestre precisa representar rapidamente explosoes, cones, linhas, auras e outra
 * Mestre confirma uma area temporaria ou persiste uma instancia na cena.
 * Mestre remove instancias persistentes.
 * Jogador usa templates existentes para previsualizacao compartilhada e visualiza instancias permitidas, sem poder administrar templates nem criar ou alterar instancias persistentes.
+* Uma acao de Token pode ativar diretamente uma configuracao efemera fornecida por `VTT_AREA_EFFECT`, sem adicionar um item a biblioteca da toolbar.
 
 ## Regras de negocio
 
@@ -47,6 +48,9 @@ O Mestre precisa representar rapidamente explosoes, cones, linhas, auras e outra
 * A escala editavel da instancia atua somente sobre sua dimensao primaria: raio em circulo/anel e comprimento em formas direcionais. Larguras configuradas no snapshot permanecem invariantes.
 * `RECTANGLE` foi removido por ser geometricamente redundante com `LINE`. Dados legados sao migrados para `LINE`, preservando dimensoes, rotacao e comportamento.
 * `ORTHOGONAL` usa um losango continuo como geometria de referencia. Quando o modo por celulas esta ativo, projeta e classifica as celulas reais do grid quadrado ou hexagonal conforme a regra de inclusao escolhida; os tokens que ocupam essas celulas recebem o mesmo feedback visual das demais formas.
+* Configuracoes vinculadas a acoes sao ocultas da biblioteca comum, nunca criam `SceneAreaEffect` por si mesmas e uma nova ativacao substitui a ativacao efemera anterior.
+* O editor visual de um binding reutiliza os mesmos campos do editor da biblioteca, mas sua abertura nao ativa nem expande a toolbar.
+* Cone e linha originados no Token fonte podem excluir explicitamente esse Token dos atingidos por meio de `includesOrigin = false`.
 
 ## Limites
 

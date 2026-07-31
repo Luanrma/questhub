@@ -2,6 +2,10 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
+import {
+  AREA_EFFECT_TOOL_BINDING_CATEGORY,
+  presentAreaEffectToolBinding,
+} from '../../shared/tool-bindings/area-effect'
 import type { GameSystemKey } from '../catalog'
 import {
   filterTokenPresentationForViewer,
@@ -34,29 +38,53 @@ export function registerGameSystemAutomationRoutes(app: FastifyInstance) {
     })
     if (!member) return reply.status(403).send({ error: 'Acesso nao liberado' })
 
-    const token = await prisma.campaignToken.findFirst({
-      where: {
-        id: params.data.tokenId,
-        campaignId: params.data.campaignId,
-      },
-      select: {
-        id: true,
-        controllerMember: { select: { userId: true } },
-        actor: {
-          select: {
-            controllerMember: { select: { userId: true } },
-            characterSheet: {
-              select: {
-                systemKey: true,
-                schemaVersion: true,
-                data: true,
-                updatedAt: true,
+    const [token, storedToolBindings] = await Promise.all([
+      prisma.campaignToken.findFirst({
+        where: {
+          id: params.data.tokenId,
+          campaignId: params.data.campaignId,
+        },
+        select: {
+          id: true,
+          controllerMember: { select: { userId: true } },
+          actor: {
+            select: {
+              controllerMember: { select: { userId: true } },
+              characterSheet: {
+                select: {
+                  systemKey: true,
+                  schemaVersion: true,
+                  data: true,
+                  updatedAt: true,
+                  entries: {
+                    select: {
+                      id: true,
+                      namespace: true,
+                      typeKey: true,
+                      catalogNamespace: true,
+                      catalogContentId: true,
+                      schemaVersion: true,
+                      data: true,
+                      state: true,
+                      sortOrder: true,
+                      createdAt: true,
+                      updatedAt: true,
+                    },
+                    orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
+                  },
+                },
               },
             },
           },
         },
-      },
-    })
+      }),
+      prisma.campaignAreaTemplate.findMany({
+        where: {
+          campaignId: params.data.campaignId,
+          category: AREA_EFFECT_TOOL_BINDING_CATEGORY,
+        },
+      }),
+    ])
     if (!token) return reply.status(404).send({ error: 'Token nao encontrado' })
 
     const provider = getGameSystemTokenPresentationProvider(
@@ -78,11 +106,16 @@ export function registerGameSystemAutomationRoutes(app: FastifyInstance) {
       role: member.role,
       controlsToken,
     } as const
+    const toolBindings = storedToolBindings.flatMap((template) => {
+      const binding = presentAreaEffectToolBinding(template)
+      return binding ? [binding] : []
+    })
 
     const presentation = await provider.buildTokenPresentation({
       campaignId: params.data.campaignId,
       tokenId: token.id,
       characterSheet: token.actor?.characterSheet ?? null,
+      toolBindings,
       viewer,
     })
 

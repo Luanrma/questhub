@@ -142,11 +142,33 @@ model CampaignCharacterSheet {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  actor         CampaignActor @relation(fields: [actorId], references: [id], onDelete: Cascade)
-  createdByUser User          @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
+  actor         CampaignActor                 @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  createdByUser User                          @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
+  entries       CampaignCharacterSheetEntry[]
 
   @@index([systemKey])
   @@index([createdByUserId])
+}
+
+model CampaignCharacterSheetEntry {
+  id               String   @id @default(cuid())
+  characterSheetId String
+  namespace        String
+  typeKey          String
+  catalogNamespace String?
+  catalogContentId String?
+  schemaVersion    Int      @default(1)
+  data             Json
+  state            Json?
+  sortOrder        Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  characterSheet CampaignCharacterSheet @relation(fields: [characterSheetId], references: [id], onDelete: Cascade)
+
+  @@unique([characterSheetId, namespace, typeKey, catalogNamespace, catalogContentId], map: "CampaignCharacterSheetEntry_identity_key")
+  @@index([characterSheetId, namespace, typeKey, sortOrder, createdAt], map: "CampaignCharacterSheetEntry_sheet_type_order_idx")
+  @@index([catalogNamespace, catalogContentId], map: "CampaignCharacterSheetEntry_catalog_reference_idx")
 }
 
 model CampaignMember {

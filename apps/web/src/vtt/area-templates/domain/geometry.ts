@@ -308,6 +308,10 @@ function tokenOccupiesCoveredCell(token: VttPlayerToken, coveredCells: CoveredAr
 
 function touchedTokens(placement: AreaPlacement, polygon: AreaPoint[], innerPolygon: AreaPoint[] | undefined, coveredCells: CoveredAreaCell[], context: AreaCalculationContext) {
   return context.tokens.filter((token) => {
+    if (
+      !placement.template.includesOrigin
+      && placement.template.runtimeSource?.sourceTokenId === token.id
+    ) return false
     const gridOffset = { x: context.grid.offsetX, y: context.grid.offsetY }
     const center = { x: token.position.x * context.grid.size + gridOffset.x, y: token.position.y * context.grid.size + gridOffset.y }
     if (placement.template.propagationMode === 'BLOCKED_BY_WALLS' && !hasLineOfEffect(placement.origin, center, context.walls)) return false

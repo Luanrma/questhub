@@ -16,10 +16,10 @@ sem conhecer regras de Pathfinder 2e.
 
 ## Limites
 
-Este módulo produz apresentação somente de leitura. Não executa rolagens, não
-calcula Spell DC, não resolve saves, não aplica graus de sucesso e não publica
-chat cards. Essas etapas pertencem a uma futura capacidade de execução do
-runtime.
+Este módulo produz apresentação mecânica e pode publicar uma intenção espacial
+neutra para a ferramenta de Area Effect. Não executa rolagens, não calcula Spell
+DC, não resolve saves, não aplica graus de sucesso e não publica chat cards.
+Essas consequências pertencem a uma futura capacidade de execução do runtime.
 
 O VTT recebe apenas labels, grupos, detalhes, tipos genéricos de interação e
 contextos neutros de apresentação.

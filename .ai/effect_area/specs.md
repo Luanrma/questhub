@@ -90,6 +90,22 @@ O servidor valida autenticacao do socket, sessao ativa, participacao na campanha
 
 Erros: `400` payload invalido, `403` acesso/permissao, `404` recurso fora do escopo ou inexistente, `409` conflito de integridade.
 
+### Tool binding neutro
+
+`VTT_AREA_EFFECT` pode armazenar uma configuracao de template associada a uma origem neutra `CATALOG_CONTENT`, `CHARACTER_SHEET_ENTRY` ou `TOKEN_ACTION`. Esses registros sao ocultos de `GET /area-templates` e nao podem ser editados, duplicados ou excluidos pelas rotas da biblioteca comum.
+
+```text
+GET    /api/campaigns/:campaignId/tool-bindings/VTT_AREA_EFFECT
+PUT    /api/campaigns/:campaignId/tool-bindings/VTT_AREA_EFFECT
+DELETE /api/campaigns/:campaignId/tool-bindings/VTT_AREA_EFFECT
+```
+
+O runtime recebe uma copia efemera da configuracao. Ela nao aparece na biblioteca, nao cria item de toolbar e nao e persistida como efeito de cena. Nova ativacao substitui a anterior. `Escape` cancela o estado diretamente no orquestrador, mesmo com a toolbar recolhida.
+
+O editor de tool binding reutiliza o formulario canonico da biblioteca e pode habilitar o campo `Origem` e campos adicionais de ativacao. Montar esse editor nao chama `onUse`, nao publica `runtimeAreaTemplateRequestedEvent` e nao altera o estado aberto/recolhido da toolbar.
+
+Quando `includesOrigin = false` e o template efemero possui `runtimeSource.sourceTokenId`, esse Token e removido de `touchedTokenIds`, inclusive quando a intersecao usa `COVERED_CELLS`.
+
 ## 5. Validacao
 
 * Nome: 1 a 60 caracteres; descricao ate 1000; categoria ate 80; no maximo 20 tags de 40 caracteres.
