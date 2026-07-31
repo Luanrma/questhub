@@ -26,14 +26,15 @@ type CampaignCharacterSpell = {
 2. Fichas simplificadas originadas do Bestiário não recebem este vínculo.
 3. Uma mesma definição do catálogo aparece no máximo uma vez por ficha.
 4. `catalogContentId` deve identificar uma entrada do domínio `SPELL`.
-5. `baseRank` é derivado do catálogo e deve estar entre `0` e `10`.
-6. O registro mantém um snapshot canônico dos dados originais da magia.
-7. Nome e descrição localizados são resolvidos no momento da leitura.
-8. Excluir Token, remover controlador ou trocar o Token vinculado preserva as magias.
-9. Excluir definitivamente a ficha exclui seus vínculos por cascade.
-10. Arquivar o ator preserva a ficha e seus vínculos.
-11. O vínculo não declara que a magia está preparada, conhecida, autorizada ou disponível para uso.
-12. Classe, tradição, slots, repertório, foco e heightening não bloqueiam a inclusão no MVP.
+5. `baseRank` é derivado do catálogo e deve estar entre `1` e `10`.
+6. Truques possuem Rank `1` e são identificados pela trait `cantrip`.
+7. O registro mantém um snapshot canônico dos dados originais da magia.
+8. Nome e descrição localizados são resolvidos no momento da leitura.
+9. Excluir Token, remover controlador ou trocar o Token vinculado preserva as magias.
+10. Excluir definitivamente a ficha exclui seus vínculos por cascade.
+11. Arquivar o ator preserva a ficha e seus vínculos.
+12. O vínculo não declara que a magia está preparada, conhecida, autorizada ou disponível para uso.
+13. Classe, tradição, slots, repertório, foco e heightening não bloqueiam a inclusão no MVP.
 
 ## Permissões
 
@@ -64,8 +65,8 @@ A consulta de catálogo aceita busca, Rank opcional, locale, página e limite.
 A ficha completa registra uma página `Magias`.
 
 - magias vinculadas são agrupadas por Rank;
-- Rank `0` é apresentado como `Truques`;
-- o catálogo pode ser filtrado por Rank `0` a `10`;
+- truques permanecem no grupo de Rank `1` e recebem identificação visual própria;
+- o catálogo pode ser filtrado por Rank `1` a `10`;
 - a busca não remove magias já vinculadas, mas desabilita nova inclusão;
 - cada vínculo pode ser removido individualmente;
 - a descrição pode ser consultada sem sair da ficha;
@@ -89,7 +90,7 @@ A ficha completa registra uma página `Magias`.
 1. uma ficha completa adiciona uma magia pelo catálogo;
 2. o backend ignora qualquer Rank informado pelo cliente;
 3. a magia reaparece após recarregar a página;
-4. truques e Ranks `1..10` são separados visualmente;
+4. Ranks `1..10` são separados visualmente e truques são identificados pela trait;
 5. a mesma magia não pode ser vinculada duas vezes à mesma ficha;
 6. duas fichas podem possuir a mesma magia independentemente;
 7. remover uma magia não altera o catálogo nem outra ficha;
