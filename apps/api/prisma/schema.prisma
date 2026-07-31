@@ -142,11 +142,29 @@ model CampaignCharacterSheet {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  actor         CampaignActor @relation(fields: [actorId], references: [id], onDelete: Cascade)
-  createdByUser User          @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
+  actor         CampaignActor           @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  createdByUser User                    @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
+  spells        CampaignCharacterSpell[]
 
   @@index([systemKey])
   @@index([createdByUserId])
+}
+
+model CampaignCharacterSpell {
+  id               String   @id @default(cuid())
+  characterSheetId String
+  catalogNamespace String
+  catalogContentId String
+  baseRank         Int
+  data             Json
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  characterSheet CampaignCharacterSheet @relation(fields: [characterSheetId], references: [id], onDelete: Cascade)
+
+  @@unique([characterSheetId, catalogNamespace, catalogContentId])
+  @@index([characterSheetId, baseRank, createdAt])
+  @@index([catalogNamespace, catalogContentId])
 }
 
 model CampaignMember {
