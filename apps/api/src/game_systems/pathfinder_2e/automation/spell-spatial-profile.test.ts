@@ -50,6 +50,20 @@ test('PF2e infers bounded target selection from target and range text', () => {
   })
 })
 
+test('PF2e maps touch to an adjacent target at 1.5 meters', () => {
+  const activation = projectPathfinder2eSpellActivation(spell({
+    range: 'touch',
+    target: '1 creature',
+  }))
+
+  assert.deepEqual(activation, {
+    kind: 'TARGET_SELECTION',
+    minimumTargets: 1,
+    maximumTargets: 1,
+    maximumDistance: 1.5,
+  })
+})
+
 test('PF2e maps burst, emanation, cone and line text to neutral area geometry', () => {
   const burst = projectPathfinder2eSpellActivation(spell({
     area: '20-foot burst',
