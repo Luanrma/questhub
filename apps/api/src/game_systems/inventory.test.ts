@@ -59,12 +59,15 @@ test('CampaignActor creation makes the inventory capability explicit', () => {
   )
 })
 
-test('Prisma history contains only the current initial migration', () => {
+test('Prisma history contains the current baseline and additive feature migrations', () => {
   const migrationsPath = path.join(process.cwd(), 'apps', 'api', 'prisma', 'migrations')
   const migrationDirectories = readdirSync(migrationsPath, { withFileTypes: true })
     .filter((entry) => entry.isDirectory())
     .map((entry) => entry.name)
     .sort()
 
-  assert.deepEqual(migrationDirectories, ['20260729000000_initial'])
+  assert.deepEqual(migrationDirectories, [
+    '20260729000000_initial',
+    '20260731024500_add_campaign_character_spells',
+  ])
 })
