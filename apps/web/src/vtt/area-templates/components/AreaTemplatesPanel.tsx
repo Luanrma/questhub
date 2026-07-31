@@ -3,7 +3,15 @@ import { Copy, Grip, PanelRightOpen, Pencil, Pin, Plus, Search, Sparkles, Trash2
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { areaTemplateNameMaxLength, detachedAreaPanelMaxHeight, detachedAreaPanelMaxWidth } from '../config/limits'
 import { areaTemplateForMeterEditor, metersPerFoot, metersToFeet } from '../domain/measurement'
+import {
+  activateRuntimeSpatialTemplate,
+  clearRuntimeSpatialTemplate,
+} from '../domain/runtimeSpatialActivation'
 import { defaultAreaTemplateInput, type AreaShape, type AreaTemplateInput, type CampaignAreaTemplate } from '../domain/types'
+import {
+  runtimeAreaTemplateRequestedEvent,
+  type RuntimeAreaTemplateRequested,
+} from '../infrastructure/runtimeAreaTemplateEvents'
 
 const shapeLabels: Record<AreaShape, string> = {
   CIRCLE: 'Circulo', CONE: 'Cone', LINE: 'Linha', ORTHOGONAL: 'Ortogonal', RING: 'Anel', POLYGON: 'Poligono', TARGET: 'Target',
@@ -123,6 +131,18 @@ export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId
   const filtered = useMemo(() => templates.filter((template) => template.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())), [search, templates])
 
   useEffect(() => {
+    function onRuntimeTemplateRequested(event: Event) {
+      const detail = (event as CustomEvent<RuntimeAreaTemplateRequested>).detail
+      if (!detail?.template) return
+      activateRuntimeSpatialTemplate(detail.template, gridScale.metersPerCell)
+      onUse(detail.template)
+    }
+
+    window.addEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
+    return () => window.removeEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
+  }, [gridScale.metersPerCell, onUse])
+
+  useEffect(() => {
     function onPointerMove(event: PointerEvent) {
       if (!dragging) return
       setBox((current) => ({
@@ -146,8 +166,19 @@ export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId
     setDragging(true)
   }
 
+  function closePanel() {
+    clearRuntimeSpatialTemplate()
+    onClose()
+  }
+
+  function useStoredTemplate(template: CampaignAreaTemplate) {
+    clearRuntimeSpatialTemplate()
+    onUse(template)
+  }
+
   return (
     <section
+      data-vtt-area-templates-panel="true"
       className={['pointer-events-auto flex min-w-0 flex-col overflow-hidden rounded-xl border border-orange-300/20 bg-black/90 text-white shadow-2xl backdrop-blur-xl', detached ? 'fixed z-[80]' : ['absolute left-24 top-20 z-30 max-h-[calc(100vh-100px)]', editing ? 'w-[min(430px,calc(100vw-128px))]' : 'w-[min(350px,calc(100vw-128px))]'].join(' ')].join(' ')}
       style={detached ? { left: box.x, top: box.y, width: box.width, height: 'fit-content', maxWidth: detachedAreaPanelMaxWidth, maxHeight: Math.min(box.height, detachedAreaPanelMaxHeight) } : undefined}
     >
@@ -156,7 +187,7 @@ export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId
         <span className="flex min-w-0 items-center gap-2 truncate text-[11px] font-bold uppercase tracking-wide text-orange-200">{detached ? <Grip className="h-3.5 w-3.5 shrink-0 text-zinc-500" /> : <Sparkles className="h-3.5 w-3.5 shrink-0" />}<span className="truncate">Templates de Area</span></span>
         <div className="flex shrink-0 items-center gap-0.5">
           {detached ? <button type="button" title="Pregar painel" onPointerDown={(event) => event.stopPropagation()} onClick={() => onDetachedChange?.(false)} className="rounded p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white"><Pin className="h-3.5 w-3.5" /></button> : <button type="button" title="Destacar painel" onClick={() => onDetachedChange?.(true)} className="rounded p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white"><PanelRightOpen className="h-3.5 w-3.5" /></button>}
-          <button type="button" title="Fechar" onPointerDown={(event) => event.stopPropagation()} onClick={onClose} className="rounded p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white"><X className="h-3.5 w-3.5" /></button>
+          <button type="button" title="Fechar" onPointerDown={(event) => event.stopPropagation()} onClick={closePanel} className="rounded p-1.5 text-zinc-400 hover:bg-white/10 hover:text-white"><X className="h-3.5 w-3.5" /></button>
         </div>
       </div>
       <div className={['min-h-0 min-w-0 overflow-y-auto overflow-x-hidden', editing ? 'p-3' : 'p-2', detached ? 'flex-1' : ''].join(' ')}>
@@ -173,7 +204,7 @@ export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId
               {canManageTemplates ? <><button title="Editar" type="button" onClick={() => setEditing(template)} className="rounded p-1 text-zinc-400 hover:bg-white/10"><Pencil className="h-3 w-3" /></button>
               <button title="Duplicar" type="button" onClick={() => onDuplicate(template.id)} className="rounded p-1 text-zinc-400 hover:bg-white/10"><Copy className="h-3 w-3" /></button>
               <button title="Excluir" type="button" onClick={() => onDelete(template.id)} className="rounded p-1 text-red-300 hover:bg-red-500/10"><Trash2 className="h-3 w-3" /></button></> : null}
-              <button type="button" onClick={() => onUse(template)} className="ml-0.5 h-7 rounded bg-orange-600 px-2 text-[10px] font-semibold">Usar</button>
+              <button type="button" onClick={() => useStoredTemplate(template)} className="ml-0.5 h-7 rounded bg-orange-600 px-2 text-[10px] font-semibold">Usar</button>
             </div>
           </div>)}
         </div>
