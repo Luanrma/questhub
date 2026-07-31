@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-const areaTemplateNameMaxLength = 120
+const areaTemplateNameMaxLength = 60
 const finitePositive = z.number().finite().positive().max(100_000)
 const optionalDimension = finitePositive.optional()
 const colorSchema = z.string().regex(/^#[0-9a-fA-F]{6}$/, 'Cor hexadecimal invalida')
