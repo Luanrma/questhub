@@ -31,8 +31,8 @@ completo da ficha e não exige uma nova versão do schema mecânico.
 `CampaignCharacterSpell.baseRank` registra o Rank original da definição da
 magia no catálogo.
 
-- Rank `0` representa um truque.
-- Ranks `1` a `10` representam magias de Rank correspondente.
+- O catálogo Remaster utilizado pelo QuestHub trabalha com Ranks `1` a `10`.
+- Truques possuem Rank `1` e são distinguidos pela trait mecânica `cantrip`.
 - O Rank é sempre obtido do catálogo; o cliente não pode escolhê-lo.
 - `baseRank` não representa o Rank usado em uma conjuração elevada.
 
