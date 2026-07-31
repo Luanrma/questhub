@@ -20,8 +20,35 @@ export type ToolBindingSource = z.infer<typeof toolBindingSourceSchema>
 
 const optionalDistanceSchema = z.number().finite().positive().max(100_000).optional()
 
+function normalizeBindingTemplate(value: unknown) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return value
+  const template = value as Record<string, unknown>
+  const normalizedName = typeof template.name === 'string'
+    ? template.name.trim().slice(0, 60)
+    : template.name
+
+  if (template.shape === 'ORTHOGONAL') {
+    return {
+      ...template,
+      name: normalizedName,
+      originMode: 'GRID_CELL',
+      placementMode: 'POINT',
+    }
+  }
+
+  return {
+    ...template,
+    name: normalizedName,
+  }
+}
+
+const bindingTemplateSchema = z.preprocess(
+  normalizeBindingTemplate,
+  createAreaTemplateSchema,
+)
+
 export const areaEffectToolBindingConfigurationSchema = z.object({
-  template: createAreaTemplateSchema,
+  template: bindingTemplateSchema,
   minimumTargets: z.number().int().min(0).max(100).optional(),
   maximumDistance: optionalDistanceSchema,
   maximumOriginDistance: optionalDistanceSchema,
@@ -153,7 +180,7 @@ export function areaEffectToolBindingTemplateData(input: {
   })
 
   return {
-    name: input.name,
+    name: input.name.trim().slice(0, 60),
     description: serializeToolBindingMetadata(metadata),
     category: AREA_EFFECT_TOOL_BINDING_CATEGORY,
     tags: json([`tool:${AREA_EFFECT_TOOL_KEY}`]),
