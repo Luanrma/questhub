@@ -34,6 +34,57 @@ export type TokenIndicatorPresentation = {
   severity?: 'neutral' | 'positive' | 'warning' | 'critical'
 }
 
+export type TokenActionVisualEffect =
+  | 'DEFAULT'
+  | 'FIRE'
+  | 'ELECTRIC'
+  | 'HEALING'
+  | 'EARTH'
+  | 'VINES'
+  | 'LEAVES'
+
+export type TokenActionTargetSelectionActivation = {
+  kind: 'TARGET_SELECTION'
+  minimumTargets: number
+  maximumTargets: number
+  maximumDistance?: number
+  visualEffect?: TokenActionVisualEffect
+}
+
+export type TokenActionAreaPlacementActivation = {
+  kind: 'AREA_PLACEMENT'
+  maximumOriginDistance?: number
+  template: {
+    shape: 'CIRCLE' | 'CONE' | 'LINE'
+    originMode: 'SOURCE_TOKEN' | 'FREE_POINT'
+    placementMode: 'POINT' | 'DIRECTIONAL'
+    dimensions: {
+      radius?: number
+      length?: number
+      width?: number
+      startWidth?: number
+      endWidth?: number
+      angleDegrees?: number
+    }
+    visualEffect?: TokenActionVisualEffect
+  }
+}
+
+export type TokenActionSpatialActivation =
+  | TokenActionTargetSelectionActivation
+  | TokenActionAreaPlacementActivation
+
+export type TokenActionActivation =
+  | TokenActionSpatialActivation
+  | {
+      kind: 'VARIANTS'
+      variants: readonly {
+        id: string
+        label: string
+        activation: TokenActionSpatialActivation
+      }[]
+    }
+
 export type TokenActionPresentation = {
   id: string
   label: string
@@ -43,6 +94,7 @@ export type TokenActionPresentation = {
   visibility: TokenPresentationVisibility
   interaction?: 'instant' | 'target' | 'area' | 'roll'
   contexts: readonly ('ENCOUNTER' | 'REFERENCE')[]
+  activation?: TokenActionActivation
 }
 
 export type TokenPresentation = {
