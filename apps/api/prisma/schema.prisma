@@ -166,9 +166,9 @@ model CampaignCharacterSheetEntry {
 
   characterSheet CampaignCharacterSheet @relation(fields: [characterSheetId], references: [id], onDelete: Cascade)
 
-  @@unique([characterSheetId, namespace, typeKey, catalogNamespace, catalogContentId])
-  @@index([characterSheetId, namespace, typeKey, sortOrder, createdAt])
-  @@index([catalogNamespace, catalogContentId])
+  @@unique([characterSheetId, namespace, typeKey, catalogNamespace, catalogContentId], map: "CampaignCharacterSheetEntry_identity_key")
+  @@index([characterSheetId, namespace, typeKey, sortOrder, createdAt], map: "CampaignCharacterSheetEntry_sheet_type_order_idx")
+  @@index([catalogNamespace, catalogContentId], map: "CampaignCharacterSheetEntry_catalog_reference_idx")
 }
 
 model CampaignMember {
