@@ -1,6 +1,7 @@
 import type {
   GameSystemCharacterSheetSnapshot,
   GameSystemTokenPresentationProvider,
+  GameSystemToolBindingSnapshot,
   TokenIndicatorPresentation,
   TokenPresentation,
 } from '../../automation/contracts'
@@ -48,10 +49,14 @@ function invalidSheetPresentation(tokenId: string, revision: string): TokenPrese
   }
 }
 
-function presentationRevision(sheet: GameSystemCharacterSheetSnapshot) {
+function presentationRevision(
+  sheet: GameSystemCharacterSheetSnapshot,
+  bindings: readonly GameSystemToolBindingSnapshot[],
+) {
   const timestamps = [
     sheet.updatedAt,
     ...(sheet.entries ?? []).map((entry) => entry.updatedAt),
+    ...bindings.map((binding) => binding.updatedAt),
   ]
   const newest = timestamps.reduce((current, candidate) => (
     candidate.getTime() > current.getTime() ? candidate : current
@@ -63,6 +68,7 @@ function buildCatalogTokenPresentation(
   tokenId: string,
   revision: string,
   sheetData: unknown,
+  bindings: readonly GameSystemToolBindingSnapshot[],
 ): TokenPresentation {
   const envelope = parseCatalogTokenSheetEnvelope(sheetData)
   const data = envelope
@@ -90,7 +96,12 @@ function buildCatalogTokenPresentation(
     ],
     indicators: [],
     actions: entry
-      ? buildPathfinder2eCatalogTokenActions(entry, envelope?.source.locale ?? 'pt-BR')
+      ? buildPathfinder2eCatalogTokenActions(
+          entry,
+          envelope?.source.locale ?? 'pt-BR',
+          tokenId,
+          bindings,
+        )
       : [],
   }
 }
@@ -102,6 +113,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
     'TOKEN_RESOURCES',
     'TOKEN_INDICATORS',
     'TOKEN_ACTIONS',
+    'AREA_EFFECTS',
     'CHARACTER_SHEET',
   ],
 
@@ -111,9 +123,15 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
       return emptyPresentation(context.tokenId)
     }
 
-    const revision = presentationRevision(sheet)
+    const bindings = context.toolBindings ?? []
+    const revision = presentationRevision(sheet, bindings)
     if (sheet.systemKey === catalogTokenSheetSystemKey('PATHFINDER_2E')) {
-      return buildCatalogTokenPresentation(context.tokenId, revision, sheet.data)
+      return buildCatalogTokenPresentation(
+        context.tokenId,
+        revision,
+        sheet.data,
+        bindings,
+      )
     }
     if (sheet.systemKey !== pathfinder2eCharacterSheetRuntimeAdapter.systemKey) {
       return emptyPresentation(context.tokenId, revision)
@@ -173,7 +191,11 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
         indicators,
         actions: [
           ...buildPathfinder2ePlayerSkillActions(resolved.derived),
-          ...buildPathfinder2eCharacterSpellActions(sheet.entries ?? [], 'pt-BR'),
+          ...buildPathfinder2eCharacterSpellActions(
+            sheet.entries ?? [],
+            'pt-BR',
+            bindings,
+          ),
         ],
       }
     } catch {
