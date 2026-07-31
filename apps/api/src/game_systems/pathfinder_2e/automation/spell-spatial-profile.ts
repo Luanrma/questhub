@@ -159,9 +159,7 @@ function inferTargetActivation(
   }
 }
 
-function healOverride(
-  spell: Pathfinder2eCharacterSpellPresentation,
-): Pathfinder2eSpellSpatialProfile {
+function healOverride(): Pathfinder2eSpellSpatialProfile {
   const visualEffect: TokenActionVisualEffect = 'HEALING'
   return {
     status: 'RESOLVED',
