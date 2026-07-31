@@ -68,7 +68,7 @@ type Props = {
 }
 
 function rankLabel(rank: number) {
-  return rank === 0 ? 'Truques · Rank 0' : `Rank ${rank}`
+  return `Rank ${rank}`
 }
 
 function errorMessage(cause: unknown, fallback: string) {
@@ -237,7 +237,9 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
             <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-violet-200">
               Vinculadas
             </h3>
-            <p className="mt-1 text-xs text-zinc-500">Rank 0 representa truques.</p>
+            <p className="mt-1 text-xs text-zinc-500">
+              Truques permanecem no Rank 1 e são identificados pela trait cantrip.
+            </p>
           </div>
           <span className="rounded-md border border-white/10 bg-black/20 px-2.5 py-1 text-xs text-zinc-300">
             {linked.length} {linked.length === 1 ? 'magia' : 'magias'}
@@ -261,7 +263,14 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
                   <article key={spell.id} className="rounded-lg border border-white/10 bg-black/20 p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <h5 className="truncate font-semibold text-white">{spell.name}</h5>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h5 className="truncate font-semibold text-white">{spell.name}</h5>
+                          {spell.traits.includes('cantrip') ? (
+                            <span className="rounded border border-sky-300/25 bg-sky-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-sky-100">
+                              Truque
+                            </span>
+                          ) : null}
+                        </div>
                         <div className="mt-1 flex flex-wrap gap-1.5 text-[11px] uppercase text-zinc-400">
                           {spell.traditions.map((tradition) => (
                             <span key={tradition} className="rounded border border-white/10 px-1.5 py-0.5">
@@ -339,10 +348,8 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
               className="rounded-lg border border-white/10 bg-[#15161d] px-3 py-2.5 text-sm text-white outline-none"
             >
               <option value="all">Todos</option>
-              {Array.from({ length: 11 }, (_, value) => (
-                <option key={value} value={value}>
-                  {value === 0 ? 'Truques · Rank 0' : `Rank ${value}`}
-                </option>
+              {Array.from({ length: 10 }, (_, index) => index + 1).map((value) => (
+                <option key={value} value={value}>Rank {value}</option>
               ))}
             </select>
           </label>
@@ -359,7 +366,7 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="text-[11px] font-semibold uppercase tracking-wide text-violet-300">
-                      {rankLabel(spell.rank)}
+                      {rankLabel(spell.rank)}{spell.traits.includes('cantrip') ? ' · Truque' : ''}
                     </div>
                     <h4 className="mt-1 truncate font-semibold text-white">{spell.name}</h4>
                   </div>
