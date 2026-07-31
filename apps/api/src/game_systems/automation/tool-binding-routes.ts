@@ -12,7 +12,7 @@ import {
   sameToolBindingSource,
   toolBindingSourceSchema,
   type ToolBindingSource,
-} from '../../modules/effect_area/domain/tool-binding'
+} from '../../shared/tool-bindings/area-effect'
 import type { GameSystemAutomationEventPublisher } from './contracts'
 
 const paramsSchema = z.object({
