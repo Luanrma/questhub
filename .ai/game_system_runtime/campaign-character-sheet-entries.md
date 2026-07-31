@@ -84,8 +84,10 @@ persistência, sem migrations ou tabelas exclusivas.
 4. `schemaVersion` é positivo.
 5. `sortOrder` não é negativo.
 6. Nenhuma coluna compartilhada representa regra de um sistema concreto.
-7. Entradas originadas da mesma identidade de catálogo são únicas por ficha,
-   namespace e tipo.
+7. Entradas que possuem referência de catálogo são únicas por ficha, namespace,
+   tipo e identidade de catálogo.
+8. Entradas manuais, sem referência de catálogo, podem coexistir e são
+   distinguidas pelo próprio `id`.
 
 ## Exemplo PF2e
 
