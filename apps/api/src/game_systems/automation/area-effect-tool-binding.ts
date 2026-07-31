@@ -7,6 +7,14 @@ import type {
 
 export const AREA_EFFECT_TOOL_KEY = 'VTT_AREA_EFFECT'
 
+const areaShapes = ['CIRCLE', 'CONE', 'LINE', 'ORTHOGONAL', 'RING', 'POLYGON'] as const
+const originModes = ['SOURCE_TOKEN', 'FREE_POINT', 'GRID_CELL', 'GRID_INTERSECTION'] as const
+const placementModes = ['POINT', 'DIRECTIONAL', 'ATTACHED', 'DRAWN'] as const
+const propagationModes = ['BLOCKED_BY_WALLS', 'SPREAD_AROUND_WALLS', 'IGNORE_WALLS'] as const
+const inclusionRules = ['ANY_OVERLAP', 'CENTER_INSIDE', 'HALF_OR_MORE', 'FULLY_INSIDE'] as const
+const intersectionRules = [...inclusionRules, 'COVERED_CELLS'] as const
+const visualEffects = ['DEFAULT', 'FIRE', 'ELECTRIC', 'HEALING', 'EARTH', 'VINES', 'LEAVES'] as const
+
 function sameSource(left: ToolBindingSource, right: ToolBindingSource) {
   return left.kind === right.kind
     && left.namespace === right.namespace
@@ -31,11 +39,9 @@ function asString(value: unknown) {
   return typeof value === 'string' ? value : undefined
 }
 
-function visualEffect(value: unknown) {
+function oneOf<const Values extends readonly string[]>(value: unknown, values: Values) {
   const parsed = asString(value)
-  return parsed && ['DEFAULT', 'FIRE', 'ELECTRIC', 'HEALING', 'EARTH', 'VINES', 'LEAVES'].includes(parsed)
-    ? parsed as 'DEFAULT' | 'FIRE' | 'ELECTRIC' | 'HEALING' | 'EARTH' | 'VINES' | 'LEAVES'
-    : undefined
+  return parsed && values.includes(parsed) ? parsed as Values[number] : undefined
 }
 
 export function areaEffectBindingToActivation(
@@ -47,41 +53,36 @@ export function areaEffectBindingToActivation(
   const shape = asString(template.shape)
   const dimensions = asRecord(template.dimensions)
   const style = asRecord(template.style)
+  const effect = oneOf(style.visualEffect, visualEffects)
 
   if (shape === 'TARGET') {
     const maximumTargets = Math.max(1, Math.trunc(asNumber(dimensions.targetCount) ?? 1))
+    const minimumTargets = Math.min(
+      maximumTargets,
+      Math.max(0, Math.trunc(asNumber(configuration.minimumTargets) ?? 1)),
+    )
+    const maximumDistance = asNumber(configuration.maximumDistance)
     return {
       kind: 'TARGET_SELECTION',
-      minimumTargets: Math.min(
-        maximumTargets,
-        Math.max(0, Math.trunc(asNumber(configuration.minimumTargets) ?? 1)),
-      ),
+      minimumTargets,
       maximumTargets,
-      ...(asNumber(configuration.maximumDistance) !== undefined
-        ? { maximumDistance: asNumber(configuration.maximumDistance) }
-        : {}),
-      ...(visualEffect(style.visualEffect)
-        ? { visualEffect: visualEffect(style.visualEffect) }
-        : {}),
+      ...(maximumDistance !== undefined ? { maximumDistance } : {}),
+      ...(effect ? { visualEffect: effect } : {}),
     }
   }
 
-  if (!shape || !['CIRCLE', 'CONE', 'LINE', 'ORTHOGONAL', 'RING', 'POLYGON'].includes(shape)) {
-    return undefined
-  }
+  const areaShape = oneOf(shape, areaShapes)
+  const originMode = oneOf(template.originMode, originModes)
+  const placementMode = oneOf(template.placementMode, placementModes)
+  if (!areaShape || !originMode || !placementMode) return undefined
 
-  const originMode = asString(template.originMode)
-  const placementMode = asString(template.placementMode)
-  if (
-    !originMode
-    || !['SOURCE_TOKEN', 'FREE_POINT', 'GRID_CELL', 'GRID_INTERSECTION'].includes(originMode)
-    || !placementMode
-    || !['POINT', 'DIRECTIONAL', 'ATTACHED', 'DRAWN'].includes(placementMode)
-  ) {
-    return undefined
-  }
-
-  const ring = asRecord(style.affectedTokenRing)
+  const radius = asNumber(dimensions.radius)
+  const innerRadius = asNumber(dimensions.innerRadius)
+  const length = asNumber(dimensions.length)
+  const width = asNumber(dimensions.width)
+  const startWidth = asNumber(dimensions.startWidth)
+  const endWidth = asNumber(dimensions.endWidth)
+  const angleDegrees = asNumber(dimensions.angleDegrees)
   const polygonPoints = Array.isArray(dimensions.polygonPoints)
     ? dimensions.polygonPoints.flatMap((point) => {
         const record = asRecord(point)
@@ -90,66 +91,71 @@ export function areaEffectBindingToActivation(
         return x === undefined || y === undefined ? [] : [{ x, y }]
       })
     : undefined
+  const maximumOriginDistance = asNumber(configuration.maximumOriginDistance)
+  const propagationMode = oneOf(template.propagationMode, propagationModes)
+  const cellInclusionRule = oneOf(template.cellInclusionRule, inclusionRules)
+  const tokenIntersectionRule = oneOf(template.tokenIntersectionRule, intersectionRules)
+  const includesOrigin = asBoolean(template.includesOrigin)
+  const fillColor = asString(style.fillColor)
+  const borderColor = asString(style.borderColor)
+  const borderWidthPx = asNumber(style.borderWidthPx)
+  const opacity = asNumber(style.opacity)
+  const showCoveredCells = asBoolean(style.showCoveredCells)
+  const showOrigin = asBoolean(style.showOrigin)
+  const showDirectionLine = asBoolean(style.showDirectionLine)
+  const ring = asRecord(style.affectedTokenRing)
+  const ringColor = asString(ring.color)
+  const ringOpacity = asNumber(ring.opacity)
+  const ringThickness = asNumber(ring.thicknessPx)
+  const ringGap = asNumber(ring.gapPx)
+  const ringPulse = asBoolean(ring.pulse)
+  const affectedTokenRing = ringColor
+    && ringOpacity !== undefined
+    && ringThickness !== undefined
+    && ringGap !== undefined
+    && ringPulse !== undefined
+    ? {
+        color: ringColor,
+        opacity: ringOpacity,
+        thicknessPx: ringThickness,
+        gapPx: ringGap,
+        pulse: ringPulse,
+      }
+    : undefined
 
   return {
     kind: 'AREA_PLACEMENT',
-    ...(asNumber(configuration.maximumOriginDistance) !== undefined
-      ? { maximumOriginDistance: asNumber(configuration.maximumOriginDistance) }
-      : {}),
+    ...(maximumOriginDistance !== undefined ? { maximumOriginDistance } : {}),
     template: {
-      shape: shape as 'CIRCLE' | 'CONE' | 'LINE' | 'ORTHOGONAL' | 'RING' | 'POLYGON',
-      originMode: originMode as 'SOURCE_TOKEN' | 'FREE_POINT' | 'GRID_CELL' | 'GRID_INTERSECTION',
-      placementMode: placementMode as 'POINT' | 'DIRECTIONAL' | 'ATTACHED' | 'DRAWN',
+      shape: areaShape,
+      originMode,
+      placementMode,
       dimensions: {
-        ...(asNumber(dimensions.radius) !== undefined ? { radius: asNumber(dimensions.radius) } : {}),
-        ...(asNumber(dimensions.innerRadius) !== undefined ? { innerRadius: asNumber(dimensions.innerRadius) } : {}),
-        ...(asNumber(dimensions.length) !== undefined ? { length: asNumber(dimensions.length) } : {}),
-        ...(asNumber(dimensions.width) !== undefined ? { width: asNumber(dimensions.width) } : {}),
-        ...(asNumber(dimensions.startWidth) !== undefined ? { startWidth: asNumber(dimensions.startWidth) } : {}),
-        ...(asNumber(dimensions.endWidth) !== undefined ? { endWidth: asNumber(dimensions.endWidth) } : {}),
-        ...(asNumber(dimensions.angleDegrees) !== undefined ? { angleDegrees: asNumber(dimensions.angleDegrees) } : {}),
+        ...(radius !== undefined ? { radius } : {}),
+        ...(innerRadius !== undefined ? { innerRadius } : {}),
+        ...(length !== undefined ? { length } : {}),
+        ...(width !== undefined ? { width } : {}),
+        ...(startWidth !== undefined ? { startWidth } : {}),
+        ...(endWidth !== undefined ? { endWidth } : {}),
+        ...(angleDegrees !== undefined ? { angleDegrees } : {}),
         ...(polygonPoints ? { polygonPoints } : {}),
       },
-      ...(asString(template.propagationMode)
-        ? { propagationMode: asString(template.propagationMode) as 'BLOCKED_BY_WALLS' | 'SPREAD_AROUND_WALLS' | 'IGNORE_WALLS' }
-        : {}),
-      ...(asString(template.cellInclusionRule)
-        ? { cellInclusionRule: asString(template.cellInclusionRule) as 'ANY_OVERLAP' | 'CENTER_INSIDE' | 'HALF_OR_MORE' | 'FULLY_INSIDE' }
-        : {}),
-      ...(asString(template.tokenIntersectionRule)
-        ? { tokenIntersectionRule: asString(template.tokenIntersectionRule) as 'ANY_OVERLAP' | 'CENTER_INSIDE' | 'HALF_OR_MORE' | 'FULLY_INSIDE' | 'COVERED_CELLS' }
-        : {}),
-      ...(asBoolean(template.includesOrigin) !== undefined
-        ? { includesOrigin: asBoolean(template.includesOrigin) }
-        : {}),
+      ...(propagationMode ? { propagationMode } : {}),
+      ...(cellInclusionRule ? { cellInclusionRule } : {}),
+      ...(tokenIntersectionRule ? { tokenIntersectionRule } : {}),
+      ...(includesOrigin !== undefined ? { includesOrigin } : {}),
       style: {
-        ...(visualEffect(style.visualEffect) ? { visualEffect: visualEffect(style.visualEffect) } : {}),
-        ...(asString(style.fillColor) ? { fillColor: asString(style.fillColor) } : {}),
-        ...(asString(style.borderColor) ? { borderColor: asString(style.borderColor) } : {}),
-        ...(asNumber(style.borderWidthPx) !== undefined ? { borderWidthPx: asNumber(style.borderWidthPx) } : {}),
-        ...(asNumber(style.opacity) !== undefined ? { opacity: asNumber(style.opacity) } : {}),
-        ...(asBoolean(style.showCoveredCells) !== undefined ? { showCoveredCells: asBoolean(style.showCoveredCells) } : {}),
-        ...(asBoolean(style.showOrigin) !== undefined ? { showOrigin: asBoolean(style.showOrigin) } : {}),
-        ...(asBoolean(style.showDirectionLine) !== undefined ? { showDirectionLine: asBoolean(style.showDirectionLine) } : {}),
-        ...(asString(ring.color)
-          && asNumber(ring.opacity) !== undefined
-          && asNumber(ring.thicknessPx) !== undefined
-          && asNumber(ring.gapPx) !== undefined
-          && asBoolean(ring.pulse) !== undefined
-          ? {
-              affectedTokenRing: {
-                color: asString(ring.color)!,
-                opacity: asNumber(ring.opacity)!,
-                thicknessPx: asNumber(ring.thicknessPx)!,
-                gapPx: asNumber(ring.gapPx)!,
-                pulse: asBoolean(ring.pulse)!,
-              },
-            }
-          : {}),
+        ...(effect ? { visualEffect: effect } : {}),
+        ...(fillColor ? { fillColor } : {}),
+        ...(borderColor ? { borderColor } : {}),
+        ...(borderWidthPx !== undefined ? { borderWidthPx } : {}),
+        ...(opacity !== undefined ? { opacity } : {}),
+        ...(showCoveredCells !== undefined ? { showCoveredCells } : {}),
+        ...(showOrigin !== undefined ? { showOrigin } : {}),
+        ...(showDirectionLine !== undefined ? { showDirectionLine } : {}),
+        ...(affectedTokenRing ? { affectedTokenRing } : {}),
       },
-      ...(asString(template.visibility) === 'ALL_PLAYERS'
-        ? { visibility: 'ALL_PLAYERS' as const }
-        : { visibility: 'MASTER_ONLY' as const }),
+      visibility: template.visibility === 'ALL_PLAYERS' ? 'ALL_PLAYERS' : 'MASTER_ONLY',
     },
   }
 }
@@ -162,28 +168,29 @@ export function resolveTokenActionToolBinding(input: {
   activation?: TokenActionActivation
   presentation?: TokenActionToolBindingPresentation
 } {
-  const override = input.overrideSource
+  const overrideSource = input.overrideSource
+  const defaultSource = input.defaultSource
+  const override = overrideSource
     ? input.bindings.find((binding) => (
         binding.toolKey === AREA_EFFECT_TOOL_KEY
-        && sameSource(binding.source, input.overrideSource!)
+        && sameSource(binding.source, overrideSource)
       ))
     : undefined
-  const inherited = input.defaultSource
+  const inherited = defaultSource
     ? input.bindings.find((binding) => (
         binding.toolKey === AREA_EFFECT_TOOL_KEY
-        && sameSource(binding.source, input.defaultSource!)
+        && sameSource(binding.source, defaultSource)
       ))
     : undefined
   const effective = override ?? inherited
-  const hasSources = Boolean(input.defaultSource || input.overrideSource)
-  if (!hasSources) return {}
+  if (!defaultSource && !overrideSource) return {}
 
   return {
     activation: areaEffectBindingToActivation(effective),
     presentation: {
       toolKey: AREA_EFFECT_TOOL_KEY,
-      ...(input.defaultSource ? { defaultSource: input.defaultSource } : {}),
-      ...(input.overrideSource ? { overrideSource: input.overrideSource } : {}),
+      ...(defaultSource ? { defaultSource } : {}),
+      ...(overrideSource ? { overrideSource } : {}),
       ...(effective ? {
         effective: {
           id: effective.id,
