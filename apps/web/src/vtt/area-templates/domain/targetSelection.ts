@@ -1,3 +1,5 @@
+import { runtimeTargetIsWithinRange } from './runtimeSpatialActivation'
+
 export function toggleTargetSelection(selectedTokenIds: string[], tokenId: string, maximumTargets: number) {
   if (selectedTokenIds.includes(tokenId)) return selectedTokenIds.filter((selectedId) => selectedId !== tokenId)
   if (selectedTokenIds.length >= maximumTargets) return selectedTokenIds
@@ -15,6 +17,7 @@ export function findIntersectingTargetTokenId(
     const center = { x: token.position.x * gridSize, y: token.position.y * gridSize }
     const distance = Math.hypot(point.x - center.x, point.y - center.y)
     if (distance > token.size * gridSize / 2 + markerRadius) continue
+    if (!runtimeTargetIsWithinRange(token.id, tokens)) continue
     if (!nearest || distance < nearest.distance) nearest = { id: token.id, distance }
   }
   return nearest?.id ?? null

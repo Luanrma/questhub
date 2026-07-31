@@ -2,13 +2,16 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
+  Link2,
   LoaderCircle,
   Plus,
   Search,
+  Settings2,
   Sparkles,
   Trash2,
 } from 'lucide-react'
 import { api, ApiError } from '../../../lib/api'
+import { AreaEffectBindingModal } from '../../../vtt/tool-bindings/AreaEffectBindingModal'
 import {
   readStoredPathfinder2eDisplaySettings,
   subscribeToPathfinder2eDisplaySettings,
@@ -37,6 +40,7 @@ type LinkedSpell = {
   heightening: string
   imageUrl: string | null
   createdAt: string
+  areaEffectConfiguration: 'NONE' | 'INHERITED' | 'CUSTOM'
 }
 
 type CatalogSpell = {
@@ -87,6 +91,7 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
   const [loadingLinked, setLoadingLinked] = useState(true)
   const [loadingCatalog, setLoadingCatalog] = useState(true)
   const [mutatingId, setMutatingId] = useState<string | null>(null)
+  const [configuringSpell, setConfiguringSpell] = useState<LinkedSpell | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const baseEndpoint = useMemo(
@@ -104,6 +109,20 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
     return [...groups.entries()].sort(([left], [right]) => left - right)
   }, [linked])
 
+  const configuringSpellBinding = useMemo(() => configuringSpell ? {
+    spell: configuringSpell,
+    source: {
+      kind: 'CHARACTER_SHEET_ENTRY' as const,
+      namespace: 'questhub:character-sheet-entry',
+      id: configuringSpell.id,
+    },
+    inheritedSource: {
+      kind: 'CATALOG_CONTENT' as const,
+      namespace: 'questhub:pathfinder_2e:spells:v1',
+      id: configuringSpell.contentId,
+    },
+  } : null, [configuringSpell])
+
   useEffect(() => subscribeToPathfinder2eDisplaySettings(
     campaignId,
     (settings) => setLocale(settings.contentLocale),
@@ -111,24 +130,29 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
 
   useEffect(() => {
     const controller = new AbortController()
-    setLoadingLinked(true)
-    setError(null)
+    const task = window.setTimeout(() => {
+      setLoadingLinked(true)
+      setError(null)
 
-    api<{ entries: LinkedSpell[] }>(
-      `${baseEndpoint}?locale=${locale}`,
-      { signal: controller.signal },
-    )
-      .then((response) => setLinked(response.entries))
-      .catch((cause) => {
-        if (!controller.signal.aborted) {
-          setError(errorMessage(cause, 'Não foi possível carregar as magias vinculadas.'))
-        }
-      })
-      .finally(() => {
-        if (!controller.signal.aborted) setLoadingLinked(false)
-      })
+      api<{ entries: LinkedSpell[] }>(
+        `${baseEndpoint}?locale=${locale}`,
+        { signal: controller.signal },
+      )
+        .then((response) => setLinked(response.entries))
+        .catch((cause) => {
+          if (!controller.signal.aborted) {
+            setError(errorMessage(cause, 'Não foi possível carregar as magias vinculadas.'))
+          }
+        })
+        .finally(() => {
+          if (!controller.signal.aborted) setLoadingLinked(false)
+        })
+    }, 0)
 
-    return () => controller.abort()
+    return () => {
+      controller.abort()
+      window.clearTimeout(task)
+    }
   }, [baseEndpoint, locale])
 
   useEffect(() => {
@@ -175,6 +199,18 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
     ])
     setLinked(linkedResponse.entries)
     setCatalog(catalogResponse)
+  }
+
+  async function reloadLinked() {
+    setError(null)
+    try {
+      const response = await api<{ entries: LinkedSpell[] }>(
+        `${baseEndpoint}?locale=${locale}`,
+      )
+      setLinked(response.entries)
+    } catch (cause) {
+      setError(errorMessage(cause, 'Não foi possível atualizar as magias vinculadas.'))
+    }
   }
 
   async function addSpell(contentId: string) {
@@ -259,8 +295,13 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
             <div key={groupRank} className="rounded-xl border border-white/10 bg-white/[0.035] p-4">
               <h4 className="text-sm font-semibold text-white">{rankLabel(groupRank)}</h4>
               <div className="mt-3 grid gap-3 xl:grid-cols-2">
-                {spells.map((spell) => (
-                  <article key={spell.id} className="rounded-lg border border-white/10 bg-black/20 p-4">
+                {spells.map((spell) => {
+                  const hasAreaEffect = spell.areaEffectConfiguration !== 'NONE'
+                  const areaEffectActionLabel = hasAreaEffect
+                    ? 'Personalizar Area Effect'
+                    : 'Configurar Area Effect'
+                  return (
+                    <article key={spell.id} className="rounded-lg border border-white/10 bg-black/20 p-4">
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-2">
@@ -268,6 +309,17 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
                           {spell.traits.includes('cantrip') ? (
                             <span className="rounded border border-sky-300/25 bg-sky-500/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase text-sky-100">
                               Truque
+                            </span>
+                          ) : null}
+                          {hasAreaEffect ? (
+                            <span className={`inline-flex items-center gap-1 rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase ${spell.areaEffectConfiguration === 'CUSTOM'
+                              ? 'border-orange-300/25 bg-orange-500/10 text-orange-100'
+                              : 'border-emerald-300/25 bg-emerald-500/10 text-emerald-100'
+                            }`}>
+                              <Link2 className="h-3 w-3" />
+                              {spell.areaEffectConfiguration === 'CUSTOM'
+                                ? 'Area personalizada'
+                                : 'Area configurada'}
                             </span>
                           ) : null}
                         </div>
@@ -279,17 +331,33 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
                           ))}
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        disabled={Boolean(mutatingId)}
-                        onClick={() => void removeSpell(spell)}
-                        title="Remover magia da ficha"
-                        className="rounded-md border border-red-300/20 p-2 text-red-200 transition hover:bg-red-500/15 disabled:opacity-45"
-                      >
-                        {mutatingId === spell.id
-                          ? <LoaderCircle className="h-4 w-4 animate-spin" />
-                          : <Trash2 className="h-4 w-4" />}
-                      </button>
+                      <div className="flex shrink-0 items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setConfiguringSpell(spell)}
+                          title={`${areaEffectActionLabel} para esta ficha`}
+                          aria-label={`${areaEffectActionLabel} de ${spell.name}`}
+                          className={`rounded-md border p-2 transition ${hasAreaEffect
+                            ? 'border-emerald-300/25 bg-emerald-500/10 text-emerald-100 hover:bg-emerald-500/20'
+                            : 'border-orange-300/20 text-orange-200 hover:bg-orange-500/15'
+                          }`}
+                        >
+                          {hasAreaEffect
+                            ? <Link2 className="h-4 w-4" />
+                            : <Settings2 className="h-4 w-4" />}
+                        </button>
+                        <button
+                          type="button"
+                          disabled={Boolean(mutatingId)}
+                          onClick={() => void removeSpell(spell)}
+                          title="Remover magia da ficha"
+                          className="rounded-md border border-red-300/20 p-2 text-red-200 transition hover:bg-red-500/15 disabled:opacity-45"
+                        >
+                          {mutatingId === spell.id
+                            ? <LoaderCircle className="h-4 w-4 animate-spin" />
+                            : <Trash2 className="h-4 w-4" />}
+                        </button>
+                      </div>
                     </div>
                     <details className="mt-3 text-sm text-zinc-300">
                       <summary className="cursor-pointer text-xs font-semibold text-violet-200">
@@ -307,8 +375,9 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
                         </dl>
                       </div>
                     </details>
-                  </article>
-                ))}
+                    </article>
+                  )
+                })}
               </div>
             </div>
           ))
@@ -422,6 +491,19 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
           </div>
         </footer>
       </section>
+
+      {configuringSpellBinding ? (
+        <AreaEffectBindingModal
+          key={configuringSpellBinding.spell.id}
+          campaignId={campaignId}
+          source={configuringSpellBinding.source}
+          inheritedSource={configuringSpellBinding.inheritedSource}
+          inheritedLabel="a configuração original do catálogo"
+          actionName={configuringSpellBinding.spell.name}
+          onClose={() => setConfiguringSpell(null)}
+          onSaved={() => void reloadLinked()}
+        />
+      ) : null}
     </div>
   )
 }

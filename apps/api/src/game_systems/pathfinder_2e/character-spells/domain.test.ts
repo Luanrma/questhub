@@ -8,6 +8,7 @@ import {
   PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
   PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
   presentPathfinder2eCharacterSpell,
+  resolvePathfinder2eSpellAreaEffectConfiguration,
 } from './domain'
 
 function findSpellByRank(rank: number) {
@@ -81,4 +82,19 @@ test('linked spell presentation derives Rank from stored PF2e data', () => {
   assert.equal(presented?.name, resolved.display.name)
   assert.equal(presented?.description, resolved.display.description)
   assert.equal(snapshot.data.name, (spell.original.data as { name: string }).name)
+})
+
+test('linked spell Area Effect status prioritizes the sheet customization', () => {
+  assert.equal(resolvePathfinder2eSpellAreaEffectConfiguration({
+    hasOwnConfiguration: true,
+    hasInheritedConfiguration: true,
+  }), 'CUSTOM')
+  assert.equal(resolvePathfinder2eSpellAreaEffectConfiguration({
+    hasOwnConfiguration: false,
+    hasInheritedConfiguration: true,
+  }), 'INHERITED')
+  assert.equal(resolvePathfinder2eSpellAreaEffectConfiguration({
+    hasOwnConfiguration: false,
+    hasInheritedConfiguration: false,
+  }), 'NONE')
 })

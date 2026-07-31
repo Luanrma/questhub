@@ -1,7 +1,12 @@
 import type {
   GameSystemCharacterSheetEntrySnapshot,
+  GameSystemToolBindingSnapshot,
+  TokenActionActivation,
   TokenActionPresentation,
+  TokenActionToolBindingPresentation,
+  ToolBindingSource,
 } from '../../automation/contracts'
+import { resolveTokenActionToolBinding } from '../../automation/area-effect-tool-binding'
 import {
   PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
   PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
@@ -16,6 +21,9 @@ import {
   translatePathfinder2eGlossaryTerm,
   translatePathfinder2eTradition,
 } from '../content_catalog/translations/pt-BR/glossary'
+
+const CHARACTER_SHEET_ENTRY_SOURCE_NAMESPACE = 'questhub:character-sheet-entry'
+const TOKEN_ACTION_SOURCE_NAMESPACE = 'questhub:vtt:token-action'
 
 const playerSkillLabels: Readonly<Record<keyof Pathfinder2eCharacterSheetData['skills'], string>> = {
   acrobatics: 'Acrobacia',
@@ -83,6 +91,18 @@ function translatedNested(
   return asRecord(asRecord(translatedFields[collection])[id])
 }
 
+function interactionForActivation(
+  activation: TokenActionActivation | undefined,
+  fallback: TokenActionPresentation['interaction'],
+): TokenActionPresentation['interaction'] {
+  if (!activation) return fallback
+  if (activation.kind === 'AREA_PLACEMENT') return 'area'
+  if (activation.kind === 'TARGET_SELECTION') return 'target'
+  return activation.variants.some((variant) => variant.activation.kind === 'AREA_PLACEMENT')
+    ? 'area'
+    : 'target'
+}
+
 function mechanicalAction(
   id: string,
   label: string,
@@ -91,6 +111,10 @@ function mechanicalAction(
   interaction: TokenActionPresentation['interaction'],
   context: 'ENCOUNTER' | 'REFERENCE',
   imageUrl?: string,
+  automation?: {
+    activation?: TokenActionActivation
+    toolBinding?: TokenActionToolBindingPresentation
+  },
 ): TokenActionPresentation {
   return {
     id,
@@ -98,10 +122,49 @@ function mechanicalAction(
     group,
     detail,
     ...(imageUrl ? { imageUrl } : {}),
-    interaction,
+    interaction: interactionForActivation(automation?.activation, interaction),
     visibility: 'OWNER_AND_MASTER',
     contexts: [context],
+    ...(automation?.activation ? { activation: automation.activation } : {}),
+    ...(automation?.toolBinding ? { toolBinding: automation.toolBinding } : {}),
   }
+}
+
+function catalogSource(contentId: string): ToolBindingSource {
+  return {
+    kind: 'CATALOG_CONTENT',
+    namespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
+    id: contentId,
+  }
+}
+
+function characterEntrySource(entryId: string): ToolBindingSource {
+  return {
+    kind: 'CHARACTER_SHEET_ENTRY',
+    namespace: CHARACTER_SHEET_ENTRY_SOURCE_NAMESPACE,
+    id: entryId,
+  }
+}
+
+function tokenActionSource(tokenId: string, actionId: string): ToolBindingSource {
+  return {
+    kind: 'TOKEN_ACTION',
+    namespace: TOKEN_ACTION_SOURCE_NAMESPACE,
+    id: `${tokenId}|${actionId}`,
+  }
+}
+
+function normalizedSpellName(value: string) {
+  return value.trim().toLocaleLowerCase('en-US').replace(/[^\p{L}\p{N}]+/gu, ' ')
+}
+
+function findSpellCatalogContentId(name: string) {
+  const normalized = normalizedSpellName(name)
+  return PATHFINDER_2E_CONTENT_ENTRIES.find((entry) => {
+    if (entry.original.domain !== 'SPELL') return false
+    const originalName = asText(asRecord(entry.original.data).name)
+    return originalName ? normalizedSpellName(originalName) === normalized : false
+  })?.original.contentId ?? null
 }
 
 export function buildPathfinder2ePlayerSkillActions(
@@ -121,6 +184,7 @@ export function buildPathfinder2ePlayerSkillActions(
 export function buildPathfinder2eCharacterSpellActions(
   entries: readonly GameSystemCharacterSheetEntrySnapshot[],
   locale: CatalogLocale,
+  bindings: readonly GameSystemToolBindingSnapshot[] = [],
 ): readonly TokenActionPresentation[] {
   return entries.flatMap((entry) => {
     if (
@@ -142,6 +206,11 @@ export function buildPathfinder2eCharacterSpellActions(
     const detail = [rankLabel, traditions || null]
       .filter((value): value is string => Boolean(value))
       .join(' · ')
+    const binding = resolveTokenActionToolBinding({
+      bindings,
+      defaultSource: catalogSource(spell.contentId),
+      overrideSource: characterEntrySource(entry.id),
+    })
 
     return [mechanicalAction(
       `spell:${spell.id}`,
@@ -151,6 +220,10 @@ export function buildPathfinder2eCharacterSpellActions(
       spell.area ? 'area' : 'target',
       'ENCOUNTER',
       spell.imageUrl ?? undefined,
+      {
+        activation: binding.activation,
+        toolBinding: binding.presentation,
+      },
     )]
   })
 }
@@ -234,6 +307,8 @@ function catalogSpellActions(
   data: Record<string, unknown>,
   translatedFields: Record<string, unknown>,
   locale: CatalogLocale,
+  tokenId: string,
+  bindings: readonly GameSystemToolBindingSnapshot[],
 ) {
   return asRecords(data.spellcasting).flatMap((spellcasting, spellcastingIndex) => {
     const spellcastingId = asText(spellcasting.id) ?? String(spellcastingIndex)
@@ -251,21 +326,34 @@ function catalogSpellActions(
     return asRecords(spellcasting.spells).flatMap((spell, spellIndex) => {
       const id = asText(spell.id) ?? `${spellcastingId}:${spellIndex}`
       const translatedSpell = asRecord(translatedSpells[id])
-      const label = asText(translatedSpell.name) ?? asText(spell.name)
+      const originalName = asText(spell.name)
+      const label = asText(translatedSpell.name) ?? originalName
       if (!label) return []
       const rank = asNumber(spell.rank)
       const detail = [
         rank === null ? null : `Rank ${rank}`,
         traditionLabel,
       ].filter((value): value is string => Boolean(value)).join(' · ') || undefined
+      const actionId = `spell:${spellcastingId}:${id}`
+      const contentId = originalName ? findSpellCatalogContentId(originalName) : null
+      const binding = resolveTokenActionToolBinding({
+        bindings,
+        ...(contentId ? { defaultSource: catalogSource(contentId) } : {}),
+        overrideSource: tokenActionSource(tokenId, actionId),
+      })
 
       return [mechanicalAction(
-        `spell:${spellcastingId}:${id}`,
+        actionId,
         label,
         locale === 'pt-BR' ? 'Magias' : 'Spells',
         detail,
         'target',
         'ENCOUNTER',
+        undefined,
+        {
+          activation: binding.activation,
+          toolBinding: binding.presentation,
+        },
       )]
     })
   })
@@ -283,6 +371,8 @@ export function findPathfinder2eCatalogTokenEntry(
 export function buildPathfinder2eCatalogTokenActions(
   entry: Pathfinder2eContentEntry,
   locale: CatalogLocale,
+  tokenId: string,
+  bindings: readonly GameSystemToolBindingSnapshot[] = [],
 ): readonly TokenActionPresentation[] {
   if (entry.original.domain !== 'BESTIARY') return []
   const data = asRecord(entry.original.data)
@@ -293,6 +383,6 @@ export function buildPathfinder2eCatalogTokenActions(
     ...catalogSkillActions(data, locale),
     ...catalogAttackActions(data, translatedFields, locale),
     ...catalogAbilityActions(data, translatedFields, locale),
-    ...catalogSpellActions(data, translatedFields, locale),
+    ...catalogSpellActions(data, translatedFields, locale, tokenId, bindings),
   ]
 }

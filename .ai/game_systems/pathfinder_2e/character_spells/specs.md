@@ -81,6 +81,52 @@ A ficha completa registra uma página `Magias`.
 - a descrição pode ser consultada sem sair da ficha;
 - a interface informa que a legalidade é decidida pela mesa.
 
+### Associação manual com Area Effect
+
+Uma magia pode resolver duas origens neutras de configuração:
+
+```ts
+type SpellAreaEffectSources = {
+  defaultSource: {
+    kind: 'CATALOG_CONTENT'
+    namespace: 'questhub:pathfinder_2e:spells:v1'
+    id: string // contentId canônico da magia
+  }
+  overrideSource: {
+    kind: 'CHARACTER_SHEET_ENTRY'
+    namespace: 'questhub:character-sheet-entry'
+    id: string // id da entrada vinculada à ficha
+  }
+}
+```
+
+Regras:
+
+1. a sobrescrita da entrada tem precedência sobre o padrão do catálogo;
+2. sem sobrescrita, a ficha herda dinamicamente o padrão atual da campanha;
+3. criar ou editar a sobrescrita afeta somente aquela entrada da ficha;
+4. `Restaurar configuração original` remove somente a sobrescrita;
+5. se não existir padrão, restaurar deixa a magia sem ativação espacial;
+6. abrir ou editar campos do modal não repete a consulta por mudança de
+   identidade referencial das props;
+7. salvar ou restaurar invalida a apresentação do Token associado.
+8. o editor direto reutiliza os mesmos campos e regras do editor da toolbar,
+   mantendo `Origem` disponível;
+9. abrir ou editar a associação não ativa nem expande a toolbar de Area Effect;
+10. `Personalizar Area Effect` carrega a sobrescrita existente; se ela não
+    existir, carrega o padrão do catálogo como base;
+11. `CONE` e `LINE` com `originMode = SOURCE_TOKEN` persistem
+    `includesOrigin = false`, impedindo que o Token conjurador seja atingido.
+12. cada magia vinculada expõe o estado efetivo `NONE`, `INHERITED` ou `CUSTOM`;
+13. `INHERITED` indica configuração do catálogo sem sobrescrita da ficha;
+14. `CUSTOM` indica sobrescrita própria da entrada da ficha e tem precedência
+    visual e funcional sobre o padrão do catálogo;
+15. `INHERITED` e `CUSTOM` usam ícone e rótulo visíveis diferentes do estado
+    `NONE`, sem consultas HTTP individuais por magia.
+16. o estado somente é configurado quando o binding efetivo produz a mesma
+    `activation` executável usada pelo painel de Encounter; registros parciais,
+    incompatíveis ou apenas com metadados permanecem `NONE`.
+
 ## Fora do escopo
 
 - fontes de conjuração;
@@ -91,8 +137,8 @@ A ficha completa registra uma página `Magias`.
 - pontos de foco;
 - conjuração inata;
 - heightening e Rank efetivo de lançamento;
-- execução de ação, rolagem, dano ou área de efeito;
-- projeção das magias em `TokenPresentation.actions`.
+- rolagem, dano, cura, salvamentos e aplicação de condições;
+- inferência automática da área a partir do texto editorial da magia.
 
 ## Critérios de aceite
 
@@ -108,3 +154,14 @@ A ficha completa registra uma página `Magias`.
 10. excluir o Token preserva os vínculos;
 11. o VTT Core não recebe imports ou vocabulário específico de magias;
 12. o schema compartilhado não contém `baseRank`, `spellLevel` ou equivalente.
+13. uma configuração individual sobrescreve o padrão somente naquela ficha;
+14. restaurar remove a configuração individual e volta a resolver o padrão;
+15. alterar campos do modal não dispara novos `GET` de configuração.
+16. personalizar uma magia configurada preenche o editor com sua configuração
+    efetiva sem resetar forma, dimensões, origem ou estilo;
+17. abrir o editor não modifica o estado aberto/recolhido da toolbar.
+18. magias com configuração efetiva exibem sinalização diferente das magias
+    sem Area Effect configurado;
+19. salvar ou restaurar atualiza a sinalização da magia na ficha.
+20. a sinalização da ficha e o ícone de Play do Encounter concordam sobre a
+    existência de uma configuração executável.

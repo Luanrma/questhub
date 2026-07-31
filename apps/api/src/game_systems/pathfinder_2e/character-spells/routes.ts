@@ -3,6 +3,10 @@ import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
+import {
+  AREA_EFFECT_TOOL_BINDING_CATEGORY,
+  presentAreaEffectToolBinding,
+} from '../../../shared/tool-bindings/area-effect'
 import type { GameSystemAutomationEventPublisher } from '../../automation/contracts'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from '../character-sheet/adapter'
 import {
@@ -13,6 +17,7 @@ import {
   PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
   presentPathfinder2eCharacterSpell,
 } from './domain'
+import { resolvePathfinder2eSpellAreaEffectStatus } from './spell-area-effect-status'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
 const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.systemKey
@@ -131,19 +136,40 @@ export function registerPathfinder2eCharacterSpellRoutes(
       if (!sheet) return reply.status(404).send({ error: 'Ficha não encontrada ou sem acesso' })
       if (!ensurePathfinderFullSheet(sheet, reply)) return
 
-      const stored = await prisma.campaignCharacterSheetEntry.findMany({
-        where: {
-          characterSheetId: sheet.id,
-          namespace: PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
-          typeKey: PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
-          catalogNamespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
-        },
-        orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
+      const [stored, storedBindings] = await Promise.all([
+        prisma.campaignCharacterSheetEntry.findMany({
+          where: {
+            characterSheetId: sheet.id,
+            namespace: PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
+            typeKey: PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
+            catalogNamespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
+          },
+          orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
+        }),
+        prisma.campaignAreaTemplate.findMany({
+          where: {
+            campaignId: params.data.campaignId,
+            category: AREA_EFFECT_TOOL_BINDING_CATEGORY,
+          },
+        }),
+      ])
+
+      const executableBindings = storedBindings.flatMap((template) => {
+        const binding = presentAreaEffectToolBinding(template)
+        return binding ? [binding] : []
       })
 
       const entries = stored
         .map((spell) => presentPathfinder2eCharacterSpell(spell, query.data.locale))
         .filter((spell) => spell !== null)
+        .map((spell) => ({
+          ...spell,
+          areaEffectConfiguration: resolvePathfinder2eSpellAreaEffectStatus({
+            entryId: spell.id,
+            contentId: spell.contentId,
+            bindings: executableBindings,
+          }),
+        }))
         .sort((left, right) => (
           left.baseRank - right.baseRank
           || left.name.localeCompare(right.name, query.data.locale)

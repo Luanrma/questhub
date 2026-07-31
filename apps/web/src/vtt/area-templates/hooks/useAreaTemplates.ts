@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { Socket } from 'socket.io-client'
+import { clearRuntimeSpatialTemplate } from '../domain/runtimeSpatialActivation'
 import type { AreaTemplateInput, CampaignAreaTemplate, SceneAreaEffect } from '../domain/types'
 import { areaTemplatesApi } from '../infrastructure/areaTemplatesApi'
 
@@ -37,6 +38,24 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       setEffectsError(reason instanceof Error ? reason.message : 'Nao foi possivel carregar areas da cena.')
     }
   }, [campaignId, enabled, sceneId])
+
+  useEffect(() => {
+    clearRuntimeSpatialTemplate()
+  }, [campaignId])
+
+  useEffect(() => {
+    function onEscape(event: KeyboardEvent) {
+      if (event.key !== 'Escape') return
+      clearRuntimeSpatialTemplate()
+      const tool = document.querySelector<HTMLButtonElement>('[data-vtt-tool="area-templates"]')
+      window.queueMicrotask(() => {
+        if (tool?.classList.contains('bg-indigo-600')) tool.click()
+      })
+    }
+
+    window.addEventListener('keydown', onEscape, { capture: true })
+    return () => window.removeEventListener('keydown', onEscape, { capture: true })
+  }, [])
 
   useEffect(() => {
     const task = window.setTimeout(() => void loadTemplates(), 0)

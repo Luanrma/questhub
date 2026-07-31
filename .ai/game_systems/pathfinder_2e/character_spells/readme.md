@@ -9,6 +9,21 @@ qualquer outra regra de legalidade da construção.
 A mesa continua decidindo o que o personagem pode usar. O QuestHub oferece
 persistência, organização por Rank e uma base estável para futuras automações.
 
+Magias vinculadas também podem publicar uma ação de Encounter associada
+manualmente à ferramenta neutra `VTT_AREA_EFFECT`. A associação padrão pertence
+ao conteúdo do catálogo dentro da campanha. Uma entrada específica da ficha
+pode sobrescrever esse padrão sem alterar o catálogo nem as demais fichas, e a
+remoção da sobrescrita restaura o padrão vigente.
+
+A configuração direta pela magia reutiliza o mesmo editor de templates da
+toolbar, mantendo o campo de origem, sem abrir, expandir ou ativar a própria
+toolbar de Area Effect.
+
+A lista de magias sinaliza visualmente quando existe uma configuração de Area
+Effect efetiva. A sinalização diferencia o padrão herdado do catálogo de uma
+personalização exclusiva da ficha, enquanto magias sem associação mantêm a
+ação visual de configuração inicial.
+
 ## Decisão
 
 Uma magia é uma extensão mecânica da `CampaignCharacterSheet`, materializada
@@ -44,3 +59,9 @@ O Rank original é armazenado somente no snapshot PF2e em `data.rank`.
 Uma futura fonte de conjuração poderá usar `state` ou outras entradas PF2e para
 registrar preparação, Rank de lançamento, slots, repertório ou heightening sem
 alterar o contrato genérico do QuestHub.
+
+## Limite da automação espacial
+
+O vínculo apenas descreve seleção de alvos ou posicionamento de uma área
+efêmera. Ele não resolve dano, cura, salvamento, duração, consumo de recurso ou
+qualquer outra consequência mecânica da magia.

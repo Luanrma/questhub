@@ -2,6 +2,7 @@ import { Prisma, type CampaignAreaTemplate } from '@prisma/client'
 import { createAreaTemplateSchema, type AreaTemplateInput, type AreaTemplatePatch, type SceneAreaEffectInput, type SceneAreaEffectPatch } from '../presentation/validation'
 import { PrismaAreaRepository } from '../infra/area-repository'
 import { nextAreaTemplateCopyName } from '../domain/template-name'
+import { isAreaEffectToolBindingTemplate } from '../domain/tool-binding'
 import type { AreaRepository } from './ports/area-repository'
 
 export class AreaServiceError extends Error {
@@ -84,7 +85,8 @@ export class AreaService {
 
   async listTemplates(campaignId: string, userId: string) {
     await this.requireAccess(campaignId, userId)
-    return this.repository.listTemplates(campaignId)
+    const templates = await this.repository.listTemplates(campaignId)
+    return templates.filter((template) => !isAreaEffectToolBindingTemplate(template))
   }
 
   async createTemplate(campaignId: string, userId: string, input: AreaTemplateInput) {
@@ -95,7 +97,9 @@ export class AreaService {
   async updateTemplate(campaignId: string, templateId: string, userId: string, patch: AreaTemplatePatch) {
     await this.requireAccess(campaignId, userId, true)
     const existing = await this.repository.findTemplate(campaignId, templateId)
-    if (!existing) throw new AreaServiceError(404, 'Template de area nao encontrado')
+    if (!existing || isAreaEffectToolBindingTemplate(existing)) {
+      throw new AreaServiceError(404, 'Template de area nao encontrado')
+    }
     const merged = createAreaTemplateSchema.safeParse({ ...storedTemplateInput(existing), ...patch })
     if (!merged.success) throw new AreaServiceError(400, 'Template de area invalido', merged.error.flatten())
     await this.repository.updateTemplate(campaignId, templateId, templateData(merged.data))
@@ -107,8 +111,11 @@ export class AreaService {
   async duplicateTemplate(campaignId: string, templateId: string, userId: string) {
     await this.requireAccess(campaignId, userId, true)
     const existing = await this.repository.findTemplate(campaignId, templateId)
-    if (!existing) throw new AreaServiceError(404, 'Template de area nao encontrado')
-    const campaignTemplates = await this.repository.listTemplates(campaignId)
+    if (!existing || isAreaEffectToolBindingTemplate(existing)) {
+      throw new AreaServiceError(404, 'Template de area nao encontrado')
+    }
+    const campaignTemplates = (await this.repository.listTemplates(campaignId))
+      .filter((template) => !isAreaEffectToolBindingTemplate(template))
     const name = nextAreaTemplateCopyName(existing.name, campaignTemplates.map((template) => template.name))
     const parsed = storedTemplateInput(existing, name)
     return this.repository.createTemplate({ campaignId, createdByUserId: userId, ...templateData(parsed) })
@@ -116,6 +123,10 @@ export class AreaService {
 
   async deleteTemplate(campaignId: string, templateId: string, userId: string) {
     await this.requireAccess(campaignId, userId, true)
+    const existing = await this.repository.findTemplate(campaignId, templateId)
+    if (!existing || isAreaEffectToolBindingTemplate(existing)) {
+      throw new AreaServiceError(404, 'Template de area nao encontrado')
+    }
     const result = await this.repository.deleteTemplate(campaignId, templateId)
     if (!result.count) throw new AreaServiceError(404, 'Template de area nao encontrado')
   }

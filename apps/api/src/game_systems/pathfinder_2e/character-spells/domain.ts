@@ -63,6 +63,19 @@ export type Pathfinder2eCharacterSpellPresentation = {
   createdAt: Date
 }
 
+export type Pathfinder2eSpellAreaEffectConfiguration =
+  | 'NONE'
+  | 'INHERITED'
+  | 'CUSTOM'
+
+export function resolvePathfinder2eSpellAreaEffectConfiguration(input: {
+  hasOwnConfiguration: boolean
+  hasInheritedConfiguration: boolean
+}): Pathfinder2eSpellAreaEffectConfiguration {
+  if (input.hasOwnConfiguration) return 'CUSTOM'
+  return input.hasInheritedConfiguration ? 'INHERITED' : 'NONE'
+}
+
 function findSpellEntry(contentId: string): Pathfinder2eContentEntry | null {
   return PATHFINDER_2E_CONTENT_ENTRIES.find(
     (entry) => entry.original.domain === 'SPELL' && entry.original.contentId === contentId,

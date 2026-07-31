@@ -57,6 +57,9 @@ Backend em `apps/api/src/modules/effect_area/`:
 * Edicao de instancia usa draft local para preview imediato; apenas `Salvar` envia um unico `PATCH`, enquanto fechar descarta o draft.
 * O escalar persistido da instancia e interpretado por forma, nao como escala uniforme: a largura da linha nao e multiplicada ao editar seu comprimento.
 * O painel de templates reutiliza `ResizableEdges` e o padrao de janela flutuante do sistema para destacar, arrastar, redimensionar e pregar novamente. A janela destacada nao minimiza automaticamente, usa altura intrinseca ate o limite configurado e ativa rolagem vertical interna somente quando o conteudo excede esse limite.
+* Ativacoes efemeras originadas de acoes entram no hook/orquestrador da toolbar por um contrato explicito. O listener nao pode depender da montagem condicional do painel visual nem de clique programatico em elementos do DOM.
+* Alcance e quantidade minima de alvos sao invariantes do runtime e devem ser aplicados tanto no hit-test quanto no clique direto e na confirmacao.
+* O formulario de template deve ser um componente reutilizavel entre biblioteca e tool bindings. Variacoes de contexto sao props explicitas, nunca copias divergentes do formulario.
 
 ## Seguranca
 
