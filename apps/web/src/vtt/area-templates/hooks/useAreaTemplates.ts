@@ -1,14 +1,25 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { Socket } from 'socket.io-client'
 import type { AreaTemplateInput, CampaignAreaTemplate, SceneAreaEffect } from '../domain/types'
+import {
+  runtimeAreaTemplateRequestedEvent,
+  type RuntimeAreaTemplateRequested,
+} from '../infrastructure/runtimeAreaTemplateEvents'
 import { areaTemplatesApi } from '../infrastructure/areaTemplatesApi'
 
 export function useAreaTemplates(campaignId: string | undefined, sceneId: string | undefined, enabled: boolean, socket: Socket | null) {
   const [templates, setTemplates] = useState<CampaignAreaTemplate[]>([])
+  const [runtimeTemplate, setRuntimeTemplate] = useState<CampaignAreaTemplate | null>(null)
   const [effects, setEffects] = useState<SceneAreaEffect[]>([])
   const [loading, setLoading] = useState(false)
   const [templateError, setTemplateError] = useState<string | null>(null)
   const [effectsError, setEffectsError] = useState<string | null>(null)
+
+  const presentedTemplates = useMemo(() => (
+    runtimeTemplate && runtimeTemplate.campaignId === campaignId
+      ? [runtimeTemplate, ...templates.filter((template) => template.id !== runtimeTemplate.id)]
+      : templates
+  ), [campaignId, runtimeTemplate, templates])
 
   const loadTemplates = useCallback(async () => {
     if (!campaignId || !enabled) return
@@ -37,6 +48,21 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
       setEffectsError(reason instanceof Error ? reason.message : 'Nao foi possivel carregar areas da cena.')
     }
   }, [campaignId, enabled, sceneId])
+
+  useEffect(() => {
+    setRuntimeTemplate(null)
+  }, [campaignId])
+
+  useEffect(() => {
+    function onRuntimeTemplateRequested(event: Event) {
+      const detail = (event as CustomEvent<RuntimeAreaTemplateRequested>).detail
+      if (!detail?.template || detail.template.campaignId !== campaignId) return
+      setRuntimeTemplate(detail.template)
+    }
+
+    window.addEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
+    return () => window.removeEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
+  }, [campaignId])
 
   useEffect(() => {
     const task = window.setTimeout(() => void loadTemplates(), 0)
@@ -156,5 +182,5 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
     }
   }
 
-  return { templates, effects, loading, error: templateError, effectsError, setError: setTemplateError, saveTemplate, duplicateTemplate, deleteTemplate, createEffect, updateEffect, deleteEffect, reloadEffects: loadEffects }
+  return { templates: presentedTemplates, effects, loading, error: templateError, effectsError, setError: setTemplateError, saveTemplate, duplicateTemplate, deleteTemplate, createEffect, updateEffect, deleteEffect, reloadEffects: loadEffects }
 }

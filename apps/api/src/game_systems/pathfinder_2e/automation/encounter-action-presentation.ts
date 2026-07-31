@@ -16,6 +16,7 @@ import {
   translatePathfinder2eGlossaryTerm,
   translatePathfinder2eTradition,
 } from '../content_catalog/translations/pt-BR/glossary'
+import { projectPathfinder2eSpellActivation } from './spell-spatial-profile'
 
 const playerSkillLabels: Readonly<Record<keyof Pathfinder2eCharacterSheetData['skills'], string>> = {
   acrobatics: 'Acrobacia',
@@ -91,6 +92,7 @@ function mechanicalAction(
   interaction: TokenActionPresentation['interaction'],
   context: 'ENCOUNTER' | 'REFERENCE',
   imageUrl?: string,
+  activation?: TokenActionPresentation['activation'],
 ): TokenActionPresentation {
   return {
     id,
@@ -101,7 +103,20 @@ function mechanicalAction(
     interaction,
     visibility: 'OWNER_AND_MASTER',
     contexts: [context],
+    ...(activation ? { activation } : {}),
   }
+}
+
+function interactionForSpellActivation(
+  activation: TokenActionPresentation['activation'],
+  fallback: TokenActionPresentation['interaction'],
+): TokenActionPresentation['interaction'] {
+  if (!activation) return fallback
+  if (activation.kind === 'AREA_PLACEMENT') return 'area'
+  if (activation.kind === 'TARGET_SELECTION') return 'target'
+  return activation.variants.some((variant) => variant.activation.kind === 'AREA_PLACEMENT')
+    ? 'area'
+    : 'target'
 }
 
 export function buildPathfinder2ePlayerSkillActions(
@@ -142,15 +157,17 @@ export function buildPathfinder2eCharacterSpellActions(
     const detail = [rankLabel, traditions || null]
       .filter((value): value is string => Boolean(value))
       .join(' · ')
+    const activation = projectPathfinder2eSpellActivation(spell)
 
     return [mechanicalAction(
       `spell:${spell.id}`,
       spell.name,
       locale === 'pt-BR' ? 'Magias' : 'Spells',
       detail || undefined,
-      spell.area ? 'area' : 'target',
+      interactionForSpellActivation(activation, spell.area ? 'area' : 'target'),
       'ENCOUNTER',
       spell.imageUrl ?? undefined,
+      activation,
     )]
   })
 }
