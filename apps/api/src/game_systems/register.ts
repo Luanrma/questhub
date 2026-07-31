@@ -12,7 +12,7 @@ export function registerGameSystems(
   events: GameSystemAutomationEventPublisher,
 ) {
   registerGameSystemRoutes(app, events)
-  registerGameSystemAutomationApi(app)
+  registerGameSystemAutomationApi(app, events)
   registerInventoryApi(app)
   registerPathfinder2e(app, events)
 }
