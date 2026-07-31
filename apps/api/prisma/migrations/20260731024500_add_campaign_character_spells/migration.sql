@@ -8,7 +8,7 @@ CREATE TABLE "CampaignCharacterSpell" (
   "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
   "updatedAt" TIMESTAMP(3) NOT NULL,
   CONSTRAINT "CampaignCharacterSpell_pkey" PRIMARY KEY ("id"),
-  CONSTRAINT "CampaignCharacterSpell_baseRank_range" CHECK ("baseRank" BETWEEN 0 AND 10)
+  CONSTRAINT "CampaignCharacterSpell_baseRank_range" CHECK ("baseRank" BETWEEN 1 AND 10)
 );
 
 CREATE UNIQUE INDEX "CampaignCharacterSpell_characterSheetId_catalogNamespace_catalogContentId_key"
