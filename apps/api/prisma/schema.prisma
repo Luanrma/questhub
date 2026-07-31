@@ -142,28 +142,32 @@ model CampaignCharacterSheet {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
-  actor         CampaignActor           @relation(fields: [actorId], references: [id], onDelete: Cascade)
-  createdByUser User                    @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
-  spells        CampaignCharacterSpell[]
+  actor         CampaignActor                 @relation(fields: [actorId], references: [id], onDelete: Cascade)
+  createdByUser User                          @relation("CampaignCharacterSheetCreator", fields: [createdByUserId], references: [id])
+  entries       CampaignCharacterSheetEntry[]
 
   @@index([systemKey])
   @@index([createdByUserId])
 }
 
-model CampaignCharacterSpell {
+model CampaignCharacterSheetEntry {
   id               String   @id @default(cuid())
   characterSheetId String
-  catalogNamespace String
-  catalogContentId String
-  baseRank         Int
+  namespace        String
+  typeKey          String
+  catalogNamespace String?
+  catalogContentId String?
+  schemaVersion    Int      @default(1)
   data             Json
+  state            Json?
+  sortOrder        Int      @default(0)
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
   characterSheet CampaignCharacterSheet @relation(fields: [characterSheetId], references: [id], onDelete: Cascade)
 
-  @@unique([characterSheetId, catalogNamespace, catalogContentId])
-  @@index([characterSheetId, baseRank, createdAt])
+  @@unique([characterSheetId, namespace, typeKey, catalogNamespace, catalogContentId])
+  @@index([characterSheetId, namespace, typeKey, sortOrder, createdAt])
   @@index([catalogNamespace, catalogContentId])
 }
 
