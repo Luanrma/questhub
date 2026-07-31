@@ -3,7 +3,15 @@ import { Copy, Grip, PanelRightOpen, Pencil, Pin, Plus, Search, Sparkles, Trash2
 import { ResizableEdges, type ResizableBox } from '../../../components/ResizableEdges'
 import { areaTemplateNameMaxLength, detachedAreaPanelMaxHeight, detachedAreaPanelMaxWidth } from '../config/limits'
 import { areaTemplateForMeterEditor, metersPerFoot, metersToFeet } from '../domain/measurement'
+import {
+  activateRuntimeSpatialTemplate,
+  clearRuntimeSpatialTemplate,
+} from '../domain/runtimeSpatialActivation'
 import { defaultAreaTemplateInput, type AreaShape, type AreaTemplateInput, type CampaignAreaTemplate } from '../domain/types'
+import {
+  runtimeAreaTemplateRequestedEvent,
+  type RuntimeAreaTemplateRequested,
+} from '../infrastructure/runtimeAreaTemplateEvents'
 
 const shapeLabels: Record<AreaShape, string> = {
   CIRCLE: 'Circulo', CONE: 'Cone', LINE: 'Linha', ORTHOGONAL: 'Ortogonal', RING: 'Anel', POLYGON: 'Poligono', TARGET: 'Target',
@@ -121,6 +129,20 @@ export function AreaTemplatesPanel({ templates, loading, error, activeTemplateId
   const [box, setBox] = useState<ResizableBox>(initialFloatingPanelBox)
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
   const filtered = useMemo(() => templates.filter((template) => template.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())), [search, templates])
+
+  useEffect(() => {
+    function onRuntimeTemplateRequested(event: Event) {
+      const detail = (event as CustomEvent<RuntimeAreaTemplateRequested>).detail
+      activateRuntimeSpatialTemplate(detail.template, gridScale.metersPerCell)
+      onUse(detail.template)
+    }
+
+    window.addEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
+    return () => {
+      window.removeEventListener(runtimeAreaTemplateRequestedEvent, onRuntimeTemplateRequested)
+      clearRuntimeSpatialTemplate()
+    }
+  }, [gridScale.metersPerCell, onUse])
 
   useEffect(() => {
     function onPointerMove(event: PointerEvent) {
