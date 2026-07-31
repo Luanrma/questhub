@@ -1,4 +1,5 @@
 import type {
+  GameSystemCharacterSheetSnapshot,
   GameSystemTokenPresentationProvider,
   TokenIndicatorPresentation,
   TokenPresentation,
@@ -15,6 +16,7 @@ import {
 } from './catalog-token-sheet'
 import {
   buildPathfinder2eCatalogTokenActions,
+  buildPathfinder2eCharacterSpellActions,
   buildPathfinder2ePlayerSkillActions,
   findPathfinder2eCatalogTokenEntry,
 } from './encounter-action-presentation'
@@ -44,6 +46,17 @@ function invalidSheetPresentation(tokenId: string, revision: string): TokenPrese
     ],
     actions: [],
   }
+}
+
+function presentationRevision(sheet: GameSystemCharacterSheetSnapshot) {
+  const timestamps = [
+    sheet.updatedAt,
+    ...(sheet.entries ?? []).map((entry) => entry.updatedAt),
+  ]
+  const newest = timestamps.reduce((current, candidate) => (
+    candidate.getTime() > current.getTime() ? candidate : current
+  ))
+  return newest.toISOString()
 }
 
 function buildCatalogTokenPresentation(
@@ -98,7 +111,7 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
       return emptyPresentation(context.tokenId)
     }
 
-    const revision = sheet.updatedAt.toISOString()
+    const revision = presentationRevision(sheet)
     if (sheet.systemKey === catalogTokenSheetSystemKey('PATHFINDER_2E')) {
       return buildCatalogTokenPresentation(context.tokenId, revision, sheet.data)
     }
@@ -158,7 +171,10 @@ export const pathfinder2eTokenPresentationProvider: GameSystemTokenPresentationP
           },
         ],
         indicators,
-        actions: buildPathfinder2ePlayerSkillActions(resolved.derived),
+        actions: [
+          ...buildPathfinder2ePlayerSkillActions(resolved.derived),
+          ...buildPathfinder2eCharacterSpellActions(sheet.entries ?? [], 'pt-BR'),
+        ],
       }
     } catch {
       return {
