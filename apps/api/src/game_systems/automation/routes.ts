@@ -5,7 +5,7 @@ import { requireAuth } from '../../http/auth'
 import {
   AREA_EFFECT_TOOL_BINDING_CATEGORY,
   presentAreaEffectToolBinding,
-} from '../../modules/effect_area/domain/tool-binding'
+} from '../../shared/tool-bindings/area-effect'
 import type { GameSystemKey } from '../catalog'
 import {
   filterTokenPresentationForViewer,
