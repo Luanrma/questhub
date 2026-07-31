@@ -97,7 +97,7 @@ function mechanicalAction(
     label,
     group,
     detail,
-    imageUrl,
+    ...(imageUrl ? { imageUrl } : {}),
     interaction,
     visibility: 'OWNER_AND_MASTER',
     contexts: [context],
