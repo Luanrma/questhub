@@ -80,13 +80,14 @@ export function tokenActionActivationToRuntimeAreaTemplate(input: {
   }
 
   const configured = input.activation.template
+  const { polygonPoints, ...configuredDimensions } = configured.dimensions
   return {
     ...common,
     shape: configured.shape,
     dimensions: {
-      ...configured.dimensions,
-      ...(configured.dimensions.polygonPoints
-        ? { polygonPoints: configured.dimensions.polygonPoints.map((point) => ({ ...point })) }
+      ...configuredDimensions,
+      ...(polygonPoints
+        ? { polygonPoints: polygonPoints.map((point) => ({ ...point })) }
         : {}),
     },
     originMode: configured.originMode,
