@@ -32,6 +32,8 @@ apps/api/src/game_systems/pathfinder_2e/character-sheet/
 - manter derivacao pura, sincrona e deterministica;
 - usar o mesmo adaptador no GET, na previa e no PUT;
 - migrar explicitamente qualquer schema anterior;
+- limitar cada lista de defesa manual a 50 entradas de ate 120 caracteres;
+- manter o apendice independente de formulas: ele edita dados fundamentais e apresenta totais derivados recebidos da API;
 - nao inferir bonus ocultos de totais manuais antigos;
 - nao aplicar automaticamente efeitos de heranca, background ou divindade sem dados mecanicos estruturados;
 - nao considerar armadura equipada antes da integracao com inventario.
@@ -71,11 +73,12 @@ A rota valida ownership e executa o mesmo Runtime usado no salvamento.
 
 ## Testes
 
-- default V2 valida;
+- default V3 valida;
 - proficiencia nao treinada nao recebe nivel;
 - proficiencias treinada, especialista, mestre e lendaria recebem nivel;
 - Human + Fighter calcula PV corretamente;
 - Constituicao afeta PV e Fortitude;
 - Destreza afeta CA, Reflexos e pericias relacionadas;
 - migracao V1 preserva dados fundamentais;
+- migracao V2 adiciona listas vazias de resistencias, fraquezas e imunidades;
 - selects rejeitam nomes fora dos catalogos.

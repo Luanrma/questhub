@@ -197,7 +197,7 @@ test('Pathfinder keeps derived PLAYER skills as reference-only actions', async (
     tokenId: 'player-token',
     characterSheet: {
       systemKey: 'pathfinder-2e',
-      schemaVersion: 2,
+      schemaVersion: 3,
       updatedAt: new Date('2026-07-30T12:00:00.000Z'),
       data: sheet,
     },

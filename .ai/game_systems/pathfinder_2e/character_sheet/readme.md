@@ -1,4 +1,4 @@
-# Pathfinder 2e - Ficha de personagem automatizada V2
+# Pathfinder 2e - Ficha de personagem automatizada V3
 
 ## Objetivo
 
@@ -24,8 +24,9 @@ Regras Pathfinder nunca devem ser colocadas em `apps/api/src/modules`, component
 
 ## Escopo implementado
 
-- ficha persistida com `schemaVersion: 2`;
+- ficha persistida com `schemaVersion: 3`;
 - migracao explicita da ficha manual V1;
+- migracao aditiva da ficha V2, preservando os dados existentes;
 - nivel de 1 a 20;
 - selecao de ancestralidade, heranca, background, classe e divindade;
 - modificadores de Forca, Destreza, Constituicao, Inteligencia, Sabedoria e Carisma;
@@ -38,7 +39,9 @@ Regras Pathfinder nunca devem ser colocadas em `apps/api/src/modules`, component
 - bonus de proficiencia considerando o nivel;
 - endpoint de previa sem persistencia;
 - exibicao de totais somente leitura no frontend;
-- warnings quando classe ou ancestralidade nao foram selecionadas ou a vida atual excede o maximo.
+- warnings quando classe ou ancestralidade nao foram selecionadas ou a vida atual excede o maximo;
+- apendice de consulta rapida fixo a esquerda nas fichas completas;
+- resistencias, fraquezas e imunidades manuais persistidas como listas textuais.
 
 ## Efeitos das escolhas nesta fase
 
@@ -72,6 +75,7 @@ Persistidos:
 - graus de proficiencia;
 - bonus manuais;
 - PV atual e temporario;
+- resistencias, fraquezas e imunidades;
 - Ferido, Morrendo e Condenado;
 - movimento, experiencia e anotacoes.
 

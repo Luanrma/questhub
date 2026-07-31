@@ -1,4 +1,4 @@
-# Pathfinder 2e - Especificação da ficha automatizada V2
+# Pathfinder 2e - Especificação da ficha automatizada V3
 
 ## 0. Localização e dependências
 
@@ -16,7 +16,7 @@ O VTT pode encaminhar um `characterId` para a rota genérica de ficha, mas não 
 
 ## 1. Persistência
 
-O model genérico permanece:
+O model genérico permanece, sem alteração de tabela ou migration SQL:
 
 ```prisma
 model CharacterSheet {
@@ -28,9 +28,9 @@ model CharacterSheet {
 }
 ```
 
-`Character` continua contendo somente identidade genérica. A coluna `data` armazena somente a ficha fundamental V2.
+`Character` continua contendo somente identidade genérica. A coluna `data` armazena somente a ficha fundamental V3.
 
-## 2. Schema persistido V2
+## 2. Schema persistido V3
 
 ### Identidade
 
@@ -80,6 +80,22 @@ Bônus de PV
 ```
 
 `Vida máxima` é derivada.
+
+### Defesas especiais
+
+Persistidas como listas textuais manuais:
+
+```ts
+defenses: {
+  resistances: string[]
+  weaknesses: string[]
+  immunities: string[]
+}
+```
+
+Cada lista aceita no máximo 50 entradas. Cada entrada é normalizada com `trim`,
+deve possuir entre 1 e 120 caracteres e pode combinar o tipo com seu valor,
+por exemplo `Fogo 5`. Entradas vazias não são persistidas.
 
 ### Defesa e iniciativa
 
@@ -228,7 +244,7 @@ persisted
 updatedAt
 ```
 
-Se a ficha armazenada for V1, ela é migrada em memória antes da resposta. A persistência V2 ocorre no próximo PUT.
+Se a ficha armazenada for V1 ou V2, ela é migrada em memória antes da resposta. A persistência V3 ocorre no próximo PUT.
 
 ### POST derive
 
@@ -242,7 +258,7 @@ Se a ficha armazenada for V1, ela é migrada em memória antes da resposta. A pe
 
 - executa migração, validação e derivação;
 - persiste somente `data` normalizado;
-- grava `schemaVersion: 2`;
+- grava `schemaVersion: 3`;
 - retorna o envelope recalculado;
 - usa as mesmas regras de acesso do GET.
 
@@ -309,7 +325,7 @@ O botão não aparece para Tokens genéricos nem para controladores de Tokens vi
 
 A ficha abre em uma nova aba para preservar o estado da mesa, cena, ferramentas e seleção do VTT.
 
-## 8. Migração V1
+## 8. Migração V1 e V2
 
 Preservar:
 
@@ -330,6 +346,10 @@ Descartar como totais antigos:
 
 Os novos bônus desses totais iniciam em zero.
 
+A migração V1 produz diretamente uma ficha V3. A migração V2 preserva todos os
+campos existentes e adiciona `defenses` com as três listas vazias. A migração é
+executada em memória; a persistência V3 ocorre no próximo PUT.
+
 ## 9. Frontend
 
 - totais derivados são somente leitura;
@@ -340,6 +360,12 @@ Os novos bônus desses totais iniciam em zero.
 - a tela informa explicitamente que CA ainda usa defesa sem armadura;
 - o gerenciador de campanha possui busca e atualização manual;
 - abrir uma ficha pelo gerenciador ou Token reutiliza o mesmo editor, sem duplicar UI ou regras.
+- a ficha completa mantém um apêndice de consulta rápida à esquerda em todas as abas;
+- em larguras que comportam duas colunas, o apêndice permanece visível por `position: sticky` durante a rolagem;
+- em larguras menores, o apêndice precede o conteúdo da aba sem provocar overflow horizontal;
+- Vida temporária, Vida atual, Vida máxima, CA, Percepção, Iniciativa e saves aparecem somente no apêndice;
+- resistências, fraquezas e imunidades são editadas no apêndice como entradas individuais;
+- bônus e graus necessários para editar os totais movidos continuam acessíveis no próprio apêndice.
 
 ## 10. Critérios de aceite
 
@@ -357,6 +383,10 @@ Os novos bônus desses totais iniciam em zero.
 12. controlar Token de terceiro não concede acesso à ficha;
 13. Token genérico não oferece ação de ficha;
 14. nenhum código do adaptador PF2e importa Canvas, grid, cena ou componentes de Token.
+15. o apêndice permanece disponível ao alternar entre Identidade, Atributos, Perícias, Magias e Anotações;
+16. os valores movidos para o apêndice não aparecem duplicados no conteúdo das abas;
+17. uma ficha V2 abre com as três listas de defesa vazias e salva como V3;
+18. resistências, fraquezas e imunidades sobrevivem ao ciclo de salvar e recarregar.
 
 ## 11. Localização, compatibilidade e concessões mecânicas
 

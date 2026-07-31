@@ -15,6 +15,8 @@ import {
   SheetSection,
   manualTextareaClass,
 } from './components/ManualSheetFields'
+import { CharacterSheetAppendix } from './components/CharacterSheetAppendix'
+import { Pathfinder2eCharacterSpellsPanel } from './Pathfinder2eCharacterSpellsPanel'
 import type {
   Pathfinder2eCharacterSheetData,
   Pathfinder2eCharacterSheetOptions,
@@ -24,7 +26,7 @@ import type {
   Pathfinder2eResolvedCharacterSheet,
 } from './types'
 
-export type Pathfinder2eCharacterSheetPage = 'identity' | 'statistics' | 'skills' | 'notes'
+export type Pathfinder2eCharacterSheetPage = 'identity' | 'statistics' | 'skills' | 'spells' | 'notes'
 
 type Props = {
   campaignId: string
@@ -39,12 +41,6 @@ const attributeLabels: Array<{ key: keyof Pathfinder2eCharacterSheetData['attrib
   { key: 'intelligence', label: 'Inteligência' },
   { key: 'wisdom', label: 'Sabedoria' },
   { key: 'charisma', label: 'Carisma' },
-]
-
-const savingThrowLabels: Array<{ key: keyof Pathfinder2eCharacterSheetData['savingThrows']; label: string }> = [
-  { key: 'fortitude', label: 'Fortitude' },
-  { key: 'reflex', label: 'Reflexos' },
-  { key: 'will', label: 'Vontade' },
 ]
 
 const skillLabels: Array<{ key: keyof Pathfinder2eCharacterSheetData['skills']; label: string }> = [
@@ -255,9 +251,6 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
     )
   }
 
-  const hpDetail = `${derived.mechanics.ancestryHitPoints} ancestral + nível × (${derived.mechanics.classHitPointsPerLevel} classe + ${sheet.attributes.constitution} CON) + ${sheet.hitPoints.bonus} bônus`
-  const acDetail = `10 + ${derived.armorClass.dexterityModifier} DES + ${derived.armorClass.proficiencyBonus} proficiência + ${derived.armorClass.bonus} bônus`
-
   return (
     <div className="space-y-4 pb-6">
       <header className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-indigo-300/15 bg-indigo-500/10 p-4">
@@ -283,12 +276,27 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
         </div>
       </header>
 
-      {error ? <div className="rounded-xl border border-red-300/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">{error}</div> : null}
-      {warnings.length > 0 ? (
-        <div className="rounded-xl border border-amber-300/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
-          {warnings.map((warning) => <div key={warning}>{warning}</div>)}
-        </div>
-      ) : null}
+      <div className="grid items-start gap-4 md:grid-cols-[minmax(250px,280px)_minmax(0,1fr)]">
+        <CharacterSheetAppendix
+          sheet={sheet}
+          derived={derived}
+          onHitPointsChange={({ current, temporary }) => setSheet({
+            ...sheet,
+            hitPoints: { ...sheet.hitPoints, current, temporary },
+          })}
+          onArmorClassBonusChange={(bonus) => setSheet({ ...sheet, armorClass: { bonus } })}
+          onInitiativeBonusChange={(bonus) => setSheet({ ...sheet, initiative: { bonus } })}
+          onProficiencyChange={updateProficiency}
+          onDefensesChange={(defenses) => setSheet({ ...sheet, defenses })}
+        />
+
+        <main className="min-w-0 space-y-4">
+          {error ? <div className="rounded-xl border border-red-300/20 bg-red-500/10 px-4 py-3 text-sm text-red-100">{error}</div> : null}
+          {warnings.length > 0 ? (
+            <div className="rounded-xl border border-amber-300/20 bg-amber-500/10 px-4 py-3 text-sm text-amber-100">
+              {warnings.map((warning) => <div key={warning}>{warning}</div>)}
+            </div>
+          ) : null}
 
       {activePage === 'identity' ? (
         <>
@@ -328,51 +336,13 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
               ))}
             </div>
           </SheetSection>
-          <div className="grid gap-4 xl:grid-cols-2">
-            <SheetSection title="Vida e sobrevivência">
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <DerivedNumberField label="Vida máxima" value={derived.hitPoints.maximum} detail={hpDetail} />
-                <ManualNumberField label="Vida atual" value={sheet.hitPoints.current} min={0} onChange={(current) => setSheet({ ...sheet, hitPoints: { ...sheet.hitPoints, current } })} />
-                <ManualNumberField label="Vida temporária" value={sheet.hitPoints.temporary} min={0} onChange={(temporary) => setSheet({ ...sheet, hitPoints: { ...sheet.hitPoints, temporary } })} />
+          <SheetSection title="Estados de sobrevivência" description="Os pontos de vida e as defesas principais ficam no apêndice de consulta rápida.">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
                 <ManualNumberField label="Ferido" value={sheet.hitPoints.wounded} min={0} onChange={(wounded) => setSheet({ ...sheet, hitPoints: { ...sheet.hitPoints, wounded } })} />
                 <ManualNumberField label="Morrendo" value={sheet.hitPoints.dying} min={0} onChange={(dying) => setSheet({ ...sheet, hitPoints: { ...sheet.hitPoints, dying } })} />
                 <ManualNumberField label="Condenado" value={sheet.hitPoints.doomed} min={0} onChange={(doomed) => setSheet({ ...sheet, hitPoints: { ...sheet.hitPoints, doomed } })} />
                 <ManualNumberField label="Bônus de PV" value={sheet.hitPoints.bonus} onChange={(bonus) => setSheet({ ...sheet, hitPoints: { ...sheet.hitPoints, bonus } })} />
               </div>
-            </SheetSection>
-            <SheetSection title="Defesa e iniciativa" description="A CA usa defesa sem armadura até a integração com equipamentos.">
-              <div className="grid gap-4 sm:grid-cols-2">
-                <DerivedNumberField label="Classe de Armadura" value={derived.armorClass.value} detail={acDetail} />
-                <ManualNumberField label="Bônus de CA" value={sheet.armorClass.bonus} onChange={(bonus) => setSheet({ ...sheet, armorClass: { bonus } })} />
-                <DerivedNumberField label="Iniciativa" value={derived.initiative.value} detail={`Percepção ${derived.initiative.sourceValue} + bônus ${derived.initiative.bonus}`} />
-                <ManualNumberField label="Bônus de iniciativa" value={sheet.initiative.bonus} onChange={(bonus) => setSheet({ ...sheet, initiative: { bonus } })} />
-              </div>
-              <div className="mt-4">
-                <ProficiencyEditor
-                  label="Percepção"
-                  value={sheet.perception}
-                  total={derived.perception.value}
-                  effectiveRank={derived.perception.effectiveRank}
-                  grantSources={derived.perception.grantSources}
-                  onChange={(value) => updateProficiency('perception', 'perception', value)}
-                />
-              </div>
-            </SheetSection>
-          </div>
-          <SheetSection title="Testes de resistência">
-            <div className="grid gap-3">
-              {savingThrowLabels.map(({ key, label }) => (
-                <ProficiencyEditor
-                  key={key}
-                  label={label}
-                  value={sheet.savingThrows[key]}
-                  total={derived.savingThrows[key].value}
-                  effectiveRank={derived.savingThrows[key].effectiveRank}
-                  grantSources={derived.savingThrows[key].grantSources}
-                  onChange={(value) => updateProficiency('savingThrows', key, value)}
-                />
-              ))}
-            </div>
           </SheetSection>
         </>
       ) : null}
@@ -418,6 +388,11 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
           </label>
         </SheetSection>
       ) : null}
+          {activePage === 'spells' ? (
+            <Pathfinder2eCharacterSpellsPanel campaignId={campaignId} sheetId={sheetId} />
+          ) : null}
+        </main>
+      </div>
     </div>
   )
 }

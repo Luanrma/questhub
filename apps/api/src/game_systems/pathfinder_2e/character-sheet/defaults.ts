@@ -7,7 +7,7 @@ const untrained = { rank: 0 as const, bonus: 0 }
 
 export function createDefaultPathfinder2eCharacterSheet(): Pathfinder2eCharacterSheetData {
   return pathfinder2eCharacterSheetSchema.parse({
-    schemaVersion: 2,
+    schemaVersion: 3,
     general: {
       experience: { current: 0, nextLevel: 1000 },
       movementMeters: 0,
@@ -43,6 +43,11 @@ export function createDefaultPathfinder2eCharacterSheet(): Pathfinder2eCharacter
       fortitude: { ...untrained },
       reflex: { ...untrained },
       will: { ...untrained },
+    },
+    defenses: {
+      resistances: [],
+      weaknesses: [],
+      immunities: [],
     },
     skills: {
       acrobatics: { ...untrained },

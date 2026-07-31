@@ -12,6 +12,7 @@ const attributeModifier = z.number().int().finite().min(-20).max(20)
 const nonNegativeInteger = z.number().int().finite().min(0).max(100_000_000)
 const nonNegativeNumber = z.number().finite().min(0).max(100_000_000)
 const proficiencyRankSchema = z.union([z.literal(0), z.literal(2), z.literal(4), z.literal(6), z.literal(8)])
+const defenseEntrySchema = z.string().trim().min(1).max(120)
 
 function catalogSelectionSchema(values: readonly string[], label: string) {
   return z.string().trim().max(200).refine(
@@ -26,7 +27,7 @@ const proficiencyValueSchema = z.object({
 }).strict()
 
 export const pathfinder2eCharacterSheetSchema = z.object({
-  schemaVersion: z.literal(2),
+  schemaVersion: z.literal(3),
   general: z.object({
     experience: z.object({
       current: nonNegativeInteger,
@@ -69,6 +70,11 @@ export const pathfinder2eCharacterSheetSchema = z.object({
     fortitude: proficiencyValueSchema,
     reflex: proficiencyValueSchema,
     will: proficiencyValueSchema,
+  }).strict(),
+  defenses: z.object({
+    resistances: z.array(defenseEntrySchema).max(50),
+    weaknesses: z.array(defenseEntrySchema).max(50),
+    immunities: z.array(defenseEntrySchema).max(50),
   }).strict(),
   skills: z.object({
     acrobatics: proficiencyValueSchema,

@@ -22,7 +22,7 @@ test('Pathfinder projects linked character spells as encounter actions', async (
     tokenId: 'player-token',
     characterSheet: {
       systemKey: 'pathfinder-2e',
-      schemaVersion: 2,
+      schemaVersion: 3,
       updatedAt: sheetUpdatedAt,
       data: createDefaultPathfinder2eCharacterSheet(),
       entries: [

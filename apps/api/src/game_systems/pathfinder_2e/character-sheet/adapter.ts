@@ -43,6 +43,17 @@ function migrateProficiency(value: unknown) {
 
 export function migratePathfinder2eCharacterSheet(input: unknown): unknown {
   const source = asRecord(input)
+  if (source.schemaVersion === 2) {
+    return {
+      ...source,
+      schemaVersion: 3,
+      defenses: {
+        resistances: [],
+        weaknesses: [],
+        immunities: [],
+      },
+    }
+  }
   if (source.schemaVersion !== 1) return input
 
   const defaults = createDefaultPathfinder2eCharacterSheet()
@@ -129,7 +140,7 @@ export const pathfinder2eCharacterSheetRuntimeAdapter: CharacterSheetRuntimeAdap
   Pathfinder2eDerivedCharacterSheet
 > = {
   systemKey: 'pathfinder-2e',
-  schemaVersion: 2,
+  schemaVersion: 3,
   createDefault: createDefaultPathfinder2eCharacterSheet,
   migrate: migratePathfinder2eCharacterSheet,
   parse(input) {

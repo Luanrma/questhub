@@ -21,7 +21,7 @@ export type CharacterSheetRendererRegistration = {
 
 const pathfinderPages: readonly CharacterSheetPageDescriptor[] = [
   { id: 'identity', label: 'Identidade' },
-  { id: 'statistics', label: 'Atributos e defesa' },
+  { id: 'statistics', label: 'Atributos e estados' },
   { id: 'skills', label: 'Perícias' },
   { id: 'spells', label: 'Magias' },
   { id: 'notes', label: 'Anotações' },

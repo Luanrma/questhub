@@ -6,7 +6,7 @@ export type Pathfinder2eProficiencyValue = {
 }
 
 export type Pathfinder2eCharacterSheetData = {
-  schemaVersion: 2
+  schemaVersion: 3
   general: {
     experience: {
       current: number
@@ -49,6 +49,11 @@ export type Pathfinder2eCharacterSheetData = {
     fortitude: Pathfinder2eProficiencyValue
     reflex: Pathfinder2eProficiencyValue
     will: Pathfinder2eProficiencyValue
+  }
+  defenses: {
+    resistances: string[]
+    weaknesses: string[]
+    immunities: string[]
   }
   skills: {
     acrobatics: Pathfinder2eProficiencyValue
@@ -172,7 +177,7 @@ export type Pathfinder2eCharacterSheetOptions = {
 
 export type Pathfinder2eResolvedCharacterSheet = {
   systemKey: 'pathfinder-2e'
-  schemaVersion: 2
+  schemaVersion: 3
   data: Pathfinder2eCharacterSheetData
   derived: Pathfinder2eDerivedCharacterSheet
   warnings: string[]
