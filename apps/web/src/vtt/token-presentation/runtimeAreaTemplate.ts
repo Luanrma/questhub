@@ -38,6 +38,7 @@ function runtimeDescription(activation: TokenActionSpatialActivation) {
 export function tokenActionActivationToRuntimeAreaTemplate(input: {
   campaignId: string
   createdByUserId: string
+  sourceTokenId: string
   action: TokenActionPresentation
   activation: TokenActionSpatialActivation
 }): CampaignAreaTemplate {
@@ -96,5 +97,18 @@ export function tokenActionActivationToRuntimeAreaTemplate(input: {
     visibility: 'MASTER_ONLY',
     createdAt: timestamp,
     updatedAt: timestamp,
+    runtimeSource: {
+      kind: 'TOKEN_ACTION',
+      sourceTokenId: input.sourceTokenId,
+      actionId: input.action.id,
+      ...(targetSelection ? {
+        minimumTargets: input.activation.minimumTargets,
+        ...(input.activation.maximumDistance !== undefined
+          ? { maximumDistance: input.activation.maximumDistance }
+          : {}),
+      } : input.activation.maximumOriginDistance !== undefined ? {
+        maximumOriginDistance: input.activation.maximumOriginDistance,
+      } : {}),
+    },
   }
 }
