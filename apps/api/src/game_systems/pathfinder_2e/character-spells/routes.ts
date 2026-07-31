@@ -8,7 +8,9 @@ import { pathfinder2eCharacterSheetRuntimeAdapter } from '../character-sheet/ada
 import {
   createPathfinder2eCharacterSpellSnapshot,
   listPathfinder2eSpellCatalog,
+  PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
   PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
+  PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
   presentPathfinder2eCharacterSpell,
 } from './domain'
 
@@ -129,17 +131,23 @@ export function registerPathfinder2eCharacterSpellRoutes(
       if (!sheet) return reply.status(404).send({ error: 'Ficha não encontrada ou sem acesso' })
       if (!ensurePathfinderFullSheet(sheet, reply)) return
 
-      const stored = await prisma.campaignCharacterSpell.findMany({
+      const stored = await prisma.campaignCharacterSheetEntry.findMany({
         where: {
           characterSheetId: sheet.id,
+          namespace: PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
+          typeKey: PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
           catalogNamespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
         },
-        orderBy: [{ baseRank: 'asc' }, { createdAt: 'asc' }],
+        orderBy: [{ sortOrder: 'asc' }, { createdAt: 'asc' }],
       })
 
       const entries = stored
         .map((spell) => presentPathfinder2eCharacterSpell(spell, query.data.locale))
         .filter((spell) => spell !== null)
+        .sort((left, right) => (
+          left.baseRank - right.baseRank
+          || left.name.localeCompare(right.name, query.data.locale)
+        ))
 
       return reply.send({ entries })
     },
@@ -165,9 +173,11 @@ export function registerPathfinder2eCharacterSpellRoutes(
       if (!sheet) return reply.status(404).send({ error: 'Ficha não encontrada ou sem acesso' })
       if (!ensurePathfinderFullSheet(sheet, reply)) return
 
-      const linked = await prisma.campaignCharacterSpell.findMany({
+      const linked = await prisma.campaignCharacterSheetEntry.findMany({
         where: {
           characterSheetId: sheet.id,
+          namespace: PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
+          typeKey: PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
           catalogNamespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
         },
         select: { catalogContentId: true },
@@ -177,7 +187,9 @@ export function registerPathfinder2eCharacterSpellRoutes(
         locale: query.data.locale,
         search: query.data.q,
         rank: query.data.rank,
-        linkedContentIds: new Set(linked.map((spell) => spell.catalogContentId)),
+        linkedContentIds: new Set(linked.flatMap((entry) => (
+          entry.catalogContentId ? [entry.catalogContentId] : []
+        ))),
         page: query.data.page,
         limit: query.data.limit,
       }))
@@ -207,24 +219,26 @@ export function registerPathfinder2eCharacterSpellRoutes(
       const snapshot = createPathfinder2eCharacterSpellSnapshot(body.data.contentId)
       if (!snapshot) return reply.status(404).send({ error: 'Magia não encontrada no catálogo Pathfinder 2e' })
 
-      const existing = await prisma.campaignCharacterSpell.findUnique({
+      const existing = await prisma.campaignCharacterSheetEntry.findFirst({
         where: {
-          characterSheetId_catalogNamespace_catalogContentId: {
-            characterSheetId: sheet.id,
-            catalogNamespace: snapshot.catalogNamespace,
-            catalogContentId: snapshot.catalogContentId,
-          },
+          characterSheetId: sheet.id,
+          namespace: snapshot.namespace,
+          typeKey: snapshot.typeKey,
+          catalogNamespace: snapshot.catalogNamespace,
+          catalogContentId: snapshot.catalogContentId,
         },
         select: { id: true },
       })
       if (existing) return reply.status(409).send({ error: 'Esta magia já está vinculada à ficha' })
 
-      const created = await prisma.campaignCharacterSpell.create({
+      const created = await prisma.campaignCharacterSheetEntry.create({
         data: {
           characterSheetId: sheet.id,
+          namespace: snapshot.namespace,
+          typeKey: snapshot.typeKey,
           catalogNamespace: snapshot.catalogNamespace,
           catalogContentId: snapshot.catalogContentId,
-          baseRank: snapshot.baseRank,
+          schemaVersion: snapshot.schemaVersion,
           data: snapshot.data as Prisma.InputJsonValue,
         },
       })
@@ -260,17 +274,19 @@ export function registerPathfinder2eCharacterSpellRoutes(
       if (!sheet) return reply.status(404).send({ error: 'Ficha não encontrada ou sem acesso' })
       if (!ensurePathfinderFullSheet(sheet, reply)) return
 
-      const spell = await prisma.campaignCharacterSpell.findFirst({
+      const spell = await prisma.campaignCharacterSheetEntry.findFirst({
         where: {
           id: params.data.spellId,
           characterSheetId: sheet.id,
+          namespace: PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
+          typeKey: PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
           catalogNamespace: PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
         },
         select: { id: true },
       })
       if (!spell) return reply.status(404).send({ error: 'Magia vinculada não encontrada' })
 
-      await prisma.campaignCharacterSpell.delete({ where: { id: spell.id } })
+      await prisma.campaignCharacterSheetEntry.delete({ where: { id: spell.id } })
       await publishSheetTokenChanged(
         events,
         sheet,
