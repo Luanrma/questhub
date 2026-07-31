@@ -10,7 +10,10 @@ import {
   X,
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
+import { useSession } from '../../../contexts/session-context'
+import { requestRuntimeAreaTemplate } from '../../area-templates/infrastructure/runtimeAreaTemplateEvents'
 import { tokenActionsForContext } from '../../token-presentation/actionContexts'
+import { tokenActionActivationToRuntimeAreaTemplate } from '../../token-presentation/runtimeAreaTemplate'
 import { useTokenPresentation } from '../../token-presentation/useTokenPresentation'
 import type {
   TokenActionPresentation,
@@ -27,6 +30,52 @@ function actionIcon(interaction: TokenActionPresentation['interaction']) {
   return MousePointer2
 }
 
+function areaTemplatesPanel() {
+  return [...document.querySelectorAll<HTMLElement>('section')].find((section) => (
+    section.textContent?.includes('Templates de Area')
+  )) ?? null
+}
+
+function useFirstAreaTemplate(attempt = 0) {
+  const panel = areaTemplatesPanel()
+  const useButton = panel
+    ? [...panel.querySelectorAll<HTMLButtonElement>('button')].find((button) => (
+        button.textContent?.trim() === 'Usar'
+      ))
+    : null
+
+  if (useButton) {
+    useButton.click()
+    return
+  }
+  if (attempt >= 20) return
+  window.requestAnimationFrame(() => useFirstAreaTemplate(attempt + 1))
+}
+
+function openAreaToolAndUseRuntimeTemplate() {
+  const tool = document.querySelector<HTMLButtonElement>('[data-vtt-tool="area-templates"]')
+  if (!tool) return false
+
+  if (areaTemplatesPanel()) {
+    useFirstAreaTemplate()
+    return true
+  }
+
+  const placementIsActive = tool.classList.contains('bg-indigo-600')
+  if (placementIsActive) {
+    tool.click()
+    window.setTimeout(() => {
+      tool.click()
+      useFirstAreaTemplate()
+    }, 0)
+    return true
+  }
+
+  tool.click()
+  useFirstAreaTemplate()
+  return true
+}
+
 export function EncounterActionPanel({
   campaignId,
   participant,
@@ -34,7 +83,6 @@ export function EncounterActionPanel({
   turnCount,
   isMaster,
   onEnd,
-  onActivateAction,
 }: {
   campaignId: string
   participant: VttCombatParticipant
@@ -42,12 +90,10 @@ export function EncounterActionPanel({
   turnCount: number
   isMaster: boolean
   onEnd: () => void
-  onActivateAction?: (
-    action: TokenActionPresentation,
-    activation: TokenActionSpatialActivation,
-  ) => void
 }) {
+  const { me } = useSession()
   const [expandedActionId, setExpandedActionId] = useState<string | null>(null)
+  const [activationError, setActivationError] = useState<string | null>(null)
   const { presentation, available, loading, error } = useTokenPresentation(
     campaignId,
     participant.tokenId,
@@ -72,23 +118,40 @@ export function EncounterActionPanel({
     return [...grouped.entries()]
   }, [presentation])
 
+  function activateSpatialAction(
+    action: TokenActionPresentation,
+    activation: TokenActionSpatialActivation,
+  ) {
+    if (!me) return
+    setActivationError(null)
+    requestRuntimeAreaTemplate(tokenActionActivationToRuntimeAreaTemplate({
+      campaignId,
+      createdByUserId: me.id,
+      sourceTokenId: participant.tokenId,
+      action,
+      activation,
+    }))
+    if (!openAreaToolAndUseRuntimeTemplate()) {
+      setActivationError('Expanda a barra de ferramentas do VTT para usar esta ação.')
+    }
+  }
+
   function activateAction(action: TokenActionPresentation) {
     const activation = action.activation
-    if (!activation || !onActivateAction) return
+    if (!activation || !me) return
     if (activation.kind === 'VARIANTS') {
       setExpandedActionId((current) => current === action.id ? null : action.id)
       return
     }
-    onActivateAction(action, activation)
+    activateSpatialAction(action, activation)
   }
 
   function activateVariant(
     action: TokenActionPresentation,
     activation: TokenActionSpatialActivation,
   ) {
-    if (!onActivateAction) return
     setExpandedActionId(null)
-    onActivateAction(action, activation)
+    activateSpatialAction(action, activation)
   }
 
   return (
@@ -159,6 +222,12 @@ export function EncounterActionPanel({
         </div>
       ) : null}
 
+      {activationError ? (
+        <div className="mx-3 mt-3 rounded-lg border border-amber-300/20 bg-amber-500/[0.08] px-3 py-2 text-xs text-amber-100">
+          {activationError}
+        </div>
+      ) : null}
+
       <div className="min-h-0 flex-1 overflow-y-auto p-3">
         {loading ? (
           <div className="grid h-full place-items-center text-center text-sm text-zinc-500">
@@ -188,7 +257,7 @@ export function EncounterActionPanel({
                     const Icon = actionIcon(action.interaction)
                     const activation = action.activation
                     const variants = activation?.kind === 'VARIANTS' ? activation.variants : []
-                    const actionable = Boolean(activation && onActivateAction)
+                    const actionable = Boolean(activation && me)
                     const expanded = expandedActionId === action.id
                     return (
                       <div
