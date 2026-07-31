@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import type { Socket } from 'socket.io-client'
-import {
-  clearRuntimeSpatialTemplate,
-  hasActiveRuntimeSpatialTemplate,
-} from '../domain/runtimeSpatialActivation'
+import { clearRuntimeSpatialTemplate } from '../domain/runtimeSpatialActivation'
 import type { AreaTemplateInput, CampaignAreaTemplate, SceneAreaEffect } from '../domain/types'
 import { areaTemplatesApi } from '../infrastructure/areaTemplatesApi'
 
@@ -48,7 +45,7 @@ export function useAreaTemplates(campaignId: string | undefined, sceneId: string
 
   useEffect(() => {
     function onEscape(event: KeyboardEvent) {
-      if (event.key !== 'Escape' || !hasActiveRuntimeSpatialTemplate()) return
+      if (event.key !== 'Escape') return
       clearRuntimeSpatialTemplate()
       const tool = document.querySelector<HTMLButtonElement>('[data-vtt-tool="area-templates"]')
       window.queueMicrotask(() => {
