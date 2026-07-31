@@ -1,4 +1,3 @@
-import { Prisma } from '@prisma/client'
 import type { FastifyInstance, FastifyReply } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../db/prisma'
