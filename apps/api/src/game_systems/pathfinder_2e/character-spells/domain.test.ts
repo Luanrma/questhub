@@ -16,7 +16,11 @@ function findSpellByRank(rank: number) {
 }
 
 test('character spell snapshot derives Rank from the canonical PF2e catalog', () => {
-  const cantrip = findSpellByRank(0)
+  const cantrip = PATHFINDER_2E_CONTENT_ENTRIES.find((entry) => (
+    entry.original.domain === 'SPELL'
+    && (entry.original.data as { traits?: unknown }).traits instanceof Array
+    && (entry.original.data as { traits: unknown[] }).traits.includes('cantrip')
+  ))
   const rankTen = findSpellByRank(10)
   assert.ok(cantrip)
   assert.ok(rankTen)
@@ -24,7 +28,8 @@ test('character spell snapshot derives Rank from the canonical PF2e catalog', ()
   const cantripSnapshot = createPathfinder2eCharacterSpellSnapshot(cantrip.original.contentId)
   const rankTenSnapshot = createPathfinder2eCharacterSpellSnapshot(rankTen.original.contentId)
 
-  assert.equal(cantripSnapshot?.baseRank, 0)
+  assert.equal(cantripSnapshot?.baseRank, 1)
+  assert.equal(cantripSnapshot?.data.traits.includes('cantrip'), true)
   assert.equal(rankTenSnapshot?.baseRank, 10)
   assert.equal(cantripSnapshot?.catalogContentId, cantrip.original.contentId)
 })
