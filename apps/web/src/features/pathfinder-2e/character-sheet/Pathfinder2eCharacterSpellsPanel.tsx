@@ -5,10 +5,12 @@ import {
   LoaderCircle,
   Plus,
   Search,
+  Settings2,
   Sparkles,
   Trash2,
 } from 'lucide-react'
 import { api, ApiError } from '../../../lib/api'
+import { AreaEffectBindingModal } from '../../../vtt/tool-bindings/AreaEffectBindingModal'
 import {
   readStoredPathfinder2eDisplaySettings,
   subscribeToPathfinder2eDisplaySettings,
@@ -87,6 +89,7 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
   const [loadingLinked, setLoadingLinked] = useState(true)
   const [loadingCatalog, setLoadingCatalog] = useState(true)
   const [mutatingId, setMutatingId] = useState<string | null>(null)
+  const [configuringSpell, setConfiguringSpell] = useState<LinkedSpell | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   const baseEndpoint = useMemo(
@@ -279,17 +282,27 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
                           ))}
                         </div>
                       </div>
-                      <button
-                        type="button"
-                        disabled={Boolean(mutatingId)}
-                        onClick={() => void removeSpell(spell)}
-                        title="Remover magia da ficha"
-                        className="rounded-md border border-red-300/20 p-2 text-red-200 transition hover:bg-red-500/15 disabled:opacity-45"
-                      >
-                        {mutatingId === spell.id
-                          ? <LoaderCircle className="h-4 w-4 animate-spin" />
-                          : <Trash2 className="h-4 w-4" />}
-                      </button>
+                      <div className="flex shrink-0 items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => setConfiguringSpell(spell)}
+                          title="Configurar Area Effect para esta ficha"
+                          className="rounded-md border border-orange-300/20 p-2 text-orange-200 transition hover:bg-orange-500/15"
+                        >
+                          <Settings2 className="h-4 w-4" />
+                        </button>
+                        <button
+                          type="button"
+                          disabled={Boolean(mutatingId)}
+                          onClick={() => void removeSpell(spell)}
+                          title="Remover magia da ficha"
+                          className="rounded-md border border-red-300/20 p-2 text-red-200 transition hover:bg-red-500/15 disabled:opacity-45"
+                        >
+                          {mutatingId === spell.id
+                            ? <LoaderCircle className="h-4 w-4 animate-spin" />
+                            : <Trash2 className="h-4 w-4" />}
+                        </button>
+                      </div>
                     </div>
                     <details className="mt-3 text-sm text-zinc-300">
                       <summary className="cursor-pointer text-xs font-semibold text-violet-200">
@@ -422,6 +435,19 @@ export function Pathfinder2eCharacterSpellsPanel({ campaignId, sheetId }: Props)
           </div>
         </footer>
       </section>
+
+      {configuringSpell ? (
+        <AreaEffectBindingModal
+          campaignId={campaignId}
+          source={{
+            kind: 'CHARACTER_SHEET_ENTRY',
+            namespace: 'questhub:character-sheet-entry',
+            id: configuringSpell.id,
+          }}
+          actionName={configuringSpell.name}
+          onClose={() => setConfiguringSpell(null)}
+        />
+      ) : null}
     </div>
   )
 }
