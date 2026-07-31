@@ -49,3 +49,22 @@ test('token movement handlers update live state without durable placement writes
     assert.doesNotMatch(handlerSource, /campaignTokenPlacement|persistCampaignLiveState|prisma\./)
   }
 })
+
+test('token placement trusts hydrated live state when persisted placement is stale', () => {
+  const socketSource = readFileSync(
+    path.join(process.cwd(), 'apps', 'api', 'src', 'modules', 'campaign-presence', 'socket.ts'),
+    'utf8',
+  )
+  const placeStart = socketSource.indexOf("socket.on('vtt:token:place',")
+  const moveStart = socketSource.indexOf("socket.on('vtt:token:move',")
+
+  assert.ok(placeStart >= 0 && moveStart > placeStart)
+
+  const placeHandlerSource = socketSource.slice(placeStart, moveStart)
+  const hydrationIndex = placeHandlerSource.indexOf('await ensureCampaignLiveStateHydrated(campaignId)')
+  const livePlacementCheckIndex = placeHandlerSource.indexOf('getCampaignTokenSceneMap(campaignId).has(tokenId)')
+
+  assert.ok(hydrationIndex >= 0 && livePlacementCheckIndex > hydrationIndex)
+  assert.doesNotMatch(placeHandlerSource, /campaignToken\.placement/)
+  assert.doesNotMatch(placeHandlerSource, /placement:\s*\{\s*select:/)
+})

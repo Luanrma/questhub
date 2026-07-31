@@ -17,6 +17,7 @@ function bestiaryData(entry: (typeof PATHFINDER_2E_CONTENT_ENTRIES)[number]) {
   return entry.original.data as {
     level: number
     rarity: string
+    size: string
     traits: string[]
     entryType?: 'CREATURE' | 'HAZARD'
   }
@@ -51,6 +52,18 @@ test('Pathfinder catalog tokenizes creatures but never hazards', async () => {
       maximum: (creature.original.data as { hitPoints: number }).hitPoints,
     },
   })
+  const expectedTokenSizes: Record<string, number> = {
+    tiny: 0.5,
+    small: 1,
+    medium: 1,
+    large: 2,
+    huge: 3,
+    gargantuan: 4,
+  }
+  assert.equal(
+    creatureSheet?.tokenDefaults?.size,
+    expectedTokenSizes[bestiaryData(creature).size.toLowerCase()] ?? 1,
+  )
   assert.equal(hazardSheet, null)
 })
 

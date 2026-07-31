@@ -7,6 +7,7 @@ import {
   getGameSystemDescriptor,
   parseCatalogTokenSheetEnvelope,
   registerGameSystemCatalogProvider,
+  resolveCatalogTokenSize,
 } from './catalog'
 
 test('game system descriptor exposes Pathfinder catalogs without mechanical rules', () => {
@@ -95,4 +96,17 @@ test('catalog Token sheet envelope preserves a neutral immutable presentation sn
   assert.equal(parseCatalogTokenSheetEnvelope({ ...envelope, sheet: { name: 'Missing id' } }), null)
   const { data: _data, ...withoutData } = envelope
   assert.deepEqual(parseCatalogTokenSheetEnvelope(withoutData), withoutData)
+})
+
+test('catalog Token defaults accept valid grid sizes and fall back safely', () => {
+  const tokenSheet = {
+    sheet: { id: 'creature-1', name: 'Creature', sections: [] },
+    data: {},
+  }
+
+  assert.equal(resolveCatalogTokenSize(tokenSheet), 1)
+  assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 0.5 } }), 0.5)
+  assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 4 } }), 4)
+  assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 0.3 } }), 1)
+  assert.equal(resolveCatalogTokenSize({ ...tokenSheet, tokenDefaults: { size: 21 } }), 1)
 })

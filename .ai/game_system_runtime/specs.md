@@ -358,3 +358,33 @@ Regras:
    uma superfície genérica;
 9. o VTT seleciona ações de encontro exclusivamente pela presença de
    `ENCOUNTER`, sem branches por sistema, grupo, label ou prefixo de `id`.
+
+## 14. Defaults visuais na materialização por catálogo
+
+Um provider que permite materializar uma entrada do catálogo como Token pode
+fornecer defaults visuais neutros, consumidos somente no momento da criação:
+
+```ts
+type GameSystemCatalogTokenSheet = {
+  sheet: GameSystemCatalogSheet
+  data: unknown
+  tokenDefaults?: {
+    size?: number
+  }
+}
+```
+
+Regras:
+
+1. `tokenDefaults` não integra o snapshot mecânico da ficha e não cria
+   dependência do VTT em conceitos específicos do ruleset;
+2. `size` usa a unidade genérica do VTT, em células de grid, e deve respeitar
+   os limites aceitos por `CampaignToken`;
+3. ausência ou valor inválido usa o default neutro `1`;
+4. o default é aplicado somente ao criar o Token; redimensionamentos posteriores
+   continuam livres e a duplicação preserva o tamanho atual do Token de origem;
+5. o provider Pathfinder 2e converte o porte mecânico original, sem depender do
+   idioma da ficha: `tiny = 0.5`, `small = 1`, `medium = 1`, `large = 2`,
+   `huge = 3` e `gargantuan = 4`;
+6. um porte ausente ou desconhecido de Pathfinder 2e usa `1`, equivalente ao
+   porte Médio e ao comportamento legado.

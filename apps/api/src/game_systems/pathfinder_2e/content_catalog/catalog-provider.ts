@@ -22,7 +22,10 @@ import {
   translatePathfinder2eTradition,
   translatePathfinder2eTraits,
 } from './translations/pt-BR/glossary'
-import { createPathfinder2eCatalogTokenSheetData } from '../automation/catalog-token-sheet'
+import {
+  createPathfinder2eCatalogTokenSheetData,
+  resolvePathfinder2eCatalogTokenSize,
+} from '../automation/catalog-token-sheet'
 
 const DOMAIN_MAP: Record<Pathfinder2eContentEntry['original']['domain'], GameSystemCatalogDomain> = {
   BESTIARY: 'BESTIARY',
@@ -212,6 +215,9 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
         description: null,
       },
       data,
+      tokenDefaults: {
+        size: resolvePathfinder2eCatalogTokenSize(entry.original.data),
+      },
     }
   },
 

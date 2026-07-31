@@ -66,6 +66,25 @@ export type GameSystemCatalogSheet = GameSystemCatalogCard & {
 export type GameSystemCatalogTokenSheet = {
   sheet: GameSystemCatalogSheet
   data: unknown
+  tokenDefaults?: {
+    size?: number
+  }
+}
+
+const DEFAULT_CATALOG_TOKEN_SIZE = 1
+const MINIMUM_CATALOG_TOKEN_SIZE = 0.25
+const MAXIMUM_CATALOG_TOKEN_SIZE = 20
+const CATALOG_TOKEN_SIZE_STEP = 0.25
+
+export function resolveCatalogTokenSize(tokenSheet: GameSystemCatalogTokenSheet) {
+  const size = tokenSheet.tokenDefaults?.size
+  if (typeof size !== 'number' || !Number.isFinite(size)) return DEFAULT_CATALOG_TOKEN_SIZE
+  if (size < MINIMUM_CATALOG_TOKEN_SIZE || size > MAXIMUM_CATALOG_TOKEN_SIZE) {
+    return DEFAULT_CATALOG_TOKEN_SIZE
+  }
+
+  const steps = size / CATALOG_TOKEN_SIZE_STEP
+  return Number.isInteger(steps) ? size : DEFAULT_CATALOG_TOKEN_SIZE
 }
 
 export type GameSystemCatalogQuery = {

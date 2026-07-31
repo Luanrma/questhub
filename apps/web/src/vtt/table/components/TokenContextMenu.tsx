@@ -6,7 +6,6 @@ import { ApiError } from '../../../lib/api'
 import type {
   CampaignPlayer,
   VttPlayerToken,
-  VttTokenCandidate,
   VttTokenContextMenu,
 } from '../domain/types'
 import { TokenImagePickerDialog } from './TokenImagePickerDialog'
@@ -29,7 +28,6 @@ type TokenContextMenuProps = {
   isMaster: boolean
   isCurrentController: boolean
   masterCanUseVtt: boolean
-  tokenCandidates: VttTokenCandidate[]
   campaignPlayers: CampaignPlayer[]
   onUpdateToken: (tokenId: string, changes: Record<string, unknown>) => Promise<void>
   onConfigureFog: (tokenId: string, visionConfig: TokenVisionConfig, lightConfig: FogLightSourceConfig) => Promise<void>
@@ -373,7 +371,7 @@ export function TokenContextMenu({
                 onClick={() => onDelete(token)}
               >
                 <Trash2 className="h-4 w-4" />
-                Excluir Token (preserva ficha)
+                Excluir Token
               </button>
             </>
           ) : null}

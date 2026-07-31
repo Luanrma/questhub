@@ -61,6 +61,8 @@ CampaignToken 0..1 <-> 0..1 CampaignActor
 * Vincular ou desvincular não cria nem exclui nenhuma das entidades.
 * Excluir o ator preserva o Token e define `actorId = null`.
 * Excluir o Token preserva ator, ficha e inventário.
+* A biblioteca de Tokens lista somente `CampaignToken`; um ator preservado sem
+  Token não é uma entrada da biblioteca nem uma recriação implícita.
 * Somente o Mestre altera esse vínculo.
 
 ## Atores controlados

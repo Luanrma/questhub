@@ -294,6 +294,7 @@ Regras:
 * Ao carregar a campanha offline, o Mestre recebe o ultimo snapshot persistido de cenas, grid e tokens.
 * Alteracoes de grid durante a preparacao offline ou a sessao online ficam em estado vivo, mantido em memoria/cache e transmitido por websocket.
 * Consultas administrativas de Tokens e respostas de atualizacao de metadados devem reconciliar `CampaignTokenPlacement` persistido com o posicionamento vivo quando a sessao estiver hidratada. A ausencia do Token no mapa vivo de posicionamentos significa `placement = null`, mesmo que o snapshot persistido ainda o posicione.
+* Depois de hidratar o estado vivo, `vtt:token:place` deve validar exclusividade somente pelo mapa vivo de posicionamentos, tanto offline quanto online. Um `CampaignTokenPlacement` persistido antigo nao pode bloquear a recolocacao de um Token removido no estado vivo antes do proximo evento canonico de persistencia.
 * Alteracoes de grid nao devem disparar escrita no banco a cada evento, independentemente de a campanha estar offline, pausada ou em andamento.
 * Criar o posicionamento de um Token durante sessao online tambem e alteracao de estado vivo: nao deve executar insert imediato obrigatorio em `CampaignTokenPlacement` antes de atualizar os clients.
 * Drop, movimento, rotacao, camada, visibilidade e remocao de token, online ou offline, devem marcar a campanha como dirty para persistencia posterior.

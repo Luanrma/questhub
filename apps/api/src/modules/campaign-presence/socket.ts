@@ -1025,7 +1025,6 @@ export function setupCampaignPresence(server: HttpServer) {
         const campaignToken = await prisma.campaignToken.findFirst({
           where: { id: tokenId, campaignId },
           include: {
-            placement: { select: { sceneId: true } },
             controllerMember: {
               select: { id: true, userId: true, role: true, user: { select: { email: true } } },
             },
@@ -1040,7 +1039,7 @@ export function setupCampaignPresence(server: HttpServer) {
         })
         if (!campaignToken) return reject('TOKEN_NOT_FOUND', 'Token nao encontrado')
 
-        if (getCampaignTokenSceneMap(campaignId).has(tokenId) || (!online && campaignToken.placement)) {
+        if (getCampaignTokenSceneMap(campaignId).has(tokenId)) {
           return reject('TOKEN_ALREADY_PLACED', 'O Token ja esta posicionado em uma cena')
         }
 

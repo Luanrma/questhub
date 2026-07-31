@@ -5,6 +5,15 @@
 * Token armazena posicao, tamanho, visibilidade, rotacao, camada, nome visual e imagem/cor opcional.
 * Criar um Token generico deve ser uma acao imediata de um clique, persistindo `Novo Token` sem imagem e sem abrir formulario intermediario.
 * Um Token sem posicionamento deve expor uma superficie de arraste dedicada no painel de Tokens. Botoes de editar nome, imagem ou excluir ficam fora dessa superficie e nao podem interceptar o inicio do drag.
+* A biblioteca da toolbar lista exclusivamente entidades `CampaignToken`. Fichas
+  ou atores sem Token não são convertidos em entradas visuais da biblioteca e o
+  vínculo entre ficha e Token é administrado pelo painel `Fichas`.
+* A exclusão de Token é uma ação única chamada `Excluir Token`; a UI não oferece
+  a preservação da ficha como opção porque ator, ficha e inventário são sempre
+  preservados por contrato.
+* Depois da confirmação autoritativa, o Token excluído deve ser removido da
+  biblioteca, cena, seleção e caches locais. Recarregar a página não pode
+  reapresentar a ficha preservada como se fosse um Token disponível.
 * O drop de Token exige uma cena ativa e envia explicitamente seu `sceneId`; o cliente nao pode depender de uma selecao de cena anterior ja ter sido sincronizada no servidor.
 * Ao dropar como Mestre, o cliente deve obter a conexao realtime sob demanda, enviar `vtt:token:place` com ACK e apresentar a rejeicao sem descartar o gesto silenciosamente.
 * Depois da criacao, o Mestre ou controlador com permissao de personalizacao pode editar o nome e escolher uma imagem do catalogo gerado recursivamente a partir de `apps/web/public/tokens/`; o cliente persiste a escolha como URL publica relativa sob `/tokens/`.
@@ -161,6 +170,9 @@ type VttTokenPlaceCommand = {
 * O vínculo `CampaignToken.actorId` é opcional e exclusivo nos dois sentidos.
 * Token, ator, membro controlador e cena devem pertencer à mesma campanha.
 * Excluir um ator preserva o Token; excluir um Token preserva ator, ficha e inventário.
+* Preservar o ator após excluir seu Token não o transforma automaticamente em
+  candidato na toolbar; uma nova associação deve partir do fluxo explícito do
+  painel `Fichas`.
 * `PLAYER_CONTROLLED` e `MASTER_ONLY` são classificações derivadas.
 * Tokens vinculados herdam controle de `CampaignActor.controllerMemberId`; controle direto em `CampaignToken.controllerMemberId` só se aplica a Tokens genéricos.
 * O controle do Token pertence a `CampaignMember` e não concede automaticamente edição da ficha.

@@ -13,6 +13,19 @@ const pathfinder2eBestiaryVitalitySchema = z.object({
   hitPoints: z.number().int().nonnegative(),
 }).passthrough()
 
+const pathfinder2eBestiarySizeSchema = z.object({
+  size: z.string().trim(),
+}).passthrough()
+
+const PATHFINDER_2E_TOKEN_SIZE_BY_CREATURE_SIZE: Readonly<Record<string, number>> = {
+  tiny: 0.5,
+  small: 1,
+  medium: 1,
+  large: 2,
+  huge: 3,
+  gargantuan: 4,
+}
+
 export type Pathfinder2eCatalogTokenSheetData = z.infer<
   typeof pathfinder2eCatalogTokenSheetDataSchema
 >
@@ -30,6 +43,13 @@ export function createPathfinder2eCatalogTokenSheetData(
       maximum: parsed.data.hitPoints,
     },
   }
+}
+
+export function resolvePathfinder2eCatalogTokenSize(bestiaryData: unknown) {
+  const parsed = pathfinder2eBestiarySizeSchema.safeParse(bestiaryData)
+  if (!parsed.success) return 1
+
+  return PATHFINDER_2E_TOKEN_SIZE_BY_CREATURE_SIZE[parsed.data.size.toLowerCase()] ?? 1
 }
 
 export function parsePathfinder2eCatalogTokenSheetData(

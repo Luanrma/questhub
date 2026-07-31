@@ -10,6 +10,7 @@ import { pathfinder2eTokenPresentationProvider } from './token-presentation-prov
 import {
   createPathfinder2eCatalogTokenSheetData,
   parsePathfinder2eCatalogTokenSheetData,
+  resolvePathfinder2eCatalogTokenSize,
 } from './catalog-token-sheet'
 
 test('Pathfinder catalog Token data initializes current and maximum hit points', () => {
@@ -108,6 +109,17 @@ test('Pathfinder projects legacy catalog NPC snapshots that predate opaque data'
 
   assert.equal(presentation.resources[0]?.value, maximum)
   assert.equal(presentation.resources[0]?.maximum, maximum)
+})
+
+test('Pathfinder maps every creature size to its default grid footprint', () => {
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'tiny' }), 0.5)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'small' }), 1)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'medium' }), 1)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'large' }), 2)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'huge' }), 3)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'gargantuan' }), 4)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({ size: 'unknown' }), 1)
+  assert.equal(resolvePathfinder2eCatalogTokenSize({}), 1)
 })
 
 test('Pathfinder separates NPC reference skills from encounter actions', async () => {

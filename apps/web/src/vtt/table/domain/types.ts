@@ -126,15 +126,6 @@ export type VttMeasurementChangedPayload = {
   measurement: VttMeasurement | null
 }
 
-export type VttTokenCandidate = {
-  actorId: string
-  name: string
-  avatarUrl: string | null
-  role: 'PLAYER' | 'NPC'
-  ownerUserId: string | null
-  ownerName: string
-}
-
 export type CampaignToken = {
   id: string
   campaignId: string

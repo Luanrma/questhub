@@ -22,7 +22,10 @@ CampaignActor  0..1 ── owns ── 0..1 Inventory
 4. Um ator não pode estar vinculado a mais de um Token.
 5. Ator, membro controlador e Token vinculado devem pertencer à mesma campanha; o PostgreSQL rejeita vínculos cruzados.
 6. Token vinculado a ator deriva o controle do ator e mantém `CampaignToken.controllerMemberId = null`.
-7. Excluir o Token não exclui o ator, a ficha nem o inventário opcional.
+7. Excluir o Token não exclui o ator, a ficha nem o inventário opcional. A ficha
+   preservada não reaparece automaticamente na biblioteca como um novo Token;
+   recriar ou associar uma representação visual é uma ação explícita do
+   gerenciamento de fichas.
 8. A criação de um ator que oferece inventário cria também seu `Inventory` na
    mesma operação; `CampaignActor.createMany` não é permitido.
 9. A ficha mecânica é opcional; o ator continua válido sem ela.
@@ -42,9 +45,12 @@ CampaignActor  0..1 ── owns ── 0..1 Inventory
 * Vincular ator a Token: não cria novo inventário.
 * Arquivar ator: preserva ficha, inventário opcional e histórico do chat.
 * Criar Token por catálogo: cria ator, snapshot simplificado de ficha e Token sem
-  placement e sem inventário em uma transação.
+  placement e sem inventário em uma transação. A identidade visual pode receber
+  defaults neutros produzidos pelo provider do sistema; quando houver tamanho
+  sugerido, ele é aplicado somente nessa criação.
 * Duplicar Token por catálogo: repete o agregado com novos IDs e snapshot
-  independente.
+  independente, preservando o tamanho visual atual do Token de origem em vez de
+  recalcular o default da ficha.
 
 ## Interação do jogador
 

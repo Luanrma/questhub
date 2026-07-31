@@ -659,46 +659,6 @@ export function registerCampaignRoutes(app: FastifyInstance, deps: CampaignRoute
     )
   })
 
-  app.get('/api/campaigns/:campaignId/token-candidates', async (req, reply) => {
-    const payload = requireAuth(req, reply)
-    if (!payload) return
-    const params = req.params as { campaignId: string }
-
-    if (!(await requireActiveMaster(params.campaignId, payload.id))) {
-      return reply.status(403).send({ error: 'Apenas o mestre pode gerenciar tokens' })
-    }
-
-    const actors = await prisma.campaignActor.findMany({
-      where: {
-        campaignId: params.campaignId,
-        token: null,
-      },
-      select: {
-        id: true,
-        name: true,
-        avatarUrl: true,
-        controllerMember: {
-          select: { role: true, userId: true, user: { select: { email: true } } },
-        },
-      },
-      orderBy: { createdAt: 'asc' },
-    })
-
-    return reply.send(
-      actors.map((actor) => {
-        const owner = actor.controllerMember
-        return {
-          actorId: actor.id,
-          name: actor.name,
-          avatarUrl: actor.avatarUrl,
-          role: actor.controllerMember?.role ?? 'NPC',
-          ownerUserId: owner?.userId ?? null,
-          ownerName: owner?.user.email ?? actor.name,
-        }
-      }),
-    )
-  })
-
   app.get('/api/campaigns/:campaignId/tokens', async (req, reply) => {
     const payload = requireAuth(req, reply)
     if (!payload) return

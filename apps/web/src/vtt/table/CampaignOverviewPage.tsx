@@ -134,7 +134,6 @@ import type {
   VttPlayerToken,
   VttSceneChangedPayload,
   VttTableScene,
-  VttTokenCandidate,
   VttTokenChangedPayload,
   VttTokenMovementStartedPayload,
   VttTokenContextMenu,
@@ -252,7 +251,6 @@ export function CampaignOverviewPage({
   const [campaignTokens, setCampaignTokens] = useState<CampaignToken[]>([])
   const [duplicableTokenIds, setDuplicableTokenIds] = useState<string[]>([])
   const [duplicatingTokenId, setDuplicatingTokenId] = useState<string | null>(null)
-  const [tokenCandidates, setTokenCandidates] = useState<VttTokenCandidate[]>([])
   const [campaignPlayers, setCampaignPlayers] = useState<CampaignPlayer[]>([])
   const [tokenContextMenu, setTokenContextMenu] = useState<VttTokenContextMenu | null>(null)
   const [inventoryToken, setInventoryToken] = useState<VttPlayerToken | null>(null)
@@ -719,9 +717,6 @@ export function CampaignOverviewPage({
     void api<CampaignToken[]>(`/api/campaigns/${campaignId}/tokens`)
       .then((tokens) => { if (!cancelled) setCampaignTokens(tokens) })
       .catch(() => { if (!cancelled) setCampaignTokens([]) })
-    void api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
-      .then((candidates) => { if (!cancelled) setTokenCandidates(candidates) })
-      .catch(() => { if (!cancelled) setTokenCandidates([]) })
     void api<CampaignPlayer[]>(`/api/campaigns/${campaignId}/players`)
       .then((players) => {
         if (!cancelled) setCampaignPlayers(players.filter((player) => player.role === 'PLAYER' && player.status === 'ACTIVE'))
@@ -744,9 +739,6 @@ export function CampaignOverviewPage({
       void api<CampaignToken[]>(`/api/campaigns/${campaignId}/tokens`)
         .then((tokens) => { if (!cancelled) setCampaignTokens(tokens) })
         .catch(() => { if (!cancelled) setTokenDropError('Nao foi possivel atualizar a biblioteca de Tokens.') })
-      void api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
-        .then((candidates) => { if (!cancelled) setTokenCandidates(candidates) })
-        .catch(() => undefined)
     }
 
     function onCapabilitiesChanged(event: Event) {
@@ -957,6 +949,18 @@ export function CampaignOverviewPage({
         ...current,
         tokens: current.tokens.filter((token) => token.id !== payload.tokenId),
       }))
+      setPreparedScenes((current) => current.map((scene) => ({
+        ...scene,
+        tokens: scene.tokens.filter((token) => token.id !== payload.tokenId),
+      })))
+      setActiveScene((current) => current ? {
+        ...current,
+        tokens: current.tokens.filter((token) => token.id !== payload.tokenId),
+      } : current)
+      setTargetedTokenIds((current) => current.filter((tokenId) => tokenId !== payload.tokenId))
+      setSelectedTokenIds((current) => current.filter((tokenId) => tokenId !== payload.tokenId))
+      setSelectedTokenId((current) => current === payload.tokenId ? null : current)
+      setTransformTokenId((current) => current === payload.tokenId ? null : current)
       setTokenContextMenu((current) => current?.token.id === payload.tokenId ? null : current)
     }
 
@@ -2541,19 +2545,6 @@ export function CampaignOverviewPage({
     setCampaignTokens((current) => [...current, token])
   }
 
-  async function createTokenFromCandidate(candidate: VttTokenCandidate) {
-    if (!campaignId || !isMaster) return
-    const token = await api<CampaignToken>(`/api/campaigns/${campaignId}/tokens`, {
-      method: 'POST',
-      body: JSON.stringify({ actorId: candidate.actorId }),
-    })
-    setCampaignTokens((current) => [...current, token].sort((left, right) => {
-      const order = { PLAYER_CONTROLLED: 0, MASTER_ONLY: 1 } as const
-      return order[left.category] - order[right.category]
-    }))
-    setTokenCandidates((current) => current.filter((item) => item.actorId !== candidate.actorId))
-  }
-
   function duplicateCampaignToken(tokenId: string) {
     if (!campaignId || duplicatingTokenId) return
     setTokenDropError(null)
@@ -2615,10 +2606,6 @@ export function CampaignOverviewPage({
       body: JSON.stringify(changes),
     })
     applyCampaignTokenUpdate(token)
-    if ('actorId' in changes) {
-      const candidates = await api<VttTokenCandidate[]>(`/api/campaigns/${campaignId}/token-candidates`)
-      setTokenCandidates(candidates)
-    }
     return token
   }
 
@@ -2629,10 +2616,20 @@ export function CampaignOverviewPage({
 
   async function deleteCampaignToken(token: Pick<VttPlayerToken, 'id' | 'name'>) {
     if (!campaignId || !isMaster) return
-    if (!window.confirm(`Excluir o Token “${token.name}”? A ficha vinculada sera preservada.`)) return
+    if (!window.confirm(`Excluir o Token “${token.name}”?`)) return
     await api(`/api/campaigns/${campaignId}/tokens/${token.id}`, { method: 'DELETE' })
     setCampaignTokens((current) => current.filter((item) => item.id !== token.id))
     setTokenState((current) => ({ ...current, tokens: current.tokens.filter((item) => item.id !== token.id) }))
+    setPreparedScenes((current) => current.map((scene) => ({
+      ...scene,
+      tokens: scene.tokens.filter((item) => item.id !== token.id),
+    })))
+    setActiveScene((current) => current ? {
+      ...current,
+      tokens: current.tokens.filter((item) => item.id !== token.id),
+    } : current)
+    setTargetedTokenIds((current) => current.filter((tokenId) => tokenId !== token.id))
+    clearTokenSelection()
     setTokenContextMenu(null)
   }
 
@@ -3537,28 +3534,6 @@ export function CampaignOverviewPage({
                     </div>
                   ))}
 
-                  {tokenCandidates.length ? (
-                    <div className="mt-2 border-t border-white/10 pt-2 text-[10px] font-semibold uppercase tracking-wide text-zinc-500">
-                      Fichas sem Token
-                    </div>
-                  ) : null}
-                  {tokenCandidates.map((candidate) => (
-                    <button
-                      key={candidate.actorId}
-                      type="button"
-                      disabled={!masterCanUseVtt}
-                      onClick={() => void createTokenFromCandidate(candidate)}
-                      className="flex items-center gap-3 rounded-md border border-dashed border-white/10 bg-white/[0.02] px-3 py-2 text-left transition hover:bg-white/10 disabled:opacity-50"
-                    >
-                      <span className="grid h-9 w-9 shrink-0 place-items-center overflow-hidden rounded-full text-sm font-bold text-white">
-                        <TokenAvatar avatarUrl={candidate.avatarUrl} name={candidate.name} />
-                      </span>
-                      <span className="min-w-0">
-                        <span className="block truncate text-sm font-semibold text-white">{candidate.name}</span>
-                        <span className="block truncate text-[11px] uppercase text-zinc-500">Criar Token vinculado</span>
-                      </span>
-                    </button>
-                  ))}
                 </div>
               </div>
             ) : null}
@@ -3570,7 +3545,6 @@ export function CampaignOverviewPage({
                 isMaster={Boolean(isMaster)}
                 isCurrentController={tokenContextMenu.token.controllerUserId === me?.id}
                 masterCanUseVtt={masterCanUseVtt}
-                tokenCandidates={tokenCandidates}
                 campaignPlayers={campaignPlayers}
                 onUpdateToken={async (tokenId, changes) => {
                   await updateCampaignToken(tokenId, changes)
