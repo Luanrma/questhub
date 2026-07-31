@@ -35,6 +35,31 @@ function runtimeDescription(activation: TokenActionSpatialActivation) {
     : `Origem limitada a ${activation.maximumOriginDistance} m do Token de origem`
 }
 
+function runtimeStyle(
+  visualEffect: TokenActionVisualEffect,
+  targetSelection: boolean,
+  directional: boolean,
+): CampaignAreaTemplate['style'] {
+  const colors = visualStyles[visualEffect]
+  return {
+    visualEffect,
+    fillColor: colors.fillColor,
+    borderColor: colors.borderColor,
+    borderWidthPx: 2,
+    opacity: 0.35,
+    showCoveredCells: !targetSelection,
+    showOrigin: !targetSelection,
+    showDirectionLine: !targetSelection && directional,
+    affectedTokenRing: {
+      color: colors.ringColor,
+      opacity: 0.95,
+      thicknessPx: 4,
+      gapPx: 4,
+      pulse: true,
+    },
+  }
+}
+
 export function tokenActionActivationToRuntimeAreaTemplate(input: {
   campaignId: string
   createdByUserId: string
@@ -42,14 +67,8 @@ export function tokenActionActivationToRuntimeAreaTemplate(input: {
   action: TokenActionPresentation
   activation: TokenActionSpatialActivation
 }): CampaignAreaTemplate {
-  const visualEffect = input.activation.kind === 'TARGET_SELECTION'
-    ? input.activation.visualEffect ?? 'DEFAULT'
-    : input.activation.template.visualEffect ?? 'DEFAULT'
-  const colors = visualStyles[visualEffect]
   const timestamp = new Date().toISOString()
-  const targetSelection = input.activation.kind === 'TARGET_SELECTION'
-
-  return {
+  const common = {
     id: `runtime:${input.action.id}:${crypto.randomUUID()}`,
     campaignId: input.campaignId,
     createdByUserId: input.createdByUserId,
@@ -57,58 +76,66 @@ export function tokenActionActivationToRuntimeAreaTemplate(input: {
     description: runtimeDescription(input.activation),
     category: 'Ação de Token',
     tags: ['runtime-action', input.action.id],
-    shape: targetSelection ? 'TARGET' : input.activation.template.shape,
-    volumeShape: 'NONE',
-    dimensions: targetSelection
-      ? { targetCount: input.activation.maximumTargets }
-      : { ...input.activation.template.dimensions },
-    measurementMode: 'WORLD_UNIT',
+    volumeShape: 'NONE' as const,
+    measurementMode: 'WORLD_UNIT' as const,
     measurementUnit: 'm',
-    originMode: targetSelection
-      ? 'TARGET_TOKEN'
-      : input.activation.template.originMode,
-    placementMode: targetSelection
-      ? 'POINT'
-      : input.activation.template.placementMode,
-    propagationMode: targetSelection ? 'IGNORE_WALLS' : 'BLOCKED_BY_WALLS',
-    persistenceMode: 'INSTANT',
-    movementMode: 'STATIC',
-    cellInclusionRule: 'ANY_OVERLAP',
-    tokenIntersectionRule: targetSelection ? 'MANUAL' : 'COVERED_CELLS',
-    includesOrigin: !targetSelection && input.activation.template.originMode === 'SOURCE_TOKEN',
+    persistenceMode: 'INSTANT' as const,
+    movementMode: 'STATIC' as const,
+    cellInclusionRule: 'ANY_OVERLAP' as const,
     stopAtFirstObstacle: false,
-    style: {
-      visualEffect,
-      fillColor: colors.fillColor,
-      borderColor: colors.borderColor,
-      borderWidthPx: 2,
-      opacity: 0.35,
-      showCoveredCells: !targetSelection,
-      showOrigin: !targetSelection,
-      showDirectionLine: !targetSelection && input.activation.template.placementMode === 'DIRECTIONAL',
-      affectedTokenRing: {
-        color: colors.ringColor,
-        opacity: 0.95,
-        thicknessPx: 4,
-        gapPx: 4,
-        pulse: true,
-      },
-    },
-    visibility: 'MASTER_ONLY',
+    visibility: 'MASTER_ONLY' as const,
     createdAt: timestamp,
     updatedAt: timestamp,
+  }
+
+  if (input.activation.kind === 'TARGET_SELECTION') {
+    const activation = input.activation
+    const visualEffect = activation.visualEffect ?? 'DEFAULT'
+    return {
+      ...common,
+      shape: 'TARGET',
+      dimensions: { targetCount: activation.maximumTargets },
+      originMode: 'TARGET_TOKEN',
+      placementMode: 'POINT',
+      propagationMode: 'IGNORE_WALLS',
+      tokenIntersectionRule: 'MANUAL',
+      includesOrigin: false,
+      style: runtimeStyle(visualEffect, true, false),
+      runtimeSource: {
+        kind: 'TOKEN_ACTION',
+        sourceTokenId: input.sourceTokenId,
+        actionId: input.action.id,
+        minimumTargets: activation.minimumTargets,
+        ...(activation.maximumDistance !== undefined
+          ? { maximumDistance: activation.maximumDistance }
+          : {}),
+      },
+    }
+  }
+
+  const activation = input.activation
+  const visualEffect = activation.template.visualEffect ?? 'DEFAULT'
+  return {
+    ...common,
+    shape: activation.template.shape,
+    dimensions: { ...activation.template.dimensions },
+    originMode: activation.template.originMode,
+    placementMode: activation.template.placementMode,
+    propagationMode: 'BLOCKED_BY_WALLS',
+    tokenIntersectionRule: 'COVERED_CELLS',
+    includesOrigin: activation.template.originMode === 'SOURCE_TOKEN',
+    style: runtimeStyle(
+      visualEffect,
+      false,
+      activation.template.placementMode === 'DIRECTIONAL',
+    ),
     runtimeSource: {
       kind: 'TOKEN_ACTION',
       sourceTokenId: input.sourceTokenId,
       actionId: input.action.id,
-      ...(targetSelection ? {
-        minimumTargets: input.activation.minimumTargets,
-        ...(input.activation.maximumDistance !== undefined
-          ? { maximumDistance: input.activation.maximumDistance }
-          : {}),
-      } : input.activation.maximumOriginDistance !== undefined ? {
-        maximumOriginDistance: input.activation.maximumOriginDistance,
-      } : {}),
+      ...(activation.maximumOriginDistance !== undefined
+        ? { maximumOriginDistance: activation.maximumOriginDistance }
+        : {}),
     },
   }
 }
