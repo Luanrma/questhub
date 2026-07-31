@@ -27,7 +27,7 @@ const localeQuerySchema = z.object({
 })
 const catalogQuerySchema = localeQuerySchema.extend({
   q: z.string().trim().max(120).optional(),
-  rank: z.coerce.number().int().min(0).max(10).optional(),
+  rank: z.coerce.number().int().min(1).max(10).optional(),
   page: z.coerce.number().int().min(1).default(1),
   limit: z.coerce.number().int().min(1).max(60).default(24),
 })
