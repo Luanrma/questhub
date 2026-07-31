@@ -1,4 +1,13 @@
-import type { TokenActionPresentation } from '../../automation/contracts'
+import type {
+  GameSystemCharacterSheetEntrySnapshot,
+  TokenActionPresentation,
+} from '../../automation/contracts'
+import {
+  PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE,
+  PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE,
+  PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY,
+  presentPathfinder2eCharacterSpell,
+} from '../character-spells/domain'
 import type { Pathfinder2eDerivedCharacterSheet } from '../character-sheet/derivation'
 import type { Pathfinder2eCharacterSheetData } from '../character-sheet/schema'
 import type { Pathfinder2eContentEntry } from '../content_catalog/content-entry'
@@ -81,12 +90,14 @@ function mechanicalAction(
   detail: string | undefined,
   interaction: TokenActionPresentation['interaction'],
   context: 'ENCOUNTER' | 'REFERENCE',
+  imageUrl?: string,
 ): TokenActionPresentation {
   return {
     id,
     label,
     group,
     detail,
+    imageUrl,
     interaction,
     visibility: 'OWNER_AND_MASTER',
     contexts: [context],
@@ -105,6 +116,43 @@ export function buildPathfinder2ePlayerSkillActions(
       'roll',
       'REFERENCE',
     ))
+}
+
+export function buildPathfinder2eCharacterSpellActions(
+  entries: readonly GameSystemCharacterSheetEntrySnapshot[],
+  locale: CatalogLocale,
+): readonly TokenActionPresentation[] {
+  return entries.flatMap((entry) => {
+    if (
+      entry.namespace !== PATHFINDER_2E_CHARACTER_ENTRY_NAMESPACE
+      || entry.typeKey !== PATHFINDER_2E_CHARACTER_SPELL_TYPE_KEY
+      || entry.catalogNamespace !== PATHFINDER_2E_CHARACTER_SPELL_CATALOG_NAMESPACE
+    ) {
+      return []
+    }
+
+    const spell = presentPathfinder2eCharacterSpell(entry, locale)
+    if (!spell) return []
+
+    const cantrip = spell.traits.some((trait) => trait.toLocaleLowerCase('en-US') === 'cantrip')
+    const rankLabel = cantrip && locale === 'pt-BR'
+      ? `Truque · Rank ${spell.baseRank}`
+      : `Rank ${spell.baseRank}`
+    const traditions = spell.traditions.map(titleCase).join(', ')
+    const detail = [rankLabel, traditions || null]
+      .filter((value): value is string => Boolean(value))
+      .join(' · ')
+
+    return [mechanicalAction(
+      `spell:${spell.id}`,
+      spell.name,
+      locale === 'pt-BR' ? 'Magias' : 'Spells',
+      detail || undefined,
+      spell.area ? 'area' : 'target',
+      'ENCOUNTER',
+      spell.imageUrl ?? undefined,
+    )]
+  })
 }
 
 function catalogSkillActions(
