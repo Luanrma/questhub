@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { BookOpen, CopyPlus, Package, PawPrint, Send, Sparkles, X } from 'lucide-react'
+import { BookOpen, CopyPlus, Package, PawPrint, Send, Settings2, Sparkles, X } from 'lucide-react'
 import { api } from '../lib/api'
+import { AreaEffectBindingModal } from '../vtt/tool-bindings/AreaEffectBindingModal'
 import { CatalogItemSendModal } from './CatalogItemSendModal'
 import {
   catalogDomainPaths,
@@ -87,6 +88,7 @@ export function CatalogEntitySheetModal({
   const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null)
   const [sendPermission, setSendPermission] = useState({ key: '', allowed: false })
   const [sendOpen, setSendOpen] = useState(false)
+  const [areaEffectOpen, setAreaEffectOpen] = useState(false)
   const [creatingToken, setCreatingToken] = useState(false)
   const Icon = domainIcons[domain]
   const sendPermissionKey = `${campaignId}:${domain}`
@@ -138,6 +140,9 @@ export function CatalogEntitySheetModal({
 
   const entry = data?.entry
   const imageFailed = Boolean(entry?.imageUrl && failedImageUrl === entry.imageUrl)
+  const spellBindingNamespace = data?.system.key === 'PATHFINDER_2E'
+    ? 'questhub:pathfinder_2e:spells:v1'
+    : null
 
   async function handleCreateToken() {
     if (!entry || creatingToken) return
@@ -160,7 +165,7 @@ export function CatalogEntitySheetModal({
       aria-modal="true"
       aria-label={entry?.name ?? 'Ficha da entidade'}
       onMouseDown={(event) => {
-        if (event.target === event.currentTarget && !sendOpen) onClose()
+        if (event.target === event.currentTarget && !sendOpen && !areaEffectOpen) onClose()
       }}
     >
       <section className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218] text-white shadow-[0_35px_120px_rgba(0,0,0,0.8)]">
@@ -191,7 +196,17 @@ export function CatalogEntitySheetModal({
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            {canManageTokens && domain === 'SPELLS' && spellBindingNamespace && entry ? (
+              <button
+                type="button"
+                onClick={() => setAreaEffectOpen(true)}
+                className="inline-flex items-center gap-2 rounded-lg border border-orange-300/25 bg-orange-500/10 px-3 py-2 text-xs font-semibold text-orange-100 transition hover:border-orange-300/50 hover:bg-orange-500/20"
+              >
+                <Settings2 className="h-4 w-4" />
+                Configurar Area Effect
+              </button>
+            ) : null}
             {canManageTokens && entry?.canCreateToken ? (
               <button
                 type="button"
@@ -311,6 +326,19 @@ export function CatalogEntitySheetModal({
           contentId={contentId}
           itemName={entry.name}
           onClose={() => setSendOpen(false)}
+        />
+      ) : null}
+
+      {areaEffectOpen && entry && spellBindingNamespace ? (
+        <AreaEffectBindingModal
+          campaignId={campaignId}
+          source={{
+            kind: 'CATALOG_CONTENT',
+            namespace: spellBindingNamespace,
+            id: contentId,
+          }}
+          actionName={entry.name}
+          onClose={() => setAreaEffectOpen(false)}
         />
       ) : null}
     </div>
