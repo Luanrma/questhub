@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useSession } from '../../../contexts/session-context'
+import type { CampaignAreaTemplate } from '../../area-templates/domain/types'
 import { requestRuntimeAreaTemplate } from '../../area-templates/infrastructure/runtimeAreaTemplateEvents'
 import { tokenActionsForContext } from '../../token-presentation/actionContexts'
 import { tokenActionActivationToRuntimeAreaTemplate } from '../../token-presentation/runtimeAreaTemplate'
@@ -31,33 +32,27 @@ function actionIcon(interaction: TokenActionPresentation['interaction']) {
 }
 
 function areaTemplatesPanel() {
-  return [...document.querySelectorAll<HTMLElement>('section')].find((section) => (
-    section.textContent?.includes('Templates de Area')
-  )) ?? null
+  return document.querySelector<HTMLElement>('[data-vtt-area-templates-panel="true"]')
 }
 
-function useFirstAreaTemplate(attempt = 0) {
-  const panel = areaTemplatesPanel()
-  const useButton = panel
-    ? [...panel.querySelectorAll<HTMLButtonElement>('button')].find((button) => (
-        button.textContent?.trim() === 'Usar'
-      ))
-    : null
-
-  if (useButton) {
-    useButton.click()
+function requestTemplateWhenPanelReady(
+  template: CampaignAreaTemplate,
+  attempt = 0,
+) {
+  if (areaTemplatesPanel()) {
+    requestRuntimeAreaTemplate(template)
     return
   }
   if (attempt >= 20) return
-  window.requestAnimationFrame(() => useFirstAreaTemplate(attempt + 1))
+  window.requestAnimationFrame(() => requestTemplateWhenPanelReady(template, attempt + 1))
 }
 
-function openAreaToolAndUseRuntimeTemplate() {
+function openAreaToolAndUseRuntimeTemplate(template: CampaignAreaTemplate) {
   const tool = document.querySelector<HTMLButtonElement>('[data-vtt-tool="area-templates"]')
   if (!tool) return false
 
   if (areaTemplatesPanel()) {
-    useFirstAreaTemplate()
+    requestRuntimeAreaTemplate(template)
     return true
   }
 
@@ -66,13 +61,13 @@ function openAreaToolAndUseRuntimeTemplate() {
     tool.click()
     window.setTimeout(() => {
       tool.click()
-      useFirstAreaTemplate()
+      requestTemplateWhenPanelReady(template)
     }, 0)
     return true
   }
 
   tool.click()
-  useFirstAreaTemplate()
+  requestTemplateWhenPanelReady(template)
   return true
 }
 
@@ -124,14 +119,14 @@ export function EncounterActionPanel({
   ) {
     if (!me) return
     setActivationError(null)
-    requestRuntimeAreaTemplate(tokenActionActivationToRuntimeAreaTemplate({
+    const template = tokenActionActivationToRuntimeAreaTemplate({
       campaignId,
       createdByUserId: me.id,
       sourceTokenId: participant.tokenId,
       action,
       activation,
-    }))
-    if (!openAreaToolAndUseRuntimeTemplate()) {
+    })
+    if (!openAreaToolAndUseRuntimeTemplate(template)) {
       setActivationError('Expanda a barra de ferramentas do VTT para usar esta ação.')
     }
   }
