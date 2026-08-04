@@ -1,12 +1,12 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import {
-  createPathfinder2eBestiaryFilterDefinitions,
-  matchesPathfinder2eBestiaryFilters,
-  normalizePathfinder2eBestiaryFilters,
-} from './bestiary-filter'
 import { pathfinder2eCatalogProvider } from './catalog-provider'
 import { PATHFINDER_2E_CONTENT_ENTRIES } from './deliveries'
+import {
+  createPathfinder2eItemFilterDefinitions,
+  matchesPathfinder2eItemFilters,
+  normalizePathfinder2eItemFilters,
+} from './item-filter'
 
 function filterableItem() {
   return PATHFINDER_2E_CONTENT_ENTRIES.find((entry) => {
@@ -30,9 +30,8 @@ function filterableItem() {
 }
 
 test('Pathfinder item catalog exposes type, level, rarity, category, group and trait filters', () => {
-  const definitions = createPathfinder2eBestiaryFilterDefinitions(
+  const definitions = createPathfinder2eItemFilterDefinitions(
     PATHFINDER_2E_CONTENT_ENTRIES,
-    'ITEMS',
     'pt-BR',
   )
 
@@ -105,12 +104,11 @@ test('Pathfinder item filter matcher accepts the selected candidate', () => {
     group: string
     traits: string[]
   }
-  const definitions = createPathfinder2eBestiaryFilterDefinitions(
+  const definitions = createPathfinder2eItemFilterDefinitions(
     PATHFINDER_2E_CONTENT_ENTRIES,
-    'ITEMS',
     'en-US',
   )
-  const filters = normalizePathfinder2eBestiaryFilters({
+  const filters = normalizePathfinder2eItemFilters({
     type: [data.itemType],
     level: [String(data.level)],
     rarity: [data.rarity],
@@ -119,5 +117,5 @@ test('Pathfinder item filter matcher accepts the selected candidate', () => {
     traits: data.traits.slice(0, 1),
   }, definitions)
 
-  assert.equal(matchesPathfinder2eBestiaryFilters(candidate, 'ITEMS', filters), true)
+  assert.equal(matchesPathfinder2eItemFilters(candidate, filters), true)
 })
