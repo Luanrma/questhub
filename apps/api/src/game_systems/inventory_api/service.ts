@@ -44,7 +44,7 @@ export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: G
     id: entry.id,
     inventoryId: entry.inventoryId,
     quantity: entry.quantity,
-    slotIndex: entry.slotIndex,
+    slotIndex: inBackpack ? entry.slotIndex : -1,
     inBackpack,
     catalogNamespace: entry.catalogNamespace,
     catalogContentId: entry.catalogContentId,
