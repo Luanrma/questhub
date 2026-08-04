@@ -14,10 +14,11 @@ O inventário agnóstico é responsável somente por:
 - preservar os dados originais do catálogo em `InventoryEntry.data`;
 - persistir estado operacional neutro em `InventoryEntry.state`;
 - manter quantidade e posição visual;
+- representar como `slotIndex = null` qualquer item pertencente ao ator que esteja fora da grade;
 - aplicar uma política de empilhamento fornecida pelo Game System;
 - renderizar uma chave genérica de ícone fornecida pelo Game System.
 
-O inventário genérico não conhece mãos, armaduras, slots corporais, proficiências ou Classe de Armadura.
+O inventário genérico não conhece mãos, armaduras, slots corporais, proficiências, modos `HELD/WORN` ou Classe de Armadura.
 
 ### Módulo Pathfinder 2e
 
@@ -53,28 +54,30 @@ Valores aceitos:
 
 Uma entrada com estado operacional representa uma única unidade. O banco aplica a regra `state IS NULL OR quantity = 1`.
 
-## Mochila e equipamento
+## Grade e equipamento
 
 `InventoryEntry` continua sendo a única instância persistida do item. Equipar não duplica, transfere ou remove o item do inventário do ator.
 
-A posição diferencia onde ele aparece:
+A posição visual é neutra:
 
-- `slotIndex >= 0`: posição visual ocupada na mochila;
-- `slotIndex < 0`: posição interna reservada para um item em uso.
+- `slotIndex` numérico e não negativo: o item ocupa uma posição na grade;
+- `slotIndex = null`: o item pertence ao ator, mas está fora da grade.
+
+O significado de estar segurado ou vestido permanece exclusivamente em `InventoryEntry.state` e é interpretado pelo Pathfinder. O inventário genérico não deduz uma regra de jogo a partir do valor de `slotIndex`.
 
 Ao equipar ou segurar:
 
-1. o item recebe `HELD` ou `WORN`;
-2. ele recebe uma posição interna negativa;
+1. o módulo Pathfinder atribui `HELD` ou `WORN`;
+2. a entrada recebe `slotIndex = null`;
 3. deixa de consumir um slot visual da mochila.
 
 Ao guardar:
 
-1. o item recebe `STOWED`;
-2. retorna ao primeiro slot não negativo disponível;
+1. o módulo Pathfinder atribui `STOWED`;
+2. a entrada recebe o primeiro slot não negativo disponível;
 3. reaparece na grade da mochila.
 
-A mudança de estado e posição acontece na mesma transação. A migration `20260803235000_move_equipped_items_outside_backpack` corrige os equipamentos criados antes dessa regra.
+A mudança de estado e posição acontece na mesma transação. A migration `20260804180000_use_nullable_inventory_slots` converte posições internas negativas criadas pela implementação anterior para `NULL` sem reescrever a migration já publicada.
 
 ## Interpretação de uso
 
@@ -127,7 +130,7 @@ O frontend associa essa chave a ícones visuais para:
 - kit;
 - equipamento geral.
 
-O ícone de caixa é usado somente quando não há imagem nem categoria de ícone reconhecida.
+A imagem original do catálogo tem prioridade. O ícone por categoria é usado quando ela não existe ou falha, e o ícone de caixa é o último fallback.
 
 ## Fichas dos itens
 
@@ -211,7 +214,7 @@ Corpo:
 
 Quando existem conflitos e `resolveConflicts` é falso, a API responde `409` e lista as entradas que precisam ser guardadas.
 
-## Interface
+## Interface e composição
 
 O painel visual apresenta:
 
@@ -224,7 +227,13 @@ O painel visual apresenta:
 - avisos de proficiência e dados ausentes;
 - confirmação antes de substituir itens conflitantes.
 
-A integração com o inventário acontece pela ponte `apps/web/src/game-systems/equipment-renderers.tsx`, preservando o modal genérico como host de renderizadores de Game System.
+A integração com o inventário acontece pela ponte `apps/web/src/game-systems/equipment-renderers.tsx`. Essa ponte resolve o `GameSystemKey` da campanha e seleciona um único renderer em um registry indexado pelo sistema. O modal genérico nunca monta todos os sistemas simultaneamente e não conhece o Pathfinder.
+
+O script `scripts/check-game-system-boundaries.mjs` e o teste `web-equipment-registry.test.ts` impedem que o registry volte a ser uma lista incondicional.
+
+## Filtros do catálogo
+
+Os filtros de itens pertencem ao módulo `content_catalog/item-filter.ts`. O filtro de bestiário mantém apenas suas próprias regras e delega para o módulo de itens por compatibilidade com o provider atual.
 
 ## Fora do escopo inicial
 
