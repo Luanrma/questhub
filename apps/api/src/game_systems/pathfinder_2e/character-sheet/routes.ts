@@ -46,6 +46,7 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
       updatedAt: true,
       actor: {
         select: {
+          id: true,
           name: true,
           avatarUrl: true,
           bio: true,
@@ -167,6 +168,7 @@ export function registerPathfinder2eCharacterSheetRoutes(
     return reply.send({
       metadata: {
         id: sheet.id,
+        actorId: sheet.actor.id,
         name: sheet.actor.name,
         avatarUrl: sheet.actor.avatarUrl,
         bio: sheet.actor.bio,
