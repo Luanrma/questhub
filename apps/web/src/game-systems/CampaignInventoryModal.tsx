@@ -137,7 +137,7 @@ export function CampaignInventoryModal({
     [actorsData, selectedActorId],
   )
   const backpackEntries = useMemo(
-    () => (inventory?.entries ?? []).filter((entry) => entry.slotIndex >= 0),
+    () => (inventory?.entries ?? []).filter((entry) => entry.slotIndex !== null),
     [inventory?.entries],
   )
 
@@ -245,7 +245,7 @@ export function CampaignInventoryModal({
   async function moveEntry(entryId: string, slotIndex: number) {
     if (!selectedActorId || !inventory || movingEntryId) return
     const source = inventory.entries.find((entry) => entry.id === entryId)
-    if (!source || source.slotIndex < 0 || source.slotIndex === slotIndex) return
+    if (!source || source.slotIndex === null || source.slotIndex === slotIndex) return
 
     const previousEntries = inventory.entries
     setMovingEntryId(entryId)
