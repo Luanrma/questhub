@@ -19,12 +19,13 @@ import {
   inventoryGridColumns,
   inventoryGridPageRows,
   inventoryPageSlotIndexes,
+  type SlottedInventoryEntry,
 } from '../domain/inventoryGrid'
 
 export type InventoryGridEntry = {
   id: string
   quantity: number
-  slotIndex: number
+  slotIndex: number | null
   catalogNamespace: string | null
   catalogContentId: string | null
   presentation: {
@@ -33,6 +34,8 @@ export type InventoryGridEntry = {
     iconKey?: string | null
   } | null
 }
+
+type SlottedInventoryGridEntry = InventoryGridEntry & SlottedInventoryEntry
 
 type Props = {
   entries: readonly InventoryGridEntry[]
@@ -92,6 +95,10 @@ function InventoryItemIcon({ entry }: { entry: InventoryGridEntry }) {
   return <InventoryItemFallbackIcon iconKey={entry.presentation?.iconKey} />
 }
 
+function isSlottedEntry(entry: InventoryGridEntry): entry is SlottedInventoryGridEntry {
+  return entry.slotIndex !== null
+}
+
 export function InventoryGrid({
   entries,
   movingEntryId,
@@ -101,7 +108,7 @@ export function InventoryGrid({
 }: Props) {
   const [pageIndex, setPageIndex] = useState(0)
   const backpackEntries = useMemo(
-    () => entries.filter((entry) => entry.slotIndex >= 0),
+    () => entries.filter(isSlottedEntry),
     [entries],
   )
   const slotMap = useMemo(() => entriesBySlot(backpackEntries), [backpackEntries])
