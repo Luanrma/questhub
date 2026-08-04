@@ -3,6 +3,7 @@ import { Pathfinder2eEquipmentPanel } from '../features/pathfinder-2e/equipment/
 type Props = {
   campaignId: string
   actorId: string
+  catalogSheetZIndex?: number
   onEquipmentChanged?: () => void
 }
 
@@ -14,6 +15,7 @@ export function GameSystemEquipmentPanels(props: Props) {
       key={`${props.actorId}:${index}`}
       campaignId={props.campaignId}
       actorId={props.actorId}
+      catalogSheetZIndex={props.catalogSheetZIndex}
       onEquipmentChanged={props.onEquipmentChanged}
     />
   ))
