@@ -13,7 +13,7 @@ export type InventoryEntryRecord = {
   id: string
   inventoryId: string
   quantity: number
-  slotIndex: number
+  slotIndex: number | null
   catalogNamespace: string | null
   catalogContentId: string | null
   data: Prisma.JsonValue
@@ -38,13 +38,13 @@ export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: G
         imageUrl: basePresentation.imageUrl ?? catalogImageUrl,
       }
     : null
-  const inBackpack = policy?.isBackpackItem?.(entry.state) ?? entry.slotIndex >= 0
+  const inBackpack = entry.slotIndex !== null
 
   return {
     id: entry.id,
     inventoryId: entry.inventoryId,
     quantity: entry.quantity,
-    slotIndex: inBackpack ? entry.slotIndex : -1,
+    slotIndex: entry.slotIndex ?? -1,
     inBackpack,
     catalogNamespace: entry.catalogNamespace,
     catalogContentId: entry.catalogContentId,
@@ -129,7 +129,11 @@ export async function addInventoryItem(input: {
       return { ok: true, entry, stacked: true } as const
     }
 
-    const occupiedSlots = new Set(existingEntries.map((entry) => entry.slotIndex))
+    const occupiedSlots = new Set(
+      existingEntries
+        .map((entry) => entry.slotIndex)
+        .filter((slotIndex): slotIndex is number => slotIndex !== null),
+    )
     let slotIndex = 0
     while (occupiedSlots.has(slotIndex)) slotIndex += 1
 
