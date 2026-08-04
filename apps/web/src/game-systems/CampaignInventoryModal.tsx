@@ -171,12 +171,13 @@ export function CampaignInventoryModal({
   }, [campaignId])
 
   useEffect(() => {
-    if (actorId) {
+    const directActorName = actorName?.trim()
+    if (actorId && directActorName) {
       setActorsData({
         role: readOnly ? 'PLAYER' : 'MASTER',
         actors: [{
           id: actorId,
-          name: actorName?.trim() || 'Personagem',
+          name: directActorName,
           avatarUrl: null,
           owner: null,
         }],
@@ -191,8 +192,17 @@ export function CampaignInventoryModal({
       signal: controller.signal,
     })
       .then((response) => {
-        setActorsData(response)
-        setSelectedActorId(response.actors[0]?.id ?? null)
+        const visibleActors = actorId
+          ? response.actors.filter((actor) => actor.id === actorId)
+          : response.actors
+        setActorsData({ ...response, actors: visibleActors })
+        setSelectedActorId(actorId ?? visibleActors[0]?.id ?? null)
+        if (actorId && visibleActors.length === 0) {
+          setActorsData({
+            ...response,
+            actors: [{ id: actorId, name: 'Personagem', avatarUrl: null, owner: null }],
+          })
+        }
       })
       .catch((cause) => {
         if (controller.signal.aborted) return
