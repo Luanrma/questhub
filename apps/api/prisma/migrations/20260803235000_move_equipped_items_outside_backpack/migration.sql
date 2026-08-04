@@ -1,3 +1,6 @@
+ALTER TABLE "InventoryEntry"
+DROP CONSTRAINT IF EXISTS "InventoryEntry_slotIndex_non_negative";
+
 WITH equipped_entries AS (
   SELECT
     "id",
