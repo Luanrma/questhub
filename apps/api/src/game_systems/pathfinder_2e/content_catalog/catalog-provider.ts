@@ -239,4 +239,12 @@ export const pathfinder2eCatalogProvider: GameSystemCatalogProvider = {
     )
     return entry?.original.contentId ?? null
   },
+
+  resolveInventoryItemImageUrl(contentId) {
+    const entry = PATHFINDER_2E_CONTENT_ENTRIES.find(
+      (candidate) => candidate.original.contentId === contentId
+        && candidate.original.domain === 'ITEM',
+    )
+    return entry ? resolveImageUrl(entry) : null
+  },
 }
