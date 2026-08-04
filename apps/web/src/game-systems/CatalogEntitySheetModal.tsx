@@ -58,6 +58,7 @@ type Props = {
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
   canManageTokens?: boolean
+  zIndex?: number
   onClose: () => void
 }
 
@@ -80,6 +81,7 @@ export function CatalogEntitySheetModal({
   domain,
   locale,
   canManageTokens = false,
+  zIndex = 120,
   onClose,
 }: Props) {
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
@@ -160,7 +162,8 @@ export function CatalogEntitySheetModal({
 
   return (
     <div
-      className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+      className="fixed inset-0 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+      style={{ zIndex }}
       role="dialog"
       aria-modal="true"
       aria-label={entry?.name ?? 'Ficha da entidade'}
