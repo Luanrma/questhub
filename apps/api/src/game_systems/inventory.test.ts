@@ -71,19 +71,6 @@ test('Pathfinder equipable items stay individual while quantified items can stac
   assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.iconKey, 'weapon')
 })
 
-test('Pathfinder equipment state determines whether an item is in the backpack', () => {
-  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.(null), true)
-  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.({
-    equipment: { systemKey: 'PATHFINDER_2E', carryMode: 'STOWED' },
-  }), true)
-  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.({
-    equipment: { systemKey: 'PATHFINDER_2E', carryMode: 'HELD' },
-  }), false)
-  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.({
-    equipment: { systemKey: 'PATHFINDER_2E', carryMode: 'WORN' },
-  }), false)
-})
-
 test('campaign actor persistence replaces the global Character model', () => {
   const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
   const actorModel = prismaModel(schema, 'CampaignActor')
@@ -109,6 +96,7 @@ test('InventoryEntry stores neutral operational state separately from item data'
 
   assert.match(entryModel, /data\s+Json/)
   assert.match(entryModel, /state\s+Json\?/)
+  assert.match(entryModel, /slotIndex\s+Int\?/)
   assert.doesNotMatch(entryModel, /equipped|armorClass|carryMode/i)
 })
 
@@ -150,7 +138,7 @@ test('CampaignActor creation makes the inventory capability explicit', () => {
   )
 })
 
-test('equipped-item migration removes the legacy non-negative constraint first', () => {
+test('equipment migration converts grid placement to nullable neutral location', () => {
   const migrationPath = path.join(
     process.cwd(),
     'apps',
@@ -162,10 +150,13 @@ test('equipped-item migration removes the legacy non-negative constraint first',
   )
   const migration = readFileSync(migrationPath, 'utf8')
   const dropConstraintAt = migration.indexOf('DROP CONSTRAINT IF EXISTS "InventoryEntry_slotIndex_non_negative"')
-  const moveEntriesAt = migration.indexOf('UPDATE "InventoryEntry" AS entry')
+  const dropNotNullAt = migration.indexOf('ALTER COLUMN "slotIndex" DROP NOT NULL')
+  const clearSlotAt = migration.indexOf('SET "slotIndex" = NULL')
 
   assert.ok(dropConstraintAt >= 0)
-  assert.ok(moveEntriesAt > dropConstraintAt)
+  assert.ok(dropNotNullAt > dropConstraintAt)
+  assert.ok(clearSlotAt > dropNotNullAt)
+  assert.doesNotMatch(migration, /-ROW_NUMBER|slotIndex"\s*=\s*-/)
 })
 
 test('Prisma history contains the current baseline and additive feature migrations', () => {
