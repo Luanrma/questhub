@@ -84,7 +84,7 @@ function InventoryItemIcon({ entry }: { entry: InventoryGridEntry }) {
         alt=""
         draggable={false}
         onError={() => setImageFailed(true)}
-        className="h-full w-full rounded object-contain"
+        className="h-12 w-12 max-h-[55%] max-w-[55%] rounded object-contain"
       />
     )
   }
