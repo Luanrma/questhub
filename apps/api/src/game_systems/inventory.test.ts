@@ -39,6 +39,15 @@ test('campaign actor persistence replaces the global Character model', () => {
   assert.match(sheetModel, /actorId\s+String\s+@unique/)
 })
 
+test('InventoryEntry stores neutral operational state separately from item data', () => {
+  const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
+  const entryModel = prismaModel(schema, 'InventoryEntry')
+
+  assert.match(entryModel, /data\s+Json/)
+  assert.match(entryModel, /state\s+Json\?/)
+  assert.doesNotMatch(entryModel, /equipped|armorClass|carryMode/i)
+})
+
 test('CampaignCharacterSheetEntry stays neutral across game systems', () => {
   const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
   const sheetModel = prismaModel(schema, 'CampaignCharacterSheet')
@@ -87,5 +96,6 @@ test('Prisma history contains the current baseline and additive feature migratio
   assert.deepEqual(migrationDirectories, [
     '20260729000000_initial',
     '20260731024500_add_campaign_character_sheet_entries',
+    '20260803000000_add_inventory_entry_state',
   ])
 })
