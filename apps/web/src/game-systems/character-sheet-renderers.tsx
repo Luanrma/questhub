@@ -24,6 +24,7 @@ const pathfinderPages: readonly CharacterSheetPageDescriptor[] = [
   { id: 'statistics', label: 'Atributos e estados' },
   { id: 'skills', label: 'Perícias' },
   { id: 'spells', label: 'Magias' },
+  { id: 'inventory', label: 'Inventário' },
   { id: 'notes', label: 'Anotações' },
 ]
 
