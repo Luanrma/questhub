@@ -15,7 +15,7 @@ test('master can read and mutate any actor inventory', () => {
   assert.equal(canMutateActorInventory('MASTER'), true)
 })
 
-test('player reads only the inventory of a linked token whose actor they control', () => {
+test('player reads the inventory of any actor assigned to them, with or without a token', () => {
   assert.equal(canReadActorInventory({
     role: 'PLAYER',
     memberId: 'player-member',
@@ -27,7 +27,7 @@ test('player reads only the inventory of a linked token whose actor they control
     memberId: 'player-member',
     controllerMemberId: 'player-member',
     hasLinkedToken: false,
-  }), false)
+  }), true)
   assert.equal(canReadActorInventory({
     role: 'PLAYER',
     memberId: 'player-member',
