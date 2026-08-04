@@ -38,12 +38,14 @@ export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: G
         imageUrl: basePresentation.imageUrl ?? catalogImageUrl,
       }
     : null
+  const inBackpack = policy?.isBackpackItem?.(entry.state) ?? entry.slotIndex >= 0
 
   return {
     id: entry.id,
     inventoryId: entry.inventoryId,
     quantity: entry.quantity,
     slotIndex: entry.slotIndex,
+    inBackpack,
     catalogNamespace: entry.catalogNamespace,
     catalogContentId: entry.catalogContentId,
     data: entry.data,
