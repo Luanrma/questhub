@@ -66,6 +66,7 @@ export const pathfinder2eInventoryPolicy: GameSystemInventoryPolicy = {
       name: data.name,
       subtitle: `${itemTypeLabels[data.itemType]} · Nível ${data.level}`,
       description: data.description,
+      iconKey: data.itemType,
       traits: data.traits,
       details,
     }
