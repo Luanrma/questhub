@@ -155,8 +155,9 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
       return reply.status(404).send({ error: 'Este ator não possui inventário' })
     }
 
+    const inventoryEntries = access.actor.inventory.entries
     const transition = transitionPathfinder2eEquipment({
-      entries: access.actor.inventory.entries,
+      entries: inventoryEntries,
       entryId: params.data.entryId,
       carryMode: body.data.carryMode,
       resolveConflicts: body.data.resolveConflicts,
@@ -170,10 +171,10 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
 
     await prisma.$transaction(async (tx) => {
       const entriesById = new Map(
-        access.actor!.inventory!.entries.map((entry) => [entry.id, entry] as const),
+        inventoryEntries.map((entry) => [entry.id, entry] as const),
       )
       const occupiedSlots = new Set(
-        access.actor!.inventory!.entries.map((entry) => entry.slotIndex),
+        inventoryEntries.map((entry) => entry.slotIndex),
       )
       const equipmentUpdates = transition.updates.filter(
         (update) => update.state.equipment.carryMode !== 'STOWED',
@@ -198,7 +199,7 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
             state: update.state as Prisma.InputJsonValue,
           },
         })
-        entriesById.set(update.entryId, { ...current, slotIndex, state: update.state })
+        entriesById.set(update.entryId, { ...current, slotIndex })
       }
 
       for (const update of backpackUpdates) {
@@ -217,7 +218,7 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
             state: update.state as Prisma.InputJsonValue,
           },
         })
-        entriesById.set(update.entryId, { ...current, slotIndex, state: update.state })
+        entriesById.set(update.entryId, { ...current, slotIndex })
       }
     })
 
