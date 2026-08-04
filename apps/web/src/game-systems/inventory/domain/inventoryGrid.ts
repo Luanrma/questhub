@@ -49,10 +49,11 @@ export function moveEntryOptimistically<T extends PositionedInventoryEntry>(
     return [...entries]
   }
 
+  const sourceSlotIndex = source.slotIndex
   const target = entries.find((entry) => entry.slotIndex === targetSlotIndex)
   return entries.map((entry) => {
     if (entry.id === source.id) return { ...entry, slotIndex: targetSlotIndex }
-    if (target && entry.id === target.id) return { ...entry, slotIndex: source.slotIndex }
+    if (target && entry.id === target.id) return { ...entry, slotIndex: sourceSlotIndex }
     return entry
   })
 }
