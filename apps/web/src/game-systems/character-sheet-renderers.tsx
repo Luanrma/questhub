@@ -7,6 +7,8 @@ export type CharacterSheetRendererProps = {
   sheetId: string
   activePage: string
   presentation: 'FULL' | 'SIMPLIFIED'
+  onRequestPageChange?: (pageId: string) => void
+  onRequestMinimize?: () => void
 }
 
 export type CharacterSheetPageDescriptor = {
