@@ -86,7 +86,7 @@ test('nullable slot is presented as an item outside the visual grid', () => {
   }, 'PATHFINDER_2E')
 
   assert.equal(presented.inBackpack, false)
-  assert.equal(presented.slotIndex, -1)
+  assert.equal(presented.slotIndex, null)
 })
 
 test('findStackableInventoryEntry delegates compatibility to game system policy', () => {
