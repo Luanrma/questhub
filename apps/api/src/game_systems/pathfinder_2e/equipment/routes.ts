@@ -4,7 +4,10 @@ import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
 import { canReadActorInventory } from '../../inventory_api/authorization'
-import { catalogTokenSheetSystemKey } from '../../catalog'
+import {
+  catalogTokenSheetSystemKey,
+  getGameSystemCatalogProvider,
+} from '../../catalog'
 import {
   buildPathfinder2eEquipmentView,
   transitionPathfinder2eEquipment,
@@ -85,22 +88,40 @@ async function findAccessibleActor(campaignId: string, actorId: string, userId: 
     : { actor: null, forbidden: true } as const
 }
 
-function equipmentView(actor: NonNullable<Awaited<ReturnType<typeof findAccessibleActor>>['actor']>) {
+async function equipmentView(
+  actor: NonNullable<Awaited<ReturnType<typeof findAccessibleActor>>['actor']>,
+) {
   const entries = actor.inventory?.entries ?? []
   const view = buildPathfinder2eEquipmentView(
     entries,
     resolvePathfinder2eStoredEquipmentSheet(actor.characterSheet?.data),
   )
-  const catalogContentIdByEntry = new Map(
-    entries.map((entry) => [entry.id, entry.catalogContentId] as const),
+  const provider = getGameSystemCatalogProvider('PATHFINDER_2E')
+  const catalogMetadataByEntry = new Map(
+    await Promise.all(entries.map(async (entry) => {
+      const imageUrl = entry.catalogContentId
+        ? await provider?.resolveInventoryItemImageUrl?.(entry.catalogContentId) ?? null
+        : null
+      return [
+        entry.id,
+        {
+          catalogContentId: entry.catalogContentId,
+          imageUrl,
+        },
+      ] as const
+    })),
   )
 
   return {
     ...view,
-    entries: view.entries.map((entry) => ({
-      ...entry,
-      catalogContentId: catalogContentIdByEntry.get(entry.entryId) ?? null,
-    })),
+    entries: view.entries.map((entry) => {
+      const catalogMetadata = catalogMetadataByEntry.get(entry.entryId)
+      return {
+        ...entry,
+        catalogContentId: catalogMetadata?.catalogContentId ?? null,
+        imageUrl: catalogMetadata?.imageUrl ?? null,
+      }
+    }),
   }
 }
 
@@ -126,7 +147,7 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
       return reply.status(404).send({ error: 'Este ator não possui inventário' })
     }
 
-    return reply.send({ equipment: equipmentView(access.actor) })
+    return reply.send({ equipment: await equipmentView(access.actor) })
   })
 
   app.patch('/api/campaigns/:campaignId/actors/:actorId/inventory/entries/:entryId/equipment/pathfinder-2e', async (req, reply) => {
@@ -231,6 +252,6 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
       return reply.status(404).send({ error: 'Ator Pathfinder não encontrado após a atualização' })
     }
 
-    return reply.send({ equipment: equipmentView(updated.actor) })
+    return reply.send({ equipment: await equipmentView(updated.actor) })
   })
 }
