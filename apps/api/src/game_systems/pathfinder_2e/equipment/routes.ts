@@ -9,6 +9,7 @@ import {
   buildPathfinder2eEquipmentView,
   transitionPathfinder2eEquipment,
 } from './domain'
+import { resolvePathfinder2eStoredEquipmentSheet } from './stored-sheet'
 
 const actorParamsSchema = z.object({
   campaignId: z.string().trim().min(1),
@@ -81,7 +82,7 @@ async function findAccessibleActor(campaignId: string, actorId: string, userId: 
 function equipmentView(actor: NonNullable<Awaited<ReturnType<typeof findAccessibleActor>>['actor']>) {
   return buildPathfinder2eEquipmentView(
     actor.inventory?.entries ?? [],
-    actor.characterSheet?.data,
+    resolvePathfinder2eStoredEquipmentSheet(actor.characterSheet?.data),
   )
 }
 
