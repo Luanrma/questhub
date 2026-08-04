@@ -316,7 +316,7 @@ export function derivePathfinder2eCharacterSheet(
     },
     movement: {
       valueMeters: movementMeters,
-      ancestryBaseFeet,
+      ancestryBaseFeet: ancestrySpeedFeet,
       manualOverride: manualMovement,
     },
     hitPoints: {
