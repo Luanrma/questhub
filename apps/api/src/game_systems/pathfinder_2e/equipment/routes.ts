@@ -9,6 +9,10 @@ import {
   buildPathfinder2eEquipmentView,
   transitionPathfinder2eEquipment,
 } from './domain'
+import {
+  firstAvailableBackpackSlot,
+  firstAvailableEquippedSlot,
+} from './slot-allocation'
 import { resolvePathfinder2eStoredEquipmentSheet } from './stored-sheet'
 
 const actorParamsSchema = z.object({
@@ -47,10 +51,12 @@ async function findAccessibleActor(campaignId: string, actorId: string, userId: 
             select: {
               id: true,
               quantity: true,
+              slotIndex: true,
+              catalogContentId: true,
               data: true,
               state: true,
             },
-            orderBy: { slotIndex: 'asc' },
+            orderBy: [{ slotIndex: 'asc' }, { createdAt: 'asc' }],
           },
         },
       },
@@ -80,10 +86,22 @@ async function findAccessibleActor(campaignId: string, actorId: string, userId: 
 }
 
 function equipmentView(actor: NonNullable<Awaited<ReturnType<typeof findAccessibleActor>>['actor']>) {
-  return buildPathfinder2eEquipmentView(
-    actor.inventory?.entries ?? [],
+  const entries = actor.inventory?.entries ?? []
+  const view = buildPathfinder2eEquipmentView(
+    entries,
     resolvePathfinder2eStoredEquipmentSheet(actor.characterSheet?.data),
   )
+  const catalogContentIdByEntry = new Map(
+    entries.map((entry) => [entry.id, entry.catalogContentId] as const),
+  )
+
+  return {
+    ...view,
+    entries: view.entries.map((entry) => ({
+      ...entry,
+      catalogContentId: catalogContentIdByEntry.get(entry.entryId) ?? null,
+    })),
+  }
 }
 
 export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
@@ -151,11 +169,55 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
     }
 
     await prisma.$transaction(async (tx) => {
-      for (const update of transition.updates) {
+      const entriesById = new Map(
+        access.actor!.inventory!.entries.map((entry) => [entry.id, entry] as const),
+      )
+      const occupiedSlots = new Set(
+        access.actor!.inventory!.entries.map((entry) => entry.slotIndex),
+      )
+      const equipmentUpdates = transition.updates.filter(
+        (update) => update.state.equipment.carryMode !== 'STOWED',
+      )
+      const backpackUpdates = transition.updates.filter(
+        (update) => update.state.equipment.carryMode === 'STOWED',
+      )
+
+      for (const update of equipmentUpdates) {
+        const current = entriesById.get(update.entryId)
+        if (!current) continue
+        occupiedSlots.delete(current.slotIndex)
+        const slotIndex = current.slotIndex < 0
+          ? current.slotIndex
+          : firstAvailableEquippedSlot(occupiedSlots)
+        occupiedSlots.add(slotIndex)
+
         await tx.inventoryEntry.update({
           where: { id: update.entryId },
-          data: { state: update.state as Prisma.InputJsonValue },
+          data: {
+            slotIndex,
+            state: update.state as Prisma.InputJsonValue,
+          },
         })
+        entriesById.set(update.entryId, { ...current, slotIndex, state: update.state })
+      }
+
+      for (const update of backpackUpdates) {
+        const current = entriesById.get(update.entryId)
+        if (!current) continue
+        occupiedSlots.delete(current.slotIndex)
+        const slotIndex = current.slotIndex >= 0
+          ? current.slotIndex
+          : firstAvailableBackpackSlot(occupiedSlots)
+        occupiedSlots.add(slotIndex)
+
+        await tx.inventoryEntry.update({
+          where: { id: update.entryId },
+          data: {
+            slotIndex,
+            state: update.state as Prisma.InputJsonValue,
+          },
+        })
+        entriesById.set(update.entryId, { ...current, slotIndex, state: update.state })
       }
     })
 
