@@ -20,6 +20,16 @@ function isPathfinder2eItemData(value: unknown): value is Pathfinder2eItemData {
   return typeof data.name === 'string' && typeof data.itemType === 'string'
 }
 
+function canItemTypeStack(item: Pathfinder2eItemData) {
+  if (item.itemType === 'ammunition' || item.itemType === 'consumable' || item.itemType === 'treasure') {
+    return true
+  }
+  if (item.itemType !== 'equipment') return false
+
+  const usage = item.usage.trim().toLowerCase()
+  return !usage.startsWith('held') && !usage.startsWith('worn')
+}
+
 function formatPrice(price: Pathfinder2eItemData['price']) {
   const parts = [
     price.gp ? `${price.gp} po` : null,
@@ -32,7 +42,12 @@ function formatPrice(price: Pathfinder2eItemData['price']) {
 
 export const pathfinder2eInventoryPolicy: GameSystemInventoryPolicy = {
   canStack(existingData, incomingData) {
-    return isDeepStrictEqual(existingData, incomingData)
+    if (!isPathfinder2eItemData(existingData) || !isPathfinder2eItemData(incomingData)) {
+      return false
+    }
+    return canItemTypeStack(existingData)
+      && canItemTypeStack(incomingData)
+      && isDeepStrictEqual(existingData, incomingData)
   },
 
   present(data) {
