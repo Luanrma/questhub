@@ -6,10 +6,29 @@ import {
   getGameSystemInventoryPolicy,
   registerGameSystemInventoryPolicy,
 } from './inventory'
+import type { Pathfinder2eItemData } from './pathfinder_2e/content_catalog/items/types'
 import { pathfinder2eInventoryPolicy } from './pathfinder_2e/inventory/policy'
 
 function prismaModel(schema: string, modelName: string) {
   return schema.match(new RegExp(`model ${modelName} \\{([\\s\\S]*?)\\n\\}`))?.[1] ?? ''
+}
+
+function pathfinderItem(overrides: Partial<Pathfinder2eItemData>): Pathfinder2eItemData {
+  return {
+    schemaVersion: 1,
+    name: 'Item',
+    itemType: 'equipment',
+    level: 0,
+    rarity: 'common',
+    traits: [],
+    description: '',
+    bulk: 0,
+    price: {},
+    usage: 'carried',
+    category: 'adventuring-gear',
+    group: 'gear',
+    ...overrides,
+  }
 }
 
 test('a game system can register an inventory policy', () => {
@@ -18,6 +37,37 @@ test('a game system can register an inventory policy', () => {
   registerGameSystemInventoryPolicy('PATHFINDER_2E', pathfinder2eInventoryPolicy)
 
   assert.equal(getGameSystemInventoryPolicy('PATHFINDER_2E'), pathfinder2eInventoryPolicy)
+})
+
+test('Pathfinder equipable items stay individual while quantified items can stack', () => {
+  const sword = pathfinderItem({
+    name: 'Longsword',
+    itemType: 'weapon',
+    usage: 'held-in-one-hand',
+    category: 'martial',
+    group: 'sword',
+    damage: { dice: 1, die: 'd8', type: 'slashing' },
+  })
+  const helmet = pathfinderItem({
+    name: 'Helmet',
+    usage: 'worn-headwear',
+  })
+  const arrows = pathfinderItem({
+    name: 'Arrows',
+    itemType: 'ammunition',
+    usage: 'carried',
+    category: 'ammunition',
+    group: 'arrow',
+  })
+  const ration = pathfinderItem({
+    name: 'Ration',
+    usage: 'carried',
+  })
+
+  assert.equal(pathfinder2eInventoryPolicy.canStack(sword, { ...sword }), false)
+  assert.equal(pathfinder2eInventoryPolicy.canStack(helmet, { ...helmet }), false)
+  assert.equal(pathfinder2eInventoryPolicy.canStack(arrows, { ...arrows }), true)
+  assert.equal(pathfinder2eInventoryPolicy.canStack(ration, { ...ration }), true)
 })
 
 test('campaign actor persistence replaces the global Character model', () => {
