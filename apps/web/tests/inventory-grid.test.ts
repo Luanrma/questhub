@@ -45,3 +45,15 @@ test('dropping an entry over another swaps their slots', () => {
 test('unsafe slot indexes are ignored by optimistic movement', () => {
   assert.deepEqual(moveEntryOptimistically(entries, 'entry-a', Number.MAX_VALUE), entries)
 })
+
+test('entries outside the grid cannot be moved optimistically', () => {
+  const unslottedEntries = [
+    { id: 'equipped', slotIndex: null },
+    { id: 'stored', slotIndex: 0 },
+  ]
+
+  assert.deepEqual(
+    moveEntryOptimistically(unslottedEntries, 'equipped', 1),
+    unslottedEntries,
+  )
+})
