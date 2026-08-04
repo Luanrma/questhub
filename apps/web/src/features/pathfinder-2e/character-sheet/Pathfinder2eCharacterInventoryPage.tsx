@@ -15,6 +15,7 @@ type InventoryActorsResponse = {
 
 export function Pathfinder2eCharacterInventoryPage({ campaignId, sheetId }: Props) {
   const [actorId, setActorId] = useState<string | null>(null)
+  const [actorName, setActorName] = useState('Personagem')
   const [readOnly, setReadOnly] = useState(true)
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -39,6 +40,7 @@ export function Pathfinder2eCharacterInventoryPage({ campaignId, sheetId }: Prop
       .then(([sheetResponse, inventoryAccess]) => {
         if (controller.signal.aborted) return
         setActorId(sheetResponse.metadata.actorId)
+        setActorName(sheetResponse.metadata.name)
         setReadOnly(inventoryAccess.role !== 'MASTER')
         if (!openedAutomatically.current) {
           openedAutomatically.current = true
@@ -92,6 +94,7 @@ export function Pathfinder2eCharacterInventoryPage({ campaignId, sheetId }: Prop
         <CampaignInventoryModal
           campaignId={campaignId}
           actorId={actorId}
+          actorName={actorName}
           readOnly={readOnly}
           zIndex={200}
           onClose={() => setOpen(false)}
