@@ -134,6 +134,11 @@ export function Pathfinder2eEquipmentPanel({
     entry.currentMode === 'STOWED' && entry.actions.length > 0
   )) ?? []
 
+  function openItemSheet(entry: EquipmentEntry) {
+    if (!entry.catalogContentId) return
+    setSelectedContentId(entry.catalogContentId)
+  }
+
   async function changeMode(entry: EquipmentEntry, carryMode: CarryMode) {
     if (updatingEntryId) return
     const action = carryMode === 'STOWED'
@@ -268,7 +273,7 @@ export function Pathfinder2eEquipmentPanel({
                           <button
                             type="button"
                             className="inline-flex items-center gap-1 rounded-md border border-white/10 px-2 py-1 text-[11px] text-zinc-200 transition hover:bg-white/10"
-                            onClick={() => setSelectedContentId(entry.catalogContentId)}
+                            onClick={() => openItemSheet(entry)}
                           >
                             <BookOpen className="h-3.5 w-3.5" /> Ficha
                           </button>
@@ -310,7 +315,7 @@ export function Pathfinder2eEquipmentPanel({
                           <button
                             type="button"
                             className="inline-flex items-center gap-1 rounded-md border border-white/10 px-2.5 py-1.5 text-xs font-semibold text-zinc-200 transition hover:bg-white/10"
-                            onClick={() => setSelectedContentId(entry.catalogContentId)}
+                            onClick={() => openItemSheet(entry)}
                           >
                             <BookOpen className="h-3.5 w-3.5" /> Ficha
                           </button>
