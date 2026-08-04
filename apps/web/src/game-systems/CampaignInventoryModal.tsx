@@ -113,6 +113,7 @@ export function CampaignInventoryModal({
   const [inventory, setInventory] = useState<InventoryResponse | null>(null)
   const [loadingActors, setLoadingActors] = useState(true)
   const [loadedInventoryActorId, setLoadedInventoryActorId] = useState<string | null>(null)
+  const [inventoryRevision, setInventoryRevision] = useState(0)
   const [movingEntryId, setMovingEntryId] = useState<string | null>(null)
   const [updatingEntryId, setUpdatingEntryId] = useState<string | null>(null)
   const [sheetEntry, setSheetEntry] = useState<InventoryEntry | null>(null)
@@ -207,7 +208,12 @@ export function CampaignInventoryModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, selectedActorId])
+  }, [campaignId, inventoryRevision, selectedActorId])
+
+  function refreshInventory() {
+    setLoadedInventoryActorId(null)
+    setInventoryRevision((current) => current + 1)
+  }
 
   async function moveEntry(entryId: string, slotIndex: number) {
     if (!selectedActorId || !inventory || movingEntryId) return
@@ -443,6 +449,7 @@ export function CampaignInventoryModal({
                   key={selectedActorId}
                   campaignId={campaignId}
                   actorId={selectedActorId}
+                  onEquipmentChanged={refreshInventory}
                 />
               ) : null}
 
