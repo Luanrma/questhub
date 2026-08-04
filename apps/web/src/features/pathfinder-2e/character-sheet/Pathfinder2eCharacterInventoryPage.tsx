@@ -7,13 +7,20 @@ import type { Pathfinder2eCharacterSheetResponse } from './types'
 type Props = {
   campaignId: string
   sheetId: string
+  onRequestPageChange?: (pageId: string) => void
+  onRequestMinimize?: () => void
 }
 
 type InventoryActorsResponse = {
   role: 'MASTER' | 'PLAYER'
 }
 
-export function Pathfinder2eCharacterInventoryPage({ campaignId, sheetId }: Props) {
+export function Pathfinder2eCharacterInventoryPage({
+  campaignId,
+  sheetId,
+  onRequestPageChange,
+  onRequestMinimize,
+}: Props) {
   const [actorId, setActorId] = useState<string | null>(null)
   const [actorName, setActorName] = useState('Personagem')
   const [readOnly, setReadOnly] = useState(true)
@@ -58,6 +65,36 @@ export function Pathfinder2eCharacterInventoryPage({ campaignId, sheetId }: Prop
     return () => controller.abort()
   }, [campaignId, sheetId])
 
+  function leaveInventoryPage() {
+    setOpen(false)
+    onRequestPageChange?.('identity')
+  }
+
+  function minimizeFromInventory() {
+    setOpen(false)
+    onRequestPageChange?.('identity')
+    queueMicrotask(() => onRequestMinimize?.())
+  }
+
+  useEffect(() => {
+    if (!open || !onRequestMinimize) return
+
+    function interceptInventoryMinimize(event: MouseEvent) {
+      const target = event.target
+      if (!(target instanceof Element)) return
+      const button = target.closest('button[title="Minimizar inventário"]')
+      if (!button) return
+
+      event.preventDefault()
+      event.stopPropagation()
+      event.stopImmediatePropagation()
+      minimizeFromInventory()
+    }
+
+    document.addEventListener('click', interceptInventoryMinimize, true)
+    return () => document.removeEventListener('click', interceptInventoryMinimize, true)
+  }, [open, onRequestMinimize])
+
   return (
     <section className="rounded-xl border border-indigo-300/20 bg-indigo-500/[0.08] p-5">
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -97,7 +134,7 @@ export function Pathfinder2eCharacterInventoryPage({ campaignId, sheetId }: Prop
           actorName={actorName}
           readOnly={readOnly}
           zIndex={200}
-          onClose={() => setOpen(false)}
+          onClose={leaveInventoryPage}
         />
       ) : null}
     </section>
