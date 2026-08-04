@@ -69,6 +69,7 @@ type SlotUpdateResponse = {
 type Props = {
   campaignId: string
   actorId?: string
+  actorName?: string
   readOnly?: boolean
   zIndex?: number
   onClose: () => void
@@ -107,6 +108,7 @@ function mergeUpdatedEntries(
 export function CampaignInventoryModal({
   campaignId,
   actorId,
+  actorName,
   readOnly = false,
   zIndex = 100,
   onClose,
@@ -169,20 +171,28 @@ export function CampaignInventoryModal({
   }, [campaignId])
 
   useEffect(() => {
-    const controller = new AbortController()
+    if (actorId) {
+      setActorsData({
+        role: readOnly ? 'PLAYER' : 'MASTER',
+        actors: [{
+          id: actorId,
+          name: actorName?.trim() || 'Personagem',
+          avatarUrl: null,
+          owner: null,
+        }],
+      })
+      setSelectedActorId(actorId)
+      setLoadingActors(false)
+      return
+    }
 
+    const controller = new AbortController()
     api<InventoryActorsResponse>(`/api/campaigns/${campaignId}/inventory/actors`, {
       signal: controller.signal,
     })
       .then((response) => {
-        const visibleActors = actorId
-          ? response.actors.filter((actor) => actor.id === actorId)
-          : response.actors
-        setActorsData({ ...response, actors: visibleActors })
-        setSelectedActorId(actorId ?? visibleActors[0]?.id ?? null)
-        if (actorId && visibleActors.length === 0) {
-          setError('Este Token não possui um ator sob seu controle.')
-        }
+        setActorsData(response)
+        setSelectedActorId(response.actors[0]?.id ?? null)
       })
       .catch((cause) => {
         if (controller.signal.aborted) return
@@ -193,7 +203,7 @@ export function CampaignInventoryModal({
       })
 
     return () => controller.abort()
-  }, [actorId, campaignId])
+  }, [actorId, actorName, campaignId, readOnly])
 
   useEffect(() => {
     if (!selectedActorId) return
@@ -338,7 +348,7 @@ export function CampaignInventoryModal({
       <FloatingInventoryBackpack
         campaignId={campaignId}
         actorId={selectedActorId}
-        actorName={selectedActor?.name ?? 'Token'}
+        actorName={selectedActor?.name ?? 'Personagem'}
         onRestore={() => setMinimized(false)}
       />,
       portalTarget,
@@ -370,10 +380,10 @@ export function CampaignInventoryModal({
                 <h1 className="truncate text-lg font-semibold">{directActorMode ? 'Inventário' : 'Inventários'}</h1>
                 <p className="truncate text-xs text-zinc-400">
                   {directActorMode && readOnly
-                    ? 'Organize os equipamentos e consulte os itens do Token controlado'
+                    ? 'Organize os equipamentos e consulte os itens deste personagem'
                     : actorsData?.role === 'MASTER'
                       ? 'Gerencie inventários e equipamentos da campanha'
-                      : 'Organize os itens e equipamentos dos Tokens sob seu controle'}
+                      : 'Organize os itens e equipamentos dos personagens sob seu controle'}
                 </p>
               </div>
             </div>
