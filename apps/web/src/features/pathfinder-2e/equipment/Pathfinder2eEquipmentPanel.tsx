@@ -29,6 +29,7 @@ type EquipmentEntry = {
   requiredHands: number
   usageKey: string | null
   catalogContentId: string | null
+  imageUrl: string | null
   actions: EquipmentAction[]
   warnings: string[]
 }
@@ -83,11 +84,35 @@ const categoryLabels = {
   heavy: 'Armadura pesada',
 } satisfies Record<NonNullable<EquipmentView['armorClass']>['category'], string>
 
-function entryIcon(entry: EquipmentEntry) {
-  if (entry.itemType === 'armor') return <Shield className="h-4 w-4" />
-  if (entry.currentMode === 'WORN') return <Shirt className="h-4 w-4" />
-  if (entry.itemType === 'weapon' || entry.itemType === 'shield') return <Swords className="h-4 w-4" />
-  return <Backpack className="h-4 w-4" />
+function fallbackEntryIcon(entry: EquipmentEntry) {
+  if (entry.itemType === 'armor') return <Shield className="h-5 w-5" />
+  if (entry.currentMode === 'WORN') return <Shirt className="h-5 w-5" />
+  if (entry.itemType === 'weapon' || entry.itemType === 'shield') return <Swords className="h-5 w-5" />
+  return <Backpack className="h-5 w-5" />
+}
+
+function EquipmentEntryVisual({ entry }: { entry: EquipmentEntry }) {
+  const [imageFailed, setImageFailed] = useState(false)
+
+  useEffect(() => setImageFailed(false), [entry.imageUrl])
+
+  if (entry.imageUrl && !imageFailed) {
+    return (
+      <img
+        src={entry.imageUrl}
+        alt=""
+        draggable={false}
+        onError={() => setImageFailed(true)}
+        className="h-10 w-10 shrink-0 rounded-lg border border-white/10 bg-black/25 object-contain p-0.5"
+      />
+    )
+  }
+
+  return (
+    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-white/10 bg-black/20 text-current">
+      {fallbackEntryIcon(entry)}
+    </span>
+  )
 }
 
 export function Pathfinder2eEquipmentPanel({
@@ -256,12 +281,10 @@ export function Pathfinder2eEquipmentPanel({
                 <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                   {equippedEntries.map((entry) => (
                     <article key={entry.entryId} className="rounded-xl border border-emerald-300/20 bg-emerald-500/10 p-3">
-                      <div className="flex items-start gap-3">
+                      <div className="flex items-start gap-3 text-emerald-100">
+                        <EquipmentEntryVisual entry={entry} />
                         <div className="min-w-0 flex-1">
-                          <div className="flex items-center gap-2 text-emerald-100">
-                            {entryIcon(entry)}
-                            <span className="truncate text-sm font-semibold">{entry.name}</span>
-                          </div>
+                          <div className="truncate text-sm font-semibold">{entry.name}</div>
                           <div className="mt-1 text-[10px] uppercase tracking-wide text-emerald-100/55">
                             {modeLabels[entry.currentMode]}
                             {entry.requiredHands ? ` · ${entry.requiredHands} mão${entry.requiredHands > 1 ? 's' : ''}` : ''}
@@ -306,9 +329,9 @@ export function Pathfinder2eEquipmentPanel({
                 <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                   {availableEntries.map((entry) => (
                     <article key={entry.entryId} className="rounded-xl border border-white/10 bg-black/20 p-3">
-                      <div className="flex items-center gap-2 text-zinc-100">
-                        {entryIcon(entry)}
-                        <span className="truncate text-sm font-semibold">{entry.name}</span>
+                      <div className="flex items-center gap-3 text-zinc-100">
+                        <EquipmentEntryVisual entry={entry} />
+                        <span className="min-w-0 flex-1 truncate text-sm font-semibold">{entry.name}</span>
                       </div>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {entry.catalogContentId ? (
