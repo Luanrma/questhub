@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Backpack,
   ChevronLeft,
@@ -69,6 +69,27 @@ function InventoryItemFallbackIcon({ iconKey }: { iconKey?: string | null }) {
     default:
       return <Package className={className} />
   }
+}
+
+function InventoryItemIcon({ entry }: { entry: InventoryGridEntry }) {
+  const imageUrl = entry.presentation?.imageUrl ?? null
+  const [imageFailed, setImageFailed] = useState(false)
+
+  useEffect(() => setImageFailed(false), [imageUrl])
+
+  if (imageUrl && !imageFailed) {
+    return (
+      <img
+        src={imageUrl}
+        alt=""
+        draggable={false}
+        onError={() => setImageFailed(true)}
+        className="h-full w-full rounded object-contain"
+      />
+    )
+  }
+
+  return <InventoryItemFallbackIcon iconKey={entry.presentation?.iconKey} />
 }
 
 export function InventoryGrid({
@@ -182,16 +203,7 @@ export function InventoryGrid({
                   if (entryId) onMove(entryId, slotIndex)
                 }}
               >
-                {entry.presentation?.imageUrl ? (
-                  <img
-                    src={entry.presentation.imageUrl}
-                    alt=""
-                    draggable={false}
-                    className="h-full w-full rounded object-contain"
-                  />
-                ) : (
-                  <InventoryItemFallbackIcon iconKey={entry.presentation?.iconKey} />
-                )}
+                <InventoryItemIcon entry={entry} />
                 {entry.quantity > 1 ? (
                   <span className="absolute bottom-1 right-1 min-w-5 rounded bg-black/80 px-1 text-center text-[10px] font-bold text-white shadow">
                     {entry.quantity}
