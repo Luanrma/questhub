@@ -169,3 +169,21 @@ test('Pathfinder ignores unknown opaque filters and supports the provider-owned 
     true,
   )
 })
+
+test('Pathfinder resolves the original catalog icon for existing inventory items', async () => {
+  const itemWithIcon = PATHFINDER_2E_CONTENT_ENTRIES.find((entry) => (
+    entry.original.domain === 'ITEM'
+    && entry.original.image?.path?.startsWith('/api/game-systems/pathfinder-2e/icons/')
+  ))
+  assert.ok(itemWithIcon)
+
+  const resolvedImageUrl = await pathfinder2eCatalogProvider.resolveInventoryItemImageUrl?.(
+    itemWithIcon.original.contentId,
+  )
+
+  assert.equal(resolvedImageUrl, itemWithIcon.original.image?.path)
+  assert.equal(
+    await pathfinder2eCatalogProvider.resolveInventoryItemImageUrl?.('unknown-item'),
+    null,
+  )
+})
