@@ -82,6 +82,21 @@ test('findStackableInventoryEntry delegates compatibility to game system policy'
   )
 })
 
+test('findStackableInventoryEntry ignores entries with operational state', () => {
+  const entries = [
+    {
+      id: 'equipped-sword',
+      data: { name: 'Sword' },
+      state: { equipment: { carryMode: 'HELD' } },
+    },
+  ]
+
+  assert.equal(
+    findStackableInventoryEntry(entries, { name: 'Sword' }, deepNamePolicy, true),
+    null,
+  )
+})
+
 test('findStackableInventoryEntry does not group without policy or when disabled', () => {
   const entries = [{ id: 'entry-1', data: { name: 'Arrows' } }]
 
