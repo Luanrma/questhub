@@ -12,10 +12,7 @@ import {
   buildPathfinder2eEquipmentView,
   transitionPathfinder2eEquipment,
 } from './domain'
-import {
-  firstAvailableBackpackSlot,
-  firstAvailableEquippedSlot,
-} from './slot-allocation'
+import { firstAvailableBackpackSlot } from './slot-allocation'
 import { resolvePathfinder2eStoredEquipmentSheet } from './stored-sheet'
 
 const actorParamsSchema = z.object({
@@ -195,7 +192,9 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
         inventoryEntries.map((entry) => [entry.id, entry] as const),
       )
       const occupiedSlots = new Set(
-        inventoryEntries.map((entry) => entry.slotIndex),
+        inventoryEntries
+          .map((entry) => entry.slotIndex)
+          .filter((slotIndex): slotIndex is number => slotIndex !== null),
       )
       const equipmentUpdates = transition.updates.filter(
         (update) => update.state.equipment.carryMode !== 'STOWED',
@@ -207,29 +206,24 @@ export function registerPathfinder2eEquipmentRoutes(app: FastifyInstance) {
       for (const update of equipmentUpdates) {
         const current = entriesById.get(update.entryId)
         if (!current) continue
-        occupiedSlots.delete(current.slotIndex)
-        const slotIndex = current.slotIndex < 0
-          ? current.slotIndex
-          : firstAvailableEquippedSlot(occupiedSlots)
-        occupiedSlots.add(slotIndex)
+        if (current.slotIndex !== null) occupiedSlots.delete(current.slotIndex)
 
         await tx.inventoryEntry.update({
           where: { id: update.entryId },
           data: {
-            slotIndex,
+            slotIndex: null,
             state: update.state as Prisma.InputJsonValue,
           },
         })
-        entriesById.set(update.entryId, { ...current, slotIndex })
+        entriesById.set(update.entryId, { ...current, slotIndex: null })
       }
 
       for (const update of backpackUpdates) {
         const current = entriesById.get(update.entryId)
         if (!current) continue
-        occupiedSlots.delete(current.slotIndex)
-        const slotIndex = current.slotIndex >= 0
-          ? current.slotIndex
-          : firstAvailableBackpackSlot(occupiedSlots)
+        if (current.slotIndex !== null) occupiedSlots.delete(current.slotIndex)
+        const slotIndex = current.slotIndex
+          ?? firstAvailableBackpackSlot(occupiedSlots)
         occupiedSlots.add(slotIndex)
 
         await tx.inventoryEntry.update({
