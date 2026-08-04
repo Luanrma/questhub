@@ -20,6 +20,16 @@ function isPathfinder2eItemData(value: unknown): value is Pathfinder2eItemData {
   return typeof data.name === 'string' && typeof data.itemType === 'string'
 }
 
+function isPathfinder2eEquippedState(value: unknown) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return false
+  const equipment = (value as { equipment?: unknown }).equipment
+  if (!equipment || typeof equipment !== 'object' || Array.isArray(equipment)) return false
+
+  const state = equipment as { systemKey?: unknown; carryMode?: unknown }
+  return state.systemKey === 'PATHFINDER_2E'
+    && (state.carryMode === 'HELD' || state.carryMode === 'WORN')
+}
+
 function canItemTypeStack(item: Pathfinder2eItemData) {
   if (item.itemType === 'ammunition' || item.itemType === 'consumable' || item.itemType === 'treasure') {
     return true
@@ -48,6 +58,10 @@ export const pathfinder2eInventoryPolicy: GameSystemInventoryPolicy = {
     return canItemTypeStack(existingData)
       && canItemTypeStack(incomingData)
       && isDeepStrictEqual(existingData, incomingData)
+  },
+
+  isBackpackItem(state) {
+    return !isPathfinder2eEquippedState(state)
   },
 
   present(data) {
