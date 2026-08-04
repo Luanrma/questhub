@@ -7,8 +7,8 @@ import {
   readStoredInventoryDisplaySettings,
   type InventoryDisplaySettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
-import { Pathfinder2eEquipmentPanel } from '../features/pathfinder-2e/equipment/Pathfinder2eEquipmentPanel'
 import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
+import { GameSystemEquipmentPanels } from './equipment-renderers'
 import {
   InventoryGrid,
   type InventoryGridEntry,
@@ -298,6 +298,10 @@ export function CampaignInventoryModal({
       setError('Informe uma quantidade inteira entre 0 e 1.000.000.')
       return
     }
+    if (entry.state != null && quantity !== 1) {
+      setError('Guarde e normalize o item antes de alterar sua quantidade.')
+      return
+    }
     if (quantity === 0) {
       if (window.confirm(`Remover ${itemName} do inventário?`)) void removeEntry(entry)
       return
@@ -435,7 +439,7 @@ export function CampaignInventoryModal({
               </div>
 
               {selectedActorId && !loadingInventory ? (
-                <Pathfinder2eEquipmentPanel
+                <GameSystemEquipmentPanels
                   key={selectedActorId}
                   campaignId={campaignId}
                   actorId={selectedActorId}
