@@ -13,8 +13,9 @@ O inventário agnóstico é responsável somente por:
 - persistir a instância do item;
 - preservar os dados originais do catálogo em `InventoryEntry.data`;
 - persistir estado operacional neutro em `InventoryEntry.state`;
-- manter quantidade e posição visual no inventário;
-- aplicar uma política de empilhamento fornecida pelo Game System.
+- manter quantidade e posição visual;
+- aplicar uma política de empilhamento fornecida pelo Game System;
+- renderizar uma chave genérica de ícone fornecida pelo Game System.
 
 O inventário genérico não conhece mãos, armaduras, slots corporais, proficiências ou Classe de Armadura.
 
@@ -46,11 +47,34 @@ O estado da instância é separado da definição do catálogo:
 
 Valores aceitos:
 
-- `STOWED`: guardado;
-- `HELD`: segurado;
-- `WORN`: vestido.
+- `STOWED`: guardado na mochila;
+- `HELD`: segurado e fora da mochila;
+- `WORN`: vestido e fora da mochila.
 
 Uma entrada com estado operacional representa uma única unidade. O banco aplica a regra `state IS NULL OR quantity = 1`.
+
+## Mochila e equipamento
+
+`InventoryEntry` continua sendo a única instância persistida do item. Equipar não duplica, transfere ou remove o item do inventário do ator.
+
+A posição diferencia onde ele aparece:
+
+- `slotIndex >= 0`: posição visual ocupada na mochila;
+- `slotIndex < 0`: posição interna reservada para um item em uso.
+
+Ao equipar ou segurar:
+
+1. o item recebe `HELD` ou `WORN`;
+2. ele recebe uma posição interna negativa;
+3. deixa de consumir um slot visual da mochila.
+
+Ao guardar:
+
+1. o item recebe `STOWED`;
+2. retorna ao primeiro slot não negativo disponível;
+3. reaparece na grade da mochila.
+
+A mudança de estado e posição acontece na mesma transação. A migration `20260803235000_move_equipped_items_outside_backpack` corrige os equipamentos criados antes dessa regra.
 
 ## Interpretação de uso
 
@@ -87,6 +111,36 @@ Itens naturalmente quantitativos podem empilhar quando seus dados forem idêntic
 - tesouros;
 - equipamentos que não sejam segurados ou vestidos.
 
+## Ícones do inventário
+
+A política Pathfinder fornece um `iconKey` genérico baseado em `itemType`.
+
+O frontend associa essa chave a ícones visuais para:
+
+- arma;
+- armadura;
+- escudo;
+- consumível;
+- munição;
+- tesouro;
+- recipiente;
+- kit;
+- equipamento geral.
+
+O ícone de caixa é usado somente quando não há imagem nem categoria de ícone reconhecida.
+
+## Fichas dos itens
+
+Entradas vinculadas ao catálogo preservam `catalogContentId`.
+
+A mesma ficha de catálogo pode ser aberta por:
+
+- clique no item da mochila;
+- ação `Ficha` em um equipamento disponível;
+- ação `Ficha` em um equipamento em uso.
+
+Não existe uma segunda implementação de ficha para equipamentos.
+
 ## Classe de Armadura
 
 A única automação mecânica deste recorte é a Classe de Armadura.
@@ -122,6 +176,16 @@ Escudos ocupam uma mão, mas não aumentam automaticamente a CA. O bônus de `Ra
 
 Falta de proficiência gera aviso, não bloqueio. O personagem pode vestir a armadura, mas a derivação usa a proficiência efetiva da categoria correspondente.
 
+## Acesso pela ficha
+
+Fichas completas do Pathfinder possuem a aba `Inventário`.
+
+A aba resolve o `actorId` da própria ficha e abre o mesmo inventário usado pelo Token e pelo gerenciador da campanha. O acesso não depende de a ficha estar vinculada a um Token.
+
+- Mestre pode gerenciar quantidades e remover entradas;
+- jogador atribuído ao ator pode consultar, reorganizar o uso e equipar itens;
+- o jogador não recebe permissão estrutural para alterar quantidades.
+
 ## API
 
 ### Consultar equipamentos
@@ -155,7 +219,8 @@ O painel visual apresenta:
 - armadura equipada;
 - mãos ocupadas;
 - itens em uso;
-- itens equipáveis disponíveis no inventário;
+- itens equipáveis disponíveis na mochila;
+- acesso à ficha de cada item catalogado;
 - avisos de proficiência e dados ausentes;
 - confirmação antes de substituir itens conflitantes.
 
