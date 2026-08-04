@@ -62,6 +62,7 @@ type EquipmentResponse = {
 type Props = {
   campaignId: string
   actorId: string
+  onEquipmentChanged?: () => void
 }
 
 const modeLabels: Record<CarryMode, string> = {
@@ -84,7 +85,11 @@ function entryIcon(entry: EquipmentEntry) {
   return <Backpack className="h-4 w-4" />
 }
 
-export function Pathfinder2eEquipmentPanel({ campaignId, actorId }: Props) {
+export function Pathfinder2eEquipmentPanel({
+  campaignId,
+  actorId,
+  onEquipmentChanged,
+}: Props) {
   const [view, setView] = useState<EquipmentView | null>(null)
   const [loading, setLoading] = useState(true)
   const [updatingEntryId, setUpdatingEntryId] = useState<string | null>(null)
@@ -149,6 +154,7 @@ export function Pathfinder2eEquipmentPanel({ campaignId, actorId }: Props) {
         },
       )
       setView(response.equipment)
+      onEquipmentChanged?.()
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : 'Não foi possível alterar o equipamento.')
     } finally {
