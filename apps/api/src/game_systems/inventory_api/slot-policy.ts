@@ -29,16 +29,27 @@ export function registerInventorySlotPolicy(app: FastifyInstance) {
       },
       select: {
         inventoryId: true,
+        slotIndex: true,
       },
     })
     if (!source) return
+    if (source.slotIndex === null) {
+      return reply.status(409).send({
+        error: 'Itens fora da grade devem ser guardados pelo Game System antes de serem movidos',
+      })
+    }
 
     const entries = await prisma.inventoryEntry.findMany({
-      where: { inventoryId: source.inventoryId },
+      where: {
+        inventoryId: source.inventoryId,
+        slotIndex: { not: null },
+      },
       select: { slotIndex: true },
     })
     const maximumSlotIndex = maximumAllowedInventorySlotIndex(
-      entries.map((entry) => entry.slotIndex),
+      entries
+        .map((entry) => entry.slotIndex)
+        .filter((slotIndex): slotIndex is number => slotIndex !== null),
     )
 
     if (body.data.slotIndex > maximumSlotIndex) {
