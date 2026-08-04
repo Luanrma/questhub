@@ -22,6 +22,18 @@ const catalogItemParamsSchema = campaignParamsSchema.extend({
   contentId: z.string().trim().min(1),
 })
 
+type RecipientActor = {
+  id: string
+  name: string
+  avatarUrl: string | null
+  controllerMember: {
+    id: string
+    userId: string
+    role: 'MASTER' | 'PLAYER'
+    user: { email: string }
+  } | null
+}
+
 async function findMaster(campaignId: string, userId: string) {
   return prisma.campaignMember.findFirst({
     where: {
@@ -37,17 +49,7 @@ async function findMaster(campaignId: string, userId: string) {
   })
 }
 
-function recipientEnvelope(actor: {
-  id: string
-  name: string
-  avatarUrl: string | null
-  controllerMember: {
-    id: string
-    userId: string
-    role: 'MASTER' | 'PLAYER'
-    user: { email: string }
-  } | null
-}) {
+export function presentActorInventoryRecipient(actor: RecipientActor) {
   return {
     recipientActorId: actor.id,
     actor: {
@@ -105,7 +107,7 @@ export function registerInventoryActorRecipientRoutes(app: FastifyInstance) {
       orderBy: [{ name: 'asc' }, { createdAt: 'asc' }],
     })
 
-    return reply.send({ recipients: actors.map(recipientEnvelope) })
+    return reply.send({ recipients: actors.map(presentActorInventoryRecipient) })
   })
 
   app.post('/api/campaigns/:campaignId/catalog/items/:contentId/send-to-actor', async (req, reply) => {
@@ -183,7 +185,7 @@ export function registerInventoryActorRecipientRoutes(app: FastifyInstance) {
     }
 
     return reply.status(201).send({
-      recipient: recipientEnvelope(recipientActor),
+      recipient: presentActorInventoryRecipient(recipientActor),
       entry: presentInventoryEntry(result.entry, gameSystem),
       stacked: result.stacked,
     })
