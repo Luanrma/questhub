@@ -71,6 +71,19 @@ test('Pathfinder equipable items stay individual while quantified items can stac
   assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.iconKey, 'weapon')
 })
 
+test('Pathfinder equipment state determines whether an item is in the backpack', () => {
+  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.(null), true)
+  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.({
+    equipment: { systemKey: 'PATHFINDER_2E', carryMode: 'STOWED' },
+  }), true)
+  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.({
+    equipment: { systemKey: 'PATHFINDER_2E', carryMode: 'HELD' },
+  }), false)
+  assert.equal(pathfinder2eInventoryPolicy.isBackpackItem?.({
+    equipment: { systemKey: 'PATHFINDER_2E', carryMode: 'WORN' },
+  }), false)
+})
+
 test('campaign actor persistence replaces the global Character model', () => {
   const schema = readFileSync(path.join(process.cwd(), 'apps', 'api', 'prisma', 'schema.prisma'), 'utf8')
   const actorModel = prismaModel(schema, 'CampaignActor')
@@ -135,6 +148,24 @@ test('CampaignActor creation makes the inventory capability explicit', () => {
     2,
     'Catalog NPC creation and duplication must omit Inventory explicitly',
   )
+})
+
+test('equipped-item migration removes the legacy non-negative constraint first', () => {
+  const migrationPath = path.join(
+    process.cwd(),
+    'apps',
+    'api',
+    'prisma',
+    'migrations',
+    '20260803235000_move_equipped_items_outside_backpack',
+    'migration.sql',
+  )
+  const migration = readFileSync(migrationPath, 'utf8')
+  const dropConstraintAt = migration.indexOf('DROP CONSTRAINT IF EXISTS "InventoryEntry_slotIndex_non_negative"')
+  const moveEntriesAt = migration.indexOf('UPDATE "InventoryEntry" AS entry')
+
+  assert.ok(dropConstraintAt >= 0)
+  assert.ok(moveEntriesAt > dropConstraintAt)
 })
 
 test('Prisma history contains the current baseline and additive feature migrations', () => {
