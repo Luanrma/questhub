@@ -17,7 +17,6 @@ export type GameSystemInventoryItemPresentation = {
 
 export type GameSystemInventoryPolicy = {
   canStack(existingData: unknown, incomingData: unknown): boolean
-  isBackpackItem?(state: unknown): boolean
   present?(data: unknown): GameSystemInventoryItemPresentation | null
 }
 
