@@ -118,7 +118,7 @@ model InventoryEntry {
   id               String   @id @default(cuid())
   inventoryId      String
   quantity         Int      @default(1)
-  slotIndex        Int
+  slotIndex        Int?
   catalogNamespace String?
   catalogContentId String?
   data             Json
@@ -334,7 +334,7 @@ model SceneAreaEffect {
   originY               Float
   originElevation       Float?
   rotationDegrees       Float    @default(0)
-  scale                 Float    @default(1)
+  scale                  Float    @default(1)
   configurationSnapshot Json
   state                 String   @default("ACTIVE")
   createdAt             DateTime @default(now())
