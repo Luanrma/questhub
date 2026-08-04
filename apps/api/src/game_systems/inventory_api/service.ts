@@ -17,6 +17,7 @@ export type InventoryEntryRecord = {
   catalogNamespace: string | null
   catalogContentId: string | null
   data: Prisma.JsonValue
+  state: Prisma.JsonValue | null
   createdAt: Date
   updatedAt: Date
 }
@@ -34,6 +35,7 @@ export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: G
     catalogNamespace: entry.catalogNamespace,
     catalogContentId: entry.catalogContentId,
     data: entry.data,
+    state: entry.state,
     presentation: policy?.present?.(entry.data) ?? null,
     createdAt: entry.createdAt,
     updatedAt: entry.updatedAt,
@@ -74,6 +76,7 @@ export async function addInventoryItem(input: {
         catalogNamespace: true,
         catalogContentId: true,
         data: true,
+        state: true,
       },
       orderBy: { createdAt: 'asc' },
     })
