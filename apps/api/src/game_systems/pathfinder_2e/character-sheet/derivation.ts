@@ -12,6 +12,19 @@ import type {
   Pathfinder2eProficiencyValue,
 } from './schema'
 
+export type Pathfinder2eArmorCategory = 'unarmored' | 'light' | 'medium' | 'heavy'
+
+export type Pathfinder2eEquippedArmor = {
+  name: string
+  category: Pathfinder2eArmorCategory
+  armorClassBonus: number
+  dexterityCap: number
+}
+
+export type Pathfinder2eCharacterSheetDerivationContext = {
+  armor?: Pathfinder2eEquippedArmor | null
+}
+
 export type Pathfinder2eDerivedStatistic = {
   value: number
   attributeModifier: number
@@ -51,10 +64,14 @@ export type Pathfinder2eDerivedCharacterSheet = {
   }
   armorClass: {
     value: number
+    rawDexterityModifier: number
     dexterityModifier: number
+    dexterityCap: number | null
     proficiencyBonus: number
+    itemBonus: number
     bonus: number
-    armorCategory: 'unarmored'
+    armorCategory: Pathfinder2eArmorCategory
+    sourceName: string | null
     proficiency: Pathfinder2eDerivedProficiency
   }
   initiative: {
@@ -147,7 +164,10 @@ function deriveStatistic(
   }
 }
 
-export function derivePathfinder2eCharacterSheet(data: Pathfinder2eCharacterSheetData) {
+export function derivePathfinder2eCharacterSheet(
+  data: Pathfinder2eCharacterSheetData,
+  context: Pathfinder2eCharacterSheetDerivationContext = {},
+) {
   const warnings: string[] = []
   const level = data.identity.level
   const ancestryMechanics = getPathfinder2eAncestryMechanics(data.identity.ancestry)
@@ -254,17 +274,30 @@ export function derivePathfinder2eCharacterSheet(data: Pathfinder2eCharacterShee
         ),
       ]),
   ) as Pathfinder2eDerivedCharacterSheet['armorProficiencies']
+
+  const equippedArmor = context.armor?.category === 'unarmored' ? null : context.armor ?? null
+  const armorCategory = equippedArmor?.category ?? 'unarmored'
+  const armorProficiency = armorProficiencies[armorCategory]
   const armorProficiencyBonus = calculatePathfinder2eProficiencyBonus(
     level,
-    armorProficiencies.unarmored.effectiveRank,
+    armorProficiency.effectiveRank,
   )
+  const dexterityCap = equippedArmor?.dexterityCap ?? null
+  const dexterityModifier = dexterityCap === null
+    ? data.attributes.dexterity
+    : Math.min(data.attributes.dexterity, dexterityCap)
+  const itemBonus = equippedArmor?.armorClassBonus ?? 0
   const armorClass = {
-    value: 10 + data.attributes.dexterity + armorProficiencyBonus + data.armorClass.bonus,
-    dexterityModifier: data.attributes.dexterity,
+    value: 10 + dexterityModifier + armorProficiencyBonus + itemBonus + data.armorClass.bonus,
+    rawDexterityModifier: data.attributes.dexterity,
+    dexterityModifier,
+    dexterityCap,
     proficiencyBonus: armorProficiencyBonus,
+    itemBonus,
     bonus: data.armorClass.bonus,
-    armorCategory: 'unarmored' as const,
-    proficiency: armorProficiencies.unarmored,
+    armorCategory,
+    sourceName: equippedArmor?.name ?? null,
+    proficiency: armorProficiency,
   }
 
   const manualMovement = data.general.movementMeters > 0
@@ -283,7 +316,7 @@ export function derivePathfinder2eCharacterSheet(data: Pathfinder2eCharacterShee
     },
     movement: {
       valueMeters: movementMeters,
-      ancestryBaseFeet: ancestrySpeedFeet,
+      ancestryBaseFeet,
       manualOverride: manualMovement,
     },
     hitPoints: {
