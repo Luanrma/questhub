@@ -26,6 +26,18 @@ type AddInventoryItemFailureReason = 'QUANTITY_EXCEEDED'
 
 export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: GameSystemKey) {
   const policy = getGameSystemInventoryPolicy(gameSystem)
+  const provider = getGameSystemCatalogProvider(gameSystem)
+  const basePresentation = policy?.present?.(entry.data) ?? null
+  const resolvedImageUrl = entry.catalogContentId
+    ? provider?.resolveInventoryItemImageUrl?.(entry.catalogContentId) ?? null
+    : null
+  const catalogImageUrl = typeof resolvedImageUrl === 'string' ? resolvedImageUrl : null
+  const presentation = basePresentation
+    ? {
+        ...basePresentation,
+        imageUrl: basePresentation.imageUrl ?? catalogImageUrl,
+      }
+    : null
 
   return {
     id: entry.id,
@@ -36,7 +48,7 @@ export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: G
     catalogContentId: entry.catalogContentId,
     data: entry.data,
     state: entry.state,
-    presentation: policy?.present?.(entry.data) ?? null,
+    presentation,
     createdAt: entry.createdAt,
     updatedAt: entry.updatedAt,
   }
