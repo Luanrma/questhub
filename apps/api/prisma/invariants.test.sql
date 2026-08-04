@@ -178,7 +178,7 @@ INSERT INTO "InventoryEntry" (
   'equipped-item-valid',
   'inventory-1',
   1,
-  0,
+  NULL,
   '{"name":"Longsword"}',
   '{"equipment":{"systemKey":"PATHFINDER_2E","carryMode":"HELD"}}',
   CURRENT_TIMESTAMP
@@ -190,10 +190,31 @@ BEGIN
     INSERT INTO "InventoryEntry" (
       "id", "inventoryId", "quantity", "slotIndex", "data", "state", "updatedAt"
     ) VALUES (
+      'inventory-negative-slot',
+      'inventory-1',
+      1,
+      -1,
+      '{"name":"Invalid"}',
+      NULL,
+      CURRENT_TIMESTAMP
+    );
+    RAISE EXCEPTION 'Expected negative inventory slot rejection';
+  EXCEPTION WHEN check_violation THEN
+    NULL;
+  END;
+END;
+$$;
+
+DO $$
+BEGIN
+  BEGIN
+    INSERT INTO "InventoryEntry" (
+      "id", "inventoryId", "quantity", "slotIndex", "data", "state", "updatedAt"
+    ) VALUES (
       'equipped-item-stack',
       'inventory-1',
       2,
-      1,
+      NULL,
       '{"name":"Longsword"}',
       '{"equipment":{"systemKey":"PATHFINDER_2E","carryMode":"HELD"}}',
       CURRENT_TIMESTAMP
