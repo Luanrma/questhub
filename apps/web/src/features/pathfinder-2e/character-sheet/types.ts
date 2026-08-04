@@ -192,6 +192,7 @@ export type Pathfinder2eResolvedCharacterSheet = {
 export type Pathfinder2eCharacterSheetResponse = {
   metadata: {
     id: string
+    actorId: string
     name: string
     avatarUrl: string | null
     bio: string | null
