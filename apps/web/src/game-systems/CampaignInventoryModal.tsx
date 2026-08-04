@@ -40,6 +40,7 @@ type InventoryPresentation = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
+  iconKey?: string | null
   traits?: readonly string[]
   details?: ReadonlyArray<{ label: string; value: string }>
 }
@@ -69,6 +70,7 @@ type Props = {
   campaignId: string
   actorId?: string
   readOnly?: boolean
+  zIndex?: number
   onClose: () => void
 }
 
@@ -106,6 +108,7 @@ export function CampaignInventoryModal({
   campaignId,
   actorId,
   readOnly = false,
+  zIndex = 100,
   onClose,
 }: Props) {
   const [actorsData, setActorsData] = useState<InventoryActorsResponse | null>(null)
@@ -131,13 +134,17 @@ export function CampaignInventoryModal({
     () => actorsData?.actors.find((actor) => actor.id === selectedActorId) ?? null,
     [actorsData, selectedActorId],
   )
+  const backpackEntries = useMemo(
+    () => (inventory?.entries ?? []).filter((entry) => entry.slotIndex >= 0),
+    [inventory?.entries],
+  )
 
   useEffect(() => registerVttWindow({
     id: `campaign-inventory:${campaignId}:${actorId ?? 'manager'}`,
-    getZIndex: () => sheetEntry ? 160 : 100,
+    getZIndex: () => sheetEntry ? zIndex + 60 : zIndex,
     close: () => sheetEntry ? setSheetEntry(null) : onClose(),
     isVisible: () => !minimized,
-  }), [actorId, campaignId, minimized, onClose, sheetEntry])
+  }), [actorId, campaignId, minimized, onClose, sheetEntry, zIndex])
 
   useEffect(() => {
     function onInventorySettingsChanged(event: Event) {
@@ -218,7 +225,7 @@ export function CampaignInventoryModal({
   async function moveEntry(entryId: string, slotIndex: number) {
     if (!selectedActorId || !inventory || movingEntryId) return
     const source = inventory.entries.find((entry) => entry.id === entryId)
-    if (!source || source.slotIndex === slotIndex) return
+    if (!source || source.slotIndex < 0 || source.slotIndex === slotIndex) return
 
     const previousEntries = inventory.entries
     setMovingEntryId(entryId)
@@ -341,7 +348,8 @@ export function CampaignInventoryModal({
   return createPortal(
     <>
       <div
-        className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4"
+        className="pointer-events-none fixed inset-0 flex items-center justify-center p-4"
+        style={{ zIndex }}
         role="presentation"
       >
         <section
@@ -440,7 +448,7 @@ export function CampaignInventoryModal({
                   </p>
                 </div>
                 <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
-                  {inventory?.entries.length ?? 0} slots ocupados
+                  {backpackEntries.length} slots ocupados
                 </span>
               </div>
 
@@ -449,6 +457,7 @@ export function CampaignInventoryModal({
                   key={selectedActorId}
                   campaignId={campaignId}
                   actorId={selectedActorId}
+                  catalogSheetZIndex={zIndex + 20}
                   onEquipmentChanged={refreshInventory}
                 />
               ) : null}
@@ -460,7 +469,7 @@ export function CampaignInventoryModal({
                 </div>
               ) : (
                 <InventoryGrid
-                  entries={inventory?.entries ?? []}
+                  entries={backpackEntries}
                   movingEntryId={movingEntryId}
                   onMove={(entryId, slotIndex) => void moveEntry(entryId, slotIndex)}
                   onOpen={(entry) => openEntrySheet(entry as InventoryEntry)}
@@ -484,6 +493,7 @@ export function CampaignInventoryModal({
           contentId={sheetEntry.catalogContentId}
           domain="ITEMS"
           locale={itemSheetLocale}
+          zIndex={zIndex + 20}
           onClose={() => setSheetEntry(null)}
         />
       ) : null}
