@@ -138,25 +138,24 @@ test('CampaignActor creation makes the inventory capability explicit', () => {
   )
 })
 
-test('equipment migration converts grid placement to nullable neutral location', () => {
+test('nullable-slot migration is additive and converts legacy negative positions', () => {
   const migrationPath = path.join(
     process.cwd(),
     'apps',
     'api',
     'prisma',
     'migrations',
-    '20260803235000_move_equipped_items_outside_backpack',
+    '20260804180000_use_nullable_inventory_slots',
     'migration.sql',
   )
   const migration = readFileSync(migrationPath, 'utf8')
-  const dropConstraintAt = migration.indexOf('DROP CONSTRAINT IF EXISTS "InventoryEntry_slotIndex_non_negative"')
   const dropNotNullAt = migration.indexOf('ALTER COLUMN "slotIndex" DROP NOT NULL')
   const clearSlotAt = migration.indexOf('SET "slotIndex" = NULL')
 
-  assert.ok(dropConstraintAt >= 0)
-  assert.ok(dropNotNullAt > dropConstraintAt)
+  assert.ok(dropNotNullAt >= 0)
   assert.ok(clearSlotAt > dropNotNullAt)
-  assert.doesNotMatch(migration, /-ROW_NUMBER|slotIndex"\s*=\s*-/)
+  assert.match(migration, /"slotIndex" < 0/)
+  assert.match(migration, /CHECK \("slotIndex" IS NULL OR "slotIndex" >= 0\)/)
 })
 
 test('Prisma history contains the current baseline and additive feature migrations', () => {
@@ -171,5 +170,6 @@ test('Prisma history contains the current baseline and additive feature migratio
     '20260731024500_add_campaign_character_sheet_entries',
     '20260803000000_add_inventory_entry_state',
     '20260803235000_move_equipped_items_outside_backpack',
+    '20260804180000_use_nullable_inventory_slots',
   ])
 })
