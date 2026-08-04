@@ -70,12 +70,6 @@ export function Pathfinder2eCharacterInventoryPage({
     onRequestPageChange?.('identity')
   }
 
-  function minimizeFromInventory() {
-    setOpen(false)
-    onRequestPageChange?.('identity')
-    queueMicrotask(() => onRequestMinimize?.())
-  }
-
   useEffect(() => {
     if (!open || !onRequestMinimize) return
 
@@ -88,12 +82,14 @@ export function Pathfinder2eCharacterInventoryPage({
       event.preventDefault()
       event.stopPropagation()
       event.stopImmediatePropagation()
-      minimizeFromInventory()
+      setOpen(false)
+      onRequestPageChange?.('identity')
+      queueMicrotask(() => onRequestMinimize())
     }
 
     document.addEventListener('click', interceptInventoryMinimize, true)
     return () => document.removeEventListener('click', interceptInventoryMinimize, true)
-  }, [open, onRequestMinimize])
+  }, [onRequestMinimize, onRequestPageChange, open])
 
   return (
     <section className="rounded-xl border border-indigo-300/20 bg-indigo-500/[0.08] p-5">
