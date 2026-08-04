@@ -6,11 +6,13 @@ import { requireAuth } from '../../../http/auth'
 import type { GameSystemAutomationEventPublisher } from '../../automation/contracts'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
+import { derivePathfinder2eCharacterSheet } from './derivation'
 import { initializePathfinder2eCurrentHitPoints } from './initialization'
 import {
   isPathfinder2eHeritageCompatible,
   pathfinder2eCharacterSheetOptions,
 } from './options'
+import { resolvePathfinder2eEquippedArmor } from '../equipment/domain'
 
 const PATHFINDER_2E_GAME_SYSTEM = 'PATHFINDER_2E'
 const PATHFINDER_2E_SYSTEM_KEY = pathfinder2eCharacterSheetRuntimeAdapter.systemKey
@@ -50,6 +52,19 @@ async function findAccessibleSheet(campaignId: string, sheetId: string, userId: 
           campaign: { select: { gameSystem: true } },
           controllerMember: { select: { userId: true } },
           token: { select: { id: true } },
+          inventory: {
+            select: {
+              entries: {
+                select: {
+                  id: true,
+                  quantity: true,
+                  data: true,
+                  state: true,
+                },
+                orderBy: { slotIndex: 'asc' },
+              },
+            },
+          },
         },
       },
     },
@@ -76,17 +91,37 @@ function ensurePathfinderSheet(
   return true
 }
 
-function resolveCharacterSheet(input: unknown) {
-  return gameSystemRuntime.resolveCharacterSheet(pathfinder2eCharacterSheetRuntimeAdapter, input)
+type EquipmentEntries = NonNullable<
+  NonNullable<Awaited<ReturnType<typeof findAccessibleSheet>>>['actor']['inventory']
+>['entries']
+
+function resolveCharacterSheet(input: unknown, entries: EquipmentEntries = []) {
+  const resolved = gameSystemRuntime.resolveCharacterSheet(
+    pathfinder2eCharacterSheetRuntimeAdapter,
+    input,
+  )
+  const withEquipment = derivePathfinder2eCharacterSheet(resolved.data, {
+    armor: resolvePathfinder2eEquippedArmor(entries),
+  })
+
+  return {
+    ...resolved,
+    derived: withEquipment.derived,
+    warnings: [...new Set([...resolved.warnings, ...withEquipment.warnings])],
+  }
 }
 
-function resolveCharacterSheetUpdate(previousInput: unknown, nextInput: unknown) {
-  const next = resolveCharacterSheet(nextInput)
+function resolveCharacterSheetUpdate(
+  previousInput: unknown,
+  nextInput: unknown,
+  entries: EquipmentEntries,
+) {
+  const next = resolveCharacterSheet(nextInput, entries)
 
   try {
-    const previous = resolveCharacterSheet(previousInput)
+    const previous = resolveCharacterSheet(previousInput, entries)
     const initialized = initializePathfinder2eCurrentHitPoints(previous.data, next.data)
-    return resolveCharacterSheet(initialized)
+    return resolveCharacterSheet(initialized, entries)
   } catch {
     // An invalid stored sheet must still be repairable with a valid submitted payload.
     return next
@@ -123,7 +158,7 @@ export function registerPathfinder2eCharacterSheetRoutes(
 
     let resolved
     try {
-      resolved = resolveCharacterSheet(sheet.data)
+      resolved = resolveCharacterSheet(sheet.data, sheet.actor.inventory?.entries ?? [])
     } catch (error) {
       req.log.error({ sheetId: sheet.id, error }, 'Stored PF2e campaign character sheet is invalid')
       return reply.status(500).send({ error: 'A ficha armazenada esta invalida' })
@@ -159,7 +194,11 @@ export function registerPathfinder2eCharacterSheetRoutes(
     if (!ensurePathfinderSheet(sheet, reply)) return
 
     try {
-      return reply.send(resolveCharacterSheetUpdate(sheet.data, body.data.data))
+      return reply.send(resolveCharacterSheetUpdate(
+        sheet.data,
+        body.data.data,
+        sheet.actor.inventory?.entries ?? [],
+      ))
     } catch (error) {
       return sendInvalidSheet(reply, error)
     }
@@ -181,7 +220,11 @@ export function registerPathfinder2eCharacterSheetRoutes(
 
     let resolved
     try {
-      resolved = resolveCharacterSheetUpdate(sheet.data, body.data.data)
+      resolved = resolveCharacterSheetUpdate(
+        sheet.data,
+        body.data.data,
+        sheet.actor.inventory?.entries ?? [],
+      )
     } catch (error) {
       return sendInvalidSheet(reply, error)
     }
