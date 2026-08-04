@@ -68,6 +68,7 @@ test('Pathfinder equipable items stay individual while quantified items can stac
   assert.equal(pathfinder2eInventoryPolicy.canStack(helmet, { ...helmet }), false)
   assert.equal(pathfinder2eInventoryPolicy.canStack(arrows, { ...arrows }), true)
   assert.equal(pathfinder2eInventoryPolicy.canStack(ration, { ...ration }), true)
+  assert.equal(pathfinder2eInventoryPolicy.present?.(sword)?.iconKey, 'weapon')
 })
 
 test('campaign actor persistence replaces the global Character model', () => {
@@ -147,5 +148,6 @@ test('Prisma history contains the current baseline and additive feature migratio
     '20260729000000_initial',
     '20260731024500_add_campaign_character_sheet_entries',
     '20260803000000_add_inventory_entry_state',
+    '20260803235000_move_equipped_items_outside_backpack',
   ])
 })
