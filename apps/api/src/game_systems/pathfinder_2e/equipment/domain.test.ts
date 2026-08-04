@@ -22,6 +22,7 @@ function item(overrides: Partial<Pathfinder2eItemData>): Pathfinder2eItemData {
     price: {},
     usage: 'worn',
     category: 'adventuring-gear',
+    group: 'gear',
     ...overrides,
   }
 }
