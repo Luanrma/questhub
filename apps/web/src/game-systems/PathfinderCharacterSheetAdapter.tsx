@@ -21,6 +21,8 @@ export function PathfinderCharacterSheetAdapter(props: CharacterSheetRendererPro
       <Pathfinder2eCharacterInventoryPage
         campaignId={props.campaignId}
         sheetId={props.sheetId}
+        onRequestPageChange={props.onRequestPageChange}
+        onRequestMinimize={props.onRequestMinimize}
       />
     )
   }
