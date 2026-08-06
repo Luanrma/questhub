@@ -84,7 +84,7 @@ export function Pathfinder2eCharacterInventoryPage({
       event.stopImmediatePropagation()
       setOpen(false)
       onRequestPageChange?.('identity')
-      queueMicrotask(() => onRequestMinimize())
+      queueMicrotask(() => onRequestMinimize?.())
     }
 
     document.addEventListener('click', interceptInventoryMinimize, true)

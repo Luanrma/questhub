@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import './http/auth.test'
 import './modules/assets/token-library.test'
 import './modules/chat/presenter.test'

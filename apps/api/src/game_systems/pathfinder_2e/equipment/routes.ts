@@ -3,7 +3,7 @@ import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { prisma } from '../../../db/prisma'
 import { requireAuth } from '../../../http/auth'
-import { canReadActorInventory } from '../../inventory_api/authorization'
+import { canReadActorInventory } from '../../../lib/actor-inventory-authorization'
 import {
   catalogTokenSheetSystemKey,
   getGameSystemCatalogProvider,

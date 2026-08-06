@@ -3,7 +3,7 @@ import test from 'node:test'
 import {
   canMutateActorInventory,
   canReadActorInventory,
-} from './authorization'
+} from '../../lib/actor-inventory-authorization'
 
 test('master can read and mutate any actor inventory', () => {
   assert.equal(canReadActorInventory({

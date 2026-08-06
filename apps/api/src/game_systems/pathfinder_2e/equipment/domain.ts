@@ -1,4 +1,8 @@
-import { derivePathfinder2eCharacterSheet } from '../character-sheet/derivation'
+import {
+  derivePathfinder2eCharacterSheet,
+  type Pathfinder2eArmorCategory,
+  type Pathfinder2eEquippedArmor,
+} from '../character-sheet/derivation'
 import {
   pathfinder2eCharacterSheetSchema,
   type Pathfinder2eCharacterSheetData,
@@ -153,7 +157,7 @@ function resolveItemUsage(item: Pathfinder2eItemData): ItemEquipmentUsage {
   return { supportedModes: [], requiredHands: 0, usageKey: null }
 }
 
-function normalizeArmorCategory(value: string) {
+function normalizeArmorCategory(value: string): Pathfinder2eArmorCategory {
   return value === 'light' || value === 'medium' || value === 'heavy'
     ? value
     : 'unarmored'
@@ -228,7 +232,7 @@ function armorWarning(
 
 export function resolvePathfinder2eEquippedArmor(
   entries: readonly Pathfinder2eEquipmentEntry[],
-) {
+): Pathfinder2eEquippedArmor | null {
   for (const entry of entries) {
     const details = entryDetails(entry)
     if (

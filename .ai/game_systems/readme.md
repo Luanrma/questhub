@@ -42,6 +42,9 @@ e demais capacidades.
   suportados, sem conhecer seus recursos ou registradores;
 - capacidades compartilhadas devem ser expostas por contratos neutros;
 - integracoes devem transportar dados sem incorporar mecanicas especificas no VTT.
+- regras de autorizacao de atores e inventario, quando reutilizadas por mais de
+  uma capacidade, pertencem a uma dependencia neutra compartilhada e nao a um
+  sistema de jogo concreto;
 - uma criatura do catalogo pode ser materializada como ator, ficha simplificada e
   Token da campanha pelo registry neutro, desde que o provider do sistema declare
   explicitamente a entrada como tokenizavel;
