@@ -2,8 +2,12 @@ export const inventoryGridColumns = 10
 export const inventoryGridPageRows = 10
 export const inventoryGridPageSlotCount = inventoryGridColumns * inventoryGridPageRows
 
-export type SlottedInventoryEntry = {
+export type PositionedInventoryEntry = {
   id: string
+  slotIndex: number | null
+}
+
+export type SlottedInventoryEntry = PositionedInventoryEntry & {
   slotIndex: number
 }
 
@@ -30,18 +34,26 @@ export function inventoryPageSlotIndexes(pageIndex: number) {
   )
 }
 
-export function moveEntryOptimistically<T extends SlottedInventoryEntry>(
+export function moveEntryOptimistically<T extends PositionedInventoryEntry>(
   entries: readonly T[],
   entryId: string,
   targetSlotIndex: number,
 ) {
   const source = entries.find((entry) => entry.id === entryId)
-  if (!source || targetSlotIndex < 0 || !Number.isSafeInteger(targetSlotIndex)) return [...entries]
+  if (
+    !source
+    || source.slotIndex === null
+    || targetSlotIndex < 0
+    || !Number.isSafeInteger(targetSlotIndex)
+  ) {
+    return [...entries]
+  }
 
+  const sourceSlotIndex = source.slotIndex
   const target = entries.find((entry) => entry.slotIndex === targetSlotIndex)
   return entries.map((entry) => {
     if (entry.id === source.id) return { ...entry, slotIndex: targetSlotIndex }
-    if (target && entry.id === target.id) return { ...entry, slotIndex: source.slotIndex }
+    if (target && entry.id === target.id) return { ...entry, slotIndex: sourceSlotIndex }
     return entry
   })
 }

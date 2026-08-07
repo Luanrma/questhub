@@ -7,6 +7,8 @@ export type CharacterSheetRendererProps = {
   sheetId: string
   activePage: string
   presentation: 'FULL' | 'SIMPLIFIED'
+  onRequestPageChange?: (pageId: string) => void
+  onRequestMinimize?: () => void
 }
 
 export type CharacterSheetPageDescriptor = {
@@ -24,6 +26,7 @@ const pathfinderPages: readonly CharacterSheetPageDescriptor[] = [
   { id: 'statistics', label: 'Atributos e estados' },
   { id: 'skills', label: 'Perícias' },
   { id: 'spells', label: 'Magias' },
+  { id: 'inventory', label: 'Inventário' },
   { id: 'notes', label: 'Anotações' },
 ]
 

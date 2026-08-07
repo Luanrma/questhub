@@ -32,6 +32,13 @@ const rankOptions: Array<{ value: Pathfinder2eProficiencyRank; label: string }> 
   { value: 8, label: 'Lendário' },
 ]
 
+const armorCategoryLabels: Record<Pathfinder2eDerivedCharacterSheet['armorClass']['armorCategory'], string> = {
+  unarmored: 'Sem armadura',
+  light: 'Armadura leve',
+  medium: 'Armadura média',
+  heavy: 'Armadura pesada',
+}
+
 const compactInputClass =
   'min-w-0 rounded-md border border-white/10 bg-black/25 px-2 py-1.5 text-sm text-white outline-none transition focus:border-rose-200/50 focus:ring-2 focus:ring-rose-400/15'
 
@@ -145,7 +152,7 @@ function DefenseListEditor({ label, values, onChange }: {
   }
 
   return (
-    <section className="border-t border-white/10 pt-3">
+    <section className="border-t border-white/10 pt-3 first:border-t-0 first:pt-0">
       <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-rose-100/70">{label}</div>
       <div className="mt-2 flex flex-wrap gap-1.5">
         {values.length ? values.map((value, index) => (
@@ -205,6 +212,7 @@ export function CharacterSheetAppendix({
     { key: 'reflex' as const, label: 'Reflexos', value: derived.savingThrows.reflex.value },
     { key: 'will' as const, label: 'Vontade', value: derived.savingThrows.will.value },
   ]
+  const armorLabel = derived.armorClass.sourceName ?? armorCategoryLabels[derived.armorClass.armorCategory]
 
   return (
     <aside className="overflow-hidden rounded-2xl border border-rose-200/20 bg-[radial-gradient(circle_at_top_left,_rgba(190,24,93,0.24),_transparent_45%),linear-gradient(165deg,_rgba(76,5,25,0.98),_rgba(30,6,18,0.98))] shadow-xl md:sticky md:top-0 md:max-h-[calc(100vh-12rem)] md:overflow-y-auto">
@@ -241,7 +249,13 @@ export function CharacterSheetAppendix({
               <Shield className="h-3.5 w-3.5" /> CA
             </div>
             <div className="mt-1 text-3xl font-black text-white">{derived.armorClass.value}</div>
-            <div className="mt-0.5 text-[9px] uppercase tracking-wide text-rose-100/35">Sem armadura</div>
+            <div className="mt-0.5 truncate text-[9px] font-semibold uppercase tracking-wide text-rose-100/55" title={armorLabel}>
+              {armorLabel}
+            </div>
+            <div className="mt-0.5 text-[9px] uppercase tracking-wide text-rose-100/35">
+              {armorCategoryLabels[derived.armorClass.armorCategory]}
+              {derived.armorClass.dexterityCap === null ? '' : ` · Limite DES ${derived.armorClass.dexterityCap}`}
+            </div>
             <label className="mt-2 grid gap-1">
               <span className="text-[9px] uppercase tracking-wide text-rose-100/40">Ajuste</span>
               <input
@@ -331,7 +345,7 @@ export function CharacterSheetAppendix({
           </div>
         </section>
 
-        <section className="rounded-xl border border-white/10 bg-black/15 p-3">
+        <section className="space-y-3 rounded-xl border border-white/10 bg-black/15 p-3">
           <DefenseListEditor
             label="Resistências"
             values={sheet.defenses.resistances}

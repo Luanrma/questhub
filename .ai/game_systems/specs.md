@@ -38,6 +38,28 @@ Dependencias transversais devem ser neutras em relacao a regras de jogo. Ports e
 adapters explicitos devem ser introduzidos quando uma integracao exigir troca de
 dados entre capacidades genericas e um sistema.
 
+### Contrato neutro de acesso ao inventario do ator
+
+O acesso de leitura ao inventario e uma regra compartilhada, localizada fora de
+qualquer sistema concreto:
+
+```ts
+type ActorInventoryAccess = {
+  role: CampaignMemberRole
+  memberId: string
+  controllerMemberId: string | null
+  hasLinkedToken: boolean
+}
+
+function canReadActorInventory(access: ActorInventoryAccess): boolean
+function canMutateActorInventory(role: CampaignMemberRole): boolean
+```
+
+Um Mestre possui acesso de leitura e escrita. Um jogador pode ler somente o
+inventario do ator que controla; a presenca de Token nao altera essa regra.
+Sistemas de jogo podem consumir esse contrato, mas nao podem importar rotas ou
+modulos de outro sistema para obter autorizacao.
+
 ## 3. Contrato de responsabilidade
 
 Pertencem a `game_systems`:

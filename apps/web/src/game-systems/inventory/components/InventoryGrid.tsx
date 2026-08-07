@@ -1,24 +1,41 @@
-import { useMemo, useState } from 'react'
-import { ChevronLeft, ChevronRight, Package } from 'lucide-react'
+import { useEffect, useMemo, useState } from 'react'
+import {
+  Backpack,
+  ChevronLeft,
+  ChevronRight,
+  CircleDot,
+  FlaskConical,
+  Gem,
+  Package,
+  PackageOpen,
+  Shield,
+  Shirt,
+  Swords,
+  Wrench,
+} from 'lucide-react'
 import {
   availableInventoryPageCount,
   entriesBySlot,
   inventoryGridColumns,
   inventoryGridPageRows,
   inventoryPageSlotIndexes,
+  type SlottedInventoryEntry,
 } from '../domain/inventoryGrid'
 
 export type InventoryGridEntry = {
   id: string
   quantity: number
-  slotIndex: number
+  slotIndex: number | null
   catalogNamespace: string | null
   catalogContentId: string | null
   presentation: {
     name: string
     imageUrl?: string | null
+    iconKey?: string | null
   } | null
 }
+
+type SlottedInventoryGridEntry = InventoryGridEntry & SlottedInventoryEntry
 
 type Props = {
   entries: readonly InventoryGridEntry[]
@@ -30,6 +47,58 @@ type Props = {
 
 const inventoryEntryDragType = 'application/x-questhub-inventory-entry'
 
+function InventoryItemFallbackIcon({ iconKey }: { iconKey?: string | null }) {
+  const className = 'h-5 w-5 text-indigo-200/75'
+
+  switch (iconKey) {
+    case 'weapon':
+      return <Swords className={className} />
+    case 'armor':
+      return <Shirt className={className} />
+    case 'shield':
+      return <Shield className={className} />
+    case 'consumable':
+      return <FlaskConical className={className} />
+    case 'ammunition':
+      return <CircleDot className={className} />
+    case 'treasure':
+      return <Gem className={className} />
+    case 'container':
+      return <PackageOpen className={className} />
+    case 'kit':
+      return <Backpack className={className} />
+    case 'equipment':
+      return <Wrench className={className} />
+    default:
+      return <Package className={className} />
+  }
+}
+
+function InventoryItemIcon({ entry }: { entry: InventoryGridEntry }) {
+  const imageUrl = entry.presentation?.imageUrl ?? null
+  const [imageFailed, setImageFailed] = useState(false)
+
+  useEffect(() => setImageFailed(false), [imageUrl])
+
+  if (imageUrl && !imageFailed) {
+    return (
+      <img
+        src={imageUrl}
+        alt=""
+        draggable={false}
+        onError={() => setImageFailed(true)}
+        className="h-12 w-12 max-h-[55%] max-w-[55%] rounded object-contain"
+      />
+    )
+  }
+
+  return <InventoryItemFallbackIcon iconKey={entry.presentation?.iconKey} />
+}
+
+function isSlottedEntry(entry: InventoryGridEntry): entry is SlottedInventoryGridEntry {
+  return entry.slotIndex !== null
+}
+
 export function InventoryGrid({
   entries,
   movingEntryId,
@@ -38,8 +107,12 @@ export function InventoryGrid({
   onManage,
 }: Props) {
   const [pageIndex, setPageIndex] = useState(0)
-  const slotMap = useMemo(() => entriesBySlot(entries), [entries])
-  const pageCount = availableInventoryPageCount(entries)
+  const backpackEntries = useMemo(
+    () => entries.filter(isSlottedEntry),
+    [entries],
+  )
+  const slotMap = useMemo(() => entriesBySlot(backpackEntries), [backpackEntries])
+  const pageCount = availableInventoryPageCount(backpackEntries)
   const visiblePageIndex = Math.min(pageIndex, pageCount - 1)
   const slotIndexes = useMemo(() => inventoryPageSlotIndexes(visiblePageIndex), [visiblePageIndex])
 
@@ -137,16 +210,7 @@ export function InventoryGrid({
                   if (entryId) onMove(entryId, slotIndex)
                 }}
               >
-                {entry.presentation?.imageUrl ? (
-                  <img
-                    src={entry.presentation.imageUrl}
-                    alt=""
-                    draggable={false}
-                    className="h-full w-full rounded object-contain"
-                  />
-                ) : (
-                  <Package className="h-5 w-5 text-indigo-200/75" />
-                )}
+                <InventoryItemIcon entry={entry} />
                 {entry.quantity > 1 ? (
                   <span className="absolute bottom-1 right-1 min-w-5 rounded bg-black/80 px-1 text-center text-[10px] font-bold text-white shadow">
                     {entry.quantity}

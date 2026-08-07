@@ -9,7 +9,7 @@ type ActorInventoryAccess = {
 
 export function canReadActorInventory(access: ActorInventoryAccess) {
   if (access.role === 'MASTER') return true
-  return access.hasLinkedToken && access.controllerMemberId === access.memberId
+  return access.controllerMemberId === access.memberId
 }
 
 export function canMutateActorInventory(role: CampaignMemberRole) {

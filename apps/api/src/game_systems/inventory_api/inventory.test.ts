@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import type { GameSystemInventoryPolicy } from '../inventory'
+import { presentInventoryEntry } from './service'
 import { findStackableInventoryEntry } from './stacking'
 import {
   addInventoryEntrySchema,
@@ -70,6 +71,24 @@ test('catalog item delivery requires a recipient and applies quantity default', 
   assert.equal(sendCatalogItemSchema.safeParse({ recipientActorId: 'actor-1', quantity: 0 }).success, false)
 })
 
+test('nullable slot is presented as an item outside the visual grid', () => {
+  const presented = presentInventoryEntry({
+    id: 'entry-1',
+    inventoryId: 'inventory-1',
+    quantity: 1,
+    slotIndex: null,
+    catalogNamespace: null,
+    catalogContentId: null,
+    data: {},
+    state: null,
+    createdAt: new Date('2026-08-04T00:00:00.000Z'),
+    updatedAt: new Date('2026-08-04T00:00:00.000Z'),
+  }, 'PATHFINDER_2E')
+
+  assert.equal(presented.inBackpack, false)
+  assert.equal(presented.slotIndex, null)
+})
+
 test('findStackableInventoryEntry delegates compatibility to game system policy', () => {
   const entries = [
     { id: 'entry-1', data: { name: 'Sword' } },
@@ -79,6 +98,21 @@ test('findStackableInventoryEntry delegates compatibility to game system policy'
   assert.deepEqual(
     findStackableInventoryEntry(entries, { name: 'Arrows' }, deepNamePolicy, true),
     entries[1],
+  )
+})
+
+test('findStackableInventoryEntry ignores entries with operational state', () => {
+  const entries = [
+    {
+      id: 'equipped-sword',
+      data: { name: 'Sword' },
+      state: { equipment: { carryMode: 'HELD' } },
+    },
+  ]
+
+  assert.equal(
+    findStackableInventoryEntry(entries, { name: 'Sword' }, deepNamePolicy, true),
+    null,
   )
 })
 

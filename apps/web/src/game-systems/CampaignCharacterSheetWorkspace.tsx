@@ -187,6 +187,8 @@ function CharacterSheetWindow({
           sheetId={state.sheetId}
           activePage={state.activePage}
           presentation={state.presentation}
+          onRequestPageChange={onPageChange}
+          onRequestMinimize={onMinimize}
         />
       </div>
     </section>

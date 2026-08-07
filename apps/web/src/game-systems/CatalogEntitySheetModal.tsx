@@ -58,6 +58,7 @@ type Props = {
   domain: GameSystemCatalogDomain
   locale: GameSystemContentLocale
   canManageTokens?: boolean
+  zIndex?: number
   onClose: () => void
 }
 
@@ -80,6 +81,7 @@ export function CatalogEntitySheetModal({
   domain,
   locale,
   canManageTokens = false,
+  zIndex = 120,
   onClose,
 }: Props) {
   const [data, setData] = useState<CatalogSheetResponse | null>(null)
@@ -92,7 +94,7 @@ export function CatalogEntitySheetModal({
   const [creatingToken, setCreatingToken] = useState(false)
   const Icon = domainIcons[domain]
   const sendPermissionKey = `${campaignId}:${domain}`
-  const canSendToPlayer =
+  const canSendToActor =
     domain === 'ITEMS' &&
     sendPermission.key === sendPermissionKey &&
     sendPermission.allowed
@@ -125,7 +127,7 @@ export function CatalogEntitySheetModal({
     if (domain !== 'ITEMS') return
 
     const controller = new AbortController()
-    api<{ recipients: unknown[] }>(`/api/campaigns/${campaignId}/inventory/recipients`, {
+    api<{ recipients: unknown[] }>(`/api/campaigns/${campaignId}/inventory/actor-recipients`, {
       signal: controller.signal,
     })
       .then(() => setSendPermission({ key: sendPermissionKey, allowed: true }))
@@ -160,7 +162,8 @@ export function CatalogEntitySheetModal({
 
   return (
     <div
-      className="fixed inset-0 z-[120] flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+      className="fixed inset-0 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md"
+      style={{ zIndex }}
       role="dialog"
       aria-modal="true"
       aria-label={entry?.name ?? 'Ficha da entidade'}
@@ -218,14 +221,14 @@ export function CatalogEntitySheetModal({
                 {creatingToken ? 'Criando...' : 'Criar Token'}
               </button>
             ) : null}
-            {canSendToPlayer && entry ? (
+            {canSendToActor && entry ? (
               <button
                 type="button"
                 onClick={() => setSendOpen(true)}
                 className="inline-flex items-center gap-2 rounded-lg border border-indigo-300/25 bg-indigo-500/10 px-3 py-2 text-xs font-semibold text-indigo-100 transition hover:border-indigo-300/50 hover:bg-indigo-500/20"
               >
                 <Send className="h-4 w-4" />
-                Enviar para jogador
+                Enviar para ator
               </button>
             ) : null}
             <button

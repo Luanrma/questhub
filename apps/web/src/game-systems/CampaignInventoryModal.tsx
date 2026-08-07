@@ -8,6 +8,7 @@ import {
   type InventoryDisplaySettings,
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
+import { GameSystemEquipmentPanels } from './equipment-renderers'
 import {
   InventoryGrid,
   type InventoryGridEntry,
@@ -39,6 +40,7 @@ type InventoryPresentation = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
+  iconKey?: string | null
   traits?: readonly string[]
   details?: ReadonlyArray<{ label: string; value: string }>
 }
@@ -46,6 +48,7 @@ type InventoryPresentation = {
 type InventoryEntry = InventoryGridEntry & {
   inventoryId: string
   data: unknown
+  state: unknown
   presentation: InventoryPresentation | null
   createdAt: string
   updatedAt: string
@@ -66,7 +69,9 @@ type SlotUpdateResponse = {
 type Props = {
   campaignId: string
   actorId?: string
+  actorName?: string
   readOnly?: boolean
+  zIndex?: number
   onClose: () => void
 }
 
@@ -103,7 +108,9 @@ function mergeUpdatedEntries(
 export function CampaignInventoryModal({
   campaignId,
   actorId,
+  actorName,
   readOnly = false,
+  zIndex = 100,
   onClose,
 }: Props) {
   const [actorsData, setActorsData] = useState<InventoryActorsResponse | null>(null)
@@ -111,6 +118,7 @@ export function CampaignInventoryModal({
   const [inventory, setInventory] = useState<InventoryResponse | null>(null)
   const [loadingActors, setLoadingActors] = useState(true)
   const [loadedInventoryActorId, setLoadedInventoryActorId] = useState<string | null>(null)
+  const [inventoryRevision, setInventoryRevision] = useState(0)
   const [movingEntryId, setMovingEntryId] = useState<string | null>(null)
   const [updatingEntryId, setUpdatingEntryId] = useState<string | null>(null)
   const [sheetEntry, setSheetEntry] = useState<InventoryEntry | null>(null)
@@ -128,13 +136,17 @@ export function CampaignInventoryModal({
     () => actorsData?.actors.find((actor) => actor.id === selectedActorId) ?? null,
     [actorsData, selectedActorId],
   )
+  const backpackEntries = useMemo(
+    () => (inventory?.entries ?? []).filter((entry) => entry.slotIndex !== null),
+    [inventory?.entries],
+  )
 
   useEffect(() => registerVttWindow({
     id: `campaign-inventory:${campaignId}:${actorId ?? 'manager'}`,
-    getZIndex: () => sheetEntry ? 160 : 100,
+    getZIndex: () => sheetEntry ? zIndex + 60 : zIndex,
     close: () => sheetEntry ? setSheetEntry(null) : onClose(),
     isVisible: () => !minimized,
-  }), [actorId, campaignId, minimized, onClose, sheetEntry])
+  }), [actorId, campaignId, minimized, onClose, sheetEntry, zIndex])
 
   useEffect(() => {
     function onInventorySettingsChanged(event: Event) {
@@ -159,8 +171,23 @@ export function CampaignInventoryModal({
   }, [campaignId])
 
   useEffect(() => {
-    const controller = new AbortController()
+    const directActorName = actorName?.trim()
+    if (actorId && directActorName) {
+      setActorsData({
+        role: readOnly ? 'PLAYER' : 'MASTER',
+        actors: [{
+          id: actorId,
+          name: directActorName,
+          avatarUrl: null,
+          owner: null,
+        }],
+      })
+      setSelectedActorId(actorId)
+      setLoadingActors(false)
+      return
+    }
 
+    const controller = new AbortController()
     api<InventoryActorsResponse>(`/api/campaigns/${campaignId}/inventory/actors`, {
       signal: controller.signal,
     })
@@ -171,7 +198,10 @@ export function CampaignInventoryModal({
         setActorsData({ ...response, actors: visibleActors })
         setSelectedActorId(actorId ?? visibleActors[0]?.id ?? null)
         if (actorId && visibleActors.length === 0) {
-          setError('Este Token não possui um ator sob seu controle.')
+          setActorsData({
+            ...response,
+            actors: [{ id: actorId, name: 'Personagem', avatarUrl: null, owner: null }],
+          })
         }
       })
       .catch((cause) => {
@@ -183,7 +213,7 @@ export function CampaignInventoryModal({
       })
 
     return () => controller.abort()
-  }, [actorId, campaignId])
+  }, [actorId, actorName, campaignId, readOnly])
 
   useEffect(() => {
     if (!selectedActorId) return
@@ -205,12 +235,17 @@ export function CampaignInventoryModal({
       })
 
     return () => controller.abort()
-  }, [campaignId, selectedActorId])
+  }, [campaignId, inventoryRevision, selectedActorId])
+
+  function refreshInventory() {
+    setLoadedInventoryActorId(null)
+    setInventoryRevision((current) => current + 1)
+  }
 
   async function moveEntry(entryId: string, slotIndex: number) {
     if (!selectedActorId || !inventory || movingEntryId) return
     const source = inventory.entries.find((entry) => entry.id === entryId)
-    if (!source || source.slotIndex === slotIndex) return
+    if (!source || source.slotIndex === null || source.slotIndex === slotIndex) return
 
     const previousEntries = inventory.entries
     setMovingEntryId(entryId)
@@ -296,6 +331,10 @@ export function CampaignInventoryModal({
       setError('Informe uma quantidade inteira entre 0 e 1.000.000.')
       return
     }
+    if (entry.state != null && quantity !== 1) {
+      setError('Guarde e normalize o item antes de alterar sua quantidade.')
+      return
+    }
     if (quantity === 0) {
       if (window.confirm(`Remover ${itemName} do inventário?`)) void removeEntry(entry)
       return
@@ -319,7 +358,7 @@ export function CampaignInventoryModal({
       <FloatingInventoryBackpack
         campaignId={campaignId}
         actorId={selectedActorId}
-        actorName={selectedActor?.name ?? 'Token'}
+        actorName={selectedActor?.name ?? 'Personagem'}
         onRestore={() => setMinimized(false)}
       />,
       portalTarget,
@@ -329,11 +368,12 @@ export function CampaignInventoryModal({
   return createPortal(
     <>
       <div
-        className="pointer-events-none fixed inset-0 z-[100] flex items-center justify-center p-4"
+        className="pointer-events-none fixed inset-0 flex items-center justify-center p-4"
+        style={{ zIndex }}
         role="presentation"
       >
         <section
-          className="pointer-events-auto flex h-[min(680px,calc(100vh-6rem))] w-[min(1024px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]"
+          className="pointer-events-auto flex h-[min(840px,calc(100vh-4rem))] w-[min(1180px,calc(100vw-3rem))] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#111218]/98 text-white shadow-[0_30px_100px_rgba(0,0,0,0.65)]"
           role="dialog"
           aria-modal="false"
           aria-label="Inventário da campanha"
@@ -342,40 +382,40 @@ export function CampaignInventoryModal({
           onClick={(event) => event.stopPropagation()}
         >
           <header className="flex items-center justify-between gap-4 border-b border-white/10 bg-black/30 px-5 py-4">
-          <div className="flex min-w-0 items-center gap-3">
-            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
-              <Backpack className="h-5 w-5" />
+            <div className="flex min-w-0 items-center gap-3">
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-indigo-300/20 bg-indigo-500/10 text-indigo-200">
+                <Backpack className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <h1 className="truncate text-lg font-semibold">{directActorMode ? 'Inventário' : 'Inventários'}</h1>
+                <p className="truncate text-xs text-zinc-400">
+                  {directActorMode && readOnly
+                    ? 'Organize os equipamentos e consulte os itens deste personagem'
+                    : actorsData?.role === 'MASTER'
+                      ? 'Gerencie inventários e equipamentos da campanha'
+                      : 'Organize os itens e equipamentos dos personagens sob seu controle'}
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <h1 className="truncate text-lg font-semibold">{directActorMode ? 'Inventário' : 'Inventários'}</h1>
-              <p className="truncate text-xs text-zinc-400">
-                {directActorMode && readOnly
-                  ? 'Itens do Token controlado — arraste para reorganizar'
-                  : actorsData?.role === 'MASTER'
-                    ? 'Gerencie e organize os inventários da campanha'
-                    : 'Organize os itens dos Tokens sob seu controle'}
-              </p>
-            </div>
-          </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              title="Minimizar inventário"
-              onClick={() => setMinimized(true)}
-              className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
-            >
-              <Minus className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              title="Fechar inventário"
-              onClick={onClose}
-              className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
-            >
-              <X className="h-5 w-5" />
-            </button>
-          </div>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                title="Minimizar inventário"
+                onClick={() => setMinimized(true)}
+                className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+              >
+                <Minus className="h-5 w-5" />
+              </button>
+              <button
+                type="button"
+                title="Fechar inventário"
+                onClick={onClose}
+                className="rounded-lg border border-white/10 p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
           </header>
 
           {error ? (
@@ -385,74 +425,84 @@ export function CampaignInventoryModal({
           ) : null}
 
           <div className={['grid min-h-0 flex-1', directActorMode ? 'grid-cols-1' : 'md:grid-cols-[240px_minmax(0,1fr)]'].join(' ')}>
-          {!directActorMode ? (
-            <aside className="min-h-0 overflow-y-auto border-b border-white/10 bg-black/20 p-3 md:border-b-0 md:border-r">
-              {loadingActors ? (
-                <div className="flex items-center gap-2 px-3 py-4 text-sm text-zinc-400">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Carregando atores...
-                </div>
-              ) : null}
-              <div className="space-y-1.5">
-                {actorsData?.actors.map((actor) => (
-                  <button
-                    key={actor.id}
-                    type="button"
-                    onClick={() => setSelectedActorId(actor.id)}
-                    className={[
-                      'flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition',
-                      actor.id === selectedActorId
-                        ? 'border-indigo-300/40 bg-indigo-500/15 text-white'
-                        : 'border-transparent text-zinc-300 hover:border-white/10 hover:bg-white/[0.05] hover:text-white',
-                    ].join(' ')}
-                  >
-                    <ActorAvatar actor={actor} />
-                    <span className="min-w-0 flex-1">
-                      <span className="block truncate text-sm font-semibold">{actor.name}</span>
-                      <span className="mt-0.5 block truncate text-[11px] text-zinc-500">
-                        {actor.owner?.email ?? 'Sem jogador atribuído'}
+            {!directActorMode ? (
+              <aside className="min-h-0 overflow-y-auto border-b border-white/10 bg-black/20 p-3 md:border-b-0 md:border-r">
+                {loadingActors ? (
+                  <div className="flex items-center gap-2 px-3 py-4 text-sm text-zinc-400">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Carregando atores...
+                  </div>
+                ) : null}
+                <div className="space-y-1.5">
+                  {actorsData?.actors.map((actor) => (
+                    <button
+                      key={actor.id}
+                      type="button"
+                      onClick={() => setSelectedActorId(actor.id)}
+                      className={[
+                        'flex w-full items-center gap-3 rounded-xl border px-3 py-3 text-left transition',
+                        actor.id === selectedActorId
+                          ? 'border-indigo-300/40 bg-indigo-500/15 text-white'
+                          : 'border-transparent text-zinc-300 hover:border-white/10 hover:bg-white/[0.05] hover:text-white',
+                      ].join(' ')}
+                    >
+                      <ActorAvatar actor={actor} />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-sm font-semibold">{actor.name}</span>
+                        <span className="mt-0.5 block truncate text-[11px] text-zinc-500">
+                          {actor.owner?.email ?? 'Sem jogador atribuído'}
+                        </span>
                       </span>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </aside>
-          ) : null}
-
-          <main className="flex min-h-0 flex-col p-4">
-            <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
-              <div>
-                <h2 className="text-xl font-semibold">{selectedActor?.name ?? 'Inventário'}</h2>
-                <p className="mt-1 text-xs text-zinc-500">
-                  Clique para abrir a ficha. Arraste os ícones para trocar os slots.
-                </p>
-              </div>
-              <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
-                {inventory?.entries.length ?? 0} slots ocupados
-              </span>
-            </div>
-
-            {loadingInventory ? (
-              <div className="flex items-center gap-2 text-sm text-zinc-400">
-                <Loader2 className="h-4 w-4 animate-spin" />
-                Carregando inventário...
-              </div>
-            ) : (
-              <InventoryGrid
-                entries={inventory?.entries ?? []}
-                movingEntryId={movingEntryId}
-                onMove={(entryId, slotIndex) => void moveEntry(entryId, slotIndex)}
-                onOpen={(entry) => openEntrySheet(entry as InventoryEntry)}
-                onManage={readOnly ? undefined : (entry) => manageEntry(entry as InventoryEntry)}
-              />
-            )}
-
-            {!readOnly ? (
-              <p className="mt-3 text-[11px] text-zinc-500">
-                Clique com o botão direito em um item para alterar sua quantidade ou removê-lo.
-              </p>
+                    </button>
+                  ))}
+                </div>
+              </aside>
             ) : null}
-          </main>
+
+            <main className="min-h-0 overflow-y-auto p-4">
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+                <div>
+                  <h2 className="text-xl font-semibold">{selectedActor?.name ?? 'Inventário'}</h2>
+                  <p className="mt-1 text-xs text-zinc-500">
+                    Equipe itens no painel e arraste os ícones para reorganizar a mochila.
+                  </p>
+                </div>
+                <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
+                  {backpackEntries.length} slots ocupados
+                </span>
+              </div>
+
+              {selectedActorId && !loadingInventory ? (
+                <GameSystemEquipmentPanels
+                  key={selectedActorId}
+                  campaignId={campaignId}
+                  actorId={selectedActorId}
+                  catalogSheetZIndex={zIndex + 20}
+                  onEquipmentChanged={refreshInventory}
+                />
+              ) : null}
+
+              {loadingInventory ? (
+                <div className="flex items-center gap-2 text-sm text-zinc-400">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Carregando inventário...
+                </div>
+              ) : (
+                <InventoryGrid
+                  entries={backpackEntries}
+                  movingEntryId={movingEntryId}
+                  onMove={(entryId, slotIndex) => void moveEntry(entryId, slotIndex)}
+                  onOpen={(entry) => openEntrySheet(entry as InventoryEntry)}
+                  onManage={readOnly ? undefined : (entry) => manageEntry(entry as InventoryEntry)}
+                />
+              )}
+
+              {!readOnly ? (
+                <p className="mt-3 text-[11px] text-zinc-500">
+                  Clique com o botão direito em um item para alterar sua quantidade ou removê-lo.
+                </p>
+              ) : null}
+            </main>
           </div>
         </section>
       </div>
@@ -463,6 +513,7 @@ export function CampaignInventoryModal({
           contentId={sheetEntry.catalogContentId}
           domain="ITEMS"
           locale={itemSheetLocale}
+          zIndex={zIndex + 20}
           onClose={() => setSheetEntry(null)}
         />
       ) : null}
