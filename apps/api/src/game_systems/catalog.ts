@@ -129,6 +129,7 @@ export type GameSystemCatalogProvider = {
   resolveInventoryItemContentId?(
     data: unknown,
   ): Promise<string | null> | string | null
+  resolveInventoryItemImageUrl?(contentId: string): string | null
 }
 
 export type CatalogTokenSheetEnvelope = {

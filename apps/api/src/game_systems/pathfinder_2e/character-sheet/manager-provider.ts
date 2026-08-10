@@ -5,6 +5,8 @@ import type {
 } from '../../character-sheets'
 import { gameSystemRuntime } from '../../runtime/game-system-runtime'
 import { pathfinder2eCharacterSheetRuntimeAdapter } from './adapter'
+import { derivePathfinder2eCharacterSheet } from './derivation'
+import { resolvePathfinder2eEquippedArmor } from '../equipment/domain'
 
 function compact(values: Array<string | null | undefined>) {
   return values.filter((value): value is string => Boolean(value))
@@ -47,6 +49,18 @@ async function loadCampaignSheets(campaignId: string) {
             select: { userId: true, user: { select: { email: true } } },
           },
           token: { select: { id: true, name: true } },
+          inventory: {
+            select: {
+              entries: {
+                select: {
+                  id: true,
+                  quantity: true,
+                  data: true,
+                  state: true,
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -77,6 +91,9 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
           pathfinder2eCharacterSheetRuntimeAdapter,
           entry.data,
         )
+        const equipped = derivePathfinder2eCharacterSheet(resolved.data, {
+          armor: resolvePathfinder2eEquippedArmor(entry.actor.inventory?.entries ?? []),
+        })
         const identity = resolved.data.identity
 
         return {
@@ -99,9 +116,9 @@ export const pathfinder2eCharacterSheetManagerProvider: GameSystemCharacterSheet
           stats: [
             { label: 'Nível', value: String(identity.level) },
             { label: 'PV', value: `${resolved.data.hitPoints.current}/${resolved.derived.hitPoints.maximum}` },
-            { label: 'CA', value: String(resolved.derived.armorClass.value) },
+            { label: 'CA', value: String(equipped.derived.armorClass.value) },
           ],
-          warnings: resolved.warnings,
+          warnings: [...new Set([...resolved.warnings, ...equipped.warnings])],
         }
       } catch {
         return invalidEntry(entry)

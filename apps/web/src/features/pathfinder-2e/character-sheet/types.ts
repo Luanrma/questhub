@@ -123,10 +123,14 @@ export type Pathfinder2eDerivedCharacterSheet = {
   }
   armorClass: {
     value: number
+    rawDexterityModifier: number
     dexterityModifier: number
+    dexterityCap: number | null
     proficiencyBonus: number
+    itemBonus: number
     bonus: number
-    armorCategory: 'unarmored'
+    armorCategory: 'unarmored' | 'light' | 'medium' | 'heavy'
+    sourceName: string | null
     proficiency: Pathfinder2eDerivedProficiency
   }
   initiative: {
@@ -188,6 +192,7 @@ export type Pathfinder2eResolvedCharacterSheet = {
 export type Pathfinder2eCharacterSheetResponse = {
   metadata: {
     id: string
+    actorId: string
     name: string
     avatarUrl: string | null
     bio: string | null

@@ -3,6 +3,10 @@ import { z } from 'zod'
 import { prisma } from '../../db/prisma'
 import { requireAuth } from '../../http/auth'
 import {
+  canMutateActorInventory,
+  canReadActorInventory,
+} from '../../lib/actor-inventory-authorization'
+import {
   catalogTokenSheetSystemKey,
   getGameSystemCatalogProvider,
   getInventoryCatalogNamespace,
@@ -19,10 +23,6 @@ import {
   updateInventoryEntryQuantitySchema,
   updateInventoryEntrySlotSchema,
 } from './validation'
-import {
-  canMutateActorInventory,
-  canReadActorInventory,
-} from './authorization'
 
 const campaignParamsSchema = z.object({
   campaignId: z.string().trim().min(1),

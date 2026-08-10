@@ -13,10 +13,11 @@ export type InventoryEntryRecord = {
   id: string
   inventoryId: string
   quantity: number
-  slotIndex: number
+  slotIndex: number | null
   catalogNamespace: string | null
   catalogContentId: string | null
   data: Prisma.JsonValue
+  state: Prisma.JsonValue | null
   createdAt: Date
   updatedAt: Date
 }
@@ -25,16 +26,30 @@ type AddInventoryItemFailureReason = 'QUANTITY_EXCEEDED'
 
 export function presentInventoryEntry(entry: InventoryEntryRecord, gameSystem: GameSystemKey) {
   const policy = getGameSystemInventoryPolicy(gameSystem)
+  const provider = getGameSystemCatalogProvider(gameSystem)
+  const basePresentation = policy?.present?.(entry.data) ?? null
+  const resolvedImageUrl = entry.catalogContentId
+    ? provider?.resolveInventoryItemImageUrl?.(entry.catalogContentId) ?? null
+    : null
+  const catalogImageUrl = typeof resolvedImageUrl === 'string' ? resolvedImageUrl : null
+  const presentation = basePresentation
+    ? {
+        ...basePresentation,
+        imageUrl: basePresentation.imageUrl ?? catalogImageUrl,
+      }
+    : null
 
   return {
     id: entry.id,
     inventoryId: entry.inventoryId,
     quantity: entry.quantity,
     slotIndex: entry.slotIndex,
+    inBackpack: entry.slotIndex !== null,
     catalogNamespace: entry.catalogNamespace,
     catalogContentId: entry.catalogContentId,
     data: entry.data,
-    presentation: policy?.present?.(entry.data) ?? null,
+    state: entry.state,
+    presentation,
     createdAt: entry.createdAt,
     updatedAt: entry.updatedAt,
   }
@@ -74,6 +89,7 @@ export async function addInventoryItem(input: {
         catalogNamespace: true,
         catalogContentId: true,
         data: true,
+        state: true,
       },
       orderBy: { createdAt: 'asc' },
     })
@@ -112,7 +128,11 @@ export async function addInventoryItem(input: {
       return { ok: true, entry, stacked: true } as const
     }
 
-    const occupiedSlots = new Set(existingEntries.map((entry) => entry.slotIndex))
+    const occupiedSlots = new Set(
+      existingEntries
+        .map((entry) => entry.slotIndex)
+        .filter((slotIndex): slotIndex is number => slotIndex !== null),
+    )
     let slotIndex = 0
     while (occupiedSlots.has(slotIndex)) slotIndex += 1
 

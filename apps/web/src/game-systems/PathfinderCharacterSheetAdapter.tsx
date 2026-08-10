@@ -2,6 +2,7 @@ import {
   Pathfinder2eCharacterSheetRenderer,
   type Pathfinder2eCharacterSheetPage,
 } from '../features/pathfinder-2e/character-sheet/Pathfinder2eCharacterSheetRenderer'
+import { Pathfinder2eCharacterInventoryPage } from '../features/pathfinder-2e/character-sheet/Pathfinder2eCharacterInventoryPage'
 import type { CharacterSheetRendererProps } from './character-sheet-renderers'
 import { SimplifiedCatalogTokenSheetRenderer } from './SimplifiedCatalogTokenSheetRenderer'
 
@@ -11,6 +12,17 @@ export function PathfinderCharacterSheetAdapter(props: CharacterSheetRendererPro
       <SimplifiedCatalogTokenSheetRenderer
         campaignId={props.campaignId}
         sheetId={props.sheetId}
+      />
+    )
+  }
+
+  if (props.activePage === 'inventory') {
+    return (
+      <Pathfinder2eCharacterInventoryPage
+        campaignId={props.campaignId}
+        sheetId={props.sheetId}
+        onRequestPageChange={props.onRequestPageChange}
+        onRequestMinimize={props.onRequestMinimize}
       />
     )
   }

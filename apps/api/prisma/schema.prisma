@@ -118,10 +118,11 @@ model InventoryEntry {
   id               String   @id @default(cuid())
   inventoryId      String
   quantity         Int      @default(1)
-  slotIndex        Int
+  slotIndex        Int?
   catalogNamespace String?
   catalogContentId String?
   data             Json
+  state            Json?
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
@@ -313,8 +314,8 @@ model CampaignAreaTemplate {
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
 
-  campaign      Campaign          @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  createdByUser User              @relation("AreaTemplateCreator", fields: [createdByUserId], references: [id])
+  campaign      Campaign           @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  createdByUser User               @relation("AreaTemplateCreator", fields: [createdByUserId], references: [id])
   areaEffects   SceneAreaEffect[]
 
   @@index([campaignId, name])
@@ -333,16 +334,16 @@ model SceneAreaEffect {
   originY               Float
   originElevation       Float?
   rotationDegrees       Float    @default(0)
-  scale                 Float    @default(1)
+  scale                  Float    @default(1)
   configurationSnapshot Json
   state                 String   @default("ACTIVE")
   createdAt             DateTime @default(now())
   expiresAt             DateTime?
 
-  campaign      Campaign             @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  scene         CampaignScene        @relation(fields: [sceneId], references: [id], onDelete: Cascade)
+  campaign      Campaign              @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  scene         CampaignScene         @relation(fields: [sceneId], references: [id], onDelete: Cascade)
   template      CampaignAreaTemplate? @relation(fields: [templateId], references: [id], onDelete: SetNull)
-  createdByUser User                 @relation("AreaEffectCreator", fields: [createdByUserId], references: [id])
+  createdByUser User                  @relation("AreaEffectCreator", fields: [createdByUserId], references: [id])
 
   @@index([campaignId, sceneId, state])
   @@index([templateId])

@@ -6,6 +6,10 @@ import type {
 } from '../../catalog'
 import type { Pathfinder2eContentEntry } from './content-entry'
 import {
+  createPathfinder2eItemFilterDefinitions,
+  matchesPathfinder2eItemFilters,
+} from './item-filter'
+import {
   translatePathfinder2eRarity,
   translatePathfinder2eTraits,
 } from './translations/pt-BR/glossary'
@@ -64,6 +68,9 @@ export function createPathfinder2eBestiaryFilterDefinitions(
   domain: GameSystemCatalogDomain,
   locale: GameSystemContentLocale,
 ): readonly GameSystemCatalogFilterDefinition[] {
+  if (domain === 'ITEMS') {
+    return createPathfinder2eItemFilterDefinitions(entries, locale)
+  }
   if (domain !== 'BESTIARY') return []
 
   const bestiaryEntries = entries.filter((entry) => entry.original.domain === 'BESTIARY')
@@ -144,6 +151,7 @@ export function matchesPathfinder2eBestiaryFilters(
   domain: GameSystemCatalogDomain,
   filters: GameSystemCatalogFilterSelection,
 ) {
+  if (domain === 'ITEMS') return matchesPathfinder2eItemFilters(entry, filters)
   if (domain !== 'BESTIARY') return true
 
   const data = asBestiaryData(entry)

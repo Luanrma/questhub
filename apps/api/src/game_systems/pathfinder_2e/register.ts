@@ -10,6 +10,7 @@ import { pathfinder2eCharacterSheetManagerProvider } from './character-sheet/man
 import { registerPathfinder2eCharacterSheetRoutes } from './character-sheet/routes'
 import { pathfinder2eCatalogProvider } from './content_catalog/catalog-provider'
 import { registerPathfinder2eContentCatalogRoutes } from './content_catalog/routes'
+import { registerPathfinder2eEquipmentRoutes } from './equipment/routes'
 import { registerPathfinder2eIconAssetRoutes } from './icon-assets'
 import { pathfinder2eInventoryPolicy } from './inventory/policy'
 
@@ -46,5 +47,6 @@ export function registerPathfinder2e(
   registerPathfinder2eCharacterSheetRoutes(app, events)
   registerPathfinder2eCharacterSpellRoutes(app, events)
   registerPathfinder2eContentCatalogRoutes(app)
+  registerPathfinder2eEquipmentRoutes(app)
   registerPathfinder2eIconAssetRoutes(app)
 }

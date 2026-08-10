@@ -104,6 +104,20 @@ npm run dev:web
 Web: http://localhost:5173
 API: http://localhost:3001 (`GET /api/health`)
 
+## Testes
+
+Com o arquivo `.env` configurado na raiz, execute:
+
+```bash
+npm run test:unit
+```
+
+Para rodar tambem a verificacao de fronteiras arquiteturais, use:
+
+```bash
+npm run quality:prepush
+```
+
 ## Funcionalidades implementadas
 
 ### Autenticação

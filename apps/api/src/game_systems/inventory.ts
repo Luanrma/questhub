@@ -10,6 +10,7 @@ export type GameSystemInventoryItemPresentation = {
   subtitle?: string | null
   description?: string | null
   imageUrl?: string | null
+  iconKey?: string | null
   traits?: readonly string[]
   details?: readonly GameSystemInventoryPresentationDetail[]
 }

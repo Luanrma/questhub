@@ -9,6 +9,11 @@ const modulesRoot = path.join(apiRoot, 'modules')
 const webRoot = path.join(root, 'apps', 'web', 'src')
 const webVttRoot = path.join(webRoot, 'vtt')
 const tokenPresentationRoot = path.join(webVttRoot, 'token-presentation')
+const equipmentRendererRegistryFile = path.join(
+  webRoot,
+  'game-systems',
+  'equipment-renderers.tsx',
+)
 
 // Existing generic integration points from main. This baseline prevents new
 // cross-boundary imports while these two bridges are moved to the composition shell.
@@ -85,6 +90,21 @@ for (const sourceFile of collectFiles(webVttRoot)) {
     if (entersFeatures) {
       violations.push(`VTT imports a concrete feature module: ${key}`)
     }
+  }
+}
+
+if (existsSync(equipmentRendererRegistryFile)) {
+  const source = readFileSync(equipmentRendererRegistryFile, 'utf8')
+  const relativePath = path.relative(root, equipmentRendererRegistryFile)
+
+  if (!/Partial\s*<\s*Record\s*<\s*GameSystemKey\s*,/.test(source)) {
+    violations.push(`Equipment renderer registry must be keyed by GameSystemKey: ${relativePath}`)
+  }
+  if (/const\s+equipmentRenderers\s*=\s*\[/.test(source)) {
+    violations.push(`Equipment renderers cannot be mounted as an unconditional list: ${relativePath}`)
+  }
+  if (!/equipmentRenderers\s*\[\s*gameSystem\s*\]/.test(source)) {
+    violations.push(`Equipment renderer must be selected from the current game system: ${relativePath}`)
   }
 }
 
