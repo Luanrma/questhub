@@ -6,6 +6,7 @@ import { registerGameSystemCatalogProvider } from '../catalog'
 import { registerGameSystemInventoryPolicy } from '../inventory'
 import { pathfinder2eTokenPresentationProvider } from './automation/token-presentation-provider'
 import { registerPathfinder2eCharacterSpellRoutes } from './character-spells/routes'
+import { registerPathfinder2eCurrencyRoutes } from './currency/routes'
 import { pathfinder2eCharacterSheetManagerProvider } from './character-sheet/manager-provider'
 import { registerPathfinder2eCharacterSheetRoutes } from './character-sheet/routes'
 import { pathfinder2eCatalogProvider } from './content_catalog/catalog-provider'
@@ -46,6 +47,7 @@ export function registerPathfinder2e(
   registerGameSystemCatalogProvider('PATHFINDER_2E', pathfinder2eCatalogProvider)
   registerPathfinder2eCharacterSheetRoutes(app, events)
   registerPathfinder2eCharacterSpellRoutes(app, events)
+  registerPathfinder2eCurrencyRoutes(app)
   registerPathfinder2eContentCatalogRoutes(app)
   registerPathfinder2eEquipmentRoutes(app)
   registerPathfinder2eIconAssetRoutes(app)

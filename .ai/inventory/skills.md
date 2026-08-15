@@ -31,7 +31,10 @@
 ## Frontend
 
 - A grade é renderizada por slots explícitos e não por cards de conteúdo.
-- Cada página visual usa trilhas CSS responsivas de `10 x 10`; novas páginas surgem conforme necessário.
+- Cada página visual usa trilhas CSS responsivas de `20 x 5`, com `aspect-ratio: 1` nos slots e largura total da área útil; novas páginas surgem somente quando ocupadas.
+- A grade não deve criar rolagem própria quando os 100 slots couberem na área disponível.
+- Controles de paginação não devem reservar espaço quando existir apenas uma página.
+- Extensões visuais de Game System devem compor o rodapé da janela e não usar posicionamento absoluto sobre a grade.
 - A janela é renderizada em portal no `document.body` para não herdar bloqueios de ponteiro da camada de HUD da mesa.
 - O contêiner de posicionamento não captura eventos; somente o painel e a mochila minimizada usam `pointer-events: auto`.
 - Drag-and-drop usa `DataTransfer` tipado pelo ID da entrada e confirma a troca no backend.
@@ -41,4 +44,4 @@
 
 ## Evolução
 
-Containers, capacidade, moedas e regras de equipamento devem ser adicionados por contratos próprios, sem alterar o significado básico de `InventoryEntry.data`.
+Containers, capacidade, moedas e regras de equipamento devem ser adicionados por contratos próprios, sem alterar o significado básico de `InventoryEntry.data`. A carteira PF2e usa `CampaignCharacterSheetEntry`, não `InventoryEntry`.

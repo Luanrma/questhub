@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import {
   Backpack,
   ChevronLeft,
@@ -17,7 +17,6 @@ import {
   availableInventoryPageCount,
   entriesBySlot,
   inventoryGridColumns,
-  inventoryGridPageRows,
   inventoryPageSlotIndexes,
   type SlottedInventoryEntry,
 } from '../domain/inventoryGrid'
@@ -48,7 +47,7 @@ type Props = {
 const inventoryEntryDragType = 'application/x-questhub-inventory-entry'
 
 function InventoryItemFallbackIcon({ iconKey }: { iconKey?: string | null }) {
-  const className = 'h-5 w-5 text-indigo-200/75'
+  const className = 'h-1/2 w-1/2 text-indigo-200/75'
 
   switch (iconKey) {
     case 'weapon':
@@ -76,18 +75,16 @@ function InventoryItemFallbackIcon({ iconKey }: { iconKey?: string | null }) {
 
 function InventoryItemIcon({ entry }: { entry: InventoryGridEntry }) {
   const imageUrl = entry.presentation?.imageUrl ?? null
-  const [imageFailed, setImageFailed] = useState(false)
+  const [failedImageUrl, setFailedImageUrl] = useState<string | null>(null)
 
-  useEffect(() => setImageFailed(false), [imageUrl])
-
-  if (imageUrl && !imageFailed) {
+  if (imageUrl && imageUrl !== failedImageUrl) {
     return (
       <img
         src={imageUrl}
         alt=""
         draggable={false}
-        onError={() => setImageFailed(true)}
-        className="h-12 w-12 max-h-[55%] max-w-[55%] rounded object-contain"
+        onError={() => setFailedImageUrl(imageUrl)}
+        className="h-full w-full rounded-sm object-contain p-1"
       />
     )
   }
@@ -118,34 +115,35 @@ export function InventoryGrid({
 
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-white/10 bg-black/25">
-      <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 text-xs text-zinc-400">
-        <button
-          type="button"
-          disabled={visiblePageIndex === 0}
-          onClick={() => setPageIndex(Math.max(0, visiblePageIndex - 1))}
-          className="rounded-md border border-white/10 p-1.5 text-zinc-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
-          aria-label="Página anterior do inventário"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </button>
-        <span>Página {visiblePageIndex + 1} de {pageCount}</span>
-        <button
-          type="button"
-          disabled={visiblePageIndex >= pageCount - 1}
-          onClick={() => setPageIndex(Math.min(pageCount - 1, visiblePageIndex + 1))}
-          className="rounded-md border border-white/10 p-1.5 text-zinc-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
-          aria-label="Próxima página do inventário"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </button>
-      </div>
+      {pageCount > 1 ? (
+        <div className="flex items-center justify-between border-b border-white/10 px-3 py-2 text-xs text-zinc-400">
+          <button
+            type="button"
+            disabled={visiblePageIndex === 0}
+            onClick={() => setPageIndex(Math.max(0, visiblePageIndex - 1))}
+            className="rounded-md border border-white/10 p-1.5 text-zinc-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+            aria-label="Página anterior do inventário"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </button>
+          <span>Página {visiblePageIndex + 1} de {pageCount}</span>
+          <button
+            type="button"
+            disabled={visiblePageIndex >= pageCount - 1}
+            onClick={() => setPageIndex(Math.min(pageCount - 1, visiblePageIndex + 1))}
+            className="rounded-md border border-white/10 p-1.5 text-zinc-300 transition hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-35"
+            aria-label="Próxima página do inventário"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </button>
+        </div>
+      ) : null}
 
       <div className="grid min-h-0 flex-1 place-items-stretch overflow-auto p-2">
         <div
-          className="grid min-w-0 gap-1"
+          className="grid w-full min-w-0 gap-1"
           style={{
             gridTemplateColumns: `repeat(${inventoryGridColumns}, minmax(0, 1fr))`,
-            gridTemplateRows: `repeat(${inventoryGridPageRows}, minmax(3rem, 1fr))`,
           }}
           role="grid"
           aria-label={`Página ${visiblePageIndex + 1} da grade do inventário`}
@@ -158,7 +156,7 @@ export function InventoryGrid({
                   key={slotIndex}
                   role="gridcell"
                   aria-label={`Slot ${slotIndex + 1} vazio`}
-                  className="min-h-0 min-w-0 rounded border border-white/[0.08] bg-white/[0.025] shadow-inner transition hover:border-indigo-300/25 hover:bg-indigo-500/[0.04]"
+                  className="aspect-square min-h-0 min-w-0 rounded border border-white/[0.08] bg-white/[0.025] shadow-inner transition hover:border-indigo-300/25 hover:bg-indigo-500/[0.04]"
                   onDragOver={(event) => {
                     if (!event.dataTransfer.types.includes(inventoryEntryDragType)) return
                     event.preventDefault()
@@ -183,7 +181,7 @@ export function InventoryGrid({
                 title={`${name} — quantidade ${entry.quantity}`}
                 aria-label={`${name}, quantidade ${entry.quantity}, slot ${slotIndex + 1}`}
                 className={[
-                  'group relative grid min-h-0 min-w-0 place-items-center overflow-hidden rounded border bg-indigo-500/10 p-0.5 text-indigo-100 shadow-sm transition',
+                  'group relative grid aspect-square min-h-0 min-w-0 place-items-center overflow-hidden rounded border bg-indigo-500/10 text-indigo-100 shadow-sm transition',
                   movingEntryId === entry.id
                     ? 'border-indigo-200/70 opacity-50'
                     : 'border-indigo-300/25 hover:border-indigo-200/70 hover:bg-indigo-500/20',

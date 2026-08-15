@@ -50,7 +50,7 @@ Regras:
 - Índices negativos são inválidos e não possuem significado reservado.
 - Não existe capacidade máxima persistida no Core.
 - Uma inclusão usa o primeiro índice livre.
-- A interface organiza os índices em páginas visuais de 10 × 10 e adiciona novas páginas conforme necessário.
+- A interface organiza os índices em páginas visuais de 20 × 5 com slots quadrados e adiciona páginas somente quando um índice ocupado exigir a página seguinte.
 - Soltar sobre um slot vazio move a entrada; soltar sobre outra entrada troca as posições atomicamente.
 - Uma entrada com `slotIndex = null` precisa retornar à grade por meio da capacidade que a removeu antes de ser reorganizada pela rota genérica de slots.
 - `catalogNamespace` identifica de forma estável o provedor, sistema e domínio do catálogo.
@@ -113,7 +113,12 @@ interface GameSystemInventoryPolicy {
 - O banco não impõe quantidade máxima de slots.
 - Existe um registry agnóstico para políticas de inventário.
 - Pathfinder 2e registra uma política baseada em igualdade profunda.
-- Containers, moedas, peso e capacidade permanecem fora desta entrega.
+- Containers, peso e capacidade permanecem fora desta entrega. Moedas PF2e são
+  uma extensão de ficha documentada em `.ai/game_systems/pathfinder_2e/currency/`
+  e não alteram este contrato.
 - Um jogador com vários atores visualiza um inventário por ator e nenhum inventário de perfil.
-- A grade apresenta páginas visuais de 100 slots e cresce conforme o maior índice utilizado.
+- A grade apresenta páginas visuais de 100 slots quadrados em 20 colunas por 5 linhas; ocupa toda a largura útil sem gerar rolagem própria quando couber no painel, e a quantidade de páginas cresce conforme o maior índice utilizado.
+- Com itens apenas nos índices `0..99`, a grade exibe uma única página e oculta a navegação.
+- Imagens de itens ocupam a área útil do slot com `object-fit: contain`, sem distorção ou recorte.
+- O resumo mecânico do Game System fica no rodapé, fora da área rolável da grade.
 - A preferência padrão de ficha fica em `CampaignUserSettings.inventory.itemSheetLocale`.

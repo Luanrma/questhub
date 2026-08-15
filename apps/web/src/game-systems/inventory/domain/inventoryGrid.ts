@@ -1,5 +1,5 @@
-export const inventoryGridColumns = 10
-export const inventoryGridPageRows = 10
+export const inventoryGridColumns = 20
+export const inventoryGridPageRows = 5
 export const inventoryGridPageSlotCount = inventoryGridColumns * inventoryGridPageRows
 
 export type PositionedInventoryEntry = {
@@ -21,8 +21,7 @@ export function occupiedInventoryPageCount(entries: readonly SlottedInventoryEnt
 }
 
 export function availableInventoryPageCount(entries: readonly SlottedInventoryEntry[]) {
-  if (entries.length === 0) return 1
-  return occupiedInventoryPageCount(entries) + 1
+  return occupiedInventoryPageCount(entries)
 }
 
 export function inventoryPageSlotIndexes(pageIndex: number) {

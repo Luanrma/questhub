@@ -16,12 +16,13 @@ const entries = [
   { id: 'entry-b', slotIndex: 9 },
 ]
 
-test('inventory grid renders fixed 10 by 10 pages without limiting total capacity', () => {
-  assert.equal(inventoryGridColumns, 10)
-  assert.equal(inventoryGridPageRows, 10)
+test('inventory grid renders fixed 20 by 5 pages without limiting total capacity', () => {
+  assert.equal(inventoryGridColumns, 20)
+  assert.equal(inventoryGridPageRows, 5)
   assert.equal(inventoryGridPageSlotCount, 100)
   assert.equal(occupiedInventoryPageCount(entries), 1)
-  assert.equal(availableInventoryPageCount(entries), 2)
+  assert.equal(availableInventoryPageCount(entries), 1)
+  assert.equal(availableInventoryPageCount([{ id: 'entry-c', slotIndex: 100 }]), 2)
   assert.equal(occupiedInventoryPageCount([{ id: 'entry-c', slotIndex: 100_000_000 }]), 1_000_001)
   assert.equal(inventoryPageSlotIndexes(1)[0], 100)
   assert.equal(inventoryPageSlotIndexes(1).at(-1), 199)

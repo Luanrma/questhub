@@ -9,6 +9,7 @@ import {
 } from '../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import { CatalogEntitySheetModal } from './CatalogEntitySheetModal'
 import { GameSystemEquipmentPanels } from './equipment-renderers'
+import { GameSystemCurrencyBox } from './currency-renderers'
 import {
   InventoryGrid,
   type InventoryGridEntry,
@@ -459,49 +460,64 @@ export function CampaignInventoryModal({
               </aside>
             ) : null}
 
-            <main className="min-h-0 overflow-y-auto p-4">
-              <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
-                <div>
-                  <h2 className="text-xl font-semibold">{selectedActor?.name ?? 'Inventário'}</h2>
-                  <p className="mt-1 text-xs text-zinc-500">
-                    Equipe itens no painel e arraste os ícones para reorganizar a mochila.
-                  </p>
+            <main className="flex min-h-0 flex-col overflow-hidden p-4">
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                <div className="mb-3 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-3">
+                  <div>
+                    <h2 className="text-xl font-semibold">{selectedActor?.name ?? 'Inventário'}</h2>
+                    <p className="mt-1 text-xs text-zinc-500">
+                      Equipe itens no painel e arraste os ícones para reorganizar a mochila.
+                    </p>
+                  </div>
+                  <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
+                    {backpackEntries.length} slots ocupados
+                  </span>
                 </div>
-                <span className="rounded-lg border border-white/10 bg-black/25 px-3 py-2 text-xs text-zinc-300">
-                  {backpackEntries.length} slots ocupados
-                </span>
+
+                {selectedActorId && !loadingInventory ? (
+                  <GameSystemEquipmentPanels
+                    key={selectedActorId}
+                    campaignId={campaignId}
+                    actorId={selectedActorId}
+                    catalogSheetZIndex={zIndex + 20}
+                    onEquipmentChanged={refreshInventory}
+                  />
+                ) : null}
+
+                {loadingInventory ? (
+                  <div className="flex items-center gap-2 text-sm text-zinc-400">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Carregando inventário...
+                  </div>
+                ) : (
+                  <InventoryGrid
+                    entries={backpackEntries}
+                    movingEntryId={movingEntryId}
+                    onMove={(entryId, slotIndex) => void moveEntry(entryId, slotIndex)}
+                    onOpen={(entry) => openEntrySheet(entry as InventoryEntry)}
+                    onManage={readOnly ? undefined : (entry) => manageEntry(entry as InventoryEntry)}
+                  />
+                )}
               </div>
 
-              {selectedActorId && !loadingInventory ? (
-                <GameSystemEquipmentPanels
-                  key={selectedActorId}
-                  campaignId={campaignId}
-                  actorId={selectedActorId}
-                  catalogSheetZIndex={zIndex + 20}
-                  onEquipmentChanged={refreshInventory}
-                />
-              ) : null}
+              <footer className="mt-3 flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-3">
+                {!readOnly ? (
+                  <p className="text-[11px] text-zinc-500">
+                    Clique com o botão direito em um item para alterar sua quantidade ou removê-lo.
+                  </p>
+                ) : (
+                  <span aria-hidden="true" />
+                )}
 
-              {loadingInventory ? (
-                <div className="flex items-center gap-2 text-sm text-zinc-400">
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                  Carregando inventário...
-                </div>
-              ) : (
-                <InventoryGrid
-                  entries={backpackEntries}
-                  movingEntryId={movingEntryId}
-                  onMove={(entryId, slotIndex) => void moveEntry(entryId, slotIndex)}
-                  onOpen={(entry) => openEntrySheet(entry as InventoryEntry)}
-                  onManage={readOnly ? undefined : (entry) => manageEntry(entry as InventoryEntry)}
-                />
-              )}
-
-              {!readOnly ? (
-                <p className="mt-3 text-[11px] text-zinc-500">
-                  Clique com o botão direito em um item para alterar sua quantidade ou removê-lo.
-                </p>
-              ) : null}
+                {selectedActorId && !loadingInventory ? (
+                  <GameSystemCurrencyBox
+                    key={selectedActorId}
+                    campaignId={campaignId}
+                    actorId={selectedActorId}
+                    zIndex={zIndex + 30}
+                  />
+                ) : null}
+              </footer>
             </main>
           </div>
         </section>
