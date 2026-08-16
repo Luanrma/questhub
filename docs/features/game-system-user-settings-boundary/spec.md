@@ -1,6 +1,6 @@
 # QH-ARCH-001 — Isolar configurações específicas de Game System
 
-Status: **READY FOR ARCHITECTURE REVIEW**
+Status: **READY**
 
 ## Objetivo
 
@@ -124,6 +124,24 @@ Esta mudança não relaxa autorização.
 11. Testes/checks relacionados passam e existe cobertura contra regressão da preservação de namespaces opacos.
 12. A documentação canônica e a implementação descrevem a mesma fronteira.
 
+## Direção arquitetural aprovada
+
+### Backend
+
+Extrair a normalização/merge de Campaign User Settings para um módulo genérico e testável dentro de `modules/campaigns`. Esse módulo conhece apenas namespaces do Core e preserva propriedades top-level desconhecidas por `passthrough`, sem importar ou chamar engine concreta.
+
+### Frontend
+
+Criar um composition shell em `apps/web/src/game-systems/` que mapeia `GameSystemKey` para um painel concreto. `CampaignSettingsPage` monta apenas o bridge genérico. O componente concreto PF2e fica em `features/pathfinder-2e` e é responsável pela preferência `contentLocale`.
+
+### Enforcement
+
+- teste unitário para normalização/merge genérico e preservação de namespace opaco;
+- teste de registry web seguindo o padrão já usado por equipment renderers;
+- proteção determinística do ponto genérico alterado para evitar reintrodução de dependência concreta.
+
+Nenhuma nova decisão arquitetural é necessária: ADR-0005 já cobre a direção.
+
 ## Referências
 
 - `docs/PROJECT_CONSTITUTION.md`
@@ -138,4 +156,13 @@ BA: READY
 Spec: docs/features/game-system-user-settings-boundary/spec.md
 Architecture review required: YES
 Open product questions: 0
+```
+
+## Resultado do Architect
+
+```text
+ARCHITECTURE: APPROVED
+ADRs: ADR-0005
+Required enforcement: generic settings tests + web settings registry test/check
+Architecture debt introduced: NO
 ```
