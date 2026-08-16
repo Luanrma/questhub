@@ -1,10 +1,12 @@
-# Criação de campanha
+# DEPRECATED — Criação de Campaign
 
-O usuário informa título, descrição opcional e política de entrada.
+Este arquivo deixou de ser fonte autoritativa de produto.
 
-O fluxo cria, em uma única transação:
+Use:
 
-1. `Campaign`;
-2. `CampaignMember` ativo com papel `MASTER`.
+- `docs/features/campaign-creation/spec.md`
+- `docs/PROJECT_CONSTITUTION.md`
+- `docs/ARCHITECTURE.md`
+- ADRs aplicáveis em `docs/architecture/adr/`
 
-A criação não exige ator, ficha mecânica nem interpretação do `game_system`. Atores são criados explicitamente pelo gerenciador de fichas/atores.
+A pasta `.ai/` está sendo reservada para roles, policies e instruções operacionais de agents.
