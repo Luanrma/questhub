@@ -11,14 +11,12 @@ export async function runQuestHubAgent(input: {
   input: string
   contextPaths?: readonly string[]
   repoRoot?: string
-  env?: NodeJS.ProcessEnv
 }) {
-  const env = input.env ?? process.env
   const request = normalizeAgentRunRequest(input)
 
-  requireOpenAiApiKey(env)
+  requireOpenAiApiKey(process.env)
 
-  const policy = resolveAgentModelPolicy(request.role, env)
+  const policy = resolveAgentModelPolicy(request.role, process.env)
   const context = await loadAgentInstructions({
     role: request.role,
     repoRoot: input.repoRoot,
@@ -32,7 +30,7 @@ export async function runQuestHubAgent(input: {
 
   const runner = new Runner({
     workflowName: `QuestHub Agent — ${request.role}`,
-    tracingDisabled: env.OPENAI_AGENTS_DISABLE_TRACING === '1',
+    tracingDisabled: process.env.OPENAI_AGENTS_DISABLE_TRACING === '1',
     traceIncludeSensitiveData: false,
     traceMetadata: {
       role: request.role,
