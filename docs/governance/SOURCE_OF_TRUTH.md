@@ -57,22 +57,38 @@ Representa a arquitetura atual consolidada. Deve apontar para ADRs que explicam 
 
 Representa o comportamento esperado de uma feature específica: objetivo, escopo, fora de escopo, regras, permissões, contratos e critérios de aceite.
 
+Toda nova Feature Spec de uma entrega deve identificar o card Trello que originou e acompanha a tarefa.
+
 ### Agent Instructions
 
 Arquivos de agents definem COMO um agent trabalha. Eles não definem requisitos de produto nem substituem Architecture, ADR ou Spec.
 
+A pasta `.ai/` é reservada às definições de role em `.ai/agents/*.md`. Conhecimento de produto, Specs e decisões arquiteturais não devem ser mantidos ali.
+
 ## Trello
 
-Trello controla fluxo de trabalho, prioridade e estado.
+Trello controla fluxo de trabalho, prioridade, estado e identidade operacional da entrega.
 
-Um card pode referenciar:
+**Toda tarefa de desenvolvimento ou governança deve possuir um card Trello antes do início do trabalho.**
+
+O card deve existir antes de criar/alterar Feature Spec, branch, implementação ou documentação destinada à entrega. O fluxo começa em `INBOX` e segue os gates aplicáveis.
+
+Um card pode e deve referenciar, quando aplicável:
 
 - Feature Spec;
 - ADR;
+- branch;
 - PR;
-- dependências.
+- dependências;
+- evidências dos gates.
 
-O conteúdo do card não substitui a documentação versionada no repositório.
+Feature Specs e Pull Requests de entrega devem referenciar o card correspondente.
+
+O conteúdo do card **não substitui** a documentação versionada no repositório e não sobe na hierarquia de autoridade por ser obrigatório no workflow.
+
+A existência remota do card é uma pré-condição operacional verificada antes do trabalho. O CI não recebe credenciais Trello apenas para consultar essa existência; checks do repositório validam os pontos de rastreabilidade que podem ser verificados localmente.
+
+Referência: ADR-0006.
 
 ## Protocolo de divergência
 
@@ -102,6 +118,8 @@ Nenhum Developer Agent, Reviewer Agent, QA Agent ou Documentation Auditor pode e
 Documentos obsoletos devem ser:
 
 1. removidos quando não possuem valor histórico; ou
-2. movidos para `docs/archive/` com cabeçalho explícito `DEPRECATED`.
+2. movidos para `docs/archive/` com cabeçalho explícito `DEPRECATED` quando seu valor histórico justificar permanência.
 
 Não é aceitável manter duas descrições concorrentes como documentação ativa.
+
+Documentação antiga não deve ser arquivada apenas por cautela. Se ela contradiz fontes superiores e não possui valor histórico necessário, a remoção é o resultado preferido.
