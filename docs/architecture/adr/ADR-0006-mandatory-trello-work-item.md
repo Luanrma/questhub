@@ -5,7 +5,7 @@ Data: 2026-08-16
 Supersedes: nenhum  
 Superseded by: **ADR-0007-proportional-trello-work-item.md**
 
-> Este ADR preserva a decisão histórica que introduziu a obrigatoriedade universal de card. A política vigente está no ADR-0007.
+> O texto abaixo preserva a decisão histórica original. A política vigente está no ADR-0007.
 
 ## Contexto
 
@@ -72,21 +72,28 @@ Aceita.
 
 ## Enforcement
 
-A decisão foi protegida por:
+A decisão é protegida por:
 
-- `AGENTS.md`, bloqueando início de tarefa sem card;
-- `docs/features/_TEMPLATE.md`, exigindo identificação do card;
-- `.github/pull_request_template.md`, exigindo referência ao card e à Spec;
-- `scripts/check-documentation-governance.mjs`, exigindo `QH-*` concreto em commits/PRs;
+- `AGENTS.md`, que bloqueia início de tarefa sem card;
+- `docs/features/_TEMPLATE.md`, que exige identificação do card;
+- `.github/pull_request_template.md`, que exige referência ao card e à Spec;
+- `scripts/check-documentation-governance.mjs`, que rejeita placeholders, exige um `QH-*` concreto no commit e, em Pull Requests, valida título, corpo e a Feature Spec referenciada;
+- o mesmo guard rejeita symlinks em `.ai/` e permite somente `.ai/agents/*.md`;
 - Code Review e Documentation Audit;
-- fluxo Trello;
+- fluxo Trello, que deve começar em `INBOX` antes dos demais artefatos;
 - aprovação humana antes de merge.
 
-O CI não recebeu credenciais Trello para consultar a existência remota do card.
+O CI **não** recebe credenciais Trello nesta decisão e não consulta a API do Trello. Uma integração remota futura exige escopo próprio.
 
 ## Impacto em documentação
 
-A decisão alterou Constitution, Source of Truth, AGENTS, templates, Project Map e Documentation Audit.
+- `docs/PROJECT_CONSTITUTION.md`: adiciona a invariante de rastreabilidade;
+- `docs/governance/SOURCE_OF_TRUTH.md`: esclarece Trello obrigatório sem elevar sua autoridade;
+- `AGENTS.md`: adiciona preflight de card;
+- `docs/features/_TEMPLATE.md`: card passa a ser campo obrigatório;
+- `.github/pull_request_template.md`: card/Spec passam a ser campos de rastreabilidade;
+- `docs/PROJECT_MAP.md`: documenta o fluxo e as fontes;
+- `docs/governance/DOCUMENTATION_AUDIT.md`: registra a consolidação.
 
 ## Não decidido por este ADR
 
