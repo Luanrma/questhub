@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import { ChevronDown, Copy, Crosshair, Move } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { Button } from '../../../components/Button'
 import { useSession } from '../../../contexts/session-context'
+import { GameSystemSettingsPanels } from '../../../game-systems/settings-panels'
 import { api } from '../../../lib/api'
 import { maxDiceAutoClearSeconds, minDiceAutoClearSeconds } from '../../../vtt/dice-roller/config/constants'
 import {
@@ -17,16 +18,7 @@ import {
   type DiceDisplaySettings,
   type InventoryDisplaySettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
-import {
-  readStoredPathfinder2eDisplaySettings,
-  storePathfinder2eDisplaySettings,
-  type Pathfinder2eDisplaySettings,
-} from '../../pathfinder-2e/character-sheet/infrastructure/pathfinder2eDisplaySettingsStorage'
 import type { TargetMarkerStyle } from '../../../vtt/table/domain/tokenSelection'
-
-type CampaignUserSettingsResponse = CampaignUserSettings & {
-  pathfinder2e: Pathfinder2eDisplaySettings
-}
 
 type CampaignSettingsPageProps = {
   targetMarkerStyle?: TargetMarkerStyle
@@ -167,21 +159,30 @@ export function CampaignSettingsPage({
 }: CampaignSettingsPageProps = {}) {
   const { campaignId } = useParams()
   const { campaigns, loadCampaigns } = useSession()
-  const campaign = campaigns.find((c) => c.id === campaignId)
+  const campaign = campaigns.find((entry) => entry.id === campaignId)
 
   const isMaster = campaign?.myRole === 'MASTER'
-  const [joinPolicyDraft, setJoinPolicyDraft] = useState<{ campaignId?: string; value: 'PUBLIC' | 'PRIVATE' } | null>(null)
-  const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{ campaignId?: string; settings: DiceDisplaySettings } | null>(null)
-  const [inventoryDisplaySettingsDraft, setInventoryDisplaySettingsDraft] = useState<{ campaignId?: string; settings: InventoryDisplaySettings } | null>(null)
-  const [pathfinder2eDisplaySettingsDraft, setPathfinder2eDisplaySettingsDraft] = useState<{ campaignId?: string; settings: Pathfinder2eDisplaySettings } | null>(null)
-  const [campaignGameSystem, setCampaignGameSystem] = useState<string | null>(null)
+  const [joinPolicyDraft, setJoinPolicyDraft] = useState<{
+    campaignId?: string
+    value: 'PUBLIC' | 'PRIVATE'
+  } | null>(null)
+  const [diceDisplaySettingsDraft, setDiceDisplaySettingsDraft] = useState<{
+    campaignId?: string
+    settings: DiceDisplaySettings
+  } | null>(null)
+  const [inventoryDisplaySettingsDraft, setInventoryDisplaySettingsDraft] = useState<{
+    campaignId?: string
+    settings: InventoryDisplaySettings
+  } | null>(null)
   const [settingsSyncWarning, setSettingsSyncWarning] = useState<string | null>(null)
   const [targetMarkerSaving, setTargetMarkerSaving] = useState(false)
   const [targetMarkerError, setTargetMarkerError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
   const storedDiceDisplaySettings = useMemo(
-    () => (campaignId ? readStoredDiceDisplaySettings(campaignId) : readStoredDiceDisplaySettings('global')),
+    () => (campaignId
+      ? readStoredDiceDisplaySettings(campaignId)
+      : readStoredDiceDisplaySettings('global')),
     [campaignId],
   )
   const storedInventoryDisplaySettings = useMemo(
@@ -190,14 +191,9 @@ export function CampaignSettingsPage({
       : readStoredInventoryDisplaySettings('global')),
     [campaignId],
   )
-  const storedPathfinder2eDisplaySettings = useMemo(
-    () => (campaignId
-      ? readStoredPathfinder2eDisplaySettings(campaignId)
-      : readStoredPathfinder2eDisplaySettings('global')),
-    [campaignId],
-  )
-  const joinPolicy =
-    joinPolicyDraft && joinPolicyDraft.campaignId === campaignId ? joinPolicyDraft.value : campaign?.joinPolicy ?? 'PUBLIC'
+  const joinPolicy = joinPolicyDraft && joinPolicyDraft.campaignId === campaignId
+    ? joinPolicyDraft.value
+    : campaign?.joinPolicy ?? 'PUBLIC'
   const diceDisplaySettings =
     diceDisplaySettingsDraft && diceDisplaySettingsDraft.campaignId === campaignId
       ? diceDisplaySettingsDraft.settings
@@ -206,32 +202,17 @@ export function CampaignSettingsPage({
     inventoryDisplaySettingsDraft && inventoryDisplaySettingsDraft.campaignId === campaignId
       ? inventoryDisplaySettingsDraft.settings
       : storedInventoryDisplaySettings
-  const pathfinder2eDisplaySettings =
-    pathfinder2eDisplaySettingsDraft && pathfinder2eDisplaySettingsDraft.campaignId === campaignId
-      ? pathfinder2eDisplaySettingsDraft.settings
-      : storedPathfinder2eDisplaySettings
-  const changed = useMemo(() => (campaign ? joinPolicy !== campaign.joinPolicy : false), [campaign, joinPolicy])
+  const changed = useMemo(
+    () => (campaign ? joinPolicy !== campaign.joinPolicy : false),
+    [campaign, joinPolicy],
+  )
   const autoClearOptions = useMemo(
-    () => Array.from({ length: maxDiceAutoClearSeconds - minDiceAutoClearSeconds + 1 }, (_, index) => minDiceAutoClearSeconds + index),
+    () => Array.from(
+      { length: maxDiceAutoClearSeconds - minDiceAutoClearSeconds + 1 },
+      (_, index) => minDiceAutoClearSeconds + index,
+    ),
     [],
   )
-
-  useEffect(() => {
-    if (!campaignId) return
-    let cancelled = false
-
-    void api<{ gameSystem: string }>(`/api/campaigns/${campaignId}/game-system`)
-      .then((response) => {
-        if (!cancelled) setCampaignGameSystem(response.gameSystem)
-      })
-      .catch(() => {
-        if (!cancelled) setCampaignGameSystem(null)
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [campaignId])
 
   function updateDiceDisplaySettings(nextSettings: DiceDisplaySettings) {
     if (!campaignId) return
@@ -284,35 +265,6 @@ export function CampaignSettingsPage({
         setInventoryDisplaySettingsDraft({
           campaignId,
           settings: response.settings.inventory,
-        })
-      })
-      .catch(() => {
-        setSettingsSyncWarning('Preferencia aplicada neste navegador, mas ainda nao foi salva no servidor.')
-      })
-  }
-
-  function updatePathfinder2eLocale(
-    contentLocale: Pathfinder2eDisplaySettings['contentLocale'],
-  ) {
-    if (!campaignId) return
-
-    const nextSettings = { contentLocale }
-    setPathfinder2eDisplaySettingsDraft({ campaignId, settings: nextSettings })
-    storePathfinder2eDisplaySettings(campaignId, nextSettings)
-    setSettingsSyncWarning(null)
-
-    void api<{ settings: CampaignUserSettingsResponse }>(
-      `/api/campaigns/${campaignId}/my-settings`,
-      {
-        method: 'PATCH',
-        body: JSON.stringify({ settings: { pathfinder2e: nextSettings } }),
-      },
-    )
-      .then((response) => {
-        storeCampaignUserSettings(campaignId, response.settings)
-        setPathfinder2eDisplaySettingsDraft({
-          campaignId,
-          settings: response.settings.pathfinder2e,
         })
       })
       .catch(() => {
@@ -382,7 +334,9 @@ export function CampaignSettingsPage({
       <div>
         <h1 className="text-2xl font-semibold text-white">Configuracoes</h1>
         <p className="mt-2 text-sm text-zinc-300">
-          {isMaster ? 'Controle a campanha e ajuste sua experiencia local na mesa.' : 'Ajuste sua experiencia local na mesa.'}
+          {isMaster
+            ? 'Controle a campanha e ajuste sua experiencia local na mesa.'
+            : 'Ajuste sua experiencia local na mesa.'}
         </p>
       </div>
 
@@ -407,7 +361,11 @@ export function CampaignSettingsPage({
                 Define como os Tokens marcados com T aparecem para os participantes durante esta sessao.
               </div>
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-2" role="group" aria-label="Padrao visual do alvo">
+            <div
+              className="mt-4 grid grid-cols-2 gap-2"
+              role="group"
+              aria-label="Padrao visual do alvo"
+            >
               <button
                 type="button"
                 disabled={targetMarkerSaving}
@@ -462,7 +420,9 @@ export function CampaignSettingsPage({
           <select
             value={inventoryDisplaySettings.itemSheetLocale}
             className="h-9 min-w-44 rounded-md border border-white/10 bg-black/45 px-3 text-sm font-semibold text-white outline-none transition focus:border-indigo-300/40"
-            onChange={(event) => updateInventoryLocale(event.target.value === 'en-US' ? 'en-US' : 'pt-BR')}
+            onChange={(event) => updateInventoryLocale(
+              event.target.value === 'en-US' ? 'en-US' : 'pt-BR',
+            )}
           >
             <option value="pt-BR">Português (traduzido)</option>
             <option value="en-US">English (original)</option>
@@ -470,36 +430,14 @@ export function CampaignSettingsPage({
         </label>
       </CollapsibleSettingsSection>
 
-      {campaignGameSystem === 'PATHFINDER_2E' ? (
-        <CollapsibleSettingsSection
-          title="Pathfinder 2e"
-          description="Escolha o idioma dos catálogos exibidos na ficha de personagem."
-          defaultOpen
-        >
-          <label className="flex items-center justify-between gap-4 rounded-lg border border-white/10 bg-black/20 p-4">
-            <span>
-              <span className="block text-sm font-semibold text-white">Idioma do conteúdo</span>
-              <span className="mt-1 block text-xs text-zinc-400">
-                O original em inglês é preservado e usado como fallback quando uma tradução ainda não existe.
-              </span>
-            </span>
-            <select
-              value={pathfinder2eDisplaySettings.contentLocale}
-              className="h-9 min-w-44 rounded-md border border-white/10 bg-black/45 px-3 text-sm font-semibold text-white outline-none transition focus:border-indigo-300/40"
-              onChange={(event) => updatePathfinder2eLocale(
-                event.target.value === 'en-US' ? 'en-US' : 'pt-BR',
-              )}
-            >
-              <option value="pt-BR">Português (traduzido)</option>
-              <option value="en-US">English (original)</option>
-            </select>
-          </label>
-        </CollapsibleSettingsSection>
-      ) : null}
+      {campaignId ? <GameSystemSettingsPanels campaignId={campaignId} /> : null}
 
       {isMaster ? (
         <>
-          <CollapsibleSettingsSection title="Convite" description="Compartilhe este codigo com os jogadores.">
+          <CollapsibleSettingsSection
+            title="Convite"
+            description="Compartilhe este codigo com os jogadores."
+          >
             <button
               type="button"
               className="flex w-full items-center justify-between gap-3 rounded-lg border border-white/10 bg-black/20 px-3 py-2 text-left transition hover:bg-black/30"
@@ -509,11 +447,17 @@ export function CampaignSettingsPage({
               <Copy className="h-4 w-4 shrink-0 text-zinc-400" />
             </button>
             <div className="mt-3 text-xs text-zinc-500">
-              Modo: <span className="text-zinc-300">{campaign.joinPolicy === 'PRIVATE' ? 'Privada' : 'Publica'}</span>
+              Modo:{' '}
+              <span className="text-zinc-300">
+                {campaign.joinPolicy === 'PRIVATE' ? 'Privada' : 'Publica'}
+              </span>
             </div>
           </CollapsibleSettingsSection>
 
-          <CollapsibleSettingsSection title="Privacidade da campanha" description="Defina como novos jogadores entram nesta campanha.">
+          <CollapsibleSettingsSection
+            title="Privacidade da campanha"
+            description="Defina como novos jogadores entram nesta campanha."
+          >
             <div className="grid gap-3">
               <label className="flex cursor-pointer items-start gap-3 rounded-lg border border-white/10 bg-black/20 p-4">
                 <input
@@ -524,7 +468,9 @@ export function CampaignSettingsPage({
                 />
                 <div>
                   <div className="font-semibold text-white">Publica</div>
-                  <div className="text-sm text-zinc-300">Qualquer pessoa com o codigo entra automaticamente.</div>
+                  <div className="text-sm text-zinc-300">
+                    Qualquer pessoa com o codigo entra automaticamente.
+                  </div>
                 </div>
               </label>
 

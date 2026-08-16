@@ -11,6 +11,11 @@ import {
 } from './live-token-placement'
 import { presentCampaignDashboardEntry } from './presenter'
 import { normalizeTokenColor } from './token-appearance'
+import {
+  campaignUserSettingsSchema,
+  mergeCampaignUserSettings,
+  normalizeCampaignUserSettings,
+} from './user-settings'
 
 type CampaignRoutesDeps = {
   io: SocketIOServer
@@ -22,96 +27,6 @@ type CampaignRoutesDeps = {
     campaignId: string,
     tokenId: string,
   ) => LiveTokenPlacement | null | undefined
-}
-
-const defaultCampaignUserSettings = {
-  dice: {
-    autoClear: 3 as number | 'manual',
-    showResultPopup: true,
-  },
-  inventory: {
-    itemSheetLocale: 'pt-BR' as 'pt-BR' | 'en-US',
-  },
-  pathfinder2e: {
-    contentLocale: 'pt-BR' as 'pt-BR' | 'en-US',
-  },
-}
-
-const campaignUserSettingsSchema = z
-  .object({
-    dice: z
-      .object({
-        autoClear: z.union([z.literal('manual'), z.number().int().min(3).max(10)]).optional(),
-        showResultPopup: z.boolean().optional(),
-      })
-      .optional(),
-    inventory: z
-      .object({
-        itemSheetLocale: z.enum(['pt-BR', 'en-US']).optional(),
-      })
-      .optional(),
-    pathfinder2e: z
-      .object({
-        contentLocale: z.enum(['pt-BR', 'en-US']).optional(),
-      })
-      .optional(),
-  })
-  .passthrough()
-
-type CampaignUserSettingsPayload = z.infer<typeof campaignUserSettingsSchema>
-
-function isRecord(value: unknown): value is Record<string, unknown> {
-  return Boolean(value && typeof value === 'object' && !Array.isArray(value))
-}
-
-function normalizeCampaignUserSettings(value: unknown): CampaignUserSettingsPayload {
-  const parsed = campaignUserSettingsSchema.safeParse(value)
-  const settings = parsed.success ? parsed.data : {}
-  const dice = settings.dice ?? {}
-  const inventory = settings.inventory ?? {}
-  const pathfinder2e = settings.pathfinder2e ?? {}
-
-  return {
-    ...settings,
-    dice: {
-      autoClear: dice.autoClear ?? defaultCampaignUserSettings.dice.autoClear,
-      showResultPopup: dice.showResultPopup ?? defaultCampaignUserSettings.dice.showResultPopup,
-    },
-    inventory: {
-      itemSheetLocale: inventory.itemSheetLocale
-        ?? defaultCampaignUserSettings.inventory.itemSheetLocale,
-    },
-    pathfinder2e: {
-      contentLocale: pathfinder2e.contentLocale
-        ?? defaultCampaignUserSettings.pathfinder2e.contentLocale,
-    },
-  }
-}
-
-function mergeCampaignUserSettings(current: unknown, next: unknown): CampaignUserSettingsPayload {
-  const currentSettings = normalizeCampaignUserSettings(current)
-  const nextRecord = isRecord(next) ? next : {}
-  const nextDice = isRecord(nextRecord.dice) ? nextRecord.dice : {}
-  const nextInventory = isRecord(nextRecord.inventory) ? nextRecord.inventory : {}
-  const nextPathfinder2e = isRecord(nextRecord.pathfinder2e) ? nextRecord.pathfinder2e : {}
-  const merged = {
-    ...currentSettings,
-    ...nextRecord,
-    dice: {
-      ...currentSettings.dice,
-      ...nextDice,
-    },
-    inventory: {
-      ...currentSettings.inventory,
-      ...nextInventory,
-    },
-    pathfinder2e: {
-      ...currentSettings.pathfinder2e,
-      ...nextPathfinder2e,
-    },
-  }
-
-  return normalizeCampaignUserSettings(merged)
 }
 
 const campaignTokenAvatarUrlSchema = z.string().trim().max(2048).refine((value) => {

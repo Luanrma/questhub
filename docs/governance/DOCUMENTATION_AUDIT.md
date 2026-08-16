@@ -1,16 +1,14 @@
-# Auditoria Inicial de Consistência Documental
+# Auditoria de Consistência Documental
 
 Status: **IN PROGRESS**  
-Data da auditoria inicial: 2026-08-15  
-Branch base analisada: `main`
+Auditoria iniciada em: 2026-08-15  
+Base de governança: `main`
 
 ## Objetivo
 
-Registrar divergências entre documentação, instruções de IA, contratos e implementação antes da introdução de agents autônomos.
+Registrar divergências entre documentação, instruções de IA, contratos e implementação e acompanhar sua resolução sem permitir que um agent escolha silenciosamente qual lado está correto.
 
-A auditoria não autoriza um agent a escolher silenciosamente qual lado de uma divergência está correto.
-
-## Estado após primeira rodada da Sprint 0
+## Governança consolidada
 
 Foram criados/consolidados:
 
@@ -18,11 +16,11 @@ Foram criados/consolidados:
 - `docs/governance/SOURCE_OF_TRUTH.md`;
 - `docs/ARCHITECTURE.md`;
 - ADR-0001 a ADR-0005;
-- `docs/features/campaign-creation/spec.md`;
-- `AGENTS.md` como roteador de contexto;
-- depreciação explícita da documentação antiga de arquitetura;
-- atualização de `docs/Objetivo do Sistema.md`;
-- depreciação da antiga documentação `.ai/campaign_creation/*`.
+- Feature Specs canônicas em `docs/features/`;
+- `AGENTS.md` como roteador de contexto e roles;
+- BA, Architect, Developer, Code Reviewer, Documentation Auditor e QA como papéis separados;
+- workflow Trello com gates explícitos;
+- depreciação gradual de documentação de produto legada em `.ai/`.
 
 ## GOV-001 — Modelo de Character divergente
 
@@ -38,8 +36,6 @@ A documentação antiga descrevia `Character` global/reutilizável e `CampaignCh
 - `docs/Arquitetura do Sistema.md` foi marcado como deprecated;
 - `docs/Objetivo do Sistema.md` foi alinhado ao modelo atual.
 
-Não houve alteração de código nesta Sprint para resolver este item.
-
 ## GOV-002 — Campaign com ou sem Game System
 
 **Severidade inicial:** CRITICAL  
@@ -47,71 +43,88 @@ Não houve alteração de código nesta Sprint para resolver este item.
 
 ### Decisão
 
-Toda Campaign deve possuir obrigatoriamente um Game System selecionado em sua criação.
+Toda Campaign possui obrigatoriamente um Game System selecionado em sua criação.
 
 A identificação do sistema pode ser persistida/transportada para composição, sem permitir que o VTT interprete regras concretas.
 
 ### Evidência
 
-- decisão registrada em ADR-0001;
-- Project Constitution atualizada;
-- `docs/ARCHITECTURE.md` consolidado;
-- `docs/features/campaign-creation/spec.md` criado;
-- `.ai/campaign_creation/*` deixou de ser fonte canônica.
+- ADR-0001;
+- Project Constitution;
+- `docs/ARCHITECTURE.md`;
+- `docs/features/campaign-creation/spec.md`.
 
 ## GOV-003 — `.ai/` mistura conhecimento de produto e comportamento de agents
 
 **Severidade:** HIGH  
 **Estado:** **IN PROGRESS**
 
-A pasta `.ai/` ainda contém grande quantidade de specs e conhecimento de produto legado.
+A pasta `.ai/` ainda contém conhecimento de produto legado.
 
 ### Direção aceita
 
 - produto/arquitetura migram para `docs/`;
 - `.ai/` converge para roles, policies, prompts e instruções operacionais;
-- `AGENTS.md` agora declara documentos `.ai/` legados como contexto histórico, não como autoridade superior.
+- arquivos legados podem servir como contexto histórico, mas não superam Constitution, ADRs, Architecture ou Feature Specs.
 
-### Trabalho restante
+### Progresso adicional
 
-Migrar os domínios gradualmente, evitando uma reescrita massiva sem auditoria contra código.
+QH-ARCH-001 migrou `campaign_user_settings` para documentação canônica em `docs/features/campaign-user-settings/spec.md` e transformou os antigos arquivos `.ai/campaign_user_settings/*` em redirecionamentos deprecated.
 
 ## GOV-004 — `AGENTS.md` permitia decisão autônoma em divergência
 
 **Severidade inicial:** HIGH  
 **Estado:** **RESOLVED**
 
-`AGENTS.md` foi reduzido ao papel de roteador e agora:
+`AGENTS.md` agora:
 
 - aponta para Constitution, Source of Truth, Architecture, ADR e Feature Specs;
 - proíbe resolução autônoma de lacunas de produto/arquitetura;
-- permite decisão autônoma apenas para detalhes locais, reversíveis e sem impacto em contrato/comportamento/arquitetura.
+- permite decisão autônoma apenas para detalhes locais/reversíveis sem impacto estrutural;
+- roteia explicitamente BA, Architect, Developer, Code Reviewer, Documentation Auditor e QA para seus arquivos de role.
 
 ## GOV-005 — Configuração concreta de Pathfinder em módulo de Campaign
 
-**Severidade:** HIGH  
-**Estado:** **OPEN — ARCHITECTURE DEBT**
+**Severidade inicial:** HIGH  
+**Estado:** **RESOLVED IN QH-ARCH-001 — PENDING MERGE**
 
-`apps/api/src/modules/campaigns/routes.ts` contém configuração `pathfinder2e.contentLocale` dentro de `defaultCampaignUserSettings`, schema e merge de preferências.
+### Problema original
 
-ADR-0005 estabelece que módulos genéricos do VTT não devem incorporar conceitos/configurações concretos de ruleset como parte de sua lógica.
+`apps/api/src/modules/campaigns/routes.ts` interpretava `pathfinder2e.contentLocale` em defaults, schema e merge. A página genérica `CampaignSettingsPage` também importava/renderizava diretamente infraestrutura PF2e.
 
-### Próxima ação
+### Resolução implementada
 
-Criar tarefa arquitetural específica para decidir/migrar preferências namespaced de Game System para registry/adapter ou outro contrato agnóstico.
+- o backend genérico conhece apenas namespaces do Core (`dice` e `inventory`);
+- namespaces de Game System são persistidos e mesclados como dados opacos;
+- validação/default de `pathfinder2e.contentLocale` pertence ao código PF2e;
+- `CampaignSettingsPage` delega painéis específicos para `apps/web/src/game-systems/settings-panels.tsx`;
+- o composition shell seleciona o painel pelo `GameSystemKey`;
+- dados existentes continuam usando o namespace `pathfinder2e`, sem migration de banco;
+- testes e architecture check impedem reintrodução do acoplamento nos pontos corrigidos.
 
-Não alterar durante a Sprint 0 documental sem Spec/ADR técnico apropriado.
+### Evidência
+
+- `docs/features/game-system-user-settings-boundary/spec.md`;
+- `docs/features/campaign-user-settings/spec.md`;
+- ADR-0005;
+- PR #51.
 
 ## GOV-006 — Guard determinístico cobre apenas parte da política declarada
 
 **Severidade:** MEDIUM/HIGH  
-**Estado:** **OPEN — ENFORCEMENT GAP**
+**Estado:** **PARTIALLY RESOLVED / OPEN FOR BROADER COVERAGE**
 
-`scripts/check-game-system-boundaries.mjs` protege imports entre `modules` e `game_systems` e procura conceitos concretos em partes do frontend, mas não captura todo vazamento equivalente no backend.
+QH-ARCH-001 ampliou `scripts/check-game-system-boundaries.mjs` para proteger especificamente:
 
-### Próxima ação
+- a página genérica de Campaign Settings;
+- o registry de painéis de settings;
+- a interpretação de settings específicos dentro das rotas genéricas de Campaign.
 
-Após fechar as regras de namespacing/composition necessárias para GOV-005, expandir `check:architecture` e CI para refletir a política aceita.
+Também foram adicionados testes de regressão para o registry e namespaces opacos.
+
+### Trabalho restante
+
+A cobertura determinística de todo o backend ainda não representa integralmente todas as fronteiras declaradas no ADR-0005. Expansões futuras devem ser feitas por domínio, evitando regex global que gere falsos positivos ou exceções informais.
 
 ## GOV-007 — Exceção arquitetural existente sem ADR/debt record
 
@@ -122,28 +135,41 @@ O guard contém whitelist para:
 
 `CampaignOverviewPage.tsx -> ../../game-systems/CampaignInventoryModal`
 
-O comentário no próprio check afirma que novas entradas não devem ser adicionadas sem decisão arquitetural, mas a exceção existente ainda precisa de registro explícito ou remoção.
-
 ### Próxima ação
 
 Auditar a bridge e decidir entre:
 
 - movê-la para Composition Root/registry apropriado; ou
-- registrar dívida/exceção temporária com caminho de remoção.
+- registrar dívida/exceção temporária com caminho explícito de remoção.
+
+QH-ARCH-001 não altera essa bridge porque ela está fora do escopo da Feature Spec.
 
 ## GOV-008 — Documentação antiga dizia que Core não persiste ficha/itens
 
 **Severidade inicial:** HIGH  
 **Estado:** **RESOLVED (documentation governance)**
 
-A formulação antiga confundia persistência com interpretação de regras.
-
-### Resolução
-
-Architecture e Constitution agora distinguem explicitamente:
+Architecture e Constitution distinguem:
 
 - persistência agnóstica/opaca de `CampaignCharacterSheet`, entries, `Inventory` e entries;
 - interpretação mecânica, que pertence ao Game System.
+
+## Esteira de agents validada
+
+QH-ARCH-001 é o primeiro item executado pelos gates formalizados no Trello.
+
+O fluxo já exercitado inclui:
+
+`INBOX -> BA -> ARCHITECTURE -> READY -> DEVELOPMENT -> CODE REVIEW -> DOCUMENTATION AUDIT`
+
+Durante esse fluxo:
+
+- Code Reviewer encontrou defeitos e devolveu a tarefa para Development;
+- as correções foram reapresentadas e aprovadas após CI;
+- Documentation Auditor detectou documentação canônica desatualizada e bloqueou a progressão para QA;
+- esta atualização documental é a correção desse bloqueio.
+
+Isso confirma que os gates não são apenas nomes de colunas: eles podem interromper e devolver trabalho quando a evidência não satisfaz o papel correspondente.
 
 ## Pontos coerentes confirmados
 
@@ -154,14 +180,13 @@ Architecture e Constitution agora distinguem explicitamente:
 - `Campaign.gameSystem` é obrigatório;
 - existe `npm run check:architecture`;
 - existem CI de qualidade e CI específico de fronteiras;
-- existe Architecture Guardian documentado.
+- existe Architecture Guardian documentado;
+- Campaign User Settings possui contrato canônico e separa namespaces Core de namespaces opacos de Game System.
 
-## Próximas ações da Sprint 0
+## Próximas ações de governança
 
-1. criar templates de Feature Spec e ADR;
-2. criar template de Pull Request com gates de documentação/arquitetura/testes;
-3. definir roles iniciais de BA, Architect e Documentation Auditor;
-4. auditar e migrar os próximos documentos `.ai/` por domínio, sem migração cega;
-5. criar cards separados para GOV-005, GOV-006 e GOV-007;
-6. estruturar o Trello com Definition of Ready e Definition of Done;
-7. somente depois iniciar Developer/Reviewer/QA agents autônomos.
+1. concluir QH-ARCH-001 com Documentation Audit, QA e Human Approval;
+2. auditar GOV-007 (bridge de Inventory whitelistada);
+3. ampliar o enforcement de ADR-0005 por domínio conforme novas fronteiras forem consolidadas;
+4. continuar migrando documentação de produto remanescente em `.ai/` para `docs/`;
+5. automatizar gradualmente a orquestração Trello/GitHub mantendo os gates e autoridade humana.
