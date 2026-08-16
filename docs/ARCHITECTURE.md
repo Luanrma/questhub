@@ -1,7 +1,7 @@
 # QuestHub — Arquitetura Canônica
 
 Status: **CURRENT**  
-Última consolidação: 2026-08-15
+Última consolidação: 2026-08-16
 
 Este documento descreve a arquitetura vigente do QuestHub. Ele é subordinado a `docs/PROJECT_CONSTITUTION.md` e aos ADRs aceitos em `docs/architecture/adr/`.
 
@@ -17,6 +17,8 @@ O produto é dividido conceitualmente entre:
 - **Game System Runtime / contracts**: fronteira agnóstica para ativar engines e transportar comandos/projeções;
 - **Game System engines**: regras, schemas, cálculos e conteúdo mecânico de um ruleset específico;
 - **Composition Root**: seleciona e registra a engine correspondente ao Game System da Campaign.
+
+Tooling de desenvolvimento/automação de IA é uma camada operacional separada e não faz parte do runtime do produto.
 
 ## 2. Stack e topologia atual
 
@@ -41,6 +43,13 @@ Código principal: `apps/api/`.
 
 Código principal: `apps/web/`.
 
+### AI agent tooling
+
+- TypeScript/Node.js;
+- OpenAI Agents SDK;
+- roles versionados em `.ai/agents/`;
+- runtime operacional em `apps/agents/`.
+
 ### Qualidade
 
 O projeto já possui:
@@ -48,7 +57,8 @@ O projeto já possui:
 - testes unitários;
 - testes/invariantes de banco;
 - build do frontend em CI;
-- `npm run check:architecture` para parte das fronteiras VTT/Game System;
+- testes/typecheck do agent runtime;
+- `npm run check:architecture` para fronteiras VTT/Game System e Agent tooling;
 - workflow específico de Game System boundaries.
 
 ## 3. Campaign
@@ -252,7 +262,31 @@ Mudanças estruturais exigem ADR quando alterarem:
 
 ADRs aceitos não são reescritos para apagar histórico. Novas decisões usam `Supersedes` quando substituem decisões anteriores.
 
-## 16. Dívidas e divergências conhecidas
+## 16. AI Agent Tooling
+
+`apps/agents/` é tooling operacional de desenvolvimento e automação. Não pertence ao runtime do VTT, à API de produto, ao frontend do produto nem a uma Game System engine.
+
+Os conceitos são separados:
+
+- `.ai/agents/*.md` define **role**: missão, responsabilidades, limites e formato de saída;
+- `apps/agents/src/config/` define **política operacional**, incluindo modelo e reasoning default;
+- `apps/agents/src/runtime/` define **como uma execução controlada acontece**;
+- Trello representa o **estado operacional do workflow**, sem se tornar fonte canônica de produto/arquitetura.
+
+Na fase QH-AI-001:
+
+- cada execução usa apenas um role;
+- os Agents são read-only/advisory;
+- não há handoffs automáticos;
+- não há tools de shell, GitHub ou Trello;
+- não há autonomia de aprovação ou merge;
+- o contexto obrigatório é carregado do repositório antes da execução;
+- contexto adicional é explícito e limitado a documentação autorizada;
+- `apps/api`, `apps/web` e Game System engines não podem importar `apps/agents`.
+
+A evolução para ferramentas mutáveis, sandboxes, orquestração automática ou gatilhos externos exige Feature Spec e Architecture Review próprios.
+
+## 17. Dívidas e divergências conhecidas
 
 As divergências detectadas pela Sprint 0 são registradas em `docs/governance/DOCUMENTATION_AUDIT.md`.
 
