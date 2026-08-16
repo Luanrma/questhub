@@ -40,6 +40,19 @@ Regras:
 - documentos legados em `.ai/` podem ser usados como contexto histórico, mas não prevalecem sobre Constitution, ADRs, Architecture ou Feature Specs canônicas;
 - se um arquivo legado contradizer fonte canônica ou implementação, registre a divergência em vez de conciliá-la por conta própria.
 
+### Papéis operacionais
+
+Use o papel correspondente ao gate atual da esteira:
+
+- BA: `.ai/agents/ba.md`
+- Architect: `.ai/agents/architect.md`
+- Developer: `.ai/agents/developer.md`
+- Code Reviewer: `.ai/agents/code-reviewer.md`
+- Documentation Auditor: `.ai/agents/documentation-auditor.md`
+- QA: `.ai/agents/qa.md`
+
+Um papel não herda automaticamente a autoridade de outro. Em especial, Developer não aprova a própria implementação, Code Reviewer não substitui QA e nenhum desses papéis decide arquitetura no lugar do Architect.
+
 ## 4. Antes de qualquer mudança
 
 Identifique explicitamente:
