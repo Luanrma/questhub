@@ -13,15 +13,17 @@ Justificativa NO-CARD: `<explique por que não altera comportamento, contrato, s
 
 > `NO-CARD` não pode ser combinado com `QH-*`. Se o escopo crescer para trabalho funcional/arquitetural/executável, crie o card antes de prosseguir.
 
-## Objetivo
+## Card / objetivo
 
 Descreva objetivamente o que esta PR entrega.
 
 ## Arquitetura
 
-- [ ] Sem impacto arquitetural de produto
+- [ ] Sem impacto arquitetural
 - [ ] Usa ADR existente: `<ADR-XXXX>`
 - [ ] Novo ADR incluído: `<ADR-XXXX>`
+
+Explique qualquer impacto em fronteiras, contratos ou ownership.
 
 ## Áreas alteradas
 
@@ -34,17 +36,20 @@ Descreva objetivamente o que esta PR entrega.
 - [ ] Realtime
 - [ ] Banco / migrations
 - [ ] Documentação
-- [ ] Governança / tooling documental
+- [ ] Governança / tooling
 
 ## Critérios de aceite
 
-Para entrega com Feature Spec, liste os ACs cobertos. Para `NO-CARD`, registre `N/A — manutenção não funcional`.
+Liste os ACs da Feature Spec cobertos por esta PR. Para `NO-CARD` sem Feature Spec, registre `N/A — manutenção não funcional`.
+
+- [ ] AC-XX — <descrição>
 
 ## Segurança e isolamento
 
-- [ ] não aplicável
-- [ ] autenticação/permissões verificadas
-- [ ] ownership/pertença à Campaign validados no backend
+- [ ] autenticação/permissões verificadas quando aplicável
+- [ ] ownership validado no backend quando aplicável
+- [ ] pertença à Campaign validada quando aplicável
+- [ ] sem dependência de proteção exclusiva do frontend
 
 ## VTT / Game System boundary
 
@@ -52,11 +57,13 @@ Para entrega com Feature Spec, liste os ACs cobertos. Para `NO-CARD`, registre `
 - [ ] `npm run check:architecture` executado
 - [ ] VTT não interpreta regra concreta
 - [ ] engine não depende de implementação interna do VTT
+- [ ] nova exceção/whitelist possui ADR explícito
 
 ## Realtime
 
 - [ ] não aplicável
-- [ ] clientes afetados recebem atualização pelo fluxo apropriado
+- [ ] clientes afetados recebem atualização pelo fluxo realtime apropriado
+- [ ] não foi introduzido polling periódico como workaround arquitetural
 
 ## Testes executados
 
@@ -66,13 +73,15 @@ Para entrega com Feature Spec, liste os ACs cobertos. Para `NO-CARD`, registre `
 
 ## Documentação
 
-- [ ] fontes canônicas continuam coerentes
-- [ ] Architecture/ADRs continuam compatíveis
+- [ ] Feature Spec continua compatível ou N/A
+- [ ] Architecture continua compatível
+- [ ] ADRs continuam compatíveis
+- [ ] documentação alterada quando necessário
 - [ ] caminhos/referências afetados foram atualizados
 
 ## Gates
 
-Para CARD, marque os gates aplicáveis. Para `NO-CARD`, gates de BA/Architecture/QA podem ser `N/A` quando a mudança não entra nessa esteira.
+Para CARD, marque os gates aplicáveis. Para `NO-CARD`, gates que não se aplicam podem ser marcados como N/A na descrição da PR.
 
 - [ ] BA / REFINEMENT ou N/A
 - [ ] ARCHITECTURE REVIEW ou N/A
@@ -86,4 +95,4 @@ Para CARD, marque os gates aplicáveis. Para `NO-CARD`, gates de BA/Architecture
 
 ## Dívidas / follow-ups
 
-Liste explicitamente qualquer dívida que permaneça.
+Liste explicitamente qualquer dívida que permaneça. Não esconda dívida conhecida dentro do merge.
