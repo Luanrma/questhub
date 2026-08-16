@@ -28,7 +28,7 @@ Quando o código divergir de uma fonte autoritativa:
 3. se a decisão mudou, registrar ADR/Spec apropriado antes de consolidar a nova arquitetura;
 4. somente então alinhar implementação e documentação.
 
-É proibido atualizar documentação apenas para 'combinar com o código' sem validar a intenção.
+É proibido atualizar documentação apenas para "combinar com o código" sem validar a intenção.
 
 ## Tipos de documentação
 
@@ -47,7 +47,7 @@ Estados permitidos:
 - `SUPERSEDED`
 - `REJECTED`
 
-ADRs aceitos não devem ser reescritos para alterar a decisão histórica.
+ADRs aceitos não devem ser reescritos para apagar a decisão histórica. Quando uma decisão mudar, um novo ADR deve usar `Supersedes` e o ADR anterior passa a `SUPERSEDED` com referência para o sucessor.
 
 ### Architecture
 
@@ -57,7 +57,7 @@ Representa a arquitetura atual consolidada. Deve apontar para ADRs que explicam 
 
 Representa o comportamento esperado de uma feature específica: objetivo, escopo, fora de escopo, regras, permissões, contratos e critérios de aceite.
 
-Toda nova Feature Spec de uma entrega deve identificar o card Trello que originou e acompanha a tarefa.
+Uma nova Feature Spec representa trabalho governado e deve identificar o card Trello correspondente.
 
 ### Agent Instructions
 
@@ -65,15 +65,17 @@ Arquivos de agents definem COMO um agent trabalha. Eles não definem requisitos 
 
 A pasta `.ai/` é reservada às definições de role em `.ai/agents/*.md`. Conhecimento de produto, Specs e decisões arquiteturais não devem ser mantidos ali.
 
-## Trello
+## Trello e `NO-CARD`
 
-Trello controla fluxo de trabalho, prioridade, estado e identidade operacional da entrega.
+Trello controla fluxo de trabalho, prioridade, estado e identidade operacional das entregas que entram na esteira governada.
 
-**Toda tarefa de desenvolvimento ou governança deve possuir um card Trello antes do início do trabalho.**
+Um card Trello é obrigatório antes de iniciar trabalho que altere comportamento funcional, código executável do produto, schema/persistência, contratos públicos/realtime, segurança, arquitetura de produto ou mecânicas de Game System.
 
-O card deve existir antes de criar/alterar Feature Spec, branch, implementação ou documentação destinada à entrega. O fluxo começa em `INBOX` e segue os gates aplicáveis.
+Manutenção estritamente não funcional e documental/organizacional pode usar `NO-CARD`, por exemplo reorganização de pastas, correção de links, nomes, formatação e housekeeping documental equivalente.
 
-Um card pode e deve referenciar, quando aplicável:
+`NO-CARD` deve ser explícito e não pode ser usado para fracionar ou esconder uma mudança que deveria possuir card. Se o escopo crescer e passar a exigir card, a expansão deve parar até que um card seja criado.
+
+Quando houver card, ele pode e deve referenciar, conforme aplicável:
 
 - Feature Spec;
 - ADR;
@@ -82,13 +84,13 @@ Um card pode e deve referenciar, quando aplicável:
 - dependências;
 - evidências dos gates.
 
-Feature Specs e Pull Requests de entrega devem referenciar o card correspondente.
+Quando houver PR `NO-CARD`, a justificativa deve explicar por que a mudança é manutenção não funcional.
 
-O conteúdo do card **não substitui** a documentação versionada no repositório e não sobe na hierarquia de autoridade por ser obrigatório no workflow.
+**Trello continua sendo workflow/status e não substitui requisitos canônicos do repositório.**
 
-A existência remota do card é uma pré-condição operacional verificada antes do trabalho. O CI não recebe credenciais Trello apenas para consultar essa existência; checks do repositório validam os pontos de rastreabilidade que podem ser verificados localmente.
+O CI não recebe credenciais Trello apenas para consultar a existência remota de cards. O guard valida a rastreabilidade verificável no repositório e restringe `NO-CARD` a caminhos de manutenção.
 
-Referência: ADR-0006.
+Referência vigente: ADR-0007. ADR-0006 está supersedido.
 
 ## Protocolo de divergência
 
