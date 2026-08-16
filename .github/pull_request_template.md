@@ -1,23 +1,27 @@
 # QuestHub Pull Request
 
-## Rastreabilidade obrigatória
+## Rastreabilidade
 
-Trello: `<QH-XXX>` — `<URL do card>`  
-Feature Spec: `docs/features/<feature>/spec.md`
+Escolha **um** modo:
 
-> O card Trello deve existir antes do início da tarefa. O card registra workflow/status; requisitos canônicos permanecem versionados no repositório.
+- [ ] CARD — Trello: `<QH-XXX>` — `<URL do card>`
+- [ ] `NO-CARD` — manutenção estritamente não funcional/documental
 
-## Card / objetivo
+Feature Spec: `docs/features/<feature>/spec.md` ou `N/A` para `NO-CARD`.
+
+Justificativa NO-CARD: `<explique por que não altera comportamento, contrato, schema, segurança, arquitetura de produto ou mecânica de Game System>`
+
+> `NO-CARD` não pode ser combinado com `QH-*`. Se o escopo crescer para trabalho funcional/arquitetural/executável, crie o card antes de prosseguir.
+
+## Objetivo
 
 Descreva objetivamente o que esta PR entrega.
 
 ## Arquitetura
 
-- [ ] Sem impacto arquitetural
+- [ ] Sem impacto arquitetural de produto
 - [ ] Usa ADR existente: `<ADR-XXXX>`
 - [ ] Novo ADR incluído: `<ADR-XXXX>`
-
-Explique qualquer impacto em fronteiras, contratos ou ownership.
 
 ## Áreas alteradas
 
@@ -30,20 +34,17 @@ Explique qualquer impacto em fronteiras, contratos ou ownership.
 - [ ] Realtime
 - [ ] Banco / migrations
 - [ ] Documentação
-- [ ] Governança / tooling
+- [ ] Governança / tooling documental
 
 ## Critérios de aceite
 
-Liste os ACs da Feature Spec cobertos por esta PR.
-
-- [ ] AC-XX — <descrição>
+Para entrega com Feature Spec, liste os ACs cobertos. Para `NO-CARD`, registre `N/A — manutenção não funcional`.
 
 ## Segurança e isolamento
 
-- [ ] autenticação/permissões verificadas quando aplicável
-- [ ] ownership validado no backend quando aplicável
-- [ ] pertença à Campaign validada quando aplicável
-- [ ] sem dependência de proteção exclusiva do frontend
+- [ ] não aplicável
+- [ ] autenticação/permissões verificadas
+- [ ] ownership/pertença à Campaign validados no backend
 
 ## VTT / Game System boundary
 
@@ -51,13 +52,11 @@ Liste os ACs da Feature Spec cobertos por esta PR.
 - [ ] `npm run check:architecture` executado
 - [ ] VTT não interpreta regra concreta
 - [ ] engine não depende de implementação interna do VTT
-- [ ] nova exceção/whitelist possui ADR explícito
 
 ## Realtime
 
 - [ ] não aplicável
-- [ ] clientes afetados recebem atualização pelo fluxo realtime apropriado
-- [ ] não foi introduzido polling periódico como workaround arquitetural
+- [ ] clientes afetados recebem atualização pelo fluxo apropriado
 
 ## Testes executados
 
@@ -67,23 +66,24 @@ Liste os ACs da Feature Spec cobertos por esta PR.
 
 ## Documentação
 
-- [ ] Feature Spec continua compatível
-- [ ] Architecture continua compatível
-- [ ] ADRs continuam compatíveis
-- [ ] documentação alterada quando necessário
+- [ ] fontes canônicas continuam coerentes
+- [ ] Architecture/ADRs continuam compatíveis
+- [ ] caminhos/referências afetados foram atualizados
 
 ## Gates
 
-- [ ] BA / REFINEMENT
-- [ ] ARCHITECTURE REVIEW
-- [ ] DEVELOPMENT
+Para CARD, marque os gates aplicáveis. Para `NO-CARD`, gates de BA/Architecture/QA podem ser `N/A` quando a mudança não entra nessa esteira.
+
+- [ ] BA / REFINEMENT ou N/A
+- [ ] ARCHITECTURE REVIEW ou N/A
+- [ ] DEVELOPMENT / manutenção
 - [ ] CODE REVIEW
-- [ ] DOCUMENTATION AUDIT
-- [ ] QA
+- [ ] DOCUMENTATION AUDIT ou N/A
+- [ ] QA ou N/A
 - [ ] HUMAN APPROVAL
 
 **HUMAN APPROVAL é obrigatório antes do merge. Não fazer auto-merge.**
 
 ## Dívidas / follow-ups
 
-Liste explicitamente qualquer dívida que permaneça. Não esconda dívida conhecida dentro do merge.
+Liste explicitamente qualquer dívida que permaneça.
