@@ -15,7 +15,9 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value))
 }
 
-function normalizePathfinder2eDisplaySettings(value: unknown): Pathfinder2eDisplaySettings {
+export function normalizePathfinder2eDisplaySettings(
+  value: unknown,
+): Pathfinder2eDisplaySettings {
   if (!isRecord(value)) return { contentLocale: 'pt-BR' }
   return {
     contentLocale: value.contentLocale === 'en-US' ? 'en-US' : 'pt-BR',
@@ -39,7 +41,7 @@ export function readStoredPathfinder2eDisplaySettings(campaignId: string) {
 
 export function storePathfinder2eDisplaySettings(
   campaignId: string,
-  settings: Pathfinder2eDisplaySettings,
+  settings: unknown,
 ) {
   if (typeof window === 'undefined') return
   const normalized = normalizePathfinder2eDisplaySettings(settings)
