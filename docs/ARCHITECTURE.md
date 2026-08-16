@@ -172,6 +172,8 @@ O VTT Core é responsável por capacidades genéricas, incluindo quando aplicáv
 
 O Core não interpreta regras de um ruleset concreto.
 
+Configurações pessoais de Game System podem ser persistidas como namespaces opacos em estruturas genéricas, mas defaults, validação semântica e UI concreta desses namespaces pertencem ao sistema correspondente.
+
 ## 10. Game System engines
 
 Uma engine concreta é responsável por seu próprio ruleset.
@@ -188,7 +190,8 @@ Pode conhecer:
 - moedas;
 - progressão;
 - schemas e migrações do próprio sistema;
-- conteúdo mecânico e catálogos.
+- conteúdo mecânico e catálogos;
+- preferências específicas do próprio sistema.
 
 Não deve conhecer detalhes internos de UI/transporte do VTT como React, JSX, Pixi/Canvas, Socket.IO ou módulos internos do Core.
 
@@ -205,7 +208,8 @@ Exemplos conceituais:
 - resultados de cálculos;
 - solicitações de rolagem;
 - invalidação/atualização de apresentação;
-- metadados de capacidades oferecidas pela engine.
+- metadados de capacidades oferecidas pela engine;
+- namespaces opacos de configuração persistidos sem interpretação pelo Core.
 
 O VTT decide **como apresentar/interagir genericamente**; a engine decide **o significado mecânico**.
 
@@ -216,6 +220,8 @@ O Composition Root é a fronteira autorizada a conhecer a identificação do Gam
 A existência de `Campaign.gameSystem` não deve produzir condicionais de regras espalhadas pelo VTT.
 
 Novos pontos de integração devem ser registrados por interfaces/registries explícitos.
+
+Painéis de configuração específicos de Game System seguem a mesma regra: páginas genéricas delegam a seleção ao composition shell, que monta a implementação concreta adequada ao `GameSystemKey`.
 
 ## 13. Realtime
 
@@ -250,9 +256,10 @@ ADRs aceitos não são reescritos para apagar histórico. Novas decisões usam `
 
 As divergências detectadas pela Sprint 0 são registradas em `docs/governance/DOCUMENTATION_AUDIT.md`.
 
-Em especial, ainda requerem tratamento posterior:
+QH-ARCH-001 removeu a interpretação de `pathfinder2e.contentLocale` do módulo genérico de Campaign User Settings e adicionou proteção determinística para os pontos corrigidos.
 
-- configuração concreta `pathfinder2e` atualmente existente no módulo genérico de Campaign settings;
-- cobertura parcial do check determinístico de fronteiras no backend;
-- bridge web explicitamente whitelisted pelo architecture check;
-- migração gradual de documentação autoritativa que ainda reside em `.ai/`.
+Ainda requerem tratamento posterior:
+
+- ampliar a cobertura determinística de fronteiras para outros módulos backend ainda não mapeados explicitamente;
+- resolver a bridge web explicitamente whitelisted pelo architecture check;
+- continuar a migração gradual de documentação autoritativa que ainda reside em `.ai/`.
