@@ -1,6 +1,10 @@
-# Criacao de Campanha: Skills
+# DEPRECATED — Campaign Creation AI Notes
 
-* Validar entrada com Zod.
-* Executar criacao da campanha e vinculo do mestre na mesma transacao.
-* Validar ownership, arquivamento e disponibilidade da identidade.
-* Nao introduzir dependencias de regras no fluxo.
+Este arquivo não define mais decisões técnicas ou requisitos da feature.
+
+Consulte:
+
+- `docs/features/campaign-creation/spec.md`
+- `docs/ARCHITECTURE.md`
+- `docs/architecture/adr/`
+- `AGENTS.md`
