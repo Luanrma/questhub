@@ -14,9 +14,26 @@ const equipmentRendererRegistryFile = path.join(
   'game-systems',
   'equipment-renderers.tsx',
 )
+const settingsPanelRegistryFile = path.join(
+  webRoot,
+  'game-systems',
+  'settings-panels.tsx',
+)
+const genericCampaignSettingsFile = path.join(
+  webRoot,
+  'features',
+  'campaigns',
+  'pages',
+  'CampaignSettingsPage.tsx',
+)
+const genericCampaignRoutesFile = path.join(
+  modulesRoot,
+  'campaigns',
+  'routes.ts',
+)
 
 // Existing generic integration points from main. This baseline prevents new
-// cross-boundary imports while these two bridges are moved to the composition shell.
+// cross-boundary imports while these bridges are moved to the composition shell.
 // Do not add entries without an architectural decision record.
 const approvedVttGameSystemBridges = new Set([
   'apps/web/src/vtt/table/CampaignOverviewPage.tsx -> ../../game-systems/CampaignInventoryModal',
@@ -105,6 +122,39 @@ if (existsSync(equipmentRendererRegistryFile)) {
   }
   if (!/equipmentRenderers\s*\[\s*gameSystem\s*\]/.test(source)) {
     violations.push(`Equipment renderer must be selected from the current game system: ${relativePath}`)
+  }
+}
+
+if (existsSync(settingsPanelRegistryFile)) {
+  const source = readFileSync(settingsPanelRegistryFile, 'utf8')
+  const relativePath = path.relative(root, settingsPanelRegistryFile)
+
+  if (!/Partial\s*<\s*Record\s*<\s*GameSystemKey\s*,/.test(source)) {
+    violations.push(`Settings panel registry must be keyed by GameSystemKey: ${relativePath}`)
+  }
+  if (!/settingsPanels\s*\[\s*gameSystem\s*\]/.test(source)) {
+    violations.push(`Settings panel must be selected from the current game system: ${relativePath}`)
+  }
+}
+
+if (existsSync(genericCampaignSettingsFile)) {
+  const source = readFileSync(genericCampaignSettingsFile, 'utf8')
+  const relativePath = path.relative(root, genericCampaignSettingsFile)
+
+  if (/pathfinder(?:-2e|2e)|PATHFINDER_2E/i.test(source)) {
+    violations.push(`Generic campaign settings names a concrete game system: ${relativePath}`)
+  }
+  if (!/GameSystemSettingsPanels/.test(source)) {
+    violations.push(`Generic campaign settings must delegate game-system panels to the composition shell: ${relativePath}`)
+  }
+}
+
+if (existsSync(genericCampaignRoutesFile)) {
+  const source = readFileSync(genericCampaignRoutesFile, 'utf8')
+  const relativePath = path.relative(root, genericCampaignRoutesFile)
+
+  if (/pathfinder2e/i.test(source) || /contentLocale/.test(source)) {
+    violations.push(`Generic campaign routes interpret concrete game-system user settings: ${relativePath}`)
   }
 }
 
