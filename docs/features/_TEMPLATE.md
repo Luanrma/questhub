@@ -5,7 +5,7 @@ Status: **DRAFT | READY | CURRENT | DEPRECATED**
 Card: `<QH-XXX>` — `<URL do card Trello>`  
 Domínio: `<domínio>`
 
-> O card Trello é obrigatório e deve existir **antes** do início desta Spec. Sem card, a tarefa não entra em BA/Refinement. Trello registra workflow/status; os requisitos canônicos permanecem versionados nesta Spec e nas fontes superiores.
+> Uma Feature Spec representa trabalho funcional/governado e, portanto, exige card Trello antes de sua criação. Manutenção elegível a `NO-CARD` não cria Feature Spec apenas para satisfazer processo.
 
 ## Objetivo
 
@@ -56,8 +56,6 @@ Documente somente quando aplicável:
 - [ ] Usa ADR existente: `<ADR-XXXX>`
 - [ ] Exige novo ADR
 
-Explique quando necessário.
-
 ## Segurança / isolamento
 
 Descreva validações de autenticação, permissão, ownership e pertença à Campaign quando aplicável.
@@ -89,9 +87,5 @@ Dado <contexto>, quando <ação>, então <resultado observável>.
 - `<ADR-XXXX>` — <descrição>
 
 ## Questões abertas
-
-Liste somente questões que realmente bloqueiam `READY`.
-
-- <questão>
 
 Uma Feature Spec não pode receber status `READY` enquanto existir questão aberta que altere requisito, contrato, permissão ou arquitetura.
