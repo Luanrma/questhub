@@ -4,6 +4,22 @@ Este arquivo orienta qualquer agente de IA que trabalhe no repositório QuestHub
 
 Ele **não é fonte de verdade de produto ou arquitetura**. Seu papel é indicar quais fontes devem ser lidas e qual processo deve ser seguido.
 
+## 0. Preflight obrigatório: card Trello
+
+Antes de criar ou alterar Feature Spec, branch, código, schema, documentação de entrega ou qualquer outro artefato de uma tarefa de desenvolvimento/governança:
+
+1. confirme que existe um card no board Trello do QuestHub para a tarefa;
+2. se não existir, crie o card em `INBOX` antes de prosseguir;
+3. use o identificador do card como identidade operacional da entrega;
+4. faça a Feature Spec e o Pull Request referenciarem esse card;
+5. mova o card pelos gates aplicáveis; não pule diretamente para Development.
+
+**Sem card Trello, a tarefa não começa.** Não existe exceção implícita para mudanças pequenas.
+
+Trello representa workflow, prioridade e estado. Requisitos e decisões continuam versionados no repositório conforme `docs/governance/SOURCE_OF_TRUTH.md`.
+
+Referência: ADR-0006.
+
 ## 1. Contexto obrigatório
 
 Antes de analisar ou modificar comportamento do produto, leia nesta ordem:
@@ -15,7 +31,7 @@ Antes de analisar ou modificar comportamento do produto, leia nesta ordem:
 5. Feature Spec aplicável, quando existir
 6. contratos executáveis e código relevante
 
-Não implemente com base apenas em texto de Trello, conversa, comentário, README antigo ou arquivo legado em `.ai/`.
+Não implemente com base apenas em texto de Trello, conversa, comentário ou README auxiliar.
 
 ## 2. Hierarquia
 
@@ -29,16 +45,16 @@ Use o protocolo `CONSISTENCY: BLOCKED` definido naquele documento.
 
 ## 3. `.ai/`
 
-A pasta `.ai/` está em migração.
+A pasta `.ai/` é reservada exclusivamente às definições de role em `.ai/agents/*.md`.
 
 Regras:
 
-- novas decisões de produto/arquitetura não devem ser registradas como fonte canônica em `.ai/`;
-- novos requisitos de feature devem ir para `docs/features/`;
-- novas decisões arquiteturais devem ir para `docs/architecture/adr/`;
-- `.ai/` deve convergir para roles, policies, prompts e instruções operacionais de agentes;
-- documentos legados em `.ai/` podem ser usados como contexto histórico, mas não prevalecem sobre Constitution, ADRs, Architecture ou Feature Specs canônicas;
-- se um arquivo legado contradizer fonte canônica ou implementação, registre a divergência em vez de conciliá-la por conta própria.
+- requisitos e Specs de produto pertencem a `docs/features/`;
+- decisões arquiteturais pertencem a `docs/architecture/adr/`;
+- arquitetura consolidada pertence a `docs/ARCHITECTURE.md`;
+- `.ai/agents/*.md` define identidade, missão, responsabilidades, limites e formato de saída dos roles;
+- modelo, reasoning, runtime, políticas operacionais e workflow não devem ser incorporados como documentação de produto dentro de `.ai/`;
+- qualquer arquivo novo em `.ai/` fora de `.ai/agents/*.md` viola a governança documental.
 
 ### Papéis operacionais
 
@@ -57,6 +73,7 @@ Um papel não herda automaticamente a autoridade de outro. Em especial, Develope
 
 Identifique explicitamente:
 
+- card Trello da tarefa;
 - objetivo da mudança;
 - domínio afetado;
 - se pertence ao VTT Core, Game System Runtime/contratos, Composition Root ou engine concreta;
@@ -70,7 +87,7 @@ Identifique explicitamente:
 
 Mudança funcional deve possuir Feature Spec suficiente para implementação e validação.
 
-Uma Feature Spec deve definir, conforme aplicável:
+Uma Feature Spec deve referenciar seu card Trello e definir, conforme aplicável:
 
 - objetivo;
 - escopo;
@@ -167,7 +184,7 @@ Verifique conforme o escopo:
 - `npm run check:architecture`;
 - segurança/permissões;
 - realtime;
-- coerência entre Spec, ADR, Architecture, código e testes.
+- coerência entre card, Spec, ADR, Architecture, código e testes.
 
 Uma mudança funcional não está concluída se sua documentação autoritativa aplicável ficou incompatível.
 

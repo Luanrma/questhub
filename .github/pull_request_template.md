@@ -1,15 +1,15 @@
 # QuestHub Pull Request
 
+## Rastreabilidade obrigatória
+
+Trello: `<QH-XXX>` — `<URL do card>`  
+Feature Spec: `docs/features/<feature>/spec.md`
+
+> O card Trello deve existir antes do início da tarefa. O card registra workflow/status; requisitos canônicos permanecem versionados no repositório.
+
 ## Card / objetivo
 
-Card: `<QH-XXX | N/A>`
-
 Descreva objetivamente o que esta PR entrega.
-
-## Feature Spec
-
-- [ ] Não é mudança funcional
-- [ ] Spec: `docs/features/<feature>/spec.md`
 
 ## Arquitetura
 
@@ -30,6 +30,7 @@ Explique qualquer impacto em fronteiras, contratos ou ownership.
 - [ ] Realtime
 - [ ] Banco / migrations
 - [ ] Documentação
+- [ ] Governança / tooling
 
 ## Critérios de aceite
 
@@ -70,6 +71,18 @@ Liste os ACs da Feature Spec cobertos por esta PR.
 - [ ] Architecture continua compatível
 - [ ] ADRs continuam compatíveis
 - [ ] documentação alterada quando necessário
+
+## Gates
+
+- [ ] BA / REFINEMENT
+- [ ] ARCHITECTURE REVIEW
+- [ ] DEVELOPMENT
+- [ ] CODE REVIEW
+- [ ] DOCUMENTATION AUDIT
+- [ ] QA
+- [ ] HUMAN APPROVAL
+
+**HUMAN APPROVAL é obrigatório antes do merge. Não fazer auto-merge.**
 
 ## Dívidas / follow-ups
 

@@ -86,3 +86,13 @@ O VTT Core não pode interpretar:
 ## 11. Entrega inclui coerência
 
 Uma mudança só está concluída quando código, contratos, testes e documentação autoritativa aplicável descrevem o mesmo comportamento.
+
+## 12. Toda entrega possui identidade de trabalho antes de começar
+
+- Toda tarefa de desenvolvimento ou governança deve possuir card Trello antes de produzir Spec, branch ou mudança destinada à entrega.
+- O card identifica o item no workflow e registra seu estado pelos gates, mas não substitui fontes versionadas de produto ou arquitetura.
+- Feature Specs e Pull Requests associados a uma entrega devem referenciar o card correspondente.
+- Nenhum agent pode dispensar essa pré-condição por considerar a tarefa pequena ou de baixo risco.
+- Merge continua dependente da aprovação humana definida pelo workflow.
+
+Referência: ADR-0006.

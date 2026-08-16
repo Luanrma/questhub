@@ -2,8 +2,10 @@
 
 Status: **DRAFT | READY | CURRENT | DEPRECATED**
 
-Card: `<QH-XXX>`  
+Card: `<QH-XXX>` — `<URL do card Trello>`  
 Domínio: `<domínio>`
+
+> O card Trello é obrigatório e deve existir **antes** do início desta Spec. Sem card, a tarefa não entra em BA/Refinement. Trello registra workflow/status; os requisitos canônicos permanecem versionados nesta Spec e nas fontes superiores.
 
 ## Objetivo
 
