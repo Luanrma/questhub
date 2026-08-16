@@ -1,6 +1,6 @@
 # QH-AI-001 — Runtime e política de modelos dos Agents
 
-Status: **READY FOR ARCHITECTURE REVIEW**
+Status: **ARCHITECTURE APPROVED / READY**
 
 ## Objetivo
 
@@ -62,7 +62,7 @@ O runtime deve carregar, antes das instruções específicas do role:
 
 O runtime pode aceitar caminhos adicionais de contexto explicitamente informados pelo chamador, por exemplo Feature Spec ou ADR aplicável.
 
-Ele não deve fazer descoberta semântica/autônoma de documentos nesta primeira versão.
+Nesta primeira versão, contextos adicionais são restritos a arquivos documentais dentro de `docs/` ou `.ai/`. O loader deve rejeitar caminhos fora do repositório, `.env*`, `.git/`, `node_modules/` e outros caminhos não autorizados. Código-fonte adicional e descoberta semântica/autônoma ficam fora de escopo.
 
 ## Política inicial de modelos
 
@@ -119,7 +119,7 @@ A forma exata de parsing pode variar, desde que:
 
 - role inválido seja rejeitado antes de chamar a API;
 - input vazio seja rejeitado;
-- caminho adicional inexistente seja rejeitado;
+- caminho adicional inexistente/não autorizado seja rejeitado;
 - ausência de `OPENAI_API_KEY` produza erro claro antes da execução remota;
 - a saída identifique role e modelo efetivamente selecionado.
 
@@ -148,6 +148,18 @@ Esta entrega não automatiza a passagem entre gates.
 O Trello continua representando o estado operacional e a progressão continua sendo controlada externamente.
 
 O runtime executa **um role por chamada**.
+
+## Fronteira arquitetural de `apps/agents`
+
+`apps/agents` é tooling operacional de desenvolvimento/automação, não VTT Core, API de produto, frontend de produto ou Game System engine.
+
+Regras:
+
+- `apps/api` não importa `apps/agents`;
+- `apps/web` não importa `apps/agents`;
+- Game System engines não importam `apps/agents`;
+- `apps/agents` pode ler documentação/versionamento do repositório para montar contexto;
+- adicionar ferramentas mutáveis ao runtime exigirá uma Feature Spec/Architecture Review futura.
 
 ## Configuração e extensibilidade
 
@@ -209,23 +221,32 @@ Adicionar um novo role no futuro deve exigir explicitamente:
 6. A política inicial usa Terra/medium para BA, Documentation Auditor e QA; Sol/high para Architect, Developer e Code Reviewer.
 7. É possível sobrescrever modelo e reasoning por role via ambiente.
 8. O runtime carrega os quatro documentos globais de governança mais o role antes de executar.
-9. Contextos adicionais podem ser passados explicitamente por caminho.
-10. Role inválido, input vazio, contexto inexistente e API key ausente falham antes de uma chamada remota.
+9. Contextos adicionais podem ser passados explicitamente somente de `docs/`/`.ai/`, com proteção contra path traversal e caminhos sensíveis.
+10. Role inválido, input vazio, contexto inexistente/não autorizado e API key ausente falham antes de uma chamada remota.
 11. Existe CLI manual para executar um role individual.
 12. A execução usa limite explícito de turns; não depende de loop ilimitado.
 13. Tracing do Agents SDK não é desabilitado por padrão em execução normal.
 14. O runtime não oferece tools de escrita, shell, GitHub ou Trello nesta entrega.
 15. Testes automatizados cobrem registry, model policy/overrides e carregamento/validação de contexto sem exigir chamada real à API.
-16. A CI existente continua passando e a aplicação web/API não passa a importar `apps/agents`.
+16. A CI existente continua passando e a aplicação web/API/Game Systems não passam a importar `apps/agents`.
 17. A arquitetura/documentação passa a reconhecer `apps/agents` como tooling de desenvolvimento/automação separado do VTT Core e das Game System engines.
 
 ## Impacto arquitetural
 
-**Architecture review required: YES.**
+**Architecture review: APPROVED.**
 
-A entrega cria uma nova aplicação operacional no monorepo e uma fronteira explícita entre roles, política de modelos e workflow. Ela não altera invariantes de Campaign, VTT/Game System ou contratos de produto.
+A nova aplicação é classificada como tooling operacional separado do runtime do produto. Não altera invariantes de Campaign, VTT/Game System, persistência ou contratos públicos do QuestHub.
 
-O Architect deve decidir se a mudança exige ADR novo ou apenas atualização da arquitetura canônica.
+**Novo ADR: não necessário.** A decisão cabe na arquitetura/governança já aceita; a arquitetura canônica deve apenas registrar a nova camada operacional.
+
+Enforcement requerido:
+
+- testes de exhaustividade entre role registry e model policy;
+- testes do context loader e seus limites de caminho;
+- check determinístico impedindo imports de `apps/agents` por `apps/api`, `apps/web` e engines;
+- CI/build/test do runtime sem chamada real à API.
+
+Architecture debt introduced: **NO**.
 
 ## Referências externas verificadas
 
@@ -239,4 +260,13 @@ BA: READY
 Spec: docs/features/ai-agent-runtime/spec.md
 Architecture review required: YES
 Open product questions: 0
+```
+
+## Resultado do Architect
+
+```text
+ARCHITECTURE: APPROVED
+ADRs: none
+Required enforcement: registry/model-policy tests; context path safety; product→agents import guard; runtime CI tests
+Architecture debt introduced: NO
 ```
