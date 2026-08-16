@@ -114,7 +114,7 @@ interface GameSystemInventoryPolicy {
 - Existe um registry agnóstico para políticas de inventário.
 - Pathfinder 2e registra uma política baseada em igualdade profunda.
 - Containers, peso e capacidade permanecem fora desta entrega. Moedas PF2e são
-  uma extensão de ficha documentada em `.ai/game_systems/pathfinder_2e/currency/`
+  uma extensão de ficha documentada em `docs/features/pathfinder-2e-currency/`
   e não alteram este contrato.
 - Um jogador com vários atores visualiza um inventário por ator e nenhum inventário de perfil.
 - A grade apresenta páginas visuais de 100 slots quadrados em 20 colunas por 5 linhas; ocupa toda a largura útil sem gerar rolagem própria quando couber no painel, e a quantidade de páginas cresce conforme o maior índice utilizado.
