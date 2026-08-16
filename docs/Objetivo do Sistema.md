@@ -1,27 +1,47 @@
 # Objetivo do Sistema
 
-QuestHub e um VTT para organizar e executar campanhas de RPG de mesa sem impor um conjunto de regras.
+QuestHub é um Virtual Tabletop para organizar e executar campanhas de RPG online com suporte a múltiplos Game Systems, sem acoplar o VTT Core às regras de um ruleset concreto.
 
 ## Capacidades centrais
 
-- Cadastro, login e sessao de usuario.
-- Identidades de personagem com nome, avatar e bio opcional.
-- Criacao de campanhas sem escolha obrigatoria de sistema.
-- Entrada por codigo de convite, com aprovacao opcional do mestre.
-- Cenas, mapas, grid, tokens e estado visual da mesa.
-- Chat, rolagem de dados, presenca e controle de sessao em tempo real.
-- Diario, assets e participantes da campanha.
+- cadastro, login e sessão de usuário;
+- criação e participação em Campaigns;
+- escolha obrigatória de um Game System na criação da Campaign;
+- CampaignMembers com papéis e status de participação;
+- CampaignActors como entidades existentes dentro do mundo;
+- cenas, mapas, grid, Tokens e estado visual da mesa;
+- chat, rolagens, presença e controle de sessão em tempo real;
+- diário, assets e configurações de usuário por Campaign;
+- persistência agnóstica de ficha e inventário associada a Actors;
+- integração com engines de Game System por contratos agnósticos.
 
 ## Limite do produto
 
-O nucleo nao cria nem persiste fichas mecanicas, classes, atributos, magias, itens ou regras de um RPG especifico. `Character` representa uma identidade narrativa e operacional que pode participar de uma campanha e controlar tokens.
+O VTT Core pode armazenar dados mecânicos de maneira genérica/opaca quando isso for necessário para persistir o estado de uma Campaign, mas não interpreta as regras desses dados.
 
-Uma futura integracao de regras deve ser opcional e externa ao dominio principal do VTT. Campanhas e personagens devem continuar funcionando integralmente sem extensoes.
+Conceitos como atributos, classes, ancestralidades/heranças, magias, condições, fórmulas de dano, defesa, equipamentos, moedas e progressão pertencem ao Game System correspondente.
 
-## Principais fluxos
+## Modelo de mundo
 
-- Usuario cria uma identidade antes da campanha ou durante os fluxos de criar/entrar.
-- Mestre cria uma campanha e associa sua identidade como `MASTER`.
-- Jogador entra por convite com uma identidade livre; campanhas privadas geram uma solicitacao pendente.
-- Participantes ativos usam a mesa, as cenas, os tokens, o chat e os recursos narrativos.
+- `Campaign` é a fronteira máxima de isolamento dos dados de jogo.
+- `CampaignMember` representa a participação de um User.
+- `CampaignActor` representa uma entidade do mundo.
+- `CampaignToken` representa a presença visual/operacional no VTT e pode existir sem Actor vinculado.
+- `CampaignCharacterSheet` e `Inventory` pertencem a um Actor da Campaign.
 
+Não existe um `Character` global cujo estado mutável de campanha seja compartilhado entre mundos.
+
+## Game Systems
+
+Toda Campaign seleciona um Game System na criação.
+
+A identificação do sistema é usada para selecionar a engine apropriada, mas o VTT não passa a conhecer ou interpretar as regras concretas desse sistema.
+
+O QuestHub deve poder adicionar novos Game Systems sem reescrever o VTT Core.
+
+## Referências canônicas
+
+- `docs/PROJECT_CONSTITUTION.md`
+- `docs/ARCHITECTURE.md`
+- `docs/architecture/adr/`
+- `docs/governance/SOURCE_OF_TRUTH.md`
