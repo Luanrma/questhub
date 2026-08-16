@@ -1,9 +1,28 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {
+  campaignUserSettingsSchema,
   mergeCampaignUserSettings,
   normalizeCampaignUserSettings,
 } from './user-settings'
+
+test('validates Core namespaces while accepting opaque game-system namespaces', () => {
+  assert.equal(campaignUserSettingsSchema.safeParse({
+    dice: { autoClear: 6, showResultPopup: false },
+    inventory: { itemSheetLocale: 'en-US' },
+    pathfinder2e: { contentLocale: 'future-value' },
+  }).success, true)
+
+  assert.equal(campaignUserSettingsSchema.safeParse({
+    dice: { autoClear: 99 },
+    pathfinder2e: { contentLocale: 'en-US' },
+  }).success, false)
+
+  assert.equal(campaignUserSettingsSchema.safeParse({
+    inventory: { itemSheetLocale: 'invalid' },
+    pathfinder2e: { contentLocale: 'en-US' },
+  }).success, false)
+})
 
 test('normalizes Core namespaces without interpreting opaque namespaces', () => {
   const settings = normalizeCampaignUserSettings({
@@ -20,7 +39,7 @@ test('normalizes Core namespaces without interpreting opaque namespaces', () => 
   })
 })
 
-test('falls back invalid Core settings without discarding opaque namespaces', () => {
+test('falls back invalid persisted Core settings without discarding opaque namespaces', () => {
   const settings = normalizeCampaignUserSettings({
     dice: { autoClear: 99, showResultPopup: 'invalid' },
     inventory: { itemSheetLocale: 'invalid' },
