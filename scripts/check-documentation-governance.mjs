@@ -19,6 +19,7 @@ const walkFiles = (directory) => {
   return files
 }
 
+const normalizeText = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 const isAllowedAiFile = (repoPath) => /^\.ai\/agents\/[^/]+\.md$/.test(repoPath)
 
 const aiFiles = walkFiles(join(root, '.ai')).map(toRepoPath)
@@ -73,30 +74,23 @@ const requireText = (repoPath, fragments) => {
   }
 }
 
-requireText('AGENTS.md', ['Sem card Trello, a tarefa nao comeca.'.normalize('NFD').replace(/[\u0300-\u036f]/g, '')])
+const requireNormalizedText = (repoPath, fragment) => {
+  const absolutePath = join(root, repoPath)
+  if (!existsSync(absolutePath)) return
 
-// AGENTS.md contains accents; compare a normalized copy without changing the file.
-if (existsSync(join(root, 'AGENTS.md'))) {
-  const normalizedAgents = readFileSync(join(root, 'AGENTS.md'), 'utf8')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-  if (!normalizedAgents.includes('Sem card Trello, a tarefa nao comeca.')) {
-    violations.push('AGENTS.md: preflight obrigatorio de card Trello ausente')
+  const content = normalizeText(readFileSync(absolutePath, 'utf8'))
+  if (!content.includes(normalizeText(fragment))) {
+    violations.push(`${repoPath}: referencia obrigatoria ausente: ${JSON.stringify(fragment)}`)
   }
 }
 
+requireNormalizedText('AGENTS.md', 'Sem card Trello, a tarefa não começa.')
 requireText('docs/features/_TEMPLATE.md', ['Card: `<QH-XXX>`', 'card Trello'])
 requireText('.github/pull_request_template.md', ['Trello', 'Feature Spec', 'HUMAN APPROVAL'])
-requireText('docs/governance/SOURCE_OF_TRUTH.md', ['Toda tarefa de desenvolvimento ou governanca deve possuir um card Trello antes do inicio do trabalho.'.normalize('NFD').replace(/[\u0300-\u036f]/g, '')])
-
-if (existsSync(join(root, 'docs/governance/SOURCE_OF_TRUTH.md'))) {
-  const normalizedSource = readFileSync(join(root, 'docs/governance/SOURCE_OF_TRUTH.md'), 'utf8')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-  if (!normalizedSource.includes('Toda tarefa de desenvolvimento ou governanca deve possuir um card Trello antes do inicio do trabalho.')) {
-    violations.push('docs/governance/SOURCE_OF_TRUTH.md: regra obrigatoria de card Trello ausente')
-  }
-}
+requireNormalizedText(
+  'docs/governance/SOURCE_OF_TRUTH.md',
+  'Toda tarefa de desenvolvimento ou governança deve possuir um card Trello antes do início do trabalho.',
+)
 
 if (violations.length > 0) {
   console.error('Documentation governance check failed:')
