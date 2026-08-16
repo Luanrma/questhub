@@ -33,7 +33,12 @@ const inventoryUserSettingsSchema = z.object({
   itemSheetLocale: z.enum(['pt-BR', 'en-US']).optional(),
 })
 
-export const campaignUserSettingsSchema = z.object({}).passthrough()
+export const campaignUserSettingsSchema = z
+  .object({
+    dice: diceUserSettingsSchema.optional(),
+    inventory: inventoryUserSettingsSchema.optional(),
+  })
+  .passthrough()
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value))
