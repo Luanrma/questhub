@@ -6,6 +6,7 @@ import {
   type CampaignUserSettings,
 } from '../../../vtt/dice-roller/infrastructure/storage/diceThemeStorage'
 import {
+  normalizePathfinder2eDisplaySettings,
   readStoredPathfinder2eDisplaySettings,
   storePathfinder2eDisplaySettings,
   type Pathfinder2eDisplaySettings,
@@ -16,7 +17,7 @@ type Pathfinder2eCampaignSettingsPanelProps = {
 }
 
 type CampaignUserSettingsResponse = CampaignUserSettings & {
-  pathfinder2e?: Pathfinder2eDisplaySettings
+  pathfinder2e?: unknown
 }
 
 export function Pathfinder2eCampaignSettingsPanel({
@@ -50,7 +51,9 @@ export function Pathfinder2eCampaignSettingsPanel({
     )
       .then((response) => {
         storeCampaignUserSettings(campaignId, response.settings)
-        const persistedSettings = response.settings.pathfinder2e ?? nextSettings
+        const persistedSettings = normalizePathfinder2eDisplaySettings(
+          response.settings.pathfinder2e ?? nextSettings,
+        )
         storePathfinder2eDisplaySettings(campaignId, persistedSettings)
         setDraft({ campaignId, settings: persistedSettings })
       })
