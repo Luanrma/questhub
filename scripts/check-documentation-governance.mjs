@@ -1,8 +1,10 @@
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs'
+import { existsSync, lstatSync, readFileSync, readdirSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { join, relative, sep } from 'node:path'
 
 const root = process.cwd()
 const violations = []
+const workItemPattern = /\bQH-[A-Z]+-\d+\b/g
 
 const toRepoPath = (absolutePath) => relative(root, absolutePath).split(sep).join('/')
 
@@ -12,7 +14,13 @@ const walkFiles = (directory) => {
   const files = []
   for (const entry of readdirSync(directory)) {
     const absolutePath = join(directory, entry)
-    const stat = statSync(absolutePath)
+    const stat = lstatSync(absolutePath)
+
+    if (stat.isSymbolicLink()) {
+      violations.push(`${toRepoPath(absolutePath)}: symlinks nao sao permitidos dentro de .ai/`)
+      continue
+    }
+
     if (stat.isDirectory()) files.push(...walkFiles(absolutePath))
     else if (stat.isFile()) files.push(absolutePath)
   }
@@ -21,6 +29,7 @@ const walkFiles = (directory) => {
 
 const normalizeText = (value) => value.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
 const isAllowedAiFile = (repoPath) => /^\.ai\/agents\/[^/]+\.md$/.test(repoPath)
+const extractWorkItemIds = (value) => [...new Set(String(value ?? '').match(workItemPattern) ?? [])]
 
 const aiFiles = walkFiles(join(root, '.ai')).map(toRepoPath)
 for (const repoPath of aiFiles) {
@@ -29,8 +38,8 @@ for (const repoPath of aiFiles) {
   }
 }
 
-// Sanity checks keep the path predicate itself from becoming permissive by accident.
-const predicateCases = [
+// Sanity checks keep the predicates from becoming permissive by accident.
+const pathPredicateCases = [
   ['.ai/agents/ba.md', true],
   ['.ai/agents/new-role.md', true],
   ['.ai/specs.md', false],
@@ -39,9 +48,22 @@ const predicateCases = [
   ['.ai/agents/role.txt', false],
 ]
 
-for (const [repoPath, expected] of predicateCases) {
+for (const [repoPath, expected] of pathPredicateCases) {
   if (isAllowedAiFile(repoPath) !== expected) {
-    violations.push(`internal predicate regression for ${repoPath}`)
+    violations.push(`internal path predicate regression for ${repoPath}`)
+  }
+}
+
+const workItemPredicateCases = [
+  ['QH-GOV-009', ['QH-GOV-009']],
+  ['QH-XXX', []],
+  ['QH-GOV-009 and QH-AI-001', ['QH-GOV-009', 'QH-AI-001']],
+]
+
+for (const [text, expected] of workItemPredicateCases) {
+  const actual = extractWorkItemIds(text)
+  if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+    violations.push(`internal work item predicate regression for ${JSON.stringify(text)}`)
   }
 }
 
@@ -92,10 +114,77 @@ requireNormalizedText(
   'Toda tarefa de desenvolvimento ou governança deve possuir um card Trello antes do início do trabalho.',
 )
 
+const readGithubEvent = () => {
+  const eventPath = process.env.GITHUB_EVENT_PATH
+  if (!eventPath || !existsSync(eventPath)) return null
+
+  try {
+    return JSON.parse(readFileSync(eventPath, 'utf8'))
+  } catch (error) {
+    violations.push(`GITHUB_EVENT_PATH invalido: ${error instanceof Error ? error.message : String(error)}`)
+    return null
+  }
+}
+
+const readLocalCommitMessage = () => {
+  try {
+    return execFileSync('git', ['log', '-1', '--pretty=%B'], {
+      cwd: root,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    }).trim()
+  } catch (error) {
+    violations.push(`nao foi possivel ler o commit atual para validar o card: ${error instanceof Error ? error.message : String(error)}`)
+    return ''
+  }
+}
+
+const event = readGithubEvent()
+let workItemId = null
+
+if (event?.pull_request) {
+  const title = String(event.pull_request.title ?? '')
+  const body = String(event.pull_request.body ?? '')
+  const titleIds = extractWorkItemIds(title)
+
+  if (titleIds.length !== 1) {
+    violations.push('pull request deve possuir exatamente um card QH-* concreto no titulo')
+  } else {
+    workItemId = titleIds[0]
+    if (!extractWorkItemIds(body).includes(workItemId)) {
+      violations.push(`pull request body deve referenciar o mesmo card ${workItemId} do titulo`)
+    }
+  }
+
+  const specPaths = [...new Set(body.match(/docs\/features\/[A-Za-z0-9._/-]+\/spec\.md/g) ?? [])]
+  for (const specPath of specPaths) {
+    const absoluteSpecPath = join(root, specPath)
+    if (!existsSync(absoluteSpecPath)) {
+      violations.push(`${specPath}: Feature Spec referenciada pelo PR nao existe`)
+      continue
+    }
+
+    if (workItemId && !readFileSync(absoluteSpecPath, 'utf8').includes(workItemId)) {
+      violations.push(`${specPath}: Feature Spec deve referenciar o mesmo card ${workItemId} do PR`)
+    }
+  }
+} else {
+  const commitMessage = event?.head_commit?.message ?? readLocalCommitMessage()
+  const commitIds = extractWorkItemIds(commitMessage)
+
+  if (commitIds.length !== 1) {
+    violations.push('commit atual deve possuir exatamente um card QH-* concreto na mensagem')
+  } else {
+    workItemId = commitIds[0]
+  }
+}
+
 if (violations.length > 0) {
   console.error('Documentation governance check failed:')
   for (const violation of violations) console.error(`- ${violation}`)
   process.exit(1)
 }
 
-console.log(`Documentation governance check passed (${aiFiles.length} .ai role files validated).`)
+console.log(
+  `Documentation governance check passed (${aiFiles.length} .ai role files validated; work item ${workItemId}).`,
+)
