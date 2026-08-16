@@ -47,18 +47,19 @@ Código principal: `apps/web/`.
 
 - TypeScript/Node.js;
 - OpenAI Agents SDK;
-- roles versionados em `.ai/agents/`;
+- roles versionados exclusivamente em `.ai/agents/`;
 - runtime operacional em `apps/agents/`.
 
 ### Qualidade
 
-O projeto já possui:
+O projeto possui:
 
 - testes unitários;
 - testes/invariantes de banco;
 - build do frontend em CI;
 - testes/typecheck do agent runtime;
-- `npm run check:architecture` para fronteiras VTT/Game System e Agent tooling;
+- `npm run check:architecture` para fronteiras VTT/Game System, Agent tooling e governança documental;
+- `npm run check:documentation-governance` para impedir que `.ai/` volte a acumular documentação de produto;
 - workflow específico de Game System boundaries.
 
 ## 3. Campaign
@@ -141,6 +142,8 @@ O VTT pode persistir dados mecânicos de forma agnóstica/opaca, mas não pode i
 Campos estruturais como `systemKey` e `schemaVersion` existem para identificar/versionar o formato. A interpretação do conteúdo pertence à engine correspondente.
 
 `CampaignCharacterSheetEntry` permite organizar entradas mecânicas versionadas e namespaced sem transferir a interpretação das regras para o VTT.
+
+Contrato auxiliar: `docs/features/character-sheet-entries/spec.md`.
 
 ## 8. Inventory
 
@@ -251,6 +254,8 @@ Qualquer operação que combine IDs de recursos de Campaign deve validar que ess
 
 Uma feature deve seguir a hierarquia definida em `docs/governance/SOURCE_OF_TRUTH.md`.
 
+Antes de qualquer tarefa de desenvolvimento ou governança produzir Spec, branch ou implementação, um card Trello deve existir e identificar o item no workflow. Essa obrigatoriedade não transforma Trello em fonte canônica de requisitos.
+
 Mudanças estruturais exigem ADR quando alterarem:
 
 - invariantes da Constitution;
@@ -262,6 +267,8 @@ Mudanças estruturais exigem ADR quando alterarem:
 
 ADRs aceitos não são reescritos para apagar histórico. Novas decisões usam `Supersedes` quando substituem decisões anteriores.
 
+Referência: ADR-0006 para a identidade obrigatória de trabalho no Trello.
+
 ## 16. AI Agent Tooling
 
 `apps/agents/` é tooling operacional de desenvolvimento e automação. Não pertence ao runtime do VTT, à API de produto, ao frontend do produto nem a uma Game System engine.
@@ -272,6 +279,8 @@ Os conceitos são separados:
 - `apps/agents/src/config/` define **política operacional**, incluindo modelo e reasoning default;
 - `apps/agents/src/runtime/` define **como uma execução controlada acontece**;
 - Trello representa o **estado operacional do workflow**, sem se tornar fonte canônica de produto/arquitetura.
+
+`.ai/` não é mais área de documentação de produto em migração. Qualquer arquivo ali fora de `.ai/agents/*.md` viola a organização documental e deve ser bloqueado pelo guard correspondente.
 
 Na fase QH-AI-001:
 
@@ -286,14 +295,23 @@ Na fase QH-AI-001:
 
 A evolução para ferramentas mutáveis, sandboxes, orquestração automática ou gatilhos externos exige Feature Spec e Architecture Review próprios.
 
-## 17. Dívidas e divergências conhecidas
+## 17. Documentação e mapa do projeto
+
+`docs/PROJECT_MAP.md` é o índice navegacional da estrutura vigente. Ele não altera a hierarquia de autoridade.
+
+Feature Specs e contratos de produto pertencem a `docs/features/`. ADRs pertencem a `docs/architecture/adr/`. A pasta `.ai/` fica restrita às definições de roles.
+
+QH-GOV-009 removeu a documentação de produto legada em `.ai/`, promoveu apenas contratos compatíveis com a arquitetura atual e eliminou documentos contraditórios em vez de arquivá-los defensivamente.
+
+## 18. Dívidas e divergências conhecidas
 
 As divergências detectadas pela Sprint 0 são registradas em `docs/governance/DOCUMENTATION_AUDIT.md`.
 
 QH-ARCH-001 removeu a interpretação de `pathfinder2e.contentLocale` do módulo genérico de Campaign User Settings e adicionou proteção determinística para os pontos corrigidos.
 
+QH-GOV-009 resolveu a dívida de manter documentação autoritativa de produto dentro de `.ai/`.
+
 Ainda requerem tratamento posterior:
 
 - ampliar a cobertura determinística de fronteiras para outros módulos backend ainda não mapeados explicitamente;
-- resolver a bridge web explicitamente whitelisted pelo architecture check;
-- continuar a migração gradual de documentação autoritativa que ainda reside em `.ai/`.
+- resolver a bridge web explicitamente whitelisted pelo architecture check.
