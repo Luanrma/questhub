@@ -1,138 +1,167 @@
 # Auditoria Inicial de Consistência Documental
 
-Status: **IN PROGRESS**
-Data da auditoria inicial: 2026-08-15
-Branch analisada: `main`
+Status: **IN PROGRESS**  
+Data da auditoria inicial: 2026-08-15  
+Branch base analisada: `main`
 
 ## Objetivo
 
 Registrar divergências entre documentação, instruções de IA, contratos e implementação antes da introdução de agents autônomos.
 
-Este relatório não decide automaticamente qual lado de uma divergência está correto.
+A auditoria não autoriza um agent a escolher silenciosamente qual lado de uma divergência está correto.
 
-## Resumo
+## Estado após primeira rodada da Sprint 0
 
-A base atual possui boas proteções parciais — testes, `check:architecture`, CI e um Architecture Guardian — mas a documentação está distribuída entre `docs/`, `.ai/`, `AGENTS.md` e o próprio código sem uma hierarquia formal de autoridade.
+Foram criados/consolidados:
+
+- `docs/PROJECT_CONSTITUTION.md`;
+- `docs/governance/SOURCE_OF_TRUTH.md`;
+- `docs/ARCHITECTURE.md`;
+- ADR-0001 a ADR-0005;
+- `docs/features/campaign-creation/spec.md`;
+- `AGENTS.md` como roteador de contexto;
+- depreciação explícita da documentação antiga de arquitetura;
+- atualização de `docs/Objetivo do Sistema.md`;
+- depreciação da antiga documentação `.ai/campaign_creation/*`.
 
 ## GOV-001 — Modelo de Character divergente
 
-**Severidade:** CRITICAL
+**Severidade inicial:** CRITICAL  
+**Estado:** **RESOLVED (documentation governance)**
 
-`docs/Arquitetura do Sistema.md` e `docs/Objetivo do Sistema.md` descrevem um `Character` global/reutilizável e `CampaignCharacter`.
+A documentação antiga descrevia `Character` global/reutilizável e `CampaignCharacter`, enquanto arquitetura e schema atuais usam `CampaignMember` + `CampaignActor`.
 
-A arquitetura mais nova em `.ai/architecture.md` afirma explicitamente que essas entidades não existem e define `CampaignMember` + `CampaignActor`.
+### Resolução
 
-O schema atual implementa `CampaignMember` e `CampaignActor` e não possui `Character` global.
+- `docs/ARCHITECTURE.md` consolidou o modelo atual;
+- ADR-0003 formalizou `CampaignMember` ≠ `CampaignActor`;
+- `docs/Arquitetura do Sistema.md` foi marcado como deprecated;
+- `docs/Objetivo do Sistema.md` foi alinhado ao modelo atual.
 
-**Estado:** documentação antiga incompatível com arquitetura e implementação atuais.
+Não houve alteração de código nesta Sprint para resolver este item.
 
-**Ação proposta:** substituir a documentação geral antiga por uma arquitetura consolidada e mover/remover os documentos obsoletos.
+## GOV-002 — Campaign com ou sem Game System
 
-## GOV-002 — Campaign com ou sem game system
+**Severidade inicial:** CRITICAL  
+**Estado:** **RESOLVED**
 
-**Severidade:** CRITICAL
+### Decisão
 
-`.ai/campaign_creation/specs.md` afirma que `POST /api/campaigns` recebe somente `title`, `description?` e `joinPolicy` e que a campanha nasce sem propriedade de regras.
+Toda Campaign deve possuir obrigatoriamente um Game System selecionado em sua criação.
 
-O schema atual exige `Campaign.gameSystem` e o endpoint atual exige `gameSystem: PATHFINDER_2E`.
+A identificação do sistema pode ser persistida/transportada para composição, sem permitir que o VTT interprete regras concretas.
 
-**Estado:** decisão de produto/arquitetura não resolvida nesta auditoria.
+### Evidência
 
-**Decisão necessária:** uma Campaign deve sempre selecionar um game system, pode não possuir game system, ou deve armazenar apenas uma chave opaca de engine?
-
-**Bloqueio:** nenhum agent deve tentar 'corrigir' documentação ou código até essa decisão ser registrada.
+- decisão registrada em ADR-0001;
+- Project Constitution atualizada;
+- `docs/ARCHITECTURE.md` consolidado;
+- `docs/features/campaign-creation/spec.md` criado;
+- `.ai/campaign_creation/*` deixou de ser fonte canônica.
 
 ## GOV-003 — `.ai/` mistura conhecimento de produto e comportamento de agents
 
-**Severidade:** HIGH
+**Severidade:** HIGH  
+**Estado:** **IN PROGRESS**
 
-A pasta `.ai/` atualmente contém:
+A pasta `.ai/` ainda contém grande quantidade de specs e conhecimento de produto legado.
 
-- arquitetura de produto;
-- specs de features/domínios;
-- decisões técnicas;
-- instruções de agent, como `architecture-guardian/agent.md`.
+### Direção aceita
 
-Isso torna ambíguo se `.ai/` é fonte de verdade do produto ou configuração operacional para IA.
+- produto/arquitetura migram para `docs/`;
+- `.ai/` converge para roles, policies, prompts e instruções operacionais;
+- `AGENTS.md` agora declara documentos `.ai/` legados como contexto histórico, não como autoridade superior.
 
-**Ação proposta:** migrar documentação autoritativa do produto para `docs/`; reservar `.ai/` para roles, policies e instruções dos agents.
+### Trabalho restante
 
-## GOV-004 — `AGENTS.md` permite decisão autônoma em divergência
+Migrar os domínios gradualmente, evitando uma reescrita massiva sem auditoria contra código.
 
-**Severidade:** HIGH
+## GOV-004 — `AGENTS.md` permitia decisão autônoma em divergência
 
-O `AGENTS.md` atual instrui a IA a documentar e prosseguir quando uma divergência puder ser resolvida por uma decisão técnica considerada razoável.
+**Severidade inicial:** HIGH  
+**Estado:** **RESOLVED**
 
-Isso é aceitável para detalhes locais e reversíveis, mas perigoso para produto, domínio, contratos e arquitetura.
+`AGENTS.md` foi reduzido ao papel de roteador e agora:
 
-**Ação proposta:** transformar `AGENTS.md` em roteador de contexto e proibir resolução autônoma de divergências que alterem intenção, fronteiras ou contratos.
+- aponta para Constitution, Source of Truth, Architecture, ADR e Feature Specs;
+- proíbe resolução autônoma de lacunas de produto/arquitetura;
+- permite decisão autônoma apenas para detalhes locais, reversíveis e sem impacto em contrato/comportamento/arquitetura.
 
 ## GOV-005 — Configuração concreta de Pathfinder em módulo de Campaign
 
-**Severidade:** HIGH
+**Severidade:** HIGH  
+**Estado:** **OPEN — ARCHITECTURE DEBT**
 
 `apps/api/src/modules/campaigns/routes.ts` contém configuração `pathfinder2e.contentLocale` dentro de `defaultCampaignUserSettings`, schema e merge de preferências.
 
-O Architecture Guardian declara que regras e conceitos de sistemas concretos devem permanecer fora do VTT Core.
+ADR-0005 estabelece que módulos genéricos do VTT não devem incorporar conceitos/configurações concretos de ruleset como parte de sua lógica.
 
-**Estado:** candidato a vazamento de fronteira. A configuração pode precisar ser movida para um registro/adapter do game system ou representada por configuração genérica/namespace opaco.
+### Próxima ação
 
-**Ação proposta:** Architecture review antes de alterar.
+Criar tarefa arquitetural específica para decidir/migrar preferências namespaced de Game System para registry/adapter ou outro contrato agnóstico.
+
+Não alterar durante a Sprint 0 documental sem Spec/ADR técnico apropriado.
 
 ## GOV-006 — Guard determinístico cobre apenas parte da política declarada
 
-**Severidade:** MEDIUM/HIGH
+**Severidade:** MEDIUM/HIGH  
+**Estado:** **OPEN — ENFORCEMENT GAP**
 
-`scripts/check-game-system-boundaries.mjs` protege imports entre `modules` e `game_systems`, procura termos concretos dentro de `apps/web/src/vtt` e possui uma whitelist explícita para uma bridge existente.
+`scripts/check-game-system-boundaries.mjs` protege imports entre `modules` e `game_systems` e procura conceitos concretos em partes do frontend, mas não captura todo vazamento equivalente no backend.
 
-Porém ele não procura identificadores/conceitos concretos de game system dentro de todos os módulos do backend. Por isso GOV-005 não é capturado pelo check atual.
+### Próxima ação
 
-**Ação proposta:** após consolidar a arquitetura, expandir os checks determinísticos para refletir exatamente as fronteiras aceitas.
+Após fechar as regras de namespacing/composition necessárias para GOV-005, expandir `check:architecture` e CI para refletir a política aceita.
 
-## GOV-007 — Exceção arquitetural existente sem ADR associado visível
+## GOV-007 — Exceção arquitetural existente sem ADR/debt record
 
-**Severidade:** MEDIUM
+**Severidade:** MEDIUM  
+**Estado:** **OPEN — ARCHITECTURE DEBT**
 
-O guard contém a whitelist:
+O guard contém whitelist para:
 
 `CampaignOverviewPage.tsx -> ../../game-systems/CampaignInventoryModal`
 
-O comentário afirma que novas entradas exigem ADR, porém a exceção atual precisa estar ligada a uma decisão/debt record explícita para não virar precedente invisível.
+O comentário no próprio check afirma que novas entradas não devem ser adicionadas sem decisão arquitetural, mas a exceção existente ainda precisa de registro explícito ou remoção.
 
-**Ação proposta:** criar ADR/debt record ou remover a bridge durante a Sprint 0, dependendo da arquitetura consolidada.
+### Próxima ação
 
-## GOV-008 — Documentação antiga afirma que o Core não persiste ficha/itens
+Auditar a bridge e decidir entre:
 
-**Severidade:** HIGH
+- movê-la para Composition Root/registry apropriado; ou
+- registrar dívida/exceção temporária com caminho de remoção.
 
-`docs/Objetivo do Sistema.md` afirma que o núcleo não cria nem persiste fichas mecânicas ou itens.
+## GOV-008 — Documentação antiga dizia que Core não persiste ficha/itens
 
-O schema atual possui armazenamento genérico `CampaignCharacterSheet`, `CampaignCharacterSheetEntry`, `Inventory` e `InventoryEntry`.
+**Severidade inicial:** HIGH  
+**Estado:** **RESOLVED (documentation governance)**
 
-Essas estruturas podem continuar agnósticas e ainda assim persistir estado fornecido por um game system. Portanto a formulação antiga não representa o modelo atual.
+A formulação antiga confundia persistência com interpretação de regras.
 
-**Ação proposta:** arquitetura consolidada deve distinguir claramente:
+### Resolução
 
-- persistência agnóstica de dados mecânicos opacos;
-- interpretação de regras mecânicas, que pertence ao game system.
+Architecture e Constitution agora distinguem explicitamente:
 
-## Pontos já coerentes
+- persistência agnóstica/opaca de `CampaignCharacterSheet`, entries, `Inventory` e entries;
+- interpretação mecânica, que pertence ao Game System.
 
-- `CampaignToken.actorId` é opcional no schema.
-- `CampaignActor` e `CampaignMember` são entidades distintas.
-- `Inventory` é ligado a `CampaignActor`.
-- `CampaignCharacterSheet` é ligado a `CampaignActor`.
-- existe `npm run check:architecture`.
-- existe CI de qualidade e CI específico para fronteiras de game system.
+## Pontos coerentes confirmados
+
+- `CampaignToken.actorId` é opcional no schema;
+- `CampaignActor` e `CampaignMember` são entidades distintas;
+- `Inventory` é ligado a `CampaignActor`;
+- `CampaignCharacterSheet` é ligado a `CampaignActor`;
+- `Campaign.gameSystem` é obrigatório;
+- existe `npm run check:architecture`;
+- existem CI de qualidade e CI específico de fronteiras;
 - existe Architecture Guardian documentado.
 
 ## Próximas ações da Sprint 0
 
-1. Resolver GOV-002 como decisão explícita.
-2. Criar `docs/ARCHITECTURE.md` consolidando somente o estado vigente.
-3. Criar os ADRs das decisões arquiteturais fundamentais já aceitas.
-4. Reescrever `AGENTS.md` como roteador de contexto.
-5. Migrar conhecimento de produto de `.ai/` para `docs/` gradualmente.
-6. Criar instruções separadas para BA, Architect, Documentation Auditor, Developer, Reviewer e QA.
-7. Expandir checks determinísticos somente depois que as fronteiras forem formalizadas.
-8. Integrar esse fluxo ao Trello.
+1. criar templates de Feature Spec e ADR;
+2. criar template de Pull Request com gates de documentação/arquitetura/testes;
+3. definir roles iniciais de BA, Architect e Documentation Auditor;
+4. auditar e migrar os próximos documentos `.ai/` por domínio, sem migração cega;
+5. criar cards separados para GOV-005, GOV-006 e GOV-007;
+6. estruturar o Trello com Definition of Ready e Definition of Done;
+7. somente depois iniciar Developer/Reviewer/QA agents autônomos.
