@@ -4,6 +4,7 @@ import process from 'node:process'
 
 const root = process.cwd()
 const agentsRoot = path.join(root, 'apps', 'agents')
+const roleDefinitionsRoot = path.join(root, '.ai', 'agents')
 const productRoots = [
   path.join(root, 'apps', 'api', 'src'),
   path.join(root, 'apps', 'web', 'src'),
@@ -43,6 +44,15 @@ for (const productRoot of productRoots) {
         )
       }
     }
+  }
+}
+
+for (const roleFile of collectFiles(roleDefinitionsRoot, ['.md'])) {
+  const source = readFileSync(roleFile, 'utf8')
+  if (/\bgpt-[a-z0-9.-]+\b/i.test(source)) {
+    violations.push(
+      `Agent role definition must not select a model: ${path.relative(root, roleFile)}`,
+    )
   }
 }
 
