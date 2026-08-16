@@ -18,10 +18,12 @@ Ao mesmo tempo, `docs/governance/SOURCE_OF_TRUTH.md` corretamente mantém Trello
 2. Para esta regra, início do trabalho inclui criar ou alterar Feature Spec da entrega, branch de implementação, código, schema, documentação de mudança ou outro artefato destinado à entrega.
 3. O card é a **identidade operacional** da tarefa e registra prioridade, estado e passagem pelos gates.
 4. Feature Specs e Pull Requests associados a uma entrega devem referenciar o identificador do card correspondente.
-5. Trello continua subordinado à hierarquia definida em `docs/governance/SOURCE_OF_TRUTH.md`; texto do card não substitui Constitution, ADR, Architecture, Feature Spec ou contratos executáveis.
-6. Se uma conversa originar uma nova tarefa, o primeiro ato operacional é criar o card; somente depois a tarefa entra em BA/Refinement e segue os gates.
-7. Nenhum Agent pode criar uma exceção implícita à regra por a mudança parecer pequena, local ou de baixo risco.
-8. `DONE` continua condicionado ao fluxo definido pelo projeto; merge permanece dependente de aprovação humana quando aplicável.
+5. Commits de uma entrega devem carregar um identificador concreto `QH-*`; Pull Requests devem carregar exatamente um identificador concreto no título e repetir o mesmo identificador no corpo.
+6. Quando um Pull Request referenciar uma Feature Spec, essa Spec deve apontar para o mesmo identificador do card do PR.
+7. Trello continua subordinado à hierarquia definida em `docs/governance/SOURCE_OF_TRUTH.md`; texto do card não substitui Constitution, ADR, Architecture, Feature Spec ou contratos executáveis.
+8. Se uma conversa originar uma nova tarefa, o primeiro ato operacional é criar o card; somente depois a tarefa entra em BA/Refinement e segue os gates.
+9. Nenhum Agent pode criar uma exceção implícita à regra por a mudança parecer pequena, local ou de baixo risco.
+10. `DONE` continua condicionado ao fluxo definido pelo projeto; merge permanece dependente de aprovação humana quando aplicável.
 
 ## Alternativas consideradas
 
@@ -45,7 +47,7 @@ Rejeitada.
 
 - garante que toda entrega entra na esteira desde o início;
 - preserva versionamento e hierarquia documental;
-- permite relacionar card, Spec, branch e PR sem duplicar autoridade.
+- permite relacionar card, Spec, commit e PR sem duplicar autoridade.
 
 Aceita.
 
@@ -55,14 +57,15 @@ Aceita.
 
 - toda tarefa passa a possuir identidade única antes de produzir mudanças;
 - gates deixam de depender de reconstrução posterior de contexto;
-- Feature Specs e PRs podem ser rastreados ao workflow correspondente;
+- Feature Specs, commits e PRs podem ser rastreados ao workflow correspondente;
 - Trello e GitHub mantêm responsabilidades distintas e explícitas.
 
 ### Restrições / custos
 
 - até mudanças pequenas de desenvolvimento/governança exigem criação prévia de card;
+- mensagens de commit e metadados do PR passam a obedecer ao identificador concreto da tarefa;
 - CI não consegue provar sozinho a existência remota do card sem integração/credencial externa;
-- a verificação da existência do card é uma pré-condição operacional, complementada por checks determinísticos de referências no repositório.
+- a verificação da existência do card é uma pré-condição operacional, complementada por checks determinísticos de referências no repositório/PR.
 
 ## Enforcement
 
@@ -71,7 +74,8 @@ A decisão é protegida por:
 - `AGENTS.md`, que bloqueia início de tarefa sem card;
 - `docs/features/_TEMPLATE.md`, que exige identificação do card;
 - `.github/pull_request_template.md`, que exige referência ao card e à Spec;
-- `scripts/check-documentation-governance.mjs`, que protege a organização documental e a presença dos pontos de rastreabilidade versionados;
+- `scripts/check-documentation-governance.mjs`, que rejeita placeholders, exige um `QH-*` concreto no commit e, em Pull Requests, valida título, corpo e a Feature Spec referenciada;
+- o mesmo guard rejeita symlinks em `.ai/` e permite somente `.ai/agents/*.md`;
 - Code Review e Documentation Audit;
 - fluxo Trello, que deve começar em `INBOX` antes dos demais artefatos;
 - aprovação humana antes de merge.
@@ -84,6 +88,7 @@ O CI **não** recebe credenciais Trello nesta decisão e não consulta a API do 
 - `docs/governance/SOURCE_OF_TRUTH.md`: esclarece Trello obrigatório sem elevar sua autoridade;
 - `AGENTS.md`: adiciona preflight de card;
 - `docs/features/_TEMPLATE.md`: card passa a ser campo obrigatório;
+- `.github/pull_request_template.md`: card/Spec passam a ser campos de rastreabilidade;
 - `docs/PROJECT_MAP.md`: documenta o fluxo e as fontes;
 - `docs/governance/DOCUMENTATION_AUDIT.md`: registra a consolidação.
 
@@ -94,4 +99,4 @@ O CI **não** recebe credenciais Trello nesta decisão e não consulta a API do 
 - gatilhos/webhooks externos;
 - auto-merge;
 - mudança na hierarquia de autoridade documental;
-- políticas de nomenclatura de cards além da necessidade de identificação rastreável.
+- integração remota de validação do card pelo CI.
