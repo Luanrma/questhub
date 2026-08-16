@@ -20,7 +20,8 @@ Foram criados/consolidados:
 - `AGENTS.md` como roteador de contexto e roles;
 - BA, Architect, Developer, Code Reviewer, Documentation Auditor e QA como papéis separados;
 - workflow Trello com gates explícitos;
-- depreciação gradual de documentação de produto legada em `.ai/`.
+- depreciação gradual de documentação de produto legada em `.ai/`;
+- runtime operacional read-only dos Agents em `apps/agents/` sendo introduzido por QH-AI-001.
 
 ## GOV-001 — Modelo de Character divergente
 
@@ -71,6 +72,8 @@ A pasta `.ai/` ainda contém conhecimento de produto legado.
 
 QH-ARCH-001 migrou `campaign_user_settings` para documentação canônica em `docs/features/campaign-user-settings/spec.md` e transformou os antigos arquivos `.ai/campaign_user_settings/*` em redirecionamentos deprecated.
 
+QH-AI-001 mantém a escolha de modelo fora dos arquivos de role: `.ai/agents/*.md` define identidade/autoridade; `apps/agents/src/config/model-policy.ts` define política operacional de execução.
+
 ## GOV-004 — `AGENTS.md` permitia decisão autônoma em divergência
 
 **Severidade inicial:** HIGH  
@@ -86,13 +89,13 @@ QH-ARCH-001 migrou `campaign_user_settings` para documentação canônica em `do
 ## GOV-005 — Configuração concreta de Pathfinder em módulo de Campaign
 
 **Severidade inicial:** HIGH  
-**Estado:** **RESOLVED IN QH-ARCH-001 — PENDING MERGE**
+**Estado:** **RESOLVED — MERGED IN QH-ARCH-001 / PR #51**
 
 ### Problema original
 
 `apps/api/src/modules/campaigns/routes.ts` interpretava `pathfinder2e.contentLocale` em defaults, schema e merge. A página genérica `CampaignSettingsPage` também importava/renderizava diretamente infraestrutura PF2e.
 
-### Resolução implementada
+### Resolução
 
 - o backend genérico conhece apenas namespaces do Core (`dice` e `inventory`);
 - namespaces de Game System são persistidos e mesclados como dados opacos;
@@ -107,7 +110,7 @@ QH-ARCH-001 migrou `campaign_user_settings` para documentação canônica em `do
 - `docs/features/game-system-user-settings-boundary/spec.md`;
 - `docs/features/campaign-user-settings/spec.md`;
 - ADR-0005;
-- PR #51.
+- PR #51, já mesclada na `main`.
 
 ## GOV-006 — Guard determinístico cobre apenas parte da política declarada
 
@@ -121,6 +124,8 @@ QH-ARCH-001 ampliou `scripts/check-game-system-boundaries.mjs` para proteger esp
 - a interpretação de settings específicos dentro das rotas genéricas de Campaign.
 
 Também foram adicionados testes de regressão para o registry e namespaces opacos.
+
+QH-AI-001 adiciona uma fronteira determinística separada para o tooling de Agents, impedindo que `apps/api`/`apps/web` importem `apps/agents` e impedindo tools, handoffs e shell no runtime read-only desta fase.
 
 ### Trabalho restante
 
@@ -142,7 +147,7 @@ Auditar a bridge e decidir entre:
 - movê-la para Composition Root/registry apropriado; ou
 - registrar dívida/exceção temporária com caminho explícito de remoção.
 
-QH-ARCH-001 não altera essa bridge porque ela está fora do escopo da Feature Spec.
+QH-ARCH-001 não alterou essa bridge porque ela estava fora do escopo da Feature Spec.
 
 ## GOV-008 — Documentação antiga dizia que Core não persiste ficha/itens
 
@@ -156,20 +161,36 @@ Architecture e Constitution distinguem:
 
 ## Esteira de agents validada
 
-QH-ARCH-001 é o primeiro item executado pelos gates formalizados no Trello.
+QH-ARCH-001 foi o primeiro item executado pelos gates formalizados no Trello e foi posteriormente mesclado na `main`.
 
-O fluxo já exercitado inclui:
-
-`INBOX -> BA -> ARCHITECTURE -> READY -> DEVELOPMENT -> CODE REVIEW -> DOCUMENTATION AUDIT`
-
-Durante esse fluxo:
+Durante aquele fluxo:
 
 - Code Reviewer encontrou defeitos e devolveu a tarefa para Development;
 - as correções foram reapresentadas e aprovadas após CI;
 - Documentation Auditor detectou documentação canônica desatualizada e bloqueou a progressão para QA;
-- esta atualização documental é a correção desse bloqueio.
+- QA validou os critérios de aceite antes da aprovação humana.
 
-Isso confirma que os gates não são apenas nomes de colunas: eles podem interromper e devolver trabalho quando a evidência não satisfaz o papel correspondente.
+QH-AI-001 está exercitando a mesma esteira para transformar os roles em runtime executável. O primeiro Code Review também devolveu a implementação para Development ao detectar inconsistência entre o `env` validado pelo preflight e o ambiente efetivamente consumido pelo provider do SDK; a correção unificou execução real em `process.env`.
+
+## QH-AI-001 — Runtime operacional dos Agents
+
+**Estado documental:** **CONSISTENT — PENDING MERGE**
+
+A Feature Spec `docs/features/ai-agent-runtime/spec.md` e `docs/ARCHITECTURE.md` estabelecem:
+
+- `apps/agents/` como tooling operacional separado do runtime do produto;
+- `.ai/agents/*.md` como definição de role, sem seleção de modelo;
+- Model Policy centralizada e sobrescrevível por ambiente;
+- um role por execução;
+- contexto obrigatório de governança carregado pelo runtime;
+- contexto adicional explícito e limitado a Markdown autorizado;
+- execução read-only/advisory nesta fase;
+- ausência de tools, handoffs, shell, GitHub/Trello writes e autonomia de merge;
+- tracing habilitado por padrão com payload sensível excluído;
+- `maxTurns` explícito;
+- CI cobrindo boundary guard, testes e typecheck do runtime sem chamada real à API.
+
+A implementação e a documentação operacional em `apps/agents/README.md` descrevem a mesma fronteira.
 
 ## Pontos coerentes confirmados
 
@@ -181,12 +202,14 @@ Isso confirma que os gates não são apenas nomes de colunas: eles podem interro
 - existe `npm run check:architecture`;
 - existem CI de qualidade e CI específico de fronteiras;
 - existe Architecture Guardian documentado;
-- Campaign User Settings possui contrato canônico e separa namespaces Core de namespaces opacos de Game System.
+- Campaign User Settings possui contrato canônico e separa namespaces Core de namespaces opacos de Game System;
+- `apps/agents` está isolado de API/web/Game Systems e possui boundary check próprio;
+- modelos não fazem parte da identidade textual dos roles.
 
 ## Próximas ações de governança
 
-1. concluir QH-ARCH-001 com Documentation Audit, QA e Human Approval;
+1. concluir QH-AI-001 com Documentation Audit, QA e Human Approval;
 2. auditar GOV-007 (bridge de Inventory whitelistada);
 3. ampliar o enforcement de ADR-0005 por domínio conforme novas fronteiras forem consolidadas;
 4. continuar migrando documentação de produto remanescente em `.ai/` para `docs/`;
-5. automatizar gradualmente a orquestração Trello/GitHub mantendo os gates e autoridade humana.
+5. evoluir a automação Trello/GitHub em entregas separadas, mantendo autoridade humana e boundaries explícitos.

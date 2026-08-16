@@ -38,6 +38,9 @@ jobs:
           cache: npm
 
       - run: npm ci
+      - run: npm run check:agent-boundaries
+      - run: npm run test:agents
+      - run: npm run build:agents
       - run: npm run db:generate
       - run: npm run db:deploy
       - run: npx prisma db execute --file apps/api/prisma/invariants.test.sql
