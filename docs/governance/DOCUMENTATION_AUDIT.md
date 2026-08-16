@@ -120,7 +120,7 @@ Cobertura existente:
 
 - `scripts/check-game-system-boundaries.mjs` protege fronteiras VTT/Game System selecionadas;
 - `scripts/check-agent-runtime-boundaries.mjs` protege o tooling de Agents;
-- QH-GOV-009 adiciona `scripts/check-documentation-governance.mjs` para a organização documental e pontos versionados da rastreabilidade Trello.
+- QH-GOV-009 adiciona `scripts/check-documentation-governance.mjs` para a organização documental e rastreabilidade versionada do work item.
 
 ### Trabalho restante
 
@@ -172,20 +172,23 @@ A Feature Spec `docs/features/ai-agent-runtime/spec.md`, a implementação e `do
 
 ## QH-GOV-009 — Consolidação documental e rastreabilidade Trello
 
-**Estado documental:** **DEVELOPMENT IMPLEMENTED — REVIEW PENDING**
+**Estado documental:** **DOCUMENTATION AUDIT PASS — PENDING QA / HUMAN APPROVAL**
 
 Card: `QH-GOV-009`  
 Spec: `docs/features/governance-doc-consolidation/spec.md`  
-ADR: `docs/architecture/adr/ADR-0006-mandatory-trello-work-item.md`
+ADR: `docs/architecture/adr/ADR-0006-mandatory-trello-work-item.md`  
+PR: `#53`
 
 ### Decisões consolidadas
 
 - toda tarefa de desenvolvimento/governança possui card Trello antes de Spec, branch ou implementação;
 - Trello é identidade operacional/workflow, não fonte canônica de requisito;
-- Feature Specs e PRs referenciam o card;
+- commits usam um identificador concreto `QH-*`;
+- PRs usam exatamente um identificador concreto no título e repetem o mesmo ID no corpo;
+- quando o PR referencia uma Feature Spec, o guard exige o mesmo card na Spec;
 - CI não recebe credenciais Trello para provar existência remota do card;
-- a pré-condição é operacional e os pontos versionados são protegidos por guard;
-- `.ai/` contém apenas roles;
+- a existência remota é pré-condição operacional; a rastreabilidade verificável no repo/PR é protegida por guard;
+- `.ai/` contém apenas roles e symlinks são rejeitados;
 - documentação de produto pertence a `docs/`;
 - remoção é preferida a archive quando um documento contraditório não possui valor histórico necessário.
 
@@ -210,6 +213,19 @@ Promovidos seletivamente:
 
 Contratos grandes preservados com referências históricas literais possuem notas `MIGRATION.md` no domínio correspondente para resolver o caminho atual sem reintroduzir a árvore antiga.
 
+### Gate de Documentation Audit
+
+**PASS.** Foram comparados Constitution, ADR-0006, Source of Truth, Architecture, Feature Spec, Project Map, AGENTS, PR/template e guard.
+
+Confirmado:
+
+- nenhuma fonte eleva Trello acima da hierarquia canônica;
+- todas descrevem a pré-condição obrigatória de card de forma compatível;
+- o guard executa enforcement determinístico sem introduzir credencial Trello;
+- o Code Review corrigiu a lacuna de placeholder/identidade e o bypass por symlink antes deste gate;
+- GOV-006 e GOV-007 permanecem explicitamente abertos e não foram silenciosamente declarados resolvidos;
+- não há mudança de schema, contrato HTTP/realtime ou comportamento funcional atribuída a QH-GOV-009.
+
 ## Pontos coerentes confirmados
 
 - `CampaignToken.actorId` é opcional;
@@ -227,7 +243,7 @@ Contratos grandes preservados com referências históricas literais possuem nota
 
 ## Próximas ações de governança
 
-1. concluir Code Review, Documentation Audit, QA e Human Approval de QH-GOV-009;
+1. concluir QA e Human Approval de QH-GOV-009;
 2. auditar GOV-007 (bridge de Inventory whitelistada);
 3. ampliar enforcement de ADR-0005 por domínio conforme novas fronteiras forem consolidadas;
 4. evoluir orquestração/Trello/GitHub dos Agents somente em entregas separadas e governadas.
