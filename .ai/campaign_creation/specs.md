@@ -1,9 +1,7 @@
-# Criacao de Campanha: Contrato
+# DEPRECATED — Campaign Creation Spec
 
-`POST /api/campaigns` recebe `title`, `description?` e `joinPolicy`.
+A especificação canônica foi movida para:
 
-* Titulo e obrigatorio.
-* A campanha nasce sem qualquer propriedade de regras.
-* Campanha e vinculo `MASTER/ACTIVE` sao criados atomicamente.
-* Nenhum `CampaignActor` ou `Inventory` é criado implicitamente.
-* Entrar ou ser aprovado em uma campanha cria/reativa somente `CampaignMember`.
+`docs/features/campaign-creation/spec.md`
+
+Não use este arquivo para implementar ou revisar a feature.
