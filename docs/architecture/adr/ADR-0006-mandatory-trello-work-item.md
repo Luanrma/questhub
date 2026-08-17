@@ -1,8 +1,11 @@
 # ADR-0006 — Card Trello obrigatório para toda entrega
 
-Status: **ACCEPTED**  
+Status: **SUPERSEDED**  
 Data: 2026-08-16  
-Supersedes: nenhum
+Supersedes: nenhum  
+Superseded by: **ADR-0007-proportional-trello-work-item.md**
+
+> O texto abaixo preserva a decisão histórica original. A política vigente está no ADR-0007.
 
 ## Contexto
 

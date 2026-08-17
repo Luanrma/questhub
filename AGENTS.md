@@ -4,21 +4,39 @@ Este arquivo orienta qualquer agente de IA que trabalhe no repositório QuestHub
 
 Ele **não é fonte de verdade de produto ou arquitetura**. Seu papel é indicar quais fontes devem ser lidas e qual processo deve ser seguido.
 
-## 0. Preflight obrigatório: card Trello
+## 0. Preflight de rastreabilidade
 
-Antes de criar ou alterar Feature Spec, branch, código, schema, documentação de entrega ou qualquer outro artefato de uma tarefa de desenvolvimento/governança:
+Antes de criar ou alterar Feature Spec, branch, código, schema, documentação de entrega ou qualquer outro artefato, classifique a tarefa conforme ADR-0007.
 
-1. confirme que existe um card no board Trello do QuestHub para a tarefa;
+### Trabalho com card Trello obrigatório
+
+Um card deve existir antes de prosseguir quando a mudança envolver:
+
+- comportamento funcional, feature ou bug observável;
+- código executável do produto em `apps/`;
+- schema, migration ou persistência estrutural;
+- contrato HTTP/realtime/tipo público ou integração entre domínios;
+- autenticação, autorização, segurança, ownership ou isolamento de Campaign;
+- arquitetura de produto ou fronteira VTT/Game System;
+- regra, cálculo, automação ou mecânica de Game System.
+
+Nesse modo:
+
+1. confirme que existe um card no board Trello do QuestHub;
 2. se não existir, crie o card em `INBOX` antes de prosseguir;
-3. use o identificador do card como identidade operacional da entrega;
-4. faça a Feature Spec e o Pull Request referenciarem esse card;
+3. use o identificador `QH-*` como identidade operacional da entrega;
+4. faça a Feature Spec e o Pull Request referenciarem esse card quando aplicável;
 5. mova o card pelos gates aplicáveis; não pule diretamente para Development.
 
-**Sem card Trello, a tarefa não começa.** Não existe exceção implícita para mudanças pequenas.
+### Manutenção `NO-CARD`
+
+Manutenção estritamente não funcional pode declarar `NO-CARD`, incluindo reorganização de documentação, correção de caminhos/links, nomes, ortografia, formatação e housekeeping documental equivalente.
+
+`NO-CARD` deve ser explícito e justificado. Não pode ser usado para contornar a esteira. Se o escopo crescer para uma categoria que exige card, pare antes da expansão e crie o card.
 
 Trello representa workflow, prioridade e estado. Requisitos e decisões continuam versionados no repositório conforme `docs/governance/SOURCE_OF_TRUTH.md`.
 
-Referência: ADR-0006.
+Referência vigente: ADR-0007. ADR-0006 preserva a política universal anterior e está supersedido.
 
 ## 1. Contexto obrigatório
 
@@ -50,6 +68,7 @@ A pasta `.ai/` é reservada exclusivamente às definições de role em `.ai/agen
 Regras:
 
 - requisitos e Specs de produto pertencem a `docs/features/`;
+- documentação de um Game System concreto pertence a `docs/features/game-system/<game-system>/`;
 - decisões arquiteturais pertencem a `docs/architecture/adr/`;
 - arquitetura consolidada pertence a `docs/ARCHITECTURE.md`;
 - `.ai/agents/*.md` define identidade, missão, responsabilidades, limites e formato de saída dos roles;
@@ -73,19 +92,19 @@ Um papel não herda automaticamente a autoridade de outro. Em especial, Develope
 
 Identifique explicitamente:
 
-- card Trello da tarefa;
+- modo de rastreabilidade: card Trello `QH-*` ou `NO-CARD` com justificativa;
 - objetivo da mudança;
 - domínio afetado;
 - se pertence ao VTT Core, Game System Runtime/contratos, Composition Root ou engine concreta;
 - camadas afetadas: frontend, backend, realtime, persistência, testes, documentação;
-- Feature Spec relacionada;
+- Feature Spec relacionada, quando aplicável;
 - ADRs relacionados;
 - impacto em contratos existentes;
 - impacto em isolamento de Campaign e permissões.
 
 ## 5. Feature development
 
-Mudança funcional deve possuir Feature Spec suficiente para implementação e validação.
+Mudança funcional deve possuir Feature Spec suficiente para implementação e validação e, por ser trabalho governado, deve possuir card Trello.
 
 Uma Feature Spec deve referenciar seu card Trello e definir, conforme aplicável:
 
@@ -114,6 +133,8 @@ Se a mudança alterar qualquer um dos itens abaixo, exija ADR:
 - exceção/whitelist entre fronteiras arquiteturais.
 
 Uma feature não pode alterar arquitetura como efeito colateral.
+
+ADRs aceitos não são reescritos para apagar histórico. Quando uma decisão mudar, use um novo ADR com `Supersedes` e marque o anterior como `SUPERSEDED` com referência ao sucessor.
 
 ## 7. Fronteira VTT / Game System
 
@@ -184,7 +205,7 @@ Verifique conforme o escopo:
 - `npm run check:architecture`;
 - segurança/permissões;
 - realtime;
-- coerência entre card, Spec, ADR, Architecture, código e testes.
+- coerência entre rastreabilidade (`QH-*` ou `NO-CARD`), Spec/ADR/Architecture, código e testes.
 
 Uma mudança funcional não está concluída se sua documentação autoritativa aplicável ficou incompatível.
 

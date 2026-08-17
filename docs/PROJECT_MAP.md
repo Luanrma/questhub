@@ -7,9 +7,13 @@ Este arquivo é um **mapa de navegação**, não uma fonte superior de requisito
 
 ## 1. Antes de qualquer tarefa
 
-Toda tarefa de desenvolvimento ou governança precisa possuir um card Trello **antes** de criar/alterar Spec, branch, implementação ou documentação de entrega.
+Classifique a rastreabilidade conforme ADR-0007.
 
-Fluxo operacional:
+Trabalho funcional/arquitetural/executável deve possuir card Trello **antes** de criar/alterar Spec, branch, implementação ou documentação da entrega.
+
+Manutenção estritamente documental/organizacional pode declarar `NO-CARD` com justificativa. Se esse escopo crescer para trabalho que exija card, a expansão deve parar até que o card seja criado.
+
+Fluxo operacional para entregas com card:
 
 ```text
 INBOX
@@ -24,9 +28,9 @@ INBOX
   -> DONE
 ```
 
-O card representa identidade, prioridade e estado. Requisitos e decisões permanecem no repositório.
+Trello representa identidade, prioridade e estado quando aplicável. Requisitos e decisões permanecem no repositório.
 
-Referência: `ADR-0006-mandatory-trello-work-item.md`.
+Referência vigente: `ADR-0007-proportional-trello-work-item.md`. ADR-0006 registra a política universal anterior e está supersedido.
 
 ## 2. Ordem de leitura obrigatória
 
@@ -34,7 +38,7 @@ Referência: `ADR-0006-mandatory-trello-work-item.md`.
 2. `docs/governance/SOURCE_OF_TRUTH.md` — hierarquia de autoridade e protocolo de divergência.
 3. `docs/ARCHITECTURE.md` — arquitetura atual consolidada.
 4. `docs/architecture/adr/` — decisões arquiteturais aceitas.
-5. `docs/features/<feature>/spec.md` — comportamento esperado de cada feature.
+5. Feature Spec aplicável em `docs/features/` — comportamento esperado da feature.
 6. contratos executáveis e código — realidade implementada/verificável.
 
 `docs/Objetivo do Sistema.md` é uma visão resumida do produto e permanece subordinada às fontes acima.
@@ -64,7 +68,8 @@ Referência: `ADR-0006-mandatory-trello-work-item.md`.
 - `docs/PROJECT_CONSTITUTION.md` — Constituição.
 - `docs/ARCHITECTURE.md` — arquitetura canônica atual.
 - `docs/architecture/adr/` — ADRs.
-- `docs/features/` — Feature Specs e documentos auxiliares de features.
+- `docs/features/` — Feature Specs e documentos auxiliares genéricos.
+- `docs/features/game-system/<game-system>/` — documentação pertencente a um Game System concreto.
 - `docs/governance/` — Source of Truth, auditorias e governança.
 - `docs/PROJECT_MAP.md` — este mapa.
 
@@ -111,18 +116,31 @@ Consulte:
 - `docs/features/character-sheet-entries/`
 - `scripts/check-game-system-boundaries.mjs`
 
-## 6. Pathfinder 2e
+Esses documentos permanecem na raiz de `docs/features/` porque descrevem integração **genérica** entre o VTT e qualquer Game System, não regras de um sistema concreto.
+
+## 6. Game Systems concretos
+
+Documentação específica de um ruleset fica agrupada por sistema:
+
+```text
+docs/features/game-system/
+  pathfinder-2e/
+  dnd-5e/            # futuro
+  <outro-sistema>/   # futuro
+```
+
+### Pathfinder 2e
 
 Pathfinder 2e é o primeiro Game System concreto, não uma dependência conceitual do VTT Core.
 
-Specs/documentos promovidos e ainda compatíveis com a arquitetura vigente:
+Specs/documentos atuais:
 
-- `docs/features/pathfinder-2e-character-options/`
-- `docs/features/pathfinder-2e-character-spells/`
-- `docs/features/pathfinder-2e-content-catalog/`
-- `docs/features/pathfinder-2e-currency/`
-- `docs/features/pathfinder-2e-encounter-actions/`
-- `docs/features/pathfinder-2e-equipment/`
+- `docs/features/game-system/pathfinder-2e/character-options/`
+- `docs/features/game-system/pathfinder-2e/character-spells/`
+- `docs/features/game-system/pathfinder-2e/content-catalog/`
+- `docs/features/game-system/pathfinder-2e/currency/`
+- `docs/features/game-system/pathfinder-2e/encounter-actions/`
+- `docs/features/game-system/pathfinder-2e/equipment/`
 
 A antiga Spec de ficha baseada em `Character`/`CharacterSheet` globais **não foi promovida**, pois conflita com a arquitetura atual baseada em `CampaignActor -> CampaignCharacterSheet`.
 
@@ -165,11 +183,12 @@ npm run build:agents
 npm run build:web
 ```
 
-`check:documentation-governance` impede que `.ai/` volte a receber Specs, arquitetura, prompts de execução ou outros arquivos fora de `.ai/agents/*.md`.
+`check:documentation-governance` impede que `.ai/` volte a receber Specs, arquitetura, prompts de execução ou outros arquivos fora de `.ai/agents/*.md`. Ele também valida o modo de rastreabilidade `QH-*` ou `NO-CARD`.
 
 ## 9. Regra para documentação nova
 
-- requisito/feature -> `docs/features/`;
+- requisito/feature genérica -> `docs/features/<feature>/`;
+- requisito/feature específica de Game System -> `docs/features/game-system/<game-system>/<feature>/`;
 - decisão arquitetural -> `docs/architecture/adr/`;
 - arquitetura consolidada -> `docs/ARCHITECTURE.md`;
 - regra de autoridade/processo -> `docs/governance/` e, quando for invariante, Constitution/ADR;

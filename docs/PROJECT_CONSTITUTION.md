@@ -87,12 +87,13 @@ O VTT Core não pode interpretar:
 
 Uma mudança só está concluída quando código, contratos, testes e documentação autoritativa aplicável descrevem o mesmo comportamento.
 
-## 12. Toda entrega possui identidade de trabalho antes de começar
+## 12. Rastreabilidade é proporcional ao tipo de trabalho
 
-- Toda tarefa de desenvolvimento ou governança deve possuir card Trello antes de produzir Spec, branch ou mudança destinada à entrega.
-- O card identifica o item no workflow e registra seu estado pelos gates, mas não substitui fontes versionadas de produto ou arquitetura.
-- Feature Specs e Pull Requests associados a uma entrega devem referenciar o card correspondente.
-- Nenhum agent pode dispensar essa pré-condição por considerar a tarefa pequena ou de baixo risco.
-- Merge continua dependente da aprovação humana definida pelo workflow.
+- Mudanças funcionais, código de produto, schema, contratos, segurança, arquitetura de produto e mecânicas de Game System devem possuir card Trello antes do início do trabalho governado.
+- Manutenção estritamente não funcional de documentação/organização pode usar o modo explícito `NO-CARD`.
+- `NO-CARD` não pode ser usado para contornar os gates de uma mudança que afete comportamento, contrato, persistência, segurança ou arquitetura do produto.
+- Se uma manutenção `NO-CARD` crescer para um escopo que exija card, o trabalho deve parar antes dessa expansão e ganhar um card Trello.
+- Trello registra workflow/status e identidade operacional quando aplicável, mas nunca substitui fontes versionadas de produto ou arquitetura.
+- Pull Requests continuam dependentes de aprovação humana antes do merge.
 
-Referência: ADR-0006.
+Referência vigente: ADR-0007. ADR-0006 registra a política universal anterior e está supersedido.
