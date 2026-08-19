@@ -239,6 +239,86 @@ input:disabled,
 .questhub-area-leaves-gust { animation: questhub-area-leaves-gust 1.7s linear infinite; }
 .questhub-area-leaves-surface { filter: drop-shadow(0 0 5px rgb(132 204 22 / 65%)); }
 
+/* PF2e character sheet — spells keep the warm medium theme but use dark copy on light surfaces. */
+[data-sheet-active-page="spells"] header {
+  background: #aa9a83 !important;
+  border-color: rgb(115 92 64 / 48%) !important;
+}
+
+[data-sheet-active-page="spells"] header h2,
+[data-sheet-active-page="spells"] h3,
+[data-sheet-active-page="spells"] h4,
+[data-sheet-active-page="spells"] h5 {
+  color: #2b241c !important;
+}
+
+[data-sheet-active-page="spells"] header p,
+[data-sheet-active-page="spells"] section p,
+[data-sheet-active-page="spells"] details,
+[data-sheet-active-page="spells"] dt,
+[data-sheet-active-page="spells"] dd,
+[data-sheet-active-page="spells"] footer {
+  color: #493f33 !important;
+}
+
+[data-sheet-active-page="spells"] h3,
+[data-sheet-active-page="spells"] summary,
+[data-sheet-active-page="spells"] article > div:first-child > div:first-child > div:first-child {
+  color: #563a98 !important;
+}
+
+[data-sheet-active-page="spells"] section.rounded-xl,
+[data-sheet-active-page="spells"] section > .rounded-xl {
+  background: #b9a98f !important;
+  border-color: rgb(105 84 57 / 45%) !important;
+}
+
+[data-sheet-active-page="spells"] article {
+  background: #a9997e !important;
+  border-color: rgb(92 72 49 / 50%) !important;
+}
+
+[data-sheet-active-page="spells"] article p,
+[data-sheet-active-page="spells"] article details,
+[data-sheet-active-page="spells"] article dt,
+[data-sheet-active-page="spells"] article dd {
+  color: #352d24 !important;
+}
+
+[data-sheet-active-page="spells"] article [class*="text-zinc-4"],
+[data-sheet-active-page="spells"] article [class*="text-zinc-5"] {
+  color: #514537 !important;
+}
+
+[data-sheet-active-page="spells"] label > span,
+[data-sheet-active-page="spells"] footer > span {
+  color: #504335 !important;
+}
+
+[data-sheet-active-page="spells"] label > div {
+  background: #95846b !important;
+  border-color: rgb(83 66 45 / 55%) !important;
+}
+
+[data-sheet-active-page="spells"] input {
+  color: #211b16 !important;
+}
+
+[data-sheet-active-page="spells"] input::placeholder {
+  color: #554a3c !important;
+  opacity: 1;
+}
+
+[data-sheet-active-page="spells"] select {
+  border-color: rgb(78 62 43 / 58%) !important;
+  background: #463d33 !important;
+  color: #fff6e9 !important;
+}
+
+[data-sheet-active-page="spells"] summary {
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .questhub-area-fire-flow,
   .questhub-area-electric-flow,
