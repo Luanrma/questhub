@@ -307,6 +307,10 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
             ...sheet,
             hitPoints: { ...sheet.hitPoints, current, temporary },
           })}
+          onConditionChange={(condition, value) => setSheet({
+            ...sheet,
+            hitPoints: { ...sheet.hitPoints, [condition]: value },
+          })}
           onArmorClassBonusChange={(bonus) => setSheet({ ...sheet, armorClass: { bonus } })}
           onInitiativeBonusChange={(bonus) => setSheet({ ...sheet, initiative: { bonus } })}
           onProficiencyChange={updateProficiency}
