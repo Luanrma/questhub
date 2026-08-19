@@ -21,6 +21,7 @@ import type {
 } from '../types'
 
 type ProficiencyGroup = 'perception' | 'savingThrows'
+type SurvivalCondition = 'wounded' | 'dying' | 'doomed'
 
 type Props = {
   name: string
@@ -28,6 +29,7 @@ type Props = {
   sheet: Pathfinder2eCharacterSheetData
   derived: Pathfinder2eDerivedCharacterSheet
   onHitPointsChange: (value: Pick<Pathfinder2eCharacterSheetData['hitPoints'], 'current' | 'temporary'>) => void
+  onConditionChange: (condition: SurvivalCondition, value: number) => void
   onArmorClassBonusChange: (bonus: number) => void
   onInitiativeBonusChange: (bonus: number) => void
   onProficiencyChange: (
@@ -45,13 +47,6 @@ const rankOptions: Array<{ value: Pathfinder2eProficiencyRank; label: string }> 
   { value: 6, label: 'Mestre' },
   { value: 8, label: 'Lendário' },
 ]
-
-const armorCategoryLabels: Record<Pathfinder2eDerivedCharacterSheet['armorClass']['armorCategory'], string> = {
-  unarmored: 'Sem armadura',
-  light: 'Armadura leve',
-  medium: 'Armadura média',
-  heavy: 'Armadura pesada',
-}
 
 const compactInputClass =
   'min-w-0 rounded-md border border-[#806e54]/50 bg-[#d8cbb2] px-2 py-1.5 text-xs text-[#2d271f] outline-none transition focus:border-[#6d4ac8]/60 focus:ring-2 focus:ring-[#6d4ac8]/15'
@@ -71,7 +66,7 @@ function rankLabel(rank: Pathfinder2eProficiencyRank) {
 
 function SidebarDivider({ title, icon }: { title: string; icon?: ReactNode }) {
   return (
-    <div className="flex items-center gap-2 border-t border-[#7f6c50]/35 pt-2.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[#695944] first:border-t-0 first:pt-0">
+    <div className="flex items-center gap-2 border-t border-[#7f6c50]/35 pt-2.5 text-[10px] font-bold uppercase tracking-[0.14em] text-[#514332] first:border-t-0 first:pt-0">
       {icon}
       <span>{title}</span>
       <span className="h-px flex-1 bg-[#8f7b5d]/30" />
@@ -89,10 +84,10 @@ function StatRow({ icon, label, value, detail }: {
     <div className="grid grid-cols-[20px_minmax(0,1fr)_auto] items-center gap-2 py-1.5">
       <span className="text-[#795d34]">{icon}</span>
       <span className="min-w-0">
-        <span className="block truncate text-[11px] font-semibold uppercase tracking-wide text-[#544735]">{label}</span>
-        {detail ? <span className="block truncate text-[10px] text-[#786a56]">{detail}</span> : null}
+        <span className="block truncate text-[11px] font-semibold uppercase tracking-wide text-[#40362a]">{label}</span>
+        {detail ? <span className="block truncate text-[10px] text-[#584b3a]">{detail}</span> : null}
       </span>
-      <strong className="font-serif text-lg text-[#2b241c]">{value}</strong>
+      <strong className="font-serif text-lg text-[#241e18]">{value}</strong>
     </div>
   )
 }
@@ -115,8 +110,8 @@ function ProficiencyEditor({
   return (
     <div className="grid gap-1.5 rounded-md border border-[#8f7b5d]/35 bg-[#cdbd9f]/60 p-2">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-wide text-[#5d4f3c]">{label}</span>
-        <span className="font-serif text-base font-semibold text-[#2b241c]">{signed(total)}</span>
+        <span className="text-[10px] font-semibold uppercase tracking-wide text-[#493c2d]">{label}</span>
+        <span className="font-serif text-base font-semibold text-[#241e18]">{signed(total)}</span>
       </div>
       <div className="grid grid-cols-[minmax(0,1fr)_64px] gap-1.5">
         <select
@@ -141,7 +136,7 @@ function ProficiencyEditor({
         />
       </div>
       {effectiveRank > value.rank ? (
-        <div className="text-[9px] text-[#496640]">Efetivo pela Classe: {effectiveRankLabel}</div>
+        <div className="text-[9px] text-[#3d5836]">Efetivo pela Classe: {effectiveRankLabel}</div>
       ) : null}
     </div>
   )
@@ -167,21 +162,21 @@ function DefenseListEditor({ label, values, onChange }: {
 
   return (
     <section className="border-t border-[#8f7b5d]/30 pt-2.5 first:border-t-0 first:pt-0">
-      <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#665742]">{label}</div>
+      <div className="text-[9px] font-bold uppercase tracking-[0.14em] text-[#4b3f30]">{label}</div>
       <div className="mt-1.5 flex flex-wrap gap-1">
         {values.length ? values.map((value, index) => (
-          <span key={`${value}-${index}`} className="inline-flex max-w-full items-center gap-1 rounded-full border border-[#806e54]/35 bg-[#d2c4aa] px-2 py-0.5 text-[10px] text-[#4f4333]">
+          <span key={`${value}-${index}`} className="inline-flex max-w-full items-center gap-1 rounded-full border border-[#806e54]/35 bg-[#d2c4aa] px-2 py-0.5 text-[10px] text-[#3f3428]">
             <span className="truncate">{value}</span>
             <button
               type="button"
-              className="shrink-0 rounded-full p-0.5 text-[#786a56] transition hover:bg-[#8f7b5d]/15 hover:text-[#2d271f]"
+              className="shrink-0 rounded-full p-0.5 text-[#584b3a] transition hover:bg-[#8f7b5d]/15 hover:text-[#241e18]"
               title={`Remover ${value}`}
               onClick={() => onChange(values.filter((entry) => entry !== value))}
             >
               <X className="h-3 w-3" />
             </button>
           </span>
-        )) : <span className="text-[10px] italic text-[#847661]">Nenhuma</span>}
+        )) : <span className="text-[10px] italic text-[#675a46]">Nenhuma</span>}
       </div>
       <div className="mt-1.5 grid grid-cols-[minmax(0,1fr)_28px] gap-1.5">
         <input
@@ -202,7 +197,7 @@ function DefenseListEditor({ label, values, onChange }: {
           type="button"
           title={`Adicionar ${label.toLocaleLowerCase()}`}
           disabled={!draft.trim() || values.length >= 50}
-          className="flex items-center justify-center rounded-md border border-[#7657bd]/30 bg-[#7657bd]/12 text-[#54379a] transition hover:bg-[#7657bd]/20 disabled:cursor-not-allowed disabled:opacity-35"
+          className="flex items-center justify-center rounded-md border border-[#7657bd]/30 bg-[#7657bd]/12 text-[#4c2f92] transition hover:bg-[#7657bd]/20 disabled:cursor-not-allowed disabled:opacity-35"
           onClick={addEntry}
         >
           <Plus className="h-3.5 w-3.5" />
@@ -215,8 +210,8 @@ function DefenseListEditor({ label, values, onChange }: {
 function CompactDefenseSummary({ label, values }: { label: string; values: string[] }) {
   return (
     <div className="grid grid-cols-[72px_minmax(0,1fr)] gap-2 text-[10px]">
-      <span className="font-semibold uppercase tracking-wide text-[#665742]">{label}</span>
-      <span className="truncate text-right text-[#4d4233]" title={values.join(', ') || 'Nenhuma'}>
+      <span className="font-semibold uppercase tracking-wide text-[#4b3f30]">{label}</span>
+      <span className="truncate text-right text-[#382f25]" title={values.join(', ') || 'Nenhuma'}>
         {values.length ? values.join(', ') : 'Nenhuma'}
       </span>
     </div>
@@ -229,6 +224,7 @@ export function CharacterSheetAppendix({
   sheet,
   derived,
   onHitPointsChange,
+  onConditionChange,
   onArmorClassBonusChange,
   onInitiativeBonusChange,
   onProficiencyChange,
@@ -239,12 +235,16 @@ export function CharacterSheetAppendix({
     { key: 'reflex' as const, label: 'Reflexos', value: derived.savingThrows.reflex.value },
     { key: 'will' as const, label: 'Vontade', value: derived.savingThrows.will.value },
   ]
-  const armorLabel = derived.armorClass.sourceName ?? armorCategoryLabels[derived.armorClass.armorCategory]
   const experienceMax = Math.max(1, sheet.general.experience.nextLevel)
   const experiencePercent = Math.max(0, Math.min(100, (sheet.general.experience.current / experienceMax) * 100))
+  const survivalConditions: Array<{ key: SurvivalCondition; label: string; value: number }> = [
+    { key: 'wounded', label: 'Ferido', value: sheet.hitPoints.wounded },
+    { key: 'dying', label: 'Morrendo', value: sheet.hitPoints.dying },
+    { key: 'doomed', label: 'Condenado', value: sheet.hitPoints.doomed },
+  ]
 
   return (
-    <aside className="min-w-0 rounded-xl border border-[#78664d]/55 bg-[#aa9778] p-3 text-[#2d271f] shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] lg:sticky lg:top-0">
+    <aside className="min-w-0 rounded-xl border border-[#78664d]/55 bg-[#aa9778] p-3 text-[#241e18] shadow-[inset_0_1px_0_rgba(255,255,255,0.18)] lg:sticky lg:top-0">
       <div className="flex min-w-0 items-center gap-3 border-b border-[#78664d]/35 pb-3">
         {avatarUrl ? (
           <img
@@ -258,10 +258,10 @@ export function CharacterSheetAppendix({
           </div>
         )}
         <div className="min-w-0 flex-1">
-          <h2 className="truncate font-serif text-xl font-semibold tracking-wide text-[#282119]">{name}</h2>
-          <div className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-[#655642]">Pathfinder 2e · Nível {sheet.identity.level}</div>
+          <h2 className="truncate font-serif text-xl font-semibold tracking-wide text-[#211b16]">{name}</h2>
+          <div className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-[#4b3f30]">Nível {sheet.identity.level}</div>
           <div className="mt-2">
-            <div className="mb-1 flex justify-between text-[9px] uppercase tracking-wide text-[#665742]">
+            <div className="mb-1 flex justify-between text-[9px] uppercase tracking-wide text-[#4b3f30]">
               <span>EXP</span>
               <span>{sheet.general.experience.current} / {sheet.general.experience.nextLevel}</span>
             </div>
@@ -276,7 +276,7 @@ export function CharacterSheetAppendix({
         <div>
           <StatRow
             icon={<Heart className="h-4 w-4" />}
-            label="Pontos de vida"
+            label="Vida atual"
             value={`${sheet.hitPoints.current} / ${derived.hitPoints.maximum}`}
             detail={sheet.hitPoints.temporary > 0 ? `+${sheet.hitPoints.temporary} temporários` : undefined}
           />
@@ -288,7 +288,7 @@ export function CharacterSheetAppendix({
           </div>
         </div>
 
-        <StatRow icon={<Shield className="h-4 w-4" />} label="Classe de armadura" value={String(derived.armorClass.value)} detail={armorLabel} />
+        <StatRow icon={<Shield className="h-4 w-4" />} label="Classe de armadura" value={String(derived.armorClass.value)} />
         <StatRow icon={<Eye className="h-4 w-4" />} label="Percepção" value={signed(derived.perception.value)} detail={rankLabel(derived.perception.effectiveRank)} />
         <StatRow icon={<Swords className="h-4 w-4" />} label="Iniciativa" value={signed(derived.initiative.value)} />
 
@@ -297,27 +297,30 @@ export function CharacterSheetAppendix({
           {savingThrows.map(({ key, label, value }) => (
             <div key={key} className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 py-1">
               <span className="min-w-0">
-                <span className="block truncate text-[11px] font-semibold text-[#4f4333]">{label}</span>
-                <span className="block truncate text-[9px] uppercase tracking-wide text-[#786a56]">
+                <span className="block truncate text-[11px] font-semibold text-[#3f3428]">{label}</span>
+                <span className="block truncate text-[9px] uppercase tracking-wide text-[#584b3a]">
                   {rankLabel(derived.savingThrows[key].effectiveRank)}
                 </span>
               </span>
-              <strong className="font-serif text-base text-[#2b241c]">{signed(value)}</strong>
+              <strong className="font-serif text-base text-[#241e18]">{signed(value)}</strong>
             </div>
           ))}
         </div>
 
         <SidebarDivider title="Condições" icon={<Skull className="h-3.5 w-3.5" />} />
         <div className="grid grid-cols-3 gap-1.5">
-          {[
-            ['Ferido', sheet.hitPoints.wounded],
-            ['Morrendo', sheet.hitPoints.dying],
-            ['Condenado', sheet.hitPoints.doomed],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-md border border-[#806e54]/35 bg-[#c1ae8d]/55 px-1.5 py-1 text-center">
-              <div className="text-[8px] font-semibold uppercase tracking-wide text-[#665742]">{label}</div>
-              <div className="font-serif text-base font-semibold text-[#2d271f]">{value}</div>
-            </div>
+          {survivalConditions.map(({ key, label, value }) => (
+            <label key={key} className="rounded-md border border-[#806e54]/45 bg-[#c9b795]/75 px-1.5 py-1 text-center transition focus-within:border-[#6d4ac8]/65 focus-within:bg-[#d3c3a5]">
+              <span className="block text-[8px] font-bold uppercase tracking-wide text-[#4b3f30]">{label}</span>
+              <input
+                type="number"
+                min={0}
+                value={value}
+                aria-label={label}
+                className="mt-0.5 w-full min-w-0 rounded border border-transparent bg-transparent px-0.5 text-center font-serif text-base font-semibold text-[#211b16] outline-none transition hover:bg-[#dfd2b8]/55 focus:border-[#6d4ac8]/35 focus:bg-[#e3d7c0]/70"
+                onChange={(event) => onConditionChange(key, Math.max(0, parseNumber(event.target.value)))}
+              />
+            </label>
           ))}
         </div>
 
@@ -329,14 +332,14 @@ export function CharacterSheetAppendix({
         </div>
 
         <details className="group rounded-lg border border-[#7657bd]/25 bg-[#c2b093]/55">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-2.5 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#54379a]">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-2.5 py-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#4c2f92]">
             Ajustes rápidos
             <ChevronDown className="h-3.5 w-3.5 transition group-open:rotate-180" />
           </summary>
           <div className="space-y-2.5 border-t border-[#806e54]/30 p-2.5">
             <div className="grid grid-cols-2 gap-1.5">
               <label className="grid gap-1">
-                <span className="text-[9px] uppercase tracking-wide text-[#665742]">PV atual</span>
+                <span className="text-[9px] uppercase tracking-wide text-[#4b3f30]">PV atual</span>
                 <input
                   type="number"
                   min={0}
@@ -349,7 +352,7 @@ export function CharacterSheetAppendix({
                 />
               </label>
               <label className="grid gap-1">
-                <span className="text-[9px] uppercase tracking-wide text-[#665742]">PV temporário</span>
+                <span className="text-[9px] uppercase tracking-wide text-[#4b3f30]">PV temporário</span>
                 <input
                   type="number"
                   min={0}
@@ -365,7 +368,7 @@ export function CharacterSheetAppendix({
 
             <div className="grid grid-cols-2 gap-1.5">
               <label className="grid gap-1">
-                <span className="text-[9px] uppercase tracking-wide text-[#665742]">Ajuste CA</span>
+                <span className="text-[9px] uppercase tracking-wide text-[#4b3f30]">Ajuste CA</span>
                 <input
                   type="number"
                   value={sheet.armorClass.bonus}
@@ -374,7 +377,7 @@ export function CharacterSheetAppendix({
                 />
               </label>
               <label className="grid gap-1">
-                <span className="text-[9px] uppercase tracking-wide text-[#665742]">Ajuste iniciativa</span>
+                <span className="text-[9px] uppercase tracking-wide text-[#4b3f30]">Ajuste iniciativa</span>
                 <input
                   type="number"
                   value={sheet.initiative.bonus}
