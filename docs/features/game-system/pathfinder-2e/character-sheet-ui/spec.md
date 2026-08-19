@@ -24,6 +24,7 @@ A ficha atual se comporta visualmente como um dashboard administrativo: há exce
 - reduzir campos de formulário permanentemente visíveis nas áreas de consulta rápida e perícias, mantendo edição por interação explícita;
 - usar paleta clara/média e quente inspirada em pergaminho, pedra, couro e metal, sem branco puro e sem retornar ao tema dark atual;
 - manter contraste suficiente entre texto e superfícies, inclusive na aba Magias;
+- deixar ações, tags e estados interativos visualmente distintos, saturados o bastante para não desaparecerem sobre as superfícies médias;
 - posicionar a ação global de salvar na barra superior da janela da ficha, junto às ações da janela, sem reservar uma faixa própria dentro do conteúdo;
 - usar ícones reais disponíveis em `lucide-react` para as representações desta entrega;
 - preservar dados, cálculos, endpoints e regras mecânicas existentes.
@@ -54,9 +55,10 @@ A ficha atual se comporta visualmente como um dashboard administrativo: há exce
 7. Salvamentos e estatísticas de consulta rápida devem priorizar o total e o grau efetivo, evitando formulários grandes permanentemente visíveis.
 8. A paleta não deve utilizar branco puro como superfície principal nem fundos quase pretos como superfície dominante da ficha Pathfinder 2e.
 9. Texto principal e secundário deve permanecer legível sobre as superfícies médias/quentes; texto claro de baixo contraste sobre fundos claros/médios não é aceitável.
-10. A ação `Salvar` pertence à barra superior da janela da ficha e não deve criar uma linha exclusiva acima do conteúdo da aba.
-11. O VTT/Workspace genérico continua sem interpretar atributos, PV, CA, perícias ou regras de Pathfinder 2e.
-12. O renderer concreto de Pathfinder 2e continua sendo responsável pela apresentação específica do sistema sem alterar a engine mecânica.
+10. Botões de ação, tags, links funcionais e estados disabled devem permanecer identificáveis. Estados disabled podem ser visualmente secundários, mas não podem depender de opacidade tão baixa que o conteúdo deixe de ser legível.
+11. A ação `Salvar` pertence à barra superior da janela da ficha e não deve criar uma linha exclusiva acima do conteúdo da aba.
+12. O VTT/Workspace genérico continua sem interpretar atributos, PV, CA, perícias ou regras de Pathfinder 2e.
+13. O renderer concreto de Pathfinder 2e continua sendo responsável pela apresentação específica do sistema sem alterar a engine mecânica.
 
 ## Fluxo principal
 
@@ -73,6 +75,7 @@ A ficha atual se comporta visualmente como um dashboard administrativo: há exce
 - `loading`: deve manter apresentação coerente com a nova paleta, sem introduzir overflow horizontal.
 - `error`: mantém mensagem de erro existente, adaptada visualmente à nova superfície.
 - `dirty/saving`: mantém o comportamento atual de salvar/recalcular, com a ação apresentada na barra superior da janela.
+- `disabled`: mantém affordance visual de indisponibilidade sem sacrificar legibilidade do label/estado.
 - `narrow window`: a sidebar e o conteúdo podem empilhar quando a largura não comportar duas regiões; a prioridade é legibilidade sem rolagem horizontal.
 
 ## Contratos
@@ -145,7 +148,11 @@ Dada uma ficha Pathfinder 2e FULL carregada, então a ação `Salvar` é exibida
 
 ### AC-11 — Contraste da aba Magias
 
-Dada a aba Magias no novo tema intermediário, então títulos, descrições, labels, busca, cards vinculados e cards do catálogo possuem contraste legível; textos claros de baixa opacidade sobre superfícies bege/médias não devem ser usados como texto principal.
+Dada a aba Magias no novo tema intermediário, então títulos, descrições, labels, busca, cards vinculados e cards do catálogo possuem contraste legível; fundos são apenas levemente mais claros que a versão anterior, enquanto textos, bordas e acentos funcionais usam cores mais escuras/saturadas.
+
+### AC-12 — Ações e tags legíveis
+
+Dada a aba Magias, então ações como `Adicionar`, configurar/remover, tags de tradição/área e o estado `Vinculada` permanecem claramente identificáveis sobre o card. Estados disabled continuam legíveis e não desaparecem por excesso de transparência.
 
 ## Testes esperados
 
@@ -154,7 +161,7 @@ Dada a aba Magias no novo tema intermediário, então títulos, descrições, la
 - `npm run check:architecture`;
 - validação manual de overflow em `1366x768` e em janela reduzida;
 - validação manual de edição/salvamento de perícia e valores da sidebar;
-- validação manual da posição do botão Salvar e contraste da aba Magias.
+- validação manual da posição do botão Salvar, contraste da aba Magias e legibilidade de ações/tags.
 
 ## Dependências
 
