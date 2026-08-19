@@ -141,7 +141,12 @@ function CharacterSheetWindow({
             <div className="text-[10px] uppercase tracking-wide text-[#afa28e]">Ficha da campanha</div>
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1.5">
+          <div
+            id={`character-sheet-header-actions-${state.sheetId}`}
+            className="flex min-h-8 items-center gap-2"
+            onPointerDown={(event) => event.stopPropagation()}
+          />
           <button
             type="button"
             title="Minimizar ficha"
@@ -181,7 +186,10 @@ function CharacterSheetWindow({
         ))}
       </nav> : null}
 
-      <div className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto bg-[#b7a78d] p-3">
+      <div
+        className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto bg-[#b7a78d] p-3"
+        data-sheet-active-page={state.activePage}
+      >
         <Renderer
           campaignId={campaignId}
           sheetId={state.sheetId}
