@@ -23,6 +23,8 @@ A ficha atual se comporta visualmente como um dashboard administrativo: há exce
 - eliminar rolagem horizontal como mecanismo de layout da ficha;
 - reduzir campos de formulário permanentemente visíveis nas áreas de consulta rápida e perícias, mantendo edição por interação explícita;
 - usar paleta clara/média e quente inspirada em pergaminho, pedra, couro e metal, sem branco puro e sem retornar ao tema dark atual;
+- manter contraste suficiente entre texto e superfícies, inclusive na aba Magias;
+- posicionar a ação global de salvar na barra superior da janela da ficha, junto às ações da janela, sem reservar uma faixa própria dentro do conteúdo;
 - usar ícones reais disponíveis em `lucide-react` para as representações desta entrega;
 - preservar dados, cálculos, endpoints e regras mecânicas existentes.
 
@@ -33,7 +35,7 @@ A ficha atual se comporta visualmente como um dashboard administrativo: há exce
 - introduzir novos endpoints ou contratos realtime;
 - substituir o renderer/registry de Game System;
 - redesenhar o gerenciador de fichas da campanha;
-- redesenhar em profundidade Magias ou Inventário nesta primeira entrega;
+- redesenhar em profundidade Magias ou Inventário nesta primeira entrega além da adequação visual/contraste necessária ao novo tema;
 - criar uma biblioteca de ícones própria ou adicionar nova dependência de ícones;
 - alterar o comportamento de permissões ou ownership da ficha.
 
@@ -51,23 +53,26 @@ A ficha atual se comporta visualmente como um dashboard administrativo: há exce
 6. A edição detalhada de uma perícia deve ser acessível por interação explícita com a linha da perícia.
 7. Salvamentos e estatísticas de consulta rápida devem priorizar o total e o grau efetivo, evitando formulários grandes permanentemente visíveis.
 8. A paleta não deve utilizar branco puro como superfície principal nem fundos quase pretos como superfície dominante da ficha Pathfinder 2e.
-9. O VTT/Workspace genérico continua sem interpretar atributos, PV, CA, perícias ou regras de Pathfinder 2e.
-10. O renderer concreto de Pathfinder 2e continua sendo responsável pela apresentação específica do sistema sem alterar a engine mecânica.
+9. Texto principal e secundário deve permanecer legível sobre as superfícies médias/quentes; texto claro de baixo contraste sobre fundos claros/médios não é aceitável.
+10. A ação `Salvar` pertence à barra superior da janela da ficha e não deve criar uma linha exclusiva acima do conteúdo da aba.
+11. O VTT/Workspace genérico continua sem interpretar atributos, PV, CA, perícias ou regras de Pathfinder 2e.
+12. O renderer concreto de Pathfinder 2e continua sendo responsável pela apresentação específica do sistema sem alterar a engine mecânica.
 
 ## Fluxo principal
 
 1. Usuário abre uma ficha Pathfinder 2e em apresentação FULL.
 2. A janela exibe header/tabs compactos e a ficha em duas áreas: sidebar fixa e conteúdo da aba.
-3. O usuário consulta valores principais na sidebar sem precisar rolá-la independentemente.
-4. Na aba Perícias, o usuário visualiza as perícias de forma compacta em duas colunas quando houver espaço.
-5. Ao interagir com uma perícia, os controles de edição dessa perícia ficam disponíveis sem deslocar a ficha para rolagem horizontal.
-6. Ao reduzir a largura da janela, o conteúdo se reorganiza progressivamente e nunca cria scrollbar horizontal.
+3. A ação de salvar fica disponível na barra superior da própria janela.
+4. O usuário consulta valores principais na sidebar sem precisar rolá-la independentemente.
+5. Na aba Perícias, o usuário visualiza as perícias de forma compacta em duas colunas quando houver espaço.
+6. Ao interagir com uma perícia, os controles de edição dessa perícia ficam disponíveis sem deslocar a ficha para rolagem horizontal.
+7. Ao reduzir a largura da janela, o conteúdo se reorganiza progressivamente e nunca cria scrollbar horizontal.
 
 ## Estados e erros relevantes
 
 - `loading`: deve manter apresentação coerente com a nova paleta, sem introduzir overflow horizontal.
 - `error`: mantém mensagem de erro existente, adaptada visualmente à nova superfície.
-- `dirty/saving`: mantém o comportamento atual de salvar/recalcular.
+- `dirty/saving`: mantém o comportamento atual de salvar/recalcular, com a ação apresentada na barra superior da janela.
 - `narrow window`: a sidebar e o conteúdo podem empilhar quando a largura não comportar duas regiões; a prioridade é legibilidade sem rolagem horizontal.
 
 ## Contratos
@@ -86,7 +91,7 @@ Nenhuma alteração de contrato.
 - [x] Usa ADR existente: `ADR-0005`
 - [ ] Exige novo ADR
 
-A implementação deve respeitar a fronteira atual: o Workspace genérico cuida apenas da janela, layout e navegação genérica; a semântica/visual específico de Pathfinder 2e permanece no renderer concreto. Não há mudança estrutural de contrato.
+A implementação deve respeitar a fronteira atual: o Workspace genérico cuida apenas da janela, layout, navegação e slots genéricos de ação da janela; a semântica/visual específico de Pathfinder 2e permanece no renderer concreto. Não há mudança estrutural de contrato público.
 
 ## Segurança / isolamento
 
@@ -134,13 +139,22 @@ Dadas as mesmas entradas da ficha antes e depois do redesign, então os valores 
 
 Dada a mudança de UI, então `npm run check:architecture` continua aprovado e nenhuma regra concreta de Pathfinder 2e é movida para módulos genéricos do VTT.
 
+### AC-10 — Salvar na barra superior
+
+Dada uma ficha Pathfinder 2e FULL carregada, então a ação `Salvar` é exibida na barra superior da janela, antes das ações de minimizar/fechar, e não existe uma faixa exclusiva de salvamento dentro da área rolável da ficha.
+
+### AC-11 — Contraste da aba Magias
+
+Dada a aba Magias no novo tema intermediário, então títulos, descrições, labels, busca, cards vinculados e cards do catálogo possuem contraste legível; textos claros de baixa opacidade sobre superfícies bege/médias não devem ser usados como texto principal.
+
 ## Testes esperados
 
 - build/typecheck do frontend;
 - testes existentes da ficha e adapters;
 - `npm run check:architecture`;
 - validação manual de overflow em `1366x768` e em janela reduzida;
-- validação manual de edição/salvamento de perícia e valores da sidebar.
+- validação manual de edição/salvamento de perícia e valores da sidebar;
+- validação manual da posição do botão Salvar e contraste da aba Magias.
 
 ## Dependências
 
