@@ -239,6 +239,191 @@ input:disabled,
 .questhub-area-leaves-gust { animation: questhub-area-leaves-gust 1.7s linear infinite; }
 .questhub-area-leaves-surface { filter: drop-shadow(0 0 5px rgb(132 204 22 / 65%)); }
 
+/* PF2e character sheet — lightened warm surfaces with stronger, opaque contrast. */
+[data-sheet-active-page] {
+  background: #c0b193 !important;
+}
+
+[data-sheet-active-page] aside {
+  background: #b4a080 !important;
+  border-color: rgb(104 82 55 / 66%) !important;
+}
+
+[data-sheet-active-page="spells"] main > div > header {
+  background: #c6b596 !important;
+  border-color: rgb(105 80 50 / 62%) !important;
+}
+
+[data-sheet-active-page="spells"] main > div > header > div > div:first-child {
+  background: #8066a5 !important;
+  border-color: #684d91 !important;
+  color: #fff8ed !important;
+}
+
+[data-sheet-active-page="spells"] main h2,
+[data-sheet-active-page="spells"] main h4,
+[data-sheet-active-page="spells"] main h5 {
+  color: #251d16 !important;
+}
+
+[data-sheet-active-page="spells"] main h3,
+[data-sheet-active-page="spells"] main summary,
+[data-sheet-active-page="spells"] main [class*="text-violet-2"],
+[data-sheet-active-page="spells"] main [class*="text-violet-3"] {
+  color: #552ca3 !important;
+}
+
+[data-sheet-active-page="spells"] main header p,
+[data-sheet-active-page="spells"] main section p,
+[data-sheet-active-page="spells"] main details,
+[data-sheet-active-page="spells"] main dt,
+[data-sheet-active-page="spells"] main dd,
+[data-sheet-active-page="spells"] main footer {
+  color: #463729 !important;
+}
+
+[data-sheet-active-page="spells"] main [class*="text-zinc-3"],
+[data-sheet-active-page="spells"] main [class*="text-zinc-4"],
+[data-sheet-active-page="spells"] main [class*="text-zinc-5"],
+[data-sheet-active-page="spells"] main [class*="text-zinc-6"] {
+  color: #514131 !important;
+}
+
+[data-sheet-active-page="spells"] main section.rounded-xl,
+[data-sheet-active-page="spells"] main section > .rounded-xl {
+  background: #c7b79b !important;
+  border-color: rgb(102 79 51 / 58%) !important;
+}
+
+[data-sheet-active-page="spells"] main section > .rounded-xl > h4 {
+  color: #2a2119 !important;
+}
+
+[data-sheet-active-page="spells"] main article {
+  background: #bdab8d !important;
+  border-color: rgb(91 68 43 / 66%) !important;
+}
+
+[data-sheet-active-page="spells"] main article p,
+[data-sheet-active-page="spells"] main article details,
+[data-sheet-active-page="spells"] main article dt,
+[data-sheet-active-page="spells"] main article dd {
+  color: #34281f !important;
+}
+
+[data-sheet-active-page="spells"] main article span[class*="border"] {
+  background: #d4c3a5 !important;
+  border-color: #8b7150 !important;
+  color: #433426 !important;
+  opacity: 1 !important;
+}
+
+[data-sheet-active-page="spells"] main article span[class*="border-orange"] {
+  background: #d0a46c !important;
+  border-color: #9d6729 !important;
+  color: #582f0d !important;
+}
+
+[data-sheet-active-page="spells"] main article span[class*="border-emerald"] {
+  background: #9db28f !important;
+  border-color: #5d7b54 !important;
+  color: #294526 !important;
+}
+
+[data-sheet-active-page="spells"] main article span[class*="border-sky"] {
+  background: #9eb9c1 !important;
+  border-color: #5c7f8c !important;
+  color: #294754 !important;
+}
+
+[data-sheet-active-page="spells"] main label > span,
+[data-sheet-active-page="spells"] main footer > span {
+  color: #49382a !important;
+}
+
+[data-sheet-active-page="spells"] main label > div {
+  background: #b6a385 !important;
+  border-color: rgb(82 61 39 / 66%) !important;
+}
+
+[data-sheet-active-page="spells"] main label svg {
+  color: #574332 !important;
+}
+
+[data-sheet-active-page="spells"] main input {
+  color: #211914 !important;
+  font-weight: 600;
+}
+
+[data-sheet-active-page="spells"] main input::placeholder {
+  color: #594838 !important;
+  opacity: 1;
+}
+
+[data-sheet-active-page="spells"] main select {
+  border-color: #66513c !important;
+  background: #493d30 !important;
+  color: #fff8ec !important;
+}
+
+[data-sheet-active-page="spells"] main article button[class*="border-violet"] {
+  background: #6742b5 !important;
+  border-color: #4d2d94 !important;
+  color: #fffaf0 !important;
+  opacity: 1 !important;
+  box-shadow: 0 1px 0 rgb(255 255 255 / 14%) inset;
+}
+
+[data-sheet-active-page="spells"] main article button[class*="border-violet"]:hover:not(:disabled) {
+  background: #57359f !important;
+}
+
+[data-sheet-active-page="spells"] main article button[class*="border-violet"]:disabled {
+  background: #a29178 !important;
+  border-color: #78654d !important;
+  color: #44372b !important;
+  opacity: 0.82 !important;
+}
+
+[data-sheet-active-page="spells"] main article button[class*="border-emerald"] {
+  background: #668b68 !important;
+  border-color: #4b6d4e !important;
+  color: #f7fff3 !important;
+  opacity: 1 !important;
+}
+
+[data-sheet-active-page="spells"] main article button[class*="border-orange"] {
+  background: #b9783e !important;
+  border-color: #8f5525 !important;
+  color: #fff7eb !important;
+  opacity: 1 !important;
+}
+
+[data-sheet-active-page="spells"] main article button[class*="border-red"] {
+  background: #a85e56 !important;
+  border-color: #82443e !important;
+  color: #fff3ee !important;
+  opacity: 1 !important;
+}
+
+[data-sheet-active-page="spells"] main footer button {
+  background: #ae9a7b !important;
+  border-color: #756047 !important;
+  color: #30251d !important;
+}
+
+[data-sheet-active-page="spells"] main footer button:hover:not(:disabled) {
+  background: #9f8a6d !important;
+}
+
+[data-sheet-active-page="spells"] main footer button:disabled {
+  opacity: 0.5 !important;
+}
+
+[data-sheet-active-page="spells"] main summary {
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .questhub-area-fire-flow,
   .questhub-area-electric-flow,

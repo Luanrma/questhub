@@ -110,7 +110,7 @@ function CharacterSheetWindow({
   return (
     <section
       className={[
-        'fixed flex flex-col overflow-hidden rounded-xl border border-white/15 bg-[#0e0f14]/98 text-white shadow-2xl backdrop-blur',
+        'fixed flex flex-col overflow-hidden rounded-xl border border-[#8c7a60]/55 bg-[#51483d]/98 text-[#f1e8d8] shadow-2xl backdrop-blur',
         hidden ? 'hidden' : '',
       ].join(' ')}
       style={{
@@ -130,22 +130,27 @@ function CharacterSheetWindow({
       />
 
       <header
-        className="flex shrink-0 cursor-grab items-center justify-between gap-3 border-b border-white/10 bg-black/35 px-4 py-3 active:cursor-grabbing"
+        className="flex shrink-0 cursor-grab items-center justify-between gap-3 border-b border-[#d4c5aa]/20 bg-[#40392f]/95 px-4 py-2.5 active:cursor-grabbing"
         onPointerDown={startDrag}
       >
         <div className="flex min-w-0 items-center gap-3">
-          <Grip className="h-4 w-4 shrink-0 text-zinc-500" />
-          <FileText className="h-4 w-4 shrink-0 text-indigo-300" />
+          <Grip className="h-4 w-4 shrink-0 text-[#9e927f]" />
+          <FileText className="h-4 w-4 shrink-0 text-[#c9ab68]" />
           <div className="min-w-0">
-            <div className="truncate text-sm font-semibold">{state.title}</div>
-            <div className="text-[10px] uppercase tracking-wide text-zinc-500">Ficha da campanha</div>
+            <div className="truncate text-sm font-semibold text-[#f6eddf]">{state.title}</div>
+            <div className="text-[10px] uppercase tracking-wide text-[#afa28e]">Ficha da campanha</div>
           </div>
         </div>
-        <div className="flex shrink-0 items-center gap-1">
+        <div className="flex shrink-0 items-center gap-1.5">
+          <div
+            id={`character-sheet-header-actions-${state.sheetId}`}
+            className="flex min-h-8 items-center gap-2"
+            onPointerDown={(event) => event.stopPropagation()}
+          />
           <button
             type="button"
             title="Minimizar ficha"
-            className="rounded-md p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            className="rounded-md p-2 text-[#d3c8b7] transition hover:bg-[#eadfc9]/10 hover:text-[#fff8ed]"
             onPointerDown={(event) => event.stopPropagation()}
             onClick={onMinimize}
           >
@@ -154,7 +159,7 @@ function CharacterSheetWindow({
           <button
             type="button"
             title="Fechar ficha"
-            className="rounded-md p-2 text-zinc-300 transition hover:bg-white/10 hover:text-white"
+            className="rounded-md p-2 text-[#d3c8b7] transition hover:bg-[#eadfc9]/10 hover:text-[#fff8ed]"
             onPointerDown={(event) => event.stopPropagation()}
             onClick={onClose}
           >
@@ -163,7 +168,7 @@ function CharacterSheetWindow({
         </div>
       </header>
 
-      {pages.length ? <nav className="flex shrink-0 gap-1 overflow-x-auto border-b border-white/10 bg-black/20 px-3 py-2">
+      {pages.length ? <nav className="flex shrink-0 flex-wrap gap-1 border-b border-[#d4c5aa]/20 bg-[#5d5244]/95 px-3 py-1.5">
         {pages.map((page) => (
           <button
             key={page.id}
@@ -172,8 +177,8 @@ function CharacterSheetWindow({
             className={[
               'whitespace-nowrap rounded-md px-3 py-1.5 text-xs font-semibold transition',
               state.activePage === page.id
-                ? 'bg-indigo-600 text-white'
-                : 'text-zinc-400 hover:bg-white/10 hover:text-white',
+                ? 'bg-[#6d4ac8] text-[#fff9ef] shadow-sm'
+                : 'text-[#d9ccb8] hover:bg-[#eadfc9]/10 hover:text-[#fff9ef]',
             ].join(' ')}
           >
             {page.label}
@@ -181,7 +186,10 @@ function CharacterSheetWindow({
         ))}
       </nav> : null}
 
-      <div className="min-h-0 flex-1 overflow-y-auto p-4">
+      <div
+        className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto bg-[#b7a78d] p-3"
+        data-sheet-active-page={state.activePage}
+      >
         <Renderer
           campaignId={campaignId}
           sheetId={state.sheetId}
@@ -279,7 +287,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
       )) : null}
 
       {!registration && renderedWindows.some((item) => !item.minimized) ? (
-        <div className="fixed left-1/2 top-24 z-[150] -translate-x-1/2 rounded-xl border border-amber-300/20 bg-[#111218] px-5 py-4 text-sm text-amber-100 shadow-2xl">
+        <div className="fixed left-1/2 top-24 z-[150] -translate-x-1/2 rounded-xl border border-amber-300/20 bg-[#51483d] px-5 py-4 text-sm text-amber-100 shadow-2xl">
           O sistema da campanha não registrou um renderer de ficha.
         </div>
       ) : null}
@@ -295,7 +303,7 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
                 zIndexRef.current += 1
                 updateWindow(state.sheetId, { minimized: false, zIndex: zIndexRef.current })
               }}
-              className="flex max-w-56 items-center gap-2 rounded-lg border border-indigo-300/25 bg-[#111218]/98 px-3 py-2 text-left text-xs font-semibold text-indigo-100 shadow-xl transition hover:bg-indigo-500/20"
+              className="flex max-w-56 items-center gap-2 rounded-lg border border-[#9b8769]/60 bg-[#51483d]/98 px-3 py-2 text-left text-xs font-semibold text-[#efe4d2] shadow-xl transition hover:bg-[#6d4ac8]/30"
             >
               <Maximize2 className="h-4 w-4 shrink-0" />
               <span className="truncate">{state.title}</span>
