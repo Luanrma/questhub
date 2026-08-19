@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import {
   BookOpen,
   Compass,
@@ -272,21 +273,29 @@ export function Pathfinder2eCharacterSheetRenderer({ campaignId, sheetId, active
     )
   }
 
+  const headerActionsTarget = typeof document === 'undefined'
+    ? null
+    : document.getElementById(`character-sheet-header-actions-${sheetId}`)
+
+  const saveAction = (
+    <div className="flex items-center gap-2">
+      {deriving ? <span className="hidden text-[10px] uppercase tracking-wide text-[#cdbfa9] sm:inline">Recalculando...</span> : null}
+      {savedMessage ? <span className="hidden text-[10px] font-medium text-[#cfe3c7] md:inline">Salva</span> : null}
+      <button
+        type="button"
+        onClick={() => void save()}
+        disabled={!dirty || saving}
+        className="inline-flex items-center gap-1.5 rounded-md border border-[#9b82e5]/45 bg-[#6d4ac8] px-3 py-1.5 text-xs font-semibold text-[#fff9ef] shadow-sm transition hover:bg-[#7b59d2] disabled:cursor-not-allowed disabled:opacity-40"
+      >
+        <Save className="h-3.5 w-3.5" />
+        {saving ? 'Salvando...' : 'Salvar'}
+      </button>
+    </div>
+  )
+
   return (
     <div className="min-w-0 space-y-2.5 text-[#2d271f]">
-      <div className="flex min-h-8 flex-wrap items-center justify-end gap-2">
-        {deriving ? <span className="text-[10px] uppercase tracking-wide text-[#6f6250]">Recalculando...</span> : null}
-        {savedMessage ? <span className="text-[10px] font-medium text-[#45623e]">{savedMessage}</span> : null}
-        <button
-          type="button"
-          onClick={() => void save()}
-          disabled={!dirty || saving}
-          className="inline-flex items-center gap-1.5 rounded-md border border-[#6d4ac8]/35 bg-[#6d4ac8] px-3 py-1.5 text-xs font-semibold text-[#fff9ef] shadow-sm transition hover:bg-[#5c3eb0] disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <Save className="h-3.5 w-3.5" />
-          {saving ? 'Salvando...' : 'Salvar'}
-        </button>
-      </div>
+      {headerActionsTarget ? createPortal(saveAction, headerActionsTarget) : null}
 
       <div className="grid min-w-0 items-start gap-2.5 lg:grid-cols-[220px_minmax(0,1fr)]">
         <CharacterSheetAppendix
