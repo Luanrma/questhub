@@ -10,7 +10,7 @@ Domínio: `VTT Core / CampaignActorEffect`
 
 Expor contratos genéricos para listar, criar manualmente, editar e remover instâncias atualmente ativas de `CampaignActorEffect`, sem interpretar regras de Game System e sem alterar atributos, ficha, Token ou qualquer mecânica.
 
-A API deve servir como base para a futura UI de ficha e para integrações de Game System, mantendo separadas a entrada manual pública e a criação programática por serviços internos.
+A API serve como base para a futura UI de ficha e para fluxos compostos com Game Systems. A entrada manual pública permanece separada da persistência genérica de dados de efeito produzidos por uma engine.
 
 ## Escopo
 
@@ -18,7 +18,7 @@ A API deve servir como base para a futura UI de ficha e para integrações de Ga
 - criar efeito manual por HTTP;
 - editar campos genéricos de apresentação de uma instância existente;
 - remover uma instância ativa;
-- fornecer serviço interno genérico capaz de persistir efeitos namespaced originados por Game System;
+- fornecer serviço interno genérico do VTT Core capaz de persistir dados namespaced/opacos recebidos de um fluxo de composição;
 - validar autenticação, membership ativo, `campaignId`, `actorId` e `effectId` no backend;
 - respeitar controle de Actor para leitura;
 - restringir mutações HTTP ao Mestre;
@@ -38,7 +38,8 @@ A API deve servir como base para a futura UI de ficha e para integrações de Ga
 - histórico de efeitos removidos;
 - soft delete de efeito;
 - permitir Player criar, editar ou remover efeitos;
-- endpoint público capaz de forjar `namespace`, `definitionKey`, `schemaVersion`, `payload` ou `origin` de um Game System.
+- endpoint público capaz de forjar `namespace`, `definitionKey`, `schemaVersion`, `payload` ou `origin` de um Game System;
+- permitir que uma engine concreta importe módulos internos do VTT para persistir efeitos.
 
 ## Permissões
 
@@ -72,6 +73,7 @@ Consequências:
 
 - os efeitos já persistidos permanecem intactos;
 - nenhuma listagem, criação, edição ou remoção é executada por estes endpoints enquanto o Actor estiver arquivado;
+- a camada de persistência revalida o estado ativo antes de mutar uma instância para impedir corrida entre autorização e arquivamento;
 - se o Actor for restaurado, os efeitos preservados voltam a estar acessíveis.
 
 ## Ciclo de vida
@@ -138,7 +140,7 @@ A rota define internamente:
 - `payload = null`;
 - `origin = { type: 'MANUAL' }`.
 
-O cliente HTTP não controla identidade ou estado opaco de Game System.
+O cliente HTTP não controla identidade ou estado opaco de Game System. O body é estrito: campos extras de identidade/opacos são rejeitados.
 
 Retorna `201` com a instância criada.
 
@@ -177,9 +179,9 @@ Remove definitivamente a instância ativa.
 - retorna `204` quando a instância é removida;
 - uma repetição posterior pode retornar `404`; o estado final permanece idempotente: a instância não existe.
 
-## Serviço interno genérico
+## Serviço interno genérico e fronteira de composição
 
-A implementação deve possuir uma camada de serviço reutilizável que não dependa de HTTP e possa, posteriormente, ser chamada por uma integração de Game System.
+A implementação possui uma camada de serviço genérica no VTT Core que não depende de HTTP e aceita identidade/dados opacos de efeito.
 
 Contrato conceitual:
 
@@ -202,7 +204,17 @@ type CreateActorEffectInput = {
 
 O serviço persiste e transporta esses dados sem interpretar semântica concreta.
 
-`QH-EFF-009` poderá usar essa capacidade para materializar uma definição PF2e em uma instância do Actor sem fazer o VTT Core conhecer PF2e.
+**A engine concreta não importa este serviço.** Conforme ADR-0005, o fluxo futuro deve respeitar a direção:
+
+```text
+Game System engine
+  -> produz candidato/dado neutro de efeito
+  -> Composition Root / VTT Core
+  -> chama o serviço genérico de CampaignActorEffect
+  -> persistência
+```
+
+`QH-EFF-009` deverá implementar essa composição sem criar import de `apps/api/src/modules/**` dentro de `apps/api/src/game_systems/**`.
 
 ## Realtime
 
@@ -216,7 +228,7 @@ Após `POST`, `PATCH` ou `DELETE`, o backend publica um evento genérico de inva
 }
 ```
 
-O evento não carrega regra de Game System nem exige que o cliente aceite o payload da mutação como fonte de verdade. Consumidores podem refazer a leitura autenticada.
+O evento não carrega regra de Game System nem usa o payload da mutação como fonte de verdade. Consumidores podem refazer a leitura autenticada.
 
 Não usar polling periódico como mecanismo padrão de sincronização.
 
@@ -252,64 +264,52 @@ A API não revela por erro que um Actor/effect pertence a outra Campaign.
 7. `PATCH` é uma atribuição de estado e deve ser idempotente para o mesmo body.
 8. `DELETE` remove a instância atual; não cria histórico implícito.
 9. Mutações não alteram qualquer outro recurso mecânico.
-10. Dados opacos de Game System só entram pelo serviço interno apropriado, não por spoofing da rota manual.
+10. Dados opacos de Game System só entram por fluxo de composição autorizado; a engine concreta não importa módulos internos do VTT.
 
 ## Critérios de aceite
 
 ### AC-01 — Leitura por Mestre
-
 Mestre ativo consegue listar efeitos de qualquer Actor ativo da própria Campaign.
 
 ### AC-02 — Leitura por controlador
-
 Player ativo consegue listar efeitos de um Actor que controla, mesmo sem Token vinculado.
 
 ### AC-03 — Isolamento de leitura
-
 Player não consegue listar efeitos de Actor que não controla; IDs de outra Campaign não atravessam a fronteira.
 
 ### AC-04 — Mutação somente pelo Mestre
-
 Player não consegue criar, editar ou remover efeitos por esta API.
 
 ### AC-05 — Criação manual segura
-
 POST cria uma nova instância usando namespace/origin manual definidos pelo backend e não aceita spoofing de identidade de Game System.
 
 ### AC-06 — Duplicidade preservada
-
 Criar duas vezes o mesmo efeito manual gera duas instâncias distintas; o Core não aplica deduplicação.
 
 ### AC-07 — Atualização limitada
-
 PATCH altera apenas os campos de apresentação permitidos e preserva identidade/opacos.
 
 ### AC-08 — Remoção sem histórico
-
 DELETE remove a instância ativa definitivamente e não cria `removedAt` ou registro histórico.
 
 ### AC-09 — Actor arquivado preservado
-
-Enquanto o Actor estiver arquivado, endpoints normais não mutam seus efeitos; a persistência existente permanece intacta.
+Enquanto o Actor estiver arquivado, endpoints e limites de persistência normais não mutam seus efeitos; a persistência existente permanece intacta.
 
 ### AC-10 — Realtime genérico
-
 Cada mutação bem-sucedida publica `vtt:actor-effects:changed` com apenas `campaignId` e `actorId`.
 
 ### AC-11 — Sem automação mecânica
-
 Nenhuma operação desta feature altera ficha, HP, CA, saves, atributos, rolagens, Token ou outra mecânica.
 
-### AC-12 — Serviço reutilizável
-
-Existe serviço interno agnóstico capaz de criar instâncias namespaced/opacas sem importar Game System concreto.
+### AC-12 — Serviço reutilizável sem import invertido
+Existe serviço interno agnóstico capaz de persistir dados namespaced/opacos, mas engines concretas não importam o módulo; futuras integrações passam pelo Composition Root/Core.
 
 ## Testes esperados
 
 - validação dos bodies de POST/PATCH;
 - matriz de autorização Mestre/Player/controlador;
 - isolamento por Campaign;
-- Actor arquivado tratado como indisponível;
+- Actor arquivado tratado como indisponível também no limite de persistência;
 - effectId limitado ao Actor informado;
 - criação manual com namespace/origin definidos pelo backend;
 - duas criações iguais resultam em duas IDs;
@@ -325,7 +325,18 @@ Existe serviço interno agnóstico capaz de criar instâncias namespaced/opacas 
 - [x] Usa ADR existente: `ADR-0002`, `ADR-0003`, `ADR-0005`
 - [ ] Exige novo ADR
 
-Architecture Review required: **YES**, pois a entrega cria contrato HTTP/realtime e autorização sobre recurso de Campaign.
+Architecture Review: **APPROVED**. Os ADRs existentes cobrem ownership, isolamento por Campaign, autorização backend, evento genérico e a direção de dependência VTT/Game System. Nenhum novo ADR é necessário.
+
+Required enforcement:
+
+- autorização e Campaign scope em backend;
+- Actor ativo revalidado no limite de persistência;
+- rotas e serviço sem nomes/imports de ruleset;
+- nenhum import de módulo VTT por engine concreta;
+- realtime genérico;
+- `check:architecture` e testes de contrato.
+
+Architecture debt introduced: **NO**.
 
 ## Questões abertas
 
