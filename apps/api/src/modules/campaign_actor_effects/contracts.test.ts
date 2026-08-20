@@ -31,6 +31,16 @@ test('actor access is campaign-scoped and excludes archived actors', () => {
   assert.match(source, /canMutateActorEffects/)
 })
 
+test('service revalidates active actor state at effect persistence boundaries', () => {
+  const source = read(serviceFile)
+
+  assert.match(source, /where: \{ id: input\.actorId, archivedAt: null \}/)
+  assert.ok(
+    [...source.matchAll(/actor: \{ is: \{ archivedAt: null \} \}/g)].length >= 3,
+    'list, update and delete must each scope effects to an active actor',
+  )
+})
+
 test('manual HTTP creation fixes namespace and origin on the backend', () => {
   const source = read(routesFile)
   const service = read(serviceFile)
