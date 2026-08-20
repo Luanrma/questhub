@@ -129,9 +129,11 @@ O Core conhece apenas a instância genérica e os campos de apresentação/ident
 
 - [ ] Nenhum
 - [x] Usa ADR existente: `ADR-0002`, `ADR-0003`, `ADR-0005`
-- [ ] Exige novo ADR — a confirmar pelo Architecture Review
+- [ ] Exige novo ADR
 
-A feature adiciona persistência estrutural subordinada a `CampaignActor`, portanto requer Architecture Review. Ela não altera a separação Member/Actor, não torna Token ou Sheet donos do estado e não introduz semântica de Pathfinder no Core.
+Architecture Review: **APPROVED**. Os ADRs existentes cobrem ownership no `CampaignActor`, isolamento por Campaign e a fronteira VTT/Game System; nenhum novo ADR é necessário para `QH-EFF-001`.
+
+A feature adiciona persistência estrutural subordinada a `CampaignActor`. Ela não altera a separação Member/Actor, não torna Token ou Sheet donos do estado e não introduz semântica de Pathfinder no Core.
 
 ## Segurança / isolamento
 
