@@ -31,14 +31,22 @@ test('actor access is campaign-scoped and excludes archived actors', () => {
   assert.match(source, /canMutateActorEffects/)
 })
 
-test('service revalidates active actor state at effect persistence boundaries', () => {
+test('effect mutations lock an active actor atomically against archiving', () => {
   const source = read(serviceFile)
 
-  assert.match(source, /where: \{ id: input\.actorId, archivedAt: null \}/)
-  assert.ok(
-    [...source.matchAll(/actor: \{ is: \{ archivedAt: null \} \}/g)].length >= 3,
-    'list, update and delete must each scope effects to an active actor',
+  assert.match(source, /async function lockActiveActor/)
+  assert.match(source, /WHERE "id" = \$\{actorId\}[\s\S]*"archivedAt" IS NULL[\s\S]*FOR UPDATE/)
+  assert.equal(
+    [...source.matchAll(/prisma\.\$transaction\(async \(tx\) =>/g)].length,
+    3,
+    'create, update and delete must execute under transactions',
   )
+  assert.equal(
+    [...source.matchAll(/await lockActiveActor\(tx,/g)].length,
+    3,
+    'every mutation must lock and verify the actor while it is active',
+  )
+  assert.match(source, /actor: \{ is: \{ archivedAt: null \} \}/)
 })
 
 test('manual HTTP creation fixes namespace and origin on the backend', () => {
@@ -86,7 +94,7 @@ test('active effect service is generic and does not create removal history', () 
   assert.doesNotMatch(source, /game_systems|PATHFINDER|PF2E|Frightened|Spell/i)
   assert.doesNotMatch(routes, /game_systems|PATHFINDER|PF2E|Frightened|Spell/i)
   assert.doesNotMatch(source, /removedAt|endedAt|deletedAt/)
-  assert.match(source, /prisma\.campaignActorEffect\.delete/)
+  assert.match(source, /campaignActorEffect\.delete/)
 })
 
 test('VTT server registers actor effect routes with realtime transport', () => {
