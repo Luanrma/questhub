@@ -1,7 +1,7 @@
 # QuestHub — Project Map
 
 Status: **CURRENT**  
-Última consolidação: 2026-08-16
+Última consolidação: 2026-08-19
 
 Este arquivo é um **mapa de navegação**, não uma fonte superior de requisitos ou arquitetura. Em caso de divergência, siga `docs/governance/SOURCE_OF_TRUTH.md`.
 
@@ -90,6 +90,7 @@ Features/documentos de apoio atuais incluem:
 - `docs/features/assets/`
 - `docs/features/campaign-creation/`
 - `docs/features/campaign-actor/`
+- `docs/features/actor-active-effects/`
 - `docs/features/campaign-presence/`
 - `docs/features/campaign-session/`
 - `docs/features/campaign-scene/`
