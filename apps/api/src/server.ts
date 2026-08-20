@@ -5,6 +5,7 @@ import { registerAuthRoutes } from './modules/auth/routes'
 import { registerAssetRoutes } from './modules/assets/routes'
 import { setupCampaignPresence } from './modules/campaign-presence/socket'
 import { registerCampaignActorRoutes } from './modules/campaign_actor/routes'
+import { registerCampaignActorEffectRoutes } from './modules/campaign_actor_effects/routes'
 import { registerCampaignRoutes } from './modules/campaigns/routes'
 import { registerCampaignDiaryRoutes } from './modules/campaign_diary/routes'
 import { registerCampaignSceneRoutes } from './modules/campaign_scene/routes'
@@ -64,6 +65,7 @@ export async function createVttServer() {
   registerAuthRoutes(app)
   registerCampaignRoutes(app, presence)
   registerCampaignActorRoutes(app)
+  registerCampaignActorEffectRoutes(app, presence.io)
   registerCampaignDiaryRoutes(app)
   registerCampaignSceneRoutes(app, presence)
   registerFogRoutes(app, fogService, presence.io)
