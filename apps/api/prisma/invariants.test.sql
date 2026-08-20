@@ -226,6 +226,85 @@ BEGIN
 END;
 $$;
 
+INSERT INTO "CampaignActor" ("id", "campaignId", "name", "updatedAt")
+VALUES ('actor-effects', 'campaign-1', 'Effects Actor', CURRENT_TIMESTAMP);
+
+INSERT INTO "Inventory" ("id", "actorId", "updatedAt")
+VALUES ('inventory-effects', 'actor-effects', CURRENT_TIMESTAMP);
+
+INSERT INTO "CampaignActorEffect" (
+  "id", "actorId", "namespace", "definitionKey", "name", "polarity",
+  "category", "displayValue", "schemaVersion", "payload", "origin", "updatedAt"
+) VALUES
+  (
+    'actor-effect-1', 'actor-effects', 'test:system', 'same-definition', 'Effect One', 'BENEFICIAL',
+    'test-category', '1', 1, '{"opaque":true}', '{"source":"test"}', CURRENT_TIMESTAMP
+  ),
+  (
+    'actor-effect-2', 'actor-effects', 'test:system', 'same-definition', 'Effect Two', 'HARMFUL',
+    'test-category', '2', 1, '{"opaque":true}', '{"source":"test"}', CURRENT_TIMESTAMP
+  );
+
+DO $$
+BEGIN
+  IF (SELECT COUNT(*) FROM "CampaignActorEffect" WHERE "actorId" = 'actor-effects') <> 2 THEN
+    RAISE EXCEPTION 'Expected duplicate effect definitions to coexist on the same actor';
+  END IF;
+END;
+$$;
+
+DO $$
+BEGIN
+  BEGIN
+    INSERT INTO "CampaignActorEffect" (
+      "id", "actorId", "namespace", "name", "polarity", "schemaVersion", "updatedAt"
+    ) VALUES (
+      'actor-effect-invalid-version', 'actor-effects', 'test:system', 'Invalid Version', 'NEUTRAL', 0, CURRENT_TIMESTAMP
+    );
+    RAISE EXCEPTION 'Expected non-positive actor effect schemaVersion rejection';
+  EXCEPTION WHEN check_violation THEN
+    NULL;
+  END;
+END;
+$$;
+
+DO $$
+BEGIN
+  BEGIN
+    INSERT INTO "CampaignActorEffect" (
+      "id", "actorId", "namespace", "name", "polarity", "updatedAt"
+    ) VALUES (
+      'actor-effect-orphan', 'missing-actor', 'test:system', 'Orphan', 'NEUTRAL', CURRENT_TIMESTAMP
+    );
+    RAISE EXCEPTION 'Expected orphan actor effect rejection';
+  EXCEPTION WHEN foreign_key_violation THEN
+    NULL;
+  END;
+END;
+$$;
+
+UPDATE "CampaignActor"
+SET "archivedAt" = CURRENT_TIMESTAMP
+WHERE "id" = 'actor-effects';
+
+DO $$
+BEGIN
+  IF (SELECT COUNT(*) FROM "CampaignActorEffect" WHERE "actorId" = 'actor-effects') <> 2 THEN
+    RAISE EXCEPTION 'Archiving an actor unexpectedly removed or changed its active effects';
+  END IF;
+END;
+$$;
+
+DELETE FROM "CampaignActor" WHERE "id" = 'actor-effects';
+
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM "CampaignActorEffect" WHERE "actorId" = 'actor-effects') THEN
+    RAISE EXCEPTION 'Deleting an actor did not cascade-delete its active effects';
+  END IF;
+END;
+$$;
+
 INSERT INTO "ChatMessage" (
   "id", "campaignId", "actorId", "userId", "authorName", "authorRole",
   "actorNameSnapshot", "actorAvatarUrlSnapshot", "content"
