@@ -31,6 +31,17 @@ export type UpdateActorEffectPresentationInput = {
   displayValue?: string | null
 }
 
+async function lockActiveActor(tx: Prisma.TransactionClient, actorId: string) {
+  const actors = await tx.$queryRaw<Array<{ id: string }>>`
+    SELECT "id"
+    FROM "CampaignActor"
+    WHERE "id" = ${actorId}
+      AND "archivedAt" IS NULL
+    FOR UPDATE
+  `
+  return actors[0] ?? null
+}
+
 export async function listActorEffects(actorId: string) {
   return prisma.campaignActorEffect.findMany({
     where: {
@@ -42,27 +53,26 @@ export async function listActorEffects(actorId: string) {
 }
 
 export async function createActorEffect(input: CreateActorEffectInput) {
-  const actor = await prisma.campaignActor.findFirst({
-    where: { id: input.actorId, archivedAt: null },
-    select: { id: true },
-  })
-  if (!actor) return null
+  return prisma.$transaction(async (tx) => {
+    const actor = await lockActiveActor(tx, input.actorId)
+    if (!actor) return null
 
-  return prisma.campaignActorEffect.create({
-    data: {
-      actorId: actor.id,
-      namespace: input.namespace,
-      definitionKey: input.definitionKey ?? null,
-      name: input.name,
-      description: input.description ?? null,
-      iconUrl: input.iconUrl ?? null,
-      polarity: input.polarity,
-      category: input.category ?? null,
-      displayValue: input.displayValue ?? null,
-      schemaVersion: input.schemaVersion ?? 1,
-      payload: input.payload == null ? undefined : input.payload,
-      origin: input.origin == null ? undefined : input.origin,
-    },
+    return tx.campaignActorEffect.create({
+      data: {
+        actorId: actor.id,
+        namespace: input.namespace,
+        definitionKey: input.definitionKey ?? null,
+        name: input.name,
+        description: input.description ?? null,
+        iconUrl: input.iconUrl ?? null,
+        polarity: input.polarity,
+        category: input.category ?? null,
+        displayValue: input.displayValue ?? null,
+        schemaVersion: input.schemaVersion ?? 1,
+        payload: input.payload == null ? undefined : input.payload,
+        origin: input.origin == null ? undefined : input.origin,
+      },
+    })
   })
 }
 
@@ -71,33 +81,35 @@ export async function updateActorEffectPresentation(
   effectId: string,
   input: UpdateActorEffectPresentationInput,
 ) {
-  const existing = await prisma.campaignActorEffect.findFirst({
-    where: {
-      id: effectId,
-      actorId,
-      actor: { is: { archivedAt: null } },
-    },
-    select: { id: true },
-  })
-  if (!existing) return null
+  return prisma.$transaction(async (tx) => {
+    const actor = await lockActiveActor(tx, actorId)
+    if (!actor) return null
 
-  return prisma.campaignActorEffect.update({
-    where: { id: existing.id },
-    data: input,
+    const existing = await tx.campaignActorEffect.findFirst({
+      where: { id: effectId, actorId: actor.id },
+      select: { id: true },
+    })
+    if (!existing) return null
+
+    return tx.campaignActorEffect.update({
+      where: { id: existing.id },
+      data: input,
+    })
   })
 }
 
 export async function deleteActorEffect(actorId: string, effectId: string) {
-  const existing = await prisma.campaignActorEffect.findFirst({
-    where: {
-      id: effectId,
-      actorId,
-      actor: { is: { archivedAt: null } },
-    },
-    select: { id: true },
-  })
-  if (!existing) return false
+  return prisma.$transaction(async (tx) => {
+    const actor = await lockActiveActor(tx, actorId)
+    if (!actor) return false
 
-  await prisma.campaignActorEffect.delete({ where: { id: existing.id } })
-  return true
+    const existing = await tx.campaignActorEffect.findFirst({
+      where: { id: effectId, actorId: actor.id },
+      select: { id: true },
+    })
+    if (!existing) return false
+
+    await tx.campaignActorEffect.delete({ where: { id: existing.id } })
+    return true
+  })
 }
