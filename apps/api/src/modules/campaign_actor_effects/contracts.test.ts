@@ -64,10 +64,11 @@ test('manual HTTP creation fixes namespace and origin on the backend', () => {
 
 test('effect identity and opaque game-system state stay immutable through PATCH', () => {
   const source = read(serviceFile)
-  const updateTypeStart = source.indexOf('export type UpdateActorEffectPresentationInput')
-  const updateFunctionStart = source.indexOf('export async function updateActorEffectPresentation')
-  const updateType = source.slice(updateTypeStart, updateFunctionStart)
+  const updateType = source.match(
+    /export type UpdateActorEffectPresentationInput = \{[\s\S]*?\n\}/,
+  )?.[0] ?? ''
 
+  assert.notEqual(updateType, '')
   assert.doesNotMatch(updateType, /actorId|namespace|definitionKey|schemaVersion|payload|origin/)
   assert.match(updateType, /name\?: string/)
   assert.match(updateType, /polarity\?: CampaignActorEffectPolarity/)
