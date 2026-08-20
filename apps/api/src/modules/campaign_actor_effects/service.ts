@@ -33,7 +33,10 @@ export type UpdateActorEffectPresentationInput = {
 
 export async function listActorEffects(actorId: string) {
   return prisma.campaignActorEffect.findMany({
-    where: { actorId },
+    where: {
+      actorId,
+      actor: { is: { archivedAt: null } },
+    },
     orderBy: [{ createdAt: 'asc' }, { id: 'asc' }],
   })
 }
@@ -69,7 +72,11 @@ export async function updateActorEffectPresentation(
   input: UpdateActorEffectPresentationInput,
 ) {
   const existing = await prisma.campaignActorEffect.findFirst({
-    where: { id: effectId, actorId },
+    where: {
+      id: effectId,
+      actorId,
+      actor: { is: { archivedAt: null } },
+    },
     select: { id: true },
   })
   if (!existing) return null
@@ -82,7 +89,11 @@ export async function updateActorEffectPresentation(
 
 export async function deleteActorEffect(actorId: string, effectId: string) {
   const existing = await prisma.campaignActorEffect.findFirst({
-    where: { id: effectId, actorId },
+    where: {
+      id: effectId,
+      actorId,
+      actor: { is: { archivedAt: null } },
+    },
     select: { id: true },
   })
   if (!existing) return false
