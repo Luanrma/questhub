@@ -12,6 +12,7 @@ CampaignMember 1    ── controls ── N CampaignActor
 CampaignActor  0..1 ── represented by ── 0..1 CampaignToken
 CampaignActor  0..1 ── owns ── 1 CampaignCharacterSheet
 CampaignActor  0..1 ── owns ── 0..1 Inventory
+CampaignActor  1    ── owns ── N CampaignActorEffect
 ```
 
 ## Invariantes
@@ -29,12 +30,15 @@ CampaignActor  0..1 ── owns ── 0..1 Inventory
 8. A criação de um ator que oferece inventário cria também seu `Inventory` na
    mesma operação; `CampaignActor.createMany` não é permitido.
 9. A ficha mecânica é opcional; o ator continua válido sem ela.
-10. Arquivar um ator define `archivedAt`, remove seu controlador e desfaz o vínculo com o Token sem apagar ficha ou inventário opcional.
+10. Arquivar um ator define `archivedAt`, remove seu controlador e desfaz o vínculo com o Token sem apagar ficha, inventário opcional ou efeitos ativos.
 11. Atores arquivados não aparecem nas consultas comuns e podem ser restaurados pelo Mestre.
 12. Uma criatura materializada do catálogo possui ator, ficha e Token próprios
     e não possui `Inventory`.
 13. Duplicar essa criatura cria outro agregado independente; não compartilha
     `actorId` ou `CampaignCharacterSheet` e não copia placement.
+14. Um efeito ativo pertence ao `CampaignActor`, não à ficha nem ao Token, e pode existir mesmo quando ambos estão ausentes.
+15. O Core pode persistir múltiplas instâncias de efeito com a mesma definição; stacking, deduplicação e interpretação mecânica pertencem ao Game System.
+16. Excluir definitivamente o ator exclui seus efeitos ativos por cascade.
 
 ## Fluxos iniciais
 
@@ -43,7 +47,7 @@ CampaignActor  0..1 ── owns ── 0..1 Inventory
 * Criar ficha pelo Mestre: cria um ator, seu inventário e a ficha.
 * Atribuir ficha a usuário: altera apenas o controlador do ator.
 * Vincular ator a Token: não cria novo inventário.
-* Arquivar ator: preserva ficha, inventário opcional e histórico do chat.
+* Arquivar ator: preserva ficha, inventário opcional, efeitos ativos e histórico do chat.
 * Criar Token por catálogo: cria ator, snapshot simplificado de ficha e Token sem
   placement e sem inventário em uma transação. A identidade visual pode receber
   defaults neutros produzidos pelo provider do sistema; quando houver tamanho
@@ -51,6 +55,12 @@ CampaignActor  0..1 ── owns ── 0..1 Inventory
 * Duplicar Token por catálogo: repete o agregado com novos IDs e snapshot
   independente, preservando o tamanho visual atual do Token de origem em vez de
   recalcular o default da ficha.
+
+## Active Effects
+
+`CampaignActorEffect` armazena somente instâncias atualmente ativas. Ele fornece campos genéricos de apresentação e identificação opaca, sem interpretar Conditions ou regras de qualquer Game System.
+
+Contrato detalhado: `docs/features/actor-active-effects/spec.md`.
 
 ## Interação do jogador
 
