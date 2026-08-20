@@ -1,7 +1,7 @@
 # QuestHub — Arquitetura Canônica
 
 Status: **CURRENT**  
-Última consolidação: 2026-08-16
+Última consolidação: 2026-08-19
 
 Este documento descreve a arquitetura vigente do QuestHub. Ele é subordinado a `docs/PROJECT_CONSTITUTION.md` e aos ADRs aceitos em `docs/architecture/adr/`.
 
@@ -111,9 +111,19 @@ Exemplos conceituais:
 
 Um Actor pode opcionalmente ser controlado por um CampaignMember por meio de uma relação explícita de controle.
 
+`CampaignActorEffect` representa uma instância de efeito atualmente ativa sobre o Actor. O efeito pertence ao Actor, não à ficha nem ao Token, e pode existir mesmo quando essas representações estão ausentes.
+
+O Core persiste apenas identidade/apresentação genérica e dados opacos do efeito: polaridade genérica (`BENEFICIAL`, `HARMFUL`, `NEUTRAL`), namespace, chave de definição opcional, categoria/valor de exibição opcionais e payload/origin versionados. O significado de Conditions concretas, stacking, duração e consequências mecânicas pertence ao Game System.
+
+Múltiplas instâncias com a mesma definição podem coexistir no Core. Arquivar o Actor preserva seus efeitos ativos; excluir definitivamente o Actor remove essas instâncias por cascade.
+
 Não existe `Character` global contendo estado mutável reutilizado entre Campaigns e não existe `CampaignCharacter` combinando participação e entidade do mundo.
 
-Referência: ADR-0003.
+Referências:
+
+- ADR-0003;
+- ADR-0005;
+- `docs/features/actor-active-effects/spec.md`.
 
 ## 6. CampaignToken
 
@@ -168,6 +178,7 @@ O VTT Core é responsável por capacidades genéricas, incluindo quando aplicáv
 
 - Campaign e membership;
 - Actors genéricos;
+- efeitos ativos genéricos pertencentes a Actors;
 - cenas, mapas e grid;
 - Tokens e placements;
 - paredes;
