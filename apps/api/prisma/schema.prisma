@@ -38,6 +38,12 @@ enum CampaignTokenLayer {
   OVERLAY
 }
 
+enum CampaignActorEffectPolarity {
+  BENEFICIAL
+  HARMFUL
+  NEUTRAL
+}
+
 model User {
   id           String   @id @default(cuid())
   email        String   @unique
@@ -93,15 +99,39 @@ model CampaignActor {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
 
-  campaign         Campaign        @relation(fields: [campaignId], references: [id], onDelete: Cascade)
-  controllerMember CampaignMember? @relation("CampaignActorController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
+  campaign         Campaign              @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  controllerMember CampaignMember?       @relation("CampaignActorController", fields: [controllerMemberId], references: [id], onDelete: SetNull)
   inventory        Inventory?
   characterSheet   CampaignCharacterSheet?
   token            CampaignToken?
   chatMessages     ChatMessage[]
+  activeEffects    CampaignActorEffect[]
 
   @@index([campaignId, archivedAt, createdAt])
   @@index([controllerMemberId])
+}
+
+model CampaignActorEffect {
+  id            String                      @id @default(cuid())
+  actorId       String
+  namespace     String
+  definitionKey String?
+  name          String
+  description   String?
+  iconUrl       String?
+  polarity      CampaignActorEffectPolarity
+  category      String?
+  displayValue  String?
+  schemaVersion Int                         @default(1)
+  payload       Json?
+  origin        Json?
+  createdAt     DateTime                    @default(now())
+  updatedAt     DateTime                    @updatedAt
+
+  actor CampaignActor @relation(fields: [actorId], references: [id], onDelete: Cascade)
+
+  @@index([actorId, createdAt], map: "CampaignActorEffect_actor_created_idx")
+  @@index([namespace, definitionKey], map: "CampaignActorEffect_definition_idx")
 }
 
 model Inventory {
