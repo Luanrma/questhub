@@ -171,5 +171,6 @@ test('Prisma history contains the current baseline and additive feature migratio
     '20260803000000_add_inventory_entry_state',
     '20260803235000_move_equipped_items_outside_backpack',
     '20260804180000_use_nullable_inventory_slots',
+    '20260820011000_add_campaign_actor_effects',
   ])
 })
