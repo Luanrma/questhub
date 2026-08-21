@@ -28,7 +28,7 @@ export type Pathfinder2eSpellEffectValueHint = {
 
 export type Pathfinder2eSpellEffectMapping = {
   contentId: string
-  /** Zero-based source-order index among resolved semantic references for this Spell. */
+  /** Zero-based deterministic index among resolved semantic references for this Spell. */
   occurrenceIndex: number
   definitionKey: string
   kind: 'condition' | 'effect' | 'affliction'
@@ -47,6 +47,7 @@ export type Pathfinder2eSpellEffectMapping = {
 
 type AlignedOccurrence = {
   start: number
+  token: string
   line: string
   previousNonEmptyLine: string | null
 }
@@ -68,16 +69,26 @@ const OUTCOME_PREFIXES: readonly [string, Exclude<Pathfinder2eSpellEffectOutcome
   ['Failure', 'FAILURE'],
 ]
 
-function exactOccurrences(text: string, label: string): number[] {
-  if (!label) return []
+function alignmentTokenFor(resolved: ResolvedSemanticReference): string | null {
+  const explicitLabel = resolved.reference.label
+  if (explicitLabel && explicitLabel.trim()) return explicitLabel
+
+  const compendiumKey = resolved.reference.target.compendiumKey
+  if (compendiumKey && compendiumKey.trim()) return compendiumKey
+
+  return null
+}
+
+function exactOccurrences(text: string, token: string): number[] {
+  if (!token) return []
   const positions: number[] = []
   let cursor = 0
 
-  while (cursor <= text.length - label.length) {
-    const index = text.indexOf(label, cursor)
+  while (cursor <= text.length - token.length) {
+    const index = text.indexOf(token, cursor)
     if (index < 0) break
     positions.push(index)
-    cursor = index + Math.max(label.length, 1)
+    cursor = index + Math.max(token.length, 1)
   }
 
   return positions
@@ -115,42 +126,46 @@ function outcomeForLine(line: string | null): Pathfinder2eSpellEffectOutcome {
   return null
 }
 
-function isStructuralOccurrence(line: string, label: string): boolean {
-  return line === label || outcomeForLine(line) !== null
+function isStructuralOccurrence(line: string, token: string): boolean {
+  return line === token || outcomeForLine(line) !== null
 }
 
 /**
  * Aligns QH-EFF-004 references with the normalized en-US description conservatively.
- * If plain text introduces additional identical labels, only a one-to-one structural
- * subset is accepted. Ambiguous occurrences remain unaligned and therefore cannot become
- * potential effects.
+ * An explicit reference label is preferred. Foundry UUIDs without explicit labels use
+ * their structural compendiumKey only as an exact alignment token; source.label remains
+ * untouched and mechanical value hints still require an explicit label.
  */
 function alignDescriptionReferences(
   description: string,
   references: readonly ResolvedSemanticReference[],
 ): Map<Pathfinder2eSourceReference, AlignedOccurrence> {
   const aligned = new Map<Pathfinder2eSourceReference, AlignedOccurrence>()
-  const byLabel = new Map<string, ResolvedSemanticReference[]>()
+  const byToken = new Map<string, ResolvedSemanticReference[]>()
 
   for (const resolved of references) {
     const { reference } = resolved
-    if (reference.sourcePath !== DESCRIPTION_SOURCE_PATH || !reference.label) continue
-    const group = byLabel.get(reference.label) ?? []
+    if (reference.sourcePath !== DESCRIPTION_SOURCE_PATH) continue
+
+    const token = alignmentTokenFor(resolved)
+    if (!token) continue
+
+    const group = byToken.get(token) ?? []
     group.push(resolved)
-    byLabel.set(reference.label, group)
+    byToken.set(token, group)
   }
 
-  for (const [label, group] of byLabel) {
+  for (const [token, group] of byToken) {
     group.sort((left, right) => left.reference.sourceIndex - right.reference.sourceIndex)
 
-    const allPositions = exactOccurrences(description, label)
+    const allPositions = exactOccurrences(description, token)
     let selectedPositions: number[] | null = null
 
     if (allPositions.length === group.length) {
       selectedPositions = allPositions
     } else {
       const structuralPositions = allPositions.filter((position) => (
-        isStructuralOccurrence(lineAt(description, position), label)
+        isStructuralOccurrence(lineAt(description, position), token)
       ))
       if (structuralPositions.length === group.length) selectedPositions = structuralPositions
     }
@@ -161,6 +176,7 @@ function alignDescriptionReferences(
       const start = selectedPositions![index]
       aligned.set(resolved.reference, {
         start,
+        token,
         line: lineAt(description, start),
         previousNonEmptyLine: previousNonEmptyLineAt(description, start),
       })
@@ -234,14 +250,14 @@ function classifyMapping(
 
   if (reference.sourcePath !== DESCRIPTION_SOURCE_PATH) {
     evidence = 'NON_DESCRIPTION_REFERENCE'
-  } else if (!aligned || !reference.label) {
+  } else if (!aligned) {
     evidence = 'REFERENCE_ONLY'
   } else {
     outcome = outcomeForLine(aligned.line)
     if (outcome) {
       evidence = 'DEGREE_OF_SUCCESS'
       potential = true
-    } else if (aligned.line === reference.label) {
+    } else if (aligned.line === aligned.token) {
       const previousOutcome = outcomeForLine(aligned.previousNonEmptyLine)
       if (previousOutcome) {
         evidence = 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE'
