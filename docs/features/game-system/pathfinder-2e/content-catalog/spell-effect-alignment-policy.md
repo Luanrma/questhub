@@ -92,6 +92,8 @@ Essa separação evita transformar um nome implícito do UUID em dado mecânico 
 
 ## Critérios adicionais
 
+O **AC31 refina explicitamente o AC08 da Spec principal somente para o caso `label = null`**. AC08 continua válido sem alteração quando existe label explícito.
+
 - **AC27** — referência com `label = null` pode ser alinhada pelo `target.compendiumKey` exato;
 - **AC28** — `source.label` permanece `null` nesses mappings;
 - **AC29** — fallback por `compendiumKey` não produz value hint;
