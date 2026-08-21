@@ -10,28 +10,27 @@ Domínio: `VTT Core / Campaign Character Sheet Composition / CampaignActorEffect
 
 Transformar a ficha de campanha no principal ponto de consulta e gerenciamento manual dos efeitos ativos do `CampaignActor`, consumindo exclusivamente o estado persistido por `CampaignActorEffect` e a API genérica entregue por `QH-EFF-002`.
 
-A ficha não deve possuir uma cópia própria dos efeitos e o VTT Core não deve interpretar regras de Game System para apresentá-los.
+A ficha não possui cópia própria dos efeitos e o VTT Core não interpreta regras de Game System para apresentá-los.
 
 ## Escopo
 
 - exibir um bloco persistente `Efeitos ativos` em fichas com apresentação `FULL`;
-- manter o bloco visível ao navegar entre as páginas do renderer da ficha;
-- listar múltiplos efeitos simultaneamente de forma compacta e sem rolagem horizontal;
-- diferenciar visualmente `BENEFICIAL`, `HARMFUL` e `NEUTRAL` sem atribuir significado mecânico;
+- manter o bloco visível ao navegar entre páginas do renderer;
+- listar múltiplos efeitos de forma compacta e sem rolagem horizontal;
+- diferenciar visualmente `BENEFICIAL`, `HARMFUL` e `NEUTRAL` sem consequência mecânica;
 - exibir ícone, nome e `displayValue` quando disponíveis;
-- abrir detalhes de um efeito;
-- exibir descrição, categoria e origem apenas por apresentação genérica/resolvida, sem interpretar `payload` ou `origin` opacos no Core;
-- Mestre pode criar, editar e remover efeitos manuais usando a API de `QH-EFF-002`;
-- Player possui visualização somente leitura conforme a autorização de `QH-EFF-002`;
-- atualizar a listagem ao receber `vtt:actor-effects:changed` e após reconexão;
-- estender o contrato genérico de renderer para que o renderer informe ao Workspace o `actorId` da ficha sem o Workspace conhecer o schema do Game System;
-- oferecer um contrato opcional de resolução visual por Game System para futuras apresentações de origem/ícone/resumo.
+- abrir detalhes do efeito sem expor `payload`/`origin` brutos;
+- Mestre cria, edita e remove efeitos manuais usando a API de `QH-EFF-002`;
+- Player possui visualização somente leitura conforme `QH-EFF-002`;
+- atualizar a listagem após `vtt:actor-effects:changed` e após reconexão;
+- resolver genericamente `sheetId -> actorId` no VTT Core;
+- oferecer contrato opcional de resolução visual por Game System para origem/ícone/resumo futuros.
 
 ## Fora de escopo
 
 - nova tabela, migration ou alteração em `CampaignActorEffect`;
-- nova rota backend para efeitos;
-- copiar efeitos para `CampaignCharacterSheet` ou para o JSON da ficha;
+- nova rota de efeitos além das entregues por `QH-EFF-002`;
+- copiar efeitos para `CampaignCharacterSheet` ou para JSON da ficha;
 - efeitos na apresentação `SIMPLIFIED` de fichas de catálogo;
 - indicadores sobre Token/VTT;
 - catálogo PF2e de Conditions/Effects;
@@ -49,33 +48,45 @@ O bloco de efeitos pertence ao Workspace genérico da ficha, não ao renderer co
 Fluxo conceitual:
 
 ```text
-CampaignCharacterSheetWorkspace
-  -> renderer registrado para a Campaign
-  -> renderer resolve sua ficha e informa actorId por callback neutro
+CampaignCharacterSheetWorkspace(sheetId)
+  -> VTT Core resolve CampaignCharacterSheet.actorId
   -> Workspace monta ActorActiveEffectsPanel(actorId)
   -> painel lê/muta /api/campaigns/:campaignId/actors/:actorId/effects
+  -> renderer do Game System continua independente
 ```
 
-O Workspace não lê a resposta específica de Pathfinder, D&D ou outro sistema.
+O Workspace não lê resposta específica de Pathfinder, D&D ou outro sistema.
 
-### Extensão neutra do renderer
+## Contexto genérico da ficha
 
-O contrato de renderer passa a aceitar:
+O Core expõe um contrato mínimo para resolver a relação estrutural que ele já possui:
+
+```http
+GET /api/campaigns/:campaignId/character-sheets/:sheetId/context
+```
+
+Resposta:
 
 ```ts
-type CharacterSheetRendererProps = {
-  campaignId: string
+type CharacterSheetActorContext = {
   sheetId: string
-  activePage: string
-  presentation: 'FULL' | 'SIMPLIFIED'
-  onActorResolved?: (actorId: string) => void
-  // callbacks já existentes permanecem
+  actorId: string
 }
 ```
 
-Cada renderer concreto é responsável apenas por informar o `actorId` que já resolveu para sua própria ficha.
+Regras:
 
-Isso não transfere ownership do efeito ao renderer: `CampaignActorEffect` continua pertencendo ao `CampaignActor`.
+- autenticação obrigatória;
+- membership deve estar `ACTIVE`;
+- `sheetId` deve pertencer a Actor da mesma Campaign;
+- Actor arquivado é tratado como indisponível;
+- `MASTER` pode resolver qualquer ficha ativa da Campaign;
+- `PLAYER` pode resolver somente ficha de Actor cujo `controllerMemberId` seja seu membership;
+- autorização usa a mesma política estrutural de leitura dos efeitos de `QH-EFF-002`;
+- IDs de outra Campaign não são revelados;
+- endpoint não retorna dados mecânicos da ficha nem informação de Game System.
+
+Este endpoint é contexto de composição de ficha, não uma segunda API de efeitos.
 
 ## Resolução visual opcional de Game System
 
@@ -95,12 +106,12 @@ type ActorEffectPresentationResolver = (
 
 Regras:
 
-- o Core continua exibindo os campos genéricos persistidos como fallback;
-- o resolver pode somente produzir apresentação;
-- o resolver não pode alterar o efeito persistido nem aplicar regra mecânica;
-- o Core não inspeciona `origin` ou `payload` de namespaces externos para produzir significado;
+- o Core usa os campos genéricos persistidos como fallback;
+- o resolver produz somente apresentação;
+- o resolver não altera persistência nem aplica regra mecânica;
+- o Core não interpreta `origin` ou `payload` de namespaces externos;
 - a origem manual criada pelo próprio Core (`questhub:manual-effects:v1`) pode ser apresentada como `Manual`;
-- nenhum resolver PF2e concreto é necessário em `QH-EFF-003`; isso fica para os cards de conteúdo/integração do épico.
+- nenhum resolver PF2e concreto é necessário em `QH-EFF-003`.
 
 ## Layout e comportamento visual
 
@@ -111,35 +122,28 @@ Em apresentação `FULL`, o bloco fica dentro da janela da ficha, abaixo do cabe
 Consequências:
 
 - permanece visível ao mudar de página;
-- não participa da rolagem horizontal;
-- não exige uma nova aba;
-- não obriga o renderer do Game System a conhecer o componente.
+- não possui rolagem horizontal própria;
+- não exige nova aba;
+- renderer do Game System não conhece o componente.
 
 ### Estado compacto
 
-O bloco deve ocupar pouco espaço vertical:
-
 - cabeçalho compacto com `Efeitos ativos`, quantidade e ação de adicionar para Mestre;
-- efeitos apresentados como chips/cards compactos com `flex-wrap`;
-- nenhuma rolagem horizontal própria;
+- efeitos em chips/cards compactos com `flex-wrap`;
 - exibir até 6 efeitos no resumo persistente;
-- quando houver mais de 6, mostrar `+N`/`Ver todos` que abre a lista completa em detalhe;
-- ausência de efeitos exibe `Nenhum efeito ativo` sem criar um painel alto vazio.
+- excedentes aparecem por `+N Ver todos` em detalhe;
+- ausência de efeitos mostra `Nenhum efeito ativo` sem painel alto vazio.
 
 ### Conteúdo do chip
-
-Cada item compacto mostra:
 
 - ícone persistido/resolvido ou fallback genérico;
 - nome;
 - `displayValue`, quando presente;
 - distinção visual da polaridade.
 
-A polaridade é exclusivamente apresentação genérica; não altera cálculo ou comportamento da ficha.
-
 ### Detalhes
 
-Clicar em um efeito abre um detalhe dentro da experiência da ficha contendo, quando disponíveis:
+Clicar em uma instância abre detalhe com, quando disponíveis:
 
 - ícone;
 - nome;
@@ -149,15 +153,15 @@ Clicar em um efeito abre um detalhe dentro da experiência da ficha contendo, qu
 - categoria;
 - origem apresentada por resolver visual ou `Manual` quando for origem do Core.
 
-`payload` e `origin` brutos não são renderizados como JSON ao usuário.
+`payload` e `origin` brutos nunca são renderizados como JSON para o usuário.
 
 ## Gerenciamento manual
 
 ### Criar
 
-Somente Mestre visualiza a ação `Adicionar efeito`.
+Somente Mestre vê `Adicionar efeito`.
 
-O formulário usa exclusivamente campos aceitos pelo POST de `QH-EFF-002`:
+O formulário envia somente:
 
 - nome;
 - descrição;
@@ -166,38 +170,25 @@ O formulário usa exclusivamente campos aceitos pelo POST de `QH-EFF-002`:
 - categoria;
 - valor de exibição.
 
-O frontend não envia `namespace`, `definitionKey`, `schemaVersion`, `payload` ou `origin`.
+Não envia `namespace`, `definitionKey`, `schemaVersion`, `payload` ou `origin`.
 
 ### Editar
 
-Somente Mestre pode editar:
-
-- nome;
-- descrição;
-- ícone URL;
-- polaridade;
-- categoria;
-- valor de exibição.
-
-O frontend não oferece edição de identidade/opacos.
+Somente Mestre edita os mesmos campos genéricos de apresentação aceitos por `QH-EFF-002`.
 
 ### Remover
 
-Somente Mestre pode remover.
-
-A remoção exige confirmação explícita na UI e utiliza DELETE de `QH-EFF-002`.
+Somente Mestre pode remover; a UI exige confirmação explícita antes do DELETE.
 
 ## Permissões
 
-O frontend usa o papel da Campaign apenas para decidir se exibe controles de mutação.
-
-A segurança continua sendo responsabilidade do backend.
+O frontend usa o papel da Campaign somente para mostrar/ocultar controles de mutação. Segurança continua no backend.
 
 - `MASTER`: leitura + controles de criação/edição/remoção;
 - `PLAYER`: somente leitura;
-- qualquer tentativa não autorizada continua sujeita a `403` da API.
+- requisições não autorizadas continuam sujeitas a `403`.
 
-O componente não usa presença de Token como requisito de leitura.
+Token não é requisito de leitura.
 
 ## Dados e sincronização
 
@@ -207,51 +198,32 @@ Fonte de verdade:
 CampaignActorEffect[] do CampaignActor
 ```
 
-Leitura:
+Leitura/mutação:
 
 ```http
-GET /api/campaigns/:campaignId/actors/:actorId/effects
-```
-
-Mutações:
-
-```http
+GET    /api/campaigns/:campaignId/actors/:actorId/effects
 POST   /api/campaigns/:campaignId/actors/:actorId/effects
 PATCH  /api/campaigns/:campaignId/actors/:actorId/effects/:effectId
 DELETE /api/campaigns/:campaignId/actors/:actorId/effects/:effectId
 ```
 
-O frontend deve:
+O frontend:
 
-- carregar quando `campaignId` + `actorId` estiverem disponíveis;
-- refazer a leitura quando receber `vtt:actor-effects:changed` para o mesmo Campaign/Actor;
-- refazer a leitura após reconexão do socket;
-- refazer a leitura após mutação bem-sucedida caso a invalidação ainda não tenha sido processada;
-- ignorar eventos de outra Campaign ou outro Actor.
-
-Não usar polling periódico.
+- resolve `actorId` pelo contexto genérico da ficha;
+- carrega quando `campaignId + actorId` estiverem disponíveis;
+- recarrega quando receber `vtt:actor-effects:changed` para o mesmo Campaign/Actor;
+- recarrega após reconexão;
+- recarrega após mutação bem-sucedida caso a invalidação ainda não tenha sido processada;
+- ignora eventos de outra Campaign ou Actor;
+- não usa polling periódico.
 
 ## Estados de UI
 
-### Actor ainda não resolvido
-
-O bloco não é montado até o renderer informar `actorId`.
-
-### Loading
-
-Mostrar skeleton/estado compacto sem deslocamento visual excessivo.
-
-### Vazio
-
-Mostrar `Nenhum efeito ativo`.
-
-### Erro de leitura
-
-Mostrar erro compacto com ação `Tentar novamente`.
-
-### Erro de mutação
-
-Manter o estado atual e mostrar mensagem de falha sem aplicar alteração otimista falsa.
+- contexto da ficha carregando: bloco ainda não é montado;
+- efeitos carregando: skeleton compacto;
+- vazio: `Nenhum efeito ativo`;
+- erro de leitura: mensagem compacta + `Tentar novamente`;
+- erro de mutação: mantém estado atual e mostra falha sem atualização otimista falsa.
 
 ## Regras
 
@@ -259,91 +231,80 @@ Manter o estado atual e mostrar mensagem de falha sem aplicar alteração otimis
 2. O bloco é persistente entre páginas da ficha `FULL`.
 3. O Core não interpreta Conditions ou regras concretas.
 4. O Core não renderiza `origin`/`payload` opacos diretamente.
-5. O renderer concreto informa apenas `actorId` por contrato neutro.
-6. O resolver visual opcional não pode executar automação mecânica.
+5. A relação `CampaignCharacterSheet -> CampaignActor` é resolvida pelo Core, não pelo renderer concreto.
+6. O resolver visual opcional não executa automação mecânica.
 7. A UI não cria deduplicação ou stacking.
-8. Dois efeitos iguais continuam aparecendo como duas instâncias.
-9. O Player não recebe controles de mutação.
-10. A ausência de controles no frontend não substitui autorização backend.
-11. Não existe rolagem horizontal no bloco de efeitos.
-12. O painel não altera a página ativa nem os dados mecânicos do renderer.
+8. Duas instâncias iguais continuam separadas.
+9. Player não recebe controles de mutação.
+10. Ocultar controles no frontend não substitui autorização backend.
+11. Não existe rolagem horizontal no bloco.
+12. O painel não altera página ativa nem dados mecânicos do renderer.
 
 ## Critérios de aceite
 
 ### AC-01 — Fonte de verdade no Actor
-
-A ficha lê os efeitos pela API de `CampaignActorEffect`; nenhuma cópia é persistida na ficha.
+A ficha lê efeitos pela API de `CampaignActorEffect`; nenhuma cópia é persistida na ficha.
 
 ### AC-02 — Bloco persistente
+Na apresentação `FULL`, `Efeitos ativos` permanece visível ao navegar entre páginas.
 
-Na apresentação `FULL`, `Efeitos ativos` permanece visível ao navegar entre páginas da ficha.
+### AC-03 — Actor resolvido pelo Core
+Workspace resolve `actorId` por contrato genérico de contexto da ficha e o renderer de Game System não participa.
 
-### AC-03 — Actor resolvido genericamente
+### AC-04 — Isolamento do contexto
+Contexto valida Campaign, Actor ativo e permissões de Mestre/controlador sem revelar IDs de outra Campaign.
 
-O Workspace recebe `actorId` pelo contrato neutro do renderer e não conhece o schema específico do Game System.
+### AC-05 — Múltiplos efeitos
+Até 6 efeitos aparecem simultaneamente; excedentes são acessíveis por `Ver todos` sem rolagem horizontal.
 
-### AC-04 — Múltiplos efeitos
-
-Até 6 efeitos são apresentados simultaneamente no resumo compacto; excedentes são acessíveis por `Ver todos` sem rolagem horizontal.
-
-### AC-05 — Polaridade genérica
-
+### AC-06 — Polaridade genérica
 BENEFICIAL/HARMFUL/NEUTRAL possuem diferenciação visual sem consequência mecânica.
 
-### AC-06 — Estado vazio e erro
-
+### AC-07 — Estado vazio e erro
 Ausência de efeitos e falha de leitura possuem estados claros e compactos.
 
-### AC-07 — Detalhes
+### AC-08 — Detalhes
+Usuário abre detalhes sem renderizar `payload`/`origin` bruto.
 
-Usuário pode abrir detalhes de uma instância sem renderizar `payload`/`origin` bruto.
+### AC-09 — Mestre gerencia manualmente
+Mestre cria, edita e remove efeitos pelos contratos do `QH-EFF-002`.
 
-### AC-08 — Mestre gerencia manualmente
-
-Mestre consegue criar, editar e remover efeitos pelos contratos de `QH-EFF-002`.
-
-### AC-09 — Player somente leitura
-
+### AC-10 — Player somente leitura
 Player não recebe controles de mutação e continua protegido pela autorização backend.
 
-### AC-10 — Sem spoofing
+### AC-11 — Sem spoofing
+Formulários não enviam/editam namespace, definitionKey, schemaVersion, payload ou origin.
 
-Formulários não permitem enviar ou editar namespace, definitionKey, schemaVersion, payload ou origin.
+### AC-12 — Realtime
+Alteração em outra sessão é refletida após `vtt:actor-effects:changed` sem polling.
 
-### AC-11 — Realtime
-
-Alteração bem-sucedida em outra sessão é refletida após `vtt:actor-effects:changed` sem polling periódico.
-
-### AC-12 — Duplicidade preservada
-
+### AC-13 — Duplicidade preservada
 Duas instâncias iguais aparecem separadamente.
 
-### AC-13 — Resolver visual agnóstico
+### AC-14 — Resolver visual agnóstico
+Composition Root aceita presentation resolver por Game System sem PF2e no componente Core.
 
-O contrato aceita presentation resolver por Game System sem importar ou nomear PF2e no componente Core.
+### AC-15 — Ficha simplificada fora de escopo
+`SIMPLIFIED` mantém comportamento atual e não monta o bloco.
 
-### AC-14 — Ficha simplificada fora de escopo
-
-Apresentação `SIMPLIFIED` mantém o comportamento atual e não monta o bloco de efeitos.
-
-### AC-15 — Sem automação mecânica
-
-Nenhuma interação do bloco altera HP, CA, saves, atributos, rolagens, Token ou o JSON mecânico da ficha.
+### AC-16 — Sem automação mecânica
+Nenhuma interação altera HP, CA, saves, atributos, rolagens, Token ou JSON mecânico da ficha.
 
 ## Testes esperados
 
-- contrato do renderer expõe `onActorResolved` sem campo específico de Game System;
-- Pathfinder renderer atual informa `metadata.actorId` pelo callback sem o Workspace interpretar a resposta PF2e;
-- painel não monta em `SIMPLIFIED`;
-- limite visual de 6 + `Ver todos`;
-- estado vazio/loading/error;
-- estilos/labels das três polaridades;
-- matriz de controles Mestre/Player;
-- POST/PATCH não enviam campos opacos;
+- contexto da ficha valida membership, Campaign, Actor ativo e controlador;
+- contexto não retorna dados de Game System;
+- Workspace monta painel apenas em `FULL` e após resolver actorId;
+- limite visual 6 + `Ver todos`;
+- vazio/loading/error;
+- três polaridades;
+- controles Mestre/Player;
+- POST/PATCH sem campos opacos;
 - confirmação + DELETE;
-- realtime recarrega somente Campaign/Actor correspondente;
-- reconexão recarrega;
-- teste estrutural garantindo ausência de `PATHFINDER`, `PF2E`, `Condition`, `Frightened`, `Spell` no módulo genérico;
+- realtime filtra Campaign/Actor e reconnect recarrega;
+- ausência de polling;
+- resolver visual opcional sem PF2e no módulo Core;
+- teste estrutural sem `PATHFINDER`, `PF2E`, `Condition`, `Frightened`, `Spell` em `vtt/actor-effects`;
 - `npm run check:architecture`;
 - `npm run test:unit`;
 - `npm run build:web`.
@@ -354,7 +315,7 @@ Nenhuma interação do bloco altera HP, CA, saves, atributos, rolagens, Token ou
 - [x] Usa ADR existente: `ADR-0002`, `ADR-0003`, `ADR-0005`
 - [ ] Exige novo ADR
 
-Architecture Review required: **YES**, porque a entrega amplia o contrato de composição entre Workspace genérico e renderer de Game System.
+Architecture Review: **APPROVED**. O refinamento para resolver `actorId` no próprio Core reduz acoplamento e permanece coberto pelos ADRs vigentes.
 
 ## Questões abertas
 
