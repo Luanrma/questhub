@@ -74,31 +74,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 23,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Sense Direction",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Sense Direction",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Sense Direction",
-          "sourceId": "fJImDBQfqfjKJOhk",
-          "name": "Sense Direction",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "wob6DB1FFdWs0mbp",
-          "name": "Compass",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:tool-long",
@@ -630,31 +606,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d4",
         "type": "slashing"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 92,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Katana",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Katana",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Katana",
-          "sourceId": "Y1dkRsRd1Z7Jf2y6",
-          "name": "Katana",
-          "type": "weapon"
-        },
-        "owner": {
-          "sourceId": "YOpopjoWgU7bkmwh",
-          "name": "Wakizashi",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:steel-shield",
@@ -977,75 +929,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 34,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Pick a Lock",
-        "label": "Pick Locks",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Pick a Lock",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Pick a Lock",
-          "sourceId": "2EE4aF4SZpYf0R6H",
-          "name": "Pick a Lock",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "zvLyCVD8g2PdHJAc",
-          "name": "Thieves' Toolkit",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 101,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Disable a Device",
-        "label": "Disable Devices",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Disable a Device",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Disable a Device",
-          "sourceId": "cYdz2grcOcRt4jk6",
-          "name": "Disable a Device",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "zvLyCVD8g2PdHJAc",
-          "name": "Thieves' Toolkit",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 311,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)",
-        "label": "Replacement Picks",
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Replacement Picks)",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Thieves' Toolkit (Replacement Picks)",
-          "sourceId": "Sw7MBLASN3xK4Y44",
-          "name": "Thieves' Toolkit (Replacement Picks)",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "zvLyCVD8g2PdHJAc",
-          "name": "Thieves' Toolkit",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:splint-mail",
@@ -1082,53 +966,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "checkPenalty": -3,
         "speedPenaltyFeet": -10
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 200,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Padded Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Padded Armor",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Padded Armor",
-          "sourceId": "zBYEU9E7034ENCmh",
-          "name": "Padded Armor",
-          "type": "armor"
-        },
-        "owner": {
-          "sourceId": "6AhDKX1dwRwFpQsU",
-          "name": "Splint Mail",
-          "type": "armor"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 269,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Gauntlet",
-        "label": "gauntlets",
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Gauntlet",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Gauntlet",
-          "sourceId": "Ix2vicchE79d6Cl3",
-          "name": "Gauntlet",
-          "type": "weapon"
-        },
-        "owner": {
-          "sourceId": "6AhDKX1dwRwFpQsU",
-          "name": "Splint Mail",
-          "type": "armor"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:magical-hearing-aid",
@@ -1345,53 +1183,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "checkPenalty": -3,
         "speedPenaltyFeet": -10
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 281,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Padded Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Padded Armor",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Padded Armor",
-          "sourceId": "zBYEU9E7034ENCmh",
-          "name": "Padded Armor",
-          "type": "armor"
-        },
-        "owner": {
-          "sourceId": "pRoikbRo5HFW6YUB",
-          "name": "Half Plate",
-          "type": "armor"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 350,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Gauntlet",
-        "label": "gauntlets",
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Gauntlet",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Gauntlet",
-          "sourceId": "Ix2vicchE79d6Cl3",
-          "name": "Gauntlet",
-          "type": "weapon"
-        },
-        "owner": {
-          "sourceId": "pRoikbRo5HFW6YUB",
-          "name": "Half Plate",
-          "type": "armor"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:heavy-barding-small-or-medium",
@@ -1719,75 +1511,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 34,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Pick a Lock",
-        "label": "Pick Locks",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Pick a Lock",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Pick a Lock",
-          "sourceId": "2EE4aF4SZpYf0R6H",
-          "name": "Pick a Lock",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "6nrCxNQFycUVFOV2",
-          "name": "Thieves' Toolkit (Infiltrator)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 101,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Disable a Device",
-        "label": "Disable Devices",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Disable a Device",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Disable a Device",
-          "sourceId": "cYdz2grcOcRt4jk6",
-          "name": "Disable a Device",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "6nrCxNQFycUVFOV2",
-          "name": "Thieves' Toolkit (Infiltrator)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 408,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Infiltrator Picks)",
-        "label": "Replacement Picks",
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Infiltrator Picks)",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Thieves' Toolkit (Infiltrator Picks)",
-          "sourceId": "BznmPaRjI4Orb0IH",
-          "name": "Thieves' Toolkit (Infiltrator Picks)",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "6nrCxNQFycUVFOV2",
-          "name": "Thieves' Toolkit (Infiltrator)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:repair-toolkit-superb",
@@ -1849,31 +1573,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 35,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Infiltrator)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Thieves' Toolkit (Infiltrator)",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Thieves' Toolkit (Infiltrator)",
-          "sourceId": "6nrCxNQFycUVFOV2",
-          "name": "Thieves' Toolkit (Infiltrator)",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "BznmPaRjI4Orb0IH",
-          "name": "Thieves' Toolkit (Infiltrator Picks)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:scholarly-journal",
@@ -2297,31 +1997,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 23,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Sense Direction",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Sense Direction",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Sense Direction",
-          "sourceId": "fJImDBQfqfjKJOhk",
-          "name": "Sense Direction",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "xVhd8NF9KQ6VWfMu",
-          "name": "Compass (Lensatic)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:disguise-kit-elite",
@@ -2430,31 +2106,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d8",
         "type": "piercing"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 611,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Grapple",
-          "sourceId": "PMbdMWc2QroouFGD",
-          "name": "Grapple",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "uGu3NWhpPowH0zkR",
-          "name": "Tiger Fork",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:spined-shield",
@@ -2487,31 +2139,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_03_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "",
       "category": "shield",
       "group": "steel-shield"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 613,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Spined Shield Spines",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Spined Shield Spines",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Spined Shield Spines",
-          "sourceId": "AUoiLqENVZlZohsn",
-          "name": "Effect: Spined Shield Spines",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "WDh4fb9N86mNLfDV",
-          "name": "Spined Shield",
-          "type": "shield"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:manacles-good",

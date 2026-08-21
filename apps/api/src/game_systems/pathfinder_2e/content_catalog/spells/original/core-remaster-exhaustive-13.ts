@@ -41,30 +41,6 @@ export const PATHFINDER_2E_EXHAUSTIVE_13_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 535,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Hidden Mind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Hidden Mind",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Hidden Mind",
-          "sourceId": "DBaMtFHRPEg1JeLs",
-          "name": "Spell Effect: Hidden Mind",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "C2w3YfBKjIRS07DP",
-          "name": "Hidden Mind",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   }
 ]

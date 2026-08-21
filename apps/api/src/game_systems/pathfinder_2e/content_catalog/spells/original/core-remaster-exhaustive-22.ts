@@ -181,31 +181,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 1d4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 231,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Ray of Frost",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Ray of Frost",
-          "sourceId": "I4PsUAaYSUJ8pwKC",
-          "name": "Spell Effect: Ray of Frost",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "gYjPm7YwGtEa1oxh",
-          "name": "Ray of Frost",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:shocking-grasp",
@@ -295,31 +271,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 433,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Shillelagh",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Shillelagh",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Shillelagh",
-          "sourceId": "deG1dtfuQph03Kkg",
-          "name": "Spell Effect: Shillelagh",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "s3abwDbTV43pGFFW",
-          "name": "Shillelagh",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:death-knell",
@@ -361,53 +313,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 327,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dying",
-          "sourceId": "yZRUzMqrMmfLu0V1",
-          "name": "Dying",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "dLdRqT6UxTKlsPgp",
-          "name": "Death Knell",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 454,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Death Knell",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Death Knell",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Death Knell",
-          "sourceId": "98XT2QUk6wvXIqf7",
-          "name": "Spell Effect: Death Knell",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "dLdRqT6UxTKlsPgp",
-          "name": "Death Knell",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:acid-arrow",
@@ -545,75 +451,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 162,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Concealed",
-          "sourceId": "DmAIPqOBomZ7H95W",
-          "name": "Concealed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "HRb2doyaLtaoCfi3",
-          "name": "Faerie Fire",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 267,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Invisible",
-          "sourceId": "zJxUflt9np0q4yML",
-          "name": "Invisible",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "HRb2doyaLtaoCfi3",
-          "name": "Faerie Fire",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 389,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Undetected",
-          "sourceId": "VRSef5y1LmL2Hkjf",
-          "name": "Undetected",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "HRb2doyaLtaoCfi3",
-          "name": "Faerie Fire",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:mirror-image",
@@ -653,31 +491,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 916,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mirror Image",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Mirror Image",
-          "sourceId": "0PO5mFRhh9HxGAtv",
-          "name": "Spell Effect: Mirror Image",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "j8vIoIEWElvpwkcI",
-          "name": "Mirror Image",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:enhance-victuals",
@@ -755,119 +569,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (4th) Add Drained to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's Doomed value by 1. You can't use this to reduce a permanent Doomed condition.\nHeightened (6th) As the 4th-rank restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 650,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Clumsy",
-          "sourceId": "i3OJZU2nk64Df3xm",
-          "name": "Clumsy",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "SnaLVgxZ9ryUFmUr",
-          "name": "Restoration",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 701,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "SnaLVgxZ9ryUFmUr",
-          "name": "Restoration",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 758,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stupefied",
-          "sourceId": "e1XGnhKNSQIm5IXg",
-          "name": "Stupefied",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "SnaLVgxZ9ryUFmUr",
-          "name": "Restoration",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 949,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "SnaLVgxZ9ryUFmUr",
-          "name": "Restoration",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1160,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "SnaLVgxZ9ryUFmUr",
-          "name": "Restoration",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:stinking-cloud",
@@ -906,163 +608,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 73,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mist",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mist",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mist",
-          "sourceId": "9XHmC2JgTUIQ1CCm",
-          "name": "Mist",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 189,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Concealed",
-          "sourceId": "DmAIPqOBomZ7H95W",
-          "name": "Concealed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 401,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 514,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 582,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": "Slowed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 719,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 787,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": "Slowed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "GKpEcy9WId6NJvtx",
-          "name": "Stinking Cloud",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:circle-of-protection",
@@ -1103,31 +649,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (4th) The duration increases to 1 hour.\nSpell Effect: Protection"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 704,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Protection",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Protection",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Protection",
-          "sourceId": "RawLEPwyT5CtCZ4D",
-          "name": "Spell Effect: Protection",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "mpGCMTldMVa0pWYs",
-          "name": "Circle of Protection",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:secret-page",
@@ -1214,31 +736,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 1d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 646,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-        "label": "Stupefied 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stupefied",
-          "sourceId": "e1XGnhKNSQIm5IXg",
-          "name": "Stupefied",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "7tR29sQt35NfIWqN",
-          "name": "Anathematic Reprisal",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:air-walk",
@@ -1358,31 +856,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 94,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mist",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mist",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mist",
-          "sourceId": "9XHmC2JgTUIQ1CCm",
-          "name": "Mist",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "piMJO6aYeDJbrhEo",
-          "name": "Solid Fog",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:spell-immunity",
@@ -1467,97 +941,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": "Heightened 1 The damage increases by 2d6 on a failure and by 3d6 on a critical failure."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 445,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "tlcrVRqW1MSKJ5IC",
-          "name": "Phantasmal Killer",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 618,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "tlcrVRqW1MSKJ5IC",
-          "name": "Phantasmal Killer",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 962,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fleeing",
-          "sourceId": "sDPxOjQ9kx2RZE8D",
-          "name": "Fleeing",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "tlcrVRqW1MSKJ5IC",
-          "name": "Phantasmal Killer",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1052,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 4",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "tlcrVRqW1MSKJ5IC",
-          "name": "Phantasmal Killer",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:discern-lies",
@@ -1649,31 +1033,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 268,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Grabbed",
-          "sourceId": "kWc1fhmv9LBiTuei",
-          "name": "Grabbed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "2w4OpAGihn1JSHFD",
-          "name": "Black Tentacles",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:cone-of-cold",
@@ -1803,273 +1163,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (7th) The spell's duration increases to 1 hour. Roll 1d8 to determine the wall's color; the results for 5-8 are below. A 30 fire damage, 35 acid damage, 40 electricity damage, or 20 poison damage wall deals an extra 10 damage.\n• Blue The wall stops auditory, petrification, sonic and visual effects from passing through, and creatures passing through are subject to the effects of Petrify. Force Barrage can counteract a blue chromatic wall.\n• Indigo The wall stops divination and mental effects from passing through, and those passing through are subject to the effects of Warp Mind. Holy Light can counteract an indigo chromatic wall.\n• Violet The wall prevents spells from targeting the other side (area effects still cross as normal). Creatures passing through must succeed at a check (will, against:spell) save or they are Slowed 1 for 1 minute; on a critical failure, the creature is instead sent to another plane, with the effect of Interplanar Teleport. Dispel Magic can counteract a violet chromatic wall.\n• Reroll, and creatures that pass through the wall take a -2 circumstance penalty to their saves."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 949,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Cone of Cold",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Cone of Cold",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Cone of Cold",
-          "sourceId": "3puDanGfpEt6jK5k",
-          "name": "Cone of Cold",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1251,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Gust of Wind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Gust of Wind",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Gust of Wind",
-          "sourceId": "g8QqHpv2CWDwmIm1",
-          "name": "Gust of Wind",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1615,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Disintegrate",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Disintegrate",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Disintegrate",
-          "sourceId": "r7ihOgKv19eJQnik",
-          "name": "Disintegrate",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1896,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2090,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Magic Passage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Magic Passage",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Magic Passage",
-          "sourceId": "115Xp9E38CJENhNS",
-          "name": "Magic Passage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2706,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Petrify",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Petrify",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Petrify",
-          "sourceId": "znv4ECL7ZtuiagtA",
-          "name": "Petrify",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2754,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Force Barrage",
-          "sourceId": "gKKqvLohtrSJj3BM",
-          "name": "Force Barrage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3010,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Warp Mind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Warp Mind",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Warp Mind",
-          "sourceId": "8kJbiBEjMWG4VUjs",
-          "name": "Warp Mind",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3060,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Holy Light",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Holy Light",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Holy Light",
-          "sourceId": "DyiD239dNS7RIxZE",
-          "name": "Holy Light",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3374,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": "Slowed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3537,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Interplanar Teleport",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Interplanar Teleport",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Interplanar Teleport",
-          "sourceId": "5bTt2CvYHPvaR7QQ",
-          "name": "Interplanar Teleport",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3598,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Dispel Magic",
-          "sourceId": "9HpwDN4MYQJnW0LG",
-          "name": "Dispel Magic",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:telepathic-bond",
@@ -2191,31 +1285,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 860,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "vJuaxTd6q11OjGqA",
-          "name": "Abyssal Plague",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:death-ward",
@@ -2254,53 +1324,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 196,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "YvXKGlHOt7mdW2jZ",
-          "name": "Death Ward",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 264,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Death Ward",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Death Ward",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Death Ward",
-          "sourceId": "s6CwkSsMDGfUmotn",
-          "name": "Spell Effect: Death Ward",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "YvXKGlHOt7mdW2jZ",
-          "name": "Death Ward",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:purple-worm-sting",
@@ -2348,75 +1372,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 726,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "ayRXv0wQH00TTNZe",
-          "name": "Purple Worm Sting",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 866,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "ayRXv0wQH00TTNZe",
-          "name": "Purple Worm Sting",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1006,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "ayRXv0wQH00TTNZe",
-          "name": "Purple Worm Sting",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:fire-seeds",
@@ -2550,31 +1506,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 107,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Petrified",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Petrified",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Petrified",
-          "sourceId": "dTwPJuKgBQCMxixg",
-          "name": "Petrified",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Pr1ruNTbzGn3H9w5",
-          "name": "Stone to Flesh",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:reverse-gravity",
@@ -2615,31 +1547,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 252,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Grab an Edge",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Grab an Edge",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Grab an Edge",
-          "sourceId": "3yoajuKjwHZ9ApUY",
-          "name": "Grab an Edge",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "37ESlJzUvVbOudOT",
-          "name": "Reverse Gravity",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:ethereal-jaunt",
@@ -2681,31 +1589,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (9th) You can target up to five additional willing creatures at a range of 30 feet. The duration is up to 10 minutes."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 345,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Concealed",
-          "sourceId": "DmAIPqOBomZ7H95W",
-          "name": "Concealed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "D2nPKbIS67m9199U",
-          "name": "Ethereal Jaunt",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:prismatic-spray",
@@ -2747,141 +1631,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 992,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "d6o52BnjViNz7Gub",
-          "name": "Prismatic Spray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1156,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Petrify",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Petrify",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Petrify",
-          "sourceId": "znv4ECL7ZtuiagtA",
-          "name": "Petrify",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "d6o52BnjViNz7Gub",
-          "name": "Prismatic Spray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1258,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Confused",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Confused",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Confused",
-          "sourceId": "yblD8fOR1J8rDwEQ",
-          "name": "Confused",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "d6o52BnjViNz7Gub",
-          "name": "Prismatic Spray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1318,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Warp Mind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Warp Mind",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Warp Mind",
-          "sourceId": "8kJbiBEjMWG4VUjs",
-          "name": "Warp Mind",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "d6o52BnjViNz7Gub",
-          "name": "Prismatic Spray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1437,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "d6o52BnjViNz7Gub",
-          "name": "Prismatic Spray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1550,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Interplanar Teleport",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Interplanar Teleport",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Interplanar Teleport",
-          "sourceId": "5bTt2CvYHPvaR7QQ",
-          "name": "Interplanar Teleport",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "d6o52BnjViNz7Gub",
-          "name": "Prismatic Spray",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:divine-vessel",
@@ -2922,75 +1672,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (9th) The temporary Hit Points increase to 60, the weakness increases to 15, and the duration increases to 10 minutes.\nSpell Effect: Divine Vessel (9th level)"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 432,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Enlarge",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Enlarge",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Enlarge",
-          "sourceId": "wzctak6BxOW8xvFV",
-          "name": "Enlarge",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "hiVL8qsnTJtpouw0",
-          "name": "Divine Vessel",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1220,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Divine Vessel",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Divine Vessel",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Divine Vessel",
-          "sourceId": "GDzn5DToE62ZOTrP",
-          "name": "Spell Effect: Divine Vessel",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "hiVL8qsnTJtpouw0",
-          "name": "Divine Vessel",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1458,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Divine Vessel (9th level)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Divine Vessel (9th level)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Divine Vessel (9th level)",
-          "sourceId": "dIftJU6Ki2QSLCOD",
-          "name": "Spell Effect: Divine Vessel (9th level)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "hiVL8qsnTJtpouw0",
-          "name": "Divine Vessel",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:spell-turning",
@@ -3068,53 +1750,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 1 The levels at which each outcome applies increase by 2."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 62,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Yk3t4ekEiFIoEz9c",
-          "name": "Power Word Blind",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 481,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Yk3t4ekEiFIoEz9c",
-          "name": "Power Word Blind",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:power-word-stun",
@@ -3155,53 +1791,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 1 The levels at which each outcome applies increase by 2."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 242,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stunned",
-          "sourceId": "dfCMdR4wnpbYNTix",
-          "name": "Stunned",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "7PJSqUeKxTqOVrPk",
-          "name": "Power Word Stun",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 455,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-        "label": "Stunned 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stunned",
-          "sourceId": "dfCMdR4wnpbYNTix",
-          "name": "Stunned",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "7PJSqUeKxTqOVrPk",
-          "name": "Power Word Stun",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:polar-ray",
@@ -3247,53 +1837,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 2d8"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 215,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "BKIet436snMNcnez",
-          "name": "Polar Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 345,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "BKIet436snMNcnez",
-          "name": "Polar Ray",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:prismatic-wall",
@@ -3335,75 +1879,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 530,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "iL6TujgTCtRRa0Y0",
-          "name": "Prismatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 607,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "iL6TujgTCtRRa0Y0",
-          "name": "Prismatic Wall",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 937,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Chromatic Wall",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Chromatic Wall",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Chromatic Wall",
-          "sourceId": "forsqeofEszBNtLq",
-          "name": "Chromatic Wall",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "iL6TujgTCtRRa0Y0",
-          "name": "Prismatic Wall",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:antimagic-field",
@@ -3445,31 +1921,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 276,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Dispel Magic",
-          "sourceId": "9HpwDN4MYQJnW0LG",
-          "name": "Dispel Magic",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "My7FvAoLYgGDDBzy",
-          "name": "Antimagic Field",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:divine-aura",
@@ -3510,53 +1962,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 609,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Controlled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Controlled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Controlled",
-          "sourceId": "9qGBRpbX9NEwtAAr",
-          "name": "Controlled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "nsQvjNyg4Whw2mek",
-          "name": "Divine Aura",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 942,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "nsQvjNyg4Whw2mek",
-          "name": "Divine Aura",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:disjunction",
@@ -3639,31 +2045,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened (10th) The levels at which each outcome applies increase by 2."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 387,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
-        "label": "Dying 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dying",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dying",
-          "sourceId": "yZRUzMqrMmfLu0V1",
-          "name": "Dying",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "m3lcOFm400lQCUps",
-          "name": "Power Word Kill",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:prismatic-sphere",
@@ -3705,31 +2087,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 99,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Prismatic Wall",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Prismatic Wall",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Prismatic Wall",
-          "sourceId": "iL6TujgTCtRRa0Y0",
-          "name": "Prismatic Wall",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "PngDCmU0MXZkbu0v",
-          "name": "Prismatic Sphere",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:weird",
@@ -3781,97 +2139,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 371,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qDjeG6dxT4aEEC6J",
-          "name": "Weird",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 508,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qDjeG6dxT4aEEC6J",
-          "name": "Weird",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 763,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qDjeG6dxT4aEEC6J",
-          "name": "Weird",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 846,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fleeing",
-          "sourceId": "sDPxOjQ9kx2RZE8D",
-          "name": "Fleeing",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qDjeG6dxT4aEEC6J",
-          "name": "Weird",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:storm-of-vengeance",
@@ -3910,53 +2178,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (10th) The range increases to 2,200 feet, and the cloud is a 1,000-foot burst."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1130,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Concealed",
-          "sourceId": "DmAIPqOBomZ7H95W",
-          "name": "Concealed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "r4HLQcYwB62bTayl",
-          "name": "Storm of Vengeance",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1288,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Deafened",
-          "sourceId": "9PR9y0bi4JPKnHPR",
-          "name": "Deafened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "r4HLQcYwB62bTayl",
-          "name": "Storm of Vengeance",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:crusade",
@@ -4035,31 +2257,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 461,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Wish",
-          "sourceId": "6dDtGIUerazSHIOu",
-          "name": "Wish",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "h8zxY9hTeHtWsBVW",
-          "name": "Alter Reality",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:primal-phenomenon",
@@ -4096,31 +2294,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 654,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Wish",
-          "sourceId": "6dDtGIUerazSHIOu",
-          "name": "Wish",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "MLNeD5sAunV0E23j",
-          "name": "Primal Phenomenon",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:miracle",
@@ -4157,31 +2331,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 667,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Wish",
-          "sourceId": "6dDtGIUerazSHIOu",
-          "name": "Wish",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "YfJTXyVGzLhM6V8U",
-          "name": "Miracle",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:magic-stone",
@@ -4223,75 +2373,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 170,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-        "label": "Casting this Spell",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Cast a Spell",
-          "sourceId": "aBQ8ajvEBByv45yz",
-          "name": "Cast a Spell",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "9u6X9ykhzG11NK1n",
-          "name": "Magic Stone",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 356,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Sling Bullets",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Sling Bullets",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Sling Bullets",
-          "sourceId": "MKSeXwUm56c15MZa",
-          "name": "Sling Bullets",
-          "type": "ammo"
-        },
-        "owner": {
-          "sourceId": "9u6X9ykhzG11NK1n",
-          "name": "Magic Stone",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 492,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Magic Stone",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Magic Stone",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Magic Stone",
-          "sourceId": "YzZs7r8VUOp7PiAW",
-          "name": "Spell Effect: Magic Stone",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "9u6X9ykhzG11NK1n",
-          "name": "Magic Stone",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:animate-rope",
@@ -4329,119 +2411,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 The range increases by 50 feet, and you can animate 50 more feet of Rope."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 36,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Rope",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Rope",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Rope",
-          "sourceId": "fyYnQf1NAx9fWFaS",
-          "name": "Rope",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "rVANhQgB8Uqi9PTl",
-          "name": "Animate Rope",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 182,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-        "label": "Cast the Spell",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Cast a Spell",
-          "sourceId": "aBQ8ajvEBByv45yz",
-          "name": "Cast a Spell",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "rVANhQgB8Uqi9PTl",
-          "name": "Animate Rope",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 282,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Sustain",
-        "label": "Sustain the Spell",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Sustain",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Sustain",
-          "sourceId": "3f5DMFu8fPiqHpRg",
-          "name": "Sustain",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "rVANhQgB8Uqi9PTl",
-          "name": "Animate Rope",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 645,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
-        "label": "Escapes",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Escape",
-          "sourceId": "SkZAQRkLLkmBQNB9",
-          "name": "Escape",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "rVANhQgB8Uqi9PTl",
-          "name": "Animate Rope",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 824,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animate Rope",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Animate Rope",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Animate Rope",
-          "sourceId": "OwvrQKuMLEktNWzA",
-          "name": "Spell Effect: Animate Rope",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "rVANhQgB8Uqi9PTl",
-          "name": "Animate Rope",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:quench",
@@ -4538,31 +2508,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The initial damage increases by 2d6 and the persistent damage increases by 1d4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 565,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Release",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Release",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Release",
-          "sourceId": "wQYmDStjdjn0I26t",
-          "name": "Release",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "v4KzRPol5XQOOmk0",
-          "name": "Heat Metal",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:sculpt-sound",
@@ -4602,75 +2548,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": "Heightened (5th) You can target up to 6 creatures or 6 objects, altering the sounds of all affected creatures or objects in the same way."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 102,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-        "label": "Cast the Spell",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Cast a Spell",
-          "sourceId": "aBQ8ajvEBByv45yz",
-          "name": "Cast a Spell",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "HHGUBGle4OjoxvNR",
-          "name": "Sculpt Sound",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 646,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Dismiss",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Dismiss",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Dismiss",
-          "sourceId": "AjLSHZSWQ90exdLo",
-          "name": "Dismiss",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "HHGUBGle4OjoxvNR",
-          "name": "Sculpt Sound",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1328,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-        "label": "Stupefied 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stupefied",
-          "sourceId": "e1XGnhKNSQIm5IXg",
-          "name": "Stupefied",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "HHGUBGle4OjoxvNR",
-          "name": "Sculpt Sound",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:agonizing-despair",
@@ -4718,75 +2596,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 Increase the damage by 2d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 324,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "nplNt08TvokZUxtR",
-          "name": "Agonizing Despair",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 466,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "nplNt08TvokZUxtR",
-          "name": "Agonizing Despair",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 619,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 3",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "nplNt08TvokZUxtR",
-          "name": "Agonizing Despair",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:rusting-grasp",
@@ -4916,75 +2726,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": "Heightened 2 The persistent void damage increases by 1d8 on a success, or by 2d8 on a failure or critical failure."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 479,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "eexkxcqnkXazsGfK",
-          "name": "Enervation",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 673,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "eexkxcqnkXazsGfK",
-          "name": "Enervation",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 739,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": "Doomed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "eexkxcqnkXazsGfK",
-          "name": "Enervation",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:secret-chest",
@@ -5025,53 +2767,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 306,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-        "label": "Cast this Spell",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Cast a Spell",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Cast a Spell",
-          "sourceId": "aBQ8ajvEBByv45yz",
-          "name": "Cast a Spell",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "BoA00y45uDlmou07",
-          "name": "Secret Chest",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 714,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Dismiss",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Dismiss",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Dismiss",
-          "sourceId": "AjLSHZSWQ90exdLo",
-          "name": "Dismiss",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "BoA00y45uDlmou07",
-          "name": "Secret Chest",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:transmute-rock-and-mud",
@@ -5110,119 +2806,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 Add an additional 10-foot cube to the area, adjacent to at least one of the other cubes."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 516,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Swim",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Swim",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Swim",
-          "sourceId": "c8TGiZ48ygoSPofx",
-          "name": "Swim",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "LzfrBDxxPTiuN7uL",
-          "name": "Transmute Rock And Mud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1495,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Prone",
-          "sourceId": "j91X7x0XSomq8d60",
-          "name": "Prone",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "LzfrBDxxPTiuN7uL",
-          "name": "Transmute Rock And Mud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1644,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Grabbed",
-          "sourceId": "kWc1fhmv9LBiTuei",
-          "name": "Grabbed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "LzfrBDxxPTiuN7uL",
-          "name": "Transmute Rock And Mud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1719,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
-        "label": "Escapes",
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Escape",
-          "sourceId": "SkZAQRkLLkmBQNB9",
-          "name": "Escape",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "LzfrBDxxPTiuN7uL",
-          "name": "Transmute Rock And Mud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1880,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Restrained",
-          "sourceId": "VcDeM8A5oI6VqhbM",
-          "name": "Restrained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "LzfrBDxxPTiuN7uL",
-          "name": "Transmute Rock And Mud",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:invoke-true-name",
@@ -5263,31 +2847,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 132,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "09C2wvWZLCxwjINk",
-          "name": "Invoke True Name",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:horizon-thunder-sphere",
@@ -5333,31 +2893,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The initial damage on a hit, as well as the burst damage for two-round casting time, each increase by 2d6, and the damage creatures take if they Grapple or hit you while you're in your sparking state increases by 1."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 313,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "8Uzc9WKqRr755S5d",
-          "name": "Horizon Thunder Sphere",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:animal-allies",
@@ -5440,53 +2976,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 The reaction reduces the damage by another 10, and you lose 5 more Hit Points. If you want to lose fewer Hit Points, you can choose to lower the damage reduction and HP lost to what any lower-rank version of the spell could do without lowering the spell's actual rank."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 178,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Life Block",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Life Block",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Life Block",
-          "sourceId": "Iuq8CeNqv3a0oWfQ",
-          "name": "Life Block",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "AfOpnnwdZwHi2Tnc",
-          "name": "Protect Companion",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 346,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Protect Companion",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Protect Companion",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Protect Companion",
-          "sourceId": "pPMldkAbPVOSOPIF",
-          "name": "Spell Effect: Protect Companion",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "AfOpnnwdZwHi2Tnc",
-          "name": "Protect Companion",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:restyle",
@@ -5649,31 +3139,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 189,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Prone",
-          "sourceId": "j91X7x0XSomq8d60",
-          "name": "Prone",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "F1fQC9SarAkjNxpP",
-          "name": "Gravitational Pull",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:quick-sort",
@@ -5802,53 +3268,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 1d10."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 463,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Draw Ire (Success)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Draw Ire (Success)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Draw Ire (Success)",
-          "sourceId": "PDoTV4EhJp63FEaG",
-          "name": "Spell Effect: Draw Ire (Success)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "jsWthW1Qy6tg3SwD",
-          "name": "Draw Ire",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 726,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Draw Ire",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Draw Ire",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Draw Ire",
-          "sourceId": "0WYy3bY7HJ7TDSYD",
-          "name": "Spell Effect: Draw Ire",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "jsWthW1Qy6tg3SwD",
-          "name": "Draw Ire",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:necromancers-generosity",
@@ -5893,31 +3313,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The amount of healing increases by 1d8+4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 260,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Necromancer's Generosity",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Necromancer's Generosity",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Necromancer's Generosity",
-          "sourceId": "cwetyC5o4dRyFWJZ",
-          "name": "Spell Effect: Necromancer's Generosity",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "JUJYVbtNNFdvyrBS",
-          "name": "Necromancer's Generosity",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:juvenile-companion",
@@ -5955,31 +3351,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (2nd) The duration increases to 1 hour."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 542,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Juvenile Companion",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Juvenile Companion",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Juvenile Companion",
-          "sourceId": "0bfqYkNaWsdTmtrc",
-          "name": "Spell Effect: Juvenile Companion",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "KFpBT6FPfSFhxQ27",
-          "name": "Juvenile Companion",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:read-the-air",
@@ -6018,31 +3390,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 762,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Read the Air",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Read the Air",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Read the Air",
-          "sourceId": "a3uZckqOY9zQWzZ2",
-          "name": "Spell Effect: Read the Air",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "lg73SvJZno1ypPAj",
-          "name": "Read the Air",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:wash-your-luck",
@@ -6082,31 +3430,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 696,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Wash Your Luck",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Wash Your Luck",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Wash Your Luck",
-          "sourceId": "npFFTAxN44WWrGnM",
-          "name": "Spell Effect: Wash Your Luck",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "lmHmKGs1N3yNAvln",
-          "name": "Wash Your Luck",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:healing-plaster",
@@ -6268,31 +3592,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (5th) The status bonus increases to +2, and the duration increases to last until the next time you make your daily preparations. If you continue spending your spell slot to keep the duration active, this allows you to apply the effect to a downtime check to Earn Income."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 952,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Nudge the Odds",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Nudge the Odds",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Nudge the Odds",
-          "sourceId": "lTL5VwNrZ5xiitGV",
-          "name": "Spell Effect: Nudge the Odds",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "QjdvYC1QkpMaemoX",
-          "name": "Nudge the Odds",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:tame",
@@ -6374,31 +3674,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 668,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Enthusiasm",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Enthusiasm",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Infectious Enthusiasm",
-          "sourceId": "nU4SxAk6XreHUi5h",
-          "name": "Spell Effect: Infectious Enthusiasm",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "VACvA5VRbddjt5s9",
-          "name": "Infectious Enthusiasm",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:echoing-weapon",
@@ -6478,31 +3754,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 323,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Thicket of Knives",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Thicket of Knives",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Thicket of Knives",
-          "sourceId": "8ecGfjmxnBY3WWao",
-          "name": "Spell Effect: Thicket of Knives",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "X56VdA98VedAfGTU",
-          "name": "Thicket of Knives",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:biting-words",
@@ -6598,53 +3850,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 1d4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 525,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "23cv1p49NFd0Onng",
-          "name": "Ash Cloud",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 668,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "23cv1p49NFd0Onng",
-          "name": "Ash Cloud",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:ignite-fireworks",
@@ -6698,31 +3904,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 2 The initial fire damage increases by 1d8, the sonic damage increases by 1d8, and the persistent fire damage a creature takes on a critical failure increases by 1d4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 381,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "3GXU3ugrwLv0P7AH",
-          "name": "Ignite Fireworks",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:flame-wisp",
@@ -6761,31 +3943,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 The damage increases by 1d4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 292,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Flame Wisp",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Flame Wisp",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Flame Wisp",
-          "sourceId": "ei9MIyZbIaP4AZmh",
-          "name": "Spell Effect: Flame Wisp",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "3q9tBMWsWQKlXPPJ",
-          "name": "Flame Wisp",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:extract-poison",
@@ -6823,31 +3981,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 727,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Extract Poison",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Extract Poison",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Extract Poison",
-          "sourceId": "fEhCbATDNlt6c1Ug",
-          "name": "Spell Effect: Extract Poison",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "CLThxp8Qf43IQ3Sb",
-          "name": "Extract Poison",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:summoners-precaution",
@@ -6888,31 +4022,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 147,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Sever Conduit",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Sever Conduit",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Sever Conduit",
-          "sourceId": "VCUz5EnBUJF07j1a",
-          "name": "Sever Conduit",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "cwXiKPkZrIupjwlQ",
-          "name": "Summoner's Precaution",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:umbral-extraction",
@@ -7037,53 +4147,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 937,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "fTK6ysisGhy3hRvz",
-          "name": "Rapid Adaptation",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1284,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Rapid Adaptation",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Rapid Adaptation",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Rapid Adaptation",
-          "sourceId": "fGK6zJ7mWz9D5QYo",
-          "name": "Spell Effect: Rapid Adaptation",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "fTK6ysisGhy3hRvz",
-          "name": "Rapid Adaptation",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:warriors-regret",
@@ -7210,53 +4274,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 The status bonus to Intimidation checks increases by 1 (to a maximum of a +4 status bonus for an 8th-rank spell), and the damage from the roar increases by 2d8."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 187,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Thundering Roar",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Thundering Roar",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Thundering Roar",
-          "sourceId": "6SAdjml3OZw0BZnn",
-          "name": "Thundering Roar",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "mMgLHTLHjjGa206q",
-          "name": "Thundering Dominance",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 258,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Thundering Dominance",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Thundering Dominance",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Thundering Dominance",
-          "sourceId": "81TfqzTfIqkQA4Dy",
-          "name": "Spell Effect: Thundering Dominance",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "mMgLHTLHjjGa206q",
-          "name": "Thundering Dominance",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:timely-tutor",
@@ -7415,53 +4433,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 83,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.That's My Number",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.That's My Number",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "That's My Number",
-          "sourceId": "kUME7DMhhHH6eIiH",
-          "name": "That's My Number",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "rDDYGY2ekZ1yVv7q",
-          "name": "Lucky Number",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 313,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Lucky Number",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Lucky Number",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Lucky Number",
-          "sourceId": "fvIlSZPwojixVvyZ",
-          "name": "Spell Effect: Lucky Number",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "rDDYGY2ekZ1yVv7q",
-          "name": "Lucky Number",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:feral-shades",
@@ -7553,31 +4525,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (4th) The duration increases to 1 hour."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 944,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Summoner's Visage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Summoner's Visage",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Summoner's Visage",
-          "sourceId": "0OC945wcZ4H4akLz",
-          "name": "Spell Effect: Summoner's Visage",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "vb2dFNtbofJ7A9BW",
-          "name": "Summoner's Visage",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:phantom-crowd",
@@ -7655,31 +4603,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 946,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mimic Undead",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mimic Undead",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Mimic Undead",
-          "sourceId": "xPVOvWNJORvm8EwP",
-          "name": "Spell Effect: Mimic Undead",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "xlRv8vCTHh1NeMpw",
-          "name": "Mimic Undead",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:sonata-span",
@@ -7757,119 +4681,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (4th) Your battle form is Large, and your attacks have 10-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 30 temporary HP; resistance 7 to acid, piercing, and slashing; attack modifier +16; damage bonus +9; and Athletics +16. Your motion sense has a range of 40 feet.\nHeightened (5th) Your battle form is Huge, and your attacks have 15-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 40 temporary HP; resistance 10 to acid, piercing, and slashing; attack modifier +18; damage bonus +6 and double damage dice; and Athletics +20. Your motion sense has a range of 60 feet.\nHeightened (8th) Your battle form is Gargantuan (20-foot- by-20-foot space), and your attacks have 20-foot reach. You must have enough space to expand into or the spell is lost. You instead gain 60 temporary HP; resistance 12 to acid, piercing, and slashing; attack modifier +28; damage bonus +13 and double damage dice; and Athletics +29. Your motion sense has a range of 60 feet."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1806,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-        "label": "Stunned 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stunned",
-          "sourceId": "dfCMdR4wnpbYNTix",
-          "name": "Stunned",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "0gdZrT9lwO17EIxc",
-          "name": "Ooze Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1872,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Paralyzed",
-          "sourceId": "6uEgoh53GbXuHpTF",
-          "name": "Paralyzed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "0gdZrT9lwO17EIxc",
-          "name": "Ooze Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2272,
-        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab",
-          "package": "pf2e",
-          "sourcePack": "bestiary-ability-glossary-srd",
-          "documentType": "Item",
-          "compendiumKey": "Grab",
-          "sourceId": "Tkd8sH4pwFIPzqTr",
-          "name": "Grab",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "0gdZrT9lwO17EIxc",
-          "name": "Ooze Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2645,
-        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Grab",
-          "package": "pf2e",
-          "sourcePack": "bestiary-ability-glossary-srd",
-          "documentType": "Item",
-          "compendiumKey": "Grab",
-          "sourceId": "Tkd8sH4pwFIPzqTr",
-          "name": "Grab",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "0gdZrT9lwO17EIxc",
-          "name": "Ooze Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2742,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Ooze Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Ooze Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Ooze Form",
-          "sourceId": "ciQhlQbQcarzRYzf",
-          "name": "Spell Effect: Ooze Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "0gdZrT9lwO17EIxc",
-          "name": "Ooze Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:claim-curse",
@@ -7952,31 +4764,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 408,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Immobilized",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Immobilized",
-          "sourceId": "eIcWbB5o3pP6OIMe",
-          "name": "Immobilized",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "87zLUuTMmZ9zc7gH",
-          "name": "Oneiric Mire",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:shadow-projectile",
@@ -8022,31 +4810,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 2 The damage increases by 1d8."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 614,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "8cuqRFB3mWBOgy61",
-          "name": "Shadow Projectile",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:positive-attunement",
@@ -8133,31 +4897,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 1 The precision damage increases by 1d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 878,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Organsight",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Organsight",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Organsight",
-          "sourceId": "Uj9VFXoVMH0mTTdt",
-          "name": "Spell Effect: Organsight",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "bH9cH9aDByY91l1d",
-          "name": "Organsight",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:warding-aggression",
@@ -8196,31 +4936,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 888,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Warding Aggression",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Warding Aggression",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Warding Aggression",
-          "sourceId": "7zJPd2BsFl82qFRV",
-          "name": "Spell Effect: Warding Aggression",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "CIjj9CU5ekeq1oLT",
-          "name": "Warding Aggression",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:roaring-applause",
@@ -8264,53 +4980,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": "Heightened (6th) You can target up to 10 creatures."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 561,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": "Slowed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "czO0wbT1i320gcu9",
-          "name": "Roaring Applause",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 903,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fascinated",
-          "sourceId": "AdPVz7rbaVSRxHFg",
-          "name": "Fascinated",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "czO0wbT1i320gcu9",
-          "name": "Roaring Applause",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:bottomless-stomach",
@@ -8394,53 +5064,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 145,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Fight with Fear",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Fight with Fear",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Fight with Fear",
-          "sourceId": "hi56uHG1aAb84Zzu",
-          "name": "Fight with Fear",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "fPlFRu4dp09qJs3K",
-          "name": "Mind of Menace",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 261,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mind of Menace",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mind of Menace",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Mind of Menace",
-          "sourceId": "7IUPl6dQUktXZh5t",
-          "name": "Spell Effect: Mind of Menace",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "fPlFRu4dp09qJs3K",
-          "name": "Mind of Menace",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:envenom-companion",
@@ -8478,53 +5102,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": "Heightened 3 The poison damage increases by 1d8 and the clumsy value imposed on a failed save increases by 1."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 377,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-        "label": "Clumsy 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Clumsy",
-          "sourceId": "i3OJZU2nk64Df3xm",
-          "name": "Clumsy",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "gWmLT5SkA0qH2mNE",
-          "name": "Envenom Companion",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 492,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Envenom Companion",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Envenom Companion",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Envenom Companion",
-          "sourceId": "zPGVOLz6xhsQN35C",
-          "name": "Spell Effect: Envenom Companion",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "gWmLT5SkA0qH2mNE",
-          "name": "Envenom Companion",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:sudden-recollection",
@@ -8601,53 +5179,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 298,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Defend Life",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Defend Life",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Defend Life",
-          "sourceId": "5V49l0K460CcvBOO",
-          "name": "Defend Life",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "HIY4XUJZKmFLAJTn",
-          "name": "Life Connection",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 410,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Life Connection",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Life Connection",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Life Connection",
-          "sourceId": "j9l4LDnAwg9xzYsy",
-          "name": "Spell Effect: Life Connection",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "HIY4XUJZKmFLAJTn",
-          "name": "Life Connection",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:distracting-chatter",
@@ -8687,31 +5219,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": "Heightened (7th) You can target up to five creatures."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 177,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JHntYF0SbaWKq7wR",
-          "name": "Distracting Chatter",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:blazing-dive",
@@ -8801,75 +5309,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": "Heightened (6th) You can target up to 10 creatures."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 308,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fatigued",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fatigued",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fatigued",
-          "sourceId": "HL2l2VRSaQHu9lUw",
-          "name": "Fatigued",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Llx0xKvtu8S4z6TI",
-          "name": "Day's Weight",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 364,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Llx0xKvtu8S4z6TI",
-          "name": "Day's Weight",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 600,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Llx0xKvtu8S4z6TI",
-          "name": "Day's Weight",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:wall-of-water",
@@ -9031,119 +5471,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 226,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Burrow",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Burrow",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Burrow",
-          "sourceId": "H6v1VgowHaKHnVlG",
-          "name": "Burrow",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "qJGW6BbIcU6sfA1d",
-          "name": "Time Jump",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 274,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Climb",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Climb",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Climb",
-          "sourceId": "pprgrYQ1QnIDGZiy",
-          "name": "Climb",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "qJGW6BbIcU6sfA1d",
-          "name": "Time Jump",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 321,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Fly",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Fly",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Fly",
-          "sourceId": "cS9nfDRGD83bNU1p",
-          "name": "Fly",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "qJGW6BbIcU6sfA1d",
-          "name": "Time Jump",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 369,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Swim",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Swim",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Swim",
-          "sourceId": "c8TGiZ48ygoSPofx",
-          "name": "Swim",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "qJGW6BbIcU6sfA1d",
-          "name": "Time Jump",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1018,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-        "label": "Stupefied 4",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stupefied",
-          "sourceId": "e1XGnhKNSQIm5IXg",
-          "name": "Stupefied",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qJGW6BbIcU6sfA1d",
-          "name": "Time Jump",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:impending-doom",
@@ -9193,141 +5521,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 2d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 712,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "rfFZKfeCSweFv7P3",
-          "name": "Impending Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 806,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "rfFZKfeCSweFv7P3",
-          "name": "Impending Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1031,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "rfFZKfeCSweFv7P3",
-          "name": "Impending Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1145,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-        "label": "Stunned 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stunned",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stunned",
-          "sourceId": "dfCMdR4wnpbYNTix",
-          "name": "Stunned",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "rfFZKfeCSweFv7P3",
-          "name": "Impending Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1354,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 3",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "rfFZKfeCSweFv7P3",
-          "name": "Impending Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1511,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Paralyzed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Paralyzed",
-          "sourceId": "6uEgoh53GbXuHpTF",
-          "name": "Paralyzed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "rfFZKfeCSweFv7P3",
-          "name": "Impending Doom",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:web-of-eyes",
@@ -9371,31 +5565,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 16,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Invisible",
-          "sourceId": "zJxUflt9np0q4yML",
-          "name": "Invisible",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "XQSPJHOf3TyfqvgS",
-          "name": "Web of Eyes",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:tortoise-and-the-hare",
@@ -9436,53 +5606,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 381,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": "Slowed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "1NLMPmyCB2MBoCuR",
-          "name": "Tortoise and the Hare",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 579,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Quickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Quickened",
-          "sourceId": "nlCjDvLMf2EkV2dl",
-          "name": "Quickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "1NLMPmyCB2MBoCuR",
-          "name": "Tortoise and the Hare",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:compel-true-name",
@@ -9576,31 +5700,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The initial damage increases by 2d6 and the secondary damage increases by 1d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 263,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Concealed",
-          "sourceId": "DmAIPqOBomZ7H95W",
-          "name": "Concealed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "5zeSxzDxMSr0wgSF",
-          "name": "Sanguine Mist",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:mirrors-misfortune",
@@ -9716,119 +5816,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (6th) The duration increases to 1 hour."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 514,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Long Jump",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Long Jump",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Long Jump",
-          "sourceId": "JUvAvruz7yRQXfz2",
-          "name": "Long Jump",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "DcmWrD0V5PWQQyDm",
-          "name": "Variable Gravity",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 567,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Leap",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Leap",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Leap",
-          "sourceId": "d5I6018Mci2SWokk",
-          "name": "Leap",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "DcmWrD0V5PWQQyDm",
-          "name": "Variable Gravity",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1065,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Encumbered",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Encumbered",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Encumbered",
-          "sourceId": "D5mg6Tc7Jzrj6ro7",
-          "name": "Encumbered",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "DcmWrD0V5PWQQyDm",
-          "name": "Variable Gravity",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1229,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Prone",
-          "sourceId": "j91X7x0XSomq8d60",
-          "name": "Prone",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "DcmWrD0V5PWQQyDm",
-          "name": "Variable Gravity",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1591,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Variable Gravity (High Gravity)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Variable Gravity (High Gravity)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Variable Gravity (High Gravity)",
-          "sourceId": "28NvrpZmELvyrHUt",
-          "name": "Spell Effect: Variable Gravity (High Gravity)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "DcmWrD0V5PWQQyDm",
-          "name": "Variable Gravity",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:winning-streak",
@@ -9865,31 +5853,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 114,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Quickened",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Quickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Quickened",
-          "sourceId": "nlCjDvLMf2EkV2dl",
-          "name": "Quickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "EGTTGI1pkmsVPqHp",
-          "name": "Winning Streak",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:ravenous-portal",
@@ -9927,31 +5891,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 157,
-        "uuid": "Compendium.pf2e.pathfinder-monster-core-2.Actor.Mimic",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.pathfinder-monster-core-2.Actor.Mimic",
-          "package": "pf2e",
-          "sourcePack": "pathfinder-monster-core-2",
-          "documentType": "Actor",
-          "compendiumKey": "Mimic",
-          "sourceId": "h74BX4Iw78gWewa4",
-          "name": "Mimic",
-          "type": "npc"
-        },
-        "owner": {
-          "sourceId": "ER1LOEgCLtmEKd05",
-          "name": "Ravenous Portal",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:magic-mailbox",
@@ -10159,229 +6099,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": "Heightened (6th) The damage for 40 fire damage, 50 acid damage, 60 electricity damage, and 35 poison damage each increase by 10. Roll 1d8 to determine the ray's color, using the results for 1-4 above and the results for 5-8 below.\n• Blue The ray has the effect of the Petrify spell. On a critical hit, the target is Clumsy 1 as long as it's Slowed by the flesh to stone effect.\n• Indigo (emotion, incapacitation, mental) The ray has the effect of the Confusion spell. On a critical hit, it has the effect of Warp Mind instead.\n• Violet The target is Slowed for 1 minute. It must also succeed at a will save or be teleported 120 feet directly away from you (if there isn't room for it to appear there, it appears in the nearest open space); this is a teleportation effect.\n• Intense Color The target is Dazzled until the end of your next turn, or Blinded if your attack roll was a critical hit. Roll again and add the effects of another color (rerolling results of 8)."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 824,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 904,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1390,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Petrify",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Petrify",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Petrify",
-          "sourceId": "znv4ECL7ZtuiagtA",
-          "name": "Petrify",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1477,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-        "label": "Clumsy 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Clumsy",
-          "sourceId": "i3OJZU2nk64Df3xm",
-          "name": "Clumsy",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1553,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1739,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Confusion",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Confusion",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Confusion",
-          "sourceId": "LiGbewa9pO0yjbsY",
-          "name": "Confusion",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1835,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Warp Mind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Warp Mind",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Warp Mind",
-          "sourceId": "8kJbiBEjMWG4VUjs",
-          "name": "Warp Mind",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1940,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Slowed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Slowed",
-          "sourceId": "xYTAsEpcJE1Ccni3",
-          "name": "Slowed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2259,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2346,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Hb8GdAhP0zBCv3zU",
-          "name": "Chromatic Ray",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:ocular-overload",
@@ -10424,31 +6142,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 205,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Overload Vision",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Overload Vision",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Overload Vision",
-          "sourceId": "ZJcc7KGOEsYvN6SE",
-          "name": "Overload Vision",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "HvBpSeUDg0KcK2Hg",
-          "name": "Ocular Overload",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:umbral-graft",
@@ -10530,119 +6224,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 414,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Perform",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Perform",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Perform",
-          "sourceId": "EEDElIyin4z60PXx",
-          "name": "Perform",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "mUz3wqbMQ5JQ06M5",
-          "name": "Infectious Melody",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1260,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Undetected",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Undetected",
-          "sourceId": "VRSef5y1LmL2Hkjf",
-          "name": "Undetected",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "mUz3wqbMQ5JQ06M5",
-          "name": "Infectious Melody",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1322,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Melody (Success)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Melody (Success)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Infectious Melody (Success)",
-          "sourceId": "i9YITDcrq1nKjV5l",
-          "name": "Spell Effect: Infectious Melody (Success)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "mUz3wqbMQ5JQ06M5",
-          "name": "Infectious Melody",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1487,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Melody (Failure)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Melody (Failure)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Infectious Melody (Failure)",
-          "sourceId": "yl0Pm78RXW5R2k50",
-          "name": "Spell Effect: Infectious Melody (Failure)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "mUz3wqbMQ5JQ06M5",
-          "name": "Infectious Melody",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1659,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Melody (Critical Failure)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Infectious Melody (Critical Failure)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Infectious Melody (Critical Failure)",
-          "sourceId": "XDqtLdHnjLVhtqAW",
-          "name": "Spell Effect: Infectious Melody (Critical Failure)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "mUz3wqbMQ5JQ06M5",
-          "name": "Infectious Melody",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:chromatic-armor",
@@ -10684,53 +6266,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 3 The resistance is increased by 5."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 295,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "NBSBFHxBm88qxQUy",
-          "name": "Chromatic Armor",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1380,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Chromatic Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Chromatic Armor",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Chromatic Armor",
-          "sourceId": "DHYWmMGmKOpRSqza",
-          "name": "Spell Effect: Chromatic Armor",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "NBSBFHxBm88qxQUy",
-          "name": "Chromatic Armor",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:pernicious-poltergeist",
@@ -10771,53 +6307,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 The damage of the deathly assault effect increases by 1d10, and the damage of the telekinetic storm effect increases by 1d8."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 270,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Invisible",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Invisible",
-          "sourceId": "zJxUflt9np0q4yML",
-          "name": "Invisible",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "PtX16vbWzDehj8qc",
-          "name": "Pernicious Poltergeist",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1018,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "PtX16vbWzDehj8qc",
-          "name": "Pernicious Poltergeist",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:painful-vibrations",
@@ -10865,75 +6355,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 2d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 384,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qTzvVnAMWL05VitC",
-          "name": "Painful Vibrations",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 456,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Deafened",
-          "sourceId": "9PR9y0bi4JPKnHPR",
-          "name": "Deafened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qTzvVnAMWL05VitC",
-          "name": "Painful Vibrations",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 597,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "qTzvVnAMWL05VitC",
-          "name": "Painful Vibrations",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:fey-form",
@@ -10972,53 +6394,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2965,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Ghost Touch",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Ghost Touch",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Ghost Touch",
-          "sourceId": "JQdwHECogcTzdd8R",
-          "name": "Ghost Touch",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "Qu4IThrk1wpONwjT",
-          "name": "Fey Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3061,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fey Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Fey Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Fey Form",
-          "sourceId": "jeH78c7kyk376PKS",
-          "name": "Spell Effect: Fey Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "Qu4IThrk1wpONwjT",
-          "name": "Fey Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:replicate",
@@ -11133,31 +6509,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 376,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Blessing of Defiance",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Blessing of Defiance",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Blessing of Defiance",
-          "sourceId": "FD9Ce5pqcZYstcMI",
-          "name": "Spell Effect: Blessing of Defiance",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "1b55SgYTV65JvmQd",
-          "name": "Blessing of Defiance",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:rip-the-spirit",
@@ -11204,31 +6556,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The amount of damage increases by 1d6, or by 2d6 for the 2-action version."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 186,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "1bw6XJMOERcbC5Iq",
-          "name": "Rip the Spirit",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:rewinding-step",
@@ -11444,31 +6772,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1581,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mantle of the Frozen Heart",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mantle of the Frozen Heart",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Mantle of the Frozen Heart",
-          "sourceId": "K8NWxqtnrSg26KPJ",
-          "name": "Spell Effect: Mantle of the Frozen Heart",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "CcXtbTxtdV9MKQfu",
-          "name": "Mantle of the Frozen Heart",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:mirror-malefactors",
@@ -11516,31 +6820,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage for both the initial effect and on subsequent turns increases by 1d8."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 377,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "CmZCq4htcZ6W0TKk",
-          "name": "Mirror Malefactors",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:portrait-of-the-artist",
@@ -11674,53 +6954,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "will save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 581,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Indifferent",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Indifferent",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Indifferent",
-          "sourceId": "fuG8dgthlDWfWjIA",
-          "name": "Indifferent",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "ftZ750SD2iIJKIy3",
-          "name": "Glimmer of Charm",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1078,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Helpful",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Helpful",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Helpful",
-          "sourceId": "v44P3WUcU1j0115l",
-          "name": "Helpful",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "ftZ750SD2iIJKIy3",
-          "name": "Glimmer of Charm",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:aberrant-form",
@@ -11758,31 +6992,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (6th) Your battle form is Huge, and the reach of your attacks increases by 5 feet. You must have space to expand, or the spell is lost. You instead gain AC = 21 + your level, 26 temporary HP, attack modifier +22, damage bonus +13, and Athletics +23."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2464,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aberrant Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Aberrant Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Aberrant Form",
-          "sourceId": "OH3sdHE6xWwOjq9v",
-          "name": "Spell Effect: Aberrant Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "Fu8Ml47ZfXpSYe7E",
-          "name": "Aberrant Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:geyser",
@@ -11876,31 +7086,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1459,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mantle of the Magma Heart",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Mantle of the Magma Heart",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Mantle of the Magma Heart",
-          "sourceId": "34yP4e2e6jpY1Bsi",
-          "name": "Spell Effect: Mantle of the Magma Heart",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "j2kfNBFpLa0JjVr8",
-          "name": "Mantle of the Magma Heart",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:summon-anarch",
@@ -11983,75 +7169,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 2 The damage increases by 2d8."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 651,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": "Doomed 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "N9KjnGyVMKgqKcCw",
-          "name": "Bandit's Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 782,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": "Doomed 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "N9KjnGyVMKgqKcCw",
-          "name": "Bandit's Doom",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 924,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": "Doomed 3",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "N9KjnGyVMKgqKcCw",
-          "name": "Bandit's Doom",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:blazing-fissure",
@@ -12102,31 +7220,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 1d6 bludgeoning and 1d6 fire"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 419,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Prone",
-          "sourceId": "j91X7x0XSomq8d60",
-          "name": "Prone",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "OYOCWWefZPEfp8Nl",
-          "name": "Blazing Fissure",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:forceful-hand",
@@ -12168,31 +7262,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (6th) The hand has AC 27 and 60 Hit Points. When you Cast this Spell, you can choose to replace the hand's Manipulate or Attack option with Swat.\n• Swat The hand Flies to an enemy of your choice within range and attempts to Push that enemy, using your spell attack roll instead of an Athletics check to determine the results of the Push.\nHeightened (7th) The hand has AC 30 and 70 Hit Points, and it is Large. When you Cast this Spell, you can choose to replace the hand's Manipulate or Attack option with Grasp or Swat.\n• Grasp The hand Flies to an enemy of your choice within range and attempts to Grapple that enemy, using your spell attack roll instead of an Athletics check to determine the results of the Grapple.\nHeightened (8th) The hand has AC 32 and 80 Hit Points, and it is Large. When you Cast this Spell, you can choose to replace the hand's Manipulate or Attack option with Grasp, Punch, or Swat.\n• Punch The hand Flies to an enemy of your choice within range and attempts to Strike that enemy with crushing force. The hand's Strikes use your melee spell attack modifiers and deal 7d8 force damage. The hand's Strikes don't use or contribute to your multiple attack penalty.\nHeightened (9th) The hand has AC 35 and 90 Hit Points, and it is Large. When you Cast this Spell, you can choose to replace the hand's Manipulate or Attack option with Crush, Grasp, Punch, or Swat.\n• Crush If the hand doesn't have a target grabbed, it Flies to an enemy of your choice within range and attempts to Strike that enemy with deadly crushing force. The hand's Strikes are melee spell attacks that deal 6d8 force damage. The hand's Strikes don't take or contribute to your multiple attack penalty. On a successful Strike, the target is grabbed by the hand until the end of your next turn, unless the hand moves or the target successfully Escapes against your spell DC. However, if the hand has a target grabbed when it uses Crush, it instead Constricts the target, dealing 6d8 force damage with a basic Fortitude save."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 4037,
-        "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Constrict",
-        "label": "Constricts",
-        "target": {
-          "uuid": "Compendium.pf2e.bestiary-ability-glossary-srd.Item.Constrict",
-          "package": "pf2e",
-          "sourcePack": "bestiary-ability-glossary-srd",
-          "documentType": "Item",
-          "compendiumKey": "Constrict",
-          "sourceId": "g26YiEIfSHCpLocV",
-          "name": "Constrict",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "rMGkk23qWvxTmgA8",
-          "name": "Forceful Hand",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:blink-charge",
@@ -12233,31 +7303,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened 2 The spell's range increases by 60 feet, and any force damage the spell deals is increased by 1d8 force.\nSpell Effect: Blink Charge"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1058,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Blink Charge",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Blink Charge",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Blink Charge",
-          "sourceId": "lUL4nvIVYqFOwxAZ",
-          "name": "Spell Effect: Blink Charge",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "TDaMnCtZ72uyYrz8",
-          "name": "Blink Charge",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:repelling-pulse",
@@ -12305,31 +7351,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 2 The force damage increases by 2d10, and the distance the target is moved on a failure and critical failure increases by 5 feet."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 569,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Prone",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Prone",
-          "sourceId": "j91X7x0XSomq8d60",
-          "name": "Prone",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "TLqMFgCewxuricJw",
-          "name": "Repelling Pulse",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:temporary-glyph",
@@ -12460,75 +7482,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 2d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 553,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-        "label": "Clumsy 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Clumsy",
-          "sourceId": "i3OJZU2nk64Df3xm",
-          "name": "Clumsy",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "6lO6uMQxbqmYho0e",
-          "name": "Necrotize",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 837,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Necrotize (Legs)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Necrotize (Legs)",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Necrotize (Legs)",
-          "sourceId": "ndj0TpLxyzbyzcm4",
-          "name": "Spell Effect: Necrotize (Legs)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "6lO6uMQxbqmYho0e",
-          "name": "Necrotize",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1009,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": "Enfeebled 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "6lO6uMQxbqmYho0e",
-          "name": "Necrotize",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:daemon-form",
@@ -12568,31 +7522,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3312,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Daemon Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Daemon Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Daemon Form",
-          "sourceId": "IKdTcUwGtnkvrCed",
-          "name": "Spell Effect: Daemon Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "aSDfGcUOUVGU5m1g",
-          "name": "Daemon Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:demon-form",
@@ -12632,31 +7562,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3002,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Demon Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Demon Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Demon Form",
-          "sourceId": "Ptnncwp118gIvmvG",
-          "name": "Spell Effect: Demon Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "dKbv80rlAWVpz83C",
-          "name": "Demon Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:devil-form",
@@ -12696,31 +7602,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3512,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Devil Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Devil Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Devil Form",
-          "sourceId": "83md7JyfA5WnWaOZ",
-          "name": "Spell Effect: Devil Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "dR53f0p15EW7D0xC",
-          "name": "Devil Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:chromatic-image",
@@ -12763,53 +7645,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 189,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mirror Image",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mirror Image",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mirror Image",
-          "sourceId": "j8vIoIEWElvpwkcI",
-          "name": "Mirror Image",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "FgRpddPORsRFwNoX",
-          "name": "Chromatic Image",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 790,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "FgRpddPORsRFwNoX",
-          "name": "Chromatic Image",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:catch-your-name",
@@ -12948,53 +7784,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The bludgeoning damage increase by 2d6."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 925,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "OdqM06M0wDUqZWiR",
-          "name": "Cast into Time",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1108,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-        "label": "Sickened 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Sickened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Sickened",
-          "sourceId": "fesd1n5eVhpCSS18",
-          "name": "Sickened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "OdqM06M0wDUqZWiR",
-          "name": "Cast into Time",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:unexpected-transposition",
@@ -13118,97 +7908,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (9th) The resistances increase to 10 each."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 76,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Chromatic Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Chromatic Armor",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Chromatic Armor",
-          "sourceId": "NBSBFHxBm88qxQUy",
-          "name": "Chromatic Armor",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "4nEY2BcV85wavKLO",
-          "name": "Prismatic Armor",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 311,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "4nEY2BcV85wavKLO",
-          "name": "Prismatic Armor",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 374,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "4nEY2BcV85wavKLO",
-          "name": "Prismatic Armor",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 433,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Prismatic Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Prismatic Armor",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Prismatic Armor",
-          "sourceId": "8gqb5FMTaArsKdWB",
-          "name": "Spell Effect: Prismatic Armor",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "4nEY2BcV85wavKLO",
-          "name": "Prismatic Armor",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:corrosive-body",
@@ -13254,53 +7954,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened (9th) Creatures touching you take 4d6 acid damage instead of 3d6, your unarmed attacks deal 2d4 additional acid damage, and you gain 5d6 Temporary Hit Points temporary Hit Points."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 709,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Acid Splash",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Acid Splash",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Acid Splash",
-          "sourceId": "gISYsBFby1TiXfBt",
-          "name": "Acid Splash",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "9aFg4EuOBVz0i3Lb",
-          "name": "Corrosive Body",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 872,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Corrosive Body",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Corrosive Body",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Corrosive Body",
-          "sourceId": "LT5AV9vSN3T9x3J9",
-          "name": "Spell Effect: Corrosive Body",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "9aFg4EuOBVz0i3Lb",
-          "name": "Corrosive Body",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:angel-form",
@@ -13339,53 +7993,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (9th) Your battle form is Large. You must have space to expand, or the spell is lost. You instead gain 60 temporary Hit Points, weakness 15 to unholy, attack modifier +30, damage bonus +20, and Athletics +33."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1928,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Deafened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Deafened",
-          "sourceId": "9PR9y0bi4JPKnHPR",
-          "name": "Deafened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "E3zIZ4pjlOuWeGRz",
-          "name": "Angel Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2814,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Angel Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Angel Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Angel Form",
-          "sourceId": "Fi66csT9OiBGmPZ0",
-          "name": "Spell Effect: Angel Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "E3zIZ4pjlOuWeGRz",
-          "name": "Angel Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:inexhaustible-cynicism",
@@ -13474,75 +8082,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1548,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-        "label": "Stupefied 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stupefied",
-          "sourceId": "e1XGnhKNSQIm5IXg",
-          "name": "Stupefied",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "IHUs4qn27RrdFQ5Y",
-          "name": "Cosmic Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2070,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Dazzled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Dazzled",
-          "sourceId": "TkIyaNPgTZFBCCuh",
-          "name": "Dazzled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "IHUs4qn27RrdFQ5Y",
-          "name": "Cosmic Form",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2156,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Cosmic Form",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Cosmic Form",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Cosmic Form",
-          "sourceId": "tfdDpf9xSWgQer5g",
-          "name": "Spell Effect: Cosmic Form",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "IHUs4qn27RrdFQ5Y",
-          "name": "Cosmic Form",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:tempest-of-shades",
@@ -13585,141 +8125,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "fortitude save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 568,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JLdbyGKhjwAAoRLs",
-          "name": "Tempest of Shades",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 679,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JLdbyGKhjwAAoRLs",
-          "name": "Tempest of Shades",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 799,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 3",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JLdbyGKhjwAAoRLs",
-          "name": "Tempest of Shades",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1291,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JLdbyGKhjwAAoRLs",
-          "name": "Tempest of Shades",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1408,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 3",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JLdbyGKhjwAAoRLs",
-          "name": "Tempest of Shades",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1558,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fleeing",
-          "sourceId": "sDPxOjQ9kx2RZE8D",
-          "name": "Fleeing",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JLdbyGKhjwAAoRLs",
-          "name": "Tempest of Shades",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:frigid-flurry",
@@ -13819,31 +8225,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened (9th) The initial damage increases by 2d8, and the damage to a creature that ends its turn in the area increases by 1d8 (4d8)."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 668,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Concealed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Concealed",
-          "sourceId": "DmAIPqOBomZ7H95W",
-          "name": "Concealed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "VTb0yI6P1bLkzuRr",
-          "name": "Shadow Raid",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:deitys-strike",
@@ -14016,53 +8398,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The damage increases by 1d10."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 440,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "fBoiPXmcIO50OFFR",
-          "name": "Boil Blood",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 582,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-        "label": "Drained 3",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Drained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Drained",
-          "sourceId": "4D2KBtexWXa6oUMR",
-          "name": "Drained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "fBoiPXmcIO50OFFR",
-          "name": "Boil Blood",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:divine-armageddon",
@@ -14145,74 +8481,6 @@ export const PATHFINDER_2E_EXHAUSTIVE_22_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 479,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Force Barrage",
-          "sourceId": "gKKqvLohtrSJj3BM",
-          "name": "Force Barrage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "JAaETUBg0xlttpCH",
-          "name": "Summon Archmage",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 560,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Shield",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Shield",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Shield",
-          "sourceId": "TVKNbcgTee19PXZR",
-          "name": "Shield",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "JAaETUBg0xlttpCH",
-          "name": "Summon Archmage",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1262,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-        "label": "Stupefied 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Stupefied",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Stupefied",
-          "sourceId": "e1XGnhKNSQIm5IXg",
-          "name": "Stupefied",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "JAaETUBg0xlttpCH",
-          "name": "Summon Archmage",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   }
 ]

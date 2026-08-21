@@ -42,75 +42,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened 1 The poison damage dealt by Toxic Prophecy increases by 1d4."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 418,
-        "uuid": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.feats-srd.Item.Dubious Knowledge",
-          "package": "pf2e",
-          "sourcePack": "feats-srd",
-          "documentType": "Item",
-          "compendiumKey": "Dubious Knowledge",
-          "sourceId": "1Bt7uCW2WI4sM84P",
-          "name": "Dubious Knowledge",
-          "type": "feat"
-        },
-        "owner": {
-          "sourceId": "h2DLv8TQV0Z83tQp",
-          "name": "Crown of Prophets",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 516,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Recall Knowledge",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Recall Knowledge",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Recall Knowledge",
-          "sourceId": "1OagaWtBpVXExToo",
-          "name": "Recall Knowledge",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "h2DLv8TQV0Z83tQp",
-          "name": "Crown of Prophets",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 872,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Crown of Prophets",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Crown of Prophets",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Crown of Prophets",
-          "sourceId": "C2jiokGoehvLu0fi",
-          "name": "Spell Effect: Crown of Prophets",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "h2DLv8TQV0Z83tQp",
-          "name": "Crown of Prophets",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:gift-of-the-anemos",
@@ -147,53 +79,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "reflex save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 206,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "x2Gf3lt64eoMocMd",
-          "name": "Gift of the Anemos",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 350,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Shove",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Shove",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Shove",
-          "sourceId": "7blmbDrQFNfdT731",
-          "name": "Shove",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "x2Gf3lt64eoMocMd",
-          "name": "Gift of the Anemos",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:wish-market",
@@ -228,30 +114,6 @@ export const PATHFINDER_2E_EXHAUSTIVE_26_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": "Heightened (4th) The status bonus increases to +2.\nHeightened (7th) The status bonus increases to +3."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 414,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Recall Knowledge",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Recall Knowledge",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Recall Knowledge",
-          "sourceId": "1OagaWtBpVXExToo",
-          "name": "Recall Knowledge",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "cYW9M2yE16dTTnCF",
-          "name": "Wish Market",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   }
 ]

@@ -39,53 +39,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 759,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Planar Palace",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Planar Palace",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Planar Palace",
-          "sourceId": "vPWMEyVTreMOoFnm",
-          "name": "Planar Palace",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "KPDHmmjJiw7PhTYF",
-          "name": "Resplendent Mansion",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 895,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Alarm",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Alarm",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Alarm",
-          "sourceId": "4WAib3GichxLjp5p",
-          "name": "Alarm",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "KPDHmmjJiw7PhTYF",
-          "name": "Resplendent Mansion",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:natures-enmity",
@@ -124,31 +78,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": "reflex save",
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 559,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Off-Guard",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Off-Guard",
-          "sourceId": "AJh5ex99aV6VTggg",
-          "name": "Off-Guard",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Tc5NLaMu71vrGTJQ",
-          "name": "Nature's Enmity",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:weapon-of-judgment",
@@ -196,53 +126,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_SPELL_ORIGINALS: readonly Pathfinder2eO
         }
       ],
       "heightening": "Heightened (10th) The damage increases by 1d10."
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 870,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Fireball",
-          "sourceId": "sxQZ6yqTn0czJxVd",
-          "name": "Fireball",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "ZqmP9gijBmK7y8Xy",
-          "name": "Weapon of Judgment",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 923,
-        "uuid": "Compendium.pf2e.feats-srd.Item.Whirlwind Strike",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.feats-srd.Item.Whirlwind Strike",
-          "package": "pf2e",
-          "sourcePack": "feats-srd",
-          "documentType": "Item",
-          "compendiumKey": "Whirlwind Strike",
-          "sourceId": "AGydz5DKJ2KHSO4S",
-          "name": "Whirlwind Strike",
-          "type": "feat"
-        },
-        "owner": {
-          "sourceId": "ZqmP9gijBmK7y8Xy",
-          "name": "Weapon of Judgment",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:spell:spells-srd:primal-herd",
@@ -280,52 +164,6 @@ export const PATHFINDER_2E_EXHAUSTIVE_12_SPELL_ORIGINALS: readonly Pathfinder2eO
       "defense": null,
       "damage": [],
       "heightening": ""
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 932,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Enfeebled",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Enfeebled",
-          "sourceId": "MIRkyAjyBeXivMa7",
-          "name": "Enfeebled",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "pmP8HhXvvEKP3LqU",
-          "name": "Primal Herd",
-          "type": "spell"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1908,
-        "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Primal Herd",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spell-effects.Item.Spell Effect: Primal Herd",
-          "package": "pf2e",
-          "sourcePack": "spell-effects",
-          "documentType": "Item",
-          "compendiumKey": "Spell Effect: Primal Herd",
-          "sourceId": "gOeu0lPtKQcLh1Xz",
-          "name": "Spell Effect: Primal Herd",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "pmP8HhXvvEKP3LqU",
-          "name": "Primal Herd",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   }
 ]

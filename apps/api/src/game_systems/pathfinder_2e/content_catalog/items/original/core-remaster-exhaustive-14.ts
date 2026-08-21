@@ -40,75 +40,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d8",
         "type": "slashing"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 32,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Flaming (Greater)",
-        "label": "Greater Flaming",
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Flaming (Greater)",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Flaming (Greater)",
-          "sourceId": "RSZwUlCzUX7Nb4UA",
-          "name": "Flaming (Greater)",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "pvxRcuBexbFawjCg",
-          "name": "Searing Blade (Greater)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 473,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Ignition",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Ignition",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Ignition",
-          "sourceId": "6DfLZBl8wKIV03Iq",
-          "name": "Ignition",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "pvxRcuBexbFawjCg",
-          "name": "Searing Blade (Greater)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1105,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Aura: Searing Blade (Greater)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Aura: Searing Blade (Greater)",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Aura: Searing Blade (Greater)",
-          "sourceId": "4XO5mkjnh5riwZPM",
-          "name": "Aura: Searing Blade (Greater)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "pvxRcuBexbFawjCg",
-          "name": "Searing Blade (Greater)",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:magic-wand-8th-rank-spell",
@@ -185,53 +117,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "wand",
       "group": "consumable"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 262,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Force Barrage",
-          "sourceId": "gKKqvLohtrSJj3BM",
-          "name": "Force Barrage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "WeX7rAO2kAyP0QnG",
-          "name": "Wand of Shardstorm (7th-Rank Spell)",
-          "type": "consumable"
-        }
-      },
-      {
-        "syntax": "UUID_VALUE",
-        "sourcePath": "/system/spell/_stats/compendiumSource",
-        "sourceIndex": 0,
-        "uuid": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.gKKqvLohtrSJj3BM",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "gKKqvLohtrSJj3BM",
-          "sourceId": "gKKqvLohtrSJj3BM",
-          "name": "Force Barrage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "7HDVAJnChCzP8aCE",
-          "name": "Force Barrage",
-          "type": "spell"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:bracers-of-strength",
@@ -266,119 +152,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "wornbracers",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 177,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Escape",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Escape",
-          "sourceId": "SkZAQRkLLkmBQNB9",
-          "name": "Escape",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "WOiCJSS2MicKCMVs",
-          "name": "Bracers of Strength",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 229,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Force Open",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Force Open",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Force Open",
-          "sourceId": "SjmKHgI7a5Z9JzBx",
-          "name": "Force Open",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "WOiCJSS2MicKCMVs",
-          "name": "Bracers of Strength",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 537,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Grapple",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Grapple",
-          "sourceId": "PMbdMWc2QroouFGD",
-          "name": "Grapple",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "WOiCJSS2MicKCMVs",
-          "name": "Bracers of Strength",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 900,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Grabbed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Grabbed",
-          "sourceId": "kWc1fhmv9LBiTuei",
-          "name": "Grabbed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "WOiCJSS2MicKCMVs",
-          "name": "Bracers of Strength",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 954,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Restrained",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Restrained",
-          "sourceId": "VcDeM8A5oI6VqhbM",
-          "name": "Restrained",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "WOiCJSS2MicKCMVs",
-          "name": "Bracers of Strength",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:accolade-robe-greater",
@@ -592,141 +366,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worn",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 521,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Bane",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Bane",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Bane",
-          "sourceId": "7ZinJNzxq0XF0oMx",
-          "name": "Bane",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "C7FeT7eVuwRnLhJy",
-          "name": "Symbol of Conflict (Major)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 566,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Bless",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Bless",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Bless",
-          "sourceId": "XSujb7EsSwKl19Uu",
-          "name": "Bless",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "C7FeT7eVuwRnLhJy",
-          "name": "Symbol of Conflict (Major)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 612,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Divine Wrath",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Divine Wrath",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Divine Wrath",
-          "sourceId": "hVU9msO9yGkxKZ3J",
-          "name": "Divine Wrath",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "C7FeT7eVuwRnLhJy",
-          "name": "Symbol of Conflict (Major)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 668,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Cleanse Affliction",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Cleanse Affliction",
-          "sourceId": "SUKaxVZW2TlM8lu0",
-          "name": "Cleanse Affliction",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "C7FeT7eVuwRnLhJy",
-          "name": "Symbol of Conflict (Major)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 740,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Summon Celestial",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Summon Celestial",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Summon Celestial",
-          "sourceId": "lTDixrrNKaCvLKwX",
-          "name": "Summon Celestial",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "C7FeT7eVuwRnLhJy",
-          "name": "Symbol of Conflict (Major)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 838,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Summon Fiend",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Summon Fiend",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Summon Fiend",
-          "sourceId": "29ytKctjg7qSW2ff",
-          "name": "Summon Fiend",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "C7FeT7eVuwRnLhJy",
-          "name": "Symbol of Conflict (Major)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:alloy-orb-exquisite-high-grade",
@@ -761,31 +401,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "affixed-to-a-metal-weapon",
       "category": "other",
       "group": "consumable"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 432,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Alloy Orb (Exquisite High-Grade)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Alloy Orb (Exquisite High-Grade)",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Alloy Orb (Exquisite High-Grade)",
-          "sourceId": "o6GSF420m6cdTkZo",
-          "name": "Effect: Alloy Orb (Exquisite High-Grade)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "ECjche2BfpWHZ3vU",
-          "name": "Alloy Orb (Exquisite High-Grade)",
-          "type": "consumable"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:storm-flash-greater",
@@ -830,31 +446,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d6",
         "type": "piercing"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 467,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Lightning Bolt",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Lightning Bolt",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Lightning Bolt",
-          "sourceId": "9AAkVUCwF6WVNNY2",
-          "name": "Lightning Bolt",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "i9mxfSIBTTOwsSlx",
-          "name": "Storm Flash (Greater)",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:living-mantle-greater",
@@ -926,31 +518,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "",
       "category": "shield",
       "group": "buckler"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 122,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Spellguard Shield",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Spellguard Shield",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Spellguard Shield",
-          "sourceId": "OqDAx4HJ39ojVtvg",
-          "name": "Spellguard Shield",
-          "type": "shield"
-        },
-        "owner": {
-          "sourceId": "La9qYc5NHsg423Jb",
-          "name": "Reflecting Shield",
-          "type": "shield"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:brilliant-greater",
@@ -986,31 +554,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "etched-onto-a-weapon",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 301,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Blinded",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Blinded",
-          "sourceId": "XgEqL1kFApUbl5Z2",
-          "name": "Blinded",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "n8MonEa4ZBdvEovc",
-          "name": "Brilliant (Greater)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:oil-of-unlife-major",
@@ -1121,53 +665,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worncirclet",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 473,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Crown of Intellect",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Crown of Intellect",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Crown of Intellect",
-          "sourceId": "1FKDq4Gfev5GObDT",
-          "name": "Crown of Intellect",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "QZaOQ8luuxWXpFqJ",
-          "name": "Genius Diadem",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1453,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Never Mind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Never Mind",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Never Mind",
-          "sourceId": "5BbU1V6wGSGbrmRD",
-          "name": "Never Mind",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "QZaOQ8luuxWXpFqJ",
-          "name": "Genius Diadem",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:maestros-instrument-greater",
@@ -1203,31 +701,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-two-hands",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 473,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Charm",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Charm",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Charm",
-          "sourceId": "vLA0q0WOK2YPuJs6",
-          "name": "Charm",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "rlDIbl6EQYXQpWVs",
-          "name": "Maestro's Instrument (Greater)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:obsidian-goggles-major",
@@ -1297,31 +771,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "",
       "category": "shield",
       "group": "steel-shield"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 192,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Disintegrate",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Disintegrate",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Disintegrate",
-          "sourceId": "r7ihOgKv19eJQnik",
-          "name": "Disintegrate",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "SUbYk6B1iPoGyyjh",
-          "name": "Indestructible Shield",
-          "type": "shield"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:potion-of-undetectability",
@@ -1360,97 +810,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "potion",
       "group": "consumable"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 208,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Hidden Mind",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Hidden Mind",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Hidden Mind",
-          "sourceId": "C2w3YfBKjIRS07DP",
-          "name": "Hidden Mind",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "UblsH5cGyUdXypek",
-          "name": "Potion of Undetectability",
-          "type": "consumable"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 345,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Invisibility",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Invisibility",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Invisibility",
-          "sourceId": "XXqE1eY3w3z6xJCB",
-          "name": "Invisibility",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "UblsH5cGyUdXypek",
-          "name": "Potion of Undetectability",
-          "type": "consumable"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 427,
-        "uuid": "Compendium.pf2e.spells-srd.Item.See the Unseen",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.See the Unseen",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "See the Unseen",
-          "sourceId": "jwK43yKsHTkJQvQ9",
-          "name": "See the Unseen",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "UblsH5cGyUdXypek",
-          "name": "Potion of Undetectability",
-          "type": "consumable"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 537,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Truesight",
-          "sourceId": "uqlxMQQeSGWEVjki",
-          "name": "Truesight",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "UblsH5cGyUdXypek",
-          "name": "Potion of Undetectability",
-          "type": "consumable"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:fortification-greater",
@@ -1520,31 +880,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worngarment",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1304,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mending",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mending",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mending",
-          "sourceId": "dINQzhqGmIsqGMUY",
-          "name": "Mending",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "V9iVPhIk980GT6A2",
-          "name": "Inexplicable Apparatus",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:thurible-of-revelation-greater",
@@ -1580,75 +916,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 850,
-        "uuid": "Compendium.pf2e.spells-srd.Item.See the Unseen",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.See the Unseen",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "See the Unseen",
-          "sourceId": "jwK43yKsHTkJQvQ9",
-          "name": "See the Unseen",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "VBCk7JXGsuG0cug1",
-          "name": "Thurible of Revelation (Greater)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 908,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Truesight",
-          "sourceId": "uqlxMQQeSGWEVjki",
-          "name": "Truesight",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "VBCk7JXGsuG0cug1",
-          "name": "Thurible of Revelation (Greater)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1006,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Thurible of Revelation",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Thurible of Revelation",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Thurible of Revelation",
-          "sourceId": "lO95TwgihBdTilAB",
-          "name": "Effect: Thurible of Revelation",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "VBCk7JXGsuG0cug1",
-          "name": "Thurible of Revelation (Greater)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:possibility-tome",
@@ -1717,53 +985,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-two-hands",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 231,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Poison",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Poison",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Treat Poison",
-          "sourceId": "KjoCEEmPGTeFE4hh",
-          "name": "Treat Poison",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "wYpWQCD2IYqDtqpc",
-          "name": "Marvelous Medicines (Greater)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 287,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Disease",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Treat Disease",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Treat Disease",
-          "sourceId": "TC7OcDa7JlWbqMaN",
-          "name": "Treat Disease",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "wYpWQCD2IYqDtqpc",
-          "name": "Marvelous Medicines (Greater)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:reinforcing-rune-supreme",
@@ -1833,53 +1055,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worn",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 426,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Detect Magic",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Detect Magic",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Detect Magic",
-          "sourceId": "gpzpAAAJ1Lza2JVl",
-          "name": "Detect Magic",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "7MTjAlCVVLsNFo7w",
-          "name": "Third Eye",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1020,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Truesight",
-          "sourceId": "uqlxMQQeSGWEVjki",
-          "name": "Truesight",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "7MTjAlCVVLsNFo7w",
-          "name": "Third Eye",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:sturdy-shield-supreme",
@@ -1990,31 +1166,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-two-hands",
       "category": "oil",
       "group": "consumable"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 401,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Oil of Potency",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Oil of Potency",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Oil of Potency",
-          "sourceId": "1OLlwExJz7ii2Lu2",
-          "name": "Effect: Oil of Potency",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "B9NVsgy2jvd6sJID",
-          "name": "Oil of Potency (Major)",
-          "type": "consumable"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:lions-armor-greater",
@@ -2054,75 +1206,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "checkPenalty": -3,
         "speedPenaltyFeet": -10
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 519,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-        "label": "Frightened 1",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Frightened",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Frightened",
-          "sourceId": "TBSHQspnbcqxsmjL",
-          "name": "Frightened",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "dmEmxoEVzOeEkscr",
-          "name": "Lion's Armor (Greater)",
-          "type": "armor"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 856,
-        "uuid": "Compendium.pf2e.actionspf2e.Item.Demoralize",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.actionspf2e.Item.Demoralize",
-          "package": "pf2e",
-          "sourcePack": "actionspf2e",
-          "documentType": "Item",
-          "compendiumKey": "Demoralize",
-          "sourceId": "2u915NdUyQan6uKF",
-          "name": "Demoralize",
-          "type": "action"
-        },
-        "owner": {
-          "sourceId": "dmEmxoEVzOeEkscr",
-          "name": "Lion's Armor (Greater)",
-          "type": "armor"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 983,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fleeing",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fleeing",
-          "sourceId": "sDPxOjQ9kx2RZE8D",
-          "name": "Fleeing",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "dmEmxoEVzOeEkscr",
-          "name": "Lion's Armor (Greater)",
-          "type": "armor"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:magic-wand-9th-rank-spell",
@@ -2270,31 +1354,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "elixir",
       "group": "consumable"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 351,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Elixir of Life",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Elixir of Life",
-          "sourceId": "lPRuIRbu0rHBkoKY",
-          "name": "Effect: Elixir of Life",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "qK964kZz1ALcysOa",
-          "name": "Elixir of Life (True)",
-          "type": "consumable"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:frozen-lava-of-barrowsiege",
@@ -2329,31 +1389,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "other",
       "group": "consumable"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 537,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Fireball",
-          "sourceId": "sxQZ6yqTn0czJxVd",
-          "name": "Fireball",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "ugxI9kH7osJ3J5qG",
-          "name": "Frozen Lava of Barrowsiege",
-          "type": "consumable"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:crystal-ball-obsidian",
@@ -2390,75 +1426,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 667,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Clairvoyance",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Clairvoyance",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Clairvoyance",
-          "sourceId": "zvKWclOZ7A53DObE",
-          "name": "Clairvoyance",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "WKdI4LbwgcNHhMdp",
-          "name": "Crystal Ball (Obsidian)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 980,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Scrying",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Scrying",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Scrying",
-          "sourceId": "r784cIz17eWujtQj",
-          "name": "Scrying",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "WKdI4LbwgcNHhMdp",
-          "name": "Crystal Ball (Obsidian)",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1078,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Truesight",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Truesight",
-          "sourceId": "uqlxMQQeSGWEVjki",
-          "name": "Truesight",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "WKdI4LbwgcNHhMdp",
-          "name": "Crystal Ball (Obsidian)",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:striking-major",
@@ -2564,31 +1532,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 492,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Frozen Lava of Barrowsiege",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Frozen Lava of Barrowsiege",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Frozen Lava of Barrowsiege",
-          "sourceId": "ugxI9kH7osJ3J5qG",
-          "name": "Frozen Lava of Barrowsiege",
-          "type": "consumable"
-        },
-        "owner": {
-          "sourceId": "ZxsPHkzzn6QwfPEz",
-          "name": "Eternal Eruption of Barrowsiege",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:antimagic-oil",
@@ -2665,75 +1609,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d8",
         "type": "bludgeoning"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 49,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Flaming",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Flaming",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Flaming",
-          "sourceId": "XszNvxnymWYRaoTp",
-          "name": "Flaming",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "ANvbi1zKF1So8bON",
-          "name": "Sky Hammer",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 99,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Shock",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Shock",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Shock",
-          "sourceId": "NVst7e69agGG9Qwd",
-          "name": "Shock",
-          "type": "equipment"
-        },
-        "owner": {
-          "sourceId": "ANvbi1zKF1So8bON",
-          "name": "Sky Hammer",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 457,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Fireball",
-          "sourceId": "sxQZ6yqTn0czJxVd",
-          "name": "Fireball",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "ANvbi1zKF1So8bON",
-          "name": "Sky Hammer",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:life-saver-mail-greater",
@@ -2772,53 +1648,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "checkPenalty": -3,
         "speedPenaltyFeet": -10
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 735,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Breath of Life",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Breath of Life",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Breath of Life",
-          "sourceId": "Hnc7eGi7vyZenAIm",
-          "name": "Breath of Life",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "oRBcuFdQDRCn1pwo",
-          "name": "Life-Saver Mail (Greater)",
-          "type": "armor"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1039,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Shield",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Shield",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Shield",
-          "sourceId": "TVKNbcgTee19PXZR",
-          "name": "Shield",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "oRBcuFdQDRCn1pwo",
-          "name": "Life-Saver Mail (Greater)",
-          "type": "armor"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:elven-chain-high-grade",
@@ -2860,31 +1690,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "checkPenalty": 0,
         "speedPenaltyFeet": 0
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 20,
-        "uuid": "Compendium.pf2e.equipment-srd.Item.Chain Shirt",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-srd.Item.Chain Shirt",
-          "package": "pf2e",
-          "sourcePack": "equipment-srd",
-          "documentType": "Item",
-          "compendiumKey": "Chain Shirt",
-          "sourceId": "MPcM4Wt6KmWE2kGL",
-          "name": "Chain Shirt",
-          "type": "armor"
-        },
-        "owner": {
-          "sourceId": "PuqdH7DmNsN79HyE",
-          "name": "Elven Chain (High-Grade)",
-          "type": "armor"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:monkeys-paw",
@@ -2920,31 +1726,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "held-in-one-hand",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 858,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Interplanar Teleport",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Interplanar Teleport",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Interplanar Teleport",
-          "sourceId": "5bTt2CvYHPvaR7QQ",
-          "name": "Interplanar Teleport",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "QWiXrqhSCkvdHbsi",
-          "name": "Monkey's Paw",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:bands-of-force-major",
@@ -3016,31 +1798,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "worn",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 748,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Fabricated Truth",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Fabricated Truth",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Fabricated Truth",
-          "sourceId": "6s0UW4bujggma9TC",
-          "name": "Fabricated Truth",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "sKyJDfHdKacfbNOG",
-          "name": "Whisper of the First Lie",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:wand-of-widening-9th-rank-spell",
@@ -3117,493 +1875,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d4",
         "type": "bludgeoning"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 734,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Detect Magic",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Detect Magic",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Detect Magic",
-          "sourceId": "gpzpAAAJ1Lza2JVl",
-          "name": "Detect Magic",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 816,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Phantasmal Minion",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Phantasmal Minion",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Phantasmal Minion",
-          "sourceId": "xqmHD8JIjak15lRk",
-          "name": "Phantasmal Minion",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 903,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Everlight",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Everlight",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Everlight",
-          "sourceId": "ynm8JIU3sc3qUMpa",
-          "name": "Everlight",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 982,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Force Barrage",
-          "sourceId": "gKKqvLohtrSJj3BM",
-          "name": "Force Barrage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1036,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Paralyze",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Paralyze",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Paralyze",
-          "sourceId": "DCQHaLrYXMI37dvW",
-          "name": "Paralyze",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1114,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Dispelling Globe",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Dispelling Globe",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Dispelling Globe",
-          "sourceId": "JOdOpbPDl7nqvJUm",
-          "name": "Dispelling Globe",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1171,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mystic Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mystic Armor",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mystic Armor",
-          "sourceId": "aAbfKn8maGjJjk2W",
-          "name": "Mystic Armor",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1224,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Translocate",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Translocate",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Translocate",
-          "sourceId": "VlNcjmYyu95vOUe8",
-          "name": "Translocate",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1305,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Fireball",
-          "sourceId": "sxQZ6yqTn0czJxVd",
-          "name": "Fireball",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1354,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Force Barrage",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Force Barrage",
-          "sourceId": "gKKqvLohtrSJj3BM",
-          "name": "Force Barrage",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1408,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Lightning Bolt",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Lightning Bolt",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Lightning Bolt",
-          "sourceId": "9AAkVUCwF6WVNNY2",
-          "name": "Lightning Bolt",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1492,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Disintegrate",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Disintegrate",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Disintegrate",
-          "sourceId": "r7ihOgKv19eJQnik",
-          "name": "Disintegrate",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1545,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mystic Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mystic Armor",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mystic Armor",
-          "sourceId": "aAbfKn8maGjJjk2W",
-          "name": "Mystic Armor",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1598,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Wall of Force",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Wall of Force",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Wall of Force",
-          "sourceId": "7Iela4GgVeO3LfAo",
-          "name": "Wall of Force",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1681,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Howling Blizzard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Howling Blizzard",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Howling Blizzard",
-          "sourceId": "xxWhyl81w3ckslAU",
-          "name": "Howling Blizzard",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1738,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Fireball",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Fireball",
-          "sourceId": "sxQZ6yqTn0czJxVd",
-          "name": "Fireball",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1787,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Lightning Bolt",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Lightning Bolt",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Lightning Bolt",
-          "sourceId": "9AAkVUCwF6WVNNY2",
-          "name": "Lightning Bolt",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1871,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Mystic Armor",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Mystic Armor",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Mystic Armor",
-          "sourceId": "aAbfKn8maGjJjk2W",
-          "name": "Mystic Armor",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1924,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Wall of Force",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Wall of Force",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Wall of Force",
-          "sourceId": "7Iela4GgVeO3LfAo",
-          "name": "Wall of Force",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2007,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Dispel Magic",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Dispel Magic",
-          "sourceId": "9HpwDN4MYQJnW0LG",
-          "name": "Dispel Magic",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2060,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Falling Stars",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Falling Stars",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Falling Stars",
-          "sourceId": "jrBa9deU2ULFWvSl",
-          "name": "Falling Stars",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2114,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Howling Blizzard",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Howling Blizzard",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Howling Blizzard",
-          "sourceId": "xxWhyl81w3ckslAU",
-          "name": "Howling Blizzard",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "w2AxS7q8bjh77pp2",
-          "name": "Staff of Arcane Might (Major)",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:resilient-major",
@@ -3674,31 +1946,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "other",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 999,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-        "label": "Clumsy 2",
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Clumsy",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Clumsy",
-          "sourceId": "i3OJZU2nk64Df3xm",
-          "name": "Clumsy",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "6o6zvitwlNHNaNJM",
-          "name": "Shot of the First Vault",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:serithtial",
@@ -3740,97 +1988,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
         "die": "d8",
         "type": "slashing"
       }
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1092,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Unfettered Movement",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Unfettered Movement",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Unfettered Movement",
-          "sourceId": "aqRYNoSvxsVfqglH",
-          "name": "Unfettered Movement",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "emGyagWNmjvtjiGK",
-          "name": "Serithtial",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1248,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Doomed",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Doomed",
-          "sourceId": "3uh1r86TzbQvosxv",
-          "name": "Doomed",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "emGyagWNmjvtjiGK",
-          "name": "Serithtial",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2619,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Heal",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Heal",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Heal",
-          "sourceId": "rfZpqmj0AIIdkVIs",
-          "name": "Heal",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "emGyagWNmjvtjiGK",
-          "name": "Serithtial",
-          "type": "weapon"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2666,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Ring of Truth",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Ring of Truth",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Ring of Truth",
-          "sourceId": "aewxsale5xWEPKLk",
-          "name": "Ring of Truth",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "emGyagWNmjvtjiGK",
-          "name": "Serithtial",
-          "type": "weapon"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:forgefathers-seal",
@@ -3865,141 +2023,7 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "etched-onto-armor",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 343,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Sunburst",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Sunburst",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Sunburst",
-          "sourceId": "a3aQxCpoj1q1NQxC",
-          "name": "Sunburst",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "jpQcKMmP1I5674P7",
-          "name": "Forgefather's Seal",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1057,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Forgefather's Seal",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Forgefather's Seal",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Forgefather's Seal",
-          "sourceId": "0TZLR0PO5TJm9F4l",
-          "name": "Effect: Forgefather's Seal",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "jpQcKMmP1I5674P7",
-          "name": "Forgefather's Seal",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 1509,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Earthquake",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Earthquake",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Earthquake",
-          "sourceId": "x7SPrsRxGb2Vy2nu",
-          "name": "Earthquake",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "jpQcKMmP1I5674P7",
-          "name": "Forgefather's Seal",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2151,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Remake",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Remake",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Remake",
-          "sourceId": "dMKP4fkWx8V2cqAy",
-          "name": "Remake",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "jpQcKMmP1I5674P7",
-          "name": "Forgefather's Seal",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3171,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Wish",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Wish",
-          "sourceId": "6dDtGIUerazSHIOu",
-          "name": "Wish",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "jpQcKMmP1I5674P7",
-          "name": "Forgefather's Seal",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 3657,
-        "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Forgefather's Seal (Stalwart Sacrifice)",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.equipment-effects.Item.Effect: Forgefather's Seal (Stalwart Sacrifice)",
-          "package": "pf2e",
-          "sourcePack": "equipment-effects",
-          "documentType": "Item",
-          "compendiumKey": "Effect: Forgefather's Seal (Stalwart Sacrifice)",
-          "sourceId": "Elj69wSjv91ouC7v",
-          "name": "Effect: Forgefather's Seal (Stalwart Sacrifice)",
-          "type": "effect"
-        },
-        "owner": {
-          "sourceId": "jpQcKMmP1I5674P7",
-          "name": "Forgefather's Seal",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   },
   {
     "contentId": "pf2e:item:equipment-srd:philosophers-extractor",
@@ -4069,52 +2093,6 @@ export const PATHFINDER_2E_EXHAUSTIVE_14_ITEM_ORIGINALS: readonly Pathfinder2eOr
       "usage": "bonded",
       "category": "equipment",
       "group": "equipment"
-    },
-    "sourceReferences": [
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 846,
-        "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.conditionitems.Item.Fascinated",
-          "package": "pf2e",
-          "sourcePack": "conditionitems",
-          "documentType": "Item",
-          "compendiumKey": "Fascinated",
-          "sourceId": "AdPVz7rbaVSRxHFg",
-          "name": "Fascinated",
-          "type": "condition"
-        },
-        "owner": {
-          "sourceId": "Ywt7p5Fyx18lK8km",
-          "name": "Mirror of Sorshen",
-          "type": "equipment"
-        }
-      },
-      {
-        "syntax": "INLINE_UUID",
-        "sourcePath": "/system/description/value",
-        "sourceIndex": 2341,
-        "uuid": "Compendium.pf2e.spells-srd.Item.Dominate",
-        "label": null,
-        "target": {
-          "uuid": "Compendium.pf2e.spells-srd.Item.Dominate",
-          "package": "pf2e",
-          "sourcePack": "spells-srd",
-          "documentType": "Item",
-          "compendiumKey": "Dominate",
-          "sourceId": "OsOhx3TGIZ7AhD0P",
-          "name": "Dominate",
-          "type": "spell"
-        },
-        "owner": {
-          "sourceId": "Ywt7p5Fyx18lK8km",
-          "name": "Mirror of Sorshen",
-          "type": "equipment"
-        }
-      }
-    ]
+    }
   }
 ]
