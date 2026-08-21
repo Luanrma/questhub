@@ -2,7 +2,7 @@
 
 Status: **BA READY**
 
-Complementa: `active-effect-definitions.md`
+Complementa e, nos pontos explicitamente tratados abaixo, **refina** `active-effect-definitions.md`.
 
 Card: `QH-EFF-005`
 
@@ -45,25 +45,28 @@ A identidade estrutural é obrigatória e nunca depende do nome:
 definitionKey = {sourcePack}:{sourceId}
 ```
 
-Para targets `effect`/`affliction` que não possuem documento completo importado no catálogo QuestHub, QH-EFF-005 pode expor:
+O QH-EFF-005 não reimporta documentos do source PF2e. Por isso, quando a metadata completa do target **não está versionada no catálogo QuestHub atual**, a definição pode expor:
 
-- `name` derivado do `compendiumKey` preservado no UUID estrutural;
-- `description = null` quando a descrição do target não está versionada no QuestHub;
+- `name` derivado somente do `compendiumKey` preservado no UUID estrutural;
+- `description = null` quando a descrição do target não está versionada localmente;
 - `iconUrl = null` quando não existe asset local seguro;
 - `group = null` quando não há metadata estrutural versionada disponível.
 
+Essa regra vale para qualquer definição cuja apresentação completa não esteja disponível localmente, inclusive uma Condition canônica. Ela **refina o contrato mínimo** da Spec principal: `description`, `iconUrl` e `group` são campos de apresentação opcionais/nullable; a ausência não invalida a definição semântica.
+
 Não é permitido preencher esses campos por aproximação, scraping ou acesso ao Foundry em runtime. A ausência é preferível a dados inventados.
 
-Para Conditions canônicas, `conditionValue` permanece metadata explícita derivada da estrutura congelada do source PF2e; não se extrai intensidade de labels como `Frightened 2`.
+Para Conditions canônicas, `conditionValue` permanece metadata explícita versionada a partir da estrutura congelada do source PF2e; não se extrai intensidade de labels como `Frightened 2`.
 
 ## Critérios adicionais
 
 - **AC19** — toda definição `effect` incluída pelo QH-EFF-004 recebe explicitamente `NEUTRAL` no catálogo-base;
 - **AC20** — toda definição `affliction` incluída pelo QH-EFF-004 recebe explicitamente `HARMFUL` no catálogo-base;
 - **AC21** — nenhum target `effect`/`affliction` exige inferência textual para entrar no catálogo;
-- **AC22** — ausência de descrição/ícone/group em target não importado é representada por `null`, nunca por dado fabricado;
+- **AC22** — ausência de descrição/ícone/group não versionados localmente é representada por `null`, nunca por dado fabricado;
 - **AC23** — cards posteriores podem escolher polaridade de instância por mapeamento explícito sem alterar a polaridade editorial da definição-base;
-- **AC24** — nenhum comportamento dessa política é implementado no VTT Core.
+- **AC24** — nenhum comportamento dessa política é implementado no VTT Core;
+- **AC25** — uma definição semanticamente válida não é descartada somente porque metadata opcional de apresentação não foi importada historicamente.
 
 ## Resultado do BA
 
