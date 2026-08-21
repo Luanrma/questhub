@@ -60,6 +60,7 @@ type Pathfinder2eSpellEffectOutcome =
 
 type Pathfinder2eSpellEffectEvidence =
   | 'DEGREE_OF_SUCCESS'
+  | 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE'
   | 'STANDALONE_REFERENCE'
   | 'REFERENCE_ONLY'
   | 'NON_DESCRIPTION_REFERENCE'
@@ -106,7 +107,7 @@ Nenhum relacionamento é resolvido por nome traduzido, slug aproximado ou fuzzy 
 
 ## 6. Classificação conservadora de evidência
 
-### 6.1. Degree of Success
+### 6.1. Degree of Success na própria linha
 
 Uma referência é `DEGREE_OF_SUCCESS` quando:
 
@@ -133,9 +134,39 @@ Esse reconhecimento é um parser estrutural restrito do formato editorial PF2e, 
 
 Uma referência `DEGREE_OF_SUCCESS` é `potential = true`.
 
-### 6.2. Referência standalone
+### 6.2. Referência standalone imediatamente após Degree of Success
 
-Uma referência é `STANDALONE_REFERENCE` quando, após normalização de whitespace, a linha/bloco em que ela aparece contém somente o próprio label preservado pelo QH-EFF-004.
+O source PF2e também possui Spells em que o texto do resultado vem em uma linha e o link para o Effect correspondente aparece sozinho na linha imediatamente seguinte.
+
+Exemplo normalizado de `Outcast's Curse`:
+
+```text
+Success For 10 minutes, ...
+Spell Effect: Outcast's Curse (Success)
+Failure As success, but the effect is permanent.
+Spell Effect: Outcast's Curse (Failure)
+```
+
+Uma referência é `DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE` somente quando:
+
+1. sua própria linha contém apenas o label preservado pelo QH-EFF-004;
+2. a linha não vazia imediatamente anterior começa com exatamente um dos quatro marcadores canônicos do item 6.1;
+3. não existe qualquer outra linha/conteúdo intermediário.
+
+Nesse caso:
+
+```text
+potential = true
+outcome = outcome da linha imediatamente anterior
+```
+
+A associação é puramente posicional/editorial. O mapper não usa `(Success)`/`(Failure)` presente no nome do Effect para inferir o outcome.
+
+Se a linha anterior não satisfizer exatamente essa regra, a referência volta à regra standalone genérica do item 6.3.
+
+### 6.3. Referência standalone sem Degree of Success associado
+
+Uma referência é `STANDALONE_REFERENCE` quando, após normalização de whitespace, a linha/bloco em que ela aparece contém somente o próprio label preservado pelo QH-EFF-004 e ela não satisfaz o item 6.2.
 
 Exemplos típicos:
 
@@ -144,11 +175,11 @@ Spell Effect: Aerial Form
 Spell Effect: Untamed Shift
 ```
 
-Uma referência standalone resolvida como `condition`, `effect` ou `affliction` é `potential = true`.
+Uma referência standalone resolvida como `condition`, `effect` ou `affliction` é `potential = true` e recebe `outcome = null`.
 
-### 6.3. Referência inline sem evidência suficiente
+### 6.4. Referência inline sem evidência suficiente
 
-Uma referência dentro de descrição que não satisfaz 6.1 nem 6.2 é `REFERENCE_ONLY` e recebe:
+Uma referência dentro de descrição que não satisfaz 6.1, 6.2 nem 6.3 é `REFERENCE_ONLY` e recebe:
 
 ```text
 potential = false
@@ -159,7 +190,7 @@ Isso não afirma que a referência seja irrelevante. Significa apenas que o QH-E
 
 `Aerial Form -> Clumsy` é o caso de regressão obrigatório dessa categoria.
 
-### 6.4. Referência fora da descrição
+### 6.5. Referência fora da descrição
 
 Uma referência semântica resolvida cujo `sourcePath` não corresponde à descrição é `NON_DESCRIPTION_REFERENCE` e não é promovida automaticamente:
 
@@ -180,9 +211,12 @@ Para referências de `system.description.value`, o mapper:
 2. percorre a descrição original `en-US` da Spell na mesma ordem;
 3. localiza cada `label` de forma sequencial, nunca retrocedendo na string;
 4. determina a linha/bloco textual da ocorrência;
-5. falha de forma segura para `REFERENCE_ONLY` se não puder alinhar exatamente a ocorrência.
+5. quando a linha é standalone, pode observar somente a linha não vazia imediatamente anterior para a regra 6.2;
+6. falha de forma segura para `REFERENCE_ONLY` se não puder alinhar exatamente a ocorrência.
 
 A falha de alinhamento não autoriza busca fuzzy, tradução reversa ou inferência por IA.
+
+A linha anterior só pode fornecer **contexto estrutural de Degree of Success** para uma referência standalone. Ela não pode transformar uma referência inline arbitrária em efeito potencial.
 
 ## 8. Valores de Conditions valorizadas
 
@@ -232,10 +266,28 @@ Esperado:
 
 ```text
 Clumsy                    -> REFERENCE_ONLY, potential false
-Spell Effect: Aerial Form -> STANDALONE_REFERENCE, potential true
+Spell Effect: Aerial Form -> STANDALONE_REFERENCE, potential true, outcome null
 ```
 
 Isso impede o falso positivo de aplicar `Clumsy` por conjurar a Spell.
+
+### Outcast's Curse
+
+Esperado para os links standalone associados aos resultados:
+
+```text
+Spell Effect: Outcast's Curse (Success)
+  -> DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE
+  -> potential true
+  -> SUCCESS
+
+Spell Effect: Outcast's Curse (Failure)
+  -> DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE
+  -> potential true
+  -> FAILURE
+```
+
+O texto `(Success)`/`(Failure)` do label não participa da classificação; a evidência vem exclusivamente da linha de Degree of Success imediatamente anterior.
 
 ## 10. Cobertura
 
@@ -295,6 +347,7 @@ O QH-EFF-006 não:
 - calcula duração, stacking, imunidade ou override;
 - interpreta referência inline ambígua por linguagem natural;
 - usa IA para classificar referências;
+- infere outcome por palavras existentes dentro do nome/label de um Effect;
 - promove Item unresolved do QH-EFF-004;
 - altera Spells originais ou traduções;
 - cria nova importação de conteúdo;
@@ -321,7 +374,7 @@ QH-EFF-006 apenas prepara metadata engine-only para QH-EFF-009.
 
 ADR aplicável: `ADR-0005`.
 
-O BA não identifica nova decisão estrutural além da fronteira já aceita, mas Architecture Review permanece obrigatório.
+O BA não identifica nova decisão estrutural além da fronteira já aceita, mas Architecture Review permanece obrigatório após o refinamento do contexto posicional.
 
 ## 16. Critérios de aceite
 
@@ -332,28 +385,31 @@ O BA não identifica nova decisão estrutural além da fronteira já aceita, mas
 - **AC05** — `definitionKey` é `{sourcePack}:{sourceId}`;
 - **AC06** — ocorrências repetidas da mesma definição não são deduplicadas;
 - **AC07** — Degree of Success é reconhecido somente pelos quatro marcadores canônicos definidos nesta Spec;
-- **AC08** — referência em bloco de Degree of Success é `potential = true` com outcome correspondente;
-- **AC09** — referência standalone semântica é `potential = true`;
-- **AC10** — referência inline sem evidência suficiente é preservada como `REFERENCE_ONLY`, nunca promovida automaticamente;
-- **AC11** — referência semântica fora da descrição é preservada como `NON_DESCRIPTION_REFERENCE`, sem interpretar Rule Element;
-- **AC12** — `Agonizing Despair` produz três mappings de Frightened com SUCCESS/FAILURE/CRITICAL_FAILURE;
-- **AC13** — os três labels de Agonizing Despair preservam value hints 1/2/3;
-- **AC14** — `Aerial Form -> Clumsy` não é efeito potencial;
-- **AC15** — `Spell Effect: Aerial Form` é efeito potencial standalone;
-- **AC16** — Conditions não valorizadas não recebem value hint por número textual;
-- **AC17** — falha de alinhamento de label não aciona fuzzy matching/IA e não gera falso positivo;
-- **AC18** — nenhum save/ataque é resolvido e nenhum efeito é aplicado;
-- **AC19** — originais e traduções permanecem byte-identical;
-- **AC20** — nenhuma semântica PF2e nova vaza para VTT Core;
-- **AC21** — resultado é determinístico para os mesmos dados versionados;
-- **AC22** — API interna permite listar todos os mappings e somente os potenciais;
-- **AC23** — testes e CI cobrem regressões de Aerial Form e Agonizing Despair.
+- **AC08** — referência na própria linha de Degree of Success é `potential = true` com outcome correspondente;
+- **AC09** — referência standalone imediatamente após linha de Degree of Success herda o outcome somente por essa relação posicional e usa `DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE`;
+- **AC10** — referência standalone sem Degree de Success associado é `potential = true`, `STANDALONE_REFERENCE`, `outcome = null`;
+- **AC11** — referência inline sem evidência suficiente é preservada como `REFERENCE_ONLY`, nunca promovida automaticamente;
+- **AC12** — referência semântica fora da descrição é preservada como `NON_DESCRIPTION_REFERENCE`, sem interpretar Rule Element;
+- **AC13** — `Agonizing Despair` produz três mappings de Frightened com SUCCESS/FAILURE/CRITICAL_FAILURE;
+- **AC14** — os três labels de Agonizing Despair preservam value hints 1/2/3;
+- **AC15** — `Aerial Form -> Clumsy` não é efeito potencial;
+- **AC16** — `Spell Effect: Aerial Form` é efeito potencial standalone com `outcome = null`;
+- **AC17** — `Outcast's Curse (Success)` e `(Failure)` preservam outcomes SUCCESS e FAILURE pela linha imediatamente anterior;
+- **AC18** — o texto `(Success)`/`(Failure)` presente em label não é usado para inferir outcome;
+- **AC19** — Conditions não valorizadas não recebem value hint por número textual;
+- **AC20** — falha de alinhamento de label não aciona fuzzy matching/IA e não gera falso positivo;
+- **AC21** — nenhum save/ataque é resolvido e nenhum efeito é aplicado;
+- **AC22** — originais e traduções permanecem byte-identical;
+- **AC23** — nenhuma semântica PF2e nova vaza para VTT Core;
+- **AC24** — resultado é determinístico para os mesmos dados versionados;
+- **AC25** — API interna permite listar todos os mappings e somente os potenciais;
+- **AC26** — testes e CI cobrem regressões de Aerial Form, Agonizing Despair e Outcast's Curse.
 
 ## 17. Questões abertas
 
-Nenhuma questão de produto bloqueante.
+Nenhuma questão de produto bloqueante após o refinamento de Outcast's Curse.
 
-A política é deliberadamente conservadora: referências inline ambíguas permanecem visíveis como não confirmadas em vez de serem adivinhadas. Cobertura semântica total das referências é obrigatória; recall de aplicações não estruturadas pode ser refinado posteriormente sem quebrar o contrato.
+A política continua deliberadamente conservadora: referências inline ambíguas permanecem visíveis como não confirmadas em vez de serem adivinhadas. Cobertura semântica total das referências é obrigatória; recall de aplicações não estruturadas pode ser refinado posteriormente sem quebrar o contrato.
 
 ```text
 BA: READY
