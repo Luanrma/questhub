@@ -2,7 +2,7 @@
 
 Status: **BA READY**
 
-Complementa e refina `spell-effect-mappings.md` somente no alinhamento entre referências QH-EFF-004 e o texto normalizado `en-US`.
+Complementa e refina `spell-effect-mappings.md` no alinhamento entre referências QH-EFF-004 e o texto normalizado `en-US` **e no limite de evidência permitido quando esse alinhamento depende de um UUID sem label explícito**.
 
 Card: `QH-EFF-006`
 
