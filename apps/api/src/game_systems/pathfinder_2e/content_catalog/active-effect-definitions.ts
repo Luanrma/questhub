@@ -38,6 +38,7 @@ type CanonicalConditionMetadata = {
   polarity: Pathfinder2eActiveEffectPolarity
   isValued: boolean
   baseValue: number | null
+  sourceIdSupplement?: string
 }
 
 const BENEFICIAL_CONDITIONS = new Set(['invisible', 'quickened'])
@@ -52,6 +53,39 @@ const NEUTRAL_CONDITIONS = new Set([
   'undetected',
   'unfriendly',
   'unnoticed',
+])
+const HARMFUL_CONDITIONS = new Set([
+  'blinded',
+  'broken',
+  'clumsy',
+  'confused',
+  'controlled',
+  'cursebound',
+  'dazzled',
+  'deafened',
+  'doomed',
+  'drained',
+  'dying',
+  'encumbered',
+  'enfeebled',
+  'fascinated',
+  'fatigued',
+  'fleeing',
+  'frightened',
+  'grabbed',
+  'immobilized',
+  'off-guard',
+  'paralyzed',
+  'persistent-damage',
+  'petrified',
+  'prone',
+  'restrained',
+  'sickened',
+  'slowed',
+  'stunned',
+  'stupefied',
+  'unconscious',
+  'wounded',
 ])
 const VALUED_CONDITIONS = new Set([
   'clumsy',
@@ -69,14 +103,22 @@ const VALUED_CONDITIONS = new Set([
 ])
 
 function conditionPolarity(slug: string): Pathfinder2eActiveEffectPolarity {
-  if (BENEFICIAL_CONDITIONS.has(slug)) return 'BENEFICIAL'
-  if (NEUTRAL_CONDITIONS.has(slug)) return 'NEUTRAL'
-  return 'HARMFUL'
+  const matches = [
+    BENEFICIAL_CONDITIONS.has(slug) ? 'BENEFICIAL' : null,
+    NEUTRAL_CONDITIONS.has(slug) ? 'NEUTRAL' : null,
+    HARMFUL_CONDITIONS.has(slug) ? 'HARMFUL' : null,
+  ].filter((value): value is Pathfinder2eActiveEffectPolarity => value !== null)
+
+  if (matches.length !== 1) {
+    throw new Error(`PF2e Condition polarity must be classified exactly once: ${slug}`)
+  }
+  return matches[0]
 }
 
 function condition(
   slug: string,
   compendiumKey: string,
+  sourceIdSupplement?: string,
 ): CanonicalConditionMetadata {
   const isValued = VALUED_CONDITIONS.has(slug)
   return {
@@ -85,6 +127,7 @@ function condition(
     polarity: conditionPolarity(slug),
     isValued,
     baseValue: isValued ? 1 : null,
+    ...(sourceIdSupplement ? { sourceIdSupplement } : {}),
   }
 }
 
@@ -92,6 +135,10 @@ function condition(
  * Canonical documents from the frozen `conditionitems` / `packs/pf2e/conditions` pack.
  * `malevolence` is intentionally absent: Foundry accepts the slug internally, but the
  * frozen canonical Conditions pack does not contain it as a base condition document.
+ *
+ * Most source IDs are already present structurally in QH-EFF-004. `Hostile` is the one
+ * canonical condition not referenced by the current catalog, so its exact frozen source
+ * ID is versioned here to preserve complete canonical coverage without text inference.
  */
 export const PATHFINDER_2E_CANONICAL_CONDITIONS = [
   condition('blinded', 'Blinded'),
@@ -116,7 +163,7 @@ export const PATHFINDER_2E_CANONICAL_CONDITIONS = [
   condition('grabbed', 'Grabbed'),
   condition('helpful', 'Helpful'),
   condition('hidden', 'Hidden'),
-  condition('hostile', 'Hostile'),
+  condition('hostile', 'Hostile', 'ud7gTLwPeklzYSXG'),
   condition('immobilized', 'Immobilized'),
   condition('indifferent', 'Indifferent'),
   condition('invisible', 'Invisible'),
@@ -169,6 +216,31 @@ function parseUuid(uuid: string): ParsedUuid | null {
   }
 }
 
+function canonicalConditionDefinition(
+  metadata: CanonicalConditionMetadata,
+  sourceId: string,
+): Pathfinder2eActiveEffectDefinition {
+  return {
+    definitionKey: `conditionitems:${sourceId}`,
+    kind: 'condition',
+    source: {
+      sourcePack: 'conditionitems',
+      sourceId,
+      slug: metadata.slug,
+    },
+    name: metadata.compendiumKey,
+    description: null,
+    iconUrl: null,
+    polarity: metadata.polarity,
+    group: null,
+    conditionValue: {
+      isValued: metadata.isValued,
+      baseValue: metadata.baseValue,
+    },
+    schemaVersion: 1,
+  }
+}
+
 function definitionFromTuple(
   tuple: Pathfinder2eSourceReferenceTuple,
 ): Pathfinder2eActiveEffectDefinition | null {
@@ -185,26 +257,7 @@ function definitionFromTuple(
   if (targetType === 'condition') {
     const metadata = CONDITION_BY_COMPENDIUM_KEY.get(parsed.compendiumKey)
     if (!metadata || parsed.sourcePack !== 'conditionitems') return null
-
-    return {
-      definitionKey,
-      kind: 'condition',
-      source: {
-        sourcePack: parsed.sourcePack,
-        sourceId,
-        slug: metadata.slug,
-      },
-      name: parsed.compendiumKey,
-      description: null,
-      iconUrl: null,
-      polarity: metadata.polarity,
-      group: null,
-      conditionValue: {
-        isValued: metadata.isValued,
-        baseValue: metadata.baseValue,
-      },
-      schemaVersion: 1,
-    }
+    return canonicalConditionDefinition(metadata, sourceId)
   }
 
   return {
@@ -282,6 +335,16 @@ function collectDefinitions(): ReadonlyMap<string, Pathfinder2eActiveEffectDefin
     }
   }
 
+  for (const metadata of PATHFINDER_2E_CANONICAL_CONDITIONS) {
+    if (!metadata.sourceIdSupplement) continue
+    const definition = canonicalConditionDefinition(metadata, metadata.sourceIdSupplement)
+    const existing = definitions.get(definition.definitionKey)
+    definitions.set(
+      definition.definitionKey,
+      existing ? mergeDefinitionAliases(existing, definition) : definition,
+    )
+  }
+
   return definitions
 }
 
@@ -299,8 +362,7 @@ const RESOLVED_CANONICAL_CONDITION_SLUGS = new Set(
     .filter((slug): slug is string => typeof slug === 'string'),
 )
 
-/** Test/diagnostic surface: frozen canonical Conditions that were not represented by any
- * resolved QH-EFF-004 structural target. This must remain empty for QH-EFF-005 coverage. */
+/** Frozen canonical Conditions that are still missing from the semantic definition catalog. */
 export const PATHFINDER_2E_MISSING_CANONICAL_CONDITION_SLUGS = Object.freeze(
   PATHFINDER_2E_CANONICAL_CONDITIONS
     .map((entry) => entry.slug)
