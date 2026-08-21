@@ -8,6 +8,7 @@ on:
       - scripts/backfill-pf2e-source-references.mjs
       - scripts/lib/backfill-pf2e-source-references.mjs
       - scripts/lib/pf2e-source-references.mjs
+      - scripts/report-qh-eff-004-reference-packs.mjs
       - apps/api/src/game_systems/pathfinder_2e/content_catalog/source-reference-backfill.test.ts
       - .github/workflows/qh-eff-004-backfill.yml
 
@@ -42,6 +43,9 @@ jobs:
 
       - name: Backfill existing catalog
         run: node scripts/backfill-pf2e-source-references.mjs .tmp/pf2e-source
+
+      - name: Report reference pack distribution
+        run: node scripts/report-qh-eff-004-reference-packs.mjs
 
       - name: Validate generated diff
         run: git diff --check
