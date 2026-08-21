@@ -31,13 +31,11 @@ test('full character sheets mount the generic actor effects panel outside the re
 
 test('campaign role reaches the sheet workspace only to drive visual mutation controls', () => {
   const source = read(asideFile)
-
   assert.match(source, /<CampaignCharacterSheetWorkspace[\s\S]*role=\{role\}/)
 })
 
 test('active effect summary is compact, capped at six and has no horizontal scroller', () => {
   const source = read(panelFile)
-
   assert.match(source, /effects\.slice\(0, 6\)/)
   assert.match(source, /\+\{hiddenCount\} Ver todos/)
   assert.match(source, /flex-wrap/)
@@ -49,7 +47,6 @@ test('active effect summary is compact, capped at six and has no horizontal scro
 test('manual create and update bodies expose only presentation fields approved by QH-EFF-002', () => {
   const source = read(panelFile)
   const bodyMatch = source.match(/const body = \{([\s\S]*?)\n    \}/)
-
   assert.ok(bodyMatch, 'manual effect mutation body must exist')
   const body = bodyMatch[1]
   assert.match(body, /name:/)
@@ -63,9 +60,14 @@ test('manual create and update bodies expose only presentation fields approved b
   assert.match(source, /method: 'DELETE'/)
 })
 
+test('mutation feedback is visible in effect detail and cleared with the overlay', () => {
+  const source = read(panelFile)
+  assert.match(source, /overlay\.kind === 'detail'[\s\S]*mutationError[\s\S]*canManage/)
+  assert.match(source, /function closeOverlay\(\)[\s\S]*setMutationError\(null\)[\s\S]*setOverlay\(null\)/)
+})
+
 test('actor effect realtime refresh filters campaign and actor and never polls', () => {
   const source = read(hookFile)
-
   assert.match(source, /'vtt:actor-effects:changed'/)
   assert.match(source, /payload\.campaignId !== activeCampaignId \|\| payload\.actorId !== activeActorId/)
   assert.match(source, /socket\?\.on\('connect', refresh\)/)
@@ -75,7 +77,6 @@ test('actor effect realtime refresh filters campaign and actor and never polls',
 test('sheet actor context is resolved by Core and not by a concrete game-system renderer', () => {
   const contextSource = read(contextHookFile)
   const rendererSource = read(renderersFile)
-
   assert.match(contextSource, /character-sheets\/\$\{encodeURIComponent\(sheetId\)\}\/context/)
   assert.match(rendererSource, /resolveActorEffectPresentation\?: ActorEffectPresentationResolver/)
   assert.doesNotMatch(rendererSource, /onActorResolved/)
@@ -83,13 +84,11 @@ test('sheet actor context is resolved by Core and not by a concrete game-system 
 
 test('generic actor effects UI contains no concrete game-system semantics', () => {
   const source = [read(panelFile), read(hookFile), read(contextHookFile), read(typesFile)].join('\n')
-
   assert.doesNotMatch(source, /PATHFINDER|PF2E|Frightened|\bCondition\b|\bSpell\b/)
 })
 
 test('raw opaque payload and origin are never rendered as user-facing JSON', () => {
   const source = read(panelFile)
-
   assert.doesNotMatch(source, /JSON\.stringify\((?:effect\.)?(?:payload|origin)/)
   assert.doesNotMatch(source, /<pre[^>]*>[\s\S]*(?:payload|origin)/)
   assert.match(source, /questhub:manual-effects:v1/)
