@@ -6,6 +6,8 @@ Complementa e, nos pontos explicitamente tratados abaixo, **refina** `active-eff
 
 Card: `QH-EFF-005`
 
+Source lock: `01114da5851f31404078d8020809b13e4000bc4b`
+
 ## Decisão
 
 A polaridade de `CampaignActorEffect` continua sendo metadata visual genérica. O catálogo PF2e não usa texto, Rule Elements, sinais numéricos, nome aproximado, IA ou qualquer outra heurística em runtime para inferi-la.
