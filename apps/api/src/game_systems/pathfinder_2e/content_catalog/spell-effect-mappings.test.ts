@@ -163,43 +163,51 @@ test('Aerial Form keeps explanatory Clumsy separate from the actual standalone S
   const mappings = getPathfinder2eSpellEffectMappings(AERIAL_FORM)
   assert.equal(mappings.length, 2)
 
-  const clumsy = mappings.find((mapping) => mapping.source.label === 'Clumsy')
+  const clumsy = mappings.find((mapping) => (
+    mapping.definitionKey === 'conditionitems:i3OJZU2nk64Df3xm'
+  ))
   assert.ok(clumsy)
+  assert.equal(clumsy.source.label, null)
   assert.equal(clumsy.kind, 'condition')
   assert.equal(clumsy.potential, false)
   assert.equal(clumsy.evidence, 'REFERENCE_ONLY')
   assert.equal(clumsy.outcome, null)
+  assert.equal(clumsy.valueHint, null)
 
-  const aerialEffect = mappings.find((mapping) => mapping.source.label === 'Spell Effect: Aerial Form')
+  const aerialEffect = mappings.find((mapping) => (
+    mapping.definitionKey === 'spell-effects:mvMWmP3m9Xawbwpx'
+  ))
   assert.ok(aerialEffect)
-  assert.equal(aerialEffect.definitionKey, 'spell-effects:mvMWmP3m9Xawbwpx')
+  assert.equal(aerialEffect.source.label, null)
   assert.equal(aerialEffect.kind, 'effect')
   assert.equal(aerialEffect.potential, true)
   assert.equal(aerialEffect.evidence, 'STANDALONE_REFERENCE')
   assert.equal(aerialEffect.outcome, null)
 })
 
-test("Outcast's Curse preserves Success and Failure on immediately-following standalone Effect links", () => {
+test("Outcast's Curse preserves Success and Failure on immediately-following implicit-label Effect links", () => {
   const mappings = getPathfinder2eSpellEffectMappings(OUTCASTS_CURSE)
 
   const success = mappings.find((mapping) => (
-    mapping.source.label === "Spell Effect: Outcast's Curse (Success)"
+    mapping.definitionKey === 'spell-effects:hlgCesYXXHG8r9X4'
   ))
   assert.ok(success)
+  assert.equal(success.source.label, null)
   assert.equal(success.potential, true)
   assert.equal(success.evidence, 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE')
   assert.equal(success.outcome, 'SUCCESS')
 
   const failure = mappings.find((mapping) => (
-    mapping.source.label === "Spell Effect: Outcast's Curse (Failure)"
+    mapping.definitionKey === 'spell-effects:QccOlLHtnVEmD67m'
   ))
   assert.ok(failure)
+  assert.equal(failure.source.label, null)
   assert.equal(failure.potential, true)
   assert.equal(failure.evidence, 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE')
   assert.equal(failure.outcome, 'FAILURE')
 })
 
-test('value hints exist only for exact labels of valued Conditions', () => {
+test('value hints exist only for exact explicit labels of valued Conditions', () => {
   for (const entry of PATHFINDER_2E_SPELL_ENTRIES) {
     for (const mapping of getPathfinder2eSpellEffectMappings(entry.original.contentId)) {
       if (!mapping.valueHint) continue
