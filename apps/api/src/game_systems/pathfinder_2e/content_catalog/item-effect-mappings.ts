@@ -55,7 +55,7 @@ type AlignedOccurrence = {
   start: number
   token: string
   line: string
-  previousNonEmptyLine: string | null
+  previousLine: string | null
 }
 
 type ResolvedSemanticReference = {
@@ -111,17 +111,13 @@ function lineAt(text: string, position: number): string {
   return text.slice(lineStart, lineEnd).trim()
 }
 
-function previousNonEmptyLineAt(text: string, position: number): string | null {
+function previousLineAt(text: string, position: number): string | null {
   const currentLineStart = lineStartAt(text, position)
   if (currentLineStart <= 0) return null
 
-  const previousText = text.slice(0, currentLineStart - 1)
-  const lines = previousText.split('\n')
-  for (let index = lines.length - 1; index >= 0; index -= 1) {
-    const line = lines[index].trim()
-    if (line) return line
-  }
-  return null
+  const previousLineEnd = currentLineStart - 1
+  const previousLineStart = text.lastIndexOf('\n', Math.max(previousLineEnd - 1, 0)) + 1
+  return text.slice(previousLineStart, previousLineEnd).trim()
 }
 
 function outcomeForLine(line: string | null): Pathfinder2eItemEffectOutcome {
@@ -183,7 +179,7 @@ function alignDescriptionReferences(
         start,
         token,
         line: lineAt(description, start),
-        previousNonEmptyLine: previousNonEmptyLineAt(description, start),
+        previousLine: previousLineAt(description, start),
       })
     })
   }
@@ -292,7 +288,7 @@ function classifyMapping(
     } else if (sameLineOutcome) {
       evidence = 'REFERENCE_ONLY'
     } else if (aligned.line === aligned.token) {
-      const previousOutcome = outcomeForLine(aligned.previousNonEmptyLine)
+      const previousOutcome = outcomeForLine(aligned.previousLine)
       if (previousOutcome) {
         evidence = 'DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE'
         outcome = previousOutcome
