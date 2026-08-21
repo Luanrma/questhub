@@ -143,7 +143,7 @@ function propertyName(name, path) {
   throw new Error(`Unsupported computed property in historical catalog file: ${path}`)
 }
 
-function valueFromAst(node, path) {
+function valueFromAst(node, path, constants, resolving = new Set()) {
   const value = unwrapExpression(node)
 
   if (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) return value.text
@@ -152,8 +152,21 @@ function valueFromAst(node, path) {
   if (value.kind === ts.SyntaxKind.FalseKeyword) return false
   if (value.kind === ts.SyntaxKind.NullKeyword) return null
 
+  if (ts.isIdentifier(value)) {
+    const initializer = constants.get(value.text)
+    if (!initializer) {
+      throw new Error(`Unsupported external identifier in historical catalog file ${path}: ${value.text}`)
+    }
+    if (resolving.has(value.text)) {
+      throw new Error(`Circular local constant in historical catalog file ${path}: ${value.text}`)
+    }
+    const nextResolving = new Set(resolving)
+    nextResolving.add(value.text)
+    return valueFromAst(initializer, path, constants, nextResolving)
+  }
+
   if (ts.isPrefixUnaryExpression(value)) {
-    const operand = valueFromAst(value.operand, path)
+    const operand = valueFromAst(value.operand, path, constants, resolving)
     if (typeof operand !== 'number') throw new Error(`Unsupported unary value in ${path}`)
     if (value.operator === ts.SyntaxKind.MinusToken) return -operand
     if (value.operator === ts.SyntaxKind.PlusToken) return operand
@@ -161,7 +174,7 @@ function valueFromAst(node, path) {
   }
 
   if (ts.isArrayLiteralExpression(value)) {
-    return value.elements.map((entry) => valueFromAst(entry, path))
+    return value.elements.map((entry) => valueFromAst(entry, path, constants, resolving))
   }
 
   if (ts.isObjectLiteralExpression(value)) {
@@ -170,7 +183,12 @@ function valueFromAst(node, path) {
       if (!ts.isPropertyAssignment(property)) {
         throw new Error(`Unsupported non-literal property in historical catalog file: ${path}`)
       }
-      result[propertyName(property.name, path)] = valueFromAst(property.initializer, path)
+      result[propertyName(property.name, path)] = valueFromAst(
+        property.initializer,
+        path,
+        constants,
+        resolving,
+      )
     }
     return result
   }
@@ -178,8 +196,22 @@ function valueFromAst(node, path) {
   throw new Error(`Unsupported expression in historical catalog file ${path}: ${value.getText()}`)
 }
 
+function localConstantInitializers(sourceFile) {
+  const constants = new Map()
+  for (const statement of sourceFile.statements) {
+    if (!ts.isVariableStatement(statement)) continue
+    if (!(statement.declarationList.flags & ts.NodeFlags.Const)) continue
+    for (const declaration of statement.declarationList.declarations) {
+      if (!ts.isIdentifier(declaration.name) || !declaration.initializer) continue
+      constants.set(declaration.name.text, declaration.initializer)
+    }
+  }
+  return constants
+}
+
 function directRecordArray(source, path) {
   const sourceFile = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS)
+  const constants = localConstantInitializers(sourceFile)
 
   for (const statement of sourceFile.statements) {
     if (!ts.isVariableStatement(statement)) continue
@@ -192,7 +224,7 @@ function directRecordArray(source, path) {
       }
 
       if (!ts.isArrayLiteralExpression(initializer)) continue
-      const records = valueFromAst(initializer, path)
+      const records = valueFromAst(initializer, path, constants)
       if (!Array.isArray(records)) continue
       if (records.length > 0 && !records.every((entry) => (
         entry && typeof entry === 'object' && typeof entry.contentId === 'string'
