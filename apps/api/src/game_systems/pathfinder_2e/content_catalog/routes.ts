@@ -39,9 +39,6 @@ export function registerPathfinder2eContentCatalogRoutes(app: FastifyInstance) {
     const params = entryParamsSchema.safeParse(req.params)
     if (!params.success) return reply.status(400).send({ error: 'Content ID inválido' })
 
-    const entry = findPathfinder2eContentEntry(params.data.contentId, 'pt-BR')
-    if (!entry) return reply.status(404).send({ error: 'Conteúdo não encontrado' })
-
     const references = getPathfinder2eSourceReferences(params.data.contentId)
 
     return reply.send({
