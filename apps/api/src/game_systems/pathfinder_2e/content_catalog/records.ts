@@ -1,4 +1,5 @@
 import type { Pathfinder2eContentDomain } from './models'
+import type { Pathfinder2eSourceReference } from './source-references'
 
 export type Pathfinder2eImportStatus =
   | 'PLANNED'
@@ -47,6 +48,7 @@ export type Pathfinder2eOriginalContentRecord<TData = unknown> = {
   image?: Pathfinder2eContentImage
   sourceHash: string
   translatableHash: string
+  sourceReferences?: readonly Pathfinder2eSourceReference[]
   data: TData
 }
 
