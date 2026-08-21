@@ -64,6 +64,39 @@ function findDirectoriesNamed(directory, expectedName) {
     })
 }
 
+function readSourcePackManifest(sourceRoot) {
+  const manifestPath = join(sourceRoot, 'system.pf2e.json')
+  if (!existsSync(manifestPath)) return new Map()
+
+  let manifest
+  try {
+    manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
+  } catch {
+    return new Map()
+  }
+
+  const byName = new Map()
+  for (const pack of Array.isArray(manifest?.packs) ? manifest.packs : []) {
+    if (typeof pack?.name !== 'string' || typeof pack?.path !== 'string') continue
+
+    const normalizedRelative = pack.path.replaceAll('\\', '/').replace(/^\.\//, '')
+    const candidates = [
+      join(sourceRoot, normalizedRelative),
+      ...(normalizedRelative.startsWith('packs/')
+        ? [join(sourceRoot, 'packs', 'pf2e', normalizedRelative.slice('packs/'.length))]
+        : []),
+    ].filter((candidate, index, all) => all.indexOf(candidate) === index)
+
+    const existing = candidates.filter((candidate) => (
+      existsSync(candidate) && statSync(candidate).isDirectory()
+    ))
+
+    if (existing.length === 1) byName.set(pack.name, existing[0])
+  }
+
+  return byName
+}
+
 function readTargetDocument(file) {
   try {
     const value = JSON.parse(readFileSync(file, 'utf8'))
@@ -93,15 +126,19 @@ function aliasesForTarget(target) {
 
 export function createPf2eSourceReferenceResolver(sourceRoot) {
   const packsRoot = join(sourceRoot, 'packs', 'pf2e')
+  const manifestDirectories = readSourcePackManifest(sourceRoot)
   const packIndexCache = new Map()
 
   function indexPack(sourcePack) {
     if (packIndexCache.has(sourcePack)) return packIndexCache.get(sourcePack)
 
+    const manifestDirectory = manifestDirectories.get(sourcePack)
     const direct = join(packsRoot, sourcePack)
-    const directories = existsSync(direct)
-      ? [direct]
-      : findDirectoriesNamed(packsRoot, sourcePack)
+    const directories = manifestDirectory
+      ? [manifestDirectory]
+      : existsSync(direct)
+        ? [direct]
+        : findDirectoriesNamed(packsRoot, sourcePack)
 
     if (directories.length !== 1) {
       packIndexCache.set(sourcePack, null)
