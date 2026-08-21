@@ -2,14 +2,19 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import type { ComponentType, PointerEvent as ReactPointerEvent } from 'react'
 import { FileText, Grip, Maximize2, Minimize2, X } from 'lucide-react'
 import { ResizableEdges, type ResizableBox } from '../components/ResizableEdges'
-import type { GameSystemKey } from './registry'
-import { getCharacterSheetRenderer } from './character-sheet-renderers'
-import type { CharacterSheetRendererProps } from './character-sheet-renderers'
 import {
   campaignCharacterSheetOpenEvent,
   type CampaignCharacterSheetOpenRequest,
 } from '../lib/campaign-character-sheet-window-events'
+import { ActorActiveEffectsPanel } from '../vtt/actor-effects/ActorActiveEffectsPanel'
+import { useCharacterSheetActorContext } from '../vtt/actor-effects/useCharacterSheetActorContext'
+import type { ActorEffectPresentationResolver } from '../vtt/actor-effects/types'
 import { registerVttWindow } from '../vtt/table/infrastructure/vttInteractionRegistry'
+import { getCharacterSheetRenderer } from './character-sheet-renderers'
+import type { CharacterSheetRendererProps } from './character-sheet-renderers'
+import type { GameSystemKey } from './registry'
+
+type CampaignRole = 'MASTER' | 'PLAYER'
 
 type SheetWindowState = {
   sheetId: string
@@ -23,6 +28,7 @@ type SheetWindowState = {
 type Props = {
   campaignId: string
   gameSystem: GameSystemKey | null
+  role?: CampaignRole | null
 }
 
 function initialBox(offset: number): ResizableBox {
@@ -41,22 +47,26 @@ function initialBox(offset: number): ResizableBox {
 
 function CharacterSheetWindow({
   campaignId,
+  role,
   state,
   index,
   hidden,
   pages,
   Renderer,
+  resolveActorEffectPresentation,
   onFocus,
   onPageChange,
   onMinimize,
   onClose,
 }: {
   campaignId: string
+  role?: CampaignRole | null
   state: SheetWindowState
   index: number
   hidden: boolean
   pages: readonly { id: string; label: string }[]
   Renderer: ComponentType<CharacterSheetRendererProps>
+  resolveActorEffectPresentation?: ActorEffectPresentationResolver
   onFocus: () => void
   onPageChange: (pageId: string) => void
   onMinimize: () => void
@@ -65,6 +75,11 @@ function CharacterSheetWindow({
   const [box, setBox] = useState<ResizableBox>(() => initialBox(index * 24))
   const dragStartRef = useRef({ pointerX: 0, pointerY: 0, panelX: 0, panelY: 0 })
   const [dragging, setDragging] = useState(false)
+  const actorId = useCharacterSheetActorContext(
+    campaignId,
+    state.sheetId,
+    state.presentation === 'FULL',
+  )
 
   useEffect(() => registerVttWindow({
     id: `character-sheet:${campaignId}:${state.sheetId}`,
@@ -186,6 +201,15 @@ function CharacterSheetWindow({
         ))}
       </nav> : null}
 
+      {state.presentation === 'FULL' && actorId ? (
+        <ActorActiveEffectsPanel
+          campaignId={campaignId}
+          actorId={actorId}
+          canManage={role === 'MASTER'}
+          resolvePresentation={resolveActorEffectPresentation}
+        />
+      ) : null}
+
       <div
         className="min-h-0 flex-1 overflow-x-hidden overflow-y-auto bg-[#b7a78d] p-3"
         data-sheet-active-page={state.activePage}
@@ -203,7 +227,7 @@ function CharacterSheetWindow({
   )
 }
 
-export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Props) {
+export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem, role }: Props) {
   const registration = useMemo(() => getCharacterSheetRenderer(gameSystem), [gameSystem])
   const [windows, setWindows] = useState<SheetWindowState[]>([])
   const zIndexRef = useRef(130)
@@ -274,11 +298,13 @@ export function CampaignCharacterSheetWorkspace({ campaignId, gameSystem }: Prop
         <CharacterSheetWindow
           key={state.sheetId}
           campaignId={campaignId}
+          role={role}
           state={state}
           index={index}
           hidden={state.minimized}
           pages={state.presentation === 'SIMPLIFIED' ? [] : registration.pages}
           Renderer={registration.Renderer}
+          resolveActorEffectPresentation={registration.resolveActorEffectPresentation}
           onFocus={() => focusWindow(state.sheetId)}
           onPageChange={(activePage) => updateWindow(state.sheetId, { activePage })}
           onMinimize={() => updateWindow(state.sheetId, { minimized: true })}
