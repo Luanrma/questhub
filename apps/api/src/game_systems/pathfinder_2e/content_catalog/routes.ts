@@ -6,6 +6,7 @@ import {
   getPathfinder2eRoundSummary,
   listPathfinder2eRoundEntries,
 } from './catalog'
+import { getPathfinder2eSourceReferences } from './source-references'
 
 const localeSchema = z.enum(['en-US', 'pt-BR']).default('pt-BR')
 const roundParamsSchema = z.object({ roundId: z.string().trim().min(1).max(100) })
@@ -28,6 +29,25 @@ export function registerPathfinder2eContentCatalogRoutes(app: FastifyInstance) {
     return reply.send({
       round,
       entries: listPathfinder2eRoundEntries(params.data.roundId, locale),
+    })
+  })
+
+  app.get('/api/game-systems/pathfinder-2e/content/entries/:contentId/source-references', async (req, reply) => {
+    const auth = requireAuth(req, reply)
+    if (!auth) return
+
+    const params = entryParamsSchema.safeParse(req.params)
+    if (!params.success) return reply.status(400).send({ error: 'Content ID inválido' })
+
+    const entry = findPathfinder2eContentEntry(params.data.contentId, 'pt-BR')
+    if (!entry) return reply.status(404).send({ error: 'Conteúdo não encontrado' })
+
+    const references = getPathfinder2eSourceReferences(params.data.contentId)
+
+    return reply.send({
+      contentId: params.data.contentId,
+      count: references.length,
+      references,
     })
   })
 
