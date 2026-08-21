@@ -1,51 +1,51 @@
 # Feature Spec — Índice semântico de referências PF2e
 
-Status: **READY — escopo revisado para catálogo já importado**
+Status: **READY — catálogo já importado**
 
 Card: `QH-EFF-004`
 
 Domínio: `Game System / Pathfinder 2e / Content Catalog`
 
-Dependências: `QH-EFF-001` concluído. Esta entrega prepara `QH-EFF-005`, `QH-EFF-006`, `QH-EFF-007` e `QH-EFF-008`.
+Dependências: `QH-EFF-001`. Prepara `QH-EFF-005`, `QH-EFF-006`, `QH-EFF-007` e `QH-EFF-008`.
 
 ## 1. Contexto
 
-O conteúdo PF2e necessário ao QuestHub já foi integralmente importado. **Não existem novas rodadas de importação previstas.**
+Todo o conteúdo PF2e necessário ao QuestHub já foi importado. **Não existem novas rodadas de importação previstas.**
 
-A fonte usada pelas importações está travada no commit:
+A fonte usada nas importações está travada no commit:
 
 ```text
 01114da5851f31404078d8020809b13e4000bc4b
 ```
 
-Na fonte PF2e existem relações explícitas como:
+A fonte possui relações explícitas como:
 
 ```text
 @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}
 ```
 
-A normalização histórica preservou o texto legível, mas descartou o UUID. Como não haverá novas importações, o QH-EFF-004 precisa reconstruir essas relações para **os registros já existentes**.
+A normalização histórica preservou o texto legível, mas removeu o UUID. O QH-EFF-004 reconstrói essas relações para o catálogo **já existente**.
 
 ## 2. Objetivo
 
-Gerar e versionar um **índice sidecar de referências PF2e**, chaveado pelo `contentId` já existente.
+Gerar e versionar um **índice sidecar PF2e**, chaveado pelo `contentId` já existente, sem modificar os arquivos `original`.
 
-O índice preserva:
+O índice retém:
 
-1. referências cujo alvo da própria fonte resolve exatamente para `condition`, `effect` ou `affliction`;
-2. referências PF2e explícitas cujo alvo não pôde ser resolvido exatamente, mantendo-as sem `target.type` para não destruir informação da fonte nem inferir semântica.
+1. referências cujo alvo resolve estruturalmente para `condition`, `effect` ou `affliction`;
+2. referências PF2e explícitas cujo `documentType` é `Item`, mas cujo alvo não pôde ser resolvido com exatidão. Essas referências ficam sem `target.type` e não são tratadas como efeito confirmado.
 
-Referências cujo alvo foi resolvido e comprovadamente é outro tipo, como uma Spell ou Equipment comum, não entram no índice destinado ao fluxo de Active Effects.
+O índice exclui referências que a própria estrutura já comprova não serem candidatas a Active Effects, por exemplo:
 
-Os arquivos `original` do catálogo permanecem byte a byte iguais aos da `main`.
+- target resolvido como `spell` ou equipment comum;
+- `RollTable` sem `type`;
+- Journal e outros document types que não são `Item`.
 
-O QH-EFF-004 não reimporta conteúdo e não altera o contrato de `Pathfinder2eOriginalContentRecord`.
+Não há inferência por label, texto, IA ou aproximação nominal.
 
-## 3. Por que sidecar
+## 3. Sidecar em vez de reimportação
 
-Uma primeira prova de backfill inline recuperou referências corretamente, mas reescrever os registros originais adicionaria milhões de linhas e misturaria metadata derivada com o conteúdo congelado.
-
-A solução definitiva separa responsabilidades:
+A prova inicial de backfill inline funcionou, mas reescreveria dezenas de arquivos congelados e adicionaria milhões de linhas. A solução definitiva é:
 
 ```text
 OriginalContentRecord existente
@@ -57,36 +57,32 @@ PF2e Source Reference Index
         ├── condition
         ├── effect
         ├── affliction
-        └── unresolved explicit PF2e reference
+        └── unresolved PF2e Item reference
 ```
 
 Consequências:
 
-- os registros importados e seus hashes não mudam;
-- traduções não mudam;
-- a metadata pode ser regenerada deterministicamente;
-- QH-EFF-005/006/007/008 consultam a relação por `contentId`;
-- referências explícitas não resolvidas não são perdidas nem classificadas artificialmente;
-- o VTT Core continua sem conhecer semântica PF2e.
+- `Pathfinder2eOriginalContentRecord` permanece inalterado;
+- originais, hashes e traduções permanecem iguais à `main`;
+- metadata é regenerável deterministicamente;
+- QH-EFF-005/006/007/008 podem consultar referências por `contentId`;
+- VTT Core continua sem conhecer semântica PF2e.
 
 ## 4. Fora de escopo
 
-O QH-EFF-004 **não**:
+O QH-EFF-004 não:
 
-- cria nova rodada, batch ou delivery de importação;
-- seleciona novos Spells, Items, Creatures ou Hazards;
-- modifica `data`, `sourceHash`, `translatableHash`, imagens ou traduções;
-- cria o catálogo de Conditions/Effects — responsabilidade do QH-EFF-005;
-- classifica buff/debuff, polaridade ou consequência mecânica;
-- interpreta save, duração, stacking, dano ou valor mecânico;
+- cria nova rodada, batch, delivery ou conteúdo;
+- altera cobertura editorial;
+- altera `data`, `sourceHash`, `translatableHash`, imagens ou traduções;
+- cria o catálogo de Conditions/Effects — QH-EFF-005;
+- classifica buff/debuff ou polaridade;
+- interpreta save, duração, stacking, dano ou modificadores;
 - aplica `CampaignActorEffect`;
 - altera ficha, Token, banco, API do Core ou realtime;
-- infere referência por texto normalizado, label, IA ou aproximação nominal;
-- trata uma referência não resolvida como Condition/Effect/Affliction sem evidência estrutural.
+- promove uma referência não resolvida a Condition/Effect/Affliction.
 
-## 5. Contrato do índice
-
-O contrato do registro original permanece inalterado.
+## 5. Contrato
 
 A API interna PF2e expõe:
 
@@ -119,13 +115,13 @@ type Pathfinder2eSourceReference = {
 }
 ```
 
-`target.type` ausente significa somente que a referência explícita PF2e foi preservada, mas o alvo não foi resolvido com exatidão. Não autoriza interpretação mecânica.
+`target.type` ausente significa apenas que um **UUID PF2e de documento `Item`** foi explicitamente preservado, mas o alvo não foi resolvido de forma suficiente para classificá-lo.
 
-Os arquivos gerados usam uma tupla compacta para evitar expansão desnecessária do repositório. O UUID bruto preserva `package`, `pack`, `documentType` e chave; essas partes são recompostas na leitura.
+Os arquivos gerados usam uma tupla compacta. O UUID bruto preserva package, pack, document type e chave; essas partes são recompostas na leitura.
 
-## 6. Fonte de verdade
+## 6. Fonte e resolução do registro de origem
 
-O backfill recebe um checkout local da fonte PF2e e o entrypoint valida que `HEAD` seja exatamente:
+O entrypoint valida que o checkout PF2e esteja exatamente em:
 
 ```text
 01114da5851f31404078d8020809b13e4000bc4b
@@ -133,29 +129,28 @@ O backfill recebe um checkout local da fonte PF2e e o entrypoint valida que `HEA
 
 Commit divergente é erro fatal.
 
-Para reencontrar o documento que originou cada registro, o algoritmo usa somente identidade estrutural persistida:
+Para reencontrar o source document de cada registro já importado, o algoritmo usa somente identidade estrutural persistida:
 
 1. `source.sourceId`;
 2. `source.slug`, quando disponível;
 3. `source.sourcePack` + `system.pf2e.json`;
 4. `source.publicationTitle`, quando necessário;
-5. domínio do registro (`BESTIARY`, `SPELL`, `ITEM`).
+5. domínio (`BESTIARY`, `SPELL`, `ITEM`).
 
-Se a identidade não resultar em exatamente um documento source, o processo falha. Não existe fallback aproximado.
+Se o resultado não for exatamente um source document, o processo falha. Não existe fallback aproximado.
 
 ## 7. Cobertura
 
-O gerador percorre recursivamente todos os arquivos `original` do catálogo atual, incluindo:
+O gerador percorre recursivamente todos os arquivos `original`, incluindo:
 
 - pilotos históricos;
 - lotes exaustivos;
 - Bestiary;
 - Spells;
-- Items;
-- subdiretórios históricos de Items;
-- Creatures e Hazards presentes no domínio `BESTIARY`.
+- Items e subdiretórios históricos;
+- Creatures e Hazards presentes em `BESTIARY`.
 
-O resultado é dividido em três arquivos sidecar gerados:
+Saídas versionadas:
 
 ```text
 source_reference_index/generated/bestiary.ts
@@ -163,49 +158,52 @@ source_reference_index/generated/spells.ts
 source_reference_index/generated/items.ts
 ```
 
-## 8. Extração de referências
+## 8. Extração
 
-### 8.1. `@UUID[...]` inline
+### `@UUID[...]` inline
 
-Para cada ocorrência são preservados:
+Preserva por ocorrência:
 
 - UUID bruto;
-- label, quando existir;
+- label;
 - JSON Pointer (`sourcePath`);
-- posição da ocorrência (`sourceIndex`);
-- `ownerSourceId` do documento incorporado mais próximo, quando existir.
+- posição (`sourceIndex`);
+- `ownerSourceId` do documento incorporado mais próximo, quando disponível.
 
-### 8.2. UUID como valor
+### UUID como valor
 
 Campos cujo valor completo é um UUID Foundry reconhecido também são coletados.
 
-### 8.3. Duplicidades
+### Duplicidades
 
-Ocorrências repetidas permanecem independentes. Uma Spell com `Frightened 1`, `Frightened 2` e `Frightened 3` preserva as três referências e respectivos contextos.
+Ocorrências repetidas permanecem independentes. Valores/contextos diferentes não são deduplicados.
 
 ## 9. Resolução e retenção do target
 
-UUIDs de Compendium são decompostos estruturalmente.
+UUIDs de Compendium são decompostos estruturalmente. O resolver usa `system.pf2e.json`, pois nome lógico de pack e diretório físico podem divergir.
 
-O resolver usa o manifest `system.pf2e.json` porque o nome lógico do Compendium pode divergir do diretório físico da fonte.
+Não existe mapa hardcoded de Conditions, Effects, Afflictions ou nomes de packs mecânicos.
 
-Não existe mapa hardcoded de nomes de Conditions, Effects ou packs mecânicos.
+A retenção segue:
 
-Após a resolução estrutural, existem três casos:
+```text
+resolved type = condition/effect/affliction
+  -> RETÉM com type
 
-1. **Target resolvido como `condition`, `effect` ou `affliction`**: a referência entra no sidecar com o tipo comprovado pela fonte.
-2. **Target PF2e explícito não resolvido**: a referência entra no sidecar com UUID/contexto preservados e `target.type` ausente.
-3. **Target resolvido como outro tipo**, por exemplo `spell` ou equipment comum: a referência é excluída do sidecar de Active Effects porque já existe evidência estrutural de que não pertence a esse conjunto.
+PF2e + documentType = Item + target sem type resolvido
+  -> RETÉM sem type
 
-O label textual nunca é usado para promover ou classificar uma referência.
+resolved como outro tipo OU documentType não-Item sem type
+  -> EXCLUI
+```
 
-Uma referência não resolvida é **informação preservada**, não um efeito confirmado. Cards posteriores só podem utilizá-la como efeito após obter evidência estrutural suficiente.
+O label nunca participa dessa decisão.
 
 ## 10. Invariantes
 
-O backfill definitivo não reescreve arquivos `original`.
+O backfill não reescreve arquivos `original`.
 
-Devem permanecer idênticos à `main`:
+Permanecem idênticos à `main`:
 
 - `contentId`;
 - `domain`;
@@ -217,35 +215,25 @@ Devem permanecer idênticos à `main`:
 - `data`;
 - overlays `pt-BR`.
 
-As únicas saídas versionadas do backfill são os arquivos do índice sidecar.
+As únicas saídas versionadas do backfill são os três arquivos sidecar.
 
 ## 11. Idempotência
 
-Com o mesmo catálogo e o mesmo source commit, uma segunda execução deve produzir:
+Com o mesmo catálogo e source commit, uma segunda execução deve retornar:
 
 ```text
 changedFileCount = 0
 ```
 
-O modo de validação é:
+Validação:
 
 ```text
 node scripts/backfill-pf2e-source-references.mjs .tmp/pf2e-source --check
 ```
 
-Se o índice versionado estiver divergente do resultado determinístico, o comando termina com erro.
+Se o sidecar versionado divergir do resultado determinístico, o comando falha.
 
-## 12. Relação com o importador histórico
-
-O importador histórico permanece intocado.
-
-O comando de backfill não executa seleção, importação, tradução ou cobertura editorial. Ele apenas reconstrói o índice a partir de:
-
-```text
-catálogo já existente + fonte travada
-```
-
-## 13. Arquitetura
+## 12. Arquitetura
 
 Toda a implementação pertence ao bounded context PF2e:
 
@@ -254,34 +242,32 @@ apps/api/src/game_systems/pathfinder_2e/content_catalog/
 scripts/*pf2e-source-references*
 ```
 
-O VTT Core não conhece UUID Foundry, Conditions PF2e ou o índice.
+O importador histórico permanece intocado. O VTT Core não conhece UUID Foundry, Conditions PF2e ou esse índice.
 
-ADR aplicável: `ADR-0005`.
+ADR aplicável: `ADR-0005`. Não há mudança de ownership, Campaign boundary, CampaignActor, Token ou `CampaignActorEffect`; nenhum novo ADR é necessário.
 
-Não há mudança de ownership, Campaign boundary, CampaignActor, Token ou `CampaignActorEffect`. Não é necessário novo ADR.
-
-## 14. Critérios de aceitação
+## 13. Critérios de aceitação
 
 - **AC01** — `Pathfinder2eOriginalContentRecord` permanece inalterado.
-- **AC02** — o backfill aceita somente o source commit travado.
+- **AC02** — somente o source commit travado é aceito.
 - **AC03** — todo o catálogo original existente é percorrido recursivamente.
-- **AC04** — Bestiary, Spells e Items são cobertos, incluindo diretórios históricos aninhados.
+- **AC04** — Bestiary, Spells e Items, inclusive diretórios históricos, são cobertos.
 - **AC05** — `@UUID[...]` inline é extraído estruturalmente.
 - **AC06** — UUID armazenado diretamente como valor também é extraído.
 - **AC07** — JSON Pointer, posição, label e owner source ID são preservados.
 - **AC08** — ocorrências duplicadas permanecem independentes.
 - **AC09** — Compendium é decomposto estruturalmente.
-- **AC10** — resolução de pack usa `system.pf2e.json`, sem mapa mecânico hardcoded.
-- **AC11** — documento source ambíguo aborta o backfill.
+- **AC10** — pack é resolvido via `system.pf2e.json`, sem mapa mecânico hardcoded.
+- **AC11** — source document ambíguo aborta o backfill.
 - **AC12** — nenhum target é inferido por label ou texto.
-- **AC13** — targets resolvidos como `condition`, `effect` ou `affliction` são retidos; referências PF2e explícitas não resolvidas também são preservadas sem tipo, enquanto targets comprovadamente não semânticos são excluídos.
-- **AC14** — arquivos `original` e traduções permanecem intocados.
-- **AC15** — nenhuma nova rodada ou conteúdo é importado.
+- **AC13** — resolved `condition/effect/affliction` é retido; PF2e `Item` explícito não resolvido é preservado sem tipo; target comprovadamente não semântico ou document type não-Item é excluído.
+- **AC14** — originais e traduções permanecem intocados.
+- **AC15** — nenhuma nova importação é executada.
 - **AC16** — segunda execução é idempotente (`changedFileCount = 0`).
 - **AC17** — nenhuma regra PF2e vaza para VTT Core.
-- **AC18** — o PR contém o índice sidecar gerado para o catálogo atual antes de Human Approval.
+- **AC18** — o PR contém o sidecar gerado para o catálogo atual antes de Human Approval.
 
-## 15. Gates
+## 14. Gates
 
 Antes de Human Approval:
 
@@ -289,7 +275,7 @@ Antes de Human Approval:
 2. Architecture revalidation;
 3. Code Review;
 4. Documentation Audit;
-5. QA cobrindo os 18 critérios;
+5. QA cobrindo AC01–AC18;
 6. `Game System Boundaries` e `Quality` verdes.
 
 O merge permanece responsabilidade exclusiva do owner do repositório.
