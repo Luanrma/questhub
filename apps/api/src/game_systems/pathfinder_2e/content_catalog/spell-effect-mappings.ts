@@ -183,6 +183,28 @@ function alignDescriptionReferences(
     })
   }
 
+  // The Feature Spec requires one forward-only pass through the normalized description.
+  // Per-token matching above resolves duplicate labels safely; this second pass enforces
+  // global source order across different tokens. Any candidate that would move backwards
+  // is deliberately discarded so the reference remains REFERENCE_ONLY rather than being
+  // attached to an earlier plain-text occurrence.
+  let lastAcceptedStart = -1
+  const sourceOrdered = [...references]
+    .filter(({ reference }) => reference.sourcePath === DESCRIPTION_SOURCE_PATH)
+    .sort((left, right) => left.reference.sourceIndex - right.reference.sourceIndex)
+
+  for (const resolved of sourceOrdered) {
+    const occurrence = aligned.get(resolved.reference)
+    if (!occurrence) continue
+
+    if (occurrence.start <= lastAcceptedStart) {
+      aligned.delete(resolved.reference)
+      continue
+    }
+
+    lastAcceptedStart = occurrence.start
+  }
+
   return aligned
 }
 
