@@ -1,0 +1,50 @@
+name: QH-EFF-004 PF2e Source Reference Backfill
+
+on:
+  push:
+    branches:
+      - feat/qh-eff-004-pf2e-semantic-references
+    paths:
+      - scripts/backfill-pf2e-source-references.mjs
+      - scripts/lib/backfill-pf2e-source-references.mjs
+      - scripts/lib/pf2e-source-references.mjs
+      - .github/workflows/qh-eff-004-backfill.yml
+
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout QuestHub branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/qh-eff-004-pf2e-semantic-references
+          fetch-depth: 0
+
+      - name: Checkout locked PF2e source
+        uses: actions/checkout@v4
+        with:
+          repository: foundryvtt/pf2e
+          ref: 01114da5851f31404078d8020809b13e4000bc4b
+          path: .tmp/pf2e-source
+
+      - name: Backfill existing catalog
+        run: node scripts/backfill-pf2e-source-references.mjs .tmp/pf2e-source
+
+      - name: Validate generated diff
+        run: git diff --check
+
+      - name: Commit generated catalog metadata
+        shell: bash
+        run: |
+          if git diff --quiet -- apps/api/src/game_systems/pathfinder_2e/content_catalog; then
+            echo "Catalog is already enriched."
+            exit 0
+          fi
+          git config user.name "QuestHub Automation"
+          git config user.email "actions@users.noreply.github.com"
+          git add -- ':(glob)apps/api/src/game_systems/pathfinder_2e/content_catalog/**/original/*.ts'
+          git commit -m "QH-EFF-004 backfill existing PF2e source references"
+          git push origin HEAD:feat/qh-eff-004-pf2e-semantic-references
