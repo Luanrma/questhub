@@ -96,9 +96,7 @@ Essa separação evita transformar um nome implícito do UUID em dado mecânico 
 - **AC28** — `source.label` permanece `null` nesses mappings;
 - **AC29** — fallback por `compendiumKey` não produz value hint;
 - **AC30** — ausência de label e compendiumKey mantém a ocorrência não confirmada, sem fuzzy matching;
-- **AC31** — Aerial Form e Outcast's Curse passam pelos mesmos classificadores de evidência da Spec principal após o alinhamento estrutural, sem exceções por nome;
-- **AC32** — referência inline na própria linha de Degree of Success com `label = null` não é promovida somente pelo fallback de `compendiumKey`;
-- **AC33** — `Outcast's Curse -> Unfriendly/Indifferent` permanece `REFERENCE_ONLY`, enquanto os Spell Effects standalone associados continuam potenciais pelos critérios posicionais.
+- **AC31** — o fallback por `compendiumKey` permanece somente alinhamento: referência inline na própria linha de Degree of Success com `label = null` não é promovida por esse fato; `Aerial Form -> Clumsy` e `Outcast's Curse -> Unfriendly/Indifferent` permanecem `REFERENCE_ONLY`, enquanto os Spell Effects standalone de Aerial Form e Outcast's Curse continuam potenciais pelos critérios estruturais da Spec principal, sem exceções por nome.
 
 ## Resultado do BA
 
