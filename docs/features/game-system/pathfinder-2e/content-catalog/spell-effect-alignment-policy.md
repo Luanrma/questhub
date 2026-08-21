@@ -25,11 +25,12 @@ Aerial Form
   Spell Effect: Aerial Form      -> label null, compendiumKey Spell Effect: Aerial Form
 
 Outcast's Curse
+  Unfriendly / Indifferent       -> label null, compendiumKey correspondente
   Spell Effect ... (Success)     -> label null, compendiumKey correspondente
   Spell Effect ... (Failure)     -> label null, compendiumKey correspondente
 ```
 
-Descartar esses casos por `label = null` violaria a cobertura e os exemplos aprovados.
+Descartar todos esses casos por `label = null` impediria o alinhamento estrutural. Por outro lado, usar o nome implícito como prova mecânica criaria falsos positivos: em `Outcast's Curse`, `Indifferent` aparece como estado comparativo dentro do texto de Success e não deve ser promovido automaticamente só por estar nessa linha.
 
 ## Token estrutural de alinhamento
 
@@ -49,7 +50,25 @@ Regras obrigatórias:
 3. não é permitido fallback para tradução `pt-BR`, slug aproximado, nome fuzzy, IA ou pesquisa externa;
 4. o token precisa aparecer exatamente na descrição `en-US` para ser alinhado;
 5. ambiguidade continua falhando de forma segura para `REFERENCE_ONLY`;
-6. `target.compendiumKey` não é usado para determinar Degree of Success; outcome continua vindo somente das regras posicionais da Spec principal.
+6. `target.compendiumKey` não é usado para determinar Degree of Success; outcome continua vindo somente das regras posicionais da Spec principal;
+7. **alinhamento por `compendiumKey` não é, sozinho, evidência suficiente para promover uma referência inline na própria linha de Degree of Success**;
+8. uma referência `label = null` pode continuar sendo potencial quando satisfaz uma evidência independente e mais forte, como `STANDALONE_REFERENCE` ou `DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE`.
+
+Logo, em `Outcast's Curse`:
+
+```text
+Unfriendly / Indifferent
+  -> alinháveis pelo compendiumKey
+  -> inline em Success com label null
+  -> REFERENCE_ONLY
+  -> potential false
+
+Spell Effect: Outcast's Curse (Success)
+  -> alinhável pelo compendiumKey
+  -> standalone após linha Success
+  -> DEGREE_OF_SUCCESS_FOLLOWING_REFERENCE
+  -> potential true
+```
 
 ## Value hint continua mais restrito
 
@@ -77,7 +96,9 @@ Essa separação evita transformar um nome implícito do UUID em dado mecânico 
 - **AC28** — `source.label` permanece `null` nesses mappings;
 - **AC29** — fallback por `compendiumKey` não produz value hint;
 - **AC30** — ausência de label e compendiumKey mantém a ocorrência não confirmada, sem fuzzy matching;
-- **AC31** — Aerial Form e Outcast's Curse passam pelos mesmos classificadores de evidência da Spec principal após o alinhamento estrutural, sem exceções por nome.
+- **AC31** — Aerial Form e Outcast's Curse passam pelos mesmos classificadores de evidência da Spec principal após o alinhamento estrutural, sem exceções por nome;
+- **AC32** — referência inline na própria linha de Degree of Success com `label = null` não é promovida somente pelo fallback de `compendiumKey`;
+- **AC33** — `Outcast's Curse -> Unfriendly/Indifferent` permanece `REFERENCE_ONLY`, enquanto os Spell Effects standalone associados continuam potenciais pelos critérios posicionais.
 
 ## Resultado do BA
 
