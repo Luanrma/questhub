@@ -275,10 +275,19 @@ function classifyMapping(
   } else if (!aligned) {
     evidence = 'REFERENCE_ONLY'
   } else {
-    outcome = outcomeForLine(aligned.line)
-    if (outcome) {
+    const sameLineOutcome = outcomeForLine(aligned.line)
+
+    // A same-line Degree-of-Success marker is only strong enough when QH-EFF-004
+    // preserved an explicit label. An implicit compendiumKey is alignment metadata only;
+    // treating it as application evidence creates false positives such as the comparative
+    // Unfriendly/Indifferent links in Outcast's Curse.
+    if (sameLineOutcome && reference.label) {
       evidence = 'DEGREE_OF_SUCCESS'
+      outcome = sameLineOutcome
       potential = true
+    } else if (sameLineOutcome) {
+      evidence = 'REFERENCE_ONLY'
+      outcome = null
     } else if (aligned.line === aligned.token) {
       const previousOutcome = outcomeForLine(aligned.previousNonEmptyLine)
       if (previousOutcome) {
