@@ -185,8 +185,27 @@ test('Aerial Form keeps explanatory Clumsy separate from the actual standalone S
   assert.equal(aerialEffect.outcome, null)
 })
 
-test("Outcast's Curse preserves Success and Failure on immediately-following implicit-label Effect links", () => {
+test("Outcast's Curse keeps comparative attitudes non-potential and preserves standalone outcome Effects", () => {
   const mappings = getPathfinder2eSpellEffectMappings(OUTCASTS_CURSE)
+  assert.equal(mappings.length, 4)
+
+  const unfriendly = mappings.find((mapping) => (
+    mapping.definitionKey === 'conditionitems:I1ffBVISxLr2gC4u'
+  ))
+  assert.ok(unfriendly)
+  assert.equal(unfriendly.source.label, null)
+  assert.equal(unfriendly.potential, false)
+  assert.equal(unfriendly.evidence, 'REFERENCE_ONLY')
+  assert.equal(unfriendly.outcome, null)
+
+  const indifferent = mappings.find((mapping) => (
+    mapping.definitionKey === 'conditionitems:fuG8dgthlDWfWjIA'
+  ))
+  assert.ok(indifferent)
+  assert.equal(indifferent.source.label, null)
+  assert.equal(indifferent.potential, false)
+  assert.equal(indifferent.evidence, 'REFERENCE_ONLY')
+  assert.equal(indifferent.outcome, null)
 
   const success = mappings.find((mapping) => (
     mapping.definitionKey === 'spell-effects:hlgCesYXXHG8r9X4'
