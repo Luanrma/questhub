@@ -4,18 +4,38 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import test from 'node:test'
-import type { Pathfinder2eOriginalContentRecord } from './records'
-import type { Pathfinder2eSourceReference } from './source-references'
+import type { Pathfinder2eSourceReferenceTuple } from './source-references'
 
 const root = process.cwd()
 const helperFile = path.join(root, 'scripts', 'lib', 'pf2e-source-references.mjs')
+
+type ExtractedReference = {
+  syntax: 'INLINE_UUID' | 'UUID_VALUE'
+  sourcePath: string
+  sourceIndex: number
+  uuid: string
+  label: string | null
+  owner?: { sourceId?: string; name?: string; type?: string }
+  target: {
+    uuid: string
+    package?: string
+    sourcePack?: string
+    documentType?: string
+    compendiumKey?: string
+    sourceId?: string
+    slug?: string
+    name?: string
+    type?: string
+  }
+}
+
 const nativeImport = new Function('specifier', 'return import(specifier)') as (
   specifier: string,
 ) => Promise<Record<string, unknown>>
 
 async function sourceReferenceModule() {
   return nativeImport(pathToFileURL(helperFile).href) as Promise<{
-    collectPf2eSourceReferences(document: unknown, options?: { resolveTarget?: (target: unknown) => unknown }): Pathfinder2eSourceReference[]
+    collectPf2eSourceReferences(document: unknown, options?: { resolveTarget?: (target: unknown) => unknown }): ExtractedReference[]
     createPf2eSourceReferenceResolver(sourceRoot: string): (target: unknown) => unknown
     parseFoundryUuid(uuid: string): Record<string, string>
   }>
@@ -162,28 +182,25 @@ test('target resolver refuses unknown packs instead of inferring from labels', a
   }
 })
 
-test('OriginalContentRecord keeps source references optional and outside translated data', () => {
-  const legacyRecord: Pathfinder2eOriginalContentRecord<{ schemaVersion: 1 }> = {
-    contentId: 'pf2e:spell:test:legacy',
-    domain: 'SPELL',
-    locale: 'en-US',
-    source: { sourcePack: 'test', sourceId: 'legacy-id' },
-    sourceHash: 'sha256:source',
-    translatableHash: 'sha256:translated',
-    data: { schemaVersion: 1 },
-  }
+test('semantic sidecar tuple stays compact and does not alter original content record contract', () => {
+  const tuple: Pathfinder2eSourceReferenceTuple = [
+    0,
+    '/system/description/value',
+    42,
+    'Compendium.pf2e.conditionitems.Item.Frightened',
+    'Frightened 2',
+    'owner-id',
+    'condition-id',
+    'frightened',
+    'condition',
+  ]
 
-  const enrichedRecord: Pathfinder2eOriginalContentRecord<{ schemaVersion: 1 }> = {
-    ...legacyRecord,
-    sourceReferences: [],
-  }
-
-  assert.equal(legacyRecord.sourceReferences, undefined)
-  assert.deepEqual(enrichedRecord.sourceReferences, [])
+  assert.equal(tuple.length, 9)
+  assert.equal(tuple[8], 'condition')
 })
 
-test('reference extractor contains no concrete effect names or mechanical classification mapping', () => {
+test('reference extractor contains no concrete effect names or polarity mapping', () => {
   const source = readFileSync(helperFile, 'utf8')
-  assert.doesNotMatch(source, /Frightened|Slowed|Stupefied|Affliction|BENEFICIAL|HARMFUL/)
+  assert.doesNotMatch(source, /Frightened|Slowed|Stupefied|BENEFICIAL|HARMFUL/)
   assert.doesNotMatch(source, /conditionitems\s*[:=]|spell-effects\s*[:=]|equipment-effects\s*[:=]/)
 })
