@@ -107,25 +107,15 @@ type OriginalContentRecord<TData = unknown> = {
   }
   sourceHash: string
   translatableHash: string
-  sourceReferences?: readonly Pathfinder2eSourceReference[]
   data: TData
 }
 ```
-
-`Pathfinder2eSourceReference` preserva referências estruturadas existentes no
-documento source antes da normalização textual. O contrato completo, regras de
-extração, resolução exata e compatibilidade retroativa estão em
-`semantic-references.md`.
 
 Regras:
 
 - `data` nunca é substituído por uma tradução;
 - `sourceHash` considera todo o registro normalizado;
 - `translatableHash` considera apenas campos traduzíveis;
-- `sourceReferences`, quando presente, é metadata de importação e nunca entra no overlay de tradução;
-- registros históricos sem `sourceReferences` continuam válidos;
-- referências estruturadas são preservadas antes que comandos `@UUID[...]` sejam reduzidos a texto legível;
-- ausência de resolução exata de um alvo nunca autoriza inferência pelo label ou por palavras do texto;
 - o registro deve continuar consultável mesmo sem tradução;
 - `image.path`, quando presente, aponta exclusivamente para um arquivo versionado no repositório QuestHub;
 - o caminho deve começar com `/api/game-systems/pathfinder-2e/icons/`;
@@ -206,7 +196,6 @@ type Pathfinder2eInlineTextContext = {
 
 O adapter Pathfinder deve:
 
-- preservar a ocorrência estrutural de `@UUID[...]` em `sourceReferences` antes de convertê-la em label ou fallback legível;
 - resolver `@item.level` e `@item.rank` com o nível ou Rank do registro;
 - aplicar a mesma resolução às fórmulas estruturadas de dano ou cura de
   Spells, tanto durante a normalização quanto na fronteira de apresentação;
@@ -231,8 +220,7 @@ Para `Grim Tendrils` no Rank 1, por exemplo:
 ```
 
 O original congelado e seus hashes não são reescritos por essa adaptação de
-apresentação. `sourceReferences` é metadata paralela e não transforma comandos
-de runtime em conteúdo exibível.
+apresentação.
 
 ### 5.2. Cobertura de traits
 
