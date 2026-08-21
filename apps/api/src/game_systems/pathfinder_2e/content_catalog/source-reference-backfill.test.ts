@@ -17,8 +17,10 @@ const nativeImport = new Function('specifier', 'return import(specifier)') as (
   }): {
     fileCount: number
     recordCount: number
+    sourceReferenceCount: number
     recordsWithReferences: number
     referenceCount: number
+    unresolvedTargetCount: number
     changedFileCount: number
     changedFiles: string[]
   }
@@ -39,12 +41,28 @@ function originalFile(record: unknown) {
   ].join('\n')
 }
 
+function historicalOriginalFile(record: Record<string, unknown>) {
+  const recordText = JSON.stringify(record, null, 2)
+    .replace('"image": {\n    "path": "/fixture/icon.svg"\n  }', '"image": { "path": DEFAULT_ICON }')
+  return [
+    "import type { Pathfinder2eOriginalContentRecord } from '../../records'",
+    '',
+    "const DEFAULT_ICON = '/fixture/icon.svg'",
+    '',
+    'export const FIXTURE: readonly Pathfinder2eOriginalContentRecord<unknown>[] = [',
+    recordText,
+    ']',
+    '',
+  ].join('\n')
+}
+
 function record(input: {
   contentId: string
   domain: 'BESTIARY' | 'SPELL' | 'ITEM'
   sourcePack: string
   sourceId: string
   slug: string
+  image?: boolean
 }) {
   return {
     contentId: input.contentId,
@@ -56,6 +74,7 @@ function record(input: {
       slug: input.slug,
       publicationTitle: 'Fixture Book',
     },
+    ...(input.image ? { image: { path: '/fixture/icon.svg' } } : {}),
     sourceHash: `sha256:${input.sourceId}:source`,
     translatableHash: `sha256:${input.sourceId}:translation`,
     data: {
@@ -66,7 +85,7 @@ function record(input: {
   }
 }
 
-test('backfill enriches every existing original domain without changing canonical data or hashes', async () => {
+test('backfill creates a semantic sidecar for all existing domains and leaves originals byte-identical', async () => {
   const { backfillPf2eCatalogSourceReferences } = await nativeImport(pathToFileURL(helperFile).href)
   const fixtureRoot = mkdtempSync(path.join(tmpdir(), 'questhub-pf2e-backfill-'))
   const sourceRoot = path.join(fixtureRoot, 'source')
@@ -88,8 +107,17 @@ test('backfill enriches every existing original domain without changing canonica
       type: 'condition',
       system: { slug: 'frightened' },
     })
+    writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'spells', 'other-spell.json'), {
+      _id: 'other-spell-id',
+      name: 'Other Spell',
+      type: 'spell',
+      system: { slug: 'other-spell', publication: { title: 'Fixture Book' } },
+    })
 
-    const reference = '@UUID[Compendium.pf2e.conditionitems.Item.frightened]{Frightened 2}'
+    const semantic = '@UUID[Compendium.pf2e.conditionitems.Item.frightened]{Frightened 2}'
+    const nonSemantic = '@UUID[Compendium.pf2e.spells-srd.Item.other-spell]{Other Spell}'
+    const description = `${semantic} ${nonSemantic}`
+
     writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'fixture-bestiary', 'creature.json'), {
       _id: 'actor-source',
       name: 'Creature',
@@ -97,7 +125,7 @@ test('backfill enriches every existing original domain without changing canonica
       system: {
         slug: 'creature',
         details: { publication: { title: 'Fixture Book' } },
-        description: { value: reference },
+        description: { value: description },
       },
     })
     writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'spells', 'spell.json'), {
@@ -107,7 +135,7 @@ test('backfill enriches every existing original domain without changing canonica
       system: {
         slug: 'spell',
         publication: { title: 'Fixture Book' },
-        description: { value: reference },
+        description: { value: description },
       },
     })
     writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'equipment', 'item.json'), {
@@ -117,7 +145,7 @@ test('backfill enriches every existing original domain without changing canonica
       system: {
         slug: 'item',
         publication: { title: 'Fixture Book' },
-        description: { value: reference },
+        description: { value: description },
       },
     })
 
@@ -131,6 +159,7 @@ test('backfill enriches every existing original domain without changing canonica
       sourcePack: 'fixture-bestiary',
       sourceId: 'actor-source',
       slug: 'creature',
+      image: true,
     })
     const spellRecord = record({
       contentId: 'pf2e:spell:spells-srd:spell',
@@ -150,28 +179,45 @@ test('backfill enriches every existing original domain without changing canonica
     mkdirSync(path.dirname(bestiaryPath), { recursive: true })
     mkdirSync(path.dirname(spellPath), { recursive: true })
     mkdirSync(path.dirname(itemPath), { recursive: true })
-    writeFileSync(bestiaryPath, originalFile(bestiaryRecord))
+    writeFileSync(bestiaryPath, historicalOriginalFile(bestiaryRecord))
     writeFileSync(spellPath, originalFile(spellRecord))
     writeFileSync(itemPath, originalFile(itemRecord))
 
+    const originalsBefore = new Map([
+      [bestiaryPath, readFileSync(bestiaryPath, 'utf8')],
+      [spellPath, readFileSync(spellPath, 'utf8')],
+      [itemPath, readFileSync(itemPath, 'utf8')],
+    ])
+
     const result = backfillPf2eCatalogSourceReferences({ sourceRoot, outputRoot })
     assert.equal(result.recordCount, 3)
+    assert.equal(result.sourceReferenceCount, 6)
     assert.equal(result.recordsWithReferences, 3)
     assert.equal(result.referenceCount, 3)
+    assert.equal(result.unresolvedTargetCount, 0)
     assert.equal(result.changedFileCount, 3)
-    assert.ok(result.changedFiles.some((file) => file === 'items/equipment/original/pilot.ts'))
+    assert.deepEqual(
+      [...result.changedFiles].sort(),
+      [
+        'source_reference_index/generated/bestiary.ts',
+        'source_reference_index/generated/items.ts',
+        'source_reference_index/generated/spells.ts',
+      ],
+    )
 
-    for (const [file, original] of [
-      [bestiaryPath, bestiaryRecord],
-      [spellPath, spellRecord],
-      [itemPath, itemRecord],
-    ] as const) {
-      const content = readFileSync(file, 'utf8')
-      assert.match(content, /"sourceReferences": \[/)
+    for (const [file, before] of originalsBefore) {
+      assert.equal(readFileSync(file, 'utf8'), before, `original mutated: ${file}`)
+    }
+
+    for (const generated of ['bestiary.ts', 'spells.ts', 'items.ts']) {
+      const content = readFileSync(
+        path.join(outputRoot, 'source_reference_index', 'generated', generated),
+        'utf8',
+      )
       assert.match(content, /Compendium\.pf2e\.conditionitems\.Item\.frightened/)
-      assert.match(content, new RegExp(original.sourceHash.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
-      assert.match(content, new RegExp(original.translatableHash.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
-      assert.match(content, /"preserved": true/)
+      assert.doesNotMatch(content, /Compendium\.pf2e\.spells-srd\.Item\.other-spell/)
+      assert.match(content, /condition-frightened/)
+      assert.match(content, /"condition"/)
     }
 
     const secondPass = backfillPf2eCatalogSourceReferences({ sourceRoot, outputRoot })
