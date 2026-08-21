@@ -116,7 +116,8 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
 
     const semantic = '@UUID[Compendium.pf2e.conditionitems.Item.frightened]{Frightened 2}'
     const nonSemantic = '@UUID[Compendium.pf2e.spells-srd.Item.other-spell]{Other Spell}'
-    const description = `${semantic} ${nonSemantic}`
+    const unresolved = '@UUID[Compendium.pf2e.missing-pack.Item.unresolved]{Unresolved Source Reference}'
+    const description = `${semantic} ${nonSemantic} ${unresolved}`
 
     writeJson(path.join(sourceRoot, 'packs', 'pf2e', 'fixture-bestiary', 'creature.json'), {
       _id: 'actor-source',
@@ -191,10 +192,10 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
 
     const result = backfillPf2eCatalogSourceReferences({ sourceRoot, outputRoot })
     assert.equal(result.recordCount, 3)
-    assert.equal(result.sourceReferenceCount, 6)
+    assert.equal(result.sourceReferenceCount, 9)
     assert.equal(result.recordsWithReferences, 3)
-    assert.equal(result.referenceCount, 3)
-    assert.equal(result.unresolvedTargetCount, 0)
+    assert.equal(result.referenceCount, 6)
+    assert.equal(result.unresolvedTargetCount, 3)
     assert.equal(result.changedFileCount, 3)
     assert.deepEqual(
       [...result.changedFiles].sort(),
@@ -215,15 +216,18 @@ test('backfill creates a semantic sidecar for all existing domains and leaves or
         'utf8',
       )
       assert.match(content, /Compendium\.pf2e\.conditionitems\.Item\.frightened/)
+      assert.match(content, /Compendium\.pf2e\.missing-pack\.Item\.unresolved/)
       assert.doesNotMatch(content, /Compendium\.pf2e\.spells-srd\.Item\.other-spell/)
       assert.match(content, /condition-frightened/)
       assert.match(content, /"condition"/)
+      assert.match(content, /,null\]\]/)
     }
 
     const secondPass = backfillPf2eCatalogSourceReferences({ sourceRoot, outputRoot })
     assert.equal(secondPass.changedFileCount, 0)
     assert.equal(secondPass.recordCount, 3)
-    assert.equal(secondPass.referenceCount, 3)
+    assert.equal(secondPass.referenceCount, 6)
+    assert.equal(secondPass.unresolvedTargetCount, 3)
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true })
   }
