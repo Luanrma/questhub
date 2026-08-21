@@ -1,5 +1,6 @@
 import { existsSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs'
 import { basename, join, relative, resolve, sep } from 'node:path'
+import ts from 'typescript'
 import {
   collectPf2eSourceReferences,
   createPf2eSourceReferenceResolver,
@@ -122,6 +123,94 @@ function sourceDocumentForRecord(record, sourceDocuments) {
   return [...uniqueByFile.values()][0].value
 }
 
+function unwrapExpression(node) {
+  let current = node
+  while (
+    ts.isParenthesizedExpression(current)
+    || ts.isAsExpression(current)
+    || ts.isTypeAssertionExpression(current)
+    || (typeof ts.isSatisfiesExpression === 'function' && ts.isSatisfiesExpression(current))
+  ) {
+    current = current.expression
+  }
+  return current
+}
+
+function propertyName(name, path) {
+  if (ts.isIdentifier(name) || ts.isStringLiteral(name) || ts.isNumericLiteral(name)) {
+    return name.text
+  }
+  throw new Error(`Unsupported computed property in historical catalog file: ${path}`)
+}
+
+function valueFromAst(node, path) {
+  const value = unwrapExpression(node)
+
+  if (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) return value.text
+  if (ts.isNumericLiteral(value)) return Number(value.text)
+  if (value.kind === ts.SyntaxKind.TrueKeyword) return true
+  if (value.kind === ts.SyntaxKind.FalseKeyword) return false
+  if (value.kind === ts.SyntaxKind.NullKeyword) return null
+
+  if (ts.isPrefixUnaryExpression(value)) {
+    const operand = valueFromAst(value.operand, path)
+    if (typeof operand !== 'number') throw new Error(`Unsupported unary value in ${path}`)
+    if (value.operator === ts.SyntaxKind.MinusToken) return -operand
+    if (value.operator === ts.SyntaxKind.PlusToken) return operand
+    throw new Error(`Unsupported unary operator in ${path}`)
+  }
+
+  if (ts.isArrayLiteralExpression(value)) {
+    return value.elements.map((entry) => valueFromAst(entry, path))
+  }
+
+  if (ts.isObjectLiteralExpression(value)) {
+    const result = {}
+    for (const property of value.properties) {
+      if (!ts.isPropertyAssignment(property)) {
+        throw new Error(`Unsupported non-literal property in historical catalog file: ${path}`)
+      }
+      result[propertyName(property.name, path)] = valueFromAst(property.initializer, path)
+    }
+    return result
+  }
+
+  throw new Error(`Unsupported expression in historical catalog file ${path}: ${value.getText()}`)
+}
+
+function directRecordArray(source, path) {
+  const sourceFile = ts.createSourceFile(path, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS)
+
+  for (const statement of sourceFile.statements) {
+    if (!ts.isVariableStatement(statement)) continue
+    for (const declaration of statement.declarationList.declarations) {
+      if (!declaration.initializer) continue
+      let initializer = unwrapExpression(declaration.initializer)
+
+      if (ts.isCallExpression(initializer) && initializer.arguments.length > 0) {
+        initializer = unwrapExpression(initializer.arguments[0])
+      }
+
+      if (!ts.isArrayLiteralExpression(initializer)) continue
+      const records = valueFromAst(initializer, path)
+      if (!Array.isArray(records)) continue
+      if (records.length > 0 && !records.every((entry) => (
+        entry && typeof entry === 'object' && typeof entry.contentId === 'string'
+      ))) {
+        continue
+      }
+
+      return {
+        records,
+        start: initializer.getStart(sourceFile),
+        end: initializer.getEnd(),
+      }
+    }
+  }
+
+  throw new Error(`Historical original array not found: ${path}`)
+}
+
 function readGeneratedArray(source, path) {
   const generatedChunks = [...source.matchAll(
     /\/\* PF2E_GENERATED_CHUNK_START \*\/([\s\S]*?)\/\* PF2E_GENERATED_CHUNK_END \*\//g,
@@ -131,14 +220,7 @@ function readGeneratedArray(source, path) {
   }
   if (/export const[\s\S]*?=\s*\[\s*\]\s*$/.test(source)) return []
 
-  const exportStart = source.indexOf('export const')
-  const assignment = source.indexOf(' = [', exportStart)
-  const wrappedAssignment = source.indexOf('([', exportStart)
-  const wrapped = assignment < 0 && wrappedAssignment >= 0
-  const start = assignment >= 0 ? assignment + 3 : wrappedAssignment + 1
-  const end = source.lastIndexOf(wrapped ? '\n])' : '\n]')
-  if (start < 0 || end < start) throw new Error(`Generated original array not found: ${path}`)
-  return JSON.parse(source.slice(start, end + 2))
+  return directRecordArray(source, path).records
 }
 
 function serialize(value) {
@@ -159,14 +241,8 @@ function rewriteGeneratedArray(source, records, path) {
     })
   }
 
-  const exportStart = source.indexOf('export const')
-  const assignment = source.indexOf(' = [', exportStart)
-  const wrappedAssignment = source.indexOf('([', exportStart)
-  const wrapped = assignment < 0 && wrappedAssignment >= 0
-  const start = assignment >= 0 ? assignment + 3 : wrappedAssignment + 1
-  const end = source.lastIndexOf(wrapped ? '\n])' : '\n]')
-  if (start < 0 || end < start) throw new Error(`Generated original array not found: ${path}`)
-  return `${source.slice(0, start)}${serialize(records)}${source.slice(end + 2)}`
+  const direct = directRecordArray(source, path)
+  return `${source.slice(0, direct.start)}${serialize(records)}${source.slice(direct.end)}`
 }
 
 function withoutSourceReferences(record) {
