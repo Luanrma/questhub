@@ -284,7 +284,7 @@ function compactReference(reference) {
     reference.owner?.sourceId ?? null,
     reference.target.sourceId ?? null,
     reference.target.slug ?? null,
-    reference.target.type,
+    reference.target.type ?? null,
   ]
 }
 
@@ -339,16 +339,17 @@ export function backfillPf2eCatalogSourceReferences({
         reference.target.package === 'pf2e' && !reference.target.type
       )).length
 
-      const semanticReferences = allReferences.filter((reference) => (
+      const retainedReferences = allReferences.filter((reference) => (
         SEMANTIC_TARGET_TYPES.has(reference.target.type)
+        || (reference.target.package === 'pf2e' && !reference.target.type)
       ))
-      if (semanticReferences.length === 0) continue
+      if (retainedReferences.length === 0) continue
 
       recordsWithReferences += 1
-      referenceCount += semanticReferences.length
+      referenceCount += retainedReferences.length
       byDomain.get(record.domain).push([
         record.contentId,
-        semanticReferences.map(compactReference),
+        retainedReferences.map(compactReference),
       ])
     }
   }
