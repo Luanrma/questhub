@@ -45,6 +45,12 @@ test('all canonical Conditions are represented exactly once without runtime-only
   assert.equal(conditionDefinitions.length, 43)
   assert.equal(conditionDefinitions.filter((definition) => definition.source.slug === 'malevolence').length, 0)
   assert.equal(new Set(conditionDefinitions.map((definition) => definition.definitionKey)).size, 43)
+
+  const hostile = definitionBySlug('hostile')
+  assert.ok(hostile)
+  assert.equal(hostile.definitionKey, 'conditionitems:ud7gTLwPeklzYSXG')
+  assert.equal(hostile.polarity, 'NEUTRAL')
+  assert.deepEqual(hostile.conditionValue, { isValued: false, baseValue: null })
 })
 
 test('canonical Condition polarity and valued metadata follow the approved manifest', () => {
@@ -83,7 +89,7 @@ test('referenced PF2e effects are neutral definitions and afflictions are harmfu
   assert.equal(aerialForm.iconUrl, null)
 })
 
-test('definition set is exactly the resolved semantic target set and never promotes unresolved Items', () => {
+test('definition set combines resolved semantic targets with exact canonical supplements and excludes unresolved Items', () => {
   const canonicalConditionNames = new Set(
     PATHFINDER_2E_CANONICAL_CONDITIONS.map((condition) => condition.compendiumKey),
   )
@@ -106,6 +112,8 @@ test('definition set is exactly the resolved semantic target set and never promo
 
     expectedKeys.add(`${sourcePack}:${sourceId}`)
   }
+
+  expectedKeys.add('conditionitems:ud7gTLwPeklzYSXG')
 
   const actualKeys = listPathfinder2eActiveEffectDefinitions().map((definition) => definition.definitionKey)
   assert.deepEqual(actualKeys, [...expectedKeys].sort((left, right) => left.localeCompare(right)))
