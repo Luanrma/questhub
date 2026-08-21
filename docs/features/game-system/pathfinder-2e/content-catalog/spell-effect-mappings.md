@@ -1,0 +1,362 @@
+# Feature Spec — Mapeamento de efeitos potenciais de Spells PF2e
+
+Status: **BA READY**
+
+Card: `QH-EFF-006` — https://trello.com/c/E1yRhqol/11-qh-eff-006-mapear-efeitos-potenciais-de-spells-pf2e
+
+Domínio: `Game System / Pathfinder 2e / Content Catalog`
+
+Dependências: `QH-EFF-004`, `QH-EFF-005`.
+
+Bloqueia: `QH-EFF-009`.
+
+## 1. Objetivo
+
+Criar um mapeamento somente leitura, pertencente ao bounded context PF2e, que relacione cada Spell já existente no catálogo QuestHub às definições `condition`, `effect` ou `affliction` que ela **pode produzir com evidência estrutural suficiente**, preservando contexto de grau de sucesso e valores sugeridos quando esses dados podem ser recuperados de forma determinística.
+
+O QH-EFF-006 não aplica nenhum efeito e não resolve nenhum save, ataque, duração, stacking ou consequência mecânica.
+
+## 2. Fonte e dados já existentes
+
+Nenhuma nova importação é executada.
+
+O mapeamento usa exclusivamente dados já versionados no QuestHub:
+
+1. Spells `en-US` normalizadas do catálogo atual;
+2. referências estruturais reconstruídas pelo QH-EFF-004;
+3. definições semânticas resolvidas pelo QH-EFF-005.
+
+Todos derivam do source PF2e congelado em:
+
+```text
+01114da5851f31404078d8020809b13e4000bc4b
+```
+
+Não existe acesso ao Foundry/PF2e em runtime.
+
+## 3. Problema de semântica
+
+Uma referência a uma Condition/Effect dentro de uma Spell não significa automaticamente que a Spell aplique aquela definição.
+
+Exemplo canônico: `Aerial Form` referencia `Clumsy` apenas para explicar que determinado ataque é baseado em Dexterity para fins da Condition; isso não significa que conjurar `Aerial Form` aplique `Clumsy`. A mesma Spell possui uma referência standalone para `Spell Effect: Aerial Form`, que representa um efeito potencial da própria Spell.
+
+Portanto:
+
+```text
+semantic reference != potential effect
+```
+
+O mapeamento precisa preservar também referências semanticamente conhecidas que não possuem evidência suficiente para serem tratadas como efeito potencial, sem promovê-las silenciosamente.
+
+## 4. Contrato
+
+```ts
+type Pathfinder2eSpellEffectOutcome =
+  | 'CRITICAL_SUCCESS'
+  | 'SUCCESS'
+  | 'FAILURE'
+  | 'CRITICAL_FAILURE'
+  | null
+
+type Pathfinder2eSpellEffectEvidence =
+  | 'DEGREE_OF_SUCCESS'
+  | 'STANDALONE_REFERENCE'
+  | 'REFERENCE_ONLY'
+  | 'NON_DESCRIPTION_REFERENCE'
+
+type Pathfinder2eSpellEffectValueHint = {
+  value: number
+  source: 'REFERENCE_LABEL'
+} | null
+
+type Pathfinder2eSpellEffectMapping = {
+  contentId: string
+  occurrenceIndex: number
+  definitionKey: string
+  kind: 'condition' | 'effect' | 'affliction'
+  potential: boolean
+  evidence: Pathfinder2eSpellEffectEvidence
+  outcome: Pathfinder2eSpellEffectOutcome
+  valueHint: Pathfinder2eSpellEffectValueHint
+  source: {
+    sourcePath: string
+    sourceIndex: number
+    label: string | null
+    ownerSourceId: string | null
+  }
+  schemaVersion: 1
+}
+```
+
+A forma física pode variar se o Architect aprovar outra representação equivalente, mas os significados acima precisam permanecer disponíveis.
+
+## 5. Identidade
+
+A Spell é identificada pelo `contentId` já existente.
+
+A definição é identificada exclusivamente pelo contrato do QH-EFF-005:
+
+```text
+definitionKey = {sourcePack}:{sourceId}
+```
+
+Nenhum relacionamento é resolvido por nome traduzido, slug aproximado ou fuzzy matching.
+
+`occurrenceIndex` preserva cada ocorrência separadamente dentro da mesma Spell. Duas referências à mesma definição em resultados diferentes não são deduplicadas.
+
+## 6. Classificação conservadora de evidência
+
+### 6.1. Degree of Success
+
+Uma referência é `DEGREE_OF_SUCCESS` quando:
+
+- está em `system.description.value` na fonte reconstruída; e
+- sua ocorrência correspondente na descrição normalizada `en-US` está na mesma linha/bloco textual iniciado por exatamente um dos marcadores canônicos:
+
+```text
+Critical Success
+Success
+Failure
+Critical Failure
+```
+
+Mapeamento:
+
+```text
+Critical Success  -> CRITICAL_SUCCESS
+Success           -> SUCCESS
+Failure           -> FAILURE
+Critical Failure  -> CRITICAL_FAILURE
+```
+
+Esse reconhecimento é um parser estrutural restrito do formato editorial PF2e, não uma inferência livre sobre o significado da frase.
+
+Uma referência `DEGREE_OF_SUCCESS` é `potential = true`.
+
+### 6.2. Referência standalone
+
+Uma referência é `STANDALONE_REFERENCE` quando, após normalização de whitespace, a linha/bloco em que ela aparece contém somente o próprio label preservado pelo QH-EFF-004.
+
+Exemplos típicos:
+
+```text
+Spell Effect: Aerial Form
+Spell Effect: Untamed Shift
+```
+
+Uma referência standalone resolvida como `condition`, `effect` ou `affliction` é `potential = true`.
+
+### 6.3. Referência inline sem evidência suficiente
+
+Uma referência dentro de descrição que não satisfaz 6.1 nem 6.2 é `REFERENCE_ONLY` e recebe:
+
+```text
+potential = false
+outcome = null
+```
+
+Isso não afirma que a referência seja irrelevante. Significa apenas que o QH-EFF-006 não possui evidência estrutural suficiente para promovê-la a efeito potencial sem interpretar linguagem natural.
+
+`Aerial Form -> Clumsy` é o caso de regressão obrigatório dessa categoria.
+
+### 6.4. Referência fora da descrição
+
+Uma referência semântica resolvida cujo `sourcePath` não corresponde à descrição é `NON_DESCRIPTION_REFERENCE` e não é promovida automaticamente:
+
+```text
+potential = false
+outcome = null
+```
+
+Cards posteriores podem definir política específica para um campo estruturado concreto. O QH-EFF-006 não interpreta Rule Elements ou outros campos apenas por conterem UUIDs.
+
+## 7. Associação entre referência e descrição normalizada
+
+O QH-EFF-004 preserva a ordem das ocorrências e o label original. A normalização histórica removeu o UUID, mas preservou o texto legível e a ordem editorial.
+
+Para referências de `system.description.value`, o mapper:
+
+1. ordena referências por `sourceIndex`;
+2. percorre a descrição original `en-US` da Spell na mesma ordem;
+3. localiza cada `label` de forma sequencial, nunca retrocedendo na string;
+4. determina a linha/bloco textual da ocorrência;
+5. falha de forma segura para `REFERENCE_ONLY` se não puder alinhar exatamente a ocorrência.
+
+A falha de alinhamento não autoriza busca fuzzy, tradução reversa ou inferência por IA.
+
+## 8. Valores de Conditions valorizadas
+
+O QH-EFF-006 pode preservar um **value hint**, mas não cria a instância ativa.
+
+O hint só existe quando:
+
+1. a definição do QH-EFF-005 é `condition`;
+2. `conditionValue.isValued = true`;
+3. o label preservado segue exatamente:
+
+```text
+<canonical definition name> <positive integer>
+```
+
+Exemplo:
+
+```text
+Frightened 1 -> valueHint 1
+Frightened 2 -> valueHint 2
+Frightened 3 -> valueHint 3
+```
+
+A origem fica explícita como `REFERENCE_LABEL`.
+
+Não existe regex genérica sobre qualquer número da descrição. Conditions não valorizadas nunca recebem value hint por esse mecanismo.
+
+O hint não é aplicado automaticamente e QH-EFF-009 continua responsável por definir o fluxo de materialização da instância.
+
+## 9. Exemplos obrigatórios
+
+### Agonizing Despair
+
+Esperado:
+
+```text
+Frightened 1 -> potential, SUCCESS, valueHint 1
+Frightened 2 -> potential, FAILURE, valueHint 2
+Frightened 3 -> potential, CRITICAL_FAILURE, valueHint 3
+```
+
+`Critical Success` não possui referência e, portanto, não gera mapping artificial.
+
+### Aerial Form
+
+Esperado:
+
+```text
+Clumsy                    -> REFERENCE_ONLY, potential false
+Spell Effect: Aerial Form -> STANDALONE_REFERENCE, potential true
+```
+
+Isso impede o falso positivo de aplicar `Clumsy` por conjurar a Spell.
+
+## 10. Cobertura
+
+Toda Spell do catálogo atual que possua referência QH-EFF-004 resolvida como `condition`, `effect` ou `affliction` deve ter cada ocorrência contabilizada por exatamente um mapping.
+
+Referências QH-EFF-004 sem `target.type` continuam fora do conjunto semântico confirmado e não são promovidas.
+
+A cobertura deve ser verificável por teste:
+
+```text
+semantic resolved spell references == mapped occurrences
+```
+
+A métrica separa:
+
+- `potential = true`;
+- `potential = false` por evidência insuficiente.
+
+O segundo grupo não é descartado silenciosamente.
+
+## 11. API interna PF2e
+
+Expor uma leitura interna equivalente a:
+
+```ts
+getPathfinder2eSpellEffectMappings(contentId)
+listPathfinder2ePotentialSpellEffects(contentId)
+```
+
+A primeira retorna todas as ocorrências semânticas contabilizadas; a segunda retorna apenas `potential = true`.
+
+Nenhuma rota HTTP pública é necessária neste card.
+
+## 12. Localização
+
+Contexto e classificação são produzidos a partir do conteúdo mecânico/original `en-US`.
+
+A tradução `pt-BR` não participa da resolução, classificação, outcome ou value hint.
+
+Isso evita que uma mudança editorial de tradução altere mecânica ou identidade.
+
+## 13. Permissões
+
+O mapeamento é conteúdo somente leitura da engine PF2e e não possui operação mutável de usuário.
+
+Permissões para aplicar/remover instâncias pertencem ao QH-EFF-009.
+
+## 14. Fora de escopo
+
+O QH-EFF-006 não:
+
+- resolve saving throw ou spell attack;
+- decide qual Degree of Success ocorreu;
+- aplica `CampaignActorEffect`;
+- altera ficha, Actor ou Token;
+- executa Rule Elements;
+- calcula duração, stacking, imunidade ou override;
+- interpreta referência inline ambígua por linguagem natural;
+- usa IA para classificar referências;
+- promove Item unresolved do QH-EFF-004;
+- altera Spells originais ou traduções;
+- cria nova importação de conteúdo;
+- implementa UI pública.
+
+## 15. Arquitetura
+
+Toda semântica permanece em:
+
+```text
+apps/api/src/game_systems/pathfinder_2e/
+```
+
+O VTT Core não conhece:
+
+- Degree of Success do PF2e;
+- `Frightened`;
+- `Spell Effect:*`;
+- UUID/Compendium Foundry;
+- value hints PF2e;
+- regras de classificação desta Spec.
+
+QH-EFF-006 apenas prepara metadata engine-only para QH-EFF-009.
+
+ADR aplicável: `ADR-0005`.
+
+O BA não identifica nova decisão estrutural além da fronteira já aceita, mas Architecture Review permanece obrigatório.
+
+## 16. Critérios de aceite
+
+- **AC01** — usa exclusivamente Spells já importadas, QH-EFF-004 e QH-EFF-005; nenhuma nova importação;
+- **AC02** — source lock permanece `01114da5851f31404078d8020809b13e4000bc4b`;
+- **AC03** — toda referência de Spell resolvida como `condition/effect/affliction` é contabilizada exatamente uma vez;
+- **AC04** — target unresolved do QH-EFF-004 não é promovido;
+- **AC05** — `definitionKey` é `{sourcePack}:{sourceId}`;
+- **AC06** — ocorrências repetidas da mesma definição não são deduplicadas;
+- **AC07** — Degree of Success é reconhecido somente pelos quatro marcadores canônicos definidos nesta Spec;
+- **AC08** — referência em bloco de Degree of Success é `potential = true` com outcome correspondente;
+- **AC09** — referência standalone semântica é `potential = true`;
+- **AC10** — referência inline sem evidência suficiente é preservada como `REFERENCE_ONLY`, nunca promovida automaticamente;
+- **AC11** — referência semântica fora da descrição é preservada como `NON_DESCRIPTION_REFERENCE`, sem interpretar Rule Element;
+- **AC12** — `Agonizing Despair` produz três mappings de Frightened com SUCCESS/FAILURE/CRITICAL_FAILURE;
+- **AC13** — os três labels de Agonizing Despair preservam value hints 1/2/3;
+- **AC14** — `Aerial Form -> Clumsy` não é efeito potencial;
+- **AC15** — `Spell Effect: Aerial Form` é efeito potencial standalone;
+- **AC16** — Conditions não valorizadas não recebem value hint por número textual;
+- **AC17** — falha de alinhamento de label não aciona fuzzy matching/IA e não gera falso positivo;
+- **AC18** — nenhum save/ataque é resolvido e nenhum efeito é aplicado;
+- **AC19** — originais e traduções permanecem byte-identical;
+- **AC20** — nenhuma semântica PF2e nova vaza para VTT Core;
+- **AC21** — resultado é determinístico para os mesmos dados versionados;
+- **AC22** — API interna permite listar todos os mappings e somente os potenciais;
+- **AC23** — testes e CI cobrem regressões de Aerial Form e Agonizing Despair.
+
+## 17. Questões abertas
+
+Nenhuma questão de produto bloqueante.
+
+A política é deliberadamente conservadora: referências inline ambíguas permanecem visíveis como não confirmadas em vez de serem adivinhadas. Cobertura semântica total das referências é obrigatória; recall de aplicações não estruturadas pode ser refinado posteriormente sem quebrar o contrato.
+
+```text
+BA: READY
+Architecture review required: YES
+Open product questions: 0
+```
