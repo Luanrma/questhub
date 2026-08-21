@@ -224,6 +224,41 @@ function definitionFromTuple(
   }
 }
 
+function mergeDefinitionAliases(
+  existing: Pathfinder2eActiveEffectDefinition,
+  candidate: Pathfinder2eActiveEffectDefinition,
+): Pathfinder2eActiveEffectDefinition {
+  if (existing.kind !== candidate.kind) {
+    throw new Error(
+      `Conflicting PF2e active-effect definition kind: ${candidate.definitionKey}`,
+    )
+  }
+
+  if (existing.source.slug !== candidate.source.slug) {
+    throw new Error(
+      `Conflicting PF2e active-effect definition slug: ${candidate.definitionKey}`,
+    )
+  }
+
+  if (
+    existing.polarity !== candidate.polarity
+    || JSON.stringify(existing.conditionValue) !== JSON.stringify(candidate.conditionValue)
+  ) {
+    throw new Error(
+      `Conflicting PF2e active-effect definition metadata: ${candidate.definitionKey}`,
+    )
+  }
+
+  if (existing.name === candidate.name) return existing
+
+  // Foundry references can use more than one compendium key/alias for the same sourceId.
+  // Identity is sourcePack + sourceId, never the alias. Choose a stable presentation name
+  // without changing semantic identity or inferring mechanics from text.
+  return existing.name.localeCompare(candidate.name) <= 0
+    ? existing
+    : { ...existing, name: candidate.name }
+}
+
 function collectDefinitions(): ReadonlyMap<string, Pathfinder2eActiveEffectDefinition> {
   const definitions = new Map<string, Pathfinder2eActiveEffectDefinition>()
 
@@ -235,11 +270,10 @@ function collectDefinitions(): ReadonlyMap<string, Pathfinder2eActiveEffectDefin
 
         const existing = definitions.get(definition.definitionKey)
         if (existing) {
-          if (existing.kind !== definition.kind || existing.name !== definition.name) {
-            throw new Error(
-              `Conflicting PF2e active-effect definition identity: ${definition.definitionKey}`,
-            )
-          }
+          definitions.set(
+            definition.definitionKey,
+            mergeDefinitionAliases(existing, definition),
+          )
           continue
         }
 
