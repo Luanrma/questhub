@@ -28,11 +28,14 @@ A normalização histórica preservou o texto legível, mas descartou o UUID. Co
 
 ## 2. Objetivo
 
-Gerar e versionar um **índice semântico sidecar PF2e**, chaveado pelo `contentId` já existente, contendo somente referências explícitas cujo alvo da própria fonte resolve exatamente para um documento de tipo:
+Gerar e versionar um **índice sidecar de referências PF2e**, chaveado pelo `contentId` já existente.
 
-```ts
-type Pathfinder2eSemanticTargetType = 'condition' | 'effect' | 'affliction'
-```
+O índice preserva:
+
+1. referências cujo alvo da própria fonte resolve exatamente para `condition`, `effect` ou `affliction`;
+2. referências PF2e explícitas cujo alvo não pôde ser resolvido exatamente, mantendo-as sem `target.type` para não destruir informação da fonte nem inferir semântica.
+
+Referências cujo alvo foi resolvido e comprovadamente é outro tipo, como uma Spell ou Equipment comum, não entram no índice destinado ao fluxo de Active Effects.
 
 Os arquivos `original` do catálogo permanecem byte a byte iguais aos da `main`.
 
@@ -53,7 +56,8 @@ PF2e Source Reference Index
         │
         ├── condition
         ├── effect
-        └── affliction
+        ├── affliction
+        └── unresolved explicit PF2e reference
 ```
 
 Consequências:
@@ -62,6 +66,7 @@ Consequências:
 - traduções não mudam;
 - a metadata pode ser regenerada deterministicamente;
 - QH-EFF-005/006/007/008 consultam a relação por `contentId`;
+- referências explícitas não resolvidas não são perdidas nem classificadas artificialmente;
 - o VTT Core continua sem conhecer semântica PF2e.
 
 ## 4. Fora de escopo
@@ -76,7 +81,8 @@ O QH-EFF-004 **não**:
 - interpreta save, duração, stacking, dano ou valor mecânico;
 - aplica `CampaignActorEffect`;
 - altera ficha, Token, banco, API do Core ou realtime;
-- infere referência por texto normalizado, label, IA ou aproximação nominal.
+- infere referência por texto normalizado, label, IA ou aproximação nominal;
+- trata uma referência não resolvida como Condition/Effect/Affliction sem evidência estrutural.
 
 ## 5. Contrato do índice
 
@@ -112,6 +118,8 @@ type Pathfinder2eSourceReference = {
   }
 }
 ```
+
+`target.type` ausente significa somente que a referência explícita PF2e foi preservada, mas o alvo não foi resolvido com exatidão. Não autoriza interpretação mecânica.
 
 Os arquivos gerados usam uma tupla compacta para evitar expansão desnecessária do repositório. O UUID bruto preserva `package`, `pack`, `documentType` e chave; essas partes são recompostas na leitura.
 
@@ -175,7 +183,7 @@ Campos cujo valor completo é um UUID Foundry reconhecido também são coletados
 
 Ocorrências repetidas permanecem independentes. Uma Spell com `Frightened 1`, `Frightened 2` e `Frightened 3` preserva as três referências e respectivos contextos.
 
-## 9. Resolução do target
+## 9. Resolução e retenção do target
 
 UUIDs de Compendium são decompostos estruturalmente.
 
@@ -183,15 +191,15 @@ O resolver usa o manifest `system.pf2e.json` porque o nome lógico do Compendium
 
 Não existe mapa hardcoded de nomes de Conditions, Effects ou packs mecânicos.
 
-O extrator pode encontrar referências para qualquer tipo de documento. **O sidecar semântico persiste somente referências cujo target foi resolvido de forma única e cujo `type` da própria fonte é `condition`, `effect` ou `affliction`.**
+Após a resolução estrutural, existem três casos:
 
-Portanto:
+1. **Target resolvido como `condition`, `effect` ou `affliction`**: a referência entra no sidecar com o tipo comprovado pela fonte.
+2. **Target PF2e explícito não resolvido**: a referência entra no sidecar com UUID/contexto preservados e `target.type` ausente.
+3. **Target resolvido como outro tipo**, por exemplo `spell` ou equipment comum: a referência é excluída do sidecar de Active Effects porque já existe evidência estrutural de que não pertence a esse conjunto.
 
-- link para outra Spell não entra no índice semântico;
-- link para Equipment comum não entra;
-- target não resolvido não entra;
-- label textual nunca promove uma referência a efeito;
-- o tipo `condition/effect/affliction` é identidade estrutural da fonte, não execução de regra QuestHub.
+O label textual nunca é usado para promover ou classificar uma referência.
+
+Uma referência não resolvida é **informação preservada**, não um efeito confirmado. Cards posteriores só podem utilizá-la como efeito após obter evidência estrutural suficiente.
 
 ## 10. Invariantes
 
@@ -231,7 +239,7 @@ Se o índice versionado estiver divergente do resultado determinístico, o coman
 
 O importador histórico permanece intocado.
 
-O comando de backfill não executa seleção, importação, tradução ou cobertura editorial. Ele apenas reconstrói o índice semântico a partir de:
+O comando de backfill não executa seleção, importação, tradução ou cobertura editorial. Ele apenas reconstrói o índice a partir de:
 
 ```text
 catálogo já existente + fonte travada
@@ -266,7 +274,7 @@ Não há mudança de ownership, Campaign boundary, CampaignActor, Token ou `Camp
 - **AC10** — resolução de pack usa `system.pf2e.json`, sem mapa mecânico hardcoded.
 - **AC11** — documento source ambíguo aborta o backfill.
 - **AC12** — nenhum target é inferido por label ou texto.
-- **AC13** — somente targets resolvidos como `condition`, `effect` ou `affliction` entram no sidecar semântico.
+- **AC13** — targets resolvidos como `condition`, `effect` ou `affliction` são retidos; referências PF2e explícitas não resolvidas também são preservadas sem tipo, enquanto targets comprovadamente não semânticos são excluídos.
 - **AC14** — arquivos `original` e traduções permanecem intocados.
 - **AC15** — nenhuma nova rodada ou conteúdo é importado.
 - **AC16** — segunda execução é idempotente (`changedFileCount = 0`).
