@@ -106,13 +106,18 @@ test('Foundry Compendium UUID parsing preserves structural target parts without 
   assert.deepEqual(parseFoundryUuid('Actor.actor-id'), { uuid: 'Actor.actor-id' })
 })
 
-test('target resolver uses exact source structure and refuses ambiguous or missing matches', async () => {
+test('target resolver follows the source manifest pack name-to-path mapping', async () => {
   const { createPf2eSourceReferenceResolver, parseFoundryUuid } = await sourceReferenceModule()
   const fixtureRoot = mkdtempSync(path.join(tmpdir(), 'questhub-pf2e-ref-'))
   try {
-    const pack = path.join(fixtureRoot, 'packs', 'pf2e', 'effects', 'test-pack')
-    mkdirSync(pack, { recursive: true })
-    writeFileSync(path.join(pack, 'one.json'), JSON.stringify({
+    const physicalPack = path.join(fixtureRoot, 'packs', 'pf2e', 'conditions')
+    mkdirSync(physicalPack, { recursive: true })
+    writeFileSync(path.join(fixtureRoot, 'system.pf2e.json'), JSON.stringify({
+      packs: [
+        { name: 'conditionitems', path: 'packs/conditions', type: 'Item' },
+      ],
+    }))
+    writeFileSync(path.join(physicalPack, 'one.json'), JSON.stringify({
       _id: 'target-1',
       name: 'Exact Target',
       type: 'effect',
@@ -121,7 +126,7 @@ test('target resolver uses exact source structure and refuses ambiguous or missi
 
     const resolve = createPf2eSourceReferenceResolver(fixtureRoot)
     assert.deepEqual(
-      resolve(parseFoundryUuid('Compendium.pf2e.test-pack.Item.exact-target')),
+      resolve(parseFoundryUuid('Compendium.pf2e.conditionitems.Item.exact-target')),
       {
         sourceId: 'target-1',
         slug: 'exact-target',
@@ -129,9 +134,9 @@ test('target resolver uses exact source structure and refuses ambiguous or missi
         type: 'effect',
       },
     )
-    assert.equal(resolve(parseFoundryUuid('Compendium.pf2e.test-pack.Item.missing')), null)
+    assert.equal(resolve(parseFoundryUuid('Compendium.pf2e.conditionitems.Item.missing')), null)
 
-    writeFileSync(path.join(pack, 'two.json'), JSON.stringify({
+    writeFileSync(path.join(physicalPack, 'two.json'), JSON.stringify({
       _id: 'target-2',
       name: 'Exact Target',
       type: 'effect',
@@ -139,9 +144,21 @@ test('target resolver uses exact source structure and refuses ambiguous or missi
     }))
     const resolveWithAmbiguity = createPf2eSourceReferenceResolver(fixtureRoot)
     assert.equal(
-      resolveWithAmbiguity(parseFoundryUuid('Compendium.pf2e.test-pack.Item.Exact Target')),
+      resolveWithAmbiguity(parseFoundryUuid('Compendium.pf2e.conditionitems.Item.Exact Target')),
       null,
     )
+  } finally {
+    rmSync(fixtureRoot, { recursive: true, force: true })
+  }
+})
+
+test('target resolver refuses unknown packs instead of inferring a directory from labels', async () => {
+  const { createPf2eSourceReferenceResolver, parseFoundryUuid } = await sourceReferenceModule()
+  const fixtureRoot = mkdtempSync(path.join(tmpdir(), 'questhub-pf2e-ref-'))
+  try {
+    mkdirSync(path.join(fixtureRoot, 'packs', 'pf2e', 'unrelated-directory'), { recursive: true })
+    const resolve = createPf2eSourceReferenceResolver(fixtureRoot)
+    assert.equal(resolve(parseFoundryUuid('Compendium.pf2e.not-a-pack.Item.anything')), null)
   } finally {
     rmSync(fixtureRoot, { recursive: true, force: true })
   }
@@ -171,12 +188,14 @@ test('exhaustive importer public entrypoint is version 15 and enriches all three
   const importer = readFileSync(importerFile, 'utf8')
   const baseImporter = readFileSync(baseImporterFile, 'utf8')
   const enrichment = readFileSync(enrichmentFile, 'utf8')
+  const helper = readFileSync(helperFile, 'utf8')
 
   assert.match(importer, /const importerVersion = 15/)
   assert.match(importer, /import-pf2e-core-exhaustive-base\.mjs/)
   assert.match(importer, /enrichPf2eBatchSourceReferences/)
   assert.match(enrichment, /\['bestiary', 'spells', 'items'\]/)
   assert.match(enrichment, /collectPf2eSourceReferences\(matches\[0\]\.value/)
+  assert.match(helper, /system\.pf2e\.json/)
   assert.match(baseImporter, /\.replace\(\/@UUID\\\[/)
   assert.match(baseImporter, /translatableHash: sha256\(JSON\.stringify\(data\)\)/)
 })
