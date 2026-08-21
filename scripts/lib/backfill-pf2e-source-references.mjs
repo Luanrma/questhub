@@ -303,6 +303,12 @@ function generatedFileSource(exportName, entries) {
   return lines.join('\n')
 }
 
+function isUnresolvedPf2eItemReference(reference) {
+  return reference.target.package === 'pf2e'
+    && reference.target.documentType === 'Item'
+    && !reference.target.type
+}
+
 export function backfillPf2eCatalogSourceReferences({
   sourceRoot,
   outputRoot = resolve('apps/api/src/game_systems/pathfinder_2e/content_catalog'),
@@ -335,13 +341,11 @@ export function backfillPf2eCatalogSourceReferences({
       const sourceDocument = sourceDocumentForRecord(record, sourceDocuments)
       const allReferences = collectPf2eSourceReferences(sourceDocument, { resolveTarget })
       sourceReferenceCount += allReferences.length
-      unresolvedTargetCount += allReferences.filter((reference) => (
-        reference.target.package === 'pf2e' && !reference.target.type
-      )).length
+      unresolvedTargetCount += allReferences.filter(isUnresolvedPf2eItemReference).length
 
       const retainedReferences = allReferences.filter((reference) => (
         SEMANTIC_TARGET_TYPES.has(reference.target.type)
-        || (reference.target.package === 'pf2e' && !reference.target.type)
+        || isUnresolvedPf2eItemReference(reference)
       ))
       if (retainedReferences.length === 0) continue
 
