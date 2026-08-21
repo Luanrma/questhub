@@ -1,410 +1,298 @@
-# Feature Spec — Referências estruturadas PF2e no importador
+# Feature Spec — Backfill de referências estruturadas PF2e
 
-Status: **READY**
+Status: **READY — escopo revisado**
 
 Card: `QH-EFF-004` — `https://trello.com/c/ROxrd49F/9-qh-eff-004-preservar-refer%C3%AAncias-sem%C3%A2nticas-de-efeitos-no-importador-pf2e`
 
-Domínio: `Game System / Pathfinder 2e / Content Catalog / Importer`
+Domínio: `Game System / Pathfinder 2e / Content Catalog`
 
 Dependências: `QH-EFF-001` concluído. Esta entrega prepara `QH-EFF-005`, `QH-EFF-006`, `QH-EFF-007` e `QH-EFF-008`.
 
-## Objetivo
+## 1. Contexto corrigido
 
-Impedir que a normalização do catálogo Pathfinder 2e destrua referências estruturadas existentes no source original, principalmente referências utilizadas posteriormente para identificar Conditions, Effects e conceitos relacionados.
+O catálogo PF2e necessário ao QuestHub já foi importado. **Não existem novas rodadas de conteúdo previstas.**
 
-O importador deve continuar produzindo texto legível, mas também deve preservar separadamente o vínculo estrutural fornecido pela fonte. O importador não classifica o significado mecânico da referência e não aplica nenhum efeito.
+Portanto, preservar referências estruturadas apenas em futuras importações não atende ao produto. O QH-EFF-004 deve enriquecer o catálogo **já versionado**.
 
-## Problema atual
+A fonte PF2e usada pelas importações está travada em:
 
-O importador converte comandos como:
+```text
+01114da5851f31404078d8020809b13e4000bc4b
+```
+
+O backfill deve reler exatamente essa fonte e associá-la aos registros já existentes por identidade estrutural persistida.
+
+## 2. Problema
+
+Na fonte PF2e, descrições e Rule Elements podem conter referências explícitas como:
 
 ```text
 @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}
 ```
 
-em texto puro:
+Durante a normalização histórica, o texto apresentado foi corretamente reduzido para algo legível:
 
 ```text
 Frightened 2
 ```
 
-Essa conversão é correta para apresentação, porém atualmente o UUID é descartado. Depois da importação não é mais possível distinguir, com segurança, entre:
+mas o UUID foi descartado. O catálogo atual, portanto, preserva a apresentação porém perdeu parte da relação semântica fornecida pela própria fonte.
 
-- texto que era um vínculo estrutural;
-- texto comum que apenas menciona o mesmo termo.
+Não é aceitável reconstruir essa relação por busca textual, regex sobre nomes de Conditions, IA ou tabelas heurísticas.
 
-Também existem referências equivalentes armazenadas diretamente como valores UUID no source, por exemplo Rule Elements com propriedade `uuid`.
+## 3. Objetivo
 
-## Princípios
+Adicionar metadata `sourceReferences` aos `Pathfinder2eOriginalContentRecord` já existentes sempre que o documento original travado possuir uma referência estruturada.
 
-1. **Texto e estrutura coexistem.** A descrição legível existente não é substituída por markup do source.
-2. **Dado estrutural vence inferência textual.** Um termo escrito no texto não cria referência se o source não forneceu vínculo estruturado.
-3. **O importador preserva, não interpreta.** `conditionitems`, `spell-effects`, `equipment-effects` e outros packs permanecem identificadores da fonte; sua classificação mecânica pertence aos cards seguintes.
-4. **Todas as ocorrências são preservadas.** Referências repetidas ao mesmo alvo podem ter labels/valores/contextos diferentes e não são deduplicadas.
-5. **Determinismo.** A mesma fonte bloqueada e a mesma versão do importador produzem exatamente as mesmas referências e ordem.
-6. **Game System only.** Nenhum tipo ou regra PF2e é introduzido no VTT Core.
+O resultado do PR deve conter o catálogo histórico já enriquecido. O merge não deve depender de uma nova importação nem criar novas entidades do catálogo.
 
-## Escopo
+## 4. Fora de escopo
 
-- criar um contrato PF2e compartilhado para referências estruturadas da fonte;
-- preservar ocorrências de `@UUID[...]` existentes em qualquer string do documento source importado;
-- preservar valores que já sejam UUIDs estruturados completos, inclusive referências usadas por Rule Elements;
-- registrar o caminho estrutural no documento source onde a ocorrência foi encontrada;
-- registrar a posição da ocorrência dentro da string source;
-- preservar UUID, label explícito e sintaxe original da referência;
-- decompor UUIDs de Compendium em package, pack, document type e compendium key quando a sintaxe permitir;
-- quando o checkout local da fonte permitir resolver o alvo de forma exata, preservar também `sourceId`, `slug`, nome e tipo do documento alvo;
-- preservar a identidade do objeto source mais próximo (`_id`, `name`, `type`) quando a referência estiver dentro de item/objeto incorporado;
-- adicionar as referências ao `Pathfinder2eOriginalContentRecord` sem alterar o `data` mecânico nem o overlay de tradução;
-- integrar a extração ao importador exaustivo atual;
-- incrementar `importerVersion` porque o resultado de importação ganha metadados novos;
-- cobrir o extrator/resolver e o contrato por testes determinísticos.
+O QH-EFF-004 **não**:
 
-## Fora de escopo
+- cria novas rodadas de importação;
+- seleciona novos Spells, Items, Creatures ou Hazards;
+- altera cobertura editorial;
+- cria catálogo de Conditions/Effects — responsabilidade do QH-EFF-005;
+- classifica uma referência como Condition, Effect, Affliction, Buff ou Debuff;
+- interpreta resultados de save, duração, stacking ou valor mecânico;
+- aplica `CampaignActorEffect`;
+- altera ficha, Token ou VTT;
+- modifica traduções `pt-BR`;
+- infere referência pelo texto já normalizado.
 
-- criar o catálogo PF2e de Conditions/Effects;
-- afirmar que um pack representa `CONDITION`, `EFFECT`, `AFFLICTION`, buff ou debuff;
-- aplicar efeitos a CampaignActor;
-- gerar `CampaignActorEffect`;
-- alterar HP, CA, saves, atributos, rolagens ou qualquer cálculo;
-- inferir referência a partir de palavras como `Frightened`, `Slowed`, `Poison` ou equivalentes;
-- interpretar Success/Failure/Critical Failure;
-- decidir stacking, duração ou intensidade;
-- expor referência estruturada diretamente no VTT Core;
-- alterar banco, Prisma, API HTTP ou realtime;
-- reescrever traduções `pt-BR`;
-- reimportar em massa todos os lotes históricos como efeito colateral desta entrega.
+## 5. Contrato persistido
 
-Lotes históricos continuam válidos porque `sourceReferences` é opcional. Ao reproduzir um lote com a fonte bloqueada e a nova versão do importador, as referências passam a ser emitidas deterministicamente sem alterar a seleção congelada nem os campos traduzíveis.
-
-## Contrato
-
-O catálogo PF2e passa a possuir um contrato de referência da fonte semelhante a:
-
-```ts
-type Pathfinder2eSourceReferenceSyntax =
-  | 'INLINE_UUID'
-  | 'UUID_VALUE'
-
-type Pathfinder2eSourceReferenceTarget = {
-  uuid: string
-  package?: string
-  sourcePack?: string
-  documentType?: string
-  compendiumKey?: string
-  sourceId?: string
-  slug?: string
-  name?: string
-  type?: string
-}
-
-type Pathfinder2eSourceReferenceOwner = {
-  sourceId?: string
-  name?: string
-  type?: string
-}
-
-type Pathfinder2eSourceReference = {
-  syntax: Pathfinder2eSourceReferenceSyntax
-  sourcePath: string
-  sourceIndex: number
-  uuid: string
-  label: string | null
-  target: Pathfinder2eSourceReferenceTarget
-  owner?: Pathfinder2eSourceReferenceOwner
-}
-```
-
-O formato final pode variar apenas em detalhes locais de implementação que não alterem as garantias acima.
-
-### `sourcePath`
-
-`sourcePath` usa JSON Pointer determinístico e aponta para a string no documento source que continha a referência.
-
-Exemplos:
-
-```text
-/system/description/value
-/items/3/system/description/value
-/items/5/system/rules/0/uuid
-```
-
-Segmentos escapam `~` como `~0` e `/` como `~1`.
-
-### `sourceIndex`
-
-Para `INLINE_UUID`, representa o índice UTF-16 onde a ocorrência `@UUID[...]` começa na string source original.
-
-Para `UUID_VALUE`, o valor é `0` porque a string inteira é a referência.
-
-### `label`
-
-- `@UUID[...]{Frightened 2}` → `Frightened 2`;
-- `@UUID[...]` sem label → `null`;
-- UUID armazenado diretamente como valor → `null`.
-
-O label não é usado para identificar ou resolver o alvo.
-
-## Parse de UUID
-
-Para UUIDs de Compendium com formato:
-
-```text
-Compendium.<package>.<pack>.<documentType>.<key>
-```
-
-o importador preserva:
-
-```text
-package       = <package>
-sourcePack    = <pack>
-documentType  = <documentType>
-compendiumKey = <key>
-```
-
-O UUID bruto permanece obrigatório mesmo quando a decomposição for possível.
-
-UUIDs que não correspondam a esse formato continuam preservados de forma opaca em `uuid`; o importador não rejeita a entrada apenas porque não conhece a estrutura do destino.
-
-## Resolução exata do alvo
-
-A resolução adicional de `sourceId`/`slug` é oportunista, determinística e baseada exclusivamente no checkout source já bloqueado.
-
-Para uma referência interna `Compendium.pf2e.<pack>...`:
-
-1. localizar o pack correspondente sob o checkout source;
-2. indexar documentos por identificadores estruturais disponíveis na própria fonte, como `_id`, nome, slug explícito e chave de arquivo;
-3. resolver apenas quando houver correspondência exata e não ambígua;
-4. preencher `sourceId`, `slug`, `name` e `type` somente com valores existentes no documento alvo;
-5. se o alvo não puder ser resolvido exatamente, manter UUID/pack/key e não inferir nada pelo label.
-
-Uma falha de resolução não apaga a referência original.
-
-## Coleta no documento source
-
-A coleta percorre recursivamente o documento JSON original antes da normalização textual.
-
-### Strings com inline UUID
-
-Todas as ocorrências são extraídas, inclusive mais de uma ocorrência na mesma string.
-
-### Strings que são UUID integral
-
-Uma string que representa integralmente um UUID estruturado é registrada como `UUID_VALUE`. Isso cobre contratos source como Rule Elements sem depender do nome da propriedade.
-
-### Objeto proprietário
-
-Durante a travessia, o extrator mantém o objeto ancestral mais próximo que possua identidade source (`_id`, `name` ou `type`). Quando existir, essa identidade é copiada para `owner`.
-
-O objetivo é permitir que cards posteriores saibam que a referência veio, por exemplo, de uma ação incorporada específica, sem o QH-EFF-004 precisar interpretar a ação.
-
-## Ordem e duplicidade
-
-O array final é ordenado deterministicamente por:
-
-1. `sourcePath`;
-2. `sourceIndex`;
-3. ordem da ocorrência quando necessário para desempate.
-
-Não há deduplicação por UUID, target ou label.
-
-Exemplo válido:
-
-```text
-Success          -> Frightened 1
-Failure          -> Frightened 2
-Critical Failure -> Frightened 3
-```
-
-pode produzir três referências distintas ao mesmo `compendiumKey`, preservando três labels distintos.
-
-## Integração com OriginalContentRecord
-
-O contrato passa a aceitar:
+`Pathfinder2eOriginalContentRecord` passa a aceitar:
 
 ```ts
 type Pathfinder2eOriginalContentRecord<TData = unknown> = {
-  contentId: string
-  domain: Pathfinder2eContentDomain
-  locale: 'en-US'
-  source: Pathfinder2eSourceIdentity
-  image?: Pathfinder2eContentImage
-  sourceHash: string
-  translatableHash: string
+  // campos existentes
   sourceReferences?: readonly Pathfinder2eSourceReference[]
   data: TData
 }
 ```
 
-Regras:
+A metadata é opcional para manter compatibilidade estrutural com registros sem referências.
 
-- `sourceReferences` é metadata da importação, não campo traduzível;
-- `translatableHash` continua derivado apenas dos dados traduzíveis/mecânicos já usados pelo importador;
-- `sourceHash` continua representando o source original e, portanto, já detecta alteração nos UUIDs de origem;
-- ausência de referências omite `sourceReferences` em vez de gerar ruído com array vazio;
-- registros históricos sem o campo continuam válidos.
+Uma referência preserva, no mínimo:
 
-## Texto normalizado
-
-A função atual que gera descrição legível continua convertendo UUID inline para seu label explícito ou fallback legível.
-
-A nova coleta ocorre **antes** dessa conversão.
-
-Consequência:
-
-```text
-source:
-The target is @UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}.
-
-normalized description:
-The target is Frightened 2.
-
-sourceReferences:
-- uuid: Compendium.pf2e.conditionitems.Item.Frightened
-  label: Frightened 2
+```ts
+type Pathfinder2eSourceReference = {
+  syntax: 'INLINE_UUID' | 'UUID_VALUE'
+  sourcePath: string
+  sourceIndex: number
+  uuid: string
+  label: string | null
+  target: {
+    uuid: string
+    package?: string
+    sourcePack?: string
+    documentType?: string
+    compendiumKey?: string
+    sourceId?: string
+    slug?: string
+    name?: string
+    type?: string
+  }
+  owner?: {
+    sourceId?: string
+    name?: string
+    type?: string
+  }
+}
 ```
 
-Não é permitido manter markup `@UUID` dentro do texto apresentado apenas para preservar a referência.
+Os campos `target.type`, `sourcePack` e demais metadados continuam sendo identidade da fonte; eles **não** representam classificação mecânica QuestHub.
 
-## Comportamento por domínio
+## 6. Fonte de verdade do backfill
 
-A coleta é aplicada ao documento source inteiro antes da criação de cada `OriginalContentRecord`:
+O backfill recebe um checkout local do PF2e e deve validar que `HEAD` é exatamente:
 
-- `SPELL`: documento completo da spell;
-- `ITEM`: documento completo do item;
-- `BESTIARY`: documento completo da criatura ou hazard, incluindo objetos incorporados.
+```text
+01114da5851f31404078d8020809b13e4000bc4b
+```
 
-Portanto, a preservação não depende de o campo já possuir representação visual no catálogo atual.
+Commit divergente é erro fatal.
 
-## Determinismo e source lock
+A reconstrução usa somente:
 
-- o extrator não usa rede;
-- a resolução consulta apenas o checkout local recebido pelo importador;
-- nenhuma resolução depende de locale, tradução ou estado da Campaign;
-- chaves de índice são construídas deterministicamente;
-- correspondências ambíguas não são escolhidas arbitrariamente;
-- `importerVersion` deve ser incrementada;
-- seleção congelada, `contentId`, `source.sourceId` e `source.slug` permanecem inalterados.
+1. `source.sourceId` persistido;
+2. `source.slug` quando disponível;
+3. `source.sourcePack` e o manifest `system.pf2e.json`;
+4. `source.publicationTitle` quando necessário para desambiguação;
+5. domínio do registro (`BESTIARY`, `SPELL`, `ITEM`).
 
-## Compatibilidade
+O texto normalizado e o `label` da referência nunca são usados para escolher o documento source.
 
-- nenhuma migration de banco;
-- nenhuma alteração de API pública do VTT;
-- nenhum registro antigo deixa de compilar por ausência de `sourceReferences`;
-- providers atuais podem ignorar o novo campo;
-- cards QH-EFF-005/006/007/008 passam a poder consumir a metadata diretamente dentro do módulo PF2e.
+Se a identidade persistida não produzir exatamente um documento source, o backfill falha. Não existe fallback aproximado.
 
-## Regras
+## 7. Cobertura obrigatória
 
-1. Nenhuma palavra-chave cria referência.
-2. `label` nunca é usado para localizar o alvo.
-3. Referência não resolvida continua preservada.
-4. Referência repetida continua repetida.
-5. A coleta ocorre antes de `plainText()` destruir o markup.
-6. A apresentação textual atual permanece legível e sem runtime markup.
-7. O VTT Core não importa o novo contrato.
-8. Nenhum efeito é aplicado automaticamente.
-9. Nenhum conteúdo mecânico é modificado a partir da referência.
-10. O importador não converte pack em classificação mecânica.
+O backfill percorre recursivamente todos os arquivos de conteúdo original versionados no catálogo, não apenas os lotes exaustivos mais recentes.
 
-## Critérios de aceite
+Inclui:
 
-### AC-01 — Inline UUID preservado
+- pilotos históricos;
+- todas as coberturas exaustivas existentes;
+- Bestiary;
+- Spells;
+- Items;
+- subdiretórios históricos de Items como armor, weapons, equipment etc.;
+- Creatures e Hazards presentes em `BESTIARY`.
 
-Um `@UUID[...]` existente no source produz `Pathfinder2eSourceReference` e o texto normalizado continua legível.
+Arquivos de tradução, manifests, deliveries e índices não são reescritos pelo backfill.
 
-### AC-02 — UUID value preservado
+## 8. Regras de extração
 
-Um UUID armazenado diretamente como valor source também é preservado sem depender do nome da propriedade.
+### 8.1. Inline UUID
 
-### AC-03 — Múltiplas ocorrências
+```text
+@UUID[Compendium.pf2e.conditionitems.Item.Frightened]{Frightened 2}
+```
 
-Duas ou mais referências na mesma string são preservadas separadamente e na ordem determinística.
+preserva UUID, label, JSON Pointer do campo e índice da ocorrência.
 
-### AC-04 — Duplicidade intencional
+### 8.2. UUID como valor
 
-Referências repetidas ao mesmo UUID com labels diferentes não são deduplicadas.
+Campos cujo valor completo é um UUID Foundry reconhecido também são preservados.
 
-### AC-05 — Nenhuma inferência textual
+### 8.3. Duplicidades
 
-Texto `Frightened 2` sem referência estruturada não gera `sourceReference`.
+Referências repetidas não são deduplicadas.
 
-### AC-06 — Target de Compendium
+Exemplo:
 
-UUID interno de Compendium preserva package, pack, document type e compendium key.
+```text
+Success: Frightened 1
+Failure: Frightened 2
+Critical Failure: Frightened 3
+```
 
-### AC-07 — Resolução exata
+pode produzir três referências ao mesmo target com labels/posições diferentes.
 
-Quando o alvo existir no checkout source e puder ser identificado sem ambiguidade, `sourceId` e `slug` são preservados a partir do documento alvo.
+### 8.4. Owner
 
-### AC-08 — Falha segura de resolução
+Quando uma referência está dentro de um documento incorporado com `_id`, a identidade desse objeto é preservada como `owner`.
 
-Quando o alvo não existir ou for ambíguo, UUID e partes sintáticas permanecem preservados e nenhum ID/slug é inventado.
+Objetos internos sem `_id` não podem substituir um owner source já identificado.
 
-### AC-09 — Source path
+## 9. Resolução do target
 
-A referência registra JSON Pointer correto até a string original.
+UUIDs de Compendium são decompostos estruturalmente:
 
-### AC-10 — Embedded owner
+```text
+Compendium.pf2e.conditionitems.Item.Frightened
+```
 
-Referência em objeto incorporado preserva a identidade source do objeto ancestral quando disponível.
+em package, source pack, document type e compendium key.
 
-### AC-11 — Três domínios
+Para localizar o target source, o resolver usa o manifest da própria fonte PF2e. Isso é necessário porque o nome lógico do Compendium pode divergir do diretório físico, por exemplo:
 
-Spell, Item e Bestiary/Hazard utilizam o mesmo coletor source-level.
+```text
+conditionitems -> packs/conditions
+```
 
-### AC-12 — OriginalContentRecord compatível
+Nenhum mapa de Conditions ou Effects é hardcoded no QuestHub.
 
-`sourceReferences` é opcional no contrato; registros históricos permanecem válidos.
+Se o target não puder ser resolvido de forma única, o UUID bruto e suas partes estruturais permanecem preservados, mas campos de target resolvido são omitidos.
 
-### AC-13 — Hash de tradução inalterado
+## 10. Invariantes de dados
 
-Adicionar metadata de referência não transforma referência em campo traduzível e não altera a regra vigente de `translatableHash`.
+Para cada registro existente, o backfill pode alterar **somente** `sourceReferences`.
 
-### AC-14 — Importer version
+Devem permanecer byte-semanticamente equivalentes:
 
-A versão do importador é incrementada para registrar a mudança de output.
+- `contentId`;
+- `domain`;
+- `locale`;
+- `source`;
+- `image`;
+- `sourceHash`;
+- `translatableHash`;
+- `data`.
 
-### AC-15 — Sem classificação mecânica
+Nenhum overlay `pt-BR` é modificado.
 
-O extrator não contém lista de Conditions concretas nem mapeamento de packs para buff/debuff/condition/effect/affliction.
+O backfill deve verificar essa invariância durante a execução e falhar se outro campo mudar.
 
-### AC-16 — Sem vazamento para Core
+## 11. Idempotência
 
-Nenhum módulo genérico do VTT passa a importar o contrato PF2e.
+Após o catálogo ter sido enriquecido, uma segunda execução com a mesma fonte travada deve resultar em:
 
-### AC-17 — Sem automação
+```text
+changedFileCount = 0
+```
 
-Nenhuma referência preservada cria ou altera `CampaignActorEffect`, ficha, Token ou cálculo.
+Isso é critério obrigatório para QA.
 
-## Testes esperados
+## 12. Relação com o importador histórico
 
-- extrator puro com inline UUID e label;
-- UUID integral;
-- múltiplas referências/repetições;
-- texto sem UUID não produz metadata;
-- parse de Compendium;
-- JSON Pointer/owner incorporado;
-- resolver com pack fixture contendo `_id`, slug e nome;
-- alvo inexistente/ambíguo não é inferido;
-- teste estrutural verificando integração do coletor nos três normalizadores;
-- teste do contrato opcional em `Pathfinder2eOriginalContentRecord`;
-- teste garantindo que `plainText()` continua removendo markup runtime;
-- teste garantindo ausência de nomes de Conditions concretas no extrator;
-- `npm run check:architecture`;
-- `npm run test:unit`;
-- `npm run build:web`.
+O importador histórico não é a operação de backfill.
 
-## Impacto arquitetural
+Executar o backfill:
 
-- [ ] Nenhum
-- [x] Usa arquitetura existente de Game System e catálogo PF2e
-- [ ] Exige novo ADR
+```text
+node scripts/backfill-pf2e-source-references.mjs .tmp/pf2e-source
+```
 
-Architecture Review required: **YES**, porque `Pathfinder2eOriginalContentRecord` é um contrato compartilhado dentro do bounded context do catálogo PF2e e será ampliado com metadata estruturada de origem.
+não deve:
 
-A revisão deve confirmar que essa extensão permanece inteiramente dentro do Game System e não cria novo contrato estrutural VTT ↔ Game System.
+- executar seleção de conteúdo;
+- criar batch;
+- criar delivery;
+- alterar roadmap;
+- criar tradução;
+- incrementar cobertura.
 
-## Questões abertas
+O objetivo desta entrega é corrigir os dados já existentes, não reabrir o programa de importação.
 
-Nenhuma questão de produto bloqueante para QH-EFF-004.
+## 13. Arquitetura
+
+Toda a implementação pertence a:
+
+```text
+apps/api/src/game_systems/pathfinder_2e/content_catalog/
+scripts/*pf2e-source-references*
+```
+
+O VTT Core não conhece UUID Foundry, Conditions PF2e ou catálogo PF2e.
+
+ADR aplicável: `ADR-0005`.
+
+Não há alteração de ownership, Campaign boundary, Actor, Token ou `CampaignActorEffect`. Não é necessário novo ADR.
+
+## 14. Critérios de aceitação
+
+- **AC01** — `sourceReferences` é metadata opcional do registro original PF2e.
+- **AC02** — o backfill usa exclusivamente o source commit travado.
+- **AC03** — todo o catálogo original existente é percorrido recursivamente.
+- **AC04** — Bestiary, Spells e Items são cobertos, incluindo diretórios históricos aninhados.
+- **AC05** — `@UUID[...]` inline é preservado antes de qualquer inferência textual.
+- **AC06** — UUID armazenado diretamente como valor também é preservado.
+- **AC07** — JSON Pointer, posição, label e owner são preservados.
+- **AC08** — duplicidades permanecem independentes.
+- **AC09** — Compendium é decomposto estruturalmente sem classificação mecânica.
+- **AC10** — resolução de pack usa `system.pf2e.json`, não mapa hardcoded de Conditions/Effects.
+- **AC11** — documento source ambíguo aborta o backfill.
+- **AC12** — target não resolvido não gera inferência; UUID bruto continua preservado.
+- **AC13** — nenhum campo do registro além de `sourceReferences` pode mudar.
+- **AC14** — traduções `pt-BR` permanecem intocadas.
+- **AC15** — nenhuma nova rodada ou conteúdo é importado.
+- **AC16** — segunda execução é idempotente (`changedFileCount = 0`).
+- **AC17** — nenhuma regra PF2e é aplicada ao VTT/Core.
+- **AC18** — o PR contém o resultado do backfill do catálogo existente antes de Human Approval.
+
+## 15. Gates
+
+Antes de retornar a Human Approval:
+
+1. Architecture revalidation;
+2. backfill efetivamente executado e versionado na branch;
+3. execução `--check` contra a fonte travada retornando zero mudanças;
+4. Code Review;
+5. Documentation Audit;
+6. QA com os 18 critérios;
+7. Game System Boundaries e Quality verdes.
+
+O merge continua sendo responsabilidade exclusiva do owner do repositório.
